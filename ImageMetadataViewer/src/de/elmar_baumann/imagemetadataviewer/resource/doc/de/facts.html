@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+	<title>Bilder: Wichtige Fakten</title>
+	<meta name="author" content="Elmar Baumann" />
+	<meta name="date" content="2008-08-24T23:10:00+02:00" />
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+
+<ul class="navi">
+	<li><a rel="contents" href="index.html">Startseite</a></li>
+</ul>
+
+<h1>Bilder: Wichtige Fakten</h1>
+
+<h2>Welche Bilddaten werden gelesen?</h2>
+
+<ul>
+	<li><strong>IPTC</strong>, wenn eingebettet in die Bilddatei</li>
+	<li><strong>XMP von Filialdateien (Sidecarfiles)</strong> und zwar von <strong>Adobe Photoshop Lightroom</strong> geschrieben oder von Anwendungen, die XMP auf die gleiche Weise schreiben. Eine Filialdatei ist im gleichen Verzeichnis und hat den gleichen Namen wie die Bilddatei, nur die Endung lautet <code>xmp</code>: <code>bild-01.xmp</code> ist die Filialdatei von <code>bild-01.nef</code> (<code>bild-01.jpg</code>, <code>bild-01.tiff</code>, ...)</li>
+	<li><strong>EXIF</strong>, wenn eingebettet in die Bilddatei. Abgespeichert werden Aufnahmedatum, Kamera, Brennweite und ISO</li>
+</ul>
+
+<h2>Wie oft werden Bilder in die Datenbank geschrieben?</h2>
+
+<p>Es werden nur Dateien eingelesen, die noch nicht in der Datenbank sind sind sowie Dateien, die in der Datenbank sind und deren <strong>letztes Änderungsdatum</strong> <em>neuer</em> ist als zum Zeitpunkt des letzten Einlesens.</p>
+
+<h2>Welche Bilddaten sind in der Datenbank gespeichert?</h2>
+
+<p>Es werden die gleichen Daten gespeichert wie dokumentiert im Projekt <a href="http://www.elmar-baumann.de/fotografie/tipps/computer/lightroom/xmp-iptc-mapping.html">XmpIptc</a> mit Ausnahme des XMP-Aufnahmedatums. Dieses wird aus den EXIF-Daten übernommen.</p>
+
+<h2>Welche Bilddaten werden angezeigt?</h2>
+
+<p>Wird ein (einziges) Bild ausgewählt, werden dessen IPTC-, EXIF- und XMP-Daten angezeigt, gelesen aus der Bilddatei oder XMP-Filialdatei. <strong>Die Metadaten in der Datenbank werden (nur) für die Suche benutzt.</strong></p>
+
+<h2>Wo ist die Datenbank?</h2>
+
+<p>Die Datenbank ist in einem Unterverzeichnis des Betriebssystem-Benutzerverzeichnisses. Unter Linux ist das in der Regel <code>/home/benutzername</code>, unter Windows häufig <code>C:\Dokumente und Einstellungen\Benutzername</code>. Das Unterverzeichnis ist <code>.de.elmar_baumann/ImageMetaDataViewer</code> (Punkt am Anfang). Die Datenbankdateien starten alle mit <code>database</code>. Dort sind auch die Anwendungseinstellungen gespeichert sowie die letzte Logdatei. <strong>Sie sollten dieses Verzeichnis regelmäßig sichern!</strong></p>
+
+</body>
+</html>
