@@ -50,6 +50,7 @@ public class IptcToXmpDialog extends javax.swing.JDialog
         if (dialog.accepted()) {
             directoryName = dialog.getSelectedDirectories().get(0).getAbsolutePath();
             labelDirectoryName.setText(directoryName);
+            progressBar.setValue(0);
             buttonStart.setEnabled(true);
         }
     }
