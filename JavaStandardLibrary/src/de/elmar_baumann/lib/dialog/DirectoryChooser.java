@@ -128,7 +128,7 @@ public class DirectoryChooser extends javax.swing.JDialog {
         this.startDirectory = startDirectory;
     }
 
-    public void selectStartDirectory() {
+    private void selectStartDirectory() {
         String delimiter = "|"; // NOI18N
         TreePath path = TreeUtil.getTreePath(
             treeDirectories.getModel(),
