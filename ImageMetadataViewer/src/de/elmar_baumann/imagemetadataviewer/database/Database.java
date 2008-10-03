@@ -144,6 +144,10 @@ public class Database {
         return ConnectionPool.getInstance().getConnection();
     }
 
+    private void free(Connection connection) throws SQLException {
+        ConnectionPool.getInstance().free(connection);
+    }
+
     /**
      * Liefert den Inhalt einer ganzen Tabellenspalte.
      * 
@@ -177,7 +181,7 @@ public class Database {
         } finally {
             if (connection != null) {
                 try {
-                    connection.close();
+                    free(connection);
                 } catch (SQLException e) {
                     Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, e);
                     notifyErrorListener(e.toString());
@@ -233,7 +237,7 @@ public class Database {
         } finally {
             if (connection != null) {
                 try {
-                    connection.close();
+                    free(connection);
                 } catch (SQLException e) {
                     Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, e);
                     notifyErrorListener(e.toString());
@@ -305,7 +309,7 @@ public class Database {
             } finally {
                 if (connection != null) {
                     try {
-                        connection.close();
+                        free(connection);
                     } catch (SQLException e) {
                         Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, e);
                         notifyErrorListener(e.toString());
@@ -385,7 +389,7 @@ public class Database {
         } finally {
             try {
                 if (connection != null) {
-                    connection.close();
+                    free(connection);
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
@@ -764,7 +768,7 @@ public class Database {
         } finally {
             if (connection != null) {
                 try {
-                    connection.close();
+                    free(connection);
                 } catch (SQLException ex) {
                     Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
                     notifyErrorListener(ex.toString());
@@ -856,7 +860,7 @@ public class Database {
         } finally {
             if (connection != null) {
                 try {
-                    connection.close();
+                    free(connection);
                 } catch (SQLException ex) {
                     Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
                     notifyErrorListener(ex.toString());
@@ -912,7 +916,7 @@ public class Database {
         } finally {
             if (connection != null) {
                 try {
-                    connection.close();
+                    free(connection);
                 } catch (SQLException ex) {
                     Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
                     notifyErrorListener(ex.toString());
@@ -948,7 +952,7 @@ public class Database {
         } finally {
             if (connection != null) {
                 try {
-                    connection.close();
+                    free(connection);
                 } catch (SQLException ex) {
                     Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
                     notifyErrorListener(ex.toString());
@@ -997,7 +1001,7 @@ public class Database {
         } finally {
             if (connection != null) {
                 try {
-                    connection.close();
+                    free(connection);
                 } catch (SQLException ex) {
                     Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
                     notifyErrorListener(ex.toString());
@@ -1058,7 +1062,7 @@ public class Database {
         } finally {
             if (connection != null) {
                 try {
-                    connection.close();
+                    free(connection);
                 } catch (SQLException ex) {
                     Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
                     notifyErrorListener(ex.toString());
@@ -1166,7 +1170,7 @@ public class Database {
         } finally {
             if (connection != null) {
                 try {
-                    connection.close();
+                    free(connection);
                 } catch (SQLException ex) {
                     Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
                     notifyErrorListener(ex.toString());
@@ -1242,7 +1246,7 @@ public class Database {
         } finally {
             if (connection != null) {
                 try {
-                    connection.close();
+                    free(connection);
                 } catch (SQLException ex) {
                     Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
                     notifyErrorListener(ex.toString());
@@ -1296,7 +1300,7 @@ public class Database {
         } finally {
             if (connection != null) {
                 try {
-                    connection.close();
+                    free(connection);
                 } catch (SQLException ex) {
                     Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
                     notifyErrorListener(ex.toString());
@@ -1381,7 +1385,7 @@ public class Database {
         } finally {
             try {
                 if (connection != null) {
-                    connection.close();
+                    free(connection);
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
@@ -1465,7 +1469,7 @@ public class Database {
         } finally {
             if (connection != null) {
                 try {
-                    connection.close();
+                    free(connection);
                 } catch (SQLException ex) {
                     Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
                     notifyErrorListener(ex.toString());
@@ -1498,7 +1502,7 @@ public class Database {
         } finally {
             if (connection != null) {
                 try {
-                    connection.close();
+                    free(connection);
                 } catch (SQLException ex) {
                     Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
                     notifyErrorListener(ex.toString());
@@ -1535,7 +1539,7 @@ public class Database {
         } finally {
             if (connection != null) {
                 try {
-                    connection.close();
+                    free(connection);
                 } catch (SQLException ex) {
                     Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
                     notifyErrorListener(ex.toString());
@@ -1598,7 +1602,7 @@ public class Database {
         } finally {
             try {
                 if (connection != null) {
-                    connection.close();
+                    free(connection);
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
@@ -1632,7 +1636,7 @@ public class Database {
         } finally {
             if (connection != null) {
                 try {
-                    connection.close();
+                    free(connection);
                 } catch (SQLException ex) {
                     Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
                     notifyErrorListener(ex.toString());
@@ -1682,7 +1686,7 @@ public class Database {
         } finally {
             try {
                 if (connection != null) {
-                    connection.close();
+                    free(connection);
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
@@ -1743,7 +1747,7 @@ public class Database {
         } finally {
             try {
                 if (connection != null) {
-                    connection.close();
+                    free(connection);
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
@@ -1822,7 +1826,7 @@ public class Database {
         } finally {
             if (connection != null) {
                 try {
-                    connection.close();
+                    free(connection);
                 } catch (SQLException ex) {
                     Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
                     notifyErrorListener(ex.toString());
@@ -1855,7 +1859,7 @@ public class Database {
         } finally {
             if (connection != null) {
                 try {
-                    connection.close();
+                    free(connection);
                 } catch (SQLException ex) {
                     Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
                     notifyErrorListener(ex.toString());
@@ -1887,7 +1891,7 @@ public class Database {
         } finally {
             if (connection != null) {
                 try {
-                    connection.close();
+                    free(connection);
                 } catch (SQLException ex) {
                     Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
                     notifyErrorListener(ex.toString());
@@ -1976,7 +1980,7 @@ public class Database {
             } finally {
                 try {
                     if (connection != null) {
-                        connection.close();
+                        free(connection);
                     }
                 } catch (SQLException ex) {
                     Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
@@ -2113,7 +2117,7 @@ public class Database {
         } finally {
             try {
                 if (connection != null) {
-                    connection.close();
+                    free(connection);
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
@@ -2212,7 +2216,7 @@ public class Database {
         } finally {
             if (connection != null) {
                 try {
-                    connection.close();
+                    free(connection);
                 } catch (SQLException ex) {
                     Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
                     notifyErrorListener(ex.toString());
@@ -2275,7 +2279,7 @@ public class Database {
         } finally {
             try {
                 if (connection != null) {
-                    connection.close();
+                    free(connection);
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
@@ -2320,7 +2324,7 @@ public class Database {
         } finally {
             try {
                 if (connection != null) {
-                    connection.close();
+                    free(connection);
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
@@ -2361,7 +2365,7 @@ public class Database {
         } finally {
             try {
                 if (connection != null) {
-                    connection.close();
+                    free(connection);
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
@@ -2392,7 +2396,7 @@ public class Database {
         } finally {
             if (connection != null) {
                 try {
-                    connection.close();
+                    free(connection);
                 } catch (SQLException ex) {
                     Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
                     notifyErrorListener(ex.toString());
@@ -2423,7 +2427,7 @@ public class Database {
         } finally {
             if (connection != null) {
                 try {
-                    connection.close();
+                    free(connection);
                 } catch (SQLException ex) {
                     Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
                     notifyErrorListener(ex.toString());
@@ -2452,7 +2456,7 @@ public class Database {
         } finally {
             if (connection != null) {
                 try {
-                    connection.close();
+                    free(connection);
                 } catch (SQLException ex) {
                     Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
                     notifyErrorListener(ex.toString());
@@ -2507,7 +2511,7 @@ public class Database {
         } finally {
             try {
                 if (connection != null) {
-                    connection.close();
+                    free(connection);
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
@@ -2548,7 +2552,7 @@ public class Database {
         } finally {
             if (connection != null) {
                 try {
-                    connection.close();
+                    free(connection);
                 } catch (SQLException ex) {
                     Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
                     notifyErrorListener(ex.toString());
@@ -2612,7 +2616,7 @@ public class Database {
         } finally {
             if (connection != null) {
                 try {
-                    connection.close();
+                    free(connection);
                 } catch (SQLException ex) {
                     Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
                     notifyErrorListener(ex.toString());
@@ -2655,7 +2659,7 @@ public class Database {
         } finally {
             if (connection != null) {
                 try {
-                    connection.close();
+                    free(connection);
                 } catch (SQLException ex) {
                     Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
                     notifyErrorListener(ex.toString());
@@ -2750,7 +2754,7 @@ public class Database {
             } finally {
                 if (connection != null) {
                     try {
-                        connection.close();
+                        free(connection);
                     } catch (SQLException ex) {
                         Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
                         notifyErrorListener(ex.toString());
@@ -2797,7 +2801,7 @@ public class Database {
         } finally {
             try {
                 if (connection != null) {
-                    connection.close();
+                    free(connection);
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
@@ -2834,7 +2838,7 @@ public class Database {
         } finally {
             if (connection != null) {
                 try {
-                    connection.close();
+                    free(connection);
                 } catch (SQLException ex) {
                     Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
                     notifyErrorListener(ex.toString());
@@ -2871,7 +2875,7 @@ public class Database {
         } finally {
             if (connection != null) {
                 try {
-                    connection.close();
+                    free(connection);
                 } catch (SQLException ex) {
                     Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
                     notifyErrorListener(ex.toString());
@@ -2904,7 +2908,7 @@ public class Database {
         } finally {
             if (connection != null) {
                 try {
-                    connection.close();
+                    free(connection);
                 } catch (SQLException ex) {
                     Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
                     notifyErrorListener(ex.toString());
@@ -2954,7 +2958,7 @@ public class Database {
         } finally {
             if (connection != null) {
                 try {
-                    connection.close();
+                    free(connection);
                 } catch (SQLException ex) {
                     Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
                     notifyErrorListener(ex.toString());
@@ -3012,7 +3016,7 @@ public class Database {
         } finally {
             if (connection != null) {
                 try {
-                    connection.close();
+                    free(connection);
                 } catch (SQLException ex) {
                     Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
                     notifyErrorListener(ex.toString());
@@ -3065,7 +3069,7 @@ public class Database {
         } finally {
             if (connection != null) {
                 try {
-                    connection.close();
+                    free(connection);
                 } catch (SQLException ex) {
                     Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
                     notifyErrorListener(ex.toString());
@@ -3115,7 +3119,7 @@ public class Database {
         } finally {
             if (connection != null) {
                 try {
-                    connection.close();
+                    free(connection);
                 } catch (SQLException ex) {
                     Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
                     notifyErrorListener(ex.toString());
@@ -3156,7 +3160,7 @@ public class Database {
         } finally {
             if (connection != null) {
                 try {
-                    connection.close();
+                    free(connection);
                 } catch (SQLException ex) {
                     Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
                     notifyErrorListener(ex.toString());
@@ -3206,7 +3210,7 @@ public class Database {
         } finally {
             if (connection != null) {
                 try {
-                    connection.close();
+                    free(connection);
                 } catch (SQLException ex) {
                     Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
                     notifyErrorListener(ex.toString());
@@ -3243,7 +3247,7 @@ public class Database {
         } finally {
             if (connection != null) {
                 try {
-                    connection.close();
+                    free(connection);
                 } catch (SQLException ex) {
                     Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
                     notifyErrorListener(ex.toString());
@@ -3280,7 +3284,7 @@ public class Database {
         } finally {
             if (connection != null) {
                 try {
-                    connection.close();
+                    free(connection);
                 } catch (SQLException ex) {
                     Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
                     notifyErrorListener(ex.toString());
@@ -3318,7 +3322,7 @@ public class Database {
         } finally {
             if (connection != null) {
                 try {
-                    connection.close();
+                    free(connection);
                 } catch (SQLException ex) {
                     Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
                     notifyErrorListener(ex.toString());
@@ -3349,7 +3353,7 @@ public class Database {
         } finally {
             if (connection != null) {
                 try {
-                    connection.close();
+                    free(connection);
                 } catch (SQLException ex) {
                     Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
                     notifyErrorListener(ex.toString());
@@ -3386,7 +3390,7 @@ public class Database {
         } finally {
             if (connection != null) {
                 try {
-                    connection.close();
+                    free(connection);
                 } catch (SQLException ex) {
                     Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
                     notifyErrorListener(ex.toString());
@@ -3418,7 +3422,7 @@ public class Database {
         } finally {
             if (connection != null) {
                 try {
-                    connection.close();
+                    free(connection);
                 } catch (SQLException ex) {
                     Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
                     notifyErrorListener(ex.toString());
@@ -3448,7 +3452,7 @@ public class Database {
         } finally {
             if (connection != null) {
                 try {
-                    connection.close();
+                    free(connection);
                 } catch (SQLException ex) {
                     Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
                     notifyErrorListener(ex.toString());
@@ -3511,9 +3515,10 @@ public class Database {
         } finally {
             if (connection != null) {
                 try {
-                    connection.close();
+                    free(connection);
                 } catch (SQLException ex) {
                     Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+                    notifyErrorListener(ex.toString());
                 }
             }
         }
