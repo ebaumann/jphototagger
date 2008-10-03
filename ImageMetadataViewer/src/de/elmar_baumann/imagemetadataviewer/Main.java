@@ -15,7 +15,6 @@ import java.util.logging.Formatter;
 import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 
 /**
  * Startet das Programm.
@@ -50,7 +49,7 @@ public class Main {
         Settings.getInstance().setIconImagesPath(AppSettings.getAppIconPaths());
         initLogger();
         SplashScreen.setMessageToSplashScreen(Bundle.getString("Main.Init.InformationMessage.SplashScreen.ConnectToDatabase"));
-        initDatabase();
+        Database.getInstance().createTables();
         AbstractImageReader.install(ImageProperties.class);
     }
 
@@ -71,19 +70,6 @@ public class Main {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SecurityException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    private static void initDatabase() {
-        Database db = Database.getInstance();
-        db.connect();
-        if (!db.isConnected()) {
-            JOptionPane.showMessageDialog(null,
-                Bundle.getString("Main.InitDatabase.ErrorMessage.ConnectionFailed"), // NOI18N
-                Bundle.getString("Main.InitDatabase.ErrorMessage.ConnectionFailed.Title"), // NOI18N
-                JOptionPane.ERROR_MESSAGE,
-                AppSettings.getSmallAppIcon());
-            System.exit(1);
         }
     }
 }

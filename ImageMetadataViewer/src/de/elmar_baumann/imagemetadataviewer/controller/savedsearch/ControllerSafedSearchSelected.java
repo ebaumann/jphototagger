@@ -53,10 +53,8 @@ public class ControllerSafedSearchSelected extends Controller
     }
 
     private void search(ParamStatement stmt) {
-        if (db.isConnected()) {
-            Vector<String> filenames = db.searchFilenames(stmt);
-            thumbnailsPanel.setFilenames(filenames);
-            PopupMenuPanelThumbnails.getInstance().setIsImageCollection(false);
-        }
+        Vector<String> filenames = db.searchFilenames(stmt);
+        thumbnailsPanel.setFilenames(filenames);
+        PopupMenuPanelThumbnails.getInstance().setIsImageCollection(false);
     }
 }

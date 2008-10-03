@@ -25,7 +25,7 @@ public class ImageCollectionToDatabase {
      */
     public String addImageCollection(Vector<String> filenames) {
         String name = inputCollectionName(""); // NOI18N
-        if (db.isConnected() && name != null && !name.isEmpty()) {
+        if (name != null && !name.isEmpty()) {
             if (!db.insertImageCollection(name, filenames)) {
                 messageErrorAddImageCollection(name);
                 return null;
@@ -43,7 +43,7 @@ public class ImageCollectionToDatabase {
      */
     public boolean deleteImagesFromCollection(
         String collectionName, Vector<String> filenames) {
-        if (db.isConnected() && askDelete(collectionName,
+        if (askDelete(collectionName,
             Bundle.getString("ImageCollectionToDatabase.ConfirmMessage.DeleteSelectedFiles"))) {
             boolean removed = db.deleteImagesFromCollection(
                 collectionName, filenames) == filenames.size();
@@ -64,7 +64,7 @@ public class ImageCollectionToDatabase {
     public boolean deleteImageCollection(String collectionName) {
         boolean deleted = false;
         if (askDelete(collectionName, Bundle.getString("ImageCollectionToDatabase.ConfirmMessage.DeleteCollection"))) {
-            deleted = db.isConnected() && db.deleteImageCollection(collectionName);
+            deleted = db.deleteImageCollection(collectionName);
             if (!deleted) {
                 messageErrorDeleteImageCollection(collectionName);
             }
@@ -80,8 +80,7 @@ public class ImageCollectionToDatabase {
      * @return               true bei Erfolg
      */
     public boolean addImagesToCollection(String collectionName, Vector<String> filenames) {
-        boolean added = db.isConnected() &&
-            db.insertImagesIntoCollection(collectionName, filenames);
+        boolean added = db.insertImagesIntoCollection(collectionName, filenames);
         if (!added) {
             messageErrorAddImagesToCollection(collectionName);
         }
@@ -98,8 +97,7 @@ public class ImageCollectionToDatabase {
     public String renameImageCollection(String oldName) {
         String newName = inputCollectionName(oldName);
         if (newName != null) {
-            boolean renamed = db.isConnected() &&
-                db.updateRenameImageCollection(oldName, newName) > 0;
+            boolean renamed = db.updateRenameImageCollection(oldName, newName) > 0;
             if (renamed) {
                 return newName;
             } else {

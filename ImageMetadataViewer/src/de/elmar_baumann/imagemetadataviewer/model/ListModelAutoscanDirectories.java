@@ -20,13 +20,11 @@ public class ListModelAutoscanDirectories extends DefaultListModel {
 
     private void addItems() {
         Database db = Database.getInstance();
-        if (db.isConnected()) {
-            Vector<String> directoryNames = db.getAutoscanDirectories();
-            for (String directoryName : directoryNames) {
-                File directory = new File(directoryName);
-                if (directory.isDirectory() && directory.exists()) {
-                    addElement(directory);
-                }
+        Vector<String> directoryNames = db.getAutoscanDirectories();
+        for (String directoryName : directoryNames) {
+            File directory = new File(directoryName);
+            if (directory.isDirectory() && directory.exists()) {
+                addElement(directory);
             }
         }
     }

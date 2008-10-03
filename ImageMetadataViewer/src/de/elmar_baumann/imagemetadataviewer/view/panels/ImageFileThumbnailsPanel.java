@@ -151,7 +151,7 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel
 
     @Override
     public Image getThumbnailAtIndex(int index) {
-        return db.isConnected() ? db.getThumbnail(filenames.elementAt(index)) : null;
+        return db.getThumbnail(filenames.elementAt(index));
     }
 
     /**

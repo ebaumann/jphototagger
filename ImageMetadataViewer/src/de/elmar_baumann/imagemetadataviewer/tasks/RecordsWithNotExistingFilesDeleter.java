@@ -20,9 +20,7 @@ public class RecordsWithNotExistingFilesDeleter implements Runnable,
 
     @Override
     public void run() {
-        if (db.isConnected()) {
-            db.deleteNotExistingImageFiles(this);
-        }
+        db.deleteNotExistingImageFiles(this);
     }
 
     /**

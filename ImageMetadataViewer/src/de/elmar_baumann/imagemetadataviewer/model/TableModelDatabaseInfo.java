@@ -105,7 +105,7 @@ public class TableModelDatabaseInfo extends DefaultTableModel
         Set<Column> columns = bufferOfColumn.keySet();
         for (Column column : columns) {
             setCountToBuffer(bufferOfColumn.get(column),
-                db.isConnected() ? db.getDistinctCount(column) : -1);
+                db.getDistinctCount(column));
         }
     }
 }

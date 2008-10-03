@@ -53,9 +53,7 @@ public class AutoCompleteData {
     }
 
     private void addColumns() {
-        if (db.isConnected()) {
-            content = db.getContent(columns);
-        }
+        content = db.getContent(columns);
     }
 
     /**

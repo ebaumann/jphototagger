@@ -50,10 +50,8 @@ public class ControllerImageCollectionSelected extends Controller
     }
 
     private void showImageCollection(String collectionName) {
-        if (db.isConnected()) {
-            Vector<String> filenames = db.getFilenamesOfImageCollection(collectionName);
-            thumbnailsPanel.setFilenames(filenames);
-            PopupMenuPanelThumbnails.getInstance().setIsImageCollection(true);
-        }
+        Vector<String> filenames = db.getFilenamesOfImageCollection(collectionName);
+        thumbnailsPanel.setFilenames(filenames);
+        PopupMenuPanelThumbnails.getInstance().setIsImageCollection(true);
     }
 }

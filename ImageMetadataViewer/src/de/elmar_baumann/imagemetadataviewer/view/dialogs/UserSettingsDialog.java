@@ -354,7 +354,7 @@ public class UserSettingsDialog extends javax.swing.JDialog
                 if (!modelAutoscanDirectories.contains(directory)) {
                     String directoryName = directory.getAbsolutePath();
                     lastSelectedAutoscanDirectory = directoryName;
-                    if (db.isConnected() && !db.existsAutoscanDirectory(directoryName)) {
+                    if (!db.existsAutoscanDirectory(directoryName)) {
                         if (db.insertAutoscanDirectory(directoryName)) {
                             modelAutoscanDirectories.addElement(directory);
                         } else {
@@ -372,7 +372,7 @@ public class UserSettingsDialog extends javax.swing.JDialog
         for (int i = 0; i < values.length; i++) {
             File directory = (File) values[i];
             String directoryName = (directory).getAbsolutePath();
-            if (db.isConnected() && db.existsAutoscanDirectory(directoryName)) {
+            if (db.existsAutoscanDirectory(directoryName)) {
                 if (db.deleteAutoscanDirectory(directoryName)) {
                     modelAutoscanDirectories.removeElement(directory);
                 } else {

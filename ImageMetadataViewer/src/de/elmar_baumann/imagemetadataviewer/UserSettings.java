@@ -174,11 +174,7 @@ public class UserSettings {
      * @return Verzeichnisnamen
      */
     public Vector<String> getAutoscanDirectories() {
-        Vector<String> directories = new Vector<String>();
-        if (db.isConnected()) {
-            directories = db.getAutoscanDirectories();
-        }
-        return directories;
+        return db.getAutoscanDirectories();
     }
 
     /**

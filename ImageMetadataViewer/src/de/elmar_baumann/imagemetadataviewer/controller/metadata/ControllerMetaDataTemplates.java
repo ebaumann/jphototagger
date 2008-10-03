@@ -137,7 +137,7 @@ public class ControllerMetaDataTemplates extends Controller
         String name = null;
         while (exists && !abort) {
             name = JOptionPane.showInputDialog(Bundle.getString("ControllerMetaDataTemplates.Input.TemplateName"), name);
-            exists = name != null && db.isConnected() && db.existsMetaDataEditTemplate(name);
+            exists = name != null && db.existsMetaDataEditTemplate(name);
             if (exists) {
                 MessageFormat msg = new MessageFormat(
                     Bundle.getString("ControllerMetaDataTemplates.ConfirmMessage.OverwriteExistingTemplate"));

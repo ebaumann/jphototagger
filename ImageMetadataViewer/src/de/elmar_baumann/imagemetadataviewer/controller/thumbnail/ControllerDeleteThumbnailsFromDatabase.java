@@ -40,7 +40,7 @@ public class ControllerDeleteThumbnailsFromDatabase extends Controller
     }
 
     private void deleteSelectedThumbnails() {
-        if (db.isConnected() && askDelete()) {
+        if (askDelete()) {
             Vector<String> files = popup.getThumbnailsPanel().getSelectedFilenames();
             int countFiles = files.size();
             int countDeleted = db.deleteImageFiles(files);

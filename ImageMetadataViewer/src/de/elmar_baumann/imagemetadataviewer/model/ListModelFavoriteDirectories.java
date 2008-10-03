@@ -129,11 +129,9 @@ public class ListModelFavoriteDirectories extends DefaultListModel {
     }
 
     private void addElements() {
-        if (db.isConnected()) {
-            Vector<FavoriteDirectory> directories = db.getFavoriteDirectories();
-            for (FavoriteDirectory directory : directories) {
-                addElement(directory);
-            }
+        Vector<FavoriteDirectory> directories = db.getFavoriteDirectories();
+        for (FavoriteDirectory directory : directories) {
+            addElement(directory);
         }
     }
 

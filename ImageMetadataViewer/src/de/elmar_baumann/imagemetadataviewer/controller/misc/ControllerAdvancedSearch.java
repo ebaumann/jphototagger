@@ -31,7 +31,7 @@ public class ControllerAdvancedSearch extends Controller
     private Database db = Database.getInstance();
     private AppPanel appPanel = Panels.getInstance().getAppPanel();
     private ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelImageFileThumbnails();
-    private Vector<JTree> selectionTrees =  appPanel.getSelectionTrees();
+    private Vector<JTree> selectionTrees = appPanel.getSelectionTrees();
     private AdvancedSearchDialog dialogAdvancedSearch = AdvancedSearchDialog.getInstance();
 
     public ControllerAdvancedSearch() {
@@ -72,11 +72,9 @@ public class ControllerAdvancedSearch extends Controller
     }
 
     private void search(ParamStatement stmt) {
-        if (db.isConnected()) {
-            TreeUtil.clearSelection(selectionTrees);
-            Vector<String> filenames = db.searchFilenames(stmt);
-            thumbnailsPanel.setFilenames(filenames);
-            PopupMenuPanelThumbnails.getInstance().setIsImageCollection(false);
-        }
+        TreeUtil.clearSelection(selectionTrees);
+        Vector<String> filenames = db.searchFilenames(stmt);
+        thumbnailsPanel.setFilenames(filenames);
+        PopupMenuPanelThumbnails.getInstance().setIsImageCollection(false);
     }
 }

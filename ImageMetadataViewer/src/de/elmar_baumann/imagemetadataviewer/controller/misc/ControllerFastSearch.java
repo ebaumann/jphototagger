@@ -78,13 +78,11 @@ public class ControllerFastSearch extends Controller implements UserSettingsChan
     }
 
     private void search(String searchText) {
-        if (db.isConnected()) {
-            TreeUtil.clearSelection(selectionTrees);
-            Vector<String> filenames =
-                db.searchFilenamesLikeOr(UserSettings.getInstance().getFastSearchColumns(), searchText);
-            thumbnailsPanel.setFilenames(filenames);
-            PopupMenuPanelThumbnails.getInstance().setIsImageCollection(false);
-        }
+        TreeUtil.clearSelection(selectionTrees);
+        Vector<String> filenames =
+            db.searchFilenamesLikeOr(UserSettings.getInstance().getFastSearchColumns(), searchText);
+        thumbnailsPanel.setFilenames(filenames);
+        PopupMenuPanelThumbnails.getInstance().setIsImageCollection(false);
     }
 
     @Override

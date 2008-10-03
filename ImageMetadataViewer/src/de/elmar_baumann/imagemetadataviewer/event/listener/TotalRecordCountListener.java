@@ -43,7 +43,7 @@ public class TotalRecordCountListener implements DatabaseListener {
 
     @Override
     public void actionPerformed(DatabaseAction action) {
-        int count = db.isConnected() ? db.getTotalRecordCount() : -1;
+        int count = db.getTotalRecordCount();
         setLabels(count);
     }
 

@@ -49,8 +49,7 @@ public class ControllerDeleteSavedSearch extends Controller
     private void delete() {
         SavedSearch search = actionPopup.getSavedSearch();
         String searchName = search.getParamStatements().getName();
-        if (db.isConnected() &&
-            askDeleteSearch(searchName) &&
+        if (askDeleteSearch(searchName) &&
             db.deleteSavedSearch(searchName)) {
             model.removeNode(search);
         } else {

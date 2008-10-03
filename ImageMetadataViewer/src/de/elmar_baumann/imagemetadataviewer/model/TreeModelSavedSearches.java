@@ -145,11 +145,9 @@ public class TreeModelSavedSearches implements TreeModel {
     }
 
     private void addSavedSearches() {
-        if (db.isConnected()) {
-            Vector<SavedSearch> dbNodes = db.getSavedSearches();
-            for (SavedSearch node : dbNodes) {
-                addNode(node);
-            }
+        Vector<SavedSearch> dbNodes = db.getSavedSearches();
+        for (SavedSearch node : dbNodes) {
+            addNode(node);
         }
     }
 }

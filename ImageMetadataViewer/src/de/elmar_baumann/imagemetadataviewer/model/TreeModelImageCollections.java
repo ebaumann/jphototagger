@@ -141,11 +141,9 @@ public class TreeModelImageCollections implements TreeModel {
     }
 
     private void addCollections() {
-        if (db.isConnected()) {
-            Vector<String> names = db.getImageCollectionNames();
-            for (String name : names) {
-                addNode(name);
-            }
+        Vector<String> names = db.getImageCollectionNames();
+        for (String name : names) {
+            addNode(name);
         }
     }
 }

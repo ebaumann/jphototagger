@@ -3,7 +3,6 @@ package de.elmar_baumann.imagemetadataviewer.view.frames;
 import de.elmar_baumann.imagemetadataviewer.view.*;
 import de.elmar_baumann.imagemetadataviewer.AppSettings;
 import de.elmar_baumann.imagemetadataviewer.AppInfo;
-import de.elmar_baumann.imagemetadataviewer.database.Database;
 import de.elmar_baumann.imagemetadataviewer.factory.MetaFactory;
 import de.elmar_baumann.imagemetadataviewer.resource.Bundle;
 import de.elmar_baumann.imagemetadataviewer.resource.Panels;
@@ -85,15 +84,13 @@ public class AppFrame extends javax.swing.JFrame {
         MetaFactory.getInstance().stopController();
         appPanel.beforeQuit();
         writePersistent();
-        Database.getInstance().close();
         dispose();
         System.exit(0);
     }
 
     private void listenToClose() {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        this.addWindowListener(new WindowAdapter() {
-
+        this.addWindowListener(new  WindowAdapter( ) {
             @Override
             public void windowClosed(WindowEvent evt) {
                 quit();

@@ -5,7 +5,6 @@ import de.elmar_baumann.imagemetadataviewer.resource.Bundle;
 import de.elmar_baumann.lib.dialog.HelpBrowser;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.net.URL;
 
 /**
  * Kontrolliert die Aktion: Hilfe anzeigen.
@@ -16,7 +15,6 @@ import java.net.URL;
 public class ControllerHelp extends Controller implements ActionListener {
 
     private HelpBrowser help = HelpBrowser.getInstance();
-    private URL url = this.getClass().getResource(Bundle.getString("ControllerHelp.PathHelpFileIndex")); // NOI18N
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -26,7 +24,7 @@ public class ControllerHelp extends Controller implements ActionListener {
     }
 
     private void showHelp() {
-        help.showUrl(url);
+        help.setContentsUri(Bundle.getString("ControllerHelp.PathHelpFileIndex"));
         if (help.isVisible()) {
             help.toFront();
         } else {

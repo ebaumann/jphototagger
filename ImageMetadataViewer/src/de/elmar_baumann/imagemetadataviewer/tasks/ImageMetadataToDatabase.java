@@ -208,10 +208,9 @@ public class ImageMetadataToDatabase implements Runnable {
         startTime = System.currentTimeMillis();
         for (int index = 0; !stop && index < count; index++) {
             String filename = filenames.get(index);
-            if (db.isConnected() && !db.willClose() &&
-                (isForceUpdate() || !isImageFileUpToDate(filename))) {
+            if ((isForceUpdate() || !isImageFileUpToDate(filename))) {
                 ImageFile data = getImageFileData(filename);
-                if (data != null && !db.willClose()) {
+                if (data != null) {
                     db.insertImageFile(data);
                 }
             }

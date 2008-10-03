@@ -66,7 +66,7 @@ public class ControllerCreateSavedSearch extends Controller
 
     private void saveSearch(SavedSearch savedSearch, boolean force) {
         if (force || isSave(savedSearch)) {
-            if (db.isConnected() && db.insertSavedSearch(savedSearch)) {
+            if (db.insertSavedSearch(savedSearch)) {
                 model.addNode(savedSearch);
             } else {
                 errorMessageSave();
@@ -75,7 +75,7 @@ public class ControllerCreateSavedSearch extends Controller
     }
 
     private boolean isSave(SavedSearch savedSearch) {
-        if (db.isConnected() && db.existsSavedSearch(savedSearch)) {
+        if (db.existsSavedSearch(savedSearch)) {
             return JOptionPane.showConfirmDialog(null,
                 Bundle.getString("ControllerRenameSavedSearch.ConfirmMessage.ReplaceExisting"),
                 Bundle.getString("ControllerRenameSavedSearch.ConfirmMessage.ReplaceExisting.Title"),

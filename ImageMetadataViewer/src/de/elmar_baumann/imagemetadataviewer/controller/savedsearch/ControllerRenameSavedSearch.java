@@ -51,7 +51,6 @@ public class ControllerRenameSavedSearch extends Controller
         String oldName = oldSearch.getName();
         String newName = getNewName(oldName);
         if (newName != null &&
-            db.isConnected() &&
             db.updateRenameSavedSearch(oldName, newName)) {
             SavedSearch newSearch = db.getSavedSearch(newName);
             if (newSearch == null) {
@@ -70,7 +69,7 @@ public class ControllerRenameSavedSearch extends Controller
         while (inputRequestet) {
             input = JOptionPane.showInputDialog(null, Bundle.getString("ControllerRenameSavedSearch.Input.NewName"), oldName);
             inputRequestet = false;
-            if (input != null && db.isConnected() && db.existsSavedSearch(input)) {
+            if (input != null && db.existsSavedSearch(input)) {
                 MessageFormat message = new MessageFormat(
                     Bundle.getString("ControllerRenameSavedSearch.ConfirmMessage.ChangeNameBecauseExists"));
                 Object[] params = {input};

@@ -27,11 +27,9 @@ public class ListModelCategories extends DefaultListModel
     }
 
     private void addElements() {
-        if (db.isConnected()) {
-            LinkedHashSet<String> categories = db.getCategories();
-            for (String category : categories) {
-                addElement(category);
-            }
+        LinkedHashSet<String> categories = db.getCategories();
+        for (String category : categories) {
+            addElement(category);
         }
     }
 
@@ -44,7 +42,7 @@ public class ListModelCategories extends DefaultListModel
             //checkForNotExistingCategories(); // Performance ?
         } else if (type.equals(DatabaseAction.Type.ImageFileUpdated)) {
             checkForNewCategories(action.getImageFileData());
-            //checkForNotExistingCategories(); // Performance ?
+        //checkForNotExistingCategories(); // Performance ?
         }
     }
 

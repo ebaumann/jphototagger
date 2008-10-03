@@ -18,11 +18,9 @@ public class ListModelImageCollections extends DefaultListModel {
 
     private void addItems() {
         Database db = Database.getInstance();
-        if (db.isConnected()) {
-            Vector<String> collections = db.getImageCollectionNames();
-            for (String collection : collections) {
-                addElement(collection);
-            }
+        Vector<String> collections = db.getImageCollectionNames();
+        for (String collection : collections) {
+            addElement(collection);
         }
     }
 }

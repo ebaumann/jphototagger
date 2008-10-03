@@ -68,7 +68,7 @@ public class DatabaseMaintainanceDialog extends javax.swing.JDialog implements
     }
 
     private void setTotalRecordCount() {
-        labelDatabaseTotalRecordCount.setText(Integer.toString(db.isConnected() ? db.getTotalRecordCount() : -1));
+        labelDatabaseTotalRecordCount.setText(Integer.toString(db.getTotalRecordCount()));
     }
 
     private void setEnabledButtonStartMaintain() {
@@ -89,7 +89,7 @@ public class DatabaseMaintainanceDialog extends javax.swing.JDialog implements
         Cursor oldCursor = getCursor();
         setClosedEnabled(false);
         setCursor(new Cursor(Cursor.WAIT_CURSOR));
-        boolean success = db.isConnected() && db.compressDatabase();
+        boolean success = db.compressDatabase();
         setCursor(oldCursor);
         setClosedEnabled(true);
         messageCompressDatabase(success);

@@ -32,7 +32,7 @@ public class ComboBoxModelMetaDataEditTemplates extends DefaultComboBoxModel {
      * @param template  Template
      */
     public void deleteMetaDataEditTemplate(MetaDataEditTemplate template) {
-        if (getIndexOf(template) >= 0 && db.isConnected() &&
+        if (getIndexOf(template) >= 0 &&
             db.deleteMetaDataEditTemplate(template.getName())) {
             removeElement(template);
         } else {
@@ -49,7 +49,7 @@ public class ComboBoxModelMetaDataEditTemplates extends DefaultComboBoxModel {
         if (getIndexOf(template) >= 0) {
             return;
         }
-        if (db.isConnected() && db.insertMetaDataEditTemplate(template)) {
+        if (db.insertMetaDataEditTemplate(template)) {
             addElement(template);
             setSelectedItem(template);
         } else {
@@ -64,7 +64,7 @@ public class ComboBoxModelMetaDataEditTemplates extends DefaultComboBoxModel {
      */
     public void updateTemplate(MetaDataEditTemplate template) {
         int index = getIndexOf(template);
-        if (index >= 0 && db.isConnected() && db.updateMetaDataEditTemplate(template)) {
+        if (index >= 0 && db.updateMetaDataEditTemplate(template)) {
             removeElementAt(index);
             insertElementAt(template, index);
             setSelectedItem(template);
@@ -82,7 +82,7 @@ public class ComboBoxModelMetaDataEditTemplates extends DefaultComboBoxModel {
      */
     public void renameTemplate(MetaDataEditTemplate template, String newName) {
         int index = getIndexOf(template);
-        if (index >= 0 && db.isConnected() &&
+        if (index >= 0 &&
             db.updateRenameMetaDataEditTemplate(template.getName(), newName)) {
             template.setName(newName);
             removeElementAt(index);
@@ -94,11 +94,9 @@ public class ComboBoxModelMetaDataEditTemplates extends DefaultComboBoxModel {
     }
 
     private void addColumns() {
-        if (db.isConnected()) {
-            Vector<MetaDataEditTemplate> templates = db.getMetaDataEditTemplates();
-            for (MetaDataEditTemplate template : templates) {
-                addElement(template);
-            }
+        Vector<MetaDataEditTemplate> templates = db.getMetaDataEditTemplates();
+        for (MetaDataEditTemplate template : templates) {
+            addElement(template);
         }
     }
 
