@@ -19,13 +19,20 @@ import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 
 /**
- * 
+ * Reads the index file of the application's help: a XML file wich validates
+ * against <code>/de/elmar_baumann/lib/resource/helpindex.dtd</code>.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/02
  */
 public class HelpIndexParser {
 
+    /**
+     * Reads the index file from an input stream and returns an help index.
+     * 
+     * @param  is  input stream
+     * @return help index or null when errors occured
+     */
     public static HelpIndex parse(InputStream is) {
         HelpIndex helpIndex = null;
         try {
