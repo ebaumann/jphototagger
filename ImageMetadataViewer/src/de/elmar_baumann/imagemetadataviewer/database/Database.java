@@ -26,8 +26,6 @@ import de.elmar_baumann.imagemetadataviewer.event.ProgressEvent;
 import de.elmar_baumann.imagemetadataviewer.event.ProgressListener;
 import de.elmar_baumann.imagemetadataviewer.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.imagemetadataviewer.resource.Bundle;
-import de.elmar_baumann.imagemetadataviewer.view.panels.ImageFileThumbnailsPanel;
-import de.elmar_baumann.lib.persistence.PersistentSettings;
 import java.awt.Image;
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -35,7 +33,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -56,17 +53,7 @@ import javax.swing.JOptionPane;
  */
 public class Database {
 
-    private Connection connection_ = null;
-    private final String driverClassname = "org.hsqldb.jdbcDriver"; // NOI18N
-    private final String connectionUrl =
-        "jdbc:hsqldb:file:" + // NOI18N
-        PersistentSettings.getInstance().getDirectoryName() + File.separator + "database" + // NOI18N
-        ";shutdown=true";  // NOI18N
-    private final String dbUser = "sa"; // NOI18N
-    private final String dbPassword = ""; // NOI18N
     private Vector<DatabaseListener> databaseListener = new Vector<DatabaseListener>();
-    boolean connected = false;
-    boolean willClose = false;
     private static Database instance = new Database();
 
     /**
@@ -76,24 +63,6 @@ public class Database {
      */
     public static Database getInstance() {
         return instance;
-    }
-
-    /**
-     * Liefert, ob die Datenbank geöffnet ist.
-     * 
-     * @return true, wenn offen
-     */
-    public boolean isConnected() {
-        return connected;
-    }
-
-    /**
-     * Liefert, ob die Datenbank geschlossen wird.
-     * 
-     * @return true, wenn die Datenbank geschlossen wird
-     */
-    public boolean willClose() {
-        return willClose;
     }
 
     /**
@@ -166,13 +135,13 @@ public class Database {
             listener.actionPerformed(action);
         }
     }
-    
+
     /**
      * Returns a connection from the Connection Pool.
      * @return The connection from the pool.
      */
-    private Connection getConnection() {
-        ConnectionPool.getInstance().getConnection();
+    private Connection getConnection() throws SQLException {
+        return ConnectionPool.getInstance().getConnection();
     }
 
     /**
@@ -310,8 +279,9 @@ public class Database {
         Vector<Column> searchColumns, String searchString,
         Vector<String> filenames, String tablename) {
         if (searchColumns.size() > 0) {
-            Connection connection = getConnection();
+            Connection connection = null;
             try {
+                connection = getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(
                     getSqlSearchFilenamesLikeOr(searchColumns, tablename));
                 for (int i = 0; i < searchColumns.size(); i++) {
@@ -394,11 +364,11 @@ public class Database {
             preparedStatement.setLong(2, imageFileData.getLastmodified());
             logStatement(preparedStatement);
             preparedStatement.executeUpdate();
-            int idFile = getIdFile(filename);
-            insertThumbnail(idFile, imageFileData.getThumbnail(), imageFileData.getFilename());
-            insertIptc(idFile, imageFileData.getIptc());
-            insertXmp(idFile, imageFileData.getXmp());
-            insertExif(idFile, imageFileData.getExif());
+            int idFile = getIdFile(connection, filename);
+            insertThumbnail(connection, idFile, imageFileData.getThumbnail(), imageFileData.getFilename());
+            insertIptc(connection, idFile, imageFileData.getIptc());
+            insertXmp(connection, idFile, imageFileData.getXmp());
+            insertExif(connection, idFile, imageFileData.getExif());
             connection.commit();
             success = true;
             notifyDatabaseListener(DatabaseAction.Type.ImageFileInserted, imageFileData);
@@ -414,7 +384,9 @@ public class Database {
             }
         } finally {
             try {
-                connection.close();
+                if (connection != null) {
+                    connection.close();
+                }
             } catch (SQLException ex) {
                 Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
                 notifyErrorListener(ex.toString());
@@ -423,13 +395,12 @@ public class Database {
         return success;
     }
 
-    synchronized private void insertThumbnail(int idFile, Image thumbnail, String filename) throws
+    synchronized private void insertThumbnail(Connection connection, int idFile, Image thumbnail, String filename) throws
         SQLException {
         if (thumbnail != null) {
             ByteArrayInputStream inputStream =
                 ImageUtil.getByteArrayInputStream(thumbnail);
             if (inputStream != null) {
-                Connection connection = getConnection();
                 PreparedStatement preparedStatement =
                     connection.prepareStatement(
                     "UPDATE files SET thumbnail = ? WHERE id = ?"); // NOI18N
@@ -439,26 +410,25 @@ public class Database {
                 preparedStatement.executeUpdate();
                 notifyDatabaseListener(DatabaseAction.Type.ThumbnailUpdated, filename);
                 preparedStatement.close();
-                connection.close();
             }
         }
     }
 
-    synchronized private void insertIptc(int idFile, Iptc iptcData) throws SQLException {
+    synchronized private void insertIptc(Connection connection, int idFile, Iptc iptcData) throws SQLException {
         if (iptcData != null) {
             PreparedStatement stmt =
                 connection.prepareStatement(getInsertIntoIptcStatement());
             setIptcValues(stmt, idFile, iptcData);
             logStatement(stmt);
             stmt.executeUpdate();
-            int idIptc = getIdIptcFromIdFile(idFile);
-            insertIptcKeywords(idIptc, iptcData.getKeywords());
-            insertIptcByLines(idIptc, iptcData.getByLines());
-            insertIptcContentLocationNames(idIptc, iptcData.getContentLocationNames());
-            insertIptcContentLocationCodes(idIptc, iptcData.getContentLocationCodes());
-            insertIptcWritersEditors(idIptc, iptcData.getWritersEditors());
-            insertIptcSupplementalCategories(idIptc, iptcData.getSupplementalCategories());
-            insertIptcByLinesTitles(idIptc, iptcData.getByLinesTitles());
+            int idIptc = getIdIptcFromIdFile(connection, idFile);
+            insertIptcKeywords(connection, idIptc, iptcData.getKeywords());
+            insertIptcByLines(connection, idIptc, iptcData.getByLines());
+            insertIptcContentLocationNames(connection, idIptc, iptcData.getContentLocationNames());
+            insertIptcContentLocationCodes(connection, idIptc, iptcData.getContentLocationCodes());
+            insertIptcWritersEditors(connection, idIptc, iptcData.getWritersEditors());
+            insertIptcSupplementalCategories(connection, idIptc, iptcData.getSupplementalCategories());
+            insertIptcByLinesTitles(connection, idIptc, iptcData.getByLinesTitles());
         }
     }
 
@@ -482,68 +452,69 @@ public class Database {
             " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"; // NOI18N
     }
 
-    private void insertIptcByLinesTitles(int idIptc,
+    private void insertIptcByLinesTitles(Connection connection, int idIptc,
         Vector<String> byLinesTitles) throws SQLException {
         if (byLinesTitles != null) {
-            insertValues(
+            insertValues(connection,
                 "INSERT INTO iptc_by_lines_titles (id_iptc, byline_title)", // NOI18N
                 idIptc, byLinesTitles);
         }
     }
 
-    private void insertIptcByLines(int idIptc, Vector<String> byLines) throws
+    private void insertIptcByLines(Connection connection, int idIptc, Vector<String> byLines) throws
         SQLException {
         if (byLines != null) {
-            insertValues("INSERT INTO iptc_bylines (id_iptc, byline)", idIptc, // NOI18N
+            insertValues(connection,
+                "INSERT INTO iptc_bylines (id_iptc, byline)", idIptc, // NOI18N
                 byLines);
         }
     }
 
-    private void insertIptcContentLocationCodes(int idIptc,
+    private void insertIptcContentLocationCodes(Connection connection, int idIptc,
         Vector<String> contentLocationCodes) throws SQLException {
         if (contentLocationCodes != null) {
-            insertValues(
+            insertValues(connection,
                 "INSERT INTO iptc_content_location_codes (id_iptc, content_location_code)", // NOI18N
                 idIptc, contentLocationCodes);
         }
     }
 
-    private void insertIptcContentLocationNames(int idIptc,
+    private void insertIptcContentLocationNames(Connection connection, int idIptc,
         Vector<String> contentLocationNames) throws SQLException {
         if (contentLocationNames != null) {
-            insertValues(
+            insertValues(connection,
                 "INSERT INTO iptc_content_location_names (id_iptc, content_location_name)", // NOI18N
                 idIptc, contentLocationNames);
         }
     }
 
-    private void insertIptcKeywords(int idIptc, Vector<String> keywords) throws
+    private void insertIptcKeywords(Connection connection, int idIptc, Vector<String> keywords) throws
         SQLException {
         if (keywords != null) {
-            insertValues("INSERT INTO iptc_keywords (id_iptc, keyword)", idIptc, // NOI18N
+            insertValues(connection, "INSERT INTO iptc_keywords (id_iptc, keyword)", idIptc, // NOI18N
                 keywords);
         }
     }
 
-    private void insertIptcSupplementalCategories(int idIptc,
+    private void insertIptcSupplementalCategories(Connection connection, int idIptc,
         Vector<String> supplementalCategories) throws SQLException {
         if (supplementalCategories != null) {
-            insertValues(
+            insertValues(connection,
                 "INSERT INTO iptc_supplemental_categories (id_iptc, supplemental_category)", // NOI18N
                 idIptc, supplementalCategories);
         }
     }
 
-    private void insertIptcWritersEditors(int idIptc,
+    private void insertIptcWritersEditors(Connection connection, int idIptc,
         Vector<String> writersEditors) throws SQLException {
         if (writersEditors != null) {
-            insertValues(
+            insertValues(connection,
                 "INSERT INTO iptc_writers_editors (id_iptc, writer_editor)", // NOI18N
                 idIptc, writersEditors);
         }
     }
 
-    synchronized private void insertExif(int idFile, Exif exifData) throws SQLException {
+    synchronized private void insertExif(Connection connection, int idFile, Exif exifData) throws SQLException {
         if (exifData != null) {
             PreparedStatement stmt = connection.prepareStatement(getInsertIntoExifStatement());
             setExifValues(stmt, idFile, exifData);
@@ -577,17 +548,17 @@ public class Database {
         stmt.setShort(5, exifData.getIsoSpeedRatings());
     }
 
-    synchronized private void insertXmp(int idFile, Xmp xmpData) throws SQLException {
+    synchronized private void insertXmp(Connection connection, int idFile, Xmp xmpData) throws SQLException {
         if (xmpData != null) {
             PreparedStatement stmt =
                 connection.prepareStatement(getInsertIntoXmpStatement());
             setXmpValues(stmt, idFile, xmpData);
             logStatement(stmt);
             stmt.executeUpdate();
-            int idXmp = getIdXmpFromIdFile(idFile);
-            insertXmpDcSubjects(idXmp, xmpData.getDcSubjects());
-            insertXmpDcCreators(idXmp, xmpData.getDcCreators());
-            insertXmpPhotoshopSupplementalcategories(idXmp,
+            int idXmp = getIdXmpFromIdFile(connection, idFile);
+            insertXmpDcSubjects(connection, idXmp, xmpData.getDcSubjects());
+            insertXmpDcCreators(connection, idXmp, xmpData.getDcCreators());
+            insertXmpPhotoshopSupplementalcategories(connection, idXmp,
                 xmpData.getPhotoshopSupplementalCategories());
         }
     }
@@ -615,7 +586,7 @@ public class Database {
             " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"; // NOI18N
     }
 
-    private void deleteXmp(int idXmp) throws SQLException {
+    private void deleteXmp(Connection connection, int idXmp) throws SQLException {
         PreparedStatement stmt = connection.prepareStatement(
             "DELETE FROM xmp WHERE id = ?");
         stmt.setInt(1, idXmp);
@@ -624,27 +595,29 @@ public class Database {
         assert count > 0;
     }
 
-    private void insertXmpDcSubjects(int idXmp, Vector<String> dcSubjects)
+    private void insertXmpDcSubjects(Connection connection, int idXmp, Vector<String> dcSubjects)
         throws SQLException {
         if (dcSubjects != null) {
-            insertValues("INSERT INTO xmp_dc_subjects (id_xmp, subject)", idXmp, // NOI18N
+            insertValues(connection,
+                "INSERT INTO xmp_dc_subjects (id_xmp, subject)", idXmp, // NOI18N
                 dcSubjects);
         }
     }
 
-    private void insertXmpDcCreators(int idXmp, Vector<String> dcCreators)
+    private void insertXmpDcCreators(Connection connection, int idXmp, Vector<String> dcCreators)
         throws SQLException {
         if (dcCreators != null) {
-            insertValues("INSERT INTO xmp_dc_creators (id_xmp, creator)", idXmp, // NOI18N
+            insertValues(connection,
+                "INSERT INTO xmp_dc_creators (id_xmp, creator)", idXmp, // NOI18N
                 dcCreators);
         }
     }
 
-    private void insertXmpPhotoshopSupplementalcategories(int idXmp,
+    private void insertXmpPhotoshopSupplementalcategories(Connection connection, int idXmp,
         Vector<String> photoshopSupplementalCategories)
         throws SQLException {
         if (photoshopSupplementalCategories != null) {
-            insertValues(
+            insertValues(connection,
                 "INSERT INTO xmp_photoshop_supplementalcategories (id_xmp, supplementalcategory)", // NOI18N
                 idXmp, photoshopSupplementalCategories);
         }
@@ -671,46 +644,46 @@ public class Database {
         stmt.setString(17, xmpData.getPhotoshopTransmissionReference());
     }
 
-    synchronized private void updateIptc(int idFile, Iptc iptcData) throws SQLException {
+    synchronized private void updateIptc(Connection connection, int idFile, Iptc iptcData) throws SQLException {
         if (iptcData != null) {
-            int idIptc = getIdIptcFromIdFile(idFile);
+            int idIptc = getIdIptcFromIdFile(connection, idFile);
             if (idIptc > 0) {
                 PreparedStatement stmt = connection.prepareStatement(
                     "DELETE FROM iptc where id = ?"); // NOI18N
                 stmt.setInt(1, idIptc);
                 stmt.executeUpdate();
             }
-            insertIptc(idFile, iptcData);
+            insertIptc(connection, idFile, iptcData);
         }
     }
 
-    synchronized private void updateXmp(int idFile, Xmp xmpData) throws SQLException {
+    synchronized private void updateXmp(Connection connection, int idFile, Xmp xmpData) throws SQLException {
         if (xmpData != null) {
-            int idXmp = getIdXmpFromIdFile(idFile);
+            int idXmp = getIdXmpFromIdFile(connection, idFile);
             if (idXmp > 0) {
                 PreparedStatement stmt = connection.prepareStatement(
                     "DELETE FROM xmp where id = ?"); // NOI18N
                 stmt.setInt(1, idXmp);
                 stmt.executeUpdate();
             }
-            insertXmp(idFile, xmpData);
+            insertXmp(connection, idFile, xmpData);
         }
     }
 
-    synchronized private void updateExif(int idFile, Exif exifData) throws SQLException {
+    synchronized private void updateExif(Connection connection, int idFile, Exif exifData) throws SQLException {
         if (exifData != null) {
-            int idExif = getIdExifFromIdFile(idFile);
+            int idExif = getIdExifFromIdFile(connection, idFile);
             if (idExif > 0) {
                 PreparedStatement stmt = connection.prepareStatement(
                     "DELETE FROM exif where id = ?"); // NOI18N
                 stmt.setInt(1, idExif);
                 stmt.executeUpdate();
             }
-            insertExif(idFile, exifData);
+            insertExif(connection, idFile, exifData);
         }
     }
 
-    private int getIdExifFromIdFile(int idFile) throws SQLException {
+    private int getIdExifFromIdFile(Connection connection, int idFile) throws SQLException {
         int id = -1;
         PreparedStatement stmt = connection.prepareStatement(
             "SELECT id FROM exif WHERE id_files = ?"); // NOI18N
@@ -724,7 +697,7 @@ public class Database {
         return id;
     }
 
-    private int getIdIptcFromIdFile(int idFile) throws SQLException {
+    private int getIdIptcFromIdFile(Connection connection, int idFile) throws SQLException {
         int id = -1;
         PreparedStatement stmt = connection.prepareStatement(
             "SELECT id FROM iptc WHERE id_files = ?"); // NOI18N
@@ -738,7 +711,7 @@ public class Database {
         return id;
     }
 
-    private int getIdXmpFromIdFile(int idFile) throws SQLException {
+    private int getIdXmpFromIdFile(Connection connection, int idFile) throws SQLException {
         int id = -1;
         PreparedStatement stmt = connection.prepareStatement(
             "SELECT id FROM xmp WHERE id_files = ?"); // NOI18N
@@ -760,20 +733,22 @@ public class Database {
      */
     synchronized public boolean updateImageFile(ImageFile imageFileData) {
         boolean success = false;
+        Connection connection = null;
         try {
+            connection = getConnection();
             connection.setAutoCommit(false);
             PreparedStatement stmt = connection.prepareStatement(
                 "UPDATE files SET lastmodified = ? WHERE id = ?"); // NOI18N
             String filename = imageFileData.getFilename();
-            int idFile = getIdFile(filename);
+            int idFile = getIdFile(connection, filename);
             stmt.setLong(1, imageFileData.getLastmodified());
             stmt.setInt(2, idFile);
             logStatement(stmt);
             stmt.executeUpdate();
-            updateThumbnail(idFile, imageFileData.getThumbnail(), imageFileData.getFilename());
-            updateIptc(idFile, imageFileData.getIptc());
-            updateXmp(idFile, imageFileData.getXmp());
-            updateExif(idFile, imageFileData.getExif());
+            updateThumbnail(connection, idFile, imageFileData.getThumbnail(), imageFileData.getFilename());
+            updateIptc(connection, idFile, imageFileData.getIptc());
+            updateXmp(connection, idFile, imageFileData.getXmp());
+            updateExif(connection, idFile, imageFileData.getExif());
             connection.commit();
             success = true;
             notifyDatabaseListener(DatabaseAction.Type.ImageFileUpdated, imageFileData);
@@ -787,17 +762,19 @@ public class Database {
                 notifyErrorListener(ex.toString());
             }
         } finally {
-            try {
-                connection.setAutoCommit(true);
-            } catch (SQLException ex) {
-                Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-                notifyErrorListener(ex.toString());
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+                    notifyErrorListener(ex.toString());
+                }
             }
         }
         return success;
     }
 
-    private int getIdFile(String filename) {
+    private int getIdFile(Connection connection, String filename) {
         int id = -1;
         try {
             PreparedStatement stmt = connection.prepareStatement(
@@ -829,7 +806,7 @@ public class Database {
         return values.toString();
     }
 
-    synchronized private void insertValues(String statement, int id, Vector<String> values)
+    synchronized private void insertValues(Connection connection, String statement, int id, Vector<String> values)
         throws SQLException {
         PreparedStatement stmt = connection.prepareStatement(statement + " VALUES (?, ?)"); // NOI18N
         for (String value : values) {
@@ -866,19 +843,30 @@ public class Database {
      * @return          true bei Erfolg
      */
     public boolean updateThumbnail(String filename, Image thumbnail) {
-        int idFile = getIdFile(filename);
+        Connection connection = null;
         try {
-            updateThumbnail(idFile, thumbnail, filename);
+            connection = getConnection();
+            int idFile = getIdFile(connection, filename);
+            updateThumbnail(connection, idFile, thumbnail, filename);
             return true;
         // notifyDatabaseListener() übernimmt aufgerufene Operation
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             notifyErrorListener(ex.toString());
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+                    notifyErrorListener(ex.toString());
+                }
+            }
         }
         return false;
     }
 
-    synchronized private void updateThumbnail(int idFile, Image thumbnail,
+    synchronized private void updateThumbnail(Connection connection, int idFile, Image thumbnail,
         String filename) throws
         SQLException {
         if (thumbnail != null) {
@@ -906,7 +894,9 @@ public class Database {
      */
     public long getLastModified(String filename) {
         long lastModified = -1;
+        Connection connection = null;
         try {
+            connection = getConnection();
             PreparedStatement stmt = connection.prepareStatement(
                 "SELECT lastmodified FROM files WHERE filename = ?"); // NOI18N
             stmt.setString(1, filename);
@@ -919,6 +909,15 @@ public class Database {
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             notifyErrorListener(ex.toString());
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+                    notifyErrorListener(ex.toString());
+                }
+            }
         }
         return lastModified;
     }
@@ -931,7 +930,9 @@ public class Database {
      */
     public boolean existsFilename(String filename) {
         boolean exists = false;
+        Connection connection = null;
         try {
+            connection = getConnection();
             PreparedStatement stmt = connection.prepareStatement(
                 "SELECT filename FROM files WHERE filename = ?"); // NOI18N
             stmt.setString(1, filename);
@@ -944,6 +945,15 @@ public class Database {
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             notifyErrorListener(ex.toString());
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+                    notifyErrorListener(ex.toString());
+                }
+            }
         }
         return exists;
     }
@@ -957,7 +967,9 @@ public class Database {
      */
     public Image getThumbnail(String filename) {
         Image thumbnail = null;
+        Connection connection = null;
         try {
+            connection = getConnection();
             PreparedStatement stmt = connection.prepareStatement(
                 "SELECT thumbnail FROM files WHERE filename = ?"); // NOI18N
             stmt.setString(1, filename);
@@ -982,6 +994,15 @@ public class Database {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             notifyErrorListener(ex.toString());
             thumbnail = null;
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+                    notifyErrorListener(ex.toString());
+                }
+            }
         }
         return thumbnail;
     }
@@ -994,7 +1015,9 @@ public class Database {
      */
     public Xmp getXmpOfFile(String filename) {
         Xmp xmp = new Xmp();
+        Connection connection = null;
         try {
+            connection = getConnection();
             PreparedStatement stmt = connection.prepareStatement(getXmpOfFileStatement());
             stmt.setString(1, filename);
             logStatement(stmt);
@@ -1032,6 +1055,15 @@ public class Database {
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             notifyErrorListener(ex.toString());
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+                    notifyErrorListener(ex.toString());
+                }
+            }
         }
         return xmp;
     }
@@ -1077,7 +1109,9 @@ public class Database {
      */
     public Iptc getIptcOfFile(String filename) {
         Iptc iptc = new Iptc();
+        Connection connection = null;
         try {
+            connection = getConnection();
             PreparedStatement stmt = connection.prepareStatement(getIptcOfFileStatement());
             stmt.setString(1, filename);
             logStatement(stmt);
@@ -1096,7 +1130,7 @@ public class Database {
                 iptc.setSpecialInstructions(rs.getString(11));
                 iptc.setCredit(rs.getString(12));
                 iptc.setSource(rs.getString(13));
-                
+
                 String value = rs.getString(14);
                 if (value != null) {
                     iptc.addKeyword(value);
@@ -1129,6 +1163,15 @@ public class Database {
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             notifyErrorListener(ex.toString());
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+                    notifyErrorListener(ex.toString());
+                }
+            }
         }
         return iptc;
     }
@@ -1183,7 +1226,9 @@ public class Database {
      */
     synchronized public int deleteImageFiles(Vector<String> filenames) {
         int countDeleted = 0;
+        Connection connection = null;
         try {
+            connection = getConnection();
             PreparedStatement stmt = connection.prepareStatement("DELETE FROM files WHERE filename = ?"); // NOI18N
             for (String filename : filenames) {
                 stmt.setString(1, filename);
@@ -1194,6 +1239,15 @@ public class Database {
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             notifyErrorListener(ex.toString());
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+                    notifyErrorListener(ex.toString());
+                }
+            }
         }
         return countDeleted;
     }
@@ -1215,7 +1269,9 @@ public class Database {
         int countDeleted = 0;
         Vector<String> deletedFiles = new Vector<String>();
         ProgressEvent event = new ProgressEvent(this, 0, 0, 0, null);
+        Connection connection = null;
         try {
+            connection = getConnection();
             event.setMaximum(getFileCount());
             Statement stmt = connection.createStatement();
             String query = "SELECT filename FROM files"; // NOI18N
@@ -1226,7 +1282,7 @@ public class Database {
                 filename = rs.getString(1);
                 File file = new File(filename);
                 if (!file.exists()) {
-                    deleteRowWithFilename(filename);
+                    deleteRowWithFilename(connection, filename);
                     deletedFiles.add(filename);
                     countDeleted++;
                 }
@@ -1237,6 +1293,15 @@ public class Database {
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             notifyErrorListener(ex.toString());
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+                    notifyErrorListener(ex.toString());
+                }
+            }
         }
         if (countDeleted > 0) {
             notifyDatabaseListener(DatabaseAction.Type.MaintainanceNotExistingImageFilesDeleted, deletedFiles);
@@ -1265,7 +1330,9 @@ public class Database {
         boolean isXmpTable = xmpColumn.getTable().equals(TableXmp.getInstance());
         ProgressEvent event = new ProgressEvent(this, 0, 0, 0, null);
         XmpMetadata meta = new XmpMetadata();
+        Connection connection = null;
         try {
+            connection = getConnection();
             connection.setAutoCommit(false);
             PreparedStatement stmt = connection.prepareStatement(
                 "SELECT DISTINCT files.id, xmp.id" + // NOI18N
@@ -1291,8 +1358,8 @@ public class Database {
                     }
                     if (meta.writeMetaDataToSidecarFile(XmpMetadata.suggestSidecarFilename(filename), xmp)) {
                         int idXmp = rs.getInt(2);
-                        deleteXmp(idXmp);
-                        insertXmp(idFile, xmp);
+                        deleteXmp(connection, idXmp);
+                        insertXmp(connection, idFile, xmp);
                         countRenamed++;
                         notifyDatabaseListener(DatabaseAction.Type.XmpUpdated, filename);
                     }
@@ -1313,7 +1380,9 @@ public class Database {
             }
         } finally {
             try {
-                connection.setAutoCommit(true);
+                if (connection != null) {
+                    connection.close();
+                }
             } catch (SQLException ex) {
                 Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
                 notifyErrorListener(ex.toString());
@@ -1349,7 +1418,7 @@ public class Database {
         }
     }
 
-    synchronized private void deleteRowWithFilename(String filename) {
+    synchronized private void deleteRowWithFilename(Connection connection, String filename) {
         try {
             PreparedStatement stmt =
                 connection.prepareStatement(
@@ -1372,7 +1441,9 @@ public class Database {
      */
     public Vector<String> getFilenamesOfImageCollection(String collectionName) {
         Vector<String> filenames = new Vector<String>();
+        Connection connection = null;
         try {
+            connection = getConnection();
             PreparedStatement stmt = connection.prepareStatement(
                 "SELECT files.filename FROM" + // NOI18N
                 " collections INNER JOIN collection_names" + // NOI18N
@@ -1391,6 +1462,15 @@ public class Database {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             notifyErrorListener(ex.toString());
             filenames.removeAllElements();
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+                    notifyErrorListener(ex.toString());
+                }
+            }
         }
         return filenames;
     }
@@ -1402,7 +1482,9 @@ public class Database {
      */
     public Vector<String> getImageCollectionNames() {
         Vector<String> names = new Vector<String>();
+        Connection connection = null;
         try {
+            connection = getConnection();
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT name FROM collection_names"); // NOI18N
             while (rs.next()) {
@@ -1413,6 +1495,15 @@ public class Database {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             notifyErrorListener(ex.toString());
             names.removeAllElements();
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+                    notifyErrorListener(ex.toString());
+                }
+            }
         }
         return names;
     }
@@ -1426,7 +1517,9 @@ public class Database {
      */
     synchronized public int updateRenameImageCollection(String oldName, String newName) {
         int count = 0;
+        Connection connection = null;
         try {
+            connection = getConnection();
             PreparedStatement stmt = connection.prepareStatement(
                 "UPDATE collection_names SET name = ? WHERE name = ?"); // NOI18N
             stmt.setString(1, newName);
@@ -1439,6 +1532,15 @@ public class Database {
             notifyDatabaseListener(DatabaseAction.Type.ImageFileUpdated, info);
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+                    notifyErrorListener(ex.toString());
+                }
+            }
         }
         return count;
     }
@@ -1458,7 +1560,9 @@ public class Database {
         if (existsImageCollection(collectionName)) {
             deleteImageCollection(collectionName);
         }
+        Connection connection = null;
         try {
+            connection = getConnection();
             connection.setAutoCommit(false);
             PreparedStatement stmtName = connection.prepareStatement(
                 "INSERT INTO collection_names (name) VALUES (?)"); // NOI18N
@@ -1469,10 +1573,10 @@ public class Database {
             stmtName.setString(1, collectionName);
             logStatement(stmtName);
             stmtName.executeUpdate();
-            int idCollectionName = getIdCollectionName(collectionName);
+            int idCollectionName = getIdCollectionName(connection, collectionName);
             int sequence_number = 0;
             for (String filename : filenames) {
-                int idFile = getIdFile(filename);
+                int idFile = getIdFile(connection, filename);
                 stmtColl.setInt(1, idCollectionName);
                 stmtColl.setInt(2, idFile);
                 stmtColl.setInt(3, sequence_number++);
@@ -1493,7 +1597,9 @@ public class Database {
             }
         } finally {
             try {
-                connection.setAutoCommit(true);
+                if (connection != null) {
+                    connection.close();
+                }
             } catch (SQLException ex) {
                 Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
                 notifyErrorListener(ex.toString());
@@ -1510,7 +1616,9 @@ public class Database {
      */
     synchronized public boolean deleteImageCollection(String collectionname) {
         boolean deleted = false;
+        Connection connection = null;
         try {
+            connection = getConnection();
             PreparedStatement stmt = connection.prepareStatement(
                 "DELETE FROM collection_names WHERE name = ?"); // NOI18N
             stmt.setString(1, collectionname);
@@ -1521,6 +1629,15 @@ public class Database {
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             notifyErrorListener(ex.toString());
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+                    notifyErrorListener(ex.toString());
+                }
+            }
         }
         return deleted;
     }
@@ -1535,19 +1652,21 @@ public class Database {
     synchronized public int deleteImagesFromCollection(
         String collectionName, Vector<String> filenames) {
         int delCount = 0;
+        Connection connection = null;
         try {
+            connection = getConnection();
             connection.setAutoCommit(false);
             PreparedStatement stmt = connection.prepareStatement(
                 "DELETE FROM collections" + // NOI18N
                 " WHERE id_collectionnnames = ? AND id_files = ?"); // NOI18N
             for (String filename : filenames) {
-                int idCollectionName = getIdCollectionName(collectionName);
-                int idFile = getIdFile(filename);
+                int idCollectionName = getIdCollectionName(connection, collectionName);
+                int idFile = getIdFile(connection, filename);
                 stmt.setInt(1, idCollectionName);
                 stmt.setInt(2, idFile);
                 logStatement(stmt);
                 delCount += stmt.executeUpdate();
-                reorderCollectionSequenceNumber(collectionName);
+                reorderCollectionSequenceNumber(connection, collectionName);
             }
             connection.commit();
             notifyDatabaseListener(DatabaseAction.Type.ImageCollectionImagesDeleted, collectionName, filenames);
@@ -1562,7 +1681,9 @@ public class Database {
             }
         } finally {
             try {
-                connection.setAutoCommit(true);
+                if (connection != null) {
+                    connection.close();
+                }
             } catch (SQLException ex) {
                 Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
                 notifyErrorListener(ex.toString());
@@ -1583,17 +1704,19 @@ public class Database {
     synchronized public boolean insertImagesIntoCollection(
         String collectionName, Vector<String> filenames) {
         boolean added = false;
+        Connection connection = null;
         try {
             if (existsImageCollection(collectionName)) {
+                connection = getConnection();
                 connection.setAutoCommit(false);
                 PreparedStatement stmt = connection.prepareStatement(
                     "INSERT INTO collections (id_files, id_collectionnnames, sequence_number)" + // NOI18N
                     " VALUES (?, ?, ?)"); // NOI18N
-                int idCollectionNames = getIdCollectionName(collectionName);
-                int sequence_number = getMaxCollectionSequenceNumber(collectionName) + 1;
+                int idCollectionNames = getIdCollectionName(connection, collectionName);
+                int sequence_number = getMaxCollectionSequenceNumber(connection, collectionName) + 1;
                 for (String filename : filenames) {
-                    if (!isImageInCollection(collectionName, filename)) {
-                        int idFiles = getIdFile(filename);
+                    if (!isImageInCollection(connection, collectionName, filename)) {
+                        int idFiles = getIdFile(connection, filename);
                         stmt.setInt(1, idFiles);
                         stmt.setInt(2, idCollectionNames);
                         stmt.setInt(3, sequence_number++);
@@ -1601,7 +1724,7 @@ public class Database {
                         stmt.executeUpdate();
                     }
                 }
-                reorderCollectionSequenceNumber(collectionName);
+                reorderCollectionSequenceNumber(connection, collectionName);
             } else {
                 return insertImageCollection(collectionName, filenames);
             }
@@ -1619,7 +1742,9 @@ public class Database {
             }
         } finally {
             try {
-                connection.setAutoCommit(true);
+                if (connection != null) {
+                    connection.close();
+                }
             } catch (SQLException ex) {
                 Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
                 notifyErrorListener(ex.toString());
@@ -1628,7 +1753,7 @@ public class Database {
         return added;
     }
 
-    private int getMaxCollectionSequenceNumber(String collectionName) throws SQLException {
+    private int getMaxCollectionSequenceNumber(Connection connection, String collectionName) throws SQLException {
         int max = -1;
         PreparedStatement stmt = connection.prepareStatement(
             "SELECT MAX(collections.sequence_number)" + // NOI18N
@@ -1645,8 +1770,8 @@ public class Database {
         return max;
     }
 
-    synchronized private void reorderCollectionSequenceNumber(String collectionName) throws SQLException {
-        int idCollectionName = getIdCollectionName(collectionName);
+    synchronized private void reorderCollectionSequenceNumber(Connection connection, String collectionName) throws SQLException {
+        int idCollectionName = getIdCollectionName(connection, collectionName);
         PreparedStatement stmtIdFiles = connection.prepareStatement(
             "SELECT id_files FROM collections WHERE id_collectionnnames = ?" + // NOI18N
             " ORDER BY collections.sequence_number ASC"); // NOI18N
@@ -1679,7 +1804,9 @@ public class Database {
      */
     public boolean existsImageCollection(String collectionName) {
         boolean exists = false;
+        Connection connection = null;
         try {
+            connection = getConnection();
             PreparedStatement stmt = connection.prepareStatement(
                 "SELECT COUNT(*) FROM collection_names WHERE name = ?"); // NOI18N
             stmt.setString(1, collectionName);
@@ -1692,6 +1819,15 @@ public class Database {
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             notifyErrorListener(ex.toString());
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+                    notifyErrorListener(ex.toString());
+                }
+            }
         }
         return exists;
     }
@@ -1703,7 +1839,9 @@ public class Database {
      */
     public int getImageCollectionCount() {
         int count = -1;
+        Connection connection = null;
         try {
+            connection = getConnection();
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(
                 "SELECT COUNT(*) FROM collection_names"); // NOI18N
@@ -1714,6 +1852,15 @@ public class Database {
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             notifyErrorListener(ex.toString());
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+                    notifyErrorListener(ex.toString());
+                }
+            }
         }
         return count;
     }
@@ -1725,7 +1872,9 @@ public class Database {
      */
     public int getImageCollectionImagesCount() {
         int count = -1;
+        Connection connection = null;
         try {
+            connection = getConnection();
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT COUNT(*) FROM collections"); // NOI18N
             if (rs.next()) {
@@ -1735,11 +1884,20 @@ public class Database {
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             notifyErrorListener(ex.toString());
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+                    notifyErrorListener(ex.toString());
+                }
+            }
         }
         return count;
     }
 
-    private boolean isImageInCollection(String collectionName, String filename) throws SQLException {
+    private boolean isImageInCollection(Connection connection, String collectionName, String filename) throws SQLException {
         boolean isInCollection = false;
         PreparedStatement stmt = connection.prepareStatement(
             "SELECT COUNT(*) FROM" + // NOI18N
@@ -1758,7 +1916,7 @@ public class Database {
         return isInCollection;
     }
 
-    private int getIdCollectionName(String collectionname) throws SQLException {
+    private int getIdCollectionName(Connection connection, String collectionname) throws SQLException {
         int id = -1;
         PreparedStatement stmt = connection.prepareStatement(
             "SELECT id FROM collection_names WHERE name = ?"); // NOI18N
@@ -1788,7 +1946,9 @@ public class Database {
             if (existsSavedSearch(data)) {
                 return updateSavedSearch(data);
             }
+            Connection connection = null;
             try {
+                connection = getConnection();
                 connection.setAutoCommit(false);
                 PreparedStatement stmt = connection.prepareStatement(
                     "INSERT INTO saved_searches (name, sql_string, is_query)" + // NOI18N
@@ -1798,9 +1958,9 @@ public class Database {
                 stmt.setBoolean(3, stmtData.isQuery());
                 logStatement(stmt);
                 stmt.executeUpdate();
-                int id = getIdSavedSearch(stmtData.getName());
-                insertSavedSearchValues(id, stmtData.getValues());
-                insertSavedSearchPanelData(id, panelData);
+                int id = getIdSavedSearch(connection, stmtData.getName());
+                insertSavedSearchValues(connection, id, stmtData.getValues());
+                insertSavedSearchPanelData(connection, id, panelData);
                 connection.commit();
                 inserted = true;
                 notifyDatabaseListener(DatabaseAction.Type.SavedSearchInserted, data);
@@ -1815,7 +1975,9 @@ public class Database {
                 }
             } finally {
                 try {
-                    connection.setAutoCommit(true);
+                    if (connection != null) {
+                        connection.close();
+                    }
                 } catch (SQLException ex) {
                     Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
                     notifyErrorListener(ex.toString());
@@ -1826,7 +1988,7 @@ public class Database {
         return inserted;
     }
 
-    synchronized private void insertSavedSearchValues(int idSavedSearch, Vector<String> values) throws SQLException {
+    synchronized private void insertSavedSearchValues(Connection connection, int idSavedSearch, Vector<String> values) throws SQLException {
         if (idSavedSearch > 0 && values.size() > 0) {
             PreparedStatement stmt = connection.prepareStatement(
                 "INSERT INTO saved_searches_values (" + // NOI18N 
@@ -1847,7 +2009,7 @@ public class Database {
         }
     }
 
-    synchronized private void insertSavedSearchPanelData(int idSavedSearch,
+    synchronized private void insertSavedSearchPanelData(Connection connection, int idSavedSearch,
         Vector<SavedSearchPanel> panelData) throws SQLException {
         if (idSavedSearch > 0 && panelData != null) {
             PreparedStatement stmt = connection.prepareStatement(
@@ -1880,7 +2042,7 @@ public class Database {
         }
     }
 
-    private int getIdSavedSearch(String name) throws SQLException {
+    private int getIdSavedSearch(Connection connection, String name) throws SQLException {
         int id = -1;
         PreparedStatement stmt = connection.prepareStatement(
             "SELECT id FROM saved_searches WHERE name = ?"); // NOI18N
@@ -1906,7 +2068,9 @@ public class Database {
             return updateMetaDataEditTemplate(template);
         }
         boolean inserted = false;
+        Connection connection = null;
         try {
+            connection = getConnection();
             connection.setAutoCommit(false);
             PreparedStatement stmt = connection.prepareStatement(
                 "INSERT INTO metadata_edit_templates" + // NOI18N
@@ -1948,7 +2112,9 @@ public class Database {
             }
         } finally {
             try {
-                connection.setAutoCommit(true);
+                if (connection != null) {
+                    connection.close();
+                }
             } catch (SQLException ex) {
                 Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
                 notifyErrorListener(ex.toString());
@@ -1988,7 +2154,9 @@ public class Database {
      */
     public Vector<MetaDataEditTemplate> getMetaDataEditTemplates() {
         Vector<MetaDataEditTemplate> templates = new Vector<MetaDataEditTemplate>();
+        Connection connection = null;
         try {
+            connection = getConnection();
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(
                 "SELECT" + // NOI18N 
@@ -2041,6 +2209,15 @@ public class Database {
             rs.close();
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+                    notifyErrorListener(ex.toString());
+                }
+            }
         }
         return templates;
     }
@@ -2053,7 +2230,9 @@ public class Database {
      */
     synchronized public boolean updateMetaDataEditTemplate(MetaDataEditTemplate template) {
         boolean updated = false;
+        Connection connection = null;
         try {
+            connection = getConnection();
             connection.setAutoCommit(false);
             PreparedStatement stmt = connection.prepareStatement(
                 "UPDATE metadata_edit_templates" + // NOI18N
@@ -2095,7 +2274,9 @@ public class Database {
             }
         } finally {
             try {
-                connection.setAutoCommit(true);
+                if (connection != null) {
+                    connection.close();
+                }
             } catch (SQLException ex) {
                 Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
                 notifyErrorListener(ex.toString());
@@ -2113,7 +2294,9 @@ public class Database {
      */
     synchronized public boolean updateRenameMetaDataEditTemplate(String oldName, String newName) {
         boolean renamed = false;
+        Connection connection = null;
         try {
+            connection = getConnection();
             connection.setAutoCommit(false);
             PreparedStatement stmt = connection.prepareStatement(
                 "UPDATE metadata_edit_templates" + // NOI18N
@@ -2136,7 +2319,9 @@ public class Database {
             }
         } finally {
             try {
-                connection.setAutoCommit(true);
+                if (connection != null) {
+                    connection.close();
+                }
             } catch (SQLException ex) {
                 Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
                 notifyErrorListener(ex.toString());
@@ -2153,7 +2338,9 @@ public class Database {
      */
     synchronized public boolean deleteMetaDataEditTemplate(String name) {
         boolean deleted = false;
+        Connection connection = null;
         try {
+            connection = getConnection();
             connection.setAutoCommit(false);
             PreparedStatement stmt = connection.prepareStatement(
                 "DELETE FROM metadata_edit_templates WHERE name = ?");  // NOI18N
@@ -2173,7 +2360,9 @@ public class Database {
             }
         } finally {
             try {
-                connection.setAutoCommit(true);
+                if (connection != null) {
+                    connection.close();
+                }
             } catch (SQLException ex) {
                 Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
                 notifyErrorListener(ex.toString());
@@ -2184,7 +2373,9 @@ public class Database {
 
     public boolean existsMetaDataEditTemplate(String name) {
         boolean exists = false;
+        Connection connection = null;
         try {
+            connection = getConnection();
             PreparedStatement stmt = connection.prepareStatement("SELECT COUNT(*)" + // NOI18N
                 " FROM metadata_edit_templates" + // NOI18N
                 " WHERE name = ?"); // NOI18N
@@ -2198,6 +2389,15 @@ public class Database {
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             notifyErrorListener(ex.toString());
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+                    notifyErrorListener(ex.toString());
+                }
+            }
         }
         return exists;
     }
@@ -2209,7 +2409,9 @@ public class Database {
      */
     public int getSavedSearchesCount() {
         int count = -1;
+        Connection connection = null;
         try {
+            connection = getConnection();
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT COUNT(*) FROM saved_searches"); // NOI18N
             if (rs.next()) {
@@ -2218,6 +2420,15 @@ public class Database {
             rs.close();
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+                    notifyErrorListener(ex.toString());
+                }
+            }
         }
         return count;
     }
@@ -2230,12 +2441,23 @@ public class Database {
      * @see    #existsSavedSearch(de.elmar_baumann.imagemetadataviewer.data.SavedSearch)
      */
     public boolean existsSavedSearch(String name) {
+        Connection connection = null;
         try {
-            int id = getIdSavedSearch(name);
+            connection = getConnection();
+            int id = getIdSavedSearch(connection, name);
             return id > 0;
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             notifyErrorListener(ex.toString());
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+                    notifyErrorListener(ex.toString());
+                }
+            }
         }
         return false;
     }
@@ -2259,7 +2481,9 @@ public class Database {
      */
     synchronized public boolean deleteSavedSearch(String name) {
         boolean deleted = false;
+        Connection connection = null;
         try {
+            connection = getConnection();
             connection.setAutoCommit(false);
             PreparedStatement stmt = connection.prepareStatement(
                 "DELETE FROM saved_searches WHERE name = ?"); // NOI18N
@@ -2282,7 +2506,9 @@ public class Database {
             }
         } finally {
             try {
-                connection.setAutoCommit(true);
+                if (connection != null) {
+                    connection.close();
+                }
             } catch (SQLException ex) {
                 Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
                 notifyErrorListener(ex.toString());
@@ -2300,7 +2526,9 @@ public class Database {
      */
     synchronized public boolean updateRenameSavedSearch(String oldName, String newName) {
         boolean renamed = false;
+        Connection connection = null;
         try {
+            connection = getConnection();
             PreparedStatement stmt = connection.prepareStatement(
                 "UPDATE saved_searches SET name = ? WHERE name = ?"); // NOI18N
             stmt.setString(1, newName);
@@ -2317,6 +2545,15 @@ public class Database {
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             notifyErrorListener(ex.toString());
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+                    notifyErrorListener(ex.toString());
+                }
+            }
         }
         return renamed;
     }
@@ -2348,7 +2585,9 @@ public class Database {
      */
     public SavedSearch getSavedSearch(String name) {
         SavedSearch data = null;
+        Connection connection = null;
         try {
+            connection = getConnection();
             PreparedStatement stmt = connection.prepareStatement("SELECT" + // NOI18N
                 " name, sql_string, is_query" + // NOI18N
                 " FROM saved_searches WHERE name = ?"); // NOI18N
@@ -2362,14 +2601,23 @@ public class Database {
                 paramStatementData.setSql(new String(rs.getBytes(2)));
                 paramStatementData.setQuery(rs.getBoolean(3));
                 data.setParamStatements(paramStatementData);
-                setSavedSearchValues(data);
-                setSavedSearchPanels(data);
+                setSavedSearchValues(connection, data);
+                setSavedSearchPanels(connection, data);
             }
             rs.close();
         } catch (SQLException ex) {
             data = null;
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             notifyErrorListener(ex.toString());
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+                    notifyErrorListener(ex.toString());
+                }
+            }
         }
         return data;
     }
@@ -2381,7 +2629,9 @@ public class Database {
      */
     public Vector<SavedSearch> getSavedSearches() {
         Vector<SavedSearch> allData = new Vector<SavedSearch>();
+        Connection connection = null;
         try {
+            connection = getConnection();
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT" + // NOI18N
                 " name, sql_string, is_query" + // NOI18N
@@ -2393,8 +2643,8 @@ public class Database {
                 paramStatementData.setSql(new String(rs.getBytes(2)));
                 paramStatementData.setQuery(rs.getBoolean(3));
                 data.setParamStatements(paramStatementData);
-                setSavedSearchValues(data);
-                setSavedSearchPanels(data);
+                setSavedSearchValues(connection, data);
+                setSavedSearchPanels(connection, data);
                 allData.add(data);
             }
             rs.close();
@@ -2402,11 +2652,20 @@ public class Database {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             notifyErrorListener(ex.toString());
             allData.removeAllElements();
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+                    notifyErrorListener(ex.toString());
+                }
+            }
         }
         return allData;
     }
 
-    private void setSavedSearchValues(SavedSearch data) throws SQLException {
+    private void setSavedSearchValues(Connection connection, SavedSearch data) throws SQLException {
         PreparedStatement stmt = connection.prepareStatement(
             "SELECT" + // NOI18N
             " saved_searches_values.value" + // NOI18N -- 1 --
@@ -2428,7 +2687,7 @@ public class Database {
         }
     }
 
-    private void setSavedSearchPanels(SavedSearch data) throws SQLException {
+    private void setSavedSearchPanels(Connection connection, SavedSearch data) throws SQLException {
         PreparedStatement stmt = connection.prepareStatement(
             "SELECT" + // NOI18N
             " saved_searches_panels.panel_index" + // NOI18N -- 1 --
@@ -2475,7 +2734,9 @@ public class Database {
     synchronized public boolean insertAutoscanDirectory(String directoryName) {
         boolean inserted = false;
         if (!existsAutoscanDirectory(directoryName)) {
+            Connection connection = null;
             try {
+                connection = getConnection();
                 PreparedStatement stmt = connection.prepareStatement(
                     "INSERT INTO autoscan_directories (directory) VALUES (?)"); // NOI18N
                 stmt.setString(1, directoryName);
@@ -2486,6 +2747,15 @@ public class Database {
             } catch (SQLException ex) {
                 Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
                 notifyErrorListener(ex.toString());
+            } finally {
+                if (connection != null) {
+                    try {
+                        connection.close();
+                    } catch (SQLException ex) {
+                        Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+                        notifyErrorListener(ex.toString());
+                    }
+                }
             }
         }
         return inserted;
@@ -2499,7 +2769,9 @@ public class Database {
      */
     synchronized public boolean insertAutoscanDirectories(Vector<String> directoryNames) {
         boolean inserted = false;
+        Connection connection = null;
         try {
+            connection = getConnection();
             connection.setAutoCommit(false);
             PreparedStatement stmt = connection.prepareStatement(
                 "INSERT INTO autoscan_directories (directory) VALUES (?)"); // NOI18N
@@ -2524,7 +2796,9 @@ public class Database {
 
         } finally {
             try {
-                connection.setAutoCommit(true);
+                if (connection != null) {
+                    connection.close();
+                }
             } catch (SQLException ex) {
                 Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
                 notifyErrorListener(ex.toString());
@@ -2542,9 +2816,10 @@ public class Database {
      */
     synchronized public boolean deleteAutoscanDirectory(String directoryName) {
         boolean deleted = false;
-        PreparedStatement stmt;
+        Connection connection = null;
         try {
-            stmt = connection.prepareStatement(
+            connection = getConnection();
+            PreparedStatement stmt = connection.prepareStatement(
                 "DELETE FROM autoscan_directories WHERE directory = ?"); // NOI18N
             stmt.setString(1, directoryName);
             logStatement(stmt);
@@ -2556,6 +2831,15 @@ public class Database {
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             notifyErrorListener(ex.toString());
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+                    notifyErrorListener(ex.toString());
+                }
+            }
         }
         return deleted;
     }
@@ -2569,7 +2853,9 @@ public class Database {
      */
     public boolean existsAutoscanDirectory(String directoryName) {
         boolean exists = false;
+        Connection connection = null;
         try {
+            connection = getConnection();
             PreparedStatement stmt = connection.prepareStatement(
                 "SELECT COUNT(*) FROM autoscan_directories WHERE directory = ?"); // NOI18N
             stmt.setString(1, directoryName);
@@ -2582,6 +2868,15 @@ public class Database {
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             notifyErrorListener(ex.toString());
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+                    notifyErrorListener(ex.toString());
+                }
+            }
         }
         return exists;
     }
@@ -2593,7 +2888,9 @@ public class Database {
      */
     public Vector<String> getAutoscanDirectories() {
         Vector<String> directories = new Vector<String>();
+        Connection connection = null;
         try {
+            connection = getConnection();
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(
                 "SELECT directory FROM autoscan_directories ORDER BY directory ASC"); // NOI18N
@@ -2604,6 +2901,15 @@ public class Database {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             notifyErrorListener(ex.toString());
             directories.removeAllElements();
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+                    notifyErrorListener(ex.toString());
+                }
+            }
         }
 
         return directories;
@@ -2623,7 +2929,9 @@ public class Database {
      */
     public LinkedHashSet<String> getCategories() {
         LinkedHashSet<String> categories = new LinkedHashSet<String>();
+        Connection connection = null;
         try {
+            connection = getConnection();
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(
                 " SELECT DISTINCT supplemental_category FROM" + // NOI18N
@@ -2643,6 +2951,15 @@ public class Database {
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             notifyErrorListener(ex.toString());
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+                    notifyErrorListener(ex.toString());
+                }
+            }
         }
         return categories;
     }
@@ -2661,7 +2978,9 @@ public class Database {
      */
     public LinkedHashSet<String> getFilenamesOfCategory(String category) {
         LinkedHashSet<String> filenames = new LinkedHashSet<String>();
+        Connection connection = null;
         try {
+            connection = getConnection();
             PreparedStatement stmt = connection.prepareStatement(
                 "(SELECT DISTINCT files.filename FROM" + // NOI18N
                 " iptc_supplemental_categories LEFT JOIN iptc" + // NOI18N
@@ -2690,6 +3009,15 @@ public class Database {
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             notifyErrorListener(ex.toString());
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+                    notifyErrorListener(ex.toString());
+                }
+            }
         }
         return filenames;
     }
@@ -2708,7 +3036,9 @@ public class Database {
      */
     public boolean existsCategory(String name) {
         boolean exists = false;
+        Connection connection = null;
         try {
+            connection = getConnection();
             PreparedStatement stmt = connection.prepareStatement(
                 "SELECT COUNT(*) FROM" + // NOI18N
                 " iptc_supplemental_categories" + // NOI18N
@@ -2732,6 +3062,15 @@ public class Database {
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             notifyErrorListener(ex.toString());
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+                    notifyErrorListener(ex.toString());
+                }
+            }
         }
         return exists;
     }
@@ -2745,11 +3084,13 @@ public class Database {
      */
     synchronized public boolean insertFavoriteDirectory(FavoriteDirectory favoriteDirectory) {
         boolean inserted = false;
+        Connection connection = null;
         try {
             if (existsFavoriteDirectory(favoriteDirectory.getFavoriteName())) {
                 return updateFavoriteDirectory(favoriteDirectory.getFavoriteName(),
                     favoriteDirectory);
             }
+            connection = getConnection();
             connection.setAutoCommit(false);
             PreparedStatement stmt = connection.prepareStatement(
                 "INSERT INTO favorite_directories" + // NOI18N
@@ -2772,11 +3113,13 @@ public class Database {
                 notifyErrorListener(ex.toString());
             }
         } finally {
-            try {
-                connection.setAutoCommit(true);
-            } catch (SQLException ex) {
-                Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-                notifyErrorListener(ex.toString());
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+                    notifyErrorListener(ex.toString());
+                }
             }
         }
         return inserted;
@@ -2790,7 +3133,9 @@ public class Database {
      */
     synchronized public boolean deleteFavoriteDirectory(String favoriteName) {
         boolean deleted = false;
+        Connection connection = null;
         try {
+            connection = getConnection();
             connection.setAutoCommit(false);
             PreparedStatement stmt = connection.prepareStatement(
                 "DELETE FROM favorite_directories WHERE favorite_name = ?"); // NOI18N
@@ -2809,11 +3154,13 @@ public class Database {
                 notifyErrorListener(ex.toString());
             }
         } finally {
-            try {
-                connection.setAutoCommit(true);
-            } catch (SQLException ex) {
-                Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-                notifyErrorListener(ex.toString());
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+                    notifyErrorListener(ex.toString());
+                }
             }
         }
         return deleted;
@@ -2829,7 +3176,9 @@ public class Database {
     synchronized public boolean updateFavoriteDirectory(String favoriteName,
         FavoriteDirectory favorite) {
         boolean updated = false;
+        Connection connection = null;
         try {
+            connection = getConnection();
             connection.setAutoCommit(false);
             PreparedStatement stmt = connection.prepareStatement(
                 "UPDATE favorite_directories SET" + // NOI18N
@@ -2855,11 +3204,13 @@ public class Database {
                 notifyErrorListener(ex.toString());
             }
         } finally {
-            try {
-                connection.setAutoCommit(true);
-            } catch (SQLException ex) {
-                Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-                notifyErrorListener(ex.toString());
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+                    notifyErrorListener(ex.toString());
+                }
             }
         }
         return updated;
@@ -2872,7 +3223,9 @@ public class Database {
      */
     public Vector<FavoriteDirectory> getFavoriteDirectories() {
         Vector<FavoriteDirectory> directories = new Vector<FavoriteDirectory>();
+        Connection connection = null;
         try {
+            connection = getConnection();
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(
                 "SELECT favorite_name, directory_name, favorite_index" + // NOI18N
@@ -2887,6 +3240,15 @@ public class Database {
             directories.removeAllElements();
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             notifyErrorListener(ex.toString());
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+                    notifyErrorListener(ex.toString());
+                }
+            }
         }
         return directories;
     }
@@ -2899,7 +3261,9 @@ public class Database {
      */
     public boolean existsFavoriteDirectory(String favoriteName) {
         boolean exists = false;
+        Connection connection = null;
         try {
+            connection = getConnection();
             PreparedStatement stmt = connection.prepareStatement(
                 "SELECT COUNT(*) FROM favorite_directories WHERE favorite_name = ?"); // NOI18N
             stmt.setString(1, favoriteName);
@@ -2913,6 +3277,15 @@ public class Database {
             exists = count > 0;
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+                    notifyErrorListener(ex.toString());
+                }
+            }
         }
         return exists;
     }
@@ -2925,7 +3298,9 @@ public class Database {
      */
     public int getDistinctCount(Column column) {
         int count = -1;
+        Connection connection = null;
         try {
+            connection = getConnection();
             Statement stmt = connection.createStatement();
             String query = "SELECT COUNT(*) FROM (SELECT DISTINCT " + // NOI18N
                 column.getName() +
@@ -2940,6 +3315,15 @@ public class Database {
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             notifyErrorListener(ex.toString());
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+                    notifyErrorListener(ex.toString());
+                }
+            }
         }
         return count;
     }
@@ -2951,7 +3335,9 @@ public class Database {
      */
     public int getFileCount() {
         int count = -1;
+        Connection connection = null;
         try {
+            connection = getConnection();
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT COUNT(*) FROM files"); // NOI18N
             if (rs.next()) {
@@ -2960,6 +3346,15 @@ public class Database {
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             notifyErrorListener(ex.toString());
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+                    notifyErrorListener(ex.toString());
+                }
+            }
         }
         return count;
     }
@@ -2971,8 +3366,10 @@ public class Database {
      */
     public int getTotalRecordCount() {
         int count = -1;
+        Connection connection = null;
         Vector<Table> tables = AllTables.get();
         try {
+            connection = getConnection();
             for (Table table : tables) {
                 Statement stmt = connection.createStatement();
                 String query = "SELECT COUNT(*) FROM " + table.getName(); // NOI18N
@@ -2986,6 +3383,15 @@ public class Database {
             count = -1;
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             notifyErrorListener(ex.toString());
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+                    notifyErrorListener(ex.toString());
+                }
+            }
         }
         return count;
     }
@@ -2997,7 +3403,9 @@ public class Database {
      */
     public int getThumbnailCount() {
         int count = -1;
+        Connection connection = null;
         try {
+            connection = getConnection();
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(
                 "SELECT COUNT(*) FROM files WHERE thumbnail IS NOT NULL"); // NOI18N
@@ -3007,6 +3415,15 @@ public class Database {
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             notifyErrorListener(ex.toString());
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+                    notifyErrorListener(ex.toString());
+                }
+            }
         }
         return count;
     }
@@ -3018,7 +3435,9 @@ public class Database {
      */
     synchronized public boolean compressDatabase() {
         boolean success = false;
+        Connection connection = null;
         try {
+            connection = getConnection();
             Statement stmt = connection.createStatement();
             stmt.executeUpdate("CHECKPOINT DEFRAG"); // NOI18N
             success = true;
@@ -3026,89 +3445,24 @@ public class Database {
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             notifyErrorListener(ex.toString());
-        }
-        return success;
-    }
-
-    /**
-     * Leert alle Tabellen in der Datenbank und komprimiert diese im Anschluss.
-     * 
-     * @return true, wenn die Tabellen geleert wurden
-     */
-    synchronized public boolean empty() {
-        boolean success = false;
-        try {
-            connection.setAutoCommit(false);
-            Statement stmt = connection.createStatement();
-            stmt.executeUpdate("DELETE FROM files"); // NOI18N // Cascade sollte Rest löschen
-            stmt.executeUpdate("CHECKPOINT DEFRAG"); // NOI18N
-            connection.commit();
-            success = true;
-            notifyDatabaseListener(DatabaseAction.Type.MaintainanceDatabaseEmptied);
-        } catch (SQLException ex) {
-            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-            notifyErrorListener(ex.toString());
-            try {
-                connection.rollback();
-            } catch (SQLException ex1) {
-                Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex1);
-                notifyErrorListener(ex.toString());
-            }
         } finally {
-            try {
-                connection.setAutoCommit(true);
-            } catch (SQLException ex) {
-                Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-                notifyErrorListener(ex.toString());
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+                    notifyErrorListener(ex.toString());
+                }
             }
         }
         return success;
-    }
-
-    /**
-     * Verbindet mit der Datenbank.
-     * 
-     * @return true bei Erfolg.
-     */
-    synchronized public boolean connect() {
-        try {
-            Class.forName(driverClassname);
-            connection = DriverManager.getConnection(connectionUrl, dbUser, dbPassword);
-            connection.setAutoCommit(true);
-            createTables();
-            connected = true;
-            willClose = false;
-            notifyDatabaseListener(DatabaseAction.Type.Connected);
-        } catch (SQLException ex) {
-            Logger.getLogger(ImageFileThumbnailsPanel.class.getName()).log(Level.SEVERE, null, ex);
-            notifyErrorListener(ex.toString());
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ImageFileThumbnailsPanel.class.getName()).log(Level.SEVERE, null, ex);
-            notifyErrorListener(ex.toString());
-        }
-        return connected;
-    }
-
-    /**
-     * Schließt die Datenbankverbindung.
-     */
-    synchronized public void close() {
-        willClose = true;
-        connected = false;
-        try {
-            connection.close();
-            notifyDatabaseListener(DatabaseAction.Type.Closed);
-        } catch (SQLException ex) {
-            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-            notifyErrorListener(ex.toString());
-        }
     }
 
     private void notifyErrorListener(String message) {
         ErrorListeners.getInstance().notifyErrorListener(new ErrorEvent(message, this));
     }
 
-    private boolean existsTable(String tablename) throws SQLException {
+    private boolean existsTable(Connection connection, String tablename) throws SQLException {
         boolean exists = false;
         DatabaseMetaData dbm = connection.getMetaData();
         String[] names = {"TABLE"}; // NOI18N
@@ -3120,19 +3474,24 @@ public class Database {
         return exists;
     }
 
-    synchronized private void createTables() {
+    /**
+     * Creates the necessary tables if not exists. Exits the VM if not successfully.
+     */
+    synchronized public void createTables() {
+        Connection connection = null;
         try {
+            connection = getConnection();
             connection.setAutoCommit(false);
             Statement stmt = connection.createStatement();
-            createFilesTable(stmt);
-            createIptcTables(stmt);
-            createXmpTables(stmt);
-            createExifTables(stmt);
-            createCollectionsTables(stmt);
-            createSavedSerachesTables(stmt);
-            createAutoScanDirectoriesTable(stmt);
-            createMetaDataEditTemplateTable(stmt);
-            createFavoriteDirectoriesTable(stmt);
+            createFilesTable(connection, stmt);
+            createIptcTables(connection, stmt);
+            createXmpTables(connection, stmt);
+            createExifTables(connection, stmt);
+            createCollectionsTables(connection, stmt);
+            createSavedSerachesTables(connection, stmt);
+            createAutoScanDirectoriesTable(connection, stmt);
+            createMetaDataEditTemplateTable(connection, stmt);
+            createFavoriteDirectoriesTable(connection, stmt);
             connection.commit();
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
@@ -3150,17 +3509,18 @@ public class Database {
                 AppSettings.getSmallAppIcon());
             System.exit(0);
         } finally {
-            try {
-                connection.setAutoCommit(true);
-            } catch (SQLException ex) {
-                Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-                notifyErrorListener(ex.toString());
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
     }
 
-    synchronized private void createFilesTable(Statement stmt) throws SQLException {
-        if (!existsTable("files")) { // NOI18N
+    synchronized private void createFilesTable(Connection connection, Statement stmt) throws SQLException {
+        if (!existsTable(connection, "files")) { // NOI18N
             stmt.execute("CREATE CACHED TABLE files " + // NOI18N
                 " (" + // NOI18N
                 "id INTEGER GENERATED BY DEFAULT AS IDENTITY(START WITH 1, INCREMENT BY 1) PRIMARY KEY" + // NOI18N
@@ -3171,8 +3531,8 @@ public class Database {
         }
     }
 
-    synchronized private void createIptcTables(Statement stmt) throws SQLException {
-        if (!existsTable("iptc")) { // NOI18N
+    synchronized private void createIptcTables(Connection connection, Statement stmt) throws SQLException {
+        if (!existsTable(connection, "iptc")) { // NOI18N
             stmt.execute("CREATE CACHED TABLE iptc" + // NOI18N
                 " (" + // NOI18N
                 "id INTEGER GENERATED BY DEFAULT AS IDENTITY(START WITH 1, INCREMENT BY 1) PRIMARY KEY" + // NOI18N
@@ -3221,7 +3581,7 @@ public class Database {
             stmt.execute("CREATE INDEX idx_iptc_credit ON iptc (credit)"); // NOI18N
             stmt.execute("CREATE INDEX idx_iptc_source ON iptc (source)"); // NOI18N
         }
-        if (!existsTable("iptc_keywords")) { // NOI18N
+        if (!existsTable(connection, "iptc_keywords")) { // NOI18N
             stmt.execute("CREATE CACHED TABLE iptc_keywords" + // NOI18N
                 " (" + // NOI18N
                 "id INTEGER GENERATED BY DEFAULT AS IDENTITY(START WITH 1, INCREMENT BY 1) PRIMARY KEY" + // NOI18N
@@ -3236,7 +3596,7 @@ public class Database {
                 "CREATE INDEX idx_iptc_keywords_keyword" + // NOI18N
                 " ON iptc_keywords (keyword)"); // NOI18N
         }
-        if (!existsTable("iptc_bylines")) { // NOI18N
+        if (!existsTable(connection, "iptc_bylines")) { // NOI18N
             stmt.execute("CREATE CACHED TABLE iptc_bylines" + // NOI18N
                 " (" + // NOI18N
                 "id INTEGER GENERATED BY DEFAULT AS IDENTITY(START WITH 1, INCREMENT BY 1) PRIMARY KEY" + // NOI18N
@@ -3251,7 +3611,7 @@ public class Database {
                 "CREATE INDEX idx_iptc_bylines_byline" + // NOI18N
                 " ON iptc_bylines (byline)"); // NOI18N
         }
-        if (!existsTable("iptc_content_location_names")) { // NOI18N
+        if (!existsTable(connection, "iptc_content_location_names")) { // NOI18N
             stmt.execute("CREATE CACHED TABLE iptc_content_location_names" + // NOI18N
                 " (" + // NOI18N
                 "id INTEGER GENERATED BY DEFAULT AS IDENTITY(START WITH 1, INCREMENT BY 1) PRIMARY KEY" + // NOI18N
@@ -3266,7 +3626,7 @@ public class Database {
                 "CREATE INDEX idx_iptc_content_location_names_content_location_name" + // NOI18N
                 " ON iptc_content_location_names (content_location_name)"); // NOI18N
         }
-        if (!existsTable("iptc_content_location_codes")) { // NOI18N
+        if (!existsTable(connection, "iptc_content_location_codes")) { // NOI18N
             stmt.execute("CREATE CACHED TABLE iptc_content_location_codes" + // NOI18N
                 " (" + // NOI18N
                 "id INTEGER GENERATED BY DEFAULT AS IDENTITY(START WITH 1, INCREMENT BY 1) PRIMARY KEY" + // NOI18N
@@ -3278,7 +3638,7 @@ public class Database {
                 "CREATE INDEX idx_iptc_content_location_codes_id_iptc" + // NOI18N
                 " ON iptc_content_location_codes (id_iptc)"); // NOI18N
         }
-        if (!existsTable("iptc_writers_editors")) { // NOI18N
+        if (!existsTable(connection, "iptc_writers_editors")) { // NOI18N
             stmt.execute("CREATE CACHED TABLE iptc_writers_editors" + // NOI18N
                 " (" + // NOI18N
                 "id INTEGER GENERATED BY DEFAULT AS IDENTITY(START WITH 1, INCREMENT BY 1) PRIMARY KEY" + // NOI18N
@@ -3293,7 +3653,7 @@ public class Database {
                 "CREATE INDEX idx_iptc_writers_editors_writer_editor" + // NOI18N
                 " ON iptc_writers_editors (writer_editor)"); // NOI18N
         }
-        if (!existsTable("iptc_supplemental_categories")) { // NOI18N
+        if (!existsTable(connection, "iptc_supplemental_categories")) { // NOI18N
             stmt.execute("CREATE CACHED TABLE iptc_supplemental_categories" + // NOI18N
                 " (" + // NOI18N
                 "id INTEGER GENERATED BY DEFAULT AS IDENTITY(START WITH 1, INCREMENT BY 1) PRIMARY KEY" + // NOI18N
@@ -3308,7 +3668,7 @@ public class Database {
                 "CREATE INDEX idx_iptc_supplemental_categories_category" + // NOI18N
                 " ON iptc_supplemental_categories (supplemental_category)"); // NOI18N
         }
-        if (!existsTable("iptc_by_lines_titles")) { // NOI18N
+        if (!existsTable(connection, "iptc_by_lines_titles")) { // NOI18N
             stmt.execute("CREATE CACHED TABLE iptc_by_lines_titles" + // NOI18N
                 " (" + // NOI18N
                 "id INTEGER GENERATED BY DEFAULT AS IDENTITY(START WITH 1, INCREMENT BY 1) PRIMARY KEY" + // NOI18N
@@ -3325,8 +3685,8 @@ public class Database {
         }
     }
 
-    synchronized private void createXmpTables(Statement stmt) throws SQLException {
-        if (!existsTable("xmp")) { // NOI18N
+    synchronized private void createXmpTables(Connection connection, Statement stmt) throws SQLException {
+        if (!existsTable(connection, "xmp")) { // NOI18N
             stmt.execute("CREATE CACHED TABLE xmp" + // NOI18N
                 " (" + // NOI18N
                 "id INTEGER GENERATED BY DEFAULT AS IDENTITY(START WITH 1, INCREMENT BY 1) PRIMARY KEY" + // NOI18N
@@ -3397,7 +3757,7 @@ public class Database {
                 "CREATE INDEX idx_xmp_photoshop_transmissionReference" + // NOI18N
                 " ON xmp (photoshop_transmissionReference)"); // NOI18N
         }
-        if (!existsTable("xmp_dc_subjects")) { // NOI18N
+        if (!existsTable(connection, "xmp_dc_subjects")) { // NOI18N
             stmt.execute("CREATE CACHED TABLE xmp_dc_subjects" + // NOI18N
                 " (" + // NOI18N
                 "id INTEGER GENERATED BY DEFAULT AS IDENTITY(START WITH 1, INCREMENT BY 1) PRIMARY KEY" + // NOI18N
@@ -3412,7 +3772,7 @@ public class Database {
                 "CREATE INDEX idx_xmp_dc_subjects_subject" + // NOI18N
                 " ON xmp_dc_subjects (subject)"); // NOI18N
         }
-        if (!existsTable("xmp_dc_creators")) { // NOI18N
+        if (!existsTable(connection, "xmp_dc_creators")) { // NOI18N
             stmt.execute("CREATE CACHED TABLE xmp_dc_creators" + // NOI18N
                 " (" + // NOI18N
                 "id INTEGER GENERATED BY DEFAULT AS IDENTITY(START WITH 1, INCREMENT BY 1) PRIMARY KEY" + // NOI18N
@@ -3427,7 +3787,7 @@ public class Database {
                 "CREATE INDEX idx_xmp_xmp_dc_creators_creator" + // NOI18N
                 " ON xmp_dc_creators (creator)"); // NOI18N
         }
-        if (!existsTable("xmp_photoshop_supplementalcategories")) { // NOI18N
+        if (!existsTable(connection, "xmp_photoshop_supplementalcategories")) { // NOI18N
             stmt.execute("CREATE CACHED TABLE xmp_photoshop_supplementalcategories" + // NOI18N
                 " (" + // NOI18N
                 "id INTEGER GENERATED BY DEFAULT AS IDENTITY(START WITH 1, INCREMENT BY 1) PRIMARY KEY" + // NOI18N
@@ -3444,8 +3804,8 @@ public class Database {
         }
     }
 
-    synchronized private void createExifTables(Statement stmt) throws SQLException {
-        if (!existsTable("exif")) { // NOI18N
+    synchronized private void createExifTables(Connection connection, Statement stmt) throws SQLException {
+        if (!existsTable(connection, "exif")) { // NOI18N
             stmt.execute("CREATE CACHED TABLE exif" + // NOI18N
                 " (" + // NOI18N
                 "id INTEGER GENERATED BY DEFAULT AS IDENTITY(START WITH 1, INCREMENT BY 1) PRIMARY KEY" + // NOI18N
@@ -3469,8 +3829,8 @@ public class Database {
         }
     }
 
-    synchronized private void createCollectionsTables(Statement stmt) throws SQLException {
-        if (!existsTable("collection_names")) { // NOI18N
+    synchronized private void createCollectionsTables(Connection connection, Statement stmt) throws SQLException {
+        if (!existsTable(connection, "collection_names")) { // NOI18N
             stmt.execute("CREATE CACHED TABLE collection_names" + // NOI18N
                 " (" + // NOI18N
                 "id INTEGER GENERATED BY DEFAULT AS IDENTITY(START WITH 1, INCREMENT BY 1) PRIMARY KEY" + // NOI18N
@@ -3481,7 +3841,7 @@ public class Database {
             stmt.execute(
                 "CREATE INDEX idx_collection_names_name ON collection_names (name)"); // NOI18N
         }
-        if (!existsTable("collections")) { // NOI18N
+        if (!existsTable(connection, "collections")) { // NOI18N
             stmt.execute("CREATE CACHED TABLE collections" + // NOI18N
                 " (" + // NOI18N
                 "id_collectionnnames INTEGER" + // NOI18N
@@ -3498,8 +3858,8 @@ public class Database {
         }
     }
 
-    synchronized private void createSavedSerachesTables(Statement stmt) throws SQLException {
-        if (!existsTable("saved_searches")) { // NOI18N
+    synchronized private void createSavedSerachesTables(Connection connection, Statement stmt) throws SQLException {
+        if (!existsTable(connection, "saved_searches")) { // NOI18N
             stmt.execute("CREATE CACHED TABLE saved_searches" + // NOI18N
                 " (" + // NOI18N
                 "id INTEGER GENERATED BY DEFAULT AS IDENTITY(START WITH 1, INCREMENT BY 1) PRIMARY KEY" + // NOI18N
@@ -3512,7 +3872,7 @@ public class Database {
             stmt.execute(
                 "CREATE UNIQUE INDEX idx_saved_searches_name ON saved_searches (name)"); // NOI18N
         }
-        if (!existsTable("saved_searches_values")) { // NOI18N
+        if (!existsTable(connection, "saved_searches_values")) { // NOI18N
             stmt.execute("CREATE CACHED TABLE saved_searches_values" + // NOI18N
                 " (" + // NOI18N
                 "id_saved_searches INTEGER" + // NOI18N
@@ -3525,7 +3885,7 @@ public class Database {
             stmt.execute(
                 "CREATE INDEX idx_saved_searches_value_index ON saved_searches_values (value_index)"); // NOI18N
         }
-        if (!existsTable("saved_searches_panels")) { // NOI18N
+        if (!existsTable(connection, "saved_searches_panels")) { // NOI18N
             stmt.execute("CREATE CACHED TABLE saved_searches_panels" + // NOI18N
                 " (" + // NOI18N
                 "id_saved_searches INTEGER" + // NOI18N
@@ -3546,8 +3906,8 @@ public class Database {
         }
     }
 
-    synchronized private void createAutoScanDirectoriesTable(Statement stmt) throws SQLException {
-        if (!existsTable("autoscan_directories")) { // NOI18N
+    synchronized private void createAutoScanDirectoriesTable(Connection connection, Statement stmt) throws SQLException {
+        if (!existsTable(connection, "autoscan_directories")) { // NOI18N
             stmt.execute("CREATE CACHED TABLE autoscan_directories" + // NOI18N
                 " (" + // NOI18N
                 "id INTEGER GENERATED BY DEFAULT AS IDENTITY(START WITH 1, INCREMENT BY 1) PRIMARY KEY" + // NOI18N
@@ -3558,8 +3918,8 @@ public class Database {
         }
     }
 
-    synchronized private void createMetaDataEditTemplateTable(Statement stmt) throws SQLException {
-        if (!existsTable("metadata_edit_templates")) { // NOI18N
+    synchronized private void createMetaDataEditTemplateTable(Connection connection, Statement stmt) throws SQLException {
+        if (!existsTable(connection, "metadata_edit_templates")) { // NOI18N
             stmt.execute("CREATE CACHED TABLE metadata_edit_templates" + // NOI18N
                 " (" + // NOI18N
                 "id INTEGER GENERATED BY DEFAULT AS IDENTITY(START WITH 1, INCREMENT BY 1) PRIMARY KEY" + // NOI18N
@@ -3589,8 +3949,8 @@ public class Database {
         }
     }
 
-    synchronized private void createFavoriteDirectoriesTable(Statement stmt) throws SQLException {
-        if (!existsTable("favorite_directories")) { // NOI18N
+    synchronized private void createFavoriteDirectoriesTable(Connection connection, Statement stmt) throws SQLException {
+        if (!existsTable(connection, "favorite_directories")) { // NOI18N
             stmt.execute("CREATE CACHED TABLE favorite_directories" + // NOI18N
                 " (" + // NOI18N
                 "id INTEGER GENERATED BY DEFAULT AS IDENTITY(START WITH 1, INCREMENT BY 1) PRIMARY KEY" + // NOI18N
