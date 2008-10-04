@@ -447,35 +447,10 @@ public class Database {
             stmt.executeUpdate();
             int idXmp = getIdXmpFromIdFile(connection, idFile);
             insertXmpDcSubjects(connection, idXmp, xmpData.getDcSubjects());
-            insertXmpDcCreators(connection, idXmp, xmpData.getDcCreators());
             insertXmpPhotoshopSupplementalcategories(connection, idXmp,
                     xmpData.getPhotoshopSupplementalCategories());
             stmt.close();
         }
-    }
-
-    private String getInsertIntoXmpStatement() {
-        return "INSERT INTO xmp " + // NOI18N
-                "(" + // NOI18N
-                "id_files" + // NOI18N
-                ", dc_description" + // NOI18N
-                ", dc_rights, dc_title" + // NOI18N
-                ", iptc4xmpcore_countrycode" + // NOI18N
-                ", iptc4xmpcore_location" + // NOI18N
-                ", photoshop_authorsposition" + // NOI18N
-                ", photoshop_captionwriter" + // NOI18N
-                ", photoshop_category" + // NOI18N
-                ", photoshop_city" + // NOI18N
-                ", photoshop_country" + // NOI18N
-                ", photoshop_credit" + // NOI18N
-                ", photoshop_headline" + // NOI18N
-                ", photoshop_instructions" + // NOI18N
-                ", photoshop_source" + // NOI18N
-                ", photoshop_state" + // NOI18N
-                ", photoshop_transmissionReference" + // NOI18N
-                ")" + // NOI18N
-                " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"; // NOI18N
-
     }
 
     private void deleteXmp(Connection connection, int idXmp) throws SQLException {
@@ -497,15 +472,6 @@ public class Database {
         }
     }
 
-    private void insertXmpDcCreators(Connection connection, int idXmp, Vector<String> dcCreators)
-            throws SQLException {
-        if (dcCreators != null) {
-            insertValues(connection,
-                    "INSERT INTO xmp_dc_creators (id_xmp, creator)", idXmp, // NOI18N
-                    dcCreators);
-        }
-    }
-
     private void insertXmpPhotoshopSupplementalcategories(Connection connection, int idXmp,
             Vector<String> photoshopSupplementalCategories)
             throws SQLException {
@@ -516,25 +482,52 @@ public class Database {
         }
     }
 
+
+    private String getInsertIntoXmpStatement() {
+        return "INSERT INTO xmp " + // NOI18N
+                "(" + // NOI18N
+                "id_files" + // NOI18N -- 1 --
+                ", dc_creator" + // NOI18N -- 2 --
+                ", dc_description" + // NOI18N -- 3 --
+                ", dc_rights" + // NOI18N -- 4 --
+                ", dc_title" + // NOI18N -- 5  --
+                ", iptc4xmpcore_countrycode" + // NOI18N -- 6 --
+                ", iptc4xmpcore_location" + // NOI18N -- 7 --
+                ", photoshop_authorsposition" + // NOI18N -- 8 --
+                ", photoshop_captionwriter" + // NOI18N -- 9 --
+                ", photoshop_category" + // NOI18N -- 10 --
+                ", photoshop_city" + // NOI18N -- 11 --
+                ", photoshop_country" + // NOI18N -- 12 --
+                ", photoshop_credit" + // NOI18N -- 13 --
+                ", photoshop_headline" + // NOI18N -- 14 --
+                ", photoshop_instructions" + // NOI18N -- 15 --
+                ", photoshop_source" + // NOI18N -- 16 --
+                ", photoshop_state" + // NOI18N -- 17 --
+                ", photoshop_transmissionReference" + // NOI18N -- 18 --
+                ")" + // NOI18N
+                " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"; // NOI18N
+
+    }
     private void setXmpValues(PreparedStatement stmt, int idFile,
             Xmp xmpData) throws SQLException {
         stmt.setInt(1, idFile);
-        stmt.setString(2, xmpData.getDcDescription());
-        stmt.setString(3, xmpData.getDcRights());
-        stmt.setString(4, xmpData.getDcTitle());
-        stmt.setString(5, xmpData.getIptc4xmpcoreCountrycode());
-        stmt.setString(6, xmpData.getIptc4xmpcoreLocation());
-        stmt.setString(7, xmpData.getPhotoshopAuthorsposition());
-        stmt.setString(8, xmpData.getPhotoshopCaptionwriter());
-        stmt.setString(9, xmpData.getPhotoshopCategory());
-        stmt.setString(10, xmpData.getPhotoshopCity());
-        stmt.setString(11, xmpData.getPhotoshopCountry());
-        stmt.setString(12, xmpData.getPhotoshopCredit());
-        stmt.setString(13, xmpData.getPhotoshopHeadline());
-        stmt.setString(14, xmpData.getPhotoshopInstructions());
-        stmt.setString(15, xmpData.getPhotoshopSource());
-        stmt.setString(16, xmpData.getPhotoshopState());
-        stmt.setString(17, xmpData.getPhotoshopTransmissionReference());
+        stmt.setString(2, xmpData.getDcCreator());
+        stmt.setString(3, xmpData.getDcDescription());
+        stmt.setString(4, xmpData.getDcRights());
+        stmt.setString(5, xmpData.getDcTitle());
+        stmt.setString(6, xmpData.getIptc4xmpcoreCountrycode());
+        stmt.setString(7, xmpData.getIptc4xmpcoreLocation());
+        stmt.setString(8, xmpData.getPhotoshopAuthorsposition());
+        stmt.setString(9, xmpData.getPhotoshopCaptionwriter());
+        stmt.setString(10, xmpData.getPhotoshopCategory());
+        stmt.setString(11, xmpData.getPhotoshopCity());
+        stmt.setString(12, xmpData.getPhotoshopCountry());
+        stmt.setString(13, xmpData.getPhotoshopCredit());
+        stmt.setString(14, xmpData.getPhotoshopHeadline());
+        stmt.setString(15, xmpData.getPhotoshopInstructions());
+        stmt.setString(16, xmpData.getPhotoshopSource());
+        stmt.setString(17, xmpData.getPhotoshopState());
+        stmt.setString(18, xmpData.getPhotoshopTransmissionReference());
     }
 
     synchronized private void updateXmp(Connection connection, int idFile, Xmp xmpData) throws SQLException {
@@ -837,6 +830,37 @@ public class Database {
         return thumbnail;
     }
 
+    private String getXmpOfFileStatement() {
+        return " SELECT" + // NOI18N
+                " dc_creator" + // NOI18N -- 1 --
+                ", xmp.dc_description" + // NOI18N -- 2 --
+                ", xmp.dc_rights" + // NOI18N -- 3 --
+                ", xmp.dc_title" + // NOI18N -- 4 --
+                ", xmp.iptc4xmpcore_countrycode" + // NOI18N -- 5 --
+                ", xmp.iptc4xmpcore_location" + // NOI18N -- 6 --
+                ", xmp.photoshop_authorsposition" + // NOI18N -- 7 --
+                ", xmp.photoshop_captionwriter" + // NOI18N -- 8 --
+                ", xmp.photoshop_category" + // NOI18N -- 9 --
+                ", xmp.photoshop_city" + // NOI18N -- 10 --
+                ", xmp.photoshop_country" + // NOI18N -- 11 --
+                ", xmp.photoshop_credit" + // NOI18N -- 12 --
+                ", xmp.photoshop_headline" + // NOI18N -- 13 --
+                ", xmp.photoshop_instructions" + // NOI18N -- 14 --
+                ", xmp.photoshop_source" + // NOI18N -- 15 --
+                ", xmp.photoshop_state" + // NOI18N -- 16 --
+                ", xmp.photoshop_transmissionReference" + // NOI18N -- 17 --
+                ", xmp_dc_subjects.subject" + // NOI18N -- 18 --
+                ", xmp_photoshop_supplementalcategories.supplementalcategory" + // NOI18N -- 19 --
+                " FROM" + // NOI18N
+                " xmp LEFT JOIN xmp_dc_subjects" + // NOI18N
+                " ON xmp.id = xmp_dc_subjects.id_xmp" + // NOI18N
+                " LEFT JOIN xmp_photoshop_supplementalcategories" + // NOI18N
+                " ON xmp.id = xmp_photoshop_supplementalcategories.id" + // NOI18N
+                " INNER JOIN files" + // NOI18N
+                " ON xmp.id_files = files.id" + // NOI18N
+                " WHERE files.filename = ?";
+    }
+
     /**
      * Liefert die XMP-Daten einer Datei.
      * 
@@ -853,29 +877,26 @@ public class Database {
             logStatement(stmt);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                xmp.setDcDescription(rs.getString(1));
-                xmp.setDcRights(rs.getString(2));
-                xmp.setDcTitle(rs.getString(3));
-                xmp.setIptc4xmpcoreCountrycode(rs.getString(4));
-                xmp.setIptc4xmpcoreLocation(rs.getString(5));
-                xmp.setPhotoshopAuthorsposition(rs.getString(6));
-                xmp.setPhotoshopCaptionwriter(rs.getString(7));
-                xmp.setPhotoshopCategory(rs.getString(8));
-                xmp.setPhotoshopCity(rs.getString(9));
-                xmp.setPhotoshopCountry(rs.getString(10));
-                xmp.setPhotoshopCredit(rs.getString(11));
-                xmp.setPhotoshopHeadline(rs.getString(12));
-                xmp.setPhotoshopInstructions(rs.getString(13));
-                xmp.setPhotoshopSource(rs.getString(14));
-                xmp.setPhotoshopState(rs.getString(15));
-                xmp.setPhotoshopTransmissionReference(rs.getString(16));
-                String value = rs.getString(17);
+                xmp.setDcCreator(rs.getString(1));
+                xmp.setDcDescription(rs.getString(2));
+                xmp.setDcRights(rs.getString(3));
+                xmp.setDcTitle(rs.getString(4));
+                xmp.setIptc4xmpcoreCountrycode(rs.getString(5));
+                xmp.setIptc4xmpcoreLocation(rs.getString(6));
+                xmp.setPhotoshopAuthorsposition(rs.getString(7));
+                xmp.setPhotoshopCaptionwriter(rs.getString(8));
+                xmp.setPhotoshopCategory(rs.getString(9));
+                xmp.setPhotoshopCity(rs.getString(10));
+                xmp.setPhotoshopCountry(rs.getString(11));
+                xmp.setPhotoshopCredit(rs.getString(12));
+                xmp.setPhotoshopHeadline(rs.getString(13));
+                xmp.setPhotoshopInstructions(rs.getString(14));
+                xmp.setPhotoshopSource(rs.getString(15));
+                xmp.setPhotoshopState(rs.getString(16));
+                xmp.setPhotoshopTransmissionReference(rs.getString(17));
+                String value = rs.getString(18);
                 if (value != null) {
                     xmp.addDcSubject(value);
-                }
-                value = rs.getString(18);
-                if (value != null) {
-                    xmp.addDcCreator(value);
                 }
                 value = rs.getString(19);
                 if (value != null) {
@@ -889,39 +910,6 @@ public class Database {
             free(connection);
         }
         return xmp;
-    }
-
-    private String getXmpOfFileStatement() {
-        return " SELECT" + // NOI18N
-                " xmp.dc_description" + // NOI18N -- 1 --
-                ", xmp.dc_rights" + // NOI18N -- 2 --
-                ", xmp.dc_title" + // NOI18N -- 3 --
-                ", xmp.iptc4xmpcore_countrycode" + // NOI18N -- 4 --
-                ", xmp.iptc4xmpcore_location" + // NOI18N -- 5 --
-                ", xmp.photoshop_authorsposition" + // NOI18N -- 6 --
-                ", xmp.photoshop_captionwriter" + // NOI18N -- 7 --
-                ", xmp.photoshop_category" + // NOI18N -- 8 --
-                ", xmp.photoshop_city" + // NOI18N -- 9 --
-                ", xmp.photoshop_country" + // NOI18N -- 10 --
-                ", xmp.photoshop_credit" + // NOI18N -- 11 --
-                ", xmp.photoshop_headline" + // NOI18N -- 12 --
-                ", xmp.photoshop_instructions" + // NOI18N -- 13 --
-                ", xmp.photoshop_source" + // NOI18N -- 14 --
-                ", xmp.photoshop_state" + // NOI18N -- 15 --
-                ", xmp.photoshop_transmissionReference" + // NOI18N -- 16 --
-                ", xmp_dc_subjects.subject" + // NOI18N -- 17 --
-                ", xmp_dc_creators.creator" + // NOI18N -- 18 --
-                ", xmp_photoshop_supplementalcategories.supplementalcategory" + // NOI18N -- 19 --
-                " FROM" + // NOI18N
-                " xmp LEFT JOIN xmp_dc_subjects" + // NOI18N
-                " ON xmp.id = xmp_dc_subjects.id_xmp" + // NOI18N
-                " LEFT JOIN xmp_dc_creators" + // NOI18N
-                " ON xmp.id = xmp_dc_creators.id_xmp" + // NOI18N
-                " LEFT JOIN xmp_photoshop_supplementalcategories" + // NOI18N
-                " ON xmp.id = xmp_photoshop_supplementalcategories.id" + // NOI18N
-                " INNER JOIN files" + // NOI18N
-                " ON xmp.id_files = files.id" + // NOI18N
-                " WHERE files.filename = ?";
     }
 
     /**
@@ -1712,7 +1700,7 @@ public class Database {
                     ", photoshopCategory" + // NOI18N
                     ", photoshopSupplementalCategories" + // NOI18N
                     ", dcRights" + // NOI18N
-                    ", dcCreators" + // NOI18N
+                    ", dcCreator" + // NOI18N
                     ", photoshopAuthorsposition" + // NOI18N
                     ", photoshopCity" + // NOI18N
                     ", photoshopState" + // NOI18N
@@ -1756,7 +1744,7 @@ public class Database {
         stmt.setBytes(9, template.getPhotoshopCategory() == null ? null : template.getPhotoshopCategory().getBytes());
         stmt.setBytes(10, template.getPhotoshopSupplementalCategories() == null ? null : template.getPhotoshopSupplementalCategories().getBytes());
         stmt.setBytes(11, template.getDcRights() == null ? null : template.getDcRights().getBytes());
-        stmt.setBytes(12, template.getDcCreators() == null ? null : template.getDcCreators().getBytes());
+        stmt.setBytes(12, template.getDcCreator() == null ? null : template.getDcCreator().getBytes());
         stmt.setBytes(13, template.getPhotoshopAuthorsposition() == null ? null : template.getPhotoshopAuthorsposition().getBytes());
         stmt.setBytes(14, template.getPhotoshopCity() == null ? null : template.getPhotoshopCity().getBytes());
         stmt.setBytes(15, template.getPhotoshopState() == null ? null : template.getPhotoshopState().getBytes());
@@ -1791,7 +1779,7 @@ public class Database {
                     ", photoshopCategory" + // NOI18N 
                     ", photoshopSupplementalCategories" + // NOI18N 
                     ", dcRights" + // NOI18N 
-                    ", dcCreators" + // NOI18N 
+                    ", dcCreator" + // NOI18N 
                     ", photoshopAuthorsposition" + // NOI18N 
                     ", photoshopCity" + // NOI18N 
                     ", photoshopState" + // NOI18N 
@@ -1816,7 +1804,7 @@ public class Database {
                 template.setPhotoshopCategory(new String(rs.getBytes(9)));
                 template.setPhotoshopSupplementalCategories(new String(rs.getBytes(10)));
                 template.setDcRights(new String(rs.getBytes(11)));
-                template.setDcCreators(new String(rs.getBytes(12)));
+                template.setDcCreator(new String(rs.getBytes(12)));
                 template.setPhotoshopAuthorsposition(new String(rs.getBytes(13)));
                 template.setPhotoshopCity(new String(rs.getBytes(14)));
                 template.setPhotoshopState(new String(rs.getBytes(15)));
@@ -1861,7 +1849,7 @@ public class Database {
                     ", photoshopCategory = ?" + // NOI18N
                     ", photoshopSupplementalCategories = ?" + // NOI18N
                     ", dcRights = ?" + // NOI18N
-                    ", dcCreators = ?" + // NOI18N
+                    ", dcCreator = ?" + // NOI18N
                     ", photoshopAuthorsposition = ?" + // NOI18N
                     ", photoshopCity = ?" + // NOI18N
                     ", photoshopState = ?" + // NOI18N
@@ -2933,6 +2921,7 @@ public class Database {
                     " (" + // NOI18N
                     "id INTEGER GENERATED BY DEFAULT AS IDENTITY(START WITH 1, INCREMENT BY 1) PRIMARY KEY" + // NOI18N
                     ", id_files INTEGER NOT NULL" + // NOI18N
+                    ", dc_creator VARCHAR(128)" + // NOI18N
                     ", dc_description VARCHAR_IGNORECASE(2000)" + // NOI18N
                     ", dc_rights VARCHAR_IGNORECASE(128)" + // NOI18N
                     ", dc_title VARCHAR_IGNORECASE(64)" + // NOI18N
@@ -3034,25 +3023,6 @@ public class Database {
             stmt.execute(
                     "CREATE INDEX idx_xmp_dc_subjects_subject" + // NOI18N
                     " ON xmp_dc_subjects (subject)"); // NOI18N
-
-        }
-        if (!existsTable(connection, "xmp_dc_creators")) { // NOI18N
-
-            stmt.execute("CREATE CACHED TABLE xmp_dc_creators" + // NOI18N
-                    " (" + // NOI18N
-                    "id INTEGER GENERATED BY DEFAULT AS IDENTITY(START WITH 1, INCREMENT BY 1) PRIMARY KEY" + // NOI18N
-                    ", id_xmp INTEGER NOT NULL" + // NOI18N
-                    ", creator VARCHAR_IGNORECASE(32)" + // NOI18N
-                    ", FOREIGN KEY (id_xmp) REFERENCES xmp (id) ON DELETE CASCADE" + // NOI18N
-                    ");"); // NOI18N
-
-            stmt.execute(
-                    "CREATE INDEX idx_xmp_dc_creators_id_xmp" + // NOI18N
-                    " ON xmp_dc_creators (id_xmp)"); // NOI18N
-
-            stmt.execute(
-                    "CREATE INDEX idx_xmp_xmp_dc_creators_creator" + // NOI18N
-                    " ON xmp_dc_creators (creator)"); // NOI18N
 
         }
         if (!existsTable(connection, "xmp_photoshop_supplementalcategories")) { // NOI18N
@@ -3237,7 +3207,7 @@ public class Database {
                     ", photoshopCategory BINARY" + // NOI18N
                     ", photoshopSupplementalCategories BINARY" + // NOI18N
                     ", dcRights BINARY" + // NOI18N
-                    ", dcCreators BINARY" + // NOI18N
+                    ", dcCreator BINARY" + // NOI18N
                     ", photoshopAuthorsposition BINARY" + // NOI18N
                     ", photoshopCity BINARY" + // NOI18N
                     ", photoshopState BINARY" + // NOI18N
