@@ -69,7 +69,7 @@ public class DatabaseMaintainanceDialog extends javax.swing.JDialog implements
     }
 
     private void setTotalRecordCount() {
-        labelDatabaseTotalRecordCount.setText(Integer.toString(db.getTotalRecordCount()));
+        labelDatabaseTotalRecordCount.setText(Long.toString(db.getTotalRecordCount()));
     }
 
     private void setEnabledButtonStartMaintain() {
