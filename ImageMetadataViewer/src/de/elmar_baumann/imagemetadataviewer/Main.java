@@ -47,9 +47,9 @@ public class Main {
         LookAndFeelUtil.setSystemLookAndFeel();
         PersistentSettings.getInstance().setAppName("ImageMetaDataViewer");  // NOI18N
         Settings.getInstance().setIconImagesPath(AppSettings.getAppIconPaths());
-        initLogger();
         SplashScreen.setMessageToSplashScreen(Bundle.getString("Main.Init.InformationMessage.SplashScreen.ConnectToDatabase"));
         Database.getInstance().createTables();
+        initLogger();
         AbstractImageReader.install(ImageProperties.class);
     }
 
