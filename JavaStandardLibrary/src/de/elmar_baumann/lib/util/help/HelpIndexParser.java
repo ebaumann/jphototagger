@@ -28,46 +28,47 @@ import org.xml.sax.SAXParseException;
 public class HelpIndexParser {
 
     /**
-     * Reads the index file from an input stream and returns an help index.
+     * Reads the index file from an input stream and returns an the root node of
+     * the index tree structure.
      * 
      * @param  is  input stream
-     * @return help index or null when errors occured
+     * @return help root node of the index or null when errors occured
      */
-    public static HelpIndex parse(InputStream is) {
-        HelpIndex helpIndex = null;
+    public static HelpNode parse(InputStream is) {
+        HelpNode rootNode = null;
         try {
             DocumentBuilderFactory factory = getDocBuilderFactory();
             DocumentBuilder docBuilder = getDocBuilder(factory);
             Document document = docBuilder.parse(is);
             document.getDocumentElement().normalize();
-            helpIndex = getHelpIndex(document);
+            rootNode = getTree(document);
         } catch (SAXException ex) {
-            Logger.getLogger(HelpIndex.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(HelpIndexParser.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-            Logger.getLogger(HelpIndex.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(HelpIndexParser.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ParserConfigurationException ex) {
-            Logger.getLogger(HelpIndex.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(HelpIndexParser.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return helpIndex;
+        return rootNode;
     }
 
-    private static HelpIndex getHelpIndex(Document document) throws DOMException {
-        HelpIndex helpIndex = new HelpIndex();
+    private static HelpNode getTree(Document document) throws DOMException {
+        HelpNode rootNode = new HelpNode();
         NodeList docNodes = document.getElementsByTagName("helpindex").item(0).getChildNodes();
         int length = docNodes.getLength();
         for (int i = 0; i < length; i++) {
             Node node = docNodes.item(i);
             String nodeName = node.getNodeName();
             if (nodeName.equals("node")) {
-                parseNode((Element)node, helpIndex);
+                parseNode((Element)node, rootNode);
             } else if (nodeName.equals("page")) {
-                helpIndex.addPage(getPage((Element)node));
+                rootNode.addPage(getPage((Element)node));
             }
         }
-        return helpIndex;
+        return rootNode;
     }
 
-    private static void parseNode(Element section, HelpIndex helpIndex) {
+    private static void parseNode(Element section, HelpNode rootNode) {
         HelpNode helpNode = new HelpNode();
         NodeList title = section.getElementsByTagName("title");
         helpNode.setTitle(title.item(0).getFirstChild().getNodeValue().trim());
@@ -75,12 +76,12 @@ public class HelpIndexParser {
         int length = nodes.getLength();
         for (int i = 0; i < length; i++) {
             if (nodes.item(i).getNodeName().equals("section")) {
-                parseNode((Element)nodes.item(i), helpIndex);
+                parseNode((Element)nodes.item(i), rootNode);
             } else if (nodes.item(i).getNodeName().equals("page")) {
                 helpNode.addPage(getPage((Element)nodes.item(i)));
             }
         }
-        helpIndex.addNode(helpNode);
+        rootNode.addNode(helpNode);
     }
 
     private static HelpPage getPage(Element page) throws DOMException {

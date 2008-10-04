@@ -1,5 +1,7 @@
 package de.elmar_baumann.lib.util.help;
 
+import java.util.Collections;
+import java.util.Stack;
 import java.util.Vector;
 
 /**
@@ -13,6 +15,7 @@ public class HelpNode {
 
     private String title;
     private Vector<Object> children = new Vector<Object>();
+    private HelpNode parent;
 
     /**
      * Rerturns the chapter's title.
@@ -38,6 +41,7 @@ public class HelpNode {
      * @param page help page
      */
     public void addPage(HelpPage page) {
+        page.setParent(this);
         children.add(page);
     }
 
@@ -47,6 +51,7 @@ public class HelpNode {
      * @param chapter chapter
      */
     public void addNode(HelpNode chapter) {
+        chapter.parent = this;
         children.add(chapter);
     }
 
@@ -79,5 +84,53 @@ public class HelpNode {
      */
     public int getIndexOfChild(Object child) {
         return children.indexOf(child);
+    }
+
+    /**
+     * Returns the parent node.
+     * 
+     * @return parent or null if the node is the root node
+     */
+    public HelpNode getParent() {
+        return parent;
+    }
+
+    /**
+     * Returns the path of a help page with an specific URI.
+     * 
+     * @param  uri URI
+     * @return path or null if a page with the URI doesn't exist
+     */
+    public Object[] getPagePath(String uri) {
+        Vector<Object> found = new Vector<Object>();
+        findPath(uri, found);
+        return found.size() > 0 ? found.toArray() : null;
+    }
+
+    private void findPath(String uri, Vector<Object> found) {
+        int size = children.size();
+        for (int i = 0; found.size() <= 0 && i < size; i++) {
+            Object child = children.get(i);
+            if (child instanceof HelpPage) {
+                HelpPage helpPage = (HelpPage) child;
+                if (helpPage.getUri().equals(uri)) {
+                    found.addAll(getPagePath(helpPage));
+                }
+            } else if (child instanceof HelpNode) {
+                ((HelpNode) child).findPath(uri, found);
+            }
+        }
+    }
+
+    private Stack<Object> getPagePath(HelpPage helpPage) {
+        Stack<Object> path = new Stack<Object>();
+        path.push(helpPage);
+        HelpNode p = helpPage.getParent();
+        while (p != null) {
+            path.push(p);
+            p = p.parent;
+        }
+        Collections.reverse(path);
+        return path;
     }
 }

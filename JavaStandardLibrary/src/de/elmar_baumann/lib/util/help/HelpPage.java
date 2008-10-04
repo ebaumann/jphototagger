@@ -10,6 +10,7 @@ public class HelpPage {
     
     private String uri;
     private String title;
+    private HelpNode parent;
 
     /**
      * Returns the title of the help page.
@@ -46,4 +47,23 @@ public class HelpPage {
     public void setUri(String uri) {
         this.uri = uri;
     }
+
+    /**
+     * Returns the parent node.
+     * 
+     * @return parent node
+     */
+    public HelpNode getParent() {
+        return parent;
+    }
+
+    /**
+     * Sets the parent node.
+     * 
+     * @param parent  parent
+     */
+    void setParent(HelpNode parent) {
+        this.parent = parent;
+    }
+    
 }
