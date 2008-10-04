@@ -54,12 +54,12 @@ public class TotalRecordCountListener implements DatabaseListener {
     @Override
     public void actionPerformed(DatabaseAction action) {
         if (listen) {
-            int count = db.getTotalRecordCount();
+            long count = db.getTotalRecordCount();
             setLabels(count);
         }
     }
 
-    private void setLabels(Integer count) {
+    private void setLabels(Long count) {
         for (JLabel label : labels) {
             label.setText(count.toString());
         }
