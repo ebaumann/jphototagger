@@ -20,7 +20,7 @@ public class ColumnExifId extends Column {
         super(
             TableExif.getInstance(),
             "id", // NOI18N
-            DataType.integer);
+            DataType.Bigint);
 
         setIsPrimaryKey(true);
     }

@@ -22,7 +22,7 @@ public class ColumnXmpIptc4xmpcoreCountrycode extends Column {
         super(
             TableXmp.getInstance(),
             "iptc4xmpcore_countrycode", // NOI18N
-            DataType.string);
+            DataType.String);
 
         setLength(3);
         setDescription(Bundle.getString("ColumnXmpIptc4xmpcoreCountrycode.Description"));

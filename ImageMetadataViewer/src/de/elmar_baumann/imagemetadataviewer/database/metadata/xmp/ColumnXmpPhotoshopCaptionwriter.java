@@ -22,7 +22,7 @@ public class ColumnXmpPhotoshopCaptionwriter extends Column {
         super(
             TableXmp.getInstance(),
             "photoshop_captionwriter", // NOI18N
-            DataType.string);
+            DataType.String);
 
         setLength(32);
         setDescription(Bundle.getString("ColumnXmpPhotoshopCaptionwriter.Description"));

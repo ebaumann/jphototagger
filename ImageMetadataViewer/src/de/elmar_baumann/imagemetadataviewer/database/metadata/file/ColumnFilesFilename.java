@@ -22,7 +22,7 @@ public class ColumnFilesFilename extends Column {
         super(
             TableFiles.getInstance(),
             "filename", // NOI18N
-            DataType.string);
+            DataType.String);
 
         setLength(512);
         setDescription(Bundle.getString("ColumnFilesFilename.Description"));

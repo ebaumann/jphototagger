@@ -22,7 +22,7 @@ public class ColumnFilesThumbnail extends Column {
         super(
             TableFiles.getInstance(),
             "thumbnail", // NOI18N
-            DataType.binary);
+            DataType.Binary);
 
         setDescription(Bundle.getString("ColumnFilesThumbnail.Description"));
     }

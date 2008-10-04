@@ -25,7 +25,7 @@ public class ColumnExifIsoSpeedRatings extends Column {
         super(
             TableExif.getInstance(),
             "exif_iso_speed_ratings", // NOI18N
-            DataType.smallint);
+            DataType.Smallint);
 
         setDescription(Bundle.getString("ColumnExifIsoSpeedRatings.Description"));
     }

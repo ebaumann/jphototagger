@@ -21,7 +21,7 @@ public class ColumnSavedSearchesName extends Column {
         super(
             TableSavedSearches.getInstance(),
             "name", // NOI18N
-            DataType.string);
+            DataType.String);
 
         setLength(32);
         setDescription(Bundle.getString("ColumnSavedSearchesName.Description"));

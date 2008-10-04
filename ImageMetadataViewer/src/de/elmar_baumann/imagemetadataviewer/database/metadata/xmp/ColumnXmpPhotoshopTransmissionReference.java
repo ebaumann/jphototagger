@@ -22,7 +22,7 @@ public class ColumnXmpPhotoshopTransmissionReference extends Column {
         super(
             TableXmp.getInstance(),
             "photoshop_transmissionReference", // NOI18N
-            DataType.string);
+            DataType.String);
 
         setLength(32);
         setDescription(Bundle.getString("ColumnXmpPhotoshopTransmissionReference.Description"));

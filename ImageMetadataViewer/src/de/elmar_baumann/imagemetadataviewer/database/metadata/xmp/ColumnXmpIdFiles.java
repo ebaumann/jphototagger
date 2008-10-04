@@ -21,7 +21,7 @@ public class ColumnXmpIdFiles extends Column {
         super(
             TableXmp.getInstance(),
             "id_files", // NOI18N
-            DataType.integer);
+            DataType.Bigint);
 
         setIsUnique(true);
         setCanBeNull(false);

@@ -20,7 +20,7 @@ public class ColumnXmpDcSubjectsIdXmp extends Column {
         super(
             TableXmpDcSubjects.getInstance(),
             "id_xmp", // NOI18N
-            DataType.integer);
+            DataType.Bigint);
 
         setCanBeNull(false);
         setReferences(ColumnXmpId.getInstance());

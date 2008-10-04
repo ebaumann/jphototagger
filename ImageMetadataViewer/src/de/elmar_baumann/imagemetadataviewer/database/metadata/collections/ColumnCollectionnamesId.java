@@ -21,7 +21,7 @@ public class ColumnCollectionnamesId extends Column {
         super(
             TableCollectionNames.getInstance(),
             "id", // NOI18N
-            DataType.integer);
+            DataType.Bigint);
 
         setIsPrimaryKey(true);
     }

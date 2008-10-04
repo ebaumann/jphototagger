@@ -22,7 +22,7 @@ public class ColumnXmpPhotoshopCategory extends Column {
         super(
             TableXmp.getInstance(),
             "photoshop_category", // NOI18N
-            DataType.string);
+            DataType.String);
 
         setLength(128);
         setDescription(Bundle.getString("ColumnXmpPhotoshopCategory.Description"));

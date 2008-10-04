@@ -22,7 +22,7 @@ public class ColumnCollectionnamesName extends Column {
         super(
             TableCollectionNames.getInstance(),
             "name", // NOI18N
-            DataType.integer);
+            DataType.Integer);
 
         setDescription(Bundle.getString("ColumnCollectionnamesName.Description"));
     }

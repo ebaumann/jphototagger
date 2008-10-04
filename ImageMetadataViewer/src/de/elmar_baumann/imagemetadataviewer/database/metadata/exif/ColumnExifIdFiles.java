@@ -21,7 +21,7 @@ public class ColumnExifIdFiles extends Column {
         super(
             TableExif.getInstance(),
             "id_files", // NOI18N
-            DataType.integer);
+            DataType.Bigint);
 
         setIsUnique(true);
         setCanBeNull(false);

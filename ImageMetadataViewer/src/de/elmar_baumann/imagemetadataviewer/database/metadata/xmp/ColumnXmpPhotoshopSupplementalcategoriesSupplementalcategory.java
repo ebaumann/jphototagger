@@ -24,7 +24,7 @@ public class ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory
         super(
             TableXmpPhotoshopSupplementalCategories.getInstance(),
             "supplementalcategory", // NOI18N
-            DataType.string);
+            DataType.String);
 
         setLength(32);
         setDescription(Bundle.getString("ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory.Description"));

@@ -20,7 +20,7 @@ public class ColumnXmpId extends Column {
         super(
             TableXmp.getInstance(),
             "id", // NOI18N
-            DataType.integer);
+            DataType.Bigint);
 
         setIsPrimaryKey(true);
     }

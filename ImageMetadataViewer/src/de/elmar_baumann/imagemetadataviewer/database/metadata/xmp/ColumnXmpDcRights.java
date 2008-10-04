@@ -22,7 +22,7 @@ public class ColumnXmpDcRights extends Column {
         super(
             TableXmp.getInstance(),
             "dc_rights", // NOI18N
-            DataType.string);
+            DataType.String);
 
         setLength(128);
         setDescription(Bundle.getString("ColumnXmpDcRights.Description"));

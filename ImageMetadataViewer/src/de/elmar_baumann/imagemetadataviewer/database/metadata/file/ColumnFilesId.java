@@ -20,7 +20,7 @@ public class ColumnFilesId extends Column {
         super(
             TableFiles.getInstance(),
             "id", // NOI18N
-            DataType.integer);
+            DataType.Bigint);
 
         setIsPrimaryKey(true);
     }

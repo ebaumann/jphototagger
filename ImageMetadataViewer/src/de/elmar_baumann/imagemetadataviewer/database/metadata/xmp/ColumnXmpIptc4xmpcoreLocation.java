@@ -22,7 +22,7 @@ public class ColumnXmpIptc4xmpcoreLocation extends Column {
         super(
             TableXmp.getInstance(),
             "iptc4xmpcore_location", // NOI18N
-            DataType.string);
+            DataType.String);
 
         setLength(64);
         setDescription(Bundle.getString("ColumnXmpIptc4xmpcoreLocation.Description"));

@@ -22,7 +22,7 @@ public class ColumnCollectionsSequenceNumber extends Column {
         super(
             TableCollections.getInstance(),
             "sequence_number", // NOI18N
-            DataType.integer);
+            DataType.Integer);
 
         setDescription(Bundle.getString("ColumnCollectionsSequenceNumber.Description"));
     }

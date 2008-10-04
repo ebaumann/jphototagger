@@ -26,7 +26,7 @@ public class ColumnExifRecordingEquipment extends Column {
         super(
             TableExif.getInstance(),
             "exif_recording_equipment", // NOI18N
-            DataType.string);
+            DataType.String);
 
         setLength(125);
         setDescription(Bundle.getString("ColumnExifRecordingEquipment.Description"));

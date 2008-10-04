@@ -27,17 +27,19 @@ public class Column {
     public enum DataType {
 
         /** Binärdaten, Java-Typ: byte[] */
-        binary,
+        Binary,
         /** Datum, Java-Typ: java.sql.Date */
-        date,
+        Date,
         /** Ganzzahl, Java-Typ: int */
-        integer,
+        Integer,
+        /** Java-Typ: long */
+        Bigint,
         /** Realzahl, Java-Typ: double */
-        real,
+        Real,
         /** kleine Ganzzahl, Java-Typ: short */
-        smallint,
+        Smallint,
         /** Zeichenkette variabler Länge, Java-Typ: java.lang.String */
-        string
+        String
     };
 
     /**

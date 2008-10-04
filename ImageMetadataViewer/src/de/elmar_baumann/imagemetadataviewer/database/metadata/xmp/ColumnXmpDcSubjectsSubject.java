@@ -22,9 +22,9 @@ public class ColumnXmpDcSubjectsSubject extends Column {
         super(
             TableXmpDcSubjects.getInstance(),
             "subject", // NOI18N
-            DataType.string);
+            DataType.String);
 
-        setLength(64);
+        setLength(128);
         setDescription(Bundle.getString("ColumnXmpDcSubjectsSubject.Description"));
     }
 }
