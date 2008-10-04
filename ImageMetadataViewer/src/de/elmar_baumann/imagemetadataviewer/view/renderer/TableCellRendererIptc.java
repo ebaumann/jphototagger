@@ -1,6 +1,5 @@
 package de.elmar_baumann.imagemetadataviewer.view.renderer;
 
-import de.elmar_baumann.imagemetadataviewer.database.metadata.selections.IptcInDatabase;
 import de.elmar_baumann.imagemetadataviewer.image.metadata.iptc.IptcEntry;
 import de.elmar_baumann.imagemetadataviewer.resource.Translation;
 import java.awt.Component;
@@ -19,7 +18,6 @@ public class TableCellRendererIptc extends TableCellRendererMetadata
     implements TableCellRenderer {
 
     private static final Translation translation = new Translation("IptcRecordDataSetNumberTranslations"); // NOI18N
-    private static final IptcInDatabase iptcInDatabase = IptcInDatabase.getInstance();
 
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value,
@@ -29,7 +27,6 @@ public class TableCellRendererIptc extends TableCellRendererMetadata
         IptcEntry iptcEntry = (IptcEntry) value;
 
         setDefaultCellColors(cellLabel, isSelected);
-        setIsStoredInDatabaseColor(cellLabel, iptcEntry);
 
         String number =
             Integer.toString(iptcEntry.getRecordNumber()) + ":" + // NOI18N
@@ -46,11 +43,5 @@ public class TableCellRendererIptc extends TableCellRendererMetadata
             cellLabel.setText(paddingLeft + iptcEntry.getData());
         }
         return cellLabel;
-    }
-
-    private void setIsStoredInDatabaseColor(JLabel cellLabel, IptcEntry iptcEntry) {
-        if (iptcInDatabase.isInDatabase(iptcEntry.getEntry().getEntryMeta())) {
-            setIsStoredInDatabaseColors(cellLabel);
-        }
     }
 }
