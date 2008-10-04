@@ -22,6 +22,7 @@ import de.elmar_baumann.imagemetadataviewer.database.metadata.xmp.ColumnXmpPhoto
 import de.elmar_baumann.imagemetadataviewer.database.metadata.xmp.ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory;
 import de.elmar_baumann.imagemetadataviewer.database.metadata.xmp.ColumnXmpPhotoshopTransmissionReference;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Set;
 
 /**
@@ -32,70 +33,53 @@ import java.util.Set;
  */
 public class EditColumns {
 
-    private static HashMap<Column, EditHints> editHintsForColumn = new HashMap<Column, EditHints>();
+    private static LinkedHashMap<Column, EditHints> editHintsForColumn = new LinkedHashMap<Column, EditHints>();
     private static EditColumns instance = new EditColumns();
     
 
     static {
-        EditHints notRepeatableHint = new EditHints(false, SizeEditField.small);
+        EditHints notRepeatableHintSmall = new EditHints(false, SizeEditField.small);
+        EditHints notRepeatableHintLarge = new EditHints(false, SizeEditField.large);
         EditHints repeatableHint = new EditHints(true, SizeEditField.large);
+        // Remain order! Database.insertMetaDataEditTemplate() a.o. depends on it
         editHintsForColumn.put(
-            ColumnXmpDcCreator.getInstance(),
-            notRepeatableHint);
+            ColumnXmpDcSubjectsSubject.getInstance(), repeatableHint);
         editHintsForColumn.put(
-            ColumnXmpDcDescription.getInstance(),
-            notRepeatableHint);
+            ColumnXmpDcTitle.getInstance(), notRepeatableHintSmall);
         editHintsForColumn.put(
-            ColumnXmpDcRights.getInstance(),
-            notRepeatableHint);
+            ColumnXmpPhotoshopHeadline.getInstance(), notRepeatableHintSmall);
         editHintsForColumn.put(
-            ColumnXmpDcSubjectsSubject.getInstance(),
-            repeatableHint);
+            ColumnXmpDcDescription.getInstance(), notRepeatableHintLarge);
         editHintsForColumn.put(
-            ColumnXmpDcTitle.getInstance(),
-            notRepeatableHint);
+            ColumnXmpPhotoshopCaptionwriter.getInstance(), notRepeatableHintSmall);
         editHintsForColumn.put(
-            ColumnXmpIptc4xmpcoreCountrycode.getInstance(),
-            notRepeatableHint);
+            ColumnXmpIptc4xmpcoreLocation.getInstance(), notRepeatableHintSmall);
         editHintsForColumn.put(
-            ColumnXmpIptc4xmpcoreLocation.getInstance(),
-            notRepeatableHint);
+            ColumnXmpIptc4xmpcoreCountrycode.getInstance(), notRepeatableHintSmall);
         editHintsForColumn.put(
-            ColumnXmpPhotoshopAuthorsposition.getInstance(),
-            notRepeatableHint);
+            ColumnXmpPhotoshopCategory.getInstance(), notRepeatableHintSmall);
         editHintsForColumn.put(
-            ColumnXmpPhotoshopCaptionwriter.getInstance(),
-            notRepeatableHint);
+            ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory.getInstance(), repeatableHint);
         editHintsForColumn.put(
-            ColumnXmpPhotoshopCategory.getInstance(),
-            notRepeatableHint);
+            ColumnXmpDcRights.getInstance(), notRepeatableHintSmall);
         editHintsForColumn.put(
-            ColumnXmpPhotoshopCity.getInstance(),
-            notRepeatableHint);
+            ColumnXmpDcCreator.getInstance(), notRepeatableHintSmall);
         editHintsForColumn.put(
-            ColumnXmpPhotoshopCountry.getInstance(),
-            notRepeatableHint);
+            ColumnXmpPhotoshopAuthorsposition.getInstance(), notRepeatableHintSmall);
         editHintsForColumn.put(
-            ColumnXmpPhotoshopCredit.getInstance(),
-            notRepeatableHint);
+            ColumnXmpPhotoshopCity.getInstance(), notRepeatableHintSmall);
         editHintsForColumn.put(
-            ColumnXmpPhotoshopHeadline.getInstance(),
-            notRepeatableHint);
+            ColumnXmpPhotoshopState.getInstance(), notRepeatableHintSmall);
         editHintsForColumn.put(
-            ColumnXmpPhotoshopInstructions.getInstance(),
-            notRepeatableHint);
+            ColumnXmpPhotoshopCountry.getInstance(), notRepeatableHintSmall);
         editHintsForColumn.put(
-            ColumnXmpPhotoshopSource.getInstance(),
-            notRepeatableHint);
+            ColumnXmpPhotoshopTransmissionReference.getInstance(), notRepeatableHintSmall);
         editHintsForColumn.put(
-            ColumnXmpPhotoshopState.getInstance(),
-            notRepeatableHint);
+            ColumnXmpPhotoshopInstructions.getInstance(), notRepeatableHintSmall);
         editHintsForColumn.put(
-            ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory.getInstance(),
-            repeatableHint);
+            ColumnXmpPhotoshopCredit.getInstance(), notRepeatableHintSmall);
         editHintsForColumn.put(
-            ColumnXmpPhotoshopTransmissionReference.getInstance(),
-            notRepeatableHint);
+            ColumnXmpPhotoshopSource.getInstance(), notRepeatableHintSmall);
     }
 
     public static EditColumns getInstance() {

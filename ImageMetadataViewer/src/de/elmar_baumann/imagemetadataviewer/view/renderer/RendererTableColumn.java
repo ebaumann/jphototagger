@@ -30,6 +30,22 @@ public class RendererTableColumn {
             }
         }
     }
+    
+    /**
+     * Removes from column descriptions which have the standard definition
+     * at the end of the description in "[" brackets.
+     * 
+     * @param  column  column
+     * @return Description without " [.*"
+     */
+    public static String getDescriptionWithoutDefinition(Column column) {
+        String description = column.getDescription();
+        int index = description.indexOf(" [");
+        if (index > 0) {
+            return description.substring(0, index);
+        }
+        return description;
+    }
 
     /**
      * Setzt Icon und Text eines Labels, das eine Tabellenspalte darstellt.

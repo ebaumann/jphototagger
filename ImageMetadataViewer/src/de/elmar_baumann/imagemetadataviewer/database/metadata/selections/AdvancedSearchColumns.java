@@ -2,6 +2,7 @@ package de.elmar_baumann.imagemetadataviewer.database.metadata.selections;
 
 import de.elmar_baumann.imagemetadataviewer.database.metadata.Column;
 import de.elmar_baumann.imagemetadataviewer.database.metadata.Table;
+import de.elmar_baumann.imagemetadataviewer.database.metadata.collections.ColumnCollectionsSequenceNumber;
 import de.elmar_baumann.imagemetadataviewer.database.metadata.file.ColumnFilesLastModified;
 import de.elmar_baumann.imagemetadataviewer.database.metadata.file.ColumnFilesThumbnail;
 import java.util.Vector;
@@ -22,6 +23,7 @@ public class AdvancedSearchColumns {
     static {
         excludeColumns.add(ColumnFilesLastModified.getInstance());
         excludeColumns.add(ColumnFilesThumbnail.getInstance());
+        excludeColumns.add(ColumnCollectionsSequenceNumber.getInstance());
 
         Vector<Table> tables = AllTables.get();
         for (Table table : tables) {

@@ -5,6 +5,7 @@ import de.elmar_baumann.imagemetadataviewer.data.AutoCompleteData;
 import de.elmar_baumann.imagemetadataviewer.data.TextEntry;
 import de.elmar_baumann.imagemetadataviewer.database.metadata.Column;
 import de.elmar_baumann.imagemetadataviewer.resource.Bundle;
+import de.elmar_baumann.imagemetadataviewer.view.renderer.RendererTableColumn;
 import de.elmar_baumann.lib.thirdparty.neil_cochrane.CompleterTextField;
 import java.util.LinkedHashSet;
 import javax.swing.JTextField;
@@ -50,8 +51,7 @@ public class TextEntryEditFieldPanel extends javax.swing.JPanel
     }
 
     private void setPropmt() {
-        // TODO: [...] weg
-        labelPrompt.setText(xmpColumn.getDescription());
+        labelPrompt.setText(RendererTableColumn.getDescriptionWithoutDefinition(xmpColumn));
     }
 
     @Override
