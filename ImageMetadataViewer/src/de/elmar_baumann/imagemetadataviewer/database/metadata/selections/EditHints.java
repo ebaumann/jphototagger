@@ -6,7 +6,7 @@ package de.elmar_baumann.imagemetadataviewer.database.metadata.selections;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/18
  */
-public class EditColumnHints {
+public class EditHints {
 
     /**
      * Vorschlag: Größe des Editierfelds.
@@ -35,7 +35,7 @@ public class EditColumnHints {
      * @param repeatable     true, wenn der Spaltenwert sich wiederholt
      * @param sizeEditField  Größenvorschlag
      */
-    public EditColumnHints(boolean repeatable, SizeEditField sizeEditField) {
+    public EditHints(boolean repeatable, SizeEditField sizeEditField) {
         this.repeatable = repeatable;
         this.sizeEditField = sizeEditField;
     }

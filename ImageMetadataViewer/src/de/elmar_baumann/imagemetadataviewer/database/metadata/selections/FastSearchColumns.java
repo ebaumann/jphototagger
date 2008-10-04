@@ -5,14 +5,6 @@ import de.elmar_baumann.imagemetadataviewer.database.metadata.exif.ColumnExifFoc
 import de.elmar_baumann.imagemetadataviewer.database.metadata.exif.ColumnExifIsoSpeedRatings;
 import de.elmar_baumann.imagemetadataviewer.database.metadata.exif.ColumnExifRecordingEquipment;
 import de.elmar_baumann.imagemetadataviewer.database.metadata.file.ColumnFilesFilename;
-import de.elmar_baumann.imagemetadataviewer.database.metadata.iptc.ColumnIptcKeywordsKeyword;
-import de.elmar_baumann.imagemetadataviewer.database.metadata.iptc.ColumnIptcHeadline;
-import de.elmar_baumann.imagemetadataviewer.database.metadata.iptc.ColumnIptcSupplementalCategoriesSupplementalCategory;
-import de.elmar_baumann.imagemetadataviewer.database.metadata.iptc.ColumnIptcObjectName;
-import de.elmar_baumann.imagemetadataviewer.database.metadata.iptc.ColumnIptcContentLocationNamesContentLocationName;
-import de.elmar_baumann.imagemetadataviewer.database.metadata.iptc.ColumnIptcCopyrightNotice;
-import de.elmar_baumann.imagemetadataviewer.database.metadata.iptc.ColumnIptcCategory;
-import de.elmar_baumann.imagemetadataviewer.database.metadata.iptc.ColumnIptcCaptionAbstract;
 import de.elmar_baumann.imagemetadataviewer.database.metadata.xmp.ColumnXmpDcDescription;
 import de.elmar_baumann.imagemetadataviewer.database.metadata.xmp.ColumnXmpDcRights;
 import de.elmar_baumann.imagemetadataviewer.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
@@ -42,15 +34,6 @@ public class FastSearchColumns {
         searchColumns.add(ColumnExifIsoSpeedRatings.getInstance());
         // Files
         searchColumns.add(ColumnFilesFilename.getInstance());
-        // IPTC
-        searchColumns.add(ColumnIptcCaptionAbstract.getInstance());
-        searchColumns.add(ColumnIptcCategory.getInstance());
-        searchColumns.add(ColumnIptcSupplementalCategoriesSupplementalCategory.getInstance());
-        searchColumns.add(ColumnIptcKeywordsKeyword.getInstance());
-        searchColumns.add(ColumnIptcCopyrightNotice.getInstance());
-        searchColumns.add(ColumnIptcContentLocationNamesContentLocationName.getInstance());
-        searchColumns.add(ColumnIptcHeadline.getInstance());
-        searchColumns.add(ColumnIptcObjectName.getInstance());
         // XMP
         searchColumns.add(ColumnXmpDcDescription.getInstance());
         searchColumns.add(ColumnXmpPhotoshopCategory.getInstance());

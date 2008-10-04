@@ -4,7 +4,6 @@ import de.elmar_baumann.imagemetadataviewer.database.metadata.Column;
 import de.elmar_baumann.imagemetadataviewer.database.metadata.Table;
 import de.elmar_baumann.imagemetadataviewer.database.metadata.file.ColumnFilesLastModified;
 import de.elmar_baumann.imagemetadataviewer.database.metadata.file.ColumnFilesThumbnail;
-import de.elmar_baumann.imagemetadataviewer.database.metadata.iptc.TableIptc;
 import java.util.Vector;
 
 /**
@@ -23,15 +22,13 @@ public class AdvancedSearchColumns {
     static {
         excludeColumns.add(ColumnFilesLastModified.getInstance());
         excludeColumns.add(ColumnFilesThumbnail.getInstance());
-        Vector<Column> iptcColumns = TableIptc.getInstance().getColumns();
-        for (Column iptcColumn : iptcColumns) {
-            excludeColumns.add(iptcColumn);
-        }
+
         Vector<Table> tables = AllTables.get();
         for (Table table : tables) {
             Vector<Column> allColumns = table.getColumns();
             for (Column column : allColumns) {
-                if (!column.isPrimaryKey() && !column.isForeignKey() && !excludeColumns.contains(column)) {
+                if (!column.isPrimaryKey() && !column.isForeignKey() &&
+                    !excludeColumns.contains(column)) {
                     columns.add(column);
                 }
             }
