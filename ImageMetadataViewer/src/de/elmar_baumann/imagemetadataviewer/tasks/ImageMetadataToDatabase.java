@@ -3,7 +3,6 @@ package de.elmar_baumann.imagemetadataviewer.tasks;
 import de.elmar_baumann.imagemetadataviewer.data.Exif;
 import de.elmar_baumann.imagemetadataviewer.data.ImageFile;
 import de.elmar_baumann.imagemetadataviewer.data.Xmp;
-import de.elmar_baumann.imagemetadataviewer.data.Iptc;
 import de.elmar_baumann.imagemetadataviewer.UserSettings;
 import de.elmar_baumann.imagemetadataviewer.database.Database;
 import de.elmar_baumann.imagemetadataviewer.event.ErrorEvent;
@@ -12,7 +11,6 @@ import de.elmar_baumann.imagemetadataviewer.event.ProgressEvent;
 import de.elmar_baumann.imagemetadataviewer.event.ProgressListener;
 import de.elmar_baumann.imagemetadataviewer.image.thumbnail.ThumbnailUtil;
 import de.elmar_baumann.imagemetadataviewer.image.metadata.exif.ExifMetadata;
-import de.elmar_baumann.imagemetadataviewer.image.metadata.iptc.IptcMetadata;
 import de.elmar_baumann.imagemetadataviewer.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.imagemetadataviewer.io.IoUtil;
 import de.elmar_baumann.imagemetadataviewer.resource.Bundle;
@@ -40,7 +38,6 @@ public class ImageMetadataToDatabase implements Runnable {
     private boolean forceUpdate = false;
     private boolean createThumbnails = true;
     private boolean readXmp = true;
-    private boolean readIptc = true;
     private boolean readExif = true;
     private boolean onlyXmpIsNewer = false;
     private boolean useEmbeddedThumbnails = UserSettings.getInstance().isUseEmbeddedThumbnails();
@@ -162,26 +159,6 @@ public class ImageMetadataToDatabase implements Runnable {
     }
 
     /**
-     * Liefert, ob die Datenbank mit IPTC-Metadaten aktualisiert werden soll.
-     * 
-     * @return true, wenn die Datenbank mit IPTC-Metadaten aktualisiert werden
-     *         soll
-     */
-    public boolean isReadIptc() {
-        return readIptc;
-    }
-
-    /**
-     * Setzt, die Datenbank mit IPTC-Metadaten aktualisiert werden soll.
-     * 
-     * @param readIptc  true, wenn die Datenbank mit IPTC-Metadaten aktualisiert
-     *                  werden soll. Default: true.
-     */
-    public void setReadIptc(boolean readIptc) {
-        this.readIptc = readIptc;
-    }
-
-    /**
      * Liefert, ob die Datenbank mit XMP-Metadaten aktualisiert werden soll.
      * 
      * @return true, wenn die Datenbank mit XMP-Metadaten aktualisiert werden
@@ -242,9 +219,6 @@ public class ImageMetadataToDatabase implements Runnable {
         if (!onlyXmpIsNewer && isCreateThumbnails()) {
             imageFileData.setThumbnail(getThumbnail(filename));
         }
-        if (!onlyXmpIsNewer && isReadIptc()) {
-            setIptc(imageFileData);
-        }
         if (isReadXmp()) {
             setXmp(imageFileData);
         }
@@ -275,13 +249,6 @@ public class ImageMetadataToDatabase implements Runnable {
         Exif exif = ExifMetadata.getExif(imageFileData.getFilename());
         if (exif != null && !exif.isEmpty()) {
             imageFileData.setExif(exif);
-        }
-    }
-
-    private void setIptc(ImageFile imageFileData) {
-        Iptc iptc = IptcMetadata.getIptc(imageFileData.getFilename());
-        if (iptc != null && !iptc.isEmpty()) {
-            imageFileData.setIptc(iptc);
         }
     }
 

@@ -89,7 +89,6 @@ public class XmpUpdaterFromTextEntry implements Runnable {
         ImageMetadataToDatabase updater = new ImageMetadataToDatabase(fNames, 0);
         updater.setCreateThumbnails(false);
         updater.setReadExif(false);
-        updater.setReadIptc(false);
         updater.setForceUpdate(true);
         updater.run();
     }
