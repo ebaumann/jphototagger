@@ -17,15 +17,11 @@ import java.awt.Color;
 public class TextEntryEditAreaPanel extends javax.swing.JPanel
     implements TextEntry {
 
-    private Pair<Column, Column> columns;
+    private Column xmpColumn;
     private Color editableBackground;
 
-    /** Konstruktor
-     * 
-     * @param columns Tabellenspalten
-     */
-    public TextEntryEditAreaPanel(Pair<Column, Column> columns) {
-        this.columns = columns;
+    public TextEntryEditAreaPanel(Column xmpColumn) {
+        this.xmpColumn = xmpColumn;
         initComponents();
         editableBackground = textAreaEdit.getBackground();
         setPropmt();
@@ -42,13 +38,13 @@ public class TextEntryEditAreaPanel extends javax.swing.JPanel
     }
 
     @Override
-    public Pair<Column, Column> getColumns() {
-        return columns;
+    public Column getColumn() {
+        return xmpColumn;
     }
 
     private void setPropmt() {
-        labelPrompt.setText(IptcXmpMapping.getInstance().getCommonDiscription(
-            columns.getFirst()));
+        // TODO: [...] weg
+        labelPrompt.setText(xmpColumn.getDescription());
     }
 
     @Override

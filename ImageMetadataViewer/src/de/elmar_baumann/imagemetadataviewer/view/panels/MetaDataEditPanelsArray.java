@@ -5,25 +5,22 @@ import com.imagero.reader.iptc.IPTCEntryMeta;
 import de.elmar_baumann.imagemetadataviewer.data.MetaDataEditTemplate;
 import de.elmar_baumann.imagemetadataviewer.data.TextEntry;
 import de.elmar_baumann.imagemetadataviewer.database.metadata.Column;
-import de.elmar_baumann.imagemetadataviewer.database.metadata.selections.EditColumnHints;
-import de.elmar_baumann.imagemetadataviewer.database.metadata.selections.EditColumnHints.SizeEditField;
+import de.elmar_baumann.imagemetadataviewer.database.metadata.selections.EditHints;
+import de.elmar_baumann.imagemetadataviewer.database.metadata.selections.EditHints.SizeEditField;
 import de.elmar_baumann.imagemetadataviewer.database.metadata.selections.EditColumns;
-import de.elmar_baumann.imagemetadataviewer.database.metadata.mapping.IptcEntryMetaIptcColumnMapping;
 import de.elmar_baumann.imagemetadataviewer.database.metadata.mapping.IptcXmpMapping;
 import de.elmar_baumann.imagemetadataviewer.event.MetaDataEditPanelEvent;
 import de.elmar_baumann.imagemetadataviewer.event.MetaDataEditPanelListener;
-import de.elmar_baumann.imagemetadataviewer.image.metadata.iptc.IptcEntry;
-import de.elmar_baumann.imagemetadataviewer.image.metadata.iptc.IptcMetadata;
 import de.elmar_baumann.imagemetadataviewer.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.lib.component.TabLeavingTextArea;
 import de.elmar_baumann.lib.component.text.MaxLengthDocument;
-import de.elmar_baumann.lib.template.Pair;
 import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.util.Set;
 import java.util.Vector;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
@@ -39,10 +36,10 @@ import javax.swing.text.PlainDocument;
  */
 public class MetaDataEditPanelsArray implements FocusListener {
 
-    private Vector<JPanel> panels = new Vector<JPanel>();
-    private JComponent container;
-    private Vector<String> filenames = new Vector<String>();
     boolean editable = true;
+    private JComponent container;
+    private Vector<JPanel> panels = new Vector<JPanel>();
+    private Vector<String> filenames = new Vector<String>();
     private Vector<MetaDataEditPanelListener> listener = new Vector<MetaDataEditPanelListener>();
 
     public MetaDataEditPanelsArray(JComponent container) {
@@ -136,7 +133,7 @@ public class MetaDataEditPanelsArray implements FocusListener {
     public void setMetaDataEditTemplate(MetaDataEditTemplate template) {
         for (JPanel panel : panels) {
             TextEntry textEntry = (TextEntry) panel;
-            String value = template.getValueOfColumn(textEntry.getColumns().getSecond());
+            String value = template.getValueOfColumn(textEntry.getColumn());
             if (!value.isEmpty()) {
                 textEntry.setText(value);
             }
@@ -155,7 +152,7 @@ public class MetaDataEditPanelsArray implements FocusListener {
             TextEntry textEntry = (TextEntry) panel;
             String value = textEntry.getText().trim();
             if (!value.isEmpty()) {
-                template.setValueOfColumn(textEntry.getColumns().getSecond(), value);
+                template.setValueOfColumn(textEntry.getColumn(), value);
             }
         }
         return template;
@@ -170,47 +167,20 @@ public class MetaDataEditPanelsArray implements FocusListener {
     public void setXmpPropertyInfos(Vector<String> filenames, Vector<XMPPropertyInfo> infos) {
         this.filenames = filenames;
         emptyPanels();
-        IptcEntryMetaIptcColumnMapping mapping = IptcEntryMetaIptcColumnMapping.getInstance();
+        IptcXmpMapping mapping = IptcXmpMapping.getInstance();
         XmpMetadata xmpMetaData = new XmpMetadata();
         for (JPanel panel : panels) {
             TextEntry textEntry = (TextEntry) panel;
-            Column panelIptcColumn = textEntry.getColumns().getFirst();
-            IPTCEntryMeta panelEntryMeta = mapping.getEntryMetaOfColumn(panelIptcColumn);
+            Column xmpColumn = textEntry.getColumn();
+            IPTCEntryMeta iptcEntryMeta = mapping.getIptcEntryMetaOfXmpColumn(xmpColumn);
             Vector<XMPPropertyInfo> matchingInfos =
-                xmpMetaData.getFilteredPropertyInfosOfIptcMeta(panelEntryMeta, infos);
+                xmpMetaData.getFilteredPropertyInfosOfIptcEntryMeta(iptcEntryMeta, infos);
             int countMatchingInfos = matchingInfos.size();
 
             for (int i = 0; i < countMatchingInfos; i++) {
                 textEntry.setText(textEntry.getText() +
                     (i > 0 ? ", " : "") + // NOI18N
                     matchingInfos.get(i).getValue().toString().trim());
-            }
-        }
-    }
-
-    /**
-     * Setzt IPTC-Einträge in die einzelnen Edit-Felder.
-     * 
-     * @param filenames    Dateinamen, deren Metadaten angezeigt werden
-     * @param fileEntries  Zu setzende Einträge
-     */
-    public void setIptcEntries(Vector<String> filenames, Vector<IptcEntry> fileEntries) {
-        this.filenames = filenames;
-        emptyPanels();
-        IptcEntryMetaIptcColumnMapping mapping = IptcEntryMetaIptcColumnMapping.getInstance();
-        IptcMetadata iptcMetadata = new IptcMetadata();
-        for (JPanel panel : panels) {
-            TextEntry textEntry = (TextEntry) panel;
-            Column panelIptcColumn = textEntry.getColumns().getFirst();
-            IPTCEntryMeta panelEntryMeta = mapping.getEntryMetaOfColumn(panelIptcColumn);
-            Vector<IptcEntry> matchingEntries = iptcMetadata.getFilteredEntries(
-                fileEntries, panelEntryMeta);
-            int countMatchingEntries = matchingEntries.size();
-
-            for (int i = 0; i < countMatchingEntries; i++) {
-                textEntry.setText(textEntry.getText() +
-                    (i > 0 ? ", " : "") + // NOI18N
-                    matchingEntries.get(i).getData().trim());
             }
         }
     }
@@ -252,32 +222,29 @@ public class MetaDataEditPanelsArray implements FocusListener {
     }
 
     private void createEditPanels() {
-        Vector<Pair<Column, EditColumnHints>> pairs = EditColumns.getInstance().getIptcColumns();
-        IptcXmpMapping mapping = IptcXmpMapping.getInstance();
+        EditColumns editColumns = EditColumns.getInstance();
+        Set<Column> columns = editColumns.getColumns();
 
-        for (Pair<Column, EditColumnHints> pair : pairs) {
-            Column iptcColumn = pair.getFirst();
-            Column xmpColumn = mapping.getXmpColumnOfIptcColumn(iptcColumn);
-            SizeEditField size = pair.getSecond().getSizeEditField();
-            EditColumnHints hints = pair.getSecond();
-            Pair<Column, Column> columnPair = new Pair<Column, Column>(iptcColumn, xmpColumn);
+        for (Column column : columns) {
+            EditHints editHints = editColumns.getEditHintsForColumn(column);
+            SizeEditField size = editHints.getSizeEditField();
 
             if (size.equals(SizeEditField.large)) {
-                TextEntryEditAreaPanel panel = new TextEntryEditAreaPanel(columnPair);
-                panel.textAreaEdit.setDocument(getDocument(iptcColumn, hints));
+                TextEntryEditAreaPanel panel = new TextEntryEditAreaPanel(column);
+                panel.textAreaEdit.setDocument(getDocument(column, editHints));
                 panel.textAreaEdit.addFocusListener(this);
                 panels.add(panel);
             } else {
-                TextEntryEditFieldPanel panel = new TextEntryEditFieldPanel(columnPair);
-                panel.textFieldEdit.setDocument(getDocument(iptcColumn, hints));
+                TextEntryEditFieldPanel panel = new TextEntryEditFieldPanel(column);
+                panel.textFieldEdit.setDocument(getDocument(column, editHints));
                 panel.textFieldEdit.addFocusListener(this);
                 panels.add(panel);
             }
         }
     }
 
-    private Document getDocument(Column column, EditColumnHints hints) {
-        if (hints.isRepeatable()) {
+    private Document getDocument(Column column, EditHints editHints) {
+        if (editHints.isRepeatable()) {
             return new PlainDocument();
         } else {
             return new MaxLengthDocument(column.getLength());

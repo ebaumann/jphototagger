@@ -30,7 +30,7 @@
     </Component>
     <Component class="javax.swing.JTextField" name="textFieldEdit">
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="isAutocomplete ? new CompleterTextField(new AutoCompleteData(toHashSet(columns)).toArray(), false) : new JTextField()"/>
+        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="isAutocomplete ? new CompleterTextField(new AutoCompleteData(getColumnHashSet()).toArray(), false) : new JTextField()"/>
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
       </AuxValues>
       <Constraints>

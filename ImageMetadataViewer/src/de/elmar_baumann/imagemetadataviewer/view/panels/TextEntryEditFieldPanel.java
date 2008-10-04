@@ -4,9 +4,7 @@ import de.elmar_baumann.imagemetadataviewer.UserSettings;
 import de.elmar_baumann.imagemetadataviewer.data.AutoCompleteData;
 import de.elmar_baumann.imagemetadataviewer.data.TextEntry;
 import de.elmar_baumann.imagemetadataviewer.database.metadata.Column;
-import de.elmar_baumann.imagemetadataviewer.database.metadata.mapping.IptcXmpMapping;
 import de.elmar_baumann.imagemetadataviewer.resource.Bundle;
-import de.elmar_baumann.lib.template.Pair;
 import de.elmar_baumann.lib.thirdparty.neil_cochrane.CompleterTextField;
 import java.util.LinkedHashSet;
 import javax.swing.JTextField;
@@ -20,24 +18,13 @@ import javax.swing.JTextField;
 public class TextEntryEditFieldPanel extends javax.swing.JPanel
     implements TextEntry {
 
-    private Pair<Column, Column> columns;
+    private Column xmpColumn;
     private static final boolean isAutocomplete = UserSettings.getInstance().isUseAutocomplete();
 
-    /** Konstruktor.
-     * 
-     * @param columns  Spalten
-     */
-    public TextEntryEditFieldPanel(Pair<Column, Column> columns) {
-        this.columns = columns;
+    public TextEntryEditFieldPanel(Column xmpColumn) {
+        this.xmpColumn = xmpColumn;
         initComponents();
         setPropmt();
-    }
-
-    private static LinkedHashSet<Column> toHashSet(Pair<Column, Column> pair) {
-        LinkedHashSet<Column> set = new LinkedHashSet<Column>();
-        set.add(pair.getFirst());
-        set.add(pair.getSecond());
-        return set;
     }
 
     @Override
@@ -58,13 +45,13 @@ public class TextEntryEditFieldPanel extends javax.swing.JPanel
     }
 
     @Override
-    public Pair<Column, Column> getColumns() {
-        return columns;
+    public Column getColumn() {
+        return xmpColumn;
     }
 
     private void setPropmt() {
-        labelPrompt.setText(IptcXmpMapping.getInstance().getCommonDiscription(
-            columns.getFirst()));
+        // TODO: [...] weg
+        labelPrompt.setText(xmpColumn.getDescription());
     }
 
     @Override
@@ -82,6 +69,12 @@ public class TextEntryEditFieldPanel extends javax.swing.JPanel
         textFieldEdit.setEditable(editable);
     }
 
+    private LinkedHashSet<Column> getColumnHashSet() {
+        LinkedHashSet<Column> set = new LinkedHashSet<Column>();
+        set.add(xmpColumn);
+        return set;
+    }
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -93,7 +86,7 @@ public class TextEntryEditFieldPanel extends javax.swing.JPanel
         java.awt.GridBagConstraints gridBagConstraints;
 
         labelPrompt = new javax.swing.JLabel();
-        textFieldEdit = isAutocomplete ? new CompleterTextField(new AutoCompleteData(toHashSet(columns)).toArray(), false) : new JTextField();
+        textFieldEdit = isAutocomplete ? new CompleterTextField(new AutoCompleteData(getColumnHashSet()).toArray(), false) : new JTextField();
 
         setLayout(new java.awt.GridBagLayout());
 
