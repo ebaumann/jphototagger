@@ -152,13 +152,21 @@ public class Database {
         if (connection != null) {
             try {
                 ConnectionPool.getInstance().free(connection);
-            } catch (SQLException e) {
-                Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, e);
-                notifyErrorListener(e.toString());
+            } catch (SQLException ex) {
+                handleException(ex, Level.SEVERE);
             }
         }
-
-
+    }
+    
+    /**
+     * Method for exception logging.
+     * 
+     * @param ex The exception to log.
+     * @param logLevel The log level.
+     */
+    private void handleException(Exception ex, Level logLevel) {
+        Logger.getLogger(Database.class.getName()).log(logLevel, null, ex);
+        notifyErrorListener(ex.toString());
     }
 
     /**
@@ -189,8 +197,7 @@ public class Database {
             resultSet.close();
             statement.close();
         } catch (SQLException ex) {
-            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-            notifyErrorListener(ex.toString());
+            handleException(ex, Level.SEVERE);
             content.clear();
         } finally {
             free(connection);
@@ -237,8 +244,7 @@ public class Database {
             resultSet.close();
             preparedStatement.close();
         } catch (SQLException ex) {
-            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-            notifyErrorListener(ex.toString());
+            handleException(ex, Level.SEVERE);
             filenames.removeAllElements();
         } finally {
             free(connection);
@@ -305,8 +311,7 @@ public class Database {
                 resultSet.close();
                 preparedStatement.close();
             } catch (SQLException ex) {
-                Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-                notifyErrorListener(ex.toString());
+                handleException(ex, Level.SEVERE);
                 filenames.removeAllElements();
             } finally {
                 free(connection);
@@ -375,13 +380,11 @@ public class Database {
             notifyDatabaseListener(DatabaseAction.Type.ImageFileInserted, imageFileData);
             preparedStatement.close();
         } catch (SQLException ex) {
-            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-            notifyErrorListener(ex.toString());
+            handleException(ex, Level.SEVERE);
             try {
                 connection.rollback();
             } catch (SQLException ex1) {
-                Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex1);
-                notifyErrorListener(ex.toString());
+                handleException(ex, Level.SEVERE);
             }
         } finally {
             free(connection);
@@ -769,13 +772,11 @@ public class Database {
             success = true;
             notifyDatabaseListener(DatabaseAction.Type.ImageFileUpdated, imageFileData);
         } catch (SQLException ex) {
-            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-            notifyErrorListener(ex.toString());
+            handleException(ex, Level.SEVERE);
             try {
                 connection.rollback();
             } catch (SQLException ex1) {
-                Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex1);
-                notifyErrorListener(ex.toString());
+                handleException(ex, Level.SEVERE);
             }
         } finally {
             free(connection);
@@ -798,8 +799,7 @@ public class Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-            notifyErrorListener(ex.toString());
+            handleException(ex, Level.SEVERE);
         }
         return id;
     }
@@ -868,8 +868,7 @@ public class Database {
             return true;
         // notifyDatabaseListener() übernimmt aufgerufene Operation
         } catch (SQLException ex) {
-            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-            notifyErrorListener(ex.toString());
+            handleException(ex, Level.SEVERE);
         } finally {
             free(connection);
         }
@@ -921,8 +920,7 @@ public class Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-            notifyErrorListener(ex.toString());
+            handleException(ex, Level.SEVERE);
         } finally {
             free(connection);
         }
@@ -952,8 +950,7 @@ public class Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-            notifyErrorListener(ex.toString());
+            handleException(ex, Level.SEVERE);
         } finally {
             free(connection);
         }
@@ -991,12 +988,10 @@ public class Database {
             }
             stmt.close();
         } catch (IOException ex) {
-            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-            notifyErrorListener(ex.toString());
+            handleException(ex, Level.SEVERE);
             thumbnail = null;
         } catch (SQLException ex) {
-            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-            notifyErrorListener(ex.toString());
+            handleException(ex, Level.SEVERE);
             thumbnail = null;
         } finally {
             free(connection);
@@ -1051,8 +1046,7 @@ public class Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-            notifyErrorListener(ex.toString());
+            handleException(ex, Level.SEVERE);
         } finally {
             free(connection);
         }
@@ -1153,8 +1147,7 @@ public class Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-            notifyErrorListener(ex.toString());
+            handleException(ex, Level.SEVERE);
         } finally {
             free(connection);
         }
@@ -1224,8 +1217,7 @@ public class Database {
             stmt.close();
             notifyDatabaseListener(DatabaseAction.Type.ImageFilesDeleted, filenames);
         } catch (SQLException ex) {
-            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-            notifyErrorListener(ex.toString());
+            handleException(ex, Level.SEVERE);
         } finally {
             free(connection);
         }
@@ -1273,8 +1265,7 @@ public class Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-            notifyErrorListener(ex.toString());
+            handleException(ex, Level.SEVERE);
         } finally {
             free(connection);
         }
@@ -1347,13 +1338,11 @@ public class Database {
                 stmt.close();
             }
         } catch (SQLException ex) {
-            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-            notifyErrorListener(ex.toString());
+            handleException(ex, Level.SEVERE);
             try {
                 connection.rollback();
             } catch (SQLException ex1) {
-                Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex1);
-                notifyErrorListener(ex.toString());
+                handleException(ex, Level.SEVERE);
             }
         } finally {
             free(connection);
@@ -1400,8 +1389,7 @@ public class Database {
             assert count > 0;
             stmt.close();
         } catch (SQLException ex) {
-            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-            notifyErrorListener(ex.toString());
+            handleException(ex, Level.SEVERE);
         }
     }
 
@@ -1432,8 +1420,7 @@ public class Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-            notifyErrorListener(ex.toString());
+            handleException(ex, Level.SEVERE);
             filenames.removeAllElements();
         } finally {
             free(connection);
@@ -1459,8 +1446,7 @@ public class Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-            notifyErrorListener(ex.toString());
+            handleException(ex, Level.SEVERE);
             names.removeAllElements();
         } finally {
             free(connection);
@@ -1493,7 +1479,7 @@ public class Database {
             notifyDatabaseListener(DatabaseAction.Type.ImageFileUpdated, info);
             stmt.close();
         } catch (SQLException ex) {
-            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+            handleException(ex, Level.SEVERE);
         } finally {
             free(connection);
         }
@@ -1546,13 +1532,11 @@ public class Database {
             stmtName.close();
             stmtColl.close();
         } catch (SQLException ex) {
-            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-            notifyErrorListener(ex.toString());
+            handleException(ex, Level.SEVERE);
             try {
                 connection.rollback();
             } catch (SQLException ex1) {
-                Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex1);
-                notifyErrorListener(ex.toString());
+                handleException(ex, Level.SEVERE);
             }
         } finally {
             free(connection);
@@ -1581,8 +1565,7 @@ public class Database {
             notifyDatabaseListener(DatabaseAction.Type.ImageCollectionDeleted, collectionname);
             stmt.close();
         } catch (SQLException ex) {
-            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-            notifyErrorListener(ex.toString());
+            handleException(ex, Level.SEVERE);
         } finally {
             free(connection);
         }
@@ -1620,13 +1603,11 @@ public class Database {
             notifyDatabaseListener(DatabaseAction.Type.ImageCollectionImagesDeleted, collectionName, filenames);
             stmt.close();
         } catch (SQLException ex) {
-            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-            notifyErrorListener(ex.toString());
+            handleException(ex, Level.SEVERE);
             try {
                 connection.rollback();
             } catch (SQLException ex1) {
-                Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex1);
-                notifyErrorListener(ex.toString());
+                handleException(ex, Level.SEVERE);
             }
         } finally {
             free(connection);
@@ -1676,13 +1657,11 @@ public class Database {
             added = true;
             notifyDatabaseListener(DatabaseAction.Type.ImageCollectionImagesAdded, collectionName, filenames);
         } catch (SQLException ex) {
-            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-            notifyErrorListener(ex.toString());
+            handleException(ex, Level.SEVERE);
             try {
                 connection.rollback();
             } catch (SQLException ex1) {
-                Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex1);
-                notifyErrorListener(ex.toString());
+                handleException(ex, Level.SEVERE);
             }
         } finally {
             free(connection);
@@ -1759,8 +1738,7 @@ public class Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-            notifyErrorListener(ex.toString());
+            handleException(ex, Level.SEVERE);
         } finally {
             free(connection);
         }
@@ -1786,8 +1764,7 @@ public class Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-            notifyErrorListener(ex.toString());
+            handleException(ex, Level.SEVERE);
         } finally {
             free(connection);
         }
@@ -1812,8 +1789,7 @@ public class Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-            notifyErrorListener(ex.toString());
+            handleException(ex, Level.SEVERE);
         } finally {
             free(connection);
         }
@@ -1892,13 +1868,11 @@ public class Database {
                 notifyDatabaseListener(DatabaseAction.Type.SavedSearchInserted, data);
                 stmt.close();
             } catch (SQLException ex) {
-                Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-                notifyErrorListener(ex.toString());
+                handleException(ex, Level.SEVERE);
                 try {
                     connection.rollback();
                 } catch (SQLException ex1) {
-                    Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex1);
-                    notifyErrorListener(ex.toString());
+                    handleException(ex, Level.SEVERE);
                 }
             } finally {
                 free(connection);
@@ -2029,13 +2003,11 @@ public class Database {
             inserted = true;
             stmt.close();
         } catch (SQLException ex) {
-            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-            notifyErrorListener(ex.toString());
+            handleException(ex, Level.SEVERE);
             try {
                 connection.rollback();
             } catch (SQLException ex1) {
-                Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex1);
-                notifyErrorListener(ex.toString());
+                handleException(ex, Level.SEVERE);
             }
         } finally {
             free(connection);
@@ -2129,7 +2101,7 @@ public class Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+            handleException(ex, Level.SEVERE);
         } finally {
             free(connection);
         }
@@ -2180,13 +2152,11 @@ public class Database {
             updated = count > 0;
             stmt.close();
         } catch (SQLException ex) {
-            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-            notifyErrorListener(ex.toString());
+            handleException(ex, Level.SEVERE);
             try {
                 connection.rollback();
             } catch (SQLException ex1) {
-                Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex1);
-                notifyErrorListener(ex.toString());
+                handleException(ex, Level.SEVERE);
             }
         } finally {
             free(connection);
@@ -2220,13 +2190,11 @@ public class Database {
             renamed = count > 0;
             stmt.close();
         } catch (SQLException ex) {
-            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-            notifyErrorListener(ex.toString());
+            handleException(ex, Level.SEVERE);
             try {
                 connection.rollback();
             } catch (SQLException ex1) {
-                Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex1);
-                notifyErrorListener(ex.toString());
+                handleException(ex, Level.SEVERE);
             }
         } finally {
             free(connection);
@@ -2256,13 +2224,11 @@ public class Database {
             deleted = count > 0;
             stmt.close();
         } catch (SQLException ex) {
-            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-            notifyErrorListener(ex.toString());
+            handleException(ex, Level.SEVERE);
             try {
                 connection.rollback();
             } catch (SQLException ex1) {
-                Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex1);
-                notifyErrorListener(ex.toString());
+                handleException(ex, Level.SEVERE);
             }
         } finally {
             free(connection);
@@ -2287,8 +2253,7 @@ public class Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-            notifyErrorListener(ex.toString());
+            handleException(ex, Level.SEVERE);
         } finally {
             free(connection);
         }
@@ -2313,7 +2278,7 @@ public class Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+            handleException(ex, Level.SEVERE);
         } finally {
             free(connection);
         }
@@ -2378,13 +2343,11 @@ public class Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-            notifyErrorListener(ex.toString());
+            handleException(ex, Level.SEVERE);
             try {
                 connection.rollback();
             } catch (SQLException ex1) {
-                Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex1);
-                notifyErrorListener(ex.toString());
+                handleException(ex, Level.SEVERE);
             }
         } finally {
             free(connection);
@@ -2420,8 +2383,7 @@ public class Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-            notifyErrorListener(ex.toString());
+            handleException(ex, Level.SEVERE);
         } finally {
             free(connection);
         }
@@ -2478,8 +2440,7 @@ public class Database {
             stmt.close();
         } catch (SQLException ex) {
             data = null;
-            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-            notifyErrorListener(ex.toString());
+            handleException(ex, Level.SEVERE);
         } finally {
             free(connection);
         }
@@ -2514,8 +2475,7 @@ public class Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-            notifyErrorListener(ex.toString());
+            handleException(ex, Level.SEVERE);
             allData.removeAllElements();
         } finally {
             free(connection);
@@ -2607,8 +2567,7 @@ public class Database {
                 notifyDatabaseListener(DatabaseAction.Type.AutoscanDirectoryInserted, directoryName);
                 stmt.close();
             } catch (SQLException ex) {
-                Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-                notifyErrorListener(ex.toString());
+                handleException(ex, Level.SEVERE);
             } finally {
                 free(connection);
             }
@@ -2642,13 +2601,11 @@ public class Database {
             notifyDatabaseListener(DatabaseAction.Type.AutoscanDirectoriesInserted, directoryNames);
             stmt.close();
         } catch (SQLException ex) {
-            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-            notifyErrorListener(ex.toString());
+            handleException(ex, Level.SEVERE);
             try {
                 connection.rollback();
             } catch (SQLException ex1) {
-                Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex1);
-                notifyErrorListener(ex.toString());
+                handleException(ex, Level.SEVERE);
             }
 
         } finally {
@@ -2681,8 +2638,7 @@ public class Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-            notifyErrorListener(ex.toString());
+            handleException(ex, Level.SEVERE);
         } finally {
             free(connection);
         }
@@ -2712,8 +2668,7 @@ public class Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-            notifyErrorListener(ex.toString());
+            handleException(ex, Level.SEVERE);
         } finally {
             free(connection);
         }
@@ -2739,8 +2694,7 @@ public class Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-            notifyErrorListener(ex.toString());
+            handleException(ex, Level.SEVERE);
             directories.removeAllElements();
         } finally {
             free(connection);
@@ -2783,8 +2737,7 @@ public class Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-            notifyErrorListener(ex.toString());
+            handleException(ex, Level.SEVERE);
         } finally {
             free(connection);
         }
@@ -2835,8 +2788,7 @@ public class Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-            notifyErrorListener(ex.toString());
+            handleException(ex, Level.SEVERE);
         } finally {
             free(connection);
         }
@@ -2882,8 +2834,7 @@ public class Database {
             stmt.close();
             exists = count > 0;
         } catch (SQLException ex) {
-            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-            notifyErrorListener(ex.toString());
+            handleException(ex, Level.SEVERE);
         } finally {
             free(connection);
         }
@@ -2921,13 +2872,11 @@ public class Database {
             inserted = count > 0;
             stmt.close();
         } catch (SQLException ex) {
-            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-            notifyErrorListener(ex.toString());
+            handleException(ex, Level.SEVERE);
             try {
                 connection.rollback();
             } catch (SQLException ex1) {
-                Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex1);
-                notifyErrorListener(ex.toString());
+                handleException(ex, Level.SEVERE);
             }
         } finally {
             free(connection);
@@ -2957,13 +2906,11 @@ public class Database {
             deleted = count > 0;
             stmt.close();
         } catch (SQLException ex) {
-            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-            notifyErrorListener(ex.toString());
+            handleException(ex, Level.SEVERE);
             try {
                 connection.rollback();
             } catch (SQLException ex1) {
-                Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex1);
-                notifyErrorListener(ex.toString());
+                handleException(ex, Level.SEVERE);
             }
         } finally {
             free(connection);
@@ -3002,13 +2949,11 @@ public class Database {
             updated = count > 0;
             stmt.close();
         } catch (SQLException ex) {
-            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-            notifyErrorListener(ex.toString());
+            handleException(ex, Level.SEVERE);
             try {
                 connection.rollback();
             } catch (SQLException ex1) {
-                Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex1);
-                notifyErrorListener(ex.toString());
+                handleException(ex, Level.SEVERE);
             }
         } finally {
             free(connection);
@@ -3039,8 +2984,7 @@ public class Database {
             stmt.close();
         } catch (SQLException ex) {
             directories.removeAllElements();
-            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-            notifyErrorListener(ex.toString());
+            handleException(ex, Level.SEVERE);
         } finally {
             free(connection);
         }
@@ -3071,7 +3015,7 @@ public class Database {
             stmt.close();
             exists = count > 0;
         } catch (SQLException ex) {
-            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+            handleException(ex, Level.SEVERE);
         } finally {
             free(connection);
         }
@@ -3102,8 +3046,7 @@ public class Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-            notifyErrorListener(ex.toString());
+            handleException(ex, Level.SEVERE);
         } finally {
             free(connection);
         }
@@ -3128,8 +3071,7 @@ public class Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-            notifyErrorListener(ex.toString());
+            handleException(ex, Level.SEVERE);
         } finally {
             free(connection);
         }
@@ -3159,8 +3101,7 @@ public class Database {
             }
         } catch (SQLException ex) {
             count = -1;
-            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-            notifyErrorListener(ex.toString());
+            handleException(ex, Level.SEVERE);
         } finally {
             free(connection);
         }
@@ -3186,8 +3127,7 @@ public class Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-            notifyErrorListener(ex.toString());
+            handleException(ex, Level.SEVERE);
         } finally {
             free(connection);
         }
@@ -3211,8 +3151,7 @@ public class Database {
             notifyDatabaseListener(DatabaseAction.Type.MaintainanceDatabaseCompressed);
             stmt.close();
         } catch (SQLException ex) {
-            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-            notifyErrorListener(ex.toString());
+            handleException(ex, Level.SEVERE);
         } finally {
             free(connection);
         }
@@ -3259,13 +3198,11 @@ public class Database {
             connection.commit();
             stmt.close();
         } catch (SQLException ex) {
-            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-            notifyErrorListener(ex.toString());
+            handleException(ex, Level.SEVERE);
             try {
                 connection.rollback();
             } catch (SQLException ex1) {
-                Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex1);
-                notifyErrorListener(ex.toString());
+                handleException(ex, Level.SEVERE);
             }
             JOptionPane.showMessageDialog(null,
                     Bundle.getString("Database.CreateTables.ErrorMessage"), // NOI18N
