@@ -25,7 +25,6 @@ import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
-import javax.swing.text.Position;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
@@ -47,8 +46,9 @@ public class HelpBrowser extends javax.swing.JFrame
     private final String actionNext = Bundle.getString("HelpBrowser.Command.Next");
     private MenuItem itemPrevious;
     private MenuItem itemNext;
-    private String startUri = null;
+    private String startUri;
     private String baseUri;
+    private String lastUri;
 
     private HelpBrowser() {
         initComponents();
@@ -84,7 +84,16 @@ public class HelpBrowser extends javax.swing.JFrame
         currentHistoryIndex++;
         urlHistory.add(url);
         setButtonStatus();
-        setUrl(url);
+        setUri(url);
+    }
+    
+    /**
+     * Returns the last visted URI.
+     * 
+     * @return URI or null
+     */
+    public String getLastUri() {
+        return lastUri;
     }
 
     /**
@@ -140,7 +149,7 @@ public class HelpBrowser extends javax.swing.JFrame
         if (currentHistoryIndex + 1 >= 0 && currentHistoryIndex + 1 <
             urlHistory.size()) {
             currentHistoryIndex++;
-            setUrl(urlHistory.get(currentHistoryIndex));
+            setUri(urlHistory.get(currentHistoryIndex));
             setButtonStatus();
         }
     }
@@ -149,7 +158,7 @@ public class HelpBrowser extends javax.swing.JFrame
         if (currentHistoryIndex - 1 >= 0 && currentHistoryIndex - 1 <
             urlHistory.size()) {
             currentHistoryIndex--;
-            setUrl(urlHistory.get(currentHistoryIndex));
+            setUri(urlHistory.get(currentHistoryIndex));
             setButtonStatus();
         }
     }
@@ -194,7 +203,7 @@ public class HelpBrowser extends javax.swing.JFrame
         }
     }
 
-    private void setUrl(URL url) {
+    private void setUri(URL url) {
         try {
             editorPanePage.setPage(url);
         } catch (IOException ex) {
@@ -235,7 +244,9 @@ public class HelpBrowser extends javax.swing.JFrame
             Object o = e.getNewLeadSelectionPath().getLastPathComponent();
             if (o instanceof HelpPage) {
                 HelpPage helpPage = (HelpPage) o;
-                URL url = this.getClass().getResource(baseUri + "/" + helpPage.getUri()); // NOI18N
+                String helpPageUri = helpPage.getUri();
+                lastUri = helpPageUri;
+                URL url = this.getClass().getResource(baseUri + "/" + helpPageUri); // NOI18N
                 setTitle(helpPage.getTitle() + Bundle.getString("HelpBrowser.TitlePostfix"));
                 showUrl(url);
             }
