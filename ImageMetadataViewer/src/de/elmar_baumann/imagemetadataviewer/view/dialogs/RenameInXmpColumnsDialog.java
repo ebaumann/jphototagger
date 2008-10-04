@@ -1,13 +1,8 @@
-/*
- * RenameXmpColumnsDialog.java
- *
- * Created on 29. September 2008, 21:12
- */
 package de.elmar_baumann.imagemetadataviewer.view.dialogs;
 
 import de.elmar_baumann.imagemetadataviewer.AppSettings;
 import de.elmar_baumann.imagemetadataviewer.database.metadata.Column;
-import de.elmar_baumann.imagemetadataviewer.database.metadata.selections.UpdateableXmpColumns;
+import de.elmar_baumann.imagemetadataviewer.database.metadata.selections.EditColumns;
 import de.elmar_baumann.imagemetadataviewer.resource.Bundle;
 import de.elmar_baumann.lib.persistence.PersistentAppSizes;
 import de.elmar_baumann.lib.persistence.PersistentSettings;
@@ -38,7 +33,7 @@ public class RenameInXmpColumnsDialog extends javax.swing.JDialog {
     private void setModel() {
         comboBoxReplaceColumn.setModel(
             new DefaultComboBoxModel(
-            UpdateableXmpColumns.getInstance().getColumns()));
+            EditColumns.getInstance().getColumns().toArray()));
     }
 
     public boolean accepted() {

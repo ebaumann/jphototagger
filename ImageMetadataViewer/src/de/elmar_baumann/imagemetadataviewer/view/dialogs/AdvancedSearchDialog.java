@@ -13,9 +13,6 @@ import de.elmar_baumann.imagemetadataviewer.database.metadata.exif.TableExif;
 import de.elmar_baumann.imagemetadataviewer.database.metadata.file.ColumnFilesFilename;
 import de.elmar_baumann.imagemetadataviewer.database.metadata.file.ColumnFilesId;
 import de.elmar_baumann.imagemetadataviewer.database.metadata.file.TableFiles;
-import de.elmar_baumann.imagemetadataviewer.database.metadata.iptc.ColumnIptcId;
-import de.elmar_baumann.imagemetadataviewer.database.metadata.iptc.ColumnIptcIdFiles;
-import de.elmar_baumann.imagemetadataviewer.database.metadata.iptc.TableIptc;
 import de.elmar_baumann.imagemetadataviewer.database.metadata.xmp.ColumnXmpId;
 import de.elmar_baumann.imagemetadataviewer.database.metadata.xmp.ColumnXmpIdFiles;
 import de.elmar_baumann.imagemetadataviewer.database.metadata.xmp.TableXmp;
@@ -345,7 +342,6 @@ public class AdvancedSearchDialog extends javax.swing.JDialog implements
         Vector<Table> allTables =
             DatabaseMetadataUtil.getUniqueTablesOfColumnArray(getColumns());
         Column.ReferenceDirection back = Column.ReferenceDirection.backwards;
-        Vector<Table> refsIptcTables = DatabaseMetadataUtil.getTablesWithReferenceTo(allTables, TableIptc.getInstance(), back);
         Vector<Table> refsXmpTables = DatabaseMetadataUtil.getTablesWithReferenceTo(allTables, TableXmp.getInstance(), back);
 
         statement.append(" " + TableFiles.getInstance().getName()); // NOI18N
@@ -355,30 +351,17 @@ public class AdvancedSearchDialog extends javax.swing.JDialog implements
                 ColumnExifIdFiles.getInstance()));
         }
 
-        if (allTables.contains(TableIptc.getInstance()) ||
-            !refsIptcTables.isEmpty()) {
-            statement.append(getJoinFiles(TableIptc.getInstance(),
-                ColumnIptcIdFiles.getInstance()));
-        }
-
         if (allTables.contains(TableXmp.getInstance()) ||
             !refsXmpTables.isEmpty()) {
             statement.append(getJoinFiles(TableXmp.getInstance(),
                 ColumnXmpIdFiles.getInstance()));
         }
 
-        String iptcJoinCol =
-            TableIptc.getInstance().getName() + "." + // NOI18N
-            ColumnIptcId.getInstance().getName();
-        appendInnerJoin(statement, refsIptcTables, TableIptc.getInstance(),
-            iptcJoinCol);
-
         String xmpJoinCol =
             TableXmp.getInstance().getName() + "." + // NOI18N
             ColumnXmpId.getInstance().getName();
         appendInnerJoin(statement, refsXmpTables, TableXmp.getInstance(),
             xmpJoinCol);
-
     }
 
     private String getJoinFiles(Table joinTable, Column joinColumn) {
