@@ -8,7 +8,7 @@ package de.elmar_baumann.lib.util.help;
  */
 public class HelpPage {
     
-    private String uri;
+    private String url;
     private String title;
     private HelpNode parent;
 
@@ -31,21 +31,21 @@ public class HelpPage {
     }
 
     /**
-     * Returns the URI of the help page.
+     * Returns the URL of the help page.
      * 
-     * @return URI
+     * @return URL
      */
-    public String getUri() {
-        return uri;
+    public String getUrl() {
+        return url;
     }
 
     /**
-     * Sets the URI of the help page.
+     * Sets the URL of the help page.
      * 
-     * @param uri  URI
+     * @param url  URL
      */
-    public void setUri(String uri) {
-        this.uri = uri;
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     /**

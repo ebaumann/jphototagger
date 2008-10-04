@@ -96,28 +96,28 @@ public class HelpNode {
     }
 
     /**
-     * Returns the path of a help page with an specific URI.
+     * Returns the path of a help page with an specific URL.
      * 
-     * @param  uri URI
-     * @return path or null if a page with the URI doesn't exist
+     * @param  url URL
+     * @return path or null if a page with the URL doesn't exist
      */
-    public Object[] getPagePath(String uri) {
+    public Object[] getPagePath(String url) {
         Vector<Object> found = new Vector<Object>();
-        findPath(uri, found);
+        findPath(url, found);
         return found.size() > 0 ? found.toArray() : null;
     }
 
-    private void findPath(String uri, Vector<Object> found) {
+    private void findPath(String url, Vector<Object> found) {
         int size = children.size();
         for (int i = 0; found.size() <= 0 && i < size; i++) {
             Object child = children.get(i);
             if (child instanceof HelpPage) {
                 HelpPage helpPage = (HelpPage) child;
-                if (helpPage.getUri().equals(uri)) {
+                if (helpPage.getUrl().equals(url)) {
                     found.addAll(getPagePath(helpPage));
                 }
             } else if (child instanceof HelpNode) {
-                ((HelpNode) child).findPath(uri, found);
+                ((HelpNode) child).findPath(url, found);
             }
         }
     }

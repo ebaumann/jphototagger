@@ -86,9 +86,9 @@ public class HelpIndexParser {
 
     private static HelpPage getPage(Element page) throws DOMException {
             HelpPage helpPage = new HelpPage();
-            NodeList uri = page.getElementsByTagName("uri");
+            NodeList url = page.getElementsByTagName("url");
             NodeList title = page.getElementsByTagName("title");
-            helpPage.setUri(uri.item(0).getFirstChild().getNodeValue().trim());
+            helpPage.setUrl(url.item(0).getFirstChild().getNodeValue().trim());
             helpPage.setTitle(title.item(0).getFirstChild().getNodeValue().trim());
             return helpPage;
     }
