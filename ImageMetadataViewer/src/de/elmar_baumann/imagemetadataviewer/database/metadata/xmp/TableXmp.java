@@ -25,6 +25,7 @@ public class TableXmp extends Table {
         // Reihenfolge NIE verändern, siehe de.elmar_baumann.imagemetadataviewer.database.metadata.AllTables.get()
         addColumn(ColumnXmpId.getInstance());
         addColumn(ColumnXmpIdFiles.getInstance());
+        addColumn(ColumnXmpDcCreator.getInstance());
         addColumn(ColumnXmpDcDescription.getInstance());
         addColumn(ColumnXmpDcRights.getInstance());
         addColumn(ColumnXmpDcTitle.getInstance());
