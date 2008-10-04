@@ -361,7 +361,7 @@ public class Database {
             preparedStatement.setLong(2, imageFileData.getLastmodified());
             logStatement(preparedStatement);
             preparedStatement.executeUpdate();
-            int idFile = getIdFile(connection, filename);
+            long idFile = getIdFile(connection, filename);
             insertThumbnail(connection, idFile, imageFileData.getThumbnail(), imageFileData.getFilename());
             insertXmp(connection, idFile, imageFileData.getXmp());
             insertExif(connection, idFile, imageFileData.getExif());
@@ -382,7 +382,7 @@ public class Database {
         return success;
     }
 
-    synchronized private void insertThumbnail(Connection connection, int idFile, Image thumbnail, String filename) throws
+    synchronized private void insertThumbnail(Connection connection, long idFile, Image thumbnail, String filename) throws
             SQLException {
         if (thumbnail != null) {
             ByteArrayInputStream inputStream =
@@ -393,7 +393,7 @@ public class Database {
                         "UPDATE files SET thumbnail = ? WHERE id = ?"); // NOI18N
 
                 preparedStatement.setBinaryStream(1, inputStream, inputStream.available());
-                preparedStatement.setInt(2, idFile);
+                preparedStatement.setLong(2, idFile);
                 logStatement(preparedStatement);
                 preparedStatement.executeUpdate();
                 notifyDatabaseListener(DatabaseAction.Type.ThumbnailUpdated, filename);
@@ -402,7 +402,7 @@ public class Database {
         }
     }
 
-    synchronized private void insertExif(Connection connection, int idFile, Exif exifData) throws SQLException {
+    synchronized private void insertExif(Connection connection, long idFile, Exif exifData) throws SQLException {
         if (exifData != null) {
             PreparedStatement stmt = connection.prepareStatement(getInsertIntoExifStatement());
             setExifValues(stmt, idFile, exifData);
@@ -429,23 +429,23 @@ public class Database {
         Logger.getLogger(Database.class.getName()).log(Level.FINER, stmt.toString());
     }
 
-    private void setExifValues(PreparedStatement stmt, int idFile,
+    private void setExifValues(PreparedStatement stmt, long idFile,
             Exif exifData) throws SQLException {
-        stmt.setInt(1, idFile);
+        stmt.setLong(1, idFile);
         stmt.setString(2, exifData.getRecordingEquipment());
         stmt.setDate(3, exifData.getDateTimeOriginal());
         stmt.setDouble(4, exifData.getFocalLength());
         stmt.setShort(5, exifData.getIsoSpeedRatings());
     }
 
-    synchronized private void insertXmp(Connection connection, int idFile, Xmp xmpData) throws SQLException {
+    synchronized private void insertXmp(Connection connection, long idFile, Xmp xmpData) throws SQLException {
         if (xmpData != null) {
             PreparedStatement stmt =
                     connection.prepareStatement(getInsertIntoXmpStatement());
             setXmpValues(stmt, idFile, xmpData);
             logStatement(stmt);
             stmt.executeUpdate();
-            int idXmp = getIdXmpFromIdFile(connection, idFile);
+            long idXmp = getIdXmpFromIdFile(connection, idFile);
             insertXmpDcSubjects(connection, idXmp, xmpData.getDcSubjects());
             insertXmpPhotoshopSupplementalcategories(connection, idXmp,
                     xmpData.getPhotoshopSupplementalCategories());
@@ -453,17 +453,17 @@ public class Database {
         }
     }
 
-    private void deleteXmp(Connection connection, int idXmp) throws SQLException {
+    private void deleteXmp(Connection connection, long idXmp) throws SQLException {
         PreparedStatement stmt = connection.prepareStatement(
                 "DELETE FROM xmp WHERE id = ?");
-        stmt.setInt(1, idXmp);
+        stmt.setLong(1, idXmp);
         logStatement(stmt);
         int count = stmt.executeUpdate();
         assert count > 0;
         stmt.close();
     }
 
-    private void insertXmpDcSubjects(Connection connection, int idXmp, Vector<String> dcSubjects)
+    private void insertXmpDcSubjects(Connection connection, long idXmp, Vector<String> dcSubjects)
             throws SQLException {
         if (dcSubjects != null) {
             insertValues(connection,
@@ -472,8 +472,8 @@ public class Database {
         }
     }
 
-    private void insertXmpPhotoshopSupplementalcategories(Connection connection, int idXmp,
-            Vector<String> photoshopSupplementalCategories)
+    private void insertXmpPhotoshopSupplementalcategories(
+        Connection connection, long idXmp, Vector<String> photoshopSupplementalCategories)
             throws SQLException {
         if (photoshopSupplementalCategories != null) {
             insertValues(connection,
@@ -508,9 +508,9 @@ public class Database {
                 " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"; // NOI18N
 
     }
-    private void setXmpValues(PreparedStatement stmt, int idFile,
+    private void setXmpValues(PreparedStatement stmt, long idFile,
             Xmp xmpData) throws SQLException {
-        stmt.setInt(1, idFile);
+        stmt.setLong(1, idFile);
         stmt.setString(2, xmpData.getDcCreator());
         stmt.setString(3, xmpData.getDcDescription());
         stmt.setString(4, xmpData.getDcRights());
@@ -530,14 +530,14 @@ public class Database {
         stmt.setString(18, xmpData.getPhotoshopTransmissionReference());
     }
 
-    synchronized private void updateXmp(Connection connection, int idFile, Xmp xmpData) throws SQLException {
+    synchronized private void updateXmp(Connection connection, long idFile, Xmp xmpData) throws SQLException {
         if (xmpData != null) {
-            int idXmp = getIdXmpFromIdFile(connection, idFile);
+            long idXmp = getIdXmpFromIdFile(connection, idFile);
             if (idXmp > 0) {
                 PreparedStatement stmt = connection.prepareStatement(
                         "DELETE FROM xmp where id = ?"); // NOI18N
 
-                stmt.setInt(1, idXmp);
+                stmt.setLong(1, idXmp);
                 stmt.executeUpdate();
                 stmt.close();
             }
@@ -545,14 +545,14 @@ public class Database {
         }
     }
 
-    synchronized private void updateExif(Connection connection, int idFile, Exif exifData) throws SQLException {
+    synchronized private void updateExif(Connection connection, long idFile, Exif exifData) throws SQLException {
         if (exifData != null) {
-            int idExif = getIdExifFromIdFile(connection, idFile);
+            long idExif = getIdExifFromIdFile(connection, idFile);
             if (idExif > 0) {
                 PreparedStatement stmt = connection.prepareStatement(
                         "DELETE FROM exif where id = ?"); // NOI18N
 
-                stmt.setInt(1, idExif);
+                stmt.setLong(1, idExif);
                 stmt.executeUpdate();
                 stmt.close();
             }
@@ -560,33 +560,31 @@ public class Database {
         }
     }
 
-    private int getIdExifFromIdFile(Connection connection, int idFile) throws SQLException {
-        int id = -1;
+    private long getIdExifFromIdFile(Connection connection, long idFile) throws SQLException {
+        long id = -1;
         PreparedStatement stmt = connection.prepareStatement(
                 "SELECT id FROM exif WHERE id_files = ?"); // NOI18N
 
-        stmt.setInt(1, idFile);
+        stmt.setLong(1, idFile);
         logStatement(stmt);
         ResultSet rs = stmt.executeQuery();
         if (rs.next()) {
-            id = rs.getInt(1);
-            //rs.close();
+            id = rs.getLong(1);
         }
         stmt.close(); // Closes statement and the result set
         return id;
     }
 
-    private int getIdXmpFromIdFile(Connection connection, int idFile) throws SQLException {
-        int id = -1;
+    private long getIdXmpFromIdFile(Connection connection, long idFile) throws SQLException {
+        long id = -1;
         PreparedStatement stmt = connection.prepareStatement(
                 "SELECT id FROM xmp WHERE id_files = ?"); // NOI18N
 
-        stmt.setInt(1, idFile);
+        stmt.setLong(1, idFile);
         logStatement(stmt);
         ResultSet rs = stmt.executeQuery();
         if (rs.next()) {
-            id = rs.getInt(1);
-            //rs.close();
+            id = rs.getLong(1);
         }
         stmt.close();
         return id;
@@ -608,9 +606,9 @@ public class Database {
                     "UPDATE files SET lastmodified = ? WHERE id = ?"); // NOI18N
 
             String filename = imageFileData.getFilename();
-            int idFile = getIdFile(connection, filename);
+            long idFile = getIdFile(connection, filename);
             stmt.setLong(1, imageFileData.getLastmodified());
-            stmt.setInt(2, idFile);
+            stmt.setLong(2, idFile);
             logStatement(stmt);
             stmt.executeUpdate();
             stmt.close();
@@ -633,8 +631,8 @@ public class Database {
         return success;
     }
 
-    private int getIdFile(Connection connection, String filename) {
-        int id = -1;
+    private long getIdFile(Connection connection, String filename) {
+        long id = -1;
         try {
             PreparedStatement stmt = connection.prepareStatement(
                     "SELECT id FROM files WHERE filename = ?"); // NOI18N
@@ -643,7 +641,7 @@ public class Database {
             logStatement(stmt);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                id = rs.getInt(1);
+                id = rs.getLong(1);
                 //rs.close();
             }
             stmt.close();
@@ -670,12 +668,13 @@ public class Database {
         return values.toString();
     }
 
-    synchronized private void insertValues(Connection connection, String statement, int id, Vector<String> values)
-            throws SQLException {
+    synchronized private void insertValues(Connection connection, 
+        String statement, long id, Vector<String> values) throws SQLException {
+        
         PreparedStatement stmt = connection.prepareStatement(statement + " VALUES (?, ?)"); // NOI18N
 
         for (String value : values) {
-            stmt.setInt(1, id);
+            stmt.setLong(1, id);
             stmt.setString(2, value);
             logStatement(stmt);
             stmt.executeUpdate();
@@ -694,7 +693,7 @@ public class Database {
         Connection connection = null;
         try {
             connection = getConnection();
-            int idFile = getIdFile(connection, filename);
+            long idFile = getIdFile(connection, filename);
             updateThumbnail(connection, idFile, thumbnail, filename);
             return true;
         // notifyDatabaseListener() übernimmt aufgerufene Operation
@@ -706,7 +705,7 @@ public class Database {
         return false;
     }
 
-    synchronized private void updateThumbnail(Connection connection, int idFile, Image thumbnail,
+    synchronized private void updateThumbnail(Connection connection, long idFile, Image thumbnail,
             String filename) throws
             SQLException {
         if (thumbnail != null) {
@@ -718,7 +717,7 @@ public class Database {
                         "UPDATE files SET thumbnail = ? WHERE id = ?"); // NOI18N
 
                 stmt.setBinaryStream(1, inputStream, inputStream.available());
-                stmt.setInt(2, idFile);
+                stmt.setLong(2, idFile);
                 logStatement(stmt);
                 stmt.executeUpdate();
                 stmt.close();
@@ -1033,14 +1032,14 @@ public class Database {
                 logStatement(stmt);
                 ResultSet rs = stmt.executeQuery();
                 while (rs.next()) {
-                    int idFile = rs.getInt(1);
+                    long idFile = rs.getLong(1);
                     Xmp xmp = getXmpOfFile(filename);
                     xmp.removeValue(xmpColumn, oldValue);
                     if (!newValue.isEmpty()) {
                         xmp.setValue(xmpColumn, newValue);
                     }
                     if (meta.writeMetaDataToSidecarFile(XmpMetadata.suggestSidecarFilename(filename), xmp)) {
-                        int idXmp = rs.getInt(2);
+                        long idXmp = rs.getLong(2);
                         deleteXmp(connection, idXmp);
                         insertXmp(connection, idFile, xmp);
                         countRenamed++;
@@ -1232,12 +1231,12 @@ public class Database {
             stmtName.setString(1, collectionName);
             logStatement(stmtName);
             stmtName.executeUpdate();
-            int idCollectionName = getIdCollectionName(connection, collectionName);
+            long idCollectionName = getIdCollectionName(connection, collectionName);
             int sequence_number = 0;
             for (String filename : filenames) {
-                int idFile = getIdFile(connection, filename);
-                stmtColl.setInt(1, idCollectionName);
-                stmtColl.setInt(2, idFile);
+                long idFile = getIdFile(connection, filename);
+                stmtColl.setLong(1, idCollectionName);
+                stmtColl.setLong(2, idFile);
                 stmtColl.setInt(3, sequence_number++);
                 logStatement(stmtColl);
                 stmtColl.executeUpdate();
@@ -1307,10 +1306,10 @@ public class Database {
                     " WHERE id_collectionnnames = ? AND id_files = ?"); // NOI18N
 
             for (String filename : filenames) {
-                int idCollectionName = getIdCollectionName(connection, collectionName);
-                int idFile = getIdFile(connection, filename);
-                stmt.setInt(1, idCollectionName);
-                stmt.setInt(2, idFile);
+                long idCollectionName = getIdCollectionName(connection, collectionName);
+                long idFile = getIdFile(connection, filename);
+                stmt.setLong(1, idCollectionName);
+                stmt.setLong(2, idFile);
                 logStatement(stmt);
                 delCount += stmt.executeUpdate();
                 reorderCollectionSequenceNumber(connection, collectionName);
@@ -1352,13 +1351,13 @@ public class Database {
                         "INSERT INTO collections (id_files, id_collectionnnames, sequence_number)" + // NOI18N
                         " VALUES (?, ?, ?)"); // NOI18N
 
-                int idCollectionNames = getIdCollectionName(connection, collectionName);
+                long idCollectionNames = getIdCollectionName(connection, collectionName);
                 int sequence_number = getMaxCollectionSequenceNumber(connection, collectionName) + 1;
                 for (String filename : filenames) {
                     if (!isImageInCollection(connection, collectionName, filename)) {
-                        int idFiles = getIdFile(connection, filename);
-                        stmt.setInt(1, idFiles);
-                        stmt.setInt(2, idCollectionNames);
+                        long idFiles = getIdFile(connection, filename);
+                        stmt.setLong(1, idFiles);
+                        stmt.setLong(2, idCollectionNames);
                         stmt.setInt(3, sequence_number++);
                         logStatement(stmt);
                         stmt.executeUpdate();
@@ -1404,27 +1403,27 @@ public class Database {
     }
 
     synchronized private void reorderCollectionSequenceNumber(Connection connection, String collectionName) throws SQLException {
-        int idCollectionName = getIdCollectionName(connection, collectionName);
+        long idCollectionName = getIdCollectionName(connection, collectionName);
         PreparedStatement stmtIdFiles = connection.prepareStatement(
                 "SELECT id_files FROM collections WHERE id_collectionnnames = ?" + // NOI18N
                 " ORDER BY collections.sequence_number ASC"); // NOI18N
 
-        stmtIdFiles.setInt(1, idCollectionName);
+        stmtIdFiles.setLong(1, idCollectionName);
         logStatement(stmtIdFiles);
         ResultSet rs = stmtIdFiles.executeQuery();
-        Vector<Integer> idFiles = new Vector<Integer>();
+        Vector<Long> idFiles = new Vector<Long>();
         while (rs.next()) {
-            idFiles.add(rs.getInt(1));
+            idFiles.add(rs.getLong(1));
         }
         PreparedStatement stmt = connection.prepareStatement(
                 "UPDATE collections SET sequence_number = ?" + // NOI18N
                 " WHERE id_collectionnnames = ? AND id_files = ?"); // NOI18N
 
         int sequenceNumer = 0;
-        for (Integer idFile : idFiles) {
+        for (Long idFile : idFiles) {
             stmt.setInt(1, sequenceNumer++);
-            stmt.setInt(2, idCollectionName);
-            stmt.setInt(3, idFile);
+            stmt.setLong(2, idCollectionName);
+            stmt.setLong(3, idFile);
             logStatement(stmt);
             stmt.executeUpdate();
         }
@@ -1532,8 +1531,8 @@ public class Database {
         return isInCollection;
     }
 
-    private int getIdCollectionName(Connection connection, String collectionname) throws SQLException {
-        int id = -1;
+    private long getIdCollectionName(Connection connection, String collectionname) throws SQLException {
+        long id = -1;
         PreparedStatement stmt = connection.prepareStatement(
                 "SELECT id FROM collection_names WHERE name = ?"); // NOI18N
 
@@ -1541,7 +1540,7 @@ public class Database {
         logStatement(stmt);
         ResultSet rs = stmt.executeQuery();
         if (rs.next()) {
-            id = rs.getInt(1);
+            id = rs.getLong(1);
         }
         stmt.close();
         return id;
@@ -1576,7 +1575,7 @@ public class Database {
                 stmt.setBoolean(3, stmtData.isQuery());
                 logStatement(stmt);
                 stmt.executeUpdate();
-                int id = getIdSavedSearch(connection, stmtData.getName());
+                long id = getIdSavedSearch(connection, stmtData.getName());
                 insertSavedSearchValues(connection, id, stmtData.getValues());
                 insertSavedSearchPanelData(connection, id, panelData);
                 connection.commit();
@@ -1598,7 +1597,7 @@ public class Database {
         return inserted;
     }
 
-    synchronized private void insertSavedSearchValues(Connection connection, int idSavedSearch, Vector<String> values) throws SQLException {
+    synchronized private void insertSavedSearchValues(Connection connection, long idSavedSearch, Vector<String> values) throws SQLException {
         if (idSavedSearch > 0 && values.size() > 0) {
             PreparedStatement stmt = connection.prepareStatement(
                     "INSERT INTO saved_searches_values (" + // NOI18N 
@@ -1608,7 +1607,7 @@ public class Database {
                     ")" + // NOI18N
                     " VALUES (?, ?, ?)"); // NOI18N
 
-            stmt.setInt(1, idSavedSearch);
+            stmt.setLong(1, idSavedSearch);
             int size = values.size();
             for (int index = 0; index < size; index++) {
                 String value = values.get(index);
@@ -1621,8 +1620,8 @@ public class Database {
         }
     }
 
-    synchronized private void insertSavedSearchPanelData(Connection connection, int idSavedSearch,
-            Vector<SavedSearchPanel> panelData) throws SQLException {
+    synchronized private void insertSavedSearchPanelData(
+        Connection connection, long idSavedSearch, Vector<SavedSearchPanel> panelData) throws SQLException {
         if (idSavedSearch > 0 && panelData != null) {
             PreparedStatement stmt = connection.prepareStatement(
                     "INSERT INTO" + // NOI18N
@@ -1638,7 +1637,7 @@ public class Database {
                     ", bracket_right)" + // NOI18N -- 9 --
                     " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"); // NOI18N
 
-            stmt.setInt(1, idSavedSearch);
+            stmt.setLong(1, idSavedSearch);
             for (SavedSearchPanel data : panelData) {
                 stmt.setInt(2, data.getPanelIndex());
                 stmt.setBoolean(3, data.isBracketLeft1Selected());
@@ -1656,8 +1655,8 @@ public class Database {
         }
     }
 
-    private int getIdSavedSearch(Connection connection, String name) throws SQLException {
-        int id = -1;
+    private long getIdSavedSearch(Connection connection, String name) throws SQLException {
+        long id = -1;
         PreparedStatement stmt = connection.prepareStatement(
                 "SELECT id FROM saved_searches WHERE name = ?"); // NOI18N
 
@@ -1665,7 +1664,7 @@ public class Database {
         logStatement(stmt);
         ResultSet rs = stmt.executeQuery();
         if (rs.next()) {
-            id = rs.getInt(1);
+            id = rs.getLong(1);
         }
         stmt.close();
         return id;
@@ -2012,7 +2011,7 @@ public class Database {
         Connection connection = null;
         try {
             connection = getConnection();
-            int id = getIdSavedSearch(connection, name);
+            long id = getIdSavedSearch(connection, name);
             return id > 0;
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
@@ -2768,8 +2767,8 @@ public class Database {
      * 
      * @return Anzahl oder -1 bei Fehlern
      */
-    public int getTotalRecordCount() {
-        int count = -1;
+    public long getTotalRecordCount() {
+        long count = -1;
         Connection connection = null;
         Vector<Table> tables = AllTables.get();
         try {
@@ -2904,7 +2903,7 @@ public class Database {
 
             stmt.execute("CREATE CACHED TABLE files " + // NOI18N
                     " (" + // NOI18N
-                    "id INTEGER GENERATED BY DEFAULT AS IDENTITY(START WITH 1, INCREMENT BY 1) PRIMARY KEY" + // NOI18N
+                    "id BIGINT GENERATED BY DEFAULT AS IDENTITY(START WITH 1, INCREMENT BY 1) PRIMARY KEY" + // NOI18N
                     ", filename  VARCHAR_IGNORECASE(512) NOT NULL" + // NOI18N
                     ", lastmodified  BIGINT" + // NOI18N
                     ", thumbnail BINARY" + ");"); // NOI18N
@@ -2919,8 +2918,8 @@ public class Database {
 
             stmt.execute("CREATE CACHED TABLE xmp" + // NOI18N
                     " (" + // NOI18N
-                    "id INTEGER GENERATED BY DEFAULT AS IDENTITY(START WITH 1, INCREMENT BY 1) PRIMARY KEY" + // NOI18N
-                    ", id_files INTEGER NOT NULL" + // NOI18N
+                    "id BIGINT GENERATED BY DEFAULT AS IDENTITY(START WITH 1, INCREMENT BY 1) PRIMARY KEY" + // NOI18N
+                    ", id_files BIGINT NOT NULL" + // NOI18N
                     ", dc_creator VARCHAR(128)" + // NOI18N
                     ", dc_description VARCHAR_IGNORECASE(2000)" + // NOI18N
                     ", dc_rights VARCHAR_IGNORECASE(128)" + // NOI18N
@@ -3010,8 +3009,8 @@ public class Database {
 
             stmt.execute("CREATE CACHED TABLE xmp_dc_subjects" + // NOI18N
                     " (" + // NOI18N
-                    "id INTEGER GENERATED BY DEFAULT AS IDENTITY(START WITH 1, INCREMENT BY 1) PRIMARY KEY" + // NOI18N
-                    ", id_xmp INTEGER NOT NULL" + // NOI18N
+                    "id BIGINT GENERATED BY DEFAULT AS IDENTITY(START WITH 1, INCREMENT BY 1) PRIMARY KEY" + // NOI18N
+                    ", id_xmp BIGINT NOT NULL" + // NOI18N
                     ", subject VARCHAR_IGNORECASE(64)" + // NOI18N
                     ", FOREIGN KEY (id_xmp) REFERENCES xmp (id) ON DELETE CASCADE" + // NOI18N
                     ");"); // NOI18N
@@ -3029,8 +3028,8 @@ public class Database {
 
             stmt.execute("CREATE CACHED TABLE xmp_photoshop_supplementalcategories" + // NOI18N
                     " (" + // NOI18N
-                    "id INTEGER GENERATED BY DEFAULT AS IDENTITY(START WITH 1, INCREMENT BY 1) PRIMARY KEY" + // NOI18N
-                    ", id_xmp INTEGER NOT NULL" + // NOI18N
+                    "id BIGINT GENERATED BY DEFAULT AS IDENTITY(START WITH 1, INCREMENT BY 1) PRIMARY KEY" + // NOI18N
+                    ", id_xmp BIGINT NOT NULL" + // NOI18N
                     ", supplementalcategory VARCHAR_IGNORECASE(32)" + // NOI18N
                     ", FOREIGN KEY (id_xmp) REFERENCES xmp (id) ON DELETE CASCADE" + // NOI18N
                     ");"); // NOI18N
@@ -3051,8 +3050,8 @@ public class Database {
 
             stmt.execute("CREATE CACHED TABLE exif" + // NOI18N
                     " (" + // NOI18N
-                    "id INTEGER GENERATED BY DEFAULT AS IDENTITY(START WITH 1, INCREMENT BY 1) PRIMARY KEY" + // NOI18N
-                    ", id_files INTEGER NOT NULL" + // NOI18N
+                    "id BIGINT GENERATED BY DEFAULT AS IDENTITY(START WITH 1, INCREMENT BY 1) PRIMARY KEY" + // NOI18N
+                    ", id_files BIGINT NOT NULL" + // NOI18N
                     ", exif_recording_equipment VARCHAR_IGNORECASE(125)" + // NOI18N
                     ", exif_date_time_original DATE" + // NOI18N
                     ", exif_focal_length REAL" + // NOI18N
@@ -3083,7 +3082,7 @@ public class Database {
 
             stmt.execute("CREATE CACHED TABLE collection_names" + // NOI18N
                     " (" + // NOI18N
-                    "id INTEGER GENERATED BY DEFAULT AS IDENTITY(START WITH 1, INCREMENT BY 1) PRIMARY KEY" + // NOI18N
+                    "id BIGINT GENERATED BY DEFAULT AS IDENTITY(START WITH 1, INCREMENT BY 1) PRIMARY KEY" + // NOI18N
                     ", name VARCHAR_IGNORECASE(256)" + // NOI18N
                     ");"); // NOI18N
 
@@ -3098,8 +3097,8 @@ public class Database {
 
             stmt.execute("CREATE CACHED TABLE collections" + // NOI18N
                     " (" + // NOI18N
-                    "id_collectionnnames INTEGER" + // NOI18N
-                    ", id_files INTEGER" + // NOI18N
+                    "id_collectionnnames BIGINT" + // NOI18N
+                    ", id_files BIGINT" + // NOI18N
                     ", sequence_number INTEGER" + // NOI18N
                     ", PRIMARY KEY (id_collectionnnames, id_files)" + // NOI18N
                     ", FOREIGN KEY (id_collectionnnames) REFERENCES collection_names (id) ON DELETE CASCADE" + // NOI18N
@@ -3120,7 +3119,7 @@ public class Database {
 
             stmt.execute("CREATE CACHED TABLE saved_searches" + // NOI18N
                     " (" + // NOI18N
-                    "id INTEGER GENERATED BY DEFAULT AS IDENTITY(START WITH 1, INCREMENT BY 1) PRIMARY KEY" + // NOI18N
+                    "id BIGINT GENERATED BY DEFAULT AS IDENTITY(START WITH 1, INCREMENT BY 1) PRIMARY KEY" + // NOI18N
                     ", name VARCHAR_IGNORECASE(125)" + // NOI18N
                     ", sql_string BINARY" + // NOI18N
                     ", is_query BOOLEAN" + // NOI18N
@@ -3137,7 +3136,7 @@ public class Database {
 
             stmt.execute("CREATE CACHED TABLE saved_searches_values" + // NOI18N
                     " (" + // NOI18N
-                    "id_saved_searches INTEGER" + // NOI18N
+                    "id_saved_searches BIGINT" + // NOI18N
                     ", value VARCHAR(256)" + // NOI18N
                     ", value_index INTEGER" + // NOI18N
                     ", FOREIGN KEY (id_saved_searches) REFERENCES saved_searches (id) ON DELETE CASCADE" + // NOI18N
@@ -3154,7 +3153,7 @@ public class Database {
 
             stmt.execute("CREATE CACHED TABLE saved_searches_panels" + // NOI18N
                     " (" + // NOI18N
-                    "id_saved_searches INTEGER" + // NOI18N
+                    "id_saved_searches BIGINT" + // NOI18N
                     ", panel_index INTEGER" + // NOI18N
                     ", bracket_left_1 BOOLEAN" + // NOI18N
                     ", operator_id INTEGER" + // NOI18N
@@ -3180,7 +3179,7 @@ public class Database {
 
             stmt.execute("CREATE CACHED TABLE autoscan_directories" + // NOI18N
                     " (" + // NOI18N
-                    "id INTEGER GENERATED BY DEFAULT AS IDENTITY(START WITH 1, INCREMENT BY 1) PRIMARY KEY" + // NOI18N
+                    "id BIGINT GENERATED BY DEFAULT AS IDENTITY(START WITH 1, INCREMENT BY 1) PRIMARY KEY" + // NOI18N
                     ", directory VARCHAR_IGNORECASE(1024)" + // NOI18N
                     ");"); // NOI18N
 
@@ -3195,7 +3194,7 @@ public class Database {
 
             stmt.execute("CREATE CACHED TABLE metadata_edit_templates" + // NOI18N
                     " (" + // NOI18N
-                    "id INTEGER GENERATED BY DEFAULT AS IDENTITY(START WITH 1, INCREMENT BY 1) PRIMARY KEY" + // NOI18N
+                    "id BIGINT GENERATED BY DEFAULT AS IDENTITY(START WITH 1, INCREMENT BY 1) PRIMARY KEY" + // NOI18N
                     ", name VARCHAR_IGNORECASE(256)" + // NOI18N
                     ", dcSubjects BINARY" + // NOI18N
                     ", dcTitle BINARY" + // NOI18N
@@ -3229,7 +3228,7 @@ public class Database {
 
             stmt.execute("CREATE CACHED TABLE favorite_directories" + // NOI18N
                     " (" + // NOI18N
-                    "id INTEGER GENERATED BY DEFAULT AS IDENTITY(START WITH 1, INCREMENT BY 1) PRIMARY KEY" + // NOI18N
+                    "id BIGINT GENERATED BY DEFAULT AS IDENTITY(START WITH 1, INCREMENT BY 1) PRIMARY KEY" + // NOI18N
                     ", favorite_name VARCHAR_IGNORECASE(256)" + // NOI18N
                     ", directory_name VARCHAR(512)" + // NOI18N
                     ", favorite_index INTEGER" + // NOI18N
