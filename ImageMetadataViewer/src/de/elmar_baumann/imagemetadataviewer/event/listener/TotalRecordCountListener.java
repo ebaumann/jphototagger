@@ -17,9 +17,19 @@ public class TotalRecordCountListener implements DatabaseListener {
 
     private Database db = Database.getInstance();
     private Vector<JLabel> labels = new Vector<JLabel>();
+    boolean listen = false;
 
     public TotalRecordCountListener() {
         db.addDatabaseListener(this);
+    }
+
+    /**
+     * Sets wheter to listen to the database.
+     * 
+     * @param listen  true if listen. Default: false
+     */
+    public void setListenToDatabase(boolean listen) {
+        this.listen = listen;
     }
 
     /**
@@ -43,8 +53,10 @@ public class TotalRecordCountListener implements DatabaseListener {
 
     @Override
     public void actionPerformed(DatabaseAction action) {
-        int count = db.getTotalRecordCount();
-        setLabels(count);
+        if (listen) {
+            int count = db.getTotalRecordCount();
+            setLabels(count);
+        }
     }
 
     private void setLabels(Integer count) {

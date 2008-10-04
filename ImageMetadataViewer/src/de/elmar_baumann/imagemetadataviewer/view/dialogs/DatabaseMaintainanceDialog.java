@@ -59,6 +59,7 @@ public class DatabaseMaintainanceDialog extends javax.swing.JDialog implements
         } else {
             listenerTotalRecordCount.removeLabel(labelDatabaseTotalRecordCount);
         }
+        listenerTotalRecordCount.setListenToDatabase(visible);
         super.setVisible(visible);
     }
 
