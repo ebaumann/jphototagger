@@ -8,6 +8,7 @@ import de.elmar_baumann.lib.persistence.PersistentSettingsHints;
 import de.elmar_baumann.lib.renderer.TreeCellRendererHelpContents;
 import de.elmar_baumann.lib.resource.Bundle;
 import de.elmar_baumann.lib.resource.Settings;
+import de.elmar_baumann.lib.util.help.HelpNode;
 import de.elmar_baumann.lib.util.help.HelpPage;
 import java.awt.MenuItem;
 import java.awt.PopupMenu;
@@ -24,10 +25,13 @@ import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
+import javax.swing.text.Position;
+import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
 /**
- * Browser für Hilfedateien im HTML-Format.
+ * Browser for HTML help files. Usually those are packaged with the application
+ * in a JAR file.
  * 
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/08/25
@@ -43,6 +47,7 @@ public class HelpBrowser extends javax.swing.JFrame
     private final String actionNext = Bundle.getString("HelpBrowser.Command.Next");
     private MenuItem itemPrevious;
     private MenuItem itemNext;
+    private String startUri = null;
     private String baseUri;
 
     private HelpBrowser() {
@@ -66,9 +71,9 @@ public class HelpBrowser extends javax.swing.JFrame
     }
 
     /**
-     * Liefert die einzige Instanz.
+     * Returns the singleton.
      * 
-     * @return Instanz
+     * @return singleton
      */
     public static HelpBrowser getInstance() {
         return instance;
@@ -82,6 +87,25 @@ public class HelpBrowser extends javax.swing.JFrame
         setUrl(url);
     }
 
+    /**
+     * Sets the URI of the page to be initial displayed. It has to be relative
+     * and exist in the contents XML-File set with
+     * {@link #setStartUri(java.lang.String)}.
+     * 
+     * @param uri  URI, eg. <code>firststeps.html</code>
+     */
+    public void setStartUri(String uri) {
+        startUri = uri;
+    }
+
+    /**
+     * Sets the URI of the contents XML-File wich validates against <code>helpindex.dtd</code>.
+     * <code>helpindex.dtd</code> is in this library:
+     * <code>/de/elmar_baumann/lib/resource/helpindex.dtd</code>
+     * All paths to help pages within this file have to be relative.
+     * 
+     * @param uri URI, eg. <code>/de/elmar_baumann/imagemetadataviewer/resource/doc/de/contents.xml</code>
+     */
     public void setContentsUri(String uri) {
         tree.setModel(new TreeModelHelpContents(uri));
         setBaseUri(uri);
@@ -90,6 +114,16 @@ public class HelpBrowser extends javax.swing.JFrame
     private void setBaseUri(String uri) {
         int index = uri.lastIndexOf("/"); // NOI18N
         baseUri = uri.substring(0, index);
+    }
+
+    private void selectStartUri() {
+        if (startUri != null) {
+            HelpNode node = (HelpNode) tree.getModel().getRoot();
+            Object[] path = node.getPagePath(startUri);
+            if (path != null) {
+                tree.setSelectionPath(new TreePath(path));
+            }
+        }
     }
 
     private boolean canGoNext() {
@@ -170,12 +204,13 @@ public class HelpBrowser extends javax.swing.JFrame
 
     @Override
     public void setVisible(boolean visible) {
-        super.setVisible(visible);
         if (visible) {
             readPersistent();
+            selectStartUri();
         } else {
             writePersistent();
         }
+        super.setVisible(visible);
     }
 
     @Override
@@ -237,7 +272,7 @@ public class HelpBrowser extends javax.swing.JFrame
         PersistentAppSizes.getSizeAndLocation(this);
         PersistentSettings.getInstance().getComponent(this, getHints());
     }
-    
+
     private PersistentSettingsHints getHints() {
         PersistentSettingsHints hints = new PersistentSettingsHints();
         hints.addExcludedMember(getClass().getName() + ".tree");
