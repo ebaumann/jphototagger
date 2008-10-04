@@ -11,9 +11,6 @@ import de.elmar_baumann.imagemetadataviewer.event.listener.ErrorListeners;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.io.File;
 import java.io.IOException;
-import java.sql.Date;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -121,63 +118,9 @@ public class IptcMetadata {
             iptc = new Iptc();
             for (IptcEntry iptcEntry : iptcEntries) {
                 IPTCEntryMeta iptcEntryMeta = iptcEntry.getEntry().getEntryMeta();
-                if (iptcEntryMeta.equals(IPTCEntryMeta.BYLINE)) {
-                    iptc.addByLineTitle(iptcEntry.getData());
-                } else if (iptcEntryMeta.equals(IPTCEntryMeta.BYLINE_TITLE)) {
-                    iptc.addByLineTitle(iptcEntry.getData());
-                } else if (iptcEntryMeta.equals(IPTCEntryMeta.CAPTION_ABSTRACT)) {
-                    iptc.setCaptionAbstract(iptcEntry.getData());
-                } else if (iptcEntryMeta.equals(IPTCEntryMeta.CATEGORY)) {
-                    iptc.setCategory(iptcEntry.getData());
-                } else if (iptcEntryMeta.equals(IPTCEntryMeta.CITY)) {
-                    iptc.setCity(iptcEntry.getData());
-                } else if (iptcEntryMeta.equals(IPTCEntryMeta.CONTENT_LOCATION_CODE)) {
-                    iptc.addContentLocationCode(iptcEntry.getData());
-                } else if (iptcEntryMeta.equals(IPTCEntryMeta.CONTENT_LOCATION_NAME)) {
-                    iptc.addContentLocationName(iptcEntry.getData());
-                } else if (iptcEntryMeta.equals(IPTCEntryMeta.COPYRIGHT_NOTICE)) {
-                    iptc.setCopyrightNotice(iptcEntry.getData());
-                } else if (iptcEntryMeta.equals(IPTCEntryMeta.COUNTRY_PRIMARY_LOCATION_NAME)) {
-                    iptc.setCountryPrimaryLocationName(iptcEntry.getData());
-                } else if (iptcEntryMeta.equals(IPTCEntryMeta.CREDIT)) {
-                    iptc.setCredit(iptcEntry.getData());
-                } else if (iptcEntryMeta.equals(IPTCEntryMeta.DATE_CREATED)) {
-                    iptc.setCreationDate(getDateFromIptcDateString(iptcEntry.getData()));
-                } else if (iptcEntryMeta.equals(IPTCEntryMeta.HEADLINE)) {
-                    iptc.setHeadline(iptcEntry.getData());
-                } else if (iptcEntryMeta.equals(IPTCEntryMeta.KEYWORDS)) {
-                    iptc.addKeyword(iptcEntry.getData());
-                } else if (iptcEntryMeta.equals(IPTCEntryMeta.OBJECT_NAME)) {
-                    iptc.setObjectName(iptcEntry.getData());
-                } else if (iptcEntryMeta.equals(IPTCEntryMeta.ORIGINAL_TRANSMISSION_REFERENCE)) {
-                    iptc.setOriginalTransmissionReference(iptcEntry.getData());
-                } else if (iptcEntryMeta.equals(IPTCEntryMeta.PROVINCE_STATE)) {
-                    iptc.setProvinceState(iptcEntry.getData());
-                } else if (iptcEntryMeta.equals(IPTCEntryMeta.SOURCE)) {
-                    iptc.setSource(iptcEntry.getData());
-                } else if (iptcEntryMeta.equals(IPTCEntryMeta.SPECIAL_INSTRUCTIONS)) {
-                    iptc.setSpecialInstructions(iptcEntry.getData());
-                } else if (iptcEntryMeta.equals(IPTCEntryMeta.SUPPLEMENTAL_CATEGORY)) {
-                    iptc.addSupplementalCategory(iptcEntry.getData());
-                } else if (iptcEntryMeta.equals(IPTCEntryMeta.WRITER_EDITOR)) {
-                    iptc.addWriterEditor(iptcEntry.getData());
-                }
+                iptc.setValue(iptcEntryMeta, iptcEntry.getData());
             }
         }
         return iptc;
-    }
-
-    private static Date getDateFromIptcDateString(String datestring) {
-        if (datestring.length() != 8) {
-            return null;
-        }
-        int year = new Integer(datestring.substring(0, 4)).intValue();
-        int month = new Integer(datestring.substring(5, 6)).intValue();
-        int day = new Integer(datestring.substring(6, 8)).intValue();
-
-        Calendar calendar = new GregorianCalendar();
-        calendar.set(year, month - 1, day);
-
-        return new Date(calendar.getTimeInMillis());
     }
 }
