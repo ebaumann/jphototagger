@@ -91,7 +91,7 @@ public class Database {
     }
 
     private void notifyDatabaseListener(DatabaseAction.Type type,
-        ImageFile imageFileData) {
+            ImageFile imageFileData) {
         DatabaseAction action = new DatabaseAction(type);
         action.setImageFileData(imageFileData);
         for (DatabaseListener listener : databaseListener) {
@@ -100,7 +100,7 @@ public class Database {
     }
 
     private void notifyDatabaseListener(DatabaseAction.Type type,
-        SavedSearch savedSerachData) {
+            SavedSearch savedSerachData) {
         DatabaseAction action = new DatabaseAction(type);
         action.setSavedSerachData(savedSerachData);
         for (DatabaseListener listener : databaseListener) {
@@ -109,7 +109,7 @@ public class Database {
     }
 
     private void notifyDatabaseListener(DatabaseAction.Type type,
-        String filename) {
+            String filename) {
         DatabaseAction action = new DatabaseAction(type);
         action.setFilename(filename);
         for (DatabaseListener listener : databaseListener) {
@@ -118,7 +118,7 @@ public class Database {
     }
 
     private void notifyDatabaseListener(DatabaseAction.Type type,
-        Vector<String> filenames) {
+            Vector<String> filenames) {
         DatabaseAction action = new DatabaseAction(type);
         action.setFilenames(filenames);
         for (DatabaseListener listener : databaseListener) {
@@ -127,7 +127,7 @@ public class Database {
     }
 
     private void notifyDatabaseListener(DatabaseAction.Type type,
-        String filename, Vector<String> filenames) {
+            String filename, Vector<String> filenames) {
         DatabaseAction action = new DatabaseAction(type);
         action.setFilename(filename);
         action.setFilenames(filenames);
@@ -144,8 +144,21 @@ public class Database {
         return ConnectionPool.getInstance().getConnection();
     }
 
-    private void free(Connection connection) throws SQLException {
-        ConnectionPool.getInstance().free(connection);
+    /**
+     * Frees a connection in the Connection Pool so it can be reused at a later time.
+     * @param The connection to be freed.
+     */
+    private void free(Connection connection) {
+        if (connection != null) {
+            try {
+                ConnectionPool.getInstance().free(connection);
+            } catch (SQLException e) {
+                Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, e);
+                notifyErrorListener(e.toString());
+            }
+        }
+
+
     }
 
     /**
@@ -162,13 +175,14 @@ public class Database {
             String columnName = column.getName();
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(
-                "SELECT DISTINCT " + // NOI18N
-                columnName +
-                " FROM " + // NOI18N
-                column.getTable().getName() +
-                " WHERE " + // NOI18N
-                columnName +
-                " IS NOT NULL"); // NOI18N
+                    "SELECT DISTINCT " + // NOI18N
+                    columnName +
+                    " FROM " + // NOI18N
+                    column.getTable().getName() +
+                    " WHERE " + // NOI18N
+                    columnName +
+                    " IS NOT NULL"); // NOI18N
+
             while (resultSet.next()) {
                 content.add(resultSet.getString(1));
             }
@@ -179,15 +193,7 @@ public class Database {
             notifyErrorListener(ex.toString());
             content.clear();
         } finally {
-            if (connection != null) {
-                try {
-                    free(connection);
-                } catch (SQLException e) {
-                    Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, e);
-                    notifyErrorListener(e.toString());
-                    content.clear();
-                }
-            }
+            free(connection);
         }
         return content;
     }
@@ -235,15 +241,7 @@ public class Database {
             notifyErrorListener(ex.toString());
             filenames.removeAllElements();
         } finally {
-            if (connection != null) {
-                try {
-                    free(connection);
-                } catch (SQLException e) {
-                    Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, e);
-                    notifyErrorListener(e.toString());
-                    filenames.removeAllElements();
-                }
-            }
+            free(connection);
         }
         return filenames;
     }
@@ -258,38 +256,42 @@ public class Database {
      * @return              Alle gefundenen Dateinamen
      */
     public Vector<String> searchFilenamesLikeOr(
-        Vector<Column> searchColumns, String searchString) {
+            Vector<Column> searchColumns, String searchString) {
         Vector<String> filenames = new Vector<String>();
         addFilenamesSearchFilenamesLikeOr(
-            DatabaseMetadataUtil.getTableColumnsOfTableCategory(searchColumns, "iptc"), // NOI18N
-            searchString,
-            filenames,
-            "iptc"); // NOI18N
+                DatabaseMetadataUtil.getTableColumnsOfTableCategory(searchColumns, "iptc"), // NOI18N
+                searchString,
+                filenames,
+                "iptc"); // NOI18N
+
         addFilenamesSearchFilenamesLikeOr(
-            DatabaseMetadataUtil.getTableColumnsOfTableCategory(searchColumns, "xmp"), // NOI18N
-            searchString,
-            filenames,
-            "xmp"); // NOI18N
+                DatabaseMetadataUtil.getTableColumnsOfTableCategory(searchColumns, "xmp"), // NOI18N
+                searchString,
+                filenames,
+                "xmp"); // NOI18N
+
         addFilenamesSearchFilenamesLikeOr(
-            DatabaseMetadataUtil.getTableColumnsOfTableCategory(searchColumns, "exif"), // NOI18N
-            searchString,
-            filenames,
-            "exif"); // NOI18N
+                DatabaseMetadataUtil.getTableColumnsOfTableCategory(searchColumns, "exif"), // NOI18N
+                searchString,
+                filenames,
+                "exif"); // NOI18N
+
         return filenames;
     }
 
     // TODO Hier definitiv nicht das übergebene Objekt füllen sondern ein neues zurückgeben
     private void addFilenamesSearchFilenamesLikeOr(
-        Vector<Column> searchColumns, String searchString,
-        Vector<String> filenames, String tablename) {
+            Vector<Column> searchColumns, String searchString,
+            Vector<String> filenames, String tablename) {
         if (searchColumns.size() > 0) {
             Connection connection = null;
             try {
                 connection = getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(
-                    getSqlSearchFilenamesLikeOr(searchColumns, tablename));
+                        getSqlSearchFilenamesLikeOr(searchColumns, tablename));
                 for (int i = 0; i < searchColumns.size(); i++) {
                     preparedStatement.setString(i + 1, "%" + searchString + "%"); // NOI18N
+
                 }
                 logStatement(preparedStatement);
                 ResultSet resultSet = preparedStatement.executeQuery();
@@ -307,37 +309,31 @@ public class Database {
                 notifyErrorListener(ex.toString());
                 filenames.removeAllElements();
             } finally {
-                if (connection != null) {
-                    try {
-                        free(connection);
-                    } catch (SQLException e) {
-                        Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, e);
-                        notifyErrorListener(e.toString());
-                        filenames.removeAllElements();
-                    }
-                }
+                free(connection);
             }
         }
     }
 
     private String getSqlSearchFilenamesLikeOr(Vector<Column> searchColumns,
-        String tablename) {
+            String tablename) {
         StringBuffer sql = new StringBuffer("SELECT DISTINCT files.filename FROM "); // NOI18N
+
         Vector<String> tablenames = DatabaseMetadataUtil.getUniqueTableNamesOfColumnArray(
-            searchColumns);
+                searchColumns);
 
         sql.append((tablename.equals("iptc") // NOI18N
-            ? Join.getSqlFilesIptcJoin(tablenames)
-            : tablename.equals("xmp") // NOI18N
-            ? Join.getSqlFilesXmpJoin(tablenames)
-            : Join.getSqlFilesExifJoin(tablenames)) +
-            " WHERE "); // NOI18N
+                ? Join.getSqlFilesIptcJoin(tablenames)
+                : tablename.equals("xmp") // NOI18N
+                ? Join.getSqlFilesXmpJoin(tablenames)
+                : Join.getSqlFilesExifJoin(tablenames)) +
+                " WHERE "); // NOI18N
 
         boolean isFirstColumn = true;
         for (Column tableColumn : searchColumns) {
             sql.append((!isFirstColumn ? " OR " : "") + // NOI18N
-                tableColumn.getTable().getName() + "." + // NOI18N
-                tableColumn.getName() + " LIKE ?"); // NOI18N
+                    tableColumn.getTable().getName() + "." + // NOI18N
+                    tableColumn.getName() + " LIKE ?"); // NOI18N
+
             isFirstColumn = false;
         }
         sql.append(" ORDER BY files.filename ASC"); // NOI18N
@@ -362,7 +358,8 @@ public class Database {
             connection = getConnection();
             connection.setAutoCommit(false);
             PreparedStatement preparedStatement = connection.prepareStatement(
-                "INSERT INTO files (filename, lastmodified) VALUES (?, ?)"); // NOI18N
+                    "INSERT INTO files (filename, lastmodified) VALUES (?, ?)"); // NOI18N
+
             String filename = imageFileData.getFilename();
             preparedStatement.setString(1, filename);
             preparedStatement.setLong(2, imageFileData.getLastmodified());
@@ -387,27 +384,21 @@ public class Database {
                 notifyErrorListener(ex.toString());
             }
         } finally {
-            try {
-                if (connection != null) {
-                    free(connection);
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-                notifyErrorListener(ex.toString());
-            }
+            free(connection);
         }
         return success;
     }
 
     synchronized private void insertThumbnail(Connection connection, int idFile, Image thumbnail, String filename) throws
-        SQLException {
+            SQLException {
         if (thumbnail != null) {
             ByteArrayInputStream inputStream =
-                ImageUtil.getByteArrayInputStream(thumbnail);
+                    ImageUtil.getByteArrayInputStream(thumbnail);
             if (inputStream != null) {
                 PreparedStatement preparedStatement =
-                    connection.prepareStatement(
-                    "UPDATE files SET thumbnail = ? WHERE id = ?"); // NOI18N
+                        connection.prepareStatement(
+                        "UPDATE files SET thumbnail = ? WHERE id = ?"); // NOI18N
+
                 preparedStatement.setBinaryStream(1, inputStream, inputStream.available());
                 preparedStatement.setInt(2, idFile);
                 logStatement(preparedStatement);
@@ -421,7 +412,7 @@ public class Database {
     synchronized private void insertIptc(Connection connection, int idFile, Iptc iptcData) throws SQLException {
         if (iptcData != null) {
             PreparedStatement stmt =
-                connection.prepareStatement(getInsertIntoIptcStatement());
+                    connection.prepareStatement(getInsertIntoIptcStatement());
             setIptcValues(stmt, idFile, iptcData);
             logStatement(stmt);
             stmt.executeUpdate();
@@ -433,88 +424,90 @@ public class Database {
             insertIptcWritersEditors(connection, idIptc, iptcData.getWritersEditors());
             insertIptcSupplementalCategories(connection, idIptc, iptcData.getSupplementalCategories());
             insertIptcByLinesTitles(connection, idIptc, iptcData.getByLinesTitles());
+            stmt.close();
         }
     }
 
     private String getInsertIntoIptcStatement() {
         return "INSERT INTO iptc " + // NOI18N
-            "(" + // NOI18N
-            "id_files" + // NOI18N
-            ", copyright_notice" + // NOI18N
-            ", creation_date" + // NOI18N
-            ", caption_abstract" + // NOI18N
-            ", object_name" + // NOI18N
-            ", headline" + // NOI18N
-            ", category" + // NOI18N
-            ", city" + // NOI18N
-            ", province_state" + // NOI18N
-            ", country_primary_location_name" + // NOI18N
-            ", original_transmission_reference" + // NOI18N
-            ", special_instructions" + // NOI18N
-            ", credit, source" + // NOI18N
-            ")" + // NOI18N
-            " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"; // NOI18N
+                "(" + // NOI18N
+                "id_files" + // NOI18N
+                ", copyright_notice" + // NOI18N
+                ", creation_date" + // NOI18N
+                ", caption_abstract" + // NOI18N
+                ", object_name" + // NOI18N
+                ", headline" + // NOI18N
+                ", category" + // NOI18N
+                ", city" + // NOI18N
+                ", province_state" + // NOI18N
+                ", country_primary_location_name" + // NOI18N
+                ", original_transmission_reference" + // NOI18N
+                ", special_instructions" + // NOI18N
+                ", credit, source" + // NOI18N
+                ")" + // NOI18N
+                " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"; // NOI18N
+
     }
 
     private void insertIptcByLinesTitles(Connection connection, int idIptc,
-        Vector<String> byLinesTitles) throws SQLException {
+            Vector<String> byLinesTitles) throws SQLException {
         if (byLinesTitles != null) {
             insertValues(connection,
-                "INSERT INTO iptc_by_lines_titles (id_iptc, byline_title)", // NOI18N
-                idIptc, byLinesTitles);
+                    "INSERT INTO iptc_by_lines_titles (id_iptc, byline_title)", // NOI18N
+                    idIptc, byLinesTitles);
         }
     }
 
     private void insertIptcByLines(Connection connection, int idIptc, Vector<String> byLines) throws
-        SQLException {
+            SQLException {
         if (byLines != null) {
             insertValues(connection,
-                "INSERT INTO iptc_bylines (id_iptc, byline)", idIptc, // NOI18N
-                byLines);
+                    "INSERT INTO iptc_bylines (id_iptc, byline)", idIptc, // NOI18N
+                    byLines);
         }
     }
 
     private void insertIptcContentLocationCodes(Connection connection, int idIptc,
-        Vector<String> contentLocationCodes) throws SQLException {
+            Vector<String> contentLocationCodes) throws SQLException {
         if (contentLocationCodes != null) {
             insertValues(connection,
-                "INSERT INTO iptc_content_location_codes (id_iptc, content_location_code)", // NOI18N
-                idIptc, contentLocationCodes);
+                    "INSERT INTO iptc_content_location_codes (id_iptc, content_location_code)", // NOI18N
+                    idIptc, contentLocationCodes);
         }
     }
 
     private void insertIptcContentLocationNames(Connection connection, int idIptc,
-        Vector<String> contentLocationNames) throws SQLException {
+            Vector<String> contentLocationNames) throws SQLException {
         if (contentLocationNames != null) {
             insertValues(connection,
-                "INSERT INTO iptc_content_location_names (id_iptc, content_location_name)", // NOI18N
-                idIptc, contentLocationNames);
+                    "INSERT INTO iptc_content_location_names (id_iptc, content_location_name)", // NOI18N
+                    idIptc, contentLocationNames);
         }
     }
 
     private void insertIptcKeywords(Connection connection, int idIptc, Vector<String> keywords) throws
-        SQLException {
+            SQLException {
         if (keywords != null) {
             insertValues(connection, "INSERT INTO iptc_keywords (id_iptc, keyword)", idIptc, // NOI18N
-                keywords);
+                    keywords);
         }
     }
 
     private void insertIptcSupplementalCategories(Connection connection, int idIptc,
-        Vector<String> supplementalCategories) throws SQLException {
+            Vector<String> supplementalCategories) throws SQLException {
         if (supplementalCategories != null) {
             insertValues(connection,
-                "INSERT INTO iptc_supplemental_categories (id_iptc, supplemental_category)", // NOI18N
-                idIptc, supplementalCategories);
+                    "INSERT INTO iptc_supplemental_categories (id_iptc, supplemental_category)", // NOI18N
+                    idIptc, supplementalCategories);
         }
     }
 
     private void insertIptcWritersEditors(Connection connection, int idIptc,
-        Vector<String> writersEditors) throws SQLException {
+            Vector<String> writersEditors) throws SQLException {
         if (writersEditors != null) {
             insertValues(connection,
-                "INSERT INTO iptc_writers_editors (id_iptc, writer_editor)", // NOI18N
-                idIptc, writersEditors);
+                    "INSERT INTO iptc_writers_editors (id_iptc, writer_editor)", // NOI18N
+                    idIptc, writersEditors);
         }
     }
 
@@ -524,19 +517,21 @@ public class Database {
             setExifValues(stmt, idFile, exifData);
             logStatement(stmt);
             stmt.executeUpdate();
+            stmt.close();
         }
     }
 
     private String getInsertIntoExifStatement() {
         return "INSERT INTO exif" + // NOI18N
-            " (" + // NOI18N
-            "id_files" + // NOI18N
-            ", exif_recording_equipment" + // NOI18N
-            ", exif_date_time_original" + // NOI18N
-            ", exif_focal_length" + // NOI18N
-            ", exif_iso_speed_ratings" + // NOI18N
-            ")" + // NOI18N
-            " VALUES (?, ?, ?, ?, ?)"; // NOI18N
+                " (" + // NOI18N
+                "id_files" + // NOI18N
+                ", exif_recording_equipment" + // NOI18N
+                ", exif_date_time_original" + // NOI18N
+                ", exif_focal_length" + // NOI18N
+                ", exif_iso_speed_ratings" + // NOI18N
+                ")" + // NOI18N
+                " VALUES (?, ?, ?, ?, ?)"; // NOI18N
+
     }
 
     private void logStatement(PreparedStatement stmt) {
@@ -544,7 +539,7 @@ public class Database {
     }
 
     private void setExifValues(PreparedStatement stmt, int idFile,
-        Exif exifData) throws SQLException {
+            Exif exifData) throws SQLException {
         stmt.setInt(1, idFile);
         stmt.setString(2, exifData.getRecordingEquipment());
         stmt.setDate(3, exifData.getDateTimeOriginal());
@@ -555,7 +550,7 @@ public class Database {
     synchronized private void insertXmp(Connection connection, int idFile, Xmp xmpData) throws SQLException {
         if (xmpData != null) {
             PreparedStatement stmt =
-                connection.prepareStatement(getInsertIntoXmpStatement());
+                    connection.prepareStatement(getInsertIntoXmpStatement());
             setXmpValues(stmt, idFile, xmpData);
             logStatement(stmt);
             stmt.executeUpdate();
@@ -563,72 +558,75 @@ public class Database {
             insertXmpDcSubjects(connection, idXmp, xmpData.getDcSubjects());
             insertXmpDcCreators(connection, idXmp, xmpData.getDcCreators());
             insertXmpPhotoshopSupplementalcategories(connection, idXmp,
-                xmpData.getPhotoshopSupplementalCategories());
+                    xmpData.getPhotoshopSupplementalCategories());
+            stmt.close();
         }
     }
 
     private String getInsertIntoXmpStatement() {
         return "INSERT INTO xmp " + // NOI18N
-            "(" + // NOI18N
-            "id_files" + // NOI18N
-            ", dc_description" + // NOI18N
-            ", dc_rights, dc_title" + // NOI18N
-            ", iptc4xmpcore_countrycode" + // NOI18N
-            ", iptc4xmpcore_location" + // NOI18N
-            ", photoshop_authorsposition" + // NOI18N
-            ", photoshop_captionwriter" + // NOI18N
-            ", photoshop_category" + // NOI18N
-            ", photoshop_city" + // NOI18N
-            ", photoshop_country" + // NOI18N
-            ", photoshop_credit" + // NOI18N
-            ", photoshop_headline" + // NOI18N
-            ", photoshop_instructions" + // NOI18N
-            ", photoshop_source" + // NOI18N
-            ", photoshop_state" + // NOI18N
-            ", photoshop_transmissionReference" + // NOI18N
-            ")" + // NOI18N
-            " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"; // NOI18N
+                "(" + // NOI18N
+                "id_files" + // NOI18N
+                ", dc_description" + // NOI18N
+                ", dc_rights, dc_title" + // NOI18N
+                ", iptc4xmpcore_countrycode" + // NOI18N
+                ", iptc4xmpcore_location" + // NOI18N
+                ", photoshop_authorsposition" + // NOI18N
+                ", photoshop_captionwriter" + // NOI18N
+                ", photoshop_category" + // NOI18N
+                ", photoshop_city" + // NOI18N
+                ", photoshop_country" + // NOI18N
+                ", photoshop_credit" + // NOI18N
+                ", photoshop_headline" + // NOI18N
+                ", photoshop_instructions" + // NOI18N
+                ", photoshop_source" + // NOI18N
+                ", photoshop_state" + // NOI18N
+                ", photoshop_transmissionReference" + // NOI18N
+                ")" + // NOI18N
+                " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"; // NOI18N
+
     }
 
     private void deleteXmp(Connection connection, int idXmp) throws SQLException {
         PreparedStatement stmt = connection.prepareStatement(
-            "DELETE FROM xmp WHERE id = ?");
+                "DELETE FROM xmp WHERE id = ?");
         stmt.setInt(1, idXmp);
         logStatement(stmt);
         int count = stmt.executeUpdate();
         assert count > 0;
+        stmt.close();
     }
 
     private void insertXmpDcSubjects(Connection connection, int idXmp, Vector<String> dcSubjects)
-        throws SQLException {
+            throws SQLException {
         if (dcSubjects != null) {
             insertValues(connection,
-                "INSERT INTO xmp_dc_subjects (id_xmp, subject)", idXmp, // NOI18N
-                dcSubjects);
+                    "INSERT INTO xmp_dc_subjects (id_xmp, subject)", idXmp, // NOI18N
+                    dcSubjects);
         }
     }
 
     private void insertXmpDcCreators(Connection connection, int idXmp, Vector<String> dcCreators)
-        throws SQLException {
+            throws SQLException {
         if (dcCreators != null) {
             insertValues(connection,
-                "INSERT INTO xmp_dc_creators (id_xmp, creator)", idXmp, // NOI18N
-                dcCreators);
+                    "INSERT INTO xmp_dc_creators (id_xmp, creator)", idXmp, // NOI18N
+                    dcCreators);
         }
     }
 
     private void insertXmpPhotoshopSupplementalcategories(Connection connection, int idXmp,
-        Vector<String> photoshopSupplementalCategories)
-        throws SQLException {
+            Vector<String> photoshopSupplementalCategories)
+            throws SQLException {
         if (photoshopSupplementalCategories != null) {
             insertValues(connection,
-                "INSERT INTO xmp_photoshop_supplementalcategories (id_xmp, supplementalcategory)", // NOI18N
-                idXmp, photoshopSupplementalCategories);
+                    "INSERT INTO xmp_photoshop_supplementalcategories (id_xmp, supplementalcategory)", // NOI18N
+                    idXmp, photoshopSupplementalCategories);
         }
     }
 
     private void setXmpValues(PreparedStatement stmt, int idFile,
-        Xmp xmpData) throws SQLException {
+            Xmp xmpData) throws SQLException {
         stmt.setInt(1, idFile);
         stmt.setString(2, xmpData.getDcDescription());
         stmt.setString(3, xmpData.getDcRights());
@@ -653,9 +651,11 @@ public class Database {
             int idIptc = getIdIptcFromIdFile(connection, idFile);
             if (idIptc > 0) {
                 PreparedStatement stmt = connection.prepareStatement(
-                    "DELETE FROM iptc where id = ?"); // NOI18N
+                        "DELETE FROM iptc where id = ?"); // NOI18N
+
                 stmt.setInt(1, idIptc);
                 stmt.executeUpdate();
+                stmt.close();
             }
             insertIptc(connection, idFile, iptcData);
         }
@@ -666,9 +666,11 @@ public class Database {
             int idXmp = getIdXmpFromIdFile(connection, idFile);
             if (idXmp > 0) {
                 PreparedStatement stmt = connection.prepareStatement(
-                    "DELETE FROM xmp where id = ?"); // NOI18N
+                        "DELETE FROM xmp where id = ?"); // NOI18N
+
                 stmt.setInt(1, idXmp);
                 stmt.executeUpdate();
+                stmt.close();
             }
             insertXmp(connection, idFile, xmpData);
         }
@@ -679,9 +681,11 @@ public class Database {
             int idExif = getIdExifFromIdFile(connection, idFile);
             if (idExif > 0) {
                 PreparedStatement stmt = connection.prepareStatement(
-                    "DELETE FROM exif where id = ?"); // NOI18N
+                        "DELETE FROM exif where id = ?"); // NOI18N
+
                 stmt.setInt(1, idExif);
                 stmt.executeUpdate();
+                stmt.close();
             }
             insertExif(connection, idFile, exifData);
         }
@@ -690,42 +694,48 @@ public class Database {
     private int getIdExifFromIdFile(Connection connection, int idFile) throws SQLException {
         int id = -1;
         PreparedStatement stmt = connection.prepareStatement(
-            "SELECT id FROM exif WHERE id_files = ?"); // NOI18N
+                "SELECT id FROM exif WHERE id_files = ?"); // NOI18N
+
         stmt.setInt(1, idFile);
         logStatement(stmt);
         ResultSet rs = stmt.executeQuery();
         if (rs.next()) {
             id = rs.getInt(1);
-            rs.close();
+            //rs.close();
         }
+        stmt.close(); // Closes statement and the result set
         return id;
     }
 
     private int getIdIptcFromIdFile(Connection connection, int idFile) throws SQLException {
         int id = -1;
         PreparedStatement stmt = connection.prepareStatement(
-            "SELECT id FROM iptc WHERE id_files = ?"); // NOI18N
+                "SELECT id FROM iptc WHERE id_files = ?"); // NOI18N
+
         stmt.setInt(1, idFile);
         logStatement(stmt);
         ResultSet rs = stmt.executeQuery();
         if (rs.next()) {
             id = rs.getInt(1);
-            rs.close();
+            //rs.close();
         }
+        stmt.close();
         return id;
     }
 
     private int getIdXmpFromIdFile(Connection connection, int idFile) throws SQLException {
         int id = -1;
         PreparedStatement stmt = connection.prepareStatement(
-            "SELECT id FROM xmp WHERE id_files = ?"); // NOI18N
+                "SELECT id FROM xmp WHERE id_files = ?"); // NOI18N
+
         stmt.setInt(1, idFile);
         logStatement(stmt);
         ResultSet rs = stmt.executeQuery();
         if (rs.next()) {
             id = rs.getInt(1);
-            rs.close();
+            //rs.close();
         }
+        stmt.close();
         return id;
     }
 
@@ -742,13 +752,15 @@ public class Database {
             connection = getConnection();
             connection.setAutoCommit(false);
             PreparedStatement stmt = connection.prepareStatement(
-                "UPDATE files SET lastmodified = ? WHERE id = ?"); // NOI18N
+                    "UPDATE files SET lastmodified = ? WHERE id = ?"); // NOI18N
+
             String filename = imageFileData.getFilename();
             int idFile = getIdFile(connection, filename);
             stmt.setLong(1, imageFileData.getLastmodified());
             stmt.setInt(2, idFile);
             logStatement(stmt);
             stmt.executeUpdate();
+            stmt.close();
             updateThumbnail(connection, idFile, imageFileData.getThumbnail(), imageFileData.getFilename());
             updateIptc(connection, idFile, imageFileData.getIptc());
             updateXmp(connection, idFile, imageFileData.getXmp());
@@ -766,14 +778,7 @@ public class Database {
                 notifyErrorListener(ex.toString());
             }
         } finally {
-            if (connection != null) {
-                try {
-                    free(connection);
-                } catch (SQLException ex) {
-                    Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-                    notifyErrorListener(ex.toString());
-                }
-            }
+            free(connection);
         }
         return success;
     }
@@ -782,14 +787,16 @@ public class Database {
         int id = -1;
         try {
             PreparedStatement stmt = connection.prepareStatement(
-                "SELECT id FROM files WHERE filename = ?"); // NOI18N
+                    "SELECT id FROM files WHERE filename = ?"); // NOI18N
+
             stmt.setString(1, filename);
             logStatement(stmt);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 id = rs.getInt(1);
-                rs.close();
+                //rs.close();
             }
+            stmt.close();
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             notifyErrorListener(ex.toString());
@@ -799,30 +806,36 @@ public class Database {
 
     String getValueParamString(int count) {
         StringBuffer values = new StringBuffer(" VALUES ("); // NOI18N
+
         for (int index = 0; index < count; index++) {
             if (index == 0) {
                 values.append("?"); // NOI18N
+
             } else {
                 values.append(", ?"); // NOI18N
+
             }
         }
         values.append(")"); // NOI18N
+
         return values.toString();
     }
 
     synchronized private void insertValues(Connection connection, String statement, int id, Vector<String> values)
-        throws SQLException {
+            throws SQLException {
         PreparedStatement stmt = connection.prepareStatement(statement + " VALUES (?, ?)"); // NOI18N
+
         for (String value : values) {
             stmt.setInt(1, id);
             stmt.setString(2, value);
             logStatement(stmt);
             stmt.executeUpdate();
+            stmt.close();
         }
     }
 
     private void setIptcValues(PreparedStatement stmt, int idFile,
-        Iptc iptcData) throws SQLException {
+            Iptc iptcData) throws SQLException {
         stmt.setInt(1, idFile);
         stmt.setString(2, iptcData.getCopyrightNotice());
         stmt.setDate(3, iptcData.getCreationDate());
@@ -858,32 +871,27 @@ public class Database {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             notifyErrorListener(ex.toString());
         } finally {
-            if (connection != null) {
-                try {
-                    free(connection);
-                } catch (SQLException ex) {
-                    Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-                    notifyErrorListener(ex.toString());
-                }
-            }
+            free(connection);
         }
         return false;
     }
 
     synchronized private void updateThumbnail(Connection connection, int idFile, Image thumbnail,
-        String filename) throws
-        SQLException {
+            String filename) throws
+            SQLException {
         if (thumbnail != null) {
             ByteArrayInputStream inputStream = ImageUtil.getByteArrayInputStream(
-                thumbnail);
+                    thumbnail);
             if (inputStream != null) {
                 PreparedStatement stmt =
-                    connection.prepareStatement(
-                    "UPDATE files SET thumbnail = ? WHERE id = ?"); // NOI18N
+                        connection.prepareStatement(
+                        "UPDATE files SET thumbnail = ? WHERE id = ?"); // NOI18N
+
                 stmt.setBinaryStream(1, inputStream, inputStream.available());
                 stmt.setInt(2, idFile);
                 logStatement(stmt);
                 stmt.executeUpdate();
+                stmt.close();
                 notifyDatabaseListener(DatabaseAction.Type.ThumbnailUpdated, filename);
             }
         }
@@ -902,26 +910,21 @@ public class Database {
         try {
             connection = getConnection();
             PreparedStatement stmt = connection.prepareStatement(
-                "SELECT lastmodified FROM files WHERE filename = ?"); // NOI18N
+                    "SELECT lastmodified FROM files WHERE filename = ?"); // NOI18N
+
             stmt.setString(1, filename);
             logStatement(stmt);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 lastModified = rs.getLong(1);
-                rs.close();
+                //rs.close();
             }
+            stmt.close();
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             notifyErrorListener(ex.toString());
         } finally {
-            if (connection != null) {
-                try {
-                    free(connection);
-                } catch (SQLException ex) {
-                    Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-                    notifyErrorListener(ex.toString());
-                }
-            }
+            free(connection);
         }
         return lastModified;
     }
@@ -938,26 +941,21 @@ public class Database {
         try {
             connection = getConnection();
             PreparedStatement stmt = connection.prepareStatement(
-                "SELECT filename FROM files WHERE filename = ?"); // NOI18N
+                    "SELECT filename FROM files WHERE filename = ?"); // NOI18N
+
             stmt.setString(1, filename);
             logStatement(stmt);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 exists = true;
-                rs.close();
+                //rs.close();
             }
+            stmt.close();
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             notifyErrorListener(ex.toString());
         } finally {
-            if (connection != null) {
-                try {
-                    free(connection);
-                } catch (SQLException ex) {
-                    Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-                    notifyErrorListener(ex.toString());
-                }
-            }
+            free(connection);
         }
         return exists;
     }
@@ -975,13 +973,14 @@ public class Database {
         try {
             connection = getConnection();
             PreparedStatement stmt = connection.prepareStatement(
-                "SELECT thumbnail FROM files WHERE filename = ?"); // NOI18N
+                    "SELECT thumbnail FROM files WHERE filename = ?"); // NOI18N
+
             stmt.setString(1, filename);
             logStatement(stmt);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 InputStream inputStream = rs.getBinaryStream(1);
-                rs.close();
+                //rs.close();
                 if (inputStream != null) {
                     int bytecount = inputStream.available();
                     byte[] bytes = new byte[bytecount];
@@ -990,6 +989,7 @@ public class Database {
                     thumbnail = icon.getImage();
                 }
             }
+            stmt.close();
         } catch (IOException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             notifyErrorListener(ex.toString());
@@ -999,14 +999,7 @@ public class Database {
             notifyErrorListener(ex.toString());
             thumbnail = null;
         } finally {
-            if (connection != null) {
-                try {
-                    free(connection);
-                } catch (SQLException ex) {
-                    Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-                    notifyErrorListener(ex.toString());
-                }
-            }
+            free(connection);
         }
         return thumbnail;
     }
@@ -1056,53 +1049,47 @@ public class Database {
                     xmp.addPhotoshopSupplementalCategory(value);
                 }
             }
+            stmt.close();
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             notifyErrorListener(ex.toString());
         } finally {
-            if (connection != null) {
-                try {
-                    free(connection);
-                } catch (SQLException ex) {
-                    Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-                    notifyErrorListener(ex.toString());
-                }
-            }
+            free(connection);
         }
         return xmp;
     }
 
     private String getXmpOfFileStatement() {
         return " SELECT" + // NOI18N
-            " xmp.dc_description" + // NOI18N -- 1 --
-            ", xmp.dc_rights" + // NOI18N -- 2 --
-            ", xmp.dc_title" + // NOI18N -- 3 --
-            ", xmp.iptc4xmpcore_countrycode" + // NOI18N -- 4 --
-            ", xmp.iptc4xmpcore_location" + // NOI18N -- 5 --
-            ", xmp.photoshop_authorsposition" + // NOI18N -- 6 --
-            ", xmp.photoshop_captionwriter" + // NOI18N -- 7 --
-            ", xmp.photoshop_category" + // NOI18N -- 8 --
-            ", xmp.photoshop_city" + // NOI18N -- 9 --
-            ", xmp.photoshop_country" + // NOI18N -- 10 --
-            ", xmp.photoshop_credit" + // NOI18N -- 11 --
-            ", xmp.photoshop_headline" + // NOI18N -- 12 --
-            ", xmp.photoshop_instructions" + // NOI18N -- 13 --
-            ", xmp.photoshop_source" + // NOI18N -- 14 --
-            ", xmp.photoshop_state" + // NOI18N -- 15 --
-            ", xmp.photoshop_transmissionReference" + // NOI18N -- 16 --
-            ", xmp_dc_subjects.subject" + // NOI18N -- 17 --
-            ", xmp_dc_creators.creator" + // NOI18N -- 18 --
-            ", xmp_photoshop_supplementalcategories.supplementalcategory" + // NOI18N -- 19 --
-            " FROM" + // NOI18N
-            " xmp LEFT JOIN xmp_dc_subjects" + // NOI18N
-            " ON xmp.id = xmp_dc_subjects.id_xmp" + // NOI18N
-            " LEFT JOIN xmp_dc_creators" + // NOI18N
-            " ON xmp.id = xmp_dc_creators.id_xmp" + // NOI18N
-            " LEFT JOIN xmp_photoshop_supplementalcategories" + // NOI18N
-            " ON xmp.id = xmp_photoshop_supplementalcategories.id" + // NOI18N
-            " INNER JOIN files" + // NOI18N
-            " ON xmp.id_files = files.id" + // NOI18N
-            " WHERE files.filename = ?";
+                " xmp.dc_description" + // NOI18N -- 1 --
+                ", xmp.dc_rights" + // NOI18N -- 2 --
+                ", xmp.dc_title" + // NOI18N -- 3 --
+                ", xmp.iptc4xmpcore_countrycode" + // NOI18N -- 4 --
+                ", xmp.iptc4xmpcore_location" + // NOI18N -- 5 --
+                ", xmp.photoshop_authorsposition" + // NOI18N -- 6 --
+                ", xmp.photoshop_captionwriter" + // NOI18N -- 7 --
+                ", xmp.photoshop_category" + // NOI18N -- 8 --
+                ", xmp.photoshop_city" + // NOI18N -- 9 --
+                ", xmp.photoshop_country" + // NOI18N -- 10 --
+                ", xmp.photoshop_credit" + // NOI18N -- 11 --
+                ", xmp.photoshop_headline" + // NOI18N -- 12 --
+                ", xmp.photoshop_instructions" + // NOI18N -- 13 --
+                ", xmp.photoshop_source" + // NOI18N -- 14 --
+                ", xmp.photoshop_state" + // NOI18N -- 15 --
+                ", xmp.photoshop_transmissionReference" + // NOI18N -- 16 --
+                ", xmp_dc_subjects.subject" + // NOI18N -- 17 --
+                ", xmp_dc_creators.creator" + // NOI18N -- 18 --
+                ", xmp_photoshop_supplementalcategories.supplementalcategory" + // NOI18N -- 19 --
+                " FROM" + // NOI18N
+                " xmp LEFT JOIN xmp_dc_subjects" + // NOI18N
+                " ON xmp.id = xmp_dc_subjects.id_xmp" + // NOI18N
+                " LEFT JOIN xmp_dc_creators" + // NOI18N
+                " ON xmp.id = xmp_dc_creators.id_xmp" + // NOI18N
+                " LEFT JOIN xmp_photoshop_supplementalcategories" + // NOI18N
+                " ON xmp.id = xmp_photoshop_supplementalcategories.id" + // NOI18N
+                " INNER JOIN files" + // NOI18N
+                " ON xmp.id_files = files.id" + // NOI18N
+                " WHERE files.filename = ?";
     }
 
     /**
@@ -1164,62 +1151,56 @@ public class Database {
                     iptc.addByLineTitle(value);
                 }
             }
+            stmt.close();
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             notifyErrorListener(ex.toString());
         } finally {
-            if (connection != null) {
-                try {
-                    free(connection);
-                } catch (SQLException ex) {
-                    Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-                    notifyErrorListener(ex.toString());
-                }
-            }
+            free(connection);
         }
         return iptc;
     }
 
     private String getIptcOfFileStatement() {
         return " SELECT" + // NOI18N
-            " iptc.copyright_notice" + // NOI18N -- 1 --
-            ", iptc.creation_date" + // NOI18N -- 2 --
-            ", iptc.caption_abstract" + // NOI18N -- 3 --
-            ", iptc.object_name" + // NOI18N -- 4 --
-            ", iptc.headline" + // NOI18N -- 5 --
-            ", iptc.category" + // NOI18N -- 6 --
-            ", iptc.city" + // NOI18N -- 7 --
-            ", iptc.province_state" + // NOI18N -- 8 --
-            ", iptc.country_primary_location_name" + // NOI18N -- 9 --
-            ", iptc.original_transmission_reference" + // NOI18N -- 10 --
-            ", iptc.special_instructions" + // NOI18N -- 11 --
-            ", iptc.credit" + // NOI18N -- 12 --
-            ", iptc.source" + // NOI18N -- 13 --
-            ", iptc_keywords.keyword" + // NOI18N -- 14 --
-            ", iptc_bylines.byline" + // NOI18N -- 15 --
-            ", iptc_content_location_names.content_location_name" + // NOI18N -- 16 --
-            ", iptc_content_location_codes.content_location_code" + // NOI18N -- 17 --
-            ", iptc_writers_editors.writer_editor" + // NOI18N -- 18 --
-            ", iptc_supplemental_categories.supplemental_category" + // NOI18N -- 19 --
-            ", iptc_by_lines_titles.by_line_title" + // NOI18N -- 20 --
-            " FROM" + // NOI18N
-            " iptc LEFT JOIN iptc_keywords" + // NOI18N
-            " ON iptc.id = iptc_keywords.id_iptc" + // NOI18N
-            " LEFT JOIN iptc_bylines" + // NOI18N
-            " ON iptc.id = iptc_bylines.id_iptc" + // NOI18N
-            " LEFT JOIN iptc_content_location_names" + // NOI18N
-            " ON iptc.id = iptc_content_location_names.id_iptc" + // NOI18N
-            " LEFT JOIN iptc_content_location_codes" + // NOI18N
-            " ON iptc.id = iptc_content_location_codes.id_iptc" + // NOI18N
-            " LEFT JOIN iptc_writers_editors" + // NOI18N
-            " ON iptc.id = iptc_writers_editors.id_iptc" + // NOI18N
-            " LEFT JOIN iptc_supplemental_categories" + // NOI18N
-            " ON iptc.id = iptc_supplemental_categories.id_iptc" + // NOI18N
-            " LEFT JOIN iptc_by_lines_titles" + // NOI18N
-            " ON iptc.id = iptc_by_lines_titles.id_iptc" + // NOI18N
-            " INNER JOIN files" + // NOI18N
-            " ON xmp.id_files = files.id" + // NOI18N
-            " WHERE files.filename = ?";
+                " iptc.copyright_notice" + // NOI18N -- 1 --
+                ", iptc.creation_date" + // NOI18N -- 2 --
+                ", iptc.caption_abstract" + // NOI18N -- 3 --
+                ", iptc.object_name" + // NOI18N -- 4 --
+                ", iptc.headline" + // NOI18N -- 5 --
+                ", iptc.category" + // NOI18N -- 6 --
+                ", iptc.city" + // NOI18N -- 7 --
+                ", iptc.province_state" + // NOI18N -- 8 --
+                ", iptc.country_primary_location_name" + // NOI18N -- 9 --
+                ", iptc.original_transmission_reference" + // NOI18N -- 10 --
+                ", iptc.special_instructions" + // NOI18N -- 11 --
+                ", iptc.credit" + // NOI18N -- 12 --
+                ", iptc.source" + // NOI18N -- 13 --
+                ", iptc_keywords.keyword" + // NOI18N -- 14 --
+                ", iptc_bylines.byline" + // NOI18N -- 15 --
+                ", iptc_content_location_names.content_location_name" + // NOI18N -- 16 --
+                ", iptc_content_location_codes.content_location_code" + // NOI18N -- 17 --
+                ", iptc_writers_editors.writer_editor" + // NOI18N -- 18 --
+                ", iptc_supplemental_categories.supplemental_category" + // NOI18N -- 19 --
+                ", iptc_by_lines_titles.by_line_title" + // NOI18N -- 20 --
+                " FROM" + // NOI18N
+                " iptc LEFT JOIN iptc_keywords" + // NOI18N
+                " ON iptc.id = iptc_keywords.id_iptc" + // NOI18N
+                " LEFT JOIN iptc_bylines" + // NOI18N
+                " ON iptc.id = iptc_bylines.id_iptc" + // NOI18N
+                " LEFT JOIN iptc_content_location_names" + // NOI18N
+                " ON iptc.id = iptc_content_location_names.id_iptc" + // NOI18N
+                " LEFT JOIN iptc_content_location_codes" + // NOI18N
+                " ON iptc.id = iptc_content_location_codes.id_iptc" + // NOI18N
+                " LEFT JOIN iptc_writers_editors" + // NOI18N
+                " ON iptc.id = iptc_writers_editors.id_iptc" + // NOI18N
+                " LEFT JOIN iptc_supplemental_categories" + // NOI18N
+                " ON iptc.id = iptc_supplemental_categories.id_iptc" + // NOI18N
+                " LEFT JOIN iptc_by_lines_titles" + // NOI18N
+                " ON iptc.id = iptc_by_lines_titles.id_iptc" + // NOI18N
+                " INNER JOIN files" + // NOI18N
+                " ON xmp.id_files = files.id" + // NOI18N
+                " WHERE files.filename = ?";
     }
 
     /**
@@ -1234,24 +1215,19 @@ public class Database {
         try {
             connection = getConnection();
             PreparedStatement stmt = connection.prepareStatement("DELETE FROM files WHERE filename = ?"); // NOI18N
+
             for (String filename : filenames) {
                 stmt.setString(1, filename);
                 logStatement(stmt);
                 countDeleted += stmt.executeUpdate();
             }
+            stmt.close();
             notifyDatabaseListener(DatabaseAction.Type.ImageFilesDeleted, filenames);
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             notifyErrorListener(ex.toString());
         } finally {
-            if (connection != null) {
-                try {
-                    free(connection);
-                } catch (SQLException ex) {
-                    Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-                    notifyErrorListener(ex.toString());
-                }
-            }
+            free(connection);
         }
         return countDeleted;
     }
@@ -1279,6 +1255,7 @@ public class Database {
             event.setMaximum(getFileCount());
             Statement stmt = connection.createStatement();
             String query = "SELECT filename FROM files"; // NOI18N
+
             ResultSet rs = stmt.executeQuery(query);
             String filename;
             boolean abort = notifyProgressListenerStart(listener, event);
@@ -1294,18 +1271,12 @@ public class Database {
                 notifyProgressListenerPerformed(listener, event);
                 abort = event.isStop();
             }
+            stmt.close();
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             notifyErrorListener(ex.toString());
         } finally {
-            if (connection != null) {
-                try {
-                    free(connection);
-                } catch (SQLException ex) {
-                    Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-                    notifyErrorListener(ex.toString());
-                }
-            }
+            free(connection);
         }
         if (countDeleted > 0) {
             notifyDatabaseListener(DatabaseAction.Type.MaintainanceNotExistingImageFilesDeleted, deletedFiles);
@@ -1327,7 +1298,7 @@ public class Database {
      * @return Anzahl umbenannter Strings
      */
     synchronized public int renameInXmpColumns(Vector<String> filenames,
-        Column xmpColumn, String oldValue, String newValue, ProgressListener listener) {
+            Column xmpColumn, String oldValue, String newValue, ProgressListener listener) {
         int countRenamed = 0;
         String tableName = xmpColumn.getTable().getName();
         String columnName = tableName + "." + xmpColumn.getName();
@@ -1339,11 +1310,12 @@ public class Database {
             connection = getConnection();
             connection.setAutoCommit(false);
             PreparedStatement stmt = connection.prepareStatement(
-                "SELECT DISTINCT files.id, xmp.id" + // NOI18N
-                " FROM xmp" + (isXmpTable ? "" : ", " + tableName) + ", files" + // NOI18N
-                (isXmpTable ? "" : " LEFT JOIN xmp ON " + tableName + ".id_xmp = xmp.id") + // NOI18N
-                " INNER JOIN files ON xmp.id_files = files.id" + // NOI18N
-                " WHERE " + columnName + " = ? AND files.filename = ?"); // NOI18N
+                    "SELECT DISTINCT files.id, xmp.id" + // NOI18N
+                    " FROM xmp" + (isXmpTable ? "" : ", " + tableName) + ", files" + // NOI18N
+                    (isXmpTable ? "" : " LEFT JOIN xmp ON " + tableName + ".id_xmp = xmp.id") + // NOI18N
+                    " INNER JOIN files ON xmp.id_files = files.id" + // NOI18N
+                    " WHERE " + columnName + " = ? AND files.filename = ?"); // NOI18N
+
             stmt.setString(1, oldValue);
             int filecount = filenames.size();
             event.setMaximum(filecount);
@@ -1372,6 +1344,7 @@ public class Database {
                 event.setValue(i + 1);
                 notifyProgressListenerPerformed(listener, event);
                 abort = event.isStop();
+                stmt.close();
             }
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
@@ -1383,14 +1356,7 @@ public class Database {
                 notifyErrorListener(ex.toString());
             }
         } finally {
-            try {
-                if (connection != null) {
-                    free(connection);
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-                notifyErrorListener(ex.toString());
-            }
+            free(connection);
         }
         event.setInfo(new Integer(countRenamed));
         notifyProgressListenerEnd(listener, event);
@@ -1398,7 +1364,7 @@ public class Database {
     }
 
     private boolean notifyProgressListenerStart(ProgressListener listener,
-        ProgressEvent event) {
+            ProgressEvent event) {
         if (listener != null) {
             listener.progressStarted(event);
             return event.isStop();
@@ -1407,7 +1373,7 @@ public class Database {
     }
 
     private boolean notifyProgressListenerPerformed(ProgressListener listener,
-        ProgressEvent event) {
+            ProgressEvent event) {
         if (listener != null) {
             listener.progressPerformed(event);
             return event.isStop();
@@ -1416,7 +1382,7 @@ public class Database {
     }
 
     private void notifyProgressListenerEnd(ProgressListener listener,
-        ProgressEvent event) {
+            ProgressEvent event) {
         if (listener != null) {
             listener.progressEnded(event);
         }
@@ -1425,12 +1391,14 @@ public class Database {
     synchronized private void deleteRowWithFilename(Connection connection, String filename) {
         try {
             PreparedStatement stmt =
-                connection.prepareStatement(
-                "DELETE FROM files WHERE filename = ?"); // NOI18N
+                    connection.prepareStatement(
+                    "DELETE FROM files WHERE filename = ?"); // NOI18N
+
             stmt.setString(1, filename);
             logStatement(stmt);
             int count = stmt.executeUpdate();
             assert count > 0;
+            stmt.close();
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             notifyErrorListener(ex.toString());
@@ -1449,32 +1417,26 @@ public class Database {
         try {
             connection = getConnection();
             PreparedStatement stmt = connection.prepareStatement(
-                "SELECT files.filename FROM" + // NOI18N
-                " collections INNER JOIN collection_names" + // NOI18N
-                " ON collections.id_collectionnnames = collection_names.id" + // NOI18N
-                " INNER JOIN files ON collections.id_files = files.id" + // NOI18N 
-                " WHERE collection_names.name = ?" + // NOI18N
-                " ORDER BY collections.sequence_number ASC"); // NOI18N
+                    "SELECT files.filename FROM" + // NOI18N
+                    " collections INNER JOIN collection_names" + // NOI18N
+                    " ON collections.id_collectionnnames = collection_names.id" + // NOI18N
+                    " INNER JOIN files ON collections.id_files = files.id" + // NOI18N 
+                    " WHERE collection_names.name = ?" + // NOI18N
+                    " ORDER BY collections.sequence_number ASC"); // NOI18N
+
             stmt.setString(1, collectionName);
             logStatement(stmt);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 filenames.add(rs.getString(1));
             }
-            rs.close();
+            stmt.close();
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             notifyErrorListener(ex.toString());
             filenames.removeAllElements();
         } finally {
-            if (connection != null) {
-                try {
-                    free(connection);
-                } catch (SQLException ex) {
-                    Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-                    notifyErrorListener(ex.toString());
-                }
-            }
+            free(connection);
         }
         return filenames;
     }
@@ -1491,23 +1453,17 @@ public class Database {
             connection = getConnection();
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT name FROM collection_names"); // NOI18N
+
             while (rs.next()) {
                 names.add(rs.getString(1));
             }
-            rs.close();
+            stmt.close();
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             notifyErrorListener(ex.toString());
             names.removeAllElements();
         } finally {
-            if (connection != null) {
-                try {
-                    free(connection);
-                } catch (SQLException ex) {
-                    Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-                    notifyErrorListener(ex.toString());
-                }
-            }
+            free(connection);
         }
         return names;
     }
@@ -1525,7 +1481,8 @@ public class Database {
         try {
             connection = getConnection();
             PreparedStatement stmt = connection.prepareStatement(
-                "UPDATE collection_names SET name = ? WHERE name = ?"); // NOI18N
+                    "UPDATE collection_names SET name = ? WHERE name = ?"); // NOI18N
+
             stmt.setString(1, newName);
             stmt.setString(2, oldName);
             logStatement(stmt);
@@ -1534,17 +1491,11 @@ public class Database {
             info.add(oldName);
             info.add(newName);
             notifyDatabaseListener(DatabaseAction.Type.ImageFileUpdated, info);
+            stmt.close();
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-            if (connection != null) {
-                try {
-                    free(connection);
-                } catch (SQLException ex) {
-                    Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-                    notifyErrorListener(ex.toString());
-                }
-            }
+            free(connection);
         }
         return count;
     }
@@ -1559,7 +1510,7 @@ public class Database {
      * @see                  #existsImageCollection(java.lang.String)
      */
     synchronized public boolean insertImageCollection(
-        String collectionName, Vector<String> filenames) {
+            String collectionName, Vector<String> filenames) {
         boolean added = false;
         if (existsImageCollection(collectionName)) {
             deleteImageCollection(collectionName);
@@ -1569,11 +1520,13 @@ public class Database {
             connection = getConnection();
             connection.setAutoCommit(false);
             PreparedStatement stmtName = connection.prepareStatement(
-                "INSERT INTO collection_names (name) VALUES (?)"); // NOI18N
+                    "INSERT INTO collection_names (name) VALUES (?)"); // NOI18N
+
             PreparedStatement stmtColl = connection.prepareStatement(
-                "INSERT INTO collections" + // NOI18N
-                " (id_collectionnnames, id_files, sequence_number)" + // NOI18N
-                " VALUES (?, ?, ?)"); // NOI18N
+                    "INSERT INTO collections" + // NOI18N
+                    " (id_collectionnnames, id_files, sequence_number)" + // NOI18N
+                    " VALUES (?, ?, ?)"); // NOI18N
+
             stmtName.setString(1, collectionName);
             logStatement(stmtName);
             stmtName.executeUpdate();
@@ -1590,6 +1543,8 @@ public class Database {
             connection.commit();
             added = true;
             notifyDatabaseListener(DatabaseAction.Type.ImageCollectionInserted, collectionName, filenames);
+            stmtName.close();
+            stmtColl.close();
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             notifyErrorListener(ex.toString());
@@ -1600,14 +1555,7 @@ public class Database {
                 notifyErrorListener(ex.toString());
             }
         } finally {
-            try {
-                if (connection != null) {
-                    free(connection);
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-                notifyErrorListener(ex.toString());
-            }
+            free(connection);
         }
         return added;
     }
@@ -1624,24 +1572,19 @@ public class Database {
         try {
             connection = getConnection();
             PreparedStatement stmt = connection.prepareStatement(
-                "DELETE FROM collection_names WHERE name = ?"); // NOI18N
+                    "DELETE FROM collection_names WHERE name = ?"); // NOI18N
+
             stmt.setString(1, collectionname);
             logStatement(stmt);
             stmt.executeUpdate();
             deleted = true;
             notifyDatabaseListener(DatabaseAction.Type.ImageCollectionDeleted, collectionname);
+            stmt.close();
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             notifyErrorListener(ex.toString());
         } finally {
-            if (connection != null) {
-                try {
-                    free(connection);
-                } catch (SQLException ex) {
-                    Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-                    notifyErrorListener(ex.toString());
-                }
-            }
+            free(connection);
         }
         return deleted;
     }
@@ -1654,15 +1597,16 @@ public class Database {
      * @return               Anzahl gelöschter Bilder
      */
     synchronized public int deleteImagesFromCollection(
-        String collectionName, Vector<String> filenames) {
+            String collectionName, Vector<String> filenames) {
         int delCount = 0;
         Connection connection = null;
         try {
             connection = getConnection();
             connection.setAutoCommit(false);
             PreparedStatement stmt = connection.prepareStatement(
-                "DELETE FROM collections" + // NOI18N
-                " WHERE id_collectionnnames = ? AND id_files = ?"); // NOI18N
+                    "DELETE FROM collections" + // NOI18N
+                    " WHERE id_collectionnnames = ? AND id_files = ?"); // NOI18N
+
             for (String filename : filenames) {
                 int idCollectionName = getIdCollectionName(connection, collectionName);
                 int idFile = getIdFile(connection, filename);
@@ -1674,6 +1618,7 @@ public class Database {
             }
             connection.commit();
             notifyDatabaseListener(DatabaseAction.Type.ImageCollectionImagesDeleted, collectionName, filenames);
+            stmt.close();
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             notifyErrorListener(ex.toString());
@@ -1684,14 +1629,7 @@ public class Database {
                 notifyErrorListener(ex.toString());
             }
         } finally {
-            try {
-                if (connection != null) {
-                    free(connection);
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-                notifyErrorListener(ex.toString());
-            }
+            free(connection);
         }
         return delCount;
     }
@@ -1706,7 +1644,7 @@ public class Database {
      * @return               true bei Erfolg
      */
     synchronized public boolean insertImagesIntoCollection(
-        String collectionName, Vector<String> filenames) {
+            String collectionName, Vector<String> filenames) {
         boolean added = false;
         Connection connection = null;
         try {
@@ -1714,8 +1652,9 @@ public class Database {
                 connection = getConnection();
                 connection.setAutoCommit(false);
                 PreparedStatement stmt = connection.prepareStatement(
-                    "INSERT INTO collections (id_files, id_collectionnnames, sequence_number)" + // NOI18N
-                    " VALUES (?, ?, ?)"); // NOI18N
+                        "INSERT INTO collections (id_files, id_collectionnnames, sequence_number)" + // NOI18N
+                        " VALUES (?, ?, ?)"); // NOI18N
+
                 int idCollectionNames = getIdCollectionName(connection, collectionName);
                 int sequence_number = getMaxCollectionSequenceNumber(connection, collectionName) + 1;
                 for (String filename : filenames) {
@@ -1729,6 +1668,7 @@ public class Database {
                     }
                 }
                 reorderCollectionSequenceNumber(connection, collectionName);
+                stmt.close();
             } else {
                 return insertImageCollection(collectionName, filenames);
             }
@@ -1745,14 +1685,7 @@ public class Database {
                 notifyErrorListener(ex.toString());
             }
         } finally {
-            try {
-                if (connection != null) {
-                    free(connection);
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-                notifyErrorListener(ex.toString());
-            }
+            free(connection);
         }
         return added;
     }
@@ -1760,25 +1693,27 @@ public class Database {
     private int getMaxCollectionSequenceNumber(Connection connection, String collectionName) throws SQLException {
         int max = -1;
         PreparedStatement stmt = connection.prepareStatement(
-            "SELECT MAX(collections.sequence_number)" + // NOI18N
-            " FROM collections INNER JOIN collection_names" + // NOI18N
-            " ON collections.id_collectionnnames = collection_names.id" + // NOI18N
-            " AND collection_names.name = ?"); // NOI18N
+                "SELECT MAX(collections.sequence_number)" + // NOI18N
+                " FROM collections INNER JOIN collection_names" + // NOI18N
+                " ON collections.id_collectionnnames = collection_names.id" + // NOI18N
+                " AND collection_names.name = ?"); // NOI18N
+
         stmt.setString(1, collectionName);
         logStatement(stmt);
         ResultSet rs = stmt.executeQuery();
         if (rs.next()) {
             max = rs.getInt(1);
         }
-        rs.close();
+        stmt.close();
         return max;
     }
 
     synchronized private void reorderCollectionSequenceNumber(Connection connection, String collectionName) throws SQLException {
         int idCollectionName = getIdCollectionName(connection, collectionName);
         PreparedStatement stmtIdFiles = connection.prepareStatement(
-            "SELECT id_files FROM collections WHERE id_collectionnnames = ?" + // NOI18N
-            " ORDER BY collections.sequence_number ASC"); // NOI18N
+                "SELECT id_files FROM collections WHERE id_collectionnnames = ?" + // NOI18N
+                " ORDER BY collections.sequence_number ASC"); // NOI18N
+
         stmtIdFiles.setInt(1, idCollectionName);
         logStatement(stmtIdFiles);
         ResultSet rs = stmtIdFiles.executeQuery();
@@ -1786,10 +1721,10 @@ public class Database {
         while (rs.next()) {
             idFiles.add(rs.getInt(1));
         }
-        rs.close();
         PreparedStatement stmt = connection.prepareStatement(
-            "UPDATE collections SET sequence_number = ?" + // NOI18N
-            " WHERE id_collectionnnames = ? AND id_files = ?"); // NOI18N
+                "UPDATE collections SET sequence_number = ?" + // NOI18N
+                " WHERE id_collectionnnames = ? AND id_files = ?"); // NOI18N
+
         int sequenceNumer = 0;
         for (Integer idFile : idFiles) {
             stmt.setInt(1, sequenceNumer++);
@@ -1798,6 +1733,8 @@ public class Database {
             logStatement(stmt);
             stmt.executeUpdate();
         }
+        stmtIdFiles.close();
+        stmt.close();
     }
 
     /**
@@ -1812,26 +1749,20 @@ public class Database {
         try {
             connection = getConnection();
             PreparedStatement stmt = connection.prepareStatement(
-                "SELECT COUNT(*) FROM collection_names WHERE name = ?"); // NOI18N
+                    "SELECT COUNT(*) FROM collection_names WHERE name = ?"); // NOI18N
+
             stmt.setString(1, collectionName);
             logStatement(stmt);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 exists = rs.getInt(1) > 0;
             }
-            rs.close();
+            stmt.close();
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             notifyErrorListener(ex.toString());
         } finally {
-            if (connection != null) {
-                try {
-                    free(connection);
-                } catch (SQLException ex) {
-                    Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-                    notifyErrorListener(ex.toString());
-                }
-            }
+            free(connection);
         }
         return exists;
     }
@@ -1848,23 +1779,17 @@ public class Database {
             connection = getConnection();
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(
-                "SELECT COUNT(*) FROM collection_names"); // NOI18N
+                    "SELECT COUNT(*) FROM collection_names"); // NOI18N
+
             if (rs.next()) {
                 count = rs.getInt(1);
             }
-            rs.close();
+            stmt.close();
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             notifyErrorListener(ex.toString());
         } finally {
-            if (connection != null) {
-                try {
-                    free(connection);
-                } catch (SQLException ex) {
-                    Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-                    notifyErrorListener(ex.toString());
-                }
-            }
+            free(connection);
         }
         return count;
     }
@@ -1881,22 +1806,16 @@ public class Database {
             connection = getConnection();
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT COUNT(*) FROM collections"); // NOI18N
+
             if (rs.next()) {
                 count = rs.getInt(1);
             }
-            rs.close();
+            stmt.close();
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             notifyErrorListener(ex.toString());
         } finally {
-            if (connection != null) {
-                try {
-                    free(connection);
-                } catch (SQLException ex) {
-                    Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-                    notifyErrorListener(ex.toString());
-                }
-            }
+            free(connection);
         }
         return count;
     }
@@ -1904,11 +1823,12 @@ public class Database {
     private boolean isImageInCollection(Connection connection, String collectionName, String filename) throws SQLException {
         boolean isInCollection = false;
         PreparedStatement stmt = connection.prepareStatement(
-            "SELECT COUNT(*) FROM" + // NOI18N
-            " collections INNER JOIN collection_names" + // NOI18N
-            " ON collections.id_collectionnnames = collection_names.id" + // NOI18N
-            " INNER JOIN files on collections.id_files = files.id" + // NOI18N
-            " WHERE collection_names.name = ? AND files.filename = ?"); // NOI18N
+                "SELECT COUNT(*) FROM" + // NOI18N
+                " collections INNER JOIN collection_names" + // NOI18N
+                " ON collections.id_collectionnnames = collection_names.id" + // NOI18N
+                " INNER JOIN files on collections.id_files = files.id" + // NOI18N
+                " WHERE collection_names.name = ? AND files.filename = ?"); // NOI18N
+
         stmt.setString(1, collectionName);
         stmt.setString(2, filename);
         logStatement(stmt);
@@ -1916,21 +1836,22 @@ public class Database {
         if (rs.next()) {
             isInCollection = rs.getInt(1) > 0;
         }
-        rs.close();
+        stmt.close();
         return isInCollection;
     }
 
     private int getIdCollectionName(Connection connection, String collectionname) throws SQLException {
         int id = -1;
         PreparedStatement stmt = connection.prepareStatement(
-            "SELECT id FROM collection_names WHERE name = ?"); // NOI18N
+                "SELECT id FROM collection_names WHERE name = ?"); // NOI18N
+
         stmt.setString(1, collectionname);
         logStatement(stmt);
         ResultSet rs = stmt.executeQuery();
         if (rs.next()) {
             id = rs.getInt(1);
         }
-        rs.close();
+        stmt.close();
         return id;
     }
 
@@ -1955,8 +1876,9 @@ public class Database {
                 connection = getConnection();
                 connection.setAutoCommit(false);
                 PreparedStatement stmt = connection.prepareStatement(
-                    "INSERT INTO saved_searches (name, sql_string, is_query)" + // NOI18N
-                    " VALUES (?, ?, ?)"); // NOI18N
+                        "INSERT INTO saved_searches (name, sql_string, is_query)" + // NOI18N
+                        " VALUES (?, ?, ?)"); // NOI18N
+
                 stmt.setString(1, stmtData.getName());
                 stmt.setBytes(2, stmtData.getSql().getBytes());
                 stmt.setBoolean(3, stmtData.isQuery());
@@ -1968,6 +1890,7 @@ public class Database {
                 connection.commit();
                 inserted = true;
                 notifyDatabaseListener(DatabaseAction.Type.SavedSearchInserted, data);
+                stmt.close();
             } catch (SQLException ex) {
                 Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
                 notifyErrorListener(ex.toString());
@@ -1978,14 +1901,7 @@ public class Database {
                     notifyErrorListener(ex.toString());
                 }
             } finally {
-                try {
-                    if (connection != null) {
-                        free(connection);
-                    }
-                } catch (SQLException ex) {
-                    Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-                    notifyErrorListener(ex.toString());
-                }
+                free(connection);
             }
         }
 
@@ -1995,12 +1911,13 @@ public class Database {
     synchronized private void insertSavedSearchValues(Connection connection, int idSavedSearch, Vector<String> values) throws SQLException {
         if (idSavedSearch > 0 && values.size() > 0) {
             PreparedStatement stmt = connection.prepareStatement(
-                "INSERT INTO saved_searches_values (" + // NOI18N 
-                "id_saved_searches" + // NOI18N -- 1 --
-                ", value" + // NOI18N -- 2 --
-                ", value_index" + // NOI18N -- 3 --
-                ")" + // NOI18N
-                " VALUES (?, ?, ?)"); // NOI18N
+                    "INSERT INTO saved_searches_values (" + // NOI18N 
+                    "id_saved_searches" + // NOI18N -- 1 --
+                    ", value" + // NOI18N -- 2 --
+                    ", value_index" + // NOI18N -- 3 --
+                    ")" + // NOI18N
+                    " VALUES (?, ?, ?)"); // NOI18N
+
             stmt.setInt(1, idSavedSearch);
             int size = values.size();
             for (int index = 0; index < size; index++) {
@@ -2009,26 +1926,28 @@ public class Database {
                 stmt.setInt(3, index);
                 logStatement(stmt);
                 stmt.executeUpdate();
+                stmt.close();
             }
         }
     }
 
     synchronized private void insertSavedSearchPanelData(Connection connection, int idSavedSearch,
-        Vector<SavedSearchPanel> panelData) throws SQLException {
+            Vector<SavedSearchPanel> panelData) throws SQLException {
         if (idSavedSearch > 0 && panelData != null) {
             PreparedStatement stmt = connection.prepareStatement(
-                "INSERT INTO" + // NOI18N
-                " saved_searches_panels (" + // NOI18N
-                "id_saved_searches" + // NOI18N -- 1 --
-                ", panel_index" + // NOI18N -- 2 --
-                ", bracket_left_1" + // NOI18N -- 3 --
-                ", operator_id" + // NOI18N -- 4 --
-                ", bracket_left_2" + // NOI18N -- 5 --
-                ", column_id" + // NOI18N -- 6 --
-                ", comparator_id" + // NOI18N -- 7 --
-                ", value" + // NOI18N -- 8 --
-                ", bracket_right)" + // NOI18N -- 9 --
-                " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"); // NOI18N
+                    "INSERT INTO" + // NOI18N
+                    " saved_searches_panels (" + // NOI18N
+                    "id_saved_searches" + // NOI18N -- 1 --
+                    ", panel_index" + // NOI18N -- 2 --
+                    ", bracket_left_1" + // NOI18N -- 3 --
+                    ", operator_id" + // NOI18N -- 4 --
+                    ", bracket_left_2" + // NOI18N -- 5 --
+                    ", column_id" + // NOI18N -- 6 --
+                    ", comparator_id" + // NOI18N -- 7 --
+                    ", value" + // NOI18N -- 8 --
+                    ", bracket_right)" + // NOI18N -- 9 --
+                    " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"); // NOI18N
+
             stmt.setInt(1, idSavedSearch);
             for (SavedSearchPanel data : panelData) {
                 stmt.setInt(2, data.getPanelIndex());
@@ -2041,6 +1960,7 @@ public class Database {
                 stmt.setBoolean(9, data.isBracketRightSelected());
                 logStatement(stmt);
                 stmt.executeUpdate();
+                stmt.close();
             }
 
         }
@@ -2049,14 +1969,15 @@ public class Database {
     private int getIdSavedSearch(Connection connection, String name) throws SQLException {
         int id = -1;
         PreparedStatement stmt = connection.prepareStatement(
-            "SELECT id FROM saved_searches WHERE name = ?"); // NOI18N
+                "SELECT id FROM saved_searches WHERE name = ?"); // NOI18N
+
         stmt.setString(1, name);
         logStatement(stmt);
         ResultSet rs = stmt.executeQuery();
         if (rs.next()) {
             id = rs.getInt(1);
         }
-        rs.close();
+        stmt.close();
         return id;
     }
 
@@ -2077,34 +1998,36 @@ public class Database {
             connection = getConnection();
             connection.setAutoCommit(false);
             PreparedStatement stmt = connection.prepareStatement(
-                "INSERT INTO metadata_edit_templates" + // NOI18N
-                " (name" + // NOI18N
-                ", dcSubjects" + // NOI18N
-                ", dcTitle" + // NOI18N
-                ", photoshopHeadline" + // NOI18N
-                ", dcDescription" + // NOI18N
-                ", photoshopCaptionwriter" + // NOI18N
-                ", iptc4xmpcoreLocation" + // NOI18N
-                ", iptc4xmpcoreCountrycode" + // NOI18N
-                ", photoshopCategory" + // NOI18N
-                ", photoshopSupplementalCategories" + // NOI18N
-                ", dcRights" + // NOI18N
-                ", dcCreators" + // NOI18N
-                ", photoshopAuthorsposition" + // NOI18N
-                ", photoshopCity" + // NOI18N
-                ", photoshopState" + // NOI18N
-                ", photoshopCountry" + // NOI18N
-                ", photoshopTransmissionReference" + // NOI18N
-                ", photoshopInstructions" + // NOI18N
-                ", photoshopCredit" + // NOI18N
-                ", photoshopSource" + // NOI18N
-                ")" + // NOI18N
-                " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"); // NOI18N
+                    "INSERT INTO metadata_edit_templates" + // NOI18N
+                    " (name" + // NOI18N
+                    ", dcSubjects" + // NOI18N
+                    ", dcTitle" + // NOI18N
+                    ", photoshopHeadline" + // NOI18N
+                    ", dcDescription" + // NOI18N
+                    ", photoshopCaptionwriter" + // NOI18N
+                    ", iptc4xmpcoreLocation" + // NOI18N
+                    ", iptc4xmpcoreCountrycode" + // NOI18N
+                    ", photoshopCategory" + // NOI18N
+                    ", photoshopSupplementalCategories" + // NOI18N
+                    ", dcRights" + // NOI18N
+                    ", dcCreators" + // NOI18N
+                    ", photoshopAuthorsposition" + // NOI18N
+                    ", photoshopCity" + // NOI18N
+                    ", photoshopState" + // NOI18N
+                    ", photoshopCountry" + // NOI18N
+                    ", photoshopTransmissionReference" + // NOI18N
+                    ", photoshopInstructions" + // NOI18N
+                    ", photoshopCredit" + // NOI18N
+                    ", photoshopSource" + // NOI18N
+                    ")" + // NOI18N
+                    " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"); // NOI18N
+
             setMetaDataEditTemplate(stmt, template);
             logStatement(stmt);
             stmt.executeUpdate();
             connection.commit();
             inserted = true;
+            stmt.close();
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             notifyErrorListener(ex.toString());
@@ -2115,20 +2038,13 @@ public class Database {
                 notifyErrorListener(ex.toString());
             }
         } finally {
-            try {
-                if (connection != null) {
-                    free(connection);
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-                notifyErrorListener(ex.toString());
-            }
+            free(connection);
         }
         return inserted;
     }
 
     private void setMetaDataEditTemplate(PreparedStatement stmt,
-        MetaDataEditTemplate template) throws SQLException {
+            MetaDataEditTemplate template) throws SQLException {
         stmt.setString(1, template.getName());
         stmt.setBytes(2, template.getDcSubjects() == null ? null : template.getDcSubjects().getBytes());
         stmt.setBytes(3, template.getDcTitle() == null ? null : template.getDcTitle().getBytes());
@@ -2163,29 +2079,30 @@ public class Database {
             connection = getConnection();
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(
-                "SELECT" + // NOI18N 
-                " name" + // NOI18N 
-                ", dcSubjects" + // NOI18N 
-                ", dcTitle" + // NOI18N 
-                ", photoshopHeadline" + // NOI18N 
-                ", dcDescription" + // NOI18N 
-                ", photoshopCaptionwriter" + // NOI18N 
-                ", iptc4xmpcoreLocation" + // NOI18N 
-                ", iptc4xmpcoreCountrycode" + // NOI18N 
-                ", photoshopCategory" + // NOI18N 
-                ", photoshopSupplementalCategories" + // NOI18N 
-                ", dcRights" + // NOI18N 
-                ", dcCreators" + // NOI18N 
-                ", photoshopAuthorsposition" + // NOI18N 
-                ", photoshopCity" + // NOI18N 
-                ", photoshopState" + // NOI18N 
-                ", photoshopCountry" + // NOI18N 
-                ", photoshopTransmissionReference" + // NOI18N
-                ", photoshopInstructions" + // NOI18N 
-                ", photoshopCredit" + // NOI18N 
-                ", photoshopSource" + // NOI18N
-                " FROM metadata_edit_templates" + // NOI18N
-                " WHERE name IS NOT NULL"); // NOI18N
+                    "SELECT" + // NOI18N 
+                    " name" + // NOI18N 
+                    ", dcSubjects" + // NOI18N 
+                    ", dcTitle" + // NOI18N 
+                    ", photoshopHeadline" + // NOI18N 
+                    ", dcDescription" + // NOI18N 
+                    ", photoshopCaptionwriter" + // NOI18N 
+                    ", iptc4xmpcoreLocation" + // NOI18N 
+                    ", iptc4xmpcoreCountrycode" + // NOI18N 
+                    ", photoshopCategory" + // NOI18N 
+                    ", photoshopSupplementalCategories" + // NOI18N 
+                    ", dcRights" + // NOI18N 
+                    ", dcCreators" + // NOI18N 
+                    ", photoshopAuthorsposition" + // NOI18N 
+                    ", photoshopCity" + // NOI18N 
+                    ", photoshopState" + // NOI18N 
+                    ", photoshopCountry" + // NOI18N 
+                    ", photoshopTransmissionReference" + // NOI18N
+                    ", photoshopInstructions" + // NOI18N 
+                    ", photoshopCredit" + // NOI18N 
+                    ", photoshopSource" + // NOI18N
+                    " FROM metadata_edit_templates" + // NOI18N
+                    " WHERE name IS NOT NULL"); // NOI18N
+
             while (rs.next()) {
                 MetaDataEditTemplate template = new MetaDataEditTemplate();
                 template.setName(rs.getString(1));
@@ -2210,18 +2127,11 @@ public class Database {
                 template.setPhotoshopSource(new String(rs.getBytes(20)));
                 templates.add(template);
             }
-            rs.close();
+            stmt.close();
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-            if (connection != null) {
-                try {
-                    free(connection);
-                } catch (SQLException ex) {
-                    Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-                    notifyErrorListener(ex.toString());
-                }
-            }
+            free(connection);
         }
         return templates;
     }
@@ -2239,34 +2149,36 @@ public class Database {
             connection = getConnection();
             connection.setAutoCommit(false);
             PreparedStatement stmt = connection.prepareStatement(
-                "UPDATE metadata_edit_templates" + // NOI18N
-                " SET name = ?" + // NOI18N Name ist redundant wegen setMetaDataEditTemplate()
-                ", dcSubjects = ?" + // NOI18N
-                ", dcTitle = ?" + // NOI18N
-                ", photoshopHeadline = ?" + // NOI18N
-                ", dcDescription = ?" + // NOI18N
-                ", photoshopCaptionwriter = ?" + // NOI18N
-                ", iptc4xmpcoreLocation = ?" + // NOI18N
-                ", iptc4xmpcoreCountrycode = ?" + // NOI18N
-                ", photoshopCategory = ?" + // NOI18N
-                ", photoshopSupplementalCategories = ?" + // NOI18N
-                ", dcRights = ?" + // NOI18N
-                ", dcCreators = ?" + // NOI18N
-                ", photoshopAuthorsposition = ?" + // NOI18N
-                ", photoshopCity = ?" + // NOI18N
-                ", photoshopState = ?" + // NOI18N
-                ", photoshopCountry = ?" + // NOI18N
-                ", photoshopTransmissionReference = ?" + // NOI18N
-                ", photoshopInstructions = ?" + // NOI18N
-                ", photoshopCredit = ?" + // NOI18N
-                ", photoshopSource = ?" + // NOI18N
-                " WHERE name = ?");  // NOI18N
+                    "UPDATE metadata_edit_templates" + // NOI18N
+                    " SET name = ?" + // NOI18N Name ist redundant wegen setMetaDataEditTemplate()
+                    ", dcSubjects = ?" + // NOI18N
+                    ", dcTitle = ?" + // NOI18N
+                    ", photoshopHeadline = ?" + // NOI18N
+                    ", dcDescription = ?" + // NOI18N
+                    ", photoshopCaptionwriter = ?" + // NOI18N
+                    ", iptc4xmpcoreLocation = ?" + // NOI18N
+                    ", iptc4xmpcoreCountrycode = ?" + // NOI18N
+                    ", photoshopCategory = ?" + // NOI18N
+                    ", photoshopSupplementalCategories = ?" + // NOI18N
+                    ", dcRights = ?" + // NOI18N
+                    ", dcCreators = ?" + // NOI18N
+                    ", photoshopAuthorsposition = ?" + // NOI18N
+                    ", photoshopCity = ?" + // NOI18N
+                    ", photoshopState = ?" + // NOI18N
+                    ", photoshopCountry = ?" + // NOI18N
+                    ", photoshopTransmissionReference = ?" + // NOI18N
+                    ", photoshopInstructions = ?" + // NOI18N
+                    ", photoshopCredit = ?" + // NOI18N
+                    ", photoshopSource = ?" + // NOI18N
+                    " WHERE name = ?");  // NOI18N
+
             setMetaDataEditTemplate(stmt, template);
             stmt.setString(21, template.getName());
             logStatement(stmt);
             int count = stmt.executeUpdate();
             connection.commit();
             updated = count > 0;
+            stmt.close();
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             notifyErrorListener(ex.toString());
@@ -2277,14 +2189,7 @@ public class Database {
                 notifyErrorListener(ex.toString());
             }
         } finally {
-            try {
-                if (connection != null) {
-                    free(connection);
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-                notifyErrorListener(ex.toString());
-            }
+            free(connection);
         }
         return updated;
     }
@@ -2303,15 +2208,17 @@ public class Database {
             connection = getConnection();
             connection.setAutoCommit(false);
             PreparedStatement stmt = connection.prepareStatement(
-                "UPDATE metadata_edit_templates" + // NOI18N
-                " SET name = ?" + // NOI18N Name ist redundant wegen setMetaDataEditTemplate()
-                " WHERE name = ?");  // NOI18N
+                    "UPDATE metadata_edit_templates" + // NOI18N
+                    " SET name = ?" + // NOI18N Name ist redundant wegen setMetaDataEditTemplate()
+                    " WHERE name = ?");  // NOI18N
+
             stmt.setString(1, newName);
             stmt.setString(2, oldName);
             logStatement(stmt);
             int count = stmt.executeUpdate();
             connection.commit();
             renamed = count > 0;
+            stmt.close();
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             notifyErrorListener(ex.toString());
@@ -2322,14 +2229,7 @@ public class Database {
                 notifyErrorListener(ex.toString());
             }
         } finally {
-            try {
-                if (connection != null) {
-                    free(connection);
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-                notifyErrorListener(ex.toString());
-            }
+            free(connection);
         }
         return renamed;
     }
@@ -2347,12 +2247,14 @@ public class Database {
             connection = getConnection();
             connection.setAutoCommit(false);
             PreparedStatement stmt = connection.prepareStatement(
-                "DELETE FROM metadata_edit_templates WHERE name = ?");  // NOI18N
+                    "DELETE FROM metadata_edit_templates WHERE name = ?");  // NOI18N
+
             stmt.setString(1, name);
             logStatement(stmt);
             int count = stmt.executeUpdate();
             connection.commit();
             deleted = count > 0;
+            stmt.close();
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             notifyErrorListener(ex.toString());
@@ -2363,14 +2265,7 @@ public class Database {
                 notifyErrorListener(ex.toString());
             }
         } finally {
-            try {
-                if (connection != null) {
-                    free(connection);
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-                notifyErrorListener(ex.toString());
-            }
+            free(connection);
         }
         return deleted;
     }
@@ -2381,27 +2276,21 @@ public class Database {
         try {
             connection = getConnection();
             PreparedStatement stmt = connection.prepareStatement("SELECT COUNT(*)" + // NOI18N
-                " FROM metadata_edit_templates" + // NOI18N
-                " WHERE name = ?"); // NOI18N
+                    " FROM metadata_edit_templates" + // NOI18N
+                    " WHERE name = ?"); // NOI18N
+
             stmt.setString(1, name);
             logStatement(stmt);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 exists = rs.getInt(1) > 0;
             }
-            rs.close();
+            stmt.close();
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             notifyErrorListener(ex.toString());
         } finally {
-            if (connection != null) {
-                try {
-                    free(connection);
-                } catch (SQLException ex) {
-                    Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-                    notifyErrorListener(ex.toString());
-                }
-            }
+            free(connection);
         }
         return exists;
     }
@@ -2418,21 +2307,15 @@ public class Database {
             connection = getConnection();
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT COUNT(*) FROM saved_searches"); // NOI18N
+
             if (rs.next()) {
                 count = rs.getInt(1);
             }
-            rs.close();
+            stmt.close();
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-            if (connection != null) {
-                try {
-                    free(connection);
-                } catch (SQLException ex) {
-                    Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-                    notifyErrorListener(ex.toString());
-                }
-            }
+            free(connection);
         }
         return count;
     }
@@ -2454,14 +2337,7 @@ public class Database {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             notifyErrorListener(ex.toString());
         } finally {
-            if (connection != null) {
-                try {
-                    free(connection);
-                } catch (SQLException ex) {
-                    Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-                    notifyErrorListener(ex.toString());
-                }
-            }
+            free(connection);
         }
         return false;
     }
@@ -2490,7 +2366,8 @@ public class Database {
             connection = getConnection();
             connection.setAutoCommit(false);
             PreparedStatement stmt = connection.prepareStatement(
-                "DELETE FROM saved_searches WHERE name = ?"); // NOI18N
+                    "DELETE FROM saved_searches WHERE name = ?"); // NOI18N
+
             stmt.setString(1, name);
             logStatement(stmt);
             int count = stmt.executeUpdate();
@@ -2499,6 +2376,7 @@ public class Database {
             if (deleted) {
                 notifyDatabaseListener(DatabaseAction.Type.SavedSearchDeleted, name);
             }
+            stmt.close();
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             notifyErrorListener(ex.toString());
@@ -2509,14 +2387,7 @@ public class Database {
                 notifyErrorListener(ex.toString());
             }
         } finally {
-            try {
-                if (connection != null) {
-                    free(connection);
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-                notifyErrorListener(ex.toString());
-            }
+            free(connection);
         }
         return deleted;
     }
@@ -2534,7 +2405,8 @@ public class Database {
         try {
             connection = getConnection();
             PreparedStatement stmt = connection.prepareStatement(
-                "UPDATE saved_searches SET name = ? WHERE name = ?"); // NOI18N
+                    "UPDATE saved_searches SET name = ? WHERE name = ?"); // NOI18N
+
             stmt.setString(1, newName);
             stmt.setString(2, oldName);
             logStatement(stmt);
@@ -2546,18 +2418,12 @@ public class Database {
                 info.add(newName);
                 notifyDatabaseListener(DatabaseAction.Type.SavedSearchUpdated, info);
             }
+            stmt.close();
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             notifyErrorListener(ex.toString());
         } finally {
-            if (connection != null) {
-                try {
-                    free(connection);
-                } catch (SQLException ex) {
-                    Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-                    notifyErrorListener(ex.toString());
-                }
-            }
+            free(connection);
         }
         return renamed;
     }
@@ -2571,8 +2437,8 @@ public class Database {
     synchronized public boolean updateSavedSearch(SavedSearch data) {
         if (data.hasParamStatement() && data.getParamStatements() != null) {
             boolean updated = // Gefahr: Löschen, aber kein Einfügen
-                deleteSavedSearch(data.getParamStatements().getName()) &&
-                insertSavedSearch(data);
+                    deleteSavedSearch(data.getParamStatements().getName()) &&
+                    insertSavedSearch(data);
             if (updated) {
                 notifyDatabaseListener(DatabaseAction.Type.SavedSearchUpdated, data);
             }
@@ -2593,8 +2459,9 @@ public class Database {
         try {
             connection = getConnection();
             PreparedStatement stmt = connection.prepareStatement("SELECT" + // NOI18N
-                " name, sql_string, is_query" + // NOI18N
-                " FROM saved_searches WHERE name = ?"); // NOI18N
+                    " name, sql_string, is_query" + // NOI18N
+                    " FROM saved_searches WHERE name = ?"); // NOI18N
+
             stmt.setString(1, name);
             logStatement(stmt);
             ResultSet rs = stmt.executeQuery();
@@ -2608,20 +2475,13 @@ public class Database {
                 setSavedSearchValues(connection, data);
                 setSavedSearchPanels(connection, data);
             }
-            rs.close();
+            stmt.close();
         } catch (SQLException ex) {
             data = null;
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             notifyErrorListener(ex.toString());
         } finally {
-            if (connection != null) {
-                try {
-                    free(connection);
-                } catch (SQLException ex) {
-                    Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-                    notifyErrorListener(ex.toString());
-                }
-            }
+            free(connection);
         }
         return data;
     }
@@ -2638,8 +2498,9 @@ public class Database {
             connection = getConnection();
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT" + // NOI18N
-                " name, sql_string, is_query" + // NOI18N
-                " FROM saved_searches ORDER BY name"); // NOI18N
+                    " name, sql_string, is_query" + // NOI18N
+                    " FROM saved_searches ORDER BY name"); // NOI18N
+
             while (rs.next()) {
                 SavedSearch data = new SavedSearch();
                 SavedSearchParamStatement paramStatementData = new SavedSearchParamStatement();
@@ -2651,33 +2512,27 @@ public class Database {
                 setSavedSearchPanels(connection, data);
                 allData.add(data);
             }
-            rs.close();
+            stmt.close();
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             notifyErrorListener(ex.toString());
             allData.removeAllElements();
         } finally {
-            if (connection != null) {
-                try {
-                    free(connection);
-                } catch (SQLException ex) {
-                    Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-                    notifyErrorListener(ex.toString());
-                }
-            }
+            free(connection);
         }
         return allData;
     }
 
     private void setSavedSearchValues(Connection connection, SavedSearch data) throws SQLException {
         PreparedStatement stmt = connection.prepareStatement(
-            "SELECT" + // NOI18N
-            " saved_searches_values.value" + // NOI18N -- 1 --
-            " FROM" + // NOI18N
-            " saved_searches_values INNER JOIN saved_searches" + // NOI18N
-            " ON saved_searches_values.id_saved_searches = saved_searches.id" + // NOI18N
-            " AND saved_searches.name = ?" + // NOI18N
-            " ORDER BY saved_searches_values.value_index ASC"); // NOI18N
+                "SELECT" + // NOI18N
+                " saved_searches_values.value" + // NOI18N -- 1 --
+                " FROM" + // NOI18N
+                " saved_searches_values INNER JOIN saved_searches" + // NOI18N
+                " ON saved_searches_values.id_saved_searches = saved_searches.id" + // NOI18N
+                " AND saved_searches.name = ?" + // NOI18N
+                " ORDER BY saved_searches_values.value_index ASC"); // NOI18N
+
         stmt.setString(1, data.getParamStatements().getName());
         logStatement(stmt);
         ResultSet rs = stmt.executeQuery();
@@ -2685,7 +2540,7 @@ public class Database {
         while (rs.next()) {
             values.add(rs.getString(1));
         }
-        rs.close();
+        stmt.close();
         if (values.size() > 0) {
             data.getParamStatements().setValues(values);
         }
@@ -2693,20 +2548,21 @@ public class Database {
 
     private void setSavedSearchPanels(Connection connection, SavedSearch data) throws SQLException {
         PreparedStatement stmt = connection.prepareStatement(
-            "SELECT" + // NOI18N
-            " saved_searches_panels.panel_index" + // NOI18N -- 1 --
-            ", saved_searches_panels.bracket_left_1" + // NOI18N -- 2 --
-            ", saved_searches_panels.operator_id" + // NOI18N -- 3 --
-            ", saved_searches_panels.bracket_left_2" + // NOI18N -- 4 --
-            ", saved_searches_panels.column_id" + // NOI18N -- 5 --
-            ", saved_searches_panels.comparator_id" + // NOI18N -- 6 --
-            ", saved_searches_panels.value" + // NOI18N -- 7 --
-            ", saved_searches_panels.bracket_right" + // NOI18N -- 8 --
-            " FROM" + // NOI18N
-            " saved_searches_panels INNER JOIN saved_searches" + // NOI18N
-            " ON saved_searches_panels.id_saved_searches = saved_searches.id" + // NOI18N
-            " AND saved_searches.name = ?" + // NOI18N
-            " ORDER BY saved_searches_panels.panel_index ASC"); // NOI18N
+                "SELECT" + // NOI18N
+                " saved_searches_panels.panel_index" + // NOI18N -- 1 --
+                ", saved_searches_panels.bracket_left_1" + // NOI18N -- 2 --
+                ", saved_searches_panels.operator_id" + // NOI18N -- 3 --
+                ", saved_searches_panels.bracket_left_2" + // NOI18N -- 4 --
+                ", saved_searches_panels.column_id" + // NOI18N -- 5 --
+                ", saved_searches_panels.comparator_id" + // NOI18N -- 6 --
+                ", saved_searches_panels.value" + // NOI18N -- 7 --
+                ", saved_searches_panels.bracket_right" + // NOI18N -- 8 --
+                " FROM" + // NOI18N
+                " saved_searches_panels INNER JOIN saved_searches" + // NOI18N
+                " ON saved_searches_panels.id_saved_searches = saved_searches.id" + // NOI18N
+                " AND saved_searches.name = ?" + // NOI18N
+                " ORDER BY saved_searches_panels.panel_index ASC"); // NOI18N
+
         stmt.setString(1, data.getParamStatements().getName());
         logStatement(stmt);
         ResultSet rs = stmt.executeQuery();
@@ -2723,7 +2579,7 @@ public class Database {
             panelData.setBracketRightSelected(rs.getBoolean(8));
             allPanelData.add(panelData);
         }
-        rs.close();
+        stmt.close();
         if (allPanelData.size() > 0) {
             data.setPanels(allPanelData);
         }
@@ -2742,24 +2598,19 @@ public class Database {
             try {
                 connection = getConnection();
                 PreparedStatement stmt = connection.prepareStatement(
-                    "INSERT INTO autoscan_directories (directory) VALUES (?)"); // NOI18N
+                        "INSERT INTO autoscan_directories (directory) VALUES (?)"); // NOI18N
+
                 stmt.setString(1, directoryName);
                 logStatement(stmt);
                 int count = stmt.executeUpdate();
                 inserted = count > 0;
                 notifyDatabaseListener(DatabaseAction.Type.AutoscanDirectoryInserted, directoryName);
+                stmt.close();
             } catch (SQLException ex) {
                 Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
                 notifyErrorListener(ex.toString());
             } finally {
-                if (connection != null) {
-                    try {
-                        free(connection);
-                    } catch (SQLException ex) {
-                        Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-                        notifyErrorListener(ex.toString());
-                    }
-                }
+                free(connection);
             }
         }
         return inserted;
@@ -2778,7 +2629,8 @@ public class Database {
             connection = getConnection();
             connection.setAutoCommit(false);
             PreparedStatement stmt = connection.prepareStatement(
-                "INSERT INTO autoscan_directories (directory) VALUES (?)"); // NOI18N
+                    "INSERT INTO autoscan_directories (directory) VALUES (?)"); // NOI18N
+
             for (String directoryName : directoryNames) {
                 if (!existsAutoscanDirectory(directoryName)) {
                     stmt.setString(1, directoryName);
@@ -2788,6 +2640,7 @@ public class Database {
             }
             connection.commit();
             notifyDatabaseListener(DatabaseAction.Type.AutoscanDirectoriesInserted, directoryNames);
+            stmt.close();
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             notifyErrorListener(ex.toString());
@@ -2799,14 +2652,7 @@ public class Database {
             }
 
         } finally {
-            try {
-                if (connection != null) {
-                    free(connection);
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-                notifyErrorListener(ex.toString());
-            }
+            free(connection);
         }
         return inserted;
     }
@@ -2824,7 +2670,8 @@ public class Database {
         try {
             connection = getConnection();
             PreparedStatement stmt = connection.prepareStatement(
-                "DELETE FROM autoscan_directories WHERE directory = ?"); // NOI18N
+                    "DELETE FROM autoscan_directories WHERE directory = ?"); // NOI18N
+
             stmt.setString(1, directoryName);
             logStatement(stmt);
             int count = stmt.executeUpdate();
@@ -2832,18 +2679,12 @@ public class Database {
             if (count > 0) {
                 notifyDatabaseListener(DatabaseAction.Type.AutoscanDirectoryDeleted, directoryName);
             }
+            stmt.close();
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             notifyErrorListener(ex.toString());
         } finally {
-            if (connection != null) {
-                try {
-                    free(connection);
-                } catch (SQLException ex) {
-                    Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-                    notifyErrorListener(ex.toString());
-                }
-            }
+            free(connection);
         }
         return deleted;
     }
@@ -2861,26 +2702,20 @@ public class Database {
         try {
             connection = getConnection();
             PreparedStatement stmt = connection.prepareStatement(
-                "SELECT COUNT(*) FROM autoscan_directories WHERE directory = ?"); // NOI18N
+                    "SELECT COUNT(*) FROM autoscan_directories WHERE directory = ?"); // NOI18N
+
             stmt.setString(1, directoryName);
             logStatement(stmt);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 exists = rs.getInt(1) > 0;
             }
-            rs.close();
+            stmt.close();
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             notifyErrorListener(ex.toString());
         } finally {
-            if (connection != null) {
-                try {
-                    free(connection);
-                } catch (SQLException ex) {
-                    Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-                    notifyErrorListener(ex.toString());
-                }
-            }
+            free(connection);
         }
         return exists;
     }
@@ -2897,23 +2732,18 @@ public class Database {
             connection = getConnection();
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(
-                "SELECT directory FROM autoscan_directories ORDER BY directory ASC"); // NOI18N
+                    "SELECT directory FROM autoscan_directories ORDER BY directory ASC"); // NOI18N
+
             while (rs.next()) {
                 directories.add(rs.getString(1));
             }
+            stmt.close();
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             notifyErrorListener(ex.toString());
             directories.removeAllElements();
         } finally {
-            if (connection != null) {
-                try {
-                    free(connection);
-                } catch (SQLException ex) {
-                    Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-                    notifyErrorListener(ex.toString());
-                }
-            }
+            free(connection);
         }
 
         return directories;
@@ -2938,32 +2768,25 @@ public class Database {
             connection = getConnection();
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(
-                " SELECT DISTINCT supplemental_category FROM" + // NOI18N
-                " iptc_supplemental_categories WHERE supplemental_category IS NOT NULL" + // NOI18N
-                " UNION ALL" + // NOI18N
-                " SELECT DISTINCT photoshop_category FROM xmp" + // NOI18N
-                " WHERE photoshop_category IS NOT NULL" + // NOI18N
-                " UNION ALL" + // NOI18N
-                " SELECT DISTINCT supplementalcategory FROM xmp_photoshop_supplementalcategories" + // NOI18N
-                " WHERE supplementalcategory IS NOT NULL" + // NOI18N
-                " ORDER BY 1 ASC"); // NOI18N
+                    " SELECT DISTINCT supplemental_category FROM" + // NOI18N
+                    " iptc_supplemental_categories WHERE supplemental_category IS NOT NULL" + // NOI18N
+                    " UNION ALL" + // NOI18N
+                    " SELECT DISTINCT photoshop_category FROM xmp" + // NOI18N
+                    " WHERE photoshop_category IS NOT NULL" + // NOI18N
+                    " UNION ALL" + // NOI18N
+                    " SELECT DISTINCT supplementalcategory FROM xmp_photoshop_supplementalcategories" + // NOI18N
+                    " WHERE supplementalcategory IS NOT NULL" + // NOI18N
+                    " ORDER BY 1 ASC"); // NOI18N
+
             while (rs.next()) {
                 categories.add(rs.getString(1));
             }
-            rs.close();
-
+            stmt.close();
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             notifyErrorListener(ex.toString());
         } finally {
-            if (connection != null) {
-                try {
-                    free(connection);
-                } catch (SQLException ex) {
-                    Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-                    notifyErrorListener(ex.toString());
-                }
-            }
+            free(connection);
         }
         return categories;
     }
@@ -2986,21 +2809,22 @@ public class Database {
         try {
             connection = getConnection();
             PreparedStatement stmt = connection.prepareStatement(
-                "(SELECT DISTINCT files.filename FROM" + // NOI18N
-                " iptc_supplemental_categories LEFT JOIN iptc" + // NOI18N
-                " ON iptc_supplemental_categories.id_iptc = iptc.id" + // NOI18N
-                " LEFT JOIN files ON iptc.id_files = files.id" + // NOI18N
-                " WHERE iptc_supplemental_categories.supplemental_category = ?)" + // NOI18N
-                " UNION ALL" + // NOI18N
-                " (SELECT DISTINCT files.filename FROM" + // NOI18N
-                " xmp LEFT JOIN files ON xmp.id_files = files.id" + // NOI18N
-                " WHERE xmp.photoshop_category = ?)" + // NOI18N
-                " UNION ALL" + // NOI18N
-                " (SELECT DISTINCT files.filename FROM" + // NOI18N
-                " xmp_photoshop_supplementalcategories LEFT JOIN xmp" + // NOI18N
-                " ON xmp_photoshop_supplementalcategories.id_xmp = xmp.id" + // NOI18N
-                " LEFT JOIN files ON xmp.id_files = files.id" + // NOI18N
-                " WHERE xmp_photoshop_supplementalcategories.supplementalcategory = ?)"); // NOI18N
+                    "(SELECT DISTINCT files.filename FROM" + // NOI18N
+                    " iptc_supplemental_categories LEFT JOIN iptc" + // NOI18N
+                    " ON iptc_supplemental_categories.id_iptc = iptc.id" + // NOI18N
+                    " LEFT JOIN files ON iptc.id_files = files.id" + // NOI18N
+                    " WHERE iptc_supplemental_categories.supplemental_category = ?)" + // NOI18N
+                    " UNION ALL" + // NOI18N
+                    " (SELECT DISTINCT files.filename FROM" + // NOI18N
+                    " xmp LEFT JOIN files ON xmp.id_files = files.id" + // NOI18N
+                    " WHERE xmp.photoshop_category = ?)" + // NOI18N
+                    " UNION ALL" + // NOI18N
+                    " (SELECT DISTINCT files.filename FROM" + // NOI18N
+                    " xmp_photoshop_supplementalcategories LEFT JOIN xmp" + // NOI18N
+                    " ON xmp_photoshop_supplementalcategories.id_xmp = xmp.id" + // NOI18N
+                    " LEFT JOIN files ON xmp.id_files = files.id" + // NOI18N
+                    " WHERE xmp_photoshop_supplementalcategories.supplementalcategory = ?)"); // NOI18N
+
             stmt.setString(1, category);
             stmt.setString(2, category);
             stmt.setString(3, category);
@@ -3009,19 +2833,12 @@ public class Database {
             while (rs.next()) {
                 filenames.add(rs.getString(1));
             }
-            rs.close();
+            stmt.close();
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             notifyErrorListener(ex.toString());
         } finally {
-            if (connection != null) {
-                try {
-                    free(connection);
-                } catch (SQLException ex) {
-                    Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-                    notifyErrorListener(ex.toString());
-                }
-            }
+            free(connection);
         }
         return filenames;
     }
@@ -3044,14 +2861,15 @@ public class Database {
         try {
             connection = getConnection();
             PreparedStatement stmt = connection.prepareStatement(
-                "SELECT COUNT(*) FROM" + // NOI18N
-                " iptc_supplemental_categories" + // NOI18N
-                ", xmp" + // NOI18N
-                ", xmp_photoshop_supplementalcategories" + // NOI18N
-                " WHERE" + // NOI18N
-                " iptc_supplemental_categories.supplemental_category = ?" + // NOI18N
-                " OR xmp.photoshop_category = ?" + // NOI18N
-                " OR xmp_photoshop_supplementalcategories.supplementalcategory = ?"); // NOI18N
+                    "SELECT COUNT(*) FROM" + // NOI18N
+                    " iptc_supplemental_categories" + // NOI18N
+                    ", xmp" + // NOI18N
+                    ", xmp_photoshop_supplementalcategories" + // NOI18N
+                    " WHERE" + // NOI18N
+                    " iptc_supplemental_categories.supplemental_category = ?" + // NOI18N
+                    " OR xmp.photoshop_category = ?" + // NOI18N
+                    " OR xmp_photoshop_supplementalcategories.supplementalcategory = ?"); // NOI18N
+
             stmt.setString(1, name);
             stmt.setString(2, name);
             stmt.setString(3, name);
@@ -3061,20 +2879,13 @@ public class Database {
             if (rs.next()) {
                 count = rs.getInt(1);
             }
-            rs.close();
+            stmt.close();
             exists = count > 0;
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             notifyErrorListener(ex.toString());
         } finally {
-            if (connection != null) {
-                try {
-                    free(connection);
-                } catch (SQLException ex) {
-                    Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-                    notifyErrorListener(ex.toString());
-                }
-            }
+            free(connection);
         }
         return exists;
     }
@@ -3092,14 +2903,15 @@ public class Database {
         try {
             if (existsFavoriteDirectory(favoriteDirectory.getFavoriteName())) {
                 return updateFavoriteDirectory(favoriteDirectory.getFavoriteName(),
-                    favoriteDirectory);
+                        favoriteDirectory);
             }
             connection = getConnection();
             connection.setAutoCommit(false);
             PreparedStatement stmt = connection.prepareStatement(
-                "INSERT INTO favorite_directories" + // NOI18N
-                " (favorite_name, directory_name, favorite_index)" + // NOI18N
-                " VALUES (?, ?, ?)"); // NOI18N
+                    "INSERT INTO favorite_directories" + // NOI18N
+                    " (favorite_name, directory_name, favorite_index)" + // NOI18N
+                    " VALUES (?, ?, ?)"); // NOI18N
+
             stmt.setString(1, favoriteDirectory.getFavoriteName());
             stmt.setString(2, favoriteDirectory.getDirectoryName());
             stmt.setInt(3, favoriteDirectory.getIndex());
@@ -3107,6 +2919,7 @@ public class Database {
             int count = stmt.executeUpdate();
             connection.commit();
             inserted = count > 0;
+            stmt.close();
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             notifyErrorListener(ex.toString());
@@ -3117,14 +2930,7 @@ public class Database {
                 notifyErrorListener(ex.toString());
             }
         } finally {
-            if (connection != null) {
-                try {
-                    free(connection);
-                } catch (SQLException ex) {
-                    Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-                    notifyErrorListener(ex.toString());
-                }
-            }
+            free(connection);
         }
         return inserted;
     }
@@ -3142,12 +2948,14 @@ public class Database {
             connection = getConnection();
             connection.setAutoCommit(false);
             PreparedStatement stmt = connection.prepareStatement(
-                "DELETE FROM favorite_directories WHERE favorite_name = ?"); // NOI18N
+                    "DELETE FROM favorite_directories WHERE favorite_name = ?"); // NOI18N
+
             stmt.setString(1, favoriteName);
             logStatement(stmt);
             int count = stmt.executeUpdate();
             connection.commit();
             deleted = count > 0;
+            stmt.close();
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             notifyErrorListener(ex.toString());
@@ -3158,14 +2966,7 @@ public class Database {
                 notifyErrorListener(ex.toString());
             }
         } finally {
-            if (connection != null) {
-                try {
-                    free(connection);
-                } catch (SQLException ex) {
-                    Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-                    notifyErrorListener(ex.toString());
-                }
-            }
+            free(connection);
         }
         return deleted;
     }
@@ -3178,18 +2979,19 @@ public class Database {
      * @return true bei Erfolg
      */
     synchronized public boolean updateFavoriteDirectory(String favoriteName,
-        FavoriteDirectory favorite) {
+            FavoriteDirectory favorite) {
         boolean updated = false;
         Connection connection = null;
         try {
             connection = getConnection();
             connection.setAutoCommit(false);
             PreparedStatement stmt = connection.prepareStatement(
-                "UPDATE favorite_directories SET" + // NOI18N
-                " favorite_name = ?" + // NOI18N
-                ", directory_name = ?" + // NOI18N
-                ", favorite_index = ?" + // NOI18N
-                " WHERE favorite_name = ?"); // NOI18N
+                    "UPDATE favorite_directories SET" + // NOI18N
+                    " favorite_name = ?" + // NOI18N
+                    ", directory_name = ?" + // NOI18N
+                    ", favorite_index = ?" + // NOI18N
+                    " WHERE favorite_name = ?"); // NOI18N
+
             stmt.setString(1, favorite.getFavoriteName());
             stmt.setString(2, favorite.getDirectoryName());
             stmt.setInt(3, favorite.getIndex());
@@ -3198,6 +3000,7 @@ public class Database {
             int count = stmt.executeUpdate();
             connection.commit();
             updated = count > 0;
+            stmt.close();
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             notifyErrorListener(ex.toString());
@@ -3208,14 +3011,7 @@ public class Database {
                 notifyErrorListener(ex.toString());
             }
         } finally {
-            if (connection != null) {
-                try {
-                    free(connection);
-                } catch (SQLException ex) {
-                    Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-                    notifyErrorListener(ex.toString());
-                }
-            }
+            free(connection);
         }
         return updated;
     }
@@ -3232,27 +3028,21 @@ public class Database {
             connection = getConnection();
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(
-                "SELECT favorite_name, directory_name, favorite_index" + // NOI18N
-                " FROM favorite_directories" + // NOI18N
-                " ORDER BY favorite_index ASC"); // NOI18N
+                    "SELECT favorite_name, directory_name, favorite_index" + // NOI18N
+                    " FROM favorite_directories" + // NOI18N
+                    " ORDER BY favorite_index ASC"); // NOI18N
+
             while (rs.next()) {
                 directories.add(new FavoriteDirectory(
-                    rs.getString(1), rs.getString(2), rs.getInt(3)));
+                        rs.getString(1), rs.getString(2), rs.getInt(3)));
             }
-            rs.close();
+            stmt.close();
         } catch (SQLException ex) {
             directories.removeAllElements();
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             notifyErrorListener(ex.toString());
         } finally {
-            if (connection != null) {
-                try {
-                    free(connection);
-                } catch (SQLException ex) {
-                    Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-                    notifyErrorListener(ex.toString());
-                }
-            }
+            free(connection);
         }
         return directories;
     }
@@ -3269,7 +3059,8 @@ public class Database {
         try {
             connection = getConnection();
             PreparedStatement stmt = connection.prepareStatement(
-                "SELECT COUNT(*) FROM favorite_directories WHERE favorite_name = ?"); // NOI18N
+                    "SELECT COUNT(*) FROM favorite_directories WHERE favorite_name = ?"); // NOI18N
+
             stmt.setString(1, favoriteName);
             logStatement(stmt);
             ResultSet rs = stmt.executeQuery();
@@ -3277,19 +3068,12 @@ public class Database {
             if (rs.next()) {
                 count = rs.getInt(1);
             }
-            rs.close();
+            stmt.close();
             exists = count > 0;
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-            if (connection != null) {
-                try {
-                    free(connection);
-                } catch (SQLException ex) {
-                    Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-                    notifyErrorListener(ex.toString());
-                }
-            }
+            free(connection);
         }
         return exists;
     }
@@ -3307,27 +3091,21 @@ public class Database {
             connection = getConnection();
             Statement stmt = connection.createStatement();
             String query = "SELECT COUNT(*) FROM (SELECT DISTINCT " + // NOI18N
-                column.getName() +
-                " FROM " + // NOI18N
-                column.getTable().getName() +
-                ")"; // NOI18N
+                    column.getName() +
+                    " FROM " + // NOI18N
+                    column.getTable().getName() +
+                    ")"; // NOI18N
+
             ResultSet rs = stmt.executeQuery(query);
             if (rs.next()) {
                 count = rs.getInt(1);
             }
-            rs.close();
+            stmt.close();
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             notifyErrorListener(ex.toString());
         } finally {
-            if (connection != null) {
-                try {
-                    free(connection);
-                } catch (SQLException ex) {
-                    Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-                    notifyErrorListener(ex.toString());
-                }
-            }
+            free(connection);
         }
         return count;
     }
@@ -3344,21 +3122,16 @@ public class Database {
             connection = getConnection();
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT COUNT(*) FROM files"); // NOI18N
+
             if (rs.next()) {
                 count = rs.getInt(1);
             }
+            stmt.close();
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             notifyErrorListener(ex.toString());
         } finally {
-            if (connection != null) {
-                try {
-                    free(connection);
-                } catch (SQLException ex) {
-                    Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-                    notifyErrorListener(ex.toString());
-                }
-            }
+            free(connection);
         }
         return count;
     }
@@ -3377,25 +3150,19 @@ public class Database {
             for (Table table : tables) {
                 Statement stmt = connection.createStatement();
                 String query = "SELECT COUNT(*) FROM " + table.getName(); // NOI18N
+
                 ResultSet rs = stmt.executeQuery(query);
                 if (rs.next()) {
                     count += rs.getInt(1);
                 }
-                rs.close();
+                stmt.close();
             }
         } catch (SQLException ex) {
             count = -1;
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             notifyErrorListener(ex.toString());
         } finally {
-            if (connection != null) {
-                try {
-                    free(connection);
-                } catch (SQLException ex) {
-                    Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-                    notifyErrorListener(ex.toString());
-                }
-            }
+            free(connection);
         }
         return count;
     }
@@ -3412,22 +3179,17 @@ public class Database {
             connection = getConnection();
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(
-                "SELECT COUNT(*) FROM files WHERE thumbnail IS NOT NULL"); // NOI18N
+                    "SELECT COUNT(*) FROM files WHERE thumbnail IS NOT NULL"); // NOI18N
+
             if (rs.next()) {
                 count = rs.getInt(1);
             }
+            stmt.close();
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             notifyErrorListener(ex.toString());
         } finally {
-            if (connection != null) {
-                try {
-                    free(connection);
-                } catch (SQLException ex) {
-                    Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-                    notifyErrorListener(ex.toString());
-                }
-            }
+            free(connection);
         }
         return count;
     }
@@ -3444,20 +3206,15 @@ public class Database {
             connection = getConnection();
             Statement stmt = connection.createStatement();
             stmt.executeUpdate("CHECKPOINT DEFRAG"); // NOI18N
+
             success = true;
             notifyDatabaseListener(DatabaseAction.Type.MaintainanceDatabaseCompressed);
+            stmt.close();
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             notifyErrorListener(ex.toString());
         } finally {
-            if (connection != null) {
-                try {
-                    free(connection);
-                } catch (SQLException ex) {
-                    Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-                    notifyErrorListener(ex.toString());
-                }
-            }
+            free(connection);
         }
         return success;
     }
@@ -3470,9 +3227,12 @@ public class Database {
         boolean exists = false;
         DatabaseMetaData dbm = connection.getMetaData();
         String[] names = {"TABLE"}; // NOI18N
+
         ResultSet rs = dbm.getTables(null, "%", "%", names); // NOI18N
+
         while (!exists && rs.next()) {
             exists = rs.getString("TABLE_NAME").equalsIgnoreCase(tablename); // NOI18N
+
         }
         rs.close();
         return exists;
@@ -3497,6 +3257,7 @@ public class Database {
             createMetaDataEditTemplateTable(connection, stmt);
             createFavoriteDirectoriesTable(connection, stmt);
             connection.commit();
+            stmt.close();
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             notifyErrorListener(ex.toString());
@@ -3507,464 +3268,570 @@ public class Database {
                 notifyErrorListener(ex.toString());
             }
             JOptionPane.showMessageDialog(null,
-                Bundle.getString("Database.CreateTables.ErrorMessage"), // NOI18N
-                Bundle.getString("Database.CreateTables.ErrorMessage.Title"), // NOI18N
-                JOptionPane.ERROR_MESSAGE,
-                AppSettings.getSmallAppIcon());
+                    Bundle.getString("Database.CreateTables.ErrorMessage"), // NOI18N
+                    Bundle.getString("Database.CreateTables.ErrorMessage.Title"), // NOI18N
+                    JOptionPane.ERROR_MESSAGE,
+                    AppSettings.getSmallAppIcon());
             System.exit(0);
         } finally {
-            if (connection != null) {
-                try {
-                    free(connection);
-                } catch (SQLException ex) {
-                    Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-                    notifyErrorListener(ex.toString());
-                }
-            }
+            free(connection);
         }
     }
 
     synchronized private void createFilesTable(Connection connection, Statement stmt) throws SQLException {
         if (!existsTable(connection, "files")) { // NOI18N
+
             stmt.execute("CREATE CACHED TABLE files " + // NOI18N
-                " (" + // NOI18N
-                "id INTEGER GENERATED BY DEFAULT AS IDENTITY(START WITH 1, INCREMENT BY 1) PRIMARY KEY" + // NOI18N
-                ", filename  VARCHAR_IGNORECASE(512) NOT NULL" + // NOI18N
-                ", lastmodified  BIGINT" + // NOI18N
-                ", thumbnail BINARY" + ");"); // NOI18N
+                    " (" + // NOI18N
+                    "id INTEGER GENERATED BY DEFAULT AS IDENTITY(START WITH 1, INCREMENT BY 1) PRIMARY KEY" + // NOI18N
+                    ", filename  VARCHAR_IGNORECASE(512) NOT NULL" + // NOI18N
+                    ", lastmodified  BIGINT" + // NOI18N
+                    ", thumbnail BINARY" + ");"); // NOI18N
+
             stmt.execute("CREATE UNIQUE INDEX idx_files ON files (filename)"); // NOI18N
+            
         }
     }
 
     synchronized private void createIptcTables(Connection connection, Statement stmt) throws SQLException {
         if (!existsTable(connection, "iptc")) { // NOI18N
+
             stmt.execute("CREATE CACHED TABLE iptc" + // NOI18N
-                " (" + // NOI18N
-                "id INTEGER GENERATED BY DEFAULT AS IDENTITY(START WITH 1, INCREMENT BY 1) PRIMARY KEY" + // NOI18N
-                ", id_files INTEGER NOT NULL" + // NOI18N
-                ", copyright_notice VARCHAR_IGNORECASE(128)" + // NOI18N
-                ", creation_date DATE" + // NOI18N
-                ", caption_abstract VARCHAR_IGNORECASE(2000)" + // NOI18N
-                ", object_name VARCHAR_IGNORECASE(64)" + // NOI18N
-                ", headline VARCHAR_IGNORECASE(256)" + // NOI18N
-                ", category VARCHAR_IGNORECASE(3)" + // NOI18N
-                ", city VARCHAR_IGNORECASE(32)" + // NOI18N
-                ", province_state VARCHAR_IGNORECASE(32)" + // NOI18N
-                ", country_primary_location_name VARCHAR_IGNORECASE(64)" + // NOI18N
-                ", original_transmission_reference VARCHAR_IGNORECASE(32)" + // NOI18N
-                ", special_instructions VARCHAR_IGNORECASE(256)" + // NOI18N
-                ", credit VARCHAR_IGNORECASE(32)" + // NOI18N
-                ", source VARCHAR_IGNORECASE(32)" + // NOI18N
-                ", FOREIGN KEY (id_files) REFERENCES files (id) ON DELETE CASCADE" + // NOI18N
-                ");"); // NOI18N
+                    " (" + // NOI18N
+                    "id INTEGER GENERATED BY DEFAULT AS IDENTITY(START WITH 1, INCREMENT BY 1) PRIMARY KEY" + // NOI18N
+                    ", id_files INTEGER NOT NULL" + // NOI18N
+                    ", copyright_notice VARCHAR_IGNORECASE(128)" + // NOI18N
+                    ", creation_date DATE" + // NOI18N
+                    ", caption_abstract VARCHAR_IGNORECASE(2000)" + // NOI18N
+                    ", object_name VARCHAR_IGNORECASE(64)" + // NOI18N
+                    ", headline VARCHAR_IGNORECASE(256)" + // NOI18N
+                    ", category VARCHAR_IGNORECASE(3)" + // NOI18N
+                    ", city VARCHAR_IGNORECASE(32)" + // NOI18N
+                    ", province_state VARCHAR_IGNORECASE(32)" + // NOI18N
+                    ", country_primary_location_name VARCHAR_IGNORECASE(64)" + // NOI18N
+                    ", original_transmission_reference VARCHAR_IGNORECASE(32)" + // NOI18N
+                    ", special_instructions VARCHAR_IGNORECASE(256)" + // NOI18N
+                    ", credit VARCHAR_IGNORECASE(32)" + // NOI18N
+                    ", source VARCHAR_IGNORECASE(32)" + // NOI18N
+                    ", FOREIGN KEY (id_files) REFERENCES files (id) ON DELETE CASCADE" + // NOI18N
+                    ");"); // NOI18N
+
             stmt.execute(
-                "CREATE UNIQUE INDEX idx_iptc_id_files" + " ON iptc (id_files)"); // NOI18N
+                    "CREATE UNIQUE INDEX idx_iptc_id_files" + " ON iptc (id_files)"); // NOI18N
+
             stmt.execute(
-                "CREATE INDEX idx_iptc_caption_abstract" + // NOI18N
-                " ON iptc (caption_abstract)"); // NOI18N
+                    "CREATE INDEX idx_iptc_caption_abstract" + // NOI18N
+                    " ON iptc (caption_abstract)"); // NOI18N
+
             stmt.execute(
-                "CREATE INDEX idx_iptc_copyright_notice" + // NOI18N
-                " ON iptc (copyright_notice)"); // NOI18N
+                    "CREATE INDEX idx_iptc_copyright_notice" + // NOI18N
+                    " ON iptc (copyright_notice)"); // NOI18N
+
             stmt.execute(
-                "CREATE INDEX idx_iptc_creation_date ON iptc (creation_date)"); // NOI18N
+                    "CREATE INDEX idx_iptc_creation_date ON iptc (creation_date)"); // NOI18N
+
             stmt.execute(
-                "CREATE INDEX idx_iptc_object_name ON iptc (object_name)"); // NOI18N
+                    "CREATE INDEX idx_iptc_object_name ON iptc (object_name)"); // NOI18N
+
             stmt.execute("CREATE INDEX idx_iptc_headline ON iptc (headline)"); // NOI18N
+
             stmt.execute("CREATE INDEX idx_iptc_category ON iptc (category)"); // NOI18N
+
             stmt.execute("CREATE INDEX idx_iptc_city ON iptc (city)"); // NOI18N
+
             stmt.execute(
-                "CREATE INDEX idx_iptc_province_state ON iptc (province_state)"); // NOI18N
+                    "CREATE INDEX idx_iptc_province_state ON iptc (province_state)"); // NOI18N
+
             stmt.execute(
-                "CREATE INDEX idx_iptc_country_primary_location_name" + // NOI18N
-                " ON iptc (country_primary_location_name)"); // NOI18N
+                    "CREATE INDEX idx_iptc_country_primary_location_name" + // NOI18N
+                    " ON iptc (country_primary_location_name)"); // NOI18N
+
             stmt.execute(
-                "CREATE INDEX idx_iptc_original_transmission_reference" + // NOI18N
-                " ON iptc (original_transmission_reference)"); // NOI18N
+                    "CREATE INDEX idx_iptc_original_transmission_reference" + // NOI18N
+                    " ON iptc (original_transmission_reference)"); // NOI18N
+
             stmt.execute(
-                "CREATE INDEX idx_iptc_special_instructions" + // NOI18N
-                " ON iptc (special_instructions)"); // NOI18N
+                    "CREATE INDEX idx_iptc_special_instructions" + // NOI18N
+                    " ON iptc (special_instructions)"); // NOI18N
+
             stmt.execute("CREATE INDEX idx_iptc_credit ON iptc (credit)"); // NOI18N
+
             stmt.execute("CREATE INDEX idx_iptc_source ON iptc (source)"); // NOI18N
+
         }
         if (!existsTable(connection, "iptc_keywords")) { // NOI18N
+
             stmt.execute("CREATE CACHED TABLE iptc_keywords" + // NOI18N
-                " (" + // NOI18N
-                "id INTEGER GENERATED BY DEFAULT AS IDENTITY(START WITH 1, INCREMENT BY 1) PRIMARY KEY" + // NOI18N
-                ", id_iptc INTEGER NOT NULL" + // NOI18N
-                ", keyword VARCHAR_IGNORECASE(64)" + // NOI18N
-                ", FOREIGN KEY (id_iptc) REFERENCES iptc (id) ON DELETE CASCADE" + // NOI18N
-                ");"); // NOI18N
+                    " (" + // NOI18N
+                    "id INTEGER GENERATED BY DEFAULT AS IDENTITY(START WITH 1, INCREMENT BY 1) PRIMARY KEY" + // NOI18N
+                    ", id_iptc INTEGER NOT NULL" + // NOI18N
+                    ", keyword VARCHAR_IGNORECASE(64)" + // NOI18N
+                    ", FOREIGN KEY (id_iptc) REFERENCES iptc (id) ON DELETE CASCADE" + // NOI18N
+                    ");"); // NOI18N
+
             stmt.execute(
-                "CREATE INDEX idx_iptc_keywords_id_iptc" + // NOI18N
-                " ON iptc_keywords (id_iptc)"); // NOI18N
+                    "CREATE INDEX idx_iptc_keywords_id_iptc" + // NOI18N
+                    " ON iptc_keywords (id_iptc)"); // NOI18N
+
             stmt.execute(
-                "CREATE INDEX idx_iptc_keywords_keyword" + // NOI18N
-                " ON iptc_keywords (keyword)"); // NOI18N
+                    "CREATE INDEX idx_iptc_keywords_keyword" + // NOI18N
+                    " ON iptc_keywords (keyword)"); // NOI18N
+
         }
         if (!existsTable(connection, "iptc_bylines")) { // NOI18N
+
             stmt.execute("CREATE CACHED TABLE iptc_bylines" + // NOI18N
-                " (" + // NOI18N
-                "id INTEGER GENERATED BY DEFAULT AS IDENTITY(START WITH 1, INCREMENT BY 1) PRIMARY KEY" + // NOI18N
-                ", id_iptc INTEGER NOT NULL" + // NOI18N
-                ", byline VARCHAR_IGNORECASE(32)" + // NOI18N
-                ", FOREIGN KEY (id_iptc) REFERENCES iptc (id) ON DELETE CASCADE" + // NOI18N
-                ");"); // NOI18N
+                    " (" + // NOI18N
+                    "id INTEGER GENERATED BY DEFAULT AS IDENTITY(START WITH 1, INCREMENT BY 1) PRIMARY KEY" + // NOI18N
+                    ", id_iptc INTEGER NOT NULL" + // NOI18N
+                    ", byline VARCHAR_IGNORECASE(32)" + // NOI18N
+                    ", FOREIGN KEY (id_iptc) REFERENCES iptc (id) ON DELETE CASCADE" + // NOI18N
+                    ");"); // NOI18N
+
             stmt.execute(
-                "CREATE INDEX idx_iptc_bylines_id_iptc" + // NOI18N
-                " ON iptc_bylines (id_iptc)"); // NOI18N
+                    "CREATE INDEX idx_iptc_bylines_id_iptc" + // NOI18N
+                    " ON iptc_bylines (id_iptc)"); // NOI18N
+
             stmt.execute(
-                "CREATE INDEX idx_iptc_bylines_byline" + // NOI18N
-                " ON iptc_bylines (byline)"); // NOI18N
+                    "CREATE INDEX idx_iptc_bylines_byline" + // NOI18N
+                    " ON iptc_bylines (byline)"); // NOI18N
+
         }
         if (!existsTable(connection, "iptc_content_location_names")) { // NOI18N
+
             stmt.execute("CREATE CACHED TABLE iptc_content_location_names" + // NOI18N
-                " (" + // NOI18N
-                "id INTEGER GENERATED BY DEFAULT AS IDENTITY(START WITH 1, INCREMENT BY 1) PRIMARY KEY" + // NOI18N
-                ", id_iptc INTEGER NOT NULL" + // NOI18N
-                ", content_location_name VARCHAR_IGNORECASE(64)" + // NOI18N
-                ", FOREIGN KEY (id_iptc) REFERENCES iptc (id) ON DELETE CASCADE" + // NOI18N
-                ");"); // NOI18N
+                    " (" + // NOI18N
+                    "id INTEGER GENERATED BY DEFAULT AS IDENTITY(START WITH 1, INCREMENT BY 1) PRIMARY KEY" + // NOI18N
+                    ", id_iptc INTEGER NOT NULL" + // NOI18N
+                    ", content_location_name VARCHAR_IGNORECASE(64)" + // NOI18N
+                    ", FOREIGN KEY (id_iptc) REFERENCES iptc (id) ON DELETE CASCADE" + // NOI18N
+                    ");"); // NOI18N
+
             stmt.execute(
-                "CREATE INDEX idx_iptc_content_location_names_id_iptc" + // NOI18N
-                " ON iptc_content_location_names (id_iptc)"); // NOI18N
+                    "CREATE INDEX idx_iptc_content_location_names_id_iptc" + // NOI18N
+                    " ON iptc_content_location_names (id_iptc)"); // NOI18N
+
             stmt.execute(
-                "CREATE INDEX idx_iptc_content_location_names_content_location_name" + // NOI18N
-                " ON iptc_content_location_names (content_location_name)"); // NOI18N
+                    "CREATE INDEX idx_iptc_content_location_names_content_location_name" + // NOI18N
+                    " ON iptc_content_location_names (content_location_name)"); // NOI18N
+
         }
         if (!existsTable(connection, "iptc_content_location_codes")) { // NOI18N
+
             stmt.execute("CREATE CACHED TABLE iptc_content_location_codes" + // NOI18N
-                " (" + // NOI18N
-                "id INTEGER GENERATED BY DEFAULT AS IDENTITY(START WITH 1, INCREMENT BY 1) PRIMARY KEY" + // NOI18N
-                ", id_iptc INTEGER NOT NULL" + // NOI18N
-                ", content_location_code VARCHAR_IGNORECASE(3)" + // NOI18N
-                ", FOREIGN KEY (id_iptc) REFERENCES iptc (id) ON DELETE CASCADE" + // NOI18N
-                ");"); // NOI18N
+                    " (" + // NOI18N
+                    "id INTEGER GENERATED BY DEFAULT AS IDENTITY(START WITH 1, INCREMENT BY 1) PRIMARY KEY" + // NOI18N
+                    ", id_iptc INTEGER NOT NULL" + // NOI18N
+                    ", content_location_code VARCHAR_IGNORECASE(3)" + // NOI18N
+                    ", FOREIGN KEY (id_iptc) REFERENCES iptc (id) ON DELETE CASCADE" + // NOI18N
+                    ");"); // NOI18N
+
             stmt.execute(
-                "CREATE INDEX idx_iptc_content_location_codes_id_iptc" + // NOI18N
-                " ON iptc_content_location_codes (id_iptc)"); // NOI18N
+                    "CREATE INDEX idx_iptc_content_location_codes_id_iptc" + // NOI18N
+                    " ON iptc_content_location_codes (id_iptc)"); // NOI18N
+
         }
         if (!existsTable(connection, "iptc_writers_editors")) { // NOI18N
+
             stmt.execute("CREATE CACHED TABLE iptc_writers_editors" + // NOI18N
-                " (" + // NOI18N
-                "id INTEGER GENERATED BY DEFAULT AS IDENTITY(START WITH 1, INCREMENT BY 1) PRIMARY KEY" + // NOI18N
-                ", id_iptc INTEGER NOT NULL" + // NOI18N
-                ", writer_editor VARCHAR_IGNORECASE(32)" + // NOI18N
-                ", FOREIGN KEY (id_iptc) REFERENCES iptc (id) ON DELETE CASCADE" + // NOI18N
-                ");"); // NOI18N
+                    " (" + // NOI18N
+                    "id INTEGER GENERATED BY DEFAULT AS IDENTITY(START WITH 1, INCREMENT BY 1) PRIMARY KEY" + // NOI18N
+                    ", id_iptc INTEGER NOT NULL" + // NOI18N
+                    ", writer_editor VARCHAR_IGNORECASE(32)" + // NOI18N
+                    ", FOREIGN KEY (id_iptc) REFERENCES iptc (id) ON DELETE CASCADE" + // NOI18N
+                    ");"); // NOI18N
+
             stmt.execute(
-                "CREATE INDEX idx_iptc_writers_editors_id_iptc" + // NOI18N
-                " ON iptc_writers_editors (id_iptc)"); // NOI18N
+                    "CREATE INDEX idx_iptc_writers_editors_id_iptc" + // NOI18N
+                    " ON iptc_writers_editors (id_iptc)"); // NOI18N
+
             stmt.execute(
-                "CREATE INDEX idx_iptc_writers_editors_writer_editor" + // NOI18N
-                " ON iptc_writers_editors (writer_editor)"); // NOI18N
+                    "CREATE INDEX idx_iptc_writers_editors_writer_editor" + // NOI18N
+                    " ON iptc_writers_editors (writer_editor)"); // NOI18N
+
         }
         if (!existsTable(connection, "iptc_supplemental_categories")) { // NOI18N
+
             stmt.execute("CREATE CACHED TABLE iptc_supplemental_categories" + // NOI18N
-                " (" + // NOI18N
-                "id INTEGER GENERATED BY DEFAULT AS IDENTITY(START WITH 1, INCREMENT BY 1) PRIMARY KEY" + // NOI18N
-                ", id_iptc INTEGER NOT NULL" + // NOI18N
-                ", supplemental_category VARCHAR_IGNORECASE(32)" + // NOI18N
-                ", FOREIGN KEY (id_iptc) REFERENCES iptc (id) ON DELETE CASCADE" + // NOI18N
-                ");"); // NOI18N
+                    " (" + // NOI18N
+                    "id INTEGER GENERATED BY DEFAULT AS IDENTITY(START WITH 1, INCREMENT BY 1) PRIMARY KEY" + // NOI18N
+                    ", id_iptc INTEGER NOT NULL" + // NOI18N
+                    ", supplemental_category VARCHAR_IGNORECASE(32)" + // NOI18N
+                    ", FOREIGN KEY (id_iptc) REFERENCES iptc (id) ON DELETE CASCADE" + // NOI18N
+                    ");"); // NOI18N
+
             stmt.execute(
-                "CREATE INDEX idx_iptc_supplemental_categories_id_iptc" + // NOI18N
-                " ON iptc_supplemental_categories (id_iptc)"); // NOI18N
+                    "CREATE INDEX idx_iptc_supplemental_categories_id_iptc" + // NOI18N
+                    " ON iptc_supplemental_categories (id_iptc)"); // NOI18N
+
             stmt.execute(
-                "CREATE INDEX idx_iptc_supplemental_categories_category" + // NOI18N
-                " ON iptc_supplemental_categories (supplemental_category)"); // NOI18N
+                    "CREATE INDEX idx_iptc_supplemental_categories_category" + // NOI18N
+                    " ON iptc_supplemental_categories (supplemental_category)"); // NOI18N
+
         }
         if (!existsTable(connection, "iptc_by_lines_titles")) { // NOI18N
+
             stmt.execute("CREATE CACHED TABLE iptc_by_lines_titles" + // NOI18N
-                " (" + // NOI18N
-                "id INTEGER GENERATED BY DEFAULT AS IDENTITY(START WITH 1, INCREMENT BY 1) PRIMARY KEY" + // NOI18N
-                ", id_iptc INTEGER NOT NULL" + // NOI18N
-                ", byline_title VARCHAR_IGNORECASE(32)" + // NOI18N
-                ", FOREIGN KEY (id_iptc) REFERENCES iptc (id) ON DELETE CASCADE" + // NOI18N
-                ");"); // NOI18N
+                    " (" + // NOI18N
+                    "id INTEGER GENERATED BY DEFAULT AS IDENTITY(START WITH 1, INCREMENT BY 1) PRIMARY KEY" + // NOI18N
+                    ", id_iptc INTEGER NOT NULL" + // NOI18N
+                    ", byline_title VARCHAR_IGNORECASE(32)" + // NOI18N
+                    ", FOREIGN KEY (id_iptc) REFERENCES iptc (id) ON DELETE CASCADE" + // NOI18N
+                    ");"); // NOI18N
+
             stmt.execute(
-                "CREATE INDEX idx_iptc_by_lines_titles_id_iptc" + // NOI18N
-                " ON iptc_by_lines_titles (id_iptc)"); // NOI18N
+                    "CREATE INDEX idx_iptc_by_lines_titles_id_iptc" + // NOI18N
+                    " ON iptc_by_lines_titles (id_iptc)"); // NOI18N
+
             stmt.execute(
-                "CREATE INDEX idx_iptc_by_lines_titles_byline_title" + // NOI18N
-                " ON iptc_by_lines_titles (byline_title)"); // NOI18N
+                    "CREATE INDEX idx_iptc_by_lines_titles_byline_title" + // NOI18N
+                    " ON iptc_by_lines_titles (byline_title)"); // NOI18N
+
         }
     }
 
     synchronized private void createXmpTables(Connection connection, Statement stmt) throws SQLException {
         if (!existsTable(connection, "xmp")) { // NOI18N
+
             stmt.execute("CREATE CACHED TABLE xmp" + // NOI18N
-                " (" + // NOI18N
-                "id INTEGER GENERATED BY DEFAULT AS IDENTITY(START WITH 1, INCREMENT BY 1) PRIMARY KEY" + // NOI18N
-                ", id_files INTEGER NOT NULL" + // NOI18N
-                ", dc_description VARCHAR_IGNORECASE(2000)" + // NOI18N
-                ", dc_rights VARCHAR_IGNORECASE(128)" + // NOI18N
-                ", dc_title VARCHAR_IGNORECASE(64)" + // NOI18N
-                ", iptc4xmpcore_countrycode VARCHAR_IGNORECASE(3)" + // NOI18N
-                ", iptc4xmpcore_location VARCHAR_IGNORECASE(64)" + // NOI18N
-                ", photoshop_authorsposition VARCHAR_IGNORECASE(32)" + // NOI18N
-                ", photoshop_captionwriter VARCHAR_IGNORECASE(32)" + // NOI18N
-                ", photoshop_category VARCHAR_IGNORECASE(128)" + // NOI18N
-                ", photoshop_city VARCHAR_IGNORECASE(32)" + // NOI18N
-                ", photoshop_country VARCHAR_IGNORECASE(64)" + // NOI18N
-                ", photoshop_credit VARCHAR_IGNORECASE(32)" + // NOI18N
-                ", photoshop_headline VARCHAR_IGNORECASE(256)" + // NOI18N
-                ", photoshop_instructions VARCHAR_IGNORECASE(256)" + // NOI18N
-                ", photoshop_source VARCHAR_IGNORECASE(32)" + // NOI18N
-                ", photoshop_state VARCHAR_IGNORECASE(32)" + // NOI18N
-                ", photoshop_transmissionReference VARCHAR_IGNORECASE(32)" + // NOI18N
-                ", FOREIGN KEY (id_files) REFERENCES files (id) ON DELETE CASCADE" + // NOI18N
-                ");"); // NOI18N
+                    " (" + // NOI18N
+                    "id INTEGER GENERATED BY DEFAULT AS IDENTITY(START WITH 1, INCREMENT BY 1) PRIMARY KEY" + // NOI18N
+                    ", id_files INTEGER NOT NULL" + // NOI18N
+                    ", dc_description VARCHAR_IGNORECASE(2000)" + // NOI18N
+                    ", dc_rights VARCHAR_IGNORECASE(128)" + // NOI18N
+                    ", dc_title VARCHAR_IGNORECASE(64)" + // NOI18N
+                    ", iptc4xmpcore_countrycode VARCHAR_IGNORECASE(3)" + // NOI18N
+                    ", iptc4xmpcore_location VARCHAR_IGNORECASE(64)" + // NOI18N
+                    ", photoshop_authorsposition VARCHAR_IGNORECASE(32)" + // NOI18N
+                    ", photoshop_captionwriter VARCHAR_IGNORECASE(32)" + // NOI18N
+                    ", photoshop_category VARCHAR_IGNORECASE(128)" + // NOI18N
+                    ", photoshop_city VARCHAR_IGNORECASE(32)" + // NOI18N
+                    ", photoshop_country VARCHAR_IGNORECASE(64)" + // NOI18N
+                    ", photoshop_credit VARCHAR_IGNORECASE(32)" + // NOI18N
+                    ", photoshop_headline VARCHAR_IGNORECASE(256)" + // NOI18N
+                    ", photoshop_instructions VARCHAR_IGNORECASE(256)" + // NOI18N
+                    ", photoshop_source VARCHAR_IGNORECASE(32)" + // NOI18N
+                    ", photoshop_state VARCHAR_IGNORECASE(32)" + // NOI18N
+                    ", photoshop_transmissionReference VARCHAR_IGNORECASE(32)" + // NOI18N
+                    ", FOREIGN KEY (id_files) REFERENCES files (id) ON DELETE CASCADE" + // NOI18N
+                    ");"); // NOI18N
+
             stmt.execute(
-                "CREATE UNIQUE INDEX idx_xmp_id_files ON xmp (id_files)"); // NOI18N
+                    "CREATE UNIQUE INDEX idx_xmp_id_files ON xmp (id_files)"); // NOI18N
+
             stmt.execute(
-                "CREATE INDEX idx_xmp_dc_description ON xmp (dc_description)"); // NOI18N
+                    "CREATE INDEX idx_xmp_dc_description ON xmp (dc_description)"); // NOI18N
+
             stmt.execute(
-                "CREATE INDEX idx_xmp_dc_rights ON xmp (dc_rights)"); // NOI18N
+                    "CREATE INDEX idx_xmp_dc_rights ON xmp (dc_rights)"); // NOI18N
+
             stmt.execute(
-                "CREATE INDEX idx_xmp_dc_title ON xmp (dc_title)"); // NOI18N
+                    "CREATE INDEX idx_xmp_dc_title ON xmp (dc_title)"); // NOI18N
+
             stmt.execute(
-                "CREATE INDEX idx_xmp_iptc4xmpcore_countrycode" + // NOI18N
-                " ON xmp (iptc4xmpcore_countrycode)"); // NOI18N
+                    "CREATE INDEX idx_xmp_iptc4xmpcore_countrycode" + // NOI18N
+                    " ON xmp (iptc4xmpcore_countrycode)"); // NOI18N
+
             stmt.execute(
-                "CREATE INDEX idx_xmp_iptc4xmpcore_location" + // NOI18N
-                " ON xmp (iptc4xmpcore_location)"); // NOI18N
+                    "CREATE INDEX idx_xmp_iptc4xmpcore_location" + // NOI18N
+                    " ON xmp (iptc4xmpcore_location)"); // NOI18N
+
             stmt.execute(
-                "CREATE INDEX idx_xmp_photoshop_authorsposition" + // NOI18N
-                " ON xmp (photoshop_authorsposition)"); // NOI18N
+                    "CREATE INDEX idx_xmp_photoshop_authorsposition" + // NOI18N
+                    " ON xmp (photoshop_authorsposition)"); // NOI18N
+
             stmt.execute(
-                "CREATE INDEX idx_xmp_photoshop_captionwriter" + // NOI18N
-                " ON xmp (photoshop_captionwriter)"); // NOI18N
+                    "CREATE INDEX idx_xmp_photoshop_captionwriter" + // NOI18N
+                    " ON xmp (photoshop_captionwriter)"); // NOI18N
+
             stmt.execute(
-                "CREATE INDEX idx_xmp_photoshop_category" + // NOI18N
-                " ON xmp (photoshop_category)"); // NOI18N
+                    "CREATE INDEX idx_xmp_photoshop_category" + // NOI18N
+                    " ON xmp (photoshop_category)"); // NOI18N
+
             stmt.execute(
-                "CREATE INDEX idx_xmp_photoshop_city" + // NOI18N
-                " ON xmp (photoshop_city)"); // NOI18N
+                    "CREATE INDEX idx_xmp_photoshop_city" + // NOI18N
+                    " ON xmp (photoshop_city)"); // NOI18N
+
             stmt.execute(
-                "CREATE INDEX idx_xmp_photoshop_country" + // NOI18N
-                " ON xmp (photoshop_country)"); // NOI18N
+                    "CREATE INDEX idx_xmp_photoshop_country" + // NOI18N
+                    " ON xmp (photoshop_country)"); // NOI18N
+
             stmt.execute(
-                "CREATE INDEX idx_xmp_photoshop_credit" + // NOI18N
-                " ON xmp (photoshop_credit)"); // NOI18N
+                    "CREATE INDEX idx_xmp_photoshop_credit" + // NOI18N
+                    " ON xmp (photoshop_credit)"); // NOI18N
+
             stmt.execute(
-                "CREATE INDEX idx_xmp_photoshop_headline" + // NOI18N
-                " ON xmp (photoshop_headline)"); // NOI18N
+                    "CREATE INDEX idx_xmp_photoshop_headline" + // NOI18N
+                    " ON xmp (photoshop_headline)"); // NOI18N
+
             stmt.execute(
-                "CREATE INDEX idx_xmp_photoshop_instructions" + // NOI18N
-                " ON xmp (photoshop_instructions)"); // NOI18N
+                    "CREATE INDEX idx_xmp_photoshop_instructions" + // NOI18N
+                    " ON xmp (photoshop_instructions)"); // NOI18N
+
             stmt.execute(
-                "CREATE INDEX idx_xmp_photoshop_source" + // NOI18N
-                " ON xmp (photoshop_source)"); // NOI18N
+                    "CREATE INDEX idx_xmp_photoshop_source" + // NOI18N
+                    " ON xmp (photoshop_source)"); // NOI18N
+
             stmt.execute(
-                "CREATE INDEX idx_xmp_photoshop_state" + // NOI18N
-                " ON xmp (photoshop_state)"); // NOI18N
+                    "CREATE INDEX idx_xmp_photoshop_state" + // NOI18N
+                    " ON xmp (photoshop_state)"); // NOI18N
+
             stmt.execute(
-                "CREATE INDEX idx_xmp_photoshop_transmissionReference" + // NOI18N
-                " ON xmp (photoshop_transmissionReference)"); // NOI18N
+                    "CREATE INDEX idx_xmp_photoshop_transmissionReference" + // NOI18N
+                    " ON xmp (photoshop_transmissionReference)"); // NOI18N
+
         }
         if (!existsTable(connection, "xmp_dc_subjects")) { // NOI18N
+
             stmt.execute("CREATE CACHED TABLE xmp_dc_subjects" + // NOI18N
-                " (" + // NOI18N
-                "id INTEGER GENERATED BY DEFAULT AS IDENTITY(START WITH 1, INCREMENT BY 1) PRIMARY KEY" + // NOI18N
-                ", id_xmp INTEGER NOT NULL" + // NOI18N
-                ", subject VARCHAR_IGNORECASE(64)" + // NOI18N
-                ", FOREIGN KEY (id_xmp) REFERENCES xmp (id) ON DELETE CASCADE" + // NOI18N
-                ");"); // NOI18N
+                    " (" + // NOI18N
+                    "id INTEGER GENERATED BY DEFAULT AS IDENTITY(START WITH 1, INCREMENT BY 1) PRIMARY KEY" + // NOI18N
+                    ", id_xmp INTEGER NOT NULL" + // NOI18N
+                    ", subject VARCHAR_IGNORECASE(64)" + // NOI18N
+                    ", FOREIGN KEY (id_xmp) REFERENCES xmp (id) ON DELETE CASCADE" + // NOI18N
+                    ");"); // NOI18N
+
             stmt.execute(
-                "CREATE INDEX idx_xmp_dc_subjects_id_xmp" + // NOI18N
-                " ON xmp_dc_subjects (id_xmp)"); // NOI18N
+                    "CREATE INDEX idx_xmp_dc_subjects_id_xmp" + // NOI18N
+                    " ON xmp_dc_subjects (id_xmp)"); // NOI18N
+
             stmt.execute(
-                "CREATE INDEX idx_xmp_dc_subjects_subject" + // NOI18N
-                " ON xmp_dc_subjects (subject)"); // NOI18N
+                    "CREATE INDEX idx_xmp_dc_subjects_subject" + // NOI18N
+                    " ON xmp_dc_subjects (subject)"); // NOI18N
+
         }
         if (!existsTable(connection, "xmp_dc_creators")) { // NOI18N
+
             stmt.execute("CREATE CACHED TABLE xmp_dc_creators" + // NOI18N
-                " (" + // NOI18N
-                "id INTEGER GENERATED BY DEFAULT AS IDENTITY(START WITH 1, INCREMENT BY 1) PRIMARY KEY" + // NOI18N
-                ", id_xmp INTEGER NOT NULL" + // NOI18N
-                ", creator VARCHAR_IGNORECASE(32)" + // NOI18N
-                ", FOREIGN KEY (id_xmp) REFERENCES xmp (id) ON DELETE CASCADE" + // NOI18N
-                ");"); // NOI18N
+                    " (" + // NOI18N
+                    "id INTEGER GENERATED BY DEFAULT AS IDENTITY(START WITH 1, INCREMENT BY 1) PRIMARY KEY" + // NOI18N
+                    ", id_xmp INTEGER NOT NULL" + // NOI18N
+                    ", creator VARCHAR_IGNORECASE(32)" + // NOI18N
+                    ", FOREIGN KEY (id_xmp) REFERENCES xmp (id) ON DELETE CASCADE" + // NOI18N
+                    ");"); // NOI18N
+
             stmt.execute(
-                "CREATE INDEX idx_xmp_dc_creators_id_xmp" + // NOI18N
-                " ON xmp_dc_creators (id_xmp)"); // NOI18N
+                    "CREATE INDEX idx_xmp_dc_creators_id_xmp" + // NOI18N
+                    " ON xmp_dc_creators (id_xmp)"); // NOI18N
+
             stmt.execute(
-                "CREATE INDEX idx_xmp_xmp_dc_creators_creator" + // NOI18N
-                " ON xmp_dc_creators (creator)"); // NOI18N
+                    "CREATE INDEX idx_xmp_xmp_dc_creators_creator" + // NOI18N
+                    " ON xmp_dc_creators (creator)"); // NOI18N
+
         }
         if (!existsTable(connection, "xmp_photoshop_supplementalcategories")) { // NOI18N
+
             stmt.execute("CREATE CACHED TABLE xmp_photoshop_supplementalcategories" + // NOI18N
-                " (" + // NOI18N
-                "id INTEGER GENERATED BY DEFAULT AS IDENTITY(START WITH 1, INCREMENT BY 1) PRIMARY KEY" + // NOI18N
-                ", id_xmp INTEGER NOT NULL" + // NOI18N
-                ", supplementalcategory VARCHAR_IGNORECASE(32)" + // NOI18N
-                ", FOREIGN KEY (id_xmp) REFERENCES xmp (id) ON DELETE CASCADE" + // NOI18N
-                ");"); // NOI18N
+                    " (" + // NOI18N
+                    "id INTEGER GENERATED BY DEFAULT AS IDENTITY(START WITH 1, INCREMENT BY 1) PRIMARY KEY" + // NOI18N
+                    ", id_xmp INTEGER NOT NULL" + // NOI18N
+                    ", supplementalcategory VARCHAR_IGNORECASE(32)" + // NOI18N
+                    ", FOREIGN KEY (id_xmp) REFERENCES xmp (id) ON DELETE CASCADE" + // NOI18N
+                    ");"); // NOI18N
+
             stmt.execute(
-                "CREATE INDEX idx_xmp_photoshop_supplementalcategories_id_xmp" + // NOI18N
-                " ON xmp_photoshop_supplementalcategories (id_xmp)"); // NOI18N
+                    "CREATE INDEX idx_xmp_photoshop_supplementalcategories_id_xmp" + // NOI18N
+                    " ON xmp_photoshop_supplementalcategories (id_xmp)"); // NOI18N
+
             stmt.execute(
-                "CREATE INDEX idx_xmp_photoshop_supplementalcategories_supplementalcategory" + // NOI18N
-                " ON xmp_photoshop_supplementalcategories (supplementalcategory)"); // NOI18N
+                    "CREATE INDEX idx_xmp_photoshop_supplementalcategories_supplementalcategory" + // NOI18N
+                    " ON xmp_photoshop_supplementalcategories (supplementalcategory)"); // NOI18N
+
         }
     }
 
     synchronized private void createExifTables(Connection connection, Statement stmt) throws SQLException {
         if (!existsTable(connection, "exif")) { // NOI18N
+
             stmt.execute("CREATE CACHED TABLE exif" + // NOI18N
-                " (" + // NOI18N
-                "id INTEGER GENERATED BY DEFAULT AS IDENTITY(START WITH 1, INCREMENT BY 1) PRIMARY KEY" + // NOI18N
-                ", id_files INTEGER NOT NULL" + // NOI18N
-                ", exif_recording_equipment VARCHAR_IGNORECASE(125)" + // NOI18N
-                ", exif_date_time_original DATE" + // NOI18N
-                ", exif_focal_length REAL" + // NOI18N
-                ", exif_iso_speed_ratings SMALLINT" + // NOI18N
-                ", FOREIGN KEY (id_files) REFERENCES files (id) ON DELETE CASCADE" + // NOI18N
-                ");"); // NOI18N
+                    " (" + // NOI18N
+                    "id INTEGER GENERATED BY DEFAULT AS IDENTITY(START WITH 1, INCREMENT BY 1) PRIMARY KEY" + // NOI18N
+                    ", id_files INTEGER NOT NULL" + // NOI18N
+                    ", exif_recording_equipment VARCHAR_IGNORECASE(125)" + // NOI18N
+                    ", exif_date_time_original DATE" + // NOI18N
+                    ", exif_focal_length REAL" + // NOI18N
+                    ", exif_iso_speed_ratings SMALLINT" + // NOI18N
+                    ", FOREIGN KEY (id_files) REFERENCES files (id) ON DELETE CASCADE" + // NOI18N
+                    ");"); // NOI18N
+
             stmt.execute(
-                "CREATE UNIQUE INDEX idx_exif_id_files ON exif (id_files)"); // NOI18N
+                    "CREATE UNIQUE INDEX idx_exif_id_files ON exif (id_files)"); // NOI18N
+
             stmt.execute(
-                "CREATE INDEX idx_exif_recording_equipment ON exif (exif_recording_equipment)"); // NOI18N
+                    "CREATE INDEX idx_exif_recording_equipment ON exif (exif_recording_equipment)"); // NOI18N
+
             stmt.execute(
-                "CREATE INDEX idx_exif_date_time_original ON exif (exif_date_time_original)"); // NOI18N
+                    "CREATE INDEX idx_exif_date_time_original ON exif (exif_date_time_original)"); // NOI18N
+
             stmt.execute(
-                "CREATE INDEX idx_exif_focal_length ON exif (exif_focal_length)"); // NOI18N
+                    "CREATE INDEX idx_exif_focal_length ON exif (exif_focal_length)"); // NOI18N
+
             stmt.execute(
-                "CREATE INDEX idx_exif_iso_speed_ratings ON exif (exif_iso_speed_ratings)"); // NOI18N
+                    "CREATE INDEX idx_exif_iso_speed_ratings ON exif (exif_iso_speed_ratings)"); // NOI18N
+
         }
     }
 
     synchronized private void createCollectionsTables(Connection connection, Statement stmt) throws SQLException {
         if (!existsTable(connection, "collection_names")) { // NOI18N
+
             stmt.execute("CREATE CACHED TABLE collection_names" + // NOI18N
-                " (" + // NOI18N
-                "id INTEGER GENERATED BY DEFAULT AS IDENTITY(START WITH 1, INCREMENT BY 1) PRIMARY KEY" + // NOI18N
-                ", name VARCHAR_IGNORECASE(256)" + // NOI18N
-                ");"); // NOI18N
+                    " (" + // NOI18N
+                    "id INTEGER GENERATED BY DEFAULT AS IDENTITY(START WITH 1, INCREMENT BY 1) PRIMARY KEY" + // NOI18N
+                    ", name VARCHAR_IGNORECASE(256)" + // NOI18N
+                    ");"); // NOI18N
+
             stmt.execute(
-                "CREATE UNIQUE INDEX idx_collection_names_id ON collection_names (id)"); // NOI18N
+                    "CREATE UNIQUE INDEX idx_collection_names_id ON collection_names (id)"); // NOI18N
+
             stmt.execute(
-                "CREATE INDEX idx_collection_names_name ON collection_names (name)"); // NOI18N
+                    "CREATE INDEX idx_collection_names_name ON collection_names (name)"); // NOI18N
+
         }
         if (!existsTable(connection, "collections")) { // NOI18N
+
             stmt.execute("CREATE CACHED TABLE collections" + // NOI18N
-                " (" + // NOI18N
-                "id_collectionnnames INTEGER" + // NOI18N
-                ", id_files INTEGER" + // NOI18N
-                ", sequence_number INTEGER" + // NOI18N
-                ", PRIMARY KEY (id_collectionnnames, id_files)" + // NOI18N
-                ", FOREIGN KEY (id_collectionnnames) REFERENCES collection_names (id) ON DELETE CASCADE" + // NOI18N
-                ", FOREIGN KEY (id_files) REFERENCES files (id) ON DELETE CASCADE" + // NOI18N
-                ");"); // NOI18N
+                    " (" + // NOI18N
+                    "id_collectionnnames INTEGER" + // NOI18N
+                    ", id_files INTEGER" + // NOI18N
+                    ", sequence_number INTEGER" + // NOI18N
+                    ", PRIMARY KEY (id_collectionnnames, id_files)" + // NOI18N
+                    ", FOREIGN KEY (id_collectionnnames) REFERENCES collection_names (id) ON DELETE CASCADE" + // NOI18N
+                    ", FOREIGN KEY (id_files) REFERENCES files (id) ON DELETE CASCADE" + // NOI18N
+                    ");"); // NOI18N
+
             stmt.execute(
-                "CREATE UNIQUE INDEX idx_collections_id ON collections (id_collectionnnames, id_files)"); // NOI18N
+                    "CREATE UNIQUE INDEX idx_collections_id ON collections (id_collectionnnames, id_files)"); // NOI18N
+
             stmt.execute(
-                "CREATE INDEX idx_collections_sequence_number ON collections (sequence_number)"); // NOI18N
+                    "CREATE INDEX idx_collections_sequence_number ON collections (sequence_number)"); // NOI18N
+
         }
     }
 
     synchronized private void createSavedSerachesTables(Connection connection, Statement stmt) throws SQLException {
         if (!existsTable(connection, "saved_searches")) { // NOI18N
+
             stmt.execute("CREATE CACHED TABLE saved_searches" + // NOI18N
-                " (" + // NOI18N
-                "id INTEGER GENERATED BY DEFAULT AS IDENTITY(START WITH 1, INCREMENT BY 1) PRIMARY KEY" + // NOI18N
-                ", name VARCHAR_IGNORECASE(125)" + // NOI18N
-                ", sql_string BINARY" + // NOI18N
-                ", is_query BOOLEAN" + // NOI18N
-                ");"); // NOI18N
+                    " (" + // NOI18N
+                    "id INTEGER GENERATED BY DEFAULT AS IDENTITY(START WITH 1, INCREMENT BY 1) PRIMARY KEY" + // NOI18N
+                    ", name VARCHAR_IGNORECASE(125)" + // NOI18N
+                    ", sql_string BINARY" + // NOI18N
+                    ", is_query BOOLEAN" + // NOI18N
+                    ");"); // NOI18N
+
             stmt.execute(
-                "CREATE UNIQUE INDEX idx_saved_searches_id ON saved_searches (id)"); // NOI18N
+                    "CREATE UNIQUE INDEX idx_saved_searches_id ON saved_searches (id)"); // NOI18N
+
             stmt.execute(
-                "CREATE UNIQUE INDEX idx_saved_searches_name ON saved_searches (name)"); // NOI18N
+                    "CREATE UNIQUE INDEX idx_saved_searches_name ON saved_searches (name)"); // NOI18N
+
         }
         if (!existsTable(connection, "saved_searches_values")) { // NOI18N
+
             stmt.execute("CREATE CACHED TABLE saved_searches_values" + // NOI18N
-                " (" + // NOI18N
-                "id_saved_searches INTEGER" + // NOI18N
-                ", value VARCHAR(256)" + // NOI18N
-                ", value_index INTEGER" + // NOI18N
-                ", FOREIGN KEY (id_saved_searches) REFERENCES saved_searches (id) ON DELETE CASCADE" + // NOI18N
-                ");"); // NOI18N
+                    " (" + // NOI18N
+                    "id_saved_searches INTEGER" + // NOI18N
+                    ", value VARCHAR(256)" + // NOI18N
+                    ", value_index INTEGER" + // NOI18N
+                    ", FOREIGN KEY (id_saved_searches) REFERENCES saved_searches (id) ON DELETE CASCADE" + // NOI18N
+                    ");"); // NOI18N
+
             stmt.execute(
-                "CREATE INDEX idx_saved_searches_id_saved_searches ON saved_searches_values (id_saved_searches)"); // NOI18N
+                    "CREATE INDEX idx_saved_searches_id_saved_searches ON saved_searches_values (id_saved_searches)"); // NOI18N
+
             stmt.execute(
-                "CREATE INDEX idx_saved_searches_value_index ON saved_searches_values (value_index)"); // NOI18N
+                    "CREATE INDEX idx_saved_searches_value_index ON saved_searches_values (value_index)"); // NOI18N
+
         }
         if (!existsTable(connection, "saved_searches_panels")) { // NOI18N
+
             stmt.execute("CREATE CACHED TABLE saved_searches_panels" + // NOI18N
-                " (" + // NOI18N
-                "id_saved_searches INTEGER" + // NOI18N
-                ", panel_index INTEGER" + // NOI18N
-                ", bracket_left_1 BOOLEAN" + // NOI18N
-                ", operator_id INTEGER" + // NOI18N
-                ", bracket_left_2 BOOLEAN" + // NOI18N
-                ", column_id INTEGER" + // NOI18N
-                ", comparator_id INTEGER" + // NOI18N
-                ", value VARCHAR(256)" + // NOI18N
-                ", bracket_right BOOLEAN" + // NOI18N
-                ", FOREIGN KEY (id_saved_searches) REFERENCES saved_searches (id) ON DELETE CASCADE" + // NOI18N
-                ");"); // NOI18N
+                    " (" + // NOI18N
+                    "id_saved_searches INTEGER" + // NOI18N
+                    ", panel_index INTEGER" + // NOI18N
+                    ", bracket_left_1 BOOLEAN" + // NOI18N
+                    ", operator_id INTEGER" + // NOI18N
+                    ", bracket_left_2 BOOLEAN" + // NOI18N
+                    ", column_id INTEGER" + // NOI18N
+                    ", comparator_id INTEGER" + // NOI18N
+                    ", value VARCHAR(256)" + // NOI18N
+                    ", bracket_right BOOLEAN" + // NOI18N
+                    ", FOREIGN KEY (id_saved_searches) REFERENCES saved_searches (id) ON DELETE CASCADE" + // NOI18N
+                    ");"); // NOI18N
+
             stmt.execute(
-                "CREATE INDEX idx_saved_searches_panels_id_saved_searches ON saved_searches_panels (id_saved_searches)"); // NOI18N
+                    "CREATE INDEX idx_saved_searches_panels_id_saved_searches ON saved_searches_panels (id_saved_searches)"); // NOI18N
+
             stmt.execute(
-                "CREATE INDEX idx_saved_searches_panels_panel_index ON saved_searches_panels (panel_index)"); // NOI18N
+                    "CREATE INDEX idx_saved_searches_panels_panel_index ON saved_searches_panels (panel_index)"); // NOI18N
+
         }
     }
 
     synchronized private void createAutoScanDirectoriesTable(Connection connection, Statement stmt) throws SQLException {
         if (!existsTable(connection, "autoscan_directories")) { // NOI18N
+
             stmt.execute("CREATE CACHED TABLE autoscan_directories" + // NOI18N
-                " (" + // NOI18N
-                "id INTEGER GENERATED BY DEFAULT AS IDENTITY(START WITH 1, INCREMENT BY 1) PRIMARY KEY" + // NOI18N
-                ", directory VARCHAR_IGNORECASE(1024)" + // NOI18N
-                ");"); // NOI18N
+                    " (" + // NOI18N
+                    "id INTEGER GENERATED BY DEFAULT AS IDENTITY(START WITH 1, INCREMENT BY 1) PRIMARY KEY" + // NOI18N
+                    ", directory VARCHAR_IGNORECASE(1024)" + // NOI18N
+                    ");"); // NOI18N
+
             stmt.execute(
-                "CREATE UNIQUE INDEX idx_autoscan_directories_directory ON autoscan_directories (directory)"); // NOI18N
+                    "CREATE UNIQUE INDEX idx_autoscan_directories_directory ON autoscan_directories (directory)"); // NOI18N
+
         }
     }
 
     synchronized private void createMetaDataEditTemplateTable(Connection connection, Statement stmt) throws SQLException {
         if (!existsTable(connection, "metadata_edit_templates")) { // NOI18N
+
             stmt.execute("CREATE CACHED TABLE metadata_edit_templates" + // NOI18N
-                " (" + // NOI18N
-                "id INTEGER GENERATED BY DEFAULT AS IDENTITY(START WITH 1, INCREMENT BY 1) PRIMARY KEY" + // NOI18N
-                ", name VARCHAR_IGNORECASE(256)" + // NOI18N
-                ", dcSubjects BINARY" + // NOI18N
-                ", dcTitle BINARY" + // NOI18N
-                ", photoshopHeadline BINARY" + // NOI18N
-                ", dcDescription BINARY" + // NOI18N
-                ", photoshopCaptionwriter BINARY" + // NOI18N
-                ", iptc4xmpcoreLocation BINARY" + // NOI18N
-                ", iptc4xmpcoreCountrycode BINARY" + // NOI18N
-                ", photoshopCategory BINARY" + // NOI18N
-                ", photoshopSupplementalCategories BINARY" + // NOI18N
-                ", dcRights BINARY" + // NOI18N
-                ", dcCreators BINARY" + // NOI18N
-                ", photoshopAuthorsposition BINARY" + // NOI18N
-                ", photoshopCity BINARY" + // NOI18N
-                ", photoshopState BINARY" + // NOI18N
-                ", photoshopCountry BINARY" + // NOI18N
-                ", photoshopTransmissionReference BINARY" + // NOI18N
-                ", photoshopInstructions BINARY" + // NOI18N
-                ", photoshopCredit BINARY" + // NOI18N
-                ", photoshopSource BINARY" + // NOI18N
-                ");"); // NOI18N
+                    " (" + // NOI18N
+                    "id INTEGER GENERATED BY DEFAULT AS IDENTITY(START WITH 1, INCREMENT BY 1) PRIMARY KEY" + // NOI18N
+                    ", name VARCHAR_IGNORECASE(256)" + // NOI18N
+                    ", dcSubjects BINARY" + // NOI18N
+                    ", dcTitle BINARY" + // NOI18N
+                    ", photoshopHeadline BINARY" + // NOI18N
+                    ", dcDescription BINARY" + // NOI18N
+                    ", photoshopCaptionwriter BINARY" + // NOI18N
+                    ", iptc4xmpcoreLocation BINARY" + // NOI18N
+                    ", iptc4xmpcoreCountrycode BINARY" + // NOI18N
+                    ", photoshopCategory BINARY" + // NOI18N
+                    ", photoshopSupplementalCategories BINARY" + // NOI18N
+                    ", dcRights BINARY" + // NOI18N
+                    ", dcCreators BINARY" + // NOI18N
+                    ", photoshopAuthorsposition BINARY" + // NOI18N
+                    ", photoshopCity BINARY" + // NOI18N
+                    ", photoshopState BINARY" + // NOI18N
+                    ", photoshopCountry BINARY" + // NOI18N
+                    ", photoshopTransmissionReference BINARY" + // NOI18N
+                    ", photoshopInstructions BINARY" + // NOI18N
+                    ", photoshopCredit BINARY" + // NOI18N
+                    ", photoshopSource BINARY" + // NOI18N
+                    ");"); // NOI18N
+
             stmt.execute(
-                "CREATE UNIQUE INDEX idx_metadata_edit_templates_name ON metadata_edit_templates (name)"); // NOI18N
+                    "CREATE UNIQUE INDEX idx_metadata_edit_templates_name ON metadata_edit_templates (name)"); // NOI18N
+
         }
     }
 
     synchronized private void createFavoriteDirectoriesTable(Connection connection, Statement stmt) throws SQLException {
         if (!existsTable(connection, "favorite_directories")) { // NOI18N
+
             stmt.execute("CREATE CACHED TABLE favorite_directories" + // NOI18N
-                " (" + // NOI18N
-                "id INTEGER GENERATED BY DEFAULT AS IDENTITY(START WITH 1, INCREMENT BY 1) PRIMARY KEY" + // NOI18N
-                ", favorite_name VARCHAR_IGNORECASE(256)" + // NOI18N
-                ", directory_name VARCHAR(512)" + // NOI18N
-                ", favorite_index INTEGER" + // NOI18N
-                ");"); // NOI18N
+                    " (" + // NOI18N
+                    "id INTEGER GENERATED BY DEFAULT AS IDENTITY(START WITH 1, INCREMENT BY 1) PRIMARY KEY" + // NOI18N
+                    ", favorite_name VARCHAR_IGNORECASE(256)" + // NOI18N
+                    ", directory_name VARCHAR(512)" + // NOI18N
+                    ", favorite_index INTEGER" + // NOI18N
+                    ");"); // NOI18N
+
             stmt.execute(
-                "CREATE UNIQUE INDEX idx_favorite_directories_favorite_name ON favorite_directories (favorite_name)"); // NOI18N
+                    "CREATE UNIQUE INDEX idx_favorite_directories_favorite_name ON favorite_directories (favorite_name)"); // NOI18N
+
         }
     }
 
