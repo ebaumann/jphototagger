@@ -1,7 +1,7 @@
 package de.elmar_baumann.imagemetadataviewer.database.metadata.mapping;
 
 import de.elmar_baumann.imagemetadataviewer.database.metadata.Column;
-import de.elmar_baumann.imagemetadataviewer.database.metadata.xmp.ColumnXmpDcCreatorsCreator;
+import de.elmar_baumann.imagemetadataviewer.database.metadata.xmp.ColumnXmpDcCreator;
 import de.elmar_baumann.imagemetadataviewer.database.metadata.xmp.ColumnXmpDcDescription;
 import de.elmar_baumann.imagemetadataviewer.database.metadata.xmp.ColumnXmpDcRights;
 import de.elmar_baumann.imagemetadataviewer.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
@@ -37,7 +37,7 @@ public class XmpColumnXmpDataTypeMapping {
     
 
     static {
-        xmpValueTypeOfColumn.put(ColumnXmpDcCreatorsCreator.getInstance(), XmpValueType.SeqProperName);
+        xmpValueTypeOfColumn.put(ColumnXmpDcCreator.getInstance(), XmpValueType.SeqProperName);
         xmpValueTypeOfColumn.put(ColumnXmpDcDescription.getInstance(), XmpValueType.LangAlt);
         xmpValueTypeOfColumn.put(ColumnXmpDcRights.getInstance(), XmpValueType.LangAlt);
         xmpValueTypeOfColumn.put(ColumnXmpDcSubjectsSubject.getInstance(), XmpValueType.BagText);

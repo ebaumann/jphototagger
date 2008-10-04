@@ -22,16 +22,25 @@ public class XmpColumnXmpPathStartMapping {
     
 
     static {
-        Vector<Pair<Column, Column>> pairs = IptcXmpMapping.getInstance().getAllPairs();
-        IptcEntryMetaIptcColumnMapping iptcEntryMetaIptcColumnMapping = IptcEntryMetaIptcColumnMapping.getInstance();
+        Vector<Pair<IPTCEntryMeta, Column>> pairs = IptcXmpMapping.getInstance().getAllPairs();
         IptcEntryXmpPathStartMapping iptcEntryXmpPathMapping = IptcEntryXmpPathStartMapping.getInstance();
-        for (Pair<Column, Column> pair : pairs) {
-            Column iptcColumn = pair.getFirst();
+        for (Pair<IPTCEntryMeta, Column> pair : pairs) {
+            IPTCEntryMeta iptcEntryMeta = pair.getFirst();
             Column xmpColumn = pair.getSecond();
-            IPTCEntryMeta iptcEntryMeta = iptcEntryMetaIptcColumnMapping.getEntryMetaOfColumn(iptcColumn);
-            String xmpPathStart = iptcEntryXmpPathMapping.getXmpPathStartOfIptcEntryMeta(iptcEntryMeta);
+            String xmpPathStart =
+                iptcEntryXmpPathMapping.getXmpPathStartOfIptcEntryMeta(iptcEntryMeta);
             xmpPathStartOfColumn.put(xmpColumn, xmpPathStart);
         }
+    }
+
+    /**
+     * Liefert den Start des XMP-Pfads für eine XMP-Spalte.
+     * 
+     * @param  column  XMP-Spalte
+     * @return Pfadstart oder null bei unzugeordneter Spalte
+     */
+    public String getXmpPathStartOfColumn(Column column) {
+        return xmpPathStartOfColumn.get(column);
     }
 
     /**
@@ -44,15 +53,5 @@ public class XmpColumnXmpPathStartMapping {
     }
 
     private XmpColumnXmpPathStartMapping() {
-    }
-
-    /**
-     * Liefert den Start des XMP-Pfads für eine XMP-Spalte.
-     * 
-     * @param  column  XMP-Spalte
-     * @return Pfadstart oder null bei unzugeordneter Spalte
-     */
-    public String getXmpPathStartOfColumn(Column column) {
-        return xmpPathStartOfColumn.get(column);
     }
 }

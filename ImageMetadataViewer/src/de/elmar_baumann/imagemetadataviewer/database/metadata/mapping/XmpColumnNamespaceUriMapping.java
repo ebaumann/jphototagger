@@ -2,7 +2,7 @@ package de.elmar_baumann.imagemetadataviewer.database.metadata.mapping;
 
 import com.adobe.xmp.XMPConst;
 import de.elmar_baumann.imagemetadataviewer.database.metadata.Column;
-import de.elmar_baumann.imagemetadataviewer.database.metadata.xmp.ColumnXmpDcCreatorsCreator;
+import de.elmar_baumann.imagemetadataviewer.database.metadata.xmp.ColumnXmpDcCreator;
 import de.elmar_baumann.imagemetadataviewer.database.metadata.xmp.ColumnXmpDcDescription;
 import de.elmar_baumann.imagemetadataviewer.database.metadata.xmp.ColumnXmpDcRights;
 import de.elmar_baumann.imagemetadataviewer.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
@@ -37,7 +37,7 @@ public class XmpColumnNamespaceUriMapping {
     private static XmpColumnNamespaceUriMapping instance = new XmpColumnNamespaceUriMapping();
 
     static  {
-        namespaceUriOfColumn.put(ColumnXmpDcCreatorsCreator.getInstance(), XMPConst.NS_DC);
+        namespaceUriOfColumn.put(ColumnXmpDcCreator.getInstance(), XMPConst.NS_DC);
         namespaceUriOfColumn.put(ColumnXmpDcDescription.getInstance(), XMPConst.NS_DC);
         namespaceUriOfColumn.put(ColumnXmpDcRights.getInstance(), XMPConst.NS_DC);
         namespaceUriOfColumn.put(ColumnXmpDcSubjectsSubject.getInstance(), XMPConst.NS_DC);
