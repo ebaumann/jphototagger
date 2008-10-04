@@ -86,7 +86,7 @@ public class HelpBrowser extends javax.swing.JFrame
         setButtonStatus();
         setUri(url);
     }
-    
+
     /**
      * Returns the last visted URI.
      * 
@@ -234,8 +234,27 @@ public class HelpBrowser extends javax.swing.JFrame
     @Override
     public void hyperlinkUpdate(HyperlinkEvent e) {
         if (e.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
-            showUrl(e.getURL());
+            URL url = e.getURL();
+            String lastPathComponent = getLastPathComponent(url);
+            Object[] path = null;
+            if (lastPathComponent != null) {
+                path = ((HelpNode) tree.getModel().getRoot()).getPagePath(lastPathComponent);
+            }
+            if (path == null) {
+                showUrl(url);
+            } else {
+                tree.setSelectionPath(new TreePath(path));
+            }
         }
+    }
+
+    private String getLastPathComponent(URL url) {
+        String path = url.getPath();
+        int index = path.lastIndexOf("/");
+        if (index > 0 && index < path.length() - 1) {
+            return path.substring(index + 1);
+        }
+        return null;
     }
 
     @Override
