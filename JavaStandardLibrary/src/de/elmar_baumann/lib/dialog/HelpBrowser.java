@@ -1,5 +1,7 @@
 package de.elmar_baumann.lib.dialog;
 
+import de.elmar_baumann.lib.event.HelpBrowserAction;
+import de.elmar_baumann.lib.event.HelpBrowserListener;
 import de.elmar_baumann.lib.image.icon.IconUtil;
 import de.elmar_baumann.lib.model.TreeModelHelpContents;
 import de.elmar_baumann.lib.persistence.PersistentAppSizes;
@@ -19,6 +21,7 @@ import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.net.URL;
 import java.util.LinkedList;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.event.HyperlinkEvent;
@@ -42,13 +45,13 @@ public class HelpBrowser extends javax.swing.JFrame
     private LinkedList<URL> urlHistory = new LinkedList<URL>();
     private int currentHistoryIndex = -1;
     private PopupMenu popupMenu;
-    private final String actionPrevious = Bundle.getString("HelpBrowser.Command.Previous");
-    private final String actionNext = Bundle.getString("HelpBrowser.Command.Next");
+    private final String actionPrevious = Bundle.getString("HelpBrowser.Action.Previous");
+    private final String actionNext = Bundle.getString("HelpBrowser.Action.Next");
+    private Vector<HelpBrowserListener> actionListeners = new Vector<HelpBrowserListener>();
     private MenuItem itemPrevious;
     private MenuItem itemNext;
-    private String startUri;
-    private String baseUri;
-    private String lastUri;
+    private String startUrl;
+    private String baseUrl;
 
     private HelpBrowser() {
         initComponents();
@@ -79,56 +82,74 @@ public class HelpBrowser extends javax.swing.JFrame
         return instance;
     }
 
+    /**
+     * Adds an action listener.
+     * 
+     * @param listener  listener
+     */
+    public void addActionListener(HelpBrowserListener listener) {
+        actionListeners.add(listener);
+    }
+
+    /**
+     * Removes an action listener.
+     * 
+     * @param listener  listener
+     */
+    public void removeActionListener(HelpBrowserListener listener) {
+        actionListeners.remove(listener);
+    }
+
+    private void notifyUrlChanged(URL url) {
+        HelpBrowserAction action = new HelpBrowserAction(this, HelpBrowserAction.Type.UrlChanged);
+        action.setUrl(url);
+        for (HelpBrowserListener listener : actionListeners) {
+            listener.actionPerformed(action);
+        }
+    }
+
     private void showUrl(URL url) {
         removeNextHistory();
         currentHistoryIndex++;
         urlHistory.add(url);
         setButtonStatus();
-        setUri(url);
+        setUrl(url);
+        notifyUrlChanged(url);
     }
 
     /**
-     * Returns the last visted URI.
-     * 
-     * @return URI or null
-     */
-    public String getLastUri() {
-        return lastUri;
-    }
-
-    /**
-     * Sets the URI of the page to be initial displayed. It has to be relative
+     * Sets the URL of the page to be initial displayed. It has to be relative
      * and exist in the contents XML-File set with
-     * {@link #setStartUri(java.lang.String)}.
+     * {@link #setStartUrl(java.lang.String)}.
      * 
-     * @param uri  URI, eg. <code>firststeps.html</code>
+     * @param url  URL, eg. <code>firststeps.html</code>
      */
-    public void setStartUri(String uri) {
-        startUri = uri;
+    public void setStartUrl(String url) {
+        startUrl = url;
     }
 
     /**
-     * Sets the URI of the contents XML-File wich validates against <code>helpindex.dtd</code>.
+     * Sets the URL of the contents XML-File wich validates against <code>helpindex.dtd</code>.
      * <code>helpindex.dtd</code> is in this library:
      * <code>/de/elmar_baumann/lib/resource/helpindex.dtd</code>
      * All paths to help pages within this file have to be relative.
      * 
-     * @param uri URI, eg. <code>/de/elmar_baumann/imagemetadataviewer/resource/doc/de/contents.xml</code>
+     * @param url URL, eg. <code>/de/elmar_baumann/imagemetadataviewer/resource/doc/de/contents.xml</code>
      */
-    public void setContentsUri(String uri) {
-        tree.setModel(new TreeModelHelpContents(uri));
-        setBaseUri(uri);
+    public void setContentsUrl(String url) {
+        tree.setModel(new TreeModelHelpContents(url));
+        setBaseUrl(url);
     }
 
-    private void setBaseUri(String uri) {
-        int index = uri.lastIndexOf("/"); // NOI18N
-        baseUri = uri.substring(0, index);
+    private void setBaseUrl(String url) {
+        int index = url.lastIndexOf("/"); // NOI18N
+        baseUrl = url.substring(0, index);
     }
 
-    private void selectStartUri() {
-        if (startUri != null) {
+    private void selectStartUrl() {
+        if (startUrl != null) {
             HelpNode node = (HelpNode) tree.getModel().getRoot();
-            Object[] path = node.getPagePath(startUri);
+            Object[] path = node.getPagePath(startUrl);
             if (path != null) {
                 tree.setSelectionPath(new TreePath(path));
             }
@@ -149,7 +170,7 @@ public class HelpBrowser extends javax.swing.JFrame
         if (currentHistoryIndex + 1 >= 0 && currentHistoryIndex + 1 <
             urlHistory.size()) {
             currentHistoryIndex++;
-            setUri(urlHistory.get(currentHistoryIndex));
+            setUrl(urlHistory.get(currentHistoryIndex));
             setButtonStatus();
         }
     }
@@ -158,7 +179,7 @@ public class HelpBrowser extends javax.swing.JFrame
         if (currentHistoryIndex - 1 >= 0 && currentHistoryIndex - 1 <
             urlHistory.size()) {
             currentHistoryIndex--;
-            setUri(urlHistory.get(currentHistoryIndex));
+            setUrl(urlHistory.get(currentHistoryIndex));
             setButtonStatus();
         }
     }
@@ -203,7 +224,7 @@ public class HelpBrowser extends javax.swing.JFrame
         }
     }
 
-    private void setUri(URL url) {
+    private void setUrl(URL url) {
         try {
             editorPanePage.setPage(url);
         } catch (IOException ex) {
@@ -215,7 +236,7 @@ public class HelpBrowser extends javax.swing.JFrame
     public void setVisible(boolean visible) {
         if (visible) {
             readPersistent();
-            selectStartUri();
+            selectStartUrl();
         } else {
             writePersistent();
         }
@@ -236,10 +257,7 @@ public class HelpBrowser extends javax.swing.JFrame
         if (e.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
             URL url = e.getURL();
             String lastPathComponent = getLastPathComponent(url);
-            Object[] path = null;
-            if (lastPathComponent != null) {
-                path = ((HelpNode) tree.getModel().getRoot()).getPagePath(lastPathComponent);
-            }
+            Object[] path = ((HelpNode) tree.getModel().getRoot()).getPagePath(lastPathComponent);
             if (path == null) {
                 showUrl(url);
             } else {
@@ -248,13 +266,19 @@ public class HelpBrowser extends javax.swing.JFrame
         }
     }
 
-    private String getLastPathComponent(URL url) {
+    /**
+     * Returns the last path component of an URL.
+     * 
+     * @param  url  URL
+     * @return last path component
+     */
+    public static String getLastPathComponent(URL url) {
         String path = url.getPath();
         int index = path.lastIndexOf("/");
         if (index > 0 && index < path.length() - 1) {
             return path.substring(index + 1);
         }
-        return null;
+        return path;
     }
 
     @Override
@@ -263,9 +287,8 @@ public class HelpBrowser extends javax.swing.JFrame
             Object o = e.getNewLeadSelectionPath().getLastPathComponent();
             if (o instanceof HelpPage) {
                 HelpPage helpPage = (HelpPage) o;
-                String helpPageUri = helpPage.getUri();
-                lastUri = helpPageUri;
-                URL url = this.getClass().getResource(baseUri + "/" + helpPageUri); // NOI18N
+                String helpPageUrl = helpPage.getUrl();
+                URL url = this.getClass().getResource(baseUrl + "/" + helpPageUrl); // NOI18N
                 setTitle(helpPage.getTitle() + Bundle.getString("HelpBrowser.TitlePostfix"));
                 showUrl(url);
             }
