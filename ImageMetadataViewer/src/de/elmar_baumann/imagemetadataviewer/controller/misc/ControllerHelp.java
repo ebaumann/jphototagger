@@ -3,8 +3,12 @@ package de.elmar_baumann.imagemetadataviewer.controller.misc;
 import de.elmar_baumann.imagemetadataviewer.controller.Controller;
 import de.elmar_baumann.imagemetadataviewer.resource.Bundle;
 import de.elmar_baumann.lib.dialog.HelpBrowser;
+import de.elmar_baumann.lib.event.HelpBrowserAction;
+import de.elmar_baumann.lib.event.HelpBrowserListener;
+import de.elmar_baumann.lib.persistence.PersistentSettings;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.URL;
 
 /**
  * Kontrolliert die Aktion: Hilfe anzeigen.
@@ -12,9 +16,16 @@ import java.awt.event.ActionListener;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/12
  */
-public class ControllerHelp extends Controller implements ActionListener {
+public class ControllerHelp extends Controller implements ActionListener,
+    HelpBrowserListener {
 
     private HelpBrowser help = HelpBrowser.getInstance();
+    private static final String keyLastUrl = ControllerHelp.class.getName() + ".LastURL";
+    private String lastUrl = PersistentSettings.getInstance().getString(keyLastUrl);
+
+    public ControllerHelp() {
+        help.addActionListener(this);
+    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -24,11 +35,26 @@ public class ControllerHelp extends Controller implements ActionListener {
     }
 
     private void showHelp() {
-        help.setContentsUri(Bundle.getString("ControllerHelp.PathHelpFileIndex"));
+        help.setContentsUrl(Bundle.getString("ControllerHelp.PathHelpFileIndex"));
+        if (!lastUrl.isEmpty()) {
+            help.setStartUrl(lastUrl);
+        }
         if (help.isVisible()) {
             help.toFront();
         } else {
             help.setVisible(true);
+        }
+    }
+
+    @Override
+    public void actionPerformed(HelpBrowserAction action) {
+        if (action.getType().equals(HelpBrowserAction.Type.UrlChanged)) {
+            URL url = action.getUrl();
+            System.out.println(url.getProtocol());
+            if (!url.getProtocol().startsWith("http")) {
+                lastUrl = HelpBrowser.getLastPathComponent(url);
+                PersistentSettings.getInstance().setString(lastUrl, keyLastUrl);
+            }
         }
     }
 }
