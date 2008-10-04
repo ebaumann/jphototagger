@@ -29,11 +29,11 @@ public interface TextEntry {
     public void setText(String text);
 
     /**
-     * Liefert die Tabellenspalten für IPCT und XMP, die den Text enthalten.
+     * Liefert die XMP-Tabellenspalte, die den Text enthält.
      * 
-     * @return Tabellenspalten
+     * @return Tabellenspalte
      */
-    public Pair<Column, Column> getColumns();
+    public Column getColumn();
 
     /**
      * Setzt den Fokus auf das zugehörige Eingabefeld.

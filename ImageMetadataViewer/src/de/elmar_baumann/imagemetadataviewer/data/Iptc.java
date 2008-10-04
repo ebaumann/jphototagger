@@ -1,27 +1,6 @@
 package de.elmar_baumann.imagemetadataviewer.data;
 
-import de.elmar_baumann.imagemetadataviewer.database.metadata.Column;
-import de.elmar_baumann.imagemetadataviewer.database.metadata.iptc.ColumnIptcByLinesByLine;
-import de.elmar_baumann.imagemetadataviewer.database.metadata.iptc.ColumnIptcByLinesTitlesByLineTitle;
-import de.elmar_baumann.imagemetadataviewer.database.metadata.iptc.ColumnIptcCaptionAbstract;
-import de.elmar_baumann.imagemetadataviewer.database.metadata.iptc.ColumnIptcCategory;
-import de.elmar_baumann.imagemetadataviewer.database.metadata.iptc.ColumnIptcCity;
-import de.elmar_baumann.imagemetadataviewer.database.metadata.iptc.ColumnIptcContentLocationCodesContentLocationCode;
-import de.elmar_baumann.imagemetadataviewer.database.metadata.iptc.ColumnIptcContentLocationNamesContentLocationName;
-import de.elmar_baumann.imagemetadataviewer.database.metadata.iptc.ColumnIptcCopyrightNotice;
-import de.elmar_baumann.imagemetadataviewer.database.metadata.iptc.ColumnIptcCountryPrimaryLocationName;
-import de.elmar_baumann.imagemetadataviewer.database.metadata.iptc.ColumnIptcCreationDate;
-import de.elmar_baumann.imagemetadataviewer.database.metadata.iptc.ColumnIptcCredit;
-import de.elmar_baumann.imagemetadataviewer.database.metadata.iptc.ColumnIptcHeadline;
-import de.elmar_baumann.imagemetadataviewer.database.metadata.iptc.ColumnIptcKeywordsKeyword;
-import de.elmar_baumann.imagemetadataviewer.database.metadata.iptc.ColumnIptcObjectName;
-import de.elmar_baumann.imagemetadataviewer.database.metadata.iptc.ColumnIptcOriginalTransmissionReference;
-import de.elmar_baumann.imagemetadataviewer.database.metadata.iptc.ColumnIptcProvinceState;
-import de.elmar_baumann.imagemetadataviewer.database.metadata.iptc.ColumnIptcSource;
-import de.elmar_baumann.imagemetadataviewer.database.metadata.iptc.ColumnIptcSpecialInstructions;
-import de.elmar_baumann.imagemetadataviewer.database.metadata.iptc.ColumnIptcSupplementalCategoriesSupplementalCategory;
-import de.elmar_baumann.imagemetadataviewer.database.metadata.iptc.ColumnIptcWritersEditorsWriterEditor;
-import java.sql.Date;
+import com.imagero.reader.iptc.IPTCEntryMeta;
 import java.util.HashMap;
 import java.util.Vector;
 
@@ -44,7 +23,6 @@ public class Iptc {
     private Vector<String> contentLocationNames = new Vector<String>();
     private StringBuffer copyrightNotice = new StringBuffer();
     private StringBuffer countryPrimaryLocationName = new StringBuffer();
-    private Date creationDate;
     private StringBuffer credit = new StringBuffer();
     private StringBuffer headline = new StringBuffer();
     private Vector<String> keywords = new Vector<String>();
@@ -55,29 +33,28 @@ public class Iptc {
     private StringBuffer specialInstructions = new StringBuffer();
     private Vector<String> supplementalCategories = new Vector<String>();
     private Vector<String> writersEditors = new Vector<String>();
-    private HashMap<Column, Object> valueOfColumn = new HashMap<Column, Object>();
+    private HashMap<IPTCEntryMeta, Object> valueOfEntryMeta = new HashMap<IPTCEntryMeta, Object>();
 
     private void init() {
-        valueOfColumn.put(ColumnIptcCopyrightNotice.getInstance(), copyrightNotice);
-        valueOfColumn.put(ColumnIptcCaptionAbstract.getInstance(), captionAbstract);
-        valueOfColumn.put(ColumnIptcObjectName.getInstance(), objectName);
-        valueOfColumn.put(ColumnIptcHeadline.getInstance(), headline);
-        valueOfColumn.put(ColumnIptcCategory.getInstance(), category);
-        valueOfColumn.put(ColumnIptcCity.getInstance(), city);
-        valueOfColumn.put(ColumnIptcProvinceState.getInstance(), provinceState);
-        valueOfColumn.put(ColumnIptcCountryPrimaryLocationName.getInstance(), countryPrimaryLocationName);
-        valueOfColumn.put(ColumnIptcOriginalTransmissionReference.getInstance(), originalTransmissionReference);
-        valueOfColumn.put(ColumnIptcSpecialInstructions.getInstance(), specialInstructions);
-        valueOfColumn.put(ColumnIptcCredit.getInstance(), credit);
-        valueOfColumn.put(ColumnIptcSource.getInstance(), source);
-        valueOfColumn.put(ColumnIptcKeywordsKeyword.getInstance(), keywords);
-        valueOfColumn.put(ColumnIptcByLinesByLine.getInstance(), byLines);
-        valueOfColumn.put(ColumnIptcContentLocationNamesContentLocationName.getInstance(), contentLocationNames);
-        valueOfColumn.put(ColumnIptcContentLocationCodesContentLocationCode.getInstance(), contentLocationCodes);
-        valueOfColumn.put(ColumnIptcWritersEditorsWriterEditor.getInstance(), writersEditors);
-        valueOfColumn.put(ColumnIptcSupplementalCategoriesSupplementalCategory.getInstance(), supplementalCategories);
-        valueOfColumn.put(ColumnIptcByLinesTitlesByLineTitle.getInstance(), byLinesTitles);
-        valueOfColumn.put(ColumnIptcCreationDate.getInstance(), creationDate);
+        valueOfEntryMeta.put(IPTCEntryMeta.COPYRIGHT_NOTICE, copyrightNotice);
+        valueOfEntryMeta.put(IPTCEntryMeta.CAPTION_ABSTRACT, captionAbstract);
+        valueOfEntryMeta.put(IPTCEntryMeta.OBJECT_NAME, objectName);
+        valueOfEntryMeta.put(IPTCEntryMeta.HEADLINE, headline);
+        valueOfEntryMeta.put(IPTCEntryMeta.CATEGORY, category);
+        valueOfEntryMeta.put(IPTCEntryMeta.CITY, city);
+        valueOfEntryMeta.put(IPTCEntryMeta.PROVINCE_STATE, provinceState);
+        valueOfEntryMeta.put(IPTCEntryMeta.COUNTRY_PRIMARY_LOCATION_NAME, countryPrimaryLocationName);
+        valueOfEntryMeta.put(IPTCEntryMeta.ORIGINAL_TRANSMISSION_REFERENCE, originalTransmissionReference);
+        valueOfEntryMeta.put(IPTCEntryMeta.SPECIAL_INSTRUCTIONS, specialInstructions);
+        valueOfEntryMeta.put(IPTCEntryMeta.CREDIT, credit);
+        valueOfEntryMeta.put(IPTCEntryMeta.SOURCE, source);
+        valueOfEntryMeta.put(IPTCEntryMeta.KEYWORDS, keywords);
+        valueOfEntryMeta.put(IPTCEntryMeta.BYLINE, byLines);
+        valueOfEntryMeta.put(IPTCEntryMeta.CONTENT_LOCATION_NAME, contentLocationNames);
+        valueOfEntryMeta.put(IPTCEntryMeta.CONTENT_LOCATION_CODE, contentLocationCodes);
+        valueOfEntryMeta.put(IPTCEntryMeta.WRITER_EDITOR, writersEditors);
+        valueOfEntryMeta.put(IPTCEntryMeta.SUPPLEMENTAL_CATEGORY, supplementalCategories);
+        valueOfEntryMeta.put(IPTCEntryMeta.BYLINE_TITLE, byLinesTitles);
     }
 
     public Iptc() {
@@ -291,24 +268,6 @@ public class Iptc {
             countryPrimaryLocationName == null
             ? "" // NOI18N
             : countryPrimaryLocationName);
-    }
-
-    /**
-     * Liefert das IPTC-Feld 2:55 (Creation Date).
-     * 
-     * @return IPTC-Feld 2:55 (Creation Date) oder null, wenn nicht definiert
-     */
-    public Date getCreationDate() {
-        return creationDate;
-    }
-
-    /**
-     * Liefert das IPTC-Feld 2:55 (Creation Date).
-     * 
-     * @param creationDate IPTC-Feld 2:55 (Creation Date)
-     */
-    public void setCreationDate(Date creationDate) {
-        this.creationDate = creationDate;
     }
 
     /**
@@ -543,15 +502,15 @@ public class Iptc {
     }
 
     /**
-     * Liefert den Wert einer IPTC-Spalte.
+     * Liefert den Wert eines IPTC-Metadatums.
      * 
-     * @param  iptcColumn  IPTC-Spalte
+     * @param  meta  IPTC-Metadatum
      * @return Wert: Ein String für sich nicht wiederholende Werte oder ein
      *         String-Vector für sich wiederholdende Werte oder null, wenn
-     *         für diese Spalte kein Wert gesetzt ist
+     *         für dieses Metadatum kein Wert gesetzt ist
      */
-    public Object getValue(Column iptcColumn) {
-        Object value = valueOfColumn.get(iptcColumn);
+    public Object getValue(IPTCEntryMeta meta) {
+        Object value = valueOfEntryMeta.get(meta);
         if (value instanceof StringBuffer) {
             StringBuffer stringBuffer = (StringBuffer) value;
             if (stringBuffer.length() <= 0) {
@@ -566,22 +525,22 @@ public class Iptc {
             } else {
                 return vector;
             }
-        } else if (value instanceof Date) {
-            return creationDate;
+        } else {
+            assert false : meta;
         }
         return null;
     }
 
     /**
-     * Setzt den Wert einer Spalte. Wiederholt sich der Wert, wird er seinem
-     * Array hinzugefügt.
+     * Setzt den Wert eines IPTC-Metadatums. Wiederholt sich der Wert, wird er
+     * seinem Array hinzugefügt.
      * 
-     * @param iptcColumn  IPTC-Spalte
-     * @param value      Wert
+     * @param meta   IPTC-Metadatum
+     * @param value  Wert
      */
     @SuppressWarnings("unchecked")
-    public void setValue(Column iptcColumn, String value) {
-        Object o = valueOfColumn.get(iptcColumn);
+    public void setValue(IPTCEntryMeta meta, String value) {
+        Object o = valueOfEntryMeta.get(meta);
         if (o instanceof StringBuffer) {
             StringBuffer stringBuffer = (StringBuffer) o;
             stringBuffer.replace(0, stringBuffer.length(), value == null
@@ -610,7 +569,6 @@ public class Iptc {
             contentLocationNames.isEmpty() &&
             copyrightNotice.length() <= 0 &&
             countryPrimaryLocationName.length() <= 0 &&
-            creationDate == null &&
             credit.length() <= 0 &&
             headline.length() <= 0 &&
             keywords.isEmpty() &&

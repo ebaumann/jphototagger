@@ -1,8 +1,9 @@
 package de.elmar_baumann.imagemetadataviewer.data;
 
+import com.imagero.reader.iptc.IPTCEntryMeta;
 import de.elmar_baumann.imagemetadataviewer.database.metadata.Column;
 import de.elmar_baumann.imagemetadataviewer.database.metadata.mapping.IptcXmpMapping;
-import de.elmar_baumann.imagemetadataviewer.database.metadata.xmp.ColumnXmpDcCreatorsCreator;
+import de.elmar_baumann.imagemetadataviewer.database.metadata.xmp.ColumnXmpDcCreator;
 import de.elmar_baumann.imagemetadataviewer.database.metadata.xmp.ColumnXmpDcDescription;
 import de.elmar_baumann.imagemetadataviewer.database.metadata.xmp.ColumnXmpDcRights;
 import de.elmar_baumann.imagemetadataviewer.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
@@ -51,14 +52,14 @@ public class Xmp {
     private StringBuffer photoshopSource = new StringBuffer();
     private StringBuffer photoshopState = new StringBuffer();
     private StringBuffer photoshopTransmissionReference = new StringBuffer();
+    private StringBuffer dcCreator = new StringBuffer();
     private Vector<String> dcSubjects = new Vector<String>();
-    private Vector<String> dcCreators = new Vector<String>();
     private Vector<String> photoshopSupplementalCategories = new Vector<String>();
     private HashMap<Column, Object> valueOfColumn = new HashMap<Column, Object>();
 
     private void init() {
-        valueOfColumn.put(ColumnXmpDcCreatorsCreator.getInstance(),
-            dcCreators);
+        valueOfColumn.put(ColumnXmpDcCreator.getInstance(),
+            dcCreator);
         valueOfColumn.put(ColumnXmpDcDescription.getInstance(),
             dcDescription);
         valueOfColumn.put(ColumnXmpDcRights.getInstance(),
@@ -102,36 +103,28 @@ public class Xmp {
     }
 
     /**
-     * Liefert die XMP-Felder dc:creator (Fotografen).
+     * Liefert das XMP-Felder dc:creator (Fotograf).
      * 
-     * @return XMP-Felder dc:creator (Fotografen) oder null wenn nicht definiert
+     * @return XMP-Feld dc:creator (Fotograf) oder null wenn nicht definiert
      * @see    Iptc#getByLines()
      */
-    public Vector<String> getDcCreators() {
-        return dcCreators.isEmpty()
-            ? null
-            : dcCreators;
+    public String getDcCreator() {
+        return dcCreator.length() > 0
+            ? dcCreator.toString()
+            : null;
     }
 
     /**
-     * Fügt ein XMP-Feld dc:creator (Fotograf) hinzu.
+     * Setzt das XMP-Feld dc:creator (Fotograf).
      * 
      * @param creator XMP-Feld dc:creator (Fotograf) ungleich null
      * @see           Iptc#addByLine(java.lang.String)
      */
-    public void addDcCreator(String creator) {
-        if (creator != null && !dcCreators.contains(creator)) {
-            dcCreators.add(creator);
-        }
-    }
-
-    /**
-     * Entfernt einen Fotografen.
-     * 
-     * @param creator  Fotograf
-     */
-    public void removeDcCreator(String creator) {
-        dcCreators.remove(creator);
+    public void setDcCreator(String creator) {
+        this.dcCreator.replace(0,
+            this.dcCreator.length(), creator == null
+            ? "" // NOI18N
+            : creator);
     }
 
     /**
@@ -608,15 +601,15 @@ public class Xmp {
         Set<Column> xmpColumns = valueOfColumn.keySet();
         IptcXmpMapping mapping = IptcXmpMapping.getInstance();
         for (Column xmpColumn : xmpColumns) {
-            Column iptcColumn = mapping.getIptcColumnOfXmpColumn(xmpColumn);
-            Object value = iptc.getValue(iptcColumn);
-            if (value != null) {
-                if (value instanceof String) {
-                    String string = (String) value;
+            IPTCEntryMeta iptcEntryMeta = mapping.getIptcEntryMetaOfXmpColumn(xmpColumn);
+            Object iptcValue = iptc.getValue(iptcEntryMeta);
+            if (iptcValue != null) {
+                if (iptcValue instanceof String) {
+                    String string = (String) iptcValue;
                     setValue(xmpColumn, string);
-                } else if (value instanceof Vector) {
+                } else if (iptcValue instanceof Vector) {
                     @SuppressWarnings("unchecked")
-                    Vector<String> vector = (Vector<String>) value;
+                    Vector<String> vector = (Vector<String>) iptcValue;
                     for (String string : vector) {
                         setValue(xmpColumn, string);
                     }
@@ -718,6 +711,7 @@ public class Xmp {
      */
     public boolean isEmpty() {
         return dcDescription.length() <= 0 &&
+            dcCreator.length() <= 0 &&
             dcRights.length() <= 0 &&
             dcTitle.length() <= 0 &&
             iptc4xmpcoreCountrycode.length() <= 0 &&
@@ -734,7 +728,6 @@ public class Xmp {
             photoshopState.length() <= 0 &&
             photoshopTransmissionReference.length() <= 0 &&
             dcSubjects.isEmpty() &&
-            dcCreators.isEmpty() &&
             photoshopSupplementalCategories.isEmpty();
     }
 }

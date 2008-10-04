@@ -1,7 +1,7 @@
 package de.elmar_baumann.imagemetadataviewer.data;
 
 import de.elmar_baumann.imagemetadataviewer.database.metadata.Column;
-import de.elmar_baumann.imagemetadataviewer.database.metadata.xmp.ColumnXmpDcCreatorsCreator;
+import de.elmar_baumann.imagemetadataviewer.database.metadata.xmp.ColumnXmpDcCreator;
 import de.elmar_baumann.imagemetadataviewer.database.metadata.xmp.ColumnXmpDcDescription;
 import de.elmar_baumann.imagemetadataviewer.database.metadata.xmp.ColumnXmpDcRights;
 import de.elmar_baumann.imagemetadataviewer.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
@@ -32,17 +32,17 @@ public class MetaDataEditTemplate {
     // Diese Klasse sollte je ein Attribut enthalten für jede Spalte aus
     // de.elmar_baumann.imagemetadataviewer.database.metadata.selections.EditColumns
     private StringBuffer name = new StringBuffer();
+    private StringBuffer dcCreator = new StringBuffer();
+    private StringBuffer dcDescription = new StringBuffer();
+    private StringBuffer dcRights = new StringBuffer();
     private StringBuffer dcSubjects = new StringBuffer();
     private StringBuffer dcTitle = new StringBuffer();
-    private StringBuffer photoshopHeadline = new StringBuffer();
-    private StringBuffer dcDescription = new StringBuffer();
-    private StringBuffer photoshopCaptionwriter = new StringBuffer();
     private StringBuffer iptc4xmpcoreLocation = new StringBuffer();
     private StringBuffer iptc4xmpcoreCountrycode = new StringBuffer();
+    private StringBuffer photoshopHeadline = new StringBuffer();
+    private StringBuffer photoshopCaptionwriter = new StringBuffer();
     private StringBuffer photoshopCategory = new StringBuffer();
     private StringBuffer photoshopSupplementalCategories = new StringBuffer();
-    private StringBuffer dcRights = new StringBuffer();
-    private StringBuffer dcCreators = new StringBuffer();
     private StringBuffer photoshopAuthorsposition = new StringBuffer();
     private StringBuffer photoshopCity = new StringBuffer();
     private StringBuffer photoshopState = new StringBuffer();
@@ -64,7 +64,7 @@ public class MetaDataEditTemplate {
         valueOfColumn.put(ColumnXmpPhotoshopCategory.getInstance(), photoshopCategory);
         valueOfColumn.put(ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory.getInstance(), photoshopSupplementalCategories);
         valueOfColumn.put(ColumnXmpDcRights.getInstance(), dcRights);
-        valueOfColumn.put(ColumnXmpDcCreatorsCreator.getInstance(), dcCreators);
+        valueOfColumn.put(ColumnXmpDcCreator.getInstance(), dcCreator);
         valueOfColumn.put(ColumnXmpPhotoshopAuthorsposition.getInstance(), photoshopAuthorsposition);
         valueOfColumn.put(ColumnXmpPhotoshopCity.getInstance(), photoshopCity);
         valueOfColumn.put(ColumnXmpPhotoshopState.getInstance(), photoshopState);
@@ -79,12 +79,12 @@ public class MetaDataEditTemplate {
         initValueOfColumn();
     }
 
-    public String getDcCreators() {
-        return dcCreators.toString();
+    public String getDcCreator() {
+        return dcCreator.toString();
     }
 
-    public void setDcCreators(String dcCreators) {
-        this.dcCreators.replace(0, this.dcCreators.length(), dcCreators);
+    public void setDcCreator(String dcCreator) {
+        this.dcCreator.replace(0, this.dcCreator.length(), dcCreator);
     }
 
     public String getDcDescription() {
@@ -260,7 +260,7 @@ public class MetaDataEditTemplate {
             photoshopCategory.length() == 0 &&
             photoshopSupplementalCategories.length() == 0 &&
             dcRights.length() == 0 &&
-            dcCreators.length() == 0 &&
+            dcCreator.length() == 0 &&
             photoshopAuthorsposition.length() == 0 &&
             photoshopCity.length() == 0 &&
             photoshopState.length() == 0 &&
