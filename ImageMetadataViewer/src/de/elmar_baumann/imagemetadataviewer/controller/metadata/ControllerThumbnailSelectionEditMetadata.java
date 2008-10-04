@@ -7,8 +7,6 @@ import de.elmar_baumann.imagemetadataviewer.event.DatabaseAction;
 import de.elmar_baumann.imagemetadataviewer.event.DatabaseListener;
 import de.elmar_baumann.imagemetadataviewer.event.ThumbnailsPanelAction;
 import de.elmar_baumann.imagemetadataviewer.event.ThumbnailsPanelListener;
-import de.elmar_baumann.imagemetadataviewer.image.metadata.iptc.IptcEntry;
-import de.elmar_baumann.imagemetadataviewer.image.metadata.iptc.IptcMetadata;
 import de.elmar_baumann.imagemetadataviewer.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.imagemetadataviewer.resource.Bundle;
 import de.elmar_baumann.imagemetadataviewer.resource.Panels;
@@ -94,12 +92,6 @@ public class ControllerThumbnailSelectionEditMetadata
 
             if (xmpPropertyInfos != null && xmpPropertyInfos.size() > 0) {
                 editPanels.setXmpPropertyInfos(filenames, xmpPropertyInfos);
-            } else {
-                IptcMetadata iptcMetaData = new IptcMetadata();
-                Vector<IptcEntry> iptcEntries = iptcMetaData.getMetadata(filenames.get(0));
-                if (iptcEntries != null) {
-                    editPanels.setIptcEntries(filenames, iptcEntries);
-                }
             }
         } else if (filenames.size() > 1) {
             editPanels.setFilenames(filenames);
