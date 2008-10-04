@@ -10,9 +10,15 @@
 	
 <h3>Werkzeuge / IPTC-Daten nach XMP</h3>
 
-<p>Mit diesem Menübefehl öffnen Sie einen Dialog, mit dem Sie ein Verzeichnis auswählen können, in dem alle IPTC-Datein in XMP-Filialdateien geschrieben werden <em>solange noch keine XMP-Filialdatei für eine bestimmte Datei existiert</em>.</p>
+<p>Mit diesem Menübefehl öffnen Sie einen Dialog, bei dem Sie ein Verzeichnis auswählen können, in dem alle IPTC-Daten der Bilder in XMP-Filialdateien geschrieben werden. <strong>Existiert</strong> eine XMP-Filialdatei, wird so verfahren:</p>
 
-<p><img src="img/dialog-iptc-to-xmp.gif" width="756" height="204" alt="" /></p>
+<ul>
+	<li>Gibt es für einen IPTC-Eintrag <em>keinen</em> XMP-Eintrag, wird der IPTC-Eintrag übernommen</li>
+	<li>Gibt es für einen IPTC-Eintrag einen XMP-Eintrag, wird der XMP-Eintrag belassen</li>
+	<li>Stichwörter und Kategorien werden angehängt, wenn sie noch nicht in der XMP-Filialdatei existieren</li>
+</ul>
+
+<p><img src="img/dialog-iptc-to-xmp.gif" width="641" height="202" alt="" /></p>
 
 </body>
 </html>

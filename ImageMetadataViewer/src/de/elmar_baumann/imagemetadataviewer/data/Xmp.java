@@ -591,13 +591,10 @@ public class Xmp {
             : photoshopTransmissionReference);
     }
 
-    /**
-     * Übernimmt IPTC-Daten. Eigene Daten werden vorher geleert.
-     * 
-     * @param iptc  IPTC-Daten
-     */
-    public void setIptc(Iptc iptc) {
-        empty();
+    public void setIptc(Iptc iptc, boolean replaceExistingValues) {
+        if (replaceExistingValues) {
+            empty();
+        }
         Set<Column> xmpColumns = valueOfColumn.keySet();
         IptcXmpMapping mapping = IptcXmpMapping.getInstance();
         for (Column xmpColumn : xmpColumns) {
@@ -606,7 +603,10 @@ public class Xmp {
             if (iptcValue != null) {
                 if (iptcValue instanceof String) {
                     String string = (String) iptcValue;
-                    setValue(xmpColumn, string);
+                    boolean replace = replaceExistingValues || getValue(xmpColumn) == null;
+                    if (replace) {
+                        setValue(xmpColumn, string);
+                    }
                 } else if (iptcValue instanceof Vector) {
                     @SuppressWarnings("unchecked")
                     Vector<String> vector = (Vector<String>) iptcValue;
