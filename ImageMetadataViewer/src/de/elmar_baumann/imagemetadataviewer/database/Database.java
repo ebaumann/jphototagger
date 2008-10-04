@@ -3,7 +3,6 @@ package de.elmar_baumann.imagemetadataviewer.database;
 import de.elmar_baumann.imagemetadataviewer.data.Exif;
 import de.elmar_baumann.imagemetadataviewer.data.ImageFile;
 import de.elmar_baumann.imagemetadataviewer.data.Xmp;
-import de.elmar_baumann.imagemetadataviewer.data.Iptc;
 import de.elmar_baumann.imagemetadataviewer.AppSettings;
 import de.elmar_baumann.imagemetadataviewer.data.FavoriteDirectory;
 import de.elmar_baumann.imagemetadataviewer.data.MetaDataEditTemplate;
@@ -265,12 +264,6 @@ public class Database {
             Vector<Column> searchColumns, String searchString) {
         Vector<String> filenames = new Vector<String>();
         addFilenamesSearchFilenamesLikeOr(
-                DatabaseMetadataUtil.getTableColumnsOfTableCategory(searchColumns, "iptc"), // NOI18N
-                searchString,
-                filenames,
-                "iptc"); // NOI18N
-
-        addFilenamesSearchFilenamesLikeOr(
                 DatabaseMetadataUtil.getTableColumnsOfTableCategory(searchColumns, "xmp"), // NOI18N
                 searchString,
                 filenames,
@@ -326,9 +319,7 @@ public class Database {
         Vector<String> tablenames = DatabaseMetadataUtil.getUniqueTableNamesOfColumnArray(
                 searchColumns);
 
-        sql.append((tablename.equals("iptc") // NOI18N
-                ? Join.getSqlFilesIptcJoin(tablenames)
-                : tablename.equals("xmp") // NOI18N
+        sql.append((tablename.equals("xmp") // NOI18N
                 ? Join.getSqlFilesXmpJoin(tablenames)
                 : Join.getSqlFilesExifJoin(tablenames)) +
                 " WHERE "); // NOI18N
@@ -372,7 +363,6 @@ public class Database {
             preparedStatement.executeUpdate();
             int idFile = getIdFile(connection, filename);
             insertThumbnail(connection, idFile, imageFileData.getThumbnail(), imageFileData.getFilename());
-            insertIptc(connection, idFile, imageFileData.getIptc());
             insertXmp(connection, idFile, imageFileData.getXmp());
             insertExif(connection, idFile, imageFileData.getExif());
             connection.commit();
@@ -409,108 +399,6 @@ public class Database {
                 notifyDatabaseListener(DatabaseAction.Type.ThumbnailUpdated, filename);
                 preparedStatement.close();
             }
-        }
-    }
-
-    synchronized private void insertIptc(Connection connection, int idFile, Iptc iptcData) throws SQLException {
-        if (iptcData != null) {
-            PreparedStatement stmt =
-                    connection.prepareStatement(getInsertIntoIptcStatement());
-            setIptcValues(stmt, idFile, iptcData);
-            logStatement(stmt);
-            stmt.executeUpdate();
-            int idIptc = getIdIptcFromIdFile(connection, idFile);
-            insertIptcKeywords(connection, idIptc, iptcData.getKeywords());
-            insertIptcByLines(connection, idIptc, iptcData.getByLines());
-            insertIptcContentLocationNames(connection, idIptc, iptcData.getContentLocationNames());
-            insertIptcContentLocationCodes(connection, idIptc, iptcData.getContentLocationCodes());
-            insertIptcWritersEditors(connection, idIptc, iptcData.getWritersEditors());
-            insertIptcSupplementalCategories(connection, idIptc, iptcData.getSupplementalCategories());
-            insertIptcByLinesTitles(connection, idIptc, iptcData.getByLinesTitles());
-            stmt.close();
-        }
-    }
-
-    private String getInsertIntoIptcStatement() {
-        return "INSERT INTO iptc " + // NOI18N
-                "(" + // NOI18N
-                "id_files" + // NOI18N
-                ", copyright_notice" + // NOI18N
-                ", creation_date" + // NOI18N
-                ", caption_abstract" + // NOI18N
-                ", object_name" + // NOI18N
-                ", headline" + // NOI18N
-                ", category" + // NOI18N
-                ", city" + // NOI18N
-                ", province_state" + // NOI18N
-                ", country_primary_location_name" + // NOI18N
-                ", original_transmission_reference" + // NOI18N
-                ", special_instructions" + // NOI18N
-                ", credit, source" + // NOI18N
-                ")" + // NOI18N
-                " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"; // NOI18N
-
-    }
-
-    private void insertIptcByLinesTitles(Connection connection, int idIptc,
-            Vector<String> byLinesTitles) throws SQLException {
-        if (byLinesTitles != null) {
-            insertValues(connection,
-                    "INSERT INTO iptc_by_lines_titles (id_iptc, byline_title)", // NOI18N
-                    idIptc, byLinesTitles);
-        }
-    }
-
-    private void insertIptcByLines(Connection connection, int idIptc, Vector<String> byLines) throws
-            SQLException {
-        if (byLines != null) {
-            insertValues(connection,
-                    "INSERT INTO iptc_bylines (id_iptc, byline)", idIptc, // NOI18N
-                    byLines);
-        }
-    }
-
-    private void insertIptcContentLocationCodes(Connection connection, int idIptc,
-            Vector<String> contentLocationCodes) throws SQLException {
-        if (contentLocationCodes != null) {
-            insertValues(connection,
-                    "INSERT INTO iptc_content_location_codes (id_iptc, content_location_code)", // NOI18N
-                    idIptc, contentLocationCodes);
-        }
-    }
-
-    private void insertIptcContentLocationNames(Connection connection, int idIptc,
-            Vector<String> contentLocationNames) throws SQLException {
-        if (contentLocationNames != null) {
-            insertValues(connection,
-                    "INSERT INTO iptc_content_location_names (id_iptc, content_location_name)", // NOI18N
-                    idIptc, contentLocationNames);
-        }
-    }
-
-    private void insertIptcKeywords(Connection connection, int idIptc, Vector<String> keywords) throws
-            SQLException {
-        if (keywords != null) {
-            insertValues(connection, "INSERT INTO iptc_keywords (id_iptc, keyword)", idIptc, // NOI18N
-                    keywords);
-        }
-    }
-
-    private void insertIptcSupplementalCategories(Connection connection, int idIptc,
-            Vector<String> supplementalCategories) throws SQLException {
-        if (supplementalCategories != null) {
-            insertValues(connection,
-                    "INSERT INTO iptc_supplemental_categories (id_iptc, supplemental_category)", // NOI18N
-                    idIptc, supplementalCategories);
-        }
-    }
-
-    private void insertIptcWritersEditors(Connection connection, int idIptc,
-            Vector<String> writersEditors) throws SQLException {
-        if (writersEditors != null) {
-            insertValues(connection,
-                    "INSERT INTO iptc_writers_editors (id_iptc, writer_editor)", // NOI18N
-                    idIptc, writersEditors);
         }
     }
 
@@ -649,21 +537,6 @@ public class Database {
         stmt.setString(17, xmpData.getPhotoshopTransmissionReference());
     }
 
-    synchronized private void updateIptc(Connection connection, int idFile, Iptc iptcData) throws SQLException {
-        if (iptcData != null) {
-            int idIptc = getIdIptcFromIdFile(connection, idFile);
-            if (idIptc > 0) {
-                PreparedStatement stmt = connection.prepareStatement(
-                        "DELETE FROM iptc where id = ?"); // NOI18N
-
-                stmt.setInt(1, idIptc);
-                stmt.executeUpdate();
-                stmt.close();
-            }
-            insertIptc(connection, idFile, iptcData);
-        }
-    }
-
     synchronized private void updateXmp(Connection connection, int idFile, Xmp xmpData) throws SQLException {
         if (xmpData != null) {
             int idXmp = getIdXmpFromIdFile(connection, idFile);
@@ -710,22 +583,6 @@ public class Database {
         return id;
     }
 
-    private int getIdIptcFromIdFile(Connection connection, int idFile) throws SQLException {
-        int id = -1;
-        PreparedStatement stmt = connection.prepareStatement(
-                "SELECT id FROM iptc WHERE id_files = ?"); // NOI18N
-
-        stmt.setInt(1, idFile);
-        logStatement(stmt);
-        ResultSet rs = stmt.executeQuery();
-        if (rs.next()) {
-            id = rs.getInt(1);
-            //rs.close();
-        }
-        stmt.close();
-        return id;
-    }
-
     private int getIdXmpFromIdFile(Connection connection, int idFile) throws SQLException {
         int id = -1;
         PreparedStatement stmt = connection.prepareStatement(
@@ -765,7 +622,6 @@ public class Database {
             stmt.executeUpdate();
             stmt.close();
             updateThumbnail(connection, idFile, imageFileData.getThumbnail(), imageFileData.getFilename());
-            updateIptc(connection, idFile, imageFileData.getIptc());
             updateXmp(connection, idFile, imageFileData.getXmp());
             updateExif(connection, idFile, imageFileData.getExif());
             connection.commit();
@@ -832,24 +688,6 @@ public class Database {
             stmt.executeUpdate();
             stmt.close();
         }
-    }
-
-    private void setIptcValues(PreparedStatement stmt, int idFile,
-            Iptc iptcData) throws SQLException {
-        stmt.setInt(1, idFile);
-        stmt.setString(2, iptcData.getCopyrightNotice());
-        stmt.setDate(3, iptcData.getCreationDate());
-        stmt.setString(4, iptcData.getCaptionAbstract());
-        stmt.setString(5, iptcData.getObjectName());
-        stmt.setString(6, iptcData.getHeadline());
-        stmt.setString(7, iptcData.getCategory());
-        stmt.setString(8, iptcData.getCity());
-        stmt.setString(9, iptcData.getProvinceState());
-        stmt.setString(10, iptcData.getCountryPrimaryLocationName());
-        stmt.setString(11, iptcData.getOriginalTransmissionReference());
-        stmt.setString(12, iptcData.getSpecialInstructions());
-        stmt.setString(13, iptcData.getCredit());
-        stmt.setString(14, iptcData.getSource());
     }
 
     /**
@@ -1081,116 +919,6 @@ public class Database {
                 " ON xmp.id = xmp_dc_creators.id_xmp" + // NOI18N
                 " LEFT JOIN xmp_photoshop_supplementalcategories" + // NOI18N
                 " ON xmp.id = xmp_photoshop_supplementalcategories.id" + // NOI18N
-                " INNER JOIN files" + // NOI18N
-                " ON xmp.id_files = files.id" + // NOI18N
-                " WHERE files.filename = ?";
-    }
-
-    /**
-     * Liefert die IPTC-Daten einer Datei.
-     * 
-     * @param  filename  Dateiname
-     * @return IPTC-Daten der Datei
-     */
-    public Iptc getIptcOfFile(String filename) {
-        Iptc iptc = new Iptc();
-        Connection connection = null;
-        try {
-            connection = getConnection();
-            PreparedStatement stmt = connection.prepareStatement(getIptcOfFileStatement());
-            stmt.setString(1, filename);
-            logStatement(stmt);
-            ResultSet rs = stmt.executeQuery();
-            while (rs.next()) {
-                iptc.setCopyrightNotice(rs.getString(1));
-                iptc.setCreationDate(rs.getDate(2));
-                iptc.setCaptionAbstract(rs.getString(3));
-                iptc.setObjectName(rs.getString(4));
-                iptc.setHeadline(rs.getString(5));
-                iptc.setCategory(rs.getString(6));
-                iptc.setCity(rs.getString(7));
-                iptc.setProvinceState(rs.getString(8));
-                iptc.setCountryPrimaryLocationName(rs.getString(9));
-                iptc.setOriginalTransmissionReference(rs.getString(10));
-                iptc.setSpecialInstructions(rs.getString(11));
-                iptc.setCredit(rs.getString(12));
-                iptc.setSource(rs.getString(13));
-
-                String value = rs.getString(14);
-                if (value != null) {
-                    iptc.addKeyword(value);
-                }
-                value = rs.getString(15);
-                if (value != null) {
-                    iptc.addByLine(value);
-                }
-                value = rs.getString(16);
-                if (value != null) {
-                    iptc.addContentLocationName(value);
-                }
-                value = rs.getString(17);
-                if (value != null) {
-                    iptc.addContentLocationCode(value);
-                }
-                value = rs.getString(18);
-                if (value != null) {
-                    iptc.addWriterEditor(value);
-                }
-                value = rs.getString(19);
-                if (value != null) {
-                    iptc.addSupplementalCategory(value);
-                }
-                value = rs.getString(20);
-                if (value != null) {
-                    iptc.addByLineTitle(value);
-                }
-            }
-            stmt.close();
-        } catch (SQLException ex) {
-            handleException(ex, Level.SEVERE);
-        } finally {
-            free(connection);
-        }
-        return iptc;
-    }
-
-    private String getIptcOfFileStatement() {
-        return " SELECT" + // NOI18N
-                " iptc.copyright_notice" + // NOI18N -- 1 --
-                ", iptc.creation_date" + // NOI18N -- 2 --
-                ", iptc.caption_abstract" + // NOI18N -- 3 --
-                ", iptc.object_name" + // NOI18N -- 4 --
-                ", iptc.headline" + // NOI18N -- 5 --
-                ", iptc.category" + // NOI18N -- 6 --
-                ", iptc.city" + // NOI18N -- 7 --
-                ", iptc.province_state" + // NOI18N -- 8 --
-                ", iptc.country_primary_location_name" + // NOI18N -- 9 --
-                ", iptc.original_transmission_reference" + // NOI18N -- 10 --
-                ", iptc.special_instructions" + // NOI18N -- 11 --
-                ", iptc.credit" + // NOI18N -- 12 --
-                ", iptc.source" + // NOI18N -- 13 --
-                ", iptc_keywords.keyword" + // NOI18N -- 14 --
-                ", iptc_bylines.byline" + // NOI18N -- 15 --
-                ", iptc_content_location_names.content_location_name" + // NOI18N -- 16 --
-                ", iptc_content_location_codes.content_location_code" + // NOI18N -- 17 --
-                ", iptc_writers_editors.writer_editor" + // NOI18N -- 18 --
-                ", iptc_supplemental_categories.supplemental_category" + // NOI18N -- 19 --
-                ", iptc_by_lines_titles.by_line_title" + // NOI18N -- 20 --
-                " FROM" + // NOI18N
-                " iptc LEFT JOIN iptc_keywords" + // NOI18N
-                " ON iptc.id = iptc_keywords.id_iptc" + // NOI18N
-                " LEFT JOIN iptc_bylines" + // NOI18N
-                " ON iptc.id = iptc_bylines.id_iptc" + // NOI18N
-                " LEFT JOIN iptc_content_location_names" + // NOI18N
-                " ON iptc.id = iptc_content_location_names.id_iptc" + // NOI18N
-                " LEFT JOIN iptc_content_location_codes" + // NOI18N
-                " ON iptc.id = iptc_content_location_codes.id_iptc" + // NOI18N
-                " LEFT JOIN iptc_writers_editors" + // NOI18N
-                " ON iptc.id = iptc_writers_editors.id_iptc" + // NOI18N
-                " LEFT JOIN iptc_supplemental_categories" + // NOI18N
-                " ON iptc.id = iptc_supplemental_categories.id_iptc" + // NOI18N
-                " LEFT JOIN iptc_by_lines_titles" + // NOI18N
-                " ON iptc.id = iptc_by_lines_titles.id_iptc" + // NOI18N
                 " INNER JOIN files" + // NOI18N
                 " ON xmp.id_files = files.id" + // NOI18N
                 " WHERE files.filename = ?";
@@ -2704,14 +2432,7 @@ public class Database {
     }
 
     /**
-     * Liefert alle Kategorien. <em>Nicht</em> berücksichtigt werden die
-     * IPTC-Kategorien, die nur 3 Zeichen enthalten dürfen. Berücksichtigt
-     * werden:
-     * <ul>
-     * <li>IPTC-Supplemental-Categories</li>
-     * <li>XMP-Photoshop-Category</li>
-     * <li>XMP-Photoshop-Supplemental-Categories</li>
-     * </ul>
+     * Liefert alle Kategorien.
      * 
      * @return Kategorien
      */
@@ -2722,9 +2443,6 @@ public class Database {
             connection = getConnection();
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(
-                    " SELECT DISTINCT supplemental_category FROM" + // NOI18N
-                    " iptc_supplemental_categories WHERE supplemental_category IS NOT NULL" + // NOI18N
-                    " UNION ALL" + // NOI18N
                     " SELECT DISTINCT photoshop_category FROM xmp" + // NOI18N
                     " WHERE photoshop_category IS NOT NULL" + // NOI18N
                     " UNION ALL" + // NOI18N
@@ -2745,13 +2463,7 @@ public class Database {
     }
 
     /**
-     * Liefert alle Dateien mit bestimmter Kategorie. Berücksichtigt
-     * werden:
-     * <ul>
-     * <li>IPTC-Supplemental-Categories</li>
-     * <li>XMP-Photoshop-Category</li>
-     * <li>XMP-Photoshop-Supplemental-Categories</li>
-     * </ul>
+     * Liefert alle Dateien mit bestimmter Kategorie.
      * 
      * @param  category  Kategorie
      * @return Dateinamen
@@ -2762,12 +2474,6 @@ public class Database {
         try {
             connection = getConnection();
             PreparedStatement stmt = connection.prepareStatement(
-                    "(SELECT DISTINCT files.filename FROM" + // NOI18N
-                    " iptc_supplemental_categories LEFT JOIN iptc" + // NOI18N
-                    " ON iptc_supplemental_categories.id_iptc = iptc.id" + // NOI18N
-                    " LEFT JOIN files ON iptc.id_files = files.id" + // NOI18N
-                    " WHERE iptc_supplemental_categories.supplemental_category = ?)" + // NOI18N
-                    " UNION ALL" + // NOI18N
                     " (SELECT DISTINCT files.filename FROM" + // NOI18N
                     " xmp LEFT JOIN files ON xmp.id_files = files.id" + // NOI18N
                     " WHERE xmp.photoshop_category = ?)" + // NOI18N
@@ -2780,7 +2486,6 @@ public class Database {
 
             stmt.setString(1, category);
             stmt.setString(2, category);
-            stmt.setString(3, category);
             logStatement(stmt);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
@@ -2796,13 +2501,7 @@ public class Database {
     }
 
     /**
-     * Liefert, ob eine Kategorie existiert. Berücksichtigt
-     * werden:
-     * <ul>
-     * <li>IPTC-Supplemental-Categories</li>
-     * <li>XMP-Photoshop-Category</li>
-     * <li>XMP-Photoshop-Supplemental-Categories</li>
-     * </ul>
+     * Liefert, ob eine Kategorie existiert.
      * 
      * @param  name  Name der Kategorie
      * @return true, wenn existent
@@ -2818,13 +2517,11 @@ public class Database {
                     ", xmp" + // NOI18N
                     ", xmp_photoshop_supplementalcategories" + // NOI18N
                     " WHERE" + // NOI18N
-                    " iptc_supplemental_categories.supplemental_category = ?" + // NOI18N
-                    " OR xmp.photoshop_category = ?" + // NOI18N
+                    " xmp.photoshop_category = ?" + // NOI18N
                     " OR xmp_photoshop_supplementalcategories.supplementalcategory = ?"); // NOI18N
 
             stmt.setString(1, name);
             stmt.setString(2, name);
-            stmt.setString(3, name);
             logStatement(stmt);
             ResultSet rs = stmt.executeQuery();
             int count = 0;
@@ -3187,7 +2884,6 @@ public class Database {
             connection.setAutoCommit(false);
             Statement stmt = connection.createStatement();
             createFilesTable(connection, stmt);
-            createIptcTables(connection, stmt);
             createXmpTables(connection, stmt);
             createExifTables(connection, stmt);
             createCollectionsTables(connection, stmt);
@@ -3227,203 +2923,6 @@ public class Database {
 
             stmt.execute("CREATE UNIQUE INDEX idx_files ON files (filename)"); // NOI18N
             
-        }
-    }
-
-    synchronized private void createIptcTables(Connection connection, Statement stmt) throws SQLException {
-        if (!existsTable(connection, "iptc")) { // NOI18N
-
-            stmt.execute("CREATE CACHED TABLE iptc" + // NOI18N
-                    " (" + // NOI18N
-                    "id INTEGER GENERATED BY DEFAULT AS IDENTITY(START WITH 1, INCREMENT BY 1) PRIMARY KEY" + // NOI18N
-                    ", id_files INTEGER NOT NULL" + // NOI18N
-                    ", copyright_notice VARCHAR_IGNORECASE(128)" + // NOI18N
-                    ", creation_date DATE" + // NOI18N
-                    ", caption_abstract VARCHAR_IGNORECASE(2000)" + // NOI18N
-                    ", object_name VARCHAR_IGNORECASE(64)" + // NOI18N
-                    ", headline VARCHAR_IGNORECASE(256)" + // NOI18N
-                    ", category VARCHAR_IGNORECASE(3)" + // NOI18N
-                    ", city VARCHAR_IGNORECASE(32)" + // NOI18N
-                    ", province_state VARCHAR_IGNORECASE(32)" + // NOI18N
-                    ", country_primary_location_name VARCHAR_IGNORECASE(64)" + // NOI18N
-                    ", original_transmission_reference VARCHAR_IGNORECASE(32)" + // NOI18N
-                    ", special_instructions VARCHAR_IGNORECASE(256)" + // NOI18N
-                    ", credit VARCHAR_IGNORECASE(32)" + // NOI18N
-                    ", source VARCHAR_IGNORECASE(32)" + // NOI18N
-                    ", FOREIGN KEY (id_files) REFERENCES files (id) ON DELETE CASCADE" + // NOI18N
-                    ");"); // NOI18N
-
-            stmt.execute(
-                    "CREATE UNIQUE INDEX idx_iptc_id_files" + " ON iptc (id_files)"); // NOI18N
-
-            stmt.execute(
-                    "CREATE INDEX idx_iptc_caption_abstract" + // NOI18N
-                    " ON iptc (caption_abstract)"); // NOI18N
-
-            stmt.execute(
-                    "CREATE INDEX idx_iptc_copyright_notice" + // NOI18N
-                    " ON iptc (copyright_notice)"); // NOI18N
-
-            stmt.execute(
-                    "CREATE INDEX idx_iptc_creation_date ON iptc (creation_date)"); // NOI18N
-
-            stmt.execute(
-                    "CREATE INDEX idx_iptc_object_name ON iptc (object_name)"); // NOI18N
-
-            stmt.execute("CREATE INDEX idx_iptc_headline ON iptc (headline)"); // NOI18N
-
-            stmt.execute("CREATE INDEX idx_iptc_category ON iptc (category)"); // NOI18N
-
-            stmt.execute("CREATE INDEX idx_iptc_city ON iptc (city)"); // NOI18N
-
-            stmt.execute(
-                    "CREATE INDEX idx_iptc_province_state ON iptc (province_state)"); // NOI18N
-
-            stmt.execute(
-                    "CREATE INDEX idx_iptc_country_primary_location_name" + // NOI18N
-                    " ON iptc (country_primary_location_name)"); // NOI18N
-
-            stmt.execute(
-                    "CREATE INDEX idx_iptc_original_transmission_reference" + // NOI18N
-                    " ON iptc (original_transmission_reference)"); // NOI18N
-
-            stmt.execute(
-                    "CREATE INDEX idx_iptc_special_instructions" + // NOI18N
-                    " ON iptc (special_instructions)"); // NOI18N
-
-            stmt.execute("CREATE INDEX idx_iptc_credit ON iptc (credit)"); // NOI18N
-
-            stmt.execute("CREATE INDEX idx_iptc_source ON iptc (source)"); // NOI18N
-
-        }
-        if (!existsTable(connection, "iptc_keywords")) { // NOI18N
-
-            stmt.execute("CREATE CACHED TABLE iptc_keywords" + // NOI18N
-                    " (" + // NOI18N
-                    "id INTEGER GENERATED BY DEFAULT AS IDENTITY(START WITH 1, INCREMENT BY 1) PRIMARY KEY" + // NOI18N
-                    ", id_iptc INTEGER NOT NULL" + // NOI18N
-                    ", keyword VARCHAR_IGNORECASE(64)" + // NOI18N
-                    ", FOREIGN KEY (id_iptc) REFERENCES iptc (id) ON DELETE CASCADE" + // NOI18N
-                    ");"); // NOI18N
-
-            stmt.execute(
-                    "CREATE INDEX idx_iptc_keywords_id_iptc" + // NOI18N
-                    " ON iptc_keywords (id_iptc)"); // NOI18N
-
-            stmt.execute(
-                    "CREATE INDEX idx_iptc_keywords_keyword" + // NOI18N
-                    " ON iptc_keywords (keyword)"); // NOI18N
-
-        }
-        if (!existsTable(connection, "iptc_bylines")) { // NOI18N
-
-            stmt.execute("CREATE CACHED TABLE iptc_bylines" + // NOI18N
-                    " (" + // NOI18N
-                    "id INTEGER GENERATED BY DEFAULT AS IDENTITY(START WITH 1, INCREMENT BY 1) PRIMARY KEY" + // NOI18N
-                    ", id_iptc INTEGER NOT NULL" + // NOI18N
-                    ", byline VARCHAR_IGNORECASE(32)" + // NOI18N
-                    ", FOREIGN KEY (id_iptc) REFERENCES iptc (id) ON DELETE CASCADE" + // NOI18N
-                    ");"); // NOI18N
-
-            stmt.execute(
-                    "CREATE INDEX idx_iptc_bylines_id_iptc" + // NOI18N
-                    " ON iptc_bylines (id_iptc)"); // NOI18N
-
-            stmt.execute(
-                    "CREATE INDEX idx_iptc_bylines_byline" + // NOI18N
-                    " ON iptc_bylines (byline)"); // NOI18N
-
-        }
-        if (!existsTable(connection, "iptc_content_location_names")) { // NOI18N
-
-            stmt.execute("CREATE CACHED TABLE iptc_content_location_names" + // NOI18N
-                    " (" + // NOI18N
-                    "id INTEGER GENERATED BY DEFAULT AS IDENTITY(START WITH 1, INCREMENT BY 1) PRIMARY KEY" + // NOI18N
-                    ", id_iptc INTEGER NOT NULL" + // NOI18N
-                    ", content_location_name VARCHAR_IGNORECASE(64)" + // NOI18N
-                    ", FOREIGN KEY (id_iptc) REFERENCES iptc (id) ON DELETE CASCADE" + // NOI18N
-                    ");"); // NOI18N
-
-            stmt.execute(
-                    "CREATE INDEX idx_iptc_content_location_names_id_iptc" + // NOI18N
-                    " ON iptc_content_location_names (id_iptc)"); // NOI18N
-
-            stmt.execute(
-                    "CREATE INDEX idx_iptc_content_location_names_content_location_name" + // NOI18N
-                    " ON iptc_content_location_names (content_location_name)"); // NOI18N
-
-        }
-        if (!existsTable(connection, "iptc_content_location_codes")) { // NOI18N
-
-            stmt.execute("CREATE CACHED TABLE iptc_content_location_codes" + // NOI18N
-                    " (" + // NOI18N
-                    "id INTEGER GENERATED BY DEFAULT AS IDENTITY(START WITH 1, INCREMENT BY 1) PRIMARY KEY" + // NOI18N
-                    ", id_iptc INTEGER NOT NULL" + // NOI18N
-                    ", content_location_code VARCHAR_IGNORECASE(3)" + // NOI18N
-                    ", FOREIGN KEY (id_iptc) REFERENCES iptc (id) ON DELETE CASCADE" + // NOI18N
-                    ");"); // NOI18N
-
-            stmt.execute(
-                    "CREATE INDEX idx_iptc_content_location_codes_id_iptc" + // NOI18N
-                    " ON iptc_content_location_codes (id_iptc)"); // NOI18N
-
-        }
-        if (!existsTable(connection, "iptc_writers_editors")) { // NOI18N
-
-            stmt.execute("CREATE CACHED TABLE iptc_writers_editors" + // NOI18N
-                    " (" + // NOI18N
-                    "id INTEGER GENERATED BY DEFAULT AS IDENTITY(START WITH 1, INCREMENT BY 1) PRIMARY KEY" + // NOI18N
-                    ", id_iptc INTEGER NOT NULL" + // NOI18N
-                    ", writer_editor VARCHAR_IGNORECASE(32)" + // NOI18N
-                    ", FOREIGN KEY (id_iptc) REFERENCES iptc (id) ON DELETE CASCADE" + // NOI18N
-                    ");"); // NOI18N
-
-            stmt.execute(
-                    "CREATE INDEX idx_iptc_writers_editors_id_iptc" + // NOI18N
-                    " ON iptc_writers_editors (id_iptc)"); // NOI18N
-
-            stmt.execute(
-                    "CREATE INDEX idx_iptc_writers_editors_writer_editor" + // NOI18N
-                    " ON iptc_writers_editors (writer_editor)"); // NOI18N
-
-        }
-        if (!existsTable(connection, "iptc_supplemental_categories")) { // NOI18N
-
-            stmt.execute("CREATE CACHED TABLE iptc_supplemental_categories" + // NOI18N
-                    " (" + // NOI18N
-                    "id INTEGER GENERATED BY DEFAULT AS IDENTITY(START WITH 1, INCREMENT BY 1) PRIMARY KEY" + // NOI18N
-                    ", id_iptc INTEGER NOT NULL" + // NOI18N
-                    ", supplemental_category VARCHAR_IGNORECASE(32)" + // NOI18N
-                    ", FOREIGN KEY (id_iptc) REFERENCES iptc (id) ON DELETE CASCADE" + // NOI18N
-                    ");"); // NOI18N
-
-            stmt.execute(
-                    "CREATE INDEX idx_iptc_supplemental_categories_id_iptc" + // NOI18N
-                    " ON iptc_supplemental_categories (id_iptc)"); // NOI18N
-
-            stmt.execute(
-                    "CREATE INDEX idx_iptc_supplemental_categories_category" + // NOI18N
-                    " ON iptc_supplemental_categories (supplemental_category)"); // NOI18N
-
-        }
-        if (!existsTable(connection, "iptc_by_lines_titles")) { // NOI18N
-
-            stmt.execute("CREATE CACHED TABLE iptc_by_lines_titles" + // NOI18N
-                    " (" + // NOI18N
-                    "id INTEGER GENERATED BY DEFAULT AS IDENTITY(START WITH 1, INCREMENT BY 1) PRIMARY KEY" + // NOI18N
-                    ", id_iptc INTEGER NOT NULL" + // NOI18N
-                    ", byline_title VARCHAR_IGNORECASE(32)" + // NOI18N
-                    ", FOREIGN KEY (id_iptc) REFERENCES iptc (id) ON DELETE CASCADE" + // NOI18N
-                    ");"); // NOI18N
-
-            stmt.execute(
-                    "CREATE INDEX idx_iptc_by_lines_titles_id_iptc" + // NOI18N
-                    " ON iptc_by_lines_titles (id_iptc)"); // NOI18N
-
-            stmt.execute(
-                    "CREATE INDEX idx_iptc_by_lines_titles_byline_title" + // NOI18N
-                    " ON iptc_by_lines_titles (byline_title)"); // NOI18N
-
         }
     }
 
