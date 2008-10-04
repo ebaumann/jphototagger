@@ -8,5 +8,5 @@ package de.elmar_baumann.lib;
  */
 public class Version {
 
-    public static final String version = "0.1.15 2008/10/01"; // NOI18N
+    public static final String version = "0.1.16 2008/10/04"; // NOI18N
 }
