@@ -61,15 +61,15 @@ public class TreeModelHelpContents implements TreeModel {
     /**
      * Constructor.
      * 
-     * @param uri  URI of the XML file for the class
+     * @param url  URL of the XML file for the class
      *             {@link de.elmar_baumann.lib.util.help.HelpIndex}
      */
-    public TreeModelHelpContents(String uri) {
-        parse(uri);
+    public TreeModelHelpContents(String url) {
+        parse(url);
     }
 
-    private void parse(String name) {
-        HelpNode rootNode = HelpIndexParser.parse(this.getClass().getResourceAsStream(name));
+    private void parse(String url) {
+        HelpNode rootNode = HelpIndexParser.parse(this.getClass().getResourceAsStream(url));
         if (rootNode != null) {
             root = rootNode;
         }
