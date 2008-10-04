@@ -26,6 +26,7 @@ import de.elmar_baumann.lib.util.ArrayUtil;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Set;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -209,8 +210,9 @@ public class XmpMetadata {
      * @param  propertyInfos Beliebige Property-Infos
      * @return Gefilterte Property-Infos
      */
-    public Vector<XMPPropertyInfo> getFilteredPropertyInfosOfIptcMeta(
+    public Vector<XMPPropertyInfo> getFilteredPropertyInfosOfIptcEntryMeta(
         IPTCEntryMeta iptcEntryMeta, Vector<XMPPropertyInfo> propertyInfos) {
+
         Vector<XMPPropertyInfo> filteredPropertyInfos = new Vector<XMPPropertyInfo>();
         IptcEntryXmpPathStartMapping mapping = IptcEntryXmpPathStartMapping.getInstance();
         String startsWith = mapping.getXmpPathStartOfIptcEntryMeta(iptcEntryMeta);
@@ -277,7 +279,7 @@ public class XmpMetadata {
     }
 
     private void writeMetaData(XMPMeta xmpMeta, Xmp metadata) throws XMPException {
-        Vector<Column> xmpColumns = EditColumns.getInstance().getXmpColumns();
+        Set<Column> xmpColumns = EditColumns.getInstance().getColumns();
         for (Column column : xmpColumns) {
             String namespaceUri = mappingNamespaceUri.getNamespaceUriOfColumn(column);
             String propertyName = mappingName.getXmpPathStartOfColumn(column);
@@ -305,7 +307,7 @@ public class XmpMetadata {
             XMPMeta xmpMeta = getXmpMetaOfSidecarFile(sidecarFilename);
             writeSidecarFileDeleteItems(xmpMeta, textEntries, deleteEmpty, append);
             for (TextEntry entry : textEntries) {
-                Column xmpColumn = entry.getColumns().getSecond();
+                Column xmpColumn = entry.getColumn();
                 String namespaceUri = mappingNamespaceUri.getNamespaceUriOfColumn(xmpColumn);
                 String name = mappingName.getXmpPathStartOfColumn(xmpColumn);
                 String entryText = entry.getText().trim();
@@ -333,7 +335,7 @@ public class XmpMetadata {
     private void writeSidecarFileDeleteItems(XMPMeta xmpMeta,
         Vector<TextEntry> textEntries, boolean deleteEmpty, boolean append) {
         for (TextEntry textEntry : textEntries) {
-            Column xmpColumn = textEntry.getColumns().getSecond();
+            Column xmpColumn = textEntry.getColumn();
             String namespaceUri = mappingNamespaceUri.getNamespaceUriOfColumn(xmpColumn);
             String name = mappingName.getXmpPathStartOfColumn(xmpColumn);
             boolean textEntryIsEmpty = textEntry.getText().trim().isEmpty();
@@ -344,7 +346,7 @@ public class XmpMetadata {
     }
 
     private void writeSidecarFileDeleteItems(XMPMeta xmpMeta) {
-        Vector<Column> xmpColumns = EditColumns.getInstance().getXmpColumns();
+        Set<Column> xmpColumns = EditColumns.getInstance().getColumns();
         for (Column column : xmpColumns) {
             String namespaceUri = mappingNamespaceUri.getNamespaceUriOfColumn(column);
             String name = mappingName.getXmpPathStartOfColumn(column);
@@ -466,7 +468,7 @@ public class XmpMetadata {
             xmp = new Xmp();
             for (XMPPropertyInfo xmpPropertyInfo : xmpPropertyInfos) {
                 if (xmpPropertyInfo.getPath().startsWith("dc:creator")) { // NOI18N
-                    xmp.addDcCreator(xmpPropertyInfo.getValue().toString());
+                    xmp.setDcCreator(xmpPropertyInfo.getValue().toString());
                 } else if (xmpPropertyInfo.getPath().startsWith("dc:subject")) { // NOI18N
                     xmp.addDcSubject(xmpPropertyInfo.getValue().toString());
                 } else if (xmpPropertyInfo.getPath().startsWith("photoshop:SupplementalCategories")) { // NOI18N
