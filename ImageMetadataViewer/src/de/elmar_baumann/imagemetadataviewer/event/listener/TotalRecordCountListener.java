@@ -4,6 +4,7 @@ import de.elmar_baumann.imagemetadataviewer.database.Database;
 import de.elmar_baumann.imagemetadataviewer.event.DatabaseAction;
 import de.elmar_baumann.imagemetadataviewer.event.DatabaseListener;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JLabel;
 
 /**
@@ -16,7 +17,7 @@ import javax.swing.JLabel;
 public class TotalRecordCountListener implements DatabaseListener {
 
     private Database db = Database.getInstance();
-    private ArrayList<JLabel> labels = new ArrayList<JLabel>();
+    private List<JLabel> labels = new ArrayList<JLabel>();
     boolean listen = false;
 
     public TotalRecordCountListener() {

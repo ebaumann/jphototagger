@@ -3,6 +3,7 @@ package de.elmar_baumann.imagemetadataviewer.event.listener;
 import de.elmar_baumann.imagemetadataviewer.event.ErrorEvent;
 import de.elmar_baumann.imagemetadataviewer.event.ErrorListener;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Error-Listener, erspart Klassen die Implementation von
@@ -19,7 +20,7 @@ import java.util.ArrayList;
 public class ErrorListeners {
 
     private static ErrorListeners instance = new ErrorListeners();
-    private ArrayList<ErrorListener> errorListeners;
+    private List<ErrorListener> errorListeners;
 
     /**
      * Meldet einen Beobachter an.
