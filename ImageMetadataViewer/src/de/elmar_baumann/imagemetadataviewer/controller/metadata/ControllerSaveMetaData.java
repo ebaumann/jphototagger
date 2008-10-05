@@ -8,14 +8,15 @@ import de.elmar_baumann.imagemetadataviewer.view.panels.AppPanel;
 import de.elmar_baumann.imagemetadataviewer.view.panels.MetaDataEditPanelsArray;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 import java.util.ArrayList;
 import javax.swing.JButton;
 
 /**
  * Kontrolliert die Aktion: Metadaten sollen gesichert werden.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/09/19
+ * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @version 2008-10-05
  */
 public class ControllerSaveMetaData extends Controller
     implements ActionListener {
@@ -42,8 +43,8 @@ public class ControllerSaveMetaData extends Controller
     @Override
     public void actionPerformed(ActionEvent e) {
         if (isStarted()) {
-            ArrayList<TextEntry> entries = editPanels.getTextEntries();
-            ArrayList<String> filenames = editPanels.getFilenames();
+            List<TextEntry> entries = editPanels.getTextEntries();
+            List<String> filenames = editPanels.getFilenames();
             int filenameCount = filenames.size();
             if (filenameCount == 1) {
                 updater.add(filenames, entries, true, false);
