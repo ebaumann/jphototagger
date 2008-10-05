@@ -9,27 +9,28 @@ import de.elmar_baumann.imagemetadataviewer.database.metadata.file.ColumnFilesTh
 import de.elmar_baumann.imagemetadataviewer.event.DatabaseAction;
 import de.elmar_baumann.imagemetadataviewer.event.DatabaseListener;
 import de.elmar_baumann.imagemetadataviewer.resource.Bundle;
-import java.util.LinkedHashMap;
-import java.util.Set;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Set;
 import javax.swing.table.DefaultTableModel;
 
 /**
  * Enthält Informationen über die Datenbank.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/09/16
+ * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @version 2008-10-05
  */
 public class TableModelDatabaseInfo extends DefaultTableModel
     implements DatabaseListener {
 
     private Database db = Database.getInstance();
     private LinkedHashMap<Column, StringBuffer> bufferOfColumn = new LinkedHashMap<Column, StringBuffer>();
-    private ArrayList<Column> excludedColumns = new ArrayList<Column>();
+    private List<Column> excludedColumns = new ArrayList<Column>();
     private boolean listenToDatabase = false;
 
     private void initBufferOfColumn() {
-        ArrayList<Table> tables = AllTables.get();
+        List<Table> tables = AllTables.get();
         for (Table table : tables) {
             for (Column column : table.getColumns()) {
                 if (isInfoColumn(column)) {

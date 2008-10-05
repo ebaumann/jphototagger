@@ -1,14 +1,14 @@
 package de.elmar_baumann.imagemetadataviewer.model;
 
 import de.elmar_baumann.imagemetadataviewer.database.Database;
-import java.util.ArrayList;
+import java.util.List;
 import javax.swing.DefaultListModel;
 
 /**
  * Enthält die Namen aller Bildsammlungen.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/09/08
+ * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @version 2008-10-05
  */
 public class ListModelImageCollections extends DefaultListModel {
 
@@ -18,7 +18,7 @@ public class ListModelImageCollections extends DefaultListModel {
 
     private void addItems() {
         Database db = Database.getInstance();
-        ArrayList<String> collections = db.getImageCollectionNames();
+        List<String> collections = db.getImageCollectionNames();
         for (String collection : collections) {
             addElement(collection);
         }

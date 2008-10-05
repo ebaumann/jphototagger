@@ -5,7 +5,7 @@ import de.elmar_baumann.imagemetadataviewer.data.FavoriteDirectory;
 import de.elmar_baumann.imagemetadataviewer.database.Database;
 import de.elmar_baumann.imagemetadataviewer.resource.Bundle;
 import java.text.MessageFormat;
-import java.util.ArrayList;
+import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
@@ -13,8 +13,8 @@ import javax.swing.JOptionPane;
  * Enthält Favoritenverzeichnisse. Alle Modifikations-Aktionen aktualisieren
  * auch die Datenbank.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/09/23
+ * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @version 2008-10-05
  */
 public class ListModelFavoriteDirectories extends DefaultListModel {
 
@@ -129,7 +129,7 @@ public class ListModelFavoriteDirectories extends DefaultListModel {
     }
 
     private void addElements() {
-        ArrayList<FavoriteDirectory> directories = db.getFavoriteDirectories();
+        List<FavoriteDirectory> directories = db.getFavoriteDirectories();
         for (FavoriteDirectory directory : directories) {
             addElement(directory);
         }

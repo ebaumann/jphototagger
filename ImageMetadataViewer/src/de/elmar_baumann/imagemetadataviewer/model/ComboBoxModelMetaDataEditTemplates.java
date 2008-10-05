@@ -5,7 +5,7 @@ import de.elmar_baumann.imagemetadataviewer.data.MetaDataEditTemplate;
 import de.elmar_baumann.imagemetadataviewer.database.Database;
 import de.elmar_baumann.imagemetadataviewer.resource.Bundle;
 import java.text.MessageFormat;
-import java.util.ArrayList;
+import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
@@ -15,8 +15,8 @@ import javax.swing.JOptionPane;
  * Führt alle Änderungen zuerst in der Datenbank aus und bei Erfolg im Model
  * selbst.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/09/22
+ * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @version 2008-10-05
  */
 public class ComboBoxModelMetaDataEditTemplates extends DefaultComboBoxModel {
 
@@ -94,7 +94,7 @@ public class ComboBoxModelMetaDataEditTemplates extends DefaultComboBoxModel {
     }
 
     private void addColumns() {
-        ArrayList<MetaDataEditTemplate> templates = db.getMetaDataEditTemplates();
+        List<MetaDataEditTemplate> templates = db.getMetaDataEditTemplates();
         for (MetaDataEditTemplate template : templates) {
             addElement(template);
         }

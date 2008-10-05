@@ -6,15 +6,16 @@ import de.elmar_baumann.imagemetadataviewer.data.Xmp;
 import de.elmar_baumann.imagemetadataviewer.database.Database;
 import de.elmar_baumann.imagemetadataviewer.event.DatabaseAction;
 import de.elmar_baumann.imagemetadataviewer.event.DatabaseListener;
-import java.util.LinkedHashSet;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.List;
 import javax.swing.DefaultListModel;
 
 /**
  * Enthält Kategorien.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/09/23
+ * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @version 2008-10-05
  */
 public class ListModelCategories extends DefaultListModel
     implements DatabaseListener {
@@ -47,7 +48,7 @@ public class ListModelCategories extends DefaultListModel
     }
 
     private void checkForNewCategories(ImageFile imageFileData) {
-        ArrayList<String> categories = getCategories(imageFileData);
+        List<String> categories = getCategories(imageFileData);
         for (String category : categories) {
             if (!contains(category)) {
                 addElement(category);
@@ -64,8 +65,8 @@ public class ListModelCategories extends DefaultListModel
         }
     }
 
-    private ArrayList<String> getCategories(ImageFile imageFileData) {
-        ArrayList<String> categories = new ArrayList<String>();
+    private List<String> getCategories(ImageFile imageFileData) {
+        List<String> categories = new ArrayList<String>();
         Iptc iptcData = imageFileData.getIptc();
         Xmp xmpData = imageFileData.getXmp();
         if (iptcData != null && iptcData.getSupplementalCategories() != null) {

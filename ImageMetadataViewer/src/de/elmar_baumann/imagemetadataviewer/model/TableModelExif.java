@@ -4,20 +4,21 @@ import com.imagero.reader.tiff.IFDEntry;
 import de.elmar_baumann.imagemetadataviewer.image.metadata.exif.ExifIfdEntryDisplayComparator;
 import de.elmar_baumann.imagemetadataviewer.image.metadata.exif.ExifMetadata;
 import de.elmar_baumann.imagemetadataviewer.resource.Bundle;
-import java.util.Collections;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
 /**
  * EXIF-Daten eines Bilds.
  * 
- * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/02/19
+ * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @version 2008-10-05
  */
 public class TableModelExif extends DefaultTableModel {
 
     private String filename;
-    private ArrayList<IFDEntry> allEntries;
+    private List<IFDEntry> allEntries;
 
     public TableModelExif() {
         setRowHeaders();
@@ -54,13 +55,14 @@ public class TableModelExif extends DefaultTableModel {
      */
     public void removeAllElements() {
         getDataVector().removeAllElements();
+        
     }
 
     private void setExifData() {
         ExifMetadata exifMetadata = new ExifMetadata();
         allEntries = exifMetadata.getMetadata(filename);
         if (allEntries != null) {
-            ArrayList<IFDEntry> entries = ExifMetadata.getDisplayableMetadata(allEntries);
+            List<IFDEntry> entries = ExifMetadata.getDisplayableMetadata(allEntries);
             if (entries != null) {
                 Collections.sort(entries, new ExifIfdEntryDisplayComparator());
                 for (IFDEntry entry : entries) {
@@ -74,9 +76,9 @@ public class TableModelExif extends DefaultTableModel {
     }
 
     private void addRow(IFDEntry entry) {
-        ArrayList<IFDEntry> row = new ArrayList<IFDEntry>();
+        List<IFDEntry> row = new ArrayList<IFDEntry>();
         row.add(entry);
         row.add(entry);
-        super.addRow(row.toArray());
+        super.addRow(row.toArray(new IFDEntry[row.size()]));
     }
 }

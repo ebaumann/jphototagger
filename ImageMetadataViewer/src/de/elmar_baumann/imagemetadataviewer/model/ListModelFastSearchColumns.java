@@ -3,19 +3,20 @@ package de.elmar_baumann.imagemetadataviewer.model;
 import de.elmar_baumann.imagemetadataviewer.database.metadata.selections.FastSearchColumns;
 import de.elmar_baumann.imagemetadataviewer.database.metadata.Column;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JCheckBox;
 
 /**
  * Model mit Spalten für die Schnellsuche.
  * 
- * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/07/30
+ * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @version 2008-10-05
  * @see     de.elmar_baumann.lib.component.CheckList
  */
 public class ListModelFastSearchColumns extends DefaultListModel {
 
-    private ArrayList<Column> columns = FastSearchColumns.getInstance().getSearchColumns();
+    private List<Column> columns = FastSearchColumns.getInstance().getSearchColumns();
 
     public ListModelFastSearchColumns() {
         addColumns();
@@ -33,8 +34,8 @@ public class ListModelFastSearchColumns extends DefaultListModel {
      * @param indices Indizes
      * @return        Tabellenspalten
      */
-    public ArrayList<Column> getTableColumns(ArrayList<Integer> indices) {
-        ArrayList<Column> cols = new ArrayList<Column>();
+    public List<Column> getTableColumns(List<Integer> indices) {
+        List<Column> cols = new ArrayList<Column>();
         for (int index : indices) {
             cols.add(columns.get(index));
         }

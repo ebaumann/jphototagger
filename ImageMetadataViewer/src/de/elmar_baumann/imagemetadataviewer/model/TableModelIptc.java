@@ -5,19 +5,19 @@ import de.elmar_baumann.imagemetadataviewer.image.metadata.iptc.IptcEntry;
 import de.elmar_baumann.imagemetadataviewer.image.metadata.iptc.IptcMetadata;
 import de.elmar_baumann.imagemetadataviewer.resource.Bundle;
 import java.util.Collections;
-import java.util.ArrayList;
+import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
 /**
  * IPTC-Daten eines Bilds.
  * 
- * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/02/17
+ * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @version 2008-10-05
  */
 public class TableModelIptc extends DefaultTableModel {
 
     private String filename;
-    private ArrayList<IptcEntry> iptcEntries;
+    private List<IptcEntry> iptcEntries;
 
     public TableModelIptc() {
         addColumnHeaders();
