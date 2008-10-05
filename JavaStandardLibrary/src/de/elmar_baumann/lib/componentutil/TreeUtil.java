@@ -1,8 +1,8 @@
 package de.elmar_baumann.lib.componentutil;
 
 import java.awt.event.MouseEvent;
+import java.util.List;
 import java.util.StringTokenizer;
-import java.util.ArrayList;
 import javax.swing.JTree;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
@@ -10,8 +10,8 @@ import javax.swing.tree.TreePath;
 /**
  * Werkzeuge für Trees.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/07/23
+ * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @version 2008-10-05
  */
 public class TreeUtil {
 
@@ -62,7 +62,7 @@ public class TreeUtil {
      * 
      * @param trees Trees
      */
-    public static void clearSelection(ArrayList<JTree> trees) {
+    public static void clearSelection(List<JTree> trees) {
         for (JTree tree : trees) {
             if (tree.getSelectionCount() > 0) {
                 tree.clearSelection();
