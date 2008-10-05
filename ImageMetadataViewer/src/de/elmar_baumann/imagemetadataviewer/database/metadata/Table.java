@@ -1,19 +1,20 @@
 package de.elmar_baumann.imagemetadataviewer.database.metadata;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 
 /**
  * Eine Tabelle.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/08/27
+ * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @version 2008-10-05
  */
 public abstract class Table {
 
-    private ArrayList<Column> columns = new ArrayList<Column>();
-    private ArrayList<Column> referenceColumns = new ArrayList<Column>();
+    private List<Column> columns = new ArrayList<Column>();
+    private List<Column> referenceColumns = new ArrayList<Column>();
     private String name;
 
     /**
@@ -69,7 +70,7 @@ public abstract class Table {
      * 
      * @return Spalten
      */
-    public ArrayList<Column> getColumns() {
+    public List<Column> getColumns() {
         if (columns.isEmpty()) {
             addColumns();
         }
@@ -81,7 +82,7 @@ public abstract class Table {
      * 
      * @return Referenzspalten
      */
-    public ArrayList<Column> getReferenceColumns() {
+    public List<Column> getReferenceColumns() {
         if (columns.isEmpty()) {
             addColumns();
         }
@@ -109,8 +110,8 @@ public abstract class Table {
      * @param table Tabelle
      * @return Spalten
      */
-    public ArrayList<Column> getJoinColumnsFor(Table table) {
-        ArrayList<Column> joinColumns = new ArrayList<Column>();
+    public List<Column> getJoinColumnsFor(Table table) {
+        List<Column> joinColumns = new ArrayList<Column>();
         for (Column column : referenceColumns) {
             Column referencedColumn = column.getReferences();
             if (referencedColumn.getTable().equals(table)) {
@@ -125,8 +126,8 @@ public abstract class Table {
      * 
      * @return Primärschlüsselspalten
      */
-    public ArrayList<Column> getPrimaryKeyColumns() {
-        ArrayList<Column> pColumns = new ArrayList<Column>();
+    public List<Column> getPrimaryKeyColumns() {
+        List<Column> pColumns = new ArrayList<Column>();
         for (Column column : columns) {
             if (column.isPrimaryKey()) {
                 pColumns.add(column);
