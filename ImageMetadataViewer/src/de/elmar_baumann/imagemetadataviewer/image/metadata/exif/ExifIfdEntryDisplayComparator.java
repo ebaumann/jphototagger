@@ -9,8 +9,8 @@ import java.util.List;
 /**
  * Vergleicht IFDEntries zum Sortieren für die Anzeige.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/08/31
+ * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @version 2008-10-05
  */
 public class ExifIfdEntryDisplayComparator implements Comparator<IFDEntry> {
 

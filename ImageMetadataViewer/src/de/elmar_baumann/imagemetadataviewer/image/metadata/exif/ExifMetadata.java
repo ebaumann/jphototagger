@@ -30,8 +30,8 @@ import java.util.logging.Logger;
 /**
  * Utils für EXIF.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/07/28
+ * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @version 2008-10-05
  */
 public class ExifMetadata {
 
