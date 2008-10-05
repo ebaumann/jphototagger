@@ -8,14 +8,15 @@ import java.awt.Color;
 import java.awt.Image;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
 /**
  * Anwendungseinstellungen.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/07/26
+ * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @version 2008-10-05
  */
 public class AppSettings {
 
@@ -82,8 +83,10 @@ public class AppSettings {
      */
     public static final ImageIcon iconSaveMetaDataEnabled =
         IconUtil.getImageIcon("/de/elmar_baumann/imagemetadataviewer/resource/icon_save_metadata_enabled.png"); // NOI18N
-    private static ArrayList<String> appIconPaths = new ArrayList<String>();
-    private static ArrayList<Image> appIcons = new ArrayList<Image>();
+
+    
+    private static List<String> appIconPaths = new ArrayList<String>();
+    private static List<Image> appIcons = new ArrayList<Image>();
     private static final Icon smallAppIcon = IconUtil.getImageIcon(pathAppIconSmall);
     private static final Icon mediumAppIcon = IconUtil.getImageIcon(pathAppIconMedium);
     
@@ -104,7 +107,7 @@ public class AppSettings {
      * 
      * @return Anwendungssymbole
      */
-    public static ArrayList<Image> getAppIcons() {
+    public static List<Image> getAppIcons() {
         return appIcons;
     }
 
@@ -113,7 +116,7 @@ public class AppSettings {
      * 
      * @return Pfade
      */
-    public static ArrayList<String> getAppIconPaths() {
+    public static List<String> getAppIconPaths() {
         return appIconPaths;
     }
 

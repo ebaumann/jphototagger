@@ -6,6 +6,7 @@ import de.elmar_baumann.imagemetadataviewer.model.ComboBoxModelThreadPriority;
 import de.elmar_baumann.imagemetadataviewer.view.dialogs.UserSettingsDialog;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.XMLFormatter;
 import javax.swing.ListModel;
@@ -16,8 +17,8 @@ import javax.swing.ListModel;
  * Liest dessen Einstellungen. Motivation: Die Eingaben in etliche Controls des
  * Dialogs werden automatisch persistent gespeichert.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/07/25
+ * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @version 2008-10-05
  */
 public class UserSettings {
 
@@ -76,7 +77,7 @@ public class UserSettings {
      * 
      * @return Suchspalten
      */
-    public ArrayList<Column> getFastSearchColumns() {
+    public List<Column> getFastSearchColumns() {
         return settingsDialog.searchColumnsListModel.getTableColumns(
             settingsDialog.checkListSearchColumns.getSelectedItemIndices());
     }
@@ -155,8 +156,8 @@ public class UserSettings {
      * 
      * @return Anwendungsdateien, falls existent
      */
-    public ArrayList<File> getOtherImageOpenApps() {
-        ArrayList<File> apps = new ArrayList<File>();
+    public List<File> getOtherImageOpenApps() {
+        List<File> apps = new ArrayList<File>();
         ListModel model = settingsDialog.listOpenImageApps.getModel();
         int count = model.getSize();
         for (int i = 0; i < count; i++) {
@@ -173,7 +174,7 @@ public class UserSettings {
      * 
      * @return Verzeichnisnamen
      */
-    public ArrayList<String> getAutoscanDirectories() {
+    public List<String> getAutoscanDirectories() {
         return db.getAutoscanDirectories();
     }
 
