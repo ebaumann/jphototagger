@@ -7,12 +7,14 @@ import de.elmar_baumann.imagemetadataviewer.resource.Bundle;
 import de.elmar_baumann.lib.persistence.PersistentAppSizes;
 import de.elmar_baumann.lib.persistence.PersistentSettings;
 import de.elmar_baumann.lib.persistence.PersistentSettingsHints;
+import java.util.Set;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
 /**
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @version 2008-10-05
  */
 public class RenameInXmpColumnsDialog extends javax.swing.JDialog {
 
@@ -31,9 +33,9 @@ public class RenameInXmpColumnsDialog extends javax.swing.JDialog {
     }
 
     private void setModel() {
+        Set<Column> columns = EditColumns.getInstance().getColumns();
         comboBoxReplaceColumn.setModel(
-            new DefaultComboBoxModel(
-            EditColumns.getInstance().getColumns().toArray()));
+            new DefaultComboBoxModel(columns.toArray(new Column[columns.size()])));
     }
 
     public boolean accepted() {

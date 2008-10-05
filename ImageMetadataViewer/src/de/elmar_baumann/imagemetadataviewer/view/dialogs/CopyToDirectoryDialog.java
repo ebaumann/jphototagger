@@ -14,11 +14,13 @@ import de.elmar_baumann.lib.template.Pair;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @version 2008-10-05
  */
 public class CopyToDirectoryDialog extends javax.swing.JDialog
     implements ProgressListener {
@@ -26,7 +28,7 @@ public class CopyToDirectoryDialog extends javax.swing.JDialog
     private static final String keyLastDirectory = "de.elmar_baumann.imagemetadataviewer.view.dialogs.CopyToDirectoryDialog.LastDirectory"; // NOI18N
     private CopyFiles copyTask;
     private boolean copy = false;
-    private ArrayList<String> sourceFiles;
+    private List<String> sourceFiles;
     private String lastDirectory = ""; // NOI18N
 
     /** Creates new form CopyToDirectoryDialog */
@@ -49,7 +51,7 @@ public class CopyToDirectoryDialog extends javax.swing.JDialog
         }
     }
 
-    private void checkError(ArrayList<String> errorFiles) {
+    private void checkError(List<String> errorFiles) {
         if (errorFiles.size() > 0) {
             JOptionPane.showMessageDialog(
                 null,
@@ -69,9 +71,9 @@ public class CopyToDirectoryDialog extends javax.swing.JDialog
         thread.start();
     }
 
-    private ArrayList<Pair<String, String>> getFilenames() {
+    private List<Pair<String, String>> getFilenames() {
         String directory = labelDirectoryName.getText().trim();
-        ArrayList<Pair<String, String>> filePairs = new ArrayList<Pair<String, String>>();
+        List<Pair<String, String>> filePairs = new ArrayList<Pair<String, String>>();
         for (String sourceFile : sourceFiles) {
             filePairs.add(new Pair<String, String>(sourceFile,
                 directory + File.separator + FileUtil.getFilename(sourceFile)));
@@ -89,7 +91,7 @@ public class CopyToDirectoryDialog extends javax.swing.JDialog
         dialog.setMultiSelection(false);
         dialog.setVisible(true);
         if (dialog.accepted()) {
-            ArrayList<File> files = dialog.getSelectedDirectories();
+            List<File> files = dialog.getSelectedDirectories();
             if (files.size() > 0) {
                 String directoryName = files.get(0).getAbsolutePath();
                 labelDirectoryName.setText(directoryName);
@@ -109,7 +111,7 @@ public class CopyToDirectoryDialog extends javax.swing.JDialog
      * 
      * @param sourceFiles  Quelldateien
      */
-    public void setSourceFiles(ArrayList<String> sourceFiles) {
+    public void setSourceFiles(List<String> sourceFiles) {
         this.sourceFiles = sourceFiles;
     }
 
@@ -151,7 +153,7 @@ public class CopyToDirectoryDialog extends javax.swing.JDialog
     public void progressEnded(ProgressEvent evt) {
         progressBar.setValue(evt.getValue());
         @SuppressWarnings("unchecked")
-        ArrayList<String> errorFiles = (ArrayList<String>) evt.getInfo();
+        List<String> errorFiles = (List<String>) evt.getInfo();
         checkError(errorFiles);
         buttonCancelCopy.setEnabled(false);
         buttonStartCopy.setEnabled(true);

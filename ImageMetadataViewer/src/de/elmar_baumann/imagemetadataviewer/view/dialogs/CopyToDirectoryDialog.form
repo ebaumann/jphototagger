@@ -35,14 +35,14 @@
                   <Component id="labelDirectoryName" alignment="0" pref="647" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="checkBoxForceOverwrite" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="26" max="32767" attributes="0"/>
+                      <EmptySpace pref="47" max="32767" attributes="0"/>
                       <Component id="buttonChooseDirectory" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Component id="labelCurrentFilename" alignment="0" pref="647" max="32767" attributes="0"/>
                   <Component id="progressBar" alignment="1" pref="647" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="labelInfoIsThread" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="224" max="32767" attributes="0"/>
+                      <EmptySpace pref="241" max="32767" attributes="0"/>
                       <Component id="buttonCancelCopy" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="buttonStartCopy" min="-2" max="-2" attributes="0"/>

@@ -14,11 +14,13 @@ import de.elmar_baumann.lib.persistence.PersistentSettings;
 import de.elmar_baumann.lib.persistence.PersistentSettingsHints;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @version 2008-10-05
  */
 public class IptcToXmpDialog extends javax.swing.JDialog
     implements ProgressListener {
@@ -109,8 +111,8 @@ public class IptcToXmpDialog extends javax.swing.JDialog
         stop = true;
     }
 
-    private ArrayList<String> getFilenames() {
-        ArrayList<String> directories = new ArrayList<String>();
+    private List<String> getFilenames() {
+        List<String> directories = new ArrayList<String>();
         directories.add(directoryName);
         if (checkBoxSubdirectories.isSelected()) {
             directories.addAll(FileUtil.getAllSubDirectoryNames(directoryName));

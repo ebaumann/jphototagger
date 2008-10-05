@@ -16,6 +16,7 @@ import java.awt.event.KeyEvent;
 import java.io.File;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
@@ -24,8 +25,8 @@ import javax.swing.DefaultListModel;
  * Dialog zum Scannen eines Verzeichnisses nach Bildern und Einfügen
  * von Thumbnails in die Datenbank.
  * 
- * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/07/25
+ * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @version 2008-10-05
  */
 public class UpdateMetaDataOfDirectoriesDialog extends javax.swing.JDialog implements
     ProgressListener {
@@ -36,7 +37,7 @@ public class UpdateMetaDataOfDirectoriesDialog extends javax.swing.JDialog imple
     private final String keySubdirectories = "de.elmar_baumann.imagemetadataviewer.view.ScanDirectoriesDialog.subdirectories"; // NOI18N
     private final String title = Bundle.getString("UpdateMetaDataOfDirectoriesDialog.Title");
     private final String currentFilenameInfotextPrefix = Bundle.getString("UpdateMetaDataOfDirectoriesDialog.InformationMessage.UpdateCurrentFile");
-    private ArrayList<String> selectedImagesFilenames = new ArrayList<String>();
+    private List<String> selectedImagesFilenames = new ArrayList<String>();
     private ImageMetadataToDatabase activeScanner;
     private File lastSelectedDirectory = new File(""); // NOI18N
     private DefaultListModel modelSelectedDirectoryList = new DefaultListModel();
@@ -71,7 +72,7 @@ public class UpdateMetaDataOfDirectoriesDialog extends javax.swing.JDialog imple
         dialog.setMultiSelection(true);
         dialog.setVisible(true);
         if (dialog.accepted()) {
-            ArrayList<File> newDirectories = getNotAlreadyChoosenDirectoriesFrom(
+            List<File> newDirectories = getNotAlreadyChoosenDirectoriesFrom(
                 dialog.getSelectedDirectories());
             if (newDirectories.size() > 0) {
                 empty();
@@ -92,8 +93,8 @@ public class UpdateMetaDataOfDirectoriesDialog extends javax.swing.JDialog imple
         activeScanner.setForceUpdate(checkBoxForce.isSelected());
     }
 
-    private ArrayList<File> getAllImageFiles() {
-        ArrayList<File> imageFiles = new ArrayList<File>();
+    private List<File> getAllImageFiles() {
+        List<File> imageFiles = new ArrayList<File>();
         Object[] elements = modelSelectedDirectoryList.toArray();
         if (elements != null) {
             for (int index = 0; index < elements.length; index++) {
@@ -107,9 +108,9 @@ public class UpdateMetaDataOfDirectoriesDialog extends javax.swing.JDialog imple
         return imageFiles;
     }
 
-    private ArrayList<File> getNotAlreadyChoosenDirectoriesFrom(
-        ArrayList<File> directories) {
-        ArrayList<File> newDirectories = new ArrayList<File>();
+    private List<File> getNotAlreadyChoosenDirectoriesFrom(
+        List<File> directories) {
+        List<File> newDirectories = new ArrayList<File>();
         for (File directory : directories) {
             if (!modelSelectedDirectoryList.contains(directory)) {
                 newDirectories.add(directory);
@@ -221,7 +222,7 @@ public class UpdateMetaDataOfDirectoriesDialog extends javax.swing.JDialog imple
         progressBarScan.setMaximum(selectedImagesFilenames.size());
     }
 
-    private void addDirectories(ArrayList<File> directories) {
+    private void addDirectories(List<File> directories) {
         for (File directory : directories) {
             DirectoryInfo directoryInfo = new DirectoryInfo(directory);
             if (directoryInfo.hasImageFiles()) {
@@ -235,7 +236,7 @@ public class UpdateMetaDataOfDirectoriesDialog extends javax.swing.JDialog imple
     }
 
     private void addSubdirectories(File directory) {
-        ArrayList<File> subdirectories = FileUtil.getAllSubDirectories(directory);
+        List<File> subdirectories = FileUtil.getAllSubDirectories(directory);
         for (File dir : subdirectories) {
             DirectoryInfo directoryInfo = new DirectoryInfo(dir);
             if (directoryInfo.hasImageFiles()) {

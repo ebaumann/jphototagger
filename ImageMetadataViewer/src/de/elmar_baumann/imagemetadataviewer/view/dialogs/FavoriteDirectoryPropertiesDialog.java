@@ -10,17 +10,18 @@ import de.elmar_baumann.lib.persistence.PersistentSettings;
 import java.awt.Image;
 import java.io.File;
 import java.text.MessageFormat;
-import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
  * Neues Favoritenverzeichnis erstellen oder modifiziertes aktualisieren.
  * 
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @version 2008-10-05
  */
 public class FavoriteDirectoryPropertiesDialog extends javax.swing.JDialog {
 
-    private static ArrayList<Image> appIcons = AppSettings.getAppIcons();
+    private static List<Image> appIcons = AppSettings.getAppIcons();
     private static final String keyLastDirectory = "de.elmar_baumann.imagemetadataviewer.view.dialogs.FavoriteDirectoryPropertiesDialog.LastDirectory"; // NOI18N
     private String lastDirectory = ""; // NOI18N
     private boolean ok = true;
@@ -40,7 +41,7 @@ public class FavoriteDirectoryPropertiesDialog extends javax.swing.JDialog {
         dialog.setMultiSelection(false);
         dialog.setVisible(true);
         if (dialog.accepted()) {
-            ArrayList<File> files = dialog.getSelectedDirectories();
+            List<File> files = dialog.getSelectedDirectories();
             String directoryName = files.get(0).getAbsolutePath();
             labelDirectoryname.setText(directoryName);
             lastDirectory = directoryName;

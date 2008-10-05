@@ -22,18 +22,20 @@ import de.elmar_baumann.imagemetadataviewer.resource.Bundle;
 import de.elmar_baumann.imagemetadataviewer.view.panels.SearchColumnPanel;
 import de.elmar_baumann.lib.persistence.PersistentAppSizes;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
  * Nicht modaler Dialog für eine erweiterte Suche.
  * 
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @version 2008-10-05
  */
 public class AdvancedSearchDialog extends javax.swing.JDialog implements
     SearchListener {
 
-    private ArrayList<SearchListener> searchListener = new ArrayList<SearchListener>();
-    private ArrayList<SearchColumnPanel> searchColumnPanels = new ArrayList<SearchColumnPanel>();
+    private List<SearchListener> searchListener = new ArrayList<SearchListener>();
+    private List<SearchColumnPanel> searchColumnPanels = new ArrayList<SearchColumnPanel>();
     private String searchName = ""; // NOI18N
     private boolean isSavedSearch = false;
     private static AdvancedSearchDialog instance = new AdvancedSearchDialog(null, false);
@@ -133,7 +135,7 @@ public class AdvancedSearchDialog extends javax.swing.JDialog implements
         ParamStatement stmt = getSql();
         data.setQuery(stmt.isQuery());
         data.setSql(stmt.getSql());
-        ArrayList<String> values = stmt.getValuesAsStringArray();
+        List<String> values = stmt.getValuesAsStringList();
         data.setValues(values.size() > 0 ? values : null);
         return data;
     }
@@ -169,7 +171,7 @@ public class AdvancedSearchDialog extends javax.swing.JDialog implements
         setSavedSearchToPanels(search.getPanels());
     }
 
-    private void setSavedSearchToPanels(ArrayList<SavedSearchPanel> data) {
+    private void setSavedSearchToPanels(List<SavedSearchPanel> data) {
         if (data != null) {
             int panelSize = searchColumnPanels.size();
             int dataSize = data.size();
@@ -261,8 +263,8 @@ public class AdvancedSearchDialog extends javax.swing.JDialog implements
         return search;
     }
 
-    private ArrayList<SavedSearchPanel> getPanelData() {
-        ArrayList<SavedSearchPanel> panelData = new ArrayList<SavedSearchPanel>();
+    private List<SavedSearchPanel> getPanelData() {
+        List<SavedSearchPanel> panelData = new ArrayList<SavedSearchPanel>();
         int size = searchColumnPanels.size();
         for (int index = 0; index < size; index++) {
             SearchColumnPanel panel = searchColumnPanels.get(index);
@@ -295,7 +297,7 @@ public class AdvancedSearchDialog extends javax.swing.JDialog implements
 
     private ParamStatement getSql() {
         StringBuffer statement = getStartSelectFrom();
-        ArrayList<String> values = new ArrayList<String>();
+        List<String> values = new ArrayList<String>();
         ParamStatement stmt = new ParamStatement();
 
         appendFrom(statement);
@@ -316,8 +318,8 @@ public class AdvancedSearchDialog extends javax.swing.JDialog implements
             columnNameFilename + " FROM"); // NOI18N
     }
 
-    private ArrayList<Column> getColumns() {
-        ArrayList<Column> columns = new ArrayList<Column>();
+    private List<Column> getColumns() {
+        List<Column> columns = new ArrayList<Column>();
         for (SearchColumnPanel panel : searchColumnPanels) {
             if (panel.hasSql()) {
                 columns.add(panel.getSelectedColumn());
@@ -326,7 +328,7 @@ public class AdvancedSearchDialog extends javax.swing.JDialog implements
         return columns;
     }
 
-    private void appendWhere(StringBuffer statement, ArrayList<String> values) {
+    private void appendWhere(StringBuffer statement, List<String> values) {
         statement.append(" WHERE"); // NOI18N
         int index = 0;
         for (SearchColumnPanel panel : searchColumnPanels) {
@@ -339,10 +341,10 @@ public class AdvancedSearchDialog extends javax.swing.JDialog implements
     }
 
     private void appendFrom(StringBuffer statement) {
-        ArrayList<Table> allTables =
+        List<Table> allTables =
             DatabaseMetadataUtil.getUniqueTablesOfColumnArray(getColumns());
         Column.ReferenceDirection back = Column.ReferenceDirection.backwards;
-        ArrayList<Table> refsXmpTables = DatabaseMetadataUtil.getTablesWithReferenceTo(allTables, TableXmp.getInstance(), back);
+        List<Table> refsXmpTables = DatabaseMetadataUtil.getTablesWithReferenceTo(allTables, TableXmp.getInstance(), back);
 
         statement.append(" " + TableFiles.getInstance().getName()); // NOI18N
 
@@ -372,7 +374,7 @@ public class AdvancedSearchDialog extends javax.swing.JDialog implements
     }
 
     private void appendInnerJoin(StringBuffer statement,
-        ArrayList<Table> refsTables, Table referredTable, String joinCol) {
+        List<Table> refsTables, Table referredTable, String joinCol) {
         for (Table refsTable : refsTables) {
             Column refColumn = refsTable.getJoinColumnsFor(referredTable).get(0);
             statement.append(" INNER JOIN " + refsTable.getName() + " ON " + // NOI18N
