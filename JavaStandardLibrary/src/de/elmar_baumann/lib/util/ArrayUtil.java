@@ -32,8 +32,7 @@ public class ArrayUtil {
      * @param delimiter Begrenzer zwischen den Token
      * @return          ArrayList
      */
-    public static List<String> stringTokenToArray(String string,
-        String delimiter) {
+    public static List<String> stringTokenToArray(String string, String delimiter) {
         ArrayList<String> array = new ArrayList<String>();
         StringTokenizer tokenizer = new StringTokenizer(string, delimiter);
         while (tokenizer.hasMoreTokens()) {
