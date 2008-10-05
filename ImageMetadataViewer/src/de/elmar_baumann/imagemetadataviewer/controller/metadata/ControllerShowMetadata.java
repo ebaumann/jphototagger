@@ -19,16 +19,17 @@ import de.elmar_baumann.imagemetadataviewer.view.panels.AppPanel;
 import de.elmar_baumann.lib.componentutil.TableUtil;
 import java.awt.Component;
 import java.io.File;
-import java.util.HashMap;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import javax.swing.JTable;
 
 /**
  * Überprüft, ob die Metadaten <strong>einer</strong> Bilddatei angezeigt werden
  * sollen und zeigt diese im Bedarfsfall an.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/09/11
+ * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @version 2008-10-05
  */
 public class ControllerShowMetadata extends Controller
     implements DatabaseListener, ThumbnailsPanelListener {
@@ -59,8 +60,8 @@ public class ControllerShowMetadata extends Controller
         data.appPanel = appPanel;
         data.thumbnailsPanel = appPanel.getPanelImageFileThumbnails();
         data.editPanelsArray = appPanel.getEditPanelsArray();
-        ArrayList<JTable> xmpTables = appPanel.getXmpTables();
-        ArrayList<TableModelXmp> xmpTableModels = new ArrayList<TableModelXmp>();
+        List<JTable> xmpTables = appPanel.getXmpTables();
+        List<TableModelXmp> xmpTableModels = new ArrayList<TableModelXmp>();
         for (JTable xmpTable : xmpTables) {
             xmpTableModels.add((TableModelXmp) xmpTable.getModel());
         }
@@ -164,8 +165,7 @@ public class ControllerShowMetadata extends Controller
 
     private void setXmpModels(String filename) {
         XmpMetadata xmpMetadata = new XmpMetadata();
-        ArrayList<XMPPropertyInfo> allInfos = xmpMetadata.getPropertyInfosOfFile(filename);
-
+        List<XMPPropertyInfo> allInfos = xmpMetadata.getPropertyInfosOfFile(filename);
         if (allInfos != null) {
             for (TableModelXmp model : data.xmpTableModels) {
                 setPropertyInfosToXmpTableModel(filename,
@@ -175,8 +175,8 @@ public class ControllerShowMetadata extends Controller
     }
 
     private void setPropertyInfosToXmpTableModel(String filename, TableModelXmp model,
-        ArrayList<XMPPropertyInfo> allInfos, String[] namespaces) {
-        ArrayList<XMPPropertyInfo> infos = new ArrayList<XMPPropertyInfo>();
+        List<XMPPropertyInfo> allInfos, String[] namespaces) {
+        List<XMPPropertyInfo> infos = new ArrayList<XMPPropertyInfo>();
         for (int index = 0; index < namespaces.length; index++) {
             infos.addAll(XmpMetadata.getPropertyInfosOfNamespace(allInfos,
                 namespaces[index]));
