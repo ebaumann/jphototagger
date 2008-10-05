@@ -7,10 +7,11 @@ import de.elmar_baumann.imagemetadataviewer.event.TaskListener;
 import de.elmar_baumann.imagemetadataviewer.io.ImageFilteredDirectory;
 import de.elmar_baumann.imagemetadataviewer.resource.Bundle;
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Stack;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JProgressBar;
@@ -19,8 +20,8 @@ import javax.swing.JProgressBar;
  * Scannt Verzeichnisse nach Bilddateien und aktualisiert die Datenbank mit
  * den Bild-Metadaten.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/00/11
+ * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @version 2008-10-05
  */
 public class ImageMetadataToDatabaseArray implements ProgressListener {
 
@@ -30,7 +31,7 @@ public class ImageMetadataToDatabaseArray implements ProgressListener {
     private JProgressBar progressBar;
     private HashMap<String, ImageMetadataToDatabase> updaterOfDirectory = new HashMap<String, ImageMetadataToDatabase>();
     private HashMap<ImageMetadataToDatabase, String> directoryOfUpdater = new HashMap<ImageMetadataToDatabase, String>();
-    private ArrayList<TaskListener> taskListeners = new ArrayList<TaskListener>();
+    private List<TaskListener> taskListeners = new ArrayList<TaskListener>();
     private String tooltipTextProgressEnded;
 
     /**
@@ -148,7 +149,7 @@ public class ImageMetadataToDatabaseArray implements ProgressListener {
 
     private ImageMetadataToDatabase createUpdater(String directoryName,
         boolean onlyTextMetadata, boolean force) {
-        ArrayList<String> filenames = ImageFilteredDirectory.getImageFilenamesOfDirectory(directoryName);
+        List<String> filenames = ImageFilteredDirectory.getImageFilenamesOfDirectory(directoryName);
         Collections.sort(filenames);
         int thumbnailLength = UserSettings.getInstance().getMaxThumbnailLength();
         ImageMetadataToDatabase scanner =

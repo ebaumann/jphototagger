@@ -4,19 +4,20 @@ import de.elmar_baumann.imagemetadataviewer.database.Database;
 import de.elmar_baumann.imagemetadataviewer.event.ProgressEvent;
 import de.elmar_baumann.imagemetadataviewer.event.ProgressListener;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Löscht in der Datenbank Datensätze mit Dateien, die nicht mehr existieren.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/08/26
+ * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @version 2008-10-05
  * @see     Database#deleteNotExistingImageFiles(de.elmar_baumann.imagemetadataviewer.event.ProgressListener)
  */
 public class RecordsWithNotExistingFilesDeleter implements Runnable,
     ProgressListener {
 
     private Database db = Database.getInstance();
-    private ArrayList<ProgressListener> progressListeners = new ArrayList<ProgressListener>();
+    private List<ProgressListener> progressListeners = new ArrayList<ProgressListener>();
 
     @Override
     public void run() {

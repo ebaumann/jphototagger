@@ -18,22 +18,23 @@ import de.elmar_baumann.lib.io.FileUtil;
 import java.awt.Image;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
  * Speichert Informationen über Bilddateien in der Datenbank.
  * 
- * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/07/25
+ * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @version 2008-10-05
  */
 public class ImageMetadataToDatabase implements Runnable {
 
     private static Database db = Database.getInstance();
-    private ArrayList<ProgressListener> progressListeners = new ArrayList<ProgressListener>();
+    private List<ProgressListener> progressListeners = new ArrayList<ProgressListener>();
     private boolean stop = false;
     private int maxThumbnailLength;
-    private ArrayList<String> filenames;
+    private List<String> filenames;
     private long startTime = 0;
     private boolean forceUpdate = false;
     private boolean createThumbnails = true;
@@ -50,7 +51,7 @@ public class ImageMetadataToDatabase implements Runnable {
      *                           in Pixel für Thumbnails, die aus den Bildern
      *                           skaliert werden
      */
-    public ImageMetadataToDatabase(ArrayList<String> filenames, int maxThumbnailLength) {
+    public ImageMetadataToDatabase(List<String> filenames, int maxThumbnailLength) {
         this.filenames = filenames;
         this.maxThumbnailLength = maxThumbnailLength;
     }

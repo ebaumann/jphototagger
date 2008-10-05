@@ -5,16 +5,16 @@ import de.elmar_baumann.imagemetadataviewer.database.metadata.Column;
 import de.elmar_baumann.imagemetadataviewer.event.ProgressEvent;
 import de.elmar_baumann.imagemetadataviewer.event.ProgressListener;
 import de.elmar_baumann.imagemetadataviewer.resource.ProgressBarCurrentTasks;
+import java.util.List;
 import java.util.Stack;
-import java.util.ArrayList;
 import javax.swing.JProgressBar;
 
 /**
  * Verwaltet Threadinstanzen der Klasse
  * {@link de.elmar_baumann.imagemetadataviewer.tasks.XmpUpdaterRenameInColumns}.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/09/29
+ * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @version 2008-10-05
  */
 public class UpdaterRenameInXmpColumnsArray implements ProgressListener {
 
@@ -36,7 +36,7 @@ public class UpdaterRenameInXmpColumnsArray implements ProgressListener {
         stop = true;
     }
 
-    synchronized public void update(ArrayList<String> filenames, Column column,
+    synchronized public void update(List<String> filenames, Column column,
         String oldValue, String newValue) {
         updaters.push(new UpdaterRenameInXmpColumns(filenames, column, oldValue, newValue));
         startNextThread();

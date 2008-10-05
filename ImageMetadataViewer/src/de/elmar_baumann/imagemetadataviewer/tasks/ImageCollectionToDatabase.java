@@ -4,14 +4,14 @@ import de.elmar_baumann.imagemetadataviewer.AppSettings;
 import de.elmar_baumann.imagemetadataviewer.database.Database;
 import de.elmar_baumann.imagemetadataviewer.resource.Bundle;
 import java.text.MessageFormat;
-import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
  * Verwaltet Bildsammlungen der Datenbank.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/09/07
+ * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @version 2008-10-05
  */
 public class ImageCollectionToDatabase {
 
@@ -23,7 +23,7 @@ public class ImageCollectionToDatabase {
      * @param filenames Namen der Bilddateien
      * @return          Name der Sammlung oder null, wenn keine eingefügt wurde
      */
-    public String addImageCollection(ArrayList<String> filenames) {
+    public String addImageCollection(List<String> filenames) {
         String name = inputCollectionName(""); // NOI18N
         if (name != null && !name.isEmpty()) {
             if (!db.insertImageCollection(name, filenames)) {
@@ -42,7 +42,7 @@ public class ImageCollectionToDatabase {
      * @return               true, wenn die Bilder entfernt wurden
      */
     public boolean deleteImagesFromCollection(
-        String collectionName, ArrayList<String> filenames) {
+        String collectionName, List<String> filenames) {
         if (askDelete(collectionName,
             Bundle.getString("ImageCollectionToDatabase.ConfirmMessage.DeleteSelectedFiles"))) {
             boolean removed = db.deleteImagesFromCollection(
@@ -79,7 +79,7 @@ public class ImageCollectionToDatabase {
      * @param filenames      Hinzuzufügende Bilddateien
      * @return               true bei Erfolg
      */
-    public boolean addImagesToCollection(String collectionName, ArrayList<String> filenames) {
+    public boolean addImagesToCollection(String collectionName, List<String> filenames) {
         boolean added = db.insertImagesIntoCollection(collectionName, filenames);
         if (!added) {
             messageErrorAddImagesToCollection(collectionName);
