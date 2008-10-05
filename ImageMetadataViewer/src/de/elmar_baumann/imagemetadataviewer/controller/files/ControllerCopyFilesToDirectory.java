@@ -8,13 +8,13 @@ import de.elmar_baumann.imagemetadataviewer.view.panels.ImageFileThumbnailsPanel
 import de.elmar_baumann.imagemetadataviewer.view.popupmenus.PopupMenuPanelThumbnails;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Kontrolliert die Aktion: Ausgewählte Dateien in ein Verzeichnis kopieren.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/09/24
+ * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @version 2008-10-05
  */
 public class ControllerCopyFilesToDirectory extends Controller
     implements ActionListener {
@@ -33,7 +33,7 @@ public class ControllerCopyFilesToDirectory extends Controller
     @Override
     public void actionPerformed(ActionEvent e) {
         if (isStarted()) {
-            ArrayList<String> files = panel.getSelectedFilenames();
+            List<String> files = panel.getSelectedFilenames();
             if (files.size() > 0) {
                 CopyToDirectoryDialog dialog = new CopyToDirectoryDialog();
                 dialog.setSourceFiles(files);
