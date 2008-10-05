@@ -1,17 +1,19 @@
 package de.elmar_baumann.lib.util.logging;
 
 import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  * Ausnahme in einer Logdatei von  <code>java.util.logging.Logger</code>,
  * benutzt für Java-Exceptions und sonstigen Throwable-Objekten.
  * 
- * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 1.0 2008/08/04
+ * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @version 2008-10-05
  */
 public class LogfileRecordException {
 
-    private ArrayList<LogfileRecordFrame> logfileRecordFrames = new ArrayList<LogfileRecordFrame>();
+    private List<LogfileRecordFrame> logfileRecordFrames = new ArrayList<LogfileRecordFrame>();
     private String message;
 
     public LogfileRecordException() {
@@ -22,7 +24,7 @@ public class LogfileRecordException {
      * 
      * @return Stack-Frames
      */
-    public ArrayList<LogfileRecordFrame> getFrames() {
+    public List<LogfileRecordFrame> getFrames() {
         return logfileRecordFrames;
     }
 
@@ -31,7 +33,7 @@ public class LogfileRecordException {
      * 
      * @param logfileRecordFrames Stack-Frames
      */
-    public void setFrames(ArrayList<LogfileRecordFrame> logfileRecordFrames) {
+    public void setFrames(List<LogfileRecordFrame> logfileRecordFrames) {
         this.logfileRecordFrames = logfileRecordFrames;
     }
 

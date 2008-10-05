@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.parsers.DocumentBuilder;
@@ -24,8 +25,8 @@ import org.xml.sax.SAXException;
  * Parst Java-Logdateien <em>im XML-Format</em> geschrieben von 
  * <code>java.util.logging.Logger</code>.
  * 
- * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/08/04
+ * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @version 2008-10-05
  */
 public class LogfileParser implements EntityResolver {
 
@@ -35,8 +36,8 @@ public class LogfileParser implements EntityResolver {
      * @param filename Dateiname
      * @return         Datensätze
      */
-    public static ArrayList<LogfileRecord> parseLogfile(String filename) {
-        ArrayList<LogfileRecord> records = new ArrayList<LogfileRecord>();
+    public static List<LogfileRecord> parseLogfile(String filename) {
+        List<LogfileRecord> records = new ArrayList<LogfileRecord>();
         try {
             DocumentBuilderFactory factory =
                 DocumentBuilderFactory.newInstance();

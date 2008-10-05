@@ -1,13 +1,14 @@
 package de.elmar_baumann.lib.util.logging;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 
 /**
  * Datensatz einer Logdatei, geschrieben von <code>java.util.logging.Logger</code>.
  * 
- * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/08/04
+ * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @version 2008-10-05
  */
 public class LogfileRecord {
 
@@ -23,7 +24,7 @@ public class LogfileRecord {
     private String key;
     private String catalog;
     private LogfileRecordException exception;
-    private ArrayList<String> params;
+    private List<String> params;
 
     public LogfileRecord() {
     }
@@ -261,7 +262,7 @@ public class LogfileRecord {
      * @see    #getMessage()
      * @see    #hasParams()
      */
-    public ArrayList<String> getParams() {
+    public List<String> getParams() {
         return params;
     }
 
@@ -273,7 +274,7 @@ public class LogfileRecord {
      * @param params Parameter
      * @see          #setMessage(java.lang.String)
      */
-    public void setParams(ArrayList<String> params) {
+    public void setParams(List<String> params) {
         this.params = params;
     }
 
