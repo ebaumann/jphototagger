@@ -13,15 +13,15 @@ import de.elmar_baumann.imagemetadataviewer.resource.Panels;
 import de.elmar_baumann.imagemetadataviewer.view.panels.AppPanel;
 import de.elmar_baumann.imagemetadataviewer.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.imagemetadataviewer.view.panels.MetaDataEditPanelsArray;
-import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
 /**
  * Kontrolliert das Speichern von Metadaten.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/09/21
+ * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @version 2008-10-05
  */
 public class ControllerThumbnailSelectionEditMetadata
     extends Controller implements ThumbnailsPanelListener, DatabaseListener {
@@ -66,7 +66,7 @@ public class ControllerThumbnailSelectionEditMetadata
     }
 
     private boolean canEdit() {
-        ArrayList<String> filenames = thumbnailsPanel.getSelectedFilenames();
+        List<String> filenames = thumbnailsPanel.getSelectedFilenames();
         for (String filename : filenames) {
             if (!XmpMetadata.canWriteSidecarFile(filename)) {
                 return false;
@@ -85,10 +85,10 @@ public class ControllerThumbnailSelectionEditMetadata
 
     private void setEditPanelsContent() {
         editPanels.emptyPanels();
-        ArrayList<String> filenames = thumbnailsPanel.getSelectedFilenames();
+        List<String> filenames = thumbnailsPanel.getSelectedFilenames();
         if (filenames.size() == 1) {
             XmpMetadata xmpMetaData = new XmpMetadata();
-            ArrayList<XMPPropertyInfo> xmpPropertyInfos = xmpMetaData.getPropertyInfosOfFile(filenames.get(0));
+            List<XMPPropertyInfo> xmpPropertyInfos = xmpMetaData.getPropertyInfosOfFile(filenames.get(0));
 
             if (xmpPropertyInfos != null && xmpPropertyInfos.size() > 0) {
                 editPanels.setXmpPropertyInfos(filenames, xmpPropertyInfos);
