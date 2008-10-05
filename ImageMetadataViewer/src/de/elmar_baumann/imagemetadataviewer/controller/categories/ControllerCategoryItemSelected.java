@@ -9,6 +9,7 @@ import de.elmar_baumann.imagemetadataviewer.view.popupmenus.PopupMenuPanelThumbn
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashSet;
+import java.util.List;
 import javax.swing.JList;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -16,8 +17,8 @@ import javax.swing.event.ListSelectionListener;
 /**
  * Kontrolliert die Aktion: Ein Kategorie-Item wurde selektiert.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/09/23
+ * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @version 2008-10-05
  */
 public class ControllerCategoryItemSelected extends Controller
     implements ListSelectionListener {
@@ -45,7 +46,7 @@ public class ControllerCategoryItemSelected extends Controller
     private void setFilenamesToThumbnailPanel() {
         String category = (String) listCategories.getSelectedValue();
         LinkedHashSet<String> filenames = db.getFilenamesOfCategory(category);
-        ArrayList<String> filenamesArray = new ArrayList<String>(filenames);
+        List<String> filenamesArray = new ArrayList<String>(filenames);
         Collections.sort(filenamesArray);
         thumbnailsPanel.setFilenames(filenamesArray);
         PopupMenuPanelThumbnails.getInstance().setIsImageCollection(false);
