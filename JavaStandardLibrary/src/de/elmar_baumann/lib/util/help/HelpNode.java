@@ -1,20 +1,21 @@
 package de.elmar_baumann.lib.util.help;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Stack;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Node in the applications help file tree structure. A node is a chapter
  * with help pages and subchapters.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/10/02
+ * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @version 2008-10-05
  */
 public class HelpNode {
 
     private String title;
-    private ArrayList<Object> children = new ArrayList<Object>();
+    private List<Object> children = new ArrayList<Object>();
     private HelpNode parent;
 
     /**
@@ -102,12 +103,12 @@ public class HelpNode {
      * @return path or null if a page with the URL doesn't exist
      */
     public Object[] getPagePath(String url) {
-        ArrayList<Object> found = new ArrayList<Object>();
+        List<Object> found = new ArrayList<Object>();
         findPath(url, found);
         return found.size() > 0 ? found.toArray() : null;
     }
 
-    private void findPath(String url, ArrayList<Object> found) {
+    private void findPath(String url, List<Object> found) {
         int size = children.size();
         for (int i = 0; found.size() <= 0 && i < size; i++) {
             Object child = children.get(i);
