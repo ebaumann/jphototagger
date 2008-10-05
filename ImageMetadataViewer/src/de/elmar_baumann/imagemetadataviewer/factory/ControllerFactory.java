@@ -42,6 +42,7 @@ import de.elmar_baumann.imagemetadataviewer.controller.thumbnail.ControllerDelet
 import de.elmar_baumann.imagemetadataviewer.controller.thumbnail.ControllerRenameInXmpColumns;
 import de.elmar_baumann.imagemetadataviewer.controller.thumbnail.ControllerRotateThumbnail;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Erzeugt alle Controller.
@@ -51,7 +52,7 @@ import java.util.ArrayList;
  */
 public class ControllerFactory {
 
-    private ArrayList<Controller> controllers = new ArrayList<Controller>();
+    private List<Controller> controllers = new ArrayList<Controller>();
     private ControllerArrayScheduledTasks controllerScheduledTasks;
     private static ControllerFactory instance = new ControllerFactory();
 
