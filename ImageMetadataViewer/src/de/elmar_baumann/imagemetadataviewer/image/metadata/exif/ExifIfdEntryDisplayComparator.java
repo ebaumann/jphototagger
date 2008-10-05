@@ -1,9 +1,10 @@
 package de.elmar_baumann.imagemetadataviewer.image.metadata.exif;
 
 import com.imagero.reader.tiff.IFDEntry;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Vergleicht IFDEntries zum Sortieren für die Anzeige.
@@ -14,7 +15,7 @@ import java.util.ArrayList;
 public class ExifIfdEntryDisplayComparator implements Comparator<IFDEntry> {
 
     private static HashMap<Integer, Integer> orderOfTagValue = new HashMap<Integer, Integer>();
-    private static ArrayList<Integer> tagValues = new ArrayList<Integer>(30);
+    private static List<Integer> tagValues = new ArrayList<Integer>(30);
     
     static {
         // So kann später leicht umsortiert werden

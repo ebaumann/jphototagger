@@ -17,12 +17,13 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Enumeration;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.StringTokenizer;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -35,7 +36,7 @@ import java.util.logging.Logger;
 public class ExifMetadata {
 
     private static HashMap<String, Double> rotationAngleOfString = new HashMap<String, Double>();
-    private static ArrayList<Integer> tagsToDisplay = new ArrayList<Integer>();
+    private static List<Integer> tagsToDisplay = new ArrayList<Integer>();
 
     /**
      * Liefert die EXIF-Metadaten einer Datei.
@@ -43,11 +44,11 @@ public class ExifMetadata {
      * @param filename Dateiname
      * @return         Metadaten oder null bei Lesefehlern
      */
-    public ArrayList<IFDEntry> getMetadata(String filename) {
+    public List<IFDEntry> getMetadata(String filename) {
         if (!FileUtil.existsFile(filename)) {
             return null;
         }
-        ArrayList<IFDEntry> metadata = new ArrayList<IFDEntry>();
+        List<IFDEntry> metadata = new ArrayList<IFDEntry>();
         try {
             addIFDEntries(filename, metadata);
         } catch (IOException ex) {
@@ -60,7 +61,7 @@ public class ExifMetadata {
         return metadata;
     }
 
-    private static void addIFDEntries(String filename, ArrayList<IFDEntry> metadata) throws IOException {
+    private static void addIFDEntries(String filename, List<IFDEntry> metadata) throws IOException {
         File file = new File(filename);
         if (FileType.isJpegFile(filename)) {
             JpegReader reader = new JpegReader(file);
@@ -83,7 +84,7 @@ public class ExifMetadata {
     }
 
     private static void addIfdEntriesOfDirectory(ImageFileDirectory ifd,
-        ArrayList<IFDEntry> metadata) {
+        List<IFDEntry> metadata) {
         int entryCount = ifd.getEntryCount();
         for (int i = 0; i < entryCount; i++) {
             IFDEntry ifdEntry = ifd.getEntryAt(i);
@@ -116,7 +117,7 @@ public class ExifMetadata {
      * @param tag     Tag
      * @return        Erster passender Entry oder null, falls nicht gefunden
      */
-    public static IFDEntry findEntryWithTag(ArrayList<IFDEntry> entries, int tag) {
+    public static IFDEntry findEntryWithTag(List<IFDEntry> entries, int tag) {
         for (IFDEntry entry : entries) {
             if (entry.getTag() == tag) {
                 return entry;
@@ -132,7 +133,7 @@ public class ExifMetadata {
      * @param entries EXIF-Metadaten eines Bilds
      * @return        Drehwinkel im Uhrzeigersinn
      */
-    public double getThumbnailRotationAngle(ArrayList<IFDEntry> entries) {
+    public double getThumbnailRotationAngle(List<IFDEntry> entries) {
         IFDEntry entry = findEntryWithTag(entries, 274);
         if (entry != null) {
             initRotationAngleMap();
@@ -164,8 +165,8 @@ public class ExifMetadata {
      * @param entries Beliebige Entries
      * @return        Entries aus entries, die angezeigt werden sollen
      */
-    public static ArrayList<IFDEntry> getDisplayableMetadata(ArrayList<IFDEntry> entries) {
-        ArrayList<IFDEntry> displayableEntries = new ArrayList<IFDEntry>(entries.size());
+    public static List<IFDEntry> getDisplayableMetadata(List<IFDEntry> entries) {
+        List<IFDEntry> displayableEntries = new ArrayList<IFDEntry>(entries.size());
         initTagsToDisplay();
         for (IFDEntry entry : entries) {
             if (isTagToDisplay(entry.getEntryMeta().getTag())) {
@@ -204,7 +205,7 @@ public class ExifMetadata {
         }
     }
 
-    private static boolean contains(ArrayList<IFDEntry> entries, IFDEntry entry) {
+    private static boolean contains(List<IFDEntry> entries, IFDEntry entry) {
         ExifIfdEntryComparator comparator = new ExifIfdEntryComparator();
         for (IFDEntry e : entries) {
             if (comparator.compare(e, entry) == 0) {
@@ -313,7 +314,7 @@ public class ExifMetadata {
     public static Exif getExif(String filename) {
         Exif exif = null;
         ExifMetadata exifMetadata = new ExifMetadata();
-        ArrayList<IFDEntry> exifEntries = exifMetadata.getMetadata(filename);
+        List<IFDEntry> exifEntries = exifMetadata.getMetadata(filename);
         if (exifEntries != null) {
             exif = new Exif();
             IFDEntry dateTimeOriginalEntry = ExifMetadata.findEntryWithTag(exifEntries, ExifTag.DateTimeOriginal.getId());
