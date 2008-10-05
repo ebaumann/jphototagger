@@ -1,17 +1,19 @@
 package de.elmar_baumann.lib.persistence;
 
 import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  * Hinweise für die Klasse {@link PersistentSettings}.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/08/30
+ * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @version 2008-10-05
  * @see     de.elmar_baumann.lib.persistence.PersistentSettings
  */
 public class PersistentSettingsHints {
 
-    private ArrayList<String> excludedMembers = new ArrayList<String>();
+    private List<String> excludedMembers = new ArrayList<String>();
     private boolean setComboBoxContent = false;
     private boolean setListContent = false;
     private String keyPostfix = ""; // NOI18N
