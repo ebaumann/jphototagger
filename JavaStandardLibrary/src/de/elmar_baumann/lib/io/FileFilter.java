@@ -1,19 +1,20 @@
 package de.elmar_baumann.lib.io;
 
 import java.io.File;
-import java.util.StringTokenizer;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.StringTokenizer;
 
 /**
  * Filter für Dateien, Verzeichnisse werden abgelehnt. Akzeptiert
  * reguläre Ausdrücke als Match-Pattern.
  * 
- * @author Elmar Baumann <eb@elmar-baumann.de>
- * @version 2007/09/10
+ * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @version 2008-10-05
  */
 public class FileFilter implements java.io.FileFilter {
 
-    private ArrayList<String> acceptedPatterns = new ArrayList<String>();
+    private List<String> acceptedPatterns = new ArrayList<String>();
 
     /**
      * Konstruktor zum späteren Hinzufügen von akzeptierten Match-Pattern.

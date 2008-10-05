@@ -3,17 +3,18 @@ package de.elmar_baumann.lib.io;
 import de.elmar_baumann.lib.resource.Bundle;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Alle Wurzelverzeichnisse des Systems für ein DirectoryTreeModel.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/07/24
+ * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @version 2008-10-05
  * @see     de.elmar_baumann.lib.model.TreeModelDirectories
  */
 public class DirectoryTreeModelRoots {
 
-    private ArrayList<DirectoryTreeModelFile> roots = new ArrayList<DirectoryTreeModelFile>();
+    private List<DirectoryTreeModelFile> roots = new ArrayList<DirectoryTreeModelFile>();
 
     public DirectoryTreeModelRoots() {
         init();

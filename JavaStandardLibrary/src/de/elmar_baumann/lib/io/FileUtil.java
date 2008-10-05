@@ -6,18 +6,18 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.nio.channels.FileChannel;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Stack;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
  * Utils für Dateien.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/08/21
+ * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @version 2008-10-05
  */
 public class FileUtil {
 
@@ -203,8 +203,8 @@ public class FileUtil {
      * @param  directory  Verzeichnis
      * @return Unterverzeichnisse
      */
-    public static ArrayList<File> getSubDirectories(File directory) {
-        ArrayList<File> directories = new ArrayList<File>();
+    public static List<File> getSubDirectories(File directory) {
+        List<File> directories = new ArrayList<File>();
         if (directory.isDirectory()) {
             File[] dirs = directory.listFiles(new DirectoryFilter());
             if (dirs != null && dirs.length > 0) {
@@ -220,9 +220,9 @@ public class FileUtil {
      * @param  directoryName  Verzeichnisname
      * @return Namen der Unterverzeichnisse
      */
-    public static ArrayList<String> getSubDirectoryNames(String directoryName) {
-        ArrayList<File> directories = getSubDirectories(new File(directoryName));
-        ArrayList<String> subdirectories = new ArrayList<String>();
+    public static List<String> getSubDirectoryNames(String directoryName) {
+        List<File> directories = getSubDirectories(new File(directoryName));
+        List<String> subdirectories = new ArrayList<String>();
         for (File directory : directories) {
             subdirectories.add(directory.getAbsolutePath());
         }
@@ -236,15 +236,15 @@ public class FileUtil {
      * @param  directory  Verzeichnis
      * @return Unterverzeichnisse
      */
-    public static ArrayList<File> getAllSubDirectories(File directory) {
-        ArrayList<File> directories = new ArrayList<File>();
+    public static List<File> getAllSubDirectories(File directory) {
+        List<File> directories = new ArrayList<File>();
         if (directory.isDirectory()) {
             File[] subdirectories = directory.listFiles(new DirectoryFilter());
             if (subdirectories != null && subdirectories.length > 0) {
                 List<File> subdirectoriesList = Arrays.asList(subdirectories);
                 for (File dir : subdirectoriesList) {
                     directories.add(dir);
-                    ArrayList<File> subdirectoriesSubDirs = getAllSubDirectories(
+                    List<File> subdirectoriesSubDirs = getAllSubDirectories(
                         dir);
                     directories.addAll(subdirectoriesSubDirs);
                 }
@@ -262,9 +262,9 @@ public class FileUtil {
      * @param  directoryName  Verzeichnisname
      * @return Namen der Unterverzeichnisse
      */
-    public static ArrayList<String> getAllSubDirectoryNames(String directoryName) {
-        ArrayList<File> directories = getAllSubDirectories(new File(directoryName));
-        ArrayList<String> subdirectories = new ArrayList<String>();
+    public static List<String> getAllSubDirectoryNames(String directoryName) {
+        List<File> directories = getAllSubDirectories(new File(directoryName));
+        List<String> subdirectories = new ArrayList<String>();
         for (File directory : directories) {
             subdirectories.add(directory.getAbsolutePath());
         }
@@ -306,8 +306,8 @@ public class FileUtil {
      * @param files Dateien
      * @return      Pfadnamen
      */
-    public static ArrayList<String> getAbsolutePathnames(ArrayList<File> files) {
-        ArrayList<String> pathnames = new ArrayList<String>(files.size());
+    public static List<String> getAbsolutePathnames(List<File> files) {
+        List<String> pathnames = new ArrayList<String>(files.size());
         for (File file : files) {
             pathnames.add(file.getAbsolutePath());
         }
