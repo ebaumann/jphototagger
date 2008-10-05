@@ -3,7 +3,9 @@ package de.elmar_baumann.imagemetadataviewer.data;
 import de.elmar_baumann.imagemetadataviewer.UserSettings;
 import de.elmar_baumann.imagemetadataviewer.database.Database;
 import de.elmar_baumann.imagemetadataviewer.database.metadata.Column;
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.List;
 
 /**
  * Model für Autocomplete.
@@ -63,5 +65,9 @@ public class AutoCompleteData {
      */
     public Object[] toArray() {
         return content.toArray();
+    }
+
+    public List<String> toList() {
+        return new ArrayList<String>(content);
     }
 }

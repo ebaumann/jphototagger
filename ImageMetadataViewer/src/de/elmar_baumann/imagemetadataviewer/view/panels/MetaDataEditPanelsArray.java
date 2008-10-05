@@ -13,7 +13,6 @@ import de.elmar_baumann.imagemetadataviewer.event.MetaDataEditPanelEvent;
 import de.elmar_baumann.imagemetadataviewer.event.MetaDataEditPanelListener;
 import de.elmar_baumann.imagemetadataviewer.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.lib.component.TabLeavingTextArea;
-import de.elmar_baumann.lib.component.text.MaxLengthDocument;
 import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -26,8 +25,6 @@ import java.util.List;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.text.Document;
-import javax.swing.text.PlainDocument;
 
 /**
  * Panels mit Edit-Feldern zum Bearbeiten von Metadaten.
@@ -232,23 +229,13 @@ public class MetaDataEditPanelsArray implements FocusListener {
 
             if (size.equals(SizeEditField.large)) {
                 TextEntryEditAreaPanel panel = new TextEntryEditAreaPanel(column);
-                panel.textAreaEdit.setDocument(getDocument(column, editHints));
                 panel.textAreaEdit.addFocusListener(this);
                 panels.add(panel);
             } else {
                 TextEntryEditFieldPanel panel = new TextEntryEditFieldPanel(column);
-                panel.textFieldEdit.setDocument(getDocument(column, editHints));
                 panel.textFieldEdit.addFocusListener(this);
                 panels.add(panel);
             }
-        }
-    }
-
-    private Document getDocument(Column column, EditHints editHints) {
-        if (editHints.isRepeatable()) {
-            return new PlainDocument();
-        } else {
-            return new MaxLengthDocument(column.getLength());
         }
     }
 

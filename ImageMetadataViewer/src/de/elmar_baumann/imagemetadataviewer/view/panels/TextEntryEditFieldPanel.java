@@ -5,9 +5,8 @@ import de.elmar_baumann.imagemetadataviewer.data.AutoCompleteData;
 import de.elmar_baumann.imagemetadataviewer.data.TextEntry;
 import de.elmar_baumann.imagemetadataviewer.database.metadata.Column;
 import de.elmar_baumann.imagemetadataviewer.resource.Bundle;
-import de.elmar_baumann.lib.thirdparty.neil_cochrane.CompleterTextField;
 import java.util.LinkedHashSet;
-import javax.swing.JTextField;
+import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 /**
  * Panel zum Eingeben einzeiliger Texte.
@@ -25,6 +24,7 @@ public class TextEntryEditFieldPanel extends javax.swing.JPanel
         this.xmpColumn = xmpColumn;
         initComponents();
         setPropmt();
+        setAutocomplete(xmpColumn);
     }
 
     @Override
@@ -34,19 +34,21 @@ public class TextEntryEditFieldPanel extends javax.swing.JPanel
 
     @Override
     public void setText(String text) {
-        // Sonderbehandlung wegen Autocomplete
-        textFieldEdit.selectAll();
-        if (text.isEmpty()) {
-            textFieldEdit.setText(isAutocomplete ? " " : ""); // NOI18N
-            textFieldEdit.selectAll();
-        } else {
-            textFieldEdit.setText(text.trim());
-        }
+        textFieldEdit.setText(text.trim());
     }
 
     @Override
     public Column getColumn() {
         return xmpColumn;
+    }
+
+    private void setAutocomplete(Column xmpColumn) {
+        if (isAutocomplete) {
+            AutoCompleteDecorator.decorate(
+                textFieldEdit,
+                new AutoCompleteData(xmpColumn).toList(),
+                false);
+        }
     }
 
     private void setPropmt() {
@@ -85,7 +87,7 @@ public class TextEntryEditFieldPanel extends javax.swing.JPanel
         java.awt.GridBagConstraints gridBagConstraints;
 
         labelPrompt = new javax.swing.JLabel();
-        textFieldEdit = isAutocomplete ? new CompleterTextField(new AutoCompleteData(getColumnHashSet()).toArray(), false) : new JTextField();
+        textFieldEdit = new javax.swing.JTextField();
 
         setLayout(new java.awt.GridBagLayout());
 

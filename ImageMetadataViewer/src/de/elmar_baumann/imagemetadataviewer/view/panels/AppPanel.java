@@ -1,6 +1,5 @@
 package de.elmar_baumann.imagemetadataviewer.view.panels;
 
-import de.elmar_baumann.lib.thirdparty.neil_cochrane.CompleterTextField;
 import de.elmar_baumann.imagemetadataviewer.AppSettings;
 import de.elmar_baumann.lib.renderer.TreeCellRendererDirectories;
 import de.elmar_baumann.imagemetadataviewer.UserSettings;
@@ -24,6 +23,7 @@ import javax.swing.JTextField;
 import javax.swing.JTree;
 import javax.swing.JViewport;
 import javax.swing.tree.TreeSelectionModel;
+import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 /**
  * Panel der Anwendung.
@@ -51,6 +51,7 @@ public class AppPanel extends javax.swing.JPanel {
         setBackgroundColorTablesScrollPanes();
         disableTreeMultipleSelection();
         initArrays();
+        setAutocomplete();
     }
 
     private void initArrays() {
@@ -252,6 +253,15 @@ public class AppPanel extends javax.swing.JPanel {
         selectionLists.add(listFavoriteDirectories);
     }
 
+    private void setAutocomplete() {
+        if (UserSettings.getInstance().isUseAutocomplete()) {
+            AutoCompleteDecorator.decorate(
+                textFieldSearch,
+                new AutoCompleteData().toList(),
+                false);
+        }
+    }
+
     private void setBackgroundColorTablesScrollPanes() {
         for (JTable table : metaDataTables) {
             Container container = table.getParent();
@@ -395,7 +405,7 @@ public class AppPanel extends javax.swing.JPanel {
         buttonStopScheduledTasks = new javax.swing.JButton();
         panelStatusbar = new javax.swing.JPanel();
         labelStatusbar = new javax.swing.JLabel();
-        textFieldSearch = UserSettings.getInstance().isUseAutocomplete() ? new CompleterTextField(new AutoCompleteData().toArray(), false) : new JTextField();
+        textFieldSearch = new javax.swing.JTextField();
         progressBarCreateMetaDataOfCurrentThumbnails = new javax.swing.JProgressBar();
         buttonLogfileDialog = new javax.swing.JButton();
         buttonAdvanedSearch = new javax.swing.JButton();

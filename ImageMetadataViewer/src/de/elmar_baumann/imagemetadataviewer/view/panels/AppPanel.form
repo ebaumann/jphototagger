@@ -1212,9 +1212,6 @@
               <ResourceString bundle="de/elmar_baumann/imagemetadataviewer/resource/Bundle.properties" key="AppPanel.textFieldSearch.toolTipText" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
             </Property>
           </Properties>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="UserSettings.getInstance().isUseAutocomplete() ? new CompleterTextField(new AutoCompleteData().toArray(), false) : new JTextField()"/>
-          </AuxValues>
         </Component>
         <Component class="javax.swing.JProgressBar" name="progressBarCreateMetaDataOfCurrentThumbnails">
           <Properties>
