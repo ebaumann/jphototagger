@@ -20,8 +20,9 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.net.URL;
-import java.util.LinkedList;
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.event.HyperlinkEvent;
@@ -35,8 +36,8 @@ import javax.swing.tree.TreeSelectionModel;
  * Browser for HTML help files. Usually those are packaged with the application
  * in a JAR file.
  * 
- * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/08/25
+ * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @version 2008-10-05
  */
 public class HelpBrowser extends javax.swing.JFrame
     implements ActionListener, HyperlinkListener, MouseListener, TreeSelectionListener {
@@ -47,7 +48,7 @@ public class HelpBrowser extends javax.swing.JFrame
     private PopupMenu popupMenu;
     private final String actionPrevious = Bundle.getString("HelpBrowser.Action.Previous");
     private final String actionNext = Bundle.getString("HelpBrowser.Action.Next");
-    private ArrayList<HelpBrowserListener> actionListeners = new ArrayList<HelpBrowserListener>();
+    private List<HelpBrowserListener> actionListeners = new ArrayList<HelpBrowserListener>();
     private MenuItem itemPrevious;
     private MenuItem itemNext;
     private String startUrl;

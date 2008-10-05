@@ -7,8 +7,9 @@ import de.elmar_baumann.lib.persistence.PersistentAppSizes;
 import de.elmar_baumann.lib.resource.Bundle;
 import de.elmar_baumann.lib.resource.Settings;
 import java.io.File;
-import java.util.Stack;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Stack;
 import javax.swing.JOptionPane;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
@@ -16,8 +17,8 @@ import javax.swing.tree.TreeSelectionModel;
 /**
  * Verzeichnisauswahldialog.
  * 
- * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/07/25
+ * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @version 2008-10-05
  */
 public class DirectoryChooser extends javax.swing.JDialog {
 
@@ -104,8 +105,8 @@ public class DirectoryChooser extends javax.swing.JDialog {
      * 
      * @return Verzeichnisse
      */
-    public ArrayList<File> getSelectedDirectories() {
-        ArrayList<File> files = new ArrayList<File>();
+    public List<File> getSelectedDirectories() {
+        List<File> files = new ArrayList<File>();
         TreePath[] paths = treeDirectories.getSelectionPaths();
         if (paths != null) {
             for (int index = 0; index < paths.length; index++) {

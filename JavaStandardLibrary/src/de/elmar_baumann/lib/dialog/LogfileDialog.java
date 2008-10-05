@@ -20,9 +20,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.text.MessageFormat;
-import java.util.HashMap;
-import java.util.Set;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Set;
 import java.util.logging.Formatter;
 import java.util.logging.Handler;
 import java.util.logging.Level;
@@ -41,19 +42,19 @@ import javax.swing.text.html.HTMLDocument;
  * <code>java.util.logging.Logger</code>-Objekt. Das XML-Format muss validieren
  * gegen die <code>logger.dtd</code>.
  * 
- * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/08/03
+ * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @version 2008-10-05
  */
 public class LogfileDialog extends javax.swing.JDialog implements
     ListSelectionListener, ActionListener {
 
     String logfilename;
     HashMap<JCheckBox, Level> levelOfCheckBox = new HashMap<JCheckBox, Level>();
-    ArrayList<Level> visibleLevels = new ArrayList<Level>();
+    List<Level> visibleLevels = new ArrayList<Level>();
     static final private long criticalLogfileSizeInBytes = 10 * 1024 * 1024;
     private String filterString;
     private final ImageIcon iconReload = IconUtil.getImageIcon("/de/elmar_baumann/lib/resource/icon_reload.png"); // NOI18N
-    private ArrayList<LogfileRecord> logfileRecords;
+    private List<LogfileRecord> logfileRecords;
     private Class formatterClass;
     private HashMap<Class, Integer> paneIndexOfFormatterClass = new HashMap<Class, Integer>();
 
@@ -252,7 +253,7 @@ public class LogfileDialog extends javax.swing.JDialog implements
         if (ex != null) {
             addDetailExceptionMessage(ex, stringBuffer);
             stringBuffer.append("\n<pre>"); // NOI18N
-            ArrayList<LogfileRecordFrame> frames = ex.getFrames();
+            List<LogfileRecordFrame> frames = ex.getFrames();
             for (LogfileRecordFrame frame : frames) {
                 stringBuffer.append("\n" + frame.getClassName() + ":"); // NOI18N
                 stringBuffer.append(" " + frame.getMethodName()); // NOI18N
