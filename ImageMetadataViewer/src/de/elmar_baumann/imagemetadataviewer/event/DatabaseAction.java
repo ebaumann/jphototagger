@@ -2,7 +2,7 @@ package de.elmar_baumann.imagemetadataviewer.event;
 
 import de.elmar_baumann.imagemetadataviewer.data.ImageFile;
 import de.elmar_baumann.imagemetadataviewer.data.SavedSearch;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Beobachtet die Datenbank.
@@ -116,7 +116,7 @@ public class DatabaseAction {
     };
     private ImageFile imageFileData;
     private SavedSearch savedSerachData;
-    private ArrayList<String> filenames;
+    private List<String> filenames;
     private String filename;
     private Type type;
 
@@ -163,7 +163,7 @@ public class DatabaseAction {
      * 
      * @return Dateinamen oder null bei ungültigen Aktionen
      */
-    public ArrayList<String> getFilenames() {
+    public List<String> getFilenames() {
         return filenames;
     }
 
@@ -172,7 +172,7 @@ public class DatabaseAction {
      * 
      * @param filenames Dateinamen
      */
-    public void setFilenames(ArrayList<String> filenames) {
+    public void setFilenames(List<String> filenames) {
         this.filenames = filenames;
     }
 
