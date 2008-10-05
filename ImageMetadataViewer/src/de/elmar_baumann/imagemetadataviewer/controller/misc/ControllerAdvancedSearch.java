@@ -15,15 +15,15 @@ import de.elmar_baumann.imagemetadataviewer.view.popupmenus.PopupMenuPanelThumbn
 import de.elmar_baumann.lib.componentutil.TreeUtil;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JTree;
 
 /**
  * Kontrolliert die Aktionen: Erweiterter Suchdialog soll angezeigt werden sowie
  * eine Suche soll durchgeführt werden, ausgelöst vom Suchdialog.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/09/11
+ * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @version 2008-10-05
  */
 public class ControllerAdvancedSearch extends Controller
     implements ActionListener, SearchListener {
@@ -31,7 +31,7 @@ public class ControllerAdvancedSearch extends Controller
     private Database db = Database.getInstance();
     private AppPanel appPanel = Panels.getInstance().getAppPanel();
     private ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelImageFileThumbnails();
-    private ArrayList<JTree> selectionTrees = appPanel.getSelectionTrees();
+    private List<JTree> selectionTrees = appPanel.getSelectionTrees();
     private AdvancedSearchDialog dialogAdvancedSearch = AdvancedSearchDialog.getInstance();
 
     public ControllerAdvancedSearch() {
@@ -73,7 +73,8 @@ public class ControllerAdvancedSearch extends Controller
 
     private void search(ParamStatement stmt) {
         TreeUtil.clearSelection(selectionTrees);
-        ArrayList<String> filenames = db.searchFilenames(stmt);
+        List<String> filenames = db.searchFilenames(stmt);
+
         thumbnailsPanel.setFilenames(filenames);
         PopupMenuPanelThumbnails.getInstance().setIsImageCollection(false);
     }
