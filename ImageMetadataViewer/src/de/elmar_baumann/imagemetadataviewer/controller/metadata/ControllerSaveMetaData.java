@@ -9,7 +9,6 @@ import de.elmar_baumann.imagemetadataviewer.view.panels.MetaDataEditPanelsArray;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
-import java.util.ArrayList;
 import javax.swing.JButton;
 
 /**
