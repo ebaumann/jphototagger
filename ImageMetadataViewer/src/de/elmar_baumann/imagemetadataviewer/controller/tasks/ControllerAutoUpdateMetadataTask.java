@@ -6,8 +6,9 @@ import de.elmar_baumann.imagemetadataviewer.controller.Controller;
 import de.elmar_baumann.imagemetadataviewer.event.TaskListener;
 import de.elmar_baumann.imagemetadataviewer.tasks.ImageMetadataToDatabaseArray;
 import de.elmar_baumann.lib.io.FileUtil;
-import java.util.Collections;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import javax.swing.JProgressBar;
 
 /**
@@ -18,8 +19,8 @@ import javax.swing.JProgressBar;
  * Ermittelt werden die Verzeichnisse durch
  * {@link de.elmar_baumann.imagemetadataviewer.UserSettings#getAutoscanDirectories()}.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/09/14
+ * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @version 2008-10-05
  */
 public class ControllerAutoUpdateMetadataTask extends Controller
     implements TaskListener {
@@ -27,8 +28,8 @@ public class ControllerAutoUpdateMetadataTask extends Controller
     private JProgressBar progressBar;
     private boolean onlyTextMetadata = false;
     private ImageMetadataToDatabaseArray updaterArray;
-    private ArrayList<String> systemDirectoryPatterns = new ArrayList<String>();
-    private ArrayList<TaskListener> taskListeners = new ArrayList<TaskListener>();
+    private List<String> systemDirectoryPatterns = new ArrayList<String>();
+    private List<TaskListener> taskListeners = new ArrayList<TaskListener>();
 
     /**
      * Konstruktor.
@@ -76,7 +77,7 @@ public class ControllerAutoUpdateMetadataTask extends Controller
 
     private void startScan() {
         updaterArray.start();
-        ArrayList<String> directories = getDirectoryNames();
+        List<String> directories = getDirectoryNames();
         if (!directories.isEmpty()) {
             for (String directory : directories) {
                 if (!isSystemDirectory(directory)) {
@@ -86,9 +87,9 @@ public class ControllerAutoUpdateMetadataTask extends Controller
         }
     }
 
-    private ArrayList<String> getDirectoryNames() {
-        ArrayList<String> directories = UserSettings.getInstance().getAutoscanDirectories();
-        ArrayList<String> subdirectories = new ArrayList<String>();
+    private List<String> getDirectoryNames() {
+        List<String> directories = UserSettings.getInstance().getAutoscanDirectories();
+        List<String> subdirectories = new ArrayList<String>();
         if (UserSettings.getInstance().isAutoscanIncludeSubdirectories()) {
             for (String directory : directories) {
                 subdirectories.addAll(FileUtil.getAllSubDirectoryNames(directory));
