@@ -2,21 +2,22 @@ package de.elmar_baumann.lib.model;
 
 import de.elmar_baumann.lib.util.logging.LogfileRecord;
 import de.elmar_baumann.lib.resource.Bundle;
-import java.util.Date;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import javax.swing.table.DefaultTableModel;
 
 /**
  * Datensätze mit ausgewählten Spalten einer Logdatei.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 1.0 2008/08/04
+ * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @version 2008-10-05
  */
 public class TableModelLogfiles extends DefaultTableModel {
 
-    private ArrayList<LogfileRecord> records = new ArrayList<LogfileRecord>();
-    private ArrayList<Level> visibleLevels = new ArrayList<Level>();
+    private List<LogfileRecord> records = new ArrayList<LogfileRecord>();
+    private List<Level> visibleLevels = new ArrayList<Level>();
     private String filter = ""; // NOI18N
 
     public TableModelLogfiles() {
@@ -40,7 +41,7 @@ public class TableModelLogfiles extends DefaultTableModel {
      * 
      * @param levels Anzuzeigende Level
      */
-    public void setVisibleLevels(ArrayList<Level> levels) {
+    public void setVisibleLevels(List<Level> levels) {
         visibleLevels = levels;
     }
 
@@ -51,7 +52,7 @@ public class TableModelLogfiles extends DefaultTableModel {
      */
     public void addRecord(LogfileRecord record) {
         if ((visibleLevels.contains(Level.ALL) || visibleLevels.contains(record.getLevel())) && (filter.isEmpty() || record.contains(filter))) {
-            ArrayList<Object> row = new ArrayList<Object>();
+            List<Object> row = new ArrayList<Object>();
             row.add(record.getLevel());
             row.add(new Date(record.getMillis()));
             String message = record.getMessage();
@@ -59,7 +60,7 @@ public class TableModelLogfiles extends DefaultTableModel {
                 ? Bundle.getString("TableModelLogfiles.ErrorMessage.MessageIsNull")
                 : message);
             records.add(record);
-            addRow(row.toArray());
+            addRow(row.toArray(new Object[row.size()]));
         }
     }
 
@@ -84,7 +85,7 @@ public class TableModelLogfiles extends DefaultTableModel {
      * 
      * @param records Datensätze
      */
-    public void setRecords(ArrayList<LogfileRecord> records) {
+    public void setRecords(List<LogfileRecord> records) {
         clear();
         for (LogfileRecord record : records) {
             addRecord(record);

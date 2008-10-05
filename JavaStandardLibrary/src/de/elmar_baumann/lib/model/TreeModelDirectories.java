@@ -4,7 +4,8 @@ import de.elmar_baumann.lib.io.DirectoryTreeModelFile;
 import de.elmar_baumann.lib.io.DirectoryTreeModelFile.SortType;
 import de.elmar_baumann.lib.io.DirectoryTreeModelRoots;
 import java.util.HashMap;
-import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import javax.swing.event.TreeModelListener;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
@@ -13,13 +14,13 @@ import javax.swing.tree.TreePath;
  * Model für Verzeichnisse ohne Dateien (Verzeichnisauswahl).
  * Stellt alle Wurzelverzeichnisse des Systems dar.
  * 
- * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/07/23
+ * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @version 2008-10-05
  */
 public class TreeModelDirectories implements TreeModel {
 
     private DirectoryTreeModelRoots root = new DirectoryTreeModelRoots();
-    private HashMap<DirectoryTreeModelFile, ArrayList<DirectoryTreeModelFile>> childrenOfParent = new HashMap<DirectoryTreeModelFile, ArrayList<DirectoryTreeModelFile>>();
+    private Map<DirectoryTreeModelFile, List<DirectoryTreeModelFile>> childrenOfParent = new HashMap<DirectoryTreeModelFile, List<DirectoryTreeModelFile>>();
 
     public TreeModelDirectories() {
         init();
@@ -56,12 +57,12 @@ public class TreeModelDirectories implements TreeModel {
         if (parent.equals(root)) {
             return root.getChildCount();
         }
-        ArrayList<DirectoryTreeModelFile> children = childrenOfParent.get(parent);
+        List<DirectoryTreeModelFile> children = childrenOfParent.get(parent);
         if (children != null) {
             return children.size();
         }
         DirectoryTreeModelFile p = (DirectoryTreeModelFile) parent;
-        ArrayList<DirectoryTreeModelFile> subdirectories = p.getSubDirectories(SortType.ascendingNoCase);
+        List<DirectoryTreeModelFile> subdirectories = p.getSubDirectories(SortType.ascendingNoCase);
         childrenOfParent.put(p, subdirectories);
         return subdirectories.size();
     }
