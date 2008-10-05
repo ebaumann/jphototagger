@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JCheckBox;
 import javax.swing.JList;
 import javax.swing.ListCellRenderer;
@@ -19,13 +20,13 @@ import javax.swing.border.EmptyBorder;
  * Liste mit Checkboxes. Als Inhalt des Models werden Objekte des Typs
  * <code>JCheckBox</code> erwartet!
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/07/29
+ * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @version 2008-10-05
  */
 public class CheckList extends JList {
 
     private static Border noFocusBorder = new EmptyBorder(1, 1, 1, 1);
-    private ArrayList<ActionListener> actionListeners = new ArrayList<ActionListener>();
+    private List<ActionListener> actionListeners = new ArrayList<ActionListener>();
 
     public CheckList() {
         setCellRenderer(new CellRenderer());
@@ -97,8 +98,8 @@ public class CheckList extends JList {
      * 
      * @return Items
      */
-    public ArrayList<JCheckBox> getSelectedItems() {
-        ArrayList<JCheckBox> items = new ArrayList<JCheckBox>();
+    public List<JCheckBox> getSelectedItems() {
+        List<JCheckBox> items = new ArrayList<JCheckBox>();
         ListModel model = getModel();
         int count = model.getSize();
         for (int index = 0; index < count; index++) {
@@ -116,8 +117,8 @@ public class CheckList extends JList {
      * 
      * @return Indizes
      */
-    public ArrayList<Integer> getSelectedItemIndices() {
-        ArrayList<Integer> indices = new ArrayList<Integer>();
+    public List<Integer> getSelectedItemIndices() {
+        List<Integer> indices = new ArrayList<Integer>();
         ListModel model = getModel();
         int count = model.getSize();
         for (int index = 0; index < count; index++) {
@@ -133,9 +134,9 @@ public class CheckList extends JList {
      * 
      * @return Itemtexte
      */
-    public ArrayList<String> getSelectedItemTexts() {
-        ArrayList<JCheckBox> items = getSelectedItems();
-        ArrayList<String> texts = new ArrayList<String>();
+    public List<String> getSelectedItemTexts() {
+        List<JCheckBox> items = getSelectedItems();
+        List<String> texts = new ArrayList<String>();
         for (JCheckBox checkBox : items) {
             texts.add(checkBox.getText());
         }
@@ -149,7 +150,7 @@ public class CheckList extends JList {
      * @return          Texte
      */
     public String getSelectedItemTexts(String delimiter) {
-        ArrayList<String> texts = getSelectedItemTexts();
+        List<String> texts = getSelectedItemTexts();
         StringBuffer textBuffer = new StringBuffer();
         for (String text : texts) {
             textBuffer.append(text + delimiter);
@@ -165,7 +166,7 @@ public class CheckList extends JList {
      *               werden soll
      * @see          #setSelectedItemsWithText(java.lang.String, boolean)
      */
-    public void setSelectedItemsWithText(ArrayList<String> texts, boolean select) {
+    public void setSelectedItemsWithText(List<String> texts, boolean select) {
         for (String text : texts) {
             setSelectedItemsWithText(text, select);
         }
