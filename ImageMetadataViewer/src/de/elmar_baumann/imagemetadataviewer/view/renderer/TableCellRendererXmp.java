@@ -5,8 +5,9 @@ import de.elmar_baumann.imagemetadataviewer.database.metadata.selections.XmpInDa
 import de.elmar_baumann.imagemetadataviewer.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.imagemetadataviewer.resource.Translation;
 import java.awt.Component;
-import java.util.StringTokenizer;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.StringTokenizer;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
@@ -15,8 +16,8 @@ import javax.swing.table.TableCellRenderer;
  * Rendert Tabellen mit
  * {@link com.adobe.xmp.properties.XMPPropertyInfo}-Spaltenobjekten.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/09/14
+ * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @version 2008-10-05
  */
 public class TableCellRendererXmp extends TableCellRendererMetadata
     implements TableCellRenderer {
@@ -57,7 +58,7 @@ public class TableCellRendererXmp extends TableCellRendererMetadata
 
     private static String translate(String path) {
         StringBuffer newPath = new StringBuffer();
-        ArrayList<String> pathComponents = getPathComponents(path);
+        List<String> pathComponents = getPathComponents(path);
         int count = pathComponents.size();
         for (int i = 0; i < count; i++) {
             String pathComponent = pathComponents.get(i);
@@ -74,8 +75,8 @@ public class TableCellRendererXmp extends TableCellRendererMetadata
         return newPath.toString();
     }
 
-    private static ArrayList<String> getPathComponents(String path) {
-        ArrayList<String> components = new ArrayList<String>();
+    private static List<String> getPathComponents(String path) {
+        List<String> components = new ArrayList<String>();
         StringTokenizer tokenizer = new StringTokenizer(path, pathDelimiter);
         while (tokenizer.hasMoreTokens()) {
             components.add(tokenizer.nextToken());
