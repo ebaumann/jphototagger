@@ -5,8 +5,8 @@ import java.util.List;
 /**
  * SQL-Joins.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/09/18
+ * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @version 2008-10-05
  */
 public class Join {
 
