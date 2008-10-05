@@ -2,6 +2,7 @@ package de.elmar_baumann.imagemetadataviewer.database.metadata.selections;
 
 import de.elmar_baumann.imagemetadataviewer.image.metadata.exif.ExifTag;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Liefert, welche Exif-Metadaten in die Datenbank gespeichert werden.
@@ -11,7 +12,7 @@ import java.util.ArrayList;
  */
 public class ExifInDatabase {
 
-    private static ArrayList<ExifTag> storedTags = new ArrayList<ExifTag>();
+    private static List<ExifTag> storedTags = new ArrayList<ExifTag>();
     private static ExifInDatabase instance = new ExifInDatabase();
     
 

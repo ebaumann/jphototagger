@@ -14,6 +14,7 @@ import de.elmar_baumann.imagemetadataviewer.database.metadata.xmp.ColumnXmpPhoto
 import de.elmar_baumann.imagemetadataviewer.database.metadata.xmp.ColumnXmpPhotoshopHeadline;
 import de.elmar_baumann.imagemetadataviewer.database.metadata.xmp.ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Spalten für die Schnellsuche.
@@ -23,7 +24,7 @@ import java.util.ArrayList;
  */
 public class FastSearchColumns {
 
-    private static ArrayList<Column> searchColumns = new ArrayList<Column>();
+    private static List<Column> searchColumns = new ArrayList<Column>();
     private static FastSearchColumns instance = new FastSearchColumns();
     
 
@@ -49,7 +50,7 @@ public class FastSearchColumns {
         return instance;
     }
 
-    public ArrayList<Column> getSearchColumns() {
+    public List<Column> getSearchColumns() {
         return searchColumns;
     }
 

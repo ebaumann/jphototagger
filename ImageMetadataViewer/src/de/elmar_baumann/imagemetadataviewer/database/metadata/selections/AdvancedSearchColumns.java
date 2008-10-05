@@ -6,6 +6,7 @@ import de.elmar_baumann.imagemetadataviewer.database.metadata.collections.Column
 import de.elmar_baumann.imagemetadataviewer.database.metadata.file.ColumnFilesLastModified;
 import de.elmar_baumann.imagemetadataviewer.database.metadata.file.ColumnFilesThumbnail;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Spalten für die erweiterte Suche.
@@ -15,8 +16,8 @@ import java.util.ArrayList;
  */
 public class AdvancedSearchColumns {
 
-    private static ArrayList<Column> columns = new ArrayList<Column>();
-    private static ArrayList<Column> excludeColumns = new ArrayList<Column>();
+    private static List<Column> columns = new ArrayList<Column>();
+    private static List<Column> excludeColumns = new ArrayList<Column>();
     private static AdvancedSearchColumns instance = new AdvancedSearchColumns();
     
 
@@ -25,9 +26,9 @@ public class AdvancedSearchColumns {
         excludeColumns.add(ColumnFilesThumbnail.getInstance());
         excludeColumns.add(ColumnCollectionsSequenceNumber.getInstance());
 
-        ArrayList<Table> tables = AllTables.get();
+        List<Table> tables = AllTables.get();
         for (Table table : tables) {
-            ArrayList<Column> allColumns = table.getColumns();
+            List<Column> allColumns = table.getColumns();
             for (Column column : allColumns) {
                 if (!column.isPrimaryKey() && !column.isForeignKey() &&
                     !excludeColumns.contains(column)) {
@@ -51,7 +52,7 @@ public class AdvancedSearchColumns {
      * 
      * @return Suchspalten
      */
-    public ArrayList<Column> get() {
+    public List<Column> get() {
         return columns;
     }
 

@@ -10,6 +10,7 @@ import de.elmar_baumann.imagemetadataviewer.database.metadata.xmp.TableXmp;
 import de.elmar_baumann.imagemetadataviewer.database.metadata.xmp.TableXmpDcSubjects;
 import de.elmar_baumann.imagemetadataviewer.database.metadata.xmp.TableXmpPhotoshopSupplementalCategories;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Alle Tabellen der Anwendung.
@@ -19,7 +20,7 @@ import java.util.ArrayList;
  */
 public class AllTables {
 
-    private static ArrayList<Table> allTables = new ArrayList<Table>();    // TODO PERMANENT: Neue Tabellen eintragen, Reihenfolge NIE verändern, da Wechselwirkung mit
+    private static List<Table> allTables = new ArrayList<Table>();    // TODO PERMANENT: Neue Tabellen eintragen, Reihenfolge NIE verändern, da Wechselwirkung mit
     // de.elmar_baumann.imagemetadataviewer.database.metadata.ColumnIds.initColumnOfIdMap()
     
 
@@ -34,7 +35,7 @@ public class AllTables {
         allTables.add(TableSavedSearches.getInstance());
     }
 
-    public static ArrayList<Table> get() {
+    public static List<Table> get() {
         return allTables;
     }
 }

@@ -21,19 +21,19 @@ import de.elmar_baumann.imagemetadataviewer.database.metadata.xmp.ColumnXmpPhoto
 import de.elmar_baumann.imagemetadataviewer.database.metadata.xmp.ColumnXmpPhotoshopState;
 import de.elmar_baumann.imagemetadataviewer.database.metadata.xmp.ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory;
 import de.elmar_baumann.imagemetadataviewer.database.metadata.xmp.ColumnXmpPhotoshopTransmissionReference;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Set;
 
 /**
  * Supported XMP columns for editing and updating XMP sidecar files.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/09/18
+ * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @version 2008-10-05
  */
 public class EditColumns {
 
-    private static LinkedHashMap<Column, EditHints> editHintsForColumn = new LinkedHashMap<Column, EditHints>();
+    private static Map<Column, EditHints> editHintsForColumn = new LinkedHashMap<Column, EditHints>();
     private static EditColumns instance = new EditColumns();
     
 
