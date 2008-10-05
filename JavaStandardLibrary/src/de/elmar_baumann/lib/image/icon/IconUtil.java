@@ -3,6 +3,7 @@ package de.elmar_baumann.lib.image.icon;
 import de.elmar_baumann.lib.resource.Bundle;
 import java.awt.Image;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -10,8 +11,8 @@ import javax.swing.ImageIcon;
 /**
  * Werkzeuge für Icons.
  * 
- * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/07/21
+ * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @version 2008-10-05
  */
 public class IconUtil {
 
@@ -40,8 +41,8 @@ public class IconUtil {
      * @return Bilder, die geladen werden konnten (ungleich null sind)
      * @see    #getIconImage(java.lang.String)
      */
-    public static ArrayList<Image> getIconImages(ArrayList<String> paths) {
-        ArrayList<Image> images = new ArrayList<Image>();
+    public static List<Image> getIconImages(List<String> paths) {
+        List<Image> images = new ArrayList<Image>();
         for (String path : paths) {
             Image image = getIconImage(path);
             if (image != null) {
@@ -77,8 +78,8 @@ public class IconUtil {
      *         (ungleich null sind)
      * @see    #getImageIcon(java.lang.String)
      */
-    public static ArrayList<ImageIcon> getImageIcons(ArrayList<String> paths) {
-        ArrayList<ImageIcon> icons = new ArrayList<ImageIcon>();
+    public static List<ImageIcon> getImageIcons(List<String> paths) {
+        List<ImageIcon> icons = new ArrayList<ImageIcon>();
         for (String path : paths) {
             ImageIcon icon = getImageIcon(path);
             if (icon != null) {
