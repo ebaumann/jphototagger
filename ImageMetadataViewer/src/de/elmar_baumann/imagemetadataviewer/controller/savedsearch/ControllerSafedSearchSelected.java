@@ -8,7 +8,7 @@ import de.elmar_baumann.imagemetadataviewer.resource.Panels;
 import de.elmar_baumann.imagemetadataviewer.view.panels.AppPanel;
 import de.elmar_baumann.imagemetadataviewer.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.imagemetadataviewer.view.popupmenus.PopupMenuPanelThumbnails;
-import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JTree;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
@@ -16,8 +16,8 @@ import javax.swing.event.TreeSelectionListener;
 /**
  * 
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/00/11
+ * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @version 2008-10-05
  */
 public class ControllerSafedSearchSelected extends Controller
     implements TreeSelectionListener {
@@ -53,7 +53,7 @@ public class ControllerSafedSearchSelected extends Controller
     }
 
     private void search(ParamStatement stmt) {
-        ArrayList<String> filenames = db.searchFilenames(stmt);
+        List<String> filenames = db.searchFilenames(stmt);
         thumbnailsPanel.setFilenames(filenames);
         PopupMenuPanelThumbnails.getInstance().setIsImageCollection(false);
     }
