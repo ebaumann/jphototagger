@@ -28,18 +28,19 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Set;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
  * Utils für XMP.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/07/28
+ * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @version 2008-10-05
  */
 public class XmpMetadata {
 
-    private static final ArrayList<String> knownNamespaces = new ArrayList<String>();
+    private static final List<String> knownNamespaces = new ArrayList<String>();
     private static XmpColumnNamespaceUriMapping mappingNamespaceUri = XmpColumnNamespaceUriMapping.getInstance();
     private static XmpColumnXmpPathStartMapping mappingName = XmpColumnXmpPathStartMapping.getInstance();
     private static XmpColumnXmpDataTypeMapping mappingDataType = XmpColumnXmpDataTypeMapping.getInstance();
@@ -75,9 +76,9 @@ public class XmpMetadata {
      * @param namespace     Namensraum
      * @return              Property-Infos dieses Namensraums
      */
-    public static ArrayList<XMPPropertyInfo> getPropertyInfosOfNamespace(
-        ArrayList<XMPPropertyInfo> propertyInfos, String namespace) {
-        ArrayList<XMPPropertyInfo> propertyInfosNs = new ArrayList<XMPPropertyInfo>();
+    public static List<XMPPropertyInfo> getPropertyInfosOfNamespace(
+        List<XMPPropertyInfo> propertyInfos, String namespace) {
+        List<XMPPropertyInfo> propertyInfosNs = new ArrayList<XMPPropertyInfo>();
         for (XMPPropertyInfo propertyInfo : propertyInfos) {
             if (propertyInfo.getNamespace().equals(namespace)) {
                 propertyInfosNs.add(propertyInfo);
@@ -92,11 +93,11 @@ public class XmpMetadata {
      * @param filename Dateiname
      * @return         Metadaten oder null bei Lesefehlern
      */
-    public ArrayList<XMPPropertyInfo> getPropertyInfosOfFile(String filename) {
+    public List<XMPPropertyInfo> getPropertyInfosOfFile(String filename) {
         if (!FileUtil.existsFile(filename)) {
             return null;
         }
-        ArrayList<XMPPropertyInfo> metadata = new ArrayList<XMPPropertyInfo>();
+        List<XMPPropertyInfo> metadata = new ArrayList<XMPPropertyInfo>();
         try {
             String xmp = getXmpAsString(filename);
             if (xmp != null && xmp.length() > 0) {
@@ -118,7 +119,7 @@ public class XmpMetadata {
     }
 
     private void addXmpPropertyInfo(XMPMeta xmpMeta,
-        ArrayList<XMPPropertyInfo> xmpPropertyInfos) {
+        List<XMPPropertyInfo> xmpPropertyInfos) {
         try {
             for (XMPIterator it = xmpMeta.iterator(); it.hasNext();) {
                 XMPPropertyInfo xmpPropertyInfo = (XMPPropertyInfo) it.next();
@@ -210,10 +211,10 @@ public class XmpMetadata {
      * @param  propertyInfos Beliebige Property-Infos
      * @return Gefilterte Property-Infos
      */
-    public ArrayList<XMPPropertyInfo> getFilteredPropertyInfosOfIptcEntryMeta(
-        IPTCEntryMeta iptcEntryMeta, ArrayList<XMPPropertyInfo> propertyInfos) {
+    public List<XMPPropertyInfo> getFilteredPropertyInfosOfIptcEntryMeta(
+        IPTCEntryMeta iptcEntryMeta, List<XMPPropertyInfo> propertyInfos) {
 
-        ArrayList<XMPPropertyInfo> filteredPropertyInfos = new ArrayList<XMPPropertyInfo>();
+        List<XMPPropertyInfo> filteredPropertyInfos = new ArrayList<XMPPropertyInfo>();
         IptcEntryXmpPathStartMapping mapping = IptcEntryXmpPathStartMapping.getInstance();
         String startsWith = mapping.getXmpPathStartOfIptcEntryMeta(iptcEntryMeta);
 
@@ -302,7 +303,7 @@ public class XmpMetadata {
      * @return true bei Erfolg
      */
     public boolean writeMetaDataToSidecarFile(String sidecarFilename,
-        ArrayList<TextEntry> textEntries, boolean deleteEmpty, boolean append) {
+        List<TextEntry> textEntries, boolean deleteEmpty, boolean append) {
         try {
             XMPMeta xmpMeta = getXmpMetaOfSidecarFile(sidecarFilename);
             writeSidecarFileDeleteItems(xmpMeta, textEntries, deleteEmpty, append);
@@ -333,7 +334,7 @@ public class XmpMetadata {
     }
 
     private void writeSidecarFileDeleteItems(XMPMeta xmpMeta,
-        ArrayList<TextEntry> textEntries, boolean deleteEmpty, boolean append) {
+        List<TextEntry> textEntries, boolean deleteEmpty, boolean append) {
         for (TextEntry textEntry : textEntries) {
             Column xmpColumn = textEntry.getColumn();
             String namespaceUri = mappingNamespaceUri.getNamespaceUriOfColumn(xmpColumn);
@@ -362,7 +363,7 @@ public class XmpMetadata {
             xmpMeta.setLocalizedText(namespaceUri, propertyName, "", "x-default", // NOI18N
                 entryText);
         } else if (mappingDataType.isArray(xmpColumn)) {
-            ArrayList<String> items = ArrayUtil.stringTokenToArray(
+            List<String> items = ArrayUtil.stringTokenToList(
                 entryText, getArrayItemDelimiter());
             for (String item : items) {
                 item = item.trim();
@@ -387,9 +388,9 @@ public class XmpMetadata {
                         value);
                 }
             }
-            if (o instanceof ArrayList) {
+            if (o instanceof List) {
                 @SuppressWarnings("unchecked")
-                ArrayList<String> values = (ArrayList<String>) o;
+                List<String> values = (List<String>) o;
                 for (String value : values) {
                     value = value.trim();
                     if (!doesArrayItemExist(xmpMeta, namespaceUri, propertyName, value)) {
@@ -463,7 +464,7 @@ public class XmpMetadata {
     public static Xmp getXmp(String filename) {
         Xmp xmp = null;
         XmpMetadata xmpMetadata = new XmpMetadata();
-        ArrayList<XMPPropertyInfo> xmpPropertyInfos = xmpMetadata.getPropertyInfosOfFile(filename);
+        List<XMPPropertyInfo> xmpPropertyInfos = xmpMetadata.getPropertyInfosOfFile(filename);
         if (xmpPropertyInfos != null) {
             xmp = new Xmp();
             for (XMPPropertyInfo xmpPropertyInfo : xmpPropertyInfos) {
