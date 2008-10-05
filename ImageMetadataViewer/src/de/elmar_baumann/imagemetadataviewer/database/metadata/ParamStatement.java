@@ -72,11 +72,11 @@ public class ParamStatement {
     }
 
     /**
-     * Liefert die Werte als Stringarray.
+     * Liefert die Werte als Liste.
      * 
      * @return Werte als Stringarray
      */
-    public List<String> getValuesAsStringArray() {
+    public List<String> getValuesAsStringList() {
         List<String> array = new ArrayList<String>();
         for (int index = 0; index < values.length; index++) {
             array.add(values[index].toString());
