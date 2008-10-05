@@ -1,18 +1,32 @@
 package de.elmar_baumann.lib.util;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.StringTokenizer;
 import java.util.ArrayList;
 
 /**
  * Utils für Arrays.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/07/30
+ * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @version 2008-10-05
  */
 public class ArrayUtil {
 
     /**
-     * Erzeugt aus einem String einer String-ArrayList.
+     * Erzeugt aus einem String eine String-List.
+     * 
+     * @param string    String mit Token
+     * @param delimiter Begrenzer zwischen den Token
+     * @return          List
+     */
+    public static List<String> stringTokenToList(String string,
+        String delimiter) {
+        return Arrays.asList(string.split(delimiter));
+    }
+    
+    /**
+     * Erzeugt aus einem String einen String-Vector.
      * 
      * @param string    String mit Token
      * @param delimiter Begrenzer zwischen den Token
