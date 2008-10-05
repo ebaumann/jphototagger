@@ -1,7 +1,7 @@
 package de.elmar_baumann.lib.thirdparty.neil_cochrane;
 
-import java.util.ArrayList;
 
+import java.util.List;
 import javax.swing.ComboBoxModel;
 import javax.swing.JComboBox;
 
@@ -27,7 +27,7 @@ public class CompleterComboBox extends JComboBox {
         _init();
     }
 
-    public CompleterComboBox(ArrayList<?> items) {
+    public CompleterComboBox(List<?> items) {
         super(items.toArray());
     // TODO Auto-generated constructor stub
     }
