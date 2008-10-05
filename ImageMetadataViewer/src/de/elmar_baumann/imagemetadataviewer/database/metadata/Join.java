@@ -1,6 +1,6 @@
 package de.elmar_baumann.imagemetadataviewer.database.metadata;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * SQL-Joins.
@@ -18,7 +18,7 @@ public class Join {
      * @param tablenames Namen der Tabellen
      * @return           JOIN-Statement
      */
-    public static String getSqlFilesExifJoin(ArrayList<String> tablenames) {
+    public static String getSqlFilesExifJoin(List<String> tablenames) {
         return " files INNER JOIN exif on files.id = exif.id_files "; // NOI18N
     }
 
@@ -29,7 +29,7 @@ public class Join {
      * @param tablenames Namen der Tabellen
      * @return           JOIN-Statement
      */
-    public static String getSqlFilesIptcJoin(ArrayList<String> tablenames) {
+    public static String getSqlFilesIptcJoin(List<String> tablenames) {
         StringBuffer join = new StringBuffer(
             " files INNER JOIN iptc on files.id = iptc.id_files"); // NOI18N
 
@@ -50,7 +50,7 @@ public class Join {
      * @param tablenames Namen der Tabellen
      * @return           JOIN-Statement
      */
-    public static String getSqlFilesXmpJoin(ArrayList<String> tablenames) {
+    public static String getSqlFilesXmpJoin(List<String> tablenames) {
         StringBuffer join = new StringBuffer(
             " files INNER JOIN xmp on files.id = xmp.id_files"); // NOI18N
 
