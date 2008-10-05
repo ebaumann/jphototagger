@@ -3,7 +3,7 @@ package de.elmar_baumann.imagemetadataviewer.controller.misc;
 import de.elmar_baumann.imagemetadataviewer.controller.Controller;
 import de.elmar_baumann.imagemetadataviewer.resource.Panels;
 import de.elmar_baumann.imagemetadataviewer.view.panels.AppPanel;
-import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JList;
 import javax.swing.JTree;
 import javax.swing.event.ListSelectionEvent;
@@ -16,15 +16,15 @@ import javax.swing.event.TreeSelectionListener;
  * oder einer List Items selektiert sein dürfen. Die Items der anderen werden
  * deselektiert, sobald bei einem ein Item in der Gruppe selektiert wird.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/09/13
+ * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @version 2008-10-05
  */
 public class ControllerItemsMutualExcludeSelection extends Controller
     implements TreeSelectionListener, ListSelectionListener {
 
     private AppPanel appPanel = Panels.getInstance().getAppPanel();
-    private ArrayList<JTree> trees = appPanel.getSelectionTrees();
-    private ArrayList<JList> lists = appPanel.getSelectionLists();
+    private List<JTree> trees = appPanel.getSelectionTrees();
+    private List<JList> lists = appPanel.getSelectionLists();
     private boolean listen = true;
 
     public ControllerItemsMutualExcludeSelection() {
