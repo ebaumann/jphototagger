@@ -13,17 +13,18 @@ import de.elmar_baumann.imagemetadataviewer.event.SearchListener;
 import de.elmar_baumann.imagemetadataviewer.resource.Bundle;
 import de.elmar_baumann.imagemetadataviewer.view.renderer.ListCellRendererTableColumns;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.ArrayList;
+import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 
 /**
  * Panel mit einer Suchspalte und deren möglichen Verknüpfungen, Operatoren
  * und Suchtext.
  * 
- * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/08/28
+ * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @version 2008-10-05
  */
 public class SearchColumnPanel extends javax.swing.JPanel {
 
@@ -35,7 +36,7 @@ public class SearchColumnPanel extends javax.swing.JPanel {
     private boolean isOperatorsEnabled = true;
     private boolean listenToActions = true;
     private boolean changed = false;
-    private ArrayList<SearchListener> searchListener = new ArrayList<SearchListener>();
+    private List<SearchListener> searchListener = new ArrayList<SearchListener>();
 
     public SearchColumnPanel() {
         initComponents();
@@ -164,7 +165,7 @@ public class SearchColumnPanel extends javax.swing.JPanel {
     }
 
     private void initColumnsModel() {
-        ArrayList<Column> columns = AdvancedSearchColumns.getInstance().get();
+        List<Column> columns = AdvancedSearchColumns.getInstance().get();
         for (Column column : columns) {
             if (!column.isPrimaryKey() && !column.isForeignKey()) {
                 modelColumns.addElement(column);

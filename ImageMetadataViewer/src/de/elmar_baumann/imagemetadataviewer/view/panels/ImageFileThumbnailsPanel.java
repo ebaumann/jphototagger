@@ -17,18 +17,19 @@ import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JViewport;
 
 /**
  * Zeigt Thumbnails von Bilddateien.
  * 
- * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/07/19
+ * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @version 2008-10-05
  */
 public class ImageFileThumbnailsPanel extends ThumbnailsPanel
     implements UserSettingsChangeListener, DatabaseListener {
 
-    private ArrayList<String> filenames = new ArrayList<String>();
+    private List<String> filenames = new ArrayList<String>();
     private Database db = Database.getInstance();
     private PopupMenuPanelThumbnails popupMenu = PopupMenuPanelThumbnails.getInstance();
     private ControllerDoubleklickThumbnail controllerDoubleklickThumbnail;
@@ -53,7 +54,7 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel
         }
     }
 
-    public ArrayList<String> getFilenames() {
+    public List<String> getFilenames() {
         return filenames;
     }
 
@@ -82,7 +83,7 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel
      * @return  true, wenn selektiert
      */
     public boolean isThumbnailSelected(String filename) {
-        ArrayList<String> files = getSelectedFilenames();
+        List<String> files = getSelectedFilenames();
         for (String file : files) {
             if (file.equals(filename)) {
                 return true;
@@ -97,7 +98,7 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel
      * 
      * @param filenames Dateinamen
      */
-    public void setFilenames(ArrayList<String> filenames) {
+    public void setFilenames(List<String> filenames) {
         this.filenames = filenames;
         empty();
         setMissingFilesFlags();
@@ -131,8 +132,8 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel
     }
 
     private void writePersistent() {
-        ArrayList<Integer> indices = getIndicesSelectedThumbnails();
-        ArrayList<String> selectedFilenames = new ArrayList<String>();
+        List<Integer> indices = getIndicesSelectedThumbnails();
+        List<String> selectedFilenames = new ArrayList<String>();
         int countFilenames = filenames.size();
         for (Integer index : indices) {
             if (index >= 0 && index < countFilenames) {
@@ -193,7 +194,7 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel
      * 
      * @return Dateinamen
      */
-    public ArrayList<String> getSelectedFilenames() {
+    public List<String> getSelectedFilenames() {
         return getFilenamesOfIndices(getIndicesSelectedThumbnails());
     }
 
@@ -203,8 +204,8 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel
      * @param indices Indexe
      * @return        Dateinamen
      */
-    public ArrayList<String> getFilenamesOfIndices(ArrayList<Integer> indices) {
-        ArrayList<String> fNames = new ArrayList<String>();
+    public List<String> getFilenamesOfIndices(List<Integer> indices) {
+        List<String> fNames = new ArrayList<String>();
         for (Integer index : indices) {
             fNames.add(getThumbnailFilenameAtIndex(index.intValue()));
         }
@@ -213,8 +214,8 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel
 
     private void readPersistentSelectedFiles() {
         if (!persitentSelectionsApplied && getSelectionCount() == 0) {
-            ArrayList<String> storedFilenames = PersistentSettings.getInstance().getStringArray(keyFilenames);
-            ArrayList<Integer> indices = new ArrayList<Integer>();
+            List<String> storedFilenames = PersistentSettings.getInstance().getStringArray(keyFilenames);
+            List<Integer> indices = new ArrayList<Integer>();
             for (String filename : storedFilenames) {
                 int index = filenames.indexOf(filename);
                 if (index >= 0) {

@@ -22,6 +22,7 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.util.Set;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -31,16 +32,16 @@ import javax.swing.text.PlainDocument;
 /**
  * Panels mit Edit-Feldern zum Bearbeiten von Metadaten.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/09/18
+ * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @version 2008-10-05
  */
 public class MetaDataEditPanelsArray implements FocusListener {
 
     boolean editable = true;
     private JComponent container;
-    private ArrayList<JPanel> panels = new ArrayList<JPanel>();
-    private ArrayList<String> filenames = new ArrayList<String>();
-    private ArrayList<MetaDataEditPanelListener> listener = new ArrayList<MetaDataEditPanelListener>();
+    private List<JPanel> panels = new ArrayList<JPanel>();
+    private List<String> filenames = new ArrayList<String>();
+    private List<MetaDataEditPanelListener> listener = new ArrayList<MetaDataEditPanelListener>();
 
     public MetaDataEditPanelsArray(JComponent container) {
         this.container = container;
@@ -104,11 +105,11 @@ public class MetaDataEditPanelsArray implements FocusListener {
      * 
      * @return Dateinamen
      */
-    public ArrayList<String> getFilenames() {
+    public List<String> getFilenames() {
         return filenames;
     }
 
-    public void setFilenames(ArrayList<String> filenames) {
+    public void setFilenames(List<String> filenames) {
         this.filenames = filenames;
     }
 
@@ -117,8 +118,8 @@ public class MetaDataEditPanelsArray implements FocusListener {
      * 
      * @return Texte
      */
-    public ArrayList<TextEntry> getTextEntries() {
-        ArrayList<TextEntry> textEntries = new ArrayList<TextEntry>();
+    public List<TextEntry> getTextEntries() {
+        List<TextEntry> textEntries = new ArrayList<TextEntry>();
         for (JPanel panel : panels) {
             textEntries.add((TextEntry) panel);
         }
@@ -164,7 +165,7 @@ public class MetaDataEditPanelsArray implements FocusListener {
      * @param filenames Dateinamen, deren Metadaten angezeigt werden
      * @param infos     Zu setzende Einträge
      */
-    public void setXmpPropertyInfos(ArrayList<String> filenames, ArrayList<XMPPropertyInfo> infos) {
+    public void setXmpPropertyInfos(List<String> filenames, List<XMPPropertyInfo> infos) {
         this.filenames = filenames;
         emptyPanels();
         IptcXmpMapping mapping = IptcXmpMapping.getInstance();
@@ -173,7 +174,7 @@ public class MetaDataEditPanelsArray implements FocusListener {
             TextEntry textEntry = (TextEntry) panel;
             Column xmpColumn = textEntry.getColumn();
             IPTCEntryMeta iptcEntryMeta = mapping.getIptcEntryMetaOfXmpColumn(xmpColumn);
-            ArrayList<XMPPropertyInfo> matchingInfos =
+            List<XMPPropertyInfo> matchingInfos =
                 xmpMetaData.getFilteredPropertyInfosOfIptcEntryMeta(iptcEntryMeta, infos);
             int countMatchingInfos = matchingInfos.size();
 

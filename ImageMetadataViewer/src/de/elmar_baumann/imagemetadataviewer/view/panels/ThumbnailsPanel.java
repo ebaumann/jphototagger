@@ -16,6 +16,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import javax.swing.JPanel;
 
 /**
@@ -39,8 +40,8 @@ import javax.swing.JPanel;
  * Jedes Thumbnail wird gecached und es werden nur Thumbnails gezeichnet, die
  * sich innerhalb der Clip-Bounds befinden.
  * 
- * @author Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/07/19
+ * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @version 2008-10-05
  */
 public abstract class ThumbnailsPanel extends JPanel
     implements MouseListener, MouseMotionListener, KeyListener {
@@ -65,10 +66,10 @@ public abstract class ThumbnailsPanel extends JPanel
     private int thumbnailHeight = defaultThumbnailHeight;
     private int thumbnailCount = 0;
     private int thumbnailCountPerRow = 3;
-    private ArrayList<Integer> indicesSelectedThumbnails = new ArrayList<Integer>();
+    private List<Integer> indicesSelectedThumbnails = new ArrayList<Integer>();
     private HashMap<Integer, ThumbnailFlag> flagOfThumbnailIndex = new HashMap<Integer, ThumbnailFlag>();
     private HashMap<Integer, Image> thumbnailAtIndex = new HashMap<Integer, Image>();
-    private ArrayList<ThumbnailsPanelListener> panelListener = new ArrayList<ThumbnailsPanelListener>();
+    private List<ThumbnailsPanelListener> panelListener = new ArrayList<ThumbnailsPanelListener>();
 
     protected void empty() {
         thumbnailAtIndex.clear();
@@ -101,7 +102,7 @@ public abstract class ThumbnailsPanel extends JPanel
      * 
      * @return Indexe
      */
-    public ArrayList<Integer> getIndicesSelectedThumbnails() {
+    public List<Integer> getIndicesSelectedThumbnails() {
         return indicesSelectedThumbnails;
     }
 
@@ -110,7 +111,7 @@ public abstract class ThumbnailsPanel extends JPanel
      * 
      * @param indices Indexe
      */
-    protected void setIndicesSelectedThumbnails(ArrayList<Integer> indices) {
+    protected void setIndicesSelectedThumbnails(List<Integer> indices) {
         indicesSelectedThumbnails = indices;
         repaint();
         notifyThumbnailSelected();

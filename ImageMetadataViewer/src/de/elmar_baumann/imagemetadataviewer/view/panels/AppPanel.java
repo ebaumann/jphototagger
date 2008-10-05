@@ -13,6 +13,7 @@ import de.elmar_baumann.lib.persistence.PersistentSettings;
 import de.elmar_baumann.lib.persistence.PersistentSettingsHints;
 import java.awt.Container;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -27,16 +28,16 @@ import javax.swing.tree.TreeSelectionModel;
 /**
  * Panel der Anwendung.
  * 
- * @author Elmar Baumann <eb@elmar-baumann.de>
- * @version 1.0 2008/02/17
+ * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @version 2008-10-05
  */
 public class AppPanel extends javax.swing.JPanel {
 
     private static final String keyThumbnailPanelViewportViewPosition = "de.elmar_baumann.imagemetadataviewer.view.panels.AppPanel.scrollPaneThumbnailsPanel"; // NOI18N
-    private ArrayList<JTable> xmpTables = new ArrayList<JTable>();
-    private ArrayList<JTable> metaDataTables = new ArrayList<JTable>();
-    private ArrayList<JTree> selectionTrees = new ArrayList<JTree>();
-    private ArrayList<JList> selectionLists = new ArrayList<JList>();
+    private List<JTable> xmpTables = new ArrayList<JTable>();
+    private List<JTable> metaDataTables = new ArrayList<JTable>();
+    private List<JTree> selectionTrees = new ArrayList<JTree>();
+    private List<JList> selectionLists = new ArrayList<JList>();
     private MetaDataEditPanelsArray editPanelsArray;
 
     public AppPanel() {
@@ -78,11 +79,11 @@ public class AppPanel extends javax.swing.JPanel {
         return progressBarScheduledTasks;
     }
 
-    public ArrayList<JTree> getSelectionTrees() {
+    public List<JTree> getSelectionTrees() {
         return selectionTrees;
     }
 
-    public ArrayList<JList> getSelectionLists() {
+    public List<JList> getSelectionLists() {
         return selectionLists;
     }
 
@@ -170,11 +171,11 @@ public class AppPanel extends javax.swing.JPanel {
         return editPanelsArray;
     }
 
-    public ArrayList<JTable> getMetaDataTables() {
+    public List<JTable> getMetaDataTables() {
         return metaDataTables;
     }
 
-    public ArrayList<JTable> getXmpTables() {
+    public List<JTable> getXmpTables() {
         return xmpTables;
     }
 
