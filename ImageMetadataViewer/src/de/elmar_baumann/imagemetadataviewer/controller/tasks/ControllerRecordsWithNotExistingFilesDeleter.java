@@ -8,19 +8,20 @@ import de.elmar_baumann.imagemetadataviewer.event.ProgressListener;
 import de.elmar_baumann.imagemetadataviewer.event.TaskListener;
 import de.elmar_baumann.imagemetadataviewer.resource.Bundle;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JProgressBar;
 
 /**
  * 
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/09/24
+ * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @version 2008-10-05
  */
 public class ControllerRecordsWithNotExistingFilesDeleter extends Controller
     implements ProgressListener {
 
     private JProgressBar progressBar;
-    private ArrayList<TaskListener> taskListeners = new ArrayList<TaskListener>();
+    private List<TaskListener> taskListeners = new ArrayList<TaskListener>();
 
     /**
      * Konstruktor.
