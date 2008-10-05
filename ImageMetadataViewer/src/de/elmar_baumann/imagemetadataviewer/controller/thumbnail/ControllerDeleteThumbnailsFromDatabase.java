@@ -8,7 +8,7 @@ import de.elmar_baumann.imagemetadataviewer.view.popupmenus.PopupMenuPanelThumbn
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.MessageFormat;
-import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -41,7 +41,7 @@ public class ControllerDeleteThumbnailsFromDatabase extends Controller
 
     private void deleteSelectedThumbnails() {
         if (askDelete()) {
-            ArrayList<String> files = popup.getThumbnailsPanel().getSelectedFilenames();
+            List<String> files = popup.getThumbnailsPanel().getSelectedFilenames();
             int countFiles = files.size();
             int countDeleted = db.deleteImageFiles(files);
             if (countDeleted != countFiles) {

@@ -8,7 +8,7 @@ import de.elmar_baumann.imagemetadataviewer.view.panels.ImageFileThumbnailsPanel
 import de.elmar_baumann.imagemetadataviewer.view.popupmenus.PopupMenuPanelThumbnails;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 
@@ -34,14 +34,14 @@ public class ControllerRenameInXmpColumns extends Controller
     @Override
     public void actionPerformed(ActionEvent e) {
         if (isStarted()) {
-            ArrayList<String> filenames = thumbnailsPanel.getSelectedFilenames();
+            List<String> filenames = thumbnailsPanel.getSelectedFilenames();
             if (!filenames.isEmpty()) {
                 rename(filenames);
             }
         }
     }
 
-    private void rename(ArrayList<String> filenames) {
+    private void rename(List<String> filenames) {
         RenameInXmpColumnsDialog dialog = new RenameInXmpColumnsDialog();
         dialog.setVisible(true);
         if (dialog.accepted()) {
