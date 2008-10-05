@@ -22,15 +22,16 @@ import de.elmar_baumann.imagemetadataviewer.database.metadata.xmp.ColumnXmpPhoto
 import de.elmar_baumann.imagemetadataviewer.database.metadata.xmp.ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory;
 import de.elmar_baumann.imagemetadataviewer.database.metadata.xmp.ColumnXmpPhotoshopTransmissionReference;
 import de.elmar_baumann.lib.template.Pair;
-import java.util.HashMap;
-import java.util.Set;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Mapping between IPTC Entry Metadata and XMP columns.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/09/18
+ * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @version 2008-10-05
  */
 public class IptcXmpMapping {
 
@@ -82,8 +83,8 @@ public class IptcXmpMapping {
         return iptcEntryMetaOfXmpColumn.get(xmpColumn);
     }
 
-    public ArrayList<Pair<IPTCEntryMeta, Column>> getAllPairs() {
-        ArrayList<Pair<IPTCEntryMeta, Column>> pairs = new ArrayList<Pair<IPTCEntryMeta, Column>>();
+    public List<Pair<IPTCEntryMeta, Column>> getAllPairs() {
+        List<Pair<IPTCEntryMeta, Column>> pairs = new ArrayList<Pair<IPTCEntryMeta, Column>>();
         Set<IPTCEntryMeta> iptcEntryMetas = xmpColumnOfIptcEntryMeta.keySet();
         for (IPTCEntryMeta iptcEntryMeta : iptcEntryMetas) {
             pairs.add(new Pair<IPTCEntryMeta, Column>(

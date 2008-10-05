@@ -4,7 +4,7 @@ import com.imagero.reader.iptc.IPTCEntryMeta;
 import de.elmar_baumann.imagemetadataviewer.database.metadata.Column;
 import de.elmar_baumann.lib.template.Pair;
 import java.util.HashMap;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Mapping zwischen
@@ -22,7 +22,7 @@ public class XmpColumnXmpPathStartMapping {
     
 
     static {
-        ArrayList<Pair<IPTCEntryMeta, Column>> pairs = IptcXmpMapping.getInstance().getAllPairs();
+        List<Pair<IPTCEntryMeta, Column>> pairs = IptcXmpMapping.getInstance().getAllPairs();
         IptcEntryXmpPathStartMapping iptcEntryXmpPathMapping = IptcEntryXmpPathStartMapping.getInstance();
         for (Pair<IPTCEntryMeta, Column> pair : pairs) {
             IPTCEntryMeta iptcEntryMeta = pair.getFirst();
