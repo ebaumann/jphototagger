@@ -6,7 +6,7 @@ import de.elmar_baumann.imagemetadataviewer.resource.Bundle;
 import de.elmar_baumann.imagemetadataviewer.view.panels.ThumbnailsPanel;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -14,8 +14,8 @@ import javax.swing.JOptionPane;
 /**
  * Utils für I/O.
  * 
- * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/07/30
+ * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @version 2008-10-05
  */
 public class IoUtil {
 
@@ -68,7 +68,7 @@ public class IoUtil {
      * @param args Argumente
      * @return     Argumente separiert
      */
-    public static String getArgsAsCommandline(ArrayList<String> args) {
+    public static String getArgsAsCommandline(List<String> args) {
         final String separator = " "; // NOI18N
         StringBuffer arguments = new StringBuffer();
         for (String filename : args) {

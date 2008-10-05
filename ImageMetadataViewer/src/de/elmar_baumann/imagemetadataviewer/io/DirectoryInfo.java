@@ -1,18 +1,18 @@
 package de.elmar_baumann.imagemetadataviewer.io;
 
 import java.io.File;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Informationen über ein Verzeichnis im Dateisystem.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/08/01
+ * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @version 2008-10-05
  */
 public class DirectoryInfo {
 
     private File directory;
-    private ArrayList<File> imageFiles;
+    private List<File> imageFiles;
 
     /**
      * Konstruktor.
@@ -57,7 +57,7 @@ public class DirectoryInfo {
      * @return Bilddateien
      * @see    #hasImageFiles() 
      */
-    public ArrayList<File> getImageFiles() {
+    public List<File> getImageFiles() {
         return imageFiles;
     }
 

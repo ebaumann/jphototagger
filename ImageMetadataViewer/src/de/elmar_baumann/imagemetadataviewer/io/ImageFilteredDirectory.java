@@ -5,17 +5,18 @@ import de.elmar_baumann.lib.io.FileUtil;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * Verzeichnis im Dateisystem gefiltert nach Bilddateien.
  * 
- * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/02/17
+ * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @version 2008-10-05
  */
 public class ImageFilteredDirectory {
 
     private String directoryname;
-    private ArrayList<String> filenames = new ArrayList<String>();
+    private List<String> filenames = new ArrayList<String>();
 
     public ImageFilteredDirectory() {
     }
@@ -25,7 +26,7 @@ public class ImageFilteredDirectory {
      * 
      * @return Dateinamen
      */
-    public ArrayList<String> getFilenames() {
+    public List<String> getFilenames() {
         return filenames;
     }
 
@@ -56,7 +57,7 @@ public class ImageFilteredDirectory {
      * @param directory Verzeichnis
      * @return          Bilddateien in diesem Verzeichnis
      */
-    public static ArrayList<File> getImageFilesOfDirectory(File directory) {
+    public static List<File> getImageFilesOfDirectory(File directory) {
         return getImageFilesOfDirectory(directory.getAbsolutePath());
     }
 
@@ -66,10 +67,10 @@ public class ImageFilteredDirectory {
      * @param directoryname Verzeichnisname
      * @return              Bilddateien in diesem Verzeichnis
      */
-    public static ArrayList<File> getImageFilesOfDirectory(String directoryname) {
+    public static List<File> getImageFilesOfDirectory(String directoryname) {
         File[] filteredFiles = FileUtil.getFiles(directoryname,
             AppSettings.fileFilterAcceptedImageFileFormats);
-        ArrayList<File> files = new ArrayList<File>(filteredFiles.length);
+        List<File> files = new ArrayList<File>(filteredFiles.length);
         for (int index = 0; index < filteredFiles.length; index++) {
             files.add(filteredFiles[index]);
         }
@@ -82,9 +83,9 @@ public class ImageFilteredDirectory {
      * @param directorynames Namen der Verzeichnisse
      * @return               Bilddateien in diesen Verzeichnissen
      */
-    public static ArrayList<File> getImageFilesOfDirectories(
-        ArrayList<String> directorynames) {
-        ArrayList<File> directories = new ArrayList<File>();
+    public static List<File> getImageFilesOfDirectories(
+        List<String> directorynames) {
+        List<File> directories = new ArrayList<File>();
         for (String directoryname : directorynames) {
             directories.addAll(getImageFilesOfDirectory(directoryname));
         }
@@ -97,10 +98,10 @@ public class ImageFilteredDirectory {
      * @param directoryname Verzeichnisname
      * @return              Name der Bilddateien in diesem Verzeichnis
      */
-    public static ArrayList<String> getImageFilenamesOfDirectory(
+    public static List<String> getImageFilenamesOfDirectory(
         String directoryname) {
-        ArrayList<File> files = getImageFilesOfDirectory(directoryname);
-        ArrayList<String> filenames = new ArrayList<String>(files.size());
+        List<File> files = getImageFilesOfDirectory(directoryname);
+        List<String> filenames = new ArrayList<String>(files.size());
         for (File file : files) {
             filenames.add(file.getAbsolutePath());
         }
@@ -113,10 +114,10 @@ public class ImageFilteredDirectory {
      * @param directorynames Namen der Verzeichnisse
      * @return               Namen der Bilddateien in diesen Verzeichnissen
      */
-    public static ArrayList<String> getImageFilenamesOfDirectories(
-        ArrayList<String> directorynames) {
-        ArrayList<File> files = getImageFilesOfDirectories(directorynames);
-        ArrayList<String> filenames = new ArrayList<String>();
+    public static List<String> getImageFilenamesOfDirectories(
+        List<String> directorynames) {
+        List<File> files = getImageFilesOfDirectories(directorynames);
+        List<String> filenames = new ArrayList<String>();
         for (File file : files) {
             filenames.add(file.getAbsolutePath());
         }
