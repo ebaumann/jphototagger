@@ -1,7 +1,7 @@
 package de.elmar_baumann.imagemetadataviewer.data;
 
 import de.elmar_baumann.imagemetadataviewer.database.metadata.ParamStatement;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Daten eines Objekts der Klasse {@link de.elmar_baumann.imagemetadataviewer.database.metadata.ParamStatement}.
@@ -13,7 +13,7 @@ public class SavedSearchParamStatement {
 
     private String name;
     private String sql;
-    private ArrayList<String> values;
+    private List<String> values;
     private boolean query;
 
     /**
@@ -75,7 +75,7 @@ public class SavedSearchParamStatement {
      * 
      * @return Werte
      */
-    public ArrayList<String> getValues() {
+    public List<String> getValues() {
         return values;
     }
 
@@ -84,7 +84,7 @@ public class SavedSearchParamStatement {
      * 
      * @param values Werte
      */
-    public void setValues(ArrayList<String> values) {
+    public void setValues(List<String> values) {
         this.values = values;
     }
 
