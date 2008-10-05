@@ -1,7 +1,7 @@
 package de.elmar_baumann.imagemetadataviewer.io;
 
 import java.io.File;
-import java.util.Vector;
+import java.util.ArrayList;
 
 /**
  * Informationen über ein Verzeichnis im Dateisystem.
@@ -12,7 +12,7 @@ import java.util.Vector;
 public class DirectoryInfo {
 
     private File directory;
-    private Vector<File> imageFiles;
+    private ArrayList<File> imageFiles;
 
     /**
      * Konstruktor.
@@ -57,7 +57,7 @@ public class DirectoryInfo {
      * @return Bilddateien
      * @see    #hasImageFiles() 
      */
-    public Vector<File> getImageFiles() {
+    public ArrayList<File> getImageFiles() {
         return imageFiles;
     }
 

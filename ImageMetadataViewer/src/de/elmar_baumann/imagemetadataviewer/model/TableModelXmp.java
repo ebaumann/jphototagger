@@ -2,7 +2,7 @@ package de.elmar_baumann.imagemetadataviewer.model;
 
 import com.adobe.xmp.properties.XMPPropertyInfo;
 import de.elmar_baumann.imagemetadataviewer.resource.Bundle;
-import java.util.Vector;
+import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -14,7 +14,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class TableModelXmp extends DefaultTableModel {
 
-    private Vector<XMPPropertyInfo> propertyInfos;
+    private ArrayList<XMPPropertyInfo> propertyInfos;
     private String filename;
 
     public TableModelXmp() {
@@ -30,7 +30,7 @@ public class TableModelXmp extends DefaultTableModel {
      * @param propertyInfos  Property-Infos
      */
     public void setPropertyInfosOfFile(String filename,
-        Vector<XMPPropertyInfo> propertyInfos) {
+        ArrayList<XMPPropertyInfo> propertyInfos) {
         this.filename = filename;
         this.propertyInfos = propertyInfos;
         removeAllElements();
@@ -42,7 +42,7 @@ public class TableModelXmp extends DefaultTableModel {
      * 
      * @return Dateiname oder null, wenn die Property-Infos entfernt wurden
      *         oder null gesetzt wurde mit
-     *         {@link #setPropertyInfosOfFile(java.lang.String, java.util.Vector)}
+     *         {@link #setPropertyInfosOfFile(java.lang.String, java.util.ArrayList)}
      */
     public String getFilename() {
         return filename;
@@ -68,10 +68,10 @@ public class TableModelXmp extends DefaultTableModel {
         String path = xmpPropertyInfo.getPath();
         Object value = xmpPropertyInfo.getValue();
         if (path != null && value != null) {
-            Vector<XMPPropertyInfo> newRow = new Vector<XMPPropertyInfo>();
+            ArrayList<XMPPropertyInfo> newRow = new ArrayList<XMPPropertyInfo>();
             newRow.add(xmpPropertyInfo);
             newRow.add(xmpPropertyInfo);
-            super.addRow(newRow);
+            super.addRow(newRow.toArray());
         }
     }
 

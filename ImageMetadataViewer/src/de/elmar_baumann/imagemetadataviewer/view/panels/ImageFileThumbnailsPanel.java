@@ -16,7 +16,7 @@ import java.awt.Image;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.io.File;
-import java.util.Vector;
+import java.util.ArrayList;
 import javax.swing.JViewport;
 
 /**
@@ -28,7 +28,7 @@ import javax.swing.JViewport;
 public class ImageFileThumbnailsPanel extends ThumbnailsPanel
     implements UserSettingsChangeListener, DatabaseListener {
 
-    private Vector<String> filenames = new Vector<String>();
+    private ArrayList<String> filenames = new ArrayList<String>();
     private Database db = Database.getInstance();
     private PopupMenuPanelThumbnails popupMenu = PopupMenuPanelThumbnails.getInstance();
     private ControllerDoubleklickThumbnail controllerDoubleklickThumbnail;
@@ -53,7 +53,7 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel
         }
     }
 
-    public Vector<String> getFilenames() {
+    public ArrayList<String> getFilenames() {
         return filenames;
     }
 
@@ -82,7 +82,7 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel
      * @return  true, wenn selektiert
      */
     public boolean isThumbnailSelected(String filename) {
-        Vector<String> files = getSelectedFilenames();
+        ArrayList<String> files = getSelectedFilenames();
         for (String file : files) {
             if (file.equals(filename)) {
                 return true;
@@ -97,7 +97,7 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel
      * 
      * @param filenames Dateinamen
      */
-    public void setFilenames(Vector<String> filenames) {
+    public void setFilenames(ArrayList<String> filenames) {
         this.filenames = filenames;
         empty();
         setMissingFilesFlags();
@@ -116,7 +116,7 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel
     private void setMissingFilesFlags() {
         int count = filenames.size();
         for (int i = 0; i < count; i++) {
-            if (!FileUtil.existsFile(filenames.elementAt(i))) {
+            if (!FileUtil.existsFile(filenames.get(i))) {
                 addThumbnailFlag(i, ThumbnailFlag.ErrorFileNotFound);
             }
         }
@@ -131,8 +131,8 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel
     }
 
     private void writePersistent() {
-        Vector<Integer> indices = getIndicesSelectedThumbnails();
-        Vector<String> selectedFilenames = new Vector<String>();
+        ArrayList<Integer> indices = getIndicesSelectedThumbnails();
+        ArrayList<String> selectedFilenames = new ArrayList<String>();
         int countFilenames = filenames.size();
         for (Integer index : indices) {
             if (index >= 0 && index < countFilenames) {
@@ -151,7 +151,7 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel
 
     @Override
     public Image getThumbnailAtIndex(int index) {
-        return db.getThumbnail(filenames.elementAt(index));
+        return db.getThumbnail(filenames.get(index));
     }
 
     /**
@@ -183,7 +183,7 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel
      */
     public String getThumbnailFilenameAtIndex(int index) {
         if (isThumbnailIndex(index)) {
-            return filenames.elementAt(index);
+            return filenames.get(index);
         }
         return ""; // NOI18N
     }
@@ -193,7 +193,7 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel
      * 
      * @return Dateinamen
      */
-    public Vector<String> getSelectedFilenames() {
+    public ArrayList<String> getSelectedFilenames() {
         return getFilenamesOfIndices(getIndicesSelectedThumbnails());
     }
 
@@ -203,8 +203,8 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel
      * @param indices Indexe
      * @return        Dateinamen
      */
-    public Vector<String> getFilenamesOfIndices(Vector<Integer> indices) {
-        Vector<String> fNames = new Vector<String>();
+    public ArrayList<String> getFilenamesOfIndices(ArrayList<Integer> indices) {
+        ArrayList<String> fNames = new ArrayList<String>();
         for (Integer index : indices) {
             fNames.add(getThumbnailFilenameAtIndex(index.intValue()));
         }
@@ -213,8 +213,8 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel
 
     private void readPersistentSelectedFiles() {
         if (!persitentSelectionsApplied && getSelectionCount() == 0) {
-            Vector<String> storedFilenames = PersistentSettings.getInstance().getStringArray(keyFilenames);
-            Vector<Integer> indices = new Vector<Integer>();
+            ArrayList<String> storedFilenames = PersistentSettings.getInstance().getStringArray(keyFilenames);
+            ArrayList<Integer> indices = new ArrayList<Integer>();
             for (String filename : storedFilenames) {
                 int index = filenames.indexOf(filename);
                 if (index >= 0) {
@@ -229,7 +229,7 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel
     @Override
     protected String getTextForThumbnailAtIndex(int index) {
         if (isThumbnailIndex(index)) {
-            String heading = filenames.elementAt(index);
+            String heading = filenames.get(index);
             int indexPathSeparator = heading.lastIndexOf(File.separator);
             if (indexPathSeparator >= 0 && indexPathSeparator + 1 < heading.length()) {
                 heading = heading.substring(indexPathSeparator + 1);
@@ -260,7 +260,7 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel
 
     private String createTooltipText(int index) {
         if (isThumbnailIndex(index)) {
-            String filename = filenames.elementAt(index);
+            String filename = filenames.get(index);
             String flagText = ""; // NOI18N
             ThumbnailFlag flag = getFlagOfThumbnail(index);
             if (flag != null) {

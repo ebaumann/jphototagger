@@ -6,9 +6,9 @@ import de.elmar_baumann.imagemetadataviewer.resource.Panels;
 import de.elmar_baumann.imagemetadataviewer.view.panels.AppPanel;
 import de.elmar_baumann.imagemetadataviewer.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.imagemetadataviewer.view.popupmenus.PopupMenuPanelThumbnails;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashSet;
-import java.util.Vector;
 import javax.swing.JList;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -45,7 +45,7 @@ public class ControllerCategoryItemSelected extends Controller
     private void setFilenamesToThumbnailPanel() {
         String category = (String) listCategories.getSelectedValue();
         LinkedHashSet<String> filenames = db.getFilenamesOfCategory(category);
-        Vector<String> filenamesArray = new Vector<String>(filenames);
+        ArrayList<String> filenamesArray = new ArrayList<String>(filenames);
         Collections.sort(filenamesArray);
         thumbnailsPanel.setFilenames(filenamesArray);
         PopupMenuPanelThumbnails.getInstance().setIsImageCollection(false);

@@ -5,7 +5,7 @@ import de.elmar_baumann.imagemetadataviewer.view.panels.AppPanel;
 import de.elmar_baumann.imagemetadataviewer.view.renderer.TableCellRendererExif;
 import de.elmar_baumann.imagemetadataviewer.view.renderer.TableCellRendererIptc;
 import de.elmar_baumann.imagemetadataviewer.view.renderer.TableCellRendererXmp;
-import java.util.Vector;
+import java.util.ArrayList;
 import javax.swing.JTable;
 
 /**
@@ -29,7 +29,7 @@ public class RendererFactory {
     private void createRenderer() {
         AppPanel appPanel = Panels.getInstance().getAppPanel();
         TableCellRendererXmp rendererTableCellXmp = new TableCellRendererXmp();
-        Vector<JTable> xmpTables = appPanel.getXmpTables();
+        ArrayList<JTable> xmpTables = appPanel.getXmpTables();
         for (JTable table : xmpTables) {
             table.setDefaultRenderer(Object.class, rendererTableCellXmp);
         }

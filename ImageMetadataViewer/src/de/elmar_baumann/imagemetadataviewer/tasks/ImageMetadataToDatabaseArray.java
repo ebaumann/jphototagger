@@ -10,7 +10,7 @@ import java.text.MessageFormat;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Stack;
-import java.util.Vector;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JProgressBar;
@@ -30,7 +30,7 @@ public class ImageMetadataToDatabaseArray implements ProgressListener {
     private JProgressBar progressBar;
     private HashMap<String, ImageMetadataToDatabase> updaterOfDirectory = new HashMap<String, ImageMetadataToDatabase>();
     private HashMap<ImageMetadataToDatabase, String> directoryOfUpdater = new HashMap<ImageMetadataToDatabase, String>();
-    private Vector<TaskListener> taskListeners = new Vector<TaskListener>();
+    private ArrayList<TaskListener> taskListeners = new ArrayList<TaskListener>();
     private String tooltipTextProgressEnded;
 
     /**
@@ -148,7 +148,7 @@ public class ImageMetadataToDatabaseArray implements ProgressListener {
 
     private ImageMetadataToDatabase createUpdater(String directoryName,
         boolean onlyTextMetadata, boolean force) {
-        Vector<String> filenames = ImageFilteredDirectory.getImageFilenamesOfDirectory(directoryName);
+        ArrayList<String> filenames = ImageFilteredDirectory.getImageFilenamesOfDirectory(directoryName);
         Collections.sort(filenames);
         int thumbnailLength = UserSettings.getInstance().getMaxThumbnailLength();
         ImageMetadataToDatabase scanner =

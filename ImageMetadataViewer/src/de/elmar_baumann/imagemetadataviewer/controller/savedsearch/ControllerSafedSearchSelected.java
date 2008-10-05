@@ -8,7 +8,7 @@ import de.elmar_baumann.imagemetadataviewer.resource.Panels;
 import de.elmar_baumann.imagemetadataviewer.view.panels.AppPanel;
 import de.elmar_baumann.imagemetadataviewer.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.imagemetadataviewer.view.popupmenus.PopupMenuPanelThumbnails;
-import java.util.Vector;
+import java.util.ArrayList;
 import javax.swing.JTree;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
@@ -53,7 +53,7 @@ public class ControllerSafedSearchSelected extends Controller
     }
 
     private void search(ParamStatement stmt) {
-        Vector<String> filenames = db.searchFilenames(stmt);
+        ArrayList<String> filenames = db.searchFilenames(stmt);
         thumbnailsPanel.setFilenames(filenames);
         PopupMenuPanelThumbnails.getInstance().setIsImageCollection(false);
     }

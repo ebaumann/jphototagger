@@ -7,8 +7,8 @@ import de.elmar_baumann.imagemetadataviewer.resource.Panels;
 import de.elmar_baumann.imagemetadataviewer.view.panels.AppPanel;
 import de.elmar_baumann.imagemetadataviewer.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.imagemetadataviewer.view.popupmenus.PopupMenuPanelThumbnails;
+import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Vector;
 import javax.swing.JList;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -50,9 +50,9 @@ public class ControllerFavoriteDirectoryItemSelected extends Controller
         PopupMenuPanelThumbnails.getInstance().setIsImageCollection(false);
     }
 
-    private Vector<String> getSortedFilenamesOfCurrentDirectory() {
+    private ArrayList<String> getSortedFilenamesOfCurrentDirectory() {
         FavoriteDirectory favorite = (FavoriteDirectory) listFavoriteDirectories.getSelectedValue();
-        Vector<String> filenames =
+        ArrayList<String> filenames =
             ImageFilteredDirectory.getImageFilenamesOfDirectory(favorite.getDirectoryName());
         Collections.sort(filenames);
         return filenames;

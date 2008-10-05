@@ -13,7 +13,7 @@ import de.elmar_baumann.imagemetadataviewer.resource.Panels;
 import de.elmar_baumann.imagemetadataviewer.view.panels.AppPanel;
 import de.elmar_baumann.imagemetadataviewer.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.imagemetadataviewer.view.panels.MetaDataEditPanelsArray;
-import java.util.Vector;
+import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
@@ -66,7 +66,7 @@ public class ControllerThumbnailSelectionEditMetadata
     }
 
     private boolean canEdit() {
-        Vector<String> filenames = thumbnailsPanel.getSelectedFilenames();
+        ArrayList<String> filenames = thumbnailsPanel.getSelectedFilenames();
         for (String filename : filenames) {
             if (!XmpMetadata.canWriteSidecarFile(filename)) {
                 return false;
@@ -85,10 +85,10 @@ public class ControllerThumbnailSelectionEditMetadata
 
     private void setEditPanelsContent() {
         editPanels.emptyPanels();
-        Vector<String> filenames = thumbnailsPanel.getSelectedFilenames();
+        ArrayList<String> filenames = thumbnailsPanel.getSelectedFilenames();
         if (filenames.size() == 1) {
             XmpMetadata xmpMetaData = new XmpMetadata();
-            Vector<XMPPropertyInfo> xmpPropertyInfos = xmpMetaData.getPropertyInfosOfFile(filenames.get(0));
+            ArrayList<XMPPropertyInfo> xmpPropertyInfos = xmpMetaData.getPropertyInfosOfFile(filenames.get(0));
 
             if (xmpPropertyInfos != null && xmpPropertyInfos.size() > 0) {
                 editPanels.setXmpPropertyInfos(filenames, xmpPropertyInfos);

@@ -11,7 +11,7 @@ import de.elmar_baumann.lib.template.Pair;
 import java.io.File;
 import java.io.IOException;
 import java.text.MessageFormat;
-import java.util.Vector;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -24,14 +24,14 @@ import javax.swing.JOptionPane;
  */
 public class CopyFiles implements Runnable {
 
-    private Vector<ProgressListener> progressListeners = new Vector<ProgressListener>();
-    private Vector<Pair<String, String>> filenames = new Vector<Pair<String, String>>();
-    private Vector<String> errorFilenames = new Vector<String>();
+    private ArrayList<ProgressListener> progressListeners = new ArrayList<ProgressListener>();
+    private ArrayList<Pair<String, String>> filenames = new ArrayList<Pair<String, String>>();
+    private ArrayList<String> errorFilenames = new ArrayList<String>();
     private boolean stop = false;
     private boolean forceOverwrite = false;
 
     /**
-     * Standardkonstruktor. Mit {@link #setFilenames(java.util.Vector)} werden
+     * Standardkonstruktor. Mit {@link #setFilenames(java.util.ArrayList)} werden
      * die zu kopierenden Dateien gesetzt.
      */
     public CopyFiles() {
@@ -43,7 +43,7 @@ public class CopyFiles implements Runnable {
      * @param filenames  Namen der zu kopierenden Dateien. Der erste im Paar
      *                   ist die Quelldatei, der zweite die Zieldatei.
      */
-    public CopyFiles(Vector<Pair<String, String>> filenames) {
+    public CopyFiles(ArrayList<Pair<String, String>> filenames) {
         this.filenames = filenames;
     }
 
@@ -60,7 +60,7 @@ public class CopyFiles implements Runnable {
      * @param filenames  Namen der zu kopierenden Dateien. Der erste im Paar
      *                   ist die Quelldatei, der zweite die Zieldatei.
      */
-    public void setFilenames(Vector<Pair<String, String>> filenames) {
+    public void setFilenames(ArrayList<Pair<String, String>> filenames) {
         this.filenames = filenames;
     }
 
@@ -87,7 +87,7 @@ public class CopyFiles implements Runnable {
      * liefert ein
      * {@link  de.elmar_baumann.imagemetadataviewer.event.ProgressEvent}-Objekt,
      * das mit {@link  de.elmar_baumann.imagemetadataviewer.event.ProgressEvent#getInfo()}
-     * ein {@link java.util.Vector}-Objekt mit den Dateinamen der Dateien, die nicht
+     * ein {@link java.util.ArrayList}-Objekt mit den Dateinamen der Dateien, die nicht
      * kopiert werden konnten.
      * 
      * @param listener  Beobachter

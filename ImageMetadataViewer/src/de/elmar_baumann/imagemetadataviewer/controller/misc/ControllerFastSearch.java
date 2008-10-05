@@ -15,7 +15,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.Vector;
+import java.util.ArrayList;
 import javax.swing.JTextField;
 import javax.swing.JTree;
 
@@ -31,7 +31,7 @@ public class ControllerFastSearch extends Controller implements UserSettingsChan
     private AppPanel appPanel = Panels.getInstance().getAppPanel();
     private JTextField textFieldSearch = appPanel.getTextFieldSearch();
     private ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelImageFileThumbnails();
-    private Vector<JTree> selectionTrees = appPanel.getSelectionTrees();
+    private ArrayList<JTree> selectionTrees = appPanel.getSelectionTrees();
 
     public ControllerFastSearch() {
         textFieldSearch.setEnabled(UserSettings.getInstance().getFastSearchColumns().size() > 0);
@@ -79,7 +79,7 @@ public class ControllerFastSearch extends Controller implements UserSettingsChan
 
     private void search(String searchText) {
         TreeUtil.clearSelection(selectionTrees);
-        Vector<String> filenames =
+        ArrayList<String> filenames =
             db.searchFilenamesLikeOr(UserSettings.getInstance().getFastSearchColumns(), searchText);
         thumbnailsPanel.setFilenames(filenames);
         PopupMenuPanelThumbnails.getInstance().setIsImageCollection(false);

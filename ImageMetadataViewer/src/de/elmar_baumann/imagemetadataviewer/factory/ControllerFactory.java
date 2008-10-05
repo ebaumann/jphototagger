@@ -41,7 +41,7 @@ import de.elmar_baumann.imagemetadataviewer.controller.thumbnail.ControllerCreat
 import de.elmar_baumann.imagemetadataviewer.controller.thumbnail.ControllerDeleteThumbnailsFromDatabase;
 import de.elmar_baumann.imagemetadataviewer.controller.thumbnail.ControllerRenameInXmpColumns;
 import de.elmar_baumann.imagemetadataviewer.controller.thumbnail.ControllerRotateThumbnail;
-import java.util.Vector;
+import java.util.ArrayList;
 
 /**
  * Erzeugt alle Controller.
@@ -51,7 +51,7 @@ import java.util.Vector;
  */
 public class ControllerFactory {
 
-    private Vector<Controller> controllers = new Vector<Controller>();
+    private ArrayList<Controller> controllers = new ArrayList<Controller>();
     private ControllerArrayScheduledTasks controllerScheduledTasks;
     private static ControllerFactory instance = new ControllerFactory();
 

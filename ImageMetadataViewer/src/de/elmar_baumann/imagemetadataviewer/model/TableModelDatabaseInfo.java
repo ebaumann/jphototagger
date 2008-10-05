@@ -11,7 +11,7 @@ import de.elmar_baumann.imagemetadataviewer.event.DatabaseListener;
 import de.elmar_baumann.imagemetadataviewer.resource.Bundle;
 import java.util.LinkedHashMap;
 import java.util.Set;
-import java.util.Vector;
+import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -25,11 +25,11 @@ public class TableModelDatabaseInfo extends DefaultTableModel
 
     private Database db = Database.getInstance();
     private LinkedHashMap<Column, StringBuffer> bufferOfColumn = new LinkedHashMap<Column, StringBuffer>();
-    private Vector<Column> excludedColumns = new Vector<Column>();
+    private ArrayList<Column> excludedColumns = new ArrayList<Column>();
     private boolean listenToDatabase = false;
 
     private void initBufferOfColumn() {
-        Vector<Table> tables = AllTables.get();
+        ArrayList<Table> tables = AllTables.get();
         for (Table table : tables) {
             for (Column column : table.getColumns()) {
                 if (isInfoColumn(column)) {
@@ -89,11 +89,8 @@ public class TableModelDatabaseInfo extends DefaultTableModel
         }
     }
 
-    private Vector<Object> getRow(Column rowHeader, StringBuffer count) {
-        Vector<Object> row = new Vector<Object>();
-        row.add(rowHeader);
-        row.add(count);
-        return row;
+    private Object[] getRow(Column rowHeader, StringBuffer count) {
+        return new Object[]{rowHeader, count};
     }
 
     private void setCountToBuffer(StringBuffer buffer, Integer count) {

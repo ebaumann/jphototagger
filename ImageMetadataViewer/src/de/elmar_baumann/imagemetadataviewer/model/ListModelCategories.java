@@ -7,7 +7,7 @@ import de.elmar_baumann.imagemetadataviewer.database.Database;
 import de.elmar_baumann.imagemetadataviewer.event.DatabaseAction;
 import de.elmar_baumann.imagemetadataviewer.event.DatabaseListener;
 import java.util.LinkedHashSet;
-import java.util.Vector;
+import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 
 /**
@@ -47,7 +47,7 @@ public class ListModelCategories extends DefaultListModel
     }
 
     private void checkForNewCategories(ImageFile imageFileData) {
-        Vector<String> categories = getCategories(imageFileData);
+        ArrayList<String> categories = getCategories(imageFileData);
         for (String category : categories) {
             if (!contains(category)) {
                 addElement(category);
@@ -64,8 +64,8 @@ public class ListModelCategories extends DefaultListModel
         }
     }
 
-    private Vector<String> getCategories(ImageFile imageFileData) {
-        Vector<String> categories = new Vector<String>();
+    private ArrayList<String> getCategories(ImageFile imageFileData) {
+        ArrayList<String> categories = new ArrayList<String>();
         Iptc iptcData = imageFileData.getIptc();
         Xmp xmpData = imageFileData.getXmp();
         if (iptcData != null && iptcData.getSupplementalCategories() != null) {

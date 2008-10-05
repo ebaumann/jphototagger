@@ -1,6 +1,6 @@
 package de.elmar_baumann.imagemetadataviewer.data;
 
-import java.util.Vector;
+import java.util.ArrayList;
 
 /**
  * Daten einer gespeicherten Suche.
@@ -11,14 +11,14 @@ import java.util.Vector;
 public class SavedSearch {
 
     private SavedSearchParamStatement paramStatements;
-    private Vector<SavedSearchPanel> panels;
+    private ArrayList<SavedSearchPanel> panels;
 
     /**
      * Liefert die Paneldaten.
      * 
      * @return Paneldaten
      */
-    public Vector<SavedSearchPanel> getPanels() {
+    public ArrayList<SavedSearchPanel> getPanels() {
         return panels;
     }
 
@@ -27,7 +27,7 @@ public class SavedSearch {
      * 
      * @param panelData Paneldaten
      */
-    public void setPanels(Vector<SavedSearchPanel> panelData) {
+    public void setPanels(ArrayList<SavedSearchPanel> panelData) {
         this.panels = panelData;
     }
 
@@ -38,7 +38,7 @@ public class SavedSearch {
      */
     public void addToPanelData(SavedSearchPanel data) {
         if (panels == null) {
-            panels = new Vector<SavedSearchPanel>();
+            panels = new ArrayList<SavedSearchPanel>();
         }
         panels.add(data);
     }

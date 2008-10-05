@@ -4,7 +4,7 @@ import de.elmar_baumann.imagemetadataviewer.AppSettings;
 import de.elmar_baumann.imagemetadataviewer.database.Database;
 import de.elmar_baumann.imagemetadataviewer.resource.Bundle;
 import java.text.MessageFormat;
-import java.util.Vector;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
@@ -23,7 +23,7 @@ public class ImageCollectionToDatabase {
      * @param filenames Namen der Bilddateien
      * @return          Name der Sammlung oder null, wenn keine eingefügt wurde
      */
-    public String addImageCollection(Vector<String> filenames) {
+    public String addImageCollection(ArrayList<String> filenames) {
         String name = inputCollectionName(""); // NOI18N
         if (name != null && !name.isEmpty()) {
             if (!db.insertImageCollection(name, filenames)) {
@@ -42,7 +42,7 @@ public class ImageCollectionToDatabase {
      * @return               true, wenn die Bilder entfernt wurden
      */
     public boolean deleteImagesFromCollection(
-        String collectionName, Vector<String> filenames) {
+        String collectionName, ArrayList<String> filenames) {
         if (askDelete(collectionName,
             Bundle.getString("ImageCollectionToDatabase.ConfirmMessage.DeleteSelectedFiles"))) {
             boolean removed = db.deleteImagesFromCollection(
@@ -79,7 +79,7 @@ public class ImageCollectionToDatabase {
      * @param filenames      Hinzuzufügende Bilddateien
      * @return               true bei Erfolg
      */
-    public boolean addImagesToCollection(String collectionName, Vector<String> filenames) {
+    public boolean addImagesToCollection(String collectionName, ArrayList<String> filenames) {
         boolean added = db.insertImagesIntoCollection(collectionName, filenames);
         if (!added) {
             messageErrorAddImagesToCollection(collectionName);

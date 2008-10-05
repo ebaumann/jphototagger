@@ -8,7 +8,7 @@ import de.elmar_baumann.imagemetadataviewer.view.panels.ImageFileThumbnailsPanel
 import de.elmar_baumann.imagemetadataviewer.view.popupmenus.PopupMenuPanelThumbnails;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Vector;
+import java.util.ArrayList;
 
 /**
  * Kontrolliert die Aktion: Ausgewählte Dateien in ein Verzeichnis kopieren.
@@ -33,7 +33,7 @@ public class ControllerCopyFilesToDirectory extends Controller
     @Override
     public void actionPerformed(ActionEvent e) {
         if (isStarted()) {
-            Vector<String> files = panel.getSelectedFilenames();
+            ArrayList<String> files = panel.getSelectedFilenames();
             if (files.size() > 0) {
                 CopyToDirectoryDialog dialog = new CopyToDirectoryDialog();
                 dialog.setSourceFiles(files);

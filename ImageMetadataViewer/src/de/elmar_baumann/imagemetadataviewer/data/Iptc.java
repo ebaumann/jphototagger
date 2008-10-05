@@ -2,7 +2,7 @@ package de.elmar_baumann.imagemetadataviewer.data;
 
 import com.imagero.reader.iptc.IPTCEntryMeta;
 import java.util.HashMap;
-import java.util.Vector;
+import java.util.ArrayList;
 
 /**
  * IPTC-Metadaten einer Bilddatei. Unter den Operationen ist ein Link auf die
@@ -14,25 +14,25 @@ import java.util.Vector;
  */
 public class Iptc {
 
-    private Vector<String> byLines = new Vector<String>();
-    private Vector<String> byLinesTitles = new Vector<String>();
+    private ArrayList<String> byLines = new ArrayList<String>();
+    private ArrayList<String> byLinesTitles = new ArrayList<String>();
     private StringBuffer captionAbstract = new StringBuffer();
     private StringBuffer category = new StringBuffer();
     private StringBuffer city = new StringBuffer();
-    private Vector<String> contentLocationCodes = new Vector<String>();
-    private Vector<String> contentLocationNames = new Vector<String>();
+    private ArrayList<String> contentLocationCodes = new ArrayList<String>();
+    private ArrayList<String> contentLocationNames = new ArrayList<String>();
     private StringBuffer copyrightNotice = new StringBuffer();
     private StringBuffer countryPrimaryLocationName = new StringBuffer();
     private StringBuffer credit = new StringBuffer();
     private StringBuffer headline = new StringBuffer();
-    private Vector<String> keywords = new Vector<String>();
+    private ArrayList<String> keywords = new ArrayList<String>();
     private StringBuffer objectName = new StringBuffer();
     private StringBuffer originalTransmissionReference = new StringBuffer();
     private StringBuffer provinceState = new StringBuffer();
     private StringBuffer source = new StringBuffer();
     private StringBuffer specialInstructions = new StringBuffer();
-    private Vector<String> supplementalCategories = new Vector<String>();
-    private Vector<String> writersEditors = new Vector<String>();
+    private ArrayList<String> supplementalCategories = new ArrayList<String>();
+    private ArrayList<String> writersEditors = new ArrayList<String>();
     private HashMap<IPTCEntryMeta, Object> valueOfEntryMeta = new HashMap<IPTCEntryMeta, Object>();
 
     private void init() {
@@ -67,7 +67,7 @@ public class Iptc {
      * @return IPTC-Felder 2:85 oder null, wenn nicht definiert
      * @see    Xmp#getPhotoshopAuthorsposition()
      */
-    public Vector<String> getByLinesTitles() {
+    public ArrayList<String> getByLinesTitles() {
         return byLinesTitles.isEmpty() ? null : byLinesTitles;
     }
 
@@ -89,7 +89,7 @@ public class Iptc {
      * @return IPTC-Felder 2:80 (Byline) oder null, wenn nicht definiert
      * @see    Xmp#getDcCreators()
      */
-    public Vector<String> getByLines() {
+    public ArrayList<String> getByLines() {
         return byLines.isEmpty() ? null : byLines;
     }
 
@@ -182,7 +182,7 @@ public class Iptc {
      * @return IPTC-Felder 2:26 (Content Location Code) oder null, wenn nicht definiert
      * @see    Xmp#getIptc4xmpcoreCountrycode()
      */
-    public Vector<String> getContentLocationCodes() {
+    public ArrayList<String> getContentLocationCodes() {
         return contentLocationCodes.isEmpty() ? null : contentLocationCodes;
     }
 
@@ -205,7 +205,7 @@ public class Iptc {
      * @return IPTC-Felder 2:27 (Content Location Name) oder null, wenn nicht definiert
      * @see    Xmp#getIptc4xmpcoreLocation()
      */
-    public Vector<String> getContentLocationNames() {
+    public ArrayList<String> getContentLocationNames() {
         return contentLocationNames.isEmpty() ? null : contentLocationNames;
     }
 
@@ -322,7 +322,7 @@ public class Iptc {
      * @return IPTC-Felder 2:25 (Keywords) oder null, wenn nicht definiert
      * @see    Xmp#getDcSubjects()
      */
-    public Vector<String> getKeywords() {
+    public ArrayList<String> getKeywords() {
         return keywords;
     }
 
@@ -462,7 +462,7 @@ public class Iptc {
      * @return IPTC-Felder 2:20 (Supplemental Category) oder null, wenn nicht definiert
      * @see    Xmp#getPhotoshopSupplementalCategories()
      */
-    public Vector<String> getSupplementalCategories() {
+    public ArrayList<String> getSupplementalCategories() {
         return supplementalCategories;
     }
 
@@ -485,7 +485,7 @@ public class Iptc {
      * @return IPTC-Felder 2:122 (Writer/Editor) oder null, wenn nicht definiert
      * @see    Xmp#getPhotoshopCaptionwriter()
      */
-    public Vector<String> getWritersEditors() {
+    public ArrayList<String> getWritersEditors() {
         return writersEditors;
     }
 
@@ -506,7 +506,7 @@ public class Iptc {
      * 
      * @param  meta  IPTC-Metadatum
      * @return Wert: Ein String für sich nicht wiederholende Werte oder ein
-     *         String-Vector für sich wiederholdende Werte oder null, wenn
+     *         String-ArrayList für sich wiederholdende Werte oder null, wenn
      *         für dieses Metadatum kein Wert gesetzt ist
      */
     public Object getValue(IPTCEntryMeta meta) {
@@ -518,12 +518,12 @@ public class Iptc {
             } else {
                 return stringBuffer.toString();
             }
-        } else if (value instanceof Vector) {
-            Vector vector = (Vector) value;
-            if (vector.isEmpty()) {
+        } else if (value instanceof ArrayList) {
+            ArrayList array = (ArrayList) value;
+            if (array.isEmpty()) {
                 return null;
             } else {
-                return vector;
+                return array;
             }
         } else {
             assert false : meta;
@@ -546,10 +546,10 @@ public class Iptc {
             stringBuffer.replace(0, stringBuffer.length(), value == null
                 ? "" // NOI18N
                 : value);
-        } else if (o instanceof Vector && value != null) {
-            Vector vector = (Vector) o;
-            if (!vector.contains(value)) {
-                vector.add(value);
+        } else if (o instanceof ArrayList && value != null) {
+            ArrayList array = (ArrayList) o;
+            if (!array.contains(value)) {
+                array.add(value);
             }
         }
     }

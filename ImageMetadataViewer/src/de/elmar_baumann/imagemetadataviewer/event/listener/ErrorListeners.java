@@ -2,7 +2,7 @@ package de.elmar_baumann.imagemetadataviewer.event.listener;
 
 import de.elmar_baumann.imagemetadataviewer.event.ErrorEvent;
 import de.elmar_baumann.imagemetadataviewer.event.ErrorListener;
-import java.util.Vector;
+import java.util.ArrayList;
 
 /**
  * Error-Listener, erspart Klassen die Implementation von
@@ -19,7 +19,7 @@ import java.util.Vector;
 public class ErrorListeners {
 
     private static ErrorListeners instance = new ErrorListeners();
-    private Vector<ErrorListener> errorListeners;
+    private ArrayList<ErrorListener> errorListeners;
 
     /**
      * Meldet einen Beobachter an.
@@ -60,6 +60,6 @@ public class ErrorListeners {
     }
 
     private ErrorListeners() {
-        errorListeners = new Vector<ErrorListener>();
+        errorListeners = new ArrayList<ErrorListener>();
     }
 }

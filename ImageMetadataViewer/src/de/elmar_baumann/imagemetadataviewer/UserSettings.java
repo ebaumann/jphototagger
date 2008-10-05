@@ -5,7 +5,7 @@ import de.elmar_baumann.imagemetadataviewer.database.metadata.Column;
 import de.elmar_baumann.imagemetadataviewer.model.ComboBoxModelThreadPriority;
 import de.elmar_baumann.imagemetadataviewer.view.dialogs.UserSettingsDialog;
 import java.io.File;
-import java.util.Vector;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.XMLFormatter;
 import javax.swing.ListModel;
@@ -76,7 +76,7 @@ public class UserSettings {
      * 
      * @return Suchspalten
      */
-    public Vector<Column> getFastSearchColumns() {
+    public ArrayList<Column> getFastSearchColumns() {
         return settingsDialog.searchColumnsListModel.getTableColumns(
             settingsDialog.checkListSearchColumns.getSelectedItemIndices());
     }
@@ -155,8 +155,8 @@ public class UserSettings {
      * 
      * @return Anwendungsdateien, falls existent
      */
-    public Vector<File> getOtherImageOpenApps() {
-        Vector<File> apps = new Vector<File>();
+    public ArrayList<File> getOtherImageOpenApps() {
+        ArrayList<File> apps = new ArrayList<File>();
         ListModel model = settingsDialog.listOpenImageApps.getModel();
         int count = model.getSize();
         for (int i = 0; i < count; i++) {
@@ -173,7 +173,7 @@ public class UserSettings {
      * 
      * @return Verzeichnisnamen
      */
-    public Vector<String> getAutoscanDirectories() {
+    public ArrayList<String> getAutoscanDirectories() {
         return db.getAutoscanDirectories();
     }
 

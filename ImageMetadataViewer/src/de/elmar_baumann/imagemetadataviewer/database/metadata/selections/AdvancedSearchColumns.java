@@ -5,7 +5,7 @@ import de.elmar_baumann.imagemetadataviewer.database.metadata.Table;
 import de.elmar_baumann.imagemetadataviewer.database.metadata.collections.ColumnCollectionsSequenceNumber;
 import de.elmar_baumann.imagemetadataviewer.database.metadata.file.ColumnFilesLastModified;
 import de.elmar_baumann.imagemetadataviewer.database.metadata.file.ColumnFilesThumbnail;
-import java.util.Vector;
+import java.util.ArrayList;
 
 /**
  * Spalten für die erweiterte Suche.
@@ -15,8 +15,8 @@ import java.util.Vector;
  */
 public class AdvancedSearchColumns {
 
-    private static Vector<Column> columns = new Vector<Column>();
-    private static Vector<Column> excludeColumns = new Vector<Column>();
+    private static ArrayList<Column> columns = new ArrayList<Column>();
+    private static ArrayList<Column> excludeColumns = new ArrayList<Column>();
     private static AdvancedSearchColumns instance = new AdvancedSearchColumns();
     
 
@@ -25,9 +25,9 @@ public class AdvancedSearchColumns {
         excludeColumns.add(ColumnFilesThumbnail.getInstance());
         excludeColumns.add(ColumnCollectionsSequenceNumber.getInstance());
 
-        Vector<Table> tables = AllTables.get();
+        ArrayList<Table> tables = AllTables.get();
         for (Table table : tables) {
-            Vector<Column> allColumns = table.getColumns();
+            ArrayList<Column> allColumns = table.getColumns();
             for (Column column : allColumns) {
                 if (!column.isPrimaryKey() && !column.isForeignKey() &&
                     !excludeColumns.contains(column)) {
@@ -51,7 +51,7 @@ public class AdvancedSearchColumns {
      * 
      * @return Suchspalten
      */
-    public Vector<Column> get() {
+    public ArrayList<Column> get() {
         return columns;
     }
 

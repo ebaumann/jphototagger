@@ -27,7 +27,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Set;
-import java.util.Vector;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -39,12 +39,12 @@ import java.util.logging.Logger;
  */
 public class XmpMetadata {
 
-    private static final Vector<String> knownNamespaces = new Vector<String>();
+    private static final ArrayList<String> knownNamespaces = new ArrayList<String>();
     private static XmpColumnNamespaceUriMapping mappingNamespaceUri = XmpColumnNamespaceUriMapping.getInstance();
     private static XmpColumnXmpPathStartMapping mappingName = XmpColumnXmpPathStartMapping.getInstance();
     private static XmpColumnXmpDataTypeMapping mappingDataType = XmpColumnXmpDataTypeMapping.getInstance();
 
-    private static void initKnownNamespacesVector() {
+    private static void initKnownNamespacesArray() {
         if (knownNamespaces.isEmpty()) {
             knownNamespaces.add("Iptc4xmpCore"); // NOI18N
             knownNamespaces.add("aux"); // NOI18N
@@ -75,9 +75,9 @@ public class XmpMetadata {
      * @param namespace     Namensraum
      * @return              Property-Infos dieses Namensraums
      */
-    public static Vector<XMPPropertyInfo> getPropertyInfosOfNamespace(
-        Vector<XMPPropertyInfo> propertyInfos, String namespace) {
-        Vector<XMPPropertyInfo> propertyInfosNs = new Vector<XMPPropertyInfo>();
+    public static ArrayList<XMPPropertyInfo> getPropertyInfosOfNamespace(
+        ArrayList<XMPPropertyInfo> propertyInfos, String namespace) {
+        ArrayList<XMPPropertyInfo> propertyInfosNs = new ArrayList<XMPPropertyInfo>();
         for (XMPPropertyInfo propertyInfo : propertyInfos) {
             if (propertyInfo.getNamespace().equals(namespace)) {
                 propertyInfosNs.add(propertyInfo);
@@ -92,11 +92,11 @@ public class XmpMetadata {
      * @param filename Dateiname
      * @return         Metadaten oder null bei Lesefehlern
      */
-    public Vector<XMPPropertyInfo> getPropertyInfosOfFile(String filename) {
+    public ArrayList<XMPPropertyInfo> getPropertyInfosOfFile(String filename) {
         if (!FileUtil.existsFile(filename)) {
             return null;
         }
-        Vector<XMPPropertyInfo> metadata = new Vector<XMPPropertyInfo>();
+        ArrayList<XMPPropertyInfo> metadata = new ArrayList<XMPPropertyInfo>();
         try {
             String xmp = getXmpAsString(filename);
             if (xmp != null && xmp.length() > 0) {
@@ -118,7 +118,7 @@ public class XmpMetadata {
     }
 
     private void addXmpPropertyInfo(XMPMeta xmpMeta,
-        Vector<XMPPropertyInfo> xmpPropertyInfos) {
+        ArrayList<XMPPropertyInfo> xmpPropertyInfos) {
         try {
             for (XMPIterator it = xmpMeta.iterator(); it.hasNext();) {
                 XMPPropertyInfo xmpPropertyInfo = (XMPPropertyInfo) it.next();
@@ -195,7 +195,7 @@ public class XmpMetadata {
      * @return       true, wenn bekannt
      */
     public static boolean isKnownNamespace(String string) {
-        initKnownNamespacesVector();
+        initKnownNamespacesArray();
         return knownNamespaces.contains(string);
     }
 
@@ -210,10 +210,10 @@ public class XmpMetadata {
      * @param  propertyInfos Beliebige Property-Infos
      * @return Gefilterte Property-Infos
      */
-    public Vector<XMPPropertyInfo> getFilteredPropertyInfosOfIptcEntryMeta(
-        IPTCEntryMeta iptcEntryMeta, Vector<XMPPropertyInfo> propertyInfos) {
+    public ArrayList<XMPPropertyInfo> getFilteredPropertyInfosOfIptcEntryMeta(
+        IPTCEntryMeta iptcEntryMeta, ArrayList<XMPPropertyInfo> propertyInfos) {
 
-        Vector<XMPPropertyInfo> filteredPropertyInfos = new Vector<XMPPropertyInfo>();
+        ArrayList<XMPPropertyInfo> filteredPropertyInfos = new ArrayList<XMPPropertyInfo>();
         IptcEntryXmpPathStartMapping mapping = IptcEntryXmpPathStartMapping.getInstance();
         String startsWith = mapping.getXmpPathStartOfIptcEntryMeta(iptcEntryMeta);
 
@@ -302,7 +302,7 @@ public class XmpMetadata {
      * @return true bei Erfolg
      */
     public boolean writeMetaDataToSidecarFile(String sidecarFilename,
-        Vector<TextEntry> textEntries, boolean deleteEmpty, boolean append) {
+        ArrayList<TextEntry> textEntries, boolean deleteEmpty, boolean append) {
         try {
             XMPMeta xmpMeta = getXmpMetaOfSidecarFile(sidecarFilename);
             writeSidecarFileDeleteItems(xmpMeta, textEntries, deleteEmpty, append);
@@ -333,7 +333,7 @@ public class XmpMetadata {
     }
 
     private void writeSidecarFileDeleteItems(XMPMeta xmpMeta,
-        Vector<TextEntry> textEntries, boolean deleteEmpty, boolean append) {
+        ArrayList<TextEntry> textEntries, boolean deleteEmpty, boolean append) {
         for (TextEntry textEntry : textEntries) {
             Column xmpColumn = textEntry.getColumn();
             String namespaceUri = mappingNamespaceUri.getNamespaceUriOfColumn(xmpColumn);
@@ -362,7 +362,7 @@ public class XmpMetadata {
             xmpMeta.setLocalizedText(namespaceUri, propertyName, "", "x-default", // NOI18N
                 entryText);
         } else if (mappingDataType.isArray(xmpColumn)) {
-            Vector<String> items = ArrayUtil.stringTokenToVector(
+            ArrayList<String> items = ArrayUtil.stringTokenToArray(
                 entryText, getArrayItemDelimiter());
             for (String item : items) {
                 item = item.trim();
@@ -387,9 +387,9 @@ public class XmpMetadata {
                         value);
                 }
             }
-            if (o instanceof Vector) {
+            if (o instanceof ArrayList) {
                 @SuppressWarnings("unchecked")
-                Vector<String> values = (Vector<String>) o;
+                ArrayList<String> values = (ArrayList<String>) o;
                 for (String value : values) {
                     value = value.trim();
                     if (!doesArrayItemExist(xmpMeta, namespaceUri, propertyName, value)) {
@@ -463,7 +463,7 @@ public class XmpMetadata {
     public static Xmp getXmp(String filename) {
         Xmp xmp = null;
         XmpMetadata xmpMetadata = new XmpMetadata();
-        Vector<XMPPropertyInfo> xmpPropertyInfos = xmpMetadata.getPropertyInfosOfFile(filename);
+        ArrayList<XMPPropertyInfo> xmpPropertyInfos = xmpMetadata.getPropertyInfosOfFile(filename);
         if (xmpPropertyInfos != null) {
             xmp = new Xmp();
             for (XMPPropertyInfo xmpPropertyInfo : xmpPropertyInfos) {

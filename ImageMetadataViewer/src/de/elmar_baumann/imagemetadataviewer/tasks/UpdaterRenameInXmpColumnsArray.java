@@ -6,7 +6,7 @@ import de.elmar_baumann.imagemetadataviewer.event.ProgressEvent;
 import de.elmar_baumann.imagemetadataviewer.event.ProgressListener;
 import de.elmar_baumann.imagemetadataviewer.resource.ProgressBarCurrentTasks;
 import java.util.Stack;
-import java.util.Vector;
+import java.util.ArrayList;
 import javax.swing.JProgressBar;
 
 /**
@@ -36,7 +36,7 @@ public class UpdaterRenameInXmpColumnsArray implements ProgressListener {
         stop = true;
     }
 
-    synchronized public void update(Vector<String> filenames, Column column,
+    synchronized public void update(ArrayList<String> filenames, Column column,
         String oldValue, String newValue) {
         updaters.push(new UpdaterRenameInXmpColumns(filenames, column, oldValue, newValue));
         startNextThread();

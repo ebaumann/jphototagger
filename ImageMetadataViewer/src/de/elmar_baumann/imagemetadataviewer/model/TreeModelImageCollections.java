@@ -3,7 +3,6 @@ package de.elmar_baumann.imagemetadataviewer.model;
 import de.elmar_baumann.imagemetadataviewer.database.Database;
 import de.elmar_baumann.imagemetadataviewer.resource.Bundle;
 import java.util.ArrayList;
-import java.util.Vector;
 import javax.swing.event.TreeModelEvent;
 import javax.swing.event.TreeModelListener;
 import javax.swing.tree.TreeModel;
@@ -20,7 +19,7 @@ public class TreeModelImageCollections implements TreeModel {
     private String root = Bundle.getString("TreeModelImageCollections.RootItem");
     private Database db = Database.getInstance();
     private ArrayList<String> nodes = new ArrayList<String>();
-    private Vector<TreeModelListener> listener = new Vector<TreeModelListener>();
+    private ArrayList<TreeModelListener> listener = new ArrayList<TreeModelListener>();
 
     private enum ActionType {
 
@@ -141,7 +140,7 @@ public class TreeModelImageCollections implements TreeModel {
     }
 
     private void addCollections() {
-        Vector<String> names = db.getImageCollectionNames();
+        ArrayList<String> names = db.getImageCollectionNames();
         for (String name : names) {
             addNode(name);
         }

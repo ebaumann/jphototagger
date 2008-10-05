@@ -13,7 +13,7 @@ import de.elmar_baumann.lib.persistence.PersistentSettings;
 import de.elmar_baumann.lib.template.Pair;
 import java.awt.event.WindowEvent;
 import java.io.File;
-import java.util.Vector;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
@@ -26,7 +26,7 @@ public class CopyToDirectoryDialog extends javax.swing.JDialog
     private static final String keyLastDirectory = "de.elmar_baumann.imagemetadataviewer.view.dialogs.CopyToDirectoryDialog.LastDirectory"; // NOI18N
     private CopyFiles copyTask;
     private boolean copy = false;
-    private Vector<String> sourceFiles;
+    private ArrayList<String> sourceFiles;
     private String lastDirectory = ""; // NOI18N
 
     /** Creates new form CopyToDirectoryDialog */
@@ -49,7 +49,7 @@ public class CopyToDirectoryDialog extends javax.swing.JDialog
         }
     }
 
-    private void checkError(Vector<String> errorFiles) {
+    private void checkError(ArrayList<String> errorFiles) {
         if (errorFiles.size() > 0) {
             JOptionPane.showMessageDialog(
                 null,
@@ -69,9 +69,9 @@ public class CopyToDirectoryDialog extends javax.swing.JDialog
         thread.start();
     }
 
-    private Vector<Pair<String, String>> getFilenames() {
+    private ArrayList<Pair<String, String>> getFilenames() {
         String directory = labelDirectoryName.getText().trim();
-        Vector<Pair<String, String>> filePairs = new Vector<Pair<String, String>>();
+        ArrayList<Pair<String, String>> filePairs = new ArrayList<Pair<String, String>>();
         for (String sourceFile : sourceFiles) {
             filePairs.add(new Pair<String, String>(sourceFile,
                 directory + File.separator + FileUtil.getFilename(sourceFile)));
@@ -89,7 +89,7 @@ public class CopyToDirectoryDialog extends javax.swing.JDialog
         dialog.setMultiSelection(false);
         dialog.setVisible(true);
         if (dialog.accepted()) {
-            Vector<File> files = dialog.getSelectedDirectories();
+            ArrayList<File> files = dialog.getSelectedDirectories();
             if (files.size() > 0) {
                 String directoryName = files.get(0).getAbsolutePath();
                 labelDirectoryName.setText(directoryName);
@@ -109,7 +109,7 @@ public class CopyToDirectoryDialog extends javax.swing.JDialog
      * 
      * @param sourceFiles  Quelldateien
      */
-    public void setSourceFiles(Vector<String> sourceFiles) {
+    public void setSourceFiles(ArrayList<String> sourceFiles) {
         this.sourceFiles = sourceFiles;
     }
 
@@ -151,7 +151,7 @@ public class CopyToDirectoryDialog extends javax.swing.JDialog
     public void progressEnded(ProgressEvent evt) {
         progressBar.setValue(evt.getValue());
         @SuppressWarnings("unchecked")
-        Vector<String> errorFiles = (Vector<String>) evt.getInfo();
+        ArrayList<String> errorFiles = (ArrayList<String>) evt.getInfo();
         checkError(errorFiles);
         buttonCancelCopy.setEnabled(false);
         buttonStartCopy.setEnabled(true);

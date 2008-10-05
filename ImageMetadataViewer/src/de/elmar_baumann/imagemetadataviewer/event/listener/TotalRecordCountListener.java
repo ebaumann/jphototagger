@@ -3,7 +3,7 @@ package de.elmar_baumann.imagemetadataviewer.event.listener;
 import de.elmar_baumann.imagemetadataviewer.database.Database;
 import de.elmar_baumann.imagemetadataviewer.event.DatabaseAction;
 import de.elmar_baumann.imagemetadataviewer.event.DatabaseListener;
-import java.util.Vector;
+import java.util.ArrayList;
 import javax.swing.JLabel;
 
 /**
@@ -16,7 +16,7 @@ import javax.swing.JLabel;
 public class TotalRecordCountListener implements DatabaseListener {
 
     private Database db = Database.getInstance();
-    private Vector<JLabel> labels = new Vector<JLabel>();
+    private ArrayList<JLabel> labels = new ArrayList<JLabel>();
     boolean listen = false;
 
     public TotalRecordCountListener() {

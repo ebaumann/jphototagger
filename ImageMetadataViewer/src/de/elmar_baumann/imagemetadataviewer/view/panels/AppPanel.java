@@ -12,7 +12,7 @@ import de.elmar_baumann.imagemetadataviewer.view.renderer.ListCellRendererFavori
 import de.elmar_baumann.lib.persistence.PersistentSettings;
 import de.elmar_baumann.lib.persistence.PersistentSettingsHints;
 import java.awt.Container;
-import java.util.Vector;
+import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -33,10 +33,10 @@ import javax.swing.tree.TreeSelectionModel;
 public class AppPanel extends javax.swing.JPanel {
 
     private static final String keyThumbnailPanelViewportViewPosition = "de.elmar_baumann.imagemetadataviewer.view.panels.AppPanel.scrollPaneThumbnailsPanel"; // NOI18N
-    private Vector<JTable> xmpTables = new Vector<JTable>();
-    private Vector<JTable> metaDataTables = new Vector<JTable>();
-    private Vector<JTree> selectionTrees = new Vector<JTree>();
-    private Vector<JList> selectionLists = new Vector<JList>();
+    private ArrayList<JTable> xmpTables = new ArrayList<JTable>();
+    private ArrayList<JTable> metaDataTables = new ArrayList<JTable>();
+    private ArrayList<JTree> selectionTrees = new ArrayList<JTree>();
+    private ArrayList<JList> selectionLists = new ArrayList<JList>();
     private MetaDataEditPanelsArray editPanelsArray;
 
     public AppPanel() {
@@ -78,11 +78,11 @@ public class AppPanel extends javax.swing.JPanel {
         return progressBarScheduledTasks;
     }
 
-    public Vector<JTree> getSelectionTrees() {
+    public ArrayList<JTree> getSelectionTrees() {
         return selectionTrees;
     }
 
-    public Vector<JList> getSelectionLists() {
+    public ArrayList<JList> getSelectionLists() {
         return selectionLists;
     }
 
@@ -170,11 +170,11 @@ public class AppPanel extends javax.swing.JPanel {
         return editPanelsArray;
     }
 
-    public Vector<JTable> getMetaDataTables() {
+    public ArrayList<JTable> getMetaDataTables() {
         return metaDataTables;
     }
 
-    public Vector<JTable> getXmpTables() {
+    public ArrayList<JTable> getXmpTables() {
         return xmpTables;
     }
 

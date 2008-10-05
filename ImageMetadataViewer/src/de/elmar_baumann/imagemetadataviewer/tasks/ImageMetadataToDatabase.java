@@ -17,7 +17,7 @@ import de.elmar_baumann.imagemetadataviewer.resource.Bundle;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.awt.Image;
 import java.text.MessageFormat;
-import java.util.Vector;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -30,10 +30,10 @@ import java.util.logging.Logger;
 public class ImageMetadataToDatabase implements Runnable {
 
     private static Database db = Database.getInstance();
-    private Vector<ProgressListener> progressListeners = new Vector<ProgressListener>();
+    private ArrayList<ProgressListener> progressListeners = new ArrayList<ProgressListener>();
     private boolean stop = false;
     private int maxThumbnailLength;
-    private Vector<String> filenames;
+    private ArrayList<String> filenames;
     private long startTime = 0;
     private boolean forceUpdate = false;
     private boolean createThumbnails = true;
@@ -50,7 +50,7 @@ public class ImageMetadataToDatabase implements Runnable {
      *                           in Pixel für Thumbnails, die aus den Bildern
      *                           skaliert werden
      */
-    public ImageMetadataToDatabase(Vector<String> filenames, int maxThumbnailLength) {
+    public ImageMetadataToDatabase(ArrayList<String> filenames, int maxThumbnailLength) {
         this.filenames = filenames;
         this.maxThumbnailLength = maxThumbnailLength;
     }

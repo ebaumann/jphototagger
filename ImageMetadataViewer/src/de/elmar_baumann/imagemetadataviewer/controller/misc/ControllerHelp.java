@@ -50,7 +50,6 @@ public class ControllerHelp extends Controller implements ActionListener,
     public void actionPerformed(HelpBrowserAction action) {
         if (action.getType().equals(HelpBrowserAction.Type.UrlChanged)) {
             URL url = action.getUrl();
-            System.out.println(url.getProtocol());
             if (!url.getProtocol().startsWith("http")) {
                 lastUrl = HelpBrowser.getLastPathComponent(url);
                 PersistentSettings.getInstance().setString(lastUrl, keyLastUrl);

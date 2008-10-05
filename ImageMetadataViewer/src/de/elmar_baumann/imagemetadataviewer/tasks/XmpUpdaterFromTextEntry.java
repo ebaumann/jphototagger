@@ -4,7 +4,7 @@ import de.elmar_baumann.imagemetadataviewer.data.TextEntry;
 import de.elmar_baumann.imagemetadataviewer.event.ProgressEvent;
 import de.elmar_baumann.imagemetadataviewer.event.ProgressListener;
 import de.elmar_baumann.imagemetadataviewer.image.metadata.xmp.XmpMetadata;
-import java.util.Vector;
+import java.util.ArrayList;
 
 /**
  * Aktualisiert XMP-Daten in den Filialdateien und in der Datenbank.
@@ -14,12 +14,12 @@ import java.util.Vector;
  */
 public class XmpUpdaterFromTextEntry implements Runnable {
 
-    private Vector<TextEntry> textEntries;
-    private Vector<String> filenames;
+    private ArrayList<TextEntry> textEntries;
+    private ArrayList<String> filenames;
     private boolean deleteEmpty;
     private boolean append;
     private boolean stop = false;
-    private Vector<ProgressListener> progressListeners = new Vector<ProgressListener>();
+    private ArrayList<ProgressListener> progressListeners = new ArrayList<ProgressListener>();
 
     /**
      * Konstruktor.
@@ -33,7 +33,7 @@ public class XmpUpdaterFromTextEntry implements Runnable {
      *                      existierende ergänzt werden sollen und nicht
      *                      gelöscht
      */
-    public XmpUpdaterFromTextEntry(Vector<String> filenames, Vector<TextEntry> textEntries,
+    public XmpUpdaterFromTextEntry(ArrayList<String> filenames, ArrayList<TextEntry> textEntries,
         boolean deleteEmpty, boolean append) {
         this.filenames = filenames;
         this.textEntries = textEntries;
@@ -84,7 +84,7 @@ public class XmpUpdaterFromTextEntry implements Runnable {
     }
 
     private void updateDatabase(String sidecarFilename) {
-        Vector<String> fNames = new Vector<String>();
+        ArrayList<String> fNames = new ArrayList<String>();
         fNames.add(getArbitraryImageFilename(sidecarFilename));
         ImageMetadataToDatabase updater = new ImageMetadataToDatabase(fNames, 0);
         updater.setCreateThumbnails(false);

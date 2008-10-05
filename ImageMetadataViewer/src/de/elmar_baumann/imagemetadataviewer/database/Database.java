@@ -36,8 +36,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
-import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -52,7 +52,7 @@ import javax.swing.JOptionPane;
  */
 public class Database {
 
-    private Vector<DatabaseListener> databaseListener = new Vector<DatabaseListener>();
+    private ArrayList<DatabaseListener> databaseListener = new ArrayList<DatabaseListener>();
     private static Database instance = new Database();
 
     /**
@@ -117,7 +117,7 @@ public class Database {
     }
 
     private void notifyDatabaseListener(DatabaseAction.Type type,
-        Vector<String> filenames) {
+        ArrayList<String> filenames) {
         DatabaseAction action = new DatabaseAction(type);
         action.setFilenames(filenames);
         for (DatabaseListener listener : databaseListener) {
@@ -126,7 +126,7 @@ public class Database {
     }
 
     private void notifyDatabaseListener(DatabaseAction.Type type,
-        String filename, Vector<String> filenames) {
+        String filename, ArrayList<String> filenames) {
         DatabaseAction action = new DatabaseAction(type);
         action.setFilename(filename);
         action.setFilenames(filenames);
@@ -224,8 +224,8 @@ public class Database {
      * @param paramStatement Korrekt ausgefülltes Statement
      * @return Dateiname
      */
-    public Vector<String> searchFilenames(ParamStatement paramStatement) {
-        Vector<String> filenames = new Vector<String>();
+    public ArrayList<String> searchFilenames(ParamStatement paramStatement) {
+        ArrayList<String> filenames = new ArrayList<String>();
         Connection connection = null;
         try {
             connection = getConnection();
@@ -244,7 +244,7 @@ public class Database {
             preparedStatement.close();
         } catch (SQLException ex) {
             handleException(ex, Level.SEVERE);
-            filenames.removeAllElements();
+            filenames.clear();
         } finally {
             free(connection);
         }
@@ -260,9 +260,9 @@ public class Database {
      * @param searchString  Suchteilzeichenkette
      * @return              Alle gefundenen Dateinamen
      */
-    public Vector<String> searchFilenamesLikeOr(
-        Vector<Column> searchColumns, String searchString) {
-        Vector<String> filenames = new Vector<String>();
+    public ArrayList<String> searchFilenamesLikeOr(
+        ArrayList<Column> searchColumns, String searchString) {
+        ArrayList<String> filenames = new ArrayList<String>();
         addFilenamesSearchFilenamesLikeOr(
             DatabaseMetadataUtil.getTableColumnsOfTableCategory(searchColumns, "xmp"), // NOI18N
             searchString,
@@ -280,8 +280,8 @@ public class Database {
 
     // TODO Hier definitiv nicht das übergebene Objekt füllen sondern ein neues zurückgeben
     private void addFilenamesSearchFilenamesLikeOr(
-        Vector<Column> searchColumns, String searchString,
-        Vector<String> filenames, String tablename) {
+        ArrayList<Column> searchColumns, String searchString,
+        ArrayList<String> filenames, String tablename) {
         if (searchColumns.size() > 0) {
             Connection connection = null;
             try {
@@ -305,18 +305,18 @@ public class Database {
                 preparedStatement.close();
             } catch (SQLException ex) {
                 handleException(ex, Level.SEVERE);
-                filenames.removeAllElements();
+                filenames.clear();
             } finally {
                 free(connection);
             }
         }
     }
 
-    private String getSqlSearchFilenamesLikeOr(Vector<Column> searchColumns,
+    private String getSqlSearchFilenamesLikeOr(ArrayList<Column> searchColumns,
         String tablename) {
         StringBuffer sql = new StringBuffer("SELECT DISTINCT files.filename FROM "); // NOI18N
 
-        Vector<String> tablenames = DatabaseMetadataUtil.getUniqueTableNamesOfColumnArray(
+        ArrayList<String> tablenames = DatabaseMetadataUtil.getUniqueTableNamesOfColumnArray(
             searchColumns);
 
         sql.append((tablename.equals("xmp") // NOI18N
@@ -463,7 +463,7 @@ public class Database {
         stmt.close();
     }
 
-    private void insertXmpDcSubjects(Connection connection, long idXmp, Vector<String> dcSubjects)
+    private void insertXmpDcSubjects(Connection connection, long idXmp, ArrayList<String> dcSubjects)
         throws SQLException {
         if (dcSubjects != null) {
             insertValues(connection,
@@ -473,7 +473,7 @@ public class Database {
     }
 
     private void insertXmpPhotoshopSupplementalcategories(
-        Connection connection, long idXmp, Vector<String> photoshopSupplementalCategories)
+        Connection connection, long idXmp, ArrayList<String> photoshopSupplementalCategories)
         throws SQLException {
         if (photoshopSupplementalCategories != null) {
             insertValues(connection,
@@ -669,7 +669,7 @@ public class Database {
     }
 
     synchronized private void insertValues(Connection connection,
-        String statement, long id, Vector<String> values) throws SQLException {
+        String statement, long id, ArrayList<String> values) throws SQLException {
 
         PreparedStatement stmt = connection.prepareStatement(statement + " VALUES (?, ?)"); // NOI18N
 
@@ -917,7 +917,7 @@ public class Database {
      * @param filenames Namen der zu löschenden Dateien
      * @return          Anzahl gelöschter Datensätze
      */
-    synchronized public int deleteImageFiles(Vector<String> filenames) {
+    synchronized public int deleteImageFiles(ArrayList<String> filenames) {
         int countDeleted = 0;
         Connection connection = null;
         try {
@@ -954,7 +954,7 @@ public class Database {
      */
     synchronized public int deleteNotExistingImageFiles(ProgressListener listener) {
         int countDeleted = 0;
-        Vector<String> deletedFiles = new Vector<String>();
+        ArrayList<String> deletedFiles = new ArrayList<String>();
         ProgressEvent event = new ProgressEvent(this, 0, 0, 0, null);
         Connection connection = null;
         try {
@@ -1003,7 +1003,7 @@ public class Database {
      * @param  listener   Beobachter oder null.
      * @return Anzahl umbenannter Strings
      */
-    synchronized public int renameInXmpColumns(Vector<String> filenames,
+    synchronized public int renameInXmpColumns(ArrayList<String> filenames,
         Column xmpColumn, String oldValue, String newValue, ProgressListener listener) {
         int countRenamed = 0;
         String tableName = xmpColumn.getTable().getName();
@@ -1114,8 +1114,8 @@ public class Database {
      * @param collectionName Name der Bildsammlung
      * @return               Dateinamen der Bilder
      */
-    public Vector<String> getFilenamesOfImageCollection(String collectionName) {
-        Vector<String> filenames = new Vector<String>();
+    public ArrayList<String> getFilenamesOfImageCollection(String collectionName) {
+        ArrayList<String> filenames = new ArrayList<String>();
         Connection connection = null;
         try {
             connection = getConnection();
@@ -1136,7 +1136,7 @@ public class Database {
             stmt.close();
         } catch (SQLException ex) {
             handleException(ex, Level.SEVERE);
-            filenames.removeAllElements();
+            filenames.clear();
         } finally {
             free(connection);
         }
@@ -1148,8 +1148,8 @@ public class Database {
      * 
      * @return Namen der Sammlungen
      */
-    public Vector<String> getImageCollectionNames() {
-        Vector<String> names = new Vector<String>();
+    public ArrayList<String> getImageCollectionNames() {
+        ArrayList<String> names = new ArrayList<String>();
         Connection connection = null;
         try {
             connection = getConnection();
@@ -1162,7 +1162,7 @@ public class Database {
             stmt.close();
         } catch (SQLException ex) {
             handleException(ex, Level.SEVERE);
-            names.removeAllElements();
+            names.clear();
         } finally {
             free(connection);
         }
@@ -1188,7 +1188,7 @@ public class Database {
             stmt.setString(2, oldName);
             logStatement(stmt);
             count = stmt.executeUpdate();
-            Vector<String> info = new Vector<String>();
+            ArrayList<String> info = new ArrayList<String>();
             info.add(oldName);
             info.add(newName);
             notifyDatabaseListener(DatabaseAction.Type.ImageFileUpdated, info);
@@ -1211,7 +1211,7 @@ public class Database {
      * @see                  #existsImageCollection(java.lang.String)
      */
     synchronized public boolean insertImageCollection(
-        String collectionName, Vector<String> filenames) {
+        String collectionName, ArrayList<String> filenames) {
         boolean added = false;
         if (existsImageCollection(collectionName)) {
             deleteImageCollection(collectionName);
@@ -1295,7 +1295,7 @@ public class Database {
      * @return               Anzahl gelöschter Bilder
      */
     synchronized public int deleteImagesFromCollection(
-        String collectionName, Vector<String> filenames) {
+        String collectionName, ArrayList<String> filenames) {
         int delCount = 0;
         Connection connection = null;
         try {
@@ -1340,7 +1340,7 @@ public class Database {
      * @return               true bei Erfolg
      */
     synchronized public boolean insertImagesIntoCollection(
-        String collectionName, Vector<String> filenames) {
+        String collectionName, ArrayList<String> filenames) {
         boolean added = false;
         Connection connection = null;
         try {
@@ -1411,7 +1411,7 @@ public class Database {
         stmtIdFiles.setLong(1, idCollectionName);
         logStatement(stmtIdFiles);
         ResultSet rs = stmtIdFiles.executeQuery();
-        Vector<Long> idFiles = new Vector<Long>();
+        ArrayList<Long> idFiles = new ArrayList<Long>();
         while (rs.next()) {
             idFiles.add(rs.getLong(1));
         }
@@ -1557,7 +1557,7 @@ public class Database {
     synchronized public boolean insertSavedSearch(SavedSearch data) {
         boolean inserted = false;
         SavedSearchParamStatement stmtData = data.getParamStatements();
-        Vector<SavedSearchPanel> panelData = data.getPanels();
+        ArrayList<SavedSearchPanel> panelData = data.getPanels();
         if (stmtData != null && !stmtData.getName().isEmpty()) {
             if (existsSavedSearch(data)) {
                 return updateSavedSearch(data);
@@ -1597,7 +1597,7 @@ public class Database {
         return inserted;
     }
 
-    synchronized private void insertSavedSearchValues(Connection connection, long idSavedSearch, Vector<String> values) throws SQLException {
+    synchronized private void insertSavedSearchValues(Connection connection, long idSavedSearch, ArrayList<String> values) throws SQLException {
         if (idSavedSearch > 0 && values.size() > 0) {
             PreparedStatement stmt = connection.prepareStatement(
                 "INSERT INTO saved_searches_values (" + // NOI18N 
@@ -1621,7 +1621,7 @@ public class Database {
     }
 
     synchronized private void insertSavedSearchPanelData(
-        Connection connection, long idSavedSearch, Vector<SavedSearchPanel> panelData) throws SQLException {
+        Connection connection, long idSavedSearch, ArrayList<SavedSearchPanel> panelData) throws SQLException {
         if (idSavedSearch > 0 && panelData != null) {
             PreparedStatement stmt = connection.prepareStatement(
                 "INSERT INTO" + // NOI18N
@@ -1758,8 +1758,8 @@ public class Database {
      * 
      * @return Templates
      */
-    public Vector<MetaDataEditTemplate> getMetaDataEditTemplates() {
-        Vector<MetaDataEditTemplate> templates = new Vector<MetaDataEditTemplate>();
+    public ArrayList<MetaDataEditTemplate> getMetaDataEditTemplates() {
+        ArrayList<MetaDataEditTemplate> templates = new ArrayList<MetaDataEditTemplate>();
         Connection connection = null;
         try {
             connection = getConnection();
@@ -2090,7 +2090,7 @@ public class Database {
             int count = stmt.executeUpdate();
             renamed = count > 0;
             if (renamed) {
-                Vector<String> info = new Vector<String>();
+                ArrayList<String> info = new ArrayList<String>();
                 info.add(oldName);
                 info.add(newName);
                 notifyDatabaseListener(DatabaseAction.Type.SavedSearchUpdated, info);
@@ -2166,8 +2166,8 @@ public class Database {
      * 
      * @return Gespeicherte Suchen
      */
-    public Vector<SavedSearch> getSavedSearches() {
-        Vector<SavedSearch> allData = new Vector<SavedSearch>();
+    public ArrayList<SavedSearch> getSavedSearches() {
+        ArrayList<SavedSearch> allData = new ArrayList<SavedSearch>();
         Connection connection = null;
         try {
             connection = getConnection();
@@ -2190,7 +2190,7 @@ public class Database {
             stmt.close();
         } catch (SQLException ex) {
             handleException(ex, Level.SEVERE);
-            allData.removeAllElements();
+            allData.clear();
         } finally {
             free(connection);
         }
@@ -2210,7 +2210,7 @@ public class Database {
         stmt.setString(1, data.getParamStatements().getName());
         logStatement(stmt);
         ResultSet rs = stmt.executeQuery();
-        Vector<String> values = new Vector<String>();
+        ArrayList<String> values = new ArrayList<String>();
         while (rs.next()) {
             values.add(rs.getString(1));
         }
@@ -2240,7 +2240,7 @@ public class Database {
         stmt.setString(1, data.getParamStatements().getName());
         logStatement(stmt);
         ResultSet rs = stmt.executeQuery();
-        Vector<SavedSearchPanel> allPanelData = new Vector<SavedSearchPanel>();
+        ArrayList<SavedSearchPanel> allPanelData = new ArrayList<SavedSearchPanel>();
         while (rs.next()) {
             SavedSearchPanel panelData = new SavedSearchPanel();
             panelData.setPanelIndex(rs.getInt(1));
@@ -2295,7 +2295,7 @@ public class Database {
      * @param  directoryNames Verzeichnisnamen
      * @return true bei Erfolg
      */
-    synchronized public boolean insertAutoscanDirectories(Vector<String> directoryNames) {
+    synchronized public boolean insertAutoscanDirectories(ArrayList<String> directoryNames) {
         boolean inserted = false;
         Connection connection = null;
         try {
@@ -2394,8 +2394,8 @@ public class Database {
      * 
      * @return Verzeichnisnamen
      */
-    public Vector<String> getAutoscanDirectories() {
-        Vector<String> directories = new Vector<String>();
+    public ArrayList<String> getAutoscanDirectories() {
+        ArrayList<String> directories = new ArrayList<String>();
         Connection connection = null;
         try {
             connection = getConnection();
@@ -2409,7 +2409,7 @@ public class Database {
             stmt.close();
         } catch (SQLException ex) {
             handleException(ex, Level.SEVERE);
-            directories.removeAllElements();
+            directories.clear();
         } finally {
             free(connection);
         }
@@ -2649,8 +2649,8 @@ public class Database {
      * 
      * @return Favoritenverzeichnisse
      */
-    public Vector<FavoriteDirectory> getFavoriteDirectories() {
-        Vector<FavoriteDirectory> directories = new Vector<FavoriteDirectory>();
+    public ArrayList<FavoriteDirectory> getFavoriteDirectories() {
+        ArrayList<FavoriteDirectory> directories = new ArrayList<FavoriteDirectory>();
         Connection connection = null;
         try {
             connection = getConnection();
@@ -2666,7 +2666,7 @@ public class Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            directories.removeAllElements();
+            directories.clear();
             handleException(ex, Level.SEVERE);
         } finally {
             free(connection);
@@ -2769,7 +2769,7 @@ public class Database {
     public long getTotalRecordCount() {
         long count = -1;
         Connection connection = null;
-        Vector<Table> tables = AllTables.get();
+        ArrayList<Table> tables = AllTables.get();
         try {
             connection = getConnection();
             for (Table table : tables) {

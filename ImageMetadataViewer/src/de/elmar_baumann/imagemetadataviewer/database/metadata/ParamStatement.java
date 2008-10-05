@@ -1,6 +1,6 @@
 package de.elmar_baumann.imagemetadataviewer.database.metadata;
 
-import java.util.Vector;
+import java.util.ArrayList;
 
 /**
  * Parametrisiertes SQL-Statement.
@@ -75,8 +75,8 @@ public class ParamStatement {
      * 
      * @return Werte als Stringarray
      */
-    public Vector<String> getValuesAsStringArray() {
-        Vector<String> array = new Vector<String>();
+    public ArrayList<String> getValuesAsStringArray() {
+        ArrayList<String> array = new ArrayList<String>();
         for (int index = 0; index < values.length; index++) {
             array.add(values[index].toString());
         }

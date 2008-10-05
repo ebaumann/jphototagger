@@ -6,8 +6,7 @@ import de.elmar_baumann.imagemetadataviewer.event.ProgressEvent;
 import de.elmar_baumann.imagemetadataviewer.event.ProgressListener;
 import de.elmar_baumann.imagemetadataviewer.image.metadata.iptc.IptcMetadata;
 import de.elmar_baumann.imagemetadataviewer.image.metadata.xmp.XmpMetadata;
-import de.elmar_baumann.lib.io.FileUtil;
-import java.util.Vector;
+import java.util.ArrayList;
 
 /**
  * Erzeugt XMP-Daten anhand bestehender IPTC-Daten.
@@ -17,11 +16,11 @@ import java.util.Vector;
  */
 public class IptcToXmp implements Runnable {
 
-    private Vector<String> filenames;
+    private ArrayList<String> filenames;
     private boolean stop = false;
-    private Vector<ProgressListener> progressListeners = new Vector<ProgressListener>();
+    private ArrayList<ProgressListener> progressListeners = new ArrayList<ProgressListener>();
 
-    public IptcToXmp(Vector<String> filenames) {
+    public IptcToXmp(ArrayList<String> filenames) {
         this.filenames = filenames;
     }
 

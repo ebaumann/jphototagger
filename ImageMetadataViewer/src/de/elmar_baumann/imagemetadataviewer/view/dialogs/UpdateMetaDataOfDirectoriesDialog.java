@@ -15,7 +15,7 @@ import java.awt.Frame;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.text.MessageFormat;
-import java.util.Vector;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
@@ -36,7 +36,7 @@ public class UpdateMetaDataOfDirectoriesDialog extends javax.swing.JDialog imple
     private final String keySubdirectories = "de.elmar_baumann.imagemetadataviewer.view.ScanDirectoriesDialog.subdirectories"; // NOI18N
     private final String title = Bundle.getString("UpdateMetaDataOfDirectoriesDialog.Title");
     private final String currentFilenameInfotextPrefix = Bundle.getString("UpdateMetaDataOfDirectoriesDialog.InformationMessage.UpdateCurrentFile");
-    private Vector<String> selectedImagesFilenames = new Vector<String>();
+    private ArrayList<String> selectedImagesFilenames = new ArrayList<String>();
     private ImageMetadataToDatabase activeScanner;
     private File lastSelectedDirectory = new File(""); // NOI18N
     private DefaultListModel modelSelectedDirectoryList = new DefaultListModel();
@@ -71,7 +71,7 @@ public class UpdateMetaDataOfDirectoriesDialog extends javax.swing.JDialog imple
         dialog.setMultiSelection(true);
         dialog.setVisible(true);
         if (dialog.accepted()) {
-            Vector<File> newDirectories = getNotAlreadyChoosenDirectoriesFrom(
+            ArrayList<File> newDirectories = getNotAlreadyChoosenDirectoriesFrom(
                 dialog.getSelectedDirectories());
             if (newDirectories.size() > 0) {
                 empty();
@@ -92,8 +92,8 @@ public class UpdateMetaDataOfDirectoriesDialog extends javax.swing.JDialog imple
         activeScanner.setForceUpdate(checkBoxForce.isSelected());
     }
 
-    private Vector<File> getAllImageFiles() {
-        Vector<File> imageFiles = new Vector<File>();
+    private ArrayList<File> getAllImageFiles() {
+        ArrayList<File> imageFiles = new ArrayList<File>();
         Object[] elements = modelSelectedDirectoryList.toArray();
         if (elements != null) {
             for (int index = 0; index < elements.length; index++) {
@@ -107,9 +107,9 @@ public class UpdateMetaDataOfDirectoriesDialog extends javax.swing.JDialog imple
         return imageFiles;
     }
 
-    private Vector<File> getNotAlreadyChoosenDirectoriesFrom(
-        Vector<File> directories) {
-        Vector<File> newDirectories = new Vector<File>();
+    private ArrayList<File> getNotAlreadyChoosenDirectoriesFrom(
+        ArrayList<File> directories) {
+        ArrayList<File> newDirectories = new ArrayList<File>();
         for (File directory : directories) {
             if (!modelSelectedDirectoryList.contains(directory)) {
                 newDirectories.add(directory);
@@ -150,7 +150,7 @@ public class UpdateMetaDataOfDirectoriesDialog extends javax.swing.JDialog imple
     }
 
     private void empty() {
-        selectedImagesFilenames.removeAllElements();
+        selectedImagesFilenames.clear();
         modelSelectedDirectoryList.removeAllElements();
         listSelectedDirectories.setEnabled(true);
         countSelectedFiles = 0;
@@ -221,7 +221,7 @@ public class UpdateMetaDataOfDirectoriesDialog extends javax.swing.JDialog imple
         progressBarScan.setMaximum(selectedImagesFilenames.size());
     }
 
-    private void addDirectories(Vector<File> directories) {
+    private void addDirectories(ArrayList<File> directories) {
         for (File directory : directories) {
             DirectoryInfo directoryInfo = new DirectoryInfo(directory);
             if (directoryInfo.hasImageFiles()) {
@@ -235,7 +235,7 @@ public class UpdateMetaDataOfDirectoriesDialog extends javax.swing.JDialog imple
     }
 
     private void addSubdirectories(File directory) {
-        Vector<File> subdirectories = FileUtil.getAllSubDirectories(directory);
+        ArrayList<File> subdirectories = FileUtil.getAllSubDirectories(directory);
         for (File dir : subdirectories) {
             DirectoryInfo directoryInfo = new DirectoryInfo(dir);
             if (directoryInfo.hasImageFiles()) {

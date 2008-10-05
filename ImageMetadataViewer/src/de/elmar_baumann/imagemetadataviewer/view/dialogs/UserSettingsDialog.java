@@ -24,7 +24,7 @@ import java.io.File;
 import java.lang.reflect.Method;
 import java.text.MessageFormat;
 import java.util.HashMap;
-import java.util.Vector;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
@@ -48,7 +48,7 @@ public class UserSettingsDialog extends javax.swing.JDialog
     private final String delimiterSearchColumns = "\t"; // NOI18N
     private final String keyImageOpenApp = "UserSettingsDialog.ImageOpenApp"; // NOI18N
     private final String keyLastSelectedAutoscanDirectory = "UserSettingsDialog.keyLastSelectedAutoscanDirectory"; // NOI18N
-    private Vector<UserSettingsChangeListener> changeListener = new Vector<UserSettingsChangeListener>();
+    private ArrayList<UserSettingsChangeListener> changeListener = new ArrayList<UserSettingsChangeListener>();
     public CheckList checkListSearchColumns = new CheckList();
     public ListModelFastSearchColumns searchColumnsListModel = new ListModelFastSearchColumns();
     private HashMap<Tab, Integer> indexOfTab = new HashMap<Tab, Integer>();
@@ -230,18 +230,18 @@ public class UserSettingsDialog extends javax.swing.JDialog
         enableExternalAppSettings();
     }
 
-    private Vector<String> getTextSelectedSearchColumns() {
-        Vector<String> text = new Vector<String>();
-        Vector<Column> columns = getPersistentWrittenTableColumns();
+    private ArrayList<String> getTextSelectedSearchColumns() {
+        ArrayList<String> text = new ArrayList<String>();
+        ArrayList<Column> columns = getPersistentWrittenTableColumns();
         for (Column column : columns) {
             text.add(column.getDescription());
         }
         return text;
     }
 
-    private Vector<Column> getPersistentWrittenTableColumns() {
-        Vector<Column> columns = new Vector<Column>();
-        Vector<String> columnKeys = ArrayUtil.stringTokenToVector(PersistentSettings.getInstance().
+    private ArrayList<Column> getPersistentWrittenTableColumns() {
+        ArrayList<Column> columns = new ArrayList<Column>();
+        ArrayList<String> columnKeys = ArrayUtil.stringTokenToArray(PersistentSettings.getInstance().
             getString(keySearchColumns), delimiterSearchColumns);
         for (String key : columnKeys) {
             try {
@@ -334,7 +334,7 @@ public class UserSettingsDialog extends javax.swing.JDialog
 
     private String getSearchColumnKeys() {
         StringBuffer tableColumns = new StringBuffer();
-        Vector<Integer> indices =
+        ArrayList<Integer> indices =
             checkListSearchColumns.getSelectedItemIndices();
         for (Integer index : indices) {
             tableColumns.append(searchColumnsListModel.getTableColumnAtIndex(
@@ -349,7 +349,7 @@ public class UserSettingsDialog extends javax.swing.JDialog
         dialog.setMultiSelection(true);
         dialog.setVisible(true);
         if (dialog.accepted()) {
-            Vector<File> directories = dialog.getSelectedDirectories();
+            ArrayList<File> directories = dialog.getSelectedDirectories();
             for (File directory : directories) {
                 if (!modelAutoscanDirectories.contains(directory)) {
                     String directoryName = directory.getAbsolutePath();

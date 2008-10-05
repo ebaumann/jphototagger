@@ -11,7 +11,7 @@ import de.elmar_baumann.imagemetadataviewer.view.popupmenus.PopupMenuPanelThumbn
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Stack;
-import java.util.Vector;
+import java.util.ArrayList;
 import javax.swing.JProgressBar;
 
 /**
@@ -83,7 +83,7 @@ public class ControllerCreateMetaDataOfSelectedThumbnails extends Controller
         }
     }
 
-    private ImageMetadataToDatabase createUpdater(Vector<String> files,
+    private ImageMetadataToDatabase createUpdater(ArrayList<String> files,
         boolean onlyTextMetadata) {
         ImageMetadataToDatabase updater =
             new ImageMetadataToDatabase(files,

@@ -5,7 +5,7 @@ import de.elmar_baumann.imagemetadataviewer.data.FavoriteDirectory;
 import de.elmar_baumann.imagemetadataviewer.database.Database;
 import de.elmar_baumann.imagemetadataviewer.resource.Bundle;
 import java.text.MessageFormat;
-import java.util.Vector;
+import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
@@ -129,7 +129,7 @@ public class ListModelFavoriteDirectories extends DefaultListModel {
     }
 
     private void addElements() {
-        Vector<FavoriteDirectory> directories = db.getFavoriteDirectories();
+        ArrayList<FavoriteDirectory> directories = db.getFavoriteDirectories();
         for (FavoriteDirectory directory : directories) {
             addElement(directory);
         }

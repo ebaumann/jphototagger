@@ -7,7 +7,7 @@ import de.elmar_baumann.imagemetadataviewer.event.ProgressEvent;
 import de.elmar_baumann.imagemetadataviewer.event.ProgressListener;
 import de.elmar_baumann.imagemetadataviewer.event.TaskListener;
 import de.elmar_baumann.imagemetadataviewer.resource.Bundle;
-import java.util.Vector;
+import java.util.ArrayList;
 import javax.swing.JProgressBar;
 
 /**
@@ -20,7 +20,7 @@ public class ControllerRecordsWithNotExistingFilesDeleter extends Controller
     implements ProgressListener {
 
     private JProgressBar progressBar;
-    private Vector<TaskListener> taskListeners = new Vector<TaskListener>();
+    private ArrayList<TaskListener> taskListeners = new ArrayList<TaskListener>();
 
     /**
      * Konstruktor.

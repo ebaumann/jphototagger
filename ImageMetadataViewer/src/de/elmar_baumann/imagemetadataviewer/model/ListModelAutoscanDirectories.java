@@ -2,7 +2,7 @@ package de.elmar_baumann.imagemetadataviewer.model;
 
 import de.elmar_baumann.imagemetadataviewer.database.Database;
 import java.io.File;
-import java.util.Vector;
+import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 
 /**
@@ -20,7 +20,7 @@ public class ListModelAutoscanDirectories extends DefaultListModel {
 
     private void addItems() {
         Database db = Database.getInstance();
-        Vector<String> directoryNames = db.getAutoscanDirectories();
+        ArrayList<String> directoryNames = db.getAutoscanDirectories();
         for (String directoryName : directoryNames) {
             File directory = new File(directoryName);
             if (directory.isDirectory() && directory.exists()) {

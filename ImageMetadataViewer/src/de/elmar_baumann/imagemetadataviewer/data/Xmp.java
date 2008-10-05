@@ -24,7 +24,7 @@ import de.elmar_baumann.imagemetadataviewer.database.metadata.xmp.ColumnXmpPhoto
 import de.elmar_baumann.imagemetadataviewer.database.metadata.xmp.ColumnXmpPhotoshopTransmissionReference;
 import java.util.HashMap;
 import java.util.Set;
-import java.util.Vector;
+import java.util.ArrayList;
 
 /**
  * XMP-Metadaten einer Bilddatei. Unter den Operationen ist ein Link auf die
@@ -53,8 +53,8 @@ public class Xmp {
     private StringBuffer photoshopState = new StringBuffer();
     private StringBuffer photoshopTransmissionReference = new StringBuffer();
     private StringBuffer dcCreator = new StringBuffer();
-    private Vector<String> dcSubjects = new Vector<String>();
-    private Vector<String> photoshopSupplementalCategories = new Vector<String>();
+    private ArrayList<String> dcSubjects = new ArrayList<String>();
+    private ArrayList<String> photoshopSupplementalCategories = new ArrayList<String>();
     private HashMap<Column, Object> valueOfColumn = new HashMap<Column, Object>();
 
     private void init() {
@@ -183,7 +183,7 @@ public class Xmp {
      * @return XMP-Felder dc:subject (Stichwörter) oder null wenn nicht definiert
      * @see    Iptc#getKeywords()
      */
-    public Vector<String> getDcSubjects() {
+    public ArrayList<String> getDcSubjects() {
         return dcSubjects.isEmpty()
             ? null
             : dcSubjects;
@@ -537,7 +537,7 @@ public class Xmp {
      * @return XMP-Felder photoshop:SupplementalCategories (weitere Kategorien) oder null wenn nicht definiert
      * @see    Iptc#getSupplementalCategories()
      */
-    public Vector<String> getPhotoshopSupplementalCategories() {
+    public ArrayList<String> getPhotoshopSupplementalCategories() {
         return photoshopSupplementalCategories.isEmpty()
             ? null
             : photoshopSupplementalCategories;
@@ -607,10 +607,10 @@ public class Xmp {
                     if (replace) {
                         setValue(xmpColumn, string);
                     }
-                } else if (iptcValue instanceof Vector) {
+                } else if (iptcValue instanceof ArrayList) {
                     @SuppressWarnings("unchecked")
-                    Vector<String> vector = (Vector<String>) iptcValue;
-                    for (String string : vector) {
+                    ArrayList<String> array = (ArrayList<String>) iptcValue;
+                    for (String string : array) {
                         setValue(xmpColumn, string);
                     }
                 }
@@ -622,8 +622,8 @@ public class Xmp {
      * Liefert den Wert einer XMP-Spalte.
      * 
      * @param  xmpColumn  XMP-Spalte
-     * @return Wert: Ein String für sich nicht wiederholende Werte oder ein
-     *         String-Vector für sich wiederholdende Werte oder null, wenn
+     * @return Wert: Ein String für sich nicht wiederholende Werte oder eine
+     *         String-ArrayList für sich wiederholdende Werte oder null, wenn
      *         für diese Spalte kein Wert gesetzt ist
      */
     public Object getValue(Column xmpColumn) {
@@ -635,12 +635,12 @@ public class Xmp {
             } else {
                 return stringBuffer.toString();
             }
-        } else if (value instanceof Vector) {
-            Vector vector = (Vector) value;
-            if (vector.isEmpty()) {
+        } else if (value instanceof ArrayList) {
+            ArrayList array = (ArrayList) value;
+            if (array.isEmpty()) {
                 return null;
             } else {
-                return vector;
+                return array;
             }
         }
         return null;
@@ -661,10 +661,10 @@ public class Xmp {
             stringBuffer.replace(0, stringBuffer.length(), value == null
                 ? "" // NOI18N
                 : value);
-        } else if (o instanceof Vector && value != null) {
-            Vector vector = (Vector) o;
-            if (!vector.contains(value)) {
-                vector.add(value);
+        } else if (o instanceof ArrayList && value != null) {
+            ArrayList array = (ArrayList) o;
+            if (!array.contains(value)) {
+                array.add(value);
             }
         }
     }
@@ -681,9 +681,9 @@ public class Xmp {
         if (o instanceof StringBuffer) {
             StringBuffer stringBuffer = (StringBuffer) o;
             stringBuffer.replace(0, stringBuffer.length(), ""); // NOI18N
-        } else if (o instanceof Vector) {
-            Vector vector = (Vector) o;
-            vector.remove(value);
+        } else if (o instanceof ArrayList) {
+            ArrayList array = (ArrayList) o;
+            array.remove(value);
         }
     }
 
@@ -697,9 +697,9 @@ public class Xmp {
             if (value instanceof StringBuffer) {
                 StringBuffer stringBuffer = (StringBuffer) value;
                 stringBuffer.replace(0, stringBuffer.length(), ""); // NOI18N
-            } else if (value instanceof Vector) {
-                Vector vector = (Vector) value;
-                vector.removeAllElements();
+            } else if (value instanceof ArrayList) {
+                ArrayList array = (ArrayList) value;
+                array.clear();
             }
         }
     }

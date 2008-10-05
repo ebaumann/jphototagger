@@ -5,7 +5,7 @@ import de.elmar_baumann.imagemetadataviewer.image.metadata.exif.ExifIfdEntryDisp
 import de.elmar_baumann.imagemetadataviewer.image.metadata.exif.ExifMetadata;
 import de.elmar_baumann.imagemetadataviewer.resource.Bundle;
 import java.util.Collections;
-import java.util.Vector;
+import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -17,7 +17,7 @@ import javax.swing.table.DefaultTableModel;
 public class TableModelExif extends DefaultTableModel {
 
     private String filename;
-    private Vector<IFDEntry> allEntries;
+    private ArrayList<IFDEntry> allEntries;
 
     public TableModelExif() {
         setRowHeaders();
@@ -60,7 +60,7 @@ public class TableModelExif extends DefaultTableModel {
         ExifMetadata exifMetadata = new ExifMetadata();
         allEntries = exifMetadata.getMetadata(filename);
         if (allEntries != null) {
-            Vector<IFDEntry> entries = ExifMetadata.getDisplayableMetadata(allEntries);
+            ArrayList<IFDEntry> entries = ExifMetadata.getDisplayableMetadata(allEntries);
             if (entries != null) {
                 Collections.sort(entries, new ExifIfdEntryDisplayComparator());
                 for (IFDEntry entry : entries) {
@@ -74,9 +74,9 @@ public class TableModelExif extends DefaultTableModel {
     }
 
     private void addRow(IFDEntry entry) {
-        Vector<IFDEntry> row = new Vector<IFDEntry>();
+        ArrayList<IFDEntry> row = new ArrayList<IFDEntry>();
         row.add(entry);
         row.add(entry);
-        super.addRow(row);
+        super.addRow(row.toArray());
     }
 }

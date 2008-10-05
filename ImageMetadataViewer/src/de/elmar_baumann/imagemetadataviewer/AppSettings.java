@@ -7,7 +7,7 @@ import de.elmar_baumann.lib.persistence.PersistentSettings;
 import java.awt.Color;
 import java.awt.Image;
 import java.io.File;
-import java.util.Vector;
+import java.util.ArrayList;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
@@ -82,18 +82,18 @@ public class AppSettings {
      */
     public static final ImageIcon iconSaveMetaDataEnabled =
         IconUtil.getImageIcon("/de/elmar_baumann/imagemetadataviewer/resource/icon_save_metadata_enabled.png"); // NOI18N
-
-    
-    private static Vector<String> appIconPaths = new Vector<String>();
-    private static Vector<Image> appIcons = new Vector<Image>();
+    private static ArrayList<String> appIconPaths = new ArrayList<String>();
+    private static ArrayList<Image> appIcons = new ArrayList<Image>();
     private static final Icon smallAppIcon = IconUtil.getImageIcon(pathAppIconSmall);
     private static final Icon mediumAppIcon = IconUtil.getImageIcon(pathAppIconMedium);
+    
 
     static {
         appIconPaths.add(pathAppIconSmall);
         appIconPaths.add(pathAppIconMedium);
     }
     
+
     static {
         appIcons.add(IconUtil.getIconImage(AppSettings.pathAppIconSmall));
         appIcons.add(IconUtil.getIconImage(AppSettings.pathAppIconMedium));
@@ -104,7 +104,7 @@ public class AppSettings {
      * 
      * @return Anwendungssymbole
      */
-    public static Vector<Image> getAppIcons() {
+    public static ArrayList<Image> getAppIcons() {
         return appIcons;
     }
 
@@ -113,7 +113,7 @@ public class AppSettings {
      * 
      * @return Pfade
      */
-    public static Vector<String> getAppIconPaths() {
+    public static ArrayList<String> getAppIconPaths() {
         return appIconPaths;
     }
 

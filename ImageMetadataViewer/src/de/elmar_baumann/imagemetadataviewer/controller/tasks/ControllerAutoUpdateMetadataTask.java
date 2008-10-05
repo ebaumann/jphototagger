@@ -7,7 +7,7 @@ import de.elmar_baumann.imagemetadataviewer.event.TaskListener;
 import de.elmar_baumann.imagemetadataviewer.tasks.ImageMetadataToDatabaseArray;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.util.Collections;
-import java.util.Vector;
+import java.util.ArrayList;
 import javax.swing.JProgressBar;
 
 /**
@@ -27,8 +27,8 @@ public class ControllerAutoUpdateMetadataTask extends Controller
     private JProgressBar progressBar;
     private boolean onlyTextMetadata = false;
     private ImageMetadataToDatabaseArray updaterArray;
-    private Vector<String> systemDirectoryPatterns = new Vector<String>();
-    private Vector<TaskListener> taskListeners = new Vector<TaskListener>();
+    private ArrayList<String> systemDirectoryPatterns = new ArrayList<String>();
+    private ArrayList<TaskListener> taskListeners = new ArrayList<TaskListener>();
 
     /**
      * Konstruktor.
@@ -76,7 +76,7 @@ public class ControllerAutoUpdateMetadataTask extends Controller
 
     private void startScan() {
         updaterArray.start();
-        Vector<String> directories = getDirectoryNames();
+        ArrayList<String> directories = getDirectoryNames();
         if (!directories.isEmpty()) {
             for (String directory : directories) {
                 if (!isSystemDirectory(directory)) {
@@ -86,9 +86,9 @@ public class ControllerAutoUpdateMetadataTask extends Controller
         }
     }
 
-    private Vector<String> getDirectoryNames() {
-        Vector<String> directories = UserSettings.getInstance().getAutoscanDirectories();
-        Vector<String> subdirectories = new Vector<String>();
+    private ArrayList<String> getDirectoryNames() {
+        ArrayList<String> directories = UserSettings.getInstance().getAutoscanDirectories();
+        ArrayList<String> subdirectories = new ArrayList<String>();
         if (UserSettings.getInstance().isAutoscanIncludeSubdirectories()) {
             for (String directory : directories) {
                 subdirectories.addAll(FileUtil.getAllSubDirectoryNames(directory));

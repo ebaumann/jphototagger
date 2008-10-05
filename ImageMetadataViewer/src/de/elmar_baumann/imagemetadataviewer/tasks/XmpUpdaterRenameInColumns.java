@@ -4,7 +4,7 @@ import de.elmar_baumann.imagemetadataviewer.database.Database;
 import de.elmar_baumann.imagemetadataviewer.database.metadata.Column;
 import de.elmar_baumann.imagemetadataviewer.event.ProgressEvent;
 import de.elmar_baumann.imagemetadataviewer.event.ProgressListener;
-import java.util.Vector;
+import java.util.ArrayList;
 
 /**
  * 
@@ -15,14 +15,14 @@ import java.util.Vector;
 public class XmpUpdaterRenameInColumns implements Runnable, ProgressListener {
 
     private Database db = Database.getInstance();
-    private Vector<String> filenames;
-    private Vector<ProgressListener> progressListeners = new Vector<ProgressListener>();
+    private ArrayList<String> filenames;
+    private ArrayList<ProgressListener> progressListeners = new ArrayList<ProgressListener>();
     private Column column;
     private String oldValue;
     private String newValue;
     private boolean stop = false;
 
-    public XmpUpdaterRenameInColumns(Vector<String> filenames, Column column,
+    public XmpUpdaterRenameInColumns(ArrayList<String> filenames, Column column,
         String oldValue, String newValue) {
         this.filenames = filenames;
         this.column = column;

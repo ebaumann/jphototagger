@@ -3,7 +3,7 @@ package de.elmar_baumann.imagemetadataviewer.tasks;
 import de.elmar_baumann.imagemetadataviewer.database.Database;
 import de.elmar_baumann.imagemetadataviewer.event.ProgressEvent;
 import de.elmar_baumann.imagemetadataviewer.event.ProgressListener;
-import java.util.Vector;
+import java.util.ArrayList;
 
 /**
  * Löscht in der Datenbank Datensätze mit Dateien, die nicht mehr existieren.
@@ -16,7 +16,7 @@ public class RecordsWithNotExistingFilesDeleter implements Runnable,
     ProgressListener {
 
     private Database db = Database.getInstance();
-    private Vector<ProgressListener> progressListeners = new Vector<ProgressListener>();
+    private ArrayList<ProgressListener> progressListeners = new ArrayList<ProgressListener>();
 
     @Override
     public void run() {

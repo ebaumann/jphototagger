@@ -6,7 +6,7 @@ import de.elmar_baumann.imagemetadataviewer.resource.Bundle;
 import de.elmar_baumann.imagemetadataviewer.view.panels.ThumbnailsPanel;
 import java.io.File;
 import java.io.IOException;
-import java.util.Vector;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -68,7 +68,7 @@ public class IoUtil {
      * @param args Argumente
      * @return     Argumente separiert
      */
-    public static String getArgsAsCommandline(Vector<String> args) {
+    public static String getArgsAsCommandline(ArrayList<String> args) {
         final String separator = " "; // NOI18N
         StringBuffer arguments = new StringBuffer();
         for (String filename : args) {

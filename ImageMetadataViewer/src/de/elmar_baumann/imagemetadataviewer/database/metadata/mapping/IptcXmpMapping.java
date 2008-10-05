@@ -24,7 +24,7 @@ import de.elmar_baumann.imagemetadataviewer.database.metadata.xmp.ColumnXmpPhoto
 import de.elmar_baumann.lib.template.Pair;
 import java.util.HashMap;
 import java.util.Set;
-import java.util.Vector;
+import java.util.ArrayList;
 
 /**
  * Mapping between IPTC Entry Metadata and XMP columns.
@@ -82,8 +82,8 @@ public class IptcXmpMapping {
         return iptcEntryMetaOfXmpColumn.get(xmpColumn);
     }
 
-    public Vector<Pair<IPTCEntryMeta, Column>> getAllPairs() {
-        Vector<Pair<IPTCEntryMeta, Column>> pairs = new Vector<Pair<IPTCEntryMeta, Column>>();
+    public ArrayList<Pair<IPTCEntryMeta, Column>> getAllPairs() {
+        ArrayList<Pair<IPTCEntryMeta, Column>> pairs = new ArrayList<Pair<IPTCEntryMeta, Column>>();
         Set<IPTCEntryMeta> iptcEntryMetas = xmpColumnOfIptcEntryMeta.keySet();
         for (IPTCEntryMeta iptcEntryMeta : iptcEntryMetas) {
             pairs.add(new Pair<IPTCEntryMeta, Column>(

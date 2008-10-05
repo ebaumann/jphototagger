@@ -13,7 +13,7 @@ import de.elmar_baumann.imagemetadataviewer.database.metadata.xmp.ColumnXmpIptc4
 import de.elmar_baumann.imagemetadataviewer.database.metadata.xmp.ColumnXmpPhotoshopCategory;
 import de.elmar_baumann.imagemetadataviewer.database.metadata.xmp.ColumnXmpPhotoshopHeadline;
 import de.elmar_baumann.imagemetadataviewer.database.metadata.xmp.ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory;
-import java.util.Vector;
+import java.util.ArrayList;
 
 /**
  * Spalten für die Schnellsuche.
@@ -23,7 +23,7 @@ import java.util.Vector;
  */
 public class FastSearchColumns {
 
-    private static Vector<Column> searchColumns = new Vector<Column>();
+    private static ArrayList<Column> searchColumns = new ArrayList<Column>();
     private static FastSearchColumns instance = new FastSearchColumns();
     
 
@@ -49,7 +49,7 @@ public class FastSearchColumns {
         return instance;
     }
 
-    public Vector<Column> getSearchColumns() {
+    public ArrayList<Column> getSearchColumns() {
         return searchColumns;
     }
 

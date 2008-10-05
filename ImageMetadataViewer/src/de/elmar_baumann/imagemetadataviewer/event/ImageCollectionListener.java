@@ -1,6 +1,6 @@
 package de.elmar_baumann.imagemetadataviewer.event;
 
-import java.util.Vector;
+import java.util.ArrayList;
 
 /**
  * Reagiert auf Ereignisse bezüglich Bildsammlungen.
@@ -15,7 +15,7 @@ public interface ImageCollectionListener {
      * 
      * @param filenames Namen der Dateien für die Bildsammlung
      */
-    public void createCollection(Vector<String> filenames);
+    public void createCollection(ArrayList<String> filenames);
 
     /**
      * Löscht eine Bildsammlung.
@@ -29,14 +29,14 @@ public interface ImageCollectionListener {
      * 
      * @param filenames Namen der zu entfernenden Bilddateien
      */
-    public void deleteFromCollection(Vector<String> filenames);
+    public void deleteFromCollection(ArrayList<String> filenames);
 
     /**
      * Fügt einer Bildsammlung Dateien hinzu.
      * 
      * @param filenames Namen der hinzuzufügenden Bilddateien
      */
-    public void addToCollection(Vector<String> filenames);
+    public void addToCollection(ArrayList<String> filenames);
 
     /**
      * Benennt eine Bildsammlung um.

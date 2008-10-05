@@ -6,7 +6,7 @@ import de.elmar_baumann.imagemetadataviewer.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.imagemetadataviewer.resource.Translation;
 import java.awt.Component;
 import java.util.StringTokenizer;
-import java.util.Vector;
+import java.util.ArrayList;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
@@ -57,7 +57,7 @@ public class TableCellRendererXmp extends TableCellRendererMetadata
 
     private static String translate(String path) {
         StringBuffer newPath = new StringBuffer();
-        Vector<String> pathComponents = getPathComponents(path);
+        ArrayList<String> pathComponents = getPathComponents(path);
         int count = pathComponents.size();
         for (int i = 0; i < count; i++) {
             String pathComponent = pathComponents.get(i);
@@ -74,8 +74,8 @@ public class TableCellRendererXmp extends TableCellRendererMetadata
         return newPath.toString();
     }
 
-    private static Vector<String> getPathComponents(String path) {
-        Vector<String> components = new Vector<String>();
+    private static ArrayList<String> getPathComponents(String path) {
+        ArrayList<String> components = new ArrayList<String>();
         StringTokenizer tokenizer = new StringTokenizer(path, pathDelimiter);
         while (tokenizer.hasMoreTokens()) {
             components.add(tokenizer.nextToken());

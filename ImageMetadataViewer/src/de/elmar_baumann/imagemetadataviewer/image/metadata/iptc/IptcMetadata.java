@@ -11,7 +11,7 @@ import de.elmar_baumann.imagemetadataviewer.event.listener.ErrorListeners;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.io.File;
 import java.io.IOException;
-import java.util.Vector;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -29,11 +29,11 @@ public class IptcMetadata {
      * @param  filename  Dateiname
      * @return Metadaten oder null bei Lesefehlern
      */
-    public Vector<IptcEntry> getMetadata(String filename) {
+    public ArrayList<IptcEntry> getMetadata(String filename) {
         if (!FileUtil.existsFile(filename)) {
             return null;
         }
-        Vector<IptcEntry> metadata = new Vector<IptcEntry>();
+        ArrayList<IptcEntry> metadata = new ArrayList<IptcEntry>();
 
         try {
             IPTCEntryCollection collection = MetadataUtils.getIPTC(new File(filename));
@@ -53,7 +53,7 @@ public class IptcMetadata {
     }
 
     private static void addEntries(IPTCEntry[][] entries,
-        Vector<IptcEntry> metadata) {
+        ArrayList<IptcEntry> metadata) {
         if (entries != null) {
             for (int i = 0; i < entries.length; i++) {
                 addEntries(entries[i], metadata);
@@ -61,7 +61,7 @@ public class IptcMetadata {
         }
     }
 
-    private static void addEntries(IPTCEntry[] entries, Vector<IptcEntry> metadata) {
+    private static void addEntries(IPTCEntry[] entries, ArrayList<IptcEntry> metadata) {
         if (entries != null) {
             for (int i = 0; i < entries.length; i++) {
                 IPTCEntry currentEntry = entries[i];
@@ -94,8 +94,8 @@ public class IptcMetadata {
      * @param  filter  Filter
      * @return Alle Entries mit den im Filter angegebenen Metadaten
      */
-    public Vector<IptcEntry> getFilteredEntries(Vector<IptcEntry> entries, IPTCEntryMeta filter) {
-        Vector<IptcEntry> filteredEntries = new Vector<IptcEntry>();
+    public ArrayList<IptcEntry> getFilteredEntries(ArrayList<IptcEntry> entries, IPTCEntryMeta filter) {
+        ArrayList<IptcEntry> filteredEntries = new ArrayList<IptcEntry>();
         for (IptcEntry entry : entries) {
             if (entry.getEntry().getEntryMeta().equals(filter)) {
                 filteredEntries.add(entry);
@@ -113,7 +113,7 @@ public class IptcMetadata {
     public static Iptc getIptc(String filename) {
         Iptc iptc = null;
         IptcMetadata iptcMetadata = new IptcMetadata();
-        Vector<IptcEntry> iptcEntries = iptcMetadata.getMetadata(filename);
+        ArrayList<IptcEntry> iptcEntries = iptcMetadata.getMetadata(filename);
         if (iptcEntries != null) {
             iptc = new Iptc();
             for (IptcEntry iptcEntry : iptcEntries) {

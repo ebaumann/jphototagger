@@ -8,7 +8,7 @@ import de.elmar_baumann.imagemetadataviewer.view.panels.AppPanel;
 import de.elmar_baumann.imagemetadataviewer.view.panels.MetaDataEditPanelsArray;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Vector;
+import java.util.ArrayList;
 import javax.swing.JButton;
 
 /**
@@ -42,8 +42,8 @@ public class ControllerSaveMetaData extends Controller
     @Override
     public void actionPerformed(ActionEvent e) {
         if (isStarted()) {
-            Vector<TextEntry> entries = editPanels.getTextEntries();
-            Vector<String> filenames = editPanels.getFilenames();
+            ArrayList<TextEntry> entries = editPanels.getTextEntries();
+            ArrayList<String> filenames = editPanels.getFilenames();
             int filenameCount = filenames.size();
             if (filenameCount == 1) {
                 updater.add(filenames, entries, true, false);

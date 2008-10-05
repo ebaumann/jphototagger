@@ -3,8 +3,8 @@ package de.elmar_baumann.imagemetadataviewer.io;
 import de.elmar_baumann.imagemetadataviewer.AppSettings;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Vector;
 
 /**
  * Verzeichnis im Dateisystem gefiltert nach Bilddateien.
@@ -15,7 +15,7 @@ import java.util.Vector;
 public class ImageFilteredDirectory {
 
     private String directoryname;
-    private Vector<String> filenames = new Vector<String>();
+    private ArrayList<String> filenames = new ArrayList<String>();
 
     public ImageFilteredDirectory() {
     }
@@ -25,7 +25,7 @@ public class ImageFilteredDirectory {
      * 
      * @return Dateinamen
      */
-    public Vector<String> getFilenames() {
+    public ArrayList<String> getFilenames() {
         return filenames;
     }
 
@@ -56,7 +56,7 @@ public class ImageFilteredDirectory {
      * @param directory Verzeichnis
      * @return          Bilddateien in diesem Verzeichnis
      */
-    public static Vector<File> getImageFilesOfDirectory(File directory) {
+    public static ArrayList<File> getImageFilesOfDirectory(File directory) {
         return getImageFilesOfDirectory(directory.getAbsolutePath());
     }
 
@@ -66,10 +66,10 @@ public class ImageFilteredDirectory {
      * @param directoryname Verzeichnisname
      * @return              Bilddateien in diesem Verzeichnis
      */
-    public static Vector<File> getImageFilesOfDirectory(String directoryname) {
+    public static ArrayList<File> getImageFilesOfDirectory(String directoryname) {
         File[] filteredFiles = FileUtil.getFiles(directoryname,
             AppSettings.fileFilterAcceptedImageFileFormats);
-        Vector<File> files = new Vector<File>(filteredFiles.length);
+        ArrayList<File> files = new ArrayList<File>(filteredFiles.length);
         for (int index = 0; index < filteredFiles.length; index++) {
             files.add(filteredFiles[index]);
         }
@@ -82,9 +82,9 @@ public class ImageFilteredDirectory {
      * @param directorynames Namen der Verzeichnisse
      * @return               Bilddateien in diesen Verzeichnissen
      */
-    public static Vector<File> getImageFilesOfDirectories(
-        Vector<String> directorynames) {
-        Vector<File> directories = new Vector<File>();
+    public static ArrayList<File> getImageFilesOfDirectories(
+        ArrayList<String> directorynames) {
+        ArrayList<File> directories = new ArrayList<File>();
         for (String directoryname : directorynames) {
             directories.addAll(getImageFilesOfDirectory(directoryname));
         }
@@ -97,10 +97,10 @@ public class ImageFilteredDirectory {
      * @param directoryname Verzeichnisname
      * @return              Name der Bilddateien in diesem Verzeichnis
      */
-    public static Vector<String> getImageFilenamesOfDirectory(
+    public static ArrayList<String> getImageFilenamesOfDirectory(
         String directoryname) {
-        Vector<File> files = getImageFilesOfDirectory(directoryname);
-        Vector<String> filenames = new Vector<String>(files.size());
+        ArrayList<File> files = getImageFilesOfDirectory(directoryname);
+        ArrayList<String> filenames = new ArrayList<String>(files.size());
         for (File file : files) {
             filenames.add(file.getAbsolutePath());
         }
@@ -113,10 +113,10 @@ public class ImageFilteredDirectory {
      * @param directorynames Namen der Verzeichnisse
      * @return               Namen der Bilddateien in diesen Verzeichnissen
      */
-    public static Vector<String> getImageFilenamesOfDirectories(
-        Vector<String> directorynames) {
-        Vector<File> files = getImageFilesOfDirectories(directorynames);
-        Vector<String> filenames = new Vector<String>();
+    public static ArrayList<String> getImageFilenamesOfDirectories(
+        ArrayList<String> directorynames) {
+        ArrayList<File> files = getImageFilesOfDirectories(directorynames);
+        ArrayList<String> filenames = new ArrayList<String>();
         for (File file : files) {
             filenames.add(file.getAbsolutePath());
         }
@@ -124,7 +124,7 @@ public class ImageFilteredDirectory {
     }
 
     private void empty() {
-        filenames.removeAllElements();
+        filenames.clear();
     }
 
     private void addFilesOfCurrentDirectory() {

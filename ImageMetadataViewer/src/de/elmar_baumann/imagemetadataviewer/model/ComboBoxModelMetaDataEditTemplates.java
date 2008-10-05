@@ -5,7 +5,7 @@ import de.elmar_baumann.imagemetadataviewer.data.MetaDataEditTemplate;
 import de.elmar_baumann.imagemetadataviewer.database.Database;
 import de.elmar_baumann.imagemetadataviewer.resource.Bundle;
 import java.text.MessageFormat;
-import java.util.Vector;
+import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
@@ -94,7 +94,7 @@ public class ComboBoxModelMetaDataEditTemplates extends DefaultComboBoxModel {
     }
 
     private void addColumns() {
-        Vector<MetaDataEditTemplate> templates = db.getMetaDataEditTemplates();
+        ArrayList<MetaDataEditTemplate> templates = db.getMetaDataEditTemplates();
         for (MetaDataEditTemplate template : templates) {
             addElement(template);
         }

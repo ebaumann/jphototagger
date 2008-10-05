@@ -5,7 +5,7 @@ import de.elmar_baumann.imagemetadataviewer.image.metadata.iptc.IptcEntry;
 import de.elmar_baumann.imagemetadataviewer.image.metadata.iptc.IptcMetadata;
 import de.elmar_baumann.imagemetadataviewer.resource.Bundle;
 import java.util.Collections;
-import java.util.Vector;
+import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -17,7 +17,7 @@ import javax.swing.table.DefaultTableModel;
 public class TableModelIptc extends DefaultTableModel {
 
     private String filename;
-    private Vector<IptcEntry> iptcEntries;
+    private ArrayList<IptcEntry> iptcEntries;
 
     public TableModelIptc() {
         addColumnHeaders();
@@ -62,12 +62,8 @@ public class TableModelIptc extends DefaultTableModel {
         }
     }
 
-    private Vector<IptcEntry> getTableRow(IptcEntry entry) {
-        Vector<IptcEntry> row = new Vector<IptcEntry>();
-        row.add(entry);
-        row.add(entry);
-        row.add(entry);
-        return row;
+    private Object[] getTableRow(IptcEntry entry) {
+        return new Object[]{entry, entry, entry};
     }
 
     private void addColumnHeaders() {

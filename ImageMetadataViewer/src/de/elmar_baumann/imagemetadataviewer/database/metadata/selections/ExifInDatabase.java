@@ -1,7 +1,7 @@
 package de.elmar_baumann.imagemetadataviewer.database.metadata.selections;
 
 import de.elmar_baumann.imagemetadataviewer.image.metadata.exif.ExifTag;
-import java.util.Vector;
+import java.util.ArrayList;
 
 /**
  * Liefert, welche Exif-Metadaten in die Datenbank gespeichert werden.
@@ -11,7 +11,7 @@ import java.util.Vector;
  */
 public class ExifInDatabase {
 
-    private static Vector<ExifTag> storedTags = new Vector<ExifTag>();
+    private static ArrayList<ExifTag> storedTags = new ArrayList<ExifTag>();
     private static ExifInDatabase instance = new ExifInDatabase();
     
 

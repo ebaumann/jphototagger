@@ -15,7 +15,7 @@ import de.elmar_baumann.imagemetadataviewer.view.renderer.ListCellRendererTableC
 import java.awt.event.KeyEvent;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.Vector;
+import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 
 /**
@@ -35,7 +35,7 @@ public class SearchColumnPanel extends javax.swing.JPanel {
     private boolean isOperatorsEnabled = true;
     private boolean listenToActions = true;
     private boolean changed = false;
-    private Vector<SearchListener> searchListener = new Vector<SearchListener>();
+    private ArrayList<SearchListener> searchListener = new ArrayList<SearchListener>();
 
     public SearchColumnPanel() {
         initComponents();
@@ -164,7 +164,7 @@ public class SearchColumnPanel extends javax.swing.JPanel {
     }
 
     private void initColumnsModel() {
-        Vector<Column> columns = AdvancedSearchColumns.getInstance().get();
+        ArrayList<Column> columns = AdvancedSearchColumns.getInstance().get();
         for (Column column : columns) {
             if (!column.isPrimaryKey() && !column.isForeignKey()) {
                 modelColumns.addElement(column);

@@ -3,7 +3,7 @@ package de.elmar_baumann.imagemetadataviewer.controller.misc;
 import de.elmar_baumann.imagemetadataviewer.controller.Controller;
 import de.elmar_baumann.imagemetadataviewer.resource.Panels;
 import de.elmar_baumann.imagemetadataviewer.view.panels.AppPanel;
-import java.util.Vector;
+import java.util.ArrayList;
 import javax.swing.JList;
 import javax.swing.JTree;
 import javax.swing.event.ListSelectionEvent;
@@ -23,8 +23,8 @@ public class ControllerItemsMutualExcludeSelection extends Controller
     implements TreeSelectionListener, ListSelectionListener {
 
     private AppPanel appPanel = Panels.getInstance().getAppPanel();
-    private Vector<JTree> trees = appPanel.getSelectionTrees();
-    private Vector<JList> lists = appPanel.getSelectionLists();
+    private ArrayList<JTree> trees = appPanel.getSelectionTrees();
+    private ArrayList<JList> lists = appPanel.getSelectionLists();
     private boolean listen = true;
 
     public ControllerItemsMutualExcludeSelection() {

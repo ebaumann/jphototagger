@@ -21,7 +21,7 @@ import java.awt.Insets;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.util.Set;
-import java.util.Vector;
+import java.util.ArrayList;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -38,9 +38,9 @@ public class MetaDataEditPanelsArray implements FocusListener {
 
     boolean editable = true;
     private JComponent container;
-    private Vector<JPanel> panels = new Vector<JPanel>();
-    private Vector<String> filenames = new Vector<String>();
-    private Vector<MetaDataEditPanelListener> listener = new Vector<MetaDataEditPanelListener>();
+    private ArrayList<JPanel> panels = new ArrayList<JPanel>();
+    private ArrayList<String> filenames = new ArrayList<String>();
+    private ArrayList<MetaDataEditPanelListener> listener = new ArrayList<MetaDataEditPanelListener>();
 
     public MetaDataEditPanelsArray(JComponent container) {
         this.container = container;
@@ -104,11 +104,11 @@ public class MetaDataEditPanelsArray implements FocusListener {
      * 
      * @return Dateinamen
      */
-    public Vector<String> getFilenames() {
+    public ArrayList<String> getFilenames() {
         return filenames;
     }
 
-    public void setFilenames(Vector<String> filenames) {
+    public void setFilenames(ArrayList<String> filenames) {
         this.filenames = filenames;
     }
 
@@ -117,8 +117,8 @@ public class MetaDataEditPanelsArray implements FocusListener {
      * 
      * @return Texte
      */
-    public Vector<TextEntry> getTextEntries() {
-        Vector<TextEntry> textEntries = new Vector<TextEntry>();
+    public ArrayList<TextEntry> getTextEntries() {
+        ArrayList<TextEntry> textEntries = new ArrayList<TextEntry>();
         for (JPanel panel : panels) {
             textEntries.add((TextEntry) panel);
         }
@@ -164,7 +164,7 @@ public class MetaDataEditPanelsArray implements FocusListener {
      * @param filenames Dateinamen, deren Metadaten angezeigt werden
      * @param infos     Zu setzende Einträge
      */
-    public void setXmpPropertyInfos(Vector<String> filenames, Vector<XMPPropertyInfo> infos) {
+    public void setXmpPropertyInfos(ArrayList<String> filenames, ArrayList<XMPPropertyInfo> infos) {
         this.filenames = filenames;
         emptyPanels();
         IptcXmpMapping mapping = IptcXmpMapping.getInstance();
@@ -173,7 +173,7 @@ public class MetaDataEditPanelsArray implements FocusListener {
             TextEntry textEntry = (TextEntry) panel;
             Column xmpColumn = textEntry.getColumn();
             IPTCEntryMeta iptcEntryMeta = mapping.getIptcEntryMetaOfXmpColumn(xmpColumn);
-            Vector<XMPPropertyInfo> matchingInfos =
+            ArrayList<XMPPropertyInfo> matchingInfos =
                 xmpMetaData.getFilteredPropertyInfosOfIptcEntryMeta(iptcEntryMeta, infos);
             int countMatchingInfos = matchingInfos.size();
 

@@ -8,7 +8,7 @@ import de.elmar_baumann.lib.image.ImageTransform;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Vector;
+import java.util.ArrayList;
 
 /**
  * Kontrolliert die Aktion: Rotiere ein Thumbnail,
@@ -43,7 +43,7 @@ public class ControllerRotateThumbnail extends Controller
 
     private void rotateSelectedImages(float rotateAngle) {
         ImageFileThumbnailsPanel panel = popup.getThumbnailsPanel();
-        Vector<Integer> selectedIndices = panel.getIndicesSelectedThumbnails();
+        ArrayList<Integer> selectedIndices = panel.getIndicesSelectedThumbnails();
         for (Integer index : selectedIndices) {
             Image thumbnail = ImageTransform.rotate(
                 panel.getThumbnailAtIndex(index.intValue()), rotateAngle);

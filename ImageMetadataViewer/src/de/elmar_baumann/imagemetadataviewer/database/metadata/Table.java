@@ -1,6 +1,6 @@
 package de.elmar_baumann.imagemetadataviewer.database.metadata;
 
-import java.util.Vector;
+import java.util.ArrayList;
 
 /**
  * Eine Tabelle.
@@ -10,8 +10,8 @@ import java.util.Vector;
  */
 public abstract class Table {
 
-    private Vector<Column> columns = new Vector<Column>();
-    private Vector<Column> referenceColumns = new Vector<Column>();
+    private ArrayList<Column> columns = new ArrayList<Column>();
+    private ArrayList<Column> referenceColumns = new ArrayList<Column>();
     private String name;
 
     /**
@@ -67,7 +67,7 @@ public abstract class Table {
      * 
      * @return Spalten
      */
-    public Vector<Column> getColumns() {
+    public ArrayList<Column> getColumns() {
         if (columns.isEmpty()) {
             addColumns();
         }
@@ -79,7 +79,7 @@ public abstract class Table {
      * 
      * @return Referenzspalten
      */
-    public Vector<Column> getReferenceColumns() {
+    public ArrayList<Column> getReferenceColumns() {
         if (columns.isEmpty()) {
             addColumns();
         }
@@ -107,8 +107,8 @@ public abstract class Table {
      * @param table Tabelle
      * @return Spalten
      */
-    public Vector<Column> getJoinColumnsFor(Table table) {
-        Vector<Column> joinColumns = new Vector<Column>();
+    public ArrayList<Column> getJoinColumnsFor(Table table) {
+        ArrayList<Column> joinColumns = new ArrayList<Column>();
         for (Column column : referenceColumns) {
             Column referencedColumn = column.getReferences();
             if (referencedColumn.getTable().equals(table)) {
@@ -123,8 +123,8 @@ public abstract class Table {
      * 
      * @return Primärschlüsselspalten
      */
-    public Vector<Column> getPrimaryKeyColumns() {
-        Vector<Column> pColumns = new Vector<Column>();
+    public ArrayList<Column> getPrimaryKeyColumns() {
+        ArrayList<Column> pColumns = new ArrayList<Column>();
         for (Column column : columns) {
             if (column.isPrimaryKey()) {
                 pColumns.add(column);

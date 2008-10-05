@@ -13,7 +13,7 @@ import de.elmar_baumann.lib.persistence.PersistentAppSizes;
 import de.elmar_baumann.lib.persistence.PersistentSettings;
 import de.elmar_baumann.lib.persistence.PersistentSettingsHints;
 import java.io.File;
-import java.util.Vector;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
@@ -109,8 +109,8 @@ public class IptcToXmpDialog extends javax.swing.JDialog
         stop = true;
     }
 
-    private Vector<String> getFilenames() {
-        Vector<String> directories = new Vector<String>();
+    private ArrayList<String> getFilenames() {
+        ArrayList<String> directories = new ArrayList<String>();
         directories.add(directoryName);
         if (checkBoxSubdirectories.isSelected()) {
             directories.addAll(FileUtil.getAllSubDirectoryNames(directoryName));

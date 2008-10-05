@@ -6,7 +6,7 @@ import de.elmar_baumann.imagemetadataviewer.resource.Panels;
 import de.elmar_baumann.imagemetadataviewer.view.panels.AppPanel;
 import de.elmar_baumann.imagemetadataviewer.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.imagemetadataviewer.view.popupmenus.PopupMenuPanelThumbnails;
-import java.util.Vector;
+import java.util.ArrayList;
 import javax.swing.JTree;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
@@ -50,7 +50,7 @@ public class ControllerImageCollectionSelected extends Controller
     }
 
     private void showImageCollection(String collectionName) {
-        Vector<String> filenames = db.getFilenamesOfImageCollection(collectionName);
+        ArrayList<String> filenames = db.getFilenamesOfImageCollection(collectionName);
         thumbnailsPanel.setFilenames(filenames);
         PopupMenuPanelThumbnails.getInstance().setIsImageCollection(true);
     }

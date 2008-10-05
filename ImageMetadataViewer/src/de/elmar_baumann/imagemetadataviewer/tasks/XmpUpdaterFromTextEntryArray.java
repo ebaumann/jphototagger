@@ -7,7 +7,7 @@ import de.elmar_baumann.imagemetadataviewer.event.ProgressEvent;
 import de.elmar_baumann.imagemetadataviewer.event.ProgressListener;
 import de.elmar_baumann.imagemetadataviewer.resource.ProgressBarCurrentTasks;
 import java.util.Stack;
-import java.util.Vector;
+import java.util.ArrayList;
 import javax.swing.JProgressBar;
 
 /**
@@ -36,7 +36,7 @@ public class XmpUpdaterFromTextEntryArray implements ProgressListener {
      *                      existierende ergänzt werden sollen und nicht
      *                      gelöscht
      */
-    public void add(Vector<String> filenames, Vector<TextEntry> textEntries,
+    public void add(ArrayList<String> filenames, ArrayList<TextEntry> textEntries,
         boolean deleteEmpty, boolean append) {
         XmpUpdaterFromTextEntry updater = new XmpUpdaterFromTextEntry(filenames, textEntries, deleteEmpty, append);
         updater.addProgressListener(this);

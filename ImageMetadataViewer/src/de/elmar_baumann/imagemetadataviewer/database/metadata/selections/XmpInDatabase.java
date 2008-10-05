@@ -1,6 +1,6 @@
 package de.elmar_baumann.imagemetadataviewer.database.metadata.selections;
 
-import java.util.Vector;
+import java.util.ArrayList;
 
 /**
  * Liefert, welche XMP-Metadaten in die Datenbank gespeichert werden.
@@ -10,7 +10,7 @@ import java.util.Vector;
  */
 public class XmpInDatabase {
 
-    private static Vector<String> storedPathsStartsWith = new Vector<String>();
+    private static ArrayList<String> storedPathsStartsWith = new ArrayList<String>();
     private static XmpInDatabase instance = new XmpInDatabase();
     
 

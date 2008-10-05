@@ -20,7 +20,7 @@ import de.elmar_baumann.lib.componentutil.TableUtil;
 import java.awt.Component;
 import java.io.File;
 import java.util.HashMap;
-import java.util.Vector;
+import java.util.ArrayList;
 import javax.swing.JTable;
 
 /**
@@ -59,8 +59,8 @@ public class ControllerShowMetadata extends Controller
         data.appPanel = appPanel;
         data.thumbnailsPanel = appPanel.getPanelImageFileThumbnails();
         data.editPanelsArray = appPanel.getEditPanelsArray();
-        Vector<JTable> xmpTables = appPanel.getXmpTables();
-        Vector<TableModelXmp> xmpTableModels = new Vector<TableModelXmp>();
+        ArrayList<JTable> xmpTables = appPanel.getXmpTables();
+        ArrayList<TableModelXmp> xmpTableModels = new ArrayList<TableModelXmp>();
         for (JTable xmpTable : xmpTables) {
             xmpTableModels.add((TableModelXmp) xmpTable.getModel());
         }
@@ -164,7 +164,7 @@ public class ControllerShowMetadata extends Controller
 
     private void setXmpModels(String filename) {
         XmpMetadata xmpMetadata = new XmpMetadata();
-        Vector<XMPPropertyInfo> allInfos = xmpMetadata.getPropertyInfosOfFile(filename);
+        ArrayList<XMPPropertyInfo> allInfos = xmpMetadata.getPropertyInfosOfFile(filename);
 
         if (allInfos != null) {
             for (TableModelXmp model : data.xmpTableModels) {
@@ -175,8 +175,8 @@ public class ControllerShowMetadata extends Controller
     }
 
     private void setPropertyInfosToXmpTableModel(String filename, TableModelXmp model,
-        Vector<XMPPropertyInfo> allInfos, String[] namespaces) {
-        Vector<XMPPropertyInfo> infos = new Vector<XMPPropertyInfo>();
+        ArrayList<XMPPropertyInfo> allInfos, String[] namespaces) {
+        ArrayList<XMPPropertyInfo> infos = new ArrayList<XMPPropertyInfo>();
         for (int index = 0; index < namespaces.length; index++) {
             infos.addAll(XmpMetadata.getPropertyInfosOfNamespace(allInfos,
                 namespaces[index]));

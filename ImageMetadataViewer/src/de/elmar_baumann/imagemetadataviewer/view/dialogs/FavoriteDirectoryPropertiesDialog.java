@@ -10,7 +10,7 @@ import de.elmar_baumann.lib.persistence.PersistentSettings;
 import java.awt.Image;
 import java.io.File;
 import java.text.MessageFormat;
-import java.util.Vector;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
@@ -20,7 +20,7 @@ import javax.swing.JOptionPane;
  */
 public class FavoriteDirectoryPropertiesDialog extends javax.swing.JDialog {
 
-    private static Vector<Image> appIcons = AppSettings.getAppIcons();
+    private static ArrayList<Image> appIcons = AppSettings.getAppIcons();
     private static final String keyLastDirectory = "de.elmar_baumann.imagemetadataviewer.view.dialogs.FavoriteDirectoryPropertiesDialog.LastDirectory"; // NOI18N
     private String lastDirectory = ""; // NOI18N
     private boolean ok = true;
@@ -40,7 +40,7 @@ public class FavoriteDirectoryPropertiesDialog extends javax.swing.JDialog {
         dialog.setMultiSelection(false);
         dialog.setVisible(true);
         if (dialog.accepted()) {
-            Vector<File> files = dialog.getSelectedDirectories();
+            ArrayList<File> files = dialog.getSelectedDirectories();
             String directoryName = files.get(0).getAbsolutePath();
             labelDirectoryname.setText(directoryName);
             lastDirectory = directoryName;

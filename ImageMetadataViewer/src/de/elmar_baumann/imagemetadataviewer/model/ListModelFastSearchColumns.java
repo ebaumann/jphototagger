@@ -2,7 +2,7 @@ package de.elmar_baumann.imagemetadataviewer.model;
 
 import de.elmar_baumann.imagemetadataviewer.database.metadata.selections.FastSearchColumns;
 import de.elmar_baumann.imagemetadataviewer.database.metadata.Column;
-import java.util.Vector;
+import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JCheckBox;
 
@@ -15,7 +15,7 @@ import javax.swing.JCheckBox;
  */
 public class ListModelFastSearchColumns extends DefaultListModel {
 
-    private Vector<Column> columns = FastSearchColumns.getInstance().getSearchColumns();
+    private ArrayList<Column> columns = FastSearchColumns.getInstance().getSearchColumns();
 
     public ListModelFastSearchColumns() {
         addColumns();
@@ -33,8 +33,8 @@ public class ListModelFastSearchColumns extends DefaultListModel {
      * @param indices Indizes
      * @return        Tabellenspalten
      */
-    public Vector<Column> getTableColumns(Vector<Integer> indices) {
-        Vector<Column> cols = new Vector<Column>();
+    public ArrayList<Column> getTableColumns(ArrayList<Integer> indices) {
+        ArrayList<Column> cols = new ArrayList<Column>();
         for (int index : indices) {
             cols.add(columns.get(index));
         }

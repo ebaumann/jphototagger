@@ -14,8 +14,8 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Vector;
 import javax.swing.JPanel;
 
 /**
@@ -65,10 +65,10 @@ public abstract class ThumbnailsPanel extends JPanel
     private int thumbnailHeight = defaultThumbnailHeight;
     private int thumbnailCount = 0;
     private int thumbnailCountPerRow = 3;
-    private Vector<Integer> indicesSelectedThumbnails = new Vector<Integer>();
+    private ArrayList<Integer> indicesSelectedThumbnails = new ArrayList<Integer>();
     private HashMap<Integer, ThumbnailFlag> flagOfThumbnailIndex = new HashMap<Integer, ThumbnailFlag>();
     private HashMap<Integer, Image> thumbnailAtIndex = new HashMap<Integer, Image>();
-    private Vector<ThumbnailsPanelListener> panelListener = new Vector<ThumbnailsPanelListener>();
+    private ArrayList<ThumbnailsPanelListener> panelListener = new ArrayList<ThumbnailsPanelListener>();
 
     protected void empty() {
         thumbnailAtIndex.clear();
@@ -101,7 +101,7 @@ public abstract class ThumbnailsPanel extends JPanel
      * 
      * @return Indexe
      */
-    public Vector<Integer> getIndicesSelectedThumbnails() {
+    public ArrayList<Integer> getIndicesSelectedThumbnails() {
         return indicesSelectedThumbnails;
     }
 
@@ -110,7 +110,7 @@ public abstract class ThumbnailsPanel extends JPanel
      * 
      * @param indices Indexe
      */
-    protected void setIndicesSelectedThumbnails(Vector<Integer> indices) {
+    protected void setIndicesSelectedThumbnails(ArrayList<Integer> indices) {
         indicesSelectedThumbnails = indices;
         repaint();
         notifyThumbnailSelected();
@@ -769,7 +769,7 @@ public abstract class ThumbnailsPanel extends JPanel
      * 
      * @param thumbnailIndices Indexe
      */
-    protected void removeFromCache(Vector<Integer> thumbnailIndices) {
+    protected void removeFromCache(ArrayList<Integer> thumbnailIndices) {
         for (Integer index : thumbnailIndices) {
             thumbnailAtIndex.remove(index);
         }
