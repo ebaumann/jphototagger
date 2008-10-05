@@ -10,8 +10,8 @@ import de.elmar_baumann.imagemetadataviewer.event.ThumbnailsPanelListener;
 import de.elmar_baumann.imagemetadataviewer.resource.Panels;
 import de.elmar_baumann.imagemetadataviewer.view.panels.AppPanel;
 import de.elmar_baumann.imagemetadataviewer.view.panels.ImageFileThumbnailsPanel;
+import java.util.List;
 import java.util.Stack;
-import java.util.ArrayList;
 import javax.swing.JProgressBar;
 
 /**
@@ -39,7 +39,7 @@ public class ControllerCreateMetaDataOfCurrentThumbnails extends Controller
         startUpdateMetadataThread();
     }
 
-    private ImageMetadataToDatabase createUpdater(ArrayList<String> files) {
+    private ImageMetadataToDatabase createUpdater(List<String> files) {
         ImageMetadataToDatabase updater =
             new ImageMetadataToDatabase(files,
             UserSettings.getInstance().getMaxThumbnailLength());
