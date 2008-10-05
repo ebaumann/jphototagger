@@ -18,8 +18,8 @@ import javax.swing.tree.TreePath;
  * Kontrolliert die Aktion: Thumbnails eines selektierten Verzeichnisses
  * anzeigen.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/00/11
+ * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @version 2008-10-05
  */
 public class ControllerShowThumbnailsOfSelectedDirectory extends Controller
     implements TreeSelectionListener {
