@@ -1,6 +1,8 @@
 package de.elmar_baumann.imagemetadataviewer.database.metadata;
 
 import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  * Utils für Datenbankmetadaten.
@@ -16,8 +18,8 @@ public class DatabaseMetadataUtil {
      * @param columns Spalten
      * @return        Tabellennamen
      */
-    public static ArrayList<String> getUniqueTableNamesOfColumnArray(ArrayList<Column> columns) {
-        ArrayList<String> tablenames = new ArrayList<String>();
+    public static List<String> getUniqueTableNamesOfColumnArray(List<Column> columns) {
+        List<String> tablenames = new ArrayList<String>();
 
         for (Column column : columns) {
             String tableName = column.getTable().getName();
@@ -34,8 +36,8 @@ public class DatabaseMetadataUtil {
      * @param tables Tabellen
      * @return       Gemeinsame Tabellen
      */
-    public static ArrayList<Table> getUniqueTablesOfTableArray(ArrayList<Table> tables) {
-        ArrayList<Table> uniqueTables = new ArrayList<Table>();
+    public static List<Table> getUniqueTablesOfTableArray(List<Table> tables) {
+        List<Table> uniqueTables = new ArrayList<Table>();
         for (Table table : tables) {
             if (!uniqueTables.contains(table)) {
                 uniqueTables.add(table);
@@ -50,8 +52,8 @@ public class DatabaseMetadataUtil {
      * @param columns Spalten
      * @return        Tabellen
      */
-    public static ArrayList<Table> getUniqueTablesOfColumnArray(ArrayList<Column> columns) {
-        ArrayList<Table> tables = new ArrayList<Table>();
+    public static List<Table> getUniqueTablesOfColumnArray(List<Column> columns) {
+        List<Table> tables = new ArrayList<Table>();
         for (Column column : columns) {
             Table table = column.getTable();
             if (!tables.contains(table)) {
@@ -67,8 +69,8 @@ public class DatabaseMetadataUtil {
      * @param columns Spalten
      * @return        Spalten
      */
-    public static ArrayList<Column> getUniqueColumnsOfColumnArray(ArrayList<Column> columns) {
-        ArrayList<Column> uniqueColumns = new ArrayList<Column>();
+    public static List<Column> getUniqueColumnsOfColumnArray(List<Column> columns) {
+        List<Column> uniqueColumns = new ArrayList<Column>();
         for (Column column : columns) {
             if (!uniqueColumns.contains(column)) {
                 uniqueColumns.add(column);
@@ -89,11 +91,11 @@ public class DatabaseMetadataUtil {
      * @return               Tabellen, die <code>referenceTable</code>
      *                       referenzieren (unique)
      */
-    public static ArrayList<Table> getTablesWithReferenceTo(ArrayList<Table> tables,
+    public static List<Table> getTablesWithReferenceTo(List<Table> tables,
         Table referenceTable, Column.ReferenceDirection direction) {
-        ArrayList<Table> referenced = new ArrayList<Table>();
+        List<Table> referenced = new ArrayList<Table>();
         for (Table table : tables) {
-            ArrayList<Column> refCols = table.getReferenceColumns();
+            List<Column> refCols = table.getReferenceColumns();
             for (Column column : refCols) {
                 Column refdCol = column.getReferences();
                 if (refdCol.getTable().equals(referenceTable) && column.getReferenceDirection().equals(direction)) {
@@ -112,9 +114,9 @@ public class DatabaseMetadataUtil {
      *                     anfangen, werden hinzugefügt
      * @return             Spalten der Tabelle aus <code>tableColumns</code>
      */
-    public static ArrayList<Column> getTableColumnsOfTableCategory(
-        ArrayList<Column> tableColumns, String tablename) {
-        ArrayList<Column> columns = new ArrayList<Column>();
+    public static List<Column> getTableColumnsOfTableCategory(
+        List<Column> tableColumns, String tablename) {
+        List<Column> columns = new ArrayList<Column>();
         for (Column column : tableColumns) {
             if (column.getTable().getName().startsWith(tablename)) {
                 columns.add(column);
@@ -129,7 +131,7 @@ public class DatabaseMetadataUtil {
      * @param tableColumns Spalten
      * @return             SQL-String
      */
-    public static String getSqlSelectFrom(ArrayList<Column> tableColumns) {
+    public static String getSqlSelectFrom(List<Column> tableColumns) {
         StringBuffer sql = new StringBuffer("SELECT "); // NOI18N
         int columnCount = tableColumns.size();
 
@@ -142,7 +144,7 @@ public class DatabaseMetadataUtil {
 
         sql.append(" FROM "); // NOI18N
 
-        ArrayList<String> tablenames = getUniqueTableNamesOfColumnArray(tableColumns);
+        List<String> tablenames = getUniqueTableNamesOfColumnArray(tableColumns);
         int tableCount = tablenames.size();
         for (int index = 0; index < tableCount; index++) {
             String tablename = tablenames.get(index);
