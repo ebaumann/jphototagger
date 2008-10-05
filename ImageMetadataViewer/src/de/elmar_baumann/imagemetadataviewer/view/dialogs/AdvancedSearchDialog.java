@@ -397,8 +397,6 @@ public class AdvancedSearchDialog extends javax.swing.JDialog implements
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panelScrollPane = new javax.swing.JPanel();
-        scrollPaneColumns = new javax.swing.JScrollPane();
         panelColumns = new javax.swing.JPanel();
         panelColumn1 = new de.elmar_baumann.imagemetadataviewer.view.panels.SearchColumnPanel();
         panelColumn2 = new de.elmar_baumann.imagemetadataviewer.view.panels.SearchColumnPanel();
@@ -423,11 +421,11 @@ public class AdvancedSearchDialog extends javax.swing.JDialog implements
         panelColumns.setLayout(panelColumnsLayout);
         panelColumnsLayout.setHorizontalGroup(
             panelColumnsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelColumn5, javax.swing.GroupLayout.DEFAULT_SIZE, 905, Short.MAX_VALUE)
-            .addComponent(panelColumn4, javax.swing.GroupLayout.DEFAULT_SIZE, 905, Short.MAX_VALUE)
-            .addComponent(panelColumn3, javax.swing.GroupLayout.DEFAULT_SIZE, 905, Short.MAX_VALUE)
-            .addComponent(panelColumn2, javax.swing.GroupLayout.DEFAULT_SIZE, 905, Short.MAX_VALUE)
-            .addComponent(panelColumn1, javax.swing.GroupLayout.DEFAULT_SIZE, 905, Short.MAX_VALUE)
+            .addComponent(panelColumn5, javax.swing.GroupLayout.DEFAULT_SIZE, 735, Short.MAX_VALUE)
+            .addComponent(panelColumn4, javax.swing.GroupLayout.DEFAULT_SIZE, 735, Short.MAX_VALUE)
+            .addComponent(panelColumn3, javax.swing.GroupLayout.DEFAULT_SIZE, 735, Short.MAX_VALUE)
+            .addComponent(panelColumn2, javax.swing.GroupLayout.DEFAULT_SIZE, 735, Short.MAX_VALUE)
+            .addComponent(panelColumn1, javax.swing.GroupLayout.DEFAULT_SIZE, 735, Short.MAX_VALUE)
         );
         panelColumnsLayout.setVerticalGroup(
             panelColumnsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -440,41 +438,8 @@ public class AdvancedSearchDialog extends javax.swing.JDialog implements
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelColumn4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelColumn5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
-        scrollPaneColumns.setViewportView(panelColumns);
-
-        javax.swing.GroupLayout panelScrollPaneLayout = new javax.swing.GroupLayout(panelScrollPane);
-        panelScrollPane.setLayout(panelScrollPaneLayout);
-        panelScrollPaneLayout.setHorizontalGroup(
-            panelScrollPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 932, Short.MAX_VALUE)
-            .addGroup(panelScrollPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(panelScrollPaneLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(scrollPaneColumns, javax.swing.GroupLayout.DEFAULT_SIZE, 908, Short.MAX_VALUE)
-                    .addContainerGap()))
-        );
-        panelScrollPaneLayout.setVerticalGroup(
-            panelScrollPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 185, Short.MAX_VALUE)
-            .addGroup(panelScrollPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(panelScrollPaneLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(scrollPaneColumns, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
-                    .addContainerGap()))
-        );
-
-        javax.swing.GroupLayout panelButtonsLayout = new javax.swing.GroupLayout(panelButtons);
-        panelButtons.setLayout(panelButtonsLayout);
-        panelButtonsLayout.setHorizontalGroup(
-            panelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 420, Short.MAX_VALUE)
-        );
-        panelButtonsLayout.setVerticalGroup(
-            panelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 25, Short.MAX_VALUE)
+                .addComponent(panelColumn5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         buttonSaveSearch.setFont(new java.awt.Font("Dialog", 0, 12));
@@ -512,37 +477,49 @@ public class AdvancedSearchDialog extends javax.swing.JDialog implements
             }
         });
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelScrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(30, Short.MAX_VALUE)
-                .addComponent(panelButtons, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+        javax.swing.GroupLayout panelButtonsLayout = new javax.swing.GroupLayout(panelButtons);
+        panelButtons.setLayout(panelButtonsLayout);
+        panelButtonsLayout.setHorizontalGroup(
+            panelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelButtonsLayout.createSequentialGroup()
                 .addComponent(buttonSaveSearch)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonSaveAs)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonReset)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonSearch)
+                .addComponent(buttonSearch))
+        );
+        panelButtonsLayout.setVerticalGroup(
+            panelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(buttonSaveSearch)
+                .addComponent(buttonSaveAs)
+                .addComponent(buttonReset)
+                .addComponent(buttonSearch))
+        );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(panelColumns, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(283, Short.MAX_VALUE)
+                .addComponent(panelButtons, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(panelScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(panelButtons, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(buttonReset)
-                        .addComponent(buttonSaveAs)
-                        .addComponent(buttonSaveSearch)
-                        .addComponent(buttonSearch)))
-                .addContainerGap())
+                .addContainerGap()
+                .addComponent(panelColumns, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(panelButtons, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -599,8 +576,6 @@ private void buttonSaveAsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     private de.elmar_baumann.imagemetadataviewer.view.panels.SearchColumnPanel panelColumn4;
     private de.elmar_baumann.imagemetadataviewer.view.panels.SearchColumnPanel panelColumn5;
     private javax.swing.JPanel panelColumns;
-    private javax.swing.JPanel panelScrollPane;
-    private javax.swing.JScrollPane scrollPaneColumns;
     // End of variables declaration//GEN-END:variables
 
 }

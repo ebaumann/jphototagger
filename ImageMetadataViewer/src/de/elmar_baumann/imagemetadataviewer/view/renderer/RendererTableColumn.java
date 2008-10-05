@@ -32,22 +32,6 @@ public class RendererTableColumn {
     }
     
     /**
-     * Removes from column descriptions which have the standard definition
-     * at the end of the description in "[" brackets.
-     * 
-     * @param  column  column
-     * @return Description without " [.*"
-     */
-    public static String getDescriptionWithoutDefinition(Column column) {
-        String description = column.getDescription();
-        int index = description.indexOf(" [");
-        if (index > 0) {
-            return description.substring(0, index);
-        }
-        return description;
-    }
-
-    /**
      * Setzt Icon und Text eines Labels, das eine Tabellenspalte darstellt.
      * 
      * @param label   Label
@@ -59,8 +43,6 @@ public class RendererTableColumn {
     }
 
     private static String getLabelText(Column column) {
-        String text = "<html><strong>" + column.getDescription() + "</strong>"; // NOI18N
-        text = text.replace("[", "<font color=\"#aaaaaa\">[").replace("]", "]</font>"); // NOI18N
-        return text + "</html>"; // NOI18N
+        return "<html><strong>" + column.getDescription() + "</strong></html>"; // NOI18N
     }
 }

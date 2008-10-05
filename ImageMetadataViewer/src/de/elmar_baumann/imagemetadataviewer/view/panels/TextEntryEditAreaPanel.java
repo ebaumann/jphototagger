@@ -3,7 +3,6 @@ package de.elmar_baumann.imagemetadataviewer.view.panels;
 import de.elmar_baumann.imagemetadataviewer.data.TextEntry;
 import de.elmar_baumann.imagemetadataviewer.database.metadata.Column;
 import de.elmar_baumann.imagemetadataviewer.resource.Bundle;
-import de.elmar_baumann.imagemetadataviewer.view.renderer.RendererTableColumn;
 import de.elmar_baumann.lib.component.TabLeavingTextArea;
 import java.awt.Color;
 
@@ -42,7 +41,7 @@ public class TextEntryEditAreaPanel extends javax.swing.JPanel
     }
 
     private void setPropmt() {
-        labelPrompt.setText(RendererTableColumn.getDescriptionWithoutDefinition(xmpColumn));
+        labelPrompt.setText(xmpColumn.getDescription());
     }
 
     @Override
