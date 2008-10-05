@@ -6,7 +6,6 @@ import de.elmar_baumann.imagemetadataviewer.resource.Panels;
 import de.elmar_baumann.imagemetadataviewer.view.panels.AppPanel;
 import de.elmar_baumann.imagemetadataviewer.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.imagemetadataviewer.view.popupmenus.PopupMenuPanelThumbnails;
-import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JTree;
 import javax.swing.event.TreeSelectionEvent;
