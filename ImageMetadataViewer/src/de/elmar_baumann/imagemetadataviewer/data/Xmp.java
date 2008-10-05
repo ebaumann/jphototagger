@@ -22,6 +22,7 @@ import de.elmar_baumann.imagemetadataviewer.database.metadata.xmp.ColumnXmpPhoto
 import de.elmar_baumann.imagemetadataviewer.database.metadata.xmp.ColumnXmpPhotoshopState;
 import de.elmar_baumann.imagemetadataviewer.database.metadata.xmp.ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory;
 import de.elmar_baumann.imagemetadataviewer.database.metadata.xmp.ColumnXmpPhotoshopTransmissionReference;
+import java.util.List;
 import java.util.HashMap;
 import java.util.Set;
 import java.util.ArrayList;
@@ -53,8 +54,8 @@ public class Xmp {
     private StringBuffer photoshopState = new StringBuffer();
     private StringBuffer photoshopTransmissionReference = new StringBuffer();
     private StringBuffer dcCreator = new StringBuffer();
-    private ArrayList<String> dcSubjects = new ArrayList<String>();
-    private ArrayList<String> photoshopSupplementalCategories = new ArrayList<String>();
+    private List<String> dcSubjects = new ArrayList<String>();
+    private List<String> photoshopSupplementalCategories = new ArrayList<String>();
     private HashMap<Column, Object> valueOfColumn = new HashMap<Column, Object>();
 
     private void init() {
@@ -183,7 +184,7 @@ public class Xmp {
      * @return XMP-Felder dc:subject (Stichwörter) oder null wenn nicht definiert
      * @see    Iptc#getKeywords()
      */
-    public ArrayList<String> getDcSubjects() {
+    public List<String> getDcSubjects() {
         return dcSubjects.isEmpty()
             ? null
             : dcSubjects;
@@ -537,7 +538,7 @@ public class Xmp {
      * @return XMP-Felder photoshop:SupplementalCategories (weitere Kategorien) oder null wenn nicht definiert
      * @see    Iptc#getSupplementalCategories()
      */
-    public ArrayList<String> getPhotoshopSupplementalCategories() {
+    public List<String> getPhotoshopSupplementalCategories() {
         return photoshopSupplementalCategories.isEmpty()
             ? null
             : photoshopSupplementalCategories;
@@ -607,9 +608,9 @@ public class Xmp {
                     if (replace) {
                         setValue(xmpColumn, string);
                     }
-                } else if (iptcValue instanceof ArrayList) {
+                } else if (iptcValue instanceof List) {
                     @SuppressWarnings("unchecked")
-                    ArrayList<String> array = (ArrayList<String>) iptcValue;
+                    List<String> array = (List<String>) iptcValue;
                     for (String string : array) {
                         setValue(xmpColumn, string);
                     }
@@ -635,8 +636,8 @@ public class Xmp {
             } else {
                 return stringBuffer.toString();
             }
-        } else if (value instanceof ArrayList) {
-            ArrayList array = (ArrayList) value;
+        } else if (value instanceof List) {
+            List array = (List) value;
             if (array.isEmpty()) {
                 return null;
             } else {
@@ -661,8 +662,8 @@ public class Xmp {
             stringBuffer.replace(0, stringBuffer.length(), value == null
                 ? "" // NOI18N
                 : value);
-        } else if (o instanceof ArrayList && value != null) {
-            ArrayList array = (ArrayList) o;
+        } else if (o instanceof List && value != null) {
+            List array = (List) o;
             if (!array.contains(value)) {
                 array.add(value);
             }
@@ -681,8 +682,8 @@ public class Xmp {
         if (o instanceof StringBuffer) {
             StringBuffer stringBuffer = (StringBuffer) o;
             stringBuffer.replace(0, stringBuffer.length(), ""); // NOI18N
-        } else if (o instanceof ArrayList) {
-            ArrayList array = (ArrayList) o;
+        } else if (o instanceof List) {
+            List array = (List) o;
             array.remove(value);
         }
     }
@@ -697,8 +698,8 @@ public class Xmp {
             if (value instanceof StringBuffer) {
                 StringBuffer stringBuffer = (StringBuffer) value;
                 stringBuffer.replace(0, stringBuffer.length(), ""); // NOI18N
-            } else if (value instanceof ArrayList) {
-                ArrayList array = (ArrayList) value;
+            } else if (value instanceof List) {
+                List array = (List) value;
                 array.clear();
             }
         }
