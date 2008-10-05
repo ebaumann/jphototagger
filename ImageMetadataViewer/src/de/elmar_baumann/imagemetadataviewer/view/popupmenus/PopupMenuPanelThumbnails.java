@@ -5,8 +5,9 @@ import de.elmar_baumann.imagemetadataviewer.resource.Bundle;
 import de.elmar_baumann.imagemetadataviewer.view.panels.ImageFileThumbnailsPanel;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.util.HashMap;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
@@ -14,8 +15,8 @@ import javax.swing.JPopupMenu;
 /**
  * Popupmenü für das Thumbnailpanel
  *
- * @author Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/07/28
+ * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @version 2008-10-05
  */
 public class PopupMenuPanelThumbnails extends JPopupMenu {
 
@@ -44,7 +45,7 @@ public class PopupMenuPanelThumbnails extends JPopupMenu {
     private final JMenuItem itemDeleteThumbnail = new JMenuItem(actionDeleteImageFromDatabase);
     private final JMenuItem itemOpenFilesWithStandardApp = new JMenuItem(actionOpenFiles);
     private final JMenuItem itemCopySelectedFilesToDirectory = new JMenuItem(actionCopySelectedFilesToDirectory);
-    private ArrayList<ActionListener> actionListenersOpenFilesWithOtherApp = new ArrayList<ActionListener>();
+    private List<ActionListener> actionListenersOpenFilesWithOtherApp = new ArrayList<ActionListener>();
     private ImageFileThumbnailsPanel thumbnailsPanel;
     private HashMap<String, Float> angleOfAction = new HashMap<String, Float>();
     private HashMap<String, File> otherImageOpenAppOfAction = new HashMap<String, File>();
@@ -88,7 +89,7 @@ public class PopupMenuPanelThumbnails extends JPopupMenu {
 
     public void addOtherOpenImageApps() {
         menuOtherOpenImageApps.removeAll();
-        ArrayList<File> apps = UserSettings.getInstance().getOtherImageOpenApps();
+        List<File> apps = UserSettings.getInstance().getOtherImageOpenApps();
         if (!apps.isEmpty()) {
             for (File appFile : apps) {
                 String filename = appFile.getName();
