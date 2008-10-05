@@ -3,36 +3,37 @@ package de.elmar_baumann.imagemetadataviewer.data;
 import com.imagero.reader.iptc.IPTCEntryMeta;
 import java.util.HashMap;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * IPTC-Metadaten einer Bilddatei. Unter den Operationen ist ein Link auf die
  * Operationen von XmpData, die dort das gleiche bedeuten.
  * 
- * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/07/28
+ * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @version 2008-10-05
  * @see     Xmp
  */
 public class Iptc {
 
-    private ArrayList<String> byLines = new ArrayList<String>();
-    private ArrayList<String> byLinesTitles = new ArrayList<String>();
+    private List<String> byLines = new ArrayList<String>();
+    private List<String> byLinesTitles = new ArrayList<String>();
     private StringBuffer captionAbstract = new StringBuffer();
     private StringBuffer category = new StringBuffer();
     private StringBuffer city = new StringBuffer();
-    private ArrayList<String> contentLocationCodes = new ArrayList<String>();
-    private ArrayList<String> contentLocationNames = new ArrayList<String>();
+    private List<String> contentLocationCodes = new ArrayList<String>();
+    private List<String> contentLocationNames = new ArrayList<String>();
     private StringBuffer copyrightNotice = new StringBuffer();
     private StringBuffer countryPrimaryLocationName = new StringBuffer();
     private StringBuffer credit = new StringBuffer();
     private StringBuffer headline = new StringBuffer();
-    private ArrayList<String> keywords = new ArrayList<String>();
+    private List<String> keywords = new ArrayList<String>();
     private StringBuffer objectName = new StringBuffer();
     private StringBuffer originalTransmissionReference = new StringBuffer();
     private StringBuffer provinceState = new StringBuffer();
     private StringBuffer source = new StringBuffer();
     private StringBuffer specialInstructions = new StringBuffer();
-    private ArrayList<String> supplementalCategories = new ArrayList<String>();
-    private ArrayList<String> writersEditors = new ArrayList<String>();
+    private List<String> supplementalCategories = new ArrayList<String>();
+    private List<String> writersEditors = new ArrayList<String>();
     private HashMap<IPTCEntryMeta, Object> valueOfEntryMeta = new HashMap<IPTCEntryMeta, Object>();
 
     private void init() {
@@ -67,7 +68,7 @@ public class Iptc {
      * @return IPTC-Felder 2:85 oder null, wenn nicht definiert
      * @see    Xmp#getPhotoshopAuthorsposition()
      */
-    public ArrayList<String> getByLinesTitles() {
+    public List<String> getByLinesTitles() {
         return byLinesTitles.isEmpty() ? null : byLinesTitles;
     }
 
@@ -89,7 +90,7 @@ public class Iptc {
      * @return IPTC-Felder 2:80 (Byline) oder null, wenn nicht definiert
      * @see    Xmp#getDcCreators()
      */
-    public ArrayList<String> getByLines() {
+    public List<String> getByLines() {
         return byLines.isEmpty() ? null : byLines;
     }
 
@@ -182,7 +183,7 @@ public class Iptc {
      * @return IPTC-Felder 2:26 (Content Location Code) oder null, wenn nicht definiert
      * @see    Xmp#getIptc4xmpcoreCountrycode()
      */
-    public ArrayList<String> getContentLocationCodes() {
+    public List<String> getContentLocationCodes() {
         return contentLocationCodes.isEmpty() ? null : contentLocationCodes;
     }
 
@@ -205,7 +206,7 @@ public class Iptc {
      * @return IPTC-Felder 2:27 (Content Location Name) oder null, wenn nicht definiert
      * @see    Xmp#getIptc4xmpcoreLocation()
      */
-    public ArrayList<String> getContentLocationNames() {
+    public List<String> getContentLocationNames() {
         return contentLocationNames.isEmpty() ? null : contentLocationNames;
     }
 
@@ -322,7 +323,7 @@ public class Iptc {
      * @return IPTC-Felder 2:25 (Keywords) oder null, wenn nicht definiert
      * @see    Xmp#getDcSubjects()
      */
-    public ArrayList<String> getKeywords() {
+    public List<String> getKeywords() {
         return keywords;
     }
 
@@ -462,7 +463,7 @@ public class Iptc {
      * @return IPTC-Felder 2:20 (Supplemental Category) oder null, wenn nicht definiert
      * @see    Xmp#getPhotoshopSupplementalCategories()
      */
-    public ArrayList<String> getSupplementalCategories() {
+    public List<String> getSupplementalCategories() {
         return supplementalCategories;
     }
 
@@ -485,7 +486,7 @@ public class Iptc {
      * @return IPTC-Felder 2:122 (Writer/Editor) oder null, wenn nicht definiert
      * @see    Xmp#getPhotoshopCaptionwriter()
      */
-    public ArrayList<String> getWritersEditors() {
+    public List<String> getWritersEditors() {
         return writersEditors;
     }
 
@@ -518,8 +519,8 @@ public class Iptc {
             } else {
                 return stringBuffer.toString();
             }
-        } else if (value instanceof ArrayList) {
-            ArrayList array = (ArrayList) value;
+        } else if (value instanceof List) {
+            List array = (List) value;
             if (array.isEmpty()) {
                 return null;
             } else {
@@ -546,8 +547,8 @@ public class Iptc {
             stringBuffer.replace(0, stringBuffer.length(), value == null
                 ? "" // NOI18N
                 : value);
-        } else if (o instanceof ArrayList && value != null) {
-            ArrayList array = (ArrayList) o;
+        } else if (o instanceof List && value != null) {
+            List array = (List) o;
             if (!array.contains(value)) {
                 array.add(value);
             }
