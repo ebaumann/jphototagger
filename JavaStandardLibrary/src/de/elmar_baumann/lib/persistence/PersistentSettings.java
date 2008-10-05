@@ -51,8 +51,8 @@ import javax.swing.tree.TreePath;
  *      {@link #writeToFile()} aufrufen</li>
  * </ul>
  * 
- * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/02/17
+ * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @version 2008-10-05
  */
 public class PersistentSettings {
 
@@ -81,9 +81,9 @@ public class PersistentSettings {
      * @param pattern Muster
      * @return        Passende Schlüssel
      */
-    public ArrayList<String> getKeysMatches(String pattern) {
+    public List<String> getKeysMatches(String pattern) {
         Set<String> allKeys = getProperties().stringPropertyNames();
-        ArrayList<String> keysMatches = new ArrayList<String>();
+        List<String> keysMatches = new ArrayList<String>();
 
         for (String key : allKeys) {
             if (key.matches(pattern)) {
@@ -278,7 +278,7 @@ public class PersistentSettings {
 
         if (properties.containsKey(key)) {
             TableColumnModel colModel = table.getColumnModel();
-            ArrayList<Integer> storedWidths = getIntegerArray(key);
+            List<Integer> storedWidths = getIntegerArray(key);
             int tableColumnCount = model.getColumnCount();
             int storedColumnCount = storedWidths.size();
 
@@ -346,7 +346,7 @@ public class PersistentSettings {
      */
     public void getComboBoxContent(JComboBox comboBox, String key) {
         Properties properties = getProperties();
-        ArrayList<String> keys = getKeysMatches(getArrayKeyMatchPattern(key));
+        List<String> keys = getKeysMatches(getArrayKeyMatchPattern(key));
 
         comboBox.removeAllItems();
         for (String vKey : keys) {
@@ -368,7 +368,7 @@ public class PersistentSettings {
         ListModel lm = list.getModel();
         if (lm instanceof DefaultListModel) {
             DefaultListModel model = (DefaultListModel) lm;
-            ArrayList<String> keys = getKeysMatches(getArrayKeyMatchPattern(key));
+            List<String> keys = getKeysMatches(getArrayKeyMatchPattern(key));
 
             model.removeAllElements();
             for (String vKey : keys) {
@@ -508,7 +508,7 @@ public class PersistentSettings {
      * @param array  Array
      * @param key    Schlüssel
      */
-    public void setIntegerArray(ArrayList<Integer> array, String key) {
+    public void setIntegerArray(List<Integer> array, String key) {
         StringBuffer buffer = new StringBuffer();
 
         for (Integer integer : array) {
@@ -539,7 +539,7 @@ public class PersistentSettings {
      * @param pattern Muster
      */
     public void deleteKeysMatches(String pattern) {
-        ArrayList<String> keys = getKeysMatches(pattern);
+        List<String> keys = getKeysMatches(pattern);
         Properties properties = getProperties();
         for (String pKey : keys) {
             properties.remove(pKey);
@@ -552,9 +552,9 @@ public class PersistentSettings {
      * @param key Schlüssel
      * @return    Array
      */
-    public ArrayList<Integer> getIntegerArray(String key) {
+    public List<Integer> getIntegerArray(String key) {
         Properties properties = getProperties();
-        ArrayList<Integer> array = new ArrayList<Integer>();
+        List<Integer> array = new ArrayList<Integer>();
 
         if (properties.containsKey(key)) {
             StringTokenizer tokenizer = new StringTokenizer(properties.getProperty(key), delimiterNumberArray);
@@ -576,9 +576,9 @@ public class PersistentSettings {
      * @param key Schlüssel
      * @return    Stringarray
      */
-    public ArrayList<String> getStringArray(String key) {
-        ArrayList<String> array = new ArrayList<String>();
-        ArrayList<String> keys = getKeysMatches(getArrayKeyMatchPattern(key));
+    public List<String> getStringArray(String key) {
+        List<String> array = new ArrayList<String>();
+        List<String> keys = getKeysMatches(getArrayKeyMatchPattern(key));
         Properties properties = getProperties();
         for (String vKey : keys) {
             array.add(properties.getProperty(vKey));
@@ -948,7 +948,7 @@ public class PersistentSettings {
      */
     public void setTable(JTable table, String key) {
         TableModel model = table.getModel();
-        ArrayList<Integer> persistentColumnWidths = new ArrayList<Integer>();
+        List<Integer> persistentColumnWidths = new ArrayList<Integer>();
 
         TableColumnModel colModel = table.getColumnModel();
         int tableColumnCount = model.getColumnCount();
