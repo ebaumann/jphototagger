@@ -5,7 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.Vector;
+import java.util.ArrayList;
 import javax.swing.JCheckBox;
 import javax.swing.JList;
 import javax.swing.ListCellRenderer;
@@ -25,7 +25,7 @@ import javax.swing.border.EmptyBorder;
 public class CheckList extends JList {
 
     private static Border noFocusBorder = new EmptyBorder(1, 1, 1, 1);
-    private Vector<ActionListener> actionListeners = new Vector<ActionListener>();
+    private ArrayList<ActionListener> actionListeners = new ArrayList<ActionListener>();
 
     public CheckList() {
         setCellRenderer(new CellRenderer());
@@ -97,8 +97,8 @@ public class CheckList extends JList {
      * 
      * @return Items
      */
-    public Vector<JCheckBox> getSelectedItems() {
-        Vector<JCheckBox> items = new Vector<JCheckBox>();
+    public ArrayList<JCheckBox> getSelectedItems() {
+        ArrayList<JCheckBox> items = new ArrayList<JCheckBox>();
         ListModel model = getModel();
         int count = model.getSize();
         for (int index = 0; index < count; index++) {
@@ -116,8 +116,8 @@ public class CheckList extends JList {
      * 
      * @return Indizes
      */
-    public Vector<Integer> getSelectedItemIndices() {
-        Vector<Integer> indices = new Vector<Integer>();
+    public ArrayList<Integer> getSelectedItemIndices() {
+        ArrayList<Integer> indices = new ArrayList<Integer>();
         ListModel model = getModel();
         int count = model.getSize();
         for (int index = 0; index < count; index++) {
@@ -133,9 +133,9 @@ public class CheckList extends JList {
      * 
      * @return Itemtexte
      */
-    public Vector<String> getSelectedItemTexts() {
-        Vector<JCheckBox> items = getSelectedItems();
-        Vector<String> texts = new Vector<String>();
+    public ArrayList<String> getSelectedItemTexts() {
+        ArrayList<JCheckBox> items = getSelectedItems();
+        ArrayList<String> texts = new ArrayList<String>();
         for (JCheckBox checkBox : items) {
             texts.add(checkBox.getText());
         }
@@ -149,7 +149,7 @@ public class CheckList extends JList {
      * @return          Texte
      */
     public String getSelectedItemTexts(String delimiter) {
-        Vector<String> texts = getSelectedItemTexts();
+        ArrayList<String> texts = getSelectedItemTexts();
         StringBuffer textBuffer = new StringBuffer();
         for (String text : texts) {
             textBuffer.append(text + delimiter);
@@ -165,7 +165,7 @@ public class CheckList extends JList {
      *               werden soll
      * @see          #setSelectedItemsWithText(java.lang.String, boolean)
      */
-    public void setSelectedItemsWithText(Vector<String> texts, boolean select) {
+    public void setSelectedItemsWithText(ArrayList<String> texts, boolean select) {
         for (String text : texts) {
             setSelectedItemsWithText(text, select);
         }
@@ -177,7 +177,7 @@ public class CheckList extends JList {
      * @param text Text
      * @param select true, wenn selektiert werden soll, false, wenn deselektiert
      *     werden soll
-     * @see #setSelectedItemsWithText(java.util.Vector, boolean)
+     * @see #setSelectedItemsWithText(java.util.ArrayList, boolean)
      */
     public void setSelectedItemsWithText(String text, boolean select) {
         ListModel model = getModel();

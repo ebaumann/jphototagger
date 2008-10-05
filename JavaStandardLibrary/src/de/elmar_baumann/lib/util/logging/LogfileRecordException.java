@@ -1,6 +1,6 @@
 package de.elmar_baumann.lib.util.logging;
 
-import java.util.Vector;
+import java.util.ArrayList;
 
 /**
  * Ausnahme in einer Logdatei von  <code>java.util.logging.Logger</code>,
@@ -11,7 +11,7 @@ import java.util.Vector;
  */
 public class LogfileRecordException {
 
-    private Vector<LogfileRecordFrame> logfileRecordFrames = new Vector<LogfileRecordFrame>();
+    private ArrayList<LogfileRecordFrame> logfileRecordFrames = new ArrayList<LogfileRecordFrame>();
     private String message;
 
     public LogfileRecordException() {
@@ -22,7 +22,7 @@ public class LogfileRecordException {
      * 
      * @return Stack-Frames
      */
-    public Vector<LogfileRecordFrame> getFrames() {
+    public ArrayList<LogfileRecordFrame> getFrames() {
         return logfileRecordFrames;
     }
 
@@ -31,7 +31,7 @@ public class LogfileRecordException {
      * 
      * @param logfileRecordFrames Stack-Frames
      */
-    public void setFrames(Vector<LogfileRecordFrame> logfileRecordFrames) {
+    public void setFrames(ArrayList<LogfileRecordFrame> logfileRecordFrames) {
         this.logfileRecordFrames = logfileRecordFrames;
     }
 

@@ -1,6 +1,6 @@
 package de.elmar_baumann.lib.util.logging;
 
-import java.util.Vector;
+import java.util.ArrayList;
 import java.util.logging.Level;
 
 /**
@@ -23,7 +23,7 @@ public class LogfileRecord {
     private String key;
     private String catalog;
     private LogfileRecordException exception;
-    private Vector<String> params;
+    private ArrayList<String> params;
 
     public LogfileRecord() {
     }
@@ -261,7 +261,7 @@ public class LogfileRecord {
      * @see    #getMessage()
      * @see    #hasParams()
      */
-    public Vector<String> getParams() {
+    public ArrayList<String> getParams() {
         return params;
     }
 
@@ -273,7 +273,7 @@ public class LogfileRecord {
      * @param params Parameter
      * @see          #setMessage(java.lang.String)
      */
-    public void setParams(Vector<String> params) {
+    public void setParams(ArrayList<String> params) {
         this.params = params;
     }
 
@@ -287,7 +287,7 @@ public class LogfileRecord {
      */
     public void addParam(String param) {
         if (params == null) {
-            params = new Vector<String>();
+            params = new ArrayList<String>();
         }
         params.add(param);
     }

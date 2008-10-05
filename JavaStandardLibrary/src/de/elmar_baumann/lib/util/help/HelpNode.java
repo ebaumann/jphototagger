@@ -2,7 +2,7 @@ package de.elmar_baumann.lib.util.help;
 
 import java.util.Collections;
 import java.util.Stack;
-import java.util.Vector;
+import java.util.ArrayList;
 
 /**
  * Node in the applications help file tree structure. A node is a chapter
@@ -14,7 +14,7 @@ import java.util.Vector;
 public class HelpNode {
 
     private String title;
-    private Vector<Object> children = new Vector<Object>();
+    private ArrayList<Object> children = new ArrayList<Object>();
     private HelpNode parent;
 
     /**
@@ -102,12 +102,12 @@ public class HelpNode {
      * @return path or null if a page with the URL doesn't exist
      */
     public Object[] getPagePath(String url) {
-        Vector<Object> found = new Vector<Object>();
+        ArrayList<Object> found = new ArrayList<Object>();
         findPath(url, found);
         return found.size() > 0 ? found.toArray() : null;
     }
 
-    private void findPath(String url, Vector<Object> found) {
+    private void findPath(String url, ArrayList<Object> found) {
         int size = children.size();
         for (int i = 0; found.size() <= 0 && i < size; i++) {
             Object child = children.get(i);

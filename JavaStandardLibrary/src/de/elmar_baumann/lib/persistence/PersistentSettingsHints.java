@@ -1,6 +1,6 @@
 package de.elmar_baumann.lib.persistence;
 
-import java.util.Vector;
+import java.util.ArrayList;
 
 /**
  * Hinweise für die Klasse {@link PersistentSettings}.
@@ -11,7 +11,7 @@ import java.util.Vector;
  */
 public class PersistentSettingsHints {
 
-    private Vector<String> excludedMembers = new Vector<String>();
+    private ArrayList<String> excludedMembers = new ArrayList<String>();
     private boolean setComboBoxContent = false;
     private boolean setListContent = false;
     private String keyPostfix = ""; // NOI18N

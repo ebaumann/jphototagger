@@ -8,7 +8,7 @@ import de.elmar_baumann.lib.resource.Bundle;
 import de.elmar_baumann.lib.resource.Settings;
 import java.io.File;
 import java.util.Stack;
-import java.util.Vector;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
@@ -104,8 +104,8 @@ public class DirectoryChooser extends javax.swing.JDialog {
      * 
      * @return Verzeichnisse
      */
-    public Vector<File> getSelectedDirectories() {
-        Vector<File> files = new Vector<File>();
+    public ArrayList<File> getSelectedDirectories() {
+        ArrayList<File> files = new ArrayList<File>();
         TreePath[] paths = treeDirectories.getSelectionPaths();
         if (paths != null) {
             for (int index = 0; index < paths.length; index++) {

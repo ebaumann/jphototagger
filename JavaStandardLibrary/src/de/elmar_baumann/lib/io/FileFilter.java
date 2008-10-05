@@ -2,7 +2,7 @@ package de.elmar_baumann.lib.io;
 
 import java.io.File;
 import java.util.StringTokenizer;
-import java.util.Vector;
+import java.util.ArrayList;
 
 /**
  * Filter für Dateien, Verzeichnisse werden abgelehnt. Akzeptiert
@@ -13,7 +13,7 @@ import java.util.Vector;
  */
 public class FileFilter implements java.io.FileFilter {
 
-    private Vector<String> acceptedPatterns = new Vector<String>();
+    private ArrayList<String> acceptedPatterns = new ArrayList<String>();
 
     /**
      * Konstruktor zum späteren Hinzufügen von akzeptierten Match-Pattern.
@@ -52,12 +52,8 @@ public class FileFilter implements java.io.FileFilter {
         if (other == this) {
             return;
         }
-        acceptedPatterns.removeAllElements();
-        int otherPatternsSize = other.acceptedPatterns.size();
-        acceptedPatterns.setSize(otherPatternsSize);
-        for (int index = 0; index < otherPatternsSize; index++) {
-            acceptedPatterns.set(0, other.acceptedPatterns.elementAt(index));
-        }
+        acceptedPatterns.clear();
+        acceptedPatterns.addAll(acceptedPatterns);
     }
 
     private void setAcceptedValues(String acceptedValueString, String delim) {

@@ -3,7 +3,7 @@ package de.elmar_baumann.lib.model;
 import de.elmar_baumann.lib.util.logging.LogfileRecord;
 import de.elmar_baumann.lib.resource.Bundle;
 import java.util.Date;
-import java.util.Vector;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import javax.swing.table.DefaultTableModel;
 
@@ -15,8 +15,8 @@ import javax.swing.table.DefaultTableModel;
  */
 public class TableModelLogfiles extends DefaultTableModel {
 
-    private Vector<LogfileRecord> records = new Vector<LogfileRecord>();
-    private Vector<Level> visibleLevels = new Vector<Level>();
+    private ArrayList<LogfileRecord> records = new ArrayList<LogfileRecord>();
+    private ArrayList<Level> visibleLevels = new ArrayList<Level>();
     private String filter = ""; // NOI18N
 
     public TableModelLogfiles() {
@@ -40,7 +40,7 @@ public class TableModelLogfiles extends DefaultTableModel {
      * 
      * @param levels Anzuzeigende Level
      */
-    public void setVisibleLevels(Vector<Level> levels) {
+    public void setVisibleLevels(ArrayList<Level> levels) {
         visibleLevels = levels;
     }
 
@@ -51,7 +51,7 @@ public class TableModelLogfiles extends DefaultTableModel {
      */
     public void addRecord(LogfileRecord record) {
         if ((visibleLevels.contains(Level.ALL) || visibleLevels.contains(record.getLevel())) && (filter.isEmpty() || record.contains(filter))) {
-            Vector<Object> row = new Vector<Object>();
+            ArrayList<Object> row = new ArrayList<Object>();
             row.add(record.getLevel());
             row.add(new Date(record.getMillis()));
             String message = record.getMessage();
@@ -59,7 +59,7 @@ public class TableModelLogfiles extends DefaultTableModel {
                 ? Bundle.getString("TableModelLogfiles.ErrorMessage.MessageIsNull")
                 : message);
             records.add(record);
-            addRow(row);
+            addRow(row.toArray());
         }
     }
 
@@ -84,7 +84,7 @@ public class TableModelLogfiles extends DefaultTableModel {
      * 
      * @param records Datensätze
      */
-    public void setRecords(Vector<LogfileRecord> records) {
+    public void setRecords(ArrayList<LogfileRecord> records) {
         clear();
         for (LogfileRecord record : records) {
             addRecord(record);

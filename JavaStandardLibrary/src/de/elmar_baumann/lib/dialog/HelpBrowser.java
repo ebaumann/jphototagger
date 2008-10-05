@@ -21,7 +21,7 @@ import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.net.URL;
 import java.util.LinkedList;
-import java.util.Vector;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.event.HyperlinkEvent;
@@ -47,7 +47,7 @@ public class HelpBrowser extends javax.swing.JFrame
     private PopupMenu popupMenu;
     private final String actionPrevious = Bundle.getString("HelpBrowser.Action.Previous");
     private final String actionNext = Bundle.getString("HelpBrowser.Action.Next");
-    private Vector<HelpBrowserListener> actionListeners = new Vector<HelpBrowserListener>();
+    private ArrayList<HelpBrowserListener> actionListeners = new ArrayList<HelpBrowserListener>();
     private MenuItem itemPrevious;
     private MenuItem itemNext;
     private String startUrl;

@@ -9,7 +9,7 @@ import java.nio.channels.FileChannel;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Stack;
-import java.util.Vector;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -203,8 +203,8 @@ public class FileUtil {
      * @param  directory  Verzeichnis
      * @return Unterverzeichnisse
      */
-    public static Vector<File> getSubDirectories(File directory) {
-        Vector<File> directories = new Vector<File>();
+    public static ArrayList<File> getSubDirectories(File directory) {
+        ArrayList<File> directories = new ArrayList<File>();
         if (directory.isDirectory()) {
             File[] dirs = directory.listFiles(new DirectoryFilter());
             if (dirs != null && dirs.length > 0) {
@@ -220,9 +220,9 @@ public class FileUtil {
      * @param  directoryName  Verzeichnisname
      * @return Namen der Unterverzeichnisse
      */
-    public static Vector<String> getSubDirectoryNames(String directoryName) {
-        Vector<File> directories = getSubDirectories(new File(directoryName));
-        Vector<String> subdirectories = new Vector<String>();
+    public static ArrayList<String> getSubDirectoryNames(String directoryName) {
+        ArrayList<File> directories = getSubDirectories(new File(directoryName));
+        ArrayList<String> subdirectories = new ArrayList<String>();
         for (File directory : directories) {
             subdirectories.add(directory.getAbsolutePath());
         }
@@ -236,15 +236,15 @@ public class FileUtil {
      * @param  directory  Verzeichnis
      * @return Unterverzeichnisse
      */
-    public static Vector<File> getAllSubDirectories(File directory) {
-        Vector<File> directories = new Vector<File>();
+    public static ArrayList<File> getAllSubDirectories(File directory) {
+        ArrayList<File> directories = new ArrayList<File>();
         if (directory.isDirectory()) {
             File[] subdirectories = directory.listFiles(new DirectoryFilter());
             if (subdirectories != null && subdirectories.length > 0) {
                 List<File> subdirectoriesList = Arrays.asList(subdirectories);
                 for (File dir : subdirectoriesList) {
                     directories.add(dir);
-                    Vector<File> subdirectoriesSubDirs = getAllSubDirectories(
+                    ArrayList<File> subdirectoriesSubDirs = getAllSubDirectories(
                         dir);
                     directories.addAll(subdirectoriesSubDirs);
                 }
@@ -262,9 +262,9 @@ public class FileUtil {
      * @param  directoryName  Verzeichnisname
      * @return Namen der Unterverzeichnisse
      */
-    public static Vector<String> getAllSubDirectoryNames(String directoryName) {
-        Vector<File> directories = getAllSubDirectories(new File(directoryName));
-        Vector<String> subdirectories = new Vector<String>();
+    public static ArrayList<String> getAllSubDirectoryNames(String directoryName) {
+        ArrayList<File> directories = getAllSubDirectories(new File(directoryName));
+        ArrayList<String> subdirectories = new ArrayList<String>();
         for (File directory : directories) {
             subdirectories.add(directory.getAbsolutePath());
         }
@@ -306,8 +306,8 @@ public class FileUtil {
      * @param files Dateien
      * @return      Pfadnamen
      */
-    public static Vector<String> getAbsolutePathnames(Vector<File> files) {
-        Vector<String> pathnames = new Vector<String>(files.size());
+    public static ArrayList<String> getAbsolutePathnames(ArrayList<File> files) {
+        ArrayList<String> pathnames = new ArrayList<String>(files.size());
         for (File file : files) {
             pathnames.add(file.getAbsolutePath());
         }

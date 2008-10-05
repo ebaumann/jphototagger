@@ -22,7 +22,7 @@ import java.io.File;
 import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.Set;
-import java.util.Vector;
+import java.util.ArrayList;
 import java.util.logging.Formatter;
 import java.util.logging.Handler;
 import java.util.logging.Level;
@@ -49,11 +49,11 @@ public class LogfileDialog extends javax.swing.JDialog implements
 
     String logfilename;
     HashMap<JCheckBox, Level> levelOfCheckBox = new HashMap<JCheckBox, Level>();
-    Vector<Level> visibleLevels = new Vector<Level>();
+    ArrayList<Level> visibleLevels = new ArrayList<Level>();
     static final private long criticalLogfileSizeInBytes = 10 * 1024 * 1024;
     private String filterString;
     private final ImageIcon iconReload = IconUtil.getImageIcon("/de/elmar_baumann/lib/resource/icon_reload.png"); // NOI18N
-    private Vector<LogfileRecord> logfileRecords;
+    private ArrayList<LogfileRecord> logfileRecords;
     private Class formatterClass;
     private HashMap<Class, Integer> paneIndexOfFormatterClass = new HashMap<Class, Integer>();
 
@@ -252,7 +252,7 @@ public class LogfileDialog extends javax.swing.JDialog implements
         if (ex != null) {
             addDetailExceptionMessage(ex, stringBuffer);
             stringBuffer.append("\n<pre>"); // NOI18N
-            Vector<LogfileRecordFrame> frames = ex.getFrames();
+            ArrayList<LogfileRecordFrame> frames = ex.getFrames();
             for (LogfileRecordFrame frame : frames) {
                 stringBuffer.append("\n" + frame.getClassName() + ":"); // NOI18N
                 stringBuffer.append(" " + frame.getMethodName()); // NOI18N

@@ -1,7 +1,7 @@
 package de.elmar_baumann.lib.util;
 
 import java.util.StringTokenizer;
-import java.util.Vector;
+import java.util.ArrayList;
 
 /**
  * Utils für Arrays.
@@ -12,20 +12,20 @@ import java.util.Vector;
 public class ArrayUtil {
 
     /**
-     * Erzeugt aus einem String einen String-Vector.
+     * Erzeugt aus einem String einer String-ArrayList.
      * 
      * @param string    String mit Token
      * @param delimiter Begrenzer zwischen den Token
-     * @return          Vector
+     * @return          ArrayList
      */
-    public static Vector<String> stringTokenToVector(String string,
+    public static ArrayList<String> stringTokenToArray(String string,
         String delimiter) {
-        Vector<String> vector = new Vector<String>();
+        ArrayList<String> array = new ArrayList<String>();
         StringTokenizer tokenizer = new StringTokenizer(string, delimiter);
         while (tokenizer.hasMoreTokens()) {
-            vector.add(tokenizer.nextToken());
+            array.add(tokenizer.nextToken());
         }
-        return vector;
+        return array;
     }
 
     /**

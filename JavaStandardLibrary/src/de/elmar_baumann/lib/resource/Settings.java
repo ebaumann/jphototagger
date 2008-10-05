@@ -1,6 +1,6 @@
 package de.elmar_baumann.lib.resource;
 
-import java.util.Vector;
+import java.util.ArrayList;
 
 /**
  * Einstellungen. Wird von Klassen dieser Lib genutzt.
@@ -11,14 +11,14 @@ import java.util.Vector;
 public class Settings {
 
     private static Settings instance = new Settings();
-    private Vector<String> iconImagesPaths;
+    private ArrayList<String> iconImagesPaths;
 
     /**
      * Liefert die Pfade zu den Icons der Anwendung.
      * 
      * @return Pfade oder null, wenn nicht gesetzt
      */
-    public Vector<String> getIconImagesPaths() {
+    public ArrayList<String> getIconImagesPaths() {
         return iconImagesPaths;
     }
 
@@ -27,7 +27,7 @@ public class Settings {
      * 
      * @param iconImagesPaths Pfade
      */
-    public void setIconImagesPath(Vector<String> iconImagesPaths) {
+    public void setIconImagesPath(ArrayList<String> iconImagesPaths) {
         this.iconImagesPaths = iconImagesPaths;
     }
 

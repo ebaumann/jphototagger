@@ -2,7 +2,7 @@ package de.elmar_baumann.lib.io;
 
 import de.elmar_baumann.lib.resource.Bundle;
 import java.io.File;
-import java.util.Vector;
+import java.util.ArrayList;
 
 /**
  * Alle Wurzelverzeichnisse des Systems für ein DirectoryTreeModel.
@@ -13,7 +13,7 @@ import java.util.Vector;
  */
 public class DirectoryTreeModelRoots {
 
-    private Vector<DirectoryTreeModelFile> roots = new Vector<DirectoryTreeModelFile>();
+    private ArrayList<DirectoryTreeModelFile> roots = new ArrayList<DirectoryTreeModelFile>();
 
     public DirectoryTreeModelRoots() {
         init();

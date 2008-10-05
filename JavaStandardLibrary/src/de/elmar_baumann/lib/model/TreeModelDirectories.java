@@ -4,7 +4,7 @@ import de.elmar_baumann.lib.io.DirectoryTreeModelFile;
 import de.elmar_baumann.lib.io.DirectoryTreeModelFile.SortType;
 import de.elmar_baumann.lib.io.DirectoryTreeModelRoots;
 import java.util.HashMap;
-import java.util.Vector;
+import java.util.ArrayList;
 import javax.swing.event.TreeModelListener;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
@@ -19,7 +19,7 @@ import javax.swing.tree.TreePath;
 public class TreeModelDirectories implements TreeModel {
 
     private DirectoryTreeModelRoots root = new DirectoryTreeModelRoots();
-    private HashMap<DirectoryTreeModelFile, Vector<DirectoryTreeModelFile>> childrenOfParent = new HashMap<DirectoryTreeModelFile, Vector<DirectoryTreeModelFile>>();
+    private HashMap<DirectoryTreeModelFile, ArrayList<DirectoryTreeModelFile>> childrenOfParent = new HashMap<DirectoryTreeModelFile, ArrayList<DirectoryTreeModelFile>>();
 
     public TreeModelDirectories() {
         init();
@@ -56,12 +56,12 @@ public class TreeModelDirectories implements TreeModel {
         if (parent.equals(root)) {
             return root.getChildCount();
         }
-        Vector<DirectoryTreeModelFile> children = childrenOfParent.get(parent);
+        ArrayList<DirectoryTreeModelFile> children = childrenOfParent.get(parent);
         if (children != null) {
             return children.size();
         }
         DirectoryTreeModelFile p = (DirectoryTreeModelFile) parent;
-        Vector<DirectoryTreeModelFile> subdirectories = p.getSubDirectories(SortType.ascendingNoCase);
+        ArrayList<DirectoryTreeModelFile> subdirectories = p.getSubDirectories(SortType.ascendingNoCase);
         childrenOfParent.put(p, subdirectories);
         return subdirectories.size();
     }

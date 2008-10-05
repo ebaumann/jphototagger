@@ -1,12 +1,10 @@
 package de.elmar_baumann.lib.componentutil;
 
 import java.awt.event.MouseEvent;
-import java.util.Enumeration;
 import java.util.StringTokenizer;
-import java.util.Vector;
+import java.util.ArrayList;
 import javax.swing.JTree;
 import javax.swing.tree.TreeModel;
-import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 
 /**
@@ -64,7 +62,7 @@ public class TreeUtil {
      * 
      * @param trees Trees
      */
-    public static void clearSelection(Vector<JTree> trees) {
+    public static void clearSelection(ArrayList<JTree> trees) {
         for (JTree tree : trees) {
             if (tree.getSelectionCount() > 0) {
                 tree.clearSelection();

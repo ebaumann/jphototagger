@@ -3,12 +3,12 @@ package de.elmar_baumann.lib.io;
 import de.elmar_baumann.lib.util.DirectoryTreeModelFileComparator;
 import java.io.File;
 import java.util.Collections;
-import java.util.Vector;
+import java.util.ArrayList;
 
 /**
  * Datei für ein DirectoryTreeModel. Liefert bei Aufruf von <code>toString()</code>
  * gegenüber der Basisklasse nur den Dateinamen und liefert alle Unterverzeichnisse
- * in einem Vector, der nicht null sein kann.
+ * in einer ArrayList, der nicht null sein kann.
  * 
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/07/23
@@ -34,9 +34,9 @@ public class DirectoryTreeModelFile extends File {
      * @return         Unterverzeichnisse
      */
     @SuppressWarnings("unchecked")
-    public Vector<DirectoryTreeModelFile> getSubDirectories(SortType sortType) {
+    public ArrayList<DirectoryTreeModelFile> getSubDirectories(SortType sortType) {
         File[] listFiles = listFiles(new DirectoryFilter());
-        Vector<DirectoryTreeModelFile> directories = new Vector<DirectoryTreeModelFile>();
+        ArrayList<DirectoryTreeModelFile> directories = new ArrayList<DirectoryTreeModelFile>();
 
         for (int i = 0; listFiles != null && i < listFiles.length; i++) {
             directories.add(new DirectoryTreeModelFile(listFiles[i].getAbsolutePath()));

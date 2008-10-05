@@ -11,11 +11,11 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import java.util.Set;
 import java.util.StringTokenizer;
-import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
@@ -81,9 +81,9 @@ public class PersistentSettings {
      * @param pattern Muster
      * @return        Passende Schlüssel
      */
-    public Vector<String> getKeysMatches(String pattern) {
+    public ArrayList<String> getKeysMatches(String pattern) {
         Set<String> allKeys = getProperties().stringPropertyNames();
-        Vector<String> keysMatches = new Vector<String>();
+        ArrayList<String> keysMatches = new ArrayList<String>();
 
         for (String key : allKeys) {
             if (key.matches(pattern)) {
@@ -278,7 +278,7 @@ public class PersistentSettings {
 
         if (properties.containsKey(key)) {
             TableColumnModel colModel = table.getColumnModel();
-            Vector<Integer> storedWidths = getIntegerVector(key);
+            ArrayList<Integer> storedWidths = getIntegerArray(key);
             int tableColumnCount = model.getColumnCount();
             int storedColumnCount = storedWidths.size();
 
@@ -346,7 +346,7 @@ public class PersistentSettings {
      */
     public void getComboBoxContent(JComboBox comboBox, String key) {
         Properties properties = getProperties();
-        Vector<String> keys = getKeysMatches(getArrayKeyMatchPattern(key));
+        ArrayList<String> keys = getKeysMatches(getArrayKeyMatchPattern(key));
 
         comboBox.removeAllItems();
         for (String vKey : keys) {
@@ -368,7 +368,7 @@ public class PersistentSettings {
         ListModel lm = list.getModel();
         if (lm instanceof DefaultListModel) {
             DefaultListModel model = (DefaultListModel) lm;
-            Vector<String> keys = getKeysMatches(getArrayKeyMatchPattern(key));
+            ArrayList<String> keys = getKeysMatches(getArrayKeyMatchPattern(key));
 
             model.removeAllElements();
             for (String vKey : keys) {
@@ -505,13 +505,13 @@ public class PersistentSettings {
     /**
      * Speichert ein Integer-Array.
      * 
-     * @param vector Vector
+     * @param array  Array
      * @param key    Schlüssel
      */
-    public void setIntegerVector(Vector<Integer> vector, String key) {
+    public void setIntegerArray(ArrayList<Integer> array, String key) {
         StringBuffer buffer = new StringBuffer();
 
-        for (Integer integer : vector) {
+        for (Integer integer : array) {
             buffer.append(integer.toString());
             buffer.append(delimiterNumberArray);
         }
@@ -539,7 +539,7 @@ public class PersistentSettings {
      * @param pattern Muster
      */
     public void deleteKeysMatches(String pattern) {
-        Vector<String> keys = getKeysMatches(pattern);
+        ArrayList<String> keys = getKeysMatches(pattern);
         Properties properties = getProperties();
         for (String pKey : keys) {
             properties.remove(pKey);
@@ -550,24 +550,24 @@ public class PersistentSettings {
      * Liefert ein Integer-Array.
      * 
      * @param key Schlüssel
-     * @return    Vector
+     * @return    Array
      */
-    public Vector<Integer> getIntegerVector(String key) {
+    public ArrayList<Integer> getIntegerArray(String key) {
         Properties properties = getProperties();
-        Vector<Integer> vector = new Vector<Integer>();
+        ArrayList<Integer> array = new ArrayList<Integer>();
 
         if (properties.containsKey(key)) {
             StringTokenizer tokenizer = new StringTokenizer(properties.getProperty(key), delimiterNumberArray);
 
             while (tokenizer.hasMoreTokens()) {
                 try {
-                    vector.add(new Integer(tokenizer.nextToken()));
+                    array.add(new Integer(tokenizer.nextToken()));
                 } catch (Exception ex) {
                     Logger.getLogger(PersistentSettings.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
-        return vector;
+        return array;
     }
 
     /**
@@ -576,14 +576,14 @@ public class PersistentSettings {
      * @param key Schlüssel
      * @return    Stringarray
      */
-    public Vector<String> getStringArray(String key) {
-        Vector<String> vector = new Vector<String>();
-        Vector<String> keys = getKeysMatches(getArrayKeyMatchPattern(key));
+    public ArrayList<String> getStringArray(String key) {
+        ArrayList<String> array = new ArrayList<String>();
+        ArrayList<String> keys = getKeysMatches(getArrayKeyMatchPattern(key));
         Properties properties = getProperties();
         for (String vKey : keys) {
-            vector.add(properties.getProperty(vKey));
+            array.add(properties.getProperty(vKey));
         }
-        return vector;
+        return array;
     }
 
     /**
@@ -948,7 +948,7 @@ public class PersistentSettings {
      */
     public void setTable(JTable table, String key) {
         TableModel model = table.getModel();
-        Vector<Integer> persistentColumnWidths = new Vector<Integer>();
+        ArrayList<Integer> persistentColumnWidths = new ArrayList<Integer>();
 
         TableColumnModel colModel = table.getColumnModel();
         int tableColumnCount = model.getColumnCount();
@@ -957,7 +957,7 @@ public class PersistentSettings {
             persistentColumnWidths.add(
                 new Integer(colModel.getColumn(index).getWidth()));
         }
-        setIntegerVector(persistentColumnWidths, key);
+        setIntegerArray(persistentColumnWidths, key);
     }
 
     /**
