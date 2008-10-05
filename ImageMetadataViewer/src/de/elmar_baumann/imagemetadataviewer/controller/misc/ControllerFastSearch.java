@@ -15,15 +15,15 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JTextField;
 import javax.swing.JTree;
 
 /**
  * Kontrolliert die Aktion: Schnellsuche durchführen.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/09/11
+ * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @version 2008-10-05
  */
 public class ControllerFastSearch extends Controller implements UserSettingsChangeListener {
 
@@ -31,7 +31,7 @@ public class ControllerFastSearch extends Controller implements UserSettingsChan
     private AppPanel appPanel = Panels.getInstance().getAppPanel();
     private JTextField textFieldSearch = appPanel.getTextFieldSearch();
     private ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelImageFileThumbnails();
-    private ArrayList<JTree> selectionTrees = appPanel.getSelectionTrees();
+    private List<JTree> selectionTrees = appPanel.getSelectionTrees();
 
     public ControllerFastSearch() {
         textFieldSearch.setEnabled(UserSettings.getInstance().getFastSearchColumns().size() > 0);
@@ -79,7 +79,7 @@ public class ControllerFastSearch extends Controller implements UserSettingsChan
 
     private void search(String searchText) {
         TreeUtil.clearSelection(selectionTrees);
-        ArrayList<String> filenames =
+        List<String> filenames =
             db.searchFilenamesLikeOr(UserSettings.getInstance().getFastSearchColumns(), searchText);
         thumbnailsPanel.setFilenames(filenames);
         PopupMenuPanelThumbnails.getInstance().setIsImageCollection(false);
