@@ -2,6 +2,8 @@ package de.elmar_baumann.imagemetadataviewer.database.metadata;
 
 import java.util.ArrayList;
 
+
+
 /**
  * Eine Tabelle.
  *
