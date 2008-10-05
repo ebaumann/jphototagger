@@ -10,8 +10,8 @@ import de.elmar_baumann.imagemetadataviewer.resource.ProgressBarCurrentTasks;
 import de.elmar_baumann.imagemetadataviewer.view.popupmenus.PopupMenuPanelThumbnails;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 import java.util.Stack;
-import java.util.ArrayList;
 import javax.swing.JProgressBar;
 
 /**
@@ -22,8 +22,8 @@ import javax.swing.JProgressBar;
  * 
  * Der Aufruf von {@link #stop()} beendet alle noch wartenden Threads.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/09/10
+ * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @version 2008-10-05
  */
 public class ControllerCreateMetaDataOfSelectedThumbnails extends Controller
     implements ActionListener, ProgressListener {
@@ -83,7 +83,7 @@ public class ControllerCreateMetaDataOfSelectedThumbnails extends Controller
         }
     }
 
-    private ImageMetadataToDatabase createUpdater(ArrayList<String> files,
+    private ImageMetadataToDatabase createUpdater(List<String> files,
         boolean onlyTextMetadata) {
         ImageMetadataToDatabase updater =
             new ImageMetadataToDatabase(files,
