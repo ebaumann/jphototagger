@@ -3,6 +3,7 @@ package de.elmar_baumann.imagemetadataviewer.model;
 import de.elmar_baumann.imagemetadataviewer.database.Database;
 import de.elmar_baumann.imagemetadataviewer.resource.Bundle;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.event.TreeModelEvent;
 import javax.swing.event.TreeModelListener;
 import javax.swing.tree.TreeModel;
@@ -11,15 +12,15 @@ import javax.swing.tree.TreePath;
 /**
  * Bildsammlungen.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/09/07
+ * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @version 2008-10-05
  */
 public class TreeModelImageCollections implements TreeModel {
 
     private String root = Bundle.getString("TreeModelImageCollections.RootItem");
     private Database db = Database.getInstance();
-    private ArrayList<String> nodes = new ArrayList<String>();
-    private ArrayList<TreeModelListener> listener = new ArrayList<TreeModelListener>();
+    private List<String> nodes = new ArrayList<String>();
+    private List<TreeModelListener> listener = new ArrayList<TreeModelListener>();
 
     private enum ActionType {
 
@@ -140,7 +141,7 @@ public class TreeModelImageCollections implements TreeModel {
     }
 
     private void addCollections() {
-        ArrayList<String> names = db.getImageCollectionNames();
+        List<String> names = db.getImageCollectionNames();
         for (String name : names) {
             addNode(name);
         }

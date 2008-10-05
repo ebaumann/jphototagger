@@ -4,6 +4,7 @@ import de.elmar_baumann.imagemetadataviewer.data.SavedSearch;
 import de.elmar_baumann.imagemetadataviewer.database.Database;
 import de.elmar_baumann.imagemetadataviewer.resource.Bundle;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.event.TreeModelEvent;
 import javax.swing.event.TreeModelListener;
 import javax.swing.tree.TreeModel;
@@ -12,15 +13,15 @@ import javax.swing.tree.TreePath;
 /**
  * Gespeicherte Suchen.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/08/30
+ * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @version 2008-10-05
  */
 public class TreeModelSavedSearches implements TreeModel {
 
     private Database db = Database.getInstance();
     private String root = Bundle.getString("TreeModelSavedSearches.RootItem");
-    private ArrayList<SavedSearch> nodes = new ArrayList<SavedSearch>();
-    private ArrayList<TreeModelListener> listeners = new ArrayList<TreeModelListener>();
+    private List<SavedSearch> nodes = new ArrayList<SavedSearch>();
+    private List<TreeModelListener> listeners = new ArrayList<TreeModelListener>();
 
     private enum ActionType {
 
@@ -144,7 +145,7 @@ public class TreeModelSavedSearches implements TreeModel {
     }
 
     private void addSavedSearches() {
-        ArrayList<SavedSearch> dbNodes = db.getSavedSearches();
+        List<SavedSearch> dbNodes = db.getSavedSearches();
         for (SavedSearch node : dbNodes) {
             addNode(node);
         }

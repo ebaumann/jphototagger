@@ -3,18 +3,19 @@ package de.elmar_baumann.imagemetadataviewer.model;
 import com.adobe.xmp.properties.XMPPropertyInfo;
 import de.elmar_baumann.imagemetadataviewer.resource.Bundle;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
 /**
  * Ansammlung von XMPPropertyInfo-Objekten.
  * 
- * @author  Elmar Baumann
- * @version 2008/02/19
+ * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @version 2008-10-05
  * @see     com.adobe.xmp.properties.XMPPropertyInfo
  */
 public class TableModelXmp extends DefaultTableModel {
 
-    private ArrayList<XMPPropertyInfo> propertyInfos;
+    private List<XMPPropertyInfo> propertyInfos;
     private String filename;
 
     public TableModelXmp() {
@@ -30,7 +31,7 @@ public class TableModelXmp extends DefaultTableModel {
      * @param propertyInfos  Property-Infos
      */
     public void setPropertyInfosOfFile(String filename,
-        ArrayList<XMPPropertyInfo> propertyInfos) {
+        List<XMPPropertyInfo> propertyInfos) {
         this.filename = filename;
         this.propertyInfos = propertyInfos;
         removeAllElements();
@@ -42,7 +43,7 @@ public class TableModelXmp extends DefaultTableModel {
      * 
      * @return Dateiname oder null, wenn die Property-Infos entfernt wurden
      *         oder null gesetzt wurde mit
-     *         {@link #setPropertyInfosOfFile(java.lang.String, java.util.ArrayList)}
+     *         {@link #setPropertyInfosOfFile(java.lang.String, java.util.List)}
      */
     public String getFilename() {
         return filename;
@@ -52,7 +53,7 @@ public class TableModelXmp extends DefaultTableModel {
      * Entfernt alle XMP-Daten.
      */
     public void removeAllElements() {
-        getDataVector().removeAllElements();
+        getDataVector().clear();
         filename = null;
     }
 
@@ -68,10 +69,10 @@ public class TableModelXmp extends DefaultTableModel {
         String path = xmpPropertyInfo.getPath();
         Object value = xmpPropertyInfo.getValue();
         if (path != null && value != null) {
-            ArrayList<XMPPropertyInfo> newRow = new ArrayList<XMPPropertyInfo>();
+            List<XMPPropertyInfo> newRow = new ArrayList<XMPPropertyInfo>();
             newRow.add(xmpPropertyInfo);
             newRow.add(xmpPropertyInfo);
-            super.addRow(newRow.toArray());
+            super.addRow(newRow.toArray(new XMPPropertyInfo[newRow.size()]));
         }
     }
 
