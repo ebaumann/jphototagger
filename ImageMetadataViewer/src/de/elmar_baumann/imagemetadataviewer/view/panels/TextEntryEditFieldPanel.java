@@ -5,7 +5,6 @@ import de.elmar_baumann.imagemetadataviewer.data.AutoCompleteData;
 import de.elmar_baumann.imagemetadataviewer.data.TextEntry;
 import de.elmar_baumann.imagemetadataviewer.database.metadata.Column;
 import de.elmar_baumann.imagemetadataviewer.resource.Bundle;
-import java.util.LinkedHashSet;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 /**
@@ -19,6 +18,7 @@ public class TextEntryEditFieldPanel extends javax.swing.JPanel
 
     private Column xmpColumn;
     private static final boolean isAutocomplete = UserSettings.getInstance().isUseAutocomplete();
+    private AutoCompleteData autoCompleteData;
 
     public TextEntryEditFieldPanel(Column xmpColumn) {
         this.xmpColumn = xmpColumn;
@@ -42,15 +42,18 @@ public class TextEntryEditFieldPanel extends javax.swing.JPanel
         return xmpColumn;
     }
 
-    // TODO: Implement DatabaseListener, add new terms to an
-    // AutoCompleteData dynamically
     private void setAutocomplete(Column xmpColumn) {
         if (isAutocomplete) {
+            autoCompleteData = new AutoCompleteData(xmpColumn);
             AutoCompleteDecorator.decorate(
                 textFieldEdit,
-                new AutoCompleteData(xmpColumn).toList(),
+                autoCompleteData.getList(),
                 false);
         }
+    }
+    
+    public AutoCompleteData getAutoCompleteData() {
+        return autoCompleteData;
     }
 
     private void setPropmt() {
@@ -70,12 +73,6 @@ public class TextEntryEditFieldPanel extends javax.swing.JPanel
     @Override
     public void setEditable(boolean editable) {
         textFieldEdit.setEditable(editable);
-    }
-
-    private LinkedHashSet<Column> getColumnHashSet() {
-        LinkedHashSet<Column> set = new LinkedHashSet<Column>();
-        set.add(xmpColumn);
-        return set;
     }
 
     /** This method is called from within the constructor to

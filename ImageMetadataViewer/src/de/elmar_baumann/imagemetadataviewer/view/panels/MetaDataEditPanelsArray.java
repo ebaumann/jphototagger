@@ -2,13 +2,20 @@ package de.elmar_baumann.imagemetadataviewer.view.panels;
 
 import com.adobe.xmp.properties.XMPPropertyInfo;
 import com.imagero.reader.iptc.IPTCEntryMeta;
+import de.elmar_baumann.imagemetadataviewer.UserSettings;
+import de.elmar_baumann.imagemetadataviewer.data.ImageFile;
 import de.elmar_baumann.imagemetadataviewer.data.MetaDataEditTemplate;
 import de.elmar_baumann.imagemetadataviewer.data.TextEntry;
+import de.elmar_baumann.imagemetadataviewer.data.Xmp;
+import de.elmar_baumann.imagemetadataviewer.data.XmpUtil;
+import de.elmar_baumann.imagemetadataviewer.database.Database;
 import de.elmar_baumann.imagemetadataviewer.database.metadata.Column;
 import de.elmar_baumann.imagemetadataviewer.database.metadata.selections.EditHints;
 import de.elmar_baumann.imagemetadataviewer.database.metadata.selections.EditHints.SizeEditField;
 import de.elmar_baumann.imagemetadataviewer.database.metadata.selections.EditColumns;
 import de.elmar_baumann.imagemetadataviewer.database.metadata.mapping.IptcXmpMapping;
+import de.elmar_baumann.imagemetadataviewer.event.DatabaseAction;
+import de.elmar_baumann.imagemetadataviewer.event.DatabaseListener;
 import de.elmar_baumann.imagemetadataviewer.event.MetaDataEditPanelEvent;
 import de.elmar_baumann.imagemetadataviewer.event.MetaDataEditPanelListener;
 import de.elmar_baumann.imagemetadataviewer.image.metadata.xmp.XmpMetadata;
@@ -33,7 +40,7 @@ import javax.swing.JTextField;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public class MetaDataEditPanelsArray implements FocusListener {
+public class MetaDataEditPanelsArray implements FocusListener, DatabaseListener {
 
     boolean editable = true;
     private JComponent container;
@@ -41,12 +48,15 @@ public class MetaDataEditPanelsArray implements FocusListener {
     private List<String> filenames = new ArrayList<String>();
     private List<MetaDataEditPanelListener> listener = new ArrayList<MetaDataEditPanelListener>();
     private MetaDataEditActionsPanel metaDataEditActionsPanel;
+    private boolean isUseAutocomplete = UserSettings.getInstance().isUseAutocomplete();
 
     public MetaDataEditPanelsArray(JComponent container) {
         this.container = container;
         createEditPanels();
         addEditPanels();
+        addActionPanel();
         setFocusToFirstEditField();
+        Database.getInstance().addDatabaseListener(this);
     }
 
     /**
@@ -198,6 +208,9 @@ public class MetaDataEditPanelsArray implements FocusListener {
             layout.setConstraints(panels.get(i), constraints);
             container.add(panels.get(i));
         }
+    }
+
+    private void addActionPanel() {
         metaDataEditActionsPanel = Panels.getInstance().getAppPanel().getMetaDataEditActionsPanel();
         // listen to the *first* element of this  panel
         metaDataEditActionsPanel.buttonMetaDataTemplateCreate.addFocusListener(this);
@@ -278,6 +291,28 @@ public class MetaDataEditPanelsArray implements FocusListener {
             parent = textArea.getParent().getParent().getParent();
         }
         container.scrollRectToVisible(parent.getBounds());
+    }
+
+    @Override
+    public void actionPerformed(DatabaseAction action) {
+        DatabaseAction.Type type = action.getType();
+        if (isUseAutocomplete &&
+            type.equals(DatabaseAction.Type.ImageFileInserted) ||
+            type.equals(DatabaseAction.Type.ImageFileUpdated)) {
+            ImageFile data = action.getImageFileData();
+            if (data != null && data.getXmp() != null) {
+                addAutoCompleteData(data.getXmp());
+            }
+        }
+    }
+
+    private void addAutoCompleteData(Xmp xmp) {
+        for (JPanel panel : panels) {
+            if (panel instanceof TextEntryEditFieldPanel) {
+                TextEntryEditFieldPanel p = (TextEntryEditFieldPanel) panel;
+                XmpUtil.addData(xmp, p.getColumn(), p.getAutoCompleteData());
+            }
+        }
     }
 }
 

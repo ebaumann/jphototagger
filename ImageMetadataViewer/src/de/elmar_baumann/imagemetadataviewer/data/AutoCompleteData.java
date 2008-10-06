@@ -4,6 +4,7 @@ import de.elmar_baumann.imagemetadataviewer.UserSettings;
 import de.elmar_baumann.imagemetadataviewer.database.Database;
 import de.elmar_baumann.imagemetadataviewer.database.metadata.Column;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
 
@@ -17,7 +18,7 @@ public class AutoCompleteData {
 
     private Database db = Database.getInstance();
     private LinkedHashSet<Column> columns;
-    private LinkedHashSet<String> content = new LinkedHashSet<String>();
+    private List<String> content = Collections.synchronizedList(new ArrayList<String>());
 
     /**
      * Standardkonstruktor.
@@ -27,18 +28,7 @@ public class AutoCompleteData {
      */
     public AutoCompleteData() {
         columns = new LinkedHashSet<Column>(UserSettings.getInstance().getFastSearchColumns());
-        addColumns();
-    }
-
-    /**
-     * Konstruktor.
-     * 
-     * @param columns  Tabellenspalten, deren Inhalt für Autocomplete benötigt
-     *                 wird
-     */
-    public AutoCompleteData(LinkedHashSet<Column> columns) {
-        this.columns = columns;
-        addColumns();
+        addColumnsContent();
     }
 
     /**
@@ -51,9 +41,9 @@ public class AutoCompleteData {
         LinkedHashSet<Column> cols = new LinkedHashSet<Column>();
         cols.add(column);
         this.columns = cols;
-        addColumns();
+        addColumnsContent();
     }
-    
+
     /**
      * Adds a string to the autocomplete data if not already exists.
      * 
@@ -61,25 +51,15 @@ public class AutoCompleteData {
      */
     public void addString(String string) {
         if (!content.contains(string)) {
-            // TODO: Check
-            //content.add(string);
+            content.add(string);
         }
     }
 
-    private void addColumns() {
-        content = db.getContent(columns);
+    private void addColumnsContent() {
+        content.addAll(db.getContent(columns));
     }
 
-    /**
-     * Liefert den Spalteninhalt.
-     * 
-     * @return Spalteninhalt
-     */
-    public Object[] toArray() {
-        return content.toArray();
-    }
-
-    public List<String> toList() {
-        return new ArrayList<String>(content);
+    public List<String> getList() {
+        return content;
     }
 }

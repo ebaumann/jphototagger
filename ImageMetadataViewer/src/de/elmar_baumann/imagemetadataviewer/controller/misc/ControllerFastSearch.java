@@ -4,7 +4,10 @@ import de.elmar_baumann.imagemetadataviewer.UserSettings;
 import de.elmar_baumann.imagemetadataviewer.controller.Controller;
 import de.elmar_baumann.imagemetadataviewer.data.AutoCompleteData;
 import de.elmar_baumann.imagemetadataviewer.data.ImageFile;
+import de.elmar_baumann.imagemetadataviewer.data.Xmp;
+import de.elmar_baumann.imagemetadataviewer.data.XmpUtil;
 import de.elmar_baumann.imagemetadataviewer.database.Database;
+import de.elmar_baumann.imagemetadataviewer.database.metadata.Column;
 import de.elmar_baumann.imagemetadataviewer.event.DatabaseAction;
 import de.elmar_baumann.imagemetadataviewer.event.DatabaseListener;
 import de.elmar_baumann.imagemetadataviewer.event.UserSettingsChangeEvent;
@@ -37,7 +40,9 @@ public class ControllerFastSearch extends Controller
     private AppPanel appPanel = Panels.getInstance().getAppPanel();
     private JTextField textFieldSearch = appPanel.getTextFieldSearch();
     private ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelImageFileThumbnails();
+    private List<Column> fastSearchColumns = UserSettings.getInstance().getFastSearchColumns();
     private List<JTree> selectionTrees = appPanel.getSelectionTrees();
+    private boolean isUseAutocomplete = UserSettings.getInstance().isUseAutocomplete();
     private AutoCompleteData searchAutoCompleteData;
 
     public ControllerFastSearch() {
@@ -51,7 +56,7 @@ public class ControllerFastSearch extends Controller
             searchAutoCompleteData = new AutoCompleteData();
             AutoCompleteDecorator.decorate(
                 textFieldSearch,
-                searchAutoCompleteData.toList(),
+                searchAutoCompleteData.getList(),
                 false);
         }
     }
@@ -116,20 +121,19 @@ public class ControllerFastSearch extends Controller
     @Override
     public void actionPerformed(DatabaseAction action) {
         DatabaseAction.Type type = action.getType();
-        if (isStarted() && type.equals(DatabaseAction.Type.ImageFileInserted) ||
+        if (isStarted() && isUseAutocomplete &&
+            type.equals(DatabaseAction.Type.ImageFileInserted) ||
             type.equals(DatabaseAction.Type.ImageFileUpdated)) {
-            // TODO: add data for all (and only) fast search columns
-            // This is an example an have to be removed if subjects are not
-            // in the fast search columns
             ImageFile data = action.getImageFileData();
             if (data != null && data.getXmp() != null) {
-                List<String> keywords = data.getXmp().getDcSubjects();
-                if (keywords != null) {
-                    for (String keyword : keywords) {
-                        searchAutoCompleteData.addString(keyword);
-                    }
-                }
+                addAutoCompleteData(data.getXmp());
             }
+        }
+    }
+
+    private void addAutoCompleteData(Xmp xmp) {
+        for (Column column : fastSearchColumns) {
+            XmpUtil.addData(xmp, column, searchAutoCompleteData);
         }
     }
 }
