@@ -38,8 +38,8 @@ public class DirectoryTreeModelFile extends File {
     public List<DirectoryTreeModelFile> getSubDirectories(SortType sortType) {
         File[] listFiles = listFiles(new DirectoryFilter());
         List<DirectoryTreeModelFile> directories = new ArrayList<DirectoryTreeModelFile>();
-        if (listFiles != null) {
 
+        if (listFiles != null) {
             for (int i = 0; listFiles != null && i < listFiles.length; i++) {
                 directories.add(new DirectoryTreeModelFile(listFiles[i].getAbsolutePath()));
             }
