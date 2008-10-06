@@ -86,7 +86,7 @@ public class TextEntryEditAreaPanel extends javax.swing.JPanel
 
         textAreaEdit.setColumns(20);
         textAreaEdit.setLineWrap(true);
-        textAreaEdit.setRows(3);
+        textAreaEdit.setRows(2);
         textAreaEdit.setTabSize(4);
         textAreaEdit.setWrapStyleWord(true);
         scrollPaneEdit.setViewportView(textAreaEdit);

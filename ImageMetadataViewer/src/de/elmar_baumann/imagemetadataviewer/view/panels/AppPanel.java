@@ -3,9 +3,8 @@ package de.elmar_baumann.imagemetadataviewer.view.panels;
 import de.elmar_baumann.imagemetadataviewer.AppSettings;
 import de.elmar_baumann.lib.renderer.TreeCellRendererDirectories;
 import de.elmar_baumann.imagemetadataviewer.UserSettings;
-import de.elmar_baumann.imagemetadataviewer.data.AutoCompleteData;
-import de.elmar_baumann.imagemetadataviewer.model.ComboBoxModelMetaDataEditTemplates;
 import de.elmar_baumann.imagemetadataviewer.resource.Bundle;
+import de.elmar_baumann.imagemetadataviewer.resource.Panels;
 import de.elmar_baumann.imagemetadataviewer.view.renderer.ListCellRendererCategories;
 import de.elmar_baumann.imagemetadataviewer.view.renderer.ListCellRendererFavoriteDirectories;
 import de.elmar_baumann.lib.persistence.PersistentSettings;
@@ -23,7 +22,6 @@ import javax.swing.JTextField;
 import javax.swing.JTree;
 import javax.swing.JViewport;
 import javax.swing.tree.TreeSelectionModel;
-import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 /**
  * Panel der Anwendung.
@@ -39,8 +37,10 @@ public class AppPanel extends javax.swing.JPanel {
     private List<JTree> selectionTrees = new ArrayList<JTree>();
     private List<JList> selectionLists = new ArrayList<JList>();
     private MetaDataEditPanelsArray editPanelsArray;
+    private MetaDataEditActionsPanel metaDataEditActionsPanel;
 
     public AppPanel() {
+        Panels.getInstance().setAppPanel(this);
         initComponents();
         postInitComponents();
     }
@@ -51,13 +51,19 @@ public class AppPanel extends javax.swing.JPanel {
         setBackgroundColorTablesScrollPanes();
         disableTreeMultipleSelection();
         initArrays();
-        setAutocomplete();
     }
 
     private void initArrays() {
         initTableArrays();
         initSelectionTreeArray();
         initSelectionListArray();
+    }
+
+    public MetaDataEditActionsPanel getMetaDataEditActionsPanel() {
+        if (metaDataEditActionsPanel == null) {
+            metaDataEditActionsPanel = new MetaDataEditActionsPanel();
+        }
+        return metaDataEditActionsPanel;
     }
 
     public JProgressBar getProgressBarCreateMetaDataOfCurrentThumbnails() {
@@ -121,27 +127,27 @@ public class AppPanel extends javax.swing.JPanel {
     }
 
     public JButton getButtonSaveMetadata() {
-        return buttonSaveMetadata;
+        return metaDataEditActionsPanel.buttonSaveMetadata;
     }
 
     public JButton getButtonMetaDataTemplateCreate() {
-        return buttonMetaDataTemplateCreate;
+        return metaDataEditActionsPanel.buttonMetaDataTemplateCreate;
     }
 
     public JButton getButtonMetaDataTemplateUpdate() {
-        return buttonMetaDataTemplateUpdate;
+        return metaDataEditActionsPanel.buttonMetaDataTemplateUpdate;
     }
 
     public JButton getButtonMetaDataTemplateRename() {
-        return buttonMetaDataTemplateRename;
+        return metaDataEditActionsPanel.buttonMetaDataTemplateRename;
     }
 
     public JButton getButtonMetaDataTemplateInsert() {
-        return buttonMetaDataTemplateInsert;
+        return metaDataEditActionsPanel.buttonMetaDataTemplateInsert;
     }
 
     public JButton getButtonMetaDataTemplateDelete() {
-        return buttonMetaDataTemplateDelete;
+        return metaDataEditActionsPanel.buttonMetaDataTemplateDelete;
     }
 
     public JButton getButtonStopScheduledTasks() {
@@ -149,11 +155,11 @@ public class AppPanel extends javax.swing.JPanel {
     }
 
     public JComboBox getComboBoxMetaDataTemplates() {
-        return comboBoxMetaDataTemplates;
+        return metaDataEditActionsPanel.comboBoxMetaDataTemplates;
     }
 
     public JLabel getLabelMetadataInfoEditable() {
-        return labelMetadataInfoEditable;
+        return metaDataEditActionsPanel.labelMetadataInfoEditable;
     }
 
     public JLabel getLabelStatusbar() {
@@ -251,15 +257,6 @@ public class AppPanel extends javax.swing.JPanel {
     private void initSelectionListArray() {
         selectionLists.add(listCategories);
         selectionLists.add(listFavoriteDirectories);
-    }
-
-    private void setAutocomplete() {
-        if (UserSettings.getInstance().isUseAutocomplete()) {
-            AutoCompleteDecorator.decorate(
-                textFieldSearch,
-                new AutoCompleteData().toList(),
-                false);
-        }
     }
 
     private void setBackgroundColorTablesScrollPanes() {
@@ -389,16 +386,6 @@ public class AppPanel extends javax.swing.JPanel {
         scrollPaneEditMetadata = new javax.swing.JScrollPane();
         panelEditMetadata = new javax.swing.JPanel();
         labelEditTabInfoArrayDelimiter = new javax.swing.JLabel();
-        panelGroupMetadataEdit = new javax.swing.JPanel();
-        labelMetadataInfoEditable = new javax.swing.JLabel();
-        buttonSaveMetadata = new javax.swing.JButton();
-        buttonMetaDataTemplateCreate = new javax.swing.JButton();
-        panelGroupMetadataTemplates = new javax.swing.JPanel();
-        comboBoxMetaDataTemplates = new javax.swing.JComboBox();
-        buttonMetaDataTemplateRename = new javax.swing.JButton();
-        buttonMetaDataTemplateDelete = new javax.swing.JButton();
-        buttonMetaDataTemplateInsert = new javax.swing.JButton();
-        buttonMetaDataTemplateUpdate = new javax.swing.JButton();
         panelMetadataProgress = new javax.swing.JPanel();
         progressBarScheduledTasks = new javax.swing.JProgressBar();
         progressBarCurrentTasks = new javax.swing.JProgressBar();
@@ -670,7 +657,7 @@ public class AppPanel extends javax.swing.JPanel {
         );
         panelEditMetadataLayout.setVerticalGroup(
             panelEditMetadataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 309, Short.MAX_VALUE)
+            .addGap(0, 497, Short.MAX_VALUE)
         );
 
         scrollPaneEditMetadata.setViewportView(panelEditMetadata);
@@ -694,132 +681,18 @@ public class AppPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(labelEditTabInfoArrayDelimiter, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPaneEditMetadata, javax.swing.GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE))
-        );
-
-        panelGroupMetadataEdit.setBorder(javax.swing.BorderFactory.createTitledBorder(null, Bundle.getString("AppPanel.panelGroupMetadataEdit.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 11))); // NOI18N
-
-        labelMetadataInfoEditable.setFont(new java.awt.Font("Dialog", 0, 12));
-        labelMetadataInfoEditable.setText(Bundle.getString("AppPanel.labelMetadataInfoEditable.text")); // NOI18N
-
-        buttonSaveMetadata.setFont(new java.awt.Font("Dialog", 0, 12));
-        buttonSaveMetadata.setMnemonic('s');
-        buttonSaveMetadata.setText(Bundle.getString("AppPanel.buttonSaveMetadata.text")); // NOI18N
-        buttonSaveMetadata.setToolTipText(Bundle.getString("AppPanel.buttonSaveMetadata.toolTipText")); // NOI18N
-        buttonSaveMetadata.setEnabled(false);
-
-        buttonMetaDataTemplateCreate.setFont(new java.awt.Font("Dialog", 0, 12));
-        buttonMetaDataTemplateCreate.setMnemonic('v');
-        buttonMetaDataTemplateCreate.setText(Bundle.getString("AppPanel.buttonMetaDataTemplateCreate.text")); // NOI18N
-        buttonMetaDataTemplateCreate.setToolTipText(Bundle.getString("AppPanel.buttonMetaDataTemplateCreate.toolTipText")); // NOI18N
-
-        javax.swing.GroupLayout panelGroupMetadataEditLayout = new javax.swing.GroupLayout(panelGroupMetadataEdit);
-        panelGroupMetadataEdit.setLayout(panelGroupMetadataEditLayout);
-        panelGroupMetadataEditLayout.setHorizontalGroup(
-            panelGroupMetadataEditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelGroupMetadataEditLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelGroupMetadataEditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelMetadataInfoEditable, javax.swing.GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE)
-                    .addGroup(panelGroupMetadataEditLayout.createSequentialGroup()
-                        .addComponent(buttonMetaDataTemplateCreate)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonSaveMetadata, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
-        );
-        panelGroupMetadataEditLayout.setVerticalGroup(
-            panelGroupMetadataEditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelGroupMetadataEditLayout.createSequentialGroup()
-                .addComponent(labelMetadataInfoEditable)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panelGroupMetadataEditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonMetaDataTemplateCreate)
-                    .addComponent(buttonSaveMetadata, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        panelGroupMetadataEditLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {buttonMetaDataTemplateCreate, buttonSaveMetadata});
-
-        panelGroupMetadataTemplates.setBorder(javax.swing.BorderFactory.createTitledBorder(null, Bundle.getString("AppPanel.panelGroupMetadataTemplates.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 11))); // NOI18N
-
-        comboBoxMetaDataTemplates.setModel(new ComboBoxModelMetaDataEditTemplates());
-
-        buttonMetaDataTemplateRename.setFont(new java.awt.Font("Dialog", 0, 12));
-        buttonMetaDataTemplateRename.setMnemonic('m');
-        buttonMetaDataTemplateRename.setText(Bundle.getString("AppPanel.buttonMetaDataTemplateRename.text")); // NOI18N
-        buttonMetaDataTemplateRename.setToolTipText(Bundle.getString("AppPanel.buttonMetaDataTemplateRename.toolTipText")); // NOI18N
-        buttonMetaDataTemplateRename.setEnabled(false);
-
-        buttonMetaDataTemplateDelete.setFont(new java.awt.Font("Dialog", 0, 12));
-        buttonMetaDataTemplateDelete.setMnemonic('\u00f6');
-        buttonMetaDataTemplateDelete.setText(Bundle.getString("AppPanel.buttonMetaDataTemplateDelete.text")); // NOI18N
-        buttonMetaDataTemplateDelete.setToolTipText(Bundle.getString("AppPanel.buttonMetaDataTemplateDelete.toolTipText")); // NOI18N
-        buttonMetaDataTemplateDelete.setEnabled(false);
-
-        buttonMetaDataTemplateInsert.setFont(new java.awt.Font("Dialog", 0, 12));
-        buttonMetaDataTemplateInsert.setMnemonic('e');
-        buttonMetaDataTemplateInsert.setText(Bundle.getString("AppPanel.buttonMetaDataTemplateInsert.text")); // NOI18N
-        buttonMetaDataTemplateInsert.setToolTipText(Bundle.getString("AppPanel.buttonMetaDataTemplateInsert.toolTipText")); // NOI18N
-        buttonMetaDataTemplateInsert.setEnabled(false);
-
-        buttonMetaDataTemplateUpdate.setFont(new java.awt.Font("Dialog", 0, 12));
-        buttonMetaDataTemplateUpdate.setMnemonic('a');
-        buttonMetaDataTemplateUpdate.setText(Bundle.getString("AppPanel.buttonMetaDataTemplateUpdate.text")); // NOI18N
-        buttonMetaDataTemplateUpdate.setToolTipText(Bundle.getString("AppPanel.buttonMetaDataTemplateUpdate.toolTipText")); // NOI18N
-        buttonMetaDataTemplateUpdate.setEnabled(false);
-
-        javax.swing.GroupLayout panelGroupMetadataTemplatesLayout = new javax.swing.GroupLayout(panelGroupMetadataTemplates);
-        panelGroupMetadataTemplates.setLayout(panelGroupMetadataTemplatesLayout);
-        panelGroupMetadataTemplatesLayout.setHorizontalGroup(
-            panelGroupMetadataTemplatesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelGroupMetadataTemplatesLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelGroupMetadataTemplatesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(comboBoxMetaDataTemplates, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(panelGroupMetadataTemplatesLayout.createSequentialGroup()
-                        .addComponent(buttonMetaDataTemplateUpdate)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonMetaDataTemplateInsert))
-                    .addGroup(panelGroupMetadataTemplatesLayout.createSequentialGroup()
-                        .addComponent(buttonMetaDataTemplateDelete)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonMetaDataTemplateRename)))
-                .addContainerGap(70, Short.MAX_VALUE))
-        );
-
-        panelGroupMetadataTemplatesLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {buttonMetaDataTemplateDelete, buttonMetaDataTemplateInsert, buttonMetaDataTemplateRename, buttonMetaDataTemplateUpdate});
-
-        panelGroupMetadataTemplatesLayout.setVerticalGroup(
-            panelGroupMetadataTemplatesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelGroupMetadataTemplatesLayout.createSequentialGroup()
-                .addComponent(comboBoxMetaDataTemplates, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelGroupMetadataTemplatesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonMetaDataTemplateUpdate)
-                    .addComponent(buttonMetaDataTemplateInsert))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelGroupMetadataTemplatesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonMetaDataTemplateDelete)
-                    .addComponent(buttonMetaDataTemplateRename))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(scrollPaneEditMetadata, javax.swing.GroupLayout.DEFAULT_SIZE, 515, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout panelTabEditMetaDataLayout = new javax.swing.GroupLayout(panelTabEditMetaData);
         panelTabEditMetaData.setLayout(panelTabEditMetaDataLayout);
         panelTabEditMetaDataLayout.setHorizontalGroup(
             panelTabEditMetaDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelGroupMetadataTemplates, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(panelGroupMetadataEdit, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(panelScrollPaneEditMetaData, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         panelTabEditMetaDataLayout.setVerticalGroup(
             panelTabEditMetaDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTabEditMetaDataLayout.createSequentialGroup()
-                .addComponent(panelScrollPaneEditMetaData, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelGroupMetadataEdit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelGroupMetadataTemplates, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(panelScrollPaneEditMetaData, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         tabbedPaneMetaDataTabs.addTab(Bundle.getString("AppPanel.panelTabEditMetaData.TabConstraints.tabTitle"), panelTabEditMetaData); // NOI18N
@@ -980,27 +853,17 @@ public class AppPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAdvanedSearch;
     private javax.swing.JButton buttonLogfileDialog;
-    private javax.swing.JButton buttonMetaDataTemplateCreate;
-    private javax.swing.JButton buttonMetaDataTemplateDelete;
-    private javax.swing.JButton buttonMetaDataTemplateInsert;
-    private javax.swing.JButton buttonMetaDataTemplateRename;
-    private javax.swing.JButton buttonMetaDataTemplateUpdate;
-    private javax.swing.JButton buttonSaveMetadata;
     private javax.swing.JButton buttonStopScheduledTasks;
-    private javax.swing.JComboBox comboBoxMetaDataTemplates;
     private javax.swing.JLabel labelColorBackgroundTableTextStoredInDatabase;
     private javax.swing.JLabel labelEditTabInfoArrayDelimiter;
     private javax.swing.JLabel labelLegendColorBackgroundTableTetStoredInDatabase;
     private javax.swing.JLabel labelMetadataFilename;
-    private javax.swing.JLabel labelMetadataInfoEditable;
     private javax.swing.JLabel labelStatusbar;
     private javax.swing.JList listCategories;
     private javax.swing.JList listFavoriteDirectories;
     private javax.swing.JPanel panelCategories;
     private javax.swing.JPanel panelEditMetadata;
     private javax.swing.JPanel panelFavoriteDirectories;
-    private javax.swing.JPanel panelGroupMetadataEdit;
-    private javax.swing.JPanel panelGroupMetadataTemplates;
     private javax.swing.JPanel panelImageCollections;
     private de.elmar_baumann.imagemetadataviewer.view.panels.ImageFileThumbnailsPanel panelImageFileThumbnails;
     private javax.swing.JPanel panelMetadata;

@@ -801,20 +801,12 @@
                           <Layout>
                             <DimensionLayout dim="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="panelGroupMetadataTemplates" alignment="0" max="32767" attributes="2"/>
-                                  <Component id="panelGroupMetadataEdit" alignment="1" max="32767" attributes="2"/>
                                   <Component id="panelScrollPaneEditMetaData" alignment="0" max="32767" attributes="0"/>
                               </Group>
                             </DimensionLayout>
                             <DimensionLayout dim="1">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <Component id="panelScrollPaneEditMetaData" max="32767" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="panelGroupMetadataEdit" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="panelGroupMetadataTemplates" min="-2" max="-2" attributes="0"/>
-                                  </Group>
+                                  <Component id="panelScrollPaneEditMetaData" alignment="0" max="32767" attributes="0"/>
                               </Group>
                             </DimensionLayout>
                           </Layout>
@@ -838,7 +830,7 @@
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="labelEditTabInfoArrayDelimiter" min="-2" pref="13" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="scrollPaneEditMetadata" pref="293" max="32767" attributes="0"/>
+                                          <Component id="scrollPaneEditMetadata" pref="515" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                                 </DimensionLayout>
@@ -858,7 +850,7 @@
                                         </DimensionLayout>
                                         <DimensionLayout dim="1">
                                           <Group type="103" groupAlignment="0" attributes="0">
-                                              <EmptySpace min="0" pref="309" max="32767" attributes="0"/>
+                                              <EmptySpace min="0" pref="497" max="32767" attributes="0"/>
                                           </Group>
                                         </DimensionLayout>
                                       </Layout>
@@ -873,214 +865,6 @@
                                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                                       <ResourceString bundle="de/elmar_baumann/imagemetadataviewer/resource/Bundle.properties" key="AppPanel.labelEditTabInfoArrayDelimiter.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                                     </Property>
-                                  </Properties>
-                                </Component>
-                              </SubComponents>
-                            </Container>
-                            <Container class="javax.swing.JPanel" name="panelGroupMetadataEdit">
-                              <Properties>
-                                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                                  <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                                    <TitledBorder title="Daten bearbeiten">
-                                      <ResourceString PropertyName="titleX" bundle="de/elmar_baumann/imagemetadataviewer/resource/Bundle.properties" key="AppPanel.panelGroupMetadataEdit.border.title" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
-                                      <Font PropertyName="font" name="Dialog" size="11" style="1"/>
-                                    </TitledBorder>
-                                  </Border>
-                                </Property>
-                              </Properties>
-
-                              <Layout>
-                                <DimensionLayout dim="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" attributes="0">
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="labelMetadataInfoEditable" alignment="0" pref="284" max="32767" attributes="0"/>
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <Component id="buttonMetaDataTemplateCreate" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="buttonSaveMetadata" min="-2" pref="95" max="-2" attributes="0"/>
-                                              </Group>
-                                          </Group>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                </DimensionLayout>
-                                <DimensionLayout dim="1">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="labelMetadataInfoEditable" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="3" attributes="0">
-                                              <Component id="buttonMetaDataTemplateCreate" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Component id="buttonSaveMetadata" linkSize="2" alignment="3" min="-2" pref="21" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace max="32767" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                </DimensionLayout>
-                              </Layout>
-                              <SubComponents>
-                                <Component class="javax.swing.JLabel" name="labelMetadataInfoEditable">
-                                  <Properties>
-                                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                      <Font name="Dialog" size="12" style="0"/>
-                                    </Property>
-                                    <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                      <ResourceString bundle="de/elmar_baumann/imagemetadataviewer/resource/Bundle.properties" key="AppPanel.labelMetadataInfoEditable.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
-                                    </Property>
-                                  </Properties>
-                                </Component>
-                                <Component class="javax.swing.JButton" name="buttonSaveMetadata">
-                                  <Properties>
-                                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                      <Font name="Dialog" size="12" style="0"/>
-                                    </Property>
-                                    <Property name="mnemonic" type="int" value="115"/>
-                                    <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                      <ResourceString bundle="de/elmar_baumann/imagemetadataviewer/resource/Bundle.properties" key="AppPanel.buttonSaveMetadata.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
-                                    </Property>
-                                    <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                      <ResourceString bundle="de/elmar_baumann/imagemetadataviewer/resource/Bundle.properties" key="AppPanel.buttonSaveMetadata.toolTipText" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
-                                    </Property>
-                                    <Property name="enabled" type="boolean" value="false"/>
-                                  </Properties>
-                                </Component>
-                                <Component class="javax.swing.JButton" name="buttonMetaDataTemplateCreate">
-                                  <Properties>
-                                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                      <Font name="Dialog" size="12" style="0"/>
-                                    </Property>
-                                    <Property name="mnemonic" type="int" value="118"/>
-                                    <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                      <ResourceString bundle="de/elmar_baumann/imagemetadataviewer/resource/Bundle.properties" key="AppPanel.buttonMetaDataTemplateCreate.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
-                                    </Property>
-                                    <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                      <ResourceString bundle="de/elmar_baumann/imagemetadataviewer/resource/Bundle.properties" key="AppPanel.buttonMetaDataTemplateCreate.toolTipText" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
-                                    </Property>
-                                  </Properties>
-                                </Component>
-                              </SubComponents>
-                            </Container>
-                            <Container class="javax.swing.JPanel" name="panelGroupMetadataTemplates">
-                              <Properties>
-                                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                                  <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                                    <TitledBorder title="Datenvorlagen">
-                                      <ResourceString PropertyName="titleX" bundle="de/elmar_baumann/imagemetadataviewer/resource/Bundle.properties" key="AppPanel.panelGroupMetadataTemplates.border.title" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
-                                      <Font PropertyName="font" name="Dialog" size="11" style="1"/>
-                                    </TitledBorder>
-                                  </Border>
-                                </Property>
-                              </Properties>
-
-                              <Layout>
-                                <DimensionLayout dim="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" attributes="0">
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="comboBoxMetaDataTemplates" min="-2" max="-2" attributes="0"/>
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <Component id="buttonMetaDataTemplateUpdate" linkSize="3" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="buttonMetaDataTemplateInsert" linkSize="3" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <Component id="buttonMetaDataTemplateDelete" linkSize="3" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="buttonMetaDataTemplateRename" linkSize="3" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                          </Group>
-                                          <EmptySpace pref="70" max="32767" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                </DimensionLayout>
-                                <DimensionLayout dim="1">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="comboBoxMetaDataTemplates" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="3" attributes="0">
-                                              <Component id="buttonMetaDataTemplateUpdate" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Component id="buttonMetaDataTemplateInsert" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="3" attributes="0">
-                                              <Component id="buttonMetaDataTemplateDelete" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Component id="buttonMetaDataTemplateRename" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace max="32767" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                </DimensionLayout>
-                              </Layout>
-                              <SubComponents>
-                                <Component class="javax.swing.JComboBox" name="comboBoxMetaDataTemplates">
-                                  <Properties>
-                                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                                      <Connection code="new ComboBoxModelMetaDataEditTemplates()" type="code"/>
-                                    </Property>
-                                  </Properties>
-                                </Component>
-                                <Component class="javax.swing.JButton" name="buttonMetaDataTemplateRename">
-                                  <Properties>
-                                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                      <Font name="Dialog" size="12" style="0"/>
-                                    </Property>
-                                    <Property name="mnemonic" type="int" value="109"/>
-                                    <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                      <ResourceString bundle="de/elmar_baumann/imagemetadataviewer/resource/Bundle.properties" key="AppPanel.buttonMetaDataTemplateRename.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
-                                    </Property>
-                                    <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                      <ResourceString bundle="de/elmar_baumann/imagemetadataviewer/resource/Bundle.properties" key="AppPanel.buttonMetaDataTemplateRename.toolTipText" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
-                                    </Property>
-                                    <Property name="enabled" type="boolean" value="false"/>
-                                  </Properties>
-                                </Component>
-                                <Component class="javax.swing.JButton" name="buttonMetaDataTemplateDelete">
-                                  <Properties>
-                                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                      <Font name="Dialog" size="12" style="0"/>
-                                    </Property>
-                                    <Property name="mnemonic" type="int" value="246"/>
-                                    <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                      <ResourceString bundle="de/elmar_baumann/imagemetadataviewer/resource/Bundle.properties" key="AppPanel.buttonMetaDataTemplateDelete.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
-                                    </Property>
-                                    <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                      <ResourceString bundle="de/elmar_baumann/imagemetadataviewer/resource/Bundle.properties" key="AppPanel.buttonMetaDataTemplateDelete.toolTipText" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
-                                    </Property>
-                                    <Property name="enabled" type="boolean" value="false"/>
-                                  </Properties>
-                                </Component>
-                                <Component class="javax.swing.JButton" name="buttonMetaDataTemplateInsert">
-                                  <Properties>
-                                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                      <Font name="Dialog" size="12" style="0"/>
-                                    </Property>
-                                    <Property name="mnemonic" type="int" value="101"/>
-                                    <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                      <ResourceString bundle="de/elmar_baumann/imagemetadataviewer/resource/Bundle.properties" key="AppPanel.buttonMetaDataTemplateInsert.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
-                                    </Property>
-                                    <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                      <ResourceString bundle="de/elmar_baumann/imagemetadataviewer/resource/Bundle.properties" key="AppPanel.buttonMetaDataTemplateInsert.toolTipText" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
-                                    </Property>
-                                    <Property name="enabled" type="boolean" value="false"/>
-                                  </Properties>
-                                </Component>
-                                <Component class="javax.swing.JButton" name="buttonMetaDataTemplateUpdate">
-                                  <Properties>
-                                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                      <Font name="Dialog" size="12" style="0"/>
-                                    </Property>
-                                    <Property name="mnemonic" type="int" value="97"/>
-                                    <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                      <ResourceString bundle="de/elmar_baumann/imagemetadataviewer/resource/Bundle.properties" key="AppPanel.buttonMetaDataTemplateUpdate.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
-                                    </Property>
-                                    <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                      <ResourceString bundle="de/elmar_baumann/imagemetadataviewer/resource/Bundle.properties" key="AppPanel.buttonMetaDataTemplateUpdate.toolTipText" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
-                                    </Property>
-                                    <Property name="enabled" type="boolean" value="false"/>
                                   </Properties>
                                 </Component>
                               </SubComponents>

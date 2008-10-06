@@ -42,6 +42,8 @@ public class TextEntryEditFieldPanel extends javax.swing.JPanel
         return xmpColumn;
     }
 
+    // TODO: Implement DatabaseListener, add new terms to an
+    // AutoCompleteData dynamically
     private void setAutocomplete(Column xmpColumn) {
         if (isAutocomplete) {
             AutoCompleteDecorator.decorate(

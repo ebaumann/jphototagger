@@ -29,7 +29,6 @@ public class AppFrame extends javax.swing.JFrame {
         listenToClose();
         setTitleAndFrameIcon();
         Panels.getInstance().setAppFrame(this);
-        Panels.getInstance().setAppPanel(appPanel);
         MetaFactory.getInstance().startController();
         appPanel.beforeStart();
     }

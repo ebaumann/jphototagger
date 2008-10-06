@@ -12,6 +12,7 @@ import de.elmar_baumann.imagemetadataviewer.database.metadata.mapping.IptcXmpMap
 import de.elmar_baumann.imagemetadataviewer.event.MetaDataEditPanelEvent;
 import de.elmar_baumann.imagemetadataviewer.event.MetaDataEditPanelListener;
 import de.elmar_baumann.imagemetadataviewer.image.metadata.xmp.XmpMetadata;
+import de.elmar_baumann.imagemetadataviewer.resource.Panels;
 import de.elmar_baumann.lib.component.TabLeavingTextArea;
 import java.awt.Component;
 import java.awt.GridBagConstraints;
@@ -39,12 +40,13 @@ public class MetaDataEditPanelsArray implements FocusListener {
     private List<JPanel> panels = new ArrayList<JPanel>();
     private List<String> filenames = new ArrayList<String>();
     private List<MetaDataEditPanelListener> listener = new ArrayList<MetaDataEditPanelListener>();
+    private MetaDataEditActionsPanel metaDataEditActionsPanel;
 
     public MetaDataEditPanelsArray(JComponent container) {
         this.container = container;
         createEditPanels();
         addEditPanels();
-        focus();
+        setFocusToFirstEditField();
     }
 
     /**
@@ -196,6 +198,10 @@ public class MetaDataEditPanelsArray implements FocusListener {
             layout.setConstraints(panels.get(i), constraints);
             container.add(panels.get(i));
         }
+        metaDataEditActionsPanel = Panels.getInstance().getAppPanel().getMetaDataEditActionsPanel();
+        // listen to the *first* element of this  panel
+        metaDataEditActionsPanel.buttonMetaDataTemplateCreate.addFocusListener(this);
+        container.add(metaDataEditActionsPanel);
     }
 
     private GridBagConstraints getConstraints() {
@@ -212,7 +218,7 @@ public class MetaDataEditPanelsArray implements FocusListener {
     /**
      * Setzt den Fokus auf das erste Eingabefeld.
      */
-    public void focus() {
+    public void setFocusToFirstEditField() {
         if (panels.size() > 0) {
             TextEntry textEntry = (TextEntry) panels.get(0);
             textEntry.focus();
@@ -251,7 +257,11 @@ public class MetaDataEditPanelsArray implements FocusListener {
 
     @Override
     public void focusGained(FocusEvent e) {
-        scrollToVisible(e.getSource());
+        if (e.getSource() == metaDataEditActionsPanel.buttonMetaDataTemplateCreate) {
+            setFocusToFirstEditField();
+        } else {
+            scrollToVisible(e.getSource());
+        }
     }
 
     @Override

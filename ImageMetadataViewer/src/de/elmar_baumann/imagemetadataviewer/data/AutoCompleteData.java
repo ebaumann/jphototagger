@@ -8,7 +8,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 
 /**
- * Model für Autocomplete.
+ * Model for Autocomplete.
  * 
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/10
@@ -52,6 +52,18 @@ public class AutoCompleteData {
         cols.add(column);
         this.columns = cols;
         addColumns();
+    }
+    
+    /**
+     * Adds a string to the autocomplete data if not already exists.
+     * 
+     * @param string  new string
+     */
+    public void addString(String string) {
+        if (!content.contains(string)) {
+            // TODO: Check
+            //content.add(string);
+        }
     }
 
     private void addColumns() {

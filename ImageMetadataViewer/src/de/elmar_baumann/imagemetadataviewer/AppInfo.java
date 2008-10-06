@@ -11,7 +11,7 @@ import de.elmar_baumann.imagemetadataviewer.resource.Bundle;
 public class AppInfo {
 
     /** Version der Anwendung */
-    public static final String appVersion = "0.5.8 2008/10/03";  // NOI18N
+    public static final String appVersion = "0.5.10 2008/10/06";  // NOI18N
     /** Name der Anwendung */
     public static final String appName = "Bilder";  // NOI18N
     /** Beschreibung der Anwendung */

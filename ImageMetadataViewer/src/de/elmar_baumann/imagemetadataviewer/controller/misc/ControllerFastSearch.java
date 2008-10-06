@@ -2,7 +2,11 @@ package de.elmar_baumann.imagemetadataviewer.controller.misc;
 
 import de.elmar_baumann.imagemetadataviewer.UserSettings;
 import de.elmar_baumann.imagemetadataviewer.controller.Controller;
+import de.elmar_baumann.imagemetadataviewer.data.AutoCompleteData;
+import de.elmar_baumann.imagemetadataviewer.data.ImageFile;
 import de.elmar_baumann.imagemetadataviewer.database.Database;
+import de.elmar_baumann.imagemetadataviewer.event.DatabaseAction;
+import de.elmar_baumann.imagemetadataviewer.event.DatabaseListener;
 import de.elmar_baumann.imagemetadataviewer.event.UserSettingsChangeEvent;
 import de.elmar_baumann.imagemetadataviewer.event.UserSettingsChangeListener;
 import de.elmar_baumann.imagemetadataviewer.resource.Panels;
@@ -18,6 +22,7 @@ import java.awt.event.MouseEvent;
 import java.util.List;
 import javax.swing.JTextField;
 import javax.swing.JTree;
+import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 /**
  * Kontrolliert die Aktion: Schnellsuche durchführen.
@@ -25,17 +30,30 @@ import javax.swing.JTree;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public class ControllerFastSearch extends Controller implements UserSettingsChangeListener {
+public class ControllerFastSearch extends Controller
+    implements UserSettingsChangeListener, DatabaseListener {
 
     private Database db = Database.getInstance();
     private AppPanel appPanel = Panels.getInstance().getAppPanel();
     private JTextField textFieldSearch = appPanel.getTextFieldSearch();
     private ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelImageFileThumbnails();
     private List<JTree> selectionTrees = appPanel.getSelectionTrees();
+    private AutoCompleteData searchAutoCompleteData;
 
     public ControllerFastSearch() {
         textFieldSearch.setEnabled(UserSettings.getInstance().getFastSearchColumns().size() > 0);
+        setAutocomplete();
         listenToActionSources();
+    }
+
+    private void setAutocomplete() {
+        if (UserSettings.getInstance().isUseAutocomplete()) {
+            searchAutoCompleteData = new AutoCompleteData();
+            AutoCompleteDecorator.decorate(
+                textFieldSearch,
+                searchAutoCompleteData.toList(),
+                false);
+        }
     }
 
     private void listenToActionSources() {
@@ -59,6 +77,7 @@ public class ControllerFastSearch extends Controller implements UserSettingsChan
             }
         });
 
+        db.addDatabaseListener(this);
     }
 
     private void checkEnabled() {
@@ -91,6 +110,26 @@ public class ControllerFastSearch extends Controller implements UserSettingsChan
             textFieldSearch.setEnabled(true);
         } else if (evt.getChanged().equals(UserSettingsChangeEvent.Changed.noFastSearchColumns)) {
             textFieldSearch.setEnabled(false);
+        }
+    }
+
+    @Override
+    public void actionPerformed(DatabaseAction action) {
+        DatabaseAction.Type type = action.getType();
+        if (isStarted() && type.equals(DatabaseAction.Type.ImageFileInserted) ||
+            type.equals(DatabaseAction.Type.ImageFileUpdated)) {
+            // TODO: add data for all (and only) fast search columns
+            // This is an example an have to be removed if subjects are not
+            // in the fast search columns
+            ImageFile data = action.getImageFileData();
+            if (data != null && data.getXmp() != null) {
+                List<String> keywords = data.getXmp().getDcSubjects();
+                if (keywords != null) {
+                    for (String keyword : keywords) {
+                        searchAutoCompleteData.addString(keyword);
+                    }
+                }
+            }
         }
     }
 }
