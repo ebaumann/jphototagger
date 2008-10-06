@@ -2,10 +2,8 @@ package de.elmar_baumann.lib.io;
 
 import de.elmar_baumann.lib.resource.Bundle;
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.filechooser.FileSystemView;
 
 /**
  * Alle Wurzelverzeichnisse des Systems für ein DirectoryTreeModel.
@@ -24,11 +22,9 @@ public class DirectoryTreeModelRoots {
 
     private void init() {
         File[] fileRoots = File.listRoots();
-        FileSystemView fsv = FileSystemView.getFileSystemView();
 
         for (int index = 0; index < fileRoots.length; index++) {
-            if (fsv.isComputerNode(fileRoots[index])
-                && !fsv.isFloppyDrive(fileRoots[index])) {
+            if (fileRoots[index].exists()) {
                 roots.add(new DirectoryTreeModelFile(fileRoots[index].getAbsolutePath()));
             }
         }
