@@ -49,12 +49,12 @@ public class MetaDataEditPanelsArray implements FocusListener, DatabaseListener 
     private List<MetaDataEditPanelListener> listener = new ArrayList<MetaDataEditPanelListener>();
     private MetaDataEditActionsPanel metaDataEditActionsPanel;
     private boolean isUseAutocomplete = UserSettings.getInstance().isUseAutocomplete();
+    private Component lastFocussedComponent;
 
     public MetaDataEditPanelsArray(JComponent container) {
         this.container = container;
         createEditPanels();
-        addEditPanels();
-        addActionPanel();
+        addPanels();
         setFocusToFirstEditField();
         Database.getInstance().addDatabaseListener(this);
     }
@@ -195,7 +195,7 @@ public class MetaDataEditPanelsArray implements FocusListener, DatabaseListener 
         }
     }
 
-    private void addEditPanels() {
+    private void addPanels() {
         container.removeAll();
         GridBagLayout layout = new GridBagLayout();
         GridBagConstraints constraints = getConstraints();
@@ -208,13 +208,14 @@ public class MetaDataEditPanelsArray implements FocusListener, DatabaseListener 
             layout.setConstraints(panels.get(i), constraints);
             container.add(panels.get(i));
         }
+        addActionPanel(layout);
     }
 
-    private void addActionPanel() {
+    private void addActionPanel(GridBagLayout layout) {
         metaDataEditActionsPanel = Panels.getInstance().getAppPanel().getMetaDataEditActionsPanel();
-        // listen to the *first* element of this  panel
-        metaDataEditActionsPanel.buttonMetaDataTemplateCreate.addFocusListener(this);
+        layout.setConstraints(metaDataEditActionsPanel, getConstraints());
         container.add(metaDataEditActionsPanel);
+        metaDataEditActionsPanel.tabbedPane.addFocusListener(this);
     }
 
     private GridBagConstraints getConstraints() {
@@ -228,13 +229,16 @@ public class MetaDataEditPanelsArray implements FocusListener, DatabaseListener 
         return constraints;
     }
 
-    /**
-     * Setzt den Fokus auf das erste Eingabefeld.
-     */
-    public void setFocusToFirstEditField() {
+    private void setFocusToFirstEditField() {
         if (panels.size() > 0) {
             TextEntry textEntry = (TextEntry) panels.get(0);
             textEntry.focus();
+        }
+    }
+
+    public void setFocusToLastFocussedComponent() {
+        if (lastFocussedComponent != null) {
+            lastFocussedComponent.requestFocus();
         }
     }
 
@@ -270,9 +274,10 @@ public class MetaDataEditPanelsArray implements FocusListener, DatabaseListener 
 
     @Override
     public void focusGained(FocusEvent e) {
-        if (e.getSource() == metaDataEditActionsPanel.buttonMetaDataTemplateCreate) {
+        if (e.getComponent() == metaDataEditActionsPanel.tabbedPane) {
             setFocusToFirstEditField();
         } else {
+            lastFocussedComponent = e.getComponent();
             scrollToVisible(e.getSource());
         }
     }
