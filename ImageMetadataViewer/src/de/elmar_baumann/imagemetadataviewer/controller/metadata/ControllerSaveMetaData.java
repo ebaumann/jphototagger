@@ -50,6 +50,7 @@ public class ControllerSaveMetaData extends Controller
             } else if (filenameCount > 1) {
                 updater.add(filenames, entries, false, true);
             }
+            editPanels.setFocusToLastFocussedComponent();
         }
     }
 }
