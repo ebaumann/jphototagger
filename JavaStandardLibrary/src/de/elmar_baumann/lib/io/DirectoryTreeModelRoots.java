@@ -15,18 +15,18 @@ import java.util.List;
 public class DirectoryTreeModelRoots {
 
     private List<DirectoryTreeModelFile> roots = new ArrayList<DirectoryTreeModelFile>();
-
-    public DirectoryTreeModelRoots() {
-        init();
-    }
+    private boolean init = false;
 
     private void init() {
-        File[] fileRoots = File.listRoots();
+        if (!init) {
+            File[] fileRoots = File.listRoots();
 
-        for (int index = 0; index < fileRoots.length; index++) {
-            if (fileRoots[index].exists()) {
-                roots.add(new DirectoryTreeModelFile(fileRoots[index].getAbsolutePath()));
+            for (int index = 0; index < fileRoots.length; index++) {
+                if (fileRoots[index].exists()) {
+                    roots.add(new DirectoryTreeModelFile(fileRoots[index].getAbsolutePath()));
+                }
             }
+            init = true;
         }
     }
 
@@ -36,6 +36,7 @@ public class DirectoryTreeModelRoots {
      * @return Anzahl der Wurzelverzeichnisse
      */
     public int getChildCount() {
+        init();
         return roots.size();
     }
 
@@ -46,6 +47,7 @@ public class DirectoryTreeModelRoots {
      * @return      Index oder -1, falls child kein Wurzelverzeichnis ist
      */
     public int getIndexOfChild(Object child) {
+        init();
         return roots.indexOf(child);
     }
 
