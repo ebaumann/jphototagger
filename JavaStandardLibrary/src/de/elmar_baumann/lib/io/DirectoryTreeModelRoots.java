@@ -2,8 +2,10 @@ package de.elmar_baumann.lib.io;
 
 import de.elmar_baumann.lib.resource.Bundle;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.filechooser.FileSystemView;
 
 /**
  * Alle Wurzelverzeichnisse des Systems für ein DirectoryTreeModel.
@@ -15,18 +17,20 @@ import java.util.List;
 public class DirectoryTreeModelRoots {
 
     private List<DirectoryTreeModelFile> roots = new ArrayList<DirectoryTreeModelFile>();
-    private boolean init = false;
+
+    DirectoryTreeModelRoots() {
+        init();
+    }
 
     private void init() {
-        if (!init) {
-            File[] fileRoots = File.listRoots();
+        File[] fileRoots = File.listRoots();
+        FileSystemView fsv = FileSystemView.getFileSystemView();
 
-            for (int index = 0; index < fileRoots.length; index++) {
-                if (fileRoots[index].exists()) {
-                    roots.add(new DirectoryTreeModelFile(fileRoots[index].getAbsolutePath()));
-                }
+        for (int index = 0; index < fileRoots.length; index++) {
+            if (fsv.isComputerNode(fileRoots[index])
+                && !fsv.isFloppyDrive(fileRoots[index])) {
+                roots.add(new DirectoryTreeModelFile(fileRoots[index].getAbsolutePath()));
             }
-            init = true;
         }
     }
 
@@ -36,7 +40,6 @@ public class DirectoryTreeModelRoots {
      * @return Anzahl der Wurzelverzeichnisse
      */
     public int getChildCount() {
-        init();
         return roots.size();
     }
 
@@ -47,7 +50,6 @@ public class DirectoryTreeModelRoots {
      * @return      Index oder -1, falls child kein Wurzelverzeichnis ist
      */
     public int getIndexOfChild(Object child) {
-        init();
         return roots.indexOf(child);
     }
 
