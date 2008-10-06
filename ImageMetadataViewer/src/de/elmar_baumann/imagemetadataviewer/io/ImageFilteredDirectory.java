@@ -70,9 +70,11 @@ public class ImageFilteredDirectory {
     public static List<File> getImageFilesOfDirectory(String directoryname) {
         File[] filteredFiles = FileUtil.getFiles(directoryname,
             AppSettings.fileFilterAcceptedImageFileFormats);
-        List<File> files = new ArrayList<File>(filteredFiles.length);
-        for (int index = 0; index < filteredFiles.length; index++) {
-            files.add(filteredFiles[index]);
+        List<File> files = new ArrayList<File>();
+        if (filteredFiles != null) {
+            for (int index = 0; index < filteredFiles.length; index++) {
+                files.add(filteredFiles[index]);
+            }
         }
         return files;
     }
