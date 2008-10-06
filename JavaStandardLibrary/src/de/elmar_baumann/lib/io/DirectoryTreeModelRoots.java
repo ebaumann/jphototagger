@@ -18,7 +18,7 @@ public class DirectoryTreeModelRoots {
 
     private List<DirectoryTreeModelFile> roots = new ArrayList<DirectoryTreeModelFile>();
 
-    DirectoryTreeModelRoots() {
+    public DirectoryTreeModelRoots() {
         init();
     }
 
