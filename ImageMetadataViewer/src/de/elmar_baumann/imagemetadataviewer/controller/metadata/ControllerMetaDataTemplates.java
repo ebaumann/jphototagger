@@ -40,6 +40,7 @@ public class ControllerMetaDataTemplates extends Controller
 
     public ControllerMetaDataTemplates() {
         listenToActionSources();
+        enableButtons();
     }
 
     private void listenToActionSources() {
