@@ -192,6 +192,8 @@ public class ThumbnailUtil {
      * @return Das skalierte Bild.
      */
     private static BufferedImage scaleImage(BufferedImage image, int minWidth, double qfactor) {
+        // Damit Assertions ausgewertet werden, muss die VM mit dem Argument -ea gestartet werden.
+        assert qfactor < 1.0 : "qfactor must be < 1.0";// wir wollen nur verkleinern! :-)
         BufferedImage scaledImage = null;
         try {
             int origHeight = image.getHeight(); // Orignalhöhe
