@@ -48,20 +48,20 @@ public class ThumbnailUtil {
      *  f              alse, wenn ein skaliertes Thumbnail berechnet werden soll
      * @return         Thumbnail oder null, falls keines erzeugt werden konnte
      */
-    public static Image getThumbnail(String filename, int maxWidth,
-            boolean embedded) {
-        if (!FileUtil.existsFile(filename)) {
-            return null;
-        }
+    public static Image getThumbnail(String filename, int maxWidth, boolean embedded) {
         Image thumbnail =
-                (embedded || FileType.isRawFile(filename)
-                ? rotateThumbnail(filename, getFileEmbeddedThumbnail(filename))
-                : getScaledImage(filename, maxWidth));
+            (embedded || FileType.isRawFile(filename)
+            ? rotateThumbnail(filename, getFileEmbeddedThumbnail(filename))
+            : FileType.isJpegFile(filename)
+            ? getScaledImage(filename, maxWidth)
+            : getScaledImageImagero(filename, maxWidth));
         if (thumbnail == null) {
             thumbnail =
-                    (embedded
-                    ? getScaledImage(filename, maxWidth)
-                    : rotateThumbnail(filename, getFileEmbeddedThumbnail(filename)));
+                (embedded
+                ? FileType.isJpegFile(filename)
+                ? getScaledImage(filename, maxWidth)
+                : getScaledImageImagero(filename, maxWidth)
+                : rotateThumbnail(filename, getFileEmbeddedThumbnail(filename)));
         }
         return thumbnail;
     }
@@ -78,7 +78,7 @@ public class ThumbnailUtil {
                 TiffReader tiffReader = (TiffReader) reader;
                 if (tiffReader.getThumbnailCount() > 0) {
                     thumbnail = Toolkit.getDefaultToolkit().createImage(
-                            tiffReader.getThumbnail(0));
+                        tiffReader.getThumbnail(0));
                 }
             }
         } catch (IOException ex) {
@@ -91,37 +91,30 @@ public class ThumbnailUtil {
         return thumbnail;
     }
 
-    private static Image getScaledImage(String filename, int maxLength) {
-        /*
+    private static Image getScaledImageImagero(String filename, int maxLength) {
         try {
-        IOParameterBlock ioParamBlock = new IOParameterBlock();
-        ImageProcOptions procOptions = new ImageProcOptions();
-        
-        ioParamBlock.setSource(new File(filename));
-        procOptions.setSource(ioParamBlock);
-        procOptions.setScale(maxLength);
-                
-        return Imagero.readImage(procOptions);
+            IOParameterBlock ioParamBlock = new IOParameterBlock();
+            ImageProcOptions procOptions = new ImageProcOptions();
+
+            ioParamBlock.setSource(new File(filename));
+            procOptions.setSource(ioParamBlock);
+            procOptions.setScale(maxLength);
+
+            return Imagero.readImage(procOptions);
         } catch (IOException ex) {
-        Logger.getLogger(ThumbnailUtil.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ThumbnailUtil.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
-        Logger.getLogger(ImageFileThumbnailsPanel.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ImageFileThumbnailsPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
-        */
-        BufferedImage image = loadImage(new File(filename));
-        System.out.println("Scaling image " + filename);
-        BufferedImage scaledImage = stepScaleImage(image, maxLength, 0.5);
-        return scaledImage;
-
     }
 
     private static Image rotateThumbnail(String filename, Image thumbnail) {
         if (thumbnail != null) {
             ExifMetadata exifMetadata = new ExifMetadata();
             double rotateAngle =
-                    exifMetadata.getThumbnailRotationAngle(
-                    exifMetadata.getMetadata(filename));
+                exifMetadata.getThumbnailRotationAngle(
+                exifMetadata.getMetadata(filename));
             if (rotateAngle != 0) {
                 return ImageTransform.rotate(thumbnail, rotateAngle);
             }
@@ -138,14 +131,14 @@ public class ThumbnailUtil {
      * @return          Thumbnail, null bei Fehlern
      */
     public static Image getThumbnailFromExternalApplication(String filename,
-            String command, int maxLength) {
+        String command, int maxLength) {
         if (!FileUtil.existsFile(filename)) {
             return null;
         }
         Image image = null;
 
         String cmd = command.replace("%s", filename).replace("%i", // NOI18N
-                new Integer(maxLength).toString());
+            new Integer(maxLength).toString());
         byte[] output = External.executeGetOutput(cmd);
         if (output != null) {
             MediaTracker tracker = new MediaTracker(new JPanel());
@@ -158,6 +151,16 @@ public class ThumbnailUtil {
             }
         }
         return image;
+    }
+
+    private static Image getScaledImage(String filename, int maxLength) {
+        BufferedImage image = loadImage(new File(filename));
+        BufferedImage scaledImage = null;
+        if (image != null) {
+            scaledImage = stepScaleImage(image, maxLength, 0.5);
+        }
+        return scaledImage;
+
     }
 
     /**
@@ -214,16 +217,16 @@ public class ThumbnailUtil {
                 System.out.println("Pass " + pass + ": Scaling " + origWidth + " x " + origHeight + " - > " + width + " x " + height);
                 // Skalierungsschritt
                 image = scaleImage(width, height, image);
-                
+
                 origWidth = image.getWidth(); // Die neue Ausgangsbreite füre denm nächsten Skalierungsschritt
                 origHeight = image.getHeight(); // Die neue Ausgangshöhe für den nächsten Skalierungsschritt
                 pass++;
             }
-        
+
             System.out.println("Pass " + pass + ": Scaling " + origWidth + " x " + origHeight + " - > " + scaledWidth + " x " + scaledHeight);
             // Letzter Skalierungsschritt auf Zielgröße
             scaledImage = scaleImage(scaledWidth, scaledHeight, image);
-        
+
         } catch (ImageFormatException e) {
             Logger.getLogger(ThumbnailUtil.class.getName()).log(Level.SEVERE, null, e);
         }
@@ -247,7 +250,7 @@ public class ThumbnailUtil {
         graphics2D.drawImage(image, 0, 0, scaledWidth, scaledHeight, null);
         return scaledImage;
     }
-    
+
     /**
      * Diese Methode lädt ein Bild mit Hilfe des MediaTrackers.
      * 
