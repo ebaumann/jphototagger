@@ -33,11 +33,11 @@ public class AppPanel extends javax.swing.JPanel {
 
     private static final String keyThumbnailPanelViewportViewPosition = "de.elmar_baumann.imagemetadataviewer.view.panels.AppPanel.scrollPaneThumbnailsPanel"; // NOI18N
     private List<JTable> xmpTables = new ArrayList<JTable>();
-    private List<JTable> metaDataTables = new ArrayList<JTable>();
+    private List<JTable> metadataTables = new ArrayList<JTable>();
     private List<JTree> selectionTrees = new ArrayList<JTree>();
     private List<JList> selectionLists = new ArrayList<JList>();
-    private MetaDataEditPanelsArray editPanelsArray;
-    private MetaDataEditActionsPanel metaDataEditActionsPanel;
+    private MetadataEditPanelsArray editPanelsArray;
+    private MetaDataEditActionsPanel metadataEditActionsPanel;
 
     public AppPanel() {
         Panels.getInstance().setAppPanel(this);
@@ -46,7 +46,7 @@ public class AppPanel extends javax.swing.JPanel {
     }
 
     private void postInitComponents() {
-        editPanelsArray = new MetaDataEditPanelsArray(panelEditMetadata);
+        editPanelsArray = new MetadataEditPanelsArray(panelEditMetadata);
         panelImageFileThumbnails.setViewport(scrollPaneThumbnailsPanel.getViewport());
         setBackgroundColorTablesScrollPanes();
         disableTreeMultipleSelection();
@@ -60,10 +60,10 @@ public class AppPanel extends javax.swing.JPanel {
     }
 
     public MetaDataEditActionsPanel getMetaDataEditActionsPanel() {
-        if (metaDataEditActionsPanel == null) {
-            metaDataEditActionsPanel = new MetaDataEditActionsPanel();
+        if (metadataEditActionsPanel == null) {
+            metadataEditActionsPanel = new MetaDataEditActionsPanel();
         }
-        return metaDataEditActionsPanel;
+        return metadataEditActionsPanel;
     }
 
     public JProgressBar getProgressBarCreateMetaDataOfCurrentThumbnails() {
@@ -127,27 +127,27 @@ public class AppPanel extends javax.swing.JPanel {
     }
 
     public JButton getButtonSaveMetadata() {
-        return metaDataEditActionsPanel.buttonSaveMetadata;
+        return metadataEditActionsPanel.buttonSaveMetadata;
     }
 
     public JButton getButtonMetaDataTemplateCreate() {
-        return metaDataEditActionsPanel.buttonMetaDataTemplateCreate;
+        return metadataEditActionsPanel.buttonMetaDataTemplateCreate;
     }
 
     public JButton getButtonMetaDataTemplateUpdate() {
-        return metaDataEditActionsPanel.buttonMetaDataTemplateUpdate;
+        return metadataEditActionsPanel.buttonMetaDataTemplateUpdate;
     }
 
     public JButton getButtonMetaDataTemplateRename() {
-        return metaDataEditActionsPanel.buttonMetaDataTemplateRename;
+        return metadataEditActionsPanel.buttonMetaDataTemplateRename;
     }
 
     public JButton getButtonMetaDataTemplateInsert() {
-        return metaDataEditActionsPanel.buttonMetaDataTemplateInsert;
+        return metadataEditActionsPanel.buttonMetaDataTemplateInsert;
     }
 
     public JButton getButtonMetaDataTemplateDelete() {
-        return metaDataEditActionsPanel.buttonMetaDataTemplateDelete;
+        return metadataEditActionsPanel.buttonMetaDataTemplateDelete;
     }
 
     public JButton getButtonStopScheduledTasks() {
@@ -155,11 +155,11 @@ public class AppPanel extends javax.swing.JPanel {
     }
 
     public JComboBox getComboBoxMetaDataTemplates() {
-        return metaDataEditActionsPanel.comboBoxMetaDataTemplates;
+        return metadataEditActionsPanel.comboBoxMetaDataTemplates;
     }
 
     public JLabel getLabelMetadataInfoEditable() {
-        return metaDataEditActionsPanel.labelMetadataInfoEditable;
+        return metadataEditActionsPanel.labelMetadataInfoEditable;
     }
 
     public JLabel getLabelStatusbar() {
@@ -174,12 +174,12 @@ public class AppPanel extends javax.swing.JPanel {
         return textFieldSearch;
     }
 
-    public MetaDataEditPanelsArray getEditPanelsArray() {
+    public MetadataEditPanelsArray getEditPanelsArray() {
         return editPanelsArray;
     }
 
     public List<JTable> getMetaDataTables() {
-        return metaDataTables;
+        return metadataTables;
     }
 
     public List<JTable> getXmpTables() {
@@ -232,9 +232,9 @@ public class AppPanel extends javax.swing.JPanel {
     }
 
     private void initMetaDataTablesArray() {
-        metaDataTables.addAll(xmpTables);
-        metaDataTables.add(tableExif);
-        metaDataTables.add(tableIptc);
+        metadataTables.addAll(xmpTables);
+        metadataTables.add(tableExif);
+        metadataTables.add(tableIptc);
     }
 
     private void initXmpTableArray() {
@@ -260,7 +260,7 @@ public class AppPanel extends javax.swing.JPanel {
     }
 
     private void setBackgroundColorTablesScrollPanes() {
-        for (JTable table : metaDataTables) {
+        for (JTable table : metadataTables) {
             Container container = table.getParent();
             if (container instanceof JViewport) {
                 JViewport viewport = (JViewport) container;

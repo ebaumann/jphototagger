@@ -5,7 +5,7 @@ import de.elmar_baumann.imagemetadataviewer.data.TextEntry;
 import de.elmar_baumann.imagemetadataviewer.resource.Panels;
 import de.elmar_baumann.imagemetadataviewer.tasks.XmpUpdaterFromTextEntryArray;
 import de.elmar_baumann.imagemetadataviewer.view.panels.AppPanel;
-import de.elmar_baumann.imagemetadataviewer.view.panels.MetaDataEditPanelsArray;
+import de.elmar_baumann.imagemetadataviewer.view.panels.MetadataEditPanelsArray;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -22,7 +22,7 @@ public class ControllerSaveMetaData extends Controller
 
     private AppPanel appPanel = Panels.getInstance().getAppPanel();
     private JButton buttonSave = appPanel.getButtonSaveMetadata();
-    private MetaDataEditPanelsArray editPanels = appPanel.getEditPanelsArray();
+    private MetadataEditPanelsArray editPanels = appPanel.getEditPanelsArray();
     private XmpUpdaterFromTextEntryArray updater = new XmpUpdaterFromTextEntryArray();
 
     public ControllerSaveMetaData() {

@@ -12,7 +12,7 @@ import de.elmar_baumann.imagemetadataviewer.resource.Bundle;
 import de.elmar_baumann.imagemetadataviewer.resource.Panels;
 import de.elmar_baumann.imagemetadataviewer.view.panels.AppPanel;
 import de.elmar_baumann.imagemetadataviewer.view.panels.ImageFileThumbnailsPanel;
-import de.elmar_baumann.imagemetadataviewer.view.panels.MetaDataEditPanelsArray;
+import de.elmar_baumann.imagemetadataviewer.view.panels.MetadataEditPanelsArray;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -29,7 +29,7 @@ public class ControllerThumbnailSelectionEditMetadata
     private AppPanel appPanel = Panels.getInstance().getAppPanel();
     private JButton buttonSave = appPanel.getButtonSaveMetadata();
     private JLabel labelMetadataInfoEditable = appPanel.getLabelMetadataInfoEditable();
-    private MetaDataEditPanelsArray editPanels = appPanel.getEditPanelsArray();
+    private MetadataEditPanelsArray editPanels = appPanel.getEditPanelsArray();
     private ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelImageFileThumbnails();
 
     public ControllerThumbnailSelectionEditMetadata() {

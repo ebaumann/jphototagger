@@ -40,18 +40,18 @@ import javax.swing.JTextField;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public class MetaDataEditPanelsArray implements FocusListener, DatabaseListener {
+public class MetadataEditPanelsArray implements FocusListener, DatabaseListener {
 
     boolean editable = true;
     private JComponent container;
     private List<JPanel> panels = new ArrayList<JPanel>();
     private List<String> filenames = new ArrayList<String>();
     private List<MetaDataEditPanelListener> listener = new ArrayList<MetaDataEditPanelListener>();
-    private MetaDataEditActionsPanel metaDataEditActionsPanel;
+    private MetaDataEditActionsPanel metadataEditActionsPanel;
     private boolean isUseAutocomplete = UserSettings.getInstance().isUseAutocomplete();
     private Component lastFocussedComponent;
 
-    public MetaDataEditPanelsArray(JComponent container) {
+    public MetadataEditPanelsArray(JComponent container) {
         this.container = container;
         createEditPanels();
         addPanels();
@@ -212,10 +212,10 @@ public class MetaDataEditPanelsArray implements FocusListener, DatabaseListener 
     }
 
     private void addActionPanel(GridBagLayout layout) {
-        metaDataEditActionsPanel = Panels.getInstance().getAppPanel().getMetaDataEditActionsPanel();
-        layout.setConstraints(metaDataEditActionsPanel, getConstraints());
-        container.add(metaDataEditActionsPanel);
-        metaDataEditActionsPanel.tabbedPane.addFocusListener(this);
+        metadataEditActionsPanel = Panels.getInstance().getAppPanel().getMetaDataEditActionsPanel();
+        layout.setConstraints(metadataEditActionsPanel, getConstraints());
+        container.add(metadataEditActionsPanel);
+        metadataEditActionsPanel.tabbedPane.addFocusListener(this);
     }
 
     private GridBagConstraints getConstraints() {
@@ -274,7 +274,7 @@ public class MetaDataEditPanelsArray implements FocusListener, DatabaseListener 
 
     @Override
     public void focusGained(FocusEvent e) {
-        if (e.getComponent() == metaDataEditActionsPanel.tabbedPane) {
+        if (e.getComponent() == metadataEditActionsPanel.tabbedPane) {
             setFocusToFirstEditField();
         } else {
             lastFocussedComponent = e.getComponent();

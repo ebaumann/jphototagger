@@ -45,7 +45,7 @@ public class ControllerShowMetadata extends Controller
     }
 
     private void initData() {
-        data.metaDataTables = appPanel.getMetaDataTables();
+        data.metadataTables = appPanel.getMetaDataTables();
         data.xmpTables = appPanel.getXmpTables();
         data.iptcTableModel = (TableModelIptc) appPanel.getTableIptc().getModel();
         data.exifTableModel = (TableModelExif) appPanel.getTableExif().getModel();
@@ -123,7 +123,7 @@ public class ControllerShowMetadata extends Controller
     }
 
     private void repaintMetadataTables() {
-        for (JTable table : data.metaDataTables) {
+        for (JTable table : data.metadataTables) {
             repaintComponent(table);
         }
     }
@@ -136,7 +136,7 @@ public class ControllerShowMetadata extends Controller
     }
 
     private void resizeMetadataTables() {
-        for (JTable table : data.metaDataTables) {
+        for (JTable table : data.metadataTables) {
             TableUtil.resizeColumnWidthsToFit(table);
         }
     }
