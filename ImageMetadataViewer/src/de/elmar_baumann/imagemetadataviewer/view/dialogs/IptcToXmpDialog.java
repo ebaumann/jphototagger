@@ -45,7 +45,7 @@ public class IptcToXmpDialog extends javax.swing.JDialog
     }
 
     private void chooseDirectory() {
-        DirectoryChooser dialog = new DirectoryChooser(null);
+        DirectoryChooser dialog = new DirectoryChooser(null, UserSettings.getInstance().isAcceptHiddenDirectories());
         dialog.setStartDirectory(new File(directoryName));
         dialog.setMultiSelection(false);
         dialog.setVisible(true);
@@ -115,7 +115,8 @@ public class IptcToXmpDialog extends javax.swing.JDialog
         List<String> directories = new ArrayList<String>();
         directories.add(directoryName);
         if (checkBoxSubdirectories.isSelected()) {
-            directories.addAll(FileUtil.getAllSubDirectoryNames(directoryName));
+            directories.addAll(FileUtil.getAllSubDirectoryNames(directoryName,
+                UserSettings.getInstance().isAcceptHiddenDirectories()));
         }
         return ImageFilteredDirectory.getImageFilenamesOfDirectories(directories);
     }

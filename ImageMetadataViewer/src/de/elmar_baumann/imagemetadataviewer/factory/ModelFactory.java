@@ -1,5 +1,6 @@
 package de.elmar_baumann.imagemetadataviewer.factory;
 
+import de.elmar_baumann.imagemetadataviewer.UserSettings;
 import de.elmar_baumann.imagemetadataviewer.model.ListModelCategories;
 import de.elmar_baumann.imagemetadataviewer.model.ListModelFavoriteDirectories;
 import de.elmar_baumann.imagemetadataviewer.model.TableModelExif;
@@ -43,7 +44,7 @@ public class ModelFactory {
         appPanel.getTableExif().setModel(new TableModelExif());
         appPanel.getTreeSavedSearches().setModel(new TreeModelSavedSearches());
         appPanel.getTreeImageCollections().setModel(new TreeModelImageCollections());
-        appPanel.getTreeDirectories().setModel(new TreeModelDirectories());
+        appPanel.getTreeDirectories().setModel(new TreeModelDirectories(UserSettings.getInstance().isAcceptHiddenDirectories()));
         appPanel.getListFavoriteDirectories().setModel(new ListModelFavoriteDirectories());
         appPanel.getListCategories().setModel(new ListModelCategories());
     }

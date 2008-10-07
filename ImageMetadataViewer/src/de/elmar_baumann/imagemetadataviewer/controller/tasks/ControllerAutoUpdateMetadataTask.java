@@ -92,7 +92,7 @@ public class ControllerAutoUpdateMetadataTask extends Controller
         List<String> subdirectories = new ArrayList<String>();
         if (UserSettings.getInstance().isAutoscanIncludeSubdirectories()) {
             for (String directory : directories) {
-                subdirectories.addAll(FileUtil.getAllSubDirectoryNames(directory));
+                subdirectories.addAll(FileUtil.getAllSubDirectoryNames(directory, UserSettings.getInstance().isAcceptHiddenDirectories()));
             }
             directories.addAll(subdirectories);
             Collections.sort(directories);

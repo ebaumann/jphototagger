@@ -86,7 +86,7 @@ public class CopyToDirectoryDialog extends javax.swing.JDialog
     }
 
     private void chooseTargetDirectory() {
-        DirectoryChooser dialog = new DirectoryChooser(null);
+        DirectoryChooser dialog = new DirectoryChooser(null, UserSettings.getInstance().isAcceptHiddenDirectories());
         dialog.setStartDirectory(new File(lastDirectory));
         dialog.setMultiSelection(false);
         dialog.setVisible(true);

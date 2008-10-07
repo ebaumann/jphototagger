@@ -237,6 +237,16 @@ public class UserSettings {
     public boolean isExpandDirectoriesTree() {
         return !settingsDialog.checkBoxDisableExpandDirectoriesTree.isSelected();
     }
+    
+    /**
+     * Returns whether directory choosers and -trees shall show hidden
+     * directories and if directory scans shall include them.
+     * 
+     * @return true, if accepted
+     */
+    public boolean isAcceptHiddenDirectories() {
+        return settingsDialog.checkBoxAcceptHiddenDirectories.isSelected();
+    }
 
     private UserSettings() {
     }

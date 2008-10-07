@@ -67,7 +67,7 @@ public class UpdateMetaDataOfDirectoriesDialog extends javax.swing.JDialog imple
     }
 
     private void chooseDirectories() {
-        DirectoryChooser dialog = new DirectoryChooser(null);
+        DirectoryChooser dialog = new DirectoryChooser(null, UserSettings.getInstance().isAcceptHiddenDirectories());
         dialog.setStartDirectory(lastSelectedDirectory);
         dialog.setMultiSelection(true);
         dialog.setVisible(true);
@@ -236,7 +236,7 @@ public class UpdateMetaDataOfDirectoriesDialog extends javax.swing.JDialog imple
     }
 
     private void addSubdirectories(File directory) {
-        List<File> subdirectories = FileUtil.getAllSubDirectories(directory);
+        List<File> subdirectories = FileUtil.getAllSubDirectories(directory, UserSettings.getInstance().isAcceptHiddenDirectories());
         for (File dir : subdirectories) {
             DirectoryInfo directoryInfo = new DirectoryInfo(dir);
             if (directoryInfo.hasImageFiles()) {

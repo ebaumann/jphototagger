@@ -1,6 +1,7 @@
 package de.elmar_baumann.imagemetadataviewer.view.dialogs;
 
 import de.elmar_baumann.imagemetadataviewer.AppSettings;
+import de.elmar_baumann.imagemetadataviewer.UserSettings;
 import de.elmar_baumann.imagemetadataviewer.database.Database;
 import de.elmar_baumann.imagemetadataviewer.resource.Bundle;
 import de.elmar_baumann.lib.dialog.DirectoryChooser;
@@ -36,7 +37,7 @@ public class FavoriteDirectoryPropertiesDialog extends javax.swing.JDialog {
     }
 
     private void chooseDirectory() {
-        DirectoryChooser dialog = new DirectoryChooser(null);
+        DirectoryChooser dialog = new DirectoryChooser(null, UserSettings.getInstance().isAcceptHiddenDirectories());
         dialog.setStartDirectory(new File(lastDirectory));
         dialog.setMultiSelection(false);
         dialog.setVisible(true);
