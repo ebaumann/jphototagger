@@ -24,9 +24,9 @@ public class DirectoryTreeModelRoots {
         File[] fileRoots = File.listRoots();
 
         for (int index = 0; index < fileRoots.length; index++) {
-            if (FileExists.exists(fileRoots[index])) {
+            //if (FileExists.exists(fileRoots[index])) {
                 roots.add(new DirectoryTreeModelFile(fileRoots[index].getAbsolutePath()));
-            }
+            //}
         }
     }
 
