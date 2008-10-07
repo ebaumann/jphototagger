@@ -100,11 +100,7 @@ public class ThumbnailUtil {
         ioParamBlock.setSource(new File(filename));
         procOptions.setSource(ioParamBlock);
         procOptions.setScale(maxLength);
-        
-        
-        ScaleOptions scaleOptions = new ScaleOptions();
-        scaleOptions.setScale(maxLength);
-        
+                
         return Imagero.readImage(procOptions);
         } catch (IOException ex) {
         Logger.getLogger(ThumbnailUtil.class.getName()).log(Level.SEVERE, null, ex);
@@ -112,7 +108,7 @@ public class ThumbnailUtil {
         Logger.getLogger(ImageFileThumbnailsPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
-         */
+        */
         BufferedImage image = loadImage(new File(filename));
         System.out.println("Scaling image " + filename);
         BufferedImage scaledImage = scaleImage(image, maxLength, 0.5);
