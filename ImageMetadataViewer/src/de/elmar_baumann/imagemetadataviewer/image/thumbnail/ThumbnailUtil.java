@@ -111,7 +111,7 @@ public class ThumbnailUtil {
         */
         BufferedImage image = loadImage(new File(filename));
         System.out.println("Scaling image " + filename);
-        BufferedImage scaledImage = scaleImage(image, maxLength, 0.5);
+        BufferedImage scaledImage = stepScaleImage(image, maxLength, 0.5);
         return scaledImage;
 
     }
@@ -191,7 +191,7 @@ public class ThumbnailUtil {
      * @param qfactor Ein Wert zwichen 0 und 1. Je kleiner die Zahl, desto mehr Duchgänge wird der Skalierungsprozess machen. Empfohlener Wert ist 0.5.
      * @return Das skalierte Bild.
      */
-    private static BufferedImage scaleImage(BufferedImage image, int minWidth, double qfactor) {
+    private static BufferedImage stepScaleImage(BufferedImage image, int minWidth, double qfactor) {
         // Damit Assertions ausgewertet werden, muss die VM mit dem Argument -ea gestartet werden.
         assert qfactor < 1.0 : "qfactor must be < 1.0";// wir wollen nur verkleinern! :-)
         BufferedImage scaledImage = null;
@@ -199,42 +199,30 @@ public class ThumbnailUtil {
             int origHeight = image.getHeight(); // Orignalhöhe
             int origWidth = image.getWidth(); // Originalbreite
             double factor = (double) origWidth / (double) minWidth; // Skalierungsfaktor von Originalgröße auf Zielgröße
-            int scaledWidth = (int) (origWidth / factor); // Skalierte breite
-            int scaledHeight = (int) (origHeight / factor); // Skalierte Höhe
-            int pass = 1;
+            int scaledWidth = (int) (origWidth / factor); // Zielbreite
+            int scaledHeight = (int) (origHeight / factor); // Zielhöhe
+            int pass = 1; // Zähler für die Durchläufe - nur für Debug
 
-            // Je nach qfactor läuft diese Schleife unterschiedlich oft durch. Sie prüft nach jedem Schleifendurchlauf,
-            // ob die Zielgröße erreicht worden ist. Wenn nein, wird ein neuer Duchlauf gestartet und wieder ein wenig skaliert.
+            // Je nach qfactor läuft diese Schleife unterschiedlich oft durch. Sie prüft vor jedem Schleifendurchlauf,
+            // ob die Zielgröße im folgenden Schritt unterschritten werden würde.. Wenn nein, wird ein neuer Duchlauf
+            // gestartet und wieder ein wenig skaliert.
             // In jedem Schleifendurchlauf werden origHeight und origWidth auf die aktuelle Größe gesetzt.
             while (((origWidth * qfactor) > scaledWidth) || ((origHeight * qfactor) > scaledHeight)) {
                 int width = (int) (origWidth * qfactor); // Die Breite in diesesm Skalierungsschritt
                 int height = (int) (origHeight * qfactor); // Die Höhe in diesem Skalierungsschritt
 
                 System.out.println("Pass " + pass + ": Scaling " + origWidth + " x " + origHeight + " - > " + width + " x " + height);
-
-                scaledImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-                Graphics2D graphics2D = scaledImage.createGraphics();
-                graphics2D.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-                graphics2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-                graphics2D.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
-                graphics2D.drawImage(image, 0, 0, width, height, null);
-                image = scaledImage;
-                origWidth = image.getWidth();
-                origHeight = image.getHeight();
+                // Skalierungsschritt
+                image = scaleImage(width, height, image);
+                
+                origWidth = image.getWidth(); // Die neue Ausgangsbreite füre denm nächsten Skalierungsschritt
+                origHeight = image.getHeight(); // Die neue Ausgangshöhe für den nächsten Skalierungsschritt
                 pass++;
             }
         
             System.out.println("Pass " + pass + ": Scaling " + origWidth + " x " + origHeight + " - > " + scaledWidth + " x " + scaledHeight);
-
-            // Endgültiger letzter Skalierungsschritt auf die Zielgröße.
-            scaledImage = new BufferedImage(scaledWidth, scaledHeight, BufferedImage.TYPE_INT_RGB);
-            Graphics2D graphics2D = scaledImage.createGraphics();
-            graphics2D.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-            graphics2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-            graphics2D.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
-            graphics2D.drawImage(image, 0, 0, scaledWidth, scaledHeight, null);
-
-            System.out.println("Scaling done");
+            // Letzter Skalierungsschritt auf Zielgröße
+            scaledImage = scaleImage(scaledWidth, scaledHeight, image);
         
         } catch (ImageFormatException e) {
             Logger.getLogger(ThumbnailUtil.class.getName()).log(Level.SEVERE, null, e);
@@ -242,6 +230,24 @@ public class ThumbnailUtil {
         return scaledImage;
     }
 
+    /**
+     * Skaliert ein Image auf eine definierte Zielgröße.
+     * 
+     * @param scaledWidth Breite des skalierten Images.
+     * @param scaledHeight Höhe des skalierten Images.
+     * @param image Das zu skalierende Image.
+     * @return Das skalierte Image.
+     */
+    private static BufferedImage scaleImage(int scaledWidth, int scaledHeight, BufferedImage image) {
+        BufferedImage scaledImage = new BufferedImage(scaledWidth, scaledHeight, BufferedImage.TYPE_INT_RGB);
+        Graphics2D graphics2D = scaledImage.createGraphics();
+        graphics2D.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+        graphics2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        graphics2D.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+        graphics2D.drawImage(image, 0, 0, scaledWidth, scaledHeight, null);
+        return scaledImage;
+    }
+    
     /**
      * Diese Methode lädt ein Bild mit Hilfe des MediaTrackers.
      * 
