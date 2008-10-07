@@ -21,8 +21,10 @@ public class TreeModelDirectories implements TreeModel {
 
     private DirectoryTreeModelRoots root = new DirectoryTreeModelRoots();
     private Map<DirectoryTreeModelFile, List<DirectoryTreeModelFile>> childrenOfParent = new HashMap<DirectoryTreeModelFile, List<DirectoryTreeModelFile>>();
+    private boolean accecptHidden;
 
-    public TreeModelDirectories() {
+    public TreeModelDirectories(boolean accecptHidden) {
+        this.accecptHidden = accecptHidden;
         init();
     }
 
@@ -31,7 +33,7 @@ public class TreeModelDirectories implements TreeModel {
         for (int i = 0; i < count; i++) {
             DirectoryTreeModelFile child = root.getChild(i);
             childrenOfParent.put(child,
-                child.getSubDirectories(SortType.ascendingNoCase));
+                child.getSubDirectories(SortType.ascendingNoCase, accecptHidden));
         }
     }
 
@@ -47,7 +49,8 @@ public class TreeModelDirectories implements TreeModel {
         }
         DirectoryTreeModelFile child = childrenOfParent.get(parent).get(index);
         if (!childrenOfParent.containsKey(child)) {
-            childrenOfParent.put(child, child.getSubDirectories(SortType.ascendingNoCase));
+            childrenOfParent.put(child,
+                child.getSubDirectories(SortType.ascendingNoCase, accecptHidden));
         }
         return child;
     }
@@ -62,7 +65,8 @@ public class TreeModelDirectories implements TreeModel {
             return children.size();
         }
         DirectoryTreeModelFile p = (DirectoryTreeModelFile) parent;
-        List<DirectoryTreeModelFile> subdirectories = p.getSubDirectories(SortType.ascendingNoCase);
+        List<DirectoryTreeModelFile> subdirectories =
+            p.getSubDirectories(SortType.ascendingNoCase, accecptHidden);
         childrenOfParent.put(p, subdirectories);
         return subdirectories.size();
     }
