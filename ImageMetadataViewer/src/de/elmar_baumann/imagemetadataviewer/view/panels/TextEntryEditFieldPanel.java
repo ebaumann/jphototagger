@@ -24,7 +24,7 @@ public class TextEntryEditFieldPanel extends javax.swing.JPanel
         this.xmpColumn = xmpColumn;
         initComponents();
         setPropmt();
-        setAutocomplete(xmpColumn);
+        setAutocomplete();
     }
 
     @Override
@@ -42,7 +42,7 @@ public class TextEntryEditFieldPanel extends javax.swing.JPanel
         return xmpColumn;
     }
 
-    private void setAutocomplete(Column xmpColumn) {
+    private void setAutocomplete() {
         if (isAutocomplete) {
             autoCompleteData = new AutoCompleteData(xmpColumn);
             AutoCompleteDecorator.decorate(
