@@ -74,7 +74,7 @@
               <Connection code="new de.elmar_baumann.lib.renderer.TreeCellRendererDirectories()" type="code"/>
             </Property>
             <Property name="model" type="javax.swing.tree.TreeModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="new de.elmar_baumann.lib.model.TreeModelDirectories()" type="code"/>
+              <Connection code="new de.elmar_baumann.lib.model.TreeModelDirectories(acceptHidden)" type="code"/>
             </Property>
           </Properties>
         </Component>

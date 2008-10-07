@@ -24,15 +24,18 @@ public class DirectoryChooser extends javax.swing.JDialog {
 
     private boolean accepted = false;
     private boolean multiSelection = true;
+    private boolean acceptHidden = true;
     private File startDirectory = new File(""); // NOI18N
 
     /**
      * Erzeugt einen modalen Verzeichnisauswahldialog.
      * 
-     * @param parent Elternframe
+     * @param parent        Elternframe
+     * @param acceptHidden  true, if show hidden directories. Default: true
      */
-    public DirectoryChooser(java.awt.Frame parent) {
+    public DirectoryChooser(java.awt.Frame parent, boolean acceptHidden) {
         super(parent, true);
+        this.acceptHidden = acceptHidden;
         initComponents();
         setIcons();
     }
@@ -201,7 +204,7 @@ public class DirectoryChooser extends javax.swing.JDialog {
         });
 
         treeDirectories.setCellRenderer(new de.elmar_baumann.lib.renderer.TreeCellRendererDirectories());
-        treeDirectories.setModel(new de.elmar_baumann.lib.model.TreeModelDirectories());
+        treeDirectories.setModel(new de.elmar_baumann.lib.model.TreeModelDirectories(acceptHidden));
         scrollPaneTreeDirectories.setViewportView(treeDirectories);
 
         buttonChoose.setMnemonic('a');
@@ -274,7 +277,7 @@ private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:even
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                DirectoryChooser dialog = new DirectoryChooser(new javax.swing.JFrame());
+                DirectoryChooser dialog = new DirectoryChooser(new javax.swing.JFrame(), false);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
