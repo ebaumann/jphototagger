@@ -31,12 +31,14 @@ public class DirectoryTreeModelFile extends File {
     /**
      * Liefert alle Unterverzeichnisse <em>nichtrekursiv</em>.
      * 
-     * @param sortType Sortierung der Verzeichnisse
-     * @return         Unterverzeichnisse
+     * @param  sortType     Sortierung der Verzeichnisse
+     * @param  acceptHidden true, wenn versteckte Verzeichnisse geliefert werden
+     *                      sollen
+     * @return Unterverzeichnisse
      */
     @SuppressWarnings("unchecked")
-    public List<DirectoryTreeModelFile> getSubDirectories(SortType sortType) {
-        File[] listFiles = listFiles(new DirectoryFilter());
+    public List<DirectoryTreeModelFile> getSubDirectories(SortType sortType, boolean acceptHidden) {
+        File[] listFiles = listFiles(new DirectoryFilter(acceptHidden));
         List<DirectoryTreeModelFile> directories = new ArrayList<DirectoryTreeModelFile>();
 
         if (listFiles != null) {
