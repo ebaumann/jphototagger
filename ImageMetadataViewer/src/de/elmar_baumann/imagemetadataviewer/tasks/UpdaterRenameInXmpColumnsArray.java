@@ -24,8 +24,12 @@ public class UpdaterRenameInXmpColumnsArray implements ProgressListener {
     private ProgressBarCurrentTasks progressBarProvider = ProgressBarCurrentTasks.getInstance();
     private boolean stop = false;
 
-    private void setWait(boolean wait) {
+    synchronized private void setWait(boolean wait) {
         this.wait = wait;
+    }
+    
+    synchronized private boolean isWait() {
+        return wait;
     }
 
     /**
@@ -43,7 +47,7 @@ public class UpdaterRenameInXmpColumnsArray implements ProgressListener {
     }
 
     synchronized private void startNextThread() {
-        if (!stop && !wait && !updaters.isEmpty()) {
+        if (!stop && !isWait() && !updaters.isEmpty()) {
             setWait(true);
             UpdaterRenameInXmpColumns updater = updaters.pop();
             updater.addProgressListener(this);

@@ -64,11 +64,11 @@ public class XmpUpdaterFromTextEntryArray implements ProgressListener {
         return stop;
     }
 
-    private boolean isWait() {
+    synchronized private boolean isWait() {
         return wait;
     }
 
-    private void setWait(boolean wait) {
+    synchronized private void setWait(boolean wait) {
         this.wait = wait;
     }
 
