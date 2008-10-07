@@ -200,13 +200,15 @@ public class FileUtil {
     /**
      * Liefert alle Unterverzeichnisse eines Verzeichnisses.
      * 
-     * @param  directory  Verzeichnis
+     * @param  directory      Verzeichnis
+     * @param  accecptHidden  true, wenn versteckte Verzeichnisse akzeptiert
+     *                         werden sollen
      * @return Unterverzeichnisse
      */
-    public static List<File> getSubDirectories(File directory) {
+    public static List<File> getSubDirectories(File directory, boolean accecptHidden) {
         List<File> directories = new ArrayList<File>();
         if (directory.isDirectory()) {
-            File[] dirs = directory.listFiles(new DirectoryFilter());
+            File[] dirs = directory.listFiles(new DirectoryFilter(accecptHidden));
             if (dirs != null && dirs.length > 0) {
                 directories.addAll(Arrays.asList(dirs));
             }
@@ -218,10 +220,12 @@ public class FileUtil {
      * Liefert die Namen aller Unterverzeichnisse eines Verzeichnisses.
      * 
      * @param  directoryName  Verzeichnisname
+     * @param  accecptHidden  true, wenn versteckte Verzeichnisse akzeptiert
+     *                        werden sollen
      * @return Namen der Unterverzeichnisse
      */
-    public static List<String> getSubDirectoryNames(String directoryName) {
-        List<File> directories = getSubDirectories(new File(directoryName));
+    public static List<String> getSubDirectoryNames(String directoryName, boolean accecptHidden) {
+        List<File> directories = getSubDirectories(new File(directoryName), accecptHidden);
         List<String> subdirectories = new ArrayList<String>();
         for (File directory : directories) {
             subdirectories.add(directory.getAbsolutePath());
@@ -233,19 +237,21 @@ public class FileUtil {
      * Liefert alle Unterverzeichnisse eines Verzeichnisses einschließlich
      * derer Unterverzeichnisse bis zur untersten Ebene.
      * 
-     * @param  directory  Verzeichnis
+     * @param  directory      Verzeichnis
+     * @param  accecptHidden  true, wenn versteckte Verzeichnisse akzeptiert
+     *                        werden sollen
      * @return Unterverzeichnisse
      */
-    public static List<File> getAllSubDirectories(File directory) {
+    public static List<File> getAllSubDirectories(File directory, boolean accecptHidden) {
         List<File> directories = new ArrayList<File>();
         if (directory.isDirectory()) {
-            File[] subdirectories = directory.listFiles(new DirectoryFilter());
+            File[] subdirectories = directory.listFiles(new DirectoryFilter(accecptHidden));
             if (subdirectories != null && subdirectories.length > 0) {
                 List<File> subdirectoriesList = Arrays.asList(subdirectories);
                 for (File dir : subdirectoriesList) {
                     directories.add(dir);
                     List<File> subdirectoriesSubDirs = getAllSubDirectories(
-                        dir);
+                        dir, accecptHidden);
                     directories.addAll(subdirectoriesSubDirs);
                 }
             }
@@ -259,11 +265,13 @@ public class FileUtil {
      * einschließlich die Namen derer Unterverzeichnisse bis zur untersten
      * Ebene.
      * 
-     * @param  directoryName  Verzeichnisname
+     * @param  directoryName   Verzeichnisname
+     * @param  accecptHidden   true, wenn versteckte Verzeichnisse akzeptiert
+     *                         werden sollen
      * @return Namen der Unterverzeichnisse
      */
-    public static List<String> getAllSubDirectoryNames(String directoryName) {
-        List<File> directories = getAllSubDirectories(new File(directoryName));
+    public static List<String> getAllSubDirectoryNames(String directoryName, boolean accecptHidden) {
+        List<File> directories = getAllSubDirectories(new File(directoryName), accecptHidden);
         List<String> subdirectories = new ArrayList<String>();
         for (File directory : directories) {
             subdirectories.add(directory.getAbsolutePath());
