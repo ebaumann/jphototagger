@@ -31,8 +31,8 @@ import javax.swing.JPanel;
 /**
  * Hilfsklasse für Thumbnails.
  *
- * @author Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/07/25
+ * @author Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @version 2008-10-07
  */
 public class ThumbnailUtil {
 
@@ -204,7 +204,7 @@ public class ThumbnailUtil {
             double factor = (double) origWidth / (double) minWidth; // Skalierungsfaktor von Originalgröße auf Zielgröße
             int scaledWidth = (int) (origWidth / factor); // Zielbreite
             int scaledHeight = (int) (origHeight / factor); // Zielhöhe
-            int pass = 1; // Zähler für die Durchläufe - nur für Debug
+            int pass = 1; // Zähler für die Durchläufe - nur für Debugging
 
             // Je nach qfactor läuft diese Schleife unterschiedlich oft durch. Sie prüft vor jedem Schleifendurchlauf,
             // ob die Zielgröße im folgenden Schritt unterschritten werden würde.. Wenn nein, wird ein neuer Duchlauf
