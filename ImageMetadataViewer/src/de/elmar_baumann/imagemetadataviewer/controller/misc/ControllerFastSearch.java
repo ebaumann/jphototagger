@@ -120,10 +120,7 @@ public class ControllerFastSearch extends Controller
 
     @Override
     public void actionPerformed(DatabaseAction action) {
-        DatabaseAction.Type type = action.getType();
-        if (isStarted() && isUseAutocomplete &&
-            type.equals(DatabaseAction.Type.ImageFileInserted) ||
-            type.equals(DatabaseAction.Type.ImageFileUpdated)) {
+        if (isStarted() && isUseAutocomplete && action.isImageModified()) {
             ImageFile data = action.getImageFileData();
             if (data != null && data.getXmp() != null) {
                 addAutoCompleteData(data.getXmp());
