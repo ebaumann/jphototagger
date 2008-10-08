@@ -51,16 +51,16 @@ public class ThumbnailUtil {
     public static Image getThumbnail(String filename, int maxWidth, boolean embedded) {
         Image thumbnail =
             (embedded || FileType.isRawFile(filename)
-            ? rotateThumbnail(filename, getFileEmbeddedThumbnail(filename))
-            : FileType.isJpegFile(filename)
-            ? getScaledImage(filename, maxWidth)
+              ? rotateThumbnail(filename, getFileEmbeddedThumbnail(filename))
+//            : FileType.isJpegFile(filename)
+//            ? getScaledImage(filename, maxWidth)
             : getScaledImageImagero(filename, maxWidth));
         if (thumbnail == null) {
             thumbnail =
                 (embedded
-                ? FileType.isJpegFile(filename)
-                ? getScaledImage(filename, maxWidth)
-                : getScaledImageImagero(filename, maxWidth)
+//                ? FileType.isJpegFile(filename)
+//                ? getScaledImage(filename, maxWidth)
+                ? getScaledImageImagero(filename, maxWidth)
                 : rotateThumbnail(filename, getFileEmbeddedThumbnail(filename)));
         }
         return thumbnail;
@@ -201,7 +201,7 @@ public class ThumbnailUtil {
         try {
             int origHeight = image.getHeight(); // Orignalhöhe
             int origWidth = image.getWidth(); // Originalbreite
-            double factor = (double) origWidth / (double) minWidth; // Skalierungsfaktor von Originalgröße auf Zielgröße
+            double factor = getScaleFactor(origWidth, origHeight, minWidth); // Skalierungsfaktor von Originalgröße auf Zielgröße
             int scaledWidth = (int) (origWidth / factor); // Zielbreite
             int scaledHeight = (int) (origHeight / factor); // Zielhöhe
             int pass = 1; // Zähler für die Durchläufe - nur für Debugging
@@ -214,7 +214,6 @@ public class ThumbnailUtil {
                 int width = (int) (origWidth * qfactor); // Die Breite in diesesm Skalierungsschritt
                 int height = (int) (origHeight * qfactor); // Die Höhe in diesem Skalierungsschritt
 
-                System.out.println("Pass " + pass + ": Scaling " + origWidth + " x " + origHeight + " - > " + width + " x " + height);
                 // Skalierungsschritt
                 image = scaleImage(width, height, image);
 
@@ -223,7 +222,6 @@ public class ThumbnailUtil {
                 pass++;
             }
 
-            System.out.println("Pass " + pass + ": Scaling " + origWidth + " x " + origHeight + " - > " + scaledWidth + " x " + scaledHeight);
             // Letzter Skalierungsschritt auf Zielgröße
             scaledImage = scaleImage(scaledWidth, scaledHeight, image);
 
@@ -231,6 +229,11 @@ public class ThumbnailUtil {
             Logger.getLogger(ThumbnailUtil.class.getName()).log(Level.SEVERE, null, e);
         }
         return scaledImage;
+    }
+    
+    private static double getScaleFactor(int width, int height, int maxWidth) {
+        double longer = width > height ? width : height;
+        return longer / (double) maxWidth;
     }
 
     /**
