@@ -300,10 +300,7 @@ public class MetadataEditPanelsArray implements FocusListener, DatabaseListener 
 
     @Override
     public void actionPerformed(DatabaseAction action) {
-        DatabaseAction.Type type = action.getType();
-        if (isUseAutocomplete &&
-            type.equals(DatabaseAction.Type.ImageFileInserted) ||
-            type.equals(DatabaseAction.Type.ImageFileUpdated)) {
+        if (isUseAutocomplete && action.isImageModified()) {
             ImageFile data = action.getImageFileData();
             if (data != null && data.getXmp() != null) {
                 addAutoCompleteData(data.getXmp());
