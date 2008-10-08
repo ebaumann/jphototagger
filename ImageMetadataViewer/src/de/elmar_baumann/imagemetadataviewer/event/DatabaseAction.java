@@ -258,4 +258,14 @@ public class DatabaseAction {
     public void setSavedSerachData(SavedSearch savedSerachData) {
         this.savedSerachData = savedSerachData;
     }
+
+    /**
+     * Returns whether an image is modified: updated or inserted.
+     * 
+     * @return true, if modified
+     */
+    public boolean isImageModified() {
+        return type.equals(Type.ImageFileInserted) ||
+            type.equals(Type.ImageFileUpdated);
+    }
 }
