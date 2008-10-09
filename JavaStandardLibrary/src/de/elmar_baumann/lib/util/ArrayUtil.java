@@ -24,7 +24,7 @@ public class ArrayUtil {
         String delimiter) {
         return Arrays.asList(string.split(delimiter));
     }
-    
+
     /**
      * Erzeugt aus einem String einen String-Vector.
      * 
@@ -55,5 +55,24 @@ public class ArrayUtil {
             sArray[i] = o == null ? "" : o.toString(); // NOI18N
         }
         return sArray;
+    }
+
+    /**
+     * Returns, whether a string matches one ore more patterns in an array with
+     * regular expressions.
+     * 
+     * Uses <code>java.lang.String.matches(java.lang.String)</code>
+     * 
+     * @param  patterns  patterns
+     * @param  string    string
+     * @return true, if the string matches at least one pattern
+     */
+    public static boolean matches(List<String> patterns, String string) {
+        for (String pattern : patterns) {
+            if (string.matches(pattern)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
