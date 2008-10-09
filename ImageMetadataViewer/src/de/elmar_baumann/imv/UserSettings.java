@@ -13,7 +13,7 @@ import javax.swing.ListModel;
 
 /**
  * Benutzereinstellungen. Benutzt den Dialog
- * {@link de.elmar_baumann.imagemetadataviewer.view.dialogs.UserSettingsDialog}.
+ * {@link de.elmar_baumann.imv.view.dialogs.UserSettingsDialog}.
  * Liest dessen Einstellungen. Motivation: Die Eingaben in etliche Controls des
  * Dialogs werden automatisch persistent gespeichert.
  *

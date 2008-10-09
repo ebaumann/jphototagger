@@ -104,7 +104,7 @@ public class SavedSearch {
      * {@link #toString()}.
      * 
      * @return Name
-     * @see    de.elmar_baumann.imagemetadataviewer.database.metadata.ParamStatement#getName()
+     * @see    de.elmar_baumann.imv.database.metadata.ParamStatement#getName()
      */
     public String getName() {
         String string = null;
@@ -118,7 +118,7 @@ public class SavedSearch {
      * Setzt den Namen des parametrisierten Statements.
      * 
      * @param name Name
-     * @see    de.elmar_baumann.imagemetadataviewer.database.metadata.ParamStatement#setName(java.lang.String)
+     * @see    de.elmar_baumann.imv.database.metadata.ParamStatement#setName(java.lang.String)
      */
     public void setName(String name) {
         paramStatements.setName(name);

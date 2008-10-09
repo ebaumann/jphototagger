@@ -21,12 +21,12 @@ import javax.swing.ImageIcon;
  */
 public class TableIcons {
 
-    private static final ImageIcon iconUndefined = IconUtil.getImageIcon("/de/elmar_baumann/imagemetadataviewer/resource/icon_table_undefined_small.png"); // NOI18N
-    private static final ImageIcon iconFiles = IconUtil.getImageIcon("/de/elmar_baumann/imagemetadataviewer/resource/icon_files_small.png"); // NOI18N
-    private static final ImageIcon iconExif = IconUtil.getImageIcon("/de/elmar_baumann/imagemetadataviewer/resource/icon_exif_small.png"); // NOI18N
-    private static final ImageIcon iconXmp = IconUtil.getImageIcon("/de/elmar_baumann/imagemetadataviewer/resource/icon_xmp_small.png"); // NOI18N
-    private static final ImageIcon iconImageCollection = IconUtil.getImageIcon("/de/elmar_baumann/imagemetadataviewer/resource/icon_image_collection_child.png"); // NOI18N
-    private static final ImageIcon iconSavedSearch = IconUtil.getImageIcon("/de/elmar_baumann/imagemetadataviewer/resource/icon_saved_searches_child.png"); // NOI18N
+    private static final ImageIcon iconUndefined = IconUtil.getImageIcon("/de/elmar_baumann/imv/resource/icon_table_undefined_small.png"); // NOI18N
+    private static final ImageIcon iconFiles = IconUtil.getImageIcon("/de/elmar_baumann/imv/resource/icon_files_small.png"); // NOI18N
+    private static final ImageIcon iconExif = IconUtil.getImageIcon("/de/elmar_baumann/imv/resource/icon_exif_small.png"); // NOI18N
+    private static final ImageIcon iconXmp = IconUtil.getImageIcon("/de/elmar_baumann/imv/resource/icon_xmp_small.png"); // NOI18N
+    private static final ImageIcon iconImageCollection = IconUtil.getImageIcon("/de/elmar_baumann/imv/resource/icon_image_collection_child.png"); // NOI18N
+    private static final ImageIcon iconSavedSearch = IconUtil.getImageIcon("/de/elmar_baumann/imv/resource/icon_saved_searches_child.png"); // NOI18N
     private static HashMap<Table, ImageIcon> iconOfTable = new HashMap<Table, ImageIcon>();
     private static TableIcons instance = new TableIcons();
     

@@ -88,7 +88,7 @@ public class Iptc {
      * Liefert die IPTC-Felder 2:80 (Byline).
      * 
      * @return IPTC-Felder 2:80 (Byline) oder null, wenn nicht definiert
-     * @see    Xmp#getDcCreators()
+     * @see    Xmp#getDcCreator()
      */
     public List<String> getByLines() {
         return byLines.isEmpty() ? null : byLines;
@@ -98,7 +98,7 @@ public class Iptc {
      * Fügt ein IPTC-Feld 2:80 (Byline) hinzu.
      * 
      * @param byLine IPTC-Feld 2:80 (Byline)
-     * @see          Xmp#addDcCreator(java.lang.String)
+     * @see          Xmp#setDcCreator(java.lang.String)
      */
     public void addByLine(String byLine) {
         if (byLine != null && !byLines.contains(byLine)) {

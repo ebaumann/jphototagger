@@ -15,7 +15,7 @@ import javax.swing.filechooser.FileSystemView;
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/07/25
- * @see     de.elmar_baumann.imagemetadataviewer.view.dialogs.UpdateMetaDataOfDirectoriesDialog
+ * @see     de.elmar_baumann.imv.view.dialogs.UpdateMetaDataOfDirectoriesDialog
  */
 public class ListCellRendererDirectories extends DefaultListCellRenderer {
 

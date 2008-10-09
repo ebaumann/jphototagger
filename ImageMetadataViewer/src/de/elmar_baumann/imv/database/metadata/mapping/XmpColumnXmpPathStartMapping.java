@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  * Mapping zwischen
- * {@link de.elmar_baumann.imagemetadataviewer.database.metadata.Column}
+ * {@link de.elmar_baumann.imv.database.metadata.Column}
  * und dem Start eines
  * {@link com.adobe.xmp.properties.XMPPropertyInfo#getPath()}.
  *

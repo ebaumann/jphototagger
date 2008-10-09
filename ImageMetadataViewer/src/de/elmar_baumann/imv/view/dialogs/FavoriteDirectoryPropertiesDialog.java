@@ -23,7 +23,7 @@ import javax.swing.JOptionPane;
 public class FavoriteDirectoryPropertiesDialog extends javax.swing.JDialog {
 
     private static List<Image> appIcons = AppSettings.getAppIcons();
-    private static final String keyLastDirectory = "de.elmar_baumann.imagemetadataviewer.view.dialogs.FavoriteDirectoryPropertiesDialog.LastDirectory"; // NOI18N
+    private static final String keyLastDirectory = "de.elmar_baumann.imv.view.dialogs.FavoriteDirectoryPropertiesDialog.LastDirectory"; // NOI18N
     private String lastDirectory = ""; // NOI18N
     private boolean ok = true;
     private boolean isUpdate = false;

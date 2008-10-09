@@ -25,7 +25,7 @@ import javax.swing.JOptionPane;
 public class CopyToDirectoryDialog extends javax.swing.JDialog
     implements ProgressListener {
 
-    private static final String keyLastDirectory = "de.elmar_baumann.imagemetadataviewer.view.dialogs.CopyToDirectoryDialog.LastDirectory"; // NOI18N
+    private static final String keyLastDirectory = "de.elmar_baumann.imv.view.dialogs.CopyToDirectoryDialog.LastDirectory"; // NOI18N
     private CopyFiles copyTask;
     private boolean copy = false;
     private List<String> sourceFiles;

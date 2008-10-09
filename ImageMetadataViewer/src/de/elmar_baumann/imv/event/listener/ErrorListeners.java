@@ -9,7 +9,7 @@ import java.util.List;
  * Error-Listener, erspart Klassen die Implementation von
  * <code>addErrorListener()</code> und <code>removeErrorListener()</code>.
  * Diese rufen statt dessen bei dieser Instanz auf:
- * {@link #notifyErrorListener(de.elmar_baumann.imagemetadataviewer.event.ErrorEvent)}.
+ * {@link #notifyErrorListener(de.elmar_baumann.imv.event.ErrorEvent)}.
  * 
  * Klassen, die sich für Fehler interessieren, melden sich bei der Instanz
  * dieser Klasse an.

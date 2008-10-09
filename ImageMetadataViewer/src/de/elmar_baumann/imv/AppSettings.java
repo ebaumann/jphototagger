@@ -40,12 +40,12 @@ public class AppSettings {
      * Pfad zum kleinen Anwendungssymbol.
      */
     public static final String pathAppIconSmall =
-        "/de/elmar_baumann/imagemetadataviewer/resource/icon_app_small.png";  // NOI18N
+        "/de/elmar_baumann/imv/resource/icon_app_small.png";  // NOI18N
     /**
      * Pfad zum mittelgroßen Anwendungssymbol.
      */
     public static final String pathAppIconMedium =
-        "/de/elmar_baumann/imagemetadataviewer/resource/icon_app_medium.png";  // NOI18N
+        "/de/elmar_baumann/imv/resource/icon_app_medium.png";  // NOI18N
     public static final String tooltipTextProgressBarDirectory = Bundle.getString("ProgressBarDirectory.TooltipText");
     public static final String tooltipTextProgressBarCurrentTasks = Bundle.getString("ProgressBarCurrentTasks.TooltipText");
     public static final String tooltipTextProgressBarScheduledTasks = Bundle.getString("ProgressBarScheduledTasks.TooltipText");
@@ -77,12 +77,12 @@ public class AppSettings {
      * Icon für die Aktion: Speichern der Metadaten, Zustand: Deaktiviert
      */
     public static final ImageIcon iconSaveMetaDataDisabled =
-        IconUtil.getImageIcon("/de/elmar_baumann/imagemetadataviewer/resource/icon_save_metadata_disabled.png"); // NOI18N
+        IconUtil.getImageIcon("/de/elmar_baumann/imv/resource/icon_save_metadata_disabled.png"); // NOI18N
     /**
      * Icon für die Aktion: Speichern der Metadaten, Zustand: Aktiviert
      */
     public static final ImageIcon iconSaveMetaDataEnabled =
-        IconUtil.getImageIcon("/de/elmar_baumann/imagemetadataviewer/resource/icon_save_metadata_enabled.png"); // NOI18N
+        IconUtil.getImageIcon("/de/elmar_baumann/imv/resource/icon_save_metadata_enabled.png"); // NOI18N
 
     
     private static List<String> appIconPaths = new ArrayList<String>();

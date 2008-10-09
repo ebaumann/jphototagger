@@ -9,7 +9,7 @@ import javax.swing.tree.DefaultTreeCellRenderer;
 
 /**
  * Renderer für JTrees, die ein
- * {@link de.elmar_baumann.imagemetadataviewer.model.TreeModelSavedSearches}
+ * {@link de.elmar_baumann.imv.model.TreeModelSavedSearches}
  * darstellen.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
@@ -17,8 +17,8 @@ import javax.swing.tree.DefaultTreeCellRenderer;
  */
 public class TreeCellRendererSavedSearches extends DefaultTreeCellRenderer {
 
-    private static final Icon rootIcon = IconUtil.getImageIcon("/de/elmar_baumann/imagemetadataviewer/resource/icon_saved_searches_root.png"); // NOI18N
-    private static final Icon childIcon = IconUtil.getImageIcon("/de/elmar_baumann/imagemetadataviewer/resource/icon_saved_searches_child.png"); // NOI18N
+    private static final Icon rootIcon = IconUtil.getImageIcon("/de/elmar_baumann/imv/resource/icon_saved_searches_root.png"); // NOI18N
+    private static final Icon childIcon = IconUtil.getImageIcon("/de/elmar_baumann/imv/resource/icon_saved_searches_child.png"); // NOI18N
 
     @Override
     public Component getTreeCellRendererComponent(

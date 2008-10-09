@@ -17,7 +17,7 @@ import javax.swing.JProgressBar;
  * erst durch Aufruf von {@link #start()}.
  * 
  * Ermittelt werden die Verzeichnisse durch
- * {@link de.elmar_baumann.imagemetadataviewer.UserSettings#getAutoscanDirectories()}.
+ * {@link de.elmar_baumann.imv.UserSettings#getAutoscanDirectories()}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05

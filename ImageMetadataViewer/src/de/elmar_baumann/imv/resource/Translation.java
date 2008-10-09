@@ -14,7 +14,7 @@ import java.util.logging.Logger;
  */
 public class Translation {
 
-    private static final String pathPrefix = "de/elmar_baumann/imagemetadataviewer/resource/"; // NOI18N
+    private static final String pathPrefix = "de/elmar_baumann/imv/resource/"; // NOI18N
     ResourceBundle bundle;
 
     public Translation(String propertiesFileBasename) {

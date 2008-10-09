@@ -31,10 +31,10 @@ import javax.swing.DefaultListModel;
 public class UpdateMetaDataOfDirectoriesDialog extends javax.swing.JDialog implements
     ProgressListener {
 
-    private final String keyLastDirectory = "de.elmar_baumann.imagemetadataviewer.view.ScanDirectoriesDialog.lastSelectedDirectory"; // NOI18N
-    private final String keyForce = "de.elmar_baumann.imagemetadataviewer.view.ScanDirectoriesDialog.force"; // NOI18N
-    private final String keyNoThumbnails = "de.elmar_baumann.imagemetadataviewer.view.ScanDirectoriesDialog.noThumbnails"; // NOI18N
-    private final String keySubdirectories = "de.elmar_baumann.imagemetadataviewer.view.ScanDirectoriesDialog.subdirectories"; // NOI18N
+    private final String keyLastDirectory = "de.elmar_baumann.imv.view.ScanDirectoriesDialog.lastSelectedDirectory"; // NOI18N
+    private final String keyForce = "de.elmar_baumann.imv.view.ScanDirectoriesDialog.force"; // NOI18N
+    private final String keyNoThumbnails = "de.elmar_baumann.imv.view.ScanDirectoriesDialog.noThumbnails"; // NOI18N
+    private final String keySubdirectories = "de.elmar_baumann.imv.view.ScanDirectoriesDialog.subdirectories"; // NOI18N
     private final String title = Bundle.getString("UpdateMetaDataOfDirectoriesDialog.Title");
     private final String currentFilenameInfotextPrefix = Bundle.getString("UpdateMetaDataOfDirectoriesDialog.InformationMessage.UpdateCurrentFile");
     private List<String> selectedImagesFilenames = new ArrayList<String>();

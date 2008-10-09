@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 public class Bundle {
 
     private static ResourceBundle bundle =
-        ResourceBundle.getBundle("de/elmar_baumann/imagemetadataviewer/resource/Bundle");
+        ResourceBundle.getBundle("de/elmar_baumann/imv/resource/Bundle");
 
     /**
      * Liefert java.util.ResourceBundle.getBundle().getString() und fängt

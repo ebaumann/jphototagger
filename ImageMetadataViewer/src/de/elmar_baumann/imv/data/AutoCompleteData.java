@@ -24,7 +24,7 @@ public class AutoCompleteData {
      * Standardkonstruktor.
      * 
      * Liest die Schnellsuchspalten ein mit
-     * {@link de.elmar_baumann.imagemetadataviewer.UserSettings#getFastSearchColumns()}.
+     * {@link de.elmar_baumann.imv.UserSettings#getFastSearchColumns()}.
      */
     public AutoCompleteData() {
         columns = new LinkedHashSet<Column>(UserSettings.getInstance().getFastSearchColumns());

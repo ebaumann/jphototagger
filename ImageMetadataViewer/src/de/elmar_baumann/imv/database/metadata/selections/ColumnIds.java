@@ -50,7 +50,7 @@ public class ColumnIds {
     static {
         // TODO PERMANENT: Neue für den Benutzer relevante Spalten hinzufügen
         // Die Reihenfolge darf NIE verändert werden und ist bestimmt durch:
-        // 1. Reihenfolge der hinzugefügten Tabellen in de.elmar_baumann.imagemetadataviewer.database.metadata.AllTables.get()
+        // 1. Reihenfolge der hinzugefügten Tabellen in de.elmar_baumann.imv.database.metadata.AllTables.get()
         // 2. Reihenfolge der Spalten durch addColumns() in jeder der hinugefügten Tabellen
         columnOfId.put(0, ColumnExifDateTimeOriginal.getInstance());
         columnOfId.put(1, ColumnExifFocalLength.getInstance());

@@ -35,7 +35,7 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel
     private ControllerDoubleklickThumbnail controllerDoubleklickThumbnail;
     private boolean persitentSelectionsApplied = false;
     private JViewport viewport;
-    private static final String keyFilenames = "de.elmar_baumann.imagemetadataviewer.view.panels.Filenames"; // NOI18N
+    private static final String keyFilenames = "de.elmar_baumann.imv.view.panels.Filenames"; // NOI18N
 
     public ImageFileThumbnailsPanel() {
         setThumbnailCount(0);

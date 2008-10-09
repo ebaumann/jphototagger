@@ -7,7 +7,7 @@ import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 
 /**
  * Kontroller für die Aktion: Doppelklick auf ein Thumbnail ausgelöst von
- * {@link de.elmar_baumann.imagemetadataviewer.view.panels.ImageFileThumbnailsPanel}.
+ * {@link de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/10

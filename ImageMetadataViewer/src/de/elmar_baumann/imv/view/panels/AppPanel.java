@@ -31,7 +31,7 @@ import javax.swing.tree.TreeSelectionModel;
  */
 public class AppPanel extends javax.swing.JPanel {
 
-    private static final String keyThumbnailPanelViewportViewPosition = "de.elmar_baumann.imagemetadataviewer.view.panels.AppPanel.scrollPaneThumbnailsPanel"; // NOI18N
+    private static final String keyThumbnailPanelViewportViewPosition = "de.elmar_baumann.imv.view.panels.AppPanel.scrollPaneThumbnailsPanel"; // NOI18N
     private List<JTable> xmpTables = new ArrayList<JTable>();
     private List<JTable> metadataTables = new ArrayList<JTable>();
     private List<JTree> selectionTrees = new ArrayList<JTree>();
@@ -73,7 +73,7 @@ public class AppPanel extends javax.swing.JPanel {
     /**
      * Liefert die Progressbar für die aktuellen Tasks.
      * <em>Auf keinen Fall von hier abholen, sondern von
-     * {@link de.elmar_baumann.imagemetadataviewer.resource.ProgressBarCurrentTasks}!
+     * {@link de.elmar_baumann.imv.resource.ProgressBarCurrentTasks}!
      * </em>
      * 
      * @return  Progressbar
@@ -703,8 +703,8 @@ public class AppPanel extends javax.swing.JPanel {
         progressBarCurrentTasks.setForeground(new java.awt.Color(237, 238, 224));
         progressBarCurrentTasks.setToolTipText(AppSettings.tooltipTextProgressBarCurrentTasks);
 
-        buttonStopScheduledTasks.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imagemetadataviewer/resource/icon_stop_scheduled_tasks_enabled.png"))); // NOI18N
-        buttonStopScheduledTasks.setDisabledIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imagemetadataviewer/resource/icon_stop_scheduled_tasks_disabled.png"))); // NOI18N
+        buttonStopScheduledTasks.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icon_stop_scheduled_tasks_enabled.png"))); // NOI18N
+        buttonStopScheduledTasks.setDisabledIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icon_stop_scheduled_tasks_disabled.png"))); // NOI18N
         buttonStopScheduledTasks.setPreferredSize(new java.awt.Dimension(16, 16));
 
         javax.swing.GroupLayout panelMetadataProgressLayout = new javax.swing.GroupLayout(panelMetadataProgress);

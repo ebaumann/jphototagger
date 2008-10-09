@@ -16,7 +16,7 @@ import javax.swing.JProgressBar;
 
 /**
  * Kontrolliert die Aktion: Metadaten erzeugen für ausgewählte Bilder,
- * ausgelöst von {@link de.elmar_baumann.imagemetadataviewer.view.popupmenus.PopupMenuPanelThumbnails}.
+ * ausgelöst von {@link de.elmar_baumann.imv.view.popupmenus.PopupMenuPanelThumbnails}.
  * 
  * <em>Nur eine Instanz erzeugen!</em>
  * 

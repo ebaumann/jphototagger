@@ -30,7 +30,7 @@ import java.util.HashMap;
  */
 public class MetaDataEditTemplate {
     // Diese Klasse sollte je ein Attribut enthalten für jede Spalte aus
-    // de.elmar_baumann.imagemetadataviewer.database.metadata.selections.EditColumns
+    // de.elmar_baumann.imv.database.metadata.selections.EditColumns
     private StringBuffer name = new StringBuffer();
     private StringBuffer dcCreator = new StringBuffer();
     private StringBuffer dcDescription = new StringBuffer();

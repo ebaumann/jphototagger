@@ -11,7 +11,7 @@ import javax.swing.JProgressBar;
 
 /**
  * Verwaltet Threadinstanzen der Klasse
- * {@link de.elmar_baumann.imagemetadataviewer.tasks.XmpUpdaterRenameInColumns}.
+ * {@link de.elmar_baumann.imv.tasks.XmpUpdaterRenameInColumns}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05

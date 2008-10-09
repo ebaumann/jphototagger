@@ -44,7 +44,7 @@ import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
-// TODO: Hibernate, de.elmar_baumann.imagemetadataviewer.data nutzen
+// TODO: Hibernate, de.elmar_baumann.imv.data nutzen
 /**
  * Datenbank, die Bildmetadaten speichert.
  * 
@@ -946,11 +946,11 @@ public class Database {
      * mehr im Dateisystem existieren.
      * 
      * @param listener Listener oder null, falls kein Interesse am Fortschritt.
-     *                 {@link de.elmar_baumann.imagemetadataviewer.event.ProgressListener#progressEnded(de.elmar_baumann.imagemetadataviewer.event.ProgressEvent)}
-     *                 liefert ein {@link de.elmar_baumann.imagemetadataviewer.event.ProgressEvent}-Objekt,
-     *                 das mit {@link de.elmar_baumann.imagemetadataviewer.event.ProgressEvent#getInfo()}
+     *                 {@link de.elmar_baumann.imv.event.ProgressListener#progressEnded(de.elmar_baumann.imv.event.ProgressEvent)}
+     *                 liefert ein {@link de.elmar_baumann.imv.event.ProgressEvent}-Objekt,
+     *                 das mit {@link de.elmar_baumann.imv.event.ProgressEvent#getInfo()}
      *                 ein Int-Objekt liefert mit der Anzahl der gelöschten Datensätze.
-     *                 {@link de.elmar_baumann.imagemetadataviewer.event.ProgressEvent#isStop()}
+     *                 {@link de.elmar_baumann.imv.event.ProgressEvent#isStop()}
      *                 wird ausgewertet (Abbruch des Löschens).
      * @return         Anzahl gelöschter Datensätze
      */
@@ -1550,7 +1550,7 @@ public class Database {
 
     /**
      * Fügt eine gespeicherte Suche ein. Existiert die Suche, wird
-     * {@link #updateSavedSearch(de.elmar_baumann.imagemetadataviewer.data.SavedSearch)}
+     * {@link #updateSavedSearch(de.elmar_baumann.imv.data.SavedSearch)}
      * aufgerufen.
      * 
      * @param  data Suche
@@ -2006,7 +2006,7 @@ public class Database {
      * 
      * @param  name Name der gespeicherten Suche
      * @return true, wenn die gespeicherte Suche existiert
-     * @see    #existsSavedSearch(de.elmar_baumann.imagemetadataviewer.data.SavedSearch)
+     * @see    #existsSavedSearch(de.elmar_baumann.imv.data.SavedSearch)
      */
     public boolean existsSavedSearch(String name) {
         Connection connection = null;

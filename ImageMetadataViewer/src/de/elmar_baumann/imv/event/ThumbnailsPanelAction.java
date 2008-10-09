@@ -7,7 +7,7 @@ import de.elmar_baumann.imv.view.panels.ThumbnailsPanel;
  * 
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/07/20
- * @see     de.elmar_baumann.imagemetadataviewer.view.panels.ThumbnailsPanel
+ * @see     de.elmar_baumann.imv.view.panels.ThumbnailsPanel
  */
 public class ThumbnailsPanelAction {
 

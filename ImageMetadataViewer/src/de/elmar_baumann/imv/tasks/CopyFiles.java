@@ -77,17 +77,17 @@ public class CopyFiles implements Runnable {
 
     /**
      * Fügt einen Aktionsbeobachter hinzu.
-     * {@link de.elmar_baumann.imagemetadataviewer.event.ProgressListener#progressPerformed(de.elmar_baumann.imagemetadataviewer.event.ProgressEvent)}
+     * {@link de.elmar_baumann.imv.event.ProgressListener#progressPerformed(de.elmar_baumann.imv.event.ProgressEvent)}
      * liefert ein
-     * {@link  de.elmar_baumann.imagemetadataviewer.event.ProgressEvent}-Objekt,
-     * das mit {@link  de.elmar_baumann.imagemetadataviewer.event.ProgressEvent#getInfo()}
+     * {@link  de.elmar_baumann.imv.event.ProgressEvent}-Objekt,
+     * das mit {@link  de.elmar_baumann.imv.event.ProgressEvent#getInfo()}
      * ein {@link de.elmar_baumann.lib.template.Pair}-Objekt liefert mit der
      * aktuellen Quelldatei als erstes Element und der Zieldatei als zweites.
      * 
-     * {@link de.elmar_baumann.imagemetadataviewer.event.ProgressListener#progressEnded(de.elmar_baumann.imagemetadataviewer.event.ProgressEvent)}
+     * {@link de.elmar_baumann.imv.event.ProgressListener#progressEnded(de.elmar_baumann.imv.event.ProgressEvent)}
      * liefert ein
-     * {@link  de.elmar_baumann.imagemetadataviewer.event.ProgressEvent}-Objekt,
-     * das mit {@link  de.elmar_baumann.imagemetadataviewer.event.ProgressEvent#getInfo()}
+     * {@link  de.elmar_baumann.imv.event.ProgressEvent}-Objekt,
+     * das mit {@link  de.elmar_baumann.imv.event.ProgressEvent#getInfo()}
      * ein {@link java.util.List}-Objekt mit den Dateinamen der Dateien, die nicht
      * kopiert werden konnten.
      * 

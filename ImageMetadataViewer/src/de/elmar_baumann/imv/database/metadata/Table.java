@@ -55,7 +55,7 @@ public abstract class Table {
      * Fügt der Tabelle eine Spalte hinzu. Setzt diese Tabelle bei der Spalte.
      * 
      * @param column Spalte
-     * @see          de.elmar_baumann.imagemetadataviewer.database.metadata.Column#setTable(de.elmar_baumann.imagemetadataviewer.database.metadata.Table)
+     * @see          de.elmar_baumann.imv.database.metadata.Column#setTable(de.elmar_baumann.imv.database.metadata.Table)
      */
     protected void addColumn(Column column) {
         column.setTable(this);

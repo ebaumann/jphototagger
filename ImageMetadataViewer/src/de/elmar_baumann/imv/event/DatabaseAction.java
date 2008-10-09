@@ -145,19 +145,19 @@ public class DatabaseAction {
     /**
      * Liefert alle betroffenen Dateinamen. Gültige Aktionen:
      * <ul>
-     * <li>{@link de.elmar_baumann.imagemetadataviewer.event.DatabaseAction.Type#AutoscanDirectoryInserted}</li>
-     * <li>{@link de.elmar_baumann.imagemetadataviewer.event.DatabaseAction.Type#AutoscanDirectoryDeleted}</li>
-     * <li>{@link de.elmar_baumann.imagemetadataviewer.event.DatabaseAction.Type#ImageCollectionInserted}:
+     * <li>{@link de.elmar_baumann.imv.event.DatabaseAction.Type#AutoscanDirectoryInserted}</li>
+     * <li>{@link de.elmar_baumann.imv.event.DatabaseAction.Type#AutoscanDirectoryDeleted}</li>
+     * <li>{@link de.elmar_baumann.imv.event.DatabaseAction.Type#ImageCollectionInserted}:
      *     Dateinamen der Bilder</li>
-     * <li>{@link de.elmar_baumann.imagemetadataviewer.event.DatabaseAction.Type#ImageCollectionImagesAdded}:
+     * <li>{@link de.elmar_baumann.imv.event.DatabaseAction.Type#ImageCollectionImagesAdded}:
      *     Dateinamen der eingefügten Bilder</li>
-     * <li>{@link de.elmar_baumann.imagemetadataviewer.event.DatabaseAction.Type#ImageCollectionImagesDeleted}:
+     * <li>{@link de.elmar_baumann.imv.event.DatabaseAction.Type#ImageCollectionImagesDeleted}:
      *     Dateinamen der gelöschen Bilder</li>
-     * <li>{@link de.elmar_baumann.imagemetadataviewer.event.DatabaseAction.Type#ImageFilesDeleted}</li>
-     * <li>{@link de.elmar_baumann.imagemetadataviewer.event.DatabaseAction.Type#MaintainanceNotExistingImageFilesDeleted}</li>
-     * <li>{@link de.elmar_baumann.imagemetadataviewer.event.DatabaseAction.Type#ImageCollectionRenamed}:
+     * <li>{@link de.elmar_baumann.imv.event.DatabaseAction.Type#ImageFilesDeleted}</li>
+     * <li>{@link de.elmar_baumann.imv.event.DatabaseAction.Type#MaintainanceNotExistingImageFilesDeleted}</li>
+     * <li>{@link de.elmar_baumann.imv.event.DatabaseAction.Type#ImageCollectionRenamed}:
      *     Das 1. Arrayelement ist der alte Name, das 2. der neue</li>
-     * <li>{@link de.elmar_baumann.imagemetadataviewer.event.DatabaseAction.Type#SavedSearchRenamed}:
+     * <li>{@link de.elmar_baumann.imv.event.DatabaseAction.Type#SavedSearchRenamed}:
      *     Das 1. Arrayelement ist der alte Name, das 2. der neue</li>
      * </ul>
      * 
@@ -180,20 +180,20 @@ public class DatabaseAction {
      * Liefert den betroffenen Dateinamen. Gültige Aktionen sind:
      * 
      * <ul>
-     * <li>{@link de.elmar_baumann.imagemetadataviewer.event.DatabaseAction.Type#ThumbnailUpdated}</li>
-     * <li>{@link de.elmar_baumann.imagemetadataviewer.event.DatabaseAction.Type#AutoscanDirectoryInserted}</li>
-     * <li>{@link de.elmar_baumann.imagemetadataviewer.event.DatabaseAction.Type#AutoscanDirectoryDeleted}</li>
-     * <li>{@link de.elmar_baumann.imagemetadataviewer.event.DatabaseAction.Type#ImageCollectionDeleted}: 
+     * <li>{@link de.elmar_baumann.imv.event.DatabaseAction.Type#ThumbnailUpdated}</li>
+     * <li>{@link de.elmar_baumann.imv.event.DatabaseAction.Type#AutoscanDirectoryInserted}</li>
+     * <li>{@link de.elmar_baumann.imv.event.DatabaseAction.Type#AutoscanDirectoryDeleted}</li>
+     * <li>{@link de.elmar_baumann.imv.event.DatabaseAction.Type#ImageCollectionDeleted}: 
      *     Der Dateiname ist der Name der Bildsammlung</li>
-     * <li>{@link de.elmar_baumann.imagemetadataviewer.event.DatabaseAction.Type#SavedSearchDeleted}: 
+     * <li>{@link de.elmar_baumann.imv.event.DatabaseAction.Type#SavedSearchDeleted}: 
      *     Der Dateiname ist der Name der gespeicherten Suche</li>
-     * <li>{@link de.elmar_baumann.imagemetadataviewer.event.DatabaseAction.Type#ImageCollectionInserted}:
+     * <li>{@link de.elmar_baumann.imv.event.DatabaseAction.Type#ImageCollectionInserted}:
      *     Name der Bildsammlung</li>
-     * <li>{@link de.elmar_baumann.imagemetadataviewer.event.DatabaseAction.Type#ImageCollectionImagesAdded}:
+     * <li>{@link de.elmar_baumann.imv.event.DatabaseAction.Type#ImageCollectionImagesAdded}:
      *     Name der Bildsammlung</li>
-     * <li>{@link de.elmar_baumann.imagemetadataviewer.event.DatabaseAction.Type#ImageCollectionImagesDeleted}:
+     * <li>{@link de.elmar_baumann.imv.event.DatabaseAction.Type#ImageCollectionImagesDeleted}:
      *     Name der Bildsammlung</li>
-     * <li>{@link de.elmar_baumann.imagemetadataviewer.event.DatabaseAction.Type#XmpUpdated}:
+     * <li>{@link de.elmar_baumann.imv.event.DatabaseAction.Type#XmpUpdated}:
      *     Name der Bilddatei, deren XMP-Daten aktualisiert wurden
      * </li>
      * </ul>
@@ -217,8 +217,8 @@ public class DatabaseAction {
      * Liefert die Daten aller betroffenen Bilddateidaten. Gültige Aktionen:
      * 
      * <ul>
-     * <li>{@link de.elmar_baumann.imagemetadataviewer.event.DatabaseAction.Type#ImageFileInserted}</li>
-     * <li>{@link de.elmar_baumann.imagemetadataviewer.event.DatabaseAction.Type#ImageFileUpdated}</li>
+     * <li>{@link de.elmar_baumann.imv.event.DatabaseAction.Type#ImageFileInserted}</li>
+     * <li>{@link de.elmar_baumann.imv.event.DatabaseAction.Type#ImageFileUpdated}</li>
      * </ul>
      * 
      * @return Dateien oder null bei ungültigen Aktionen
@@ -240,8 +240,8 @@ public class DatabaseAction {
      * Liefert alle Daten einer gespeicherten Suche. Gültige Aktionen:
      * 
      * <ul>
-     * <li>{@link de.elmar_baumann.imagemetadataviewer.event.DatabaseAction.Type#SavedSearchInserted}</li>
-     * <li>{@link de.elmar_baumann.imagemetadataviewer.event.DatabaseAction.Type#SavedSearchInserted}</li>
+     * <li>{@link de.elmar_baumann.imv.event.DatabaseAction.Type#SavedSearchInserted}</li>
+     * <li>{@link de.elmar_baumann.imv.event.DatabaseAction.Type#SavedSearchInserted}</li>
      * </ul>
      * 
      * @return Daten oder null bei ungültigen Aktionen

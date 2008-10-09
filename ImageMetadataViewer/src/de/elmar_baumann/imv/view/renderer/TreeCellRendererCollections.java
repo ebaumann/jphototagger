@@ -14,8 +14,8 @@ import javax.swing.tree.DefaultTreeCellRenderer;
  */
 public class TreeCellRendererCollections extends DefaultTreeCellRenderer {
 
-    private static final Icon rootIcon = IconUtil.getImageIcon("/de/elmar_baumann/imagemetadataviewer/resource/icon_image_collection_root.png"); // NOI18N
-    private static final Icon childIcon = IconUtil.getImageIcon("/de/elmar_baumann/imagemetadataviewer/resource/icon_image_collection_child.png"); // NOI18N
+    private static final Icon rootIcon = IconUtil.getImageIcon("/de/elmar_baumann/imv/resource/icon_image_collection_root.png"); // NOI18N
+    private static final Icon childIcon = IconUtil.getImageIcon("/de/elmar_baumann/imv/resource/icon_image_collection_child.png"); // NOI18N
 
     @Override
     public Component getTreeCellRendererComponent(

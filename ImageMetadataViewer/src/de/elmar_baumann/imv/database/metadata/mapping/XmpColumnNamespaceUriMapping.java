@@ -25,7 +25,7 @@ import java.util.HashMap;
 
 /**
  * Mapping zwischen 
- * {@link de.elmar_baumann.imagemetadataviewer.database.metadata.Column} und
+ * {@link de.elmar_baumann.imv.database.metadata.Column} und
  * einem Namespace-URI
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>

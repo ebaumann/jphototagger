@@ -4,7 +4,7 @@ import de.elmar_baumann.imv.view.panels.MetadataEditPanelsArray;
 
 /**
  * Ereignis bei
- * {@link de.elmar_baumann.imagemetadataviewer.view.panels.MetadataEditPanelsArray}.
+ * {@link de.elmar_baumann.imv.view.panels.MetadataEditPanelsArray}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/22

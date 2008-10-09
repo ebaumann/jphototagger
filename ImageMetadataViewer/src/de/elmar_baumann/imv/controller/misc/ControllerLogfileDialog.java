@@ -16,7 +16,7 @@ import javax.swing.JButton;
 
 /**
  * Kontrolliert die Aktion: Logfiledialog anzeigen. Diese wird ausgelöst von
- * einem Button des {@link de.elmar_baumann.imagemetadataviewer.view.panels.AppPanel}.
+ * einem Button des {@link de.elmar_baumann.imv.view.panels.AppPanel}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/11

@@ -435,7 +435,7 @@ public class SearchColumnPanel extends javax.swing.JPanel {
             }
         });
 
-        buttonCalendar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imagemetadataviewer/resource/icon_calendar.png"))); // NOI18N
+        buttonCalendar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icon_calendar.png"))); // NOI18N
         buttonCalendar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonCalendarActionPerformed(evt);

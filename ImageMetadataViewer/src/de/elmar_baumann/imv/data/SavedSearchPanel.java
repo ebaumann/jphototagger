@@ -1,7 +1,7 @@
 package de.elmar_baumann.imv.data;
 
 /**
- * Daten gespeicherter Suchen für ein {@link de.elmar_baumann.imagemetadataviewer.view.panels.SearchColumnPanel}-Objekt.
+ * Daten gespeicherter Suchen für ein {@link de.elmar_baumann.imv.view.panels.SearchColumnPanel}-Objekt.
  * Die Indexe sind Indexe von Listenitems in Comboboxen oder Listboxen.
  * 
  * @author  Elmar Baumann <eb@elmar-baumann.de>

@@ -32,8 +32,8 @@ public class DatabaseMaintainanceDialog extends javax.swing.JDialog implements
     private TotalRecordCountListener listenerTotalRecordCount = new TotalRecordCountListener();
     private boolean abortAction = false;
     private boolean closedEnabled = true;
-    private final ImageIcon okIcon = IconUtil.getImageIcon("/de/elmar_baumann/imagemetadataviewer/resource/icon_check_ok_small.png"); // NOI18N
-    private final ImageIcon errorIcon = IconUtil.getImageIcon("/de/elmar_baumann/imagemetadataviewer/resource/icon_check_error_small.png"); // NOI18N
+    private final ImageIcon okIcon = IconUtil.getImageIcon("/de/elmar_baumann/imv/resource/icon_check_ok_small.png"); // NOI18N
+    private final ImageIcon errorIcon = IconUtil.getImageIcon("/de/elmar_baumann/imv/resource/icon_check_error_small.png"); // NOI18N
     private static DatabaseMaintainanceDialog instance = new DatabaseMaintainanceDialog();
 
     private DatabaseMaintainanceDialog() {

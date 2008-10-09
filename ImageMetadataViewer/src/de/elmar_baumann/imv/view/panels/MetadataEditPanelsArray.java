@@ -154,7 +154,7 @@ public class MetadataEditPanelsArray implements FocusListener, DatabaseListener 
      * Liefert ein Metadaten-Edit-Template mit den Daten der Panels.
      * 
      * @return Template <em>ohne</em> Name
-     *         ({@link de.elmar_baumann.imagemetadataviewer.data.MetaDataEditTemplate#getName()})
+     *         ({@link de.elmar_baumann.imv.data.MetaDataEditTemplate#getName()})
      */
     public MetaDataEditTemplate getMetaDataEditTemplate() {
         MetaDataEditTemplate template = new MetaDataEditTemplate();

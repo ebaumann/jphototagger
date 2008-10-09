@@ -26,7 +26,7 @@ public class IptcToXmpDialog extends javax.swing.JDialog
     implements ProgressListener {
 
     private String directoryName = ""; // NOI18N
-    private static final String keyDirectoryName = "de.elmar_baumann.imagemetadataviewer.view.dialogs.IptcToXmpDialog.LastDirectory"; // NOI18N
+    private static final String keyDirectoryName = "de.elmar_baumann.imv.view.dialogs.IptcToXmpDialog.LastDirectory"; // NOI18N
     private boolean stop = true;
 
     /** Creates new form IptcToXmpDialog */

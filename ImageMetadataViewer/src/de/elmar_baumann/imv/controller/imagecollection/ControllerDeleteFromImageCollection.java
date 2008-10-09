@@ -12,7 +12,7 @@ import javax.swing.tree.TreePath;
 
 /**
  * Kontrolliert die Aktion: Lösche Bilder aus einer Bildsammlung, ausgelöst von
- * {@link de.elmar_baumann.imagemetadataviewer.view.popupmenus.PopupMenuPanelThumbnails}.
+ * {@link de.elmar_baumann.imv.view.popupmenus.PopupMenuPanelThumbnails}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/00/10

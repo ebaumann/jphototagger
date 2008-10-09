@@ -24,7 +24,7 @@ import java.util.HashMap;
 
 /**
  * Mapping zwischen einer XMP-Spalte
- * {@link de.elmar_baumann.imagemetadataviewer.database.metadata.Column}
+ * {@link de.elmar_baumann.imv.database.metadata.Column}
  * und einem XMP-Datentyp.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
@@ -129,7 +129,7 @@ public class XmpColumnXmpDataTypeMapping {
     /**
      * Liefert, ob eine Spalte den Wert einer alternativen Sprache enthält.
      * Dies impliziert, dass für die Spalte gilt:
-     * {@link #isArray(de.elmar_baumann.imagemetadataviewer.database.metadata.Column)}.
+     * {@link #isArray(de.elmar_baumann.imv.database.metadata.Column)}.
      * 
      * @param   xmpColumn Spalte
      * @return  true, wenn der Spaltenwert für eine alternative Sprache gilt

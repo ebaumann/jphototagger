@@ -17,7 +17,7 @@ import javax.swing.JTree;
 
 /**
  * Kontrolliert die Aktion: Benenne eine gespeicherte Suche um, ausgelöst von
- * {@link de.elmar_baumann.imagemetadataviewer.view.popupmenus.PopupMenuTreeSavedSearches}.
+ * {@link de.elmar_baumann.imv.view.popupmenus.PopupMenuTreeSavedSearches}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/10

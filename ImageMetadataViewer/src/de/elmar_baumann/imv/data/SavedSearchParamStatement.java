@@ -4,7 +4,7 @@ import de.elmar_baumann.imv.database.metadata.ParamStatement;
 import java.util.List;
 
 /**
- * Daten eines Objekts der Klasse {@link de.elmar_baumann.imagemetadataviewer.database.metadata.ParamStatement}.
+ * Daten eines Objekts der Klasse {@link de.elmar_baumann.imv.database.metadata.ParamStatement}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/12

@@ -12,7 +12,7 @@ import javax.swing.JTree;
 
 /**
  * Kontrolliert Aktion: Lösche Bildsammlung, ausgelöst von
- * {@link de.elmar_baumann.imagemetadataviewer.view.popupmenus.PopupMenuTreeImageCollections}.
+ * {@link de.elmar_baumann.imv.view.popupmenus.PopupMenuTreeImageCollections}.
  * 
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/00/10

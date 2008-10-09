@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
 
 /**
  * Model mit
- * {@link de.elmar_baumann.imagemetadataviewer.data.MetaDataEditTemplate}-Objekten.
+ * {@link de.elmar_baumann.imv.data.MetaDataEditTemplate}-Objekten.
  * Führt alle Änderungen zuerst in der Datenbank aus und bei Erfolg im Model
  * selbst.
  *
