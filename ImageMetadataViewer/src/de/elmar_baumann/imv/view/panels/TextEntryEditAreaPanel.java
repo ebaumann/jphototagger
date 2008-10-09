@@ -15,11 +15,11 @@ import java.awt.Color;
 public class TextEntryEditAreaPanel extends javax.swing.JPanel
     implements TextEntry {
 
-    private Column xmpColumn;
+    private Column column;
     private Color editableBackground;
 
-    public TextEntryEditAreaPanel(Column xmpColumn) {
-        this.xmpColumn = xmpColumn;
+    public TextEntryEditAreaPanel(Column column) {
+        this.column = column;
         initComponents();
         editableBackground = textAreaEdit.getBackground();
         setPropmt();
@@ -37,11 +37,11 @@ public class TextEntryEditAreaPanel extends javax.swing.JPanel
 
     @Override
     public Column getColumn() {
-        return xmpColumn;
+        return column;
     }
 
     private void setPropmt() {
-        labelPrompt.setText(xmpColumn.getDescription());
+        labelPrompt.setText(column.getDescription());
     }
 
     @Override
@@ -77,6 +77,7 @@ public class TextEntryEditAreaPanel extends javax.swing.JPanel
         setLayout(new java.awt.GridBagLayout());
 
         labelPrompt.setText(Bundle.getString("TextEntryEditAreaPanel.labelPrompt.text")); // NOI18N
+        labelPrompt.setToolTipText(column.getLongerDescription());
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;

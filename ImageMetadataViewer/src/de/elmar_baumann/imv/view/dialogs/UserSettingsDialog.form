@@ -4,7 +4,7 @@
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
     <Property name="title" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-      <ResourceString bundle="de/elmar_baumann/imagemetadataviewer/resource/Bundle.properties" key="UserSettingsDialog.title" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.title" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
     </Property>
   </Properties>
   <SyntheticProperties>
@@ -16,7 +16,7 @@
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="1"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
-    <AuxValue name="FormSettings_formBundle" type="java.lang.String" value="de/elmar_baumann/imagemetadataviewer/resource/Bundle"/>
+    <AuxValue name="FormSettings_formBundle" type="java.lang.String" value="de/elmar_baumann/imv/resource/Bundle"/>
     <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="true"/>
     <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1"/>
@@ -60,7 +60,7 @@
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
               <JTabbedPaneConstraints tabName="Bilder &#xf6;ffnen">
                 <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/imagemetadataviewer/resource/Bundle.properties" key="UserSettingsDialog.panelOpen.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.panelOpen.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                 </Property>
               </JTabbedPaneConstraints>
             </Constraint>
@@ -92,7 +92,7 @@
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
                     <TitledBorder title="Programme zum &#xd6;ffnen von Bildern">
-                      <ResourceString PropertyName="titleX" bundle="de/elmar_baumann/imagemetadataviewer/resource/Bundle.properties" key="UserSettingsDialog.panelImageOpenApps.border.title" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                      <ResourceString PropertyName="titleX" bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.panelImageOpenApps.border.title" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                       <Font PropertyName="font" name="Dialog" size="11" style="1"/>
                     </TitledBorder>
                   </Border>
@@ -172,7 +172,7 @@
                     </Property>
                     <Property name="mnemonic" type="int" value="97"/>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/imagemetadataviewer/resource/Bundle.properties" key="UserSettingsDialog.buttonImageOpenApp.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.buttonImageOpenApp.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
                   <Events>
@@ -185,7 +185,7 @@
                       <Font name="Dialog" size="12" style="0"/>
                     </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/imagemetadataviewer/resource/Bundle.properties" key="UserSettingsDialog.labelInfoOtherOpenImageApps.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.labelInfoOtherOpenImageApps.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
                 </Component>
@@ -219,7 +219,7 @@
                     </Property>
                     <Property name="mnemonic" type="int" value="101"/>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/imagemetadataviewer/resource/Bundle.properties" key="UserSettingsDialog.buttonRemoveOtherOpenImageApp.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.buttonRemoveOtherOpenImageApp.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                     </Property>
                     <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
@@ -234,7 +234,7 @@
                     </Property>
                     <Property name="mnemonic" type="int" value="119"/>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/imagemetadataviewer/resource/Bundle.properties" key="UserSettingsDialog.buttonAddOtherOpenImageApp.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.buttonAddOtherOpenImageApp.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
                   <Events>
@@ -248,7 +248,7 @@
                     </Property>
                     <Property name="mnemonic" type="int" value="117"/>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/imagemetadataviewer/resource/Bundle.properties" key="UserSettingsDialog.buttonOpenImageAppMoveDown.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.buttonOpenImageAppMoveDown.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
                   <Events>
@@ -262,7 +262,7 @@
                     </Property>
                     <Property name="mnemonic" type="int" value="111"/>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/imagemetadataviewer/resource/Bundle.properties" key="UserSettingsDialog.buttonOpenImageAppMoveUp.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.buttonOpenImageAppMoveUp.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
                   <Events>
@@ -275,7 +275,7 @@
                       <Font name="Dialog" size="12" style="0"/>
                     </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/imagemetadataviewer/resource/Bundle.properties" key="UserSettingsDialog.labelImageInfotextOpenApp.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.labelImageInfotextOpenApp.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
                 </Component>
@@ -306,7 +306,7 @@
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
               <JTabbedPaneConstraints tabName="Schnellsuche">
                 <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/imagemetadataviewer/resource/Bundle.properties" key="UserSettingsDialog.panelSearch.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.panelSearch.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                 </Property>
               </JTabbedPaneConstraints>
             </Constraint>
@@ -353,7 +353,7 @@
                   <Font name="Dialog" size="11" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/imagemetadataviewer/resource/Bundle.properties" key="UserSettingsDialog.labelSearch.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.labelSearch.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                 </Property>
               </Properties>
             </Component>
@@ -371,7 +371,7 @@
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
               <JTabbedPaneConstraints tabName="Vorschaubilder">
                 <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/imagemetadataviewer/resource/Bundle.properties" key="UserSettingsDialog.panelThumbnails.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.panelThumbnails.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                 </Property>
               </JTabbedPaneConstraints>
             </Constraint>
@@ -408,7 +408,7 @@
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
                     <TitledBorder title="Gr&#xf6;&#xdf;e und Anordnung der Vorschaubilder">
-                      <ResourceString PropertyName="titleX" bundle="de/elmar_baumann/imagemetadataviewer/resource/Bundle.properties" key="UserSettingsDialog.panelThumbnailDimensions.border.title" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                      <ResourceString PropertyName="titleX" bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.panelThumbnailDimensions.border.title" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                       <Font PropertyName="font" name="Dialog" size="11" style="1"/>
                     </TitledBorder>
                   </Border>
@@ -474,7 +474,7 @@
                       <Font name="Dialog" size="12" style="0"/>
                     </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/imagemetadataviewer/resource/Bundle.properties" key="UserSettingsDialog.checkBoxUseEmbeddedThumbnails.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.checkBoxUseEmbeddedThumbnails.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
                   <AuxValues>
@@ -488,7 +488,7 @@
                     </Property>
                     <Property name="horizontalAlignment" type="int" value="4"/>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/imagemetadataviewer/resource/Bundle.properties" key="UserSettingsDialog.labelMaxThumbnailLength.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.labelMaxThumbnailLength.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
                 </Component>
@@ -512,7 +512,7 @@
                     </Property>
                     <Property name="horizontalAlignment" type="int" value="4"/>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/imagemetadataviewer/resource/Bundle.properties" key="UserSettingsDialog.labelThumbnailCountPerRow.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.labelThumbnailCountPerRow.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
                 </Component>
@@ -538,7 +538,7 @@
                       <Color blue="0" green="0" red="ff" type="rgb"/>
                     </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/imagemetadataviewer/resource/Bundle.properties" key="UserSettingsDialog.labelInfoChangeLength.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.labelInfoChangeLength.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
                 </Component>
@@ -549,7 +549,7 @@
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
                     <TitledBorder title="Eigenes Programm zum Erzeugen der Vorschaubilder">
-                      <ResourceString PropertyName="titleX" bundle="de/elmar_baumann/imagemetadataviewer/resource/Bundle.properties" key="UserSettingsDialog.panelExternalThumbnailApp.border.title" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                      <ResourceString PropertyName="titleX" bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.panelExternalThumbnailApp.border.title" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                       <Font PropertyName="font" name="Dialog" size="11" style="1"/>
                     </TitledBorder>
                   </Border>
@@ -590,7 +590,7 @@
                       <Font name="Dialog" size="12" style="0"/>
                     </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/imagemetadataviewer/resource/Bundle.properties" key="UserSettingsDialog.checkBoxExternalThumbnailApp.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.checkBoxExternalThumbnailApp.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
                   <Events>
@@ -606,7 +606,7 @@
                       <Font name="Dialog" size="12" style="0"/>
                     </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/imagemetadataviewer/resource/Bundle.properties" key="UserSettingsDialog.labelInfoExternalThumbnailApp.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.labelInfoExternalThumbnailApp.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
                 </Component>
@@ -627,7 +627,7 @@
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
               <JTabbedPaneConstraints tabName="IPTC">
                 <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/imagemetadataviewer/resource/Bundle.properties" key="UserSettingsDialog.panelIptc.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.panelIptc.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                 </Property>
               </JTabbedPaneConstraints>
             </Constraint>
@@ -665,7 +665,7 @@
                   <Font name="Dialog" size="12" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/imagemetadataviewer/resource/Bundle.properties" key="UserSettingsDialog.labelIptcCharset.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.labelIptcCharset.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                 </Property>
               </Properties>
             </Component>
@@ -692,7 +692,7 @@
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
               <JTabbedPaneConstraints tabName="Automatisieren">
                 <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/imagemetadataviewer/resource/Bundle.properties" key="UserSettingsDialog.panelTasks.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.panelTasks.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                 </Property>
               </JTabbedPaneConstraints>
             </Constraint>
@@ -739,7 +739,7 @@
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
                     <TitledBorder title="Datenbank aktualisieren">
-                      <ResourceString PropertyName="titleX" bundle="de/elmar_baumann/imagemetadataviewer/resource/Bundle.properties" key="UserSettingsDialog.panelTasksAutoscan.border.title" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                      <ResourceString PropertyName="titleX" bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.panelTasksAutoscan.border.title" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                       <Font PropertyName="font" name="Dialog" size="11" style="1"/>
                     </TitledBorder>
                   </Border>
@@ -800,7 +800,7 @@
                       <Font name="Dialog" size="12" style="0"/>
                     </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/imagemetadataviewer/resource/Bundle.properties" key="UserSettingsDialog.labelTasksAutoscanMoreInfoDirectories.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.labelTasksAutoscanMoreInfoDirectories.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
                 </Component>
@@ -810,7 +810,7 @@
                       <Font name="Dialog" size="12" style="0"/>
                     </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/imagemetadataviewer/resource/Bundle.properties" key="UserSettingsDialog.labelTasksAutoscanInfoDirectories.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.labelTasksAutoscanInfoDirectories.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
                 </Component>
@@ -846,7 +846,7 @@
                       <Font name="Dialog" size="12" style="0"/>
                     </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/imagemetadataviewer/resource/Bundle.properties" key="UserSettingsDialog.checkBoxTasksAutoscanIncludeSubdirectories.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.checkBoxTasksAutoscanIncludeSubdirectories.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
                   <AuxValues>
@@ -860,7 +860,7 @@
                     </Property>
                     <Property name="mnemonic" type="int" value="101"/>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/imagemetadataviewer/resource/Bundle.properties" key="UserSettingsDialog.buttonTasksAutoscanRemoveDirectories.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.buttonTasksAutoscanRemoveDirectories.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                     </Property>
                     <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
@@ -875,7 +875,7 @@
                     </Property>
                     <Property name="mnemonic" type="int" value="104"/>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/imagemetadataviewer/resource/Bundle.properties" key="UserSettingsDialog.buttonTasksAutoscanAddDirectories.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.buttonTasksAutoscanAddDirectories.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
                   <Events>
@@ -889,7 +889,7 @@
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
                     <TitledBorder title="Weitere Aufgaben">
-                      <ResourceString PropertyName="titleX" bundle="de/elmar_baumann/imagemetadataviewer/resource/Bundle.properties" key="UserSettingsDialog.panelTasksOther.border.title" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                      <ResourceString PropertyName="titleX" bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.panelTasksOther.border.title" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                       <Font PropertyName="font" name="Dialog" size="11" style="1"/>
                     </TitledBorder>
                   </Border>
@@ -921,7 +921,7 @@
                       <Font name="Dialog" size="12" style="0"/>
                     </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/imagemetadataviewer/resource/Bundle.properties" key="UserSettingsDialog.checkBoxTasksRemoveRecordsWithNotExistingFiles.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.checkBoxTasksRemoveRecordsWithNotExistingFiles.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
                   <AuxValues>
@@ -936,7 +936,7 @@
                   <Font name="Dialog" size="12" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/imagemetadataviewer/resource/Bundle.properties" key="UserSettingsDialog.labelTasksMinutesToStartScheduledTasks.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.labelTasksMinutesToStartScheduledTasks.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                 </Property>
               </Properties>
             </Component>
@@ -957,7 +957,7 @@
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
               <JTabbedPaneConstraints tabName="Leistung">
                 <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/imagemetadataviewer/resource/Bundle.properties" key="UserSettingsDialog.panelPerformance.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.panelPerformance.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                 </Property>
               </JTabbedPaneConstraints>
             </Constraint>
@@ -994,7 +994,7 @@
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
                     <TitledBorder title="Start beschleunigen">
-                      <ResourceString PropertyName="titleX" bundle="de/elmar_baumann/imagemetadataviewer/resource/Bundle.properties" key="UserSettingsDialog.panelAccelerateStart.border.title" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                      <ResourceString PropertyName="titleX" bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.panelAccelerateStart.border.title" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                       <Font PropertyName="font" name="Dialog" size="11" style="1"/>
                     </TitledBorder>
                   </Border>
@@ -1043,7 +1043,7 @@
                       <Font name="Dialog" size="12" style="0"/>
                     </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/imagemetadataviewer/resource/Bundle.properties" key="UserSettingsDialog.checkBoxDisableAutocomplete.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.checkBoxDisableAutocomplete.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
                   <AuxValues>
@@ -1059,7 +1059,7 @@
                       <Color blue="0" green="0" red="ff" type="rgb"/>
                     </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/imagemetadataviewer/resource/Bundle.properties" key="UserSettingsDialog.labelInfoDisableAutocomplete.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.labelInfoDisableAutocomplete.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
                 </Component>
@@ -1069,7 +1069,7 @@
                       <Font name="Dialog" size="12" style="0"/>
                     </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/imagemetadataviewer/resource/Bundle.properties" key="UserSettingsDialog.checkBoxDisableExpandDirectoriesTree.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.checkBoxDisableExpandDirectoriesTree.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
                   <AuxValues>
@@ -1085,7 +1085,7 @@
                       <Color blue="0" green="0" red="ff" type="rgb"/>
                     </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/imagemetadataviewer/resource/Bundle.properties" key="UserSettingsDialog.labelInfoDisableExpandDirectoriesTree.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.labelInfoDisableExpandDirectoriesTree.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
                 </Component>
@@ -1096,7 +1096,7 @@
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
                     <TitledBorder title="Rechenzeit">
-                      <ResourceString PropertyName="titleX" bundle="de/elmar_baumann/imagemetadataviewer/resource/Bundle.properties" key="UserSettingsDialog.panelThreadPriority.border.title" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                      <ResourceString PropertyName="titleX" bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.panelThreadPriority.border.title" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                       <Font PropertyName="font" name="Dialog" size="11" style="1"/>
                     </TitledBorder>
                   </Border>
@@ -1142,7 +1142,7 @@
                     </Property>
                     <Property name="horizontalAlignment" type="int" value="4"/>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/imagemetadataviewer/resource/Bundle.properties" key="UserSettingsDialog.labelThreadPriority.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.labelThreadPriority.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
                 </Component>
@@ -1172,7 +1172,7 @@
                     </Property>
                     <Property name="horizontalAlignment" type="int" value="11"/>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/imagemetadataviewer/resource/Bundle.properties" key="UserSettingsDialog.labelInfoThreadPriority.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.labelInfoThreadPriority.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
                 </Component>
@@ -1188,7 +1188,7 @@
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
               <JTabbedPaneConstraints tabName="Sonstiges">
                 <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/imagemetadataviewer/resource/Bundle.properties" key="UserSettingsDialog.panelOther.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.panelOther.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                 </Property>
               </JTabbedPaneConstraints>
             </Constraint>
@@ -1225,7 +1225,7 @@
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
                     <TitledBorder title="Protokolloptionen (Logdatei)">
-                      <ResourceString PropertyName="titleX" bundle="de/elmar_baumann/imagemetadataviewer/resource/Bundle.properties" key="UserSettingsDialog.panelLogfile.border.title" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                      <ResourceString PropertyName="titleX" bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.panelLogfile.border.title" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                       <Font PropertyName="font" name="Dialog" size="11" style="1"/>
                     </TitledBorder>
                   </Border>
@@ -1269,7 +1269,7 @@
                       <Font name="Dialog" size="12" style="0"/>
                     </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/imagemetadataviewer/resource/Bundle.properties" key="UserSettingsDialog.labelLogLevel.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.labelLogLevel.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
                 </Component>
@@ -1289,7 +1289,7 @@
                       <Font name="Dialog" size="12" style="0"/>
                     </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/imagemetadataviewer/resource/Bundle.properties" key="UserSettingsDialog.labelLogFormat.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.labelLogFormat.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
                 </Component>
@@ -1314,7 +1314,7 @@
                   <Font name="Dialog" size="12" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/imagemetadataviewer/resource/Bundle.properties" key="UserSettingsDialog.checkBoxAcceptHiddenDirectories.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.checkBoxAcceptHiddenDirectories.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                 </Property>
               </Properties>
               <AuxValues>

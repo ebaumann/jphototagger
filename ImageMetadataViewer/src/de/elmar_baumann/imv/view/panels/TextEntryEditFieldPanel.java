@@ -16,12 +16,12 @@ import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 public class TextEntryEditFieldPanel extends javax.swing.JPanel
     implements TextEntry {
 
-    private Column xmpColumn;
+    private Column column;
     private static final boolean isAutocomplete = UserSettings.getInstance().isUseAutocomplete();
     private AutoCompleteData autoCompleteData;
 
-    public TextEntryEditFieldPanel(Column xmpColumn) {
-        this.xmpColumn = xmpColumn;
+    public TextEntryEditFieldPanel(Column column) {
+        this.column = column;
         initComponents();
         setPropmt();
         setAutocomplete();
@@ -39,12 +39,12 @@ public class TextEntryEditFieldPanel extends javax.swing.JPanel
 
     @Override
     public Column getColumn() {
-        return xmpColumn;
+        return column;
     }
 
     private void setAutocomplete() {
         if (isAutocomplete) {
-            autoCompleteData = new AutoCompleteData(xmpColumn);
+            autoCompleteData = new AutoCompleteData(column);
             AutoCompleteDecorator.decorate(
                 textFieldEdit,
                 autoCompleteData.getList(),
@@ -57,7 +57,7 @@ public class TextEntryEditFieldPanel extends javax.swing.JPanel
     }
 
     private void setPropmt() {
-        labelPrompt.setText(xmpColumn.getDescription());
+        labelPrompt.setText(column.getDescription());
     }
 
     @Override
@@ -91,6 +91,7 @@ public class TextEntryEditFieldPanel extends javax.swing.JPanel
         setLayout(new java.awt.GridBagLayout());
 
         labelPrompt.setText(Bundle.getString("TextEntryEditFieldPanel.labelPrompt.text")); // NOI18N
+        labelPrompt.setToolTipText(column.getLongerDescription());
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;

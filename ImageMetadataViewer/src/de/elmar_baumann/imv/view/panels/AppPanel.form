@@ -4,7 +4,7 @@
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="1"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
-    <AuxValue name="FormSettings_formBundle" type="java.lang.String" value="de/elmar_baumann/imagemetadataviewer/resource/Bundle"/>
+    <AuxValue name="FormSettings_formBundle" type="java.lang.String" value="de/elmar_baumann/imv/resource/Bundle"/>
     <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="true"/>
     <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1"/>
@@ -83,7 +83,7 @@
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
                       <JTabbedPaneConstraints tabName="Ordner">
                         <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                          <ResourceString bundle="de/elmar_baumann/imagemetadataviewer/resource/Bundle.properties" key="AppPanel.panelSelectionDirectories.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                          <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="AppPanel.panelSelectionDirectories.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                         </Property>
                       </JTabbedPaneConstraints>
                     </Constraint>
@@ -126,7 +126,7 @@
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
                       <JTabbedPaneConstraints tabName="Suchen">
                         <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                          <ResourceString bundle="de/elmar_baumann/imagemetadataviewer/resource/Bundle.properties" key="AppPanel.panelSelectionSavedSearches.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                          <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="AppPanel.panelSelectionSavedSearches.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                         </Property>
                       </JTabbedPaneConstraints>
                     </Constraint>
@@ -175,7 +175,7 @@
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
                       <JTabbedPaneConstraints tabName="Sammlungen">
                         <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                          <ResourceString bundle="de/elmar_baumann/imagemetadataviewer/resource/Bundle.properties" key="AppPanel.panelImageCollections.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                          <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="AppPanel.panelImageCollections.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                         </Property>
                       </JTabbedPaneConstraints>
                     </Constraint>
@@ -224,7 +224,7 @@
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
                       <JTabbedPaneConstraints tabName="Kategorien">
                         <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                          <ResourceString bundle="de/elmar_baumann/imagemetadataviewer/resource/Bundle.properties" key="AppPanel.panelCategories.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                          <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="AppPanel.panelCategories.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                         </Property>
                       </JTabbedPaneConstraints>
                     </Constraint>
@@ -268,7 +268,7 @@
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
                       <JTabbedPaneConstraints tabName="Favoriten-Ordner">
                         <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                          <ResourceString bundle="de/elmar_baumann/imagemetadataviewer/resource/Bundle.properties" key="AppPanel.panelFavoriteDirectories.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                          <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="AppPanel.panelFavoriteDirectories.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                         </Property>
                       </JTabbedPaneConstraints>
                     </Constraint>
@@ -458,7 +458,7 @@
                           <Font name="Dialog" size="10" style="0"/>
                         </Property>
                         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                          <ResourceString bundle="de/elmar_baumann/imagemetadataviewer/resource/Bundle.properties" key="AppPanel.labelMetadataFilename.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                          <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="AppPanel.labelMetadataFilename.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                         </Property>
                         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                           <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
@@ -495,7 +495,7 @@
                           <Font name="Dialog" size="12" style="0"/>
                         </Property>
                         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                          <ResourceString bundle="de/elmar_baumann/imagemetadataviewer/resource/Bundle.properties" key="AppPanel.labelLegendColorBackgroundTableTetStoredInDatabase.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                          <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="AppPanel.labelLegendColorBackgroundTableTetStoredInDatabase.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                         </Property>
                       </Properties>
                     </Component>
@@ -518,7 +518,7 @@
                             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
                               <JTabbedPaneConstraints tabName="IPTC">
                                 <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                  <ResourceString bundle="de/elmar_baumann/imagemetadataviewer/resource/Bundle.properties" key="AppPanel.scrollPaneTableIptc.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                                  <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="AppPanel.scrollPaneTableIptc.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                                 </Property>
                               </JTabbedPaneConstraints>
                             </Constraint>
@@ -546,7 +546,7 @@
                             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
                               <JTabbedPaneConstraints tabName="EXIF">
                                 <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                  <ResourceString bundle="de/elmar_baumann/imagemetadataviewer/resource/Bundle.properties" key="AppPanel.scrollPaneTableExif.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                                  <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="AppPanel.scrollPaneTableExif.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                                 </Property>
                               </JTabbedPaneConstraints>
                             </Constraint>
@@ -572,7 +572,7 @@
                             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
                               <JTabbedPaneConstraints tabName="XMP">
                                 <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                  <ResourceString bundle="de/elmar_baumann/imagemetadataviewer/resource/Bundle.properties" key="AppPanel.tabbedPaneXmp.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                                  <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="AppPanel.tabbedPaneXmp.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                                 </Property>
                               </JTabbedPaneConstraints>
                             </Constraint>
@@ -593,7 +593,7 @@
                                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
                                   <JTabbedPaneConstraints tabName="TIFF">
                                     <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                      <ResourceString bundle="de/elmar_baumann/imagemetadataviewer/resource/Bundle.properties" key="AppPanel.scrollPaneTableXmpTiff.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="AppPanel.scrollPaneTableXmpTiff.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                                     </Property>
                                   </JTabbedPaneConstraints>
                                 </Constraint>
@@ -618,7 +618,7 @@
                                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
                                   <JTabbedPaneConstraints tabName="EXIF">
                                     <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                      <ResourceString bundle="de/elmar_baumann/imagemetadataviewer/resource/Bundle.properties" key="AppPanel.scrollPaneTableXmpExif.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="AppPanel.scrollPaneTableXmpExif.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                                     </Property>
                                   </JTabbedPaneConstraints>
                                 </Constraint>
@@ -643,7 +643,7 @@
                                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
                                   <JTabbedPaneConstraints tabName="Dublin Core">
                                     <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                      <ResourceString bundle="de/elmar_baumann/imagemetadataviewer/resource/Bundle.properties" key="AppPanel.scrollPaneTableXmpDc.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="AppPanel.scrollPaneTableXmpDc.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                                     </Property>
                                   </JTabbedPaneConstraints>
                                 </Constraint>
@@ -668,7 +668,7 @@
                                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
                                   <JTabbedPaneConstraints tabName="IPTC">
                                     <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                      <ResourceString bundle="de/elmar_baumann/imagemetadataviewer/resource/Bundle.properties" key="AppPanel.scrollPaneTableXmpIptc.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="AppPanel.scrollPaneTableXmpIptc.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                                     </Property>
                                   </JTabbedPaneConstraints>
                                 </Constraint>
@@ -693,7 +693,7 @@
                                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
                                   <JTabbedPaneConstraints tabName="Photoshop">
                                     <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                      <ResourceString bundle="de/elmar_baumann/imagemetadataviewer/resource/Bundle.properties" key="AppPanel.scrollPaneTableXmpPhotoshop.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="AppPanel.scrollPaneTableXmpPhotoshop.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                                     </Property>
                                   </JTabbedPaneConstraints>
                                 </Constraint>
@@ -718,7 +718,7 @@
                                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
                                   <JTabbedPaneConstraints tabName="Sonstige">
                                     <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                      <ResourceString bundle="de/elmar_baumann/imagemetadataviewer/resource/Bundle.properties" key="AppPanel.scrollPaneTableXmpXap.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="AppPanel.scrollPaneTableXmpXap.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                                     </Property>
                                   </JTabbedPaneConstraints>
                                 </Constraint>
@@ -743,7 +743,7 @@
                                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
                                   <JTabbedPaneConstraints tabName="Lightroom">
                                     <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                      <ResourceString bundle="de/elmar_baumann/imagemetadataviewer/resource/Bundle.properties" key="AppPanel.scrollPaneTableXmpLightroom.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="AppPanel.scrollPaneTableXmpLightroom.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                                     </Property>
                                   </JTabbedPaneConstraints>
                                 </Constraint>
@@ -768,7 +768,7 @@
                                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
                                   <JTabbedPaneConstraints tabName="Camera Raw">
                                     <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                      <ResourceString bundle="de/elmar_baumann/imagemetadataviewer/resource/Bundle.properties" key="AppPanel.scrollPaneTableXmpCameraRawSettings.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="AppPanel.scrollPaneTableXmpCameraRawSettings.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                                     </Property>
                                   </JTabbedPaneConstraints>
                                 </Constraint>
@@ -792,7 +792,7 @@
                             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
                               <JTabbedPaneConstraints tabName="Bearbeiten">
                                 <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                  <ResourceString bundle="de/elmar_baumann/imagemetadataviewer/resource/Bundle.properties" key="AppPanel.panelTabEditMetaData.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                                  <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="AppPanel.panelTabEditMetaData.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                                 </Property>
                               </JTabbedPaneConstraints>
                             </Constraint>
@@ -863,7 +863,7 @@
                                       <Font name="Dialog" size="12" style="0"/>
                                     </Property>
                                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                      <ResourceString bundle="de/elmar_baumann/imagemetadataviewer/resource/Bundle.properties" key="AppPanel.labelEditTabInfoArrayDelimiter.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="AppPanel.labelEditTabInfoArrayDelimiter.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                                     </Property>
                                   </Properties>
                                 </Component>
@@ -923,10 +923,10 @@
                         <Component class="javax.swing.JButton" name="buttonStopScheduledTasks">
                           <Properties>
                             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                              <Image iconType="3" name="/de/elmar_baumann/imagemetadataviewer/resource/icon_stop_scheduled_tasks_enabled.png"/>
+                              <Image iconType="3" name="/de/elmar_baumann/imv/resource/icon_stop_scheduled_tasks_enabled.png"/>
                             </Property>
                             <Property name="disabledIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                              <Image iconType="3" name="/de/elmar_baumann/imagemetadataviewer/resource/icon_stop_scheduled_tasks_disabled.png"/>
+                              <Image iconType="3" name="/de/elmar_baumann/imv/resource/icon_stop_scheduled_tasks_disabled.png"/>
                             </Property>
                             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                               <Dimension value="[16, 16]"/>
@@ -993,7 +993,7 @@
         <Component class="javax.swing.JTextField" name="textFieldSearch">
           <Properties>
             <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="de/elmar_baumann/imagemetadataviewer/resource/Bundle.properties" key="AppPanel.textFieldSearch.toolTipText" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="AppPanel.textFieldSearch.toolTipText" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
             </Property>
           </Properties>
         </Component>
@@ -1013,7 +1013,7 @@
         <Component class="javax.swing.JButton" name="buttonLogfileDialog">
           <Properties>
             <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="de/elmar_baumann/imagemetadataviewer/resource/Bundle.properties" key="AppPanel.buttonLogfileDialog.toolTipText" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="AppPanel.buttonLogfileDialog.toolTipText" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
             </Property>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
@@ -1031,7 +1031,7 @@
               <Font name="Dialog" size="12" style="0"/>
             </Property>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="de/elmar_baumann/imagemetadataviewer/resource/Bundle.properties" key="AppPanel.buttonAdvanedSearch.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="AppPanel.buttonAdvanedSearch.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
             </Property>
           </Properties>
         </Component>
