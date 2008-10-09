@@ -146,7 +146,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
-                                  <Component id="scrollPaneListOtherOpenImageApps" pref="147" max="32767" attributes="0"/>
+                                  <Component id="scrollPaneListOtherOpenImageApps" pref="129" max="32767" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="buttonAddOtherOpenImageApp" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -334,12 +334,12 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="labelSearch" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="285" max="32767" attributes="0"/>
+                      <EmptySpace pref="267" max="32767" attributes="0"/>
                   </Group>
                   <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
-                          <Component id="scrollPaneSearchColumns" pref="261" max="32767" attributes="0"/>
+                          <Component id="scrollPaneSearchColumns" pref="243" max="32767" attributes="0"/>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -653,7 +653,7 @@
                           <Component id="labelIptcCharset" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="comboBoxIptcCharset" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="275" max="32767" attributes="0"/>
+                      <EmptySpace pref="257" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -780,7 +780,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="labelTasksAutoscanInfoDirectories" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="scrollPaneTasksAutoscanListDirectories" pref="49" max="32767" attributes="0"/>
+                          <Component id="scrollPaneTasksAutoscanListDirectories" pref="31" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="checkBoxTasksAutoscanIncludeSubdirectories" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
@@ -983,7 +983,7 @@
                       <Component id="panelAccelerateStart" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="panelThreadPriority" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="86" max="32767" attributes="0"/>
+                      <EmptySpace pref="68" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1152,7 +1152,7 @@
                       <Font name="Dialog" size="12" style="0"/>
                     </Property>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="new de.elmar_baumann.imagemetadataviewer.model.ComboBoxModelThreadPriority()" type="code"/>
+                      <Connection code="new de.elmar_baumann.imv.model.ComboBoxModelThreadPriority()" type="code"/>
                     </Property>
                     <Property name="editor" type="javax.swing.ComboBoxEditor" editor="org.netbeans.modules.form.ComponentChooserEditor">
                       <ComponentRef name="null"/>
@@ -1180,6 +1180,17 @@
             </Container>
           </SubComponents>
         </Container>
+        <Component class="de.elmar_baumann.imv.view.panels.FileExcludePatternsPanel" name="panelFileExcludePatterns">
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+              <JTabbedPaneConstraints tabName="Ausschlie&#xdf;en">
+                <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                  <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.panelFileExcludePatterns.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                </Property>
+              </JTabbedPaneConstraints>
+            </Constraint>
+          </Constraints>
+        </Component>
         <Container class="javax.swing.JPanel" name="panelOther">
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
@@ -1214,7 +1225,7 @@
                       <Component id="panelLogfile" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="checkBoxAcceptHiddenDirectories" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="214" max="32767" attributes="0"/>
+                      <EmptySpace pref="196" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>

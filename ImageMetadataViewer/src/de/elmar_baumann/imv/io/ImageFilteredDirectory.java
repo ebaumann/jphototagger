@@ -1,7 +1,9 @@
 package de.elmar_baumann.imv.io;
 
 import de.elmar_baumann.imv.AppSettings;
+import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.lib.io.FileUtil;
+import de.elmar_baumann.lib.util.ArrayUtil;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -70,10 +72,14 @@ public class ImageFilteredDirectory {
     public static List<File> getImageFilesOfDirectory(String directoryname) {
         File[] filteredFiles = FileUtil.getFiles(directoryname,
             AppSettings.fileFilterAcceptedImageFileFormats);
+        List<String> excludePatterns = UserSettings.getInstance().getFileExcludePatterns();
         List<File> files = new ArrayList<File>();
         if (filteredFiles != null) {
             for (int index = 0; index < filteredFiles.length; index++) {
-                files.add(filteredFiles[index]);
+                File file = filteredFiles[index];
+                if (!ArrayUtil.matches(excludePatterns, file.getAbsolutePath())) {
+                    files.add(file);
+                }
             }
         }
         return files;
@@ -133,9 +139,13 @@ public class ImageFilteredDirectory {
     private void addFilesOfCurrentDirectory() {
         File[] files = FileUtil.getFiles(directoryname,
             AppSettings.fileFilterAcceptedImageFileFormats);
+        List<String> excludePatterns = UserSettings.getInstance().getFileExcludePatterns();
         if (files != null) {
             for (int index = 0; index < files.length; index++) {
-                filenames.add(files[index].getAbsolutePath());
+                String filename = files[index].getAbsolutePath();
+                if (!ArrayUtil.matches(excludePatterns, filename)) {
+                    filenames.add(filename);
+                }
             }
         }
         Collections.sort(filenames);
