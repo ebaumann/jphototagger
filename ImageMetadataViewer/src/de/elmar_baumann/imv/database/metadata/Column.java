@@ -11,6 +11,7 @@ public class Column {
     private Table table;
     private String name;
     private String description;
+    private String longerDescription;
     private DataType dataType;
     private Column references = null;
     private boolean isIgnoreCase = true;
@@ -287,6 +288,15 @@ public class Column {
     public String getDescription() {
         return description;
     }
+    
+    /**
+     * Returns the longer description.
+     * 
+     * @return description or null if not set
+     */
+    public String getLongerDescription() {
+        return longerDescription;
+    }
 
     /**
      * Setzt die Beschreibung der Spalte.
@@ -295,6 +305,15 @@ public class Column {
      */
     protected void setDescription(String description) {
         this.description = description;
+    }
+    
+    /**
+     * Sets a longer description e.g. for tooltip texts.
+     * 
+     * @param description  description
+     */
+    protected void setLongerDescription(String description) {
+        longerDescription = description;
     }
 
     /**
