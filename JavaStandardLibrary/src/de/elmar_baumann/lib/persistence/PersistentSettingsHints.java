@@ -89,7 +89,7 @@ public class PersistentSettingsHints {
      * werden soll.
      * 
      * @param member Attribut, genauer Pfad, z.B.
-     *               <code>de.elmar_baumann.imagemetadataviewer.view.AppPanel.tableXmp</code>
+     *               <code>de.elmar_baumann.imv.view.AppPanel.tableXmp</code>
      *               Default: Kein Attribut ist ausgeschlossen.
      */
     public void addExcludedMember(String member) {
@@ -100,7 +100,7 @@ public class PersistentSettingsHints {
      * Liefert, ob der Inhalt eines Attributs nicht gespeichert werden soll.
      * 
      * @param member Attribut, genauer Pfad, z.B.
-     *               <code>de.elmar_baumann.imagemetadataviewer.view.AppPanel.tableXmp</code>
+     *               <code>de.elmar_baumann.imv.view.AppPanel.tableXmp</code>
      * @return       true wenn der Inhalt des Attributs nicht gespeichert werden soll
      */
     public boolean isExcludedMember(String member) {
@@ -113,7 +113,7 @@ public class PersistentSettingsHints {
      * {@link PersistentSettingsHints#isExcludedMember(java.lang.String)}.
      * 
      * @param member Attribut, genauer Pfad, z.B.
-     *               <code>de.elmar_baumann.imagemetadataviewer.view.AppPanel.tableXmp</code>
+     *               <code>de.elmar_baumann.imv.view.AppPanel.tableXmp</code>
      * @return       true, wenn der Inhalt des Attributs gespeichert werden soll
      */
     public boolean isPersistent(String member) {

@@ -20,7 +20,7 @@ public class IconUtil {
      * Liefert ein Bild eines Icons (z.B. aus einem JAR-File).
      * 
      * @param  path Pfad zum Icon, z.B.
-     *              <code>/de/elmar_baumann/imagemetadataviewer/resource/frameicon.png</code>
+     *              <code>/de/elmar_baumann/imv/resource/frameicon.png</code>
      * @return Bild des Icons (<code>ImageIcon</code>-Objekt) oder null,
      *         falls dieses nicht geladen wurde
      */
@@ -56,7 +56,7 @@ public class IconUtil {
      * Liefert ein Icon (z.B. aus einem JAR-File).
      * 
      * @param  path Pfad zum Icon, z.B.
-     *              <code>/de/elmar_baumann/imagemetadataviewer/resource/frameicon.png</code>
+     *              <code>/de/elmar_baumann/imv/resource/frameicon.png</code>
      * @return Icon des Typs <code>ImageIcon</code> oder null, falls dieses
      *         nicht geladen wurde
      */

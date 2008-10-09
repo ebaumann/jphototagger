@@ -135,7 +135,7 @@ public class HelpBrowser extends javax.swing.JFrame
      * <code>/de/elmar_baumann/lib/resource/helpindex.dtd</code>
      * All paths to help pages within this file have to be relative.
      * 
-     * @param url URL, eg. <code>/de/elmar_baumann/imagemetadataviewer/resource/doc/de/contents.xml</code>
+     * @param url URL, eg. <code>/de/elmar_baumann/imv/resource/doc/de/contents.xml</code>
      */
     public void setContentsUrl(String url) {
         tree.setModel(new TreeModelHelpContents(url));

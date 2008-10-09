@@ -62,7 +62,6 @@ public class TreeModelHelpContents implements TreeModel {
      * Constructor.
      * 
      * @param url  URL of the XML file for the class
-     *             {@link de.elmar_baumann.lib.util.help.HelpIndex}
      */
     public TreeModelHelpContents(String url) {
         parse(url);

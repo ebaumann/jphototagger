@@ -178,7 +178,7 @@ public class CheckList extends JList {
      * @param text Text
      * @param select true, wenn selektiert werden soll, false, wenn deselektiert
      *     werden soll
-     * @see #setSelectedItemsWithText(java.util.ArrayList, boolean)
+     * @see #setSelectedItemsWithText(java.util.List, boolean)
      */
     public void setSelectedItemsWithText(String text, boolean select) {
         ListModel model = getModel();
