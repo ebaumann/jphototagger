@@ -26,5 +26,6 @@ public class ColumnXmpPhotoshopHeadline extends Column {
 
         setLength(256);
         setDescription(Bundle.getString("ColumnXmpPhotoshopHeadline.Description"));
+        setLongerDescription(Bundle.getString("ColumnXmpPhotoshopHeadline.LongerDescription"));
     }
 }
