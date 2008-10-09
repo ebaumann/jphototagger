@@ -249,10 +249,11 @@ public class MetadataEditPanelsArray implements FocusListener, DatabaseListener 
         for (Column column : columns) {
             EditHints editHints = editColumns.getEditHintsForColumn(column);
             SizeEditField size = editHints.getSizeEditField();
+            boolean isRepeatable = editHints.isRepeatable();
 
             if (size.equals(SizeEditField.large)) {
-                TextEntryEditAreaPanel panel = new TextEntryEditAreaPanel(column);
-                panel.textAreaEdit.addFocusListener(this);
+                TextEntryEditAreaPanel panel = new TextEntryEditAreaPanel(column, isRepeatable);
+                panel.textArea.addFocusListener(this);
                 panels.add(panel);
             } else {
                 TextEntryEditFieldPanel panel = new TextEntryEditFieldPanel(column);
@@ -312,6 +313,9 @@ public class MetadataEditPanelsArray implements FocusListener, DatabaseListener 
         for (JPanel panel : panels) {
             if (panel instanceof TextEntryEditFieldPanel) {
                 TextEntryEditFieldPanel p = (TextEntryEditFieldPanel) panel;
+                XmpUtil.addData(xmp, p.getColumn(), p.getAutoCompleteData());
+            } else if (panel instanceof TextEntryEditAreaPanel) {
+                TextEntryEditAreaPanel p = (TextEntryEditAreaPanel) panel;
                 XmpUtil.addData(xmp, p.getColumn(), p.getAutoCompleteData());
             }
         }

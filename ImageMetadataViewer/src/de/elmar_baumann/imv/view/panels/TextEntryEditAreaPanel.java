@@ -1,10 +1,15 @@
 package de.elmar_baumann.imv.view.panels;
 
+import de.elmar_baumann.imv.UserSettings;
+import de.elmar_baumann.imv.data.AutoCompleteData;
 import de.elmar_baumann.imv.data.TextEntry;
 import de.elmar_baumann.imv.database.metadata.Column;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.component.TabLeavingTextArea;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.event.KeyEvent;
+import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 /**
  * Panel zum Eingeben mehrzeiliger Texte.
@@ -16,28 +21,61 @@ public class TextEntryEditAreaPanel extends javax.swing.JPanel
     implements TextEntry {
 
     private Column column;
+    private static final String delimiter = ",";
     private Color editableBackground;
+    private static final boolean isAutocomplete = UserSettings.getInstance().isUseAutocomplete();
+    private AutoCompleteData autoCompleteData;
+    private boolean repeatable;
 
-    public TextEntryEditAreaPanel(Column column) {
+    public TextEntryEditAreaPanel(Column column, boolean repeatable) {
         this.column = column;
+        this.repeatable = repeatable;
         initComponents();
-        editableBackground = textAreaEdit.getBackground();
+        if (!repeatable) {
+            remove(textFieldInput);
+        }
+        editableBackground = textArea.getBackground();
         setPropmt();
+        setAutocomplete();
+    }
+
+    private void setAutocomplete() {
+        if (isAutocomplete) {
+            autoCompleteData = new AutoCompleteData(column);
+            AutoCompleteDecorator.decorate(
+                textFieldInput,
+                autoCompleteData.getList(),
+                false);
+        }
+    }
+
+    public AutoCompleteData getAutoCompleteData() {
+        return autoCompleteData;
     }
 
     @Override
     public String getText() {
-        return textAreaEdit.getText();
+        return textArea.getText();
     }
 
     @Override
     public void setText(String text) {
-        textAreaEdit.setText(text);
+        textArea.setText(text);
     }
 
     @Override
     public Column getColumn() {
         return column;
+    }
+
+    /**
+     * Adds a word to the text area.
+     */
+    private void addText(KeyEvent evt) {
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            String text = textArea.getText();
+            textArea.setText(text + (text.isEmpty() ? "" : delimiter) + textFieldInput.getText());
+        }
     }
 
     private void setPropmt() {
@@ -46,18 +84,18 @@ public class TextEntryEditAreaPanel extends javax.swing.JPanel
 
     @Override
     public boolean isEmpty() {
-        return textAreaEdit.getText().isEmpty();
+        return textArea.getText().isEmpty();
     }
 
     @Override
     public void focus() {
-        textAreaEdit.requestFocus();
+        textArea.requestFocus();
     }
 
     @Override
     public void setEditable(boolean editable) {
-        textAreaEdit.setEditable(editable);
-        textAreaEdit.setBackground(editable ? editableBackground : getBackground());
+        textArea.setEditable(editable);
+        textArea.setBackground(editable ? editableBackground : getBackground());
     }
 
     /** This method is called from within the constructor to
@@ -72,7 +110,8 @@ public class TextEntryEditAreaPanel extends javax.swing.JPanel
 
         labelPrompt = new javax.swing.JLabel();
         scrollPaneEdit = new javax.swing.JScrollPane();
-        textAreaEdit = new TabLeavingTextArea();
+        textArea = new TabLeavingTextArea();
+        textFieldInput = new javax.swing.JTextField();
 
         setLayout(new java.awt.GridBagLayout());
 
@@ -85,12 +124,12 @@ public class TextEntryEditAreaPanel extends javax.swing.JPanel
         gridBagConstraints.weighty = 1.0;
         add(labelPrompt, gridBagConstraints);
 
-        textAreaEdit.setColumns(20);
-        textAreaEdit.setLineWrap(true);
-        textAreaEdit.setRows(2);
-        textAreaEdit.setTabSize(4);
-        textAreaEdit.setWrapStyleWord(true);
-        scrollPaneEdit.setViewportView(textAreaEdit);
+        textArea.setColumns(20);
+        textArea.setLineWrap(true);
+        textArea.setRows(2);
+        textArea.setTabSize(4);
+        textArea.setWrapStyleWord(true);
+        scrollPaneEdit.setViewportView(textArea);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -100,10 +139,27 @@ public class TextEntryEditAreaPanel extends javax.swing.JPanel
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
         add(scrollPaneEdit, gridBagConstraints);
+
+        textFieldInput.setText(Bundle.getString("TextEntryEditAreaPanel.textFieldInput.text")); // NOI18N
+        textFieldInput.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                textFieldInputKeyReleased(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        add(textFieldInput, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
+
+private void textFieldInputKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldInputKeyReleased
+    addText(evt);
+}//GEN-LAST:event_textFieldInputKeyReleased
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel labelPrompt;
     private javax.swing.JScrollPane scrollPaneEdit;
-    public javax.swing.JTextArea textAreaEdit;
+    public javax.swing.JTextArea textArea;
+    private javax.swing.JTextField textFieldInput;
     // End of variables declaration//GEN-END:variables
 }
