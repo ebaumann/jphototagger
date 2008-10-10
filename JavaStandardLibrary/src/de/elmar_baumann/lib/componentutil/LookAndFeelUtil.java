@@ -41,24 +41,24 @@ public class LookAndFeelUtil {
 
     /**
      * Loads a properties file with the class loader and calls
-     * {@link #setCustomLookAndFeel(java.io.InputStream)}. Typically used
+     * {@link #setCustomColors(java.io.InputStream)}. Typically used
      * within ar JAR file.
      * 
      * @param propertyFilename Name of the properties file, e.g.
-     *        <code>/de/elmar_baumann/lib/resource/LookAndFeel.properties</code>
+     *        <code>/de/elmar_baumann/lib/resource/LookAndFeelColors.properties</code>
      */
-    public static void setCustomLookAndFeel(String propertyFilename) {
-        setCustomLookAndFeel(LookAndFeelUtil.class.getClassLoader().getResourceAsStream(propertyFilename));
+    public static void setCustomColors(String propertyFilename) {
+        setCustomColors(LookAndFeelUtil.class.getClassLoader().getResourceAsStream(propertyFilename));
     }
 
     /**
-     * Sets a custom Look and Feel. Uses a properties file which defines the
-     * colors. A sample file is in
-     * <code>de.elmar_baumann.lib.resource.LookAndFeel.properties</code>
+     * Sets custom colors via a properties file. A sample file is in
+     * <code>de.elmar_baumann.lib.resource.LookAndFeelColors.properties</code>.
+     * Have to be called before the first gui element is created.
      * 
      * @param is Input stream with the key - value pairs
      */
-    public static void setCustomLookAndFeel(InputStream is) {
+    public static void setCustomColors(InputStream is) {
         try {
             Properties properties = new Properties();
             properties.load(is);
