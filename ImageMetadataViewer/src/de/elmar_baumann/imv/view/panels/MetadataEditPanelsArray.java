@@ -239,6 +239,8 @@ public class MetadataEditPanelsArray implements FocusListener, DatabaseListener 
     public void setFocusToLastFocussedComponent() {
         if (lastFocussedComponent != null) {
             lastFocussedComponent.requestFocus();
+        } else {
+            setFocusToFirstEditField();
         }
     }
 
