@@ -19,7 +19,7 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="splitPaneMain" alignment="1" max="32767" attributes="2"/>
+                  <Component id="splitPaneMain" alignment="1" pref="1098" max="32767" attributes="2"/>
                   <Component id="panelStatusbar" alignment="1" max="32767" attributes="2"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -97,7 +97,7 @@
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="scrollPaneTreeDirectories" alignment="0" pref="603" max="32767" attributes="0"/>
+                          <Component id="scrollPaneTreeDirectories" alignment="0" pref="629" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                   </Layout>
@@ -143,9 +143,9 @@
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <EmptySpace min="0" pref="603" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="629" max="32767" attributes="0"/>
                           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                              <Component id="scrollPaneTreeSavedSearches" alignment="0" pref="603" max="32767" attributes="0"/>
+                              <Component id="scrollPaneTreeSavedSearches" alignment="0" pref="629" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -192,9 +192,9 @@
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <EmptySpace min="0" pref="603" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="629" max="32767" attributes="0"/>
                           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                              <Component id="scrollPaneTreeImageCollections" alignment="0" pref="603" max="32767" attributes="0"/>
+                              <Component id="scrollPaneTreeImageCollections" alignment="0" pref="629" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -238,7 +238,7 @@
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="scrollPaneListCategories" alignment="0" pref="603" max="32767" attributes="0"/>
+                          <Component id="scrollPaneListCategories" alignment="0" pref="629" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                   </Layout>
@@ -285,9 +285,9 @@
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <EmptySpace min="0" pref="603" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="629" max="32767" attributes="0"/>
                           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                              <Component id="scrollPaneListFavoriteDirectories" alignment="0" pref="603" max="32767" attributes="0"/>
+                              <Component id="scrollPaneListFavoriteDirectories" alignment="0" pref="629" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -327,9 +327,9 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="937" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="941" max="32767" attributes="0"/>
                   <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                      <Component id="splitPaneThumbnailsMetadata" alignment="1" pref="937" max="32767" attributes="0"/>
+                      <Component id="splitPaneThumbnailsMetadata" alignment="1" pref="941" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -387,12 +387,12 @@
                           <Layout>
                             <DimensionLayout dim="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <EmptySpace min="0" pref="599" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="598" max="32767" attributes="0"/>
                               </Group>
                             </DimensionLayout>
                             <DimensionLayout dim="1">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <EmptySpace min="0" pref="679" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="678" max="32767" attributes="0"/>
                               </Group>
                             </DimensionLayout>
                           </Layout>
@@ -416,15 +416,15 @@
                               <Component id="labelColorBackgroundTableTextStoredInDatabase" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" max="-2" attributes="0"/>
                               <Component id="labelLegendColorBackgroundTableTetStoredInDatabase" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="229" max="32767" attributes="3"/>
+                              <EmptySpace pref="241" max="32767" attributes="3"/>
                           </Group>
-                          <Component id="labelMetadataFilename" alignment="0" pref="323" max="32767" attributes="2"/>
+                          <Component id="labelMetadataFilename" alignment="0" pref="332" max="32767" attributes="2"/>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="panelMetadataProgress" max="32767" attributes="2"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
-                          <Component id="tabbedPaneMetaDataTabs" alignment="0" pref="323" max="32767" attributes="2"/>
+                          <Component id="tabbedPaneMetaDataTabs" alignment="0" pref="332" max="32767" attributes="2"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
@@ -440,7 +440,7 @@
                                   <Component id="labelColorBackgroundTableTextStoredInDatabase" alignment="2" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" max="-2" attributes="0"/>
-                              <Component id="tabbedPaneMetaDataTabs" pref="573" max="32767" attributes="0"/>
+                              <Component id="tabbedPaneMetaDataTabs" pref="574" max="32767" attributes="0"/>
                               <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                               <Component id="panelMetadataProgress" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -819,9 +819,9 @@
                                       <Group type="102" alignment="0" attributes="0">
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="labelEditTabInfoArrayDelimiter" min="-2" pref="294" max="-2" attributes="0"/>
-                                          <EmptySpace max="32767" attributes="1"/>
+                                          <EmptySpace pref="23" max="32767" attributes="1"/>
                                       </Group>
-                                      <Component id="scrollPaneEditMetadata" alignment="0" pref="318" max="32767" attributes="0"/>
+                                      <Component id="scrollPaneEditMetadata" alignment="0" pref="327" max="32767" attributes="0"/>
                                   </Group>
                                 </DimensionLayout>
                                 <DimensionLayout dim="1">
@@ -830,7 +830,7 @@
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="labelEditTabInfoArrayDelimiter" min="-2" pref="13" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="scrollPaneEditMetadata" pref="515" max="32767" attributes="0"/>
+                                          <Component id="scrollPaneEditMetadata" pref="519" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                                 </DimensionLayout>
@@ -850,7 +850,7 @@
                                         </DimensionLayout>
                                         <DimensionLayout dim="1">
                                           <Group type="103" groupAlignment="0" attributes="0">
-                                              <EmptySpace min="0" pref="497" max="32767" attributes="0"/>
+                                              <EmptySpace min="0" pref="499" max="32767" attributes="0"/>
                                           </Group>
                                         </DimensionLayout>
                                       </Layout>
@@ -878,9 +878,9 @@
                       <Layout>
                         <DimensionLayout dim="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="progressBarCurrentTasks" alignment="0" pref="299" max="32767" attributes="2"/>
+                              <Component id="progressBarCurrentTasks" alignment="0" pref="312" max="32767" attributes="2"/>
                               <Group type="102" alignment="1" attributes="0">
-                                  <Component id="progressBarScheduledTasks" pref="277" max="32767" attributes="2"/>
+                                  <Component id="progressBarScheduledTasks" pref="290" max="32767" attributes="2"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="buttonStopScheduledTasks" min="-2" max="-2" attributes="0"/>
                               </Group>

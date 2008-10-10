@@ -16,7 +16,9 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JPanel;
 import javax.swing.JProgressBar;
+import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.JTree;
@@ -64,6 +66,14 @@ public class AppPanel extends javax.swing.JPanel {
             metadataEditActionsPanel = new MetaDataEditActionsPanel();
         }
         return metadataEditActionsPanel;
+    }
+    
+    public JTabbedPane getTabbedPaneMetadata() {
+        return tabbedPaneMetaDataTabs;
+    }
+    
+    public JPanel getMetadataEditTab() {
+        return panelTabEditMetaData;
     }
 
     public JProgressBar getProgressBarCreateMetaDataOfCurrentThumbnails() {
