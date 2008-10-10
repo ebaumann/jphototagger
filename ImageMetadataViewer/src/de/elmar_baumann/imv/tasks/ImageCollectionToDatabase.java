@@ -140,7 +140,7 @@ public class ImageCollectionToDatabase {
             msg.format(params),
             Bundle.getString("ImageCollectionToDatabase.ErrorMessage.Title"),
             JOptionPane.ERROR_MESSAGE,
-            AppSettings.getSmallAppIcon());
+            AppSettings.getMediumAppIcon());
     }
 
     private boolean askDelete(String collectionName, String message) {
@@ -152,7 +152,7 @@ public class ImageCollectionToDatabase {
             Bundle.getString("ImageCollectionToDatabase.ConfirmMessage.Delete.Title"),
             JOptionPane.YES_NO_OPTION,
             JOptionPane.QUESTION_MESSAGE,
-            AppSettings.getSmallAppIcon()) == JOptionPane.YES_OPTION;
+            AppSettings.getMediumAppIcon()) == JOptionPane.YES_OPTION;
     }
 
     private String getCollectionName(String defaultName) {
@@ -184,7 +184,7 @@ public class ImageCollectionToDatabase {
                     Bundle.getString("ImageCollectionToDatabase.ConfirmMessage.InputNewCollectionName.Title"),
                     JOptionPane.YES_NO_OPTION,
                     JOptionPane.QUESTION_MESSAGE,
-                    AppSettings.getSmallAppIcon()) == JOptionPane.YES_OPTION;
+                    AppSettings.getMediumAppIcon()) == JOptionPane.YES_OPTION;
                 name = null;
             }
             if (willAdd) {

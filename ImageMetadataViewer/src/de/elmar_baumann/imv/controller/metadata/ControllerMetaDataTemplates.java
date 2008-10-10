@@ -100,7 +100,7 @@ public class ControllerMetaDataTemplates extends Controller
                 Bundle.getString("ControllerMetaDataTemplates.ConfirmMessage.Delete.Title"),
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.QUESTION_MESSAGE,
-                AppSettings.getSmallAppIcon()) == JOptionPane.YES_OPTION) {
+                AppSettings.getMediumAppIcon()) == JOptionPane.YES_OPTION) {
                 model.deleteMetaDataEditTemplate(template);
             }
         }
@@ -148,7 +148,7 @@ public class ControllerMetaDataTemplates extends Controller
                     Bundle.getString("ControllerMetaDataTemplates.ConfirmMessage.OverwriteExistingTemplate.Title"),
                     JOptionPane.YES_NO_OPTION,
                     JOptionPane.QUESTION_MESSAGE,
-                    AppSettings.getSmallAppIcon()) == JOptionPane.NO_OPTION;
+                    AppSettings.getMediumAppIcon()) == JOptionPane.NO_OPTION;
             }
             if (exists && abort) {
                 name = null;

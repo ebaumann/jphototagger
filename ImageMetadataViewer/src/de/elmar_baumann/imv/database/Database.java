@@ -3056,7 +3056,7 @@ public class Database {
                 Bundle.getString("Database.CreateTables.ErrorMessage"), // NOI18N
                 Bundle.getString("Database.CreateTables.ErrorMessage.Title"), // NOI18N
                 JOptionPane.ERROR_MESSAGE,
-                AppSettings.getSmallAppIcon());
+                AppSettings.getMediumAppIcon());
             System.exit(0);
         } finally {
             free(connection);

@@ -64,7 +64,7 @@ public class ControllerDeleteSavedSearch extends Controller
             Bundle.getString("ControllerDeleteSavedSearch.ConfirmMessage.DeleteSearch.Title"),
             JOptionPane.YES_NO_OPTION,
             JOptionPane.QUESTION_MESSAGE,
-            AppSettings.getSmallAppIcon()) == JOptionPane.YES_OPTION;
+            AppSettings.getMediumAppIcon()) == JOptionPane.YES_OPTION;
     }
 
     private void messageErrorDelete() {
@@ -73,6 +73,6 @@ public class ControllerDeleteSavedSearch extends Controller
             Bundle.getString("ControllerDeleteSavedSearch.ErrorMessage.SavedSearchCouldntBeDeleted"),
             Bundle.getString("ControllerDeleteSavedSearch.ErrorMessage.SavedSearchCouldntBeDeleted.Title"),
             JOptionPane.ERROR_MESSAGE,
-            AppSettings.getSmallAppIcon());
+            AppSettings.getMediumAppIcon());
     }
 }

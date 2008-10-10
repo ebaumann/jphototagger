@@ -143,6 +143,6 @@ public class ListModelFavoriteDirectories extends DefaultListModel {
             msg.format(params),
             Bundle.getString("ListModelFavoriteDirectories.ErrorMessage.Template.Title"),
             JOptionPane.ERROR_MESSAGE,
-            AppSettings.getSmallAppIcon());
+            AppSettings.getMediumAppIcon());
     }
 }

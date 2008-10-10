@@ -120,7 +120,7 @@ public class DatabaseMaintainanceDialog extends javax.swing.JDialog implements
             Bundle.getString("DatabaseMaintainanceDialog.ErrorMessage.WaitBeforeClose"),
             Bundle.getString("DatabaseMaintainanceDialog.ErrorMessage.WaitBeforeClose.Title"),
             JOptionPane.INFORMATION_MESSAGE,
-            AppSettings.getSmallAppIcon());
+            AppSettings.getMediumAppIcon());
     }
 
     private void messageCompressDatabase(boolean success) {

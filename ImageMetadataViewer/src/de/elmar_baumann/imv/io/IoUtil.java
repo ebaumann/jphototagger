@@ -37,7 +37,7 @@ public class IoUtil {
                     Bundle.getString("IoUtil.ErrorMessage.OpenFile"),
                     Bundle.getString("IoUtil.ErrorMessage.OpenFile.Title"),
                     JOptionPane.ERROR_MESSAGE,
-                    AppSettings.getSmallAppIcon());
+                    AppSettings.getMediumAppIcon());
             }
         }
     }

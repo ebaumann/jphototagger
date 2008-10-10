@@ -60,7 +60,7 @@ public class ControllerDeleteThumbnailsFromDatabase extends Controller
             Bundle.getString("ControllerDeleteThumbnailsFromDatabase.ConfirmMessage.DeleteSelectedFiles.Title"),
             JOptionPane.YES_NO_OPTION,
             JOptionPane.QUESTION_MESSAGE,
-            AppSettings.getSmallAppIcon()) == JOptionPane.YES_OPTION;
+            AppSettings.getMediumAppIcon()) == JOptionPane.YES_OPTION;
     }
 
     private void messageErrorDeleteImageFiles(int countFiles, int countDeleted) {
@@ -71,6 +71,6 @@ public class ControllerDeleteThumbnailsFromDatabase extends Controller
             msg.format(params),
             Bundle.getString("ControllerDeleteThumbnailsFromDatabase.ErrorMessage.DeleteSelectedFiles.Title"),
             JOptionPane.ERROR_MESSAGE,
-            AppSettings.getSmallAppIcon());
+            AppSettings.getMediumAppIcon());
     }
 }

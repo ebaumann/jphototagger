@@ -45,7 +45,7 @@ public class CopyToDirectoryDialog extends javax.swing.JDialog
                 Bundle.getString("CopyToDirectoryDialog.ErrorMessage.AbortBeforeClose"),
                 Bundle.getString("CopyToDirectoryDialog.ErrorMessage.AbortBeforeClose.Title"),
                 JOptionPane.INFORMATION_MESSAGE,
-                AppSettings.getSmallAppIcon());
+                AppSettings.getMediumAppIcon());
         } else {
             setVisible(false);
         }
@@ -58,7 +58,7 @@ public class CopyToDirectoryDialog extends javax.swing.JDialog
                 Bundle.getString("CopyToDirectoryDialog.ErrorMessage.CopyErrorsOccured"),
                 Bundle.getString("CopyToDirectoryDialog.ErrorMessage.CopyErrorsOccured.Title"),
                 JOptionPane.ERROR_MESSAGE,
-                AppSettings.getSmallAppIcon());
+                AppSettings.getMediumAppIcon());
         }
     }
 

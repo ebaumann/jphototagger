@@ -123,7 +123,7 @@ public class FavoriteDirectoryPropertiesDialog extends javax.swing.JDialog {
                     msg.format(params),
                     Bundle.getString("FavoriteDirectoryPropertiesDialog.ErrorMessage.FavoriteExists.Title"),
                     JOptionPane.ERROR_MESSAGE,
-                    AppSettings.getSmallAppIcon());
+                    AppSettings.getMediumAppIcon());
             } else {
                 setVisible(false);
             }
@@ -141,7 +141,7 @@ public class FavoriteDirectoryPropertiesDialog extends javax.swing.JDialog {
                 Bundle.getString("FavoriteDirectoryPropertiesDialog.ErrorMessage.InvalidInput"),
                 Bundle.getString("FavoriteDirectoryPropertiesDialog.ErrorMessage.InvalidInput.Title"),
                 JOptionPane.ERROR_MESSAGE,
-                AppSettings.getSmallAppIcon());
+                AppSettings.getMediumAppIcon());
             return false;
         }
         return true;

@@ -101,7 +101,7 @@ public class AdvancedSearchDialog extends javax.swing.JDialog implements
                 Bundle.getString("AdvancedSearchDialog.ErrorMessage.InvalidQuery"),
                 Bundle.getString("AdvancedSearchDialog.ErrorMessage.InvalidQuery.Title"),
                 JOptionPane.ERROR_MESSAGE,
-                AppSettings.getSmallAppIcon());
+                AppSettings.getMediumAppIcon());
         }
         return canSearch;
     }
@@ -199,7 +199,7 @@ public class AdvancedSearchDialog extends javax.swing.JDialog implements
                 Bundle.getString("AdvancedSearchDialog.ConfirmMessage.SaveChanges.Title"),
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.QUESTION_MESSAGE,
-                AppSettings.getSmallAppIcon()) ==
+                AppSettings.getMediumAppIcon()) ==
                 JOptionPane.YES_OPTION) {
                 saveSearch();
             }

@@ -78,7 +78,7 @@ public class ControllerRenameSavedSearch extends Controller
                     Bundle.getString("ControllerRenameSavedSearch.ConfirmMessage.ChangeNameBecauseExists.Title"),
                     JOptionPane.YES_NO_OPTION,
                     JOptionPane.QUESTION_MESSAGE,
-                    AppSettings.getSmallAppIcon()) == JOptionPane.YES_OPTION;
+                    AppSettings.getMediumAppIcon()) == JOptionPane.YES_OPTION;
                 if (inputRequestet) {
                     oldName = input;
                 }
@@ -96,7 +96,7 @@ public class ControllerRenameSavedSearch extends Controller
             msg.format(param),
             Bundle.getString("ControllerRenameSavedSearch.ErrorMessage.RenameFailed.Title"),
             JOptionPane.ERROR_MESSAGE,
-            AppSettings.getSmallAppIcon());
+            AppSettings.getMediumAppIcon());
     }
 
     private void messageErrorRenameGetUpdate(String searchName) {
@@ -107,6 +107,6 @@ public class ControllerRenameSavedSearch extends Controller
             msg.format(param),
             Bundle.getString("ControllerRenameSavedSearch.ErrorMessage.SavedSearchWasRenamedButCouldntBeLoadedTitle"),
             JOptionPane.ERROR_MESSAGE,
-            AppSettings.getSmallAppIcon());
+            AppSettings.getMediumAppIcon());
     }
 }

@@ -32,6 +32,6 @@ public class ControllerAboutApp extends Controller implements ActionListener {
             message.format(params),
             Bundle.getString("ControllerAppAbout.InformationMessage.About.Title"), // NOI18N
             JOptionPane.INFORMATION_MESSAGE,
-            AppSettings.getSmallAppIcon());
+            AppSettings.getMediumAppIcon());
     }
 }

@@ -53,7 +53,7 @@ public class ControllerDeleteFavoriteDirectory extends Controller
             Bundle.getString("ControllerDeleteFavoriteDirectory.ConfirmMessage.Delete.Title"),
             JOptionPane.YES_NO_OPTION,
             JOptionPane.QUESTION_MESSAGE,
-            AppSettings.getSmallAppIcon()) == JOptionPane.YES_OPTION;
+            AppSettings.getMediumAppIcon()) == JOptionPane.YES_OPTION;
     }
 
     private void listenToActionSource() {

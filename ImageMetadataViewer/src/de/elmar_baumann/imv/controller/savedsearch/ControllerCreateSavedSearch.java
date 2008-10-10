@@ -81,7 +81,7 @@ public class ControllerCreateSavedSearch extends Controller
                 Bundle.getString("ControllerRenameSavedSearch.ConfirmMessage.ReplaceExisting.Title"),
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.QUESTION_MESSAGE,
-                AppSettings.getSmallAppIcon()) == JOptionPane.YES_OPTION;
+                AppSettings.getMediumAppIcon()) == JOptionPane.YES_OPTION;
         }
         return true;
     }
@@ -92,6 +92,6 @@ public class ControllerCreateSavedSearch extends Controller
             Bundle.getString("ControllerRenameSavedSearch.ErrorMessage.SearchCouldntBeSaved"),
             Bundle.getString("ControllerRenameSavedSearch.ErrorMessage.SearchCouldntBeSaved.Title"),
             JOptionPane.ERROR_MESSAGE,
-            AppSettings.getSmallAppIcon());
+            AppSettings.getMediumAppIcon());
     }
 }

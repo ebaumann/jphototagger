@@ -308,7 +308,7 @@ public class UserSettingsDialog extends javax.swing.JDialog
             Bundle.getString("UserSettingsDialog.ConfirmMessage.RemoveImageOpenApp.Title"),
             JOptionPane.YES_NO_OPTION,
             JOptionPane.QUESTION_MESSAGE,
-            AppSettings.getSmallAppIcon()) == JOptionPane.YES_OPTION;
+            AppSettings.getMediumAppIcon()) == JOptionPane.YES_OPTION;
     }
 
     private File chooseFile(String startDirectory) {
@@ -399,7 +399,7 @@ public class UserSettingsDialog extends javax.swing.JDialog
             msg.format(params),
             Bundle.getString("UserSettingsDialog.ErrorMessage.InsertAutoscanDirectory.Title"),
             JOptionPane.ERROR_MESSAGE,
-            AppSettings.getSmallAppIcon());
+            AppSettings.getMediumAppIcon());
     }
 
     private void messageErrorDeleteAutoscanDirectory(String directoryName) {
@@ -410,7 +410,7 @@ public class UserSettingsDialog extends javax.swing.JDialog
             msg.format(params),
             Bundle.getString("UserSettingsDialog.ErrorMessage.DeleteAutoscanDirectory.Title"),
             JOptionPane.ERROR_MESSAGE,
-            AppSettings.getSmallAppIcon());
+            AppSettings.getMediumAppIcon());
     }
 
     @Override

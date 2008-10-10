@@ -86,7 +86,7 @@ public class RenameInXmpColumnsDialog extends javax.swing.JDialog {
             Bundle.getString("RenameInXmpColumnsDialog.ErrorMessage.MissingReplaceString"),
             Bundle.getString("RenameInXmpColumnsDialog.ErrorMessage.MissingReplaceString.Title"),
             JOptionPane.ERROR_MESSAGE,
-            AppSettings.getSmallAppIcon());
+            AppSettings.getMediumAppIcon());
     }
 
     /** This method is called from within the constructor to

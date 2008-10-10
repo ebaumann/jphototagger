@@ -108,6 +108,6 @@ public class ComboBoxModelMetaDataEditTemplates extends DefaultComboBoxModel {
             msg.format(params),
             Bundle.getString("ComboBoxModelMetaDataEditTemplates.ErrorMessage.Template.Title"),
             JOptionPane.ERROR_MESSAGE,
-            AppSettings.getSmallAppIcon());
+            AppSettings.getMediumAppIcon());
     }
 }

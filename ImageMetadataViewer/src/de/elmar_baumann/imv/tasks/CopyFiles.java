@@ -164,7 +164,7 @@ public class CopyFiles implements Runnable {
                 Bundle.getString("CopyFiles.ConfirmMessage.OverwriteExisting.Title"),
                 JOptionPane.YES_NO_CANCEL_OPTION,
                 JOptionPane.QUESTION_MESSAGE,
-                AppSettings.getSmallAppIcon());
+                AppSettings.getMediumAppIcon());
             if (option == JOptionPane.CANCEL_OPTION) {
                 stop();
             } else {
