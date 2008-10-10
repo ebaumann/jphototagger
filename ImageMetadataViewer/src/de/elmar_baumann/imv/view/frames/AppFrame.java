@@ -64,11 +64,11 @@ public class AppFrame extends javax.swing.JFrame {
     public JMenuItem getMenuItemToolIptcToXmp() {
         return menuItemToolIptcToXmp;
     }
-    
+
     public JMenuItem getMenuItemGotoFastSearch() {
         return menuItemGotoFastSearch;
     }
-    
+
     public JMenuItem getMenuItemGotoEdit() {
         return menuItemGotoEdit;
     }
@@ -98,8 +98,7 @@ public class AppFrame extends javax.swing.JFrame {
 
     private void listenToClose() {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        this.addWindowListener(new WindowAdapter() {
-
+        this.addWindowListener(new  WindowAdapter() {
             @Override
             public void windowClosed(WindowEvent evt) {
                 quit();

@@ -3,6 +3,7 @@ package de.elmar_baumann.imv;
 import com.imagero.reader.AbstractImageReader;
 import de.elmar_baumann.lib.componentutil.LookAndFeelUtil;
 import de.elmar_baumann.imv.database.Database;
+import de.elmar_baumann.imv.model.ComboBoxModelAppLookAndFeel;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.ImageProperties;
 import de.elmar_baumann.imv.view.frames.AppFrame;
@@ -29,6 +30,17 @@ public class Main {
      */
     public static void main(String[] args) {
         init();
+    }
+
+    private static void init() {
+        PersistentSettings.getInstance().setAppName("ImageMetaDataViewer");  // NOI18N NEVER CHANGE NAME AND LOCATION
+        setLookAndFeel();
+        lock();
+        Settings.getInstance().setIconImagesPath(AppSettings.getAppIconPaths());
+        SplashScreen.setMessageToSplashScreen(Bundle.getString("Main.Init.InformationMessage.SplashScreen.ConnectToDatabase"));
+        Database.getInstance().createTables();
+        initLogger();
+        AbstractImageReader.install(ImageProperties.class);
         SplashScreen.setMessageToSplashScreen(Bundle.getString("Main.Main.InformationMessage.SplashScreen.InitGui"));
         showFrame();
     }
@@ -40,6 +52,15 @@ public class Main {
         }
     }
 
+    private static void setLookAndFeel() {
+        ComboBoxModelAppLookAndFeel model = new ComboBoxModelAppLookAndFeel();
+        if (model.isSystemLookAndFeel()) {
+            LookAndFeelUtil.setSystemLookAndFeel();
+        } else {
+            LookAndFeelUtil.setCustomLookAndFeel(model.getLookAndFeelPropertiesFilename());
+        }
+    }
+
     private static void showFrame() {
         java.awt.EventQueue.invokeLater(new Runnable() {
 
@@ -48,17 +69,6 @@ public class Main {
                 new AppFrame().setVisible(true);
             }
         });
-    }
-
-    private static void init() {
-        LookAndFeelUtil.setSystemLookAndFeel();
-        PersistentSettings.getInstance().setAppName("ImageMetaDataViewer");  // NOI18N
-        lock();
-        Settings.getInstance().setIconImagesPath(AppSettings.getAppIconPaths());
-        SplashScreen.setMessageToSplashScreen(Bundle.getString("Main.Init.InformationMessage.SplashScreen.ConnectToDatabase"));
-        Database.getInstance().createTables();
-        initLogger();
-        AbstractImageReader.install(ImageProperties.class);
     }
 
     private static void initLogger() {
