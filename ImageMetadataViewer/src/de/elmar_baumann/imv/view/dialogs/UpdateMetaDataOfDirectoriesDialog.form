@@ -148,7 +148,7 @@
               <Connection code="modelSelectedDirectoryList" type="code"/>
             </Property>
             <Property name="cellRenderer" type="javax.swing.ListCellRenderer" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="new de.elmar_baumann.imagemetadataviewer.view.renderer.ListCellRendererDirectories()" type="code"/>
+              <Connection code="new de.elmar_baumann.imv.view.renderer.ListCellRendererDirectories()" type="code"/>
             </Property>
           </Properties>
           <Events>

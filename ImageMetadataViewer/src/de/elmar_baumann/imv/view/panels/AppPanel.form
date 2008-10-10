@@ -161,7 +161,7 @@
                         <Component class="javax.swing.JTree" name="treeSavedSearches">
                           <Properties>
                             <Property name="cellRenderer" type="javax.swing.tree.TreeCellRenderer" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                              <Connection code="new de.elmar_baumann.imagemetadataviewer.view.renderer.TreeCellRendererSavedSearches()" type="code"/>
+                              <Connection code="new de.elmar_baumann.imv.view.renderer.TreeCellRendererSavedSearches()" type="code"/>
                             </Property>
                             <Property name="name" type="java.lang.String" value="treeSavedSearches" noResource="true"/>
                           </Properties>
@@ -210,7 +210,7 @@
                         <Component class="javax.swing.JTree" name="treeImageCollections">
                           <Properties>
                             <Property name="cellRenderer" type="javax.swing.tree.TreeCellRenderer" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                              <Connection code="new de.elmar_baumann.imagemetadataviewer.view.renderer.TreeCellRendererCollections()" type="code"/>
+                              <Connection code="new de.elmar_baumann.imv.view.renderer.TreeCellRendererCollections()" type="code"/>
                             </Property>
                             <Property name="name" type="java.lang.String" value="treeImageCollections" noResource="true"/>
                           </Properties>
@@ -382,7 +382,7 @@
 
                       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                       <SubComponents>
-                        <Container class="de.elmar_baumann.imagemetadataviewer.view.panels.ImageFileThumbnailsPanel" name="panelImageFileThumbnails">
+                        <Container class="de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel" name="panelImageFileThumbnails">
 
                           <Layout>
                             <DimensionLayout dim="0">

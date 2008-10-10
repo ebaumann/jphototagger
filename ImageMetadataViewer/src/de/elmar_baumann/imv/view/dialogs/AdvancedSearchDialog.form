@@ -83,15 +83,15 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="de.elmar_baumann.imagemetadataviewer.view.panels.SearchColumnPanel" name="panelColumn1">
+        <Component class="de.elmar_baumann.imv.view.panels.SearchColumnPanel" name="panelColumn1">
         </Component>
-        <Component class="de.elmar_baumann.imagemetadataviewer.view.panels.SearchColumnPanel" name="panelColumn2">
+        <Component class="de.elmar_baumann.imv.view.panels.SearchColumnPanel" name="panelColumn2">
         </Component>
-        <Component class="de.elmar_baumann.imagemetadataviewer.view.panels.SearchColumnPanel" name="panelColumn3">
+        <Component class="de.elmar_baumann.imv.view.panels.SearchColumnPanel" name="panelColumn3">
         </Component>
-        <Component class="de.elmar_baumann.imagemetadataviewer.view.panels.SearchColumnPanel" name="panelColumn4">
+        <Component class="de.elmar_baumann.imv.view.panels.SearchColumnPanel" name="panelColumn4">
         </Component>
-        <Component class="de.elmar_baumann.imagemetadataviewer.view.panels.SearchColumnPanel" name="panelColumn5">
+        <Component class="de.elmar_baumann.imv.view.panels.SearchColumnPanel" name="panelColumn5">
         </Component>
       </SubComponents>
     </Container>
