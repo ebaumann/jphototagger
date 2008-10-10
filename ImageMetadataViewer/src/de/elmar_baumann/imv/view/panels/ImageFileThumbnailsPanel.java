@@ -40,6 +40,7 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel
     public ImageFileThumbnailsPanel() {
         setThumbnailCount(0);
         controllerDoubleklickThumbnail = new ControllerDoubleklickThumbnail(this);
+        setThumbnailCountPerRow(UserSettings.getInstance().getThumbnailCountPerRow());
         UserSettingsDialog.getInstance().addChangeListener(this);
         db.addDatabaseListener(this);
     }
