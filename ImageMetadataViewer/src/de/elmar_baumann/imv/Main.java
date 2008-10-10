@@ -33,6 +33,13 @@ public class Main {
         showFrame();
     }
 
+    private static void lock() {
+        if (!Lock.lock()) {
+            Lock.errorMessageNotLocked();
+            System.exit(1);
+        }
+    }
+
     private static void showFrame() {
         java.awt.EventQueue.invokeLater(new Runnable() {
 
@@ -46,6 +53,7 @@ public class Main {
     private static void init() {
         LookAndFeelUtil.setSystemLookAndFeel();
         PersistentSettings.getInstance().setAppName("ImageMetaDataViewer");  // NOI18N
+        lock();
         Settings.getInstance().setIconImagesPath(AppSettings.getAppIconPaths());
         SplashScreen.setMessageToSplashScreen(Bundle.getString("Main.Init.InformationMessage.SplashScreen.ConnectToDatabase"));
         Database.getInstance().createTables();
