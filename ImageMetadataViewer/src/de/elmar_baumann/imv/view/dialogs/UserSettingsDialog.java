@@ -6,7 +6,6 @@ import de.elmar_baumann.imv.database.Database;
 import de.elmar_baumann.imv.database.metadata.Column;
 import de.elmar_baumann.imv.event.UserSettingsChangeEvent;
 import de.elmar_baumann.imv.event.UserSettingsChangeListener;
-import de.elmar_baumann.imv.model.ComboBoxModelAppLookAndFeel;
 import de.elmar_baumann.imv.model.ComboBoxModelLogfileFormatter;
 import de.elmar_baumann.imv.model.ListModelAutoscanDirectories;
 import de.elmar_baumann.lib.component.CheckList;
@@ -60,7 +59,6 @@ public class UserSettingsDialog extends javax.swing.JDialog
     private ListModelAutoscanDirectories modelAutoscanDirectories = new ListModelAutoscanDirectories();
     private String lastSelectedAutoscanDirectory = ""; // NOI18N
     private String previousDirectory = ""; // NOI18N
-    private ComboBoxModelAppLookAndFeel modelLookAndFeel = new ComboBoxModelAppLookAndFeel();
     private static UserSettingsDialog instance = new UserSettingsDialog();
 
     private void initHashMaps() {
@@ -77,12 +75,6 @@ public class UserSettingsDialog extends javax.swing.JDialog
         for (Tab tab : indexOfTab.keySet()) {
             tabOfIndex.put(indexOfTab.get(tab), tab);
         }
-    }
-
-    private void writePersistentComoBoxSkinsIndex() {
-        PersistentSettings.getInstance().setString(
-            Integer.toString(comboBoxAppLookAndFeel.getSelectedIndex()),
-            ComboBoxModelAppLookAndFeel.keySelectedIndex);
     }
 
     /**
@@ -521,8 +513,6 @@ public class UserSettingsDialog extends javax.swing.JDialog
         labelLogFormat = new javax.swing.JLabel();
         comboBoxLogfileFormatter = new javax.swing.JComboBox();
         checkBoxAcceptHiddenDirectories = new javax.swing.JCheckBox();
-        labelAppLookAndFeel = new javax.swing.JLabel();
-        comboBoxAppLookAndFeel = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(Bundle.getString("UserSettingsDialog.title")); // NOI18N
@@ -1164,17 +1154,6 @@ public class UserSettingsDialog extends javax.swing.JDialog
         checkBoxAcceptHiddenDirectories.setFont(new java.awt.Font("Dialog", 0, 12));
         checkBoxAcceptHiddenDirectories.setText(Bundle.getString("UserSettingsDialog.checkBoxAcceptHiddenDirectories.text")); // NOI18N
 
-        labelAppLookAndFeel.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
-        labelAppLookAndFeel.setText(Bundle.getString("UserSettingsDialog.labelAppLookAndFeel.text")); // NOI18N
-
-        comboBoxAppLookAndFeel.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
-        comboBoxAppLookAndFeel.setModel(modelLookAndFeel);
-        comboBoxAppLookAndFeel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboBoxAppLookAndFeelActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout panelOtherLayout = new javax.swing.GroupLayout(panelOther);
         panelOther.setLayout(panelOtherLayout);
         panelOtherLayout.setHorizontalGroup(
@@ -1183,11 +1162,7 @@ public class UserSettingsDialog extends javax.swing.JDialog
                 .addContainerGap()
                 .addGroup(panelOtherLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(checkBoxAcceptHiddenDirectories)
-                    .addComponent(panelLogfile, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(panelOtherLayout.createSequentialGroup()
-                        .addComponent(labelAppLookAndFeel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(comboBoxAppLookAndFeel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(panelLogfile, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         panelOtherLayout.setVerticalGroup(
@@ -1197,11 +1172,7 @@ public class UserSettingsDialog extends javax.swing.JDialog
                 .addComponent(panelLogfile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(checkBoxAcceptHiddenDirectories)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panelOtherLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelAppLookAndFeel)
-                    .addComponent(comboBoxAppLookAndFeel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(185, Short.MAX_VALUE))
+                .addContainerGap(217, Short.MAX_VALUE))
         );
 
         tabbedPane.addTab(Bundle.getString("UserSettingsDialog.panelOther.TabConstraints.tabTitle"), panelOther); // NOI18N
@@ -1286,10 +1257,6 @@ private void listTasksAutoscanDirectoriesValueChanged(javax.swing.event.ListSele
     setEnabledButtonRemoveAutoscanDirectory();
 }//GEN-LAST:event_listTasksAutoscanDirectoriesValueChanged
 
-private void comboBoxAppLookAndFeelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxAppLookAndFeelActionPerformed
-    writePersistentComoBoxSkinsIndex();
-}//GEN-LAST:event_comboBoxAppLookAndFeelActionPerformed
-
     /**
     * @param args the command line arguments
     */
@@ -1324,12 +1291,10 @@ private void comboBoxAppLookAndFeelActionPerformed(java.awt.event.ActionEvent ev
     public javax.swing.JCheckBox checkBoxTasksAutoscanIncludeSubdirectories;
     public javax.swing.JCheckBox checkBoxTasksRemoveRecordsWithNotExistingFiles;
     public javax.swing.JCheckBox checkBoxUseEmbeddedThumbnails;
-    private javax.swing.JComboBox comboBoxAppLookAndFeel;
     public javax.swing.JComboBox comboBoxIptcCharset;
     public javax.swing.JComboBox comboBoxLogLevel;
     public javax.swing.JComboBox comboBoxLogfileFormatter;
     public javax.swing.JComboBox comboBoxThreadPriority;
-    private javax.swing.JLabel labelAppLookAndFeel;
     private javax.swing.JLabel labelImageInfotextOpenApp;
     public javax.swing.JLabel labelImageOpenApp;
     private javax.swing.JLabel labelInfoChangeLength;

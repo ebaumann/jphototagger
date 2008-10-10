@@ -3,7 +3,6 @@ package de.elmar_baumann.imv;
 import com.imagero.reader.AbstractImageReader;
 import de.elmar_baumann.lib.componentutil.LookAndFeelUtil;
 import de.elmar_baumann.imv.database.Database;
-import de.elmar_baumann.imv.model.ComboBoxModelAppLookAndFeel;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.ImageProperties;
 import de.elmar_baumann.imv.view.frames.AppFrame;
@@ -34,7 +33,7 @@ public class Main {
 
     private static void init() {
         PersistentSettings.getInstance().setAppName("ImageMetaDataViewer");  // NOI18N NEVER CHANGE NAME AND LOCATION
-        setLookAndFeel();
+        LookAndFeelUtil.setSystemLookAndFeel();
         lock();
         Settings.getInstance().setIconImagesPath(AppSettings.getAppIconPaths());
         SplashScreen.setMessageToSplashScreen(Bundle.getString("Main.Init.InformationMessage.SplashScreen.ConnectToDatabase"));
@@ -49,15 +48,6 @@ public class Main {
         if (!AppLock.lock()) {
             AppLock.errorMessageNotLocked();
             System.exit(1);
-        }
-    }
-
-    private static void setLookAndFeel() {
-        ComboBoxModelAppLookAndFeel model = new ComboBoxModelAppLookAndFeel();
-        if (model.isSystemLookAndFeel()) {
-            LookAndFeelUtil.setSystemLookAndFeel();
-        } else {
-            LookAndFeelUtil.setCustomLookAndFeel(model.getLookAndFeelPropertiesFilename());
         }
     }
 

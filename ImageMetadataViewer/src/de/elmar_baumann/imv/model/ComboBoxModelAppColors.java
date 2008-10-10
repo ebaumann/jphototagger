@@ -13,23 +13,23 @@ import javax.swing.DefaultComboBoxModel;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/10
  */
-public class ComboBoxModelAppLookAndFeel extends DefaultComboBoxModel {
+public class ComboBoxModelAppColors extends DefaultComboBoxModel {
 
-    private static final HashMap<String, String> propertyFilenameOfSkin = new HashMap<String, String>();
-    private static final String standardLookAndFeel = Bundle.getString("ComboBoxModelAppLookAndFeel.KeynameStandard");
-    public static final String keySelectedIndex = ComboBoxModelAppLookAndFeel.class.getName() + ".SelectedIndex"; // NOI18N
+    private static final HashMap<String, String> propertyFilenameOf = new HashMap<String, String>();
+    private static final String standardLookAndFeel = Bundle.getString("ComboBoxModelAppColors.NameStandard");
+    public static final String keySelectedIndex = ComboBoxModelAppColors.class.getName() + ".SelectedIndex"; // NOI18N
     
 
     static {
-        propertyFilenameOfSkin.put(
+        propertyFilenameOf.put(
             standardLookAndFeel,
             null); // NOI18N
-        propertyFilenameOfSkin.put(
-            Bundle.getString("ComboBoxModelAppLookAndFeel.KeynameDark"),
-            "de/elmar_baumann/imv/resource/DarkSkin.properties"); // NOI18N
+        propertyFilenameOf.put(
+            Bundle.getString("ComboBoxModelAppColors.NameDark"),
+            "de/elmar_baumann/imv/resource/DarkAppColors.properties"); // NOI18N
     }
 
-    public ComboBoxModelAppLookAndFeel() {
+    public ComboBoxModelAppColors() {
         addElements();
     }
 
@@ -51,13 +51,13 @@ public class ComboBoxModelAppLookAndFeel extends DefaultComboBoxModel {
         Object selected = getSelectedItem();
         String filename = null;
         if (selected != null) {
-            filename = propertyFilenameOfSkin.get((String) selected);
+            filename = propertyFilenameOf.get((String) selected);
         }
         return filename;
     }
 
     private void addElements() {
-        for (String key : propertyFilenameOfSkin.keySet()) {
+        for (String key : propertyFilenameOf.keySet()) {
             addElement(key);
         }
         selectElement();
@@ -69,7 +69,7 @@ public class ComboBoxModelAppLookAndFeel extends DefaultComboBoxModel {
             try {
                 setSelectedItem(getElementAt(Integer.parseInt(index)));
             } catch (NumberFormatException ex) {
-                Logger.getLogger(ComboBoxModelAppLookAndFeel.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ComboBoxModelAppColors.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
