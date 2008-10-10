@@ -29,8 +29,8 @@ public class AppFrame extends javax.swing.JFrame {
         listenToClose();
         setTitleAndFrameIcon();
         Panels.getInstance().setAppFrame(this);
-        appPanel.beforeStart();
         MetaFactory.getInstance().startController();
+        appPanel.beforeStart();
     }
 
     public JMenuItem getMenuItemAbout() {
