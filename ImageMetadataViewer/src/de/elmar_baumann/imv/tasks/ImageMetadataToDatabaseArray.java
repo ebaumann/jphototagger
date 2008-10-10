@@ -11,7 +11,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Stack;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JProgressBar;
@@ -25,7 +26,7 @@ import javax.swing.JProgressBar;
  */
 public class ImageMetadataToDatabaseArray implements ProgressListener {
 
-    private Stack<ImageMetadataToDatabase> updaters = new Stack<ImageMetadataToDatabase>();
+    private Queue<ImageMetadataToDatabase> updaters = new ConcurrentLinkedQueue<ImageMetadataToDatabase>();
     private boolean wait = false;
     private boolean started = false;
     private JProgressBar progressBar;
@@ -143,7 +144,7 @@ public class ImageMetadataToDatabaseArray implements ProgressListener {
      */
     synchronized public void addDirectory(String directoryName,
         boolean onlyTextMetadata, boolean force) {
-        updaters.push(createUpdater(directoryName, onlyTextMetadata, force));
+        updaters.add(createUpdater(directoryName, onlyTextMetadata, force));
         startUpdateThread();
     }
 
@@ -165,7 +166,7 @@ public class ImageMetadataToDatabaseArray implements ProgressListener {
     private synchronized void startUpdateThread() {
         if (!isWait()) {
             setWait(true);
-            Thread thread = new Thread(updaters.pop());
+            Thread thread = new Thread(updaters.remove());
             thread.setPriority(UserSettings.getInstance().getThreadPriority());
             thread.start();
         }
@@ -192,7 +193,7 @@ public class ImageMetadataToDatabaseArray implements ProgressListener {
                 progressBar.setToolTipText(filename);
             }
         } else {
-            updaters.removeAllElements();
+            updaters.clear();
             evt.setStop(true);
         }
     }

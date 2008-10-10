@@ -7,7 +7,8 @@ import de.elmar_baumann.imv.event.ProgressEvent;
 import de.elmar_baumann.imv.event.ProgressListener;
 import de.elmar_baumann.imv.resource.ProgressBarCurrentTasks;
 import java.util.List;
-import java.util.Stack;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import javax.swing.JProgressBar;
 
 /**
@@ -18,7 +19,7 @@ import javax.swing.JProgressBar;
  */
 public class XmpUpdaterFromTextEntryArray implements ProgressListener {
 
-    private Stack<XmpUpdaterFromTextEntry> updaters = new Stack<XmpUpdaterFromTextEntry>();
+    private Queue<XmpUpdaterFromTextEntry> updaters = new ConcurrentLinkedQueue<XmpUpdaterFromTextEntry>();
     private ProgressBarCurrentTasks progressBarProvider = ProgressBarCurrentTasks.getInstance();
     private JProgressBar progressBar;
     private boolean wait = false;
@@ -47,7 +48,7 @@ public class XmpUpdaterFromTextEntryArray implements ProgressListener {
     private void startThread() {
         if (!isWait()) {
             setWait(true);
-            Thread thread = new Thread(updaters.pop());
+            Thread thread = new Thread(updaters.remove());
             thread.setPriority(UserSettings.getInstance().getThreadPriority());
             thread.start();
         }
@@ -87,7 +88,7 @@ public class XmpUpdaterFromTextEntryArray implements ProgressListener {
     @Override
     public void progressPerformed(ProgressEvent evt) {
         if (isStop()) {
-            updaters.removeAllElements();
+            updaters.clear();
             evt.setStop(true);
         } else if (progressBar != null) {
             String filename = evt.getInfo().toString();

@@ -11,7 +11,8 @@ import de.elmar_baumann.imv.view.popupmenus.PopupMenuPanelThumbnails;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
-import java.util.Stack;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import javax.swing.JProgressBar;
 
 /**
@@ -28,7 +29,7 @@ import javax.swing.JProgressBar;
 public class ControllerCreateMetaDataOfSelectedThumbnails extends Controller
     implements ActionListener, ProgressListener {
 
-    private Stack<ImageMetadataToDatabase> updaters = new Stack<ImageMetadataToDatabase>();
+    private Queue<ImageMetadataToDatabase> updaters = new ConcurrentLinkedQueue<ImageMetadataToDatabase>();
     private boolean wait = false;
     private PopupMenuPanelThumbnails popup = PopupMenuPanelThumbnails.getInstance();
     private ProgressBarCurrentTasks progressBarProvider = ProgressBarCurrentTasks.getInstance();
@@ -61,7 +62,7 @@ public class ControllerCreateMetaDataOfSelectedThumbnails extends Controller
     }
 
     private void updateMetadata(boolean onlyTextMetadata) {
-        updaters.push(
+        updaters.add(
             createUpdater(popup.getThumbnailsPanel().getSelectedFilenames(), onlyTextMetadata));
         startUpdateMetadataThread();
     }
@@ -77,7 +78,7 @@ public class ControllerCreateMetaDataOfSelectedThumbnails extends Controller
     private synchronized void startUpdateMetadataThread() {
         if (!isWait()) {
             setWait(true);
-            Thread thread = new Thread(updaters.pop());
+            Thread thread = new Thread(updaters.remove());
             thread.setPriority(UserSettings.getInstance().getThreadPriority());
             thread.start();
         }
@@ -111,7 +112,7 @@ public class ControllerCreateMetaDataOfSelectedThumbnails extends Controller
                 progressBar.setValue(evt.getValue());
             }
         } else {
-            updaters.removeAllElements();
+            updaters.clear();
             evt.setStop(true);
         }
     }

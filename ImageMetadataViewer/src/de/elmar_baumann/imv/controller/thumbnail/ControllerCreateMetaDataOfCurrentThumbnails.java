@@ -11,7 +11,8 @@ import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import java.util.List;
-import java.util.Stack;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import javax.swing.JProgressBar;
 
 /**
@@ -23,7 +24,7 @@ import javax.swing.JProgressBar;
 public class ControllerCreateMetaDataOfCurrentThumbnails extends Controller
     implements ThumbnailsPanelListener, ProgressListener {
 
-    private Stack<ImageMetadataToDatabase> updaters = new Stack<ImageMetadataToDatabase>();
+    private Queue<ImageMetadataToDatabase> updaters = new ConcurrentLinkedQueue<ImageMetadataToDatabase>();
     private boolean wait = false;
     private AppPanel appPanel = Panels.getInstance().getAppPanel();
     private ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelImageFileThumbnails();
@@ -35,7 +36,7 @@ public class ControllerCreateMetaDataOfCurrentThumbnails extends Controller
     }
 
     synchronized private void updateMetadata() {
-        updaters.push(createUpdater(thumbnailsPanel.getFilenames()));
+        updaters.add(createUpdater(thumbnailsPanel.getFilenames()));
         startUpdateMetadataThread();
     }
 
@@ -52,7 +53,7 @@ public class ControllerCreateMetaDataOfCurrentThumbnails extends Controller
     private synchronized void startUpdateMetadataThread() {
         if (!isWait()) {
             setWait(true);
-            Thread thread = new Thread(updaters.pop());
+            Thread thread = new Thread(updaters.remove());
             thread.setPriority(UserSettings.getInstance().getThreadPriority());
             thread.start();
         }

@@ -6,7 +6,8 @@ import de.elmar_baumann.imv.event.ProgressEvent;
 import de.elmar_baumann.imv.event.ProgressListener;
 import de.elmar_baumann.imv.resource.ProgressBarCurrentTasks;
 import java.util.List;
-import java.util.Stack;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import javax.swing.JProgressBar;
 
 /**
@@ -18,7 +19,7 @@ import javax.swing.JProgressBar;
  */
 public class UpdaterRenameInXmpColumnsArray implements ProgressListener {
 
-    private Stack<UpdaterRenameInXmpColumns> updaters = new Stack<UpdaterRenameInXmpColumns>();
+    private Queue<UpdaterRenameInXmpColumns> updaters = new ConcurrentLinkedQueue<UpdaterRenameInXmpColumns>();
     private boolean wait = false;
     private JProgressBar progressBar;
     private ProgressBarCurrentTasks progressBarProvider = ProgressBarCurrentTasks.getInstance();
@@ -36,20 +37,20 @@ public class UpdaterRenameInXmpColumnsArray implements ProgressListener {
      * Beendet alle Threads.
      */
     synchronized public void stop() {
-        updaters.removeAllElements();
+        updaters.clear();
         stop = true;
     }
 
     synchronized public void update(List<String> filenames, Column column,
         String oldValue, String newValue) {
-        updaters.push(new UpdaterRenameInXmpColumns(filenames, column, oldValue, newValue));
+        updaters.add(new UpdaterRenameInXmpColumns(filenames, column, oldValue, newValue));
         startNextThread();
     }
 
     synchronized private void startNextThread() {
         if (!stop && !isWait() && !updaters.isEmpty()) {
             setWait(true);
-            UpdaterRenameInXmpColumns updater = updaters.pop();
+            UpdaterRenameInXmpColumns updater = updaters.remove();
             updater.addProgressListener(this);
             Thread thread = new Thread(updater);
             thread.setPriority(UserSettings.getInstance().getThreadPriority());

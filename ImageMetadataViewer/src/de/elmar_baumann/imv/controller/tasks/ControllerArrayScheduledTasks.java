@@ -7,7 +7,8 @@ import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Stack;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
@@ -25,7 +26,7 @@ public class ControllerArrayScheduledTasks extends Controller
     private AppPanel appPanel = Panels.getInstance().getAppPanel();
     private JProgressBar progressBar = appPanel.getProgressBarScheduledTasks();
     private JButton buttonStop = appPanel.getButtonStopScheduledTasks();
-    private Stack<Controller> controllers = new Stack<Controller>();
+    private Queue<Controller> controllers = new ConcurrentLinkedQueue<Controller>();
     private Controller runningController;
     private int milliSecondsToStart = UserSettings.getInstance().
         getMinutesToStartScheduledTasks() * 60 * 1000;
@@ -51,18 +52,18 @@ public class ControllerArrayScheduledTasks extends Controller
             new ControllerAutoUpdateMetadataTask(progressBar);
         controllerPriority1.addTaskListener(this);
 
-        controllers.push(controllerPriority1);
+        controllers.add(controllerPriority1);
 
         if (UserSettings.getInstance().isTaskRemoveRecordsWithNotExistingFiles()) {
             ControllerRecordsWithNotExistingFilesDeleter controllerPriority2 =
                 new ControllerRecordsWithNotExistingFilesDeleter(progressBar);
             controllerPriority2.addTaskListener(this);
-            controllers.push(controllerPriority2);
+            controllers.add(controllerPriority2);
         }
     }
 
     private void startFirstController() {
-        runningController = controllers.pop();
+        runningController = controllers.remove();
         runningController.start();
         buttonStop.setEnabled(true);
     }
@@ -92,7 +93,7 @@ public class ControllerArrayScheduledTasks extends Controller
         runningController = null;
         System.gc();
         if (!controllers.isEmpty()) {
-            runningController = controllers.pop();
+            runningController = controllers.remove();
             runningController.start();
         } else {
             buttonStop.setEnabled(false);
