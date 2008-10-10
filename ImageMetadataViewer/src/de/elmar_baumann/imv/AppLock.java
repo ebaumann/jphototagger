@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/10
  */
-public class Lock {
+public class AppLock {
 
     private static final String lockFileName =
         PersistentSettings.getInstance().getDirectoryName() +
@@ -28,7 +28,7 @@ public class Lock {
      * 
      * @return  true if locked
      */
-    synchronized static boolean isLocked() {
+    synchronized public static boolean isLocked() {
         return FileUtil.existsFile(lockFileName);
     }
 
@@ -38,7 +38,7 @@ public class Lock {
      * 
      * @return true if locked
      */
-    synchronized static boolean lock() {
+    synchronized public static boolean lock() {
         if (!isLocked()) {
             return FileUtil.ensureFileExists(lockFileName);
         }
@@ -50,7 +50,7 @@ public class Lock {
      * 
      * @return true if successful
      */
-    synchronized static boolean unlock() {
+    synchronized public static boolean unlock() {
         if (isLocked()) {
             return new File(lockFileName).delete();
         }

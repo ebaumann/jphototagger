@@ -34,8 +34,8 @@ public class Main {
     }
 
     private static void lock() {
-        if (!Lock.lock()) {
-            Lock.errorMessageNotLocked();
+        if (!AppLock.lock()) {
+            AppLock.errorMessageNotLocked();
             System.exit(1);
         }
     }
