@@ -39,7 +39,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Component id="tabbedPane" pref="338" max="32767" attributes="0"/>
+              <Component id="tabbedPane" pref="359" max="32767" attributes="0"/>
               <EmptySpace min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -105,7 +105,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="labelImageOpenApp" alignment="0" pref="617" max="32767" attributes="0"/>
+                              <Component id="labelImageOpenApp" alignment="0" pref="623" max="32767" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="labelImageInfotextOpenApp" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
@@ -118,7 +118,7 @@
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="buttonAddOtherOpenImageApp" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <Component id="scrollPaneListOtherOpenImageApps" pref="514" max="32767" attributes="2"/>
+                                      <Component id="scrollPaneListOtherOpenImageApps" pref="522" max="32767" attributes="2"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
@@ -146,7 +146,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
-                                  <Component id="scrollPaneListOtherOpenImageApps" pref="129" max="32767" attributes="0"/>
+                                  <Component id="scrollPaneListOtherOpenImageApps" pref="166" max="32767" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="buttonAddOtherOpenImageApp" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -318,12 +318,12 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="labelSearch" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="310" max="32767" attributes="0"/>
+                      <EmptySpace pref="345" max="32767" attributes="0"/>
                   </Group>
                   <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="scrollPaneSearchColumns" pref="651" max="32767" attributes="0"/>
+                          <Component id="scrollPaneSearchColumns" pref="655" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -334,12 +334,12 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="labelSearch" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="267" max="32767" attributes="0"/>
+                      <EmptySpace pref="306" max="32767" attributes="0"/>
                   </Group>
                   <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
-                          <Component id="scrollPaneSearchColumns" pref="243" max="32767" attributes="0"/>
+                          <Component id="scrollPaneSearchColumns" pref="283" max="32767" attributes="0"/>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -380,11 +380,11 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="panelThumbnailDimensions" alignment="1" max="32767" attributes="2"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
                           <Component id="panelExternalThumbnailApp" alignment="0" max="32767" attributes="2"/>
+                          <Component id="panelThumbnailDimensions" alignment="0" max="32767" attributes="2"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -396,8 +396,8 @@
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Component id="panelThumbnailDimensions" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="panelExternalThumbnailApp" pref="111" max="32767" attributes="0"/>
-                      <EmptySpace min="-2" pref="99" max="-2" attributes="0"/>
+                      <Component id="panelExternalThumbnailApp" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -439,7 +439,7 @@
                                   <EmptySpace min="77" pref="77" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="labelInfoChangeLength" pref="617" max="32767" attributes="0"/>
+                                  <Component id="labelInfoChangeLength" pref="623" max="32767" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -563,8 +563,8 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="checkBoxExternalThumbnailApp" alignment="0" min="-2" max="-2" attributes="1"/>
-                              <Component id="labelInfoExternalThumbnailApp" alignment="1" pref="617" max="32767" attributes="1"/>
-                              <Component id="textFieldExternalThumbnailApp" alignment="1" pref="617" max="32767" attributes="2"/>
+                              <Component id="labelInfoExternalThumbnailApp" alignment="1" pref="623" max="32767" attributes="1"/>
+                              <Component id="textFieldExternalThumbnailApp" alignment="1" pref="623" max="32767" attributes="2"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -641,7 +641,7 @@
                       <Component id="labelIptcCharset" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="comboBoxIptcCharset" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="384" max="32767" attributes="0"/>
+                      <EmptySpace pref="413" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -653,7 +653,7 @@
                           <Component id="labelIptcCharset" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="comboBoxIptcCharset" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="257" max="32767" attributes="0"/>
+                      <EmptySpace pref="297" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -752,12 +752,12 @@
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="scrollPaneTasksAutoscanListDirectories" alignment="0" pref="617" max="32767" attributes="0"/>
+                              <Component id="scrollPaneTasksAutoscanListDirectories" alignment="0" pref="623" max="32767" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
                                   <Group type="103" groupAlignment="1" attributes="0">
                                       <Group type="102" attributes="0">
                                           <Component id="checkBoxTasksAutoscanIncludeSubdirectories" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace pref="54" max="32767" attributes="0"/>
+                                          <EmptySpace pref="83" max="32767" attributes="0"/>
                                       </Group>
                                       <Group type="102" alignment="1" attributes="0">
                                           <Component id="buttonTasksAutoscanRemoveDirectories" min="-2" max="-2" attributes="0"/>
@@ -766,7 +766,7 @@
                                   </Group>
                                   <Component id="buttonTasksAutoscanAddDirectories" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="labelTasksAutoscanMoreInfoDirectories" alignment="0" pref="617" max="32767" attributes="0"/>
+                              <Component id="labelTasksAutoscanMoreInfoDirectories" alignment="0" pref="623" max="32767" attributes="0"/>
                               <Component id="labelTasksAutoscanInfoDirectories" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
@@ -780,7 +780,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="labelTasksAutoscanInfoDirectories" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="scrollPaneTasksAutoscanListDirectories" pref="31" max="32767" attributes="0"/>
+                          <Component id="scrollPaneTasksAutoscanListDirectories" pref="64" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="checkBoxTasksAutoscanIncludeSubdirectories" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
@@ -901,7 +901,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="checkBoxTasksRemoveRecordsWithNotExistingFiles" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="103" max="32767" attributes="0"/>
+                          <EmptySpace pref="132" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -983,7 +983,7 @@
                       <Component id="panelAccelerateStart" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="panelThreadPriority" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="68" max="32767" attributes="0"/>
+                      <EmptySpace pref="99" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1017,7 +1017,7 @@
                                   <Component id="labelInfoDisableExpandDirectoriesTree" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace pref="44" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1116,7 +1116,7 @@
                                   <Component id="comboBoxThreadPriority" min="-2" pref="88" max="-2" attributes="2"/>
                               </Group>
                           </Group>
-                          <EmptySpace pref="173" max="32767" attributes="0"/>
+                          <EmptySpace pref="219" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1225,7 +1225,7 @@
                       <Component id="panelLogfile" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="checkBoxAcceptHiddenDirectories" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="196" max="32767" attributes="0"/>
+                      <EmptySpace pref="234" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1255,7 +1255,7 @@
                           <Component id="labelLogFormat" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="comboBoxLogfileFormatter" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="167" max="32767" attributes="0"/>
+                          <EmptySpace pref="220" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>

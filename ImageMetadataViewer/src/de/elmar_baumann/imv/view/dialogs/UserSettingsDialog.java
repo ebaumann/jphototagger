@@ -517,7 +517,7 @@ public class UserSettingsDialog extends javax.swing.JDialog
             }
         });
 
-        tabbedPane.setFont(new java.awt.Font("Dialog", 0, 12));
+        tabbedPane.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
 
         panelImageOpenApps.setBorder(javax.swing.BorderFactory.createTitledBorder(null, Bundle.getString("UserSettingsDialog.panelImageOpenApps.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 11))); // NOI18N
 
@@ -593,7 +593,7 @@ public class UserSettingsDialog extends javax.swing.JDialog
             .addGroup(panelImageOpenAppsLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelImageOpenAppsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelImageOpenApp, javax.swing.GroupLayout.DEFAULT_SIZE, 617, Short.MAX_VALUE)
+                    .addComponent(labelImageOpenApp, javax.swing.GroupLayout.DEFAULT_SIZE, 623, Short.MAX_VALUE)
                     .addGroup(panelImageOpenAppsLayout.createSequentialGroup()
                         .addComponent(labelImageInfotextOpenApp)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -604,7 +604,7 @@ public class UserSettingsDialog extends javax.swing.JDialog
                                 .addComponent(buttonRemoveOtherOpenImageApp)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(buttonAddOtherOpenImageApp))
-                            .addComponent(scrollPaneListOtherOpenImageApps, javax.swing.GroupLayout.DEFAULT_SIZE, 514, Short.MAX_VALUE))
+                            .addComponent(scrollPaneListOtherOpenImageApps, javax.swing.GroupLayout.DEFAULT_SIZE, 522, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panelImageOpenAppsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(buttonOpenImageAppMoveDown)
@@ -628,7 +628,7 @@ public class UserSettingsDialog extends javax.swing.JDialog
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelImageOpenAppsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelImageOpenAppsLayout.createSequentialGroup()
-                        .addComponent(scrollPaneListOtherOpenImageApps, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)
+                        .addComponent(scrollPaneListOtherOpenImageApps, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panelImageOpenAppsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(buttonAddOtherOpenImageApp)
@@ -673,11 +673,11 @@ public class UserSettingsDialog extends javax.swing.JDialog
             .addGroup(panelSearchLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(labelSearch)
-                .addContainerGap(310, Short.MAX_VALUE))
+                .addContainerGap(345, Short.MAX_VALUE))
             .addGroup(panelSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(panelSearchLayout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(scrollPaneSearchColumns, javax.swing.GroupLayout.DEFAULT_SIZE, 651, Short.MAX_VALUE)
+                    .addComponent(scrollPaneSearchColumns, javax.swing.GroupLayout.DEFAULT_SIZE, 655, Short.MAX_VALUE)
                     .addContainerGap()))
         );
         panelSearchLayout.setVerticalGroup(
@@ -685,11 +685,11 @@ public class UserSettingsDialog extends javax.swing.JDialog
             .addGroup(panelSearchLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(labelSearch)
-                .addContainerGap(267, Short.MAX_VALUE))
+                .addContainerGap(306, Short.MAX_VALUE))
             .addGroup(panelSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSearchLayout.createSequentialGroup()
                     .addGap(38, 38, 38)
-                    .addComponent(scrollPaneSearchColumns, javax.swing.GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE)
+                    .addComponent(scrollPaneSearchColumns, javax.swing.GroupLayout.DEFAULT_SIZE, 283, Short.MAX_VALUE)
                     .addContainerGap()))
         );
 
@@ -742,7 +742,7 @@ public class UserSettingsDialog extends javax.swing.JDialog
                                     .addComponent(spinnerMaxThumbnailSize, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE))))
                         .addGap(77, 77, 77))
                     .addGroup(panelThumbnailDimensionsLayout.createSequentialGroup()
-                        .addComponent(labelInfoChangeLength, javax.swing.GroupLayout.DEFAULT_SIZE, 617, Short.MAX_VALUE)
+                        .addComponent(labelInfoChangeLength, javax.swing.GroupLayout.DEFAULT_SIZE, 623, Short.MAX_VALUE)
                         .addContainerGap())))
         );
 
@@ -775,7 +775,7 @@ public class UserSettingsDialog extends javax.swing.JDialog
             }
         });
 
-        labelInfoExternalThumbnailApp.setFont(new java.awt.Font("Dialog", 0, 12));
+        labelInfoExternalThumbnailApp.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         labelInfoExternalThumbnailApp.setText(Bundle.getString("UserSettingsDialog.labelInfoExternalThumbnailApp.text")); // NOI18N
 
         textFieldExternalThumbnailApp.setEnabled(false);
@@ -788,8 +788,8 @@ public class UserSettingsDialog extends javax.swing.JDialog
                 .addContainerGap()
                 .addGroup(panelExternalThumbnailAppLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(checkBoxExternalThumbnailApp)
-                    .addComponent(labelInfoExternalThumbnailApp, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 617, Short.MAX_VALUE)
-                    .addComponent(textFieldExternalThumbnailApp, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 617, Short.MAX_VALUE))
+                    .addComponent(labelInfoExternalThumbnailApp, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 623, Short.MAX_VALUE)
+                    .addComponent(textFieldExternalThumbnailApp, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 623, Short.MAX_VALUE))
                 .addContainerGap())
         );
         panelExternalThumbnailAppLayout.setVerticalGroup(
@@ -807,11 +807,11 @@ public class UserSettingsDialog extends javax.swing.JDialog
         panelThumbnails.setLayout(panelThumbnailsLayout);
         panelThumbnailsLayout.setHorizontalGroup(
             panelThumbnailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelThumbnailsLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelThumbnailsLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panelThumbnailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelThumbnailDimensions, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panelExternalThumbnailApp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(panelThumbnailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(panelExternalThumbnailApp, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelThumbnailDimensions, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         panelThumbnailsLayout.setVerticalGroup(
@@ -820,8 +820,8 @@ public class UserSettingsDialog extends javax.swing.JDialog
                 .addContainerGap()
                 .addComponent(panelThumbnailDimensions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelExternalThumbnailApp, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
-                .addGap(99, 99, 99))
+                .addComponent(panelExternalThumbnailApp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         tabbedPane.addTab(Bundle.getString("UserSettingsDialog.panelThumbnails.TabConstraints.tabTitle"), panelThumbnails); // NOI18N
@@ -841,7 +841,7 @@ public class UserSettingsDialog extends javax.swing.JDialog
                 .addComponent(labelIptcCharset)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(comboBoxIptcCharset, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(384, Short.MAX_VALUE))
+                .addContainerGap(413, Short.MAX_VALUE))
         );
         panelIptcLayout.setVerticalGroup(
             panelIptcLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -850,7 +850,7 @@ public class UserSettingsDialog extends javax.swing.JDialog
                 .addGroup(panelIptcLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelIptcCharset)
                     .addComponent(comboBoxIptcCharset, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(257, Short.MAX_VALUE))
+                .addContainerGap(297, Short.MAX_VALUE))
         );
 
         tabbedPane.addTab(Bundle.getString("UserSettingsDialog.panelIptc.TabConstraints.tabTitle"), panelIptc); // NOI18N
@@ -907,17 +907,17 @@ public class UserSettingsDialog extends javax.swing.JDialog
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTasksAutoscanLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelTasksAutoscanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(scrollPaneTasksAutoscanListDirectories, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 617, Short.MAX_VALUE)
+                    .addComponent(scrollPaneTasksAutoscanListDirectories, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 623, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelTasksAutoscanLayout.createSequentialGroup()
                         .addGroup(panelTasksAutoscanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(panelTasksAutoscanLayout.createSequentialGroup()
                                 .addComponent(checkBoxTasksAutoscanIncludeSubdirectories)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 83, Short.MAX_VALUE))
                             .addGroup(panelTasksAutoscanLayout.createSequentialGroup()
                                 .addComponent(buttonTasksAutoscanRemoveDirectories)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                         .addComponent(buttonTasksAutoscanAddDirectories))
-                    .addComponent(labelTasksAutoscanMoreInfoDirectories, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 617, Short.MAX_VALUE)
+                    .addComponent(labelTasksAutoscanMoreInfoDirectories, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 623, Short.MAX_VALUE)
                     .addComponent(labelTasksAutoscanInfoDirectories, javax.swing.GroupLayout.Alignment.LEADING))
                 .addContainerGap())
         );
@@ -928,7 +928,7 @@ public class UserSettingsDialog extends javax.swing.JDialog
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelTasksAutoscanInfoDirectories)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPaneTasksAutoscanListDirectories, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
+                .addComponent(scrollPaneTasksAutoscanListDirectories, javax.swing.GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(checkBoxTasksAutoscanIncludeSubdirectories)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -949,7 +949,7 @@ public class UserSettingsDialog extends javax.swing.JDialog
             panelTasksOtherLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelTasksOtherLayout.createSequentialGroup()
                 .addComponent(checkBoxTasksRemoveRecordsWithNotExistingFiles)
-                .addContainerGap(103, Short.MAX_VALUE))
+                .addContainerGap(132, Short.MAX_VALUE))
         );
         panelTasksOtherLayout.setVerticalGroup(
             panelTasksOtherLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1024,7 +1024,7 @@ public class UserSettingsDialog extends javax.swing.JDialog
                     .addGroup(panelAccelerateStartLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(labelInfoDisableExpandDirectoriesTree)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
         panelAccelerateStartLayout.setVerticalGroup(
             panelAccelerateStartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1045,7 +1045,7 @@ public class UserSettingsDialog extends javax.swing.JDialog
         labelThreadPriority.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         labelThreadPriority.setText(Bundle.getString("UserSettingsDialog.labelThreadPriority.text")); // NOI18N
 
-        comboBoxThreadPriority.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        comboBoxThreadPriority.setFont(new java.awt.Font("Dialog", 0, 12));
         comboBoxThreadPriority.setModel(new de.elmar_baumann.imv.model.ComboBoxModelThreadPriority());
         comboBoxThreadPriority.setEditor(null);
         comboBoxThreadPriority.addActionListener(new java.awt.event.ActionListener() {
@@ -1070,7 +1070,7 @@ public class UserSettingsDialog extends javax.swing.JDialog
                         .addComponent(labelThreadPriority)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(comboBoxThreadPriority, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(173, Short.MAX_VALUE))
+                .addContainerGap(219, Short.MAX_VALUE))
         );
         panelThreadPriorityLayout.setVerticalGroup(
             panelThreadPriorityLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1101,7 +1101,7 @@ public class UserSettingsDialog extends javax.swing.JDialog
                 .addComponent(panelAccelerateStart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelThreadPriority, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(68, Short.MAX_VALUE))
+                .addContainerGap(99, Short.MAX_VALUE))
         );
 
         tabbedPane.addTab(Bundle.getString("UserSettingsDialog.panelPerformance.TabConstraints.tabTitle"), panelPerformance); // NOI18N
@@ -1133,7 +1133,7 @@ public class UserSettingsDialog extends javax.swing.JDialog
                 .addComponent(labelLogFormat)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(comboBoxLogfileFormatter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(167, Short.MAX_VALUE))
+                .addContainerGap(220, Short.MAX_VALUE))
         );
         panelLogfileLayout.setVerticalGroup(
             panelLogfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1167,7 +1167,7 @@ public class UserSettingsDialog extends javax.swing.JDialog
                 .addComponent(panelLogfile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(checkBoxAcceptHiddenDirectories)
-                .addContainerGap(196, Short.MAX_VALUE))
+                .addContainerGap(234, Short.MAX_VALUE))
         );
 
         tabbedPane.addTab(Bundle.getString("UserSettingsDialog.panelOther.TabConstraints.tabTitle"), panelOther); // NOI18N
@@ -1178,14 +1178,14 @@ public class UserSettingsDialog extends javax.swing.JDialog
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 680, Short.MAX_VALUE)
+                .addComponent(tabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 680, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 338, Short.MAX_VALUE)
+                .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 359, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
