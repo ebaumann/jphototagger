@@ -69,7 +69,8 @@ public class UserSettingsDialog extends javax.swing.JDialog
         indexOfTab.put(Tab.Iptc, 3);
         indexOfTab.put(Tab.Tasks, 4);
         indexOfTab.put(Tab.Performance, 5);
-        indexOfTab.put(Tab.Other, 6);
+        indexOfTab.put(Tab.FileExcludePatterns, 6);
+        indexOfTab.put(Tab.Other, 7);
 
         for (Tab tab : indexOfTab.keySet()) {
             tabOfIndex.put(indexOfTab.get(tab), tab);
@@ -93,6 +94,10 @@ public class UserSettingsDialog extends javax.swing.JDialog
         Tasks,
         /** Geschwindigkeit */
         Performance,
+        /**
+         * File exclude patterns
+         */
+        FileExcludePatterns,
         /** Sonstiges */
         Other
     };
