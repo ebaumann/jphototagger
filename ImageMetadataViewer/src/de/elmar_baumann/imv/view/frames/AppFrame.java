@@ -64,6 +64,14 @@ public class AppFrame extends javax.swing.JFrame {
     public JMenuItem getMenuItemToolIptcToXmp() {
         return menuItemToolIptcToXmp;
     }
+    
+    public JMenuItem getMenuItemGotoFastSearch() {
+        return menuItemGotoFastSearch;
+    }
+    
+    public JMenuItem getMenuItemGotoEdit() {
+        return menuItemGotoEdit;
+    }
 
     private void readPersistent() {
         PersistentAppSizes.getSizeAndLocation(this);
@@ -118,6 +126,9 @@ public class AppFrame extends javax.swing.JFrame {
         menuEdit = new javax.swing.JMenu();
         menuItemSettings = new javax.swing.JMenuItem();
         menuItemSearch = new javax.swing.JMenuItem();
+        menuGoto = new javax.swing.JMenu();
+        menuItemGotoFastSearch = new javax.swing.JMenuItem();
+        menuItemGotoEdit = new javax.swing.JMenuItem();
         menuView = new javax.swing.JMenu();
         menuItemRefresh = new javax.swing.JMenuItem();
         menuTools = new javax.swing.JMenu();
@@ -164,12 +175,28 @@ public class AppFrame extends javax.swing.JFrame {
         menuItemSettings.setText(Bundle.getString("AppFrame.menuItemSettings.text")); // NOI18N
         menuEdit.add(menuItemSettings);
 
-        menuItemSearch.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.CTRL_MASK));
+        menuItemSearch.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         menuItemSearch.setMnemonic('s');
         menuItemSearch.setText(Bundle.getString("AppFrame.menuItemSearch.text")); // NOI18N
         menuEdit.add(menuItemSearch);
 
         menuBar.add(menuEdit);
+
+        menuGoto.setMnemonic('g');
+        menuGoto.setText(Bundle.getString("AppFrame.menuGoto.text")); // NOI18N
+
+        menuItemGotoFastSearch.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.CTRL_MASK));
+        menuItemGotoFastSearch.setMnemonic('s');
+        menuItemGotoFastSearch.setText(Bundle.getString("AppFrame.menuItemGotoFastSearch.text")); // NOI18N
+        menuItemGotoFastSearch.setToolTipText(Bundle.getString("AppFrame.menuItemGotoFastSearch.toolTipText")); // NOI18N
+        menuGoto.add(menuItemGotoFastSearch);
+
+        menuItemGotoEdit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_B, java.awt.event.InputEvent.CTRL_MASK));
+        menuItemGotoEdit.setMnemonic('b');
+        menuItemGotoEdit.setText(Bundle.getString("AppFrame.menuItemGotoEdit.text")); // NOI18N
+        menuGoto.add(menuItemGotoEdit);
+
+        menuBar.add(menuGoto);
 
         menuView.setMnemonic('a');
         menuView.setText(Bundle.getString("AppFrame.menuView.text")); // NOI18N
@@ -232,9 +259,12 @@ private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:even
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenu menuEdit;
     private javax.swing.JMenu menuFile;
+    private javax.swing.JMenu menuGoto;
     private javax.swing.JMenu menuHelp;
     private javax.swing.JMenuItem menuItemAbout;
     private javax.swing.JMenuItem menuItemExit;
+    private javax.swing.JMenuItem menuItemGotoEdit;
+    private javax.swing.JMenuItem menuItemGotoFastSearch;
     private javax.swing.JMenuItem menuItemHelp;
     private javax.swing.JMenuItem menuItemMaintainDatabase;
     private javax.swing.JMenuItem menuItemRefresh;
