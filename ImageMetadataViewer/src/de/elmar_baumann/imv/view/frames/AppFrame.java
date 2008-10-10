@@ -2,6 +2,7 @@ package de.elmar_baumann.imv.view.frames;
 
 import de.elmar_baumann.imv.AppSettings;
 import de.elmar_baumann.imv.AppInfo;
+import de.elmar_baumann.imv.AppLock;
 import de.elmar_baumann.imv.factory.MetaFactory;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.Panels;
@@ -83,12 +84,14 @@ public class AppFrame extends javax.swing.JFrame {
         appPanel.beforeQuit();
         writePersistent();
         dispose();
+        AppLock.unlock();
         System.exit(0);
     }
 
     private void listenToClose() {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        this.addWindowListener(new  WindowAdapter( ) {
+        this.addWindowListener(new WindowAdapter() {
+
             @Override
             public void windowClosed(WindowEvent evt) {
                 quit();

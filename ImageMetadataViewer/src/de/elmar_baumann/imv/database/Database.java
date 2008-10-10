@@ -4,6 +4,7 @@ import de.elmar_baumann.imv.data.Exif;
 import de.elmar_baumann.imv.data.ImageFile;
 import de.elmar_baumann.imv.data.Xmp;
 import de.elmar_baumann.imv.AppSettings;
+import de.elmar_baumann.imv.AppLock;
 import de.elmar_baumann.imv.data.FavoriteDirectory;
 import de.elmar_baumann.imv.data.MetaDataEditTemplate;
 import de.elmar_baumann.imv.data.SavedSearch;
@@ -3057,6 +3058,7 @@ public class Database {
                 Bundle.getString("Database.CreateTables.ErrorMessage.Title"), // NOI18N
                 JOptionPane.ERROR_MESSAGE,
                 AppSettings.getMediumAppIcon());
+            AppLock.unlock();
             System.exit(0);
         } finally {
             free(connection);
