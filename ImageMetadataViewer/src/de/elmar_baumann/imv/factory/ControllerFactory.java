@@ -26,6 +26,7 @@ import de.elmar_baumann.imv.controller.metadata.ControllerShowMetadata;
 import de.elmar_baumann.imv.controller.metadata.ControllerThumbnailSelectionEditMetadata;
 import de.elmar_baumann.imv.controller.misc.ControllerAdvancedSearch;
 import de.elmar_baumann.imv.controller.misc.ControllerFastSearch;
+import de.elmar_baumann.imv.controller.misc.ControllerGotoEdit;
 import de.elmar_baumann.imv.controller.misc.ControllerGotoFastSearch;
 import de.elmar_baumann.imv.controller.misc.ControllerIptcToXmp;
 import de.elmar_baumann.imv.controller.misc.ControllerItemsMutualExcludeSelection;
@@ -125,6 +126,7 @@ public class ControllerFactory {
         controllers.add(new ControllerRenameInXmpColumns());
         controllers.add(new ControllerIptcToXmp());
         controllers.add(new ControllerGotoFastSearch());
+        controllers.add(new ControllerGotoEdit());
         controllerScheduledTasks = new ControllerArrayScheduledTasks();
         controllers.add(controllerScheduledTasks);
     }
