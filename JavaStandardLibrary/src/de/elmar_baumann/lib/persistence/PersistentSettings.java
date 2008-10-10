@@ -903,6 +903,15 @@ public class PersistentSettings {
     public void setAppName(String appName) {
         this.appName = appName;
     }
+    
+    /**
+     * Returns the application's name.
+     * 
+     * @return name
+     */
+    public String getAppName() {
+        return appName;
+    }
 
     /**
      * Liefert den Namen des Verzeichnisses, in dem die Einstellungen
