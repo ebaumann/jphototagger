@@ -3,6 +3,8 @@ package de.elmar_baumann.lib.componentutil;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Insets;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -78,8 +80,8 @@ public class ComponentColorizer {
             cbEdit.setForeground(colors.inputForeground);
             cbEdit.setBackground(colors.inputBackground);
             cbEdit.setBorder(new LineBorder(colors.inputBorder));
-        } catch (ClassCastException e) {
-            e.printStackTrace();
+        } catch (ClassCastException ex) {
+            Logger.getLogger(ComponentColorizer.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
