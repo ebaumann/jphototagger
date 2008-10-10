@@ -7,7 +7,6 @@ import de.elmar_baumann.imv.database.metadata.Column;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.component.TabLeavingTextArea;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.event.KeyEvent;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
@@ -95,6 +94,7 @@ public class TextEntryEditAreaPanel extends javax.swing.JPanel
     @Override
     public void setEditable(boolean editable) {
         textArea.setEditable(editable);
+        textFieldInput.setEditable(editable);
         textArea.setBackground(editable ? editableBackground : getBackground());
     }
 
