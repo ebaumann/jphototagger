@@ -157,6 +157,10 @@
 			<title>Leistung</title>
 		</page>
 		<page>
+			<url>settings-dialog-excludepattern.html</url>
+			<title>Ausschließen</title>
+		</page>
+		<page>
 			<url>settings-dialog-misc.html</url>
 			<title>Sonstiges</title>
 		</page>
