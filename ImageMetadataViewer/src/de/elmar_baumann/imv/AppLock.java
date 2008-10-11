@@ -21,7 +21,7 @@ public class AppLock {
         PersistentSettings.getInstance().getDirectoryName() +
         File.separator +
         PersistentSettings.getInstance().getAppName() +
-        ".lock"; // NOI18N
+        ".lck"; // NOI18N
 
     /**
      * Returns whether the application ist locked.
