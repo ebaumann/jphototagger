@@ -3,6 +3,7 @@ package de.elmar_baumann.imv.controller.files;
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.controller.Controller;
 import de.elmar_baumann.imv.io.IoUtil;
+import de.elmar_baumann.imv.view.dialogs.UserSettingsDialog;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuPanelThumbnails;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -30,7 +31,9 @@ public class ControllerOpenFilesWithStandardApp extends Controller
     @Override
     public void actionPerformed(ActionEvent e) {
         if (isStarted()) {
-            openFiles();
+            if (checkOpenAppIsDefined()) {
+                openFiles();
+            }
         }
     }
 
@@ -42,5 +45,19 @@ public class ControllerOpenFilesWithStandardApp extends Controller
                 UserSettings.getInstance().getDefaultImageOpenApp(),
                 allFilenames);
         }
+    }
+
+    private boolean checkOpenAppIsDefined() {
+        if (UserSettings.getInstance().getDefaultImageOpenApp().isEmpty()) {
+            UserSettingsDialog dialog = UserSettingsDialog.getInstance();
+            dialog.selectTab(UserSettingsDialog.Tab.Programs);
+            if (dialog.isVisible()) {
+                dialog.toFront();
+            } else {
+                dialog.setVisible(true);
+            }
+            return false;
+        }
+        return true;
     }
 }
