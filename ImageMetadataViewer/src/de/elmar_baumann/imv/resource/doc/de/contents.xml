@@ -75,16 +75,20 @@
 			<title>Text-Metadaten aktualisieren</title>
 		</page>
 		<page>
+			<url>action_replace_xmp.html</url>
+			<title>XMP-Daten suchen und ersetzen</title>
+		</page>
+		<page>
+			<url>action_remove_from_database.html</url>
+			<title>Aus Datenbank entfernen</title>
+		</page>
+		<page>
 			<url>action_open.html</url>
 			<title>Öffnen</title>
 		</page>
 		<page>
 			<url>action_open_with.html</url>
 			<title>Öffnen mit</title>
-		</page>
-		<page>
-			<url>action_replace_xmp.html</url>
-			<title>XMP-Daten suchen und ersetzen</title>
 		</page>
 		<page>
 			<url>action_create_collection.html</url>
@@ -103,12 +107,12 @@
 			<title>Vorschaubilder drehen</title>
 		</page>
 		<page>
-			<url>action_remove_from_database.html</url>
-			<title>Bild aus Datenbank entfernen</title>
-		</page>
-		<page>
 			<url>action_copy_to_directory.html</url>
 			<title>In ein Verzeichnis kopieren</title>
+		</page>
+		<page>
+			<url>action_filesystem_delete.html</url>
+			<title>Vom Datenträger löschen</title>
 		</page>
 	</node>
 	<node>
