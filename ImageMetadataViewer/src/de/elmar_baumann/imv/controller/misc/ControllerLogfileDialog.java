@@ -9,9 +9,10 @@ import de.elmar_baumann.imv.event.listener.ErrorListeners;
 import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.lib.dialog.LogfileDialog;
-import java.awt.Color;
+import de.elmar_baumann.lib.image.icon.IconUtil;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
 /**
@@ -24,13 +25,14 @@ import javax.swing.JButton;
 public class ControllerLogfileDialog extends Controller
     implements ActionListener, ErrorListener {
 
-    private static final Color colorOk = new Color(193, 209, 169);
-    private static final Color colorError = new Color(237, 77, 77);
     private AppPanel appPanel = Panels.getInstance().getAppPanel();
     private JButton buttonLogfileDialog = appPanel.getButtonLogfileDialog();
+    private static final String iconPath = AppSettings.getIconPath();
+    private static final ImageIcon iconOk = IconUtil.getImageIcon(iconPath + "/icon_check_ok_small.png");
+    private static final ImageIcon iconError = IconUtil.getImageIcon(iconPath + "/icon_check_error_small.png");
 
     public ControllerLogfileDialog() {
-        buttonLogfileDialog.setBackground(colorOk);
+        buttonLogfileDialog.setIcon(iconOk);
         listenToActionSource();
     }
 
@@ -63,7 +65,7 @@ public class ControllerLogfileDialog extends Controller
     }
 
     private void setError(boolean error) {
-        buttonLogfileDialog.setBackground(error ? colorError : colorOk);
+        buttonLogfileDialog.setIcon(error ? iconError : iconOk);
         buttonLogfileDialog.repaint();
     }
 }
