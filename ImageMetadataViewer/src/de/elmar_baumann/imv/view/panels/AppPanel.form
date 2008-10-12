@@ -19,8 +19,8 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="splitPaneMain" alignment="1" pref="422" max="32767" attributes="2"/>
                   <Component id="panelStatusbar" alignment="1" max="32767" attributes="2"/>
+                  <Component id="splitPaneMain" alignment="1" pref="458" max="32767" attributes="2"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -33,7 +33,7 @@
               <Component id="splitPaneMain" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="panelStatusbar" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -317,9 +317,9 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="275" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="311" max="32767" attributes="0"/>
                   <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                      <Component id="splitPaneThumbnailsMetadata" alignment="1" pref="275" max="32767" attributes="0"/>
+                      <Component id="splitPaneThumbnailsMetadata" alignment="1" pref="311" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -409,15 +409,15 @@
                               <Component id="labelColorBackgroundTableTextStoredInDatabase" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" max="-2" attributes="0"/>
                               <Component id="labelLegendColorBackgroundTableTetStoredInDatabase" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="147" max="32767" attributes="3"/>
+                              <EmptySpace pref="183" max="32767" attributes="3"/>
                           </Group>
-                          <Component id="labelMetadataFilename" alignment="0" max="32767" attributes="2"/>
+                          <Component id="labelMetadataFilename" alignment="0" pref="277" max="32767" attributes="2"/>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="panelMetadataProgress" max="32767" attributes="2"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
-                          <Component id="tabbedPaneMetaDataTabs" alignment="0" pref="241" max="32767" attributes="2"/>
+                          <Component id="tabbedPaneMetaDataTabs" alignment="0" pref="277" max="32767" attributes="2"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
@@ -788,7 +788,7 @@
                               <Layout>
                                 <DimensionLayout dim="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="scrollPaneEditMetadata" alignment="0" pref="236" max="32767" attributes="0"/>
+                                      <Component id="scrollPaneEditMetadata" alignment="0" pref="272" max="32767" attributes="0"/>
                                   </Group>
                                 </DimensionLayout>
                                 <DimensionLayout dim="1">
@@ -830,9 +830,9 @@
                       <Layout>
                         <DimensionLayout dim="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="progressBarCurrentTasks" alignment="0" pref="217" max="32767" attributes="2"/>
+                              <Component id="progressBarCurrentTasks" alignment="0" pref="253" max="32767" attributes="2"/>
                               <Group type="102" alignment="1" attributes="0">
-                                  <Component id="progressBarScheduledTasks" pref="195" max="32767" attributes="2"/>
+                                  <Component id="progressBarScheduledTasks" pref="231" max="32767" attributes="2"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="buttonStopScheduledTasks" min="-2" max="-2" attributes="0"/>
                               </Group>
@@ -904,22 +904,25 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                      <Group type="102" attributes="1">
-                          <EmptySpace min="12" pref="12" max="12" attributes="0"/>
-                          <Component id="labelStatusbar" max="32767" attributes="0"/>
+              <Group type="102" attributes="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                          <Component id="sliderThumbnailSize" min="-2" pref="212" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="buttonLogfileDialog" min="-2" pref="20" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="buttonAdvanedSearch" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="sliderThumbnailSize" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                          <Component id="labelStatusbar" min="-2" pref="198" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="buttonLogfileDialog" min="-2" pref="20" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" max="-2" attributes="0"/>
-                  <Component id="buttonAdvanedSearch" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="progressBarCreateMetaDataOfCurrentThumbnails" pref="114" max="32767" attributes="0"/>
-                      <Component id="textFieldSearch" alignment="0" pref="114" max="32767" attributes="0"/>
+                      <Component id="progressBarCreateMetaDataOfCurrentThumbnails" alignment="0" pref="102" max="32767" attributes="0"/>
+                      <Component id="textFieldSearch" alignment="0" pref="102" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -927,22 +930,20 @@
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <Component id="sliderThumbnailSize" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="labelStatusbar" min="-2" pref="10" max="-2" attributes="1"/>
+                      <Component id="buttonLogfileDialog" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="buttonAdvanedSearch" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="textFieldSearch" alignment="3" min="-2" pref="25" max="-2" attributes="1"/>
                       </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="2" attributes="0">
-                              <Component id="buttonAdvanedSearch" alignment="2" min="-2" max="-2" attributes="0"/>
-                              <Component id="buttonLogfileDialog" alignment="2" min="-2" max="-2" attributes="0"/>
-                              <Component id="textFieldSearch" alignment="2" min="-2" pref="25" max="-2" attributes="1"/>
-                          </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="progressBarCreateMetaDataOfCurrentThumbnails" min="-2" max="-2" attributes="1"/>
-                      </Group>
+                      <Component id="sliderThumbnailSize" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Component id="progressBarCreateMetaDataOfCurrentThumbnails" max="32767" attributes="1"/>
+                      <Component id="labelStatusbar" alignment="0" min="-2" max="-2" attributes="1"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -991,9 +992,6 @@
           <Properties>
             <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="AppSettings.tooltipTextProgressBarDirectory" type="code"/>
-            </Property>
-            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-              <Border info="null"/>
             </Property>
           </Properties>
         </Component>
