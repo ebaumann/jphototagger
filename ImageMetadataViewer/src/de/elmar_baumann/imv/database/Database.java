@@ -5,6 +5,7 @@ import de.elmar_baumann.imv.data.ImageFile;
 import de.elmar_baumann.imv.data.Xmp;
 import de.elmar_baumann.imv.AppSettings;
 import de.elmar_baumann.imv.AppLock;
+import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.data.FavoriteDirectory;
 import de.elmar_baumann.imv.data.MetaDataEditTemplate;
 import de.elmar_baumann.imv.data.SavedSearch;
@@ -25,6 +26,7 @@ import de.elmar_baumann.imv.event.listener.ErrorListeners;
 import de.elmar_baumann.imv.event.ProgressEvent;
 import de.elmar_baumann.imv.event.ProgressListener;
 import de.elmar_baumann.imv.image.metadata.xmp.XmpMetadata;
+import de.elmar_baumann.imv.image.thumbnail.ThumbnailUtil;
 import de.elmar_baumann.imv.resource.Bundle;
 import java.awt.Image;
 import java.io.ByteArrayInputStream;
@@ -684,6 +686,56 @@ public class Database {
             stmt.executeUpdate();
         }
         stmt.close();
+    }
+
+    /**
+     * Updates all thumbnails, reads the files from the file system and creates
+     * thumbnails from the files.
+     * 
+     * @param  listener  progress listener, can stop action via event and receive
+     *                   the current filename
+     * @return count of updated thumbnails
+     */
+    synchronized public int updateAllThumbnails(ProgressListener listener) {
+        int updated = 0;
+        Connection connection = null;
+        try {
+            int filecount = getFileCount();
+            ProgressEvent event = new ProgressEvent(this, 0, filecount, 0, "");
+            connection = getConnection();
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT filename FROM files ORDER BY filename ASC");
+            int count = 0;
+            notifyProgressListenerStart(listener, event);
+            while (!event.isStop() && rs.next()) {
+                String filename = rs.getString(1);
+                if (updateThumbnail(filename, getThumbnailFromFile(filename))) {
+                    updated++;
+                }
+                event.setValue(++count);
+                event.setInfo(filename);
+                notifyProgressListenerPerformed(listener, event);
+            }
+            stmt.close();
+            notifyProgressListenerEnd(listener, event);
+        } catch (SQLException ex) {
+            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            free(connection);
+        }
+        return updated;
+    }
+
+    private Image getThumbnailFromFile(String filename) {
+        UserSettings settings = UserSettings.getInstance();
+        int maxTnWidth = settings.getMaxThumbnailWidth();
+        boolean useEmbeddedTn = settings.isUseEmbeddedThumbnails();
+        if (settings.isCreateThumbnailsWithExternalApp()) {
+            return ThumbnailUtil.getThumbnailFromExternalApplication(filename,
+                settings.getExternalThumbnailCreationCommand(), maxTnWidth);
+        } else {
+            return ThumbnailUtil.getThumbnail(filename, maxTnWidth, useEmbeddedTn);
+        }
     }
 
     /**

@@ -394,13 +394,13 @@
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Component id="panelThumbnailDimensions" min="-2" pref="90" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="panelThumbnailDimensions" min="-2" pref="96" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="checkBoxUseEmbeddedThumbnails" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Component id="panelExternalThumbnailApp" max="32767" attributes="0"/>
-                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="panelExternalThumbnailApp" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="48" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -428,6 +428,8 @@
                                   <Component id="labelMaxThumbnailWidth" min="-2" max="-2" attributes="1"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="spinnerMaxThumbnailWidth" min="-2" pref="58" max="-2" attributes="1"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="buttonUpdateAllThumbnails" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Component id="labelInfoChangeMaxThumbnailWidth" alignment="0" pref="617" max="32767" attributes="0"/>
                           </Group>
@@ -441,10 +443,11 @@
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="labelMaxThumbnailWidth" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="spinnerMaxThumbnailWidth" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="buttonUpdateAllThumbnails" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="labelInfoChangeMaxThumbnailWidth" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="25" max="32767" attributes="1"/>
+                          <EmptySpace pref="11" max="32767" attributes="1"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -489,6 +492,23 @@
                       <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.labelInfoChangeMaxThumbnailWidth.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
+                </Component>
+                <Component class="javax.swing.JButton" name="buttonUpdateAllThumbnails">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Dialog" size="12" style="0"/>
+                    </Property>
+                    <Property name="mnemonic" type="int" value="110"/>
+                    <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.buttonUpdateAllThumbnails.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                    </Property>
+                    <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.buttonUpdateAllThumbnails.toolTipText" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                    </Property>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonUpdateAllThumbnailsActionPerformed"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
