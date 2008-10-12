@@ -111,9 +111,9 @@ public class ControllerFastSearch extends Controller
 
     @Override
     public void applySettings(UserSettingsChangeEvent evt) {
-        if (evt.getChanged().equals(UserSettingsChangeEvent.Changed.fastSearchColumnDefined)) {
+        if (evt.getChanged().equals(UserSettingsChangeEvent.Changed.FastSearchColumnDefined)) {
             textFieldSearch.setEnabled(true);
-        } else if (evt.getChanged().equals(UserSettingsChangeEvent.Changed.noFastSearchColumns)) {
+        } else if (evt.getChanged().equals(UserSettingsChangeEvent.Changed.NoFastSearchColumns)) {
             textFieldSearch.setEnabled(false);
         }
     }

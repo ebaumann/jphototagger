@@ -43,6 +43,7 @@ import de.elmar_baumann.imv.controller.thumbnail.ControllerCreateMetaDataOfSelec
 import de.elmar_baumann.imv.controller.thumbnail.ControllerDeleteThumbnailsFromDatabase;
 import de.elmar_baumann.imv.controller.thumbnail.ControllerRenameInXmpColumns;
 import de.elmar_baumann.imv.controller.thumbnail.ControllerRotateThumbnail;
+import de.elmar_baumann.imv.controller.thumbnail.ControllerSliderThumbnailSize;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -127,6 +128,7 @@ public class ControllerFactory {
         controllers.add(new ControllerIptcToXmp());
         controllers.add(new ControllerGotoFastSearch());
         controllers.add(new ControllerGotoEdit());
+        controllers.add(new ControllerSliderThumbnailSize());
         controllerScheduledTasks = new ControllerArrayScheduledTasks();
         controllers.add(controllerScheduledTasks);
     }

@@ -43,7 +43,7 @@ public class ControllerCreateMetaDataOfCurrentThumbnails extends Controller
     private ImageMetadataToDatabase createUpdater(List<String> files) {
         ImageMetadataToDatabase updater =
             new ImageMetadataToDatabase(files,
-            UserSettings.getInstance().getMaxThumbnailLength());
+            UserSettings.getInstance().getMaxThumbnailWidth());
         updater.setCreateThumbnails(true);
         updater.addProgressListener(this);
         updater.setForceUpdate(false);

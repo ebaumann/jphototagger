@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.view.panels;
 
-import de.elmar_baumann.lib.thirdparty.knute_johnson.DateChooserDialog;
+import de.elmar_baumann.lib.thirdparty.DateChooserDialog;
 import de.elmar_baumann.imv.AppSettings;
 import de.elmar_baumann.imv.data.SavedSearchPanel;
 import de.elmar_baumann.imv.database.metadata.Column;

@@ -87,7 +87,6 @@ public class AppSettings {
     
     private static List<String> appIconPaths = new ArrayList<String>();
     private static List<Image> appIcons = new ArrayList<Image>();
-    private static final Icon smallAppIcon = IconUtil.getImageIcon(pathAppIconSmall);
     private static final Icon mediumAppIcon = IconUtil.getImageIcon(pathAppIconMedium);
     
 
@@ -118,15 +117,6 @@ public class AppSettings {
      */
     public static List<String> getAppIconPaths() {
         return appIconPaths;
-    }
-
-    /**
-     * Liefert das kleine Anwendungssymbol.
-     * 
-     * @return Kleines Anwendungssymbol
-     */
-    public static Icon getSmallAppIcon() {
-        return smallAppIcon;
     }
 
     /**

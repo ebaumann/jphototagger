@@ -152,7 +152,7 @@ public class ImageMetadataToDatabaseArray implements ProgressListener {
         boolean onlyTextMetadata, boolean force) {
         List<String> filenames = ImageFilteredDirectory.getImageFilenamesOfDirectory(directoryName);
         Collections.sort(filenames);
-        int thumbnailLength = UserSettings.getInstance().getMaxThumbnailLength();
+        int thumbnailLength = UserSettings.getInstance().getMaxThumbnailWidth();
         ImageMetadataToDatabase scanner =
             new ImageMetadataToDatabase(filenames, thumbnailLength);
         scanner.setCreateThumbnails(!onlyTextMetadata);

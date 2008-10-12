@@ -40,17 +40,16 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel
     public ImageFileThumbnailsPanel() {
         setThumbnailCount(0);
         controllerDoubleklickThumbnail = new ControllerDoubleklickThumbnail(this);
-        setThumbnailCountPerRow(UserSettings.getInstance().getThumbnailCountPerRow());
         UserSettingsDialog.getInstance().addChangeListener(this);
         db.addDatabaseListener(this);
     }
 
     @Override
     public void applySettings(UserSettingsChangeEvent evt) {
-        if (evt.getChanged().equals(UserSettingsChangeEvent.Changed.thumbnailsPanelColumnsCount)) {
-            setThumbnailCountPerRow(UserSettings.getInstance().getThumbnailCountPerRow());
+        if (evt.getChanged().equals(UserSettingsChangeEvent.Changed.ThumbnailWidth)) {
+            setThumbnailWidth(UserSettings.getInstance().getMaxThumbnailWidth());
             repaint();
-        } else if (evt.getChanged().equals(UserSettingsChangeEvent.Changed.otherOpenImageApps)) {
+        } else if (evt.getChanged().equals(UserSettingsChangeEvent.Changed.OtherOpenImageApps)) {
             popupMenu.addOtherOpenImageApps();
         }
     }
@@ -102,6 +101,7 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel
     public void setFilenames(List<String> filenames) {
         this.filenames = filenames;
         empty();
+        setThumbnailWidth(UserSettings.getInstance().getMaxThumbnailWidth());
         setMissingFilesFlags();
         setThumbnailCount(filenames.size());
         readPersistentSelectedFiles();

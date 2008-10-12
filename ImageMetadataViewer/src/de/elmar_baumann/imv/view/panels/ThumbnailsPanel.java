@@ -4,11 +4,15 @@ import de.elmar_baumann.imv.event.ThumbnailsPanelAction;
 import de.elmar_baumann.imv.event.ThumbnailsPanelListener;
 import de.elmar_baumann.imv.data.ThumbnailFlag;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.MediaTracker;
 import java.awt.Rectangle;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -17,7 +21,10 @@ import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JPanel;
+import javax.swing.JViewport;
 
 /**
  * Panel zum Anzeigen mehrerer Thumbnails mit einem Text darunter. Diese Klasse
@@ -44,7 +51,7 @@ import javax.swing.JPanel;
  * @version 2008-10-05
  */
 public abstract class ThumbnailsPanel extends JPanel
-    implements MouseListener, MouseMotionListener, KeyListener {
+    implements ComponentListener, MouseListener, MouseMotionListener, KeyListener {
 
     private static final int lengthFlag = 10;
     private static final int heightFlag = 10;
@@ -56,20 +63,28 @@ public abstract class ThumbnailsPanel extends JPanel
     private static final Color colorHighlightedText = new Color(255, 255, 168);
     private static final Color colorHighlightedBackground = new Color(245, 245, 245);
     private static final Font fontTitle = new Font("Arial", Font.PLAIN, fontHeightThumbnailText);  // NOI18N
-    private static final int maxCharCountText = 25;
+    private static final int maxCharCountTextPer150px = 25;
+    private int maxCharCountText = 25;
     private static final int defaultThumbnailWidth = 150;
-    private static final int defaultThumbnailHeight = 150;
     private static final int externalPadding = fontHeightThumbnailText + 10;
     private static final int internalPadding = 10;
     private static final int thumbnailBorderWidth = 1;
     private int thumbnailWidth = defaultThumbnailWidth;
-    private int thumbnailHeight = defaultThumbnailHeight;
+    private int minWidth;
     private int thumbnailCount = 0;
-    private int thumbnailCountPerRow = 3;
+    private int thumbnailCountPerRow = 0;
     private List<Integer> indicesSelectedThumbnails = new ArrayList<Integer>();
     private HashMap<Integer, ThumbnailFlag> flagOfThumbnailIndex = new HashMap<Integer, ThumbnailFlag>();
     private HashMap<Integer, Image> thumbnailAtIndex = new HashMap<Integer, Image>();
     private List<ThumbnailsPanelListener> panelListener = new ArrayList<ThumbnailsPanelListener>();
+
+    public ThumbnailsPanel() {
+        addMouseListener(this);
+        addMouseMotionListener(this);
+        addKeyListener(this);
+        setBackground(colorPanelBackground);
+        addComponentListener(this);
+    }
 
     protected void empty() {
         thumbnailAtIndex.clear();
@@ -77,16 +92,7 @@ public abstract class ThumbnailsPanel extends JPanel
         flagOfThumbnailIndex.clear();
         System.gc();
         thumbnailCount = 0;
-        thumbnailWidth = defaultThumbnailWidth;
-        thumbnailHeight = defaultThumbnailHeight;
         notifyAllThumbnailsDeselected();
-    }
-
-    public ThumbnailsPanel() {
-        addMouseListener(this);
-        addMouseMotionListener(this);
-        addKeyListener(this);
-        setBackground(colorPanelBackground);
     }
 
     private int getIndexSelectedThumbnail() {
@@ -95,6 +101,31 @@ public abstract class ThumbnailsPanel extends JPanel
             indexSelectedThumbnail = indicesSelectedThumbnails.get(0);
         }
         return indexSelectedThumbnail;
+    }
+
+    /**
+     * Sets the width of a thumbnail.
+     * 
+     * @param width  width in pixel
+     */
+    public void setThumbnailWidth(int width) {
+        if (width != thumbnailWidth) {
+            thumbnailAtIndex.clear();
+            System.gc();
+            thumbnailWidth = width;
+            setMinWidth();
+            setThumbnailCountPerRow();
+            maxCharCountText = (int) (((double) maxCharCountTextPer150px * (double) width / 150.0));
+            repaint();
+        }
+    }
+
+    private void setMinWidth() {
+        minWidth = getThumbnailAreaWidth() + 2 * externalPadding;
+    }
+
+    public int getThumbnailWidth() {
+        return thumbnailWidth;
     }
 
     /**
@@ -328,7 +359,7 @@ public abstract class ThumbnailsPanel extends JPanel
     }
 
     private int getThumbnailAreaHeight() {
-        return thumbnailHeight + 2 * internalPadding + 2 * thumbnailBorderWidth;
+        return thumbnailWidth + 2 * internalPadding + 2 * thumbnailBorderWidth;
     }
 
     private int getThumbnailAreaWidth() {
@@ -361,7 +392,7 @@ public abstract class ThumbnailsPanel extends JPanel
         } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
             selectDownThumbnail();
         } else if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-            invokeDoubleKlick();
+            handleDoubleKlick();
         } else if ((e.getModifiers() & KeyEvent.CTRL_MASK) ==
             KeyEvent.CTRL_MASK && e.getKeyCode() == KeyEvent.VK_A) {
             selectAllThumbnails(true);
@@ -496,25 +527,17 @@ public abstract class ThumbnailsPanel extends JPanel
         }
     }
 
-    /**
-     * Setzt die Anzahl der Thumbnails, die nebeneinander angezeigt werden.
-     * 
-     * @param count Anzahl
-     */
-    protected void setThumbnailCountPerRow(int count) {
-        thumbnailCountPerRow = count;
-        repaint();
-    }
-
     private int getColumnIndexAtThumbnailIndex(int thumbnailIndex) {
-        return thumbnailIndex % thumbnailCountPerRow;
+        return thumbnailIndex > 0 && thumbnailCountPerRow > 0
+            ? thumbnailIndex % thumbnailCountPerRow
+            : 0;
     }
 
     private int getRowIndexAtThumbnailIndex(int thumbnailIndex) {
-        return thumbnailIndex / thumbnailCountPerRow;
+        return thumbnailCountPerRow > 0 ? thumbnailIndex / thumbnailCountPerRow : 0;
     }
 
-    private void invokeDoubleKlick() {
+    private void handleDoubleKlick() {
         int indexSelectedThumbnail = getIndexSelectedThumbnail();
         if (indexSelectedThumbnail >= 0) {
             doubleClickAtIndex(indexSelectedThumbnail);
@@ -533,7 +556,6 @@ public abstract class ThumbnailsPanel extends JPanel
                 paintThumbnailAtIndex(index, g);
             }
             paintPanelFocusBorder(g);
-            setSize(calculatePreferredSize(getPreferredSize(), rectClip));
         }
     }
 
@@ -556,8 +578,7 @@ public abstract class ThumbnailsPanel extends JPanel
         paintThumbnailBackground(g, areaX, areaY, isSelected(index));
         paintThumbnailFlag(index, g, areaX, areaY);
         if (thumbnail != null) {
-            setMaxThumbnailDimensions(thumbnail);
-            paintThumbnail(thumbnail, g, areaX, areaY);
+            paintThumbnail(getScaledInstance(index, thumbnail), g, areaX, areaY);
             paintThumbnailTextAtIndex(g, index, areaX, areaY);
         }
     }
@@ -573,13 +594,13 @@ public abstract class ThumbnailsPanel extends JPanel
             thumbnailAreaX + 1,
             thumbnailAreaY + 1,
             thumbnailWidth + 2 * internalPadding,
-            thumbnailHeight + 2 * internalPadding);
+            thumbnailWidth + 2 * internalPadding);
         g.setColor(colorThumbnailBorder);
         g.drawRect(
             thumbnailAreaX,
             thumbnailAreaY,
             thumbnailWidth + 2 * internalPadding + thumbnailBorderWidth,
-            thumbnailHeight + 2 * internalPadding + 2);
+            thumbnailWidth + 2 * internalPadding + 2);
         g.setColor(oldColor);
     }
 
@@ -590,7 +611,7 @@ public abstract class ThumbnailsPanel extends JPanel
             g.setColor(flag.getColor());
             g.fillRect(
                 thumbnailAreaX + thumbnailWidth + 2 * internalPadding - lengthFlag,
-                thumbnailAreaY + thumbnailHeight + 2 * internalPadding - heightFlag,
+                thumbnailAreaY + thumbnailWidth + 2 * internalPadding - heightFlag,
                 lengthFlag,
                 heightFlag);
             g.setColor(oldColor);
@@ -671,23 +692,45 @@ public abstract class ThumbnailsPanel extends JPanel
 
     @Override
     public Dimension getPreferredSize() {
-        int width = externalPadding + thumbnailCountPerRow *
-            (getThumbnailAreaWidth() + externalPadding);
-        int heigth = externalPadding + getRowCount() *
-            (getThumbnailAreaHeight() + externalPadding);
-        return new Dimension(width, heigth);
+        Component parent = getParent();
+        int width = parent instanceof JViewport ? parent.getWidth() : getWidth();
+        int heigth = getCalculatedHeight();
+        return new Dimension(width >= minWidth ? width : minWidth, heigth);
     }
 
-    private Dimension calculatePreferredSize(
-        Dimension preferredSize, Rectangle rectClip) {
-        return new Dimension(
-            rectClip.width > preferredSize.width ? rectClip.width : preferredSize.width,
-            rectClip.height > preferredSize.height ? rectClip.height : preferredSize.height);
+    private int getCalculatedHeight() {
+        return externalPadding +
+            getRowCount() * (getThumbnailAreaHeight() + externalPadding);
     }
 
     @Override
-    public Dimension getMinimumSize() {
-        return getPreferredSize();
+    public void componentResized(ComponentEvent e) {
+        setThumbnailCountPerRow();
+    }
+
+    private void setThumbnailCountPerRow() {
+        int width = getWidth();
+        int tnAreaWidth = getThumbnailAreaWidth();
+        int prevCount = thumbnailCountPerRow;
+        double count =
+            (double) (width - externalPadding) /
+            (double) (tnAreaWidth + externalPadding);
+        thumbnailCountPerRow = count >= 1 ? (int) count : 1;
+        if (prevCount != thumbnailCountPerRow) {
+            setSize(getWidth(), getCalculatedHeight());
+        }
+    }
+
+    @Override
+    public void componentMoved(ComponentEvent e) {
+    }
+
+    @Override
+    public void componentShown(ComponentEvent e) {
+    }
+
+    @Override
+    public void componentHidden(ComponentEvent e) {
     }
 
     private void selectUpThumbnail() {
@@ -747,21 +790,37 @@ public abstract class ThumbnailsPanel extends JPanel
         return -1;
     }
 
-    private void setMaxThumbnailDimensions(Image thumbnail) {
-        int width = thumbnail.getWidth(this);
-        int height = thumbnail.getHeight(this);
-        boolean repaint = false;
-        if (width > thumbnailWidth) {
-            thumbnailWidth = width;
-            repaint = true;
+    /**
+     * Returns an image with a longer side that fits the attribute thumbnailWidth.
+     * 
+     * @param  cacheIndex  index of the image in the cache. If the image will be
+     *                     scaled the cache will be refreshed with the scaled
+     *                     instance
+     * @param  image       image to scale
+     * @return image if it must not be scaled or scaled instance
+     */
+    private Image getScaledInstance(int cacheIndex, Image image) {
+        int width = image.getWidth(null);
+        int height = image.getHeight(null);
+        double longer = width > height ? width : height;
+        if (longer == thumbnailWidth) {
+            return image;
         }
-        if (height > thumbnailHeight) {
-            thumbnailHeight = height;
-            repaint = true;
+        double scaleFactor = (double) thumbnailWidth / longer;
+
+        Image scaled = image.getScaledInstance(
+            width > height ? thumbnailWidth : (int) ((double) width * scaleFactor + 0.5),
+            height > width ? thumbnailWidth : (int) ((double) height * scaleFactor + 0.5),
+            Image.SCALE_AREA_AVERAGING);
+        MediaTracker tracker = new MediaTracker(this);
+        tracker.addImage(image, 0);
+        try {
+            tracker.waitForID(0);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(ThumbnailsPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
-        if (repaint) {
-            repaint();
-        }
+        thumbnailAtIndex.put(cacheIndex, scaled);
+        return scaled;
     }
 
     /**

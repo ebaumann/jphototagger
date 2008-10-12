@@ -160,7 +160,7 @@ public class FileExcludePatternsPanel extends javax.swing.JPanel
             }
         });
 
-        buttonDeletePattern.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        buttonDeletePattern.setFont(new java.awt.Font("Dialog", 0, 12));
         buttonDeletePattern.setMnemonic('e');
         buttonDeletePattern.setText(Bundle.getString("FileExcludePatternsPanel.buttonDeletePattern.text")); // NOI18N
         buttonDeletePattern.setToolTipText(Bundle.getString("FileExcludePatternsPanel.buttonDeletePattern.toolTipText")); // NOI18N
@@ -171,7 +171,7 @@ public class FileExcludePatternsPanel extends javax.swing.JPanel
             }
         });
 
-        buttonInsertPattern.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        buttonInsertPattern.setFont(new java.awt.Font("Dialog", 0, 12));
         buttonInsertPattern.setMnemonic('h');
         buttonInsertPattern.setText(Bundle.getString("FileExcludePatternsPanel.buttonInsertPattern.text")); // NOI18N
         buttonInsertPattern.setToolTipText(Bundle.getString("FileExcludePatternsPanel.buttonInsertPattern.toolTipText")); // NOI18N
@@ -182,7 +182,7 @@ public class FileExcludePatternsPanel extends javax.swing.JPanel
             }
         });
 
-        buttonUpdateDatabase.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        buttonUpdateDatabase.setFont(new java.awt.Font("Dialog", 0, 12));
         buttonUpdateDatabase.setMnemonic('d');
         buttonUpdateDatabase.setText(Bundle.getString("FileExcludePatternsPanel.buttonUpdateDatabase.text")); // NOI18N
         buttonUpdateDatabase.addActionListener(new java.awt.event.ActionListener() {
@@ -195,7 +195,7 @@ public class FileExcludePatternsPanel extends javax.swing.JPanel
         labelInfoDatabase.setForeground(new java.awt.Color(255, 0, 0));
         labelInfoDatabase.setText(Bundle.getString("FileExcludePatternsPanel.labelInfoDatabase.text")); // NOI18N
 
-        buttonCancelUpdateDatabase.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        buttonCancelUpdateDatabase.setFont(new java.awt.Font("Dialog", 0, 12));
         buttonCancelUpdateDatabase.setText(Bundle.getString("FileExcludePatternsPanel.buttonCancelUpdateDatabase.text")); // NOI18N
         buttonCancelUpdateDatabase.setEnabled(false);
         buttonCancelUpdateDatabase.addActionListener(new java.awt.event.ActionListener() {
@@ -240,7 +240,7 @@ public class FileExcludePatternsPanel extends javax.swing.JPanel
                     .addComponent(buttonInsertPattern)
                     .addComponent(buttonDeletePattern))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labelInfoDatabase, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(labelInfoDatabase, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(progressBarUpdateDatabase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)

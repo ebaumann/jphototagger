@@ -41,26 +41,26 @@ public class ThumbnailUtil {
      * Erzeugung - eingebettet oder skaliert - nicht, wird die jeweils andere
      * Erzeugungsvariante ausprobiert.
      * 
-     * @param filename Dateiname
-     * @param maxWidth Maximale Länge der längeren Thumbnailseite in Pixel;
-     *                 wird (nur) beim Skalieren benutzt
-     * @param embedded true, wenn eingebettetes Thumbnail benutzt werden soll,
-     *  f              alse, wenn ein skaliertes Thumbnail berechnet werden soll
-     * @return         Thumbnail oder null, falls keines erzeugt werden konnte
+     * @param filename  Dateiname
+     * @param maxLength Maximale Länge der längeren Thumbnailseite in Pixel;
+     *                  wird (nur) beim Skalieren benutzt
+     * @param embedded  true, wenn eingebettetes Thumbnail benutzt werden soll,
+     *  f               false, wenn ein skaliertes Thumbnail berechnet werden soll
+     * @return          Thumbnail oder null, falls keines erzeugt werden konnte
      */
-    public static Image getThumbnail(String filename, int maxWidth, boolean embedded) {
+    public static Image getThumbnail(String filename, int maxLength, boolean embedded) {
         Image thumbnail =
             (embedded || FileType.isRawFile(filename)
               ? rotateThumbnail(filename, getFileEmbeddedThumbnail(filename))
 //            : FileType.isJpegFile(filename)
 //            ? getScaledImage(filename, maxWidth)
-            : getScaledImageImagero(filename, maxWidth));
+            : getScaledImageImagero(filename, maxLength));
         if (thumbnail == null) {
             thumbnail =
                 (embedded
 //                ? FileType.isJpegFile(filename)
 //                ? getScaledImage(filename, maxWidth)
-                ? getScaledImageImagero(filename, maxWidth)
+                ? getScaledImageImagero(filename, maxLength)
                 : rotateThumbnail(filename, getFileEmbeddedThumbnail(filename)));
         }
         return thumbnail;

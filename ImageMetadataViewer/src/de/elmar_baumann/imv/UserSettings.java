@@ -113,18 +113,8 @@ public class UserSettings {
      * 
      * @return Seitenlänge in Pixel
      */
-    public int getMaxThumbnailLength() {
-        return new Integer(settingsDialog.spinnerMaxThumbnailSize.getValue().
-            toString()).intValue();
-    }
-
-    /**
-     * Liefert die Anzahl der anzuzeigenden Thumbnails pro Zeile.
-     * 
-     * @return Thumbnailanzahl
-     */
-    public int getThumbnailCountPerRow() {
-        return new Integer(settingsDialog.spinnerThumbnailCountPerRow.getValue().
+    public int getMaxThumbnailWidth() {
+        return new Integer(settingsDialog.spinnerMaxThumbnailWidth.getValue().
             toString()).intValue();
     }
 

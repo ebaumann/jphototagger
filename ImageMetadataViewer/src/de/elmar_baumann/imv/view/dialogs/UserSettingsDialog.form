@@ -39,7 +39,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Component id="tabbedPane" pref="359" max="32767" attributes="0"/>
+              <Component id="tabbedPane" pref="338" max="32767" attributes="0"/>
               <EmptySpace min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -146,7 +146,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
-                                  <Component id="scrollPaneListOtherOpenImageApps" pref="150" max="32767" attributes="0"/>
+                                  <Component id="scrollPaneListOtherOpenImageApps" pref="129" max="32767" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="buttonAddOtherOpenImageApp" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -334,12 +334,12 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="labelSearch" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="288" max="32767" attributes="0"/>
+                      <EmptySpace pref="267" max="32767" attributes="0"/>
                   </Group>
                   <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
-                          <Component id="scrollPaneSearchColumns" pref="264" max="32767" attributes="0"/>
+                          <Component id="scrollPaneSearchColumns" pref="243" max="32767" attributes="0"/>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -384,6 +384,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Component id="panelExternalThumbnailApp" alignment="0" max="32767" attributes="2"/>
+                          <Component id="checkBoxUseEmbeddedThumbnails" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="panelThumbnailDimensions" alignment="0" max="32767" attributes="2"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -394,10 +395,12 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Component id="panelThumbnailDimensions" min="-2" max="-2" attributes="0"/>
+                      <Component id="panelThumbnailDimensions" min="-2" pref="90" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
+                      <Component id="checkBoxUseEmbeddedThumbnails" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="panelExternalThumbnailApp" pref="132" max="32767" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="panelExternalThumbnailApp" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="23" max="32767" attributes="1"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -407,7 +410,7 @@
               <Properties>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                    <TitledBorder title="Gr&#xf6;&#xdf;e und Anordnung der Vorschaubilder">
+                    <TitledBorder title="Gr&#xf6;&#xdf;e der Vorschaubilder">
                       <ResourceString PropertyName="titleX" bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.panelThumbnailDimensions.border.title" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                       <Font PropertyName="font" name="Dialog" size="11" style="1"/>
                     </TitledBorder>
@@ -421,78 +424,44 @@
                       <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="checkBoxUseEmbeddedThumbnails" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Group type="103" groupAlignment="1" attributes="0">
-                                              <Component id="labelThumbnailCountPerRow" alignment="1" min="-2" max="-2" attributes="1"/>
-                                              <Component id="labelMaxThumbnailLength" alignment="1" min="-2" max="-2" attributes="1"/>
-                                          </Group>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="spinnerThumbnailCountPerRow" linkSize="4" pref="88" max="32767" attributes="1"/>
-                                              <Component id="spinnerMaxThumbnailSize" linkSize="4" alignment="0" pref="88" max="32767" attributes="1"/>
-                                          </Group>
-                                      </Group>
-                                  </Group>
-                                  <EmptySpace min="77" pref="77" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="labelInfoChangeLength" pref="617" max="32767" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Component id="labelMaxThumbnailWidth" min="-2" max="-2" attributes="1"/>
                                   <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="spinnerMaxThumbnailWidth" min="-2" pref="58" max="-2" attributes="1"/>
                               </Group>
+                              <Component id="labelInfoChangeMaxThumbnailWidth" alignment="0" pref="617" max="32767" attributes="0"/>
                           </Group>
+                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="checkBoxUseEmbeddedThumbnails" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="labelMaxThumbnailLength" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="spinnerMaxThumbnailSize" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="-2" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="labelThumbnailCountPerRow" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="spinnerThumbnailCountPerRow" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="labelMaxThumbnailWidth" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="spinnerMaxThumbnailWidth" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="labelInfoChangeLength" pref="39" max="32767" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="labelInfoChangeMaxThumbnailWidth" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="1"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JCheckBox" name="checkBoxUseEmbeddedThumbnails">
-                  <Properties>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Dialog" size="12" style="0"/>
-                    </Property>
-                    <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.checkBoxUseEmbeddedThumbnails.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
-                    </Property>
-                  </Properties>
-                  <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
-                  </AuxValues>
-                </Component>
-                <Component class="javax.swing.JLabel" name="labelMaxThumbnailLength">
+                <Component class="javax.swing.JLabel" name="labelMaxThumbnailWidth">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Dialog" size="12" style="0"/>
                     </Property>
                     <Property name="horizontalAlignment" type="int" value="4"/>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.labelMaxThumbnailLength.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.labelMaxThumbnailWidth.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JSpinner" name="spinnerMaxThumbnailSize">
+                <Component class="javax.swing.JSpinner" name="spinnerMaxThumbnailWidth">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Dialog" size="12" style="0"/>
@@ -501,44 +470,20 @@
                       <Connection code="new SpinnerNumberModel(150, 50, 250, 1)" type="code"/>
                     </Property>
                   </Properties>
-                  <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
-                  </AuxValues>
-                </Component>
-                <Component class="javax.swing.JLabel" name="labelThumbnailCountPerRow">
-                  <Properties>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Dialog" size="12" style="0"/>
-                    </Property>
-                    <Property name="horizontalAlignment" type="int" value="4"/>
-                    <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.labelThumbnailCountPerRow.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
-                    </Property>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JSpinner" name="spinnerThumbnailCountPerRow">
-                  <Properties>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Dialog" size="12" style="0"/>
-                    </Property>
-                    <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="new SpinnerNumberModel(3, 1, 20, 1)" type="code"/>
-                    </Property>
-                  </Properties>
                   <Events>
-                    <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="spinnerThumbnailCountPerRowStateChanged"/>
+                    <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="spinnerMaxThumbnailWidthStateChanged"/>
                   </Events>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
                   </AuxValues>
                 </Component>
-                <Component class="javax.swing.JLabel" name="labelInfoChangeLength">
+                <Component class="javax.swing.JLabel" name="labelInfoChangeMaxThumbnailWidth">
                   <Properties>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="0" green="0" red="ff" type="rgb"/>
                     </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.labelInfoChangeLength.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.labelInfoChangeMaxThumbnailWidth.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
                 </Component>
@@ -560,13 +505,13 @@
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="checkBoxExternalThumbnailApp" alignment="0" min="-2" max="-2" attributes="1"/>
-                              <Component id="labelInfoExternalThumbnailApp" alignment="1" pref="617" max="32767" attributes="1"/>
+                              <Component id="labelInfoExternalThumbnailApp" alignment="1" pref="617" max="32767" attributes="2"/>
                               <Component id="textFieldExternalThumbnailApp" alignment="1" pref="617" max="32767" attributes="2"/>
                           </Group>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -574,11 +519,11 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="checkBoxExternalThumbnailApp" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
+                          <EmptySpace pref="9" max="32767" attributes="1"/>
                           <Component id="labelInfoExternalThumbnailApp" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Component id="textFieldExternalThumbnailApp" min="-2" pref="22" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -620,6 +565,22 @@
                 </Component>
               </SubComponents>
             </Container>
+            <Component class="javax.swing.JCheckBox" name="checkBoxUseEmbeddedThumbnails">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Dialog" size="12" style="0"/>
+                </Property>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                  <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.checkBoxUseEmbeddedThumbnails.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                </Property>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkBoxUseEmbeddedThumbnailsActionPerformed"/>
+              </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+              </AuxValues>
+            </Component>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="panelIptc">
@@ -653,7 +614,7 @@
                           <Component id="labelIptcCharset" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="comboBoxIptcCharset" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="278" max="32767" attributes="0"/>
+                      <EmptySpace pref="257" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -728,7 +689,7 @@
                           <Component id="labelTasksMinutesToStartScheduledTasks" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="spinnerTasksMinutesToStartScheduledTasks" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" max="-2" attributes="1"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -750,7 +711,7 @@
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Component id="scrollPaneTasksAutoscanListDirectories" alignment="0" pref="617" max="32767" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
@@ -769,19 +730,19 @@
                               <Component id="labelTasksAutoscanMoreInfoDirectories" alignment="0" pref="617" max="32767" attributes="0"/>
                               <Component id="labelTasksAutoscanInfoDirectories" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="labelTasksAutoscanMoreInfoDirectories" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="labelTasksAutoscanInfoDirectories" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="scrollPaneTasksAutoscanListDirectories" pref="52" max="32767" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="labelTasksAutoscanMoreInfoDirectories" min="-2" pref="30" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" max="-2" attributes="0"/>
+                          <Component id="labelTasksAutoscanInfoDirectories" min="-2" pref="15" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" max="-2" attributes="0"/>
+                          <Component id="scrollPaneTasksAutoscanListDirectories" pref="31" max="32767" attributes="0"/>
+                          <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Component id="checkBoxTasksAutoscanIncludeSubdirectories" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
@@ -983,7 +944,7 @@
                       <Component id="panelAccelerateStart" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="panelThreadPriority" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="89" max="32767" attributes="0"/>
+                      <EmptySpace pref="68" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1116,7 +1077,7 @@
                                   <Component id="comboBoxThreadPriority" min="-2" pref="88" max="-2" attributes="2"/>
                               </Group>
                           </Group>
-                          <EmptySpace pref="173" max="32767" attributes="0"/>
+                          <EmptySpace pref="190" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1167,6 +1128,9 @@
                 </Component>
                 <Component class="javax.swing.JLabel" name="labelInfoThreadPriority">
                   <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Dialog" size="12" style="0"/>
+                    </Property>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="0" green="0" red="ff" type="rgb"/>
                     </Property>
@@ -1225,7 +1189,7 @@
                       <Component id="panelLogfile" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="checkBoxAcceptHiddenDirectories" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="217" max="32767" attributes="0"/>
+                      <EmptySpace pref="196" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>

@@ -88,7 +88,7 @@ public class ControllerCreateMetaDataOfSelectedThumbnails extends Controller
         boolean onlyTextMetadata) {
         ImageMetadataToDatabase updater =
             new ImageMetadataToDatabase(files,
-            UserSettings.getInstance().getMaxThumbnailLength());
+            UserSettings.getInstance().getMaxThumbnailWidth());
         updater.setCreateThumbnails(!onlyTextMetadata);
         updater.addProgressListener(this);
         updater.setForceUpdate(true);

@@ -88,7 +88,7 @@ public class UpdateMetaDataOfDirectoriesDialog extends javax.swing.JDialog imple
     private void createScanner() {
         activeScanner =
             new ImageMetadataToDatabase(selectedImagesFilenames,
-            UserSettings.getInstance().getMaxThumbnailLength());
+            UserSettings.getInstance().getMaxThumbnailWidth());
         activeScanner.setCreateThumbnails(!checkBoxNoThumbnails.isSelected());
         activeScanner.setForceUpdate(checkBoxForce.isSelected());
     }

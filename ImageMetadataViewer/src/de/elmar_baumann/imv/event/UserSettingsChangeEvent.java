@@ -7,40 +7,42 @@ package de.elmar_baumann.imv.event;
  * @version 2008/09/14
  */
 public class UserSettingsChangeEvent {
-    
+
     private Changed changed;
-    
+
     /**
      * Was will der Benutzer anders haben?
      */
     public enum Changed {
+
         /**
-         * Anzahl der Thumbnails nebeneinander im Thumbnailspanel
+         * Maximale Seitenlänge eines Thumbnails
          */
-        thumbnailsPanelColumnsCount,
+        ThumbnailWidth,
         /**
          * Loglevel
          */
-        loglevel,
+        Loglevel,
         /**
          * Anwendung, die bei Doppelklick ein Bild öffnet
          */
-        defaultOpenImageApp,
+        DefaultOpenImageApp,
         /**
          * Anwendungen, die Bilder öffnen können (<em>nicht</em> die
          * Standardanwendung, die bei Doppelklick ein Bild öffnet!)
          */
-        otherOpenImageApps,
+        OtherOpenImageApps,
         /**
          * Eine Spalte für die Schnellsuche wurde definiert
          */
-        fastSearchColumnDefined,
+        FastSearchColumnDefined,
         /**
          * Es gibt keine Spalte mehr für die Schnellsuche
          */
-        noFastSearchColumns
-    }
+        NoFastSearchColumns
     
+    }
+
     public UserSettingsChangeEvent(Changed changed) {
         this.changed = changed;
     }
@@ -62,5 +64,4 @@ public class UserSettingsChangeEvent {
     public void setChanged(Changed changed) {
         this.changed = changed;
     }
-
 }
