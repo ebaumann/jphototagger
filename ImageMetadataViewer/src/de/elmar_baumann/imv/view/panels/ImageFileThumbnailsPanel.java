@@ -134,7 +134,7 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel
      * 
      * @param  fNames        filenames
      * @param  onlyIfExists  true, when add only if a filename exists
-     * @return indices, -1 for not existing filenames if not <code>onlyIfExists</code> is false
+     * @return indices, -1 for not existing filenames if <code>onlyIfExists</code> is false
      */
     public List<Integer> getIndicesOfFilenames(List<String> fNames, boolean onlyIfExists) {
         List<Integer> indices = new ArrayList<Integer>(fNames.size());
