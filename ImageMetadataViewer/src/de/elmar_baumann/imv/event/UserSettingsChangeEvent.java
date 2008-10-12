@@ -8,17 +8,17 @@ package de.elmar_baumann.imv.event;
  */
 public class UserSettingsChangeEvent {
 
-    private Changed changed;
+    private Type type;
 
     /**
      * Was will der Benutzer anders haben?
      */
-    public enum Changed {
+    public enum Type {
 
         /**
          * Maximale Seitenlänge eines Thumbnails
          */
-        ThumbnailWidth,
+        MaxThumbnailWidth,
         /**
          * Loglevel
          */
@@ -41,10 +41,12 @@ public class UserSettingsChangeEvent {
          */
         NoFastSearchColumns
     
+    
+    
     }
 
-    public UserSettingsChangeEvent(Changed changed) {
-        this.changed = changed;
+    public UserSettingsChangeEvent(Type type) {
+        this.type = type;
     }
 
     /**
@@ -52,16 +54,16 @@ public class UserSettingsChangeEvent {
      * 
      * @return Änderung
      */
-    public Changed getChanged() {
-        return changed;
+    public Type getType() {
+        return type;
     }
 
     /**
      * Setzt, was geändert wurde.
      * 
-     * @param changed Änderung
+     * @param type  Änderung
      */
-    public void setChanged(Changed changed) {
-        this.changed = changed;
+    public void setType(Type type) {
+        this.type = type;
     }
 }

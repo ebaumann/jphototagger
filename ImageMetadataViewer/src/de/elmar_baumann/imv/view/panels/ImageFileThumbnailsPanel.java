@@ -46,7 +46,7 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel
 
     @Override
     public void applySettings(UserSettingsChangeEvent evt) {
-        if (evt.getChanged().equals(UserSettingsChangeEvent.Changed.OtherOpenImageApps)) {
+        if (evt.getType().equals(UserSettingsChangeEvent.Type.OtherOpenImageApps)) {
             popupMenu.addOtherOpenImageApps();
         }
     }

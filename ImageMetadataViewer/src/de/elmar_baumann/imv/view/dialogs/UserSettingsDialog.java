@@ -80,7 +80,7 @@ public class UserSettingsDialog extends javax.swing.JDialog
     }
 
     private void notifyThumbnailWidthChanged() {
-        notifyChangeListener(new UserSettingsChangeEvent(UserSettingsChangeEvent.Changed.ThumbnailWidth));
+        notifyChangeListener(new UserSettingsChangeEvent(UserSettingsChangeEvent.Type.MaxThumbnailWidth));
     }
 
     private void updateAllThumbnails() {
@@ -284,7 +284,7 @@ public class UserSettingsDialog extends javax.swing.JDialog
             PersistentSettings.getInstance().setString(
                 file.getAbsolutePath(), keyImageOpenApp);
             notifyChangeListener(new UserSettingsChangeEvent(
-                UserSettingsChangeEvent.Changed.DefaultOpenImageApp));
+                UserSettingsChangeEvent.Type.DefaultOpenImageApp));
         }
     }
 
@@ -296,7 +296,7 @@ public class UserSettingsDialog extends javax.swing.JDialog
                 modelImageOpenApps.addElement(filename);
                 setEnabled();
                 notifyChangeListener(new UserSettingsChangeEvent(
-                    UserSettingsChangeEvent.Changed.OtherOpenImageApps));
+                    UserSettingsChangeEvent.Type.OtherOpenImageApps));
             }
         }
     }
@@ -308,7 +308,7 @@ public class UserSettingsDialog extends javax.swing.JDialog
             listOpenImageApps.setSelectedIndex(index);
             setEnabled();
             notifyChangeListener(new UserSettingsChangeEvent(
-                UserSettingsChangeEvent.Changed.OtherOpenImageApps));
+                UserSettingsChangeEvent.Type.OtherOpenImageApps));
         }
     }
 
@@ -430,8 +430,8 @@ public class UserSettingsDialog extends javax.swing.JDialog
         if (e.getSource() == checkListSearchColumns) {
             boolean selected = checkListSearchColumns.getSelectionCount() > 0;
             notifyChangeListener(new UserSettingsChangeEvent(selected
-                ? UserSettingsChangeEvent.Changed.FastSearchColumnDefined
-                : UserSettingsChangeEvent.Changed.NoFastSearchColumns));
+                ? UserSettingsChangeEvent.Type.FastSearchColumnDefined
+                : UserSettingsChangeEvent.Type.NoFastSearchColumns));
         } else if (e.getSource() == thumbnailsUpdater) {
             buttonUpdateAllThumbnails.setEnabled(true);
         }
@@ -1259,7 +1259,7 @@ private void buttonTasksAutoscanRemoveDirectoriesActionPerformed(java.awt.event.
 
 private void comboBoxThreadPriorityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxThreadPriorityActionPerformed
     notifyChangeListener(new UserSettingsChangeEvent(
-        UserSettingsChangeEvent.Changed.Loglevel));
+        UserSettingsChangeEvent.Type.Loglevel));
 }//GEN-LAST:event_comboBoxThreadPriorityActionPerformed
 
 private void listTasksAutoscanDirectoriesValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listTasksAutoscanDirectoriesValueChanged
