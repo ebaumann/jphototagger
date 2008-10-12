@@ -22,6 +22,8 @@ public class ControllerSliderThumbnailSize extends Controller
     private AppPanel appPanel = Panels.getInstance().getAppPanel();
     private ThumbnailsPanel thumbnailsPanel = appPanel.getPanelImageFileThumbnails();
     private JSlider slider = appPanel.getSliderThumbnailSize();
+    private static final int stepWidth = 10;
+    private static final int maxMaginficationPercent = 150;
     private int currentValue = 100;
     private int originalThumbnailWidth;
 
@@ -33,9 +35,10 @@ public class ControllerSliderThumbnailSize extends Controller
     }
 
     private void initSlider() {
-        slider.setMinimum(25);
-        slider.setMaximum(175);
-        slider.setMajorTickSpacing(25);
+        slider.setMinimum(stepWidth);
+        slider.setMaximum(maxMaginficationPercent);
+        slider.setMajorTickSpacing(stepWidth);
+        slider.setMinorTickSpacing(stepWidth);
         slider.setValue(currentValue);
     }
 
@@ -44,7 +47,7 @@ public class ControllerSliderThumbnailSize extends Controller
         if (isStarted()) {
             int value = slider.getValue();
             synchronized (this) {
-                if (value % 25 == 0 && value != currentValue) {
+                if (value % stepWidth == 0 && value != currentValue) {
                     currentValue = value;
                     int width = (int) ((double) originalThumbnailWidth * ((double) value / 100.0));
                     thumbnailsPanel.setThumbnailWidth(width);
