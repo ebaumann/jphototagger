@@ -46,10 +46,7 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel
 
     @Override
     public void applySettings(UserSettingsChangeEvent evt) {
-        if (evt.getChanged().equals(UserSettingsChangeEvent.Changed.ThumbnailWidth)) {
-            setThumbnailWidth(UserSettings.getInstance().getMaxThumbnailWidth());
-            repaint();
-        } else if (evt.getChanged().equals(UserSettingsChangeEvent.Changed.OtherOpenImageApps)) {
+        if (evt.getChanged().equals(UserSettingsChangeEvent.Changed.OtherOpenImageApps)) {
             popupMenu.addOtherOpenImageApps();
         }
     }
@@ -101,7 +98,9 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel
     public void setFilenames(List<String> filenames) {
         this.filenames = filenames;
         empty();
-        setThumbnailWidth(UserSettings.getInstance().getMaxThumbnailWidth());
+        if (getThumbnailWidth() <= 0) {
+            setThumbnailWidth(UserSettings.getInstance().getMaxThumbnailWidth());
+        }
         setMissingFilesFlags();
         setThumbnailCount(filenames.size());
         readPersistentSelectedFiles();
