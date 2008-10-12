@@ -96,7 +96,9 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel
      * @param filenames Dateinamen
      */
     public void setFilenames(List<String> filenames) {
-        this.filenames = filenames;
+        if (filenames != this.filenames) {
+            this.filenames = filenames;
+        }
         empty();
         if (getThumbnailWidth() <= 0) {
             setThumbnailWidth(UserSettings.getInstance().getMaxThumbnailWidth());
@@ -104,8 +106,45 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel
         setMissingFilesFlags();
         setThumbnailCount(filenames.size());
         readPersistentSelectedFiles();
-        scrollToFirstThumbnailRow();
+        if (filenames != this.filenames) {
+            scrollToFirstThumbnailRow();
+        }
         repaint();
+    }
+
+    public void removeFilenames(List<String> fNames) {
+        int removed = 0;
+        List<String> selectedFilenames = getSelectedFilenames();
+        for (String filename : fNames) {
+            int index = getThumbnailIndexOf(filename);
+            if (index >= 0) {
+                filenames.remove(index);
+                selectedFilenames.remove(filename);
+                removed++;
+            }
+        }
+        if (removed > 0) {
+            setFilenames(filenames);
+            setIndicesSelectedThumbnails(getIndicesOfFilenames(selectedFilenames, true));
+        }
+    }
+
+    /**
+     * Returns the indices of filenames.
+     * 
+     * @param  fNames        filenames
+     * @param  onlyIfExists  true, when add only if a filename exists
+     * @return indices, -1 for not existing filenames if not <code>onlyIfExists</code> is false
+     */
+    public List<Integer> getIndicesOfFilenames(List<String> fNames, boolean onlyIfExists) {
+        List<Integer> indices = new ArrayList<Integer>(fNames.size());
+        for (String filename : fNames) {
+            int index = filenames.indexOf(filename);
+            if (!onlyIfExists || (onlyIfExists && index >= 0)) {
+                indices.add(index);
+            }
+        }
+        return indices;
     }
 
     private void scrollToFirstThumbnailRow() {
