@@ -1,8 +1,11 @@
 package de.elmar_baumann.imv.controller.thumbnail;
 
+import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.controller.Controller;
 import de.elmar_baumann.imv.event.ThumbnailsPanelAction;
 import de.elmar_baumann.imv.event.ThumbnailsPanelListener;
+import de.elmar_baumann.imv.event.UserSettingsChangeEvent;
+import de.elmar_baumann.imv.event.UserSettingsChangeListener;
 import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.view.panels.ThumbnailsPanel;
@@ -18,7 +21,7 @@ import javax.swing.event.ChangeListener;
  * @version 2008/10/12
  */
 public class ControllerSliderThumbnailSize extends Controller
-    implements ChangeListener, ThumbnailsPanelListener {
+    implements ChangeListener, ThumbnailsPanelListener, UserSettingsChangeListener {
 
     private AppPanel appPanel = Panels.getInstance().getAppPanel();
     private ThumbnailsPanel thumbnailsPanel = appPanel.getPanelImageFileThumbnails();
@@ -27,10 +30,9 @@ public class ControllerSliderThumbnailSize extends Controller
     private static final int maxMaginficationPercent = 150;
     private static final String keySliderValue = ControllerSliderThumbnailSize.class.getName() + "." + "SliderValue";
     private int currentValue = 100;
-    private int originalThumbnailWidth;
+    private int maxThumbnailWidth = UserSettings.getInstance().getMaxThumbnailWidth();
 
     public ControllerSliderThumbnailSize() {
-        originalThumbnailWidth = thumbnailsPanel.getThumbnailWidth();
         thumbnailsPanel.addThumbnailsPanelListener(this);
         initSlider();
         slider.addChangeListener(this);
@@ -43,9 +45,7 @@ public class ControllerSliderThumbnailSize extends Controller
         slider.setMajorTickSpacing(stepWidth);
         slider.setMinorTickSpacing(stepWidth);
         slider.setValue(currentValue);
-        if (currentValue != 100 && originalThumbnailWidth > 0) {
-            setThumbnailWidth();
-        }
+        setThumbnailWidth();
     }
 
     @Override
@@ -72,7 +72,7 @@ public class ControllerSliderThumbnailSize extends Controller
 
     @Override
     public void thumbnailCountChanged() {
-        originalThumbnailWidth = thumbnailsPanel.getThumbnailWidth();
+        setThumbnailWidth();
     }
 
     private void readPersistent() {
@@ -83,11 +83,19 @@ public class ControllerSliderThumbnailSize extends Controller
     }
 
     private void setThumbnailWidth() {
-        int width = (int) ((double) originalThumbnailWidth * ((double) currentValue / 100.0));
+        int width = (int) ((double) maxThumbnailWidth * ((double) currentValue / 100.0));
         thumbnailsPanel.setThumbnailWidth(width);
     }
-    
+
     private void writePersistent() {
         PersistentSettings.getInstance().setInt(currentValue, keySliderValue);
+    }
+
+    @Override
+    public void applySettings(UserSettingsChangeEvent evt) {
+        if (evt.getType().equals(UserSettingsChangeEvent.Type.MaxThumbnailWidth)) {
+            maxThumbnailWidth = UserSettings.getInstance().getMaxThumbnailWidth();
+            setThumbnailWidth();
+        }
     }
 }
