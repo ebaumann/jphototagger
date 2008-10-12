@@ -405,12 +405,12 @@ public class AppPanel extends javax.swing.JPanel {
         progressBarCurrentTasks = new javax.swing.JProgressBar();
         buttonStopScheduledTasks = new javax.swing.JButton();
         panelStatusbar = new javax.swing.JPanel();
-        labelStatusbar = new javax.swing.JLabel();
+        sliderThumbnailSize = new javax.swing.JSlider();
         buttonLogfileDialog = new javax.swing.JButton();
         buttonAdvanedSearch = new javax.swing.JButton();
         textFieldSearch = new javax.swing.JTextField();
+        labelStatusbar = new javax.swing.JLabel();
         progressBarCreateMetaDataOfCurrentThumbnails = new javax.swing.JProgressBar();
-        sliderThumbnailSize = new javax.swing.JSlider();
 
         treeDirectories.setCellRenderer(new TreeCellRendererDirectories());
         scrollPaneTreeDirectories.setViewportView(treeDirectories);
@@ -766,7 +766,13 @@ public class AppPanel extends javax.swing.JPanel {
         panelStatusbar.setRequestFocusEnabled(false);
         panelStatusbar.setVerifyInputWhenFocusTarget(false);
 
-        labelStatusbar.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        sliderThumbnailSize.setMajorTickSpacing(25);
+        sliderThumbnailSize.setMaximum(175);
+        sliderThumbnailSize.setMinimum(25);
+        sliderThumbnailSize.setPaintTicks(true);
+        sliderThumbnailSize.setSnapToTicks(true);
+        sliderThumbnailSize.setToolTipText(Bundle.getString("AppPanel.sliderThumbnailSize.toolTipText")); // NOI18N
+        sliderThumbnailSize.setValue(100);
 
         buttonLogfileDialog.setToolTipText(Bundle.getString("AppPanel.buttonLogfileDialog.toolTipText")); // NOI18N
         buttonLogfileDialog.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -777,15 +783,9 @@ public class AppPanel extends javax.swing.JPanel {
 
         textFieldSearch.setToolTipText(Bundle.getString("AppPanel.textFieldSearch.toolTipText")); // NOI18N
 
-        progressBarCreateMetaDataOfCurrentThumbnails.setToolTipText(AppSettings.tooltipTextProgressBarDirectory);
+        labelStatusbar.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
 
-        sliderThumbnailSize.setMajorTickSpacing(25);
-        sliderThumbnailSize.setMaximum(175);
-        sliderThumbnailSize.setMinimum(25);
-        sliderThumbnailSize.setPaintTicks(true);
-        sliderThumbnailSize.setSnapToTicks(true);
-        sliderThumbnailSize.setToolTipText(Bundle.getString("AppPanel.sliderThumbnailSize.toolTipText")); // NOI18N
-        sliderThumbnailSize.setValue(100);
+        progressBarCreateMetaDataOfCurrentThumbnails.setToolTipText(AppSettings.tooltipTextProgressBarDirectory);
 
         javax.swing.GroupLayout panelStatusbarLayout = new javax.swing.GroupLayout(panelStatusbar);
         panelStatusbar.setLayout(panelStatusbarLayout);
@@ -813,18 +813,19 @@ public class AppPanel extends javax.swing.JPanel {
             panelStatusbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelStatusbarLayout.createSequentialGroup()
                 .addGap(12, 12, 12)
-                .addGroup(panelStatusbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelStatusbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(textFieldSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buttonAdvanedSearch)
                     .addComponent(buttonLogfileDialog, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(panelStatusbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(buttonAdvanedSearch)
-                        .addComponent(textFieldSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(sliderThumbnailSize, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelStatusbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(progressBarCreateMetaDataOfCurrentThumbnails, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(labelStatusbar, javax.swing.GroupLayout.Alignment.LEADING))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
+
+        panelStatusbarLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {labelStatusbar, progressBarCreateMetaDataOfCurrentThumbnails});
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
