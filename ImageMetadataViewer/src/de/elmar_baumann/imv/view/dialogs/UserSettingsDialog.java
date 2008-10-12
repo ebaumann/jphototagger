@@ -519,7 +519,7 @@ public class UserSettingsDialog extends javax.swing.JDialog
             }
         });
 
-        tabbedPane.setFont(new java.awt.Font("Dialog", 0, 12));
+        tabbedPane.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
 
         panelImageOpenApps.setBorder(javax.swing.BorderFactory.createTitledBorder(null, Bundle.getString("UserSettingsDialog.panelImageOpenApps.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 11))); // NOI18N
 
@@ -532,7 +532,7 @@ public class UserSettingsDialog extends javax.swing.JDialog
             }
         });
 
-        labelInfoOtherOpenImageApps.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        labelInfoOtherOpenImageApps.setFont(new java.awt.Font("Dialog", 0, 12));
         labelInfoOtherOpenImageApps.setText(Bundle.getString("UserSettingsDialog.labelInfoOtherOpenImageApps.text")); // NOI18N
 
         listOpenImageApps.setModel(modelImageOpenApps);
@@ -581,10 +581,10 @@ public class UserSettingsDialog extends javax.swing.JDialog
             }
         });
 
-        labelImageInfotextOpenApp.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        labelImageInfotextOpenApp.setFont(new java.awt.Font("Dialog", 0, 12));
         labelImageInfotextOpenApp.setText(Bundle.getString("UserSettingsDialog.labelImageInfotextOpenApp.text")); // NOI18N
 
-        labelImageOpenApp.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        labelImageOpenApp.setFont(new java.awt.Font("Dialog", 0, 12));
         labelImageOpenApp.setForeground(new java.awt.Color(0, 0, 255));
         labelImageOpenApp.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -711,6 +711,7 @@ public class UserSettingsDialog extends javax.swing.JDialog
             }
         });
 
+        labelInfoChangeMaxThumbnailWidth.setFont(new java.awt.Font("Dialog", 0, 12));
         labelInfoChangeMaxThumbnailWidth.setForeground(new java.awt.Color(255, 0, 0));
         labelInfoChangeMaxThumbnailWidth.setText(Bundle.getString("UserSettingsDialog.labelInfoChangeMaxThumbnailWidth.text")); // NOI18N
 
@@ -736,7 +737,7 @@ public class UserSettingsDialog extends javax.swing.JDialog
                     .addComponent(spinnerMaxThumbnailWidth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelInfoChangeMaxThumbnailWidth)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         panelExternalThumbnailApp.setBorder(javax.swing.BorderFactory.createTitledBorder(null, Bundle.getString("UserSettingsDialog.panelExternalThumbnailApp.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 11))); // NOI18N
@@ -762,22 +763,22 @@ public class UserSettingsDialog extends javax.swing.JDialog
                 .addContainerGap()
                 .addGroup(panelExternalThumbnailAppLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(checkBoxExternalThumbnailApp)
-                    .addComponent(labelInfoExternalThumbnailApp, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 617, Short.MAX_VALUE)
-                    .addComponent(textFieldExternalThumbnailApp, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 617, Short.MAX_VALUE))
+                    .addComponent(labelInfoExternalThumbnailApp, javax.swing.GroupLayout.DEFAULT_SIZE, 617, Short.MAX_VALUE)
+                    .addComponent(textFieldExternalThumbnailApp, javax.swing.GroupLayout.DEFAULT_SIZE, 617, Short.MAX_VALUE))
                 .addContainerGap())
         );
         panelExternalThumbnailAppLayout.setVerticalGroup(
             panelExternalThumbnailAppLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelExternalThumbnailAppLayout.createSequentialGroup()
                 .addComponent(checkBoxExternalThumbnailApp)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(labelInfoExternalThumbnailApp)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(textFieldExternalThumbnailApp, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(18, 18, 18))
         );
 
-        checkBoxUseEmbeddedThumbnails.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        checkBoxUseEmbeddedThumbnails.setFont(new java.awt.Font("Dialog", 0, 12));
         checkBoxUseEmbeddedThumbnails.setText(Bundle.getString("UserSettingsDialog.checkBoxUseEmbeddedThumbnails.text")); // NOI18N
         checkBoxUseEmbeddedThumbnails.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -806,7 +807,7 @@ public class UserSettingsDialog extends javax.swing.JDialog
                 .addComponent(checkBoxUseEmbeddedThumbnails)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelExternalThumbnailApp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(53, Short.MAX_VALUE))
         );
 
         tabbedPane.addTab(Bundle.getString("UserSettingsDialog.panelThumbnails.TabConstraints.tabTitle"), panelThumbnails); // NOI18N
@@ -842,13 +843,13 @@ public class UserSettingsDialog extends javax.swing.JDialog
 
         panelTasksAutoscan.setBorder(javax.swing.BorderFactory.createTitledBorder(null, Bundle.getString("UserSettingsDialog.panelTasksAutoscan.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 11))); // NOI18N
 
-        labelTasksAutoscanMoreInfoDirectories.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        labelTasksAutoscanMoreInfoDirectories.setFont(new java.awt.Font("Dialog", 0, 12));
         labelTasksAutoscanMoreInfoDirectories.setText(Bundle.getString("UserSettingsDialog.labelTasksAutoscanMoreInfoDirectories.text")); // NOI18N
 
-        labelTasksAutoscanInfoDirectories.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        labelTasksAutoscanInfoDirectories.setFont(new java.awt.Font("Dialog", 0, 12));
         labelTasksAutoscanInfoDirectories.setText(Bundle.getString("UserSettingsDialog.labelTasksAutoscanInfoDirectories.text")); // NOI18N
 
-        listTasksAutoscanDirectories.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        listTasksAutoscanDirectories.setFont(new java.awt.Font("Dialog", 0, 12));
         listTasksAutoscanDirectories.setModel(modelAutoscanDirectories);
         listTasksAutoscanDirectories.setCellRenderer(new ListCellRendererFileSystem(true));
         listTasksAutoscanDirectories.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
@@ -863,7 +864,7 @@ public class UserSettingsDialog extends javax.swing.JDialog
         });
         scrollPaneTasksAutoscanListDirectories.setViewportView(listTasksAutoscanDirectories);
 
-        checkBoxTasksAutoscanIncludeSubdirectories.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        checkBoxTasksAutoscanIncludeSubdirectories.setFont(new java.awt.Font("Dialog", 0, 12));
         checkBoxTasksAutoscanIncludeSubdirectories.setText(Bundle.getString("UserSettingsDialog.checkBoxTasksAutoscanIncludeSubdirectories.text")); // NOI18N
 
         buttonTasksAutoscanRemoveDirectories.setFont(new java.awt.Font("Dialog", 0, 12));
@@ -925,7 +926,7 @@ public class UserSettingsDialog extends javax.swing.JDialog
 
         panelTasksOther.setBorder(javax.swing.BorderFactory.createTitledBorder(null, Bundle.getString("UserSettingsDialog.panelTasksOther.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 11))); // NOI18N
 
-        checkBoxTasksRemoveRecordsWithNotExistingFiles.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        checkBoxTasksRemoveRecordsWithNotExistingFiles.setFont(new java.awt.Font("Dialog", 0, 12));
         checkBoxTasksRemoveRecordsWithNotExistingFiles.setText(Bundle.getString("UserSettingsDialog.checkBoxTasksRemoveRecordsWithNotExistingFiles.text")); // NOI18N
 
         javax.swing.GroupLayout panelTasksOtherLayout = new javax.swing.GroupLayout(panelTasksOther);
