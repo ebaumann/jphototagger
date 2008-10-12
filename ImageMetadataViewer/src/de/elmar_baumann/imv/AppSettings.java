@@ -36,16 +36,17 @@ public class AppSettings {
         ".*\\.[tT][iI][fF];" + // NOI18N
         ".*\\.[tT][iI][fF][fF];", // NOI18N
         ";");  // NOI18N
+    private static final String iconPath = "/de/elmar_baumann/imv/resource";
     /**
      * Pfad zum kleinen Anwendungssymbol.
      */
     public static final String pathAppIconSmall =
-        "/de/elmar_baumann/imv/resource/icon_app_small.png";  // NOI18N
+        iconPath + "/icon_app_small.png";  // NOI18N
     /**
      * Pfad zum mittelgroßen Anwendungssymbol.
      */
     public static final String pathAppIconMedium =
-        "/de/elmar_baumann/imv/resource/icon_app_medium.png";  // NOI18N
+        iconPath + "/icon_app_medium.png";  // NOI18N
     public static final String tooltipTextProgressBarDirectory = Bundle.getString("ProgressBarDirectory.TooltipText");
     public static final String tooltipTextProgressBarCurrentTasks = Bundle.getString("ProgressBarCurrentTasks.TooltipText");
     public static final String tooltipTextProgressBarScheduledTasks = Bundle.getString("ProgressBarScheduledTasks.TooltipText");
@@ -77,12 +78,12 @@ public class AppSettings {
      * Icon für die Aktion: Speichern der Metadaten, Zustand: Deaktiviert
      */
     public static final ImageIcon iconSaveMetaDataDisabled =
-        IconUtil.getImageIcon("/de/elmar_baumann/imv/resource/icon_save_metadata_disabled.png"); // NOI18N
+        IconUtil.getImageIcon(iconPath + "/icon_save_metadata_disabled.png"); // NOI18N
     /**
      * Icon für die Aktion: Speichern der Metadaten, Zustand: Aktiviert
      */
     public static final ImageIcon iconSaveMetaDataEnabled =
-        IconUtil.getImageIcon("/de/elmar_baumann/imv/resource/icon_save_metadata_enabled.png"); // NOI18N
+        IconUtil.getImageIcon(iconPath + "/icon_save_metadata_enabled.png"); // NOI18N
 
     
     private static List<String> appIconPaths = new ArrayList<String>();
@@ -117,6 +118,15 @@ public class AppSettings {
      */
     public static List<String> getAppIconPaths() {
         return appIconPaths;
+    }
+    
+    /**
+     * Returns the path (directory name) of all icons.
+     * 
+     * @return path
+     */
+    public static String getIconPath() {
+        return iconPath;
     }
 
     /**
