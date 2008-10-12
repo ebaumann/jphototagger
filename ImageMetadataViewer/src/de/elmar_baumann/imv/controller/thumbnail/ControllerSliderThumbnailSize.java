@@ -6,6 +6,7 @@ import de.elmar_baumann.imv.event.ThumbnailsPanelListener;
 import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.view.panels.ThumbnailsPanel;
+import de.elmar_baumann.lib.persistence.PersistentSettings;
 import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -24,6 +25,7 @@ public class ControllerSliderThumbnailSize extends Controller
     private JSlider slider = appPanel.getSliderThumbnailSize();
     private static final int stepWidth = 10;
     private static final int maxMaginficationPercent = 150;
+    private static final String keySliderValue = ControllerSliderThumbnailSize.class.getName() + "." + "SliderValue";
     private int currentValue = 100;
     private int originalThumbnailWidth;
 
@@ -35,11 +37,15 @@ public class ControllerSliderThumbnailSize extends Controller
     }
 
     private void initSlider() {
+        readPersistent();
         slider.setMinimum(stepWidth);
         slider.setMaximum(maxMaginficationPercent);
         slider.setMajorTickSpacing(stepWidth);
         slider.setMinorTickSpacing(stepWidth);
         slider.setValue(currentValue);
+        if (currentValue != 100 && originalThumbnailWidth > 0) {
+            setThumbnailWidth();
+        }
     }
 
     @Override
@@ -49,8 +55,8 @@ public class ControllerSliderThumbnailSize extends Controller
             synchronized (this) {
                 if (value % stepWidth == 0 && value != currentValue) {
                     currentValue = value;
-                    int width = (int) ((double) originalThumbnailWidth * ((double) value / 100.0));
-                    thumbnailsPanel.setThumbnailWidth(width);
+                    writePersistent();
+                    setThumbnailWidth();
                 }
             }
         }
@@ -67,5 +73,21 @@ public class ControllerSliderThumbnailSize extends Controller
     @Override
     public void thumbnailCountChanged() {
         originalThumbnailWidth = thumbnailsPanel.getThumbnailWidth();
+    }
+
+    private void readPersistent() {
+        Integer value = PersistentSettings.getInstance().getInt(keySliderValue);
+        if (!value.equals(Integer.MIN_VALUE)) {
+            currentValue = value;
+        }
+    }
+
+    private void setThumbnailWidth() {
+        int width = (int) ((double) originalThumbnailWidth * ((double) currentValue / 100.0));
+        thumbnailsPanel.setThumbnailWidth(width);
+    }
+    
+    private void writePersistent() {
+        PersistentSettings.getInstance().setInt(currentValue, keySliderValue);
     }
 }
