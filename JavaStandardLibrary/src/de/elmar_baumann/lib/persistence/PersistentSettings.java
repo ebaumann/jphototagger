@@ -903,7 +903,7 @@ public class PersistentSettings {
     public void setAppName(String appName) {
         this.appName = appName;
     }
-    
+
     /**
      * Returns the application's name.
      * 
@@ -1018,5 +1018,34 @@ public class PersistentSettings {
             }
             getProperties().setProperty(key, pathBuffer.toString());
         }
+    }
+
+    /**
+     * Returns an Integer value.
+     * 
+     * @param  key  key
+     * @return value or <code>Integer.MIN_VALUE</code> if not defined
+     */
+    public Integer getInt(String key) {
+        Integer result = Integer.MIN_VALUE;
+        if (getProperties().containsKey(key)) {
+            try {
+                result = Integer.parseInt(getProperties().getProperty(key));
+            } catch (NumberFormatException ex) {
+                Logger.getLogger(PersistentSettings.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return result;
+    }
+    
+    /**
+     * Sets an Integer value.
+     * 
+     * @param value  value
+     * @param key    key
+     */
+    public void setInt(Integer value, String key) {
+        Properties properties = getProperties();
+        properties.setProperty(key, value.toString());
     }
 }
