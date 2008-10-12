@@ -32,11 +32,6 @@ import javax.swing.JViewport;
  * Klasse liefert die Thumbnails sowie den Text, der unter die Thumbnails
  * gezeichnet werden soll.
  * 
- * Die Größe eines Thumbnails ist vorerst festgelegt auf eine bestimmte Breite
- * und Höhe (<code>defaultThumbnailWidth</code> und
- * <code>defaultThumbnailHeight</code>). Wird im Verlauf des Renderns ein
- * größeres gefunden, werden Breite und/oder Höhe auf dessen Abmessungen gesetzt.
- * 
  * Jedes Thumbnail ist eingebettet in eine Fläche, die definiert ist durch
  * ein "internes Polster" (<code>internalPadding</code>). Um diese wird ein Rand
  * gezeichnet mit einer bestimmten Dicke (<code>thumbnailBorderWidth</code>).
@@ -46,6 +41,12 @@ import javax.swing.JViewport;
  * 
  * Jedes Thumbnail wird gecached und es werden nur Thumbnails gezeichnet, die
  * sich innerhalb der Clip-Bounds befinden.
+ * 
+ * Zum Benutzen sind unbedingt folgende Operationen <em>als erstes</em> aufzurufen:
+ * <ol>
+ *     <li>{@link #setThumbnailCount(int)}</li>
+ *     <li>{@link #setThumbnailWidth(int)}</li>
+ * </ol>
  * 
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
@@ -64,13 +65,12 @@ public abstract class ThumbnailsPanel extends JPanel
     private static final Color colorHighlightedBackground = new Color(245, 245, 245);
     private static final Font fontTitle = new Font("Arial", Font.PLAIN, fontHeightThumbnailText);  // NOI18N
     private static final int maxCharCountTextPer150px = 25;
+    private int minPanelWidth;
     private int maxCharCountText = 25;
-    private static final int defaultThumbnailWidth = 150;
     private static final int externalPadding = fontHeightThumbnailText + 10;
     private static final int internalPadding = 10;
     private static final int thumbnailBorderWidth = 1;
-    private int thumbnailWidth = defaultThumbnailWidth;
-    private int minWidth;
+    private int thumbnailWidth = 0;
     private int thumbnailCount = 0;
     private int thumbnailCountPerRow = 0;
     private List<Integer> indicesSelectedThumbnails = new ArrayList<Integer>();
@@ -113,15 +113,15 @@ public abstract class ThumbnailsPanel extends JPanel
             thumbnailAtIndex.clear();
             System.gc();
             thumbnailWidth = width;
-            setMinWidth();
+            setMinPanelWidth();
             setThumbnailCountPerRow();
             maxCharCountText = (int) (((double) maxCharCountTextPer150px * (double) width / 150.0));
             repaint();
         }
     }
 
-    private void setMinWidth() {
-        minWidth = getThumbnailAreaWidth() + 2 * externalPadding;
+    private void setMinPanelWidth() {
+        minPanelWidth = getThumbnailAreaWidth() + 2 * externalPadding;
     }
 
     public int getThumbnailWidth() {
@@ -695,7 +695,7 @@ public abstract class ThumbnailsPanel extends JPanel
         Component parent = getParent();
         int width = parent instanceof JViewport ? parent.getWidth() : getWidth();
         int heigth = getCalculatedHeight();
-        return new Dimension(width >= minWidth ? width : minWidth, heigth);
+        return new Dimension(width >= minPanelWidth ? width : minPanelWidth, heigth);
     }
 
     private int getCalculatedHeight() {
