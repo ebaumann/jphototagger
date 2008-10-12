@@ -11,6 +11,7 @@ import java.util.List;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
+import javax.swing.JSeparator;
 
 /**
  * Popupmenü für das Thumbnailpanel
@@ -32,6 +33,7 @@ public class PopupMenuPanelThumbnails extends JPopupMenu {
     private final String actionDeleteImageFromDatabase = Bundle.getString("PopupMenuPanelThumbnails.Action.DeleteImageFromDatabase");
     private final String actionCopySelectedFilesToDirectory = Bundle.getString("PopupMenuPanelThumbnails.Action.CopySelectedFilesToDirectory");
     private final String actionRenameInXmpColumns = Bundle.getString("PopupMenuPanelThumbnails.Action.RenameInXmpColumns");
+    private final String actionFileSystemDeleteFiles = Bundle.getString("PopupMenuPanelThumbnails.Action.FileSystemDeleteFiles");
     private JMenu menuOtherOpenImageApps = new JMenu(Bundle.getString("PopupMenuPanelThumbnails.menuOtherOpenImageApps.text"));
     private final JMenuItem itemUpdateAllMetadata = new JMenuItem(actionUpdateAllMetadata);
     private final JMenuItem itemUpdateTextMetadata = new JMenuItem(actionUpdateTextMetadata);
@@ -45,6 +47,7 @@ public class PopupMenuPanelThumbnails extends JPopupMenu {
     private final JMenuItem itemDeleteThumbnail = new JMenuItem(actionDeleteImageFromDatabase);
     private final JMenuItem itemOpenFilesWithStandardApp = new JMenuItem(actionOpenFiles);
     private final JMenuItem itemCopySelectedFilesToDirectory = new JMenuItem(actionCopySelectedFilesToDirectory);
+    private final JMenuItem itemFileSystemDeleteFiles = new JMenuItem(actionFileSystemDeleteFiles);
     private List<ActionListener> actionListenersOpenFilesWithOtherApp = new ArrayList<ActionListener>();
     private ImageFileThumbnailsPanel thumbnailsPanel;
     private HashMap<String, Float> angleOfAction = new HashMap<String, Float>();
@@ -73,18 +76,23 @@ public class PopupMenuPanelThumbnails extends JPopupMenu {
     private void addItems() {
         add(itemUpdateAllMetadata);
         add(itemUpdateTextMetadata);
+        add(itemDeleteThumbnail);
+        add(itemRenameInXmpColumns);
+        add(new JSeparator());
         add(itemOpenFilesWithStandardApp);
         add(menuOtherOpenImageApps);
         addOtherOpenImageApps();
-        add(itemRenameInXmpColumns);
+        add(new JSeparator());
         add(itemCreateImageCollection);
         add(itemAddToImageCollection);
         add(itemDeleteFromImageCollection);
+        add(new JSeparator());
         add(itemRotateThumbnai90);
         add(itemRotateThumbnai180);
         add(itemRotateThumbnai270);
-        add(itemDeleteThumbnail);
+        add(new JSeparator());
         add(itemCopySelectedFilesToDirectory);
+        add(itemFileSystemDeleteFiles);
     }
 
     public void addOtherOpenImageApps() {
@@ -101,6 +109,7 @@ public class PopupMenuPanelThumbnails extends JPopupMenu {
                 otherImageOpenAppOfAction.put(filename, appFile);
             }
         }
+        menuOtherOpenImageApps.setEnabled(menuOtherOpenImageApps.getItemCount() > 0);
     }
 
     /**
@@ -420,6 +429,14 @@ public class PopupMenuPanelThumbnails extends JPopupMenu {
      */
     public void removeActionListenerCopySelectedFilesToDirectory(ActionListener listener) {
         itemCopySelectedFilesToDirectory.removeActionListener(listener);
+    }
+
+    public void addActionListenerFileSystemDeleteFiles(ActionListener listener) {
+        itemFileSystemDeleteFiles.addActionListener(listener);
+    }
+
+    public void removeActionListenerFileSystemDeleteFiles(ActionListener listener) {
+        itemFileSystemDeleteFiles.removeActionListener(listener);
     }
 
     /**
