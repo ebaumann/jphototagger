@@ -14,19 +14,20 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Renames files via user input of every new filename.
+ * Renames files in the file system.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/13
  */
-public class ControllerRenameFilesViaInput extends Controller
+public class ControllerRenameFiles extends Controller
     implements ActionListener, RenameFileListener {
 
     private ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelImageFileThumbnails();
     private Database db = Database.getInstance();
 
-    public ControllerRenameFilesViaInput() {
+    public ControllerRenameFiles() {
         PopupMenuPanelThumbnails.getInstance().addActionListenerFileSystemRenameFiles(this);
+        Panels.getInstance().getAppFrame().getMenuItemRename().addActionListener(this);
     }
 
     @Override
@@ -37,7 +38,7 @@ public class ControllerRenameFilesViaInput extends Controller
     }
 
     private void renameFiles() {
-        RenameDialog dialog = new RenameDialog(RenameDialog.Type.Input);
+        RenameDialog dialog = new RenameDialog();
         List<String> filenames = thumbnailsPanel.getSelectedFilenames();
         if (filenames.size() > 0) {
             Collections.sort(filenames);

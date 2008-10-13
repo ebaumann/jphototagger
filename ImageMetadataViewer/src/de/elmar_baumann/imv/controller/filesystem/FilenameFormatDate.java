@@ -8,17 +8,17 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * 
+ * Formatted date in the order YYYY-MM-dd.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/13
  */
-public class DateFilenameFormat implements FilenameFormat {
+public class FilenameFormatDate extends FilenameFormat {
 
     private String delimiter;
     private String name;
 
-    public DateFilenameFormat(String delimiter) {
+    public FilenameFormatDate(String delimiter) {
         this.delimiter = delimiter;
     }
 
@@ -28,7 +28,7 @@ public class DateFilenameFormat implements FilenameFormat {
      * 
      * @param file file
      */
-    public void setFromExif(File file) {
+    private void setFromExif(File file) {
         Exif exif = ExifMetadata.getExif(file.getAbsolutePath());
         if (exif != null) {
             java.sql.Date date = exif.getDateTimeOriginal();
@@ -38,6 +38,10 @@ public class DateFilenameFormat implements FilenameFormat {
                 formatDate(new Date(date.getTime()));
             }
         }
+    }
+    
+    public void setDelimiter(String delimiter) {
+        this.delimiter = delimiter;
     }
 
     /**
@@ -55,6 +59,7 @@ public class DateFilenameFormat implements FilenameFormat {
 
     @Override
     public String format() {
+        setFromExif(getFile());
         return name;
     }
     

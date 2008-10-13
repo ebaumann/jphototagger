@@ -11,28 +11,44 @@ import java.util.List;
  */
 public class FilenameFormatArray {
     
-    private List<FilenameFormat> patterns = new ArrayList<FilenameFormat>();
+    private List<FilenameFormat> formats = new ArrayList<FilenameFormat>();
     
     /**
-     * Adds a pattern. {@link #getFilename()} returns the filename in the
+     * Adds a format. {@link #format()} returns the filename built in the
      * same order of the calls to this function.
      * 
-     * @param pattern  pattern
+     * @param format  format
      */
-    public void addPattern(FilenameFormat pattern) {
-        patterns.add(pattern);
+    public void addFormat(FilenameFormat format) {
+        formats.add(format);
+    }
+    
+    /**
+     * Calls to every format {@link FilenameFormat#next()}
+     */
+    public void notifyNext() {
+        for (FilenameFormat format : formats) {
+            format.next();
+        }
+    }
+
+    /**
+     * Removes all Formats.
+     */
+    public void clear() {
+        formats.clear();
     }
     
     /**
      * Returns the formatted filename: the appended strings of all formats
-     * ({@link FilenamePattern#format()}).
+     * ({@link Filename#format()}).
      * 
      * @return filename
      */
-    public String getFilename() {
+    public String format() {
         StringBuffer buffer = new StringBuffer();
-        for (FilenameFormat pattern : patterns) {
-            buffer.append(pattern.format());
+        for (FilenameFormat format : formats) {
+            buffer.append(format.format());
         }
         return buffer.toString();
     }

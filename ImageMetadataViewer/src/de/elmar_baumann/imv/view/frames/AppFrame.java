@@ -36,6 +36,10 @@ public class AppFrame extends javax.swing.JFrame {
     public JMenuItem getMenuItemAbout() {
         return menuItemAbout;
     }
+    
+    public JMenuItem getMenuItemRename() {
+        return menuItemRename;
+    }
 
     public JMenuItem getMenuItemHelp() {
         return menuItemHelp;
@@ -125,6 +129,7 @@ public class AppFrame extends javax.swing.JFrame {
         menuEdit = new javax.swing.JMenu();
         menuItemSettings = new javax.swing.JMenuItem();
         menuItemSearch = new javax.swing.JMenuItem();
+        menuItemRename = new javax.swing.JMenuItem();
         menuGoto = new javax.swing.JMenu();
         menuItemGotoFastSearch = new javax.swing.JMenuItem();
         menuItemGotoEdit = new javax.swing.JMenuItem();
@@ -178,6 +183,10 @@ public class AppFrame extends javax.swing.JFrame {
         menuItemSearch.setMnemonic('s');
         menuItemSearch.setText(Bundle.getString("AppFrame.menuItemSearch.text")); // NOI18N
         menuEdit.add(menuItemSearch);
+
+        menuItemRename.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F2, 0));
+        menuItemRename.setText(Bundle.getString("AppFrame.menuItemRename.text")); // NOI18N
+        menuEdit.add(menuItemRename);
 
         menuBar.add(menuEdit);
 
@@ -267,6 +276,7 @@ private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:even
     private javax.swing.JMenuItem menuItemHelp;
     private javax.swing.JMenuItem menuItemMaintainDatabase;
     private javax.swing.JMenuItem menuItemRefresh;
+    private javax.swing.JMenuItem menuItemRename;
     private javax.swing.JMenuItem menuItemScanDirectory;
     private javax.swing.JMenuItem menuItemSearch;
     private javax.swing.JMenuItem menuItemSettings;

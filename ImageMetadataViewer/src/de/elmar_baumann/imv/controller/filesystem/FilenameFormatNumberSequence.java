@@ -9,7 +9,7 @@ import java.text.DecimalFormat;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/13
  */
-public class NumberSequenceFilenameFormat implements FilenameFormat {
+public class FilenameFormatNumberSequence extends FilenameFormat {
 
     private int current;
     private int start;
@@ -17,7 +17,7 @@ public class NumberSequenceFilenameFormat implements FilenameFormat {
     private int countDigits;
     private DecimalFormat decimalFormat;
 
-    public NumberSequenceFilenameFormat(int start, int increment, int countDigits) {
+    public FilenameFormatNumberSequence(int start, int increment, int countDigits) {
         this.start = start;
         this.increment = increment;
         this.countDigits = countDigits;
@@ -39,6 +39,7 @@ public class NumberSequenceFilenameFormat implements FilenameFormat {
 
     public void setCountDigits(int countDigits) {
         this.countDigits = countDigits;
+        createDecimalFormat();
     }
 
     public int getIncrement() {
@@ -55,9 +56,11 @@ public class NumberSequenceFilenameFormat implements FilenameFormat {
 
     public void setStart(int start) {
         this.start = start;
+        current = start;
     }
 
-    public void addStep() {
+    @Override
+    public void next() {
         current += increment;
     }
 
