@@ -1,5 +1,6 @@
 package de.elmar_baumann.imv.image.metadata.exif;
 
+import com.imagero.reader.ImageReader;
 import com.imagero.reader.MetadataUtils;
 import com.imagero.reader.iptc.IPTCEntry;
 import com.imagero.reader.iptc.IPTCEntryCollection;
@@ -63,9 +64,10 @@ public class ExifMetadata {
 
     private static void addIFDEntries(String filename, List<IFDEntry> metadata) throws IOException {
         File file = new File(filename);
+        ImageReader reader = null;
         if (FileType.isJpegFile(filename)) {
-            JpegReader reader = new JpegReader(file);
-            IFDEntry[][] allEntries = MetadataUtils.getExif(reader);
+            reader = new JpegReader(file);
+            IFDEntry[][] allEntries = MetadataUtils.getExif((JpegReader)reader);
             if (allEntries != null) {
                 for (int i = 0; i < allEntries.length; i++) {
                     IFDEntry[] currentEntries = allEntries[i];
@@ -75,11 +77,18 @@ public class ExifMetadata {
                 }
             }
         } else {
-            TiffReader reader = new TiffReader(file);
-            int count = reader.getIFDCount();
+            reader = new TiffReader(file);
+            int count = ((TiffReader)reader).getIFDCount();
             for (int i = 0; i < count; i++) {
-                addIfdEntriesOfDirectory(reader.getIFD(i), metadata);
+                addIfdEntriesOfDirectory(((TiffReader)reader).getIFD(i), metadata);
             }
+        }
+        close(reader);
+    }
+
+    private static void close(ImageReader reader) {
+        if (reader != null) {
+            reader.close();
         }
     }
 
