@@ -111,7 +111,7 @@ public class ImageTransform {
         }
 
         ColorModel cm = pg.getColorModel();
-        return cm.hasAlpha();
+        return cm == null ? false : cm.hasAlpha();
     }
 }
 
