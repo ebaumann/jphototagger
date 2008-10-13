@@ -242,6 +242,7 @@ public class RenameDialog extends javax.swing.JDialog {
         String filename = file.getAbsolutePath();
         if (FileType.isJpegFile(filename)) {
             thumbnail = ThumbnailUtil.getScaledImage(filename, panelThumbnail.getWidth());
+            //thumbnail = ThumbnailUtil.getThumbnail(filename, panelThumbnail.getWidth(), true);
         }
         panelThumbnail.setImage(thumbnail);
         panelThumbnail.repaint();
