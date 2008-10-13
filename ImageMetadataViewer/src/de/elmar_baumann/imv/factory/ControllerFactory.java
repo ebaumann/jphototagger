@@ -15,6 +15,7 @@ import de.elmar_baumann.imv.controller.files.ControllerCopyFilesToDirectory;
 import de.elmar_baumann.imv.controller.files.ControllerOpenFilesWithOtherApp;
 import de.elmar_baumann.imv.controller.files.ControllerOpenFilesWithStandardApp;
 import de.elmar_baumann.imv.controller.filesystem.ControllerDeleteFiles;
+import de.elmar_baumann.imv.controller.filesystem.ControllerRenameFilesViaInput;
 import de.elmar_baumann.imv.controller.imagecollection.ControllerAddToImageCollection;
 import de.elmar_baumann.imv.controller.imagecollection.ControllerCreateImageCollection;
 import de.elmar_baumann.imv.controller.imagecollection.ControllerDeleteFromImageCollection;
@@ -131,6 +132,7 @@ public class ControllerFactory {
         controllers.add(new ControllerGotoEdit());
         controllers.add(new ControllerSliderThumbnailSize());
         controllers.add(new ControllerDeleteFiles());
+        controllers.add(new ControllerRenameFilesViaInput());
         controllerScheduledTasks = new ControllerArrayScheduledTasks();
         controllers.add(controllerScheduledTasks);
     }

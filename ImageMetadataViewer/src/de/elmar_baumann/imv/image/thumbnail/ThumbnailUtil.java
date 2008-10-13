@@ -51,15 +51,15 @@ public class ThumbnailUtil {
     public static Image getThumbnail(String filename, int maxLength, boolean embedded) {
         Image thumbnail =
             (embedded || FileType.isRawFile(filename)
-              ? rotateThumbnail(filename, getFileEmbeddedThumbnail(filename))
-//            : FileType.isJpegFile(filename)
-//            ? getScaledImage(filename, maxWidth)
+            ? rotateThumbnail(filename, getFileEmbeddedThumbnail(filename))
+            //            : FileType.isJpegFile(filename)
+            //            ? getScaledImage(filename, maxWidth)
             : getScaledImageImagero(filename, maxLength));
         if (thumbnail == null) {
             thumbnail =
                 (embedded
-//                ? FileType.isJpegFile(filename)
-//                ? getScaledImage(filename, maxWidth)
+                //                ? FileType.isJpegFile(filename)
+                //                ? getScaledImage(filename, maxWidth)
                 ? getScaledImageImagero(filename, maxLength)
                 : rotateThumbnail(filename, getFileEmbeddedThumbnail(filename)));
         }
@@ -81,6 +81,7 @@ public class ThumbnailUtil {
                         tiffReader.getThumbnail(0));
                 }
             }
+            close(reader);
         } catch (IOException ex) {
             Logger.getLogger(ImageFileThumbnailsPanel.class.getName()).log(Level.SEVERE, null, ex);
             return null;
@@ -100,13 +101,21 @@ public class ThumbnailUtil {
             procOptions.setSource(ioParamBlock);
             procOptions.setScale(maxLength);
 
-            return Imagero.readImage(procOptions);
+            Image image = Imagero.readImage(procOptions);
+            close(procOptions.getImageReader());
+            return image;
         } catch (IOException ex) {
             Logger.getLogger(ThumbnailUtil.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
             Logger.getLogger(ImageFileThumbnailsPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
+    }
+
+    private static void close(ImageReader reader) {
+        if (reader != null) {
+            reader.close();
+        }
     }
 
     private static Image rotateThumbnail(String filename, Image thumbnail) {
@@ -153,7 +162,7 @@ public class ThumbnailUtil {
         return image;
     }
 
-    private static Image getScaledImage(String filename, int maxLength) {
+    public static Image getScaledImage(String filename, int maxLength) {
         BufferedImage image = loadImage(new File(filename));
         BufferedImage scaledImage = null;
         if (image != null) {
@@ -230,7 +239,7 @@ public class ThumbnailUtil {
         }
         return scaledImage;
     }
-    
+
     private static double getScaleFactor(int width, int height, int maxWidth) {
         double longer = width > height ? width : height;
         return longer / (double) maxWidth;

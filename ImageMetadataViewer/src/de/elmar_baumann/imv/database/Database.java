@@ -595,6 +595,33 @@ public class Database {
         stmt.close();
         return id;
     }
+    /**
+     * Renames a filename.
+     * 
+     * @param  oldFilename  old filename
+     * @param  newFilename  new filename
+     * @return count of renamed filenames
+     */
+    synchronized public int updateRenameImageFilename(String oldFilename, String newFilename) {
+        int count = 0;
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            PreparedStatement stmt = connection.prepareStatement(
+                "UPDATE files SET filename = ? WHERE filename = ?");
+            stmt.setString(1, newFilename);
+            stmt.setString(2, oldFilename);
+            logStatement(stmt);
+            count = stmt.executeUpdate();
+            stmt.close();
+        } catch (SQLException ex) {
+            handleException(ex, Level.SEVERE);
+        } finally {
+            free(connection);
+        }
+        return count;
+    }
+
 
     /**
      * Aktualisiert ein Bild in der Datenbank.
@@ -719,7 +746,7 @@ public class Database {
             stmt.close();
             notifyProgressListenerEnd(listener, event);
         } catch (SQLException ex) {
-            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+            handleException(ex, Level.SEVERE);
         } finally {
             free(connection);
         }

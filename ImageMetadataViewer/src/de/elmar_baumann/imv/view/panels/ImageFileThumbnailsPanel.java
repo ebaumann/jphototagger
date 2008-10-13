@@ -112,6 +112,14 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel
         repaint();
     }
 
+    public void setFilenameRenamed(String oldFilename, String newFilename) {
+        int index = filenames.indexOf(oldFilename);
+        if (index >= 0) {
+            filenames.set(index, newFilename);
+            repaint();
+        }
+    }
+
     public void removeFilenames(List<String> fNames) {
         int removed = 0;
         List<String> selectedFilenames = getSelectedFilenames();
