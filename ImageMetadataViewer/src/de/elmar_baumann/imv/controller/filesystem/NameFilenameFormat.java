@@ -1,0 +1,38 @@
+package de.elmar_baumann.imv.controller.filesystem;
+
+import de.elmar_baumann.imv.resource.Bundle;
+import java.io.File;
+
+/**
+ * Format with the name of a filname excluded the postfix and the parents.
+ *
+ * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @version 2008/10/13
+ */
+public class NameFilenameFormat implements FilenameFormat {
+
+    private File file;
+
+    public NameFilenameFormat() {
+    }
+
+    public File getFile() {
+        return file;
+    }
+
+    public void setFile(File file) {
+        this.file = file;
+    }
+
+    @Override
+    public String format() {
+        String filename = file.getName();
+        int index = filename.lastIndexOf("."); // NOI18N
+        return index > 0 ? filename.substring(0, index) : filename;
+    }
+    
+    @Override
+    public String toString() {
+        return Bundle.getString("NameFilenameFormat.String");
+    }
+}

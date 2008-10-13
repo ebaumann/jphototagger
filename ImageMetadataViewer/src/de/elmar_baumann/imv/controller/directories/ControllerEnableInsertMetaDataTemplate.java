@@ -35,7 +35,7 @@ public class ControllerEnableInsertMetaDataTemplate extends Controller
     @Override
     public void valueChanged(TreeSelectionEvent e) {
         if (isStarted()) {
-            if (e.isAddedPath()) {
+            if (e.isAddedPath() && treeDirectories.getSelectionPath().getLastPathComponent() instanceof DirectoryTreeModelFile) {
                 String directoryName = ((DirectoryTreeModelFile) treeDirectories.getSelectionPath().getLastPathComponent()).getAbsolutePath();
                 File directory = new File(directoryName);
                 buttonMetaDataTemplateInsert.setEnabled(directory.isDirectory() && directory.canWrite());
