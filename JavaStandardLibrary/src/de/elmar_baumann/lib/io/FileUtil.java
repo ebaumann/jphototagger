@@ -185,7 +185,7 @@ public class FileUtil {
         } while (parent != null);
         return path;
     }
-    
+
     /**
      * Liefert die Zeit der letzten Modifikation einer Datei in Millisekunden
      * seit 01.01.1970.
@@ -196,7 +196,7 @@ public class FileUtil {
     public static long getLastModified(String filename) {
         return new File(filename).lastModified();
     }
-    
+
     /**
      * Liefert alle Unterverzeichnisse eines Verzeichnisses.
      * 
@@ -320,5 +320,33 @@ public class FileUtil {
             pathnames.add(file.getAbsolutePath());
         }
         return pathnames;
+    }
+
+    /**
+     * Returns an array of files from an array of filenames.
+     * 
+     * @param  filenames  filenames
+     * @return files
+     */
+    public static List<File> getAsFiles(List<String> filenames) {
+        List<File> files = new ArrayList<File>(filenames.size());
+        for (String filename : filenames) {
+            files.add(new File(filename));
+        }
+        return files;
+    }
+
+    /**
+     * Returns an array of filenames from an array of files.
+     * 
+     * @param  files  files
+     * @return filenames
+     */
+    public static List<String> getAsFilenames(List<File> files) {
+        List<String> filenames = new ArrayList<String>(files.size());
+        for (File file : files) {
+            filenames.add(file.getAbsolutePath());
+        }
+        return filenames;
     }
 }
