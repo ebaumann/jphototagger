@@ -1,12 +1,16 @@
 package de.elmar_baumann.imv.model;
 
 import com.imagero.reader.tiff.IFDEntry;
+import de.elmar_baumann.imv.event.ErrorEvent;
+import de.elmar_baumann.imv.event.listener.ErrorListeners;
 import de.elmar_baumann.imv.image.metadata.exif.ExifIfdEntryDisplayComparator;
 import de.elmar_baumann.imv.image.metadata.exif.ExifMetadata;
 import de.elmar_baumann.imv.resource.Bundle;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -47,7 +51,12 @@ public class TableModelExif extends DefaultTableModel {
     public void setFilename(String filename) {
         this.filename = filename;
         removeAllElements();
-        setExifData();
+        try {
+            setExifData();
+        } catch (Exception ex) {
+            Logger.getLogger(TableModelExif.class.getName()).log(Level.WARNING, ex.getMessage());
+            ErrorListeners.getInstance().notifyErrorListener(new ErrorEvent(ex.toString(), ExifMetadata.class));
+        }
     }
 
     /**
@@ -55,7 +64,7 @@ public class TableModelExif extends DefaultTableModel {
      */
     public void removeAllElements() {
         getDataVector().removeAllElements();
-        
+
     }
 
     private void setExifData() {
