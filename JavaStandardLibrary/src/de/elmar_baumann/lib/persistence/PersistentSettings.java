@@ -94,6 +94,20 @@ public class PersistentSettings {
     }
 
     /**
+     * Removes all keys with no value
+     */
+    public void removeEmptyKeys() {
+        Properties properties = getProperties();
+        Set<String> keys = properties.stringPropertyNames();
+        for (String key : keys) {
+            String value = properties.getProperty(key);
+            if (value == null || value.isEmpty()) {
+                properties.remove(key);
+            }
+        }
+    }
+
+    /**
      * Setzt den Namen der Domain, beispielsweise <code>.de.elmar_baumann</code>.
      * In einem Verzeichnis dieses Namens unterhalb des Home-Verzeichnisses des
      * Betriebssystems werden die Einstellungen gespeichert.
@@ -1037,7 +1051,7 @@ public class PersistentSettings {
         }
         return result;
     }
-    
+
     /**
      * Sets an Integer value.
      * 
