@@ -44,20 +44,19 @@ public class XmpMetadata {
     private static XmpColumnNamespaceUriMapping mappingNamespaceUri = XmpColumnNamespaceUriMapping.getInstance();
     private static XmpColumnXmpPathStartMapping mappingName = XmpColumnXmpPathStartMapping.getInstance();
     private static XmpColumnXmpDataTypeMapping mappingDataType = XmpColumnXmpDataTypeMapping.getInstance();
+    
 
-    private static void initKnownNamespacesArray() {
-        if (knownNamespaces.isEmpty()) {
-            knownNamespaces.add("Iptc4xmpCore"); // NOI18N
-            knownNamespaces.add("aux"); // NOI18N
-            knownNamespaces.add("crs"); // NOI18N
-            knownNamespaces.add("dc"); // NOI18N
-            knownNamespaces.add("exif"); // NOI18N
-            knownNamespaces.add("lr"); // NOI18N
-            knownNamespaces.add("photoshop"); // NOI18N
-            knownNamespaces.add("tiff"); // NOI18N
-            knownNamespaces.add("xap"); // NOI18N
-            knownNamespaces.add("xapRights"); // NOI18N
-        }
+    static {
+        knownNamespaces.add("Iptc4xmpCore"); // NOI18N
+        knownNamespaces.add("aux"); // NOI18N
+        knownNamespaces.add("crs"); // NOI18N
+        knownNamespaces.add("dc"); // NOI18N
+        knownNamespaces.add("exif"); // NOI18N
+        knownNamespaces.add("lr"); // NOI18N
+        knownNamespaces.add("photoshop"); // NOI18N
+        knownNamespaces.add("tiff"); // NOI18N
+        knownNamespaces.add("xap"); // NOI18N
+        knownNamespaces.add("xapRights"); // NOI18N
     }
 
     /**
@@ -196,7 +195,6 @@ public class XmpMetadata {
      * @return       true, wenn bekannt
      */
     public static boolean isKnownNamespace(String string) {
-        initKnownNamespacesArray();
         return knownNamespaces.contains(string);
     }
 
