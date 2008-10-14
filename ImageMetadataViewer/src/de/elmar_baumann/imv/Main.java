@@ -33,6 +33,7 @@ public class Main {
 
     private static void init() {
         PersistentSettings.getInstance().setAppName("ImageMetaDataViewer");  // NOI18N NEVER CHANGE NAME AND LOCATION
+        PersistentSettings.getInstance().removeEmptyKeys();
         LookAndFeelUtil.setSystemLookAndFeel();
         lock();
         Settings.getInstance().setIconImagesPath(AppSettings.getAppIconPaths());
