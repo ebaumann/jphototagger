@@ -38,6 +38,40 @@ public class ExifMetadata {
 
     private static HashMap<String, Double> rotationAngleOfString = new HashMap<String, Double>();
     private static List<Integer> tagsToDisplay = new ArrayList<Integer>();
+    
+
+    static {
+        rotationAngleOfString.put("(0, 0) is top-left", new Double(0)); // 1 // NOI18N
+        rotationAngleOfString.put("(0, 0) is top-right", new Double(0)); // 2 // NOI18N
+        rotationAngleOfString.put("0, 0) is bottom-right", new Double(180)); // 3 // NOI18N
+        rotationAngleOfString.put("(0, 0) is bottom-left", new Double(180)); // 4 // NOI18N
+        rotationAngleOfString.put("(0, 0) is left-top", new Double(90)); // 5 // NOI18N
+        rotationAngleOfString.put("(0, 0) is right-top", new Double(90)); // 6 // NOI18N
+        rotationAngleOfString.put("(0, 0) is right-bottom", new Double(270)); // 7 // NOI18N
+        rotationAngleOfString.put("(0, 0) is left-bottom", new Double(270)); // 8 // NOI18N
+    }
+    
+
+    static {
+        tagsToDisplay.add(ExifTag.Make.getId());
+        tagsToDisplay.add(ExifTag.Model.getId());
+        tagsToDisplay.add(ExifTag.Software.getId());
+        tagsToDisplay.add(ExifTag.ExposureTime.getId());
+        tagsToDisplay.add(ExifTag.FNumber.getId());
+        tagsToDisplay.add(ExifTag.ExposureProgram.getId());
+        tagsToDisplay.add(ExifTag.ISOSpeedRatings.getId());
+        tagsToDisplay.add(ExifTag.DateTimeOriginal.getId());
+        tagsToDisplay.add(ExifTag.MeteringMode.getId());
+        tagsToDisplay.add(ExifTag.Flash.getId());
+        tagsToDisplay.add(ExifTag.FocalLength.getId());
+        tagsToDisplay.add(ExifTag.UserComment.getId());
+        tagsToDisplay.add(ExifTag.FileSource.getId());
+        tagsToDisplay.add(ExifTag.WhiteBalance.getId());
+        tagsToDisplay.add(ExifTag.FocalLengthIn35mmFilm.getId());
+        tagsToDisplay.add(ExifTag.Contrast.getId());
+        tagsToDisplay.add(ExifTag.Saturation.getId());
+        tagsToDisplay.add(ExifTag.Sharpness.getId());
+    }
 
     /**
      * Liefert die EXIF-Metadaten einer Datei.
@@ -67,7 +101,7 @@ public class ExifMetadata {
         ImageReader reader = null;
         if (FileType.isJpegFile(filename)) {
             reader = new JpegReader(file);
-            IFDEntry[][] allEntries = MetadataUtils.getExif((JpegReader)reader);
+            IFDEntry[][] allEntries = MetadataUtils.getExif((JpegReader) reader);
             if (allEntries != null) {
                 for (int i = 0; i < allEntries.length; i++) {
                     IFDEntry[] currentEntries = allEntries[i];
@@ -78,9 +112,9 @@ public class ExifMetadata {
             }
         } else {
             reader = new TiffReader(file);
-            int count = ((TiffReader)reader).getIFDCount();
+            int count = ((TiffReader) reader).getIFDCount();
             for (int i = 0; i < count; i++) {
-                addIfdEntriesOfDirectory(((TiffReader)reader).getIFD(i), metadata);
+                addIfdEntriesOfDirectory(((TiffReader) reader).getIFD(i), metadata);
             }
         }
         close(reader);
@@ -145,7 +179,6 @@ public class ExifMetadata {
     public double getThumbnailRotationAngle(List<IFDEntry> entries) {
         IFDEntry entry = findEntryWithTag(entries, 274);
         if (entry != null) {
-            initRotationAngleMap();
             Double angle = rotationAngleOfString.get(entry.toString());
             if (angle == null) {
                 return 0;
@@ -153,19 +186,6 @@ public class ExifMetadata {
             return angle.doubleValue();
         }
         return 0;
-    }
-
-    private static void initRotationAngleMap() {
-        if (rotationAngleOfString.isEmpty()) {
-            rotationAngleOfString.put("(0, 0) is top-left", new Double(0)); // 1 // NOI18N
-            rotationAngleOfString.put("(0, 0) is top-right", new Double(0)); // 2 // NOI18N
-            rotationAngleOfString.put("0, 0) is bottom-right", new Double(180)); // 3 // NOI18N
-            rotationAngleOfString.put("(0, 0) is bottom-left", new Double(180)); // 4 // NOI18N
-            rotationAngleOfString.put("(0, 0) is left-top", new Double(90)); // 5 // NOI18N
-            rotationAngleOfString.put("(0, 0) is right-top", new Double(90)); // 6 // NOI18N
-            rotationAngleOfString.put("(0, 0) is right-bottom", new Double(270)); // 7 // NOI18N
-            rotationAngleOfString.put("(0, 0) is left-bottom", new Double(270)); // 8 // NOI18N
-        }
     }
 
     /**
@@ -176,7 +196,6 @@ public class ExifMetadata {
      */
     public static List<IFDEntry> getDisplayableMetadata(List<IFDEntry> entries) {
         List<IFDEntry> displayableEntries = new ArrayList<IFDEntry>(entries.size());
-        initTagsToDisplay();
         for (IFDEntry entry : entries) {
             if (isTagToDisplay(entry.getEntryMeta().getTag())) {
                 if (!contains(displayableEntries, entry)) {
@@ -191,29 +210,6 @@ public class ExifMetadata {
         return tagsToDisplay.contains(tag);
     }
 
-    private static void initTagsToDisplay() {
-        if (tagsToDisplay.isEmpty()) {
-            tagsToDisplay.add(ExifTag.Make.getId());
-            tagsToDisplay.add(ExifTag.Model.getId());
-            tagsToDisplay.add(ExifTag.Software.getId());
-            tagsToDisplay.add(ExifTag.ExposureTime.getId());
-            tagsToDisplay.add(ExifTag.FNumber.getId());
-            tagsToDisplay.add(ExifTag.ExposureProgram.getId());
-            tagsToDisplay.add(ExifTag.ISOSpeedRatings.getId());
-            tagsToDisplay.add(ExifTag.DateTimeOriginal.getId());
-            tagsToDisplay.add(ExifTag.MeteringMode.getId());
-            tagsToDisplay.add(ExifTag.Flash.getId());
-            tagsToDisplay.add(ExifTag.FocalLength.getId());
-            tagsToDisplay.add(ExifTag.UserComment.getId());
-            tagsToDisplay.add(ExifTag.FileSource.getId());
-            tagsToDisplay.add(ExifTag.WhiteBalance.getId());
-            tagsToDisplay.add(ExifTag.FocalLengthIn35mmFilm.getId());
-            tagsToDisplay.add(ExifTag.Contrast.getId());
-            tagsToDisplay.add(ExifTag.Saturation.getId());
-            tagsToDisplay.add(ExifTag.Sharpness.getId());
-        }
-    }
-
     private static boolean contains(List<IFDEntry> entries, IFDEntry entry) {
         ExifIfdEntryComparator comparator = new ExifIfdEntryComparator();
         for (IFDEntry e : entries) {
@@ -222,6 +218,108 @@ public class ExifMetadata {
             }
         }
         return false;
+    }
+
+    /**
+     * Liefert die EXIF-Daten einer Bilddatei.
+     * 
+     * @param  filename  Dateiname
+     * @return EXIF-Daten oder null bei Fehlern
+     */
+    public static Exif getExif(String filename) {
+        Exif exif = null;
+        ExifMetadata exifMetadata = new ExifMetadata();
+        List<IFDEntry> exifEntries = exifMetadata.getMetadata(filename);
+        if (exifEntries != null) {
+            exif = new Exif();
+            IFDEntry dateTimeOriginalEntry = ExifMetadata.findEntryWithTag(exifEntries, ExifTag.DateTimeOriginal.getId());
+            IFDEntry focalLengthEntry = ExifMetadata.findEntryWithTag(exifEntries, ExifTag.FocalLength.getId());
+            IFDEntry isoSpeedRatingsEntry = ExifMetadata.findEntryWithTag(exifEntries, ExifTag.ISOSpeedRatings.getId());
+            IFDEntry modelEntry = ExifMetadata.findEntryWithTag(exifEntries, ExifTag.Model.getId());
+            if (dateTimeOriginalEntry != null) {
+                setExifDateTimeOriginal(exif, dateTimeOriginalEntry);
+            }
+            if (focalLengthEntry != null) {
+                setExifFocalLength(exif, focalLengthEntry);
+            }
+            if (isoSpeedRatingsEntry != null) {
+                setExifIsoSpeedRatings(exif, isoSpeedRatingsEntry);
+            }
+            setExifEquipment(exif, modelEntry);
+        }
+        return exif;
+    }
+
+    private static void setExifDateTimeOriginal(Exif exifData,
+        IFDEntry dateTimeOriginalEntry) {
+        String datestring = null;
+        try {
+            datestring = dateTimeOriginalEntry.toString(); // had thrown a null pointer exception
+        } catch (Exception ex) {
+            Logger.getLogger(ImageMetadataToDatabase.class.getName()).log(Level.WARNING, ex.getMessage());
+            ErrorListeners.getInstance().notifyErrorListener(new ErrorEvent(ex.toString(), ExifMetadata.class));
+        }
+        if (datestring != null && datestring.length() >= 11) {
+            try {
+                int year = new Integer(datestring.substring(0, 4)).intValue();
+                int month = new Integer(datestring.substring(5, 7)).intValue();
+                int day = new Integer(datestring.substring(8, 10)).intValue();
+                Calendar calendar = new GregorianCalendar();
+                calendar.set(year, month - 1, day);
+                try {
+                    exifData.setDateTimeOriginal(new Date(calendar.getTimeInMillis()));
+                } catch (Exception ex) {
+                    Logger.getLogger(ImageMetadataToDatabase.class.getName()).log(Level.WARNING, ex.getMessage());
+                }
+            } catch (NumberFormatException ex) {
+                Logger.getLogger(ImageMetadataToDatabase.class.getName()).log(Level.WARNING, ex.getMessage());
+                ErrorListeners.getInstance().notifyErrorListener(new ErrorEvent(ex.toString(), ExifMetadata.class));
+            }
+        }
+    }
+
+    private static void setExifEquipment(Exif exifData, IFDEntry modelEntry) {
+        if (modelEntry != null) {
+            exifData.setRecordingEquipment(modelEntry.toString().trim());
+        }
+    }
+
+    private static void setExifFocalLength(Exif exifData, IFDEntry focalLengthEntry) {
+        try {
+            String lengthString = focalLengthEntry.toString().trim();
+            StringTokenizer tokenizer = new StringTokenizer(lengthString, "/:"); // NOI18N
+            if (tokenizer.countTokens() >= 1) {
+                String dividentString = tokenizer.nextToken();
+                String divisorString = null;
+                if (tokenizer.hasMoreTokens()) {
+                    divisorString = tokenizer.nextToken();
+                }
+                Double divident = new Double(dividentString);
+                double focalLength = divident;
+                if (divisorString != null) {
+                    Double divisor = new Double(divisorString);
+                    focalLength = divident / divisor;
+                }
+                exifData.setFocalLength(focalLength);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(ExifMetadata.class.getName()).log(Level.WARNING, ex.getMessage());
+            ErrorListeners.getInstance().notifyErrorListener(new ErrorEvent(ex.toString(), ExifMetadata.class));
+        }
+    }
+
+    private static void setExifIsoSpeedRatings(Exif exifData,
+        IFDEntry isoSpeedRatingsEntry) {
+        try {
+            exifData.setIsoSpeedRatings(new Short(isoSpeedRatingsEntry.toString().trim()).shortValue());
+        } catch (Exception ex) {
+            Logger.getLogger(ExifMetadata.class.getName()).log(Level.WARNING, ex.getMessage());
+            ErrorListeners.getInstance().notifyErrorListener(new ErrorEvent(ex.toString(), ExifMetadata.class));
+        }
+    }
+
+    private void notifyErrorListener(String message) {
+        ErrorListeners.getInstance().notifyErrorListener(new ErrorEvent(message, this));
     }
 
     /**
@@ -307,102 +405,6 @@ public class ExifMetadata {
                 out.print(") "); // NOI18N
                 out.println(entries.toString(entry).replace((char) 0, (char) 32).trim());
             }
-        }
-    }
-
-    private void notifyErrorListener(String message) {
-        ErrorListeners.getInstance().notifyErrorListener(new ErrorEvent(message, this));
-    }
-
-    /**
-     * Liefert die EXIF-Daten einer Bilddatei.
-     * 
-     * @param  filename  Dateiname
-     * @return EXIF-Daten oder null bei Fehlern
-     */
-    public static Exif getExif(String filename) {
-        Exif exif = null;
-        ExifMetadata exifMetadata = new ExifMetadata();
-        List<IFDEntry> exifEntries = exifMetadata.getMetadata(filename);
-        if (exifEntries != null) {
-            exif = new Exif();
-            IFDEntry dateTimeOriginalEntry = ExifMetadata.findEntryWithTag(exifEntries, ExifTag.DateTimeOriginal.getId());
-            IFDEntry focalLengthEntry = ExifMetadata.findEntryWithTag(exifEntries, ExifTag.FocalLength.getId());
-            IFDEntry isoSpeedRatingsEntry = ExifMetadata.findEntryWithTag(exifEntries, ExifTag.ISOSpeedRatings.getId());
-            IFDEntry modelEntry = ExifMetadata.findEntryWithTag(exifEntries, ExifTag.Model.getId());
-            if (dateTimeOriginalEntry != null) {
-                setExifDateTimeOriginal(exif, dateTimeOriginalEntry);
-            }
-            if (focalLengthEntry != null) {
-                setExifFocalLength(exif, focalLengthEntry);
-            }
-            if (isoSpeedRatingsEntry != null) {
-                setExifIsoSpeedRatings(exif, isoSpeedRatingsEntry);
-            }
-            setExifEquipment(exif, modelEntry);
-        }
-        return exif;
-    }
-
-    private static void setExifDateTimeOriginal(Exif exifData,
-        IFDEntry dateTimeOriginalEntry) {
-        String datestring = dateTimeOriginalEntry.toString();
-        if (datestring.length() >= 11) {
-            try {
-                int year = new Integer(datestring.substring(0, 4)).intValue();
-                int month = new Integer(datestring.substring(5, 7)).intValue();
-                int day = new Integer(datestring.substring(8, 10)).intValue();
-                Calendar calendar = new GregorianCalendar();
-                calendar.set(year, month - 1, day);
-                try {
-                    exifData.setDateTimeOriginal(new Date(calendar.getTimeInMillis()));
-                } catch (Exception ex) {
-                    Logger.getLogger(ImageMetadataToDatabase.class.getName()).log(Level.WARNING, ex.getMessage());
-                }
-            } catch (NumberFormatException ex) {
-                Logger.getLogger(ImageMetadataToDatabase.class.getName()).log(Level.WARNING, ex.getMessage());
-                ErrorListeners.getInstance().notifyErrorListener(new ErrorEvent(ex.toString(), ExifMetadata.class));
-            }
-        }
-    }
-
-    private static void setExifEquipment(Exif exifData, IFDEntry modelEntry) {
-        if (modelEntry != null) {
-            exifData.setRecordingEquipment(modelEntry.toString().trim());
-        }
-    }
-
-    private static void setExifFocalLength(Exif exifData, IFDEntry focalLengthEntry) {
-        try {
-            String lengthString = focalLengthEntry.toString().trim();
-            StringTokenizer tokenizer = new StringTokenizer(lengthString, "/:"); // NOI18N
-            if (tokenizer.countTokens() >= 1) {
-                String dividentString = tokenizer.nextToken();
-                String divisorString = null;
-                if (tokenizer.hasMoreTokens()) {
-                    divisorString = tokenizer.nextToken();
-                }
-                Double divident = new Double(dividentString);
-                double focalLength = divident;
-                if (divisorString != null) {
-                    Double divisor = new Double(divisorString);
-                    focalLength = divident / divisor;
-                }
-                exifData.setFocalLength(focalLength);
-            }
-        } catch (Exception ex) {
-            Logger.getLogger(ExifMetadata.class.getName()).log(Level.WARNING, ex.getMessage());
-            ErrorListeners.getInstance().notifyErrorListener(new ErrorEvent(ex.toString(), ExifMetadata.class));
-        }
-    }
-
-    private static void setExifIsoSpeedRatings(Exif exifData,
-        IFDEntry isoSpeedRatingsEntry) {
-        try {
-            exifData.setIsoSpeedRatings(new Short(isoSpeedRatingsEntry.toString().trim()).shortValue());
-        } catch (Exception ex) {
-            Logger.getLogger(ExifMetadata.class.getName()).log(Level.WARNING, ex.getMessage());
-            ErrorListeners.getInstance().notifyErrorListener(new ErrorEvent(ex.toString(), ExifMetadata.class));
         }
     }
 }
