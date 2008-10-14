@@ -6,6 +6,7 @@ import de.elmar_baumann.imv.model.TreeModelImageCollections;
 import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuPanelThumbnails;
+import de.elmar_baumann.lib.io.FileUtil;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -41,7 +42,7 @@ public class ControllerCreateImageCollection extends Controller
     private void createCollection() {
         ImageCollectionToDatabase manager = new ImageCollectionToDatabase();
         String collectionName = manager.addImageCollection(
-            popup.getThumbnailsPanel().getSelectedFilenames());
+            FileUtil.getAsFilenames(popup.getThumbnailsPanel().getSelectedFiles()));
         if (collectionName != null) {
             model.addNode(collectionName);
         }

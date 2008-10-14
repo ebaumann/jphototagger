@@ -8,6 +8,7 @@ import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.view.dialogs.RenameDialog;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuPanelThumbnails;
+import de.elmar_baumann.lib.io.FileUtil;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Collections;
@@ -39,7 +40,7 @@ public class ControllerRenameFiles extends Controller
 
     private void renameFiles() {
         RenameDialog dialog = new RenameDialog();
-        List<String> filenames = thumbnailsPanel.getSelectedFilenames();
+        List<String> filenames = FileUtil.getAsFilenames(thumbnailsPanel.getSelectedFiles());
         if (filenames.size() > 0) {
             Collections.sort(filenames);
             dialog.setFilenames(filenames);
@@ -50,9 +51,8 @@ public class ControllerRenameFiles extends Controller
 
     @Override
     public void actionPerformed(RenameFileAction action) {
-        String oldFilename =  action.getOldFile().getAbsolutePath();
-        String newFilename = action.getNewFile().getAbsolutePath();
-        db.updateRenameImageFilename(oldFilename, newFilename);
-        thumbnailsPanel.rename(oldFilename, newFilename);
+        db.updateRenameImageFilename(action.getOldFile().getAbsolutePath(),
+            action.getNewFile().getAbsolutePath());
+        thumbnailsPanel.rename(action.getOldFile(), action.getNewFile());
     }
 }

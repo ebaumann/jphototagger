@@ -8,6 +8,7 @@ import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuPanelThumbnails;
+import de.elmar_baumann.lib.io.FileUtil;
 import java.util.List;
 import javax.swing.JTree;
 import javax.swing.event.TreeSelectionEvent;
@@ -54,7 +55,7 @@ public class ControllerSafedSearchSelected extends Controller
 
     private void search(ParamStatement stmt) {
         List<String> filenames = db.searchFilenames(stmt);
-        thumbnailsPanel.setFilenames(filenames);
+        thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames));
         PopupMenuPanelThumbnails.getInstance().setIsImageCollection(false);
     }
 }

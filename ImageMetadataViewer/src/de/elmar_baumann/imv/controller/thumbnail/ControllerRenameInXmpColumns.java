@@ -6,6 +6,7 @@ import de.elmar_baumann.imv.tasks.UpdaterRenameInXmpColumnsArray;
 import de.elmar_baumann.imv.view.dialogs.RenameInXmpColumnsDialog;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuPanelThumbnails;
+import de.elmar_baumann.lib.io.FileUtil;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -34,7 +35,8 @@ public class ControllerRenameInXmpColumns extends Controller
     @Override
     public void actionPerformed(ActionEvent e) {
         if (isStarted()) {
-            List<String> filenames = thumbnailsPanel.getSelectedFilenames();
+            List<String> filenames = FileUtil.getAsFilenames(
+                thumbnailsPanel.getSelectedFiles());
             if (!filenames.isEmpty()) {
                 rename(filenames);
             }

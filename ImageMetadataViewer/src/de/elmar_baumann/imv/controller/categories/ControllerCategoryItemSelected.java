@@ -6,6 +6,7 @@ import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuPanelThumbnails;
+import de.elmar_baumann.lib.io.FileUtil;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashSet;
@@ -48,7 +49,7 @@ public class ControllerCategoryItemSelected extends Controller
         LinkedHashSet<String> filenames = db.getFilenamesOfCategory(category);
         List<String> filenamesArray = new ArrayList<String>(filenames);
         Collections.sort(filenamesArray);
-        thumbnailsPanel.setFilenames(filenamesArray);
+        thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenamesArray));
         PopupMenuPanelThumbnails.getInstance().setIsImageCollection(false);
     }
 }

@@ -8,6 +8,7 @@ import de.elmar_baumann.imv.event.ProgressEvent;
 import de.elmar_baumann.imv.event.ProgressListener;
 import de.elmar_baumann.imv.resource.ProgressBarCurrentTasks;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuPanelThumbnails;
+import de.elmar_baumann.lib.io.FileUtil;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -63,7 +64,8 @@ public class ControllerCreateMetaDataOfSelectedThumbnails extends Controller
 
     private void updateMetadata(boolean onlyTextMetadata) {
         updaters.add(
-            createUpdater(popup.getThumbnailsPanel().getSelectedFilenames(), onlyTextMetadata));
+            createUpdater(FileUtil.getAsFilenames(
+            popup.getThumbnailsPanel().getSelectedFiles()), onlyTextMetadata));
         startUpdateMetadataThread();
     }
 

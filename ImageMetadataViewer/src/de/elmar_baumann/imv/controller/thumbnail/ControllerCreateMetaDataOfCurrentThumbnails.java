@@ -10,6 +10,7 @@ import de.elmar_baumann.imv.event.ThumbnailsPanelListener;
 import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
+import de.elmar_baumann.lib.io.FileUtil;
 import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -36,7 +37,7 @@ public class ControllerCreateMetaDataOfCurrentThumbnails extends Controller
     }
 
     synchronized private void updateMetadata() {
-        updaters.add(createUpdater(thumbnailsPanel.getFilenames()));
+        updaters.add(createUpdater(FileUtil.getAsFilenames(thumbnailsPanel.getFiles())));
         startUpdateMetadataThread();
     }
 

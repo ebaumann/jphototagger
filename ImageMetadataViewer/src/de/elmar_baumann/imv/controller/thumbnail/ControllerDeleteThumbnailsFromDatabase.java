@@ -46,7 +46,8 @@ public class ControllerDeleteThumbnailsFromDatabase extends Controller
 
     private void deleteSelectedThumbnails() {
         if (askDelete()) {
-            List<String> files = popup.getThumbnailsPanel().getSelectedFilenames();
+            List<String> files = FileUtil.getAsFilenames(
+                popup.getThumbnailsPanel().getSelectedFiles());
             int countFiles = files.size();
             int countDeleted = db.deleteImageFiles(files);
             if (countDeleted != countFiles) {
@@ -87,6 +88,6 @@ public class ControllerDeleteThumbnailsFromDatabase extends Controller
                 deleted.add(filename);
             }
         }
-        thumbnailsPanel.remove(deleted);
+        thumbnailsPanel.remove(FileUtil.getAsFiles(deleted));
     }
 }

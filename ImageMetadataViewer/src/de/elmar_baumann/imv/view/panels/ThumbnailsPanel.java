@@ -545,6 +545,12 @@ public abstract class ThumbnailsPanel extends JPanel
         }
     }
 
+    protected void forceRepaint() {
+        invalidate();
+        validate();
+        repaint();
+    }
+
     @Override
     public void paintComponent(Graphics g) {
         paintPanelBackground(g);

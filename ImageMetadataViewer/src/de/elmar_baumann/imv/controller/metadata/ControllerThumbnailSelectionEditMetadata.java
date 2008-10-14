@@ -13,6 +13,7 @@ import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.imv.view.panels.MetadataEditPanelsArray;
+import de.elmar_baumann.lib.io.FileUtil;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -66,7 +67,7 @@ public class ControllerThumbnailSelectionEditMetadata
     }
 
     private boolean canEdit() {
-        List<String> filenames = thumbnailsPanel.getSelectedFilenames();
+        List<String> filenames = FileUtil.getAsFilenames(thumbnailsPanel.getSelectedFiles());
         for (String filename : filenames) {
             if (!XmpMetadata.canWriteSidecarFile(filename)) {
                 return false;
@@ -85,7 +86,7 @@ public class ControllerThumbnailSelectionEditMetadata
 
     private void setEditPanelsContent() {
         editPanels.emptyPanels();
-        List<String> filenames = thumbnailsPanel.getSelectedFilenames();
+        List<String> filenames = FileUtil.getAsFilenames(thumbnailsPanel.getSelectedFiles());
         if (filenames.size() == 1) {
             XmpMetadata xmpMetaData = new XmpMetadata();
             List<XMPPropertyInfo> xmpPropertyInfos = xmpMetaData.getPropertyInfosOfFile(filenames.get(0));
@@ -111,7 +112,7 @@ public class ControllerThumbnailSelectionEditMetadata
 
     private void showUpdates(String filename) {
         if (thumbnailsPanel.getSelectionCount() == 1) {
-            String selectedFilename = thumbnailsPanel.getSelectedFilenames().get(0);
+            String selectedFilename = thumbnailsPanel.getSelectedFiles().get(0).getAbsolutePath();
             if (filename.equals(selectedFilename)) {
                 setEditPanelsContent();
             }

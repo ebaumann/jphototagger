@@ -6,6 +6,7 @@ import de.elmar_baumann.imv.view.dialogs.CopyToDirectoryDialog;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuPanelThumbnails;
+import de.elmar_baumann.lib.io.FileUtil;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -33,7 +34,7 @@ public class ControllerCopyFilesToDirectory extends Controller
     @Override
     public void actionPerformed(ActionEvent e) {
         if (isStarted()) {
-            List<String> files = panel.getSelectedFilenames();
+            List<String> files = FileUtil.getAsFilenames(panel.getSelectedFiles());
             if (files.size() > 0) {
                 CopyToDirectoryDialog dialog = new CopyToDirectoryDialog();
                 dialog.setSourceFiles(files);

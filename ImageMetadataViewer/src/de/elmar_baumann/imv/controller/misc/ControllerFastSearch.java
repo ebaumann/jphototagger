@@ -18,6 +18,7 @@ import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuPanelThumbnails;
 import de.elmar_baumann.lib.componentutil.TreeUtil;
+import de.elmar_baumann.lib.io.FileUtil;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
@@ -105,7 +106,7 @@ public class ControllerFastSearch extends Controller
         TreeUtil.clearSelection(selectionTrees);
         List<String> filenames =
             db.searchFilenamesLikeOr(UserSettings.getInstance().getFastSearchColumns(), searchText);
-        thumbnailsPanel.setFilenames(filenames);
+        thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames));
         PopupMenuPanelThumbnails.getInstance().setIsImageCollection(false);
     }
 

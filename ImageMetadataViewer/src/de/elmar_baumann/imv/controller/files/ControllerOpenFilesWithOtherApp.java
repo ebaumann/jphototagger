@@ -3,6 +3,7 @@ package de.elmar_baumann.imv.controller.files;
 import de.elmar_baumann.imv.controller.Controller;
 import de.elmar_baumann.imv.io.IoUtil;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuPanelThumbnails;
+import de.elmar_baumann.lib.io.FileUtil;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -37,7 +38,7 @@ public class ControllerOpenFilesWithOtherApp extends Controller
 
     private void openFilesWithApp(File otherOpenImageApp) {
         String allFilenames = IoUtil.getArgsAsCommandline(
-            popup.getThumbnailsPanel().getSelectedFilenames());
+            FileUtil.getAsFilenames(popup.getThumbnailsPanel().getSelectedFiles()));
         if (!allFilenames.isEmpty()) {
             IoUtil.startApplication(otherOpenImageApp.getAbsolutePath(), allFilenames);
         }

@@ -7,6 +7,7 @@ import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuPanelThumbnails;
 import de.elmar_baumann.lib.io.DirectoryTreeModelFile;
+import de.elmar_baumann.lib.io.FileUtil;
 import java.util.Collections;
 import java.util.List;
 import javax.swing.JTree;
@@ -48,7 +49,7 @@ public class ControllerShowThumbnailsOfSelectedDirectory extends Controller
     }
 
     private void setFilenamesToThumbnailsPanel() {
-        thumbnailsPanel.setFilenames(getSortedFilenamesOfCurrentDirectory());
+        thumbnailsPanel.setFiles(FileUtil.getAsFiles(getSortedFilenamesOfCurrentDirectory()));
         PopupMenuPanelThumbnails.getInstance().setIsImageCollection(false);
     }
 

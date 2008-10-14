@@ -9,6 +9,7 @@ import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuPanelThumbnails;
+import de.elmar_baumann.lib.io.FileUtil;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -42,7 +43,7 @@ public class ControllerDeleteFiles extends Controller implements ActionListener 
     private void deleteFiles() {
         if (accepted()) {
             int count = 0;
-            List<String> filenames = thumbnailsPanel.getSelectedFilenames();
+            List<String> filenames = FileUtil.getAsFilenames(thumbnailsPanel.getSelectedFiles());
             List<String> deletedFiles = new ArrayList<String>(filenames.size());
             for (String filename : filenames) {
                 File file = new File(filename);
@@ -58,7 +59,7 @@ public class ControllerDeleteFiles extends Controller implements ActionListener 
             }
             if (count > 0) {
                 db.deleteImageFiles(deletedFiles);
-                thumbnailsPanel.remove(deletedFiles);
+                thumbnailsPanel.remove(FileUtil.getAsFiles(deletedFiles));
             }
         }
     }

@@ -103,7 +103,8 @@ public class ControllerShowMetadata extends Controller
     public void thumbnailSelected(ThumbnailsPanelAction action) {
         if (isStarted()) {
             if (data.thumbnailsPanel.getSelectionCount() == 1) {
-                showMetaDataOfFilename(data.thumbnailsPanel.geFilename(action.getThumbnailIndex()));
+                showMetaDataOfFilename(data.thumbnailsPanel.getFile(
+                    action.getThumbnailIndex()).getAbsolutePath());
             } else {
                 emptyMetadata();
             }
@@ -207,7 +208,7 @@ public class ControllerShowMetadata extends Controller
 
     private void showUpdates(String filename) {
         if (data.thumbnailsPanel.getSelectionCount() == 1) {
-            String selectedFilename = data.thumbnailsPanel.getSelectedFilenames().get(0);
+            String selectedFilename = data.thumbnailsPanel.getSelectedFiles().get(0).getAbsolutePath();
             if (filename.equals(selectedFilename)) {
                 showMetaDataOfFilename(selectedFilename);
             }

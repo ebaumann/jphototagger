@@ -48,7 +48,7 @@ public class ControllerRotateThumbnail extends Controller
             Image thumbnail = ImageTransform.rotate(
                 panel.getThumbnail(index.intValue()), rotateAngle);
             if (thumbnail != null) {
-                String filename = panel.geFilename(index.intValue());
+                String filename = panel.getFile(index.intValue()).getAbsolutePath();
                 if (db.updateThumbnail(filename, thumbnail)) {
                     panel.set(index.intValue(), thumbnail);
                 }

@@ -4,6 +4,7 @@ import de.elmar_baumann.imv.controller.Controller;
 import de.elmar_baumann.imv.tasks.ImageCollectionToDatabase;
 import de.elmar_baumann.imv.view.dialogs.ImageCollectionsDialog;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuPanelThumbnails;
+import de.elmar_baumann.lib.io.FileUtil;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -39,7 +40,7 @@ public class ControllerAddToImageCollection extends Controller
         if (collectionName != null) {
             ImageCollectionToDatabase manager = new ImageCollectionToDatabase();
             manager.addImagesToCollection(collectionName,
-                popup.getThumbnailsPanel().getSelectedFilenames());
+                FileUtil.getAsFilenames(popup.getThumbnailsPanel().getSelectedFiles()));
         }
     }
 
