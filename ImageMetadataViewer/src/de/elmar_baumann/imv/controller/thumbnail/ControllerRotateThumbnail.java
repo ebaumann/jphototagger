@@ -43,14 +43,14 @@ public class ControllerRotateThumbnail extends Controller
 
     private void rotateSelectedImages(float rotateAngle) {
         ImageFileThumbnailsPanel panel = popup.getThumbnailsPanel();
-        List<Integer> selectedIndices = panel.getIndicesSelectedThumbnails();
+        List<Integer> selectedIndices = panel.getSelected();
         for (Integer index : selectedIndices) {
             Image thumbnail = ImageTransform.rotate(
-                panel.getThumbnailAtIndex(index.intValue()), rotateAngle);
+                panel.getAt(index.intValue()), rotateAngle);
             if (thumbnail != null) {
                 String filename = panel.getThumbnailFilenameAtIndex(index.intValue());
                 if (db.updateThumbnail(filename, thumbnail)) {
-                    panel.setThumbnailAtIndex(index.intValue(), thumbnail);
+                    panel.setAt(index.intValue(), thumbnail);
                 }
             }
         }

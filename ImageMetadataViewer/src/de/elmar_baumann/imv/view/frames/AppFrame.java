@@ -4,13 +4,16 @@ import de.elmar_baumann.imv.AppSettings;
 import de.elmar_baumann.imv.AppInfo;
 import de.elmar_baumann.imv.AppLock;
 import de.elmar_baumann.imv.factory.MetaFactory;
+import de.elmar_baumann.imv.io.FileSort;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.lib.persistence.PersistentAppSizes;
 import de.elmar_baumann.lib.persistence.PersistentSettings;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.HashMap;
 import javax.swing.JMenuItem;
+import javax.swing.JRadioButtonMenuItem;
 
 /**
  * Rahmenfenster der Anwendung.
@@ -19,12 +22,29 @@ import javax.swing.JMenuItem;
  */
 public class AppFrame extends javax.swing.JFrame {
 
+    private HashMap<FileSort, JRadioButtonMenuItem> menuItemOfSort = new HashMap<FileSort, JRadioButtonMenuItem>();
+    private HashMap<JRadioButtonMenuItem, FileSort> sortOfMenuItem = new HashMap<JRadioButtonMenuItem, FileSort>();
+
     public AppFrame() {
         initComponents();
         postInitComponents();
     }
 
+    private void initSortItemMaps() {
+        menuItemOfSort.put(FileSort.NamesAscending, radioButtonMenuItemSortFilenameAscending);
+        menuItemOfSort.put(FileSort.NamesDescending, radioButtonMenuItemSortFilenameDescending);
+        menuItemOfSort.put(FileSort.LastModifiedAscending, radioButtonMenuItemSortLastModifiedAscending);
+        menuItemOfSort.put(FileSort.LastModifiedDescending, radioButtonMenuItemSortLastModifiedDescending);
+        menuItemOfSort.put(FileSort.TypesAscending, radioButtonMenuItemSortFileTypeAscending);
+        menuItemOfSort.put(FileSort.TypesDescending, radioButtonMenuItemSortFileTypeDescending);
+
+        for (FileSort sort : menuItemOfSort.keySet()) {
+            sortOfMenuItem.put(menuItemOfSort.get(sort), sort);
+        }
+    }
+
     private void postInitComponents() {
+        initSortItemMaps();
         readPersistent();
         listenToClose();
         setTitleAndFrameIcon();
@@ -33,10 +53,18 @@ public class AppFrame extends javax.swing.JFrame {
         appPanel.beforeStart();
     }
 
+    public JRadioButtonMenuItem getMenuItemOfSort(FileSort sort) {
+        return menuItemOfSort.get(sort);
+    }
+
+    public FileSort getSortOfMenuItem(JRadioButtonMenuItem item) {
+        return sortOfMenuItem.get(item);
+    }
+
     public JMenuItem getMenuItemAbout() {
         return menuItemAbout;
     }
-    
+
     public JMenuItem getMenuItemRename() {
         return menuItemRename;
     }
@@ -102,7 +130,8 @@ public class AppFrame extends javax.swing.JFrame {
 
     private void listenToClose() {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        this.addWindowListener(new  WindowAdapter() {
+        this.addWindowListener(new WindowAdapter() {
+
             @Override
             public void windowClosed(WindowEvent evt) {
                 quit();
@@ -135,6 +164,15 @@ public class AppFrame extends javax.swing.JFrame {
         menuItemGotoEdit = new javax.swing.JMenuItem();
         menuView = new javax.swing.JMenu();
         menuItemRefresh = new javax.swing.JMenuItem();
+        menuSort = new javax.swing.JMenu();
+        radioButtonMenuItemSortFilenameAscending = new javax.swing.JRadioButtonMenuItem();
+        radioButtonMenuItemSortFilenameDescending = new javax.swing.JRadioButtonMenuItem();
+        jSeparator2 = new javax.swing.JSeparator();
+        radioButtonMenuItemSortLastModifiedAscending = new javax.swing.JRadioButtonMenuItem();
+        radioButtonMenuItemSortLastModifiedDescending = new javax.swing.JRadioButtonMenuItem();
+        jSeparator3 = new javax.swing.JSeparator();
+        radioButtonMenuItemSortFileTypeAscending = new javax.swing.JRadioButtonMenuItem();
+        radioButtonMenuItemSortFileTypeDescending = new javax.swing.JRadioButtonMenuItem();
         menuTools = new javax.swing.JMenu();
         menuItemToolIptcToXmp = new javax.swing.JMenuItem();
         menuHelp = new javax.swing.JMenu();
@@ -214,6 +252,34 @@ public class AppFrame extends javax.swing.JFrame {
         menuItemRefresh.setText(Bundle.getString("AppFrame.menuItemRefresh.text")); // NOI18N
         menuView.add(menuItemRefresh);
 
+        menuSort.setMnemonic('s');
+        menuSort.setText(Bundle.getString("AppFrame.menuSort.text")); // NOI18N
+
+        radioButtonMenuItemSortFilenameAscending.setMnemonic('n');
+        radioButtonMenuItemSortFilenameAscending.setText(Bundle.getString("AppFrame.radioButtonMenuItemSortFilenameAscending.text")); // NOI18N
+        menuSort.add(radioButtonMenuItemSortFilenameAscending);
+
+        radioButtonMenuItemSortFilenameDescending.setText(Bundle.getString("AppFrame.radioButtonMenuItemSortFilenameDescending.text")); // NOI18N
+        menuSort.add(radioButtonMenuItemSortFilenameDescending);
+        menuSort.add(jSeparator2);
+
+        radioButtonMenuItemSortLastModifiedAscending.setMnemonic('d');
+        radioButtonMenuItemSortLastModifiedAscending.setText(Bundle.getString("AppFrame.radioButtonMenuItemSortLastModifiedAscending.text")); // NOI18N
+        menuSort.add(radioButtonMenuItemSortLastModifiedAscending);
+
+        radioButtonMenuItemSortLastModifiedDescending.setText(Bundle.getString("AppFrame.radioButtonMenuItemSortLastModifiedDescending.text")); // NOI18N
+        menuSort.add(radioButtonMenuItemSortLastModifiedDescending);
+        menuSort.add(jSeparator3);
+
+        radioButtonMenuItemSortFileTypeAscending.setMnemonic('t');
+        radioButtonMenuItemSortFileTypeAscending.setText(Bundle.getString("AppFrame.radioButtonMenuItemSortFileTypeAscending.text")); // NOI18N
+        menuSort.add(radioButtonMenuItemSortFileTypeAscending);
+
+        radioButtonMenuItemSortFileTypeDescending.setText(Bundle.getString("AppFrame.radioButtonMenuItemSortFileTypeDescending.text")); // NOI18N
+        menuSort.add(radioButtonMenuItemSortFileTypeDescending);
+
+        menuView.add(menuSort);
+
         menuBar.add(menuView);
 
         menuTools.setMnemonic('w');
@@ -264,6 +330,8 @@ private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:even
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private de.elmar_baumann.imv.view.panels.AppPanel appPanel;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenu menuEdit;
     private javax.swing.JMenu menuFile;
@@ -281,7 +349,14 @@ private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:even
     private javax.swing.JMenuItem menuItemSearch;
     private javax.swing.JMenuItem menuItemSettings;
     private javax.swing.JMenuItem menuItemToolIptcToXmp;
+    private javax.swing.JMenu menuSort;
     private javax.swing.JMenu menuTools;
     private javax.swing.JMenu menuView;
+    private javax.swing.JRadioButtonMenuItem radioButtonMenuItemSortFileTypeAscending;
+    private javax.swing.JRadioButtonMenuItem radioButtonMenuItemSortFileTypeDescending;
+    private javax.swing.JRadioButtonMenuItem radioButtonMenuItemSortFilenameAscending;
+    private javax.swing.JRadioButtonMenuItem radioButtonMenuItemSortFilenameDescending;
+    private javax.swing.JRadioButtonMenuItem radioButtonMenuItemSortLastModifiedAscending;
+    private javax.swing.JRadioButtonMenuItem radioButtonMenuItemSortLastModifiedDescending;
     // End of variables declaration//GEN-END:variables
 }

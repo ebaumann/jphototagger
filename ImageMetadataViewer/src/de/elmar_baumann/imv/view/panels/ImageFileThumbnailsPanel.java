@@ -8,6 +8,7 @@ import de.elmar_baumann.imv.event.DatabaseAction;
 import de.elmar_baumann.imv.event.DatabaseListener;
 import de.elmar_baumann.imv.event.UserSettingsChangeEvent;
 import de.elmar_baumann.imv.event.UserSettingsChangeListener;
+import de.elmar_baumann.imv.io.FileSort;
 import de.elmar_baumann.imv.view.dialogs.UserSettingsDialog;
 import de.elmar_baumann.lib.io.FileUtil;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuPanelThumbnails;
@@ -17,6 +18,7 @@ import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import javax.swing.JViewport;
 
@@ -36,12 +38,15 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel
     private boolean persitentSelectionsApplied = false;
     private JViewport viewport;
     private static final String keyFilenames = "de.elmar_baumann.imv.view.panels.Filenames"; // NOI18N
+    private static final String keySort = "de.elmar_baumann.imv.view.panels.Sort"; // NOI18N
+    private FileSort fileSort = FileSort.NamesAscending;
 
     public ImageFileThumbnailsPanel() {
         setThumbnailCount(0);
         controllerDoubleklickThumbnail = new ControllerDoubleklickThumbnail(this);
         UserSettingsDialog.getInstance().addChangeListener(this);
         db.addDatabaseListener(this);
+        readPersistent();
     }
 
     @Override
@@ -99,6 +104,7 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel
         if (filenames != this.filenames) {
             this.filenames = filenames;
         }
+        sortFilenames();
         empty();
         if (getThumbnailWidth() <= 0) {
             setThumbnailWidth(UserSettings.getInstance().getMaxThumbnailWidth());
@@ -110,6 +116,46 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel
             scrollToFirstThumbnailRow();
         }
         repaint();
+    }
+
+    private void sortFilenames() {
+        List<File> files = FileUtil.getAsFiles(filenames);
+        Collections.sort(files, fileSort.getComparator());
+        filenames = FileUtil.getAsFilenames(files);
+    }
+
+    /**
+     * Sorts the files.
+     * 
+     * @see #setSort(de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel.Sort)
+     */
+    public void sort() {
+        List<String> selectedNames = getSelectedFilenames();
+        sortFilenames();
+        setFilenames(filenames);
+        setSelected(getIndicesOfFilenames(selectedNames, true));
+    }
+
+    /**
+     * Selects files.
+     * 
+     * @param filenames  filenames
+     */
+    public void setSelectedNames(List<String> filenames) {
+        setSelected(getIndicesOfFilenames(filenames, true));
+    }
+
+    /**
+     * Sets a new sort type, does <em>not</em> sort.
+     * 
+     * @param fileSort  sort type
+     */
+    public void setSort(FileSort fileSort) {
+        this.fileSort = fileSort;
+    }
+
+    public FileSort getSort() {
+        return fileSort;
     }
 
     public void setFilenameRenamed(String oldFilename, String newFilename) {
@@ -133,7 +179,7 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel
         }
         if (removed > 0) {
             setFilenames(filenames);
-            setIndicesSelectedThumbnails(getIndicesOfFilenames(selectedFilenames, true));
+            setSelected(getIndicesOfFilenames(selectedFilenames, true));
         }
     }
 
@@ -179,7 +225,12 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel
     }
 
     private void writePersistent() {
-        List<Integer> indices = getIndicesSelectedThumbnails();
+        writePersistentSelection();
+        writePersistentSort();
+    }
+
+    private void writePersistentSelection() {
+        List<Integer> indices = getSelected();
         List<String> selectedFilenames = new ArrayList<String>();
         int countFilenames = filenames.size();
         for (Integer index : indices) {
@@ -190,6 +241,22 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel
         PersistentSettings.getInstance().setStringArray(selectedFilenames, keyFilenames);
     }
 
+    private void writePersistentSort() {
+        PersistentSettings.getInstance().setString(fileSort.name(), keySort);
+    }
+
+    private void readPersistent() {
+        readPersistentSort();
+    }
+
+    private void readPersistentSort() {
+        String name = PersistentSettings.getInstance().getString(keySort);
+        try {
+            fileSort = FileSort.valueOf(name);
+        } catch (Exception ex) {
+        }
+    }
+
     private void repaintThumbnail(String filename) {
         int index = getThumbnailIndexOf(filename);
         if (index >= 0) {
@@ -198,7 +265,7 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel
     }
 
     @Override
-    public Image getThumbnailAtIndex(int index) {
+    public Image getAt(int index) {
         return db.getThumbnail(filenames.get(index));
     }
 
@@ -242,7 +309,7 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel
      * @return Dateinamen
      */
     public List<String> getSelectedFilenames() {
-        return getFilenamesOfIndices(getIndicesSelectedThumbnails());
+        return getFilenamesOfIndices(getSelected());
     }
 
     /**
@@ -269,13 +336,13 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel
                     indices.add(index);
                 }
             }
-            setIndicesSelectedThumbnails(indices);
+            setSelected(indices);
             persitentSelectionsApplied = true;
         }
     }
 
     @Override
-    protected String getTextForThumbnailAtIndex(int index) {
+    protected String getTextForIndex(int index) {
         if (isThumbnailIndex(index)) {
             String heading = filenames.get(index);
             int indexPathSeparator = heading.lastIndexOf(File.separator);
@@ -310,7 +377,7 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel
         if (isThumbnailIndex(index)) {
             String filename = filenames.get(index);
             String flagText = ""; // NOI18N
-            ThumbnailFlag flag = getFlagOfThumbnail(index);
+            ThumbnailFlag flag = getFlagAt(index);
             if (flag != null) {
                 flagText = " - " + flag.getString(); // NOI18N
             }

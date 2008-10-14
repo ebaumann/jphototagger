@@ -144,6 +144,65 @@
                 </Property>
               </Properties>
             </MenuItem>
+            <Menu class="javax.swing.JMenu" name="menuSort">
+              <Properties>
+                <Property name="mnemonic" type="int" value="115"/>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                  <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="AppFrame.menuSort.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                </Property>
+              </Properties>
+              <SubComponents>
+                <MenuItem class="javax.swing.JRadioButtonMenuItem" name="radioButtonMenuItemSortFilenameAscending">
+                  <Properties>
+                    <Property name="mnemonic" type="int" value="110"/>
+                    <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="AppFrame.radioButtonMenuItemSortFilenameAscending.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                    </Property>
+                  </Properties>
+                </MenuItem>
+                <MenuItem class="javax.swing.JRadioButtonMenuItem" name="radioButtonMenuItemSortFilenameDescending">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="AppFrame.radioButtonMenuItemSortFilenameDescending.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                    </Property>
+                  </Properties>
+                </MenuItem>
+                <MenuItem class="javax.swing.JSeparator" name="jSeparator2">
+                </MenuItem>
+                <MenuItem class="javax.swing.JRadioButtonMenuItem" name="radioButtonMenuItemSortLastModifiedAscending">
+                  <Properties>
+                    <Property name="mnemonic" type="int" value="100"/>
+                    <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="AppFrame.radioButtonMenuItemSortLastModifiedAscending.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                    </Property>
+                  </Properties>
+                </MenuItem>
+                <MenuItem class="javax.swing.JRadioButtonMenuItem" name="radioButtonMenuItemSortLastModifiedDescending">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="AppFrame.radioButtonMenuItemSortLastModifiedDescending.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                    </Property>
+                  </Properties>
+                </MenuItem>
+                <MenuItem class="javax.swing.JSeparator" name="jSeparator3">
+                </MenuItem>
+                <MenuItem class="javax.swing.JRadioButtonMenuItem" name="radioButtonMenuItemSortFileTypeAscending">
+                  <Properties>
+                    <Property name="mnemonic" type="int" value="116"/>
+                    <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="AppFrame.radioButtonMenuItemSortFileTypeAscending.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                    </Property>
+                  </Properties>
+                </MenuItem>
+                <MenuItem class="javax.swing.JRadioButtonMenuItem" name="radioButtonMenuItemSortFileTypeDescending">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="AppFrame.radioButtonMenuItemSortFileTypeDescending.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                    </Property>
+                  </Properties>
+                </MenuItem>
+              </SubComponents>
+            </Menu>
           </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="menuTools">

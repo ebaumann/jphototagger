@@ -46,6 +46,7 @@ import de.elmar_baumann.imv.controller.thumbnail.ControllerDeleteThumbnailsFromD
 import de.elmar_baumann.imv.controller.thumbnail.ControllerRenameInXmpColumns;
 import de.elmar_baumann.imv.controller.thumbnail.ControllerRotateThumbnail;
 import de.elmar_baumann.imv.controller.thumbnail.ControllerSliderThumbnailSize;
+import de.elmar_baumann.imv.controller.thumbnail.ControllerSortThumbnails;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -133,6 +134,7 @@ public class ControllerFactory {
         controllers.add(new ControllerSliderThumbnailSize());
         controllers.add(new ControllerDeleteFiles());
         controllers.add(new ControllerRenameFiles());
+        controllers.add(new ControllerSortThumbnails());
         controllerScheduledTasks = new ControllerArrayScheduledTasks();
         controllers.add(controllerScheduledTasks);
     }
