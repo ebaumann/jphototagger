@@ -34,7 +34,7 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel
     private List<String> filenames = new ArrayList<String>();
     private Database db = Database.getInstance();
     private PopupMenuPanelThumbnails popupMenu = PopupMenuPanelThumbnails.getInstance();
-    private ControllerDoubleklickThumbnail controllerDoubleklickThumbnail;
+    private ControllerDoubleklickThumbnail controllerDoubleklick;
     private boolean persitentSelectionsApplied = false;
     private JViewport viewport;
     private static final String keyFilenames = "de.elmar_baumann.imv.view.panels.Filenames"; // NOI18N
@@ -42,8 +42,8 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel
     private FileSort fileSort = FileSort.NamesAscending;
 
     public ImageFileThumbnailsPanel() {
-        setThumbnailCount(0);
-        controllerDoubleklickThumbnail = new ControllerDoubleklickThumbnail(this);
+        setCount(0);
+        controllerDoubleklick = new ControllerDoubleklickThumbnail(this);
         UserSettingsDialog.getInstance().addChangeListener(this);
         db.addDatabaseListener(this);
         readPersistent();
@@ -56,21 +56,26 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel
         }
     }
 
+    /**
+     * Returns the names of all displayed files.
+     * 
+     * @return filenames
+     */
     public List<String> getFilenames() {
         return filenames;
     }
 
     /**
-     * Liefert die Anzahl der Thumbnails.
+     * Returns the number of Thumbnails.
      * 
-     * @return Thumbnailanzahl
+     * @return thumbnail count
      */
-    public int getThumbnailCount() {
+    public int getCount() {
         return filenames.size();
     }
 
     /**
-     * Setzt den Viewport. <em>Ist ganz am Anfang aufzurufen!</em>
+     * Sets the viewport. Have to be called before adding files.
      * 
      * @param viewport  Viewport
      */
@@ -79,12 +84,12 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel
     }
 
     /**
-     * Liefert, ob das Thumbnail einer Datei selektiert ist.
+     * Returns whether a thumbnail is selected.
      * 
-     * @param   filename Dateiname
-     * @return  true, wenn selektiert
+     * @param   filename  filename
+     * @return  true if selected
      */
-    public boolean isThumbnailSelected(String filename) {
+    public boolean isSelected(String filename) {
         List<String> files = getSelectedFilenames();
         for (String file : files) {
             if (file.equals(filename)) {
@@ -95,10 +100,9 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel
     }
 
     /**
-     * Setzt die Dateinamen neu anzuzeigender Bilder, die bisherigen werden
-     * nicht mehr angezeigt.
+     * Sets the files to display. Removes the existing files.
      * 
-     * @param filenames Dateinamen
+     * @param filenames  filenames
      */
     public void setFilenames(List<String> filenames) {
         if (filenames != this.filenames) {
@@ -110,10 +114,10 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel
             setThumbnailWidth(UserSettings.getInstance().getMaxThumbnailWidth());
         }
         setMissingFilesFlags();
-        setThumbnailCount(filenames.size());
+        setCount(filenames.size());
         readPersistentSelectedFiles();
         if (filenames != this.filenames) {
-            scrollToFirstThumbnailRow();
+            scrollToFirstRow();
         }
         repaint();
     }
@@ -133,32 +137,36 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel
         List<String> selectedNames = getSelectedFilenames();
         sortFilenames();
         setFilenames(filenames);
-        setSelected(getIndicesOfFilenames(selectedNames, true));
+        setSelected(getIndices(selectedNames, true));
     }
 
     /**
-     * Selects files.
-     * 
-     * @param filenames  filenames
-     */
-    public void setSelectedNames(List<String> filenames) {
-        setSelected(getIndicesOfFilenames(filenames, true));
-    }
-
-    /**
-     * Sets a new sort type, does <em>not</em> sort.
+     * Sets a sort type, does <em>not</em> sort.
      * 
      * @param fileSort  sort type
+     * @see #sort()
      */
     public void setSort(FileSort fileSort) {
         this.fileSort = fileSort;
     }
 
+    /**
+     * Returns the sort type.
+     * 
+     * @return sort type
+     */
     public FileSort getSort() {
         return fileSort;
     }
 
-    public void setFilenameRenamed(String oldFilename, String newFilename) {
+    /**
+     * Renames a filename <strong>on the display</strong>, <em>not</em> in the
+     * file system.
+     * 
+     * @param oldFilename old name
+     * @param newFilename new name
+     */
+    public void rename(String oldFilename, String newFilename) {
         int index = filenames.indexOf(oldFilename);
         if (index >= 0) {
             filenames.set(index, newFilename);
@@ -166,11 +174,17 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel
         }
     }
 
-    public void removeFilenames(List<String> fNames) {
+    /**
+     * Removes files from the <strong>display</strong>, <em>not</em> from the
+     * file system.
+     * 
+     * @param names  file names to remove
+     */
+    public void remove(List<String> names) {
         int removed = 0;
         List<String> selectedFilenames = getSelectedFilenames();
-        for (String filename : fNames) {
-            int index = getThumbnailIndexOf(filename);
+        for (String filename : names) {
+            int index = getIndexOf(filename);
             if (index >= 0) {
                 filenames.remove(index);
                 selectedFilenames.remove(filename);
@@ -179,18 +193,11 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel
         }
         if (removed > 0) {
             setFilenames(filenames);
-            setSelected(getIndicesOfFilenames(selectedFilenames, true));
+            setSelected(getIndices(selectedFilenames, true));
         }
     }
 
-    /**
-     * Returns the indices of filenames.
-     * 
-     * @param  fNames        filenames
-     * @param  onlyIfExists  true, when add only if a filename exists
-     * @return indices, -1 for not existing filenames if <code>onlyIfExists</code> is false
-     */
-    public List<Integer> getIndicesOfFilenames(List<String> fNames, boolean onlyIfExists) {
+    private  List<Integer> getIndices(List<String> fNames, boolean onlyIfExists) {
         List<Integer> indices = new ArrayList<Integer>(fNames.size());
         for (String filename : fNames) {
             int index = filenames.indexOf(filename);
@@ -201,7 +208,7 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel
         return indices;
     }
 
-    private void scrollToFirstThumbnailRow() {
+    private void scrollToFirstRow() {
         if (viewport != null) {
             viewport.setViewPosition(new Point(0, 0));
         }
@@ -211,16 +218,16 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel
         int count = filenames.size();
         for (int i = 0; i < count; i++) {
             if (!FileUtil.existsFile(filenames.get(i))) {
-                addThumbnailFlag(i, ThumbnailFlag.ErrorFileNotFound);
+                addFlag(i, ThumbnailFlag.ErrorFileNotFound);
             }
         }
     }
 
     /**
-     * Mitteilen, dass die Anwendung beendet wird.
+     * Tells that the application will quit. Writes persistent some values.
      */
     public void beforeQuit() {
-        controllerDoubleklickThumbnail.stop();
+        controllerDoubleklick.stop();
         writePersistent();
     }
 
@@ -249,83 +256,6 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel
         readPersistentSort();
     }
 
-    private void readPersistentSort() {
-        String name = PersistentSettings.getInstance().getString(keySort);
-        try {
-            fileSort = FileSort.valueOf(name);
-        } catch (Exception ex) {
-        }
-    }
-
-    private void repaintThumbnail(String filename) {
-        int index = getThumbnailIndexOf(filename);
-        if (index >= 0) {
-            removeFromCache(index);
-        }
-    }
-
-    @Override
-    public Image getAt(int index) {
-        return db.getThumbnail(filenames.get(index));
-    }
-
-    /**
-     * Liefert den Thumbnailindex für einen Dateinamen.
-     * 
-     * @param filename Dateiname
-     * @return         Index oder -1 wenn das Thumbnail der Datei nicht angezeigt wird
-     */
-    public int getThumbnailIndexOf(String filename) {
-        return filenames.indexOf(filename);
-    }
-
-    /**
-     * Liefert, ob es für einen Index ein Thumbnail gibt.
-     * 
-     * @param index Index
-     * @return      true, wenn es für den Index ein Thumbnail gibt
-     */
-    public boolean isThumbnailIndex(int index) {
-        return index >= 0 && index < filenames.size();
-    }
-
-    /**
-     * Liefert den Dateinamen für ein bestimmtes Thumbnail.
-     * 
-     * @param index Index des Thumbnails
-     * @return      Dateiname, Leerstring bei ungültigem Index
-     * @see         #isThumbnailIndex(int)
-     */
-    public String getThumbnailFilenameAtIndex(int index) {
-        if (isThumbnailIndex(index)) {
-            return filenames.get(index);
-        }
-        return ""; // NOI18N
-    }
-
-    /**
-     * Liefert die Dateiennamen aller selektierten Thumbnails.
-     * 
-     * @return Dateinamen
-     */
-    public List<String> getSelectedFilenames() {
-        return getFilenamesOfIndices(getSelected());
-    }
-
-    /**
-     * Liefert die Dateinamen bestimmter Indexe.
-     * 
-     * @param indices Indexe
-     * @return        Dateinamen
-     */
-    public List<String> getFilenamesOfIndices(List<Integer> indices) {
-        List<String> fNames = new ArrayList<String>();
-        for (Integer index : indices) {
-            fNames.add(getThumbnailFilenameAtIndex(index.intValue()));
-        }
-        return fNames;
-    }
-
     private void readPersistentSelectedFiles() {
         if (!persitentSelectionsApplied && getSelectionCount() == 0) {
             List<String> storedFilenames = PersistentSettings.getInstance().getStringArray(keyFilenames);
@@ -341,9 +271,86 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel
         }
     }
 
+    private void readPersistentSort() {
+        String name = PersistentSettings.getInstance().getString(keySort);
+        try {
+            fileSort = FileSort.valueOf(name);
+        } catch (Exception ex) {
+        }
+    }
+
+    private void repaint(String filename) {
+        int index = getIndexOf(filename);
+        if (index >= 0) {
+            removeFromCache(index);
+        }
+    }
+
     @Override
-    protected String getTextForIndex(int index) {
-        if (isThumbnailIndex(index)) {
+    public Image getThumbnail(int index) {
+        return db.getThumbnail(filenames.get(index));
+    }
+
+    /**
+     * Returns the index of a specific thumbnail.
+     * 
+     * @param  filename  filename
+     * @return Index or -1 if not displayed
+     */
+    public int getIndexOf(String filename) {
+        return filenames.indexOf(filename);
+    }
+
+    /**
+     * Returns wheter an index of a thumbnail is valid.
+     * 
+     * @param  index index
+     * @return true if valid
+     */
+    public boolean isIndex(int index) {
+        return index >= 0 && index < filenames.size();
+    }
+
+    /**
+     * Returns the filename at an index.
+     * 
+     * @param index index
+     * @return      filename
+     * @see         #isIndex(int)
+     */
+    public String geFilename(int index) {
+        if (isIndex(index)) {
+            return filenames.get(index);
+        }
+        return ""; // NOI18N
+    }
+
+    /**
+     * Returns the filenames of selected thumbnails.
+     * 
+     * @return filenames
+     */
+    public List<String> getSelectedFilenames() {
+        return getFilenames(getSelected());
+    }
+
+    /**
+     * Returns the filenames at specific indices.
+     * 
+     * @param  indices  indices
+     * @return filenames
+     */
+    public List<String> getFilenames(List<Integer> indices) {
+        List<String> fNames = new ArrayList<String>();
+        for (Integer index : indices) {
+            fNames.add(geFilename(index.intValue()));
+        }
+        return fNames;
+    }
+
+    @Override
+    protected String getText(int index) {
+        if (isIndex(index)) {
             String heading = filenames.get(index);
             int indexPathSeparator = heading.lastIndexOf(File.separator);
             if (indexPathSeparator >= 0 && indexPathSeparator + 1 < heading.length()) {
@@ -355,8 +362,8 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel
     }
 
     @Override
-    protected void doubleClickAtIndex(int index) {
-        controllerDoubleklickThumbnail.doubleClickAtIndex(index);
+    protected void doubleClickAt(int index) {
+        controllerDoubleklick.doubleClickAtIndex(index);
     }
 
     @Override
@@ -369,15 +376,15 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel
 
     @Override
     protected void showToolTip(MouseEvent evt) {
-        int index = getThumbnailIndexAtPoint(evt.getX(), evt.getY());
+        int index = getIndexAtPoint(evt.getX(), evt.getY());
         setToolTipText(createTooltipText(index));
     }
 
     private String createTooltipText(int index) {
-        if (isThumbnailIndex(index)) {
+        if (isIndex(index)) {
             String filename = filenames.get(index);
             String flagText = ""; // NOI18N
-            ThumbnailFlag flag = getFlagAt(index);
+            ThumbnailFlag flag = getFlag(index);
             if (flag != null) {
                 flagText = " - " + flag.getString(); // NOI18N
             }
@@ -391,7 +398,7 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel
     public void actionPerformed(DatabaseAction action) {
         DatabaseAction.Type type = action.getType();
         if (type.equals(DatabaseAction.Type.ThumbnailUpdated)) {
-            repaintThumbnail(action.getFilename());
+            repaint(action.getFilename());
         } else if (type.equals(DatabaseAction.Type.ImageFilesDeleted)) {
             // TODO: Thumbnail entfernen
         }

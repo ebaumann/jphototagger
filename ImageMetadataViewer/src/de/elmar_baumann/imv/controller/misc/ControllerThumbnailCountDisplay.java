@@ -51,7 +51,7 @@ public class ControllerThumbnailCountDisplay extends Controller
 
     private void setCount() {
         labelCount.setText(new Integer(
-            panelThumbnails.getThumbnailCount()).toString() +
+            panelThumbnails.getCount()).toString() +
             Bundle.getString("ControllerThumbnailCount.InformationMessage.ImageFileCount"));
     }
 }

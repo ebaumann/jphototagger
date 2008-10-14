@@ -27,9 +27,9 @@ public class ControllerDoubleklickThumbnail extends Controller {
     }
 
     private void openImage(int index) {
-        if (panel.isThumbnailIndex(index)) {
+        if (panel.isIndex(index)) {
             IoUtil.startApplication(UserSettings.getInstance().getDefaultImageOpenApp(),
-                panel.getThumbnailFilenameAtIndex(index));
+                panel.geFilename(index));
         }
     }
 }

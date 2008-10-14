@@ -53,6 +53,6 @@ public class ControllerRenameFiles extends Controller
         String oldFilename =  action.getOldFile().getAbsolutePath();
         String newFilename = action.getNewFile().getAbsolutePath();
         db.updateRenameImageFilename(oldFilename, newFilename);
-        thumbnailsPanel.setFilenameRenamed(oldFilename, newFilename);
+        thumbnailsPanel.rename(oldFilename, newFilename);
     }
 }

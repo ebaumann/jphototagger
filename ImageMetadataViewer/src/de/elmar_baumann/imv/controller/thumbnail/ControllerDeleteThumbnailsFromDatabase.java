@@ -87,6 +87,6 @@ public class ControllerDeleteThumbnailsFromDatabase extends Controller
                 deleted.add(filename);
             }
         }
-        thumbnailsPanel.removeFilenames(deleted);
+        thumbnailsPanel.remove(deleted);
     }
 }

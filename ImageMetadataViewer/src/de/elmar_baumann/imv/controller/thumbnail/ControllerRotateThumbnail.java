@@ -46,11 +46,11 @@ public class ControllerRotateThumbnail extends Controller
         List<Integer> selectedIndices = panel.getSelected();
         for (Integer index : selectedIndices) {
             Image thumbnail = ImageTransform.rotate(
-                panel.getAt(index.intValue()), rotateAngle);
+                panel.getThumbnail(index.intValue()), rotateAngle);
             if (thumbnail != null) {
-                String filename = panel.getThumbnailFilenameAtIndex(index.intValue());
+                String filename = panel.geFilename(index.intValue());
                 if (db.updateThumbnail(filename, thumbnail)) {
-                    panel.setAt(index.intValue(), thumbnail);
+                    panel.set(index.intValue(), thumbnail);
                 }
             }
         }

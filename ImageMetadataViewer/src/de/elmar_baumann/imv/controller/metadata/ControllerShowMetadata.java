@@ -103,7 +103,7 @@ public class ControllerShowMetadata extends Controller
     public void thumbnailSelected(ThumbnailsPanelAction action) {
         if (isStarted()) {
             if (data.thumbnailsPanel.getSelectionCount() == 1) {
-                showMetaDataOfFilename(data.thumbnailsPanel.getThumbnailFilenameAtIndex(action.getThumbnailIndex()));
+                showMetaDataOfFilename(data.thumbnailsPanel.geFilename(action.getThumbnailIndex()));
             } else {
                 emptyMetadata();
             }

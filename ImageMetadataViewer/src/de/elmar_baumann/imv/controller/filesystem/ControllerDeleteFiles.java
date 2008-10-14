@@ -58,7 +58,7 @@ public class ControllerDeleteFiles extends Controller implements ActionListener 
             }
             if (count > 0) {
                 db.deleteImageFiles(deletedFiles);
-                thumbnailsPanel.removeFilenames(deletedFiles);
+                thumbnailsPanel.remove(deletedFiles);
             }
         }
     }
