@@ -121,9 +121,10 @@ public class ExifMetadata {
     }
 
     private static void close(ImageReader reader) {
-        if (reader != null) {
-            reader.close();
-        }
+        // causes exceptions e.g. in TableModelExif#setExifData(): entry.toString()
+//        if (reader != null) {
+//            reader.close();
+//        }
     }
 
     private static void addIfdEntriesOfDirectory(ImageFileDirectory ifd,
@@ -232,20 +233,26 @@ public class ExifMetadata {
         List<IFDEntry> exifEntries = exifMetadata.getMetadata(filename);
         if (exifEntries != null) {
             exif = new Exif();
-            IFDEntry dateTimeOriginalEntry = ExifMetadata.findEntryWithTag(exifEntries, ExifTag.DateTimeOriginal.getId());
-            IFDEntry focalLengthEntry = ExifMetadata.findEntryWithTag(exifEntries, ExifTag.FocalLength.getId());
-            IFDEntry isoSpeedRatingsEntry = ExifMetadata.findEntryWithTag(exifEntries, ExifTag.ISOSpeedRatings.getId());
-            IFDEntry modelEntry = ExifMetadata.findEntryWithTag(exifEntries, ExifTag.Model.getId());
-            if (dateTimeOriginalEntry != null) {
-                setExifDateTimeOriginal(exif, dateTimeOriginalEntry);
+            try {
+                IFDEntry dateTimeOriginalEntry = ExifMetadata.findEntryWithTag(exifEntries, ExifTag.DateTimeOriginal.getId());
+                IFDEntry focalLengthEntry = ExifMetadata.findEntryWithTag(exifEntries, ExifTag.FocalLength.getId());
+                IFDEntry isoSpeedRatingsEntry = ExifMetadata.findEntryWithTag(exifEntries, ExifTag.ISOSpeedRatings.getId());
+                IFDEntry modelEntry = ExifMetadata.findEntryWithTag(exifEntries, ExifTag.Model.getId());
+                if (dateTimeOriginalEntry != null) {
+                    setExifDateTimeOriginal(exif, dateTimeOriginalEntry);
+                }
+                if (focalLengthEntry != null) {
+                    setExifFocalLength(exif, focalLengthEntry);
+                }
+                if (isoSpeedRatingsEntry != null) {
+                    setExifIsoSpeedRatings(exif, isoSpeedRatingsEntry);
+                }
+                setExifEquipment(exif, modelEntry);
+            } catch (Exception ex) {
+                Logger.getLogger(ImageMetadataToDatabase.class.getName()).log(Level.WARNING, ex.getMessage());
+                ErrorListeners.getInstance().notifyErrorListener(new ErrorEvent(ex.toString(), ExifMetadata.class));
+                exif = null;
             }
-            if (focalLengthEntry != null) {
-                setExifFocalLength(exif, focalLengthEntry);
-            }
-            if (isoSpeedRatingsEntry != null) {
-                setExifIsoSpeedRatings(exif, isoSpeedRatingsEntry);
-            }
-            setExifEquipment(exif, modelEntry);
         }
         return exif;
     }
@@ -253,12 +260,7 @@ public class ExifMetadata {
     private static void setExifDateTimeOriginal(Exif exifData,
         IFDEntry dateTimeOriginalEntry) {
         String datestring = null;
-        try {
-            datestring = dateTimeOriginalEntry.toString(); // had thrown a null pointer exception
-        } catch (Exception ex) {
-            Logger.getLogger(ImageMetadataToDatabase.class.getName()).log(Level.WARNING, ex.getMessage());
-            ErrorListeners.getInstance().notifyErrorListener(new ErrorEvent(ex.toString(), ExifMetadata.class));
-        }
+        datestring = dateTimeOriginalEntry.toString(); // had thrown a null pointer exception
         if (datestring != null && datestring.length() >= 11) {
             try {
                 int year = new Integer(datestring.substring(0, 4)).intValue();
