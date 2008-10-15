@@ -6,6 +6,7 @@ import de.elmar_baumann.imv.event.ProgressEvent;
 import de.elmar_baumann.imv.event.ProgressListener;
 import de.elmar_baumann.imv.image.metadata.iptc.IptcMetadata;
 import de.elmar_baumann.imv.image.metadata.xmp.XmpMetadata;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,7 +47,7 @@ public class IptcToXmp implements Runnable {
         for (index = 0; !stop && index < size; index++) {
             String imageFilename = filenames.get(index);
             String sidecarFilename = XmpMetadata.suggestSidecarFilename(imageFilename);
-            Iptc iptc = IptcMetadata.getIptc(imageFilename);
+            Iptc iptc = IptcMetadata.getIptc(new File(imageFilename));
             Xmp xmp = XmpMetadata.getXmp(imageFilename);
             if (xmp == null) {
                 xmp = new Xmp();

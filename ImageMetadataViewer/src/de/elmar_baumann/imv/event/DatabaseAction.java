@@ -2,6 +2,7 @@ package de.elmar_baumann.imv.event;
 
 import de.elmar_baumann.imv.data.ImageFile;
 import de.elmar_baumann.imv.data.SavedSearch;
+import java.io.File;
 import java.util.List;
 
 /**
@@ -202,6 +203,10 @@ public class DatabaseAction {
      */
     public String getFilename() {
         return filename;
+    }
+    
+    public File getFile() {
+        return new File(filename);
     }
 
     /**

@@ -16,6 +16,7 @@ import de.elmar_baumann.imv.io.IoUtil;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.awt.Image;
+import java.io.File;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -232,13 +233,13 @@ public class ImageMetadataToDatabase implements Runnable {
     private Image getThumbnail(String filename) {
         UserSettings settings = UserSettings.getInstance();
         Image thumbnail = null;
+        File file = new File(filename);
         if (settings.isCreateThumbnailsWithExternalApp()) {
             thumbnail = ThumbnailUtil.getThumbnailFromExternalApplication(
-                filename,
-                settings.getExternalThumbnailCreationCommand(), getMaxThumbnailLength());
+                file, settings.getExternalThumbnailCreationCommand(), getMaxThumbnailLength());
         } else {
             thumbnail = ThumbnailUtil.getThumbnail(
-                filename, getMaxThumbnailLength(), isUseEmbeddedThumbnails());
+                file, getMaxThumbnailLength(), isUseEmbeddedThumbnails());
         }
         if (thumbnail == null) {
             notifyNullThumbnail(filename);
@@ -247,7 +248,7 @@ public class ImageMetadataToDatabase implements Runnable {
     }
 
     private void setExif(ImageFile imageFileData) {
-        Exif exif = ExifMetadata.getExif(imageFileData.getFilename());
+        Exif exif = ExifMetadata.getExif(imageFileData.getFile());
         if (exif != null && !exif.isEmpty()) {
             imageFileData.setExif(exif);
         }

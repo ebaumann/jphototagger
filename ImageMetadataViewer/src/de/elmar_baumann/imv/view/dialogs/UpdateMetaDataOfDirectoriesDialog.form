@@ -35,7 +35,7 @@
                   <Component id="checkBoxForce" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="checkBoxIncludeSubdirectories" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="scrollPaneSelectedDirectories" alignment="1" pref="647" max="32767" attributes="0"/>
-                  <Component id="progressBarScan" alignment="0" pref="647" max="32767" attributes="2"/>
+                  <Component id="progressBar" alignment="0" pref="647" max="32767" attributes="2"/>
                   <Component id="labelInfotext" alignment="0" pref="647" max="32767" attributes="0"/>
                   <Component id="labelHeadingTreeChosenDirectories" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="labelCurrentFilename" alignment="0" pref="647" max="32767" attributes="0"/>
@@ -58,7 +58,7 @@
               <EmptySpace min="-2" max="-2" attributes="0"/>
               <Component id="labelInfotext" min="-2" pref="35" max="-2" attributes="0"/>
               <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Component id="progressBarScan" min="-2" pref="23" max="-2" attributes="0"/>
+              <Component id="progressBar" min="-2" pref="23" max="-2" attributes="0"/>
               <EmptySpace min="-2" max="-2" attributes="0"/>
               <Component id="labelCurrentFilename" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -95,7 +95,7 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JProgressBar" name="progressBarScan">
+    <Component class="javax.swing.JProgressBar" name="progressBar">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Dialog" size="12" style="0"/>

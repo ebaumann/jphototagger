@@ -12,7 +12,6 @@ import de.elmar_baumann.imv.image.metadata.exif.ExifMetadata;
 import de.elmar_baumann.imv.io.FileType;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.lib.image.ImageTransform;
-import de.elmar_baumann.lib.io.FileUtil;
 import de.elmar_baumann.lib.runtime.External;
 import java.awt.Container;
 import java.awt.Graphics2D;
@@ -37,42 +36,35 @@ import javax.swing.JPanel;
 public class ThumbnailUtil {
 
     /**
-     * Liefert ein Thumbnail von einer Bilddatei. Funktioniert die favorisierte
-     * Erzeugung - eingebettet oder skaliert - nicht, wird die jeweils andere
-     * Erzeugungsvariante ausprobiert.
+     * Returns a thumbnail of an image file. If the preferred method fails -
+     * ebeddded or scaled - the other method will be used.
      * 
-     * @param filename  Dateiname
-     * @param maxLength Maximale Länge der längeren Thumbnailseite in Pixel;
-     *                  wird (nur) beim Skalieren benutzt
-     * @param embedded  true, wenn eingebettetes Thumbnail benutzt werden soll,
-     *  f               false, wenn ein skaliertes Thumbnail berechnet werden soll
-     * @return          Thumbnail oder null, falls keines erzeugt werden konnte
+     * @param  file       file
+     * @param  maxLength  maximum length of the image
+     * @param  embedded   true if get embedded thumbnail instead of a scaled image
+     * @return thumbnail or null if errors occured
      */
-    public static Image getThumbnail(String filename, int maxLength, boolean embedded) {
+    public static Image getThumbnail(File file, int maxLength, boolean embedded) {
         Image thumbnail =
-            (embedded || FileType.isRawFile(filename)
-            ? rotateThumbnail(filename, getFileEmbeddedThumbnail(filename))
-            //            : FileType.isJpegFile(filename)
-            //            ? getScaledImage(filename, maxWidth)
-            : getScaledImageImagero(filename, maxLength));
+            (embedded || FileType.isRawFile(file.getName())
+            ? rotateThumbnail(file, getFileEmbeddedThumbnail(file))
+            : getScaledImageImagero(file, maxLength));
         if (thumbnail == null) {
             thumbnail =
                 (embedded
-                //                ? FileType.isJpegFile(filename)
-                //                ? getScaledImage(filename, maxWidth)
-                ? getScaledImageImagero(filename, maxLength)
-                : rotateThumbnail(filename, getFileEmbeddedThumbnail(filename)));
+                ? getScaledImageImagero(file, maxLength)
+                : rotateThumbnail(file, getFileEmbeddedThumbnail(file)));
         }
         return thumbnail;
     }
 
-    private static Image getFileEmbeddedThumbnail(String filename) {
+    private static Image getFileEmbeddedThumbnail(File file) {
         Image thumbnail = null;
         try {
-            ImageReader reader = ReaderFactory.createReader(filename);
+            ImageReader reader = ReaderFactory.createReader(file);
             if (reader instanceof JpegReader) {
                 IOParameterBlock ioParamBlock = new IOParameterBlock();
-                ioParamBlock.setSource(new File(filename));
+                ioParamBlock.setSource(file);
                 thumbnail = Imagero.getThumbnail(ioParamBlock, 0);
             } else if (reader instanceof TiffReader) {
                 TiffReader tiffReader = (TiffReader) reader;
@@ -92,12 +84,12 @@ public class ThumbnailUtil {
         return thumbnail;
     }
 
-    private static Image getScaledImageImagero(String filename, int maxLength) {
+    private static Image getScaledImageImagero(File file, int maxLength) {
         try {
             IOParameterBlock ioParamBlock = new IOParameterBlock();
             ImageProcOptions procOptions = new ImageProcOptions();
 
-            ioParamBlock.setSource(new File(filename));
+            ioParamBlock.setSource(file);
             procOptions.setSource(ioParamBlock);
             procOptions.setScale(maxLength);
 
@@ -118,12 +110,12 @@ public class ThumbnailUtil {
         }
     }
 
-    private static Image rotateThumbnail(String filename, Image thumbnail) {
+    private static Image rotateThumbnail(File file, Image thumbnail) {
         if (thumbnail != null) {
             ExifMetadata exifMetadata = new ExifMetadata();
             double rotateAngle =
                 exifMetadata.getThumbnailRotationAngle(
-                exifMetadata.getMetadata(filename));
+                exifMetadata.getMetadata(file));
             if (rotateAngle != 0) {
                 return ImageTransform.rotate(thumbnail, rotateAngle);
             }
@@ -132,21 +124,20 @@ public class ThumbnailUtil {
     }
 
     /**
-     * Liefert ein ThumbnailUtil von einer externen Anwendung.
+     * Returns a thumbnail created by an external application to stdout.
      * 
-     * @param filename  Dateiname
-     * @param command   Kommando zum Erzeugen des Bilds
-     * @param maxLength Maximale Länge der längeren Thumbnailseite in Pixel 
-     * @return          Thumbnail, null bei Fehlern
+     * @param file      file
+     * @param command   command to create the thumbnail
+     * @param maxLength maximum length of the image in pixel
+     * @return          thumbnail or null if errors occured
      */
-    public static Image getThumbnailFromExternalApplication(String filename,
-        String command, int maxLength) {
-        if (!FileUtil.existsFile(filename)) {
+    public static Image getThumbnailFromExternalApplication(File file, String command, int maxLength) {
+        if (!file.exists()) {
             return null;
         }
         Image image = null;
 
-        String cmd = command.replace("%s", filename).replace("%i", // NOI18N
+        String cmd = command.replace("%s", file.getAbsolutePath()).replace("%i", // NOI18N
             new Integer(maxLength).toString());
         byte[] output = External.executeGetOutput(cmd);
         if (output != null) {
@@ -162,8 +153,8 @@ public class ThumbnailUtil {
         return image;
     }
 
-    public static Image getScaledImage(String filename, int maxLength) {
-        BufferedImage image = loadImage(new File(filename));
+    public static Image getScaledImage(File file, int maxLength) {
+        BufferedImage image = loadImage(file);
         BufferedImage scaledImage = null;
         if (image != null) {
             scaledImage = stepScaleImage(image, maxLength, 0.5);

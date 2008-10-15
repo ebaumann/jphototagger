@@ -25,7 +25,7 @@ import javax.swing.JOptionPane;
 public class IptcToXmpDialog extends javax.swing.JDialog
     implements ProgressListener {
 
-    private String directoryName = ""; // NOI18N
+    private File directory = new File(""); // NOI18N
     private static final String keyDirectoryName = "de.elmar_baumann.imv.view.dialogs.IptcToXmpDialog.LastDirectory"; // NOI18N
     private boolean stop = true;
 
@@ -46,12 +46,12 @@ public class IptcToXmpDialog extends javax.swing.JDialog
 
     private void chooseDirectory() {
         DirectoryChooser dialog = new DirectoryChooser(null, UserSettings.getInstance().isAcceptHiddenDirectories());
-        dialog.setStartDirectory(new File(directoryName));
+        dialog.setStartDirectory(directory);
         dialog.setMultiSelection(false);
         dialog.setVisible(true);
         if (dialog.accepted()) {
-            directoryName = dialog.getSelectedDirectories().get(0).getAbsolutePath();
-            labelDirectoryName.setText(directoryName);
+            directory = dialog.getSelectedDirectories().get(0);
+            labelDirectoryName.setText(directory.getAbsolutePath());
             progressBar.setValue(0);
             buttonStart.setEnabled(true);
         }
@@ -75,23 +75,22 @@ public class IptcToXmpDialog extends javax.swing.JDialog
         if (visible) {
             PersistentAppSizes.getSizeAndLocation(this);
             PersistentSettings.getInstance().getComponent(this, new PersistentSettingsHints());
-            directoryName = PersistentSettings.getInstance().getString(keyDirectoryName);
+            directory = new File(PersistentSettings.getInstance().getString(keyDirectoryName));
             init();
         } else {
             PersistentAppSizes.setSizeAndLocation(this);
             PersistentSettings.getInstance().setComponent(this, new PersistentSettingsHints());
-            PersistentSettings.getInstance().setString(directoryName, keyDirectoryName);
+            PersistentSettings.getInstance().setString(directory.getAbsolutePath(), keyDirectoryName);
             dispose();
         }
         super.setVisible(visible);
     }
 
     private void init() {
-        boolean directoryExists = !directoryName.isEmpty() &&
-            FileUtil.existsDirectory(directoryName);
+        boolean directoryExists = directory.exists() && directory.isDirectory();
         buttonStart.setEnabled(directoryExists);
         if (directoryExists) {
-            labelDirectoryName.setText(directoryName);
+            labelDirectoryName.setText(directory.getAbsolutePath());
         }
         buttonStop.setEnabled(false);
     }
@@ -99,7 +98,7 @@ public class IptcToXmpDialog extends javax.swing.JDialog
     private void start() {
         stop = false;
         setEnabledButtons();
-        IptcToXmp converter = new IptcToXmp(getFilenames());
+        IptcToXmp converter = new IptcToXmp(FileUtil.getAsFilenames(getFiles()));
         converter.addProgressListener(this);
         Thread thread = new Thread(converter);
         thread.setPriority(UserSettings.getInstance().getThreadPriority());
@@ -111,14 +110,14 @@ public class IptcToXmpDialog extends javax.swing.JDialog
         stop = true;
     }
 
-    private List<String> getFilenames() {
-        List<String> directories = new ArrayList<String>();
-        directories.add(directoryName);
+    private List<File> getFiles() {
+        List<File> directories = new ArrayList<File>();
+        directories.add(directory);
         if (checkBoxSubdirectories.isSelected()) {
-            directories.addAll(FileUtil.getAllSubDirectoryNames(directoryName,
+            directories.addAll(FileUtil.getAllSubDirectories(directory,
                 UserSettings.getInstance().isAcceptHiddenDirectories()));
         }
-        return ImageFilteredDirectory.getImageFilenamesOfDirectories(directories);
+        return ImageFilteredDirectory.getImageFilesOfDirectories(directories);
     }
 
     private void setEnabledButtons() {

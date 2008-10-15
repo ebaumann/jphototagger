@@ -1,6 +1,7 @@
 package de.elmar_baumann.imv.data;
 
 import java.awt.Image;
+import java.io.File;
 
 /**
  * Daten einer Bilddatei.
@@ -27,6 +28,10 @@ public class ImageFile {
      */
     public String getFilename() {
         return filename;
+    }
+    
+    public File getFile() {
+        return new File (filename);
     }
 
     /**

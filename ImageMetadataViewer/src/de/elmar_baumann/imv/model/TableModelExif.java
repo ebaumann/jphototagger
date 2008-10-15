@@ -6,6 +6,7 @@ import de.elmar_baumann.imv.event.listener.ErrorListeners;
 import de.elmar_baumann.imv.image.metadata.exif.ExifIfdEntryDisplayComparator;
 import de.elmar_baumann.imv.image.metadata.exif.ExifMetadata;
 import de.elmar_baumann.imv.resource.Bundle;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -21,7 +22,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class TableModelExif extends DefaultTableModel {
 
-    private String filename;
+    private File file;
     private List<IFDEntry> allEntries;
 
     public TableModelExif() {
@@ -34,22 +35,21 @@ public class TableModelExif extends DefaultTableModel {
     }
 
     /**
-     * Liefert den Dateinamen des Bilds.
+     * Returns the file.
      * 
-     * @return Dateiname. Null, wenn keiner gesetzt wurde.
+     * @return file or null if not set
      */
-    public String getFilename() {
-        return filename;
+    public File getFile() {
+        return file;
     }
 
     /**
-     * Setzt den Dateinamen des Bilds. Der bisherige Inhalt wird ersetzt
-     * durch die EXIF-Daten des Bilds.
+     * Sets the file with exif metadata to be displayed.
      * 
-     * @param filename Dateiname
+     * @param file file
      */
-    public void setFilename(String filename) {
-        this.filename = filename;
+    public void setFile(File file) {
+        this.file = file;
         removeAllElements();
         try {
             setExifData();
@@ -69,7 +69,7 @@ public class TableModelExif extends DefaultTableModel {
 
     private void setExifData() {
         ExifMetadata exifMetadata = new ExifMetadata();
-        allEntries = exifMetadata.getMetadata(filename);
+        allEntries = exifMetadata.getMetadata(file);
         if (allEntries != null) {
             List<IFDEntry> entries = ExifMetadata.getDisplayableMetadata(allEntries);
             if (entries != null) {

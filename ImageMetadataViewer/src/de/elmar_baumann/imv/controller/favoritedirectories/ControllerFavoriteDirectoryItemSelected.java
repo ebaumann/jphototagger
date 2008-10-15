@@ -7,8 +7,7 @@ import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuPanelThumbnails;
-import de.elmar_baumann.lib.io.FileUtil;
-import java.util.ArrayList;
+import java.io.File;
 import java.util.Collections;
 import java.util.List;
 import javax.swing.JList;
@@ -48,15 +47,12 @@ public class ControllerFavoriteDirectoryItemSelected extends Controller
     }
 
     private void setFilenamesToThumbnailsPanel() {
-        thumbnailsPanel.setFiles(FileUtil.getAsFiles(getSortedFilenamesOfCurrentDirectory()));
+        thumbnailsPanel.setFiles(getFilesOfCurrentDirectory());
         PopupMenuPanelThumbnails.getInstance().setIsImageCollection(false);
     }
 
-    private List<String> getSortedFilenamesOfCurrentDirectory() {
+    private List<File> getFilesOfCurrentDirectory() {
         FavoriteDirectory favorite = (FavoriteDirectory) listFavoriteDirectories.getSelectedValue();
-        List<String> filenames =
-            ImageFilteredDirectory.getImageFilenamesOfDirectory(favorite.getDirectoryName());
-        Collections.sort(filenames);
-        return filenames;
+        return ImageFilteredDirectory.getImageFilesOfDirectory(new File(favorite.getDirectoryName()));
     }
 }

@@ -26,27 +26,10 @@ import javax.swing.JOptionPane;
 public class CopyFiles implements Runnable {
 
     private List<ProgressListener> progressListeners = new ArrayList<ProgressListener>();
-    private List<Pair<String, String>> filenames = new ArrayList<Pair<String, String>>();
-    private List<String> errorFilenames = new ArrayList<String>();
+    private List<Pair<File, File>> files = new ArrayList<Pair<File, File>>();
+    private List<File> errorFiles = new ArrayList<File>();
     private boolean stop = false;
     private boolean forceOverwrite = false;
-
-    /**
-     * Standardkonstruktor. Mit {@link #setFilenames(java.util.List)} werden
-     * die zu kopierenden Dateien gesetzt.
-     */
-    public CopyFiles() {
-    }
-
-    /**
-     * Konstruktor.
-     * 
-     * @param filenames  Namen der zu kopierenden Dateien. Der erste im Paar
-     *                   ist die Quelldatei, der zweite die Zieldatei.
-     */
-    public CopyFiles(List<Pair<String, String>> filenames) {
-        this.filenames = filenames;
-    }
 
     /**
      * Beendet das Kopieren.
@@ -58,11 +41,11 @@ public class CopyFiles implements Runnable {
     /**
      * Setzt die zu kopierenden Dateien.
      * 
-     * @param filenames  Namen der zu kopierenden Dateien. Der erste im Paar
-     *                   ist die Quelldatei, der zweite die Zieldatei.
+     * @param files  Zu kopierende Dateien. Die erste im Paar
+     *               ist die Quelldatei, die zweite die Zieldatei.
      */
-    public void setFilenames(List<Pair<String, String>> filenames) {
-        this.filenames = filenames;
+    public void setFiles(List<Pair<File, File>> files) {
+        this.files = files;
     }
 
     /**
@@ -109,20 +92,20 @@ public class CopyFiles implements Runnable {
     @Override
     public void run() {
         notifyStart();
-        int count = filenames.size();
-        for (int i = 0; !stop && i < count; i++) {
-            Pair<String, String> filePair = filenames.get(i);
+        int size = files.size();
+        for (int i = 0; !stop && i < size; i++) {
+            Pair<File, File> filePair = files.get(i);
             if (checkOverwrite(filePair)) {
                 try {
-                    FileUtil.copyFile(new File(filePair.getFirst()), new File(filePair.getSecond()));
+                    FileUtil.copyFile(filePair.getFirst(), filePair.getSecond());
                 } catch (IOException ex) {
                     Logger.getLogger(CopyFiles.class.getName()).log(Level.SEVERE, null, ex);
                     ErrorListeners.getInstance().notifyErrorListener(new ErrorEvent(ex.toString(), this));
-                    errorFilenames.add(filePair.getFirst());
+                    errorFiles.add(filePair.getFirst());
                 } catch (Exception ex) {
                     Logger.getLogger(CopyFiles.class.getName()).log(Level.SEVERE, null, ex);
                     ErrorListeners.getInstance().notifyErrorListener(new ErrorEvent(ex.toString(), this));
-                    errorFilenames.add(filePair.getFirst());
+                    errorFiles.add(filePair.getFirst());
                 }
             }
             notifyPerformed(i, filePair);
@@ -131,31 +114,31 @@ public class CopyFiles implements Runnable {
     }
 
     private void notifyStart() {
-        ProgressEvent evt = new ProgressEvent(this, 0, filenames.size(), 0, null);
+        ProgressEvent evt = new ProgressEvent(this, 0, files.size(), 0, null);
         for (ProgressListener listener : progressListeners) {
             listener.progressStarted(evt);
         }
     }
 
-    private void notifyPerformed(int value, Pair<String, String> filePair) {
-        ProgressEvent evt = new ProgressEvent(this, 0, filenames.size(), value, filePair);
+    private void notifyPerformed(int value, Pair<File, File> filePair) {
+        ProgressEvent evt = new ProgressEvent(this, 0, files.size(), value, filePair);
         for (ProgressListener listener : progressListeners) {
             listener.progressPerformed(evt);
         }
     }
 
     private void notifyEnded() {
-        ProgressEvent evt = new ProgressEvent(this, 0, filenames.size(), filenames.size(), errorFilenames);
+        ProgressEvent evt = new ProgressEvent(this, 0, files.size(), files.size(), errorFiles);
         for (ProgressListener listener : progressListeners) {
             listener.progressEnded(evt);
         }
     }
 
-    private boolean checkOverwrite(Pair<String, String> filePair) {
+    private boolean checkOverwrite(Pair<File, File> filePair) {
         if (forceOverwrite) {
             return true;
         }
-        File target = new File(filePair.getSecond());
+        File target = filePair.getSecond();
         if (target.exists()) {
             MessageFormat msg = new MessageFormat(Bundle.getString("CopyFiles.ConfirmMessage.OverwriteExisting"));
             Object[] params = {filePair.getSecond(), filePair.getFirst()};

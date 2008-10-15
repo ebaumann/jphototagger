@@ -103,8 +103,7 @@ public class ControllerShowMetadata extends Controller
     public void thumbnailSelected(ThumbnailsPanelAction action) {
         if (isStarted()) {
             if (data.thumbnailsPanel.getSelectionCount() == 1) {
-                showMetaDataOfFilename(data.thumbnailsPanel.getFile(
-                    action.getThumbnailIndex()).getAbsolutePath());
+                showMetaDataOfFile(data.thumbnailsPanel.getFile(action.getThumbnailIndex()));
             } else {
                 emptyMetadata();
             }
@@ -150,18 +149,18 @@ public class ControllerShowMetadata extends Controller
         data.exifTableModel.removeAllElements();
     }
 
-    public void showMetaDataOfFilename(String filename) {
+    public void showMetaDataOfFile(File file) {
         removeMetadataFromTables();
-        setFilenameToTableModels(filename);
-        setXmpModels(filename);
-        setMetadataFilename(new File(filename).getName());
+        setFileToTableModels(file);
+        setXmpModels(file.getAbsolutePath());
+        setMetadataFilename(file.getName());
         resizeMetadataTables();
         repaintMetadataTables();
     }
 
-    private void setFilenameToTableModels(String filename) {
-        data.iptcTableModel.setFilename(filename);
-        data.exifTableModel.setFilename(filename);
+    private void setFileToTableModels(File file) {
+        data.iptcTableModel.setFile(file);
+        data.exifTableModel.setFile(file);
     }
 
     private void setXmpModels(String filename) {
@@ -200,17 +199,17 @@ public class ControllerShowMetadata extends Controller
         DatabaseAction.Type actionType = action.getType();
         if (isStarted() && (actionType.equals(DatabaseAction.Type.ImageFileInserted) ||
             actionType.equals(DatabaseAction.Type.ImageFileUpdated))) {
-            showUpdates(action.getImageFileData().getFilename());
+            showUpdates(action.getImageFileData().getFile());
         } else if (isStarted() && actionType.equals(DatabaseAction.Type.XmpUpdated)) {
-            showUpdates(action.getFilename());
+            showUpdates(action.getFile());
         }
     }
 
-    private void showUpdates(String filename) {
+    private void showUpdates(File file) {
         if (data.thumbnailsPanel.getSelectionCount() == 1) {
-            String selectedFilename = data.thumbnailsPanel.getSelectedFiles().get(0).getAbsolutePath();
-            if (filename.equals(selectedFilename)) {
-                showMetaDataOfFilename(selectedFilename);
+            File selectedFile = data.thumbnailsPanel.getSelectedFiles().get(0);
+            if (file.equals(selectedFile)) {
+                showMetaDataOfFile(selectedFile);
             }
         }
     }

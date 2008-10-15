@@ -38,10 +38,10 @@ import javax.swing.SpinnerNumberModel;
  */
 public class RenameDialog extends javax.swing.JDialog {
 
-    private List<String> filenames = new ArrayList<String>();
+    private List<File> files = new ArrayList<File>();
     private List<RenameFileListener> renameFileListeners = new ArrayList<RenameFileListener>();
     private FilenameFormatArray filenameFormatArray = new FilenameFormatArray();
-    private int filenameIndex = 0;
+    private int fileIndex = 0;
     private boolean lockClose = false;
     private boolean stop = false;
 
@@ -73,12 +73,12 @@ public class RenameDialog extends javax.swing.JDialog {
     }
 
     /**
-     * Sets the filenames to rename;
+     * Sets the files to rename;
      * 
-     * @param filenames  filenames
+     * @param files  files
      */
-    public void setFilenames(List<String> filenames) {
-        this.filenames = filenames;
+    public void setFilenames(List<File> files) {
+        this.files = files;
     }
 
     public void addRenameFileListener(RenameFileListener listener) {
@@ -128,9 +128,9 @@ public class RenameDialog extends javax.swing.JDialog {
     private void renameViaTemplate() {
         lockClose = true;
         tabbedPane.setEnabledAt(1, false);
-        int size = filenames.size();
+        int size = files.size();
         for (int i = 0; !stop && i < size; i++) {
-            File oldFile = new File(filenames.get(i));
+            File oldFile = files.get(i);
             String parent = oldFile.getParent();
             File newFile = new File(
                 (parent == null ? "" : parent + File.separator) +
@@ -149,8 +149,8 @@ public class RenameDialog extends javax.swing.JDialog {
 
     private void renameViaInput() {
         lockClose = true;
-        if (filenameIndex >= 0 && filenameIndex < filenames.size()) {
-            File oldFile = new File(filenames.get(filenameIndex));
+        if (fileIndex >= 0 && fileIndex < files.size()) {
+            File oldFile = files.get(fileIndex);
             if (canRenameViaInput()) {
                 File newFile = getNewFileViaInput();
                 if (renameFile(oldFile, newFile)) {
@@ -166,8 +166,8 @@ public class RenameDialog extends javax.swing.JDialog {
     }
 
     private void setNextFileViaInput() {
-        filenameIndex++;
-        if (filenameIndex > filenames.size() - 1) {
+        fileIndex++;
+        if (fileIndex > files.size() - 1) {
             setVisible(false);
             dispose();
         } else {
@@ -182,7 +182,7 @@ public class RenameDialog extends javax.swing.JDialog {
     }
 
     private boolean canRenameViaInput() {
-        File oldFile = new File(filenames.get(filenameIndex));
+        File oldFile = files.get(fileIndex);
         File newFile = getNewFileViaInput();
         return checkNewFilenameIsDefined() &&
             checkNamesNotEquals(oldFile, newFile) &&
@@ -232,8 +232,8 @@ public class RenameDialog extends javax.swing.JDialog {
     }
 
     private void setCurrentFilenameToInputPanel() {
-        if (filenameIndex >= 0 && filenameIndex < filenames.size()) {
-            File file = new File(filenames.get(filenameIndex));
+        if (fileIndex >= 0 && fileIndex < files.size()) {
+            File file = files.get(fileIndex);
             setDirectoryNameLabel(file);
             setFilenameLabel(file);
             setThumbnail(file);
@@ -276,8 +276,8 @@ public class RenameDialog extends javax.swing.JDialog {
     }
 
     private void setExampleFilename() {
-        if (filenames.size() > 0) {
-            File file = new File(filenames.get(0));
+        if (files.size() > 0) {
+            File file = files.get(0);
             setFileToFilenameFormats(file);
             setFilenameFormatArray(file);
             labelBeforeFilename.setText(file.getName());
@@ -296,9 +296,8 @@ public class RenameDialog extends javax.swing.JDialog {
 
     synchronized private void setThumbnail(File file) {
         Image thumbnail = null;
-        String filename = file.getAbsolutePath();
-        if (FileType.isJpegFile(filename)) {
-            thumbnail = ThumbnailUtil.getScaledImage(filename, panelThumbnail.getWidth());
+        if (FileType.isJpegFile(file.getName())) {
+            thumbnail = ThumbnailUtil.getScaledImage(file, panelThumbnail.getWidth());
         //thumbnail = ThumbnailUtil.getThumbnail(filename, panelThumbnail.getWidth(), true);
         }
         panelThumbnail.setImage(thumbnail);

@@ -8,7 +8,6 @@ import com.imagero.reader.iptc.IPTCEntryMeta;
 import de.elmar_baumann.imv.data.Iptc;
 import de.elmar_baumann.imv.event.ErrorEvent;
 import de.elmar_baumann.imv.event.listener.ErrorListeners;
-import de.elmar_baumann.lib.io.FileUtil;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -27,17 +26,17 @@ public class IptcMetadata {
     /**
      * Liefert die IPTC-Metadaten einer Datei.
      * 
-     * @param  filename  Dateiname
+     * @param  file  Datei
      * @return Metadaten oder null bei Lesefehlern
      */
-    public List<IptcEntry> getMetadata(String filename) {
-        if (!FileUtil.existsFile(filename)) {
+    public List<IptcEntry> getMetadata(File file) {
+        if (!file.exists()) {
             return null;
         }
         List<IptcEntry> metadata = new ArrayList<IptcEntry>();
 
         try {
-            IPTCEntryCollection collection = MetadataUtils.getIPTC(new File(filename));
+            IPTCEntryCollection collection = MetadataUtils.getIPTC(file);
             if (collection != null) {
                 addEntries(collection.getEntries(IPTCConstants.RECORD_APPLICATION), metadata);
             }
@@ -108,13 +107,13 @@ public class IptcMetadata {
     /**
      * Liefert die IPTC-Daten einer Datei.
      * 
-     * @param  filename  Dateiname
+     * @param  file  Datei
      * @return Daten oder null bei Fehlern
      */
-    public static Iptc getIptc(String filename) {
+    public static Iptc getIptc(File file) {
         Iptc iptc = null;
         IptcMetadata iptcMetadata = new IptcMetadata();
-        List<IptcEntry> iptcEntries = iptcMetadata.getMetadata(filename);
+        List<IptcEntry> iptcEntries = iptcMetadata.getMetadata(file);
         if (iptcEntries != null) {
             iptc = new Iptc();
             for (IptcEntry iptcEntry : iptcEntries) {

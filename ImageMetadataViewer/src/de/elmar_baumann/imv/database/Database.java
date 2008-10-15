@@ -757,11 +757,12 @@ public class Database {
         UserSettings settings = UserSettings.getInstance();
         int maxTnWidth = settings.getMaxThumbnailWidth();
         boolean useEmbeddedTn = settings.isUseEmbeddedThumbnails();
+        File file = new File(filename);
         if (settings.isCreateThumbnailsWithExternalApp()) {
-            return ThumbnailUtil.getThumbnailFromExternalApplication(filename,
+            return ThumbnailUtil.getThumbnailFromExternalApplication(file,
                 settings.getExternalThumbnailCreationCommand(), maxTnWidth);
         } else {
-            return ThumbnailUtil.getThumbnail(filename, maxTnWidth, useEmbeddedTn);
+            return ThumbnailUtil.getThumbnail(file, maxTnWidth, useEmbeddedTn);
         }
     }
 

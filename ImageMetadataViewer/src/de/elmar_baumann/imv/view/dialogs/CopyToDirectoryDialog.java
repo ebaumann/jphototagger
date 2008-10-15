@@ -28,7 +28,7 @@ public class CopyToDirectoryDialog extends javax.swing.JDialog
     private static final String keyLastDirectory = "de.elmar_baumann.imv.view.dialogs.CopyToDirectoryDialog.LastDirectory"; // NOI18N
     private CopyFiles copyTask;
     private boolean copy = false;
-    private List<String> sourceFiles;
+    private List<File> sourceFiles;
     private String lastDirectory = ""; // NOI18N
 
     /** Creates new form CopyToDirectoryDialog */
@@ -63,7 +63,8 @@ public class CopyToDirectoryDialog extends javax.swing.JDialog
     }
 
     private void startCopy() {
-        copyTask = new CopyFiles(getFilenames());
+        copyTask = new CopyFiles();
+        copyTask.setFiles(getFiles());
         copyTask.addProgressListener(this);
         copyTask.setForceOverwrite(checkBoxForceOverwrite.isSelected());
         Thread thread = new Thread(copyTask);
@@ -71,12 +72,12 @@ public class CopyToDirectoryDialog extends javax.swing.JDialog
         thread.start();
     }
 
-    private List<Pair<String, String>> getFilenames() {
+    private List<Pair<File, File>> getFiles() {
         String directory = labelDirectoryName.getText().trim();
-        List<Pair<String, String>> filePairs = new ArrayList<Pair<String, String>>();
-        for (String sourceFile : sourceFiles) {
-            filePairs.add(new Pair<String, String>(sourceFile,
-                directory + File.separator + FileUtil.getFilename(sourceFile)));
+        List<Pair<File, File>> filePairs = new ArrayList<Pair<File, File>>();
+        for (File sourceFile : sourceFiles) {
+            File targetFile = new File(directory + File.separator + sourceFile.getName());
+            filePairs.add(new Pair<File, File>(sourceFile, targetFile));
         }
         return filePairs;
     }
@@ -111,7 +112,7 @@ public class CopyToDirectoryDialog extends javax.swing.JDialog
      * 
      * @param sourceFiles  Quelldateien
      */
-    public void setSourceFiles(List<String> sourceFiles) {
+    public void setSourceFiles(List<File> sourceFiles) {
         this.sourceFiles = sourceFiles;
     }
 
@@ -145,7 +146,7 @@ public class CopyToDirectoryDialog extends javax.swing.JDialog
     public void progressPerformed(ProgressEvent evt) {
         progressBar.setValue(evt.getValue());
         @SuppressWarnings("unchecked")
-        String filename = ((Pair<String, String>) evt.getInfo()).getFirst();
+        String filename = ((Pair<File, File>) evt.getInfo()).getFirst().getAbsolutePath();
         labelCurrentFilename.setText(filename);
     }
 

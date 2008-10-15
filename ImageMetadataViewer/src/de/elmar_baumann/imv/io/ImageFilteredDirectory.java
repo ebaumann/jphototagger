@@ -2,11 +2,9 @@ package de.elmar_baumann.imv.io;
 
 import de.elmar_baumann.imv.AppSettings;
 import de.elmar_baumann.imv.UserSettings;
-import de.elmar_baumann.lib.io.FileUtil;
 import de.elmar_baumann.lib.util.ArrayUtil;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -17,29 +15,26 @@ import java.util.List;
  */
 public class ImageFilteredDirectory {
 
-    private String directoryname;
-    private List<String> filenames = new ArrayList<String>();
-
-    public ImageFilteredDirectory() {
-    }
+    private File directory;
+    private List<File> imageFiles = new ArrayList<File>();
 
     /**
-     * Liefert die gefilterten Dateinamen (nur Bilddateien).
+     * Liefert die gefilterten Dateien (nur Bilddateien).
      * 
-     * @return Dateinamen
+     * @return Dateien
      */
-    public List<String> getFilenames() {
-        return filenames;
+    public List<File> getFiles() {
+        return imageFiles;
     }
 
     /**
      * Setzt das Verzeichnis, dessen Dateien angezeigt werden.
      * Die Dateien des Verzeichnisses ersetzen die existierenden.
      * 
-     * @param directoryname Verzeichnisname
+     * @param directory Verzeichnis
      */
-    public void setDirectoryname(String directoryname) {
-        this.directoryname = directoryname;
+    public void setDirectory(File directory) {
+        this.directory = directory;
         refresh();
     }
 
@@ -47,31 +42,18 @@ public class ImageFilteredDirectory {
      * Liest die Dateien des aktuellen Verzeichnisses (erneut) ein.
      */
     public void refresh() {
-        if (directoryname != null) {
-            empty();
-            addFilesOfCurrentDirectory();
-        }
+        empty();
+        addFilesOfCurrentDirectory();
     }
 
     /**
      * Liefert alle Bilddateien eines Verzeichnisses.
      * 
-     * @param directory Verzeichnis
-     * @return          Bilddateien in diesem Verzeichnis
+     * @param  directory  Verzeichnis
+     * @return Bilddateien dieses Verzeichnisses
      */
     public static List<File> getImageFilesOfDirectory(File directory) {
-        return getImageFilesOfDirectory(directory.getAbsolutePath());
-    }
-
-    /**
-     * Liefert alle Bilddateien eines Verzeichnisses.
-     * 
-     * @param directoryname Verzeichnisname
-     * @return              Bilddateien in diesem Verzeichnis
-     */
-    public static List<File> getImageFilesOfDirectory(String directoryname) {
-        File[] filteredFiles = FileUtil.getFiles(directoryname,
-            AppSettings.fileFilterAcceptedImageFileFormats);
+        File[] filteredFiles = directory.listFiles(AppSettings.fileFilterAcceptedImageFileFormats);
         List<String> excludePatterns = UserSettings.getInstance().getFileExcludePatterns();
         List<File> files = new ArrayList<File>();
         if (filteredFiles != null) {
@@ -88,66 +70,31 @@ public class ImageFilteredDirectory {
     /**
      * Liefert alle Bilddateien mehrerer Verzeichnisse.
      * 
-     * @param directorynames Namen der Verzeichnisse
-     * @return               Bilddateien in diesen Verzeichnissen
+     * @param  directories  Verzeichnisse
+     * @return Bilddateien in diesen Verzeichnissen
      */
-    public static List<File> getImageFilesOfDirectories(
-        List<String> directorynames) {
-        List<File> directories = new ArrayList<File>();
-        for (String directoryname : directorynames) {
-            directories.addAll(getImageFilesOfDirectory(directoryname));
+    public static List<File> getImageFilesOfDirectories(List<File> directories) {
+        List<File> files = new ArrayList<File>();
+        for (File directory : directories) {
+            files.addAll(getImageFilesOfDirectory(directory));
         }
-        return directories;
-    }
-
-    /**
-     * Liefert die Namen aller Bilddateien eines Verzeichnisses (absolute Pfade).
-     * 
-     * @param directoryname Verzeichnisname
-     * @return              Name der Bilddateien in diesem Verzeichnis
-     */
-    public static List<String> getImageFilenamesOfDirectory(
-        String directoryname) {
-        List<File> files = getImageFilesOfDirectory(directoryname);
-        List<String> filenames = new ArrayList<String>(files.size());
-        for (File file : files) {
-            filenames.add(file.getAbsolutePath());
-        }
-        return filenames;
-    }
-
-    /**
-     * Liefert die Namen aller Bilddateien mehrerer Verzeichnisse.
-     * 
-     * @param directorynames Namen der Verzeichnisse
-     * @return               Namen der Bilddateien in diesen Verzeichnissen
-     */
-    public static List<String> getImageFilenamesOfDirectories(
-        List<String> directorynames) {
-        List<File> files = getImageFilesOfDirectories(directorynames);
-        List<String> filenames = new ArrayList<String>();
-        for (File file : files) {
-            filenames.add(file.getAbsolutePath());
-        }
-        return filenames;
+        return files;
     }
 
     private void empty() {
-        filenames.clear();
+        imageFiles.clear();
     }
 
     private void addFilesOfCurrentDirectory() {
-        File[] files = FileUtil.getFiles(directoryname,
-            AppSettings.fileFilterAcceptedImageFileFormats);
+        File[] filesOfDirectory = directory.listFiles(AppSettings.fileFilterAcceptedImageFileFormats);
         List<String> excludePatterns = UserSettings.getInstance().getFileExcludePatterns();
-        if (files != null) {
-            for (int index = 0; index < files.length; index++) {
-                String filename = files[index].getAbsolutePath();
-                if (!ArrayUtil.matches(excludePatterns, filename)) {
-                    filenames.add(filename);
+        if (filesOfDirectory != null) {
+            for (int index = 0; index < filesOfDirectory.length; index++) {
+                File file = filesOfDirectory[index];
+                if (!ArrayUtil.matches(excludePatterns, file.getAbsolutePath())) {
+                    imageFiles.add(file);
                 }
             }
         }
-        Collections.sort(filenames);
     }
 }

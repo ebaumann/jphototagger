@@ -1,4 +1,4 @@
-package de.elmar_baumann.imv;
+package de.elmar_baumann.imv; 
 
 import com.imagero.reader.AbstractImageReader;
 import de.elmar_baumann.lib.componentutil.LookAndFeelUtil;

@@ -8,9 +8,9 @@ import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.view.dialogs.RenameDialog;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuPanelThumbnails;
-import de.elmar_baumann.lib.io.FileUtil;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.Collections;
 import java.util.List;
 
@@ -40,10 +40,10 @@ public class ControllerRenameFiles extends Controller
 
     private void renameFiles() {
         RenameDialog dialog = new RenameDialog();
-        List<String> filenames = FileUtil.getAsFilenames(thumbnailsPanel.getSelectedFiles());
-        if (filenames.size() > 0) {
-            Collections.sort(filenames);
-            dialog.setFilenames(filenames);
+        List<File> files = thumbnailsPanel.getSelectedFiles();
+        if (files.size() > 0) {
+            Collections.sort(files);
+            dialog.setFilenames(files);
             dialog.addRenameFileListener(this);
             dialog.setVisible(true);
         }

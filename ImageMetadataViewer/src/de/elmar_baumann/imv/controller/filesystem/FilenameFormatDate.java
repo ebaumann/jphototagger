@@ -29,7 +29,7 @@ public class FilenameFormatDate extends FilenameFormat {
      * @param file file
      */
     private void setFromExif(File file) {
-        Exif exif = ExifMetadata.getExif(file.getAbsolutePath());
+        Exif exif = ExifMetadata.getExif(file);
         if (exif != null) {
             java.sql.Date date = exif.getDateTimeOriginal();
             if (date == null) {

@@ -6,6 +6,8 @@ import de.elmar_baumann.imv.event.ProgressListener;
 import de.elmar_baumann.imv.event.TaskListener;
 import de.elmar_baumann.imv.io.ImageFilteredDirectory;
 import de.elmar_baumann.imv.resource.Bundle;
+import de.elmar_baumann.lib.io.FileUtil;
+import java.io.File;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -150,7 +152,8 @@ public class ImageMetadataToDatabaseArray implements ProgressListener {
 
     private ImageMetadataToDatabase createUpdater(String directoryName,
         boolean onlyTextMetadata, boolean force) {
-        List<String> filenames = ImageFilteredDirectory.getImageFilenamesOfDirectory(directoryName);
+        List<String> filenames = FileUtil.getAsFilenames(
+            ImageFilteredDirectory.getImageFilesOfDirectory(new File(directoryName)));
         Collections.sort(filenames);
         int thumbnailLength = UserSettings.getInstance().getMaxThumbnailWidth();
         ImageMetadataToDatabase scanner =

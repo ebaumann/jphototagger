@@ -13,7 +13,6 @@ import de.elmar_baumann.imv.tasks.ImageMetadataToDatabase;
 import de.elmar_baumann.imv.event.ErrorEvent;
 import de.elmar_baumann.imv.event.listener.ErrorListeners;
 import de.elmar_baumann.imv.io.FileType;
-import de.elmar_baumann.lib.io.FileUtil;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
@@ -74,18 +73,18 @@ public class ExifMetadata {
     }
 
     /**
-     * Liefert die EXIF-Metadaten einer Datei.
+     * Returns the EXIF metadata of a file.
      * 
-     * @param filename Dateiname
-     * @return         Metadaten oder null bei Lesefehlern
+     * @param  file  file
+     * @return metadata oder null if errors occured
      */
-    public List<IFDEntry> getMetadata(String filename) {
-        if (!FileUtil.existsFile(filename)) {
+    public List<IFDEntry> getMetadata(File file) {
+        if (!file.exists()) {
             return null;
         }
         List<IFDEntry> metadata = new ArrayList<IFDEntry>();
         try {
-            addIFDEntries(filename, metadata);
+            addIFDEntries(file, metadata);
         } catch (IOException ex) {
             Logger.getLogger(ExifMetadata.class.getName()).log(Level.SEVERE, null, ex);
             notifyErrorListener(ex.toString());
@@ -96,10 +95,9 @@ public class ExifMetadata {
         return metadata;
     }
 
-    private static void addIFDEntries(String filename, List<IFDEntry> metadata) throws IOException {
-        File file = new File(filename);
+    private static void addIFDEntries(File file, List<IFDEntry> metadata) throws IOException {
         ImageReader reader = null;
-        if (FileType.isJpegFile(filename)) {
+        if (FileType.isJpegFile(file.getName())) {
             reader = new JpegReader(file);
             IFDEntry[][] allEntries = MetadataUtils.getExif((JpegReader) reader);
             if (allEntries != null) {
@@ -127,8 +125,7 @@ public class ExifMetadata {
 //        }
     }
 
-    private static void addIfdEntriesOfDirectory(ImageFileDirectory ifd,
-        List<IFDEntry> metadata) {
+    private static void addIfdEntriesOfDirectory(ImageFileDirectory ifd, List<IFDEntry> metadata) {
         int entryCount = ifd.getEntryCount();
         for (int i = 0; i < entryCount; i++) {
             IFDEntry ifdEntry = ifd.getEntryAt(i);
@@ -222,15 +219,15 @@ public class ExifMetadata {
     }
 
     /**
-     * Liefert die EXIF-Daten einer Bilddatei.
+     * Returns the EXIF metadata of a file.
      * 
-     * @param  filename  Dateiname
-     * @return EXIF-Daten oder null bei Fehlern
+     * @param  file  file
+     * @return EXIF metadata or null if errors occured
      */
-    public static Exif getExif(String filename) {
+    public static Exif getExif(File file) {
         Exif exif = null;
         ExifMetadata exifMetadata = new ExifMetadata();
-        List<IFDEntry> exifEntries = exifMetadata.getMetadata(filename);
+        List<IFDEntry> exifEntries = exifMetadata.getMetadata(file);
         if (exifEntries != null) {
             exif = new Exif();
             try {
@@ -257,8 +254,7 @@ public class ExifMetadata {
         return exif;
     }
 
-    private static void setExifDateTimeOriginal(Exif exifData,
-        IFDEntry dateTimeOriginalEntry) {
+    private static void setExifDateTimeOriginal(Exif exifData, IFDEntry dateTimeOriginalEntry) {
         String datestring = null;
         datestring = dateTimeOriginalEntry.toString(); // had thrown a null pointer exception
         if (datestring != null && datestring.length() >= 11) {
@@ -325,16 +321,15 @@ public class ExifMetadata {
     }
 
     /**
-     * Gibt die EXIF-Daten einer Datei auf die Standardausgabe aus.
+     * Dumps the exif metadata of a file to stdout.
      * 
-     * @param filename Dateiname
+     * @param file file
      */
-    public static void dumpExif(String filename) {
+    public static void dumpExif(File file) {
         // Code inklusive aufgerufener Operation von Andrey Kuznetsov <imagero@gmx.de>
         // E-Mail v. 22.08.2008
         try {
-            File f = new File(filename);
-            TiffReader reader = new TiffReader(f);
+            TiffReader reader = new TiffReader(file);
             int cnt = reader.getIFDCount();
             System.out.println("Count IFDs: " + cnt); // NOI18N
             for (int i = 0; i < cnt; i++) {

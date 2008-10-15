@@ -86,8 +86,7 @@ public class ControllerCreateMetaDataOfSelectedThumbnails extends Controller
         }
     }
 
-    private ImageMetadataToDatabase createUpdater(List<String> files,
-        boolean onlyTextMetadata) {
+    private ImageMetadataToDatabase createUpdater(List<String> files, boolean onlyTextMetadata) {
         ImageMetadataToDatabase updater =
             new ImageMetadataToDatabase(files,
             UserSettings.getInstance().getMaxThumbnailWidth());

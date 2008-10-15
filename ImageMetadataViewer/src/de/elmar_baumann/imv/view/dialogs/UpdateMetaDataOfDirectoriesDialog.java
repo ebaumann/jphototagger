@@ -37,7 +37,7 @@ public class UpdateMetaDataOfDirectoriesDialog extends javax.swing.JDialog imple
     private final String keySubdirectories = "de.elmar_baumann.imv.view.ScanDirectoriesDialog.subdirectories"; // NOI18N
     private final String title = Bundle.getString("UpdateMetaDataOfDirectoriesDialog.Title");
     private final String currentFilenameInfotextPrefix = Bundle.getString("UpdateMetaDataOfDirectoriesDialog.InformationMessage.UpdateCurrentFile");
-    private List<String> selectedImagesFilenames = new ArrayList<String>();
+    private List<File> selectedFiles = new ArrayList<File>();
     private ImageMetadataToDatabase activeScanner;
     private File lastSelectedDirectory = new File(""); // NOI18N
     private DefaultListModel modelSelectedDirectoryList = new DefaultListModel();
@@ -62,7 +62,7 @@ public class UpdateMetaDataOfDirectoriesDialog extends javax.swing.JDialog imple
 
     private void addFilecountToTitle() {
         MessageFormat message = new MessageFormat(Bundle.getString("UpdateMetaDataOfDirectoriesDialog.InfoMessage.Title.FileCount"));
-        Object[] params = {selectedImagesFilenames.size()};
+        Object[] params = {selectedFiles.size()};
         setTitle(title + message.format(params));
     }
 
@@ -87,7 +87,7 @@ public class UpdateMetaDataOfDirectoriesDialog extends javax.swing.JDialog imple
 
     private void createScanner() {
         activeScanner =
-            new ImageMetadataToDatabase(selectedImagesFilenames,
+            new ImageMetadataToDatabase(FileUtil.getAsFilenames(selectedFiles),
             UserSettings.getInstance().getMaxThumbnailWidth());
         activeScanner.setCreateThumbnails(!checkBoxNoThumbnails.isSelected());
         activeScanner.setForceUpdate(checkBoxForce.isSelected());
@@ -151,7 +151,7 @@ public class UpdateMetaDataOfDirectoriesDialog extends javax.swing.JDialog imple
     }
 
     private void empty() {
-        selectedImagesFilenames.clear();
+        selectedFiles.clear();
         modelSelectedDirectoryList.removeAllElements();
         listSelectedDirectories.setEnabled(true);
         countSelectedFiles = 0;
@@ -201,8 +201,7 @@ public class UpdateMetaDataOfDirectoriesDialog extends javax.swing.JDialog imple
     }
 
     private void setImageFilenames() {
-        selectedImagesFilenames =
-            FileUtil.getAbsolutePathnames(getAllImageFiles());
+        selectedFiles = getAllImageFiles();
     }
 
     private void setLastDirectory() {
@@ -218,8 +217,8 @@ public class UpdateMetaDataOfDirectoriesDialog extends javax.swing.JDialog imple
 
     private void setProgressBarForScan() {
         zeroProgressBar();
-        progressBarScan.setMinimum(0);
-        progressBarScan.setMaximum(selectedImagesFilenames.size());
+        progressBar.setMinimum(0);
+        progressBar.setMaximum(selectedFiles.size());
     }
 
     private void addDirectories(List<File> directories) {
@@ -252,7 +251,7 @@ public class UpdateMetaDataOfDirectoriesDialog extends javax.swing.JDialog imple
     }
 
     private void zeroProgressBar() {
-        progressBarScan.setValue(0);
+        progressBar.setValue(0);
     }
 
     private synchronized void stopScanner() {
@@ -305,12 +304,24 @@ public class UpdateMetaDataOfDirectoriesDialog extends javax.swing.JDialog imple
 
     @Override
     public void progressStarted(ProgressEvent evt) {
+        progressBar.setMinimum(evt.getMinimum());
+        progressBar.setMaximum(evt.getMaximum());
+        progressBar.setValue(evt.getValue());
     }
 
     @Override
     public void progressPerformed(ProgressEvent evt) {
-        progressBarScan.setValue(evt.getValue());
+        progressBar.setValue(evt.getValue());
         setProgressPerformedInfo(evt);
+    }
+
+    @Override
+    public void progressEnded(ProgressEvent evt) {
+        progressBar.setValue(evt.getValue());
+        Logger.getLogger(UpdateMetaDataOfDirectoriesDialog.class.getName()).log(Level.FINE, Bundle.getString("UpdateMetaDataOfDirectoriesDialog.InformationMessage.UdateCompleted"));
+        listSelectedDirectories.setEnabled(true);
+        setButtonStatus(false);
+        setCheckboxStatus(false);
     }
 
     private void setProgressPerformedInfo(ProgressEvent evt) {
@@ -325,14 +336,6 @@ public class UpdateMetaDataOfDirectoriesDialog extends javax.swing.JDialog imple
         labelCurrentFilename.setText(message.format(params));
     }
 
-    @Override
-    public void progressEnded(ProgressEvent evt) {
-        Logger.getLogger(UpdateMetaDataOfDirectoriesDialog.class.getName()).log(Level.FINE, Bundle.getString("UpdateMetaDataOfDirectoriesDialog.InformationMessage.UdateCompleted"));
-        listSelectedDirectories.setEnabled(true);
-        setButtonStatus(false);
-        setCheckboxStatus(false);
-    }
-
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -343,7 +346,7 @@ public class UpdateMetaDataOfDirectoriesDialog extends javax.swing.JDialog imple
     private void initComponents() {
 
         labelInfotext = new javax.swing.JLabel();
-        progressBarScan = new javax.swing.JProgressBar();
+        progressBar = new javax.swing.JProgressBar();
         labelCurrentFilename = new javax.swing.JLabel();
         labelHeadingTreeChosenDirectories = new javax.swing.JLabel();
         scrollPaneSelectedDirectories = new javax.swing.JScrollPane();
@@ -367,9 +370,9 @@ public class UpdateMetaDataOfDirectoriesDialog extends javax.swing.JDialog imple
         labelInfotext.setFont(new java.awt.Font("Dialog", 0, 12));
         labelInfotext.setText(Bundle.getString("UpdateMetaDataOfDirectoriesDialog.labelInfotext.text")); // NOI18N
 
-        progressBarScan.setFont(new java.awt.Font("Dialog", 0, 12));
-        progressBarScan.setFocusable(false);
-        progressBarScan.setStringPainted(true);
+        progressBar.setFont(new java.awt.Font("Dialog", 0, 12));
+        progressBar.setFocusable(false);
+        progressBar.setStringPainted(true);
 
         labelCurrentFilename.setFont(new java.awt.Font("Dialog", 0, 10));
         labelCurrentFilename.setForeground(new java.awt.Color(51, 51, 255));
@@ -444,7 +447,7 @@ public class UpdateMetaDataOfDirectoriesDialog extends javax.swing.JDialog imple
                     .addComponent(checkBoxForce)
                     .addComponent(checkBoxIncludeSubdirectories)
                     .addComponent(scrollPaneSelectedDirectories, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 647, Short.MAX_VALUE)
-                    .addComponent(progressBarScan, javax.swing.GroupLayout.DEFAULT_SIZE, 647, Short.MAX_VALUE)
+                    .addComponent(progressBar, javax.swing.GroupLayout.DEFAULT_SIZE, 647, Short.MAX_VALUE)
                     .addComponent(labelInfotext, javax.swing.GroupLayout.DEFAULT_SIZE, 647, Short.MAX_VALUE)
                     .addComponent(labelHeadingTreeChosenDirectories)
                     .addComponent(labelCurrentFilename, javax.swing.GroupLayout.DEFAULT_SIZE, 647, Short.MAX_VALUE)
@@ -463,7 +466,7 @@ public class UpdateMetaDataOfDirectoriesDialog extends javax.swing.JDialog imple
                 .addContainerGap()
                 .addComponent(labelInfotext, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(progressBarScan, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelCurrentFilename, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -541,7 +544,7 @@ private void listSelectedDirectoriesKeyReleased(java.awt.event.KeyEvent evt) {//
     private javax.swing.JLabel labelHeadingTreeChosenDirectories;
     private javax.swing.JLabel labelInfotext;
     private javax.swing.JList listSelectedDirectories;
-    private javax.swing.JProgressBar progressBarScan;
+    private javax.swing.JProgressBar progressBar;
     private javax.swing.JScrollPane scrollPaneSelectedDirectories;
     // End of variables declaration//GEN-END:variables
 

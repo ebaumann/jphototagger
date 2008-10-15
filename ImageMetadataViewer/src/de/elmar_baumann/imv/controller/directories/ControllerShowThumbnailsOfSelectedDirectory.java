@@ -8,6 +8,7 @@ import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuPanelThumbnails;
 import de.elmar_baumann.lib.io.DirectoryTreeModelFile;
 import de.elmar_baumann.lib.io.FileUtil;
+import java.io.File;
 import java.util.Collections;
 import java.util.List;
 import javax.swing.JTree;
@@ -29,7 +30,7 @@ public class ControllerShowThumbnailsOfSelectedDirectory extends Controller
     private JTree treeDirectories = appPanel.getTreeDirectories();
     private ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelImageFileThumbnails();
     private ImageFilteredDirectory imageFilteredDirectory = new ImageFilteredDirectory();
-    private String selectedDirectory;
+    private File selectedDirectory;
 
     public ControllerShowThumbnailsOfSelectedDirectory() {
         listenToActionSource();
@@ -42,14 +43,14 @@ public class ControllerShowThumbnailsOfSelectedDirectory extends Controller
     @Override
     public void valueChanged(TreeSelectionEvent e) {
         if (isStarted() && e.isAddedPath()) {
-            selectedDirectory = getDirectorynameFromTree(treeDirectories.getSelectionPath());
-            imageFilteredDirectory.setDirectoryname(selectedDirectory);
+            selectedDirectory = new File(getDirectorynameFromTree(treeDirectories.getSelectionPath()));
+            imageFilteredDirectory.setDirectory(selectedDirectory);
             setFilenamesToThumbnailsPanel();
         }
     }
 
     private void setFilenamesToThumbnailsPanel() {
-        thumbnailsPanel.setFiles(FileUtil.getAsFiles(getSortedFilenamesOfCurrentDirectory()));
+        thumbnailsPanel.setFiles(ImageFilteredDirectory.getImageFilesOfDirectory(selectedDirectory));
         PopupMenuPanelThumbnails.getInstance().setIsImageCollection(false);
     }
 
@@ -59,11 +60,5 @@ public class ControllerShowThumbnailsOfSelectedDirectory extends Controller
         } else {
             return treePath.getLastPathComponent().toString();
         }
-    }
-
-    private List<String> getSortedFilenamesOfCurrentDirectory() {
-        List<String> filenames = ImageFilteredDirectory.getImageFilenamesOfDirectory(selectedDirectory);
-        Collections.sort(filenames);
-        return filenames;
     }
 }

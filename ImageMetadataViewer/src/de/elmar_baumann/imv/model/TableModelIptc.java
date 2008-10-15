@@ -4,6 +4,7 @@ import de.elmar_baumann.imv.image.metadata.iptc.IptcEntryComparator;
 import de.elmar_baumann.imv.image.metadata.iptc.IptcEntry;
 import de.elmar_baumann.imv.image.metadata.iptc.IptcMetadata;
 import de.elmar_baumann.imv.resource.Bundle;
+import java.io.File;
 import java.util.Collections;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
@@ -16,7 +17,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class TableModelIptc extends DefaultTableModel {
 
-    private String filename;
+    private File file;
     private List<IptcEntry> iptcEntries;
 
     public TableModelIptc() {
@@ -24,16 +25,16 @@ public class TableModelIptc extends DefaultTableModel {
     }
 
     /**
-     * Setzt den Dateinamen des Bilds. Der bisherige Inhalt wird ersetzt
+     * Setzt die Bilddatei. Der bisherige Inhalt wird ersetzt
      * durch die IPTC-Daten des Bilds.
      * 
-     * @param filename Dateiname
+     * @param file  Datei
      */
-    public void setFilename(String filename) {
-        this.filename = filename;
+    public void setFile(File file) {
+        this.file = file;
         removeAllElements();
         IptcMetadata iptcMetadata = new IptcMetadata();
-        iptcEntries = iptcMetadata.getMetadata(filename);
+        iptcEntries = iptcMetadata.getMetadata(file);
         addRows();
     }
 
@@ -45,12 +46,12 @@ public class TableModelIptc extends DefaultTableModel {
     }
 
     /**
-     * Liefert den Dateinamen des Bilds.
+     * Liefert die Bilddatei.
      * 
      * @return Dateiname. Null, falls nicht gesetzt.
      */
-    public String getFilename() {
-        return filename;
+    public File getFile() {
+        return file;
     }
 
     private void addRows() {
