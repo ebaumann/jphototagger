@@ -18,6 +18,7 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
+import javax.swing.JScrollPane;
 import javax.swing.JSlider;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
@@ -34,7 +35,6 @@ import javax.swing.tree.TreeSelectionModel;
  */
 public class AppPanel extends javax.swing.JPanel {
 
-    private static final String keyThumbnailPanelViewportViewPosition = "de.elmar_baumann.imv.view.panels.AppPanel.scrollPaneThumbnailsPanel"; // NOI18N
     private List<JTable> xmpTables = new ArrayList<JTable>();
     private List<JTable> metadataTables = new ArrayList<JTable>();
     private List<JTree> selectionTrees = new ArrayList<JTree>();
@@ -67,6 +67,10 @@ public class AppPanel extends javax.swing.JPanel {
             metadataEditActionsPanel = new MetaDataEditActionsPanel();
         }
         return metadataEditActionsPanel;
+    }
+    
+    public JScrollPane getScrollPaneThumbnailsPanel() {
+        return scrollPaneThumbnailsPanel;
     }
     
     public JSlider getSliderThumbnailSize() {
@@ -293,7 +297,6 @@ public class AppPanel extends javax.swing.JPanel {
 
     private void readPersistent() {
         PersistentSettings.getInstance().getComponent(this, getPersistentSettingsHints());
-        readPersistentViewportViewPosition();
     }
 
     private PersistentSettingsHints getPersistentSettingsHints() {
@@ -309,22 +312,6 @@ public class AppPanel extends javax.swing.JPanel {
 
     private void writePersistent() {
         PersistentSettings.getInstance().setComponent(this, getPersistentSettingsHints());
-        writePersistentViewportViewPosition();
-    }
-
-    private void readPersistentViewportViewPosition() {
-        PersistentSettings.getInstance().getScrollPane(
-            scrollPaneThumbnailsPanel,
-            keyThumbnailPanelViewportViewPosition);
-        panelImageFileThumbnails.invalidate();
-        panelImageFileThumbnails.validate();
-        panelImageFileThumbnails.repaint();
-    }
-
-    private void writePersistentViewportViewPosition() {
-        PersistentSettings.getInstance().setScrollPane(
-            scrollPaneThumbnailsPanel,
-            keyThumbnailPanelViewportViewPosition);
     }
 
     /**

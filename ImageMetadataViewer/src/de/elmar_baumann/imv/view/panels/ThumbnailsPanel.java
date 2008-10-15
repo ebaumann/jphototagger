@@ -127,7 +127,7 @@ public abstract class ThumbnailsPanel extends JPanel
     }
 
     private boolean isValidIndex(int thumbnailIndex) {
-        return thumbnailIndex >= 0 && thumbnailIndex < thumbnailAtIndex.size();
+        return thumbnailIndex >= 0 && thumbnailIndex < thumbnailCount;
     }
 
     private void setMinPanelWidth() {
