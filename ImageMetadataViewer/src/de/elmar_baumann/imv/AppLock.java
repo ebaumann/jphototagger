@@ -58,15 +58,37 @@ public class AppLock {
     }
 
     /**
-     * Displays an error message that the lock file couldn't be created.
+     * Displays an error message that the lock file couldn't be created and offers
+     * the option to unlock - delete - it.
+     * 
+     * @return  true if unlocked
      */
-    public static void errorMessageNotLocked() {
+    public static boolean forceUnlock() {
         MessageFormat msg = new MessageFormat(Bundle.getString("Lock.ErrorMessage.LockFileExists"));
-        JOptionPane.showMessageDialog(
+        if (JOptionPane.showConfirmDialog(
             null,
             msg.format(new Object[]{lockFileName}),
             Bundle.getString("Lock.ErrorMessage.LockFileExists.Title"),
+            JOptionPane.YES_NO_OPTION,
             JOptionPane.ERROR_MESSAGE,
-            AppSettings.getMediumAppIcon());
+            AppSettings.getMediumAppIcon()) == JOptionPane.YES_OPTION) {
+
+            return deleteLockFile();
+        }
+        return false;
+    }
+
+    private static boolean deleteLockFile() {
+        if (new File(lockFileName).delete()) {
+            return true;
+        } else {
+            JOptionPane.showMessageDialog(
+                null,
+                Bundle.getString("Lock.ErrorMessage.DeleteLockFile"),
+                Bundle.getString("Lock.ErrorMessage.DeleteLockFile.Title"),
+                JOptionPane.ERROR_MESSAGE,
+                AppSettings.getMediumAppIcon());
+            return false;
+        }
     }
 }

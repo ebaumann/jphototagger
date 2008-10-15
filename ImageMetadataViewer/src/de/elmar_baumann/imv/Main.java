@@ -1,4 +1,4 @@
-package de.elmar_baumann.imv; 
+package de.elmar_baumann.imv;
 
 import com.imagero.reader.AbstractImageReader;
 import de.elmar_baumann.lib.componentutil.LookAndFeelUtil;
@@ -46,8 +46,7 @@ public class Main {
     }
 
     private static void lock() {
-        if (!AppLock.lock()) {
-            AppLock.errorMessageNotLocked();
+        if (!AppLock.lock() && !AppLock.forceUnlock()) {
             System.exit(1);
         }
     }
