@@ -1,30 +1,21 @@
 package de.elmar_baumann.imv.event;
 
 /**
- * Beobachtet Ereignisse am Thumbnailspanel.
+ * Listens to {@link de.elmar_baumann.imv.view.panels.ThumbnailsPanel}.
  * 
- * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/07/20
- * @see     de.elmar_baumann.imv.view.panels.ThumbnailsPanel
+ * @author Elmar Baumann <eb@elmar-baumann.de>
  */
 public interface ThumbnailsPanelListener {
 
     /**
-     * Das Thumbnail wurde selektiert.
+     * Thumbnail were selected or deselected.
      * 
-     * @param action Aktion
+     * @param action  action
      */
-    public void thumbnailSelected(ThumbnailsPanelAction action);
+    public void selectionChanged(ThumbnailsPanelAction action);
 
     /**
-     * Alle Thumbnails wurden deselektiert.
-     * 
-     * @param action Aktion
-     */
-    public void allThumbnailsDeselected(ThumbnailsPanelAction action);
-
-    /**
-     * Die anzuzeigenden Thumbnails haben sich verändert.
+     * Count and/or order of the thumbnails changed.
      */
     public void thumbnailsChanged();
 }

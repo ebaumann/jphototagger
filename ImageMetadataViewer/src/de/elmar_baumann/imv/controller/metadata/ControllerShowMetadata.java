@@ -100,20 +100,13 @@ public class ControllerShowMetadata extends Controller
     }
 
     @Override
-    public void thumbnailSelected(ThumbnailsPanelAction action) {
+    public void selectionChanged(ThumbnailsPanelAction action) {
         if (isStarted()) {
             if (data.thumbnailsPanel.getSelectionCount() == 1) {
                 showMetaDataOfFile(data.thumbnailsPanel.getFile(action.getThumbnailIndex()));
             } else {
                 emptyMetadata();
             }
-        }
-    }
-
-    @Override
-    public void allThumbnailsDeselected(ThumbnailsPanelAction action) {
-        if (isStarted()) {
-            emptyMetadata();
         }
     }
 

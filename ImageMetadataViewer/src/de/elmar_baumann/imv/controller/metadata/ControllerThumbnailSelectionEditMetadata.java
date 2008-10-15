@@ -43,23 +43,29 @@ public class ControllerThumbnailSelectionEditMetadata
     }
 
     @Override
-    public void thumbnailSelected(ThumbnailsPanelAction action) {
+    public void selectionChanged(ThumbnailsPanelAction action) {
         if (isStarted()) {
-            boolean canEdit = canEdit();
-            buttonSave.setEnabled(canEdit);
-            editPanels.setEditable(canEdit);
-            setEditPanelsContent();
-            labelMetadataInfoEditable.setText(canEdit
-                ? multipleThumbnailsSelected()
-                ? Bundle.getString("ControllerThumbnailSelectionEditMetadata.InformationMessage.MetaDataEditAddOnlyChanges")
-                : Bundle.getString("ControllerThumbnailSelectionEditMetadata.InformationMessage.EditIsEnabled")
-                : Bundle.getString("ControllerThumbnailSelectionEditMetadata.InformationMessage.EditIsDisabled"));
+            if (thumbnailsPanel.getSelectionCount() > 0) {
+                boolean canEdit = canEdit();
+                buttonSave.setEnabled(canEdit);
+                editPanels.setEditable(canEdit);
+                setEditPanelsContent();
+                labelMetadataInfoEditable.setText(canEdit
+                    ? multipleThumbnailsSelected()
+                    ? Bundle.getString("ControllerThumbnailSelectionEditMetadata.InformationMessage.MetaDataEditAddOnlyChanges")
+                    : Bundle.getString("ControllerThumbnailSelectionEditMetadata.InformationMessage.EditIsEnabled")
+                    : Bundle.getString("ControllerThumbnailSelectionEditMetadata.InformationMessage.EditIsDisabled"));
+
+            } else {
+                buttonSave.setEnabled(false);
+                editPanels.setEditable(false);
+
+            }
         }
     }
 
     @Override
     public void thumbnailsChanged() {
-        // Nichts tun
     }
 
     private boolean multipleThumbnailsSelected() {
@@ -74,14 +80,6 @@ public class ControllerThumbnailSelectionEditMetadata
             }
         }
         return filenames.size() > 0;
-    }
-
-    @Override
-    public void allThumbnailsDeselected(ThumbnailsPanelAction action) {
-        if (isStarted()) {
-            buttonSave.setEnabled(false);
-            editPanels.setEditable(false);
-        }
     }
 
     private void setEditPanelsContent() {

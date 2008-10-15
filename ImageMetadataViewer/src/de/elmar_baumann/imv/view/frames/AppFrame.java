@@ -3,6 +3,8 @@ package de.elmar_baumann.imv.view.frames;
 import de.elmar_baumann.imv.AppSettings;
 import de.elmar_baumann.imv.AppInfo;
 import de.elmar_baumann.imv.AppLock;
+import de.elmar_baumann.imv.event.AppExitListener;
+import de.elmar_baumann.imv.event.AppStartListener;
 import de.elmar_baumann.imv.factory.MetaFactory;
 import de.elmar_baumann.imv.io.FileSort;
 import de.elmar_baumann.imv.resource.Bundle;
@@ -11,7 +13,9 @@ import de.elmar_baumann.lib.persistence.PersistentAppSizes;
 import de.elmar_baumann.lib.persistence.PersistentSettings;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import javax.swing.JMenuItem;
 import javax.swing.JRadioButtonMenuItem;
 
@@ -24,8 +28,11 @@ public class AppFrame extends javax.swing.JFrame {
 
     private HashMap<FileSort, JRadioButtonMenuItem> menuItemOfSort = new HashMap<FileSort, JRadioButtonMenuItem>();
     private HashMap<JRadioButtonMenuItem, FileSort> sortOfMenuItem = new HashMap<JRadioButtonMenuItem, FileSort>();
+    private List<AppExitListener> exitListeners = new ArrayList<AppExitListener>();
+    private List<AppStartListener> startListeners = new ArrayList<AppStartListener>();
 
     public AppFrame() {
+        Panels.getInstance().setAppFrame(this);
         initComponents();
         postInitComponents();
     }
@@ -48,9 +55,36 @@ public class AppFrame extends javax.swing.JFrame {
         readPersistent();
         listenToClose();
         setTitleAndFrameIcon();
-        Panels.getInstance().setAppFrame(this);
         MetaFactory.getInstance().startController();
-        appPanel.beforeStart();
+        notifyStart();
+    }
+
+    public void addAppStartListener(AppStartListener listener) {
+        startListeners.add(listener);
+    }
+
+    public void removeAppStartListener(AppStartListener listener) {
+        startListeners.remove(listener);
+    }
+
+    private void notifyStart() {
+        for (AppStartListener listener : startListeners) {
+            listener.appWillStart();
+        }
+    }
+
+    public void addAppExitListener(AppExitListener listener) {
+        exitListeners.add(listener);
+    }
+
+    public void removeAppExitListener(AppExitListener listener) {
+        exitListeners.remove(listener);
+    }
+
+    private void notifyExit() {
+        for (AppExitListener listener : exitListeners) {
+            listener.appWillExit();
+        }
     }
 
     public JRadioButtonMenuItem getMenuItemOfSort(FileSort sort) {
@@ -120,8 +154,8 @@ public class AppFrame extends javax.swing.JFrame {
     }
 
     private void quit() {
+        notifyExit();
         MetaFactory.getInstance().stopController();
-        appPanel.beforeQuit();
         writePersistent();
         dispose();
         AppLock.unlock();

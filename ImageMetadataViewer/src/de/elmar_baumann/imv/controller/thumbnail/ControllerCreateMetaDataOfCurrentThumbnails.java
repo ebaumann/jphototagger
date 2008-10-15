@@ -77,13 +77,7 @@ public class ControllerCreateMetaDataOfCurrentThumbnails extends Controller
     }
 
     @Override
-    public void thumbnailSelected(ThumbnailsPanelAction action) {
-        // Nichts tun
-    }
-
-    @Override
-    public void allThumbnailsDeselected(ThumbnailsPanelAction action) {
-        // Nichts tun
+    public void selectionChanged(ThumbnailsPanelAction action) {
     }
 
     @Override

@@ -9,11 +9,9 @@ import de.elmar_baumann.imv.event.DatabaseListener;
 import de.elmar_baumann.imv.event.UserSettingsChangeEvent;
 import de.elmar_baumann.imv.event.UserSettingsChangeListener;
 import de.elmar_baumann.imv.io.FileSort;
-import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.view.dialogs.UserSettingsDialog;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuPanelThumbnails;
 import de.elmar_baumann.lib.io.FileUtil;
-import de.elmar_baumann.lib.persistence.PersistentSettings;
 import java.awt.Image;
 import java.awt.event.MouseEvent;
 import java.io.File;
@@ -34,18 +32,14 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel
     private Database db = Database.getInstance();
     private PopupMenuPanelThumbnails popupMenu = PopupMenuPanelThumbnails.getInstance();
     private ControllerDoubleklickThumbnail controllerDoubleklick;
-    private boolean persitentSelectionsApplied = false;
-    private static final String keyFilenames = "de.elmar_baumann.imv.view.panels.Filenames"; // NOI18N
-    private static final String keySort = "de.elmar_baumann.imv.view.panels.Sort"; // NOI18N
-    private static final String keyThumbnailPanelViewportViewPosition = "de.elmar_baumann.imv.view.panels.AppPanel.scrollPaneThumbnailsPanel"; // NOI18N
     private FileSort fileSort = FileSort.NamesAscending;
+    private boolean hadFiles = false;
 
     public ImageFileThumbnailsPanel() {
         setNewThumbnails(0);
         controllerDoubleklick = new ControllerDoubleklickThumbnail(this);
         UserSettingsDialog.getInstance().addChangeListener(this);
         db.addDatabaseListener(this);
-        readPersistent();
     }
 
     @Override
@@ -96,14 +90,14 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel
      * @param files  files
      */
     public void setFiles(List<File> files) {
-        boolean scrollToTop = files != this.files;
+        boolean scrollToTop = hadFiles && files != this.files;
         this.files = files;
         Collections.sort(files, fileSort.getComparator());
         setDefaultThumbnailWidth();
         setNewThumbnails(files.size());
         scrollToTop(scrollToTop);
         setMissingFilesFlags();
-        readPersistentSelectedFiles();
+        hadFiles = true;
     }
 
     /**
@@ -205,70 +199,6 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel
      */
     public void refresh() {
         sort();
-    }
-
-    /**
-     * Tells that the application will quit. Writes persistent some values.
-     */
-    public void beforeQuit() {
-        controllerDoubleklick.stop();
-        writePersistent();
-    }
-
-    private void writePersistent() {
-        writePersistentSelection();
-        writePersistentSort();
-        writePersistentViewportViewPosition();
-    }
-
-    private void writePersistentSelection() {
-        PersistentSettings.getInstance().setStringArray(
-            FileUtil.getAsFilenames(getSelectedFiles()), keyFilenames);
-    }
-
-    private void writePersistentSort() {
-        PersistentSettings.getInstance().setString(fileSort.name(), keySort);
-    }
-
-    private void readPersistentSelectedFiles() {
-        if (!persitentSelectionsApplied && getSelectionCount() == 0) {
-            List<String> storedFilenames = PersistentSettings.getInstance().getStringArray(keyFilenames);
-            List<Integer> indices = new ArrayList<Integer>();
-            for (String filename : storedFilenames) {
-                int index = files.indexOf(new File(filename));
-                if (index >= 0) {
-                    indices.add(index);
-                }
-            }
-            setSelected(indices);
-            persitentSelectionsApplied = true;
-        }
-    }
-
-    private void readPersistent() {
-        readPersistentSort();
-        // to early, even in first call of setFiles()
-        //readPersistentViewportViewPosition();
-    }
-
-    private void readPersistentSort() {
-        String name = PersistentSettings.getInstance().getString(keySort);
-        try {
-            fileSort = FileSort.valueOf(name);
-        } catch (Exception ex) {
-        }
-    }
-
-    private void readPersistentViewportViewPosition() {
-        PersistentSettings.getInstance().getScrollPane(
-            Panels.getInstance().getAppPanel().getScrollPaneThumbnailsPanel(),
-            keyThumbnailPanelViewportViewPosition);
-    }
-
-    private void writePersistentViewportViewPosition() {
-        PersistentSettings.getInstance().setScrollPane(
-            Panels.getInstance().getAppPanel().getScrollPaneThumbnailsPanel(),
-            keyThumbnailPanelViewportViewPosition);
     }
 
     private void repaint(File file) {

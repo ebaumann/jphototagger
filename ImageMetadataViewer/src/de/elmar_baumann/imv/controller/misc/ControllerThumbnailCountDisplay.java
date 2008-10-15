@@ -31,14 +31,7 @@ public class ControllerThumbnailCountDisplay extends Controller
     }
 
     @Override
-    public void thumbnailSelected(ThumbnailsPanelAction action) {
-        if (isStarted()) {
-            setCount();
-        }
-    }
-
-    @Override
-    public void allThumbnailsDeselected(ThumbnailsPanelAction action) {
+    public void selectionChanged(ThumbnailsPanelAction action) {
         if (isStarted()) {
             setCount();
         }

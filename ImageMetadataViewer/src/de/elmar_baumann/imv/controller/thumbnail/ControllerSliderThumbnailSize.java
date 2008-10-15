@@ -63,11 +63,7 @@ public class ControllerSliderThumbnailSize extends Controller
     }
 
     @Override
-    public void thumbnailSelected(ThumbnailsPanelAction action) {
-    }
-
-    @Override
-    public void allThumbnailsDeselected(ThumbnailsPanelAction action) {
+    public void selectionChanged(ThumbnailsPanelAction action) {
     }
 
     @Override

@@ -3,6 +3,8 @@ package de.elmar_baumann.imv.view.panels;
 import de.elmar_baumann.imv.AppSettings;
 import de.elmar_baumann.lib.renderer.TreeCellRendererDirectories;
 import de.elmar_baumann.imv.UserSettings;
+import de.elmar_baumann.imv.event.AppExitListener;
+import de.elmar_baumann.imv.event.AppStartListener;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.view.renderer.ListCellRendererCategories;
@@ -33,7 +35,8 @@ import javax.swing.tree.TreeSelectionModel;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public class AppPanel extends javax.swing.JPanel {
+public class AppPanel extends javax.swing.JPanel
+    implements AppStartListener, AppExitListener {
 
     private List<JTable> xmpTables = new ArrayList<JTable>();
     private List<JTable> metadataTables = new ArrayList<JTable>();
@@ -46,6 +49,8 @@ public class AppPanel extends javax.swing.JPanel {
         Panels.getInstance().setAppPanel(this);
         initComponents();
         postInitComponents();
+        Panels.getInstance().getAppFrame().addAppStartListener(this);
+        Panels.getInstance().getAppFrame().addAppExitListener(this);
     }
 
     private void postInitComponents() {
@@ -68,19 +73,19 @@ public class AppPanel extends javax.swing.JPanel {
         }
         return metadataEditActionsPanel;
     }
-    
+
     public JScrollPane getScrollPaneThumbnailsPanel() {
         return scrollPaneThumbnailsPanel;
     }
-    
+
     public JSlider getSliderThumbnailSize() {
         return sliderThumbnailSize;
     }
-    
+
     public JTabbedPane getTabbedPaneMetadata() {
         return tabbedPaneMetaDataTabs;
     }
-    
+
     public JPanel getMetadataEditTab() {
         return panelTabEditMetaData;
     }
@@ -288,15 +293,14 @@ public class AppPanel extends javax.swing.JPanel {
         }
     }
 
-    /**
-     * Benachrichtigen bevor das Panel benutzt wird.
-     */
-    public void beforeStart() {
-        readPersistent();
-    }
-
-    private void readPersistent() {
+    @Override
+    public void appWillStart() {
         PersistentSettings.getInstance().getComponent(this, getPersistentSettingsHints());
+    }
+    
+    @Override
+    public void appWillExit() {
+        PersistentSettings.getInstance().setComponent(this, getPersistentSettingsHints());
     }
 
     private PersistentSettingsHints getPersistentSettingsHints() {
@@ -308,18 +312,6 @@ public class AppPanel extends javax.swing.JPanel {
             hints.addExcludedMember(className + ".treeDirectories"); // NOI18N
         }
         return hints;
-    }
-
-    private void writePersistent() {
-        PersistentSettings.getInstance().setComponent(this, getPersistentSettingsHints());
-    }
-
-    /**
-     * Benachrichtigen bevor die Anwendung geschlossen wird.
-     */
-    public void beforeQuit() {
-        panelImageFileThumbnails.beforeQuit();
-        writePersistent();
     }
 
     private void disableTreeMultipleSelection() {

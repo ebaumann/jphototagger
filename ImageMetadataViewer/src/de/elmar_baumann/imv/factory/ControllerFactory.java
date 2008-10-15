@@ -47,6 +47,7 @@ import de.elmar_baumann.imv.controller.thumbnail.ControllerRenameInXmpColumns;
 import de.elmar_baumann.imv.controller.thumbnail.ControllerRotateThumbnail;
 import de.elmar_baumann.imv.controller.thumbnail.ControllerSliderThumbnailSize;
 import de.elmar_baumann.imv.controller.thumbnail.ControllerSortThumbnails;
+import de.elmar_baumann.imv.controller.thumbnail.ControllerThumbnailsPanelPersistence;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -93,6 +94,7 @@ public class ControllerFactory {
     private void createController() {
         controllers.add(new ControllerItemsMutualExcludeSelection());
         controllers.add(new ControllerThumbnailCountDisplay());
+        controllers.add(new ControllerThumbnailsPanelPersistence());
         controllers.add(new ControllerCreateMetaDataOfSelectedThumbnails());
         controllers.add(new ControllerCreateImageCollection());
         controllers.add(new ControllerDeleteImageCollection());

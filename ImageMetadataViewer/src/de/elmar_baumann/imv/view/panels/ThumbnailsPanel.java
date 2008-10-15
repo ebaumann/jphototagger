@@ -152,7 +152,7 @@ public abstract class ThumbnailsPanel extends JPanel
      * 
      * @param indices Indexe
      */
-    protected void setSelected(List<Integer> indices) {
+    public void setSelected(List<Integer> indices) {
         selectedThumbnails = indices;
         repaint();
         notifyThumbnailSelected();
@@ -691,13 +691,13 @@ public abstract class ThumbnailsPanel extends JPanel
 
     private void notifyAllThumbnailsDeselected() {
         for (ThumbnailsPanelListener listener : panelListener) {
-            listener.thumbnailSelected(new ThumbnailsPanelAction(-1, -1, -1, this));
+            listener.selectionChanged(new ThumbnailsPanelAction(-1, -1, -1, this));
         }
     }
 
     private void notifyThumbnailSelected() {
         for (ThumbnailsPanelListener listener : panelListener) {
-            listener.thumbnailSelected(new ThumbnailsPanelAction(
+            listener.selectionChanged(new ThumbnailsPanelAction(
                 getSelectedIndex(),
                 getXSelectedThumbnail(),
                 getYSelectedThumbnail(),
