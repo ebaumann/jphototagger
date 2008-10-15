@@ -870,6 +870,9 @@ public abstract class ThumbnailsPanel extends JPanel
 
     /**
      * Sets the viewport. Have to be called before adding files.
+     * If a viewport ist set, some additional functions supported, e.g.
+     * special keyboard keys that are not handled through the viewport
+     * and a scroll pane.
      * 
      * @param viewport  Viewport
      */
