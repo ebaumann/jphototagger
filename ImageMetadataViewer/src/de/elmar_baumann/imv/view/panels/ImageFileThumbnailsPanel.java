@@ -4,14 +4,8 @@ import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.controller.thumbnail.ControllerDoubleklickThumbnail;
 import de.elmar_baumann.imv.database.Database;
 import de.elmar_baumann.imv.data.ThumbnailFlag;
-import de.elmar_baumann.imv.event.DatabaseAction;
-import de.elmar_baumann.imv.event.DatabaseListener;
-import de.elmar_baumann.imv.event.UserSettingsChangeEvent;
-import de.elmar_baumann.imv.event.UserSettingsChangeListener;
 import de.elmar_baumann.imv.io.FileSort;
-import de.elmar_baumann.imv.view.dialogs.UserSettingsDialog;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuPanelThumbnails;
-import de.elmar_baumann.lib.io.FileUtil;
 import java.awt.Image;
 import java.awt.event.MouseEvent;
 import java.io.File;
@@ -25,11 +19,10 @@ import java.util.List;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public class ImageFileThumbnailsPanel extends ThumbnailsPanel
-    implements UserSettingsChangeListener, DatabaseListener {
+public class ImageFileThumbnailsPanel extends ThumbnailsPanel {
 
-    private List<File> files = new ArrayList<File>();
     private Database db = Database.getInstance();
+    private List<File> files = new ArrayList<File>();
     private PopupMenuPanelThumbnails popupMenu = PopupMenuPanelThumbnails.getInstance();
     private ControllerDoubleklickThumbnail controllerDoubleklick;
     private FileSort fileSort = FileSort.NamesAscending;
@@ -38,15 +31,6 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel
     public ImageFileThumbnailsPanel() {
         setNewThumbnails(0);
         controllerDoubleklick = new ControllerDoubleklickThumbnail(this);
-        UserSettingsDialog.getInstance().addChangeListener(this);
-        db.addDatabaseListener(this);
-    }
-
-    @Override
-    public void applySettings(UserSettingsChangeEvent evt) {
-        if (evt.getType().equals(UserSettingsChangeEvent.Type.OtherOpenImageApps)) {
-            popupMenu.addOtherOpenImageApps();
-        }
     }
 
     /**
@@ -201,7 +185,12 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel
         sort();
     }
 
-    private void repaint(File file) {
+    /**
+     * Repaints a file.
+     * 
+     * @param file  file
+     */
+    public void repaint(File file) {
         int index = getIndexOf(file);
         if (index >= 0) {
             removeFromCache(index);
@@ -253,13 +242,7 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel
         return getFiles(getSelected());
     }
 
-    /**
-     * Returns files at specific indices.
-     * 
-     * @param  indices  indices
-     * @return files
-     */
-    public List<File> getFiles(List<Integer> indices) {
+    private List<File> getFiles(List<Integer> indices) {
         List<File> f = new ArrayList<File>();
         for (Integer index : indices) {
             if (isIndex(index)) {
@@ -312,17 +295,6 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel
             return filename + flagText;
         } else {
             return ""; // NOI18N
-        }
-    }
-
-    @Override
-    public void actionPerformed(DatabaseAction action) {
-        DatabaseAction.Type type = action.getType();
-        if (type.equals(DatabaseAction.Type.ThumbnailUpdated)) {
-            repaint(new File(action.getFilename()));
-        } else if (type.equals(DatabaseAction.Type.ImageFilesDeleted)) {
-            List<File> deleted = FileUtil.getAsFiles(action.getFilenames());
-            remove(deleted);
         }
     }
 }
