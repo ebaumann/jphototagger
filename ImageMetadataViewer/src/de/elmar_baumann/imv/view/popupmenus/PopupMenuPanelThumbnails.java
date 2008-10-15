@@ -1,7 +1,10 @@
 package de.elmar_baumann.imv.view.popupmenus;
 
 import de.elmar_baumann.imv.UserSettings;
+import de.elmar_baumann.imv.event.UserSettingsChangeEvent;
+import de.elmar_baumann.imv.event.UserSettingsChangeListener;
 import de.elmar_baumann.imv.resource.Bundle;
+import de.elmar_baumann.imv.view.dialogs.UserSettingsDialog;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -19,7 +22,8 @@ import javax.swing.JSeparator;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public class PopupMenuPanelThumbnails extends JPopupMenu {
+public class PopupMenuPanelThumbnails extends JPopupMenu
+    implements UserSettingsChangeListener {
 
     private final String actionUpdateAllMetadata = Bundle.getString("PopupMenuPanelThumbnails.Action.UpdateAllMetadata");
     private final String actionUpdateTextMetadata = Bundle.getString("PopupMenuPanelThumbnails.Action.UpdateOnlyTextMetadata");
@@ -69,6 +73,7 @@ public class PopupMenuPanelThumbnails extends JPopupMenu {
         initMap();
         initItems();
         addItems();
+        UserSettingsDialog.getInstance().addChangeListener(this);
     }
 
     private void initItems() {
@@ -113,6 +118,13 @@ public class PopupMenuPanelThumbnails extends JPopupMenu {
             }
         }
         menuOtherOpenImageApps.setEnabled(menuOtherOpenImageApps.getItemCount() > 0);
+    }
+
+    @Override
+    public void applySettings(UserSettingsChangeEvent evt) {
+        if (evt.getType().equals(UserSettingsChangeEvent.Type.OtherOpenImageApps)) {
+            addOtherOpenImageApps();
+        }
     }
 
     /**
