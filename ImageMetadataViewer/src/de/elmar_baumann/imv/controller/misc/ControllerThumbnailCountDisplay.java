@@ -45,7 +45,7 @@ public class ControllerThumbnailCountDisplay extends Controller
     }
 
     @Override
-    public void thumbnailCountChanged() {
+    public void thumbnailsChanged() {
         // Nichts tun
     }
 

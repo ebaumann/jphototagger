@@ -24,7 +24,7 @@ public interface ThumbnailsPanelListener {
     public void allThumbnailsDeselected(ThumbnailsPanelAction action);
 
     /**
-     * Die Anzahl der anzuzeigenden Thumbnails hat sich verändert.
+     * Die anzuzeigenden Thumbnails haben sich verändert.
      */
-    public void thumbnailCountChanged();
+    public void thumbnailsChanged();
 }

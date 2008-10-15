@@ -118,7 +118,7 @@ public class ControllerShowMetadata extends Controller
     }
 
     @Override
-    public void thumbnailCountChanged() {
+    public void thumbnailsChanged() {
         // Nichts tun
     }
 

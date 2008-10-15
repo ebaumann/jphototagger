@@ -71,7 +71,7 @@ public class ControllerSliderThumbnailSize extends Controller
     }
 
     @Override
-    public void thumbnailCountChanged() {
+    public void thumbnailsChanged() {
         setThumbnailWidth();
     }
 

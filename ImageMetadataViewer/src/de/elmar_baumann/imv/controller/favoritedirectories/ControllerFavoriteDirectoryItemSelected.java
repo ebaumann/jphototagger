@@ -43,10 +43,6 @@ public class ControllerFavoriteDirectoryItemSelected extends Controller
     }
 
     private void showThumbnails() {
-        setFilenamesToThumbnailsPanel();
-    }
-
-    private void setFilenamesToThumbnailsPanel() {
         thumbnailsPanel.setFiles(getFilesOfCurrentDirectory());
         PopupMenuPanelThumbnails.getInstance().setIsImageCollection(false);
     }

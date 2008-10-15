@@ -32,10 +32,10 @@ import javax.swing.JViewport;
  * Klasse liefert die Thumbnails sowie den Text, der unter die Thumbnails
  * gezeichnet werden soll.
  * 
- * Mit {@link #setCount(int)} wird bekanntgegeben, wie viele Thumbnails
- * anzueigen sind. Mit {@link #getThumbnail(int)} werden Thumbnails erfragt
- * mit Indizes zwischen 0 und Anzahl - 1. Eine spezialisierte Klasse, die
- * die Anzahl setzt, liefert die Thumbnails.
+ * Mit {@link #setNewThumbnails(int)} wird bekanntgegeben, dass und wie viele 
+ * Thumbnails anzueigen sind. Mit {@link #getThumbnail(int)} erfragt diese
+ * Klasse Thumbnails von spezialisierten Klassen mit Indizes zwischen 0 und 
+ * Anzahl - 1.
  * 
  * Jedes Thumbnail ist eingebettet in eine Fläche, die definiert ist durch
  * ein "internes Polster" (<code>internalPadding</code>). Darum wird ein Rand
@@ -49,7 +49,7 @@ import javax.swing.JViewport;
  * 
  * Zum Benutzen sind unbedingt folgende Operationen <em>als erstes</em> aufzurufen:
  * <ol>
- *     <li>{@link #setCount(int)}</li>
+ *     <li>{@link #setNewThumbnails(int)}</li>
  *     <li>{@link #setThumbnailWidth(int)}</li>
  * </ol>
  * 
@@ -91,12 +91,11 @@ public abstract class ThumbnailsPanel extends JPanel
         addComponentListener(this);
     }
 
-    protected void empty() {
+    private void empty() {
         thumbnailAtIndex.clear();
         selectedThumbnails.clear();
         flagOfThumbnail.clear();
         System.gc();
-        thumbnailCount = 0;
         notifyAllThumbnailsDeselected();
     }
 
@@ -197,13 +196,15 @@ public abstract class ThumbnailsPanel extends JPanel
     }
 
     /**
-     * Setzt die Anzahl der anzuzeigenden Thumbnails.
+     * Setzt neue Thumbnails.
      * 
      * @param count Anzahl
      */
-    protected void setCount(int count) {
+    protected void setNewThumbnails(int count) {
+        empty();
         thumbnailCount = count;
-        notifyThumbnailsCountChanged();
+        forceRepaint();
+        notifyThumbnailsChanged();
     }
 
     /**
@@ -545,7 +546,7 @@ public abstract class ThumbnailsPanel extends JPanel
         }
     }
 
-    protected void forceRepaint() {
+    private void forceRepaint() {
         invalidate();
         validate();
         repaint();
@@ -670,14 +671,16 @@ public abstract class ThumbnailsPanel extends JPanel
     }
 
     private int getRowCount() {
-        return (int) ((double) (thumbnailCount + thumbnailCountPerRow - 1) /
-            (double) thumbnailCountPerRow + 0.5);
+        return thumbnailCount > thumbnailCountPerRow
+            ? (int) ((double) thumbnailCount / (double) thumbnailCountPerRow + 0.5)
+            : thumbnailCount == 0
+            ? 0
+            : 1;
     }
 
     private void notifyAllThumbnailsDeselected() {
         for (ThumbnailsPanelListener listener : panelListener) {
-            listener.thumbnailSelected(new ThumbnailsPanelAction(-1, -1, -1,
-                this));
+            listener.thumbnailSelected(new ThumbnailsPanelAction(-1, -1, -1, this));
         }
     }
 
@@ -691,9 +694,9 @@ public abstract class ThumbnailsPanel extends JPanel
         }
     }
 
-    private void notifyThumbnailsCountChanged() {
+    private void notifyThumbnailsChanged() {
         for (ThumbnailsPanelListener listener : panelListener) {
-            listener.thumbnailCountChanged();
+            listener.thumbnailsChanged();
         }
     }
 

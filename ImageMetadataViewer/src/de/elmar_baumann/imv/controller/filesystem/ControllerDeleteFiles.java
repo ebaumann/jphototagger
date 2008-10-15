@@ -43,23 +43,22 @@ public class ControllerDeleteFiles extends Controller implements ActionListener 
     private void deleteFiles() {
         if (accepted()) {
             int count = 0;
-            List<String> filenames = FileUtil.getAsFilenames(thumbnailsPanel.getSelectedFiles());
-            List<String> deletedFiles = new ArrayList<String>(filenames.size());
-            for (String filename : filenames) {
-                File file = new File(filename);
+            List<File> files = thumbnailsPanel.getSelectedFiles();
+            List<File> deletedFiles = new ArrayList<File>(files.size());
+            for (File file : files) {
                 if (file.delete()) {
-                    deletedFiles.add(filename);
+                    deletedFiles.add(file);
                     count++;
                 } else {
                     MessageFormat msg = new MessageFormat(Bundle.getString("ControllerDeleteFiles.ErrorMessage.Delete"));
-                    Object[] params = {filename};
+                    Object[] params = {file.getAbsolutePath()};
                     ErrorListeners.getInstance().notifyErrorListener(
                         new ErrorEvent(msg.format(params), this));
                 }
             }
             if (count > 0) {
-                db.deleteImageFiles(deletedFiles);
-                thumbnailsPanel.remove(FileUtil.getAsFiles(deletedFiles));
+                db.deleteImageFiles(FileUtil.getAsFilenames(deletedFiles));
+                thumbnailsPanel.remove(deletedFiles);
             }
         }
     }

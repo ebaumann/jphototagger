@@ -43,7 +43,7 @@ public class ControllerRenameFiles extends Controller
         List<File> files = thumbnailsPanel.getSelectedFiles();
         if (files.size() > 0) {
             Collections.sort(files);
-            dialog.setFilenames(files);
+            dialog.setFiles(files);
             dialog.addRenameFileListener(this);
             dialog.setVisible(true);
         }

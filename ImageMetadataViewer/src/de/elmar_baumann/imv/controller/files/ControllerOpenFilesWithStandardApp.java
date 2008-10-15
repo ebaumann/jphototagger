@@ -43,8 +43,7 @@ public class ControllerOpenFilesWithStandardApp extends Controller
             FileUtil.getAsFilenames(popup.getThumbnailsPanel().getSelectedFiles()));
         if (!allFilenames.isEmpty()) {
             IoUtil.startApplication(
-                UserSettings.getInstance().getDefaultImageOpenApp(),
-                allFilenames);
+                UserSettings.getInstance().getDefaultImageOpenApp(), allFilenames);
         }
     }
 

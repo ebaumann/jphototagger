@@ -96,6 +96,7 @@ public class ControllerAutoUpdateMetadataTask extends Controller
             }
             directories.addAll(subdirectories);
             Collections.sort(directories);
+            Collections.reverse(directories);
         }
         return directories;
     }

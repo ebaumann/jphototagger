@@ -87,7 +87,7 @@ public class ControllerCreateMetaDataOfCurrentThumbnails extends Controller
     }
 
     @Override
-    public void thumbnailCountChanged() {
+    public void thumbnailsChanged() {
         if (isStarted()) {
             setStopCurrent(isWait());
             updateMetadata();

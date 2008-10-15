@@ -77,7 +77,7 @@ public class RenameDialog extends javax.swing.JDialog {
      * 
      * @param files  files
      */
-    public void setFilenames(List<File> files) {
+    public void setFiles(List<File> files) {
         this.files = files;
     }
 

@@ -58,7 +58,7 @@ public class ControllerThumbnailSelectionEditMetadata
     }
 
     @Override
-    public void thumbnailCountChanged() {
+    public void thumbnailsChanged() {
         // Nichts tun
     }
 

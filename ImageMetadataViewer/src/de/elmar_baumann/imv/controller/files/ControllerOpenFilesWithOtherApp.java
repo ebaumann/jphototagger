@@ -32,15 +32,15 @@ public class ControllerOpenFilesWithOtherApp extends Controller
     @Override
     public void actionPerformed(ActionEvent e) {
         if (isStarted()) {
-            openFilesWithApp(popup.getOtherOpenImageApp(e.getActionCommand()));
+            openFilesWithApp(popup.getOtherOpenImageApp(e.getActionCommand()).getAbsolutePath());
         }
     }
 
-    private void openFilesWithApp(File otherOpenImageApp) {
+    private void openFilesWithApp(String otherOpenImageApp) {
         String allFilenames = IoUtil.getArgsAsCommandline(
             FileUtil.getAsFilenames(popup.getThumbnailsPanel().getSelectedFiles()));
         if (!allFilenames.isEmpty()) {
-            IoUtil.startApplication(otherOpenImageApp.getAbsolutePath(), allFilenames);
+            IoUtil.startApplication(otherOpenImageApp, allFilenames);
         }
     }
 }

@@ -42,7 +42,7 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel
     private FileSort fileSort = FileSort.NamesAscending;
 
     public ImageFileThumbnailsPanel() {
-        setCount(0);
+        setNewThumbnails(0);
         controllerDoubleklick = new ControllerDoubleklickThumbnail(this);
         UserSettingsDialog.getInstance().addChangeListener(this);
         db.addDatabaseListener(this);
@@ -106,19 +106,14 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel
      * @param files  files
      */
     public void setFiles(List<File> files) {
-        Collections.sort(files, fileSort.getComparator());
-        empty();
-        if (getThumbnailWidth() <= 0) {
-            setThumbnailWidth(UserSettings.getInstance().getMaxThumbnailWidth());
-        }
-        setMissingFilesFlags();
-        setCount(files.size());
-        if (files != this.files) {
-            scrollToFirstRow();
-        }
+        boolean scrollToTop = files != this.files;
         this.files = files;
+        Collections.sort(files, fileSort.getComparator());
+        setDefaultThumbnailWidth();
+        setNewThumbnails(files.size());
+        scrollToTop(scrollToTop);
+        setMissingFilesFlags();
         readPersistentSelectedFiles();
-        forceRepaint();
     }
 
     /**
@@ -200,9 +195,15 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel
         return indices;
     }
 
-    private void scrollToFirstRow() {
-        if (viewport != null) {
+    private void scrollToTop(boolean scroll) {
+        if (scroll && viewport != null) {
             viewport.setViewPosition(new Point(0, 0));
+        }
+    }
+
+    private void setDefaultThumbnailWidth() {
+        if (getThumbnailWidth() <= 0) {
+            setThumbnailWidth(UserSettings.getInstance().getMaxThumbnailWidth());
         }
     }
 

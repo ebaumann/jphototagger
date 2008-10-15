@@ -30,7 +30,6 @@ public class ControllerShowThumbnailsOfSelectedDirectory extends Controller
     private JTree treeDirectories = appPanel.getTreeDirectories();
     private ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelImageFileThumbnails();
     private ImageFilteredDirectory imageFilteredDirectory = new ImageFilteredDirectory();
-    private File selectedDirectory;
 
     public ControllerShowThumbnailsOfSelectedDirectory() {
         listenToActionSource();
@@ -43,15 +42,11 @@ public class ControllerShowThumbnailsOfSelectedDirectory extends Controller
     @Override
     public void valueChanged(TreeSelectionEvent e) {
         if (isStarted() && e.isAddedPath()) {
-            selectedDirectory = new File(getDirectorynameFromTree(treeDirectories.getSelectionPath()));
+            File selectedDirectory = new File(getDirectorynameFromTree(treeDirectories.getSelectionPath()));
             imageFilteredDirectory.setDirectory(selectedDirectory);
-            setFilenamesToThumbnailsPanel();
+            thumbnailsPanel.setFiles(ImageFilteredDirectory.getImageFilesOfDirectory(selectedDirectory));
+            PopupMenuPanelThumbnails.getInstance().setIsImageCollection(false);
         }
-    }
-
-    private void setFilenamesToThumbnailsPanel() {
-        thumbnailsPanel.setFiles(ImageFilteredDirectory.getImageFilesOfDirectory(selectedDirectory));
-        PopupMenuPanelThumbnails.getInstance().setIsImageCollection(false);
     }
 
     private String getDirectorynameFromTree(TreePath treePath) {
