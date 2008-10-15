@@ -16,6 +16,8 @@ import java.io.File;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -52,8 +54,9 @@ public class ControllerDeleteFiles extends Controller implements ActionListener 
                 } else {
                     MessageFormat msg = new MessageFormat(Bundle.getString("ControllerDeleteFiles.ErrorMessage.Delete"));
                     Object[] params = {file.getAbsolutePath()};
-                    ErrorListeners.getInstance().notifyErrorListener(
-                        new ErrorEvent(msg.format(params), this));
+                    String message = msg.format(params);
+                    Logger.getLogger(ControllerDeleteFiles.class.getName()).log(Level.WARNING, message);
+                    ErrorListeners.getInstance().notifyErrorListener(new ErrorEvent(message, this));
                 }
             }
             if (count > 0) {

@@ -1,6 +1,5 @@
 package de.elmar_baumann.imv.image.metadata.exif;
 
-import com.imagero.reader.tiff.IFDEntry;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -12,7 +11,7 @@ import java.util.List;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public class ExifIfdEntryDisplayComparator implements Comparator<IFDEntry> {
+public class ExifIfdEntryDisplayComparator implements Comparator<IdfEntryProxy> {
 
     private static HashMap<Integer, Integer> orderOfTagValue = new HashMap<Integer, Integer>();
     private static List<Integer> tagValues = new ArrayList<Integer>(30);
@@ -52,9 +51,9 @@ public class ExifIfdEntryDisplayComparator implements Comparator<IFDEntry> {
     }
 
     @Override
-    public int compare(IFDEntry o1, IFDEntry o2) {
-        int tag1 = o1.getEntryMeta().getTag();
-        int tag2 = o2.getEntryMeta().getTag();
+    public int compare(IdfEntryProxy o1, IdfEntryProxy o2) {
+        int tag1 = o1.getTag();
+        int tag2 = o2.getTag();
         if (orderOfTagValue.containsKey(tag1) && orderOfTagValue.containsKey(tag2)) {
             return orderOfTagValue.get(tag1) - orderOfTagValue.get(tag2);
         }

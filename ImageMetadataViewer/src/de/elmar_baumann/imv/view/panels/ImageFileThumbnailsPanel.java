@@ -14,13 +14,11 @@ import de.elmar_baumann.imv.view.popupmenus.PopupMenuPanelThumbnails;
 import de.elmar_baumann.lib.io.FileUtil;
 import de.elmar_baumann.lib.persistence.PersistentSettings;
 import java.awt.Image;
-import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import javax.swing.JViewport;
 
 /**
  * Zeigt Thumbnails von Bilddateien.
@@ -36,7 +34,6 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel
     private PopupMenuPanelThumbnails popupMenu = PopupMenuPanelThumbnails.getInstance();
     private ControllerDoubleklickThumbnail controllerDoubleklick;
     private boolean persitentSelectionsApplied = false;
-    private JViewport viewport;
     private static final String keyFilenames = "de.elmar_baumann.imv.view.panels.Filenames"; // NOI18N
     private static final String keySort = "de.elmar_baumann.imv.view.panels.Sort"; // NOI18N
     private FileSort fileSort = FileSort.NamesAscending;
@@ -72,15 +69,6 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel
      */
     public int getCount() {
         return files.size();
-    }
-
-    /**
-     * Sets the viewport. Have to be called before adding files.
-     * 
-     * @param viewport  Viewport
-     */
-    public void setViewport(JViewport viewport) {
-        this.viewport = viewport;
     }
 
     /**
@@ -195,12 +183,6 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel
         return indices;
     }
 
-    private void scrollToTop(boolean scroll) {
-        if (scroll && viewport != null) {
-            viewport.setViewPosition(new Point(0, 0));
-        }
-    }
-
     private void setDefaultThumbnailWidth() {
         if (getThumbnailWidth() <= 0) {
             setThumbnailWidth(UserSettings.getInstance().getMaxThumbnailWidth());
@@ -214,6 +196,13 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel
                 addFlag(i, ThumbnailFlag.ErrorFileNotFound);
             }
         }
+    }
+
+    /**
+     * Refreshes the display, e.g. after a rename action.
+     */
+    public void refresh() {
+        sort();
     }
 
     /**
@@ -301,11 +290,11 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel
      * Returns a specific file.
      * 
      * @param  index index
-     * @return file
+     * @return file or null if the index is invalid
      * @see    #isIndex(int)
      */
     public File getFile(int index) {
-        return files.get(index);
+        return isIndex(index) ? files.get(index) : null;
     }
 
     /**
@@ -326,7 +315,9 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel
     public List<File> getFiles(List<Integer> indices) {
         List<File> f = new ArrayList<File>();
         for (Integer index : indices) {
-            f.add(files.get(index));
+            if (isIndex(index)) {
+                f.add(files.get(index));
+            }
         }
         return f;
     }

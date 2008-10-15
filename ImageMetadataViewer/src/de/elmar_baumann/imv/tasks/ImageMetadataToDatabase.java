@@ -272,12 +272,8 @@ public class ImageMetadataToDatabase implements Runnable {
         MessageFormat msg = new MessageFormat(Bundle.getString("ImageMetadataToDatabase.ErrorMessage.NullThumbnail")); // NOI18N
         Object[] params = {filename};
         String formattedMessage = msg.format(params);
-        Logger.getLogger(ImageMetadataToDatabase.class.getName()).log(Level.SEVERE, formattedMessage);
-        notifyErrorListener(formattedMessage);
-    }
-
-    private void notifyErrorListener(String message) {
-        ErrorListeners.getInstance().notifyErrorListener(new ErrorEvent(message, this));
+        Logger.getLogger(ImageMetadataToDatabase.class.getName()).log(Level.WARNING, formattedMessage);
+        ErrorListeners.getInstance().notifyErrorListener(new ErrorEvent(formattedMessage, this));
     }
 
     private void notifyProgressStarted() {

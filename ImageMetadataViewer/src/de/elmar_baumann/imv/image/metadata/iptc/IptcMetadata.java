@@ -30,7 +30,7 @@ public class IptcMetadata {
      * @return Metadaten oder null bei Lesefehlern
      */
     public List<IptcEntry> getMetadata(File file) {
-        if (!file.exists()) {
+        if (file == null || !file.exists()) {
             return null;
         }
         List<IptcEntry> metadata = new ArrayList<IptcEntry>();
@@ -42,12 +42,10 @@ public class IptcMetadata {
             }
         } catch (IOException ex) {
             metadata = null;
-            Logger.getLogger(IptcMetadata.class.getName()).log(Level.SEVERE, null, ex);
-            notifyErrorListener(ex.toString());
+            handleException(ex);
         } catch (Exception ex) {
             metadata = null;
-            Logger.getLogger(IptcMetadata.class.getName()).log(Level.SEVERE, null, ex);
-            notifyErrorListener(ex.toString());
+            handleException(ex);
         }
         return metadata;
     }
@@ -83,8 +81,9 @@ public class IptcMetadata {
         return entry.getRecordNumber() == 2 && entry.getDataSetNumber() == 0;
     }
 
-    private void notifyErrorListener(String message) {
-        ErrorListeners.getInstance().notifyErrorListener(new ErrorEvent(message, this));
+    private void handleException(Exception ex) {
+        Logger.getLogger(IptcMetadata.class.getName()).log(Level.SEVERE, null, ex);
+        ErrorListeners.getInstance().notifyErrorListener(new ErrorEvent(ex.toString(), this));
     }
 
     /**

@@ -1,9 +1,7 @@
 package de.elmar_baumann.imv.image.metadata.exif;
 
-import com.imagero.reader.tiff.IFDEntry;
 import de.elmar_baumann.imv.resource.Translation;
 import de.elmar_baumann.lib.lang.Util;
-import java.io.IOException;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,9 +22,9 @@ public class ExifFieldValueFormatter {
      * @param  entry Entry
      * @return       Formatierter Wert
      */
-    public static String format(IFDEntry entry) {
+    public static String format(IdfEntryProxy entry) {
         String value = entry.toString().trim();
-        int tag = entry.getEntryMeta().getTag();
+        int tag = entry.getTag();
         if (tag == ExifTag.Sharpness.getId()) {
             return getSharpness(value);
         } else if (tag == ExifTag.Saturation.getId()) {
@@ -56,8 +54,8 @@ public class ExifFieldValueFormatter {
         return value;
     }
 
-    private static String getFlash(IFDEntry entry) {
-        byte[] rawValue = getRawValue(entry);
+    private static String getFlash(IdfEntryProxy entry) {
+        byte[] rawValue = entry.getRawValue();
         if (rawValue != null && rawValue.length >= 1) {
             boolean[] bitsByte1 = Util.getBits(rawValue[0]);
             boolean fired = bitsByte1[0];
@@ -70,16 +68,6 @@ public class ExifFieldValueFormatter {
                 : translation.translate("FlashNotFired"); // NOI18N
         }
         return entry.toString().trim();
-    }
-
-    private static byte[] getRawValue(IFDEntry entry) {
-        try {
-            byte[] rawValue = entry.getRawValue();
-            return rawValue;
-        } catch (IOException ex) {
-            Logger.getLogger(ExifFieldValueFormatter.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
     }
 
     private static String getFocalLength(String value) {

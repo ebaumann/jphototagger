@@ -1,8 +1,8 @@
 package de.elmar_baumann.imv.view.renderer;
 
-import com.imagero.reader.tiff.IFDEntry;
 import de.elmar_baumann.imv.database.metadata.selections.ExifInDatabase;
 import de.elmar_baumann.imv.image.metadata.exif.ExifFieldValueFormatter;
+import de.elmar_baumann.imv.image.metadata.exif.IdfEntryProxy;
 import de.elmar_baumann.imv.resource.Translation;
 import java.awt.Component;
 import javax.swing.JLabel;
@@ -25,7 +25,7 @@ public class TableCellRendererExif extends TableCellRendererMetadata
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
         assert column < 2 : column;
         JLabel cellLabel = new JLabel();
-        IFDEntry ifdEntry = (IFDEntry) value;
+        IdfEntryProxy ifdEntry = (IdfEntryProxy) value;
 
         setDefaultCellColors(cellLabel, isSelected);
         setIsStoredInDatabaseColor(cellLabel, ifdEntry);
@@ -33,8 +33,8 @@ public class TableCellRendererExif extends TableCellRendererMetadata
         if (column == 0) {
             setHeaderFont(cellLabel);
             String translated = translation.translate(
-                Integer.toString(ifdEntry.getEntryMeta().getTag()),
-                ifdEntry.getEntryMeta().getName());
+                Integer.toString(ifdEntry.getTag()),
+                ifdEntry.getName());
             cellLabel.setText(translated.trim());
         } else {
             setContentFont(cellLabel);
@@ -43,8 +43,8 @@ public class TableCellRendererExif extends TableCellRendererMetadata
         return cellLabel;
     }
 
-    private void setIsStoredInDatabaseColor(JLabel cellLabel, IFDEntry ifdEntry) {
-        if (exifInDatabase.isInDatabase(ifdEntry.getEntryMeta().getTag())) {
+    private void setIsStoredInDatabaseColor(JLabel cellLabel, IdfEntryProxy ifdEntry) {
+        if (exifInDatabase.isInDatabase(ifdEntry.getTag())) {
             setIsStoredInDatabaseColors(cellLabel);
         }
     }

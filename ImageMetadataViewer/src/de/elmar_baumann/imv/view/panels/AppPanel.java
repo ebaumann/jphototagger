@@ -316,6 +316,9 @@ public class AppPanel extends javax.swing.JPanel {
         PersistentSettings.getInstance().getScrollPane(
             scrollPaneThumbnailsPanel,
             keyThumbnailPanelViewportViewPosition);
+        panelImageFileThumbnails.invalidate();
+        panelImageFileThumbnails.validate();
+        panelImageFileThumbnails.repaint();
     }
 
     private void writePersistentViewportViewPosition() {

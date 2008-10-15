@@ -29,18 +29,18 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="tabbedPane" pref="551" max="32767" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <Component id="tabbedPane" pref="683" max="32767" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="tabbedPane" max="32767" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <Component id="tabbedPane" pref="389" max="32767" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -67,15 +67,15 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="labelDirectory" alignment="0" pref="522" max="32767" attributes="0"/>
+                          <Component id="labelDirectory" alignment="0" pref="658" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
                               <Component id="panelBorder" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="1" attributes="0">
                                   <Component id="labelOldNamePrompt" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="labelNewNamePrompt" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="labelOldName" alignment="0" pref="320" max="32767" attributes="0"/>
-                                  <Component id="textFieldNewName" alignment="0" pref="320" max="32767" attributes="0"/>
+                                  <Component id="labelOldName" alignment="0" pref="464" max="32767" attributes="0"/>
+                                  <Component id="textFieldNewName" alignment="0" pref="464" max="32767" attributes="0"/>
                                   <Group type="102" alignment="1" attributes="0">
                                       <Component id="buttonNextFile" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
@@ -114,7 +114,7 @@
                               </Group>
                           </Group>
                       </Group>
-                      <EmptySpace pref="194" max="32767" attributes="0"/>
+                      <EmptySpace pref="138" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -255,16 +255,14 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
+                  <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="panelDefineName" alignment="0" max="32767" attributes="2"/>
+                          <Component id="panelOther" alignment="0" max="32767" attributes="2"/>
+                          <Component id="panelNumbers" alignment="0" max="32767" attributes="2"/>
+                          <Component id="panelExample" alignment="0" max="32767" attributes="2"/>
                           <Component id="buttonRenameTemplate" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Group type="103" alignment="1" groupAlignment="1" max="-2" attributes="0">
-                              <Component id="panelExample" alignment="0" max="32767" attributes="1"/>
-                              <Component id="panelDefineName" alignment="0" max="32767" attributes="1"/>
-                              <Component id="panelOther" alignment="0" max="32767" attributes="1"/>
-                              <Component id="panelNumbers" alignment="0" max="32767" attributes="1"/>
-                          </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -420,7 +418,7 @@
                           <Component id="labelDateDelim" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="textFieldDateDelim" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="227" max="32767" attributes="0"/>
+                          <EmptySpace pref="282" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -478,9 +476,9 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="labelAtBegin" linkSize="2" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="comboBoxAtBegin" linkSize="2" alignment="0" min="-2" max="-2" attributes="1"/>
-                              <Component id="textFieldAtBegin" linkSize="2" alignment="0" min="0" pref="0" max="32767" attributes="1"/>
+                              <Component id="labelAtBegin" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="comboBoxAtBegin" linkSize="3" alignment="0" min="-2" pref="108" max="-2" attributes="1"/>
+                              <Component id="textFieldAtBegin" linkSize="3" alignment="0" min="-2" pref="74" max="-2" attributes="1"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="2" attributes="0">
@@ -500,39 +498,47 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="labelAtEnd" linkSize="4" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="comboBoxAtEnd" linkSize="4" alignment="0" min="-2" max="-2" attributes="1"/>
-                              <Component id="textFieldAtEnd" linkSize="4" alignment="0" min="0" pref="0" max="32767" attributes="1"/>
+                              <Component id="labelAtEnd" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="comboBoxAtEnd" linkSize="3" alignment="0" min="-2" pref="65" max="-2" attributes="1"/>
+                              <Component id="textFieldAtEnd" linkSize="3" alignment="0" pref="108" max="32767" attributes="1"/>
                           </Group>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="2" attributes="0">
-                              <Component id="labelAtBegin" alignment="2" min="-2" max="-2" attributes="0"/>
-                              <Component id="labelInTheMid" alignment="2" min="-2" max="-2" attributes="0"/>
-                              <Component id="labelAtEnd" alignment="2" min="-2" max="-2" attributes="0"/>
-                              <Component id="labelDelim1" alignment="2" min="-2" max="-2" attributes="0"/>
-                              <Component id="labelDelim2" alignment="2" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Group type="103" groupAlignment="2" attributes="0">
+                                      <Component id="labelInTheMid" alignment="2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="labelDelim1" alignment="2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="labelDelim2" alignment="2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="labelAtEnd" alignment="2" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="2" attributes="0">
+                                      <Component id="textFieldDelim1" alignment="2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="comboBoxInTheMiddle" alignment="2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="textFieldDelim2" alignment="2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="comboBoxAtEnd" alignment="2" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="2" attributes="0">
+                                      <Component id="textFieldInTheMiddle" linkSize="5" alignment="2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="textFieldAtEnd" linkSize="5" alignment="2" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Component id="labelAtBegin" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="comboBoxAtBegin" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="textFieldAtBegin" linkSize="5" min="-2" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="2" attributes="0">
-                              <Component id="comboBoxAtBegin" alignment="2" min="-2" max="-2" attributes="0"/>
-                              <Component id="textFieldDelim1" alignment="2" min="-2" max="-2" attributes="0"/>
-                              <Component id="comboBoxInTheMiddle" alignment="2" min="-2" max="-2" attributes="0"/>
-                              <Component id="textFieldDelim2" alignment="2" min="-2" max="-2" attributes="0"/>
-                              <Component id="comboBoxAtEnd" alignment="2" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="2" attributes="0">
-                              <Component id="textFieldAtEnd" linkSize="5" alignment="2" min="-2" max="-2" attributes="0"/>
-                              <Component id="textFieldInTheMiddle" linkSize="5" alignment="2" min="-2" max="-2" attributes="0"/>
-                              <Component id="textFieldAtBegin" linkSize="5" alignment="2" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace pref="14" max="32767" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -549,16 +555,6 @@
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JComboBox" name="comboBoxAtBegin">
-                  <Properties>
-                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="4">
-                        <StringItem index="0" value="Item 1"/>
-                        <StringItem index="1" value="Item 2"/>
-                        <StringItem index="2" value="Item 3"/>
-                        <StringItem index="3" value="Item 4"/>
-                      </StringArray>
-                    </Property>
-                  </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="comboBoxAtBeginActionPerformed"/>
                   </Events>
@@ -605,16 +601,6 @@
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JComboBox" name="comboBoxInTheMiddle">
-                  <Properties>
-                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="4">
-                        <StringItem index="0" value="Item 1"/>
-                        <StringItem index="1" value="Item 2"/>
-                        <StringItem index="2" value="Item 3"/>
-                        <StringItem index="3" value="Item 4"/>
-                      </StringArray>
-                    </Property>
-                  </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="comboBoxInTheMiddleActionPerformed"/>
                   </Events>
@@ -661,16 +647,6 @@
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JComboBox" name="comboBoxAtEnd">
-                  <Properties>
-                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="4">
-                        <StringItem index="0" value="Item 1"/>
-                        <StringItem index="1" value="Item 2"/>
-                        <StringItem index="2" value="Item 3"/>
-                        <StringItem index="3" value="Item 4"/>
-                      </StringArray>
-                    </Property>
-                  </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="comboBoxAtEndActionPerformed"/>
                   </Events>
@@ -710,8 +686,8 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="labelAfterFilename" alignment="0" pref="542" max="32767" attributes="0"/>
-                              <Component id="labelBeforeFilename" alignment="0" pref="542" max="32767" attributes="0"/>
+                              <Component id="labelAfterFilename" alignment="0" pref="571" max="32767" attributes="0"/>
+                              <Component id="labelBeforeFilename" alignment="0" pref="571" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>

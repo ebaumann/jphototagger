@@ -20,7 +20,6 @@ import de.elmar_baumann.imv.database.metadata.mapping.XmpColumnXmpPathStartMappi
 import de.elmar_baumann.imv.database.metadata.selections.EditColumns;
 import de.elmar_baumann.imv.event.ErrorEvent;
 import de.elmar_baumann.imv.event.listener.ErrorListeners;
-import de.elmar_baumann.imv.model.TableModelXmp;
 import de.elmar_baumann.lib.io.FileUtil;
 import de.elmar_baumann.lib.util.ArrayUtil;
 import java.io.File;
@@ -93,7 +92,7 @@ public class XmpMetadata {
      * @return         Metadaten oder null bei Lesefehlern
      */
     public List<XMPPropertyInfo> getPropertyInfosOfFile(String filename) {
-        if (!FileUtil.existsFile(filename)) {
+        if (filename == null || !FileUtil.existsFile(filename)) {
             return null;
         }
         List<XMPPropertyInfo> metadata = new ArrayList<XMPPropertyInfo>();
@@ -107,12 +106,10 @@ public class XmpMetadata {
             }
         } catch (XMPException ex) {
             metadata = null;
-            Logger.getLogger(TableModelXmp.class.getName()).log(Level.SEVERE, null, ex);
-            notifyErrorListener(ex.toString());
+            handleException(ex);
         } catch (Exception ex) {
             metadata = null;
-            Logger.getLogger(TableModelXmp.class.getName()).log(Level.SEVERE, null, ex);
-            notifyErrorListener(ex.toString());
+            handleException(ex);
         }
         return metadata;
     }
@@ -127,8 +124,7 @@ public class XmpMetadata {
                 }
             }
         } catch (XMPException ex) {
-            Logger.getLogger(XmpMetadata.class.getName()).log(Level.SEVERE, null, ex);
-            notifyErrorListener(ex.toString());
+            handleException(ex);
         }
     }
 
@@ -198,8 +194,9 @@ public class XmpMetadata {
         return knownNamespaces.contains(string);
     }
 
-    private void notifyErrorListener(String message) {
-        ErrorListeners.getInstance().notifyErrorListener(new ErrorEvent(message, this));
+    private void handleException(Exception ex) {
+        Logger.getLogger(XmpMetadata.class.getName()).log(Level.SEVERE, null, ex);
+        ErrorListeners.getInstance().notifyErrorListener(new ErrorEvent(ex.toString(), this));
     }
 
     /**
@@ -271,8 +268,7 @@ public class XmpMetadata {
             writeMetaData(xmpMeta, metadata);
             return writeSidecarFile(sidecarFilename, xmpMeta);
         } catch (XMPException ex) {
-            Logger.getLogger(XmpMetadata.class.getName()).log(Level.SEVERE, null, ex);
-            notifyErrorListener(ex.toString());
+            handleException(ex);
             return false;
         }
     }
@@ -317,8 +313,7 @@ public class XmpMetadata {
             }
             return writeSidecarFile(sidecarFilename, xmpMeta);
         } catch (XMPException ex) {
-            Logger.getLogger(XmpMetadata.class.getName()).log(Level.SEVERE, null, ex);
-            notifyErrorListener(ex.toString());
+            handleException(ex);
             return false;
         }
     }
@@ -443,12 +438,10 @@ public class XmpMetadata {
             out.close();
             return true;
         } catch (XMPException ex) {
-            Logger.getLogger(XmpMetadata.class.getName()).log(Level.SEVERE, null, ex);
-            notifyErrorListener(ex.toString());
+            handleException(ex);
             return false;
         } catch (IOException ex) {
-            Logger.getLogger(XmpMetadata.class.getName()).log(Level.SEVERE, null, ex);
-            notifyErrorListener(ex.toString());
+            handleException(ex);
             return false;
         }
     }

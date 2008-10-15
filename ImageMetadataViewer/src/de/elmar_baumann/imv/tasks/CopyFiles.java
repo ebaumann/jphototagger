@@ -99,18 +99,21 @@ public class CopyFiles implements Runnable {
                 try {
                     FileUtil.copyFile(filePair.getFirst(), filePair.getSecond());
                 } catch (IOException ex) {
-                    Logger.getLogger(CopyFiles.class.getName()).log(Level.SEVERE, null, ex);
-                    ErrorListeners.getInstance().notifyErrorListener(new ErrorEvent(ex.toString(), this));
+                    handleException(ex);
                     errorFiles.add(filePair.getFirst());
                 } catch (Exception ex) {
-                    Logger.getLogger(CopyFiles.class.getName()).log(Level.SEVERE, null, ex);
-                    ErrorListeners.getInstance().notifyErrorListener(new ErrorEvent(ex.toString(), this));
+                    handleException(ex);
                     errorFiles.add(filePair.getFirst());
                 }
             }
             notifyPerformed(i, filePair);
         }
         notifyEnded();
+    }
+
+    private void handleException(Exception ex) {
+        Logger.getLogger(CopyFiles.class.getName()).log(Level.SEVERE, null, ex);
+        ErrorListeners.getInstance().notifyErrorListener(new ErrorEvent(ex.toString(), this));
     }
 
     private void notifyStart() {

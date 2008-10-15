@@ -1,10 +1,10 @@
 package de.elmar_baumann.imv.model;
 
-import com.imagero.reader.tiff.IFDEntry;
 import de.elmar_baumann.imv.event.ErrorEvent;
 import de.elmar_baumann.imv.event.listener.ErrorListeners;
 import de.elmar_baumann.imv.image.metadata.exif.ExifIfdEntryDisplayComparator;
 import de.elmar_baumann.imv.image.metadata.exif.ExifMetadata;
+import de.elmar_baumann.imv.image.metadata.exif.IdfEntryProxy;
 import de.elmar_baumann.imv.resource.Bundle;
 import java.io.File;
 import java.util.ArrayList;
@@ -23,7 +23,7 @@ import javax.swing.table.DefaultTableModel;
 public class TableModelExif extends DefaultTableModel {
 
     private File file;
-    private List<IFDEntry> allEntries;
+    private List<IdfEntryProxy> allEntries;
 
     public TableModelExif() {
         setRowHeaders();
@@ -54,9 +54,13 @@ public class TableModelExif extends DefaultTableModel {
         try {
             setExifData();
         } catch (Exception ex) {
-            Logger.getLogger(TableModelExif.class.getName()).log(Level.WARNING, ex.getMessage());
-            ErrorListeners.getInstance().notifyErrorListener(new ErrorEvent(ex.toString(), ExifMetadata.class));
+            handleException(ex);
         }
+    }
+
+    private void handleException(Exception ex) {
+        Logger.getLogger(TableModelExif.class.getName()).log(Level.WARNING, null, ex);
+        ErrorListeners.getInstance().notifyErrorListener(new ErrorEvent(ex.toString(), ExifMetadata.class));
     }
 
     /**
@@ -71,10 +75,10 @@ public class TableModelExif extends DefaultTableModel {
         ExifMetadata exifMetadata = new ExifMetadata();
         allEntries = exifMetadata.getMetadata(file);
         if (allEntries != null) {
-            List<IFDEntry> entries = ExifMetadata.getDisplayableMetadata(allEntries);
+            List<IdfEntryProxy> entries = ExifMetadata.getDisplayableMetadata(allEntries);
             if (entries != null) {
                 Collections.sort(entries, new ExifIfdEntryDisplayComparator());
-                for (IFDEntry entry : entries) {
+                for (IdfEntryProxy entry : entries) {
                     String value = entry.toString();
                     if (value.length() > 0) {
                         addRow(entry);
@@ -84,10 +88,10 @@ public class TableModelExif extends DefaultTableModel {
         }
     }
 
-    private void addRow(IFDEntry entry) {
-        List<IFDEntry> row = new ArrayList<IFDEntry>();
+    private void addRow(IdfEntryProxy entry) {
+        List<IdfEntryProxy> row = new ArrayList<IdfEntryProxy>();
         row.add(entry);
         row.add(entry);
-        super.addRow(row.toArray(new IFDEntry[row.size()]));
+        super.addRow(row.toArray(new IdfEntryProxy[row.size()]));
     }
 }
