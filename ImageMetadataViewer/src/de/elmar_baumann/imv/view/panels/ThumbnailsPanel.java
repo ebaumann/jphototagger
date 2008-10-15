@@ -10,6 +10,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.MediaTracker;
+import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
@@ -70,6 +71,7 @@ public abstract class ThumbnailsPanel extends JPanel
     private static final Color colorHighlightedBackground = new Color(245, 245, 245);
     private static final Font fontTitle = new Font("Arial", Font.PLAIN, fontHeightText);  // NOI18N
     private static final int maxCharCountTextPer150px = 25;
+    private JViewport viewport;
     private int minPanelWidth;
     private int maxCharCountText = 25;
     private static final int externalPadding = fontHeightText + 10;
@@ -122,6 +124,10 @@ public abstract class ThumbnailsPanel extends JPanel
             maxCharCountText = (int) (((double) maxCharCountTextPer150px * (double) width / 150.0));
             repaint();
         }
+    }
+
+    private boolean isValidIndex(int thumbnailIndex) {
+        return thumbnailIndex >= 0 && thumbnailIndex < thumbnailAtIndex.size();
     }
 
     private void setMinPanelWidth() {
@@ -389,19 +395,24 @@ public abstract class ThumbnailsPanel extends JPanel
     }
 
     private void handleKeyPressed(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+        int keyCode = e.getKeyCode();
+        if (keyCode == KeyEvent.VK_RIGHT) {
             setSelectedNext();
-        } else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+        } else if (keyCode == KeyEvent.VK_LEFT) {
             setSelectedPrevious();
-        } else if (e.getKeyCode() == KeyEvent.VK_UP) {
+        } else if (keyCode == KeyEvent.VK_UP) {
             setSelectedUp();
-        } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+        } else if (keyCode == KeyEvent.VK_DOWN) {
             setSelectedDown();
-        } else if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+        } else if (keyCode == KeyEvent.VK_ENTER) {
             handleDoubleKlick();
         } else if ((e.getModifiers() & KeyEvent.CTRL_MASK) ==
-            KeyEvent.CTRL_MASK && e.getKeyCode() == KeyEvent.VK_A) {
+            KeyEvent.CTRL_MASK && keyCode == KeyEvent.VK_A) {
             setSelectedAll(true);
+        } else if (keyCode == KeyEvent.VK_HOME) {
+            scrollToTop(true);
+        } else if (keyCode == KeyEvent.VK_END) {
+            scrollToBottom();
         }
     }
 
@@ -412,7 +423,7 @@ public abstract class ThumbnailsPanel extends JPanel
         }
         if (isLeftClick) {
             int thumbnailIndex = getIndexAtPoint(e.getX(), e.getY());
-            if (thumbnailIndex >= 0) {
+            if (isValidIndex(thumbnailIndex)) {
                 if (isDoubleClick(e)) {
                     doubleClickAt(thumbnailIndex);
                     setSelected(thumbnailIndex);
@@ -855,6 +866,27 @@ public abstract class ThumbnailsPanel extends JPanel
     protected void removeFromCache(int index) {
         thumbnailAtIndex.remove(index);
         repaint();
+    }
+
+    /**
+     * Sets the viewport. Have to be called before adding files.
+     * 
+     * @param viewport  Viewport
+     */
+    public void setViewport(JViewport viewport) {
+        this.viewport = viewport;
+    }
+
+    protected void scrollToTop(boolean scroll) {
+        if (scroll && viewport != null) {
+            viewport.setViewPosition(new Point(0, 0));
+        }
+    }
+
+    protected void scrollToBottom() {
+        if (viewport != null) {
+            viewport.setViewPosition(new Point(0, getHeight()));
+        }
     }
 
     @Override
