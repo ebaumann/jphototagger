@@ -7,31 +7,27 @@ import de.elmar_baumann.imv.database.metadata.Column;
 import de.elmar_baumann.imv.event.UserSettingsChangeEvent;
 import de.elmar_baumann.imv.event.UserSettingsChangeListener;
 import de.elmar_baumann.imv.model.ComboBoxModelLogfileFormatter;
+import de.elmar_baumann.imv.model.ComboBoxModelThreadPriority;
 import de.elmar_baumann.imv.model.ListModelAutoscanDirectories;
-import de.elmar_baumann.lib.component.CheckList;
 import de.elmar_baumann.imv.model.ListModelFastSearchColumns;
+import de.elmar_baumann.imv.model.ListModelOtherImageOpenApps;
+import de.elmar_baumann.lib.component.CheckList;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.tasks.UpdateAllThumbnails;
 import de.elmar_baumann.imv.view.renderer.ListCellRendererLogfileFormatter;
 import de.elmar_baumann.lib.dialog.DirectoryChooser;
 import de.elmar_baumann.lib.persistence.PersistentAppSizes;
 import de.elmar_baumann.lib.persistence.PersistentSettings;
-import de.elmar_baumann.lib.persistence.PersistentSettingsHints;
 import de.elmar_baumann.lib.renderer.ListCellRendererFileSystem;
-import de.elmar_baumann.lib.util.ArrayUtil;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
-import java.lang.reflect.Method;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
@@ -48,21 +44,83 @@ public class UserSettingsDialog extends javax.swing.JDialog
     implements ActionListener {
 
     private Database db = Database.getInstance();
-    private final String keySearchColumns = "UserSettingsDialog.SearchColumns"; // NOI18N
-    private final String delimiterSearchColumns = "\t"; // NOI18N
-    private final String keyImageOpenApp = "UserSettingsDialog.ImageOpenApp"; // NOI18N
     private final String keyLastSelectedAutoscanDirectory = "UserSettingsDialog.keyLastSelectedAutoscanDirectory"; // NOI18N
     private List<UserSettingsChangeListener> changeListener = new ArrayList<UserSettingsChangeListener>();
     public CheckList checkListSearchColumns = new CheckList();
     public ListModelFastSearchColumns searchColumnsListModel = new ListModelFastSearchColumns();
     private Map<Tab, Integer> indexOfTab = new HashMap<Tab, Integer>();
     private Map<Integer, Tab> tabOfIndex = new HashMap<Integer, Tab>();
-    private DefaultListModel modelImageOpenApps = new DefaultListModel();
+    private ListModelOtherImageOpenApps modelOtherImageOpenApps = new ListModelOtherImageOpenApps();
     private ListModelAutoscanDirectories modelAutoscanDirectories = new ListModelAutoscanDirectories();
     private String lastSelectedAutoscanDirectory = ""; // NOI18N
     private String previousDirectory = ""; // NOI18N
     private UpdateAllThumbnails thumbnailsUpdater;
     private static UserSettingsDialog instance = new UserSettingsDialog();
+
+    private void handleActionCheckBoxIsAutoscanIncludeSubdirectories() {
+        notifyChangeListener(new UserSettingsChangeEvent(
+            UserSettingsChangeEvent.Type.IsAutoscanIncludeSubdirectories, this));
+    }
+
+    private void handleActionCheckBoxIsTaskRemoveRecordsWithNotExistingFiles() {
+        notifyChangeListener(new UserSettingsChangeEvent(
+            UserSettingsChangeEvent.Type.IsTaskRemoveRecordsWithNotExistingFiles, this));
+    }
+
+    private void handleActionCheckBoxUseEmbeddedThumbnails() {
+        if (checkBoxIsUseEmbeddedThumbnails.isSelected()) {
+            checkBoxIsCreateThumbnailsWithExternalApp.setSelected(false);
+        }
+        setExternalThumbnailAppEnabled();
+        notifyChangeListener(new UserSettingsChangeEvent(
+            UserSettingsChangeEvent.Type.IsUseEmbeddedThumbnails, this));
+    }
+
+    private void handleActionComboBoxIptcCharset() {
+        notifyChangeListener(new UserSettingsChangeEvent(
+            UserSettingsChangeEvent.Type.IptcCharset, this));
+    }
+
+    private void handleActionComboBoxThreadPriorityAction() {
+        notifyChangeListener(new UserSettingsChangeEvent(
+            UserSettingsChangeEvent.Type.ThreadPriority, this));
+    }
+
+    private void handleActionPerformedCheckBoxIsAcceptHiddenDirectories() {
+        notifyChangeListener(new UserSettingsChangeEvent(
+            UserSettingsChangeEvent.Type.IsAcceptHiddenDirectories, this));
+    }
+
+    private void handleActionPerformedCheckBoxIsAutocompleteDisabled() {
+        notifyChangeListener(new UserSettingsChangeEvent(
+            UserSettingsChangeEvent.Type.IsUseAutocomplete, this));
+    }
+
+    private void handleActionPerformedComboBoxLogLevel() {
+        notifyChangeListener(new UserSettingsChangeEvent(
+            UserSettingsChangeEvent.Type.LogLevel, this));
+    }
+
+    private void handleActionPerformedComboBoxLogfileFormatterClass() {
+        notifyChangeListener(new UserSettingsChangeEvent(
+            UserSettingsChangeEvent.Type.LogfileFormatterClass, this));
+    }
+
+    private void handleKeyEventListTasksAutoscanDirectories(KeyEvent evt) {
+        if (evt.getKeyCode() == KeyEvent.VK_DELETE) {
+            removeSelectedAutoscanDirectories();
+        }
+    }
+
+    private void handleKeyEventTextFieldExternalThumbnailCreationCommand() {
+        notifyChangeListener(new UserSettingsChangeEvent(
+            UserSettingsChangeEvent.Type.ExternalThumbnailCreationCommand, this));
+    }
+
+    private void handleStateChangedSpinnerMinutesToStartScheduledTasks() {
+        notifyChangeListener(new UserSettingsChangeEvent(
+            UserSettingsChangeEvent.Type.MinutesToStartScheduledTasks, this));
+    }
 
     private void initHashMaps() {
         // TODO PERMANENT: Bei neuen Tabs ergänzen
@@ -80,8 +138,9 @@ public class UserSettingsDialog extends javax.swing.JDialog
         }
     }
 
-    private void notifyThumbnailWidthChanged() {
-        notifyChangeListener(new UserSettingsChangeEvent(UserSettingsChangeEvent.Type.MaxThumbnailWidth));
+    private void handleStateChangedSpinnerMaxThumbnailWidth() {
+        notifyChangeListener(new UserSettingsChangeEvent(
+            UserSettingsChangeEvent.Type.MaxThumbnailWidth, this));
     }
 
     private void updateAllThumbnails() {
@@ -122,18 +181,14 @@ public class UserSettingsDialog extends javax.swing.JDialog
 
     private void moveDownOpenImageApp() {
         if (canMoveDownOpenImageApp()) {
-            int selectedIndex = listOpenImageApps.getSelectedIndex();
+            int selectedIndex = listOtherImageOpenApps.getSelectedIndex();
             int newSelectedIndex = selectedIndex + 1;
-            Object element = modelImageOpenApps.get(selectedIndex);
-            modelImageOpenApps.remove(selectedIndex);
-            modelImageOpenApps.add(newSelectedIndex, element);
-            listOpenImageApps.setSelectedIndex(newSelectedIndex);
+            Object element = modelOtherImageOpenApps.get(selectedIndex);
+            modelOtherImageOpenApps.remove(selectedIndex);
+            modelOtherImageOpenApps.add(newSelectedIndex, element);
+            listOtherImageOpenApps.setSelectedIndex(newSelectedIndex);
             setEnabled();
         }
-    }
-
-    public List<String> getFileExcludePatterns() {
-        return panelFileExcludePatterns.getFileExcludePatterns();
     }
 
     /**
@@ -160,38 +215,46 @@ public class UserSettingsDialog extends javax.swing.JDialog
         }
     }
 
+    private void handleActionCheckBoxExternalThumbnail() {
+        if (checkBoxIsCreateThumbnailsWithExternalApp.isSelected()) {
+            checkBoxIsUseEmbeddedThumbnails.setSelected(false);
+        }
+        notifyChangeListener(new UserSettingsChangeEvent(UserSettingsChangeEvent.Type.IsCreateThumbnailsWithExternalApp, this));
+        setExternalThumbnailAppEnabled();
+    }
+
     private boolean canMoveDownOpenImageApp() {
-        int selectedIndex = listOpenImageApps.getSelectedIndex();
-        int lastIndex = modelImageOpenApps.getSize() - 1;
+        int selectedIndex = listOtherImageOpenApps.getSelectedIndex();
+        int lastIndex = modelOtherImageOpenApps.getSize() - 1;
         return selectedIndex >= 0 && selectedIndex < lastIndex;
     }
 
     private void moveUpOpenImageApp() {
         if (canMoveUpOpenImageApp()) {
-            int selectedIndex = listOpenImageApps.getSelectedIndex();
+            int selectedIndex = listOtherImageOpenApps.getSelectedIndex();
             int newSelectedIndex = selectedIndex - 1;
-            Object element = modelImageOpenApps.get(selectedIndex);
-            modelImageOpenApps.remove(selectedIndex);
-            modelImageOpenApps.add(newSelectedIndex, element);
-            listOpenImageApps.setSelectedIndex(newSelectedIndex);
+            Object element = modelOtherImageOpenApps.get(selectedIndex);
+            modelOtherImageOpenApps.remove(selectedIndex);
+            modelOtherImageOpenApps.add(newSelectedIndex, element);
+            listOtherImageOpenApps.setSelectedIndex(newSelectedIndex);
             setEnabled();
         }
     }
 
     private boolean canMoveUpOpenImageApp() {
-        return listOpenImageApps.getSelectedIndex() > 0;
+        return listOtherImageOpenApps.getSelectedIndex() > 0;
     }
 
     private void setEnabled() {
-        textFieldExternalThumbnailApp.setEnabled(checkBoxExternalThumbnailApp.isSelected());
-        buttonOpenImageAppMoveDown.setEnabled(canMoveDownOpenImageApp());
-        buttonOpenImageAppMoveUp.setEnabled(canMoveUpOpenImageApp());
-        buttonRemoveOtherOpenImageApp.setEnabled(isOtherOpenImageAppSelected());
-        buttonTasksAutoscanRemoveDirectories.setEnabled(listTasksAutoscanDirectories.getSelectedIndex() >= 0);
+        textFieldExternalThumbnailCreationCommand.setEnabled(checkBoxIsCreateThumbnailsWithExternalApp.isSelected());
+        buttonMoveDownOtherImageOpenApp.setEnabled(canMoveDownOpenImageApp());
+        buttonMoveUpOtherImageOpenApp.setEnabled(canMoveUpOpenImageApp());
+        buttonRemoveOtherImageOpenApp.setEnabled(isOtherOpenImageAppSelected());
+        buttonRemoveAutoscanDirectories.setEnabled(listAutoscanDirectories.getSelectedIndex() >= 0);
     }
 
     private boolean isOtherOpenImageAppSelected() {
-        return listOpenImageApps.getSelectedIndex() >= 0;
+        return listOtherImageOpenApps.getSelectedIndex() >= 0;
     }
 
     public static UserSettingsDialog getInstance() {
@@ -235,81 +298,80 @@ public class UserSettingsDialog extends javax.swing.JDialog
 
     private void readPersistent() {
         PersistentAppSizes.getSizeAndLocation(this);
+        checkLogLevel();
+        setExternalThumbnailAppEnabled();
+        previousDirectory = labelDefaultImageOpenApp.getText();
+        lastSelectedAutoscanDirectory = PersistentSettings.getInstance().
+            getString(keyLastSelectedAutoscanDirectory);
+
         readPersistentContent();
-        previousDirectory = labelImageOpenApp.getText();
-        lastSelectedAutoscanDirectory = PersistentSettings.getInstance().getString(keyLastSelectedAutoscanDirectory);
     }
 
     private void readPersistentContent() {
-        PersistentSettings settings = PersistentSettings.getInstance();
-        settings.getComponent(this, getPersistentSettingsHints());
+        UserSettings settings = UserSettings.getInstance();
+
+        labelDefaultImageOpenApp.setText(settings.getDefaultImageOpenApp());
+
+        comboBoxIptcCharset.getModel().setSelectedItem(settings.getIptcCharset());
+        comboBoxLogLevel.setSelectedItem(settings.getLogLevel().getLocalizedName());
+        ComboBoxModelLogfileFormatter modelLogfileFormatter =
+            (ComboBoxModelLogfileFormatter) comboBoxLogfileFormatterClass.getModel();
+        modelLogfileFormatter.setSelectedItem(settings.getLogfileFormatterClass());
+
+        ComboBoxModelThreadPriority modelThreadPriority =
+            (ComboBoxModelThreadPriority) comboBoxThreadPriority.getModel();
+        modelThreadPriority.setSelectedItem(modelThreadPriority.getItemOfPriority(
+            settings.getThreadPriority()));
+
         checkListSearchColumns.setSelectedItemsWithText(getTextSelectedSearchColumns(), true);
-        labelImageOpenApp.setText(settings.getString(keyImageOpenApp));
-        checkLogLevel();
-        setExternalThumbnailAppEnabled();
+
+        spinnerMaxThumbnailWidth.setValue(settings.getMaxThumbnailWidth());
+        spinnerMinutesToStartScheduledTasks.setValue(settings.getMinutesToStartScheduledTasks());
+
+        checkBoxIsAcceptHiddenDirectories.setSelected(settings.isAcceptHiddenDirectories());
+        checkBoxIsAutocompleteDisabled.setSelected(!settings.isUseAutocomplete());
+        checkBoxIsAutoscanIncludeSubdirectories.setSelected(settings.isAutoscanIncludeSubdirectories());
+        checkBoxIsCreateThumbnailsWithExternalApp.setSelected(settings.isCreateThumbnailsWithExternalApp());
+        checkBoxIsTaskRemoveRecordsWithNotExistingFiles.setSelected(settings.isTaskRemoveRecordsWithNotExistingFiles());
+        checkBoxIsUseEmbeddedThumbnails.setSelected(settings.isUseEmbeddedThumbnails());
+
+        textFieldExternalThumbnailCreationCommand.setText(settings.getExternalThumbnailCreationCommand());
     }
 
     private List<String> getTextSelectedSearchColumns() {
         List<String> text = new ArrayList<String>();
-        List<Column> columns = getPersistentWrittenTableColumns();
+        List<Column> columns = UserSettings.getInstance().getFastSearchColumns();
         for (Column column : columns) {
             text.add(column.getDescription());
         }
         return text;
     }
 
-    private List<Column> getPersistentWrittenTableColumns() {
-        List<Column> columns = new ArrayList<Column>();
-        List<String> columnKeys = ArrayUtil.stringTokenToList(PersistentSettings.getInstance().
-            getString(keySearchColumns), delimiterSearchColumns);
-        for (String key : columnKeys) {
-            try {
-                Class cl = Class.forName(key);
-                @SuppressWarnings("unchecked")
-                Method method = cl.getMethod("getInstance", new Class[0]); // NOI18N
-                Object o = method.invoke(null, new Object[0]);
-                if (o instanceof Column) {
-                    columns.add((Column) o);
-                }
-            } catch (Exception ex) {
-                Logger.getLogger(UserSettingsDialog.class.getName()).log(Level.WARNING, ex.getMessage());
-            }
-        }
-        return columns;
-    }
-
     private void setDefaultOpenApp() {
-        File file = chooseFile(labelImageOpenApp.getText());
-        if (file != null) {
-            labelImageOpenApp.setText(file.getAbsolutePath());
-            PersistentSettings.getInstance().setString(
-                file.getAbsolutePath(), keyImageOpenApp);
+        File file = chooseFile(labelDefaultImageOpenApp.getText());
+        if (file != null && file.exists()) {
+            labelDefaultImageOpenApp.setText(file.getAbsolutePath());
             notifyChangeListener(new UserSettingsChangeEvent(
-                UserSettingsChangeEvent.Type.DefaultOpenImageApp));
+                UserSettingsChangeEvent.Type.DefaultImageOpenApp, this));
         }
     }
 
     private void addOtherOpenImageApp() {
         File file = chooseFile(previousDirectory);
-        if (file != null) {
-            String filename = file.getAbsolutePath();
-            if (!modelImageOpenApps.contains(filename)) {
-                modelImageOpenApps.addElement(filename);
-                setEnabled();
-                notifyChangeListener(new UserSettingsChangeEvent(
-                    UserSettingsChangeEvent.Type.OtherOpenImageApps));
-            }
+        if (file != null && modelOtherImageOpenApps.add(file)) {
+            setEnabled();
+            notifyChangeListener(new UserSettingsChangeEvent(
+                UserSettingsChangeEvent.Type.OtherImageOpenApps, this));
         }
     }
 
     private void removeOtherOpenImageApp() {
-        int index = listOpenImageApps.getSelectedIndex();
-        if (index >= 0 && askRemove(modelImageOpenApps.getElementAt(index).toString())) {
-            modelImageOpenApps.remove(index);
-            listOpenImageApps.setSelectedIndex(index);
+        int index = listOtherImageOpenApps.getSelectedIndex();
+        if (index >= 0 && askRemove(modelOtherImageOpenApps.getElementAt(index).toString()) && modelOtherImageOpenApps.remove(modelOtherImageOpenApps.get(index))) {
+            listOtherImageOpenApps.setSelectedIndex(index);
             setEnabled();
             notifyChangeListener(new UserSettingsChangeEvent(
-                UserSettingsChangeEvent.Type.OtherOpenImageApps));
+                UserSettingsChangeEvent.Type.OtherImageOpenApps, this));
         }
     }
 
@@ -337,31 +399,9 @@ public class UserSettingsDialog extends javax.swing.JDialog
     }
 
     private void writePersistent() {
-        PersistentSettings settings = PersistentSettings.getInstance();
-        settings.setString(getSearchColumnKeys(), keySearchColumns);
-        settings.setComponent(this, getPersistentSettingsHints());
-        settings.setString(lastSelectedAutoscanDirectory, keyLastSelectedAutoscanDirectory);
+        PersistentSettings.getInstance().setString(
+            lastSelectedAutoscanDirectory, keyLastSelectedAutoscanDirectory);
         PersistentAppSizes.setSizeAndLocation(this);
-    }
-
-    private PersistentSettingsHints getPersistentSettingsHints() {
-        PersistentSettingsHints hints = new PersistentSettingsHints();
-        hints.setListContent(true);
-        hints.addExcludedMember(getClass().getName() + ".listAutoscanDirectories"); // NOI18N
-        hints.addExcludedMember("de.elmar_baumann.imv.view.panels.FileExcludePatternsPanel.listPattern"); // NOI18N
-        hints.addExcludedMember("de.elmar_baumann.imv.view.panels.FileExcludePatternsPanel.textFieldInputPattern"); // NOI18N
-        return hints;
-    }
-
-    private String getSearchColumnKeys() {
-        StringBuffer tableColumns = new StringBuffer();
-        List<Integer> indices =
-            checkListSearchColumns.getSelectedItemIndices();
-        for (Integer index : indices) {
-            tableColumns.append(searchColumnsListModel.getTableColumnAtIndex(
-                index).getKey() + delimiterSearchColumns);
-        }
-        return tableColumns.toString();
     }
 
     private void addAutoscanDirectories() {
@@ -389,7 +429,7 @@ public class UserSettingsDialog extends javax.swing.JDialog
     }
 
     private void removeSelectedAutoscanDirectories() {
-        Object[] values = listTasksAutoscanDirectories.getSelectedValues();
+        Object[] values = listAutoscanDirectories.getSelectedValues();
         for (int i = 0; i < values.length; i++) {
             File directory = (File) values[i];
             String directoryName = (directory).getAbsolutePath();
@@ -432,7 +472,7 @@ public class UserSettingsDialog extends javax.swing.JDialog
             boolean selected = checkListSearchColumns.getSelectionCount() > 0;
             notifyChangeListener(new UserSettingsChangeEvent(selected
                 ? UserSettingsChangeEvent.Type.FastSearchColumnDefined
-                : UserSettingsChangeEvent.Type.NoFastSearchColumns));
+                : UserSettingsChangeEvent.Type.NoFastSearchColumns, this));
         } else if (e.getSource() == thumbnailsUpdater) {
             buttonUpdateAllThumbnails.setEnabled(true);
         }
@@ -442,19 +482,19 @@ public class UserSettingsDialog extends javax.swing.JDialog
     public void setVisible(boolean visible) {
         if (visible) {
             modelAutoscanDirectories = new ListModelAutoscanDirectories();
-            listTasksAutoscanDirectories.setModel(modelAutoscanDirectories);
+            listAutoscanDirectories.setModel(modelAutoscanDirectories);
         }
         super.setVisible(visible);
     }
 
     private void setEnabledButtonRemoveAutoscanDirectory() {
-        buttonTasksAutoscanRemoveDirectories.setEnabled(
-            listTasksAutoscanDirectories.getSelectedIndices().length > 0);
+        buttonRemoveAutoscanDirectories.setEnabled(
+            listAutoscanDirectories.getSelectedIndices().length > 0);
     }
 
     private void setExternalThumbnailAppEnabled() {
-        textFieldExternalThumbnailApp.setEnabled(
-            checkBoxExternalThumbnailApp.isSelected());
+        textFieldExternalThumbnailCreationCommand.setEnabled(
+            UserSettings.getInstance().isCreateThumbnailsWithExternalApp());
     }
 
     /** This method is called from within the constructor to
@@ -469,50 +509,50 @@ public class UserSettingsDialog extends javax.swing.JDialog
         tabbedPane = new javax.swing.JTabbedPane();
         panelOpen = new javax.swing.JPanel();
         panelImageOpenApps = new javax.swing.JPanel();
-        buttonImageOpenApp = new javax.swing.JButton();
+        labelDefaultImageOpenAppPrompt = new javax.swing.JLabel();
+        buttonDefaultImageOpenApp = new javax.swing.JButton();
+        labelDefaultImageOpenApp = new javax.swing.JLabel();
         labelInfoOtherOpenImageApps = new javax.swing.JLabel();
-        scrollPaneListOtherOpenImageApps = new javax.swing.JScrollPane();
-        listOpenImageApps = new javax.swing.JList();
-        buttonRemoveOtherOpenImageApp = new javax.swing.JButton();
-        buttonAddOtherOpenImageApp = new javax.swing.JButton();
-        buttonOpenImageAppMoveDown = new javax.swing.JButton();
-        buttonOpenImageAppMoveUp = new javax.swing.JButton();
-        labelImageInfotextOpenApp = new javax.swing.JLabel();
-        labelImageOpenApp = new javax.swing.JLabel();
+        scrollPaneListOtherImageOpenApps = new javax.swing.JScrollPane();
+        listOtherImageOpenApps = new javax.swing.JList();
+        buttonRemoveOtherImageOpenApp = new javax.swing.JButton();
+        buttonAddOtherImageOpenApp = new javax.swing.JButton();
+        buttonMoveUpOtherImageOpenApp = new javax.swing.JButton();
+        buttonMoveDownOtherImageOpenApp = new javax.swing.JButton();
         panelSearch = new javax.swing.JPanel();
-        labelSearch = new javax.swing.JLabel();
-        scrollPaneSearchColumns = new JScrollPane(checkListSearchColumns);
+        labelFastSearchColumns = new javax.swing.JLabel();
+        scrollPaneFastSearchColumns = new JScrollPane(checkListSearchColumns);
         panelThumbnails = new javax.swing.JPanel();
         panelThumbnailDimensions = new javax.swing.JPanel();
         labelMaxThumbnailWidth = new javax.swing.JLabel();
         spinnerMaxThumbnailWidth = new javax.swing.JSpinner();
-        labelInfoChangeMaxThumbnailWidth = new javax.swing.JLabel();
         buttonUpdateAllThumbnails = new javax.swing.JButton();
+        labelUpdateAllThumbnails = new javax.swing.JLabel();
+        checkBoxIsUseEmbeddedThumbnails = new javax.swing.JCheckBox();
         panelExternalThumbnailApp = new javax.swing.JPanel();
-        checkBoxExternalThumbnailApp = new javax.swing.JCheckBox();
-        labelInfoExternalThumbnailApp = new javax.swing.JLabel();
-        textFieldExternalThumbnailApp = new javax.swing.JTextField();
-        checkBoxUseEmbeddedThumbnails = new javax.swing.JCheckBox();
+        checkBoxIsCreateThumbnailsWithExternalApp = new javax.swing.JCheckBox();
+        labelIsCreateThumbnailsWithExternalApp = new javax.swing.JLabel();
+        textFieldExternalThumbnailCreationCommand = new javax.swing.JTextField();
         panelIptc = new javax.swing.JPanel();
         labelIptcCharset = new javax.swing.JLabel();
         comboBoxIptcCharset = new javax.swing.JComboBox();
         panelTasks = new javax.swing.JPanel();
         panelTasksAutoscan = new javax.swing.JPanel();
-        labelTasksAutoscanMoreInfoDirectories = new javax.swing.JLabel();
-        labelTasksAutoscanInfoDirectories = new javax.swing.JLabel();
-        scrollPaneTasksAutoscanListDirectories = new javax.swing.JScrollPane();
-        listTasksAutoscanDirectories = new javax.swing.JList();
-        checkBoxTasksAutoscanIncludeSubdirectories = new javax.swing.JCheckBox();
-        buttonTasksAutoscanRemoveDirectories = new javax.swing.JButton();
-        buttonTasksAutoscanAddDirectories = new javax.swing.JButton();
+        labelAutoscanDirectoriesInfo = new javax.swing.JLabel();
+        labelAutoscanDirectoriesPrompt = new javax.swing.JLabel();
+        scrollPaneListAutoscanDirectories = new javax.swing.JScrollPane();
+        listAutoscanDirectories = new javax.swing.JList();
+        checkBoxIsAutoscanIncludeSubdirectories = new javax.swing.JCheckBox();
+        buttonRemoveAutoscanDirectories = new javax.swing.JButton();
+        buttonAddAutoscanDirectories = new javax.swing.JButton();
         panelTasksOther = new javax.swing.JPanel();
-        checkBoxTasksRemoveRecordsWithNotExistingFiles = new javax.swing.JCheckBox();
+        checkBoxIsTaskRemoveRecordsWithNotExistingFiles = new javax.swing.JCheckBox();
         labelTasksMinutesToStartScheduledTasks = new javax.swing.JLabel();
-        spinnerTasksMinutesToStartScheduledTasks = new javax.swing.JSpinner();
+        spinnerMinutesToStartScheduledTasks = new javax.swing.JSpinner();
         panelPerformance = new javax.swing.JPanel();
         panelAccelerateStart = new javax.swing.JPanel();
-        checkBoxDisableAutocomplete = new javax.swing.JCheckBox();
-        labelInfoDisableAutocomplete = new javax.swing.JLabel();
+        checkBoxIsAutocompleteDisabled = new javax.swing.JCheckBox();
+        labelsAutocompleteDisabled = new javax.swing.JLabel();
         panelThreadPriority = new javax.swing.JPanel();
         labelThreadPriority = new javax.swing.JLabel();
         comboBoxThreadPriority = new javax.swing.JComboBox();
@@ -522,9 +562,9 @@ public class UserSettingsDialog extends javax.swing.JDialog
         panelLogfile = new javax.swing.JPanel();
         labelLogLevel = new javax.swing.JLabel();
         comboBoxLogLevel = new javax.swing.JComboBox();
-        labelLogFormat = new javax.swing.JLabel();
-        comboBoxLogfileFormatter = new javax.swing.JComboBox();
-        checkBoxAcceptHiddenDirectories = new javax.swing.JCheckBox();
+        labelLogLogfileFormatterClass = new javax.swing.JLabel();
+        comboBoxLogfileFormatterClass = new javax.swing.JComboBox();
+        checkBoxIsAcceptHiddenDirectories = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(Bundle.getString("UserSettingsDialog.title")); // NOI18N
@@ -538,70 +578,70 @@ public class UserSettingsDialog extends javax.swing.JDialog
 
         panelImageOpenApps.setBorder(javax.swing.BorderFactory.createTitledBorder(null, Bundle.getString("UserSettingsDialog.panelImageOpenApps.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 11))); // NOI18N
 
-        buttonImageOpenApp.setFont(new java.awt.Font("Dialog", 0, 12));
-        buttonImageOpenApp.setMnemonic('a');
-        buttonImageOpenApp.setText(Bundle.getString("UserSettingsDialog.buttonImageOpenApp.text")); // NOI18N
-        buttonImageOpenApp.addActionListener(new java.awt.event.ActionListener() {
+        labelDefaultImageOpenAppPrompt.setFont(new java.awt.Font("Dialog", 0, 12));
+        labelDefaultImageOpenAppPrompt.setText(Bundle.getString("UserSettingsDialog.labelDefaultImageOpenAppPrompt.text")); // NOI18N
+
+        buttonDefaultImageOpenApp.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        buttonDefaultImageOpenApp.setMnemonic('a');
+        buttonDefaultImageOpenApp.setText(Bundle.getString("UserSettingsDialog.buttonDefaultImageOpenApp.text")); // NOI18N
+        buttonDefaultImageOpenApp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonImageOpenAppActionPerformed(evt);
+                buttonDefaultImageOpenAppActionPerformed(evt);
             }
         });
+
+        labelDefaultImageOpenApp.setFont(new java.awt.Font("Dialog", 0, 12));
+        labelDefaultImageOpenApp.setForeground(new java.awt.Color(0, 0, 255));
+        labelDefaultImageOpenApp.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         labelInfoOtherOpenImageApps.setFont(new java.awt.Font("Dialog", 0, 12));
         labelInfoOtherOpenImageApps.setText(Bundle.getString("UserSettingsDialog.labelInfoOtherOpenImageApps.text")); // NOI18N
 
-        listOpenImageApps.setModel(modelImageOpenApps);
-        listOpenImageApps.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        listOpenImageApps.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+        listOtherImageOpenApps.setModel(modelOtherImageOpenApps);
+        listOtherImageOpenApps.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        listOtherImageOpenApps.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
-                listOpenImageAppsValueChanged(evt);
+                listOtherImageOpenAppsValueChanged(evt);
             }
         });
-        scrollPaneListOtherOpenImageApps.setViewportView(listOpenImageApps);
+        scrollPaneListOtherImageOpenApps.setViewportView(listOtherImageOpenApps);
 
-        buttonRemoveOtherOpenImageApp.setFont(new java.awt.Font("Dialog", 0, 12));
-        buttonRemoveOtherOpenImageApp.setMnemonic('e');
-        buttonRemoveOtherOpenImageApp.setText(Bundle.getString("UserSettingsDialog.buttonRemoveOtherOpenImageApp.text")); // NOI18N
-        buttonRemoveOtherOpenImageApp.setEnabled(false);
-        buttonRemoveOtherOpenImageApp.addActionListener(new java.awt.event.ActionListener() {
+        buttonRemoveOtherImageOpenApp.setFont(new java.awt.Font("Dialog", 0, 12));
+        buttonRemoveOtherImageOpenApp.setMnemonic('e');
+        buttonRemoveOtherImageOpenApp.setText(Bundle.getString("UserSettingsDialog.buttonRemoveOtherImageOpenApp.text")); // NOI18N
+        buttonRemoveOtherImageOpenApp.setEnabled(false);
+        buttonRemoveOtherImageOpenApp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonRemoveOtherOpenImageAppActionPerformed(evt);
+                buttonRemoveOtherImageOpenAppActionPerformed(evt);
             }
         });
 
-        buttonAddOtherOpenImageApp.setFont(new java.awt.Font("Dialog", 0, 12));
-        buttonAddOtherOpenImageApp.setMnemonic('w');
-        buttonAddOtherOpenImageApp.setText(Bundle.getString("UserSettingsDialog.buttonAddOtherOpenImageApp.text")); // NOI18N
-        buttonAddOtherOpenImageApp.addActionListener(new java.awt.event.ActionListener() {
+        buttonAddOtherImageOpenApp.setFont(new java.awt.Font("Dialog", 0, 12));
+        buttonAddOtherImageOpenApp.setMnemonic('w');
+        buttonAddOtherImageOpenApp.setText(Bundle.getString("UserSettingsDialog.buttonAddOtherImageOpenApp.text")); // NOI18N
+        buttonAddOtherImageOpenApp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonAddOtherOpenImageAppActionPerformed(evt);
+                buttonAddOtherImageOpenAppActionPerformed(evt);
             }
         });
 
-        buttonOpenImageAppMoveDown.setFont(new java.awt.Font("Dialog", 0, 12));
-        buttonOpenImageAppMoveDown.setMnemonic('u');
-        buttonOpenImageAppMoveDown.setText(Bundle.getString("UserSettingsDialog.buttonOpenImageAppMoveDown.text")); // NOI18N
-        buttonOpenImageAppMoveDown.addActionListener(new java.awt.event.ActionListener() {
+        buttonMoveUpOtherImageOpenApp.setFont(new java.awt.Font("Dialog", 0, 12));
+        buttonMoveUpOtherImageOpenApp.setMnemonic('o');
+        buttonMoveUpOtherImageOpenApp.setText(Bundle.getString("UserSettingsDialog.buttonMoveUpOtherImageOpenApp.text")); // NOI18N
+        buttonMoveUpOtherImageOpenApp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonOpenImageAppMoveDownActionPerformed(evt);
+                buttonMoveUpOtherImageOpenAppActionPerformed(evt);
             }
         });
 
-        buttonOpenImageAppMoveUp.setFont(new java.awt.Font("Dialog", 0, 12));
-        buttonOpenImageAppMoveUp.setMnemonic('o');
-        buttonOpenImageAppMoveUp.setText(Bundle.getString("UserSettingsDialog.buttonOpenImageAppMoveUp.text")); // NOI18N
-        buttonOpenImageAppMoveUp.addActionListener(new java.awt.event.ActionListener() {
+        buttonMoveDownOtherImageOpenApp.setFont(new java.awt.Font("Dialog", 0, 12));
+        buttonMoveDownOtherImageOpenApp.setMnemonic('u');
+        buttonMoveDownOtherImageOpenApp.setText(Bundle.getString("UserSettingsDialog.buttonMoveDownOtherImageOpenApp.text")); // NOI18N
+        buttonMoveDownOtherImageOpenApp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonOpenImageAppMoveUpActionPerformed(evt);
+                buttonMoveDownOtherImageOpenAppActionPerformed(evt);
             }
         });
-
-        labelImageInfotextOpenApp.setFont(new java.awt.Font("Dialog", 0, 12));
-        labelImageInfotextOpenApp.setText(Bundle.getString("UserSettingsDialog.labelImageInfotextOpenApp.text")); // NOI18N
-
-        labelImageOpenApp.setFont(new java.awt.Font("Dialog", 0, 12));
-        labelImageOpenApp.setForeground(new java.awt.Color(0, 0, 255));
-        labelImageOpenApp.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         javax.swing.GroupLayout panelImageOpenAppsLayout = new javax.swing.GroupLayout(panelImageOpenApps);
         panelImageOpenApps.setLayout(panelImageOpenAppsLayout);
@@ -610,56 +650,56 @@ public class UserSettingsDialog extends javax.swing.JDialog
             .addGroup(panelImageOpenAppsLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelImageOpenAppsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelImageOpenApp, javax.swing.GroupLayout.DEFAULT_SIZE, 623, Short.MAX_VALUE)
+                    .addComponent(labelDefaultImageOpenApp, javax.swing.GroupLayout.DEFAULT_SIZE, 617, Short.MAX_VALUE)
                     .addGroup(panelImageOpenAppsLayout.createSequentialGroup()
-                        .addComponent(labelImageInfotextOpenApp)
+                        .addComponent(labelDefaultImageOpenAppPrompt)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonImageOpenApp))
+                        .addComponent(buttonDefaultImageOpenApp))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelImageOpenAppsLayout.createSequentialGroup()
                         .addGroup(panelImageOpenAppsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(panelImageOpenAppsLayout.createSequentialGroup()
-                                .addComponent(buttonRemoveOtherOpenImageApp)
+                                .addComponent(buttonRemoveOtherImageOpenApp)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(buttonAddOtherOpenImageApp))
-                            .addComponent(scrollPaneListOtherOpenImageApps, javax.swing.GroupLayout.DEFAULT_SIZE, 522, Short.MAX_VALUE))
+                                .addComponent(buttonAddOtherImageOpenApp))
+                            .addComponent(scrollPaneListOtherImageOpenApps, javax.swing.GroupLayout.DEFAULT_SIZE, 514, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panelImageOpenAppsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(buttonOpenImageAppMoveDown)
-                            .addComponent(buttonOpenImageAppMoveUp)))
+                            .addComponent(buttonMoveDownOtherImageOpenApp)
+                            .addComponent(buttonMoveUpOtherImageOpenApp)))
                     .addComponent(labelInfoOtherOpenImageApps))
                 .addContainerGap())
         );
 
-        panelImageOpenAppsLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {buttonOpenImageAppMoveDown, buttonOpenImageAppMoveUp});
+        panelImageOpenAppsLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {buttonMoveDownOtherImageOpenApp, buttonMoveUpOtherImageOpenApp});
 
         panelImageOpenAppsLayout.setVerticalGroup(
             panelImageOpenAppsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelImageOpenAppsLayout.createSequentialGroup()
                 .addGroup(panelImageOpenAppsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelImageInfotextOpenApp)
-                    .addComponent(buttonImageOpenApp))
+                    .addComponent(labelDefaultImageOpenAppPrompt)
+                    .addComponent(buttonDefaultImageOpenApp))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labelImageOpenApp)
+                .addComponent(labelDefaultImageOpenApp)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelInfoOtherOpenImageApps)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelImageOpenAppsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelImageOpenAppsLayout.createSequentialGroup()
-                        .addComponent(scrollPaneListOtherOpenImageApps, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE)
+                        .addComponent(scrollPaneListOtherImageOpenApps, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panelImageOpenAppsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(buttonAddOtherOpenImageApp)
-                            .addComponent(buttonRemoveOtherOpenImageApp)))
+                            .addComponent(buttonAddOtherImageOpenApp)
+                            .addComponent(buttonRemoveOtherImageOpenApp)))
                     .addGroup(panelImageOpenAppsLayout.createSequentialGroup()
-                        .addComponent(buttonOpenImageAppMoveUp)
+                        .addComponent(buttonMoveUpOtherImageOpenApp)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonOpenImageAppMoveDown)))
+                        .addComponent(buttonMoveDownOtherImageOpenApp)))
                 .addContainerGap())
         );
 
-        panelImageOpenAppsLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {labelImageInfotextOpenApp, labelImageOpenApp});
+        panelImageOpenAppsLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {labelDefaultImageOpenApp, labelDefaultImageOpenAppPrompt});
 
-        panelImageOpenAppsLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {buttonOpenImageAppMoveDown, buttonOpenImageAppMoveUp});
+        panelImageOpenAppsLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {buttonMoveDownOtherImageOpenApp, buttonMoveUpOtherImageOpenApp});
 
         javax.swing.GroupLayout panelOpenLayout = new javax.swing.GroupLayout(panelOpen);
         panelOpen.setLayout(panelOpenLayout);
@@ -680,8 +720,8 @@ public class UserSettingsDialog extends javax.swing.JDialog
 
         tabbedPane.addTab(Bundle.getString("UserSettingsDialog.panelOpen.TabConstraints.tabTitle"), panelOpen); // NOI18N
 
-        labelSearch.setFont(new java.awt.Font("Dialog", 0, 11));
-        labelSearch.setText(Bundle.getString("UserSettingsDialog.labelSearch.text")); // NOI18N
+        labelFastSearchColumns.setFont(new java.awt.Font("Dialog", 0, 11));
+        labelFastSearchColumns.setText(Bundle.getString("UserSettingsDialog.labelFastSearchColumns.text")); // NOI18N
 
         javax.swing.GroupLayout panelSearchLayout = new javax.swing.GroupLayout(panelSearch);
         panelSearch.setLayout(panelSearchLayout);
@@ -689,24 +729,24 @@ public class UserSettingsDialog extends javax.swing.JDialog
             panelSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelSearchLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(labelSearch)
-                .addContainerGap(345, Short.MAX_VALUE))
+                .addComponent(labelFastSearchColumns)
+                .addContainerGap(310, Short.MAX_VALUE))
             .addGroup(panelSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(panelSearchLayout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(scrollPaneSearchColumns, javax.swing.GroupLayout.DEFAULT_SIZE, 655, Short.MAX_VALUE)
+                    .addComponent(scrollPaneFastSearchColumns, javax.swing.GroupLayout.DEFAULT_SIZE, 651, Short.MAX_VALUE)
                     .addContainerGap()))
         );
         panelSearchLayout.setVerticalGroup(
             panelSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelSearchLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(labelSearch)
-                .addContainerGap(309, Short.MAX_VALUE))
+                .addComponent(labelFastSearchColumns)
+                .addContainerGap(291, Short.MAX_VALUE))
             .addGroup(panelSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSearchLayout.createSequentialGroup()
                     .addGap(38, 38, 38)
-                    .addComponent(scrollPaneSearchColumns, javax.swing.GroupLayout.DEFAULT_SIZE, 286, Short.MAX_VALUE)
+                    .addComponent(scrollPaneFastSearchColumns, javax.swing.GroupLayout.DEFAULT_SIZE, 267, Short.MAX_VALUE)
                     .addContainerGap()))
         );
 
@@ -726,10 +766,6 @@ public class UserSettingsDialog extends javax.swing.JDialog
             }
         });
 
-        labelInfoChangeMaxThumbnailWidth.setFont(new java.awt.Font("Dialog", 0, 12));
-        labelInfoChangeMaxThumbnailWidth.setForeground(new java.awt.Color(255, 0, 0));
-        labelInfoChangeMaxThumbnailWidth.setText(Bundle.getString("UserSettingsDialog.labelInfoChangeMaxThumbnailWidth.text")); // NOI18N
-
         buttonUpdateAllThumbnails.setFont(new java.awt.Font("Dialog", 0, 12));
         buttonUpdateAllThumbnails.setMnemonic('n');
         buttonUpdateAllThumbnails.setText(Bundle.getString("UserSettingsDialog.buttonUpdateAllThumbnails.text")); // NOI18N
@@ -739,6 +775,10 @@ public class UserSettingsDialog extends javax.swing.JDialog
                 buttonUpdateAllThumbnailsActionPerformed(evt);
             }
         });
+
+        labelUpdateAllThumbnails.setFont(new java.awt.Font("Dialog", 0, 12));
+        labelUpdateAllThumbnails.setForeground(new java.awt.Color(255, 0, 0));
+        labelUpdateAllThumbnails.setText(Bundle.getString("UserSettingsDialog.labelUpdateAllThumbnails.text")); // NOI18N
 
         javax.swing.GroupLayout panelThumbnailDimensionsLayout = new javax.swing.GroupLayout(panelThumbnailDimensions);
         panelThumbnailDimensions.setLayout(panelThumbnailDimensionsLayout);
@@ -753,7 +793,7 @@ public class UserSettingsDialog extends javax.swing.JDialog
                         .addComponent(spinnerMaxThumbnailWidth, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonUpdateAllThumbnails))
-                    .addComponent(labelInfoChangeMaxThumbnailWidth, javax.swing.GroupLayout.DEFAULT_SIZE, 623, Short.MAX_VALUE))
+                    .addComponent(labelUpdateAllThumbnails, javax.swing.GroupLayout.DEFAULT_SIZE, 617, Short.MAX_VALUE))
                 .addContainerGap())
         );
         panelThumbnailDimensionsLayout.setVerticalGroup(
@@ -764,24 +804,37 @@ public class UserSettingsDialog extends javax.swing.JDialog
                     .addComponent(spinnerMaxThumbnailWidth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(buttonUpdateAllThumbnails))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labelInfoChangeMaxThumbnailWidth)
+                .addComponent(labelUpdateAllThumbnails)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        panelExternalThumbnailApp.setBorder(javax.swing.BorderFactory.createTitledBorder(null, Bundle.getString("UserSettingsDialog.panelExternalThumbnailApp.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 11))); // NOI18N
-
-        checkBoxExternalThumbnailApp.setFont(new java.awt.Font("Dialog", 0, 12));
-        checkBoxExternalThumbnailApp.setText(Bundle.getString("UserSettingsDialog.checkBoxExternalThumbnailApp.text")); // NOI18N
-        checkBoxExternalThumbnailApp.addActionListener(new java.awt.event.ActionListener() {
+        checkBoxIsUseEmbeddedThumbnails.setFont(new java.awt.Font("Dialog", 0, 12));
+        checkBoxIsUseEmbeddedThumbnails.setText(Bundle.getString("UserSettingsDialog.checkBoxIsUseEmbeddedThumbnails.text")); // NOI18N
+        checkBoxIsUseEmbeddedThumbnails.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkBoxExternalThumbnailAppActionPerformed(evt);
+                checkBoxIsUseEmbeddedThumbnailsActionPerformed(evt);
             }
         });
 
-        labelInfoExternalThumbnailApp.setFont(new java.awt.Font("Dialog", 0, 12));
-        labelInfoExternalThumbnailApp.setText(Bundle.getString("UserSettingsDialog.labelInfoExternalThumbnailApp.text")); // NOI18N
+        panelExternalThumbnailApp.setBorder(javax.swing.BorderFactory.createTitledBorder(null, Bundle.getString("UserSettingsDialog.panelExternalThumbnailApp.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 11))); // NOI18N
 
-        textFieldExternalThumbnailApp.setEnabled(false);
+        checkBoxIsCreateThumbnailsWithExternalApp.setFont(new java.awt.Font("Dialog", 0, 12));
+        checkBoxIsCreateThumbnailsWithExternalApp.setText(Bundle.getString("UserSettingsDialog.checkBoxIsCreateThumbnailsWithExternalApp.text")); // NOI18N
+        checkBoxIsCreateThumbnailsWithExternalApp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkBoxIsCreateThumbnailsWithExternalAppActionPerformed(evt);
+            }
+        });
+
+        labelIsCreateThumbnailsWithExternalApp.setFont(new java.awt.Font("Dialog", 0, 12));
+        labelIsCreateThumbnailsWithExternalApp.setText(Bundle.getString("UserSettingsDialog.labelIsCreateThumbnailsWithExternalApp.text")); // NOI18N
+
+        textFieldExternalThumbnailCreationCommand.setEnabled(false);
+        textFieldExternalThumbnailCreationCommand.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                textFieldExternalThumbnailCreationCommandKeyReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelExternalThumbnailAppLayout = new javax.swing.GroupLayout(panelExternalThumbnailApp);
         panelExternalThumbnailApp.setLayout(panelExternalThumbnailAppLayout);
@@ -790,29 +843,21 @@ public class UserSettingsDialog extends javax.swing.JDialog
             .addGroup(panelExternalThumbnailAppLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelExternalThumbnailAppLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(checkBoxExternalThumbnailApp)
-                    .addComponent(labelInfoExternalThumbnailApp, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 623, Short.MAX_VALUE)
-                    .addComponent(textFieldExternalThumbnailApp, javax.swing.GroupLayout.DEFAULT_SIZE, 623, Short.MAX_VALUE))
+                    .addComponent(checkBoxIsCreateThumbnailsWithExternalApp)
+                    .addComponent(labelIsCreateThumbnailsWithExternalApp, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 617, Short.MAX_VALUE)
+                    .addComponent(textFieldExternalThumbnailCreationCommand, javax.swing.GroupLayout.DEFAULT_SIZE, 617, Short.MAX_VALUE))
                 .addContainerGap())
         );
         panelExternalThumbnailAppLayout.setVerticalGroup(
             panelExternalThumbnailAppLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelExternalThumbnailAppLayout.createSequentialGroup()
-                .addComponent(checkBoxExternalThumbnailApp)
+                .addComponent(checkBoxIsCreateThumbnailsWithExternalApp)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labelInfoExternalThumbnailApp)
+                .addComponent(labelIsCreateThumbnailsWithExternalApp)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textFieldExternalThumbnailApp, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(textFieldExternalThumbnailCreationCommand, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        checkBoxUseEmbeddedThumbnails.setFont(new java.awt.Font("Dialog", 0, 12));
-        checkBoxUseEmbeddedThumbnails.setText(Bundle.getString("UserSettingsDialog.checkBoxUseEmbeddedThumbnails.text")); // NOI18N
-        checkBoxUseEmbeddedThumbnails.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkBoxUseEmbeddedThumbnailsActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout panelThumbnailsLayout = new javax.swing.GroupLayout(panelThumbnails);
         panelThumbnails.setLayout(panelThumbnailsLayout);
@@ -822,7 +867,7 @@ public class UserSettingsDialog extends javax.swing.JDialog
                 .addContainerGap()
                 .addGroup(panelThumbnailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(panelExternalThumbnailApp, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(checkBoxUseEmbeddedThumbnails, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(checkBoxIsUseEmbeddedThumbnails, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(panelThumbnailDimensions, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -832,10 +877,10 @@ public class UserSettingsDialog extends javax.swing.JDialog
                 .addContainerGap()
                 .addComponent(panelThumbnailDimensions, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(checkBoxUseEmbeddedThumbnails)
+                .addComponent(checkBoxIsUseEmbeddedThumbnails)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelExternalThumbnailApp, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(90, Short.MAX_VALUE))
+                .addComponent(panelExternalThumbnailApp, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
+                .addGap(73, 73, 73))
         );
 
         tabbedPane.addTab(Bundle.getString("UserSettingsDialog.panelThumbnails.TabConstraints.tabTitle"), panelThumbnails); // NOI18N
@@ -845,6 +890,11 @@ public class UserSettingsDialog extends javax.swing.JDialog
 
         comboBoxIptcCharset.setFont(new java.awt.Font("Dialog", 0, 12));
         comboBoxIptcCharset.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "ISO-8859-1", "UTF-8" }));
+        comboBoxIptcCharset.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                comboBoxIptcCharsetPropertyChange(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelIptcLayout = new javax.swing.GroupLayout(panelIptc);
         panelIptc.setLayout(panelIptcLayout);
@@ -855,7 +905,7 @@ public class UserSettingsDialog extends javax.swing.JDialog
                 .addComponent(labelIptcCharset)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(comboBoxIptcCharset, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(413, Short.MAX_VALUE))
+                .addContainerGap(384, Short.MAX_VALUE))
         );
         panelIptcLayout.setVerticalGroup(
             panelIptcLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -864,53 +914,58 @@ public class UserSettingsDialog extends javax.swing.JDialog
                 .addGroup(panelIptcLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelIptcCharset)
                     .addComponent(comboBoxIptcCharset, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(300, Short.MAX_VALUE))
+                .addContainerGap(281, Short.MAX_VALUE))
         );
 
         tabbedPane.addTab(Bundle.getString("UserSettingsDialog.panelIptc.TabConstraints.tabTitle"), panelIptc); // NOI18N
 
         panelTasksAutoscan.setBorder(javax.swing.BorderFactory.createTitledBorder(null, Bundle.getString("UserSettingsDialog.panelTasksAutoscan.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 11))); // NOI18N
 
-        labelTasksAutoscanMoreInfoDirectories.setFont(new java.awt.Font("Dialog", 0, 12));
-        labelTasksAutoscanMoreInfoDirectories.setText(Bundle.getString("UserSettingsDialog.labelTasksAutoscanMoreInfoDirectories.text")); // NOI18N
+        labelAutoscanDirectoriesInfo.setFont(new java.awt.Font("Dialog", 0, 12));
+        labelAutoscanDirectoriesInfo.setText(Bundle.getString("UserSettingsDialog.labelAutoscanDirectoriesInfo.text")); // NOI18N
 
-        labelTasksAutoscanInfoDirectories.setFont(new java.awt.Font("Dialog", 0, 12));
-        labelTasksAutoscanInfoDirectories.setText(Bundle.getString("UserSettingsDialog.labelTasksAutoscanInfoDirectories.text")); // NOI18N
+        labelAutoscanDirectoriesPrompt.setFont(new java.awt.Font("Dialog", 0, 12));
+        labelAutoscanDirectoriesPrompt.setText(Bundle.getString("UserSettingsDialog.labelAutoscanDirectoriesPrompt.text")); // NOI18N
 
-        listTasksAutoscanDirectories.setFont(new java.awt.Font("Dialog", 0, 12));
-        listTasksAutoscanDirectories.setModel(modelAutoscanDirectories);
-        listTasksAutoscanDirectories.setCellRenderer(new ListCellRendererFileSystem(true));
-        listTasksAutoscanDirectories.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+        listAutoscanDirectories.setFont(new java.awt.Font("Dialog", 0, 12));
+        listAutoscanDirectories.setModel(modelAutoscanDirectories);
+        listAutoscanDirectories.setCellRenderer(new ListCellRendererFileSystem(true));
+        listAutoscanDirectories.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
-                listTasksAutoscanDirectoriesValueChanged(evt);
+                listAutoscanDirectoriesValueChanged(evt);
             }
         });
-        listTasksAutoscanDirectories.addKeyListener(new java.awt.event.KeyAdapter() {
+        listAutoscanDirectories.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                listTasksAutoscanDirectoriesKeyReleased(evt);
+                listAutoscanDirectoriesKeyReleased(evt);
             }
         });
-        scrollPaneTasksAutoscanListDirectories.setViewportView(listTasksAutoscanDirectories);
+        scrollPaneListAutoscanDirectories.setViewportView(listAutoscanDirectories);
 
-        checkBoxTasksAutoscanIncludeSubdirectories.setFont(new java.awt.Font("Dialog", 0, 12));
-        checkBoxTasksAutoscanIncludeSubdirectories.setText(Bundle.getString("UserSettingsDialog.checkBoxTasksAutoscanIncludeSubdirectories.text")); // NOI18N
-
-        buttonTasksAutoscanRemoveDirectories.setFont(new java.awt.Font("Dialog", 0, 12));
-        buttonTasksAutoscanRemoveDirectories.setMnemonic('e');
-        buttonTasksAutoscanRemoveDirectories.setText(Bundle.getString("UserSettingsDialog.buttonTasksAutoscanRemoveDirectories.text")); // NOI18N
-        buttonTasksAutoscanRemoveDirectories.setEnabled(false);
-        buttonTasksAutoscanRemoveDirectories.addActionListener(new java.awt.event.ActionListener() {
+        checkBoxIsAutoscanIncludeSubdirectories.setFont(new java.awt.Font("Dialog", 0, 12));
+        checkBoxIsAutoscanIncludeSubdirectories.setText(Bundle.getString("UserSettingsDialog.checkBoxIsAutoscanIncludeSubdirectories.text")); // NOI18N
+        checkBoxIsAutoscanIncludeSubdirectories.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonTasksAutoscanRemoveDirectoriesActionPerformed(evt);
+                checkBoxIsAutoscanIncludeSubdirectoriesActionPerformed(evt);
             }
         });
 
-        buttonTasksAutoscanAddDirectories.setFont(new java.awt.Font("Dialog", 0, 12));
-        buttonTasksAutoscanAddDirectories.setMnemonic('h');
-        buttonTasksAutoscanAddDirectories.setText(Bundle.getString("UserSettingsDialog.buttonTasksAutoscanAddDirectories.text")); // NOI18N
-        buttonTasksAutoscanAddDirectories.addActionListener(new java.awt.event.ActionListener() {
+        buttonRemoveAutoscanDirectories.setFont(new java.awt.Font("Dialog", 0, 12));
+        buttonRemoveAutoscanDirectories.setMnemonic('e');
+        buttonRemoveAutoscanDirectories.setText(Bundle.getString("UserSettingsDialog.buttonRemoveAutoscanDirectories.text")); // NOI18N
+        buttonRemoveAutoscanDirectories.setEnabled(false);
+        buttonRemoveAutoscanDirectories.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonTasksAutoscanAddDirectoriesActionPerformed(evt);
+                buttonRemoveAutoscanDirectoriesActionPerformed(evt);
+            }
+        });
+
+        buttonAddAutoscanDirectories.setFont(new java.awt.Font("Dialog", 0, 12));
+        buttonAddAutoscanDirectories.setMnemonic('h');
+        buttonAddAutoscanDirectories.setText(Bundle.getString("UserSettingsDialog.buttonAddAutoscanDirectories.text")); // NOI18N
+        buttonAddAutoscanDirectories.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonAddAutoscanDirectoriesActionPerformed(evt);
             }
         });
 
@@ -921,61 +976,71 @@ public class UserSettingsDialog extends javax.swing.JDialog
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTasksAutoscanLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelTasksAutoscanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(scrollPaneTasksAutoscanListDirectories, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 623, Short.MAX_VALUE)
+                    .addComponent(scrollPaneListAutoscanDirectories, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 617, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelTasksAutoscanLayout.createSequentialGroup()
                         .addGroup(panelTasksAutoscanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(panelTasksAutoscanLayout.createSequentialGroup()
-                                .addComponent(checkBoxTasksAutoscanIncludeSubdirectories)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 83, Short.MAX_VALUE))
+                                .addComponent(checkBoxIsAutoscanIncludeSubdirectories)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE))
                             .addGroup(panelTasksAutoscanLayout.createSequentialGroup()
-                                .addComponent(buttonTasksAutoscanRemoveDirectories)
+                                .addComponent(buttonRemoveAutoscanDirectories)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                        .addComponent(buttonTasksAutoscanAddDirectories))
-                    .addComponent(labelTasksAutoscanMoreInfoDirectories, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 623, Short.MAX_VALUE)
-                    .addComponent(labelTasksAutoscanInfoDirectories, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addComponent(buttonAddAutoscanDirectories))
+                    .addComponent(labelAutoscanDirectoriesInfo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 617, Short.MAX_VALUE)
+                    .addComponent(labelAutoscanDirectoriesPrompt, javax.swing.GroupLayout.Alignment.LEADING))
                 .addContainerGap())
         );
         panelTasksAutoscanLayout.setVerticalGroup(
             panelTasksAutoscanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelTasksAutoscanLayout.createSequentialGroup()
-                .addComponent(labelTasksAutoscanMoreInfoDirectories, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(labelAutoscanDirectoriesInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labelTasksAutoscanInfoDirectories, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(labelAutoscanDirectoriesPrompt, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPaneTasksAutoscanListDirectories, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
+                .addComponent(scrollPaneListAutoscanDirectories, javax.swing.GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(checkBoxTasksAutoscanIncludeSubdirectories)
+                .addComponent(checkBoxIsAutoscanIncludeSubdirectories)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panelTasksAutoscanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonTasksAutoscanAddDirectories)
-                    .addComponent(buttonTasksAutoscanRemoveDirectories))
+                    .addComponent(buttonAddAutoscanDirectories)
+                    .addComponent(buttonRemoveAutoscanDirectories))
                 .addContainerGap())
         );
 
         panelTasksOther.setBorder(javax.swing.BorderFactory.createTitledBorder(null, Bundle.getString("UserSettingsDialog.panelTasksOther.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 11))); // NOI18N
 
-        checkBoxTasksRemoveRecordsWithNotExistingFiles.setFont(new java.awt.Font("Dialog", 0, 12));
-        checkBoxTasksRemoveRecordsWithNotExistingFiles.setText(Bundle.getString("UserSettingsDialog.checkBoxTasksRemoveRecordsWithNotExistingFiles.text")); // NOI18N
+        checkBoxIsTaskRemoveRecordsWithNotExistingFiles.setFont(new java.awt.Font("Dialog", 0, 12));
+        checkBoxIsTaskRemoveRecordsWithNotExistingFiles.setText(Bundle.getString("UserSettingsDialog.checkBoxIsTaskRemoveRecordsWithNotExistingFiles.text")); // NOI18N
+        checkBoxIsTaskRemoveRecordsWithNotExistingFiles.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkBoxIsTaskRemoveRecordsWithNotExistingFilesActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelTasksOtherLayout = new javax.swing.GroupLayout(panelTasksOther);
         panelTasksOther.setLayout(panelTasksOtherLayout);
         panelTasksOtherLayout.setHorizontalGroup(
             panelTasksOtherLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelTasksOtherLayout.createSequentialGroup()
-                .addComponent(checkBoxTasksRemoveRecordsWithNotExistingFiles)
-                .addContainerGap(132, Short.MAX_VALUE))
+                .addComponent(checkBoxIsTaskRemoveRecordsWithNotExistingFiles)
+                .addContainerGap(103, Short.MAX_VALUE))
         );
         panelTasksOtherLayout.setVerticalGroup(
             panelTasksOtherLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelTasksOtherLayout.createSequentialGroup()
-                .addComponent(checkBoxTasksRemoveRecordsWithNotExistingFiles)
+                .addComponent(checkBoxIsTaskRemoveRecordsWithNotExistingFiles)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         labelTasksMinutesToStartScheduledTasks.setFont(new java.awt.Font("Dialog", 0, 12));
         labelTasksMinutesToStartScheduledTasks.setText(Bundle.getString("UserSettingsDialog.labelTasksMinutesToStartScheduledTasks.text")); // NOI18N
 
-        spinnerTasksMinutesToStartScheduledTasks.setModel(new SpinnerNumberModel(5, 1, 6000, 1));
+        spinnerMinutesToStartScheduledTasks.setModel(new SpinnerNumberModel(5, 1, 6000, 1));
+        spinnerMinutesToStartScheduledTasks.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                spinnerMinutesToStartScheduledTasksStateChanged(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelTasksLayout = new javax.swing.GroupLayout(panelTasks);
         panelTasks.setLayout(panelTasksLayout);
@@ -989,7 +1054,7 @@ public class UserSettingsDialog extends javax.swing.JDialog
                     .addGroup(panelTasksLayout.createSequentialGroup()
                         .addComponent(labelTasksMinutesToStartScheduledTasks)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(spinnerTasksMinutesToStartScheduledTasks, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(spinnerMinutesToStartScheduledTasks, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         panelTasksLayout.setVerticalGroup(
@@ -1002,7 +1067,7 @@ public class UserSettingsDialog extends javax.swing.JDialog
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelTasksLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelTasksMinutesToStartScheduledTasks)
-                    .addComponent(spinnerTasksMinutesToStartScheduledTasks, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(spinnerMinutesToStartScheduledTasks, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -1010,12 +1075,17 @@ public class UserSettingsDialog extends javax.swing.JDialog
 
         panelAccelerateStart.setBorder(javax.swing.BorderFactory.createTitledBorder(null, Bundle.getString("UserSettingsDialog.panelAccelerateStart.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 11))); // NOI18N
 
-        checkBoxDisableAutocomplete.setFont(new java.awt.Font("Dialog", 0, 12));
-        checkBoxDisableAutocomplete.setText(Bundle.getString("UserSettingsDialog.checkBoxDisableAutocomplete.text")); // NOI18N
+        checkBoxIsAutocompleteDisabled.setFont(new java.awt.Font("Dialog", 0, 12));
+        checkBoxIsAutocompleteDisabled.setText(Bundle.getString("UserSettingsDialog.checkBoxIsAutocompleteDisabled.text")); // NOI18N
+        checkBoxIsAutocompleteDisabled.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkBoxIsAutocompleteDisabledActionPerformed(evt);
+            }
+        });
 
-        labelInfoDisableAutocomplete.setFont(new java.awt.Font("Dialog", 0, 12));
-        labelInfoDisableAutocomplete.setForeground(new java.awt.Color(255, 0, 0));
-        labelInfoDisableAutocomplete.setText(Bundle.getString("UserSettingsDialog.labelInfoDisableAutocomplete.text")); // NOI18N
+        labelsAutocompleteDisabled.setFont(new java.awt.Font("Dialog", 0, 12));
+        labelsAutocompleteDisabled.setForeground(new java.awt.Color(255, 0, 0));
+        labelsAutocompleteDisabled.setText(Bundle.getString("UserSettingsDialog.labelsAutocompleteDisabled.text")); // NOI18N
 
         javax.swing.GroupLayout panelAccelerateStartLayout = new javax.swing.GroupLayout(panelAccelerateStart);
         panelAccelerateStart.setLayout(panelAccelerateStartLayout);
@@ -1023,18 +1093,18 @@ public class UserSettingsDialog extends javax.swing.JDialog
             panelAccelerateStartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelAccelerateStartLayout.createSequentialGroup()
                 .addGroup(panelAccelerateStartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(checkBoxDisableAutocomplete)
+                    .addComponent(checkBoxIsAutocompleteDisabled)
                     .addGroup(panelAccelerateStartLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(labelInfoDisableAutocomplete)))
-                .addContainerGap(166, Short.MAX_VALUE))
+                        .addComponent(labelsAutocompleteDisabled)))
+                .addContainerGap(132, Short.MAX_VALUE))
         );
         panelAccelerateStartLayout.setVerticalGroup(
             panelAccelerateStartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelAccelerateStartLayout.createSequentialGroup()
-                .addComponent(checkBoxDisableAutocomplete)
+                .addComponent(checkBoxIsAutocompleteDisabled)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labelInfoDisableAutocomplete)
+                .addComponent(labelsAutocompleteDisabled)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -1070,7 +1140,7 @@ public class UserSettingsDialog extends javax.swing.JDialog
                         .addComponent(labelThreadPriority)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(comboBoxThreadPriority, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(219, Short.MAX_VALUE))
+                .addContainerGap(190, Short.MAX_VALUE))
         );
         panelThreadPriorityLayout.setVerticalGroup(
             panelThreadPriorityLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1101,7 +1171,7 @@ public class UserSettingsDialog extends javax.swing.JDialog
                 .addComponent(panelAccelerateStart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelThreadPriority, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(153, Short.MAX_VALUE))
+                .addContainerGap(142, Short.MAX_VALUE))
         );
 
         tabbedPane.addTab(Bundle.getString("UserSettingsDialog.panelPerformance.TabConstraints.tabTitle"), panelPerformance); // NOI18N
@@ -1113,12 +1183,22 @@ public class UserSettingsDialog extends javax.swing.JDialog
         labelLogLevel.setText(Bundle.getString("UserSettingsDialog.labelLogLevel.text")); // NOI18N
 
         comboBoxLogLevel.setModel(new javax.swing.DefaultComboBoxModel(new String[] { java.util.logging.Level.WARNING.getLocalizedName(), java.util.logging.Level.SEVERE.getLocalizedName(), java.util.logging.Level.INFO.getLocalizedName(), java.util.logging.Level.CONFIG.getLocalizedName(), java.util.logging.Level.FINE.getLocalizedName(), java.util.logging.Level.FINER.getLocalizedName(), java.util.logging.Level.FINEST.getLocalizedName() }));
+        comboBoxLogLevel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboBoxLogLevelActionPerformed(evt);
+            }
+        });
 
-        labelLogFormat.setFont(new java.awt.Font("Dialog", 0, 12));
-        labelLogFormat.setText(Bundle.getString("UserSettingsDialog.labelLogFormat.text")); // NOI18N
+        labelLogLogfileFormatterClass.setFont(new java.awt.Font("Dialog", 0, 12));
+        labelLogLogfileFormatterClass.setText(Bundle.getString("UserSettingsDialog.labelLogLogfileFormatterClass.text")); // NOI18N
 
-        comboBoxLogfileFormatter.setModel(new ComboBoxModelLogfileFormatter());
-        comboBoxLogfileFormatter.setRenderer(new ListCellRendererLogfileFormatter());
+        comboBoxLogfileFormatterClass.setModel(new ComboBoxModelLogfileFormatter());
+        comboBoxLogfileFormatterClass.setRenderer(new ListCellRendererLogfileFormatter());
+        comboBoxLogfileFormatterClass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboBoxLogfileFormatterClassActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelLogfileLayout = new javax.swing.GroupLayout(panelLogfile);
         panelLogfile.setLayout(panelLogfileLayout);
@@ -1130,10 +1210,10 @@ public class UserSettingsDialog extends javax.swing.JDialog
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(comboBoxLogLevel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(labelLogFormat)
+                .addComponent(labelLogLogfileFormatterClass)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(comboBoxLogfileFormatter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(220, Short.MAX_VALUE))
+                .addComponent(comboBoxLogfileFormatterClass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(167, Short.MAX_VALUE))
         );
         panelLogfileLayout.setVerticalGroup(
             panelLogfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1141,13 +1221,18 @@ public class UserSettingsDialog extends javax.swing.JDialog
                 .addGroup(panelLogfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(comboBoxLogLevel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labelLogLevel)
-                    .addComponent(labelLogFormat)
-                    .addComponent(comboBoxLogfileFormatter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(labelLogLogfileFormatterClass)
+                    .addComponent(comboBoxLogfileFormatterClass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        checkBoxAcceptHiddenDirectories.setFont(new java.awt.Font("Dialog", 0, 12));
-        checkBoxAcceptHiddenDirectories.setText(Bundle.getString("UserSettingsDialog.checkBoxAcceptHiddenDirectories.text")); // NOI18N
+        checkBoxIsAcceptHiddenDirectories.setFont(new java.awt.Font("Dialog", 0, 12));
+        checkBoxIsAcceptHiddenDirectories.setText(Bundle.getString("UserSettingsDialog.checkBoxIsAcceptHiddenDirectories.text")); // NOI18N
+        checkBoxIsAcceptHiddenDirectories.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkBoxIsAcceptHiddenDirectoriesActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelOtherLayout = new javax.swing.GroupLayout(panelOther);
         panelOther.setLayout(panelOtherLayout);
@@ -1156,7 +1241,7 @@ public class UserSettingsDialog extends javax.swing.JDialog
             .addGroup(panelOtherLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelOtherLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(checkBoxAcceptHiddenDirectories)
+                    .addComponent(checkBoxIsAcceptHiddenDirectories)
                     .addComponent(panelLogfile, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -1166,8 +1251,8 @@ public class UserSettingsDialog extends javax.swing.JDialog
                 .addContainerGap()
                 .addComponent(panelLogfile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(checkBoxAcceptHiddenDirectories)
-                .addContainerGap(237, Short.MAX_VALUE))
+                .addComponent(checkBoxIsAcceptHiddenDirectories)
+                .addContainerGap(220, Short.MAX_VALUE))
         );
 
         tabbedPane.addTab(Bundle.getString("UserSettingsDialog.panelOther.TabConstraints.tabTitle"), panelOther); // NOI18N
@@ -1192,79 +1277,105 @@ public class UserSettingsDialog extends javax.swing.JDialog
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-private void buttonImageOpenAppActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonImageOpenAppActionPerformed
+private void buttonDefaultImageOpenAppActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDefaultImageOpenAppActionPerformed
     setDefaultOpenApp();
-}//GEN-LAST:event_buttonImageOpenAppActionPerformed
+}//GEN-LAST:event_buttonDefaultImageOpenAppActionPerformed
 
 private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
     writePersistent();
 }//GEN-LAST:event_formWindowClosing
 
-private void checkBoxExternalThumbnailAppActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxExternalThumbnailAppActionPerformed
-    if (checkBoxExternalThumbnailApp.isSelected()) {
-        checkBoxUseEmbeddedThumbnails.setSelected(false);
-    }
-    setExternalThumbnailAppEnabled();
-}//GEN-LAST:event_checkBoxExternalThumbnailAppActionPerformed
+private void checkBoxIsCreateThumbnailsWithExternalAppActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxIsCreateThumbnailsWithExternalAppActionPerformed
+    handleActionCheckBoxExternalThumbnail();
+}//GEN-LAST:event_checkBoxIsCreateThumbnailsWithExternalAppActionPerformed
 
-private void buttonAddOtherOpenImageAppActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddOtherOpenImageAppActionPerformed
+private void buttonAddOtherImageOpenAppActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddOtherImageOpenAppActionPerformed
     addOtherOpenImageApp();
-}//GEN-LAST:event_buttonAddOtherOpenImageAppActionPerformed
+}//GEN-LAST:event_buttonAddOtherImageOpenAppActionPerformed
 
-private void buttonOpenImageAppMoveUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonOpenImageAppMoveUpActionPerformed
+private void buttonMoveUpOtherImageOpenAppActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonMoveUpOtherImageOpenAppActionPerformed
     moveUpOpenImageApp();
-}//GEN-LAST:event_buttonOpenImageAppMoveUpActionPerformed
+}//GEN-LAST:event_buttonMoveUpOtherImageOpenAppActionPerformed
 
-private void buttonOpenImageAppMoveDownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonOpenImageAppMoveDownActionPerformed
+private void buttonMoveDownOtherImageOpenAppActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonMoveDownOtherImageOpenAppActionPerformed
     moveDownOpenImageApp();
-}//GEN-LAST:event_buttonOpenImageAppMoveDownActionPerformed
+}//GEN-LAST:event_buttonMoveDownOtherImageOpenAppActionPerformed
 
-private void buttonRemoveOtherOpenImageAppActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRemoveOtherOpenImageAppActionPerformed
+private void buttonRemoveOtherImageOpenAppActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRemoveOtherImageOpenAppActionPerformed
     removeOtherOpenImageApp();
-}//GEN-LAST:event_buttonRemoveOtherOpenImageAppActionPerformed
+}//GEN-LAST:event_buttonRemoveOtherImageOpenAppActionPerformed
 
-private void listOpenImageAppsValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listOpenImageAppsValueChanged
+private void listOtherImageOpenAppsValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listOtherImageOpenAppsValueChanged
     setEnabled();
-}//GEN-LAST:event_listOpenImageAppsValueChanged
+}//GEN-LAST:event_listOtherImageOpenAppsValueChanged
 
-private void listTasksAutoscanDirectoriesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_listTasksAutoscanDirectoriesKeyReleased
-    if (evt.getKeyCode() == KeyEvent.VK_DELETE) {
-        removeSelectedAutoscanDirectories();
-    }
-}//GEN-LAST:event_listTasksAutoscanDirectoriesKeyReleased
+private void listAutoscanDirectoriesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_listAutoscanDirectoriesKeyReleased
+    handleKeyEventListTasksAutoscanDirectories(evt);
+}//GEN-LAST:event_listAutoscanDirectoriesKeyReleased
 
-private void buttonTasksAutoscanAddDirectoriesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTasksAutoscanAddDirectoriesActionPerformed
+private void buttonAddAutoscanDirectoriesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddAutoscanDirectoriesActionPerformed
     addAutoscanDirectories();
-}//GEN-LAST:event_buttonTasksAutoscanAddDirectoriesActionPerformed
+}//GEN-LAST:event_buttonAddAutoscanDirectoriesActionPerformed
 
-private void buttonTasksAutoscanRemoveDirectoriesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTasksAutoscanRemoveDirectoriesActionPerformed
+private void buttonRemoveAutoscanDirectoriesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRemoveAutoscanDirectoriesActionPerformed
     removeSelectedAutoscanDirectories();
-}//GEN-LAST:event_buttonTasksAutoscanRemoveDirectoriesActionPerformed
+}//GEN-LAST:event_buttonRemoveAutoscanDirectoriesActionPerformed
 
 private void comboBoxThreadPriorityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxThreadPriorityActionPerformed
-    notifyChangeListener(new UserSettingsChangeEvent(
-        UserSettingsChangeEvent.Type.Loglevel));
+    handleActionComboBoxThreadPriorityAction();
 }//GEN-LAST:event_comboBoxThreadPriorityActionPerformed
 
-private void listTasksAutoscanDirectoriesValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listTasksAutoscanDirectoriesValueChanged
+private void listAutoscanDirectoriesValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listAutoscanDirectoriesValueChanged
     setEnabledButtonRemoveAutoscanDirectory();
-}//GEN-LAST:event_listTasksAutoscanDirectoriesValueChanged
+}//GEN-LAST:event_listAutoscanDirectoriesValueChanged
 
 private void spinnerMaxThumbnailWidthStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spinnerMaxThumbnailWidthStateChanged
-    notifyThumbnailWidthChanged();
+    handleStateChangedSpinnerMaxThumbnailWidth();
 }//GEN-LAST:event_spinnerMaxThumbnailWidthStateChanged
 
-private void checkBoxUseEmbeddedThumbnailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxUseEmbeddedThumbnailsActionPerformed
-    if (checkBoxUseEmbeddedThumbnails.isSelected()) {
-        checkBoxExternalThumbnailApp.setSelected(false);
-    }
-    setExternalThumbnailAppEnabled();
-
-}//GEN-LAST:event_checkBoxUseEmbeddedThumbnailsActionPerformed
+private void checkBoxIsUseEmbeddedThumbnailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxIsUseEmbeddedThumbnailsActionPerformed
+    handleActionCheckBoxUseEmbeddedThumbnails();
+}//GEN-LAST:event_checkBoxIsUseEmbeddedThumbnailsActionPerformed
 
 private void buttonUpdateAllThumbnailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonUpdateAllThumbnailsActionPerformed
     updateAllThumbnails();
 }//GEN-LAST:event_buttonUpdateAllThumbnailsActionPerformed
+
+private void textFieldExternalThumbnailCreationCommandKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldExternalThumbnailCreationCommandKeyReleased
+    handleKeyEventTextFieldExternalThumbnailCreationCommand();
+}//GEN-LAST:event_textFieldExternalThumbnailCreationCommandKeyReleased
+
+private void comboBoxIptcCharsetPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_comboBoxIptcCharsetPropertyChange
+    handleActionComboBoxIptcCharset();
+}//GEN-LAST:event_comboBoxIptcCharsetPropertyChange
+
+private void checkBoxIsAutoscanIncludeSubdirectoriesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxIsAutoscanIncludeSubdirectoriesActionPerformed
+    handleActionCheckBoxIsAutoscanIncludeSubdirectories();
+}//GEN-LAST:event_checkBoxIsAutoscanIncludeSubdirectoriesActionPerformed
+
+private void checkBoxIsTaskRemoveRecordsWithNotExistingFilesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxIsTaskRemoveRecordsWithNotExistingFilesActionPerformed
+    handleActionCheckBoxIsTaskRemoveRecordsWithNotExistingFiles();
+}//GEN-LAST:event_checkBoxIsTaskRemoveRecordsWithNotExistingFilesActionPerformed
+
+private void spinnerMinutesToStartScheduledTasksStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spinnerMinutesToStartScheduledTasksStateChanged
+    handleStateChangedSpinnerMinutesToStartScheduledTasks();
+}//GEN-LAST:event_spinnerMinutesToStartScheduledTasksStateChanged
+
+private void checkBoxIsAutocompleteDisabledActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxIsAutocompleteDisabledActionPerformed
+    handleActionPerformedCheckBoxIsAutocompleteDisabled();
+}//GEN-LAST:event_checkBoxIsAutocompleteDisabledActionPerformed
+
+private void comboBoxLogLevelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxLogLevelActionPerformed
+    handleActionPerformedComboBoxLogLevel();
+}//GEN-LAST:event_comboBoxLogLevelActionPerformed
+
+private void comboBoxLogfileFormatterClassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxLogfileFormatterClassActionPerformed
+    handleActionPerformedComboBoxLogfileFormatterClass();
+}//GEN-LAST:event_comboBoxLogfileFormatterClassActionPerformed
+
+private void checkBoxIsAcceptHiddenDirectoriesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxIsAcceptHiddenDirectoriesActionPerformed
+    handleActionPerformedCheckBoxIsAcceptHiddenDirectories();
+}//GEN-LAST:event_checkBoxIsAcceptHiddenDirectoriesActionPerformed
 
     /**
     * @param args the command line arguments
@@ -1286,42 +1397,42 @@ private void buttonUpdateAllThumbnailsActionPerformed(java.awt.event.ActionEvent
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton buttonAddOtherOpenImageApp;
-    private javax.swing.JButton buttonImageOpenApp;
-    private javax.swing.JButton buttonOpenImageAppMoveDown;
-    private javax.swing.JButton buttonOpenImageAppMoveUp;
-    private javax.swing.JButton buttonRemoveOtherOpenImageApp;
-    private javax.swing.JButton buttonTasksAutoscanAddDirectories;
-    private javax.swing.JButton buttonTasksAutoscanRemoveDirectories;
+    private javax.swing.JButton buttonAddAutoscanDirectories;
+    private javax.swing.JButton buttonAddOtherImageOpenApp;
+    private javax.swing.JButton buttonDefaultImageOpenApp;
+    private javax.swing.JButton buttonMoveDownOtherImageOpenApp;
+    private javax.swing.JButton buttonMoveUpOtherImageOpenApp;
+    private javax.swing.JButton buttonRemoveAutoscanDirectories;
+    private javax.swing.JButton buttonRemoveOtherImageOpenApp;
     private javax.swing.JButton buttonUpdateAllThumbnails;
-    public javax.swing.JCheckBox checkBoxAcceptHiddenDirectories;
-    public javax.swing.JCheckBox checkBoxDisableAutocomplete;
-    public javax.swing.JCheckBox checkBoxExternalThumbnailApp;
-    public javax.swing.JCheckBox checkBoxTasksAutoscanIncludeSubdirectories;
-    public javax.swing.JCheckBox checkBoxTasksRemoveRecordsWithNotExistingFiles;
-    public javax.swing.JCheckBox checkBoxUseEmbeddedThumbnails;
+    public javax.swing.JCheckBox checkBoxIsAcceptHiddenDirectories;
+    public javax.swing.JCheckBox checkBoxIsAutocompleteDisabled;
+    public javax.swing.JCheckBox checkBoxIsAutoscanIncludeSubdirectories;
+    public javax.swing.JCheckBox checkBoxIsCreateThumbnailsWithExternalApp;
+    public javax.swing.JCheckBox checkBoxIsTaskRemoveRecordsWithNotExistingFiles;
+    public javax.swing.JCheckBox checkBoxIsUseEmbeddedThumbnails;
     public javax.swing.JComboBox comboBoxIptcCharset;
     public javax.swing.JComboBox comboBoxLogLevel;
-    public javax.swing.JComboBox comboBoxLogfileFormatter;
+    public javax.swing.JComboBox comboBoxLogfileFormatterClass;
     public javax.swing.JComboBox comboBoxThreadPriority;
-    private javax.swing.JLabel labelImageInfotextOpenApp;
-    public javax.swing.JLabel labelImageOpenApp;
-    private javax.swing.JLabel labelInfoChangeMaxThumbnailWidth;
-    private javax.swing.JLabel labelInfoDisableAutocomplete;
-    private javax.swing.JLabel labelInfoExternalThumbnailApp;
+    private javax.swing.JLabel labelAutoscanDirectoriesInfo;
+    private javax.swing.JLabel labelAutoscanDirectoriesPrompt;
+    public javax.swing.JLabel labelDefaultImageOpenApp;
+    private javax.swing.JLabel labelDefaultImageOpenAppPrompt;
+    private javax.swing.JLabel labelFastSearchColumns;
     private javax.swing.JLabel labelInfoOtherOpenImageApps;
     private javax.swing.JLabel labelInfoThreadPriority;
     private javax.swing.JLabel labelIptcCharset;
-    private javax.swing.JLabel labelLogFormat;
+    private javax.swing.JLabel labelIsCreateThumbnailsWithExternalApp;
     private javax.swing.JLabel labelLogLevel;
+    private javax.swing.JLabel labelLogLogfileFormatterClass;
     private javax.swing.JLabel labelMaxThumbnailWidth;
-    private javax.swing.JLabel labelSearch;
-    private javax.swing.JLabel labelTasksAutoscanInfoDirectories;
-    private javax.swing.JLabel labelTasksAutoscanMoreInfoDirectories;
     private javax.swing.JLabel labelTasksMinutesToStartScheduledTasks;
     private javax.swing.JLabel labelThreadPriority;
-    public javax.swing.JList listOpenImageApps;
-    private javax.swing.JList listTasksAutoscanDirectories;
+    private javax.swing.JLabel labelUpdateAllThumbnails;
+    private javax.swing.JLabel labelsAutocompleteDisabled;
+    private javax.swing.JList listAutoscanDirectories;
+    public javax.swing.JList listOtherImageOpenApps;
     private javax.swing.JPanel panelAccelerateStart;
     private javax.swing.JPanel panelExternalThumbnailApp;
     private de.elmar_baumann.imv.view.panels.FileExcludePatternsPanel panelFileExcludePatterns;
@@ -1338,13 +1449,13 @@ private void buttonUpdateAllThumbnailsActionPerformed(java.awt.event.ActionEvent
     private javax.swing.JPanel panelThreadPriority;
     private javax.swing.JPanel panelThumbnailDimensions;
     private javax.swing.JPanel panelThumbnails;
-    private javax.swing.JScrollPane scrollPaneListOtherOpenImageApps;
-    private javax.swing.JScrollPane scrollPaneSearchColumns;
-    private javax.swing.JScrollPane scrollPaneTasksAutoscanListDirectories;
+    private javax.swing.JScrollPane scrollPaneFastSearchColumns;
+    private javax.swing.JScrollPane scrollPaneListAutoscanDirectories;
+    private javax.swing.JScrollPane scrollPaneListOtherImageOpenApps;
     public javax.swing.JSpinner spinnerMaxThumbnailWidth;
-    public javax.swing.JSpinner spinnerTasksMinutesToStartScheduledTasks;
+    public javax.swing.JSpinner spinnerMinutesToStartScheduledTasks;
     private javax.swing.JTabbedPane tabbedPane;
-    public javax.swing.JTextField textFieldExternalThumbnailApp;
+    public javax.swing.JTextField textFieldExternalThumbnailCreationCommand;
     // End of variables declaration//GEN-END:variables
 
 }

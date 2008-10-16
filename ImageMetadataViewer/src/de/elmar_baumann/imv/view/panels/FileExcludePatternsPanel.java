@@ -31,10 +31,6 @@ public class FileExcludePatternsPanel extends javax.swing.JPanel
         initComponents();
     }
 
-    public List<String> getFileExcludePatterns() {
-        return model.getPatterns();
-    }
-
     @Override
     public void setVisible(boolean visible) {
         if (visible) {

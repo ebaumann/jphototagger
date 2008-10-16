@@ -65,7 +65,7 @@ public class Main {
         try {
             FileUtil.ensureDirectoryExists(PersistentSettings.getInstance().getDirectoryName());
             Handler fileHandler = new FileHandler(AppSettings.getLogfileName());
-            Level level = Level.parse(UserSettings.getInstance().getLogLevel());
+            Level level = UserSettings.getInstance().getLogLevel();
             fileHandler.setLevel(level);
             fileHandler.setFormatter((Formatter) UserSettings.getInstance().getLogfileFormatterClass().newInstance());
             Logger.getLogger("de.elmar_baumann").addHandler(fileHandler); // NOI18N

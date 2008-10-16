@@ -3,6 +3,7 @@ package de.elmar_baumann.imv.controller.tasks;
 import de.elmar_baumann.imv.AppSettings;
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.controller.Controller;
+import de.elmar_baumann.imv.database.Database;
 import de.elmar_baumann.imv.event.TaskListener;
 import de.elmar_baumann.imv.tasks.ImageMetadataToDatabaseArray;
 import de.elmar_baumann.lib.io.FileUtil;
@@ -88,7 +89,7 @@ public class ControllerAutoUpdateMetadataTask extends Controller
     }
 
     private List<String> getDirectoryNames() {
-        List<String> directories = UserSettings.getInstance().getAutoscanDirectories();
+        List<String> directories = Database.getInstance().getAutoscanDirectories();
         List<String> subdirectories = new ArrayList<String>();
         if (UserSettings.getInstance().isAutoscanIncludeSubdirectories()) {
             for (String directory : directories) {

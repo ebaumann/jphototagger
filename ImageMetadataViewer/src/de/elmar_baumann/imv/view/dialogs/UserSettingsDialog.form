@@ -105,25 +105,25 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="labelImageOpenApp" alignment="0" pref="623" max="32767" attributes="0"/>
+                              <Component id="labelDefaultImageOpenApp" alignment="0" pref="617" max="32767" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="labelImageInfotextOpenApp" min="-2" max="-2" attributes="0"/>
+                                  <Component id="labelDefaultImageOpenAppPrompt" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="buttonImageOpenApp" min="-2" max="-2" attributes="0"/>
+                                  <Component id="buttonDefaultImageOpenApp" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
                                   <Group type="103" groupAlignment="1" attributes="0">
                                       <Group type="102" alignment="1" attributes="0">
-                                          <Component id="buttonRemoveOtherOpenImageApp" min="-2" max="-2" attributes="0"/>
+                                          <Component id="buttonRemoveOtherImageOpenApp" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="buttonAddOtherOpenImageApp" min="-2" max="-2" attributes="0"/>
+                                          <Component id="buttonAddOtherImageOpenApp" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <Component id="scrollPaneListOtherOpenImageApps" pref="522" max="32767" attributes="2"/>
+                                      <Component id="scrollPaneListOtherImageOpenApps" pref="514" max="32767" attributes="2"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="buttonOpenImageAppMoveDown" linkSize="5" min="-2" max="-2" attributes="0"/>
-                                      <Component id="buttonOpenImageAppMoveUp" linkSize="5" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="buttonMoveDownOtherImageOpenApp" linkSize="5" min="-2" max="-2" attributes="0"/>
+                                      <Component id="buttonMoveUpOtherImageOpenApp" linkSize="5" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <Component id="labelInfoOtherOpenImageApps" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -136,27 +136,27 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="labelImageInfotextOpenApp" linkSize="3" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="buttonImageOpenApp" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="labelDefaultImageOpenAppPrompt" linkSize="3" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="buttonDefaultImageOpenApp" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
-                          <Component id="labelImageOpenApp" linkSize="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="labelDefaultImageOpenApp" linkSize="3" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Component id="labelInfoOtherOpenImageApps" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
-                                  <Component id="scrollPaneListOtherOpenImageApps" pref="169" max="32767" attributes="0"/>
+                                  <Component id="scrollPaneListOtherImageOpenApps" pref="153" max="32767" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="buttonAddOtherOpenImageApp" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="buttonRemoveOtherOpenImageApp" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="buttonAddOtherImageOpenApp" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="buttonRemoveOtherImageOpenApp" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <Group type="102" attributes="0">
-                                  <Component id="buttonOpenImageAppMoveUp" linkSize="6" min="-2" max="-2" attributes="0"/>
+                                  <Component id="buttonMoveUpOtherImageOpenApp" linkSize="6" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="buttonOpenImageAppMoveDown" linkSize="6" min="-2" max="-2" attributes="0"/>
+                                  <Component id="buttonMoveDownOtherImageOpenApp" linkSize="6" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
@@ -165,121 +165,31 @@
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JButton" name="buttonImageOpenApp">
+                <Component class="javax.swing.JLabel" name="labelDefaultImageOpenAppPrompt">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Dialog" size="12" style="0"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.labelDefaultImageOpenAppPrompt.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                    </Property>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JButton" name="buttonDefaultImageOpenApp">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Dialog" size="12" style="0"/>
                     </Property>
                     <Property name="mnemonic" type="int" value="97"/>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.buttonImageOpenApp.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.buttonDefaultImageOpenApp.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonImageOpenAppActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonDefaultImageOpenAppActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JLabel" name="labelInfoOtherOpenImageApps">
-                  <Properties>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Dialog" size="12" style="0"/>
-                    </Property>
-                    <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.labelInfoOtherOpenImageApps.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
-                    </Property>
-                  </Properties>
-                </Component>
-                <Container class="javax.swing.JScrollPane" name="scrollPaneListOtherOpenImageApps">
-                  <AuxValues>
-                    <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-                  </AuxValues>
-
-                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-                  <SubComponents>
-                    <Component class="javax.swing.JList" name="listOpenImageApps">
-                      <Properties>
-                        <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                          <Connection code="modelImageOpenApps" type="code"/>
-                        </Property>
-                        <Property name="selectionMode" type="int" value="0"/>
-                      </Properties>
-                      <Events>
-                        <EventHandler event="valueChanged" listener="javax.swing.event.ListSelectionListener" parameters="javax.swing.event.ListSelectionEvent" handler="listOpenImageAppsValueChanged"/>
-                      </Events>
-                      <AuxValues>
-                        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
-                      </AuxValues>
-                    </Component>
-                  </SubComponents>
-                </Container>
-                <Component class="javax.swing.JButton" name="buttonRemoveOtherOpenImageApp">
-                  <Properties>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Dialog" size="12" style="0"/>
-                    </Property>
-                    <Property name="mnemonic" type="int" value="101"/>
-                    <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.buttonRemoveOtherOpenImageApp.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
-                    </Property>
-                    <Property name="enabled" type="boolean" value="false"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonRemoveOtherOpenImageAppActionPerformed"/>
-                  </Events>
-                </Component>
-                <Component class="javax.swing.JButton" name="buttonAddOtherOpenImageApp">
-                  <Properties>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Dialog" size="12" style="0"/>
-                    </Property>
-                    <Property name="mnemonic" type="int" value="119"/>
-                    <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.buttonAddOtherOpenImageApp.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
-                    </Property>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonAddOtherOpenImageAppActionPerformed"/>
-                  </Events>
-                </Component>
-                <Component class="javax.swing.JButton" name="buttonOpenImageAppMoveDown">
-                  <Properties>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Dialog" size="12" style="0"/>
-                    </Property>
-                    <Property name="mnemonic" type="int" value="117"/>
-                    <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.buttonOpenImageAppMoveDown.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
-                    </Property>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonOpenImageAppMoveDownActionPerformed"/>
-                  </Events>
-                </Component>
-                <Component class="javax.swing.JButton" name="buttonOpenImageAppMoveUp">
-                  <Properties>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Dialog" size="12" style="0"/>
-                    </Property>
-                    <Property name="mnemonic" type="int" value="111"/>
-                    <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.buttonOpenImageAppMoveUp.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
-                    </Property>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonOpenImageAppMoveUpActionPerformed"/>
-                  </Events>
-                </Component>
-                <Component class="javax.swing.JLabel" name="labelImageInfotextOpenApp">
-                  <Properties>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Dialog" size="12" style="0"/>
-                    </Property>
-                    <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.labelImageInfotextOpenApp.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
-                    </Property>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JLabel" name="labelImageOpenApp">
+                <Component class="javax.swing.JLabel" name="labelDefaultImageOpenApp">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Dialog" size="12" style="0"/>
@@ -296,6 +206,96 @@
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
                   </AuxValues>
+                </Component>
+                <Component class="javax.swing.JLabel" name="labelInfoOtherOpenImageApps">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Dialog" size="12" style="0"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.labelInfoOtherOpenImageApps.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                    </Property>
+                  </Properties>
+                </Component>
+                <Container class="javax.swing.JScrollPane" name="scrollPaneListOtherImageOpenApps">
+                  <AuxValues>
+                    <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                  </AuxValues>
+
+                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                  <SubComponents>
+                    <Component class="javax.swing.JList" name="listOtherImageOpenApps">
+                      <Properties>
+                        <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                          <Connection code="modelOtherImageOpenApps" type="code"/>
+                        </Property>
+                        <Property name="selectionMode" type="int" value="0"/>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="valueChanged" listener="javax.swing.event.ListSelectionListener" parameters="javax.swing.event.ListSelectionEvent" handler="listOtherImageOpenAppsValueChanged"/>
+                      </Events>
+                      <AuxValues>
+                        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+                      </AuxValues>
+                    </Component>
+                  </SubComponents>
+                </Container>
+                <Component class="javax.swing.JButton" name="buttonRemoveOtherImageOpenApp">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Dialog" size="12" style="0"/>
+                    </Property>
+                    <Property name="mnemonic" type="int" value="101"/>
+                    <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.buttonRemoveOtherImageOpenApp.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                    </Property>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonRemoveOtherImageOpenAppActionPerformed"/>
+                  </Events>
+                </Component>
+                <Component class="javax.swing.JButton" name="buttonAddOtherImageOpenApp">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Dialog" size="12" style="0"/>
+                    </Property>
+                    <Property name="mnemonic" type="int" value="119"/>
+                    <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.buttonAddOtherImageOpenApp.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                    </Property>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonAddOtherImageOpenAppActionPerformed"/>
+                  </Events>
+                </Component>
+                <Component class="javax.swing.JButton" name="buttonMoveUpOtherImageOpenApp">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Dialog" size="12" style="0"/>
+                    </Property>
+                    <Property name="mnemonic" type="int" value="111"/>
+                    <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.buttonMoveUpOtherImageOpenApp.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                    </Property>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonMoveUpOtherImageOpenAppActionPerformed"/>
+                  </Events>
+                </Component>
+                <Component class="javax.swing.JButton" name="buttonMoveDownOtherImageOpenApp">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Dialog" size="12" style="0"/>
+                    </Property>
+                    <Property name="mnemonic" type="int" value="117"/>
+                    <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.buttonMoveDownOtherImageOpenApp.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                    </Property>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonMoveDownOtherImageOpenAppActionPerformed"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -317,13 +317,13 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="labelSearch" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="345" max="32767" attributes="0"/>
+                      <Component id="labelFastSearchColumns" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="310" max="32767" attributes="0"/>
                   </Group>
                   <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="scrollPaneSearchColumns" pref="655" max="32767" attributes="0"/>
+                          <Component id="scrollPaneFastSearchColumns" pref="651" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -333,13 +333,13 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="labelSearch" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="309" max="32767" attributes="0"/>
+                      <Component id="labelFastSearchColumns" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="291" max="32767" attributes="0"/>
                   </Group>
                   <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
-                          <Component id="scrollPaneSearchColumns" pref="286" max="32767" attributes="0"/>
+                          <Component id="scrollPaneFastSearchColumns" pref="267" max="32767" attributes="0"/>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -347,17 +347,17 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JLabel" name="labelSearch">
+            <Component class="javax.swing.JLabel" name="labelFastSearchColumns">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Dialog" size="11" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.labelSearch.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.labelFastSearchColumns.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                 </Property>
               </Properties>
             </Component>
-            <Container class="javax.swing.JScrollPane" name="scrollPaneSearchColumns">
+            <Container class="javax.swing.JScrollPane" name="scrollPaneFastSearchColumns">
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new JScrollPane(checkListSearchColumns)"/>
               </AuxValues>
@@ -384,7 +384,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Component id="panelExternalThumbnailApp" alignment="0" max="32767" attributes="2"/>
-                          <Component id="checkBoxUseEmbeddedThumbnails" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="checkBoxIsUseEmbeddedThumbnails" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="panelThumbnailDimensions" alignment="0" max="32767" attributes="2"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -394,13 +394,13 @@
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Component id="panelThumbnailDimensions" min="-2" pref="96" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="checkBoxUseEmbeddedThumbnails" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="panelExternalThumbnailApp" min="-2" pref="109" max="-2" attributes="0"/>
-                      <EmptySpace pref="90" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
+                      <Component id="checkBoxIsUseEmbeddedThumbnails" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
+                      <Component id="panelExternalThumbnailApp" pref="109" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="73" max="-2" attributes="1"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -431,7 +431,7 @@
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="buttonUpdateAllThumbnails" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="labelInfoChangeMaxThumbnailWidth" alignment="0" pref="623" max="32767" attributes="0"/>
+                              <Component id="labelUpdateAllThumbnails" alignment="0" pref="617" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -446,7 +446,7 @@
                               <Component id="buttonUpdateAllThumbnails" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="labelInfoChangeMaxThumbnailWidth" min="-2" max="-2" attributes="0"/>
+                          <Component id="labelUpdateAllThumbnails" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="1"/>
                       </Group>
                   </Group>
@@ -480,19 +480,6 @@
                     <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
                   </AuxValues>
                 </Component>
-                <Component class="javax.swing.JLabel" name="labelInfoChangeMaxThumbnailWidth">
-                  <Properties>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Dialog" size="12" style="0"/>
-                    </Property>
-                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="0" green="0" red="ff" type="rgb"/>
-                    </Property>
-                    <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.labelInfoChangeMaxThumbnailWidth.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
-                    </Property>
-                  </Properties>
-                </Component>
                 <Component class="javax.swing.JButton" name="buttonUpdateAllThumbnails">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -510,8 +497,37 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonUpdateAllThumbnailsActionPerformed"/>
                   </Events>
                 </Component>
+                <Component class="javax.swing.JLabel" name="labelUpdateAllThumbnails">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Dialog" size="12" style="0"/>
+                    </Property>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="0" green="0" red="ff" type="rgb"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.labelUpdateAllThumbnails.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                    </Property>
+                  </Properties>
+                </Component>
               </SubComponents>
             </Container>
+            <Component class="javax.swing.JCheckBox" name="checkBoxIsUseEmbeddedThumbnails">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Dialog" size="12" style="0"/>
+                </Property>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                  <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.checkBoxIsUseEmbeddedThumbnails.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                </Property>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkBoxIsUseEmbeddedThumbnailsActionPerformed"/>
+              </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+              </AuxValues>
+            </Component>
             <Container class="javax.swing.JPanel" name="panelExternalThumbnailApp">
               <Properties>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -530,9 +546,9 @@
                       <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="checkBoxExternalThumbnailApp" alignment="0" min="-2" max="-2" attributes="1"/>
-                              <Component id="labelInfoExternalThumbnailApp" alignment="1" pref="623" max="32767" attributes="2"/>
-                              <Component id="textFieldExternalThumbnailApp" alignment="0" pref="623" max="32767" attributes="2"/>
+                              <Component id="checkBoxIsCreateThumbnailsWithExternalApp" alignment="0" min="-2" max="-2" attributes="1"/>
+                              <Component id="labelIsCreateThumbnailsWithExternalApp" alignment="1" pref="617" max="32767" attributes="2"/>
+                              <Component id="textFieldExternalThumbnailCreationCommand" alignment="0" pref="617" max="32767" attributes="2"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -541,69 +557,56 @@
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="checkBoxExternalThumbnailApp" min="-2" max="-2" attributes="0"/>
+                          <Component id="checkBoxIsCreateThumbnailsWithExternalApp" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="labelInfoExternalThumbnailApp" min="-2" max="-2" attributes="0"/>
+                          <Component id="labelIsCreateThumbnailsWithExternalApp" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="textFieldExternalThumbnailApp" min="-2" pref="22" max="-2" attributes="0"/>
+                          <Component id="textFieldExternalThumbnailCreationCommand" min="-2" pref="22" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JCheckBox" name="checkBoxExternalThumbnailApp">
+                <Component class="javax.swing.JCheckBox" name="checkBoxIsCreateThumbnailsWithExternalApp">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Dialog" size="12" style="0"/>
                     </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.checkBoxExternalThumbnailApp.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.checkBoxIsCreateThumbnailsWithExternalApp.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkBoxExternalThumbnailAppActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkBoxIsCreateThumbnailsWithExternalAppActionPerformed"/>
                   </Events>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
                   </AuxValues>
                 </Component>
-                <Component class="javax.swing.JLabel" name="labelInfoExternalThumbnailApp">
+                <Component class="javax.swing.JLabel" name="labelIsCreateThumbnailsWithExternalApp">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Dialog" size="12" style="0"/>
                     </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.labelInfoExternalThumbnailApp.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.labelIsCreateThumbnailsWithExternalApp.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="textFieldExternalThumbnailApp">
+                <Component class="javax.swing.JTextField" name="textFieldExternalThumbnailCreationCommand">
                   <Properties>
                     <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="textFieldExternalThumbnailCreationCommandKeyReleased"/>
+                  </Events>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
                   </AuxValues>
                 </Component>
               </SubComponents>
             </Container>
-            <Component class="javax.swing.JCheckBox" name="checkBoxUseEmbeddedThumbnails">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Dialog" size="12" style="0"/>
-                </Property>
-                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.checkBoxUseEmbeddedThumbnails.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
-                </Property>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkBoxUseEmbeddedThumbnailsActionPerformed"/>
-              </Events>
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
-              </AuxValues>
-            </Component>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="panelIptc">
@@ -625,7 +628,7 @@
                       <Component id="labelIptcCharset" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="comboBoxIptcCharset" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="413" max="32767" attributes="0"/>
+                      <EmptySpace pref="384" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -637,7 +640,7 @@
                           <Component id="labelIptcCharset" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="comboBoxIptcCharset" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="300" max="32767" attributes="0"/>
+                      <EmptySpace pref="281" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -665,6 +668,9 @@
                   </StringArray>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="comboBoxIptcCharsetPropertyChange"/>
+              </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
               </AuxValues>
@@ -693,7 +699,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="labelTasksMinutesToStartScheduledTasks" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="spinnerTasksMinutesToStartScheduledTasks" min="-2" pref="51" max="-2" attributes="0"/>
+                              <Component id="spinnerMinutesToStartScheduledTasks" min="-2" pref="51" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -710,7 +716,7 @@
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="labelTasksMinutesToStartScheduledTasks" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="spinnerTasksMinutesToStartScheduledTasks" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="spinnerMinutesToStartScheduledTasks" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" max="-2" attributes="1"/>
                   </Group>
@@ -736,22 +742,22 @@
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="scrollPaneTasksAutoscanListDirectories" alignment="0" pref="623" max="32767" attributes="0"/>
+                              <Component id="scrollPaneListAutoscanDirectories" alignment="0" pref="617" max="32767" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
                                   <Group type="103" groupAlignment="1" attributes="0">
                                       <Group type="102" attributes="0">
-                                          <Component id="checkBoxTasksAutoscanIncludeSubdirectories" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace pref="83" max="32767" attributes="0"/>
+                                          <Component id="checkBoxIsAutoscanIncludeSubdirectories" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace pref="54" max="32767" attributes="0"/>
                                       </Group>
                                       <Group type="102" alignment="1" attributes="0">
-                                          <Component id="buttonTasksAutoscanRemoveDirectories" min="-2" max="-2" attributes="0"/>
+                                          <Component id="buttonRemoveAutoscanDirectories" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <Component id="buttonTasksAutoscanAddDirectories" min="-2" max="-2" attributes="0"/>
+                                  <Component id="buttonAddAutoscanDirectories" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="labelTasksAutoscanMoreInfoDirectories" alignment="0" pref="623" max="32767" attributes="0"/>
-                              <Component id="labelTasksAutoscanInfoDirectories" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="labelAutoscanDirectoriesInfo" alignment="0" pref="617" max="32767" attributes="0"/>
+                              <Component id="labelAutoscanDirectoriesPrompt" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -760,17 +766,17 @@
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="labelTasksAutoscanMoreInfoDirectories" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Component id="labelAutoscanDirectoriesInfo" min="-2" pref="30" max="-2" attributes="0"/>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
-                          <Component id="labelTasksAutoscanInfoDirectories" min="-2" pref="15" max="-2" attributes="0"/>
+                          <Component id="labelAutoscanDirectoriesPrompt" min="-2" pref="15" max="-2" attributes="0"/>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
-                          <Component id="scrollPaneTasksAutoscanListDirectories" pref="70" max="32767" attributes="0"/>
+                          <Component id="scrollPaneListAutoscanDirectories" pref="55" max="32767" attributes="0"/>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
-                          <Component id="checkBoxTasksAutoscanIncludeSubdirectories" min="-2" max="-2" attributes="0"/>
+                          <Component id="checkBoxIsAutoscanIncludeSubdirectories" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="buttonTasksAutoscanAddDirectories" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="buttonTasksAutoscanRemoveDirectories" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="buttonAddAutoscanDirectories" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="buttonRemoveAutoscanDirectories" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" max="-2" attributes="1"/>
                       </Group>
@@ -778,34 +784,34 @@
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JLabel" name="labelTasksAutoscanMoreInfoDirectories">
+                <Component class="javax.swing.JLabel" name="labelAutoscanDirectoriesInfo">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Dialog" size="12" style="0"/>
                     </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.labelTasksAutoscanMoreInfoDirectories.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.labelAutoscanDirectoriesInfo.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="labelTasksAutoscanInfoDirectories">
+                <Component class="javax.swing.JLabel" name="labelAutoscanDirectoriesPrompt">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Dialog" size="12" style="0"/>
                     </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.labelTasksAutoscanInfoDirectories.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.labelAutoscanDirectoriesPrompt.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
                 </Component>
-                <Container class="javax.swing.JScrollPane" name="scrollPaneTasksAutoscanListDirectories">
+                <Container class="javax.swing.JScrollPane" name="scrollPaneListAutoscanDirectories">
                   <AuxValues>
                     <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
                   </AuxValues>
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                   <SubComponents>
-                    <Component class="javax.swing.JList" name="listTasksAutoscanDirectories">
+                    <Component class="javax.swing.JList" name="listAutoscanDirectories">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Dialog" size="12" style="0"/>
@@ -818,52 +824,55 @@
                         </Property>
                       </Properties>
                       <Events>
-                        <EventHandler event="valueChanged" listener="javax.swing.event.ListSelectionListener" parameters="javax.swing.event.ListSelectionEvent" handler="listTasksAutoscanDirectoriesValueChanged"/>
-                        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="listTasksAutoscanDirectoriesKeyReleased"/>
+                        <EventHandler event="valueChanged" listener="javax.swing.event.ListSelectionListener" parameters="javax.swing.event.ListSelectionEvent" handler="listAutoscanDirectoriesValueChanged"/>
+                        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="listAutoscanDirectoriesKeyReleased"/>
                       </Events>
                     </Component>
                   </SubComponents>
                 </Container>
-                <Component class="javax.swing.JCheckBox" name="checkBoxTasksAutoscanIncludeSubdirectories">
+                <Component class="javax.swing.JCheckBox" name="checkBoxIsAutoscanIncludeSubdirectories">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Dialog" size="12" style="0"/>
                     </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.checkBoxTasksAutoscanIncludeSubdirectories.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.checkBoxIsAutoscanIncludeSubdirectories.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkBoxIsAutoscanIncludeSubdirectoriesActionPerformed"/>
+                  </Events>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
                   </AuxValues>
                 </Component>
-                <Component class="javax.swing.JButton" name="buttonTasksAutoscanRemoveDirectories">
+                <Component class="javax.swing.JButton" name="buttonRemoveAutoscanDirectories">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Dialog" size="12" style="0"/>
                     </Property>
                     <Property name="mnemonic" type="int" value="101"/>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.buttonTasksAutoscanRemoveDirectories.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.buttonRemoveAutoscanDirectories.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                     </Property>
                     <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonTasksAutoscanRemoveDirectoriesActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonRemoveAutoscanDirectoriesActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JButton" name="buttonTasksAutoscanAddDirectories">
+                <Component class="javax.swing.JButton" name="buttonAddAutoscanDirectories">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Dialog" size="12" style="0"/>
                     </Property>
                     <Property name="mnemonic" type="int" value="104"/>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.buttonTasksAutoscanAddDirectories.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.buttonAddAutoscanDirectories.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonTasksAutoscanAddDirectoriesActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonAddAutoscanDirectoriesActionPerformed"/>
                   </Events>
                 </Component>
               </SubComponents>
@@ -884,30 +893,33 @@
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="checkBoxTasksRemoveRecordsWithNotExistingFiles" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="132" max="32767" attributes="0"/>
+                          <Component id="checkBoxIsTaskRemoveRecordsWithNotExistingFiles" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace pref="103" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="checkBoxTasksRemoveRecordsWithNotExistingFiles" min="-2" max="-2" attributes="0"/>
+                          <Component id="checkBoxIsTaskRemoveRecordsWithNotExistingFiles" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JCheckBox" name="checkBoxTasksRemoveRecordsWithNotExistingFiles">
+                <Component class="javax.swing.JCheckBox" name="checkBoxIsTaskRemoveRecordsWithNotExistingFiles">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Dialog" size="12" style="0"/>
                     </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.checkBoxTasksRemoveRecordsWithNotExistingFiles.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.checkBoxIsTaskRemoveRecordsWithNotExistingFiles.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkBoxIsTaskRemoveRecordsWithNotExistingFilesActionPerformed"/>
+                  </Events>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
                   </AuxValues>
@@ -924,12 +936,15 @@
                 </Property>
               </Properties>
             </Component>
-            <Component class="javax.swing.JSpinner" name="spinnerTasksMinutesToStartScheduledTasks">
+            <Component class="javax.swing.JSpinner" name="spinnerMinutesToStartScheduledTasks">
               <Properties>
                 <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="new SpinnerNumberModel(5, 1, 6000, 1)" type="code"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="spinnerMinutesToStartScheduledTasksStateChanged"/>
+              </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
               </AuxValues>
@@ -967,7 +982,7 @@
                       <Component id="panelAccelerateStart" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="panelThreadPriority" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="153" max="32767" attributes="0"/>
+                      <EmptySpace pref="142" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -990,42 +1005,45 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="checkBoxDisableAutocomplete" min="-2" max="-2" attributes="0"/>
+                              <Component id="checkBoxIsAutocompleteDisabled" min="-2" max="-2" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="labelInfoDisableAutocomplete" min="-2" max="-2" attributes="0"/>
+                                  <Component id="labelsAutocompleteDisabled" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace pref="166" max="32767" attributes="0"/>
+                          <EmptySpace pref="132" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="checkBoxDisableAutocomplete" min="-2" max="-2" attributes="0"/>
+                          <Component id="checkBoxIsAutocompleteDisabled" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="labelInfoDisableAutocomplete" min="-2" max="-2" attributes="0"/>
+                          <Component id="labelsAutocompleteDisabled" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JCheckBox" name="checkBoxDisableAutocomplete">
+                <Component class="javax.swing.JCheckBox" name="checkBoxIsAutocompleteDisabled">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Dialog" size="12" style="0"/>
                     </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.checkBoxDisableAutocomplete.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.checkBoxIsAutocompleteDisabled.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkBoxIsAutocompleteDisabledActionPerformed"/>
+                  </Events>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
                   </AuxValues>
                 </Component>
-                <Component class="javax.swing.JLabel" name="labelInfoDisableAutocomplete">
+                <Component class="javax.swing.JLabel" name="labelsAutocompleteDisabled">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Dialog" size="12" style="0"/>
@@ -1034,7 +1052,7 @@
                       <Color blue="0" green="0" red="ff" type="rgb"/>
                     </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.labelInfoDisableAutocomplete.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.labelsAutocompleteDisabled.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
                 </Component>
@@ -1065,7 +1083,7 @@
                                   <Component id="comboBoxThreadPriority" min="-2" pref="88" max="-2" attributes="2"/>
                               </Group>
                           </Group>
-                          <EmptySpace pref="219" max="32767" attributes="0"/>
+                          <EmptySpace pref="190" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1163,7 +1181,7 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="checkBoxAcceptHiddenDirectories" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="checkBoxIsAcceptHiddenDirectories" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="panelLogfile" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -1176,8 +1194,8 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="panelLogfile" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="checkBoxAcceptHiddenDirectories" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="237" max="32767" attributes="0"/>
+                      <Component id="checkBoxIsAcceptHiddenDirectories" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="220" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1204,10 +1222,10 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="comboBoxLogLevel" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="labelLogFormat" min="-2" max="-2" attributes="0"/>
+                          <Component id="labelLogLogfileFormatterClass" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="comboBoxLogfileFormatter" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="220" max="32767" attributes="0"/>
+                          <Component id="comboBoxLogfileFormatterClass" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace pref="167" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1217,8 +1235,8 @@
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="comboBoxLogLevel" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="labelLogLevel" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="labelLogFormat" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="comboBoxLogfileFormatter" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="labelLogLogfileFormatterClass" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="comboBoxLogfileFormatterClass" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
                       </Group>
@@ -1242,21 +1260,24 @@
                       <Connection code="new javax.swing.DefaultComboBoxModel(new String[] { java.util.logging.Level.WARNING.getLocalizedName(), java.util.logging.Level.SEVERE.getLocalizedName(), java.util.logging.Level.INFO.getLocalizedName(), java.util.logging.Level.CONFIG.getLocalizedName(), java.util.logging.Level.FINE.getLocalizedName(), java.util.logging.Level.FINER.getLocalizedName(), java.util.logging.Level.FINEST.getLocalizedName() })" type="code"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="comboBoxLogLevelActionPerformed"/>
+                  </Events>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
                   </AuxValues>
                 </Component>
-                <Component class="javax.swing.JLabel" name="labelLogFormat">
+                <Component class="javax.swing.JLabel" name="labelLogLogfileFormatterClass">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Dialog" size="12" style="0"/>
                     </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.labelLogFormat.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.labelLogLogfileFormatterClass.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JComboBox" name="comboBoxLogfileFormatter">
+                <Component class="javax.swing.JComboBox" name="comboBoxLogfileFormatterClass">
                   <Properties>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                       <Connection code="new ComboBoxModelLogfileFormatter()" type="code"/>
@@ -1265,21 +1286,27 @@
                       <Connection code="new ListCellRendererLogfileFormatter()" type="code"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="comboBoxLogfileFormatterClassActionPerformed"/>
+                  </Events>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
                   </AuxValues>
                 </Component>
               </SubComponents>
             </Container>
-            <Component class="javax.swing.JCheckBox" name="checkBoxAcceptHiddenDirectories">
+            <Component class="javax.swing.JCheckBox" name="checkBoxIsAcceptHiddenDirectories">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Dialog" size="12" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.checkBoxAcceptHiddenDirectories.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UserSettingsDialog.checkBoxIsAcceptHiddenDirectories.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkBoxIsAcceptHiddenDirectoriesActionPerformed"/>
+              </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
               </AuxValues>

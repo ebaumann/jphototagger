@@ -42,6 +42,6 @@ public class LateConnectionsFactory {
         
         popupMenuPanelThumbnails.addOtherOpenImageApps();
         UserSettingsDialog.getInstance().addChangeListener(popupMenuPanelThumbnails);
-
+        UserSettingsDialog.getInstance().addChangeListener(userSettings);
     }
 }

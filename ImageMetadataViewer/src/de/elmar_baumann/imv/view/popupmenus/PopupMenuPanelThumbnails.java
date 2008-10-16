@@ -118,7 +118,7 @@ public class PopupMenuPanelThumbnails extends JPopupMenu
 
     @Override
     public void applySettings(UserSettingsChangeEvent evt) {
-        if (evt.getType().equals(UserSettingsChangeEvent.Type.OtherOpenImageApps)) {
+        if (evt.getType().equals(UserSettingsChangeEvent.Type.OtherImageOpenApps)) {
             addOtherOpenImageApps();
         }
     }
