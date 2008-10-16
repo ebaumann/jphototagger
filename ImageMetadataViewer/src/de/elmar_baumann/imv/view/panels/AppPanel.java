@@ -342,6 +342,7 @@ public class AppPanel extends javax.swing.JPanel
         String className = getClass().getName();
         hints.addExcludedMember(className + ".textFieldSearch"); // NOI18N
         hints.addExcludedMember(className + ".panelEditMetadata"); // NOI18N
+        hints.addExcludedMember(className + ".treeDirectories"); // NOI18N
         return hints;
     }
 

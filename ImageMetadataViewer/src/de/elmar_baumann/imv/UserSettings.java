@@ -2,8 +2,11 @@ package de.elmar_baumann.imv;
 
 import de.elmar_baumann.imv.database.Database;
 import de.elmar_baumann.imv.database.metadata.Column;
+import de.elmar_baumann.imv.event.UserSettingsChangeEvent;
+import de.elmar_baumann.imv.event.UserSettingsChangeListener;
 import de.elmar_baumann.imv.model.ComboBoxModelThreadPriority;
 import de.elmar_baumann.imv.view.dialogs.UserSettingsDialog;
+import de.elmar_baumann.lib.persistence.PersistentSettings;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,11 +23,29 @@ import javax.swing.ListModel;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public class UserSettings {
+public class UserSettings implements UserSettingsChangeListener {
 
     private UserSettingsDialog settingsDialog = UserSettingsDialog.getInstance();
     private Database db = Database.getInstance();
     private static UserSettings instance = new UserSettings();
+    public static final String keyIsCreateThumbnailsWithExternalApp = "UserSettings.IsCreateThumbnailsWithExternalApp";
+    public static final String keyExternalThumbnailCreationCommand = "UserSettings.ExternalThumbnailCreationCommand";
+    public static final String keyLogLevel = "UserSettings.LogLevel";
+    public static final String keyFastSearchColumns = "UserSettings.FastSearchColumns";
+    public static final String keyDefaultImageOpenApp = "UserSettings.DefaultImageOpenApp";
+    public static final String keyThreadPriority = "UserSettings.ThreadPriority";
+    public static final String keyMaxThumbnailWidth = "UserSettings.MaxThumbnailWidth";
+    public static final String keyIsUseEmbeddedThumbnails = "UserSettings.IsUseEmbeddedThumbnails";
+    public static final String keyIptcCharset = "UserSettings.IptcCharset";
+    public static final String keyOtherImageOpenApps = "UserSettings.OtherImageOpenApps";
+    public static final String keyAutoscanDirectories = "UserSettings.AutoscanDirectories";
+    public static final String keyIsAutoscanIncludeSubdirectories = "UserSettings.IsAutoscanIncludeSubdirectories";
+    public static final String keyLogfileFormatterClass = "UserSettings.LogfileFormatterClass";
+    public static final String keyIsTaskRemoveRecordsWithNotExistingFiles = "UserSettings.IsTaskRemoveRecordsWithNotExistingFiles";
+    public static final String keyMinutesToStartScheduledTasks = "UserSettings.MinutesToStartScheduledTasks";
+    public static final String keyIsUseAutocomplete = "UserSettings.IsUseAutocomplete";
+    public static final String keyIsAcceptHiddenDirectories = "UserSettings.IsAcceptHiddenDirectories";
+    private PersistentSettings settings = PersistentSettings.getInstance();
 
     /**
      * Liefert die einzige Klasseninstanz.
@@ -43,7 +64,8 @@ public class UserSettings {
      * @see    #getExternalThumbnailCreationCommand() 
      */
     public boolean isCreateThumbnailsWithExternalApp() {
-        return settingsDialog.checkBoxExternalThumbnailApp.isSelected();
+        //return settingsDialog.checkBoxExternalThumbnailApp.isSelected();
+        return settings.getBoolean(keyIsCreateThumbnailsWithExternalApp);
     }
 
     /**
@@ -54,7 +76,8 @@ public class UserSettings {
      * @see    #isCreateThumbnailsWithExternalApp()
      */
     public String getExternalThumbnailCreationCommand() {
-        return settingsDialog.textFieldExternalThumbnailApp.getText();
+        //return settingsDialog.textFieldExternalThumbnailApp.getText();
+        return settings.getString(keyExternalThumbnailCreationCommand);
     }
 
     /**
@@ -220,15 +243,6 @@ public class UserSettings {
     }
 
     /**
-     * Liefert, ob beim Start der Verzeichnisbaum ausgeklappt werden soll.
-     * 
-     * @return true, wenn ausklappen
-     */
-    public boolean isExpandDirectoriesTree() {
-        return !settingsDialog.checkBoxDisableExpandDirectoriesTree.isSelected();
-    }
-
-    /**
      * Returns whether directory choosers and -trees shall show hidden
      * directories and if directory scans shall include them.
      * 
@@ -243,5 +257,10 @@ public class UserSettings {
     }
 
     private UserSettings() {
+    }
+
+    @Override
+    public void applySettings(UserSettingsChangeEvent evt) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }
