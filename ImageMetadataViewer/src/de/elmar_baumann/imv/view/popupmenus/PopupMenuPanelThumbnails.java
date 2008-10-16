@@ -55,7 +55,6 @@ public class PopupMenuPanelThumbnails extends JPopupMenu
     private final JMenuItem itemFileSystemDeleteFiles = new JMenuItem(actionFileSystemDeleteFiles);
     private final JMenuItem itemFileSystemRenameFiles = new JMenuItem(actionFileSystemRenameFiles);
     private List<ActionListener> actionListenersOpenFilesWithOtherApp = new ArrayList<ActionListener>();
-    private ImageFileThumbnailsPanel thumbnailsPanel;
     private HashMap<String, Float> angleOfAction = new HashMap<String, Float>();
     private HashMap<String, File> otherImageOpenAppOfAction = new HashMap<String, File>();
     private static PopupMenuPanelThumbnails instance = new PopupMenuPanelThumbnails();
@@ -125,24 +124,6 @@ public class PopupMenuPanelThumbnails extends JPopupMenu
         if (evt.getType().equals(UserSettingsChangeEvent.Type.OtherOpenImageApps)) {
             addOtherOpenImageApps();
         }
-    }
-
-    /**
-     * Setzt das Thumbnailpanel.
-     * 
-     * @param thumbnailsPanel Panel
-     */
-    public void setThumbnailsPanel(ImageFileThumbnailsPanel thumbnailsPanel) {
-        this.thumbnailsPanel = thumbnailsPanel;
-    }
-
-    /**
-     * Liefert das Thumbnailpanel.
-     * 
-     * @return Panel
-     */
-    public ImageFileThumbnailsPanel getThumbnailsPanel() {
-        return thumbnailsPanel;
     }
 
     /**

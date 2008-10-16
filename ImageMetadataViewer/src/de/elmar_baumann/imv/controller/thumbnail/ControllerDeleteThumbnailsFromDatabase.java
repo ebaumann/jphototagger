@@ -47,20 +47,20 @@ public class ControllerDeleteThumbnailsFromDatabase extends Controller
     private void deleteSelectedThumbnails() {
         if (askDelete()) {
             List<String> files = FileUtil.getAsFilenames(
-                popup.getThumbnailsPanel().getSelectedFiles());
+                thumbnailsPanel.getSelectedFiles());
             int countFiles = files.size();
             int countDeleted = db.deleteImageFiles(files);
             if (countDeleted != countFiles) {
                 messageErrorDeleteImageFiles(countFiles, countDeleted);
             }
             repaint(files);
-            popup.getThumbnailsPanel().repaint();
+            thumbnailsPanel.repaint();
         }
     }
 
     private boolean askDelete() {
         MessageFormat msg = new MessageFormat(Bundle.getString("ControllerDeleteThumbnailsFromDatabase.ConfirmMessage.DeleteSelectedFiles"));
-        Object[] params = {popup.getThumbnailsPanel().getSelectionCount()};
+        Object[] params = {thumbnailsPanel.getSelectionCount()};
         return JOptionPane.showConfirmDialog(
             null,
             msg.format(params),

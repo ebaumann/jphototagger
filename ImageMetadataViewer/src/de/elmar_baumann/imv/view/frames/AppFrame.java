@@ -16,6 +16,7 @@ import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.swing.JMenuItem;
 import javax.swing.JRadioButtonMenuItem;
 
@@ -28,6 +29,8 @@ public class AppFrame extends javax.swing.JFrame {
 
     private HashMap<FileSort, JRadioButtonMenuItem> menuItemOfSort = new HashMap<FileSort, JRadioButtonMenuItem>();
     private HashMap<JRadioButtonMenuItem, FileSort> sortOfMenuItem = new HashMap<JRadioButtonMenuItem, FileSort>();
+    private Map<Goto, JMenuItem> menuItemOfGoto = new HashMap<Goto, JMenuItem>();
+    private Map<JMenuItem, Goto> gotoOfMenuItem = new HashMap<JMenuItem, Goto>();
     private List<AppExitListener> exitListeners = new ArrayList<AppExitListener>();
     private List<AppStartListener> startListeners = new ArrayList<AppStartListener>();
 
@@ -37,7 +40,7 @@ public class AppFrame extends javax.swing.JFrame {
         postInitComponents();
     }
 
-    private void initSortItemMaps() {
+    private void initSortMenuItemsMap() {
         menuItemOfSort.put(FileSort.NamesAscending, radioButtonMenuItemSortFilenameAscending);
         menuItemOfSort.put(FileSort.NamesDescending, radioButtonMenuItemSortFilenameDescending);
         menuItemOfSort.put(FileSort.LastModifiedAscending, radioButtonMenuItemSortLastModifiedAscending);
@@ -49,9 +52,40 @@ public class AppFrame extends javax.swing.JFrame {
             sortOfMenuItem.put(menuItemOfSort.get(sort), sort);
         }
     }
+    
+    private void initTotoMenuItemsMap() {
+        menuItemOfGoto.put(Goto.Categories, menuItemGotoCategories);
+        menuItemOfGoto.put(Goto.ImageCollections, menuItemGotoCollections);
+        menuItemOfGoto.put(Goto.Directories, menuItemGotoDirectories);
+        menuItemOfGoto.put(Goto.EditPanels, menuItemGotoEdit);
+        menuItemOfGoto.put(Goto.ExifMetadata, menuItemGotoExifMetadata);
+        menuItemOfGoto.put(Goto.FastSearch, menuItemGotoFastSearch);
+        menuItemOfGoto.put(Goto.FavoriteDirectories, menuItemGotoFavoriteDirectories);
+        menuItemOfGoto.put(Goto.IptcMetadata, menuItemGotoIptcMetadata);
+        menuItemOfGoto.put(Goto.SavedSearches, menuItemGotoSavedSearches);
+        menuItemOfGoto.put(Goto.XmpMetadata, menuItemGotoXmpMetadata);
+        
+        for (Goto gt : menuItemOfGoto.keySet()) {
+            gotoOfMenuItem.put(menuItemOfGoto.get(gt), gt);
+        }
+    }
+    
+    public enum Goto {
+        FastSearch,
+        EditPanels,
+        Directories,
+        FavoriteDirectories,
+        Categories,
+        SavedSearches,
+        ImageCollections,
+        ExifMetadata,
+        IptcMetadata,
+        XmpMetadata,
+    };
 
     private void postInitComponents() {
-        initSortItemMaps();
+        initSortMenuItemsMap();
+        initTotoMenuItemsMap();
         readPersistent();
         listenToClose();
         setTitleAndFrameIcon();
@@ -86,6 +120,18 @@ public class AppFrame extends javax.swing.JFrame {
             listener.appWillExit();
         }
     }
+    
+    public Goto getGotoOfMenuItem(JMenuItem item) {
+        return gotoOfMenuItem.get(item);
+    }
+    
+    public JMenuItem getMenuItemOfGoto(Goto gt) {
+        return menuItemOfGoto.get(gt);
+    }
+    
+    public JMenuItem getMenuItemFileSystemDelete() {
+        return menuItemFileSystemDelete;
+    }
 
     public JRadioButtonMenuItem getMenuItemOfSort(FileSort sort) {
         return menuItemOfSort.get(sort);
@@ -99,8 +145,8 @@ public class AppFrame extends javax.swing.JFrame {
         return menuItemAbout;
     }
 
-    public JMenuItem getMenuItemRename() {
-        return menuItemRename;
+    public JMenuItem getMenuItemFileSystemRename() {
+        return menuItemFileSystemRename;
     }
 
     public JMenuItem getMenuItemHelp() {
@@ -129,14 +175,6 @@ public class AppFrame extends javax.swing.JFrame {
 
     public JMenuItem getMenuItemToolIptcToXmp() {
         return menuItemToolIptcToXmp;
-    }
-
-    public JMenuItem getMenuItemGotoFastSearch() {
-        return menuItemGotoFastSearch;
-    }
-
-    public JMenuItem getMenuItemGotoEdit() {
-        return menuItemGotoEdit;
     }
 
     private void readPersistent() {
@@ -192,10 +230,19 @@ public class AppFrame extends javax.swing.JFrame {
         menuEdit = new javax.swing.JMenu();
         menuItemSettings = new javax.swing.JMenuItem();
         menuItemSearch = new javax.swing.JMenuItem();
-        menuItemRename = new javax.swing.JMenuItem();
+        menuItemFileSystemRename = new javax.swing.JMenuItem();
+        menuItemFileSystemDelete = new javax.swing.JMenuItem();
         menuGoto = new javax.swing.JMenu();
         menuItemGotoFastSearch = new javax.swing.JMenuItem();
         menuItemGotoEdit = new javax.swing.JMenuItem();
+        menuItemGotoDirectories = new javax.swing.JMenuItem();
+        menuItemGotoFavoriteDirectories = new javax.swing.JMenuItem();
+        menuItemGotoSavedSearches = new javax.swing.JMenuItem();
+        menuItemGotoCategories = new javax.swing.JMenuItem();
+        menuItemGotoCollections = new javax.swing.JMenuItem();
+        menuItemGotoExifMetadata = new javax.swing.JMenuItem();
+        menuItemGotoIptcMetadata = new javax.swing.JMenuItem();
+        menuItemGotoXmpMetadata = new javax.swing.JMenuItem();
         menuView = new javax.swing.JMenu();
         menuItemRefresh = new javax.swing.JMenuItem();
         menuSort = new javax.swing.JMenu();
@@ -256,9 +303,14 @@ public class AppFrame extends javax.swing.JFrame {
         menuItemSearch.setText(Bundle.getString("AppFrame.menuItemSearch.text")); // NOI18N
         menuEdit.add(menuItemSearch);
 
-        menuItemRename.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F2, 0));
-        menuItemRename.setText(Bundle.getString("AppFrame.menuItemRename.text")); // NOI18N
-        menuEdit.add(menuItemRename);
+        menuItemFileSystemRename.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F2, 0));
+        menuItemFileSystemRename.setText(Bundle.getString("AppFrame.menuItemFileSystemRename.text")); // NOI18N
+        menuEdit.add(menuItemFileSystemRename);
+
+        menuItemFileSystemDelete.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_DELETE, 0));
+        menuItemFileSystemDelete.setText(Bundle.getString("AppFrame.menuItemFileSystemDelete.text")); // NOI18N
+        menuItemFileSystemDelete.setToolTipText(Bundle.getString("AppFrame.menuItemFileSystemDelete.toolTipText")); // NOI18N
+        menuEdit.add(menuItemFileSystemDelete);
 
         menuBar.add(menuEdit);
 
@@ -275,6 +327,46 @@ public class AppFrame extends javax.swing.JFrame {
         menuItemGotoEdit.setMnemonic('b');
         menuItemGotoEdit.setText(Bundle.getString("AppFrame.menuItemGotoEdit.text")); // NOI18N
         menuGoto.add(menuItemGotoEdit);
+
+        menuItemGotoDirectories.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_1, java.awt.event.InputEvent.CTRL_MASK));
+        menuItemGotoDirectories.setMnemonic('o');
+        menuItemGotoDirectories.setText(Bundle.getString("AppFrame.menuItemGotoDirectories.text")); // NOI18N
+        menuGoto.add(menuItemGotoDirectories);
+
+        menuItemGotoFavoriteDirectories.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_2, java.awt.event.InputEvent.CTRL_MASK));
+        menuItemGotoFavoriteDirectories.setMnemonic('f');
+        menuItemGotoFavoriteDirectories.setText(Bundle.getString("AppFrame.menuItemGotoFavoriteDirectories.text")); // NOI18N
+        menuGoto.add(menuItemGotoFavoriteDirectories);
+
+        menuItemGotoSavedSearches.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_3, java.awt.event.InputEvent.CTRL_MASK));
+        menuItemGotoSavedSearches.setMnemonic('g');
+        menuItemGotoSavedSearches.setText(Bundle.getString("AppFrame.menuItemGotoSavedSearches.text")); // NOI18N
+        menuGoto.add(menuItemGotoSavedSearches);
+
+        menuItemGotoCategories.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_4, java.awt.event.InputEvent.CTRL_MASK));
+        menuItemGotoCategories.setMnemonic('k');
+        menuItemGotoCategories.setText(Bundle.getString("AppFrame.menuItemGotoCategories.text")); // NOI18N
+        menuGoto.add(menuItemGotoCategories);
+
+        menuItemGotoCollections.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_5, java.awt.event.InputEvent.CTRL_MASK));
+        menuItemGotoCollections.setMnemonic('i');
+        menuItemGotoCollections.setText(Bundle.getString("AppFrame.menuItemGotoCollections.text")); // NOI18N
+        menuGoto.add(menuItemGotoCollections);
+
+        menuItemGotoExifMetadata.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_6, java.awt.event.InputEvent.CTRL_MASK));
+        menuItemGotoExifMetadata.setMnemonic('e');
+        menuItemGotoExifMetadata.setText(Bundle.getString("AppFrame.menuItemGotoExifMetadata.text")); // NOI18N
+        menuGoto.add(menuItemGotoExifMetadata);
+
+        menuItemGotoIptcMetadata.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_7, java.awt.event.InputEvent.CTRL_MASK));
+        menuItemGotoIptcMetadata.setMnemonic('p');
+        menuItemGotoIptcMetadata.setText(Bundle.getString("AppFrame.menuItemGotoIptcMetadata.text")); // NOI18N
+        menuGoto.add(menuItemGotoIptcMetadata);
+
+        menuItemGotoXmpMetadata.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_8, java.awt.event.InputEvent.CTRL_MASK));
+        menuItemGotoXmpMetadata.setMnemonic('x');
+        menuItemGotoXmpMetadata.setText(Bundle.getString("AppFrame.menuItemGotoXmpMetadata.text")); // NOI18N
+        menuGoto.add(menuItemGotoXmpMetadata);
 
         menuBar.add(menuGoto);
 
@@ -373,12 +465,21 @@ private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:even
     private javax.swing.JMenu menuHelp;
     private javax.swing.JMenuItem menuItemAbout;
     private javax.swing.JMenuItem menuItemExit;
+    private javax.swing.JMenuItem menuItemFileSystemDelete;
+    private javax.swing.JMenuItem menuItemFileSystemRename;
+    private javax.swing.JMenuItem menuItemGotoCategories;
+    private javax.swing.JMenuItem menuItemGotoCollections;
+    private javax.swing.JMenuItem menuItemGotoDirectories;
     private javax.swing.JMenuItem menuItemGotoEdit;
+    private javax.swing.JMenuItem menuItemGotoExifMetadata;
     private javax.swing.JMenuItem menuItemGotoFastSearch;
+    private javax.swing.JMenuItem menuItemGotoFavoriteDirectories;
+    private javax.swing.JMenuItem menuItemGotoIptcMetadata;
+    private javax.swing.JMenuItem menuItemGotoSavedSearches;
+    private javax.swing.JMenuItem menuItemGotoXmpMetadata;
     private javax.swing.JMenuItem menuItemHelp;
     private javax.swing.JMenuItem menuItemMaintainDatabase;
     private javax.swing.JMenuItem menuItemRefresh;
-    private javax.swing.JMenuItem menuItemRename;
     private javax.swing.JMenuItem menuItemScanDirectory;
     private javax.swing.JMenuItem menuItemSearch;
     private javax.swing.JMenuItem menuItemSettings;

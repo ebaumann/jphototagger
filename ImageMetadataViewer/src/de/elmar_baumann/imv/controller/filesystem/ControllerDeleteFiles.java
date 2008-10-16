@@ -33,6 +33,7 @@ public class ControllerDeleteFiles extends Controller implements ActionListener 
 
     public ControllerDeleteFiles() {
         PopupMenuPanelThumbnails.getInstance().addActionListenerFileSystemDeleteFiles(this);
+        Panels.getInstance().getAppFrame().getMenuItemFileSystemDelete().addActionListener(this);
     }
 
     @Override

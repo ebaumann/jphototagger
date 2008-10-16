@@ -28,7 +28,7 @@ public class ControllerRenameFiles extends Controller
 
     public ControllerRenameFiles() {
         PopupMenuPanelThumbnails.getInstance().addActionListenerFileSystemRenameFiles(this);
-        Panels.getInstance().getAppFrame().getMenuItemRename().addActionListener(this);
+        Panels.getInstance().getAppFrame().getMenuItemFileSystemRename().addActionListener(this);
     }
 
     @Override

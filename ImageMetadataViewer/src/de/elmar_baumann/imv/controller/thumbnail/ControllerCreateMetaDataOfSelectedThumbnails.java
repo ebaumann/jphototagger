@@ -6,7 +6,9 @@ import de.elmar_baumann.imv.controller.Controller;
 import de.elmar_baumann.imv.tasks.ImageMetadataToDatabase;
 import de.elmar_baumann.imv.event.ProgressEvent;
 import de.elmar_baumann.imv.event.ProgressListener;
+import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.resource.ProgressBarCurrentTasks;
+import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuPanelThumbnails;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.awt.event.ActionEvent;
@@ -34,6 +36,7 @@ public class ControllerCreateMetaDataOfSelectedThumbnails extends Controller
     private boolean wait = false;
     private PopupMenuPanelThumbnails popup = PopupMenuPanelThumbnails.getInstance();
     private ProgressBarCurrentTasks progressBarProvider = ProgressBarCurrentTasks.getInstance();
+    private ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelImageFileThumbnails();
     private JProgressBar progressBar;
 
     /**
@@ -57,7 +60,7 @@ public class ControllerCreateMetaDataOfSelectedThumbnails extends Controller
     }
 
     private void updateMetadataOfSelectedImages(boolean onlyTextMetadata) {
-        if (popup.getThumbnailsPanel().getSelectionCount() > 0) {
+        if (thumbnailsPanel.getSelectionCount() > 0) {
             updateMetadata(onlyTextMetadata);
         }
     }
@@ -65,7 +68,7 @@ public class ControllerCreateMetaDataOfSelectedThumbnails extends Controller
     private void updateMetadata(boolean onlyTextMetadata) {
         updaters.add(
             createUpdater(FileUtil.getAsFilenames(
-            popup.getThumbnailsPanel().getSelectedFiles()), onlyTextMetadata));
+            thumbnailsPanel.getSelectedFiles()), onlyTextMetadata));
         startUpdateMetadataThread();
     }
 

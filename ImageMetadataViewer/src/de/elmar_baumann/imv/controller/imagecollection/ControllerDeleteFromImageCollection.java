@@ -4,6 +4,7 @@ import de.elmar_baumann.imv.controller.Controller;
 import de.elmar_baumann.imv.tasks.ImageCollectionToDatabase;
 import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.view.panels.AppPanel;
+import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuPanelThumbnails;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.awt.event.ActionEvent;
@@ -24,6 +25,7 @@ public class ControllerDeleteFromImageCollection extends Controller
     private AppPanel appPanel = Panels.getInstance().getAppPanel();
     private JTree tree = appPanel.getTreeImageCollections();
     private PopupMenuPanelThumbnails popup = PopupMenuPanelThumbnails.getInstance();
+    private ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelImageFileThumbnails();
 
     public ControllerDeleteFromImageCollection() {
         listenToActionSource();
@@ -45,7 +47,7 @@ public class ControllerDeleteFromImageCollection extends Controller
         if (collectionName != null) {
             ImageCollectionToDatabase manager = new ImageCollectionToDatabase();
             manager.deleteImagesFromCollection(collectionName,
-                FileUtil.getAsFilenames(popup.getThumbnailsPanel().getSelectedFiles()));
+                FileUtil.getAsFilenames(thumbnailsPanel.getSelectedFiles()));
             TreePath selectionPath = tree.getSelectionPath();
             if (selectionPath != null) {
                 tree.clearSelection();

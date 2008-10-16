@@ -2,6 +2,7 @@ package de.elmar_baumann.imv.controller.thumbnail;
 
 import de.elmar_baumann.imv.controller.Controller;
 import de.elmar_baumann.imv.database.Database;
+import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuPanelThumbnails;
 import de.elmar_baumann.lib.image.ImageTransform;
@@ -22,6 +23,7 @@ public class ControllerRotateThumbnail extends Controller
 
     private Database db = Database.getInstance();
     private PopupMenuPanelThumbnails popup = PopupMenuPanelThumbnails.getInstance();
+    private ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelImageFileThumbnails();
 
     public ControllerRotateThumbnail() {
         listenToActionSources();
@@ -42,15 +44,14 @@ public class ControllerRotateThumbnail extends Controller
     }
 
     private void rotateSelectedImages(float rotateAngle) {
-        ImageFileThumbnailsPanel panel = popup.getThumbnailsPanel();
-        List<Integer> selectedIndices = panel.getSelected();
+        List<Integer> selectedIndices = thumbnailsPanel.getSelected();
         for (Integer index : selectedIndices) {
             Image thumbnail = ImageTransform.rotate(
-                panel.getThumbnail(index.intValue()), rotateAngle);
+                thumbnailsPanel.getThumbnail(index.intValue()), rotateAngle);
             if (thumbnail != null) {
-                String filename = panel.getFile(index.intValue()).getAbsolutePath();
+                String filename = thumbnailsPanel.getFile(index.intValue()).getAbsolutePath();
                 if (db.updateThumbnail(filename, thumbnail)) {
-                    panel.set(index.intValue(), thumbnail);
+                    thumbnailsPanel.set(index.intValue(), thumbnail);
                 }
             }
         }
