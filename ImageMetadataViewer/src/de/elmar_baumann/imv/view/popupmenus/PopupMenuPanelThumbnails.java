@@ -4,7 +4,6 @@ import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.event.UserSettingsChangeEvent;
 import de.elmar_baumann.imv.event.UserSettingsChangeListener;
 import de.elmar_baumann.imv.resource.Bundle;
-import de.elmar_baumann.imv.view.dialogs.UserSettingsDialog;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
@@ -72,7 +71,6 @@ public class PopupMenuPanelThumbnails extends JPopupMenu
         initMap();
         initItems();
         addItems();
-        UserSettingsDialog.getInstance().addChangeListener(this);
     }
 
     private void initItems() {
@@ -87,7 +85,6 @@ public class PopupMenuPanelThumbnails extends JPopupMenu
         add(new JSeparator());
         add(itemOpenFilesWithStandardApp);
         add(menuOtherOpenImageApps);
-        addOtherOpenImageApps();
         add(new JSeparator());
         add(itemCreateImageCollection);
         add(itemAddToImageCollection);

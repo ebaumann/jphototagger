@@ -236,12 +236,12 @@ public class AppFrame extends javax.swing.JFrame {
         menuItemGotoFastSearch = new javax.swing.JMenuItem();
         menuItemGotoEdit = new javax.swing.JMenuItem();
         menuItemGotoDirectories = new javax.swing.JMenuItem();
-        menuItemGotoFavoriteDirectories = new javax.swing.JMenuItem();
         menuItemGotoSavedSearches = new javax.swing.JMenuItem();
-        menuItemGotoCategories = new javax.swing.JMenuItem();
         menuItemGotoCollections = new javax.swing.JMenuItem();
-        menuItemGotoExifMetadata = new javax.swing.JMenuItem();
+        menuItemGotoCategories = new javax.swing.JMenuItem();
+        menuItemGotoFavoriteDirectories = new javax.swing.JMenuItem();
         menuItemGotoIptcMetadata = new javax.swing.JMenuItem();
+        menuItemGotoExifMetadata = new javax.swing.JMenuItem();
         menuItemGotoXmpMetadata = new javax.swing.JMenuItem();
         menuView = new javax.swing.JMenu();
         menuItemRefresh = new javax.swing.JMenuItem();
@@ -333,35 +333,35 @@ public class AppFrame extends javax.swing.JFrame {
         menuItemGotoDirectories.setText(Bundle.getString("AppFrame.menuItemGotoDirectories.text")); // NOI18N
         menuGoto.add(menuItemGotoDirectories);
 
-        menuItemGotoFavoriteDirectories.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_2, java.awt.event.InputEvent.CTRL_MASK));
-        menuItemGotoFavoriteDirectories.setMnemonic('f');
-        menuItemGotoFavoriteDirectories.setText(Bundle.getString("AppFrame.menuItemGotoFavoriteDirectories.text")); // NOI18N
-        menuGoto.add(menuItemGotoFavoriteDirectories);
-
-        menuItemGotoSavedSearches.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_3, java.awt.event.InputEvent.CTRL_MASK));
+        menuItemGotoSavedSearches.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_2, java.awt.event.InputEvent.CTRL_MASK));
         menuItemGotoSavedSearches.setMnemonic('g');
         menuItemGotoSavedSearches.setText(Bundle.getString("AppFrame.menuItemGotoSavedSearches.text")); // NOI18N
         menuGoto.add(menuItemGotoSavedSearches);
+
+        menuItemGotoCollections.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_3, java.awt.event.InputEvent.CTRL_MASK));
+        menuItemGotoCollections.setMnemonic('i');
+        menuItemGotoCollections.setText(Bundle.getString("AppFrame.menuItemGotoCollections.text")); // NOI18N
+        menuGoto.add(menuItemGotoCollections);
 
         menuItemGotoCategories.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_4, java.awt.event.InputEvent.CTRL_MASK));
         menuItemGotoCategories.setMnemonic('k');
         menuItemGotoCategories.setText(Bundle.getString("AppFrame.menuItemGotoCategories.text")); // NOI18N
         menuGoto.add(menuItemGotoCategories);
 
-        menuItemGotoCollections.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_5, java.awt.event.InputEvent.CTRL_MASK));
-        menuItemGotoCollections.setMnemonic('i');
-        menuItemGotoCollections.setText(Bundle.getString("AppFrame.menuItemGotoCollections.text")); // NOI18N
-        menuGoto.add(menuItemGotoCollections);
+        menuItemGotoFavoriteDirectories.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_5, java.awt.event.InputEvent.CTRL_MASK));
+        menuItemGotoFavoriteDirectories.setMnemonic('f');
+        menuItemGotoFavoriteDirectories.setText(Bundle.getString("AppFrame.menuItemGotoFavoriteDirectories.text")); // NOI18N
+        menuGoto.add(menuItemGotoFavoriteDirectories);
 
-        menuItemGotoExifMetadata.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_6, java.awt.event.InputEvent.CTRL_MASK));
-        menuItemGotoExifMetadata.setMnemonic('e');
-        menuItemGotoExifMetadata.setText(Bundle.getString("AppFrame.menuItemGotoExifMetadata.text")); // NOI18N
-        menuGoto.add(menuItemGotoExifMetadata);
-
-        menuItemGotoIptcMetadata.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_7, java.awt.event.InputEvent.CTRL_MASK));
+        menuItemGotoIptcMetadata.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_6, java.awt.event.InputEvent.CTRL_MASK));
         menuItemGotoIptcMetadata.setMnemonic('p');
         menuItemGotoIptcMetadata.setText(Bundle.getString("AppFrame.menuItemGotoIptcMetadata.text")); // NOI18N
         menuGoto.add(menuItemGotoIptcMetadata);
+
+        menuItemGotoExifMetadata.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_7, java.awt.event.InputEvent.CTRL_MASK));
+        menuItemGotoExifMetadata.setMnemonic('e');
+        menuItemGotoExifMetadata.setText(Bundle.getString("AppFrame.menuItemGotoExifMetadata.text")); // NOI18N
+        menuGoto.add(menuItemGotoExifMetadata);
 
         menuItemGotoXmpMetadata.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_8, java.awt.event.InputEvent.CTRL_MASK));
         menuItemGotoXmpMetadata.setMnemonic('x');

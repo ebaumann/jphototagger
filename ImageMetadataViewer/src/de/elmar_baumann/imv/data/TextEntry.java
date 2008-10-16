@@ -53,4 +53,9 @@ public interface TextEntry {
      * @return true, wenn leer
      */
     public boolean isEmpty();
+    
+    /**
+     * Enables autocomplete.
+     */
+    public void setAutocomplete();
 }

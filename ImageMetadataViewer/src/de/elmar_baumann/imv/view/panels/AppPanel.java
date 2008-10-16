@@ -2,7 +2,6 @@ package de.elmar_baumann.imv.view.panels;
 
 import de.elmar_baumann.imv.AppSettings;
 import de.elmar_baumann.lib.renderer.TreeCellRendererDirectories;
-import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.event.AppExitListener;
 import de.elmar_baumann.imv.event.AppStartListener;
 import de.elmar_baumann.imv.resource.Bundle;
@@ -50,8 +49,6 @@ public class AppPanel extends javax.swing.JPanel
         Panels.getInstance().setAppPanel(this);
         initComponents();
         postInitComponents();
-        Panels.getInstance().getAppFrame().addAppStartListener(this);
-        Panels.getInstance().getAppFrame().addAppExitListener(this);
     }
 
     private void postInitComponents() {
@@ -345,9 +342,6 @@ public class AppPanel extends javax.swing.JPanel
         String className = getClass().getName();
         hints.addExcludedMember(className + ".textFieldSearch"); // NOI18N
         hints.addExcludedMember(className + ".panelEditMetadata"); // NOI18N
-        if (!UserSettings.getInstance().isExpandDirectoriesTree()) {
-            hints.addExcludedMember(className + ".treeDirectories"); // NOI18N
-        }
         return hints;
     }
 
@@ -432,6 +426,7 @@ public class AppPanel extends javax.swing.JPanel
         progressBarCreateMetaDataOfCurrentThumbnails = new javax.swing.JProgressBar();
 
         treeDirectories.setCellRenderer(new TreeCellRendererDirectories());
+        treeDirectories.setExpandsSelectedPaths(false);
         scrollPaneTreeDirectories.setViewportView(treeDirectories);
 
         javax.swing.GroupLayout panelSelectionDirectoriesLayout = new javax.swing.GroupLayout(panelSelectionDirectories);

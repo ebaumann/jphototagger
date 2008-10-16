@@ -2,13 +2,11 @@ package de.elmar_baumann.imv.view.panels;
 
 import com.adobe.xmp.properties.XMPPropertyInfo;
 import com.imagero.reader.iptc.IPTCEntryMeta;
-import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.data.ImageFile;
 import de.elmar_baumann.imv.data.MetaDataEditTemplate;
 import de.elmar_baumann.imv.data.TextEntry;
 import de.elmar_baumann.imv.data.Xmp;
 import de.elmar_baumann.imv.data.XmpUtil;
-import de.elmar_baumann.imv.database.Database;
 import de.elmar_baumann.imv.database.metadata.Column;
 import de.elmar_baumann.imv.database.metadata.selections.EditHints;
 import de.elmar_baumann.imv.database.metadata.selections.EditHints.SizeEditField;
@@ -48,7 +46,7 @@ public class MetadataEditPanelsArray implements FocusListener, DatabaseListener 
     private List<String> filenames = new ArrayList<String>();
     private List<MetaDataEditPanelListener> listener = new ArrayList<MetaDataEditPanelListener>();
     private MetaDataEditActionsPanel metadataEditActionsPanel;
-    private boolean isUseAutocomplete = UserSettings.getInstance().isUseAutocomplete();
+    private boolean isUseAutocomplete = false;
     private Component lastFocussedComponent;
 
     public MetadataEditPanelsArray(JComponent container) {
@@ -56,7 +54,6 @@ public class MetadataEditPanelsArray implements FocusListener, DatabaseListener 
         createEditPanels();
         addPanels();
         setFocusToFirstEditField();
-        Database.getInstance().addDatabaseListener(this);
     }
 
     /**
@@ -261,6 +258,16 @@ public class MetadataEditPanelsArray implements FocusListener, DatabaseListener 
                 TextEntryEditFieldPanel panel = new TextEntryEditFieldPanel(column);
                 panel.textFieldEdit.addFocusListener(this);
                 panels.add(panel);
+            }
+        }
+    }
+    
+    public void setAutocomplete() {
+        isUseAutocomplete = true;
+        for (JPanel panel : panels) {
+            if (panel instanceof TextEntry) {
+                TextEntry textEntry = (TextEntry) panel;
+                textEntry.setAutocomplete();
             }
         }
     }

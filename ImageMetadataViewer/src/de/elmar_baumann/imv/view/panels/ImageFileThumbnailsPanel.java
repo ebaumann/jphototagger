@@ -1,6 +1,5 @@
 package de.elmar_baumann.imv.view.panels;
 
-import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.controller.thumbnail.ControllerDoubleklickThumbnail;
 import de.elmar_baumann.imv.database.Database;
 import de.elmar_baumann.imv.data.ThumbnailFlag;
@@ -77,7 +76,6 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel {
         boolean scrollToTop = hadFiles && files != this.files;
         this.files = files;
         Collections.sort(files, fileSort.getComparator());
-        setDefaultThumbnailWidth();
         setNewThumbnails(files.size());
         scrollToTop(scrollToTop);
         setMissingFilesFlags();
@@ -163,10 +161,8 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel {
         return indices;
     }
 
-    private void setDefaultThumbnailWidth() {
-        if (getThumbnailWidth() <= 0) {
-            setThumbnailWidth(UserSettings.getInstance().getMaxThumbnailWidth());
-        }
+    public void setDefaultThumbnailWidth(int width) {
+        setThumbnailWidth(width);
     }
 
     private void setMissingFilesFlags() {

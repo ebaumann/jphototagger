@@ -1,6 +1,5 @@
 package de.elmar_baumann.imv.view.panels;
 
-import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.data.AutoCompleteData;
 import de.elmar_baumann.imv.data.TextEntry;
 import de.elmar_baumann.imv.database.metadata.Column;
@@ -16,13 +15,11 @@ import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/18
  */
-public class TextEntryEditAreaPanel extends javax.swing.JPanel
-    implements TextEntry {
+public class TextEntryEditAreaPanel extends javax.swing.JPanel implements TextEntry {
 
     private Column column;
     private static final String delimiter = ",";
     private Color editableBackground;
-    private static final boolean isAutocomplete = UserSettings.getInstance().isUseAutocomplete();
     private AutoCompleteData autoCompleteData;
     private boolean repeatable;
 
@@ -35,17 +32,15 @@ public class TextEntryEditAreaPanel extends javax.swing.JPanel
         }
         editableBackground = textArea.getBackground();
         setPropmt();
-        setAutocomplete();
     }
 
-    private void setAutocomplete() {
-        if (isAutocomplete) {
-            autoCompleteData = new AutoCompleteData(column);
-            AutoCompleteDecorator.decorate(
-                textFieldInput,
-                autoCompleteData.getList(),
-                false);
-        }
+    @Override
+    public void setAutocomplete() {
+        autoCompleteData = new AutoCompleteData(column);
+        AutoCompleteDecorator.decorate(
+            textFieldInput,
+            autoCompleteData.getList(),
+            false);
     }
 
     public AutoCompleteData getAutoCompleteData() {

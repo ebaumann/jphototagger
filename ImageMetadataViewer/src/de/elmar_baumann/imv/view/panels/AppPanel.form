@@ -109,6 +109,7 @@
                             <Property name="cellRenderer" type="javax.swing.tree.TreeCellRenderer" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                               <Connection code="new TreeCellRendererDirectories()" type="code"/>
                             </Property>
+                            <Property name="expandsSelectedPaths" type="boolean" value="false"/>
                           </Properties>
                         </Component>
                       </SubComponents>

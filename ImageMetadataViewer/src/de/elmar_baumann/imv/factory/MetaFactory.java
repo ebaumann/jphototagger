@@ -28,6 +28,7 @@ public class MetaFactory {
     }
 
     private void createFactories() {
+        LateConnectionsFactory.getInstance();
         ModelFactory.getInstance();
         ControllerFactory.getInstance();
         ActionListenerFactory.getInstance();
