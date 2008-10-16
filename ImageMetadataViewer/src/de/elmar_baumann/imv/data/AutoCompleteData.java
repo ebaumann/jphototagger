@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Model for Autocomplete.
@@ -17,7 +18,7 @@ import java.util.List;
 public class AutoCompleteData {
 
     private Database db = Database.getInstance();
-    private LinkedHashSet<Column> columns;
+    private Set<Column> columns;
     private List<String> content = Collections.synchronizedList(new ArrayList<String>());
 
     /**
@@ -38,7 +39,7 @@ public class AutoCompleteData {
      *                wird
      */
     public AutoCompleteData(Column column) {
-        LinkedHashSet<Column> cols = new LinkedHashSet<Column>();
+        Set<Column> cols = new LinkedHashSet<Column>();
         cols.add(column);
         this.columns = cols;
         addColumnsContent();

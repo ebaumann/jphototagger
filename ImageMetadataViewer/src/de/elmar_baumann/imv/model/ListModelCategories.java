@@ -7,8 +7,8 @@ import de.elmar_baumann.imv.database.Database;
 import de.elmar_baumann.imv.event.DatabaseAction;
 import de.elmar_baumann.imv.event.DatabaseListener;
 import java.util.ArrayList;
-import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 import javax.swing.DefaultListModel;
 
 /**
@@ -28,7 +28,7 @@ public class ListModelCategories extends DefaultListModel
     }
 
     private void addElements() {
-        LinkedHashSet<String> categories = db.getCategories();
+        Set<String> categories = db.getCategories();
         for (String category : categories) {
             addElement(category);
         }

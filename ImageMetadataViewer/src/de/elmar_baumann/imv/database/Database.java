@@ -43,6 +43,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -179,8 +180,8 @@ public class Database {
      * @param column Tabellenspalte
      * @return Werte DISTINCT
      */
-    public LinkedHashSet<String> getContent(Column column) {
-        LinkedHashSet<String> content = new LinkedHashSet<String>();
+    public Set<String> getContent(Column column) {
+        Set<String> content = new LinkedHashSet<String>();
         Connection connection = null;
         try {
             connection = getConnection();
@@ -215,8 +216,8 @@ public class Database {
      * @param columns Tabellenspalten
      * @return Werte DISTINCT
      */
-    public LinkedHashSet<String> getContent(LinkedHashSet<Column> columns) {
-        LinkedHashSet<String> content = new LinkedHashSet<String>();
+    public Set<String> getContent(Set<Column> columns) {
+        Set<String> content = new LinkedHashSet<String>();
         for (Column column : columns) {
             content.addAll(getContent(column));
         }
@@ -2668,8 +2669,8 @@ public class Database {
      * 
      * @return Kategorien
      */
-    public LinkedHashSet<String> getCategories() {
-        LinkedHashSet<String> categories = new LinkedHashSet<String>();
+    public Set<String> getCategories() {
+        Set<String> categories = new LinkedHashSet<String>();
         Connection connection = null;
         try {
             connection = getConnection();
@@ -2700,8 +2701,8 @@ public class Database {
      * @param  category  Kategorie
      * @return Dateinamen
      */
-    public LinkedHashSet<String> getFilenamesOfCategory(String category) {
-        LinkedHashSet<String> filenames = new LinkedHashSet<String>();
+    public Set<String> getFilenamesOfCategory(String category) {
+        Set<String> filenames = new LinkedHashSet<String>();
         Connection connection = null;
         try {
             connection = getConnection();
