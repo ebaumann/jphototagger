@@ -4,6 +4,7 @@ import de.elmar_baumann.imv.controller.Controller;
 import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.view.frames.AppFrame;
 import de.elmar_baumann.imv.view.panels.AppPanel;
+import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.imv.view.panels.MetadataEditPanelsArray;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
@@ -23,6 +24,7 @@ import javax.swing.JTextField;
 public class ControllerGoto extends Controller implements ActionListener {
 
     private AppPanel appPanel = Panels.getInstance().getAppPanel();
+    private ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelImageFileThumbnails();
     private MetadataEditPanelsArray editPanels = appPanel.getEditPanelsArray();
     private JTextField textFieldSearch = appPanel.getTextFieldSearch();
     private AppFrame appFrame = Panels.getInstance().getAppFrame();
@@ -79,9 +81,11 @@ public class ControllerGoto extends Controller implements ActionListener {
         } else if (gt.equals(AppFrame.Goto.FastSearch)) {
             textFieldSearch.requestFocus();
         }
-        
+
         if (gt.equals(AppFrame.Goto.EditPanels)) {
             editPanels.setFocusToLastFocussedComponent();
+        } else if (gt.equals(AppFrame.Goto.ThumbnailsPanel)) {
+            thumbnailsPanel.requestFocus();
         }
     }
 }
