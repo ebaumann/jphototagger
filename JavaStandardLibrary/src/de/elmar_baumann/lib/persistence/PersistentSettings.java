@@ -1062,4 +1062,13 @@ public class PersistentSettings {
         Properties properties = getProperties();
         properties.setProperty(key, value.toString());
     }
+    
+    public boolean getBoolean(String key) {
+        int result = getInt(key);
+        return result == 1 ? true : false;
+    }
+    
+    public void setBoolean(boolean b, String key) {
+        setInt(b ? 1 : 0, key);
+    }
 }
