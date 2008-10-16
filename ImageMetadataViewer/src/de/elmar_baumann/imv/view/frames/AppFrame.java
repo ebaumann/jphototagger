@@ -27,8 +27,8 @@ import javax.swing.JRadioButtonMenuItem;
  */
 public class AppFrame extends javax.swing.JFrame {
 
-    private HashMap<FileSort, JRadioButtonMenuItem> menuItemOfSort = new HashMap<FileSort, JRadioButtonMenuItem>();
-    private HashMap<JRadioButtonMenuItem, FileSort> sortOfMenuItem = new HashMap<JRadioButtonMenuItem, FileSort>();
+    private Map<FileSort, JRadioButtonMenuItem> menuItemOfSort = new HashMap<FileSort, JRadioButtonMenuItem>();
+    private Map<JRadioButtonMenuItem, FileSort> sortOfMenuItem = new HashMap<JRadioButtonMenuItem, FileSort>();
     private Map<Goto, JMenuItem> menuItemOfGoto = new HashMap<Goto, JMenuItem>();
     private Map<JMenuItem, Goto> gotoOfMenuItem = new HashMap<JMenuItem, Goto>();
     private List<AppExitListener> exitListeners = new ArrayList<AppExitListener>();

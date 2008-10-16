@@ -25,6 +25,7 @@ import de.elmar_baumann.lib.template.Pair;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -35,8 +36,8 @@ import java.util.Set;
  */
 public class IptcXmpMapping {
 
-    private static HashMap<IPTCEntryMeta, Column> xmpColumnOfIptcEntryMeta = new HashMap<IPTCEntryMeta, Column>();
-    private static HashMap<Column, IPTCEntryMeta> iptcEntryMetaOfXmpColumn = new HashMap<Column, IPTCEntryMeta>();
+    private static Map<IPTCEntryMeta, Column> xmpColumnOfIptcEntryMeta = new HashMap<IPTCEntryMeta, Column>();
+    private static Map<Column, IPTCEntryMeta> iptcEntryMetaOfXmpColumn = new HashMap<Column, IPTCEntryMeta>();
     private static IptcXmpMapping instance = new IptcXmpMapping();
     
 

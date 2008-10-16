@@ -21,6 +21,7 @@ import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopState;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopTransmissionReference;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Vorlage zum Bearbeiten von Metadaten.
@@ -51,7 +52,7 @@ public class MetaDataEditTemplate {
     private StringBuffer photoshopInstructions = new StringBuffer();
     private StringBuffer photoshopCredit = new StringBuffer();
     private StringBuffer photoshopSource = new StringBuffer();
-    private HashMap<Column, StringBuffer> valueOfColumn = new HashMap<Column, StringBuffer>();
+    private Map<Column, StringBuffer> valueOfColumn = new HashMap<Column, StringBuffer>();
 
     private void initValueOfColumn() {
         valueOfColumn.put(ColumnXmpDcSubjectsSubject.getInstance(), dcSubjects);

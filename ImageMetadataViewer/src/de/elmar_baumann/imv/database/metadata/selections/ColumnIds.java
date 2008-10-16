@@ -30,6 +30,7 @@ import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopState;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopTransmissionReference;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -42,8 +43,8 @@ import java.util.Set;
  */
 public class ColumnIds {
 
-    private static HashMap<Integer, Column> columnOfId = new HashMap<Integer, Column>();
-    private static HashMap<Column, Integer> idOfColumn = new HashMap<Column, Integer>();
+    private static Map<Integer, Column> columnOfId = new HashMap<Integer, Column>();
+    private static Map<Column, Integer> idOfColumn = new HashMap<Column, Integer>();
     private static ColumnIds instance = new ColumnIds();
     
 

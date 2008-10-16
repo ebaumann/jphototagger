@@ -21,6 +21,7 @@ import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopState;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopTransmissionReference;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Mapping zwischen einer XMP-Spalte
@@ -32,7 +33,7 @@ import java.util.HashMap;
  */
 public class XmpColumnXmpDataTypeMapping {
 
-    private static HashMap<Column, XmpValueType> xmpValueTypeOfColumn = new HashMap<Column, XmpValueType>();
+    private static Map<Column, XmpValueType> xmpValueTypeOfColumn = new HashMap<Column, XmpValueType>();
     private static XmpColumnXmpDataTypeMapping instance = new XmpColumnXmpDataTypeMapping();
     
 

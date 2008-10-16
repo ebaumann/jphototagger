@@ -3,6 +3,7 @@ package de.elmar_baumann.imv.view.renderer;
 import de.elmar_baumann.imv.resource.Bundle;
 import java.awt.Component;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.SimpleFormatter;
 import java.util.logging.XMLFormatter;
 import javax.swing.DefaultListCellRenderer;
@@ -17,7 +18,7 @@ import javax.swing.JList;
  */
 public class ListCellRendererLogfileFormatter extends DefaultListCellRenderer {
 
-    private static HashMap<Class, String> textOfClass = new HashMap<Class, String>();
+    private static Map<Class, String> textOfClass = new HashMap<Class, String>();
     private static final String undefined = Bundle.getString("ListCellRendererLogfileFormatter.InformationMessage.Format.Undefined");
     
 

@@ -5,6 +5,7 @@ import de.elmar_baumann.imv.database.metadata.Column;
 import de.elmar_baumann.lib.template.Pair;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Mapping zwischen
@@ -17,7 +18,7 @@ import java.util.List;
  */
 public class XmpColumnXmpPathStartMapping {
 
-    private static HashMap<Column, String> xmpPathStartOfColumn = new HashMap<Column, String>();
+    private static Map<Column, String> xmpPathStartOfColumn = new HashMap<Column, String>();
     private static XmpColumnXmpPathStartMapping instance = new XmpColumnXmpPathStartMapping();
     
 

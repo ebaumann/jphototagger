@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.HashMap;
 import java.util.Set;
 import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * XMP-Metadaten einer Bilddatei. Unter den Operationen ist ein Link auf die
@@ -56,7 +57,7 @@ public class Xmp {
     private StringBuffer dcCreator = new StringBuffer();
     private List<String> dcSubjects = new ArrayList<String>();
     private List<String> photoshopSupplementalCategories = new ArrayList<String>();
-    private HashMap<Column, Object> valueOfColumn = new HashMap<Column, Object>();
+    private Map<Column, Object> valueOfColumn = new HashMap<Column, Object>();
 
     private void init() {
         valueOfColumn.put(ColumnXmpDcCreator.getInstance(),

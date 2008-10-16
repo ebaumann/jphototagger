@@ -22,6 +22,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.swing.JTable;
 
 /**
@@ -34,7 +35,7 @@ import javax.swing.JTable;
 public class ControllerShowMetadata extends Controller
     implements DatabaseListener, ThumbnailsPanelListener {
 
-    private HashMap<TableModelXmp, String[]> namespacesOfXmpTableModel = new HashMap<TableModelXmp, String[]>();
+    private Map<TableModelXmp, String[]> namespacesOfXmpTableModel = new HashMap<TableModelXmp, String[]>();
     private AppPanel appPanel = Panels.getInstance().getAppPanel();
     private MetaDataDisplay data = new MetaDataDisplay();
 

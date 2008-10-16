@@ -22,6 +22,7 @@ import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JPanel;
@@ -81,8 +82,8 @@ public abstract class ThumbnailsPanel extends JPanel
     private int thumbnailCount = 0;
     private int thumbnailCountPerRow = 0;
     private List<Integer> selectedThumbnails = new ArrayList<Integer>();
-    private HashMap<Integer, ThumbnailFlag> flagOfThumbnail = new HashMap<Integer, ThumbnailFlag>();
-    private HashMap<Integer, Image> thumbnailAtIndex = new HashMap<Integer, Image>();
+    private Map<Integer, ThumbnailFlag> flagOfThumbnail = new HashMap<Integer, ThumbnailFlag>();
+    private Map<Integer, Image> thumbnailAtIndex = new HashMap<Integer, Image>();
     private List<ThumbnailsPanelListener> panelListener = new ArrayList<ThumbnailsPanelListener>();
 
     public ThumbnailsPanel() {

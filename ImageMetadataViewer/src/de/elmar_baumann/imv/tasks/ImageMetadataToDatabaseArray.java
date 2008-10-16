@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.logging.Level;
@@ -32,8 +33,8 @@ public class ImageMetadataToDatabaseArray implements ProgressListener {
     private boolean wait = false;
     private boolean started = false;
     private JProgressBar progressBar;
-    private HashMap<String, ImageMetadataToDatabase> updaterOfDirectory = new HashMap<String, ImageMetadataToDatabase>();
-    private HashMap<ImageMetadataToDatabase, String> directoryOfUpdater = new HashMap<ImageMetadataToDatabase, String>();
+    private Map<String, ImageMetadataToDatabase> updaterOfDirectory = new HashMap<String, ImageMetadataToDatabase>();
+    private Map<ImageMetadataToDatabase, String> directoryOfUpdater = new HashMap<ImageMetadataToDatabase, String>();
     private List<TaskListener> taskListeners = new ArrayList<TaskListener>();
     private String tooltipTextProgressEnded;
 

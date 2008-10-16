@@ -5,12 +5,12 @@ import de.elmar_baumann.imv.event.UserSettingsChangeEvent;
 import de.elmar_baumann.imv.event.UserSettingsChangeListener;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.view.dialogs.UserSettingsDialog;
-import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
@@ -55,8 +55,8 @@ public class PopupMenuPanelThumbnails extends JPopupMenu
     private final JMenuItem itemFileSystemDeleteFiles = new JMenuItem(actionFileSystemDeleteFiles);
     private final JMenuItem itemFileSystemRenameFiles = new JMenuItem(actionFileSystemRenameFiles);
     private List<ActionListener> actionListenersOpenFilesWithOtherApp = new ArrayList<ActionListener>();
-    private HashMap<String, Float> angleOfAction = new HashMap<String, Float>();
-    private HashMap<String, File> otherImageOpenAppOfAction = new HashMap<String, File>();
+    private Map<String, Float> angleOfAction = new HashMap<String, Float>();
+    private Map<String, File> otherImageOpenAppOfAction = new HashMap<String, File>();
     private static PopupMenuPanelThumbnails instance = new PopupMenuPanelThumbnails();
 
     /**

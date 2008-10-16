@@ -3,6 +3,7 @@ package de.elmar_baumann.imv.model;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.persistence.PersistentSettings;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
@@ -15,7 +16,7 @@ import javax.swing.DefaultComboBoxModel;
  */
 public class ComboBoxModelAppColors extends DefaultComboBoxModel {
 
-    private static final HashMap<String, String> propertyFilenameOf = new HashMap<String, String>();
+    private static final Map<String, String> propertyFilenameOf = new HashMap<String, String>();
     private static final String standardLookAndFeel = Bundle.getString("ComboBoxModelAppColors.NameStandard");
     public static final String keySelectedIndex = ComboBoxModelAppColors.class.getName() + ".SelectedIndex"; // NOI18N
     

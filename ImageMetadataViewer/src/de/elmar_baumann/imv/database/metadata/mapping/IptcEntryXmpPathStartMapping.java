@@ -3,6 +3,7 @@ package de.elmar_baumann.imv.database.metadata.mapping;
 import com.adobe.xmp.properties.XMPPropertyInfo;
 import com.imagero.reader.iptc.IPTCEntryMeta;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Mapping zwischen
@@ -18,7 +19,7 @@ import java.util.HashMap;
  */
 public class IptcEntryXmpPathStartMapping {
 
-    private static HashMap<IPTCEntryMeta, String> xmpPathStarOfIptcEntryMeta = new HashMap<IPTCEntryMeta, String>();
+    private static Map<IPTCEntryMeta, String> xmpPathStarOfIptcEntryMeta = new HashMap<IPTCEntryMeta, String>();
     private static IptcEntryXmpPathStartMapping instance = new IptcEntryXmpPathStartMapping();
     
 

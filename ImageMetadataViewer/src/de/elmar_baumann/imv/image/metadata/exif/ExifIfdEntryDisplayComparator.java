@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Vergleicht IFDEntries zum Sortieren für die Anzeige.
@@ -13,7 +14,7 @@ import java.util.List;
  */
 public class ExifIfdEntryDisplayComparator implements Comparator<IdfEntryProxy> {
 
-    private static HashMap<Integer, Integer> orderOfTagValue = new HashMap<Integer, Integer>();
+    private static Map<Integer, Integer> orderOfTagValue = new HashMap<Integer, Integer>();
     private static List<Integer> tagValues = new ArrayList<Integer>(30);
     
     static {

@@ -5,6 +5,7 @@ import de.elmar_baumann.imv.database.metadata.Table;
 import de.elmar_baumann.imv.database.metadata.selections.AllTables;
 import de.elmar_baumann.imv.database.metadata.selections.TableIcons;
 import java.util.HashMap;
+import java.util.Map;
 import javax.swing.JLabel;
 
 /**
@@ -15,7 +16,7 @@ import javax.swing.JLabel;
  */
 public class RendererTableColumn {
 
-    private static HashMap<Column, String> textOfColumn = new HashMap<Column, String>();
+    private static Map<Column, String> textOfColumn = new HashMap<Column, String>();
     private static TableIcons tableIcons = TableIcons.getInstance();
     
 

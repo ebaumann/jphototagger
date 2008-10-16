@@ -4,6 +4,7 @@ import com.imagero.reader.iptc.IPTCEntryMeta;
 import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * IPTC-Metadaten einer Bilddatei. Unter den Operationen ist ein Link auf die
@@ -34,7 +35,7 @@ public class Iptc {
     private StringBuffer specialInstructions = new StringBuffer();
     private List<String> supplementalCategories = new ArrayList<String>();
     private List<String> writersEditors = new ArrayList<String>();
-    private HashMap<IPTCEntryMeta, Object> valueOfEntryMeta = new HashMap<IPTCEntryMeta, Object>();
+    private Map<IPTCEntryMeta, Object> valueOfEntryMeta = new HashMap<IPTCEntryMeta, Object>();
 
     private void init() {
         valueOfEntryMeta.put(IPTCEntryMeta.COPYRIGHT_NOTICE, copyrightNotice);

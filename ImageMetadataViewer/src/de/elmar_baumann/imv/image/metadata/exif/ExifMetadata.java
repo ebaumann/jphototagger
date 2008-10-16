@@ -23,6 +23,7 @@ import java.util.Enumeration;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -35,7 +36,7 @@ import java.util.logging.Logger;
  */
 public class ExifMetadata {
 
-    private static HashMap<String, Double> rotationAngleOfString = new HashMap<String, Double>();
+    private static Map<String, Double> rotationAngleOfString = new HashMap<String, Double>();
     private static List<Integer> tagsToDisplay = new ArrayList<Integer>();
     
 

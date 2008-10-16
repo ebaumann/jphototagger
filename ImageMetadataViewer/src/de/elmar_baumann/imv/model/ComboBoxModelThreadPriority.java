@@ -2,6 +2,7 @@ package de.elmar_baumann.imv.model;
 
 import de.elmar_baumann.imv.resource.Bundle;
 import java.util.HashMap;
+import java.util.Map;
 import javax.swing.DefaultComboBoxModel;
 
 /**
@@ -12,7 +13,7 @@ import javax.swing.DefaultComboBoxModel;
  */
 public class ComboBoxModelThreadPriority extends DefaultComboBoxModel {
 
-    private static HashMap<String, Integer> priorityOf = new HashMap<String, Integer>();
+    private static Map<String, Integer> priorityOf = new HashMap<String, Integer>();
     private static final String highPriorityString = Bundle.getString("ComboBoxModelThreadPriority.ThreadPriority.High");
     private static final String mediumPriorityString = Bundle.getString("ComboBoxModelThreadPriority.ThreadPriority.Medium");
     private static final String lowPriorityString = Bundle.getString("ComboBoxModelThreadPriority.ThreadPriority.Low");

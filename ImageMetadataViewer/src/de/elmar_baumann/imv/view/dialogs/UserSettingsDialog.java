@@ -28,6 +28,7 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
@@ -54,8 +55,8 @@ public class UserSettingsDialog extends javax.swing.JDialog
     private List<UserSettingsChangeListener> changeListener = new ArrayList<UserSettingsChangeListener>();
     public CheckList checkListSearchColumns = new CheckList();
     public ListModelFastSearchColumns searchColumnsListModel = new ListModelFastSearchColumns();
-    private HashMap<Tab, Integer> indexOfTab = new HashMap<Tab, Integer>();
-    private HashMap<Integer, Tab> tabOfIndex = new HashMap<Integer, Tab>();
+    private Map<Tab, Integer> indexOfTab = new HashMap<Tab, Integer>();
+    private Map<Integer, Tab> tabOfIndex = new HashMap<Integer, Tab>();
     private DefaultListModel modelImageOpenApps = new DefaultListModel();
     private ListModelAutoscanDirectories modelAutoscanDirectories = new ListModelAutoscanDirectories();
     private String lastSelectedAutoscanDirectory = ""; // NOI18N

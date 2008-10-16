@@ -22,6 +22,7 @@ import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopState;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopTransmissionReference;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Mapping zwischen 
@@ -33,7 +34,7 @@ import java.util.HashMap;
  */
 public class XmpColumnNamespaceUriMapping {
 
-    private static HashMap<Column, String> namespaceUriOfColumn = new HashMap<Column, String>();
+    private static Map<Column, String> namespaceUriOfColumn = new HashMap<Column, String>();
     private static XmpColumnNamespaceUriMapping instance = new XmpColumnNamespaceUriMapping();
 
     static  {
