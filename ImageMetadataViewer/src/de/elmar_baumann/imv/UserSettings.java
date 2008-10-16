@@ -4,15 +4,17 @@ import de.elmar_baumann.imv.database.Database;
 import de.elmar_baumann.imv.database.metadata.Column;
 import de.elmar_baumann.imv.event.UserSettingsChangeEvent;
 import de.elmar_baumann.imv.event.UserSettingsChangeListener;
-import de.elmar_baumann.imv.model.ComboBoxModelThreadPriority;
 import de.elmar_baumann.imv.view.dialogs.UserSettingsDialog;
+import de.elmar_baumann.lib.io.FileUtil;
 import de.elmar_baumann.lib.persistence.PersistentSettings;
+import de.elmar_baumann.lib.util.ArrayUtil;
 import java.io.File;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.logging.XMLFormatter;
-import javax.swing.ListModel;
 
 /**
  * Benutzereinstellungen. Benutzt den Dialog
@@ -28,6 +30,8 @@ public class UserSettings implements UserSettingsChangeListener {
     private UserSettingsDialog settingsDialog = UserSettingsDialog.getInstance();
     private Database db = Database.getInstance();
     private static UserSettings instance = new UserSettings();
+    private static final String delimiterSearchColumns = "\t"; // NOI18N
+    private static final int defaultMaxThumbnailWidth = 150;
     public static final String keyIsCreateThumbnailsWithExternalApp = "UserSettings.IsCreateThumbnailsWithExternalApp";
     public static final String keyExternalThumbnailCreationCommand = "UserSettings.ExternalThumbnailCreationCommand";
     public static final String keyLogLevel = "UserSettings.LogLevel";
@@ -86,13 +90,21 @@ public class UserSettings implements UserSettingsChangeListener {
      * @return Loglevel (Eine Ausgabe von getLocalizedName())
      * @see    java.util.logging.Level#getLocalizedName()
      */
-    public String getLogLevel() {
-        Object item = settingsDialog.comboBoxLogLevel.getSelectedItem();
-        if (item == null) {
-            return Level.WARNING.getLocalizedName();
-        } else {
-            return item.toString();
+    public Level getLogLevel() {
+//        Object item = settingsDialog.comboBoxLogLevel.getSelectedItem();
+//        if (item == null) {
+//            return Level.WARNING.getLocalizedName();
+//        } else {
+//            return item.toString();
+//        }
+        String levelString = settings.getString(keyLogLevel);
+        Level level = null;
+        try {
+            level = Level.parse(levelString);
+        } catch (IllegalArgumentException ex) {
+            Logger.getLogger(UserSettings.class.getName()).log(Level.WARNING, null, ex);
         }
+        return level == null ? Level.WARNING : level;
     }
 
     /**
@@ -101,8 +113,25 @@ public class UserSettings implements UserSettingsChangeListener {
      * @return Suchspalten
      */
     public List<Column> getFastSearchColumns() {
-        return settingsDialog.searchColumnsListModel.getTableColumns(
-            settingsDialog.checkListSearchColumns.getSelectedItemIndices());
+//        return settingsDialog.searchColumnsListModel.getTableColumns(
+//            settingsDialog.checkListSearchColumns.getSelectedItemIndices());
+        List<Column> columns = new ArrayList<Column>();
+        List<String> columnKeys = ArrayUtil.stringTokenToList(
+            settings.getString(keyFastSearchColumns), delimiterSearchColumns);
+        for (String key : columnKeys) {
+            try {
+                Class cl = Class.forName(key);
+                @SuppressWarnings("unchecked")
+                Method method = cl.getMethod("getInstance", new Class[0]); // NOI18N
+                Object o = method.invoke(null, new Object[0]);
+                if (o instanceof Column) {
+                    columns.add((Column) o);
+                }
+            } catch (Exception ex) {
+                Logger.getLogger(UserSettingsDialog.class.getName()).log(Level.WARNING, ex.getMessage());
+            }
+        }
+        return columns;
     }
 
     /**
@@ -111,7 +140,8 @@ public class UserSettings implements UserSettingsChangeListener {
      * @return Anwendung oder Leerstring, wenn nicht definiert
      */
     public String getDefaultImageOpenApp() {
-        return settingsDialog.labelImageOpenApp.getText();
+        //return settingsDialog.labelImageOpenApp.getText();
+        return settings.getString(keyDefaultImageOpenApp);
     }
 
     /**
@@ -120,14 +150,16 @@ public class UserSettings implements UserSettingsChangeListener {
      * @return Threadpriorität
      */
     public int getThreadPriority() {
-        ComboBoxModelThreadPriority model =
-            (ComboBoxModelThreadPriority) settingsDialog.comboBoxThreadPriority.getModel();
-        Object item = model.getSelectedItem();
-        if (item == null) {
-            return Thread.NORM_PRIORITY;
-        } else {
-            return model.getPriorityOf(item.toString());
-        }
+//        ComboBoxModelThreadPriority model =
+//            (ComboBoxModelThreadPriority) settingsDialog.comboBoxThreadPriority.getModel();
+//        Object item = model.getSelectedItem();
+//        if (item == null) {
+//            return Thread.NORM_PRIORITY;
+//        } else {
+//            return model.getPriorityOf(item.toString());
+//        }
+        int priority = settings.getInt(keyThreadPriority);
+        return priority >= 0 && priority <= 10 ? priority : 5;
     }
 
     /**
@@ -137,8 +169,10 @@ public class UserSettings implements UserSettingsChangeListener {
      * @return Seitenlänge in Pixel
      */
     public int getMaxThumbnailWidth() {
-        return new Integer(settingsDialog.spinnerMaxThumbnailWidth.getValue().
-            toString()).intValue();
+//        return new Integer(settingsDialog.spinnerMaxThumbnailWidth.getValue().
+//            toString()).intValue();
+        int width = settings.getInt(keyMaxThumbnailWidth);
+        return width != Integer.MIN_VALUE ? width : defaultMaxThumbnailWidth;
     }
 
     /**
@@ -147,7 +181,8 @@ public class UserSettings implements UserSettingsChangeListener {
      * @return true, wenn eingebettete Thumbnails benutzt werden sollen
      */
     public boolean isUseEmbeddedThumbnails() {
-        return settingsDialog.checkBoxUseEmbeddedThumbnails.isSelected();
+        //return settingsDialog.checkBoxUseEmbeddedThumbnails.isSelected();
+        return settings.getBoolean(keyIsUseEmbeddedThumbnails);
     }
 
     /**
@@ -156,12 +191,14 @@ public class UserSettings implements UserSettingsChangeListener {
      * @return Zeichensatz
      */
     public String getIptcCharset() {
-        Object item = settingsDialog.comboBoxIptcCharset.getItemAt(0);
-        if (item == null) {
-            return "ISO-8859-1"; // NOI18N
-        } else {
-            return item.toString();
-        }
+//        Object item = settingsDialog.comboBoxIptcCharset.getItemAt(0);
+//        if (item == null) {
+//            return "ISO-8859-1"; // NOI18N
+//        } else {
+//            return item.toString();
+//        }
+        String charset = settings.getString(keyIptcCharset);
+        return charset.isEmpty() ? "ISO-8859-1" : charset;
     }
 
     /**
@@ -170,16 +207,17 @@ public class UserSettings implements UserSettingsChangeListener {
      * @return Anwendungsdateien, falls existent
      */
     public List<File> getOtherImageOpenApps() {
-        List<File> apps = new ArrayList<File>();
-        ListModel model = settingsDialog.listOpenImageApps.getModel();
-        int count = model.getSize();
-        for (int i = 0; i < count; i++) {
-            File file = new File(model.getElementAt(i).toString());
-            if (file.exists()) {
-                apps.add(file);
-            }
-        }
-        return apps;
+//        List<File> apps = new ArrayList<File>();
+//        ListModel model = settingsDialog.listOpenImageApps.getModel();
+//        int count = model.getSize();
+//        for (int i = 0; i < count; i++) {
+//            File file = new File(model.getElementAt(i).toString());
+//            if (file.exists()) {
+//                apps.add(file);
+//            }
+//        }
+//        return apps;
+        return FileUtil.getAsFiles(settings.getStringArray(keyOtherImageOpenApps));
     }
 
     /**
@@ -198,7 +236,8 @@ public class UserSettings implements UserSettingsChangeListener {
      * @return true, falls die Unterverzeichnisse einbezogen werden sollen
      */
     public boolean isAutoscanIncludeSubdirectories() {
-        return settingsDialog.checkBoxTasksAutoscanIncludeSubdirectories.isSelected();
+        //return settingsDialog.checkBoxTasksAutoscanIncludeSubdirectories.isSelected();
+        return settings.getBoolean(keyIsAutoscanIncludeSubdirectories);
     }
 
     /**
