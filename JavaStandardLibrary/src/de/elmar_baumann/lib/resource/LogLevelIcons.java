@@ -2,6 +2,7 @@ package de.elmar_baumann.lib.resource;
 
 import de.elmar_baumann.lib.image.icon.IconUtil;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -14,7 +15,7 @@ import javax.swing.ImageIcon;
  */
 public class LogLevelIcons {
 
-    private static HashMap<Level, ImageIcon> iconOfLevel = new HashMap<Level, ImageIcon>();
+    private static Map<Level, ImageIcon> iconOfLevel = new HashMap<Level, ImageIcon>();
 
     /**
      * Liefert das Icon für einen Loglevel.

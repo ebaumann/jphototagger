@@ -23,6 +23,7 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.logging.Formatter;
 import java.util.logging.Handler;
@@ -49,14 +50,14 @@ public class LogfileDialog extends javax.swing.JDialog implements
     ListSelectionListener, ActionListener {
 
     String logfilename;
-    HashMap<JCheckBox, Level> levelOfCheckBox = new HashMap<JCheckBox, Level>();
+    Map<JCheckBox, Level> levelOfCheckBox = new HashMap<JCheckBox, Level>();
     List<Level> visibleLevels = new ArrayList<Level>();
     static final private long criticalLogfileSizeInBytes = 10 * 1024 * 1024;
     private String filterString;
     private final ImageIcon iconReload = IconUtil.getImageIcon("/de/elmar_baumann/lib/resource/icon_reload.png"); // NOI18N
     private List<LogfileRecord> logfileRecords;
     private Class formatterClass;
-    private HashMap<Class, Integer> paneIndexOfFormatterClass = new HashMap<Class, Integer>();
+    private Map<Class, Integer> paneIndexOfFormatterClass = new HashMap<Class, Integer>();
 
     private void initPaneIndexOfLogfileType() {
         paneIndexOfFormatterClass.put(XMLFormatter.class, 0);
