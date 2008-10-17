@@ -349,4 +349,18 @@ public class FileUtil {
         }
         return filenames;
     }
+    
+    /**
+     * Returns a list of files from a list of object where every object is a file.
+     * 
+     * @param  files files as object
+     * @return files
+     */
+    public static List<File> objectListToFileList(List files) {
+        List<File> fileList = new ArrayList<File>(files.size());
+        for (Object o : files) {
+            fileList.add((File)o);
+        }
+        return fileList;
+    }
 }
