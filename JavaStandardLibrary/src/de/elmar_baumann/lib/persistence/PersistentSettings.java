@@ -329,8 +329,7 @@ public class PersistentSettings {
      * @param key   Schlüssel
      * @param hints Hinweise
      */
-    public void getTabbedPane(JTabbedPane pane, String key,
-        PersistentSettingsHints hints) {
+    public void getTabbedPane(JTabbedPane pane, String key, PersistentSettingsHints hints) {
         Properties properties = getProperties();
 
         if (properties.containsKey(key)) {
@@ -345,9 +344,11 @@ public class PersistentSettings {
             }
         }
 
-        int componentCount = pane.getComponentCount();
-        for (int index = 0; index < componentCount; index++) {
-            getComponent(pane.getComponentAt(index), hints);
+        if (hints.isTabbedPaneContents()) {
+            int componentCount = pane.getComponentCount();
+            for (int index = 0; index < componentCount; index++) {
+                getComponent(pane.getComponentAt(index), hints);
+            }
         }
     }
 
@@ -701,16 +702,17 @@ public class PersistentSettings {
      * @param key   Schlüssel
      * @param hints Hinweise
      */
-    public void setTabbedPane(JTabbedPane pane, String key,
-        PersistentSettingsHints hints) {
+    public void setTabbedPane(JTabbedPane pane, String key, PersistentSettingsHints hints) {
         try {
             Integer index = new Integer(pane.getSelectedIndex());
 
             getProperties().setProperty(key, index.toString());
 
-            int componentCount = pane.getComponentCount();
-            for (int i = 0; i < componentCount; i++) {
-                setComponent(pane.getComponentAt(i), hints);
+            if (hints.isTabbedPaneContents()) {
+                int componentCount = pane.getComponentCount();
+                for (int i = 0; i < componentCount; i++) {
+                    setComponent(pane.getComponentAt(i), hints);
+                }
             }
         } catch (Exception ex) {
             Logger.getLogger(PersistentSettings.class.getName()).log(Level.SEVERE, null, ex);
@@ -1062,12 +1064,12 @@ public class PersistentSettings {
         Properties properties = getProperties();
         properties.setProperty(key, value.toString());
     }
-    
+
     public boolean getBoolean(String key) {
         int result = getInt(key);
         return result == 1 ? true : false;
     }
-    
+
     public void setBoolean(boolean b, String key) {
         setInt(b ? 1 : 0, key);
     }

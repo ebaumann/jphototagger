@@ -16,6 +16,7 @@ public class PersistentSettingsHints {
     private List<String> excludedMembers = new ArrayList<String>();
     private boolean setComboBoxContent = false;
     private boolean setListContent = false;
+    private boolean tabbedPaneContents = true;
     private String keyPostfix = ""; // NOI18N
 
     public PersistentSettingsHints() {
@@ -82,6 +83,24 @@ public class PersistentSettingsHints {
      */
     public boolean isSetListContent() {
         return setListContent;
+    }
+
+    /**
+     * Returns wheter the tabbed pane contents should be set.
+     * 
+     * @return true if set
+     */
+    public boolean isTabbedPaneContents() {
+        return tabbedPaneContents;
+    }
+
+    /**
+     * Sets whether the tabbed pane conents should be set.
+     * 
+     * @param setTabbedPaneContents  true, if set. Default: true
+     */
+    public void setTabbedPaneContents(boolean setTabbedPaneContents) {
+        this.tabbedPaneContents = setTabbedPaneContents;
     }
 
     /**
