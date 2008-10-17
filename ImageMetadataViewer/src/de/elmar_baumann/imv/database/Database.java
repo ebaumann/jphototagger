@@ -1276,7 +1276,7 @@ public class Database {
             List<String> info = new ArrayList<String>();
             info.add(oldName);
             info.add(newName);
-            notifyDatabaseListener(DatabaseAction.Type.ImageFileUpdated, info);
+            notifyDatabaseListener(DatabaseAction.Type.ImageCollectionRenamed, info);
             stmt.close();
         } catch (SQLException ex) {
             handleException(ex, Level.SEVERE);
