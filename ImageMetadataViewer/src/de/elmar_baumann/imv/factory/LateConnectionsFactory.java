@@ -29,6 +29,7 @@ public class LateConnectionsFactory {
         AppPanel appPanel = Panels.getInstance().getAppPanel();
         PopupMenuPanelThumbnails popupMenuPanelThumbnails = PopupMenuPanelThumbnails.getInstance();
         UserSettings userSettings = UserSettings.getInstance();
+        UserSettingsDialog userSettingsDialog = UserSettingsDialog.getInstance();
         
         Panels.getInstance().getAppFrame().addAppStartListener(appPanel);
         Panels.getInstance().getAppFrame().addAppExitListener(appPanel);
@@ -41,7 +42,7 @@ public class LateConnectionsFactory {
         }
         
         popupMenuPanelThumbnails.addOtherOpenImageApps();
-        UserSettingsDialog.getInstance().addChangeListener(popupMenuPanelThumbnails);
-        UserSettingsDialog.getInstance().addChangeListener(userSettings);
+        userSettingsDialog.addChangeListener(popupMenuPanelThumbnails);
+        userSettingsDialog.addChangeListener(userSettings);
     }
 }
