@@ -23,7 +23,7 @@ import java.util.List;
 public class ControllerRenameFiles extends Controller
     implements ActionListener, RenameFileListener {
 
-    private ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelImageFileThumbnails();
+    private ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
     private Database db = Database.getInstance();
 
     public ControllerRenameFiles() {

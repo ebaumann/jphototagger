@@ -28,7 +28,7 @@ import javax.swing.JOptionPane;
  */
 public class ControllerDeleteFiles extends Controller implements ActionListener {
 
-    private ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelImageFileThumbnails();
+    private ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
     Database db = Database.getInstance();
 
     public ControllerDeleteFiles() {

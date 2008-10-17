@@ -31,7 +31,7 @@ public class ControllerThumbnailSelectionEditMetadata
     private JButton buttonSave = appPanel.getButtonSaveMetadata();
     private JLabel labelMetadataInfoEditable = appPanel.getLabelMetadataInfoEditable();
     private MetadataEditPanelsArray editPanels = appPanel.getEditPanelsArray();
-    private ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelImageFileThumbnails();
+    private ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelThumbnails();
 
     public ControllerThumbnailSelectionEditMetadata() {
         listenToActionSources();

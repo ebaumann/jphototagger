@@ -24,7 +24,7 @@ public class ControllerSliderThumbnailSize extends Controller
     implements ChangeListener, ThumbnailsPanelListener, UserSettingsChangeListener {
 
     private AppPanel appPanel = Panels.getInstance().getAppPanel();
-    private ThumbnailsPanel thumbnailsPanel = appPanel.getPanelImageFileThumbnails();
+    private ThumbnailsPanel thumbnailsPanel = appPanel.getPanelThumbnails();
     private JSlider slider = appPanel.getSliderThumbnailSize();
     private static final int stepWidth = 10;
     private static final int maxMaginficationPercent = 150;

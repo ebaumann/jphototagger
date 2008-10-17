@@ -20,7 +20,7 @@ public class ControllerThumbnailCountDisplay extends Controller
 
     private AppPanel appPanel = Panels.getInstance().getAppPanel();
     private JLabel labelCount = appPanel.getLabelStatusbar();
-    private ImageFileThumbnailsPanel panelThumbnails = appPanel.getPanelImageFileThumbnails();
+    private ImageFileThumbnailsPanel panelThumbnails = appPanel.getPanelThumbnails();
 
     public ControllerThumbnailCountDisplay() {
         listenToActionSource();

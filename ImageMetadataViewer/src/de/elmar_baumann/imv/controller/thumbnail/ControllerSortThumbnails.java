@@ -18,7 +18,7 @@ import javax.swing.JRadioButtonMenuItem;
  */
 public class ControllerSortThumbnails extends Controller implements ActionListener {
 
-    ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelImageFileThumbnails();
+    ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
     AppFrame appFrame = Panels.getInstance().getAppFrame();
 
     public ControllerSortThumbnails() {

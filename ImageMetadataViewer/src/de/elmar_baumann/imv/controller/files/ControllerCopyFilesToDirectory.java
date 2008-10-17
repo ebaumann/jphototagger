@@ -21,7 +21,7 @@ public class ControllerCopyFilesToDirectory extends Controller
     implements ActionListener {
 
     private AppPanel appPanel = Panels.getInstance().getAppPanel();
-    private ImageFileThumbnailsPanel panel = appPanel.getPanelImageFileThumbnails();
+    private ImageFileThumbnailsPanel panel = appPanel.getPanelThumbnails();
 
     public ControllerCopyFilesToDirectory() {
         listenToActionSource();

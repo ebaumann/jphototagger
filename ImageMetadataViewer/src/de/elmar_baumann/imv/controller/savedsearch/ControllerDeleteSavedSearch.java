@@ -4,20 +4,20 @@ import de.elmar_baumann.imv.AppSettings;
 import de.elmar_baumann.imv.controller.Controller;
 import de.elmar_baumann.imv.data.SavedSearch;
 import de.elmar_baumann.imv.database.Database;
-import de.elmar_baumann.imv.model.TreeModelSavedSearches;
+import de.elmar_baumann.imv.model.ListModelSavedSearches;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.view.panels.AppPanel;
-import de.elmar_baumann.imv.view.popupmenus.PopupMenuTreeSavedSearches;
+import de.elmar_baumann.imv.view.popupmenus.PopupMenuListSavedSearches;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.MessageFormat;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
-import javax.swing.JTree;
 
 /**
  * Kontrolliert die Aktion: Lösche eine gespeicherte Suche, ausgelöst von
- * {@link de.elmar_baumann.imv.view.popupmenus.PopupMenuTreeSavedSearches}.
+ * {@link de.elmar_baumann.imv.view.popupmenus.PopupMenuListSavedSearches}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/10
@@ -26,10 +26,10 @@ public class ControllerDeleteSavedSearch extends Controller
     implements ActionListener {
 
     private Database db = Database.getInstance();
-    private PopupMenuTreeSavedSearches actionPopup = PopupMenuTreeSavedSearches.getInstance();
+    private PopupMenuListSavedSearches actionPopup = PopupMenuListSavedSearches.getInstance();
     private AppPanel appPanel = Panels.getInstance().getAppPanel();
-    private JTree tree = appPanel.getTreeSavedSearches();
-    private TreeModelSavedSearches model = (TreeModelSavedSearches) tree.getModel();
+    private JList list = appPanel.getListSavedSearches();
+    private ListModelSavedSearches model = (ListModelSavedSearches) list.getModel();
 
     public ControllerDeleteSavedSearch() {
         listenToActionSource();
@@ -51,7 +51,7 @@ public class ControllerDeleteSavedSearch extends Controller
         String searchName = search.getParamStatements().getName();
         if (askDeleteSearch(searchName) &&
             db.deleteSavedSearch(searchName)) {
-            model.removeNode(search);
+            model.removeElement(search);
         } else {
             messageErrorDelete();
         }

@@ -61,7 +61,7 @@ import javax.swing.JViewport;
 public abstract class ThumbnailsPanel extends JPanel
     implements ComponentListener, MouseListener, MouseMotionListener, KeyListener {
 
-    private static final int flagLength = 10;
+    private static final int flagWidth = 10;
     private static final int flagHeight = 10;
     private static final int fontHeightText = 10;
     private static final Color colorText = Color.lightGray;
@@ -630,9 +630,9 @@ public abstract class ThumbnailsPanel extends JPanel
             Color oldColor = g.getColor();
             g.setColor(flag.getColor());
             g.fillRect(
-                thumbnailAreaX + thumbnailWidth + 2 * internalPadding - flagLength,
+                thumbnailAreaX + thumbnailWidth + 2 * internalPadding - flagWidth,
                 thumbnailAreaY + thumbnailWidth + 2 * internalPadding - flagHeight,
-                flagLength,
+                flagWidth,
                 flagHeight);
             g.setColor(oldColor);
         }

@@ -25,7 +25,7 @@ public class ControllerCategoryItemSelected extends Controller
     private Database db = Database.getInstance();
     private AppPanel appPanel = Panels.getInstance().getAppPanel();
     private JList listCategories = appPanel.getListCategories();
-    private ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelImageFileThumbnails();
+    private ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelThumbnails();
 
     public ControllerCategoryItemSelected() {
         listenToActionSource();

@@ -59,7 +59,7 @@ public class ControllerShowMetadata extends Controller
         data.xmpTableModelCameraRawSettings = (TableModelXmp) appPanel.getTableXmpCameraRawSettings().getModel();
         data.xmpTableModelXap = (TableModelXmp) appPanel.getTableXmpXap().getModel();
         data.appPanel = appPanel;
-        data.thumbnailsPanel = appPanel.getPanelImageFileThumbnails();
+        data.thumbnailsPanel = appPanel.getPanelThumbnails();
         data.editPanelsArray = appPanel.getEditPanelsArray();
         List<JTable> xmpTables = appPanel.getXmpTables();
         List<TableModelXmp> xmpTableModels = new ArrayList<TableModelXmp>();

@@ -25,7 +25,7 @@ public class ControllerFavoriteDirectoryItemSelected extends Controller
 
     private AppPanel appPanel = Panels.getInstance().getAppPanel();
     private JList listFavoriteDirectories = appPanel.getListFavoriteDirectories();
-    private ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelImageFileThumbnails();
+    private ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelThumbnails();
 
     public ControllerFavoriteDirectoryItemSelected() {
         listenToActionSource();

@@ -20,7 +20,7 @@ public class ControllerThumbnailsDatabaseChanges extends Controller
     implements DatabaseListener {
     
     private Database db = Database.getInstance();
-    private ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelImageFileThumbnails();
+    private ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
 
     public ControllerThumbnailsDatabaseChanges() {
         db.addDatabaseListener(this);

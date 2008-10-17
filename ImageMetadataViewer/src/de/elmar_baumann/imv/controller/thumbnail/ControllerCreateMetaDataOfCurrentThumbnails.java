@@ -28,7 +28,7 @@ public class ControllerCreateMetaDataOfCurrentThumbnails extends Controller
     private Queue<ImageMetadataToDatabase> updaters = new ConcurrentLinkedQueue<ImageMetadataToDatabase>();
     private boolean wait = false;
     private AppPanel appPanel = Panels.getInstance().getAppPanel();
-    private ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelImageFileThumbnails();
+    private ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelThumbnails();
     private JProgressBar progressBar = appPanel.getProgressBarCreateMetaDataOfCurrentThumbnails();
     private boolean stopCurrent = false;
 

@@ -27,7 +27,7 @@ public class ControllerDeleteThumbnailsFromDatabase extends Controller
 
     private Database db = Database.getInstance();
     private PopupMenuPanelThumbnails popup = PopupMenuPanelThumbnails.getInstance();
-    private ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelImageFileThumbnails();
+    private ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
 
     public ControllerDeleteThumbnailsFromDatabase() {
         listenToActionSource();

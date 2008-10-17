@@ -28,7 +28,7 @@ public class ControllerShowThumbnailsOfSelectedDirectory extends Controller
 
     private AppPanel appPanel = Panels.getInstance().getAppPanel();
     private JTree treeDirectories = appPanel.getTreeDirectories();
-    private ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelImageFileThumbnails();
+    private ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelThumbnails();
     private ImageFilteredDirectory imageFilteredDirectory = new ImageFilteredDirectory();
 
     public ControllerShowThumbnailsOfSelectedDirectory() {

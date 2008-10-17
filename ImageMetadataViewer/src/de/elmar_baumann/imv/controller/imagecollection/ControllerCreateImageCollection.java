@@ -24,7 +24,7 @@ public class ControllerCreateImageCollection extends Controller
     private PopupMenuPanelThumbnails popup = PopupMenuPanelThumbnails.getInstance();
     private AppPanel appPanel = Panels.getInstance().getAppPanel();
     private ListModelImageCollections model = (ListModelImageCollections) appPanel.getListImageCollections().getModel();
-    private ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelImageFileThumbnails();
+    private ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
 
     public ControllerCreateImageCollection() {
         listenToActionSource();

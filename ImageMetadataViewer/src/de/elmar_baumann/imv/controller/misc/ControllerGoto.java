@@ -24,7 +24,7 @@ import javax.swing.JTextField;
 public class ControllerGoto extends Controller implements ActionListener {
 
     private AppPanel appPanel = Panels.getInstance().getAppPanel();
-    private ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelImageFileThumbnails();
+    private ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelThumbnails();
     private MetadataEditPanelsArray editPanels = appPanel.getEditPanelsArray();
     private JTextField textFieldSearch = appPanel.getTextFieldSearch();
     private AppFrame appFrame = Panels.getInstance().getAppFrame();

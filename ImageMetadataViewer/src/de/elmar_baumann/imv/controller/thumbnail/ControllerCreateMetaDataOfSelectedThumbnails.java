@@ -36,7 +36,7 @@ public class ControllerCreateMetaDataOfSelectedThumbnails extends Controller
     private boolean wait = false;
     private PopupMenuPanelThumbnails popup = PopupMenuPanelThumbnails.getInstance();
     private ProgressBarCurrentTasks progressBarProvider = ProgressBarCurrentTasks.getInstance();
-    private ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelImageFileThumbnails();
+    private ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
     private JProgressBar progressBar;
 
     /**

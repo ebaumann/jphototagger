@@ -137,7 +137,7 @@ public class RenameDialog extends javax.swing.JDialog {
 
     private void refreshThumbnailsPanel(int countRenamed) {
         if (countRenamed > 0) {
-            Panels.getInstance().getAppPanel().getPanelImageFileThumbnails().refresh();
+            Panels.getInstance().getAppPanel().getPanelThumbnails().refresh();
         }
     }
 

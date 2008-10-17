@@ -26,7 +26,7 @@ public class ControllerDeleteFromImageCollection extends Controller
     private JList list = appPanel.getListImageCollections();
     private ListModelImageCollections model = (ListModelImageCollections) list.getModel();
     private PopupMenuPanelThumbnails popup = PopupMenuPanelThumbnails.getInstance();
-    private ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelImageFileThumbnails();
+    private ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
 
     public ControllerDeleteFromImageCollection() {
         listenToActionSource();

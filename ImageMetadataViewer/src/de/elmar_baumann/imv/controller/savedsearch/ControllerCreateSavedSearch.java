@@ -6,20 +6,20 @@ import de.elmar_baumann.imv.data.SavedSearch;
 import de.elmar_baumann.imv.database.Database;
 import de.elmar_baumann.imv.event.SearchEvent;
 import de.elmar_baumann.imv.event.SearchListener;
-import de.elmar_baumann.imv.model.TreeModelSavedSearches;
+import de.elmar_baumann.imv.model.ListModelSavedSearches;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.view.dialogs.AdvancedSearchDialog;
 import de.elmar_baumann.imv.view.panels.AppPanel;
-import de.elmar_baumann.imv.view.popupmenus.PopupMenuTreeSavedSearches;
+import de.elmar_baumann.imv.view.popupmenus.PopupMenuListSavedSearches;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
-import javax.swing.JTree;
 
 /**
  * Controller für die Aktion: Erzeuge eine gespeicherte Suche, ausgelöst von
- * {@link de.elmar_baumann.imv.view.popupmenus.PopupMenuTreeSavedSearches}.
+ * {@link de.elmar_baumann.imv.view.popupmenus.PopupMenuListSavedSearches}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/10
@@ -29,15 +29,15 @@ public class ControllerCreateSavedSearch extends Controller
 
     private Database db = Database.getInstance();
     private AppPanel appPanel = Panels.getInstance().getAppPanel();
-    private JTree tree = appPanel.getTreeSavedSearches();
-    private TreeModelSavedSearches model = (TreeModelSavedSearches) tree.getModel();
+    private JList list = appPanel.getListSavedSearches();
+    private ListModelSavedSearches model = (ListModelSavedSearches) list.getModel();
 
     public ControllerCreateSavedSearch() {
         listenToActionSources();
     }
 
     private void listenToActionSources() {
-        PopupMenuTreeSavedSearches.getInstance().addActionListenerCreate(this);
+        PopupMenuListSavedSearches.getInstance().addActionListenerCreate(this);
         AdvancedSearchDialog.getInstance().addSearchListener(this);
     }
 
@@ -67,7 +67,7 @@ public class ControllerCreateSavedSearch extends Controller
     private void saveSearch(SavedSearch savedSearch, boolean force) {
         if (force || isSave(savedSearch)) {
             if (db.insertSavedSearch(savedSearch)) {
-                model.addNode(savedSearch);
+                model.addElement(savedSearch);
             } else {
                 errorMessageSave();
             }

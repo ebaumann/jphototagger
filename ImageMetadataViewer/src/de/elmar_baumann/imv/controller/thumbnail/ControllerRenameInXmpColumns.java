@@ -21,7 +21,7 @@ public class ControllerRenameInXmpColumns extends Controller
     implements ActionListener {
 
     private UpdaterRenameInXmpColumnsArray updater = new UpdaterRenameInXmpColumnsArray();
-    private ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelImageFileThumbnails();
+    private ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
 
     public ControllerRenameInXmpColumns() {
         PopupMenuPanelThumbnails.getInstance().addActionListenerRenameInXmpColumns(this);

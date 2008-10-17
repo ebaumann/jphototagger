@@ -25,7 +25,7 @@ public class ControllerImageCollectionSelected extends Controller
 
     private Database db = Database.getInstance();
     private AppPanel appPanel = Panels.getInstance().getAppPanel();
-    private ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelImageFileThumbnails();
+    private ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelThumbnails();
     private JList list = appPanel.getListImageCollections();
 
     public ControllerImageCollectionSelected() {

@@ -40,7 +40,7 @@ public class ControllerFastSearch extends Controller
     private Database db = Database.getInstance();
     private AppPanel appPanel = Panels.getInstance().getAppPanel();
     private JTextField textFieldSearch = appPanel.getTextFieldSearch();
-    private ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelImageFileThumbnails();
+    private ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelThumbnails();
     private List<Column> fastSearchColumns = UserSettings.getInstance().getFastSearchColumns();
     private List<JTree> selectionTrees = appPanel.getSelectionTrees();
     private boolean isUseAutocomplete = UserSettings.getInstance().isUseAutocomplete();

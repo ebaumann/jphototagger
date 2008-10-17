@@ -36,7 +36,7 @@ public class ActionListenerFactory {
         appFrame.getMenuItemAbout().addActionListener(new ControllerAboutApp());
         appFrame.getMenuItemHelp().addActionListener(new ControllerHelp());
         appFrame.getMenuItemMaintainDatabase().addActionListener(new ControllerMaintainDatabase());
-        appFrame.getMenuItemRefresh().addActionListener(new ControllerRefreshThumbnailsPanel(appPanel.getPanelImageFileThumbnails()));
+        appFrame.getMenuItemRefresh().addActionListener(new ControllerRefreshThumbnailsPanel(appPanel.getPanelThumbnails()));
         appFrame.getMenuItemScanDirectory().addActionListener(new ControllerShowUpdateMetadataDialog());
         appFrame.getMenuItemSettings().addActionListener(new ControllerShowUserSettingsDialog());
         appFrame.getMenuItemSearch().addActionListener(new ControllerShowAdvancedSearchDialog());

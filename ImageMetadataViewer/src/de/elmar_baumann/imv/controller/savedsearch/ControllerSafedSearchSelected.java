@@ -10,9 +10,9 @@ import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuPanelThumbnails;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.util.List;
-import javax.swing.JTree;
-import javax.swing.event.TreeSelectionEvent;
-import javax.swing.event.TreeSelectionListener;
+import javax.swing.JList;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 /**
  * 
@@ -21,31 +21,32 @@ import javax.swing.event.TreeSelectionListener;
  * @version 2008-10-05
  */
 public class ControllerSafedSearchSelected extends Controller
-    implements TreeSelectionListener {
+    implements ListSelectionListener {
 
     private AppPanel appPanel = Panels.getInstance().getAppPanel();
     private Database db = Database.getInstance();
-    private JTree tree = appPanel.getTreeSavedSearches();
-    private ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelImageFileThumbnails();
+    private JList list = appPanel.getListSavedSearches();
+    private ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelThumbnails();
 
     public ControllerSafedSearchSelected() {
         listenToActionSource();
     }
 
     private void listenToActionSource() {
-        tree.addTreeSelectionListener(this);
+        list.addListSelectionListener(this);
     }
 
     @Override
-    public void valueChanged(TreeSelectionEvent e) {
-        if (isStarted() && e.isAddedPath()) {
-            search(e.getPath().getLastPathComponent());
+    public void valueChanged(ListSelectionEvent e) {
+        Object selected = list.getSelectedValue();
+        if (isStarted() && selected != null) {
+            search(selected);
         }
     }
-
-    private void search(Object node) {
-        if (node instanceof SavedSearch) {
-            SavedSearch data = (SavedSearch) node;
+    
+    private void search(Object selected) {
+        if (selected instanceof SavedSearch) {
+            SavedSearch data = (SavedSearch) selected;
             ParamStatement stmt = data.getParamStatements().createStatement();
             if (stmt != null) {
                 search(stmt);

@@ -31,7 +31,7 @@ public class ControllerAdvancedSearch extends Controller
 
     private Database db = Database.getInstance();
     private AppPanel appPanel = Panels.getInstance().getAppPanel();
-    private ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelImageFileThumbnails();
+    private ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelThumbnails();
     private List<JTree> selectionTrees = appPanel.getSelectionTrees();
     private AdvancedSearchDialog dialogAdvancedSearch = AdvancedSearchDialog.getInstance();
 

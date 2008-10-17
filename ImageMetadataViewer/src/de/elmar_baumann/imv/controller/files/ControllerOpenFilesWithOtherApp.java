@@ -21,7 +21,7 @@ public class ControllerOpenFilesWithOtherApp extends Controller
     implements ActionListener {
 
     private PopupMenuPanelThumbnails popup = PopupMenuPanelThumbnails.getInstance();
-    private ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelImageFileThumbnails();
+    private ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
 
     public ControllerOpenFilesWithOtherApp() {
         listenToActionSource();

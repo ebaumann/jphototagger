@@ -33,7 +33,7 @@ public class LateConnectionsFactory {
         Panels.getInstance().getAppFrame().addAppStartListener(appPanel);
         Panels.getInstance().getAppFrame().addAppExitListener(appPanel);
         
-        appPanel.getPanelImageFileThumbnails().setDefaultThumbnailWidth(userSettings.getMaxThumbnailWidth());
+        appPanel.getPanelThumbnails().setDefaultThumbnailWidth(userSettings.getMaxThumbnailWidth());
         
         Database.getInstance().addDatabaseListener(appPanel.getEditPanelsArray());
         if (userSettings.isUseAutocomplete()) {
