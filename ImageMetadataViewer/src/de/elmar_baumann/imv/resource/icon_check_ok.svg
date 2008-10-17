@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 <svg
+   xmlns:ns="http://creativecommons.org/ns#"
    xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:cc="http://web.resource.org/cc/"
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
@@ -12,12 +13,13 @@
    height="16px"
    id="svg2383"
    sodipodi:version="0.32"
-   inkscape:version="0.46"
-   sodipodi:docname="icon_check_okl.svg"
+   inkscape:version="0.45.1"
+   sodipodi:docname="icon_check_ok.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape"
    inkscape:export-filename="/home/elmar/projekte/ImageMetadataViewer/src/de/elmar_baumann/imv/resource/icon_check_ok_small.png"
    inkscape:export-xdpi="90"
-   inkscape:export-ydpi="90">
+   inkscape:export-ydpi="90"
+   sodipodi:docbase="/home/elmar/projekte/ImageMetadataViewer/src/de/elmar_baumann/imv/resource">
   <defs
      id="defs2385">
     <inkscape:perspective
@@ -44,8 +46,8 @@
      inkscape:document-units="px"
      inkscape:window-width="1218"
      inkscape:window-height="675"
-     inkscape:window-x="176"
-     inkscape:window-y="184">
+     inkscape:window-x="42"
+     inkscape:window-y="185">
     <inkscape:grid
        type="xygrid"
        id="grid2393"
@@ -55,6 +57,12 @@
   <metadata
      id="metadata2388">
     <rdf:RDF>
+      <ns:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </ns:Work>
       <cc:Work
          rdf:about="">
         <dc:format>image/svg+xml</dc:format>
@@ -68,8 +76,8 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer">
     <path
-       style="opacity:1;fill:none;fill-opacity:1;fill-rule:nonzero;stroke:#00aa00;stroke-width:1.78170621;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="M 2.0532294,4.7865192 L 7.0694611,13.260321 L 13.735226,2"
+       style="opacity:1;fill:none;fill-opacity:1;fill-rule:nonzero;stroke:#00aa00;stroke-width:1.47397637;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 3.3859982,5.4462311 L 7.4764581,12.558246 L 12.912022,3.1075212"
        id="path2395" />
   </g>
 </svg>
