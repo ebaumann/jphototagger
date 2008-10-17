@@ -776,13 +776,11 @@ public class AppPanel extends javax.swing.JPanel
         panelStatusbar.setRequestFocusEnabled(false);
         panelStatusbar.setVerifyInputWhenFocusTarget(false);
 
-        sliderThumbnailSize.setMajorTickSpacing(25);
-        sliderThumbnailSize.setMaximum(175);
-        sliderThumbnailSize.setMinimum(25);
+        sliderThumbnailSize.setMajorTickSpacing(10);
+        sliderThumbnailSize.setMinimum(10);
         sliderThumbnailSize.setPaintTicks(true);
         sliderThumbnailSize.setSnapToTicks(true);
         sliderThumbnailSize.setToolTipText(Bundle.getString("AppPanel.sliderThumbnailSize.toolTipText")); // NOI18N
-        sliderThumbnailSize.setValue(100);
 
         buttonLogfileDialog.setToolTipText(Bundle.getString("AppPanel.buttonLogfileDialog.toolTipText")); // NOI18N
         buttonLogfileDialog.setBorder(javax.swing.BorderFactory.createEtchedBorder());
