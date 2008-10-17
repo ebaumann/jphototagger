@@ -7,6 +7,7 @@ import de.elmar_baumann.imv.event.ThumbnailsPanelListener;
 import de.elmar_baumann.imv.event.UserSettingsChangeEvent;
 import de.elmar_baumann.imv.event.UserSettingsChangeListener;
 import de.elmar_baumann.imv.resource.Panels;
+import de.elmar_baumann.imv.view.dialogs.UserSettingsDialog;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.view.panels.ThumbnailsPanel;
 import de.elmar_baumann.lib.persistence.PersistentSettings;
@@ -27,7 +28,7 @@ public class ControllerSliderThumbnailSize extends Controller
     private ThumbnailsPanel thumbnailsPanel = appPanel.getPanelThumbnails();
     private JSlider slider = appPanel.getSliderThumbnailSize();
     private static final int stepWidth = 10;
-    private static final int maxMaginficationPercent = 150;
+    private static final int maxMaginficationPercent = 100;
     private static final String keySliderValue = ControllerSliderThumbnailSize.class.getName() + "." + "SliderValue";
     private int currentValue = 100;
     private int maxThumbnailWidth = UserSettings.getInstance().getMaxThumbnailWidth();
@@ -36,6 +37,7 @@ public class ControllerSliderThumbnailSize extends Controller
         thumbnailsPanel.addThumbnailsPanelListener(this);
         initSlider();
         slider.addChangeListener(this);
+        UserSettingsDialog.getInstance().addChangeListener(this);
     }
 
     private void initSlider() {
