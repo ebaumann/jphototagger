@@ -24,6 +24,12 @@ public class ListModelImageCollections extends DefaultListModel {
         }
     }
 
+    public void fireContentsChanged(int index) {
+        if (index >= 0 && index < size()) {
+            fireContentsChanged(this, index, index);
+        }
+    }
+
     public void rename(String oldName, String newName) {
         int index = indexOf(oldName);
         if (index >= 0) {

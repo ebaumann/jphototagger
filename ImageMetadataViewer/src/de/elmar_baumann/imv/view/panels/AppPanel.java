@@ -564,19 +564,19 @@ public class AppPanel extends javax.swing.JPanel
         splitPaneThumbnailsMetadata.setLeftComponent(panelThumbnailsContent);
 
         labelMetadataFilename.setBackground(new java.awt.Color(255, 255, 255));
-        labelMetadataFilename.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
+        labelMetadataFilename.setFont(new java.awt.Font("Dialog", 0, 10));
         labelMetadataFilename.setText(Bundle.getString("AppPanel.labelMetadataFilename.text")); // NOI18N
         labelMetadataFilename.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         labelMetadataFilename.setOpaque(true);
 
         labelColorBackgroundTableTextStoredInDatabase.setBackground(AppSettings.colorBackgroundTableTextStoredInDatabase);
-        labelColorBackgroundTableTextStoredInDatabase.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        labelColorBackgroundTableTextStoredInDatabase.setFont(new java.awt.Font("Dialog", 0, 12));
         labelColorBackgroundTableTextStoredInDatabase.setForeground(AppSettings.colorBackgroundTableTextStoredInDatabase);
         labelColorBackgroundTableTextStoredInDatabase.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(195, 195, 195)));
         labelColorBackgroundTableTextStoredInDatabase.setOpaque(true);
         labelColorBackgroundTableTextStoredInDatabase.setPreferredSize(new java.awt.Dimension(16, 16));
 
-        labelLegendColorBackgroundTableTetStoredInDatabase.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        labelLegendColorBackgroundTableTetStoredInDatabase.setFont(new java.awt.Font("Dialog", 0, 12));
         labelLegendColorBackgroundTableTetStoredInDatabase.setText(Bundle.getString("AppPanel.labelLegendColorBackgroundTableTetStoredInDatabase.text")); // NOI18N
 
         tabbedPaneMetaData.setOpaque(true);
@@ -775,7 +775,7 @@ public class AppPanel extends javax.swing.JPanel
         buttonLogfileDialog.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         buttonLogfileDialog.setPreferredSize(new java.awt.Dimension(16, 16));
 
-        buttonAdvanedSearch.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        buttonAdvanedSearch.setFont(new java.awt.Font("Dialog", 0, 12));
         buttonAdvanedSearch.setText(Bundle.getString("AppPanel.buttonAdvanedSearch.text")); // NOI18N
         buttonAdvanedSearch.setToolTipText(Bundle.getString("AppPanel.buttonAdvanedSearch.toolTipText")); // NOI18N
 

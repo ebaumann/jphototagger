@@ -19,26 +19,24 @@ public class ListSavedSearchesMouseListener extends MouseAdapter {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        if (e.getSource() instanceof JList) {
-            JList list = (JList) e.getSource();
-            int x = e.getX();
-            int y = e.getY();
-            int index = list.locationToIndex(new Point(x, y));
-            if ((e.isPopupTrigger() || e.getModifiers() == 4)) {
-                boolean isItem = index >= 0 && index == list.getSelectedIndex();
-                Object selected = list.getSelectedValue();
-                if (selected instanceof SavedSearch) {
-                    SavedSearch data = (SavedSearch) selected;
-                    popup.setSavedSearch(data);
-                }
-                popup.setEnabledDelete(isItem);
-                popup.setEnabledEdit(isItem);
-                popup.setEnabledRename(isItem);
-                popup.show(list, x, y);
-            } else {
-                if (index >= 0) {
-                    list.setSelectedIndex(index);
-                }
+        JList list = (JList) e.getSource();
+        int x = e.getX();
+        int y = e.getY();
+        int index = list.locationToIndex(new Point(x, y));
+        if ((e.isPopupTrigger() || e.getModifiers() == 4)) {
+            boolean isItem = index >= 0 && index == list.getSelectedIndex();
+            Object selected = list.getSelectedValue();
+            if (selected instanceof SavedSearch) {
+                SavedSearch data = (SavedSearch) selected;
+                popup.setSavedSearch(data);
+            }
+            popup.setEnabledDelete(isItem);
+            popup.setEnabledEdit(isItem);
+            popup.setEnabledRename(isItem);
+            popup.show(list, x, y);
+        } else {
+            if (index >= 0) {
+                list.setSelectedIndex(index);
             }
         }
     }

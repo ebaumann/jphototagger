@@ -6,6 +6,8 @@ import de.elmar_baumann.imv.data.ThumbnailFlag;
 import de.elmar_baumann.imv.io.FileSort;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuPanelThumbnails;
 import java.awt.Image;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.Transferable;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.util.ArrayList;

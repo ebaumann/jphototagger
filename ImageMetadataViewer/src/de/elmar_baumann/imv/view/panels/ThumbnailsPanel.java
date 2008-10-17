@@ -5,6 +5,7 @@ import de.elmar_baumann.imv.event.ThumbnailsPanelListener;
 import de.elmar_baumann.imv.data.ThumbnailFlag;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -12,6 +13,7 @@ import java.awt.Image;
 import java.awt.MediaTracker;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.dnd.DragSource;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.event.KeyEvent;
@@ -85,6 +87,8 @@ public abstract class ThumbnailsPanel extends JPanel
     private Map<Integer, ThumbnailFlag> flagOfThumbnail = new HashMap<Integer, ThumbnailFlag>();
     private Map<Integer, Image> thumbnailAtIndex = new HashMap<Integer, Image>();
     private List<ThumbnailsPanelListener> panelListener = new ArrayList<ThumbnailsPanelListener>();
+    private boolean drag = false;
+    private boolean dragEnabled = false;
 
     public ThumbnailsPanel() {
         addMouseListener(this);
@@ -125,6 +129,16 @@ public abstract class ThumbnailsPanel extends JPanel
             maxCharCountText = (int) (((double) maxCharCountTextPer150px * (double) width / 150.0));
             repaint();
         }
+    }
+
+    /**
+     * Enables the Drag gesture whithin the thumbnails panel. Whitout calling
+     * this, {@link #handleDropped(int)} will never called.
+     * 
+     * @param enabled true if enabled. Default: false
+     */
+    public void setDragEnabled(boolean enabled) {
+        dragEnabled = enabled;
     }
 
     private boolean isValidIndex(int thumbnailIndex) {
@@ -300,7 +314,7 @@ public abstract class ThumbnailsPanel extends JPanel
         int startExtPadding = getCountHoricontalLeftFromX(x) *
             (getThumbnailAreaWidth() + externalPadding);
         int endExtPadding = startExtPadding + externalPadding;
-        return x < startExtPadding || (x > endExtPadding && 
+        return x < startExtPadding || (x > endExtPadding &&
             endExtPadding + getThumbnailAreaWidth() + externalPadding <= getWidth());
     }
 
@@ -462,6 +476,54 @@ public abstract class ThumbnailsPanel extends JPanel
 
     private boolean isIndex(int index) {
         return index >= 0 && index < thumbnailCount;
+    }
+
+    /**
+     * Specialized classes can handle a drop from a drag <strong>within</strong>
+     * the panel itself, e.g. to reorder the thumbnail indices.
+     * 
+     * Is only called if previously {@link #setDragEnabled(boolean)} was called
+     * with true.
+     * 
+     * @param index  index of drop, an index of an existing thumbnail
+     */
+    protected void handleDropped(int index) {
+    }
+
+    private void handleDropped(MouseEvent e) {
+        int index = getDropIndex(e.getX(), e.getY());
+        handleDropped(index);
+    }
+
+    private int getDropIndex(int x, int y) {
+        int maxBottom = externalPadding + getRowCount() * getThumbnailAreaHeight();
+        int maxRight = externalPadding + getColumnCount() * getThumbnailAreaWidth();
+        boolean inTnArea = x < maxRight && y < maxBottom;
+        boolean xIsOut = x > maxRight;
+        boolean yIsOut = y > maxBottom;
+        return inTnArea
+            ? (y - externalPadding) / getThumbnailAreaHeight() * getColumnCount() +
+            (x - externalPadding) / getThumbnailAreaWidth()
+            : xIsOut && !yIsOut
+            ? (y - externalPadding) / getThumbnailAreaHeight() * getColumnCount() +
+            getColumnCount() - 1
+            : yIsOut
+            ? thumbnailCount - 1
+            : -1;
+    }
+
+    private int getColumnCount() {
+        int width = getWidth();
+        int tnWidth = getThumbnailAreaWidth();
+        int count = (int) ((double) (width - externalPadding) / (double) tnWidth);
+        return count > thumbnailCount ? thumbnailCount : count;
+    }
+
+    private void handleMouseDragged(MouseEvent e) {
+        if (getSelectionCount() > 0) {
+            setCursor(DragSource.DefaultMoveDrop);
+            drag = true;
+        }
     }
 
     private void setSelectedAll(boolean select) {
@@ -896,33 +958,51 @@ public abstract class ThumbnailsPanel extends JPanel
 
     @Override
     public void mouseEntered(MouseEvent e) {
+        drag = false;
+        setCursor(Cursor.getDefaultCursor());
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
+        drag = false;
+        setCursor(Cursor.getDefaultCursor());
         handleMouseClicked(e);
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
+        drag = false;
+        setCursor(Cursor.getDefaultCursor());
         checkPopupMenu(e);
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
+        if (dragEnabled && drag) {
+            handleDropped(e);
+        }
+        drag = false;
+        setCursor(Cursor.getDefaultCursor());
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
+        drag = false;
+        setCursor(Cursor.getDefaultCursor());
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
+        drag = false;
+        setCursor(Cursor.getDefaultCursor());
         showToolTip(e);
     }
 
     @Override
     public void mouseDragged(MouseEvent e) {
+        if (dragEnabled) {
+            handleMouseDragged(e);
+        }
     }
 
     @Override

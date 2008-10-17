@@ -20,32 +20,30 @@ public class TreeDirectoriesMouseListener extends MouseAdapter {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        if (e.getSource() instanceof JTree) {
-            JTree tree = (JTree) e.getSource();
-            int x = e.getX();
-            int y = e.getY();
-            TreePath path = tree.getPathForLocation(x, y);
-            if ((e.isPopupTrigger() || e.getModifiers() == 4)) {
-                boolean isSelectedItem = TreeUtil.isSelectedItemPosition(e);
-                boolean isRootItem = TreeUtil.isRootItemPosition(e);
-                if (isSelectedItem && !isRootItem) {
-                    Object o = tree.getSelectionPath().getLastPathComponent();
-                    Object o2 = path.getLastPathComponent();
-                    if (o instanceof DirectoryTreeModelFile && o2 instanceof DirectoryTreeModelFile) {
-                        DirectoryTreeModelFile selectedDirectory = (DirectoryTreeModelFile) o;
-                        DirectoryTreeModelFile popupDirectory = (DirectoryTreeModelFile) o2;
-                        if (selectedDirectory.equals(popupDirectory)) {
-                            popup.setDirectoryName(selectedDirectory.getAbsolutePath());
-                            isSelectedItem = true;
-                        }
+        JTree tree = (JTree) e.getSource();
+        int x = e.getX();
+        int y = e.getY();
+        TreePath path = tree.getPathForLocation(x, y);
+        if ((e.isPopupTrigger() || e.getModifiers() == 4)) {
+            boolean isSelectedItem = TreeUtil.isSelectedItemPosition(e);
+            boolean isRootItem = TreeUtil.isRootItemPosition(e);
+            if (isSelectedItem && !isRootItem) {
+                Object o = tree.getSelectionPath().getLastPathComponent();
+                Object o2 = path.getLastPathComponent();
+                if (o instanceof DirectoryTreeModelFile && o2 instanceof DirectoryTreeModelFile) {
+                    DirectoryTreeModelFile selectedDirectory = (DirectoryTreeModelFile) o;
+                    DirectoryTreeModelFile popupDirectory = (DirectoryTreeModelFile) o2;
+                    if (selectedDirectory.equals(popupDirectory)) {
+                        popup.setDirectoryName(selectedDirectory.getAbsolutePath());
+                        isSelectedItem = true;
                     }
                 }
-                popup.setEnabledAddToFavoriteDirectories(isSelectedItem);
-                popup.show(tree, x, y);
-            } else {
-                if (path != null) {
-                    tree.setSelectionPath(path);
-                }
+            }
+            popup.setEnabledAddToFavoriteDirectories(isSelectedItem);
+            popup.show(tree, x, y);
+        } else {
+            if (path != null) {
+                tree.setSelectionPath(path);
             }
         }
     }
