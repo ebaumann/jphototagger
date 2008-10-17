@@ -300,7 +300,8 @@ public abstract class ThumbnailsPanel extends JPanel
         int startExtPadding = getCountHoricontalLeftFromX(x) *
             (getThumbnailAreaWidth() + externalPadding);
         int endExtPadding = startExtPadding + externalPadding;
-        return x < startExtPadding || x > endExtPadding;
+        return x < startExtPadding || (x > endExtPadding && 
+            endExtPadding + getThumbnailAreaWidth() + externalPadding <= getWidth());
     }
 
     private boolean isThumbnailAreaInHeight(int y) {
