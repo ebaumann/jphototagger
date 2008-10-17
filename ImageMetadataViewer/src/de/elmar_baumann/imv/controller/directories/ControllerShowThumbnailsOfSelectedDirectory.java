@@ -5,12 +5,8 @@ import de.elmar_baumann.imv.io.ImageFilteredDirectory;
 import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
-import de.elmar_baumann.imv.view.popupmenus.PopupMenuPanelThumbnails;
 import de.elmar_baumann.lib.io.DirectoryTreeModelFile;
-import de.elmar_baumann.lib.io.FileUtil;
 import java.io.File;
-import java.util.Collections;
-import java.util.List;
 import javax.swing.JTree;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
@@ -44,8 +40,8 @@ public class ControllerShowThumbnailsOfSelectedDirectory extends Controller
         if (isStarted() && e.isAddedPath()) {
             File selectedDirectory = new File(getDirectorynameFromTree(treeDirectories.getSelectionPath()));
             imageFilteredDirectory.setDirectory(selectedDirectory);
-            thumbnailsPanel.setFiles(ImageFilteredDirectory.getImageFilesOfDirectory(selectedDirectory));
-            PopupMenuPanelThumbnails.getInstance().setIsImageCollection(false);
+            thumbnailsPanel.setFiles(ImageFilteredDirectory.getImageFilesOfDirectory(selectedDirectory),
+                ImageFileThumbnailsPanel.Content.Directory);
         }
     }
 

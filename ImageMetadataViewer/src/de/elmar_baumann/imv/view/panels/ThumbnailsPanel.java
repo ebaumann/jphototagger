@@ -63,19 +63,19 @@ public abstract class ThumbnailsPanel extends JPanel
 
     private static final int flagWidth = 10;
     private static final int flagHeight = 10;
-    private static final int fontHeightText = 10;
+    private static final int fontHeight = 10;
     private static final Color colorText = Color.lightGray;
     private static final Color colorPanelBackground = new Color(95, 95, 95);
     private static final Color colorThumbnailBackground = new Color(125, 125, 125);
     private static final Color colorThumbnailBorder = new Color(255, 255, 255);
     private static final Color colorHighlightedText = new Color(255, 255, 168);
     private static final Color colorHighlightedBackground = new Color(245, 245, 245);
-    private static final Font fontTitle = new Font("Arial", Font.PLAIN, fontHeightText);  // NOI18N
+    private static final Font font = new Font("Arial", Font.PLAIN, fontHeight);  // NOI18N
     private static final int maxCharCountTextPer150px = 25;
     private JViewport viewport;
     private int minPanelWidth;
     private int maxCharCountText = 25;
-    private static final int externalPadding = fontHeightText + 10;
+    private static final int externalPadding = fontHeight + 10;
     private static final int internalPadding = 10;
     private static final int thumbnailBorderWidth = 1;
     private int thumbnailWidth = 0;
@@ -571,7 +571,7 @@ public abstract class ThumbnailsPanel extends JPanel
             Rectangle rectClip = g.getClipBounds();
             int firstIndex = getFirstPaintIndexAtHeight(rectClip.y);
             int lastIndex = getLastPaintIndexAtHeight(rectClip.y + rectClip.height);
-            g.setFont(fontTitle);
+            g.setFont(font);
             for (int index = firstIndex; index < lastIndex && index < thumbnailCount; index++) {
                 paintThumbnail(index, g);
             }
@@ -658,7 +658,7 @@ public abstract class ThumbnailsPanel extends JPanel
         Color oldColor = g.getColor();
         g.setColor(isSelected(index) ? colorHighlightedText : colorText);
         g.drawString(text, xText, areaY + getThumbnailAreaHeight() +
-            fontHeightText + 4);
+            fontHeight + 4);
         g.setColor(oldColor);
     }
 

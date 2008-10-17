@@ -4,6 +4,7 @@ import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.event.UserSettingsChangeEvent;
 import de.elmar_baumann.imv.event.UserSettingsChangeListener;
 import de.elmar_baumann.imv.resource.Bundle;
+import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
@@ -56,6 +57,7 @@ public class PopupMenuPanelThumbnails extends JPopupMenu
     private List<ActionListener> actionListenersOpenFilesWithOtherApp = new ArrayList<ActionListener>();
     private Map<String, Float> angleOfAction = new HashMap<String, Float>();
     private Map<String, File> otherImageOpenAppOfAction = new HashMap<String, File>();
+    private ImageFileThumbnailsPanel.Content content = ImageFileThumbnailsPanel.Content.Undefined;
     private static PopupMenuPanelThumbnails instance = new PopupMenuPanelThumbnails();
 
     /**
@@ -68,7 +70,7 @@ public class PopupMenuPanelThumbnails extends JPopupMenu
     }
 
     private PopupMenuPanelThumbnails() {
-        initMap();
+        initMaps();
         initItems();
         addItems();
     }
@@ -124,13 +126,19 @@ public class PopupMenuPanelThumbnails extends JPopupMenu
     }
 
     /**
-     * Teilt dem Menü mit, dass gerade eine Bildsammlung angezeigt wird und
-     * Menüpunkte mit entsprechenden Aktionen aktiviert werden können.
+     * Sets the content, menu items not related to the content will be
+     * disabled.
      * 
-     * @param is true, wenn eine Bildsammlung angezeigt wird
+     * @param content  content
      */
-    public void setIsImageCollection(boolean is) {
-        itemDeleteFromImageCollection.setEnabled(is);
+    public void setContent(ImageFileThumbnailsPanel.Content content) {
+        this.content = content;
+        setEnabledContent();
+    }
+
+    private void setEnabledContent() {
+        itemDeleteFromImageCollection.setEnabled(
+            content.equals(ImageFileThumbnailsPanel.Content.ImageCollection));
     }
 
     /**
@@ -456,11 +464,9 @@ public class PopupMenuPanelThumbnails extends JPopupMenu
         return angle.floatValue();
     }
 
-    private void initMap() {
-        if (angleOfAction.isEmpty()) {
-            angleOfAction.put(actionRotate90, new Float(90));
-            angleOfAction.put(actionRotate180, new Float(180));
-            angleOfAction.put(actionRotate270, new Float(270));
-        }
+    private void initMaps() {
+        angleOfAction.put(actionRotate90, new Float(90));
+        angleOfAction.put(actionRotate180, new Float(180));
+        angleOfAction.put(actionRotate270, new Float(270));
     }
 }

@@ -6,9 +6,7 @@ import de.elmar_baumann.imv.io.ImageFilteredDirectory;
 import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
-import de.elmar_baumann.imv.view.popupmenus.PopupMenuPanelThumbnails;
 import java.io.File;
-import java.util.Collections;
 import java.util.List;
 import javax.swing.JList;
 import javax.swing.event.ListSelectionEvent;
@@ -43,8 +41,8 @@ public class ControllerFavoriteDirectoryItemSelected extends Controller
     }
 
     private void showThumbnails() {
-        thumbnailsPanel.setFiles(getFilesOfCurrentDirectory());
-        PopupMenuPanelThumbnails.getInstance().setIsImageCollection(false);
+        thumbnailsPanel.setFiles(getFilesOfCurrentDirectory(),
+            ImageFileThumbnailsPanel.Content.FavoriteDirectory);
     }
 
     private List<File> getFilesOfCurrentDirectory() {

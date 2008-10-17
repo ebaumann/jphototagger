@@ -26,10 +26,28 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel {
     private ControllerDoubleklickThumbnail controllerDoubleklick;
     private FileSort fileSort = FileSort.NamesAscending;
     private boolean hadFiles = false;
+    private Content content = Content.Undefined;
+
+    /**
+     * Content type of the displayed thumbnails.
+     */
+    public enum Content {
+        Category,
+        Directory,
+        FastSearch,
+        FavoriteDirectory,
+        ImageCollection,
+        Search,
+        Undefined,
+    }
 
     public ImageFileThumbnailsPanel() {
         setNewThumbnails(0);
         controllerDoubleklick = new ControllerDoubleklickThumbnail(this);
+    }
+    
+    public Content getContent() {
+        return content;
     }
 
     /**
@@ -70,11 +88,13 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel {
      * Sets the files to display. Previous desplayed files will be hided.
      * The new files will be displayed in the defined sort order.
      * 
-     * @param files  files
+     * @param files    files
+     * @param content  content description of the files
      */
-    public void setFiles(List<File> files) {
+    public void setFiles(List<File> files, Content content) {
         boolean scrollToTop = hadFiles && files != this.files;
         this.files = files;
+        this.content = content;
         Collections.sort(files, fileSort.getComparator());
         setNewThumbnails(files.size());
         scrollToTop(scrollToTop);
@@ -89,7 +109,7 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel {
      */
     public void sort() {
         List<File> selectedFiles = getSelectedFiles();
-        setFiles(files);
+        setFiles(files, content);
         setSelected(getIndices(selectedFiles, true));
     }
 
@@ -145,7 +165,7 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel {
             }
         }
         if (removed > 0) {
-            setFiles(files);
+            setFiles(files, content);
             setSelected(getIndices(selectedFiles, true));
         }
     }
@@ -269,6 +289,7 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel {
     @Override
     protected void showPopupMenu(MouseEvent e) {
         if (getSelectionCount() > 0) {
+            popupMenu.setContent(content);
             popupMenu.show(this, e.getX(), e.getY());
         }
     }

@@ -76,7 +76,7 @@ public class ControllerAdvancedSearch extends Controller
         TreeUtil.clearSelection(selectionTrees);
         List<String> filenames = db.searchFilenames(stmt);
 
-        thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames));
-        PopupMenuPanelThumbnails.getInstance().setIsImageCollection(false);
+        thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames),
+            ImageFileThumbnailsPanel.Content.Search);
     }
 }

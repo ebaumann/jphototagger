@@ -5,7 +5,6 @@ import de.elmar_baumann.imv.database.Database;
 import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
-import de.elmar_baumann.imv.view.popupmenus.PopupMenuPanelThumbnails;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.util.List;
 import javax.swing.JList;
@@ -34,8 +33,8 @@ public class ControllerImageCollectionSelected extends Controller
 
     private void showImageCollection(String collectionName) {
         List<String> filenames = db.getFilenamesOfImageCollection(collectionName);
-        thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames));
-        PopupMenuPanelThumbnails.getInstance().setIsImageCollection(true);
+        thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames),
+            ImageFileThumbnailsPanel.Content.ImageCollection);
     }
 
     @Override
