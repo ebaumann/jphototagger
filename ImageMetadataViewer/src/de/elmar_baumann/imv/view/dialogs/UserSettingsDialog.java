@@ -18,6 +18,7 @@ import de.elmar_baumann.imv.view.renderer.ListCellRendererLogfileFormatter;
 import de.elmar_baumann.lib.dialog.DirectoryChooser;
 import de.elmar_baumann.lib.persistence.PersistentAppSizes;
 import de.elmar_baumann.lib.persistence.PersistentSettings;
+import de.elmar_baumann.lib.persistence.PersistentSettingsHints;
 import de.elmar_baumann.lib.renderer.ListCellRendererFileSystem;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -45,6 +46,7 @@ public class UserSettingsDialog extends javax.swing.JDialog
 
     private Database db = Database.getInstance();
     private final String keyLastSelectedAutoscanDirectory = "UserSettingsDialog.keyLastSelectedAutoscanDirectory"; // NOI18N
+    private final String keyTabbedPaneIndex = "UserSettingsDialog.TabbedPaneIndex";
     private List<UserSettingsChangeListener> changeListener = new ArrayList<UserSettingsChangeListener>();
     public CheckList checkListSearchColumns = new CheckList();
     public ListModelFastSearchColumns searchColumnsListModel = new ListModelFastSearchColumns();
@@ -295,9 +297,16 @@ public class UserSettingsDialog extends javax.swing.JDialog
         checkListSearchColumns.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         checkListSearchColumns.addActionListener(this);
     }
+    
+    private PersistentSettingsHints getPersistentSettingsHints() {
+        PersistentSettingsHints hints = new PersistentSettingsHints();
+        hints.setTabbedPaneContents(false);
+        return hints;
+    }
 
     private void readPersistent() {
         PersistentAppSizes.getSizeAndLocation(this);
+        PersistentSettings.getInstance().getTabbedPane(tabbedPane, keyTabbedPaneIndex, getPersistentSettingsHints());
         checkLogLevel();
         setExternalThumbnailAppEnabled();
         previousDirectory = labelDefaultImageOpenApp.getText();
@@ -401,6 +410,7 @@ public class UserSettingsDialog extends javax.swing.JDialog
     private void writePersistent() {
         PersistentSettings.getInstance().setString(
             lastSelectedAutoscanDirectory, keyLastSelectedAutoscanDirectory);
+        PersistentSettings.getInstance().setTabbedPane(tabbedPane, keyTabbedPaneIndex, getPersistentSettingsHints());
         PersistentAppSizes.setSizeAndLocation(this);
     }
 
