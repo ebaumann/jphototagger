@@ -23,4 +23,12 @@ public class ListModelImageCollections extends DefaultListModel {
             addElement(collection);
         }
     }
+
+    public void rename(String oldName, String newName) {
+        int index = indexOf(oldName);
+        if (index >= 0) {
+            remove(index);
+            add(index, newName);
+        }
+    }
 }

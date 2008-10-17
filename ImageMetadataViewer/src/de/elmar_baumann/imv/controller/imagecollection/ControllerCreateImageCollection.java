@@ -1,8 +1,8 @@
 package de.elmar_baumann.imv.controller.imagecollection;
 
 import de.elmar_baumann.imv.controller.Controller;
+import de.elmar_baumann.imv.model.ListModelImageCollections;
 import de.elmar_baumann.imv.tasks.ImageCollectionToDatabase;
-import de.elmar_baumann.imv.model.TreeModelImageCollections;
 import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
@@ -23,7 +23,7 @@ public class ControllerCreateImageCollection extends Controller
 
     private PopupMenuPanelThumbnails popup = PopupMenuPanelThumbnails.getInstance();
     private AppPanel appPanel = Panels.getInstance().getAppPanel();
-    private TreeModelImageCollections model = (TreeModelImageCollections) appPanel.getTreeImageCollections().getModel();
+    private ListModelImageCollections model = (ListModelImageCollections) appPanel.getListImageCollections().getModel();
     private ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelImageFileThumbnails();
 
     public ControllerCreateImageCollection() {
@@ -46,7 +46,7 @@ public class ControllerCreateImageCollection extends Controller
         String collectionName = manager.addImageCollection(
             FileUtil.getAsFilenames(thumbnailsPanel.getSelectedFiles()));
         if (collectionName != null) {
-            model.addNode(collectionName);
+            model.addElement(collectionName);
         }
     }
 }

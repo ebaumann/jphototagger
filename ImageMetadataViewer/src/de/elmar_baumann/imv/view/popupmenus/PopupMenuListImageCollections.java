@@ -11,16 +11,16 @@ import javax.swing.JPopupMenu;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/08
  */
-public class PopupMenuTreeImageCollections extends JPopupMenu {
+public class PopupMenuListImageCollections extends JPopupMenu {
 
     private final String actionDelete = Bundle.getString("PopupMenuTreeImageCollections.Action.Delete");
     private final String actionRename = Bundle.getString("PopupMenuTreeImageCollections.Action.Rename");
     private final JMenuItem itemDelete = new JMenuItem(actionDelete);
     private final JMenuItem itemRename = new JMenuItem(actionRename);
     private String imageCollectionName;
-    private static PopupMenuTreeImageCollections instance = new PopupMenuTreeImageCollections();
+    private static PopupMenuListImageCollections instance = new PopupMenuListImageCollections();
 
-    private PopupMenuTreeImageCollections() {
+    private PopupMenuListImageCollections() {
         addItems();
     }
 
@@ -29,7 +29,7 @@ public class PopupMenuTreeImageCollections extends JPopupMenu {
      * 
      * @return Klasseninstanz
      */
-    public static PopupMenuTreeImageCollections getInstance() {
+    public static PopupMenuListImageCollections getInstance() {
         return instance;
     }
 

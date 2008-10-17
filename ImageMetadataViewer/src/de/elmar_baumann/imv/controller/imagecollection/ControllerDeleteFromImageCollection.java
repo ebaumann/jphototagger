@@ -1,6 +1,7 @@
 package de.elmar_baumann.imv.controller.imagecollection;
 
 import de.elmar_baumann.imv.controller.Controller;
+import de.elmar_baumann.imv.model.ListModelImageCollections;
 import de.elmar_baumann.imv.tasks.ImageCollectionToDatabase;
 import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.view.panels.AppPanel;
@@ -9,8 +10,7 @@ import de.elmar_baumann.imv.view.popupmenus.PopupMenuPanelThumbnails;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.JTree;
-import javax.swing.tree.TreePath;
+import javax.swing.JList;
 
 /**
  * Kontrolliert die Aktion: Lösche Bilder aus einer Bildsammlung, ausgelöst von
@@ -23,7 +23,8 @@ public class ControllerDeleteFromImageCollection extends Controller
     implements ActionListener {
 
     private AppPanel appPanel = Panels.getInstance().getAppPanel();
-    private JTree tree = appPanel.getTreeImageCollections();
+    private JList list = appPanel.getListImageCollections();
+    private ListModelImageCollections model = (ListModelImageCollections) list.getModel();
     private PopupMenuPanelThumbnails popup = PopupMenuPanelThumbnails.getInstance();
     private ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelImageFileThumbnails();
 
@@ -43,28 +44,12 @@ public class ControllerDeleteFromImageCollection extends Controller
     }
 
     private void deleteFromImageCollection() {
-        String collectionName = getCollectionName();
-        if (collectionName != null) {
+        Object selected = list.getSelectedValue();
+        if (selected != null) {
             ImageCollectionToDatabase manager = new ImageCollectionToDatabase();
-            manager.deleteImagesFromCollection(collectionName,
+            manager.deleteImagesFromCollection(selected.toString(),
                 FileUtil.getAsFilenames(thumbnailsPanel.getSelectedFiles()));
-            TreePath selectionPath = tree.getSelectionPath();
-            if (selectionPath != null) {
-                tree.clearSelection();
-                tree.setSelectionPath(selectionPath);
-            }
+            model.removeElement(selected);
         }
-    }
-
-    private String getCollectionName() {
-        String name = null;
-        TreePath path = tree.getSelectionPath();
-        if (path != null) {
-            Object item = path.getLastPathComponent();
-            if (item != null) {
-                name = item.toString();
-            }
-        }
-        return name;
     }
 }

@@ -3,7 +3,7 @@ package de.elmar_baumann.imv.factory;
 import de.elmar_baumann.imv.controller.tasks.MouseListenerProgressBarScheduledTasks;
 import de.elmar_baumann.imv.event.listener.ListFavoriteDirectoriesMouseListener;
 import de.elmar_baumann.imv.event.listener.TreeDirectoriesMouseListener;
-import de.elmar_baumann.imv.event.listener.TreeImageCollectionsMouseListener;
+import de.elmar_baumann.imv.event.listener.ListImageCollectionsMouseListener;
 import de.elmar_baumann.imv.event.listener.TreeSavedSearchesMouseListener;
 import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.view.panels.AppPanel;
@@ -30,7 +30,7 @@ public class MouseListenerFactory {
         AppPanel appPanel = Panels.getInstance().getAppPanel();
         appPanel.getTreeDirectories().addMouseListener(new TreeDirectoriesMouseListener());
         appPanel.getTreeSavedSearches().addMouseListener(new TreeSavedSearchesMouseListener());
-        appPanel.getTreeImageCollections().addMouseListener(new TreeImageCollectionsMouseListener());
+        appPanel.getListImageCollections().addMouseListener(new ListImageCollectionsMouseListener());
         appPanel.getListFavoriteDirectories().addMouseListener(new ListFavoriteDirectoriesMouseListener());
         appPanel.getProgressBarScheduledTasks().addMouseListener(new MouseListenerProgressBarScheduledTasks());
     }

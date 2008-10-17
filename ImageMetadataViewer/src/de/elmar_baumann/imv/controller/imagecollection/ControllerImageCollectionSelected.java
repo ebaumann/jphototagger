@@ -8,10 +8,9 @@ import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuPanelThumbnails;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.util.List;
-import javax.swing.JTree;
-import javax.swing.event.TreeSelectionEvent;
-import javax.swing.event.TreeSelectionListener;
-import javax.swing.tree.TreePath;
+import javax.swing.JList;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 /**
  * Kontrolliert die Aktion: Eine Bildsammlung wurde ausgewählt.
@@ -22,37 +21,30 @@ import javax.swing.tree.TreePath;
  * @version 2008-10-05
  */
 public class ControllerImageCollectionSelected extends Controller
-    implements TreeSelectionListener {
+    implements ListSelectionListener {
 
     private Database db = Database.getInstance();
     private AppPanel appPanel = Panels.getInstance().getAppPanel();
     private ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelImageFileThumbnails();
-    private JTree tree = appPanel.getTreeImageCollections();
+    private JList list = appPanel.getListImageCollections();
 
     public ControllerImageCollectionSelected() {
-        listenToActionSource(tree);
-    }
-
-    private void listenToActionSource(JTree tree) {
-        tree.addTreeSelectionListener(this);
-    }
-
-    @Override
-    public void valueChanged(TreeSelectionEvent e) {
-        if (isStarted()) {
-            TreePath path = e.getPath();
-            if (path != null) {
-                Object item = path.getLastPathComponent();
-                if (item != null) {
-                    showImageCollection(item.toString());
-                }
-            }
-        }
+        list.addListSelectionListener(this);
     }
 
     private void showImageCollection(String collectionName) {
         List<String> filenames = db.getFilenamesOfImageCollection(collectionName);
         thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames));
         PopupMenuPanelThumbnails.getInstance().setIsImageCollection(true);
+    }
+
+    @Override
+    public void valueChanged(ListSelectionEvent e) {
+        if (isStarted()) {
+            Object selected = list.getSelectedValue();
+            if (selected != null) {
+                showImageCollection(selected.toString());
+            }
+        }
     }
 }

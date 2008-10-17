@@ -2,6 +2,7 @@ package de.elmar_baumann.imv.view.dialogs;
 
 import de.elmar_baumann.imv.AppSettings;
 import de.elmar_baumann.imv.resource.Bundle;
+import de.elmar_baumann.imv.view.renderer.ListCellRendererImageCollections;
 import de.elmar_baumann.lib.persistence.PersistentAppSizes;
 import java.awt.event.MouseEvent;
 import javax.swing.ListModel;
@@ -83,6 +84,8 @@ public class ImageCollectionsDialog extends javax.swing.JDialog {
         labelSelectImageCollection.setText(Bundle.getString("ImageCollectionsDialog.labelSelectImageCollection.text")); // NOI18N
 
         listImageCollectionNames.setModel(new de.elmar_baumann.imv.model.ListModelImageCollections());
+        listImageCollectionNames.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        listImageCollectionNames.setCellRenderer(new ListCellRendererImageCollections());
         listImageCollectionNames.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 listImageCollectionNamesMouseClicked(evt);

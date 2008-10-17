@@ -8,6 +8,7 @@ import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.view.renderer.ListCellRendererCategories;
 import de.elmar_baumann.imv.view.renderer.ListCellRendererFavoriteDirectories;
+import de.elmar_baumann.imv.view.renderer.ListCellRendererImageCollections;
 import de.elmar_baumann.lib.persistence.PersistentSettings;
 import de.elmar_baumann.lib.persistence.PersistentSettingsHints;
 import java.awt.Component;
@@ -156,8 +157,8 @@ public class AppPanel extends javax.swing.JPanel
         return panelImageFileThumbnails;
     }
 
-    public JTree getTreeImageCollections() {
-        return treeImageCollections;
+    public JList getListImageCollections() {
+        return listImageCollections;
     }
 
     public JTree getTreeSavedSearches() {
@@ -308,13 +309,13 @@ public class AppPanel extends javax.swing.JPanel
 
     private void initSelectionTreeArray() {
         selectionTrees.add(treeDirectories);
-        selectionTrees.add(treeImageCollections);
         selectionTrees.add(treeSavedSearches);
     }
 
     private void initSelectionListArray() {
         selectionLists.add(listCategories);
         selectionLists.add(listFavoriteDirectories);
+        selectionLists.add(listImageCollections);
     }
 
     private void setBackgroundColorTablesScrollPanes() {
@@ -350,7 +351,6 @@ public class AppPanel extends javax.swing.JPanel
         int mode = TreeSelectionModel.SINGLE_TREE_SELECTION;
         treeDirectories.getSelectionModel().setSelectionMode(mode);
         treeSavedSearches.getSelectionModel().setSelectionMode(mode);
-        treeImageCollections.getSelectionModel().setSelectionMode(mode);
     }
 
     /** This method is called from within the constructor to
@@ -371,8 +371,8 @@ public class AppPanel extends javax.swing.JPanel
         scrollPaneTreeSavedSearches = new javax.swing.JScrollPane();
         treeSavedSearches = new javax.swing.JTree();
         panelSelectionImageCollections = new javax.swing.JPanel();
-        scrollPaneTreeImageCollections = new javax.swing.JScrollPane();
-        treeImageCollections = new javax.swing.JTree();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        listImageCollections = new javax.swing.JList();
         panelSelectionCategories = new javax.swing.JPanel();
         scrollPaneListCategories = new javax.swing.JScrollPane();
         listCategories = new javax.swing.JList();
@@ -463,22 +463,19 @@ public class AppPanel extends javax.swing.JPanel
 
         tabbedPaneSelection.addTab(Bundle.getString("AppPanel.panelSelectionSavedSearches.TabConstraints.tabTitle"), panelSelectionSavedSearches); // NOI18N
 
-        treeImageCollections.setCellRenderer(new de.elmar_baumann.imv.view.renderer.TreeCellRendererCollections());
-        scrollPaneTreeImageCollections.setViewportView(treeImageCollections);
+        listImageCollections.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        listImageCollections.setCellRenderer(new ListCellRendererImageCollections());
+        jScrollPane1.setViewportView(listImageCollections);
 
         javax.swing.GroupLayout panelSelectionImageCollectionsLayout = new javax.swing.GroupLayout(panelSelectionImageCollections);
         panelSelectionImageCollections.setLayout(panelSelectionImageCollectionsLayout);
         panelSelectionImageCollectionsLayout.setHorizontalGroup(
             panelSelectionImageCollectionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 130, Short.MAX_VALUE)
-            .addGroup(panelSelectionImageCollectionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(scrollPaneTreeImageCollections, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
         );
         panelSelectionImageCollectionsLayout.setVerticalGroup(
             panelSelectionImageCollectionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 284, Short.MAX_VALUE)
-            .addGroup(panelSelectionImageCollectionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(scrollPaneTreeImageCollections, javax.swing.GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE)
         );
 
         tabbedPaneSelection.addTab(Bundle.getString("AppPanel.panelSelectionImageCollections.TabConstraints.tabTitle"), panelSelectionImageCollections); // NOI18N
@@ -868,12 +865,14 @@ public class AppPanel extends javax.swing.JPanel
     private javax.swing.JButton buttonAdvanedSearch;
     private javax.swing.JButton buttonLogfileDialog;
     private javax.swing.JButton buttonStopScheduledTasks;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel labelColorBackgroundTableTextStoredInDatabase;
     private javax.swing.JLabel labelLegendColorBackgroundTableTetStoredInDatabase;
     private javax.swing.JLabel labelMetadataFilename;
     private javax.swing.JLabel labelStatusbar;
     private javax.swing.JList listCategories;
     private javax.swing.JList listFavoriteDirectories;
+    private javax.swing.JList listImageCollections;
     private javax.swing.JPanel panelEditMetadata;
     private de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel panelImageFileThumbnails;
     private javax.swing.JPanel panelMetadata;
@@ -907,7 +906,6 @@ public class AppPanel extends javax.swing.JPanel
     private javax.swing.JScrollPane scrollPaneTableXmpXap;
     private javax.swing.JScrollPane scrollPaneThumbnailsPanel;
     private javax.swing.JScrollPane scrollPaneTreeDirectories;
-    private javax.swing.JScrollPane scrollPaneTreeImageCollections;
     private javax.swing.JScrollPane scrollPaneTreeSavedSearches;
     private javax.swing.JSlider sliderThumbnailSize;
     private javax.swing.JSplitPane splitPaneMain;
@@ -927,7 +925,6 @@ public class AppPanel extends javax.swing.JPanel
     private javax.swing.JTable tableXmpXap;
     private javax.swing.JTextField textFieldSearch;
     private javax.swing.JTree treeDirectories;
-    private javax.swing.JTree treeImageCollections;
     private javax.swing.JTree treeSavedSearches;
     // End of variables declaration//GEN-END:variables
 }
