@@ -34,7 +34,7 @@
 		</page>
 		<page>
 			<url>panel_collections.html</url>
-			<title>Sammlungen</title>
+			<title>Bildsammlungen</title>
 		</page>
 		<page>
 			<url>panel_categories.html</url>
@@ -72,15 +72,15 @@
 		</page>
 		<page>
 			<url>action_update_text_metadata.html</url>
-			<title>Text-Metadaten aktualisieren</title>
+			<title>Nur Text-Metadaten aktualisieren</title>
+		</page>
+		<page>
+			<url>action_remove_from_database.html</url>
+			<title>Aus der Datenbank entfernen</title>
 		</page>
 		<page>
 			<url>action_replace_xmp.html</url>
 			<title>XMP-Daten suchen und ersetzen</title>
-		</page>
-		<page>
-			<url>action_remove_from_database.html</url>
-			<title>Aus Datenbank entfernen</title>
 		</page>
 		<page>
 			<url>action_open.html</url>
@@ -92,15 +92,15 @@
 		</page>
 		<page>
 			<url>action_create_collection.html</url>
-			<title>Neue Sammlung erstellen</title>
+			<title>Neue Bildammlung erstellen</title>
 		</page>
 		<page>
 			<url>action_add_to_collection.html</url>
-			<title>Einer Sammlung hinzufügen</title>
+			<title>Einer Bildammlung hinzufügen</title>
 		</page>
 		<page>
 			<url>action_remove_from_collection.html</url>
-			<title>Aus der Sammlung entfernen</title>
+			<title>Aus der Bildammlung entfernen</title>
 		</page>
 		<page>
 			<url>action_rotate.html</url>
@@ -111,29 +111,64 @@
 			<title>In ein Verzeichnis kopieren</title>
 		</page>
 		<page>
+			<url>action_filesystem_rename.html</url>
+			<title>Auf dem Datenträger umbenennen</title>
+		</page>
+		<page>
 			<url>action_filesystem_delete.html</url>
 			<title>Vom Datenträger löschen</title>
-		</page>
-	</node>
-	<node>
-		<title>Menübefehle</title>
-		<page>
-			<url>action_scan_directories.html</url>
-			<title>Datei / Verzeichnisse einlesen</title>
-		</page>
-		<page>
-			<url>action_maintain_database.html</url>
-			<title>Datei / Datenbank</title>
-		</page>
-		<page>
-			<url>action_iptc_to_xmp.html</url>
-			<title>Werkzeuge / IPTC-Daten nach XMP</title>
 		</page>
 	</node>
 	<page>
 		<url>advanced-search.html</url>
 		<title>Erweiterte Suche</title>
 	</page>
+	<node>
+		<title>Tipps</title>
+		<page>
+			<url>tip-use-shortcuts.html</url>
+			<title>Tastaturkürzel</title>
+		</page>
+		<page>
+			<url>tip-large-thumbnails.html</url>
+			<title>Große Vorschaubilder</title>
+		</page>
+		<page>
+			<url>tip-check-settings.html</url>
+			<title>Einstellungen überprüfen</title>
+		</page>
+		<page>
+			<url>tip-save-searches.html</url>
+			<title>Suchen speichern</title>
+		</page>
+		<page>
+			<url>tip-refresh-only-textmetadata.html</url>
+			<title>Nur Text-Metadaten aktualisieren</title>
+		</page>
+	</node>
+	<node>
+		<title>Wichtige Fakten</title>
+		<page>
+			<url>facts-what-metadata-is-read.html</url>
+			<title>Welche Metadaten werden gelesen?</title>
+		</page>
+		<page>
+			<url>facts-what-metadata-is-displayed.html</url>
+			<title>Welche Metadaten werden angezeigt?</title>
+		</page>
+		<page>
+			<url>facts-what-metadata-is-in-database.html</url>
+			<title>Was ist in der Datenbank gespeichert?</title>
+		</page>
+		<page>
+			<url>facts-count-write-to-database.html</url>
+			<title>Wie oft werden Bilder in die Datenbank geschrieben?</title>
+		</page>
+		<page>
+			<url>facts-database-location.html</url>
+			<title>Wo ist die Datenbank?</title>
+		</page>
+	</node>
 	<node>
 		<title>Einstellungen-Dialog</title>
 		<page>
@@ -169,12 +204,35 @@
 			<title>Sonstiges</title>
 		</page>
 	</node>
-	<page>
-		<url>tipps.html</url>
-		<title>Tipps</title>
-	</page>
-	<page>
-		<url>facts.html</url>
-		<title>Wichtige Fakten</title>
-	</page>
+	<node>
+		<title>Menübefehle</title>
+		<page>
+			<url>action_scan_directories.html</url>
+			<title>Datei / Verzeichnisse einlesen</title>
+		</page>
+		<page>
+			<url>action_maintain_database.html</url>
+			<title>Datei / Datenbank</title>
+		</page>
+		<page>
+			<url>action_edit_settings.html</url>
+			<title>Bearbeiten / Einstellungen</title>
+		</page>
+		<page>
+			<url>advanced-search.html</url>
+			<title>Bearbeiten / Suchen</title>
+		</page>
+		<page>
+			<url>action_filesystem_rename.html</url>
+			<title>Bearbeiten / Auf dem Datenträger umbenennen</title>
+		</page>
+		<page>
+			<url>action_filesystem_delete.html</url>
+			<title>Bearbeiten / Vom Datenträger löschen</title>
+		</page>
+		<page>
+			<url>action_iptc_to_xmp.html</url>
+			<title>Werkzeuge / IPTC-Daten nach XMP</title>
+		</page>
+	</node>
 </helpindex>

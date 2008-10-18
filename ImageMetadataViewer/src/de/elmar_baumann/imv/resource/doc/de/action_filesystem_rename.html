@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+	<title>Auf dem Datenträger umbenennen</title>
+	<meta name="author" content="Elmar Baumann" />
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	
+<h1>Auf dem Datenträger umbenennen</h1>
+
+<p>Dieser Befehl gibt den ausgewählten Bildern einen neuen Namen auf dem Datenträger. Sie können jede ausgewählte Dateien einzeln umbenennen oder alle auf einmal mit einer Schablone.</p>
+
+<h2>Dateien einzeln umbenennen</h2>
+
+<p>Hier geben Sie für jede Datei einen neuen Namen ein, der Dialog zeigt danach die nächste ausgewählte Datei an.</p>
+
+<p><img src="img/dialog-rename-input-each-filename.gif" width="770" height="431" alt="" /></p>
+
+<h2>Dateien umbenennen mit einer Schablone</h2>
+
+<p>Mit der Schablone können Sie alle ausgewählten Dateien auf einmal einheitlich umbenennen lassen gemäß einer Schablone. Mit dieser können Sie <em>bis</em> zu drei Bestandteile des Namens bestimmen:</p>
+
+<ul>
+	<li><strong>Exakter Wortlaut</strong>: Tragen Sie unten ins Textfeld etwas ein und es erscheint unverändert in allen Dateinamen.</li>
+	<li><strong>Ziffernfolge</strong>: Startet mit der oben eingestellten <strong>Anfangsziffer</strong>, wird hochgezählt mit der oben eingestellten <strong>Schrittweite</strong> und hat so viele Ziffern wie in der <strong>Ziffernanzahl</strong> definiert. Ist die Anfangsziffer 1, die Schrittweite 1 und die Ziffernanzahl 3, wird für das erste Bild <code>001</code> vergeben, für das zweite <code>002</code>, für das dritte <code>003</code> usw. Erhöhen Sie die Schrittweite auf 2, hat das erste Bild die Ziffernfolge <code>001</code>, das zweite <code>003</code> und das dritte <code>005</code>.</li>
+	<li><strong>Dateiname ohne Endung</strong>: Übernimmt den Dateinamen, wie er ist. So bleibt er im Original erhalten, Sie könnten aber beispielsweise das Datum voranstellen.</li>
+	<li><strong>Aufnahmedatum</strong>: Übernimmt das Datum aus den EXIF-Daten, falls möglich, sonst wird das Datum der letzten Dateimodifikation benutzt.</li>
+	<li><strong>Nichts</strong>: Lässt diesen Namensbestandteil frei.</li>
+</ul>
+
+<p>Unten können Sie im Beispiel sehen, wie die erste der ausgewählten Bilddateien nach dem Umbenennen heißt.</p>
+
+<p><img src="img/dialog-rename-template.gif" width="770" height="431" alt="" /></p>
+
+</body>
+</html>
