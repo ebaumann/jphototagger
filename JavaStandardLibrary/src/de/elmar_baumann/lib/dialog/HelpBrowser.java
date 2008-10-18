@@ -363,7 +363,6 @@ public class HelpBrowser extends javax.swing.JFrame
 
         tree.setCellRenderer(new TreeCellRendererHelpContents());
         tree.setModel(null);
-        tree.setRootVisible(false);
         scrollPaneTree.setViewportView(tree);
 
         javax.swing.GroupLayout panelTreeLayout = new javax.swing.GroupLayout(panelTree);
@@ -386,7 +385,7 @@ public class HelpBrowser extends javax.swing.JFrame
         panelPage.setLayout(panelPageLayout);
         panelPageLayout.setHorizontalGroup(
             panelPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPanePage, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 461, Short.MAX_VALUE)
+            .addComponent(scrollPanePage, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         panelPageLayout.setVerticalGroup(
             panelPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

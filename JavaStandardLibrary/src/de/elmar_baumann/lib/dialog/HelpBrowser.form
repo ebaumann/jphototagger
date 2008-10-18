@@ -97,7 +97,6 @@
                     <Property name="model" type="javax.swing.tree.TreeModel" editor="org.netbeans.modules.form.ComponentChooserEditor">
                       <ComponentRef name="null"/>
                     </Property>
-                    <Property name="rootVisible" type="boolean" value="false"/>
                   </Properties>
                 </Component>
               </SubComponents>
