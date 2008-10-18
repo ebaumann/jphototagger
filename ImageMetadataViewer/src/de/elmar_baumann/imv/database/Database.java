@@ -676,7 +676,6 @@ public class Database {
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 id = rs.getLong(1);
-            //rs.close();
             }
             stmt.close();
         } catch (SQLException ex) {
@@ -831,7 +830,6 @@ public class Database {
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 lastModified = rs.getLong(1);
-            //rs.close();
             }
             stmt.close();
         } catch (SQLException ex) {
@@ -861,7 +859,6 @@ public class Database {
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 exists = true;
-            //rs.close();
             }
             stmt.close();
         } catch (SQLException ex) {
@@ -892,7 +889,6 @@ public class Database {
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 InputStream inputStream = rs.getBinaryStream(1);
-                //rs.close();
                 if (inputStream != null) {
                     int bytecount = inputStream.available();
                     byte[] bytes = new byte[bytecount];
