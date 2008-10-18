@@ -7,7 +7,11 @@ import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
+import java.text.MessageFormat;
 import javax.swing.JLabel;
+import javax.swing.JSlider;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 /**
  * Zeigt die Anzahl der Thumbnails an. 
@@ -16,11 +20,15 @@ import javax.swing.JLabel;
  * @version 2008/09/25
  */
 public class ControllerThumbnailCountDisplay extends Controller
-    implements ThumbnailsPanelListener {
+        implements ThumbnailsPanelListener, ChangeListener {
 
+    private static final MessageFormat msg = new MessageFormat(Bundle.getString("ControllerThumbnailCount.InformationMessage"));
     private AppPanel appPanel = Panels.getInstance().getAppPanel();
-    private JLabel labelCount = appPanel.getLabelStatusbar();
+    private JSlider sliderThumbnailSize = appPanel.getSliderThumbnailSize();
+    private JLabel label = appPanel.getLabelStatusbar();
     private ImageFileThumbnailsPanel panelThumbnails = appPanel.getPanelThumbnails();
+    private int thumbnailCount = 0;
+    private int thumbnailZoom = sliderThumbnailSize.getValue();
 
     public ControllerThumbnailCountDisplay() {
         listenToActionSource();
@@ -28,6 +36,7 @@ public class ControllerThumbnailCountDisplay extends Controller
 
     private void listenToActionSource() {
         panelThumbnails.addThumbnailsPanelListener(this);
+        sliderThumbnailSize.addChangeListener(this);
     }
 
     @Override
@@ -39,12 +48,22 @@ public class ControllerThumbnailCountDisplay extends Controller
 
     @Override
     public void thumbnailsChanged() {
-        // Nichts tun
     }
 
     private void setCount() {
-        labelCount.setText(new Integer(
-            panelThumbnails.getCount()).toString() +
-            Bundle.getString("ControllerThumbnailCount.InformationMessage.ImageFileCount"));
+        thumbnailCount = panelThumbnails.getCount();
+        setLabel();
+    }
+
+    @Override
+    public void stateChanged(ChangeEvent e) {
+        if (isStarted()) {
+            thumbnailZoom = sliderThumbnailSize.getValue();
+            setLabel();
+        }
+    }
+
+    private void setLabel() {
+        label.setText(msg.format(new Object[]{thumbnailCount, thumbnailZoom}));
     }
 }
