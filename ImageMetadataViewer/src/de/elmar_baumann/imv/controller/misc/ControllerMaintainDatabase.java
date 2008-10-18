@@ -13,8 +13,6 @@ import java.awt.event.ActionListener;
  */
 public class ControllerMaintainDatabase extends Controller implements ActionListener {
 
-    private DatabaseMaintainanceDialog maintainanceDialog = DatabaseMaintainanceDialog.getInstance();
-
     @Override
     public void actionPerformed(ActionEvent e) {
         if (isStarted()) {
@@ -23,6 +21,7 @@ public class ControllerMaintainDatabase extends Controller implements ActionList
     }
 
     private void maintainDatabase() {
+        DatabaseMaintainanceDialog maintainanceDialog = DatabaseMaintainanceDialog.getInstance();
         if (maintainanceDialog.isVisible()) {
             maintainanceDialog.toFront();
         } else {

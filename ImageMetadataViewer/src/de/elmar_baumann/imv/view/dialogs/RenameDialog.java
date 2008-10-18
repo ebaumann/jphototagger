@@ -10,6 +10,7 @@ import de.elmar_baumann.imv.controller.filesystem.FilenameFormatNumberSequence;
 import de.elmar_baumann.imv.controller.filesystem.FilenameFormatConstantString;
 import de.elmar_baumann.imv.controller.filesystem.FilenameFormatFilenamePostfix;
 import de.elmar_baumann.imv.event.ErrorEvent;
+import de.elmar_baumann.imv.event.ListenerProvider;
 import de.elmar_baumann.imv.event.RenameFileAction;
 import de.elmar_baumann.imv.event.RenameFileListener;
 import de.elmar_baumann.imv.event.listener.ErrorListeners;
@@ -18,7 +19,6 @@ import de.elmar_baumann.imv.image.thumbnail.ThumbnailUtil;
 import de.elmar_baumann.imv.io.FileType;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.Panels;
-import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.lib.persistence.PersistentAppSizes;
 import de.elmar_baumann.lib.persistence.PersistentSettings;
 import de.elmar_baumann.lib.persistence.PersistentSettingsHints;
@@ -26,6 +26,7 @@ import java.awt.Image;
 import java.io.File;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -43,8 +44,9 @@ import javax.swing.SpinnerNumberModel;
 public class RenameDialog extends javax.swing.JDialog {
 
     private List<File> files = new ArrayList<File>();
-    private List<RenameFileListener> renameFileListeners = new ArrayList<RenameFileListener>();
+    private List<RenameFileListener> renameFileListeners = new LinkedList<RenameFileListener>();
     private FilenameFormatArray filenameFormatArray = new FilenameFormatArray();
+    private ListenerProvider listenerProvider;
     private int fileIndex = 0;
     private boolean lockClose = false;
     private boolean stop = false;
@@ -56,6 +58,8 @@ public class RenameDialog extends javax.swing.JDialog {
     }
 
     private void postInitComponents() {
+        listenerProvider = ListenerProvider.getInstance();
+        renameFileListeners = listenerProvider.getRenameFileListeners();
         setIconImages(AppSettings.getAppIcons());
         setComboBoxModels();
     }
@@ -83,14 +87,6 @@ public class RenameDialog extends javax.swing.JDialog {
      */
     public void setFiles(List<File> files) {
         this.files = files;
-    }
-
-    public void addRenameFileListener(RenameFileListener listener) {
-        renameFileListeners.add(listener);
-    }
-
-    public void removeRenameFileListener(RenameFileListener listener) {
-        renameFileListeners.remove(listener);
     }
 
     public void notifyRenameListeners(File oldFile, File newFile) {
@@ -371,7 +367,7 @@ public class RenameDialog extends javax.swing.JDialog {
         textFieldAtEnd.setEditable(
             comboBoxAtEnd.getSelectedItem() instanceof FilenameFormatConstantString);
     }
-
+    
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is

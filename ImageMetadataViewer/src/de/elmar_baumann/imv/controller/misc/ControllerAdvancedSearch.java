@@ -5,13 +5,13 @@ import de.elmar_baumann.imv.data.SavedSearch;
 import de.elmar_baumann.imv.data.SavedSearchParamStatement;
 import de.elmar_baumann.imv.database.Database;
 import de.elmar_baumann.imv.database.metadata.ParamStatement;
+import de.elmar_baumann.imv.event.ListenerProvider;
 import de.elmar_baumann.imv.event.SearchEvent;
 import de.elmar_baumann.imv.event.SearchListener;
 import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.view.dialogs.AdvancedSearchDialog;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
-import de.elmar_baumann.imv.view.popupmenus.PopupMenuPanelThumbnails;
 import de.elmar_baumann.lib.componentutil.TreeUtil;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.awt.event.ActionEvent;
@@ -33,7 +33,6 @@ public class ControllerAdvancedSearch extends Controller
     private AppPanel appPanel = Panels.getInstance().getAppPanel();
     private ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelThumbnails();
     private List<JTree> selectionTrees = appPanel.getSelectionTrees();
-    private AdvancedSearchDialog dialogAdvancedSearch = AdvancedSearchDialog.getInstance();
 
     public ControllerAdvancedSearch() {
         listenToActionSources();
@@ -41,7 +40,7 @@ public class ControllerAdvancedSearch extends Controller
 
     private void listenToActionSources() {
         appPanel.getButtonAdvanedSearch().addActionListener(this);
-        dialogAdvancedSearch.addSearchListener(this);
+        ListenerProvider.getInstance().addSearchListener(this);
     }
 
     @Override
@@ -52,6 +51,7 @@ public class ControllerAdvancedSearch extends Controller
     }
 
     private void showAdvancedSearchDialog() {
+        AdvancedSearchDialog dialogAdvancedSearch = AdvancedSearchDialog.getInstance();
         if (dialogAdvancedSearch.isVisible()) {
             dialogAdvancedSearch.toFront();
         } else {

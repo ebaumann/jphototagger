@@ -2,8 +2,8 @@ package de.elmar_baumann.imv.factory;
 
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.database.Database;
+import de.elmar_baumann.imv.event.ListenerProvider;
 import de.elmar_baumann.imv.resource.Panels;
-import de.elmar_baumann.imv.view.dialogs.UserSettingsDialog;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuPanelThumbnails;
 
@@ -29,7 +29,6 @@ public class LateConnectionsFactory {
         AppPanel appPanel = Panels.getInstance().getAppPanel();
         PopupMenuPanelThumbnails popupMenuPanelThumbnails = PopupMenuPanelThumbnails.getInstance();
         UserSettings userSettings = UserSettings.getInstance();
-        UserSettingsDialog userSettingsDialog = UserSettingsDialog.getInstance();
         
         Panels.getInstance().getAppFrame().addAppStartListener(appPanel);
         Panels.getInstance().getAppFrame().addAppExitListener(appPanel);
@@ -42,7 +41,8 @@ public class LateConnectionsFactory {
         }
         
         popupMenuPanelThumbnails.addOtherOpenImageApps();
-        userSettingsDialog.addChangeListener(popupMenuPanelThumbnails);
-        userSettingsDialog.addChangeListener(userSettings);
+        ListenerProvider listenerProvider = ListenerProvider.getInstance();
+        listenerProvider.addUserSettingsChangeListener(popupMenuPanelThumbnails);
+        listenerProvider.addUserSettingsChangeListener(userSettings);
     }
 }

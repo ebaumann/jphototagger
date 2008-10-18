@@ -16,12 +16,14 @@ import de.elmar_baumann.imv.database.metadata.file.TableFiles;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpId;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpIdFiles;
 import de.elmar_baumann.imv.database.metadata.xmp.TableXmp;
+import de.elmar_baumann.imv.event.ListenerProvider;
 import de.elmar_baumann.imv.event.SearchEvent;
 import de.elmar_baumann.imv.event.SearchListener;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.view.panels.SearchColumnPanel;
 import de.elmar_baumann.lib.persistence.PersistentAppSizes;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -34,10 +36,11 @@ import javax.swing.JOptionPane;
 public class AdvancedSearchDialog extends javax.swing.JDialog implements
     SearchListener {
 
-    private List<SearchListener> searchListener = new ArrayList<SearchListener>();
-    private List<SearchColumnPanel> searchColumnPanels = new ArrayList<SearchColumnPanel>();
+    private List<SearchListener> searchListeners = new ArrayList<SearchListener>();
+    private List<SearchColumnPanel> searchColumnPanels = new LinkedList<SearchColumnPanel>();
     private String searchName = ""; // NOI18N
     private boolean isSavedSearch = false;
+    private ListenerProvider listenerProvider;
     private static AdvancedSearchDialog instance = new AdvancedSearchDialog(null, false);
 
     private AdvancedSearchDialog(java.awt.Frame parent, boolean modal) {
@@ -47,6 +50,8 @@ public class AdvancedSearchDialog extends javax.swing.JDialog implements
     }
 
     private void postInitComponents() {
+        listenerProvider = ListenerProvider.getInstance();
+        searchListeners = listenerProvider.getSearchListeners();
         panelColumn1.setOperatorsEnabled(false);
         initSearchColumnPanelArray();
         listenToSearchPanels();
@@ -68,24 +73,6 @@ public class AdvancedSearchDialog extends javax.swing.JDialog implements
      */
     public static AdvancedSearchDialog getInstance() {
         return instance;
-    }
-
-    /**
-     * Fügt einen Beobachter hinzu.
-     * 
-     * @param listener Beobachter
-     */
-    public void addSearchListener(SearchListener listener) {
-        searchListener.add(listener);
-    }
-
-    /**
-     * Entfernt einen Beobachter.
-     * 
-     * @param listener Beobachter
-     */
-    public void removeSearchListener(SearchListener listener) {
-        searchListener.remove(listener);
     }
 
     private boolean checkIsSearchValid() {
@@ -145,7 +132,7 @@ public class AdvancedSearchDialog extends javax.swing.JDialog implements
         SavedSearch data = new SavedSearch();
         data.setParamStatements(getParamStatementData());
         event.setData(data);
-        for (SearchListener listener : searchListener) {
+        for (SearchListener listener : searchListeners) {
             listener.actionPerformed(event);
         }
     }
@@ -154,7 +141,7 @@ public class AdvancedSearchDialog extends javax.swing.JDialog implements
         SearchEvent event = new SearchEvent(SearchEvent.Type.Save);
         event.setData(search);
         event.setForceOverwrite(isSavedSearch);
-        for (SearchListener listener : searchListener) {
+        for (SearchListener listener : searchListeners) {
             listener.actionPerformed(event);
         }
     }
@@ -579,5 +566,4 @@ private void buttonSaveAsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     private de.elmar_baumann.imv.view.panels.SearchColumnPanel panelColumn5;
     private javax.swing.JPanel panelColumns;
     // End of variables declaration//GEN-END:variables
-
 }

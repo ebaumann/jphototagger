@@ -2,6 +2,7 @@ package de.elmar_baumann.imv.controller.thumbnail;
 
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.controller.Controller;
+import de.elmar_baumann.imv.event.ListenerProvider;
 import de.elmar_baumann.imv.event.ThumbnailsPanelAction;
 import de.elmar_baumann.imv.event.ThumbnailsPanelListener;
 import de.elmar_baumann.imv.event.UserSettingsChangeEvent;
@@ -37,7 +38,7 @@ public class ControllerSliderThumbnailSize extends Controller
         thumbnailsPanel.addThumbnailsPanelListener(this);
         initSlider();
         slider.addChangeListener(this);
-        UserSettingsDialog.getInstance().addChangeListener(this);
+        ListenerProvider.getInstance().addUserSettingsChangeListener(this);
     }
 
     private void initSlider() {

@@ -2,6 +2,7 @@ package de.elmar_baumann.imv.controller.filesystem;
 
 import de.elmar_baumann.imv.controller.Controller;
 import de.elmar_baumann.imv.database.Database;
+import de.elmar_baumann.imv.event.ListenerProvider;
 import de.elmar_baumann.imv.event.RenameFileAction;
 import de.elmar_baumann.imv.event.RenameFileListener;
 import de.elmar_baumann.imv.resource.Panels;
@@ -29,6 +30,7 @@ public class ControllerRenameFiles extends Controller
     public ControllerRenameFiles() {
         PopupMenuPanelThumbnails.getInstance().addActionListenerFileSystemRenameFiles(this);
         Panels.getInstance().getAppFrame().getMenuItemFileSystemRename().addActionListener(this);
+        ListenerProvider.getInstance().addRenameFileListener(this);
     }
 
     @Override
@@ -44,7 +46,6 @@ public class ControllerRenameFiles extends Controller
         if (files.size() > 0) {
             Collections.sort(files);
             dialog.setFiles(files);
-            dialog.addRenameFileListener(this);
             dialog.setVisible(true);
         }
     }

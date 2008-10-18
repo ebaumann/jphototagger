@@ -265,6 +265,7 @@ public class UserSettings implements UserSettingsChangeListener {
             return Class.forName(className);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(UserSettingsDialog.class.getName()).log(Level.WARNING, ex.getMessage());
+            PersistentSettings.getInstance().setString(XMLFormatter.class.getName(), keyLogfileFormatterClass);
         }
         return XMLFormatter.class;
     }

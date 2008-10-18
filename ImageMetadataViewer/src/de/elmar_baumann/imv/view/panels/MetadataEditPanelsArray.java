@@ -14,6 +14,7 @@ import de.elmar_baumann.imv.database.metadata.selections.EditColumns;
 import de.elmar_baumann.imv.database.metadata.mapping.IptcXmpMapping;
 import de.elmar_baumann.imv.event.DatabaseAction;
 import de.elmar_baumann.imv.event.DatabaseListener;
+import de.elmar_baumann.imv.event.ListenerProvider;
 import de.elmar_baumann.imv.event.MetaDataEditPanelEvent;
 import de.elmar_baumann.imv.event.MetaDataEditPanelListener;
 import de.elmar_baumann.imv.image.metadata.xmp.XmpMetadata;
@@ -27,6 +28,7 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.util.Set;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
@@ -44,38 +46,23 @@ public class MetadataEditPanelsArray implements FocusListener, DatabaseListener 
     private JComponent container;
     private List<JPanel> panels = new ArrayList<JPanel>();
     private List<String> filenames = new ArrayList<String>();
-    private List<MetaDataEditPanelListener> listener = new ArrayList<MetaDataEditPanelListener>();
+    private List<MetaDataEditPanelListener> listeners = new LinkedList<MetaDataEditPanelListener>();
     private MetaDataEditActionsPanel metadataEditActionsPanel;
     private boolean isUseAutocomplete = false;
     private Component lastFocussedComponent;
+    private ListenerProvider listenerProvider;
 
     public MetadataEditPanelsArray(JComponent container) {
         this.container = container;
+        listenerProvider = ListenerProvider.getInstance();
+        listeners = listenerProvider.getMetaDataEditPanelListeners();
         createEditPanels();
         addPanels();
         setFocusToFirstEditField();
     }
 
-    /**
-     * Fügt einen Beobachter hinzu.
-     * 
-     * @param listener  Beobachter
-     */
-    public void addActionListener(MetaDataEditPanelListener listener) {
-        this.listener.add(listener);
-    }
-
-    /**
-     * Entfernt einen Beobachter.
-     * 
-     * @param listener  Beobachter
-     */
-    public void removeActionListener(MetaDataEditPanelListener listener) {
-        this.listener.remove(listener);
-    }
-
     private void notifyActionListener(MetaDataEditPanelEvent evt) {
-        for (MetaDataEditPanelListener l : listener) {
+        for (MetaDataEditPanelListener l : listeners) {
             l.actionPerformed(evt);
         }
     }

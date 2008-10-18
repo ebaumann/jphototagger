@@ -4,6 +4,7 @@ import de.elmar_baumann.imv.AppSettings;
 import de.elmar_baumann.imv.controller.Controller;
 import de.elmar_baumann.imv.data.SavedSearch;
 import de.elmar_baumann.imv.database.Database;
+import de.elmar_baumann.imv.event.ListenerProvider;
 import de.elmar_baumann.imv.event.SearchEvent;
 import de.elmar_baumann.imv.event.SearchListener;
 import de.elmar_baumann.imv.model.ListModelSavedSearches;
@@ -38,7 +39,7 @@ public class ControllerCreateSavedSearch extends Controller
 
     private void listenToActionSources() {
         PopupMenuListSavedSearches.getInstance().addActionListenerCreate(this);
-        AdvancedSearchDialog.getInstance().addSearchListener(this);
+        ListenerProvider.getInstance().addSearchListener(this);
     }
 
     @Override

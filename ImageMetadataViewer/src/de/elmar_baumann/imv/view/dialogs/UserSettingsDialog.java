@@ -4,6 +4,7 @@ import de.elmar_baumann.imv.AppSettings;
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.database.Database;
 import de.elmar_baumann.imv.database.metadata.Column;
+import de.elmar_baumann.imv.event.ListenerProvider;
 import de.elmar_baumann.imv.event.UserSettingsChangeEvent;
 import de.elmar_baumann.imv.event.UserSettingsChangeListener;
 import de.elmar_baumann.imv.model.ComboBoxModelLogfileFormatter;
@@ -27,6 +28,7 @@ import java.io.File;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import javax.swing.JFileChooser;
@@ -47,7 +49,7 @@ public class UserSettingsDialog extends javax.swing.JDialog
     private Database db = Database.getInstance();
     private final String keyLastSelectedAutoscanDirectory = "UserSettingsDialog.keyLastSelectedAutoscanDirectory"; // NOI18N
     private final String keyTabbedPaneIndex = "UserSettingsDialog.TabbedPaneIndex";
-    private List<UserSettingsChangeListener> changeListener = new ArrayList<UserSettingsChangeListener>();
+    private List<UserSettingsChangeListener> changeListeners = new LinkedList<UserSettingsChangeListener>();
     public CheckList checkListSearchColumns = new CheckList();
     public ListModelFastSearchColumns searchColumnsListModel = new ListModelFastSearchColumns();
     private Map<Tab, Integer> indexOfTab = new HashMap<Tab, Integer>();
@@ -57,6 +59,7 @@ public class UserSettingsDialog extends javax.swing.JDialog
     private String lastSelectedAutoscanDirectory = ""; // NOI18N
     private String previousDirectory = ""; // NOI18N
     private UpdateAllThumbnails thumbnailsUpdater;
+    private ListenerProvider listenerProvider;
     private static UserSettingsDialog instance = new UserSettingsDialog();
 
     private void handleActionCheckBoxIsAutoscanIncludeSubdirectories() {
@@ -193,26 +196,8 @@ public class UserSettingsDialog extends javax.swing.JDialog
         }
     }
 
-    /**
-     * Fügt einen Änderungsbeobachter hinzu.
-     * 
-     * @param listener Beobachter
-     */
-    public void addChangeListener(UserSettingsChangeListener listener) {
-        changeListener.add(listener);
-    }
-
-    /**
-     * Entfernt einen Änderungsbeobachter.
-     * 
-     * @param listener Beobachter
-     */
-    public void removeChagneListener(UserSettingsChangeListener listener) {
-        changeListener.remove(listener);
-    }
-
     private void notifyChangeListener(UserSettingsChangeEvent evt) {
-        for (UserSettingsChangeListener listener : changeListener) {
+        for (UserSettingsChangeListener listener : changeListeners) {
             listener.applySettings(evt);
         }
     }
@@ -266,6 +251,8 @@ public class UserSettingsDialog extends javax.swing.JDialog
     private UserSettingsDialog() {
         super((java.awt.Frame) null, false);
         initHashMaps();
+        listenerProvider = ListenerProvider.getInstance();
+        changeListeners = listenerProvider.getUserSettingsChangeListeners();
         setSearchColumns();
         initComponents();
         setIconImages(AppSettings.getAppIcons());
@@ -1467,5 +1454,4 @@ private void checkBoxIsAcceptHiddenDirectoriesActionPerformed(java.awt.event.Act
     private javax.swing.JTabbedPane tabbedPane;
     public javax.swing.JTextField textFieldExternalThumbnailCreationCommand;
     // End of variables declaration//GEN-END:variables
-
 }

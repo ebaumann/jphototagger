@@ -10,6 +10,7 @@ import de.elmar_baumann.imv.database.Database;
 import de.elmar_baumann.imv.database.metadata.Column;
 import de.elmar_baumann.imv.event.DatabaseAction;
 import de.elmar_baumann.imv.event.DatabaseListener;
+import de.elmar_baumann.imv.event.ListenerProvider;
 import de.elmar_baumann.imv.event.UserSettingsChangeEvent;
 import de.elmar_baumann.imv.event.UserSettingsChangeListener;
 import de.elmar_baumann.imv.resource.Panels;
@@ -62,7 +63,7 @@ public class ControllerFastSearch extends Controller
     }
 
     private void listenToActionSources() {
-        UserSettingsDialog.getInstance().addChangeListener(this);
+        ListenerProvider.getInstance().addUserSettingsChangeListener(this);
 
         textFieldSearch.addKeyListener(new KeyAdapter() {
 
