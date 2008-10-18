@@ -31,6 +31,7 @@ public class ControllerCreateMetaDataOfCurrentThumbnails extends Controller
     private ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelThumbnails();
     private JProgressBar progressBar = appPanel.getProgressBarCreateMetaDataOfCurrentThumbnails();
     private boolean stopCurrent = false;
+    private boolean firstRun = true;
 
     public ControllerCreateMetaDataOfCurrentThumbnails() {
         thumbnailsPanel.addThumbnailsPanelListener(this);
@@ -48,7 +49,15 @@ public class ControllerCreateMetaDataOfCurrentThumbnails extends Controller
         updater.setCreateThumbnails(true);
         updater.addProgressListener(this);
         updater.setForceUpdate(false);
+        setDelay(updater);
         return updater;
+    }
+
+    private synchronized void setDelay(ImageMetadataToDatabase updater) {
+        if (firstRun) {
+            updater.setDelaySeconds(5);
+            firstRun = false;
+        }
     }
 
     private synchronized void startUpdateMetadataThread() {
