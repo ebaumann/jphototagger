@@ -46,6 +46,7 @@ public class UserSettings implements UserSettingsChangeListener {
     private static final String keyMinutesToStartScheduledTasks = "UserSettings.MinutesToStartScheduledTasks";
     private static final String keyOtherImageOpenApps = "UserSettings.OtherImageOpenApps";
     private static final String keyThreadPriority = "UserSettings.ThreadPriority";
+    private static final String keyAutocopyDirectory = "UserSettings.AutocopyDirectory";
     private PersistentSettings settings = PersistentSettings.getInstance();
     private static UserSettings instance = new UserSettings();
 
@@ -314,6 +315,17 @@ public class UserSettings implements UserSettingsChangeListener {
             ? settings.getBoolean(keyIsAcceptHiddenDirectories)
             : false;
     }
+    
+    /**
+     * Returns the autocopy directory, a source directory from which all
+     * image files should be copied to another directory automatically.
+     * 
+     * @return Existing directory or null if not defined or not existing
+     */
+    public File getAutocopyDirectory() {
+        File dir = new File(settings.getString(keyAutocopyDirectory));
+        return dir.exists() && dir.isDirectory() ? dir : null;
+    }
 
     private UserSettings() {
     }
@@ -369,6 +381,8 @@ public class UserSettings implements UserSettingsChangeListener {
             setOtherImageOpenApps(dialog.listOtherImageOpenApps.getModel());
         } else if (type.equals(UserSettingsChangeEvent.Type.ThreadPriority)) {
             setThreadPriority((ComboBoxModelThreadPriority) dialog.comboBoxThreadPriority.getModel());
+        } else if (type.equals(UserSettingsChangeEvent.Type.AutocopyDirectory)) {
+            settings.setString(dialog.labelAutocopyDirectory.getText(), keyAutocopyDirectory);
         }
     }
 }

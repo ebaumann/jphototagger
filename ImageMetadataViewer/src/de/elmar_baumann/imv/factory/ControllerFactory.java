@@ -27,6 +27,7 @@ import de.elmar_baumann.imv.controller.metadata.ControllerSaveMetaData;
 import de.elmar_baumann.imv.controller.metadata.ControllerShowMetadata;
 import de.elmar_baumann.imv.controller.metadata.ControllerThumbnailSelectionEditMetadata;
 import de.elmar_baumann.imv.controller.misc.ControllerAdvancedSearch;
+import de.elmar_baumann.imv.controller.misc.ControllerAutocopyDirectory;
 import de.elmar_baumann.imv.controller.misc.ControllerFastSearch;
 import de.elmar_baumann.imv.controller.misc.ControllerGoto;
 import de.elmar_baumann.imv.controller.misc.ControllerIptcToXmp;
@@ -137,6 +138,7 @@ public class ControllerFactory {
         controllers.add(new ControllerRenameFiles());
         controllers.add(new ControllerSortThumbnails());
         controllers.add(new ControllerThumbnailsDatabaseChanges());
+        controllers.add(new ControllerAutocopyDirectory());
         controllerScheduledTasks = new ControllerArrayScheduledTasks();
         controllers.add(controllerScheduledTasks);
     }

@@ -13,6 +13,7 @@ public class UserSettingsChangeEvent {
     public enum Type {
 
         AutoscanDirectories,
+        AutocopyDirectory,
         DefaultImageOpenApp,
         ExternalThumbnailCreationCommand,
         FastSearchColumnDefined,

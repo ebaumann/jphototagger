@@ -57,10 +57,36 @@ public class UserSettingsDialog extends javax.swing.JDialog
     private ListModelOtherImageOpenApps modelOtherImageOpenApps = new ListModelOtherImageOpenApps();
     private ListModelAutoscanDirectories modelAutoscanDirectories = new ListModelAutoscanDirectories();
     private String lastSelectedAutoscanDirectory = ""; // NOI18N
+    private String lastSelectedAutocopyDirectory = ""; // NOI18N
     private String previousDirectory = ""; // NOI18N
     private UpdateAllThumbnails thumbnailsUpdater;
     private ListenerProvider listenerProvider;
     private static UserSettingsDialog instance = new UserSettingsDialog();
+
+    private void chooseAutocopyDirectory() {
+        File file = chooseDirectory(new File(lastSelectedAutocopyDirectory));
+        if (file != null) {
+            String directory = file.getAbsolutePath();
+            labelAutocopyDirectory.setText(directory);
+            lastSelectedAutocopyDirectory = directory;
+            notifyChangeListener(new UserSettingsChangeEvent(
+                UserSettingsChangeEvent.Type.AutocopyDirectory, this));
+        }
+    }
+
+    private File chooseDirectory(File startDirectory) {
+        File dir = null;
+        DirectoryChooser dialog = new DirectoryChooser(null, false);
+
+        dialog.setStartDirectory(startDirectory);
+        dialog.setMultiSelection(false);
+        dialog.setVisible(true);
+
+        if (dialog.accepted()) {
+            dir = dialog.getSelectedDirectories().get(0);
+        }
+        return dir;
+    }
 
     private void handleActionCheckBoxIsAutoscanIncludeSubdirectories() {
         notifyChangeListener(new UserSettingsChangeEvent(
@@ -284,7 +310,7 @@ public class UserSettingsDialog extends javax.swing.JDialog
         checkListSearchColumns.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         checkListSearchColumns.addActionListener(this);
     }
-    
+
     private PersistentSettingsHints getPersistentSettingsHints() {
         PersistentSettingsHints hints = new PersistentSettingsHints();
         hints.setTabbedPaneContents(false);
@@ -307,6 +333,11 @@ public class UserSettingsDialog extends javax.swing.JDialog
         UserSettings settings = UserSettings.getInstance();
 
         labelDefaultImageOpenApp.setText(settings.getDefaultImageOpenApp());
+        String lastAcDirectory = settings.getAutocopyDirectory().toString();
+        if (!lastAcDirectory.isEmpty()) {
+            labelAutocopyDirectory.setText(lastAcDirectory);
+            lastSelectedAutocopyDirectory = lastAcDirectory;
+        }
 
         comboBoxIptcCharset.getModel().setSelectedItem(settings.getIptcCharset());
         comboBoxLogLevel.setSelectedItem(settings.getLogLevel().getLocalizedName());
@@ -344,7 +375,7 @@ public class UserSettingsDialog extends javax.swing.JDialog
     }
 
     private void setDefaultOpenApp() {
-        File file = chooseFile(labelDefaultImageOpenApp.getText());
+        File file = chooseDirectory(labelDefaultImageOpenApp.getText());
         if (file != null && file.exists()) {
             labelDefaultImageOpenApp.setText(file.getAbsolutePath());
             notifyChangeListener(new UserSettingsChangeEvent(
@@ -353,7 +384,7 @@ public class UserSettingsDialog extends javax.swing.JDialog
     }
 
     private void addOtherOpenImageApp() {
-        File file = chooseFile(previousDirectory);
+        File file = chooseDirectory(previousDirectory);
         if (file != null && modelOtherImageOpenApps.add(file)) {
             setEnabled();
             notifyChangeListener(new UserSettingsChangeEvent(
@@ -382,7 +413,7 @@ public class UserSettingsDialog extends javax.swing.JDialog
             AppSettings.getMediumAppIcon()) == JOptionPane.YES_OPTION;
     }
 
-    private File chooseFile(String startDirectory) {
+    private File chooseDirectory(String startDirectory) {
         JFileChooser fileChooser = new JFileChooser(new File(startDirectory));
         fileChooser.setMultiSelectionEnabled(false);
         if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
@@ -561,6 +592,9 @@ public class UserSettingsDialog extends javax.swing.JDialog
         comboBoxLogLevel = new javax.swing.JComboBox();
         labelLogLogfileFormatterClass = new javax.swing.JLabel();
         comboBoxLogfileFormatterClass = new javax.swing.JComboBox();
+        panelAutoCopyDirectory = new javax.swing.JPanel();
+        labelAutocopyDirectory = new javax.swing.JLabel();
+        buttonChooseAutocopyDirectory = new javax.swing.JButton();
         checkBoxIsAcceptHiddenDirectories = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -578,7 +612,7 @@ public class UserSettingsDialog extends javax.swing.JDialog
         labelDefaultImageOpenAppPrompt.setFont(new java.awt.Font("Dialog", 0, 12));
         labelDefaultImageOpenAppPrompt.setText(Bundle.getString("UserSettingsDialog.labelDefaultImageOpenAppPrompt.text")); // NOI18N
 
-        buttonDefaultImageOpenApp.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        buttonDefaultImageOpenApp.setFont(new java.awt.Font("Dialog", 0, 12));
         buttonDefaultImageOpenApp.setMnemonic('a');
         buttonDefaultImageOpenApp.setText(Bundle.getString("UserSettingsDialog.buttonDefaultImageOpenApp.text")); // NOI18N
         buttonDefaultImageOpenApp.addActionListener(new java.awt.event.ActionListener() {
@@ -1223,6 +1257,42 @@ public class UserSettingsDialog extends javax.swing.JDialog
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        panelAutoCopyDirectory.setBorder(javax.swing.BorderFactory.createTitledBorder(null, Bundle.getString("UserSettingsDialog.panelAutoCopyDirectory.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 11))); // NOI18N
+
+        labelAutocopyDirectory.setFont(new java.awt.Font("Dialog", 0, 10));
+        labelAutocopyDirectory.setForeground(new java.awt.Color(0, 0, 255));
+        labelAutocopyDirectory.setText(Bundle.getString("UserSettingsDialog.labelAutocopyDirectory.text")); // NOI18N
+        labelAutocopyDirectory.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        buttonChooseAutocopyDirectory.setFont(new java.awt.Font("Dialog", 0, 12));
+        buttonChooseAutocopyDirectory.setMnemonic('a');
+        buttonChooseAutocopyDirectory.setText(Bundle.getString("UserSettingsDialog.buttonChooseAutocopyDirectory.text")); // NOI18N
+        buttonChooseAutocopyDirectory.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonChooseAutocopyDirectoryActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelAutoCopyDirectoryLayout = new javax.swing.GroupLayout(panelAutoCopyDirectory);
+        panelAutoCopyDirectory.setLayout(panelAutoCopyDirectoryLayout);
+        panelAutoCopyDirectoryLayout.setHorizontalGroup(
+            panelAutoCopyDirectoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelAutoCopyDirectoryLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelAutoCopyDirectoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(labelAutocopyDirectory, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 617, Short.MAX_VALUE)
+                    .addComponent(buttonChooseAutocopyDirectory, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addContainerGap())
+        );
+        panelAutoCopyDirectoryLayout.setVerticalGroup(
+            panelAutoCopyDirectoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelAutoCopyDirectoryLayout.createSequentialGroup()
+                .addComponent(labelAutocopyDirectory)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(buttonChooseAutocopyDirectory)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         checkBoxIsAcceptHiddenDirectories.setFont(new java.awt.Font("Dialog", 0, 12));
         checkBoxIsAcceptHiddenDirectories.setText(Bundle.getString("UserSettingsDialog.checkBoxIsAcceptHiddenDirectories.text")); // NOI18N
         checkBoxIsAcceptHiddenDirectories.addActionListener(new java.awt.event.ActionListener() {
@@ -1239,6 +1309,7 @@ public class UserSettingsDialog extends javax.swing.JDialog
                 .addContainerGap()
                 .addGroup(panelOtherLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(checkBoxIsAcceptHiddenDirectories)
+                    .addComponent(panelAutoCopyDirectory, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panelLogfile, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -1248,8 +1319,10 @@ public class UserSettingsDialog extends javax.swing.JDialog
                 .addContainerGap()
                 .addComponent(panelLogfile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelAutoCopyDirectory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(checkBoxIsAcceptHiddenDirectories)
-                .addContainerGap(220, Short.MAX_VALUE))
+                .addContainerGap(137, Short.MAX_VALUE))
         );
 
         tabbedPane.addTab(Bundle.getString("UserSettingsDialog.panelOther.TabConstraints.tabTitle"), panelOther); // NOI18N
@@ -1374,6 +1447,10 @@ private void checkBoxIsAcceptHiddenDirectoriesActionPerformed(java.awt.event.Act
     handleActionPerformedCheckBoxIsAcceptHiddenDirectories();
 }//GEN-LAST:event_checkBoxIsAcceptHiddenDirectoriesActionPerformed
 
+private void buttonChooseAutocopyDirectoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonChooseAutocopyDirectoryActionPerformed
+    chooseAutocopyDirectory();
+}//GEN-LAST:event_buttonChooseAutocopyDirectoryActionPerformed
+
     /**
     * @param args the command line arguments
     */
@@ -1396,6 +1473,7 @@ private void checkBoxIsAcceptHiddenDirectoriesActionPerformed(java.awt.event.Act
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAddAutoscanDirectories;
     private javax.swing.JButton buttonAddOtherImageOpenApp;
+    private javax.swing.JButton buttonChooseAutocopyDirectory;
     private javax.swing.JButton buttonDefaultImageOpenApp;
     private javax.swing.JButton buttonMoveDownOtherImageOpenApp;
     private javax.swing.JButton buttonMoveUpOtherImageOpenApp;
@@ -1412,6 +1490,7 @@ private void checkBoxIsAcceptHiddenDirectoriesActionPerformed(java.awt.event.Act
     public javax.swing.JComboBox comboBoxLogLevel;
     public javax.swing.JComboBox comboBoxLogfileFormatterClass;
     public javax.swing.JComboBox comboBoxThreadPriority;
+    public javax.swing.JLabel labelAutocopyDirectory;
     private javax.swing.JLabel labelAutoscanDirectoriesInfo;
     private javax.swing.JLabel labelAutoscanDirectoriesPrompt;
     public javax.swing.JLabel labelDefaultImageOpenApp;
@@ -1431,6 +1510,7 @@ private void checkBoxIsAcceptHiddenDirectoriesActionPerformed(java.awt.event.Act
     private javax.swing.JList listAutoscanDirectories;
     public javax.swing.JList listOtherImageOpenApps;
     private javax.swing.JPanel panelAccelerateStart;
+    private javax.swing.JPanel panelAutoCopyDirectory;
     private javax.swing.JPanel panelExternalThumbnailApp;
     private de.elmar_baumann.imv.view.panels.FileExcludePatternsPanel panelFileExcludePatterns;
     private javax.swing.JPanel panelImageOpenApps;
