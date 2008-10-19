@@ -35,7 +35,7 @@ public class ControllerHelp extends Controller implements ActionListener,
     }
 
     private void showHelp() {
-        help.setContentsUrl(Bundle.getString("Settings.PathHelpFileIndex"));
+        help.setContentsUrl(Bundle.getString("Help.Url.Contents"));
         if (!lastUrl.isEmpty()) {
             help.setStartUrl(lastUrl);
         }
