@@ -121,6 +121,14 @@
 	<node>
 		<title>Tipps</title>
 		<page>
+			<url>tip-use-help.html</url>
+			<title>Nutzen Sie die Hilfe</title>
+		</page>
+		<page>
+			<url>tip-check-logfile.html</url>
+			<title>Öffnen Sie bei Fehlern die Logdatei</title>
+		</page>
+		<page>
 			<url>tip-use-shortcuts.html</url>
 			<title>Tastaturkürzel</title>
 		</page>
@@ -162,6 +170,10 @@
 		<page>
 			<url>facts-database-location.html</url>
 			<title>Wo ist die Datenbank?</title>
+		</page>
+		<page>
+			<url>facts-why-xmp-sidecarfiles.html</url>
+			<title>Warum XMP-Filialdateien?</title>
 		</page>
 	</node>
 	<node>
