@@ -145,9 +145,10 @@ public class Dialog extends JDialog {
 
     /**
      * This method is called if the user presses the ESC key. The
-     * default implementation does nothing.
+     * default implementation calls <code>setVisible(false)</code>.
      */
     protected void escape() {
+        setVisible(false);
     }
 
     private void init() {
