@@ -94,7 +94,7 @@ public class RenameInXmpColumnsDialog extends Dialog {
 
     @Override
     protected void help() {
-        help("action_replace_xmp.html");
+        help(Bundle.getString("Help.Url.RenameInXmpColumnsDialog"));
     }
 
     @Override
