@@ -3,6 +3,7 @@ package de.elmar_baumann.imv.view.dialogs;
 import de.elmar_baumann.imv.AppSettings;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.view.renderer.ListCellRendererImageCollections;
+import de.elmar_baumann.lib.dialog.Dialog;
 import de.elmar_baumann.lib.persistence.PersistentAppSizes;
 import java.awt.event.MouseEvent;
 import javax.swing.ListModel;
@@ -13,7 +14,7 @@ import javax.swing.ListModel;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/08
  */
-public class ImageCollectionsDialog extends javax.swing.JDialog {
+public class ImageCollectionsDialog extends Dialog {
 
     private boolean ok = false;
 
@@ -51,6 +52,8 @@ public class ImageCollectionsDialog extends javax.swing.JDialog {
 
     private void postInitComponents() {
         setIconImages(AppSettings.getAppIcons());
+        setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
+        registerKeyStrokes();
     }
 
     @Override
@@ -61,6 +64,16 @@ public class ImageCollectionsDialog extends javax.swing.JDialog {
             PersistentAppSizes.setSizeAndLocation(this);
         }
         super.setVisible(visible);
+    }
+
+    @Override
+    protected void help() {
+        help(Bundle.getString("Help.Url.ImageCollectionsDialog"));
+    }
+
+    @Override
+    protected void escape() {
+        setVisible(false);
     }
 
     /** This method is called from within the constructor to
