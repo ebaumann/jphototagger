@@ -30,7 +30,6 @@ public class LateConnectionsFactory {
         PopupMenuPanelThumbnails popupMenuPanelThumbnails = PopupMenuPanelThumbnails.getInstance();
         UserSettings userSettings = UserSettings.getInstance();
         
-        Panels.getInstance().getAppFrame().addAppStartListener(appPanel);
         Panels.getInstance().getAppFrame().addAppExitListener(appPanel);
         
         appPanel.getPanelThumbnails().setDefaultThumbnailWidth(userSettings.getMaxThumbnailWidth());
