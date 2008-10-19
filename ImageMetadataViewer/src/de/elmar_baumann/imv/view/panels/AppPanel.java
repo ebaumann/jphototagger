@@ -418,17 +418,17 @@ public class AppPanel extends javax.swing.JPanel
         panelScrollPaneEditMetaData = new javax.swing.JPanel();
         scrollPaneEditMetadata = new javax.swing.JScrollPane();
         panelEditMetadata = new javax.swing.JPanel();
-        panelMetadataProgress = new javax.swing.JPanel();
-        progressBarScheduledTasks = new javax.swing.JProgressBar();
-        progressBarCurrentTasks = new javax.swing.JProgressBar();
-        buttonStopScheduledTasks = new javax.swing.JButton();
         panelStatusbar = new javax.swing.JPanel();
         sliderThumbnailSize = new javax.swing.JSlider();
         buttonLogfileDialog = new javax.swing.JButton();
         buttonAdvanedSearch = new javax.swing.JButton();
-        textFieldSearch = new javax.swing.JTextField();
         labelStatusbar = new javax.swing.JLabel();
         progressBarCreateMetaDataOfCurrentThumbnails = new javax.swing.JProgressBar();
+        progressBarCurrentTasks = new javax.swing.JProgressBar();
+        textFieldSearch = new javax.swing.JTextField();
+        panelMetadataProgress = new javax.swing.JPanel();
+        progressBarScheduledTasks = new javax.swing.JProgressBar();
+        buttonStopScheduledTasks = new javax.swing.JButton();
 
         treeDirectories.setCellRenderer(new TreeCellRendererDirectories());
         treeDirectories.setExpandsSelectedPaths(false);
@@ -443,7 +443,7 @@ public class AppPanel extends javax.swing.JPanel
         );
         panelSelectionDirectoriesLayout.setVerticalGroup(
             panelSelectionDirectoriesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPaneDirectories, javax.swing.GroupLayout.DEFAULT_SIZE, 265, Short.MAX_VALUE)
+            .addComponent(scrollPaneDirectories, javax.swing.GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE)
         );
 
         tabbedPaneSelection.addTab(Bundle.getString("AppPanel.panelSelectionDirectories.TabConstraints.tabTitle"), panelSelectionDirectories); // NOI18N
@@ -460,7 +460,7 @@ public class AppPanel extends javax.swing.JPanel
         );
         panelSelectionSavedSearchesLayout.setVerticalGroup(
             panelSelectionSavedSearchesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPaneSavedSearches, javax.swing.GroupLayout.DEFAULT_SIZE, 265, Short.MAX_VALUE)
+            .addComponent(scrollPaneSavedSearches, javax.swing.GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE)
         );
 
         tabbedPaneSelection.addTab(Bundle.getString("AppPanel.panelSelectionSavedSearches.TabConstraints.tabTitle"), panelSelectionSavedSearches); // NOI18N
@@ -477,7 +477,7 @@ public class AppPanel extends javax.swing.JPanel
         );
         panelSelectionImageCollectionsLayout.setVerticalGroup(
             panelSelectionImageCollectionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPaneImageCollections, javax.swing.GroupLayout.DEFAULT_SIZE, 265, Short.MAX_VALUE)
+            .addComponent(scrollPaneImageCollections, javax.swing.GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE)
         );
 
         tabbedPaneSelection.addTab(Bundle.getString("AppPanel.panelSelectionImageCollections.TabConstraints.tabTitle"), panelSelectionImageCollections); // NOI18N
@@ -494,7 +494,7 @@ public class AppPanel extends javax.swing.JPanel
         );
         panelSelectionCategoriesLayout.setVerticalGroup(
             panelSelectionCategoriesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPaneCategories, javax.swing.GroupLayout.DEFAULT_SIZE, 265, Short.MAX_VALUE)
+            .addComponent(scrollPaneCategories, javax.swing.GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE)
         );
 
         tabbedPaneSelection.addTab(Bundle.getString("AppPanel.panelSelectionCategories.TabConstraints.tabTitle"), panelSelectionCategories); // NOI18N
@@ -513,9 +513,9 @@ public class AppPanel extends javax.swing.JPanel
         );
         panelSelectionFavoriteDirectoriesLayout.setVerticalGroup(
             panelSelectionFavoriteDirectoriesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 265, Short.MAX_VALUE)
+            .addGap(0, 251, Short.MAX_VALUE)
             .addGroup(panelSelectionFavoriteDirectoriesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(scrollPaneFavoriteDirectories, javax.swing.GroupLayout.DEFAULT_SIZE, 265, Short.MAX_VALUE))
+                .addComponent(scrollPaneFavoriteDirectories, javax.swing.GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE))
         );
 
         tabbedPaneSelection.addTab(Bundle.getString("AppPanel.panelSelectionFavoriteDirectories.TabConstraints.tabTitle"), panelSelectionFavoriteDirectories); // NOI18N
@@ -530,9 +530,9 @@ public class AppPanel extends javax.swing.JPanel
         );
         panelSelectionLayout.setVerticalGroup(
             panelSelectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 364, Short.MAX_VALUE)
+            .addGap(0, 350, Short.MAX_VALUE)
             .addGroup(panelSelectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(tabbedPaneSelection, javax.swing.GroupLayout.DEFAULT_SIZE, 364, Short.MAX_VALUE))
+                .addComponent(tabbedPaneSelection, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE))
         );
 
         splitPaneMain.setLeftComponent(panelSelection);
@@ -545,7 +545,7 @@ public class AppPanel extends javax.swing.JPanel
         );
         panelThumbnailsLayout.setVerticalGroup(
             panelThumbnailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 359, Short.MAX_VALUE)
+            .addGap(0, 345, Short.MAX_VALUE)
         );
 
         scrollPaneThumbnails.setViewportView(panelThumbnails);
@@ -560,9 +560,9 @@ public class AppPanel extends javax.swing.JPanel
         );
         panelThumbnailsContentLayout.setVerticalGroup(
             panelThumbnailsContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 362, Short.MAX_VALUE)
+            .addGap(0, 348, Short.MAX_VALUE)
             .addGroup(panelThumbnailsContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(scrollPaneThumbnails, javax.swing.GroupLayout.DEFAULT_SIZE, 362, Short.MAX_VALUE))
+                .addComponent(scrollPaneThumbnails, javax.swing.GroupLayout.DEFAULT_SIZE, 348, Short.MAX_VALUE))
         );
 
         splitPaneThumbnailsMetadata.setLeftComponent(panelThumbnailsContent);
@@ -656,11 +656,11 @@ public class AppPanel extends javax.swing.JPanel
         panelScrollPaneEditMetaData.setLayout(panelScrollPaneEditMetaDataLayout);
         panelScrollPaneEditMetaDataLayout.setHorizontalGroup(
             panelScrollPaneEditMetaDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPaneEditMetadata, javax.swing.GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE)
+            .addComponent(scrollPaneEditMetadata, javax.swing.GroupLayout.DEFAULT_SIZE, 372, Short.MAX_VALUE)
         );
         panelScrollPaneEditMetaDataLayout.setVerticalGroup(
             panelScrollPaneEditMetaDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPaneEditMetadata, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
+            .addComponent(scrollPaneEditMetadata, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 298, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout panelTabEditMetaDataLayout = new javax.swing.GroupLayout(panelTabEditMetaData);
@@ -676,9 +676,62 @@ public class AppPanel extends javax.swing.JPanel
 
         tabbedPaneMetaData.addTab(Bundle.getString("AppPanel.panelTabEditMetaData.TabConstraints.tabTitle"), panelTabEditMetaData); // NOI18N
 
-        progressBarScheduledTasks.setToolTipText(AppSettings.tooltipTextProgressBarScheduledTasks);
+        javax.swing.GroupLayout panelMetadataLayout = new javax.swing.GroupLayout(panelMetadata);
+        panelMetadata.setLayout(panelMetadataLayout);
+        panelMetadataLayout.setHorizontalGroup(
+            panelMetadataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(labelMetadataFilename, javax.swing.GroupLayout.DEFAULT_SIZE, 377, Short.MAX_VALUE)
+            .addComponent(tabbedPaneMetaData, javax.swing.GroupLayout.DEFAULT_SIZE, 377, Short.MAX_VALUE)
+        );
+        panelMetadataLayout.setVerticalGroup(
+            panelMetadataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelMetadataLayout.createSequentialGroup()
+                .addComponent(labelMetadataFilename)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tabbedPaneMetaData, javax.swing.GroupLayout.DEFAULT_SIZE, 325, Short.MAX_VALUE))
+        );
+
+        splitPaneThumbnailsMetadata.setRightComponent(panelMetadata);
+
+        javax.swing.GroupLayout panelThumbnailsMetadataLayout = new javax.swing.GroupLayout(panelThumbnailsMetadata);
+        panelThumbnailsMetadata.setLayout(panelThumbnailsMetadataLayout);
+        panelThumbnailsMetadataLayout.setHorizontalGroup(
+            panelThumbnailsMetadataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 411, Short.MAX_VALUE)
+            .addGroup(panelThumbnailsMetadataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(splitPaneThumbnailsMetadata, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 411, Short.MAX_VALUE))
+        );
+        panelThumbnailsMetadataLayout.setVerticalGroup(
+            panelThumbnailsMetadataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 350, Short.MAX_VALUE)
+            .addGroup(panelThumbnailsMetadataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(splitPaneThumbnailsMetadata, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE))
+        );
+
+        splitPaneMain.setRightComponent(panelThumbnailsMetadata);
+
+        sliderThumbnailSize.setMajorTickSpacing(10);
+        sliderThumbnailSize.setMinimum(10);
+        sliderThumbnailSize.setSnapToTicks(true);
+        sliderThumbnailSize.setToolTipText(Bundle.getString("AppPanel.sliderThumbnailSize.toolTipText")); // NOI18N
+
+        buttonLogfileDialog.setToolTipText(Bundle.getString("AppPanel.buttonLogfileDialog.toolTipText")); // NOI18N
+        buttonLogfileDialog.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        buttonLogfileDialog.setPreferredSize(new java.awt.Dimension(16, 16));
+
+        buttonAdvanedSearch.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        buttonAdvanedSearch.setText(Bundle.getString("AppPanel.buttonAdvanedSearch.text")); // NOI18N
+        buttonAdvanedSearch.setToolTipText(Bundle.getString("AppPanel.buttonAdvanedSearch.toolTipText")); // NOI18N
+
+        labelStatusbar.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+
+        progressBarCreateMetaDataOfCurrentThumbnails.setToolTipText(AppSettings.tooltipTextProgressBarDirectory);
 
         progressBarCurrentTasks.setToolTipText(AppSettings.tooltipTextProgressBarCurrentTasks);
+
+        textFieldSearch.setToolTipText(Bundle.getString("AppPanel.textFieldSearch.toolTipText")); // NOI18N
+
+        progressBarScheduledTasks.setToolTipText(AppSettings.tooltipTextProgressBarScheduledTasks);
 
         buttonStopScheduledTasks.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icon_stop_scheduled_tasks_enabled.png"))); // NOI18N
         buttonStopScheduledTasks.setDisabledIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icon_stop_scheduled_tasks_disabled.png"))); // NOI18N
@@ -688,124 +741,58 @@ public class AppPanel extends javax.swing.JPanel
         panelMetadataProgress.setLayout(panelMetadataProgressLayout);
         panelMetadataProgressLayout.setHorizontalGroup(
             panelMetadataProgressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(progressBarCurrentTasks, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelMetadataProgressLayout.createSequentialGroup()
-                .addComponent(progressBarScheduledTasks, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
+                .addComponent(progressBarScheduledTasks, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonStopScheduledTasks, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         panelMetadataProgressLayout.setVerticalGroup(
             panelMetadataProgressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelMetadataProgressLayout.createSequentialGroup()
-                .addGroup(panelMetadataProgressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonStopScheduledTasks, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(progressBarScheduledTasks, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(progressBarCurrentTasks, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(panelMetadataProgressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(buttonStopScheduledTasks, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(progressBarScheduledTasks, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
-
-        javax.swing.GroupLayout panelMetadataLayout = new javax.swing.GroupLayout(panelMetadata);
-        panelMetadata.setLayout(panelMetadataLayout);
-        panelMetadataLayout.setHorizontalGroup(
-            panelMetadataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(labelMetadataFilename, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
-            .addGroup(panelMetadataLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(panelMetadataProgress, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-            .addComponent(tabbedPaneMetaData, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
-        );
-        panelMetadataLayout.setVerticalGroup(
-            panelMetadataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelMetadataLayout.createSequentialGroup()
-                .addComponent(labelMetadataFilename)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tabbedPaneMetaData, javax.swing.GroupLayout.DEFAULT_SIZE, 277, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(panelMetadataProgress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-
-        splitPaneThumbnailsMetadata.setRightComponent(panelMetadata);
-
-        javax.swing.GroupLayout panelThumbnailsMetadataLayout = new javax.swing.GroupLayout(panelThumbnailsMetadata);
-        panelThumbnailsMetadata.setLayout(panelThumbnailsMetadataLayout);
-        panelThumbnailsMetadataLayout.setHorizontalGroup(
-            panelThumbnailsMetadataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 278, Short.MAX_VALUE)
-            .addGroup(panelThumbnailsMetadataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(splitPaneThumbnailsMetadata, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 278, Short.MAX_VALUE))
-        );
-        panelThumbnailsMetadataLayout.setVerticalGroup(
-            panelThumbnailsMetadataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 364, Short.MAX_VALUE)
-            .addGroup(panelThumbnailsMetadataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(splitPaneThumbnailsMetadata, javax.swing.GroupLayout.DEFAULT_SIZE, 364, Short.MAX_VALUE))
-        );
-
-        splitPaneMain.setRightComponent(panelThumbnailsMetadata);
-
-        panelStatusbar.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        sliderThumbnailSize.setMajorTickSpacing(10);
-        sliderThumbnailSize.setMinimum(10);
-        sliderThumbnailSize.setPaintTicks(true);
-        sliderThumbnailSize.setSnapToTicks(true);
-        sliderThumbnailSize.setToolTipText(Bundle.getString("AppPanel.sliderThumbnailSize.toolTipText")); // NOI18N
-
-        buttonLogfileDialog.setToolTipText(Bundle.getString("AppPanel.buttonLogfileDialog.toolTipText")); // NOI18N
-        buttonLogfileDialog.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        buttonLogfileDialog.setPreferredSize(new java.awt.Dimension(16, 16));
-
-        buttonAdvanedSearch.setFont(new java.awt.Font("Dialog", 0, 12));
-        buttonAdvanedSearch.setText(Bundle.getString("AppPanel.buttonAdvanedSearch.text")); // NOI18N
-        buttonAdvanedSearch.setToolTipText(Bundle.getString("AppPanel.buttonAdvanedSearch.toolTipText")); // NOI18N
-
-        textFieldSearch.setToolTipText(Bundle.getString("AppPanel.textFieldSearch.toolTipText")); // NOI18N
-
-        labelStatusbar.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-
-        progressBarCreateMetaDataOfCurrentThumbnails.setToolTipText(AppSettings.tooltipTextProgressBarDirectory);
 
         javax.swing.GroupLayout panelStatusbarLayout = new javax.swing.GroupLayout(panelStatusbar);
         panelStatusbar.setLayout(panelStatusbarLayout);
         panelStatusbarLayout.setHorizontalGroup(
             panelStatusbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelStatusbarLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelStatusbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelStatusbarLayout.createSequentialGroup()
+                .addGroup(panelStatusbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelStatusbarLayout.createSequentialGroup()
                         .addComponent(sliderThumbnailSize, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonLogfileDialog, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonAdvanedSearch)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                    .addGroup(panelStatusbarLayout.createSequentialGroup()
-                        .addComponent(labelStatusbar, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(122, 122, 122)))
+                        .addComponent(buttonLogfileDialog, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(labelStatusbar, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(buttonAdvanedSearch)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelStatusbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(progressBarCreateMetaDataOfCurrentThumbnails, javax.swing.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE)
+                    .addComponent(textFieldSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE))
+                .addGap(6, 6, 6)
                 .addGroup(panelStatusbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(progressBarCreateMetaDataOfCurrentThumbnails, javax.swing.GroupLayout.DEFAULT_SIZE, 69, Short.MAX_VALUE)
-                    .addComponent(textFieldSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 69, Short.MAX_VALUE))
-                .addContainerGap())
+                    .addComponent(progressBarCurrentTasks, 0, 112, Short.MAX_VALUE)
+                    .addComponent(panelMetadataProgress, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
+
+        panelStatusbarLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {labelStatusbar, sliderThumbnailSize});
+
         panelStatusbarLayout.setVerticalGroup(
             panelStatusbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelStatusbarLayout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addGroup(panelStatusbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(textFieldSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(buttonAdvanedSearch)
-                    .addComponent(buttonLogfileDialog, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(sliderThumbnailSize, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(panelMetadataProgress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelStatusbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(progressBarCreateMetaDataOfCurrentThumbnails, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(labelStatusbar))
-                .addContainerGap())
+                    .addComponent(labelStatusbar, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(progressBarCreateMetaDataOfCurrentThumbnails, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(progressBarCurrentTasks, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addGroup(panelStatusbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                .addComponent(buttonAdvanedSearch)
+                .addComponent(buttonLogfileDialog, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(sliderThumbnailSize, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(textFieldSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
-
-        panelStatusbarLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {labelStatusbar, progressBarCreateMetaDataOfCurrentThumbnails});
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -814,14 +801,14 @@ public class AppPanel extends javax.swing.JPanel
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(splitPaneMain, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 425, Short.MAX_VALUE)
+                    .addComponent(splitPaneMain, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 558, Short.MAX_VALUE)
                     .addComponent(panelStatusbar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(splitPaneMain, javax.swing.GroupLayout.DEFAULT_SIZE, 366, Short.MAX_VALUE)
+                .addComponent(splitPaneMain, javax.swing.GroupLayout.DEFAULT_SIZE, 352, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelStatusbar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
