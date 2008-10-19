@@ -2,6 +2,7 @@ package de.elmar_baumann.imv.controller.imagecollection;
 
 import de.elmar_baumann.imv.controller.Controller;
 import de.elmar_baumann.imv.database.Database;
+import de.elmar_baumann.imv.event.RefreshListener;
 import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
@@ -20,7 +21,7 @@ import javax.swing.event.ListSelectionListener;
  * @version 2008-10-05
  */
 public class ControllerImageCollectionSelected extends Controller
-    implements ListSelectionListener {
+    implements ListSelectionListener, RefreshListener {
 
     private Database db = Database.getInstance();
     private AppPanel appPanel = Panels.getInstance().getAppPanel();
@@ -28,22 +29,34 @@ public class ControllerImageCollectionSelected extends Controller
     private JList list = appPanel.getListImageCollections();
 
     public ControllerImageCollectionSelected() {
+        listenToActionSources();
+    }
+
+    private void listenToActionSources() {
         list.addListSelectionListener(this);
+        thumbnailsPanel.addRefreshListener(this, ImageFileThumbnailsPanel.Content.ImageCollection);
+    }
+
+    @Override
+    public void valueChanged(ListSelectionEvent e) {
+        showThumbnails();
+    }
+
+    @Override
+    public void refresh() {
+        showThumbnails();
+    }
+
+    private void showThumbnails() {
+        Object selected = list.getSelectedValue();
+        if (isStarted() && selected != null) {
+            showImageCollection(selected.toString());
+        }
     }
 
     private void showImageCollection(String collectionName) {
         List<String> filenames = db.getFilenamesOfImageCollection(collectionName);
         thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames),
             ImageFileThumbnailsPanel.Content.ImageCollection);
-    }
-
-    @Override
-    public void valueChanged(ListSelectionEvent e) {
-        if (isStarted()) {
-            Object selected = list.getSelectedValue();
-            if (selected != null) {
-                showImageCollection(selected.toString());
-            }
-        }
     }
 }

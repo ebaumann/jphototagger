@@ -55,11 +55,6 @@ public class ControllerFastSearch extends Controller
         listenToActionSources();
     }
 
-    private void clearSelection() {
-        TreeUtil.clearSelection(selectionTrees);
-        ListUtil.clearSelection(selectionLists);
-    }
-
     private void setAutocomplete() {
         if (UserSettings.getInstance().isUseAutocomplete()) {
             searchAutoCompleteData = new AutoCompleteData();
@@ -104,6 +99,11 @@ public class ControllerFastSearch extends Controller
                 settingsDialog.setVisible(true);
             }
         }
+    }
+
+    private void clearSelection() {
+        TreeUtil.clearSelection(selectionTrees);
+        ListUtil.clearSelection(selectionLists);
     }
 
     private void search() {

@@ -2,6 +2,7 @@ package de.elmar_baumann.imv.controller.favoritedirectories;
 
 import de.elmar_baumann.imv.controller.Controller;
 import de.elmar_baumann.imv.data.FavoriteDirectory;
+import de.elmar_baumann.imv.event.RefreshListener;
 import de.elmar_baumann.imv.io.ImageFilteredDirectory;
 import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.view.panels.AppPanel;
@@ -18,31 +19,37 @@ import javax.swing.event.ListSelectionListener;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/24
  */
-public class ControllerFavoriteDirectoryItemSelected extends Controller
-    implements ListSelectionListener {
+public class ControllerFavoriteDirectorySelected extends Controller
+    implements ListSelectionListener, RefreshListener {
 
     private AppPanel appPanel = Panels.getInstance().getAppPanel();
     private JList listFavoriteDirectories = appPanel.getListFavoriteDirectories();
     private ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelThumbnails();
 
-    public ControllerFavoriteDirectoryItemSelected() {
+    public ControllerFavoriteDirectorySelected() {
         listenToActionSource();
     }
 
     private void listenToActionSource() {
         listFavoriteDirectories.addListSelectionListener(this);
+        thumbnailsPanel.addRefreshListener(this, ImageFileThumbnailsPanel.Content.FavoriteDirectory);
     }
 
     @Override
     public void valueChanged(ListSelectionEvent e) {
-        if (isStarted() && listFavoriteDirectories.getSelectedValue() != null) {
-            showThumbnails();
-        }
+        showThumbnails();
+    }
+
+    @Override
+    public void refresh() {
+        showThumbnails();
     }
 
     private void showThumbnails() {
-        thumbnailsPanel.setFiles(getFilesOfCurrentDirectory(),
-            ImageFileThumbnailsPanel.Content.FavoriteDirectory);
+        if (isStarted() && listFavoriteDirectories.getSelectedValue() != null) {
+            thumbnailsPanel.setFiles(getFilesOfCurrentDirectory(),
+                ImageFileThumbnailsPanel.Content.FavoriteDirectory);
+        }
     }
 
     private List<File> getFilesOfCurrentDirectory() {

@@ -3,16 +3,19 @@ package de.elmar_baumann.imv.view.panels;
 import de.elmar_baumann.imv.controller.thumbnail.ControllerDoubleklickThumbnail;
 import de.elmar_baumann.imv.database.Database;
 import de.elmar_baumann.imv.data.ThumbnailFlag;
+import de.elmar_baumann.imv.event.RefreshListener;
 import de.elmar_baumann.imv.io.FileSort;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuPanelThumbnails;
 import java.awt.Image;
-import java.awt.datatransfer.Clipboard;
-import java.awt.datatransfer.Transferable;
+import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import javax.swing.JViewport;
 
 /**
  * Zeigt Thumbnails von Bilddateien.
@@ -29,11 +32,13 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel {
     private FileSort fileSort = FileSort.NamesAscending;
     private boolean hadFiles = false;
     private Content content = Content.Undefined;
+    private Map<Content, List<RefreshListener>> refreshListenersOfContent = new HashMap<Content, List<RefreshListener>>();
 
     /**
      * Content type of the displayed thumbnails.
      */
     public enum Content {
+
         Category,
         Directory,
         FastSearch,
@@ -44,12 +49,45 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel {
     }
 
     public ImageFileThumbnailsPanel() {
+        initMap();
         setNewThumbnails(0);
         controllerDoubleklick = new ControllerDoubleklickThumbnail(this);
     }
-    
+
+    private void initMap() {
+        for (Content c : Content.values()) {
+            refreshListenersOfContent.put(c, new ArrayList<RefreshListener>());
+        }
+    }
+
     public Content getContent() {
         return content;
+    }
+
+    /**
+     * Adds a refresh listener for a specific content.
+     * 
+     * @param listener  listener
+     * @param content   content
+     */
+    public void addRefreshListener(RefreshListener listener, Content content) {
+        refreshListenersOfContent.get(content).add(listener);
+    }
+
+    /**
+     * Removes a refresh listener for a specific content.
+     * 
+     * @param listener  listener
+     * @param content   content
+     */
+    public void removeRefreshListener(RefreshListener listener, Content content) {
+        refreshListenersOfContent.get(content).remove(listener);
+    }
+
+    private void notifyRefreshListeners() {
+        for (RefreshListener listener : refreshListenersOfContent.get(content)) {
+            listener.refresh();
+        }
     }
 
     /**
@@ -197,10 +235,19 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel {
     }
 
     /**
-     * Refreshes the display, e.g. after a rename action.
+     * Calls <code>refresh()</code> by all added
+     * {@link de.elmar_baumann.imv.event.RefreshListener} objects.
      */
     public void refresh() {
-        sort();
+        JViewport viewport = getViewport();
+        Point viewportPosition = null;
+        if (viewport != null) {
+            viewportPosition = viewport.getViewPosition();
+        }
+        notifyRefreshListeners();
+        if (viewport != null) {
+            viewport.setViewPosition(viewportPosition);
+        }
     }
 
     /**

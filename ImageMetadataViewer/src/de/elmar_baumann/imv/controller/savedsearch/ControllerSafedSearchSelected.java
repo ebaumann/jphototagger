@@ -4,6 +4,7 @@ import de.elmar_baumann.imv.controller.Controller;
 import de.elmar_baumann.imv.data.SavedSearch;
 import de.elmar_baumann.imv.database.Database;
 import de.elmar_baumann.imv.database.metadata.ParamStatement;
+import de.elmar_baumann.imv.event.RefreshListener;
 import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
@@ -20,7 +21,7 @@ import javax.swing.event.ListSelectionListener;
  * @version 2008-10-05
  */
 public class ControllerSafedSearchSelected extends Controller
-    implements ListSelectionListener {
+    implements ListSelectionListener, RefreshListener {
 
     private AppPanel appPanel = Panels.getInstance().getAppPanel();
     private Database db = Database.getInstance();
@@ -33,16 +34,26 @@ public class ControllerSafedSearchSelected extends Controller
 
     private void listenToActionSource() {
         list.addListSelectionListener(this);
+        thumbnailsPanel.addRefreshListener(this, ImageFileThumbnailsPanel.Content.Search);
     }
 
     @Override
     public void valueChanged(ListSelectionEvent e) {
+        showThumbnails();
+    }
+
+    @Override
+    public void refresh() {
+        showThumbnails();
+    }
+
+    private void showThumbnails() {
         Object selected = list.getSelectedValue();
         if (isStarted() && selected != null) {
             search(selected);
         }
     }
-    
+
     private void search(Object selected) {
         if (selected instanceof SavedSearch) {
             SavedSearch data = (SavedSearch) selected;

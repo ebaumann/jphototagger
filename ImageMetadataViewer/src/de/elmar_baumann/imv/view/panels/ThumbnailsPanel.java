@@ -943,6 +943,15 @@ public abstract class ThumbnailsPanel extends JPanel
     public void setViewport(JViewport viewport) {
         this.viewport = viewport;
     }
+    
+    /**
+     * Returns the viewport within this panel is displayed.
+     * 
+     * @return viewport or null if not set or if the panel is not in a viewport
+     */
+    public JViewport getViewport() {
+        return viewport;
+    }
 
     protected void scrollToTop(boolean scroll) {
         if (scroll && viewport != null) {

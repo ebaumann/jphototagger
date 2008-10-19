@@ -1,6 +1,7 @@
 package de.elmar_baumann.imv.controller.directories;
 
 import de.elmar_baumann.imv.controller.Controller;
+import de.elmar_baumann.imv.event.RefreshListener;
 import de.elmar_baumann.imv.io.ImageFilteredDirectory;
 import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.view.panels.AppPanel;
@@ -19,30 +20,41 @@ import javax.swing.tree.TreePath;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public class ControllerShowThumbnailsOfSelectedDirectory extends Controller
-    implements TreeSelectionListener {
+public class ControllerDirectorySelected extends Controller
+    implements TreeSelectionListener, RefreshListener {
 
     private AppPanel appPanel = Panels.getInstance().getAppPanel();
     private JTree treeDirectories = appPanel.getTreeDirectories();
     private ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelThumbnails();
     private ImageFilteredDirectory imageFilteredDirectory = new ImageFilteredDirectory();
 
-    public ControllerShowThumbnailsOfSelectedDirectory() {
+    public ControllerDirectorySelected() {
         listenToActionSource();
     }
 
     private void listenToActionSource() {
         treeDirectories.addTreeSelectionListener(this);
+        thumbnailsPanel.addRefreshListener(this, ImageFileThumbnailsPanel.Content.Directory);
     }
 
     @Override
     public void valueChanged(TreeSelectionEvent e) {
         if (isStarted() && e.isAddedPath()) {
-            File selectedDirectory = new File(getDirectorynameFromTree(treeDirectories.getSelectionPath()));
-            imageFilteredDirectory.setDirectory(selectedDirectory);
-            thumbnailsPanel.setFiles(ImageFilteredDirectory.getImageFilesOfDirectory(selectedDirectory),
-                ImageFileThumbnailsPanel.Content.Directory);
+            showThumbnails();
         }
+    }
+
+    @Override
+    public void refresh() {
+        if (isStarted()) {
+            showThumbnails();
+        }
+    }
+
+    private void showThumbnails() {
+        File selectedDirectory = new File(getDirectorynameFromTree(treeDirectories.getSelectionPath()));
+        imageFilteredDirectory.setDirectory(selectedDirectory);
+        thumbnailsPanel.setFiles(ImageFilteredDirectory.getImageFilesOfDirectory(selectedDirectory), ImageFileThumbnailsPanel.Content.Directory);
     }
 
     private String getDirectorynameFromTree(TreePath treePath) {
