@@ -346,10 +346,11 @@ public class UserSettingsDialog extends Dialog implements ActionListener {
         UserSettings settings = UserSettings.getInstance();
 
         labelDefaultImageOpenApp.setText(settings.getDefaultImageOpenApp());
-        String lastAcDirectory = settings.getAutocopyDirectory().toString();
-        if (!lastAcDirectory.isEmpty()) {
-            labelAutocopyDirectory.setText(lastAcDirectory);
-            lastSelectedAutocopyDirectory = lastAcDirectory;
+        File lastAcDirectory = settings.getAutocopyDirectory();
+        if (lastAcDirectory != null && lastAcDirectory.exists()) {
+            String lastAcDirectoryName = lastAcDirectory.getAbsolutePath();
+            labelAutocopyDirectory.setText(lastAcDirectoryName);
+            lastSelectedAutocopyDirectory = lastAcDirectoryName;
         }
 
         comboBoxIptcCharset.getModel().setSelectedItem(settings.getIptcCharset());
