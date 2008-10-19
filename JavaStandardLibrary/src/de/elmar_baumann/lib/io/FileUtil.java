@@ -156,6 +156,9 @@ public class FileUtil {
             }
             if (outChannel != null) {
                 outChannel.close();
+                if (target.exists()) {
+                    target.setLastModified(source.lastModified());
+                }
             }
         }
     }
