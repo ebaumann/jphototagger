@@ -119,6 +119,17 @@ public class HelpBrowser extends javax.swing.JFrame
     }
 
     /**
+     * Shows a page with a specific URL. Call this, if the dialog is visible.
+     * 
+     * @param url  URL
+     */
+    public void showUrl(String url) {
+        if (isVisible()) {
+            showUrl(getClass().getResource(baseUrl + "/" + url));
+        }
+    }
+
+    /**
      * Sets the URL of the page to be initial displayed. It has to be relative
      * and exist in the contents XML-File set with
      * {@link #setStartUrl(java.lang.String)}.
@@ -138,8 +149,10 @@ public class HelpBrowser extends javax.swing.JFrame
      * @param url URL, eg. <code>/de/elmar_baumann/imv/resource/doc/de/contents.xml</code>
      */
     public void setContentsUrl(String url) {
-        tree.setModel(new TreeModelHelpContents(url));
-        setBaseUrl(url);
+        if (!isVisible()) {
+            tree.setModel(new TreeModelHelpContents(url));
+            setBaseUrl(url);
+        }
     }
 
     private void setBaseUrl(String url) {
@@ -289,7 +302,7 @@ public class HelpBrowser extends javax.swing.JFrame
             if (o instanceof HelpPage) {
                 HelpPage helpPage = (HelpPage) o;
                 String helpPageUrl = helpPage.getUrl();
-                URL url = this.getClass().getResource(baseUrl + "/" + helpPageUrl); // NOI18N
+                URL url = getClass().getResource(baseUrl + "/" + helpPageUrl); // NOI18N
                 setTitle(helpPage.getTitle() + Bundle.getString("HelpBrowser.TitlePostfix"));
                 showUrl(url);
             }
