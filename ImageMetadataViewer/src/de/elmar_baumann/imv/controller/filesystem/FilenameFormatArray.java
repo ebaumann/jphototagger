@@ -41,7 +41,7 @@ public class FilenameFormatArray {
     
     /**
      * Returns the formatted filename: the appended strings of all formats
-     * ({@link Filename#format()}).
+     * ({@link FilenameFormat#format()}).
      * 
      * @return filename
      */

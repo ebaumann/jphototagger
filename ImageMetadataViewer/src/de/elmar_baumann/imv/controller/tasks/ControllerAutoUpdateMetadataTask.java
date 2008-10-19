@@ -18,7 +18,7 @@ import javax.swing.JProgressBar;
  * erst durch Aufruf von {@link #start()}.
  * 
  * Ermittelt werden die Verzeichnisse durch
- * {@link de.elmar_baumann.imv.UserSettings#getAutoscanDirectories()}.
+ * {@link de.elmar_baumann.imv.database.Database#getAutoscanDirectories()}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
@@ -54,7 +54,8 @@ public class ControllerAutoUpdateMetadataTask extends Controller
         systemDirectoryPatterns.add("System Volume Information"); // NOI18N
         systemDirectoryPatterns.add("RECYCLER"); // NOI18N
         updaterArray = new ImageMetadataToDatabaseArray(progressBar);
-        updaterArray.setTooltipTextIfProgressEnded(AppSettings.tooltipTextProgressBarScheduledTasks);
+        updaterArray.setTooltipTextIfProgressEnded(
+            AppSettings.tooltipTextProgressBarScheduledTasks);
     }
 
     private boolean isSystemDirectory(String directoryName) {
@@ -93,7 +94,8 @@ public class ControllerAutoUpdateMetadataTask extends Controller
         List<String> subdirectories = new ArrayList<String>();
         if (UserSettings.getInstance().isAutoscanIncludeSubdirectories()) {
             for (String directory : directories) {
-                subdirectories.addAll(FileUtil.getAllSubDirectoryNames(directory, UserSettings.getInstance().isAcceptHiddenDirectories()));
+                subdirectories.addAll(FileUtil.getAllSubDirectoryNames(
+                    directory, UserSettings.getInstance().isAcceptHiddenDirectories()));
             }
             directories.addAll(subdirectories);
             Collections.sort(directories);

@@ -107,7 +107,7 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel {
     /**
      * Sorts the files.
      * 
-     * @see #setSort(de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel.Sort)
+     * @see #setSort(de.elmar_baumann.imv.io.FileSort)
      */
     public void sort() {
         List<File> selectedFiles = getSelectedFiles();
