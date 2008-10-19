@@ -4,6 +4,7 @@ import de.elmar_baumann.imv.AppSettings;
 import de.elmar_baumann.imv.controller.Controller;
 import de.elmar_baumann.imv.data.MetaDataEditTemplate;
 import de.elmar_baumann.imv.database.Database;
+import de.elmar_baumann.imv.event.ListenerProvider;
 import de.elmar_baumann.imv.event.MetaDataEditPanelEvent;
 import de.elmar_baumann.imv.event.MetaDataEditPanelListener;
 import de.elmar_baumann.imv.model.ComboBoxModelMetaDataEditTemplates;
@@ -50,6 +51,7 @@ public class ControllerMetaDataTemplates extends Controller
         buttonMetaDataTemplateDelete.addActionListener(this);
         buttonMetaDataTemplateInsert.addActionListener(this);
         buttonMetaDataTemplateRename.addActionListener(this);
+        ListenerProvider.getInstance().addMetaDataEditPanelListener(this);
     }
 
     private void enableButtons() {
