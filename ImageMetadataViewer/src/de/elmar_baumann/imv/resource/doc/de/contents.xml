@@ -1,13 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<!--
-    Document   : contents.xml
-    Created on : 2. Oktober 2008, 22:08
-    Author     : Elmar Baumann <eb@elmar-baumann.de>
-    Description: contents of the application's help
-        
--->
-
 <!DOCTYPE helpindex SYSTEM 'helpindex.dtd'>
 <helpindex>
 	<page>
@@ -123,6 +114,10 @@
 		<url>advanced-search.html</url>
 		<title>Erweiterte Suche</title>
 	</page>
+	<page>
+		<url>action_autocopy_directory.html</url>
+		<title>Bilder von der Kameraspeicherkarte einlesen</title>
+	</page>
 	<node>
 		<title>Tipps</title>
 		<page>
@@ -213,6 +208,10 @@
 		<page>
 			<url>action_maintain_database.html</url>
 			<title>Datei / Datenbank</title>
+		</page>
+		<page>
+			<url>action_autocopy_directory.html</url>
+			<title>Datei / Bilder von der Kamera-Speicherkarte kopieren</title>
 		</page>
 		<page>
 			<url>action_edit_settings.html</url>

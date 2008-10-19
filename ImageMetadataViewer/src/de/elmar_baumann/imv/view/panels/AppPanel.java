@@ -331,7 +331,6 @@ public class AppPanel extends javax.swing.JPanel
 
     @Override
     public void appWillStart() {
-        PersistentSettings.getInstance().getComponent(this, getPersistentSettingsHints());
     }
     
     @Override
@@ -339,7 +338,7 @@ public class AppPanel extends javax.swing.JPanel
         PersistentSettings.getInstance().setComponent(this, getPersistentSettingsHints());
     }
 
-    private PersistentSettingsHints getPersistentSettingsHints() {
+    public PersistentSettingsHints getPersistentSettingsHints() {
         PersistentSettingsHints hints = new PersistentSettingsHints();
         String className = getClass().getName();
         hints.addExcludedMember(className + ".textFieldSearch"); // NOI18N

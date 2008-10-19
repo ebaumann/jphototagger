@@ -1,5 +1,13 @@
 package de.elmar_baumann.imv.factory;
 
+import de.elmar_baumann.imv.resource.Bundle;
+import de.elmar_baumann.imv.resource.Panels;
+import de.elmar_baumann.imv.view.frames.AppFrame;
+import de.elmar_baumann.imv.view.panels.AppPanel;
+import de.elmar_baumann.lib.persistence.PersistentAppSizes;
+import de.elmar_baumann.lib.persistence.PersistentSettings;
+import javax.swing.JProgressBar;
+
 /**
  * Factory mit Kenntnis über alle Factories. Erzeugt diese in der richtigen
  * Reihenfolge.
@@ -7,7 +15,7 @@ package de.elmar_baumann.imv.factory;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/29
  */
-public class MetaFactory {
+public class MetaFactory extends Thread {
 
     private static MetaFactory instance = new MetaFactory();
 
@@ -15,24 +23,58 @@ public class MetaFactory {
         return instance;
     }
 
-    public void startController() {
-        ControllerFactory.getInstance().startController();
-    }
-
-    public void stopController() {
+    synchronized public void stopController() {
         ControllerFactory.getInstance().stopController();
     }
 
     private MetaFactory() {
+        start();
+    }
+
+    @Override
+    public void run() {
         createFactories();
     }
 
-    private void createFactories() {
+    synchronized private void createFactories() {
+        setAppFrame();
+        showProgress();
         LateConnectionsFactory.getInstance();
         ModelFactory.getInstance();
         ControllerFactory.getInstance();
         ActionListenerFactory.getInstance();
         MouseListenerFactory.getInstance();
         RendererFactory.getInstance();
+        ControllerFactory.getInstance().startController();
+        setAppPanel();
+        stopProgress();
+    }
+
+    private void setAppPanel() {
+        AppPanel appPanel = Panels.getInstance().getAppPanel();
+        PersistentSettings.getInstance().getComponent(
+            appPanel,
+            appPanel.getPersistentSettingsHints());
+        appPanel.getPanelThumbnails().refresh();
+    }
+
+    private void setAppFrame() {
+        AppFrame appFrame = Panels.getInstance().getAppFrame();
+        PersistentAppSizes.getSizeAndLocation(appFrame);
+        appFrame.pack();
+    }
+
+    private void showProgress() {
+        JProgressBar progressbar = Panels.getInstance().getAppPanel().getProgressBarCreateMetaDataOfCurrentThumbnails();
+        progressbar.setStringPainted(true);
+        progressbar.setString(Bundle.getString("MetaFactory.Message.Init"));
+        progressbar.setIndeterminate(true);
+    }
+
+    private void stopProgress() {
+        JProgressBar progressbar = Panels.getInstance().getAppPanel().getProgressBarCreateMetaDataOfCurrentThumbnails();
+        progressbar.setIndeterminate(false);
+        progressbar.setString(""); // NOI18N
+        progressbar.setStringPainted(false);
     }
 }

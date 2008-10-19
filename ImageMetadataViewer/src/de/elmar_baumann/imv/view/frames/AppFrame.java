@@ -89,10 +89,9 @@ public class AppFrame extends javax.swing.JFrame {
     private void postInitComponents() {
         initSortMenuItemsMap();
         initTotoMenuItemsMap();
-        readPersistent();
         listenToClose();
         setTitleAndFrameIcon();
-        MetaFactory.getInstance().startController();
+        MetaFactory.getInstance();
         notifyStart();
     }
 
@@ -182,11 +181,6 @@ public class AppFrame extends javax.swing.JFrame {
 
     public JMenuItem getMenuItemToolIptcToXmp() {
         return menuItemToolIptcToXmp;
-    }
-
-    private void readPersistent() {
-        PersistentAppSizes.getSizeAndLocation(this);
-        pack();
     }
 
     private void writePersistent() {
