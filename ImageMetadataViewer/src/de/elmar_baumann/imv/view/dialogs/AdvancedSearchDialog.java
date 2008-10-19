@@ -21,6 +21,7 @@ import de.elmar_baumann.imv.event.SearchEvent;
 import de.elmar_baumann.imv.event.SearchListener;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.view.panels.SearchColumnPanel;
+import de.elmar_baumann.lib.dialog.Dialog;
 import de.elmar_baumann.lib.persistence.PersistentAppSizes;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -33,7 +34,7 @@ import javax.swing.JOptionPane;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public class AdvancedSearchDialog extends javax.swing.JDialog implements
+public class AdvancedSearchDialog extends Dialog implements
     SearchListener {
 
     private List<SearchListener> searchListeners = new ArrayList<SearchListener>();
@@ -56,6 +57,8 @@ public class AdvancedSearchDialog extends javax.swing.JDialog implements
         initSearchColumnPanelArray();
         listenToSearchPanels();
         setIconImages(AppSettings.getAppIcons());
+        setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
+        registerKeyStrokes();
     }
 
     private void beforeWindowClosing() {
@@ -375,6 +378,16 @@ public class AdvancedSearchDialog extends javax.swing.JDialog implements
         if (evt.getType().equals(SearchEvent.Type.Start)) {
             search();
         }
+    }
+
+    @Override
+    protected void help() {
+        help(Bundle.getString("Help.Url.AdvancedSearchDialog"));
+    }
+
+    @Override
+    protected void escape() {
+        beforeWindowClosing();
     }
 
     /** This method is called from within the constructor to
