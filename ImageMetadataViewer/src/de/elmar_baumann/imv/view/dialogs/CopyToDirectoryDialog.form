@@ -2,7 +2,7 @@
 
 <Form version="1.5" maxVersion="1.6" type="org.netbeans.modules.form.forminfo.JDialogFormInfo">
   <Properties>
-    <Property name="defaultCloseOperation" type="int" value="2"/>
+    <Property name="defaultCloseOperation" type="int" value="0"/>
     <Property name="title" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
       <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="CopyToDirectoryDialog.title" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
     </Property>
@@ -32,17 +32,17 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="labelInfo" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="labelDirectoryName" alignment="0" pref="647" max="32767" attributes="0"/>
+                  <Component id="labelDirectoryName" alignment="0" pref="668" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="checkBoxForceOverwrite" min="-2" max="-2" attributes="0"/>
                       <EmptySpace pref="47" max="32767" attributes="0"/>
                       <Component id="buttonChooseDirectory" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="labelCurrentFilename" alignment="0" pref="647" max="32767" attributes="0"/>
-                  <Component id="progressBar" alignment="1" pref="647" max="32767" attributes="0"/>
+                  <Component id="labelCurrentFilename" alignment="0" pref="668" max="32767" attributes="0"/>
+                  <Component id="progressBar" alignment="1" pref="668" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="labelInfoIsThread" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="241" max="32767" attributes="0"/>
+                      <EmptySpace pref="245" max="32767" attributes="0"/>
                       <Component id="buttonCancelCopy" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="buttonStartCopy" min="-2" max="-2" attributes="0"/>
