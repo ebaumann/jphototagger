@@ -144,6 +144,9 @@ public class FileUtil {
      */
     public static void copyFile(File source, File target)
         throws IOException {
+        if (source.equals(target)) {
+            return;
+        }
         FileChannel inChannel = new FileInputStream(source).getChannel();
         FileChannel outChannel = new FileOutputStream(target).getChannel();
         try {
