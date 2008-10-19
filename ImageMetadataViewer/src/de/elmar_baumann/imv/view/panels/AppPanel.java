@@ -46,6 +46,7 @@ public class AppPanel extends javax.swing.JPanel
     private List<JList> selectionLists = new ArrayList<JList>();
     private MetadataEditPanelsArray editPanelsArray;
     private MetaDataEditActionsPanel metadataEditActionsPanel;
+    private static final String keyDividerLocationThumbnails = "AppPanel.DividerLocationThumbnails";
 
     public AppPanel() {
         Panels.getInstance().setAppPanel(this);
@@ -101,11 +102,11 @@ public class AppPanel extends javax.swing.JPanel
     public Component getTabMetadataXmp() {
         return tabbedPaneXmp;
     }
-    
+
     public Component getTabMetadataEdit() {
         return panelTabEditMetaData;
     }
-    
+
     public Component getTabSelectionDirectories() {
         return panelSelectionDirectories;
     }
@@ -331,11 +332,17 @@ public class AppPanel extends javax.swing.JPanel
 
     @Override
     public void appWillStart() {
+        int location = PersistentSettings.getInstance().getInt(
+            keyDividerLocationThumbnails);
+        splitPaneThumbnailsMetadata.setDividerLocation(location);
+
     }
-    
+
     @Override
     public void appWillExit() {
         PersistentSettings.getInstance().setComponent(this, getPersistentSettingsHints());
+        PersistentSettings.getInstance().setInt(splitPaneThumbnailsMetadata.getDividerLocation(),
+            keyDividerLocationThumbnails);
     }
 
     public PersistentSettingsHints getPersistentSettingsHints() {
