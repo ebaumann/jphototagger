@@ -17,6 +17,7 @@ import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.view.dialogs.UserSettingsDialog;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
+import de.elmar_baumann.lib.componentutil.ListUtil;
 import de.elmar_baumann.lib.componentutil.TreeUtil;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.awt.event.KeyAdapter;
@@ -24,6 +25,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
+import javax.swing.JList;
 import javax.swing.JTextField;
 import javax.swing.JTree;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
@@ -43,6 +45,7 @@ public class ControllerFastSearch extends Controller
     private ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelThumbnails();
     private List<Column> fastSearchColumns = UserSettings.getInstance().getFastSearchColumns();
     private List<JTree> selectionTrees = appPanel.getSelectionTrees();
+    private List<JList> selectionLists = appPanel.getSelectionLists();
     private boolean isUseAutocomplete = UserSettings.getInstance().isUseAutocomplete();
     private AutoCompleteData searchAutoCompleteData;
 
@@ -50,6 +53,11 @@ public class ControllerFastSearch extends Controller
         textFieldSearch.setEnabled(UserSettings.getInstance().getFastSearchColumns().size() > 0);
         setAutocomplete();
         listenToActionSources();
+    }
+
+    private void clearSelection() {
+        TreeUtil.clearSelection(selectionTrees);
+        ListUtil.clearSelection(selectionLists);
     }
 
     private void setAutocomplete() {
@@ -103,7 +111,7 @@ public class ControllerFastSearch extends Controller
     }
 
     private void search(String searchText) {
-        TreeUtil.clearSelection(selectionTrees);
+        clearSelection();
         List<String> filenames =
             db.searchFilenamesLikeOr(UserSettings.getInstance().getFastSearchColumns(), searchText);
         thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames),
