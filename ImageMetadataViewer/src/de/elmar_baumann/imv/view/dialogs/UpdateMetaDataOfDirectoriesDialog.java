@@ -8,6 +8,7 @@ import de.elmar_baumann.imv.event.ProgressEvent;
 import de.elmar_baumann.imv.event.ProgressListener;
 import de.elmar_baumann.imv.io.DirectoryInfo;
 import de.elmar_baumann.imv.resource.Bundle;
+import de.elmar_baumann.lib.dialog.Dialog;
 import de.elmar_baumann.lib.io.FileUtil;
 import de.elmar_baumann.lib.persistence.PersistentAppSizes;
 import de.elmar_baumann.lib.persistence.PersistentSettings;
@@ -28,8 +29,8 @@ import javax.swing.DefaultListModel;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public class UpdateMetaDataOfDirectoriesDialog extends javax.swing.JDialog implements
-    ProgressListener {
+public class UpdateMetaDataOfDirectoriesDialog extends Dialog
+    implements ProgressListener {
 
     private final String keyLastDirectory = "de.elmar_baumann.imv.view.ScanDirectoriesDialog.lastSelectedDirectory"; // NOI18N
     private final String keyForce = "de.elmar_baumann.imv.view.ScanDirectoriesDialog.force"; // NOI18N
@@ -58,6 +59,8 @@ public class UpdateMetaDataOfDirectoriesDialog extends javax.swing.JDialog imple
         setIconImages(AppSettings.getAppIcons());
         PersistentAppSizes.getSizeAndLocation(this);
         readPersistent();
+        setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
+        registerKeyStrokes();
     }
 
     private void addFilecountToTitle() {
@@ -334,6 +337,16 @@ public class UpdateMetaDataOfDirectoriesDialog extends javax.swing.JDialog imple
             : Bundle.getString("UpdateMetaDataOfDirectoriesDialog.InfoMessage.ProgressWithoutTime"));
         Object[] params = {currentFilenameInfotextPrefix, evt.getInfo(), remainingMinutes};
         labelCurrentFilename.setText(message.format(params));
+    }
+
+    @Override
+    protected void help() {
+        help("action_scan_directories.html");
+    }
+
+    @Override
+    protected void escape() {
+        endDialog();
     }
 
     /** This method is called from within the constructor to
