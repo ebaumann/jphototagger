@@ -10,6 +10,7 @@ import de.elmar_baumann.imv.model.TableModelDatabaseInfo;
 import de.elmar_baumann.imv.event.listener.TotalRecordCountListener;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.view.renderer.TableCellRendererDatabaseInfoColumns;
+import de.elmar_baumann.lib.dialog.Dialog;
 import de.elmar_baumann.lib.image.icon.IconUtil;
 import de.elmar_baumann.lib.persistence.PersistentAppSizes;
 import de.elmar_baumann.lib.persistence.PersistentSettings;
@@ -24,7 +25,7 @@ import javax.swing.JOptionPane;
  * 
  * @author Elmar Baumann <eb@elmar-baumann.de>
  */
-public class DatabaseMaintainanceDialog extends javax.swing.JDialog implements
+public class DatabaseMaintainanceDialog extends Dialog implements
     ProgressListener {
 
     private Database db = Database.getInstance();
@@ -66,6 +67,8 @@ public class DatabaseMaintainanceDialog extends javax.swing.JDialog implements
     private void postInitComponents() {
         setIconImages(AppSettings.getAppIcons());
         tableDatabaseInfo.setDefaultRenderer(Object.class, new TableCellRendererDatabaseInfoColumns());
+        setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
+        registerKeyStrokes();
     }
 
     private void setTotalRecordCount() {
@@ -165,6 +168,16 @@ public class DatabaseMaintainanceDialog extends javax.swing.JDialog implements
         if (checkBoxDeleteNotExistingFilesInDatabase.isSelected()) {
             deleteNotExistingFilesInDatabase();
         }
+    }
+
+    @Override
+    protected void help() {
+        help(Bundle.getString("Help.Url.DatabaseMaintainanceDialog"));
+    }
+
+    @Override
+    protected void escape() {
+        close();
     }
 
     /** This method is called from within the constructor to
