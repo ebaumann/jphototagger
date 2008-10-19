@@ -42,8 +42,9 @@ public class TransferTools {
      * {@link java.awt.datatransfer.StringSelection}.
      * Each line is separated by a newline.
      * 
-     * @param list list
-     * @return 
+     * @param list  list
+     * @return <code>StringSelection</code>: A String within integers separated
+     *         by a newline
      */
     public static Transferable getIntegerListTransferable(List<Integer> list) {
         StringBuffer buffer = new StringBuffer();
