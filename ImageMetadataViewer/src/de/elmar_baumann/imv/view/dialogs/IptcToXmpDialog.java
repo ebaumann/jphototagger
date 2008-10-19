@@ -7,6 +7,7 @@ import de.elmar_baumann.imv.event.ProgressListener;
 import de.elmar_baumann.imv.io.ImageFilteredDirectory;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.tasks.IptcToXmp;
+import de.elmar_baumann.lib.dialog.Dialog;
 import de.elmar_baumann.lib.dialog.DirectoryChooser;
 import de.elmar_baumann.lib.io.FileUtil;
 import de.elmar_baumann.lib.persistence.PersistentAppSizes;
@@ -22,7 +23,7 @@ import javax.swing.JOptionPane;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public class IptcToXmpDialog extends javax.swing.JDialog
+public class IptcToXmpDialog extends Dialog
     implements ProgressListener {
 
     private File directory = new File(""); // NOI18N
@@ -68,6 +69,8 @@ public class IptcToXmpDialog extends javax.swing.JDialog
 
     private void postInitComponents() {
         setIconImages(AppSettings.getAppIcons());
+        setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
+        registerKeyStrokes();
     }
 
     @Override
@@ -145,6 +148,16 @@ public class IptcToXmpDialog extends javax.swing.JDialog
         progressBar.setValue(evt.getValue());
         stop = true;
         setEnabledButtons();
+    }
+
+    @Override
+    protected void help() {
+        help(Bundle.getString("Help.Url.IptcToXmpDialog"));
+    }
+
+    @Override
+    protected void escape() {
+        checkClose();
     }
 
     /** This method is called from within the constructor to
