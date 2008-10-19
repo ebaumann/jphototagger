@@ -67,7 +67,7 @@ public class ListenerProvider {
     }
 
     synchronized public void addSearchListener(SearchListener listener) {
-        searchListeners.remove(listener);
+        searchListeners.add(listener);
     }
 
     synchronized public void removeSearchListener(SearchListener listener) {
