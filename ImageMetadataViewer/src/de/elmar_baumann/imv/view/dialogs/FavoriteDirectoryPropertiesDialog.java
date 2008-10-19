@@ -4,6 +4,7 @@ import de.elmar_baumann.imv.AppSettings;
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.database.Database;
 import de.elmar_baumann.imv.resource.Bundle;
+import de.elmar_baumann.lib.dialog.Dialog;
 import de.elmar_baumann.lib.dialog.DirectoryChooser;
 import de.elmar_baumann.lib.io.FileUtil;
 import de.elmar_baumann.lib.persistence.PersistentAppSizes;
@@ -20,7 +21,7 @@ import javax.swing.JOptionPane;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public class FavoriteDirectoryPropertiesDialog extends javax.swing.JDialog {
+public class FavoriteDirectoryPropertiesDialog extends Dialog {
 
     private static List<Image> appIcons = AppSettings.getAppIcons();
     private static final String keyLastDirectory = "de.elmar_baumann.imv.view.dialogs.FavoriteDirectoryPropertiesDialog.LastDirectory"; // NOI18N
@@ -34,6 +35,8 @@ public class FavoriteDirectoryPropertiesDialog extends javax.swing.JDialog {
         super((java.awt.Frame) null, true);
         initComponents();
         setIconImages(appIcons);
+        setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
+        registerKeyStrokes();
     }
 
     private void chooseDirectory() {
@@ -161,6 +164,18 @@ public class FavoriteDirectoryPropertiesDialog extends javax.swing.JDialog {
         super.setVisible(visible);
     }
 
+    @Override
+    protected void help() {
+        help(Bundle.getString("Help.Url.FavoriteDirectoryPropertiesDialog"));
+    }
+
+    @Override
+    protected void escape() {
+        if (ok) {
+            checkOk();
+        }
+    }
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -177,7 +192,7 @@ public class FavoriteDirectoryPropertiesDialog extends javax.swing.JDialog {
         buttonOk = new javax.swing.JButton();
         buttonCancel = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle(Bundle.getString("FavoriteDirectoryPropertiesDialog.title")); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
