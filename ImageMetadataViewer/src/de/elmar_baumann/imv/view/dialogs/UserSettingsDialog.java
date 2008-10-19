@@ -16,11 +16,13 @@ import de.elmar_baumann.lib.component.CheckList;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.tasks.UpdateAllThumbnails;
 import de.elmar_baumann.imv.view.renderer.ListCellRendererLogfileFormatter;
+import de.elmar_baumann.lib.dialog.Dialog;
 import de.elmar_baumann.lib.dialog.DirectoryChooser;
 import de.elmar_baumann.lib.persistence.PersistentAppSizes;
 import de.elmar_baumann.lib.persistence.PersistentSettings;
 import de.elmar_baumann.lib.persistence.PersistentSettingsHints;
 import de.elmar_baumann.lib.renderer.ListCellRendererFileSystem;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -43,8 +45,7 @@ import javax.swing.SpinnerNumberModel;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public class UserSettingsDialog extends javax.swing.JDialog
-    implements ActionListener {
+public class UserSettingsDialog extends Dialog implements ActionListener {
 
     private Database db = Database.getInstance();
     private final String keyLastSelectedAutoscanDirectory = "UserSettingsDialog.keyLastSelectedAutoscanDirectory"; // NOI18N
@@ -61,7 +62,22 @@ public class UserSettingsDialog extends javax.swing.JDialog
     private String previousDirectory = ""; // NOI18N
     private UpdateAllThumbnails thumbnailsUpdater;
     private ListenerProvider listenerProvider;
+    private Map<Component, String> helpUrlOfComponent = new HashMap<Component, String>();
     private static UserSettingsDialog instance = new UserSettingsDialog();
+
+    private UserSettingsDialog() {
+        super((java.awt.Frame) null, false);
+        listenerProvider = ListenerProvider.getInstance();
+        changeListeners = listenerProvider.getUserSettingsChangeListeners();
+        setSearchColumns();
+        initComponents();
+        initMaps();
+        setIconImages(AppSettings.getAppIcons());
+        readPersistent();
+        setEnabled();
+        setHelpContentsUrl(Bundle.getString("Settings.PathHelpFileIndex"));
+        registerKeyStrokes();
+    }
 
     private void chooseAutocopyDirectory() {
         File file = chooseDirectory(new File(lastSelectedAutocopyDirectory));
@@ -153,7 +169,7 @@ public class UserSettingsDialog extends javax.swing.JDialog
             UserSettingsChangeEvent.Type.MinutesToStartScheduledTasks, this));
     }
 
-    private void initHashMaps() {
+    private void initMaps() {
         // TODO PERMANENT: Bei neuen Tabs ergänzen
         indexOfTab.put(Tab.Programs, 0);
         indexOfTab.put(Tab.FastSearch, 1);
@@ -162,11 +178,20 @@ public class UserSettingsDialog extends javax.swing.JDialog
         indexOfTab.put(Tab.Tasks, 4);
         indexOfTab.put(Tab.Performance, 5);
         indexOfTab.put(Tab.FileExcludePatterns, 6);
-        indexOfTab.put(Tab.Other, 7);
+        indexOfTab.put(Tab.Misc, 7);
 
         for (Tab tab : indexOfTab.keySet()) {
             tabOfIndex.put(indexOfTab.get(tab), tab);
         }
+
+        helpUrlOfComponent.put(tabbedPane.getComponentAt(0), "settings-dialog-programs.html");
+        helpUrlOfComponent.put(tabbedPane.getComponentAt(1), "settings-dialog-fastsearch.html");
+        helpUrlOfComponent.put(tabbedPane.getComponentAt(2), "settings-dialog-thumbnails.html");
+        helpUrlOfComponent.put(tabbedPane.getComponentAt(3), "settings-dialog-iptc.html");
+        helpUrlOfComponent.put(tabbedPane.getComponentAt(4), "settings-dialog-tasks.html");
+        helpUrlOfComponent.put(tabbedPane.getComponentAt(5), "settings-dialog-performance.html");
+        helpUrlOfComponent.put(tabbedPane.getComponentAt(6), "settings-dialog-file-excludepattern.html");
+        helpUrlOfComponent.put(tabbedPane.getComponentAt(7), "settings-dialog-misc.html");
     }
 
     private void handleStateChangedSpinnerMaxThumbnailWidth() {
@@ -207,7 +232,7 @@ public class UserSettingsDialog extends javax.swing.JDialog
          */
         FileExcludePatterns,
         /** Sonstiges */
-        Other
+        Misc
     };
 
     private void moveDownOpenImageApp() {
@@ -272,18 +297,6 @@ public class UserSettingsDialog extends javax.swing.JDialog
 
     public static UserSettingsDialog getInstance() {
         return instance;
-    }
-
-    private UserSettingsDialog() {
-        super((java.awt.Frame) null, false);
-        initHashMaps();
-        listenerProvider = ListenerProvider.getInstance();
-        changeListeners = listenerProvider.getUserSettingsChangeListeners();
-        setSearchColumns();
-        initComponents();
-        setIconImages(AppSettings.getAppIcons());
-        readPersistent();
-        setEnabled();
     }
 
     /**
@@ -511,6 +524,8 @@ public class UserSettingsDialog extends javax.swing.JDialog
         if (visible) {
             modelAutoscanDirectories = new ListModelAutoscanDirectories();
             listAutoscanDirectories.setModel(modelAutoscanDirectories);
+        } else {
+            writePersistent();
         }
         super.setVisible(visible);
     }
@@ -523,6 +538,16 @@ public class UserSettingsDialog extends javax.swing.JDialog
     private void setExternalThumbnailAppEnabled() {
         textFieldExternalThumbnailCreationCommand.setEnabled(
             UserSettings.getInstance().isCreateThumbnailsWithExternalApp());
+    }
+
+    @Override
+    protected void help() {
+        help(helpUrlOfComponent.get(tabbedPane.getSelectedComponent()));
+    }
+
+    @Override
+    protected void escape() {
+        setVisible(false);
     }
 
     /** This method is called from within the constructor to
