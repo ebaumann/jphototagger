@@ -4,6 +4,7 @@ import de.elmar_baumann.imv.AppSettings;
 import de.elmar_baumann.imv.database.metadata.Column;
 import de.elmar_baumann.imv.database.metadata.selections.EditColumns;
 import de.elmar_baumann.imv.resource.Bundle;
+import de.elmar_baumann.lib.dialog.Dialog;
 import de.elmar_baumann.lib.persistence.PersistentAppSizes;
 import de.elmar_baumann.lib.persistence.PersistentSettings;
 import de.elmar_baumann.lib.persistence.PersistentSettingsHints;
@@ -16,7 +17,7 @@ import javax.swing.JOptionPane;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public class RenameInXmpColumnsDialog extends javax.swing.JDialog {
+public class RenameInXmpColumnsDialog extends Dialog {
 
     private boolean accepted = true;
 
@@ -30,6 +31,8 @@ public class RenameInXmpColumnsDialog extends javax.swing.JDialog {
     private void postInitComponents() {
         setIconImages(AppSettings.getAppIcons());
         setModel();
+        setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
+        registerKeyStrokes();
     }
 
     private void setModel() {
@@ -89,6 +92,15 @@ public class RenameInXmpColumnsDialog extends javax.swing.JDialog {
             AppSettings.getMediumAppIcon());
     }
 
+    @Override
+    protected void help() {
+        help("action_replace_xmp.html");
+    }
+
+    @Override
+    protected void escape() {
+    }
+    
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
