@@ -49,7 +49,7 @@ public class UserSettingsDialog extends Dialog implements ActionListener {
 
     private Database db = Database.getInstance();
     private final String keyLastSelectedAutoscanDirectory = "UserSettingsDialog.keyLastSelectedAutoscanDirectory"; // NOI18N
-    private final String keyTabbedPaneIndex = "UserSettingsDialog.TabbedPaneIndex";
+    private final String keyTabbedPaneIndex = "UserSettingsDialog.TabbedPaneIndex"; // NOI18N
     private List<UserSettingsChangeListener> changeListeners = new LinkedList<UserSettingsChangeListener>();
     public CheckList checkListSearchColumns = new CheckList();
     public ListModelFastSearchColumns searchColumnsListModel = new ListModelFastSearchColumns();
@@ -75,7 +75,7 @@ public class UserSettingsDialog extends Dialog implements ActionListener {
         setIconImages(AppSettings.getAppIcons());
         readPersistent();
         setEnabled();
-        setHelpContentsUrl(Bundle.getString("Settings.PathHelpFileIndex"));
+        setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
         registerKeyStrokes();
     }
 
@@ -184,14 +184,14 @@ public class UserSettingsDialog extends Dialog implements ActionListener {
             tabOfIndex.put(indexOfTab.get(tab), tab);
         }
 
-        helpUrlOfComponent.put(tabbedPane.getComponentAt(0), "settings-dialog-programs.html");
-        helpUrlOfComponent.put(tabbedPane.getComponentAt(1), "settings-dialog-fastsearch.html");
-        helpUrlOfComponent.put(tabbedPane.getComponentAt(2), "settings-dialog-thumbnails.html");
-        helpUrlOfComponent.put(tabbedPane.getComponentAt(3), "settings-dialog-iptc.html");
-        helpUrlOfComponent.put(tabbedPane.getComponentAt(4), "settings-dialog-tasks.html");
-        helpUrlOfComponent.put(tabbedPane.getComponentAt(5), "settings-dialog-performance.html");
-        helpUrlOfComponent.put(tabbedPane.getComponentAt(6), "settings-dialog-file-excludepattern.html");
-        helpUrlOfComponent.put(tabbedPane.getComponentAt(7), "settings-dialog-misc.html");
+        helpUrlOfComponent.put(tabbedPane.getComponentAt(0), Bundle.getString("Help.Url.UserSettingsDialogPrograms"));
+        helpUrlOfComponent.put(tabbedPane.getComponentAt(1), Bundle.getString("Help.Url.UserSettingsDialogFastSearch"));
+        helpUrlOfComponent.put(tabbedPane.getComponentAt(2), Bundle.getString("Help.Url.UserSettingsDialogThumbnails"));
+        helpUrlOfComponent.put(tabbedPane.getComponentAt(3), Bundle.getString("Help.Url.UserSettingsDialogIptc"));
+        helpUrlOfComponent.put(tabbedPane.getComponentAt(4), Bundle.getString("Help.Url.UserSettingsDialogTasks"));
+        helpUrlOfComponent.put(tabbedPane.getComponentAt(5), Bundle.getString("Help.Url.UserSettingsDialogPerformance"));
+        helpUrlOfComponent.put(tabbedPane.getComponentAt(6), Bundle.getString("Help.Url.UserSettingsDialogFileExcludePattern"));
+        helpUrlOfComponent.put(tabbedPane.getComponentAt(7), Bundle.getString("Help.Url.UserSettingsDialogMisc"));
     }
 
     private void handleStateChangedSpinnerMaxThumbnailWidth() {
