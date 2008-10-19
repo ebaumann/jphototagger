@@ -67,6 +67,7 @@ public class AdvancedSearchDialog extends Dialog implements
         setSearchName(""); // NOI18N
         PersistentAppSizes.setSizeAndLocation(this);
         isSavedSearch = false;
+        setVisible(false);
     }
 
     /**
