@@ -167,7 +167,7 @@
 	<node>
 		<title>Einstellungen-Dialog</title>
 		<page>
-			<url>settings-dialog-common.html</url>
+			<url>settings-dialog-programs.html</url>
 			<title>Bilder öffnen</title>
 		</page>
 		<page>
@@ -191,7 +191,7 @@
 			<title>Leistung</title>
 		</page>
 		<page>
-			<url>settings-dialog-excludepattern.html</url>
+			<url>settings-dialog-file-excludepattern.html</url>
 			<title>Ausschließen</title>
 		</page>
 		<page>

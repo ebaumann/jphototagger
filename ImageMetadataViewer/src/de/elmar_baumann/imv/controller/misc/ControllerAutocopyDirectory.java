@@ -34,7 +34,7 @@ public class ControllerAutocopyDirectory extends Controller implements ActionLis
             File dir = UserSettings.getInstance().getAutocopyDirectory();
             if (dir == null && settingsMessage()) {
                 UserSettingsDialog dialog = UserSettingsDialog.getInstance();
-                dialog.selectTab(UserSettingsDialog.Tab.Other);
+                dialog.selectTab(UserSettingsDialog.Tab.Misc);
                 if (dialog.isVisible()) {
                     dialog.toFront();
                 } else {

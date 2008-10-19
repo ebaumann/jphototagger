@@ -43,6 +43,7 @@ public class ImageMetadataToDatabase implements Runnable {
     private boolean readExif = true;
     private boolean onlyXmpIsNewer = false;
     private boolean useEmbeddedThumbnails = UserSettings.getInstance().isUseEmbeddedThumbnails();
+    private int delaySeconds = 0;
 
     /**
      * Konstruktor.
@@ -180,8 +181,28 @@ public class ImageMetadataToDatabase implements Runnable {
         this.readXmp = readXmp;
     }
 
+    /**
+     * Sets the time to wait before the metadata will be created.
+     * 
+     * @param seconds  senconds to wait. Default: zero
+     */
+    public void setDelaySeconds(int seconds) {
+        delaySeconds = seconds;
+    }
+
+    private void delay() {
+        if (delaySeconds > 0) {
+            try {
+                Thread.sleep(delaySeconds * 1000);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(ImageMetadataToDatabase.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
     @Override
     public void run() {
+        delay();
         notifyProgressStarted();
         int count = filenames.size();
         startTime = System.currentTimeMillis();
@@ -236,10 +257,10 @@ public class ImageMetadataToDatabase implements Runnable {
         File file = new File(filename);
         if (settings.isCreateThumbnailsWithExternalApp()) {
             thumbnail = ThumbnailUtil.getThumbnailFromExternalApplication(
-                file, settings.getExternalThumbnailCreationCommand(), getMaxThumbnailLength());
+                    file, settings.getExternalThumbnailCreationCommand(), getMaxThumbnailLength());
         } else {
             thumbnail = ThumbnailUtil.getThumbnail(
-                file, getMaxThumbnailLength(), isUseEmbeddedThumbnails());
+                    file, getMaxThumbnailLength(), isUseEmbeddedThumbnails());
         }
         if (thumbnail == null) {
             notifyNullThumbnail(filename);
