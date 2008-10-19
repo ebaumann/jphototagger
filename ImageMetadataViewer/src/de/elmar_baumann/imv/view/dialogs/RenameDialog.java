@@ -19,6 +19,7 @@ import de.elmar_baumann.imv.image.thumbnail.ThumbnailUtil;
 import de.elmar_baumann.imv.io.FileType;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.Panels;
+import de.elmar_baumann.lib.dialog.Dialog;
 import de.elmar_baumann.lib.persistence.PersistentAppSizes;
 import de.elmar_baumann.lib.persistence.PersistentSettings;
 import de.elmar_baumann.lib.persistence.PersistentSettingsHints;
@@ -41,7 +42,7 @@ import javax.swing.SpinnerNumberModel;
  * 
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  */
-public class RenameDialog extends javax.swing.JDialog {
+public class RenameDialog extends Dialog {
 
     private List<File> files = new ArrayList<File>();
     private List<RenameFileListener> renameFileListeners = new LinkedList<RenameFileListener>();
@@ -62,6 +63,8 @@ public class RenameDialog extends javax.swing.JDialog {
         renameFileListeners = listenerProvider.getRenameFileListeners();
         setIconImages(AppSettings.getAppIcons());
         setComboBoxModels();
+        setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
+        registerKeyStrokes();
     }
 
     private void setComboBoxModels() {
@@ -75,7 +78,7 @@ public class RenameDialog extends javax.swing.JDialog {
         model.addElement(new FilenameFormatConstantString());
         model.addElement(new FilenameFormatNumberSequence(1, 1, 4));
         model.addElement(new FilenameFormatFileName());
-        model.addElement(new FilenameFormatDate("-"));
+        model.addElement(new FilenameFormatDate("-")); // NOI18N
         model.addElement(new FilenameFormatEmptyString());
         return model;
     }
@@ -147,7 +150,7 @@ public class RenameDialog extends javax.swing.JDialog {
             File oldFile = files.get(i);
             String parent = oldFile.getParent();
             File newFile = new File(
-                (parent == null ? "" : parent + File.separator) +
+                (parent == null ? "" : parent + File.separator) + // NOI18N
                 filenameFormatArray.format());
             if (checkNewFileNotExists(newFile) && renameFile(oldFile, newFile)) {
                 files.set(i, newFile);
@@ -198,7 +201,7 @@ public class RenameDialog extends javax.swing.JDialog {
 
     private File getNewFileViaInput() {
         String directory = labelDirectory.getText();
-        return new File(directory + (directory.isEmpty() ? "" : File.separator) +
+        return new File(directory + (directory.isEmpty() ? "" : File.separator) + // NOI18N
             textFieldNewName.getText().trim());
     }
 
@@ -354,8 +357,8 @@ public class RenameDialog extends javax.swing.JDialog {
 
     private PersistentSettingsHints getPersistentSettingsHints() {
         PersistentSettingsHints hints = new PersistentSettingsHints();
-        hints.addExcludedMember(getClass().getName() + ".labelBeforeFilename");
-        hints.addExcludedMember(getClass().getName() + ".labelAfterFilename");
+        hints.addExcludedMember(getClass().getName() + ".labelBeforeFilename"); // NOI18N
+        hints.addExcludedMember(getClass().getName() + ".labelAfterFilename"); // NOI18N
         return hints;
     }
 
@@ -367,7 +370,20 @@ public class RenameDialog extends javax.swing.JDialog {
         textFieldAtEnd.setEditable(
             comboBoxAtEnd.getSelectedItem() instanceof FilenameFormatConstantString);
     }
-    
+
+    @Override
+    protected void help() {
+        help(Bundle.getString("Help.Url.RenameDialog"));
+    }
+
+    @Override
+    protected void escape() {
+        if (!lockClose) {
+            setVisible(false);
+            dispose();
+        }
+    }
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
