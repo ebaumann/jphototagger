@@ -251,7 +251,7 @@ public class MoveToDirectoryDialog extends Dialog
         labelInfoIsThread = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle(Bundle.getString("CopyToDirectoryDialog.title")); // NOI18N
+        setTitle(Bundle.getString("MoveToDirectoryDialog.title")); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -259,14 +259,14 @@ public class MoveToDirectoryDialog extends Dialog
         });
 
         labelInfo.setFont(new java.awt.Font("Dialog", 0, 12));
-        labelInfo.setText(Bundle.getString("CopyToDirectoryDialog.labelInfo.text")); // NOI18N
+        labelInfo.setText(Bundle.getString("MoveToDirectoryDialog.labelInfo.text")); // NOI18N
 
         labelDirectoryName.setFont(new java.awt.Font("Dialog", 0, 11));
         labelDirectoryName.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         buttonChooseDirectory.setFont(new java.awt.Font("Dialog", 0, 12));
         buttonChooseDirectory.setMnemonic('a');
-        buttonChooseDirectory.setText(Bundle.getString("CopyToDirectoryDialog.buttonChooseDirectory.text")); // NOI18N
+        buttonChooseDirectory.setText(Bundle.getString("MoveToDirectoryDialog.buttonChooseDirectory.text")); // NOI18N
         buttonChooseDirectory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonChooseDirectoryActionPerformed(evt);
@@ -275,7 +275,7 @@ public class MoveToDirectoryDialog extends Dialog
 
         buttonStart.setFont(new java.awt.Font("Dialog", 0, 12));
         buttonStart.setMnemonic('s');
-        buttonStart.setText(Bundle.getString("CopyToDirectoryDialog.buttonStartCopy.text")); // NOI18N
+        buttonStart.setText(Bundle.getString("MoveToDirectoryDialog.buttonStartCopy.text")); // NOI18N
         buttonStart.setEnabled(false);
         buttonStart.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -285,7 +285,7 @@ public class MoveToDirectoryDialog extends Dialog
 
         buttonStop.setFont(new java.awt.Font("Dialog", 0, 12));
         buttonStop.setMnemonic('o');
-        buttonStop.setText(Bundle.getString("CopyToDirectoryDialog.buttonCancelCopy.text")); // NOI18N
+        buttonStop.setText(Bundle.getString("MoveToDirectoryDialog.buttonCancelCopy.text")); // NOI18N
         buttonStop.setEnabled(false);
         buttonStop.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -298,7 +298,7 @@ public class MoveToDirectoryDialog extends Dialog
         labelCurrentFilename.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(225, 225, 225)));
 
         labelInfoIsThread.setFont(new java.awt.Font("Dialog", 0, 12));
-        labelInfoIsThread.setText(Bundle.getString("CopyToDirectoryDialog.labelInfoIsThread.text")); // NOI18N
+        labelInfoIsThread.setText(Bundle.getString("MoveToDirectoryDialog.labelInfoIsThread.text")); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

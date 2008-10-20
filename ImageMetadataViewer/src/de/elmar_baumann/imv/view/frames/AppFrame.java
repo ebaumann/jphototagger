@@ -93,6 +93,7 @@ public class AppFrame extends javax.swing.JFrame {
         listenToClose();
         setTitleAndFrameIcon();
         MetaFactory.getInstance();
+        addAppStartListener(appPanel);
         notifyStart();
     }
 
