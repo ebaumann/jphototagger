@@ -84,6 +84,7 @@ public class TreeUtil {
             pathSeparator);
         int tokenCount = tokenizer.countTokens();
         int tokenNumber = 1;
+        int tokenFoundCount = 0;
         Object[] path = new Object[tokenCount > 0 ? tokenCount : 1];
         if (tokenCount > 0) {
             path[0] = treeModel.getRoot();
@@ -104,12 +105,15 @@ public class TreeUtil {
                         path[tokenNumber] = childElement;
                         currentElement = childElement;
                         appended = true;
+                        tokenFoundCount++;
                     }
                 }
                 tokenNumber++;
             }
         }
-        return tokenNumber == tokenCount ? new TreePath(path) : null;
+        return tokenCount > 0 && tokenCount - 1 == tokenFoundCount
+            ? new TreePath(path) 
+            : null;
     }
 
     /**
