@@ -98,7 +98,7 @@
 			<title>Vorschaubilder drehen</title>
 		</page>
 		<page>
-			<url>action_copy_to_directory.html</url>
+			<url>action_filesystem_copy.html</url>
 			<title>In ein Verzeichnis kopieren</title>
 		</page>
 		<page>
@@ -106,12 +106,16 @@
 			<title>Auf dem Datenträger umbenennen</title>
 		</page>
 		<page>
+			<url>action_filesystem_move.html</url>
+			<title>Auf dem Datenträger verschieben</title>
+		</page>
+		<page>
 			<url>action_filesystem_delete.html</url>
 			<title>Vom Datenträger löschen</title>
 		</page>
 	</node>
 	<page>
-		<url>advanced-search.html</url>
+		<url>advanced_search.html</url>
 		<title>Erweiterte Suche</title>
 	</page>
 	<page>
@@ -121,93 +125,93 @@
 	<node>
 		<title>Tipps</title>
 		<page>
-			<url>tip-use-help.html</url>
+			<url>tip_use_help.html</url>
 			<title>Nutzen Sie die Hilfe</title>
 		</page>
 		<page>
-			<url>tip-check-logfile.html</url>
+			<url>tip_check_logfile.html</url>
 			<title>Öffnen Sie bei Fehlern die Logdatei</title>
 		</page>
 		<page>
-			<url>tip-use-shortcuts.html</url>
+			<url>tip_use_shortcuts.html</url>
 			<title>Tastaturkürzel</title>
 		</page>
 		<page>
-			<url>tip-large-thumbnails.html</url>
+			<url>tip_large_thumbnails.html</url>
 			<title>Große Vorschaubilder</title>
 		</page>
 		<page>
-			<url>tip-check-settings.html</url>
+			<url>tip_check_settings.html</url>
 			<title>Einstellungen überprüfen</title>
 		</page>
 		<page>
-			<url>tip-save-searches.html</url>
+			<url>tip_save_searches.html</url>
 			<title>Suchen speichern</title>
 		</page>
 		<page>
-			<url>tip-refresh-only-textmetadata.html</url>
+			<url>tip_refresh_only_textmetadata.html</url>
 			<title>Nur Text-Metadaten aktualisieren</title>
 		</page>
 	</node>
 	<node>
 		<title>Wichtige Fakten</title>
 		<page>
-			<url>facts-what-metadata-is-read.html</url>
+			<url>facts_what_metadata_is_read.html</url>
 			<title>Welche Metadaten werden gelesen?</title>
 		</page>
 		<page>
-			<url>facts-what-metadata-is-displayed.html</url>
+			<url>facts_what_metadata_is_displayed.html</url>
 			<title>Welche Metadaten werden angezeigt?</title>
 		</page>
 		<page>
-			<url>facts-what-metadata-is-in-database.html</url>
+			<url>facts_what_metadata_is_in_database.html</url>
 			<title>Was ist in der Datenbank gespeichert?</title>
 		</page>
 		<page>
-			<url>facts-count-write-to-database.html</url>
+			<url>facts_count_write_to_database.html</url>
 			<title>Wie oft werden Bilder in die Datenbank geschrieben?</title>
 		</page>
 		<page>
-			<url>facts-database-location.html</url>
+			<url>facts_database_location.html</url>
 			<title>Wo ist die Datenbank?</title>
 		</page>
 		<page>
-			<url>facts-why-xmp-sidecarfiles.html</url>
+			<url>facts_why_xmp_sidecarfiles.html</url>
 			<title>Warum XMP-Filialdateien?</title>
 		</page>
 	</node>
 	<node>
 		<title>Einstellungen-Dialog</title>
 		<page>
-			<url>settings-dialog-programs.html</url>
+			<url>settingsdialog_programs.html</url>
 			<title>Bilder öffnen</title>
 		</page>
 		<page>
-			<url>settings-dialog-fastsearch.html</url>
+			<url>settingsdialog_fastsearch.html</url>
 			<title>Schnellsuche</title>
 		</page>
 		<page>
-			<url>settings-dialog-thumbnails.html</url>
+			<url>settingsdialog_thumbnails.html</url>
 			<title>Vorschaubilder</title>
 		</page>
 		<page>
-			<url>settings-dialog-iptc.html</url>
+			<url>settingsdialog_iptc.html</url>
 			<title>IPTC</title>
 		</page>
 		<page>
-			<url>settings-dialog-tasks.html</url>
+			<url>settingsdialog_tasks.html</url>
 			<title>Automatisieren</title>
 		</page>
 		<page>
-			<url>settings-dialog-performance.html</url>
+			<url>settingsdialog_performance.html</url>
 			<title>Leistung</title>
 		</page>
 		<page>
-			<url>settings-dialog-file-excludepattern.html</url>
+			<url>settingsdialog_fileexcludepattern.html</url>
 			<title>Ausschließen</title>
 		</page>
 		<page>
-			<url>settings-dialog-misc.html</url>
+			<url>settingsdialog_misc.html</url>
 			<title>Sonstiges</title>
 		</page>
 	</node>
@@ -230,7 +234,7 @@
 			<title>Bearbeiten / Einstellungen</title>
 		</page>
 		<page>
-			<url>advanced-search.html</url>
+			<url>advanced_search.html</url>
 			<title>Bearbeiten / Suchen</title>
 		</page>
 		<page>

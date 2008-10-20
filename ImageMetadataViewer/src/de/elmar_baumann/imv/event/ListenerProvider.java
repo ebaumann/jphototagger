@@ -28,7 +28,20 @@ public class ListenerProvider {
     private List<RenameFileListener> renameFileListeners = new LinkedList<RenameFileListener>();
     private List<UserSettingsChangeListener> userSettingsChangeListeners = new LinkedList<UserSettingsChangeListener>();
     private List<MetaDataEditPanelListener> metaDataEditPanelListeners = new LinkedList<MetaDataEditPanelListener>();
+    private List<FileSystemActionListener> fileSystemActionListeners = new LinkedList<FileSystemActionListener>();
     private static ListenerProvider instance = new ListenerProvider();
+
+    synchronized public void addFileSystemActionListener(FileSystemActionListener listener) {
+        fileSystemActionListeners.add(listener);
+    }
+
+    synchronized public void removeFileSystemActionListener(FileSystemActionListener listener) {
+        fileSystemActionListeners.remove(listener);
+    }
+
+    synchronized public List<FileSystemActionListener> getFileSystemActionListener() {
+        return fileSystemActionListeners;
+    }
 
     synchronized public void addMetaDataEditPanelListener(MetaDataEditPanelListener listener) {
         metaDataEditPanelListeners.add(listener);

@@ -70,7 +70,7 @@ public class FileSystemMove extends FileSystem implements Runnable {
                 boolean moved = sourceFile.renameTo(targetFile);
                 checkMoved(moved, sourceFile, targetFile);
             }
-            progressEvent.setValue(i);
+            progressEvent.setValue(i + 1);
             progressEvent.setInfo(new Pair<File, File>(sourceFile, targetFile));
             notifyProgressListenerPerformed(progressEvent);
             stop = progressEvent.isStop();
@@ -81,22 +81,29 @@ public class FileSystemMove extends FileSystem implements Runnable {
     private boolean checkExists(File sourceFile, File targetFile) {
         boolean exists = targetFile.exists();
         if (exists) {
-            notifyActionListenersFailed(
-                FileSystemAction.Move,
-                FileSystemError.MoveRenameExists,
-                sourceFile,
-                targetFile);
+            notifyError(FileSystemError.MoveRenameExists, sourceFile, targetFile);
         }
-        return exists;
+        return !exists;
     }
 
     private void checkMoved(boolean moved, File sourceFile, File targetFile) {
-        if (!moved) {
-            notifyActionListenersFailed(
-                FileSystemAction.Move,
-                FileSystemError.Unknown,
-                sourceFile,
-                targetFile);
+        if (moved) {
+            notifyActionListenersPerformed(FileSystemAction.Move, sourceFile, targetFile);
+        } else {
+            notifyError(FileSystemError.Unknown, sourceFile, targetFile);
         }
+    }
+
+    private void notifyError(FileSystemError error, File sourceFile, File targetFile) {
+        notifyActionListenersFailed(
+            FileSystemAction.Move,
+            error,
+            sourceFile,
+            targetFile);
+        notifyActionListenersFailed(
+            FileSystemAction.Move,
+            error,
+            sourceFile,
+            targetFile);
     }
 }

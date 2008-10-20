@@ -87,6 +87,7 @@ public class AppFrame extends javax.swing.JFrame {
     };
 
     private void postInitComponents() {
+        addAppStartListener(appPanel);
         initSortMenuItemsMap();
         initTotoMenuItemsMap();
         listenToClose();

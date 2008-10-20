@@ -319,8 +319,8 @@ public class RenameDialog extends Dialog {
         Image thumbnail = null;
         if (FileType.isJpegFile(file.getName())) {
             thumbnail = ThumbnailUtil.getScaledImage(file, panelThumbnail.getWidth());
-        // Imagero locks the displayed file and it couldn't be renamed
-        //thumbnail = ThumbnailUtil.getThumbnail(file, panelThumbnail.getWidth(), true);
+            // Imagero locks the displayed file and it couldn't be renamed
+            //thumbnail = ThumbnailUtil.getThumbnail(file, panelThumbnail.getWidth(), true);
         }
         panelThumbnail.setImage(thumbnail);
         panelThumbnail.repaint();

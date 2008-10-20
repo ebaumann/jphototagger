@@ -39,6 +39,7 @@ public class PopupMenuPanelThumbnails extends JPopupMenu
     private final String actionRenameInXmpColumns = Bundle.getString("PopupMenuPanelThumbnails.Action.RenameInXmpColumns");
     private final String actionFileSystemDeleteFiles = Bundle.getString("PopupMenuPanelThumbnails.Action.FileSystemDeleteFiles");
     private final String actionFileSystemRenameFiles = Bundle.getString("PopupMenuPanelThumbnails.Action.FileSystemRename");
+    private final String actionFileSystemMoveFiles = Bundle.getString("PopupMenuPanelThumbnails.Action.FileSystemMove");
     private JMenu menuOtherOpenImageApps = new JMenu(Bundle.getString("PopupMenuPanelThumbnails.menuOtherOpenImageApps.text"));
     private final JMenuItem itemUpdateAllMetadata = new JMenuItem(actionUpdateAllMetadata);
     private final JMenuItem itemUpdateTextMetadata = new JMenuItem(actionUpdateTextMetadata);
@@ -54,6 +55,7 @@ public class PopupMenuPanelThumbnails extends JPopupMenu
     private final JMenuItem itemCopySelectedFilesToDirectory = new JMenuItem(actionCopySelectedFilesToDirectory);
     private final JMenuItem itemFileSystemDeleteFiles = new JMenuItem(actionFileSystemDeleteFiles);
     private final JMenuItem itemFileSystemRenameFiles = new JMenuItem(actionFileSystemRenameFiles);
+    private final JMenuItem itemFileSystemMoveFiles = new JMenuItem(actionFileSystemMoveFiles);
     private List<ActionListener> actionListenersOpenFilesWithOtherApp = new ArrayList<ActionListener>();
     private Map<String, Float> angleOfAction = new HashMap<String, Float>();
     private Map<String, File> otherImageOpenAppOfAction = new HashMap<String, File>();
@@ -98,6 +100,7 @@ public class PopupMenuPanelThumbnails extends JPopupMenu
         add(new JSeparator());
         add(itemCopySelectedFilesToDirectory);
         add(itemFileSystemRenameFiles);
+        add(itemFileSystemMoveFiles);
         add(itemFileSystemDeleteFiles);
     }
 
@@ -446,6 +449,14 @@ public class PopupMenuPanelThumbnails extends JPopupMenu
 
     public void removeActionListenerFileSystemRenameFiles(ActionListener listener) {
         itemFileSystemRenameFiles.removeActionListener(listener);
+    }
+
+    public void addActionListenerFileSystemMoveFiles(ActionListener listener) {
+        itemFileSystemMoveFiles.addActionListener(listener);
+    }
+
+    public void removeActionListenerFileSystemMoveFiles(ActionListener listener) {
+        itemFileSystemMoveFiles.removeActionListener(listener);
     }
 
     /**

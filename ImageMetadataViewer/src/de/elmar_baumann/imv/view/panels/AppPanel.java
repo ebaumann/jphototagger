@@ -24,6 +24,7 @@ import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
 import javax.swing.JSlider;
+import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -330,19 +331,28 @@ public class AppPanel extends javax.swing.JPanel
         }
     }
 
+    public String getKeyDividerLocationThumbnails() {
+        return keyDividerLocationThumbnails;
+    }
+
+    public JSplitPane getSplitPaneThumbnailsMetadata() {
+        return splitPaneThumbnailsMetadata;
+    }
+
     @Override
     public void appWillStart() {
-        int location = PersistentSettings.getInstance().getInt(
-            keyDividerLocationThumbnails);
-        splitPaneThumbnailsMetadata.setDividerLocation(location);
-
+        int location = PersistentSettings.getInstance().getInt(keyDividerLocationThumbnails);
+        if (location > 0) {
+            splitPaneThumbnailsMetadata.setDividerLocation(location);
+        }
     }
 
     @Override
     public void appWillExit() {
         PersistentSettings.getInstance().setComponent(this, getPersistentSettingsHints());
-        PersistentSettings.getInstance().setInt(splitPaneThumbnailsMetadata.getDividerLocation(),
-            keyDividerLocationThumbnails);
+        int location = splitPaneThumbnailsMetadata.getDividerLocation();
+        System.out.println(location);
+        PersistentSettings.getInstance().setInt(location, keyDividerLocationThumbnails);
     }
 
     public PersistentSettingsHints getPersistentSettingsHints() {
@@ -350,7 +360,6 @@ public class AppPanel extends javax.swing.JPanel
         String className = getClass().getName();
         hints.addExcludedMember(className + ".textFieldSearch"); // NOI18N
         hints.addExcludedMember(className + ".panelEditMetadata"); // NOI18N
-        hints.addExcludedMember(className + ".treeDirectories"); // NOI18N
         return hints;
     }
 

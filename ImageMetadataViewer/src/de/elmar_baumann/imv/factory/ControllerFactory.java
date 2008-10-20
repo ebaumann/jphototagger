@@ -15,6 +15,7 @@ import de.elmar_baumann.imv.controller.files.ControllerCopyFilesToDirectory;
 import de.elmar_baumann.imv.controller.files.ControllerOpenFilesWithOtherApp;
 import de.elmar_baumann.imv.controller.files.ControllerOpenFilesWithStandardApp;
 import de.elmar_baumann.imv.controller.filesystem.ControllerDeleteFiles;
+import de.elmar_baumann.imv.controller.filesystem.ControllerMoveFiles;
 import de.elmar_baumann.imv.controller.filesystem.ControllerRenameFiles;
 import de.elmar_baumann.imv.controller.imagecollection.ControllerAddToImageCollection;
 import de.elmar_baumann.imv.controller.imagecollection.ControllerCreateImageCollection;
@@ -136,6 +137,7 @@ public class ControllerFactory {
         controllers.add(new ControllerSliderThumbnailSize());
         controllers.add(new ControllerDeleteFiles());
         controllers.add(new ControllerRenameFiles());
+        controllers.add(new ControllerMoveFiles());
         controllers.add(new ControllerSortThumbnails());
         controllers.add(new ControllerThumbnailsDatabaseChanges());
         controllers.add(new ControllerAutocopyDirectory());
