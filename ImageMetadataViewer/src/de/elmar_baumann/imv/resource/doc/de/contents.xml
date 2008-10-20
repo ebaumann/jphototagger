@@ -16,90 +16,90 @@
 	<node>
 		<title>Die Auswahl-Kartenreiter</title>
 		<page>
-			<url>panel_folder.html</url>
+			<url>mainwindow_panel_folder.html</url>
 			<title>Ordner</title>
 		</page>
 		<page>
-			<url>panel_saved_searches.html</url>
+			<url>mainwindow_panel_saved_searches.html</url>
 			<title>Suchen</title>
 		</page>
 		<page>
-			<url>panel_collections.html</url>
+			<url>mainwindow_panel_collections.html</url>
 			<title>Bildsammlungen</title>
 		</page>
 		<page>
-			<url>panel_categories.html</url>
+			<url>mainwindow_panel_categories.html</url>
 			<title>Kategorien</title>
 		</page>
 		<page>
-			<url>panel_favorite_folders.html</url>
+			<url>mainwindow_panel_favorite_folders.html</url>
 			<title>Favoriten-Ordner</title>
 		</page>
 	</node>
 	<node>
 		<title>Die Metadaten-Kartenreiter</title>
 		<page>
-			<url>panel_iptc.html</url>
+			<url>mainwindow_panel_iptc.html</url>
 			<title>IPTC</title>
 		</page>
 		<page>
-			<url>panel_exif.html</url>
+			<url>mainwindow_panel_exif.html</url>
 			<title>EXIF</title>
 		</page>
 		<page>
-			<url>panel_xmp.html</url>
+			<url>mainwindow_panel_xmp.html</url>
 			<title>XMP</title>
 		</page>
 		<page>
-			<url>panel_edit.html</url>
+			<url>mainwindow_panel_edit.html</url>
 			<title>Bearbeiten</title>
 		</page>
 	</node>
 	<node>
 		<title>Arbeiten im Bildfenster</title>
 		<page>
-			<url>action_update_all_metadata.html</url>
+			<url>action_metadata_update_all.html</url>
 			<title>Alle Metadaten aktualisieren</title>
 		</page>
 		<page>
-			<url>action_update_text_metadata.html</url>
+			<url>action_metadata_update_text.html</url>
 			<title>Nur Text-Metadaten aktualisieren</title>
 		</page>
 		<page>
-			<url>action_remove_from_database.html</url>
+			<url>action_database_remove_image.html</url>
 			<title>Aus der Datenbank entfernen</title>
 		</page>
 		<page>
-			<url>action_replace_xmp.html</url>
+			<url>action_metadata_replace_in_xmp.html</url>
 			<title>XMP-Daten suchen und ersetzen</title>
 		</page>
 		<page>
-			<url>action_open.html</url>
+			<url>action_filesystem_open.html</url>
 			<title>Öffnen</title>
 		</page>
 		<page>
-			<url>action_open_with.html</url>
+				<url>action_filesystem_open_with.html</url>
 			<title>Öffnen mit</title>
 		</page>
 		<page>
-			<url>action_create_collection.html</url>
+			<url>action_collection_create.html</url>
 			<title>Neue Bildammlung erstellen</title>
 		</page>
 		<page>
-			<url>action_add_to_collection.html</url>
+			<url>action_collection_add_to.html</url>
 			<title>Einer Bildammlung hinzufügen</title>
 		</page>
 		<page>
-			<url>action_remove_from_collection.html</url>
+			<url>action_collection_remove_from.html</url>
 			<title>Aus der Bildammlung entfernen</title>
 		</page>
 		<page>
-			<url>action_rotate.html</url>
+			<url>action_thumbnail_rotate.html</url>
 			<title>Vorschaubilder drehen</title>
 		</page>
 		<page>
 			<url>action_filesystem_copy.html</url>
-			<title>In ein Verzeichnis kopieren</title>
+			<title>In einen Ordner kopieren</title>
 		</page>
 		<page>
 			<url>action_filesystem_rename.html</url>
@@ -115,11 +115,11 @@
 		</page>
 	</node>
 	<page>
-		<url>advanced_search.html</url>
+		<url>dialog_advanced_search.html</url>
 		<title>Erweiterte Suche</title>
 	</page>
 	<page>
-		<url>action_autocopy_directory.html</url>
+		<url>action_filesystem_autocopy_directory.html</url>
 		<title>Bilder von der Kameraspeicherkarte einlesen</title>
 	</page>
 	<node>
@@ -183,58 +183,58 @@
 	<node>
 		<title>Einstellungen-Dialog</title>
 		<page>
-			<url>settingsdialog_programs.html</url>
+			<url>dialog_settings_programs.html</url>
 			<title>Bilder öffnen</title>
 		</page>
 		<page>
-			<url>settingsdialog_fastsearch.html</url>
+			<url>dialog_settings_fastsearch.html</url>
 			<title>Schnellsuche</title>
 		</page>
 		<page>
-			<url>settingsdialog_thumbnails.html</url>
+			<url>dialog_settings_thumbnails.html</url>
 			<title>Vorschaubilder</title>
 		</page>
 		<page>
-			<url>settingsdialog_iptc.html</url>
+			<url>dialog_settings_iptc.html</url>
 			<title>IPTC</title>
 		</page>
 		<page>
-			<url>settingsdialog_tasks.html</url>
+			<url>dialog_settings_tasks.html</url>
 			<title>Automatisieren</title>
 		</page>
 		<page>
-			<url>settingsdialog_performance.html</url>
+			<url>dialog_settings_performance.html</url>
 			<title>Leistung</title>
 		</page>
 		<page>
-			<url>settingsdialog_fileexcludepattern.html</url>
+			<url>dialog_settings_fileexcludepattern.html</url>
 			<title>Ausschließen</title>
 		</page>
 		<page>
-			<url>settingsdialog_misc.html</url>
+			<url>dialog_settings_misc.html</url>
 			<title>Sonstiges</title>
 		</page>
 	</node>
 	<node>
 		<title>Menübefehle</title>
 		<page>
-			<url>action_scan_directories.html</url>
-			<title>Datei / Verzeichnisse einlesen</title>
+			<url>action_metadata_scan_directories.html</url>
+			<title>Datei / Ordner einlesen</title>
 		</page>
 		<page>
-			<url>action_maintain_database.html</url>
+			<url>action_database_maintain.html</url>
 			<title>Datei / Datenbank</title>
 		</page>
 		<page>
-			<url>action_autocopy_directory.html</url>
+			<url>action_filesystem_autocopy_directory.html</url>
 			<title>Datei / Bilder von der Kamera-Speicherkarte kopieren</title>
 		</page>
 		<page>
-			<url>action_edit_settings.html</url>
+			<url>action_dialog_settings.html</url>
 			<title>Bearbeiten / Einstellungen</title>
 		</page>
 		<page>
-			<url>advanced_search.html</url>
+			<url>dialog_advanced_search.html</url>
 			<title>Bearbeiten / Suchen</title>
 		</page>
 		<page>
@@ -246,7 +246,7 @@
 			<title>Bearbeiten / Vom Datenträger löschen</title>
 		</page>
 		<page>
-			<url>action_iptc_to_xmp.html</url>
+			<url>action_metadata_iptc_to_xmp.html</url>
 			<title>Werkzeuge / IPTC-Daten nach XMP</title>
 		</page>
 	</node>
