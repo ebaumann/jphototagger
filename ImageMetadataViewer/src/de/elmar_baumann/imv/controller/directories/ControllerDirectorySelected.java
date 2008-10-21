@@ -5,6 +5,7 @@ import de.elmar_baumann.imv.event.RefreshListener;
 import de.elmar_baumann.imv.io.ImageFilteredDirectory;
 import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.view.panels.AppPanel;
+import de.elmar_baumann.imv.Content;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.lib.io.DirectoryTreeModelFile;
 import java.io.File;
@@ -34,7 +35,7 @@ public class ControllerDirectorySelected extends Controller
 
     private void listenToActionSource() {
         treeDirectories.addTreeSelectionListener(this);
-        thumbnailsPanel.addRefreshListener(this, ImageFileThumbnailsPanel.Content.Directory);
+        thumbnailsPanel.addRefreshListener(this, Content.Directory);
     }
 
     @Override
@@ -54,7 +55,7 @@ public class ControllerDirectorySelected extends Controller
     private void showThumbnails() {
         File selectedDirectory = new File(getDirectorynameFromTree(treeDirectories.getSelectionPath()));
         imageFilteredDirectory.setDirectory(selectedDirectory);
-        thumbnailsPanel.setFiles(ImageFilteredDirectory.getImageFilesOfDirectory(selectedDirectory), ImageFileThumbnailsPanel.Content.Directory);
+        thumbnailsPanel.setFiles(ImageFilteredDirectory.getImageFilesOfDirectory(selectedDirectory), Content.Directory);
     }
 
     private String getDirectorynameFromTree(TreePath treePath) {

@@ -1,5 +1,6 @@
 package de.elmar_baumann.imv.view.panels;
 
+import de.elmar_baumann.imv.Content;
 import de.elmar_baumann.imv.controller.thumbnail.ControllerDoubleklickThumbnail;
 import de.elmar_baumann.imv.data.ThumbnailFlag;
 import de.elmar_baumann.imv.database.DatabaseImageFiles;
@@ -35,20 +36,6 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel {
     private boolean hadFiles = false;
     private Content content = Content.Undefined;
     private Map<Content, List<RefreshListener>> refreshListenersOfContent = new HashMap<Content, List<RefreshListener>>();
-
-    /**
-     * Content type of the displayed thumbnails.
-     */
-    public enum Content {
-
-        Category,
-        Directory,
-        FastSearch,
-        FavoriteDirectory,
-        ImageCollection,
-        Search,
-        Undefined,
-    }
 
     public ImageFileThumbnailsPanel() {
         initMap();

@@ -7,6 +7,7 @@ import de.elmar_baumann.imv.database.metadata.ParamStatement;
 import de.elmar_baumann.imv.event.RefreshListener;
 import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.view.panels.AppPanel;
+import de.elmar_baumann.imv.Content;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.util.List;
@@ -34,7 +35,7 @@ public class ControllerSafedSearchSelected extends Controller
 
     private void listenToActionSource() {
         list.addListSelectionListener(this);
-        thumbnailsPanel.addRefreshListener(this, ImageFileThumbnailsPanel.Content.Search);
+        thumbnailsPanel.addRefreshListener(this, Content.Search);
     }
 
     @Override
@@ -67,6 +68,6 @@ public class ControllerSafedSearchSelected extends Controller
     private void search(ParamStatement stmt) {
         List<String> filenames = db.searchFilenames(stmt);
         thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames),
-            ImageFileThumbnailsPanel.Content.Search);
+            Content.Search);
     }
 }

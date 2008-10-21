@@ -5,6 +5,7 @@ import de.elmar_baumann.imv.database.DatabaseImageCollections;
 import de.elmar_baumann.imv.event.RefreshListener;
 import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.view.panels.AppPanel;
+import de.elmar_baumann.imv.Content;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.util.List;
@@ -34,7 +35,7 @@ public class ControllerImageCollectionSelected extends Controller
 
     private void listenToActionSources() {
         list.addListSelectionListener(this);
-        thumbnailsPanel.addRefreshListener(this, ImageFileThumbnailsPanel.Content.ImageCollection);
+        thumbnailsPanel.addRefreshListener(this, Content.ImageCollection);
     }
 
     @Override
@@ -57,6 +58,6 @@ public class ControllerImageCollectionSelected extends Controller
     private void showImageCollection(String collectionName) {
         List<String> filenames = db.getFilenamesOfImageCollection(collectionName);
         thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames),
-            ImageFileThumbnailsPanel.Content.ImageCollection);
+            Content.ImageCollection);
     }
 }

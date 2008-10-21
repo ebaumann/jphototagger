@@ -16,6 +16,7 @@ import de.elmar_baumann.imv.event.UserSettingsChangeListener;
 import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.view.dialogs.UserSettingsDialog;
 import de.elmar_baumann.imv.view.panels.AppPanel;
+import de.elmar_baumann.imv.Content;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.lib.componentutil.ListUtil;
 import de.elmar_baumann.lib.componentutil.TreeUtil;
@@ -115,7 +116,7 @@ public class ControllerFastSearch extends Controller
         List<String> filenames =
             db.searchFilenamesLikeOr(UserSettings.getInstance().getFastSearchColumns(), searchText);
         thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames),
-            ImageFileThumbnailsPanel.Content.Search);
+            Content.Search);
     }
 
     @Override

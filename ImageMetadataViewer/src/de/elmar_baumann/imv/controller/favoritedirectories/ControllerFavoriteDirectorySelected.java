@@ -6,6 +6,7 @@ import de.elmar_baumann.imv.event.RefreshListener;
 import de.elmar_baumann.imv.io.ImageFilteredDirectory;
 import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.view.panels.AppPanel;
+import de.elmar_baumann.imv.Content;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import java.io.File;
 import java.util.List;
@@ -32,7 +33,7 @@ public class ControllerFavoriteDirectorySelected extends Controller
 
     private void listenToActionSource() {
         listFavoriteDirectories.addListSelectionListener(this);
-        thumbnailsPanel.addRefreshListener(this, ImageFileThumbnailsPanel.Content.FavoriteDirectory);
+        thumbnailsPanel.addRefreshListener(this, Content.FavoriteDirectory);
     }
 
     @Override
@@ -48,7 +49,7 @@ public class ControllerFavoriteDirectorySelected extends Controller
     private void showThumbnails() {
         if (isControl() && listFavoriteDirectories.getSelectedValue() != null) {
             thumbnailsPanel.setFiles(getFilesOfCurrentDirectory(),
-                ImageFileThumbnailsPanel.Content.FavoriteDirectory);
+                Content.FavoriteDirectory);
         }
     }
 

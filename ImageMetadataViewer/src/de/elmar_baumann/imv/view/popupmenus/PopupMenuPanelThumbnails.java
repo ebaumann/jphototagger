@@ -4,7 +4,7 @@ import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.event.UserSettingsChangeEvent;
 import de.elmar_baumann.imv.event.UserSettingsChangeListener;
 import de.elmar_baumann.imv.resource.Bundle;
-import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
+import de.elmar_baumann.imv.Content;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
@@ -59,7 +59,7 @@ public class PopupMenuPanelThumbnails extends JPopupMenu
     private List<ActionListener> actionListenersOpenFilesWithOtherApp = new ArrayList<ActionListener>();
     private Map<String, Float> angleOfAction = new HashMap<String, Float>();
     private Map<String, File> otherImageOpenAppOfAction = new HashMap<String, File>();
-    private ImageFileThumbnailsPanel.Content content = ImageFileThumbnailsPanel.Content.Undefined;
+    private Content content = Content.Undefined;
     private static PopupMenuPanelThumbnails instance = new PopupMenuPanelThumbnails();
 
     /**
@@ -134,14 +134,14 @@ public class PopupMenuPanelThumbnails extends JPopupMenu
      * 
      * @param content  content
      */
-    public void setContent(ImageFileThumbnailsPanel.Content content) {
+    public void setContent(Content content) {
         this.content = content;
         setEnabledContent();
     }
 
     private void setEnabledContent() {
         itemDeleteFromImageCollection.setEnabled(
-            content.equals(ImageFileThumbnailsPanel.Content.ImageCollection));
+            content.equals(Content.ImageCollection));
     }
 
     /**

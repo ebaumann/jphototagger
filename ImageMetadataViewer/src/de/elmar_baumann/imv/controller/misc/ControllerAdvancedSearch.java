@@ -11,6 +11,7 @@ import de.elmar_baumann.imv.event.SearchListener;
 import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.view.dialogs.AdvancedSearchDialog;
 import de.elmar_baumann.imv.view.panels.AppPanel;
+import de.elmar_baumann.imv.Content;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.lib.componentutil.TreeUtil;
 import de.elmar_baumann.lib.io.FileUtil;
@@ -77,6 +78,6 @@ public class ControllerAdvancedSearch extends Controller
         List<String> filenames = db.searchFilenames(stmt);
 
         thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames),
-            ImageFileThumbnailsPanel.Content.Search);
+            Content.Search);
     }
 }
