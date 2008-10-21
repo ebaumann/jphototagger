@@ -9,6 +9,7 @@ import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 import java.util.Stack;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -343,6 +344,20 @@ public class FileUtil {
     }
 
     /**
+     * Returns an array of files from an set of filenames.
+     * 
+     * @param  filenames  filenames
+     * @return files
+     */
+    public static List<File> getAsFiles(Set<String> filenames) {
+        List<File> files = new ArrayList<File>(filenames.size());
+        for (String filename : filenames) {
+            files.add(new File(filename));
+        }
+        return files;
+    }
+
+    /**
      * Returns an array of filenames from an array of files.
      * 
      * @param  files  files
@@ -355,7 +370,7 @@ public class FileUtil {
         }
         return filenames;
     }
-    
+
     /**
      * Returns a list of files from a list of object where every object is a file.
      * 
@@ -365,7 +380,7 @@ public class FileUtil {
     public static List<File> objectListToFileList(List files) {
         List<File> fileList = new ArrayList<File>(files.size());
         for (Object o : files) {
-            fileList.add((File)o);
+            fileList.add((File) o);
         }
         return fileList;
     }
