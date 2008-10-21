@@ -733,7 +733,7 @@ public class AppPanel extends javax.swing.JPanel
 
         labelStatusbar.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
 
-        progressBarCreateMetaDataOfCurrentThumbnails.setFont(new java.awt.Font("Dialog", 1, 8)); // NOI18N
+        progressBarCreateMetaDataOfCurrentThumbnails.setFont(new java.awt.Font("Dialog", 1, 8));
         progressBarCreateMetaDataOfCurrentThumbnails.setToolTipText(AppSettings.tooltipTextProgressBarDirectory);
 
         progressBarCurrentTasks.setToolTipText(AppSettings.tooltipTextProgressBarCurrentTasks);
@@ -744,6 +744,7 @@ public class AppPanel extends javax.swing.JPanel
 
         buttonStopScheduledTasks.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icon_stop_scheduled_tasks_enabled.png"))); // NOI18N
         buttonStopScheduledTasks.setDisabledIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icon_stop_scheduled_tasks_disabled.png"))); // NOI18N
+        buttonStopScheduledTasks.setEnabled(false);
         buttonStopScheduledTasks.setPreferredSize(new java.awt.Dimension(16, 16));
 
         javax.swing.GroupLayout panelMetadataProgressLayout = new javax.swing.GroupLayout(panelMetadataProgress);
