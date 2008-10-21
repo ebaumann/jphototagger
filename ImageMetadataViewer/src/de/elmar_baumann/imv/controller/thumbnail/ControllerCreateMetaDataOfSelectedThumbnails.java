@@ -53,7 +53,7 @@ public class ControllerCreateMetaDataOfSelectedThumbnails extends Controller
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (isStarted()) {
+        if (isControl()) {
             updateMetadataOfSelectedImages(
                 popup.isUpdateTextMetadata(e.getActionCommand()));
         }
@@ -111,7 +111,7 @@ public class ControllerCreateMetaDataOfSelectedThumbnails extends Controller
 
     @Override
     public void progressPerformed(ProgressEvent evt) {
-        if (isStarted()) {
+        if (isControl()) {
             if (progressBar != null) {
                 progressBar.setValue(evt.getValue());
             }

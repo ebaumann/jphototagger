@@ -52,7 +52,7 @@ public class ControllerSliderThumbnailSize extends Controller
 
     @Override
     public void stateChanged(ChangeEvent e) {
-        if (isStarted()) {
+        if (isControl()) {
             int value = slider.getValue();
             synchronized (this) {
                 if (value % stepWidth == 0 && value != currentValue) {

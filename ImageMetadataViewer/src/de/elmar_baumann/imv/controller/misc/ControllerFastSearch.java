@@ -72,7 +72,7 @@ public class ControllerFastSearch extends Controller
 
             @Override
             public void keyReleased(KeyEvent e) {
-                if (isStarted() && e.getKeyCode() == KeyEvent.VK_ENTER) {
+                if (isControl() && e.getKeyCode() == KeyEvent.VK_ENTER) {
                     search();
                 }
             }
@@ -129,7 +129,7 @@ public class ControllerFastSearch extends Controller
 
     @Override
     public void actionPerformed(DatabaseAction action) {
-        if (isStarted() && isUseAutocomplete && action.isImageModified()) {
+        if (isControl() && isUseAutocomplete && action.isImageModified()) {
             ImageFile data = action.getImageFileData();
             if (data != null && data.getXmp() != null) {
                 addAutoCompleteData(data.getXmp());

@@ -33,7 +33,7 @@ public class ControllerCopyFilesToDirectory extends Controller
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (isStarted()) {
+        if (isControl()) {
             List<File> files = panel.getSelectedFiles();
             if (files.size() > 0) {
                 CopyToDirectoryDialog dialog = new CopyToDirectoryDialog();

@@ -43,7 +43,7 @@ public class ControllerItemsMutualExcludeSelection extends Controller
     @Override
     public void valueChanged(TreeSelectionEvent e) {
         Object o = e.getSource();
-        if (listen && isStarted() && o instanceof JTree) {
+        if (listen && isControl() && o instanceof JTree) {
             JTree tree = (JTree) o;
             if (e.isAddedPath()) {
                 deselectAllLists();
@@ -55,7 +55,7 @@ public class ControllerItemsMutualExcludeSelection extends Controller
     @Override
     public void valueChanged(ListSelectionEvent e) {
         Object o = e.getSource();
-        if (listen && isStarted() && o instanceof JList) {
+        if (listen && isControl() && o instanceof JList) {
             JList list = (JList) o;
             deselectAllTrees();
             deselectOtherLists(list);

@@ -34,14 +34,16 @@ public class ControllerSaveMetaData extends Controller
     }
 
     @Override
-    public void stop() {
-        updater.stop();
-        super.stop();
+    public void setControl(boolean control) {
+        super.setControl(control);
+        if (!control) {
+            updater.stop();
+        }
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (isStarted()) {
+        if (isControl()) {
             List<TextEntry> entries = editPanels.getTextEntries();
             List<String> filenames = editPanels.getFilenames();
             int filenameCount = filenames.size();

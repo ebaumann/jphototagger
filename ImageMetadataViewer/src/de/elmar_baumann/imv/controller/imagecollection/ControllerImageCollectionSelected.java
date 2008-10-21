@@ -49,7 +49,7 @@ public class ControllerImageCollectionSelected extends Controller
 
     private void showThumbnails() {
         Object selected = list.getSelectedValue();
-        if (isStarted() && selected != null) {
+        if (isControl() && selected != null) {
             showImageCollection(selected.toString());
         }
     }

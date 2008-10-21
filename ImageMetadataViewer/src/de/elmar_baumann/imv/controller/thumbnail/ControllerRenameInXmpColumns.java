@@ -28,13 +28,16 @@ public class ControllerRenameInXmpColumns extends Controller
     }
 
     @Override
-    public void stop() {
-        updater.stop();
+    public void setControl(boolean control) {
+        super.setControl(control);
+        if (!control) {
+            updater.stop();
+        }
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (isStarted()) {
+        if (isControl()) {
             List<String> filenames = FileUtil.getAsFilenames(
                 thumbnailsPanel.getSelectedFiles());
             if (!filenames.isEmpty()) {

@@ -30,7 +30,7 @@ public class ControllerAutocopyDirectory extends Controller implements ActionLis
     
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (isStarted()) {
+        if (isControl()) {
             File dir = UserSettings.getInstance().getAutocopyDirectory();
             if (dir == null && settingsMessage()) {
                 UserSettingsDialog dialog = UserSettingsDialog.getInstance();

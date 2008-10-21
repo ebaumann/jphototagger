@@ -41,7 +41,7 @@ public class ControllerRenameSavedSearch extends Controller
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (isStarted()) {
+        if (isControl()) {
             rename();
         }
     }

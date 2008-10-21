@@ -34,7 +34,7 @@ public class ControllerSortThumbnails extends Controller implements ActionListen
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (isStarted()) {
+        if (isControl()) {
             JRadioButtonMenuItem item = (JRadioButtonMenuItem) e.getSource();
             FileSort sort = appFrame.getSortOfMenuItem(item);
             setSelectedMenuItems(sort);

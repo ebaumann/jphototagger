@@ -15,7 +15,7 @@ public class ControllerMaintainDatabase extends Controller implements ActionList
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (isStarted()) {
+        if (isControl()) {
             maintainDatabase();
         }
     }

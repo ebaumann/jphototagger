@@ -44,7 +44,7 @@ public class ControllerAutoUpdateMetadataTask extends Controller
 
         init();
         listenToActionSource();
-        stop();
+        super.setControl(false);
     }
 
     private void listenToActionSource() {
@@ -69,16 +69,16 @@ public class ControllerAutoUpdateMetadataTask extends Controller
     }
 
     @Override
-    public void start() {
-        startScan();
+    public void setControl(boolean control) {
+        super.setControl(control);
+        if (control) {
+            startUpdate();
+        } else {
+            updaterArray.stop();
+        }
     }
 
-    @Override
-    public void stop() {
-        updaterArray.stop();
-    }
-
-    private void startScan() {
+    private void startUpdate() {
         updaterArray.start();
         List<String> directories = getDirectoryNames();
         if (!directories.isEmpty()) {

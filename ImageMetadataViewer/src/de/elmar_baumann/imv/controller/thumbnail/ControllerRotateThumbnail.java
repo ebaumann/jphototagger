@@ -37,7 +37,7 @@ public class ControllerRotateThumbnail extends Controller
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (isStarted()) {
+        if (isControl()) {
             rotateSelectedImages(
                 popup.getRotateAngle(e.getActionCommand()));
         }

@@ -102,7 +102,7 @@ public class ControllerShowMetadata extends Controller
 
     @Override
     public void selectionChanged(ThumbnailsPanelAction action) {
-        if (isStarted()) {
+        if (isControl()) {
             if (data.thumbnailsPanel.getSelectionCount() == 1) {
                 showMetaDataOfFile(data.thumbnailsPanel.getFile(action.getThumbnailIndex()));
             } else {
@@ -191,10 +191,10 @@ public class ControllerShowMetadata extends Controller
     @Override
     public void actionPerformed(DatabaseAction action) {
         DatabaseAction.Type actionType = action.getType();
-        if (isStarted() && (actionType.equals(DatabaseAction.Type.ImageFileInserted) ||
+        if (isControl() && (actionType.equals(DatabaseAction.Type.ImageFileInserted) ||
             actionType.equals(DatabaseAction.Type.ImageFileUpdated))) {
             showUpdates(action.getImageFileData().getFile());
-        } else if (isStarted() && actionType.equals(DatabaseAction.Type.XmpUpdated)) {
+        } else if (isControl() && actionType.equals(DatabaseAction.Type.XmpUpdated)) {
             showUpdates(action.getFile());
         }
     }

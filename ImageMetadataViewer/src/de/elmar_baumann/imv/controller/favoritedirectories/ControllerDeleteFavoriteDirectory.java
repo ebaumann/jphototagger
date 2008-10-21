@@ -32,7 +32,7 @@ public class ControllerDeleteFavoriteDirectory extends Controller
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (isStarted()) {
+        if (isControl()) {
             deleteFavorite();
         }
     }

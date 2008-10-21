@@ -33,7 +33,7 @@ public class ControllerOpenFilesWithOtherApp extends Controller
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (isStarted()) {
+        if (isControl()) {
             openFilesWithApp(popup.getOtherOpenImageApp(e.getActionCommand()).getAbsolutePath());
         }
     }

@@ -39,14 +39,14 @@ public class ControllerDirectorySelected extends Controller
 
     @Override
     public void valueChanged(TreeSelectionEvent e) {
-        if (isStarted() && e.isAddedPath()) {
+        if (isControl() && e.isAddedPath()) {
             showThumbnails();
         }
     }
 
     @Override
     public void refresh() {
-        if (isStarted()) {
+        if (isControl()) {
             showThumbnails();
         }
     }

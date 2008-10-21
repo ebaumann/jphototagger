@@ -24,7 +24,7 @@ public class MetaFactory extends Thread {
     }
 
     synchronized public void stopController() {
-        ControllerFactory.getInstance().stopController();
+        ControllerFactory.getInstance().setControl(false);
     }
 
     private MetaFactory() {
@@ -45,7 +45,7 @@ public class MetaFactory extends Thread {
         ActionListenerFactory.getInstance();
         MouseListenerFactory.getInstance();
         RendererFactory.getInstance();
-        ControllerFactory.getInstance().startController();
+        ControllerFactory.getInstance().setControl(true);
         setAppPanel();
         stopProgress();
     }

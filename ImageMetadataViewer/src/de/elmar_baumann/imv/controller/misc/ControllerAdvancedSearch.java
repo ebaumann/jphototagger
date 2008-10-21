@@ -45,7 +45,7 @@ public class ControllerAdvancedSearch extends Controller
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (isStarted()) {
+        if (isControl()) {
             showAdvancedSearchDialog();
         }
     }
@@ -61,7 +61,7 @@ public class ControllerAdvancedSearch extends Controller
 
     @Override
     public void actionPerformed(SearchEvent e) {
-        if (isStarted() && e.getType().equals(SearchEvent.Type.Start)) {
+        if (isControl() && e.getType().equals(SearchEvent.Type.Start)) {
             SavedSearch data = e.getSafedSearch();
             if (data != null) {
                 SavedSearchParamStatement pData = data.getParamStatements();

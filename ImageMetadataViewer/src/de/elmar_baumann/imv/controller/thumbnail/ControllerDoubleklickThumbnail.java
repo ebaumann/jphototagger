@@ -21,7 +21,7 @@ public class ControllerDoubleklickThumbnail extends Controller {
     }
 
     public void doubleClickAtIndex(int index) {
-        if (isStarted()) {
+        if (isControl()) {
             openImage(index);
         }
     }

@@ -43,7 +43,7 @@ public class ControllerLogfileDialog extends Controller
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (isStarted()) {
+        if (isControl()) {
             showLogfileDialog();
         }
     }
@@ -59,7 +59,7 @@ public class ControllerLogfileDialog extends Controller
 
     @Override
     public void error(ErrorEvent evt) {
-        if (isStarted()) {
+        if (isControl()) {
             setError(true);
         }
     }

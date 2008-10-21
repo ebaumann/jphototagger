@@ -69,24 +69,19 @@ public class ControllerFactory {
         return instance;
     }
 
-    void startController() {
+    void setControl(boolean control) {
         for (Controller controller : controllers) {
-            controller.start();
+            controller.setControl(control);
         }
-        startScheduledTasks();
+        if (control) {
+            startScheduledTasks();
+        }
     }
 
     private void startScheduledTasks() {
         Thread thread = new Thread(controllerScheduledTasks);
         thread.setPriority(UserSettings.getInstance().getThreadPriority());
         thread.start();
-    }
-
-    void stopController() {
-        for (Controller controller : controllers) {
-            controller.stop();
-        }
-        controllerScheduledTasks.stop();
     }
 
     private ControllerFactory() {

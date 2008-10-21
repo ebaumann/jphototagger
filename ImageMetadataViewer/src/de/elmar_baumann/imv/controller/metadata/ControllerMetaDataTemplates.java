@@ -64,7 +64,7 @@ public class ControllerMetaDataTemplates extends Controller
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (isStarted()) {
+        if (isControl()) {
             Object source = e.getSource();
             if (source == buttonMetaDataTemplateCreate) {
                 createTemplate();

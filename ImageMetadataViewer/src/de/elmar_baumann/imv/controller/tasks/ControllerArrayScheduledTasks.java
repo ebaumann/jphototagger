@@ -27,7 +27,7 @@ public class ControllerArrayScheduledTasks extends Controller
     private JProgressBar progressBar = appPanel.getProgressBarScheduledTasks();
     private JButton buttonStop = appPanel.getButtonStopScheduledTasks();
     private Queue<Controller> controllers = new ConcurrentLinkedQueue<Controller>();
-    private Controller runningController;
+    private Controller activeController;
     private int milliSecondsToStart = UserSettings.getInstance().
         getMinutesToStartScheduledTasks() * 60 * 1000;
 
@@ -42,9 +42,11 @@ public class ControllerArrayScheduledTasks extends Controller
     }
 
     @Override
-    public void stop() {
-        stopAllControllers();
-        super.stop();
+    public void setControl(boolean control) {
+        super.setControl(control);
+        if (!control) {
+            stopAllControllers();
+        }
     }
 
     private void initArray() {
@@ -63,18 +65,18 @@ public class ControllerArrayScheduledTasks extends Controller
     }
 
     private void startFirstController() {
-        runningController = controllers.remove();
-        runningController.start();
+        activeController = controllers.remove();
+        activeController.setControl(true);
         buttonStop.setEnabled(true);
     }
 
     private void stopAllControllers() {
         // Spätere Benutung offenhalten (kein pop)
-        if (runningController != null) {
-            runningController.stop();
+        if (activeController != null) {
+            activeController.setControl(true);
         }
         for (Controller controller : controllers) {
-            controller.stop();
+            controller.setControl(false);
         }
     }
 
@@ -90,11 +92,11 @@ public class ControllerArrayScheduledTasks extends Controller
 
     @Override
     public void taskCompleted() {
-        runningController = null;
+        activeController = null;
         System.gc();
         if (!controllers.isEmpty()) {
-            runningController = controllers.remove();
-            runningController.start();
+            activeController = controllers.remove();
+            activeController.setControl(true);
         } else {
             buttonStop.setEnabled(false);
         }
@@ -104,7 +106,7 @@ public class ControllerArrayScheduledTasks extends Controller
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == buttonStop) {
             buttonStop.setEnabled(false);
-            stop();
+            setControl(false);
         }
     }
 }

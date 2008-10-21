@@ -46,7 +46,7 @@ public class ControllerFavoriteDirectorySelected extends Controller
     }
 
     private void showThumbnails() {
-        if (isStarted() && listFavoriteDirectories.getSelectedValue() != null) {
+        if (isControl() && listFavoriteDirectories.getSelectedValue() != null) {
             thumbnailsPanel.setFiles(getFilesOfCurrentDirectory(),
                 ImageFileThumbnailsPanel.Content.FavoriteDirectory);
         }

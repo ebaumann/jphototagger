@@ -52,8 +52,8 @@ public class ControllerRecordsWithNotExistingFilesDeleter extends Controller
     }
 
     @Override
-    public void start() {
-        super.start();
+    public void setControl(boolean started) {
+        super.setControl(started);
         RecordsWithNotExistingFilesDeleter deleter =
             new RecordsWithNotExistingFilesDeleter();
         deleter.addProgressListener(this);
@@ -73,7 +73,7 @@ public class ControllerRecordsWithNotExistingFilesDeleter extends Controller
 
     @Override
     public void progressPerformed(ProgressEvent evt) {
-        evt.setStop(isStopped());
+        evt.setStop(!isControl());
     }
 
     @Override

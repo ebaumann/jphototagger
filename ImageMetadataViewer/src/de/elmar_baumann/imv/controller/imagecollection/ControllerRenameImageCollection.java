@@ -35,7 +35,7 @@ public class ControllerRenameImageCollection extends Controller
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (isStarted()) {
+        if (isControl()) {
             renameImageCollection();
         }
     }

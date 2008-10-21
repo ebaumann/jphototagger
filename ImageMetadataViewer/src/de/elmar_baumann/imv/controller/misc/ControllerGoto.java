@@ -68,7 +68,7 @@ public class ControllerGoto extends Controller implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (isStarted()) {
+        if (isControl()) {
             selectComponent((JMenuItem) e.getSource());
         }
     }

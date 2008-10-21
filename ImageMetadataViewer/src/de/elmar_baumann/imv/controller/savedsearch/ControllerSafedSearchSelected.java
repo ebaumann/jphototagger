@@ -49,7 +49,7 @@ public class ControllerSafedSearchSelected extends Controller
 
     private void showThumbnails() {
         Object selected = list.getSelectedValue();
-        if (isStarted() && selected != null) {
+        if (isControl() && selected != null) {
             search(selected);
         }
     }

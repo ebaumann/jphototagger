@@ -31,7 +31,7 @@ public class ControllerMoveFavoriteItemUp extends Controller
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (isStarted()) {
+        if (isControl()) {
             moveItemUp();
         }
     }

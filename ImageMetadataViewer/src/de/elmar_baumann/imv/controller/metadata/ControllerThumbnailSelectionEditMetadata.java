@@ -44,7 +44,7 @@ public class ControllerThumbnailSelectionEditMetadata
 
     @Override
     public void selectionChanged(ThumbnailsPanelAction action) {
-        if (isStarted()) {
+        if (isControl()) {
             if (thumbnailsPanel.getSelectionCount() > 0) {
                 boolean canEdit = canEdit();
                 buttonSave.setEnabled(canEdit);
@@ -100,10 +100,10 @@ public class ControllerThumbnailSelectionEditMetadata
     @Override
     public void actionPerformed(DatabaseAction action) {
         DatabaseAction.Type actionType = action.getType();
-        if (isStarted() && (actionType.equals(DatabaseAction.Type.ImageFileInserted) ||
+        if (isControl() && (actionType.equals(DatabaseAction.Type.ImageFileInserted) ||
             actionType.equals(DatabaseAction.Type.ImageFileUpdated))) {
             showUpdates(action.getImageFileData().getFilename());
-        } else if (isStarted() && actionType.equals(DatabaseAction.Type.XmpUpdated)) {
+        } else if (isControl() && actionType.equals(DatabaseAction.Type.XmpUpdated)) {
             showUpdates(action.getFilename());
         }
     }

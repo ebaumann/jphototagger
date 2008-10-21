@@ -33,7 +33,7 @@ public class ControllerUpdateFavoriteDirectory extends Controller
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (isStarted()) {
+        if (isControl()) {
             updateFavorite();
         }
     }

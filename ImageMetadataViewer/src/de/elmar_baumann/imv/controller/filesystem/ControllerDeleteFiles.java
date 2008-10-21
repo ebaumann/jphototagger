@@ -38,7 +38,7 @@ public class ControllerDeleteFiles extends Controller implements ActionListener 
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (isStarted()) {
+        if (isControl()) {
             deleteFiles();
         }
     }

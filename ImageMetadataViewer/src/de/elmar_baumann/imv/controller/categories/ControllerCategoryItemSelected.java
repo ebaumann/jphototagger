@@ -36,7 +36,7 @@ public class ControllerCategoryItemSelected extends Controller
 
     @Override
     public void valueChanged(ListSelectionEvent e) {
-        if (isStarted()) {
+        if (isControl()) {
             setFilenamesToThumbnailPanel();
         }
     }

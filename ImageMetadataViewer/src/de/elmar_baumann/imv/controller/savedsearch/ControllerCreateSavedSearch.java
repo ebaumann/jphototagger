@@ -44,7 +44,7 @@ public class ControllerCreateSavedSearch extends Controller
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (isStarted()) {
+        if (isControl()) {
             create();
         }
     }
@@ -60,7 +60,7 @@ public class ControllerCreateSavedSearch extends Controller
 
     @Override
     public void actionPerformed(SearchEvent evt) {
-        if (isStarted() && evt.getType().equals(SearchEvent.Type.Save)) {
+        if (isControl() && evt.getType().equals(SearchEvent.Type.Save)) {
             saveSearch(evt.getSafedSearch(), evt.isForceOverwrite());
         }
     }

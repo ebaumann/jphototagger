@@ -41,7 +41,7 @@ public class ControllerThumbnailCountDisplay extends Controller
 
     @Override
     public void selectionChanged(ThumbnailsPanelAction action) {
-        if (isStarted()) {
+        if (isControl()) {
             setCount();
         }
     }
@@ -57,7 +57,7 @@ public class ControllerThumbnailCountDisplay extends Controller
 
     @Override
     public void stateChanged(ChangeEvent e) {
-        if (isStarted()) {
+        if (isControl()) {
             thumbnailZoom = sliderThumbnailSize.getValue();
             setLabel();
         }

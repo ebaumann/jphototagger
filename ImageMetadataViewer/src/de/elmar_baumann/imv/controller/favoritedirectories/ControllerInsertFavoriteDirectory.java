@@ -35,7 +35,7 @@ public class ControllerInsertFavoriteDirectory extends Controller
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (isStarted()) {
+        if (isControl()) {
             String directoryName = null;
             if (popupDirectories.isAddToFavoriteDirectories(e.getSource())) {
                 directoryName = popupDirectories.getDirectoryName();

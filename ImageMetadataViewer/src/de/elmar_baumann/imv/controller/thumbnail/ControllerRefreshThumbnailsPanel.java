@@ -22,7 +22,7 @@ public class ControllerRefreshThumbnailsPanel extends Controller
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (isStarted()) {
+        if (isControl()) {
             thumbnailspanel.refresh();
         }
     }

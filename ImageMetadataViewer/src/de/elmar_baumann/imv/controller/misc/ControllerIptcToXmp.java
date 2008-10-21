@@ -20,7 +20,7 @@ public class ControllerIptcToXmp extends Controller implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (isStarted()) {
+        if (isControl()) {
             IptcToXmpDialog dialog = new IptcToXmpDialog();
             dialog.setVisible(true);
         }
