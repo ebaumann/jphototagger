@@ -22,21 +22,13 @@ public class ControllerMoveFavoriteItemDown extends Controller
     private ListModelFavoriteDirectories model = (ListModelFavoriteDirectories) appPanel.getListFavoriteDirectories().getModel();
 
     public ControllerMoveFavoriteItemDown() {
-        listenToActionSource();
-    }
-
-    private void listenToActionSource() {
         popup.addActionLitenerMoveDown(this);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (isControl()) {
-            moveItemDown();
+            model.moveDownFavorite(popup.getFavoriteDirectory());
         }
-    }
-
-    private void moveItemDown() {
-        model.moveDownFavorite(popup.getFavoriteDirectory());
     }
 }
