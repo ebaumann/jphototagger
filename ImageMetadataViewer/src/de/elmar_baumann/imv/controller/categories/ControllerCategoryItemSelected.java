@@ -7,6 +7,7 @@ import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.Content;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.lib.io.FileUtil;
+import java.util.Set;
 import javax.swing.JList;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -37,8 +38,9 @@ public class ControllerCategoryItemSelected extends Controller
     }
 
     private void setFilenamesToThumbnailPanel() {
-        thumbnailsPanel.setFiles(FileUtil.getAsFiles(
-            db.getFilenamesOfCategory((String) listCategories.getSelectedValue())),
-            Content.Category);
+        String category = (String) listCategories.getSelectedValue();
+        Set<String> filenames = db.getFilenamesOfCategory(category);
+        
+        thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames), Content.Category);
     }
 }
