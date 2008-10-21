@@ -26,10 +26,6 @@ public class ControllerCategoryItemSelected extends Controller
     private ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelThumbnails();
 
     public ControllerCategoryItemSelected() {
-        listenToActionSource();
-    }
-
-    private void listenToActionSource() {
         listCategories.addListSelectionListener(this);
     }
 
