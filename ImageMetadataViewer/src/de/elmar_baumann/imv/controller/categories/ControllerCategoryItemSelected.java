@@ -33,11 +33,11 @@ public class ControllerCategoryItemSelected extends Controller
     @Override
     public void valueChanged(ListSelectionEvent e) {
         if (isControl()) {
-            setFilenamesToThumbnailPanel();
+            setFilenamesToThumbnailsPanel();
         }
     }
 
-    private void setFilenamesToThumbnailPanel() {
+    private void setFilenamesToThumbnailsPanel() {
         String category = (String) listCategories.getSelectedValue();
         Set<String> filenames = db.getFilenamesOfCategory(category);
         
