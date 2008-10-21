@@ -32,6 +32,10 @@ public class ControllerDeleteFiles extends Controller implements ActionListener 
     DatabaseImageFiles db = DatabaseImageFiles.getInstance();
 
     public ControllerDeleteFiles() {
+        listenToActionSources();
+    }
+
+    private void listenToActionSources() {
         PopupMenuPanelThumbnails.getInstance().addActionListenerFileSystemDeleteFiles(this);
         Panels.getInstance().getAppFrame().getMenuItemFileSystemDelete().addActionListener(this);
     }
@@ -39,32 +43,36 @@ public class ControllerDeleteFiles extends Controller implements ActionListener 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (isControl()) {
-            deleteFiles();
+            deleteSelectedFiles();
         }
     }
 
-    private void deleteFiles() {
+    private void deleteSelectedFiles() {
         if (accepted()) {
-            int count = 0;
+            int countDeleted = 0;
             List<File> files = thumbnailsPanel.getSelectedFiles();
             List<File> deletedFiles = new ArrayList<File>(files.size());
             for (File file : files) {
                 if (file.delete()) {
                     deletedFiles.add(file);
-                    count++;
+                    countDeleted++;
                 } else {
-                    MessageFormat msg = new MessageFormat(Bundle.getString("ControllerDeleteFiles.ErrorMessage.Delete"));
-                    Object[] params = {file.getAbsolutePath()};
-                    String message = msg.format(params);
-                    Logger.getLogger(ControllerDeleteFiles.class.getName()).log(Level.WARNING, message);
-                    ErrorListeners.getInstance().notifyErrorListener(new ErrorEvent(message, this));
+                    errorMessageDelete(file);
                 }
             }
-            if (count > 0) {
+            if (countDeleted > 0) {
                 db.deleteImageFiles(FileUtil.getAsFilenames(deletedFiles));
                 thumbnailsPanel.remove(deletedFiles);
             }
         }
+    }
+
+    private void errorMessageDelete(File file) {
+        MessageFormat msg = new MessageFormat(Bundle.getString("ControllerDeleteFiles.ErrorMessage.Delete"));
+        Object[] params = {file.getAbsolutePath()};
+        String message = msg.format(params);
+        Logger.getLogger(ControllerDeleteFiles.class.getName()).log(Level.WARNING, message);
+        ErrorListeners.getInstance().notifyErrorListener(new ErrorEvent(message, this));
     }
 
     private boolean accepted() {

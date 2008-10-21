@@ -28,6 +28,10 @@ public class ControllerRenameFiles extends Controller
     private DatabaseImageFiles db = DatabaseImageFiles.getInstance();
 
     public ControllerRenameFiles() {
+        listenToActionSources();
+    }
+
+    private void listenToActionSources() {
         PopupMenuPanelThumbnails.getInstance().addActionListenerFileSystemRenameFiles(this);
         Panels.getInstance().getAppFrame().getMenuItemFileSystemRename().addActionListener(this);
         ListenerProvider.getInstance().addRenameFileListener(this);
@@ -36,11 +40,11 @@ public class ControllerRenameFiles extends Controller
     @Override
     public void actionPerformed(ActionEvent e) {
         if (isControl()) {
-            renameFiles();
+            renameSelectedFiles();
         }
     }
 
-    private void renameFiles() {
+    private void renameSelectedFiles() {
         RenameDialog dialog = new RenameDialog();
         List<File> files = thumbnailsPanel.getSelectedFiles();
         if (files.size() > 0) {

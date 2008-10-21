@@ -28,6 +28,10 @@ public class ControllerMoveFiles extends Controller
     private DatabaseImageFiles db = DatabaseImageFiles.getInstance();
 
     public ControllerMoveFiles() {
+        listenToActionSources();
+    }
+
+    private void listenToActionSources() {
         PopupMenuPanelThumbnails.getInstance().addActionListenerFileSystemMoveFiles(this);
         Panels.getInstance().getAppFrame().getMenuItemFileSystemRename().addActionListener(this);
         ListenerProvider.getInstance().addFileSystemActionListener(this);
@@ -36,11 +40,11 @@ public class ControllerMoveFiles extends Controller
     @Override
     public void actionPerformed(ActionEvent e) {
         if (isControl()) {
-            moveFiles();
+            moveSelectedFiles();
         }
     }
 
-    private void moveFiles() {
+    private void moveSelectedFiles() {
         List<File> files = thumbnailsPanel.getSelectedFiles();
         if (files.size() > 0) {
             MoveToDirectoryDialog dialog = new MoveToDirectoryDialog();
