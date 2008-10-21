@@ -67,7 +67,6 @@ public class ControllerArrayScheduledTasks extends Controller
     private void startFirstController() {
         activeController = controllers.remove();
         activeController.setControl(true);
-        buttonStop.setEnabled(true);
     }
 
     private void stopAllControllers() {
@@ -91,14 +90,12 @@ public class ControllerArrayScheduledTasks extends Controller
     }
 
     @Override
-    public void taskCompleted() {
+    synchronized public void taskCompleted() {
         activeController = null;
         System.gc();
         if (!controllers.isEmpty()) {
             activeController = controllers.remove();
             activeController.setControl(true);
-        } else {
-            buttonStop.setEnabled(false);
         }
     }
 
