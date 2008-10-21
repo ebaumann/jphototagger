@@ -113,7 +113,6 @@ public class ControllerShowMetadata extends Controller
 
     @Override
     public void thumbnailsChanged() {
-        // Nichts tun
     }
 
     private void repaintMetadataTables() {

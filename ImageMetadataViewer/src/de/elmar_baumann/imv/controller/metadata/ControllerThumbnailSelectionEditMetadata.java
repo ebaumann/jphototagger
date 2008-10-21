@@ -43,29 +43,39 @@ public class ControllerThumbnailSelectionEditMetadata
     }
 
     @Override
+    public void thumbnailsChanged() {
+    }
+
+    @Override
     public void selectionChanged(ThumbnailsPanelAction action) {
+        handleSelectionChanged();
+    }
+
+    private void handleSelectionChanged() {
         if (isControl()) {
             if (thumbnailsPanel.getSelectionCount() > 0) {
                 boolean canEdit = canEdit();
-                buttonSave.setEnabled(canEdit);
-                editPanels.setEditable(canEdit);
+                setEnabled(canEdit);
                 setEditPanelsContent();
-                labelMetadataInfoEditable.setText(canEdit
-                    ? multipleThumbnailsSelected()
-                    ? Bundle.getString("ControllerThumbnailSelectionEditMetadata.InformationMessage.MetaDataEditAddOnlyChanges")
-                    : Bundle.getString("ControllerThumbnailSelectionEditMetadata.InformationMessage.EditIsEnabled")
-                    : Bundle.getString("ControllerThumbnailSelectionEditMetadata.InformationMessage.EditIsDisabled"));
-
+                setInfoLabel(canEdit);
             } else {
-                buttonSave.setEnabled(false);
-                editPanels.setEditable(false);
-
+                setEnabled(false);
             }
         }
     }
 
-    @Override
-    public void thumbnailsChanged() {
+    private void setEnabled(boolean enabled) {
+        buttonSave.setEnabled(enabled);
+        editPanels.setEditable(enabled);
+    }
+
+    private void setInfoLabel(boolean canEdit) {
+        labelMetadataInfoEditable.setText(
+            canEdit
+            ? multipleThumbnailsSelected()
+            ? Bundle.getString("ControllerThumbnailSelectionEditMetadata.InformationMessage.MetaDataEditAddOnlyChanges")
+            : Bundle.getString("ControllerThumbnailSelectionEditMetadata.InformationMessage.EditIsEnabled")
+            : Bundle.getString("ControllerThumbnailSelectionEditMetadata.InformationMessage.EditIsDisabled"));
     }
 
     private boolean multipleThumbnailsSelected() {

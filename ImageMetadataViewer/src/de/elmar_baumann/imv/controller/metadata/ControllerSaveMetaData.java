@@ -26,10 +26,6 @@ public class ControllerSaveMetaData extends Controller
     private XmpUpdaterFromTextEntryArray updater = new XmpUpdaterFromTextEntryArray();
 
     public ControllerSaveMetaData() {
-        listenToActionSource();
-    }
-
-    private void listenToActionSource() {
         buttonSave.addActionListener(this);
     }
 

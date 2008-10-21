@@ -94,18 +94,22 @@ public class ControllerMetaDataTemplates extends Controller
         Object o = model.getSelectedItem();
         if (o != null) {
             MetaDataEditTemplate template = (MetaDataEditTemplate) o;
-            MessageFormat msg = new MessageFormat(Bundle.getString("ControllerMetaDataTemplates.ConfirmMessage.Delete"));
-            Object[] params = {template.getName()};
-            if (JOptionPane.showConfirmDialog(
-                null,
-                msg.format(params),
-                Bundle.getString("ControllerMetaDataTemplates.ConfirmMessage.Delete.Title"),
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.QUESTION_MESSAGE,
-                AppSettings.getMediumAppIcon()) == JOptionPane.YES_OPTION) {
+            if (confirmDelete(template.getName())) {
                 model.deleteMetaDataEditTemplate(template);
             }
         }
+    }
+
+    private boolean confirmDelete(String templateName) {
+        MessageFormat msg = new MessageFormat(Bundle.getString("ControllerMetaDataTemplates.ConfirmMessage.Delete"));
+        Object[] params = {templateName};
+        return JOptionPane.showConfirmDialog(
+            null,
+            msg.format(params),
+            Bundle.getString("ControllerMetaDataTemplates.ConfirmMessage.Delete.Title"),
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.QUESTION_MESSAGE,
+            AppSettings.getMediumAppIcon()) == JOptionPane.YES_OPTION;
     }
 
     private void renameTemplate() {
@@ -142,21 +146,26 @@ public class ControllerMetaDataTemplates extends Controller
             name = JOptionPane.showInputDialog(Bundle.getString("ControllerMetaDataTemplates.Input.TemplateName"), name);
             exists = name != null && db.existsMetaDataEditTemplate(name);
             if (exists) {
-                MessageFormat msg = new MessageFormat(
-                    Bundle.getString("ControllerMetaDataTemplates.ConfirmMessage.OverwriteExistingTemplate"));
-                Object[] params = {name};
-                abort = JOptionPane.showConfirmDialog(null,
-                    msg.format(params),
-                    Bundle.getString("ControllerMetaDataTemplates.ConfirmMessage.OverwriteExistingTemplate.Title"),
-                    JOptionPane.YES_NO_OPTION,
-                    JOptionPane.QUESTION_MESSAGE,
-                    AppSettings.getMediumAppIcon()) == JOptionPane.NO_OPTION;
+                abort = confirmAbort(name);
             }
             if (exists && abort) {
                 name = null;
             }
         }
         return name;
+    }
+
+    private boolean confirmAbort(String name) {
+        MessageFormat msg = new MessageFormat(
+            Bundle.getString("ControllerMetaDataTemplates.ConfirmMessage.OverwriteExistingTemplate"));
+        Object[] params = {name};
+        return JOptionPane.showConfirmDialog(
+            null,
+            msg.format(params),
+            Bundle.getString("ControllerMetaDataTemplates.ConfirmMessage.OverwriteExistingTemplate.Title"),
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.QUESTION_MESSAGE,
+            AppSettings.getMediumAppIcon()) == JOptionPane.NO_OPTION;
     }
 
     @Override
