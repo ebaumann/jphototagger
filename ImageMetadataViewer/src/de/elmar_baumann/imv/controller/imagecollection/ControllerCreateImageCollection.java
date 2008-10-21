@@ -27,21 +27,17 @@ public class ControllerCreateImageCollection extends Controller
     private ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
 
     public ControllerCreateImageCollection() {
-        listenToActionSource();
-    }
-
-    private void listenToActionSource() {
         popup.addActionListenerCreateImageCollection(this);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (isControl()) {
-            createCollection();
+            createCollectionOfSelectedFiles();
         }
     }
 
-    private void createCollection() {
+    private void createCollectionOfSelectedFiles() {
         ImageCollectionToDatabase manager = new ImageCollectionToDatabase();
         String collectionName = manager.addImageCollection(
             FileUtil.getAsFilenames(thumbnailsPanel.getSelectedFiles()));

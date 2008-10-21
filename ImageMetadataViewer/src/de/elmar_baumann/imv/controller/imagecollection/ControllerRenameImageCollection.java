@@ -26,10 +26,6 @@ public class ControllerRenameImageCollection extends Controller
     private ListModelImageCollections model = (ListModelImageCollections) list.getModel();
 
     public ControllerRenameImageCollection() {
-        listenToActionSource();
-    }
-
-    private void listenToActionSource() {
         actionPopup.addActionListenerRename(this);
     }
 

@@ -40,15 +40,15 @@ public class ControllerImageCollectionSelected extends Controller
 
     @Override
     public void valueChanged(ListSelectionEvent e) {
-        showThumbnails();
+        showImageCollection();
     }
 
     @Override
     public void refresh() {
-        showThumbnails();
+        showImageCollection();
     }
 
-    private void showThumbnails() {
+    private void showImageCollection() {
         Object selected = list.getSelectedValue();
         if (isControl() && selected != null) {
             showImageCollection(selected.toString());

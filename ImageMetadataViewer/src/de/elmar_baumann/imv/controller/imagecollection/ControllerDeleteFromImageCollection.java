@@ -29,21 +29,17 @@ public class ControllerDeleteFromImageCollection extends Controller
     private ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
 
     public ControllerDeleteFromImageCollection() {
-        listenToActionSource();
-    }
-
-    private void listenToActionSource() {
         popup.addActionListenerDeleteFromImageCollection(this);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (isControl()) {
-            deleteFromImageCollection();
+            deleteSelectedFilesFromImageCollection();
         }
     }
 
-    private void deleteFromImageCollection() {
+    private void deleteSelectedFilesFromImageCollection() {
         Object selected = list.getSelectedValue();
         if (selected != null) {
             ImageCollectionToDatabase manager = new ImageCollectionToDatabase();

@@ -24,21 +24,17 @@ public class ControllerAddToImageCollection extends Controller
     private ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
 
     public ControllerAddToImageCollection() {
-        listenToActionSource();
-    }
-
-    private void listenToActionSource() {
         popup.addActionListenerAddToImageCollection(this);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (isControl()) {
-            addToImageCollection();
+            addSelectedFilesToImageCollection();
         }
     }
 
-    private void addToImageCollection() {
+    private void addSelectedFilesToImageCollection() {
         String collectionName = selectCollectionName();
         if (collectionName != null) {
             ImageCollectionToDatabase manager = new ImageCollectionToDatabase();

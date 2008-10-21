@@ -26,10 +26,6 @@ public class ControllerDeleteImageCollection extends Controller
     private ListModelImageCollections model = (ListModelImageCollections) list.getModel();
 
     public ControllerDeleteImageCollection() {
-        listenToActionSource();
-    }
-
-    private void listenToActionSource() {
         actionPopup.addActionListenerDelete(this);
     }
 
