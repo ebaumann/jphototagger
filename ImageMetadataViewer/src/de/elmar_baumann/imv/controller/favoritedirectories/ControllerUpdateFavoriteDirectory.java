@@ -44,7 +44,7 @@ public class ControllerUpdateFavoriteDirectory extends Controller
         dialog.setFavoriteName(favorite.getFavoriteName());
         dialog.setDirectoryName(favorite.getDirectoryName());
         dialog.setVisible(true);
-        if (dialog.isOk()) {
+        if (dialog.isAccepted()) {
             model.replaceFavorite(favorite, new FavoriteDirectory(
                 dialog.getFavoriteName(),
                 dialog.getDirectoryName(),

@@ -26,7 +26,7 @@ public class FavoriteDirectoryPropertiesDialog extends Dialog {
     private static List<Image> appIcons = AppSettings.getAppIcons();
     private static final String keyLastDirectory = "de.elmar_baumann.imv.view.dialogs.FavoriteDirectoryPropertiesDialog.LastDirectory"; // NOI18N
     private String lastDirectory = ""; // NOI18N
-    private boolean ok = true;
+    private boolean accepted = true;
     private boolean isUpdate = false;
     private DatabaseFavoriteDirectories db = DatabaseFavoriteDirectories.getInstance();
 
@@ -110,8 +110,8 @@ public class FavoriteDirectoryPropertiesDialog extends Dialog {
      * 
      * @return true, wenn ok
      */
-    public boolean isOk() {
-        return ok;
+    public boolean isAccepted() {
+        return accepted;
     }
 
     private void checkOk() {
@@ -154,7 +154,7 @@ public class FavoriteDirectoryPropertiesDialog extends Dialog {
     public void setVisible(
         boolean visible) {
         if (visible) {
-            ok = true;
+            accepted = true;
             lastDirectory = PersistentSettings.getInstance().getString(keyLastDirectory);
             PersistentAppSizes.getSizeAndLocation(this);
         } else {
@@ -171,7 +171,7 @@ public class FavoriteDirectoryPropertiesDialog extends Dialog {
 
     @Override
     protected void escape() {
-        if (ok) {
+        if (accepted) {
             checkOk();
         }
     }
@@ -282,12 +282,12 @@ private void buttonOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 }//GEN-LAST:event_buttonOkActionPerformed
 
 private void buttonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelActionPerformed
-    ok = false;
+    accepted = false;
     setVisible(false);
 }//GEN-LAST:event_buttonCancelActionPerformed
 
 private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-    if (ok) {
+    if (accepted) {
         checkOk();
     }
 }//GEN-LAST:event_formWindowClosing

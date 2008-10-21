@@ -36,12 +36,16 @@ public class ControllerInsertFavoriteDirectory extends Controller
     @Override
     public void actionPerformed(ActionEvent e) {
         if (isControl()) {
-            String directoryName = null;
-            if (popupDirectories.isAddToFavoriteDirectories(e.getSource())) {
-                directoryName = popupDirectories.getDirectoryName();
-            }
-            insertFavorite(directoryName);
+            insertFavorite(getDirectoryName(e.getSource()));
         }
+    }
+
+    private String getDirectoryName(Object o) {
+        String directoryName = null;
+        if (popupDirectories.isAddToFavoriteDirectoriesItem(o)) {
+            directoryName = popupDirectories.getDirectoryName();
+        }
+        return directoryName;
     }
 
     private void insertFavorite(String directoryName) {
@@ -51,7 +55,7 @@ public class ControllerInsertFavoriteDirectory extends Controller
             dialog.setEnabledButtonChooseDirectory(false);
         }
         dialog.setVisible(true);
-        if (dialog.isOk()) {
+        if (dialog.isAccepted()) {
             model.insertFavorite(new FavoriteDirectory(
                 dialog.getFavoriteName(), dialog.getDirectoryName(), -1));
         }

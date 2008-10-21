@@ -72,7 +72,7 @@ public class PopupMenuTreeDirectories extends JPopupMenu {
      * @return true, wenn das ausgewählte Verzeichnis zu den Favoriten
      *         hinzugefügt werden soll
      */
-    public boolean isItemAddToFavoriteDirectories(Object source) {
+    public boolean isAddToFavoriteDirectoriesItem(Object source) {
         return source == itemAddToFavoriteDirectories;
     }
 
