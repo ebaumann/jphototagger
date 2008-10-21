@@ -22,21 +22,13 @@ public class ControllerMoveFavoriteItemUp extends Controller
     private ListModelFavoriteDirectories model = (ListModelFavoriteDirectories) appPanel.getListFavoriteDirectories().getModel();
 
     public ControllerMoveFavoriteItemUp() {
-        listenToActionSource();
-    }
-
-    private void listenToActionSource() {
         popup.addActionLitenerMoveUp(this);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (isControl()) {
-            moveItemUp();
+            model.moveUpFavorite(popup.getFavoriteDirectory());
         }
-    }
-
-    private void moveItemUp() {
-        model.moveUpFavorite(popup.getFavoriteDirectory());
     }
 }

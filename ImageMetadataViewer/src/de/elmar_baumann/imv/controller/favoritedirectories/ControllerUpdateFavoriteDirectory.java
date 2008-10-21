@@ -24,10 +24,6 @@ public class ControllerUpdateFavoriteDirectory extends Controller
     private ListModelFavoriteDirectories model = (ListModelFavoriteDirectories) appPanel.getListFavoriteDirectories().getModel();
 
     public ControllerUpdateFavoriteDirectory() {
-        listenToActionSource();
-    }
-
-    private void listenToActionSource() {
         popup.addActionListenerUpdate(this);
     }
 
