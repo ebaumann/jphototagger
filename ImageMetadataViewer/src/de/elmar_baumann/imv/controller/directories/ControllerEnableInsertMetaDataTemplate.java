@@ -25,21 +25,26 @@ public class ControllerEnableInsertMetaDataTemplate extends Controller
     private JButton buttonMetaDataTemplateInsert = appPanel.getButtonMetaDataTemplateInsert();
 
     public ControllerEnableInsertMetaDataTemplate() {
-        listenToActionSource();
-    }
-
-    private void listenToActionSource() {
         treeDirectories.addTreeSelectionListener(this);
     }
 
     @Override
     public void valueChanged(TreeSelectionEvent e) {
-        if (isControl()) {
-            if (e.isAddedPath() && treeDirectories.getSelectionPath().getLastPathComponent() instanceof DirectoryTreeModelFile) {
-                String directoryName = ((DirectoryTreeModelFile) treeDirectories.getSelectionPath().getLastPathComponent()).getAbsolutePath();
-                File directory = new File(directoryName);
-                buttonMetaDataTemplateInsert.setEnabled(directory.isDirectory() && directory.canWrite());
-            }
+        if (isControl() && e.isAddedPath()) {
+            setEnabledButtonInsert();
+        }
+    }
+
+    private void setEnabledButtonInsert() {
+        if (treeDirectories.getSelectionPath().getLastPathComponent() 
+            instanceof DirectoryTreeModelFile) {
+
+            String directoryName = ((DirectoryTreeModelFile) 
+                treeDirectories.getSelectionPath().getLastPathComponent()).getAbsolutePath();
+            File directory = new File(directoryName);
+            
+            buttonMetaDataTemplateInsert.setEnabled(
+                directory.isDirectory() && directory.canWrite());
         }
     }
 }
