@@ -25,7 +25,7 @@ public class IoUtil {
      * @param appPath   Pfad zur Anwendung
      * @param arguments Argumente die dem Pfad angehängt werden
      */
-    public static void startApplication(String appPath, String arguments) {
+    public static void execute(String appPath, String arguments) {
         if (!appPath.isEmpty()) {
             String separator = " "; // NOI18N
             String openCommand = appPath + separator + arguments;

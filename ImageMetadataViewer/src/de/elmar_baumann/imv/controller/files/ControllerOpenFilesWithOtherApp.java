@@ -24,17 +24,14 @@ public class ControllerOpenFilesWithOtherApp extends Controller
     private ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
 
     public ControllerOpenFilesWithOtherApp() {
-        listenToActionSource();
-    }
-
-    private void listenToActionSource() {
         popup.addActionListenerOpenFilesWithOtherApp(this);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (isControl()) {
-            openFilesWithApp(popup.getOtherOpenImageApp(e.getActionCommand()).getAbsolutePath());
+            openFilesWithApp(
+                popup.getOtherOpenImageApp(e.getActionCommand()).getAbsolutePath());
         }
     }
 
@@ -42,7 +39,7 @@ public class ControllerOpenFilesWithOtherApp extends Controller
         String allFilenames = IoUtil.getArgsAsCommandline(
             FileUtil.getAsFilenames(thumbnailsPanel.getSelectedFiles()));
         if (!allFilenames.isEmpty()) {
-            IoUtil.startApplication(otherOpenImageApp, allFilenames);
+            IoUtil.execute(otherOpenImageApp, allFilenames);
         }
     }
 }

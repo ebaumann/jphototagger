@@ -24,22 +24,22 @@ public class ControllerCopyFilesToDirectory extends Controller
     private ImageFileThumbnailsPanel panel = appPanel.getPanelThumbnails();
 
     public ControllerCopyFilesToDirectory() {
-        listenToActionSource();
-    }
-
-    private void listenToActionSource() {
         PopupMenuPanelThumbnails.getInstance().addActionListenerCopySelectedFilesToDirectory(this);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (isControl()) {
-            List<File> files = panel.getSelectedFiles();
-            if (files.size() > 0) {
-                CopyToDirectoryDialog dialog = new CopyToDirectoryDialog();
-                dialog.setSourceFiles(files);
-                dialog.setVisible(true);
-            }
+            copySelectedFiles();
+        }
+    }
+
+    private void copySelectedFiles() {
+        List<File> files = panel.getSelectedFiles();
+        if (files.size() > 0) {
+            CopyToDirectoryDialog dialog = new CopyToDirectoryDialog();
+            dialog.setSourceFiles(files);
+            dialog.setVisible(true);
         }
     }
 }

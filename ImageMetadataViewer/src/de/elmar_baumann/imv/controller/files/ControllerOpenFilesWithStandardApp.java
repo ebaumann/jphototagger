@@ -45,7 +45,7 @@ public class ControllerOpenFilesWithStandardApp extends Controller
         String allFilenames = IoUtil.getArgsAsCommandline(
             FileUtil.getAsFilenames(thumbnailsPanel.getSelectedFiles()));
         if (!allFilenames.isEmpty()) {
-            IoUtil.startApplication(
+            IoUtil.execute(
                 UserSettings.getInstance().getDefaultImageOpenApp(), allFilenames);
         }
     }
