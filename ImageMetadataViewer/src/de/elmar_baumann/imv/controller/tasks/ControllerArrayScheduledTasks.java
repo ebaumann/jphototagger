@@ -32,7 +32,6 @@ public class ControllerArrayScheduledTasks extends Controller
         getMinutesToStartScheduledTasks() * 60 * 1000;
 
     public ControllerArrayScheduledTasks() {
-        buttonStop.setEnabled(false);
         listenToActionSource();
         initArray();
     }
@@ -65,6 +64,7 @@ public class ControllerArrayScheduledTasks extends Controller
     }
 
     private void startFirstController() {
+        buttonStop.setEnabled(true);
         activeController = controllers.remove();
         activeController.setControl(true);
     }
