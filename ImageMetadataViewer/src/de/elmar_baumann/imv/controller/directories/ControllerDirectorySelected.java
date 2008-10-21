@@ -30,10 +30,10 @@ public class ControllerDirectorySelected extends Controller
     private ImageFilteredDirectory imageFilteredDirectory = new ImageFilteredDirectory();
 
     public ControllerDirectorySelected() {
-        listenToActionSource();
+        listenToActionSources();
     }
 
-    private void listenToActionSource() {
+    private void listenToActionSources() {
         treeDirectories.addTreeSelectionListener(this);
         thumbnailsPanel.addRefreshListener(this, Content.Directory);
     }
@@ -41,21 +41,24 @@ public class ControllerDirectorySelected extends Controller
     @Override
     public void valueChanged(TreeSelectionEvent e) {
         if (isControl() && e.isAddedPath()) {
-            showThumbnails();
+            setFilesToThumbnailsPanel();
         }
     }
 
     @Override
     public void refresh() {
         if (isControl()) {
-            showThumbnails();
+            setFilesToThumbnailsPanel();
         }
     }
 
-    private void showThumbnails() {
-        File selectedDirectory = new File(getDirectorynameFromTree(treeDirectories.getSelectionPath()));
+    private void setFilesToThumbnailsPanel() {
+        File selectedDirectory = new File(
+            getDirectorynameFromTree(treeDirectories.getSelectionPath()));
         imageFilteredDirectory.setDirectory(selectedDirectory);
-        thumbnailsPanel.setFiles(ImageFilteredDirectory.getImageFilesOfDirectory(selectedDirectory), Content.Directory);
+        thumbnailsPanel.setFiles(
+            ImageFilteredDirectory.getImageFilesOfDirectory(selectedDirectory),
+            Content.Directory);
     }
 
     private String getDirectorynameFromTree(TreePath treePath) {
