@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.model;
 
-import de.elmar_baumann.imv.database.Database;
+import de.elmar_baumann.imv.database.DatabaseStatistics;
 import de.elmar_baumann.imv.database.metadata.selections.AllTables;
 import de.elmar_baumann.imv.database.metadata.Column;
 import de.elmar_baumann.imv.database.metadata.Table;
@@ -24,7 +24,7 @@ import javax.swing.table.DefaultTableModel;
 public class TableModelDatabaseInfo extends DefaultTableModel
     implements DatabaseListener {
 
-    private Database db = Database.getInstance();
+    private DatabaseStatistics db = DatabaseStatistics.getInstance();
     private LinkedHashMap<Column, StringBuffer> bufferOfColumn = new LinkedHashMap<Column, StringBuffer>();
     private List<Column> excludedColumns = new ArrayList<Column>();
     private boolean listenToDatabase = false;

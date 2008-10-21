@@ -1,7 +1,7 @@
 package de.elmar_baumann.imv.controller.categories;
 
 import de.elmar_baumann.imv.controller.Controller;
-import de.elmar_baumann.imv.database.Database;
+import de.elmar_baumann.imv.database.DatabaseImageFiles;
 import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
@@ -21,7 +21,7 @@ import javax.swing.event.ListSelectionListener;
 public class ControllerCategoryItemSelected extends Controller
     implements ListSelectionListener {
 
-    private Database db = Database.getInstance();
+    private DatabaseImageFiles db = DatabaseImageFiles.getInstance();
     private AppPanel appPanel = Panels.getInstance().getAppPanel();
     private JList listCategories = appPanel.getListCategories();
     private ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelThumbnails();

@@ -1,7 +1,7 @@
 package de.elmar_baumann.imv.controller.imagecollection;
 
 import de.elmar_baumann.imv.controller.Controller;
-import de.elmar_baumann.imv.database.Database;
+import de.elmar_baumann.imv.database.DatabaseImageCollections;
 import de.elmar_baumann.imv.event.RefreshListener;
 import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.view.panels.AppPanel;
@@ -23,7 +23,7 @@ import javax.swing.event.ListSelectionListener;
 public class ControllerImageCollectionSelected extends Controller
     implements ListSelectionListener, RefreshListener {
 
-    private Database db = Database.getInstance();
+    private DatabaseImageCollections db = DatabaseImageCollections.getInstance();
     private AppPanel appPanel = Panels.getInstance().getAppPanel();
     private ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelThumbnails();
     private JList list = appPanel.getListImageCollections();

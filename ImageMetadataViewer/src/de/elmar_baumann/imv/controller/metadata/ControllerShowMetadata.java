@@ -4,7 +4,7 @@ import com.adobe.xmp.XMPConst;
 import com.adobe.xmp.properties.XMPPropertyInfo;
 import de.elmar_baumann.imv.controller.Controller;
 import de.elmar_baumann.imv.data.MetaDataDisplay;
-import de.elmar_baumann.imv.database.Database;
+import de.elmar_baumann.imv.database.DatabaseImageFiles;
 import de.elmar_baumann.imv.event.DatabaseAction;
 import de.elmar_baumann.imv.event.DatabaseListener;
 import de.elmar_baumann.imv.event.ThumbnailsPanelAction;
@@ -97,7 +97,7 @@ public class ControllerShowMetadata extends Controller
 
     private void listenToActionSources() {
         data.thumbnailsPanel.addThumbnailsPanelListener(this);
-        Database.getInstance().addDatabaseListener(this);
+        DatabaseImageFiles.getInstance().addDatabaseListener(this);
     }
 
     @Override

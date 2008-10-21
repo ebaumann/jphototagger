@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.event.listener;
 
-import de.elmar_baumann.imv.database.Database;
+import de.elmar_baumann.imv.database.DatabaseStatistics;
 import de.elmar_baumann.imv.event.DatabaseAction;
 import de.elmar_baumann.imv.event.DatabaseListener;
 import java.util.ArrayList;
@@ -16,7 +16,7 @@ import javax.swing.JLabel;
  */
 public class TotalRecordCountListener implements DatabaseListener {
 
-    private Database db = Database.getInstance();
+    private DatabaseStatistics db = DatabaseStatistics.getInstance();
     private List<JLabel> labels = new ArrayList<JLabel>();
     boolean listen = false;
 

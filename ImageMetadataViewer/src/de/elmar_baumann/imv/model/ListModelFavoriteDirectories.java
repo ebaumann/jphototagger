@@ -2,7 +2,7 @@ package de.elmar_baumann.imv.model;
 
 import de.elmar_baumann.imv.AppSettings;
 import de.elmar_baumann.imv.data.FavoriteDirectory;
-import de.elmar_baumann.imv.database.Database;
+import de.elmar_baumann.imv.database.DatabaseFavoriteDirectories;
 import de.elmar_baumann.imv.resource.Bundle;
 import java.text.MessageFormat;
 import java.util.List;
@@ -18,7 +18,7 @@ import javax.swing.JOptionPane;
  */
 public class ListModelFavoriteDirectories extends DefaultListModel {
 
-    private Database db = Database.getInstance();
+    private DatabaseFavoriteDirectories db = DatabaseFavoriteDirectories.getInstance();
 
     public ListModelFavoriteDirectories() {
         addElements();

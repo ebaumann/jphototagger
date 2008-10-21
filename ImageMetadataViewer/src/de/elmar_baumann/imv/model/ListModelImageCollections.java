@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.model;
 
-import de.elmar_baumann.imv.database.Database;
+import de.elmar_baumann.imv.database.DatabaseImageCollections;
 import java.util.List;
 import javax.swing.DefaultListModel;
 
@@ -17,7 +17,7 @@ public class ListModelImageCollections extends DefaultListModel {
     }
 
     private void addItems() {
-        Database db = Database.getInstance();
+        DatabaseImageCollections db = DatabaseImageCollections.getInstance();
         List<String> collections = db.getImageCollectionNames();
         for (String collection : collections) {
             addElement(collection);

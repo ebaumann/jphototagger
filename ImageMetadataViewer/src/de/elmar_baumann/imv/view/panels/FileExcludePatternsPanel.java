@@ -5,7 +5,7 @@
  */
 package de.elmar_baumann.imv.view.panels;
 
-import de.elmar_baumann.imv.database.Database;
+import de.elmar_baumann.imv.database.DatabaseFileExcludePattern;
 import de.elmar_baumann.imv.event.ProgressEvent;
 import de.elmar_baumann.imv.event.ProgressListener;
 import de.elmar_baumann.imv.model.ListModelFileExcludePatterns;
@@ -21,7 +21,7 @@ public class FileExcludePatternsPanel extends javax.swing.JPanel
     implements ProgressListener {
 
     private static final String addInfoText = Bundle.getString("FileExcludePatternPanel.AddInfoText");
-    private Database db = Database.getInstance();
+    private DatabaseFileExcludePattern db = DatabaseFileExcludePattern.getInstance();
     private ListModelFileExcludePatterns model = new ListModelFileExcludePatterns();
     private boolean isUpdateDatabase = false;
     private boolean isStopUpdateDatabase = false;

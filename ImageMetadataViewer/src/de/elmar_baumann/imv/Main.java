@@ -1,8 +1,8 @@
 package de.elmar_baumann.imv;
 
 import com.imagero.reader.AbstractImageReader;
+import de.elmar_baumann.imv.database.DatabaseTables;
 import de.elmar_baumann.lib.componentutil.LookAndFeelUtil;
-import de.elmar_baumann.imv.database.Database;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.ImageProperties;
 import de.elmar_baumann.imv.view.frames.AppFrame;
@@ -41,7 +41,7 @@ public class Main {
         lock();
         Settings.getInstance().setIconImagesPath(AppSettings.getAppIconPaths());
         SplashScreen.setMessageToSplashScreen(Bundle.getString("Main.Init.InformationMessage.SplashScreen.ConnectToDatabase"));
-        Database.getInstance().createTables();
+        DatabaseTables.getInstance().createTables();
         initLogger();
         AbstractImageReader.install(ImageProperties.class);
         SplashScreen.setMessageToSplashScreen(Bundle.getString("Main.Main.InformationMessage.SplashScreen.InitGui"));

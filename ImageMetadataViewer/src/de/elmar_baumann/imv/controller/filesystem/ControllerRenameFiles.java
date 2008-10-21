@@ -1,7 +1,7 @@
 package de.elmar_baumann.imv.controller.filesystem;
 
 import de.elmar_baumann.imv.controller.Controller;
-import de.elmar_baumann.imv.database.Database;
+import de.elmar_baumann.imv.database.DatabaseImageFiles;
 import de.elmar_baumann.imv.event.ListenerProvider;
 import de.elmar_baumann.imv.event.RenameFileAction;
 import de.elmar_baumann.imv.event.RenameFileListener;
@@ -25,7 +25,7 @@ public class ControllerRenameFiles extends Controller
     implements ActionListener, RenameFileListener {
 
     private ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
-    private Database db = Database.getInstance();
+    private DatabaseImageFiles db = DatabaseImageFiles.getInstance();
 
     public ControllerRenameFiles() {
         PopupMenuPanelThumbnails.getInstance().addActionListenerFileSystemRenameFiles(this);

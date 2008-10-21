@@ -2,7 +2,8 @@ package de.elmar_baumann.imv.view.dialogs;
 
 import de.elmar_baumann.imv.AppSettings;
 import de.elmar_baumann.imv.UserSettings;
-import de.elmar_baumann.imv.database.Database;
+import de.elmar_baumann.imv.database.DatabaseMaintainance;
+import de.elmar_baumann.imv.database.DatabaseStatistics;
 import de.elmar_baumann.imv.tasks.RecordsWithNotExistingFilesDeleter;
 import de.elmar_baumann.imv.event.ProgressEvent;
 import de.elmar_baumann.imv.event.ProgressListener;
@@ -28,7 +29,6 @@ import javax.swing.JOptionPane;
 public class DatabaseMaintainanceDialog extends Dialog implements
     ProgressListener {
 
-    private Database db = Database.getInstance();
     private TableModelDatabaseInfo modelDatabaseInfo = new TableModelDatabaseInfo();
     private TotalRecordCountListener listenerTotalRecordCount = new TotalRecordCountListener();
     private boolean abortAction = false;
@@ -72,7 +72,8 @@ public class DatabaseMaintainanceDialog extends Dialog implements
     }
 
     private void setTotalRecordCount() {
-        labelDatabaseTotalRecordCount.setText(Long.toString(db.getTotalRecordCount()));
+        labelDatabaseTotalRecordCount.setText(Long.toString(
+            DatabaseStatistics.getInstance().getTotalRecordCount()));
     }
 
     private void setEnabledButtonStartMaintain() {
@@ -93,7 +94,7 @@ public class DatabaseMaintainanceDialog extends Dialog implements
         Cursor oldCursor = getCursor();
         setClosedEnabled(false);
         setCursor(new Cursor(Cursor.WAIT_CURSOR));
-        boolean success = db.compressDatabase();
+        boolean success = DatabaseMaintainance.getInstacne().compressDatabase();
         setCursor(oldCursor);
         setClosedEnabled(true);
         messageCompressDatabase(success);

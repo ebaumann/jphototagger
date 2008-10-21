@@ -1,7 +1,7 @@
 package de.elmar_baumann.imv.controller.filesystem;
 
 import de.elmar_baumann.imv.controller.Controller;
-import de.elmar_baumann.imv.database.Database;
+import de.elmar_baumann.imv.database.DatabaseImageFiles;
 import de.elmar_baumann.imv.event.FileSystemAction;
 import de.elmar_baumann.imv.event.FileSystemActionListener;
 import de.elmar_baumann.imv.event.FileSystemError;
@@ -13,7 +13,6 @@ import de.elmar_baumann.imv.view.popupmenus.PopupMenuPanelThumbnails;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,7 +25,7 @@ public class ControllerMoveFiles extends Controller
     implements ActionListener, FileSystemActionListener {
 
     private ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
-    private Database db = Database.getInstance();
+    private DatabaseImageFiles db = DatabaseImageFiles.getInstance();
 
     public ControllerMoveFiles() {
         PopupMenuPanelThumbnails.getInstance().addActionListenerFileSystemMoveFiles(this);

@@ -2,7 +2,7 @@ package de.elmar_baumann.imv.controller.savedsearch;
 
 import de.elmar_baumann.imv.controller.Controller;
 import de.elmar_baumann.imv.data.SavedSearch;
-import de.elmar_baumann.imv.database.Database;
+import de.elmar_baumann.imv.database.DatabaseSearch;
 import de.elmar_baumann.imv.database.metadata.ParamStatement;
 import de.elmar_baumann.imv.event.RefreshListener;
 import de.elmar_baumann.imv.resource.Panels;
@@ -24,7 +24,7 @@ public class ControllerSafedSearchSelected extends Controller
     implements ListSelectionListener, RefreshListener {
 
     private AppPanel appPanel = Panels.getInstance().getAppPanel();
-    private Database db = Database.getInstance();
+    private DatabaseSearch db = DatabaseSearch.getInstance();
     private JList list = appPanel.getListSavedSearches();
     private ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelThumbnails();
 

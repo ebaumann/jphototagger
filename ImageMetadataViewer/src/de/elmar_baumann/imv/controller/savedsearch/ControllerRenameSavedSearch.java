@@ -3,7 +3,7 @@ package de.elmar_baumann.imv.controller.savedsearch;
 import de.elmar_baumann.imv.AppSettings;
 import de.elmar_baumann.imv.controller.Controller;
 import de.elmar_baumann.imv.data.SavedSearch;
-import de.elmar_baumann.imv.database.Database;
+import de.elmar_baumann.imv.database.DatabaseSavedSearches;
 import de.elmar_baumann.imv.model.ListModelSavedSearches;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.Panels;
@@ -25,7 +25,7 @@ import javax.swing.JOptionPane;
 public class ControllerRenameSavedSearch extends Controller
     implements ActionListener {
 
-    private Database db = Database.getInstance();
+    private DatabaseSavedSearches db = DatabaseSavedSearches.getInstance();
     private PopupMenuListSavedSearches actionPopup = PopupMenuListSavedSearches.getInstance();
     private AppPanel appPanel = Panels.getInstance().getAppPanel();
     private JList list = appPanel.getListSavedSearches();

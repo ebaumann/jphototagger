@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.tasks;
 
-import de.elmar_baumann.imv.database.Database;
+import de.elmar_baumann.imv.database.DatabaseImageFiles;
 import de.elmar_baumann.imv.database.metadata.Column;
 import de.elmar_baumann.imv.event.ProgressEvent;
 import de.elmar_baumann.imv.event.ProgressListener;
@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class XmpUpdaterRenameInColumns implements Runnable, ProgressListener {
 
-    private Database db = Database.getInstance();
+    private DatabaseImageFiles db = DatabaseImageFiles.getInstance();
     private List<String> filenames;
     private List<ProgressListener> progressListeners = new ArrayList<ProgressListener>();
     private Column column;

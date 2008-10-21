@@ -4,7 +4,7 @@ import de.elmar_baumann.imv.data.Exif;
 import de.elmar_baumann.imv.data.ImageFile;
 import de.elmar_baumann.imv.data.Xmp;
 import de.elmar_baumann.imv.UserSettings;
-import de.elmar_baumann.imv.database.Database;
+import de.elmar_baumann.imv.database.DatabaseImageFiles;
 import de.elmar_baumann.imv.event.ErrorEvent;
 import de.elmar_baumann.imv.event.listener.ErrorListeners;
 import de.elmar_baumann.imv.event.ProgressEvent;
@@ -31,7 +31,7 @@ import java.util.logging.Logger;
  */
 public class ImageMetadataToDatabase implements Runnable {
 
-    private static Database db = Database.getInstance();
+    private static DatabaseImageFiles db = DatabaseImageFiles.getInstance();
     private List<ProgressListener> progressListeners = new ArrayList<ProgressListener>();
     private boolean stop = false;
     private int maxThumbnailLength;

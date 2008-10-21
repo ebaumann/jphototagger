@@ -1,8 +1,8 @@
 package de.elmar_baumann.imv.view.panels;
 
 import de.elmar_baumann.imv.controller.thumbnail.ControllerDoubleklickThumbnail;
-import de.elmar_baumann.imv.database.Database;
 import de.elmar_baumann.imv.data.ThumbnailFlag;
+import de.elmar_baumann.imv.database.DatabaseImageFiles;
 import de.elmar_baumann.imv.event.RefreshListener;
 import de.elmar_baumann.imv.io.FileSort;
 import de.elmar_baumann.imv.resource.Panels;
@@ -27,7 +27,7 @@ import javax.swing.JViewport;
  */
 public class ImageFileThumbnailsPanel extends ThumbnailsPanel {
 
-    private Database db = Database.getInstance();
+    private DatabaseImageFiles db = DatabaseImageFiles.getInstance();
     private List<File> files = new ArrayList<File>();
     private PopupMenuPanelThumbnails popupMenu = PopupMenuPanelThumbnails.getInstance();
     private ControllerDoubleklickThumbnail controllerDoubleklick;

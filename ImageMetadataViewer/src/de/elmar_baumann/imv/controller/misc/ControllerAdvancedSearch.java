@@ -3,7 +3,7 @@ package de.elmar_baumann.imv.controller.misc;
 import de.elmar_baumann.imv.controller.Controller;
 import de.elmar_baumann.imv.data.SavedSearch;
 import de.elmar_baumann.imv.data.SavedSearchParamStatement;
-import de.elmar_baumann.imv.database.Database;
+import de.elmar_baumann.imv.database.DatabaseSearch;
 import de.elmar_baumann.imv.database.metadata.ParamStatement;
 import de.elmar_baumann.imv.event.ListenerProvider;
 import de.elmar_baumann.imv.event.SearchEvent;
@@ -29,7 +29,7 @@ import javax.swing.JTree;
 public class ControllerAdvancedSearch extends Controller
     implements ActionListener, SearchListener {
 
-    private Database db = Database.getInstance();
+    private DatabaseSearch db = DatabaseSearch.getInstance();
     private AppPanel appPanel = Panels.getInstance().getAppPanel();
     private ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelThumbnails();
     private List<JTree> selectionTrees = appPanel.getSelectionTrees();

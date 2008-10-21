@@ -3,7 +3,7 @@ package de.elmar_baumann.imv.controller.savedsearch;
 import de.elmar_baumann.imv.AppSettings;
 import de.elmar_baumann.imv.controller.Controller;
 import de.elmar_baumann.imv.data.SavedSearch;
-import de.elmar_baumann.imv.database.Database;
+import de.elmar_baumann.imv.database.DatabaseSavedSearches;
 import de.elmar_baumann.imv.event.ListenerProvider;
 import de.elmar_baumann.imv.event.SearchEvent;
 import de.elmar_baumann.imv.event.SearchListener;
@@ -28,7 +28,7 @@ import javax.swing.JOptionPane;
 public class ControllerCreateSavedSearch extends Controller
     implements ActionListener, SearchListener {
 
-    private Database db = Database.getInstance();
+    private DatabaseSavedSearches db = DatabaseSavedSearches.getInstance();
     private AppPanel appPanel = Panels.getInstance().getAppPanel();
     private JList list = appPanel.getListSavedSearches();
     private ListModelSavedSearches model = (ListModelSavedSearches) list.getModel();

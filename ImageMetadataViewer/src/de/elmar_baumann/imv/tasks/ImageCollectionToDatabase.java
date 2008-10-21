@@ -1,7 +1,7 @@
 package de.elmar_baumann.imv.tasks;
 
 import de.elmar_baumann.imv.AppSettings;
-import de.elmar_baumann.imv.database.Database;
+import de.elmar_baumann.imv.database.DatabaseImageCollections;
 import de.elmar_baumann.imv.resource.Bundle;
 import java.text.MessageFormat;
 import java.util.List;
@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
  */
 public class ImageCollectionToDatabase {
 
-    private static Database db = Database.getInstance();
+    private static DatabaseImageCollections db = DatabaseImageCollections.getInstance();
 
     /**
      * Fügt in die Datenbank eine neue Bildsammlung ein.

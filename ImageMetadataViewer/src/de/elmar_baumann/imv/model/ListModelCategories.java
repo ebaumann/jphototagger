@@ -3,7 +3,7 @@ package de.elmar_baumann.imv.model;
 import de.elmar_baumann.imv.data.ImageFile;
 import de.elmar_baumann.imv.data.Iptc;
 import de.elmar_baumann.imv.data.Xmp;
-import de.elmar_baumann.imv.database.Database;
+import de.elmar_baumann.imv.database.DatabaseImageFiles;
 import de.elmar_baumann.imv.event.DatabaseAction;
 import de.elmar_baumann.imv.event.DatabaseListener;
 import java.util.ArrayList;
@@ -20,7 +20,7 @@ import javax.swing.DefaultListModel;
 public class ListModelCategories extends DefaultListModel
     implements DatabaseListener {
 
-    private Database db = Database.getInstance();
+    private DatabaseImageFiles db = DatabaseImageFiles.getInstance();
 
     public ListModelCategories() {
         addElements();

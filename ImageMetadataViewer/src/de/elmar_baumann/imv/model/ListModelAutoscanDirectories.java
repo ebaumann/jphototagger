@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.model;
 
-import de.elmar_baumann.imv.database.Database;
+import de.elmar_baumann.imv.database.DatabaseAutoscanDirectories;
 import java.io.File;
 import java.util.List;
 import javax.swing.DefaultListModel;
@@ -19,8 +19,7 @@ public class ListModelAutoscanDirectories extends DefaultListModel {
     }
 
     private void addItems() {
-        Database db = Database.getInstance();
-        List<String> directoryNames = db.getAutoscanDirectories();
+        List<String> directoryNames = DatabaseAutoscanDirectories.getInstance().getAutoscanDirectories();
         for (String directoryName : directoryNames) {
             File directory = new File(directoryName);
             if (directory.isDirectory() && directory.exists()) {

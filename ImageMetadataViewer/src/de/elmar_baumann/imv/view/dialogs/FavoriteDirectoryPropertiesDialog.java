@@ -2,7 +2,7 @@ package de.elmar_baumann.imv.view.dialogs;
 
 import de.elmar_baumann.imv.AppSettings;
 import de.elmar_baumann.imv.UserSettings;
-import de.elmar_baumann.imv.database.Database;
+import de.elmar_baumann.imv.database.DatabaseFavoriteDirectories;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.dialog.Dialog;
 import de.elmar_baumann.lib.dialog.DirectoryChooser;
@@ -28,7 +28,7 @@ public class FavoriteDirectoryPropertiesDialog extends Dialog {
     private String lastDirectory = ""; // NOI18N
     private boolean ok = true;
     private boolean isUpdate = false;
-    private Database db = Database.getInstance();
+    private DatabaseFavoriteDirectories db = DatabaseFavoriteDirectories.getInstance();
 
     /** Creates new form FavoriteDirectoryPropertiesDialog */
     public FavoriteDirectoryPropertiesDialog() {

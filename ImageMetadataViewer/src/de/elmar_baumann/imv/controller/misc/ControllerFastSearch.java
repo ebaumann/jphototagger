@@ -6,7 +6,7 @@ import de.elmar_baumann.imv.data.AutoCompleteData;
 import de.elmar_baumann.imv.data.ImageFile;
 import de.elmar_baumann.imv.data.Xmp;
 import de.elmar_baumann.imv.data.XmpUtil;
-import de.elmar_baumann.imv.database.Database;
+import de.elmar_baumann.imv.database.DatabaseSearch;
 import de.elmar_baumann.imv.database.metadata.Column;
 import de.elmar_baumann.imv.event.DatabaseAction;
 import de.elmar_baumann.imv.event.DatabaseListener;
@@ -39,7 +39,7 @@ import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 public class ControllerFastSearch extends Controller
     implements UserSettingsChangeListener, DatabaseListener {
 
-    private Database db = Database.getInstance();
+    private DatabaseSearch db = DatabaseSearch.getInstance();
     private AppPanel appPanel = Panels.getInstance().getAppPanel();
     private JTextField textFieldSearch = appPanel.getTextFieldSearch();
     private ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelThumbnails();

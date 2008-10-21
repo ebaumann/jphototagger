@@ -2,7 +2,7 @@ package de.elmar_baumann.imv.controller.metadata;
 
 import com.adobe.xmp.properties.XMPPropertyInfo;
 import de.elmar_baumann.imv.controller.Controller;
-import de.elmar_baumann.imv.database.Database;
+import de.elmar_baumann.imv.database.DatabaseImageFiles;
 import de.elmar_baumann.imv.event.DatabaseAction;
 import de.elmar_baumann.imv.event.DatabaseListener;
 import de.elmar_baumann.imv.event.ThumbnailsPanelAction;
@@ -39,7 +39,7 @@ public class ControllerThumbnailSelectionEditMetadata
 
     private void listenToActionSources() {
         thumbnailsPanel.addThumbnailsPanelListener(this);
-        Database.getInstance().addDatabaseListener(this);
+        DatabaseImageFiles.getInstance().addDatabaseListener(this);
     }
 
     @Override

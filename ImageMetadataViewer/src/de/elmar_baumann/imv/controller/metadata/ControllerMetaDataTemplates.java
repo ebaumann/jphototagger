@@ -3,7 +3,7 @@ package de.elmar_baumann.imv.controller.metadata;
 import de.elmar_baumann.imv.AppSettings;
 import de.elmar_baumann.imv.controller.Controller;
 import de.elmar_baumann.imv.data.MetaDataEditTemplate;
-import de.elmar_baumann.imv.database.Database;
+import de.elmar_baumann.imv.database.DatabaseMetaDataEditTemplates;
 import de.elmar_baumann.imv.event.ListenerProvider;
 import de.elmar_baumann.imv.event.MetaDataEditPanelEvent;
 import de.elmar_baumann.imv.event.MetaDataEditPanelListener;
@@ -28,7 +28,7 @@ import javax.swing.JOptionPane;
 public class ControllerMetaDataTemplates extends Controller
     implements ActionListener, MetaDataEditPanelListener {
 
-    private Database db = Database.getInstance();
+    private DatabaseMetaDataEditTemplates db = DatabaseMetaDataEditTemplates.getInstance();
     private AppPanel appPanel = Panels.getInstance().getAppPanel();
     private MetadataEditPanelsArray editPanels = appPanel.getEditPanelsArray();
     private JComboBox comboBoxMetaDataTemplates = appPanel.getComboBoxMetaDataTemplates();

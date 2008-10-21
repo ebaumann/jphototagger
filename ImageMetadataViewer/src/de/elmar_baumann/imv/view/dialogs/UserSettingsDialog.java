@@ -2,7 +2,7 @@ package de.elmar_baumann.imv.view.dialogs;
 
 import de.elmar_baumann.imv.AppSettings;
 import de.elmar_baumann.imv.UserSettings;
-import de.elmar_baumann.imv.database.Database;
+import de.elmar_baumann.imv.database.DatabaseAutoscanDirectories;
 import de.elmar_baumann.imv.database.metadata.Column;
 import de.elmar_baumann.imv.event.ListenerProvider;
 import de.elmar_baumann.imv.event.UserSettingsChangeEvent;
@@ -47,7 +47,7 @@ import javax.swing.SpinnerNumberModel;
  */
 public class UserSettingsDialog extends Dialog implements ActionListener {
 
-    private Database db = Database.getInstance();
+    private DatabaseAutoscanDirectories db = DatabaseAutoscanDirectories.getInstance();
     private final String keyLastSelectedAutoscanDirectory = "UserSettingsDialog.keyLastSelectedAutoscanDirectory"; // NOI18N
     private final String keyTabbedPaneIndex = "UserSettingsDialog.TabbedPaneIndex"; // NOI18N
     private List<UserSettingsChangeListener> changeListeners = new LinkedList<UserSettingsChangeListener>();

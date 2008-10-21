@@ -1,7 +1,7 @@
 package de.elmar_baumann.imv.data;
 
 import de.elmar_baumann.imv.UserSettings;
-import de.elmar_baumann.imv.database.Database;
+import de.elmar_baumann.imv.database.DatabaseContent;
 import de.elmar_baumann.imv.database.metadata.Column;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -17,7 +17,7 @@ import java.util.Set;
  */
 public class AutoCompleteData {
 
-    private Database db = Database.getInstance();
+    private DatabaseContent db = DatabaseContent.getInstance();
     private Set<Column> columns;
     private List<String> content = Collections.synchronizedList(new ArrayList<String>());
 

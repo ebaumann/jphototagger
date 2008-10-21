@@ -1,7 +1,7 @@
 package de.elmar_baumann.imv.model;
 
 import de.elmar_baumann.imv.AppSettings;
-import de.elmar_baumann.imv.database.Database;
+import de.elmar_baumann.imv.database.DatabaseFileExcludePattern;
 import java.text.MessageFormat;
 import java.util.List;
 import javax.swing.DefaultListModel;
@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
  */
 public class ListModelFileExcludePatterns extends DefaultListModel {
 
-    private Database db = Database.getInstance();
+    private DatabaseFileExcludePattern db = DatabaseFileExcludePattern.getInstance();
     private List<String> patterns;
 
     public ListModelFileExcludePatterns() {

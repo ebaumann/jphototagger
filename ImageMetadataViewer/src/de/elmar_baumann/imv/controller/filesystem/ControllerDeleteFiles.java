@@ -2,7 +2,7 @@ package de.elmar_baumann.imv.controller.filesystem;
 
 import de.elmar_baumann.imv.AppSettings;
 import de.elmar_baumann.imv.controller.Controller;
-import de.elmar_baumann.imv.database.Database;
+import de.elmar_baumann.imv.database.DatabaseImageFiles;
 import de.elmar_baumann.imv.event.ErrorEvent;
 import de.elmar_baumann.imv.event.listener.ErrorListeners;
 import de.elmar_baumann.imv.resource.Bundle;
@@ -29,7 +29,7 @@ import javax.swing.JOptionPane;
 public class ControllerDeleteFiles extends Controller implements ActionListener {
 
     private ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
-    Database db = Database.getInstance();
+    DatabaseImageFiles db = DatabaseImageFiles.getInstance();
 
     public ControllerDeleteFiles() {
         PopupMenuPanelThumbnails.getInstance().addActionListenerFileSystemDeleteFiles(this);

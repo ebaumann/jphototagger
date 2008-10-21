@@ -2,7 +2,7 @@ package de.elmar_baumann.imv.model;
 
 import de.elmar_baumann.imv.AppSettings;
 import de.elmar_baumann.imv.data.MetaDataEditTemplate;
-import de.elmar_baumann.imv.database.Database;
+import de.elmar_baumann.imv.database.DatabaseMetaDataEditTemplates;
 import de.elmar_baumann.imv.resource.Bundle;
 import java.text.MessageFormat;
 import java.util.List;
@@ -20,7 +20,7 @@ import javax.swing.JOptionPane;
  */
 public class ComboBoxModelMetaDataEditTemplates extends DefaultComboBoxModel {
 
-    private Database db = Database.getInstance();
+    private DatabaseMetaDataEditTemplates db = DatabaseMetaDataEditTemplates.getInstance();
 
     public ComboBoxModelMetaDataEditTemplates() {
         addColumns();

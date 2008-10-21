@@ -1,7 +1,7 @@
 package de.elmar_baumann.imv.io;
 
 import de.elmar_baumann.imv.AppSettings;
-import de.elmar_baumann.imv.database.Database;
+import de.elmar_baumann.imv.database.DatabaseFileExcludePattern;
 import de.elmar_baumann.lib.util.ArrayUtil;
 import java.io.File;
 import java.util.ArrayList;
@@ -54,7 +54,7 @@ public class ImageFilteredDirectory {
      */
     public static List<File> getImageFilesOfDirectory(File directory) {
         File[] filteredFiles = directory.listFiles(AppSettings.fileFilterAcceptedImageFileFormats);
-        List<String> excludePatterns = Database.getInstance().getFileExcludePatterns();
+        List<String> excludePatterns = DatabaseFileExcludePattern.getInstance().getFileExcludePatterns();
         List<File> files = new ArrayList<File>();
         if (filteredFiles != null) {
             for (int index = 0; index < filteredFiles.length; index++) {
@@ -87,7 +87,7 @@ public class ImageFilteredDirectory {
 
     private void addFilesOfCurrentDirectory() {
         File[] filesOfDirectory = directory.listFiles(AppSettings.fileFilterAcceptedImageFileFormats);
-        List<String> excludePatterns = Database.getInstance().getFileExcludePatterns();
+        List<String> excludePatterns = DatabaseFileExcludePattern.getInstance().getFileExcludePatterns();
         if (filesOfDirectory != null) {
             for (int index = 0; index < filesOfDirectory.length; index++) {
                 File file = filesOfDirectory[index];

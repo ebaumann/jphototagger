@@ -67,12 +67,12 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="scrollPaneTableDatabaseInfo" alignment="0" pref="456" max="32767" attributes="0"/>
+                          <Component id="scrollPaneTableDatabaseInfo" alignment="0" pref="460" max="32767" attributes="0"/>
                           <Component id="labelDatabaseInfoTable" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="labelDatabaseInfoTotalRecordCount" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="labelDatabaseTotalRecordCount" pref="145" max="32767" attributes="0"/>
+                              <Component id="labelDatabaseTotalRecordCount" pref="165" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -85,7 +85,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="labelDatabaseInfoTable" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="scrollPaneTableDatabaseInfo" pref="224" max="32767" attributes="0"/>
+                      <Component id="scrollPaneTableDatabaseInfo" pref="227" max="32767" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="labelDatabaseInfoTotalRecordCount" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -160,7 +160,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="buttonStartMaintain" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="progressBar" alignment="1" pref="456" max="32767" attributes="2"/>
+                          <Component id="progressBar" alignment="1" pref="460" max="32767" attributes="2"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -207,7 +207,7 @@
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Component id="labelStatusDeleteNotExistingFilesInDatabase" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="labelCountDeleteNotExistingFilesInDatabase" pref="24" max="32767" attributes="0"/>
+                                  <Component id="labelCountDeleteNotExistingFilesInDatabase" pref="57" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="checkBoxCompressDatabase" min="-2" max="-2" attributes="0"/>

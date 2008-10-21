@@ -1,7 +1,7 @@
 package de.elmar_baumann.imv.factory;
 
 import de.elmar_baumann.imv.UserSettings;
-import de.elmar_baumann.imv.database.Database;
+import de.elmar_baumann.imv.database.DatabaseImageFiles;
 import de.elmar_baumann.imv.event.ListenerProvider;
 import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.view.panels.AppPanel;
@@ -34,7 +34,7 @@ public class LateConnectionsFactory {
         
         appPanel.getPanelThumbnails().setDefaultThumbnailWidth(userSettings.getMaxThumbnailWidth());
         
-        Database.getInstance().addDatabaseListener(appPanel.getEditPanelsArray());
+        DatabaseImageFiles.getInstance().addDatabaseListener(appPanel.getEditPanelsArray());
         if (userSettings.isUseAutocomplete()) {
             appPanel.getEditPanelsArray().setAutocomplete();
         }

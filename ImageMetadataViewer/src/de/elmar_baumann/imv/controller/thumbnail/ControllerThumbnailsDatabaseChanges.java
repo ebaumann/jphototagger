@@ -1,7 +1,7 @@
 package de.elmar_baumann.imv.controller.thumbnail;
 
 import de.elmar_baumann.imv.controller.Controller;
-import de.elmar_baumann.imv.database.Database;
+import de.elmar_baumann.imv.database.DatabaseImageFiles;
 import de.elmar_baumann.imv.event.DatabaseAction;
 import de.elmar_baumann.imv.event.DatabaseListener;
 import de.elmar_baumann.imv.resource.Panels;
@@ -19,7 +19,7 @@ import java.util.List;
 public class ControllerThumbnailsDatabaseChanges extends Controller
     implements DatabaseListener {
     
-    private Database db = Database.getInstance();
+    private DatabaseImageFiles db = DatabaseImageFiles.getInstance();
     private ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
 
     public ControllerThumbnailsDatabaseChanges() {

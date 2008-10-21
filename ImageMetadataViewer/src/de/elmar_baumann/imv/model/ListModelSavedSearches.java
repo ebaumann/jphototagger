@@ -1,7 +1,7 @@
 package de.elmar_baumann.imv.model;
 
 import de.elmar_baumann.imv.data.SavedSearch;
-import de.elmar_baumann.imv.database.Database;
+import de.elmar_baumann.imv.database.DatabaseSavedSearches;
 import java.util.List;
 import javax.swing.DefaultListModel;
 
@@ -18,7 +18,7 @@ public class ListModelSavedSearches extends DefaultListModel {
     }
 
     private void addItems() {
-        List<SavedSearch> searches = Database.getInstance().getSavedSearches();
+        List<SavedSearch> searches = DatabaseSavedSearches.getInstance().getSavedSearches();
         for (SavedSearch search : searches) {
             addElement(search);
         }
