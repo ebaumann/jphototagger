@@ -27,7 +27,7 @@ public class ControllerDeleteFavoriteDirectory extends Controller
     private PopupMenuListFavoriteDirectories popup = PopupMenuListFavoriteDirectories.getInstance();
 
     public ControllerDeleteFavoriteDirectory() {
-        listenToActionSource();
+        popup.addActionListenerDelete(this);
     }
 
     @Override
@@ -54,9 +54,5 @@ public class ControllerDeleteFavoriteDirectory extends Controller
             JOptionPane.YES_NO_OPTION,
             JOptionPane.QUESTION_MESSAGE,
             AppSettings.getMediumAppIcon()) == JOptionPane.YES_OPTION;
-    }
-
-    private void listenToActionSource() {
-        popup.addActionListenerDelete(this);
     }
 }
