@@ -5,7 +5,7 @@ import de.elmar_baumann.imv.controller.Controller;
 import de.elmar_baumann.imv.data.AutoCompleteData;
 import de.elmar_baumann.imv.data.ImageFile;
 import de.elmar_baumann.imv.data.Xmp;
-import de.elmar_baumann.imv.data.XmpUtil;
+import de.elmar_baumann.imv.data.AutoCompleteUtil;
 import de.elmar_baumann.imv.database.DatabaseSearch;
 import de.elmar_baumann.imv.database.metadata.Column;
 import de.elmar_baumann.imv.event.DatabaseAction;
@@ -77,7 +77,7 @@ public class ControllerFastSearch extends Controller
 
     private void addAutoCompleteData(Xmp xmp) {
         for (Column column : fastSearchColumns) {
-            XmpUtil.addData(xmp, column, searchAutoCompleteData);
+            AutoCompleteUtil.addData(xmp, column, searchAutoCompleteData);
         }
     }
 

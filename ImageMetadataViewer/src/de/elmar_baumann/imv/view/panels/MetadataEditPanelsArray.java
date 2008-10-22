@@ -6,7 +6,7 @@ import de.elmar_baumann.imv.data.ImageFile;
 import de.elmar_baumann.imv.data.MetaDataEditTemplate;
 import de.elmar_baumann.imv.data.TextEntry;
 import de.elmar_baumann.imv.data.Xmp;
-import de.elmar_baumann.imv.data.XmpUtil;
+import de.elmar_baumann.imv.data.AutoCompleteUtil;
 import de.elmar_baumann.imv.database.metadata.Column;
 import de.elmar_baumann.imv.database.metadata.selections.EditHints;
 import de.elmar_baumann.imv.database.metadata.selections.EditHints.SizeEditField;
@@ -309,10 +309,10 @@ public class MetadataEditPanelsArray implements FocusListener, DatabaseListener 
         for (JPanel panel : panels) {
             if (panel instanceof TextEntryEditFieldPanel) {
                 TextEntryEditFieldPanel p = (TextEntryEditFieldPanel) panel;
-                XmpUtil.addData(xmp, p.getColumn(), p.getAutoCompleteData());
+                AutoCompleteUtil.addData(xmp, p.getColumn(), p.getAutoCompleteData());
             } else if (panel instanceof TextEntryEditAreaPanel) {
                 TextEntryEditAreaPanel p = (TextEntryEditAreaPanel) panel;
-                XmpUtil.addData(xmp, p.getColumn(), p.getAutoCompleteData());
+                AutoCompleteUtil.addData(xmp, p.getColumn(), p.getAutoCompleteData());
             }
         }
     }
