@@ -34,8 +34,12 @@ public class ControllerSliderThumbnailSize extends Controller
     private int maxThumbnailWidth = UserSettings.getInstance().getMaxThumbnailWidth();
 
     public ControllerSliderThumbnailSize() {
-        thumbnailsPanel.addThumbnailsPanelListener(this);
         initSlider();
+        listenToActionSources();
+    }
+
+    private void listenToActionSources() {
+        thumbnailsPanel.addThumbnailsPanelListener(this);
         slider.addChangeListener(this);
         ListenerProvider.getInstance().addUserSettingsChangeListener(this);
     }
@@ -53,14 +57,7 @@ public class ControllerSliderThumbnailSize extends Controller
     @Override
     public void stateChanged(ChangeEvent e) {
         if (isControl()) {
-            int value = slider.getValue();
-            synchronized (this) {
-                if (value % stepWidth == 0 && value != currentValue) {
-                    currentValue = value;
-                    writePersistent();
-                    setThumbnailWidth();
-                }
-            }
+            handleSliderMoved();
         }
     }
 
@@ -71,6 +68,25 @@ public class ControllerSliderThumbnailSize extends Controller
     @Override
     public void thumbnailsChanged() {
         setThumbnailWidth();
+    }
+
+    @Override
+    public void applySettings(UserSettingsChangeEvent evt) {
+        if (evt.getType().equals(UserSettingsChangeEvent.Type.MaxThumbnailWidth)) {
+            maxThumbnailWidth = UserSettings.getInstance().getMaxThumbnailWidth();
+            setThumbnailWidth();
+        }
+    }
+
+    private void handleSliderMoved() {
+        int value = slider.getValue();
+        synchronized (this) {
+            if (value % stepWidth == 0 && value != currentValue) {
+                currentValue = value;
+                writePersistent();
+                setThumbnailWidth();
+            }
+        }
     }
 
     private void readPersistent() {
@@ -87,13 +103,5 @@ public class ControllerSliderThumbnailSize extends Controller
 
     private void writePersistent() {
         PersistentSettings.getInstance().setInt(currentValue, keySliderValue);
-    }
-
-    @Override
-    public void applySettings(UserSettingsChangeEvent evt) {
-        if (evt.getType().equals(UserSettingsChangeEvent.Type.MaxThumbnailWidth)) {
-            maxThumbnailWidth = UserSettings.getInstance().getMaxThumbnailWidth();
-            setThumbnailWidth();
-        }
     }
 }

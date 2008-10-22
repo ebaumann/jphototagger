@@ -38,15 +38,18 @@ public class ControllerRenameInXmpColumns extends Controller
     @Override
     public void actionPerformed(ActionEvent e) {
         if (isControl()) {
-            List<String> filenames = FileUtil.getAsFilenames(
-                thumbnailsPanel.getSelectedFiles());
-            if (!filenames.isEmpty()) {
-                rename(filenames);
-            }
+            renameSelectedThumbnails();
         }
     }
 
-    private void rename(List<String> filenames) {
+    private void renameSelectedThumbnails() {
+        List<String> filenames = FileUtil.getAsFilenames(thumbnailsPanel.getSelectedFiles());
+        if (!filenames.isEmpty()) {
+            renameFiles(filenames);
+        }
+    }
+
+    private void renameFiles(List<String> filenames) {
         RenameInXmpColumnsDialog dialog = new RenameInXmpColumnsDialog();
         dialog.setVisible(true);
         if (dialog.accepted()) {

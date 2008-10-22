@@ -32,8 +32,12 @@ public class ControllerThumbnailsDatabaseChanges extends Controller
         if (type.equals(DatabaseAction.Type.ThumbnailUpdated)) {
             thumbnailsPanel.repaint(new File(action.getFilename()));
         } else if (type.equals(DatabaseAction.Type.ImageFilesDeleted)) {
-            List<File> deleted = FileUtil.getAsFiles(action.getFilenames());
-            thumbnailsPanel.remove(deleted);
+            removeThumbnails(action);
         }
+    }
+
+    private void removeThumbnails(DatabaseAction action) {
+        List<File> deleted = FileUtil.getAsFiles(action.getFilenames());
+        thumbnailsPanel.remove(deleted);
     }
 }
