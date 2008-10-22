@@ -63,6 +63,17 @@ public class ControllerMetaDataTemplates extends Controller
     }
 
     @Override
+    public void actionPerformed(MetaDataEditPanelEvent event) {
+        MetaDataEditPanelEvent.Type type = event.getType();
+
+        if (type.equals(MetaDataEditPanelEvent.Type.EditEnabled) ||
+            type.equals(MetaDataEditPanelEvent.Type.EditDisabled)) {
+            buttonMetaDataTemplateInsert.setEnabled(
+                type.equals(MetaDataEditPanelEvent.Type.EditEnabled));
+        }
+    }
+
+    @Override
     public void actionPerformed(ActionEvent e) {
         if (isControl()) {
             Object source = e.getSource();
@@ -94,13 +105,13 @@ public class ControllerMetaDataTemplates extends Controller
         Object o = model.getSelectedItem();
         if (o != null) {
             MetaDataEditTemplate template = (MetaDataEditTemplate) o;
-            if (confirmDelete(template.getName())) {
+            if (deleteConfirmed(template.getName())) {
                 model.deleteMetaDataEditTemplate(template);
             }
         }
     }
 
-    private boolean confirmDelete(String templateName) {
+    private boolean deleteConfirmed(String templateName) {
         MessageFormat msg = new MessageFormat(Bundle.getString("ControllerMetaDataTemplates.ConfirmMessage.Delete"));
         Object[] params = {templateName};
         return JOptionPane.showConfirmDialog(
@@ -146,7 +157,7 @@ public class ControllerMetaDataTemplates extends Controller
             name = JOptionPane.showInputDialog(Bundle.getString("ControllerMetaDataTemplates.Input.TemplateName"), name);
             exists = name != null && db.existsMetaDataEditTemplate(name);
             if (exists) {
-                abort = confirmAbort(name);
+                abort = abortConfirmed(name);
             }
             if (exists && abort) {
                 name = null;
@@ -155,7 +166,7 @@ public class ControllerMetaDataTemplates extends Controller
         return name;
     }
 
-    private boolean confirmAbort(String name) {
+    private boolean abortConfirmed(String name) {
         MessageFormat msg = new MessageFormat(
             Bundle.getString("ControllerMetaDataTemplates.ConfirmMessage.OverwriteExistingTemplate"));
         Object[] params = {name};
@@ -166,16 +177,5 @@ public class ControllerMetaDataTemplates extends Controller
             JOptionPane.YES_NO_OPTION,
             JOptionPane.QUESTION_MESSAGE,
             AppSettings.getMediumAppIcon()) == JOptionPane.NO_OPTION;
-    }
-
-    @Override
-    public void actionPerformed(MetaDataEditPanelEvent event) {
-        MetaDataEditPanelEvent.Type type = event.getType();
-
-        if (type.equals(MetaDataEditPanelEvent.Type.EditEnabled) ||
-            type.equals(MetaDataEditPanelEvent.Type.EditDisabled)) {
-            buttonMetaDataTemplateInsert.setEnabled(
-                type.equals(MetaDataEditPanelEvent.Type.EditEnabled));
-        }
     }
 }

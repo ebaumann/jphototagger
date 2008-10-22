@@ -30,42 +30,42 @@ public class ControllerSafedSearchSelected extends Controller
     private ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelThumbnails();
 
     public ControllerSafedSearchSelected() {
-        listenToActionSource();
+        listenToActionSources();
     }
 
-    private void listenToActionSource() {
+    private void listenToActionSources() {
         list.addListSelectionListener(this);
         thumbnailsPanel.addRefreshListener(this, Content.Search);
     }
 
     @Override
     public void valueChanged(ListSelectionEvent e) {
-        showThumbnails();
+        searchSelectedValue();
     }
 
     @Override
     public void refresh() {
-        showThumbnails();
+        searchSelectedValue();
     }
 
-    private void showThumbnails() {
-        Object selected = list.getSelectedValue();
-        if (isControl() && selected != null) {
-            search(selected);
+    private void searchSelectedValue() {
+        Object selectedValue = list.getSelectedValue();
+        if (isControl() && selectedValue != null) {
+            searchSelectedValue(selectedValue);
         }
     }
 
-    private void search(Object selected) {
-        if (selected instanceof SavedSearch) {
-            SavedSearch data = (SavedSearch) selected;
+    private void searchSelectedValue(Object selectedValue) {
+        if (selectedValue instanceof SavedSearch) {
+            SavedSearch data = (SavedSearch) selectedValue;
             ParamStatement stmt = data.getParamStatements().createStatement();
             if (stmt != null) {
-                search(stmt);
+                searchParamStatement(stmt);
             }
         }
     }
 
-    private void search(ParamStatement stmt) {
+    private void searchParamStatement(ParamStatement stmt) {
         List<String> filenames = db.searchFilenames(stmt);
         thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames),
             Content.Search);

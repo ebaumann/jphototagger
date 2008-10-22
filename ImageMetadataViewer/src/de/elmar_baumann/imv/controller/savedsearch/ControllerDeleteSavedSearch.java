@@ -32,10 +32,6 @@ public class ControllerDeleteSavedSearch extends Controller
     private ListModelSavedSearches model = (ListModelSavedSearches) list.getModel();
 
     public ControllerDeleteSavedSearch() {
-        listenToActionSource();
-    }
-
-    private void listenToActionSource() {
         actionPopup.addActionListenerDelete(this);
     }
 
@@ -49,15 +45,16 @@ public class ControllerDeleteSavedSearch extends Controller
     private void delete() {
         SavedSearch search = actionPopup.getSavedSearch();
         String searchName = search.getParamStatements().getName();
-        if (askDeleteSearch(searchName) &&
-            db.deleteSavedSearch(searchName)) {
-            model.removeElement(search);
-        } else {
-            messageErrorDelete();
+        if (deleteConfirmed(searchName)) {
+            if (db.deleteSavedSearch(searchName)) {
+                model.removeElement(search);
+            } else {
+                messageErrorDelete();
+            }
         }
     }
 
-    private boolean askDeleteSearch(String name) {
+    private boolean deleteConfirmed(String name) {
         MessageFormat msg = new MessageFormat(Bundle.getString("ControllerDeleteSavedSearch.ConfirmMessage.DeleteSearch"));
         Object[] params = {name};
         return JOptionPane.showConfirmDialog(null, msg.format(params),

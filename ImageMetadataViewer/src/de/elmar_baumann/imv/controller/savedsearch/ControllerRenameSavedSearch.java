@@ -9,6 +9,7 @@ import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuListSavedSearches;
+import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.MessageFormat;
@@ -32,10 +33,6 @@ public class ControllerRenameSavedSearch extends Controller
     private ListModelSavedSearches model = (ListModelSavedSearches) list.getModel();
 
     public ControllerRenameSavedSearch() {
-        listenToActionSource();
-    }
-
-    private void listenToActionSource() {
         actionPopup.addActionListenerRename(this);
     }
 
@@ -50,42 +47,54 @@ public class ControllerRenameSavedSearch extends Controller
         SavedSearch oldSearch = actionPopup.getSavedSearch();
         String oldName = oldSearch.getName();
         String newName = getNewName(oldName);
-        if (newName != null &&
-            db.updateRenameSavedSearch(oldName, newName)) {
-            SavedSearch newSearch = db.getSavedSearch(newName);
-            if (newSearch == null) {
-                messageErrorRenameGetUpdate(oldName);
+        if (newName != null) {
+            if (db.updateRenameSavedSearch(oldName, newName)) {
+                SavedSearch newSearch = db.getSavedSearch(newName);
+                if (newSearch == null) {
+                    messageErrorRenameGetUpdate(oldName);
+                } else {
+                    model.rename(oldSearch, newSearch);
+                }
             } else {
-                model.rename(oldSearch, newSearch);
+                messageErrorRename(oldName);
             }
-        } else {
-            messageErrorRename(oldName);
         }
     }
 
     private String getNewName(String oldName) {
-        boolean inputRequestet = true;
+        boolean hasInput = true;
         String input = null;
-        while (inputRequestet) {
-            input = JOptionPane.showInputDialog(null, Bundle.getString("ControllerRenameSavedSearch.Input.NewName"), oldName);
-            inputRequestet = false;
+        while (hasInput) {
+            input = getInput(oldName);
+            hasInput = false;
             if (input != null && db.existsSavedSearch(input)) {
-                MessageFormat message = new MessageFormat(
-                    Bundle.getString("ControllerRenameSavedSearch.ConfirmMessage.ChangeNameBecauseExists"));
-                Object[] params = {input};
-                inputRequestet = JOptionPane.showConfirmDialog(null,
-                    message.format(params),
-                    Bundle.getString("ControllerRenameSavedSearch.ConfirmMessage.ChangeNameBecauseExists.Title"),
-                    JOptionPane.YES_NO_OPTION,
-                    JOptionPane.QUESTION_MESSAGE,
-                    AppSettings.getMediumAppIcon()) == JOptionPane.YES_OPTION;
-                if (inputRequestet) {
+                hasInput = confirmInputDifferentName(input);
+                if (hasInput) {
                     oldName = input;
                 }
                 input = null;
             }
         }
         return input;
+    }
+
+    private String getInput(String oldName) {
+        return JOptionPane.showInputDialog(
+            null,
+            Bundle.getString("ControllerRenameSavedSearch.Input.NewName"),
+            oldName);
+    }
+
+    private boolean confirmInputDifferentName(String input) throws HeadlessException {
+        MessageFormat message = new MessageFormat(Bundle.getString("ControllerRenameSavedSearch.ConfirmMessage.ChangeNameBecauseExists"));
+        Object[] params = {input};
+        return JOptionPane.showConfirmDialog(
+            null,
+            message.format(params),
+            Bundle.getString("ControllerRenameSavedSearch.ConfirmMessage.ChangeNameBecauseExists.Title"),
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.QUESTION_MESSAGE,
+            AppSettings.getMediumAppIcon()) == JOptionPane.YES_OPTION;
     }
 
     private void messageErrorRename(String searchName) {

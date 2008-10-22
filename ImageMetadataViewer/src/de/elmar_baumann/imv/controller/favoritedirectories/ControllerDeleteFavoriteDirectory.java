@@ -39,12 +39,12 @@ public class ControllerDeleteFavoriteDirectory extends Controller
 
     private void deleteFavorite() {
         FavoriteDirectory favorite = popup.getFavoriteDirectory();
-        if (confirmDelete(favorite.getFavoriteName())) {
+        if (deleteConfirmed(favorite.getFavoriteName())) {
             model.deleteFavorite(favorite);
         }
     }
 
-    private boolean confirmDelete(String favoriteName) {
+    private boolean deleteConfirmed(String favoriteName) {
         MessageFormat msg = new MessageFormat(Bundle.getString("ControllerDeleteFavoriteDirectory.ConfirmMessage.Delete"));
         Object[] params = {favoriteName};
         return JOptionPane.showConfirmDialog(

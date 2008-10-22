@@ -19,21 +19,17 @@ public class ControllerEditSafedSearch extends Controller
     private PopupMenuListSavedSearches actionPopup = PopupMenuListSavedSearches.getInstance();
 
     public ControllerEditSafedSearch() {
-        listenToActionSource();
-    }
-
-    private void listenToActionSource() {
         actionPopup.addActionListenerEdit(this);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (isControl()) {
-            edit();
+            showAdvancedSearchDialog();
         }
     }
 
-    private void edit() {
+    private void showAdvancedSearchDialog() {
         AdvancedSearchDialog dialog = AdvancedSearchDialog.getInstance();
         dialog.setSavedSearch(actionPopup.getSavedSearch());
         if (dialog.isVisible()) {

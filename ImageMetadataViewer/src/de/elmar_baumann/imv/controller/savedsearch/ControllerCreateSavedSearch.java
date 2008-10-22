@@ -43,13 +43,20 @@ public class ControllerCreateSavedSearch extends Controller
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
-        if (isControl()) {
-            create();
+    public void actionPerformed(SearchEvent evt) {
+        if (isControl() && evt.getType().equals(SearchEvent.Type.Save)) {
+            saveSearch(evt.getSafedSearch(), evt.isForceOverwrite());
         }
     }
 
-    private void create() {
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (isControl()) {
+            showAdvancedSearchDialog();
+        }
+    }
+
+    private void showAdvancedSearchDialog() {
         AdvancedSearchDialog dialog = AdvancedSearchDialog.getInstance();
         if (dialog.isVisible()) {
             dialog.toFront();
@@ -58,15 +65,8 @@ public class ControllerCreateSavedSearch extends Controller
         }
     }
 
-    @Override
-    public void actionPerformed(SearchEvent evt) {
-        if (isControl() && evt.getType().equals(SearchEvent.Type.Save)) {
-            saveSearch(evt.getSafedSearch(), evt.isForceOverwrite());
-        }
-    }
-
     private void saveSearch(SavedSearch savedSearch, boolean force) {
-        if (force || isSave(savedSearch)) {
+        if (force || saveConfirmed(savedSearch)) {
             if (db.insertSavedSearch(savedSearch)) {
                 model.addElement(savedSearch);
             } else {
@@ -75,7 +75,7 @@ public class ControllerCreateSavedSearch extends Controller
         }
     }
 
-    private boolean isSave(SavedSearch savedSearch) {
+    private boolean saveConfirmed(SavedSearch savedSearch) {
         if (db.existsSavedSearch(savedSearch)) {
             return JOptionPane.showConfirmDialog(null,
                 Bundle.getString("ControllerRenameSavedSearch.ConfirmMessage.ReplaceExisting"),
