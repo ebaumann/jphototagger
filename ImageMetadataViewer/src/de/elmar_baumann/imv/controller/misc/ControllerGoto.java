@@ -80,9 +80,7 @@ public class ControllerGoto extends Controller implements ActionListener {
             componentOfGoto.get(gt).requestFocus();
         } else if (gt.equals(AppFrame.Goto.FastSearch)) {
             textFieldSearch.requestFocus();
-        }
-
-        if (gt.equals(AppFrame.Goto.EditPanels)) {
+        } else if (gt.equals(AppFrame.Goto.EditPanels)) {
             editPanels.setFocusToLastFocussedComponent();
         } else if (gt.equals(AppFrame.Goto.ThumbnailsPanel)) {
             thumbnailsPanel.requestFocus();

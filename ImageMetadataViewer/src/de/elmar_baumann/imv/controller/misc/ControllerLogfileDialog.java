@@ -33,12 +33,19 @@ public class ControllerLogfileDialog extends Controller
 
     public ControllerLogfileDialog() {
         buttonLogfileDialog.setIcon(iconOk);
-        listenToActionSource();
+        listenToActionSources();
     }
 
-    private void listenToActionSource() {
+    private void listenToActionSources() {
         buttonLogfileDialog.addActionListener(this);
         ErrorListeners.getInstance().addErrorListener(this);
+    }
+
+    @Override
+    public void error(ErrorEvent evt) {
+        if (isControl()) {
+            setError(true);
+        }
     }
 
     @Override
@@ -55,13 +62,6 @@ public class ControllerLogfileDialog extends Controller
             UserSettings.getInstance().getLogfileFormatterClass());
         dialog.setVisible(true);
         setError(false);
-    }
-
-    @Override
-    public void error(ErrorEvent evt) {
-        if (isControl()) {
-            setError(true);
-        }
     }
 
     private void setError(boolean error) {

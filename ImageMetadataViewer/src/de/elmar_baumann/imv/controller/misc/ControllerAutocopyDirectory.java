@@ -27,22 +27,30 @@ public class ControllerAutocopyDirectory extends Controller implements ActionLis
     public ControllerAutocopyDirectory() {
         Panels.getInstance().getAppFrame().getMenuItemAutocopyDirectory().addActionListener(this);
     }
-    
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (isControl()) {
-            File dir = UserSettings.getInstance().getAutocopyDirectory();
-            if (dir == null && settingsMessage()) {
-                UserSettingsDialog dialog = UserSettingsDialog.getInstance();
-                dialog.selectTab(UserSettingsDialog.Tab.Misc);
-                if (dialog.isVisible()) {
-                    dialog.toFront();
-                } else {
-                    dialog.setVisible(true);
-                }
-            } else {
-                copy(dir);
-            }
+            copy();
+        }
+    }
+
+    private void copy() {
+        File dir = UserSettings.getInstance().getAutocopyDirectory();
+        if (dir == null && settingsMessage()) {
+            setAutocopyDirectory();
+        } else {
+            copy(dir);
+        }
+    }
+
+    private void setAutocopyDirectory() {
+        UserSettingsDialog dialog = UserSettingsDialog.getInstance();
+        dialog.selectTab(UserSettingsDialog.Tab.Misc);
+        if (dialog.isVisible()) {
+            dialog.toFront();
+        } else {
+            dialog.setVisible(true);
         }
     }
 

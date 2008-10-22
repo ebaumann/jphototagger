@@ -20,7 +20,7 @@ import javax.swing.event.ChangeListener;
  * @version 2008/09/25
  */
 public class ControllerThumbnailCountDisplay extends Controller
-        implements ThumbnailsPanelListener, ChangeListener {
+    implements ThumbnailsPanelListener, ChangeListener {
 
     private static final MessageFormat msg = new MessageFormat(Bundle.getString("ControllerThumbnailCount.InformationMessage"));
     private AppPanel appPanel = Panels.getInstance().getAppPanel();
@@ -31,10 +31,10 @@ public class ControllerThumbnailCountDisplay extends Controller
     private int thumbnailZoom = sliderThumbnailSize.getValue();
 
     public ControllerThumbnailCountDisplay() {
-        listenToActionSource();
+        listenToActionSources();
     }
 
-    private void listenToActionSource() {
+    private void listenToActionSources() {
         panelThumbnails.addThumbnailsPanelListener(this);
         sliderThumbnailSize.addChangeListener(this);
     }
@@ -50,17 +50,21 @@ public class ControllerThumbnailCountDisplay extends Controller
     public void thumbnailsChanged() {
     }
 
+    @Override
+    public void stateChanged(ChangeEvent e) {
+        if (isControl()) {
+            setZoom();
+        }
+    }
+
     private void setCount() {
         thumbnailCount = panelThumbnails.getCount();
         setLabel();
     }
 
-    @Override
-    public void stateChanged(ChangeEvent e) {
-        if (isControl()) {
-            thumbnailZoom = sliderThumbnailSize.getValue();
-            setLabel();
-        }
+    private void setZoom() {
+        thumbnailZoom = sliderThumbnailSize.getValue();
+        setLabel();
     }
 
     private void setLabel() {

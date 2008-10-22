@@ -20,11 +20,19 @@ public class ControllerHelp extends Controller implements ActionListener,
     HelpBrowserListener {
 
     private HelpBrowser help = HelpBrowser.getInstance();
-    private static final String keyLastUrl = ControllerHelp.class.getName() + ".LastURL";
-    private String lastUrl = PersistentSettings.getInstance().getString(keyLastUrl);
+    private static final String keyCurrentUrl = ControllerHelp.class.getName() + ".CurrentURL";
+    private String currentUrl = PersistentSettings.getInstance().getString(keyCurrentUrl);
 
     public ControllerHelp() {
+        help.setContentsUrl(Bundle.getString("Help.Url.Contents"));
         help.addActionListener(this);
+    }
+
+    @Override
+    public void actionPerformed(HelpBrowserAction action) {
+        if (action.getType().equals(HelpBrowserAction.Type.UrlChanged)) {
+            setCurrentUrl(action);
+        }
     }
 
     @Override
@@ -34,26 +42,22 @@ public class ControllerHelp extends Controller implements ActionListener,
         }
     }
 
+    private void setCurrentUrl(HelpBrowserAction action) {
+        URL url = action.getUrl();
+        if (!url.getProtocol().startsWith("http")) {
+            currentUrl = HelpBrowser.getLastPathComponent(url);
+            PersistentSettings.getInstance().setString(currentUrl, keyCurrentUrl);
+        }
+    }
+
     private void showHelp() {
-        help.setContentsUrl(Bundle.getString("Help.Url.Contents"));
-        if (!lastUrl.isEmpty()) {
-            help.setStartUrl(lastUrl);
+        if (!currentUrl.isEmpty()) {
+            help.setStartUrl(currentUrl);
         }
         if (help.isVisible()) {
             help.toFront();
         } else {
             help.setVisible(true);
-        }
-    }
-
-    @Override
-    public void actionPerformed(HelpBrowserAction action) {
-        if (action.getType().equals(HelpBrowserAction.Type.UrlChanged)) {
-            URL url = action.getUrl();
-            if (!url.getProtocol().startsWith("http")) {
-                lastUrl = HelpBrowser.getLastPathComponent(url);
-                PersistentSettings.getInstance().setString(lastUrl, keyLastUrl);
-            }
         }
     }
 }

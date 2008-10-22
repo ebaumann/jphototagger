@@ -52,11 +52,36 @@ public class ControllerFastSearch extends Controller
 
     public ControllerFastSearch() {
         textFieldSearch.setEnabled(UserSettings.getInstance().getFastSearchColumns().size() > 0);
-        setAutocomplete();
+        decorateTextFieldSearch();
         listenToActionSources();
     }
 
-    private void setAutocomplete() {
+    @Override
+    public void applySettings(UserSettingsChangeEvent evt) {
+        if (evt.getType().equals(UserSettingsChangeEvent.Type.FastSearchColumnDefined)) {
+            textFieldSearch.setEnabled(true);
+        } else if (evt.getType().equals(UserSettingsChangeEvent.Type.NoFastSearchColumns)) {
+            textFieldSearch.setEnabled(false);
+        }
+    }
+
+    @Override
+    public void actionPerformed(DatabaseAction action) {
+        if (isControl() && isUseAutocomplete && action.isImageModified()) {
+            ImageFile data = action.getImageFileData();
+            if (data != null && data.getXmp() != null) {
+                addAutoCompleteData(data.getXmp());
+            }
+        }
+    }
+
+    private void addAutoCompleteData(Xmp xmp) {
+        for (Column column : fastSearchColumns) {
+            XmpUtil.addData(xmp, column, searchAutoCompleteData);
+        }
+    }
+
+    private void decorateTextFieldSearch() {
         if (UserSettings.getInstance().isUseAutocomplete()) {
             searchAutoCompleteData = new AutoCompleteData();
             AutoCompleteDecorator.decorate(
@@ -64,30 +89,6 @@ public class ControllerFastSearch extends Controller
                 searchAutoCompleteData.getList(),
                 false);
         }
-    }
-
-    private void listenToActionSources() {
-        ListenerProvider.getInstance().addUserSettingsChangeListener(this);
-
-        textFieldSearch.addKeyListener(new KeyAdapter() {
-
-            @Override
-            public void keyReleased(KeyEvent e) {
-                if (isControl() && e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    search();
-                }
-            }
-        });
-
-        textFieldSearch.addMouseListener(new MouseAdapter() {
-
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                checkEnabled();
-            }
-        });
-
-        db.addDatabaseListener(this);
     }
 
     private void checkEnabled() {
@@ -119,28 +120,27 @@ public class ControllerFastSearch extends Controller
             Content.Search);
     }
 
-    @Override
-    public void applySettings(UserSettingsChangeEvent evt) {
-        if (evt.getType().equals(UserSettingsChangeEvent.Type.FastSearchColumnDefined)) {
-            textFieldSearch.setEnabled(true);
-        } else if (evt.getType().equals(UserSettingsChangeEvent.Type.NoFastSearchColumns)) {
-            textFieldSearch.setEnabled(false);
-        }
-    }
+    private void listenToActionSources() {
+        ListenerProvider.getInstance().addUserSettingsChangeListener(this);
 
-    @Override
-    public void actionPerformed(DatabaseAction action) {
-        if (isControl() && isUseAutocomplete && action.isImageModified()) {
-            ImageFile data = action.getImageFileData();
-            if (data != null && data.getXmp() != null) {
-                addAutoCompleteData(data.getXmp());
+        textFieldSearch.addKeyListener(new KeyAdapter() {
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                if (isControl() && e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    search();
+                }
             }
-        }
-    }
+        });
 
-    private void addAutoCompleteData(Xmp xmp) {
-        for (Column column : fastSearchColumns) {
-            XmpUtil.addData(xmp, column, searchAutoCompleteData);
-        }
+        textFieldSearch.addMouseListener(new MouseAdapter() {
+
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                checkEnabled();
+            }
+        });
+
+        db.addDatabaseListener(this);
     }
 }

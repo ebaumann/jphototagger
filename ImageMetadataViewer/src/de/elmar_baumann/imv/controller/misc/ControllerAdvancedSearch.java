@@ -51,6 +51,13 @@ public class ControllerAdvancedSearch extends Controller
         }
     }
 
+    @Override
+    public void actionPerformed(SearchEvent e) {
+        if (isControl() && e.getType().equals(SearchEvent.Type.Start)) {
+            applySafedSearch(e);
+        }
+    }
+
     private void showAdvancedSearchDialog() {
         AdvancedSearchDialog dialogAdvancedSearch = AdvancedSearchDialog.getInstance();
         if (dialogAdvancedSearch.isVisible()) {
@@ -60,15 +67,12 @@ public class ControllerAdvancedSearch extends Controller
         }
     }
 
-    @Override
-    public void actionPerformed(SearchEvent e) {
-        if (isControl() && e.getType().equals(SearchEvent.Type.Start)) {
-            SavedSearch data = e.getSafedSearch();
-            if (data != null) {
-                SavedSearchParamStatement pData = data.getParamStatements();
-                if (pData != null) {
-                    search(pData.createStatement());
-                }
+    private void applySafedSearch(SearchEvent e) {
+        SavedSearch data = e.getSafedSearch();
+        if (data != null) {
+            SavedSearchParamStatement pData = data.getParamStatements();
+            if (pData != null) {
+                search(pData.createStatement());
             }
         }
     }

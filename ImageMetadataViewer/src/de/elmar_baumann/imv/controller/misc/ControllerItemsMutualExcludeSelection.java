@@ -43,12 +43,8 @@ public class ControllerItemsMutualExcludeSelection extends Controller
     @Override
     public void valueChanged(TreeSelectionEvent e) {
         Object o = e.getSource();
-        if (listen && isControl() && o instanceof JTree) {
-            JTree tree = (JTree) o;
-            if (e.isAddedPath()) {
-                deselectAllLists();
-                deselectOtherTrees(tree);
-            }
+        if (listen && isControl() && e.isAddedPath() && o instanceof JTree) {
+            handleSelection((JTree) o);
         }
     }
 
@@ -56,13 +52,21 @@ public class ControllerItemsMutualExcludeSelection extends Controller
     public void valueChanged(ListSelectionEvent e) {
         Object o = e.getSource();
         if (listen && isControl() && o instanceof JList) {
-            JList list = (JList) o;
-            deselectAllTrees();
-            deselectOtherLists(list);
+            handleSelection((JList) o);
         }
     }
 
-    private void deselectOtherLists(JList list) {
+    private void handleSelection(JTree currentSelectedTree) {
+        clearSelectionAllLists();
+        clearSelectionOtherTrees(currentSelectedTree);
+    }
+
+    private void handleSelection(JList currentSelectedList) {
+        clearSelectionAllTrees();
+        clearSelectionOtherLists(currentSelectedList);
+    }
+
+    private void clearSelectionOtherLists(JList list) {
         listen = false;
         for (JList aList : lists) {
             if (aList != list && !aList.isSelectionEmpty()) {
@@ -72,7 +76,7 @@ public class ControllerItemsMutualExcludeSelection extends Controller
         listen = true;
     }
 
-    private void deselectOtherTrees(JTree tree) {
+    private void clearSelectionOtherTrees(JTree tree) {
         listen = false;
         for (JTree aTree : trees) {
             if (aTree != tree && aTree.getSelectionCount() > 0) {
@@ -82,13 +86,13 @@ public class ControllerItemsMutualExcludeSelection extends Controller
         listen = true;
     }
 
-    private void deselectAllTrees() {
+    private void clearSelectionAllTrees() {
         for (JTree tree : trees) {
             tree.clearSelection();
         }
     }
 
-    private void deselectAllLists() {
+    private void clearSelectionAllLists() {
         for (JList list : lists) {
             list.clearSelection();
         }

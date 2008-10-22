@@ -21,8 +21,12 @@ public class ControllerIptcToXmp extends Controller implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (isControl()) {
-            IptcToXmpDialog dialog = new IptcToXmpDialog();
-            dialog.setVisible(true);
+            showIptcToXmpDialog();
         }
+    }
+
+    private void showIptcToXmpDialog() {
+        IptcToXmpDialog dialog = new IptcToXmpDialog();
+        dialog.setVisible(true);
     }
 }
