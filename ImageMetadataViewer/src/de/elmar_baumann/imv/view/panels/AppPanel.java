@@ -192,6 +192,10 @@ public class AppPanel extends javax.swing.JPanel
         return metadataEditActionsPanel.buttonSaveMetadata;
     }
 
+    public JButton getButtonEmptyMetadata() {
+        return metadataEditActionsPanel.buttonEmptyMetadata;
+    }
+
     public JButton getButtonMetaDataTemplateCreate() {
         return metadataEditActionsPanel.buttonMetaDataTemplateCreate;
     }

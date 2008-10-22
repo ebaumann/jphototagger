@@ -23,6 +23,7 @@ import de.elmar_baumann.imv.controller.imagecollection.ControllerDeleteFromImage
 import de.elmar_baumann.imv.controller.imagecollection.ControllerDeleteImageCollection;
 import de.elmar_baumann.imv.controller.imagecollection.ControllerImageCollectionSelected;
 import de.elmar_baumann.imv.controller.imagecollection.ControllerRenameImageCollection;
+import de.elmar_baumann.imv.controller.metadata.ControllerEmptyMetaData;
 import de.elmar_baumann.imv.controller.metadata.ControllerMetaDataTemplates;
 import de.elmar_baumann.imv.controller.metadata.ControllerSaveMetaData;
 import de.elmar_baumann.imv.controller.metadata.ControllerShowMetadata;
@@ -115,6 +116,7 @@ public class ControllerFactory {
         controllers.add(new ControllerShowMetadata());
         controllers.add(new ControllerThumbnailSelectionEditMetadata());
         controllers.add(new ControllerSaveMetaData());
+        controllers.add(new ControllerEmptyMetaData());
         controllers.add(new ControllerMetaDataTemplates());
         controllers.add(new ControllerEnableInsertMetaDataTemplate());
         controllers.add(new ControllerCategoryItemSelected());

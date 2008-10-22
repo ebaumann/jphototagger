@@ -190,7 +190,7 @@ public class ImageMetadataToDatabaseArray implements ProgressListener {
 
     @Override
     public void progressPerformed(ProgressEvent evt) {
-        if (isStarted()) {
+            if (isStarted()) {
             String filename = evt.getInfo().toString();
             messageUpdateCurrentImage(filename);
             if (progressBar != null) {

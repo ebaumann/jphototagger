@@ -29,6 +29,7 @@ public class ControllerThumbnailSelectionEditMetadata
 
     private AppPanel appPanel = Panels.getInstance().getAppPanel();
     private JButton buttonSave = appPanel.getButtonSaveMetadata();
+    private JButton buttonEmpty = appPanel.getButtonEmptyMetadata();
     private JLabel labelMetadataInfoEditable = appPanel.getLabelMetadataInfoEditable();
     private MetadataEditPanelsArray editPanels = appPanel.getEditPanelsArray();
     private ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelThumbnails();
@@ -66,6 +67,7 @@ public class ControllerThumbnailSelectionEditMetadata
 
     private void setEnabled(boolean enabled) {
         buttonSave.setEnabled(enabled);
+        buttonEmpty.setEnabled(enabled);
         editPanels.setEditable(enabled);
     }
 
