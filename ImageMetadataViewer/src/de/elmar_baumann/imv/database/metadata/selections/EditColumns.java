@@ -7,7 +7,6 @@ import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpDcDescription;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpDcRights;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpDcTitle;
-import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpIptc4xmpcoreCountrycode;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpIptc4xmpcoreLocation;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopAuthorsposition;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopCaptionwriter;
@@ -41,31 +40,24 @@ public class EditColumns {
         EditHints notRepeatableHintSmall = new EditHints(false, SizeEditField.small);
         EditHints notRepeatableHintLarge = new EditHints(false, SizeEditField.large);
         EditHints repeatableHint = new EditHints(true, SizeEditField.large);
-        // Remain order! Database.insertMetaDataEditTemplate() a.o. depends on it
         editHintsForColumn.put(
             ColumnXmpDcSubjectsSubject.getInstance(), repeatableHint);
-        editHintsForColumn.put(
-            ColumnXmpDcTitle.getInstance(), notRepeatableHintSmall);
-        editHintsForColumn.put(
-            ColumnXmpPhotoshopHeadline.getInstance(), notRepeatableHintSmall);
-        editHintsForColumn.put(
-            ColumnXmpDcDescription.getInstance(), notRepeatableHintLarge);
-        editHintsForColumn.put(
-            ColumnXmpPhotoshopCaptionwriter.getInstance(), notRepeatableHintSmall);
-        editHintsForColumn.put(
-            ColumnXmpIptc4xmpcoreLocation.getInstance(), notRepeatableHintSmall);
-        editHintsForColumn.put(
-            ColumnXmpIptc4xmpcoreCountrycode.getInstance(), notRepeatableHintSmall);
         editHintsForColumn.put(
             ColumnXmpPhotoshopCategory.getInstance(), notRepeatableHintSmall);
         editHintsForColumn.put(
             ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory.getInstance(), repeatableHint);
         editHintsForColumn.put(
-            ColumnXmpDcRights.getInstance(), notRepeatableHintSmall);
+            ColumnXmpDcTitle.getInstance(), notRepeatableHintSmall);
         editHintsForColumn.put(
-            ColumnXmpDcCreator.getInstance(), notRepeatableHintSmall);
+            ColumnXmpDcDescription.getInstance(), notRepeatableHintLarge);
+        editHintsForColumn.put(
+            ColumnXmpPhotoshopHeadline.getInstance(), notRepeatableHintSmall);
+        editHintsForColumn.put(
+            ColumnXmpIptc4xmpcoreLocation.getInstance(), notRepeatableHintSmall);
         editHintsForColumn.put(
             ColumnXmpPhotoshopAuthorsposition.getInstance(), notRepeatableHintSmall);
+        editHintsForColumn.put(
+            ColumnXmpDcCreator.getInstance(), notRepeatableHintSmall);
         editHintsForColumn.put(
             ColumnXmpPhotoshopCity.getInstance(), notRepeatableHintSmall);
         editHintsForColumn.put(
@@ -73,13 +65,17 @@ public class EditColumns {
         editHintsForColumn.put(
             ColumnXmpPhotoshopCountry.getInstance(), notRepeatableHintSmall);
         editHintsForColumn.put(
-            ColumnXmpPhotoshopTransmissionReference.getInstance(), notRepeatableHintSmall);
-        editHintsForColumn.put(
-            ColumnXmpPhotoshopInstructions.getInstance(), notRepeatableHintSmall);
+            ColumnXmpDcRights.getInstance(), notRepeatableHintSmall);
         editHintsForColumn.put(
             ColumnXmpPhotoshopCredit.getInstance(), notRepeatableHintSmall);
         editHintsForColumn.put(
             ColumnXmpPhotoshopSource.getInstance(), notRepeatableHintSmall);
+        editHintsForColumn.put(
+            ColumnXmpPhotoshopTransmissionReference.getInstance(), notRepeatableHintSmall);
+        editHintsForColumn.put(
+            ColumnXmpPhotoshopInstructions.getInstance(), notRepeatableHintSmall);
+        editHintsForColumn.put(
+            ColumnXmpPhotoshopCaptionwriter.getInstance(), notRepeatableHintSmall);
     }
 
     public static EditColumns getInstance() {
