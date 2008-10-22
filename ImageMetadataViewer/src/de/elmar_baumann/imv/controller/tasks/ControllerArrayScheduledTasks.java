@@ -39,8 +39,17 @@ public class ControllerArrayScheduledTasks extends Controller
     @Override
     public void setControl(boolean control) {
         super.setControl(control);
-        for (Controller controller : controllers) {
-            controller.setControl(control);
+        setControlToArray(control);
+    }
+
+    // Can't call if true, because some controllers will start after call.
+    // The will be started in startFirstController() and taskCompleted()
+    // if this controller has control
+    private void setControlToArray(boolean control) {
+        if (!control) {
+            for (Controller controller : controllers) {
+                controller.setControl(false);
+            }
         }
     }
 
@@ -82,7 +91,9 @@ public class ControllerArrayScheduledTasks extends Controller
         } catch (InterruptedException ex) {
             Logger.getLogger(ControllerArrayScheduledTasks.class.getName()).log(Level.SEVERE, null, ex);
         }
-        startFirstController();
+        if (isControl()) {
+            startFirstController();
+        }
     }
 
     @Override
