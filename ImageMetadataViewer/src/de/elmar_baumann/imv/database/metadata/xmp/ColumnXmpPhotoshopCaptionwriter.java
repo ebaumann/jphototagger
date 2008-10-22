@@ -26,5 +26,6 @@ public class ColumnXmpPhotoshopCaptionwriter extends Column {
 
         setLength(32);
         setDescription(Bundle.getString("ColumnXmpPhotoshopCaptionwriter.Description"));
+        setLongerDescription(Bundle.getString("ColumnXmpPhotoshopCaptionwriter.LongerDescription"));
     }
 }

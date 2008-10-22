@@ -26,5 +26,6 @@ public class ColumnXmpPhotoshopTransmissionReference extends Column {
 
         setLength(32);
         setDescription(Bundle.getString("ColumnXmpPhotoshopTransmissionReference.Description"));
+        setLongerDescription(Bundle.getString("ColumnXmpPhotoshopTransmissionReference.LongerDescription"));
     }
 }

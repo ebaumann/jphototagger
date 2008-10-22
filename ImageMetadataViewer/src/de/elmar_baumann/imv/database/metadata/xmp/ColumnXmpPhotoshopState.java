@@ -26,5 +26,6 @@ public class ColumnXmpPhotoshopState extends Column {
 
         setLength(32);
         setDescription(Bundle.getString("ColumnXmpPhotoshopState.Description"));
+        setLongerDescription(Bundle.getString("ColumnXmpPhotoshopState.LongerDescription"));
     }
 }

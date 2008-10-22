@@ -28,5 +28,6 @@ public class ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory
 
         setLength(32);
         setDescription(Bundle.getString("ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory.Description"));
+        setLongerDescription(Bundle.getString("ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory.LongerDescription"));
     }
 }

@@ -26,5 +26,6 @@ public class ColumnXmpDcRights extends Column {
 
         setLength(128);
         setDescription(Bundle.getString("ColumnXmpDcRights.Description"));
+        setLongerDescription(Bundle.getString("ColumnXmpDcRights.LongerDescription"));
     }
 }

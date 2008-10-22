@@ -26,5 +26,6 @@ public class ColumnXmpIptc4xmpcoreCountrycode extends Column {
 
         setLength(3);
         setDescription(Bundle.getString("ColumnXmpIptc4xmpcoreCountrycode.Description"));
+        setLongerDescription(Bundle.getString("ColumnXmpIptc4xmpcoreCountrycode.LongerDescription"));
     }
 }
