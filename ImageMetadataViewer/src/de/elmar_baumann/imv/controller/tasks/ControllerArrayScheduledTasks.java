@@ -58,8 +58,7 @@ public class ControllerArrayScheduledTasks extends Controller
         controllers.add(controllerAutoUpdateMetadataTask);
 
         if (UserSettings.getInstance().isTaskRemoveRecordsWithNotExistingFiles()) {
-            ControllerRecordsWithNotExistingFilesDeleter 
-                controllerRecordsWithNotExistingFilesDeleter =
+            ControllerRecordsWithNotExistingFilesDeleter controllerRecordsWithNotExistingFilesDeleter =
                 new ControllerRecordsWithNotExistingFilesDeleter(progressBar);
 
             controllerRecordsWithNotExistingFilesDeleter.addTaskListener(this);
@@ -68,10 +67,12 @@ public class ControllerArrayScheduledTasks extends Controller
         }
     }
 
-    private void startFirstController() {
-        buttonStop.setEnabled(true);
-        activeController = controllers.remove();
-        activeController.setControl(true);
+    synchronized private void startFirstController() {
+        if (!controllers.isEmpty()) {
+            buttonStop.setEnabled(true);
+            activeController = controllers.remove();
+            activeController.setControl(true);
+        }
     }
 
     @Override
