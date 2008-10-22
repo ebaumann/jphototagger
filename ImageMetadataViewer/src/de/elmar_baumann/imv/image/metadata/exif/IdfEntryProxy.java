@@ -13,23 +13,23 @@ import java.util.logging.Logger;
  * @version 2008/10/15
  */
 public class IdfEntryProxy implements Comparable<IdfEntryProxy> {
-    
+
     private int tag;
     private byte[] rawValue;
     private String string;
     private String name;
-    
+
     public IdfEntryProxy(IFDEntry entry) {
-        string = entry.toString();
-        tag = entry.getEntryMeta().getTag();
-        name = entry.getEntryMeta().getName();
         try {
+            string = entry.toString();
+            tag = entry.getEntryMeta().getTag();
+            name = entry.getEntryMeta().getName();
             rawValue = entry.getRawValue();
-        } catch (IOException ex) {
+        } catch (Exception ex) {
             Logger.getLogger(IdfEntryProxy.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public String getName() {
         return name;
     }
@@ -51,5 +51,4 @@ public class IdfEntryProxy implements Comparable<IdfEntryProxy> {
     public int compareTo(IdfEntryProxy o) {
         return tag - o.tag;
     }
-
 }
