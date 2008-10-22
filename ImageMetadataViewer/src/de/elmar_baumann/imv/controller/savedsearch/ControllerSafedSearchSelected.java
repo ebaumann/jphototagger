@@ -7,7 +7,7 @@ import de.elmar_baumann.imv.database.metadata.ParamStatement;
 import de.elmar_baumann.imv.event.RefreshListener;
 import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.view.panels.AppPanel;
-import de.elmar_baumann.imv.Content;
+import de.elmar_baumann.imv.types.Content;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.util.List;

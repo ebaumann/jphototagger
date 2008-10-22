@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.view.panels;
 
-import de.elmar_baumann.imv.Content;
+import de.elmar_baumann.imv.types.Content;
 import de.elmar_baumann.imv.controller.thumbnail.ControllerDoubleklickThumbnail;
 import de.elmar_baumann.imv.data.ThumbnailFlag;
 import de.elmar_baumann.imv.database.DatabaseImageFiles;

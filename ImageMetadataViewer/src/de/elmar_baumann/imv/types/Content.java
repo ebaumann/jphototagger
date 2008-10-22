@@ -1,4 +1,4 @@
-package de.elmar_baumann.imv;
+package de.elmar_baumann.imv.types;
 
 /**
  * Content type of the displayed thumbnails.

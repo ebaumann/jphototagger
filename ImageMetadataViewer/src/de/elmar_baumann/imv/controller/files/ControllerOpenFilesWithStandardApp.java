@@ -25,10 +25,6 @@ public class ControllerOpenFilesWithStandardApp extends Controller
     private ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
 
     public ControllerOpenFilesWithStandardApp() {
-        listenToActionSource();
-    }
-
-    private void listenToActionSource() {
         popup.addActionListenerOpenFilesWithStandardApp(this);
     }
 

@@ -30,10 +30,6 @@ public class ControllerDeleteThumbnailsFromDatabase extends Controller
     private ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
 
     public ControllerDeleteThumbnailsFromDatabase() {
-        listenToActionSource();
-    }
-
-    private void listenToActionSource() {
         popup.addActionListenerDeleteThumbnail(this);
     }
 
@@ -45,20 +41,30 @@ public class ControllerDeleteThumbnailsFromDatabase extends Controller
     }
 
     private void deleteSelectedThumbnails() {
-        if (askDelete()) {
+        if (deleteConfirmed()) {
             List<String> files = FileUtil.getAsFilenames(
                 thumbnailsPanel.getSelectedFiles());
             int countFiles = files.size();
             int countDeleted = db.deleteImageFiles(files);
             if (countDeleted != countFiles) {
-                messageErrorDeleteImageFiles(countFiles, countDeleted);
+                errorMessageDeleteImageFiles(countFiles, countDeleted);
             }
             repaint(files);
             thumbnailsPanel.repaint();
         }
     }
 
-    private boolean askDelete() {
+    private void repaint(List<String> filenames) {
+        List<String> deleted = new ArrayList<String>(filenames.size());
+        for (String filename : filenames) {
+            if (!db.existsFilename(filename)) {
+                deleted.add(filename);
+            }
+        }
+        thumbnailsPanel.remove(FileUtil.getAsFiles(deleted));
+    }
+
+    private boolean deleteConfirmed() {
         MessageFormat msg = new MessageFormat(Bundle.getString("ControllerDeleteThumbnailsFromDatabase.ConfirmMessage.DeleteSelectedFiles"));
         Object[] params = {thumbnailsPanel.getSelectionCount()};
         return JOptionPane.showConfirmDialog(
@@ -70,7 +76,7 @@ public class ControllerDeleteThumbnailsFromDatabase extends Controller
             AppSettings.getMediumAppIcon()) == JOptionPane.YES_OPTION;
     }
 
-    private void messageErrorDeleteImageFiles(int countFiles, int countDeleted) {
+    private void errorMessageDeleteImageFiles(int countFiles, int countDeleted) {
         MessageFormat msg = new MessageFormat(Bundle.getString("ControllerDeleteThumbnailsFromDatabase.ErrorMessage.DeleteSelectedFiles"));
         Object[] params = {countFiles, countDeleted};
         JOptionPane.showMessageDialog(
@@ -79,15 +85,5 @@ public class ControllerDeleteThumbnailsFromDatabase extends Controller
             Bundle.getString("ControllerDeleteThumbnailsFromDatabase.ErrorMessage.DeleteSelectedFiles.Title"),
             JOptionPane.ERROR_MESSAGE,
             AppSettings.getMediumAppIcon());
-    }
-
-    private void repaint(List<String> filenames) {
-        List<String> deleted = new ArrayList<String>(filenames.size());
-        for (String filename : filenames) {
-            if (!db.existsFilename(filename)) {
-                deleted.add(filename);
-            }
-        }
-        thumbnailsPanel.remove(FileUtil.getAsFiles(deleted));
     }
 }

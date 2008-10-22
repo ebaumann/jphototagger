@@ -6,6 +6,7 @@ import de.elmar_baumann.imv.event.ProgressListener;
 import de.elmar_baumann.imv.event.TaskListener;
 import de.elmar_baumann.imv.io.ImageFilteredDirectory;
 import de.elmar_baumann.imv.resource.Bundle;
+import de.elmar_baumann.imv.types.Force;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.io.File;
 import java.text.MessageFormat;
@@ -146,13 +147,13 @@ public class ImageMetadataToDatabaseArray implements ProgressListener {
      *                         werden sollen, also <em>jede</em> Bilddatei
      */
     synchronized public void addDirectory(String directoryName,
-        boolean onlyTextMetadata, boolean force) {
+        boolean onlyTextMetadata, Force force) {
         updaters.add(createUpdater(directoryName, onlyTextMetadata, force));
         startUpdateThread();
     }
 
     private ImageMetadataToDatabase createUpdater(String directoryName,
-        boolean onlyTextMetadata, boolean force) {
+        boolean onlyTextMetadata, Force force) {
         List<String> filenames = FileUtil.getAsFilenames(
             ImageFilteredDirectory.getImageFilesOfDirectory(new File(directoryName)));
         Collections.sort(filenames);
@@ -160,7 +161,7 @@ public class ImageMetadataToDatabaseArray implements ProgressListener {
         ImageMetadataToDatabase scanner =
             new ImageMetadataToDatabase(filenames, thumbnailLength);
         scanner.setCreateThumbnails(!onlyTextMetadata);
-        scanner.setForceUpdate(force);
+        scanner.setForceUpdate(force.getForce());
         scanner.addProgressListener(this);
         updaterOfDirectory.put(directoryName, scanner);
         directoryOfUpdater.put(scanner, directoryName);

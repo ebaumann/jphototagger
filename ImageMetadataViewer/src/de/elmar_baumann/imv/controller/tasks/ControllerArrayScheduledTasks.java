@@ -32,34 +32,39 @@ public class ControllerArrayScheduledTasks extends Controller
         getMinutesToStartScheduledTasks() * 60 * 1000;
 
     public ControllerArrayScheduledTasks() {
-        listenToActionSource();
-        initArray();
-    }
-
-    private void listenToActionSource() {
         buttonStop.addActionListener(this);
+        initArray();
     }
 
     @Override
     public void setControl(boolean control) {
         super.setControl(control);
-        if (!control) {
-            stopAllControllers();
+        for (Controller controller : controllers) {
+            controller.setControl(control);
         }
     }
 
-    private void initArray() {
-        ControllerAutoUpdateMetadataTask controllerPriority1 =
-            new ControllerAutoUpdateMetadataTask(progressBar);
-        controllerPriority1.addTaskListener(this);
+    private void handleButtonStopClicked() {
+        buttonStop.setEnabled(false);
+        setControl(false);
+    }
 
-        controllers.add(controllerPriority1);
+    private void initArray() {
+        ControllerAutoUpdateMetadataTask controllerAutoUpdateMetadataTask =
+            new ControllerAutoUpdateMetadataTask(progressBar);
+
+        controllerAutoUpdateMetadataTask.addTaskListener(this);
+
+        controllers.add(controllerAutoUpdateMetadataTask);
 
         if (UserSettings.getInstance().isTaskRemoveRecordsWithNotExistingFiles()) {
-            ControllerRecordsWithNotExistingFilesDeleter controllerPriority2 =
+            ControllerRecordsWithNotExistingFilesDeleter 
+                controllerRecordsWithNotExistingFilesDeleter =
                 new ControllerRecordsWithNotExistingFilesDeleter(progressBar);
-            controllerPriority2.addTaskListener(this);
-            controllers.add(controllerPriority2);
+
+            controllerRecordsWithNotExistingFilesDeleter.addTaskListener(this);
+
+            controllers.add(controllerRecordsWithNotExistingFilesDeleter);
         }
     }
 
@@ -67,16 +72,6 @@ public class ControllerArrayScheduledTasks extends Controller
         buttonStop.setEnabled(true);
         activeController = controllers.remove();
         activeController.setControl(true);
-    }
-
-    private void stopAllControllers() {
-        // Spätere Benutung offenhalten (kein pop)
-        if (activeController != null) {
-            activeController.setControl(true);
-        }
-        for (Controller controller : controllers) {
-            controller.setControl(false);
-        }
     }
 
     @Override
@@ -102,8 +97,7 @@ public class ControllerArrayScheduledTasks extends Controller
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == buttonStop) {
-            buttonStop.setEnabled(false);
-            setControl(false);
+            handleButtonStopClicked();
         }
     }
 }

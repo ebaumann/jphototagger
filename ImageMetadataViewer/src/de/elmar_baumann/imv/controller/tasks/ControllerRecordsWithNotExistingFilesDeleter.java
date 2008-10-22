@@ -52,22 +52,17 @@ public class ControllerRecordsWithNotExistingFilesDeleter extends Controller
     }
 
     @Override
-    public void setControl(boolean started) {
-        super.setControl(started);
-        RecordsWithNotExistingFilesDeleter deleter =
-            new RecordsWithNotExistingFilesDeleter();
-        deleter.addProgressListener(this);
-        Thread thread = new Thread(deleter);
-        thread.setPriority(UserSettings.getInstance().getThreadPriority());
-        thread.start();
+    public void setControl(boolean control) {
+        super.setControl(control);
+        if (control) {
+            startThread();
+        }
     }
 
     @Override
     public void progressStarted(ProgressEvent evt) {
         if (progressBar != null) {
-            progressBar.setToolTipText(
-                Bundle.getString("ControllerRecordsWithNotExistingFilesDeleter.ProgressBarTooltipText.DeleteRecordsWithNotExistingFiles"));
-            progressBar.setIndeterminate(true);
+            setProgressBar();
         }
     }
 
@@ -82,12 +77,25 @@ public class ControllerRecordsWithNotExistingFilesDeleter extends Controller
             progressBar.setIndeterminate(false);
             progressBar.setValue(progressBar.getMaximum());
         }
-        notifyTaskListener();
+        notifyTaskListenerCompleted();
     }
 
-    private void notifyTaskListener() {
+    private void notifyTaskListenerCompleted() {
         for (TaskListener taskListener : taskListeners) {
             taskListener.taskCompleted();
         }
+    }
+
+    private void setProgressBar() {
+        progressBar.setToolTipText(Bundle.getString("ControllerRecordsWithNotExistingFilesDeleter.ProgressBarTooltipText.DeleteRecordsWithNotExistingFiles"));
+        progressBar.setIndeterminate(true);
+    }
+
+    private void startThread() {
+        RecordsWithNotExistingFilesDeleter deleter = new RecordsWithNotExistingFilesDeleter();
+        deleter.addProgressListener(this);
+        Thread thread = new Thread(deleter);
+        thread.setPriority(UserSettings.getInstance().getThreadPriority());
+        thread.start();
     }
 }

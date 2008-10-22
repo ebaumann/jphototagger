@@ -5,7 +5,7 @@ import de.elmar_baumann.imv.event.RefreshListener;
 import de.elmar_baumann.imv.io.ImageFilteredDirectory;
 import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.view.panels.AppPanel;
-import de.elmar_baumann.imv.Content;
+import de.elmar_baumann.imv.types.Content;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.lib.io.DirectoryTreeModelFile;
 import java.io.File;

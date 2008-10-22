@@ -4,7 +4,7 @@ import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.event.UserSettingsChangeEvent;
 import de.elmar_baumann.imv.event.UserSettingsChangeListener;
 import de.elmar_baumann.imv.resource.Bundle;
-import de.elmar_baumann.imv.Content;
+import de.elmar_baumann.imv.types.Content;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;

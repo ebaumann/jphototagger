@@ -7,6 +7,7 @@ import de.elmar_baumann.imv.database.Database;
 import de.elmar_baumann.imv.database.DatabaseAutoscanDirectories;
 import de.elmar_baumann.imv.event.TaskListener;
 import de.elmar_baumann.imv.tasks.ImageMetadataToDatabaseArray;
+import de.elmar_baumann.imv.types.Force;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -30,7 +31,7 @@ public class ControllerAutoUpdateMetadataTask extends Controller
     private JProgressBar progressBar;
     private boolean onlyTextMetadata = false;
     private ImageMetadataToDatabaseArray updaterArray;
-    private List<String> systemDirectoryPatterns = new ArrayList<String>();
+    private List<String> systemDirectorySubstrings = new ArrayList<String>();
     private List<TaskListener> taskListeners = new ArrayList<TaskListener>();
 
     /**
@@ -43,25 +44,28 @@ public class ControllerAutoUpdateMetadataTask extends Controller
         this.progressBar = progressBar;
 
         init();
-        listenToActionSource();
+        updaterArray.addTaskListener(this);
         super.setControl(false);
     }
 
-    private void listenToActionSource() {
-        updaterArray.addTaskListener(this);
+    private void init() {
+        addSystemDirectorySubstrings();
+        createUpdaterArray();
     }
 
-    private void init() {
-        systemDirectoryPatterns.add("System Volume Information"); // NOI18N
-        systemDirectoryPatterns.add("RECYCLER"); // NOI18N
+    private void addSystemDirectorySubstrings() {
+        systemDirectorySubstrings.add("System Volume Information"); // NOI18N
+        systemDirectorySubstrings.add("RECYCLER"); // NOI18N
+    }
+
+    private void createUpdaterArray() {
         updaterArray = new ImageMetadataToDatabaseArray(progressBar);
-        updaterArray.setTooltipTextIfProgressEnded(
-            AppSettings.tooltipTextProgressBarScheduledTasks);
+        updaterArray.setTooltipTextIfProgressEnded(AppSettings.tooltipTextProgressBarScheduledTasks);
     }
 
     private boolean isSystemDirectory(String directoryName) {
-        for (String pattern : systemDirectoryPatterns) {
-            if (directoryName.contains(pattern)) {
+        for (String substring : systemDirectorySubstrings) {
+            if (directoryName.contains(substring)) {
                 return true;
             }
         }
@@ -84,25 +88,30 @@ public class ControllerAutoUpdateMetadataTask extends Controller
         if (!directories.isEmpty()) {
             for (String directory : directories) {
                 if (!isSystemDirectory(directory)) {
-                    updaterArray.addDirectory(directory, onlyTextMetadata, false);
+                    updaterArray.addDirectory(directory, onlyTextMetadata, Force.No);
                 }
             }
         }
     }
 
     private List<String> getDirectoryNames() {
-        List<String> directories = DatabaseAutoscanDirectories.getInstance().getAutoscanDirectories();
-        List<String> subdirectories = new ArrayList<String>();
+        List<String> directoryNames = DatabaseAutoscanDirectories.getInstance().getAutoscanDirectories();
+        addSubdirectoryNames(directoryNames);
+        Collections.sort(directoryNames);
+        Collections.reverse(directoryNames);
+        return directoryNames;
+    }
+
+    private void addSubdirectoryNames(List<String> directoryNames) {
+        List<String> subdirectoryNames = new ArrayList<String>();
         if (UserSettings.getInstance().isAutoscanIncludeSubdirectories()) {
-            for (String directory : directories) {
-                subdirectories.addAll(FileUtil.getAllSubDirectoryNames(
-                    directory, UserSettings.getInstance().isAcceptHiddenDirectories()));
+            for (String directoryName : directoryNames) {
+                subdirectoryNames.addAll(
+                    FileUtil.getAllSubDirectoryNames(directoryName,
+                    UserSettings.getInstance().isAcceptHiddenDirectories()));
             }
-            directories.addAll(subdirectories);
-            Collections.sort(directories);
-            Collections.reverse(directories);
+            directoryNames.addAll(subdirectoryNames);
         }
-        return directories;
     }
 
     /**
