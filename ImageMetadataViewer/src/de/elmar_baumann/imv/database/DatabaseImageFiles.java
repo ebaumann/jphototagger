@@ -433,6 +433,28 @@ public class DatabaseImageFiles extends Database {
         return lastModified;
     }
 
+    long getLastModifiedImageFile(long idFiles) {
+        long lastModified = -1;
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            PreparedStatement stmt = connection.prepareStatement(
+                "SELECT lastmodified FROM files WHERE id = ?"); // NOI18N
+            stmt.setLong(1, idFiles);
+            logStatement(stmt);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                lastModified = rs.getLong(1);
+            }
+            stmt.close();
+        } catch (SQLException ex) {
+            handleException(ex, Level.SEVERE);
+        } finally {
+            free(connection);
+        }
+        return lastModified;
+    }
+
     /**
      * Liefert, ob eine Datei in der Datenbank existiert.
      *
