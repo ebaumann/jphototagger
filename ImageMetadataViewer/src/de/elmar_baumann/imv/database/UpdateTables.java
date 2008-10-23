@@ -4,6 +4,7 @@ import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.dialog.ProgressDialog;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -63,11 +64,36 @@ class UpdateTables extends Database {
         }
     }
 
+//      too slow and no feedback
+//        stmt.executeUpdate("UPDATE xmp SET xmp.lastmodified = " +
+//            " SELECT files.lastmodified FROM files WHERE xmp.id_files = files.id");
     synchronized private void copyLastModifiedToXmp(Connection connection) throws SQLException {
-        Statement stmt = connection.createStatement();
-        message(Bundle.getString("UpdateTables.InfoMessage.AddColumnXmpLastModified.SetLastModified"));
+        setDialogCopyLastModifiedToXmp();
+        Statement stmtQueryXmp = connection.createStatement();
+        PreparedStatement stmtUpdate = connection.prepareStatement(
+            "UPDATE xmp SET lastmodified = ? WHERE id = ?");
+        DatabaseImageFiles dbFiles = DatabaseImageFiles.getInstance();
+        long idXmp = -1;
+        long idFiles = -1;
+        int count = 0;
+        ResultSet rsXmp = stmtQueryXmp.executeQuery("SELECT id, id_files FROM xmp");
+        while (rsXmp.next()) {
+            idXmp = rsXmp.getLong(1);
+            idFiles = rsXmp.getLong(2);
+            stmtUpdate.setLong(1, dbFiles.getLastModifiedImageFile(idFiles));
+            stmtUpdate.setLong(2, idXmp);
+            stmtUpdate.execute();
+            dialog.setValue(++count);
+        }
+        stmtQueryXmp.close();
+        stmtUpdate.close();
+    }
 
-        stmt.executeUpdate("UPDATE xmp SET xmp.lastmodified = " +
-            " SELECT files.lastmodified FROM files WHERE xmp.id_files = files.id");
+    private void setDialogCopyLastModifiedToXmp() {
+        message(Bundle.getString("UpdateTables.InfoMessage.AddColumnXmpLastModified.SetLastModified"));
+        dialog.setIntermediate(false);
+        dialog.setMinimum(0);
+        dialog.setMaximum(DatabaseStatistics.getInstance().getXmpCount());
+        dialog.setValue(0);
     }
 }
