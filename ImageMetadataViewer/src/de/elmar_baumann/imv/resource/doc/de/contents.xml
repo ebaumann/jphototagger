@@ -58,20 +58,16 @@
 	<node>
 		<title>Arbeiten im Bildfenster</title>
 		<page>
-			<url>action_metadata_update_all.html</url>
-			<title>Alle Metadaten aktualisieren</title>
+			<url>action_metadata_update.html</url>
+			<title>Metadaten aktualisieren</title>
 		</page>
 		<page>
-			<url>action_metadata_update_text.html</url>
-			<title>Nur Text-Metadaten aktualisieren</title>
+			<url>action_metadata_update_thumbnail.html</url>
+			<title>Vorschaubild aktualisieren</title>
 		</page>
 		<page>
 			<url>action_database_remove_image.html</url>
 			<title>Aus der Datenbank entfernen</title>
-		</page>
-		<page>
-			<url>action_metadata_replace_in_xmp.html</url>
-			<title>XMP-Daten suchen und ersetzen</title>
 		</page>
 		<page>
 			<url>action_filesystem_open.html</url>
@@ -147,10 +143,6 @@
 		<page>
 			<url>tip_save_searches.html</url>
 			<title>Suchen speichern</title>
-		</page>
-		<page>
-			<url>tip_refresh_only_textmetadata.html</url>
-			<title>Nur Text-Metadaten aktualisieren</title>
 		</page>
 	</node>
 	<node>
@@ -244,6 +236,10 @@
 		<page>
 			<url>action_filesystem_delete.html</url>
 			<title>Bearbeiten / Vom Datenträger löschen</title>
+		</page>
+		<page>
+			<url>action_metadata_replace_in_xmp.html</url>
+			<title>Werkzeuge / XMP-Daten suchen und ersetzen</title>
 		</page>
 		<page>
 			<url>action_metadata_iptc_to_xmp.html</url>
