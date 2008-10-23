@@ -45,7 +45,9 @@ public class DatabaseFavoriteDirectories extends Database {
             connection.setAutoCommit(false);
             PreparedStatement stmt = connection.prepareStatement(
                 "INSERT INTO favorite_directories" + // NOI18N
-                " (favorite_name, directory_name, favorite_index)" + // NOI18N
+                " (favorite_name" + // NOI18N -- 1 --
+                ", directory_name" + // NOI18N -- 2 --
+                ", favorite_index)" + // NOI18N -- 3 --
                 " VALUES (?, ?, ?)"); // NOI18N
             stmt.setString(1, favoriteDirectory.getFavoriteName());
             stmt.setString(2, favoriteDirectory.getDirectoryName());
@@ -116,10 +118,10 @@ public class DatabaseFavoriteDirectories extends Database {
             connection.setAutoCommit(false);
             PreparedStatement stmt = connection.prepareStatement(
                 "UPDATE favorite_directories SET" + // NOI18N
-                " favorite_name = ?" + // NOI18N
-                ", directory_name = ?" + // NOI18N
-                ", favorite_index = ?" + // NOI18N
-                " WHERE favorite_name = ?"); // NOI18N
+                " favorite_name = ?" + // NOI18N -- 1 --
+                ", directory_name = ?" + // NOI18N --2  --
+                ", favorite_index = ?" + // NOI18N -- 3 --
+                " WHERE favorite_name = ?"); // NOI18N -- 4 --
             stmt.setString(1, favorite.getFavoriteName());
             stmt.setString(2, favorite.getDirectoryName());
             stmt.setInt(3, favorite.getIndex());
@@ -154,11 +156,14 @@ public class DatabaseFavoriteDirectories extends Database {
             connection = getConnection();
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(
-                "SELECT favorite_name, directory_name, favorite_index" + // NOI18N
+                "SELECT favorite_name" + // NOI18N -- 1 --
+                ", directory_name" + // NOI18N -- 2 --
+                ", favorite_index" + // NOI18N -- 3 --
                 " FROM favorite_directories" + // NOI18N
                 " ORDER BY favorite_index ASC"); // NOI18N
             while (rs.next()) {
-                directories.add(new FavoriteDirectory(rs.getString(1), rs.getString(2), rs.getInt(3)));
+                directories.add(new FavoriteDirectory(
+                    rs.getString(1), rs.getString(2), rs.getInt(3)));
             }
             stmt.close();
         } catch (SQLException ex) {

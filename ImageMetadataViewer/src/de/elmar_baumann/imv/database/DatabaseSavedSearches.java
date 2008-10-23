@@ -52,7 +52,9 @@ public class DatabaseSavedSearches extends Database {
                 connection.setAutoCommit(false);
                 PreparedStatement stmt = connection.prepareStatement(
                     "INSERT INTO saved_searches" + // NOI18N
-                    " (name, sql_string, is_query)" + // NOI18N
+                    " (name" + // NOI18N -- 1 --
+                    ", sql_string" + // NOI18N -- 2 --
+                    ", is_query)" + // NOI18N -- 3 --
                     " VALUES (?, ?, ?)"); // NOI18N
                 stmt.setString(1, stmtData.getName());
                 stmt.setBytes(2, stmtData.getSql().getBytes());
@@ -108,15 +110,15 @@ public class DatabaseSavedSearches extends Database {
             PreparedStatement stmt = connection.prepareStatement(
                 "INSERT INTO" + // NOI18N
                 " saved_searches_panels (" + // NOI18N
-                "id_saved_searches" + // NOI18N
-                ", panel_index" + // NOI18N
-                ", bracket_left_1" + // NOI18N
-                ", operator_id" + // NOI18N
-                ", bracket_left_2" + // NOI18N
-                ", column_id" + // NOI18N
-                ", comparator_id" + // NOI18N
-                ", value" + // NOI18N
-                ", bracket_right)" + // NOI18N
+                "id_saved_searches" + // NOI18N -- 1 --
+                ", panel_index" + // NOI18N -- 2 --
+                ", bracket_left_1" + // NOI18N -- 3 --
+                ", operator_id" + // NOI18N -- 4 --
+                ", bracket_left_2" + // NOI18N -- 5 --
+                ", column_id" + // NOI18N -- 6 --
+                ", comparator_id" + // NOI18N -- 7 --
+                ", value" + // NOI18N -- 8 --
+                ", bracket_right)" + // NOI18N -- 9 --
                 " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"); // NOI18N
             stmt.setLong(1, idSavedSearch);
             for (SavedSearchPanel data : panelData) {
@@ -159,7 +161,8 @@ public class DatabaseSavedSearches extends Database {
         try {
             connection = getConnection();
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT COUNT(*) FROM saved_searches"); // NOI18N
+            ResultSet rs = stmt.executeQuery(
+                "SELECT COUNT(*) FROM saved_searches"); // NOI18N
             if (rs.next()) {
                 count = rs.getInt(1);
             }
@@ -303,7 +306,9 @@ public class DatabaseSavedSearches extends Database {
         try {
             connection = getConnection();
             PreparedStatement stmt = connection.prepareStatement("SELECT" + // NOI18N
-                " name, sql_string, is_query" + // NOI18N
+                " name" + // NOI18N -- 1 --
+                ", sql_string" + // NOI18N -- 2 --
+                ", is_query" + // NOI18N -- 3 --
                 " FROM saved_searches WHERE name = ?"); // NOI18N
             stmt.setString(1, name);
             logStatement(stmt);
@@ -340,7 +345,9 @@ public class DatabaseSavedSearches extends Database {
             connection = getConnection();
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT" + // NOI18N
-                " name, sql_string, is_query" + // NOI18N
+                " name" + // NOI18N -- 1 --
+                ", sql_string" + // NOI18N -- 2 --
+                ", is_query" + // NOI18N -- 3 --
                 " FROM saved_searches ORDER BY name"); // NOI18N
             while (rs.next()) {
                 SavedSearch data = new SavedSearch();
@@ -386,14 +393,14 @@ public class DatabaseSavedSearches extends Database {
 
     private void setSavedSearchPanels(Connection connection, SavedSearch data) throws SQLException {
         PreparedStatement stmt = connection.prepareStatement("SELECT" + // NOI18N
-            " saved_searches_panels.panel_index" + // NOI18N
-            ", saved_searches_panels.bracket_left_1" + // NOI18N
-            ", saved_searches_panels.operator_id" + // NOI18N
-            ", saved_searches_panels.bracket_left_2" + // NOI18N
-            ", saved_searches_panels.column_id" + // NOI18N
-            ", saved_searches_panels.comparator_id" + // NOI18N
-            ", saved_searches_panels.value" + // NOI18N
-            ", saved_searches_panels.bracket_right" + // NOI18N
+            " saved_searches_panels.panel_index" + // NOI18N -- 1 --
+            ", saved_searches_panels.bracket_left_1" + // NOI18N -- 2 --
+            ", saved_searches_panels.operator_id" + // NOI18N -- 3 --
+            ", saved_searches_panels.bracket_left_2" + // NOI18N -- 4 --
+            ", saved_searches_panels.column_id" + // NOI18N -- 5 --
+            ", saved_searches_panels.comparator_id" + // NOI18N -- 6 --
+            ", saved_searches_panels.value" + // NOI18N -- 7 --
+            ", saved_searches_panels.bracket_right" + // NOI18N -- 8 --
             " FROM" + // NOI18N
             " saved_searches_panels INNER JOIN saved_searches" + // NOI18N
             " ON saved_searches_panels.id_saved_searches = saved_searches.id" + // NOI18N

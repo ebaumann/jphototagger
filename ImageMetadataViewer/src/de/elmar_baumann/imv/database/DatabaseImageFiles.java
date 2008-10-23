@@ -75,11 +75,11 @@ public class DatabaseImageFiles extends Database {
     private String getInsertIntoExifStatement() {
         return "INSERT INTO exif" + // NOI18N
             " (" + // NOI18N
-            "id_files" + // NOI18N
-            ", exif_recording_equipment" + // NOI18N
-            ", exif_date_time_original" + // NOI18N
-            ", exif_focal_length" + // NOI18N
-            ", exif_iso_speed_ratings" + // NOI18N
+            "id_files" + // NOI18N -- 1 --
+            ", exif_recording_equipment" + // NOI18N -- 2 --
+            ", exif_date_time_original" + // NOI18N -- 3 --
+            ", exif_focal_length" + // NOI18N -- 4 --
+            ", exif_iso_speed_ratings" + // NOI18N -- 5 --
             ")" + // NOI18N
             " VALUES (?, ?, ?, ?, ?)"; // NOI18N
     }
@@ -125,7 +125,8 @@ public class DatabaseImageFiles extends Database {
     private void insertXmpPhotoshopSupplementalcategories(Connection connection, long idXmp, List<String> photoshopSupplementalCategories) throws SQLException {
         if (photoshopSupplementalCategories != null) {
             insertValues(connection,
-                "INSERT INTO xmp_photoshop_supplementalcategories (id_xmp, supplementalcategory)" // NOI18N
+                "INSERT INTO xmp_photoshop_supplementalcategories" + // NOI18N
+                " (id_xmp, supplementalcategory)" // NOI18N
                 , idXmp, photoshopSupplementalCategories);
         }
     }

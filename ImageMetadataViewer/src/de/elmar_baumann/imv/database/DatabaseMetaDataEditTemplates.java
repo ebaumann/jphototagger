@@ -45,26 +45,26 @@ public class DatabaseMetaDataEditTemplates extends Database {
             connection.setAutoCommit(false);
             PreparedStatement stmt = connection.prepareStatement(
                 "INSERT INTO metadata_edit_templates" + // NOI18N
-                " (name" + // NOI18N
-                ", dcSubjects" + // NOI18N
-                ", dcTitle" + // NOI18N
-                ", photoshopHeadline" + // NOI18N
-                ", dcDescription" + // NOI18N
-                ", photoshopCaptionwriter" + // NOI18N
-                ", iptc4xmpcoreLocation" + // NOI18N
-                ", iptc4xmpcoreCountrycode" + // NOI18N
-                ", photoshopCategory" + // NOI18N
-                ", photoshopSupplementalCategories" + // NOI18N
-                ", dcRights" + // NOI18N
-                ", dcCreator" + // NOI18N
-                ", photoshopAuthorsposition" + // NOI18N
-                ", photoshopCity" + // NOI18N
-                ", photoshopState" + // NOI18N
-                ", photoshopCountry" + // NOI18N
-                ", photoshopTransmissionReference" + // NOI18N
-                ", photoshopInstructions" + // NOI18N
-                ", photoshopCredit" + // NOI18N
-                ", photoshopSource" + // NOI18N
+                " (name" + // NOI18N -- 1 --
+                ", dcSubjects" + // NOI18N -- 2 --
+                ", dcTitle" + // NOI18N -- 3 --
+                ", photoshopHeadline" + // NOI18N -- 4 --
+                ", dcDescription" + // NOI18N -- 5 --
+                ", photoshopCaptionwriter" + // NOI18N -- 6 --
+                ", iptc4xmpcoreLocation" + // NOI18N -- 7 --
+                ", iptc4xmpcoreCountrycode" + // NOI18N -- 8 --
+                ", photoshopCategory" + // NOI18N -- 9 --
+                ", photoshopSupplementalCategories" + // NOI18N -- 10 --
+                ", dcRights" + // NOI18N -- 11 --
+                ", dcCreator" + // NOI18N -- 12 --
+                ", photoshopAuthorsposition" + // NOI18N -- 13 --
+                ", photoshopCity" + // NOI18N -- 14 --
+                ", photoshopState" + // NOI18N -- 15 --
+                ", photoshopCountry" + // NOI18N -- 16 --
+                ", photoshopTransmissionReference" + // NOI18N -- 17 --
+                ", photoshopInstructions" + // NOI18N -- 18 --
+                ", photoshopCredit" + // NOI18N -- 19 --
+                ", photoshopSource" + // NOI18N -- 20 --
                 ")" + // NOI18N
                 " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"); // NOI18N
             setMetaDataEditTemplate(stmt, template);
@@ -121,26 +121,26 @@ public class DatabaseMetaDataEditTemplates extends Database {
             connection = getConnection();
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT" + // NOI18N
-                " name" + // NOI18N
-                ", dcSubjects" + // NOI18N
-                ", dcTitle" + // NOI18N
-                ", photoshopHeadline" + // NOI18N
-                ", dcDescription" + // NOI18N
-                ", photoshopCaptionwriter" + // NOI18N
-                ", iptc4xmpcoreLocation" + // NOI18N
-                ", iptc4xmpcoreCountrycode" + // NOI18N
-                ", photoshopCategory" + // NOI18N
-                ", photoshopSupplementalCategories" + // NOI18N
-                ", dcRights" + // NOI18N
-                ", dcCreator" + // NOI18N
-                ", photoshopAuthorsposition" + // NOI18N
-                ", photoshopCity" + // NOI18N
-                ", photoshopState" + // NOI18N
-                ", photoshopCountry" + // NOI18N
-                ", photoshopTransmissionReference" + // NOI18N
-                ", photoshopInstructions" + // NOI18N
-                ", photoshopCredit" + // NOI18N
-                ", photoshopSource" + // NOI18N
+                " name" + // NOI18N -- 1 --
+                ", dcSubjects" + // NOI18N -- 2 --
+                ", dcTitle" + // NOI18N -- 3 --
+                ", photoshopHeadline" + // NOI18N -- 4 --
+                ", dcDescription" + // NOI18N -- 5 --
+                ", photoshopCaptionwriter" + // NOI18N -- 6 --
+                ", iptc4xmpcoreLocation" + // NOI18N -- 7 --
+                ", iptc4xmpcoreCountrycode" + // NOI18N -- 8 --
+                ", photoshopCategory" + // NOI18N -- 9 --
+                ", photoshopSupplementalCategories" + // NOI18N -- 10 --
+                ", dcRights" + // NOI18N -- 11 --
+                ", dcCreator" + // NOI18N -- 12 --
+                ", photoshopAuthorsposition" + // NOI18N -- 13 --
+                ", photoshopCity" + // NOI18N -- 14 --
+                ", photoshopState" + // NOI18N -- 15 --
+                ", photoshopCountry" + // NOI18N -- 16 --
+                ", photoshopTransmissionReference" + // NOI18N -- 17 --
+                ", photoshopInstructions" + // NOI18N -- 18 --
+                ", photoshopCredit" + // NOI18N -- 19 --
+                ", photoshopSource" + // NOI18N -- 20 --
                 " FROM metadata_edit_templates" + // NOI18N
                 " WHERE name IS NOT NULL"); // NOI18N
             while (rs.next()) {
@@ -190,29 +190,29 @@ public class DatabaseMetaDataEditTemplates extends Database {
             connection.setAutoCommit(false);
             PreparedStatement stmt = connection.prepareStatement(
                 "UPDATE metadata_edit_templates" + // NOI18N
-                " SET name = ?" + // NOI18N
-                ", dcSubjects = ?" + // NOI18N
-                ", dcTitle = ?" + // NOI18N
-                ", photoshopHeadline = ?" + // NOI18N
-                ", dcDescription = ?" + // NOI18N
-                ", photoshopCaptionwriter = ?" + // NOI18N
-                ", iptc4xmpcoreLocation = ?" + // NOI18N
-                ", iptc4xmpcoreCountrycode = ?" + // NOI18N
-                ", photoshopCategory = ?" + // NOI18N
-                ", photoshopSupplementalCategories = ?" + // NOI18N
-                ", dcRights = ?" + // NOI18N
-                ", dcCreator = ?" + // NOI18N
-                ", photoshopAuthorsposition = ?" + // NOI18N
-                ", photoshopCity = ?" + // NOI18N
-                ", photoshopState = ?" + // NOI18N
-                ", photoshopCountry = ?" + // NOI18N
-                ", photoshopTransmissionReference = ?" + // NOI18N
-                ", photoshopInstructions = ?" + // NOI18N
-                ", photoshopCredit = ?" + // NOI18N
-                ", photoshopSource = ?" + // NOI18N
+                " SET name = ?" + // NOI18N -- 1 --
+                ", dcSubjects = ?" + // NOI18N -- 2 --
+                ", dcTitle = ?" + // NOI18N -- 3 --
+                ", photoshopHeadline = ?" + // NOI18N -- 4 --
+                ", dcDescription = ?" + // NOI18N -- 5 --
+                ", photoshopCaptionwriter = ?" + // NOI18N -- 6 --
+                ", iptc4xmpcoreLocation = ?" + // NOI18N -- 7 --
+                ", iptc4xmpcoreCountrycode = ?" + // NOI18N -- 8 --
+                ", photoshopCategory = ?" + // NOI18N -- 9 --
+                ", photoshopSupplementalCategories = ?" + // NOI18N -- 10 --
+                ", dcRights = ?" + // NOI18N -- 11 --
+                ", dcCreator = ?" + // NOI18N -- 12 --
+                ", photoshopAuthorsposition = ?" + // NOI18N -- 13 --
+                ", photoshopCity = ?" + // NOI18N -- 14 --
+                ", photoshopState = ?" + // NOI18N -- 15 --
+                ", photoshopCountry = ?" + // NOI18N -- 16 --
+                ", photoshopTransmissionReference = ?" + // NOI18N -- 17 --
+                ", photoshopInstructions = ?" + // NOI18N -- 18 --
+                ", photoshopCredit = ?" + // NOI18N -- 19 --
+                ", photoshopSource = ?" + // NOI18N -- 20 --
                 " WHERE name = ?"); // NOI18N
             setMetaDataEditTemplate(stmt, template);
-            stmt.setString(21, template.getName());
+            //stmt.setString(21, template.getName()); ???
             logStatement(stmt);
             int count = stmt.executeUpdate();
             connection.commit();
@@ -280,7 +280,8 @@ public class DatabaseMetaDataEditTemplates extends Database {
         try {
             connection = getConnection();
             connection.setAutoCommit(false);
-            PreparedStatement stmt = connection.prepareStatement("DELETE FROM metadata_edit_templates WHERE name = ?"); // NOI18N
+            PreparedStatement stmt = connection.prepareStatement(
+                "DELETE FROM metadata_edit_templates WHERE name = ?"); // NOI18N
             stmt.setString(1, name);
             logStatement(stmt);
             int count = stmt.executeUpdate();
