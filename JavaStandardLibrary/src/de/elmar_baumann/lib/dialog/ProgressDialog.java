@@ -109,6 +109,7 @@ public class ProgressDialog extends javax.swing.JDialog {
      */
     public void setIntermediate(boolean intermediate) {
         progressBar.setIndeterminate(intermediate);
+        progressBar.setStringPainted(!intermediate);
     }
 
     /**
@@ -119,7 +120,7 @@ public class ProgressDialog extends javax.swing.JDialog {
     public void setEnabledClose(boolean enabled) {
         closeEnabled = enabled;
     }
-    
+
     /**
      * Sets the stop button enabled.
      * 
