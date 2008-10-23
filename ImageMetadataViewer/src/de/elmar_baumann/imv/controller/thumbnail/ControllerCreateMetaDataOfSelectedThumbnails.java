@@ -49,7 +49,7 @@ public class ControllerCreateMetaDataOfSelectedThumbnails extends Controller
 
     private void listenToActionSources() {
         popup.addActionListenerUpdateThumbnail(this);
-        popup.addActionListenerUpdateAllMetadata(this);
+        popup.addActionListenerUpdateMetadata(this);
     }
 
     @Override

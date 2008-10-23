@@ -26,7 +26,7 @@ import javax.swing.JSeparator;
 public class PopupMenuPanelThumbnails extends JPopupMenu
     implements UserSettingsChangeListener {
 
-    private final String actionUpdateAllMetadata = Bundle.getString("PopupMenuPanelThumbnails.Action.UpdateAllMetadata");
+    private final String actionUpdateMetadata = Bundle.getString("PopupMenuPanelThumbnails.Action.UpdateMetadata");
     private final String actionUpdateThumbnail = Bundle.getString("PopupMenuPanelThumbnails.Action.UpdateThumbnail");
     private final String actionCreateImageCollection = Bundle.getString("PopupMenuPanelThumbnails.Action.CreateImageCollection");
     private final String actionAddToImageCollection = Bundle.getString("PopupMenuPanelThumbnails.Action.AddToImageCollection");
@@ -42,7 +42,7 @@ public class PopupMenuPanelThumbnails extends JPopupMenu
     private final String actionFileSystemRenameFiles = Bundle.getString("PopupMenuPanelThumbnails.Action.FileSystemRename");
     private final String actionFileSystemMoveFiles = Bundle.getString("PopupMenuPanelThumbnails.Action.FileSystemMove");
     private JMenu menuOtherOpenImageApps = new JMenu(Bundle.getString("PopupMenuPanelThumbnails.menuOtherOpenImageApps.text"));
-    private final JMenuItem itemUpdateAllMetadata = new JMenuItem(actionUpdateAllMetadata);
+    private final JMenuItem itemUpdateMetadata = new JMenuItem(actionUpdateMetadata);
     private final JMenuItem itemUpdateThumbnail = new JMenuItem(actionUpdateThumbnail);
     private final JMenuItem itemRenameInXmpColumns = new JMenuItem(actionRenameInXmpColumns);
     private final JMenuItem itemCreateImageCollection = new JMenuItem(actionCreateImageCollection);
@@ -85,7 +85,7 @@ public class PopupMenuPanelThumbnails extends JPopupMenu
 
     private void addItems() {
         add(itemUpdateThumbnail);
-        add(itemUpdateAllMetadata);
+        add(itemUpdateMetadata);
         add(itemDeleteThumbnail);
         add(itemRenameInXmpColumns);
         add(new JSeparator());
@@ -170,8 +170,8 @@ public class PopupMenuPanelThumbnails extends JPopupMenu
         itemDeleteFromImageCollection.addActionListener(listener);
     }
 
-    public void addActionListenerUpdateAllMetadata(ActionListener listener) {
-        itemUpdateAllMetadata.addActionListener(listener);
+    public void addActionListenerUpdateMetadata(ActionListener listener) {
+        itemUpdateMetadata.addActionListener(listener);
     }
 
     public void addActionListenerRotateThumbnail90(ActionListener listener) {
@@ -246,7 +246,7 @@ public class PopupMenuPanelThumbnails extends JPopupMenu
         angleOfItem.put(itemRotateThumbnai180, new Float(180));
         angleOfItem.put(itemRotateThumbnai270, new Float(270));
 
-        databaseUpdateOfMenuItem.put(itemUpdateAllMetadata, DatabaseUpdate.Complete);
+        databaseUpdateOfMenuItem.put(itemUpdateMetadata, DatabaseUpdate.ExifAndXmp);
         databaseUpdateOfMenuItem.put(itemUpdateThumbnail, DatabaseUpdate.Thumbnail);
     }
 }
