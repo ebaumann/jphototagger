@@ -28,7 +28,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Component id="tabbedPane" pref="485" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
@@ -38,9 +38,9 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Component id="tabbedPane" pref="323" max="32767" attributes="0"/>
-              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="tabbedPane" min="-2" pref="324" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -85,7 +85,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="labelDatabaseInfoTable" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="scrollPaneTableDatabaseInfo" pref="227" max="32767" attributes="0"/>
+                      <Component id="scrollPaneTableDatabaseInfo" pref="228" max="32767" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="labelDatabaseInfoTotalRecordCount" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -155,12 +155,13 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="panelMaintainanceTasks" alignment="1" max="32767" attributes="2"/>
+                          <Component id="panelMaintainMessages" alignment="1" max="32767" attributes="0"/>
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="buttonAbortAction" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="buttonStartMaintain" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="progressBar" alignment="1" pref="460" max="32767" attributes="2"/>
+                          <Component id="progressBar" alignment="0" pref="460" max="32767" attributes="2"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -172,13 +173,15 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="panelMaintainanceTasks" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="progressBar" min="-2" pref="23" max="-2" attributes="0"/>
+                      <Component id="panelMaintainMessages" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
+                      <Component id="progressBar" min="-2" pref="23" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="buttonStartMaintain" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="buttonAbortAction" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="85" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -202,36 +205,31 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="checkBoxDeleteNotExistingFilesInDatabase" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="labelStatusDeleteNotExistingFilesInDatabase" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="labelCountDeleteNotExistingFilesInDatabase" pref="57" max="32767" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="checkBoxCompressDatabase" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="labelStatusCompressDatabase" min="-2" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="checkBoxDeleteNotExistingFilesInDatabase" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="checkBoxCompressDatabase" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="labelStatusCompressDatabase" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="labelStatusDeleteNotExistingFilesInDatabase" alignment="0" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace pref="59" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="2" attributes="0">
-                              <Component id="checkBoxDeleteNotExistingFilesInDatabase" alignment="2" min="-2" max="-2" attributes="0"/>
-                              <Component id="labelStatusDeleteNotExistingFilesInDatabase" alignment="2" min="-2" max="-2" attributes="0"/>
-                              <Component id="labelCountDeleteNotExistingFilesInDatabase" alignment="2" min="-2" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="checkBoxDeleteNotExistingFilesInDatabase" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="2" attributes="0">
-                              <Component id="labelStatusCompressDatabase" alignment="2" min="-2" max="-2" attributes="0"/>
-                              <Component id="checkBoxCompressDatabase" alignment="2" min="-2" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="checkBoxCompressDatabase" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="labelStatusDeleteNotExistingFilesInDatabase" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace pref="12" max="32767" attributes="0"/>
+                          <Component id="labelStatusCompressDatabase" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -255,13 +253,6 @@
                   <Properties>
                     <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                       <Dimension value="[16, 16]"/>
-                    </Property>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JLabel" name="labelCountDeleteNotExistingFilesInDatabase">
-                  <Properties>
-                    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                      <Dimension value="[0, 16]"/>
                     </Property>
                   </Properties>
                 </Component>
@@ -320,6 +311,48 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonAbortActionActionPerformed"/>
               </Events>
             </Component>
+            <Container class="javax.swing.JPanel" name="panelMaintainMessages">
+              <Properties>
+                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                  <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                    <TitledBorder title="Nachrichten">
+                      <ResourceString PropertyName="titleX" bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="DatabaseMaintainanceDialog.panelMaintainMessages.border.title" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                      <Font PropertyName="font" name="Tahoma" size="11" style="1"/>
+                    </TitledBorder>
+                  </Border>
+                </Property>
+              </Properties>
+
+              <Layout>
+                <DimensionLayout dim="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="labelCountDeleteNotExistingFilesInDatabase" pref="428" max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+                <DimensionLayout dim="1">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="labelCountDeleteNotExistingFilesInDatabase" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+              </Layout>
+              <SubComponents>
+                <Component class="javax.swing.JLabel" name="labelCountDeleteNotExistingFilesInDatabase">
+                  <Properties>
+                    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                      <Dimension value="[0, 16]"/>
+                    </Property>
+                  </Properties>
+                </Component>
+              </SubComponents>
+            </Container>
           </SubComponents>
         </Container>
       </SubComponents>

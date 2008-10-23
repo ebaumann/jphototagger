@@ -52,7 +52,7 @@ public class DatabaseTables extends Database {
             try {
                 connection.rollback();
             } catch (SQLException ex1) {
-                handleException(ex, Level.SEVERE);
+                handleException(ex1, Level.SEVERE);
             }
             JOptionPane.showMessageDialog(null, Bundle.getString("Database.CreateTables.ErrorMessage"), Bundle.getString("Database.CreateTables.ErrorMessage.Title"), JOptionPane.ERROR_MESSAGE, AppSettings.getMediumAppIcon());
             AppLock.unlock();

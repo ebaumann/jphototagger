@@ -19,10 +19,21 @@ public class RecordsWithNotExistingFilesDeleter implements Runnable,
 
     private DatabaseImageFiles db = DatabaseImageFiles.getInstance();
     private List<ProgressListener> progressListeners = new ArrayList<ProgressListener>();
+    private boolean notifyProgressEnded = false;
+    private boolean stop = false;
+    private int countDeleted = 0;
 
     @Override
     public void run() {
         db.deleteNotExistingImageFiles(this);
+        if (!stop) {
+            notifyProgressEnded = true; // called before last action
+            db.deleteNotExistingXmpData(this);
+        }
+    }
+
+    public int getCountDeleted() {
+        return countDeleted;
     }
 
     /**
@@ -39,6 +50,9 @@ public class RecordsWithNotExistingFilesDeleter implements Runnable,
     public void progressStarted(ProgressEvent evt) {
         for (ProgressListener listener : progressListeners) {
             listener.progressStarted(evt);
+            if (evt.isStop()) {
+                stop = true; // stop = evt.isStop() can be wrong when more than 1 listener
+            }
         }
     }
 
@@ -46,13 +60,19 @@ public class RecordsWithNotExistingFilesDeleter implements Runnable,
     public void progressPerformed(ProgressEvent evt) {
         for (ProgressListener listener : progressListeners) {
             listener.progressPerformed(evt);
+            if (evt.isStop()) {
+                stop = true; // stop = evt.isStop() can be wrong when more than 1 listener
+            }
         }
     }
 
     @Override
     public void progressEnded(ProgressEvent evt) {
-        for (ProgressListener listener : progressListeners) {
-            listener.progressEnded(evt);
+        countDeleted += (Integer) evt.getInfo();
+        if (stop || notifyProgressEnded) {
+            for (ProgressListener listener : progressListeners) {
+                listener.progressEnded(evt);
+            }
         }
     }
 }
