@@ -3,6 +3,7 @@ package de.elmar_baumann.imv.database;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.dialog.ProgressDialog;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -53,9 +54,10 @@ class UpdateTables extends Database {
 
     synchronized private void addColumnXmpLastModified(Connection connection) throws SQLException {
         if (!DatabaseMetadata.getInstance().existsColumn(connection, "xmp", "lastmodified")) { // NOI18N
-            message(Bundle.getString("UpdateTables.InfoMessage.AddColumnXmpLastModified"));
             Statement stmt = connection.createStatement();
+            message(Bundle.getString("UpdateTables.InfoMessage.AddColumnXmpLastModified.AddColumn"));
             stmt.execute("ALTER TABLE xmp ADD COLUMN lastmodified BIGINT"); // NOI18N
+            message(Bundle.getString("UpdateTables.InfoMessage.AddColumnXmpLastModified.AddIndex"));
             stmt.execute("CREATE INDEX idx_xmp_lastmodified ON xmp (lastmodified)"); // NOI18N
             copyLastModifiedToXmp(connection);
         }
@@ -63,7 +65,9 @@ class UpdateTables extends Database {
 
     synchronized private void copyLastModifiedToXmp(Connection connection) throws SQLException {
         Statement stmt = connection.createStatement();
-        stmt.executeUpdate("UPDATE xmp set lastmodified = " +
-            " (SELECT lastmodified FROM files WHERE files.id = xmp.id_files)");
+        message(Bundle.getString("UpdateTables.InfoMessage.AddColumnXmpLastModified.SetLastModified"));
+
+        stmt.executeUpdate("UPDATE xmp SET xmp.lastmodified = " +
+            " SELECT files.lastmodified FROM files WHERE xmp.id_files = files.id");
     }
 }
