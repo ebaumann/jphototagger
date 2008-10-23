@@ -55,7 +55,6 @@ public class MetaFactory extends Thread {
         PersistentSettings.getInstance().getComponent(
             appPanel,
             appPanel.getPersistentSettingsHints());
-        appPanel.getPanelThumbnails().refresh();
     }
 
     private void setAppFrame() {
