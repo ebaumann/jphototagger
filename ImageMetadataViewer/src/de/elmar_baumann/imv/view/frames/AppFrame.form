@@ -343,11 +343,22 @@
             <MenuItem class="javax.swing.JMenuItem" name="menuItemToolIptcToXmp">
               <Properties>
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
-                  <KeyStroke key="Ctrl+Alt+X"/>
+                  <KeyStroke key="Ctrl+Alt+I"/>
                 </Property>
                 <Property name="mnemonic" type="int" value="105"/>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                   <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="AppFrame.menuItemToolIptcToXmp.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                </Property>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="menuItemRenameInXmp">
+              <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Ctrl+Alt+X"/>
+                </Property>
+                <Property name="mnemonic" type="int" value="120"/>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                  <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="AppFrame.menuItemRenameInXmp.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                 </Property>
               </Properties>
             </MenuItem>

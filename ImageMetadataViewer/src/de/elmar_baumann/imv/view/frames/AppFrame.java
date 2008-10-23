@@ -120,6 +120,10 @@ public class AppFrame extends javax.swing.JFrame {
     public Goto getGotoOfMenuItem(JMenuItem item) {
         return gotoOfMenuItem.get(item);
     }
+    
+    public JMenuItem getMenuItemRenameInXmp() {
+        return menuItemRenameInXmp;
+    }
 
     public JMenuItem getMenuItemAutocopyDirectory() {
         return menuItemCopyFromAutocopyDirectory;
@@ -254,6 +258,7 @@ public class AppFrame extends javax.swing.JFrame {
         radioButtonMenuItemSortFileTypeDescending = new javax.swing.JRadioButtonMenuItem();
         menuTools = new javax.swing.JMenu();
         menuItemToolIptcToXmp = new javax.swing.JMenuItem();
+        menuItemRenameInXmp = new javax.swing.JMenuItem();
         menuHelp = new javax.swing.JMenu();
         menuItemHelp = new javax.swing.JMenuItem();
         menuItemAbout = new javax.swing.JMenuItem();
@@ -422,10 +427,15 @@ public class AppFrame extends javax.swing.JFrame {
         menuTools.setMnemonic('w');
         menuTools.setText(Bundle.getString("AppFrame.menuTools.text")); // NOI18N
 
-        menuItemToolIptcToXmp.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        menuItemToolIptcToXmp.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         menuItemToolIptcToXmp.setMnemonic('i');
         menuItemToolIptcToXmp.setText(Bundle.getString("AppFrame.menuItemToolIptcToXmp.text")); // NOI18N
         menuTools.add(menuItemToolIptcToXmp);
+
+        menuItemRenameInXmp.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        menuItemRenameInXmp.setMnemonic('x');
+        menuItemRenameInXmp.setText(Bundle.getString("AppFrame.menuItemRenameInXmp.text")); // NOI18N
+        menuTools.add(menuItemRenameInXmp);
 
         menuBar.add(menuTools);
 
@@ -494,6 +504,7 @@ private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:even
     private javax.swing.JMenuItem menuItemHelp;
     private javax.swing.JMenuItem menuItemMaintainDatabase;
     private javax.swing.JMenuItem menuItemRefresh;
+    private javax.swing.JMenuItem menuItemRenameInXmp;
     private javax.swing.JMenuItem menuItemScanDirectory;
     private javax.swing.JMenuItem menuItemSearch;
     private javax.swing.JMenuItem menuItemSettings;

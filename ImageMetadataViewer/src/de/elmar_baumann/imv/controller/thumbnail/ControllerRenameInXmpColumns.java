@@ -5,7 +5,6 @@ import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.tasks.UpdaterRenameInXmpColumnsArray;
 import de.elmar_baumann.imv.view.dialogs.RenameInXmpColumnsDialog;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
-import de.elmar_baumann.imv.view.popupmenus.PopupMenuPanelThumbnails;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -24,7 +23,7 @@ public class ControllerRenameInXmpColumns extends Controller
     private ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
 
     public ControllerRenameInXmpColumns() {
-        PopupMenuPanelThumbnails.getInstance().addActionListenerRenameInXmpColumns(this);
+        Panels.getInstance().getAppFrame().getMenuItemRenameInXmp().addActionListener(this);
     }
 
     @Override
