@@ -28,7 +28,6 @@ public class PopupMenuPanelThumbnails extends JPopupMenu
 
     private final String actionUpdateAllMetadata = Bundle.getString("PopupMenuPanelThumbnails.Action.UpdateAllMetadata");
     private final String actionUpdateThumbnail = Bundle.getString("PopupMenuPanelThumbnails.Action.UpdateThumbnail");
-    private final String actionUpdateXmp = Bundle.getString("PopupMenuPanelThumbnails.Action.UpdateXmp");
     private final String actionCreateImageCollection = Bundle.getString("PopupMenuPanelThumbnails.Action.CreateImageCollection");
     private final String actionAddToImageCollection = Bundle.getString("PopupMenuPanelThumbnails.Action.AddToImageCollection");
     private final String actionDeleteFromImageCollection = Bundle.getString("PopupMenuPanelThumbnails.Action.DeleteFromImageCollection");
@@ -45,7 +44,6 @@ public class PopupMenuPanelThumbnails extends JPopupMenu
     private JMenu menuOtherOpenImageApps = new JMenu(Bundle.getString("PopupMenuPanelThumbnails.menuOtherOpenImageApps.text"));
     private final JMenuItem itemUpdateAllMetadata = new JMenuItem(actionUpdateAllMetadata);
     private final JMenuItem itemUpdateThumbnail = new JMenuItem(actionUpdateThumbnail);
-    private final JMenuItem itemUpdateXmp = new JMenuItem(actionUpdateXmp);
     private final JMenuItem itemRenameInXmpColumns = new JMenuItem(actionRenameInXmpColumns);
     private final JMenuItem itemCreateImageCollection = new JMenuItem(actionCreateImageCollection);
     private final JMenuItem itemAddToImageCollection = new JMenuItem(actionAddToImageCollection);
@@ -86,7 +84,6 @@ public class PopupMenuPanelThumbnails extends JPopupMenu
     }
 
     private void addItems() {
-        add(itemUpdateXmp);
         add(itemUpdateThumbnail);
         add(itemUpdateAllMetadata);
         add(itemDeleteThumbnail);
@@ -175,10 +172,6 @@ public class PopupMenuPanelThumbnails extends JPopupMenu
 
     public void addActionListenerUpdateAllMetadata(ActionListener listener) {
         itemUpdateAllMetadata.addActionListener(listener);
-    }
-
-    public void addActionListenerUpdateXmp(ActionListener listener) {
-        itemUpdateXmp.addActionListener(listener);
     }
 
     public void addActionListenerRotateThumbnail90(ActionListener listener) {
