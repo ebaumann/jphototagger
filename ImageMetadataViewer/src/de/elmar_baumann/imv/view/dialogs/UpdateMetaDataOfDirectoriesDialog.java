@@ -8,6 +8,7 @@ import de.elmar_baumann.imv.event.ProgressEvent;
 import de.elmar_baumann.imv.event.ProgressListener;
 import de.elmar_baumann.imv.io.DirectoryInfo;
 import de.elmar_baumann.imv.resource.Bundle;
+import de.elmar_baumann.imv.types.DatabaseUpdate;
 import de.elmar_baumann.lib.dialog.Dialog;
 import de.elmar_baumann.lib.io.FileUtil;
 import de.elmar_baumann.lib.persistence.PersistentAppSizes;
@@ -34,7 +35,6 @@ public class UpdateMetaDataOfDirectoriesDialog extends Dialog
 
     private final String keyLastDirectory = "de.elmar_baumann.imv.view.ScanDirectoriesDialog.lastSelectedDirectory"; // NOI18N
     private final String keyForce = "de.elmar_baumann.imv.view.ScanDirectoriesDialog.force"; // NOI18N
-    private final String keyNoThumbnails = "de.elmar_baumann.imv.view.ScanDirectoriesDialog.noThumbnails"; // NOI18N
     private final String keySubdirectories = "de.elmar_baumann.imv.view.ScanDirectoriesDialog.subdirectories"; // NOI18N
     private final String title = Bundle.getString("UpdateMetaDataOfDirectoriesDialog.Title");
     private final String currentFilenameInfotextPrefix = Bundle.getString("UpdateMetaDataOfDirectoriesDialog.InformationMessage.UpdateCurrentFile");
@@ -90,10 +90,14 @@ public class UpdateMetaDataOfDirectoriesDialog extends Dialog
 
     private void createScanner() {
         activeScanner =
-            new ImageMetadataToDatabase(FileUtil.getAsFilenames(selectedFiles),
-            UserSettings.getInstance().getMaxThumbnailWidth());
-        activeScanner.setCreateThumbnails(!checkBoxNoThumbnails.isSelected());
-        activeScanner.setForceUpdate(checkBoxForce.isSelected());
+            new ImageMetadataToDatabase(
+                FileUtil.getAsFilenames(selectedFiles), getDatabaseUpdateMethod());
+    }
+
+    private DatabaseUpdate getDatabaseUpdateMethod() {
+        return checkBoxForce.isSelected() 
+            ? DatabaseUpdate.Complete 
+            : DatabaseUpdate.LastModifiedChanged;
     }
 
     private List<File> getAllImageFiles() {
@@ -132,7 +136,6 @@ public class UpdateMetaDataOfDirectoriesDialog extends Dialog
         PersistentSettings settings = PersistentSettings.getInstance();
         settings.getCheckBox(checkBoxForce, keyForce);
         settings.getCheckBox(checkBoxIncludeSubdirectories, keySubdirectories);
-        settings.getCheckBox(checkBoxNoThumbnails, keyNoThumbnails);
         readPersistentCurrentDirectory();
     }
 
@@ -294,14 +297,12 @@ public class UpdateMetaDataOfDirectoriesDialog extends Dialog
     private void setCheckboxStatus(boolean willCreateThumbnails) {
         checkBoxForce.setEnabled(!willCreateThumbnails);
         checkBoxIncludeSubdirectories.setEnabled(!willCreateThumbnails);
-        checkBoxNoThumbnails.setEnabled(!willCreateThumbnails);
     }
 
     private void writePersistent() {
         PersistentSettings settings = PersistentSettings.getInstance();
         settings.setCheckBox(checkBoxForce, keyForce);
         settings.setCheckBox(checkBoxIncludeSubdirectories, keySubdirectories);
-        settings.setCheckBox(checkBoxNoThumbnails, keyNoThumbnails);
         PersistentAppSizes.setSizeAndLocation(this);
     }
 
@@ -370,7 +371,6 @@ public class UpdateMetaDataOfDirectoriesDialog extends Dialog
         checkBoxIncludeSubdirectories = new javax.swing.JCheckBox();
         labelCountSelectedFiles = new javax.swing.JLabel();
         checkBoxForce = new javax.swing.JCheckBox();
-        checkBoxNoThumbnails = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle(title);
@@ -446,9 +446,6 @@ public class UpdateMetaDataOfDirectoriesDialog extends Dialog
         checkBoxForce.setFont(new java.awt.Font("Dialog", 0, 12));
         checkBoxForce.setText(Bundle.getString("UpdateMetaDataOfDirectoriesDialog.checkBoxForce.text")); // NOI18N
 
-        checkBoxNoThumbnails.setFont(new java.awt.Font("Dialog", 0, 12));
-        checkBoxNoThumbnails.setText(Bundle.getString("UpdateMetaDataOfDirectoriesDialog.checkBoxNoThumbnails.text")); // NOI18N
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -456,9 +453,8 @@ public class UpdateMetaDataOfDirectoriesDialog extends Dialog
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(checkBoxNoThumbnails)
-                    .addComponent(checkBoxForce)
                     .addComponent(checkBoxIncludeSubdirectories)
+                    .addComponent(checkBoxForce)
                     .addComponent(scrollPaneSelectedDirectories, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 647, Short.MAX_VALUE)
                     .addComponent(progressBar, javax.swing.GroupLayout.DEFAULT_SIZE, 647, Short.MAX_VALUE)
                     .addComponent(labelInfotext, javax.swing.GroupLayout.DEFAULT_SIZE, 647, Short.MAX_VALUE)
@@ -485,13 +481,11 @@ public class UpdateMetaDataOfDirectoriesDialog extends Dialog
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelHeadingTreeChosenDirectories)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPaneSelectedDirectories, javax.swing.GroupLayout.DEFAULT_SIZE, 61, Short.MAX_VALUE)
+                .addComponent(scrollPaneSelectedDirectories, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelCountSelectedFiles, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(checkBoxForce)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(checkBoxNoThumbnails)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(checkBoxIncludeSubdirectories)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -551,7 +545,6 @@ private void listSelectedDirectoriesKeyReleased(java.awt.event.KeyEvent evt) {//
     private javax.swing.JButton buttonScan;
     private javax.swing.JCheckBox checkBoxForce;
     private javax.swing.JCheckBox checkBoxIncludeSubdirectories;
-    private javax.swing.JCheckBox checkBoxNoThumbnails;
     private javax.swing.JLabel labelCountSelectedFiles;
     private javax.swing.JLabel labelCurrentFilename;
     private javax.swing.JLabel labelHeadingTreeChosenDirectories;

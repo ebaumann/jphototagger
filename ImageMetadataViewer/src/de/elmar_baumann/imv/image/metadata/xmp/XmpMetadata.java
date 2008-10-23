@@ -499,7 +499,15 @@ public class XmpMetadata {
                     xmp.setPhotoshopTransmissionReference(xmpPropertyInfo.getValue().toString());
                 }
             }
+            setLastModified(xmp, filename);
         }
         return xmp;
+    }
+
+    private static void setLastModified(Xmp xmp, String filename) {
+        String xmpFilename = getSidecarFilename(filename);
+        if (xmpFilename != null) {
+            xmp.setLastModified(FileUtil.getLastModified(xmpFilename));
+        }
     }
 }

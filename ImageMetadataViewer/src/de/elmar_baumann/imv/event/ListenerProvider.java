@@ -35,20 +35,12 @@ public class ListenerProvider {
         fileSystemActionListeners.add(listener);
     }
 
-    synchronized public void removeFileSystemActionListener(FileSystemActionListener listener) {
-        fileSystemActionListeners.remove(listener);
-    }
-
     synchronized public List<FileSystemActionListener> getFileSystemActionListener() {
         return fileSystemActionListeners;
     }
 
     synchronized public void addMetaDataEditPanelListener(MetaDataEditPanelListener listener) {
         metaDataEditPanelListeners.add(listener);
-    }
-
-    synchronized public void removeMetaDataEditPanelListener(MetaDataEditPanelListener listener) {
-        metaDataEditPanelListeners.remove(listener);
     }
 
     synchronized public List<MetaDataEditPanelListener> getMetaDataEditPanelListeners() {
@@ -59,10 +51,6 @@ public class ListenerProvider {
         userSettingsChangeListeners.add(listener);
     }
 
-    synchronized public void removeUserSettingsChangeListener(UserSettingsChangeListener listener) {
-        userSettingsChangeListeners.remove(listener);
-    }
-
     synchronized public List<UserSettingsChangeListener> getUserSettingsChangeListeners() {
         return userSettingsChangeListeners;
     }
@@ -71,20 +59,12 @@ public class ListenerProvider {
         renameFileListeners.add(listener);
     }
 
-    synchronized public void removeRenameFileListener(RenameFileListener listener) {
-        renameFileListeners.remove(listener);
-    }
-
     synchronized public List<RenameFileListener> getRenameFileListeners() {
         return renameFileListeners;
     }
 
     synchronized public void addSearchListener(SearchListener listener) {
         searchListeners.add(listener);
-    }
-
-    synchronized public void removeSearchListener(SearchListener listener) {
-        searchListeners.remove(listener);
     }
 
     synchronized public List<SearchListener> getSearchListeners() {

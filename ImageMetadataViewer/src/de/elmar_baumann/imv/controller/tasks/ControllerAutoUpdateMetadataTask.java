@@ -7,7 +7,7 @@ import de.elmar_baumann.imv.database.Database;
 import de.elmar_baumann.imv.database.DatabaseAutoscanDirectories;
 import de.elmar_baumann.imv.event.TaskListener;
 import de.elmar_baumann.imv.tasks.ImageMetadataToDatabaseArray;
-import de.elmar_baumann.imv.types.Force;
+import de.elmar_baumann.imv.types.DatabaseUpdate;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -29,7 +29,6 @@ public class ControllerAutoUpdateMetadataTask extends Controller
     implements TaskListener {
 
     private JProgressBar progressBar;
-    private boolean onlyTextMetadata = false;
     private ImageMetadataToDatabaseArray updaterArray;
     private List<String> systemDirectorySubstrings = new ArrayList<String>();
     private List<TaskListener> taskListeners = new ArrayList<TaskListener>();
@@ -88,7 +87,7 @@ public class ControllerAutoUpdateMetadataTask extends Controller
         if (!directories.isEmpty()) {
             for (String directory : directories) {
                 if (!isSystemDirectory(directory)) {
-                    updaterArray.addDirectory(directory, onlyTextMetadata, Force.No);
+                    updaterArray.addDirectory(directory, DatabaseUpdate.LastModifiedChanged);
                 }
             }
         }
@@ -121,15 +120,6 @@ public class ControllerAutoUpdateMetadataTask extends Controller
      */
     public void addTaskListener(TaskListener listener) {
         taskListeners.add(listener);
-    }
-
-    /**
-     * Entfernt einen Task-Beobachter.
-     * 
-     * @param listener  Beobachter
-     */
-    public void removeTaskListener(TaskListener listener) {
-        taskListeners.remove(listener);
     }
 
     @Override

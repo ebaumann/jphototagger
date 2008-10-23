@@ -30,10 +30,6 @@ public class IptcToXmp implements Runnable {
         progressListeners.add(listener);
     }
 
-    public void removeProgressListener(ProgressListener listener) {
-        progressListeners.remove(listener);
-    }
-
     public void stop() {
         stop = true;
     }

@@ -133,26 +133,27 @@ public class DatabaseImageFiles extends Database {
     private String getInsertIntoXmpStatement() {
         return "INSERT INTO xmp " + // NOI18N
             "(" + // NOI18N
-            "id_files" + // NOI18N
-            ", dc_creator" + // NOI18N
-            ", dc_description" + // NOI18N
-            ", dc_rights" + // NOI18N
-            ", dc_title" + // NOI18N
-            ", iptc4xmpcore_countrycode" + // NOI18N
-            ", iptc4xmpcore_location" + // NOI18N
-            ", photoshop_authorsposition" + // NOI18N
-            ", photoshop_captionwriter" + // NOI18N
-            ", photoshop_category" + // NOI18N
-            ", photoshop_city" + // NOI18N
-            ", photoshop_country" + // NOI18N
-            ", photoshop_credit" + // NOI18N
-            ", photoshop_headline" + // NOI18N
-            ", photoshop_instructions" + // NOI18N
-            ", photoshop_source" + // NOI18N
-            ", photoshop_state" + // NOI18N
-            ", photoshop_transmissionReference" + // NOI18N
+            "id_files" + // NOI18N -- 1 --
+            ", dc_creator" + // NOI18N -- 2 --
+            ", dc_description" + // NOI18N --3  --
+            ", dc_rights" + // NOI18N -- 4 --
+            ", dc_title" + // NOI18N -- 5 --
+            ", iptc4xmpcore_countrycode" + // NOI18N -- 6 --
+            ", iptc4xmpcore_location" + // NOI18N -- 7 --
+            ", photoshop_authorsposition" + // NOI18N -- 8 --
+            ", photoshop_captionwriter" + // NOI18N -- 9 --
+            ", photoshop_category" + // NOI18N -- 10 --
+            ", photoshop_city" + // NOI18N -- 11 --
+            ", photoshop_country" + // NOI18N -- 12 --
+            ", photoshop_credit" + // NOI18N -- 13 --
+            ", photoshop_headline" + // NOI18N -- 14 --
+            ", photoshop_instructions" + // NOI18N -- 15 --
+            ", photoshop_source" + // NOI18N -- 16 --
+            ", photoshop_state" + // NOI18N -- 17 --
+            ", photoshop_transmissionReference" + // NOI18N -- 18 --
+            ", lastmodified" + // NOI18N -- 19 --
             ")" + // NOI18N
-            " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"; // NOI18N
+            " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"; // NOI18N
     }
 
     private void setXmpValues(PreparedStatement stmt, long idFile, Xmp xmpData) throws SQLException {
@@ -174,6 +175,8 @@ public class DatabaseImageFiles extends Database {
         stmt.setString(16, xmpData.getPhotoshopSource());
         stmt.setString(17, xmpData.getPhotoshopState());
         stmt.setString(18, xmpData.getPhotoshopTransmissionReference());
+        System.out.println(xmpData.getLastModified());
+        stmt.setLong(19, xmpData.getLastModified());
     }
 
     private synchronized void updateXmp(Connection connection, long idFile, Xmp xmpData) throws SQLException {
@@ -407,7 +410,7 @@ public class DatabaseImageFiles extends Database {
      * @return         Zeit in Millisekunden seit 1970 oder -1, wenn die Zeit nicht
      * ermittelt werden konnte
      */
-    public long getLastModified(String filename) {
+    public long getLastModifiedImageFile(String filename) {
         long lastModified = -1;
         Connection connection = null;
         try {
@@ -499,25 +502,26 @@ public class DatabaseImageFiles extends Database {
 
     private String getXmpOfFileStatement() {
         return " SELECT" + // NOI18N
-            " dc_creator" + // NOI18N
-            ", xmp.dc_description" + // NOI18N
-            ", xmp.dc_rights" + // NOI18N
-            ", xmp.dc_title" + // NOI18N
-            ", xmp.iptc4xmpcore_countrycode" + // NOI18N
-            ", xmp.iptc4xmpcore_location" + // NOI18N
-            ", xmp.photoshop_authorsposition" + // NOI18N
-            ", xmp.photoshop_captionwriter" + // NOI18N
-            ", xmp.photoshop_category" + // NOI18N
-            ", xmp.photoshop_city" + // NOI18N
-            ", xmp.photoshop_country" + // NOI18N
-            ", xmp.photoshop_credit" + // NOI18N
-            ", xmp.photoshop_headline" + // NOI18N
-            ", xmp.photoshop_instructions" + // NOI18N
-            ", xmp.photoshop_source" + // NOI18N
-            ", xmp.photoshop_state" + // NOI18N
-            ", xmp.photoshop_transmissionReference" + // NOI18N
-            ", xmp_dc_subjects.subject" + // NOI18N
-            ", xmp_photoshop_supplementalcategories.supplementalcategory" + // NOI18N
+            " dc_creator" + // NOI18N --  --
+            ", xmp.dc_description" + // NOI18N -- 1 --
+            ", xmp.dc_rights" + // NOI18N --2  --
+            ", xmp.dc_title" + // NOI18N -- 3 --
+            ", xmp.iptc4xmpcore_countrycode" + // NOI18N -- 4 --
+            ", xmp.iptc4xmpcore_location" + // NOI18N --5  --
+            ", xmp.photoshop_authorsposition" + // NOI18N -- 6 --
+            ", xmp.photoshop_captionwriter" + // NOI18N -- 7 --
+            ", xmp.photoshop_category" + // NOI18N -- 8 --
+            ", xmp.photoshop_city" + // NOI18N -- 9 --
+            ", xmp.photoshop_country" + // NOI18N -- 10 --
+            ", xmp.photoshop_credit" + // NOI18N -- 11 --
+            ", xmp.photoshop_headline" + // NOI18N -- 12 --
+            ", xmp.photoshop_instructions" + // NOI18N -- 12 --
+            ", xmp.photoshop_source" + // NOI18N -- 14 --
+            ", xmp.photoshop_state" + // NOI18N -- 15 --
+            ", xmp.photoshop_transmissionReference" + // NOI18N -- 16 --
+            ", xmp_dc_subjects.subject" + // NOI18N --  --
+            ", xmp_photoshop_supplementalcategories.supplementalcategory" + // NOI18N -- 17 --
+            ", lastmodified" + // NOI18N -- 18 --
             " FROM" + // NOI18N
             " xmp LEFT JOIN xmp_dc_subjects" + // NOI18N
             " ON xmp.id = xmp_dc_subjects.id_xmp" + // NOI18N
@@ -561,6 +565,7 @@ public class DatabaseImageFiles extends Database {
                 xmp.setPhotoshopSource(rs.getString(15));
                 xmp.setPhotoshopState(rs.getString(16));
                 xmp.setPhotoshopTransmissionReference(rs.getString(17));
+                xmp.setLastModified(rs.getLong(18));
                 String value = rs.getString(18);
                 if (value != null) {
                     xmp.addDcSubject(value);
@@ -577,6 +582,38 @@ public class DatabaseImageFiles extends Database {
             free(connection);
         }
         return xmp;
+    }
+
+    /**
+     * Returns the last modification time of the xmp data.
+     * 
+     * @param  imageFilename  <em>image</em> filename (<em>not</em> sidecar
+     *                        filename)
+     * @return last modification time in milliseconds since 1970 or -1 if
+     *         not defined
+     */
+    public long getLastModifiedXmp(String imageFilename) {
+        long lastModified = -1;
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            PreparedStatement stmt = connection.prepareStatement(
+                "SELECT xmp.lastmodified FROM" + // NOI18N
+                " xmp LEFT JOIN files ON xmp.id_files = files.id" + // NOI18N
+                " WHERE files.filename = ?"); // NOI18N
+            stmt.setString(1, imageFilename);
+            logStatement(stmt);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                lastModified = rs.getLong(1);
+            }
+            stmt.close();
+        } catch (SQLException ex) {
+            handleException(ex, Level.SEVERE);
+        } finally {
+            free(connection);
+        }
+        return lastModified;
     }
 
     /**
@@ -767,7 +804,6 @@ public class DatabaseImageFiles extends Database {
             connection.setAutoCommit(false);
             PreparedStatement preparedStatement = connection.prepareStatement(
                 "INSERT INTO files (filename, lastmodified) VALUES (?, ?)"); // NOI18N
-
             String filename = imageFileData.getFilename();
             preparedStatement.setString(1, filename);
             preparedStatement.setLong(2, imageFileData.getLastmodified());

@@ -18,9 +18,6 @@ public class ImageFile {
     private Xmp xmp;
     private Exif exif;
 
-    public ImageFile() {
-    }
-
     /**
      * Liefert den Namen der Bilddatei.
      * 

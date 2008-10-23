@@ -24,10 +24,6 @@ public class FileSystem {
         progressListeners.add(listener);
     }
 
-    public void removeProgressListener(ProgressListener listener) {
-        progressListeners.remove(listener);
-    }
-
     protected void notifyProgressListenerStarted(ProgressEvent evt) {
         for (ProgressListener listener : progressListeners) {
             listener.progressStarted(evt);
@@ -48,10 +44,6 @@ public class FileSystem {
 
     public void addActionListener(FileSystemActionListener listener) {
         actionListeners.add(listener);
-    }
-
-    public void removeActionListener(FileSystemActionListener listener) {
-        actionListeners.remove(listener);
     }
 
     protected void notifyActionListenersPerformed(

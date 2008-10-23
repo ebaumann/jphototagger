@@ -10,6 +10,7 @@ import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpDcTitle;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpIptc4xmpcoreCountrycode;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpIptc4xmpcoreLocation;
+import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpLastModified;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopAuthorsposition;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopCaptionwriter;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopCategory;
@@ -55,6 +56,7 @@ public class Xmp {
     private StringBuffer photoshopState = new StringBuffer();
     private StringBuffer photoshopTransmissionReference = new StringBuffer();
     private StringBuffer dcCreator = new StringBuffer();
+    private StringBuffer lastModified = new StringBuffer();
     private List<String> dcSubjects = new ArrayList<String>();
     private List<String> photoshopSupplementalCategories = new ArrayList<String>();
     private Map<Column, Object> valueOfColumn = new HashMap<Column, Object>();
@@ -98,6 +100,7 @@ public class Xmp {
             photoshopSupplementalCategories);
         valueOfColumn.put(ColumnXmpPhotoshopTransmissionReference.getInstance(),
             photoshopTransmissionReference);
+        valueOfColumn.put(ColumnXmpLastModified.getInstance(), lastModified);
     }
 
     public Xmp() {
@@ -591,6 +594,29 @@ public class Xmp {
             photoshopTransmissionReference == null
             ? "" // NOI18N
             : photoshopTransmissionReference);
+    }
+
+    /**
+     * Sets the last modification time of the XMP data.
+     * 
+     * @param lastModified  milliseconds since 1970 of the modification time
+     */
+    public void setLastModified(long lastModified) {
+        this.lastModified.replace(0, this.lastModified.length(), lastModified >= 0
+            ? Long.toString(lastModified)
+            : ""); // NOI18N
+    }
+
+    /**
+     * Returns the last modification time of the XMP data.
+     * 
+     * @return milliseconds since 1970 of the modification time or null
+     *         if not defined
+     */
+    public Long getLastModified() {
+        return lastModified.length() > 0
+            ? Long.parseLong(lastModified.toString())
+            : null;
     }
 
     public void setIptc(Iptc iptc, boolean replaceExistingValues) {

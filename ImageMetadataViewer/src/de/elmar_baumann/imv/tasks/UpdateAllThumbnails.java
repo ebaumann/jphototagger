@@ -32,15 +32,6 @@ public class UpdateAllThumbnails implements Runnable, ProgressListener,
         actionListeners.add(listener);
     }
 
-    /**
-     * Removes an action listener.
-     * 
-     * @param listener  action listener
-     */
-    public void removeActionListener(ActionListener listener) {
-        actionListeners.remove(listener);
-    }
-
     @Override
     public void run() {
         DatabaseImageFiles db = DatabaseImageFiles.getInstance();

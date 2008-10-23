@@ -89,26 +89,6 @@ public class PopupMenuListImageCollections extends JPopupMenu {
         itemRename.addActionListener(listener);
     }
 
-    /**
-     * Entfernt einen Beobachter für das Ereignis:
-     * Eine Bildsammlung soll gelöscht werden.
-     * 
-     * @param listener Beobachter
-     */
-    public void removeActionListenerDelete(ActionListener listener) {
-        itemDelete.removeActionListener(listener);
-    }
-
-    /**
-     * Entfernt einen Beobachter für das Ereignis:
-     * Eine Bildsammlung soll umbenannt werden.
-     * 
-     * @param listener Beobachter
-     */
-    public void removeActionListenerRename(ActionListener listener) {
-        itemRename.removeActionListener(listener);
-    }
-
     private void addItems() {
         add(itemRename);
         add(itemDelete);

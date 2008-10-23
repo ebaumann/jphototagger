@@ -5,6 +5,7 @@ import de.elmar_baumann.imv.event.UserSettingsChangeEvent;
 import de.elmar_baumann.imv.event.UserSettingsChangeListener;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.types.Content;
+import de.elmar_baumann.imv.types.DatabaseUpdate;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
@@ -26,7 +27,8 @@ public class PopupMenuPanelThumbnails extends JPopupMenu
     implements UserSettingsChangeListener {
 
     private final String actionUpdateAllMetadata = Bundle.getString("PopupMenuPanelThumbnails.Action.UpdateAllMetadata");
-    private final String actionUpdateTextMetadata = Bundle.getString("PopupMenuPanelThumbnails.Action.UpdateOnlyTextMetadata");
+    private final String actionUpdateThumbnail = Bundle.getString("PopupMenuPanelThumbnails.Action.UpdateThumbnail");
+    private final String actionUpdateXmp = Bundle.getString("PopupMenuPanelThumbnails.Action.UpdateXmp");
     private final String actionCreateImageCollection = Bundle.getString("PopupMenuPanelThumbnails.Action.CreateImageCollection");
     private final String actionAddToImageCollection = Bundle.getString("PopupMenuPanelThumbnails.Action.AddToImageCollection");
     private final String actionDeleteFromImageCollection = Bundle.getString("PopupMenuPanelThumbnails.Action.DeleteFromImageCollection");
@@ -42,7 +44,8 @@ public class PopupMenuPanelThumbnails extends JPopupMenu
     private final String actionFileSystemMoveFiles = Bundle.getString("PopupMenuPanelThumbnails.Action.FileSystemMove");
     private JMenu menuOtherOpenImageApps = new JMenu(Bundle.getString("PopupMenuPanelThumbnails.menuOtherOpenImageApps.text"));
     private final JMenuItem itemUpdateAllMetadata = new JMenuItem(actionUpdateAllMetadata);
-    private final JMenuItem itemUpdateTextMetadata = new JMenuItem(actionUpdateTextMetadata);
+    private final JMenuItem itemUpdateThumbnail = new JMenuItem(actionUpdateThumbnail);
+    private final JMenuItem itemUpdateXmp = new JMenuItem(actionUpdateXmp);
     private final JMenuItem itemRenameInXmpColumns = new JMenuItem(actionRenameInXmpColumns);
     private final JMenuItem itemCreateImageCollection = new JMenuItem(actionCreateImageCollection);
     private final JMenuItem itemAddToImageCollection = new JMenuItem(actionAddToImageCollection);
@@ -57,8 +60,9 @@ public class PopupMenuPanelThumbnails extends JPopupMenu
     private final JMenuItem itemFileSystemRenameFiles = new JMenuItem(actionFileSystemRenameFiles);
     private final JMenuItem itemFileSystemMoveFiles = new JMenuItem(actionFileSystemMoveFiles);
     private List<ActionListener> actionListenersOpenFilesWithOtherApp = new ArrayList<ActionListener>();
-    private Map<String, Float> angleOfAction = new HashMap<String, Float>();
+    private Map<JMenuItem, Float> angleOfItem = new HashMap<JMenuItem, Float>();
     private Map<String, File> otherImageOpenAppOfAction = new HashMap<String, File>();
+    private Map<JMenuItem, DatabaseUpdate> databaseUpdateOfMenuItem = new HashMap<JMenuItem, DatabaseUpdate>();
     private Content content = Content.Undefined;
     private static PopupMenuPanelThumbnails instance = new PopupMenuPanelThumbnails();
 
@@ -82,8 +86,9 @@ public class PopupMenuPanelThumbnails extends JPopupMenu
     }
 
     private void addItems() {
+        add(itemUpdateXmp);
+        add(itemUpdateThumbnail);
         add(itemUpdateAllMetadata);
-        add(itemUpdateTextMetadata);
         add(itemDeleteThumbnail);
         add(itemRenameInXmpColumns);
         add(new JSeparator());
@@ -144,48 +149,10 @@ public class PopupMenuPanelThumbnails extends JPopupMenu
             content.equals(Content.ImageCollection));
     }
 
-    /**
-     * Liefert, ob eine Aktion besagt: Aktualisiere alle Metadaten der Bilder,
-     * auch die Thumbnails.
-     * 
-     * @param action  Aktion
-     * @return        true, wenn alle Metadaten der Bilder aktualisiert werden
-     *                sollen
-     */
-    public boolean isUpdateAllMetadata(String action) {
-        return action.equals(actionUpdateAllMetadata);
-    }
-
-    /**
-     * Liefert, ob eine Aktion besagt: Aktualisiere die Text-Metadaten der
-     * Bilder, <em>nicht</em> die Thumbnails.
-     * 
-     * @param action  Aktion
-     * @return        true, wenn nur die Text-Metadaten der Bilder aktualisiert
-     *                werden sollen
-     */
-    public boolean isUpdateTextMetadata(String action) {
-        return action.equals(actionUpdateTextMetadata);
-    }
-
-    /**
-     * Fügt einen Beobachter hinzu für das Ereignis:
-     * Bilder der ausgewählten Thumbnails mit einer anderen Anwendung öffnen
-     * (anstelle der Anwendung, die das Bild bei Doppelklick öffnet).
-     * 
-     * @param listener Beobachter
-     */
     public void addActionListenerOpenFilesWithOtherApp(ActionListener listener) {
         actionListenersOpenFilesWithOtherApp.add(listener);
     }
 
-    /**
-     * Fügt einen Beobachter hinzu für das Ereignis:
-     * Bilder der ausgewählten Thumbnails der Anwendung öffnen, die das Bild
-     * bei Doppelklick öffnet.
-     * 
-     * @param listener Beobachter
-     */
     public void addActionListenerOpenFilesWithStandardApp(ActionListener listener) {
         itemOpenFilesWithStandardApp.addActionListener(listener);
     }
@@ -194,106 +161,60 @@ public class PopupMenuPanelThumbnails extends JPopupMenu
         itemRenameInXmpColumns.addActionListener(listener);
     }
 
-    /**
-     * Fügt einen Beobachter hinzu für das Ereignis:
-     * Eine neue Bildsammlung erzeugen aus den ausgewählten Thumbnails.
-     * 
-     * @param listener Beobachter
-     */
     public void addActionListenerCreateImageCollection(ActionListener listener) {
         itemCreateImageCollection.addActionListener(listener);
     }
 
-    /**
-     * Fügt einen Beobachter hinzu für das Ereignis:
-     * Ausgewählte Thumbnails einer Bildsammlung hinzufügen.
-     * 
-     * @param listener Beobachter
-     */
     public void addActionListenerAddToImageCollection(ActionListener listener) {
         itemAddToImageCollection.addActionListener(listener);
     }
 
-    /**
-     * Fügt einen Beobachter hinzu für das Ereignis:
-     * Ausgewählte Thumbnails von einer Bildsammlung löschen.
-     * 
-     * @param listener Beobachter
-     */
     public void addActionListenerDeleteFromImageCollection(ActionListener listener) {
         itemDeleteFromImageCollection.addActionListener(listener);
     }
 
-    /**
-     * Fügt einen Beobachter hinzu für das Ereignis:
-     * Alle Metadaten der ausgewählten Thumbnails aktualisieren, auch die
-     * Thumbnailbilder.
-     * 
-     * @param listener Beobachter
-     */
     public void addActionListenerUpdateAllMetadata(ActionListener listener) {
         itemUpdateAllMetadata.addActionListener(listener);
     }
 
-    /**
-     * Fügt einen Beobachter hinzu für das Ereignis:
-     * Text-Metadaten der ausgewählten Thumbnails aktualisieren, <em>nicht</em>
-     * die Thumbnailbilder.
-     * 
-     * @param listener Beobachter
-     */
-    public void addActionListenerUpdateTextMetadata(ActionListener listener) {
-        itemUpdateTextMetadata.addActionListener(listener);
+    public void addActionListenerUpdateXmp(ActionListener listener) {
+        itemUpdateXmp.addActionListener(listener);
     }
 
-    /**
-     * Fügt einen Beobachter hinzu für das Ereignis:
-     * Ausgewählte Thumbnails um 90 Grad im Uhreigersinn drehen.
-     * 
-     * @param listener Beobachter
-     */
     public void addActionListenerRotateThumbnail90(ActionListener listener) {
         itemRotateThumbnai90.addActionListener(listener);
     }
 
-    /**
-     * Fügt einen Beobachter hinzu für das Ereignis:
-     * Ausgewählte Thumbnails um 180 Grad im Uhreigersinn drehen.
-     * 
-     * @param listener Beobachter
-     */
     public void addActionListenerRotateThumbnail180(ActionListener listener) {
         itemRotateThumbnai180.addActionListener(listener);
     }
 
-    /**
-     * Fügt einen Beobachter hinzu für das Ereignis:
-     * Ausgewählte Thumbnails um 270 Grad im Uhreigersinn drehen.
-     * 
-     * @param listener Beobachter
-     */
     public void addActionListenerRotateThumbnail270(ActionListener listener) {
         itemRotateThumbnai270.addActionListener(listener);
     }
 
-    /**
-     * Fügt einen Beobachter hinzu für das Ereignis:
-     * Ausgewählte Thumbnails aus der Datenbank löschen.
-     * 
-     * @param listener Beobachter
-     */
     public void addActionListenerDeleteThumbnail(ActionListener listener) {
         itemDeleteThumbnail.addActionListener(listener);
     }
 
-    /**
-     * Fügt einen Beobachter hinzu für die Aktion: Ausgewählte Dateien in ein
-     * Verzeichnis kopieren.
-     * 
-     * @param listener Beobachter
-     */
     public void addActionListenerCopySelectedFilesToDirectory(ActionListener listener) {
         itemCopySelectedFilesToDirectory.addActionListener(listener);
+    }
+
+    public void addActionListenerFileSystemDeleteFiles(ActionListener listener) {
+        itemFileSystemDeleteFiles.addActionListener(listener);
+    }
+
+    public void addActionListenerFileSystemRenameFiles(ActionListener listener) {
+        itemFileSystemRenameFiles.addActionListener(listener);
+    }
+
+    public void addActionListenerFileSystemMoveFiles(ActionListener listener) {
+        itemFileSystemMoveFiles.addActionListener(listener);
+    }
+
+    public void addActionListenerUpdateThumbnail(ActionListener listener) {
+        itemUpdateThumbnail.addActionListener(listener);
     }
 
     /**
@@ -308,176 +229,32 @@ public class PopupMenuPanelThumbnails extends JPopupMenu
     }
 
     /**
-     * Entfernt einen Beobachter für das Ereignis:
-     * Bilder der ausgewählten Thumbnails mit einer anderen Anwendung öffnen
-     * (anstelle der Anwendung, die das Bild bei Doppelklick öffnet).
-     * 
-     * @param listener Beobachter
-     */
-    public void removeActionListenerOpenFilesOtherApps(ActionListener listener) {
-        actionListenersOpenFilesWithOtherApp.remove(listener);
-    }
-
-    /**
-     * Entfernt einen Beobachter für das Ereignis:
-     * Bilder der ausgewählten Thumbnails der Anwendung öffnen, die das Bild
-     * bei Doppelklick öffnet.
-     * 
-     * @param listener Beobachter
-     */
-    public void removeActionListenerOpenFiles(ActionListener listener) {
-        itemOpenFilesWithStandardApp.removeActionListener(listener);
-    }
-
-    public void removeActionListenerRenameInXmpColumns(ActionListener listener) {
-        itemRenameInXmpColumns.removeActionListener(listener);
-    }
-
-    /**
-     * Entfernt einen Beobachter für das Ereignis:
-     * Eine neue Bildsammlung erzeugen aus den ausgewählten Thumbnails.
-     * 
-     * @param listener Beobachter
-     */
-    public void removeActionListenerCreateImageCollection(ActionListener listener) {
-        itemCreateImageCollection.removeActionListener(listener);
-    }
-
-    /**
-     * Entfernt einen Beobachter für das Ereignis:
-     * Ausgewählte Thumbnails einer Bildsammlung hinzufügen.
-     * 
-     * @param listener Beobachter
-     */
-    public void removeActionListenerAddToImageCollection(ActionListener listener) {
-        itemAddToImageCollection.removeActionListener(listener);
-    }
-
-    /**
-     * Entfernt einen Beobachter für das Ereignis:
-     * Ausgewählte Thumbnails von einer Bildsammlung löschen.
-     * 
-     * @param listener Beobachter
-     */
-    public void removeActionListenerDeleteFromImageCollection(ActionListener listener) {
-        itemDeleteFromImageCollection.removeActionListener(listener);
-    }
-
-    /**
-     * Entfernt einen Beobachter für das Ereignis:
-     * Alle Metadaten der ausgewählten Thumbnails aktualisieren, auch die
-     * Thumbnailbilder.
-     * 
-     * @param listener Beobachter
-     */
-    public void removeActionListenerUpdateAllMetadata(ActionListener listener) {
-        itemUpdateAllMetadata.removeActionListener(listener);
-    }
-
-    /**
-     * Entfernt einen Beobachter für das Ereignis:
-     * Text-Metadaten der ausgewählten Thumbnails aktualisieren, <em>nicht</em>
-     * die Thumbnailbilder.
-     * 
-     * @param listener Beobachter
-     */
-    public void removeActionListenerUpdateTextMetadata(ActionListener listener) {
-        itemUpdateTextMetadata.removeActionListener(listener);
-    }
-
-    /**
-     * Entfernt einen Beobachter für das Ereignis:
-     * Ausgewählte Thumbnails um 90 Grad im Uhreigersinn drehen.
-     * 
-     * @param listener Beobachter
-     */
-    public void removeActionListenerRotateThumbnail90(ActionListener listener) {
-        itemRotateThumbnai90.removeActionListener(listener);
-    }
-
-    /**
-     * Entfernt einen Beobachter für das Ereignis:
-     * Ausgewählte Thumbnails um 180 Grad im Uhreigersinn drehen.
-     * 
-     * @param listener Beobachter
-     */
-    public void removeActionListenerRotateThumbnail180(ActionListener listener) {
-        itemRotateThumbnai180.removeActionListener(listener);
-    }
-
-    /**
-     * Entfernt einen Beobachter für das Ereignis:
-     * Ausgewählte Thumbnails um 270 Grad im Uhreigersinn drehen.
-     * 
-     * @param listener Beobachter
-     */
-    public void removeActionListenerRotateThumbnail270(ActionListener listener) {
-        itemRotateThumbnai270.removeActionListener(listener);
-    }
-
-    /**
-     * Entfernt einen Beobachter für das Ereignis:
-     * Ausgewählte Thumbnails aus der Datenbank löschen.
-     * 
-     * @param listener Beobachter
-     */
-    public void removeActionListenerDeleteThumbnail(ActionListener listener) {
-        itemDeleteThumbnail.removeActionListener(listener);
-    }
-
-    /**
-     * Entfernt einen Beobachter für die Aktion: Ausgewählte Dateien in ein
-     * Verzeichnis kopieren.
-     * 
-     * @param listener Beobachter
-     */
-    public void removeActionListenerCopySelectedFilesToDirectory(ActionListener listener) {
-        itemCopySelectedFilesToDirectory.removeActionListener(listener);
-    }
-
-    public void addActionListenerFileSystemDeleteFiles(ActionListener listener) {
-        itemFileSystemDeleteFiles.addActionListener(listener);
-    }
-
-    public void removeActionListenerFileSystemDeleteFiles(ActionListener listener) {
-        itemFileSystemDeleteFiles.removeActionListener(listener);
-    }
-
-    public void addActionListenerFileSystemRenameFiles(ActionListener listener) {
-        itemFileSystemRenameFiles.addActionListener(listener);
-    }
-
-    public void removeActionListenerFileSystemRenameFiles(ActionListener listener) {
-        itemFileSystemRenameFiles.removeActionListener(listener);
-    }
-
-    public void addActionListenerFileSystemMoveFiles(ActionListener listener) {
-        itemFileSystemMoveFiles.addActionListener(listener);
-    }
-
-    public void removeActionListenerFileSystemMoveFiles(ActionListener listener) {
-        itemFileSystemMoveFiles.removeActionListener(listener);
-    }
-
-    /**
      * Liefert den Winkel, um den das Thumbnail gedreht werden soll.
      * 
-     * @param action  Aktion
-     * @return        Winkel in Grad; 0 Grad, wenn das Kommando keine Drehung ist
+     * @param item  Item, das die Aktion auslöste
+     * @return      Winkel in Grad; 0 Grad, wenn das Kommando keine Drehung ist
      */
-    public float getRotateAngle(String action) {
+    public float getRotateAngle(Object item) {
         Float angle = new Float(0);
 
-        if (angleOfAction.containsKey(action)) {
-            angle = angleOfAction.get(action);
+        if (angleOfItem.containsKey(item)) {
+            angle = angleOfItem.get(item);
         }
 
         return angle.floatValue();
     }
 
+    public DatabaseUpdate getDatabaseUpdateOf(Object item) {
+        return databaseUpdateOfMenuItem.get(item);
+    }
+
     private void initMaps() {
-        angleOfAction.put(actionRotate90, new Float(90));
-        angleOfAction.put(actionRotate180, new Float(180));
-        angleOfAction.put(actionRotate270, new Float(270));
+        angleOfItem.put(itemRotateThumbnai90, new Float(90));
+        angleOfItem.put(itemRotateThumbnai180, new Float(180));
+        angleOfItem.put(itemRotateThumbnai270, new Float(270));
+
+        databaseUpdateOfMenuItem.put(itemUpdateAllMetadata, DatabaseUpdate.Complete);
+        databaseUpdateOfMenuItem.put(itemUpdateXmp, DatabaseUpdate.Xmp);
+        databaseUpdateOfMenuItem.put(itemUpdateThumbnail, DatabaseUpdate.Thumbnail);
     }
 }

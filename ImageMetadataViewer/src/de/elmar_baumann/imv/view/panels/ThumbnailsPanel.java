@@ -183,15 +183,6 @@ public abstract class ThumbnailsPanel extends JPanel
     }
 
     /**
-     * Entfernt einen Beobachter.
-     * 
-     * @param listener Beobachter
-     */
-    public void removeThumbnailsPanelListener(ThumbnailsPanelListener listener) {
-        panelListener.remove(listener);
-    }
-
-    /**
      * Liefert ein bestimmtes Thumbnail.
      * 
      * @param index Index

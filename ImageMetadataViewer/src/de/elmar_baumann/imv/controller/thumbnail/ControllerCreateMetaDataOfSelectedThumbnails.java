@@ -8,6 +8,7 @@ import de.elmar_baumann.imv.event.ProgressEvent;
 import de.elmar_baumann.imv.event.ProgressListener;
 import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.resource.ProgressBarCurrentTasks;
+import de.elmar_baumann.imv.types.DatabaseUpdate;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuPanelThumbnails;
 import de.elmar_baumann.lib.io.FileUtil;
@@ -47,28 +48,21 @@ public class ControllerCreateMetaDataOfSelectedThumbnails extends Controller
     }
 
     private void listenToActionSources() {
+        popup.addActionListenerUpdateXmp(this);
+        popup.addActionListenerUpdateThumbnail(this);
         popup.addActionListenerUpdateAllMetadata(this);
-        popup.addActionListenerUpdateTextMetadata(this);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (isControl()) {
-            updateMetadataOfSelectedImages(
-                popup.isUpdateTextMetadata(e.getActionCommand()));
+        if (isControl() && thumbnailsPanel.getSelectionCount() > 0) {
+            updateMetadata(popup.getDatabaseUpdateOf(e.getSource()));
         }
     }
 
-    private void updateMetadataOfSelectedImages(boolean onlyTextMetadata) {
-        if (thumbnailsPanel.getSelectionCount() > 0) {
-            updateMetadata(onlyTextMetadata);
-        }
-    }
-
-    private void updateMetadata(boolean onlyTextMetadata) {
+    private void updateMetadata(DatabaseUpdate update) {
         updaters.add(
-            createUpdater(FileUtil.getAsFilenames(
-            thumbnailsPanel.getSelectedFiles()), onlyTextMetadata));
+            createUpdater(FileUtil.getAsFilenames(thumbnailsPanel.getSelectedFiles()), update));
         startUpdateMetadataThread();
     }
 
@@ -89,13 +83,10 @@ public class ControllerCreateMetaDataOfSelectedThumbnails extends Controller
         }
     }
 
-    private ImageMetadataToDatabase createUpdater(List<String> files, boolean onlyTextMetadata) {
+    private ImageMetadataToDatabase createUpdater(List<String> files, DatabaseUpdate update) {
         ImageMetadataToDatabase updater =
-            new ImageMetadataToDatabase(files,
-            UserSettings.getInstance().getMaxThumbnailWidth());
-        updater.setCreateThumbnails(!onlyTextMetadata);
+            new ImageMetadataToDatabase(files, update);
         updater.addProgressListener(this);
-        updater.setForceUpdate(true);
         return updater;
     }
 

@@ -35,15 +35,6 @@ public class RecordsWithNotExistingFilesDeleter implements Runnable,
         progressListeners.add(listener);
     }
 
-    /**
-     * Entfernt einen Fortschrittsbeobachter.
-     * 
-     * @param listener Fortschrittsbeobachter
-     */
-    public void removeProgressListener(ProgressListener listener) {
-        progressListeners.remove(listener);
-    }
-
     @Override
     public void progressStarted(ProgressEvent evt) {
         for (ProgressListener listener : progressListeners) {

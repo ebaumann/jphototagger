@@ -4,6 +4,7 @@ import de.elmar_baumann.imv.data.TextEntry;
 import de.elmar_baumann.imv.event.ProgressEvent;
 import de.elmar_baumann.imv.event.ProgressListener;
 import de.elmar_baumann.imv.image.metadata.xmp.XmpMetadata;
+import de.elmar_baumann.imv.types.DatabaseUpdate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,15 +53,6 @@ public class XmpUpdaterFromTextEntry implements Runnable {
     }
 
     /**
-     * Entfernt einen Fortschrittsbeobachter.
-     * 
-     * @param listener Beobachter
-     */
-    public void removeProgressListener(ProgressListener listener) {
-        progressListeners.remove(listener);
-    }
-
-    /**
      * Unterbricht die Arbeit.
      */
     public void stop() {
@@ -87,10 +79,7 @@ public class XmpUpdaterFromTextEntry implements Runnable {
     private void updateDatabase(String sidecarFilename) {
         List<String> fNames = new ArrayList<String>();
         fNames.add(getArbitraryImageFilename(sidecarFilename));
-        ImageMetadataToDatabase updater = new ImageMetadataToDatabase(fNames, 0);
-        updater.setCreateThumbnails(false);
-        updater.setReadExif(false);
-        updater.setForceUpdate(true);
+        ImageMetadataToDatabase updater = new ImageMetadataToDatabase(fNames, DatabaseUpdate.Xmp);
         updater.run();
     }
 

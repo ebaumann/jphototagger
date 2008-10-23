@@ -43,25 +43,6 @@ public class IoUtil {
     }
 
     /**
-     * Liefert die Zeit der letzten Modifikation einer Datei unter
-     * Berücksichtigung einer eventuell existierenden XMP-Filialdatei (sidecar
-     * file): Existiert eine Filialdatei und sie hat ein neueres Datum, wird
-     * ihr Datum geliefert.
-     * 
-     * @param  filename Dateiname
-     * @return          Zeit der letzten Modifikation in Millisekunden seit 1970
-     */
-    public static long getFileTime(String filename) {
-        long fileTime = new File(filename).lastModified();
-        long sidecarFileTime = -1;
-        String sidecarFilename = XmpMetadata.getSidecarFilename(filename);
-        if (sidecarFilename != null) {
-            sidecarFileTime = new File(sidecarFilename).lastModified();
-        }
-        return fileTime > sidecarFileTime ? fileTime : sidecarFileTime;
-    }
-
-    /**
      * Liefert Argumente als String für die Kommandozeile zum Anhängen an den
      * Aufruf eines Programms.
      * 

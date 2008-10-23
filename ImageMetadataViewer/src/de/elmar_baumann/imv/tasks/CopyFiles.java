@@ -80,15 +80,6 @@ public class CopyFiles implements Runnable {
         progressListeners.add(listener);
     }
 
-    /**
-     * Entfernt einen Beobachter.
-     * 
-     * @param listener  Beobachter
-     */
-    public void removeProgressListener(ProgressListener listener) {
-        progressListeners.add(listener);
-    }
-
     @Override
     public void run() {
         notifyStart();

@@ -14,6 +14,7 @@ import de.elmar_baumann.imv.image.metadata.exif.ExifMetadata;
 import de.elmar_baumann.imv.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.imv.io.IoUtil;
 import de.elmar_baumann.imv.resource.Bundle;
+import de.elmar_baumann.imv.types.DatabaseUpdate;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.awt.Image;
 import java.io.File;
@@ -24,7 +25,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Speichert Informationen über Bilddateien in der Datenbank.
+ * Write image file metadata into the database.
  * 
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
@@ -33,29 +34,23 @@ public class ImageMetadataToDatabase implements Runnable {
 
     private static DatabaseImageFiles db = DatabaseImageFiles.getInstance();
     private List<ProgressListener> progressListeners = new ArrayList<ProgressListener>();
-    private boolean stop = false;
-    private int maxThumbnailLength;
-    private List<String> filenames;
-    private long startTime = 0;
-    private boolean forceUpdate = false;
-    private boolean createThumbnails = true;
-    private boolean readXmp = true;
-    private boolean readExif = true;
-    private boolean onlyXmpIsNewer = false;
+    private int maxThumbnailWidth = UserSettings.getInstance().getMaxThumbnailWidth();
     private boolean useEmbeddedThumbnails = UserSettings.getInstance().isUseEmbeddedThumbnails();
+    private List<String> filenames;
+    private boolean stop = false;
+    private long startTime;
+    private DatabaseUpdate update;
     private int delaySeconds = 0;
 
     /**
-     * Konstruktor.
+     * Constructor.
      * 
-     * @param filenames          Namen der abzuarbeitenden Bilddateien
-     * @param maxThumbnailLength Maximale Länge der längeren Thumbnailseite
-     *                           in Pixel für Thumbnails, die aus den Bildern
-     *                           skaliert werden
+     * @param filenames  names of the <em>image</em> files to be updated
+     * @param update     update modalities
      */
-    public ImageMetadataToDatabase(List<String> filenames, int maxThumbnailLength) {
+    public ImageMetadataToDatabase(List<String> filenames, DatabaseUpdate update) {
         this.filenames = filenames;
-        this.maxThumbnailLength = maxThumbnailLength;
+        this.update = update;
     }
 
     /**
@@ -73,112 +68,8 @@ public class ImageMetadataToDatabase implements Runnable {
         progressListeners.add(listener);
     }
 
-    /**
-     * Entfernt einen Fortschrittsbeobachter.
-     * 
-     * @param listener Fortschrittsbeobachter
-     */
     public void removeProgressListener(ProgressListener listener) {
         progressListeners.remove(listener);
-    }
-
-    /**
-     * Setzt, dass die Metadaten auf jeden Fall aktualisiert werden, auch
-     * wenn diese in der Datenbank aktuell sind.
-     * 
-     * @param force true, wenn die Daten auf jeden Fall aktualisiert werden
-     *              sollen. Default: false
-     */
-    public void setForceUpdate(boolean force) {
-        forceUpdate = force;
-    }
-
-    /**
-     * Setzt, dass außer den Text-Metadaten auch Thumbnails erzeugt werden.
-     * 
-     * @param create true, wenn zusätzlich Thumbnails erzeugt werden sollen.
-     *               Default: true.
-     */
-    public void setCreateThumbnails(boolean create) {
-        createThumbnails = create;
-    }
-
-    /**
-     * Liefert, ob Thumbnails erzeugt werden sollen.
-     * 
-     * @return true, wenn Thumbnails erzeugt werden sollen
-     */
-    public boolean isCreateThumbnails() {
-        return createThumbnails;
-    }
-
-    /**
-     * Liefert, ob die Datenbank auf jeden Fall aktualisiert werden soll.
-     * 
-     * @return true, wenn die Datenbank aktualisiert werden soll unabhängig
-     *         von der Zeit der letzten Aktualisierung
-     */
-    public boolean isForceUpdate() {
-        return forceUpdate;
-    }
-
-    /**
-     * Liefert die maximale Länge der längeren Thumbnailseite.
-     * 
-     * @return Länge
-     */
-    public int getMaxThumbnailLength() {
-        return maxThumbnailLength;
-    }
-
-    /**
-     * Liefert, ob eingebettete Thumbnails gelesen werden sollen.
-     * 
-     * @return true, wenn eingebettete Thumbnails gelesen werden sollen
-     *         und nicht neue aus den Bilddaten erzeugt
-     */
-    public boolean isUseEmbeddedThumbnails() {
-        return useEmbeddedThumbnails;
-    }
-
-    /**
-     * Liefert, ob die Datenbank mit EXIF-Metadaten aktualisiert werden soll.
-     * 
-     * @return true, wenn die Datenbank mit EXIF-Metadaten aktualisiert
-     * werden soll
-     */
-    public boolean isReadExif() {
-        return readExif;
-    }
-
-    /**
-     * Setzt, ob die Datenbank mit EXIF-Metadaten aktualisiert werden soll.
-     * 
-     * @param readExif  true, wenn die Datenbank mit EXIF-Metadaten aktualisiert
-     *                  werden soll. Default: true.
-     */
-    public void setReadExif(boolean readExif) {
-        this.readExif = readExif;
-    }
-
-    /**
-     * Liefert, ob die Datenbank mit XMP-Metadaten aktualisiert werden soll.
-     * 
-     * @return true, wenn die Datenbank mit XMP-Metadaten aktualisiert werden
-     *         soll
-     */
-    public boolean isReadXmp() {
-        return readXmp;
-    }
-
-    /**
-     * Setzt, ob die Datenbank mit XMP-Metadaten aktualisiert werden soll.
-     * 
-     * @param readXmp  true, wenn die Datenbank mit XMP-Metadaten aktualisiert
-     *                 werden soll. Default: true.
-     */
-    public void setReadXmp(boolean readXmp) {
-        this.readXmp = readXmp;
     }
 
     /**
@@ -208,44 +99,63 @@ public class ImageMetadataToDatabase implements Runnable {
         startTime = System.currentTimeMillis();
         for (int index = 0; !stop && index < count; index++) {
             String filename = filenames.get(index);
-            if ((isForceUpdate() || !isImageFileUpToDate(filename))) {
-                ImageFile data = getImageFileData(filename);
-                if (data != null) {
-                    db.insertImageFile(data);
-                }
+            ImageFile data = getImageFileData(filename);
+            if (isUpdate(data)) {
+                db.insertImageFile(data);
             }
             notifyProgressPerformed(index + 1, filename);
         }
         notifyProgressEnded();
     }
 
+    private boolean isUpdate(ImageFile data) {
+        return data.getExif() != null ||
+            data.getXmp() != null ||
+            data.getThumbnail() != null;
+    }
+
+    private boolean isUpdateThumbnail(String filename) {
+        return update.isUpdate(DatabaseUpdate.Thumbnail) ||
+            !isImageFileUpToDate(filename);
+    }
+
+    private boolean isUpdateXmp(String filename) {
+        return update.isUpdate(DatabaseUpdate.Xmp) ||
+            !isXmpFileUpToDate(filename);
+    }
+
+    private boolean isUpdateExif(String filename) {
+        return update.isUpdate(DatabaseUpdate.Exif) ||
+            !isImageFileUpToDate(filename);
+    }
+
     private boolean isImageFileUpToDate(String filename) {
-        long dbTime = db.getLastModified(filename);
+        long dbTime = db.getLastModifiedImageFile(filename);
         long fileTime = FileUtil.getLastModified(filename);
-        long compareTime = fileTime;
-        long sidecarFileTime = -1;
-        String sidecarFileName = XmpMetadata.getSidecarFilename(filename);
-        if (sidecarFileName != null) {
-            sidecarFileTime = FileUtil.getLastModified(sidecarFileName);
-            if (sidecarFileTime > fileTime) {
-                compareTime = sidecarFileTime;
-            }
+        return fileTime == dbTime;
+    }
+
+    private boolean isXmpFileUpToDate(String imageFilename) {
+        String sidecarFileName = XmpMetadata.getSidecarFilename(imageFilename);
+        if (sidecarFileName == null) {
+            return true;
         }
-        onlyXmpIsNewer = fileTime <= dbTime && sidecarFileTime > dbTime;
-        return compareTime <= dbTime;
+        long dbTime = db.getLastModifiedXmp(imageFilename);
+        long fileTime = FileUtil.getLastModified(sidecarFileName);
+        return fileTime == dbTime;
     }
 
     private ImageFile getImageFileData(String filename) {
         ImageFile imageFileData = new ImageFile();
         imageFileData.setFilename(filename);
-        imageFileData.setLastmodified(IoUtil.getFileTime(filename));
-        if (!onlyXmpIsNewer && isCreateThumbnails()) {
+        imageFileData.setLastmodified(FileUtil.getLastModified(filename));
+        if (isUpdateThumbnail(filename)) {
             imageFileData.setThumbnail(getThumbnail(filename));
         }
-        if (isReadXmp()) {
+        if (isUpdateXmp(filename)) {
             setXmp(imageFileData);
         }
-        if (!onlyXmpIsNewer && isReadExif()) {
+        if (isUpdateExif(filename)) {
             setExif(imageFileData);
         }
         return imageFileData;
@@ -257,10 +167,10 @@ public class ImageMetadataToDatabase implements Runnable {
         File file = new File(filename);
         if (settings.isCreateThumbnailsWithExternalApp()) {
             thumbnail = ThumbnailUtil.getThumbnailFromExternalApplication(
-                    file, settings.getExternalThumbnailCreationCommand(), getMaxThumbnailLength());
+                file, settings.getExternalThumbnailCreationCommand(), maxThumbnailWidth);
         } else {
             thumbnail = ThumbnailUtil.getThumbnail(
-                    file, getMaxThumbnailLength(), isUseEmbeddedThumbnails());
+                file, maxThumbnailWidth, useEmbeddedThumbnails);
         }
         if (thumbnail == null) {
             notifyNullThumbnail(filename);

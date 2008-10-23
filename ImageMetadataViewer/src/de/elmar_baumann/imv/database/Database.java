@@ -30,10 +30,6 @@ public class Database {
         databaseListener.add(listener);
     }
 
-    public void removeDatabaseListener(DatabaseListener listener) {
-        databaseListener.remove(listener);
-    }
-
     protected void notifyDatabaseListener(DatabaseAction.Type type) {
         DatabaseAction action = new DatabaseAction(type);
         for (DatabaseListener listener : databaseListener) {

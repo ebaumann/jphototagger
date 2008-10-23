@@ -101,10 +101,6 @@ public class AppFrame extends javax.swing.JFrame {
         startListeners.add(listener);
     }
 
-    public void removeAppStartListener(AppStartListener listener) {
-        startListeners.remove(listener);
-    }
-
     private void notifyStart() {
         for (AppStartListener listener : startListeners) {
             listener.appWillStart();
@@ -113,10 +109,6 @@ public class AppFrame extends javax.swing.JFrame {
 
     public void addAppExitListener(AppExitListener listener) {
         exitListeners.add(listener);
-    }
-
-    public void removeAppExitListener(AppExitListener listener) {
-        exitListeners.remove(listener);
     }
 
     private void notifyExit() {

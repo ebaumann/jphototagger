@@ -31,9 +31,8 @@
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="checkBoxNoThumbnails" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="checkBoxForce" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="checkBoxIncludeSubdirectories" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="checkBoxForce" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="scrollPaneSelectedDirectories" alignment="1" pref="647" max="32767" attributes="0"/>
                   <Component id="progressBar" alignment="0" pref="647" max="32767" attributes="2"/>
                   <Component id="labelInfotext" alignment="0" pref="647" max="32767" attributes="0"/>
@@ -64,16 +63,14 @@
               <EmptySpace min="-2" max="-2" attributes="0"/>
               <Component id="labelHeadingTreeChosenDirectories" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Component id="scrollPaneSelectedDirectories" pref="61" max="32767" attributes="0"/>
+              <Component id="scrollPaneSelectedDirectories" pref="56" max="32767" attributes="0"/>
               <EmptySpace min="-2" max="-2" attributes="0"/>
               <Component id="labelCountSelectedFiles" min="-2" pref="20" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
               <Component id="checkBoxForce" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Component id="checkBoxNoThumbnails" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="checkBoxIncludeSubdirectories" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="buttonScan" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="buttonCancelScan" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -237,16 +234,6 @@
         </Property>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UpdateMetaDataOfDirectoriesDialog.checkBoxForce.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
-        </Property>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JCheckBox" name="checkBoxNoThumbnails">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Dialog" size="12" style="0"/>
-        </Property>
-        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="UpdateMetaDataOfDirectoriesDialog.checkBoxNoThumbnails.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
         </Property>
       </Properties>
     </Component>

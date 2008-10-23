@@ -41,15 +41,6 @@ public class UpdaterRenameInXmpColumns implements Runnable, ProgressListener {
     }
 
     /**
-     * Entfernt einen Fortschrittsbeobachter.
-     * 
-     * @param listener Beobachter
-     */
-    public void removeProgressListener(ProgressListener listener) {
-        progressListeners.remove(listener);
-    }
-
-    /**
      * Unterbricht die Arbeit.
      */
     public void stop() {

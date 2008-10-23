@@ -6,7 +6,7 @@ import de.elmar_baumann.imv.event.ProgressListener;
 import de.elmar_baumann.imv.event.TaskListener;
 import de.elmar_baumann.imv.io.ImageFilteredDirectory;
 import de.elmar_baumann.imv.resource.Bundle;
-import de.elmar_baumann.imv.types.Force;
+import de.elmar_baumann.imv.types.DatabaseUpdate;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.io.File;
 import java.text.MessageFormat;
@@ -116,15 +116,6 @@ public class ImageMetadataToDatabaseArray implements ProgressListener {
         taskListeners.add(listener);
     }
 
-    /**
-     * Entfernt einen Task-Beobachter.
-     * 
-     * @param listener  Beobachter
-     */
-    public void removeTaskListener(TaskListener listener) {
-        taskListeners.remove(listener);
-    }
-
     private void checkTasksCompleted() {
         if (updaters.isEmpty()) {
             notifyTaskListenerCompleted();
@@ -141,27 +132,18 @@ public class ImageMetadataToDatabaseArray implements ProgressListener {
      * Fügt ein einzuscannendes Verzeichnis hinzu.
      * 
      * @param directoryName    Verzeichnisname
-     * @param onlyTextMetadata true, wenn nur Textmetadaten aktualisiert werden
-     *                         sollen und keine Thumbnails
-     * @param force            true, wenn auch aktuelle Bilddateien aktualisiert
-     *                         werden sollen, also <em>jede</em> Bilddatei
+     * @param update           Update-Eigenschaften
      */
-    synchronized public void addDirectory(String directoryName,
-        boolean onlyTextMetadata, Force force) {
-        updaters.add(createUpdater(directoryName, onlyTextMetadata, force));
+    synchronized public void addDirectory(String directoryName, DatabaseUpdate update) {
+        updaters.add(createUpdater(directoryName, update));
         startUpdateThread();
     }
 
-    private ImageMetadataToDatabase createUpdater(String directoryName,
-        boolean onlyTextMetadata, Force force) {
+    private ImageMetadataToDatabase createUpdater(String directoryName, DatabaseUpdate update) {
         List<String> filenames = FileUtil.getAsFilenames(
             ImageFilteredDirectory.getImageFilesOfDirectory(new File(directoryName)));
         Collections.sort(filenames);
-        int thumbnailLength = UserSettings.getInstance().getMaxThumbnailWidth();
-        ImageMetadataToDatabase scanner =
-            new ImageMetadataToDatabase(filenames, thumbnailLength);
-        scanner.setCreateThumbnails(!onlyTextMetadata);
-        scanner.setForceUpdate(force.getForce());
+        ImageMetadataToDatabase scanner = new ImageMetadataToDatabase(filenames, update);
         scanner.addProgressListener(this);
         updaterOfDirectory.put(directoryName, scanner);
         directoryOfUpdater.put(scanner, directoryName);
@@ -190,7 +172,7 @@ public class ImageMetadataToDatabaseArray implements ProgressListener {
 
     @Override
     public void progressPerformed(ProgressEvent evt) {
-            if (isStarted()) {
+        if (isStarted()) {
             String filename = evt.getInfo().toString();
             messageUpdateCurrentImage(filename);
             if (progressBar != null) {

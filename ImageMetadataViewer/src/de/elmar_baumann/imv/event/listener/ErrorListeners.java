@@ -32,15 +32,6 @@ public class ErrorListeners {
     }
 
     /**
-     * Meldet einen Beobachter ab.
-     * 
-     * @param listener  Beobachter
-     */
-    public void removeErrorListener(ErrorListener listener) {
-        errorListeners.remove(listener);
-    }
-
-    /**
      * Meldet allen angemeldeten Errorlistenern einen Fehler.
      * 
      * @param evt  Fehlerereignis

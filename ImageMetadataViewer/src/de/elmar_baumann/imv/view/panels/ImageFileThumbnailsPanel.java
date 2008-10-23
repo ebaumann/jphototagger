@@ -63,16 +63,6 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel {
         refreshListenersOfContent.get(content).add(listener);
     }
 
-    /**
-     * Removes a refresh listener for a specific content.
-     * 
-     * @param listener  listener
-     * @param content   content
-     */
-    public void removeRefreshListener(RefreshListener listener, Content content) {
-        refreshListenersOfContent.get(content).remove(listener);
-    }
-
     private void notifyRefreshListeners() {
         for (RefreshListener listener : refreshListenersOfContent.get(content)) {
             listener.refresh();

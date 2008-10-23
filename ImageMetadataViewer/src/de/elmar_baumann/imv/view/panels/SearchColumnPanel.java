@@ -57,15 +57,6 @@ public class SearchColumnPanel extends javax.swing.JPanel {
     }
 
     /**
-     * Entfernt einen Suchen-Beobachter.
-     * 
-     * @param listener Beobachter
-     */
-    public void removeSearchListener(SearchListener listener) {
-        searchListener.remove(listener);
-    }
-
-    /**
      * Setzt alle Werte auf den Ursprungszustand.
      */
     public void reset() {

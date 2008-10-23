@@ -42,15 +42,6 @@ public class ControllerRecordsWithNotExistingFilesDeleter extends Controller
         taskListeners.add(listener);
     }
 
-    /**
-     * Entfernt einen Task-Beobachter.
-     * 
-     * @param listener  Beobachter
-     */
-    public void removeTaskListener(TaskListener listener) {
-        taskListeners.remove(listener);
-    }
-
     @Override
     public void setControl(boolean control) {
         super.setControl(control);
