@@ -20,8 +20,9 @@ import java.util.List;
  */
 public class AllTables {
 
-    private static List<Table> allTables = new ArrayList<Table>();    // TODO PERMANENT: Neue Tabellen eintragen, Reihenfolge NIE verändern, da Wechselwirkung mit
-    // de.elmar_baumann.imv.database.metadata.ColumnIds.initColumnOfIdMap()
+    private static List<Table> allTables = new ArrayList<Table>();    // TODO PERMANENT: Neue Tabellen eintragen
+    // Reihenfolge NIE verändern, da Wechselwirkung mit
+    // de.elmar_baumann.imv.database.metadata.selections.ColumnIds.initColumnOfIdMap()
     
 
     static {
