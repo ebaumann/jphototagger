@@ -1,5 +1,7 @@
 package de.elmar_baumann.imv.database;
 
+import de.elmar_baumann.imv.resource.Bundle;
+import de.elmar_baumann.lib.dialog.ProgressDialog;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -13,16 +15,36 @@ import java.sql.Statement;
 class UpdateTables extends Database {
 
     private static UpdateTables instance = new UpdateTables();
+    ProgressDialog dialog;
 
     static UpdateTables getInstance() {
         return instance;
     }
 
     private UpdateTables() {
+        initDialog();
+    }
+
+    private void initDialog() {
+        dialog = new ProgressDialog(null);
+        dialog.setEnabledClose(false);
+        dialog.setEnabledStop(false);
+        dialog.setTitle(Bundle.getString("UpdateTables.InfoMessage.Title"));
+        dialog.setIntermediate(true);
     }
 
     synchronized void update(Connection connection) throws SQLException {
         updateXmp(connection);
+        dialog.setVisible(false);
+    }
+
+    private void message(String text) {
+        dialog.setInfoText(text);
+        if (dialog.isVisible()) {
+            dialog.toFront();
+        } else {
+            dialog.setVisible(true);
+        }
     }
 
     synchronized private void updateXmp(Connection connection) throws SQLException {
@@ -31,6 +53,7 @@ class UpdateTables extends Database {
 
     synchronized private void addColumnXmpLastModified(Connection connection) throws SQLException {
         if (!DatabaseMetadata.getInstance().existsColumn(connection, "xmp", "lastmodified")) { // NOI18N
+            message(Bundle.getString("UpdateTables.InfoMessage.AddColumnXmpLastModified"));
             Statement stmt = connection.createStatement();
             stmt.execute("ALTER TABLE xmp ADD COLUMN lastmodified BIGINT"); // NOI18N
             stmt.execute("CREATE INDEX idx_xmp_lastmodified ON xmp (lastmodified)"); // NOI18N
