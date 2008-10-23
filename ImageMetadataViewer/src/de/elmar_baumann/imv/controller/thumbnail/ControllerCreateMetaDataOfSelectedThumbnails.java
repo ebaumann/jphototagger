@@ -48,7 +48,6 @@ public class ControllerCreateMetaDataOfSelectedThumbnails extends Controller
     }
 
     private void listenToActionSources() {
-        popup.addActionListenerUpdateXmp(this);
         popup.addActionListenerUpdateThumbnail(this);
         popup.addActionListenerUpdateAllMetadata(this);
     }
