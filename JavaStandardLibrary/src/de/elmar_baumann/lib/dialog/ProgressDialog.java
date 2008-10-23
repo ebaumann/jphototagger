@@ -18,6 +18,7 @@ import java.util.List;
 public class ProgressDialog extends javax.swing.JDialog {
 
     private List<ActionListener> actionListeners = new ArrayList<ActionListener>();
+    private boolean closeEnabled = true;
 
     /**
      * Konstruktor.
@@ -101,11 +102,40 @@ public class ProgressDialog extends javax.swing.JDialog {
         labelProgressInfo.setText(text);
     }
 
+    /**
+     * Sets the progress bar in the intermediate state.
+     * 
+     * @param intermediate  true, if intermediate
+     */
+    public void setIntermediate(boolean intermediate) {
+        progressBar.setIndeterminate(intermediate);
+    }
+
+    /**
+     * Enables closing the dialog.
+     * 
+     * @param enabled  true, if enabled. Default: true.
+     */
+    public void setEnabledClose(boolean enabled) {
+        closeEnabled = enabled;
+    }
+    
+    /**
+     * Sets the stop button enabled.
+     * 
+     * @param stop  true, if enabled. Default: true.
+     */
+    public void setEnabledStop(boolean stop) {
+        buttonStop.setEnabled(stop);
+    }
+
     private void stop() {
-        for (ActionListener listener : actionListeners) {
-            listener.actionPerformed(new ActionEvent(this, 0, "Stop"));
+        if (closeEnabled) {
+            for (ActionListener listener : actionListeners) {
+                listener.actionPerformed(new ActionEvent(this, 0, "Stop"));
+            }
+            setVisible(false);
         }
-        setVisible(false);
     }
 
     @Override
