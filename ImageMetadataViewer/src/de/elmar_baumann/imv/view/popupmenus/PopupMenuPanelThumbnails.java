@@ -37,14 +37,12 @@ public class PopupMenuPanelThumbnails extends JPopupMenu
     private final String actionOpenFiles = Bundle.getString("PopupMenuPanelThumbnails.Action.OpenFiles");
     private final String actionDeleteImageFromDatabase = Bundle.getString("PopupMenuPanelThumbnails.Action.DeleteImageFromDatabase");
     private final String actionCopySelectedFilesToDirectory = Bundle.getString("PopupMenuPanelThumbnails.Action.CopySelectedFilesToDirectory");
-    private final String actionRenameInXmpColumns = Bundle.getString("PopupMenuPanelThumbnails.Action.RenameInXmpColumns");
     private final String actionFileSystemDeleteFiles = Bundle.getString("PopupMenuPanelThumbnails.Action.FileSystemDeleteFiles");
     private final String actionFileSystemRenameFiles = Bundle.getString("PopupMenuPanelThumbnails.Action.FileSystemRename");
     private final String actionFileSystemMoveFiles = Bundle.getString("PopupMenuPanelThumbnails.Action.FileSystemMove");
     private JMenu menuOtherOpenImageApps = new JMenu(Bundle.getString("PopupMenuPanelThumbnails.menuOtherOpenImageApps.text"));
     private final JMenuItem itemUpdateMetadata = new JMenuItem(actionUpdateMetadata);
     private final JMenuItem itemUpdateThumbnail = new JMenuItem(actionUpdateThumbnail);
-    private final JMenuItem itemRenameInXmpColumns = new JMenuItem(actionRenameInXmpColumns);
     private final JMenuItem itemCreateImageCollection = new JMenuItem(actionCreateImageCollection);
     private final JMenuItem itemAddToImageCollection = new JMenuItem(actionAddToImageCollection);
     private final JMenuItem itemDeleteFromImageCollection = new JMenuItem(actionDeleteFromImageCollection);
@@ -87,7 +85,6 @@ public class PopupMenuPanelThumbnails extends JPopupMenu
         add(itemUpdateThumbnail);
         add(itemUpdateMetadata);
         add(itemDeleteThumbnail);
-        add(itemRenameInXmpColumns);
         add(new JSeparator());
         add(itemOpenFilesWithStandardApp);
         add(menuOtherOpenImageApps);
@@ -152,10 +149,6 @@ public class PopupMenuPanelThumbnails extends JPopupMenu
 
     public void addActionListenerOpenFilesWithStandardApp(ActionListener listener) {
         itemOpenFilesWithStandardApp.addActionListener(listener);
-    }
-
-    public void addActionListenerRenameInXmpColumns(ActionListener listener) {
-        itemRenameInXmpColumns.addActionListener(listener);
     }
 
     public void addActionListenerCreateImageCollection(ActionListener listener) {
