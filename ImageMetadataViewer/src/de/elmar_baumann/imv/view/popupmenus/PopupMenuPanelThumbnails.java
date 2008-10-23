@@ -247,7 +247,6 @@ public class PopupMenuPanelThumbnails extends JPopupMenu
         angleOfItem.put(itemRotateThumbnai270, new Float(270));
 
         databaseUpdateOfMenuItem.put(itemUpdateAllMetadata, DatabaseUpdate.Complete);
-        databaseUpdateOfMenuItem.put(itemUpdateXmp, DatabaseUpdate.Xmp);
         databaseUpdateOfMenuItem.put(itemUpdateThumbnail, DatabaseUpdate.Thumbnail);
     }
 }
