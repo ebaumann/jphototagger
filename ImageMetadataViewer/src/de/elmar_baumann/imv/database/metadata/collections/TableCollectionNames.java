@@ -22,7 +22,7 @@ public class TableCollectionNames extends Table {
 
     @Override
     protected void addColumns() {
-        // Reihenfolge NIE verändern, siehe de.elmar_baumann.imv.database.metadata.AllTables.get()
+        // Reihenfolge NIE verändern, siehe de.elmar_baumann.imv.database.metadata.selections.AllTables.get()
         addColumn(ColumnCollectionnamesId.getInstance());
         addColumn(ColumnCollectionnamesName.getInstance());
     }
