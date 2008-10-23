@@ -82,6 +82,31 @@ public class DatabaseStatistics extends Database {
     }
 
     /**
+     * Liefert die Anzahl der Dateien mit XMP-Daten in der Datenbank.
+     *
+     * @return Dateianzahl oder -1 bei Fehlern
+     */
+    public int getXmpCount() {
+        int count = -1;
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT COUNT(*)" + // NOI18N
+                " FROM xmp LEFT JOIN files ON xmp.id_files = files.id"); // NOI18N
+            if (rs.next()) {
+                count = rs.getInt(1);
+            }
+            stmt.close();
+        } catch (SQLException ex) {
+            handleException(ex, Level.SEVERE);
+        } finally {
+            free(connection);
+        }
+        return count;
+    }
+
+    /**
      * Liefert die Anzahl aller Datensätze in allen Tabellen.
      *
      * @return Anzahl oder -1 bei Fehlern

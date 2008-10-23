@@ -60,7 +60,7 @@ public class DatabaseFavoriteDirectories extends Database {
             try {
                 connection.rollback();
             } catch (SQLException ex1) {
-                handleException(ex, Level.SEVERE);
+                handleException(ex1, Level.SEVERE);
             }
         } finally {
             free(connection);
@@ -93,7 +93,7 @@ public class DatabaseFavoriteDirectories extends Database {
             try {
                 connection.rollback();
             } catch (SQLException ex1) {
-                handleException(ex, Level.SEVERE);
+                handleException(ex1, Level.SEVERE);
             }
         } finally {
             free(connection);
@@ -134,7 +134,7 @@ public class DatabaseFavoriteDirectories extends Database {
             try {
                 connection.rollback();
             } catch (SQLException ex1) {
-                handleException(ex, Level.SEVERE);
+                handleException(ex1, Level.SEVERE);
             }
         } finally {
             free(connection);

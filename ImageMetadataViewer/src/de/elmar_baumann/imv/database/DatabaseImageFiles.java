@@ -294,7 +294,7 @@ public class DatabaseImageFiles extends Database {
             try {
                 connection.rollback();
             } catch (SQLException ex1) {
-                handleException(ex, Level.SEVERE);
+                handleException(ex1, Level.SEVERE);
             }
         } finally {
             free(connection);
@@ -674,9 +674,8 @@ public class DatabaseImageFiles extends Database {
                 filename = rs.getString(1);
                 File file = new File(filename);
                 if (!file.exists()) {
-                    deleteRowWithFilename(connection, filename);
+                    countDeleted += deleteRowWithFilename(connection, filename);
                     deletedFiles.add(filename);
-                    countDeleted++;
                 }
                 event.setValue(event.getValue() + 1);
                 notifyProgressListenerPerformed(listener, event);
@@ -694,6 +693,64 @@ public class DatabaseImageFiles extends Database {
         event.setInfo(new Integer(countDeleted));
         notifyProgressListenerEnd(listener, event);
         return countDeleted;
+    }
+
+    /**
+     * Deletes XMP-Data of image files when a XMP sidecar file does not
+     * exist but in the database is XMP data for this image file.
+     * 
+     * @param  listener   progress listener
+     * @return count of deleted XMP data (one per image file)
+     */
+    public synchronized int deleteNotExistingXmpData(ProgressListener listener) {
+        int countDeleted = 0;
+        ProgressEvent event = new ProgressEvent(this, 0, 0, 0, null);
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            event.setMaximum(DatabaseStatistics.getInstance().getXmpCount());
+            Statement stmt = connection.createStatement();
+            String query = "SELECT files.filename FROM files" + // NOI18N
+                " LEFT JOIN xmp on files.id = xmp.id_files"; // NOI18N
+            ResultSet rs = stmt.executeQuery(query);
+            String filename;
+            boolean abort = notifyProgressListenerStart(listener, event);
+            while (!abort && rs.next()) {
+                filename = rs.getString(1);
+                if (XmpMetadata.getSidecarFilename(filename) == null) {
+                    countDeleted += deleteXmpOfFilename(connection, filename);
+                }
+                event.setValue(event.getValue() + 1);
+                notifyProgressListenerPerformed(listener, event);
+                abort = event.isStop();
+            }
+            stmt.close();
+        } catch (SQLException ex) {
+            handleException(ex, Level.SEVERE);
+        } finally {
+            free(connection);
+        }
+        event.setInfo(new Integer(countDeleted));
+        notifyProgressListenerEnd(listener, event);
+        return countDeleted;
+    }
+
+    private int deleteXmpOfFilename(Connection connection, String filename) {
+        int count = 0;
+        try {
+            PreparedStatement stmt = connection.prepareStatement(
+                "DELETE FROM xmp WHERE" + // NOI18N
+                " xmp.id_files in" + // NOI18N
+                " (SELECT xmp.id_files FROM xmp, files" + // NOI18N
+                " WHERE xmp.id_files = files.id AND files.filename = ?)"); // NOI18N
+            stmt.setString(1, filename);
+            logStatement(stmt);
+            count = stmt.executeUpdate();
+            stmt.close();
+        } catch (SQLException ex) {
+            handleException(ex, Level.SEVERE);
+        }
+        return count;
     }
 
     /**
@@ -762,7 +819,7 @@ public class DatabaseImageFiles extends Database {
             try {
                 connection.rollback();
             } catch (SQLException ex1) {
-                handleException(ex, Level.SEVERE);
+                handleException(ex1, Level.SEVERE);
             }
         } finally {
             free(connection);
@@ -772,18 +829,19 @@ public class DatabaseImageFiles extends Database {
         return countRenamed;
     }
 
-    private synchronized void deleteRowWithFilename(Connection connection, String filename) {
+    private synchronized int deleteRowWithFilename(Connection connection, String filename) {
+        int countDeleted = 0;
         try {
             PreparedStatement stmt = connection.prepareStatement(
                 "DELETE FROM files WHERE filename = ?"); // NOI18N
             stmt.setString(1, filename);
             logStatement(stmt);
-            int count = stmt.executeUpdate();
-            assert count > 0;
+            countDeleted = stmt.executeUpdate();
             stmt.close();
         } catch (SQLException ex) {
             handleException(ex, Level.SEVERE);
         }
+        return countDeleted;
     }
 
     /**
@@ -822,7 +880,7 @@ public class DatabaseImageFiles extends Database {
             try {
                 connection.rollback();
             } catch (SQLException ex1) {
-                handleException(ex, Level.SEVERE);
+                handleException(ex1, Level.SEVERE);
             }
         } finally {
             free(connection);
