@@ -384,4 +384,20 @@ public class FileUtil {
         }
         return fileList;
     }
+
+    /**
+     * Returns the directories of a list of files.
+     * 
+     * @param  files  files
+     * @return existing directories within <code>files</code>
+     */
+    public static List<File> getDirectories(List<File> files) {
+        List<File> directories = new ArrayList<File>();
+        for (File file : files) {
+            if (file.exists() && file.isDirectory()) {
+                directories.add(file);
+            }
+        }
+        return directories;
+    }
 }
