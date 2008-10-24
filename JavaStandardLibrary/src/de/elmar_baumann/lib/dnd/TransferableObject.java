@@ -12,7 +12,7 @@ import java.io.IOException;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/17
  */
-public class ObjectTransferable implements Transferable {
+public class TransferableObject implements Transferable {
 
     private Object data;
     private DataFlavor[] flavors = new DataFlavor[1];
@@ -21,7 +21,7 @@ public class ObjectTransferable implements Transferable {
         flavors[0] = DataFlavor.stringFlavor;
     }
 
-    public ObjectTransferable(Object data) {
+    public TransferableObject(Object data) {
         super();
         this.data = data;
     }
