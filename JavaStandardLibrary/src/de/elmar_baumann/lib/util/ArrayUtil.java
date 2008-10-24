@@ -30,13 +30,30 @@ public class ArrayUtil {
      * 
      * @param string    String mit Token
      * @param delimiter Begrenzer zwischen den Token
-     * @return          ArrayList
+     * @return          List
      */
     public static List<String> stringTokenToArray(String string, String delimiter) {
         List<String> array = new ArrayList<String>();
         StringTokenizer tokenizer = new StringTokenizer(string, delimiter);
         while (tokenizer.hasMoreTokens()) {
             array.add(tokenizer.nextToken());
+        }
+        return array;
+    }
+
+    /**
+     * Converts a string into an integer array. <em>It is expected, that
+     * each token can be parsed as an integer!</em>
+     * 
+     * @param string    string
+     * @param delimiter delimiter between integer token
+     * @return          list
+     */
+    public static List<Integer> integerTokenToArray(String string, String delimiter) {
+        List<Integer> array = new ArrayList<Integer>();
+        StringTokenizer tokenizer = new StringTokenizer(string, delimiter);
+        while (tokenizer.hasMoreTokens()) {
+            array.add(Integer.parseInt(tokenizer.nextToken()));
         }
         return array;
     }
