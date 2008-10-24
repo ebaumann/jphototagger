@@ -25,7 +25,6 @@ public class TransferTools {
     public static Transferable getSelectedItemStringsTransferable(JList list, String delimiter) {
         Object[] values = list.getSelectedValues();
         StringBuffer buffer = new StringBuffer();
-
         for (int i = 0; i < values.length; i++) {
             Object val = values[i];
             buffer.append(val == null ? "" : val.toString());
@@ -36,7 +35,7 @@ public class TransferTools {
 
     /**
      * Returns the Integers of a list in a {@link java.awt.datatransfer.StringSelection}.
-     * Each line is separated by a delimiter.
+     * Each integer is separated by a delimiter.
      * 
      * @param  list      list
      * @param delimiter  delimiter
@@ -47,8 +46,28 @@ public class TransferTools {
         StringBuffer buffer = new StringBuffer();
         int size = list.size();
         for (int i = 0; i < size; i++) {
-            Integer index = list.get(i);
-            buffer.append(index.toString());
+            Integer integer = list.get(i);
+            buffer.append(integer.toString());
+            buffer.append(i < size - 1 ? delimiter : ""); // NOI18N
+        }
+        return new StringSelection(buffer.toString());
+    }
+
+    /**
+     * Returns the Strings of a list in a {@link java.awt.datatransfer.StringSelection}.
+     * Each string is separated by a delimiter.
+     * 
+     * @param  list      list
+     * @param delimiter  delimiter
+     * @return <code>StringSelection</code>: A String within integer token
+     *         separated by <code>delimiter</code>
+     */
+    public static Transferable getStringListTransferable(List<String> list, String delimiter) {
+        StringBuffer buffer = new StringBuffer();
+        int size = list.size();
+        for (int i = 0; i < size; i++) {
+            String string = list.get(i);
+            buffer.append(string);
             buffer.append(i < size - 1 ? delimiter : ""); // NOI18N
         }
         return new StringSelection(buffer.toString());
