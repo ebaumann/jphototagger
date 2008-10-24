@@ -9,7 +9,6 @@ import de.elmar_baumann.imv.view.frames.AppFrame;
 import de.elmar_baumann.lib.io.FileUtil;
 import de.elmar_baumann.lib.persistence.PersistentSettings;
 import de.elmar_baumann.lib.resource.Settings;
-import java.awt.datatransfer.Clipboard;
 import java.io.IOException;
 import java.util.logging.FileHandler;
 import java.util.logging.Formatter;
@@ -25,8 +24,6 @@ import java.util.logging.Logger;
  */
 public class Main {
     
-    public static Clipboard appClipboard = new Clipboard("de.elmar_baumann.imv");
-
     /**
      * @param args the command line arguments
      */

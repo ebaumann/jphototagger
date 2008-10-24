@@ -1,7 +1,7 @@
 package de.elmar_baumann.imv.dnd;
 
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
-import de.elmar_baumann.lib.dnd.TransferTools;
+import de.elmar_baumann.lib.dnd.TransferUtil;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.awt.datatransfer.Transferable;
 import java.util.List;
@@ -35,7 +35,7 @@ public class TransferHandlerThumbnailsPanel extends TransferHandler {
         ImageFileThumbnailsPanel thumbnailsPanel = (ImageFileThumbnailsPanel)c;
             //Panels.getInstance().getAppPanel().getPanelThumbnails(); // c is the baseclass
         List<String> filenames = FileUtil.getAsFilenames(thumbnailsPanel.getSelectedFiles());
-        return TransferTools.getStringListTransferable(filenames, delimiter);
+        return TransferUtil.getStringListTransferable(filenames, delimiter);
     }
 
     @Override

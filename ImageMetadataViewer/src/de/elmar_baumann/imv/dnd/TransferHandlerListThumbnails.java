@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.dnd;
 
-import de.elmar_baumann.lib.dnd.TransferTools;
+import de.elmar_baumann.lib.dnd.TransferUtil;
 import de.elmar_baumann.lib.util.ArrayUtil;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
@@ -33,7 +33,7 @@ public abstract class TransferHandlerListThumbnails extends TransferHandler {
 
     @Override
     protected Transferable createTransferable(JComponent c) {
-        return TransferTools.getSelectedItemStringsTransferable(
+        return TransferUtil.getSelectedItemStringsTransferable(
             (JList) c, itemDelimiter);
     }
 

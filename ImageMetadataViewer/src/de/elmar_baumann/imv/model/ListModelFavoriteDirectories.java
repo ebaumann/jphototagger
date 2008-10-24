@@ -61,7 +61,7 @@ public class ListModelFavoriteDirectories extends DefaultListModel {
         }
     }
 
-    private void swapFavorites(int fromIndex, int toIndex) {
+    public void swapFavorites(int fromIndex, int toIndex) {
         if (canSwapFavorites(fromIndex, toIndex)) {
             FavoriteDirectory fromFavorite = (FavoriteDirectory) get(fromIndex);
             FavoriteDirectory toFavorite = (FavoriteDirectory) get(toIndex);
