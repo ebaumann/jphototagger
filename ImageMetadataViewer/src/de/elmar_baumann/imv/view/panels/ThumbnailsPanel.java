@@ -3,6 +3,7 @@ package de.elmar_baumann.imv.view.panels;
 import de.elmar_baumann.imv.event.ThumbnailsPanelAction;
 import de.elmar_baumann.imv.event.ThumbnailsPanelListener;
 import de.elmar_baumann.imv.data.ThumbnailFlag;
+import de.elmar_baumann.imv.resource.Panels;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Cursor;
@@ -13,6 +14,8 @@ import java.awt.Image;
 import java.awt.MediaTracker;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
 import java.awt.dnd.DragSource;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
@@ -96,6 +99,7 @@ public abstract class ThumbnailsPanel extends JPanel
         addKeyListener(this);
         setBackground(colorPanelBackground);
         addComponentListener(this);
+        setTransferHandler(Panels.getInstance().getAppPanel().transferHandler);
     }
 
     private void empty() {
@@ -512,9 +516,15 @@ public abstract class ThumbnailsPanel extends JPanel
 
     private void handleMouseDragged(MouseEvent e) {
         if (getSelectionCount() > 0) {
+            copySelectionToClipBoard();
             setCursor(DragSource.DefaultMoveDrop);
             drag = true;
         }
+    }
+    
+    private void copySelectionToClipBoard() {
+        Clipboard cb = Toolkit.getDefaultToolkit().getSystemClipboard();
+        cb.setContents(new java.awt.datatransfer.StringSelection("test"), null);
     }
 
     private void setSelectedAll(boolean select) {

@@ -198,7 +198,11 @@
                             <Property name="cellRenderer" type="javax.swing.ListCellRenderer" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                               <Connection code="new ListCellRendererImageCollections()" type="code"/>
                             </Property>
+                            <Property name="dragEnabled" type="boolean" value="true"/>
                           </Properties>
+                          <AuxValues>
+                            <AuxValue name="JavaCodeGenerator_ListenersCodePost" type="java.lang.String" value="listCategories.setTransferHandler(transferHandler);"/>
+                          </AuxValues>
                         </Component>
                       </SubComponents>
                     </Container>

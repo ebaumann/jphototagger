@@ -1,6 +1,7 @@
 package de.elmar_baumann.imv.view.panels;
 
 import de.elmar_baumann.imv.AppSettings;
+import de.elmar_baumann.imv.dnd.ListTransferHandlerThumbnailIndices;
 import de.elmar_baumann.lib.renderer.TreeCellRendererDirectories;
 import de.elmar_baumann.imv.event.AppExitListener;
 import de.elmar_baumann.imv.event.AppStartListener;
@@ -30,6 +31,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.JTree;
 import javax.swing.JViewport;
+import javax.swing.TransferHandler;
 import javax.swing.tree.TreeSelectionModel;
 
 /**
@@ -47,6 +49,7 @@ public class AppPanel extends javax.swing.JPanel
     private List<JList> selectionLists = new ArrayList<JList>();
     private MetadataEditPanelsArray editPanelsArray;
     private MetaDataEditActionsPanel metadataEditActionsPanel;
+    public TransferHandler transferHandler = new ListTransferHandlerThumbnailIndices();
     private static final String keyDividerLocationThumbnails = "AppPanel.DividerLocationThumbnails";
 
     public AppPanel() {
@@ -61,6 +64,7 @@ public class AppPanel extends javax.swing.JPanel
         setBackgroundColorTablesScrollPanes();
         disableTreeMultipleSelection();
         initArrays();
+        panelThumbnails.setDragEnabled(true);
     }
 
     private void initArrays() {
@@ -479,6 +483,8 @@ public class AppPanel extends javax.swing.JPanel
 
         listImageCollections.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         listImageCollections.setCellRenderer(new ListCellRendererImageCollections());
+        listImageCollections.setDragEnabled(true);
+        listCategories.setTransferHandler(transferHandler);
         scrollPaneImageCollections.setViewportView(listImageCollections);
 
         javax.swing.GroupLayout panelSelectionImageCollectionsLayout = new javax.swing.GroupLayout(panelSelectionImageCollections);
