@@ -32,4 +32,14 @@ public class MouseEventUtil {
     public static boolean isDoubleClick(MouseEvent e) {
         return e.getClickCount() >= 2;
     }
+
+    /**
+     * Returns, whether the left mouse button was clicked.
+     * 
+     * @param  e  mouse event
+     * @return true if the left mouse button was clicked
+     */
+    public static boolean isLeftClick(MouseEvent e) {
+        return e.getButton() == MouseEvent.BUTTON1;
+    }
 }
