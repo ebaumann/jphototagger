@@ -4,6 +4,7 @@ import de.elmar_baumann.imv.types.Content;
 import de.elmar_baumann.imv.controller.thumbnail.ControllerDoubleklickThumbnail;
 import de.elmar_baumann.imv.data.ThumbnailFlag;
 import de.elmar_baumann.imv.database.DatabaseImageFiles;
+import de.elmar_baumann.imv.dnd.TransferHandlerThumbnailsPanel;
 import de.elmar_baumann.imv.event.RefreshListener;
 import de.elmar_baumann.imv.io.FileSort;
 import de.elmar_baumann.imv.resource.Panels;
@@ -41,6 +42,8 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel {
         initMap();
         setNewThumbnails(0);
         controllerDoubleklick = new ControllerDoubleklickThumbnail(this);
+        setDragEnabled(true);
+        setTransferHandler(new TransferHandlerThumbnailsPanel());
     }
 
     private void initMap() {
@@ -287,7 +290,13 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel {
         return getFiles(getSelected());
     }
 
-    private List<File> getFiles(List<Integer> indices) {
+    /**
+     * Returns the files with an specific index.
+     * 
+     * @param  indices  file indices
+     * @return files of valid indices
+     */
+    public List<File> getFiles(List<Integer> indices) {
         List<File> f = new ArrayList<File>();
         for (Integer index : indices) {
             if (isIndex(index)) {
@@ -351,5 +360,4 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel {
             appPanel.getSplitPaneThumbnailsMetadata().setDividerLocation(location);
         }
     }
-
 }

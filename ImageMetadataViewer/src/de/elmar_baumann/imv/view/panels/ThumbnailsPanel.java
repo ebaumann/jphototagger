@@ -3,7 +3,7 @@ package de.elmar_baumann.imv.view.panels;
 import de.elmar_baumann.imv.event.ThumbnailsPanelAction;
 import de.elmar_baumann.imv.event.ThumbnailsPanelListener;
 import de.elmar_baumann.imv.data.ThumbnailFlag;
-import de.elmar_baumann.imv.resource.Panels;
+import de.elmar_baumann.lib.event.MouseEventUtil;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Cursor;
@@ -14,9 +14,6 @@ import java.awt.Image;
 import java.awt.MediaTracker;
 import java.awt.Point;
 import java.awt.Rectangle;
-import java.awt.Toolkit;
-import java.awt.datatransfer.Clipboard;
-import java.awt.dnd.DragSource;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.event.KeyEvent;
@@ -32,6 +29,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JPanel;
 import javax.swing.JViewport;
+import javax.swing.TransferHandler;
 
 /**
  * Panel zum Anzeigen mehrerer Thumbnails mit einem Text darunter. Diese Klasse
@@ -64,7 +62,8 @@ import javax.swing.JViewport;
  * @version 2008-10-05
  */
 public abstract class ThumbnailsPanel extends JPanel
-    implements ComponentListener, MouseListener, MouseMotionListener, KeyListener {
+    implements ComponentListener, MouseListener, MouseMotionListener,
+    KeyListener {
 
     private static final int flagWidth = 10;
     private static final int flagHeight = 10;
@@ -90,8 +89,9 @@ public abstract class ThumbnailsPanel extends JPanel
     private Map<Integer, ThumbnailFlag> flagOfThumbnail = new HashMap<Integer, ThumbnailFlag>();
     private Map<Integer, Image> thumbnailAtIndex = new HashMap<Integer, Image>();
     private List<ThumbnailsPanelListener> panelListener = new ArrayList<ThumbnailsPanelListener>();
-    private boolean drag = false;
     private boolean dragEnabled = false;
+    private boolean transferData = false;
+    private int clickInSelection = -1;
 
     public ThumbnailsPanel() {
         addMouseListener(this);
@@ -99,7 +99,6 @@ public abstract class ThumbnailsPanel extends JPanel
         addKeyListener(this);
         setBackground(colorPanelBackground);
         addComponentListener(this);
-        setTransferHandler(Panels.getInstance().getAppPanel().transferHandler);
     }
 
     private void empty() {
@@ -416,7 +415,7 @@ public abstract class ThumbnailsPanel extends JPanel
         } else if (keyCode == KeyEvent.VK_DOWN) {
             setSelectedDown();
         } else if (keyCode == KeyEvent.VK_ENTER) {
-            handleDoubleKlick();
+            handleMouseDoubleKlicked();
         } else if ((e.getModifiers() & KeyEvent.CTRL_MASK) ==
             KeyEvent.CTRL_MASK && keyCode == KeyEvent.VK_A) {
             setSelectedAll(true);
@@ -427,70 +426,11 @@ public abstract class ThumbnailsPanel extends JPanel
         }
     }
 
-    private void handleMouseClicked(MouseEvent e) {
-        boolean isLeftClick = isLeftClick(e);
-        if (isLeftClick && !hasFocus()) {
-            requestFocus();
-        }
-        if (isLeftClick) {
-            int thumbnailIndex = getIndexAtPoint(e.getX(), e.getY());
-            if (isValidIndex(thumbnailIndex)) {
-                if (isDoubleClick(e)) {
-                    doubleClickAt(thumbnailIndex);
-                    setSelected(thumbnailIndex);
-                    notifyThumbnailSelected();
-                } else if (e.isControlDown()) {
-                    if (!isSelected(thumbnailIndex)) {
-                        addToSelection(thumbnailIndex);
-                    } else {
-                        removeSelection(thumbnailIndex);
-                    }
-                    notifyThumbnailSelected();
-                } else if (e.isShiftDown()) {
-                    setSelectedRange(thumbnailIndex);
-                    notifyThumbnailSelected();
-                } else {
-                    setSelected(thumbnailIndex);
-                    notifyThumbnailSelected();
-                }
-            } else {
-                setSelectedAll(false);
-            }
-        } else if (getSelectionCount() > 0 && (e.isPopupTrigger() || e.getModifiers() == 4)) {
-            showPopupMenu(e);
-        }
-    }
-
-    private boolean isDoubleClick(MouseEvent e) {
-        return e.getClickCount() >= 2;
-    }
-
-    private boolean isLeftClick(MouseEvent e) {
-        return e.getButton() == MouseEvent.BUTTON1;
-    }
-
     private boolean isIndex(int index) {
         return index >= 0 && index < thumbnailCount;
     }
 
-    /**
-     * Specialized classes can handle a drop from a drag <strong>within</strong>
-     * the panel itself, e.g. to reorder the thumbnail indices.
-     * 
-     * Is only called if previously {@link #setDragEnabled(boolean)} was called
-     * with true.
-     * 
-     * @param index  index of drop, an index of an existing thumbnail
-     */
-    protected void handleDropped(int index) {
-    }
-
-    private void handleDropped(MouseEvent e) {
-        int index = getDropIndex(e.getX(), e.getY());
-        handleDropped(index);
-    }
-
-    private int getDropIndex(int x, int y) {
+    protected int getDropIndex(int x, int y) {
         int maxBottom = externalPadding + getRowCount() * getThumbnailAreaHeight();
         int maxRight = externalPadding + getColumnCount() * getThumbnailAreaWidth();
         boolean inTnArea = x < maxRight && y < maxBottom;
@@ -514,17 +454,80 @@ public abstract class ThumbnailsPanel extends JPanel
         return count > thumbnailCount ? thumbnailCount : count;
     }
 
-    private void handleMouseDragged(MouseEvent e) {
-        if (getSelectionCount() > 0) {
-            copySelectionToClipBoard();
-            setCursor(DragSource.DefaultMoveDrop);
-            drag = true;
+    private void transferData(MouseEvent e) {
+        if (dragEnabled && getSelectionCount() > 0) {
+            TransferHandler transferHandler = getTransferHandler();
+            if (transferHandler != null) {
+                transferHandler.exportAsDrag(this, e, TransferHandler.COPY);
+            }
         }
     }
-    
-    private void copySelectionToClipBoard() {
-        Clipboard cb = Toolkit.getDefaultToolkit().getSystemClipboard();
-        cb.setContents(new java.awt.datatransfer.StringSelection("test"), null);
+
+    private boolean isClickInSelection(MouseEvent e) {
+        int clickIndex = getIndexAtPoint(e.getX(), e.getY());
+        return selectedThumbnails.contains(clickIndex);
+    }
+
+    private void handleMousePressed(MouseEvent e) {
+        boolean isLeftClick = MouseEventUtil.isLeftClick(e);
+        if (isLeftClick && !hasFocus()) {
+            requestFocus();
+        }
+        if (isLeftClick) {
+            int thumbnailIndex = getIndexAtPoint(e.getX(), e.getY());
+            if (isValidIndex(thumbnailIndex)) {
+                transferData = true;
+                if (MouseEventUtil.isDoubleClick(e)) {
+                    doubleClickAt(thumbnailIndex);
+                    setSelected(thumbnailIndex);
+                    notifyThumbnailSelected();
+                } else if (e.isControlDown()) {
+                    if (!isSelected(thumbnailIndex)) {
+                        addToSelection(thumbnailIndex);
+                    } else {
+                        removeSelection(thumbnailIndex);
+                    }
+                    notifyThumbnailSelected();
+                } else if (e.isShiftDown()) {
+                    setSelectedRange(thumbnailIndex);
+                    notifyThumbnailSelected();
+                } else {
+                    if (isClickInSelection(e)) {
+                        clickInSelection = thumbnailIndex;
+                    } else {
+                        setSelected(thumbnailIndex);
+                        notifyThumbnailSelected();
+                    }
+                }
+            } else {
+                setSelectedAll(false);
+            }
+        } else if (getSelectionCount() > 0 && MouseEventUtil.isPopupTrigger(e)) {
+            showPopupMenu(e);
+        }
+    }
+
+    private void handleMouseReleased() {
+        if (clickInSelection >= 0) {
+            setSelected(clickInSelection);
+            clickInSelection = -1;
+            notifyThumbnailSelected();
+        }
+    }
+
+    private void handleMouseDragged(MouseEvent e) {
+        clickInSelection = -1;
+        if (dragEnabled && transferData && getSelectionCount() > 0) {
+            transferData(e);
+            transferData = false;
+        }
+    }
+
+    private void handleMouseMoved(MouseEvent e) {
+        if (dragEnabled) {
+            setCursor(Cursor.getDefaultCursor());
+        }
+        showToolTip(e);
     }
 
     private void setSelectedAll(boolean select) {
@@ -615,7 +618,7 @@ public abstract class ThumbnailsPanel extends JPanel
         return thumbnailCountPerRow > 0 ? thumbnailIndex / thumbnailCountPerRow : 0;
     }
 
-    private void handleDoubleKlick() {
+    private void handleMouseDoubleKlicked() {
         int indexSelectedThumbnail = getSelectedIndex();
         if (indexSelectedThumbnail >= 0) {
             doubleClickAt(indexSelectedThumbnail);
@@ -944,7 +947,7 @@ public abstract class ThumbnailsPanel extends JPanel
     public void setViewport(JViewport viewport) {
         this.viewport = viewport;
     }
-    
+
     /**
      * Returns the viewport within this panel is displayed.
      * 
@@ -968,51 +971,34 @@ public abstract class ThumbnailsPanel extends JPanel
 
     @Override
     public void mouseEntered(MouseEvent e) {
-        drag = false;
-        setCursor(Cursor.getDefaultCursor());
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        drag = false;
-        setCursor(Cursor.getDefaultCursor());
-        handleMouseClicked(e);
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-        drag = false;
-        setCursor(Cursor.getDefaultCursor());
-        checkPopupMenu(e);
+        handleMousePressed(e);
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        if (dragEnabled && drag) {
-            handleDropped(e);
-        }
-        drag = false;
-        setCursor(Cursor.getDefaultCursor());
+        handleMouseReleased();
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
-        drag = false;
-        setCursor(Cursor.getDefaultCursor());
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        drag = false;
-        setCursor(Cursor.getDefaultCursor());
-        showToolTip(e);
+        handleMouseMoved(e);
     }
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        if (dragEnabled) {
-            handleMouseDragged(e);
-        }
+        handleMouseDragged(e);
     }
 
     @Override
