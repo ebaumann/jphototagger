@@ -1,6 +1,7 @@
 package de.elmar_baumann.imv.controller.imagecollection;
 
 import de.elmar_baumann.imv.controller.Controller;
+import de.elmar_baumann.imv.types.Content;
 import de.elmar_baumann.imv.model.ListModelImageCollections;
 import de.elmar_baumann.imv.tasks.ImageCollectionToDatabase;
 import de.elmar_baumann.imv.resource.Panels;
@@ -10,6 +11,8 @@ import de.elmar_baumann.imv.view.popupmenus.PopupMenuPanelThumbnails;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.util.List;
 import javax.swing.JList;
 
 /**
@@ -29,12 +32,19 @@ public class ControllerDeleteFromImageCollection extends Controller
     private ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
 
     public ControllerDeleteFromImageCollection() {
+        listenToActionSources();
+    }
+
+    private void listenToActionSources() {
         popup.addActionListenerDeleteFromImageCollection(this);
+        Panels.getInstance().getAppFrame().getMenuItemDelete().addActionListener(this);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (isControl()) {
+        if (isControl() && 
+            thumbnailsPanel.getContent().equals(Content.ImageCollection) &&
+            thumbnailsPanel.getSelectionCount() > 0) {
             deleteSelectedFilesFromImageCollection();
         }
     }
@@ -43,9 +53,10 @@ public class ControllerDeleteFromImageCollection extends Controller
         Object selected = list.getSelectedValue();
         if (selected != null) {
             ImageCollectionToDatabase manager = new ImageCollectionToDatabase();
+            List<File> selectedFiles = thumbnailsPanel.getSelectedFiles();
             manager.deleteImagesFromCollection(selected.toString(),
-                FileUtil.getAsFilenames(thumbnailsPanel.getSelectedFiles()));
-            model.removeElement(selected);
+                FileUtil.getAsFilenames(selectedFiles));
+            thumbnailsPanel.remove(selectedFiles);
         }
     }
 }
