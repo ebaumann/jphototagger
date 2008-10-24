@@ -297,7 +297,14 @@
                             <Property name="cellRenderer" type="javax.swing.ListCellRenderer" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                               <Connection code="new ListCellRendererFavoriteDirectories()" type="code"/>
                             </Property>
+                            <Property name="dragEnabled" type="boolean" value="true"/>
+                            <Property name="dropMode" type="javax.swing.DropMode" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                              <Connection code="javax.swing.DropMode.ON" type="code"/>
+                            </Property>
                           </Properties>
+                          <AuxValues>
+                            <AuxValue name="JavaCodeGenerator_allCodePost" type="java.lang.String" value="listFavoriteDirectories.setTransferHandler(new TransferHandlerListFavoriteDirectories());"/>
+                          </AuxValues>
                         </Component>
                       </SubComponents>
                     </Container>

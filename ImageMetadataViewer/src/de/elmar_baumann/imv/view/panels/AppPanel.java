@@ -1,6 +1,7 @@
 package de.elmar_baumann.imv.view.panels;
 
 import de.elmar_baumann.imv.AppSettings;
+import de.elmar_baumann.imv.dnd.TransferHandlerListFavoriteDirectories;
 import de.elmar_baumann.lib.renderer.TreeCellRendererDirectories;
 import de.elmar_baumann.imv.event.AppExitListener;
 import de.elmar_baumann.imv.event.AppStartListener;
@@ -516,7 +517,10 @@ public class AppPanel extends javax.swing.JPanel
 
         listFavoriteDirectories.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         listFavoriteDirectories.setCellRenderer(new ListCellRendererFavoriteDirectories());
+        listFavoriteDirectories.setDragEnabled(true);
+        listFavoriteDirectories.setDropMode(javax.swing.DropMode.ON);
         scrollPaneFavoriteDirectories.setViewportView(listFavoriteDirectories);
+        listFavoriteDirectories.setTransferHandler(new TransferHandlerListFavoriteDirectories());
 
         javax.swing.GroupLayout panelSelectionFavoriteDirectoriesLayout = new javax.swing.GroupLayout(panelSelectionFavoriteDirectories);
         panelSelectionFavoriteDirectories.setLayout(panelSelectionFavoriteDirectoriesLayout);
