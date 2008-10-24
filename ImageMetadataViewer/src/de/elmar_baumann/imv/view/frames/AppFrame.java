@@ -133,8 +133,8 @@ public class AppFrame extends javax.swing.JFrame {
         return menuItemOfGoto.get(gt);
     }
 
-    public JMenuItem getMenuItemFileSystemDelete() {
-        return menuItemFileSystemDelete;
+    public JMenuItem getMenuItemDelete() {
+        return menuItemDelete;
     }
 
     public JRadioButtonMenuItem getMenuItemOfSort(FileSort sort) {
@@ -232,7 +232,7 @@ public class AppFrame extends javax.swing.JFrame {
         menuItemSettings = new javax.swing.JMenuItem();
         menuItemSearch = new javax.swing.JMenuItem();
         menuItemFileSystemRename = new javax.swing.JMenuItem();
-        menuItemFileSystemDelete = new javax.swing.JMenuItem();
+        menuItemDelete = new javax.swing.JMenuItem();
         menuGoto = new javax.swing.JMenu();
         menuItemGotoFastSearch = new javax.swing.JMenuItem();
         menuItemGotoEdit = new javax.swing.JMenuItem();
@@ -275,7 +275,7 @@ public class AppFrame extends javax.swing.JFrame {
         menuFile.setText(Bundle.getString("AppFrame.menuFile.text")); // NOI18N
 
         menuItemScanDirectory.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
-        menuItemScanDirectory.setMnemonic('v');
+        menuItemScanDirectory.setMnemonic('o');
         menuItemScanDirectory.setText(Bundle.getString("AppFrame.menuItemScanDirectory.text")); // NOI18N
         menuFile.add(menuItemScanDirectory);
 
@@ -292,6 +292,7 @@ public class AppFrame extends javax.swing.JFrame {
         menuFile.add(jSeparator4);
 
         menuItemExit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.CTRL_MASK));
+        menuItemExit.setMnemonic('e');
         menuItemExit.setText(Bundle.getString("AppFrame.menuItemExit.text")); // NOI18N
         menuItemExit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -306,6 +307,7 @@ public class AppFrame extends javax.swing.JFrame {
         menuEdit.setText(Bundle.getString("AppFrame.menuEdit.text")); // NOI18N
 
         menuItemSettings.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        menuItemSettings.setMnemonic('e');
         menuItemSettings.setText(Bundle.getString("AppFrame.menuItemSettings.text")); // NOI18N
         menuEdit.add(menuItemSettings);
 
@@ -315,13 +317,15 @@ public class AppFrame extends javax.swing.JFrame {
         menuEdit.add(menuItemSearch);
 
         menuItemFileSystemRename.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F2, 0));
+        menuItemFileSystemRename.setMnemonic('u');
         menuItemFileSystemRename.setText(Bundle.getString("AppFrame.menuItemFileSystemRename.text")); // NOI18N
         menuEdit.add(menuItemFileSystemRename);
 
-        menuItemFileSystemDelete.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_DELETE, 0));
-        menuItemFileSystemDelete.setText(Bundle.getString("AppFrame.menuItemFileSystemDelete.text")); // NOI18N
-        menuItemFileSystemDelete.setToolTipText(Bundle.getString("AppFrame.menuItemFileSystemDelete.toolTipText")); // NOI18N
-        menuEdit.add(menuItemFileSystemDelete);
+        menuItemDelete.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_DELETE, 0));
+        menuItemDelete.setMnemonic('l');
+        menuItemDelete.setText(Bundle.getString("AppFrame.menuItemDelete.text")); // NOI18N
+        menuItemDelete.setToolTipText(Bundle.getString("AppFrame.menuItemDelete.toolTipText")); // NOI18N
+        menuEdit.add(menuItemDelete);
 
         menuBar.add(menuEdit);
 
@@ -487,8 +491,8 @@ private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:even
     private javax.swing.JMenu menuHelp;
     private javax.swing.JMenuItem menuItemAbout;
     private javax.swing.JMenuItem menuItemCopyFromAutocopyDirectory;
+    private javax.swing.JMenuItem menuItemDelete;
     private javax.swing.JMenuItem menuItemExit;
-    private javax.swing.JMenuItem menuItemFileSystemDelete;
     private javax.swing.JMenuItem menuItemFileSystemRename;
     private javax.swing.JMenuItem menuItemGotoCategories;
     private javax.swing.JMenuItem menuItemGotoCollections;
