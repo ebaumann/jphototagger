@@ -1,5 +1,6 @@
 package de.elmar_baumann.imv.controller.filesystem;
 
+import de.elmar_baumann.imv.types.Content;
 import de.elmar_baumann.imv.AppSettings;
 import de.elmar_baumann.imv.controller.Controller;
 import de.elmar_baumann.imv.database.DatabaseImageFiles;
@@ -37,12 +38,12 @@ public class ControllerDeleteFiles extends Controller implements ActionListener 
 
     private void listenToActionSources() {
         PopupMenuPanelThumbnails.getInstance().addActionListenerFileSystemDeleteFiles(this);
-        Panels.getInstance().getAppFrame().getMenuItemFileSystemDelete().addActionListener(this);
+        Panels.getInstance().getAppFrame().getMenuItemDelete().addActionListener(this);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (isControl()) {
+        if (isControl() && thumbnailsPanel.getContent().equals(Content.Directory)) {
             deleteSelectedFiles();
         }
     }
