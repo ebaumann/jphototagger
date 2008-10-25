@@ -115,9 +115,6 @@
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                   <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="AppFrame.menuItemDelete.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                 </Property>
-                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="AppFrame.menuItemDelete.toolTipText" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
-                </Property>
               </Properties>
             </MenuItem>
           </SubComponents>

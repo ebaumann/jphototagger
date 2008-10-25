@@ -110,14 +110,80 @@
 			<title>Vom Datenträger löschen</title>
 		</page>
 	</node>
-	<page>
-		<url>dialog_advanced_search.html</url>
-		<title>Erweiterte Suche</title>
-	</page>
-	<page>
-		<url>action_filesystem_autocopy_directory.html</url>
-		<title>Bilder von der Kameraspeicherkarte einlesen</title>
-	</page>
+	<node>
+		<title>Menübefehle</title>
+		<page>
+			<url>action_metadata_scan_directories.html</url>
+			<title>Datei / Ordner einlesen</title>
+		</page>
+		<page>
+			<url>action_database_maintain.html</url>
+			<title>Datei / Datenbank</title>
+		</page>
+		<page>
+			<url>action_filesystem_autocopy_directory.html</url>
+			<title>Datei / Bilder von der Kamera-Speicherkarte kopieren</title>
+		</page>
+		<page>
+			<url>action_dialog_settings.html</url>
+			<title>Bearbeiten / Einstellungen</title>
+		</page>
+		<page>
+			<url>dialog_advanced_search.html</url>
+			<title>Bearbeiten / Suchen</title>
+		</page>
+		<page>
+			<url>action_filesystem_rename.html</url>
+			<title>Bearbeiten / Auf dem Datenträger umbenennen</title>
+		</page>
+		<page>
+			<url>action_filesystem_delete_context.html</url>
+			<title>Bearbeiten / Löschen aktueller Kontext</title>
+		</page>
+		<page>
+			<url>action_metadata_iptc_to_xmp.html</url>
+			<title>Werkzeuge / IPTC-Daten nach XMP</title>
+		</page>
+		<page>
+			<url>action_metadata_replace_in_xmp.html</url>
+			<title>Werkzeuge / XMP-Daten suchen und ersetzen</title>
+		</page>
+	</node>
+	<node>
+		<title>Einstellungen-Dialog</title>
+		<page>
+			<url>dialog_settings_programs.html</url>
+			<title>Bilder öffnen</title>
+		</page>
+		<page>
+			<url>dialog_settings_fastsearch.html</url>
+			<title>Schnellsuche</title>
+		</page>
+		<page>
+			<url>dialog_settings_thumbnails.html</url>
+			<title>Vorschaubilder</title>
+		</page>
+		<page>
+			<url>dialog_settings_iptc.html</url>
+			<title>IPTC</title>
+		</page>
+		<page>
+			<url>dialog_settings_tasks.html</url>
+			<title>Automatisieren</title>
+		</page>
+		<page>
+			<url>dialog_settings_performance.html</url>
+			<title>Leistung</title>
+		</page>
+		<page>
+			<url>dialog_settings_fileexcludepattern.html</url>
+			<title>Ausschließen</title>
+		</page>
+		<page>
+			<url>dialog_settings_misc.html</url>
+			<title>Sonstiges</title>
+		</page>
+	</node>
 	<node>
 		<title>Tipps</title>
 		<page>
@@ -170,80 +236,6 @@
 		<page>
 			<url>facts_why_xmp_sidecarfiles.html</url>
 			<title>Warum XMP-Filialdateien?</title>
-		</page>
-	</node>
-	<node>
-		<title>Einstellungen-Dialog</title>
-		<page>
-			<url>dialog_settings_programs.html</url>
-			<title>Bilder öffnen</title>
-		</page>
-		<page>
-			<url>dialog_settings_fastsearch.html</url>
-			<title>Schnellsuche</title>
-		</page>
-		<page>
-			<url>dialog_settings_thumbnails.html</url>
-			<title>Vorschaubilder</title>
-		</page>
-		<page>
-			<url>dialog_settings_iptc.html</url>
-			<title>IPTC</title>
-		</page>
-		<page>
-			<url>dialog_settings_tasks.html</url>
-			<title>Automatisieren</title>
-		</page>
-		<page>
-			<url>dialog_settings_performance.html</url>
-			<title>Leistung</title>
-		</page>
-		<page>
-			<url>dialog_settings_fileexcludepattern.html</url>
-			<title>Ausschließen</title>
-		</page>
-		<page>
-			<url>dialog_settings_misc.html</url>
-			<title>Sonstiges</title>
-		</page>
-	</node>
-	<node>
-		<title>Menübefehle</title>
-		<page>
-			<url>action_metadata_scan_directories.html</url>
-			<title>Datei / Ordner einlesen</title>
-		</page>
-		<page>
-			<url>action_database_maintain.html</url>
-			<title>Datei / Datenbank</title>
-		</page>
-		<page>
-			<url>action_filesystem_autocopy_directory.html</url>
-			<title>Datei / Bilder von der Kamera-Speicherkarte kopieren</title>
-		</page>
-		<page>
-			<url>action_dialog_settings.html</url>
-			<title>Bearbeiten / Einstellungen</title>
-		</page>
-		<page>
-			<url>dialog_advanced_search.html</url>
-			<title>Bearbeiten / Suchen</title>
-		</page>
-		<page>
-			<url>action_filesystem_rename.html</url>
-			<title>Bearbeiten / Auf dem Datenträger umbenennen</title>
-		</page>
-		<page>
-			<url>action_filesystem_delete.html</url>
-			<title>Bearbeiten / Vom Datenträger löschen</title>
-		</page>
-		<page>
-			<url>action_metadata_replace_in_xmp.html</url>
-			<title>Werkzeuge / XMP-Daten suchen und ersetzen</title>
-		</page>
-		<page>
-			<url>action_metadata_iptc_to_xmp.html</url>
-			<title>Werkzeuge / IPTC-Daten nach XMP</title>
 		</page>
 	</node>
 </helpindex>

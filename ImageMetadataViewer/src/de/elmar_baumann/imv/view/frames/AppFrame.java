@@ -324,7 +324,6 @@ public class AppFrame extends javax.swing.JFrame {
         menuItemDelete.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_DELETE, 0));
         menuItemDelete.setMnemonic('l');
         menuItemDelete.setText(Bundle.getString("AppFrame.menuItemDelete.text")); // NOI18N
-        menuItemDelete.setToolTipText(Bundle.getString("AppFrame.menuItemDelete.toolTipText")); // NOI18N
         menuEdit.add(menuItemDelete);
 
         menuBar.add(menuEdit);
