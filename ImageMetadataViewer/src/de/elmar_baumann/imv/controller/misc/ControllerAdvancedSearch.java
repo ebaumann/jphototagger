@@ -40,7 +40,6 @@ public class ControllerAdvancedSearch extends Controller
     }
 
     private void listenToActionSources() {
-        appPanel.getButtonAdvanedSearch().addActionListener(this);
         ListenerProvider.getInstance().addSearchListener(this);
     }
 

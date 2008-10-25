@@ -28,8 +28,8 @@ public class ControllerLogfileDialog extends Controller
     private AppPanel appPanel = Panels.getInstance().getAppPanel();
     private JButton buttonLogfileDialog = appPanel.getButtonLogfileDialog();
     private static final String iconPath = AppSettings.getIconPath();
-    private static final ImageIcon iconOk = IconUtil.getImageIcon(iconPath + "/icon_check_ok_small.png");
-    private static final ImageIcon iconError = IconUtil.getImageIcon(iconPath + "/icon_check_error_small.png");
+    private static final ImageIcon iconOk = IconUtil.getImageIcon(iconPath + "/icon_ok_small.png");
+    private static final ImageIcon iconError = IconUtil.getImageIcon(iconPath + "/icon_error_small.png");
 
     public ControllerLogfileDialog() {
         buttonLogfileDialog.setIcon(iconOk);

@@ -181,17 +181,13 @@ public class AppPanel extends javax.swing.JPanel
     public JList getListCategories() {
         return listCategories;
     }
-    
+
     public JList getListKeywords() {
         return listKeywords;
     }
 
     public JButton getButtonLogfileDialog() {
         return buttonLogfileDialog;
-    }
-
-    public JButton getButtonAdvanedSearch() {
-        return buttonAdvanedSearch;
     }
 
     public JButton getButtonSaveMetadata() {
@@ -443,7 +439,6 @@ public class AppPanel extends javax.swing.JPanel
         panelStatusbar = new javax.swing.JPanel();
         sliderThumbnailSize = new javax.swing.JSlider();
         buttonLogfileDialog = new javax.swing.JButton();
-        buttonAdvanedSearch = new javax.swing.JButton();
         labelStatusbar = new javax.swing.JLabel();
         progressBarCreateMetaDataOfCurrentThumbnails = new javax.swing.JProgressBar();
         progressBarCurrentTasks = new javax.swing.JProgressBar();
@@ -451,6 +446,7 @@ public class AppPanel extends javax.swing.JPanel
         panelMetadataProgress = new javax.swing.JPanel();
         progressBarScheduledTasks = new javax.swing.JProgressBar();
         buttonStopScheduledTasks = new javax.swing.JButton();
+        labelFastSearch = new javax.swing.JLabel();
 
         treeDirectories.setCellRenderer(new TreeCellRendererDirectories());
         treeDirectories.setExpandsSelectedPaths(false);
@@ -765,12 +761,8 @@ public class AppPanel extends javax.swing.JPanel
         sliderThumbnailSize.setToolTipText(Bundle.getString("AppPanel.sliderThumbnailSize.toolTipText")); // NOI18N
 
         buttonLogfileDialog.setToolTipText(Bundle.getString("AppPanel.buttonLogfileDialog.toolTipText")); // NOI18N
-        buttonLogfileDialog.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        buttonLogfileDialog.setBorder(null);
         buttonLogfileDialog.setPreferredSize(new java.awt.Dimension(16, 16));
-
-        buttonAdvanedSearch.setFont(new java.awt.Font("Dialog", 0, 12));
-        buttonAdvanedSearch.setText(Bundle.getString("AppPanel.buttonAdvanedSearch.text")); // NOI18N
-        buttonAdvanedSearch.setToolTipText(Bundle.getString("AppPanel.buttonAdvanedSearch.toolTipText")); // NOI18N
 
         labelStatusbar.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
 
@@ -808,6 +800,8 @@ public class AppPanel extends javax.swing.JPanel
                 .addComponent(progressBarScheduledTasks, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
+        labelFastSearch.setText(Bundle.getString("AppPanel.labelFastSearch.text")); // NOI18N
+
         javax.swing.GroupLayout panelStatusbarLayout = new javax.swing.GroupLayout(panelStatusbar);
         panelStatusbar.setLayout(panelStatusbarLayout);
         panelStatusbarLayout.setHorizontalGroup(
@@ -819,12 +813,12 @@ public class AppPanel extends javax.swing.JPanel
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonLogfileDialog, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(labelStatusbar, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonAdvanedSearch)
+                .addGap(33, 33, 33)
+                .addComponent(labelFastSearch)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelStatusbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(progressBarCreateMetaDataOfCurrentThumbnails, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
-                    .addComponent(textFieldSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE))
+                    .addComponent(progressBarCreateMetaDataOfCurrentThumbnails, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+                    .addComponent(textFieldSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE))
                 .addGap(6, 6, 6)
                 .addGroup(panelStatusbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(progressBarCurrentTasks, 0, 46, Short.MAX_VALUE)
@@ -843,10 +837,11 @@ public class AppPanel extends javax.swing.JPanel
                     .addComponent(progressBarCreateMetaDataOfCurrentThumbnails, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(progressBarCurrentTasks, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
             .addGroup(panelStatusbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                .addComponent(buttonAdvanedSearch)
                 .addComponent(buttonLogfileDialog, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addComponent(sliderThumbnailSize, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(textFieldSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(panelStatusbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(textFieldSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(labelFastSearch))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -871,9 +866,9 @@ public class AppPanel extends javax.swing.JPanel
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton buttonAdvanedSearch;
     private javax.swing.JButton buttonLogfileDialog;
     private javax.swing.JButton buttonStopScheduledTasks;
+    private javax.swing.JLabel labelFastSearch;
     private javax.swing.JLabel labelMetadataFilename;
     private javax.swing.JLabel labelStatusbar;
     private javax.swing.JList listCategories;

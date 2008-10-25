@@ -11,24 +11,24 @@
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="16px"
    height="16px"
-   id="svg3220"
+   id="svg2383"
    sodipodi:version="0.32"
    inkscape:version="0.45.1"
-   sodipodi:docname="icon_check_error.svg"
+   sodipodi:docname="icon_ok.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape"
-   inkscape:export-filename="/home/elmar/projekte/ImageMetadataViewer/src/de/elmar_baumann/imv/resource/icon_check_error_small.png"
+   inkscape:export-filename="/home/elmar/projekte/ImageMetadataViewer/src/de/elmar_baumann/imv/resource/icon_ok.png"
    inkscape:export-xdpi="90"
    inkscape:export-ydpi="90"
    sodipodi:docbase="/home/elmar/projekte/ImageMetadataViewer/src/de/elmar_baumann/imv/resource">
   <defs
-     id="defs3222">
+     id="defs2385">
     <inkscape:perspective
        sodipodi:type="inkscape:persp3d"
        inkscape:vp_x="0 : 8 : 1"
        inkscape:vp_y="0 : 1000 : 0"
        inkscape:vp_z="16 : 8 : 1"
        inkscape:persp3d-origin="8 : 5.3333333 : 1"
-       id="perspective3228" />
+       id="perspective2391" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -40,20 +40,22 @@
      inkscape:zoom="22.197802"
      inkscape:cx="8"
      inkscape:cy="8"
-     inkscape:current-layer="layer2"
+     inkscape:current-layer="layer1"
      showgrid="true"
      inkscape:grid-bbox="true"
      inkscape:document-units="px"
-     inkscape:window-width="994"
-     inkscape:window-height="729"
-     inkscape:window-x="286"
-     inkscape:window-y="124">
+     inkscape:window-width="1218"
+     inkscape:window-height="675"
+     inkscape:window-x="42"
+     inkscape:window-y="185">
     <inkscape:grid
        type="xygrid"
-       id="grid3230" />
+       id="grid2393"
+       visible="true"
+       enabled="true" />
   </sodipodi:namedview>
   <metadata
-     id="metadata3225">
+     id="metadata2388">
     <rdf:RDF>
       <ns:Work
          rdf:about="">
@@ -70,33 +72,12 @@
     </rdf:RDF>
   </metadata>
   <g
-     inkscape:groupmode="layer"
-     id="layer2">
-    <rect
-       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.05900002;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       id="rect2171"
-       width="16"
-       height="16"
-       x="0"
-       y="2.3841858e-07"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90" />
-  </g>
-  <g
      id="layer1"
      inkscape:label="Layer 1"
      inkscape:groupmode="layer">
-    <g
-       id="g3747"
-       transform="matrix(0.723531,0,0,0.7258171,2.2720057,2.229178)">
-      <path
-         id="path3232"
-         d="M 1.3965347,1.5391088 L 14.59604,14.738614"
-         style="opacity:1;fill:#ff000f;fill-opacity:0.94117647;fill-rule:nonzero;stroke:#ff0000;stroke-width:2;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-      <path
-         id="path3745"
-         d="M 1.4002473,14.599753 L 14.599753,1.4002474"
-         style="opacity:1;fill:#ff000f;fill-opacity:0.94117647;fill-rule:nonzero;stroke:#ff0000;stroke-width:2;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-    </g>
+    <path
+       style="opacity:1;fill:none;fill-opacity:1;fill-rule:nonzero;stroke:#00aa00;stroke-width:1.47397637;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 3.3859982,5.4462311 L 7.4764581,12.558246 L 12.912022,3.1075212"
+       id="path2395" />
   </g>
 </svg>
