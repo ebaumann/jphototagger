@@ -943,6 +943,33 @@ public class DatabaseImageFiles extends Database {
     }
 
     /**
+     * Returns the dublin core subjects (keywords).
+     * 
+     * @return dc subjects distinct ordererd ascending
+     */
+    public Set<String> getDcSubjects() {
+        Set<String> dcSubjects = new LinkedHashSet<String>();
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(
+                "SELECT DISTINCT subject FROM xmp_dc_subjects" + // NOI18N
+                " ORDER BY 1 ASC"); // NOI18N
+
+            while (rs.next()) {
+                dcSubjects.add(rs.getString(1));
+            }
+            stmt.close();
+        } catch (SQLException ex) {
+            handleException(ex, Level.SEVERE);
+        } finally {
+            free(connection);
+        }
+        return dcSubjects;
+    }
+
+    /**
      * Liefert alle Dateien mit bestimmter Kategorie.
      * 
      * @param  category  Kategorie
