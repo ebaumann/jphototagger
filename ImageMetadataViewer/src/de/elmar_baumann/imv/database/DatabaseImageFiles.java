@@ -1008,6 +1008,39 @@ public class DatabaseImageFiles extends Database {
     }
 
     /**
+     * Returns the filenames within a specific dublin core subject (keyword).
+     * 
+     * @param  dcSubject subject
+     * @return filenames
+     */
+    public Set<String> getFilenamesOfDcSubject(String dcSubject) {
+        Set<String> filenames = new LinkedHashSet<String>();
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            PreparedStatement stmt = connection.prepareStatement(
+                " SELECT DISTINCT files.filename FROM" + // NOI18N
+                " xmp_dc_subjects LEFT JOIN xmp" + // NOI18N
+                " ON xmp_dc_subjects.id_xmp = xmp.id" + // NOI18N
+                " LEFT JOIN files ON xmp.id_files = files.id" + // NOI18N
+                " WHERE xmp_dc_subjects.subject = ?"); // NOI18N
+
+            stmt.setString(1, dcSubject);
+            logStatement(stmt);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                filenames.add(rs.getString(1));
+            }
+            stmt.close();
+        } catch (SQLException ex) {
+            handleException(ex, Level.SEVERE);
+        } finally {
+            free(connection);
+        }
+        return filenames;
+    }
+
+    /**
      * Liefert, ob eine Kategorie existiert.
      * 
      * @param  name  Name der Kategorie
