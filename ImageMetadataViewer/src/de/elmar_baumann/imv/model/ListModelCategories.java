@@ -67,11 +67,7 @@ public class ListModelCategories extends DefaultListModel
 
     private List<String> getCategories(ImageFile imageFileData) {
         List<String> categories = new ArrayList<String>();
-        Iptc iptcData = imageFileData.getIptc();
         Xmp xmpData = imageFileData.getXmp();
-        if (iptcData != null && iptcData.getSupplementalCategories() != null) {
-            categories.addAll(iptcData.getSupplementalCategories());
-        }
         if (xmpData != null && xmpData.getPhotoshopSupplementalCategories() != null) {
             categories.addAll(xmpData.getPhotoshopSupplementalCategories());
         }
