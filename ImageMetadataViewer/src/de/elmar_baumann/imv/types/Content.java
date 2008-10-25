@@ -5,5 +5,5 @@ package de.elmar_baumann.imv.types;
  */
 public enum Content {
 
-    Category, Directory, FastSearch, FavoriteDirectory, ImageCollection, Search, Undefined
+    Category, Directory, FastSearch, FavoriteDirectory, ImageCollection, Keyword, Search, Undefined
 }

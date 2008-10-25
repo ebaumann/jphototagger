@@ -10,6 +10,7 @@ import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.view.renderer.ListCellRendererCategories;
 import de.elmar_baumann.imv.view.renderer.ListCellRendererFavoriteDirectories;
 import de.elmar_baumann.imv.view.renderer.ListCellRendererImageCollections;
+import de.elmar_baumann.imv.view.renderer.ListCellRendererKeywords;
 import de.elmar_baumann.imv.view.renderer.ListCellRendererSavedSearches;
 import de.elmar_baumann.lib.persistence.PersistentSettings;
 import de.elmar_baumann.lib.persistence.PersistentSettingsHints;
@@ -180,6 +181,10 @@ public class AppPanel extends javax.swing.JPanel
     public JList getListCategories() {
         return listCategories;
     }
+    
+    public JList getListKeywords() {
+        return listKeywords;
+    }
 
     public JButton getButtonLogfileDialog() {
         return buttonLogfileDialog;
@@ -324,6 +329,7 @@ public class AppPanel extends javax.swing.JPanel
         selectionLists.add(listFavoriteDirectories);
         selectionLists.add(listImageCollections);
         selectionLists.add(listSavedSearches);
+        selectionLists.add(listKeywords);
     }
 
     private void setBackgroundColorTablesScrollPanes() {
@@ -398,6 +404,9 @@ public class AppPanel extends javax.swing.JPanel
         panelSelectionFavoriteDirectories = new javax.swing.JPanel();
         scrollPaneFavoriteDirectories = new javax.swing.JScrollPane();
         listFavoriteDirectories = new javax.swing.JList();
+        panelKeywords = new javax.swing.JPanel();
+        scrollPaneKeywords = new javax.swing.JScrollPane();
+        listKeywords = new javax.swing.JList();
         panelThumbnailsMetadata = new javax.swing.JPanel();
         splitPaneThumbnailsMetadata = new javax.swing.JSplitPane();
         panelThumbnailsContent = new javax.swing.JPanel();
@@ -456,7 +465,7 @@ public class AppPanel extends javax.swing.JPanel
         );
         panelSelectionDirectoriesLayout.setVerticalGroup(
             panelSelectionDirectoriesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPaneDirectories, javax.swing.GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE)
+            .addComponent(scrollPaneDirectories, javax.swing.GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE)
         );
 
         tabbedPaneSelection.addTab(Bundle.getString("AppPanel.panelSelectionDirectories.TabConstraints.tabTitle"), panelSelectionDirectories); // NOI18N
@@ -473,7 +482,7 @@ public class AppPanel extends javax.swing.JPanel
         );
         panelSelectionSavedSearchesLayout.setVerticalGroup(
             panelSelectionSavedSearchesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPaneSavedSearches, javax.swing.GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE)
+            .addComponent(scrollPaneSavedSearches, javax.swing.GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE)
         );
 
         tabbedPaneSelection.addTab(Bundle.getString("AppPanel.panelSelectionSavedSearches.TabConstraints.tabTitle"), panelSelectionSavedSearches); // NOI18N
@@ -492,7 +501,7 @@ public class AppPanel extends javax.swing.JPanel
         );
         panelSelectionImageCollectionsLayout.setVerticalGroup(
             panelSelectionImageCollectionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPaneImageCollections, javax.swing.GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE)
+            .addComponent(scrollPaneImageCollections, javax.swing.GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE)
         );
 
         tabbedPaneSelection.addTab(Bundle.getString("AppPanel.panelSelectionImageCollections.TabConstraints.tabTitle"), panelSelectionImageCollections); // NOI18N
@@ -510,7 +519,7 @@ public class AppPanel extends javax.swing.JPanel
         );
         panelSelectionCategoriesLayout.setVerticalGroup(
             panelSelectionCategoriesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPaneCategories, javax.swing.GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE)
+            .addComponent(scrollPaneCategories, javax.swing.GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE)
         );
 
         tabbedPaneSelection.addTab(Bundle.getString("AppPanel.panelSelectionCategories.TabConstraints.tabTitle"), panelSelectionCategories); // NOI18N
@@ -532,12 +541,33 @@ public class AppPanel extends javax.swing.JPanel
         );
         panelSelectionFavoriteDirectoriesLayout.setVerticalGroup(
             panelSelectionFavoriteDirectoriesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 251, Short.MAX_VALUE)
+            .addGap(0, 233, Short.MAX_VALUE)
             .addGroup(panelSelectionFavoriteDirectoriesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(scrollPaneFavoriteDirectories, javax.swing.GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE))
+                .addComponent(scrollPaneFavoriteDirectories, javax.swing.GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE))
         );
 
         tabbedPaneSelection.addTab(Bundle.getString("AppPanel.panelSelectionFavoriteDirectories.TabConstraints.tabTitle"), panelSelectionFavoriteDirectories); // NOI18N
+
+        listKeywords.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        listKeywords.setCellRenderer(new ListCellRendererKeywords());
+        scrollPaneKeywords.setViewportView(listKeywords);
+
+        javax.swing.GroupLayout panelKeywordsLayout = new javax.swing.GroupLayout(panelKeywords);
+        panelKeywords.setLayout(panelKeywordsLayout);
+        panelKeywordsLayout.setHorizontalGroup(
+            panelKeywordsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 130, Short.MAX_VALUE)
+            .addGroup(panelKeywordsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(scrollPaneKeywords, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE))
+        );
+        panelKeywordsLayout.setVerticalGroup(
+            panelKeywordsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 233, Short.MAX_VALUE)
+            .addGroup(panelKeywordsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(scrollPaneKeywords, javax.swing.GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE))
+        );
+
+        tabbedPaneSelection.addTab(Bundle.getString("AppPanel.panelKeywords.TabConstraints.tabTitle"), panelKeywords); // NOI18N
 
         javax.swing.GroupLayout panelSelectionLayout = new javax.swing.GroupLayout(panelSelection);
         panelSelection.setLayout(panelSelectionLayout);
@@ -849,8 +879,10 @@ public class AppPanel extends javax.swing.JPanel
     private javax.swing.JList listCategories;
     private javax.swing.JList listFavoriteDirectories;
     private javax.swing.JList listImageCollections;
+    private javax.swing.JList listKeywords;
     private javax.swing.JList listSavedSearches;
     private javax.swing.JPanel panelEditMetadata;
+    private javax.swing.JPanel panelKeywords;
     private javax.swing.JPanel panelMetadata;
     private javax.swing.JPanel panelMetadataProgress;
     private javax.swing.JPanel panelScrollPaneEditMetaData;
@@ -875,6 +907,7 @@ public class AppPanel extends javax.swing.JPanel
     private javax.swing.JScrollPane scrollPaneFavoriteDirectories;
     private javax.swing.JScrollPane scrollPaneImageCollections;
     private javax.swing.JScrollPane scrollPaneIptc;
+    private javax.swing.JScrollPane scrollPaneKeywords;
     private javax.swing.JScrollPane scrollPaneSavedSearches;
     private javax.swing.JScrollPane scrollPaneThumbnails;
     private javax.swing.JScrollPane scrollPaneXmpCameraRawSettings;

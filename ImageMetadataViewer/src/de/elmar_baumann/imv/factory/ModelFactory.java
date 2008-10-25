@@ -5,6 +5,7 @@ import de.elmar_baumann.imv.model.ComboBoxModelMetaDataEditTemplates;
 import de.elmar_baumann.imv.model.ListModelCategories;
 import de.elmar_baumann.imv.model.ListModelFavoriteDirectories;
 import de.elmar_baumann.imv.model.ListModelImageCollections;
+import de.elmar_baumann.imv.model.ListModelKeywords;
 import de.elmar_baumann.imv.model.ListModelSavedSearches;
 import de.elmar_baumann.imv.model.TableModelExif;
 import de.elmar_baumann.imv.model.TableModelIptc;
@@ -48,6 +49,7 @@ public class ModelFactory {
         appPanel.getTreeDirectories().setModel(new TreeModelDirectories(UserSettings.getInstance().isAcceptHiddenDirectories()));
         appPanel.getListFavoriteDirectories().setModel(new ListModelFavoriteDirectories());
         appPanel.getListCategories().setModel(new ListModelCategories());
+        appPanel.getListKeywords().setModel(new ListModelKeywords());
         appPanel.getMetaDataEditActionsPanel().getComboBoxMetaDataTemplates().setModel(new ComboBoxModelMetaDataEditTemplates());
     }
 }
