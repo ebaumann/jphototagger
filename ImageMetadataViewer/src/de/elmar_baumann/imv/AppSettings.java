@@ -74,17 +74,6 @@ public class AppSettings {
      * Standard-Hintergrundfarbe für Text in Tabellen.
      */
     public static final Color colorBackgroundTableTextDefault = Color.WHITE;
-    /**
-     * Icon für die Aktion: Speichern der Metadaten, Zustand: Deaktiviert
-     */
-    public static final ImageIcon iconSaveMetaDataDisabled =
-        IconUtil.getImageIcon(iconPath + "/icon_save_metadata_disabled.png"); // NOI18N
-    /**
-     * Icon für die Aktion: Speichern der Metadaten, Zustand: Aktiviert
-     */
-    public static final ImageIcon iconSaveMetaDataEnabled =
-        IconUtil.getImageIcon(iconPath + "/icon_save_metadata_enabled.png"); // NOI18N
-
     
     private static List<String> appIconPaths = new ArrayList<String>();
     private static List<Image> appIcons = new ArrayList<Image>();

@@ -15,7 +15,7 @@ import javax.swing.JList;
  */
 public class ListCellRendererCategories extends DefaultListCellRenderer {
 
-    private static final ImageIcon icon = IconUtil.getImageIcon("/de/elmar_baumann/imv/resource/icon_category_small.png"); // NOI18N
+    private static final ImageIcon icon = IconUtil.getImageIcon("/de/elmar_baumann/imv/resource/icon_category.png"); // NOI18N
 
     @Override
     public Component getListCellRendererComponent(JList list, Object value,
