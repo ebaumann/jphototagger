@@ -1,7 +1,6 @@
 package de.elmar_baumann.imv.model;
 
 import de.elmar_baumann.imv.data.ImageFile;
-import de.elmar_baumann.imv.data.Iptc;
 import de.elmar_baumann.imv.data.Xmp;
 import de.elmar_baumann.imv.database.DatabaseImageFiles;
 import de.elmar_baumann.imv.event.DatabaseAction;
