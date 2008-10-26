@@ -8,6 +8,7 @@ import de.elmar_baumann.imv.datatransfer.TransferHandlerThumbnailsPanel;
 import de.elmar_baumann.imv.event.RefreshListener;
 import de.elmar_baumann.imv.io.FileSort;
 import de.elmar_baumann.imv.resource.Panels;
+import de.elmar_baumann.imv.types.FileAction;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuPanelThumbnails;
 import de.elmar_baumann.lib.persistence.PersistentSettings;
 import java.awt.Image;
@@ -36,6 +37,7 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel {
     private FileSort fileSort = FileSort.NamesAscending;
     private boolean hadFiles = false;
     private Content content = Content.Undefined;
+    private FileAction fileAction = FileAction.Undefined;
     private Map<Content, List<RefreshListener>> refreshListenersOfContent = new HashMap<Content, List<RefreshListener>>();
 
     public ImageFileThumbnailsPanel() {
@@ -54,6 +56,28 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel {
 
     public Content getContent() {
         return content;
+    }
+
+    /**
+     * Returns the file action.
+     * 
+     * <em>This class is not responsible to take care of the file action! I.e.
+     * if the action is not longer valid, the caller must set it to a valid
+     * action type.</em>
+     * 
+     * @return file action
+     */
+    public FileAction getFileAction() {
+        return fileAction;
+    }
+
+    /**
+     * Sets the file action.
+     * 
+     * @param fileAction  file action
+     */
+    public void setFileAction(FileAction fileAction) {
+        this.fileAction = fileAction;
     }
 
     /**
@@ -231,6 +255,7 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel {
         if (viewport != null) {
             viewport.setViewPosition(viewportPosition);
         }
+        repaint();
     }
 
     /**
