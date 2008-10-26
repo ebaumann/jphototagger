@@ -12,7 +12,6 @@ import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JList;
-import javax.swing.TransferHandler.TransferSupport;
 
 /**
  * 
@@ -23,6 +22,8 @@ import javax.swing.TransferHandler.TransferSupport;
 public class TransferUtil {
 
     private static final String uriListMimeType = "text/uri-list;class=java.lang.String";
+    private static final DataFlavor stringFlavor = DataFlavor.stringFlavor;
+    private static final DataFlavor fileListFlavor = DataFlavor.javaFileListFlavor;
     private static DataFlavor uriListFlavor;
     
 
@@ -109,14 +110,13 @@ public class TransferUtil {
      * <code>file:///home/elmar/workspace</code>. Linux file managers like
      * Konqueror and Nautilus sends such transfer data.
      * 
-     * @param  transferSupport  transfer support
-     * @return files if the transfer object supports {@link #getUriListFlavor()}
-     *         else an empty list
+     * @param  transferable  transferable
+     * @return files
      */
-    public static List<File> getFileListFromUriList(TransferSupport transferSupport) {
+    public static List<File> getFileListFromUriList(Transferable transferable) {
         List<File> list = new ArrayList<File>();
         try {
-            String data = (String) transferSupport.getTransferable().getTransferData(uriListFlavor);
+            String data = (String) transferable.getTransferData(uriListFlavor);
             for (StringTokenizer st = new StringTokenizer(data, "\r\n"); st.hasMoreTokens();) {
                 String token = st.nextToken().trim();
                 if (token.startsWith("file:")) {
@@ -130,26 +130,44 @@ public class TransferUtil {
     }
 
     /**
-     * Returns a list of files if the transfer object supports 
+     * Returns a list of files from a string within file names, e.g.
+     * <code>/home/elmar/workspace</code>.
+     * 
+     * @param  transferable  transferable
+     * @param  delimiter     delimiter which separates the file names
+     * @return files
+     */
+    public static List<File> getFileListFromTokenString(Transferable transferable,
+        String delimiter) {
+        List<File> list = new ArrayList<File>();
+        try {
+            String data = (String) transferable.getTransferData(stringFlavor);
+            for (StringTokenizer st = new StringTokenizer(data, delimiter); st.hasMoreTokens();) {
+                list.add(new File(st.nextToken().trim()));
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TransferUtil.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+
+    /**
+     * Returns a list of files in a transferable which supports
      * {@link java.awt.datatransfer.DataFlavor#javaFileListFlavor}.
      * 
-     * @param  transferSupport  transfer support
-     * @return list of files if supported by the transfer object and if it has
-     *         file data
+     * @param  transferable  transferable
+     * @return list of files
      */
-    public static List<File> getFileList(TransferSupport transferSupport) {
+    public static List<File> getFileList(Transferable transferable) {
         List<File> list = new ArrayList<File>();
-        if (transferSupport.isDataFlavorSupported(DataFlavor.javaFileListFlavor)) {
-            try {
-                List files = (java.util.List) transferSupport.getTransferable().
-                    getTransferData(DataFlavor.javaFileListFlavor);
-                Iterator i = files.iterator();
-                while (i.hasNext()) {
-                    list.add((File) i.next());
-                }
-            } catch (Exception ex) {
-                Logger.getLogger(TransferUtil.class.getName()).log(Level.SEVERE, null, ex);
+        try {
+            List files = (java.util.List) transferable.getTransferData(fileListFlavor);
+            Iterator i = files.iterator();
+            while (i.hasNext()) {
+                list.add((File) i.next());
             }
+        } catch (Exception ex) {
+            Logger.getLogger(TransferUtil.class.getName()).log(Level.SEVERE, null, ex);
         }
         return list;
     }
