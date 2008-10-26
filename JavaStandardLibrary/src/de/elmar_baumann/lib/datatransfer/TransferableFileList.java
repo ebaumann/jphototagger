@@ -19,20 +19,10 @@ import java.util.logging.Logger;
 public class TransferableFileList implements Transferable {
 
     private static final DataFlavor fileListFlavor = DataFlavor.javaFileListFlavor;
-    private static DataFlavor uriListFlavor;
-    private static DataFlavor[] flavors = new DataFlavor[]{fileListFlavor};
+    private static final DataFlavor uriListFlavor = TransferUtil.getUriListFlavor();
+    private static final DataFlavor[] flavors = new DataFlavor[]{fileListFlavor, uriListFlavor};
     private List files;
     private String fileUris;
-    
-
-    static {
-        try {
-            uriListFlavor = new DataFlavor("text/uri-list;class=java.lang.String");
-            flavors = new DataFlavor[]{fileListFlavor, uriListFlavor};
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(TransferableFileList.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
 
     public TransferableFileList(File[] files) {
         this.files = Arrays.asList(files);
