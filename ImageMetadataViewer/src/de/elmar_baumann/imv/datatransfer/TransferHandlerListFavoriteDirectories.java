@@ -55,9 +55,9 @@ public class TransferHandlerListFavoriteDirectories extends TransferHandler {
             return false;
         }
         if (transferSupport.isDataFlavorSupported(DataFlavor.javaFileListFlavor)) {
-            insertDirectories(TransferUtil.getFileList(transferSupport));
+            insertDirectories(TransferUtil.getFileList(transferSupport.getTransferable()));
         } else if (transferSupport.isDataFlavorSupported(TransferUtil.getUriListFlavor())) {
-            insertDirectories(TransferUtil.getFileListFromUriList(transferSupport));
+            insertDirectories(TransferUtil.getFileListFromUriList(transferSupport.getTransferable()));
         } else if (transferSupport.isDataFlavorSupported(DataFlavor.stringFlavor)) {
             handleDroppedString(transferSupport);
         }

@@ -63,11 +63,12 @@ public class TransferHandlerTreeDirectories extends TransferHandler {
         File targetDirectory = getTargetDirectory(transferSupport);
         if (targetDirectory != null) {
             int dropAction = transferSupport.getUserDropAction();
+            Transferable transferable = transferSupport.getTransferable();
             try {
                 if (transferSupport.isDataFlavorSupported(DataFlavor.javaFileListFlavor)) {
-                    handleDroppedDirectories(dropAction, TransferUtil.getFileList(transferSupport), targetDirectory);
+                    handleDroppedFiles(dropAction, TransferUtil.getFileList(transferable), targetDirectory);
                 } else if (transferSupport.isDataFlavorSupported(TransferUtil.getUriListFlavor())) {
-                    handleDroppedDirectories(dropAction, TransferUtil.getFileListFromUriList(transferSupport), targetDirectory);
+                    handleDroppedFiles(dropAction, TransferUtil.getFileListFromUriList(transferable), targetDirectory);
                 } else if (transferSupport.isDataFlavorSupported(DataFlavor.stringFlavor)) {
                     handleDroppedString(transferSupport, targetDirectory);
                 }
@@ -83,7 +84,7 @@ public class TransferHandlerTreeDirectories extends TransferHandler {
     protected void exportDone(JComponent c, Transferable data, int action) {
     }
 
-    private boolean confirmFileAction(String messageFormat, int size, String absolutePath) {
+    private static boolean confirmFileAction(String messageFormat, int size, String absolutePath) {
         MessageFormat msg = new MessageFormat(messageFormat);
         Object[] params = {size, absolutePath};
         return JOptionPane.showConfirmDialog(
@@ -95,7 +96,15 @@ public class TransferHandlerTreeDirectories extends TransferHandler {
             AppSettings.getMediumAppIcon()) == JOptionPane.YES_OPTION;
     }
 
-    private void handleDroppedDirectories(
+    /**
+     * Handles dropped files: Asks whether to copy or move and if confirmed
+     * copys or moves the files.
+     * 
+     * @param dropAction
+     * @param sourceFiles
+     * @param targetDirectory  target directory
+     */
+    public static void handleDroppedFiles(
         int dropAction, List<File> sourceFiles, File targetDirectory) {
         String msgFormatCopy = Bundle.getString("TransferHandlerTreeDirectories.ConfirmMessage.Copy");
         String msgFormatMove = Bundle.getString("TransferHandlerTreeDirectories.ConfirmMessage.Move");
@@ -115,7 +124,7 @@ public class TransferHandlerTreeDirectories extends TransferHandler {
             Transferable transferable = transferSupport.getTransferable();
             String data = (String) transferable.getTransferData(stringFlavor);
             int dropAction = transferSupport.getUserDropAction();
-            handleDroppedDirectories(dropAction,
+            handleDroppedFiles(dropAction,
                 FileUtil.getAsFiles(ArrayUtil.stringTokenToArray(
                 data, filenamesDelimiter)), targetDirectory);
         } catch (Exception ex) {
@@ -123,14 +132,14 @@ public class TransferHandlerTreeDirectories extends TransferHandler {
         }
     }
 
-    private void copyFiles(File targetDirectory, List<File> sourceFiles) {
+    private static void copyFiles(File targetDirectory, List<File> sourceFiles) {
         CopyToDirectoryDialog dialog = new CopyToDirectoryDialog();
         dialog.setTargetDirectory(targetDirectory);
         dialog.setSourceFiles(sourceFiles);
         dialog.setVisible(true);
     }
 
-    private void moveFiles(File targetDirectory, List<File> sourceFiles) {
+    private static void moveFiles(File targetDirectory, List<File> sourceFiles) {
         MoveToDirectoryDialog dialog = new MoveToDirectoryDialog();
         dialog.setTargetDirectory(targetDirectory);
         dialog.setSourceFiles(sourceFiles);
@@ -146,7 +155,7 @@ public class TransferHandlerTreeDirectories extends TransferHandler {
         return null;
     }
 
-    private void refresh() {
+    private static void refresh() {
         Panels.getInstance().getAppPanel().getPanelThumbnails().refresh();
     }
 }
