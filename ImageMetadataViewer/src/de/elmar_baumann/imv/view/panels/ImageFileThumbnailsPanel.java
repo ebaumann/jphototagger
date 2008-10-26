@@ -255,7 +255,6 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel {
         if (viewport != null) {
             viewport.setViewPosition(viewportPosition);
         }
-        repaint();
     }
 
     /**
