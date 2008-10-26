@@ -386,6 +386,21 @@ public class FileUtil {
     }
 
     /**
+     * Returns an array of files from a list of files.
+     * 
+     * @param  files  list
+     * @return array
+     */
+    public static File[] fileListToFileArray(List<File> files) {
+        int size = files.size();
+        File[] fileArray = new File[size];
+        for (int i = 0; i < size; i++) {
+            fileArray[i] = files.get(i);
+        }
+        return fileArray;
+    }
+
+    /**
      * Returns the directories of a list of files.
      * 
      * @param  files  files
