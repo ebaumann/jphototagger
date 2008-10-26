@@ -72,11 +72,11 @@ public class ClipboardUtil {
         DataFlavor[] flavors = clipboard.getAvailableDataFlavors();
         Transferable transferable = clipboard.getContents(ClipboardUtil.class);
         if (TransferUtil.isFlavorSupported(flavors, fileListFlavor)) {
-            return TransferUtil.getFileList(transferable);
+            return TransferUtil.getFilesFromJavaFileList(transferable);
         } else if (TransferUtil.isFlavorSupported(flavors, uriListFlavor)) {
-            return TransferUtil.getFileListFromUriList(transferable);
+            return TransferUtil.getFilesFromUriList(transferable);
         } else if (TransferUtil.isFlavorSupported(flavors, stringFlavor)) {
-            return TransferUtil.getFileListFromTokenString(transferable, delimiterStringList);
+            return TransferUtil.getFilesFromTokenString(transferable, delimiterStringList);
         }
         return files;
     }
