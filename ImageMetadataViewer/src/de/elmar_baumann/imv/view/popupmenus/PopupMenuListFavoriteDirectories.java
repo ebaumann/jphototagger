@@ -17,13 +17,9 @@ public class PopupMenuListFavoriteDirectories extends JPopupMenu {
     private final String actionInsert = Bundle.getString("PopupMenuListFavoriteDirectories.Action.Insert");
     private final String actionUpdate = Bundle.getString("PopupMenuListFavoriteDirectories.Action.Update");
     private final String actionDelete = Bundle.getString("PopupMenuListFavoriteDirectories.Action.Delete");
-    private final String actionMoveUp = Bundle.getString("PopupMenuListFavoriteDirectories.Action.MoveUp");
-    private final String actionMoveDown = Bundle.getString("PopupMenuListFavoriteDirectories.Action.MoveDown");
     private final JMenuItem itemInsert = new JMenuItem(actionInsert);
     private final JMenuItem itemUpdate = new JMenuItem(actionUpdate);
     private final JMenuItem itemDelete = new JMenuItem(actionDelete);
-    private final JMenuItem itemMoveUp = new JMenuItem(actionMoveUp);
-    private final JMenuItem itemMoveDown = new JMenuItem(actionMoveDown);
     private FavoriteDirectory favoriteDirectory;
     private static PopupMenuListFavoriteDirectories instance = new PopupMenuListFavoriteDirectories();
 
@@ -85,24 +81,6 @@ public class PopupMenuListFavoriteDirectories extends JPopupMenu {
     }
 
     /**
-     * Fügt einen Beobachter für die Aktion hinzu: Nach oben verschieben.
-     * 
-     * @param listener  Beobachter
-     */
-    public void addActionLitenerMoveUp(ActionListener listener) {
-        itemMoveUp.addActionListener(listener);
-    }
-
-    /**
-     * Fügt einen Beobachter für die Aktion hinzu: Nach unten verschieben.
-     * 
-     * @param listener  Beobachter
-     */
-    public void addActionLitenerMoveDown(ActionListener listener) {
-        itemMoveDown.addActionListener(listener);
-    }
-
-    /**
      * Aktiviert das Einfügen von Favoritenverzeichnissen.
      * 
      * @param enabled true, wenn aktiviert
@@ -129,24 +107,6 @@ public class PopupMenuListFavoriteDirectories extends JPopupMenu {
         itemUpdate.setEnabled(enabled);
     }
 
-    /**
-     * Aktiviert das Item: Nach oben verschieben.
-     * 
-     * @param enabled  true, wenn aktiviert
-     */
-    public void setEnabledMoveUp(boolean enabled) {
-        itemMoveUp.setEnabled(enabled);
-    }
-
-    /**
-     * Aktiviert das Item: Nach unten verschieben.
-     * 
-     * @param enabled  true, wenn aktiviert
-     */
-    public void setEnabledMoveDown(boolean enabled) {
-        itemMoveDown.setEnabled(enabled);
-    }
-
     private PopupMenuListFavoriteDirectories() {
         init();
     }
@@ -155,7 +115,5 @@ public class PopupMenuListFavoriteDirectories extends JPopupMenu {
         add(itemInsert);
         add(itemUpdate);
         add(itemDelete);
-        add(itemMoveUp);
-        add(itemMoveDown);
     }
 }

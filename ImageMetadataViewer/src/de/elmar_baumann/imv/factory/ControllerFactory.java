@@ -8,8 +8,6 @@ import de.elmar_baumann.imv.controller.directories.ControllerDirectorySelected;
 import de.elmar_baumann.imv.controller.favoritedirectories.ControllerDeleteFavoriteDirectory;
 import de.elmar_baumann.imv.controller.favoritedirectories.ControllerFavoriteDirectorySelected;
 import de.elmar_baumann.imv.controller.favoritedirectories.ControllerInsertFavoriteDirectory;
-import de.elmar_baumann.imv.controller.favoritedirectories.ControllerMoveFavoriteItemDown;
-import de.elmar_baumann.imv.controller.favoritedirectories.ControllerMoveFavoriteItemUp;
 import de.elmar_baumann.imv.controller.favoritedirectories.ControllerUpdateFavoriteDirectory;
 import de.elmar_baumann.imv.controller.files.ControllerCopyFilesToDirectory;
 import de.elmar_baumann.imv.controller.files.ControllerOpenFilesWithOtherApp;
@@ -127,8 +125,6 @@ public class ControllerFactory {
         controllers.add(new ControllerInsertFavoriteDirectory());
         controllers.add(new ControllerDeleteFavoriteDirectory());
         controllers.add(new ControllerUpdateFavoriteDirectory());
-        controllers.add(new ControllerMoveFavoriteItemUp());
-        controllers.add(new ControllerMoveFavoriteItemDown());
         controllers.add(new ControllerCopyFilesToDirectory());
         controllers.add(new ControllerRenameInXmpColumns());
         controllers.add(new ControllerIptcToXmp());

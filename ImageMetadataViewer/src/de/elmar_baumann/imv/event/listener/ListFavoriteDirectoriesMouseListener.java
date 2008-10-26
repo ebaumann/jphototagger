@@ -31,20 +31,10 @@ public class ListFavoriteDirectoriesMouseListener extends MouseAdapter {
             popup.setEnabledDelete(isItem);
             popup.setEnabledUpdate(isItem);
             popup.show(list, x, y);
-            setEnabledMove(isItem, list);
         } else {
             if (index >= 0) {
                 list.setSelectedIndex(index);
             }
-        }
-    }
-
-    private void setEnabledMove(boolean isItem, JList list) {
-        if (isItem) {
-            boolean canMoveUp = list.getSelectedIndex() > 0;
-            boolean canMoveDown = list.getSelectedIndex() < list.getModel().getSize() - 1;
-            popup.setEnabledMoveUp(canMoveUp);
-            popup.setEnabledMoveDown(canMoveDown);
         }
     }
 }
