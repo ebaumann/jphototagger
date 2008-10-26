@@ -1,7 +1,6 @@
 package de.elmar_baumann.imv.view.panels;
 
 import de.elmar_baumann.imv.AppSettings;
-import de.elmar_baumann.imv.datatransfer.TransferHandlerListFavoriteDirectories;
 import de.elmar_baumann.lib.renderer.TreeCellRendererDirectories;
 import de.elmar_baumann.imv.event.AppExitListener;
 import de.elmar_baumann.imv.event.AppStartListener;
@@ -449,9 +448,10 @@ public class AppPanel extends javax.swing.JPanel
         labelFastSearch = new javax.swing.JLabel();
 
         treeDirectories.setCellRenderer(new TreeCellRendererDirectories());
-        treeDirectories.setExpandsSelectedPaths(false);
+        treeDirectories.setDragEnabled(true);
         treeDirectories.setModel(null);
         scrollPaneDirectories.setViewportView(treeDirectories);
+        treeDirectories.setTransferHandler(new de.elmar_baumann.imv.datatransfer.TransferHandlerTreeDirectories());
 
         javax.swing.GroupLayout panelSelectionDirectoriesLayout = new javax.swing.GroupLayout(panelSelectionDirectories);
         panelSelectionDirectories.setLayout(panelSelectionDirectoriesLayout);
@@ -486,8 +486,8 @@ public class AppPanel extends javax.swing.JPanel
         listImageCollections.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         listImageCollections.setCellRenderer(new ListCellRendererImageCollections());
         listImageCollections.setDragEnabled(true);
-        listImageCollections.setTransferHandler(new de.elmar_baumann.imv.datatransfer.TransferHandlerListImageCollections());
         scrollPaneImageCollections.setViewportView(listImageCollections);
+        listImageCollections.setTransferHandler(new de.elmar_baumann.imv.datatransfer.TransferHandlerListImageCollections());
 
         javax.swing.GroupLayout panelSelectionImageCollectionsLayout = new javax.swing.GroupLayout(panelSelectionImageCollections);
         panelSelectionImageCollections.setLayout(panelSelectionImageCollectionsLayout);
@@ -525,7 +525,7 @@ public class AppPanel extends javax.swing.JPanel
         listFavoriteDirectories.setDragEnabled(true);
         listFavoriteDirectories.setDropMode(javax.swing.DropMode.ON);
         scrollPaneFavoriteDirectories.setViewportView(listFavoriteDirectories);
-        listFavoriteDirectories.setTransferHandler(new TransferHandlerListFavoriteDirectories());
+        listFavoriteDirectories.setTransferHandler(new de.elmar_baumann.imv.datatransfer.TransferHandlerListFavoriteDirectories());
 
         javax.swing.GroupLayout panelSelectionFavoriteDirectoriesLayout = new javax.swing.GroupLayout(panelSelectionFavoriteDirectories);
         panelSelectionFavoriteDirectories.setLayout(panelSelectionFavoriteDirectoriesLayout);

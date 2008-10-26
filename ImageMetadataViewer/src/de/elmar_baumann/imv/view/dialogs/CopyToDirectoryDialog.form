@@ -56,9 +56,9 @@
                   <Group type="102" attributes="0">
                       <Component id="progressBar" pref="463" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="buttonCancelCopy" min="-2" max="-2" attributes="0"/>
+                      <Component id="buttonStop" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="buttonStartCopy" min="-2" max="-2" attributes="0"/>
+                      <Component id="buttonStart" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
@@ -85,8 +85,8 @@
                       <Component id="progressBar" linkSize="2" min="-2" pref="26" max="-2" attributes="0"/>
                   </Group>
                   <Group type="103" alignment="1" groupAlignment="3" attributes="0">
-                      <Component id="buttonStartCopy" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="buttonCancelCopy" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="buttonStart" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="buttonStop" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -145,34 +145,34 @@
     </Component>
     <Component class="javax.swing.JProgressBar" name="progressBar">
     </Component>
-    <Component class="javax.swing.JButton" name="buttonStartCopy">
+    <Component class="javax.swing.JButton" name="buttonStart">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Dialog" size="12" style="0"/>
         </Property>
         <Property name="mnemonic" type="int" value="115"/>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="CopyToDirectoryDialog.buttonStartCopy.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="CopyToDirectoryDialog.buttonStart.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
         </Property>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonStartCopyActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonStartActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="buttonCancelCopy">
+    <Component class="javax.swing.JButton" name="buttonStop">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Dialog" size="12" style="0"/>
         </Property>
         <Property name="mnemonic" type="int" value="111"/>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="CopyToDirectoryDialog.buttonCancelCopy.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="CopyToDirectoryDialog.buttonStop.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
         </Property>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonCancelCopyActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonStopActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="labelCurrentFilename">

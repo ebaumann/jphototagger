@@ -45,6 +45,7 @@ public class MoveToDirectoryDialog extends Dialog
     private List<File> sourceFiles;
     private List<File> movedFiles = new ArrayList<File>();
     private File targetDirectory = new File(""); // NOI18N
+    private boolean moveIfVisible = false;
 
     public MoveToDirectoryDialog() {
         super((java.awt.Frame) null, false);
@@ -146,18 +147,34 @@ public class MoveToDirectoryDialog extends Dialog
         Collections.sort(sourceFiles);
     }
 
+    /**
+     * Sets the target directory. If it exists, move will done after calling
+     * {@link #setVisible(boolean)} with <code>true</code> as argument whitout
+     * user interaction.
+     * 
+     * @param directory  target directory
+     */
     public void setTargetDirectory(File directory) {
-        targetDirectory = directory;
+        if (directory.exists()) {
+            targetDirectory = directory;
+            buttonStart.setEnabled(false);
+            buttonChooseDirectory.setEnabled(false);
+            moveIfVisible = true;
+        }
     }
 
     @Override
     public void setVisible(boolean visible) {
         if (visible) {
             PersistentAppSizes.getSizeAndLocation(this);
-            targetDirectory = new File(PersistentSettings.getInstance().getString(keyTargetDirectory));
-            if (targetDirectory.exists()) {
-                labelDirectoryName.setText(targetDirectory.getAbsolutePath());
-                buttonStart.setEnabled(true);
+            if (moveIfVisible) {
+                start();
+            } else {
+                targetDirectory = new File(PersistentSettings.getInstance().getString(keyTargetDirectory));
+                if (targetDirectory.exists()) {
+                    labelDirectoryName.setText(targetDirectory.getAbsolutePath());
+                    buttonStart.setEnabled(true);
+                }
             }
         } else {
             PersistentAppSizes.setSizeAndLocation(this);
@@ -195,9 +212,7 @@ public class MoveToDirectoryDialog extends Dialog
         Panels.getInstance().getAppPanel().getPanelThumbnails().remove(movedFiles);
         removeMovedFiles();
         checkErrors();
-        if (sourceFiles.size() <= 0) {
-            setVisible(false);
-        }
+        setVisible(false);
     }
 
     private void removeMovedFiles() {
