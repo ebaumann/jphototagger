@@ -97,7 +97,7 @@ public class TransferUtil {
 
     /**
      * Returns the flavor of a string with a URI list, needed to get files from 
-     * {@link #getFileListFromUriList(javax.swing.TransferHandler.TransferSupport)}.
+     * {@link #getFilesFromUriList(javax.swing.TransferHandler.TransferSupport)}.
      * 
      * @return flavor
      */
@@ -113,7 +113,7 @@ public class TransferUtil {
      * @param  transferable  transferable
      * @return files
      */
-    public static List<File> getFileListFromUriList(Transferable transferable) {
+    public static List<File> getFilesFromUriList(Transferable transferable) {
         List<File> list = new ArrayList<File>();
         try {
             String data = (String) transferable.getTransferData(uriListFlavor);
@@ -137,7 +137,7 @@ public class TransferUtil {
      * @param  delimiter     delimiter which separates the file names
      * @return files
      */
-    public static List<File> getFileListFromTokenString(Transferable transferable,
+    public static List<File> getFilesFromTokenString(Transferable transferable,
         String delimiter) {
         List<File> list = new ArrayList<File>();
         try {
@@ -158,7 +158,7 @@ public class TransferUtil {
      * @param  transferable  transferable
      * @return list of files
      */
-    public static List<File> getFileList(Transferable transferable) {
+    public static List<File> getFilesFromJavaFileList(Transferable transferable) {
         List<File> list = new ArrayList<File>();
         try {
             List files = (java.util.List) transferable.getTransferData(fileListFlavor);
@@ -168,6 +168,28 @@ public class TransferUtil {
             }
         } catch (Exception ex) {
             Logger.getLogger(TransferUtil.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+
+    /**
+     * Returns a file list from a transferable. First ist checks the supported
+     * flavors and then ist calls the appropriate function which retrieves the
+     * file list.
+     * 
+     * @param  transferable transferable
+     * @param  delimiter    token delimiter if files names are in a token string
+     * @return files
+     */
+    public static List<File> getFiles(Transferable transferable, String delimiter) {
+        List<File> list = new ArrayList<File>();
+        DataFlavor[] flavors = transferable.getTransferDataFlavors();
+        if (isFlavorSupported(flavors, fileListFlavor)) {
+            return getFilesFromJavaFileList(transferable);
+        } else if (isFlavorSupported(flavors, uriListFlavor)) {
+            return getFilesFromUriList(transferable);
+        } else if (isFlavorSupported(flavors, stringFlavor)) {
+            return getFilesFromTokenString(transferable, delimiter);
         }
         return list;
     }
