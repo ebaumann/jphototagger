@@ -203,6 +203,10 @@ public class PopupMenuPanelThumbnails extends JPopupMenu
         itemUpdateThumbnail.addActionListener(listener);
     }
 
+    public boolean isDeleteFiles(Object source) {
+        return source == itemFileSystemDeleteFiles;
+    }
+
     /**
      * Liefert die Anwendung, die ein Bild öffnen soll.
      * 
