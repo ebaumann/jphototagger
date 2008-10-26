@@ -1,7 +1,7 @@
 package de.elmar_baumann.imv.view.panels;
 
 import de.elmar_baumann.imv.AppSettings;
-import de.elmar_baumann.imv.dnd.TransferHandlerListFavoriteDirectories;
+import de.elmar_baumann.imv.datatransfer.TransferHandlerListFavoriteDirectories;
 import de.elmar_baumann.lib.renderer.TreeCellRendererDirectories;
 import de.elmar_baumann.imv.event.AppExitListener;
 import de.elmar_baumann.imv.event.AppStartListener;
@@ -486,7 +486,7 @@ public class AppPanel extends javax.swing.JPanel
         listImageCollections.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         listImageCollections.setCellRenderer(new ListCellRendererImageCollections());
         listImageCollections.setDragEnabled(true);
-        listImageCollections.setTransferHandler(new de.elmar_baumann.imv.dnd.TransferHandlerListImageCollections());
+        listImageCollections.setTransferHandler(new de.elmar_baumann.imv.datatransfer.TransferHandlerListImageCollections());
         scrollPaneImageCollections.setViewportView(listImageCollections);
 
         javax.swing.GroupLayout panelSelectionImageCollectionsLayout = new javax.swing.GroupLayout(panelSelectionImageCollections);

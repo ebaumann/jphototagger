@@ -4,7 +4,7 @@ import de.elmar_baumann.imv.types.Content;
 import de.elmar_baumann.imv.controller.thumbnail.ControllerDoubleklickThumbnail;
 import de.elmar_baumann.imv.data.ThumbnailFlag;
 import de.elmar_baumann.imv.database.DatabaseImageFiles;
-import de.elmar_baumann.imv.dnd.TransferHandlerThumbnailsPanel;
+import de.elmar_baumann.imv.datatransfer.TransferHandlerThumbnailsPanel;
 import de.elmar_baumann.imv.event.RefreshListener;
 import de.elmar_baumann.imv.io.FileSort;
 import de.elmar_baumann.imv.resource.Panels;

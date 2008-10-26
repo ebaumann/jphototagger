@@ -120,13 +120,17 @@ public class AppFrame extends javax.swing.JFrame {
     public Goto getGotoOfMenuItem(JMenuItem item) {
         return gotoOfMenuItem.get(item);
     }
-    
+
     public JMenuItem getMenuItemRenameInXmp() {
         return menuItemRenameInXmp;
     }
 
     public JMenuItem getMenuItemAutocopyDirectory() {
         return menuItemCopyFromAutocopyDirectory;
+    }
+
+    public JMenuItem getMenuItemCopy() {
+        return menuItemCopy;
     }
 
     public JMenuItem getMenuItemOfGoto(Goto gt) {
@@ -230,9 +234,12 @@ public class AppFrame extends javax.swing.JFrame {
         menuItemExit = new javax.swing.JMenuItem();
         menuEdit = new javax.swing.JMenu();
         menuItemSettings = new javax.swing.JMenuItem();
+        jSeparator5 = new javax.swing.JSeparator();
         menuItemSearch = new javax.swing.JMenuItem();
+        jSeparator6 = new javax.swing.JSeparator();
         menuItemFileSystemRename = new javax.swing.JMenuItem();
         menuItemDelete = new javax.swing.JMenuItem();
+        menuItemCopy = new javax.swing.JMenuItem();
         menuGoto = new javax.swing.JMenu();
         menuItemGotoFastSearch = new javax.swing.JMenuItem();
         menuItemGotoEdit = new javax.swing.JMenuItem();
@@ -310,11 +317,13 @@ public class AppFrame extends javax.swing.JFrame {
         menuItemSettings.setMnemonic('e');
         menuItemSettings.setText(Bundle.getString("AppFrame.menuItemSettings.text")); // NOI18N
         menuEdit.add(menuItemSettings);
+        menuEdit.add(jSeparator5);
 
         menuItemSearch.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         menuItemSearch.setMnemonic('s');
         menuItemSearch.setText(Bundle.getString("AppFrame.menuItemSearch.text")); // NOI18N
         menuEdit.add(menuItemSearch);
+        menuEdit.add(jSeparator6);
 
         menuItemFileSystemRename.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F2, 0));
         menuItemFileSystemRename.setMnemonic('u');
@@ -325,6 +334,11 @@ public class AppFrame extends javax.swing.JFrame {
         menuItemDelete.setMnemonic('l');
         menuItemDelete.setText(Bundle.getString("AppFrame.menuItemDelete.text")); // NOI18N
         menuEdit.add(menuItemDelete);
+
+        menuItemCopy.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_MASK));
+        menuItemCopy.setMnemonic('k');
+        menuItemCopy.setText(Bundle.getString("AppFrame.menuItemCopy.text")); // NOI18N
+        menuEdit.add(menuItemCopy);
 
         menuBar.add(menuEdit);
 
@@ -483,12 +497,15 @@ private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:even
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JSeparator jSeparator5;
+    private javax.swing.JSeparator jSeparator6;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenu menuEdit;
     private javax.swing.JMenu menuFile;
     private javax.swing.JMenu menuGoto;
     private javax.swing.JMenu menuHelp;
     private javax.swing.JMenuItem menuItemAbout;
+    private javax.swing.JMenuItem menuItemCopy;
     private javax.swing.JMenuItem menuItemCopyFromAutocopyDirectory;
     private javax.swing.JMenuItem menuItemDelete;
     private javax.swing.JMenuItem menuItemExit;
