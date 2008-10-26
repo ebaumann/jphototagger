@@ -176,7 +176,6 @@ public class DatabaseImageFiles extends Database {
         stmt.setString(16, xmpData.getPhotoshopSource());
         stmt.setString(17, xmpData.getPhotoshopState());
         stmt.setString(18, xmpData.getPhotoshopTransmissionReference());
-        System.out.println(xmpData.getLastModified());
         stmt.setLong(19, xmpData.getLastModified());
     }
 
