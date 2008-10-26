@@ -12,7 +12,6 @@ import de.elmar_baumann.imv.event.ProgressListener;
 import de.elmar_baumann.imv.image.thumbnail.ThumbnailUtil;
 import de.elmar_baumann.imv.image.metadata.exif.ExifMetadata;
 import de.elmar_baumann.imv.image.metadata.xmp.XmpMetadata;
-import de.elmar_baumann.imv.io.IoUtil;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.types.DatabaseUpdate;
 import de.elmar_baumann.lib.io.FileUtil;
@@ -53,6 +52,23 @@ public class ImageMetadataToDatabase implements Runnable {
         this.update = update;
     }
 
+    @Override
+    public void run() {
+        delay();
+        notifyProgressStarted();
+        int count = filenames.size();
+        startTime = System.currentTimeMillis();
+        for (int index = 0; !stop && index < count; index++) {
+            String filename = filenames.get(index);
+            ImageFile data = getImageFileData(filename);
+            if (isUpdate(data)) {
+                db.insertImageFile(data);
+            }
+            notifyProgressPerformed(index + 1, filename);
+        }
+        notifyProgressEnded();
+    }
+
     /**
      * Fügt einen Fortschrittsbeobachter hinzu. Dieser wird benachrichtigt,
      * bevor die erste Bilddatei abgearbeitet wurde
@@ -89,23 +105,6 @@ public class ImageMetadataToDatabase implements Runnable {
                 Logger.getLogger(ImageMetadataToDatabase.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-    }
-
-    @Override
-    public void run() {
-        delay();
-        notifyProgressStarted();
-        int count = filenames.size();
-        startTime = System.currentTimeMillis();
-        for (int index = 0; !stop && index < count; index++) {
-            String filename = filenames.get(index);
-            ImageFile data = getImageFileData(filename);
-            if (isUpdate(data)) {
-                db.insertImageFile(data);
-            }
-            notifyProgressPerformed(index + 1, filename);
-        }
-        notifyProgressEnded();
     }
 
     private boolean isUpdate(ImageFile data) {
