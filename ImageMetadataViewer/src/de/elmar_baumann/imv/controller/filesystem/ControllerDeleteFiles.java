@@ -31,19 +31,21 @@ public class ControllerDeleteFiles extends Controller implements ActionListener 
 
     private ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
     DatabaseImageFiles db = DatabaseImageFiles.getInstance();
+    PopupMenuPanelThumbnails popup = PopupMenuPanelThumbnails.getInstance();
 
     public ControllerDeleteFiles() {
         listenToActionSources();
     }
 
     private void listenToActionSources() {
-        PopupMenuPanelThumbnails.getInstance().addActionListenerFileSystemDeleteFiles(this);
+        popup.addActionListenerFileSystemDeleteFiles(this);
         Panels.getInstance().getAppFrame().getMenuItemDelete().addActionListener(this);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (isControl() && thumbnailsPanel.getContent().equals(Content.Directory)) {
+        if (isControl() && (thumbnailsPanel.getContent().equals(Content.Directory) ||
+            popup.isDeleteFiles(e.getSource()))) {
             deleteSelectedFiles();
         }
     }
