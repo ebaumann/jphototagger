@@ -153,4 +153,20 @@ public class TransferUtil {
         }
         return list;
     }
+
+    /**
+     * Returns whether a flavor is in a flavor array.
+     * 
+     * @param  flavors  flavor array
+     * @param  flavor   flavor to search
+     * @return true if found (supported)
+     */
+    public static boolean isFlavorSupported(DataFlavor[] flavors, DataFlavor flavor) {
+        for (DataFlavor f : flavors) {
+            if (f.equals(flavor)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
