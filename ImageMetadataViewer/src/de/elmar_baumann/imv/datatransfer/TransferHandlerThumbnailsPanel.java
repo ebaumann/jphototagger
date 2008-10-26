@@ -26,14 +26,12 @@ public class TransferHandlerThumbnailsPanel extends TransferHandler {
 
     @Override
     public boolean canImport(TransferHandler.TransferSupport transferSupport) {
-        //return transferSupport.isDataFlavorSupported(DataFlavor.stringFlavor);
         return false;
     }
 
     @Override
     protected Transferable createTransferable(JComponent c) {
         ImageFileThumbnailsPanel thumbnailsPanel = (ImageFileThumbnailsPanel)c;
-            //Panels.getInstance().getAppPanel().getPanelThumbnails(); // c is the baseclass
         List<String> filenames = FileUtil.getAsFilenames(thumbnailsPanel.getSelectedFiles());
         return TransferUtil.getStringListTransferable(filenames, delimiter);
     }
