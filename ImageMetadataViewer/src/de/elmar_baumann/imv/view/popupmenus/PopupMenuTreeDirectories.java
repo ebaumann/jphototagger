@@ -2,8 +2,12 @@ package de.elmar_baumann.imv.view.popupmenus;
 
 import de.elmar_baumann.imv.resource.Bundle;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
+import javax.swing.JSeparator;
+import javax.swing.tree.TreePath;
 
 /**
  * 
@@ -14,9 +18,24 @@ import javax.swing.JPopupMenu;
 public class PopupMenuTreeDirectories extends JPopupMenu {
 
     private final String actionAddToFavoriteDirectories = Bundle.getString("PopupMenuTreeDirectories.Action.AddToFavoriteDirectories");
+    private final String actionFilesystemAddDirectory = Bundle.getString("PopupMenuTreeDirectories.Action.FilesystemAddDirectory");
+    private final String actionFilesystemDeleteDirectory = Bundle.getString("PopupMenuTreeDirectories.Action.FilesystemDeleteDirectory");
+    private final String actionFilesystemRenameDirectory = Bundle.getString("PopupMenuTreeDirectories.Action.FilesystemRenameDirectory");
     private final JMenuItem itemAddToFavoriteDirectories = new JMenuItem(actionAddToFavoriteDirectories);
+    private final JMenuItem itemFilesystemAddDirectory = new JMenuItem(actionFilesystemAddDirectory);
+    private final JMenuItem itemFilesystemDeleteDirectory = new JMenuItem(actionFilesystemDeleteDirectory);
+    private final JMenuItem itemFilesystemRenameDirectory = new JMenuItem(actionFilesystemRenameDirectory);
+    private List<JMenuItem> fileItems = new ArrayList<JMenuItem>();
+    private TreePath path;
     private String directoryName;
     private static PopupMenuTreeDirectories instance = new PopupMenuTreeDirectories();
+
+    private void initLists() {
+        fileItems.add(itemAddToFavoriteDirectories);
+        fileItems.add(itemFilesystemAddDirectory);
+        fileItems.add(itemFilesystemDeleteDirectory);
+        fileItems.add(itemFilesystemRenameDirectory);
+    }
 
     /**
      * Liefert die einzige Klasseninstanz.
@@ -41,13 +60,34 @@ public class PopupMenuTreeDirectories extends JPopupMenu {
         itemAddToFavoriteDirectories.addActionListener(listener);
     }
 
-    /**
-     * Aktiviert die Aktion: Zu den Favoritenverzeichnissen hinzufügen.
-     * 
-     * @param enabled  true, wenn aktiviert. Default: true.
-     */
-    public void setEnabledAddToFavoriteDirectories(boolean enabled) {
-        itemAddToFavoriteDirectories.setEnabled(enabled);
+    public void setFileItemsEnabled(boolean enabled) {
+        for (JMenuItem item : fileItems) {
+            item.setEnabled(enabled);
+        }
+    }
+
+    public void addActionListenerFilesystemDeleteDirectoy(ActionListener listener) {
+        itemFilesystemDeleteDirectory.addActionListener(listener);
+    }
+
+    public void addActionListenerFilesystemRenameDirectoy(ActionListener listener) {
+        itemFilesystemRenameDirectory.addActionListener(listener);
+    }
+
+    public void addActionListenerFilesystemAddDirectoy(ActionListener listener) {
+        itemFilesystemAddDirectory.addActionListener(listener);
+    }
+
+    public boolean isActionFilesystemDeleteDirectory(Object source) {
+        return source == itemFilesystemDeleteDirectory;
+    }
+
+    public boolean isActionFilesystemRenameDirectory(Object source) {
+        return source == itemFilesystemRenameDirectory;
+    }
+
+    public boolean isActionFilesystemAddDirectory(Object source) {
+        return source == itemFilesystemAddDirectory;
     }
 
     /**
@@ -68,6 +108,14 @@ public class PopupMenuTreeDirectories extends JPopupMenu {
         this.directoryName = directoryName;
     }
 
+    public void setTreePath(TreePath path) {
+        this.path = path;
+    }
+
+    public TreePath getTreePath() {
+        return path;
+    }
+
     /**
      * Liefert, ob das ausgewählte Verzeichnis zu den Favoriten hinzugefügt
      * werden soll.
@@ -86,5 +134,10 @@ public class PopupMenuTreeDirectories extends JPopupMenu {
 
     private void init() {
         add(itemAddToFavoriteDirectories);
+        add(new JSeparator());
+        add(itemFilesystemAddDirectory);
+        add(itemFilesystemRenameDirectory);
+        add(itemFilesystemDeleteDirectory);
+        initLists();
     }
 }

@@ -35,11 +35,12 @@ public class TreeDirectoriesMouseListener extends MouseAdapter {
                     File popupDirectory = (File) o2;
                     if (selectedDirectory.equals(popupDirectory)) {
                         popup.setDirectoryName(selectedDirectory.getAbsolutePath());
+                        popup.setTreePath(path);
                         isSelectedItem = true;
                     }
                 }
             }
-            popup.setEnabledAddToFavoriteDirectories(isSelectedItem);
+            popup.setFileItemsEnabled(isSelectedItem);
             popup.show(tree, x, y);
         } else {
             if (path != null) {
