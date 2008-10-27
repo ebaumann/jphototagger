@@ -6,6 +6,7 @@ import de.elmar_baumann.imv.controller.Controller;
 import de.elmar_baumann.imv.database.DatabaseImageFiles;
 import de.elmar_baumann.imv.event.ErrorEvent;
 import de.elmar_baumann.imv.event.listener.ErrorListeners;
+import de.elmar_baumann.imv.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
@@ -37,6 +38,19 @@ public class ControllerDeleteFiles extends Controller implements ActionListener 
         listenToActionSources();
     }
 
+    private List<File> getFiles() {
+        List<File> files = new ArrayList<File>();
+        List<File> selectedFiles = thumbnailsPanel.getSelectedFiles();
+        for (File file : selectedFiles) {
+            files.add(file);
+            File sidecarFile = XmpMetadata.getSidecarFile(file);
+            if (sidecarFile != null) {
+                files.add(sidecarFile);
+            }
+        }
+        return files;
+    }
+
     private void listenToActionSources() {
         popup.addActionListenerFileSystemDeleteFiles(this);
         Panels.getInstance().getAppFrame().getMenuItemDelete().addActionListener(this);
@@ -55,7 +69,7 @@ public class ControllerDeleteFiles extends Controller implements ActionListener 
     private void deleteSelectedFiles() {
         if (accepted()) {
             int countDeleted = 0;
-            List<File> files = thumbnailsPanel.getSelectedFiles();
+            List<File> files = getFiles();
             List<File> deletedFiles = new ArrayList<File>(files.size());
             for (File file : files) {
                 if (file.delete()) {
