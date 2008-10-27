@@ -30,6 +30,7 @@ public class CopyToDirectoryDialog extends Dialog
     private CopyFiles copyTask;
     private boolean copy = false;
     private List<File> sourceFiles;
+    private List<ProgressListener> progressListeners = new ArrayList<ProgressListener>();
     private String lastDirectory = ""; // NOI18N
     private boolean copyIfVisible = false;
 
@@ -40,6 +41,28 @@ public class CopyToDirectoryDialog extends Dialog
         setIconImages(AppSettings.getAppIcons());
         setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
         registerKeyStrokes();
+    }
+    
+    public void addProgressListener(ProgressListener listener) {
+        progressListeners.add(listener);
+    }
+    
+    private void notifyProgressListenerStarted(ProgressEvent evt) {
+        for (ProgressListener listener : progressListeners) {
+            listener.progressStarted(evt);
+        }
+    }
+
+    private void notifyProgressListenerPerformed(ProgressEvent evt) {
+        for (ProgressListener listener : progressListeners) {
+            listener.progressPerformed(evt);
+        }
+    }
+
+    private void notifyProgressListenerEnded(ProgressEvent evt) {
+        for (ProgressListener listener : progressListeners) {
+            listener.progressEnded(evt);
+        }
     }
 
     private void checkClosing() {
@@ -181,6 +204,7 @@ public class CopyToDirectoryDialog extends Dialog
         progressBar.setMinimum(evt.getMinimum());
         progressBar.setMaximum(evt.getMaximum());
         progressBar.setValue(evt.getValue());
+        notifyProgressListenerStarted(evt);
     }
 
     @Override
@@ -189,6 +213,7 @@ public class CopyToDirectoryDialog extends Dialog
         @SuppressWarnings("unchecked")
         String filename = ((Pair<File, File>) evt.getInfo()).getFirst().getAbsolutePath();
         labelCurrentFilename.setText(filename);
+        notifyProgressListenerPerformed(evt);
     }
 
     @Override
@@ -200,6 +225,7 @@ public class CopyToDirectoryDialog extends Dialog
         buttonStop.setEnabled(false);
         buttonStart.setEnabled(true);
         copy = false;
+        notifyProgressListenerEnded(evt);
         setVisible(false);
     }
 
