@@ -6,7 +6,6 @@ import de.elmar_baumann.imv.view.ViewUtil;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.lib.datatransfer.TransferUtil;
 import de.elmar_baumann.lib.io.FileUtil;
-import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.io.File;
 import java.util.List;
@@ -32,16 +31,14 @@ public class TransferHandlerThumbnailsPanel extends TransferHandler {
 
     @Override
     public boolean canImport(TransferSupport transferSupport) {
-        ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
-        return thumbnailsPanel.getContent().equals(Content.Directory) &&
-            (transferSupport.isDataFlavorSupported(DataFlavor.javaFileListFlavor) ||
-            transferSupport.isDataFlavorSupported(DataFlavor.stringFlavor));
+        return canPanelImport() &&
+            TransferUtil.maybeContainFileData(transferSupport.getTransferable());
     }
 
     @Override
     protected Transferable createTransferable(JComponent c) {
-        ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
-        List<String> filenames = FileUtil.getAsFilenames(thumbnailsPanel.getSelectedFiles());
+        List<String> filenames = FileUtil.getAsFilenames(
+            ((ImageFileThumbnailsPanel) c).getSelectedFiles());
         return TransferUtil.getStringListTransferable(filenames, delimiter);
     }
 
@@ -56,8 +53,7 @@ public class TransferHandlerThumbnailsPanel extends TransferHandler {
             return false;
         }
         JTree treeDirectories = Panels.getInstance().getAppPanel().getTreeDirectories();
-        List<File> sourceFiles = TransferUtil.getFiles(transferSupport.getTransferable(),
-            TransferHandlerThumbnailsPanel.delimiter);
+        List<File> sourceFiles = TransferUtil.getFiles(transferSupport.getTransferable(), delimiter);
         File targetDirectory = ViewUtil.getTargetDirectory(treeDirectories);
         if (targetDirectory != null & sourceFiles.size() > 0) {
             TransferHandlerTreeDirectories.handleDroppedFiles(
@@ -68,5 +64,11 @@ public class TransferHandlerThumbnailsPanel extends TransferHandler {
 
     @Override
     protected void exportDone(JComponent c, Transferable data, int action) {
+    }
+
+    private boolean canPanelImport() {
+        ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
+        return thumbnailsPanel.getContent().equals(Content.Directory) ||
+            thumbnailsPanel.getContent().equals(Content.FavoriteDirectory);
     }
 }
