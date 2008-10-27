@@ -96,7 +96,7 @@ public class IptcMetadata {
     public List<IptcEntry> getFilteredEntries(List<IptcEntry> entries, IPTCEntryMeta filter) {
         List<IptcEntry> filteredEntries = new ArrayList<IptcEntry>();
         for (IptcEntry entry : entries) {
-            if (entry.getEntry().getEntryMeta().equals(filter)) {
+            if (entry.getEntryMeta().equals(filter)) {
                 filteredEntries.add(entry);
             }
         }
@@ -116,7 +116,7 @@ public class IptcMetadata {
         if (iptcEntries != null) {
             iptc = new Iptc();
             for (IptcEntry iptcEntry : iptcEntries) {
-                IPTCEntryMeta iptcEntryMeta = iptcEntry.getEntry().getEntryMeta();
+                IPTCEntryMeta iptcEntryMeta = iptcEntry.getEntryMeta();
                 iptc.setValue(iptcEntryMeta, iptcEntry.getData());
             }
         }

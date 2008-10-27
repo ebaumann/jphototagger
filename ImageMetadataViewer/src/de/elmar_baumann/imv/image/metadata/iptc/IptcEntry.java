@@ -1,6 +1,7 @@
 package de.elmar_baumann.imv.image.metadata.iptc;
 
 import com.imagero.reader.iptc.IPTCEntry;
+import com.imagero.reader.iptc.IPTCEntryMeta;
 import de.elmar_baumann.imv.UserSettings;
 import java.io.UnsupportedEncodingException;
 import java.util.logging.Level;
@@ -15,7 +16,11 @@ import java.util.logging.Logger;
  */
 public class IptcEntry {
 
-    private IPTCEntry entry;
+    private String name;
+    private byte[] data;
+    private int recordNumber;
+    private int datasetNumber;
+    private IPTCEntryMeta entryMeta;
 
     /**
      * Erzeugt ein neues Objekt.
@@ -23,7 +28,11 @@ public class IptcEntry {
      * @param entry IPTC-Eintrag
      */
     public IptcEntry(IPTCEntry entry) {
-        this.entry = entry;
+        name = entry.getEntryMeta().getName();
+        data = entry.getData();
+        recordNumber = entry.getRecordNumber();
+        datasetNumber = entry.getDataSetNumber();
+        entryMeta = entry.getEntryMeta();
     }
 
     /**
@@ -32,7 +41,7 @@ public class IptcEntry {
      * @return Name
      */
     public String getName() {
-        return entry.getEntryMeta().getName();
+        return name;
     }
 
     /**
@@ -41,7 +50,7 @@ public class IptcEntry {
      * @return Recordnummer
      */
     public int getRecordNumber() {
-        return entry.getRecordNumber();
+        return recordNumber;
     }
 
     /**
@@ -59,24 +68,19 @@ public class IptcEntry {
      * @return Datensatznummer.
      */
     public int getDataSetNumber() {
-        return entry.getDataSetNumber();
+        return datasetNumber;
     }
 
-    /**
-     * Liefert den Eintrag (zugrunde liegende Daten).
-     * 
-     * @return Eintrag
-     */
-    public IPTCEntry getEntry() {
-        return entry;
+    public IPTCEntryMeta getEntryMeta() {
+        return entryMeta;
     }
 
     @Override
     public boolean equals(Object o) {
         if (o instanceof IptcEntry) {
             IptcEntry otherEntry = (IptcEntry) o;
-            return getRecordNumber() == otherEntry.getRecordNumber() &&
-                getDataSetNumber() == otherEntry.getDataSetNumber() &&
+            return recordNumber == otherEntry.recordNumber &&
+                datasetNumber == otherEntry.datasetNumber &&
                 getData().equals(otherEntry.getData());
         }
         return false;
@@ -84,14 +88,15 @@ public class IptcEntry {
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 31 * hash + (this.entry != null ? this.entry.hashCode() : 0);
+        int hash = 5;
+        hash = 83 * hash + this.recordNumber;
+        hash = 83 * hash + this.datasetNumber;
         return hash;
     }
 
     private String getEncodedData() {
         try {
-            return new String(entry.getData(), UserSettings.getInstance().
+            return new String(data, UserSettings.getInstance().
                 getIptcCharset()).trim();
         } catch (UnsupportedEncodingException ex) {
             Logger.getLogger(IptcEntry.class.getName()).
