@@ -40,12 +40,16 @@ public class ControllerSafedSearchSelected extends Controller
 
     @Override
     public void valueChanged(ListSelectionEvent e) {
-        searchSelectedValue();
+        if (isControl()) {
+            searchSelectedValue();
+        }
     }
 
     @Override
     public void refresh() {
-        searchSelectedValue();
+        if (isControl()) {
+            searchSelectedValue();
+        }
     }
 
     private void searchSelectedValue() {
