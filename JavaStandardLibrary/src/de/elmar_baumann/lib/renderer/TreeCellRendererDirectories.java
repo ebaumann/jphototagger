@@ -1,7 +1,6 @@
 package de.elmar_baumann.lib.renderer;
 
 import de.elmar_baumann.lib.image.icon.IconUtil;
-import de.elmar_baumann.lib.io.DirectoryTreeModelFile;
 import de.elmar_baumann.lib.io.DirectoryTreeModelRoots;
 import java.awt.Component;
 import java.io.File;
@@ -30,20 +29,32 @@ public class TreeCellRendererDirectories extends DefaultTreeCellRenderer {
         int row, boolean hasFocus) {
         super.getTreeCellRendererComponent(tree, value, sel, expanded, false, row, hasFocus);
 
-        if (value instanceof DirectoryTreeModelFile || value instanceof DirectoryTreeModelRoots) {
+        if (value instanceof File) {
+            File file = (File) value;
+            setIcon(fileSystemView.getSystemIcon(file));
+            setText(getDirectoryName(file));
+        } else if (value instanceof DirectoryTreeModelRoots) {
             if (root == null) {
                 root = tree.getModel().getRoot();
             }
-
             if (value == root) {
                 setIcon(IconUtil.getImageIcon("/de/elmar_baumann/lib/resource/workspaceicon.png")); // NOI18N
             }
-
-            int indexRoot = ((DirectoryTreeModelRoots) root).getIndexOfChild(value);
-            if (indexRoot >= 0) {
-                setIcon(fileSystemView.getSystemIcon((File) value));
-            }
         }
         return this;
+    }
+
+    private String getDirectoryName(File file) {
+        String name = file.getName();
+
+        // Windows-Laufwerksbuchstaben
+        if (name.isEmpty()) {
+            name = file.getAbsolutePath();
+            if (name.endsWith("\\")) { // NOI18N
+                name = name.substring(0, name.length() - 2) + ":"; // NOI18N
+            }
+        }
+
+        return name;
     }
 }

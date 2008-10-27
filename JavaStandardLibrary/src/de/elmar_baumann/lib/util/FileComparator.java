@@ -1,27 +1,26 @@
 package de.elmar_baumann.lib.util;
 
-import de.elmar_baumann.lib.io.DirectoryTreeModelFile;
-import de.elmar_baumann.lib.io.DirectoryTreeModelFile.SortType;
+import de.elmar_baumann.lib.types.SortType;
 import java.util.Comparator;
 
 /**
- * Vergleicht Objekte des Typs {@link de.elmar_baumann.lib.io.DirectoryTreeModelFile}.
+ * Vergleicht Objekte des Typs File.
  * 
- * @param <DirectoryTreeModelFile> 
+ * @param <File> 
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/07/23
  */
-public class DirectoryTreeModelFileComparator<DirectoryTreeModelFile> implements
-    Comparator<DirectoryTreeModelFile> {
+public class FileComparator<File> implements
+    Comparator<File> {
 
     private SortType sortType = SortType.none;
 
-    public DirectoryTreeModelFileComparator(SortType sortType) {
+    public FileComparator(SortType sortType) {
         this.sortType = sortType;
     }
 
     @Override
-    public int compare(DirectoryTreeModelFile o1, DirectoryTreeModelFile o2) {
+    public int compare(File o1, File o2) {
         if (sortType.equals(SortType.none)) {
             return 0;
         }

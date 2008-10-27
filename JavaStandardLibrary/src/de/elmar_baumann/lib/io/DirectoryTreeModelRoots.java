@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class DirectoryTreeModelRoots {
 
-    private List<DirectoryTreeModelFile> roots = new ArrayList<DirectoryTreeModelFile>();
+    private List<File> roots = new ArrayList<File>();
 
     public DirectoryTreeModelRoots() {
         init();
@@ -23,10 +23,10 @@ public class DirectoryTreeModelRoots {
     private void init() {
         File[] fileRoots = File.listRoots();
 
-        for (int index = 0; index < fileRoots.length; index++) {
+        for (int i = 0; i < fileRoots.length; i++) {
             //if (FileExists.exists(fileRoots[index])) {
-                roots.add(new DirectoryTreeModelFile(fileRoots[index].getAbsolutePath()));
-            //}
+            roots.add(fileRoots[i]);
+        //}
         }
     }
 
@@ -55,7 +55,7 @@ public class DirectoryTreeModelRoots {
      * @param index Index
      * @return      Wurzelverzeichnis
      */
-    public DirectoryTreeModelFile getChild(int index) {
+    public File getChild(int index) {
         return roots.get(index);
     }
 

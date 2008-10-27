@@ -1,8 +1,12 @@
 package de.elmar_baumann.lib.model;
 
-import de.elmar_baumann.lib.io.DirectoryTreeModelFile;
-import de.elmar_baumann.lib.io.DirectoryTreeModelFile.SortType;
+import de.elmar_baumann.lib.io.DirectoryFilter;
 import de.elmar_baumann.lib.io.DirectoryTreeModelRoots;
+import de.elmar_baumann.lib.types.SortType;
+import de.elmar_baumann.lib.util.FileComparator;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,7 +24,7 @@ import javax.swing.tree.TreePath;
 public class TreeModelDirectories implements TreeModel {
 
     private DirectoryTreeModelRoots root = new DirectoryTreeModelRoots();
-    private Map<DirectoryTreeModelFile, List<DirectoryTreeModelFile>> childrenOfParent = new HashMap<DirectoryTreeModelFile, List<DirectoryTreeModelFile>>();
+    private Map<File, List<File>> childrenOfParent = new HashMap<File, List<File>>();
     private boolean accecptHidden;
 
     public TreeModelDirectories(boolean accecptHidden) {
@@ -31,9 +35,9 @@ public class TreeModelDirectories implements TreeModel {
     private void init() {
         int count = root.getChildCount();
         for (int i = 0; i < count; i++) {
-            DirectoryTreeModelFile child = root.getChild(i);
+            File child = root.getChild(i);
             childrenOfParent.put(child,
-                child.getSubDirectories(SortType.ascendingNoCase, accecptHidden));
+                getSubDirectories(child, SortType.ascendingNoCase, accecptHidden));
         }
     }
 
@@ -47,10 +51,10 @@ public class TreeModelDirectories implements TreeModel {
         if (parent.equals(root)) {
             return root.getChild(index);
         }
-        DirectoryTreeModelFile child = childrenOfParent.get(parent).get(index);
+        File child = childrenOfParent.get(parent).get(index);
         if (!childrenOfParent.containsKey(child)) {
             childrenOfParent.put(child,
-                child.getSubDirectories(SortType.ascendingNoCase, accecptHidden));
+                getSubDirectories(child, SortType.ascendingNoCase, accecptHidden));
         }
         return child;
     }
@@ -60,13 +64,13 @@ public class TreeModelDirectories implements TreeModel {
         if (parent.equals(root)) {
             return root.getChildCount();
         }
-        List<DirectoryTreeModelFile> children = childrenOfParent.get(parent);
+        List<File> children = childrenOfParent.get(parent);
         if (children != null) {
             return children.size();
         }
-        DirectoryTreeModelFile p = (DirectoryTreeModelFile) parent;
-        List<DirectoryTreeModelFile> subdirectories =
-            p.getSubDirectories(SortType.ascendingNoCase, accecptHidden);
+        File p = (File) parent;
+        List<File> subdirectories =
+            getSubDirectories(p, SortType.ascendingNoCase, accecptHidden);
         childrenOfParent.put(p, subdirectories);
         return subdirectories.size();
     }
@@ -101,5 +105,19 @@ public class TreeModelDirectories implements TreeModel {
     @Override
     public void removeTreeModelListener(TreeModelListener l) {
         // Nichts tun
+    }
+
+    @SuppressWarnings("unchecked")
+    private List<File> getSubDirectories(File file, SortType sortType, boolean acceptHidden) {
+        File[] listFiles = file.listFiles(new DirectoryFilter(acceptHidden));
+        List<File> directories = new ArrayList<File>();
+
+        if (listFiles != null) {
+            for (int i = 0; listFiles != null && i < listFiles.length; i++) {
+                directories.add(listFiles[i]);
+            }
+            Collections.sort(directories, new FileComparator(sortType));
+        }
+        return directories;
     }
 }
