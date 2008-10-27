@@ -3,7 +3,6 @@ package de.elmar_baumann.imv.controller.directories;
 import de.elmar_baumann.imv.controller.Controller;
 import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.view.panels.AppPanel;
-import de.elmar_baumann.lib.io.DirectoryTreeModelFile;
 import java.io.File;
 import javax.swing.JButton;
 import javax.swing.JTree;
@@ -36,10 +35,9 @@ public class ControllerEnableInsertMetaDataTemplate extends Controller
     }
 
     private void setEnabledButtonInsert() {
-        if (treeDirectories.getSelectionPath().getLastPathComponent() 
-            instanceof DirectoryTreeModelFile) {
+        if (treeDirectories.getSelectionPath().getLastPathComponent()  instanceof File) {
 
-            String directoryName = ((DirectoryTreeModelFile) 
+            String directoryName = ((File) 
                 treeDirectories.getSelectionPath().getLastPathComponent()).getAbsolutePath();
             File directory = new File(directoryName);
             

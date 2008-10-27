@@ -2,9 +2,9 @@ package de.elmar_baumann.imv.event.listener;
 
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuTreeDirectories;
 import de.elmar_baumann.lib.componentutil.TreeUtil;
-import de.elmar_baumann.lib.io.DirectoryTreeModelFile;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
 import javax.swing.JTree;
 import javax.swing.tree.TreePath;
 
@@ -30,9 +30,9 @@ public class TreeDirectoriesMouseListener extends MouseAdapter {
             if (isSelectedItem && !isRootItem) {
                 Object o = tree.getSelectionPath().getLastPathComponent();
                 Object o2 = path.getLastPathComponent();
-                if (o instanceof DirectoryTreeModelFile && o2 instanceof DirectoryTreeModelFile) {
-                    DirectoryTreeModelFile selectedDirectory = (DirectoryTreeModelFile) o;
-                    DirectoryTreeModelFile popupDirectory = (DirectoryTreeModelFile) o2;
+                if (o instanceof File && o2 instanceof File) {
+                    File selectedDirectory = (File) o;
+                    File popupDirectory = (File) o2;
                     if (selectedDirectory.equals(popupDirectory)) {
                         popup.setDirectoryName(selectedDirectory.getAbsolutePath());
                         isSelectedItem = true;

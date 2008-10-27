@@ -2,7 +2,6 @@ package de.elmar_baumann.imv.view;
 
 import de.elmar_baumann.imv.data.FavoriteDirectory;
 import de.elmar_baumann.imv.resource.Panels;
-import de.elmar_baumann.lib.io.DirectoryTreeModelFile;
 import java.io.File;
 import javax.swing.JList;
 import javax.swing.JTree;
@@ -27,8 +26,8 @@ public class ViewUtil {
         TreePath path = treeDirectories.getSelectionPath();
         if (path != null) {
             Object o = path.getLastPathComponent();
-            if (o instanceof DirectoryTreeModelFile) {
-                return (DirectoryTreeModelFile) o;
+            if (o instanceof File) {
+                return (File) o;
             }
         }
         return directory;

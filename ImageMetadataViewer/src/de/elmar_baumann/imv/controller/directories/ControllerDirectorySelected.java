@@ -7,7 +7,6 @@ import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.types.Content;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
-import de.elmar_baumann.lib.io.DirectoryTreeModelFile;
 import java.io.File;
 import javax.swing.JTree;
 import javax.swing.event.TreeSelectionEvent;
@@ -62,8 +61,8 @@ public class ControllerDirectorySelected extends Controller
     }
 
     private String getDirectorynameFromTree(TreePath treePath) {
-        if (treePath.getLastPathComponent() instanceof DirectoryTreeModelFile) {
-            return ((DirectoryTreeModelFile) treePath.getLastPathComponent()).getAbsolutePath();
+        if (treePath.getLastPathComponent() instanceof File) {
+            return ((File) treePath.getLastPathComponent()).getAbsolutePath();
         } else {
             return treePath.getLastPathComponent().toString();
         }

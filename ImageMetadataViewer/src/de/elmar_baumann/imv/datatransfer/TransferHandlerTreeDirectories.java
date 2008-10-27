@@ -9,7 +9,6 @@ import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.view.dialogs.CopyToDirectoryDialog;
 import de.elmar_baumann.imv.view.dialogs.MoveToDirectoryDialog;
 import de.elmar_baumann.lib.datatransfer.TransferUtil;
-import de.elmar_baumann.lib.io.DirectoryTreeModelFile;
 import java.awt.datatransfer.Transferable;
 import java.io.File;
 import java.text.MessageFormat;
@@ -113,8 +112,8 @@ public class TransferHandlerTreeDirectories extends TransferHandler {
     private File getTargetDirectory(TransferSupport transferSupport) {
         TreePath path = ((JTree.DropLocation) transferSupport.getDropLocation()).getPath();
         Object lastPathComponent = path.getLastPathComponent();
-        if (lastPathComponent instanceof DirectoryTreeModelFile) {
-            return (DirectoryTreeModelFile) lastPathComponent;
+        if (lastPathComponent instanceof File) {
+            return (File) lastPathComponent;
         }
         return null;
     }
