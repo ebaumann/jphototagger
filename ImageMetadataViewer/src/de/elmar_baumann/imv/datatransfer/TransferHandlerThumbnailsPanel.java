@@ -31,7 +31,7 @@ public class TransferHandlerThumbnailsPanel extends TransferHandler {
 
     @Override
     public boolean canImport(TransferSupport transferSupport) {
-        return canPanelImport() &&
+        return canPanelImport((ImageFileThumbnailsPanel) transferSupport.getComponent()) &&
             TransferUtil.maybeContainFileData(transferSupport.getTransferable());
     }
 
@@ -66,8 +66,7 @@ public class TransferHandlerThumbnailsPanel extends TransferHandler {
     protected void exportDone(JComponent c, Transferable data, int action) {
     }
 
-    private boolean canPanelImport() {
-        ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
+    private boolean canPanelImport(ImageFileThumbnailsPanel thumbnailsPanel) {
         return thumbnailsPanel.getContent().equals(Content.Directory) ||
             thumbnailsPanel.getContent().equals(Content.FavoriteDirectory);
     }

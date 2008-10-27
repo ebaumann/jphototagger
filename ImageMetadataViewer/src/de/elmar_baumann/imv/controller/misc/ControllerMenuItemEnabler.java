@@ -65,7 +65,9 @@ public class ControllerMenuItemEnabler extends Controller implements ThumbnailsP
 
         contentsOfDelete.add(Content.Directory);
         contentsOfDelete.add(Content.FavoriteDirectory);
+        contentsOfDelete.add(Content.FastSearch);
         contentsOfDelete.add(Content.ImageCollection);
+        contentsOfDelete.add(Content.SafedSearch);
     }
 
     private void setEnabled() {

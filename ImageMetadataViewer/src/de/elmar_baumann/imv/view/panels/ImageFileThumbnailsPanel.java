@@ -10,6 +10,7 @@ import de.elmar_baumann.imv.io.FileSort;
 import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.types.FileAction;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuPanelThumbnails;
+import de.elmar_baumann.lib.componentutil.ComponentUtil;
 import de.elmar_baumann.lib.persistence.PersistentSettings;
 import java.awt.Image;
 import java.awt.Point;
@@ -147,6 +148,7 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel {
         setMissingFilesFlags();
         checkDivider();
         hadFiles = true;
+        ComponentUtil.forceRepaint(this);
     }
 
     /**

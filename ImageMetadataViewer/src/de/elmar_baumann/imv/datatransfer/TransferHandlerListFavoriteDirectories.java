@@ -33,8 +33,7 @@ public class TransferHandlerListFavoriteDirectories extends TransferHandler {
 
     @Override
     public boolean canImport(TransferHandler.TransferSupport transferSupport) {
-        return transferSupport.isDataFlavorSupported(DataFlavor.javaFileListFlavor) ||
-            transferSupport.isDataFlavorSupported(DataFlavor.stringFlavor);
+        return TransferUtil.maybeContainFileData(transferSupport.getTransferable());
     }
 
     @Override

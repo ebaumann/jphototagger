@@ -35,8 +35,7 @@ public class TransferHandlerTreeDirectories extends TransferHandler {
 
     @Override
     public boolean canImport(TransferSupport transferSupport) {
-        if (!transferSupport.isDataFlavorSupported(stringFlavor) &&
-            !transferSupport.isDataFlavorSupported(fileListFlavor)) {
+        if (!TransferUtil.maybeContainFileData(transferSupport.getTransferable())) {
             return false;
         }
         JTree.DropLocation dropLocation = (JTree.DropLocation) transferSupport.getDropLocation();

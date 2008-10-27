@@ -81,6 +81,6 @@ public class ControllerAdvancedSearch extends Controller
         List<String> filenames = db.searchFilenames(stmt);
 
         thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames),
-            Content.Search);
+            Content.SafedSearch);
     }
 }

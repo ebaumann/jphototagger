@@ -119,7 +119,7 @@ public class ControllerFastSearch extends Controller
             List<String> filenames =
                 db.searchFilenamesLikeOr(UserSettings.getInstance().getFastSearchColumns(), searchText.trim());
             thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames),
-                Content.Search);
+                Content.SafedSearch);
         }
     }
 
@@ -145,6 +145,7 @@ public class ControllerFastSearch extends Controller
         });
 
         db.addDatabaseListener(this);
+        thumbnailsPanel.addRefreshListener(this, Content.FastSearch);
     }
 
     @Override
