@@ -178,7 +178,7 @@ public class XmpMetadata {
      * @param  file  file
      * @return sidecar file or null if not found
      */
-    public static File getSidcarFile(File file) {
+    public static File getSidecarFile(File file) {
         String sidecarFilename = getSidecarFilename(file.getAbsolutePath());
         return sidecarFilename == null ? null : new File(sidecarFilename);
     }
