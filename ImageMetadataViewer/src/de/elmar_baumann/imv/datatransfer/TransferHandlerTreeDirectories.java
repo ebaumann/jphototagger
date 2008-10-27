@@ -123,9 +123,7 @@ public class TransferHandlerTreeDirectories extends TransferHandler {
     }
 
     private static void refresh() {
-        ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
-        thumbnailsPanel.refresh();
-        ComponentUtil.forceRepaint(thumbnailsPanel);
+        Panels.getInstance().getAppPanel().getPanelThumbnails().refresh();
     }
 
     private static boolean confirmFileAction(String messageFormat, int size, String absolutePath) {
