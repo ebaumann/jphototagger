@@ -52,9 +52,14 @@ public class TransferHandlerThumbnailsPanel extends TransferHandler {
         if (!canImport(transferSupport)) {
             return false;
         }
-        JTree treeDirectories = Panels.getInstance().getAppPanel().getTreeDirectories();
         List<File> sourceFiles = TransferUtil.getFiles(transferSupport.getTransferable(), delimiter);
-        File targetDirectory = ViewUtil.getTargetDirectory(treeDirectories);
+        File targetDirectory = null;
+        if (isContent(Content.Directory)) {
+            JTree treeDirectories = Panels.getInstance().getAppPanel().getTreeDirectories();
+            targetDirectory = ViewUtil.getSelectedDirectory(treeDirectories);
+        } else if (isContent(Content.FavoriteDirectory)) {
+            targetDirectory = ViewUtil.getSelectedDirectoryFromFavoriteDirectories();
+        }
         if (targetDirectory != null & sourceFiles.size() > 0) {
             TransferHandlerTreeDirectories.handleDroppedFiles(
                 transferSupport.getDropAction(), sourceFiles, targetDirectory);
@@ -69,5 +74,10 @@ public class TransferHandlerThumbnailsPanel extends TransferHandler {
     private boolean canPanelImport(ImageFileThumbnailsPanel thumbnailsPanel) {
         return thumbnailsPanel.getContent().equals(Content.Directory) ||
             thumbnailsPanel.getContent().equals(Content.FavoriteDirectory);
+    }
+
+    private boolean isContent(Content content) {
+        ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
+        return thumbnailsPanel.getContent().equals(content);
     }
 }
