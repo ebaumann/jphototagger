@@ -172,6 +172,17 @@ public class XmpMetadata {
         return null;
     }
 
+    /**
+     * Returns the XMP sidecar file of a file.
+     * 
+     * @param  file  file
+     * @return sidecar file or null if not found
+     */
+    public static File getSidcarFile(File file) {
+        String sidecarFilename = getSidecarFilename(file.getAbsolutePath());
+        return sidecarFilename == null ? null : new File(sidecarFilename);
+    }
+
     private static String getXmpAsString(String filename) {
         if (!FileUtil.existsFile(filename)) {
             return null;
