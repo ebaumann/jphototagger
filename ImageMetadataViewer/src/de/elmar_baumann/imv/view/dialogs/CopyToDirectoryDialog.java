@@ -170,8 +170,8 @@ public class CopyToDirectoryDialog extends Dialog
             labelTargetDirectory.setText(directory.getAbsolutePath());
             buttonChooseDirectory.setEnabled(false);
             buttonStart.setEnabled(false);
-            checkBoxCopyXmp.setEnabled(true);
-            checkBoxForceOverwrite.setEnabled(false);
+            checkBoxCopyXmp.setSelected(true);
+            checkBoxForceOverwrite.setSelected(false);
             copyIfVisible = true;
         }
     }

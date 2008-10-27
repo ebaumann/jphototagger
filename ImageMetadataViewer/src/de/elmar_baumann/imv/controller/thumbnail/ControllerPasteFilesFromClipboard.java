@@ -37,7 +37,7 @@ public class ControllerPasteFilesFromClipboard extends Controller implements Act
     }
 
     private void insertFiles() {
-        File directory = ViewUtil.getTargetDirectory(Panels.getInstance().getAppPanel().getTreeDirectories());
+        File directory = ViewUtil.getSelectedDirectory(Panels.getInstance().getAppPanel().getTreeDirectories());
         if (directory != null) {
             List<File> files = ClipboardUtil.getFilesFromSystemClipboard("\n");
             TransferHandlerTreeDirectories.handleDroppedFiles(TransferHandler.COPY, files, directory);

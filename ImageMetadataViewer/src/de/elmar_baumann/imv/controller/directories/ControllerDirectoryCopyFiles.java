@@ -50,7 +50,7 @@ public class ControllerDirectoryCopyFiles extends Controller implements KeyListe
         if (isControl() && thumbnailsPanel.getContent().equals(Content.Directory) &&
             KeyEventUtil.isInsert(e)) {
             List<File> sourceFiles = ClipboardUtil.getFilesFromSystemClipboard("\n");
-            File targetDirectory = ViewUtil.getTargetDirectory(treeDirectories);
+            File targetDirectory = ViewUtil.getSelectedDirectory(treeDirectories);
             if (sourceFiles.size() > 0 && targetDirectory != null) {
                 insertFiles(sourceFiles, targetDirectory);
             }
