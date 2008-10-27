@@ -73,18 +73,6 @@ public class TransferHandlerTreeDirectories extends TransferHandler {
     protected void exportDone(JComponent c, Transferable data, int action) {
     }
 
-    private static boolean confirmFileAction(String messageFormat, int size, String absolutePath) {
-        MessageFormat msg = new MessageFormat(messageFormat);
-        Object[] params = {size, absolutePath};
-        return JOptionPane.showConfirmDialog(
-            null,
-            msg.format(params),
-            "Frage",
-            JOptionPane.YES_NO_OPTION,
-            JOptionPane.QUESTION_MESSAGE,
-            AppSettings.getMediumAppIcon()) == JOptionPane.YES_OPTION;
-    }
-
     /**
      * Handles dropped files: Asks whether to copy or move and if confirmed
      * copys or moves the files.
@@ -139,5 +127,17 @@ public class TransferHandlerTreeDirectories extends TransferHandler {
         ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
         thumbnailsPanel.refresh();
         ComponentUtil.forceRepaint(thumbnailsPanel);
+    }
+
+    private static boolean confirmFileAction(String messageFormat, int size, String absolutePath) {
+        MessageFormat msg = new MessageFormat(messageFormat);
+        Object[] params = {size, absolutePath};
+        return JOptionPane.showConfirmDialog(
+            null,
+            msg.format(params),
+            Bundle.getString("TransferHandlerTreeDirectories.ConfirmMessage.Title"),
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.QUESTION_MESSAGE,
+            AppSettings.getMediumAppIcon()) == JOptionPane.YES_OPTION;
     }
 }
