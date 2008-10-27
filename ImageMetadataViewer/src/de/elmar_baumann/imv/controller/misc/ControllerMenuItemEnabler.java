@@ -1,5 +1,6 @@
 package de.elmar_baumann.imv.controller.misc;
 
+import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.controller.Controller;
 import de.elmar_baumann.imv.event.ThumbnailsPanelAction;
 import de.elmar_baumann.imv.event.ThumbnailsPanelListener;
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
 /**
@@ -29,6 +31,8 @@ public class ControllerMenuItemEnabler extends Controller implements ThumbnailsP
     private PopupMenuPanelThumbnails popupThumbnails = PopupMenuPanelThumbnails.getInstance();
     private ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
     private JMenuItem itemDelete = appFrame.getMenuItemDelete();
+    private JMenuItem itemOpenFilesWithStandardApp = popupThumbnails.getItemOpenFilesWithStandardApp();
+    private JMenu menuOtherOpenImageApps = popupThumbnails.getMenuOtherOpenImageApps();
 
     public ControllerMenuItemEnabler() {
         init();
@@ -44,8 +48,8 @@ public class ControllerMenuItemEnabler extends Controller implements ThumbnailsP
         contentsOfMenuItem.put(appFrame.getMenuItemCopy(), contents);
         contentsOfMenuItem.put(appFrame.getMenuItemCut(), contents);
         contentsOfMenuItem.put(appFrame.getMenuItemFileSystemRename(), contents);
-        contentsOfMenuItem.put(popupThumbnails.getItemFileSystemDeleteFiles(), contents);
         contentsOfMenuItem.put(popupThumbnails.getItemCopySelectedFilesToDirectory(), contents);
+        contentsOfMenuItem.put(popupThumbnails.getItemFileSystemDeleteFiles(), contents);
         contentsOfMenuItem.put(popupThumbnails.getItemFileSystemMoveFiles(), contents);
         contentsOfMenuItem.put(popupThumbnails.getItemFileSystemRenameFiles(), contents);
 
@@ -58,9 +62,14 @@ public class ControllerMenuItemEnabler extends Controller implements ThumbnailsP
         contentsOfMenuItem.put(popupThumbnails.getItemDeleteFromImageCollection(), contents);
 
         itemsIsSelection.add(appFrame.getMenuItemRenameInXmp());
+        itemsIsSelection.add(popupThumbnails.getItemUpdateThumbnail());
+        itemsIsSelection.add(popupThumbnails.getItemUpdateMetadata());
         itemsIsSelection.add(popupThumbnails.getItemDeleteImageFromDatabase());
         itemsIsSelection.add(popupThumbnails.getItemCreateImageCollection());
         itemsIsSelection.add(popupThumbnails.getItemAddToImageCollection());
+        itemsIsSelection.add(popupThumbnails.getItemRotateThumbnai90());
+        itemsIsSelection.add(popupThumbnails.getItemRotateThumbnai180());
+        itemsIsSelection.add(popupThumbnails.getItemRotateThumbnai270());
 
         contentsOfDelete.add(Content.Directory);
         contentsOfDelete.add(Content.FavoriteDirectory);
@@ -76,6 +85,9 @@ public class ControllerMenuItemEnabler extends Controller implements ThumbnailsP
             item.setEnabled(contentsOfMenuItem.get(item).contains(content) && isSelection);
         }
         itemDelete.setEnabled(contentsOfDelete.contains(content) && isSelection);
+        UserSettings settings = UserSettings.getInstance();
+        itemOpenFilesWithStandardApp.setEnabled(settings.hasDefaultImageOpenApp() && isSelection);
+        menuOtherOpenImageApps.setEnabled(settings.hasOtherImageOpenApps() && isSelection);
         for (JMenuItem item : itemsIsSelection) {
             item.setEnabled(isSelection);
         }
