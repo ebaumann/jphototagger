@@ -184,14 +184,28 @@ public class TransferUtil {
     public static List<File> getFiles(Transferable transferable, String delimiter) {
         List<File> list = new ArrayList<File>();
         DataFlavor[] flavors = transferable.getTransferDataFlavors();
-        if (isFlavorSupported(flavors, fileListFlavor)) {
+        if (isDataFlavorSupported(flavors, fileListFlavor)) {
             return getFilesFromJavaFileList(transferable);
-        } else if (isFlavorSupported(flavors, uriListFlavor)) {
+        } else if (isDataFlavorSupported(flavors, uriListFlavor)) {
             return getFilesFromUriList(transferable);
-        } else if (isFlavorSupported(flavors, stringFlavor)) {
+        } else if (isDataFlavorSupported(flavors, stringFlavor)) {
             return getFilesFromTokenString(transferable, delimiter);
         }
         return list;
+    }
+    
+    /**
+     * Returns wheter a transferable contains file data. This is true, if
+     * it supports {@link java.awt.datatransfer.DataFlavor#javaFileListFlavor}
+     * or {@link java.awt.datatransfer.DataFlavor#stringFlavor}. The second
+     * case is the reason for <em>maybe</em>.
+     * 
+     * @param  transferable  transferable
+     * @return true, if the transferable maybe contain file data
+     */
+    public static boolean maybeContainFileData(Transferable transferable) {
+        return isDataFlavorSupported(transferable.getTransferDataFlavors(), DataFlavor.javaFileListFlavor) ||
+            isDataFlavorSupported(transferable.getTransferDataFlavors(), DataFlavor.stringFlavor);
     }
 
     /**
@@ -201,7 +215,7 @@ public class TransferUtil {
      * @param  flavor   flavor to search
      * @return true if found (supported)
      */
-    public static boolean isFlavorSupported(DataFlavor[] flavors, DataFlavor flavor) {
+    public static boolean isDataFlavorSupported(DataFlavor[] flavors, DataFlavor flavor) {
         for (DataFlavor f : flavors) {
             if (f.equals(flavor)) {
                 return true;
