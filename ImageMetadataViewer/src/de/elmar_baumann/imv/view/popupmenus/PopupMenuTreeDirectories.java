@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
-import javax.swing.JSeparator;
 import javax.swing.tree.TreePath;
 
 /**
@@ -18,13 +17,7 @@ import javax.swing.tree.TreePath;
 public class PopupMenuTreeDirectories extends JPopupMenu {
 
     private final String actionAddToFavoriteDirectories = Bundle.getString("PopupMenuTreeDirectories.Action.AddToFavoriteDirectories");
-    private final String actionFilesystemAddDirectory = Bundle.getString("PopupMenuTreeDirectories.Action.FilesystemAddDirectory");
-    private final String actionFilesystemDeleteDirectory = Bundle.getString("PopupMenuTreeDirectories.Action.FilesystemDeleteDirectory");
-    private final String actionFilesystemRenameDirectory = Bundle.getString("PopupMenuTreeDirectories.Action.FilesystemRenameDirectory");
     private final JMenuItem itemAddToFavoriteDirectories = new JMenuItem(actionAddToFavoriteDirectories);
-    private final JMenuItem itemFilesystemAddDirectory = new JMenuItem(actionFilesystemAddDirectory);
-    private final JMenuItem itemFilesystemDeleteDirectory = new JMenuItem(actionFilesystemDeleteDirectory);
-    private final JMenuItem itemFilesystemRenameDirectory = new JMenuItem(actionFilesystemRenameDirectory);
     private List<JMenuItem> fileItems = new ArrayList<JMenuItem>();
     private TreePath path;
     private String directoryName;
@@ -32,9 +25,6 @@ public class PopupMenuTreeDirectories extends JPopupMenu {
 
     private void initLists() {
         fileItems.add(itemAddToFavoriteDirectories);
-        fileItems.add(itemFilesystemAddDirectory);
-        fileItems.add(itemFilesystemDeleteDirectory);
-        fileItems.add(itemFilesystemRenameDirectory);
     }
 
     /**
@@ -64,30 +54,6 @@ public class PopupMenuTreeDirectories extends JPopupMenu {
         for (JMenuItem item : fileItems) {
             item.setEnabled(enabled);
         }
-    }
-
-    public void addActionListenerFilesystemDeleteDirectoy(ActionListener listener) {
-        itemFilesystemDeleteDirectory.addActionListener(listener);
-    }
-
-    public void addActionListenerFilesystemRenameDirectoy(ActionListener listener) {
-        itemFilesystemRenameDirectory.addActionListener(listener);
-    }
-
-    public void addActionListenerFilesystemAddDirectoy(ActionListener listener) {
-        itemFilesystemAddDirectory.addActionListener(listener);
-    }
-
-    public boolean isActionFilesystemDeleteDirectory(Object source) {
-        return source == itemFilesystemDeleteDirectory;
-    }
-
-    public boolean isActionFilesystemRenameDirectory(Object source) {
-        return source == itemFilesystemRenameDirectory;
-    }
-
-    public boolean isActionFilesystemAddDirectory(Object source) {
-        return source == itemFilesystemAddDirectory;
     }
 
     /**
@@ -134,10 +100,6 @@ public class PopupMenuTreeDirectories extends JPopupMenu {
 
     private void init() {
         add(itemAddToFavoriteDirectories);
-        add(new JSeparator());
-        add(itemFilesystemAddDirectory);
-        add(itemFilesystemRenameDirectory);
-        add(itemFilesystemDeleteDirectory);
         initLists();
     }
 }
