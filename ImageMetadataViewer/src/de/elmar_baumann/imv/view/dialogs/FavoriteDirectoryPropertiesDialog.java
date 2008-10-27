@@ -10,6 +10,7 @@ import de.elmar_baumann.lib.io.FileUtil;
 import de.elmar_baumann.lib.persistence.PersistentAppSizes;
 import de.elmar_baumann.lib.persistence.PersistentSettings;
 import java.awt.Image;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.text.MessageFormat;
 import java.util.List;
@@ -176,6 +177,12 @@ public class FavoriteDirectoryPropertiesDialog extends Dialog {
         }
     }
 
+    private void handleKeyPressed(KeyEvent evt) {
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            checkOk();
+        }
+    }
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -197,6 +204,12 @@ public class FavoriteDirectoryPropertiesDialog extends Dialog {
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
+            }
+        });
+
+        textFieldFavoriteName.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                textFieldFavoriteNameKeyPressed(evt);
             }
         });
 
@@ -291,6 +304,10 @@ private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:even
         checkOk();
     }
 }//GEN-LAST:event_formWindowClosing
+
+private void textFieldFavoriteNameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldFavoriteNameKeyPressed
+    handleKeyPressed(evt);
+}//GEN-LAST:event_textFieldFavoriteNameKeyPressed
 
     /**
     * @param args the command line arguments
