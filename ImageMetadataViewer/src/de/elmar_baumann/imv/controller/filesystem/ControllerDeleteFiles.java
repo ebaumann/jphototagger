@@ -44,7 +44,9 @@ public class ControllerDeleteFiles extends Controller implements ActionListener 
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (isControl() && (thumbnailsPanel.getContent().equals(Content.Directory) ||
+        Content content = thumbnailsPanel.getContent();
+        if (isControl() && (content.equals(Content.Directory) ||
+            content.equals(Content.FavoriteDirectory) ||
             popup.isDeleteFiles(e.getSource()))) {
             deleteSelectedFiles();
         }
