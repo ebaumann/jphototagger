@@ -502,7 +502,7 @@ public abstract class ThumbnailsPanel extends JPanel
             } else {
                 setSelectedAll(false);
             }
-        } else if (getSelectionCount() > 0 && MouseEventUtil.isPopupTrigger(e)) {
+        } else if (MouseEventUtil.isPopupTrigger(e)) {
             showPopupMenu(e);
         }
     }

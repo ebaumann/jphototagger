@@ -352,10 +352,7 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel {
 
     @Override
     protected void showPopupMenu(MouseEvent e) {
-        if (getSelectionCount() > 0) {
-            popupMenu.setContent(content);
-            popupMenu.show(this, e.getX(), e.getY());
-        }
+        popupMenu.show(this, e.getX(), e.getY());
     }
 
     @Override
