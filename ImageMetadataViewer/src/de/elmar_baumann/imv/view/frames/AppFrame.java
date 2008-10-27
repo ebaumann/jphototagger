@@ -373,7 +373,6 @@ public class AppFrame extends javax.swing.JFrame {
         menuItemGotoFastSearch.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.CTRL_MASK));
         menuItemGotoFastSearch.setMnemonic('s');
         menuItemGotoFastSearch.setText(Bundle.getString("AppFrame.menuItemGotoFastSearch.text")); // NOI18N
-        menuItemGotoFastSearch.setToolTipText(Bundle.getString("AppFrame.menuItemGotoFastSearch.toolTipText")); // NOI18N
         menuGoto.add(menuItemGotoFastSearch);
 
         menuItemGotoEdit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_B, java.awt.event.InputEvent.CTRL_MASK));
