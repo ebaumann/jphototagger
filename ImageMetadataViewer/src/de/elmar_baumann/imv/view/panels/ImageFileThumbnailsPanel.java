@@ -1,14 +1,11 @@
 package de.elmar_baumann.imv.view.panels;
 
-import de.elmar_baumann.imv.controller.misc.ControllerMenuItemEnabler;
-import de.elmar_baumann.imv.event.ThumbnailsPanelAction;
 import de.elmar_baumann.imv.types.Content;
 import de.elmar_baumann.imv.controller.thumbnail.ControllerDoubleklickThumbnail;
 import de.elmar_baumann.imv.data.ThumbnailFlag;
 import de.elmar_baumann.imv.database.DatabaseImageFiles;
 import de.elmar_baumann.imv.datatransfer.TransferHandlerThumbnailsPanel;
 import de.elmar_baumann.imv.event.RefreshListener;
-import de.elmar_baumann.imv.event.ThumbnailsPanelListener;
 import de.elmar_baumann.imv.io.FileSort;
 import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.types.FileAction;
@@ -31,7 +28,7 @@ import javax.swing.JViewport;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public class ImageFileThumbnailsPanel extends ThumbnailsPanel implements ThumbnailsPanelListener {
+public class ImageFileThumbnailsPanel extends ThumbnailsPanel {
 
     private DatabaseImageFiles db = DatabaseImageFiles.getInstance();
     private List<File> files = new ArrayList<File>();
@@ -41,7 +38,6 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel implements Thumbna
     private boolean hadFiles = false;
     private Content content = Content.Undefined;
     private FileAction fileAction = FileAction.Undefined;
-    private ControllerMenuItemEnabler menuItemEnabler;
     private Map<Content, List<RefreshListener>> refreshListenersOfContent = new HashMap<Content, List<RefreshListener>>();
 
     public ImageFileThumbnailsPanel() {
@@ -50,7 +46,6 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel implements Thumbna
         controllerDoubleklick = new ControllerDoubleklickThumbnail(this);
         setDragEnabled(true);
         setTransferHandler(new TransferHandlerThumbnailsPanel());
-        addThumbnailsPanelListener(this);
     }
 
     private void initMap() {
@@ -152,7 +147,6 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel implements Thumbna
         setMissingFilesFlags();
         checkDivider();
         hadFiles = true;
-        setMenuItemsEnabled();
     }
 
     /**
@@ -236,13 +230,6 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel implements Thumbna
 
     public void setDefaultThumbnailWidth(int width) {
         setThumbnailWidth(width);
-    }
-
-    private void setMenuItemsEnabled() {
-        if (menuItemEnabler == null) {
-            menuItemEnabler = new ControllerMenuItemEnabler();
-        }
-        menuItemEnabler.setEnabled(content, getSelectionCount() > 0);
     }
 
     private void setMissingFilesFlags() {
@@ -364,7 +351,6 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel implements Thumbna
     @Override
     protected void showPopupMenu(MouseEvent e) {
         if (getSelectionCount() > 0) {
-            setMenuItemsEnabled();
             popupMenu.setContent(content);
             popupMenu.show(this, e.getX(), e.getY());
         }
@@ -397,14 +383,5 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel implements Thumbna
                 appPanel.getKeyDividerLocationThumbnails());
             appPanel.getSplitPaneThumbnailsMetadata().setDividerLocation(location);
         }
-    }
-
-    @Override
-    public void selectionChanged(ThumbnailsPanelAction action) {
-        setMenuItemsEnabled();
-    }
-
-    @Override
-    public void thumbnailsChanged() {
     }
 }

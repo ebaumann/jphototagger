@@ -35,6 +35,7 @@ import de.elmar_baumann.imv.controller.misc.ControllerGoto;
 import de.elmar_baumann.imv.controller.misc.ControllerIptcToXmp;
 import de.elmar_baumann.imv.controller.misc.ControllerItemsMutualExcludeSelection;
 import de.elmar_baumann.imv.controller.misc.ControllerLogfileDialog;
+import de.elmar_baumann.imv.controller.misc.ControllerMenuItemEnabler;
 import de.elmar_baumann.imv.controller.misc.ControllerThumbnailCountDisplay;
 import de.elmar_baumann.imv.controller.savedsearch.ControllerCreateSavedSearch;
 import de.elmar_baumann.imv.controller.savedsearch.ControllerDeleteSavedSearch;
@@ -93,6 +94,7 @@ public class ControllerFactory {
 
     private void createController() {
         controllers.add(new ControllerItemsMutualExcludeSelection());
+        controllers.add(new ControllerMenuItemEnabler());
         controllers.add(new ControllerThumbnailCountDisplay());
         controllers.add(new ControllerThumbnailsPanelPersistence());
         controllers.add(new ControllerCreateMetaDataOfSelectedThumbnails());
