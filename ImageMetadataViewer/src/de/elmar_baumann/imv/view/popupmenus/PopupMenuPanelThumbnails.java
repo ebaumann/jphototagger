@@ -49,7 +49,7 @@ public class PopupMenuPanelThumbnails extends JPopupMenu
     private final JMenuItem itemRotateThumbnai90 = new JMenuItem(actionRotate90);
     private final JMenuItem itemRotateThumbnai180 = new JMenuItem(actionRotate180);
     private final JMenuItem itemRotateThumbnai270 = new JMenuItem(actionRotate270);
-    private final JMenuItem itemDeleteThumbnail = new JMenuItem(actionDeleteImageFromDatabase);
+    private final JMenuItem itemDeleteImageFromDatabase = new JMenuItem(actionDeleteImageFromDatabase);
     private final JMenuItem itemOpenFilesWithStandardApp = new JMenuItem(actionOpenFiles);
     private final JMenuItem itemCopySelectedFilesToDirectory = new JMenuItem(actionCopySelectedFilesToDirectory);
     private final JMenuItem itemFileSystemDeleteFiles = new JMenuItem(actionFileSystemDeleteFiles);
@@ -84,7 +84,7 @@ public class PopupMenuPanelThumbnails extends JPopupMenu
     private void addItems() {
         add(itemUpdateThumbnail);
         add(itemUpdateMetadata);
-        add(itemDeleteThumbnail);
+        add(itemDeleteImageFromDatabase);
         add(new JSeparator());
         add(itemOpenFilesWithStandardApp);
         add(menuOtherOpenImageApps);
@@ -143,8 +143,8 @@ public class PopupMenuPanelThumbnails extends JPopupMenu
         return itemDeleteFromImageCollection;
     }
 
-    public JMenuItem getItemDeleteThumbnail() {
-        return itemDeleteThumbnail;
+    public JMenuItem getItemDeleteImageFromDatabase() {
+        return itemDeleteImageFromDatabase;
     }
 
     public JMenuItem getItemFileSystemDeleteFiles() {
@@ -242,7 +242,7 @@ public class PopupMenuPanelThumbnails extends JPopupMenu
     }
 
     public void addActionListenerDeleteThumbnail(ActionListener listener) {
-        itemDeleteThumbnail.addActionListener(listener);
+        itemDeleteImageFromDatabase.addActionListener(listener);
     }
 
     public void addActionListenerCopySelectedFilesToDirectory(ActionListener listener) {

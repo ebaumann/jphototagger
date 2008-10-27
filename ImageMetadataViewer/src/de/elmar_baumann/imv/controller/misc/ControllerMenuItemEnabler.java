@@ -35,7 +35,6 @@ public class ControllerMenuItemEnabler extends Controller implements ThumbnailsP
         thumbnailsPanel.addThumbnailsPanelListener(this);
     }
 
-    @SuppressWarnings("empty-statement")
     private void init() {
         List<Content> contents;
 
@@ -56,12 +55,12 @@ public class ControllerMenuItemEnabler extends Controller implements ThumbnailsP
 
         contents = new ArrayList<Content>();
         contents.add(Content.ImageCollection);
-        contentsOfMenuItem.put(popupThumbnails.getItemAddToImageCollection(), contents);
         contentsOfMenuItem.put(popupThumbnails.getItemDeleteFromImageCollection(), contents);
 
         itemsIsSelection.add(appFrame.getMenuItemRenameInXmp());
+        itemsIsSelection.add(popupThumbnails.getItemDeleteImageFromDatabase());
         itemsIsSelection.add(popupThumbnails.getItemCreateImageCollection());
-        itemsIsSelection.add(popupThumbnails.getItemDeleteThumbnail());
+        itemsIsSelection.add(popupThumbnails.getItemAddToImageCollection());
 
         contentsOfDelete.add(Content.Directory);
         contentsOfDelete.add(Content.FavoriteDirectory);

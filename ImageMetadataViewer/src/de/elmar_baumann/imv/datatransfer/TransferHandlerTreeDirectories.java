@@ -1,16 +1,15 @@
 package de.elmar_baumann.imv.datatransfer;
 
 import de.elmar_baumann.imv.AppSettings;
+import de.elmar_baumann.imv.event.ProgressEvent;
+import de.elmar_baumann.imv.event.ProgressListener;
 import de.elmar_baumann.imv.io.IoUtil;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.view.dialogs.CopyToDirectoryDialog;
 import de.elmar_baumann.imv.view.dialogs.MoveToDirectoryDialog;
-import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
-import de.elmar_baumann.lib.componentutil.ComponentUtil;
 import de.elmar_baumann.lib.datatransfer.TransferUtil;
 import de.elmar_baumann.lib.io.DirectoryTreeModelFile;
-import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.io.File;
 import java.text.MessageFormat;
@@ -29,8 +28,6 @@ import javax.swing.tree.TreePath;
  */
 public class TransferHandlerTreeDirectories extends TransferHandler {
 
-    private static final DataFlavor stringFlavor = DataFlavor.stringFlavor;
-    private static final DataFlavor fileListFlavor = DataFlavor.javaFileListFlavor;
     static final String filenamesDelimiter = TransferHandlerThumbnailsPanel.delimiter;
 
     @Override
@@ -91,11 +88,9 @@ public class TransferHandlerTreeDirectories extends TransferHandler {
         if (dropAction == COPY && confirmFileAction(msgFormatCopy, imageFiles.size(),
             targetDirectory.getAbsolutePath())) {
             copyFiles(targetDirectory, imageFiles);
-            refresh();
         } else if (dropAction == MOVE && confirmFileAction(msgFormatMove,
             imageFiles.size(), targetDirectory.getAbsolutePath())) {
             moveFiles(targetDirectory, imageFiles);
-            refresh();
         }
     }
 
@@ -103,6 +98,7 @@ public class TransferHandlerTreeDirectories extends TransferHandler {
         CopyToDirectoryDialog dialog = new CopyToDirectoryDialog();
         dialog.setTargetDirectory(targetDirectory);
         dialog.setSourceFiles(sourceFiles);
+        addProgressListener(dialog);
         dialog.setVisible(true);
     }
 
@@ -110,6 +106,7 @@ public class TransferHandlerTreeDirectories extends TransferHandler {
         MoveToDirectoryDialog dialog = new MoveToDirectoryDialog();
         dialog.setTargetDirectory(targetDirectory);
         dialog.setSourceFiles(sourceFiles);
+        addProgressListener(dialog);
         dialog.setVisible(true);
     }
 
@@ -122,10 +119,6 @@ public class TransferHandlerTreeDirectories extends TransferHandler {
         return null;
     }
 
-    private static void refresh() {
-        Panels.getInstance().getAppPanel().getPanelThumbnails().refresh();
-    }
-
     private static boolean confirmFileAction(String messageFormat, int size, String absolutePath) {
         MessageFormat msg = new MessageFormat(messageFormat);
         Object[] params = {size, absolutePath};
@@ -136,5 +129,45 @@ public class TransferHandlerTreeDirectories extends TransferHandler {
             JOptionPane.YES_NO_OPTION,
             JOptionPane.QUESTION_MESSAGE,
             AppSettings.getMediumAppIcon()) == JOptionPane.YES_OPTION;
+    }
+
+    private static void addProgressListener(MoveToDirectoryDialog dialog) {
+
+        dialog.addProgressListener(new ProgressListener() {
+
+            @Override
+            public void progressStarted(ProgressEvent evt) {
+            }
+
+            @Override
+            public void progressPerformed(ProgressEvent evt) {
+            }
+
+            @Override
+            public void progressEnded(ProgressEvent evt) {
+                Panels.getInstance().getAppPanel().getPanelThumbnails().refresh();
+            }
+        });
+
+    }
+
+    private static void addProgressListener(CopyToDirectoryDialog dialog) {
+
+        dialog.addProgressListener(new ProgressListener() {
+
+            @Override
+            public void progressStarted(ProgressEvent evt) {
+            }
+
+            @Override
+            public void progressPerformed(ProgressEvent evt) {
+            }
+
+            @Override
+            public void progressEnded(ProgressEvent evt) {
+                Panels.getInstance().getAppPanel().getPanelThumbnails().refresh();
+            }
+        });
+
     }
 }
