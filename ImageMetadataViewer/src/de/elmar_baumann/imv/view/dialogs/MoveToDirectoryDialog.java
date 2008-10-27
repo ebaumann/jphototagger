@@ -44,6 +44,7 @@ public class MoveToDirectoryDialog extends Dialog
     private boolean errors = false;
     private List<File> sourceFiles;
     private List<File> movedFiles = new ArrayList<File>();
+    private List<ProgressListener> progressListeners = new ArrayList<ProgressListener>();
     private File targetDirectory = new File(""); // NOI18N
     private boolean moveIfVisible = false;
 
@@ -53,6 +54,28 @@ public class MoveToDirectoryDialog extends Dialog
         setIconImages(AppSettings.getAppIcons());
         setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
         registerKeyStrokes();
+    }
+
+    public void addProgressListener(ProgressListener listener) {
+        progressListeners.add(listener);
+    }
+    
+    private void notifyProgressListenerStarted(ProgressEvent evt) {
+        for (ProgressListener listener : progressListeners) {
+            listener.progressStarted(evt);
+        }
+    }
+
+    private void notifyProgressListenerPerformed(ProgressEvent evt) {
+        for (ProgressListener listener : progressListeners) {
+            listener.progressPerformed(evt);
+        }
+    }
+
+    private void notifyProgressListenerEnded(ProgressEvent evt) {
+        for (ProgressListener listener : progressListeners) {
+            listener.progressEnded(evt);
+        }
     }
 
     private void checkClosing() {
@@ -191,6 +214,7 @@ public class MoveToDirectoryDialog extends Dialog
         progressBar.setMaximum(evt.getMaximum());
         progressBar.setValue(evt.getValue());
         evt.setStop(stop);
+        notifyProgressListenerStarted(evt);
     }
 
     @Override
@@ -200,6 +224,7 @@ public class MoveToDirectoryDialog extends Dialog
         String filename = ((Pair<File, File>) evt.getInfo()).getFirst().getAbsolutePath();
         labelCurrentFilename.setText(filename);
         evt.setStop(stop);
+        notifyProgressListenerPerformed(evt);
     }
 
     @Override
@@ -211,6 +236,7 @@ public class MoveToDirectoryDialog extends Dialog
         moveTask = null;
         Panels.getInstance().getAppPanel().getPanelThumbnails().remove(movedFiles);
         removeMovedFiles();
+        notifyProgressListenerEnded(evt);
         checkErrors();
         setVisible(false);
     }
