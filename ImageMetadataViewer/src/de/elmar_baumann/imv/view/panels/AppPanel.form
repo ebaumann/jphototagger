@@ -19,7 +19,7 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="splitPaneMain" alignment="1" pref="422" max="32767" attributes="2"/>
+                  <Component id="splitPaneMain" alignment="1" pref="362" max="32767" attributes="2"/>
                   <Component id="panelStatusbar" alignment="1" max="32767" attributes="2"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -376,9 +376,9 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="280" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="220" max="32767" attributes="0"/>
                   <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                      <Component id="splitPaneThumbnailsMetadata" alignment="1" pref="280" max="32767" attributes="0"/>
+                      <Component id="splitPaneThumbnailsMetadata" alignment="1" pref="220" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -455,8 +455,8 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="labelMetadataFilename" alignment="0" pref="251" max="32767" attributes="2"/>
-                          <Component id="tabbedPaneMetaData" alignment="0" pref="251" max="32767" attributes="2"/>
+                          <Component id="labelMetadataFilename" alignment="0" pref="191" max="32767" attributes="2"/>
+                          <Component id="tabbedPaneMetaData" alignment="0" pref="191" max="32767" attributes="2"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
@@ -780,7 +780,7 @@
                               <Layout>
                                 <DimensionLayout dim="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="scrollPaneEditMetadata" alignment="0" pref="246" max="32767" attributes="0"/>
+                                      <Component id="scrollPaneEditMetadata" alignment="0" pref="186" max="32767" attributes="0"/>
                                   </Group>
                                 </DimensionLayout>
                                 <DimensionLayout dim="1">
@@ -847,12 +847,12 @@
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="progressBarCreateMetaDataOfCurrentThumbnails" pref="48" max="32767" attributes="2"/>
-                      <Component id="textFieldSearch" alignment="1" pref="48" max="32767" attributes="2"/>
+                      <Component id="progressBarCreateMetaDataOfCurrentThumbnails" pref="10" max="32767" attributes="2"/>
+                      <Component id="textFieldSearch" alignment="1" pref="10" max="32767" attributes="2"/>
                   </Group>
                   <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="progressBarCurrentTasks" min="0" pref="54" max="32767" attributes="2"/>
+                      <Component id="progressBarCurrentTasks" min="0" pref="32" max="32767" attributes="2"/>
                       <Component id="panelMetadataProgress" alignment="0" max="32767" attributes="2"/>
                   </Group>
               </Group>
@@ -939,7 +939,7 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
-                      <Component id="progressBarScheduledTasks" pref="32" max="32767" attributes="2"/>
+                      <Component id="progressBarScheduledTasks" pref="10" max="32767" attributes="2"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="buttonStopScheduledTasks" min="-2" max="-2" attributes="0"/>
                   </Group>
