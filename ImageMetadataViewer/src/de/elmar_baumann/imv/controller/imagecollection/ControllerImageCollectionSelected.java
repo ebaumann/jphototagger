@@ -40,12 +40,16 @@ public class ControllerImageCollectionSelected extends Controller
 
     @Override
     public void valueChanged(ListSelectionEvent e) {
-        showImageCollection();
+        if (isControl()) {
+            showImageCollection();
+        }
     }
 
     @Override
     public void refresh() {
-        showImageCollection();
+        if (isControl()) {
+            showImageCollection();
+        }
     }
 
     private void showImageCollection() {
