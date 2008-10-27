@@ -10,6 +10,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.swing.event.TreeModelEvent;
 import javax.swing.event.TreeModelListener;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
@@ -25,6 +26,7 @@ public class TreeModelDirectories implements TreeModel {
 
     private DirectoryTreeModelRoots root = new DirectoryTreeModelRoots();
     private Map<File, List<File>> childrenOfParent = new HashMap<File, List<File>>();
+    private List<TreeModelListener> listeners = new ArrayList<TreeModelListener>();
     private boolean accecptHidden;
 
     public TreeModelDirectories(boolean accecptHidden) {
@@ -94,17 +96,23 @@ public class TreeModelDirectories implements TreeModel {
 
     @Override
     public void valueForPathChanged(TreePath path, Object newValue) {
-        // Nichts tun
     }
 
     @Override
     public void addTreeModelListener(TreeModelListener l) {
-        // Nichts tun
+        listeners.add(l);
     }
 
     @Override
     public void removeTreeModelListener(TreeModelListener l) {
-        // Nichts tun
+        listeners.remove(l);
+    }
+
+    private void notifyChanged(TreePath path) {
+        TreeModelEvent evt = new TreeModelEvent(this, path);
+        for (TreeModelListener l : listeners) {
+            l.treeNodesChanged(evt);
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -119,5 +127,82 @@ public class TreeModelDirectories implements TreeModel {
             Collections.sort(directories, new FileComparator(sortType));
         }
         return directories;
+    }
+
+    /**
+     * Removes a file.
+     * <em>Does not change the file system, only the model!</em>
+     * 
+     * @param  path  file to remove
+     * @return true if removed
+     */
+    public boolean remove(TreePath path) {
+        Object file = path.getLastPathComponent();
+        TreePath parentPath = path.getParentPath();
+        Object parent = parentPath == null ? null : parentPath.getLastPathComponent();
+        if (parent == root && root.remove((File) file)) {
+            notifyChanged(parentPath);
+            return true;
+        } else if (parent != null) {
+            List<File> children = childrenOfParent.get(parent);
+            if (children != null && children.remove(file)) {
+                notifyChanged(parentPath);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Replaces a file.
+     * <em>Does not change the file system, only the model!</em>
+     * 
+     * @param path     old file
+     * @param newFile  new file
+     * @return         true if replaced
+     */
+    public boolean replace(TreePath path, File newFile) {
+        Object oldValue = path.getLastPathComponent();
+        TreePath parentPath = path.getParentPath();
+        Object parent = parentPath == null ? null : parentPath.getLastPathComponent();
+        if (parent == root && root.replace((File) oldValue, newFile)) {
+            notifyChanged(parentPath);
+            return true;
+        } else if (parent != null) {
+            List<File> children = childrenOfParent.get(parent);
+            if (children != null) {
+                int index = children.indexOf(oldValue);
+                if (index >= 0) {
+                    children.set(index, newFile);
+                    notifyChanged(parentPath);
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Adds a file.
+     * <em>Does not change the file system, only the model!</em>
+     * 
+     * @param  parentPath  parent
+     * @param  newFile     new file
+     * @return true if added
+     */
+    public boolean add(TreePath parentPath, File newFile) {
+        Object parent = parentPath.getLastPathComponent();
+        if (parent == root && root.add(newFile)) {
+            notifyChanged(parentPath);
+            return true;
+        } else if (parent != null) {
+            List<File> children = childrenOfParent.get(parent);
+            if (children != null && !children.contains(newFile)) {
+                children.add(newFile);
+                notifyChanged(parentPath);
+                return true;
+            }
+        }
+        return false;
     }
 }

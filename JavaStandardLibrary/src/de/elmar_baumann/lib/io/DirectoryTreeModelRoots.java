@@ -20,13 +20,19 @@ public class DirectoryTreeModelRoots {
         init();
     }
 
+    public boolean add(File newFile) {
+        if (!roots.contains(newFile)) {
+            roots.add(newFile);
+            return true;
+        }
+        return false;
+    }
+
     private void init() {
         File[] fileRoots = File.listRoots();
 
         for (int i = 0; i < fileRoots.length; i++) {
-            //if (FileExists.exists(fileRoots[index])) {
             roots.add(fileRoots[i]);
-        //}
         }
     }
 
@@ -57,6 +63,19 @@ public class DirectoryTreeModelRoots {
      */
     public File getChild(int index) {
         return roots.get(index);
+    }
+
+    public boolean remove(File file) {
+        return roots.remove(file);
+    }
+
+    public boolean replace(File oldFile, File newFile) {
+        int index = roots.indexOf(oldFile);
+        if (index >= 0) {
+            roots.set(index, newFile);
+            return true;
+        }
+        return false;
     }
 
     @Override
