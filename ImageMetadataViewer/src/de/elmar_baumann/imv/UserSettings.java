@@ -148,6 +148,10 @@ public class UserSettings implements UserSettingsChangeListener {
     public String getDefaultImageOpenApp() {
         return settings.getString(keyDefaultImageOpenApp);
     }
+    
+    public boolean hasDefaultImageOpenApp() {
+        return !getDefaultImageOpenApp().isEmpty();
+    }
 
     /**
      * Liefert die Priorität für Threads zum Erzeugen von Thumbnails und Metadaten.
@@ -228,6 +232,10 @@ public class UserSettings implements UserSettingsChangeListener {
      */
     public List<File> getOtherImageOpenApps() {
         return FileUtil.getAsFiles(settings.getStringArray(keyOtherImageOpenApps));
+    }
+    
+    public boolean hasOtherImageOpenApps() {
+        return !getOtherImageOpenApps().isEmpty();
     }
 
     private void setOtherImageOpenApps(ListModel model) {
