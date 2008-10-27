@@ -11,6 +11,7 @@ import de.elmar_baumann.imv.database.metadata.Column;
 import de.elmar_baumann.imv.event.DatabaseAction;
 import de.elmar_baumann.imv.event.DatabaseListener;
 import de.elmar_baumann.imv.event.ListenerProvider;
+import de.elmar_baumann.imv.event.RefreshListener;
 import de.elmar_baumann.imv.event.UserSettingsChangeEvent;
 import de.elmar_baumann.imv.event.UserSettingsChangeListener;
 import de.elmar_baumann.imv.resource.Panels;
@@ -38,7 +39,7 @@ import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
  * @version 2008-10-05
  */
 public class ControllerFastSearch extends Controller
-    implements UserSettingsChangeListener, DatabaseListener {
+    implements UserSettingsChangeListener, DatabaseListener, RefreshListener {
 
     private DatabaseSearch db = DatabaseSearch.getInstance();
     private AppPanel appPanel = Panels.getInstance().getAppPanel();
@@ -113,11 +114,13 @@ public class ControllerFastSearch extends Controller
     }
 
     private void search(String searchText) {
-        clearSelection();
-        List<String> filenames =
-            db.searchFilenamesLikeOr(UserSettings.getInstance().getFastSearchColumns(), searchText);
-        thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames),
-            Content.Search);
+        if (!searchText.trim().isEmpty()) {
+            clearSelection();
+            List<String> filenames =
+                db.searchFilenamesLikeOr(UserSettings.getInstance().getFastSearchColumns(), searchText.trim());
+            thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames),
+                Content.Search);
+        }
     }
 
     private void listenToActionSources() {
@@ -142,5 +145,12 @@ public class ControllerFastSearch extends Controller
         });
 
         db.addDatabaseListener(this);
+    }
+
+    @Override
+    public void refresh() {
+        if (isControl() && textFieldSearch.isEnabled()) {
+            search(textFieldSearch.getText());
+        }
     }
 }
