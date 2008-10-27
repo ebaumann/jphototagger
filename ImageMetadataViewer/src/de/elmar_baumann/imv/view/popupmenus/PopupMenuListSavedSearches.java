@@ -38,6 +38,20 @@ public class PopupMenuListSavedSearches extends JPopupMenu {
         return instance;
     }
 
+    public JMenuItem getItemCreate() {
+        return itemCreate;
+    }
+
+    public JMenuItem getItemDelete() {
+        return itemDelete;
+    }
+
+    public JMenuItem getItemRename() {
+        return itemRename;
+    }
+    
+    
+
     /**
      * Setzt die gespeicherte Suche.
      * 

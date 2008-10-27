@@ -33,6 +33,14 @@ public class PopupMenuListImageCollections extends JPopupMenu {
         return instance;
     }
 
+    public JMenuItem getItemDelete() {
+        return itemDelete;
+    }
+
+    public JMenuItem getItemRename() {
+        return itemRename;
+    }
+
     /**
      * Setzt den Namen der Bildsamlung.
      * 

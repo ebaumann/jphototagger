@@ -27,6 +27,10 @@ public class PopupMenuTreeDirectories extends JPopupMenu {
         return instance;
     }
 
+    public JMenuItem getItemAddToFavoriteDirectories() {
+        return itemAddToFavoriteDirectories;
+    }
+
     /**
      * Fügt einen Beobachter hinzu für die Aktion: Verzeichnis zu den Favoriten 
      * hinzufügen.

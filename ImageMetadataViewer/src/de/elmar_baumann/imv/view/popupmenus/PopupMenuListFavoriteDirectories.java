@@ -32,6 +32,18 @@ public class PopupMenuListFavoriteDirectories extends JPopupMenu {
         return instance;
     }
 
+    public JMenuItem getItemDelete() {
+        return itemDelete;
+    }
+
+    public JMenuItem getItemInsert() {
+        return itemInsert;
+    }
+
+    public JMenuItem getItemUpdate() {
+        return itemUpdate;
+    }
+
     /**
      * Liefert das ausgewählte Favoritenverzeichnis.
      * 

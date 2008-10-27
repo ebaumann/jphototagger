@@ -127,6 +127,68 @@ public class PopupMenuPanelThumbnails extends JPopupMenu
         }
     }
 
+    public JMenuItem getItemAddToImageCollection() {
+        return itemAddToImageCollection;
+    }
+
+    public JMenuItem getItemCopySelectedFilesToDirectory() {
+        return itemCopySelectedFilesToDirectory;
+    }
+
+    public JMenuItem getItemCreateImageCollection() {
+        return itemCreateImageCollection;
+    }
+
+    public JMenuItem getItemDeleteFromImageCollection() {
+        return itemDeleteFromImageCollection;
+    }
+
+    public JMenuItem getItemDeleteThumbnail() {
+        return itemDeleteThumbnail;
+    }
+
+    public JMenuItem getItemFileSystemDeleteFiles() {
+        return itemFileSystemDeleteFiles;
+    }
+
+    public JMenuItem getItemFileSystemMoveFiles() {
+        return itemFileSystemMoveFiles;
+    }
+
+    public JMenuItem getItemFileSystemRenameFiles() {
+        return itemFileSystemRenameFiles;
+    }
+
+    public JMenuItem getItemOpenFilesWithStandardApp() {
+        return itemOpenFilesWithStandardApp;
+    }
+
+    public JMenuItem getItemRotateThumbnai180() {
+        return itemRotateThumbnai180;
+    }
+
+    public JMenuItem getItemRotateThumbnai270() {
+        return itemRotateThumbnai270;
+    }
+
+    public JMenuItem getItemRotateThumbnai90() {
+        return itemRotateThumbnai90;
+    }
+
+    public JMenuItem getItemUpdateMetadata() {
+        return itemUpdateMetadata;
+    }
+
+    public JMenuItem getItemUpdateThumbnail() {
+        return itemUpdateThumbnail;
+    }
+
+    public JMenu getMenuOtherOpenImageApps() {
+        return menuOtherOpenImageApps;
+    }
+    
+    
+
     /**
      * Sets the content, menu items not related to the content will be
      * disabled.
