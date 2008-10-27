@@ -7,6 +7,7 @@ import de.elmar_baumann.imv.database.metadata.collections.ColumnCollectionsSeque
 import de.elmar_baumann.imv.database.metadata.file.ColumnFilesLastModified;
 import de.elmar_baumann.imv.database.metadata.file.ColumnFilesThumbnail;
 import de.elmar_baumann.imv.database.metadata.savedsearches.ColumnSavedSearchesName;
+import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpIptc4xmpcoreCountrycode;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +30,7 @@ public class AdvancedSearchColumns {
         excludeColumns.add(ColumnCollectionsSequenceNumber.getInstance());
         excludeColumns.add(ColumnCollectionnamesName.getInstance());
         excludeColumns.add(ColumnSavedSearchesName.getInstance());
+        excludeColumns.add(ColumnXmpIptc4xmpcoreCountrycode.getInstance());
 
         List<Table> tables = AllTables.get();
         for (Table table : tables) {
