@@ -1,21 +1,20 @@
 package de.elmar_baumann.imv.datatransfer;
 
 import de.elmar_baumann.imv.AppSettings;
+import de.elmar_baumann.imv.io.IoUtil;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.view.dialogs.CopyToDirectoryDialog;
 import de.elmar_baumann.imv.view.dialogs.MoveToDirectoryDialog;
+import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
+import de.elmar_baumann.lib.componentutil.ComponentUtil;
 import de.elmar_baumann.lib.datatransfer.TransferUtil;
 import de.elmar_baumann.lib.io.DirectoryTreeModelFile;
-import de.elmar_baumann.lib.io.FileUtil;
-import de.elmar_baumann.lib.util.ArrayUtil;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.io.File;
 import java.text.MessageFormat;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.JTree;
@@ -61,21 +60,11 @@ public class TransferHandlerTreeDirectories extends TransferHandler {
             return false;
         }
         File targetDirectory = getTargetDirectory(transferSupport);
-        if (targetDirectory != null) {
-            int dropAction = transferSupport.getUserDropAction();
-            Transferable transferable = transferSupport.getTransferable();
-            try {
-                if (transferSupport.isDataFlavorSupported(DataFlavor.javaFileListFlavor)) {
-                    handleDroppedFiles(dropAction, TransferUtil.getFileList(transferable), targetDirectory);
-                } else if (transferSupport.isDataFlavorSupported(TransferUtil.getUriListFlavor())) {
-                    handleDroppedFiles(dropAction, TransferUtil.getFileListFromUriList(transferable), targetDirectory);
-                } else if (transferSupport.isDataFlavorSupported(DataFlavor.stringFlavor)) {
-                    handleDroppedString(transferSupport, targetDirectory);
-                }
-            } catch (Exception ex) {
-                Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
-                return false;
-            }
+        Transferable transferable = transferSupport.getTransferable();
+        List<File> sourceFiles = IoUtil.getImageFiles(TransferUtil.getFiles(transferable, filenamesDelimiter));
+        if (targetDirectory != null && !sourceFiles.isEmpty()) {
+            handleDroppedFiles(
+                transferSupport.getUserDropAction(), sourceFiles, targetDirectory);
         }
         return true;
     }
@@ -106,29 +95,20 @@ public class TransferHandlerTreeDirectories extends TransferHandler {
      */
     public static void handleDroppedFiles(
         int dropAction, List<File> sourceFiles, File targetDirectory) {
+        List<File> imageFiles = IoUtil.getImageFiles(sourceFiles);
+        if (imageFiles.isEmpty()) {
+            return;
+        }
         String msgFormatCopy = Bundle.getString("TransferHandlerTreeDirectories.ConfirmMessage.Copy");
         String msgFormatMove = Bundle.getString("TransferHandlerTreeDirectories.ConfirmMessage.Move");
-        if (dropAction == COPY && confirmFileAction(msgFormatCopy, sourceFiles.size(),
+        if (dropAction == COPY && confirmFileAction(msgFormatCopy, imageFiles.size(),
             targetDirectory.getAbsolutePath())) {
-            copyFiles(targetDirectory, sourceFiles);
+            copyFiles(targetDirectory, imageFiles);
             refresh();
         } else if (dropAction == MOVE && confirmFileAction(msgFormatMove,
-            sourceFiles.size(), targetDirectory.getAbsolutePath())) {
-            moveFiles(targetDirectory, sourceFiles);
+            imageFiles.size(), targetDirectory.getAbsolutePath())) {
+            moveFiles(targetDirectory, imageFiles);
             refresh();
-        }
-    }
-
-    private void handleDroppedString(TransferSupport transferSupport, File targetDirectory) {
-        try {
-            Transferable transferable = transferSupport.getTransferable();
-            String data = (String) transferable.getTransferData(stringFlavor);
-            int dropAction = transferSupport.getUserDropAction();
-            handleDroppedFiles(dropAction,
-                FileUtil.getAsFiles(ArrayUtil.stringTokenToArray(
-                data, filenamesDelimiter)), targetDirectory);
-        } catch (Exception ex) {
-            Logger.getLogger(TransferHandlerTreeDirectories.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -156,6 +136,8 @@ public class TransferHandlerTreeDirectories extends TransferHandler {
     }
 
     private static void refresh() {
-        Panels.getInstance().getAppPanel().getPanelThumbnails().refresh();
+        ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
+        thumbnailsPanel.refresh();
+        ComponentUtil.forceRepaint(thumbnailsPanel);
     }
 }

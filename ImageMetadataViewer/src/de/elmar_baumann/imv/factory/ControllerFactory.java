@@ -3,6 +3,7 @@ package de.elmar_baumann.imv.factory;
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.controller.Controller;
 import de.elmar_baumann.imv.controller.categories.ControllerCategoryItemSelected;
+import de.elmar_baumann.imv.controller.directories.ControllerDirectoryCopyFiles;
 import de.elmar_baumann.imv.controller.directories.ControllerEnableInsertMetaDataTemplate;
 import de.elmar_baumann.imv.controller.directories.ControllerDirectorySelected;
 import de.elmar_baumann.imv.controller.favoritedirectories.ControllerDeleteFavoriteDirectory;
@@ -45,6 +46,7 @@ import de.elmar_baumann.imv.controller.thumbnail.ControllerCopyFilesToClipboard;
 import de.elmar_baumann.imv.controller.thumbnail.ControllerCreateMetaDataOfCurrentThumbnails;
 import de.elmar_baumann.imv.controller.thumbnail.ControllerCreateMetaDataOfSelectedThumbnails;
 import de.elmar_baumann.imv.controller.thumbnail.ControllerDeleteThumbnailsFromDatabase;
+import de.elmar_baumann.imv.controller.thumbnail.ControllerPasteFilesFromClipboard;
 import de.elmar_baumann.imv.controller.thumbnail.ControllerRenameInXmpColumns;
 import de.elmar_baumann.imv.controller.thumbnail.ControllerRotateThumbnail;
 import de.elmar_baumann.imv.controller.thumbnail.ControllerSliderThumbnailSize;
@@ -138,6 +140,8 @@ public class ControllerFactory {
         controllers.add(new ControllerThumbnailsDatabaseChanges());
         controllers.add(new ControllerAutocopyDirectory());
         controllers.add(new ControllerCopyFilesToClipboard());
+        controllers.add(new ControllerDirectoryCopyFiles());
+        controllers.add(new ControllerPasteFilesFromClipboard());
         controllerScheduledTasks = new ControllerArrayScheduledTasks();
         controllers.add(controllerScheduledTasks);
     }

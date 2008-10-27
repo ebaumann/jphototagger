@@ -2,10 +2,12 @@ package de.elmar_baumann.imv.controller.thumbnail;
 
 import de.elmar_baumann.imv.controller.Controller;
 import de.elmar_baumann.imv.resource.Panels;
+import de.elmar_baumann.imv.types.FileAction;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.lib.clipboard.ClipboardUtil;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JMenuItem;
 
 /**
  * Copies the selected files in the thumbnails panel to the system clipboard.
@@ -16,15 +18,27 @@ import java.awt.event.ActionListener;
 public class ControllerCopyFilesToClipboard extends Controller implements ActionListener {
 
     private ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
+    private JMenuItem itemCopy = Panels.getInstance().getAppFrame().getMenuItemCopy();
+    private JMenuItem itemCut = Panels.getInstance().getAppFrame().getMenuItemCut();
 
     public ControllerCopyFilesToClipboard() {
-        Panels.getInstance().getAppFrame().getMenuItemCopy().addActionListener(this);
+        listenToActionSources();
+    }
+
+    private void listenToActionSources() {
+        itemCopy.addActionListener(this);
+        itemCut.addActionListener(this);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (isControl() && thumbnailsPanel.getSelectionCount() > 0) {
+            setFileAction(e.getSource());
             ClipboardUtil.copyToSystemClipboard(thumbnailsPanel.getSelectedFiles(), null);
         }
+    }
+
+    private void setFileAction(Object source) {
+        thumbnailsPanel.setFileAction(source == itemCopy ? FileAction.Copy : FileAction.Cut);
     }
 }

@@ -1,11 +1,12 @@
 package de.elmar_baumann.imv.io;
 
 import de.elmar_baumann.imv.AppSettings;
-import de.elmar_baumann.imv.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.view.panels.ThumbnailsPanel;
+import de.elmar_baumann.lib.io.FileFilter;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -56,5 +57,22 @@ public class IoUtil {
             arguments.append(separator + filename);
         }
         return arguments.toString();
+    }
+
+    /**
+     * Returns image files.
+     * 
+     * @param  files  arbitrary files
+     * @return image files of <code>files</code>
+     */
+    public static List<File> getImageFiles(List<File> files) {
+        List<File> imageFiles = new ArrayList<File>();
+        FileFilter filter = AppSettings.fileFilterAcceptedImageFileFormats;
+        for (File file : files) {
+            if (filter.accept(file)) {
+                imageFiles.add(file);
+            }
+        }
+        return imageFiles;
     }
 }

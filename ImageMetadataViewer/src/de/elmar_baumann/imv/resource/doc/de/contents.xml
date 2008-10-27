@@ -99,7 +99,7 @@
 		</page>
 		<page>
 			<url>action_filesystem_rename.html</url>
-			<title>Auf dem Datenträger umbenennen</title>
+			<title>Umbenennen</title>
 		</page>
 		<page>
 			<url>action_filesystem_move.html</url>
@@ -134,11 +134,11 @@
 		</page>
 		<page>
 			<url>action_filesystem_rename.html</url>
-			<title>Bearbeiten / Auf dem Datenträger umbenennen</title>
+			<title>Bearbeiten / Umbenennen</title>
 		</page>
 		<page>
 			<url>action_filesystem_delete_context.html</url>
-			<title>Bearbeiten / Löschen aktueller Kontext</title>
+			<title>Bearbeiten / Löschen</title>
 		</page>
 		<page>
 			<url>action_metadata_iptc_to_xmp.html</url>
