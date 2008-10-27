@@ -2,6 +2,7 @@ package de.elmar_baumann.imv.controller.categories;
 
 import de.elmar_baumann.imv.controller.Controller;
 import de.elmar_baumann.imv.database.DatabaseImageFiles;
+import de.elmar_baumann.imv.event.RefreshListener;
 import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.types.Content;
@@ -19,7 +20,7 @@ import javax.swing.event.ListSelectionListener;
  * @version 2008-10-05
  */
 public class ControllerCategoryItemSelected extends Controller
-    implements ListSelectionListener {
+    implements ListSelectionListener, RefreshListener {
 
     private DatabaseImageFiles db = DatabaseImageFiles.getInstance();
     private AppPanel appPanel = Panels.getInstance().getAppPanel();
@@ -27,7 +28,19 @@ public class ControllerCategoryItemSelected extends Controller
     private ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelThumbnails();
 
     public ControllerCategoryItemSelected() {
+        listenToActionSources();
+    }
+
+    private void listenToActionSources() {
         listCategories.addListSelectionListener(this);
+        thumbnailsPanel.addRefreshListener(this, Content.Category);
+    }
+
+    @Override
+    public void refresh() {
+        if (isControl()) {
+            setFilesToThumbnailsPanel();
+        }
     }
 
     @Override
@@ -40,7 +53,7 @@ public class ControllerCategoryItemSelected extends Controller
     private void setFilesToThumbnailsPanel() {
         String category = (String) listCategories.getSelectedValue();
         Set<String> filenames = db.getFilenamesOfCategory(category);
-        
+
         thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames), Content.Category);
     }
 }
