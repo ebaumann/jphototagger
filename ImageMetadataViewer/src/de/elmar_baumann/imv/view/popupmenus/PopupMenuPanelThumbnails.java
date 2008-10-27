@@ -4,7 +4,6 @@ import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.event.UserSettingsChangeEvent;
 import de.elmar_baumann.imv.event.UserSettingsChangeListener;
 import de.elmar_baumann.imv.resource.Bundle;
-import de.elmar_baumann.imv.types.Content;
 import de.elmar_baumann.imv.types.DatabaseUpdate;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -59,7 +58,6 @@ public class PopupMenuPanelThumbnails extends JPopupMenu
     private Map<JMenuItem, Float> angleOfItem = new HashMap<JMenuItem, Float>();
     private Map<String, File> otherImageOpenAppOfAction = new HashMap<String, File>();
     private Map<JMenuItem, DatabaseUpdate> databaseUpdateOfMenuItem = new HashMap<JMenuItem, DatabaseUpdate>();
-    private Content content = Content.Undefined;
     private static PopupMenuPanelThumbnails instance = new PopupMenuPanelThumbnails();
 
     /**
@@ -187,24 +185,6 @@ public class PopupMenuPanelThumbnails extends JPopupMenu
         return menuOtherOpenImageApps;
     }
     
-    
-
-    /**
-     * Sets the content, menu items not related to the content will be
-     * disabled.
-     * 
-     * @param content  content
-     */
-    public void setContent(Content content) {
-        this.content = content;
-        setEnabledContent();
-    }
-
-    private void setEnabledContent() {
-        itemDeleteFromImageCollection.setEnabled(
-            content.equals(Content.ImageCollection));
-    }
-
     public void addActionListenerOpenFilesWithOtherApp(ActionListener listener) {
         actionListenersOpenFilesWithOtherApp.add(listener);
     }
