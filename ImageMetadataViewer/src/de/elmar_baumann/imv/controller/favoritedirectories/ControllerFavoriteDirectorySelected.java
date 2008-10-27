@@ -38,12 +38,16 @@ public class ControllerFavoriteDirectorySelected extends Controller
 
     @Override
     public void valueChanged(ListSelectionEvent e) {
-        setFilesToThumbnailsPanel();
+        if (isControl()) {
+            setFilesToThumbnailsPanel();
+        }
     }
 
     @Override
     public void refresh() {
-        setFilesToThumbnailsPanel();
+        if (isControl()) {
+            setFilesToThumbnailsPanel();
+        }
     }
 
     private void setFilesToThumbnailsPanel() {
