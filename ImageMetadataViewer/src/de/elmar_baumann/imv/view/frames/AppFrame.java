@@ -338,26 +338,31 @@ public class AppFrame extends javax.swing.JFrame {
         menuItemCut.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.CTRL_MASK));
         menuItemCut.setMnemonic('a');
         menuItemCut.setText(Bundle.getString("AppFrame.menuItemCut.text")); // NOI18N
+        menuItemCut.setEnabled(false);
         menuEdit.add(menuItemCut);
 
         menuItemInsert.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.CTRL_MASK));
         menuItemInsert.setMnemonic('f');
         menuItemInsert.setText(Bundle.getString("AppFrame.menuItemInsert.text")); // NOI18N
+        menuItemInsert.setEnabled(false);
         menuEdit.add(menuItemInsert);
 
         menuItemCopy.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_MASK));
         menuItemCopy.setMnemonic('k');
         menuItemCopy.setText(Bundle.getString("AppFrame.menuItemCopy.text")); // NOI18N
+        menuItemCopy.setEnabled(false);
         menuEdit.add(menuItemCopy);
 
         menuItemFileSystemRename.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F2, 0));
         menuItemFileSystemRename.setMnemonic('u');
         menuItemFileSystemRename.setText(Bundle.getString("AppFrame.menuItemFileSystemRename.text")); // NOI18N
+        menuItemFileSystemRename.setEnabled(false);
         menuEdit.add(menuItemFileSystemRename);
 
         menuItemDelete.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_DELETE, 0));
         menuItemDelete.setMnemonic('l');
         menuItemDelete.setText(Bundle.getString("AppFrame.menuItemDelete.text")); // NOI18N
+        menuItemDelete.setEnabled(false);
         menuEdit.add(menuItemDelete);
 
         menuBar.add(menuEdit);
@@ -472,6 +477,7 @@ public class AppFrame extends javax.swing.JFrame {
         menuItemRenameInXmp.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         menuItemRenameInXmp.setMnemonic('x');
         menuItemRenameInXmp.setText(Bundle.getString("AppFrame.menuItemRenameInXmp.text")); // NOI18N
+        menuItemRenameInXmp.setEnabled(false);
         menuTools.add(menuItemRenameInXmp);
 
         menuBar.add(menuTools);
