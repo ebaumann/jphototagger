@@ -6,6 +6,7 @@ import de.elmar_baumann.imv.data.SavedSearchPanel;
 import de.elmar_baumann.imv.database.metadata.Column;
 import de.elmar_baumann.imv.database.metadata.selections.ColumnIds;
 import de.elmar_baumann.imv.database.metadata.Comparator;
+import de.elmar_baumann.imv.database.metadata.MetadataUtil;
 import de.elmar_baumann.imv.database.metadata.Operator;
 import de.elmar_baumann.imv.database.metadata.selections.AdvancedSearchColumns;
 import de.elmar_baumann.imv.event.SearchEvent;
@@ -45,6 +46,7 @@ public class SearchColumnPanel extends javax.swing.JPanel {
 
     private void postInitComponents() {
         initModels();
+        setValueFormatter();
     }
 
     /**
@@ -69,7 +71,14 @@ public class SearchColumnPanel extends javax.swing.JPanel {
         comboBoxOperators.setSelectedIndex(0);
         textFieldValue.setText(""); // NOI18N
         setChanged(false);
+        setValueFormatter();
         listenToActions = true;
+    }
+
+    private void setValueFormatter() {
+        textFieldValue.setText("");
+        textFieldValue.setFormatterFactory(
+            MetadataUtil.getFormatterFactory((Column) comboBoxColumns.getSelectedItem()));
     }
 
     private void checkKey(KeyEvent evt) {
@@ -356,6 +365,38 @@ public class SearchColumnPanel extends javax.swing.JPanel {
         }
     }
 
+    private void handleButtonCalendarActionPerformed() {
+        if (listenToActions) {
+            setDate();
+        }
+    }
+
+    private void handleTaggleButtonBracketLeft2ActionPerformed() {
+        if (listenToActions) {
+            checkToggleButtons();
+            setChanged(true);
+        }
+    }
+
+    private void handleTaggleButtonBracketLeftActionPerformed() {
+        if (listenToActions) {
+            checkToggleButtons();
+            setChanged(true);
+        }
+    }
+
+    private void handleTextFieldValueKeyTyped(KeyEvent evt) {
+        if (listenToActions) {
+            checkKey(evt);
+            setChanged(true);
+        }
+    }
+
+    private void handleColumnChanged() {
+        setChanged();
+        setValueFormatter();
+    }
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -365,19 +406,35 @@ public class SearchColumnPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        toggleButtonBracketLeft1 = new javax.swing.JToggleButton();
         comboBoxOperators = new javax.swing.JComboBox();
+        toggleButtonBracketLeft2 = new javax.swing.JToggleButton();
         comboBoxColumns = new javax.swing.JComboBox();
         comboBoxComparators = new javax.swing.JComboBox();
-        textFieldValue = new javax.swing.JTextField();
-        toggleButtonBracketLeft1 = new javax.swing.JToggleButton();
+        textFieldValue = new javax.swing.JFormattedTextField();
         toggleButtonBracketRight = new javax.swing.JToggleButton();
-        toggleButtonBracketLeft2 = new javax.swing.JToggleButton();
         buttonCalendar = new javax.swing.JButton();
+
+        toggleButtonBracketLeft1.setForeground(new java.awt.Color(255, 0, 0));
+        toggleButtonBracketLeft1.setText(Bundle.getString("SearchColumnPanel.toggleButtonBracketLeft1.text")); // NOI18N
+        toggleButtonBracketLeft1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                toggleButtonBracketLeft1ActionPerformed(evt);
+            }
+        });
 
         comboBoxOperators.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         comboBoxOperators.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxOperatorsActionPerformed(evt);
+            }
+        });
+
+        toggleButtonBracketLeft2.setForeground(new java.awt.Color(255, 0, 0));
+        toggleButtonBracketLeft2.setText(Bundle.getString("SearchColumnPanel.toggleButtonBracketLeft2.text")); // NOI18N
+        toggleButtonBracketLeft2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                toggleButtonBracketLeft2ActionPerformed(evt);
             }
         });
 
@@ -396,17 +453,11 @@ public class SearchColumnPanel extends javax.swing.JPanel {
             }
         });
 
+        textFieldValue.setText(Bundle.getString("SearchColumnPanel.textFieldValue.text")); // NOI18N
+        textFieldValue.setFocusLostBehavior(javax.swing.JFormattedTextField.PERSIST);
         textFieldValue.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 textFieldValueKeyTyped(evt);
-            }
-        });
-
-        toggleButtonBracketLeft1.setForeground(new java.awt.Color(255, 0, 0));
-        toggleButtonBracketLeft1.setText(Bundle.getString("SearchColumnPanel.toggleButtonBracketLeft1.text")); // NOI18N
-        toggleButtonBracketLeft1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                toggleButtonBracketLeft1ActionPerformed(evt);
             }
         });
 
@@ -415,14 +466,6 @@ public class SearchColumnPanel extends javax.swing.JPanel {
         toggleButtonBracketRight.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 toggleButtonBracketRightActionPerformed(evt);
-            }
-        });
-
-        toggleButtonBracketLeft2.setForeground(new java.awt.Color(255, 0, 0));
-        toggleButtonBracketLeft2.setText(Bundle.getString("SearchColumnPanel.toggleButtonBracketLeft2.text")); // NOI18N
-        toggleButtonBracketLeft2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                toggleButtonBracketLeft2ActionPerformed(evt);
             }
         });
 
@@ -448,7 +491,7 @@ public class SearchColumnPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(comboBoxComparators, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textFieldValue, javax.swing.GroupLayout.DEFAULT_SIZE, 19, Short.MAX_VALUE)
+                .addComponent(textFieldValue, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(toggleButtonBracketRight, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -462,40 +505,25 @@ public class SearchColumnPanel extends javax.swing.JPanel {
                 .addComponent(toggleButtonBracketLeft2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addComponent(comboBoxColumns, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addComponent(comboBoxComparators, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(textFieldValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addComponent(toggleButtonBracketRight, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(buttonCalendar, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(buttonCalendar, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(textFieldValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {buttonCalendar, toggleButtonBracketRight});
 
     }// </editor-fold>//GEN-END:initComponents
 
-private void textFieldValueKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldValueKeyTyped
-    if (listenToActions) {
-        checkKey(evt);
-        setChanged(true);
-    }
-}//GEN-LAST:event_textFieldValueKeyTyped
-
 private void toggleButtonBracketLeft1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toggleButtonBracketLeft1ActionPerformed
-    if (listenToActions) {
-        checkToggleButtons();
-        setChanged(true);
-    }
+    handleTaggleButtonBracketLeftActionPerformed();
 }//GEN-LAST:event_toggleButtonBracketLeft1ActionPerformed
 
 private void toggleButtonBracketLeft2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toggleButtonBracketLeft2ActionPerformed
-    if (listenToActions) {
-        checkToggleButtons();
-        setChanged(true);
-    }
+    handleTaggleButtonBracketLeft2ActionPerformed();
 }//GEN-LAST:event_toggleButtonBracketLeft2ActionPerformed
 
 private void buttonCalendarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCalendarActionPerformed
-    if (listenToActions) {
-        setDate();
-    }
+    handleButtonCalendarActionPerformed();
 }//GEN-LAST:event_buttonCalendarActionPerformed
 
 private void comboBoxOperatorsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxOperatorsActionPerformed
@@ -503,7 +531,7 @@ private void comboBoxOperatorsActionPerformed(java.awt.event.ActionEvent evt) {/
 }//GEN-LAST:event_comboBoxOperatorsActionPerformed
 
 private void comboBoxColumnsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxColumnsActionPerformed
-    setChanged();
+    handleColumnChanged();
 }//GEN-LAST:event_comboBoxColumnsActionPerformed
 
 private void comboBoxComparatorsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxComparatorsActionPerformed
@@ -513,12 +541,16 @@ private void comboBoxComparatorsActionPerformed(java.awt.event.ActionEvent evt) 
 private void toggleButtonBracketRightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toggleButtonBracketRightActionPerformed
     setChanged();
 }//GEN-LAST:event_toggleButtonBracketRightActionPerformed
+
+private void textFieldValueKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldValueKeyTyped
+    handleTextFieldValueKeyTyped(evt);
+}//GEN-LAST:event_textFieldValueKeyTyped
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonCalendar;
     private javax.swing.JComboBox comboBoxColumns;
     private javax.swing.JComboBox comboBoxComparators;
     private javax.swing.JComboBox comboBoxOperators;
-    private javax.swing.JTextField textFieldValue;
+    private javax.swing.JFormattedTextField textFieldValue;
     private javax.swing.JToggleButton toggleButtonBracketLeft1;
     private javax.swing.JToggleButton toggleButtonBracketLeft2;
     private javax.swing.JToggleButton toggleButtonBracketRight;
