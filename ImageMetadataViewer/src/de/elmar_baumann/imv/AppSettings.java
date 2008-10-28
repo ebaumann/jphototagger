@@ -73,7 +73,6 @@ public class AppSettings {
      * Standard-Hintergrundfarbe für Text in Tabellen.
      */
     public static final Color colorBackgroundTableTextDefault = Color.WHITE;
-    
     private static List<String> appIconPaths = new ArrayList<String>();
     private static List<Image> appIcons = new ArrayList<Image>();
     private static final Icon mediumAppIcon = IconUtil.getImageIcon(pathAppIconMedium);
@@ -107,11 +106,17 @@ public class AppSettings {
     public static List<String> getAppIconPaths() {
         return appIconPaths;
     }
-    
-    public static String getDefaultAppIconPath() {
-        return iconPath;
+
+    /**
+     * Returns an icon within the app icon path.
+     * 
+     * @param  name  name of the image file
+     * @return icon
+     */
+    public static Icon getIcon(String name) {
+        return IconUtil.getImageIcon(iconPath + "/" + name);
     }
-    
+
     /**
      * Returns the path (directory name) of all icons.
      * 
