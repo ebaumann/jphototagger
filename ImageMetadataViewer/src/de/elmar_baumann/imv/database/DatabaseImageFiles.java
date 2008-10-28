@@ -620,9 +620,10 @@ public class DatabaseImageFiles extends Database {
         try {
             connection = getConnection();
             PreparedStatement stmt = connection.prepareStatement(
-                "SELECT xmp.lastmodified FROM" + // NOI18N
-                " xmp LEFT JOIN files ON xmp.id_files = files.id" + // NOI18N
-                " WHERE files.filename = ?"); // NOI18N
+                "SELECT lastmodified FROM" + // NOI18N
+//                " xmp LEFT JOIN files ON xmp.id_files = files.id" + // NOI18N too slow
+                " xmp, files" + // NOI18N
+                " WHERE files.filename = ? AND xmp.id_files = files.id"); // NOI18N
             stmt.setString(1, imageFilename);
             logStatement(stmt);
             ResultSet rs = stmt.executeQuery();
