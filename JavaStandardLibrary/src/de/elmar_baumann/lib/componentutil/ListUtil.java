@@ -1,6 +1,7 @@
 package de.elmar_baumann.lib.componentutil;
 
 import java.util.List;
+import java.util.StringTokenizer;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
 
@@ -42,5 +43,36 @@ public class ListUtil {
             }
         }
         return item;
+    }
+
+    /**
+     * Replaces the elements of a list model with elements from a token string.
+     * 
+     * @param str    string
+     * @param delim  delimiter between the tokens in <code>string</code>
+     * @param model  model
+     */
+    public static void setToken(String str, String delim, DefaultListModel model) {
+        StringTokenizer tokenizer = new StringTokenizer(str, delim);
+        model.clear();
+        while (tokenizer.hasMoreTokens()) {
+            model.addElement(tokenizer.nextToken());
+        }
+    }
+
+    /**
+     * Returns a token string with each element in a list model.
+     * 
+     * @param  model  model
+     * @param  delim  delimiter between the list elements in the returned string
+     * @return token  string
+     */
+    public static String getTokenString(DefaultListModel model, String delim) {
+        StringBuffer buffer = new StringBuffer();
+        int size = model.getSize();
+        for (int i = 0; i < size; i++) {
+            buffer.append(model.get(i).toString() + (i < size - 1 ? delim : ""));
+        }
+        return buffer.toString();
     }
 }
