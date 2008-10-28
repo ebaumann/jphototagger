@@ -424,11 +424,11 @@ public class AdvancedSearchDialog extends Dialog implements
         panelColumns.setLayout(panelColumnsLayout);
         panelColumnsLayout.setHorizontalGroup(
             panelColumnsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelColumn5, javax.swing.GroupLayout.DEFAULT_SIZE, 735, Short.MAX_VALUE)
-            .addComponent(panelColumn4, javax.swing.GroupLayout.DEFAULT_SIZE, 735, Short.MAX_VALUE)
-            .addComponent(panelColumn3, javax.swing.GroupLayout.DEFAULT_SIZE, 735, Short.MAX_VALUE)
-            .addComponent(panelColumn2, javax.swing.GroupLayout.DEFAULT_SIZE, 735, Short.MAX_VALUE)
-            .addComponent(panelColumn1, javax.swing.GroupLayout.DEFAULT_SIZE, 735, Short.MAX_VALUE)
+            .addComponent(panelColumn5, javax.swing.GroupLayout.DEFAULT_SIZE, 618, Short.MAX_VALUE)
+            .addComponent(panelColumn4, javax.swing.GroupLayout.DEFAULT_SIZE, 618, Short.MAX_VALUE)
+            .addComponent(panelColumn3, javax.swing.GroupLayout.DEFAULT_SIZE, 618, Short.MAX_VALUE)
+            .addComponent(panelColumn2, javax.swing.GroupLayout.DEFAULT_SIZE, 618, Short.MAX_VALUE)
+            .addComponent(panelColumn1, javax.swing.GroupLayout.DEFAULT_SIZE, 618, Short.MAX_VALUE)
         );
         panelColumnsLayout.setVerticalGroup(
             panelColumnsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -508,11 +508,9 @@ public class AdvancedSearchDialog extends Dialog implements
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(panelColumns, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(283, Short.MAX_VALUE)
-                .addComponent(panelButtons, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(panelColumns, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelButtons, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(

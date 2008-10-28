@@ -56,11 +56,11 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="panelColumn5" alignment="0" pref="735" max="32767" attributes="2"/>
-              <Component id="panelColumn4" alignment="0" pref="735" max="32767" attributes="2"/>
-              <Component id="panelColumn3" alignment="0" pref="735" max="32767" attributes="2"/>
-              <Component id="panelColumn2" alignment="0" pref="735" max="32767" attributes="2"/>
-              <Component id="panelColumn1" alignment="0" pref="735" max="32767" attributes="2"/>
+              <Component id="panelColumn5" alignment="0" pref="618" max="32767" attributes="2"/>
+              <Component id="panelColumn4" alignment="0" pref="618" max="32767" attributes="2"/>
+              <Component id="panelColumn3" alignment="0" pref="618" max="32767" attributes="2"/>
+              <Component id="panelColumn2" alignment="0" pref="618" max="32767" attributes="2"/>
+              <Component id="panelColumn1" alignment="0" pref="618" max="32767" attributes="2"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
