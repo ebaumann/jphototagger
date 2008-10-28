@@ -4,6 +4,7 @@ import de.elmar_baumann.imv.data.AutoCompleteData;
 import de.elmar_baumann.imv.data.TextEntry;
 import de.elmar_baumann.imv.database.metadata.Column;
 import de.elmar_baumann.imv.resource.Bundle;
+import de.elmar_baumann.lib.component.InputVerifierMaxLength;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 /**
@@ -20,7 +21,20 @@ public class TextEntryEditFieldPanel extends javax.swing.JPanel implements TextE
     public TextEntryEditFieldPanel(Column column) {
         this.column = column;
         initComponents();
+        postInitComponents();
+    }
+
+    private void postInitComponents() {
         setPropmt();
+        setInputVerifier();
+    }
+
+    private void setPropmt() {
+        labelPrompt.setText(column.getDescription());
+    }
+    
+    private void setInputVerifier() {
+        textFieldEdit.setInputVerifier(new InputVerifierMaxLength(column.getLength()));
     }
 
     @Override
@@ -49,10 +63,6 @@ public class TextEntryEditFieldPanel extends javax.swing.JPanel implements TextE
 
     public AutoCompleteData getAutoCompleteData() {
         return autoCompleteData;
-    }
-
-    private void setPropmt() {
-        labelPrompt.setText(column.getDescription());
     }
 
     @Override

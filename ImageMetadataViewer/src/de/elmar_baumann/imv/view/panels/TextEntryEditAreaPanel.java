@@ -4,9 +4,11 @@ import de.elmar_baumann.imv.data.AutoCompleteData;
 import de.elmar_baumann.imv.data.TextEntry;
 import de.elmar_baumann.imv.database.metadata.Column;
 import de.elmar_baumann.imv.resource.Bundle;
+import de.elmar_baumann.lib.component.InputVerifierMaxLength;
 import de.elmar_baumann.lib.component.TabLeavingTextArea;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
+import javax.swing.JComponent;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 /**
@@ -27,11 +29,22 @@ public class TextEntryEditAreaPanel extends javax.swing.JPanel implements TextEn
         this.column = column;
         this.repeatable = repeatable;
         initComponents();
-        if (!repeatable) {
+        postInitComponents();
+    }
+
+    private void postInitComponents() {
+        if (repeatable) {
+            textFieldInput.setInputVerifier(new InputVerifierMaxLength(column.getLength()));
+        } else {
             remove(textFieldInput);
+            textArea.setInputVerifier(new InputVerifierMaxLength(column.getLength()));
         }
         editableBackground = textArea.getBackground();
         setPropmt();
+    }
+
+    private void setPropmt() {
+        labelPrompt.setText(column.getDescription());
     }
 
     @Override
@@ -62,18 +75,17 @@ public class TextEntryEditAreaPanel extends javax.swing.JPanel implements TextEn
         return column;
     }
 
-    /**
-     * Adds a word to the text area.
-     */
-    private void addText(KeyEvent evt) {
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            String text = textArea.getText();
-            textArea.setText(text + (text.isEmpty() ? "" : delimiter) + textFieldInput.getText());
+    private void handleKeyReleased(KeyEvent evt) {
+        JComponent component = (JComponent) evt.getSource();
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER &&
+            component.getInputVerifier().verify(component)) {
+            String input = textFieldInput.getText();
+            if (!input.isEmpty()) {
+                String textTextArea = textArea.getText();
+                textArea.setText(textTextArea +
+                    (textTextArea.isEmpty() ? "" : delimiter) + input);
+            }
         }
-    }
-
-    private void setPropmt() {
-        labelPrompt.setText(column.getDescription());
     }
 
     @Override
@@ -149,7 +161,7 @@ public class TextEntryEditAreaPanel extends javax.swing.JPanel implements TextEn
     }// </editor-fold>//GEN-END:initComponents
 
 private void textFieldInputKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldInputKeyReleased
-    addText(evt);
+    handleKeyReleased(evt);
 }//GEN-LAST:event_textFieldInputKeyReleased
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel labelPrompt;
