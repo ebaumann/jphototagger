@@ -1,13 +1,29 @@
 package de.elmar_baumann.imv.database.metadata.selections;
 
 import de.elmar_baumann.imv.database.metadata.Column;
-import de.elmar_baumann.imv.database.metadata.Table;
-import de.elmar_baumann.imv.database.metadata.collections.ColumnCollectionnamesName;
-import de.elmar_baumann.imv.database.metadata.collections.ColumnCollectionsSequenceNumber;
-import de.elmar_baumann.imv.database.metadata.file.ColumnFilesLastModified;
-import de.elmar_baumann.imv.database.metadata.file.ColumnFilesThumbnail;
-import de.elmar_baumann.imv.database.metadata.savedsearches.ColumnSavedSearchesName;
-import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpIptc4xmpcoreCountrycode;
+import de.elmar_baumann.imv.database.metadata.exif.ColumnExifDateTimeOriginal;
+import de.elmar_baumann.imv.database.metadata.exif.ColumnExifFocalLength;
+import de.elmar_baumann.imv.database.metadata.exif.ColumnExifIsoSpeedRatings;
+import de.elmar_baumann.imv.database.metadata.exif.ColumnExifRecordingEquipment;
+import de.elmar_baumann.imv.database.metadata.file.ColumnFilesFilename;
+import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpDcCreator;
+import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpDcDescription;
+import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpDcRights;
+import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
+import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpDcTitle;
+import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpIptc4xmpcoreLocation;
+import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopAuthorsposition;
+import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopCaptionwriter;
+import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopCategory;
+import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopCity;
+import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopCountry;
+import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopCredit;
+import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopHeadline;
+import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopInstructions;
+import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopSource;
+import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopState;
+import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory;
+import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopTransmissionReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,28 +36,33 @@ import java.util.List;
 public class AdvancedSearchColumns {
 
     private static List<Column> columns = new ArrayList<Column>();
-    private static List<Column> excludeColumns = new ArrayList<Column>();
     private static AdvancedSearchColumns instance = new AdvancedSearchColumns();
     
 
     static {
-        excludeColumns.add(ColumnFilesLastModified.getInstance());
-        excludeColumns.add(ColumnFilesThumbnail.getInstance());
-        excludeColumns.add(ColumnCollectionsSequenceNumber.getInstance());
-        excludeColumns.add(ColumnCollectionnamesName.getInstance());
-        excludeColumns.add(ColumnSavedSearchesName.getInstance());
-        excludeColumns.add(ColumnXmpIptc4xmpcoreCountrycode.getInstance());
-
-        List<Table> tables = AllTables.get();
-        for (Table table : tables) {
-            List<Column> allColumns = table.getColumns();
-            for (Column column : allColumns) {
-                if (!column.isPrimaryKey() && !column.isForeignKey() &&
-                    !excludeColumns.contains(column)) {
-                    columns.add(column);
-                }
-            }
-        }
+        columns.add(ColumnXmpDcSubjectsSubject.getInstance());
+        columns.add(ColumnXmpPhotoshopCategory.getInstance());
+        columns.add(ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory.getInstance());
+        columns.add(ColumnXmpDcTitle.getInstance());
+        columns.add(ColumnXmpDcDescription.getInstance());
+        columns.add(ColumnXmpPhotoshopHeadline.getInstance());
+        columns.add(ColumnXmpIptc4xmpcoreLocation.getInstance());
+        columns.add(ColumnXmpPhotoshopAuthorsposition.getInstance());
+        columns.add(ColumnXmpDcCreator.getInstance());
+        columns.add(ColumnXmpPhotoshopCity.getInstance());
+        columns.add(ColumnXmpPhotoshopState.getInstance());
+        columns.add(ColumnXmpPhotoshopCountry.getInstance());
+        columns.add(ColumnXmpDcRights.getInstance());
+        columns.add(ColumnXmpPhotoshopCredit.getInstance());
+        columns.add(ColumnXmpPhotoshopSource.getInstance());
+        columns.add(ColumnXmpPhotoshopTransmissionReference.getInstance());
+        columns.add(ColumnXmpPhotoshopInstructions.getInstance());
+        columns.add(ColumnXmpPhotoshopCaptionwriter.getInstance());
+        columns.add(ColumnExifDateTimeOriginal.getInstance());
+        columns.add(ColumnExifFocalLength.getInstance());
+        columns.add(ColumnExifIsoSpeedRatings.getInstance());
+        columns.add(ColumnExifRecordingEquipment.getInstance());
+        columns.add(ColumnFilesFilename.getInstance());
     }
 
     /**
