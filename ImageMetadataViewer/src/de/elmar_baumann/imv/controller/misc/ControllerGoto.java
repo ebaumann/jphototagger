@@ -37,6 +37,7 @@ public class ControllerGoto extends Controller implements ActionListener {
         componentOfGoto.put(AppFrame.Goto.Directories, appPanel.getTabSelectionDirectories());
         componentOfGoto.put(AppFrame.Goto.FavoriteDirectories, appPanel.getTabSelectionFavoriteDirectories());
         componentOfGoto.put(AppFrame.Goto.SavedSearches, appPanel.getTabSelectionSavedSearches());
+        componentOfGoto.put(AppFrame.Goto.Keywords, appPanel.getTabSelectionKeywords());
 
         componentOfGoto.put(AppFrame.Goto.EditPanels, appPanel.getTabMetadataEdit());
         componentOfGoto.put(AppFrame.Goto.ExifMetadata, appPanel.getTabMetadataExif());
@@ -48,6 +49,7 @@ public class ControllerGoto extends Controller implements ActionListener {
         tabbedPaneOfGoto.put(AppFrame.Goto.Directories, appPanel.getTabbedPaneSelection());
         tabbedPaneOfGoto.put(AppFrame.Goto.FavoriteDirectories, appPanel.getTabbedPaneSelection());
         tabbedPaneOfGoto.put(AppFrame.Goto.SavedSearches, appPanel.getTabbedPaneSelection());
+        tabbedPaneOfGoto.put(AppFrame.Goto.Keywords, appPanel.getTabbedPaneSelection());
 
         tabbedPaneOfGoto.put(AppFrame.Goto.EditPanels, appPanel.getTabbedPaneMetadata());
         tabbedPaneOfGoto.put(AppFrame.Goto.ExifMetadata, appPanel.getTabbedPaneMetadata());
@@ -80,10 +82,11 @@ public class ControllerGoto extends Controller implements ActionListener {
             componentOfGoto.get(gt).requestFocus();
         } else if (gt.equals(AppFrame.Goto.FastSearch)) {
             textFieldSearch.requestFocus();
-        } else if (gt.equals(AppFrame.Goto.EditPanels)) {
-            editPanels.setFocusToLastFocussedComponent();
         } else if (gt.equals(AppFrame.Goto.ThumbnailsPanel)) {
             thumbnailsPanel.requestFocus();
+        }
+        if (gt.equals(AppFrame.Goto.EditPanels)) {
+            editPanels.setFocusToFirstEditField();
         }
     }
 }

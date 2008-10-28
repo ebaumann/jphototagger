@@ -40,7 +40,7 @@ import javax.swing.tree.TreeSelectionModel;
  * @version 2008-10-05
  */
 public class AppPanel extends javax.swing.JPanel
-    implements AppStartListener, AppExitListener {
+        implements AppStartListener, AppExitListener {
 
     private List<JTable> xmpTables = new ArrayList<JTable>();
     private List<JTable> metadataTables = new ArrayList<JTable>();
@@ -68,6 +68,10 @@ public class AppPanel extends javax.swing.JPanel
         initTableArrays();
         initSelectionTreeArray();
         initSelectionListArray();
+    }
+
+    public MetadataEditPanelsArray getMetadataEditPanelsArray() {
+        return editPanelsArray;
     }
 
     public MetaDataEditActionsPanel getMetaDataEditActionsPanel() {
@@ -123,6 +127,10 @@ public class AppPanel extends javax.swing.JPanel
 
     public JPanel getTabSelectionSavedSearches() {
         return panelSelectionSavedSearches;
+    }
+
+    public JPanel getTabSelectionKeywords() {
+        return panelKeywords;
     }
 
     public JPanel getTabSelectionCategories() {

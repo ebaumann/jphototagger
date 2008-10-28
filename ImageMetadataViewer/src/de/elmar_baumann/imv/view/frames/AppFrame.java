@@ -53,7 +53,7 @@ public class AppFrame extends javax.swing.JFrame {
         }
     }
 
-    private void initTotoMenuItemsMap() {
+    private void initGotoMenuItemsMap() {
         menuItemOfGoto.put(Goto.Categories, menuItemGotoCategories);
         menuItemOfGoto.put(Goto.ImageCollections, menuItemGotoCollections);
         menuItemOfGoto.put(Goto.Directories, menuItemGotoDirectories);
@@ -63,6 +63,7 @@ public class AppFrame extends javax.swing.JFrame {
         menuItemOfGoto.put(Goto.FavoriteDirectories, menuItemGotoFavoriteDirectories);
         menuItemOfGoto.put(Goto.IptcMetadata, menuItemGotoIptcMetadata);
         menuItemOfGoto.put(Goto.SavedSearches, menuItemGotoSavedSearches);
+        menuItemOfGoto.put(Goto.Keywords, menuItemGotoKeywords);
         menuItemOfGoto.put(Goto.ThumbnailsPanel, menuItemGotoThumbnailsPanel);
         menuItemOfGoto.put(Goto.XmpMetadata, menuItemGotoXmpMetadata);
 
@@ -80,6 +81,7 @@ public class AppFrame extends javax.swing.JFrame {
         Categories,
         SavedSearches,
         ImageCollections,
+        Keywords,
         ThumbnailsPanel,
         ExifMetadata,
         IptcMetadata,
@@ -89,7 +91,7 @@ public class AppFrame extends javax.swing.JFrame {
     private void postInitComponents() {
         addAppStartListener(appPanel);
         initSortMenuItemsMap();
-        initTotoMenuItemsMap();
+        initGotoMenuItemsMap();
         listenToClose();
         setTitleAndFrameIcon();
         MetaFactory.getInstance();
@@ -132,7 +134,7 @@ public class AppFrame extends javax.swing.JFrame {
     public JMenuItem getMenuItemCopy() {
         return menuItemCopy;
     }
-    
+
     public JMenuItem getMenuItemInsert() {
         return menuItemInsert;
     }
@@ -253,12 +255,16 @@ public class AppFrame extends javax.swing.JFrame {
         menuGoto = new javax.swing.JMenu();
         menuItemGotoFastSearch = new javax.swing.JMenuItem();
         menuItemGotoEdit = new javax.swing.JMenuItem();
+        jSeparator7 = new javax.swing.JSeparator();
         menuItemGotoDirectories = new javax.swing.JMenuItem();
         menuItemGotoSavedSearches = new javax.swing.JMenuItem();
         menuItemGotoCollections = new javax.swing.JMenuItem();
         menuItemGotoCategories = new javax.swing.JMenuItem();
         menuItemGotoFavoriteDirectories = new javax.swing.JMenuItem();
+        menuItemGotoKeywords = new javax.swing.JMenuItem();
+        jSeparator8 = new javax.swing.JSeparator();
         menuItemGotoThumbnailsPanel = new javax.swing.JMenuItem();
+        jSeparator9 = new javax.swing.JSeparator();
         menuItemGotoIptcMetadata = new javax.swing.JMenuItem();
         menuItemGotoExifMetadata = new javax.swing.JMenuItem();
         menuItemGotoXmpMetadata = new javax.swing.JMenuItem();
@@ -379,6 +385,7 @@ public class AppFrame extends javax.swing.JFrame {
         menuItemGotoEdit.setMnemonic('b');
         menuItemGotoEdit.setText(Bundle.getString("AppFrame.menuItemGotoEdit.text")); // NOI18N
         menuGoto.add(menuItemGotoEdit);
+        menuGoto.add(jSeparator7);
 
         menuItemGotoDirectories.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_1, java.awt.event.InputEvent.CTRL_MASK));
         menuItemGotoDirectories.setMnemonic('o');
@@ -405,10 +412,17 @@ public class AppFrame extends javax.swing.JFrame {
         menuItemGotoFavoriteDirectories.setText(Bundle.getString("AppFrame.menuItemGotoFavoriteDirectories.text")); // NOI18N
         menuGoto.add(menuItemGotoFavoriteDirectories);
 
+        menuItemGotoKeywords.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.CTRL_MASK));
+        menuItemGotoKeywords.setMnemonic('w');
+        menuItemGotoKeywords.setText(Bundle.getString("AppFrame.menuItemGotoKeywords.text")); // NOI18N
+        menuGoto.add(menuItemGotoKeywords);
+        menuGoto.add(jSeparator8);
+
         menuItemGotoThumbnailsPanel.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_6, java.awt.event.InputEvent.CTRL_MASK));
         menuItemGotoThumbnailsPanel.setMnemonic('v');
         menuItemGotoThumbnailsPanel.setText(Bundle.getString("AppFrame.menuItemGotoThumbnailsPanel.text")); // NOI18N
         menuGoto.add(menuItemGotoThumbnailsPanel);
+        menuGoto.add(jSeparator9);
 
         menuItemGotoIptcMetadata.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_7, java.awt.event.InputEvent.CTRL_MASK));
         menuItemGotoIptcMetadata.setMnemonic('p');
@@ -524,6 +538,9 @@ private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:even
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
+    private javax.swing.JSeparator jSeparator7;
+    private javax.swing.JSeparator jSeparator8;
+    private javax.swing.JSeparator jSeparator9;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenu menuEdit;
     private javax.swing.JMenu menuFile;
@@ -544,6 +561,7 @@ private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:even
     private javax.swing.JMenuItem menuItemGotoFastSearch;
     private javax.swing.JMenuItem menuItemGotoFavoriteDirectories;
     private javax.swing.JMenuItem menuItemGotoIptcMetadata;
+    private javax.swing.JMenuItem menuItemGotoKeywords;
     private javax.swing.JMenuItem menuItemGotoSavedSearches;
     private javax.swing.JMenuItem menuItemGotoThumbnailsPanel;
     private javax.swing.JMenuItem menuItemGotoXmpMetadata;
