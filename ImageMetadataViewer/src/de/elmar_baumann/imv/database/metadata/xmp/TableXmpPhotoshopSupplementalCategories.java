@@ -22,7 +22,6 @@ public class TableXmpPhotoshopSupplementalCategories extends Table {
 
     @Override
     protected void addColumns() {
-        // Reihenfolge NIE verändern, siehe de.elmar_baumann.imv.database.metadata.selections.AllTables.get()
         addColumn(ColumnXmpPhotoshopSupplementalCategoriesId.getInstance());
         addColumn(ColumnXmpPhotoshopSupplementalCategoriesIdXmp.getInstance());
         addColumn(ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory.getInstance());

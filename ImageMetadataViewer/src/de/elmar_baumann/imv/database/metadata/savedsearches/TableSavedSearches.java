@@ -27,7 +27,6 @@ public class TableSavedSearches extends Table {
 
     @Override
     protected void addColumns() {
-        // Reihenfolge NIE verändern, siehe de.elmar_baumann.imv.database.metadata.selections.AllTables.get()
         addColumn(ColumnSavedSearchesName.getInstance());
     }
 }

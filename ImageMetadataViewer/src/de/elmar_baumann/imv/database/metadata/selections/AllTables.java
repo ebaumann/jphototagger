@@ -20,12 +20,11 @@ import java.util.List;
  */
 public class AllTables {
 
-    private static List<Table> allTables = new ArrayList<Table>();    // TODO PERMANENT: Neue Tabellen eintragen
-    // Reihenfolge NIE verändern, da Wechselwirkung mit
-    // de.elmar_baumann.imv.database.metadata.selections.ColumnIds.initColumnOfIdMap()
+    private static List<Table> allTables = new ArrayList<Table>();
     
 
     static {
+        // TODO PERMANENT: Neue Tabellen eintragen
         allTables.add(TableExif.getInstance());
         allTables.add(TableFiles.getInstance());
         allTables.add(TableXmp.getInstance());

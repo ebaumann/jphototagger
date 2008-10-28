@@ -22,7 +22,6 @@ public class TableXmp extends Table {
 
     @Override
     protected void addColumns() {
-        // Reihenfolge NIE verändern, siehe de.elmar_baumann.imv.database.metadata.selections.AllTables.get()
         addColumn(ColumnXmpId.getInstance());
         addColumn(ColumnXmpIdFiles.getInstance());
         addColumn(ColumnXmpDcCreator.getInstance());

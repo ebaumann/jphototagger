@@ -22,7 +22,6 @@ public class TableExif extends Table {
 
     @Override
     protected void addColumns() {
-        // Reihenfolge NIE verändern, siehe de.elmar_baumann.imv.database.metadata.selections.AllTables.get()
         addColumn(ColumnExifId.getInstance());
         addColumn(ColumnExifIdFiles.getInstance());
         addColumn(ColumnExifDateTimeOriginal.getInstance());
