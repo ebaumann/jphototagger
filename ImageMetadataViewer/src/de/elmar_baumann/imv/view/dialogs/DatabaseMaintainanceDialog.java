@@ -12,13 +12,12 @@ import de.elmar_baumann.imv.event.listener.TotalRecordCountListener;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.view.renderer.TableCellRendererDatabaseInfoColumns;
 import de.elmar_baumann.lib.dialog.Dialog;
-import de.elmar_baumann.lib.image.icon.IconUtil;
 import de.elmar_baumann.lib.persistence.PersistentAppSizes;
 import de.elmar_baumann.lib.persistence.PersistentSettings;
 import de.elmar_baumann.lib.persistence.PersistentSettingsHints;
 import java.awt.Cursor;
 import java.text.MessageFormat;
-import javax.swing.ImageIcon;
+import javax.swing.Icon;
 import javax.swing.JOptionPane;
 
 /**
@@ -34,8 +33,8 @@ public class DatabaseMaintainanceDialog extends Dialog implements
     private RecordsWithNotExistingFilesDeleter deleter;
     private boolean abortAction = false;
     private boolean closedEnabled = true;
-    private final ImageIcon okIcon = IconUtil.getImageIcon("/de/elmar_baumann/imv/resource/icon_ok.png"); // NOI18N
-    private final ImageIcon errorIcon = IconUtil.getImageIcon("/de/elmar_baumann/imv/resource/icon_error.png"); // NOI18N
+    private final Icon okIcon = AppSettings.getIcon("icon_ok.png"); // NOI18N
+    private final Icon errorIcon = AppSettings.getIcon("icon_error.png"); // NOI18N
     private static DatabaseMaintainanceDialog instance = new DatabaseMaintainanceDialog();
 
     private DatabaseMaintainanceDialog() {
