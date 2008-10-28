@@ -76,7 +76,6 @@ public class SearchColumnPanel extends javax.swing.JPanel {
     }
 
     private void setValueFormatter() {
-        textFieldValue.setText("");
         textFieldValue.setFormatterFactory(
             MetadataUtil.getFormatterFactory((Column) comboBoxColumns.getSelectedItem()));
     }
