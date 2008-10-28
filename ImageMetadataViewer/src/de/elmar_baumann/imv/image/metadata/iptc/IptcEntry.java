@@ -4,6 +4,7 @@ import com.imagero.reader.iptc.IPTCEntry;
 import com.imagero.reader.iptc.IPTCEntryMeta;
 import de.elmar_baumann.imv.UserSettings;
 import java.io.UnsupportedEncodingException;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -29,7 +30,7 @@ public class IptcEntry {
      */
     public IptcEntry(IPTCEntry entry) {
         name = entry.getEntryMeta().getName();
-        data = entry.getData();
+        data = Arrays.copyOf(entry.getData(), entry.getData().length);
         recordNumber = entry.getRecordNumber();
         datasetNumber = entry.getDataSetNumber();
         entryMeta = entry.getEntryMeta();
