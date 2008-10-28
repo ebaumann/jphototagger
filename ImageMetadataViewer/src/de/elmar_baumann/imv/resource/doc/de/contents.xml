@@ -32,6 +32,10 @@
 			<title>Kategorien</title>
 		</page>
 		<page>
+			<url>mainwindow_panel_keywords.html</url>
+			<title>Stichwörter</title>
+		</page>
+		<page>
 			<url>mainwindow_panel_favorite_folders.html</url>
 			<title>Favoriten-Ordner</title>
 		</page>
@@ -58,12 +62,12 @@
 	<node>
 		<title>Arbeiten im Bildfenster</title>
 		<page>
-			<url>action_metadata_update.html</url>
-			<title>Metadaten aktualisieren</title>
-		</page>
-		<page>
 			<url>action_metadata_update_thumbnail.html</url>
 			<title>Vorschaubild aktualisieren</title>
+		</page>
+		<page>
+			<url>action_metadata_update.html</url>
+			<title>Metadaten aktualisieren</title>
 		</page>
 		<page>
 			<url>action_database_remove_image.html</url>
@@ -74,7 +78,7 @@
 			<title>Öffnen</title>
 		</page>
 		<page>
-				<url>action_filesystem_open_with.html</url>
+			<url>action_filesystem_open_with.html</url>
 			<title>Öffnen mit</title>
 		</page>
 		<page>
@@ -99,7 +103,7 @@
 		</page>
 		<page>
 			<url>action_filesystem_rename.html</url>
-			<title>Umbenennen</title>
+			<title>Auf dem Datenträger Umbenennen</title>
 		</page>
 		<page>
 			<url>action_filesystem_move.html</url>
@@ -131,6 +135,18 @@
 		<page>
 			<url>dialog_advanced_search.html</url>
 			<title>Bearbeiten / Suchen</title>
+		</page>
+		<page>
+			<url>action_filesystem_cut.html</url>
+			<title>Bearbeiten / Ausschneiden</title>
+		</page>
+		<page>
+			<url>action_filesystem_paste.html</url>
+			<title>Bearbeiten / Einfügen</title>
+		</page>
+		<page>
+			<url>action_filesystem_copy_to_clipboard.html</url>
+			<title>Bearbeiten / Kopieren</title>
 		</page>
 		<page>
 			<url>action_filesystem_rename.html</url>
@@ -209,6 +225,14 @@
 		<page>
 			<url>tip_save_searches.html</url>
 			<title>Suchen speichern</title>
+		</page>
+		<page>
+			<url>tip_thumbnail_creating_script.html</url>
+			<title>Programm zum Erzeugen von Vorschaubildern</title>
+		</page>
+		<page>
+			<url>tip_more_memory.html</url>
+			<title>Mehr Arbeitsspeicher</title>
 		</page>
 	</node>
 	<node>

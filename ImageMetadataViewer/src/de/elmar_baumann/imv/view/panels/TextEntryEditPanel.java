@@ -5,6 +5,7 @@ import de.elmar_baumann.imv.data.TextEntry;
 import de.elmar_baumann.imv.database.metadata.Column;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.component.InputVerifierMaxLength;
+import java.awt.Color;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 /**
@@ -13,12 +14,13 @@ import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/18
  */
-public class TextEntryEditFieldPanel extends javax.swing.JPanel implements TextEntry {
+public class TextEntryEditPanel extends javax.swing.JPanel implements TextEntry {
 
     private Column column;
     private AutoCompleteData autoCompleteData;
+    private static final Color editableColor = Color.WHITE;
 
-    public TextEntryEditFieldPanel(Column column) {
+    public TextEntryEditPanel(Column column) {
         this.column = column;
         initComponents();
         postInitComponents();
@@ -32,19 +34,19 @@ public class TextEntryEditFieldPanel extends javax.swing.JPanel implements TextE
     private void setPropmt() {
         labelPrompt.setText(column.getDescription());
     }
-    
+
     private void setInputVerifier() {
-        textFieldEdit.setInputVerifier(new InputVerifierMaxLength(column.getLength()));
+        textAreaEdit.setInputVerifier(new InputVerifierMaxLength(column.getLength()));
     }
 
     @Override
     public String getText() {
-        return textFieldEdit.getText();
+        return textAreaEdit.getText();
     }
 
     @Override
     public void setText(String text) {
-        textFieldEdit.setText(text.trim());
+        textAreaEdit.setText(text.trim());
     }
 
     @Override
@@ -56,7 +58,7 @@ public class TextEntryEditFieldPanel extends javax.swing.JPanel implements TextE
     public void setAutocomplete() {
         autoCompleteData = new AutoCompleteData(column);
         AutoCompleteDecorator.decorate(
-            textFieldEdit,
+            textAreaEdit,
             autoCompleteData.getList(),
             false);
     }
@@ -67,17 +69,18 @@ public class TextEntryEditFieldPanel extends javax.swing.JPanel implements TextE
 
     @Override
     public boolean isEmpty() {
-        return textFieldEdit.getText().isEmpty();
+        return textAreaEdit.getText().isEmpty();
     }
 
     @Override
     public void focus() {
-        textFieldEdit.requestFocus();
+        textAreaEdit.requestFocus();
     }
 
     @Override
     public void setEditable(boolean editable) {
-        textFieldEdit.setEditable(editable);
+        textAreaEdit.setEditable(editable);
+        textAreaEdit.setBackground(editable ? editableColor : getBackground());
     }
 
     /** This method is called from within the constructor to
@@ -91,11 +94,12 @@ public class TextEntryEditFieldPanel extends javax.swing.JPanel implements TextE
         java.awt.GridBagConstraints gridBagConstraints;
 
         labelPrompt = new javax.swing.JLabel();
-        textFieldEdit = new javax.swing.JTextField();
+        scrollPane = new javax.swing.JScrollPane();
+        textAreaEdit = new javax.swing.JTextArea();
 
         setLayout(new java.awt.GridBagLayout());
 
-        labelPrompt.setText(Bundle.getString("TextEntryEditFieldPanel.labelPrompt.text")); // NOI18N
+        labelPrompt.setText(Bundle.getString("TextEntryEditPanel.labelPrompt.text")); // NOI18N
         labelPrompt.setToolTipText(column.getLongerDescription());
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -103,16 +107,21 @@ public class TextEntryEditFieldPanel extends javax.swing.JPanel implements TextE
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
         add(labelPrompt, gridBagConstraints);
+
+        textAreaEdit.setColumns(1);
+        textAreaEdit.setRows(1);
+        scrollPane.setViewportView(textAreaEdit);
+
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.weightx = 1.0;
-        add(textFieldEdit, gridBagConstraints);
+        gridBagConstraints.weighty = 0.5;
+        add(scrollPane, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel labelPrompt;
-    public javax.swing.JTextField textFieldEdit;
+    private javax.swing.JScrollPane scrollPane;
+    public javax.swing.JTextArea textAreaEdit;
     // End of variables declaration//GEN-END:variables
 }

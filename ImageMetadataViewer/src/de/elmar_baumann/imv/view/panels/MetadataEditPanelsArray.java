@@ -234,21 +234,22 @@ public class MetadataEditPanelsArray implements FocusListener, DatabaseListener 
 
         for (Column column : columns) {
             EditHints editHints = editColumns.getEditHintsForColumn(column);
-            SizeEditField size = editHints.getSizeEditField();
+            boolean large = editHints.getSizeEditField().equals(SizeEditField.large);
             boolean isRepeatable = editHints.isRepeatable();
 
-            if (size.equals(SizeEditField.large)) {
-                TextEntryEditAreaPanel panel = new TextEntryEditAreaPanel(column, isRepeatable);
-                panel.textArea.addFocusListener(this);
+            if (isRepeatable) {
+                RepeatableTextEntryEditPanel panel = new RepeatableTextEntryEditPanel(column);
+                panel.textFieldInput.addFocusListener(this);
                 panels.add(panel);
             } else {
-                TextEntryEditFieldPanel panel = new TextEntryEditFieldPanel(column);
-                panel.textFieldEdit.addFocusListener(this);
+                TextEntryEditPanel panel = new TextEntryEditPanel(column);
+                panel.textAreaEdit.addFocusListener(this);
+                panel.textAreaEdit.setRows(large ? 2 : 1);
                 panels.add(panel);
             }
         }
     }
-    
+
     public void setAutocomplete() {
         isUseAutocomplete = true;
         for (JPanel panel : panels) {
@@ -307,11 +308,11 @@ public class MetadataEditPanelsArray implements FocusListener, DatabaseListener 
 
     private void addAutoCompleteData(Xmp xmp) {
         for (JPanel panel : panels) {
-            if (panel instanceof TextEntryEditFieldPanel) {
-                TextEntryEditFieldPanel p = (TextEntryEditFieldPanel) panel;
+            if (panel instanceof TextEntryEditPanel) {
+                TextEntryEditPanel p = (TextEntryEditPanel) panel;
                 AutoCompleteUtil.addData(xmp, p.getColumn(), p.getAutoCompleteData());
-            } else if (panel instanceof TextEntryEditAreaPanel) {
-                TextEntryEditAreaPanel p = (TextEntryEditAreaPanel) panel;
+            } else if (panel instanceof RepeatableTextEntryEditPanel) {
+                RepeatableTextEntryEditPanel p = (RepeatableTextEntryEditPanel) panel;
                 AutoCompleteUtil.addData(xmp, p.getColumn(), p.getAutoCompleteData());
             }
         }
