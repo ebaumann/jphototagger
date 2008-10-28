@@ -78,9 +78,9 @@ public class MetadataEditPanelsArray implements FocusListener, DatabaseListener 
             ((TextEntry) panel).setEditable(editable);
         }
         notifyActionListener(new MetaDataEditPanelEvent(this,
-            editable
-            ? MetaDataEditPanelEvent.Type.EditEnabled
-            : MetaDataEditPanelEvent.Type.EditDisabled));
+                editable
+                ? MetaDataEditPanelEvent.Type.EditEnabled
+                : MetaDataEditPanelEvent.Type.EditDisabled));
     }
 
     /**
@@ -168,13 +168,13 @@ public class MetadataEditPanelsArray implements FocusListener, DatabaseListener 
             Column xmpColumn = textEntry.getColumn();
             IPTCEntryMeta iptcEntryMeta = mapping.getIptcEntryMetaOfXmpColumn(xmpColumn);
             List<XMPPropertyInfo> matchingInfos =
-                xmpMetaData.getFilteredPropertyInfosOfIptcEntryMeta(iptcEntryMeta, infos);
+                    xmpMetaData.getFilteredPropertyInfosOfIptcEntryMeta(iptcEntryMeta, infos);
             int countMatchingInfos = matchingInfos.size();
 
             for (int i = 0; i < countMatchingInfos; i++) {
                 textEntry.setText(textEntry.getText() +
-                    (i > 0 ? ", " : "") + // NOI18N
-                    matchingInfos.get(i).getValue().toString().trim());
+                        (i > 0 ? ", " : "") + // NOI18N
+                        matchingInfos.get(i).getValue().toString().trim());
             }
         }
     }
@@ -213,7 +213,7 @@ public class MetadataEditPanelsArray implements FocusListener, DatabaseListener 
         return constraints;
     }
 
-    private void setFocusToFirstEditField() {
+    public void setFocusToFirstEditField() {
         if (panels.size() > 0) {
             TextEntry textEntry = (TextEntry) panels.get(0);
             textEntry.focus();
