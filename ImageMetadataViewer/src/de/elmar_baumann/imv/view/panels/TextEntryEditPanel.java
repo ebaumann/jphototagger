@@ -5,6 +5,7 @@ import de.elmar_baumann.imv.data.TextEntry;
 import de.elmar_baumann.imv.database.metadata.Column;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.component.InputVerifierMaxLength;
+import de.elmar_baumann.lib.component.TabLeavingTextArea;
 import java.awt.Color;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
@@ -95,7 +96,7 @@ public class TextEntryEditPanel extends javax.swing.JPanel implements TextEntry 
 
         labelPrompt = new javax.swing.JLabel();
         scrollPane = new javax.swing.JScrollPane();
-        textAreaEdit = new javax.swing.JTextArea();
+        textAreaEdit = textAreaEdit = new TabLeavingTextArea();
 
         setLayout(new java.awt.GridBagLayout());
 
