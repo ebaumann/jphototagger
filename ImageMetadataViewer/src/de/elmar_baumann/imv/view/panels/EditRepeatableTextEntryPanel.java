@@ -4,6 +4,7 @@ import de.elmar_baumann.imv.data.AutoCompleteData;
 import de.elmar_baumann.imv.data.TextEntry;
 import de.elmar_baumann.imv.data.TextEntryContent;
 import de.elmar_baumann.imv.database.metadata.Column;
+import de.elmar_baumann.imv.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.view.renderer.ListCellRendererKeywordsEdit;
 import de.elmar_baumann.lib.component.InputVerifierMaxLength;
@@ -24,7 +25,7 @@ import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 public class EditRepeatableTextEntryPanel extends javax.swing.JPanel implements TextEntry {
 
     private Column column;
-    private static final String delimiter = ",";
+    private static final String delimiter = XmpMetadata.getArrayItemDelimiter();
     private static final String delimiterReplacement = " ";
     private AutoCompleteData autoCompleteData;
     private DefaultListModel model = new DefaultListModel();
@@ -66,7 +67,7 @@ public class EditRepeatableTextEntryPanel extends javax.swing.JPanel implements 
 
     @Override
     public void setText(String text) {
-        ListUtil.setToken(text.replaceAll(delimiter, delimiterReplacement), delimiter, model);
+        ListUtil.setToken(text, delimiter, model);
         textFieldInput.setText("");
         dirty = false;
         setEnabledButtons();
@@ -90,7 +91,7 @@ public class EditRepeatableTextEntryPanel extends javax.swing.JPanel implements 
     private void addInputToList() {
         String input = textFieldInput.getText();
         if (!input.isEmpty() && !model.contains(input)) {
-            model.addElement(input);
+            model.addElement(input.replaceAll(delimiter, delimiterReplacement));
             dirty = true;
             ComponentUtil.forceRepaint(getParent().getParent());
         }
