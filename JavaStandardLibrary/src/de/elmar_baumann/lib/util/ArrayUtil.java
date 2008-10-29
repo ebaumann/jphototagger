@@ -1,6 +1,5 @@
 package de.elmar_baumann.lib.util;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.StringTokenizer;
 import java.util.ArrayList;
@@ -22,7 +21,12 @@ public class ArrayUtil {
      */
     public static List<String> stringTokenToList(String string,
         String delimiter) {
-        return Arrays.asList(string.split(delimiter));
+        StringTokenizer tokenizer = new StringTokenizer(string, delimiter);
+        List<String> list = new ArrayList<String>(tokenizer.countTokens());
+        while (tokenizer.hasMoreTokens()) {
+            list.add(tokenizer.nextToken());
+        }
+        return list;
     }
 
     /**
