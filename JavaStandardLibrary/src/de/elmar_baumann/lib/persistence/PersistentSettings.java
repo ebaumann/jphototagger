@@ -152,8 +152,7 @@ public class PersistentSettings {
      * @param hints     Hinweise
      * @see             #setComponent(java.awt.Component, de.elmar_baumann.lib.persistence.PersistentSettingsHints)
      */
-    public void getComponent(Component component,
-        PersistentSettingsHints hints) {
+    public void getComponent(Component component, PersistentSettingsHints hints) {
         if (component == null) {
             return;
         }
