@@ -41,13 +41,13 @@ public class ControllerThumbnailCountDisplay extends Controller
 
     @Override
     public void selectionChanged(ThumbnailsPanelAction action) {
-        if (isControl()) {
-            setCount();
-        }
     }
 
     @Override
     public void thumbnailsChanged() {
+        if (isControl()) {
+            setCount();
+        }
     }
 
     @Override
