@@ -22,6 +22,7 @@ import de.elmar_baumann.imv.event.ListenerProvider;
 import de.elmar_baumann.imv.event.MetaDataEditPanelEvent;
 import de.elmar_baumann.imv.event.MetaDataEditPanelListener;
 import de.elmar_baumann.imv.image.metadata.xmp.XmpMetadata;
+import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.lib.component.TabLeavingTextArea;
 import java.awt.Component;
@@ -88,8 +89,8 @@ public class EditMetadataPanelsArray implements FocusListener, DatabaseListener,
     private boolean confirmSave() {
         return JOptionPane.showConfirmDialog(
             null,
-            "Veränderte Metadaten speichern?",
-            "Frage",
+            Bundle.getString("EditMetadataPanelsArray.ConfirmMessage.Save"),
+            Bundle.getString("EditMetadataPanelsArray.ConfirmMessage.Save.Title"),
             JOptionPane.YES_NO_OPTION,
             JOptionPane.QUESTION_MESSAGE,
             AppSettings.getMediumAppIcon()) == JOptionPane.YES_OPTION;
