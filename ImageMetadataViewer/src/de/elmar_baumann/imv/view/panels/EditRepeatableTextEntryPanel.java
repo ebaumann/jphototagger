@@ -25,6 +25,7 @@ public class EditRepeatableTextEntryPanel extends javax.swing.JPanel implements 
 
     private Column column;
     private static final String delimiter = ",";
+    private static final String delimiterReplacement = " ";
     private AutoCompleteData autoCompleteData;
     private DefaultListModel model = new DefaultListModel();
     private boolean editable = true;
@@ -65,7 +66,7 @@ public class EditRepeatableTextEntryPanel extends javax.swing.JPanel implements 
 
     @Override
     public void setText(String text) {
-        ListUtil.setToken(text, delimiter, model);
+        ListUtil.setToken(text.replaceAll(delimiter, delimiterReplacement), delimiter, model);
         textFieldInput.setText("");
         dirty = false;
         setEnabledButtons();
