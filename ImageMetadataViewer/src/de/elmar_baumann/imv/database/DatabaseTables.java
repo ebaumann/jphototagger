@@ -33,7 +33,7 @@ public class DatabaseTables extends Database {
         Connection connection = null;
         try {
             connection = getConnection();
-            connection.setAutoCommit(false);
+            connection.setAutoCommit(true);
             Statement stmt = connection.createStatement();
             createFilesTable(connection, stmt);
             createXmpTables(connection, stmt);
@@ -45,15 +45,9 @@ public class DatabaseTables extends Database {
             createFavoriteDirectoriesTable(connection, stmt);
             createFileExcludePatternTable(connection, stmt);
             UpdateTables.getInstance().update(connection);
-            connection.commit();
             stmt.close();
         } catch (SQLException ex) {
             handleException(ex, Level.SEVERE);
-            try {
-                connection.rollback();
-            } catch (SQLException ex1) {
-                handleException(ex1, Level.SEVERE);
-            }
             JOptionPane.showMessageDialog(null, Bundle.getString("Database.CreateTables.ErrorMessage"), Bundle.getString("Database.CreateTables.ErrorMessage.Title"), JOptionPane.ERROR_MESSAGE, AppSettings.getMediumAppIcon());
             AppLock.unlock();
             System.exit(0);
