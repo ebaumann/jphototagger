@@ -35,14 +35,8 @@ public class ListModelCategories extends DefaultListModel
 
     @Override
     public void actionPerformed(DatabaseAction action) {
-        DatabaseAction.Type type = action.getType();
-        if (type.equals(DatabaseAction.Type.ImageFileInserted)) {
+        if (action.isImageModified()) {
             checkForNewCategories(action.getImageFileData());
-        } else if (type.equals(DatabaseAction.Type.ImageFilesDeleted)) {
-            //checkForNotExistingCategories(); // Performance ?
-        } else if (type.equals(DatabaseAction.Type.ImageFileUpdated)) {
-            checkForNewCategories(action.getImageFileData());
-        //checkForNotExistingCategories(); // Performance ?
         }
     }
 
@@ -54,15 +48,6 @@ public class ListModelCategories extends DefaultListModel
             }
         }
     }
-
-//    private void checkForNotExistingCategories() {
-//        for (int i = 0; i < getSize(); i++) {
-//            String category = (String) get(i);
-//            if (!db.existsCategory(category)) {
-//                remove(i);
-//            }
-//        }
-//    }
 
     private List<String> getCategories(ImageFile imageFileData) {
         List<String> categories = new ArrayList<String>();
