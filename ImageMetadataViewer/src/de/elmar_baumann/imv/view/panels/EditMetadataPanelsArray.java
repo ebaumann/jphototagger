@@ -219,7 +219,7 @@ public class EditMetadataPanelsArray implements FocusListener, DatabaseListener,
 
             for (int i = 0; i < countMatchingInfos; i++) {
                 textEntry.setText(textEntry.getText() +
-                    (i > 0 ? ", " : "") + // NOI18N
+                    (i > 0 ? XmpMetadata.getArrayItemDelimiter() : "") + // NOI18N
                     matchingInfos.get(i).getValue().toString().trim());
             }
         }
