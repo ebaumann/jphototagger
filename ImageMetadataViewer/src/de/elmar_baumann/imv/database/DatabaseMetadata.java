@@ -39,7 +39,8 @@ public class DatabaseMetadata extends Database {
     boolean existsColumn(Connection connection, String tableName, String columnName) throws SQLException {
         boolean exists = false;
         Statement stmt = connection.createStatement();
-        ResultSet rs = stmt.executeQuery("select * from " + tableName); // NOI18N
+        ResultSet rs = stmt.executeQuery(
+            "select * from " + tableName + " WHERE 1 = 0"); // NOI18N "WHERE 1 = 0": speed, memory!
         ResultSetMetaData rsmd = rs.getMetaData();
         int columns = rsmd.getColumnCount();
 
