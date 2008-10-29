@@ -103,10 +103,17 @@ public abstract class ThumbnailsPanel extends JPanel
 
     private void empty() {
         thumbnailAtIndex.clear();
-        selectedThumbnails.clear();
+        clearSelection();
         flagOfThumbnail.clear();
         System.gc();
-        notifyAllThumbnailsDeselected();
+    }
+
+    private void clearSelection() {
+        int selectionCount = selectedThumbnails.size();
+        if (selectionCount > 0) {
+            selectedThumbnails.clear();
+            notifyAllThumbnailsDeselected();
+        }
     }
 
     private int getSelectedIndex() {
@@ -173,7 +180,9 @@ public abstract class ThumbnailsPanel extends JPanel
     public void setSelected(List<Integer> indices) {
         selectedThumbnails = indices;
         repaint();
-        notifyThumbnailSelected();
+        if (indices.size() > 0) {
+            notifyThumbnailSelected();
+        }
     }
 
     /**
@@ -480,23 +489,19 @@ public abstract class ThumbnailsPanel extends JPanel
                 if (MouseEventUtil.isDoubleClick(e)) {
                     doubleClickAt(thumbnailIndex);
                     setSelected(thumbnailIndex);
-                    notifyThumbnailSelected();
                 } else if (e.isControlDown()) {
                     if (!isSelected(thumbnailIndex)) {
                         addToSelection(thumbnailIndex);
                     } else {
                         removeSelection(thumbnailIndex);
                     }
-                    notifyThumbnailSelected();
                 } else if (e.isShiftDown()) {
                     setSelectedRange(thumbnailIndex);
-                    notifyThumbnailSelected();
                 } else {
                     if (isClickInSelection(e)) {
                         clickInSelection = thumbnailIndex;
                     } else {
                         setSelected(thumbnailIndex);
-                        notifyThumbnailSelected();
                     }
                 }
             } else {
@@ -511,7 +516,6 @@ public abstract class ThumbnailsPanel extends JPanel
         if (clickInSelection >= 0) {
             setSelected(clickInSelection);
             clickInSelection = -1;
-            notifyThumbnailSelected();
         }
     }
 
@@ -531,13 +535,19 @@ public abstract class ThumbnailsPanel extends JPanel
     }
 
     private void setSelectedAll(boolean select) {
+        int previousSelectionCount = selectedThumbnails.size();
         selectedThumbnails.clear();
         if (select) {
             for (int index = 0; index < thumbnailCount; index++) {
                 selectedThumbnails.add(index);
             }
+            if (selectedThumbnails.size() > 0) {
+                notifyThumbnailSelected();
+            }
         } else {
-            notifyAllThumbnailsDeselected();
+            if (previousSelectionCount > 0) {
+                notifyAllThumbnailsDeselected();
+            }
         }
         repaint();
     }
@@ -584,6 +594,9 @@ public abstract class ThumbnailsPanel extends JPanel
             for (int i = startIndex; i <= endIndex; i++) {
                 selectedThumbnails.add(i);
             }
+            if (selectedThumbnails.size() > 0) {
+                notifyThumbnailSelected();
+            }
             repaint();
         }
     }
@@ -591,12 +604,14 @@ public abstract class ThumbnailsPanel extends JPanel
     private void setSelected(int index) {
         selectedThumbnails.clear();
         selectedThumbnails.add(index);
+        notifyThumbnailSelected();
         repaint();
     }
 
     private void addToSelection(int index) {
         if (!isSelected(index)) {
             selectedThumbnails.add(index);
+            notifyThumbnailSelected();
             repaint();
         }
     }
