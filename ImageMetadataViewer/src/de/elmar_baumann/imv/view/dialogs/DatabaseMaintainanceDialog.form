@@ -67,12 +67,12 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="scrollPaneTableDatabaseInfo" alignment="0" pref="460" max="32767" attributes="0"/>
+                          <Component id="scrollPaneTableDatabaseInfo" alignment="0" pref="456" max="32767" attributes="0"/>
                           <Component id="labelDatabaseInfoTable" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="labelDatabaseInfoTotalRecordCount" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="labelDatabaseTotalRecordCount" pref="165" max="32767" attributes="0"/>
+                              <Component id="labelDatabaseTotalRecordCount" pref="145" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -85,7 +85,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="labelDatabaseInfoTable" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="scrollPaneTableDatabaseInfo" pref="228" max="32767" attributes="0"/>
+                      <Component id="scrollPaneTableDatabaseInfo" pref="225" max="32767" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="labelDatabaseInfoTotalRecordCount" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -161,7 +161,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="buttonStartMaintain" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="progressBar" alignment="0" pref="460" max="32767" attributes="2"/>
+                          <Component id="progressBar" alignment="0" pref="456" max="32767" attributes="2"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -213,7 +213,7 @@
                               <Component id="labelStatusCompressDatabase" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="labelStatusDeleteNotExistingFilesInDatabase" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="59" max="32767" attributes="0"/>
+                          <EmptySpace pref="34" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -273,6 +273,9 @@
                       <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="DatabaseMaintainanceDialog.checkBoxCompressDatabase.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkBoxCompressDatabaseActionPerformed"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -328,7 +331,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="labelCountDeleteNotExistingFilesInDatabase" pref="428" max="32767" attributes="0"/>
+                          <Component id="labelCountDeleteNotExistingFilesInDatabase" pref="422" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>

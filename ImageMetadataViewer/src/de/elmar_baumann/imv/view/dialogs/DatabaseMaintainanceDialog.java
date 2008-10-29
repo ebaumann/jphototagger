@@ -77,7 +77,7 @@ public class DatabaseMaintainanceDialog extends Dialog implements
     }
 
     private void setEnabledButtonStartMaintain() {
-        buttonStartMaintain.setEnabled(//
+        buttonStartMaintain.setEnabled(
             checkBoxCompressDatabase.isSelected() ||
             checkBoxDeleteNotExistingFilesInDatabase.isSelected());
     }
@@ -233,12 +233,12 @@ public class DatabaseMaintainanceDialog extends Dialog implements
             .addGroup(panelInfoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scrollPaneTableDatabaseInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE)
+                    .addComponent(scrollPaneTableDatabaseInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 456, Short.MAX_VALUE)
                     .addComponent(labelDatabaseInfoTable)
                     .addGroup(panelInfoLayout.createSequentialGroup()
                         .addComponent(labelDatabaseInfoTotalRecordCount)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(labelDatabaseTotalRecordCount, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE)))
+                        .addComponent(labelDatabaseTotalRecordCount, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         panelInfoLayout.setVerticalGroup(
@@ -247,7 +247,7 @@ public class DatabaseMaintainanceDialog extends Dialog implements
                 .addContainerGap()
                 .addComponent(labelDatabaseInfoTable)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPaneTableDatabaseInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
+                .addComponent(scrollPaneTableDatabaseInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelDatabaseInfoTotalRecordCount)
@@ -272,9 +272,14 @@ public class DatabaseMaintainanceDialog extends Dialog implements
 
         labelStatusCompressDatabase.setPreferredSize(new java.awt.Dimension(16, 16));
 
-        checkBoxCompressDatabase.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        checkBoxCompressDatabase.setFont(new java.awt.Font("Dialog", 0, 12));
         checkBoxCompressDatabase.setMnemonic('k');
         checkBoxCompressDatabase.setText(Bundle.getString("DatabaseMaintainanceDialog.checkBoxCompressDatabase.text")); // NOI18N
+        checkBoxCompressDatabase.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkBoxCompressDatabaseActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelMaintainanceTasksLayout = new javax.swing.GroupLayout(panelMaintainanceTasks);
         panelMaintainanceTasks.setLayout(panelMaintainanceTasksLayout);
@@ -289,7 +294,7 @@ public class DatabaseMaintainanceDialog extends Dialog implements
                 .addGroup(panelMaintainanceTasksLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(labelStatusCompressDatabase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labelStatusDeleteNotExistingFilesInDatabase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(59, Short.MAX_VALUE))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
         panelMaintainanceTasksLayout.setVerticalGroup(
             panelMaintainanceTasksLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -307,7 +312,7 @@ public class DatabaseMaintainanceDialog extends Dialog implements
 
         progressBar.setStringPainted(true);
 
-        buttonStartMaintain.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        buttonStartMaintain.setFont(new java.awt.Font("Dialog", 0, 12));
         buttonStartMaintain.setMnemonic('s');
         buttonStartMaintain.setText(Bundle.getString("DatabaseMaintainanceDialog.buttonStartMaintain.text")); // NOI18N
         buttonStartMaintain.setEnabled(false);
@@ -317,7 +322,7 @@ public class DatabaseMaintainanceDialog extends Dialog implements
             }
         });
 
-        buttonAbortAction.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        buttonAbortAction.setFont(new java.awt.Font("Dialog", 0, 12));
         buttonAbortAction.setMnemonic('o');
         buttonAbortAction.setText(Bundle.getString("DatabaseMaintainanceDialog.buttonAbortAction.text")); // NOI18N
         buttonAbortAction.setEnabled(false);
@@ -337,7 +342,7 @@ public class DatabaseMaintainanceDialog extends Dialog implements
             panelMaintainMessagesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelMaintainMessagesLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(labelCountDeleteNotExistingFilesInDatabase, javax.swing.GroupLayout.DEFAULT_SIZE, 428, Short.MAX_VALUE)
+                .addComponent(labelCountDeleteNotExistingFilesInDatabase, javax.swing.GroupLayout.DEFAULT_SIZE, 422, Short.MAX_VALUE)
                 .addContainerGap())
         );
         panelMaintainMessagesLayout.setVerticalGroup(
@@ -361,7 +366,7 @@ public class DatabaseMaintainanceDialog extends Dialog implements
                         .addComponent(buttonAbortAction)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonStartMaintain))
-                    .addComponent(progressBar, javax.swing.GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE))
+                    .addComponent(progressBar, javax.swing.GroupLayout.DEFAULT_SIZE, 456, Short.MAX_VALUE))
                 .addContainerGap())
         );
         panelMaintainanceLayout.setVerticalGroup(
@@ -417,6 +422,10 @@ private void buttonStartMaintainActionPerformed(java.awt.event.ActionEvent evt) 
 private void checkBoxDeleteNotExistingFilesInDatabaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxDeleteNotExistingFilesInDatabaseActionPerformed
     setEnabledButtonStartMaintain();
 }//GEN-LAST:event_checkBoxDeleteNotExistingFilesInDatabaseActionPerformed
+
+private void checkBoxCompressDatabaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxCompressDatabaseActionPerformed
+    setEnabledButtonStartMaintain();
+}//GEN-LAST:event_checkBoxCompressDatabaseActionPerformed
 
     /**
      * @param args the command line arguments
