@@ -204,7 +204,7 @@ public class DatabaseAction {
     public String getFilename() {
         return filename;
     }
-    
+
     public File getFile() {
         return new File(filename);
     }
@@ -271,6 +271,8 @@ public class DatabaseAction {
      */
     public boolean isImageModified() {
         return type.equals(Type.ImageFileInserted) ||
-            type.equals(Type.ImageFileUpdated);
+            type.equals(Type.ImageFileUpdated) ||
+            type.equals(Type.ImageFilesDeleted) ||
+            type.equals(Type.XmpUpdated);
     }
 }
