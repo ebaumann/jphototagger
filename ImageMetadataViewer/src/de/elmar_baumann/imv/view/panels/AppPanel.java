@@ -47,7 +47,7 @@ public class AppPanel extends javax.swing.JPanel
     private List<JTree> selectionTrees = new ArrayList<JTree>();
     private List<JList> selectionLists = new ArrayList<JList>();
     private EditMetadataPanelsArray editPanelsArray;
-    private EditMetaDataActionsPanel metadataEditActionsPanel;
+    private EditMetaDataActionsPanel editActionsPanel;
     private static final String keyDividerLocationThumbnails = "AppPanel.DividerLocationThumbnails";
 
     public AppPanel() {
@@ -75,10 +75,10 @@ public class AppPanel extends javax.swing.JPanel
     }
 
     public EditMetaDataActionsPanel getMetaDataEditActionsPanel() {
-        if (metadataEditActionsPanel == null) {
-            metadataEditActionsPanel = new EditMetaDataActionsPanel();
+        if (editActionsPanel == null) {
+            editActionsPanel = new EditMetaDataActionsPanel();
         }
-        return metadataEditActionsPanel;
+        return editActionsPanel;
     }
 
     public JScrollPane getScrollPaneThumbnailsPanel() {
@@ -198,31 +198,31 @@ public class AppPanel extends javax.swing.JPanel
     }
 
     public JButton getButtonSaveMetadata() {
-        return metadataEditActionsPanel.buttonSaveMetadata;
+        return editActionsPanel.buttonSaveMetadata;
     }
 
     public JButton getButtonEmptyMetadata() {
-        return metadataEditActionsPanel.buttonEmptyMetadata;
+        return editActionsPanel.buttonEmptyMetadata;
     }
 
     public JButton getButtonMetaDataTemplateCreate() {
-        return metadataEditActionsPanel.buttonMetaDataTemplateCreate;
+        return editActionsPanel.buttonMetaDataTemplateCreate;
     }
 
     public JButton getButtonMetaDataTemplateUpdate() {
-        return metadataEditActionsPanel.buttonMetaDataTemplateUpdate;
+        return editActionsPanel.buttonMetaDataTemplateUpdate;
     }
 
     public JButton getButtonMetaDataTemplateRename() {
-        return metadataEditActionsPanel.buttonMetaDataTemplateRename;
+        return editActionsPanel.buttonMetaDataTemplateRename;
     }
 
     public JButton getButtonMetaDataTemplateInsert() {
-        return metadataEditActionsPanel.buttonMetaDataTemplateInsert;
+        return editActionsPanel.buttonMetaDataTemplateInsert;
     }
 
     public JButton getButtonMetaDataTemplateDelete() {
-        return metadataEditActionsPanel.buttonMetaDataTemplateDelete;
+        return editActionsPanel.buttonMetaDataTemplateDelete;
     }
 
     public JButton getButtonStopScheduledTasks() {
@@ -230,11 +230,11 @@ public class AppPanel extends javax.swing.JPanel
     }
 
     public JComboBox getComboBoxMetaDataTemplates() {
-        return metadataEditActionsPanel.comboBoxMetaDataTemplates;
+        return editActionsPanel.comboBoxMetaDataTemplates;
     }
 
     public JLabel getLabelMetadataInfoEditable() {
-        return metadataEditActionsPanel.labelMetadataInfoEditable;
+        return editActionsPanel.labelMetadataInfoEditable;
     }
 
     public JLabel getLabelStatusbar() {
