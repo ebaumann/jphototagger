@@ -2,9 +2,6 @@ package de.elmar_baumann.imv.controller.metadata;
 
 import com.adobe.xmp.properties.XMPPropertyInfo;
 import de.elmar_baumann.imv.controller.Controller;
-import de.elmar_baumann.imv.database.DatabaseImageFiles;
-import de.elmar_baumann.imv.event.DatabaseAction;
-import de.elmar_baumann.imv.event.DatabaseListener;
 import de.elmar_baumann.imv.event.ThumbnailsPanelAction;
 import de.elmar_baumann.imv.event.ThumbnailsPanelListener;
 import de.elmar_baumann.imv.image.metadata.xmp.XmpMetadata;
@@ -24,8 +21,8 @@ import javax.swing.JLabel;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public class ControllerThumbnailSelectionEditMetadata
-    extends Controller implements ThumbnailsPanelListener, DatabaseListener {
+public class ControllerThumbnailSelectionEditMetadata extends Controller
+    implements ThumbnailsPanelListener {
 
     private AppPanel appPanel = Panels.getInstance().getAppPanel();
     private JButton buttonSave = appPanel.getButtonSaveMetadata();
@@ -35,12 +32,7 @@ public class ControllerThumbnailSelectionEditMetadata
     private ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelThumbnails();
 
     public ControllerThumbnailSelectionEditMetadata() {
-        listenToActionSources();
-    }
-
-    private void listenToActionSources() {
         thumbnailsPanel.addThumbnailsPanelListener(this);
-        DatabaseImageFiles.getInstance().addDatabaseListener(this);
     }
 
     @Override
@@ -103,29 +95,11 @@ public class ControllerThumbnailSelectionEditMetadata
 
             if (xmpPropertyInfos != null && xmpPropertyInfos.size() > 0) {
                 editPanels.setXmpPropertyInfos(filenames, xmpPropertyInfos);
+            } else {
+                editPanels.setFilenames(filenames);
             }
         } else if (filenames.size() > 1) {
             editPanels.setFilenames(filenames);
-        }
-    }
-
-    @Override
-    public void actionPerformed(DatabaseAction action) {
-        DatabaseAction.Type actionType = action.getType();
-        if (isControl() && (actionType.equals(DatabaseAction.Type.ImageFileInserted) ||
-            actionType.equals(DatabaseAction.Type.ImageFileUpdated))) {
-            showUpdates(action.getImageFileData().getFilename());
-        } else if (isControl() && actionType.equals(DatabaseAction.Type.XmpUpdated)) {
-            showUpdates(action.getFilename());
-        }
-    }
-
-    private void showUpdates(String filename) {
-        if (thumbnailsPanel.getSelectionCount() == 1) {
-            String selectedFilename = thumbnailsPanel.getSelectedFiles().get(0).getAbsolutePath();
-            if (filename.equals(selectedFilename)) {
-                setEditPanelsContent();
-            }
         }
     }
 }
