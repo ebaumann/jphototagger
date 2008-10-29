@@ -365,8 +365,6 @@ public class AppPanel extends javax.swing.JPanel implements AppExitListener {
         String className = getClass().getName();
         hints.addExcludedMember(className + ".textFieldSearch"); // NOI18N
         hints.addExcludedMember(className + ".panelEditMetadata"); // NOI18N
-        hints.addExcludedMember(className + ".splitPaneMain"); // NOI18N
-        hints.addExcludedMember(className + ".splitPaneThumbnailsMetadata"); // NOI18N
         return hints;
     }
     
