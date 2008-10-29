@@ -1,10 +1,10 @@
 package de.elmar_baumann.imv.event;
 
-import de.elmar_baumann.imv.view.panels.MetadataEditPanelsArray;
+import de.elmar_baumann.imv.view.panels.EditMetadataPanelsArray;
 
 /**
  * Ereignis bei
- * {@link de.elmar_baumann.imv.view.panels.MetadataEditPanelsArray}.
+ * {@link de.elmar_baumann.imv.view.panels.EditMetadataPanelsArray}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/22
@@ -22,7 +22,7 @@ public class MetaDataEditPanelEvent {
          */
         EditDisabled
     }
-    private MetadataEditPanelsArray source;
+    private EditMetadataPanelsArray source;
     private Type type;
 
     /**
@@ -31,7 +31,7 @@ public class MetaDataEditPanelEvent {
      * @param source  Ereignisquelle
      * @param type    Ereignistyp
      */
-    public MetaDataEditPanelEvent(MetadataEditPanelsArray source, Type type) {
+    public MetaDataEditPanelEvent(EditMetadataPanelsArray source, Type type) {
         this.source = source;
         this.type = type;
     }
@@ -41,7 +41,7 @@ public class MetaDataEditPanelEvent {
      * 
      * @return Ereignisquelle
      */
-    public MetadataEditPanelsArray getSource() {
+    public EditMetadataPanelsArray getSource() {
         return source;
     }
 
@@ -50,7 +50,7 @@ public class MetaDataEditPanelEvent {
      * 
      * @param source  Ereignisquelle
      */
-    public void setSource(MetadataEditPanelsArray source) {
+    public void setSource(EditMetadataPanelsArray source) {
         this.source = source;
     }
 

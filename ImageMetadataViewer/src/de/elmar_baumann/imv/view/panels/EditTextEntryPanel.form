@@ -19,7 +19,7 @@
     <Component class="javax.swing.JLabel" name="labelPrompt">
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="TextEntryEditPanel.labelPrompt.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="EditTextEntryPanel.labelPrompt.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
         </Property>
         <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
           <Connection code="column.getLongerDescription()" type="code"/>

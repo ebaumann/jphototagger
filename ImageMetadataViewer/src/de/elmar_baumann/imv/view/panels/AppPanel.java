@@ -46,8 +46,8 @@ public class AppPanel extends javax.swing.JPanel
     private List<JTable> metadataTables = new ArrayList<JTable>();
     private List<JTree> selectionTrees = new ArrayList<JTree>();
     private List<JList> selectionLists = new ArrayList<JList>();
-    private MetadataEditPanelsArray editPanelsArray;
-    private MetaDataEditActionsPanel metadataEditActionsPanel;
+    private EditMetadataPanelsArray editPanelsArray;
+    private EditMetaDataActionsPanel metadataEditActionsPanel;
     private static final String keyDividerLocationThumbnails = "AppPanel.DividerLocationThumbnails";
 
     public AppPanel() {
@@ -57,7 +57,7 @@ public class AppPanel extends javax.swing.JPanel
     }
 
     private void postInitComponents() {
-        editPanelsArray = new MetadataEditPanelsArray(panelEditMetadata);
+        editPanelsArray = new EditMetadataPanelsArray(panelEditMetadata);
         panelThumbnails.setViewport(scrollPaneThumbnails.getViewport());
         setBackgroundColorTablesScrollPanes();
         disableTreeMultipleSelection();
@@ -70,13 +70,13 @@ public class AppPanel extends javax.swing.JPanel
         initSelectionListArray();
     }
 
-    public MetadataEditPanelsArray getMetadataEditPanelsArray() {
+    public EditMetadataPanelsArray getMetadataEditPanelsArray() {
         return editPanelsArray;
     }
 
-    public MetaDataEditActionsPanel getMetaDataEditActionsPanel() {
+    public EditMetaDataActionsPanel getMetaDataEditActionsPanel() {
         if (metadataEditActionsPanel == null) {
-            metadataEditActionsPanel = new MetaDataEditActionsPanel();
+            metadataEditActionsPanel = new EditMetaDataActionsPanel();
         }
         return metadataEditActionsPanel;
     }
@@ -249,7 +249,7 @@ public class AppPanel extends javax.swing.JPanel
         return textFieldSearch;
     }
 
-    public MetadataEditPanelsArray getEditPanelsArray() {
+    public EditMetadataPanelsArray getEditPanelsArray() {
         return editPanelsArray;
     }
 

@@ -12,7 +12,7 @@ import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
-import de.elmar_baumann.imv.view.panels.MetadataEditPanelsArray;
+import de.elmar_baumann.imv.view.panels.EditMetadataPanelsArray;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.util.List;
 import javax.swing.JButton;
@@ -31,7 +31,7 @@ public class ControllerThumbnailSelectionEditMetadata
     private JButton buttonSave = appPanel.getButtonSaveMetadata();
     private JButton buttonEmpty = appPanel.getButtonEmptyMetadata();
     private JLabel labelMetadataInfoEditable = appPanel.getLabelMetadataInfoEditable();
-    private MetadataEditPanelsArray editPanels = appPanel.getEditPanelsArray();
+    private EditMetadataPanelsArray editPanels = appPanel.getEditPanelsArray();
     private ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelThumbnails();
 
     public ControllerThumbnailSelectionEditMetadata() {

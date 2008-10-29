@@ -19,7 +19,7 @@ import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/18
  */
-public class RepeatableTextEntryEditPanel extends javax.swing.JPanel implements TextEntry {
+public class EditRepeatableTextEntryPanel extends javax.swing.JPanel implements TextEntry {
 
     private Column column;
     private static final String delimiter = ",";
@@ -27,7 +27,7 @@ public class RepeatableTextEntryEditPanel extends javax.swing.JPanel implements 
     private DefaultListModel model = new DefaultListModel();
     private boolean editable = true;
 
-    public RepeatableTextEntryEditPanel(Column column) {
+    public EditRepeatableTextEntryPanel(Column column) {
         this.column = column;
         initComponents();
         postInitComponents();
@@ -151,7 +151,7 @@ public class RepeatableTextEntryEditPanel extends javax.swing.JPanel implements 
 
         setLayout(new java.awt.GridBagLayout());
 
-        labelPrompt.setText(Bundle.getString("RepeatableTextEntryEditPanel.labelPrompt.text")); // NOI18N
+        labelPrompt.setText(Bundle.getString("EditRepeatableTextEntryPanel.labelPrompt.text")); // NOI18N
         labelPrompt.setToolTipText(column.getLongerDescription());
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -162,7 +162,7 @@ public class RepeatableTextEntryEditPanel extends javax.swing.JPanel implements 
         scrollPane.setMinimumSize(new java.awt.Dimension(22, 44));
 
         list.setModel(model);
-        list.setToolTipText(Bundle.getString("RepeatableTextEntryEditPanel.list.toolTipText")); // NOI18N
+        list.setToolTipText(Bundle.getString("EditRepeatableTextEntryPanel.list.toolTipText")); // NOI18N
         list.setCellRenderer(new ListCellRendererKeywordsEdit());
         list.setFocusable(false);
         list.setLayoutOrientation(javax.swing.JList.HORIZONTAL_WRAP);
@@ -182,8 +182,8 @@ public class RepeatableTextEntryEditPanel extends javax.swing.JPanel implements 
         gridBagConstraints.weighty = 1.0;
         add(scrollPane, gridBagConstraints);
 
-        textFieldInput.setText(Bundle.getString("RepeatableTextEntryEditPanel.textFieldInput.text")); // NOI18N
-        textFieldInput.setToolTipText(Bundle.getString("RepeatableTextEntryEditPanel.textFieldInput.toolTipText")); // NOI18N
+        textFieldInput.setText(Bundle.getString("EditRepeatableTextEntryPanel.textFieldInput.text")); // NOI18N
+        textFieldInput.setToolTipText(Bundle.getString("EditRepeatableTextEntryPanel.textFieldInput.toolTipText")); // NOI18N
         textFieldInput.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 textFieldInputKeyReleased(evt);
@@ -197,8 +197,8 @@ public class RepeatableTextEntryEditPanel extends javax.swing.JPanel implements 
 
         panelButtons.setLayout(new java.awt.GridLayout(2, 1));
 
-        buttonRemoveSelection.setText(Bundle.getString("RepeatableTextEntryEditPanel.buttonRemoveSelection.text")); // NOI18N
-        buttonRemoveSelection.setToolTipText(Bundle.getString("RepeatableTextEntryEditPanel.buttonRemoveSelection.toolTipText")); // NOI18N
+        buttonRemoveSelection.setText(Bundle.getString("EditRepeatableTextEntryPanel.buttonRemoveSelection.text")); // NOI18N
+        buttonRemoveSelection.setToolTipText(Bundle.getString("EditRepeatableTextEntryPanel.buttonRemoveSelection.toolTipText")); // NOI18N
         buttonRemoveSelection.setMargin(new java.awt.Insets(0, 0, 0, 0));
         buttonRemoveSelection.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -207,8 +207,8 @@ public class RepeatableTextEntryEditPanel extends javax.swing.JPanel implements 
         });
         panelButtons.add(buttonRemoveSelection);
 
-        buttonAddInput.setText(Bundle.getString("RepeatableTextEntryEditPanel.buttonAddInput.text")); // NOI18N
-        buttonAddInput.setToolTipText(Bundle.getString("RepeatableTextEntryEditPanel.buttonAddInput.toolTipText")); // NOI18N
+        buttonAddInput.setText(Bundle.getString("EditRepeatableTextEntryPanel.buttonAddInput.text")); // NOI18N
+        buttonAddInput.setToolTipText(Bundle.getString("EditRepeatableTextEntryPanel.buttonAddInput.toolTipText")); // NOI18N
         buttonAddInput.setMargin(new java.awt.Insets(0, 0, 0, 0));
         buttonAddInput.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

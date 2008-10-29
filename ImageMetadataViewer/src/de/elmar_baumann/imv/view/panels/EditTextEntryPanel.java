@@ -15,13 +15,13 @@ import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/18
  */
-public class TextEntryEditPanel extends javax.swing.JPanel implements TextEntry {
+public class EditTextEntryPanel extends javax.swing.JPanel implements TextEntry {
 
     private Column column;
     private AutoCompleteData autoCompleteData;
     private static final Color editableColor = Color.WHITE;
 
-    public TextEntryEditPanel(Column column) {
+    public EditTextEntryPanel(Column column) {
         this.column = column;
         initComponents();
         postInitComponents();
@@ -100,7 +100,7 @@ public class TextEntryEditPanel extends javax.swing.JPanel implements TextEntry 
 
         setLayout(new java.awt.GridBagLayout());
 
-        labelPrompt.setText(Bundle.getString("TextEntryEditPanel.labelPrompt.text")); // NOI18N
+        labelPrompt.setText(Bundle.getString("EditTextEntryPanel.labelPrompt.text")); // NOI18N
         labelPrompt.setToolTipText(column.getLongerDescription());
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;

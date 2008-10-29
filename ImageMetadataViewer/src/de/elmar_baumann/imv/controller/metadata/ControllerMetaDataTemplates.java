@@ -11,7 +11,7 @@ import de.elmar_baumann.imv.model.ComboBoxModelMetaDataEditTemplates;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.view.panels.AppPanel;
-import de.elmar_baumann.imv.view.panels.MetadataEditPanelsArray;
+import de.elmar_baumann.imv.view.panels.EditMetadataPanelsArray;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.MessageFormat;
@@ -30,7 +30,7 @@ public class ControllerMetaDataTemplates extends Controller
 
     private DatabaseMetaDataEditTemplates db = DatabaseMetaDataEditTemplates.getInstance();
     private AppPanel appPanel = Panels.getInstance().getAppPanel();
-    private MetadataEditPanelsArray editPanels = appPanel.getEditPanelsArray();
+    private EditMetadataPanelsArray editPanels = appPanel.getEditPanelsArray();
     private JComboBox comboBoxMetaDataTemplates = appPanel.getComboBoxMetaDataTemplates();
     private ComboBoxModelMetaDataEditTemplates model = (ComboBoxModelMetaDataEditTemplates) comboBoxMetaDataTemplates.getModel();
     private JButton buttonMetaDataTemplateCreate = appPanel.getButtonMetaDataTemplateCreate();

@@ -40,19 +40,19 @@ import javax.swing.JTextField;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public class MetadataEditPanelsArray implements FocusListener, DatabaseListener {
+public class EditMetadataPanelsArray implements FocusListener, DatabaseListener {
 
     boolean editable = true;
     private JComponent container;
     private List<JPanel> panels = new ArrayList<JPanel>();
     private List<String> filenames = new ArrayList<String>();
     private List<MetaDataEditPanelListener> listeners = new LinkedList<MetaDataEditPanelListener>();
-    private MetaDataEditActionsPanel metadataEditActionsPanel;
+    private EditMetaDataActionsPanel metadataEditActionsPanel;
     private boolean isUseAutocomplete = false;
     private Component lastFocussedComponent;
     private ListenerProvider listenerProvider;
 
-    public MetadataEditPanelsArray(JComponent container) {
+    public EditMetadataPanelsArray(JComponent container) {
         this.container = container;
         listenerProvider = ListenerProvider.getInstance();
         listeners = listenerProvider.getMetaDataEditPanelListeners();
@@ -78,9 +78,9 @@ public class MetadataEditPanelsArray implements FocusListener, DatabaseListener 
             ((TextEntry) panel).setEditable(editable);
         }
         notifyActionListener(new MetaDataEditPanelEvent(this,
-                editable
-                ? MetaDataEditPanelEvent.Type.EditEnabled
-                : MetaDataEditPanelEvent.Type.EditDisabled));
+            editable
+            ? MetaDataEditPanelEvent.Type.EditEnabled
+            : MetaDataEditPanelEvent.Type.EditDisabled));
     }
 
     /**
@@ -168,13 +168,13 @@ public class MetadataEditPanelsArray implements FocusListener, DatabaseListener 
             Column xmpColumn = textEntry.getColumn();
             IPTCEntryMeta iptcEntryMeta = mapping.getIptcEntryMetaOfXmpColumn(xmpColumn);
             List<XMPPropertyInfo> matchingInfos =
-                    xmpMetaData.getFilteredPropertyInfosOfIptcEntryMeta(iptcEntryMeta, infos);
+                xmpMetaData.getFilteredPropertyInfosOfIptcEntryMeta(iptcEntryMeta, infos);
             int countMatchingInfos = matchingInfos.size();
 
             for (int i = 0; i < countMatchingInfos; i++) {
                 textEntry.setText(textEntry.getText() +
-                        (i > 0 ? ", " : "") + // NOI18N
-                        matchingInfos.get(i).getValue().toString().trim());
+                    (i > 0 ? ", " : "") + // NOI18N
+                    matchingInfos.get(i).getValue().toString().trim());
             }
         }
     }
@@ -238,11 +238,11 @@ public class MetadataEditPanelsArray implements FocusListener, DatabaseListener 
             boolean isRepeatable = editHints.isRepeatable();
 
             if (isRepeatable) {
-                RepeatableTextEntryEditPanel panel = new RepeatableTextEntryEditPanel(column);
+                EditRepeatableTextEntryPanel panel = new EditRepeatableTextEntryPanel(column);
                 panel.textFieldInput.addFocusListener(this);
                 panels.add(panel);
             } else {
-                TextEntryEditPanel panel = new TextEntryEditPanel(column);
+                EditTextEntryPanel panel = new EditTextEntryPanel(column);
                 panel.textAreaEdit.addFocusListener(this);
                 panel.textAreaEdit.setRows(large ? 2 : 1);
                 panels.add(panel);
@@ -308,11 +308,11 @@ public class MetadataEditPanelsArray implements FocusListener, DatabaseListener 
 
     private void addAutoCompleteData(Xmp xmp) {
         for (JPanel panel : panels) {
-            if (panel instanceof TextEntryEditPanel) {
-                TextEntryEditPanel p = (TextEntryEditPanel) panel;
+            if (panel instanceof EditTextEntryPanel) {
+                EditTextEntryPanel p = (EditTextEntryPanel) panel;
                 AutoCompleteUtil.addData(xmp, p.getColumn(), p.getAutoCompleteData());
-            } else if (panel instanceof RepeatableTextEntryEditPanel) {
-                RepeatableTextEntryEditPanel p = (RepeatableTextEntryEditPanel) panel;
+            } else if (panel instanceof EditRepeatableTextEntryPanel) {
+                EditRepeatableTextEntryPanel p = (EditRepeatableTextEntryPanel) panel;
                 AutoCompleteUtil.addData(xmp, p.getColumn(), p.getAutoCompleteData());
             }
         }

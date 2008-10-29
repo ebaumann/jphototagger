@@ -5,7 +5,7 @@ import de.elmar_baumann.imv.model.TableModelIptc;
 import de.elmar_baumann.imv.model.TableModelXmp;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
-import de.elmar_baumann.imv.view.panels.MetadataEditPanelsArray;
+import de.elmar_baumann.imv.view.panels.EditMetadataPanelsArray;
 import java.util.List;
 import javax.swing.JLabel;
 import javax.swing.JTable;
@@ -32,7 +32,7 @@ public class MetaDataDisplay {
     public TableModelXmp xmpTableModelXap;
     public AppPanel appPanel;
     public ImageFileThumbnailsPanel thumbnailsPanel;
-    public MetadataEditPanelsArray editPanelsArray;
+    public EditMetadataPanelsArray editPanelsArray;
     public List<TableModelXmp> xmpTableModels;
     public JLabel labelMetadataFilename;
 }

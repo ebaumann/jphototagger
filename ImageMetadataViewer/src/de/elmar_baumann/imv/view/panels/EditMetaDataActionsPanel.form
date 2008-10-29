@@ -41,7 +41,7 @@
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
               <JTabbedPaneConstraints tabName="Bearbeiten">
                 <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="MetaDataEditActionsPanel.panelGroupMetadataEdit.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="EditMetaDataActionsPanel.panelGroupMetadataEdit.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                 </Property>
               </JTabbedPaneConstraints>
             </Constraint>
@@ -97,7 +97,7 @@
                   <Font name="Dialog" size="12" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="MetaDataEditActionsPanel.labelMetadataInfoEditable.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="EditMetaDataActionsPanel.labelMetadataInfoEditable.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                 </Property>
               </Properties>
               <AuxValues>
@@ -111,7 +111,7 @@
                 </Property>
                 <Property name="mnemonic" type="int" value="115"/>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="MetaDataEditActionsPanel.buttonSaveMetadata.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="EditMetaDataActionsPanel.buttonSaveMetadata.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
@@ -126,7 +126,7 @@
                 </Property>
                 <Property name="mnemonic" type="int" value="101"/>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="MetaDataEditActionsPanel.buttonMetaDataTemplateInsert.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="EditMetaDataActionsPanel.buttonMetaDataTemplateInsert.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
@@ -141,7 +141,7 @@
                 </Property>
                 <Property name="mnemonic" type="int" value="118"/>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="MetaDataEditActionsPanel.buttonMetaDataTemplateCreate.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="EditMetaDataActionsPanel.buttonMetaDataTemplateCreate.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                 </Property>
               </Properties>
               <AuxValues>
@@ -155,7 +155,7 @@
                 </Property>
                 <Property name="mnemonic" type="int" value="108"/>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="MetaDataEditActionsPanel.buttonEmptyMetadata.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="EditMetaDataActionsPanel.buttonEmptyMetadata.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
@@ -170,7 +170,7 @@
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
               <JTabbedPaneConstraints tabName="Vorlagen">
                 <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="MetaDataEditActionsPanel.panelGroupMetadataTemplates.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="EditMetaDataActionsPanel.panelGroupMetadataTemplates.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                 </Property>
               </JTabbedPaneConstraints>
             </Constraint>
@@ -224,7 +224,7 @@
                 </Property>
                 <Property name="mnemonic" type="int" value="109"/>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="MetaDataEditActionsPanel.buttonMetaDataTemplateRename.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="EditMetaDataActionsPanel.buttonMetaDataTemplateRename.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
@@ -239,7 +239,7 @@
                 </Property>
                 <Property name="mnemonic" type="int" value="246"/>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="MetaDataEditActionsPanel.buttonMetaDataTemplateDelete.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="EditMetaDataActionsPanel.buttonMetaDataTemplateDelete.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
@@ -254,7 +254,7 @@
                 </Property>
                 <Property name="mnemonic" type="int" value="97"/>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="MetaDataEditActionsPanel.buttonMetaDataTemplateUpdate.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="EditMetaDataActionsPanel.buttonMetaDataTemplateUpdate.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>

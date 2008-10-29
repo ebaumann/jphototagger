@@ -8,10 +8,10 @@ import javax.swing.JComboBox;
  * 
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  */
-public class MetaDataEditActionsPanel extends javax.swing.JPanel {
+public class EditMetaDataActionsPanel extends javax.swing.JPanel {
 
-    /** Creates new form MetaDataEditActionsPanel */
-    public MetaDataEditActionsPanel() {
+    /** Creates new form EditMetaDataActionsPanel */
+    public EditMetaDataActionsPanel() {
         initComponents();
     }
     
@@ -44,25 +44,25 @@ public class MetaDataEditActionsPanel extends javax.swing.JPanel {
         tabbedPane.setTabPlacement(javax.swing.JTabbedPane.BOTTOM);
 
         labelMetadataInfoEditable.setFont(new java.awt.Font("Dialog", 0, 12));
-        labelMetadataInfoEditable.setText(Bundle.getString("MetaDataEditActionsPanel.labelMetadataInfoEditable.text")); // NOI18N
+        labelMetadataInfoEditable.setText(Bundle.getString("EditMetaDataActionsPanel.labelMetadataInfoEditable.text")); // NOI18N
 
         buttonSaveMetadata.setFont(new java.awt.Font("Dialog", 0, 12));
         buttonSaveMetadata.setMnemonic('s');
-        buttonSaveMetadata.setText(Bundle.getString("MetaDataEditActionsPanel.buttonSaveMetadata.text")); // NOI18N
+        buttonSaveMetadata.setText(Bundle.getString("EditMetaDataActionsPanel.buttonSaveMetadata.text")); // NOI18N
         buttonSaveMetadata.setEnabled(false);
 
         buttonMetaDataTemplateInsert.setFont(new java.awt.Font("Dialog", 0, 12));
         buttonMetaDataTemplateInsert.setMnemonic('e');
-        buttonMetaDataTemplateInsert.setText(Bundle.getString("MetaDataEditActionsPanel.buttonMetaDataTemplateInsert.text")); // NOI18N
+        buttonMetaDataTemplateInsert.setText(Bundle.getString("EditMetaDataActionsPanel.buttonMetaDataTemplateInsert.text")); // NOI18N
         buttonMetaDataTemplateInsert.setEnabled(false);
 
         buttonMetaDataTemplateCreate.setFont(new java.awt.Font("Dialog", 0, 12));
         buttonMetaDataTemplateCreate.setMnemonic('v');
-        buttonMetaDataTemplateCreate.setText(Bundle.getString("MetaDataEditActionsPanel.buttonMetaDataTemplateCreate.text")); // NOI18N
+        buttonMetaDataTemplateCreate.setText(Bundle.getString("EditMetaDataActionsPanel.buttonMetaDataTemplateCreate.text")); // NOI18N
 
         buttonEmptyMetadata.setFont(new java.awt.Font("Dialog", 0, 12));
         buttonEmptyMetadata.setMnemonic('l');
-        buttonEmptyMetadata.setText(Bundle.getString("MetaDataEditActionsPanel.buttonEmptyMetadata.text")); // NOI18N
+        buttonEmptyMetadata.setText(Bundle.getString("EditMetaDataActionsPanel.buttonEmptyMetadata.text")); // NOI18N
         buttonEmptyMetadata.setEnabled(false);
 
         javax.swing.GroupLayout panelGroupMetadataEditLayout = new javax.swing.GroupLayout(panelGroupMetadataEdit);
@@ -104,21 +104,21 @@ public class MetaDataEditActionsPanel extends javax.swing.JPanel {
                 .addContainerGap(22, Short.MAX_VALUE))
         );
 
-        tabbedPane.addTab(Bundle.getString("MetaDataEditActionsPanel.panelGroupMetadataEdit.TabConstraints.tabTitle"), panelGroupMetadataEdit); // NOI18N
+        tabbedPane.addTab(Bundle.getString("EditMetaDataActionsPanel.panelGroupMetadataEdit.TabConstraints.tabTitle"), panelGroupMetadataEdit); // NOI18N
 
         buttonMetaDataTemplateRename.setFont(new java.awt.Font("Dialog", 0, 12));
         buttonMetaDataTemplateRename.setMnemonic('m');
-        buttonMetaDataTemplateRename.setText(Bundle.getString("MetaDataEditActionsPanel.buttonMetaDataTemplateRename.text")); // NOI18N
+        buttonMetaDataTemplateRename.setText(Bundle.getString("EditMetaDataActionsPanel.buttonMetaDataTemplateRename.text")); // NOI18N
         buttonMetaDataTemplateRename.setEnabled(false);
 
         buttonMetaDataTemplateDelete.setFont(new java.awt.Font("Dialog", 0, 12));
         buttonMetaDataTemplateDelete.setMnemonic('\u00f6');
-        buttonMetaDataTemplateDelete.setText(Bundle.getString("MetaDataEditActionsPanel.buttonMetaDataTemplateDelete.text")); // NOI18N
+        buttonMetaDataTemplateDelete.setText(Bundle.getString("EditMetaDataActionsPanel.buttonMetaDataTemplateDelete.text")); // NOI18N
         buttonMetaDataTemplateDelete.setEnabled(false);
 
         buttonMetaDataTemplateUpdate.setFont(new java.awt.Font("Dialog", 0, 12));
         buttonMetaDataTemplateUpdate.setMnemonic('a');
-        buttonMetaDataTemplateUpdate.setText(Bundle.getString("MetaDataEditActionsPanel.buttonMetaDataTemplateUpdate.text")); // NOI18N
+        buttonMetaDataTemplateUpdate.setText(Bundle.getString("EditMetaDataActionsPanel.buttonMetaDataTemplateUpdate.text")); // NOI18N
         buttonMetaDataTemplateUpdate.setEnabled(false);
 
         javax.swing.GroupLayout panelGroupMetadataTemplatesLayout = new javax.swing.GroupLayout(panelGroupMetadataTemplates);
@@ -153,7 +153,7 @@ public class MetaDataEditActionsPanel extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        tabbedPane.addTab(Bundle.getString("MetaDataEditActionsPanel.panelGroupMetadataTemplates.TabConstraints.tabTitle"), panelGroupMetadataTemplates); // NOI18N
+        tabbedPane.addTab(Bundle.getString("EditMetaDataActionsPanel.panelGroupMetadataTemplates.TabConstraints.tabTitle"), panelGroupMetadataTemplates); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

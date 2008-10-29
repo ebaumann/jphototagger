@@ -5,7 +5,7 @@ import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.view.frames.AppFrame;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
-import de.elmar_baumann.imv.view.panels.MetadataEditPanelsArray;
+import de.elmar_baumann.imv.view.panels.EditMetadataPanelsArray;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -25,7 +25,7 @@ public class ControllerGoto extends Controller implements ActionListener {
 
     private AppPanel appPanel = Panels.getInstance().getAppPanel();
     private ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelThumbnails();
-    private MetadataEditPanelsArray editPanels = appPanel.getEditPanelsArray();
+    private EditMetadataPanelsArray editPanels = appPanel.getEditPanelsArray();
     private JTextField textFieldSearch = appPanel.getTextFieldSearch();
     private AppFrame appFrame = Panels.getInstance().getAppFrame();
     private Map<AppFrame.Goto, Component> componentOfGoto = new HashMap<AppFrame.Goto, Component>();
