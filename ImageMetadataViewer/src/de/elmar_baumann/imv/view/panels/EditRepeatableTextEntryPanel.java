@@ -6,6 +6,7 @@ import de.elmar_baumann.imv.database.metadata.Column;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.view.renderer.ListCellRendererKeywordsEdit;
 import de.elmar_baumann.lib.component.InputVerifierMaxLength;
+import de.elmar_baumann.lib.componentutil.ComponentUtil;
 import de.elmar_baumann.lib.componentutil.ListUtil;
 import java.awt.event.KeyEvent;
 import javax.swing.DefaultListModel;
@@ -85,6 +86,7 @@ public class EditRepeatableTextEntryPanel extends javax.swing.JPanel implements 
         String input = textFieldInput.getText();
         if (!input.isEmpty() && !model.contains(input)) {
             model.addElement(input);
+            ComponentUtil.forceRepaint(getParent());
         }
     }
 
@@ -103,6 +105,7 @@ public class EditRepeatableTextEntryPanel extends javax.swing.JPanel implements 
         for (Object value : values) {
             model.removeElement(value);
         }
+        ComponentUtil.forceRepaint(getParent());
     }
 
     @Override
