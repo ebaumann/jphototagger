@@ -83,7 +83,8 @@ public class DatabaseSavedSearches extends Database {
         return inserted;
     }
 
-    private synchronized void insertSavedSearchValues(Connection connection, long idSavedSearch, List<String> values) throws SQLException {
+    private synchronized void insertSavedSearchValues(
+        Connection connection, long idSavedSearch, List<String> values) throws SQLException {
         if (idSavedSearch > 0 && values.size() > 0) {
             PreparedStatement stmt = connection.prepareStatement(
                 "INSERT INTO saved_searches_values (" + // NOI18N
@@ -105,7 +106,8 @@ public class DatabaseSavedSearches extends Database {
         }
     }
 
-    private synchronized void insertSavedSearchPanelData(Connection connection, long idSavedSearch, List<SavedSearchPanel> panelData) throws SQLException {
+    private synchronized void insertSavedSearchPanelData(
+        Connection connection, long idSavedSearch, List<SavedSearchPanel> panelData) throws SQLException {
         if (idSavedSearch > 0 && panelData != null) {
             PreparedStatement stmt = connection.prepareStatement(
                 "INSERT INTO" + // NOI18N
@@ -139,7 +141,8 @@ public class DatabaseSavedSearches extends Database {
 
     private long getIdSavedSearch(Connection connection, String name) throws SQLException {
         long id = -1;
-        PreparedStatement stmt = connection.prepareStatement("SELECT id FROM saved_searches WHERE name = ?"); // NOI18N
+        PreparedStatement stmt = connection.prepareStatement(
+            "SELECT id FROM saved_searches WHERE name = ?"); // NOI18N
         stmt.setString(1, name);
         logStatement(stmt);
         ResultSet rs = stmt.executeQuery();
@@ -250,11 +253,13 @@ public class DatabaseSavedSearches extends Database {
      * @param  newName Neuer Name
      * @return true bei Erfolg
      */
-    public synchronized boolean updateRenameSavedSearch(String oldName, String newName) {
+    public synchronized boolean updateRenameSavedSearch(
+        String oldName, String newName) {
         boolean renamed = false;
         Connection connection = null;
         try {
             connection = getConnection();
+            connection.setAutoCommit(true);
             PreparedStatement stmt = connection.prepareStatement(
                 "UPDATE saved_searches SET name = ? WHERE name = ?"); // NOI18N
             stmt.setString(1, newName);

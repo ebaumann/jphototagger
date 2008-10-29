@@ -33,6 +33,7 @@ public class DatabaseMaintainance extends Database {
         Connection connection = null;
         try {
             connection = getConnection();
+            connection.setAutoCommit(true);
             Statement stmt = connection.createStatement();
             stmt.executeUpdate("CHECKPOINT DEFRAG"); // NOI18N
             success = true;

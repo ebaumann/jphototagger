@@ -17,13 +17,13 @@ import java.util.logging.Level;
  * @version 2008/10/21
  */
 public class DatabaseAutoscanDirectories extends Database {
-    
+
     private static DatabaseAutoscanDirectories instance = new DatabaseAutoscanDirectories();
-    
+
     public static DatabaseAutoscanDirectories getInstance() {
         return instance;
     }
-    
+
     private DatabaseAutoscanDirectories() {
     }
 
@@ -39,6 +39,7 @@ public class DatabaseAutoscanDirectories extends Database {
             Connection connection = null;
             try {
                 connection = getConnection();
+                connection.setAutoCommit(true);
                 PreparedStatement stmt = connection.prepareStatement(
                     "INSERT INTO autoscan_directories (directory) VALUES (?)"); // NOI18N
                 stmt.setString(1, directoryName);
@@ -105,6 +106,7 @@ public class DatabaseAutoscanDirectories extends Database {
         Connection connection = null;
         try {
             connection = getConnection();
+            connection.setAutoCommit(true);
             PreparedStatement stmt = connection.prepareStatement(
                 "DELETE FROM autoscan_directories WHERE directory = ?"); // NOI18N
             stmt.setString(1, directoryName);
@@ -178,5 +180,4 @@ public class DatabaseAutoscanDirectories extends Database {
 
         return directories;
     }
-
 }
