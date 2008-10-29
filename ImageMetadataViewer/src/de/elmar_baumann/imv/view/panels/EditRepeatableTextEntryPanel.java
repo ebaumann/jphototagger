@@ -91,7 +91,7 @@ public class EditRepeatableTextEntryPanel extends javax.swing.JPanel implements 
         if (!input.isEmpty() && !model.contains(input)) {
             model.addElement(input);
             dirty = true;
-            ComponentUtil.forceRepaint(getParent());
+            ComponentUtil.forceRepaint(getParent().getParent());
         }
     }
 
@@ -116,7 +116,7 @@ public class EditRepeatableTextEntryPanel extends javax.swing.JPanel implements 
             model.removeElement(value);
             dirty = true;
         }
-        ComponentUtil.forceRepaint(getParent());
+        ComponentUtil.forceRepaint(getParent().getParent());
     }
 
     @Override
