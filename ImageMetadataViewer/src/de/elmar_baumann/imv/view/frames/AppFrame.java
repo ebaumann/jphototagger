@@ -89,13 +89,12 @@ public class AppFrame extends javax.swing.JFrame {
     };
 
     private void postInitComponents() {
-        addAppStartListener(appPanel);
         initSortMenuItemsMap();
         initGotoMenuItemsMap();
         listenToClose();
         setTitleAndFrameIcon();
         MetaFactory.getInstance();
-        addAppStartListener(appPanel);
+        addAppExitListener(appPanel);
         notifyStart();
     }
 

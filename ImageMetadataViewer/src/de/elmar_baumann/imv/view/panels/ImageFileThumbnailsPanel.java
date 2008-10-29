@@ -7,11 +7,9 @@ import de.elmar_baumann.imv.database.DatabaseImageFiles;
 import de.elmar_baumann.imv.datatransfer.TransferHandlerThumbnailsPanel;
 import de.elmar_baumann.imv.event.RefreshListener;
 import de.elmar_baumann.imv.io.FileSort;
-import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.types.FileAction;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuPanelThumbnails;
 import de.elmar_baumann.lib.componentutil.ComponentUtil;
-import de.elmar_baumann.lib.persistence.PersistentSettings;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
@@ -146,7 +144,6 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel {
         setNewThumbnails(files.size());
         scrollToTop(scrollToTop);
         setMissingFilesFlags();
-        checkDivider();
         hadFiles = true;
         ComponentUtil.forceRepaint(this);
     }
@@ -372,15 +369,6 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel {
             return filename + flagText;
         } else {
             return ""; // NOI18N
-        }
-    }
-
-    private void checkDivider() {
-        if (!hadFiles) {
-            AppPanel appPanel = Panels.getInstance().getAppPanel();
-            int location = PersistentSettings.getInstance().getInt(
-                appPanel.getKeyDividerLocationThumbnails());
-            appPanel.getSplitPaneThumbnailsMetadata().setDividerLocation(location);
         }
     }
 }
