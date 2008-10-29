@@ -66,4 +66,14 @@ public interface TextEntry {
      * @return true if changed
      */
     public boolean isDirty();
+    
+    /**
+     * Sets how the entry shall behave like changes since last call to
+     * {@link #setText(java.lang.String)}.
+     * 
+     * @param dirty  true if the text was changed
+     */
+    public void setDirty(boolean dirty);
+    
+    public TextEntry clone();
 }

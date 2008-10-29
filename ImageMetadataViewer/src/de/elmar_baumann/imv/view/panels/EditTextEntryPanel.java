@@ -2,6 +2,7 @@ package de.elmar_baumann.imv.view.panels;
 
 import de.elmar_baumann.imv.data.AutoCompleteData;
 import de.elmar_baumann.imv.data.TextEntry;
+import de.elmar_baumann.imv.data.TextEntryContent;
 import de.elmar_baumann.imv.database.metadata.Column;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.component.InputVerifierMaxLength;
@@ -19,7 +20,7 @@ public class EditTextEntryPanel extends javax.swing.JPanel implements TextEntry 
 
     private Column column;
     private AutoCompleteData autoCompleteData;
-    private String text;
+    private String text = "";
     private static final Color editableColor = Color.WHITE;
 
     public EditTextEntryPanel(Column column) {
@@ -49,6 +50,13 @@ public class EditTextEntryPanel extends javax.swing.JPanel implements TextEntry 
     @Override
     public boolean isDirty() {
         return !text.equals(textAreaEdit.getText());
+    }
+
+    @Override
+    public void setDirty(boolean dirty) {
+        if (!dirty) {
+            text = textAreaEdit.getText();
+        }
     }
 
     @Override
@@ -89,6 +97,11 @@ public class EditTextEntryPanel extends javax.swing.JPanel implements TextEntry 
     public void setEditable(boolean editable) {
         textAreaEdit.setEditable(editable);
         textAreaEdit.setBackground(editable ? editableColor : getBackground());
+    }
+
+    @Override
+    public TextEntry clone() {
+        return new TextEntryContent(getText(), column);
     }
 
     /** This method is called from within the constructor to

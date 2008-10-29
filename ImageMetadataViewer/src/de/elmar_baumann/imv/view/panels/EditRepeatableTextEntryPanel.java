@@ -2,6 +2,7 @@ package de.elmar_baumann.imv.view.panels;
 
 import de.elmar_baumann.imv.data.AutoCompleteData;
 import de.elmar_baumann.imv.data.TextEntry;
+import de.elmar_baumann.imv.data.TextEntryContent;
 import de.elmar_baumann.imv.database.metadata.Column;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.view.renderer.ListCellRendererKeywordsEdit;
@@ -65,6 +66,7 @@ public class EditRepeatableTextEntryPanel extends javax.swing.JPanel implements 
     @Override
     public void setText(String text) {
         ListUtil.setToken(text, delimiter, model);
+        textFieldInput.setText("");
         dirty = false;
         setEnabledButtons();
     }
@@ -141,6 +143,16 @@ public class EditRepeatableTextEntryPanel extends javax.swing.JPanel implements 
     private void setEnabledButtons() {
         buttonAddInput.setEnabled(editable && !textFieldInput.getText().isEmpty());
         buttonRemoveSelection.setEnabled(editable && list.getSelectedIndex() >= 0);
+    }
+
+    @Override
+    public void setDirty(boolean dirty) {
+        this.dirty = dirty;
+    }
+
+    @Override
+    public TextEntry clone() {
+        return new TextEntryContent(getText(), column);
     }
 
     /** This method is called from within the constructor to

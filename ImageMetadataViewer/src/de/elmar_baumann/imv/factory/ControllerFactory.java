@@ -25,7 +25,7 @@ import de.elmar_baumann.imv.controller.imagecollection.ControllerRenameImageColl
 import de.elmar_baumann.imv.controller.keywords.ControllerKeywordItemSelected;
 import de.elmar_baumann.imv.controller.metadata.ControllerEmptyMetaData;
 import de.elmar_baumann.imv.controller.metadata.ControllerMetaDataTemplates;
-import de.elmar_baumann.imv.controller.metadata.ControllerSaveMetaData;
+import de.elmar_baumann.imv.controller.metadata.ControllerSaveMetadata;
 import de.elmar_baumann.imv.controller.metadata.ControllerShowMetadata;
 import de.elmar_baumann.imv.controller.metadata.ControllerThumbnailSelectionEditMetadata;
 import de.elmar_baumann.imv.controller.misc.ControllerAdvancedSearch;
@@ -119,7 +119,7 @@ public class ControllerFactory {
         controllers.add(new ControllerAdvancedSearch());
         controllers.add(new ControllerShowMetadata());
         controllers.add(new ControllerThumbnailSelectionEditMetadata());
-        controllers.add(new ControllerSaveMetaData());
+        controllers.add(new ControllerSaveMetadata());
         controllers.add(new ControllerEmptyMetaData());
         controllers.add(new ControllerMetaDataTemplates());
         controllers.add(new ControllerEnableInsertMetaDataTemplate());

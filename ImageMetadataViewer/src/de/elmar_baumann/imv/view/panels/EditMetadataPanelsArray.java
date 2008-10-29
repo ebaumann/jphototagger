@@ -2,6 +2,8 @@ package de.elmar_baumann.imv.view.panels;
 
 import com.adobe.xmp.properties.XMPPropertyInfo;
 import com.imagero.reader.iptc.IPTCEntryMeta;
+import de.elmar_baumann.imv.AppSettings;
+import de.elmar_baumann.imv.controller.metadata.ControllerSaveMetadata;
 import de.elmar_baumann.imv.data.ImageFile;
 import de.elmar_baumann.imv.data.MetaDataEditTemplate;
 import de.elmar_baumann.imv.data.TextEntry;
@@ -31,6 +33,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import javax.swing.JComponent;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -47,7 +50,7 @@ public class EditMetadataPanelsArray implements FocusListener, DatabaseListener 
     private List<JPanel> panels = new ArrayList<JPanel>();
     private List<String> filenames = new ArrayList<String>();
     private List<MetaDataEditPanelListener> listeners = new LinkedList<MetaDataEditPanelListener>();
-    private EditMetaDataActionsPanel metadataEditActionsPanel;
+    private EditMetaDataActionsPanel editActionsPanel;
     private boolean isUseAutocomplete = false;
     private Component lastFocussedComponent;
     private ListenerProvider listenerProvider;
@@ -59,6 +62,33 @@ public class EditMetadataPanelsArray implements FocusListener, DatabaseListener 
         createEditPanels();
         addPanels();
         setFocusToFirstEditField();
+    }
+
+    private void checkDirty() {
+        boolean dirty = false;
+        int size = panels.size();
+        for (int i = 0; !dirty && i < size; i++) {
+            dirty = ((TextEntry) panels.get(i)).isDirty();
+        }
+        if (dirty) {
+            save();
+        }
+    }
+
+    private void save() {
+        if (confirmSave()) {
+            ControllerSaveMetadata.saveMetadata(this);
+        }
+    }
+
+    private boolean confirmSave() {
+        return JOptionPane.showConfirmDialog(
+            null,
+            "Veränderte Metadaten speichern?",
+            "Frage",
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.QUESTION_MESSAGE,
+            AppSettings.getMediumAppIcon()) == JOptionPane.YES_OPTION;
     }
 
     private void notifyActionListener(MetaDataEditPanelEvent evt) {
@@ -114,7 +144,7 @@ public class EditMetadataPanelsArray implements FocusListener, DatabaseListener 
     public List<TextEntry> getTextEntries() {
         List<TextEntry> textEntries = new ArrayList<TextEntry>();
         for (JPanel panel : panels) {
-            textEntries.add((TextEntry) panel);
+            textEntries.add(((TextEntry) panel).clone());
         }
         return textEntries;
     }
@@ -153,14 +183,25 @@ public class EditMetadataPanelsArray implements FocusListener, DatabaseListener 
     }
 
     /**
+     * Sets the edit status.
+     * 
+     * @param dirty  true if changes were made
+     */
+    public void setDirty(boolean dirty) {
+        for (JPanel panel : panels) {
+            ((TextEntry) panel).setDirty(dirty);
+        }
+    }
+
+    /**
      * Setzt IPTC-Einträge in die einzelnen Edit-Felder.
      * 
      * @param filenames Dateinamen, deren Metadaten angezeigt werden
      * @param infos     Zu setzende Einträge
      */
     public void setXmpPropertyInfos(List<String> filenames, List<XMPPropertyInfo> infos) {
-        this.filenames = filenames;
         emptyPanels();
+        this.filenames = filenames;
         IptcXmpMapping mapping = IptcXmpMapping.getInstance();
         XmpMetadata xmpMetaData = new XmpMetadata();
         for (JPanel panel : panels) {
@@ -196,10 +237,10 @@ public class EditMetadataPanelsArray implements FocusListener, DatabaseListener 
     }
 
     private void addActionPanel(GridBagLayout layout) {
-        metadataEditActionsPanel = Panels.getInstance().getAppPanel().getMetaDataEditActionsPanel();
-        layout.setConstraints(metadataEditActionsPanel, getConstraints());
-        container.add(metadataEditActionsPanel);
-        metadataEditActionsPanel.tabbedPane.addFocusListener(this);
+        editActionsPanel = Panels.getInstance().getAppPanel().getMetaDataEditActionsPanel();
+        layout.setConstraints(editActionsPanel, getConstraints());
+        container.add(editActionsPanel);
+        editActionsPanel.tabbedPane.addFocusListener(this);
     }
 
     private GridBagConstraints getConstraints() {
@@ -264,6 +305,7 @@ public class EditMetadataPanelsArray implements FocusListener, DatabaseListener 
      * Leert die Panels.
      */
     public void emptyPanels() {
+        checkDirty();
         for (JPanel panel : panels) {
             TextEntry entry = (TextEntry) panel;
             entry.setText(""); // NOI18N
@@ -272,7 +314,7 @@ public class EditMetadataPanelsArray implements FocusListener, DatabaseListener 
 
     @Override
     public void focusGained(FocusEvent e) {
-        if (e.getComponent() == metadataEditActionsPanel.tabbedPane) {
+        if (e.getComponent() == editActionsPanel.tabbedPane) {
             setFocusToFirstEditField();
         } else {
             lastFocussedComponent = e.getComponent();
