@@ -18,7 +18,7 @@ import javax.swing.DefaultListModel;
  */
 public class ListModelKeywords extends DefaultListModel
     implements DatabaseListener {
-    
+
     private DatabaseImageFiles db = DatabaseImageFiles.getInstance();
 
     public ListModelKeywords() {
@@ -35,17 +35,16 @@ public class ListModelKeywords extends DefaultListModel
 
     @Override
     public void actionPerformed(DatabaseAction action) {
-        DatabaseAction.Type type = action.getType();
-        if (type.equals(DatabaseAction.Type.ImageFileInserted)) {
+        if (action.isImageModified()) {
             checkForNewKeywords(action.getImageFileData());
         }
     }
 
     private void checkForNewKeywords(ImageFile imageFileData) {
-        List<String> categories = getKeywords(imageFileData);
-        for (String category : categories) {
-            if (!contains(category)) {
-                addElement(category);
+        List<String> keywords = getKeywords(imageFileData);
+        for (String keyword : keywords) {
+            if (!contains(keyword)) {
+                addElement(keyword);
             }
         }
     }
