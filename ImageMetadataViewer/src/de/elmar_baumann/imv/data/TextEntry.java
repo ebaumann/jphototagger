@@ -58,4 +58,12 @@ public interface TextEntry {
      * Enables autocomplete.
      */
     public void setAutocomplete();
+    
+    /**
+     * Returns whether the text has been changed since the last call
+     * to {@link #setText(java.lang.String)}.
+     * 
+     * @return true if changed
+     */
+    public boolean isDirty();
 }

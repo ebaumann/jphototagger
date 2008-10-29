@@ -27,6 +27,7 @@ public class EditRepeatableTextEntryPanel extends javax.swing.JPanel implements 
     private AutoCompleteData autoCompleteData;
     private DefaultListModel model = new DefaultListModel();
     private boolean editable = true;
+    private boolean dirty = false;
 
     public EditRepeatableTextEntryPanel(Column column) {
         this.column = column;
@@ -64,6 +65,7 @@ public class EditRepeatableTextEntryPanel extends javax.swing.JPanel implements 
     @Override
     public void setText(String text) {
         ListUtil.setToken(text, delimiter, model);
+        dirty = false;
         setEnabledButtons();
     }
 
@@ -86,8 +88,14 @@ public class EditRepeatableTextEntryPanel extends javax.swing.JPanel implements 
         String input = textFieldInput.getText();
         if (!input.isEmpty() && !model.contains(input)) {
             model.addElement(input);
+            dirty = true;
             ComponentUtil.forceRepaint(getParent());
         }
+    }
+
+    @Override
+    public boolean isDirty() {
+        return dirty;
     }
 
     @Override
@@ -104,6 +112,7 @@ public class EditRepeatableTextEntryPanel extends javax.swing.JPanel implements 
         Object[] values = list.getSelectedValues();
         for (Object value : values) {
             model.removeElement(value);
+            dirty = true;
         }
         ComponentUtil.forceRepaint(getParent());
     }

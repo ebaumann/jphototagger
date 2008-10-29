@@ -19,6 +19,7 @@ public class EditTextEntryPanel extends javax.swing.JPanel implements TextEntry 
 
     private Column column;
     private AutoCompleteData autoCompleteData;
+    private String text;
     private static final Color editableColor = Color.WHITE;
 
     public EditTextEntryPanel(Column column) {
@@ -46,7 +47,13 @@ public class EditTextEntryPanel extends javax.swing.JPanel implements TextEntry 
     }
 
     @Override
+    public boolean isDirty() {
+        return !text.equals(textAreaEdit.getText());
+    }
+
+    @Override
     public void setText(String text) {
+        this.text = text;
         textAreaEdit.setText(text.trim());
     }
 
