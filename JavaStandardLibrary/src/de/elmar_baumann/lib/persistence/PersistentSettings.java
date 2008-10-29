@@ -171,8 +171,6 @@ public class PersistentSettings {
                     Class<?> fieldType = field.getType();
                     if (fieldType.equals(JTabbedPane.class)) {
                         getTabbedPane((JTabbedPane) field.get(component), key, hints);
-                    } else if (fieldType.equals(JSplitPane.class)) {
-                        getSplitPane((JSplitPane) field.get(component), key);
                     } else if (fieldType.equals(JTable.class)) {
                         getTable((JTable) field.get(component), key);
                     } else if (fieldType.equals(JTree.class)) {
