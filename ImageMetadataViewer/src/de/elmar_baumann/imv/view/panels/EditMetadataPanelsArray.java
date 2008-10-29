@@ -9,11 +9,13 @@ import de.elmar_baumann.imv.data.MetaDataEditTemplate;
 import de.elmar_baumann.imv.data.TextEntry;
 import de.elmar_baumann.imv.data.Xmp;
 import de.elmar_baumann.imv.data.AutoCompleteUtil;
+import de.elmar_baumann.imv.database.DatabaseImageFiles;
 import de.elmar_baumann.imv.database.metadata.Column;
 import de.elmar_baumann.imv.database.metadata.selections.EditHints;
 import de.elmar_baumann.imv.database.metadata.selections.EditHints.SizeEditField;
 import de.elmar_baumann.imv.database.metadata.selections.EditColumns;
 import de.elmar_baumann.imv.database.metadata.mapping.IptcXmpMapping;
+import de.elmar_baumann.imv.event.AppExitListener;
 import de.elmar_baumann.imv.event.DatabaseAction;
 import de.elmar_baumann.imv.event.DatabaseListener;
 import de.elmar_baumann.imv.event.ListenerProvider;
@@ -43,7 +45,8 @@ import javax.swing.JTextField;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public class EditMetadataPanelsArray implements FocusListener, DatabaseListener {
+public class EditMetadataPanelsArray implements FocusListener, DatabaseListener,
+    AppExitListener {
 
     boolean editable = true;
     private JComponent container;
@@ -62,6 +65,7 @@ public class EditMetadataPanelsArray implements FocusListener, DatabaseListener 
         createEditPanels();
         addPanels();
         setFocusToFirstEditField();
+        listenToActionSources();
     }
 
     private void checkDirty() {
@@ -236,6 +240,11 @@ public class EditMetadataPanelsArray implements FocusListener, DatabaseListener 
         addActionPanel(layout);
     }
 
+    private void listenToActionSources() {
+        DatabaseImageFiles.getInstance().addDatabaseListener(this);
+        Panels.getInstance().getAppFrame().addAppExitListener(this);
+    }
+
     private void addActionPanel(GridBagLayout layout) {
         editActionsPanel = Panels.getInstance().getAppPanel().getMetaDataEditActionsPanel();
         layout.setConstraints(editActionsPanel, getConstraints());
@@ -358,6 +367,11 @@ public class EditMetadataPanelsArray implements FocusListener, DatabaseListener 
                 AutoCompleteUtil.addData(xmp, p.getColumn(), p.getAutoCompleteData());
             }
         }
+    }
+
+    @Override
+    public void appWillExit() {
+        checkDirty();
     }
 }
 
