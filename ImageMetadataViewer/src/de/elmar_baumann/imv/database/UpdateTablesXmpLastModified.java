@@ -20,20 +20,24 @@ public class UpdateTablesXmpLastModified {
     private ProgressDialog dialog = messages.getProgressDialog();
 
     synchronized void update(Connection connection) throws SQLException {
-        removeColumnXmpLastModified(connection);
-        addColumnXmpLastModified(connection);
+        removeColumnXmpLastModifiedFromTableXmp(connection);
+        addColumnXmpLastModifiedToTableFiles(connection);
     }
 
-    synchronized private void removeColumnXmpLastModified(Connection connection) throws SQLException {
-        if (DatabaseMetadata.getInstance().existsColumn(connection, "xmp", "lastmodified")) {
+    synchronized private void removeColumnXmpLastModifiedFromTableXmp(
+        Connection connection) throws SQLException {
+        if (DatabaseMetadata.getInstance().existsColumn(
+            connection, "xmp", "lastmodified")) {
             Statement stmt = connection.createStatement();
             messages.message(Bundle.getString("UpdateTables.InfoMessage.RemoveColumnXmpLastModified"));
-            stmt.execute("ALTER TABLE xmp DROP COLUMN lastmodified");
+            stmt.execute("ALTER TABLE xmp DROP COLUMN lastmodified"); // NOI18N
         }
     }
 
-    synchronized private void addColumnXmpLastModified(Connection connection) throws SQLException {
-        if (!DatabaseMetadata.getInstance().existsColumn(connection, "files", "xmp_lastmodified")) { // NOI18N
+    synchronized private void addColumnXmpLastModifiedToTableFiles(
+        Connection connection) throws SQLException {
+        if (!DatabaseMetadata.getInstance().existsColumn(
+            connection, "files", "xmp_lastmodified")) { // NOI18N
             Statement stmt = connection.createStatement();
             messages.message(Bundle.getString("UpdateTables.InfoMessage.AddColumnXmpLastModified.AddColumn"));
             stmt.execute("ALTER TABLE files ADD COLUMN xmp_lastmodified BIGINT"); // NOI18N
@@ -41,20 +45,23 @@ public class UpdateTablesXmpLastModified {
         }
     }
 
-//      too slow and no feedback
-//        stmt.executeUpdate("UPDATE xmp SET xmp.lastmodified = " +
-//            " SELECT files.lastmodified FROM files WHERE xmp.id_files = files.id");
-    synchronized private void copyLastModifiedToXmp(Connection connection) throws SQLException {
-        setDialogCopyLastModifiedToXmp();
+    // too slow and no feedback: "UPDATE files SET xmp_lastmodified = lastmodified"
+    synchronized private void copyLastModifiedToXmp(
+        Connection connection) throws SQLException {
+        setProgressDialog();
         Statement stmtQueryXmp = connection.createStatement();
         PreparedStatement stmtUpdate = connection.prepareStatement(
-            "UPDATE files SET xmp_lastmodified = ?");
+            "UPDATE files SET xmp_lastmodified = ? WHERE id = ?");
         long lastModified = -1;
+        long idFiles = -1;
         int count = 0;
-        ResultSet rsXmp = stmtQueryXmp.executeQuery("SELECT lastmodified, xmp_lastmodified FROM files");
-        while (rsXmp.next()) {
-            lastModified = rsXmp.getLong(1);
+        ResultSet rsQuery = stmtQueryXmp.executeQuery(
+            "SELECT id, lastmodified FROM files"); // NOI18N
+        while (rsQuery.next()) {
+            idFiles = rsQuery.getLong(1);
+            lastModified = rsQuery.getLong(2);
             stmtUpdate.setLong(1, lastModified);
+            stmtUpdate.setLong(2, idFiles);
             stmtUpdate.execute();
             dialog.setValue(++count);
         }
@@ -62,7 +69,7 @@ public class UpdateTablesXmpLastModified {
         stmtUpdate.close();
     }
 
-    private void setDialogCopyLastModifiedToXmp() {
+    private void setProgressDialog() {
         messages.message(Bundle.getString("UpdateTables.InfoMessage.AddColumnXmpLastModified.SetLastModified"));
         dialog.setIntermediate(false);
         dialog.setMinimum(0);
