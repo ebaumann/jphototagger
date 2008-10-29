@@ -26,7 +26,7 @@ public class EditRepeatableTextEntryPanel extends javax.swing.JPanel implements 
 
     private Column column;
     private static final String delimiter = XmpMetadata.getArrayItemDelimiter();
-    private static final String delimiterReplacement = " ";
+    private static final String delimiterReplacement = "?";
     private AutoCompleteData autoCompleteData;
     private DefaultListModel model = new DefaultListModel();
     private boolean editable = true;
@@ -89,12 +89,17 @@ public class EditRepeatableTextEntryPanel extends javax.swing.JPanel implements 
     }
 
     private void addInputToList() {
-        String input = textFieldInput.getText();
+        String input = getInputWithoutDelimiter();
         if (!input.isEmpty() && !model.contains(input)) {
-            model.addElement(input.replaceAll(delimiter, delimiterReplacement));
+            model.addElement(input);
             dirty = true;
             ComponentUtil.forceRepaint(getParent().getParent());
         }
+    }
+
+    private String getInputWithoutDelimiter() {
+        String input = textFieldInput.getText().trim();
+        return input.replace(delimiter, delimiterReplacement).trim();
     }
 
     @Override
