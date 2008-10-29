@@ -67,7 +67,7 @@ public class ControllerThumbnailSelectionEditMetadata extends Controller
         labelMetadataInfoEditable.setText(
             canEdit
             ? multipleThumbnailsSelected()
-            ? Bundle.getString("ControllerThumbnailSelectionEditMetadata.InformationMessage.MetaDataEditAddOnlyChanges")
+            ? Bundle.getString("ControllerThumbnailSelectionEditMetadata.InformationMessage.MetadataEditAddOnlyChanges")
             : Bundle.getString("ControllerThumbnailSelectionEditMetadata.InformationMessage.EditIsEnabled")
             : Bundle.getString("ControllerThumbnailSelectionEditMetadata.InformationMessage.EditIsDisabled"));
     }
@@ -89,8 +89,8 @@ public class ControllerThumbnailSelectionEditMetadata extends Controller
     private void setEditPanelsContent() {
         List<String> filenames = FileUtil.getAsFilenames(thumbnailsPanel.getSelectedFiles());
         if (filenames.size() == 1) {
-            XmpMetadata xmpMetaData = new XmpMetadata();
-            List<XMPPropertyInfo> xmpPropertyInfos = xmpMetaData.getPropertyInfosOfFile(filenames.get(0));
+            XmpMetadata xmpMetadata = new XmpMetadata();
+            List<XMPPropertyInfo> xmpPropertyInfos = xmpMetadata.getPropertyInfosOfFile(filenames.get(0));
 
             if (xmpPropertyInfos != null && xmpPropertyInfos.size() > 0) {
                 editPanels.setXmpPropertyInfos(filenames, xmpPropertyInfos);

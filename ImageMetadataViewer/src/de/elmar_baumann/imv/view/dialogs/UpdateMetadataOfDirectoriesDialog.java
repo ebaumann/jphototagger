@@ -30,28 +30,28 @@ import javax.swing.DefaultListModel;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public class UpdateMetaDataOfDirectoriesDialog extends Dialog
+public class UpdateMetadataOfDirectoriesDialog extends Dialog
     implements ProgressListener {
 
     private final String keyLastDirectory = "de.elmar_baumann.imv.view.ScanDirectoriesDialog.lastSelectedDirectory"; // NOI18N
     private final String keyForce = "de.elmar_baumann.imv.view.ScanDirectoriesDialog.force"; // NOI18N
     private final String keySubdirectories = "de.elmar_baumann.imv.view.ScanDirectoriesDialog.subdirectories"; // NOI18N
-    private final String title = Bundle.getString("UpdateMetaDataOfDirectoriesDialog.Title");
-    private final String currentFilenameInfotextPrefix = Bundle.getString("UpdateMetaDataOfDirectoriesDialog.InformationMessage.UpdateCurrentFile");
+    private final String title = Bundle.getString("UpdateMetadataOfDirectoriesDialog.Title");
+    private final String currentFilenameInfotextPrefix = Bundle.getString("UpdateMetadataOfDirectoriesDialog.InformationMessage.UpdateCurrentFile");
     private List<File> selectedFiles = new ArrayList<File>();
     private ImageMetadataToDatabase activeScanner;
     private File lastSelectedDirectory = new File(""); // NOI18N
     private DefaultListModel modelSelectedDirectoryList = new DefaultListModel();
     private int countSelectedFiles = 0;
-    private static UpdateMetaDataOfDirectoriesDialog instance = new UpdateMetaDataOfDirectoriesDialog();
+    private static UpdateMetadataOfDirectoriesDialog instance = new UpdateMetadataOfDirectoriesDialog();
 
-    private UpdateMetaDataOfDirectoriesDialog() {
+    private UpdateMetadataOfDirectoriesDialog() {
         super((Frame) null, false);
         initComponents();
         postInitComponents();
     }
 
-    public static UpdateMetaDataOfDirectoriesDialog getInstance() {
+    public static UpdateMetadataOfDirectoriesDialog getInstance() {
         return instance;
     }
 
@@ -64,7 +64,7 @@ public class UpdateMetaDataOfDirectoriesDialog extends Dialog
     }
 
     private void addFilecountToTitle() {
-        MessageFormat message = new MessageFormat(Bundle.getString("UpdateMetaDataOfDirectoriesDialog.InfoMessage.Title.FileCount"));
+        MessageFormat message = new MessageFormat(Bundle.getString("UpdateMetadataOfDirectoriesDialog.InfoMessage.Title.FileCount"));
         Object[] params = {selectedFiles.size()};
         setTitle(title + message.format(params));
     }
@@ -127,9 +127,9 @@ public class UpdateMetaDataOfDirectoriesDialog extends Dialog
     }
 
     private void messageThreadPriority(Thread thread) {
-        MessageFormat message = new MessageFormat(Bundle.getString("UpdateMetaDataOfDirectoriesDialog.InfoMessage.ThreadPriority"));
+        MessageFormat message = new MessageFormat(Bundle.getString("UpdateMetadataOfDirectoriesDialog.InfoMessage.ThreadPriority"));
         Object[] params = {thread.getPriority()};
-        Logger.getLogger(UpdateMetaDataOfDirectoriesDialog.class.getName()).log(Level.FINE, message.format(params));
+        Logger.getLogger(UpdateMetadataOfDirectoriesDialog.class.getName()).log(Level.FINE, message.format(params));
     }
 
     private void readPersistent() {
@@ -185,7 +185,7 @@ public class UpdateMetaDataOfDirectoriesDialog extends Dialog
     }
 
     private void setFileCountInfo() {
-        MessageFormat message = new MessageFormat(Bundle.getString("UpdateMetaDataOfDirectoriesDialog.InfoMessage.SelectedFileCount"));
+        MessageFormat message = new MessageFormat(Bundle.getString("UpdateMetadataOfDirectoriesDialog.InfoMessage.SelectedFileCount"));
         Object[] params = {countSelectedFiles};
         labelCountSelectedFiles.setText(message.format(params));
     }
@@ -322,7 +322,7 @@ public class UpdateMetaDataOfDirectoriesDialog extends Dialog
     @Override
     public void progressEnded(ProgressEvent evt) {
         progressBar.setValue(evt.getValue());
-        Logger.getLogger(UpdateMetaDataOfDirectoriesDialog.class.getName()).log(Level.FINE, Bundle.getString("UpdateMetaDataOfDirectoriesDialog.InformationMessage.UdateCompleted"));
+        Logger.getLogger(UpdateMetadataOfDirectoriesDialog.class.getName()).log(Level.FINE, Bundle.getString("UpdateMetadataOfDirectoriesDialog.InformationMessage.UdateCompleted"));
         listSelectedDirectories.setEnabled(true);
         setButtonStatus(false);
         setCheckboxStatus(false);
@@ -334,8 +334,8 @@ public class UpdateMetaDataOfDirectoriesDialog extends Dialog
         boolean isTime = remainingMinutes > 0;
         MessageFormat message = new MessageFormat(
             isTime
-            ? Bundle.getString("UpdateMetaDataOfDirectoriesDialog.InfoMessage.ProgressWithTime")
-            : Bundle.getString("UpdateMetaDataOfDirectoriesDialog.InfoMessage.ProgressWithoutTime"));
+            ? Bundle.getString("UpdateMetadataOfDirectoriesDialog.InfoMessage.ProgressWithTime")
+            : Bundle.getString("UpdateMetadataOfDirectoriesDialog.InfoMessage.ProgressWithoutTime"));
         Object[] params = {currentFilenameInfotextPrefix, evt.getInfo(), remainingMinutes};
         labelCurrentFilename.setText(message.format(params));
     }
@@ -381,7 +381,7 @@ public class UpdateMetaDataOfDirectoriesDialog extends Dialog
         });
 
         labelInfotext.setFont(new java.awt.Font("Dialog", 0, 12));
-        labelInfotext.setText(Bundle.getString("UpdateMetaDataOfDirectoriesDialog.labelInfotext.text")); // NOI18N
+        labelInfotext.setText(Bundle.getString("UpdateMetadataOfDirectoriesDialog.labelInfotext.text")); // NOI18N
 
         progressBar.setFont(new java.awt.Font("Dialog", 0, 12));
         progressBar.setFocusable(false);
@@ -393,7 +393,7 @@ public class UpdateMetaDataOfDirectoriesDialog extends Dialog
         labelCurrentFilename.setPreferredSize(new java.awt.Dimension(4, 20));
 
         labelHeadingTreeChosenDirectories.setFont(new java.awt.Font("Dialog", 0, 12));
-        labelHeadingTreeChosenDirectories.setText(Bundle.getString("UpdateMetaDataOfDirectoriesDialog.labelHeadingTreeChosenDirectories.text")); // NOI18N
+        labelHeadingTreeChosenDirectories.setText(Bundle.getString("UpdateMetadataOfDirectoriesDialog.labelHeadingTreeChosenDirectories.text")); // NOI18N
 
         listSelectedDirectories.setFont(new java.awt.Font("Dialog", 0, 12));
         listSelectedDirectories.setModel(modelSelectedDirectoryList);
@@ -407,7 +407,7 @@ public class UpdateMetaDataOfDirectoriesDialog extends Dialog
 
         buttonChooseDirectory.setFont(new java.awt.Font("Dialog", 0, 12));
         buttonChooseDirectory.setMnemonic('v');
-        buttonChooseDirectory.setText(Bundle.getString("UpdateMetaDataOfDirectoriesDialog.buttonChooseDirectory.text")); // NOI18N
+        buttonChooseDirectory.setText(Bundle.getString("UpdateMetadataOfDirectoriesDialog.buttonChooseDirectory.text")); // NOI18N
         buttonChooseDirectory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonChooseDirectoryActionPerformed(evt);
@@ -416,7 +416,7 @@ public class UpdateMetaDataOfDirectoriesDialog extends Dialog
 
         buttonScan.setFont(new java.awt.Font("Dialog", 0, 12));
         buttonScan.setMnemonic('m');
-        buttonScan.setText(Bundle.getString("UpdateMetaDataOfDirectoriesDialog.buttonScan.text")); // NOI18N
+        buttonScan.setText(Bundle.getString("UpdateMetadataOfDirectoriesDialog.buttonScan.text")); // NOI18N
         buttonScan.setEnabled(false);
         buttonScan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -426,7 +426,7 @@ public class UpdateMetaDataOfDirectoriesDialog extends Dialog
 
         buttonCancelScan.setFont(new java.awt.Font("Dialog", 0, 12));
         buttonCancelScan.setMnemonic('b');
-        buttonCancelScan.setText(Bundle.getString("UpdateMetaDataOfDirectoriesDialog.buttonCancelScan.text")); // NOI18N
+        buttonCancelScan.setText(Bundle.getString("UpdateMetadataOfDirectoriesDialog.buttonCancelScan.text")); // NOI18N
         buttonCancelScan.setEnabled(false);
         buttonCancelScan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -436,7 +436,7 @@ public class UpdateMetaDataOfDirectoriesDialog extends Dialog
 
         checkBoxIncludeSubdirectories.setFont(new java.awt.Font("Dialog", 0, 12));
         checkBoxIncludeSubdirectories.setSelected(true);
-        checkBoxIncludeSubdirectories.setText(Bundle.getString("UpdateMetaDataOfDirectoriesDialog.checkBoxIncludeSubdirectories.text")); // NOI18N
+        checkBoxIncludeSubdirectories.setText(Bundle.getString("UpdateMetadataOfDirectoriesDialog.checkBoxIncludeSubdirectories.text")); // NOI18N
 
         labelCountSelectedFiles.setFont(new java.awt.Font("Dialog", 0, 10));
         labelCountSelectedFiles.setForeground(new java.awt.Color(0, 153, 0));
@@ -444,7 +444,7 @@ public class UpdateMetaDataOfDirectoriesDialog extends Dialog
         labelCountSelectedFiles.setPreferredSize(new java.awt.Dimension(4, 20));
 
         checkBoxForce.setFont(new java.awt.Font("Dialog", 0, 12));
-        checkBoxForce.setText(Bundle.getString("UpdateMetaDataOfDirectoriesDialog.checkBoxForce.text")); // NOI18N
+        checkBoxForce.setText(Bundle.getString("UpdateMetadataOfDirectoriesDialog.checkBoxForce.text")); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -528,7 +528,7 @@ private void listSelectedDirectoriesKeyReleased(java.awt.event.KeyEvent evt) {//
             java.awt.EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
-                    UpdateMetaDataOfDirectoriesDialog dialog = new UpdateMetaDataOfDirectoriesDialog();
+                    UpdateMetadataOfDirectoriesDialog dialog = new UpdateMetadataOfDirectoriesDialog();
                     dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                         @Override
                         public void windowClosing(java.awt.event.WindowEvent e) {

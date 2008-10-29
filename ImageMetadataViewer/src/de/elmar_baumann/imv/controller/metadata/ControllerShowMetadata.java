@@ -3,7 +3,7 @@ package de.elmar_baumann.imv.controller.metadata;
 import com.adobe.xmp.XMPConst;
 import com.adobe.xmp.properties.XMPPropertyInfo;
 import de.elmar_baumann.imv.controller.Controller;
-import de.elmar_baumann.imv.data.MetaDataDisplay;
+import de.elmar_baumann.imv.data.MetadataDisplay;
 import de.elmar_baumann.imv.database.DatabaseImageFiles;
 import de.elmar_baumann.imv.event.DatabaseAction;
 import de.elmar_baumann.imv.event.DatabaseListener;
@@ -37,7 +37,7 @@ public class ControllerShowMetadata extends Controller
 
     private Map<TableModelXmp, String[]> namespacesOfXmpTableModel = new HashMap<TableModelXmp, String[]>();
     private AppPanel appPanel = Panels.getInstance().getAppPanel();
-    private MetaDataDisplay data = new MetaDataDisplay();
+    private MetadataDisplay data = new MetadataDisplay();
 
     public ControllerShowMetadata() {
         initData();
@@ -46,7 +46,7 @@ public class ControllerShowMetadata extends Controller
     }
 
     private void initData() {
-        data.metadataTables = appPanel.getMetaDataTables();
+        data.metadataTables = appPanel.getMetadataTables();
         data.xmpTables = appPanel.getXmpTables();
         data.iptcTableModel = (TableModelIptc) appPanel.getTableIptc().getModel();
         data.exifTableModel = (TableModelExif) appPanel.getTableExif().getModel();
@@ -104,7 +104,7 @@ public class ControllerShowMetadata extends Controller
     public void selectionChanged(ThumbnailsPanelAction action) {
         if (isControl()) {
             if (data.thumbnailsPanel.getSelectionCount() == 1) {
-                showMetaDataOfFile(data.thumbnailsPanel.getFile(action.getThumbnailIndex()));
+                showMetadataOfFile(data.thumbnailsPanel.getFile(action.getThumbnailIndex()));
             } else {
                 emptyMetadata();
             }
@@ -142,7 +142,7 @@ public class ControllerShowMetadata extends Controller
         data.exifTableModel.removeAllElements();
     }
 
-    public void showMetaDataOfFile(File file) {
+    public void showMetadataOfFile(File file) {
         removeMetadataFromTables();
         setFileToTableModels(file);
         setXmpModels(file.getAbsolutePath());
@@ -202,7 +202,7 @@ public class ControllerShowMetadata extends Controller
         if (data.thumbnailsPanel.getSelectionCount() == 1) {
             File selectedFile = data.thumbnailsPanel.getSelectedFiles().get(0);
             if (file.equals(selectedFile)) {
-                showMetaDataOfFile(selectedFile);
+                showMetadataOfFile(selectedFile);
             }
         }
     }

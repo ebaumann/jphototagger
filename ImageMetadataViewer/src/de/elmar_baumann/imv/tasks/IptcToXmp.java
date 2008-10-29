@@ -49,7 +49,7 @@ public class IptcToXmp implements Runnable {
                 xmp = new Xmp();
             }
             xmp.setIptc(iptc, false);
-            xmpMeta.writeMetaDataToSidecarFile(sidecarFilename, xmp);
+            xmpMeta.writeMetadataToSidecarFile(sidecarFilename, xmp);
             notifyPerformed(index);
         }
         notifyEnd(index);

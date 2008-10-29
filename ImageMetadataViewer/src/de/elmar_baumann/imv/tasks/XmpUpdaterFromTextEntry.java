@@ -67,7 +67,7 @@ public class XmpUpdaterFromTextEntry implements Runnable {
         for (int i = 0; !stop && i < count; i++) {
             String filename = filenames.get(i);
             String sidecarFilename = XmpMetadata.suggestSidecarFilename(filename);
-            if (meta.writeMetaDataToSidecarFile(sidecarFilename, textEntries,
+            if (meta.writeMetadataToSidecarFile(sidecarFilename, textEntries,
                 deleteEmpty, append)) {
                 updateDatabase(sidecarFilename);
             }

@@ -16,7 +16,7 @@ import javax.swing.JTable;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/25
  */
-public class MetaDataDisplay {
+public class MetadataDisplay {
 
     public List<JTable> metadataTables;
     public List<JTable> xmpTables;

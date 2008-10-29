@@ -30,7 +30,7 @@ import javax.swing.JProgressBar;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public class ControllerCreateMetaDataOfSelectedThumbnails extends Controller
+public class ControllerCreateMetadataOfSelectedThumbnails extends Controller
     implements ActionListener, ProgressListener {
 
     private Queue<ImageMetadataToDatabase> updaters = new ConcurrentLinkedQueue<ImageMetadataToDatabase>();
@@ -43,7 +43,7 @@ public class ControllerCreateMetaDataOfSelectedThumbnails extends Controller
     /**
      * Konstruktor. <em>Nur eine Instanz erzeugen!</em>
      */
-    public ControllerCreateMetaDataOfSelectedThumbnails() {
+    public ControllerCreateMetadataOfSelectedThumbnails() {
         listenToActionSources();
     }
 

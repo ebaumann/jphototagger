@@ -6,12 +6,12 @@ package de.elmar_baumann.imv.event;
  *
  * @author Elmar Baumann <eb@elmar-baumann.de>
  */
-public interface MetaDataEditPanelListener {
+public interface MetadataEditPanelListener {
 
     /**
      * Ein Ereignis fand statt.
      * 
      * @param event  Ereignis
      */
-    public void actionPerformed(MetaDataEditPanelEvent event);
+    public void actionPerformed(MetadataEditPanelEvent event);
 }

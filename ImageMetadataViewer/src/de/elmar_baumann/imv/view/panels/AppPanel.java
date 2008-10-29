@@ -45,7 +45,7 @@ public class AppPanel extends javax.swing.JPanel implements AppExitListener {
     private List<JTree> selectionTrees = new ArrayList<JTree>();
     private List<JList> selectionLists = new ArrayList<JList>();
     private EditMetadataPanelsArray editPanelsArray;
-    private EditMetaDataActionsPanel editActionsPanel;
+    private EditMetadataActionsPanel editActionsPanel;
     private static final String keyDividerLocationMain = "AppPanel.DividerLocationMain";
     private static final String keyDividerLocationThumbnails = "AppPanel.DividerLocationThumbnails";
     private static final int minDividerLocationMain = 100;
@@ -75,9 +75,9 @@ public class AppPanel extends javax.swing.JPanel implements AppExitListener {
         return editPanelsArray;
     }
 
-    public EditMetaDataActionsPanel getMetaDataEditActionsPanel() {
+    public EditMetadataActionsPanel getMetadataEditActionsPanel() {
         if (editActionsPanel == null) {
-            editActionsPanel = new EditMetaDataActionsPanel();
+            editActionsPanel = new EditMetadataActionsPanel();
         }
         return editActionsPanel;
     }
@@ -91,7 +91,7 @@ public class AppPanel extends javax.swing.JPanel implements AppExitListener {
     }
 
     public JTabbedPane getTabbedPaneMetadata() {
-        return tabbedPaneMetaData;
+        return tabbedPaneMetadata;
     }
 
     public JTabbedPane getTabbedPaneSelection() {
@@ -111,7 +111,7 @@ public class AppPanel extends javax.swing.JPanel implements AppExitListener {
     }
 
     public Component getTabMetadataEdit() {
-        return panelTabEditMetaData;
+        return panelTabEditMetadata;
     }
 
     public Component getTabSelectionDirectories() {
@@ -138,8 +138,8 @@ public class AppPanel extends javax.swing.JPanel implements AppExitListener {
         return panelSelectionCategories;
     }
 
-    public JProgressBar getProgressBarCreateMetaDataOfCurrentThumbnails() {
-        return progressBarCreateMetaDataOfCurrentThumbnails;
+    public JProgressBar getProgressBarCreateMetadataOfCurrentThumbnails() {
+        return progressBarCreateMetadataOfCurrentThumbnails;
     }
 
     /**
@@ -206,32 +206,32 @@ public class AppPanel extends javax.swing.JPanel implements AppExitListener {
         return editActionsPanel.buttonEmptyMetadata;
     }
 
-    public JButton getButtonMetaDataTemplateCreate() {
-        return editActionsPanel.buttonMetaDataTemplateCreate;
+    public JButton getButtonMetadataTemplateCreate() {
+        return editActionsPanel.buttonMetadataTemplateCreate;
     }
 
-    public JButton getButtonMetaDataTemplateUpdate() {
-        return editActionsPanel.buttonMetaDataTemplateUpdate;
+    public JButton getButtonMetadataTemplateUpdate() {
+        return editActionsPanel.buttonMetadataTemplateUpdate;
     }
 
-    public JButton getButtonMetaDataTemplateRename() {
-        return editActionsPanel.buttonMetaDataTemplateRename;
+    public JButton getButtonMetadataTemplateRename() {
+        return editActionsPanel.buttonMetadataTemplateRename;
     }
 
-    public JButton getButtonMetaDataTemplateInsert() {
-        return editActionsPanel.buttonMetaDataTemplateInsert;
+    public JButton getButtonMetadataTemplateInsert() {
+        return editActionsPanel.buttonMetadataTemplateInsert;
     }
 
-    public JButton getButtonMetaDataTemplateDelete() {
-        return editActionsPanel.buttonMetaDataTemplateDelete;
+    public JButton getButtonMetadataTemplateDelete() {
+        return editActionsPanel.buttonMetadataTemplateDelete;
     }
 
     public JButton getButtonStopScheduledTasks() {
         return buttonStopScheduledTasks;
     }
 
-    public JComboBox getComboBoxMetaDataTemplates() {
-        return editActionsPanel.comboBoxMetaDataTemplates;
+    public JComboBox getComboBoxMetadataTemplates() {
+        return editActionsPanel.comboBoxMetadataTemplates;
     }
 
     public JLabel getLabelMetadataInfoEditable() {
@@ -254,7 +254,7 @@ public class AppPanel extends javax.swing.JPanel implements AppExitListener {
         return editPanelsArray;
     }
 
-    public List<JTable> getMetaDataTables() {
+    public List<JTable> getMetadataTables() {
         return metadataTables;
     }
 
@@ -304,10 +304,10 @@ public class AppPanel extends javax.swing.JPanel implements AppExitListener {
 
     private void initTableArrays() {
         initXmpTableArray();
-        initMetaDataTablesArray();
+        initMetadataTablesArray();
     }
 
-    private void initMetaDataTablesArray() {
+    private void initMetadataTablesArray() {
         metadataTables.addAll(xmpTables);
         metadataTables.add(tableExif);
         metadataTables.add(tableIptc);
@@ -423,7 +423,7 @@ public class AppPanel extends javax.swing.JPanel implements AppExitListener {
         panelThumbnails = new de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel();
         panelMetadata = new javax.swing.JPanel();
         labelMetadataFilename = new javax.swing.JLabel();
-        tabbedPaneMetaData = new javax.swing.JTabbedPane();
+        tabbedPaneMetadata = new javax.swing.JTabbedPane();
         scrollPaneIptc = new javax.swing.JScrollPane();
         tableIptc = new javax.swing.JTable();
         scrollPaneExif = new javax.swing.JScrollPane();
@@ -445,15 +445,15 @@ public class AppPanel extends javax.swing.JPanel implements AppExitListener {
         tableXmpLightroom = new javax.swing.JTable();
         scrollPaneXmpCameraRawSettings = new javax.swing.JScrollPane();
         tableXmpCameraRawSettings = new javax.swing.JTable();
-        panelTabEditMetaData = new javax.swing.JPanel();
-        panelScrollPaneEditMetaData = new javax.swing.JPanel();
+        panelTabEditMetadata = new javax.swing.JPanel();
+        panelScrollPaneEditMetadata = new javax.swing.JPanel();
         scrollPaneEditMetadata = new javax.swing.JScrollPane();
         panelEditMetadata = new javax.swing.JPanel();
         panelStatusbar = new javax.swing.JPanel();
         sliderThumbnailSize = new javax.swing.JSlider();
         buttonLogfileDialog = new javax.swing.JButton();
         labelStatusbar = new javax.swing.JLabel();
-        progressBarCreateMetaDataOfCurrentThumbnails = new javax.swing.JProgressBar();
+        progressBarCreateMetadataOfCurrentThumbnails = new javax.swing.JProgressBar();
         progressBarCurrentTasks = new javax.swing.JProgressBar();
         textFieldSearch = new javax.swing.JTextField();
         panelMetadataProgress = new javax.swing.JPanel();
@@ -475,7 +475,7 @@ public class AppPanel extends javax.swing.JPanel implements AppExitListener {
         );
         panelSelectionDirectoriesLayout.setVerticalGroup(
             panelSelectionDirectoriesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPaneDirectories, javax.swing.GroupLayout.DEFAULT_SIZE, 325, Short.MAX_VALUE)
+            .addComponent(scrollPaneDirectories, javax.swing.GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE)
         );
 
         tabbedPaneSelection.addTab(Bundle.getString("AppPanel.panelSelectionDirectories.TabConstraints.tabTitle"), panelSelectionDirectories); // NOI18N
@@ -492,7 +492,7 @@ public class AppPanel extends javax.swing.JPanel implements AppExitListener {
         );
         panelSelectionSavedSearchesLayout.setVerticalGroup(
             panelSelectionSavedSearchesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPaneSavedSearches, javax.swing.GroupLayout.DEFAULT_SIZE, 325, Short.MAX_VALUE)
+            .addComponent(scrollPaneSavedSearches, javax.swing.GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE)
         );
 
         tabbedPaneSelection.addTab(Bundle.getString("AppPanel.panelSelectionSavedSearches.TabConstraints.tabTitle"), panelSelectionSavedSearches); // NOI18N
@@ -511,7 +511,7 @@ public class AppPanel extends javax.swing.JPanel implements AppExitListener {
         );
         panelSelectionImageCollectionsLayout.setVerticalGroup(
             panelSelectionImageCollectionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPaneImageCollections, javax.swing.GroupLayout.DEFAULT_SIZE, 325, Short.MAX_VALUE)
+            .addComponent(scrollPaneImageCollections, javax.swing.GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE)
         );
 
         tabbedPaneSelection.addTab(Bundle.getString("AppPanel.panelSelectionImageCollections.TabConstraints.tabTitle"), panelSelectionImageCollections); // NOI18N
@@ -529,7 +529,7 @@ public class AppPanel extends javax.swing.JPanel implements AppExitListener {
         );
         panelSelectionCategoriesLayout.setVerticalGroup(
             panelSelectionCategoriesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPaneCategories, javax.swing.GroupLayout.DEFAULT_SIZE, 325, Short.MAX_VALUE)
+            .addComponent(scrollPaneCategories, javax.swing.GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE)
         );
 
         tabbedPaneSelection.addTab(Bundle.getString("AppPanel.panelSelectionCategories.TabConstraints.tabTitle"), panelSelectionCategories); // NOI18N
@@ -551,9 +551,9 @@ public class AppPanel extends javax.swing.JPanel implements AppExitListener {
         );
         panelSelectionFavoriteDirectoriesLayout.setVerticalGroup(
             panelSelectionFavoriteDirectoriesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 325, Short.MAX_VALUE)
+            .addGap(0, 293, Short.MAX_VALUE)
             .addGroup(panelSelectionFavoriteDirectoriesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(scrollPaneFavoriteDirectories, javax.swing.GroupLayout.DEFAULT_SIZE, 325, Short.MAX_VALUE))
+                .addComponent(scrollPaneFavoriteDirectories, javax.swing.GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE))
         );
 
         tabbedPaneSelection.addTab(Bundle.getString("AppPanel.panelSelectionFavoriteDirectories.TabConstraints.tabTitle"), panelSelectionFavoriteDirectories); // NOI18N
@@ -572,9 +572,9 @@ public class AppPanel extends javax.swing.JPanel implements AppExitListener {
         );
         panelKeywordsLayout.setVerticalGroup(
             panelKeywordsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 325, Short.MAX_VALUE)
+            .addGap(0, 293, Short.MAX_VALUE)
             .addGroup(panelKeywordsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(scrollPaneKeywords, javax.swing.GroupLayout.DEFAULT_SIZE, 325, Short.MAX_VALUE))
+                .addComponent(scrollPaneKeywords, javax.swing.GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE))
         );
 
         tabbedPaneSelection.addTab(Bundle.getString("AppPanel.panelKeywords.TabConstraints.tabTitle"), panelKeywords); // NOI18N
@@ -600,11 +600,11 @@ public class AppPanel extends javax.swing.JPanel implements AppExitListener {
         panelThumbnails.setLayout(panelThumbnailsLayout);
         panelThumbnailsLayout.setHorizontalGroup(
             panelThumbnailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 18, Short.MAX_VALUE)
+            .addGap(0, 19, Short.MAX_VALUE)
         );
         panelThumbnailsLayout.setVerticalGroup(
             panelThumbnailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 404, Short.MAX_VALUE)
+            .addGap(0, 405, Short.MAX_VALUE)
         );
 
         scrollPaneThumbnails.setViewportView(panelThumbnails);
@@ -615,7 +615,7 @@ public class AppPanel extends javax.swing.JPanel implements AppExitListener {
             panelThumbnailsContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 22, Short.MAX_VALUE)
             .addGroup(panelThumbnailsContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(scrollPaneThumbnails, javax.swing.GroupLayout.PREFERRED_SIZE, 22, Short.MAX_VALUE))
+                .addComponent(scrollPaneThumbnails, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE))
         );
         panelThumbnailsContentLayout.setVerticalGroup(
             panelThumbnailsContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -632,19 +632,19 @@ public class AppPanel extends javax.swing.JPanel implements AppExitListener {
         labelMetadataFilename.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         labelMetadataFilename.setOpaque(true);
 
-        tabbedPaneMetaData.setOpaque(true);
+        tabbedPaneMetadata.setOpaque(true);
 
         tableIptc.setAutoCreateRowSorter(true);
         tableIptc.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         scrollPaneIptc.setViewportView(tableIptc);
 
-        tabbedPaneMetaData.addTab(Bundle.getString("AppPanel.scrollPaneIptc.TabConstraints.tabTitle"), scrollPaneIptc); // NOI18N
+        tabbedPaneMetadata.addTab(Bundle.getString("AppPanel.scrollPaneIptc.TabConstraints.tabTitle"), scrollPaneIptc); // NOI18N
 
         tableExif.setAutoCreateRowSorter(true);
         tableExif.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         scrollPaneExif.setViewportView(tableExif);
 
-        tabbedPaneMetaData.addTab(Bundle.getString("AppPanel.scrollPaneExif.TabConstraints.tabTitle"), scrollPaneExif); // NOI18N
+        tabbedPaneMetadata.addTab(Bundle.getString("AppPanel.scrollPaneExif.TabConstraints.tabTitle"), scrollPaneExif); // NOI18N
 
         tabbedPaneXmp.setOpaque(true);
 
@@ -696,7 +696,7 @@ public class AppPanel extends javax.swing.JPanel implements AppExitListener {
 
         tabbedPaneXmp.addTab(Bundle.getString("AppPanel.scrollPaneXmpCameraRawSettings.TabConstraints.tabTitle"), scrollPaneXmpCameraRawSettings); // NOI18N
 
-        tabbedPaneMetaData.addTab(Bundle.getString("AppPanel.tabbedPaneXmp.TabConstraints.tabTitle"), tabbedPaneXmp); // NOI18N
+        tabbedPaneMetadata.addTab(Bundle.getString("AppPanel.tabbedPaneXmp.TabConstraints.tabTitle"), tabbedPaneXmp); // NOI18N
 
         javax.swing.GroupLayout panelEditMetadataLayout = new javax.swing.GroupLayout(panelEditMetadata);
         panelEditMetadata.setLayout(panelEditMetadataLayout);
@@ -711,43 +711,43 @@ public class AppPanel extends javax.swing.JPanel implements AppExitListener {
 
         scrollPaneEditMetadata.setViewportView(panelEditMetadata);
 
-        javax.swing.GroupLayout panelScrollPaneEditMetaDataLayout = new javax.swing.GroupLayout(panelScrollPaneEditMetaData);
-        panelScrollPaneEditMetaData.setLayout(panelScrollPaneEditMetaDataLayout);
-        panelScrollPaneEditMetaDataLayout.setHorizontalGroup(
-            panelScrollPaneEditMetaDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPaneEditMetadata, javax.swing.GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE)
+        javax.swing.GroupLayout panelScrollPaneEditMetadataLayout = new javax.swing.GroupLayout(panelScrollPaneEditMetadata);
+        panelScrollPaneEditMetadata.setLayout(panelScrollPaneEditMetadataLayout);
+        panelScrollPaneEditMetadataLayout.setHorizontalGroup(
+            panelScrollPaneEditMetadataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(scrollPaneEditMetadata, javax.swing.GroupLayout.DEFAULT_SIZE, 339, Short.MAX_VALUE)
         );
-        panelScrollPaneEditMetaDataLayout.setVerticalGroup(
-            panelScrollPaneEditMetaDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPaneEditMetadata, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 359, Short.MAX_VALUE)
-        );
-
-        javax.swing.GroupLayout panelTabEditMetaDataLayout = new javax.swing.GroupLayout(panelTabEditMetaData);
-        panelTabEditMetaData.setLayout(panelTabEditMetaDataLayout);
-        panelTabEditMetaDataLayout.setHorizontalGroup(
-            panelTabEditMetaDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelScrollPaneEditMetaData, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        panelTabEditMetaDataLayout.setVerticalGroup(
-            panelTabEditMetaDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelScrollPaneEditMetaData, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        panelScrollPaneEditMetadataLayout.setVerticalGroup(
+            panelScrollPaneEditMetadataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(scrollPaneEditMetadata, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 358, Short.MAX_VALUE)
         );
 
-        tabbedPaneMetaData.addTab(Bundle.getString("AppPanel.panelTabEditMetaData.TabConstraints.tabTitle"), panelTabEditMetaData); // NOI18N
+        javax.swing.GroupLayout panelTabEditMetadataLayout = new javax.swing.GroupLayout(panelTabEditMetadata);
+        panelTabEditMetadata.setLayout(panelTabEditMetadataLayout);
+        panelTabEditMetadataLayout.setHorizontalGroup(
+            panelTabEditMetadataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(panelScrollPaneEditMetadata, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        panelTabEditMetadataLayout.setVerticalGroup(
+            panelTabEditMetadataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(panelScrollPaneEditMetadata, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        tabbedPaneMetadata.addTab(Bundle.getString("AppPanel.panelTabEditMetadata.TabConstraints.tabTitle"), panelTabEditMetadata); // NOI18N
 
         javax.swing.GroupLayout panelMetadataLayout = new javax.swing.GroupLayout(panelMetadata);
         panelMetadata.setLayout(panelMetadataLayout);
         panelMetadataLayout.setHorizontalGroup(
             panelMetadataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(labelMetadataFilename, javax.swing.GroupLayout.DEFAULT_SIZE, 338, Short.MAX_VALUE)
-            .addComponent(tabbedPaneMetaData, javax.swing.GroupLayout.DEFAULT_SIZE, 338, Short.MAX_VALUE)
+            .addComponent(labelMetadataFilename, javax.swing.GroupLayout.DEFAULT_SIZE, 344, Short.MAX_VALUE)
+            .addComponent(tabbedPaneMetadata, javax.swing.GroupLayout.DEFAULT_SIZE, 344, Short.MAX_VALUE)
         );
         panelMetadataLayout.setVerticalGroup(
             panelMetadataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelMetadataLayout.createSequentialGroup()
                 .addComponent(labelMetadataFilename)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tabbedPaneMetaData, javax.swing.GroupLayout.DEFAULT_SIZE, 384, Short.MAX_VALUE))
+                .addComponent(tabbedPaneMetadata, javax.swing.GroupLayout.DEFAULT_SIZE, 385, Short.MAX_VALUE))
         );
 
         splitPaneThumbnailsMetadata.setRightComponent(panelMetadata);
@@ -756,9 +756,9 @@ public class AppPanel extends javax.swing.JPanel implements AppExitListener {
         panelThumbnailsMetadata.setLayout(panelThumbnailsMetadataLayout);
         panelThumbnailsMetadataLayout.setHorizontalGroup(
             panelThumbnailsMetadataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 367, Short.MAX_VALUE)
+            .addGap(0, 378, Short.MAX_VALUE)
             .addGroup(panelThumbnailsMetadataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(splitPaneThumbnailsMetadata, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 367, Short.MAX_VALUE))
+                .addComponent(splitPaneThumbnailsMetadata, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 378, Short.MAX_VALUE))
         );
         panelThumbnailsMetadataLayout.setVerticalGroup(
             panelThumbnailsMetadataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -780,8 +780,8 @@ public class AppPanel extends javax.swing.JPanel implements AppExitListener {
 
         labelStatusbar.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
 
-        progressBarCreateMetaDataOfCurrentThumbnails.setFont(new java.awt.Font("Dialog", 1, 8));
-        progressBarCreateMetaDataOfCurrentThumbnails.setToolTipText(AppSettings.tooltipTextProgressBarDirectory);
+        progressBarCreateMetadataOfCurrentThumbnails.setFont(new java.awt.Font("Dialog", 1, 8)); // NOI18N
+        progressBarCreateMetadataOfCurrentThumbnails.setToolTipText(AppSettings.tooltipTextProgressBarDirectory);
 
         progressBarCurrentTasks.setToolTipText(AppSettings.tooltipTextProgressBarCurrentTasks);
 
@@ -833,7 +833,7 @@ public class AppPanel extends javax.swing.JPanel implements AppExitListener {
                         .addComponent(buttonLogfileDialog, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelStatusbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(progressBarCreateMetaDataOfCurrentThumbnails, javax.swing.GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE)
+                    .addComponent(progressBarCreateMetadataOfCurrentThumbnails, javax.swing.GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE)
                     .addComponent(textFieldSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE))
                 .addGap(6, 6, 6)
                 .addGroup(panelStatusbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -849,7 +849,7 @@ public class AppPanel extends javax.swing.JPanel implements AppExitListener {
                 .addComponent(panelMetadataProgress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelStatusbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(progressBarCreateMetaDataOfCurrentThumbnails, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(progressBarCreateMetadataOfCurrentThumbnails, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(progressBarCurrentTasks, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(panelStatusbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(buttonLogfileDialog, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -867,7 +867,7 @@ public class AppPanel extends javax.swing.JPanel implements AppExitListener {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(splitPaneMain, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 509, Short.MAX_VALUE)
+                    .addComponent(splitPaneMain, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 525, Short.MAX_VALUE)
                     .addComponent(panelStatusbar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -896,7 +896,7 @@ public class AppPanel extends javax.swing.JPanel implements AppExitListener {
     private javax.swing.JPanel panelKeywords;
     private javax.swing.JPanel panelMetadata;
     private javax.swing.JPanel panelMetadataProgress;
-    private javax.swing.JPanel panelScrollPaneEditMetaData;
+    private javax.swing.JPanel panelScrollPaneEditMetadata;
     private javax.swing.JPanel panelSelection;
     private javax.swing.JPanel panelSelectionCategories;
     private javax.swing.JPanel panelSelectionDirectories;
@@ -904,11 +904,11 @@ public class AppPanel extends javax.swing.JPanel implements AppExitListener {
     private javax.swing.JPanel panelSelectionImageCollections;
     private javax.swing.JPanel panelSelectionSavedSearches;
     private javax.swing.JPanel panelStatusbar;
-    private javax.swing.JPanel panelTabEditMetaData;
+    private javax.swing.JPanel panelTabEditMetadata;
     private de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel panelThumbnails;
     private javax.swing.JPanel panelThumbnailsContent;
     private javax.swing.JPanel panelThumbnailsMetadata;
-    private javax.swing.JProgressBar progressBarCreateMetaDataOfCurrentThumbnails;
+    private javax.swing.JProgressBar progressBarCreateMetadataOfCurrentThumbnails;
     private javax.swing.JProgressBar progressBarCurrentTasks;
     private javax.swing.JProgressBar progressBarScheduledTasks;
     private javax.swing.JScrollPane scrollPaneCategories;
@@ -932,7 +932,7 @@ public class AppPanel extends javax.swing.JPanel implements AppExitListener {
     private javax.swing.JSlider sliderThumbnailSize;
     private javax.swing.JSplitPane splitPaneMain;
     private javax.swing.JSplitPane splitPaneThumbnailsMetadata;
-    private javax.swing.JTabbedPane tabbedPaneMetaData;
+    private javax.swing.JTabbedPane tabbedPaneMetadata;
     private javax.swing.JTabbedPane tabbedPaneSelection;
     private javax.swing.JTabbedPane tabbedPaneXmp;
     private javax.swing.JTable tableExif;

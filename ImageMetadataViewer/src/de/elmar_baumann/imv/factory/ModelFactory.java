@@ -1,7 +1,7 @@
 package de.elmar_baumann.imv.factory;
 
 import de.elmar_baumann.imv.UserSettings;
-import de.elmar_baumann.imv.model.ComboBoxModelMetaDataEditTemplates;
+import de.elmar_baumann.imv.model.ComboBoxModelMetadataEditTemplates;
 import de.elmar_baumann.imv.model.ListModelCategories;
 import de.elmar_baumann.imv.model.ListModelFavoriteDirectories;
 import de.elmar_baumann.imv.model.ListModelImageCollections;
@@ -50,6 +50,6 @@ public class ModelFactory {
         appPanel.getListFavoriteDirectories().setModel(new ListModelFavoriteDirectories());
         appPanel.getListCategories().setModel(new ListModelCategories());
         appPanel.getListKeywords().setModel(new ListModelKeywords());
-        appPanel.getMetaDataEditActionsPanel().getComboBoxMetaDataTemplates().setModel(new ComboBoxModelMetaDataEditTemplates());
+        appPanel.getMetadataEditActionsPanel().getComboBoxMetadataTemplates().setModel(new ComboBoxModelMetadataEditTemplates());
     }
 }

@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.database;
 
-import de.elmar_baumann.imv.data.MetaDataEditTemplate;
+import de.elmar_baumann.imv.data.MetadataEditTemplate;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,15 +16,15 @@ import java.util.logging.Level;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/21
  */
-public class DatabaseMetaDataEditTemplates extends Database {
+public class DatabaseMetadataEditTemplates extends Database {
     
-    private static DatabaseMetaDataEditTemplates instance = new DatabaseMetaDataEditTemplates();
+    private static DatabaseMetadataEditTemplates instance = new DatabaseMetadataEditTemplates();
     
-    public static DatabaseMetaDataEditTemplates getInstance() {
+    public static DatabaseMetadataEditTemplates getInstance() {
         return instance;
     }
     
-    private DatabaseMetaDataEditTemplates() {
+    private DatabaseMetadataEditTemplates() {
     }
 
     /**
@@ -34,9 +34,9 @@ public class DatabaseMetaDataEditTemplates extends Database {
      * @param  template  Template
      * @return true bei Erfolg
      */
-    public synchronized boolean insertMetaDataEditTemplate(MetaDataEditTemplate template) {
-        if (existsMetaDataEditTemplate(template.getName())) {
-            return updateMetaDataEditTemplate(template);
+    public synchronized boolean insertMetadataEditTemplate(MetadataEditTemplate template) {
+        if (existsMetadataEditTemplate(template.getName())) {
+            return updateMetadataEditTemplate(template);
         }
         boolean inserted = false;
         Connection connection = null;
@@ -67,7 +67,7 @@ public class DatabaseMetaDataEditTemplates extends Database {
                 ", photoshopSource" + // NOI18N -- 20 --
                 ")" + // NOI18N
                 " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"); // NOI18N
-            setMetaDataEditTemplate(stmt, template);
+            setMetadataEditTemplate(stmt, template);
             logStatement(stmt);
             stmt.executeUpdate();
             connection.commit();
@@ -86,7 +86,7 @@ public class DatabaseMetaDataEditTemplates extends Database {
         return inserted;
     }
 
-    private void setMetaDataEditTemplate(PreparedStatement stmt, MetaDataEditTemplate template) throws SQLException {
+    private void setMetadataEditTemplate(PreparedStatement stmt, MetadataEditTemplate template) throws SQLException {
         stmt.setString(1, template.getName());
         stmt.setBytes(2, template.getDcSubjects() == null ? null : template.getDcSubjects().getBytes());
         stmt.setBytes(3, template.getDcTitle() == null ? null : template.getDcTitle().getBytes());
@@ -114,8 +114,8 @@ public class DatabaseMetaDataEditTemplates extends Database {
      *
      * @return Templates
      */
-    public List<MetaDataEditTemplate> getMetaDataEditTemplates() {
-        List<MetaDataEditTemplate> templates = new ArrayList<MetaDataEditTemplate>();
+    public List<MetadataEditTemplate> getMetadataEditTemplates() {
+        List<MetadataEditTemplate> templates = new ArrayList<MetadataEditTemplate>();
         Connection connection = null;
         try {
             connection = getConnection();
@@ -144,7 +144,7 @@ public class DatabaseMetaDataEditTemplates extends Database {
                 " FROM metadata_edit_templates" + // NOI18N
                 " WHERE name IS NOT NULL"); // NOI18N
             while (rs.next()) {
-                MetaDataEditTemplate template = new MetaDataEditTemplate();
+                MetadataEditTemplate template = new MetadataEditTemplate();
                 template.setName(rs.getString(1));
                 template.setDcSubjects(new String(rs.getBytes(2)));
                 template.setDcTitle(new String(rs.getBytes(3)));
@@ -182,7 +182,7 @@ public class DatabaseMetaDataEditTemplates extends Database {
      * @param  template  Template
      * @return true bei Erfolg
      */
-    public synchronized boolean updateMetaDataEditTemplate(MetaDataEditTemplate template) {
+    public synchronized boolean updateMetadataEditTemplate(MetadataEditTemplate template) {
         boolean updated = false;
         Connection connection = null;
         try {
@@ -211,7 +211,7 @@ public class DatabaseMetaDataEditTemplates extends Database {
                 ", photoshopCredit = ?" + // NOI18N -- 19 --
                 ", photoshopSource = ?" + // NOI18N -- 20 --
                 " WHERE name = ?"); // NOI18N
-            setMetaDataEditTemplate(stmt, template);
+            setMetadataEditTemplate(stmt, template);
             //stmt.setString(21, template.getName()); ???
             logStatement(stmt);
             int count = stmt.executeUpdate();
@@ -238,7 +238,7 @@ public class DatabaseMetaDataEditTemplates extends Database {
      * @param  newName  Neuer Name
      * @return true bei Erfolg
      */
-    public synchronized boolean updateRenameMetaDataEditTemplate(String oldName, String newName) {
+    public synchronized boolean updateRenameMetadataEditTemplate(String oldName, String newName) {
         boolean renamed = false;
         Connection connection = null;
         try {
@@ -274,7 +274,7 @@ public class DatabaseMetaDataEditTemplates extends Database {
      * @param  name  Name des Templates
      * @return true bei Erfolg
      */
-    public synchronized boolean deleteMetaDataEditTemplate(String name) {
+    public synchronized boolean deleteMetadataEditTemplate(String name) {
         boolean deleted = false;
         Connection connection = null;
         try {
@@ -301,7 +301,7 @@ public class DatabaseMetaDataEditTemplates extends Database {
         return deleted;
     }
 
-    public boolean existsMetaDataEditTemplate(String name) {
+    public boolean existsMetadataEditTemplate(String name) {
         boolean exists = false;
         Connection connection = null;
         try {

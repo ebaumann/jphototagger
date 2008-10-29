@@ -5,7 +5,7 @@ import com.imagero.reader.iptc.IPTCEntryMeta;
 import de.elmar_baumann.imv.AppSettings;
 import de.elmar_baumann.imv.controller.metadata.ControllerSaveMetadata;
 import de.elmar_baumann.imv.data.ImageFile;
-import de.elmar_baumann.imv.data.MetaDataEditTemplate;
+import de.elmar_baumann.imv.data.MetadataEditTemplate;
 import de.elmar_baumann.imv.data.TextEntry;
 import de.elmar_baumann.imv.data.Xmp;
 import de.elmar_baumann.imv.data.AutoCompleteUtil;
@@ -19,8 +19,8 @@ import de.elmar_baumann.imv.event.AppExitListener;
 import de.elmar_baumann.imv.event.DatabaseAction;
 import de.elmar_baumann.imv.event.DatabaseListener;
 import de.elmar_baumann.imv.event.ListenerProvider;
-import de.elmar_baumann.imv.event.MetaDataEditPanelEvent;
-import de.elmar_baumann.imv.event.MetaDataEditPanelListener;
+import de.elmar_baumann.imv.event.MetadataEditPanelEvent;
+import de.elmar_baumann.imv.event.MetadataEditPanelListener;
 import de.elmar_baumann.imv.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.Panels;
@@ -53,8 +53,8 @@ public class EditMetadataPanelsArray implements FocusListener, DatabaseListener,
     private JComponent container;
     private List<JPanel> panels = new ArrayList<JPanel>();
     private List<String> filenames = new ArrayList<String>();
-    private List<MetaDataEditPanelListener> listeners = new LinkedList<MetaDataEditPanelListener>();
-    private EditMetaDataActionsPanel editActionsPanel;
+    private List<MetadataEditPanelListener> listeners = new LinkedList<MetadataEditPanelListener>();
+    private EditMetadataActionsPanel editActionsPanel;
     private boolean isUseAutocomplete = false;
     private Component lastFocussedComponent;
     private ListenerProvider listenerProvider;
@@ -62,7 +62,7 @@ public class EditMetadataPanelsArray implements FocusListener, DatabaseListener,
     public EditMetadataPanelsArray(JComponent container) {
         this.container = container;
         listenerProvider = ListenerProvider.getInstance();
-        listeners = listenerProvider.getMetaDataEditPanelListeners();
+        listeners = listenerProvider.getMetadataEditPanelListeners();
         createEditPanels();
         addPanels();
         setFocusToFirstEditField();
@@ -96,8 +96,8 @@ public class EditMetadataPanelsArray implements FocusListener, DatabaseListener,
             AppSettings.getMediumAppIcon()) == JOptionPane.YES_OPTION;
     }
 
-    private void notifyActionListener(MetaDataEditPanelEvent evt) {
-        for (MetaDataEditPanelListener l : listeners) {
+    private void notifyActionListener(MetadataEditPanelEvent evt) {
+        for (MetadataEditPanelListener l : listeners) {
             l.actionPerformed(evt);
         }
     }
@@ -112,10 +112,10 @@ public class EditMetadataPanelsArray implements FocusListener, DatabaseListener,
         for (JPanel panel : panels) {
             ((TextEntry) panel).setEditable(editable);
         }
-        notifyActionListener(new MetaDataEditPanelEvent(this,
+        notifyActionListener(new MetadataEditPanelEvent(this,
             editable
-            ? MetaDataEditPanelEvent.Type.EditEnabled
-            : MetaDataEditPanelEvent.Type.EditDisabled));
+            ? MetadataEditPanelEvent.Type.EditEnabled
+            : MetadataEditPanelEvent.Type.EditDisabled));
     }
 
     /**
@@ -159,7 +159,7 @@ public class EditMetadataPanelsArray implements FocusListener, DatabaseListener,
      * 
      * @param template  Template
      */
-    public void setMetaDataEditTemplate(MetaDataEditTemplate template) {
+    public void setMetadataEditTemplate(MetadataEditTemplate template) {
         for (JPanel panel : panels) {
             TextEntry textEntry = (TextEntry) panel;
             String value = template.getValueOfColumn(textEntry.getColumn());
@@ -173,10 +173,10 @@ public class EditMetadataPanelsArray implements FocusListener, DatabaseListener,
      * Liefert ein Metadaten-Edit-Template mit den Daten der Panels.
      * 
      * @return Template <em>ohne</em> Name
-     *         ({@link de.elmar_baumann.imv.data.MetaDataEditTemplate#getName()})
+     *         ({@link de.elmar_baumann.imv.data.MetadataEditTemplate#getName()})
      */
-    public MetaDataEditTemplate getMetaDataEditTemplate() {
-        MetaDataEditTemplate template = new MetaDataEditTemplate();
+    public MetadataEditTemplate getMetadataEditTemplate() {
+        MetadataEditTemplate template = new MetadataEditTemplate();
         for (JPanel panel : panels) {
             TextEntry textEntry = (TextEntry) panel;
             String value = textEntry.getText().trim();
@@ -208,13 +208,13 @@ public class EditMetadataPanelsArray implements FocusListener, DatabaseListener,
         emptyPanels();
         this.filenames = filenames;
         IptcXmpMapping mapping = IptcXmpMapping.getInstance();
-        XmpMetadata xmpMetaData = new XmpMetadata();
+        XmpMetadata xmpMetadata = new XmpMetadata();
         for (JPanel panel : panels) {
             TextEntry textEntry = (TextEntry) panel;
             Column xmpColumn = textEntry.getColumn();
             IPTCEntryMeta iptcEntryMeta = mapping.getIptcEntryMetaOfXmpColumn(xmpColumn);
             List<XMPPropertyInfo> matchingInfos =
-                xmpMetaData.getFilteredPropertyInfosOfIptcEntryMeta(iptcEntryMeta, infos);
+                xmpMetadata.getFilteredPropertyInfosOfIptcEntryMeta(iptcEntryMeta, infos);
             int countMatchingInfos = matchingInfos.size();
 
             for (int i = 0; i < countMatchingInfos; i++) {
@@ -247,7 +247,7 @@ public class EditMetadataPanelsArray implements FocusListener, DatabaseListener,
     }
 
     private void addActionPanel(GridBagLayout layout) {
-        editActionsPanel = Panels.getInstance().getAppPanel().getMetaDataEditActionsPanel();
+        editActionsPanel = Panels.getInstance().getAppPanel().getMetadataEditActionsPanel();
         layout.setConstraints(editActionsPanel, getConstraints());
         container.add(editActionsPanel);
         editActionsPanel.tabbedPane.addFocusListener(this);

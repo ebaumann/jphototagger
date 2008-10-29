@@ -64,14 +64,14 @@ public class MetaFactory extends Thread {
     }
 
     private void showProgress() {
-        JProgressBar progressbar = Panels.getInstance().getAppPanel().getProgressBarCreateMetaDataOfCurrentThumbnails();
+        JProgressBar progressbar = Panels.getInstance().getAppPanel().getProgressBarCreateMetadataOfCurrentThumbnails();
         progressbar.setStringPainted(true);
         progressbar.setString(Bundle.getString("MetaFactory.Message.Init"));
         progressbar.setIndeterminate(true);
     }
 
     private void stopProgress() {
-        JProgressBar progressbar = Panels.getInstance().getAppPanel().getProgressBarCreateMetaDataOfCurrentThumbnails();
+        JProgressBar progressbar = Panels.getInstance().getAppPanel().getProgressBarCreateMetadataOfCurrentThumbnails();
         progressbar.setIndeterminate(false);
         progressbar.setString(""); // NOI18N
         progressbar.setStringPainted(false);

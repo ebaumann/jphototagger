@@ -29,7 +29,7 @@ import java.util.Map;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/22
  */
-public class MetaDataEditTemplate {
+public class MetadataEditTemplate {
     // Diese Klasse sollte je ein Attribut enthalten für jede Spalte aus
     // de.elmar_baumann.imv.database.metadata.selections.EditColumns
     private StringBuffer name = new StringBuffer();
@@ -76,7 +76,7 @@ public class MetaDataEditTemplate {
         valueOfColumn.put(ColumnXmpPhotoshopSource.getInstance(), photoshopSource);
     }
 
-    public MetaDataEditTemplate() {
+    public MetadataEditTemplate() {
         initValueOfColumn();
     }
 
@@ -317,7 +317,7 @@ public class MetaDataEditTemplate {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final MetaDataEditTemplate other = (MetaDataEditTemplate) obj;
+        final MetadataEditTemplate other = (MetadataEditTemplate) obj;
         if (this.name == null || !this.name.toString().equals(other.name.toString())) {
             return false;
         }

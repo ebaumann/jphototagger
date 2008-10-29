@@ -64,7 +64,7 @@ public class XmpMetadata {
      * @return Trennzeichen
      */
     public static final String getArrayItemDelimiter() {
-        return ","; // NOI18N
+        return "\\"; // NOI18N
     }
 
     /**
@@ -272,11 +272,11 @@ public class XmpMetadata {
      * @param  metadata         Metadaten
      * @return true bei Erfolg
      */
-    public boolean writeMetaDataToSidecarFile(String sidecarFilename, Xmp metadata) {
+    public boolean writeMetadataToSidecarFile(String sidecarFilename, Xmp metadata) {
         try {
             XMPMeta xmpMeta = getXmpMetaOfSidecarFile(sidecarFilename);
             writeSidecarFileDeleteItems(xmpMeta);
-            writeMetaData(xmpMeta, metadata);
+            writeMetadata(xmpMeta, metadata);
             return writeSidecarFile(sidecarFilename, xmpMeta);
         } catch (XMPException ex) {
             handleException(ex);
@@ -284,12 +284,12 @@ public class XmpMetadata {
         }
     }
 
-    private void writeMetaData(XMPMeta xmpMeta, Xmp metadata) throws XMPException {
+    private void writeMetadata(XMPMeta xmpMeta, Xmp metadata) throws XMPException {
         Set<Column> xmpColumns = EditColumns.getInstance().getColumns();
         for (Column column : xmpColumns) {
             String namespaceUri = mappingNamespaceUri.getNamespaceUriOfColumn(column);
             String propertyName = mappingName.getXmpPathStartOfColumn(column);
-            writeSidecarFileSetMetaData(column, metadata,
+            writeSidecarFileSetMetadata(column, metadata,
                 xmpMeta, namespaceUri, propertyName);
         }
     }
@@ -307,7 +307,7 @@ public class XmpMetadata {
      *                          gelöscht
      * @return true bei Erfolg
      */
-    public boolean writeMetaDataToSidecarFile(String sidecarFilename,
+    public boolean writeMetadataToSidecarFile(String sidecarFilename,
         List<TextEntry> textEntries, boolean deleteEmpty, boolean append) {
         try {
             XMPMeta xmpMeta = getXmpMetaOfSidecarFile(sidecarFilename);
@@ -379,7 +379,7 @@ public class XmpMetadata {
         }
     }
 
-    private void writeSidecarFileSetMetaData(Column column, Xmp metadata,
+    private void writeSidecarFileSetMetadata(Column column, Xmp metadata,
         XMPMeta xmpMeta, String namespaceUri, String propertyName) throws XMPException {
         Object o = metadata.getValue(column);
         if (o != null) {

@@ -1,7 +1,7 @@
 package de.elmar_baumann.imv.controller.misc;
 
 import de.elmar_baumann.imv.controller.Controller;
-import de.elmar_baumann.imv.view.dialogs.UpdateMetaDataOfDirectoriesDialog;
+import de.elmar_baumann.imv.view.dialogs.UpdateMetadataOfDirectoriesDialog;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -22,7 +22,7 @@ public class ControllerShowUpdateMetadataDialog extends Controller
     }
 
     private void showDialog() {
-        UpdateMetaDataOfDirectoriesDialog dialog = UpdateMetaDataOfDirectoriesDialog.getInstance();
+        UpdateMetadataOfDirectoriesDialog dialog = UpdateMetadataOfDirectoriesDialog.getInstance();
         if (dialog.isVisible()) {
             dialog.toFront();
         } else {

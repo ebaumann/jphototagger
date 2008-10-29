@@ -16,14 +16,14 @@ import javax.swing.event.TreeSelectionListener;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/22
  */
-public class ControllerEnableInsertMetaDataTemplate extends Controller
+public class ControllerEnableInsertMetadataTemplate extends Controller
     implements TreeSelectionListener {
 
     private AppPanel appPanel = Panels.getInstance().getAppPanel();
     private JTree treeDirectories = appPanel.getTreeDirectories();
-    private JButton buttonMetaDataTemplateInsert = appPanel.getButtonMetaDataTemplateInsert();
+    private JButton buttonMetadataTemplateInsert = appPanel.getButtonMetadataTemplateInsert();
 
-    public ControllerEnableInsertMetaDataTemplate() {
+    public ControllerEnableInsertMetadataTemplate() {
         treeDirectories.addTreeSelectionListener(this);
     }
 
@@ -41,7 +41,7 @@ public class ControllerEnableInsertMetaDataTemplate extends Controller
                 treeDirectories.getSelectionPath().getLastPathComponent()).getAbsolutePath();
             File directory = new File(directoryName);
             
-            buttonMetaDataTemplateInsert.setEnabled(
+            buttonMetadataTemplateInsert.setEnabled(
                 directory.isDirectory() && directory.canWrite());
         }
     }

@@ -41,7 +41,7 @@ public class DatabaseTables extends Database {
             createCollectionsTables(connection, stmt);
             createSavedSerachesTables(connection, stmt);
             createAutoScanDirectoriesTable(connection, stmt);
-            createMetaDataEditTemplateTable(connection, stmt);
+            createMetadataEditTemplateTable(connection, stmt);
             createFavoriteDirectoriesTable(connection, stmt);
             createFileExcludePatternTable(connection, stmt);
             UpdateTables.getInstance().update(connection);
@@ -252,7 +252,7 @@ public class DatabaseTables extends Database {
         }
     }
 
-    private synchronized void createMetaDataEditTemplateTable(Connection connection, Statement stmt) throws SQLException {
+    private synchronized void createMetadataEditTemplateTable(Connection connection, Statement stmt) throws SQLException {
         if (!DatabaseMetadata.getInstance().existsTable(connection, "metadata_edit_templates")) { // NOI18N
             stmt.execute("CREATE CACHED TABLE metadata_edit_templates" + // NOI18N
                 " (" + // NOI18N

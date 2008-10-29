@@ -812,7 +812,7 @@ public class DatabaseImageFiles extends Database {
                     if (!newValue.isEmpty()) {
                         xmp.setValue(xmpColumn, newValue);
                     }
-                    if (meta.writeMetaDataToSidecarFile(XmpMetadata.suggestSidecarFilename(filename), xmp)) {
+                    if (meta.writeMetadataToSidecarFile(XmpMetadata.suggestSidecarFilename(filename), xmp)) {
                         long idXmp = rs.getLong(2);
                         deleteXmp(connection, idXmp);
                         insertXmp(connection, idFile, xmp);
