@@ -64,7 +64,7 @@ public class XmpMetadata {
      * @return Trennzeichen
      */
     public static final String getArrayItemDelimiter() {
-        return "\\|"; // NOI18N
+        return "\\"; // NOI18N
     }
 
     /**
