@@ -152,9 +152,8 @@ public class DatabaseImageFiles extends Database {
             ", photoshop_source" + // NOI18N -- 16 --
             ", photoshop_state" + // NOI18N -- 17 --
             ", photoshop_transmissionReference" + // NOI18N -- 18 --
-            ", lastmodified" + // NOI18N -- 19 --
             ")" + // NOI18N
-            " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"; // NOI18N
+            " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"; // NOI18N
     }
 
     private void setXmpValues(PreparedStatement stmt, long idFile, Xmp xmpData) throws SQLException {
@@ -176,7 +175,6 @@ public class DatabaseImageFiles extends Database {
         stmt.setString(16, xmpData.getPhotoshopSource());
         stmt.setString(17, xmpData.getPhotoshopState());
         stmt.setString(18, xmpData.getPhotoshopTransmissionReference());
-        stmt.setLong(19, xmpData.getLastModified());
     }
 
     private synchronized void updateXmp(Connection connection, long idFile, Xmp xmpData) throws SQLException {
@@ -275,11 +273,12 @@ public class DatabaseImageFiles extends Database {
             connection = getConnection();
             connection.setAutoCommit(false);
             PreparedStatement stmt = connection.prepareStatement(
-                "UPDATE files SET lastmodified = ? WHERE id = ?"); // NOI18N
+                "UPDATE files SET lastmodified = ?, xmp_lastmodified = ? WHERE id = ?"); // NOI18N
             String filename = imageFileData.getFilename();
             long idFile = getIdFile(connection, filename);
             stmt.setLong(1, imageFileData.getLastmodified());
-            stmt.setLong(2, idFile);
+            stmt.setLong(2, getLastmodifiedXmp(imageFileData));
+            stmt.setLong(3, idFile);
             logStatement(stmt);
             stmt.executeUpdate();
             stmt.close();
@@ -432,28 +431,6 @@ public class DatabaseImageFiles extends Database {
         return lastModified;
     }
 
-    long getLastModifiedImageFile(long idFiles) {
-        long lastModified = -1;
-        Connection connection = null;
-        try {
-            connection = getConnection();
-            PreparedStatement stmt = connection.prepareStatement(
-                "SELECT lastmodified FROM files WHERE id = ?"); // NOI18N
-            stmt.setLong(1, idFiles);
-            logStatement(stmt);
-            ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
-                lastModified = rs.getLong(1);
-            }
-            stmt.close();
-        } catch (SQLException ex) {
-            handleException(ex, Level.SEVERE);
-        } finally {
-            free(connection);
-        }
-        return lastModified;
-    }
-
     /**
      * Liefert, ob eine Datei in der Datenbank existiert.
      *
@@ -524,26 +501,25 @@ public class DatabaseImageFiles extends Database {
 
     private String getXmpOfFileStatement() {
         return " SELECT" + // NOI18N
-            " dc_creator" + // NOI18N --  --
-            ", xmp.dc_description" + // NOI18N -- 1 --
-            ", xmp.dc_rights" + // NOI18N --2  --
-            ", xmp.dc_title" + // NOI18N -- 3 --
-            ", xmp.iptc4xmpcore_countrycode" + // NOI18N -- 4 --
-            ", xmp.iptc4xmpcore_location" + // NOI18N --5  --
-            ", xmp.photoshop_authorsposition" + // NOI18N -- 6 --
-            ", xmp.photoshop_captionwriter" + // NOI18N -- 7 --
-            ", xmp.photoshop_category" + // NOI18N -- 8 --
-            ", xmp.photoshop_city" + // NOI18N -- 9 --
-            ", xmp.photoshop_country" + // NOI18N -- 10 --
-            ", xmp.photoshop_credit" + // NOI18N -- 11 --
-            ", xmp.photoshop_headline" + // NOI18N -- 12 --
-            ", xmp.photoshop_instructions" + // NOI18N -- 12 --
-            ", xmp.photoshop_source" + // NOI18N -- 14 --
-            ", xmp.photoshop_state" + // NOI18N -- 15 --
-            ", xmp.photoshop_transmissionReference" + // NOI18N -- 16 --
-            ", xmp_dc_subjects.subject" + // NOI18N --  --
-            ", xmp_photoshop_supplementalcategories.supplementalcategory" + // NOI18N -- 17 --
-            ", lastmodified" + // NOI18N -- 18 --
+            " dc_creator" + // NOI18N -- 1 --
+            ", xmp.dc_description" + // NOI18N -- 2 --
+            ", xmp.dc_rights" + // NOI18N --3  --
+            ", xmp.dc_title" + // NOI18N -- 4 --
+            ", xmp.iptc4xmpcore_countrycode" + // NOI18N -- 5 --
+            ", xmp.iptc4xmpcore_location" + // NOI18N -- 6  --
+            ", xmp.photoshop_authorsposition" + // NOI18N -- 7 --
+            ", xmp.photoshop_captionwriter" + // NOI18N -- 8 --
+            ", xmp.photoshop_category" + // NOI18N -- 9 --
+            ", xmp.photoshop_city" + // NOI18N -- 10 --
+            ", xmp.photoshop_country" + // NOI18N -- 11 --
+            ", xmp.photoshop_credit" + // NOI18N -- 12 --
+            ", xmp.photoshop_headline" + // NOI18N -- 13 --
+            ", xmp.photoshop_instructions" + // NOI18N -- 14 --
+            ", xmp.photoshop_source" + // NOI18N -- 15 --
+            ", xmp.photoshop_state" + // NOI18N -- 16 --
+            ", xmp.photoshop_transmissionReference" + // NOI18N -- 17 --
+            ", xmp_dc_subjects.subject" + // NOI18N -- 18 --
+            ", xmp_photoshop_supplementalcategories.supplementalcategory" + // NOI18N -- 19 --
             " FROM" + // NOI18N
             " xmp LEFT JOIN xmp_dc_subjects" + // NOI18N
             " ON xmp.id = xmp_dc_subjects.id_xmp" + // NOI18N
@@ -587,7 +563,6 @@ public class DatabaseImageFiles extends Database {
                 xmp.setPhotoshopSource(rs.getString(15));
                 xmp.setPhotoshopState(rs.getString(16));
                 xmp.setPhotoshopTransmissionReference(rs.getString(17));
-                xmp.setLastModified(rs.getLong(18));
                 String value = rs.getString(18);
                 if (value != null) {
                     xmp.addDcSubject(value);
@@ -620,10 +595,7 @@ public class DatabaseImageFiles extends Database {
         try {
             connection = getConnection();
             PreparedStatement stmt = connection.prepareStatement(
-                "SELECT lastmodified FROM" + // NOI18N
-//                " xmp LEFT JOIN files ON xmp.id_files = files.id" + // NOI18N too slow
-                " xmp, files" + // NOI18N
-                " WHERE files.filename = ? AND xmp.id_files = files.id"); // NOI18N
+                "SELECT xmp_lastmodified FROM files WHERE files.filename = ?"); // NOI18N
             stmt.setString(1, imageFilename);
             logStatement(stmt);
             ResultSet rs = stmt.executeQuery();
@@ -884,10 +856,11 @@ public class DatabaseImageFiles extends Database {
             connection = getConnection();
             connection.setAutoCommit(false);
             PreparedStatement preparedStatement = connection.prepareStatement(
-                "INSERT INTO files (filename, lastmodified) VALUES (?, ?)"); // NOI18N
+                "INSERT INTO files (filename, lastmodified, xmp_lastmodified) VALUES (?, ?, ?)"); // NOI18N
             String filename = imageFileData.getFilename();
             preparedStatement.setString(1, filename);
             preparedStatement.setLong(2, imageFileData.getLastmodified());
+            preparedStatement.setLong(3, getLastmodifiedXmp(imageFileData));
             logStatement(preparedStatement);
             preparedStatement.executeUpdate();
             long idFile = getIdFile(connection, filename);
@@ -909,6 +882,11 @@ public class DatabaseImageFiles extends Database {
             free(connection);
         }
         return success;
+    }
+
+    private long getLastmodifiedXmp(ImageFile imageFileData) {
+        Xmp xmp = imageFileData.getXmp();
+        return xmp == null ? -1 : xmp.getLastModified();
     }
 
     /**

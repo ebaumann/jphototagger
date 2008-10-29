@@ -70,6 +70,7 @@ public class DatabaseTables extends Database {
                 ", filename  VARCHAR_IGNORECASE(512) NOT NULL" + // NOI18N
                 ", lastmodified  BIGINT" + // NOI18N
                 ", thumbnail BINARY" + // NOI18N
+                ", xmp_lastmodified  BIGINT" + // NOI18N
                 ");"); // NOI18N
             stmt.execute("CREATE UNIQUE INDEX idx_files ON files (filename)"); // NOI18N
         }
@@ -98,7 +99,6 @@ public class DatabaseTables extends Database {
                 ", photoshop_source VARCHAR_IGNORECASE(32)" + // NOI18N
                 ", photoshop_state VARCHAR_IGNORECASE(32)" + // NOI18N
                 ", photoshop_transmissionReference VARCHAR_IGNORECASE(32)" + // NOI18N
-                ", lastmodified  BIGINT" + // NOI18N
                 ", FOREIGN KEY (id_files) REFERENCES files (id) ON DELETE CASCADE" + // NOI18N
                 ");"); // NOI18N
             stmt.execute("CREATE UNIQUE INDEX idx_xmp_id_files ON xmp (id_files)"); // NOI18N
@@ -131,7 +131,6 @@ public class DatabaseTables extends Database {
                 " ON xmp (photoshop_state)"); // NOI18N
             stmt.execute("CREATE INDEX idx_xmp_photoshop_transmissionReference" + // NOI18N
                 " ON xmp (photoshop_transmissionReference)"); // NOI18N
-            stmt.execute("CREATE INDEX idx_xmp_lastmodified ON xmp (lastmodified)"); // NOI18N
         }
         if (!DatabaseMetadata.getInstance().existsTable(connection, "xmp_dc_subjects")) { // NOI18N
             stmt.execute("CREATE CACHED TABLE xmp_dc_subjects" + // NOI18N
