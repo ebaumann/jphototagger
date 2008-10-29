@@ -44,7 +44,9 @@ public class TreeDirectoriesMouseListener extends MouseAdapter {
             popup.show(tree, x, y);
         } else {
             if (path != null) {
+                popup.setTreeSelected(true);
                 tree.setSelectionPath(path);
+                popup.setTreeSelected(false);
             }
         }
     }

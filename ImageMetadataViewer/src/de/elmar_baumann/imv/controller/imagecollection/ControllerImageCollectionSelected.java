@@ -40,14 +40,14 @@ public class ControllerImageCollectionSelected extends Controller
 
     @Override
     public void valueChanged(ListSelectionEvent e) {
-        if (isControl()) {
+        if (isControl() && list.getSelectedIndex() >= 0) {
             showImageCollection();
         }
     }
 
     @Override
     public void refresh() {
-        if (isControl()) {
+        if (isControl() && list.getSelectedIndex() >= 0) {
             showImageCollection();
         }
     }

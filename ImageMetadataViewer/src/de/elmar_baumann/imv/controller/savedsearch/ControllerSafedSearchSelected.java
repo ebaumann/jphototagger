@@ -40,14 +40,14 @@ public class ControllerSafedSearchSelected extends Controller
 
     @Override
     public void valueChanged(ListSelectionEvent e) {
-        if (isControl()) {
+        if (isControl() && list.getSelectedIndex() >= 0) {
             searchSelectedValue();
         }
     }
 
     @Override
     public void refresh() {
-        if (isControl()) {
+        if (isControl() && list.getSelectedIndex() >= 0) {
             searchSelectedValue();
         }
     }

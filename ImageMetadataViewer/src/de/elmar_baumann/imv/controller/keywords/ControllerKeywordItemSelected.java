@@ -38,14 +38,14 @@ public class ControllerKeywordItemSelected extends Controller
 
     @Override
     public void refresh() {
-        if (isControl()) {
+        if (isControl() && listKeywords.getSelectedIndex() >= 0) {
             setFilesToThumbnailsPanel();
         }
     }
 
     @Override
     public void valueChanged(ListSelectionEvent e) {
-        if (isControl()) {
+        if (isControl() && listKeywords.getSelectedIndex() >= 0) {
             setFilesToThumbnailsPanel();
         }
     }

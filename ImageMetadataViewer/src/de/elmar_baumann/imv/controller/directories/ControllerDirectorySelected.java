@@ -7,6 +7,7 @@ import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.types.Content;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
+import de.elmar_baumann.imv.view.popupmenus.PopupMenuTreeDirectories;
 import java.io.File;
 import javax.swing.JTree;
 import javax.swing.event.TreeSelectionEvent;
@@ -39,14 +40,14 @@ public class ControllerDirectorySelected extends Controller
 
     @Override
     public void valueChanged(TreeSelectionEvent e) {
-        if (isControl() && e.isAddedPath()) {
+        if (isControl() && e.isAddedPath() && !PopupMenuTreeDirectories.getInstance().isTreeSelected()) {
             setFilesToThumbnailsPanel();
         }
     }
 
     @Override
     public void refresh() {
-        if (isControl()) {
+        if (isControl() && treeDirectories.getSelectionCount() > 0) {
             setFilesToThumbnailsPanel();
         }
     }

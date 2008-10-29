@@ -38,14 +38,14 @@ public class ControllerFavoriteDirectorySelected extends Controller
 
     @Override
     public void valueChanged(ListSelectionEvent e) {
-        if (isControl()) {
+        if (isControl() && listFavoriteDirectories.getSelectedIndex() >= 0) {
             setFilesToThumbnailsPanel();
         }
     }
 
     @Override
     public void refresh() {
-        if (isControl()) {
+        if (isControl() && listFavoriteDirectories.getSelectedIndex() >= 0) {
             setFilesToThumbnailsPanel();
         }
     }

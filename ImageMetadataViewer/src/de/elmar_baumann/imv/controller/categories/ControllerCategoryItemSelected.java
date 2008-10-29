@@ -38,14 +38,14 @@ public class ControllerCategoryItemSelected extends Controller
 
     @Override
     public void refresh() {
-        if (isControl()) {
+        if (isControl() && listCategories.getSelectedIndex() >= 0) {
             setFilesToThumbnailsPanel();
         }
     }
 
     @Override
     public void valueChanged(ListSelectionEvent e) {
-        if (isControl()) {
+        if (isControl() && listCategories.getSelectedIndex() >= 0) {
             setFilesToThumbnailsPanel();
         }
     }

@@ -21,6 +21,7 @@ public class PopupMenuTreeDirectories extends JPopupMenu {
     private List<JMenuItem> fileItems = new ArrayList<JMenuItem>();
     private TreePath path;
     private String directoryName;
+    private boolean treeSelected = false;
     private static PopupMenuTreeDirectories instance = new PopupMenuTreeDirectories();
 
     private void initLists() {
@@ -101,5 +102,13 @@ public class PopupMenuTreeDirectories extends JPopupMenu {
     private void init() {
         add(itemAddToFavoriteDirectories);
         initLists();
+    }
+
+    public boolean isTreeSelected() {
+        return treeSelected;
+    }
+
+    public void setTreeSelected(boolean treeSelected) {
+        this.treeSelected = treeSelected;
     }
 }

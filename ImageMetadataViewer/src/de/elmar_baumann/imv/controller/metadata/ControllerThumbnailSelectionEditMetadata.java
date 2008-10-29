@@ -87,7 +87,6 @@ public class ControllerThumbnailSelectionEditMetadata extends Controller
     }
 
     private void setEditPanelsContent() {
-        editPanels.emptyPanels();
         List<String> filenames = FileUtil.getAsFilenames(thumbnailsPanel.getSelectedFiles());
         if (filenames.size() == 1) {
             XmpMetadata xmpMetaData = new XmpMetadata();
@@ -96,10 +95,14 @@ public class ControllerThumbnailSelectionEditMetadata extends Controller
             if (xmpPropertyInfos != null && xmpPropertyInfos.size() > 0) {
                 editPanels.setXmpPropertyInfos(filenames, xmpPropertyInfos);
             } else {
+                editPanels.emptyPanels();
                 editPanels.setFilenames(filenames);
             }
         } else if (filenames.size() > 1) {
+            editPanels.emptyPanels();
             editPanels.setFilenames(filenames);
+        } else if (filenames.size() <= 0) {
+            editPanels.emptyPanels();
         }
     }
 }
