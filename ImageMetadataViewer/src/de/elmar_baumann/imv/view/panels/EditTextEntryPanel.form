@@ -18,6 +18,9 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="labelPrompt">
       <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Dialog" size="11" style="1"/>
+        </Property>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="EditTextEntryPanel.labelPrompt.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
         </Property>
@@ -46,6 +49,9 @@
         <Component class="javax.swing.JTextArea" name="textAreaEdit">
           <Properties>
             <Property name="columns" type="int" value="1"/>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Dialog" size="11" style="0"/>
+            </Property>
             <Property name="rows" type="int" value="1"/>
           </Properties>
           <AuxValues>

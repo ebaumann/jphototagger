@@ -107,6 +107,7 @@ public class EditTextEntryPanel extends javax.swing.JPanel implements TextEntry 
 
         setLayout(new java.awt.GridBagLayout());
 
+        labelPrompt.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
         labelPrompt.setText(Bundle.getString("EditTextEntryPanel.labelPrompt.text")); // NOI18N
         labelPrompt.setToolTipText(column.getLongerDescription());
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -117,6 +118,7 @@ public class EditTextEntryPanel extends javax.swing.JPanel implements TextEntry 
         add(labelPrompt, gridBagConstraints);
 
         textAreaEdit.setColumns(1);
+        textAreaEdit.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
         textAreaEdit.setRows(1);
         scrollPane.setViewportView(textAreaEdit);
 
