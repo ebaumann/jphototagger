@@ -6,10 +6,13 @@ import de.elmar_baumann.imv.data.TextEntryContent;
 import de.elmar_baumann.imv.database.metadata.Column;
 import de.elmar_baumann.imv.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.imv.resource.Bundle;
+import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.view.renderer.ListCellRendererKeywordsEdit;
 import de.elmar_baumann.lib.component.InputVerifierMaxLength;
 import de.elmar_baumann.lib.componentutil.ComponentUtil;
 import de.elmar_baumann.lib.componentutil.ListUtil;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import javax.swing.DefaultListModel;
 import javax.swing.JComponent;
@@ -22,7 +25,8 @@ import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/18
  */
-public class EditRepeatableTextEntryPanel extends javax.swing.JPanel implements TextEntry {
+public class EditRepeatableTextEntryPanel extends javax.swing.JPanel
+    implements TextEntry, ActionListener {
 
     private Column column;
     private static final String delimiter = XmpMetadata.getArrayItemDelimiter();
@@ -118,12 +122,14 @@ public class EditRepeatableTextEntryPanel extends javax.swing.JPanel implements 
     }
 
     private void removeSelectedElements() {
-        Object[] values = list.getSelectedValues();
-        for (Object value : values) {
-            model.removeElement(value);
-            dirty = true;
+        if (list.getSelectedIndex() >= 0) {
+            Object[] values = list.getSelectedValues();
+            for (Object value : values) {
+                model.removeElement(value);
+                dirty = true;
+            }
+            ComponentUtil.forceRepaint(getParent().getParent());
         }
-        ComponentUtil.forceRepaint(getParent().getParent());
     }
 
     @Override
@@ -160,6 +166,11 @@ public class EditRepeatableTextEntryPanel extends javax.swing.JPanel implements 
     @Override
     public TextEntry clone() {
         return new TextEntryContent(getText(), column);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        removeSelectedElements();
     }
 
     /** This method is called from within the constructor to

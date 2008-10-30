@@ -95,6 +95,7 @@ public class AppFrame extends javax.swing.JFrame {
         setTitleAndFrameIcon();
         MetaFactory.getInstance();
         addAppExitListener(appPanel);
+        appPanel.getEditPanelsArray().addDeleteListenerTo(menuItemDelete);
         notifyStart();
     }
 

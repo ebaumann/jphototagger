@@ -36,6 +36,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import javax.swing.JComponent;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -224,6 +225,15 @@ public class EditMetadataPanelsArray implements FocusListener, DatabaseListener,
             }
             if (buffer.length() > 0) {
                 textEntry.setText(buffer.toString());
+            }
+        }
+    }
+
+    public void addDeleteListenerTo(JMenuItem itemDelete) {
+        for (JPanel panel : panels) {
+            if (panel instanceof EditRepeatableTextEntryPanel) {
+                EditRepeatableTextEntryPanel listener = (EditRepeatableTextEntryPanel) panel;
+                itemDelete.addActionListener(listener);
             }
         }
     }

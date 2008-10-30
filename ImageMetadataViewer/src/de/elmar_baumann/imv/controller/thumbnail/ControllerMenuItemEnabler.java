@@ -85,7 +85,7 @@ public class ControllerMenuItemEnabler extends Controller implements ThumbnailsP
         for (JMenuItem item : contentsOfMenuItem.keySet()) {
             item.setEnabled(hasFocus && isSelection && contentsOfMenuItem.get(item).contains(content));
         }
-        itemDelete.setEnabled(hasFocus && isSelection && contentsOfDelete.contains(content));
+        itemDelete.setEnabled(isSelection && contentsOfDelete.contains(content));
         UserSettings settings = UserSettings.getInstance();
         itemOpenFilesWithStandardApp.setEnabled(hasFocus && isSelection && settings.hasDefaultImageOpenApp());
         menuOtherOpenImageApps.setEnabled(hasFocus && isSelection && settings.hasOtherImageOpenApps());
