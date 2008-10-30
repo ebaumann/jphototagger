@@ -9,23 +9,30 @@
 	
 <h1>Kartenreiter Bearbeiten</h1>
 
-<p>Über den Kartenreiter <strong>Bearbeiten</strong> können Sie die Metadaten eines oder mehrerer Bilder <strong>gleichzeitig</strong> bearbeiten, sofern Sie Schreibrechte besitzen im Bilder-Ordner und für existierende XMP-Dateien. Ohne Schreibrechte sind die Eingabefelder dunkler und es steht am Ende im Kartenreiter <strong>Bearbeiten</strong>, dass Bearbeiten nicht möglich ist.</p>
+<p>Über den Kartenreiter <strong>Bearbeiten</strong> können Sie die Metadaten eines oder mehrerer Bilder <strong>gleichzeitig</strong> bearbeiten. Sie benötigen:</p>
 
-<p><img src="img/panel-edit.gif" width="416" height="176" alt="Kartenreiter Bearbeiten" /></p>
+<ul>
+	<li>Schreibrechte im Bilder-Ordner</li>
+	<li>Schreibrechte für existierende XMP-Dateien</li>
+</ul>
 
-<p><strong>Ihre Daten werden erst übernommen, nachdem Sie diese speicherten!</strong> Tipp: Klicken Sie dazu <em>nicht</em> jedesmal auf die Schaltfläche <code>Speichern</code> sondern benutzen das Tastaturkürzel <code>Alt+S</code>. So können Sie schneller eingeben.</p>
+<p>Ohne Schreibrechte sind die Eingabefelder dunkler und es steht am Ende im Kartenreiter <strong>Bearbeiten</strong>, dass Bearbeiten nicht möglich ist.</p>
+
+<p><img src="img/panel-edit.gif" width="416" height="176" alt="" /></p>
+
+<p><em>Ihre Daten werden erst in die XMP-Filialdateien geschrieben, nachdem Sie diese speicherten!</em> <strong>Tipp:</strong> Benutzen zum Speichern die Tastenkombination <code>Alt+S</code>. So können Sie schneller eingeben.</p>
 
 <h2>Daten eingeben</h2>
 
 <p><img src="img/panel-edit-textfield.gif" width="320" height="42" alt="" /></p>
 
-<p>Mit der <strong>Tabulator</strong>-Taste gehen Sie von Eingabefeld zu Eingabefeld. Sofern Sie es nicht ausgeschaltet haben, werden Ihnen Vorschläge angeboten, die Sie in dieses Feld irgendwann einmal eingaben.</p>
+<p>Mit der <strong>Tabulator</strong>-Taste gehen Sie von Eingabefeld zu Eingabefeld. Sofern nicht ausgeschaltet, wird Ihnen in jedem Eingabefeld Text vorgeschlagen, den Sie dort irgendwann einmal eingaben.</p>
 
 <p><img src="img/panel-edit-prompt-tooltip.gif" width="320" height="53" alt="" /></p>
 
-<p>Zeigen Sie mit der Maus etwas länger auf die Beschriftung eines Felds, erscheint manchmal ein Werkzeugtipp (Tooltip), der etwas genauer beschreibt, was hineingeschrieben werden soll.</p>
+<p>Zeigen Sie mit der Maus etwas länger auf die Überschrift eines Eingabefelds, erscheint ein Werkzeugtipp (Tooltip) mit weiteren Informationen, was in das Eingabefeld hineingeschrieben werden soll.</p>
 
-<h2>Sich wiederholende Daten eingeben</h2>
+<h2>Mehrfache Daten eingeben</h2>
 
 <p>Folgende Daten können mehrfach vorkommen:</p>
 
@@ -36,51 +43,54 @@
 
 <p><img src="img/panel-edit-edit-area.gif" width="357" height="79" alt="" /></p>
 
-<p>Der Bereich für diese Daten sind zweigeteilt: Oben ist eine Liste mit den bisherigen Eingaben, unten ein einzeiliges Feld.</p>
+<p>Ein Bereich mit mehrfachen Daten ist zweigeteilt: Oben ist eine Liste mit den bisherigen Eingaben, unten ein einzeiliges Eingabefeld.</p>
 
-<p>Geben Sie Daten in das einzeilige Feld ein und drücken die <strong>Enter</strong>-Taste oder klicken mit der Maus auf die <strong>Plus</strong>-Schaltfläche (<strong>+</strong>). Dabei wird Ihre Eingabe in die Liste übernommen.</p>
+<p>Geben Sie Daten in das einzeilige Eingabefeld ein und drücken die <strong>Enter</strong>-Taste oder klicken mit der Maus auf die <strong>Plus</strong>-Schaltfläche (<strong>+</strong>), wird Ihre Eingabe in die Liste übernommen, falls sie dort nicht existiert.</p>
 
-<p>Wollen Sie Einträge aus der Liste <strong>löschen</strong>, wählen Sie einen oder mehrere an und klicken auf die <strong>Minus</strong>-Schaltfläche (<strong>-</strong>).</p>
+<p>Wollen Sie Einträge aus der Liste <strong>löschen</strong>, wählen Sie einen Eintrag oder mehrere an und drücken die <strong>Entf</strong>-Taste oder klicken auf die <strong>Minus</strong>-Schaltfläche (<strong>-</strong>).</p>
 
 <h2>Die Metadaten eines Bilds bearbeiten</h2>
 
-<p>Wählen Sie ein Bild aus, werden seine Metadaten angezeigt. Sie können diese verändern und abspeichern, indem Sie auf die Schaltfläche <strong>Speichern</strong> klicken (Tastaturkürzel: <code>Alt+S</code>). Sie löschen Daten durch Entfernen aus den Eingabefeldern vor dem Abspeichern.</p>
+<p>Wählen Sie ein Bild aus, werden seine Metadaten angezeigt. Sie können diese verändern und abspeichern mit der Tastenkombination <code>Alt+S</code> oder Mausklick auf die Schaltfläche <strong>Speichern</strong>. Durch Entfernen aus den Eingabefeldern und Listen vor dem Abspeichern <strong>löschen</strong> Sie Daten.</p>
 
 <h2>Die Metadaten mehrerer Bilder bearbeiten</h2>
 
-<p>Wählen Sie mehrere Bilder aus, werden <em>keine</em> Metadaten angezeigt. Daten, die Sie eingeben werden in allen Bildern ersetzt, wenn sie nur einmal vorkommen, wie der Name des Fotografen, das Copyright, der Aufnahmeort. Eingaben in Felder mit sich wiederholenden Metadaten - Stichwörter und Kategorien - werden allen ausgewählten Bildern angehängt, sofern sie dort noch nicht existieren. Leer gelassene Felder werden <em>nicht</em> verändert. Die Daten werden in <strong>XMP-Filialdateien</strong> und die Datenbank gespeichert, nachdem Sie die Schaltfläche <strong>Speichern</strong> betätigen mit der Maus oder dem Tastaturkürzel <code>Alt+S</code>.</p>
+<p>Wählen Sie mehrere Bilder aus, werden <em>keine</em> Metadaten angezeigt. Daten, die Sie eingeben, werden in allen Bildern ersetzt, wenn sie nur einmal vorkommen, wie der Name des Fotografen, das Copyright, der Aufnahmeort. Eingaben in Felder mit sich wiederholenden Metadaten - Stichwörter und Kategorien - werden allen ausgewählten Bildern angehängt, sofern sie dort nicht existieren. Leer gelassene Eingabefelder werden <em>nicht</em> berücksichtigt. Die Daten werden in <strong>XMP-Filialdateien</strong> und in die <strong>Datenbank</strong> gespeichert, nachdem Sie die Tastenkombination <code>Alt+S</code> drückten oder mit der Maus auf die Schaltfläche <strong>Speichern</strong> klickten.</p>
 
-<h2>Datenvorlagen</h2>
+<h2>Vorlagen</h2>
 
 <p>
 <img src="img/panel-edit-save.gif" width="319" height="154" alt="" />
 <img src="img/panel-edit-templates.gif" width="317" height="153" alt="" />
 </p>
 
-<p>Vorlagen sind Metadaten, die Sie immer wieder benötigen. Einmal abgespeichert werden sie in die Bearbeiten-Felder eingefügt durch Klick auf die Schaltfläche <strong>Einfügen</strong> <code>(Alt+E)</code> im Kartenreiter <strong>Vorlagen</strong>. Der Name der <em>aktuellen</em> Vorlage wird angezeigt im Dropdown-Listenfeld.</p>
+<p>Vorlagen sind Metadaten, die Sie immer wieder benötigen. Einmal abgespeichert mit der Tastenkombination <code>Alt+V</code> oder Mausklick auf die Schaltfläche <strong>Als Vorlage speichern</strong>, werden sie in die Eingabefelder eingefügt durch die Tastenkombination  <code>Alt+E</code> oder Klick auf die Schaltfläche <strong>Vorlage einfügen</strong> im Kartenreiter <strong>Bearbeiten</strong>. Der Name der <em>aktuellen</em> Vorlage wird angezeigt im Dropdown-Listenfeld des Kartenreiters <strong>Vorlagen</strong>.</p>
 
 <p>Für eine Vorlage eignen sich besonders Copyright, Adresse des Fotografen und Stichwörter, die Sie immer wieder benutzen.</p>
 
-<p>Sie können aus bestehenden Metadaten eine Vorlage erzeugen. Entfernen Sie vorher alles, was nicht in die Vorlage soll und klicken anschließend auf die Schaltfläche <strong>Als Vorlage speichern</strong> (<code>Alt+V</code>).</p>
+<p>Sie können aus bestehenden Metadaten eine Vorlage erzeugen: Wählen Sie ein Bild aus, das alle wichtigen Metadaten enthält, entfernen alles aus den Eingabefeldern und Listen, was nicht in die Vorlage soll, und benutzen anschließend die Tastenkombination <code>Alt+V</code> oder klicken mit der Maus auf die Schaltfläche <strong>Als Vorlage speichern</strong>.</p>
 
-<p>Die Bedeutung der anderen Schaltflächen unter <strong>Vorlagen</strong>:</p>
+<p>Die Bedeutung der anderen Schaltflächen, in den Klammern stehen die Tastenkombinationen:</p>
 
 <dl>
+<dt>Leeren <code>(Alt+L)</code></dt>
+	<dd>Leert alle Eingabefelder</dd>
 <dt>Aktualisieren <code>(Alt+A)</code></dt>
-	<dd>Frischt die aktuelle Vorlage auf mit den Daten der Bearbeiten-Felder</dd>
-<dt>Einfügen <code>(Alt+E)</code></dt>
-	<dd>Fügt die Daten der Vorlage in die Bearbeiten-Felder ein</dd>
+	<dd>Frischt die aktuelle Vorlage auf mit den Daten der Eingabefelder</dd>
 <dt>Löschen <code>(Alt+Ö)</code></dt>
 	<dd>Löscht die aktuelle Vorlage</dd>
 <dt>Umbenennen <code>Alt+M</code></dt>
 	<dd>Benennt die aktuelle Vorlage um</dd>
 </dl>
 
-<h2>Tipps</h2>
+<p><em>Die Tastenkombinationen funktionieren nur, wenn der Kartenreiter mit den entsprechenden Schaltflächen ausgewählt ist.</em></p>
 
-<p>Benutzen Sie Vorlagen.</p>
+<h2>Tipps zur Eingabe von Metadaten</h2>
 
-<p>Haben Sie viele Bilder fotografiert, wählen Sie vorher alle aus, die die gleichen Stichwörter, Kategorien etc. erhalten sollen. Dann geben Sie die Stichwörter und Kategorien ein und speichern diese ab. Das wiederholen Sie für andere Stichwörter und Kategorien.</p>
+<ul>
+	<li>Benutzen Sie Vorlagen.</li>
+	<li>Haben Sie viele Bilder fotografiert, wählen Sie vorher alle aus, die die gleichen Stichwörter, Kategorien etc. erhalten sollen. Dann geben Sie die Stichwörter, Kategorien und den Rest ein und speichern Ihre Eingaben. Das wiederholen Sie für andere Stichwörter, Kategorien, etc.</li>
+</ul>
 
 </body>
 </html>
