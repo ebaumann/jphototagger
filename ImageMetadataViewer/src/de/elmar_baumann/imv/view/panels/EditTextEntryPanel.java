@@ -8,6 +8,8 @@ import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.component.InputVerifierMaxLength;
 import de.elmar_baumann.lib.component.TabLeavingTextArea;
 import java.awt.Color;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 /**
@@ -16,12 +18,12 @@ import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/18
  */
-public class EditTextEntryPanel extends javax.swing.JPanel implements TextEntry {
+public class EditTextEntryPanel extends javax.swing.JPanel implements TextEntry, DocumentListener {
 
     private Column column;
     private AutoCompleteData autoCompleteData;
-    private String text = "";
     private static final Color editableColor = Color.WHITE;
+    private boolean dirty = false;
 
     public EditTextEntryPanel(Column column) {
         this.column = column;
@@ -32,6 +34,7 @@ public class EditTextEntryPanel extends javax.swing.JPanel implements TextEntry 
     private void postInitComponents() {
         setPropmt();
         setInputVerifier();
+        textAreaEdit.getDocument().addDocumentListener(this);
     }
 
     private void setPropmt() {
@@ -49,19 +52,16 @@ public class EditTextEntryPanel extends javax.swing.JPanel implements TextEntry 
 
     @Override
     public boolean isDirty() {
-        return !text.equals(textAreaEdit.getText());
+        return dirty;
     }
 
     @Override
     public void setDirty(boolean dirty) {
-        if (!dirty) {
-            text = textAreaEdit.getText();
-        }
+        this.dirty = dirty;
     }
 
     @Override
     public void setText(String text) {
-        this.text = text;
         textAreaEdit.setText(text.trim());
     }
 
@@ -104,6 +104,20 @@ public class EditTextEntryPanel extends javax.swing.JPanel implements TextEntry 
         return new TextEntryContent(getText(), column);
     }
 
+    @Override
+    public void insertUpdate(DocumentEvent e) {
+    }
+
+    @Override
+    public void removeUpdate(DocumentEvent e) {
+        dirty = true;
+    }
+
+    @Override
+    public void changedUpdate(DocumentEvent e) {
+        dirty = true;
+    }
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -120,7 +134,7 @@ public class EditTextEntryPanel extends javax.swing.JPanel implements TextEntry 
 
         setLayout(new java.awt.GridBagLayout());
 
-        labelPrompt.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
+        labelPrompt.setFont(new java.awt.Font("Dialog", 1, 11));
         labelPrompt.setText(Bundle.getString("EditTextEntryPanel.labelPrompt.text")); // NOI18N
         labelPrompt.setToolTipText(column.getLongerDescription());
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -132,6 +146,7 @@ public class EditTextEntryPanel extends javax.swing.JPanel implements TextEntry 
 
         textAreaEdit.setColumns(1);
         textAreaEdit.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
+        textAreaEdit.setLineWrap(true);
         textAreaEdit.setRows(1);
         scrollPane.setViewportView(textAreaEdit);
 
@@ -142,6 +157,7 @@ public class EditTextEntryPanel extends javax.swing.JPanel implements TextEntry 
         gridBagConstraints.weighty = 0.5;
         add(scrollPane, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel labelPrompt;
     private javax.swing.JScrollPane scrollPane;

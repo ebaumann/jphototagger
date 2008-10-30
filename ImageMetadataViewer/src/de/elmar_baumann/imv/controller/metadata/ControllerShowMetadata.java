@@ -125,7 +125,7 @@ public class ControllerShowMetadata extends Controller
         removeMetadataFromTables();
         repaintMetadataTables();
         setMetadataFilename(Bundle.getString("ControllerShowMetadata.InformationMessage.MetadataIsShownOnlyIfOneImageIsSelected"));
-        data.editPanelsArray.emptyPanels();
+        data.editPanelsArray.emptyPanels(false);
     }
 
     private void resizeMetadataTables() {

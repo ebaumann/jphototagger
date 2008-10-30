@@ -27,7 +27,7 @@ public class ControllerEmptyMetadata extends Controller implements ActionListene
     @Override
     public void actionPerformed(ActionEvent e) {
         if (isControl()) {
-            editPanels.emptyPanels();
+            editPanels.emptyPanels(true);
         }
     }
 }

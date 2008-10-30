@@ -95,14 +95,14 @@ public class ControllerThumbnailSelectionEditMetadata extends Controller
             if (xmpPropertyInfos != null && xmpPropertyInfos.size() > 0) {
                 editPanels.setXmpPropertyInfos(filenames, xmpPropertyInfos);
             } else {
-                editPanels.emptyPanels();
+                editPanels.emptyPanels(false);
                 editPanels.setFilenames(filenames);
             }
         } else if (filenames.size() > 1) {
-            editPanels.emptyPanels();
+            editPanels.emptyPanels(false);
             editPanels.setFilenames(filenames);
         } else if (filenames.size() <= 0) {
-            editPanels.emptyPanels();
+            editPanels.emptyPanels(false);
         }
     }
 }

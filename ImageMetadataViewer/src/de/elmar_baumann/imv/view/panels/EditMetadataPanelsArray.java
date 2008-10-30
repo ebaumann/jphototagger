@@ -166,6 +166,7 @@ public class EditMetadataPanelsArray implements FocusListener, DatabaseListener,
             String value = template.getValueOfColumn(textEntry.getColumn());
             if (!value.isEmpty()) {
                 textEntry.setText(value);
+                textEntry.setDirty(true);
             }
         }
     }
@@ -206,7 +207,7 @@ public class EditMetadataPanelsArray implements FocusListener, DatabaseListener,
      * @param infos     Zu setzende Einträge
      */
     public void setXmpPropertyInfos(List<String> filenames, List<XMPPropertyInfo> infos) {
-        emptyPanels();
+        emptyPanels(false);
         this.filenames = filenames;
         IptcXmpMapping mapping = IptcXmpMapping.getInstance();
         XmpMetadata xmpMetadata = new XmpMetadata();
@@ -225,6 +226,7 @@ public class EditMetadataPanelsArray implements FocusListener, DatabaseListener,
             }
             if (buffer.length() > 0) {
                 textEntry.setText(buffer.toString());
+                textEntry.setDirty(false);
             }
         }
     }
@@ -324,14 +326,12 @@ public class EditMetadataPanelsArray implements FocusListener, DatabaseListener,
         }
     }
 
-    /**
-     * Leert die Panels.
-     */
-    public void emptyPanels() {
+    public void emptyPanels(boolean setDirty) {
         checkDirty();
         for (JPanel panel : panels) {
             TextEntry entry = (TextEntry) panel;
             entry.setText(""); // NOI18N
+            entry.setDirty(setDirty);
         }
     }
 
