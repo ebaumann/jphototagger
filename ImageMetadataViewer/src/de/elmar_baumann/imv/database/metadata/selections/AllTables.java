@@ -24,7 +24,6 @@ public class AllTables {
     
 
     static {
-        // TODO PERMANENT: Neue Tabellen eintragen
         allTables.add(TableExif.getInstance());
         allTables.add(TableFiles.getInstance());
         allTables.add(TableXmp.getInstance());

@@ -1,4 +1,4 @@
-package de.elmar_baumann.imv.controller.files;
+package de.elmar_baumann.imv.controller.programs;
 
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.controller.Controller;

@@ -1,4 +1,4 @@
-package de.elmar_baumann.imv.controller.files;
+package de.elmar_baumann.imv.controller.filesystem;
 
 import de.elmar_baumann.imv.controller.Controller;
 import de.elmar_baumann.imv.resource.Panels;

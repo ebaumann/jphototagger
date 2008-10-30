@@ -1,4 +1,4 @@
-package de.elmar_baumann.imv.controller.tasks;
+package de.elmar_baumann.imv.event.listener;
 
 import de.elmar_baumann.imv.view.dialogs.UserSettingsDialog;
 import java.awt.event.MouseAdapter;

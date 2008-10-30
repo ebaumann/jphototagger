@@ -1,4 +1,4 @@
-package de.elmar_baumann.imv.controller.misc;
+package de.elmar_baumann.imv.controller.search;
 
 import de.elmar_baumann.imv.controller.Controller;
 import de.elmar_baumann.imv.view.dialogs.AdvancedSearchDialog;

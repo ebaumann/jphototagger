@@ -1,4 +1,4 @@
-package de.elmar_baumann.imv.controller.savedsearch;
+package de.elmar_baumann.imv.controller.search;
 
 import de.elmar_baumann.imv.AppSettings;
 import de.elmar_baumann.imv.controller.Controller;

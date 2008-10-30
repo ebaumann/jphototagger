@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.factory;
 
-import de.elmar_baumann.imv.controller.tasks.MouseListenerProgressBarScheduledTasks;
+import de.elmar_baumann.imv.event.listener.MouseListenerProgressBarScheduledTasks;
 import de.elmar_baumann.imv.event.listener.ListFavoriteDirectoriesMouseListener;
 import de.elmar_baumann.imv.event.listener.TreeDirectoriesMouseListener;
 import de.elmar_baumann.imv.event.listener.ListImageCollectionsMouseListener;
