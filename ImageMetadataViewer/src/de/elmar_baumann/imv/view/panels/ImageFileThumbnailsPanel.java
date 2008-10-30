@@ -349,7 +349,9 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel {
 
     @Override
     protected void showPopupMenu(MouseEvent e) {
-        popupMenu.show(this, e.getX(), e.getY());
+        if (hasFocus()) {
+            popupMenu.show(this, e.getX(), e.getY());
+        }
     }
 
     @Override
