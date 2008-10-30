@@ -77,7 +77,6 @@ public abstract class ThumbnailsPanel extends JPanel
     private static final Font font = new Font("Arial", Font.PLAIN, fontHeight);  // NOI18N
     private static final int maxCharCountTextPer150px = 25;
     private JViewport viewport;
-    private int minPanelWidth;
     private int maxCharCountText = 25;
     private static final int externalPadding = fontHeight + 10;
     private static final int internalPadding = 10;
@@ -134,7 +133,6 @@ public abstract class ThumbnailsPanel extends JPanel
             thumbnailAtIndex.clear();
             System.gc();
             thumbnailWidth = width;
-            setMinPanelWidth();
             setCountPerRow();
             maxCharCountText = (int) (((double) maxCharCountTextPer150px * (double) width / 150.0));
             repaint();
@@ -153,10 +151,6 @@ public abstract class ThumbnailsPanel extends JPanel
 
     private boolean isValidIndex(int thumbnailIndex) {
         return thumbnailIndex >= 0 && thumbnailIndex < thumbnailCount;
-    }
-
-    private void setMinPanelWidth() {
-        minPanelWidth = getThumbnailAreaWidth() + 2 * externalPadding;
     }
 
     public int getThumbnailWidth() {
@@ -799,7 +793,7 @@ public abstract class ThumbnailsPanel extends JPanel
         Component parent = getParent();
         int width = parent instanceof JViewport ? parent.getWidth() : getWidth();
         int heigth = getCalculatedHeight();
-        return new Dimension(width >= minPanelWidth ? width : minPanelWidth, heigth);
+        return new Dimension(width, heigth);
     }
 
     private int getCalculatedHeight() {
