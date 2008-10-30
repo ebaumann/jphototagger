@@ -2,7 +2,6 @@ package de.elmar_baumann.imv.view.dialogs;
 
 import de.elmar_baumann.imv.AppSettings;
 import de.elmar_baumann.imv.UserSettings;
-import de.elmar_baumann.imv.database.DatabaseMaintainance;
 import de.elmar_baumann.imv.database.DatabaseStatistics;
 import de.elmar_baumann.imv.tasks.RecordsWithNotExistingFilesDeleter;
 import de.elmar_baumann.imv.event.ProgressEvent;
@@ -10,14 +9,17 @@ import de.elmar_baumann.imv.event.ProgressListener;
 import de.elmar_baumann.imv.model.TableModelDatabaseInfo;
 import de.elmar_baumann.imv.event.listener.TotalRecordCountListener;
 import de.elmar_baumann.imv.resource.Bundle;
+import de.elmar_baumann.imv.tasks.DatabaseCompress;
 import de.elmar_baumann.imv.view.renderer.TableCellRendererDatabaseInfoColumns;
 import de.elmar_baumann.lib.dialog.Dialog;
 import de.elmar_baumann.lib.persistence.PersistentAppSizes;
 import de.elmar_baumann.lib.persistence.PersistentSettings;
 import de.elmar_baumann.lib.persistence.PersistentSettingsHints;
-import java.awt.Cursor;
-import java.text.MessageFormat;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Stack;
 import javax.swing.Icon;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 /**
@@ -30,11 +32,11 @@ public class DatabaseMaintainanceDialog extends Dialog implements
 
     private TableModelDatabaseInfo modelDatabaseInfo = new TableModelDatabaseInfo();
     private TotalRecordCountListener listenerTotalRecordCount = new TotalRecordCountListener();
-    private RecordsWithNotExistingFilesDeleter deleter;
-    private boolean abortAction = false;
+    private Stack<Runnable> runnables = new Stack<Runnable>();
+    private Map<Runnable, JLabel> finishedLabelOfRunnable = new HashMap<Runnable, JLabel>();
+    private boolean stop = false;
     private boolean closedEnabled = true;
-    private final Icon okIcon = AppSettings.getIcon("icon_ok.png"); // NOI18N
-    private final Icon errorIcon = AppSettings.getIcon("icon_error.png"); // NOI18N
+    private final Icon iconFinished = AppSettings.getIcon("icon_finished.png"); // NOI18N
     private static DatabaseMaintainanceDialog instance = new DatabaseMaintainanceDialog();
 
     private DatabaseMaintainanceDialog() {
@@ -71,6 +73,27 @@ public class DatabaseMaintainanceDialog extends Dialog implements
         registerKeyStrokes();
     }
 
+    private void removeFinishedIcons() {
+        for (JLabel label : finishedLabelOfRunnable.values()) {
+            label.setIcon(null);
+        }
+    }
+
+    private void setProgressbarStart(ProgressEvent evt) {
+        if (evt.isIndeterminate()) {
+            progressBar.setIndeterminate(true);
+        } else {
+            progressBar.setMinimum(evt.getMinimum());
+            progressBar.setMaximum(evt.getMaximum());
+            progressBar.setValue(evt.getValue());
+        }
+    }
+
+    private void setProgressbarEnd(ProgressEvent evt) {
+        progressBar.setIndeterminate(false);
+        progressBar.setValue(evt.getValue());
+    }
+
     private void setTotalRecordCount() {
         labelDatabaseTotalRecordCount.setText(Long.toString(
             DatabaseStatistics.getInstance().getTotalRecordCount()));
@@ -79,7 +102,7 @@ public class DatabaseMaintainanceDialog extends Dialog implements
     private void setEnabledButtonStartMaintain() {
         buttonStartMaintain.setEnabled(
             checkBoxCompressDatabase.isSelected() ||
-            checkBoxDeleteNotExistingFilesInDatabase.isSelected());
+            checkBoxDeleteRecordsOfNotExistingFilesInDatabase.isSelected());
     }
 
     private void setClosedEnabled(boolean enable) {
@@ -90,23 +113,12 @@ public class DatabaseMaintainanceDialog extends Dialog implements
         return closedEnabled;
     }
 
-    private void compressDatabase() {
-        Cursor oldCursor = getCursor();
-        setClosedEnabled(false);
-        setCursor(new Cursor(Cursor.WAIT_CURSOR));
-        boolean success = DatabaseMaintainance.getInstacne().compressDatabase();
-        setCursor(oldCursor);
-        setClosedEnabled(true);
-        messageCompressDatabase(success);
-    }
-
-    private void deleteNotExistingFilesInDatabase() {
-        setClosedEnabled(false);
-        deleter = new RecordsWithNotExistingFilesDeleter();
-        deleter.addProgressListener(this);
-        Thread thread = new Thread(deleter);
-        thread.setPriority(UserSettings.getInstance().getThreadPriority());
-        thread.start();
+    synchronized private void startNextThread() {
+        if (runnables.size() > 0) {
+            Thread thread = new Thread(runnables.pop());
+            thread.setPriority(UserSettings.getInstance().getThreadPriority());
+            thread.start();
+        }
     }
 
     private void close() {
@@ -127,47 +139,60 @@ public class DatabaseMaintainanceDialog extends Dialog implements
             AppSettings.getMediumAppIcon());
     }
 
-    private void messageCompressDatabase(boolean success) {
-        labelStatusCompressDatabase.setIcon(success ? okIcon : errorIcon);
+    private void setRunnablesAreRunning(boolean running) {
+        buttonAbortAction.setEnabled(running);
+        buttonStartMaintain.setEnabled(!running);
+        setClosedEnabled(!running);
     }
 
-    private void messageDeleteNotExistingFilesInDatabaseCount() {
-        Object[] params = {deleter.getCountDeleted()};
-        labelStatusDeleteNotExistingFilesInDatabase.setIcon(okIcon);
-        MessageFormat message =
-            new MessageFormat(Bundle.getString("DatabaseMaintainanceDialog.InformationMessage.CountDeleted"));
-        labelCountDeleteNotExistingFilesInDatabase.setText(message.format(params));
+    private void startMaintain() {
+        removeFinishedIcons();
+        addRunnables();
+        setRunnablesAreRunning(true);
+        stop = false;
+        startNextThread();
+    }
+
+    private void addRunnables() {
+        runnables.clear();
+        // reverse order of checkboxes because the runnables are in a stack
+        if (checkBoxCompressDatabase.isSelected()) {
+            DatabaseCompress databaseCompress = new DatabaseCompress();
+            databaseCompress.addProgressListener(this);
+            finishedLabelOfRunnable.put(databaseCompress, labelFinishedCompressDatabase);
+            runnables.push(databaseCompress);
+        }
+        if (checkBoxDeleteRecordsOfNotExistingFilesInDatabase.isSelected()) {
+            RecordsWithNotExistingFilesDeleter deleter = new RecordsWithNotExistingFilesDeleter();
+            deleter.addProgressListener(this);
+            finishedLabelOfRunnable.put(deleter, labelFinishedDeleteRecordsOfNotExistingFilesInDatabase);
+            runnables.push(deleter);
+        }
     }
 
     @Override
     public void progressStarted(ProgressEvent evt) {
+        labelMessage.setText(evt.getInfo().toString());
         buttonAbortAction.setEnabled(true);
-        progressBar.setMinimum(evt.getMinimum());
-        progressBar.setMaximum(evt.getMaximum());
-        progressBar.setValue(evt.getValue());
+        setProgressbarStart(evt);
+        buttonAbortAction.setEnabled(!(evt.getSource() instanceof DatabaseCompress));
     }
 
     @Override
     public void progressPerformed(ProgressEvent evt) {
         progressBar.setValue(evt.getValue());
-        evt.setStop(abortAction);
+        evt.setStop(stop);
     }
 
     @Override
     public void progressEnded(ProgressEvent evt) {
-        buttonAbortAction.setEnabled(false);
-        setClosedEnabled(true);
-        abortAction = false;
-        messageDeleteNotExistingFilesInDatabaseCount();
-    }
-
-    private void startMaintain() {
-        setClosedEnabled(false);
-        if (checkBoxCompressDatabase.isSelected()) {
-            compressDatabase();
-        }
-        if (checkBoxDeleteNotExistingFilesInDatabase.isSelected()) {
-            deleteNotExistingFilesInDatabase();
+        setProgressbarEnd(evt);
+        labelMessage.setText(evt.getInfo().toString());
+        finishedLabelOfRunnable.get(evt.getSource()).setIcon(iconFinished);
+        if (runnables.size() > 0) {
+            startNextThread();
+        } else {
+            setRunnablesAreRunning(false);
         }
     }
 
@@ -179,6 +204,13 @@ public class DatabaseMaintainanceDialog extends Dialog implements
     @Override
     protected void escape() {
         close();
+    }
+
+    private void handleButtonAbortActionPerformed() {
+        stop = true;
+        synchronized (runnables) {
+            runnables.clear();
+        }
     }
 
     /** This method is called from within the constructor to
@@ -199,15 +231,15 @@ public class DatabaseMaintainanceDialog extends Dialog implements
         labelDatabaseTotalRecordCount = new javax.swing.JLabel();
         panelMaintainance = new javax.swing.JPanel();
         panelMaintainanceTasks = new javax.swing.JPanel();
-        checkBoxDeleteNotExistingFilesInDatabase = new javax.swing.JCheckBox();
-        labelStatusDeleteNotExistingFilesInDatabase = new javax.swing.JLabel();
-        labelStatusCompressDatabase = new javax.swing.JLabel();
+        checkBoxDeleteRecordsOfNotExistingFilesInDatabase = new javax.swing.JCheckBox();
+        labelFinishedDeleteRecordsOfNotExistingFilesInDatabase = new javax.swing.JLabel();
         checkBoxCompressDatabase = new javax.swing.JCheckBox();
+        labelFinishedCompressDatabase = new javax.swing.JLabel();
         progressBar = new javax.swing.JProgressBar();
         buttonStartMaintain = new javax.swing.JButton();
         buttonAbortAction = new javax.swing.JButton();
         panelMaintainMessages = new javax.swing.JPanel();
-        labelCountDeleteNotExistingFilesInDatabase = new javax.swing.JLabel();
+        labelMessage = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle(Bundle.getString("DatabaseMaintainanceDialog.title")); // NOI18N
@@ -259,20 +291,18 @@ public class DatabaseMaintainanceDialog extends Dialog implements
 
         panelMaintainanceTasks.setBorder(javax.swing.BorderFactory.createTitledBorder(null, Bundle.getString("DatabaseMaintainanceDialog.panelMaintainanceTasks.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 11))); // NOI18N
 
-        checkBoxDeleteNotExistingFilesInDatabase.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
-        checkBoxDeleteNotExistingFilesInDatabase.setMnemonic('e');
-        checkBoxDeleteNotExistingFilesInDatabase.setText(Bundle.getString("DatabaseMaintainanceDialog.checkBoxDeleteNotExistingFilesInDatabase.text")); // NOI18N
-        checkBoxDeleteNotExistingFilesInDatabase.addActionListener(new java.awt.event.ActionListener() {
+        checkBoxDeleteRecordsOfNotExistingFilesInDatabase.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        checkBoxDeleteRecordsOfNotExistingFilesInDatabase.setMnemonic('e');
+        checkBoxDeleteRecordsOfNotExistingFilesInDatabase.setText(Bundle.getString("DatabaseMaintainanceDialog.checkBoxDeleteRecordsOfNotExistingFilesInDatabase.text")); // NOI18N
+        checkBoxDeleteRecordsOfNotExistingFilesInDatabase.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkBoxDeleteNotExistingFilesInDatabaseActionPerformed(evt);
+                checkBoxDeleteRecordsOfNotExistingFilesInDatabaseActionPerformed(evt);
             }
         });
 
-        labelStatusDeleteNotExistingFilesInDatabase.setPreferredSize(new java.awt.Dimension(16, 16));
+        labelFinishedDeleteRecordsOfNotExistingFilesInDatabase.setPreferredSize(new java.awt.Dimension(16, 16));
 
-        labelStatusCompressDatabase.setPreferredSize(new java.awt.Dimension(16, 16));
-
-        checkBoxCompressDatabase.setFont(new java.awt.Font("Dialog", 0, 12));
+        checkBoxCompressDatabase.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         checkBoxCompressDatabase.setMnemonic('k');
         checkBoxCompressDatabase.setText(Bundle.getString("DatabaseMaintainanceDialog.checkBoxCompressDatabase.text")); // NOI18N
         checkBoxCompressDatabase.addActionListener(new java.awt.event.ActionListener() {
@@ -281,6 +311,8 @@ public class DatabaseMaintainanceDialog extends Dialog implements
             }
         });
 
+        labelFinishedCompressDatabase.setPreferredSize(new java.awt.Dimension(16, 16));
+
         javax.swing.GroupLayout panelMaintainanceTasksLayout = new javax.swing.GroupLayout(panelMaintainanceTasks);
         panelMaintainanceTasks.setLayout(panelMaintainanceTasksLayout);
         panelMaintainanceTasksLayout.setHorizontalGroup(
@@ -288,29 +320,27 @@ public class DatabaseMaintainanceDialog extends Dialog implements
             .addGroup(panelMaintainanceTasksLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelMaintainanceTasksLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(checkBoxDeleteNotExistingFilesInDatabase)
+                    .addComponent(checkBoxDeleteRecordsOfNotExistingFilesInDatabase)
                     .addComponent(checkBoxCompressDatabase))
                 .addGap(18, 18, 18)
                 .addGroup(panelMaintainanceTasksLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelStatusCompressDatabase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelStatusDeleteNotExistingFilesInDatabase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(labelFinishedCompressDatabase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelFinishedDeleteRecordsOfNotExistingFilesInDatabase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(34, Short.MAX_VALUE))
         );
         panelMaintainanceTasksLayout.setVerticalGroup(
             panelMaintainanceTasksLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelMaintainanceTasksLayout.createSequentialGroup()
-                .addComponent(checkBoxDeleteNotExistingFilesInDatabase)
+                .addComponent(checkBoxDeleteRecordsOfNotExistingFilesInDatabase)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(checkBoxCompressDatabase))
             .addGroup(panelMaintainanceTasksLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(labelStatusDeleteNotExistingFilesInDatabase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(labelFinishedDeleteRecordsOfNotExistingFilesInDatabase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
-                .addComponent(labelStatusCompressDatabase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(labelFinishedCompressDatabase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
-
-        progressBar.setStringPainted(true);
 
         buttonStartMaintain.setFont(new java.awt.Font("Dialog", 0, 12));
         buttonStartMaintain.setMnemonic('s');
@@ -322,7 +352,7 @@ public class DatabaseMaintainanceDialog extends Dialog implements
             }
         });
 
-        buttonAbortAction.setFont(new java.awt.Font("Dialog", 0, 12));
+        buttonAbortAction.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         buttonAbortAction.setMnemonic('o');
         buttonAbortAction.setText(Bundle.getString("DatabaseMaintainanceDialog.buttonAbortAction.text")); // NOI18N
         buttonAbortAction.setEnabled(false);
@@ -334,7 +364,8 @@ public class DatabaseMaintainanceDialog extends Dialog implements
 
         panelMaintainMessages.setBorder(javax.swing.BorderFactory.createTitledBorder(null, Bundle.getString("DatabaseMaintainanceDialog.panelMaintainMessages.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
 
-        labelCountDeleteNotExistingFilesInDatabase.setPreferredSize(new java.awt.Dimension(0, 16));
+        labelMessage.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        labelMessage.setPreferredSize(new java.awt.Dimension(0, 16));
 
         javax.swing.GroupLayout panelMaintainMessagesLayout = new javax.swing.GroupLayout(panelMaintainMessages);
         panelMaintainMessages.setLayout(panelMaintainMessagesLayout);
@@ -342,14 +373,13 @@ public class DatabaseMaintainanceDialog extends Dialog implements
             panelMaintainMessagesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelMaintainMessagesLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(labelCountDeleteNotExistingFilesInDatabase, javax.swing.GroupLayout.DEFAULT_SIZE, 422, Short.MAX_VALUE)
+                .addComponent(labelMessage, javax.swing.GroupLayout.DEFAULT_SIZE, 422, Short.MAX_VALUE)
                 .addContainerGap())
         );
         panelMaintainMessagesLayout.setVerticalGroup(
             panelMaintainMessagesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelMaintainMessagesLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(labelCountDeleteNotExistingFilesInDatabase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(labelMessage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -360,8 +390,8 @@ public class DatabaseMaintainanceDialog extends Dialog implements
             .addGroup(panelMaintainanceLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelMaintainanceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelMaintainanceTasks, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panelMaintainMessages, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelMaintainanceTasks, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelMaintainanceLayout.createSequentialGroup()
                         .addComponent(buttonAbortAction)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -376,13 +406,13 @@ public class DatabaseMaintainanceDialog extends Dialog implements
                 .addComponent(panelMaintainanceTasks, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelMaintainMessages, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelMaintainanceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonStartMaintain)
                     .addComponent(buttonAbortAction))
-                .addGap(85, 85, 85))
+                .addGap(91, 91, 91))
         );
 
         tabbedPane.addTab(Bundle.getString("DatabaseMaintainanceDialog.panelMaintainance.TabConstraints.tabTitle"), panelMaintainance); // NOI18N
@@ -412,16 +442,16 @@ private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:even
 }//GEN-LAST:event_formWindowClosing
 
 private void buttonAbortActionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAbortActionActionPerformed
-    abortAction = true;
+    handleButtonAbortActionPerformed();
 }//GEN-LAST:event_buttonAbortActionActionPerformed
 
 private void buttonStartMaintainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonStartMaintainActionPerformed
     startMaintain();
 }//GEN-LAST:event_buttonStartMaintainActionPerformed
 
-private void checkBoxDeleteNotExistingFilesInDatabaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxDeleteNotExistingFilesInDatabaseActionPerformed
+private void checkBoxDeleteRecordsOfNotExistingFilesInDatabaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxDeleteRecordsOfNotExistingFilesInDatabaseActionPerformed
     setEnabledButtonStartMaintain();
-}//GEN-LAST:event_checkBoxDeleteNotExistingFilesInDatabaseActionPerformed
+}//GEN-LAST:event_checkBoxDeleteRecordsOfNotExistingFilesInDatabaseActionPerformed
 
 private void checkBoxCompressDatabaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxCompressDatabaseActionPerformed
     setEnabledButtonStartMaintain();
@@ -450,13 +480,13 @@ private void checkBoxCompressDatabaseActionPerformed(java.awt.event.ActionEvent 
     private javax.swing.JButton buttonAbortAction;
     private javax.swing.JButton buttonStartMaintain;
     private javax.swing.JCheckBox checkBoxCompressDatabase;
-    private javax.swing.JCheckBox checkBoxDeleteNotExistingFilesInDatabase;
-    private javax.swing.JLabel labelCountDeleteNotExistingFilesInDatabase;
+    private javax.swing.JCheckBox checkBoxDeleteRecordsOfNotExistingFilesInDatabase;
     private javax.swing.JLabel labelDatabaseInfoTable;
     private javax.swing.JLabel labelDatabaseInfoTotalRecordCount;
     private javax.swing.JLabel labelDatabaseTotalRecordCount;
-    private javax.swing.JLabel labelStatusCompressDatabase;
-    private javax.swing.JLabel labelStatusDeleteNotExistingFilesInDatabase;
+    private javax.swing.JLabel labelFinishedCompressDatabase;
+    private javax.swing.JLabel labelFinishedDeleteRecordsOfNotExistingFilesInDatabase;
+    private javax.swing.JLabel labelMessage;
     private javax.swing.JPanel panelInfo;
     private javax.swing.JPanel panelMaintainMessages;
     private javax.swing.JPanel panelMaintainance;

@@ -11,6 +11,7 @@ public class ProgressEvent {
     private Object source;
     private int maximum;
     private int minimum;
+    private boolean indeterminate = false;
     private int value;
     private long milliSecondsRemaining = -1;
     private Object info;
@@ -161,4 +162,23 @@ public class ProgressEvent {
     public boolean isStop() {
         return stop;
     }
+
+    /**
+     * Returns wheter the progress is indeterminate.
+     * 
+     * @return true if indeterminate
+     */
+    public boolean isIndeterminate() {
+        return indeterminate;
+    }
+
+    /**
+     * Sets wheter the progress is indeterminate.
+     * 
+     * @param intermediate  true if indeterminate. Default: false.
+     */
+    public void setIndeterminate(boolean intermediate) {
+        this.indeterminate = intermediate;
+    }
+    
 }

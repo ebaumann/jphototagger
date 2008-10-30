@@ -4,6 +4,8 @@ import de.elmar_baumann.imv.database.Database;
 import de.elmar_baumann.imv.database.DatabaseImageFiles;
 import de.elmar_baumann.imv.event.ProgressEvent;
 import de.elmar_baumann.imv.event.ProgressListener;
+import de.elmar_baumann.imv.resource.Bundle;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,13 +22,17 @@ public class RecordsWithNotExistingFilesDeleter implements Runnable,
     private DatabaseImageFiles db = DatabaseImageFiles.getInstance();
     private List<ProgressListener> progressListeners = new ArrayList<ProgressListener>();
     private boolean notifyProgressEnded = false;
+    private String startMessage;
+    private String endMessage;
     private boolean stop = false;
     private int countDeleted = 0;
 
     @Override
     public void run() {
+        setMessagesFiles();
         db.deleteNotExistingImageFiles(this);
         if (!stop) {
+            setMessagesXmp();
             notifyProgressEnded = true; // called before last action
             db.deleteNotExistingXmpData(this);
         }
@@ -48,6 +54,8 @@ public class RecordsWithNotExistingFilesDeleter implements Runnable,
 
     @Override
     public void progressStarted(ProgressEvent evt) {
+        evt.setInfo(getStartMessage(evt));
+        evt.setSource(this);
         for (ProgressListener listener : progressListeners) {
             listener.progressStarted(evt);
             if (evt.isStop()) {
@@ -58,6 +66,7 @@ public class RecordsWithNotExistingFilesDeleter implements Runnable,
 
     @Override
     public void progressPerformed(ProgressEvent evt) {
+        evt.setSource(this);
         for (ProgressListener listener : progressListeners) {
             listener.progressPerformed(evt);
             if (evt.isStop()) {
@@ -69,10 +78,30 @@ public class RecordsWithNotExistingFilesDeleter implements Runnable,
     @Override
     public void progressEnded(ProgressEvent evt) {
         countDeleted += (Integer) evt.getInfo();
+        evt.setInfo(getEndMessage());
+        evt.setSource(this);
         if (stop || notifyProgressEnded) {
             for (ProgressListener listener : progressListeners) {
                 listener.progressEnded(evt);
             }
         }
+    }
+
+    private Object getStartMessage(ProgressEvent evt) {
+        return new MessageFormat(startMessage).format(new Object[]{evt.getMaximum()});
+    }
+
+    private Object getEndMessage() {
+        return new MessageFormat(endMessage).format(new Object[]{countDeleted});
+    }
+
+    private void setMessagesFiles() {
+        startMessage = Bundle.getString("RecordsWithNotExistingFilesDeleter.Files.StartMessage");
+        endMessage = Bundle.getString("RecordsWithNotExistingFilesDeleter.Files.EndMessage");
+    }
+
+    private void setMessagesXmp() {
+        startMessage = Bundle.getString("RecordsWithNotExistingFilesDeleter.Xmp.StartMessage");
+        endMessage = Bundle.getString("RecordsWithNotExistingFilesDeleter.Xmp.EndMessage");
     }
 }

@@ -154,8 +154,8 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="panelMaintainanceTasks" alignment="1" max="32767" attributes="2"/>
                           <Component id="panelMaintainMessages" alignment="1" max="32767" attributes="0"/>
+                          <Component id="panelMaintainanceTasks" alignment="1" max="32767" attributes="2"/>
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="buttonAbortAction" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
@@ -174,14 +174,14 @@
                       <Component id="panelMaintainanceTasks" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="panelMaintainMessages" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="progressBar" min="-2" pref="23" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="progressBar" min="-2" pref="23" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="buttonStartMaintain" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="buttonAbortAction" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="85" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="91" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -205,13 +205,13 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="checkBoxDeleteNotExistingFilesInDatabase" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="checkBoxDeleteRecordsOfNotExistingFilesInDatabase" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="checkBoxCompressDatabase" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="labelStatusCompressDatabase" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="labelStatusDeleteNotExistingFilesInDatabase" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="labelFinishedCompressDatabase" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="labelFinishedDeleteRecordsOfNotExistingFilesInDatabase" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace pref="34" max="32767" attributes="0"/>
                       </Group>
@@ -220,43 +220,36 @@
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="checkBoxDeleteNotExistingFilesInDatabase" min="-2" max="-2" attributes="0"/>
+                          <Component id="checkBoxDeleteRecordsOfNotExistingFilesInDatabase" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="checkBoxCompressDatabase" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="labelStatusDeleteNotExistingFilesInDatabase" min="-2" max="-2" attributes="0"/>
+                          <Component id="labelFinishedDeleteRecordsOfNotExistingFilesInDatabase" min="-2" max="-2" attributes="0"/>
                           <EmptySpace pref="12" max="32767" attributes="0"/>
-                          <Component id="labelStatusCompressDatabase" min="-2" max="-2" attributes="0"/>
+                          <Component id="labelFinishedCompressDatabase" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JCheckBox" name="checkBoxDeleteNotExistingFilesInDatabase">
+                <Component class="javax.swing.JCheckBox" name="checkBoxDeleteRecordsOfNotExistingFilesInDatabase">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Dialog" size="12" style="0"/>
                     </Property>
                     <Property name="mnemonic" type="int" value="101"/>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="DatabaseMaintainanceDialog.checkBoxDeleteNotExistingFilesInDatabase.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="DatabaseMaintainanceDialog.checkBoxDeleteRecordsOfNotExistingFilesInDatabase.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkBoxDeleteNotExistingFilesInDatabaseActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkBoxDeleteRecordsOfNotExistingFilesInDatabaseActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JLabel" name="labelStatusDeleteNotExistingFilesInDatabase">
-                  <Properties>
-                    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                      <Dimension value="[16, 16]"/>
-                    </Property>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JLabel" name="labelStatusCompressDatabase">
+                <Component class="javax.swing.JLabel" name="labelFinishedDeleteRecordsOfNotExistingFilesInDatabase">
                   <Properties>
                     <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                       <Dimension value="[16, 16]"/>
@@ -277,12 +270,16 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkBoxCompressDatabaseActionPerformed"/>
                   </Events>
                 </Component>
+                <Component class="javax.swing.JLabel" name="labelFinishedCompressDatabase">
+                  <Properties>
+                    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                      <Dimension value="[16, 16]"/>
+                    </Property>
+                  </Properties>
+                </Component>
               </SubComponents>
             </Container>
             <Component class="javax.swing.JProgressBar" name="progressBar">
-              <Properties>
-                <Property name="stringPainted" type="boolean" value="true"/>
-              </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="buttonStartMaintain">
               <Properties>
@@ -331,7 +328,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="labelCountDeleteNotExistingFilesInDatabase" pref="422" max="32767" attributes="0"/>
+                          <Component id="labelMessage" pref="422" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -339,16 +336,18 @@
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="labelCountDeleteNotExistingFilesInDatabase" min="-2" max="-2" attributes="0"/>
+                          <Component id="labelMessage" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JLabel" name="labelCountDeleteNotExistingFilesInDatabase">
+                <Component class="javax.swing.JLabel" name="labelMessage">
                   <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Dialog" size="12" style="0"/>
+                    </Property>
                     <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                       <Dimension value="[0, 16]"/>
                     </Property>
