@@ -1,4 +1,4 @@
-package de.elmar_baumann.imv.controller.misc;
+package de.elmar_baumann.imv.controller.thumbnail;
 
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.controller.Controller;
@@ -81,15 +81,16 @@ public class ControllerMenuItemEnabler extends Controller implements ThumbnailsP
     private void setEnabled() {
         Content content = thumbnailsPanel.getContent();
         boolean isSelection = thumbnailsPanel.getSelectionCount() > 0;
+        boolean hasFocus = thumbnailsPanel.hasFocus();
         for (JMenuItem item : contentsOfMenuItem.keySet()) {
-            item.setEnabled(contentsOfMenuItem.get(item).contains(content) && isSelection);
+            item.setEnabled(hasFocus && isSelection && contentsOfMenuItem.get(item).contains(content));
         }
-        itemDelete.setEnabled(contentsOfDelete.contains(content) && isSelection);
+        itemDelete.setEnabled(hasFocus && isSelection && contentsOfDelete.contains(content));
         UserSettings settings = UserSettings.getInstance();
-        itemOpenFilesWithStandardApp.setEnabled(settings.hasDefaultImageOpenApp() && isSelection);
-        menuOtherOpenImageApps.setEnabled(settings.hasOtherImageOpenApps() && isSelection);
+        itemOpenFilesWithStandardApp.setEnabled(hasFocus && isSelection && settings.hasDefaultImageOpenApp());
+        menuOtherOpenImageApps.setEnabled(hasFocus && isSelection && settings.hasOtherImageOpenApps());
         for (JMenuItem item : itemsIsSelection) {
-            item.setEnabled(isSelection);
+            item.setEnabled(hasFocus && isSelection);
         }
     }
 

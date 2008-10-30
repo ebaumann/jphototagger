@@ -35,7 +35,7 @@ import de.elmar_baumann.imv.controller.misc.ControllerGoto;
 import de.elmar_baumann.imv.controller.metadata.ControllerIptcToXmp;
 import de.elmar_baumann.imv.controller.misc.ControllerItemsMutualExcludeSelection;
 import de.elmar_baumann.imv.controller.misc.ControllerLogfileDialog;
-import de.elmar_baumann.imv.controller.misc.ControllerMenuItemEnabler;
+import de.elmar_baumann.imv.controller.thumbnail.ControllerMenuItemEnabler;
 import de.elmar_baumann.imv.controller.misc.ControllerThumbnailCountDisplay;
 import de.elmar_baumann.imv.controller.search.ControllerCreateSavedSearch;
 import de.elmar_baumann.imv.controller.search.ControllerDeleteSavedSearch;
