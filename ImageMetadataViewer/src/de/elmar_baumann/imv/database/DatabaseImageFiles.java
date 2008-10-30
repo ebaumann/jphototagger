@@ -721,8 +721,8 @@ public class DatabaseImageFiles extends Database {
             connection.setAutoCommit(true);
             event.setMaximum(DatabaseStatistics.getInstance().getXmpCount());
             Statement stmt = connection.createStatement();
-            String query = "SELECT files.filename FROM files" + // NOI18N
-                " LEFT JOIN xmp on files.id = xmp.id_files"; // NOI18N
+            String query = "SELECT files.filename FROM files," + // NOI18N
+                " xmp WHERE files.id = xmp.id_files"; // NOI18N
             ResultSet rs = stmt.executeQuery(query);
             String filename;
             boolean abort = notifyProgressListenerStart(listener, event);
