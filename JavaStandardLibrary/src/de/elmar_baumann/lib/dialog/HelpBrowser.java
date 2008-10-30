@@ -53,6 +53,7 @@ public class HelpBrowser extends javax.swing.JFrame
     private MenuItem itemNext;
     private String startUrl;
     private String baseUrl;
+    private static final String keySplitPane = HelpBrowser.class.getName() + ".SplitPane";
 
     private HelpBrowser() {
         initComponents();
@@ -332,12 +333,16 @@ public class HelpBrowser extends javax.swing.JFrame
 
     private void writePersistent() {
         PersistentAppSizes.setSizeAndLocation(this);
-        PersistentSettings.getInstance().setComponent(this, getHints());
+        PersistentSettings settings = PersistentSettings.getInstance();
+        settings.setComponent(this, getHints());
+        settings.setSplitPane(splitPane, keySplitPane);
     }
 
     private void readPersistent() {
         PersistentAppSizes.getSizeAndLocation(this);
-        PersistentSettings.getInstance().getComponent(this, getHints());
+        PersistentSettings settings = PersistentSettings.getInstance();
+        settings.getComponent(this, getHints());
+        settings.getSplitPane(splitPane, keySplitPane);
     }
 
     private PersistentSettingsHints getHints() {
