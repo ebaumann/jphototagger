@@ -212,7 +212,7 @@
 		</page>
 		<page>
 			<url>tip_use_shortcuts.html</url>
-			<title>Tastaturkürzel</title>
+			<title>Tastenkombinationen</title>
 		</page>
 		<page>
 			<url>tip_large_thumbnails.html</url>
@@ -229,6 +229,10 @@
 		<page>
 			<url>tip_thumbnail_creating_script.html</url>
 			<title>Programm zum Erzeugen von Vorschaubildern</title>
+		</page>
+		<page>
+			<url>tip_use_scripts.html</url>
+			<title>Mehr Funktionen hinzufügen</title>
 		</page>
 		<page>
 			<url>tip_more_memory.html</url>
@@ -260,6 +264,29 @@
 		<page>
 			<url>facts_why_xmp_sidecarfiles.html</url>
 			<title>Warum XMP-Filialdateien?</title>
+		</page>
+	</node>
+	<node>
+		<title>Glossar</title>
+		<page>
+			<url>glossary_exif.html</url>
+			<title>EXIF</title>
+		</page>
+		<page>
+			<url>glossary_iptc.html</url>
+			<title>IPTC</title>
+		</page>
+		<page>
+			<url>glossary_metadata.html</url>
+			<title>Metadaten</title>
+		</page>
+		<page>
+			<url>glossary_xmp.html</url>
+			<title>XMP</title>
+		</page>
+		<page>
+			<url>glossary_sidecar_file.html</url>
+			<title>XMP-Filialdatei</title>
 		</page>
 	</node>
 </helpindex>

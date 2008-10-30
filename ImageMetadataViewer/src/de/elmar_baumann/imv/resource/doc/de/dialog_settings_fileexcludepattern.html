@@ -9,13 +9,23 @@
 	
 <h1>Einstellungen-Dialog / Ausschließen</h1>
 
-<p>Hier können Sie <a href="http://de.wikipedia.org/wiki/Regul%C3%A4rer_Ausdruck">reguläre Ausdrücke</a> eingeben für Bilder, die nicht angezeigt werden sollen.</p>
+<p>Hier können Sie <strong>reguläre Ausdrücke</strong> eingeben für Bilder, die <em>nicht</em> angezeigt werden sollen.</p>
 
-<p>Informieren Sie sich über reguläre Ausdrücke im Web, falls Sie diese nicht kennen. Für die meisten Fälle reicht die Zeichenfolge Punkt + Stern (Asterik) <code>.*</code>, die bedeutet: Hier kann nichts stehen oder beliebig viel. Wollen Sie alle Bilder im Ordner <code>Testfotos</code> ausschließen erreichen Sie das durch den Ausdruck <code>.*Testfotos.*</code>.</p>
+<p>Informieren Sie sich über reguläre Ausdrücke im Web, falls Sie diese nicht kennen. Für die meisten Fälle reicht die Zeichenfolge <strong>Punkt + Stern</strong> (<code>.*</code>), die bedeutet: Hier kann nichts stehen oder beliebig viel. Wollen Sie alle Bilder im Ordner <code>Testfotos</code> ausschließen, erreichen Sie das durch den regulären Ausdruck:</p> 
 
-<p>Wählen Sie einen ausgeschlossenen Ordner an, werden keine Bilder mehr angezeigt. Sie sollten anschließend die Option <strong>Datenbank aktualisieren</strong> nutzen, damit die Bilder auch aus der Datenbank gelöscht werden, sonst erscheinen diese bei Suchen, Kategorien und Bildsammlungen.</p>
+<pre>.*Testfotos.*</pre>
 
-<p><img src="img/settings-excludepattern.gif" width="719" height="472" alt="Dialog" /></p>
+<p>Wählen Sie einen ausgeschlossenen Ordner an, werden dessen Bilder nicht mehr angezeigt. Hängen Sie allen Vorschaubildern auf dem Datenträger vor der Endung <code>-vorschau</code> an, können Sie diese ausblenden mit dem regulären Ausdruck:</p>
+
+<pre>.*-vorschau.*</pre>
+
+<p>oder genauer (eine von mehreren Varianten):</p>
+
+<pre>.*-vorschau\....$</pre>
+
+<p>Sie sollten auf die Schaltfläche <strong>Datenbank aktualisieren</strong> klicken, nachdem Sie reguläre Ausdrücke <em>hinzufügten</em>, damit Bilder aus der Datenbank gelöscht werden, die auf die regulären Ausdrücke passen, sonst erscheinen diese bei Suchen, Stichwörtern, Kategorien und Bildsammlungen.</p>
+
+<p><img src="img/settings-excludepattern.gif" width="719" height="472" alt="" /></p>
 
 </body>
 </html>

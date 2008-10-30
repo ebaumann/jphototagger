@@ -9,9 +9,49 @@
 
 <h1>Was ist in der Datenbank gespeichert?</h1>
 
-<p>In der Datenbank sind <strong>Vorschaubilder</strong> und eine <em>Auswahl</em> an <strong>Metadaten</strong> gespeichert.</p>
+<p>In der Datenbank sind <strong>Vorschaubilder</strong> gespeichert, eine <em>Auswahl</em> an <strong><a href="glossary_metadata.html">Metadaten</a></strong> und einige weitere Daten:</p>
 
-<p>Es werden die gleichen <strong>XMP</strong>-Daten gespeichert wie dokumentiert im Projekt <a href="http://www.elmar-baumann.de/fotografie/tipps/computer/lightroom/xmp-iptc-mapping.html">XmpIptc</a> mit Ausnahme des XMP-Aufnahmedatums. Dieses wird aus den EXIF-Daten übernommen.</p>
+<h2>Aus der <a href="glossary_sidecar_file.html">XMP-Filialdateien</a>:</h2>
+<ul>
+	<li>dc:subject</li>
+	<li>dc:creator</li>
+	<li>dc:rights</li>
+	<li>dc:description</li>
+	<li>Iptc4xmpCore:Location</li>
+	<li>dc:title</li>
+	<li>Iptc4xmpCore:CountryCode</li>
+	<li>photoshop:Headline</li>
+	<li>photoshop:CaptionWriter</li>
+	<li>photoshop:Category</li>
+	<li>photoshop:SupplementalCategories</li>
+	<li>photoshop:City</li>
+	<li>photoshop:State</li>
+	<li>photoshop:Country</li>
+	<li>photoshop:TransmissionReference</li>
+	<li>photoshop:Instructions</li>
+	<li>photoshop:Credit</li>
+	<li>photoshop:Source</li>
+	<li>photoshop:AuthorsPosition</li>
+</ul>
+
+<h2>Aus den <a href="glossary_xmp.html">EXIF</a>-Daten der Bilddatei:</h2>
+<ul>
+	<li>DateTimeOriginal</li>
+	<li>FocalLength</li>
+	<li>ISOSpeedRatings</li>
+	<li>Model</li>
+</ul>
+
+<h2>Weitere Daten in der Datenbank</h2>
+
+<ul>
+	<li>Bildsammlungen</li>
+	<li>Gespeicherte Suchen</li>
+</ul>
+
+<h2>Nicht in der Datenbank</h2>
+
+<p>Alles andere, beispielsweise die Programme zum Öffnen von Bildern, ist in der Einstellungen-Datei gespeichert (<code>Settings.properties</code>) im <a href="facts_database_location.html">Benutzerverzeichnis</a>.<p>
 
 </body>
 </html>

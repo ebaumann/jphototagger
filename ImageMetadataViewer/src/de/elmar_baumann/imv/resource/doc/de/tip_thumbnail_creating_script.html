@@ -18,14 +18,14 @@
 # Date   : 2008/08/02
 # Doc    : Von einem Bild ein JPEG-Thumbnail ausgeben auf die Standardausgabe
 #          1. Parameter: Bilddateiname
-#          2. Paraeter: Länge der längeren Thumbnailseite in Pixel
+#          2. Parameter: Länge der längeren Thumbnailseite in Pixel
 #
 #          Benötigte Programme: - ImageMagick, davon identify und convert
 #                               - dcraw
 #
 ################################################################################
 
-# Leerzeichen etc. in Dateinamen erlauben
+# Leerzeichen in Dateinamen erlauben
 IFS="
 "
 
@@ -41,7 +41,7 @@ temp_dir=$HOME/tmp
 # Dateiname des von dcraw ausgegebenen temporären Bilds
 temp_filename=$temp_dir/$(basename $0).$$.ppm
 
-# So viele Pixel muss die längere Thumbnailseite mindesten haben
+# So viele Pixel muss die längere Thumbnailseite mindestens haben
 MIN_LENGTH=50
 
 # Endungen aller Dateinamen, die keine RAW-Datei benennen
