@@ -94,16 +94,23 @@ public class TableModelDatabaseInfo extends DefaultTableModel
         return new Object[]{rowHeader, count};
     }
 
-    private void setCountToBuffer(StringBuffer buffer, Integer count) {
-        buffer.replace(0, buffer.length(), count.toString());
-        fireTableDataChanged();
+    private void setCount() {
+        new SetCountThread().start();
     }
 
-    private void setCount() {
-        Set<Column> columns = bufferOfColumn.keySet();
-        for (Column column : columns) {
-            setCountToBuffer(bufferOfColumn.get(column),
-                db.getDistinctCount(column));
+    private class SetCountThread extends Thread {
+
+        @Override
+        public void run() {
+            Set<Column> columns = bufferOfColumn.keySet();
+            for (Column column : columns) {
+                setCountToBuffer(bufferOfColumn.get(column), db.getDistinctCount(column));
+            }
+            fireTableDataChanged();
         }
+    }
+
+    private void setCountToBuffer(StringBuffer buffer, Integer count) {
+        buffer.replace(0, buffer.length(), count.toString());
     }
 }
