@@ -12,7 +12,10 @@ import de.elmar_baumann.imv.model.TableModelIptc;
 import de.elmar_baumann.imv.model.TableModelXmp;
 import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.view.panels.AppPanel;
+import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.lib.model.TreeModelDirectories;
+import de.elmar_baumann.lib.persistence.PersistentSettings;
+import javax.swing.JTree;
 
 /**
  * Erzeugt die Models und verbindet sie mit den GUI-Elementen.
@@ -58,7 +61,13 @@ public class ModelFactory {
 
             @Override
             public void run() {
-                appPanel.getTreeDirectories().setModel(new TreeModelDirectories(UserSettings.getInstance().isAcceptHiddenDirectories()));
+                JTree treeDirectories = appPanel.getTreeDirectories();
+                treeDirectories.setModel(
+                    new TreeModelDirectories(
+                    UserSettings.getInstance().isAcceptHiddenDirectories()));
+                // Hack
+                PersistentSettings.getInstance().getTree(treeDirectories, 
+                    AppPanel.class.getName() + ".treeDirectories");
             }
         }).start();
     }
