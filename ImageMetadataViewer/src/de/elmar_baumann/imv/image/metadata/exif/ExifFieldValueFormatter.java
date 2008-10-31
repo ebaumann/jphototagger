@@ -208,7 +208,6 @@ public class ExifFieldValueFormatter {
     }
 
     private static String getUserComment(String value) {
-        // TODO: Dekodieren wenn nicht ASCII
         if (value.startsWith("ASCII")) { // NOI18N
             return value.substring(5).trim();
         } else if (value.startsWith("Unicode")) { // NOI18N
