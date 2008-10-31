@@ -14,7 +14,7 @@ import java.sql.Statement;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/29
  */
-public class UpdateTablesXmpLastModified {
+class UpdateTablesXmpLastModified {
 
     private UpdateTablesMessages messages = UpdateTablesMessages.getInstance();
     private ProgressDialog dialog = messages.getProgressDialog();
