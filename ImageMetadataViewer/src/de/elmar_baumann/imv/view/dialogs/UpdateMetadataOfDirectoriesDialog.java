@@ -64,7 +64,7 @@ public class UpdateMetadataOfDirectoriesDialog extends Dialog
     }
 
     private void addFilecountToTitle() {
-        MessageFormat message = new MessageFormat(Bundle.getString("UpdateMetadataOfDirectoriesDialog.InfoMessage.Title.FileCount"));
+        MessageFormat message = new MessageFormat(Bundle.getString("UpdateMetadataOfDirectoriesDialog.InformationMessage.Title.FileCount"));
         Object[] params = {selectedFiles.size()};
         setTitle(title + message.format(params));
     }
@@ -127,7 +127,7 @@ public class UpdateMetadataOfDirectoriesDialog extends Dialog
     }
 
     private void messageThreadPriority(Thread thread) {
-        MessageFormat message = new MessageFormat(Bundle.getString("UpdateMetadataOfDirectoriesDialog.InfoMessage.ThreadPriority"));
+        MessageFormat message = new MessageFormat(Bundle.getString("UpdateMetadataOfDirectoriesDialog.InformationMessage.ThreadPriority"));
         Object[] params = {thread.getPriority()};
         Logger.getLogger(UpdateMetadataOfDirectoriesDialog.class.getName()).log(Level.FINE, message.format(params));
     }
@@ -185,7 +185,7 @@ public class UpdateMetadataOfDirectoriesDialog extends Dialog
     }
 
     private void setFileCountInfo() {
-        MessageFormat message = new MessageFormat(Bundle.getString("UpdateMetadataOfDirectoriesDialog.InfoMessage.SelectedFileCount"));
+        MessageFormat message = new MessageFormat(Bundle.getString("UpdateMetadataOfDirectoriesDialog.InformationMessage.SelectedFileCount"));
         Object[] params = {countSelectedFiles};
         labelCountSelectedFiles.setText(message.format(params));
     }
@@ -334,8 +334,8 @@ public class UpdateMetadataOfDirectoriesDialog extends Dialog
         boolean isTime = remainingMinutes > 0;
         MessageFormat message = new MessageFormat(
             isTime
-            ? Bundle.getString("UpdateMetadataOfDirectoriesDialog.InfoMessage.ProgressWithTime")
-            : Bundle.getString("UpdateMetadataOfDirectoriesDialog.InfoMessage.ProgressWithoutTime"));
+            ? Bundle.getString("UpdateMetadataOfDirectoriesDialog.InformationMessage.ProgressWithTime")
+            : Bundle.getString("UpdateMetadataOfDirectoriesDialog.InformationMessage.ProgressWithoutTime"));
         Object[] params = {currentFilenameInfotextPrefix, evt.getInfo(), remainingMinutes};
         labelCurrentFilename.setText(message.format(params));
     }

@@ -29,7 +29,7 @@ class UpdateTablesXmpLastModified {
         if (DatabaseMetadata.getInstance().existsColumn(
             connection, "xmp", "lastmodified")) {
             Statement stmt = connection.createStatement();
-            messages.message(Bundle.getString("UpdateTables.InfoMessage.RemoveColumnXmpLastModified"));
+            messages.message(Bundle.getString("UpdateTablesXmpLastModified.InformationMessage.RemoveColumnXmpLastModified"));
             stmt.execute("ALTER TABLE xmp DROP COLUMN lastmodified"); // NOI18N
         }
     }
@@ -39,7 +39,7 @@ class UpdateTablesXmpLastModified {
         if (!DatabaseMetadata.getInstance().existsColumn(
             connection, "files", "xmp_lastmodified")) { // NOI18N
             Statement stmt = connection.createStatement();
-            messages.message(Bundle.getString("UpdateTables.InfoMessage.AddColumnXmpLastModified.AddColumn"));
+            messages.message(Bundle.getString("UpdateTablesXmpLastModified.InformationMessage.AddColumnXmpLastModified.AddColumn"));
             stmt.execute("ALTER TABLE files ADD COLUMN xmp_lastmodified BIGINT"); // NOI18N
             copyLastModifiedToXmp(connection);
         }
@@ -70,7 +70,7 @@ class UpdateTablesXmpLastModified {
     }
 
     private void setProgressDialog() {
-        messages.message(Bundle.getString("UpdateTables.InfoMessage.AddColumnXmpLastModified.SetLastModified"));
+        messages.message(Bundle.getString("UpdateTablesXmpLastModified.InformationMessage.AddColumnXmpLastModified.SetLastModified"));
         dialog.setIntermediate(false);
         dialog.setMinimum(0);
         dialog.setMaximum(DatabaseStatistics.getInstance().getXmpCount());

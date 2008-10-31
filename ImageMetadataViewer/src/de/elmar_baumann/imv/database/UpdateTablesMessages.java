@@ -39,7 +39,7 @@ class UpdateTablesMessages {
         dialog = new ProgressDialog(null);
         dialog.setEnabledClose(false);
         dialog.setEnabledStop(false);
-        dialog.setTitle(Bundle.getString("UpdateTables.InfoMessage.Title"));
+        dialog.setTitle(Bundle.getString("UpdateTables.InformationMessage.Title"));
         dialog.setIntermediate(true);
     }
 }
