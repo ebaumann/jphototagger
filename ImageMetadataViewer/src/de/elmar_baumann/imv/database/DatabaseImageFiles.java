@@ -46,77 +46,491 @@ public class DatabaseImageFiles extends Database {
     private DatabaseImageFiles() {
     }
 
-    private synchronized void insertThumbnail(
+    /**
+     * Returns the id of a filename.
+     * 
+     * @param  connection  connection
+     * @param  filename    filename
+     * @return id or -1 if the filename does not exist
+     */
+    long getIdFile(Connection connection, String filename) throws SQLException {
+        long id = -1;
+        PreparedStatement stmt = connection.prepareStatement(
+            "SELECT id FROM files WHERE filename = ?"); // NOI18N
+        stmt.setString(1, filename);
+        logStatement(stmt);
+        ResultSet rs = stmt.executeQuery();
+        if (rs.next()) {
+            id = rs.getLong(1);
+        }
+        stmt.close();
+        return id;
+    }
+
+    /**
+     * Renames a file.
+     *
+     * @param  oldFilename  old filename
+     * @param  newFilename  new filename
+     * @return count of renamed files
+     */
+    public synchronized int updateRenameImageFilename(String oldFilename, String newFilename) {
+        int count = 0;
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            connection.setAutoCommit(true);
+            PreparedStatement stmt = connection.prepareStatement(
+                "UPDATE files SET filename = ? WHERE filename = ?"); // NOI18N
+            stmt.setString(1, newFilename);
+            stmt.setString(2, oldFilename);
+            logStatement(stmt);
+            count = stmt.executeUpdate();
+            stmt.close();
+        } catch (SQLException ex) {
+            handleException(ex, Level.SEVERE);
+        } finally {
+            free(connection);
+        }
+        return count;
+    }
+
+    private synchronized int deleteRowWithFilename(
+        Connection connection, String filename) {
+        int countDeleted = 0;
+        try {
+            PreparedStatement stmt = connection.prepareStatement(
+                "DELETE FROM files WHERE filename = ?"); // NOI18N
+            stmt.setString(1, filename);
+            logStatement(stmt);
+            countDeleted = stmt.executeUpdate();
+            stmt.close();
+        } catch (SQLException ex) {
+            handleException(ex, Level.SEVERE);
+        }
+        return countDeleted;
+    }
+
+    /**
+     * Inserts an image file into the databse. If the image already exists
+     * it's data will be updated.
+     * 
+     * @param  imageFile  image
+     * @return true if inserted
+     */
+    synchronized public boolean insertImageFile(ImageFile imageFile) {
+        boolean success = false;
+        if (existsFilename(imageFile.getFilename())) {
+            return updateImageFile(imageFile);
+        }
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            connection.setAutoCommit(false);
+            PreparedStatement preparedStatement = connection.prepareStatement(
+                "INSERT INTO files (filename, lastmodified, xmp_lastmodified)" + // NOI18N
+                " VALUES (?, ?, ?)"); // NOI18N
+            String filename = imageFile.getFilename();
+            preparedStatement.setString(1, filename);
+            preparedStatement.setLong(2, imageFile.getLastmodified());
+            preparedStatement.setLong(3, getLastmodifiedXmp(imageFile));
+            logStatement(preparedStatement);
+            preparedStatement.executeUpdate();
+            long idFile = getIdFile(connection, filename);
+            updateThumbnail(connection, idFile, imageFile.getThumbnail(), imageFile.getFilename());
+            insertXmp(connection, idFile, imageFile.getXmp());
+            insertExif(connection, idFile, imageFile.getExif());
+            connection.commit();
+            success = true;
+            notifyDatabaseListener(DatabaseAction.Type.ImageFileInserted, imageFile);
+            preparedStatement.close();
+        } catch (SQLException ex) {
+            handleException(ex, Level.SEVERE);
+            try {
+                connection.rollback();
+            } catch (SQLException ex1) {
+                handleException(ex1, Level.SEVERE);
+            }
+        } finally {
+            free(connection);
+        }
+        return success;
+    }
+
+    /**
+     * Aktualisiert ein Bild in der Datenbank.
+     *
+     * @param imageFileData Bildmetadaten
+     * @return              true bei Erfolg
+     */
+    public synchronized boolean updateImageFile(ImageFile imageFileData) {
+        boolean success = false;
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            connection.setAutoCommit(false);
+            PreparedStatement stmt = connection.prepareStatement(
+                "UPDATE files " + // NOI18N
+                "SET lastmodified = ?, xmp_lastmodified = ? WHERE id = ?"); // NOI18N
+            String filename = imageFileData.getFilename();
+            long idFile = getIdFile(connection, filename);
+            stmt.setLong(1, imageFileData.getLastmodified());
+            stmt.setLong(2, getLastmodifiedXmp(imageFileData));
+            stmt.setLong(3, idFile);
+            logStatement(stmt);
+            stmt.executeUpdate();
+            stmt.close();
+            updateThumbnail(connection, idFile, imageFileData.getThumbnail(), imageFileData.getFilename());
+            updateXmp(connection, idFile, imageFileData.getXmp());
+            updateExif(connection, idFile, imageFileData.getExif());
+            connection.commit();
+            success = true;
+            notifyDatabaseListener(DatabaseAction.Type.ImageFileUpdated, imageFileData);
+        } catch (SQLException ex) {
+            handleException(ex, Level.SEVERE);
+            try {
+                connection.rollback();
+            } catch (SQLException ex1) {
+                handleException(ex1, Level.SEVERE);
+            }
+        } finally {
+            free(connection);
+        }
+        return success;
+    }
+
+    /**
+     * Updates all thumbnails, reads the files from the file system and creates
+     * thumbnails from the files.
+     *
+     * @param  listener  progress listener, can stop action via event and receive
+     * the current filename
+     * @return count of updated thumbnails
+     */
+    public synchronized int updateAllThumbnails(ProgressListener listener) {
+        int updated = 0;
+        Connection connection = null;
+        try {
+            int filecount = DatabaseStatistics.getInstance().getFileCount();
+            ProgressEvent event = new ProgressEvent(this, 0, filecount, 0, ""); // NOI18N
+            connection = getConnection();
+            connection.setAutoCommit(true);
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(
+                "SELECT filename FROM files ORDER BY filename ASC"); // NOI18N
+            int count = 0;
+            notifyProgressListenerStart(listener, event);
+            while (!event.isStop() && rs.next()) {
+                String filename = rs.getString(1);
+                updateThumbnail(connection, getIdFile(connection, filename),
+                    getThumbnailFromFile(filename), filename);
+                updated++;
+                event.setValue(++count);
+                event.setInfo(filename);
+                notifyProgressListenerPerformed(listener, event);
+            }
+            stmt.close();
+            notifyProgressListenerEnd(listener, event);
+        } catch (SQLException ex) {
+            handleException(ex, Level.SEVERE);
+        } finally {
+            free(connection);
+        }
+        return updated;
+    }
+
+    private Image getThumbnailFromFile(String filename) {
+        UserSettings settings = UserSettings.getInstance();
+        int maxTnWidth = settings.getMaxThumbnailWidth();
+        boolean useEmbeddedTn = settings.isUseEmbeddedThumbnails();
+        File file = new File(filename);
+        if (settings.isCreateThumbnailsWithExternalApp()) {
+            return ThumbnailUtil.getThumbnailFromExternalApplication(
+                file, settings.getExternalThumbnailCreationCommand(), maxTnWidth);
+        } else {
+            return ThumbnailUtil.getThumbnail(file, maxTnWidth, useEmbeddedTn);
+        }
+    }
+
+    /**
+     * Updates the thumbnail of an image file.
+     *
+     * @param  filename  filename
+     * @param  thumbnail thumbnail
+     * @return true if updated
+     */
+    public boolean updateThumbnail(String filename, Image thumbnail) {
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            connection.setAutoCommit(true);
+            long idFile = getIdFile(connection, filename);
+            updateThumbnail(connection, idFile, thumbnail, filename);
+            return true;
+        } catch (SQLException ex) {
+            handleException(ex, Level.SEVERE);
+        } finally {
+            free(connection);
+        }
+        return false;
+    }
+
+    private synchronized void updateThumbnail(
         Connection connection, long idFile, Image thumbnail, String filename) throws SQLException {
         if (thumbnail != null) {
             ByteArrayInputStream inputStream = ImageUtil.getByteArrayInputStream(thumbnail);
             if (inputStream != null) {
-                PreparedStatement preparedStatement = connection.prepareStatement(
+                PreparedStatement stmt = connection.prepareStatement(
                     "UPDATE files SET thumbnail = ? WHERE id = ?"); // NOI18N
-                preparedStatement.setBinaryStream(1, inputStream, inputStream.available());
-                preparedStatement.setLong(2, idFile);
-                logStatement(preparedStatement);
-                preparedStatement.executeUpdate();
+                stmt.setBinaryStream(1, inputStream, inputStream.available());
+                stmt.setLong(2, idFile);
+                logStatement(stmt);
+                stmt.executeUpdate();
+                stmt.close();
                 notifyDatabaseListener(DatabaseAction.Type.ThumbnailUpdated, filename);
-                preparedStatement.close();
             }
         }
     }
 
-    private synchronized void insertExif(
-        Connection connection, long idFile, Exif exifData) throws SQLException {
-        if (exifData != null) {
-            PreparedStatement stmt = connection.prepareStatement(getInsertIntoExifStatement());
-            setExifValues(stmt, idFile, exifData);
+    /**
+     * Returns the last modification time of an image file.
+     *
+     * @param  filename filename
+     * @return time in milliseconds since 1970 or -1 if the file is not in
+     *         the database or when errors occured
+     */
+    public long getLastModifiedImageFile(String filename) {
+        long lastModified = -1;
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            PreparedStatement stmt = connection.prepareStatement(
+                "SELECT lastmodified FROM files WHERE filename = ?"); // NOI18N
+            stmt.setString(1, filename);
             logStatement(stmt);
-            stmt.executeUpdate();
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                lastModified = rs.getLong(1);
+            }
             stmt.close();
+        } catch (SQLException ex) {
+            handleException(ex, Level.SEVERE);
+        } finally {
+            free(connection);
         }
+        return lastModified;
     }
 
-    private String getInsertIntoExifStatement() {
-        return "INSERT INTO exif" + // NOI18N
-            " (" + // NOI18N
-            "id_files" + // NOI18N -- 1 --
-            ", exif_recording_equipment" + // NOI18N -- 2 --
-            ", exif_date_time_original" + // NOI18N -- 3 --
-            ", exif_focal_length" + // NOI18N -- 4 --
-            ", exif_iso_speed_ratings" + // NOI18N -- 5 --
-            ")" + // NOI18N
-            " VALUES (?, ?, ?, ?, ?)"; // NOI18N
+    /**
+     * Returns whether an file is stored in the database.
+     *
+     * @param  filename  filename
+     * @return true if exists
+     */
+    public boolean existsFilename(String filename) {
+        boolean exists = false;
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            PreparedStatement stmt = connection.prepareStatement(
+                "SELECT COUNT(*) FROM files WHERE filename = ?"); // NOI18N
+            stmt.setString(1, filename);
+            logStatement(stmt);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                exists = rs.getInt(1) > 0;
+            }
+            stmt.close();
+        } catch (SQLException ex) {
+            handleException(ex, Level.SEVERE);
+        } finally {
+            free(connection);
+        }
+        return exists;
     }
 
-    private void setExifValues(
-        PreparedStatement stmt, long idFile, Exif exifData) throws SQLException {
+    /**
+     * Returns a file's thumbnail.
+     *
+     * @param  filename  filename
+     * @return Thumbnail oder null on errors or if the thumbnail doesn't exist
+     */
+    public Image getThumbnail(String filename) {
+        Image thumbnail = null;
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            PreparedStatement stmt = connection.prepareStatement(
+                "SELECT thumbnail FROM files WHERE filename = ?"); // NOI18N
+            stmt.setString(1, filename);
+            logStatement(stmt);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                InputStream inputStream = rs.getBinaryStream(1);
+                if (inputStream != null) {
+                    int bytecount = inputStream.available();
+                    byte[] bytes = new byte[bytecount];
+                    inputStream.read(bytes, 0, bytecount);
+                    ImageIcon icon = new ImageIcon(bytes);
+                    thumbnail = icon.getImage();
+                }
+            }
+            stmt.close();
+        } catch (IOException ex) {
+            handleException(ex, Level.SEVERE);
+            thumbnail = null;
+        } catch (SQLException ex) {
+            handleException(ex, Level.SEVERE);
+            thumbnail = null;
+        } finally {
+            free(connection);
+        }
+        return thumbnail;
+    }
+
+    /**
+     * Entfernt eine Bilddatei aus der Datenbank.
+     *
+     * @param filenames Namen der zu löschenden Dateien
+     * @return          Anzahl gelöschter Datensätze
+     */
+    public synchronized int deleteImageFiles(List<String> filenames) {
+        int countDeleted = 0;
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            connection.setAutoCommit(true);
+            PreparedStatement stmt = connection.prepareStatement(
+                "DELETE FROM files WHERE filename = ?"); // NOI18N
+            for (String filename : filenames) {
+                stmt.setString(1, filename);
+                logStatement(stmt);
+                countDeleted += stmt.executeUpdate();
+            }
+            stmt.close();
+            notifyDatabaseListener(DatabaseAction.Type.ImageFilesDeleted, filenames);
+        } catch (SQLException ex) {
+            handleException(ex, Level.SEVERE);
+        } finally {
+            free(connection);
+        }
+        return countDeleted;
+    }
+
+    /**
+     * Löscht aus der Datenbank alle Datensätze mit Bildern, die nicht
+     * mehr im Dateisystem existieren.
+     *
+     * @param listener Listener oder null, falls kein Interesse am Fortschritt.
+     * {@link de.elmar_baumann.imv.event.ProgressListener#progressEnded(de.elmar_baumann.imv.event.ProgressEvent)}
+     * liefert ein {@link de.elmar_baumann.imv.event.ProgressEvent}-Objekt,
+     * das mit {@link de.elmar_baumann.imv.event.ProgressEvent#getInfo()}
+     * ein Int-Objekt liefert mit der Anzahl der gelöschten Datensätze.
+     * {@link de.elmar_baumann.imv.event.ProgressEvent#isStop()}
+     * wird ausgewertet (Abbruch des Löschens).
+     * @return         Anzahl gelöschter Datensätze
+     */
+    public synchronized int deleteNotExistingImageFiles(ProgressListener listener) {
+        int countDeleted = 0;
+        List<String> deletedFiles = new ArrayList<String>();
+        ProgressEvent event = new ProgressEvent(this, 0, 0, 0, null);
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            connection.setAutoCommit(true);
+            event.setMaximum(DatabaseStatistics.getInstance().getFileCount());
+            Statement stmt = connection.createStatement();
+            String query = "SELECT filename FROM files"; // NOI18N
+            ResultSet rs = stmt.executeQuery(query);
+            String filename;
+            boolean stop = notifyProgressListenerStart(listener, event);
+            while (!stop && rs.next()) {
+                filename = rs.getString(1);
+                File file = new File(filename);
+                if (!file.exists()) {
+                    countDeleted += deleteRowWithFilename(connection, filename);
+                    deletedFiles.add(filename);
+                }
+                event.setValue(event.getValue() + 1);
+                notifyProgressListenerPerformed(listener, event);
+                stop = event.isStop();
+            }
+            stmt.close();
+        } catch (SQLException ex) {
+            handleException(ex, Level.SEVERE);
+        } finally {
+            free(connection);
+        }
+        if (countDeleted > 0) {
+            notifyDatabaseListener(DatabaseAction.Type.MaintainanceNotExistingImageFilesDeleted, deletedFiles);
+        }
+        event.setInfo(new Integer(countDeleted));
+        notifyProgressListenerEnd(listener, event);
+        return countDeleted;
+    }
+
+    private long getIdXmpFromIdFile(Connection connection, long idFile) throws SQLException {
+        long id = -1;
+        PreparedStatement stmt = connection.prepareStatement(
+            "SELECT id FROM xmp WHERE id_files = ?"); // NOI18N
         stmt.setLong(1, idFile);
-        stmt.setString(2, exifData.getRecordingEquipment());
-        stmt.setDate(3, exifData.getDateTimeOriginal());
-        stmt.setDouble(4, exifData.getFocalLength());
-        stmt.setShort(5, exifData.getIsoSpeedRatings());
+        logStatement(stmt);
+        ResultSet rs = stmt.executeQuery();
+        if (rs.next()) {
+            id = rs.getLong(1);
+        }
+        stmt.close();
+        return id;
+    }
+
+    /**
+     * Returns the last modification time of the xmp data.
+     * 
+     * @param  imageFilename  <em>image</em> filename (<em>not</em> sidecar
+     *                        filename)
+     * @return last modification time in milliseconds since 1970 or -1 if
+     *         not defined
+     */
+    public long getLastModifiedXmp(String imageFilename) {
+        long lastModified = -1;
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            PreparedStatement stmt = connection.prepareStatement(
+                "SELECT xmp_lastmodified FROM files WHERE filename = ?"); // NOI18N
+            stmt.setString(1, imageFilename);
+            logStatement(stmt);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                lastModified = rs.getLong(1);
+            }
+            stmt.close();
+        } catch (SQLException ex) {
+            handleException(ex, Level.SEVERE);
+        } finally {
+            free(connection);
+        }
+        return lastModified;
+    }
+
+    private long getLastmodifiedXmp(ImageFile imageFileData) {
+        Xmp xmp = imageFileData.getXmp();
+        return xmp == null ? -1 : xmp.getLastModified();
     }
 
     private synchronized void insertXmp(
-        Connection connection, long idFile, Xmp xmpData) throws SQLException {
-        if (xmpData != null) {
+        Connection connection, long idFile, Xmp xmp) throws SQLException {
+        if (xmp != null && !xmp.isEmpty()) {
             PreparedStatement stmt = connection.prepareStatement(getInsertIntoXmpStatement());
-            setXmpValues(stmt, idFile, xmpData);
+            setXmpValues(stmt, idFile, xmp);
             logStatement(stmt);
             stmt.executeUpdate();
             long idXmp = getIdXmpFromIdFile(connection, idFile);
-            insertXmpDcSubjects(connection, idXmp, xmpData.getDcSubjects());
-            insertXmpPhotoshopSupplementalcategories(connection, idXmp, xmpData.getPhotoshopSupplementalCategories());
+            insertXmpDcSubjects(connection, idXmp, xmp.getDcSubjects());
+            insertXmpPhotoshopSupplementalcategories(
+                connection, idXmp, xmp.getPhotoshopSupplementalCategories());
             stmt.close();
         }
-    }
-
-    private void deleteXmp(Connection connection, long idXmp) throws SQLException {
-        PreparedStatement stmt = connection.prepareStatement(
-            "DELETE FROM xmp WHERE id = ?"); // NOI18N
-        stmt.setLong(1, idXmp);
-        logStatement(stmt);
-        int count = stmt.executeUpdate();
-        assert count > 0;
-        stmt.close();
     }
 
     private void insertXmpDcSubjects(
@@ -135,6 +549,19 @@ public class DatabaseImageFiles extends Database {
                 " (id_xmp, supplementalcategory)" // NOI18N
                 , idXmp, photoshopSupplementalCategories);
         }
+    }
+
+    private synchronized void insertValues(
+        Connection connection, String statement, long id, List<String> values) throws SQLException {
+        PreparedStatement stmt = connection.prepareStatement(statement +
+            " VALUES (?, ?)"); // NOI18N
+        for (String value : values) {
+            stmt.setLong(1, id);
+            stmt.setString(2, value);
+            logStatement(stmt);
+            stmt.executeUpdate();
+        }
+        stmt.close();
     }
 
     private String getInsertIntoXmpStatement() {
@@ -198,318 +625,63 @@ public class DatabaseImageFiles extends Database {
         }
     }
 
-    private synchronized void updateExif(
-        Connection connection, long idFile, Exif exifData) throws SQLException {
-        if (exifData != null) {
-            long idExif = getIdExifFromIdFile(connection, idFile);
-            if (idExif > 0) {
-                PreparedStatement stmt = connection.prepareStatement(
-                    "DELETE FROM exif where id = ?"); // NOI18N
-                stmt.setLong(1, idExif);
-                stmt.executeUpdate();
-                stmt.close();
-            }
-            insertExif(connection, idFile, exifData);
-        }
-    }
-
-    private long getIdExifFromIdFile(Connection connection, long idFile) throws SQLException {
-        long id = -1;
-        PreparedStatement stmt = connection.prepareStatement(
-            "SELECT id FROM exif WHERE id_files = ?"); // NOI18N
-        stmt.setLong(1, idFile);
-        logStatement(stmt);
-        ResultSet rs = stmt.executeQuery();
-        if (rs.next()) {
-            id = rs.getLong(1);
-        }
-        stmt.close();
-        return id;
-    }
-
-    private long getIdXmpFromIdFile(Connection connection, long idFile) throws SQLException {
-        long id = -1;
-        PreparedStatement stmt = connection.prepareStatement(
-            "SELECT id FROM xmp WHERE id_files = ?"); // NOI18N
-        stmt.setLong(1, idFile);
-        logStatement(stmt);
-        ResultSet rs = stmt.executeQuery();
-        if (rs.next()) {
-            id = rs.getLong(1);
-        }
-        stmt.close();
-        return id;
-    }
-
     /**
-     * Renames a filename.
-     *
-     * @param  oldFilename  old filename
-     * @param  newFilename  new filename
-     * @return count of renamed filenames
+     * Deletes XMP-Data of image files when a XMP sidecar file does not
+     * exist but in the database is XMP data for this image file.
+     * 
+     * @param  listener   progress listener
+     * @return count of deleted XMP data (one per image file)
      */
-    public synchronized int updateRenameImageFilename(String oldFilename, String newFilename) {
-        int count = 0;
+    public synchronized int deleteNotExistingXmpData(ProgressListener listener) {
+        int countDeleted = 0;
+        ProgressEvent event = new ProgressEvent(this, 0, 0, 0, null);
         Connection connection = null;
         try {
             connection = getConnection();
             connection.setAutoCommit(true);
+            event.setMaximum(DatabaseStatistics.getInstance().getXmpCount());
+            Statement stmt = connection.createStatement();
+            String query = "SELECT files.filename FROM files," + // NOI18N
+                " xmp WHERE files.id = xmp.id_files"; // NOI18N
+            ResultSet rs = stmt.executeQuery(query);
+            String filename;
+            boolean abort = notifyProgressListenerStart(listener, event);
+            while (!abort && rs.next()) {
+                filename = rs.getString(1);
+                if (XmpMetadata.getSidecarFilename(filename) == null) {
+                    countDeleted += deleteXmpOfFilename(connection, filename);
+                }
+                event.setValue(event.getValue() + 1);
+                notifyProgressListenerPerformed(listener, event);
+                abort = event.isStop();
+            }
+            stmt.close();
+        } catch (SQLException ex) {
+            handleException(ex, Level.SEVERE);
+        } finally {
+            free(connection);
+        }
+        event.setInfo(new Integer(countDeleted));
+        notifyProgressListenerEnd(listener, event);
+        return countDeleted;
+    }
+
+    private int deleteXmpOfFilename(Connection connection, String filename) {
+        int count = 0;
+        try {
             PreparedStatement stmt = connection.prepareStatement(
-                "UPDATE files SET filename = ? WHERE filename = ?"); // NOI18N
-            stmt.setString(1, newFilename);
-            stmt.setString(2, oldFilename);
+                "DELETE FROM xmp WHERE" + // NOI18N
+                " xmp.id_files in" + // NOI18N
+                " (SELECT xmp.id_files FROM xmp, files" + // NOI18N
+                " WHERE xmp.id_files = files.id AND files.filename = ?)"); // NOI18N
+            stmt.setString(1, filename);
             logStatement(stmt);
             count = stmt.executeUpdate();
             stmt.close();
         } catch (SQLException ex) {
             handleException(ex, Level.SEVERE);
-        } finally {
-            free(connection);
         }
         return count;
-    }
-
-    /**
-     * Aktualisiert ein Bild in der Datenbank.
-     *
-     * @param imageFileData Bildmetadaten
-     * @return              true bei Erfolg
-     */
-    public synchronized boolean updateImageFile(ImageFile imageFileData) {
-        boolean success = false;
-        Connection connection = null;
-        try {
-            connection = getConnection();
-            connection.setAutoCommit(false);
-            PreparedStatement stmt = connection.prepareStatement(
-                "UPDATE files SET lastmodified = ?, xmp_lastmodified = ? WHERE id = ?"); // NOI18N
-            String filename = imageFileData.getFilename();
-            long idFile = getIdFile(connection, filename);
-            stmt.setLong(1, imageFileData.getLastmodified());
-            stmt.setLong(2, getLastmodifiedXmp(imageFileData));
-            stmt.setLong(3, idFile);
-            logStatement(stmt);
-            stmt.executeUpdate();
-            stmt.close();
-            updateThumbnail(connection, idFile, imageFileData.getThumbnail(), imageFileData.getFilename());
-            updateXmp(connection, idFile, imageFileData.getXmp());
-            updateExif(connection, idFile, imageFileData.getExif());
-            connection.commit();
-            success = true;
-            notifyDatabaseListener(DatabaseAction.Type.ImageFileUpdated, imageFileData);
-        } catch (SQLException ex) {
-            handleException(ex, Level.SEVERE);
-            try {
-                connection.rollback();
-            } catch (SQLException ex1) {
-                handleException(ex1, Level.SEVERE);
-            }
-        } finally {
-            free(connection);
-        }
-        return success;
-    }
-
-    private synchronized void insertValues(
-        Connection connection, String statement, long id, List<String> values) throws SQLException {
-        PreparedStatement stmt = connection.prepareStatement(statement +
-            " VALUES (?, ?)"); // NOI18N
-        for (String value : values) {
-            stmt.setLong(1, id);
-            stmt.setString(2, value);
-            logStatement(stmt);
-            stmt.executeUpdate();
-        }
-        stmt.close();
-    }
-
-    /**
-     * Updates all thumbnails, reads the files from the file system and creates
-     * thumbnails from the files.
-     *
-     * @param  listener  progress listener, can stop action via event and receive
-     * the current filename
-     * @return count of updated thumbnails
-     */
-    public synchronized int updateAllThumbnails(ProgressListener listener) {
-        int updated = 0;
-        Connection connection = null;
-        try {
-            int filecount = DatabaseStatistics.getInstance().getFileCount();
-            ProgressEvent event = new ProgressEvent(this, 0, filecount, 0, ""); // NOI18N
-            connection = getConnection();
-            connection.setAutoCommit(true);
-            Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery(
-                "SELECT filename FROM files ORDER BY filename ASC"); // NOI18N
-            int count = 0;
-            notifyProgressListenerStart(listener, event);
-            while (!event.isStop() && rs.next()) {
-                String filename = rs.getString(1);
-                if (updateThumbnail(filename, getThumbnailFromFile(filename))) {
-                    updated++;
-                }
-                event.setValue(++count);
-                event.setInfo(filename);
-                notifyProgressListenerPerformed(listener, event);
-            }
-            stmt.close();
-            notifyProgressListenerEnd(listener, event);
-        } catch (SQLException ex) {
-            handleException(ex, Level.SEVERE);
-        } finally {
-            free(connection);
-        }
-        return updated;
-    }
-
-    private Image getThumbnailFromFile(String filename) {
-        UserSettings settings = UserSettings.getInstance();
-        int maxTnWidth = settings.getMaxThumbnailWidth();
-        boolean useEmbeddedTn = settings.isUseEmbeddedThumbnails();
-        File file = new File(filename);
-        if (settings.isCreateThumbnailsWithExternalApp()) {
-            return ThumbnailUtil.getThumbnailFromExternalApplication(file, settings.getExternalThumbnailCreationCommand(), maxTnWidth);
-        } else {
-            return ThumbnailUtil.getThumbnail(file, maxTnWidth, useEmbeddedTn);
-        }
-    }
-
-    /**
-     * Aktualisiert das Thumbnail einer Bilddatei.
-     *
-     * @param filename  Dateiname
-     * @param thumbnail Thumbnail
-     * @return          true bei Erfolg
-     */
-    public boolean updateThumbnail(String filename, Image thumbnail) {
-        Connection connection = null;
-        try {
-            connection = getConnection();
-            connection.setAutoCommit(true);
-            long idFile = getIdFile(connection, filename);
-            updateThumbnail(connection, idFile, thumbnail, filename);
-            return true;
-        } catch (SQLException ex) {
-            handleException(ex, Level.SEVERE);
-        } finally {
-            free(connection);
-        }
-        return false;
-    }
-
-    private synchronized void updateThumbnail(
-        Connection connection, long idFile, Image thumbnail, String filename) throws SQLException {
-        if (thumbnail != null) {
-            ByteArrayInputStream inputStream = ImageUtil.getByteArrayInputStream(thumbnail);
-            if (inputStream != null) {
-                PreparedStatement stmt = connection.prepareStatement(
-                    "UPDATE files SET thumbnail = ? WHERE id = ?"); // NOI18N
-                stmt.setBinaryStream(1, inputStream, inputStream.available());
-                stmt.setLong(2, idFile);
-                logStatement(stmt);
-                stmt.executeUpdate();
-                stmt.close();
-                notifyDatabaseListener(DatabaseAction.Type.ThumbnailUpdated, filename);
-            }
-        }
-    }
-
-    /**
-     * Liefert die Zeit der letzten Modifikation einer Bilddatei.
-     *
-     * @param filename Name der Bilddatei
-     * @return         Zeit in Millisekunden seit 1970 oder -1, wenn die Zeit nicht
-     * ermittelt werden konnte
-     */
-    public long getLastModifiedImageFile(String filename) {
-        long lastModified = -1;
-        Connection connection = null;
-        try {
-            connection = getConnection();
-            PreparedStatement stmt = connection.prepareStatement(
-                "SELECT lastmodified FROM files WHERE filename = ?"); // NOI18N
-            stmt.setString(1, filename);
-            logStatement(stmt);
-            ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
-                lastModified = rs.getLong(1);
-            }
-            stmt.close();
-        } catch (SQLException ex) {
-            handleException(ex, Level.SEVERE);
-        } finally {
-            free(connection);
-        }
-        return lastModified;
-    }
-
-    /**
-     * Liefert, ob eine Datei in der Datenbank existiert.
-     *
-     * @param filename Dateiname
-     * @return         true, wenn die Datei existiert
-     */
-    public boolean existsFilename(String filename) {
-        boolean exists = false;
-        Connection connection = null;
-        try {
-            connection = getConnection();
-            PreparedStatement stmt = connection.prepareStatement(
-                "SELECT filename FROM files WHERE filename = ?"); // NOI18N
-            stmt.setString(1, filename);
-            logStatement(stmt);
-            ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
-                exists = true;
-            }
-            stmt.close();
-        } catch (SQLException ex) {
-            handleException(ex, Level.SEVERE);
-        } finally {
-            free(connection);
-        }
-        return exists;
-    }
-
-    /**
-     * Liefert für eine Datei ein Thumbnail.
-     *
-     * @param filename Dateiname
-     * @return         Thumbnail oder null, wenn in der Datebank für die Datei
-     * keines existiert oder ein Fehler auftrat
-     */
-    public Image getThumbnail(String filename) {
-        Image thumbnail = null;
-        Connection connection = null;
-        try {
-            connection = getConnection();
-            PreparedStatement stmt = connection.prepareStatement(
-                "SELECT thumbnail FROM files WHERE filename = ?"); // NOI18N
-            stmt.setString(1, filename);
-            logStatement(stmt);
-            ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
-                InputStream inputStream = rs.getBinaryStream(1);
-                if (inputStream != null) {
-                    int bytecount = inputStream.available();
-                    byte[] bytes = new byte[bytecount];
-                    inputStream.read(bytes, 0, bytecount);
-                    ImageIcon icon = new ImageIcon(bytes);
-                    thumbnail = icon.getImage();
-                }
-            }
-            stmt.close();
-        } catch (IOException ex) {
-            handleException(ex, Level.SEVERE);
-            thumbnail = null;
-        } catch (SQLException ex) {
-            handleException(ex, Level.SEVERE);
-            thumbnail = null;
-        } finally {
-            free(connection);
-        }
-        return thumbnail;
     }
 
     private String getXmpOfFileStatement() {
@@ -595,176 +767,6 @@ public class DatabaseImageFiles extends Database {
     }
 
     /**
-     * Returns the last modification time of the xmp data.
-     * 
-     * @param  imageFilename  <em>image</em> filename (<em>not</em> sidecar
-     *                        filename)
-     * @return last modification time in milliseconds since 1970 or -1 if
-     *         not defined
-     */
-    public long getLastModifiedXmp(String imageFilename) {
-        long lastModified = -1;
-        Connection connection = null;
-        try {
-            connection = getConnection();
-            PreparedStatement stmt = connection.prepareStatement(
-                "SELECT xmp_lastmodified FROM files WHERE files.filename = ?"); // NOI18N
-            stmt.setString(1, imageFilename);
-            logStatement(stmt);
-            ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
-                lastModified = rs.getLong(1);
-            }
-            stmt.close();
-        } catch (SQLException ex) {
-            handleException(ex, Level.SEVERE);
-        } finally {
-            free(connection);
-        }
-        return lastModified;
-    }
-
-    /**
-     * Entfernt eine Bilddatei aus der Datenbank.
-     *
-     * @param filenames Namen der zu löschenden Dateien
-     * @return          Anzahl gelöschter Datensätze
-     */
-    public synchronized int deleteImageFiles(List<String> filenames) {
-        int countDeleted = 0;
-        Connection connection = null;
-        try {
-            connection = getConnection();
-            connection.setAutoCommit(true);
-            PreparedStatement stmt = connection.prepareStatement(
-                "DELETE FROM files WHERE filename = ?"); // NOI18N
-            for (String filename : filenames) {
-                stmt.setString(1, filename);
-                logStatement(stmt);
-                countDeleted += stmt.executeUpdate();
-            }
-            stmt.close();
-            notifyDatabaseListener(DatabaseAction.Type.ImageFilesDeleted, filenames);
-        } catch (SQLException ex) {
-            handleException(ex, Level.SEVERE);
-        } finally {
-            free(connection);
-        }
-        return countDeleted;
-    }
-
-    /**
-     * Löscht aus der Datenbank alle Datensätze mit Bildern, die nicht
-     * mehr im Dateisystem existieren.
-     *
-     * @param listener Listener oder null, falls kein Interesse am Fortschritt.
-     * {@link de.elmar_baumann.imv.event.ProgressListener#progressEnded(de.elmar_baumann.imv.event.ProgressEvent)}
-     * liefert ein {@link de.elmar_baumann.imv.event.ProgressEvent}-Objekt,
-     * das mit {@link de.elmar_baumann.imv.event.ProgressEvent#getInfo()}
-     * ein Int-Objekt liefert mit der Anzahl der gelöschten Datensätze.
-     * {@link de.elmar_baumann.imv.event.ProgressEvent#isStop()}
-     * wird ausgewertet (Abbruch des Löschens).
-     * @return         Anzahl gelöschter Datensätze
-     */
-    public synchronized int deleteNotExistingImageFiles(ProgressListener listener) {
-        int countDeleted = 0;
-        List<String> deletedFiles = new ArrayList<String>();
-        ProgressEvent event = new ProgressEvent(this, 0, 0, 0, null);
-        Connection connection = null;
-        try {
-            connection = getConnection();
-            connection.setAutoCommit(true);
-            event.setMaximum(DatabaseStatistics.getInstance().getFileCount());
-            Statement stmt = connection.createStatement();
-            String query = "SELECT filename FROM files"; // NOI18N
-            ResultSet rs = stmt.executeQuery(query);
-            String filename;
-            boolean abort = notifyProgressListenerStart(listener, event);
-            while (!abort && rs.next()) {
-                filename = rs.getString(1);
-                File file = new File(filename);
-                if (!file.exists()) {
-                    countDeleted += deleteRowWithFilename(connection, filename);
-                    deletedFiles.add(filename);
-                }
-                event.setValue(event.getValue() + 1);
-                notifyProgressListenerPerformed(listener, event);
-                abort = event.isStop();
-            }
-            stmt.close();
-        } catch (SQLException ex) {
-            handleException(ex, Level.SEVERE);
-        } finally {
-            free(connection);
-        }
-        if (countDeleted > 0) {
-            notifyDatabaseListener(DatabaseAction.Type.MaintainanceNotExistingImageFilesDeleted, deletedFiles);
-        }
-        event.setInfo(new Integer(countDeleted));
-        notifyProgressListenerEnd(listener, event);
-        return countDeleted;
-    }
-
-    /**
-     * Deletes XMP-Data of image files when a XMP sidecar file does not
-     * exist but in the database is XMP data for this image file.
-     * 
-     * @param  listener   progress listener
-     * @return count of deleted XMP data (one per image file)
-     */
-    public synchronized int deleteNotExistingXmpData(ProgressListener listener) {
-        int countDeleted = 0;
-        ProgressEvent event = new ProgressEvent(this, 0, 0, 0, null);
-        Connection connection = null;
-        try {
-            connection = getConnection();
-            connection.setAutoCommit(true);
-            event.setMaximum(DatabaseStatistics.getInstance().getXmpCount());
-            Statement stmt = connection.createStatement();
-            String query = "SELECT files.filename FROM files," + // NOI18N
-                " xmp WHERE files.id = xmp.id_files"; // NOI18N
-            ResultSet rs = stmt.executeQuery(query);
-            String filename;
-            boolean abort = notifyProgressListenerStart(listener, event);
-            while (!abort && rs.next()) {
-                filename = rs.getString(1);
-                if (XmpMetadata.getSidecarFilename(filename) == null) {
-                    countDeleted += deleteXmpOfFilename(connection, filename);
-                }
-                event.setValue(event.getValue() + 1);
-                notifyProgressListenerPerformed(listener, event);
-                abort = event.isStop();
-            }
-            stmt.close();
-        } catch (SQLException ex) {
-            handleException(ex, Level.SEVERE);
-        } finally {
-            free(connection);
-        }
-        event.setInfo(new Integer(countDeleted));
-        notifyProgressListenerEnd(listener, event);
-        return countDeleted;
-    }
-
-    private int deleteXmpOfFilename(Connection connection, String filename) {
-        int count = 0;
-        try {
-            PreparedStatement stmt = connection.prepareStatement(
-                "DELETE FROM xmp WHERE" + // NOI18N
-                " xmp.id_files in" + // NOI18N
-                " (SELECT xmp.id_files FROM xmp, files" + // NOI18N
-                " WHERE xmp.id_files = files.id AND files.filename = ?)"); // NOI18N
-            stmt.setString(1, filename);
-            logStatement(stmt);
-            count = stmt.executeUpdate();
-            stmt.close();
-        } catch (SQLException ex) {
-            handleException(ex, Level.SEVERE);
-        }
-        return count;
-    }
-
-    /**
      * Ersetzt Strings in XMP-Spalten bestimmter Dateien.
      * Gleichzeitig werden die Sidecarfiles aktualisiert.
      *
@@ -841,70 +843,14 @@ public class DatabaseImageFiles extends Database {
         return countRenamed;
     }
 
-    private synchronized int deleteRowWithFilename(
-        Connection connection, String filename) {
-        int countDeleted = 0;
-        try {
-            PreparedStatement stmt = connection.prepareStatement(
-                "DELETE FROM files WHERE filename = ?"); // NOI18N
-            stmt.setString(1, filename);
-            logStatement(stmt);
-            countDeleted = stmt.executeUpdate();
-            stmt.close();
-        } catch (SQLException ex) {
-            handleException(ex, Level.SEVERE);
-        }
-        return countDeleted;
-    }
-
-    /**
-     * Fügt eine Bilddatei hinzu. Existiert die Datei in der Datenbank,
-     * werden ihre Daten aktualisiert.
-     * 
-     * @param imageFileData Bilddaten
-     * @return              true bei Erfolg
-     */
-    synchronized public boolean insertImageFile(ImageFile imageFileData) {
-        boolean success = false;
-        if (existsFilename(imageFileData.getFilename())) {
-            return updateImageFile(imageFileData);
-        }
-        Connection connection = null;
-        try {
-            connection = getConnection();
-            connection.setAutoCommit(false);
-            PreparedStatement preparedStatement = connection.prepareStatement(
-                "INSERT INTO files (filename, lastmodified, xmp_lastmodified) VALUES (?, ?, ?)"); // NOI18N
-            String filename = imageFileData.getFilename();
-            preparedStatement.setString(1, filename);
-            preparedStatement.setLong(2, imageFileData.getLastmodified());
-            preparedStatement.setLong(3, getLastmodifiedXmp(imageFileData));
-            logStatement(preparedStatement);
-            preparedStatement.executeUpdate();
-            long idFile = getIdFile(connection, filename);
-            insertThumbnail(connection, idFile, imageFileData.getThumbnail(), imageFileData.getFilename());
-            insertXmp(connection, idFile, imageFileData.getXmp());
-            insertExif(connection, idFile, imageFileData.getExif());
-            connection.commit();
-            success = true;
-            notifyDatabaseListener(DatabaseAction.Type.ImageFileInserted, imageFileData);
-            preparedStatement.close();
-        } catch (SQLException ex) {
-            handleException(ex, Level.SEVERE);
-            try {
-                connection.rollback();
-            } catch (SQLException ex1) {
-                handleException(ex1, Level.SEVERE);
-            }
-        } finally {
-            free(connection);
-        }
-        return success;
-    }
-
-    private long getLastmodifiedXmp(ImageFile imageFileData) {
-        Xmp xmp = imageFileData.getXmp();
-        return xmp == null ? -1 : xmp.getLastModified();
+    private void deleteXmp(Connection connection, long idXmp) throws SQLException {
+        PreparedStatement stmt = connection.prepareStatement(
+            "DELETE FROM xmp WHERE id = ?"); // NOI18N
+        stmt.setLong(1, idXmp);
+        logStatement(stmt);
+        int count = stmt.executeUpdate();
+        assert count > 0;
+        stmt.close();
     }
 
     /**
@@ -939,33 +885,6 @@ public class DatabaseImageFiles extends Database {
     }
 
     /**
-     * Returns the dublin core subjects (keywords).
-     * 
-     * @return dc subjects distinct ordererd ascending
-     */
-    public Set<String> getDcSubjects() {
-        Set<String> dcSubjects = new LinkedHashSet<String>();
-        Connection connection = null;
-        try {
-            connection = getConnection();
-            Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery(
-                "SELECT DISTINCT subject FROM xmp_dc_subjects" + // NOI18N
-                " ORDER BY 1 ASC"); // NOI18N
-
-            while (rs.next()) {
-                dcSubjects.add(rs.getString(1));
-            }
-            stmt.close();
-        } catch (SQLException ex) {
-            handleException(ex, Level.SEVERE);
-        } finally {
-            free(connection);
-        }
-        return dcSubjects;
-    }
-
-    /**
      * Liefert alle Dateien mit bestimmter Kategorie.
      * 
      * @param  category  Kategorie
@@ -989,39 +908,6 @@ public class DatabaseImageFiles extends Database {
 
             stmt.setString(1, category);
             stmt.setString(2, category);
-            logStatement(stmt);
-            ResultSet rs = stmt.executeQuery();
-            while (rs.next()) {
-                filenames.add(rs.getString(1));
-            }
-            stmt.close();
-        } catch (SQLException ex) {
-            handleException(ex, Level.SEVERE);
-        } finally {
-            free(connection);
-        }
-        return filenames;
-    }
-
-    /**
-     * Returns the filenames within a specific dublin core subject (keyword).
-     * 
-     * @param  dcSubject subject
-     * @return filenames
-     */
-    public Set<String> getFilenamesOfDcSubject(String dcSubject) {
-        Set<String> filenames = new LinkedHashSet<String>();
-        Connection connection = null;
-        try {
-            connection = getConnection();
-            PreparedStatement stmt = connection.prepareStatement(
-                " SELECT DISTINCT files.filename FROM" + // NOI18N
-                " xmp_dc_subjects LEFT JOIN xmp" + // NOI18N
-                " ON xmp_dc_subjects.id_xmp = xmp.id" + // NOI18N
-                " LEFT JOIN files ON xmp.id_files = files.id" + // NOI18N
-                " WHERE xmp_dc_subjects.subject = ?"); // NOI18N
-
-            stmt.setString(1, dcSubject);
             logStatement(stmt);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
@@ -1074,21 +960,124 @@ public class DatabaseImageFiles extends Database {
         return exists;
     }
 
-    long getIdFile(Connection connection, String filename) {
-        long id = -1;
+    /**
+     * Returns the dublin core subjects (keywords).
+     * 
+     * @return dc subjects distinct ordererd ascending
+     */
+    public Set<String> getDcSubjects() {
+        Set<String> dcSubjects = new LinkedHashSet<String>();
+        Connection connection = null;
         try {
-            PreparedStatement stmt = connection.prepareStatement(
-                "SELECT id FROM files WHERE filename = ?"); // NOI18N
-            stmt.setString(1, filename);
-            logStatement(stmt);
-            ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
-                id = rs.getLong(1);
+            connection = getConnection();
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(
+                "SELECT DISTINCT subject FROM xmp_dc_subjects" + // NOI18N
+                " ORDER BY 1 ASC"); // NOI18N
+
+            while (rs.next()) {
+                dcSubjects.add(rs.getString(1));
             }
             stmt.close();
         } catch (SQLException ex) {
             handleException(ex, Level.SEVERE);
+        } finally {
+            free(connection);
         }
+        return dcSubjects;
+    }
+
+    /**
+     * Returns the filenames within a specific dublin core subject (keyword).
+     * 
+     * @param  dcSubject subject
+     * @return filenames
+     */
+    public Set<String> getFilenamesOfDcSubject(String dcSubject) {
+        Set<String> filenames = new LinkedHashSet<String>();
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            PreparedStatement stmt = connection.prepareStatement(
+                " SELECT DISTINCT files.filename FROM" + // NOI18N
+                " xmp_dc_subjects LEFT JOIN xmp" + // NOI18N
+                " ON xmp_dc_subjects.id_xmp = xmp.id" + // NOI18N
+                " LEFT JOIN files ON xmp.id_files = files.id" + // NOI18N
+                " WHERE xmp_dc_subjects.subject = ?"); // NOI18N
+
+            stmt.setString(1, dcSubject);
+            logStatement(stmt);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                filenames.add(rs.getString(1));
+            }
+            stmt.close();
+        } catch (SQLException ex) {
+            handleException(ex, Level.SEVERE);
+        } finally {
+            free(connection);
+        }
+        return filenames;
+    }
+
+    private String getInsertIntoExifStatement() {
+        return "INSERT INTO exif" + // NOI18N
+            " (" + // NOI18N
+            "id_files" + // NOI18N -- 1 --
+            ", exif_recording_equipment" + // NOI18N -- 2 --
+            ", exif_date_time_original" + // NOI18N -- 3 --
+            ", exif_focal_length" + // NOI18N -- 4 --
+            ", exif_iso_speed_ratings" + // NOI18N -- 5 --
+            ")" + // NOI18N
+            " VALUES (?, ?, ?, ?, ?)"; // NOI18N
+    }
+
+    private void setExifValues(
+        PreparedStatement stmt, long idFile, Exif exifData) throws SQLException {
+        stmt.setLong(1, idFile);
+        stmt.setString(2, exifData.getRecordingEquipment());
+        stmt.setDate(3, exifData.getDateTimeOriginal());
+        stmt.setDouble(4, exifData.getFocalLength());
+        stmt.setShort(5, exifData.getIsoSpeedRatings());
+    }
+
+    private synchronized void updateExif(
+        Connection connection, long idFile, Exif exifData) throws SQLException {
+        if (exifData != null) {
+            long idExif = getIdExifFromIdFile(connection, idFile);
+            if (idExif > 0) {
+                PreparedStatement stmt = connection.prepareStatement(
+                    "DELETE FROM exif where id = ?"); // NOI18N
+                stmt.setLong(1, idExif);
+                stmt.executeUpdate();
+                stmt.close();
+            }
+            insertExif(connection, idFile, exifData);
+        }
+    }
+
+    private synchronized void insertExif(
+        Connection connection, long idFile, Exif exifData) throws SQLException {
+        if (exifData != null && !exifData.isEmpty()) {
+            PreparedStatement stmt = connection.prepareStatement(getInsertIntoExifStatement());
+            setExifValues(stmt, idFile, exifData);
+            logStatement(stmt);
+            stmt.executeUpdate();
+            stmt.close();
+        }
+    }
+
+    private long getIdExifFromIdFile(Connection connection, long idFile) throws SQLException {
+        long id = -1;
+        PreparedStatement stmt = connection.prepareStatement(
+            "SELECT id FROM exif WHERE id_files = ?"); // NOI18N
+        stmt.setLong(1, idFile);
+        logStatement(stmt);
+        ResultSet rs = stmt.executeQuery();
+        if (rs.next()) {
+            id = rs.getLong(1);
+        }
+        stmt.close();
         return id;
     }
 }
