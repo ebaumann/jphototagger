@@ -254,7 +254,6 @@ public class AutoCompleteDocument implements StyledDocument {
      * @param prefix the prefix to check for
      * @return true if <code>base</code> starts with <code>prefix</code>; false otherwise
      */
-    //TODO entry point for handling 739
     private boolean startsWithIgnoreCase(String base, String prefix) {
         if (base.length() < prefix.length()) return false;
         return base.regionMatches(true, 0, prefix, 0, prefix.length());

@@ -39,11 +39,6 @@ public class Contract {
      * unchanged parameter if not null, throws a NullPointerException
      * otherwise. <p>
      * 
-     * PENDING: type of exception? there are raging debates, some
-     *   favour an IllegalArgument? <p>
-     *   
-     * PENDING: the implementation uses a unchecked type cast to an array.
-     *   can we do better, how?
      *     
      * 
      * @param <T> the type of the input parameter
