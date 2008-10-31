@@ -30,7 +30,7 @@ import javax.swing.JOptionPane;
 public class DatabaseMaintainanceDialog extends Dialog implements
     ProgressListener {
 
-    private TableModelDatabaseInfo modelDatabaseInfo = new TableModelDatabaseInfo();
+    private TableModelDatabaseInfo modelDatabaseInfo;
     private TotalRecordCountListener listenerTotalRecordCount = new TotalRecordCountListener();
     private Stack<Runnable> runnables = new Stack<Runnable>();
     private Map<Runnable, JLabel> finishedLabelOfRunnable = new HashMap<Runnable, JLabel>();
@@ -51,19 +51,38 @@ public class DatabaseMaintainanceDialog extends Dialog implements
 
     @Override
     public void setVisible(boolean visible) {
-        modelDatabaseInfo.setListenToDatabase(visible);
+        super.setVisible(visible);
         if (visible) {
             PersistentAppSizes.getSizeAndLocation(this);
             PersistentSettings.getInstance().getComponent(this, new PersistentSettingsHints());
             setEnabledButtonStartMaintain();
-            modelDatabaseInfo.update();
             setTotalRecordCount();
             listenerTotalRecordCount.addLabel(labelDatabaseTotalRecordCount);
+            setModelDatabaseInfo();
         } else {
+            if (modelDatabaseInfo != null) {
+                modelDatabaseInfo.setListenToDatabase(false);
+            }
             listenerTotalRecordCount.removeLabel(labelDatabaseTotalRecordCount);
         }
         listenerTotalRecordCount.setListenToDatabase(visible);
-        super.setVisible(visible);
+    }
+
+    private void setModelDatabaseInfo() {
+        if (modelDatabaseInfo == null) {
+            new Thread(new Runnable() {
+
+                @Override
+                public void run() {
+                    modelDatabaseInfo = new TableModelDatabaseInfo();
+                    tableDatabaseInfo.setModel(modelDatabaseInfo);
+                    modelDatabaseInfo.update();
+                }
+            }).start();
+        } else {
+            modelDatabaseInfo.setListenToDatabase(true);
+            modelDatabaseInfo.update();
+        }
     }
 
     private void postInitComponents() {
@@ -249,7 +268,6 @@ public class DatabaseMaintainanceDialog extends Dialog implements
             }
         });
 
-        tableDatabaseInfo.setModel(modelDatabaseInfo);
         scrollPaneTableDatabaseInfo.setViewportView(tableDatabaseInfo);
 
         labelDatabaseInfoTable.setFont(new java.awt.Font("Dialog", 0, 12));
@@ -291,7 +309,7 @@ public class DatabaseMaintainanceDialog extends Dialog implements
 
         panelMaintainanceTasks.setBorder(javax.swing.BorderFactory.createTitledBorder(null, Bundle.getString("DatabaseMaintainanceDialog.panelMaintainanceTasks.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 11))); // NOI18N
 
-        checkBoxDeleteRecordsOfNotExistingFilesInDatabase.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        checkBoxDeleteRecordsOfNotExistingFilesInDatabase.setFont(new java.awt.Font("Dialog", 0, 12));
         checkBoxDeleteRecordsOfNotExistingFilesInDatabase.setMnemonic('e');
         checkBoxDeleteRecordsOfNotExistingFilesInDatabase.setText(Bundle.getString("DatabaseMaintainanceDialog.checkBoxDeleteRecordsOfNotExistingFilesInDatabase.text")); // NOI18N
         checkBoxDeleteRecordsOfNotExistingFilesInDatabase.addActionListener(new java.awt.event.ActionListener() {
@@ -302,7 +320,7 @@ public class DatabaseMaintainanceDialog extends Dialog implements
 
         labelFinishedDeleteRecordsOfNotExistingFilesInDatabase.setPreferredSize(new java.awt.Dimension(16, 16));
 
-        checkBoxCompressDatabase.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        checkBoxCompressDatabase.setFont(new java.awt.Font("Dialog", 0, 12));
         checkBoxCompressDatabase.setMnemonic('k');
         checkBoxCompressDatabase.setText(Bundle.getString("DatabaseMaintainanceDialog.checkBoxCompressDatabase.text")); // NOI18N
         checkBoxCompressDatabase.addActionListener(new java.awt.event.ActionListener() {
@@ -352,7 +370,7 @@ public class DatabaseMaintainanceDialog extends Dialog implements
             }
         });
 
-        buttonAbortAction.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        buttonAbortAction.setFont(new java.awt.Font("Dialog", 0, 12));
         buttonAbortAction.setMnemonic('o');
         buttonAbortAction.setText(Bundle.getString("DatabaseMaintainanceDialog.buttonAbortAction.text")); // NOI18N
         buttonAbortAction.setEnabled(false);
@@ -364,7 +382,7 @@ public class DatabaseMaintainanceDialog extends Dialog implements
 
         panelMaintainMessages.setBorder(javax.swing.BorderFactory.createTitledBorder(null, Bundle.getString("DatabaseMaintainanceDialog.panelMaintainMessages.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
 
-        labelMessage.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        labelMessage.setFont(new java.awt.Font("Dialog", 0, 12));
         labelMessage.setPreferredSize(new java.awt.Dimension(0, 16));
 
         javax.swing.GroupLayout panelMaintainMessagesLayout = new javax.swing.GroupLayout(panelMaintainMessages);
