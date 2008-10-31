@@ -33,7 +33,7 @@ public class ModelFactory {
     }
 
     private void createModels() {
-        AppPanel appPanel = Panels.getInstance().getAppPanel();
+        final AppPanel appPanel = Panels.getInstance().getAppPanel();
         appPanel.getTableIptc().setModel(new TableModelIptc());
         appPanel.getTableXmpCameraRawSettings().setModel(new TableModelXmp());
         appPanel.getTableXmpDc().setModel(new TableModelXmp());
@@ -46,10 +46,20 @@ public class ModelFactory {
         appPanel.getTableExif().setModel(new TableModelExif());
         appPanel.getListSavedSearches().setModel(new ListModelSavedSearches());
         appPanel.getListImageCollections().setModel(new ListModelImageCollections());
-        appPanel.getTreeDirectories().setModel(new TreeModelDirectories(UserSettings.getInstance().isAcceptHiddenDirectories()));
+        createTreeModelDirectories(appPanel);
         appPanel.getListFavoriteDirectories().setModel(new ListModelFavoriteDirectories());
         appPanel.getListCategories().setModel(new ListModelCategories());
         appPanel.getListKeywords().setModel(new ListModelKeywords());
         appPanel.getMetadataEditActionsPanel().getComboBoxMetadataTemplates().setModel(new ComboBoxModelMetadataEditTemplates());
+    }
+
+    private void createTreeModelDirectories(final AppPanel appPanel) {
+        new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                appPanel.getTreeDirectories().setModel(new TreeModelDirectories(UserSettings.getInstance().isAcceptHiddenDirectories()));
+            }
+        }).start();
     }
 }
