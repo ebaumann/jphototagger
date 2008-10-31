@@ -10,6 +10,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.event.TreeModelEvent;
 import javax.swing.event.TreeModelListener;
 import javax.swing.tree.TreeModel;
@@ -115,13 +117,19 @@ public class TreeModelDirectories implements TreeModel {
         }
     }
 
+    // Logging to detect most time consuming directories
     @SuppressWarnings("unchecked")
     private List<File> getSubDirectories(File file, SortType sortType, boolean acceptHidden) {
+        
+        long startMillis = System.currentTimeMillis();
         File[] listFiles = file.listFiles(new DirectoryFilter(acceptHidden));
+        long duration = System.currentTimeMillis() - startMillis;
+        Logger.getLogger(TreeModelDirectories.class.getName()).log(Level.FINEST, "Duration of listing '" + file + "': " + duration + " Milliseconds");
+        
         List<File> directories = new ArrayList<File>();
 
         if (listFiles != null) {
-            for (int i = 0; listFiles != null && i < listFiles.length; i++) {
+            for (int i = 0; i < listFiles.length; i++) {
                 directories.add(listFiles[i]);
             }
             Collections.sort(directories, new FileComparator(sortType));
