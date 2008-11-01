@@ -57,7 +57,14 @@ public class AutoCompleteData {
     }
 
     private void addColumnsContent() {
-        content.addAll(db.getContent(columns));
+        new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                content.addAll(db.getContent(columns));
+            }
+        }).start();
+
     }
 
     public List<String> getList() {
