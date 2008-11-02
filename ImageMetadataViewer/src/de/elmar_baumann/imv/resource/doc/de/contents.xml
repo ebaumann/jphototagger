@@ -196,6 +196,10 @@
 			<title>Ausschließen</title>
 		</page>
 		<page>
+			<url>dialog_settings_edit.html</url>
+			<title>Bearbeiten</title>
+		</page>
+		<page>
 			<url>dialog_settings_misc.html</url>
 			<title>Sonstiges</title>
 		</page>
