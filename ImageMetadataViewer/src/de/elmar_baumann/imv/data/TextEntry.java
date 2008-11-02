@@ -1,7 +1,6 @@
 package de.elmar_baumann.imv.data;
 
 import de.elmar_baumann.imv.database.metadata.Column;
-import de.elmar_baumann.lib.template.Pair;
 
 /**
  * Ein Texteintrag und die IPTC- und XMP-Spalten, für die dieser gilt.

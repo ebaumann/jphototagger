@@ -71,6 +71,12 @@ public class ListenerProvider {
         return searchListeners;
     }
 
+    synchronized public void notifyUserSettingsChangeListener(UserSettingsChangeEvent evt) {
+        for (UserSettingsChangeListener l : userSettingsChangeListeners) {
+            l.applySettings(evt);
+        }
+    }
+
     public static ListenerProvider getInstance() {
         return instance;
     }

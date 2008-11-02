@@ -3,6 +3,7 @@ package de.elmar_baumann.imv.view.panels;
 import com.adobe.xmp.properties.XMPPropertyInfo;
 import com.imagero.reader.iptc.IPTCEntryMeta;
 import de.elmar_baumann.imv.AppSettings;
+import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.controller.metadata.ControllerSaveMetadata;
 import de.elmar_baumann.imv.data.ImageFile;
 import de.elmar_baumann.imv.data.MetadataEditTemplate;
@@ -31,7 +32,6 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-import java.util.Set;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -39,6 +39,7 @@ import javax.swing.JComponent;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 /**
@@ -82,7 +83,7 @@ public class EditMetadataPanelsArray implements FocusListener, DatabaseListener,
     }
 
     private void save() {
-        if (confirmSave()) {
+        if (isEditable() && confirmSave()) {
             ControllerSaveMetadata.saveMetadata(this);
         }
     }
@@ -283,6 +284,7 @@ public class EditMetadataPanelsArray implements FocusListener, DatabaseListener,
         if (panels.size() > 0) {
             TextEntry textEntry = (TextEntry) panels.get(0);
             textEntry.focus();
+            lastFocussedComponent = panels.get(0);
         }
     }
 
@@ -296,7 +298,7 @@ public class EditMetadataPanelsArray implements FocusListener, DatabaseListener,
 
     private void createEditPanels() {
         EditColumns editColumns = EditColumns.getInstance();
-        Set<Column> columns = editColumns.getColumns();
+        List<Column> columns = UserSettings.getInstance().getEditColumns();
 
         for (Column column : columns) {
             EditHints editHints = editColumns.getEditHintsForColumn(column);
@@ -337,12 +339,17 @@ public class EditMetadataPanelsArray implements FocusListener, DatabaseListener,
 
     @Override
     public void focusGained(FocusEvent e) {
-        if (e.getComponent() == editActionsPanel.tabbedPane) {
-            setFocusToFirstEditField();
-        } else {
-            lastFocussedComponent = e.getComponent();
+        Component source = (Component) e.getSource();
+        if (isEditArea(source)) {
+            lastFocussedComponent = source;
             scrollToVisible(e.getSource());
+        } else {
+            setFocusToFirstEditField();
         }
+    }
+
+    private boolean isEditArea(Component c) {
+        return c instanceof TabLeavingTextArea || c instanceof JTextField;
     }
 
     @Override
@@ -354,11 +361,12 @@ public class EditMetadataPanelsArray implements FocusListener, DatabaseListener,
         if (inputSource instanceof JTextField) {
             JTextField textField = (JTextField) inputSource;
             parent = textField.getParent();
+            container.scrollRectToVisible(parent.getBounds());
         } else if (inputSource instanceof TabLeavingTextArea) {
             TabLeavingTextArea textArea = (TabLeavingTextArea) inputSource;
             parent = textArea.getParent().getParent().getParent();
+            container.scrollRectToVisible(parent.getBounds());
         }
-        container.scrollRectToVisible(parent.getBounds());
     }
 
     @Override

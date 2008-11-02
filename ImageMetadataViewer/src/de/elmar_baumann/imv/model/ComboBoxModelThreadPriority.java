@@ -42,9 +42,13 @@ public class ComboBoxModelThreadPriority extends DefaultComboBoxModel {
         }
         return priority.intValue();
     }
-    
+
     public String getItemOfPriority(int priority) {
         return stringOfPriority.get(priority);
+    }
+
+    public Integer getSelectedPriority() {
+        return priorityOfString.get(getSelectedItem());
     }
 
     /**
@@ -69,7 +73,7 @@ public class ComboBoxModelThreadPriority extends DefaultComboBoxModel {
             priorityOfString.put(lowPriorityString, lowPriority);
             priorityOfString.put(mediumPriorityString, mediumPriority);
             priorityOfString.put(highPriorityString, highPriority);
-            
+
             for (String string : priorityOfString.keySet()) {
                 stringOfPriority.put(priorityOfString.get(string), string);
             }

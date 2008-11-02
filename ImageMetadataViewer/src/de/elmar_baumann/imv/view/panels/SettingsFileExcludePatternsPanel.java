@@ -1,8 +1,3 @@
-/*
- * FileExcludePatternsPanel.java
- *
- * Created on 9. Oktober 2008, 22:54
- */
 package de.elmar_baumann.imv.view.panels;
 
 import de.elmar_baumann.imv.database.DatabaseFileExcludePattern;
@@ -10,15 +5,17 @@ import de.elmar_baumann.imv.event.ProgressEvent;
 import de.elmar_baumann.imv.event.ProgressListener;
 import de.elmar_baumann.imv.model.ListModelFileExcludePatterns;
 import de.elmar_baumann.imv.resource.Bundle;
+import de.elmar_baumann.imv.types.Persistence;
 import java.awt.event.KeyEvent;
 import java.util.List;
 
 /**
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @version 2008/11/02
  */
-public class FileExcludePatternsPanel extends javax.swing.JPanel
-    implements ProgressListener {
+public class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
+    implements ProgressListener, Persistence {
 
     private static final String addInfoText = Bundle.getString("FileExcludePatternPanel.AddInfoText");
     private DatabaseFileExcludePattern db = DatabaseFileExcludePattern.getInstance();
@@ -26,8 +23,8 @@ public class FileExcludePatternsPanel extends javax.swing.JPanel
     private boolean isUpdateDatabase = false;
     private boolean isStopUpdateDatabase = false;
 
-    /** Creates new form FileExcludePatternsPanel */
-    public FileExcludePatternsPanel() {
+    /** Creates new form SettingsFileExcludePatternsPanel */
+    public SettingsFileExcludePatternsPanel() {
         initComponents();
     }
 
@@ -117,6 +114,14 @@ public class FileExcludePatternsPanel extends javax.swing.JPanel
         setEnabledButtons();
     }
 
+    @Override
+    public void readPersistent() {
+    }
+
+    @Override
+    public void writePersistent() {
+    }
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -137,7 +142,8 @@ public class FileExcludePatternsPanel extends javax.swing.JPanel
         progressBarUpdateDatabase = new javax.swing.JProgressBar();
         buttonCancelUpdateDatabase = new javax.swing.JButton();
 
-        labelInfoList.setText(Bundle.getString("FileExcludePatternsPanel.labelInfoList.text")); // NOI18N
+        labelInfoList.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
+        labelInfoList.setText(Bundle.getString("SettingsFileExcludePatternsPanel.labelInfoList.text")); // NOI18N
 
         listPattern.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         listPattern.setModel(model);
@@ -158,8 +164,8 @@ public class FileExcludePatternsPanel extends javax.swing.JPanel
 
         buttonDeletePattern.setFont(new java.awt.Font("Dialog", 0, 12));
         buttonDeletePattern.setMnemonic('e');
-        buttonDeletePattern.setText(Bundle.getString("FileExcludePatternsPanel.buttonDeletePattern.text")); // NOI18N
-        buttonDeletePattern.setToolTipText(Bundle.getString("FileExcludePatternsPanel.buttonDeletePattern.toolTipText")); // NOI18N
+        buttonDeletePattern.setText(Bundle.getString("SettingsFileExcludePatternsPanel.buttonDeletePattern.text")); // NOI18N
+        buttonDeletePattern.setToolTipText(Bundle.getString("SettingsFileExcludePatternsPanel.buttonDeletePattern.toolTipText")); // NOI18N
         buttonDeletePattern.setEnabled(false);
         buttonDeletePattern.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -169,8 +175,8 @@ public class FileExcludePatternsPanel extends javax.swing.JPanel
 
         buttonInsertPattern.setFont(new java.awt.Font("Dialog", 0, 12));
         buttonInsertPattern.setMnemonic('h');
-        buttonInsertPattern.setText(Bundle.getString("FileExcludePatternsPanel.buttonInsertPattern.text")); // NOI18N
-        buttonInsertPattern.setToolTipText(Bundle.getString("FileExcludePatternsPanel.buttonInsertPattern.toolTipText")); // NOI18N
+        buttonInsertPattern.setText(Bundle.getString("SettingsFileExcludePatternsPanel.buttonInsertPattern.text")); // NOI18N
+        buttonInsertPattern.setToolTipText(Bundle.getString("SettingsFileExcludePatternsPanel.buttonInsertPattern.toolTipText")); // NOI18N
         buttonInsertPattern.setEnabled(false);
         buttonInsertPattern.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -180,7 +186,7 @@ public class FileExcludePatternsPanel extends javax.swing.JPanel
 
         buttonUpdateDatabase.setFont(new java.awt.Font("Dialog", 0, 12));
         buttonUpdateDatabase.setMnemonic('d');
-        buttonUpdateDatabase.setText(Bundle.getString("FileExcludePatternsPanel.buttonUpdateDatabase.text")); // NOI18N
+        buttonUpdateDatabase.setText(Bundle.getString("SettingsFileExcludePatternsPanel.buttonUpdateDatabase.text")); // NOI18N
         buttonUpdateDatabase.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonUpdateDatabaseActionPerformed(evt);
@@ -189,10 +195,10 @@ public class FileExcludePatternsPanel extends javax.swing.JPanel
 
         labelInfoDatabase.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         labelInfoDatabase.setForeground(new java.awt.Color(255, 0, 0));
-        labelInfoDatabase.setText(Bundle.getString("FileExcludePatternsPanel.labelInfoDatabase.text")); // NOI18N
+        labelInfoDatabase.setText(Bundle.getString("SettingsFileExcludePatternsPanel.labelInfoDatabase.text")); // NOI18N
 
         buttonCancelUpdateDatabase.setFont(new java.awt.Font("Dialog", 0, 12));
-        buttonCancelUpdateDatabase.setText(Bundle.getString("FileExcludePatternsPanel.buttonCancelUpdateDatabase.text")); // NOI18N
+        buttonCancelUpdateDatabase.setText(Bundle.getString("SettingsFileExcludePatternsPanel.buttonCancelUpdateDatabase.text")); // NOI18N
         buttonCancelUpdateDatabase.setEnabled(false);
         buttonCancelUpdateDatabase.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -236,7 +242,7 @@ public class FileExcludePatternsPanel extends javax.swing.JPanel
                     .addComponent(buttonInsertPattern)
                     .addComponent(buttonDeletePattern))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labelInfoDatabase, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
+                .addComponent(labelInfoDatabase, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(progressBarUpdateDatabase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)

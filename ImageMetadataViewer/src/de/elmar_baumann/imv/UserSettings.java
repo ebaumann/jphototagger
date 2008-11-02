@@ -1,24 +1,19 @@
 package de.elmar_baumann.imv;
 
 import de.elmar_baumann.imv.database.metadata.Column;
+import de.elmar_baumann.imv.database.metadata.ColumnUtil;
+import de.elmar_baumann.imv.database.metadata.selections.EditColumns;
 import de.elmar_baumann.imv.event.UserSettingsChangeEvent;
 import de.elmar_baumann.imv.event.UserSettingsChangeListener;
-import de.elmar_baumann.imv.model.ComboBoxModelThreadPriority;
-import de.elmar_baumann.imv.model.ListModelFastSearchColumns;
-import de.elmar_baumann.imv.view.dialogs.UserSettingsDialog;
-import de.elmar_baumann.lib.component.CheckList;
 import de.elmar_baumann.lib.io.FileUtil;
 import de.elmar_baumann.lib.persistence.PersistentSettings;
 import de.elmar_baumann.lib.util.ArrayUtil;
 import java.io.File;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.logging.XMLFormatter;
-import javax.swing.JCheckBox;
-import javax.swing.ListModel;
 
 /**
  *
@@ -27,18 +22,19 @@ import javax.swing.ListModel;
  */
 public class UserSettings implements UserSettingsChangeListener {
 
-    private static final String delimiterSearchColumns = "\t"; // NOI18N
+    private static final String delimiterColumns = "\t"; // NOI18N
     private static final int defaultMaxThumbnailWidth = 150;
     private static final int defaultMinutesToStartScheduledTasks = 5;
     private static final String keyDefaultImageOpenApp = "UserSettings.DefaultImageOpenApp";
     private static final String keyExternalThumbnailCreationCommand = "UserSettings.ExternalThumbnailCreationCommand";
     private static final String keyFastSearchColumns = "UserSettings.FastSearchColumns";
+    private static final String keyEditColumns = "UserSettings.EditColumns";
     private static final String keyIptcCharset = "UserSettings.IptcCharset";
     private static final String keyIsAcceptHiddenDirectories = "UserSettings.IsAcceptHiddenDirectories";
     private static final String keyIsAutoscanIncludeSubdirectories = "UserSettings.IsAutoscanIncludeSubdirectories";
     private static final String keyIsCreateThumbnailsWithExternalApp = "UserSettings.IsCreateThumbnailsWithExternalApp";
     private static final String keyIsTaskRemoveRecordsWithNotExistingFiles = "UserSettings.IsTaskRemoveRecordsWithNotExistingFiles";
-    private static final String keyIsUseAutocomplete = "UserSettings.IsUseAutocomplete";
+    private static final String keyIsAutocomplete = "UserSettings.IsUseAutocomplete";
     private static final String keyIsUseEmbeddedThumbnails = "UserSettings.IsUseEmbeddedThumbnails";
     private static final String keyLogfileFormatterClass = "UserSettings.LogfileFormatterClass";
     private static final String keyLogLevel = "UserSettings.LogLevel";
@@ -49,6 +45,9 @@ public class UserSettings implements UserSettingsChangeListener {
     private static final String keyAutocopyDirectory = "UserSettings.AutocopyDirectory";
     private PersistentSettings settings = PersistentSettings.getInstance();
     private static UserSettings instance = new UserSettings();
+
+    private UserSettings() {
+    }
 
     /**
      * Liefert die einzige Klasseninstanz.
@@ -110,34 +109,25 @@ public class UserSettings implements UserSettingsChangeListener {
         List<Column> columns = new ArrayList<Column>();
         if (!settings.getString(keyFastSearchColumns).isEmpty()) {
             List<String> columnKeys = ArrayUtil.stringTokenToList(
-                settings.getString(keyFastSearchColumns), delimiterSearchColumns);
-            for (String key : columnKeys) {
-                try {
-                    Class cl = Class.forName(key);
-                    @SuppressWarnings("unchecked")
-                    Method method = cl.getMethod("getInstance", new Class[0]); // NOI18N
-                    Object o = method.invoke(null, new Object[0]);
-                    if (o instanceof Column) {
-                        columns.add((Column) o);
-                    }
-                } catch (Exception ex) {
-                    Logger.getLogger(UserSettingsDialog.class.getName()).log(Level.WARNING, ex.getMessage());
-                }
-            }
+                settings.getString(keyFastSearchColumns), delimiterColumns);
+            return ColumnUtil.columnKeysToColumns(columnKeys);
         }
         return columns;
     }
 
-    private String getSearchColumnKeys(CheckList checkListSearchColumns,
-        ListModelFastSearchColumns searchColumnsListModel) {
-        StringBuffer tableColumns = new StringBuffer();
-        List<Integer> indices =
-            checkListSearchColumns.getSelectedItemIndices();
-        for (Integer index : indices) {
-            tableColumns.append(searchColumnsListModel.getTableColumnAtIndex(
-                index).getKey() + delimiterSearchColumns);
+    /**
+     * Returns the edit columns the user want to see in the edit columns panel
+     * array.
+     * 
+     * @return edit columns
+     */
+    public List<Column> getEditColumns() {
+        if (!settings.getString(keyEditColumns).isEmpty()) {
+            List<String> columnKeys = ArrayUtil.stringTokenToList(
+                settings.getString(keyEditColumns), delimiterColumns);
+            return ColumnUtil.columnKeysToColumns(columnKeys);
         }
-        return tableColumns.toString();
+        return new ArrayList<Column>(EditColumns.getInstance().getColumns());
     }
 
     /**
@@ -148,7 +138,12 @@ public class UserSettings implements UserSettingsChangeListener {
     public String getDefaultImageOpenApp() {
         return settings.getString(keyDefaultImageOpenApp);
     }
-    
+
+    /**
+     * Returns whether a default image open application is defined.
+     * 
+     * @return true if defined
+     */
     public boolean hasDefaultImageOpenApp() {
         return !getDefaultImageOpenApp().isEmpty();
     }
@@ -161,28 +156,6 @@ public class UserSettings implements UserSettingsChangeListener {
     public int getThreadPriority() {
         int priority = settings.getInt(keyThreadPriority);
         return priority >= 0 && priority <= 10 ? priority : 5;
-    }
-
-    private void setCreateThumbnailsWithExternalApp(JCheckBox checkBoxIsCreateThumbnailsWithExternalApp) {
-        boolean selected = checkBoxIsCreateThumbnailsWithExternalApp.isSelected();
-        settings.setBoolean(selected, keyIsCreateThumbnailsWithExternalApp);
-        if (selected) {
-            settings.setBoolean(false, keyIsUseEmbeddedThumbnails);
-        }
-    }
-
-    private void setLogfileFormatterClass(Object selectedItem) {
-        String classString = selectedItem.toString();
-        int index = classString.lastIndexOf(" ");
-        settings.setString(index >= 0 && index + 1 < classString.length() 
-            ? classString.substring(index + 1)
-            : XMLFormatter.class.getName(),
-            keyLogfileFormatterClass);
-    }
-
-    private void setThreadPriority(ComboBoxModelThreadPriority model) {
-        Object item = model.getSelectedItem();
-        settings.setInt(model.getPriorityOf(item.toString()), keyThreadPriority);
     }
 
     /**
@@ -207,14 +180,6 @@ public class UserSettings implements UserSettingsChangeListener {
             : false;
     }
 
-    private void setUseEmbeddedThumbnails(JCheckBox checkBoxIsUseEmbeddedThumbnails) {
-        boolean selected = checkBoxIsUseEmbeddedThumbnails.isSelected();
-        settings.setBoolean(selected, keyIsUseEmbeddedThumbnails);
-        if (selected) {
-            settings.setBoolean(false, keyIsCreateThumbnailsWithExternalApp);
-        }
-    }
-
     /**
      * Liefert den Zeichensatz, mit dem IPTC-Daten dekodiert werden sollen.
      * 
@@ -233,22 +198,9 @@ public class UserSettings implements UserSettingsChangeListener {
     public List<File> getOtherImageOpenApps() {
         return FileUtil.getAsFiles(settings.getStringArray(keyOtherImageOpenApps));
     }
-    
+
     public boolean hasOtherImageOpenApps() {
         return !getOtherImageOpenApps().isEmpty();
-    }
-
-    private void setOtherImageOpenApps(ListModel model) {
-        List<String> apps = new ArrayList<String>();
-        int size = model.getSize();
-        for (int i = 0; i < size; i++) {
-            apps.add(model.getElementAt(i).toString());
-        }
-        if (apps.isEmpty()) {
-            settings.getProperties().remove(keyOtherImageOpenApps);
-        } else {
-            settings.setStringArray(apps, keyOtherImageOpenApps);
-        }
     }
 
     /**
@@ -273,7 +225,7 @@ public class UserSettings implements UserSettingsChangeListener {
         try {
             return Class.forName(className);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(UserSettingsDialog.class.getName()).log(Level.WARNING, ex.getMessage());
+            Logger.getLogger(UserSettings.class.getName()).log(Level.WARNING, ex.getMessage());
             PersistentSettings.getInstance().setString(XMLFormatter.class.getName(), keyLogfileFormatterClass);
         }
         return XMLFormatter.class;
@@ -307,8 +259,8 @@ public class UserSettings implements UserSettingsChangeListener {
      * @return true, wenn Autocomplete eingeschaltet werden soll
      */
     public boolean isUseAutocomplete() {
-        return settings.getProperties().containsKey(keyIsUseAutocomplete)
-            ? settings.getBoolean(keyIsUseAutocomplete)
+        return settings.getProperties().containsKey(keyIsAutocomplete)
+            ? settings.getBoolean(keyIsAutocomplete)
             : true;
     }
 
@@ -323,7 +275,7 @@ public class UserSettings implements UserSettingsChangeListener {
             ? settings.getBoolean(keyIsAcceptHiddenDirectories)
             : false;
     }
-    
+
     /**
      * Returns the autocopy directory, a source directory from which all
      * image files should be copied to another directory automatically.
@@ -335,62 +287,94 @@ public class UserSettings implements UserSettingsChangeListener {
         return dir.exists() && dir.isDirectory() ? dir : null;
     }
 
-    private UserSettings() {
-    }
-
     @Override
     public void applySettings(UserSettingsChangeEvent evt) {
-        UserSettingsDialog dialog = (UserSettingsDialog) evt.getSource();
-        UserSettingsChangeEvent.Type type = evt.getType();
+        writePersistent(evt);
+    }
 
+    private void writePersistent(UserSettingsChangeEvent evt) {
+        UserSettingsChangeEvent.Type type = evt.getType();
         if (type.equals(UserSettingsChangeEvent.Type.DefaultImageOpenApp)) {
-            settings.setString(dialog.labelDefaultImageOpenApp.getText(),
-                keyDefaultImageOpenApp);
+            settings.setString(evt.getDefaultImageOpenApp().getAbsolutePath(), keyDefaultImageOpenApp);
         } else if (type.equals(UserSettingsChangeEvent.Type.ExternalThumbnailCreationCommand)) {
-            settings.setString(dialog.textFieldExternalThumbnailCreationCommand.getText(),
-                keyExternalThumbnailCreationCommand);
-        } else if (type.equals(UserSettingsChangeEvent.Type.FastSearchColumnDefined)) {
-            settings.setString(
-                getSearchColumnKeys(dialog.checkListSearchColumns, dialog.searchColumnsListModel),
-                keyFastSearchColumns);
+            settings.setString(evt.getExternalThumbnailCreationCommand(), keyExternalThumbnailCreationCommand);
+        } else if (type.equals(UserSettingsChangeEvent.Type.FastSearchColumns)) {
+            settings.setString(getColumnKeys(evt.getFastSearchColumns()), keyFastSearchColumns);
+        } else if (type.equals(UserSettingsChangeEvent.Type.EditColumns)) {
+            settings.setString(getColumnKeys(evt.getEditColumns()), keyEditColumns);
         } else if (type.equals(UserSettingsChangeEvent.Type.IptcCharset)) {
-            settings.setString(dialog.comboBoxIptcCharset.getSelectedItem().toString(),
-                keyIptcCharset);
+            settings.setString(evt.getIptcCharset(), keyIptcCharset);
         } else if (type.equals(UserSettingsChangeEvent.Type.IsAcceptHiddenDirectories)) {
-            settings.setBoolean(dialog.checkBoxIsAcceptHiddenDirectories.isSelected(),
-                keyIsAcceptHiddenDirectories);
+            settings.setBoolean(evt.isAcceptHiddenDirectories(), keyIsAcceptHiddenDirectories);
         } else if (type.equals(UserSettingsChangeEvent.Type.IsAutoscanIncludeSubdirectories)) {
-            settings.setBoolean(dialog.checkBoxIsAutoscanIncludeSubdirectories.isSelected(),
-                keyIsAutoscanIncludeSubdirectories);
+            settings.setBoolean(evt.isAutoscanIncludeSubdirectories(), keyIsAutoscanIncludeSubdirectories);
         } else if (type.equals(UserSettingsChangeEvent.Type.IsCreateThumbnailsWithExternalApp)) {
-            setCreateThumbnailsWithExternalApp(dialog.checkBoxIsCreateThumbnailsWithExternalApp);
+            writePersistentCreateThumbnailsWithExternalApp(evt.isCreateThumbnailsWithExternalApp());
         } else if (type.equals(UserSettingsChangeEvent.Type.IsTaskRemoveRecordsWithNotExistingFiles)) {
-            settings.setBoolean(dialog.checkBoxIsTaskRemoveRecordsWithNotExistingFiles.isSelected(),
-                keyIsTaskRemoveRecordsWithNotExistingFiles);
+            settings.setBoolean(evt.isTaskRemoveRecordsWithNotExistingFiles(), keyIsTaskRemoveRecordsWithNotExistingFiles);
         } else if (type.equals(UserSettingsChangeEvent.Type.IsUseAutocomplete)) {
-            settings.setBoolean(!dialog.checkBoxIsAutocompleteDisabled.isSelected(),
-                keyIsUseAutocomplete);
+            settings.setBoolean(evt.isAutocomplete(), keyIsAutocomplete);
         } else if (type.equals(UserSettingsChangeEvent.Type.IsUseEmbeddedThumbnails)) {
-            setUseEmbeddedThumbnails(dialog.checkBoxIsUseEmbeddedThumbnails);
+            writePersistentUseEmbeddedThumbnails(evt.isUseEmbeddedThumbnails());
         } else if (type.equals(UserSettingsChangeEvent.Type.LogfileFormatterClass)) {
-            setLogfileFormatterClass(dialog.comboBoxLogfileFormatterClass.getSelectedItem());
+            writePersistentLogfileFormatterClass(evt.getLogfileFormatterClass());
         } else if (type.equals(UserSettingsChangeEvent.Type.LogLevel)) {
-            settings.setString(dialog.comboBoxLogLevel.getSelectedItem().toString(),
-                keyLogLevel);
+            settings.setString(evt.getLogLevel().toString(), keyLogLevel);
         } else if (type.equals(UserSettingsChangeEvent.Type.MaxThumbnailWidth)) {
-            settings.setString(dialog.spinnerMaxThumbnailWidth.getValue().toString(),
-                keyMaxThumbnailWidth);
+            settings.setString(evt.getMaxThumbnailWidth().toString(), keyMaxThumbnailWidth);
         } else if (type.equals(UserSettingsChangeEvent.Type.MinutesToStartScheduledTasks)) {
-            settings.setString(dialog.spinnerMinutesToStartScheduledTasks.getValue().toString(),
-                keyMinutesToStartScheduledTasks);
+            settings.setString(evt.getMinutesToStartScheduledTasks().toString(), keyMinutesToStartScheduledTasks);
         } else if (type.equals(UserSettingsChangeEvent.Type.NoFastSearchColumns)) {
             settings.getProperties().remove(keyFastSearchColumns);
         } else if (type.equals(UserSettingsChangeEvent.Type.OtherImageOpenApps)) {
-            setOtherImageOpenApps(dialog.listOtherImageOpenApps.getModel());
+            writePersistentOtherImageOpenApps(evt.getOtherImageOpenApps());
         } else if (type.equals(UserSettingsChangeEvent.Type.ThreadPriority)) {
-            setThreadPriority((ComboBoxModelThreadPriority) dialog.comboBoxThreadPriority.getModel());
+            settings.setInt(evt.getThreadPriority(), keyThreadPriority);
         } else if (type.equals(UserSettingsChangeEvent.Type.AutocopyDirectory)) {
-            settings.setString(dialog.labelAutocopyDirectory.getText(), keyAutocopyDirectory);
+            settings.setString(evt.getAutoCopyDirectory().getAbsolutePath(), keyAutocopyDirectory);
         }
+    }
+
+    private void writePersistentCreateThumbnailsWithExternalApp(boolean create) {
+        settings.setBoolean(create, keyIsCreateThumbnailsWithExternalApp);
+        if (create) {
+            settings.setBoolean(false, keyIsUseEmbeddedThumbnails);
+        }
+    }
+
+    private void writePersistentLogfileFormatterClass(Class formatterClass) {
+        String classString = formatterClass.toString();
+        int index = classString.lastIndexOf(" ");
+        settings.setString(index >= 0 && index + 1 < classString.length()
+            ? classString.substring(index + 1)
+            : XMLFormatter.class.getName(),
+            keyLogfileFormatterClass);
+    }
+
+    private void writePersistentUseEmbeddedThumbnails(boolean use) {
+        settings.setBoolean(use, keyIsUseEmbeddedThumbnails);
+        if (use) {
+            settings.setBoolean(false, keyIsCreateThumbnailsWithExternalApp);
+        }
+    }
+
+    private void writePersistentOtherImageOpenApps(List<File> otherImageOpenApps) {
+        List<String> apps = new ArrayList<String>();
+        for (File app : otherImageOpenApps) {
+            apps.add(app.toString());
+        }
+        if (apps.isEmpty()) {
+            settings.getProperties().remove(keyOtherImageOpenApps);
+        } else {
+            settings.setStringArray(apps, keyOtherImageOpenApps);
+        }
+    }
+
+    private String getColumnKeys(List<Column> columns) {
+        StringBuffer buffer = new StringBuffer();
+        for (Column column : columns) {
+            buffer.append(column.getKey() + delimiterColumns);
+        }
+        return buffer.toString();
     }
 }
