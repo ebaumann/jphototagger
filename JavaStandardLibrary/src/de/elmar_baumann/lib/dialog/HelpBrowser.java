@@ -39,7 +39,7 @@ import javax.swing.tree.TreeSelectionModel;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public class HelpBrowser extends javax.swing.JFrame
+public class HelpBrowser extends Dialog
     implements ActionListener, HyperlinkListener, MouseListener, TreeSelectionListener {
 
     private static HelpBrowser instance = new HelpBrowser();
@@ -58,6 +58,7 @@ public class HelpBrowser extends javax.swing.JFrame
     private HelpBrowser() {
         initComponents();
         postInitComponents();
+        registerKeyStrokes();
     }
 
     private void postInitComponents() {
