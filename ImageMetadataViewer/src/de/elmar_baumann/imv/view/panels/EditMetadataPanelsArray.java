@@ -39,7 +39,6 @@ import javax.swing.JComponent;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 /**
@@ -243,18 +242,26 @@ public class EditMetadataPanelsArray implements FocusListener, DatabaseListener,
 
     private void addPanels() {
         container.removeAll();
-        GridBagLayout layout = new GridBagLayout();
-        GridBagConstraints constraints = getConstraints();
-        container.setLayout(layout);
+        container.setLayout(new GridBagLayout());
         int size = panels.size();
         for (int i = 0; i < size; i++) {
+            GridBagConstraints constraints = newConstraints();
             if (i == size - 1) {
                 constraints.insets.bottom += 10;
             }
-            layout.setConstraints(panels.get(i), constraints);
-            container.add(panels.get(i));
+            container.add(panels.get(i), constraints);
         }
-        addActionPanel(layout);
+        addActionPanel();
+    }
+
+    private GridBagConstraints newConstraints() {
+        GridBagConstraints constraints = new GridBagConstraints();
+        constraints.gridwidth = GridBagConstraints.REMAINDER;
+        constraints.anchor = GridBagConstraints.NORTHWEST;
+        constraints.fill = GridBagConstraints.BOTH;
+        constraints.insets = new Insets(5, 10, 0, 10);
+        constraints.weightx = 1;
+        return constraints;
     }
 
     private void listenToActionSources() {
@@ -262,22 +269,12 @@ public class EditMetadataPanelsArray implements FocusListener, DatabaseListener,
         Panels.getInstance().getAppFrame().addAppExitListener(this);
     }
 
-    private void addActionPanel(GridBagLayout layout) {
+    private void addActionPanel() {
         editActionsPanel = Panels.getInstance().getAppPanel().getMetadataEditActionsPanel();
-        layout.setConstraints(editActionsPanel, getConstraints());
-        container.add(editActionsPanel);
+        GridBagConstraints gbc = newConstraints();
+        gbc.weighty = 1;
+        container.add(editActionsPanel, gbc);
         editActionsPanel.tabbedPane.addFocusListener(this);
-    }
-
-    private GridBagConstraints getConstraints() {
-        GridBagConstraints constraints = new GridBagConstraints();
-        constraints.gridwidth = GridBagConstraints.REMAINDER;
-        constraints.fill = GridBagConstraints.BOTH;
-        constraints.insets = new Insets(5, 15, 0, 10);
-        constraints.ipadx = 0;
-        constraints.ipady = 0;
-        constraints.weightx = 1;
-        return constraints;
     }
 
     public void setFocusToFirstEditField() {
