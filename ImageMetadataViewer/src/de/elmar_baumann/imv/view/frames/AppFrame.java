@@ -9,6 +9,7 @@ import de.elmar_baumann.imv.factory.MetaFactory;
 import de.elmar_baumann.imv.io.FileSort;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.Panels;
+import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.lib.persistence.PersistentAppSizes;
 import de.elmar_baumann.lib.persistence.PersistentSettings;
 import java.awt.event.WindowAdapter;
@@ -33,6 +34,7 @@ public class AppFrame extends javax.swing.JFrame {
     private Map<JMenuItem, Goto> gotoOfMenuItem = new HashMap<JMenuItem, Goto>();
     private List<AppExitListener> exitListeners = new ArrayList<AppExitListener>();
     private List<AppStartListener> startListeners = new ArrayList<AppStartListener>();
+    private AppPanel appPanel;
 
     public AppFrame() {
         Panels.getInstance().setAppFrame(this);
@@ -89,6 +91,7 @@ public class AppFrame extends javax.swing.JFrame {
     };
 
     private void postInitComponents() {
+        addAppPanel();
         initSortMenuItemsMap();
         initGotoMenuItemsMap();
         listenToClose();
@@ -97,6 +100,11 @@ public class AppFrame extends javax.swing.JFrame {
         addAppExitListener(appPanel);
         appPanel.getEditPanelsArray().addDeleteListenerTo(menuItemDelete);
         notifyStart();
+    }
+
+    private void addAppPanel() {
+        appPanel = new AppPanel();
+        getContentPane().add(appPanel);
     }
 
     public void addAppStartListener(AppStartListener listener) {
@@ -233,7 +241,6 @@ public class AppFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        appPanel = new de.elmar_baumann.imv.view.panels.AppPanel();
         menuBar = new javax.swing.JMenuBar();
         menuFile = new javax.swing.JMenu();
         menuItemScanDirectory = new javax.swing.JMenuItem();
@@ -510,17 +517,6 @@ public class AppFrame extends javax.swing.JFrame {
         menuBar.add(menuHelp);
 
         setJMenuBar(menuBar);
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(appPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 446, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(appPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
     }// </editor-fold>//GEN-END:initComponents
 
 private void menuItemExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemExitActionPerformed
@@ -531,7 +527,6 @@ private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:even
     quit();
 }//GEN-LAST:event_formWindowClosing
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private de.elmar_baumann.imv.view.panels.AppPanel appPanel;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
