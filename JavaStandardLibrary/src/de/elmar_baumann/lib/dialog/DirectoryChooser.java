@@ -3,6 +3,7 @@ package de.elmar_baumann.lib.dialog;
 import de.elmar_baumann.lib.componentutil.TreeUtil;
 import de.elmar_baumann.lib.image.icon.IconUtil;
 import de.elmar_baumann.lib.io.FileUtil;
+import de.elmar_baumann.lib.model.TreeModelDirectories;
 import de.elmar_baumann.lib.persistence.PersistentAppSizes;
 import de.elmar_baumann.lib.resource.Bundle;
 import de.elmar_baumann.lib.resource.Settings;
@@ -11,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 import javax.swing.JOptionPane;
+import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
@@ -20,12 +22,13 @@ import javax.swing.tree.TreeSelectionModel;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public class DirectoryChooser extends javax.swing.JDialog {
+public class DirectoryChooser extends Dialog {
 
     private boolean accepted = false;
     private boolean multiSelection = true;
     private boolean acceptHidden = true;
     private File startDirectory = new File(""); // NOI18N
+    private TreeModel model;
 
     /**
      * Erzeugt einen modalen Verzeichnisauswahldialog.
@@ -37,7 +40,28 @@ public class DirectoryChooser extends javax.swing.JDialog {
         super(parent, true);
         this.acceptHidden = acceptHidden;
         initComponents();
+        postInitComponents();
+    }
+
+    /**
+     * Sets a model. Usually this is an instance of 
+     * {@link de.elmar_baumann.lib.model.TreeModelDirectories} used by
+     * other trees to save time.
+     * 
+     * @param model  model. Default: new instance of
+     *               {@link de.elmar_baumann.lib.model.TreeModelDirectories}
+     */
+    public void setModel(TreeModel model) {
+        this.model = model;
+    }
+
+    private void postInitComponents() {
         setIcons();
+        if (model == null) {
+            model = new TreeModelDirectories(acceptHidden);
+        }
+        treeDirectories.setModel(model);
+        registerKeyStrokes();
     }
 
     private void setIcons() {
@@ -204,7 +228,7 @@ public class DirectoryChooser extends javax.swing.JDialog {
         });
 
         treeDirectories.setCellRenderer(new de.elmar_baumann.lib.renderer.TreeCellRendererDirectories());
-        treeDirectories.setModel(new de.elmar_baumann.lib.model.TreeModelDirectories(acceptHidden));
+        treeDirectories.setModel(null);
         scrollPaneTreeDirectories.setViewportView(treeDirectories);
 
         buttonChoose.setMnemonic('a');

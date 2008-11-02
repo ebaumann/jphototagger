@@ -1,9 +1,10 @@
 package de.elmar_baumann.lib.renderer;
 
 import de.elmar_baumann.lib.image.icon.IconUtil;
-import de.elmar_baumann.lib.io.DirectoryTreeModelRoots;
+import de.elmar_baumann.lib.resource.Bundle;
 import java.awt.Component;
 import java.io.File;
+import javax.swing.Icon;
 import javax.swing.JTree;
 import javax.swing.filechooser.FileSystemView;
 import javax.swing.tree.DefaultTreeCellRenderer;
@@ -18,10 +19,7 @@ import javax.swing.tree.DefaultTreeCellRenderer;
 public class TreeCellRendererDirectories extends DefaultTreeCellRenderer {
 
     private FileSystemView fileSystemView = FileSystemView.getFileSystemView();
-    private Object root;
-
-    public TreeCellRendererDirectories() {
-    }
+    Icon rootIcon = IconUtil.getImageIcon("/de/elmar_baumann/lib/resource/workspaceicon.png"); // NOI18N
 
     @Override
     public Component getTreeCellRendererComponent(
@@ -29,17 +27,13 @@ public class TreeCellRendererDirectories extends DefaultTreeCellRenderer {
         int row, boolean hasFocus) {
         super.getTreeCellRendererComponent(tree, value, sel, expanded, false, row, hasFocus);
 
-        if (value instanceof File) {
+        if (value == tree.getModel().getRoot()) {
+            setIcon(rootIcon);
+            setText(Bundle.getString("DirectoryTreeModel.Root.Text"));
+        } else if (value instanceof File) {
             File file = (File) value;
             setIcon(fileSystemView.getSystemIcon(file));
             setText(getDirectoryName(file));
-        } else if (value instanceof DirectoryTreeModelRoots) {
-            if (root == null) {
-                root = tree.getModel().getRoot();
-            }
-            if (value == root) {
-                setIcon(IconUtil.getImageIcon("/de/elmar_baumann/lib/resource/workspaceicon.png")); // NOI18N
-            }
         }
         return this;
     }
@@ -47,14 +41,13 @@ public class TreeCellRendererDirectories extends DefaultTreeCellRenderer {
     private String getDirectoryName(File file) {
         String name = file.getName();
 
-        // Windows-Laufwerksbuchstaben
+        // Windows drive letters
         if (name.isEmpty()) {
             name = file.getAbsolutePath();
             if (name.endsWith("\\")) { // NOI18N
                 name = name.substring(0, name.length() - 2) + ":"; // NOI18N
             }
         }
-
         return name;
     }
 }
