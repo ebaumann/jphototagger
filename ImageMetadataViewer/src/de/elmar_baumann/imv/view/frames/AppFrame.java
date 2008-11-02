@@ -163,7 +163,7 @@ public class AppFrame extends javax.swing.JFrame {
         return menuItemAbout;
     }
 
-    public JMenuItem getMenuItemFileSystemRename() {
+    public JMenuItem getMenuItemRename() {
         return menuItemFileSystemRename;
     }
 

@@ -35,7 +35,7 @@ public class PopupMenuPanelThumbnails extends JPopupMenu
     private final String actionRotate270 = Bundle.getString("PopupMenuPanelThumbnails.Action.Rotate.270");
     private final String actionOpenFiles = Bundle.getString("PopupMenuPanelThumbnails.Action.OpenFiles");
     private final String actionDeleteImageFromDatabase = Bundle.getString("PopupMenuPanelThumbnails.Action.DeleteImageFromDatabase");
-    private final String actionCopySelectedFilesToDirectory = Bundle.getString("PopupMenuPanelThumbnails.Action.CopySelectedFilesToDirectory");
+    private final String actionFileSystemCopyToDirectory = Bundle.getString("PopupMenuPanelThumbnails.Action.FileSystemCopyToDirectory");
     private final String actionFileSystemDeleteFiles = Bundle.getString("PopupMenuPanelThumbnails.Action.FileSystemDeleteFiles");
     private final String actionFileSystemRenameFiles = Bundle.getString("PopupMenuPanelThumbnails.Action.FileSystemRename");
     private final String actionFileSystemMoveFiles = Bundle.getString("PopupMenuPanelThumbnails.Action.FileSystemMove");
@@ -50,7 +50,7 @@ public class PopupMenuPanelThumbnails extends JPopupMenu
     private final JMenuItem itemRotateThumbnai270 = new JMenuItem(actionRotate270);
     private final JMenuItem itemDeleteImageFromDatabase = new JMenuItem(actionDeleteImageFromDatabase);
     private final JMenuItem itemOpenFilesWithStandardApp = new JMenuItem(actionOpenFiles);
-    private final JMenuItem itemCopySelectedFilesToDirectory = new JMenuItem(actionCopySelectedFilesToDirectory);
+    private final JMenuItem itemFileSystemCopyToDirectory = new JMenuItem(actionFileSystemCopyToDirectory);
     private final JMenuItem itemFileSystemDeleteFiles = new JMenuItem(actionFileSystemDeleteFiles);
     private final JMenuItem itemFileSystemRenameFiles = new JMenuItem(actionFileSystemRenameFiles);
     private final JMenuItem itemFileSystemMoveFiles = new JMenuItem(actionFileSystemMoveFiles);
@@ -95,7 +95,7 @@ public class PopupMenuPanelThumbnails extends JPopupMenu
         add(itemRotateThumbnai180);
         add(itemRotateThumbnai270);
         add(new JSeparator());
-        add(itemCopySelectedFilesToDirectory);
+        add(itemFileSystemCopyToDirectory);
         add(itemFileSystemRenameFiles);
         add(itemFileSystemMoveFiles);
         add(itemFileSystemDeleteFiles);
@@ -129,8 +129,8 @@ public class PopupMenuPanelThumbnails extends JPopupMenu
         return itemAddToImageCollection;
     }
 
-    public JMenuItem getItemCopySelectedFilesToDirectory() {
-        return itemCopySelectedFilesToDirectory;
+    public JMenuItem getItemFileSystemCopyToDirectory() {
+        return itemFileSystemCopyToDirectory;
     }
 
     public JMenuItem getItemCreateImageCollection() {
@@ -226,7 +226,7 @@ public class PopupMenuPanelThumbnails extends JPopupMenu
     }
 
     public void addActionListenerCopySelectedFilesToDirectory(ActionListener listener) {
-        itemCopySelectedFilesToDirectory.addActionListener(listener);
+        itemFileSystemCopyToDirectory.addActionListener(listener);
     }
 
     public void addActionListenerFileSystemDeleteFiles(ActionListener listener) {

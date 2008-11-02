@@ -22,6 +22,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -115,6 +116,20 @@ public abstract class ThumbnailsPanel extends JPanel
         }
     }
 
+    private int getFirstSelectedIndex() {
+        if (selectedThumbnails.size() > 0) {
+            return selectedThumbnails.get(0);
+        }
+        return -1;
+    }
+
+    private int getLastSelectedIndex() {
+        if (getSelectionCount() > 0) {
+            return selectedThumbnails.get(selectedThumbnails.size() - 1);
+        }
+        return -1;
+    }
+
     private int getSelectedIndex() {
         int indexSelectedThumbnail = -1;
         if (selectedThumbnails.size() == 1) {
@@ -175,6 +190,7 @@ public abstract class ThumbnailsPanel extends JPanel
         selectedThumbnails = indices;
         repaint();
         if (indices.size() > 0) {
+            Collections.sort(selectedThumbnails);
             notifyThumbnailSelected();
         }
     }
@@ -490,7 +506,7 @@ public abstract class ThumbnailsPanel extends JPanel
                         removeSelection(thumbnailIndex);
                     }
                 } else if (e.isShiftDown()) {
-                    setSelectedRange(thumbnailIndex);
+                    enhanceSelectionTo(thumbnailIndex);
                 } else {
                     if (isClickInSelection(e)) {
                         clickInSelection = thumbnailIndex;
@@ -546,45 +562,14 @@ public abstract class ThumbnailsPanel extends JPanel
         repaint();
     }
 
-    private int getFirstSelectedIndexBefore(int index) {
-        int firstIndex = -1;
-        if (getSelectionCount() > 0) {
-            boolean found = false;
-            for (int i = index - 1; !found && i >= 0; i--) {
-                found = isSelected(i);
-                if (found) {
-                    firstIndex = i;
-                }
-            }
-        }
-        return firstIndex;
-    }
-
-    private int getFirstSelectedIndexAfter(int index) {
-        int firstIndex = -1;
-        if (getSelectionCount() > 0) {
-            boolean found = false;
-            for (int i = index + 1; !found && i < thumbnailCount; i++) {
-                found = isSelected(i);
-                if (found) {
-                    firstIndex = i;
-                }
-            }
-        }
-        return firstIndex;
-    }
-
-    private void setSelectedRange(int thumbnailIndex) {
-        int index = getFirstSelectedIndexAfter(thumbnailIndex);
-        if (index == -1) {
-            index = getFirstSelectedIndexBefore(thumbnailIndex);
-        }
-        if (index == -1) {
-            setSelected(thumbnailIndex);
+    private void enhanceSelectionTo(int index) {
+        if (getSelectionCount() <= 0) {
+            setSelected(index);
         } else {
+            int firstSelected = getFirstSelectedIndex();
             selectedThumbnails.clear();
-            int startIndex = index > thumbnailIndex ? thumbnailIndex : index;
-            int endIndex = index > thumbnailIndex ? index : thumbnailIndex;
+            int startIndex = index > firstSelected ? firstSelected : index;
+            int endIndex = index > firstSelected ? index : firstSelected;
             for (int i = startIndex; i <= endIndex; i++) {
                 selectedThumbnails.add(i);
             }
@@ -605,6 +590,7 @@ public abstract class ThumbnailsPanel extends JPanel
     private void addToSelection(int index) {
         if (!isSelected(index)) {
             selectedThumbnails.add(index);
+            Collections.sort(selectedThumbnails);
             notifyThumbnailSelected();
             repaint();
         }

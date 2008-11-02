@@ -33,7 +33,6 @@ public class ControllerMoveFiles extends Controller
 
     private void listenToActionSources() {
         PopupMenuPanelThumbnails.getInstance().addActionListenerFileSystemMoveFiles(this);
-        Panels.getInstance().getAppFrame().getMenuItemFileSystemRename().addActionListener(this);
         ListenerProvider.getInstance().addFileSystemActionListener(this);
     }
 

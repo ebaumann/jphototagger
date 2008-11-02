@@ -33,7 +33,7 @@ public class ControllerRenameFiles extends Controller
 
     private void listenToActionSources() {
         PopupMenuPanelThumbnails.getInstance().addActionListenerFileSystemRenameFiles(this);
-        Panels.getInstance().getAppFrame().getMenuItemFileSystemRename().addActionListener(this);
+        Panels.getInstance().getAppFrame().getMenuItemRename().addActionListener(this);
         ListenerProvider.getInstance().addRenameFileListener(this);
     }
 
