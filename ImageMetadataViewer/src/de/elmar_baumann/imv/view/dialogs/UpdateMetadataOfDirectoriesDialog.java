@@ -9,6 +9,7 @@ import de.elmar_baumann.imv.event.ProgressListener;
 import de.elmar_baumann.imv.io.DirectoryInfo;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.types.DatabaseUpdate;
+import de.elmar_baumann.imv.view.ViewUtil;
 import de.elmar_baumann.lib.dialog.Dialog;
 import de.elmar_baumann.lib.io.FileUtil;
 import de.elmar_baumann.lib.persistence.PersistentAppSizes;
@@ -71,6 +72,7 @@ public class UpdateMetadataOfDirectoriesDialog extends Dialog
 
     private void chooseDirectories() {
         DirectoryChooser dialog = new DirectoryChooser(null, UserSettings.getInstance().isAcceptHiddenDirectories());
+        ViewUtil.setDirectoryTreeModel(dialog);
         dialog.setStartDirectory(lastSelectedDirectory);
         dialog.setMultiSelection(true);
         dialog.setVisible(true);

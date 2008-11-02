@@ -6,6 +6,7 @@ import de.elmar_baumann.imv.event.UserSettingsChangeEvent;
 import de.elmar_baumann.imv.model.ComboBoxModelLogfileFormatter;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.types.Persistence;
+import de.elmar_baumann.imv.view.ViewUtil;
 import de.elmar_baumann.imv.view.renderer.ListCellRendererLogfileFormatter;
 import de.elmar_baumann.lib.dialog.DirectoryChooser;
 import java.io.File;
@@ -43,6 +44,7 @@ public class SettingsMiscPanel extends javax.swing.JPanel
     private File chooseDirectory(File startDirectory) {
         File dir = null;
         DirectoryChooser dialog = new DirectoryChooser(null, false);
+        ViewUtil.setDirectoryTreeModel(dialog);
 
         dialog.setStartDirectory(startDirectory);
         dialog.setMultiSelection(false);

@@ -4,6 +4,7 @@ import de.elmar_baumann.imv.AppSettings;
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.database.DatabaseFavoriteDirectories;
 import de.elmar_baumann.imv.resource.Bundle;
+import de.elmar_baumann.imv.view.ViewUtil;
 import de.elmar_baumann.lib.dialog.Dialog;
 import de.elmar_baumann.lib.dialog.DirectoryChooser;
 import de.elmar_baumann.lib.io.FileUtil;
@@ -42,6 +43,7 @@ public class FavoriteDirectoryPropertiesDialog extends Dialog {
 
     private void chooseDirectory() {
         DirectoryChooser dialog = new DirectoryChooser(null, UserSettings.getInstance().isAcceptHiddenDirectories());
+        ViewUtil.setDirectoryTreeModel(dialog);
         dialog.setStartDirectory(new File(lastDirectory));
         dialog.setMultiSelection(false);
         dialog.setVisible(true);

@@ -7,6 +7,7 @@ import de.elmar_baumann.imv.event.ProgressListener;
 import de.elmar_baumann.imv.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.tasks.CopyFiles;
+import de.elmar_baumann.imv.view.ViewUtil;
 import de.elmar_baumann.lib.dialog.Dialog;
 import de.elmar_baumann.lib.dialog.DirectoryChooser;
 import de.elmar_baumann.lib.io.FileUtil;
@@ -130,6 +131,7 @@ public class CopyToDirectoryDialog extends Dialog
 
     private void chooseTargetDirectory() {
         DirectoryChooser dialog = new DirectoryChooser(null, UserSettings.getInstance().isAcceptHiddenDirectories());
+        ViewUtil.setDirectoryTreeModel(dialog);
         dialog.setStartDirectory(new File(lastDirectory));
         dialog.setMultiSelection(false);
         dialog.setVisible(true);

@@ -2,6 +2,7 @@ package de.elmar_baumann.imv.view;
 
 import de.elmar_baumann.imv.data.FavoriteDirectory;
 import de.elmar_baumann.imv.resource.Panels;
+import de.elmar_baumann.lib.dialog.DirectoryChooser;
 import java.io.File;
 import javax.swing.JList;
 import javax.swing.JTree;
@@ -46,5 +47,14 @@ public class ViewUtil {
             return new File(favoriteDirectory.getDirectoryName());
         }
         return null;
+    }
+    
+    /**
+     * Sets the directory tree's model to a directory chooser (speed).
+     * 
+     * @param chooser  directory chooser
+     */
+    public static void setDirectoryTreeModel(DirectoryChooser chooser) {
+        chooser.setModel(Panels.getInstance().getAppPanel().getTreeDirectories().getModel());
     }
 }

@@ -8,6 +8,7 @@ import de.elmar_baumann.imv.event.UserSettingsChangeEvent;
 import de.elmar_baumann.imv.model.ListModelAutoscanDirectories;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.types.Persistence;
+import de.elmar_baumann.imv.view.ViewUtil;
 import de.elmar_baumann.lib.dialog.DirectoryChooser;
 import de.elmar_baumann.lib.persistence.PersistentSettings;
 import de.elmar_baumann.lib.renderer.ListCellRendererFileSystem;
@@ -70,6 +71,7 @@ public class SettingsTasksPanel extends javax.swing.JPanel
 
     private void addAutoscanDirectories() {
         DirectoryChooser dialog = new DirectoryChooser(null, UserSettings.getInstance().isAcceptHiddenDirectories());
+        ViewUtil.setDirectoryTreeModel(dialog);
         dialog.setStartDirectory(new File(lastSelectedAutoscanDirectory));
         dialog.setMultiSelection(true);
         dialog.setVisible(true);
