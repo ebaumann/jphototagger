@@ -49,7 +49,8 @@ public class TransferHandlerThumbnailsPanel extends TransferHandler {
 
     @Override
     public boolean importData(TransferSupport transferSupport) {
-        if (!canImport(transferSupport)) {
+        if (!canImport(transferSupport) ||
+            ((ImageFileThumbnailsPanel) transferSupport.getComponent()).getSelectionCount() > 0) { // drop 
             return false;
         }
         List<File> sourceFiles = TransferUtil.getFiles(transferSupport.getTransferable(), delimiter);
