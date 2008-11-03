@@ -187,13 +187,13 @@ public class DirectoryChooser extends Dialog {
 
     private void cancel() {
         accepted = false;
-        setVisible(false);
+        dispose();
     }
 
     private void checkOk() {
-        if (treeDirectories.getSelectionCount() > 0) {
+        if (treeDirectories.getSelectionCount() > 0 && 
+            treeDirectories.getSelectionPath().getLastPathComponent() instanceof File) {
             accepted = true;
-            setVisible(false);
             dispose();
         } else {
             JOptionPane.showMessageDialog(this,
@@ -291,7 +291,7 @@ private void buttonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
 }//GEN-LAST:event_buttonCancelActionPerformed
 
 private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-    cancel();
+    accepted = false;
 }//GEN-LAST:event_formWindowClosing
 
     /**
