@@ -187,11 +187,12 @@ public class DirectoryChooser extends Dialog {
 
     private void cancel() {
         accepted = false;
+        PersistentAppSizes.setSizeAndLocation(this);
         dispose();
     }
 
     private void checkOk() {
-        if (treeDirectories.getSelectionCount() > 0 && 
+        if (treeDirectories.getSelectionCount() > 0 &&
             treeDirectories.getSelectionPath().getLastPathComponent() instanceof File) {
             accepted = true;
             dispose();
@@ -291,7 +292,7 @@ private void buttonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
 }//GEN-LAST:event_buttonCancelActionPerformed
 
 private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-    accepted = false;
+    cancel();
 }//GEN-LAST:event_formWindowClosing
 
     /**
