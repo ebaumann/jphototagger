@@ -213,6 +213,7 @@ public class ImageFileThumbnailsPanel extends ThumbnailsPanel {
         if (removed > 0) {
             setFiles(files, content);
             setSelected(getIndices(selectedFiles, true));
+            refresh();
         }
     }
 
