@@ -35,7 +35,7 @@ public class ListModelCategories extends DefaultListModel
 
     @Override
     public void actionPerformed(DatabaseAction action) {
-        if (action.isImageModified()) {
+        if (action.isImageModified() && action.getImageFileData() != null) {
             checkForNewCategories(action.getImageFileData());
         }
     }
