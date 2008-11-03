@@ -12,6 +12,8 @@ import de.elmar_baumann.lib.io.FileUtil;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.MessageFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -27,6 +29,7 @@ public class ControllerDeleteFavoriteDirectory extends Controller
     private ListModelFavoriteDirectories model = (ListModelFavoriteDirectories) appPanel.getListFavoriteDirectories().getModel();
     private PopupMenuListFavoriteDirectories popup = PopupMenuListFavoriteDirectories.getInstance();
     private CheckDirectoriesRemoved removeChecker;
+    private static final int removeCheckIntervalSeconds = 3;
 
     public ControllerDeleteFavoriteDirectory() {
         popup.addActionListenerDelete(this);
@@ -70,7 +73,7 @@ public class ControllerDeleteFavoriteDirectory extends Controller
         super.finalize();
         removeChecker.setStop(true);
     }
-    
+
     private class CheckDirectoriesRemoved extends Thread {
 
         private boolean stop = false;
@@ -82,6 +85,11 @@ public class ControllerDeleteFavoriteDirectory extends Controller
         @Override
         public void run() {
             while (!stop) {
+                try {
+                    Thread.sleep(removeCheckIntervalSeconds * 1000);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(ControllerDeleteFavoriteDirectory.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 int size = model.getSize();
                 for (int i = 0; i < size; i++) {
                     if (!FileUtil.existsDirectory(((FavoriteDirectory) model.get(i)).getDirectoryName())) {
