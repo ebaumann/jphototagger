@@ -8,6 +8,7 @@ import de.elmar_baumann.imv.event.RefreshListener;
 import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.types.Content;
+import de.elmar_baumann.imv.view.panels.EditMetadataPanelsArray;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.util.List;
@@ -28,6 +29,7 @@ public class ControllerSafedSearchSelected extends Controller
     private DatabaseSearch db = DatabaseSearch.getInstance();
     private JList list = appPanel.getListSavedSearches();
     private ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelThumbnails();
+    private EditMetadataPanelsArray editPanels = appPanel.getEditPanelsArray();
 
     public ControllerSafedSearchSelected() {
         listenToActionSources();
@@ -42,6 +44,7 @@ public class ControllerSafedSearchSelected extends Controller
     public void valueChanged(ListSelectionEvent e) {
         if (isControl() && list.getSelectedIndex() >= 0) {
             searchSelectedValue();
+            checkEditPanel();
         }
     }
 
@@ -73,5 +76,11 @@ public class ControllerSafedSearchSelected extends Controller
         List<String> filenames = db.searchFilenames(stmt);
         thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames),
             Content.SafedSearch);
+    }
+
+    private void checkEditPanel() {
+        if (thumbnailsPanel.getSelectionCount() <= 0) {
+            editPanels.setEditable(false);
+        }
     }
 }
