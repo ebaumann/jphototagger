@@ -35,7 +35,7 @@ public class ListModelKeywords extends DefaultListModel
 
     @Override
     public void actionPerformed(DatabaseAction action) {
-        if (action.isImageModified()) {
+        if (action.isImageModified() && action.getImageFileData() != null) {
             checkForNewKeywords(action.getImageFileData());
         }
     }
