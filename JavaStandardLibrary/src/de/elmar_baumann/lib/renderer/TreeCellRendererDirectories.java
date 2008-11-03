@@ -32,12 +32,10 @@ public class TreeCellRendererDirectories extends DefaultTreeCellRenderer {
             setText(Bundle.getString("DirectoryTreeModel.Root.Text"));
         } else if (value instanceof File) {
             File file = (File) value;
-            if (file.exists()) {
-                try {
-                    setIcon(fileSystemView.getSystemIcon(file));
-                    setText(getDirectoryName(file));
-                } catch (Exception ex) {
-                }
+            try {
+                setIcon(fileSystemView.getSystemIcon(file));
+                setText(getDirectoryName(file));
+            } catch (Exception ex) {
             }
         }
         return this;
