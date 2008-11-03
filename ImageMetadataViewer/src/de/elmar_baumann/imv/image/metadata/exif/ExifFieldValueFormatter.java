@@ -2,6 +2,7 @@ package de.elmar_baumann.imv.image.metadata.exif;
 
 import de.elmar_baumann.imv.resource.Translation;
 import de.elmar_baumann.lib.lang.Util;
+import java.text.DecimalFormat;
 import java.text.FieldPosition;
 import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
@@ -34,7 +35,8 @@ public class ExifFieldValueFormatter {
             return getSaturation(value);
         } else if (tag == ExifTag.WhiteBalance.getId()) {
             return getWhiteBalance(value);
-        } else if (tag == ExifTag.FocalLength.getId() || tag == ExifTag.FocalLengthIn35mmFilm.getId()) {
+        } else if (tag == ExifTag.FocalLength.getId()
+            || tag == ExifTag.FocalLengthIn35mmFilm.getId()) {
             return getFocalLength(value);
         } else if (tag == ExifTag.ExposureTime.getId()) {
             return getExposureTime(value);
@@ -104,16 +106,23 @@ public class ExifFieldValueFormatter {
             String z = tokenizer.nextToken();
             String n = tokenizer.nextToken();
             try {
-                Double zi = new Double(z);
-                Double ni = new Double(n);
-                if (ni != 0) {
-                    return Integer.toString((int) (zi / ni + 0.5));
+                Double numerator = new Double(z);
+                Double denominator = new Double(n);
+                if (denominator != 0) {
+                    return getFraction(numerator, denominator);
                 }
             } catch (NumberFormatException ex) {
                 Logger.getLogger(ExifFieldValueFormatter.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return value;
+    }
+
+    private static String getFraction(Double numerator, Double denominator) {
+        StringBuffer buffer = new StringBuffer();
+        DecimalFormat format = new DecimalFormat();
+        format.format(numerator / denominator, buffer, new FieldPosition(0));
+        return buffer.toString();
     }
 
     private static String getContrast(String value) {
@@ -156,11 +165,11 @@ public class ExifFieldValueFormatter {
             String z = tokenizer.nextToken();
             String n = tokenizer.nextToken();
             try {
-                Double zi = new Double(z);
-                Double ni = new Double(n);
-                if (ni != 0 && zi % 10 == 0) {
-                    return Integer.toString((int) (zi / 10)) + "/" + // NOI18N
-                        Integer.toString((int) (ni / 10));
+                Double numerator = new Double(z);
+                Double denominator = new Double(n);
+                if (denominator != 0 && numerator % 10 == 0) {
+                    return Integer.toString((int) (numerator / 10)) + "/" + // NOI18N
+                        Integer.toString((int) (denominator / 10));
                 }
             } catch (NumberFormatException ex) {
                 Logger.getLogger(ExifFieldValueFormatter.class.getName()).log(Level.SEVERE, null, ex);
@@ -175,10 +184,10 @@ public class ExifFieldValueFormatter {
             String z = tokenizer.nextToken();
             String n = tokenizer.nextToken();
             try {
-                Double zi = new Double(z);
-                Double ni = new Double(n);
-                if (ni != 0) {
-                    return Double.toString(zi / ni);
+                Double numerator = new Double(z);
+                Double denominator = new Double(n);
+                if (denominator != 0) {
+                    return getFraction(numerator, denominator);
                 }
             } catch (NumberFormatException ex) {
                 Logger.getLogger(ExifFieldValueFormatter.class.getName()).log(Level.SEVERE, null, ex);
