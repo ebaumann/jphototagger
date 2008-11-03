@@ -1,8 +1,10 @@
 package de.elmar_baumann.imv.database.metadata;
 
 import de.elmar_baumann.imv.database.metadata.Column.DataType;
+import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.text.DefaultFormatter;
@@ -30,9 +32,11 @@ public class MetadataUtil {
             integerFormat.setGroupingUsed(false);
             NumberFormatter integerFormatter = new NumberFormatter(integerFormat);
             integerFormatter.setAllowsInvalid(false);
+            MaskFormatter doubleFormatter = new MaskFormatter("####.##");
+            doubleFormatter.setAllowsInvalid(false);
 
             integerFormatterFactory = new DefaultFormatterFactory(integerFormatter);
-            doubleFormatterFactory = new DefaultFormatterFactory(integerFormatter); // all searchable number fields are integers
+            doubleFormatterFactory = new DefaultFormatterFactory(doubleFormatter);
             dateFormatterFactory = new DefaultFormatterFactory(new MaskFormatter("####-##-##"));
         } catch (ParseException ex) {
             Logger.getLogger(MetadataUtil.class.getName()).log(Level.SEVERE, null, ex);
