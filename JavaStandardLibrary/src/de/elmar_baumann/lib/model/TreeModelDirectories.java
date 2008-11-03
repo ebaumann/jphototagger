@@ -32,6 +32,7 @@ public class TreeModelDirectories implements TreeModel {
 
     public TreeModelDirectories(boolean accecptHidden) {
         this.accecptHidden = accecptHidden;
+        setRootDirectories();
     }
 
     @Override
@@ -42,13 +43,14 @@ public class TreeModelDirectories implements TreeModel {
     @Override
     public int getChildCount(Object parent) {
         if (parent.equals(root)) {
-            int count = rootDirectories.size();
-            if (count == 0) {
-                new Thread(new AddRootDirectories()).run();
+            synchronized (rootDirectories) {
+                return rootDirectories.size();
             }
-            return count;
         }
-        List<File> children = childrenOfNode.get(parent);
+        List<File> children;
+        synchronized (childrenOfNode) {
+            children = childrenOfNode.get(parent);
+        }
         if (children == null) {
             new Thread(new AddSubdirectories((File) parent)).run();
             return 0;
@@ -60,9 +62,13 @@ public class TreeModelDirectories implements TreeModel {
     @Override
     public Object getChild(Object parent, int index) {
         if (parent.equals(root)) {
-            return rootDirectories.get(index);
+            synchronized (rootDirectories) {
+                return rootDirectories.get(index);
+            }
         }
-        return childrenOfNode.get(parent).get(index);
+        synchronized (childrenOfNode) {
+            return childrenOfNode.get(parent).get(index);
+        }
     }
 
     @Override
@@ -73,9 +79,13 @@ public class TreeModelDirectories implements TreeModel {
     @Override
     public int getIndexOfChild(Object parent, Object child) {
         if (parent.equals(root)) {
-            return rootDirectories.indexOf(child);
+            synchronized (rootDirectories) {
+                return rootDirectories.indexOf(child);
+            }
         }
-        return childrenOfNode.get(parent).indexOf(child);
+        synchronized (childrenOfNode) {
+            return childrenOfNode.get(parent).indexOf(child);
+        }
     }
 
     @Override
@@ -115,26 +125,38 @@ public class TreeModelDirectories implements TreeModel {
     private void add(TreePath parentPath, File newFile) {
         Object parent = parentPath.getLastPathComponent();
         if (parent == root) {
-            rootDirectories.add(newFile);
-            childrenOfNode.put(newFile, null);
-            TreeModelEvent evt = new TreeModelEvent(this, new Object[]{root},
-                new int[]{rootDirectories.size() - 1}, new Object[]{newFile});
+            synchronized (rootDirectories) {
+                rootDirectories.add(newFile);
+            }
+            TreeModelEvent evt = null;
+            synchronized (childrenOfNode) {
+                childrenOfNode.put(newFile, null);
+            }
+            synchronized (rootDirectories) {
+                evt = new TreeModelEvent(this, new Object[]{root},
+                        new int[]{rootDirectories.size() - 1}, new Object[]{newFile});
+            }
             notifyAdded(evt);
         } else {
-             List<File> children = childrenOfNode.get(parent);
+            List<File> children;
+            synchronized (childrenOfNode) {
+                children = childrenOfNode.get(parent);
+            }
             if (children == null) {
                 List<File> newChildren = new ArrayList<File>();
                 newChildren.add(newFile);
-                childrenOfNode.put((File) parent, newChildren);
-                childrenOfNode.put(newFile, null);
+                synchronized (childrenOfNode) {
+                    childrenOfNode.put((File) parent, newChildren);
+                    childrenOfNode.put(newFile, null);
+                }
                 TreeModelEvent evt = new TreeModelEvent(this, parentPath.getPath(),
-                    new int[]{0}, new Object[]{newFile});
+                        new int[]{0}, new Object[]{newFile});
                 notifyAdded(evt);
             } else {
                 if (!children.contains(newFile)) {
                     children.add(newFile);
                     TreeModelEvent evt = new TreeModelEvent(this, parentPath.getPath(),
-                        new int[]{children.size() - 1}, new Object[]{newFile});
+                            new int[]{children.size() - 1}, new Object[]{newFile});
                     notifyAdded(evt);
                 }
             }
@@ -169,7 +191,7 @@ public class TreeModelDirectories implements TreeModel {
         @Override
         public void run() {
             List<File> subdirectories =
-                getSubDirectories(parent, SortType.ascendingNoCase, accecptHidden);
+                    getSubDirectories(parent, SortType.ascendingNoCase, accecptHidden);
             TreePath parentPath = getTreePath(parent);
             for (File dir : subdirectories) {
                 add(parentPath, dir);
@@ -177,22 +199,12 @@ public class TreeModelDirectories implements TreeModel {
         }
     }
 
-    private class AddRootDirectories implements Runnable {
+    private void setRootDirectories() {
+        File[] roots = File.listRoots();
+        TreePath parentPath = new TreePath(new Object[]{root});
 
-        @Override
-        public void run() {
-            File[] roots = File.listRoots();
-            TreePath parentPath = new TreePath(new Object[]{root});
-
-            for (File dir : roots) {
-                if (dir.exists()) {
-                    add(parentPath, dir);
-                }
-            }
-            for (File dir : childrenOfNode.keySet()) {
-                AddSubdirectories adder = new AddSubdirectories(dir);
-                adder.run();
-            }
+        for (File dir : roots) {
+            add(parentPath, dir);
         }
     }
 }
