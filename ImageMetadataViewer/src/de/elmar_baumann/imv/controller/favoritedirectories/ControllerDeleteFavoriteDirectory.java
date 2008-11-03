@@ -8,6 +8,7 @@ import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuListFavoriteDirectories;
+import de.elmar_baumann.lib.io.FileUtil;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.MessageFormat;
@@ -25,9 +26,17 @@ public class ControllerDeleteFavoriteDirectory extends Controller
     private AppPanel appPanel = Panels.getInstance().getAppPanel();
     private ListModelFavoriteDirectories model = (ListModelFavoriteDirectories) appPanel.getListFavoriteDirectories().getModel();
     private PopupMenuListFavoriteDirectories popup = PopupMenuListFavoriteDirectories.getInstance();
+    private CheckDirectoriesRemoved removeChecker;
 
     public ControllerDeleteFavoriteDirectory() {
         popup.addActionListenerDelete(this);
+        checkForRemoves();
+    }
+
+    private void checkForRemoves() {
+        removeChecker = new CheckDirectoriesRemoved();
+        removeChecker.setPriority(1);
+        removeChecker.start();
     }
 
     @Override
@@ -54,5 +63,32 @@ public class ControllerDeleteFavoriteDirectory extends Controller
             JOptionPane.YES_NO_OPTION,
             JOptionPane.QUESTION_MESSAGE,
             AppSettings.getMediumAppIcon()) == JOptionPane.YES_OPTION;
+    }
+
+    @Override
+    public void finalize() throws Throwable {
+        super.finalize();
+        removeChecker.setStop(true);
+    }
+    
+    private class CheckDirectoriesRemoved extends Thread {
+
+        private boolean stop = false;
+
+        public void setStop(boolean stop) {
+            this.stop = stop;
+        }
+
+        @Override
+        public void run() {
+            while (!stop) {
+                int size = model.getSize();
+                for (int i = 0; i < size; i++) {
+                    if (!FileUtil.existsDirectory(((FavoriteDirectory) model.get(i)).getDirectoryName())) {
+                        model.deleteFavorite((FavoriteDirectory) model.get(i));
+                    }
+                }
+            }
+        }
     }
 }
