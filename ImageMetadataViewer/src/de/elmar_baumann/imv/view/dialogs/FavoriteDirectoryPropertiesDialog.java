@@ -28,7 +28,7 @@ public class FavoriteDirectoryPropertiesDialog extends Dialog {
     private static List<Image> appIcons = AppSettings.getAppIcons();
     private static final String keyLastDirectory = "de.elmar_baumann.imv.view.dialogs.FavoriteDirectoryPropertiesDialog.LastDirectory"; // NOI18N
     private String lastDirectory = ""; // NOI18N
-    private boolean accepted = true;
+    private boolean accepted = false;
     private boolean isUpdate = false;
     private DatabaseFavoriteDirectories db = DatabaseFavoriteDirectories.getInstance();
 
@@ -117,7 +117,7 @@ public class FavoriteDirectoryPropertiesDialog extends Dialog {
         return accepted;
     }
 
-    private void checkOk() {
+    private void exitIfOk() {
         if (checkValuesOk()) {
             String favoriteName = textFieldFavoriteName.getText().trim();
             boolean exists = db.existsFavoriteDirectory(favoriteName);
@@ -131,6 +131,7 @@ public class FavoriteDirectoryPropertiesDialog extends Dialog {
                     JOptionPane.ERROR_MESSAGE,
                     AppSettings.getMediumAppIcon());
             } else {
+                accepted = true;
                 setVisible(false);
             }
         }
@@ -157,7 +158,6 @@ public class FavoriteDirectoryPropertiesDialog extends Dialog {
     public void setVisible(
         boolean visible) {
         if (visible) {
-            accepted = true;
             lastDirectory = PersistentSettings.getInstance().getString(keyLastDirectory);
             PersistentAppSizes.getSizeAndLocation(this);
         } else {
@@ -174,14 +174,13 @@ public class FavoriteDirectoryPropertiesDialog extends Dialog {
 
     @Override
     protected void escape() {
-        if (accepted) {
-            checkOk();
-        }
+        accepted = false;
+        dispose();
     }
 
     private void handleKeyPressed(KeyEvent evt) {
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            checkOk();
+            exitIfOk();
         }
     }
 
@@ -201,7 +200,7 @@ public class FavoriteDirectoryPropertiesDialog extends Dialog {
         buttonOk = new javax.swing.JButton();
         buttonCancel = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(Bundle.getString("FavoriteDirectoryPropertiesDialog.title")); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -293,23 +292,20 @@ private void buttonChooseDirectoryActionPerformed(java.awt.event.ActionEvent evt
 }//GEN-LAST:event_buttonChooseDirectoryActionPerformed
 
 private void buttonOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonOkActionPerformed
-    checkOk();
+    exitIfOk();
 }//GEN-LAST:event_buttonOkActionPerformed
 
 private void buttonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelActionPerformed
-    accepted = false;
-    setVisible(false);
+    escape();
 }//GEN-LAST:event_buttonCancelActionPerformed
-
-private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-    if (accepted) {
-        checkOk();
-    }
-}//GEN-LAST:event_formWindowClosing
 
 private void textFieldFavoriteNameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldFavoriteNameKeyPressed
     handleKeyPressed(evt);
 }//GEN-LAST:event_textFieldFavoriteNameKeyPressed
+
+private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+    accepted = false;
+}//GEN-LAST:event_formWindowClosing
 
     /**
     * @param args the command line arguments
