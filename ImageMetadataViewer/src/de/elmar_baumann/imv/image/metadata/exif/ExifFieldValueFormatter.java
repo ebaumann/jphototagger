@@ -2,6 +2,9 @@ package de.elmar_baumann.imv.image.metadata.exif;
 
 import de.elmar_baumann.imv.resource.Translation;
 import de.elmar_baumann.lib.lang.Util;
+import java.text.FieldPosition;
+import java.text.SimpleDateFormat;
+import java.util.GregorianCalendar;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -49,9 +52,34 @@ public class ExifFieldValueFormatter {
             return getContrast(value);
         } else if (tag == ExifTag.Flash.getId()) {
             return getFlash(entry);
+        } else if (tag == ExifTag.DateTimeOriginal.getId()) {
+            return getDateTimeOriginal(value);
         }
 
         return value;
+    }
+
+    private static String getDateTimeOriginal(String value) {
+        String string = value.trim();
+        if (string.length() >= 18) {
+            try {
+                int year = Integer.parseInt(string.substring(0, 4));
+                int month = Integer.parseInt(string.substring(5, 7));
+                int day = Integer.parseInt(string.substring(8, 10));
+                int hour = Integer.parseInt(string.substring(11, 13));
+                int minute = Integer.parseInt(string.substring(14, 16));
+                int second = Integer.parseInt(string.substring(17, 19));
+                GregorianCalendar calendar = new GregorianCalendar(
+                    year, month, day, hour, minute, second);
+                SimpleDateFormat dateFormat = new SimpleDateFormat();
+                StringBuffer buffer = new StringBuffer();
+                dateFormat.format(calendar.getTime(), buffer, new FieldPosition(0));
+                return buffer.toString();
+            } catch (NumberFormatException ex) {
+                Logger.getLogger(ExifFieldValueFormatter.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return string;
     }
 
     private static String getFlash(IdfEntryProxy entry) {
