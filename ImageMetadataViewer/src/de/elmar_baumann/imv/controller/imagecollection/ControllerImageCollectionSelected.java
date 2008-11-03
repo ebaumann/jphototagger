@@ -6,6 +6,7 @@ import de.elmar_baumann.imv.event.RefreshListener;
 import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.types.Content;
+import de.elmar_baumann.imv.view.panels.EditMetadataPanelsArray;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.util.List;
@@ -27,6 +28,7 @@ public class ControllerImageCollectionSelected extends Controller
     private DatabaseImageCollections db = DatabaseImageCollections.getInstance();
     private AppPanel appPanel = Panels.getInstance().getAppPanel();
     private ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelThumbnails();
+    private EditMetadataPanelsArray editPanels = appPanel.getEditPanelsArray();
     private JList list = appPanel.getListImageCollections();
 
     public ControllerImageCollectionSelected() {
@@ -42,6 +44,7 @@ public class ControllerImageCollectionSelected extends Controller
     public void valueChanged(ListSelectionEvent e) {
         if (isControl() && list.getSelectedIndex() >= 0) {
             showImageCollection();
+            checkEditPanel();
         }
     }
 
@@ -49,6 +52,7 @@ public class ControllerImageCollectionSelected extends Controller
     public void refresh() {
         if (isControl() && list.getSelectedIndex() >= 0) {
             showImageCollection();
+            checkEditPanel();
         }
     }
 
@@ -63,5 +67,11 @@ public class ControllerImageCollectionSelected extends Controller
         List<String> filenames = db.getFilenamesOfImageCollection(collectionName);
         thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames),
             Content.ImageCollection);
+    }
+
+    private void checkEditPanel() {
+        if (thumbnailsPanel.getSelectionCount() <= 0) {
+            editPanels.setEditable(false);
+        }
     }
 }

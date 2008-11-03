@@ -7,6 +7,7 @@ import de.elmar_baumann.imv.io.ImageFilteredDirectory;
 import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.types.Content;
+import de.elmar_baumann.imv.view.panels.EditMetadataPanelsArray;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import java.io.File;
 import java.util.List;
@@ -26,6 +27,7 @@ public class ControllerFavoriteDirectorySelected extends Controller
     private AppPanel appPanel = Panels.getInstance().getAppPanel();
     private JList listFavoriteDirectories = appPanel.getListFavoriteDirectories();
     private ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelThumbnails();
+    private EditMetadataPanelsArray editPanels = appPanel.getEditPanelsArray();
 
     public ControllerFavoriteDirectorySelected() {
         listenToActionSources();
@@ -40,6 +42,7 @@ public class ControllerFavoriteDirectorySelected extends Controller
     public void valueChanged(ListSelectionEvent e) {
         if (isControl() && listFavoriteDirectories.getSelectedIndex() >= 0) {
             setFilesToThumbnailsPanel();
+            checkEditPanel();
         }
     }
 
@@ -47,6 +50,7 @@ public class ControllerFavoriteDirectorySelected extends Controller
     public void refresh() {
         if (isControl() && listFavoriteDirectories.getSelectedIndex() >= 0) {
             setFilesToThumbnailsPanel();
+            checkEditPanel();
         }
     }
 
@@ -60,5 +64,11 @@ public class ControllerFavoriteDirectorySelected extends Controller
     private List<File> getFilesOfCurrentDirectory() {
         FavoriteDirectory favorite = (FavoriteDirectory) listFavoriteDirectories.getSelectedValue();
         return ImageFilteredDirectory.getImageFilesOfDirectory(new File(favorite.getDirectoryName()));
+    }
+
+    private void checkEditPanel() {
+        if (thumbnailsPanel.getSelectionCount() <= 0) {
+            editPanels.setEditable(false);
+        }
     }
 }

@@ -12,6 +12,7 @@ import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.view.dialogs.AdvancedSearchDialog;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.types.Content;
+import de.elmar_baumann.imv.view.panels.EditMetadataPanelsArray;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.lib.componentutil.TreeUtil;
 import de.elmar_baumann.lib.io.FileUtil;
@@ -34,6 +35,7 @@ public class ControllerAdvancedSearch extends Controller
     private AppPanel appPanel = Panels.getInstance().getAppPanel();
     private ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelThumbnails();
     private List<JTree> selectionTrees = appPanel.getSelectionTrees();
+    private EditMetadataPanelsArray editPanels = appPanel.getEditPanelsArray();
 
     public ControllerAdvancedSearch() {
         listenToActionSources();
@@ -54,6 +56,7 @@ public class ControllerAdvancedSearch extends Controller
     public void actionPerformed(SearchEvent e) {
         if (isControl() && e.getType().equals(SearchEvent.Type.Start)) {
             applySafedSearch(e);
+            checkEditPanel();
         }
     }
 
@@ -82,5 +85,11 @@ public class ControllerAdvancedSearch extends Controller
 
         thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames),
             Content.SafedSearch);
+    }
+
+    private void checkEditPanel() {
+        if (thumbnailsPanel.getSelectionCount() <= 0) {
+            editPanels.setEditable(false);
+        }
     }
 }

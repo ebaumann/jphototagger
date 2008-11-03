@@ -6,6 +6,7 @@ import de.elmar_baumann.imv.io.ImageFilteredDirectory;
 import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.types.Content;
+import de.elmar_baumann.imv.view.panels.EditMetadataPanelsArray;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuTreeDirectories;
 import java.io.File;
@@ -26,6 +27,7 @@ public class ControllerDirectorySelected extends Controller
 
     private AppPanel appPanel = Panels.getInstance().getAppPanel();
     private JTree treeDirectories = appPanel.getTreeDirectories();
+    private EditMetadataPanelsArray editPanels = appPanel.getEditPanelsArray();
     private ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelThumbnails();
     private ImageFilteredDirectory imageFilteredDirectory = new ImageFilteredDirectory();
 
@@ -42,6 +44,7 @@ public class ControllerDirectorySelected extends Controller
     public void valueChanged(TreeSelectionEvent e) {
         if (isControl() && e.isAddedPath() && !PopupMenuTreeDirectories.getInstance().isTreeSelected()) {
             setFilesToThumbnailsPanel();
+            checkEditPanel();
         }
     }
 
@@ -49,6 +52,7 @@ public class ControllerDirectorySelected extends Controller
     public void refresh() {
         if (isControl() && treeDirectories.getSelectionCount() > 0) {
             setFilesToThumbnailsPanel();
+            checkEditPanel();
         }
     }
 
@@ -66,6 +70,12 @@ public class ControllerDirectorySelected extends Controller
             return ((File) treePath.getLastPathComponent()).getAbsolutePath();
         } else {
             return treePath.getLastPathComponent().toString();
+        }
+    }
+
+    private void checkEditPanel() {
+        if (thumbnailsPanel.getSelectionCount() <= 0) {
+            editPanels.setEditable(false);
         }
     }
 }

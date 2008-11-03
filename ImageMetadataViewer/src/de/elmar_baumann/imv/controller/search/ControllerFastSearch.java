@@ -18,6 +18,7 @@ import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.view.dialogs.UserSettingsDialog;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.types.Content;
+import de.elmar_baumann.imv.view.panels.EditMetadataPanelsArray;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.lib.componentutil.ListUtil;
 import de.elmar_baumann.lib.componentutil.TreeUtil;
@@ -50,6 +51,7 @@ public class ControllerFastSearch extends Controller
     private List<JList> selectionLists = appPanel.getSelectionLists();
     private boolean isUseAutocomplete = UserSettings.getInstance().isUseAutocomplete();
     private AutoCompleteData searchAutoCompleteData;
+    private EditMetadataPanelsArray editPanels = appPanel.getEditPanelsArray();
 
     public ControllerFastSearch() {
         textFieldSearch.setEnabled(UserSettings.getInstance().getFastSearchColumns().size() > 0);
@@ -111,6 +113,7 @@ public class ControllerFastSearch extends Controller
 
     private void search() {
         search(textFieldSearch.getText());
+        checkEditPanel();
     }
 
     private void search(String searchText) {
@@ -152,6 +155,12 @@ public class ControllerFastSearch extends Controller
     public void refresh() {
         if (isControl() && textFieldSearch.isEnabled()) {
             search(textFieldSearch.getText());
+        }
+    }
+
+    private void checkEditPanel() {
+        if (thumbnailsPanel.getSelectionCount() <= 0) {
+            editPanels.setEditable(false);
         }
     }
 }
