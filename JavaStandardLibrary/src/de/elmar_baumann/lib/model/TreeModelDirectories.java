@@ -12,6 +12,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.event.TreeModelEvent;
 import javax.swing.event.TreeModelListener;
 import javax.swing.tree.TreeModel;
@@ -35,6 +37,7 @@ public class TreeModelDirectories implements TreeModel {
     private boolean acceptHidden;
     private DirectoryFilter directoryFilter;
     private ScanForDirectoryUpdates updater;
+    private static final int updateIntervalSeconds = 3;
 
     public TreeModelDirectories(boolean accecptHidden) {
         this.acceptHidden = accecptHidden;
@@ -346,6 +349,11 @@ public class TreeModelDirectories implements TreeModel {
         public void run() {
             while (!stop) {
                 if (!pause) {
+                    try {
+                        Thread.sleep(updateIntervalSeconds * 1000);
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(ScanForDirectoryUpdates.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                     checkInserted();
                     checkRemoved();
                 }
