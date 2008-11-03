@@ -1,6 +1,5 @@
 package de.elmar_baumann.imv.controller.filesystem;
 
-import de.elmar_baumann.imv.types.Content;
 import de.elmar_baumann.imv.AppSettings;
 import de.elmar_baumann.imv.controller.Controller;
 import de.elmar_baumann.imv.database.DatabaseImageFiles;
@@ -38,6 +37,11 @@ public class ControllerDeleteFiles extends Controller implements ActionListener 
         listenToActionSources();
     }
 
+    private void listenToActionSources() {
+        popup.addActionListenerFileSystemDeleteFiles(this);
+        Panels.getInstance().getAppFrame().getMenuItemDelete().addActionListener(this);
+    }
+
     private List<File> getFiles() {
         List<File> files = new ArrayList<File>();
         List<File> selectedFiles = thumbnailsPanel.getSelectedFiles();
@@ -51,18 +55,11 @@ public class ControllerDeleteFiles extends Controller implements ActionListener 
         return files;
     }
 
-    private void listenToActionSources() {
-        popup.addActionListenerFileSystemDeleteFiles(this);
-        Panels.getInstance().getAppFrame().getMenuItemDelete().addActionListener(this);
-    }
-
     @Override
     public void actionPerformed(ActionEvent e) {
-        Content content = thumbnailsPanel.getContent();
-        if (isControl() && thumbnailsPanel.hasFocus() && (content.equals(Content.Directory) ||
-            content.equals(Content.FavoriteDirectory) ||
-            popup.isDeleteFiles(e.getSource()))) {
+        if (isControl()) {
             deleteSelectedFiles();
+            thumbnailsPanel.repaint();
         }
     }
 
