@@ -175,7 +175,7 @@ public class FavoriteDirectoryPropertiesDialog extends Dialog {
     @Override
     protected void escape() {
         accepted = false;
-        dispose();
+        setVisible(false);
     }
 
     private void handleKeyPressed(KeyEvent evt) {
@@ -200,7 +200,7 @@ public class FavoriteDirectoryPropertiesDialog extends Dialog {
         buttonOk = new javax.swing.JButton();
         buttonCancel = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle(Bundle.getString("FavoriteDirectoryPropertiesDialog.title")); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -304,7 +304,7 @@ private void textFieldFavoriteNameKeyPressed(java.awt.event.KeyEvent evt) {//GEN
 }//GEN-LAST:event_textFieldFavoriteNameKeyPressed
 
 private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-    accepted = false;
+    escape();
 }//GEN-LAST:event_formWindowClosing
 
     /**
