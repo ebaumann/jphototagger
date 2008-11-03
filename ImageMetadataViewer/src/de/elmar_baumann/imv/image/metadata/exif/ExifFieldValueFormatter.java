@@ -59,7 +59,7 @@ public class ExifFieldValueFormatter {
         if (rawValue != null && rawValue.length >= 1) {
             boolean[] bitsByte1 = Util.getBits(rawValue[0]);
             boolean fired = bitsByte1[0];
-            boolean hasFlash = !bitsByte1[4];
+            boolean hasFlash = !bitsByte1[5];
             if (!hasFlash) {
                 return translation.translate("FlashNone"); // NOI18N
             }
