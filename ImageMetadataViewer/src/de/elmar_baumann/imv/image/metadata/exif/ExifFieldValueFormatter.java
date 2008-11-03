@@ -1,5 +1,6 @@
 package de.elmar_baumann.imv.image.metadata.exif;
 
+import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.Translation;
 import de.elmar_baumann.lib.lang.Util;
 import java.text.DecimalFormat;
@@ -72,8 +73,8 @@ public class ExifFieldValueFormatter {
                 int minute = Integer.parseInt(string.substring(14, 16));
                 int second = Integer.parseInt(string.substring(17, 19));
                 GregorianCalendar calendar = new GregorianCalendar(
-                    year, month, day, hour, minute, second);
-                SimpleDateFormat dateFormat = new SimpleDateFormat();
+                    year, month - 1, day, hour, minute, second);
+                SimpleDateFormat dateFormat = new SimpleDateFormat(Bundle.getString("ExifFieldValueFormatter.DateTimeDigitized.Format"));
                 StringBuffer buffer = new StringBuffer();
                 dateFormat.format(calendar.getTime(), buffer, new FieldPosition(0));
                 return buffer.toString();
