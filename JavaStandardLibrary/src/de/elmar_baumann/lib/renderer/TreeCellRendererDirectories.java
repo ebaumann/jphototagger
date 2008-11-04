@@ -19,7 +19,7 @@ import javax.swing.tree.DefaultTreeCellRenderer;
 public class TreeCellRendererDirectories extends DefaultTreeCellRenderer {
 
     private FileSystemView fileSystemView = FileSystemView.getFileSystemView();
-    Icon rootIcon = IconUtil.getImageIcon("/de/elmar_baumann/lib/resource/workspaceicon.png"); // NOI18N
+    private Icon rootIcon = IconUtil.getImageIcon("/de/elmar_baumann/lib/resource/workspaceicon.png"); // NOI18N
 
     @Override
     public Component getTreeCellRendererComponent(
