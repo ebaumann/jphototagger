@@ -44,6 +44,7 @@ public class DatabaseTables extends Database {
             createMetadataEditTemplateTable(connection, stmt);
             createFavoriteDirectoriesTable(connection, stmt);
             createFileExcludePatternTable(connection, stmt);
+            createProgramsTable(connection, stmt);
             UpdateTables.getInstance().update(connection);
             stmt.close();
         } catch (SQLException ex) {
@@ -296,6 +297,18 @@ public class DatabaseTables extends Database {
                 "pattern VARCHAR_IGNORECASE(256)" + // NOI18N
                 ");"); // NOI18N
             stmt.execute("CREATE UNIQUE INDEX idx_file_exclude_pattern_pattern ON file_exclude_pattern (pattern)"); // NOI18N
+        }
+    }
+    
+    private void createProgramsTable(Connection connection, Statement stmt) throws SQLException {
+        if (!DatabaseMetadata.getInstance().existsTable(connection, "programs")) { // NOI18N
+            stmt.execute("CREATE CACHED TABLE programs " + // NOI18N
+                " (" + // NOI18N
+                "nickname  VARCHAR_IGNORECASE(250) NOT NULL" + // NOI18N
+                ", filename  VARCHAR(512) NOT NULL" + // NOI18N
+                ", parameters BINARY" + // NOI18N
+                ");"); // NOI18N
+            stmt.execute("CREATE UNIQUE INDEX idx_programs_nickname ON programs (nickname)"); // NOI18N
         }
     }
 }
