@@ -27,12 +27,10 @@ class UpdateTablesPrograms extends Database {
         if (files.size() > 0) {
             DatabasePrograms db = DatabasePrograms.getInstance();
             for (File file : files) {
-                Program program = new Program(file.getName(), file, null);
-                if (!db.existsProgram(program)) {
-                    db.insert(program);
-                }
+                db.insert(new Program(file, file.getName()));
             }
-            PersistentSettings.getInstance().getProperties().remove(keyOtherImageOpenApps);
+            PersistentSettings.getInstance().removeStringArray(keyOtherImageOpenApps);
+            PersistentSettings.getInstance().writeToFile();
         }
     }
 }

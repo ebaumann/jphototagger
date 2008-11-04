@@ -1,12 +1,12 @@
 package de.elmar_baumann.imv.view.popupmenus;
 
-import de.elmar_baumann.imv.UserSettings;
+import de.elmar_baumann.imv.data.Program;
+import de.elmar_baumann.imv.database.DatabasePrograms;
 import de.elmar_baumann.imv.event.UserSettingsChangeEvent;
 import de.elmar_baumann.imv.event.UserSettingsChangeListener;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.types.DatabaseUpdate;
 import java.awt.event.ActionListener;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -39,7 +39,7 @@ public class PopupMenuPanelThumbnails extends JPopupMenu
     private final String actionFileSystemDeleteFiles = Bundle.getString("PopupMenuPanelThumbnails.Action.FileSystemDeleteFiles");
     private final String actionFileSystemRenameFiles = Bundle.getString("PopupMenuPanelThumbnails.Action.FileSystemRename");
     private final String actionFileSystemMoveFiles = Bundle.getString("PopupMenuPanelThumbnails.Action.FileSystemMove");
-    private JMenu menuOtherOpenImageApps = new JMenu(Bundle.getString("PopupMenuPanelThumbnails.menuOtherOpenImageApps.text"));
+    private JMenu menuPrograms = new JMenu(Bundle.getString("PopupMenuPanelThumbnails.menuOtherOpenImageApps.text"));
     private final JMenuItem itemUpdateMetadata = new JMenuItem(actionUpdateMetadata);
     private final JMenuItem itemUpdateThumbnail = new JMenuItem(actionUpdateThumbnail);
     private final JMenuItem itemCreateImageCollection = new JMenuItem(actionCreateImageCollection);
@@ -56,8 +56,8 @@ public class PopupMenuPanelThumbnails extends JPopupMenu
     private final JMenuItem itemFileSystemMoveFiles = new JMenuItem(actionFileSystemMoveFiles);
     private List<ActionListener> actionListenersOpenFilesWithOtherApp = new ArrayList<ActionListener>();
     private Map<JMenuItem, Float> angleOfItem = new HashMap<JMenuItem, Float>();
-    private Map<String, File> otherImageOpenAppOfAction = new HashMap<String, File>();
     private Map<JMenuItem, DatabaseUpdate> databaseUpdateOfMenuItem = new HashMap<JMenuItem, DatabaseUpdate>();
+    private Map<JMenuItem, Program> programOfMenuItem = new HashMap<JMenuItem, Program>();
     private static PopupMenuPanelThumbnails instance = new PopupMenuPanelThumbnails();
 
     /**
@@ -85,7 +85,7 @@ public class PopupMenuPanelThumbnails extends JPopupMenu
         add(itemDeleteImageFromDatabase);
         add(new JSeparator());
         add(itemOpenFilesWithStandardApp);
-        add(menuOtherOpenImageApps);
+        add(menuPrograms);
         add(new JSeparator());
         add(itemCreateImageCollection);
         add(itemAddToImageCollection);
@@ -101,27 +101,28 @@ public class PopupMenuPanelThumbnails extends JPopupMenu
         add(itemFileSystemDeleteFiles);
     }
 
-    public void addOtherOpenImageApps() {
-        menuOtherOpenImageApps.removeAll();
-        List<File> apps = UserSettings.getInstance().getOtherImageOpenApps();
-        if (!apps.isEmpty()) {
-            for (File appFile : apps) {
-                String filename = appFile.getName();
-                JMenuItem item = new JMenuItem(filename);
+    public void addOtherPrograms() {
+        menuPrograms.removeAll();
+        programOfMenuItem.clear();
+        List<Program> programs = DatabasePrograms.getInstance().getAll();
+        if (!programs.isEmpty()) {
+            for (Program program : programs) {
+                String alias = program.getAlias();
+                JMenuItem item = new JMenuItem(alias);
                 for (ActionListener listener : actionListenersOpenFilesWithOtherApp) {
                     item.addActionListener(listener);
                 }
-                menuOtherOpenImageApps.add(item);
-                otherImageOpenAppOfAction.put(filename, appFile);
+                menuPrograms.add(item);
+                programOfMenuItem.put(item, program);
             }
         }
-        menuOtherOpenImageApps.setEnabled(menuOtherOpenImageApps.getItemCount() > 0);
+        menuPrograms.setEnabled(menuPrograms.getItemCount() > 0);
     }
 
     @Override
     public void applySettings(UserSettingsChangeEvent evt) {
         if (evt.getType().equals(UserSettingsChangeEvent.Type.OtherImageOpenApps)) {
-            addOtherOpenImageApps();
+            addOtherPrograms();
         }
     }
 
@@ -182,9 +183,9 @@ public class PopupMenuPanelThumbnails extends JPopupMenu
     }
 
     public JMenu getMenuOtherOpenImageApps() {
-        return menuOtherOpenImageApps;
+        return menuPrograms;
     }
-    
+
     public void addActionListenerOpenFilesWithOtherApp(ActionListener listener) {
         actionListenersOpenFilesWithOtherApp.add(listener);
     }
@@ -249,15 +250,8 @@ public class PopupMenuPanelThumbnails extends JPopupMenu
         return source == itemFileSystemDeleteFiles;
     }
 
-    /**
-     * Liefert die Anwendung, die ein Bild öffnen soll.
-     * 
-     * @param action  Aktion
-     * @return        Datei der Anwendung oder null, falls das Kommando sich
-     *                nicht auf eine Anwendung bezieht
-     */
-    public File getOtherOpenImageApp(String action) {
-        return otherImageOpenAppOfAction.get(action);
+    public Program getProgram(Object source) {
+        return programOfMenuItem.get(source);
     }
 
     /**

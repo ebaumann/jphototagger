@@ -16,11 +16,11 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <EmptySpace min="0" pref="633" max="32767" attributes="0"/>
+          <EmptySpace min="0" pref="603" max="32767" attributes="0"/>
           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="panelImageOpenApps" max="32767" attributes="0"/>
+                  <Component id="panelBorder" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -28,11 +28,11 @@
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <EmptySpace min="0" pref="323" max="32767" attributes="0"/>
+          <EmptySpace min="0" pref="324" max="32767" attributes="0"/>
           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="panelImageOpenApps" max="32767" attributes="0"/>
+                  <Component id="panelBorder" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -40,7 +40,7 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Container class="javax.swing.JPanel" name="panelImageOpenApps">
+    <Container class="javax.swing.JPanel" name="panelBorder">
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
@@ -54,35 +54,40 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" attributes="0">
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="12" pref="12" max="12" attributes="0"/>
-                          <Component id="labelInfoOtherOpenImageApps" min="-2" max="-2" attributes="0"/>
+              <Group type="102" alignment="1" attributes="0">
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="scrollPaneOtherPrograms" pref="545" max="32767" attributes="2"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="labelDefaultImageOpenApp" alignment="1" pref="581" max="32767" attributes="0"/>
-                              <Group type="102" alignment="1" attributes="0">
-                                  <Component id="labelDefaultImageOpenAppPrompt" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="unrelated" max="32767" attributes="0"/>
-                                  <Component id="buttonDefaultImageOpenApp" min="-2" max="-2" attributes="0"/>
+                          <Component id="labelDefaultProgramFile" pref="545" max="32767" attributes="2"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="12" pref="12" max="12" attributes="0"/>
+                                  <Component id="labelOtherPrograms" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" max="-2" attributes="0"/>
+                                  <Component id="labelChooseDefaultProgram" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="scrollPaneListOtherImageOpenApps" pref="581" max="32767" attributes="2"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="buttonChooseDefaultProgram" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace pref="149" max="32767" attributes="0"/>
-                          <Component id="buttonRemoveOtherImageOpenApp" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace pref="249" max="32767" attributes="0"/>
+                          <Component id="buttonRemoveOtherProgram" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="buttonAddOtherImageOpenApp" min="-2" max="-2" attributes="0"/>
+                          <Component id="buttonEditOtherProgram" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="buttonAddOtherProgram" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -90,51 +95,52 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="labelDefaultImageOpenAppPrompt" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="buttonDefaultImageOpenApp" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="labelChooseDefaultProgram" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="buttonChooseDefaultProgram" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="labelDefaultImageOpenApp" min="-2" max="-2" attributes="0"/>
+                  <Component id="labelDefaultProgramFile" min="-2" pref="22" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="labelInfoOtherOpenImageApps" min="-2" max="-2" attributes="0"/>
+                  <Component id="labelOtherPrograms" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="scrollPaneListOtherImageOpenApps" pref="164" max="32767" attributes="0"/>
+                  <Component id="scrollPaneOtherPrograms" pref="147" max="32767" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="buttonAddOtherImageOpenApp" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="buttonRemoveOtherImageOpenApp" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="buttonAddOtherProgram" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="buttonEditOtherProgram" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="buttonRemoveOtherProgram" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="labelDefaultImageOpenAppPrompt">
+        <Component class="javax.swing.JLabel" name="labelChooseDefaultProgram">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Dialog" size="12" style="0"/>
             </Property>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="SettingsProgramsPanel.labelDefaultImageOpenAppPrompt.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="SettingsProgramsPanel.labelChooseDefaultProgram.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="buttonDefaultImageOpenApp">
+        <Component class="javax.swing.JButton" name="buttonChooseDefaultProgram">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Dialog" size="12" style="0"/>
             </Property>
             <Property name="mnemonic" type="int" value="97"/>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="SettingsProgramsPanel.buttonDefaultImageOpenApp.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="SettingsProgramsPanel.buttonChooseDefaultProgram.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonDefaultImageOpenAppActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonChooseDefaultProgramActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JLabel" name="labelDefaultImageOpenApp">
+        <Component class="javax.swing.JLabel" name="labelDefaultProgramFile">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Dialog" size="12" style="0"/>
@@ -143,7 +149,7 @@
               <Color blue="ff" green="0" red="0" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="SettingsProgramsPanel.labelDefaultImageOpenApp.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="SettingsProgramsPanel.labelDefaultProgramFile.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
             </Property>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
@@ -152,63 +158,90 @@
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="labelInfoOtherOpenImageApps">
+        <Component class="javax.swing.JLabel" name="labelOtherPrograms">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Dialog" size="12" style="0"/>
             </Property>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="SettingsProgramsPanel.labelInfoOtherOpenImageApps.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="SettingsProgramsPanel.labelOtherPrograms.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
             </Property>
           </Properties>
         </Component>
-        <Container class="javax.swing.JScrollPane" name="scrollPaneListOtherImageOpenApps">
+        <Container class="javax.swing.JScrollPane" name="scrollPaneOtherPrograms">
           <AuxValues>
             <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
           </AuxValues>
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JList" name="listOtherImageOpenApps">
+            <Component class="javax.swing.JList" name="listOtherPrograms">
               <Properties>
                 <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="modelPrograms" type="code"/>
+                  <Connection code="model" type="code"/>
                 </Property>
                 <Property name="selectionMode" type="int" value="0"/>
+                <Property name="cellRenderer" type="javax.swing.ListCellRenderer" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="new ListCellRendererPrograms()" type="code"/>
+                </Property>
               </Properties>
               <Events>
-                <EventHandler event="valueChanged" listener="javax.swing.event.ListSelectionListener" parameters="javax.swing.event.ListSelectionEvent" handler="listOtherImageOpenAppsValueChanged"/>
+                <EventHandler event="valueChanged" listener="javax.swing.event.ListSelectionListener" parameters="javax.swing.event.ListSelectionEvent" handler="listOtherProgramsValueChanged"/>
               </Events>
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JButton" name="buttonRemoveOtherImageOpenApp">
+        <Component class="javax.swing.JButton" name="buttonRemoveOtherProgram">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Dialog" size="12" style="0"/>
             </Property>
             <Property name="mnemonic" type="int" value="101"/>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="SettingsProgramsPanel.buttonRemoveOtherImageOpenApp.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="SettingsProgramsPanel.buttonRemoveOtherProgram.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+            </Property>
+            <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+              <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="SettingsProgramsPanel.buttonRemoveOtherProgram.toolTipText" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
             </Property>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonRemoveOtherImageOpenAppActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonRemoveOtherProgramActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="buttonAddOtherImageOpenApp">
+        <Component class="javax.swing.JButton" name="buttonAddOtherProgram">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Dialog" size="12" style="0"/>
             </Property>
-            <Property name="mnemonic" type="int" value="119"/>
+            <Property name="mnemonic" type="int" value="104"/>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="SettingsProgramsPanel.buttonAddOtherImageOpenApp.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="SettingsProgramsPanel.buttonAddOtherProgram.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+            </Property>
+            <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+              <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="SettingsProgramsPanel.buttonAddOtherProgram.toolTipText" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonAddOtherImageOpenAppActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonAddOtherProgramActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="buttonEditOtherProgram">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Dialog" size="12" style="0"/>
+            </Property>
+            <Property name="mnemonic" type="int" value="98"/>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+              <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="SettingsProgramsPanel.buttonEditOtherProgram.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+            </Property>
+            <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+              <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="SettingsProgramsPanel.buttonEditOtherProgram.toolTipText" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+            </Property>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonEditOtherProgramActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

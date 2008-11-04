@@ -1,6 +1,7 @@
 package de.elmar_baumann.imv.controller.programs;
 
 import de.elmar_baumann.imv.controller.Controller;
+import de.elmar_baumann.imv.data.Program;
 import de.elmar_baumann.imv.io.IoUtil;
 import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
@@ -30,16 +31,19 @@ public class ControllerOpenFilesWithOtherApp extends Controller
     @Override
     public void actionPerformed(ActionEvent e) {
         if (isControl()) {
-            openFilesWithApp(
-                popup.getOtherOpenImageApp(e.getActionCommand()).getAbsolutePath());
+            openFiles(popup.getProgram(e.getSource()));
         }
     }
 
-    private void openFilesWithApp(String otherOpenImageApp) {
+    private void openFiles(Program program) {
         String allFilenames = IoUtil.getArgsAsCommandline(
             FileUtil.getAsFilenames(thumbnailsPanel.getSelectedFiles()));
+        String parameters = program.getParameters() == null
+            ? ""
+            : program.getParameters() + " ";
+        String filename = program.getFile().getAbsolutePath();
         if (!allFilenames.isEmpty()) {
-            IoUtil.execute(otherOpenImageApp, allFilenames);
+            IoUtil.execute(filename, parameters + allFilenames);
         }
     }
 }

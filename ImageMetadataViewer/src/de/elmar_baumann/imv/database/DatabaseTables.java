@@ -304,10 +304,16 @@ public class DatabaseTables extends Database {
         if (!DatabaseMetadata.getInstance().existsTable(connection, "programs")) { // NOI18N
             stmt.execute("CREATE CACHED TABLE programs " + // NOI18N
                 " (" + // NOI18N
-                "nickname  VARCHAR_IGNORECASE(250) PRIMARY KEY" + // NOI18N
-                ", filename  VARCHAR(512) NOT NULL" + // NOI18N
+                "id BIGINT NOT NULL" + // NOI18N
+                ", filename VARCHAR(512) NOT NULL" + // NOI18N
+                ", alias VARCHAR_IGNORECASE(250) NOT NULL" + // NOI18N
                 ", parameters BINARY" + // NOI18N
+                ", sequence_number INTEGER" + // NOI18N
                 ");"); // NOI18N
+            stmt.execute("CREATE UNIQUE INDEX idx_programs_id ON programs (id)"); // NOI18N
+            stmt.execute("CREATE INDEX idx_programs_filename ON programs (filename)"); // NOI18N
+            stmt.execute("CREATE INDEX idx_programs_alias ON programs (alias)"); // NOI18N
+            stmt.execute("CREATE INDEX idx_programs_sequence_number ON programs (sequence_number)"); // NOI18N
         }
     }
 }

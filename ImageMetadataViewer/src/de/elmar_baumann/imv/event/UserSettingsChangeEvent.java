@@ -36,7 +36,6 @@ public class UserSettingsChangeEvent {
     private Integer threadPriority;
     private Level logLevel;
     private Class logfileFormatterClass;
-    private List<File> otherImageOpenApps;
     private List<Column> fastSearchColumns;
     private List<Column> editColumns;
 
@@ -195,14 +194,6 @@ public class UserSettingsChangeEvent {
 
     public void setNoFastSearchColumns(boolean noFastSearchColumns) {
         this.noFastSearchColumns = noFastSearchColumns;
-    }
-
-    public List<File> getOtherImageOpenApps() {
-        return otherImageOpenApps;
-    }
-
-    public void setOtherImageOpenApps(List<File> otherImageOpenApps) {
-        this.otherImageOpenApps = otherImageOpenApps;
     }
 
     public boolean isTaskRemoveRecordsWithNotExistingFiles() {

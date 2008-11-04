@@ -37,7 +37,7 @@ public class LateConnectionsFactory {
             appPanel.getEditPanelsArray().setAutocomplete();
         }
         
-        popupMenuPanelThumbnails.addOtherOpenImageApps();
+        popupMenuPanelThumbnails.addOtherPrograms();
         ListenerProvider listenerProvider = ListenerProvider.getInstance();
         listenerProvider.addUserSettingsChangeListener(popupMenuPanelThumbnails);
         listenerProvider.addUserSettingsChangeListener(userSettings);

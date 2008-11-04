@@ -12,17 +12,47 @@ import java.io.File;
  */
 public class Program {
 
-    String nickname;
+    private long id = Long.MIN_VALUE;
     File file;
+    String alias;
     String parameters;
+    int sequenceNumber = Integer.MIN_VALUE;
 
     public Program() {
     }
 
-    public Program(String nickname, File file, String parameters) {
-        this.nickname = nickname;
+    public Program(File file, String alias) {
         this.file = file;
+        this.alias = alias;
+    }
+
+    public Program(File file, String alias, String parameters) {
+        this.file = file;
+        this.alias = alias;
         this.parameters = parameters;
+    }
+
+    public Program(File file, String alias, String parameters, int sequenceNumber) {
+        this.file = file;
+        this.alias = alias;
+        this.parameters = parameters;
+        this.sequenceNumber = sequenceNumber;
+    }
+
+    public Program(long id, File file, String alias, String parameters, Integer sequenceNumber) {
+        this.id = id;
+        this.file = file;
+        this.alias = alias;
+        this.parameters = parameters;
+        this.sequenceNumber = sequenceNumber = Integer.MIN_VALUE;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public File getFile() {
@@ -33,12 +63,12 @@ public class Program {
         this.file = file;
     }
 
-    public String getNickname() {
-        return nickname;
+    public String getAlias() {
+        return alias;
     }
 
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
+    public void setAlias(String alias) {
+        this.alias = alias;
     }
 
     public String getParameters() {
@@ -47,5 +77,40 @@ public class Program {
 
     public void setParameters(String parameters) {
         this.parameters = parameters;
+    }
+
+    public int getSequenceNumber() {
+        return sequenceNumber;
+    }
+
+    public void setSequenceNumber(int sequenceNumber) {
+        this.sequenceNumber = sequenceNumber;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Program other = (Program) obj;
+        if (this.id != other.id) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 53 * hash + (int) (this.id ^ (this.id >>> 32));
+        return hash;
+    }
+
+    @Override
+    public String toString() {
+        return alias;
     }
 }

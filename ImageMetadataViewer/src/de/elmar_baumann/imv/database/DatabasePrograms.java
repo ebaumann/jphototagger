@@ -12,7 +12,9 @@ import java.util.List;
 import java.util.logging.Level;
 
 /**
- * Contains external Programs to start within the application.
+ * Contains external Programs to start within the application. The primary
+ * key of a program is it's <strong>ID</strong>
+ * ({@link de.elmar_baumann.imv.data.Program#getId()}).
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/11/04
@@ -28,20 +30,31 @@ public class DatabasePrograms extends Database {
         return instance;
     }
 
+    /**
+     * Inserts a new program. Prevoius You should call 
+     * {@link #existsProgram(de.elmar_baumann.imv.data.Program)}.
+     * 
+     * @param  program  program
+     * @return true if inserted
+     */
     synchronized public boolean insert(Program program) {
         int countAffectedRows = 0;
         Connection connection = null;
         try {
             connection = getConnection();
             connection.setAutoCommit(false);
+            setId(connection, program);
             PreparedStatement stmt = connection.prepareStatement(
                 "INSERT INTO programs" + // NOI18N
-                " (nickname" + // NOI18N -- 1 --
+                " (" + // NOI18N
+                "id" + // NOI18N -- 1 --
                 ", filename" + // NOI18N -- 2 --
-                ", parameters" + // NOI18N -- 3 --
+                ", alias" + // NOI18N -- 3 --
+                ", parameters" + // NOI18N -- 4 --
+                ", sequence_number" + // NOI18N -- 5 --
                 ")" + // NOI18N
-                " VALUES (?, ?, ?)"); // NOI18N
-            setValues(stmt, program);
+                " VALUES (?, ?, ?, ?, ?)"); // NOI18N
+            setValuesInsert(stmt, program);
             logStatement(stmt);
             countAffectedRows = stmt.executeUpdate();
             connection.commit();
@@ -59,13 +72,29 @@ public class DatabasePrograms extends Database {
         return countAffectedRows == 1;
     }
 
-    private void setValues(PreparedStatement stmt, Program program) throws SQLException {
-        stmt.setString(1, program.getNickname());
-        stmt.setString(2, program.getFile().getAbsolutePath());
-        String parameters = program.getParameters();
-        stmt.setBytes(3, parameters == null ? null : parameters.getBytes());
+    synchronized private void setId(Connection connection, Program program) throws SQLException {
+        Statement stmt = connection.createStatement();
+        ResultSet rs = stmt.executeQuery("SELECT MAX(id) FROM programs");
+        if (rs.next()) {
+            program.setId(rs.getLong(1) + 1);
+        }
     }
 
+    private void setValuesInsert(PreparedStatement stmt, Program program) throws SQLException {
+        stmt.setLong(1, program.getId());
+        stmt.setString(2, program.getFile().getAbsolutePath());
+        stmt.setString(3, program.getAlias());
+        String parameters = program.getParameters();
+        stmt.setBytes(4, parameters == null ? null : parameters.getBytes());
+        stmt.setInt(5, program.getSequenceNumber());
+    }
+
+    /**
+     * Updates a program. <em>The id must exist!</em>
+     * 
+     * @param   program  program
+     * @return  true if updated
+     */
     synchronized public boolean update(Program program) {
         int countAffectedRows = 0;
         Connection connection = null;
@@ -73,14 +102,15 @@ public class DatabasePrograms extends Database {
             connection = getConnection();
             connection.setAutoCommit(false);
             PreparedStatement stmt = connection.prepareStatement(
-                "UPTDATE programs" + // NOI18N
+                "UPDATE programs" + // NOI18N
                 " SET" + // NOI18N
-                " nickname = ?" + // NOI18N -- 1 --
-                ", filename = ?" + // NOI18N -- 2 --
+                " filename = ?" + // NOI18N -- 1 --
+                ", alias = ?" + // NOI18N -- 2 --
                 ", parameters = ?" + // NOI18N -- 3 --
-                " WHERE nickname = ?"); // NOI18N
-            setValues(stmt, program);
-            stmt.setString(4, program.getNickname());
+                ", sequence_number = ?" + // NOI18N -- 4 --
+                " WHERE id = ?"); // NOI18N
+            setValuesUpdate(stmt, program);
+            stmt.setLong(5, program.getId());
             logStatement(stmt);
             countAffectedRows = stmt.executeUpdate();
             connection.commit();
@@ -98,6 +128,20 @@ public class DatabasePrograms extends Database {
         return countAffectedRows == 1;
     }
 
+    private void setValuesUpdate(PreparedStatement stmt, Program program) throws SQLException {
+        stmt.setString(1, program.getFile().getAbsolutePath());
+        stmt.setString(2, program.getAlias());
+        String parameters = program.getParameters();
+        stmt.setBytes(3, parameters == null ? null : parameters.getBytes());
+        stmt.setInt(4, program.getSequenceNumber());
+    }
+
+    /**
+     * Deletes a program. <em>The ID must exist!</em>
+     * 
+     * @param  program   program
+     * @return true if deleted
+     */
     synchronized public boolean delete(Program program) {
         int countAffectedRows = 0;
         Connection connection = null;
@@ -105,8 +149,8 @@ public class DatabasePrograms extends Database {
             connection = getConnection();
             connection.setAutoCommit(false);
             PreparedStatement stmt = connection.prepareStatement(
-                "DELETE FROM programs WHERE nickname = ?"); // NOI18N
-            stmt.setString(1, program.getNickname());
+                "DELETE FROM programs WHERE id = ?"); // NOI18N
+            stmt.setLong(1, program.getId());
             logStatement(stmt);
             countAffectedRows = stmt.executeUpdate();
             connection.commit();
@@ -124,19 +168,28 @@ public class DatabasePrograms extends Database {
         return countAffectedRows == 1;
     }
 
-    public List<Program> selectAll() {
+    /**
+     * Returns all programs ordered by their aliases.
+     * 
+     * @return programs
+     */
+    public List<Program> getAll() {
         List<Program> programs = new LinkedList<Program>();
         Connection connection = null;
         try {
             connection = getConnection();
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(
-                "SELECT nickname, filename, parameters FROM programs ORDER BY 1"); // NOI18N
+                "SELECT id, filename, alias, parameters, sequence_number" + // NOI18N
+                " FROM programs ORDER BY alias"); // NOI18N
             while (rs.next()) {
-                byte[] parameters = rs.getBytes(3);
+                byte[] parameters = rs.getBytes(4);
                 programs.add(new Program(
-                    rs.getString(1), new File(rs.getString(2)),
-                    parameters == null ? null : new String(parameters)));
+                    rs.getLong(1),
+                    new File(rs.getString(2)),
+                    rs.getString(3),
+                    parameters == null ? null : new String(parameters),
+                    rs.getInt(5)));
             }
             stmt.close();
         } catch (SQLException ex) {
@@ -147,29 +200,8 @@ public class DatabasePrograms extends Database {
         return programs;
     }
 
-    public boolean existsProgram(Program program) {
-        int count = 0;
-        Connection connection = null;
-        try {
-            connection = getConnection();
-            PreparedStatement stmt = connection.prepareStatement(
-                "SELECT COUNT(*) FROM programs WHERE nickname = ?"); // NOI18N
-            stmt.setString(1, program.getNickname());
-            ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
-                count = rs.getInt(1);
-            }
-            stmt.close();
-        } catch (SQLException ex) {
-            handleException(ex, Level.SEVERE);
-        } finally {
-            free(connection);
-        }
-        return count == 1;
-    }
-
     /**
-     * Returns whether a program exists (program count greater zero?).
+     * Returns whether the database contains at least one program.
      * 
      * @return true if at least one program (ore more) exists
      */

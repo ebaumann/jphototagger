@@ -1,26 +1,69 @@
-/*
- * ProgramPropertiesDialog.java
- *
- * Created on 4. November 2008, 16:15
- */
 package de.elmar_baumann.imv.view.dialogs;
 
 import de.elmar_baumann.imv.AppSettings;
+import de.elmar_baumann.imv.data.Program;
+import de.elmar_baumann.imv.database.DatabasePrograms;
 import de.elmar_baumann.imv.resource.Bundle;
+import de.elmar_baumann.lib.dialog.Dialog;
 import de.elmar_baumann.lib.persistence.PersistentAppSizes;
+import java.io.File;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 /**
- *
+ * Modal Dialog to change or define the properties of a program which can
+ * be started within the application.
+ * 
  * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @version 2008/11/04
  */
-public class ProgramPropertiesDialog extends javax.swing.JDialog {
+public class ProgramPropertiesDialog extends Dialog {
 
+    private DatabasePrograms db = DatabasePrograms.getInstance();
+    private Program program = new Program();
+    private File file;
     private boolean accecpted = false;
 
     public ProgramPropertiesDialog() {
         super((java.awt.Frame) null, true);
         initComponents();
         postInitComponents();
+        registerKeyStrokes();
+    }
+
+    public void setProgram(Program program) {
+        this.program = program;
+        file = program.getFile();
+        String parameters = program.getParameters();
+        labelFile.setText(file.getAbsolutePath());
+        textFieldAlias.setText(program.getAlias());
+        textAreaParameters.setText(parameters == null ? "" : parameters);
+    }
+
+    public Program getProgram() {
+        return program;
+    }
+
+    public boolean isAccepted() {
+        return accecpted;
+    }
+
+    private void accept() {
+        if (inputsValid()) {
+            String parameters = textAreaParameters.getText().trim();
+            program.setFile(file);
+            program.setAlias(textFieldAlias.getText().trim());
+            program.setParameters(parameters.isEmpty() ? null : parameters);
+            accecpted = true;
+            setVisible(false);
+        } else {
+            errorMessage(Bundle.getString("ProgramPropertiesDialog.ErrorMessage.MissingData"));
+        }
+    }
+
+    private boolean inputsValid() {
+        return file != null && file.exists() && !file.isDirectory() &&
+            !textFieldAlias.getText().trim().isEmpty();
     }
 
     private void postInitComponents() {
@@ -30,6 +73,11 @@ public class ProgramPropertiesDialog extends javax.swing.JDialog {
     private void cancel() {
         accecpted = false;
         setVisible(false);
+    }
+    
+    @Override
+    protected void escape() {
+        cancel();
     }
 
     @Override
@@ -42,13 +90,27 @@ public class ProgramPropertiesDialog extends javax.swing.JDialog {
         super.setVisible(visible);
     }
 
-    private void chooseFile() {
-        throw new UnsupportedOperationException("Not yet implemented");
+    private void chooseDirectory() {
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setMultiSelectionEnabled(false);
+        if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+            File f = fileChooser.getSelectedFile();
+            if (f.exists() && !f.isDirectory()) {
+                file = f;
+                labelFile.setText(file.getAbsolutePath());
+            } else {
+                errorMessage(Bundle.getString("ProgramPropertiesDialog.ErrorMessage.ChooseFile"));
+            }
+        }
     }
 
-    public boolean isAccepted() {
-        return accecpted;
-
+    private void errorMessage(String string) {
+        JOptionPane.showMessageDialog(
+            this,
+            string,
+            Bundle.getString("ProgramPropertiesDialog.ErrorMessage.Title"),
+            JOptionPane.ERROR_MESSAGE,
+            AppSettings.getMediumAppIcon());
     }
 
     /** This method is called from within the constructor to
@@ -64,10 +126,10 @@ public class ProgramPropertiesDialog extends javax.swing.JDialog {
         labelFile = new javax.swing.JLabel();
         buttonChooseFile = new javax.swing.JButton();
         labelNickname = new javax.swing.JLabel();
-        textFieldNickname = new javax.swing.JTextField();
+        textFieldAlias = new javax.swing.JTextField();
         labelParameters = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        scrollPane = new javax.swing.JScrollPane();
+        textAreaParameters = new javax.swing.JTextArea();
         buttonOk = new javax.swing.JButton();
         buttonCancel = new javax.swing.JButton();
 
@@ -79,11 +141,15 @@ public class ProgramPropertiesDialog extends javax.swing.JDialog {
             }
         });
 
+        labelFilePrompt.setFont(new java.awt.Font("Dialog", 0, 12));
         labelFilePrompt.setText(Bundle.getString("ProgramPropertiesDialog.labelFilePrompt.text")); // NOI18N
 
+        labelFile.setFont(new java.awt.Font("Dialog", 0, 12));
+        labelFile.setForeground(new java.awt.Color(0, 0, 255));
         labelFile.setText(Bundle.getString("ProgramPropertiesDialog.labelFile.text")); // NOI18N
         labelFile.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        buttonChooseFile.setFont(new java.awt.Font("Dialog", 0, 12));
         buttonChooseFile.setText(Bundle.getString("ProgramPropertiesDialog.buttonChooseFile.text")); // NOI18N
         buttonChooseFile.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -91,37 +157,51 @@ public class ProgramPropertiesDialog extends javax.swing.JDialog {
             }
         });
 
+        labelNickname.setFont(new java.awt.Font("Dialog", 0, 12));
         labelNickname.setText(Bundle.getString("ProgramPropertiesDialog.labelNickname.text")); // NOI18N
 
-        textFieldNickname.setText(Bundle.getString("ProgramPropertiesDialog.textFieldNickname.text")); // NOI18N
+        textFieldAlias.setText(Bundle.getString("ProgramPropertiesDialog.textFieldAlias.text")); // NOI18N
 
+        labelParameters.setFont(new java.awt.Font("Dialog", 0, 12));
         labelParameters.setText(Bundle.getString("ProgramPropertiesDialog.labelParameters.text")); // NOI18N
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(2);
-        jScrollPane1.setViewportView(jTextArea1);
+        textAreaParameters.setColumns(20);
+        textAreaParameters.setRows(2);
+        scrollPane.setViewportView(textAreaParameters);
 
+        buttonOk.setFont(new java.awt.Font("Dialog", 0, 12));
         buttonOk.setText(Bundle.getString("ProgramPropertiesDialog.buttonOk.text")); // NOI18N
+        buttonOk.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonOkActionPerformed(evt);
+            }
+        });
 
+        buttonCancel.setFont(new java.awt.Font("Dialog", 0, 12));
         buttonCancel.setText(Bundle.getString("ProgramPropertiesDialog.buttonCancel.text")); // NOI18N
+        buttonCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonCancelActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 457, Short.MAX_VALUE)
-                    .addComponent(labelFile, javax.swing.GroupLayout.DEFAULT_SIZE, 457, Short.MAX_VALUE)
-                    .addComponent(labelFilePrompt)
-                    .addComponent(buttonChooseFile, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(labelFile, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 488, Short.MAX_VALUE)
+                    .addComponent(scrollPane, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 488, Short.MAX_VALUE)
+                    .addComponent(labelFilePrompt, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(buttonChooseFile)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(labelNickname)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(textFieldNickname, javax.swing.GroupLayout.DEFAULT_SIZE, 374, Short.MAX_VALUE))
-                    .addComponent(labelParameters)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(textFieldAlias, javax.swing.GroupLayout.DEFAULT_SIZE, 379, Short.MAX_VALUE))
+                    .addComponent(labelParameters, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(buttonCancel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonOk)))
@@ -133,17 +213,17 @@ public class ProgramPropertiesDialog extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(labelFilePrompt)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labelFile)
+                .addComponent(labelFile, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonChooseFile)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelNickname)
-                    .addComponent(textFieldNickname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(textFieldAlias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(labelParameters)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(scrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonOk)
@@ -155,12 +235,20 @@ public class ProgramPropertiesDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
 private void buttonChooseFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonChooseFileActionPerformed
-    chooseFile();
+    chooseDirectory();
 }//GEN-LAST:event_buttonChooseFileActionPerformed
 
 private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
     cancel();
 }//GEN-LAST:event_formWindowClosing
+
+private void buttonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelActionPerformed
+    cancel();
+}//GEN-LAST:event_buttonCancelActionPerformed
+
+private void buttonOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonOkActionPerformed
+    accept();
+}//GEN-LAST:event_buttonOkActionPerformed
 
     /**
     * @param args the command line arguments
@@ -185,12 +273,12 @@ private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:even
     private javax.swing.JButton buttonCancel;
     private javax.swing.JButton buttonChooseFile;
     private javax.swing.JButton buttonOk;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel labelFile;
     private javax.swing.JLabel labelFilePrompt;
     private javax.swing.JLabel labelNickname;
     private javax.swing.JLabel labelParameters;
-    private javax.swing.JTextField textFieldNickname;
+    private javax.swing.JScrollPane scrollPane;
+    private javax.swing.JTextArea textAreaParameters;
+    private javax.swing.JTextField textFieldAlias;
     // End of variables declaration//GEN-END:variables
 }
