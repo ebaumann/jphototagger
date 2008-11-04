@@ -2,8 +2,11 @@ package de.elmar_baumann.imv.controller.thumbnail;
 
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.controller.Controller;
+import de.elmar_baumann.imv.database.DatabasePrograms;
 import de.elmar_baumann.imv.event.ThumbnailsPanelAction;
 import de.elmar_baumann.imv.event.ThumbnailsPanelListener;
+import de.elmar_baumann.imv.event.UserSettingsChangeEvent;
+import de.elmar_baumann.imv.event.UserSettingsChangeListener;
 import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.types.Content;
 import de.elmar_baumann.imv.view.frames.AppFrame;
@@ -22,7 +25,8 @@ import javax.swing.JMenuItem;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/27
  */
-public class ControllerMenuItemEnabler extends Controller implements ThumbnailsPanelListener {
+public class ControllerMenuItemEnabler extends Controller
+    implements UserSettingsChangeListener, ThumbnailsPanelListener {
 
     private Map<JMenuItem, List<Content>> contentsOfMenuItem = new HashMap<JMenuItem, List<Content>>();
     private List<JMenuItem> itemsIsSelection = new ArrayList<JMenuItem>();
@@ -31,6 +35,7 @@ public class ControllerMenuItemEnabler extends Controller implements ThumbnailsP
     private ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
     private JMenuItem itemOpenFilesWithStandardApp = popupThumbnails.getItemOpenFilesWithStandardApp();
     private JMenu menuOtherOpenImageApps = popupThumbnails.getMenuOtherOpenImageApps();
+    private boolean hasPrograms = DatabasePrograms.getInstance().hasProgram();
 
     public ControllerMenuItemEnabler() {
         init();
@@ -74,7 +79,7 @@ public class ControllerMenuItemEnabler extends Controller implements ThumbnailsP
     private void setEnabled() {
         Content content = thumbnailsPanel.getContent();
         boolean isSelection = thumbnailsPanel.getSelectionCount() > 0;
-        
+
         for (JMenuItem item : itemsIsSelection) {
             item.setEnabled(isSelection);
         }
@@ -92,8 +97,7 @@ public class ControllerMenuItemEnabler extends Controller implements ThumbnailsP
             settings.hasDefaultImageOpenApp());
 
         menuOtherOpenImageApps.setEnabled(
-            isSelection &&
-            settings.hasOtherImageOpenApps());
+            isSelection && hasPrograms);
     }
 
     @Override
@@ -107,6 +111,13 @@ public class ControllerMenuItemEnabler extends Controller implements ThumbnailsP
     public void thumbnailsChanged() {
         if (isControl()) {
             setEnabled();
+        }
+    }
+
+    @Override
+    public void applySettings(UserSettingsChangeEvent evt) {
+        if (evt.getType().equals(UserSettingsChangeEvent.Type.OtherImageOpenApps)) {
+            hasPrograms = DatabasePrograms.getInstance().hasProgram();
         }
     }
 }

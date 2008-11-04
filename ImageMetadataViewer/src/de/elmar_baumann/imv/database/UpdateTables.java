@@ -23,6 +23,7 @@ class UpdateTables extends Database {
     synchronized void update(Connection connection) throws SQLException {
         new UpdateTablesXmpLastModified().update(connection);
         new UpdateTablesDropUnusedColumns().update(connection);
+        new UpdateTablesPrograms().update(connection);
         UpdateTablesMessages.getInstance().getProgressDialog().setVisible(false);
     }
 }

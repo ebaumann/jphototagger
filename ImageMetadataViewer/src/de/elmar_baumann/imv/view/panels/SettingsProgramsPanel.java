@@ -4,7 +4,7 @@ import de.elmar_baumann.imv.AppSettings;
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.event.ListenerProvider;
 import de.elmar_baumann.imv.event.UserSettingsChangeEvent;
-import de.elmar_baumann.imv.model.ListModelOtherImageOpenApps;
+import de.elmar_baumann.imv.model.ListModelPrograms;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.types.Persistence;
 import java.io.File;
@@ -23,7 +23,7 @@ public class SettingsProgramsPanel extends javax.swing.JPanel
     implements Persistence {
 
     private String previousDirectory = ""; // NOI18N
-    private ListModelOtherImageOpenApps modelOtherImageOpenApps = new ListModelOtherImageOpenApps();
+    private ListModelPrograms modelPrograms = new ListModelPrograms();
     private ListenerProvider listenerProvider = ListenerProvider.getInstance();
 
     /** Creates new form SettingsProgramsPanel */
@@ -35,9 +35,9 @@ public class SettingsProgramsPanel extends javax.swing.JPanel
         if (canMoveDownOpenImageApp()) {
             int selectedIndex = listOtherImageOpenApps.getSelectedIndex();
             int newSelectedIndex = selectedIndex + 1;
-            Object element = modelOtherImageOpenApps.get(selectedIndex);
-            modelOtherImageOpenApps.remove(selectedIndex);
-            modelOtherImageOpenApps.add(newSelectedIndex, element);
+            Object element = modelPrograms.get(selectedIndex);
+            modelPrograms.remove(selectedIndex);
+            modelPrograms.add(newSelectedIndex, element);
             listOtherImageOpenApps.setSelectedIndex(newSelectedIndex);
             setEnabled();
         }
@@ -45,7 +45,7 @@ public class SettingsProgramsPanel extends javax.swing.JPanel
 
     private boolean canMoveDownOpenImageApp() {
         int selectedIndex = listOtherImageOpenApps.getSelectedIndex();
-        int lastIndex = modelOtherImageOpenApps.getSize() - 1;
+        int lastIndex = modelPrograms.getSize() - 1;
         return selectedIndex >= 0 && selectedIndex < lastIndex;
     }
 
@@ -53,9 +53,9 @@ public class SettingsProgramsPanel extends javax.swing.JPanel
         if (canMoveUpOpenImageApp()) {
             int selectedIndex = listOtherImageOpenApps.getSelectedIndex();
             int newSelectedIndex = selectedIndex - 1;
-            Object element = modelOtherImageOpenApps.get(selectedIndex);
-            modelOtherImageOpenApps.remove(selectedIndex);
-            modelOtherImageOpenApps.add(newSelectedIndex, element);
+            Object element = modelPrograms.get(selectedIndex);
+            modelPrograms.remove(selectedIndex);
+            modelPrograms.add(newSelectedIndex, element);
             listOtherImageOpenApps.setSelectedIndex(newSelectedIndex);
             setEnabled();
         }
@@ -66,8 +66,6 @@ public class SettingsProgramsPanel extends javax.swing.JPanel
     }
 
     private void setEnabled() {
-        buttonMoveDownOtherImageOpenApp.setEnabled(canMoveDownOpenImageApp());
-        buttonMoveUpOtherImageOpenApp.setEnabled(canMoveUpOpenImageApp());
         buttonRemoveOtherImageOpenApp.setEnabled(isOtherOpenImageAppSelected());
     }
 
@@ -98,7 +96,7 @@ public class SettingsProgramsPanel extends javax.swing.JPanel
 
     private void addOtherOpenImageApp() {
         File file = chooseDirectory(previousDirectory);
-        if (file != null && modelOtherImageOpenApps.add(file)) {
+        if (file != null && modelPrograms.add(file)) {
             setEnabled();
             UserSettingsChangeEvent evt = new UserSettingsChangeEvent(
                 UserSettingsChangeEvent.Type.OtherImageOpenApps, this);
@@ -109,16 +107,16 @@ public class SettingsProgramsPanel extends javax.swing.JPanel
 
     private List<File> getOtherImageOpenApps() {
         List<File> apps = new ArrayList<File>();
-        int size = modelOtherImageOpenApps.getSize();
+        int size = modelPrograms.getSize();
         for (int i = 0; i < size; i++) {
-            apps.add((File) modelOtherImageOpenApps.getElementAt(i));
+            apps.add((File) modelPrograms.getElementAt(i));
         }
         return apps;
     }
 
     private void removeOtherOpenImageApp() {
         int index = listOtherImageOpenApps.getSelectedIndex();
-        if (index >= 0 && askRemove(modelOtherImageOpenApps.getElementAt(index).toString()) && modelOtherImageOpenApps.remove(modelOtherImageOpenApps.get(index))) {
+        if (index >= 0 && askRemove(modelPrograms.getElementAt(index).toString()) && modelPrograms.remove(modelPrograms.get(index))) {
             listOtherImageOpenApps.setSelectedIndex(index);
             setEnabled();
             UserSettingsChangeEvent evt = new UserSettingsChangeEvent(
@@ -173,8 +171,6 @@ public class SettingsProgramsPanel extends javax.swing.JPanel
         listOtherImageOpenApps = new javax.swing.JList();
         buttonRemoveOtherImageOpenApp = new javax.swing.JButton();
         buttonAddOtherImageOpenApp = new javax.swing.JButton();
-        buttonMoveUpOtherImageOpenApp = new javax.swing.JButton();
-        buttonMoveDownOtherImageOpenApp = new javax.swing.JButton();
 
         panelImageOpenApps.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Programme zum Öffnen von Bildern", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 11))); // NOI18N
 
@@ -198,7 +194,7 @@ public class SettingsProgramsPanel extends javax.swing.JPanel
         labelInfoOtherOpenImageApps.setFont(new java.awt.Font("Dialog", 0, 12));
         labelInfoOtherOpenImageApps.setText(Bundle.getString("SettingsProgramsPanel.labelInfoOtherOpenImageApps.text")); // NOI18N
 
-        listOtherImageOpenApps.setModel(modelOtherImageOpenApps);
+        listOtherImageOpenApps.setModel(modelPrograms);
         listOtherImageOpenApps.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         listOtherImageOpenApps.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
@@ -207,7 +203,7 @@ public class SettingsProgramsPanel extends javax.swing.JPanel
         });
         scrollPaneListOtherImageOpenApps.setViewportView(listOtherImageOpenApps);
 
-        buttonRemoveOtherImageOpenApp.setFont(new java.awt.Font("Dialog", 0, 12));
+        buttonRemoveOtherImageOpenApp.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         buttonRemoveOtherImageOpenApp.setMnemonic('e');
         buttonRemoveOtherImageOpenApp.setText(Bundle.getString("SettingsProgramsPanel.buttonRemoveOtherImageOpenApp.text")); // NOI18N
         buttonRemoveOtherImageOpenApp.setEnabled(false);
@@ -217,7 +213,7 @@ public class SettingsProgramsPanel extends javax.swing.JPanel
             }
         });
 
-        buttonAddOtherImageOpenApp.setFont(new java.awt.Font("Dialog", 0, 12));
+        buttonAddOtherImageOpenApp.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         buttonAddOtherImageOpenApp.setMnemonic('w');
         buttonAddOtherImageOpenApp.setText(Bundle.getString("SettingsProgramsPanel.buttonAddOtherImageOpenApp.text")); // NOI18N
         buttonAddOtherImageOpenApp.addActionListener(new java.awt.event.ActionListener() {
@@ -226,58 +222,33 @@ public class SettingsProgramsPanel extends javax.swing.JPanel
             }
         });
 
-        buttonMoveUpOtherImageOpenApp.setFont(new java.awt.Font("Dialog", 0, 12));
-        buttonMoveUpOtherImageOpenApp.setMnemonic('o');
-        buttonMoveUpOtherImageOpenApp.setText(Bundle.getString("SettingsProgramsPanel.buttonMoveUpOtherImageOpenApp.text")); // NOI18N
-        buttonMoveUpOtherImageOpenApp.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonMoveUpOtherImageOpenAppActionPerformed(evt);
-            }
-        });
-
-        buttonMoveDownOtherImageOpenApp.setFont(new java.awt.Font("Dialog", 0, 12));
-        buttonMoveDownOtherImageOpenApp.setMnemonic('u');
-        buttonMoveDownOtherImageOpenApp.setText(Bundle.getString("SettingsProgramsPanel.buttonMoveDownOtherImageOpenApp.text")); // NOI18N
-        buttonMoveDownOtherImageOpenApp.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonMoveDownOtherImageOpenAppActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout panelImageOpenAppsLayout = new javax.swing.GroupLayout(panelImageOpenApps);
         panelImageOpenApps.setLayout(panelImageOpenAppsLayout);
         panelImageOpenAppsLayout.setHorizontalGroup(
             panelImageOpenAppsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelImageOpenAppsLayout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addComponent(labelInfoOtherOpenImageApps)
-                .addContainerGap(372, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelImageOpenAppsLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelImageOpenAppsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(panelImageOpenAppsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelImageOpenAppsLayout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(labelInfoOtherOpenImageApps))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelImageOpenAppsLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(panelImageOpenAppsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(labelDefaultImageOpenApp, javax.swing.GroupLayout.DEFAULT_SIZE, 581, Short.MAX_VALUE)
+                            .addGroup(panelImageOpenAppsLayout.createSequentialGroup()
+                                .addComponent(labelDefaultImageOpenAppPrompt)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(buttonDefaultImageOpenApp))))
+                    .addGroup(panelImageOpenAppsLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(scrollPaneListOtherImageOpenApps, javax.swing.GroupLayout.DEFAULT_SIZE, 581, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelImageOpenAppsLayout.createSequentialGroup()
+                        .addContainerGap(149, Short.MAX_VALUE)
                         .addComponent(buttonRemoveOtherImageOpenApp)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonAddOtherImageOpenApp))
-                    .addComponent(scrollPaneListOtherImageOpenApps, javax.swing.GroupLayout.DEFAULT_SIZE, 514, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelImageOpenAppsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(buttonMoveDownOtherImageOpenApp)
-                    .addComponent(buttonMoveUpOtherImageOpenApp))
-                .addGap(12, 12, 12))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelImageOpenAppsLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelImageOpenAppsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(labelDefaultImageOpenApp, javax.swing.GroupLayout.DEFAULT_SIZE, 617, Short.MAX_VALUE)
-                    .addGroup(panelImageOpenAppsLayout.createSequentialGroup()
-                        .addComponent(labelDefaultImageOpenAppPrompt)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 21, Short.MAX_VALUE)
-                        .addComponent(buttonDefaultImageOpenApp)))
+                        .addComponent(buttonAddOtherImageOpenApp)))
                 .addContainerGap())
         );
-
-        panelImageOpenAppsLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {buttonMoveDownOtherImageOpenApp, buttonMoveUpOtherImageOpenApp});
-
         panelImageOpenAppsLayout.setVerticalGroup(
             panelImageOpenAppsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelImageOpenAppsLayout.createSequentialGroup()
@@ -289,25 +260,19 @@ public class SettingsProgramsPanel extends javax.swing.JPanel
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelInfoOtherOpenImageApps)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelImageOpenAppsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelImageOpenAppsLayout.createSequentialGroup()
-                        .addComponent(scrollPaneListOtherImageOpenApps, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panelImageOpenAppsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(buttonAddOtherImageOpenApp)
-                            .addComponent(buttonRemoveOtherImageOpenApp)))
-                    .addGroup(panelImageOpenAppsLayout.createSequentialGroup()
-                        .addComponent(buttonMoveUpOtherImageOpenApp)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonMoveDownOtherImageOpenApp)))
-                .addContainerGap())
+                .addComponent(scrollPaneListOtherImageOpenApps, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(panelImageOpenAppsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(buttonAddOtherImageOpenApp)
+                    .addComponent(buttonRemoveOtherImageOpenApp))
+                .addGap(11, 11, 11))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 675, Short.MAX_VALUE)
+            .addGap(0, 633, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
@@ -316,7 +281,7 @@ public class SettingsProgramsPanel extends javax.swing.JPanel
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 317, Short.MAX_VALUE)
+            .addGap(0, 323, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
@@ -341,18 +306,9 @@ private void buttonAddOtherImageOpenAppActionPerformed(java.awt.event.ActionEven
     addOtherOpenImageApp();
 }//GEN-LAST:event_buttonAddOtherImageOpenAppActionPerformed
 
-private void buttonMoveUpOtherImageOpenAppActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonMoveUpOtherImageOpenAppActionPerformed
-    moveUpOpenImageApp();
-}//GEN-LAST:event_buttonMoveUpOtherImageOpenAppActionPerformed
-
-private void buttonMoveDownOtherImageOpenAppActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonMoveDownOtherImageOpenAppActionPerformed
-    moveDownOpenImageApp();
-}//GEN-LAST:event_buttonMoveDownOtherImageOpenAppActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAddOtherImageOpenApp;
     private javax.swing.JButton buttonDefaultImageOpenApp;
-    private javax.swing.JButton buttonMoveDownOtherImageOpenApp;
-    private javax.swing.JButton buttonMoveUpOtherImageOpenApp;
     private javax.swing.JButton buttonRemoveOtherImageOpenApp;
     private javax.swing.JLabel labelDefaultImageOpenApp;
     private javax.swing.JLabel labelDefaultImageOpenAppPrompt;

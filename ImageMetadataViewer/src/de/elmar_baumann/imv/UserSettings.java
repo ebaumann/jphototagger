@@ -5,7 +5,6 @@ import de.elmar_baumann.imv.database.metadata.ColumnUtil;
 import de.elmar_baumann.imv.database.metadata.selections.EditColumns;
 import de.elmar_baumann.imv.event.UserSettingsChangeEvent;
 import de.elmar_baumann.imv.event.UserSettingsChangeListener;
-import de.elmar_baumann.lib.io.FileUtil;
 import de.elmar_baumann.lib.persistence.PersistentSettings;
 import de.elmar_baumann.lib.util.ArrayUtil;
 import java.io.File;
@@ -40,7 +39,6 @@ public class UserSettings implements UserSettingsChangeListener {
     private static final String keyLogLevel = "UserSettings.LogLevel";
     private static final String keyMaxThumbnailWidth = "UserSettings.MaxThumbnailWidth";
     private static final String keyMinutesToStartScheduledTasks = "UserSettings.MinutesToStartScheduledTasks";
-    private static final String keyOtherImageOpenApps = "UserSettings.OtherImageOpenApps";
     private static final String keyThreadPriority = "UserSettings.ThreadPriority";
     private static final String keyAutocopyDirectory = "UserSettings.AutocopyDirectory";
     private PersistentSettings settings = PersistentSettings.getInstance();
@@ -191,19 +189,6 @@ public class UserSettings implements UserSettingsChangeListener {
     }
 
     /**
-     * Liefert alle Anwendungen, die ein Bild öffnen können.
-     * 
-     * @return Anwendungsdateien, falls existent
-     */
-    public List<File> getOtherImageOpenApps() {
-        return FileUtil.getAsFiles(settings.getStringArray(keyOtherImageOpenApps));
-    }
-
-    public boolean hasOtherImageOpenApps() {
-        return !getOtherImageOpenApps().isEmpty();
-    }
-
-    /**
      * Liefert, ob beim automatischen Scan von Verzeichnissen auch die
      * Unterverzeichnisse einbezogen werden sollen.
      * 
@@ -326,8 +311,6 @@ public class UserSettings implements UserSettingsChangeListener {
             settings.setString(evt.getMinutesToStartScheduledTasks().toString(), keyMinutesToStartScheduledTasks);
         } else if (type.equals(UserSettingsChangeEvent.Type.NoFastSearchColumns)) {
             settings.getProperties().remove(keyFastSearchColumns);
-        } else if (type.equals(UserSettingsChangeEvent.Type.OtherImageOpenApps)) {
-            writePersistentOtherImageOpenApps(evt.getOtherImageOpenApps());
         } else if (type.equals(UserSettingsChangeEvent.Type.ThreadPriority)) {
             settings.setInt(evt.getThreadPriority(), keyThreadPriority);
         } else if (type.equals(UserSettingsChangeEvent.Type.AutocopyDirectory)) {
@@ -355,18 +338,6 @@ public class UserSettings implements UserSettingsChangeListener {
         settings.setBoolean(use, keyIsUseEmbeddedThumbnails);
         if (use) {
             settings.setBoolean(false, keyIsCreateThumbnailsWithExternalApp);
-        }
-    }
-
-    private void writePersistentOtherImageOpenApps(List<File> otherImageOpenApps) {
-        List<String> apps = new ArrayList<String>();
-        for (File app : otherImageOpenApps) {
-            apps.add(app.toString());
-        }
-        if (apps.isEmpty()) {
-            settings.getProperties().remove(keyOtherImageOpenApps);
-        } else {
-            settings.setStringArray(apps, keyOtherImageOpenApps);
         }
     }
 
