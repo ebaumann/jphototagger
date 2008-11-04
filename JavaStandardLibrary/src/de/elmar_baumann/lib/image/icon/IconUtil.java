@@ -2,11 +2,14 @@ package de.elmar_baumann.lib.image.icon;
 
 import de.elmar_baumann.lib.resource.Bundle;
 import java.awt.Image;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.filechooser.FileSystemView;
 
 /**
  * Werkzeuge für Icons.
@@ -87,5 +90,20 @@ public class IconUtil {
             }
         }
         return icons;
+    }
+
+    /**
+     * Returns a system specific ion of a file.
+     * 
+     * @param  file file
+     * @return icon or null on errors
+     */
+    public static Icon getSystemIcon(File file) {
+        Icon icon = null;
+        try {
+            icon = FileSystemView.getFileSystemView().getSystemIcon(file);
+        } catch (Exception ex) {
+        }
+        return icon;
     }
 }
