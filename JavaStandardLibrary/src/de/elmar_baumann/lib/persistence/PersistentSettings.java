@@ -599,6 +599,19 @@ public class PersistentSettings {
     }
 
     /**
+     * Removes a string array.
+     * 
+     * @param key  key of the string array
+     */
+    public void removeStringArray(String key) {
+        List<String> keys = getKeysMatches(getArrayKeyMatchPattern(key));
+        Properties properties = getProperties();
+        for (String k : keys) {
+            properties.remove(k);
+        }
+    }
+
+    /**
      * Speichert die Attribute einer Komponente.
      * 
      * Unterstützt:
