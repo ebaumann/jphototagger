@@ -6,6 +6,7 @@ import de.elmar_baumann.imv.event.UserSettingsChangeEvent;
 import de.elmar_baumann.imv.event.UserSettingsChangeListener;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.types.DatabaseUpdate;
+import de.elmar_baumann.lib.image.icon.IconUtil;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,7 +24,7 @@ import javax.swing.JSeparator;
  * @version 2008-10-05
  */
 public class PopupMenuPanelThumbnails extends JPopupMenu
-    implements UserSettingsChangeListener {
+        implements UserSettingsChangeListener {
 
     private final String actionUpdateMetadata = Bundle.getString("PopupMenuPanelThumbnails.Action.UpdateMetadata");
     private final String actionUpdateThumbnail = Bundle.getString("PopupMenuPanelThumbnails.Action.UpdateThumbnail");
@@ -113,6 +114,9 @@ public class PopupMenuPanelThumbnails extends JPopupMenu
                     item.addActionListener(listener);
                 }
                 menuPrograms.add(item);
+                if (program.getFile().exists()) {
+                    item.setIcon(IconUtil.getSystemIcon(program.getFile()));
+                }
                 programOfMenuItem.put(item, program);
             }
         }

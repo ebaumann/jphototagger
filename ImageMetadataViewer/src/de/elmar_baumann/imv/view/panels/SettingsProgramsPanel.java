@@ -10,6 +10,8 @@ import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.types.Persistence;
 import de.elmar_baumann.imv.view.dialogs.ProgramPropertiesDialog;
 import de.elmar_baumann.imv.view.renderer.ListCellRendererPrograms;
+import de.elmar_baumann.lib.image.icon.IconUtil;
+import de.elmar_baumann.lib.io.FileUtil;
 import java.io.File;
 import java.text.MessageFormat;
 import javax.swing.JFileChooser;
@@ -21,7 +23,7 @@ import javax.swing.JOptionPane;
  * @version 2008/11/02
  */
 public class SettingsProgramsPanel extends javax.swing.JPanel
-    implements Persistence {
+        implements Persistence {
 
     private ListModelPrograms model = new ListModelPrograms();
     private ListenerProvider listenerProvider = ListenerProvider.getInstance();
@@ -34,7 +36,11 @@ public class SettingsProgramsPanel extends javax.swing.JPanel
 
     @Override
     public void readPersistent() {
-        labelDefaultProgramFile.setText(UserSettings.getInstance().getDefaultImageOpenApp());
+        String filename = UserSettings.getInstance().getDefaultImageOpenApp();
+        labelDefaultProgramFile.setText(filename);
+        if (FileUtil.existsFile(filename)) {
+            labelDefaultProgramFile.setIcon(IconUtil.getSystemIcon(new File(filename)));
+        }
     }
 
     @Override
@@ -94,23 +100,23 @@ public class SettingsProgramsPanel extends javax.swing.JPanel
     private boolean askRemove(String otherImageOpenApp) {
         MessageFormat msg = new MessageFormat(Bundle.getString("UserSettingsDialog.ConfirmMessage.RemoveImageOpenApp"));
         return JOptionPane.showConfirmDialog(
-            this,
-            msg.format(new Object[]{otherImageOpenApp}),
-            Bundle.getString("UserSettingsDialog.ConfirmMessage.RemoveImageOpenApp.Title"),
-            JOptionPane.YES_NO_OPTION,
-            JOptionPane.QUESTION_MESSAGE,
-            AppSettings.getMediumAppIcon()) == JOptionPane.YES_OPTION;
+                this,
+                msg.format(new Object[]{otherImageOpenApp}),
+                Bundle.getString("UserSettingsDialog.ConfirmMessage.RemoveImageOpenApp.Title"),
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                AppSettings.getMediumAppIcon()) == JOptionPane.YES_OPTION;
     }
 
     private void notifyChangeListenerOther() {
         UserSettingsChangeEvent evt = new UserSettingsChangeEvent(
-            UserSettingsChangeEvent.Type.OtherImageOpenApps, this);
+                UserSettingsChangeEvent.Type.OtherImageOpenApps, this);
         listenerProvider.notifyUserSettingsChangeListener(evt);
     }
 
     private void notifyChangeListenerDefault() {
         UserSettingsChangeEvent evt = new UserSettingsChangeEvent(
-            UserSettingsChangeEvent.Type.DefaultImageOpenApp, this);
+                UserSettingsChangeEvent.Type.DefaultImageOpenApp, this);
         evt.setDefaultImageOpenApp(new File(labelDefaultProgramFile.getText()));
         listenerProvider.notifyUserSettingsChangeListener(evt);
     }
