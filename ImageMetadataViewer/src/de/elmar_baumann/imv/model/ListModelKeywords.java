@@ -1,10 +1,12 @@
 package de.elmar_baumann.imv.model;
 
+import de.elmar_baumann.imv.comparator.ComparatorStringAscending;
 import de.elmar_baumann.imv.data.ImageFile;
 import de.elmar_baumann.imv.data.Xmp;
 import de.elmar_baumann.imv.database.DatabaseImageFiles;
 import de.elmar_baumann.imv.event.DatabaseAction;
 import de.elmar_baumann.imv.event.DatabaseListener;
+import de.elmar_baumann.lib.componentutil.ListUtil;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -45,7 +47,7 @@ public class ListModelKeywords extends DefaultListModel
         if (keywords != null) {
             for (String keyword : keywords) {
                 if (!contains(keyword)) {
-                    addElement(keyword);
+                    ListUtil.insertSorted(this, keyword, new ComparatorStringAscending(true));
                 }
             }
         }

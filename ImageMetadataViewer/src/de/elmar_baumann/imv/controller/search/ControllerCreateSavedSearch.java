@@ -1,6 +1,7 @@
 package de.elmar_baumann.imv.controller.search;
 
 import de.elmar_baumann.imv.AppSettings;
+import de.elmar_baumann.imv.comparator.ComparatorSavedSearch;
 import de.elmar_baumann.imv.controller.Controller;
 import de.elmar_baumann.imv.data.SavedSearch;
 import de.elmar_baumann.imv.database.DatabaseSavedSearches;
@@ -13,6 +14,7 @@ import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.view.dialogs.AdvancedSearchDialog;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuListSavedSearches;
+import de.elmar_baumann.lib.componentutil.ListUtil;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JList;
@@ -69,7 +71,7 @@ public class ControllerCreateSavedSearch extends Controller
         if (force || saveConfirmed(savedSearch)) {
             if (db.insertSavedSearch(savedSearch)) {
                 if (!model.contains(savedSearch)) {
-                    model.insertSorted(savedSearch);
+                    ListUtil.insertSorted(model, savedSearch, new ComparatorSavedSearch());
                 }
             } else {
                 errorMessageSave();
