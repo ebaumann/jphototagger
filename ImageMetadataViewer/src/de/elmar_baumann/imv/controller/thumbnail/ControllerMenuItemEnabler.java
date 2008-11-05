@@ -116,8 +116,9 @@ public class ControllerMenuItemEnabler extends Controller
 
     @Override
     public void applySettings(UserSettingsChangeEvent evt) {
-        if (evt.getType().equals(UserSettingsChangeEvent.Type.OtherImageOpenApps)) {
+        if (isControl() && evt.getType().equals(UserSettingsChangeEvent.Type.OtherImageOpenApps)) {
             hasPrograms = DatabasePrograms.getInstance().hasProgram();
+            setEnabled();
         }
     }
 }
