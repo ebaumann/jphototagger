@@ -11,9 +11,9 @@ import de.elmar_baumann.imv.model.TableModelExif;
 import de.elmar_baumann.imv.model.TableModelIptc;
 import de.elmar_baumann.imv.model.TableModelXmp;
 import de.elmar_baumann.imv.resource.Panels;
+import de.elmar_baumann.imv.view.ViewUtil;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.lib.model.TreeModelDirectories;
-import de.elmar_baumann.lib.persistence.PersistentSettings;
 import javax.swing.JTree;
 
 /**
@@ -64,8 +64,7 @@ public class ModelFactory {
                 treeDirectories.setModel(
                     new TreeModelDirectories(
                     UserSettings.getInstance().isAcceptHiddenDirectories()));
-                PersistentSettings.getInstance().getTree(treeDirectories, 
-                    AppPanel.class.getName() + ".treeDirectories");
+                ViewUtil.readPersistentTreeDirectories();
             }
         }).start();
     }

@@ -5,6 +5,7 @@ import de.elmar_baumann.lib.renderer.TreeCellRendererDirectories;
 import de.elmar_baumann.imv.event.AppExitListener;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.Panels;
+import de.elmar_baumann.imv.view.ViewUtil;
 import de.elmar_baumann.imv.view.renderer.ListCellRendererCategories;
 import de.elmar_baumann.imv.view.renderer.ListCellRendererFavoriteDirectories;
 import de.elmar_baumann.imv.view.renderer.ListCellRendererImageCollections;
@@ -358,6 +359,7 @@ public class AppPanel extends javax.swing.JPanel implements AppExitListener {
         int dividerLocationMain = splitPaneMain.getDividerLocation();
         settings.setInt(dividerLocationMain, keyDividerLocationMain);
         settings.setInt(dividerLocationThumbnails, keyDividerLocationThumbnails);
+        ViewUtil.writePersistentTreeDirectories();
     }
 
     public PersistentSettingsHints getPersistentSettingsHints() {
@@ -367,7 +369,7 @@ public class AppPanel extends javax.swing.JPanel implements AppExitListener {
         hints.addExcludedMember(className + ".panelEditMetadata"); // NOI18N
         return hints;
     }
-    
+
     private int getDividerLocationThumbnails() {
         int location = PersistentSettings.getInstance().getInt(keyDividerLocationThumbnails);
         return location > minDividerLocationThumbnails ? location : minDividerLocationThumbnails;
