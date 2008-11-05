@@ -192,6 +192,7 @@ public class PopupMenuPanelThumbnails extends JPopupMenu
 
     public void addActionListenerOpenFilesWithOtherApp(ActionListener listener) {
         actionListenersOpenFilesWithOtherApp.add(listener);
+        addOtherPrograms();
     }
 
     public void addActionListenerOpenFilesWithStandardApp(ActionListener listener) {
