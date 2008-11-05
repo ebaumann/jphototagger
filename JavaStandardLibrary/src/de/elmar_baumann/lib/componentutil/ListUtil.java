@@ -85,18 +85,20 @@ public class ListUtil {
      * @param c      comparator
      */
     @SuppressWarnings("unchecked")
-    synchronized static public void insertSorted(DefaultListModel model, Object o, Comparator c) {
-        if (!model.contains(o)) {
-            int size = model.getSize();
-            boolean inserted = false;
-            for (int i = 0; !inserted && i < size; i++) {
-                if (c.compare(o, model.get(i)) < 0) {
-                    model.add(i, o);
-                    inserted = true;
+    static public void insertSorted(DefaultListModel model, Object o, Comparator c) {
+        synchronized (model) {
+            if (!model.contains(o)) {
+                int size = model.getSize();
+                boolean inserted = false;
+                for (int i = 0; !inserted && i < size; i++) {
+                    if (c.compare(o, model.get(i)) < 0) {
+                        model.add(i, o);
+                        inserted = true;
+                    }
                 }
-            }
-            if (!inserted) {
-                model.addElement(o);
+                if (!inserted) {
+                    model.addElement(o);
+                }
             }
         }
     }
