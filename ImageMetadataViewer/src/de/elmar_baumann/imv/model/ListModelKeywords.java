@@ -4,8 +4,10 @@ import de.elmar_baumann.imv.comparator.ComparatorStringAscending;
 import de.elmar_baumann.imv.data.ImageFile;
 import de.elmar_baumann.imv.data.Xmp;
 import de.elmar_baumann.imv.database.DatabaseImageFiles;
+import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 import de.elmar_baumann.imv.event.DatabaseAction;
 import de.elmar_baumann.imv.event.DatabaseListener;
+import de.elmar_baumann.imv.tasks.ListModelElementRemover;
 import de.elmar_baumann.lib.componentutil.ListUtil;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,9 +24,11 @@ public class ListModelKeywords extends DefaultListModel
     implements DatabaseListener {
 
     private DatabaseImageFiles db = DatabaseImageFiles.getInstance();
+    private ListModelElementRemover remover;
 
     public ListModelKeywords() {
         addElements();
+        remover = new ListModelElementRemover(this, ColumnXmpDcSubjectsSubject.getInstance());
         db.addDatabaseListener(this);
     }
 
@@ -39,16 +43,15 @@ public class ListModelKeywords extends DefaultListModel
     public void actionPerformed(DatabaseAction action) {
         if (action.isImageModified() && action.getImageFileData() != null) {
             checkForNewKeywords(action.getImageFileData());
+            remover.removeNotExistingElements();
         }
     }
 
     private void checkForNewKeywords(ImageFile imageFileData) {
         List<String> keywords = getKeywords(imageFileData);
-        if (keywords != null) {
-            for (String keyword : keywords) {
-                if (!contains(keyword)) {
-                    ListUtil.insertSorted(this, keyword, new ComparatorStringAscending(true));
-                }
+        for (String keyword : keywords) {
+            if (!contains(keyword)) {
+                ListUtil.insertSorted(this, keyword, new ComparatorStringAscending(true));
             }
         }
     }

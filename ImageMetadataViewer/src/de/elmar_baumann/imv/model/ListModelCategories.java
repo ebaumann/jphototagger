@@ -4,8 +4,12 @@ import de.elmar_baumann.imv.comparator.ComparatorStringAscending;
 import de.elmar_baumann.imv.data.ImageFile;
 import de.elmar_baumann.imv.data.Xmp;
 import de.elmar_baumann.imv.database.DatabaseImageFiles;
+import de.elmar_baumann.imv.database.metadata.Column;
+import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopCategory;
+import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory;
 import de.elmar_baumann.imv.event.DatabaseAction;
 import de.elmar_baumann.imv.event.DatabaseListener;
+import de.elmar_baumann.imv.tasks.ListModelElementRemover;
 import de.elmar_baumann.lib.componentutil.ListUtil;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,10 +26,19 @@ public class ListModelCategories extends DefaultListModel
     implements DatabaseListener {
 
     private DatabaseImageFiles db = DatabaseImageFiles.getInstance();
+    private ListModelElementRemover remover;
 
     public ListModelCategories() {
         addElements();
+        createRemover();
         db.addDatabaseListener(this);
+    }
+
+    private void createRemover() {
+        List<Column> columns = new ArrayList<Column>();
+        columns.add(ColumnXmpPhotoshopCategory.getInstance());
+        columns.add(ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory.getInstance());
+        remover = new ListModelElementRemover(this, columns);
     }
 
     private void addElements() {
@@ -39,14 +52,17 @@ public class ListModelCategories extends DefaultListModel
     public void actionPerformed(DatabaseAction action) {
         if (action.isImageModified() && action.getImageFileData() != null) {
             checkForNewCategories(action.getImageFileData());
+            remover.removeNotExistingElements();
         }
     }
 
     private void checkForNewCategories(ImageFile imageFileData) {
         List<String> categories = getCategories(imageFileData);
-        for (String category : categories) {
-            if (!contains(category)) {
-                ListUtil.insertSorted(this, category, new ComparatorStringAscending(true));
+        synchronized (this) {
+            for (String category : categories) {
+                if (!contains(category)) {
+                    ListUtil.insertSorted(this, category, new ComparatorStringAscending(true));
+                }
             }
         }
     }

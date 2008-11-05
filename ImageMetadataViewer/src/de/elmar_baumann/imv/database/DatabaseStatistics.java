@@ -4,6 +4,7 @@ import de.elmar_baumann.imv.database.metadata.Column;
 import de.elmar_baumann.imv.database.metadata.Table;
 import de.elmar_baumann.imv.database.metadata.selections.AllTables;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -17,13 +18,13 @@ import java.util.logging.Level;
  * @version 2008/10/21
  */
 public class DatabaseStatistics extends Database {
-    
+
     private static DatabaseStatistics instance = new DatabaseStatistics();
-    
+
     public static DatabaseStatistics getInstance() {
         return instance;
     }
-    
+
     private DatabaseStatistics() {
     }
 
@@ -158,5 +159,75 @@ public class DatabaseStatistics extends Database {
             free(connection);
         }
         return count;
+    }
+
+    /**
+     * Returns whether one column in a list of columns has at least one value.
+     * 
+     * @param  columns  columns
+     * @param  value    value
+     * @return true if the value exists into the column
+     */
+    public boolean exists(List<Column> columns, String value) {
+        boolean exists = false;
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            int size = columns.size();
+            for (int i = 0; !exists && i < size; i++) {
+                Column column = columns.get(i);
+                PreparedStatement stmt = connection.prepareStatement(
+                    "SELECT COUNT(*) FROM " + // NOI18N
+                    column.getTable().getName() +
+                    " WHERE " + // NOI18N
+                    column.getName() +
+                    " = ?"); // NOI18N
+                stmt.setString(1, value);
+                logStatement(stmt);
+                ResultSet rs = stmt.executeQuery();
+                if (rs.next()) {
+                    exists = rs.getInt(1) > 0;
+                }
+                stmt.close();
+            }
+        } catch (SQLException ex) {
+            handleException(ex, Level.SEVERE);
+        } finally {
+            free(connection);
+        }
+        return exists;
+    }
+
+    /**
+     * Returns whether a column has at least one value.
+     * 
+     * @param  column  column
+     * @param  value   value
+     * @return true if the value exists in the column
+     */
+    public boolean exists(Column column, String value) {
+        int count = 0;
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            PreparedStatement stmt = connection.prepareStatement(
+                "SELECT COUNT(*) FROM " + // NOI18N
+                column.getTable().getName() +
+                " WHERE " + // NOI18N
+                column.getName() +
+                " = ?"); // NOI18N
+            stmt.setString(1, value);
+            logStatement(stmt);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                count = rs.getInt(1);
+            }
+            stmt.close();
+        } catch (SQLException ex) {
+            handleException(ex, Level.SEVERE);
+        } finally {
+            free(connection);
+        }
+        return count > 0;
     }
 }

@@ -19,49 +19,41 @@ public class DatabaseAction {
     public enum Type {
 
         /**
-         * Eine Datenbankverbindung wurde aufgebaut
+         * Mehrere automatisch nach Metadaten zu scannendes Verzeichnis wurden
+         * eingefügt
          */
-        Connected,
-        /**
-         * Die Datenbankverbindung wurde geschlossen
-         */
-        Closed,
-        /**
-         * Eine Bilddatei wurde eingefügt
-         */
-        ImageFileInserted,
-        /**
-         * Eine Bilddatei wurde aktualisiert
-         */
-        ImageFileUpdated,
-        /**
-         * Bilddateien wurden gelöscht
-         */
-        ImageFilesDeleted,
-        /**
-         * Ein Thumbnail wurde aktualisiert
-         */
-        ThumbnailUpdated,
+        AutoscanDirectoriesInserted,
         /**
          * Ein automatisch nach Metadaten zu scannendes Verzeichnis wurde
          * eingefügt
          */
         AutoscanDirectoryInserted,
         /**
+         * Mehrere automatisch nach Metadaten zu scannendes Verzeichnis wurden
+         * gelöscht
+         */
+        AutoscanDirectoriesDeleted,
+        /**
          * Ein automatisch nach Metadaten zu scannendes Verzeichnis wurde
          * gelöscht
          */
         AutoscanDirectoryDeleted,
         /**
-         * Mehrere automatisch nach Metadaten zu scannendes Verzeichnis wurden
-         * eingefügt
+         * Die Datenbankverbindung wurde geschlossen
          */
-        AutoscanDirectoriesInserted,
+        Closed,
         /**
-         * Mehrere automatisch nach Metadaten zu scannendes Verzeichnis wurden
-         * gelöscht
+         * Eine Datenbankverbindung wurde aufgebaut
          */
-        AutoscanDirectoriesDeleted,
+        Connected,
+        /**
+         * Es wurden Bilder zu einer Bildsammlung hinzugefügt
+         */
+        ImageCollectionImagesAdded,
+        /**
+         * Es wurden Bilder aus einer Bildsammlung gelöscht
+         */
+        ImageCollectionImagesDeleted,
         /**
          * Eine Bildsammlung wurde eingefügt
          */
@@ -75,45 +67,53 @@ public class DatabaseAction {
          */
         ImageCollectionRenamed,
         /**
-         * Es wurden Bilder zu einer Bildsammlung hinzugefügt
+         * Bilddateien wurden gelöscht
          */
-        ImageCollectionImagesAdded,
+        ImageFilesDeleted,
         /**
-         * Es wurden Bilder aus einer Bildsammlung gelöscht
+         * Eine Bilddatei wurde eingefügt
          */
-        ImageCollectionImagesDeleted,
+        ImageFileInserted,
         /**
-         * Im Dateisystem nicht existierende Bilder wurden gelöscht
+         * Eine Bilddatei wurde aktualisiert
          */
-        MaintainanceNotExistingImageFilesDeleted,
-        /**
-         * Der komplette Datenbankinhalt wurde gelöscht
-         */
-        MaintainanceDatabaseEmptied,
+        ImageFileUpdated,
         /**
          * Die Datenbank wurde komprimiert
          */
         MaintainanceDatabaseCompressed,
         /**
-         * Eine gespeicherte Suche wurde eingefügt
+         * Der komplette Datenbankinhalt wurde gelöscht
          */
-        SavedSearchInserted,
+        MaintainanceDatabaseEmptied,
         /**
-         * Eine gespeicherte Suche wurde aktualisiert
+         * Im Dateisystem nicht existierende Bilder wurden gelöscht
          */
-        SavedSearchUpdated,
+        MaintainanceNotExistingImageFilesDeleted,
         /**
          * Eine gespeicherte Suche wurde gelöscht
          */
         SavedSearchDeleted,
         /**
+         * Eine gespeicherte Suche wurde eingefügt
+         */
+        SavedSearchInserted,
+        /**
          * Eine gespeicherte Suche wurde umbenannt
          */
         SavedSearchRenamed,
         /**
+         * Eine gespeicherte Suche wurde aktualisiert
+         */
+        SavedSearchUpdated,
+        /**
+         * Ein Thumbnail wurde aktualisiert
+         */
+        ThumbnailUpdated,
+        /**
          * XMP-Daten wurden aktualisiert
          */
-        XmpUpdated
+        XmpUpdated,
     };
     private ImageFile imageFileData;
     private SavedSearch savedSerachData;
