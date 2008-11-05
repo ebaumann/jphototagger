@@ -1,5 +1,6 @@
 package de.elmar_baumann.lib.componentutil;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.StringTokenizer;
 import javax.swing.DefaultListModel;
@@ -74,5 +75,29 @@ public class ListUtil {
             buffer.append(model.get(i).toString() + (i < size - 1 ? delim : ""));
         }
         return buffer.toString();
+    }
+
+    /**
+     * Inserts an element into a model in a sort order.
+     * 
+     * @param model  model
+     * @param o      object to insert
+     * @param c      comparator
+     */
+    @SuppressWarnings("unchecked")
+    synchronized static public void insertSorted(DefaultListModel model, Object o, Comparator c) {
+        if (!model.contains(o)) {
+            int size = model.getSize();
+            boolean inserted = false;
+            for (int i = 0; !inserted && i < size; i++) {
+                if (c.compare(o, model.get(i)) < 0) {
+                    model.add(i, o);
+                    inserted = true;
+                }
+            }
+            if (!inserted) {
+                model.addElement(o);
+            }
+        }
     }
 }
