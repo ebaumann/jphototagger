@@ -38,7 +38,8 @@ public class DatabaseImageCollections extends Database {
         try {
             connection = getConnection();
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT name FROM collection_names"); // NOI18N
+            ResultSet rs = stmt.executeQuery("" +
+                "SELECT name FROM collection_names ORDER BY name"); // NOI18N
             while (rs.next()) {
                 names.add(rs.getString(1));
             }

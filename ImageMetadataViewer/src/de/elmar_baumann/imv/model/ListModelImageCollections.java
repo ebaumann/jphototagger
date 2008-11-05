@@ -1,6 +1,8 @@
 package de.elmar_baumann.imv.model;
 
+import de.elmar_baumann.imv.comparator.ComparatorStringAscending;
 import de.elmar_baumann.imv.database.DatabaseImageCollections;
+import de.elmar_baumann.lib.componentutil.ListUtil;
 import java.util.List;
 import javax.swing.DefaultListModel;
 
@@ -34,7 +36,7 @@ public class ListModelImageCollections extends DefaultListModel {
         int index = indexOf(oldName);
         if (index >= 0) {
             remove(index);
-            add(index, newName);
+            ListUtil.insertSorted(this, newName, new ComparatorStringAscending(true));
         }
     }
 }
