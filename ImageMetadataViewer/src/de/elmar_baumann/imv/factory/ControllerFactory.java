@@ -7,6 +7,7 @@ import de.elmar_baumann.imv.controller.directories.ControllerDirectoryCopyFiles;
 import de.elmar_baumann.imv.controller.directories.ControllerEnableInsertMetadataTemplate;
 import de.elmar_baumann.imv.controller.directories.ControllerDirectorySelected;
 import de.elmar_baumann.imv.controller.favoritedirectories.ControllerDeleteFavoriteDirectory;
+import de.elmar_baumann.imv.controller.favoritedirectories.ControllerFavoriteDirectoryOpenInFolders;
 import de.elmar_baumann.imv.controller.favoritedirectories.ControllerFavoriteDirectorySelected;
 import de.elmar_baumann.imv.controller.favoritedirectories.ControllerInsertFavoriteDirectory;
 import de.elmar_baumann.imv.controller.favoritedirectories.ControllerUpdateFavoriteDirectory;
@@ -144,6 +145,7 @@ public class ControllerFactory {
         controllers.add(new ControllerCopyFilesToClipboard());
         controllers.add(new ControllerDirectoryCopyFiles());
         controllers.add(new ControllerPasteFilesFromClipboard());
+        controllers.add(new ControllerFavoriteDirectoryOpenInFolders());
         controllerScheduledTasks = new ControllerArrayScheduledTasks();
         controllers.add(controllerScheduledTasks);
     }

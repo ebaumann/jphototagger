@@ -30,6 +30,7 @@ public class ListFavoriteDirectoriesMouseListener extends MouseAdapter {
                 : null);
             popup.setEnabledDelete(isItem);
             popup.setEnabledUpdate(isItem);
+            popup.setEnabledOpenInFolders(isItem);
             popup.show(list, x, y);
         } else {
             if (index >= 0) {
