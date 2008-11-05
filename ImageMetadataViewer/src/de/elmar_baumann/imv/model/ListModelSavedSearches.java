@@ -1,5 +1,6 @@
 package de.elmar_baumann.imv.model;
 
+import de.elmar_baumann.imv.comparator.ComparatorSavedSearch;
 import de.elmar_baumann.imv.data.SavedSearch;
 import de.elmar_baumann.imv.database.DatabaseSavedSearches;
 import java.util.List;
@@ -23,12 +24,29 @@ public class ListModelSavedSearches extends DefaultListModel {
             addElement(search);
         }
     }
-    
+
+    synchronized public void insertSorted(SavedSearch search) {
+        if (!contains(search)) {
+            int size = getSize();
+            boolean inserted = false;
+            ComparatorSavedSearch comparator = new ComparatorSavedSearch();
+            for (int i = 0; !inserted && i < size; i++) {
+                if (comparator.compare(search, (SavedSearch) get(i)) < 0) {
+                    add(i, search);
+                    inserted = true;
+                }
+            }
+            if (!inserted) {
+                addElement(search);
+            }
+        }
+    }
+
     public void rename(SavedSearch oldSearch, SavedSearch newSearch) {
         int index = indexOf(oldSearch);
         if (index >= 0) {
             remove(index);
-            add(index, newSearch);
+            insertSorted(newSearch);
         }
     }
 }

@@ -253,8 +253,7 @@ public class DatabaseSavedSearches extends Database {
      * @param  newName Neuer Name
      * @return true bei Erfolg
      */
-    public synchronized boolean updateRenameSavedSearch(
-        String oldName, String newName) {
+    public synchronized boolean updateRenameSavedSearch(String oldName, String newName) {
         boolean renamed = false;
         Connection connection = null;
         try {
@@ -376,7 +375,8 @@ public class DatabaseSavedSearches extends Database {
     }
 
     private void setSavedSearchValues(Connection connection, SavedSearch data) throws SQLException {
-        PreparedStatement stmt = connection.prepareStatement("SELECT" + // NOI18N
+        PreparedStatement stmt = connection.prepareStatement(
+            "SELECT" + // NOI18N
             " saved_searches_values.value" + // NOI18N
             " FROM" + // NOI18N
             " saved_searches_values INNER JOIN saved_searches" + // NOI18N

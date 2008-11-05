@@ -69,7 +69,7 @@ public class ControllerCreateSavedSearch extends Controller
         if (force || saveConfirmed(savedSearch)) {
             if (db.insertSavedSearch(savedSearch)) {
                 if (!model.contains(savedSearch)) {
-                    model.addElement(savedSearch);
+                    model.insertSorted(savedSearch);
                 }
             } else {
                 errorMessageSave();
