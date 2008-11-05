@@ -1,7 +1,10 @@
 package de.elmar_baumann.lib.componentutil;
 
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 import java.util.StringTokenizer;
 import javax.swing.JTree;
 import javax.swing.tree.TreeModel;
@@ -112,7 +115,7 @@ public class TreeUtil {
             }
         }
         return tokenCount > 0 && tokenCount - 1 == tokenFoundCount
-            ? new TreePath(path) 
+            ? new TreePath(path)
             : null;
     }
 
@@ -128,5 +131,49 @@ public class TreeUtil {
             expandPath = path.getParentPath();
         }
         tree.expandPath(expandPath);
+    }
+
+    /**
+     * Expands a path step by step. First the path with not parents will be
+     * expanded, then the child path of this, then the child path of the
+     * child path until the last path component is reached.
+     * 
+     * @param tree tree
+     * @param path path to expand in <code>tree</code>
+     */
+    public static void expandPathCascade(JTree tree, TreePath path) {
+        Stack<TreePath> stack = new Stack<TreePath>();
+        TreePath parent = path;
+        while (parent != null) {
+            stack.push(parent);
+            parent = parent.getParentPath();
+        }
+        while (!stack.isEmpty()) {
+            tree.expandPath(stack.pop());
+        }
+    }
+
+    /**
+     * Returns the tree path of a file, each path component is a parent
+     * (child) file of a file.
+     * 
+     * @param  file   file
+     * @param  model  model when the root is not a file, else null
+     * @return path
+     */
+    public static TreePath getTreePath(File file, TreeModel model) {
+        Stack<Object> stack = new Stack<Object>();
+        while (file != null) {
+            stack.push(file);
+            file = file.getParentFile();
+        }
+        List<Object> list = new ArrayList<Object>(stack.size() + 1);
+        if (model != null) {
+            list.add(model.getRoot());
+        }
+        while (!stack.isEmpty()) {
+            list.add(stack.pop());
+        }
+        return new TreePath(list.toArray());
     }
 }
