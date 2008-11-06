@@ -309,11 +309,14 @@ public class DatabaseTables extends Database {
                 ", alias VARCHAR_IGNORECASE(250) NOT NULL" + // NOI18N
                 ", parameters BINARY" + // NOI18N
                 ", sequence_number INTEGER" + // NOI18N
+                ", action BOOLEAN" + // NOI18N
+                ", input_before_execute BOOLEAN" + // NOI18N
                 ");"); // NOI18N
             stmt.execute("CREATE UNIQUE INDEX idx_programs_id ON programs (id)"); // NOI18N
             stmt.execute("CREATE INDEX idx_programs_filename ON programs (filename)"); // NOI18N
             stmt.execute("CREATE INDEX idx_programs_alias ON programs (alias)"); // NOI18N
             stmt.execute("CREATE INDEX idx_programs_sequence_number ON programs (sequence_number)"); // NOI18N
+            stmt.execute("CREATE INDEX idx_programs_action ON programs (action)"); // NOI18N
         }
     }
 }

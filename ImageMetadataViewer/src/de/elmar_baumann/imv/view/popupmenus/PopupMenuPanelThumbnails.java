@@ -105,7 +105,7 @@ public class PopupMenuPanelThumbnails extends JPopupMenu
     public void addOtherPrograms() {
         menuPrograms.removeAll();
         programOfMenuItem.clear();
-        List<Program> programs = DatabasePrograms.getInstance().getAll();
+        List<Program> programs = DatabasePrograms.getInstance().getAll(false);
         if (!programs.isEmpty()) {
             for (Program program : programs) {
                 String alias = program.getAlias();

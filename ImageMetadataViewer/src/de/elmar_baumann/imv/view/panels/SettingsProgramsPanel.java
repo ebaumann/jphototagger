@@ -12,6 +12,7 @@ import de.elmar_baumann.imv.view.dialogs.ProgramPropertiesDialog;
 import de.elmar_baumann.imv.view.renderer.ListCellRendererPrograms;
 import de.elmar_baumann.lib.image.icon.IconUtil;
 import de.elmar_baumann.lib.io.FileUtil;
+import java.awt.event.MouseEvent;
 import java.io.File;
 import java.text.MessageFormat;
 import javax.swing.JFileChooser;
@@ -23,9 +24,9 @@ import javax.swing.JOptionPane;
  * @version 2008/11/02
  */
 public class SettingsProgramsPanel extends javax.swing.JPanel
-        implements Persistence {
+    implements Persistence {
 
-    private ListModelPrograms model = new ListModelPrograms();
+    private ListModelPrograms model = new ListModelPrograms(false);
     private ListenerProvider listenerProvider = ListenerProvider.getInstance();
 
     /** Creates new form SettingsProgramsPanel */
@@ -68,7 +69,7 @@ public class SettingsProgramsPanel extends javax.swing.JPanel
     }
 
     private void addOtherProgram() {
-        ProgramPropertiesDialog dialog = new ProgramPropertiesDialog();
+        ProgramPropertiesDialog dialog = new ProgramPropertiesDialog(false);
         dialog.setVisible(true);
         if (dialog.isAccepted()) {
             model.add(dialog.getProgram());
@@ -78,7 +79,7 @@ public class SettingsProgramsPanel extends javax.swing.JPanel
 
     private void updateOtherProgram() {
         if (listOtherPrograms.getSelectedIndex() >= 0) {
-            ProgramPropertiesDialog dialog = new ProgramPropertiesDialog();
+            ProgramPropertiesDialog dialog = new ProgramPropertiesDialog(false);
             dialog.setProgram((Program) listOtherPrograms.getSelectedValue());
             dialog.setVisible(true);
             if (dialog.isAccepted()) {
@@ -100,23 +101,23 @@ public class SettingsProgramsPanel extends javax.swing.JPanel
     private boolean askRemove(String otherImageOpenApp) {
         MessageFormat msg = new MessageFormat(Bundle.getString("UserSettingsDialog.ConfirmMessage.RemoveImageOpenApp"));
         return JOptionPane.showConfirmDialog(
-                this,
-                msg.format(new Object[]{otherImageOpenApp}),
-                Bundle.getString("UserSettingsDialog.ConfirmMessage.RemoveImageOpenApp.Title"),
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.QUESTION_MESSAGE,
-                AppSettings.getMediumAppIcon()) == JOptionPane.YES_OPTION;
+            this,
+            msg.format(new Object[]{otherImageOpenApp}),
+            Bundle.getString("UserSettingsDialog.ConfirmMessage.RemoveImageOpenApp.Title"),
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.QUESTION_MESSAGE,
+            AppSettings.getMediumAppIcon()) == JOptionPane.YES_OPTION;
     }
 
     private void notifyChangeListenerOther() {
         UserSettingsChangeEvent evt = new UserSettingsChangeEvent(
-                UserSettingsChangeEvent.Type.OtherImageOpenApps, this);
+            UserSettingsChangeEvent.Type.OtherImageOpenApps, this);
         listenerProvider.notifyUserSettingsChangeListener(evt);
     }
 
     private void notifyChangeListenerDefault() {
         UserSettingsChangeEvent evt = new UserSettingsChangeEvent(
-                UserSettingsChangeEvent.Type.DefaultImageOpenApp, this);
+            UserSettingsChangeEvent.Type.DefaultImageOpenApp, this);
         evt.setDefaultImageOpenApp(new File(labelDefaultProgramFile.getText()));
         listenerProvider.notifyUserSettingsChangeListener(evt);
     }
@@ -129,6 +130,12 @@ public class SettingsProgramsPanel extends javax.swing.JPanel
 
     private boolean isProgramSelected() {
         return listOtherPrograms.getSelectedIndex() >= 0;
+    }
+
+    private void handleListOtherProgramsMouseClicked(MouseEvent evt) {
+        if (evt.getClickCount() >= 2) {
+            updateOtherProgram();
+        }
     }
 
     /** This method is called from within the constructor to
@@ -176,6 +183,11 @@ public class SettingsProgramsPanel extends javax.swing.JPanel
         listOtherPrograms.setModel(model);
         listOtherPrograms.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         listOtherPrograms.setCellRenderer(new ListCellRendererPrograms());
+        listOtherPrograms.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                listOtherProgramsMouseClicked(evt);
+            }
+        });
         listOtherPrograms.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
                 listOtherProgramsValueChanged(evt);
@@ -223,10 +235,10 @@ public class SettingsProgramsPanel extends javax.swing.JPanel
                 .addGroup(panelBorderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(panelBorderLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(scrollPaneOtherPrograms, javax.swing.GroupLayout.DEFAULT_SIZE, 545, Short.MAX_VALUE))
+                        .addComponent(scrollPaneOtherPrograms, javax.swing.GroupLayout.DEFAULT_SIZE, 551, Short.MAX_VALUE))
                     .addGroup(panelBorderLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(labelDefaultProgramFile, javax.swing.GroupLayout.DEFAULT_SIZE, 545, Short.MAX_VALUE))
+                        .addComponent(labelDefaultProgramFile, javax.swing.GroupLayout.DEFAULT_SIZE, 551, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelBorderLayout.createSequentialGroup()
                         .addGroup(panelBorderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panelBorderLayout.createSequentialGroup()
@@ -235,10 +247,10 @@ public class SettingsProgramsPanel extends javax.swing.JPanel
                             .addGroup(panelBorderLayout.createSequentialGroup()
                                 .addContainerGap()
                                 .addComponent(labelChooseDefaultProgram)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
                         .addComponent(buttonChooseDefaultProgram))
                     .addGroup(panelBorderLayout.createSequentialGroup()
-                        .addContainerGap(249, Short.MAX_VALUE)
+                        .addContainerGap(262, Short.MAX_VALUE)
                         .addComponent(buttonRemoveOtherProgram)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonEditOtherProgram)
@@ -307,6 +319,11 @@ private void buttonAddOtherProgramActionPerformed(java.awt.event.ActionEvent evt
 private void buttonEditOtherProgramActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEditOtherProgramActionPerformed
     updateOtherProgram();
 }//GEN-LAST:event_buttonEditOtherProgramActionPerformed
+
+private void listOtherProgramsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listOtherProgramsMouseClicked
+    handleListOtherProgramsMouseClicked(evt);
+}//GEN-LAST:event_listOtherProgramsMouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAddOtherProgram;
     private javax.swing.JButton buttonChooseDefaultProgram;

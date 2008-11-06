@@ -58,11 +58,11 @@
                   <Group type="103" groupAlignment="1" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="scrollPaneOtherPrograms" pref="545" max="32767" attributes="2"/>
+                          <Component id="scrollPaneOtherPrograms" pref="551" max="32767" attributes="2"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="labelDefaultProgramFile" pref="545" max="32767" attributes="2"/>
+                          <Component id="labelDefaultProgramFile" pref="551" max="32767" attributes="2"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -75,11 +75,11 @@
                                   <Component id="labelChooseDefaultProgram" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace pref="42" max="32767" attributes="0"/>
                           <Component id="buttonChooseDefaultProgram" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace pref="249" max="32767" attributes="0"/>
+                          <EmptySpace pref="262" max="32767" attributes="0"/>
                           <Component id="buttonRemoveOtherProgram" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="buttonEditOtherProgram" min="-2" max="-2" attributes="0"/>
@@ -186,6 +186,7 @@
                 </Property>
               </Properties>
               <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="listOtherProgramsMouseClicked"/>
                 <EventHandler event="valueChanged" listener="javax.swing.event.ListSelectionListener" parameters="javax.swing.event.ListSelectionEvent" handler="listOtherProgramsValueChanged"/>
               </Events>
             </Component>

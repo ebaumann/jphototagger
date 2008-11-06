@@ -13,10 +13,12 @@ import java.io.File;
 public class Program {
 
     private long id = Long.MIN_VALUE;
-    File file;
-    String alias;
-    String parameters;
-    int sequenceNumber = Integer.MIN_VALUE;
+    private File file;
+    private String alias;
+    private String parameters;
+    private int sequenceNumber = Integer.MIN_VALUE;
+    private boolean action = false;
+    private boolean inputBeforeExecute = false;
 
     public Program() {
     }
@@ -26,25 +28,14 @@ public class Program {
         this.alias = alias;
     }
 
-    public Program(File file, String alias, String parameters) {
-        this.file = file;
-        this.alias = alias;
-        this.parameters = parameters;
-    }
-
-    public Program(File file, String alias, String parameters, int sequenceNumber) {
-        this.file = file;
-        this.alias = alias;
-        this.parameters = parameters;
-        this.sequenceNumber = sequenceNumber;
-    }
-
-    public Program(long id, File file, String alias, String parameters, Integer sequenceNumber) {
+    public Program(long id, File file, String alias, String parameters, Integer sequenceNumber, boolean action, boolean inputBeforeExecute) {
         this.id = id;
         this.file = file;
         this.alias = alias;
         this.parameters = parameters;
-        this.sequenceNumber = sequenceNumber = Integer.MIN_VALUE;
+        this.sequenceNumber = sequenceNumber;
+        this.action = action;
+        this.inputBeforeExecute = inputBeforeExecute;
     }
 
     public long getId() {
@@ -85,6 +76,22 @@ public class Program {
 
     public void setSequenceNumber(int sequenceNumber) {
         this.sequenceNumber = sequenceNumber;
+    }
+
+    public boolean isAction() {
+        return action;
+    }
+
+    public void setAction(boolean action) {
+        this.action = action;
+    }
+
+    public boolean isInputBeforeExecute() {
+        return inputBeforeExecute;
+    }
+
+    public void setInputBeforeExecute(boolean inputBeforeExecute) {
+        this.inputBeforeExecute = inputBeforeExecute;
     }
 
     @Override

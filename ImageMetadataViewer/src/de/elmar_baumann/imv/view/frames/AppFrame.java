@@ -170,6 +170,10 @@ public class AppFrame extends javax.swing.JFrame {
     public JMenuItem getMenuItemAbout() {
         return menuItemAbout;
     }
+    
+    public JMenuItem getMenuItemActions() {
+        return menuItemActions;
+    }
 
     public JMenuItem getMenuItemRename() {
         return menuItemFileSystemRename;
@@ -289,6 +293,7 @@ public class AppFrame extends javax.swing.JFrame {
         menuTools = new javax.swing.JMenu();
         menuItemToolIptcToXmp = new javax.swing.JMenuItem();
         menuItemRenameInXmp = new javax.swing.JMenuItem();
+        menuItemActions = new javax.swing.JMenuItem();
         menuHelp = new javax.swing.JMenu();
         menuItemHelp = new javax.swing.JMenuItem();
         menuItemAbout = new javax.swing.JMenuItem();
@@ -310,6 +315,7 @@ public class AppFrame extends javax.swing.JFrame {
         menuFile.add(menuItemScanDirectory);
 
         menuItemMaintainDatabase.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.CTRL_MASK));
+        menuItemMaintainDatabase.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icon_file.png"))); // NOI18N
         menuItemMaintainDatabase.setMnemonic('d');
         menuItemMaintainDatabase.setText(Bundle.getString("AppFrame.menuItemMaintainDatabase.text")); // NOI18N
         menuFile.add(menuItemMaintainDatabase);
@@ -343,6 +349,7 @@ public class AppFrame extends javax.swing.JFrame {
         menuEdit.add(jSeparator5);
 
         menuItemSearch.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        menuItemSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icon_savedsearch.png"))); // NOI18N
         menuItemSearch.setMnemonic('s');
         menuItemSearch.setText(Bundle.getString("AppFrame.menuItemSearch.text")); // NOI18N
         menuEdit.add(menuItemSearch);
@@ -490,15 +497,23 @@ public class AppFrame extends javax.swing.JFrame {
         menuTools.setText(Bundle.getString("AppFrame.menuTools.text")); // NOI18N
 
         menuItemToolIptcToXmp.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        menuItemToolIptcToXmp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icon_xmp.png"))); // NOI18N
         menuItemToolIptcToXmp.setMnemonic('i');
         menuItemToolIptcToXmp.setText(Bundle.getString("AppFrame.menuItemToolIptcToXmp.text")); // NOI18N
         menuTools.add(menuItemToolIptcToXmp);
 
         menuItemRenameInXmp.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        menuItemRenameInXmp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icon_savedsearch.png"))); // NOI18N
         menuItemRenameInXmp.setMnemonic('x');
         menuItemRenameInXmp.setText(Bundle.getString("AppFrame.menuItemRenameInXmp.text")); // NOI18N
         menuItemRenameInXmp.setEnabled(false);
         menuTools.add(menuItemRenameInXmp);
+
+        menuItemActions.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, 0));
+        menuItemActions.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icon_action.png"))); // NOI18N
+        menuItemActions.setMnemonic('a');
+        menuItemActions.setText(Bundle.getString("AppFrame.menuItemActions.text")); // NOI18N
+        menuTools.add(menuItemActions);
 
         menuBar.add(menuTools);
 
@@ -542,6 +557,7 @@ private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:even
     private javax.swing.JMenu menuGoto;
     private javax.swing.JMenu menuHelp;
     private javax.swing.JMenuItem menuItemAbout;
+    private javax.swing.JMenuItem menuItemActions;
     private javax.swing.JMenuItem menuItemCopy;
     private javax.swing.JMenuItem menuItemCopyFromAutocopyDirectory;
     private javax.swing.JMenuItem menuItemCut;

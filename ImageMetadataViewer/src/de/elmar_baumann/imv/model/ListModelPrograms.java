@@ -10,14 +10,18 @@ import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
 /**
- * 
+ * Model for {@link de.elmar_baumann.imv.data.Program} where
+ * {@link de.elmar_baumann.imv.data.Program#isAction()} is false.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/16
  */
 public class ListModelPrograms extends DefaultListModel {
 
-    public ListModelPrograms() {
+    private boolean action;
+    
+    public ListModelPrograms(boolean action) {
+        this.action = action;
         addItems();
     }
 
@@ -59,7 +63,7 @@ public class ListModelPrograms extends DefaultListModel {
     }
 
     private void addItems() {
-        List<Program> programs = DatabasePrograms.getInstance().getAll();
+        List<Program> programs = DatabasePrograms.getInstance().getAll(action);
         for (Program program : programs) {
             addElement(program);
         }

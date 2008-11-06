@@ -2,6 +2,8 @@ package de.elmar_baumann.imv.factory;
 
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.controller.Controller;
+import de.elmar_baumann.imv.controller.actions.ControllerActionExecutor;
+import de.elmar_baumann.imv.controller.actions.ControllerActionsShowDialog;
 import de.elmar_baumann.imv.controller.categories.ControllerCategoryItemSelected;
 import de.elmar_baumann.imv.controller.directories.ControllerDirectoryCopyFiles;
 import de.elmar_baumann.imv.controller.directories.ControllerEnableInsertMetadataTemplate;
@@ -146,6 +148,8 @@ public class ControllerFactory {
         controllers.add(new ControllerDirectoryCopyFiles());
         controllers.add(new ControllerPasteFilesFromClipboard());
         controllers.add(new ControllerFavoriteDirectoryOpenInFolders());
+        controllers.add(new ControllerActionsShowDialog());
+        controllers.add(new ControllerActionExecutor());
         controllerScheduledTasks = new ControllerArrayScheduledTasks();
         controllers.add(controllerScheduledTasks);
     }

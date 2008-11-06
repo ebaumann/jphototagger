@@ -52,8 +52,10 @@ public class DatabasePrograms extends Database {
                 ", alias" + // NOI18N -- 3 --
                 ", parameters" + // NOI18N -- 4 --
                 ", sequence_number" + // NOI18N -- 5 --
+                ", action" + // NOI18N -- 6 --
+                ", input_before_execute" + // NOI18N -- 7 --
                 ")" + // NOI18N
-                " VALUES (?, ?, ?, ?, ?)"); // NOI18N
+                " VALUES (?, ?, ?, ?, ?, ?, ?)"); // NOI18N
             setValuesInsert(stmt, program);
             logStatement(stmt);
             countAffectedRows = stmt.executeUpdate();
@@ -87,6 +89,8 @@ public class DatabasePrograms extends Database {
         String parameters = program.getParameters();
         stmt.setBytes(4, parameters == null ? null : parameters.getBytes());
         stmt.setInt(5, program.getSequenceNumber());
+        stmt.setBoolean(6, program.isAction());
+        stmt.setBoolean(7, program.isInputBeforeExecute());
     }
 
     /**
@@ -108,9 +112,11 @@ public class DatabasePrograms extends Database {
                 ", alias = ?" + // NOI18N -- 2 --
                 ", parameters = ?" + // NOI18N -- 3 --
                 ", sequence_number = ?" + // NOI18N -- 4 --
+                ", action = ?" + // NOI18N -- 5 --
+                ", input_before_execute = ?" + // NOI18N -- 6 --
                 " WHERE id = ?"); // NOI18N
             setValuesUpdate(stmt, program);
-            stmt.setLong(5, program.getId());
+            stmt.setLong(7, program.getId());
             logStatement(stmt);
             countAffectedRows = stmt.executeUpdate();
             connection.commit();
@@ -134,6 +140,8 @@ public class DatabasePrograms extends Database {
         String parameters = program.getParameters();
         stmt.setBytes(3, parameters == null ? null : parameters.getBytes());
         stmt.setInt(4, program.getSequenceNumber());
+        stmt.setBoolean(5, program.isAction());
+        stmt.setBoolean(6, program.isInputBeforeExecute());
     }
 
     /**
@@ -171,17 +179,30 @@ public class DatabasePrograms extends Database {
     /**
      * Returns all programs ordered by their aliases.
      * 
+     * @param action  true if only return actions, false if only return
+     *                programs
      * @return programs
      */
-    public List<Program> getAll() {
+    public List<Program> getAll(boolean action) {
         List<Program> programs = new LinkedList<Program>();
         Connection connection = null;
         try {
             connection = getConnection();
-            Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery(
-                "SELECT id, filename, alias, parameters, sequence_number" + // NOI18N
-                " FROM programs ORDER BY alias"); // NOI18N
+            PreparedStatement stmt = connection.prepareStatement(
+                "SELECT" +
+                " id" + // NOI18N -- 1 --
+                ", filename" + // NOI18N -- 2 --
+                ", alias" + // NOI18N -- 3 --
+                ", parameters" + // NOI18N -- 4 --
+                ", sequence_number" + // NOI18N -- 5 --
+                ", action" + // NOI18N -- 6 --
+                ", input_before_execute" + // NOI18N -- 7 --
+                " FROM programs" + // NOI18N
+                " WHERE action = ?" + // NOI18N
+                " ORDER BY alias"); // NOI18N
+            stmt.setBoolean(1, action);
+            logStatement(stmt);
+            ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 byte[] parameters = rs.getBytes(4);
                 programs.add(new Program(
@@ -189,7 +210,9 @@ public class DatabasePrograms extends Database {
                     new File(rs.getString(2)),
                     rs.getString(3),
                     parameters == null ? null : new String(parameters),
-                    rs.getInt(5)));
+                    rs.getInt(5),
+                    rs.getBoolean(6),
+                    rs.getBoolean(7)));
             }
             stmt.close();
         } catch (SQLException ex) {
@@ -211,7 +234,7 @@ public class DatabasePrograms extends Database {
         try {
             connection = getConnection();
             PreparedStatement stmt = connection.prepareStatement(
-                "SELECT COUNT(*) FROM programs"); // NOI18N
+                "SELECT COUNT(*) FROM programs WHERE action = FALSE"); // NOI18N
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 count = rs.getInt(1);

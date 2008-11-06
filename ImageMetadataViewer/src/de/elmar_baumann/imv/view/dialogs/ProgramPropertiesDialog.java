@@ -5,7 +5,9 @@ import de.elmar_baumann.imv.data.Program;
 import de.elmar_baumann.imv.database.DatabasePrograms;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.dialog.Dialog;
+import de.elmar_baumann.lib.image.icon.IconUtil;
 import de.elmar_baumann.lib.persistence.PersistentAppSizes;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -23,9 +25,12 @@ public class ProgramPropertiesDialog extends Dialog {
     private Program program = new Program();
     private File file;
     private boolean accecpted = false;
+    private boolean action;
 
-    public ProgramPropertiesDialog() {
+    public ProgramPropertiesDialog(boolean action) {
         super((java.awt.Frame) null, true);
+        this.action = action;
+        program.setAction(action);
         initComponents();
         postInitComponents();
         registerKeyStrokes();
@@ -38,6 +43,13 @@ public class ProgramPropertiesDialog extends Dialog {
         labelFile.setText(file.getAbsolutePath());
         textFieldAlias.setText(program.getAlias());
         textAreaParameters.setText(parameters == null ? "" : parameters);
+        setProgramIcon();
+    }
+
+    private void setProgramIcon() {
+        if (file != null && file.exists()) {
+            labelFile.setIcon(IconUtil.getSystemIcon(file));
+        }
     }
 
     public Program getProgram() {
@@ -68,13 +80,17 @@ public class ProgramPropertiesDialog extends Dialog {
 
     private void postInitComponents() {
         setIconImages(AppSettings.getAppIcons());
+        if (!action) {
+            getContentPane().remove(checkBoxInputBeforeExecute);
+            setTitle(Bundle.getString("ProgramPropertiesDialog.title.Action"));
+        }
     }
 
     private void cancel() {
         accecpted = false;
         setVisible(false);
     }
-    
+
     @Override
     protected void escape() {
         cancel();
@@ -90,7 +106,7 @@ public class ProgramPropertiesDialog extends Dialog {
         super.setVisible(visible);
     }
 
-    private void chooseDirectory() {
+    private void chooseProgram() {
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setMultiSelectionEnabled(false);
         if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
@@ -98,9 +114,20 @@ public class ProgramPropertiesDialog extends Dialog {
             if (f.exists() && !f.isDirectory()) {
                 file = f;
                 labelFile.setText(file.getAbsolutePath());
+                setProgramIcon();
             } else {
                 errorMessage(Bundle.getString("ProgramPropertiesDialog.ErrorMessage.ChooseFile"));
             }
+        }
+    }
+
+    private void handleCheckBoxInputBeforeExecuteActionPerformed() {
+        program.setInputBeforeExecute(checkBoxInputBeforeExecute.isSelected());
+    }
+
+    private void handleTextFieldAliasKeyPressed(KeyEvent evt) {
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            accept();
         }
     }
 
@@ -132,6 +159,7 @@ public class ProgramPropertiesDialog extends Dialog {
         textAreaParameters = new javax.swing.JTextArea();
         buttonOk = new javax.swing.JButton();
         buttonCancel = new javax.swing.JButton();
+        checkBoxInputBeforeExecute = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(Bundle.getString("ProgramPropertiesDialog.title")); // NOI18N
@@ -161,6 +189,11 @@ public class ProgramPropertiesDialog extends Dialog {
         labelNickname.setText(Bundle.getString("ProgramPropertiesDialog.labelNickname.text")); // NOI18N
 
         textFieldAlias.setText(Bundle.getString("ProgramPropertiesDialog.textFieldAlias.text")); // NOI18N
+        textFieldAlias.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                textFieldAliasKeyPressed(evt);
+            }
+        });
 
         labelParameters.setFont(new java.awt.Font("Dialog", 0, 12));
         labelParameters.setText(Bundle.getString("ProgramPropertiesDialog.labelParameters.text")); // NOI18N
@@ -185,6 +218,13 @@ public class ProgramPropertiesDialog extends Dialog {
             }
         });
 
+        checkBoxInputBeforeExecute.setText(Bundle.getString("ProgramPropertiesDialog.checkBoxInputBeforeExecute.text")); // NOI18N
+        checkBoxInputBeforeExecute.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkBoxInputBeforeExecuteActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -199,9 +239,11 @@ public class ProgramPropertiesDialog extends Dialog {
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(labelNickname)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(textFieldAlias, javax.swing.GroupLayout.DEFAULT_SIZE, 379, Short.MAX_VALUE))
+                        .addComponent(textFieldAlias, javax.swing.GroupLayout.DEFAULT_SIZE, 391, Short.MAX_VALUE))
                     .addComponent(labelParameters, javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(checkBoxInputBeforeExecute)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
                         .addComponent(buttonCancel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonOk)))
@@ -227,7 +269,8 @@ public class ProgramPropertiesDialog extends Dialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonOk)
-                    .addComponent(buttonCancel))
+                    .addComponent(buttonCancel)
+                    .addComponent(checkBoxInputBeforeExecute))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -235,7 +278,7 @@ public class ProgramPropertiesDialog extends Dialog {
     }// </editor-fold>//GEN-END:initComponents
 
 private void buttonChooseFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonChooseFileActionPerformed
-    chooseDirectory();
+    chooseProgram();
 }//GEN-LAST:event_buttonChooseFileActionPerformed
 
 private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
@@ -250,6 +293,14 @@ private void buttonOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     accept();
 }//GEN-LAST:event_buttonOkActionPerformed
 
+private void checkBoxInputBeforeExecuteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxInputBeforeExecuteActionPerformed
+    handleCheckBoxInputBeforeExecuteActionPerformed();
+}//GEN-LAST:event_checkBoxInputBeforeExecuteActionPerformed
+
+private void textFieldAliasKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldAliasKeyPressed
+    handleTextFieldAliasKeyPressed(evt);
+}//GEN-LAST:event_textFieldAliasKeyPressed
+
     /**
     * @param args the command line arguments
     */
@@ -257,7 +308,7 @@ private void buttonOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                ProgramPropertiesDialog dialog = new ProgramPropertiesDialog();
+                ProgramPropertiesDialog dialog = new ProgramPropertiesDialog(true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -273,6 +324,7 @@ private void buttonOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private javax.swing.JButton buttonCancel;
     private javax.swing.JButton buttonChooseFile;
     private javax.swing.JButton buttonOk;
+    private javax.swing.JCheckBox checkBoxInputBeforeExecute;
     private javax.swing.JLabel labelFile;
     private javax.swing.JLabel labelFilePrompt;
     private javax.swing.JLabel labelNickname;
