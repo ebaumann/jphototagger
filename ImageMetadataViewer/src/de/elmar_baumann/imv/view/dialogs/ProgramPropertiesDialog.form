@@ -28,22 +28,22 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="1" attributes="0">
+          <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="labelFile" alignment="0" pref="488" max="32767" attributes="0"/>
-                  <Component id="scrollPane" alignment="0" pref="488" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="labelFile" alignment="0" pref="415" max="32767" attributes="0"/>
+                  <Component id="scrollPane" alignment="0" pref="415" max="32767" attributes="0"/>
                   <Component id="labelFilePrompt" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="buttonChooseFile" alignment="1" min="-2" max="-2" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="labelNickname" min="-2" max="-2" attributes="0"/>
+                      <Component id="labelAlias" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="textFieldAlias" pref="391" max="32767" attributes="0"/>
+                      <Component id="textFieldAlias" pref="318" max="32767" attributes="0"/>
                   </Group>
                   <Component id="labelParameters" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="checkBoxParametersAfterFilenames" min="-2" max="-2" attributes="0"/>
+                  <Component id="checkBoxInputBeforeExecute" alignment="0" pref="415" max="32767" attributes="0"/>
                   <Group type="102" alignment="1" attributes="0">
-                      <Component id="checkBoxInputBeforeExecute" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="75" max="32767" attributes="0"/>
                       <Component id="buttonCancel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="buttonOk" min="-2" max="-2" attributes="0"/>
@@ -58,26 +58,29 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" max="-2" attributes="0"/>
               <Component id="labelFilePrompt" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
               <Component id="labelFile" min="-2" pref="23" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
               <Component id="buttonChooseFile" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="labelNickname" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="labelAlias" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="textFieldAlias" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
               <Component id="labelParameters" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="scrollPane" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <Component id="scrollPane" max="32767" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <Component id="checkBoxParametersAfterFilenames" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <Component id="checkBoxInputBeforeExecute" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="buttonOk" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="buttonCancel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="checkBoxInputBeforeExecute" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -124,13 +127,13 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonChooseFileActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JLabel" name="labelNickname">
+    <Component class="javax.swing.JLabel" name="labelAlias">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Dialog" size="12" style="0"/>
         </Property>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="ProgramPropertiesDialog.labelNickname.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="ProgramPropertiesDialog.labelAlias.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
         </Property>
       </Properties>
     </Component>
@@ -169,17 +172,21 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JButton" name="buttonOk">
+    <Component class="javax.swing.JCheckBox" name="checkBoxParametersAfterFilenames">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Dialog" size="12" style="0"/>
-        </Property>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="ProgramPropertiesDialog.buttonOk.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="ProgramPropertiesDialog.checkBoxParametersAfterFilenames.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+        </Property>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="checkBoxInputBeforeExecute">
+      <Properties>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="ProgramPropertiesDialog.checkBoxInputBeforeExecute.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonOkActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkBoxInputBeforeExecuteActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="buttonCancel">
@@ -195,14 +202,17 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonCancelActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JCheckBox" name="checkBoxInputBeforeExecute">
+    <Component class="javax.swing.JButton" name="buttonOk">
       <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Dialog" size="12" style="0"/>
+        </Property>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="ProgramPropertiesDialog.checkBoxInputBeforeExecute.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="ProgramPropertiesDialog.buttonOk.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkBoxInputBeforeExecuteActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonOkActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

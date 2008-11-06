@@ -9,6 +9,7 @@ import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.view.renderer.ListCellRendererActions;
 import de.elmar_baumann.lib.dialog.Dialog;
 import de.elmar_baumann.lib.persistence.PersistentAppSizes;
+import java.awt.event.MouseEvent;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -93,7 +94,7 @@ public class ActionsDialog extends Dialog {
         return (Program) list.getSelectedValue();
     }
 
-    private void handleButtonExecuteActionPerformed() {
+    private void execute() {
         if (list.getSelectedIndex() >= 0) {
             Program program = getSelectedProgram();
             notify(new DialogActionsEvent(DialogActionsEvent.Type.ActionExecute, program));
@@ -119,6 +120,16 @@ public class ActionsDialog extends Dialog {
             if (dialog.isAccepted()) {
                 model.update(program);
                 notify(new DialogActionsEvent(DialogActionsEvent.Type.ActionUpdated, program));
+            }
+        }
+    }
+
+    private void handleListMouseClicked(MouseEvent evt) {
+        if (evt.getButton() == MouseEvent.BUTTON1) {
+            if (evt.getClickCount() == 1) {
+                setButtonsEnabled();
+            } else if (evt.getClickCount() >= 2) {
+                execute();
             }
         }
     }
@@ -166,9 +177,9 @@ public class ActionsDialog extends Dialog {
         list.setModel(model);
         list.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         list.setCellRenderer(new ListCellRendererActions());
-        list.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                listPropertyChange(evt);
+        list.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                listMouseClicked(evt);
             }
         });
         scrollPane.setViewportView(list);
@@ -251,7 +262,7 @@ public class ActionsDialog extends Dialog {
     }// </editor-fold>//GEN-END:initComponents
 
 private void buttonExecuteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExecuteActionPerformed
-    handleButtonExecuteActionPerformed();
+    execute();
 }//GEN-LAST:event_buttonExecuteActionPerformed
 
 private void buttonNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNewActionPerformed
@@ -266,9 +277,9 @@ private void buttonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     handleButtonDeleteActionPerformed();
 }//GEN-LAST:event_buttonDeleteActionPerformed
 
-private void listPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_listPropertyChange
-    setButtonsEnabled();
-}//GEN-LAST:event_listPropertyChange
+private void listMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listMouseClicked
+    handleListMouseClicked(evt);
+}//GEN-LAST:event_listMouseClicked
 
     /**
     * @param args the command line arguments

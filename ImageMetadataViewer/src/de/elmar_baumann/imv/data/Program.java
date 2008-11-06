@@ -19,6 +19,7 @@ public class Program {
     private int sequenceNumber = Integer.MIN_VALUE;
     private boolean action = false;
     private boolean inputBeforeExecute = false;
+    private boolean parametersAfterFilename = false;
 
     public Program() {
     }
@@ -28,11 +29,21 @@ public class Program {
         this.alias = alias;
     }
 
-    public Program(long id, File file, String alias, String parameters, Integer sequenceNumber, boolean action, boolean inputBeforeExecute) {
+    public Program(
+        long id,
+        File file,
+        String alias,
+        String parameters,
+        boolean parametersAfterFilename,
+        Integer sequenceNumber,
+        boolean action,
+        boolean inputBeforeExecute) {
+
         this.id = id;
         this.file = file;
         this.alias = alias;
         this.parameters = parameters;
+        this.parametersAfterFilename = parametersAfterFilename;
         this.sequenceNumber = sequenceNumber;
         this.action = action;
         this.inputBeforeExecute = inputBeforeExecute;
@@ -68,6 +79,14 @@ public class Program {
 
     public void setParameters(String parameters) {
         this.parameters = parameters;
+    }
+
+    public boolean isParametersAfterFilename() {
+        return parametersAfterFilename;
+    }
+
+    public void setParametersAfterFilename(boolean parametersAfterFilename) {
+        this.parametersAfterFilename = parametersAfterFilename;
     }
 
     public int getSequenceNumber() {

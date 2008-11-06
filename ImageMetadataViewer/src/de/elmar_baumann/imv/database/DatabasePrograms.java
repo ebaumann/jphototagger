@@ -51,11 +51,12 @@ public class DatabasePrograms extends Database {
                 ", filename" + // NOI18N -- 2 --
                 ", alias" + // NOI18N -- 3 --
                 ", parameters" + // NOI18N -- 4 --
-                ", sequence_number" + // NOI18N -- 5 --
-                ", action" + // NOI18N -- 6 --
-                ", input_before_execute" + // NOI18N -- 7 --
+                ", parameters_after_filename" + // NOI18N -- 5 --
+                ", sequence_number" + // NOI18N -- 6 --
+                ", action" + // NOI18N -- 7 --
+                ", input_before_execute" + // NOI18N -- 8 --
                 ")" + // NOI18N
-                " VALUES (?, ?, ?, ?, ?, ?, ?)"); // NOI18N
+                " VALUES (?, ?, ?, ?, ?, ?, ?, ?)"); // NOI18N
             setValuesInsert(stmt, program);
             logStatement(stmt);
             countAffectedRows = stmt.executeUpdate();
@@ -88,9 +89,10 @@ public class DatabasePrograms extends Database {
         stmt.setString(3, program.getAlias());
         String parameters = program.getParameters();
         stmt.setBytes(4, parameters == null ? null : parameters.getBytes());
-        stmt.setInt(5, program.getSequenceNumber());
-        stmt.setBoolean(6, program.isAction());
-        stmt.setBoolean(7, program.isInputBeforeExecute());
+        stmt.setBoolean(5, program.isParametersAfterFilename());
+        stmt.setInt(6, program.getSequenceNumber());
+        stmt.setBoolean(7, program.isAction());
+        stmt.setBoolean(8, program.isInputBeforeExecute());
     }
 
     /**
@@ -111,9 +113,10 @@ public class DatabasePrograms extends Database {
                 " filename = ?" + // NOI18N -- 1 --
                 ", alias = ?" + // NOI18N -- 2 --
                 ", parameters = ?" + // NOI18N -- 3 --
-                ", sequence_number = ?" + // NOI18N -- 4 --
-                ", action = ?" + // NOI18N -- 5 --
-                ", input_before_execute = ?" + // NOI18N -- 6 --
+                ", parameters_after_filename = ?" + // NOI18N -- 4 --
+                ", sequence_number = ?" + // NOI18N -- 5 --
+                ", action = ?" + // NOI18N -- 6 --
+                ", input_before_execute = ?" + // NOI18N -- 7 --
                 " WHERE id = ?"); // NOI18N
             setValuesUpdate(stmt, program);
             stmt.setLong(7, program.getId());
@@ -139,9 +142,10 @@ public class DatabasePrograms extends Database {
         stmt.setString(2, program.getAlias());
         String parameters = program.getParameters();
         stmt.setBytes(3, parameters == null ? null : parameters.getBytes());
-        stmt.setInt(4, program.getSequenceNumber());
-        stmt.setBoolean(5, program.isAction());
-        stmt.setBoolean(6, program.isInputBeforeExecute());
+        stmt.setBoolean(4, program.isParametersAfterFilename());
+        stmt.setInt(5, program.getSequenceNumber());
+        stmt.setBoolean(6, program.isAction());
+        stmt.setBoolean(7, program.isInputBeforeExecute());
     }
 
     /**
@@ -194,9 +198,10 @@ public class DatabasePrograms extends Database {
                 ", filename" + // NOI18N -- 2 --
                 ", alias" + // NOI18N -- 3 --
                 ", parameters" + // NOI18N -- 4 --
-                ", sequence_number" + // NOI18N -- 5 --
-                ", action" + // NOI18N -- 6 --
-                ", input_before_execute" + // NOI18N -- 7 --
+                ", parameters_after_filename" + // NOI18N -- 5 --
+                ", sequence_number" + // NOI18N -- 6 --
+                ", action" + // NOI18N -- 7 --
+                ", input_before_execute" + // NOI18N -- 8 --
                 " FROM programs" + // NOI18N
                 " WHERE action = ?" + // NOI18N
                 " ORDER BY alias"); // NOI18N
@@ -210,9 +215,10 @@ public class DatabasePrograms extends Database {
                     new File(rs.getString(2)),
                     rs.getString(3),
                     parameters == null ? null : new String(parameters),
-                    rs.getInt(5),
-                    rs.getBoolean(6),
-                    rs.getBoolean(7)));
+                    rs.getBoolean(5),
+                    rs.getInt(6),
+                    rs.getBoolean(7),
+                    rs.getBoolean(8)));
             }
             stmt.close();
         } catch (SQLException ex) {

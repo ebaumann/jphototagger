@@ -43,7 +43,16 @@ public class ProgramPropertiesDialog extends Dialog {
         labelFile.setText(file.getAbsolutePath());
         textFieldAlias.setText(program.getAlias());
         textAreaParameters.setText(parameters == null ? "" : parameters);
+        checkBoxParametersAfterFilenames.setSelected(program.isParametersAfterFilename());
+        checkBoxInputBeforeExecute.setSelected(program.isInputBeforeExecute());
         setProgramIcon();
+    }
+
+    private void setActionTexts() {
+        setTitle(Bundle.getString("ProgramPropertiesDialog.title.Action"));
+        labelFilePrompt.setText(Bundle.getString("ProgramPropertiesDialog.labelFilePrompt.text.Action"));
+        labelAlias.setText(Bundle.getString("ProgramPropertiesDialog.labelAlias.text.Action"));
+        labelParameters.setText(Bundle.getString("ProgramPropertiesDialog.labelParameters.text.Action"));
     }
 
     private void setProgramIcon() {
@@ -66,6 +75,9 @@ public class ProgramPropertiesDialog extends Dialog {
             program.setFile(file);
             program.setAlias(textFieldAlias.getText().trim());
             program.setParameters(parameters.isEmpty() ? null : parameters);
+            program.setParametersAfterFilename(checkBoxParametersAfterFilenames.isSelected());
+            program.setInputBeforeExecute(checkBoxInputBeforeExecute.isSelected());
+            program.setAction(action);
             accecpted = true;
             setVisible(false);
         } else {
@@ -80,9 +92,10 @@ public class ProgramPropertiesDialog extends Dialog {
 
     private void postInitComponents() {
         setIconImages(AppSettings.getAppIcons());
-        if (!action) {
+        if (action) {
+            setActionTexts();
+        } else {
             getContentPane().remove(checkBoxInputBeforeExecute);
-            setTitle(Bundle.getString("ProgramPropertiesDialog.title.Action"));
         }
     }
 
@@ -152,14 +165,15 @@ public class ProgramPropertiesDialog extends Dialog {
         labelFilePrompt = new javax.swing.JLabel();
         labelFile = new javax.swing.JLabel();
         buttonChooseFile = new javax.swing.JButton();
-        labelNickname = new javax.swing.JLabel();
+        labelAlias = new javax.swing.JLabel();
         textFieldAlias = new javax.swing.JTextField();
         labelParameters = new javax.swing.JLabel();
         scrollPane = new javax.swing.JScrollPane();
         textAreaParameters = new javax.swing.JTextArea();
-        buttonOk = new javax.swing.JButton();
-        buttonCancel = new javax.swing.JButton();
+        checkBoxParametersAfterFilenames = new javax.swing.JCheckBox();
         checkBoxInputBeforeExecute = new javax.swing.JCheckBox();
+        buttonCancel = new javax.swing.JButton();
+        buttonOk = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(Bundle.getString("ProgramPropertiesDialog.title")); // NOI18N
@@ -185,8 +199,8 @@ public class ProgramPropertiesDialog extends Dialog {
             }
         });
 
-        labelNickname.setFont(new java.awt.Font("Dialog", 0, 12));
-        labelNickname.setText(Bundle.getString("ProgramPropertiesDialog.labelNickname.text")); // NOI18N
+        labelAlias.setFont(new java.awt.Font("Dialog", 0, 12));
+        labelAlias.setText(Bundle.getString("ProgramPropertiesDialog.labelAlias.text")); // NOI18N
 
         textFieldAlias.setText(Bundle.getString("ProgramPropertiesDialog.textFieldAlias.text")); // NOI18N
         textFieldAlias.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -202,11 +216,12 @@ public class ProgramPropertiesDialog extends Dialog {
         textAreaParameters.setRows(2);
         scrollPane.setViewportView(textAreaParameters);
 
-        buttonOk.setFont(new java.awt.Font("Dialog", 0, 12));
-        buttonOk.setText(Bundle.getString("ProgramPropertiesDialog.buttonOk.text")); // NOI18N
-        buttonOk.addActionListener(new java.awt.event.ActionListener() {
+        checkBoxParametersAfterFilenames.setText(Bundle.getString("ProgramPropertiesDialog.checkBoxParametersAfterFilenames.text")); // NOI18N
+
+        checkBoxInputBeforeExecute.setText(Bundle.getString("ProgramPropertiesDialog.checkBoxInputBeforeExecute.text")); // NOI18N
+        checkBoxInputBeforeExecute.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonOkActionPerformed(evt);
+                checkBoxInputBeforeExecuteActionPerformed(evt);
             }
         });
 
@@ -218,10 +233,11 @@ public class ProgramPropertiesDialog extends Dialog {
             }
         });
 
-        checkBoxInputBeforeExecute.setText(Bundle.getString("ProgramPropertiesDialog.checkBoxInputBeforeExecute.text")); // NOI18N
-        checkBoxInputBeforeExecute.addActionListener(new java.awt.event.ActionListener() {
+        buttonOk.setFont(new java.awt.Font("Dialog", 0, 12));
+        buttonOk.setText(Bundle.getString("ProgramPropertiesDialog.buttonOk.text")); // NOI18N
+        buttonOk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkBoxInputBeforeExecuteActionPerformed(evt);
+                buttonOkActionPerformed(evt);
             }
         });
 
@@ -229,21 +245,21 @@ public class ProgramPropertiesDialog extends Dialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(labelFile, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 488, Short.MAX_VALUE)
-                    .addComponent(scrollPane, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 488, Short.MAX_VALUE)
-                    .addComponent(labelFilePrompt, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(buttonChooseFile)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(labelNickname)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(textFieldAlias, javax.swing.GroupLayout.DEFAULT_SIZE, 391, Short.MAX_VALUE))
-                    .addComponent(labelParameters, javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(labelFile, javax.swing.GroupLayout.DEFAULT_SIZE, 415, Short.MAX_VALUE)
+                    .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 415, Short.MAX_VALUE)
+                    .addComponent(labelFilePrompt)
+                    .addComponent(buttonChooseFile, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(checkBoxInputBeforeExecute)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
+                        .addComponent(labelAlias)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(textFieldAlias, javax.swing.GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE))
+                    .addComponent(labelParameters)
+                    .addComponent(checkBoxParametersAfterFilenames)
+                    .addComponent(checkBoxInputBeforeExecute, javax.swing.GroupLayout.DEFAULT_SIZE, 415, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(buttonCancel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonOk)))
@@ -260,18 +276,21 @@ public class ProgramPropertiesDialog extends Dialog {
                 .addComponent(buttonChooseFile)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelNickname)
+                    .addComponent(labelAlias)
                     .addComponent(textFieldAlias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(labelParameters)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(scrollPane)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(checkBoxParametersAfterFilenames)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(checkBoxInputBeforeExecute)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonOk)
-                    .addComponent(buttonCancel)
-                    .addComponent(checkBoxInputBeforeExecute))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(buttonCancel))
+                .addContainerGap())
         );
 
         pack();
@@ -325,9 +344,10 @@ private void textFieldAliasKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:
     private javax.swing.JButton buttonChooseFile;
     private javax.swing.JButton buttonOk;
     private javax.swing.JCheckBox checkBoxInputBeforeExecute;
+    private javax.swing.JCheckBox checkBoxParametersAfterFilenames;
+    private javax.swing.JLabel labelAlias;
     private javax.swing.JLabel labelFile;
     private javax.swing.JLabel labelFilePrompt;
-    private javax.swing.JLabel labelNickname;
     private javax.swing.JLabel labelParameters;
     private javax.swing.JScrollPane scrollPane;
     private javax.swing.JTextArea textAreaParameters;

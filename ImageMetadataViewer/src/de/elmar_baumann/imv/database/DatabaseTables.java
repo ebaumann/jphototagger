@@ -308,6 +308,7 @@ public class DatabaseTables extends Database {
                 ", filename VARCHAR(512) NOT NULL" + // NOI18N
                 ", alias VARCHAR_IGNORECASE(250) NOT NULL" + // NOI18N
                 ", parameters BINARY" + // NOI18N
+                ", parameters_after_filename BOOLEAN" + // NOI18N
                 ", sequence_number INTEGER" + // NOI18N
                 ", action BOOLEAN" + // NOI18N
                 ", input_before_execute BOOLEAN" + // NOI18N

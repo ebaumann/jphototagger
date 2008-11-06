@@ -10,24 +10,23 @@
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="16px"
    height="16px"
-   id="svg3134"
+   id="svg6082"
    sodipodi:version="0.32"
    inkscape:version="0.46"
-   sodipodi:docbase="/home/elmar/projekte/ImageMetadataViewer/src/de/elmar_baumann/imv/resource"
-   sodipodi:docname="icon_search.svg"
+   sodipodi:docname="icon_sort.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape"
-   inkscape:export-filename="/home/elmar/projekte/ImageMetadataViewer/src/de/elmar_baumann/imv/resource/icon_search.png"
+   inkscape:export-filename="/home/elmar/projekte/ImageMetadataViewer/src/de/elmar_baumann/imv/resource/icon_sort.png"
    inkscape:export-xdpi="90"
    inkscape:export-ydpi="90">
   <defs
-     id="defs3136">
+     id="defs6084">
     <inkscape:perspective
        sodipodi:type="inkscape:persp3d"
        inkscape:vp_x="0 : 8 : 1"
        inkscape:vp_y="0 : 1000 : 0"
        inkscape:vp_z="16 : 8 : 1"
        inkscape:persp3d-origin="8 : 5.3333333 : 1"
-       id="perspective9" />
+       id="perspective6090" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -43,12 +42,12 @@
      showgrid="true"
      inkscape:grid-bbox="true"
      inkscape:document-units="px"
-     inkscape:window-width="1163"
+     inkscape:window-width="918"
      inkscape:window-height="675"
-     inkscape:window-x="239"
-     inkscape:window-y="189" />
+     inkscape:window-x="176"
+     inkscape:window-y="184" />
   <metadata
-     id="metadata3139">
+     id="metadata6087">
     <rdf:RDF>
       <cc:Work
          rdf:about="">
@@ -63,18 +62,12 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer">
     <path
-       sodipodi:type="arc"
-       style="opacity:1;fill:#e1ebf6;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       id="path3142"
-       sodipodi:cx="6.3294554"
-       sodipodi:cy="6.7423267"
-       sodipodi:rx="4.8878713"
-       sodipodi:ry="4.8878713"
-       d="M 11.217327,6.7423267 A 4.8878713,4.8878713 0 1 1 1.4415841,6.7423267 A 4.8878713,4.8878713 0 1 1 11.217327,6.7423267 z"
-       transform="translate(0.2826734,-0.3544555)" />
+       style="font-size:10px;font-style:normal;font-weight:bold;fill:#777777;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       d="M 5.7922919,6.7882109 L 2.8528388,6.7882109 L 2.3889716,8.1163359 L 0.49932316,8.1163359 L 3.1995185,0.82629681 L 5.4407294,0.82629681 L 8.1409247,8.1163359 L 6.2512763,8.1163359 L 5.7922919,6.7882109 z M 3.3215888,5.4356718 L 5.3186591,5.4356718 L 4.3225653,2.5352812 L 3.3215888,5.4356718 z"
+       id="text6601" />
     <path
-       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="M 15,15 L 10,10"
-       id="path3147" />
+       style="font-size:10px;font-style:normal;font-weight:bold;fill:#777777;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       d="M 8.8506327,7.8990688 L 14.978562,7.8990688 L 14.978562,9.0367641 L 11.06743,13.768209 L 15.090867,13.768209 L 15.090867,15.189108 L 8.738328,15.189108 L 8.738328,14.051413 L 12.649461,9.3199673 L 8.8506327,9.3199673 L 8.8506327,7.8990688 z"
+       id="text6605" />
   </g>
 </svg>

@@ -28,6 +28,8 @@ public class UpdateTablesAddNewColumns {
             new IndexOfColumn("programs", "action", "idx_programs_action", false)));
         columns.add(new ColumnInfo("programs", "input_before_execute", "BOOLEAN",
             null));
+        columns.add(new ColumnInfo("programs", "parameters_after_filename", "BOOLEAN",
+            null));
     }
 
     synchronized void update(Connection connection) throws SQLException {

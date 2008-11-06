@@ -10,24 +10,23 @@
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="16px"
    height="16px"
-   id="svg3134"
+   id="svg3740"
    sodipodi:version="0.32"
    inkscape:version="0.46"
-   sodipodi:docbase="/home/elmar/projekte/ImageMetadataViewer/src/de/elmar_baumann/imv/resource"
-   sodipodi:docname="icon_search.svg"
+   sodipodi:docname="icon_card.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape"
-   inkscape:export-filename="/home/elmar/projekte/ImageMetadataViewer/src/de/elmar_baumann/imv/resource/icon_search.png"
+   inkscape:export-filename="/home/elmar/projekte/ImageMetadataViewer/src/de/elmar_baumann/imv/resource/icon_card.png"
    inkscape:export-xdpi="90"
    inkscape:export-ydpi="90">
   <defs
-     id="defs3136">
+     id="defs3742">
     <inkscape:perspective
        sodipodi:type="inkscape:persp3d"
        inkscape:vp_x="0 : 8 : 1"
        inkscape:vp_y="0 : 1000 : 0"
        inkscape:vp_z="16 : 8 : 1"
        inkscape:persp3d-origin="8 : 5.3333333 : 1"
-       id="perspective9" />
+       id="perspective3748" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -37,18 +36,22 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="22.197802"
-     inkscape:cx="0.0037128"
+     inkscape:cx="-7.9925744"
      inkscape:cy="8"
      inkscape:current-layer="layer1"
      showgrid="true"
      inkscape:grid-bbox="true"
      inkscape:document-units="px"
-     inkscape:window-width="1163"
+     inkscape:window-width="1294"
      inkscape:window-height="675"
-     inkscape:window-x="239"
-     inkscape:window-y="189" />
+     inkscape:window-x="132"
+     inkscape:window-y="138">
+    <inkscape:grid
+       type="xygrid"
+       id="grid3750" />
+  </sodipodi:namedview>
   <metadata
-     id="metadata3139">
+     id="metadata3745">
     <rdf:RDF>
       <cc:Work
          rdf:about="">
@@ -62,19 +65,19 @@
      id="layer1"
      inkscape:label="Layer 1"
      inkscape:groupmode="layer">
-    <path
-       sodipodi:type="arc"
-       style="opacity:1;fill:#e1ebf6;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       id="path3142"
-       sodipodi:cx="6.3294554"
-       sodipodi:cy="6.7423267"
-       sodipodi:rx="4.8878713"
-       sodipodi:ry="4.8878713"
-       d="M 11.217327,6.7423267 A 4.8878713,4.8878713 0 1 1 1.4415841,6.7423267 A 4.8878713,4.8878713 0 1 1 11.217327,6.7423267 z"
-       transform="translate(0.2826734,-0.3544555)" />
-    <path
-       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="M 15,15 L 10,10"
-       id="path3147" />
+    <rect
+       style="opacity:1;fill:#555555;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect3752"
+       width="14"
+       height="12"
+       x="1"
+       y="2" />
+    <rect
+       style="opacity:1;fill:#e39292;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect4263"
+       width="12"
+       height="10"
+       x="2"
+       y="3" />
   </g>
 </svg>

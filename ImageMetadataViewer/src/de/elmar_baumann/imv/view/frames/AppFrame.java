@@ -310,6 +310,7 @@ public class AppFrame extends javax.swing.JFrame {
         menuFile.setText(Bundle.getString("AppFrame.menuFile.text")); // NOI18N
 
         menuItemScanDirectory.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
+        menuItemScanDirectory.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icon_scan_directories.png"))); // NOI18N
         menuItemScanDirectory.setMnemonic('o');
         menuItemScanDirectory.setText(Bundle.getString("AppFrame.menuItemScanDirectory.text")); // NOI18N
         menuFile.add(menuItemScanDirectory);
@@ -322,12 +323,14 @@ public class AppFrame extends javax.swing.JFrame {
         menuFile.add(jSeparator1);
 
         menuItemCopyFromAutocopyDirectory.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        menuItemCopyFromAutocopyDirectory.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icon_card.png"))); // NOI18N
         menuItemCopyFromAutocopyDirectory.setMnemonic('s');
         menuItemCopyFromAutocopyDirectory.setText(Bundle.getString("AppFrame.menuItemCopyFromAutocopyDirectory.text")); // NOI18N
         menuFile.add(menuItemCopyFromAutocopyDirectory);
         menuFile.add(jSeparator4);
 
         menuItemExit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.CTRL_MASK));
+        menuItemExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icon_exit.png"))); // NOI18N
         menuItemExit.setMnemonic('e');
         menuItemExit.setText(Bundle.getString("AppFrame.menuItemExit.text")); // NOI18N
         menuItemExit.addActionListener(new java.awt.event.ActionListener() {
@@ -343,6 +346,7 @@ public class AppFrame extends javax.swing.JFrame {
         menuEdit.setText(Bundle.getString("AppFrame.menuEdit.text")); // NOI18N
 
         menuItemSettings.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        menuItemSettings.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icon_settings.png"))); // NOI18N
         menuItemSettings.setMnemonic('e');
         menuItemSettings.setText(Bundle.getString("AppFrame.menuItemSettings.text")); // NOI18N
         menuEdit.add(menuItemSettings);
@@ -356,30 +360,35 @@ public class AppFrame extends javax.swing.JFrame {
         menuEdit.add(jSeparator6);
 
         menuItemCut.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.CTRL_MASK));
+        menuItemCut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icon_edit_cut.png"))); // NOI18N
         menuItemCut.setMnemonic('a');
         menuItemCut.setText(Bundle.getString("AppFrame.menuItemCut.text")); // NOI18N
         menuItemCut.setEnabled(false);
         menuEdit.add(menuItemCut);
 
         menuItemInsert.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.CTRL_MASK));
+        menuItemInsert.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icon_edit_paste.png"))); // NOI18N
         menuItemInsert.setMnemonic('f');
         menuItemInsert.setText(Bundle.getString("AppFrame.menuItemInsert.text")); // NOI18N
         menuItemInsert.setEnabled(false);
         menuEdit.add(menuItemInsert);
 
         menuItemCopy.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_MASK));
+        menuItemCopy.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icon_edit_copy.png"))); // NOI18N
         menuItemCopy.setMnemonic('k');
         menuItemCopy.setText(Bundle.getString("AppFrame.menuItemCopy.text")); // NOI18N
         menuItemCopy.setEnabled(false);
         menuEdit.add(menuItemCopy);
 
         menuItemFileSystemRename.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F2, 0));
+        menuItemFileSystemRename.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icon_rename.png"))); // NOI18N
         menuItemFileSystemRename.setMnemonic('u');
         menuItemFileSystemRename.setText(Bundle.getString("AppFrame.menuItemFileSystemRename.text")); // NOI18N
         menuItemFileSystemRename.setEnabled(false);
         menuEdit.add(menuItemFileSystemRename);
 
         menuItemDelete.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_DELETE, 0));
+        menuItemDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icon_edit_delete.png"))); // NOI18N
         menuItemDelete.setMnemonic('l');
         menuItemDelete.setText(Bundle.getString("AppFrame.menuItemDelete.text")); // NOI18N
         menuItemDelete.setEnabled(false);
@@ -391,64 +400,76 @@ public class AppFrame extends javax.swing.JFrame {
         menuGoto.setText(Bundle.getString("AppFrame.menuGoto.text")); // NOI18N
 
         menuItemGotoFastSearch.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.CTRL_MASK));
+        menuItemGotoFastSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icon_search.png"))); // NOI18N
         menuItemGotoFastSearch.setMnemonic('s');
         menuItemGotoFastSearch.setText(Bundle.getString("AppFrame.menuItemGotoFastSearch.text")); // NOI18N
         menuGoto.add(menuItemGotoFastSearch);
 
         menuItemGotoEdit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_B, java.awt.event.InputEvent.CTRL_MASK));
+        menuItemGotoEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icon_workspace.png"))); // NOI18N
         menuItemGotoEdit.setMnemonic('b');
         menuItemGotoEdit.setText(Bundle.getString("AppFrame.menuItemGotoEdit.text")); // NOI18N
         menuGoto.add(menuItemGotoEdit);
         menuGoto.add(jSeparator7);
 
         menuItemGotoDirectories.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_1, java.awt.event.InputEvent.CTRL_MASK));
+        menuItemGotoDirectories.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icon_scan_directories.png"))); // NOI18N
         menuItemGotoDirectories.setMnemonic('o');
         menuItemGotoDirectories.setText(Bundle.getString("AppFrame.menuItemGotoDirectories.text")); // NOI18N
         menuGoto.add(menuItemGotoDirectories);
 
         menuItemGotoSavedSearches.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_2, java.awt.event.InputEvent.CTRL_MASK));
+        menuItemGotoSavedSearches.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icon_search.png"))); // NOI18N
         menuItemGotoSavedSearches.setMnemonic('g');
         menuItemGotoSavedSearches.setText(Bundle.getString("AppFrame.menuItemGotoSavedSearches.text")); // NOI18N
         menuGoto.add(menuItemGotoSavedSearches);
 
         menuItemGotoCollections.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_3, java.awt.event.InputEvent.CTRL_MASK));
+        menuItemGotoCollections.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icon_imagecollection.png"))); // NOI18N
         menuItemGotoCollections.setMnemonic('i');
         menuItemGotoCollections.setText(Bundle.getString("AppFrame.menuItemGotoCollections.text")); // NOI18N
         menuGoto.add(menuItemGotoCollections);
 
         menuItemGotoCategories.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_4, java.awt.event.InputEvent.CTRL_MASK));
+        menuItemGotoCategories.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icon_category.png"))); // NOI18N
         menuItemGotoCategories.setMnemonic('k');
         menuItemGotoCategories.setText(Bundle.getString("AppFrame.menuItemGotoCategories.text")); // NOI18N
         menuGoto.add(menuItemGotoCategories);
 
         menuItemGotoFavoriteDirectories.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_5, java.awt.event.InputEvent.CTRL_MASK));
+        menuItemGotoFavoriteDirectories.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icon_favorite.png"))); // NOI18N
         menuItemGotoFavoriteDirectories.setMnemonic('f');
         menuItemGotoFavoriteDirectories.setText(Bundle.getString("AppFrame.menuItemGotoFavoriteDirectories.text")); // NOI18N
         menuGoto.add(menuItemGotoFavoriteDirectories);
 
         menuItemGotoKeywords.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.CTRL_MASK));
+        menuItemGotoKeywords.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icon_keyword.png"))); // NOI18N
         menuItemGotoKeywords.setMnemonic('w');
         menuItemGotoKeywords.setText(Bundle.getString("AppFrame.menuItemGotoKeywords.text")); // NOI18N
         menuGoto.add(menuItemGotoKeywords);
         menuGoto.add(jSeparator8);
 
         menuItemGotoThumbnailsPanel.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_6, java.awt.event.InputEvent.CTRL_MASK));
+        menuItemGotoThumbnailsPanel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icon_thumbnails.png"))); // NOI18N
         menuItemGotoThumbnailsPanel.setMnemonic('v');
         menuItemGotoThumbnailsPanel.setText(Bundle.getString("AppFrame.menuItemGotoThumbnailsPanel.text")); // NOI18N
         menuGoto.add(menuItemGotoThumbnailsPanel);
         menuGoto.add(jSeparator9);
 
         menuItemGotoIptcMetadata.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_7, java.awt.event.InputEvent.CTRL_MASK));
+        menuItemGotoIptcMetadata.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icon_iptc.png"))); // NOI18N
         menuItemGotoIptcMetadata.setMnemonic('p');
         menuItemGotoIptcMetadata.setText(Bundle.getString("AppFrame.menuItemGotoIptcMetadata.text")); // NOI18N
         menuGoto.add(menuItemGotoIptcMetadata);
 
         menuItemGotoExifMetadata.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_8, java.awt.event.InputEvent.CTRL_MASK));
+        menuItemGotoExifMetadata.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icon_exif.png"))); // NOI18N
         menuItemGotoExifMetadata.setMnemonic('e');
         menuItemGotoExifMetadata.setText(Bundle.getString("AppFrame.menuItemGotoExifMetadata.text")); // NOI18N
         menuGoto.add(menuItemGotoExifMetadata);
 
         menuItemGotoXmpMetadata.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_9, java.awt.event.InputEvent.CTRL_MASK));
+        menuItemGotoXmpMetadata.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icon_xmp.png"))); // NOI18N
         menuItemGotoXmpMetadata.setMnemonic('x');
         menuItemGotoXmpMetadata.setText(Bundle.getString("AppFrame.menuItemGotoXmpMetadata.text")); // NOI18N
         menuGoto.add(menuItemGotoXmpMetadata);
@@ -459,10 +480,12 @@ public class AppFrame extends javax.swing.JFrame {
         menuView.setText(Bundle.getString("AppFrame.menuView.text")); // NOI18N
 
         menuItemRefresh.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F5, 0));
+        menuItemRefresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icon_refresh.png"))); // NOI18N
         menuItemRefresh.setMnemonic('a');
         menuItemRefresh.setText(Bundle.getString("AppFrame.menuItemRefresh.text")); // NOI18N
         menuView.add(menuItemRefresh);
 
+        menuSort.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icon_sort.png"))); // NOI18N
         menuSort.setMnemonic('s');
         menuSort.setText(Bundle.getString("AppFrame.menuSort.text")); // NOI18N
 
@@ -503,7 +526,7 @@ public class AppFrame extends javax.swing.JFrame {
         menuTools.add(menuItemToolIptcToXmp);
 
         menuItemRenameInXmp.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
-        menuItemRenameInXmp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icon_savedsearch.png"))); // NOI18N
+        menuItemRenameInXmp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icon_replace_in_xmp.png"))); // NOI18N
         menuItemRenameInXmp.setMnemonic('x');
         menuItemRenameInXmp.setText(Bundle.getString("AppFrame.menuItemRenameInXmp.text")); // NOI18N
         menuItemRenameInXmp.setEnabled(false);
@@ -521,10 +544,12 @@ public class AppFrame extends javax.swing.JFrame {
         menuHelp.setText(Bundle.getString("AppFrame.menuHelp.text")); // NOI18N
 
         menuItemHelp.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, 0));
+        menuItemHelp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icon_help.png"))); // NOI18N
         menuItemHelp.setMnemonic('i');
         menuItemHelp.setText(Bundle.getString("AppFrame.menuItemHelp.text")); // NOI18N
         menuHelp.add(menuItemHelp);
 
+        menuItemAbout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icon_app_small.png"))); // NOI18N
         menuItemAbout.setMnemonic('b');
         menuItemAbout.setText(Bundle.getString("AppFrame.menuItemAbout.text")); // NOI18N
         menuHelp.add(menuItemAbout);

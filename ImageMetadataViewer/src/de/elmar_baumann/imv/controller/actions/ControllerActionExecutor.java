@@ -91,23 +91,25 @@ public class ControllerActionExecutor extends Controller implements DialogAction
         @Override
         public void run() {
             initProgressBar();
+            String input = getInput(program.getAlias());
+            String parameters = program.getParameters() == null ? "" : program.getParameters();
             int count = 0;
             for (File file : imageFiles) {
-                String input = getInput(program.getAlias(), file.getAbsolutePath());
-                String parameters = program.getParameters() == null ? "" : program.getParameters();
                 IoUtil.execute(
                     program.getFile().getAbsolutePath(),
-                    parameters + " " + input + " " + file.getAbsolutePath());
+                    program.isParametersAfterFilename() 
+                    ? " \"" + file.getAbsolutePath() + "\" " + parameters + " " + input
+                    : parameters + " " + input + " \"" + file.getAbsolutePath() + "\"");
                 progressBar.setValue(++count);
             }
             nextExecutor();
         }
 
-        private String getInput(String actionName, String filename) {
+        private String getInput(String actionName) {
             if (program.isInputBeforeExecute()) {
                 MessageFormat msg = new MessageFormat(Bundle.getString("ControllerActionExecutor.InformationMessage.Input.Prompt"));
                 String input = JOptionPane.showInputDialog(dialog,
-                    msg.format(new Object[]{actionName, filename}));
+                    msg.format(new Object[]{actionName}));
                 if (input != null) {
                     return input;
                 }
