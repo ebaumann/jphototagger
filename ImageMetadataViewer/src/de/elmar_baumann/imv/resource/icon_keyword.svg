@@ -2,7 +2,7 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 <svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://web.resource.org/cc/"
+   xmlns:cc="http://creativecommons.org/ns#"
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
@@ -12,15 +12,23 @@
    height="16px"
    id="svg2160"
    sodipodi:version="0.32"
-   inkscape:version="0.45.1"
+   inkscape:version="0.46"
    sodipodi:docbase="/home/elmar/projekte/ImageMetadataViewer/src/de/elmar_baumann/imv/resource"
    sodipodi:docname="icon_keyword.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape"
-   inkscape:export-filename="/home/elmar/projekte/ImageMetadataViewer/src/de/elmar_baumann/imv/resource/icon_keyword.png"
+   inkscape:export-filename="E:\test\t\ImageMetadataViewer\src\de\elmar_baumann\imv\resource\icon_keyword.png"
    inkscape:export-xdpi="90"
    inkscape:export-ydpi="90">
   <defs
-     id="defs2162" />
+     id="defs2162">
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 8 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="16 : 8 : 1"
+       inkscape:persp3d-origin="8 : 5.3333333 : 1"
+       id="perspective5096" />
+  </defs>
   <sodipodi:namedview
      id="base"
      pagecolor="#ffffff"
@@ -28,15 +36,15 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="22.197802"
+     inkscape:zoom="28.875"
      inkscape:cx="8"
      inkscape:cy="8"
      inkscape:current-layer="layer1"
      showgrid="true"
      inkscape:grid-bbox="true"
      inkscape:document-units="px"
-     inkscape:window-width="791"
-     inkscape:window-height="612"
+     inkscape:window-width="1063"
+     inkscape:window-height="675"
      inkscape:window-x="302"
      inkscape:window-y="155" />
   <metadata
@@ -55,7 +63,7 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer">
     <path
-       style="opacity:1;fill:#cfcfeb;fill-opacity:1;stroke:#cccccc;stroke-width:1;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="opacity:1;fill:#9eb9c5;fill-opacity:1;stroke:#555555;stroke-width:1;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="M 1.0450495,3.5 L 1.0450495,12.5 L 13.081189,12.5 L 13.081189,11.5 C 13.081189,11.5 15.043034,10.465813 15.04505,7.5 C 15.046393,5.5241878 13.126238,4.5 13.126238,4.5 L 13.126238,3.4549505 L 1.0450495,3.5 z "
        id="path2170"
        sodipodi:nodetypes="ccccsccc" />
