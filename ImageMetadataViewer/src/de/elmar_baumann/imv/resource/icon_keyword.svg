@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 <svg
+   xmlns:ns="http://creativecommons.org/ns#"
    xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:cc="http://web.resource.org/cc/"
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
@@ -12,11 +13,11 @@
    height="16px"
    id="svg2160"
    sodipodi:version="0.32"
-   inkscape:version="0.46"
+   inkscape:version="0.45.1"
    sodipodi:docbase="/home/elmar/projekte/ImageMetadataViewer/src/de/elmar_baumann/imv/resource"
    sodipodi:docname="icon_keyword.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape"
-   inkscape:export-filename="E:\test\t\ImageMetadataViewer\src\de\elmar_baumann\imv\resource\icon_keyword.png"
+   inkscape:export-filename="/home/elmar/projekte/ImageMetadataViewer/src/de/elmar_baumann/imv/resource/icon_keyword.png"
    inkscape:export-xdpi="90"
    inkscape:export-ydpi="90">
   <defs
@@ -45,11 +46,19 @@
      inkscape:document-units="px"
      inkscape:window-width="1063"
      inkscape:window-height="675"
-     inkscape:window-x="302"
-     inkscape:window-y="155" />
+     inkscape:window-x="30"
+     inkscape:window-y="0"
+     showguides="true"
+     inkscape:guide-bbox="true" />
   <metadata
      id="metadata2165">
     <rdf:RDF>
+      <ns:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </ns:Work>
       <cc:Work
          rdf:about="">
         <dc:format>image/svg+xml</dc:format>
@@ -63,9 +72,19 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer">
     <path
-       style="opacity:1;fill:#9eb9c5;fill-opacity:1;stroke:#555555;stroke-width:1;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="M 1.0450495,3.5 L 1.0450495,12.5 L 13.081189,12.5 L 13.081189,11.5 C 13.081189,11.5 15.043034,10.465813 15.04505,7.5 C 15.046393,5.5241878 13.126238,4.5 13.126238,4.5 L 13.126238,3.4549505 L 1.0450495,3.5 z "
-       id="path2170"
-       sodipodi:nodetypes="ccccsccc" />
+       sodipodi:type="arc"
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#555555;stroke-width:2.04255676;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path3131"
+       sodipodi:cx="3.3939395"
+       sodipodi:cy="7.4805193"
+       sodipodi:rx="2.3203464"
+       sodipodi:ry="3.4978354"
+       d="M 5.7142859 7.4805193 A 2.3203464 3.4978354 0 1 1  1.0735931,7.4805193 A 2.3203464 3.4978354 0 1 1  5.7142859 7.4805193 z"
+       transform="matrix(0.8689198,0,0,0.7274023,8.4280461e-2,1.7114587)" />
+    <path
+       style="opacity:1;fill:#555555;fill-opacity:1;stroke:#555555;stroke-width:0.5;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 5.75,6.25 L 14.75,6.25 L 14.75,10.808442 L 13.75,10.808442 L 13.75,7.5963204 L 12.230519,7.5963204 L 12.230519,10.77381 L 11.195887,10.808442 L 11.195887,7.5270563 L 5.75,7.4231602 L 5.75,6.25 z "
+       id="path3133"
+       sodipodi:nodetypes="ccccccccccc" />
   </g>
 </svg>

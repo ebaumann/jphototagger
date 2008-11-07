@@ -27,7 +27,7 @@ public class TableIcons {
     private static final Icon iconExif = AppSettings.getIcon("icon_exif.png"); // NOI18N
     private static final Icon iconXmp = AppSettings.getIcon("icon_xmp.png"); // NOI18N
     private static final Icon iconImageCollection = AppSettings.getIcon("icon_imagecollection.png"); // NOI18N
-    private static final Icon iconSavedSearch = AppSettings.getIcon("icon_savedsearch.png"); // NOI18N
+    private static final Icon iconSavedSearch = AppSettings.getIcon("icon_search.png"); // NOI18N
     private static Map<Table, Icon> iconOfTable = new HashMap<Table, Icon>();
     private static TableIcons instance = new TableIcons();
     

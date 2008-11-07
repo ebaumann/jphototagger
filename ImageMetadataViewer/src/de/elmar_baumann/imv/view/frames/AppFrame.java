@@ -353,7 +353,7 @@ public class AppFrame extends javax.swing.JFrame {
         menuEdit.add(jSeparator5);
 
         menuItemSearch.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
-        menuItemSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icon_savedsearch.png"))); // NOI18N
+        menuItemSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icon_search.png"))); // NOI18N
         menuItemSearch.setMnemonic('s');
         menuItemSearch.setText(Bundle.getString("AppFrame.menuItemSearch.text")); // NOI18N
         menuEdit.add(menuItemSearch);
@@ -443,7 +443,7 @@ public class AppFrame extends javax.swing.JFrame {
         menuGoto.add(menuItemGotoFavoriteDirectories);
 
         menuItemGotoKeywords.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.CTRL_MASK));
-        menuItemGotoKeywords.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icon_keyword_contour.png"))); // NOI18N
+        menuItemGotoKeywords.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icon_keyword.png"))); // NOI18N
         menuItemGotoKeywords.setMnemonic('w');
         menuItemGotoKeywords.setText(Bundle.getString("AppFrame.menuItemGotoKeywords.text")); // NOI18N
         menuGoto.add(menuItemGotoKeywords);

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 <svg
+   xmlns:ns="http://creativecommons.org/ns#"
    xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:cc="http://web.resource.org/cc/"
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
@@ -13,19 +14,30 @@
    height="16px"
    id="svg2383"
    sodipodi:version="0.32"
-   inkscape:version="0.46"
+   inkscape:version="0.45.1"
    sodipodi:docname="icon_favorite.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape"
    inkscape:export-filename="/home/elmar/projekte/ImageMetadataViewer/src/de/elmar_baumann/imv/resource/icon_favorite.png"
    inkscape:export-xdpi="90"
-   inkscape:export-ydpi="90">
+   inkscape:export-ydpi="90"
+   sodipodi:docbase="/home/elmar/projekte/ImageMetadataViewer/src/de/elmar_baumann/imv/resource">
   <defs
      id="defs2385">
     <linearGradient
-       inkscape:collect="always"
+       id="linearGradient3143">
+      <stop
+         style="stop-color:#ebff32;stop-opacity:1;"
+         offset="0"
+         id="stop3145" />
+      <stop
+         style="stop-color:#f5fbc6;stop-opacity:0;"
+         offset="1"
+         id="stop3147" />
+    </linearGradient>
+    <linearGradient
        id="linearGradient3193">
       <stop
-         style="stop-color:#2dc500;stop-opacity:1;"
+         style="stop-color:#da9469;stop-opacity:1;"
          offset="0"
          id="stop3195" />
       <stop
@@ -64,12 +76,12 @@
        id="perspective2391" />
     <linearGradient
        inkscape:collect="always"
-       xlink:href="#linearGradient3193"
-       id="linearGradient3199"
-       x1="10.705046"
-       y1="12.111621"
-       x2="4.6833339"
-       y2="0.013914326"
+       xlink:href="#linearGradient3143"
+       id="linearGradient3149"
+       x1="15.035321"
+       y1="14.191132"
+       x2="0.10464066"
+       y2="1.831513"
        gradientUnits="userSpaceOnUse" />
   </defs>
   <sodipodi:namedview
@@ -79,17 +91,17 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="40.875"
-     inkscape:cx="5.8239756"
-     inkscape:cy="8.872106"
+     inkscape:zoom="41.375"
+     inkscape:cx="8"
+     inkscape:cy="10.900302"
      inkscape:current-layer="layer1"
      showgrid="true"
      inkscape:grid-bbox="true"
      inkscape:document-units="px"
-     inkscape:window-width="1311"
+     inkscape:window-width="1280"
      inkscape:window-height="867"
-     inkscape:window-x="161"
-     inkscape:window-y="-3">
+     inkscape:window-x="0"
+     inkscape:window-y="0">
     <inkscape:grid
        type="xygrid"
        id="grid2393" />
@@ -97,6 +109,12 @@
   <metadata
      id="metadata2388">
     <rdf:RDF>
+      <ns:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </ns:Work>
       <cc:Work
          rdf:about="">
         <dc:format>image/svg+xml</dc:format>
@@ -110,7 +128,7 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer">
     <path
-       style="opacity:1;fill:url(#linearGradient3199);fill-opacity:1;fill-rule:nonzero;stroke:#aaaaaa;stroke-width:0.69999999000000002;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="opacity:1;fill:url(#linearGradient3149);fill-opacity:1.0;fill-rule:nonzero;stroke:#000000;stroke-width:0.69999999000000002;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="M 1,14 L 15,14 L 15,4.0660712 L 7.9804982,4.0660711 L 7.3536734,2.3944954 L 2.7155126,2.443425 L 2.0549621,4.0874163 L 1,4.0874163 L 1,14 z"
        id="path3175"
        sodipodi:nodetypes="ccccccccc"
@@ -120,10 +138,5 @@
   <g
      inkscape:groupmode="layer"
      id="layer2"
-     inkscape:label="2">
-    <path
-       style="opacity:1;fill:#2dc500;fill-opacity:1;fill-rule:nonzero;stroke:#aaaaaa;stroke-width:0.69999999;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="M 2.2507646,4.0856269 L 8.0978594,4.0856269"
-       id="path3189" />
-  </g>
+     inkscape:label="2" />
 </svg>

@@ -475,7 +475,7 @@ public class AppPanel extends javax.swing.JPanel implements AppExitListener {
         );
         panelSelectionDirectoriesLayout.setVerticalGroup(
             panelSelectionDirectoriesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPaneDirectories, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)
+            .addComponent(scrollPaneDirectories, javax.swing.GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE)
         );
 
         tabbedPaneSelection.addTab(Bundle.getString("AppPanel.panelSelectionDirectories.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icon_folder.png")), panelSelectionDirectories); // NOI18N
@@ -492,10 +492,10 @@ public class AppPanel extends javax.swing.JPanel implements AppExitListener {
         );
         panelSelectionSavedSearchesLayout.setVerticalGroup(
             panelSelectionSavedSearchesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPaneSavedSearches, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)
+            .addComponent(scrollPaneSavedSearches, javax.swing.GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE)
         );
 
-        tabbedPaneSelection.addTab(Bundle.getString("AppPanel.panelSelectionSavedSearches.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icon_savedsearch.png")), panelSelectionSavedSearches); // NOI18N
+        tabbedPaneSelection.addTab(Bundle.getString("AppPanel.panelSelectionSavedSearches.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icon_search.png")), panelSelectionSavedSearches); // NOI18N
 
         listImageCollections.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         listImageCollections.setCellRenderer(new ListCellRendererImageCollections());
@@ -511,7 +511,7 @@ public class AppPanel extends javax.swing.JPanel implements AppExitListener {
         );
         panelSelectionImageCollectionsLayout.setVerticalGroup(
             panelSelectionImageCollectionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPaneImageCollections, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)
+            .addComponent(scrollPaneImageCollections, javax.swing.GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE)
         );
 
         tabbedPaneSelection.addTab(Bundle.getString("AppPanel.panelSelectionImageCollections.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icon_imagecollection.png")), panelSelectionImageCollections); // NOI18N
@@ -529,7 +529,7 @@ public class AppPanel extends javax.swing.JPanel implements AppExitListener {
         );
         panelSelectionCategoriesLayout.setVerticalGroup(
             panelSelectionCategoriesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPaneCategories, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)
+            .addComponent(scrollPaneCategories, javax.swing.GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE)
         );
 
         tabbedPaneSelection.addTab(Bundle.getString("AppPanel.panelSelectionCategories.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icon_category.png")), panelSelectionCategories); // NOI18N
@@ -551,9 +551,9 @@ public class AppPanel extends javax.swing.JPanel implements AppExitListener {
         );
         panelSelectionFavoriteDirectoriesLayout.setVerticalGroup(
             panelSelectionFavoriteDirectoriesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 315, Short.MAX_VALUE)
+            .addGap(0, 293, Short.MAX_VALUE)
             .addGroup(panelSelectionFavoriteDirectoriesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(scrollPaneFavoriteDirectories, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE))
+                .addComponent(scrollPaneFavoriteDirectories, javax.swing.GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE))
         );
 
         tabbedPaneSelection.addTab(Bundle.getString("AppPanel.panelSelectionFavoriteDirectories.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icon_favorite.png")), panelSelectionFavoriteDirectories); // NOI18N
@@ -572,12 +572,12 @@ public class AppPanel extends javax.swing.JPanel implements AppExitListener {
         );
         panelSelectionKeywordsLayout.setVerticalGroup(
             panelSelectionKeywordsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 315, Short.MAX_VALUE)
+            .addGap(0, 293, Short.MAX_VALUE)
             .addGroup(panelSelectionKeywordsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(scrollPaneKeywords, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE))
+                .addComponent(scrollPaneKeywords, javax.swing.GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE))
         );
 
-        tabbedPaneSelection.addTab(Bundle.getString("AppPanel.panelSelectionKeywords.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icon_keyword_contour.png")), panelSelectionKeywords); // NOI18N
+        tabbedPaneSelection.addTab(Bundle.getString("AppPanel.panelSelectionKeywords.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icon_keyword.png")), panelSelectionKeywords); // NOI18N
 
         javax.swing.GroupLayout panelSelectionLayout = new javax.swing.GroupLayout(panelSelection);
         panelSelection.setLayout(panelSelectionLayout);
@@ -585,7 +585,7 @@ public class AppPanel extends javax.swing.JPanel implements AppExitListener {
             panelSelectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 135, Short.MAX_VALUE)
             .addGroup(panelSelectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(tabbedPaneSelection, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE))
+                .addComponent(tabbedPaneSelection, javax.swing.GroupLayout.PREFERRED_SIZE, 135, Short.MAX_VALUE))
         );
         panelSelectionLayout.setVerticalGroup(
             panelSelectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -600,11 +600,11 @@ public class AppPanel extends javax.swing.JPanel implements AppExitListener {
         panelThumbnails.setLayout(panelThumbnailsLayout);
         panelThumbnailsLayout.setHorizontalGroup(
             panelThumbnailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 18, Short.MAX_VALUE)
+            .addGap(0, 19, Short.MAX_VALUE)
         );
         panelThumbnailsLayout.setVerticalGroup(
             panelThumbnailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 404, Short.MAX_VALUE)
+            .addGap(0, 405, Short.MAX_VALUE)
         );
 
         scrollPaneThumbnails.setViewportView(panelThumbnails);
@@ -615,7 +615,7 @@ public class AppPanel extends javax.swing.JPanel implements AppExitListener {
             panelThumbnailsContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 22, Short.MAX_VALUE)
             .addGroup(panelThumbnailsContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(scrollPaneThumbnails, javax.swing.GroupLayout.PREFERRED_SIZE, 22, Short.MAX_VALUE))
+                .addComponent(scrollPaneThumbnails, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE))
         );
         panelThumbnailsContentLayout.setVerticalGroup(
             panelThumbnailsContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -715,11 +715,11 @@ public class AppPanel extends javax.swing.JPanel implements AppExitListener {
         panelScrollPaneEditMetadata.setLayout(panelScrollPaneEditMetadataLayout);
         panelScrollPaneEditMetadataLayout.setHorizontalGroup(
             panelScrollPaneEditMetadataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPaneEditMetadata, javax.swing.GroupLayout.DEFAULT_SIZE, 349, Short.MAX_VALUE)
+            .addComponent(scrollPaneEditMetadata, javax.swing.GroupLayout.DEFAULT_SIZE, 355, Short.MAX_VALUE)
         );
         panelScrollPaneEditMetadataLayout.setVerticalGroup(
             panelScrollPaneEditMetadataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPaneEditMetadata, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 357, Short.MAX_VALUE)
+            .addComponent(scrollPaneEditMetadata, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 358, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout panelTabEditMetadataLayout = new javax.swing.GroupLayout(panelTabEditMetadata);
@@ -739,15 +739,15 @@ public class AppPanel extends javax.swing.JPanel implements AppExitListener {
         panelMetadata.setLayout(panelMetadataLayout);
         panelMetadataLayout.setHorizontalGroup(
             panelMetadataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(labelMetadataFilename, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE)
-            .addComponent(tabbedPaneMetadata, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE)
+            .addComponent(labelMetadataFilename, javax.swing.GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE)
+            .addComponent(tabbedPaneMetadata, javax.swing.GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE)
         );
         panelMetadataLayout.setVerticalGroup(
             panelMetadataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelMetadataLayout.createSequentialGroup()
                 .addComponent(labelMetadataFilename)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tabbedPaneMetadata, javax.swing.GroupLayout.DEFAULT_SIZE, 384, Short.MAX_VALUE))
+                .addComponent(tabbedPaneMetadata, javax.swing.GroupLayout.DEFAULT_SIZE, 385, Short.MAX_VALUE))
         );
 
         splitPaneThumbnailsMetadata.setRightComponent(panelMetadata);
@@ -756,9 +756,9 @@ public class AppPanel extends javax.swing.JPanel implements AppExitListener {
         panelThumbnailsMetadata.setLayout(panelThumbnailsMetadataLayout);
         panelThumbnailsMetadataLayout.setHorizontalGroup(
             panelThumbnailsMetadataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 383, Short.MAX_VALUE)
+            .addGap(0, 394, Short.MAX_VALUE)
             .addGroup(panelThumbnailsMetadataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(splitPaneThumbnailsMetadata, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 383, Short.MAX_VALUE))
+                .addComponent(splitPaneThumbnailsMetadata, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 394, Short.MAX_VALUE))
         );
         panelThumbnailsMetadataLayout.setVerticalGroup(
             panelThumbnailsMetadataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -867,7 +867,7 @@ public class AppPanel extends javax.swing.JPanel implements AppExitListener {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(splitPaneMain, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 525, Short.MAX_VALUE)
+                    .addComponent(splitPaneMain, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 541, Short.MAX_VALUE)
                     .addComponent(panelStatusbar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 <svg
+   xmlns:ns="http://creativecommons.org/ns#"
    xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:cc="http://web.resource.org/cc/"
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
@@ -12,12 +13,13 @@
    height="16px"
    id="svg3740"
    sodipodi:version="0.32"
-   inkscape:version="0.46"
+   inkscape:version="0.45.1"
    sodipodi:docname="icon_card.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape"
    inkscape:export-filename="/home/elmar/projekte/ImageMetadataViewer/src/de/elmar_baumann/imv/resource/icon_card.png"
    inkscape:export-xdpi="90"
-   inkscape:export-ydpi="90">
+   inkscape:export-ydpi="90"
+   sodipodi:docbase="/home/elmar/projekte/ImageMetadataViewer/src/de/elmar_baumann/imv/resource">
   <defs
      id="defs3742">
     <inkscape:perspective
@@ -35,17 +37,17 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="22.197802"
-     inkscape:cx="-7.9925744"
-     inkscape:cy="8"
+     inkscape:zoom="40"
+     inkscape:cx="8"
+     inkscape:cy="9.0698574"
      inkscape:current-layer="layer1"
      showgrid="true"
      inkscape:grid-bbox="true"
      inkscape:document-units="px"
-     inkscape:window-width="1294"
-     inkscape:window-height="675"
-     inkscape:window-x="132"
-     inkscape:window-y="138">
+     inkscape:window-width="877"
+     inkscape:window-height="975"
+     inkscape:window-x="35"
+     inkscape:window-y="31">
     <inkscape:grid
        type="xygrid"
        id="grid3750" />
@@ -53,6 +55,12 @@
   <metadata
      id="metadata3745">
     <rdf:RDF>
+      <ns:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </ns:Work>
       <cc:Work
          rdf:about="">
         <dc:format>image/svg+xml</dc:format>
@@ -66,18 +74,69 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer">
     <rect
-       style="opacity:1;fill:#555555;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="opacity:1;fill:#333333;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rect3752"
-       width="14"
+       width="13"
        height="12"
        x="1"
-       y="2" />
+       y="2"
+       ry="0.72500002"
+       rx="0.85892856" />
     <rect
        style="opacity:1;fill:#e39292;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rect4263"
-       width="12"
+       width="11"
        height="10"
        x="2"
        y="3" />
+    <rect
+       style="opacity:1;fill:#cdc41c;fill-opacity:1;stroke:none;stroke-width:0.84937185;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect2161"
+       width="1"
+       height="1"
+       x="3"
+       y="2" />
+    <rect
+       style="opacity:1;fill:#cdc41c;fill-opacity:1;stroke:none;stroke-width:0.84937185;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect3134"
+       width="1"
+       height="1"
+       x="5"
+       y="2" />
+    <rect
+       style="opacity:1;fill:#cdc41c;fill-opacity:1;stroke:none;stroke-width:0.84937185;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect3136"
+       width="1"
+       height="1"
+       x="7"
+       y="2"
+       inkscape:transform-center-x="-3.875"
+       inkscape:transform-center-y="1.925" />
+    <rect
+       style="opacity:1;fill:#cdc41c;fill-opacity:1;stroke:none;stroke-width:0.84937185;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect3138"
+       width="1"
+       height="1"
+       x="9"
+       y="2" />
+    <rect
+       style="opacity:1;fill:#cdc41c;fill-opacity:1;stroke:none;stroke-width:0.84937185;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect3140"
+       width="1"
+       height="1"
+       x="11"
+       y="2" />
+    <text
+       xml:space="preserve"
+       style="font-size:7.10732985px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;opacity:1;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="1.7546219"
+       y="12.506063"
+       id="text3142"
+       sodipodi:linespacing="125%"
+       transform="scale(1.1255985,0.8884162)"><tspan
+         sodipodi:role="line"
+         id="tspan3144"
+         x="1.7546219"
+         y="12.506063">CF</tspan></text>
   </g>
 </svg>

@@ -15,7 +15,7 @@ import javax.swing.JList;
  */
 public class ListCellRendererSavedSearches extends DefaultListCellRenderer {
 
-    private static final Icon icon = AppSettings.getIcon("icon_savedsearch.png"); // NOI18N
+    private static final Icon icon = AppSettings.getIcon("icon_search.png"); // NOI18N
 
     @Override
     public Component getListCellRendererComponent(JList list, Object value,
