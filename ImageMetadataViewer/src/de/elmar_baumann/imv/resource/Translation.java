@@ -21,7 +21,7 @@ public class Translation {
         try {
             bundle = ResourceBundle.getBundle(pathPrefix + propertiesFileBasename);
         } catch (MissingResourceException ex) {
-            Logger.getLogger(Translation.class.getName()).log(Level.FINE, null, ex);
+            Logger.getLogger(Translation.class.getName()).log(Level.WARNING, null, ex);
         }
     }
 
@@ -37,9 +37,9 @@ public class Translation {
         try {
             return bundle.getString(string);
         } catch (MissingResourceException ex) {
-            Logger.getLogger(Translation.class.getName()).log(Level.FINE, null, ex);
+            Logger.getLogger(Translation.class.getName()).log(Level.WARNING, null, ex);
         } catch (Exception ex) {
-            Logger.getLogger(Translation.class.getName()).log(Level.FINE, null, ex);
+            Logger.getLogger(Translation.class.getName()).log(Level.WARNING, null, ex);
         }
         return string;
     }
@@ -58,9 +58,9 @@ public class Translation {
         try {
             return bundle.getString(string);
         } catch (MissingResourceException ex) {
-            Logger.getLogger(Translation.class.getName()).log(Level.FINE, null, ex);
+            Logger.getLogger(Translation.class.getName()).log(Level.WARNING, null, ex);
         } catch (Exception ex) {
-            Logger.getLogger(Translation.class.getName()).log(Level.FINE, null, ex);
+            Logger.getLogger(Translation.class.getName()).log(Level.WARNING, null, ex);
         }
         return alternate;
     }

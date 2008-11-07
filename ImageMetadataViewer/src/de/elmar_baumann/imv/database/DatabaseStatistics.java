@@ -183,7 +183,7 @@ public class DatabaseStatistics extends Database {
                     column.getName() +
                     " = ?"); // NOI18N
                 stmt.setString(1, value);
-                logStatement(stmt);
+                logStatement(stmt, Level.FINEST);
                 ResultSet rs = stmt.executeQuery();
                 if (rs.next()) {
                     exists = rs.getInt(1) > 0;
@@ -217,7 +217,7 @@ public class DatabaseStatistics extends Database {
                 column.getName() +
                 " = ?"); // NOI18N
             stmt.setString(1, value);
-            logStatement(stmt);
+            logStatement(stmt, Level.FINEST);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 count = rs.getInt(1);

@@ -43,10 +43,11 @@ public class DatabaseAutoscanDirectories extends Database {
                 PreparedStatement stmt = connection.prepareStatement(
                     "INSERT INTO autoscan_directories (directory) VALUES (?)"); // NOI18N
                 stmt.setString(1, directoryName);
-                logStatement(stmt);
+                logStatement(stmt, Level.FINER);
                 int count = stmt.executeUpdate();
                 inserted = count > 0;
-                notifyDatabaseListener(DatabaseAction.Type.AutoscanDirectoryInserted, directoryName);
+                notifyDatabaseListener(
+                    DatabaseAction.Type.AutoscanDirectoryInserted, directoryName);
                 stmt.close();
             } catch (SQLException ex) {
                 handleException(ex, Level.SEVERE);
@@ -63,7 +64,9 @@ public class DatabaseAutoscanDirectories extends Database {
      * @param  directoryNames Verzeichnisnamen
      * @return true bei Erfolg
      */
-    public synchronized boolean insertAutoscanDirectories(List<String> directoryNames) {
+    public synchronized boolean insertAutoscanDirectories(
+        List<String> directoryNames) {
+        
         boolean inserted = false;
         Connection connection = null;
         try {
@@ -74,20 +77,17 @@ public class DatabaseAutoscanDirectories extends Database {
             for (String directoryName : directoryNames) {
                 if (!existsAutoscanDirectory(directoryName)) {
                     stmt.setString(1, directoryName);
-                    logStatement(stmt);
+                    logStatement(stmt, Level.FINER);
                     stmt.executeUpdate();
                 }
             }
             connection.commit();
-            notifyDatabaseListener(DatabaseAction.Type.AutoscanDirectoriesInserted, directoryNames);
+            notifyDatabaseListener(
+                DatabaseAction.Type.AutoscanDirectoriesInserted, directoryNames);
             stmt.close();
         } catch (SQLException ex) {
             handleException(ex, Level.SEVERE);
-            try {
-                connection.rollback();
-            } catch (SQLException ex1) {
-                handleException(ex1, Level.SEVERE);
-            }
+            rollback(connection);
         } finally {
             free(connection);
         }
@@ -110,11 +110,12 @@ public class DatabaseAutoscanDirectories extends Database {
             PreparedStatement stmt = connection.prepareStatement(
                 "DELETE FROM autoscan_directories WHERE directory = ?"); // NOI18N
             stmt.setString(1, directoryName);
-            logStatement(stmt);
+            logStatement(stmt, Level.FINER);
             int count = stmt.executeUpdate();
             deleted = count > 0;
             if (count > 0) {
-                notifyDatabaseListener(DatabaseAction.Type.AutoscanDirectoryDeleted, directoryName);
+                notifyDatabaseListener(
+                    DatabaseAction.Type.AutoscanDirectoryDeleted, directoryName);
             }
             stmt.close();
         } catch (SQLException ex) {
@@ -140,7 +141,7 @@ public class DatabaseAutoscanDirectories extends Database {
             PreparedStatement stmt = connection.prepareStatement(
                 "SELECT COUNT(*) FROM autoscan_directories WHERE directory = ?"); // NOI18N
             stmt.setString(1, directoryName);
-            logStatement(stmt);
+            logStatement(stmt, Level.FINEST);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 exists = rs.getInt(1) > 0;
@@ -166,7 +167,8 @@ public class DatabaseAutoscanDirectories extends Database {
             connection = getConnection();
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(
-                "SELECT directory FROM autoscan_directories ORDER BY directory ASC"); // NOI18N
+                "SELECT directory FROM autoscan_directories" + // NOI18N
+                " ORDER BY directory ASC"); // NOI18N
             while (rs.next()) {
                 directories.add(rs.getString(1));
             }

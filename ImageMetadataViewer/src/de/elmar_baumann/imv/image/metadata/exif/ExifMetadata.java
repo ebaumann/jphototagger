@@ -336,7 +336,7 @@ public class ExifMetadata {
             IPTCEntryCollection collection = MetadataUtils.getIPTC(reader);
             dumpPrintIptc(collection, System.out);
         } catch (IOException ex) {
-            Logger.getLogger(ExifMetadata.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ExifMetadata.class.getName()).log(Level.WARNING, null, ex);
         }
     }
 

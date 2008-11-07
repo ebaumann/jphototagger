@@ -33,7 +33,7 @@ public class IoUtil {
             try {
                 Runtime.getRuntime().exec(openCommand);
             } catch (IOException ex) {
-                Logger.getLogger(ThumbnailsPanel.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ThumbnailsPanel.class.getName()).log(Level.WARNING, null, ex);
                 JOptionPane.showMessageDialog(null,
                     Bundle.getString("IoUtil.ErrorMessage.OpenFile"),
                     Bundle.getString("IoUtil.ErrorMessage.OpenFile.Title"),

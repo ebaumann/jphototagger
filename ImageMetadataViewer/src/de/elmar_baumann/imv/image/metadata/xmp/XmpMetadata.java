@@ -206,7 +206,7 @@ public class XmpMetadata {
     }
 
     private void handleException(Exception ex) {
-        Logger.getLogger(XmpMetadata.class.getName()).log(Level.SEVERE, null, ex);
+        Logger.getLogger(XmpMetadata.class.getName()).log(Level.WARNING, null, ex);
         ErrorListeners.getInstance().notifyErrorListener(new ErrorEvent(ex.toString(), this));
     }
 

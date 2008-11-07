@@ -88,7 +88,7 @@ public class ControllerDeleteFavoriteDirectory extends Controller
                 try {
                     Thread.sleep(removeCheckIntervalSeconds * 1000);
                 } catch (InterruptedException ex) {
-                    Logger.getLogger(ControllerDeleteFavoriteDirectory.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(ControllerDeleteFavoriteDirectory.class.getName()).log(Level.WARNING, null, ex);
                 }
                 int size = model.getSize();
                 for (int i = 0; i < size; i++) {

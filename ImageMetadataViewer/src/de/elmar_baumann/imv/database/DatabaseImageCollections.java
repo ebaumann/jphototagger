@@ -62,6 +62,7 @@ public class DatabaseImageCollections extends Database {
      */
     public synchronized int updateRenameImageCollection(
         String oldName, String newName) {
+        
         int count = 0;
         Connection connection = null;
         try {
@@ -71,12 +72,13 @@ public class DatabaseImageCollections extends Database {
                 "UPDATE collection_names SET name = ? WHERE name = ?"); // NOI18N
             stmt.setString(1, newName);
             stmt.setString(2, oldName);
-            logStatement(stmt);
+            logStatement(stmt, Level.FINER);
             count = stmt.executeUpdate();
             List<String> info = new ArrayList<String>();
             info.add(oldName);
             info.add(newName);
-            notifyDatabaseListener(DatabaseAction.Type.ImageCollectionRenamed, info);
+            notifyDatabaseListener(
+                DatabaseAction.Type.ImageCollectionRenamed, info);
             stmt.close();
         } catch (SQLException ex) {
             handleException(ex, Level.SEVERE);
@@ -105,7 +107,7 @@ public class DatabaseImageCollections extends Database {
                 " WHERE collection_names.name = ?" + // NOI18N
                 " ORDER BY collections.sequence_number ASC"); // NOI18N
             stmt.setString(1, collectionName);
-            logStatement(stmt);
+            logStatement(stmt, Level.FINEST);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 filenames.add(rs.getString(1));
@@ -148,30 +150,29 @@ public class DatabaseImageCollections extends Database {
                 ", sequence_number)" + // NOI18N -- 3 --
                 " VALUES (?, ?, ?)"); // NOI18N
             stmtName.setString(1, collectionName);
-            logStatement(stmtName);
+            logStatement(stmtName, Level.FINER);
             stmtName.executeUpdate();
             long idCollectionName = getIdCollectionName(connection, collectionName);
             int sequence_number = 0;
             for (String filename : filenames) {
-                long idFile = DatabaseImageFiles.getInstance().getIdFile(connection, filename);
+                long idFile = DatabaseImageFiles.getInstance().getIdFile(
+                    connection, filename);
                 stmtColl.setLong(1, idCollectionName);
                 stmtColl.setLong(2, idFile);
                 stmtColl.setInt(3, sequence_number++);
-                logStatement(stmtColl);
+                logStatement(stmtColl, Level.FINER);
                 stmtColl.executeUpdate();
             }
             connection.commit();
             added = true;
-            notifyDatabaseListener(DatabaseAction.Type.ImageCollectionInserted, collectionName, filenames);
+            notifyDatabaseListener(
+                DatabaseAction.Type.ImageCollectionInserted, 
+                collectionName, filenames);
             stmtName.close();
             stmtColl.close();
         } catch (SQLException ex) {
             handleException(ex, Level.SEVERE);
-            try {
-                connection.rollback();
-            } catch (SQLException ex1) {
-                handleException(ex1, Level.SEVERE);
-            }
+            rollback(connection);
         } finally {
             free(connection);
         }
@@ -193,10 +194,11 @@ public class DatabaseImageCollections extends Database {
             PreparedStatement stmt = connection.prepareStatement(
                 "DELETE FROM collection_names WHERE name = ?"); // NOI18N
             stmt.setString(1, collectionname);
-            logStatement(stmt);
+            logStatement(stmt, Level.FINER);
             stmt.executeUpdate();
             deleted = true;
-            notifyDatabaseListener(DatabaseAction.Type.ImageCollectionDeleted, collectionname);
+            notifyDatabaseListener(
+                DatabaseAction.Type.ImageCollectionDeleted, collectionname);
             stmt.close();
         } catch (SQLException ex) {
             handleException(ex, Level.SEVERE);
@@ -215,6 +217,7 @@ public class DatabaseImageCollections extends Database {
      */
     public synchronized int deleteImagesFromCollection(
         String collectionName, List<String> filenames) {
+        
         int delCount = 0;
         Connection connection = null;
         try {
@@ -224,24 +227,24 @@ public class DatabaseImageCollections extends Database {
                 "DELETE FROM collections" + // NOI18N
                 " WHERE id_collectionnnames = ? AND id_files = ?"); // NOI18N
             for (String filename : filenames) {
-                long idCollectionName = getIdCollectionName(connection, collectionName);
-                long idFile = DatabaseImageFiles.getInstance().getIdFile(connection, filename);
+                long idCollectionName = getIdCollectionName(
+                    connection, collectionName);
+                long idFile = DatabaseImageFiles.getInstance().getIdFile(
+                    connection, filename);
                 stmt.setLong(1, idCollectionName);
                 stmt.setLong(2, idFile);
-                logStatement(stmt);
+                logStatement(stmt, Level.FINER);
                 delCount += stmt.executeUpdate();
                 reorderCollectionSequenceNumber(connection, collectionName);
             }
             connection.commit();
-            notifyDatabaseListener(DatabaseAction.Type.ImageCollectionImagesDeleted, collectionName, filenames);
+            notifyDatabaseListener(
+                DatabaseAction.Type.ImageCollectionImagesDeleted, 
+                collectionName, filenames);
             stmt.close();
         } catch (SQLException ex) {
             handleException(ex, Level.SEVERE);
-            try {
-                connection.rollback();
-            } catch (SQLException ex1) {
-                handleException(ex1, Level.SEVERE);
-            }
+            rollback(connection);
         } finally {
             free(connection);
         }
@@ -259,6 +262,7 @@ public class DatabaseImageCollections extends Database {
      */
     public synchronized boolean insertImagesIntoCollection(
         String collectionName, List<String> filenames) {
+        
         boolean added = false;
         Connection connection = null;
         try {
@@ -271,15 +275,18 @@ public class DatabaseImageCollections extends Database {
                     ", id_collectionnnames" + // NOI18N -- 2 --
                     ", sequence_number)" + // NOI18N -- 3 --
                     " VALUES (?, ?, ?)");
-                long idCollectionNames = getIdCollectionName(connection, collectionName);
-                int sequence_number = getMaxCollectionSequenceNumber(connection, collectionName) + 1;
+                long idCollectionNames = getIdCollectionName(
+                    connection, collectionName);
+                int sequence_number = getMaxCollectionSequenceNumber(
+                    connection, collectionName) + 1;
                 for (String filename : filenames) {
                     if (!isImageInCollection(connection, collectionName, filename)) {
-                        long idFiles = DatabaseImageFiles.getInstance().getIdFile(connection, filename);
+                        long idFiles = DatabaseImageFiles.getInstance().getIdFile(
+                            connection, filename);
                         stmt.setLong(1, idFiles);
                         stmt.setLong(2, idCollectionNames);
                         stmt.setInt(3, sequence_number++);
-                        logStatement(stmt);
+                        logStatement(stmt, Level.FINER);
                         stmt.executeUpdate();
                     }
                 }
@@ -290,14 +297,12 @@ public class DatabaseImageCollections extends Database {
             }
             connection.commit();
             added = true;
-            notifyDatabaseListener(DatabaseAction.Type.ImageCollectionImagesAdded, collectionName, filenames);
+            notifyDatabaseListener(
+                DatabaseAction.Type.ImageCollectionImagesAdded, 
+                collectionName, filenames);
         } catch (SQLException ex) {
             handleException(ex, Level.SEVERE);
-            try {
-                connection.rollback();
-            } catch (SQLException ex1) {
-                handleException(ex1, Level.SEVERE);
-            }
+            rollback(connection);
         } finally {
             free(connection);
         }
@@ -306,6 +311,7 @@ public class DatabaseImageCollections extends Database {
 
     private int getMaxCollectionSequenceNumber(
         Connection connection, String collectionName) throws SQLException {
+        
         int max = -1;
         PreparedStatement stmt = connection.prepareStatement(
             "SELECT MAX(collections.sequence_number)" + // NOI18N
@@ -313,7 +319,7 @@ public class DatabaseImageCollections extends Database {
             " ON collections.id_collectionnnames = collection_names.id" + // NOI18N
             " AND collection_names.name = ?"); // NOI18N
         stmt.setString(1, collectionName);
-        logStatement(stmt);
+        logStatement(stmt, Level.FINEST);
         ResultSet rs = stmt.executeQuery();
         if (rs.next()) {
             max = rs.getInt(1);
@@ -324,12 +330,13 @@ public class DatabaseImageCollections extends Database {
 
     private synchronized void reorderCollectionSequenceNumber(
         Connection connection, String collectionName) throws SQLException {
+        
         long idCollectionName = getIdCollectionName(connection, collectionName);
         PreparedStatement stmtIdFiles = connection.prepareStatement(
             "SELECT id_files FROM collections WHERE id_collectionnnames = ?" + // NOI18N
             " ORDER BY collections.sequence_number ASC"); // NOI18N
         stmtIdFiles.setLong(1, idCollectionName);
-        logStatement(stmtIdFiles);
+        logStatement(stmtIdFiles, Level.FINEST);
         ResultSet rs = stmtIdFiles.executeQuery();
         List<Long> idFiles = new ArrayList<Long>();
         while (rs.next()) {
@@ -343,7 +350,7 @@ public class DatabaseImageCollections extends Database {
             stmt.setInt(1, sequenceNumer++);
             stmt.setLong(2, idCollectionName);
             stmt.setLong(3, idFile);
-            logStatement(stmt);
+            logStatement(stmt, Level.FINER);
             stmt.executeUpdate();
         }
         stmtIdFiles.close();
@@ -364,7 +371,7 @@ public class DatabaseImageCollections extends Database {
             PreparedStatement stmt = connection.prepareStatement(
                 "SELECT COUNT(*) FROM collection_names WHERE name = ?"); // NOI18N
             stmt.setString(1, collectionName);
-            logStatement(stmt);
+            logStatement(stmt, Level.FINEST);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 exists = rs.getInt(1) > 0;
@@ -414,7 +421,8 @@ public class DatabaseImageCollections extends Database {
         try {
             connection = getConnection();
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT COUNT(*) FROM collections"); // NOI18N
+            ResultSet rs = stmt.executeQuery(
+                "SELECT COUNT(*) FROM collections"); // NOI18N
             if (rs.next()) {
                 count = rs.getInt(1);
             }
@@ -429,6 +437,7 @@ public class DatabaseImageCollections extends Database {
 
     private boolean isImageInCollection(
         Connection connection, String collectionName, String filename) throws SQLException {
+        
         boolean isInCollection = false;
         PreparedStatement stmt = connection.prepareStatement(
             "SELECT COUNT(*) FROM" + // NOI18N
@@ -438,7 +447,7 @@ public class DatabaseImageCollections extends Database {
             " WHERE collection_names.name = ? AND files.filename = ?"); // NOI18N
         stmt.setString(1, collectionName);
         stmt.setString(2, filename);
-        logStatement(stmt);
+        logStatement(stmt, Level.FINEST);
         ResultSet rs = stmt.executeQuery();
         if (rs.next()) {
             isInCollection = rs.getInt(1) > 0;
@@ -449,11 +458,12 @@ public class DatabaseImageCollections extends Database {
 
     private long getIdCollectionName(
         Connection connection, String collectionname) throws SQLException {
+        
         long id = -1;
         PreparedStatement stmt = connection.prepareStatement(
             "SELECT id FROM collection_names WHERE name = ?"); // NOI18N
         stmt.setString(1, collectionname);
-        logStatement(stmt);
+        logStatement(stmt, Level.FINEST);
         ResultSet rs = stmt.executeQuery();
         if (rs.next()) {
             id = rs.getLong(1);

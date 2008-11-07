@@ -75,10 +75,10 @@ public class ThumbnailUtil {
             }
             close(reader);
         } catch (IOException ex) {
-            Logger.getLogger(ImageFileThumbnailsPanel.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ImageFileThumbnailsPanel.class.getName()).log(Level.WARNING, null, ex);
             return null;
         } catch (Exception ex) {
-            Logger.getLogger(ImageFileThumbnailsPanel.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ImageFileThumbnailsPanel.class.getName()).log(Level.WARNING, null, ex);
             return null;
         }
         return thumbnail;
@@ -97,9 +97,9 @@ public class ThumbnailUtil {
             close(procOptions.getImageReader());
             return image;
         } catch (IOException ex) {
-            Logger.getLogger(ThumbnailUtil.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ThumbnailUtil.class.getName()).log(Level.WARNING, null, ex);
         } catch (Exception ex) {
-            Logger.getLogger(ImageFileThumbnailsPanel.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ImageFileThumbnailsPanel.class.getName()).log(Level.WARNING, null, ex);
         }
         return null;
     }
@@ -147,7 +147,7 @@ public class ThumbnailUtil {
             try {
                 tracker.waitForID(0);
             } catch (InterruptedException ex) {
-                Logger.getLogger(ThumbnailUtil.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ThumbnailUtil.class.getName()).log(Level.WARNING, null, ex);
             }
         }
         return image;
@@ -226,7 +226,7 @@ public class ThumbnailUtil {
             scaledImage = scaleImage(scaledWidth, scaledHeight, image);
 
         } catch (ImageFormatException e) {
-            Logger.getLogger(ThumbnailUtil.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(ThumbnailUtil.class.getName()).log(Level.WARNING, null, e);
         }
         return scaledImage;
     }
@@ -269,10 +269,10 @@ public class ThumbnailUtil {
             try {
                 mediaTracker.waitForID(0);
             } catch (InterruptedException e) {
-                Logger.getLogger(ThumbnailUtil.class.getName()).log(Level.SEVERE, null, e);
+                Logger.getLogger(ThumbnailUtil.class.getName()).log(Level.WARNING, null, e);
             }
         } catch (IOException e) {
-            Logger.getLogger(ThumbnailUtil.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(ThumbnailUtil.class.getName()).log(Level.WARNING, null, e);
         }
         return image;
     }

@@ -101,7 +101,7 @@ public class IptcEntry {
                 getIptcCharset()).trim();
         } catch (UnsupportedEncodingException ex) {
             Logger.getLogger(IptcEntry.class.getName()).
-                log(Level.SEVERE, null, ex);
+                log(Level.WARNING, null, ex);
         }
         return ""; // NOI18N
     }

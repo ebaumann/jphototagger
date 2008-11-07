@@ -45,7 +45,7 @@ public class DatabaseFileExcludePattern extends Database {
             PreparedStatement stmt = connection.prepareStatement(
                 "INSERT INTO file_exclude_pattern (pattern) VALUES (?)"); // NOI18N
             stmt.setString(1, pattern);
-            logStatement(stmt);
+            logStatement(stmt, Level.FINER);
             int count = stmt.executeUpdate();
             connection.commit();
             stmt.close();
@@ -73,7 +73,7 @@ public class DatabaseFileExcludePattern extends Database {
             PreparedStatement stmt = connection.prepareStatement(
                 "DELETE FROM file_exclude_pattern WHERE pattern = ?"); // NOI18N
             stmt.setString(1, pattern);
-            logStatement(stmt);
+            logStatement(stmt, Level.FINER);
             int count = stmt.executeUpdate();
             connection.commit();
             stmt.close();
@@ -100,7 +100,7 @@ public class DatabaseFileExcludePattern extends Database {
             PreparedStatement stmt = connection.prepareStatement(
                 "SELECT COUNT(*) FROM file_exclude_pattern WHERE pattern = ?"); // NOI18N
             stmt.setString(1, pattern);
-            logStatement(stmt);
+            logStatement(stmt, Level.FINEST);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 exists = rs.getInt(1) > 0;
@@ -146,7 +146,9 @@ public class DatabaseFileExcludePattern extends Database {
      * @param   listener  progress listener, can cancel the action
      * @return  count of deleted files
      */
-    public synchronized int deleteFilesWithPattern(List<String> patterns, ProgressListener listener) {
+    public synchronized int deleteFilesWithPattern(
+        List<String> patterns, ProgressListener listener) {
+        
         Connection connection = null;
         int count = 0;
         try {
@@ -170,7 +172,7 @@ public class DatabaseFileExcludePattern extends Database {
                     if (filename.matches(pattern)) {
                         updateStmt.setString(1, filename);
                         deletedFiles.add(filename);
-                        logStatement(updateStmt);
+                        logStatement(updateStmt, Level.FINER);
                         updateStmt.executeUpdate();
                         stop = event.isStop();
                     }

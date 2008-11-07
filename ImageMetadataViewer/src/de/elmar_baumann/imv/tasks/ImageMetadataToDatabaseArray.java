@@ -214,7 +214,7 @@ public class ImageMetadataToDatabaseArray implements ProgressListener {
     private void messageEndUpdateDirectory(ImageMetadataToDatabase scanner) {
         MessageFormat message = new MessageFormat(Bundle.getString("ImageMetadataToDatabaseArray.InformationMessage.UpdateMetadataFinished")); // NOI18N
         Object[] params = {getDirectoryNameOfUpdater(scanner)};
-        Logger.getLogger(ImageMetadataToDatabaseArray.class.getName()).log(Level.FINE, message.format(params));
+        Logger.getLogger(ImageMetadataToDatabaseArray.class.getName()).log(Level.FINEST, message.format(params));
     }
 
     private void messageUpdateCurrentImage(String filename) {

@@ -61,17 +61,13 @@ public class DatabasePrograms extends Database {
                 ")" + // NOI18N
                 " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"); // NOI18N
             setValuesInsert(stmt, program);
-            logStatement(stmt);
+            logStatement(stmt, Level.FINER);
             countAffectedRows = stmt.executeUpdate();
             connection.commit();
             stmt.close();
         } catch (SQLException ex) {
             handleException(ex, Level.SEVERE);
-            try {
-                connection.rollback();
-            } catch (SQLException ex1) {
-                handleException(ex1, Level.SEVERE);
-            }
+            rollback(connection);
         } finally {
             free(connection);
         }
@@ -132,17 +128,13 @@ public class DatabasePrograms extends Database {
                 " WHERE id = ?"); // NOI18N
             setValuesUpdate(stmt, program);
             stmt.setLong(11, program.getId());
-            logStatement(stmt);
+            logStatement(stmt, Level.FINER);
             countAffectedRows = stmt.executeUpdate();
             connection.commit();
             stmt.close();
         } catch (SQLException ex) {
             handleException(ex, Level.SEVERE);
-            try {
-                connection.rollback();
-            } catch (SQLException ex1) {
-                handleException(ex1, Level.SEVERE);
-            }
+            rollback(connection);
         } finally {
             free(connection);
         }
@@ -181,17 +173,13 @@ public class DatabasePrograms extends Database {
             PreparedStatement stmt = connection.prepareStatement(
                 "DELETE FROM programs WHERE id = ?"); // NOI18N
             stmt.setLong(1, program.getId());
-            logStatement(stmt);
+            logStatement(stmt, Level.FINER);
             countAffectedRows = stmt.executeUpdate();
             connection.commit();
             stmt.close();
         } catch (SQLException ex) {
             handleException(ex, Level.SEVERE);
-            try {
-                connection.rollback();
-            } catch (SQLException ex1) {
-                handleException(ex1, Level.SEVERE);
-            }
+            rollback(connection);
         } finally {
             free(connection);
         }
@@ -227,7 +215,7 @@ public class DatabasePrograms extends Database {
                 " WHERE action = ?" + // NOI18N
                 " ORDER BY alias"); // NOI18N
             stmt.setBoolean(1, action);
-            logStatement(stmt);
+            logStatement(stmt, Level.FINEST);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 byte[] parametersBeforeFilename = rs.getBytes(5);

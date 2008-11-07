@@ -20,13 +20,13 @@ import java.util.logging.Level;
  * @version 2008/10/21
  */
 public class DatabaseSavedSearches extends Database {
-    
+
     private static DatabaseSavedSearches instance = new DatabaseSavedSearches();
-    
+
     public static DatabaseSavedSearches getInstance() {
         return instance;
     }
-    
+
     private DatabaseSavedSearches() {
     }
 
@@ -59,7 +59,7 @@ public class DatabaseSavedSearches extends Database {
                 stmt.setString(1, stmtData.getName());
                 stmt.setBytes(2, stmtData.getSql().getBytes());
                 stmt.setBoolean(3, stmtData.isQuery());
-                logStatement(stmt);
+                logStatement(stmt, Level.FINER);
                 stmt.executeUpdate();
                 long id = getIdSavedSearch(connection, stmtData.getName());
                 insertSavedSearchValues(connection, id, stmtData.getValues());
@@ -70,11 +70,7 @@ public class DatabaseSavedSearches extends Database {
                 stmt.close();
             } catch (SQLException ex) {
                 handleException(ex, Level.SEVERE);
-                try {
-                    connection.rollback();
-                } catch (SQLException ex1) {
-                    handleException(ex1, Level.SEVERE);
-                }
+                rollback(connection);
             } finally {
                 free(connection);
             }
@@ -99,7 +95,7 @@ public class DatabaseSavedSearches extends Database {
                 String value = values.get(index);
                 stmt.setString(2, value);
                 stmt.setInt(3, index);
-                logStatement(stmt);
+                logStatement(stmt, Level.FINER);
                 stmt.executeUpdate();
             }
             stmt.close();
@@ -132,7 +128,7 @@ public class DatabaseSavedSearches extends Database {
                 stmt.setInt(7, data.getComparatorId());
                 stmt.setString(8, data.getValue());
                 stmt.setBoolean(9, data.isBracketRightSelected());
-                logStatement(stmt);
+                logStatement(stmt, Level.FINER);
                 stmt.executeUpdate();
             }
             stmt.close();
@@ -144,7 +140,7 @@ public class DatabaseSavedSearches extends Database {
         PreparedStatement stmt = connection.prepareStatement(
             "SELECT id FROM saved_searches WHERE name = ?"); // NOI18N
         stmt.setString(1, name);
-        logStatement(stmt);
+        logStatement(stmt, Level.FINEST);
         ResultSet rs = stmt.executeQuery();
         if (rs.next()) {
             id = rs.getLong(1);
@@ -225,7 +221,7 @@ public class DatabaseSavedSearches extends Database {
             PreparedStatement stmt = connection.prepareStatement(
                 "DELETE FROM saved_searches WHERE name = ?"); // NOI18N
             stmt.setString(1, name);
-            logStatement(stmt);
+            logStatement(stmt, Level.FINER);
             int count = stmt.executeUpdate();
             connection.commit();
             deleted = count > 0;
@@ -235,11 +231,7 @@ public class DatabaseSavedSearches extends Database {
             stmt.close();
         } catch (SQLException ex) {
             handleException(ex, Level.SEVERE);
-            try {
-                connection.rollback();
-            } catch (SQLException ex1) {
-                handleException(ex1, Level.SEVERE);
-            }
+            rollback(connection);
         } finally {
             free(connection);
         }
@@ -263,7 +255,7 @@ public class DatabaseSavedSearches extends Database {
                 "UPDATE saved_searches SET name = ? WHERE name = ?"); // NOI18N
             stmt.setString(1, newName);
             stmt.setString(2, oldName);
-            logStatement(stmt);
+            logStatement(stmt, Level.FINER);
             int count = stmt.executeUpdate();
             renamed = count > 0;
             if (renamed) {
@@ -289,7 +281,9 @@ public class DatabaseSavedSearches extends Database {
      */
     public synchronized boolean updateSavedSearch(SavedSearch data) {
         if (data.hasParamStatement() && data.getParamStatements() != null) {
-            boolean updated = deleteSavedSearch(data.getParamStatements().getName()) && insertSavedSearch(data);
+            boolean updated = 
+                deleteSavedSearch(data.getParamStatements().getName()) && 
+                insertSavedSearch(data);
             if (updated) {
                 notifyDatabaseListener(DatabaseAction.Type.SavedSearchUpdated, data);
             }
@@ -309,13 +303,14 @@ public class DatabaseSavedSearches extends Database {
         Connection connection = null;
         try {
             connection = getConnection();
-            PreparedStatement stmt = connection.prepareStatement("SELECT" + // NOI18N
+            PreparedStatement stmt = connection.prepareStatement(
+                "SELECT" + // NOI18N
                 " name" + // NOI18N -- 1 --
                 ", sql_string" + // NOI18N -- 2 --
                 ", is_query" + // NOI18N -- 3 --
                 " FROM saved_searches WHERE name = ?"); // NOI18N
             stmt.setString(1, name);
-            logStatement(stmt);
+            logStatement(stmt, Level.FINEST);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 data = new SavedSearch();
@@ -384,7 +379,7 @@ public class DatabaseSavedSearches extends Database {
             " AND saved_searches.name = ?" + // NOI18N
             " ORDER BY saved_searches_values.value_index ASC"); // NOI18N
         stmt.setString(1, data.getParamStatements().getName());
-        logStatement(stmt);
+        logStatement(stmt, Level.FINEST);
         ResultSet rs = stmt.executeQuery();
         List<String> values = new ArrayList<String>();
         while (rs.next()) {
@@ -412,7 +407,7 @@ public class DatabaseSavedSearches extends Database {
             " AND saved_searches.name = ?" + // NOI18N
             " ORDER BY saved_searches_panels.panel_index ASC"); // NOI18N
         stmt.setString(1, data.getParamStatements().getName());
-        logStatement(stmt);
+        logStatement(stmt, Level.FINEST);
         ResultSet rs = stmt.executeQuery();
         List<SavedSearchPanel> allPanelData = new ArrayList<SavedSearchPanel>();
         while (rs.next()) {

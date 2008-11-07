@@ -70,7 +70,7 @@ public class ComboBoxModelAppColors extends DefaultComboBoxModel {
             try {
                 setSelectedItem(getElementAt(Integer.parseInt(index)));
             } catch (NumberFormatException ex) {
-                Logger.getLogger(ComboBoxModelAppColors.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ComboBoxModelAppColors.class.getName()).log(Level.WARNING, null, ex);
             }
         }
     }

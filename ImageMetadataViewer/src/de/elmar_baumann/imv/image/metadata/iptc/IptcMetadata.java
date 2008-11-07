@@ -82,7 +82,7 @@ public class IptcMetadata {
     }
 
     private void handleException(Exception ex) {
-        Logger.getLogger(IptcMetadata.class.getName()).log(Level.SEVERE, null, ex);
+        Logger.getLogger(IptcMetadata.class.getName()).log(Level.WARNING, null, ex);
         ErrorListeners.getInstance().notifyErrorListener(new ErrorEvent(ex.toString(), this));
     }
 

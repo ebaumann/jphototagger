@@ -116,7 +116,7 @@ public class TransferHandlerListFavoriteDirectories extends TransferHandler {
                 model.swapFavorites(dropIndex, model.indexOf(item));
             }
         } catch (Exception ex) {
-            Logger.getLogger(TransferHandlerListFavoriteDirectories.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TransferHandlerListFavoriteDirectories.class.getName()).log(Level.WARNING, null, ex);
         }
     }
 }

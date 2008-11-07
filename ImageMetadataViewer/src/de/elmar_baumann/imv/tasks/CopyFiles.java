@@ -103,7 +103,7 @@ public class CopyFiles implements Runnable {
     }
 
     private void handleException(Exception ex) {
-        Logger.getLogger(CopyFiles.class.getName()).log(Level.SEVERE, null, ex);
+        Logger.getLogger(CopyFiles.class.getName()).log(Level.WARNING, null, ex);
         ErrorListeners.getInstance().notifyErrorListener(new ErrorEvent(ex.toString(), this));
     }
 

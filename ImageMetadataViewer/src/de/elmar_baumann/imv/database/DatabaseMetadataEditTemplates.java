@@ -34,7 +34,9 @@ public class DatabaseMetadataEditTemplates extends Database {
      * @param  template  Template
      * @return true bei Erfolg
      */
-    public synchronized boolean insertMetadataEditTemplate(MetadataEditTemplate template) {
+    public synchronized boolean insertMetadataEditTemplate(
+        MetadataEditTemplate template) {
+        
         if (existsMetadataEditTemplate(template.getName())) {
             return updateMetadataEditTemplate(template);
         }
@@ -68,45 +70,62 @@ public class DatabaseMetadataEditTemplates extends Database {
                 ")" + // NOI18N
                 " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"); // NOI18N
             setMetadataEditTemplate(stmt, template);
-            logStatement(stmt);
+            logStatement(stmt, Level.FINER);
             stmt.executeUpdate();
             connection.commit();
             inserted = true;
             stmt.close();
         } catch (SQLException ex) {
             handleException(ex, Level.SEVERE);
-            try {
-                connection.rollback();
-            } catch (SQLException ex1) {
-                handleException(ex1, Level.SEVERE);
-            }
+            rollback(connection);
         } finally {
             free(connection);
         }
         return inserted;
     }
 
-    private void setMetadataEditTemplate(PreparedStatement stmt, MetadataEditTemplate template) throws SQLException {
+    private void setMetadataEditTemplate(
+        PreparedStatement stmt, MetadataEditTemplate template) throws SQLException {
+        
         stmt.setString(1, template.getName());
-        stmt.setBytes(2, template.getDcSubjects() == null ? null : template.getDcSubjects().getBytes());
-        stmt.setBytes(3, template.getDcTitle() == null ? null : template.getDcTitle().getBytes());
-        stmt.setBytes(4, template.getPhotoshopHeadline() == null ? null : template.getPhotoshopHeadline().getBytes());
-        stmt.setBytes(5, template.getDcDescription() == null ? null : template.getDcDescription().getBytes());
-        stmt.setBytes(6, template.getPhotoshopCaptionwriter() == null ? null : template.getPhotoshopCaptionwriter().getBytes());
-        stmt.setBytes(7, template.getIptc4xmpcoreLocation() == null ? null : template.getIptc4xmpcoreLocation().getBytes());
-        stmt.setBytes(8, template.getIptc4xmpcoreCountrycode() == null ? null : template.getIptc4xmpcoreCountrycode().getBytes());
-        stmt.setBytes(9, template.getPhotoshopCategory() == null ? null : template.getPhotoshopCategory().getBytes());
-        stmt.setBytes(10, template.getPhotoshopSupplementalCategories() == null ? null : template.getPhotoshopSupplementalCategories().getBytes());
-        stmt.setBytes(11, template.getDcRights() == null ? null : template.getDcRights().getBytes());
-        stmt.setBytes(12, template.getDcCreator() == null ? null : template.getDcCreator().getBytes());
-        stmt.setBytes(13, template.getPhotoshopAuthorsposition() == null ? null : template.getPhotoshopAuthorsposition().getBytes());
-        stmt.setBytes(14, template.getPhotoshopCity() == null ? null : template.getPhotoshopCity().getBytes());
-        stmt.setBytes(15, template.getPhotoshopState() == null ? null : template.getPhotoshopState().getBytes());
-        stmt.setBytes(16, template.getPhotoshopCountry() == null ? null : template.getPhotoshopCountry().getBytes());
-        stmt.setBytes(17, template.getPhotoshopTransmissionReference() == null ? null : template.getPhotoshopTransmissionReference().getBytes());
-        stmt.setBytes(18, template.getPhotoshopInstructions() == null ? null : template.getPhotoshopInstructions().getBytes());
-        stmt.setBytes(19, template.getPhotoshopCredit() == null ? null : template.getPhotoshopCredit().getBytes());
-        stmt.setBytes(20, template.getPhotoshopSource() == null ? null : template.getPhotoshopSource().getBytes());
+        stmt.setBytes(2, template.getDcSubjects() == null 
+            ? null : template.getDcSubjects().getBytes());
+        stmt.setBytes(3, template.getDcTitle() == null 
+            ? null : template.getDcTitle().getBytes());
+        stmt.setBytes(4, template.getPhotoshopHeadline() == null 
+            ? null : template.getPhotoshopHeadline().getBytes());
+        stmt.setBytes(5, template.getDcDescription() == null 
+            ? null : template.getDcDescription().getBytes());
+        stmt.setBytes(6, template.getPhotoshopCaptionwriter() == null 
+            ? null : template.getPhotoshopCaptionwriter().getBytes());
+        stmt.setBytes(7, template.getIptc4xmpcoreLocation() == null 
+            ? null : template.getIptc4xmpcoreLocation().getBytes());
+        stmt.setBytes(8, template.getIptc4xmpcoreCountrycode() == null 
+            ? null : template.getIptc4xmpcoreCountrycode().getBytes());
+        stmt.setBytes(9, template.getPhotoshopCategory() == null 
+            ? null : template.getPhotoshopCategory().getBytes());
+        stmt.setBytes(10, template.getPhotoshopSupplementalCategories() == null 
+            ? null : template.getPhotoshopSupplementalCategories().getBytes());
+        stmt.setBytes(11, template.getDcRights() == null 
+            ? null : template.getDcRights().getBytes());
+        stmt.setBytes(12, template.getDcCreator() == null 
+            ? null : template.getDcCreator().getBytes());
+        stmt.setBytes(13, template.getPhotoshopAuthorsposition() == null 
+            ? null : template.getPhotoshopAuthorsposition().getBytes());
+        stmt.setBytes(14, template.getPhotoshopCity() == null 
+            ? null : template.getPhotoshopCity().getBytes());
+        stmt.setBytes(15, template.getPhotoshopState() == null 
+            ? null : template.getPhotoshopState().getBytes());
+        stmt.setBytes(16, template.getPhotoshopCountry() == null 
+            ? null : template.getPhotoshopCountry().getBytes());
+        stmt.setBytes(17, template.getPhotoshopTransmissionReference() == null 
+            ? null : template.getPhotoshopTransmissionReference().getBytes());
+        stmt.setBytes(18, template.getPhotoshopInstructions() == null 
+            ? null : template.getPhotoshopInstructions().getBytes());
+        stmt.setBytes(19, template.getPhotoshopCredit() == null 
+            ? null : template.getPhotoshopCredit().getBytes());
+        stmt.setBytes(20, template.getPhotoshopSource() == null 
+            ? null : template.getPhotoshopSource().getBytes());
     }
 
     /**
@@ -182,7 +201,9 @@ public class DatabaseMetadataEditTemplates extends Database {
      * @param  template  Template
      * @return true bei Erfolg
      */
-    public synchronized boolean updateMetadataEditTemplate(MetadataEditTemplate template) {
+    public synchronized boolean updateMetadataEditTemplate(
+        MetadataEditTemplate template) {
+        
         boolean updated = false;
         Connection connection = null;
         try {
@@ -212,19 +233,14 @@ public class DatabaseMetadataEditTemplates extends Database {
                 ", photoshopSource = ?" + // NOI18N -- 20 --
                 " WHERE name = ?"); // NOI18N
             setMetadataEditTemplate(stmt, template);
-            //stmt.setString(21, template.getName()); ???
-            logStatement(stmt);
+            logStatement(stmt, Level.FINER);
             int count = stmt.executeUpdate();
             connection.commit();
             updated = count > 0;
             stmt.close();
         } catch (SQLException ex) {
             handleException(ex, Level.SEVERE);
-            try {
-                connection.rollback();
-            } catch (SQLException ex1) {
-                handleException(ex1, Level.SEVERE);
-            }
+            rollback(connection);
         } finally {
             free(connection);
         }
@@ -238,7 +254,9 @@ public class DatabaseMetadataEditTemplates extends Database {
      * @param  newName  Neuer Name
      * @return true bei Erfolg
      */
-    public synchronized boolean updateRenameMetadataEditTemplate(String oldName, String newName) {
+    public synchronized boolean updateRenameMetadataEditTemplate(
+        String oldName, String newName) {
+        
         boolean renamed = false;
         Connection connection = null;
         try {
@@ -250,18 +268,14 @@ public class DatabaseMetadataEditTemplates extends Database {
                 " WHERE name = ?"); // NOI18N
             stmt.setString(1, newName);
             stmt.setString(2, oldName);
-            logStatement(stmt);
+            logStatement(stmt, Level.FINER);
             int count = stmt.executeUpdate();
             connection.commit();
             renamed = count > 0;
             stmt.close();
         } catch (SQLException ex) {
             handleException(ex, Level.SEVERE);
-            try {
-                connection.rollback();
-            } catch (SQLException ex1) {
-                handleException(ex1, Level.SEVERE);
-            }
+            rollback(connection);
         } finally {
             free(connection);
         }
@@ -283,18 +297,14 @@ public class DatabaseMetadataEditTemplates extends Database {
             PreparedStatement stmt = connection.prepareStatement(
                 "DELETE FROM metadata_edit_templates WHERE name = ?"); // NOI18N
             stmt.setString(1, name);
-            logStatement(stmt);
+            logStatement(stmt, Level.FINER);
             int count = stmt.executeUpdate();
             connection.commit();
             deleted = count > 0;
             stmt.close();
         } catch (SQLException ex) {
             handleException(ex, Level.SEVERE);
-            try {
-                connection.rollback();
-            } catch (SQLException ex1) {
-                handleException(ex1, Level.SEVERE);
-            }
+            rollback(connection);
         } finally {
             free(connection);
         }
@@ -311,7 +321,7 @@ public class DatabaseMetadataEditTemplates extends Database {
                 " FROM metadata_edit_templates" + // NOI18N
                 " WHERE name = ?"); // NOI18N
             stmt.setString(1, name);
-            logStatement(stmt);
+            logStatement(stmt, Level.FINEST);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 exists = rs.getInt(1) > 0;

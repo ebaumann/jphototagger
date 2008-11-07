@@ -131,7 +131,7 @@ public class UpdateMetadataOfDirectoriesDialog extends Dialog
     private void messageThreadPriority(Thread thread) {
         MessageFormat message = new MessageFormat(Bundle.getString("UpdateMetadataOfDirectoriesDialog.InformationMessage.ThreadPriority"));
         Object[] params = {thread.getPriority()};
-        Logger.getLogger(UpdateMetadataOfDirectoriesDialog.class.getName()).log(Level.FINE, message.format(params));
+        Logger.getLogger(UpdateMetadataOfDirectoriesDialog.class.getName()).log(Level.FINEST, message.format(params));
     }
 
     private void readPersistent() {
@@ -324,7 +324,7 @@ public class UpdateMetadataOfDirectoriesDialog extends Dialog
     @Override
     public void progressEnded(ProgressEvent evt) {
         progressBar.setValue(evt.getValue());
-        Logger.getLogger(UpdateMetadataOfDirectoriesDialog.class.getName()).log(Level.FINE, Bundle.getString("UpdateMetadataOfDirectoriesDialog.InformationMessage.UdateCompleted"));
+        Logger.getLogger(UpdateMetadataOfDirectoriesDialog.class.getName()).log(Level.FINEST, Bundle.getString("UpdateMetadataOfDirectoriesDialog.InformationMessage.UdateCompleted"));
         listSelectedDirectories.setEnabled(true);
         setButtonStatus(false);
         setCheckboxStatus(false);

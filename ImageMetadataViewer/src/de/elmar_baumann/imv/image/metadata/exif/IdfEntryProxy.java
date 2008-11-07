@@ -26,7 +26,7 @@ public class IdfEntryProxy implements Comparable<IdfEntryProxy> {
             name = entry.getEntryMeta().getName();
             rawValue = entry.getRawValue();
         } catch (Exception ex) {
-            Logger.getLogger(IdfEntryProxy.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(IdfEntryProxy.class.getName()).log(Level.WARNING, null, ex);
         }
     }
 

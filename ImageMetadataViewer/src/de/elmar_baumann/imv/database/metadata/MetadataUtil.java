@@ -39,7 +39,7 @@ public class MetadataUtil {
             doubleFormatterFactory = new DefaultFormatterFactory(doubleFormatter);
             dateFormatterFactory = new DefaultFormatterFactory(new MaskFormatter("####-##-##"));
         } catch (ParseException ex) {
-            Logger.getLogger(MetadataUtil.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MetadataUtil.class.getName()).log(Level.WARNING, null, ex);
         }
     }
 

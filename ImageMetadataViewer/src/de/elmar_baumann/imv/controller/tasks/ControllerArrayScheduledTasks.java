@@ -89,7 +89,7 @@ public class ControllerArrayScheduledTasks extends Controller
         try {
             Thread.sleep(milliSecondsToStart);
         } catch (InterruptedException ex) {
-            Logger.getLogger(ControllerArrayScheduledTasks.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ControllerArrayScheduledTasks.class.getName()).log(Level.WARNING, null, ex);
         }
         if (isControl()) {
             startFirstController();

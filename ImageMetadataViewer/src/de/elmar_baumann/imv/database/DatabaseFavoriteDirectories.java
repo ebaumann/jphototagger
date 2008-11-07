@@ -34,7 +34,9 @@ public class DatabaseFavoriteDirectories extends Database {
      * @param  favoriteDirectory  Favoritenverzeichnis
      * @return true bei Erfolg
      */
-    public synchronized boolean insertFavoriteDirectory(FavoriteDirectory favoriteDirectory) {
+    public synchronized boolean insertFavoriteDirectory(
+        FavoriteDirectory favoriteDirectory) {
+        
         boolean inserted = false;
         Connection connection = null;
         try {
@@ -52,18 +54,14 @@ public class DatabaseFavoriteDirectories extends Database {
             stmt.setString(1, favoriteDirectory.getFavoriteName());
             stmt.setString(2, favoriteDirectory.getDirectoryName());
             stmt.setInt(3, favoriteDirectory.getIndex());
-            logStatement(stmt);
+            logStatement(stmt, Level.FINER);
             int count = stmt.executeUpdate();
             connection.commit();
             inserted = count > 0;
             stmt.close();
         } catch (SQLException ex) {
             handleException(ex, Level.SEVERE);
-            try {
-                connection.rollback();
-            } catch (SQLException ex1) {
-                handleException(ex1, Level.SEVERE);
-            }
+            rollback(connection);
         } finally {
             free(connection);
         }
@@ -85,18 +83,14 @@ public class DatabaseFavoriteDirectories extends Database {
             PreparedStatement stmt = connection.prepareStatement(
                 "DELETE FROM favorite_directories WHERE favorite_name = ?"); // NOI18N
             stmt.setString(1, favoriteName);
-            logStatement(stmt);
+            logStatement(stmt, Level.FINER);
             int count = stmt.executeUpdate();
             connection.commit();
             deleted = count > 0;
             stmt.close();
         } catch (SQLException ex) {
             handleException(ex, Level.SEVERE);
-            try {
-                connection.rollback();
-            } catch (SQLException ex1) {
-                handleException(ex1, Level.SEVERE);
-            }
+            rollback(connection);
         } finally {
             free(connection);
         }
@@ -110,7 +104,9 @@ public class DatabaseFavoriteDirectories extends Database {
      * @param favorite          Favoritenverzeichnis
      * @return true bei Erfolg
      */
-    public synchronized boolean updateFavoriteDirectory(String favoriteName, FavoriteDirectory favorite) {
+    public synchronized boolean updateFavoriteDirectory(
+        String favoriteName, FavoriteDirectory favorite) {
+        
         boolean updated = false;
         Connection connection = null;
         try {
@@ -126,18 +122,14 @@ public class DatabaseFavoriteDirectories extends Database {
             stmt.setString(2, favorite.getDirectoryName());
             stmt.setInt(3, favorite.getIndex());
             stmt.setString(4, favoriteName);
-            logStatement(stmt);
+            logStatement(stmt, Level.FINER);
             int count = stmt.executeUpdate();
             connection.commit();
             updated = count > 0;
             stmt.close();
         } catch (SQLException ex) {
             handleException(ex, Level.SEVERE);
-            try {
-                connection.rollback();
-            } catch (SQLException ex1) {
-                handleException(ex1, Level.SEVERE);
-            }
+            rollback(connection);
         } finally {
             free(connection);
         }
@@ -187,9 +179,10 @@ public class DatabaseFavoriteDirectories extends Database {
         try {
             connection = getConnection();
             PreparedStatement stmt = connection.prepareStatement(
-                "SELECT COUNT(*) FROM favorite_directories WHERE favorite_name = ?"); // NOI18N
+                "SELECT COUNT(*) FROM favorite_directories" + // NOI18N
+                " WHERE favorite_name = ?"); // NOI18N
             stmt.setString(1, favoriteName);
-            logStatement(stmt);
+            logStatement(stmt, Level.FINEST);
             ResultSet rs = stmt.executeQuery();
             int count = 0;
             if (rs.next()) {
