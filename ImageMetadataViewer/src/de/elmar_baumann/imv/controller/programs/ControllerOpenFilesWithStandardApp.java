@@ -7,7 +7,6 @@ import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.view.dialogs.UserSettingsDialog;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuPanelThumbnails;
-import de.elmar_baumann.lib.io.FileUtil;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -38,8 +37,8 @@ public class ControllerOpenFilesWithStandardApp extends Controller
     }
 
     private void openFiles() {
-        String allFilenames = IoUtil.getArgsAsCommandline(
-            FileUtil.getAsFilenames(thumbnailsPanel.getSelectedFiles()));
+        String allFilenames = IoUtil.getQuotedForCommandline(
+            thumbnailsPanel.getSelectedFiles(), "\"");
         if (!allFilenames.isEmpty()) {
             IoUtil.execute(
                 UserSettings.getInstance().getDefaultImageOpenApp(), allFilenames);

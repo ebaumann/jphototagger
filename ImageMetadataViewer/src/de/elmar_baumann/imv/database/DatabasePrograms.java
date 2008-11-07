@@ -48,15 +48,18 @@ public class DatabasePrograms extends Database {
                 "INSERT INTO programs" + // NOI18N
                 " (" + // NOI18N
                 "id" + // NOI18N -- 1 --
-                ", filename" + // NOI18N -- 2 --
-                ", alias" + // NOI18N -- 3 --
-                ", parameters" + // NOI18N -- 4 --
-                ", parameters_after_filename" + // NOI18N -- 5 --
-                ", sequence_number" + // NOI18N -- 6 --
-                ", action" + // NOI18N -- 7 --
-                ", input_before_execute" + // NOI18N -- 8 --
+                ", action" + // NOI18N -- 2 --
+                ", filename" + // NOI18N -- 3 --
+                ", alias" + // NOI18N -- 4 --
+                ", parameters_before_filename" + // NOI18N -- 5 --
+                ", parameters_after_filename" + // NOI18N -- 6 --
+                ", input_before_execute" + // NOI18N -- 7 --
+                ", input_before_execute_per_file" + // NOI18N -- 8 --
+                ", single_file_processing" + // NOI18N -- 9 --
+                ", change_file" + // NOI18N -- 10 --
+                ", sequence_number" + // NOI18N -- 11 --
                 ")" + // NOI18N
-                " VALUES (?, ?, ?, ?, ?, ?, ?, ?)"); // NOI18N
+                " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"); // NOI18N
             setValuesInsert(stmt, program);
             logStatement(stmt);
             countAffectedRows = stmt.executeUpdate();
@@ -75,24 +78,30 @@ public class DatabasePrograms extends Database {
         return countAffectedRows == 1;
     }
 
+    private void setValuesInsert(PreparedStatement stmt, Program program) throws SQLException {
+        stmt.setLong(1, program.getId());
+        stmt.setBoolean(2, program.isAction());
+        stmt.setString(3, program.getFile().getAbsolutePath());
+        stmt.setString(4, program.getAlias());
+        String parametersBeforeFilename = program.getParametersBeforeFilename();
+        stmt.setBytes(5, parametersBeforeFilename == null
+            ? null : parametersBeforeFilename.getBytes());
+        String parametersAfterFilename = program.getParametersAfterFilename();
+        stmt.setBytes(6, parametersAfterFilename == null
+            ? null : parametersAfterFilename.getBytes());
+        stmt.setBoolean(7, program.isInputBeforeExecute());
+        stmt.setBoolean(8, program.isInputBeforeExecutePerFile());
+        stmt.setBoolean(9, program.isSingleFileProcessing());
+        stmt.setBoolean(10, program.isChangeFile());
+        stmt.setInt(11, program.getSequenceNumber());
+    }
+
     synchronized private void setId(Connection connection, Program program) throws SQLException {
         Statement stmt = connection.createStatement();
         ResultSet rs = stmt.executeQuery("SELECT MAX(id) FROM programs");
         if (rs.next()) {
             program.setId(rs.getLong(1) + 1);
         }
-    }
-
-    private void setValuesInsert(PreparedStatement stmt, Program program) throws SQLException {
-        stmt.setLong(1, program.getId());
-        stmt.setString(2, program.getFile().getAbsolutePath());
-        stmt.setString(3, program.getAlias());
-        String parameters = program.getParameters();
-        stmt.setBytes(4, parameters == null ? null : parameters.getBytes());
-        stmt.setBoolean(5, program.isParametersAfterFilename());
-        stmt.setInt(6, program.getSequenceNumber());
-        stmt.setBoolean(7, program.isAction());
-        stmt.setBoolean(8, program.isInputBeforeExecute());
     }
 
     /**
@@ -110,16 +119,19 @@ public class DatabasePrograms extends Database {
             PreparedStatement stmt = connection.prepareStatement(
                 "UPDATE programs" + // NOI18N
                 " SET" + // NOI18N
-                " filename = ?" + // NOI18N -- 1 --
-                ", alias = ?" + // NOI18N -- 2 --
-                ", parameters = ?" + // NOI18N -- 3 --
-                ", parameters_after_filename = ?" + // NOI18N -- 4 --
-                ", sequence_number = ?" + // NOI18N -- 5 --
-                ", action = ?" + // NOI18N -- 6 --
-                ", input_before_execute = ?" + // NOI18N -- 7 --
+                " action = ?" + // NOI18N -- 1 --
+                ", filename = ?" + // NOI18N -- 2 --
+                ", alias = ?" + // NOI18N -- 3 --
+                ", parameters_before_filename = ?" + // NOI18N -- 4 --
+                ", parameters_after_filename = ?" + // NOI18N -- 5 --
+                ", input_before_execute = ?" + // NOI18N -- 6 --
+                ", input_before_execute_per_file = ?" + // NOI18N -- 7 --
+                ", single_file_processing = ?" + // NOI18N -- 8 --
+                ", change_file = ?" + // NOI18N -- 9 --
+                ", sequence_number = ?" + // NOI18N -- 10 --
                 " WHERE id = ?"); // NOI18N
             setValuesUpdate(stmt, program);
-            stmt.setLong(7, program.getId());
+            stmt.setLong(11, program.getId());
             logStatement(stmt);
             countAffectedRows = stmt.executeUpdate();
             connection.commit();
@@ -138,14 +150,20 @@ public class DatabasePrograms extends Database {
     }
 
     private void setValuesUpdate(PreparedStatement stmt, Program program) throws SQLException {
-        stmt.setString(1, program.getFile().getAbsolutePath());
-        stmt.setString(2, program.getAlias());
-        String parameters = program.getParameters();
-        stmt.setBytes(3, parameters == null ? null : parameters.getBytes());
-        stmt.setBoolean(4, program.isParametersAfterFilename());
-        stmt.setInt(5, program.getSequenceNumber());
-        stmt.setBoolean(6, program.isAction());
-        stmt.setBoolean(7, program.isInputBeforeExecute());
+        stmt.setBoolean(1, program.isAction());
+        stmt.setString(2, program.getFile().getAbsolutePath());
+        stmt.setString(3, program.getAlias());
+        String parametersBeforeFilename = program.getParametersBeforeFilename();
+        stmt.setBytes(4, parametersBeforeFilename == null
+            ? null : parametersBeforeFilename.getBytes());
+        String parametersAfterFilename = program.getParametersAfterFilename();
+        stmt.setBytes(5, parametersAfterFilename == null
+            ? null : parametersAfterFilename.getBytes());
+        stmt.setBoolean(6, program.isInputBeforeExecute());
+        stmt.setBoolean(7, program.isInputBeforeExecutePerFile());
+        stmt.setBoolean(8, program.isSingleFileProcessing());
+        stmt.setBoolean(9, program.isChangeFile());
+        stmt.setInt(10, program.getSequenceNumber());
     }
 
     /**
@@ -195,13 +213,16 @@ public class DatabasePrograms extends Database {
             PreparedStatement stmt = connection.prepareStatement(
                 "SELECT" +
                 " id" + // NOI18N -- 1 --
-                ", filename" + // NOI18N -- 2 --
-                ", alias" + // NOI18N -- 3 --
-                ", parameters" + // NOI18N -- 4 --
-                ", parameters_after_filename" + // NOI18N -- 5 --
-                ", sequence_number" + // NOI18N -- 6 --
-                ", action" + // NOI18N -- 7 --
-                ", input_before_execute" + // NOI18N -- 8 --
+                ", action" + // NOI18N -- 2 --
+                ", filename" + // NOI18N -- 3 --
+                ", alias" + // NOI18N -- 4 --
+                ", parameters_before_filename" + // NOI18N -- 5 --
+                ", parameters_after_filename" + // NOI18N -- 6 --
+                ", input_before_execute" + // NOI18N -- 7 --
+                ", input_before_execute_per_file" + // NOI18N -- 8 --
+                ", single_file_processing" + // NOI18N -- 9 --
+                ", change_file" + // NOI18N -- 10 --
+                ", sequence_number" + // NOI18N -- 11 --
                 " FROM programs" + // NOI18N
                 " WHERE action = ?" + // NOI18N
                 " ORDER BY alias"); // NOI18N
@@ -209,16 +230,27 @@ public class DatabasePrograms extends Database {
             logStatement(stmt);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                byte[] parameters = rs.getBytes(4);
-                programs.add(new Program(
-                    rs.getLong(1),
-                    new File(rs.getString(2)),
-                    rs.getString(3),
-                    parameters == null ? null : new String(parameters),
-                    rs.getBoolean(5),
-                    rs.getInt(6),
-                    rs.getBoolean(7),
-                    rs.getBoolean(8)));
+                byte[] parametersBeforeFilename = rs.getBytes(5);
+                byte[] parametersAfterFilename = rs.getBytes(6);
+                Program program = new Program();
+
+                program.setId(rs.getLong(1));
+                program.setAction(rs.getBoolean(2));
+                program.setFile(new File(rs.getString(3)));
+                program.setAlias(rs.getString(4));
+                program.setParametersBeforeFilename(
+                    parametersBeforeFilename == null
+                    ? null : new String(parametersBeforeFilename));
+                program.setParametersAfterFilename(
+                    parametersAfterFilename == null
+                    ? null : new String(parametersAfterFilename));
+                program.setInputBeforeExecute(rs.getBoolean(7));
+                program.setInputBeforeExecutePerFile(rs.getBoolean(8));
+                program.setSingleFileProcessing(rs.getBoolean(9));
+                program.setChangeFile(rs.getBoolean(10));
+                program.setSequenceNumber(rs.getInt(11));
+
+                programs.add(program);
             }
             stmt.close();
         } catch (SQLException ex) {

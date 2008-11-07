@@ -305,13 +305,16 @@ public class DatabaseTables extends Database {
             stmt.execute("CREATE CACHED TABLE programs " + // NOI18N
                 " (" + // NOI18N
                 "id BIGINT NOT NULL" + // NOI18N
+                ", action BOOLEAN" + // NOI18N
                 ", filename VARCHAR(512) NOT NULL" + // NOI18N
                 ", alias VARCHAR_IGNORECASE(250) NOT NULL" + // NOI18N
-                ", parameters BINARY" + // NOI18N
-                ", parameters_after_filename BOOLEAN" + // NOI18N
-                ", sequence_number INTEGER" + // NOI18N
-                ", action BOOLEAN" + // NOI18N
+                ", parameters_before_filename BINARY" + // NOI18N
+                ", parameters_after_filename BINARY" + // NOI18N
                 ", input_before_execute BOOLEAN" + // NOI18N
+                ", input_before_execute_per_file BOOLEAN" + // NOI18N
+                ", single_file_processing BOOLEAN" + // NOI18N
+                ", change_file BOOLEAN" + // NOI18N
+                ", sequence_number INTEGER" + // NOI18N
                 ");"); // NOI18N
             stmt.execute("CREATE UNIQUE INDEX idx_programs_id ON programs (id)"); // NOI18N
             stmt.execute("CREATE INDEX idx_programs_filename ON programs (filename)"); // NOI18N

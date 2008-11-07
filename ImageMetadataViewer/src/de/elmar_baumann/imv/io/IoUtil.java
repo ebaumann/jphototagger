@@ -44,22 +44,6 @@ public class IoUtil {
     }
 
     /**
-     * Liefert Argumente als String für die Kommandozeile zum Anhängen an den
-     * Aufruf eines Programms.
-     * 
-     * @param args Argumente
-     * @return     Argumente separiert
-     */
-    public static String getArgsAsCommandline(List<String> args) {
-        final String separator = " "; // NOI18N
-        StringBuffer arguments = new StringBuffer();
-        for (String filename : args) {
-            arguments.append(separator + filename);
-        }
-        return arguments.toString();
-    }
-
-    /**
      * Returns image files.
      * 
      * @param  files  arbitrary files
@@ -74,5 +58,21 @@ public class IoUtil {
             }
         }
         return imageFiles;
+    }
+
+
+    /**
+     * Returns a String with space separated filenames, each enclosed in quotes.
+     * 
+     * @param  files  files
+     * @param  quote  qoute before and after each filename
+     * @return string
+     */
+    public static String getQuotedForCommandline(List<File> files, String quote) {
+        StringBuffer buffer = new StringBuffer();
+        for (File file : files) {
+            buffer.append(" " + quote + file.getAbsolutePath() + quote);
+        }
+        return buffer.toString();
     }
 }

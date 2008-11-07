@@ -15,7 +15,7 @@ import java.util.List;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/11/06
  */
-public class UpdateTablesAddNewColumns {
+class UpdateTablesAddColumns {
 
     private UpdateTablesMessages messages = UpdateTablesMessages.getInstance();
     private ProgressDialog dialog = messages.getProgressDialog();
@@ -24,11 +24,17 @@ public class UpdateTablesAddNewColumns {
     
 
     static {
+        columns.add(new ColumnInfo("programs", "parameters_after_filename", "BINARY",
+            null));
         columns.add(new ColumnInfo("programs", "action", "BOOLEAN",
             new IndexOfColumn("programs", "action", "idx_programs_action", false)));
         columns.add(new ColumnInfo("programs", "input_before_execute", "BOOLEAN",
             null));
-        columns.add(new ColumnInfo("programs", "parameters_after_filename", "BOOLEAN",
+        columns.add(new ColumnInfo("programs", "input_before_execute_per_file", "BOOLEAN",
+            null));
+        columns.add(new ColumnInfo("programs", "single_file_processing", "BOOLEAN",
+            null));
+        columns.add(new ColumnInfo("programs", "change_file", "BOOLEAN",
             null));
     }
 
@@ -51,6 +57,7 @@ public class UpdateTablesAddNewColumns {
 
     private synchronized void addColumns(Connection connection) throws SQLException {
         dialog.setIntermediate(true);
+        messages.message(Bundle.getString("UpdateTablesAddNewColumns.InformationMessage.update"));
         for (ColumnInfo info : missingColumns) {
             addColumn(connection, info);
         }
@@ -72,20 +79,5 @@ public class UpdateTablesAddNewColumns {
             Bundle.getString("UpdateTablesAddNewColumns.InformationMessage.AddColumns"));
         Object[] params = {tableName, columnName};
         messages.message(msg.format(params));
-    }
-
-    private static class ColumnInfo {
-
-        public String tableName;
-        public String columnName;
-        public String dataType;
-        public IndexOfColumn index;
-
-        public ColumnInfo(String tableName, String columnName, String dataType, IndexOfColumn index) {
-            this.tableName = tableName;
-            this.columnName = columnName;
-            this.dataType = dataType;
-            this.index = index;
-        }
     }
 }

@@ -13,13 +13,16 @@ import java.io.File;
 public class Program {
 
     private long id = Long.MIN_VALUE;
+    private boolean action = false;
     private File file;
     private String alias;
-    private String parameters;
-    private int sequenceNumber = Integer.MIN_VALUE;
-    private boolean action = false;
+    private String parametersBeforeFilename;
+    private String parametersAfterFilename;
     private boolean inputBeforeExecute = false;
-    private boolean parametersAfterFilename = false;
+    private boolean inputBeforeExecutePerFile = false;
+    private boolean singleFileProcessing = false;
+    private boolean changeFile = false;
+    private int sequenceNumber = Integer.MIN_VALUE;
 
     public Program() {
     }
@@ -27,26 +30,6 @@ public class Program {
     public Program(File file, String alias) {
         this.file = file;
         this.alias = alias;
-    }
-
-    public Program(
-        long id,
-        File file,
-        String alias,
-        String parameters,
-        boolean parametersAfterFilename,
-        Integer sequenceNumber,
-        boolean action,
-        boolean inputBeforeExecute) {
-
-        this.id = id;
-        this.file = file;
-        this.alias = alias;
-        this.parameters = parameters;
-        this.parametersAfterFilename = parametersAfterFilename;
-        this.sequenceNumber = sequenceNumber;
-        this.action = action;
-        this.inputBeforeExecute = inputBeforeExecute;
     }
 
     public long getId() {
@@ -73,19 +56,11 @@ public class Program {
         this.alias = alias;
     }
 
-    public String getParameters() {
-        return parameters;
-    }
-
-    public void setParameters(String parameters) {
-        this.parameters = parameters;
-    }
-
-    public boolean isParametersAfterFilename() {
+    public String getParametersAfterFilename() {
         return parametersAfterFilename;
     }
 
-    public void setParametersAfterFilename(boolean parametersAfterFilename) {
+    public void setParametersAfterFilename(String parametersAfterFilename) {
         this.parametersAfterFilename = parametersAfterFilename;
     }
 
@@ -111,6 +86,54 @@ public class Program {
 
     public void setInputBeforeExecute(boolean inputBeforeExecute) {
         this.inputBeforeExecute = inputBeforeExecute;
+    }
+
+    public boolean isInputBeforeExecutePerFile() {
+        return inputBeforeExecutePerFile;
+    }
+
+    public void setInputBeforeExecutePerFile(boolean inputBeforeExecutePerFile) {
+        this.inputBeforeExecutePerFile = inputBeforeExecutePerFile;
+    }
+
+    public String getParametersBeforeFilename() {
+        return parametersBeforeFilename;
+    }
+
+    public void setParametersBeforeFilename(String parametersBeforeFilename) {
+        this.parametersBeforeFilename = parametersBeforeFilename;
+    }
+
+    public boolean isSingleFileProcessing() {
+        return singleFileProcessing;
+    }
+
+    public void setSingleFileProcessing(boolean singleFileProcessing) {
+        this.singleFileProcessing = singleFileProcessing;
+    }
+
+    public boolean isChangeFile() {
+        return changeFile;
+    }
+
+    public void setChangeFile(boolean changeFile) {
+        this.changeFile = changeFile;
+    }
+
+    public String getCommandlineAfterProgram(
+        String filenames,
+        String additionalParameters, boolean additionalParametersBeforeFilenames) {
+
+        String parametersBefore = (parametersBeforeFilename == null
+            ? "" : parametersBeforeFilename) +
+            (additionalParametersBeforeFilenames
+            ? " " + additionalParameters : "");
+        String parametersAfter = (parametersAfterFilename == null
+            ? "" : parametersAfterFilename) +
+            (additionalParametersBeforeFilenames
+            ? "" : " " + additionalParameters);
+
+        return parametersBefore + " " + filenames + " " + parametersAfter;
     }
 
     @Override

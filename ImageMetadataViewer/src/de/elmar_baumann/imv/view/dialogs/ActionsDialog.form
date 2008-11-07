@@ -28,7 +28,7 @@
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="scrollPane" alignment="0" pref="340" max="32767" attributes="0"/>
+                  <Component id="scrollPane" alignment="0" pref="378" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="buttonDelete" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -38,7 +38,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="buttonExecute" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="progressBar" alignment="0" pref="340" max="32767" attributes="0"/>
+                  <Component id="progressBar" alignment="0" pref="378" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -89,6 +89,9 @@
     </Container>
     <Component class="javax.swing.JButton" name="buttonExecute">
       <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Dialog" size="12" style="0"/>
+        </Property>
         <Property name="mnemonic" type="int" value="97"/>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="ActionsDialog.buttonExecute.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
@@ -104,6 +107,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="buttonNew">
       <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Dialog" size="12" style="0"/>
+        </Property>
         <Property name="mnemonic" type="int" value="110"/>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="ActionsDialog.buttonNew.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
@@ -118,6 +124,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="buttonEdit">
       <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Dialog" size="12" style="0"/>
+        </Property>
         <Property name="mnemonic" type="int" value="98"/>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="ActionsDialog.buttonEdit.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
@@ -133,6 +142,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="buttonDelete">
       <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Dialog" size="12" style="0"/>
+        </Property>
         <Property name="mnemonic" type="int" value="108"/>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="ActionsDialog.buttonDelete.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
@@ -147,6 +159,11 @@
       </Events>
     </Component>
     <Component class="javax.swing.JProgressBar" name="progressBar">
+      <Properties>
+        <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="ActionsDialog.progressBar.toolTipText" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+        </Property>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>

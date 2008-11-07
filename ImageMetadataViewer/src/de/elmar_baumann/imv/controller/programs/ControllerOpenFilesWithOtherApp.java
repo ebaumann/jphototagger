@@ -2,11 +2,10 @@ package de.elmar_baumann.imv.controller.programs;
 
 import de.elmar_baumann.imv.controller.Controller;
 import de.elmar_baumann.imv.data.Program;
-import de.elmar_baumann.imv.io.IoUtil;
 import de.elmar_baumann.imv.resource.Panels;
+import de.elmar_baumann.imv.tasks.ProgramExecutor;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuPanelThumbnails;
-import de.elmar_baumann.lib.io.FileUtil;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -21,11 +20,15 @@ import java.awt.event.ActionListener;
 public class ControllerOpenFilesWithOtherApp extends Controller
     implements ActionListener {
 
-    private PopupMenuPanelThumbnails popup = PopupMenuPanelThumbnails.getInstance();
-    private ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
+    private PopupMenuPanelThumbnails popup;
+    private ImageFileThumbnailsPanel thumbnailsPanel;
+    private ProgramExecutor executor;
 
     public ControllerOpenFilesWithOtherApp() {
+        popup = PopupMenuPanelThumbnails.getInstance();
         popup.addActionListenerOpenFilesWithOtherApp(this);
+        thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
+        executor = new ProgramExecutor(null);
     }
 
     @Override
@@ -36,14 +39,6 @@ public class ControllerOpenFilesWithOtherApp extends Controller
     }
 
     private void openFiles(Program program) {
-        String allFilenames = IoUtil.getArgsAsCommandline(
-            FileUtil.getAsFilenames(thumbnailsPanel.getSelectedFiles()));
-        String parameters = program.getParameters() == null
-            ? ""
-            : program.getParameters() + " ";
-        String filename = program.getFile().getAbsolutePath();
-        if (!allFilenames.isEmpty()) {
-            IoUtil.execute(filename, parameters + allFilenames);
-        }
+        executor.execute(program, thumbnailsPanel.getSelectedFiles());
     }
 }
