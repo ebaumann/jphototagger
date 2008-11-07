@@ -164,6 +164,10 @@
 			<url>action_metadata_replace_in_xmp.html</url>
 			<title>Werkzeuge / XMP-Daten suchen und ersetzen</title>
 		</page>
+		<page>
+			<url>dialog_actions.html</url>
+			<title>Werkzeuge / Aktionen</title>
+		</page>
 	</node>
 	<node>
 		<title>Einstellungen-Dialog</title>
@@ -202,6 +206,13 @@
 		<page>
 			<url>dialog_settings_misc.html</url>
 			<title>Sonstiges</title>
+		</page>
+	</node>
+	<node>
+		<title>Sonstige Dialoge</title>
+		<page>
+			<url>dialog_program_properties.html</url>
+			<title>Dialog Programmeigenschaften</title>
 		</page>
 	</node>
 	<node>

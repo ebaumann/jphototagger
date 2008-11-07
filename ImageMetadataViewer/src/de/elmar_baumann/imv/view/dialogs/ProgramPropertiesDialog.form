@@ -32,9 +32,10 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="1" attributes="0">
+          <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="1" attributes="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="panelInputBeforeExecute" alignment="0" max="32767" attributes="0"/>
                   <Component id="panelParameter" alignment="0" max="32767" attributes="0"/>
                   <Component id="panelProgram" alignment="0" max="32767" attributes="0"/>
                   <Component id="panelMultipleSelection" alignment="0" max="32767" attributes="2"/>
@@ -54,15 +55,17 @@
               <EmptySpace min="-2" max="-2" attributes="0"/>
               <Component id="panelProgram" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Component id="panelParameter" pref="123" max="32767" attributes="0"/>
-              <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
+              <Component id="panelParameter" pref="128" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="panelInputBeforeExecute" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
               <Component id="panelMultipleSelection" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="buttonOk" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="buttonCancel" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" max="-2" attributes="1"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -117,7 +120,7 @@
                       <Component id="labelAlias" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="textFieldAlias" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="12" max="32767" attributes="0"/>
+                  <EmptySpace pref="14" max="32767" attributes="0"/>
                   <Component id="checkBoxChangeFile" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -238,7 +241,7 @@
                   <Component id="labelParametersAfterFilename" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Component id="scrollPaneParametersAfterFilename" pref="22" max="32767" attributes="0"/>
-                  <EmptySpace min="-2" pref="6" max="-2" attributes="1"/>
+                  <EmptySpace min="-2" max="-2" attributes="1"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -310,12 +313,12 @@
         </Container>
       </SubComponents>
     </Container>
-    <Container class="javax.swing.JPanel" name="panelMultipleSelection">
+    <Container class="javax.swing.JPanel" name="panelInputBeforeExecute">
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-            <TitledBorder title="Bei Auswahl mehrerer Dateien">
-              <ResourceString PropertyName="titleX" bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="ProgramPropertiesDialog.panelSingleFileProcessing.border.title" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+            <TitledBorder title="Parameter eingeben vor dem Ausf&#xfc;hren">
+              <ResourceString PropertyName="titleX" bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="ProgramPropertiesDialog.panelInputBeforeExecute.border.title" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
               <Font PropertyName="font" name="Dialog" size="12" style="1"/>
             </TitledBorder>
           </Border>
@@ -330,8 +333,6 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="checkBoxInputBeforeExecute" linkSize="3" min="-2" max="-2" attributes="0"/>
                       <Component id="checkBoxInputBeforeExecutePerFile" linkSize="3" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="radioButtonSingleFileProcessingYes" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="radioButtonSingleFileProcessingNo" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="22" max="32767" attributes="0"/>
               </Group>
@@ -343,11 +344,7 @@
                   <Component id="checkBoxInputBeforeExecute" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="checkBoxInputBeforeExecutePerFile" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="radioButtonSingleFileProcessingYes" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="radioButtonSingleFileProcessingNo" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="9" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -380,6 +377,45 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkBoxInputBeforeExecutePerFileActionPerformed"/>
           </Events>
         </Component>
+      </SubComponents>
+    </Container>
+    <Container class="javax.swing.JPanel" name="panelMultipleSelection">
+      <Properties>
+        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+          <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+            <TitledBorder title="Bei Auswahl mehrerer Dateien">
+              <ResourceString PropertyName="titleX" bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="ProgramPropertiesDialog.panelSingleFileProcessing.border.title" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+              <Font PropertyName="font" name="Dialog" size="12" style="1"/>
+            </TitledBorder>
+          </Border>
+        </Property>
+      </Properties>
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="radioButtonSingleFileProcessingYes" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="radioButtonSingleFileProcessingNo" alignment="0" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace pref="29" max="32767" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <Component id="radioButtonSingleFileProcessingYes" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="radioButtonSingleFileProcessingNo" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+      <SubComponents>
         <Component class="javax.swing.JRadioButton" name="radioButtonSingleFileProcessingYes">
           <Properties>
             <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">

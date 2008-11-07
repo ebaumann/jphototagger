@@ -176,7 +176,6 @@ public class ActionsDialog extends Dialog {
         buttonDelete = new javax.swing.JButton();
         progressBar = new javax.swing.JProgressBar();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(Bundle.getString("ActionsDialog.title")); // NOI18N
 
         list.setModel(model);
@@ -189,7 +188,7 @@ public class ActionsDialog extends Dialog {
         });
         scrollPane.setViewportView(list);
 
-        buttonExecute.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        buttonExecute.setFont(new java.awt.Font("Dialog", 0, 12));
         buttonExecute.setMnemonic('a');
         buttonExecute.setText(Bundle.getString("ActionsDialog.buttonExecute.text")); // NOI18N
         buttonExecute.setToolTipText(Bundle.getString("ActionsDialog.buttonExecute.toolTipText")); // NOI18N
@@ -200,7 +199,7 @@ public class ActionsDialog extends Dialog {
             }
         });
 
-        buttonNew.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        buttonNew.setFont(new java.awt.Font("Dialog", 0, 12));
         buttonNew.setMnemonic('n');
         buttonNew.setText(Bundle.getString("ActionsDialog.buttonNew.text")); // NOI18N
         buttonNew.setToolTipText(Bundle.getString("ActionsDialog.buttonNew.toolTipText")); // NOI18N
@@ -210,7 +209,7 @@ public class ActionsDialog extends Dialog {
             }
         });
 
-        buttonEdit.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        buttonEdit.setFont(new java.awt.Font("Dialog", 0, 12));
         buttonEdit.setMnemonic('b');
         buttonEdit.setText(Bundle.getString("ActionsDialog.buttonEdit.text")); // NOI18N
         buttonEdit.setToolTipText(Bundle.getString("ActionsDialog.buttonEdit.toolTipText")); // NOI18N
@@ -221,7 +220,7 @@ public class ActionsDialog extends Dialog {
             }
         });
 
-        buttonDelete.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        buttonDelete.setFont(new java.awt.Font("Dialog", 0, 12));
         buttonDelete.setMnemonic('l');
         buttonDelete.setText(Bundle.getString("ActionsDialog.buttonDelete.text")); // NOI18N
         buttonDelete.setToolTipText(Bundle.getString("ActionsDialog.buttonDelete.toolTipText")); // NOI18N
