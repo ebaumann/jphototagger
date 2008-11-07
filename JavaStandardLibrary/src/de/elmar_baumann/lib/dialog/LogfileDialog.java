@@ -31,7 +31,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 import java.util.logging.XMLFormatter;
-import javax.swing.ImageIcon;
 import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
@@ -54,7 +53,6 @@ public class LogfileDialog extends javax.swing.JDialog implements
     List<Level> visibleLevels = new ArrayList<Level>();
     static final private long criticalLogfileSizeInBytes = 10 * 1024 * 1024;
     private String filterString;
-    private final ImageIcon iconReload = IconUtil.getImageIcon("/de/elmar_baumann/lib/resource/icon_reload.png"); // NOI18N
     private List<LogfileRecord> logfileRecords;
     private Class formatterClass;
     private Map<Class, Integer> paneIndexOfFormatterClass = new HashMap<Class, Integer>();
@@ -85,8 +83,6 @@ public class LogfileDialog extends javax.swing.JDialog implements
         setLabelIcons();
         initTextPaneDetails(); // NOI18N
         initTableLogfileRecords();
-        buttonReloadXml.setIcon(iconReload);
-        buttonReloadSimple.setIcon(iconReload);
         initLevelOfCheckbox();
         listenToCheckboxes();
     }
@@ -136,13 +132,15 @@ public class LogfileDialog extends javax.swing.JDialog implements
         }
     }
 
-    private void reloadSimple() {
-        editorPaneSimple.setText(FileUtil.getFileAsString(logfilename));
-    }
-
-    private void reloadXml() {
-        readLogfileRecords();
-        setTable();
+    private void reload() {
+        boolean simple = tabbedPane.getSelectedIndex() ==
+            paneIndexOfFormatterClass.get(SimpleFormatter.class);
+        if (simple) {
+            editorPaneSimple.setText(FileUtil.getFileAsString(logfilename));
+        } else {
+            readLogfileRecords();
+            setTable();
+        }
     }
 
     private void resetVisibeLevels() {
@@ -423,7 +421,6 @@ public class LogfileDialog extends javax.swing.JDialog implements
         checkBoxConfig = new javax.swing.JCheckBox();
         labelIconFiner = new javax.swing.JLabel();
         checkBoxFiner = new javax.swing.JCheckBox();
-        buttonReloadXml = new javax.swing.JButton();
         panelSearch = new javax.swing.JPanel();
         labelSearch = new javax.swing.JLabel();
         textFieldSearch = new javax.swing.JTextField();
@@ -434,11 +431,16 @@ public class LogfileDialog extends javax.swing.JDialog implements
         panelSimple = new javax.swing.JPanel();
         scrollPaneSimple = new javax.swing.JScrollPane();
         editorPaneSimple = new javax.swing.JEditorPane();
-        buttonReloadSimple = new javax.swing.JButton();
+        buttonReload = new javax.swing.JButton();
+        buttonExit = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/lib/resource/Bundle"); // NOI18N
         setTitle(bundle.getString("LogfileDialog.title")); // NOI18N
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         panelFilter.setBorder(javax.swing.BorderFactory.createTitledBorder(null, bundle.getString("LogfileDialog.panelFilter.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 11))); // NOI18N
 
@@ -504,11 +506,11 @@ public class LogfileDialog extends javax.swing.JDialog implements
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelFilterCheckBoxesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelFilterCheckBoxesLayout.createSequentialGroup()
-                        .addComponent(checkBoxFine, javax.swing.GroupLayout.PREFERRED_SIZE, 91, Short.MAX_VALUE)
+                        .addComponent(checkBoxFine, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(labelIconFinest, javax.swing.GroupLayout.DEFAULT_SIZE, 16, Short.MAX_VALUE)
+                        .addComponent(labelIconFinest, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
                         .addGap(14, 14, 14)
-                        .addComponent(checkBoxFinest, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(checkBoxFinest, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE))
                     .addGroup(panelFilterCheckBoxesLayout.createSequentialGroup()
                         .addComponent(checkBoxFiner, javax.swing.GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE)
                         .addGap(121, 121, 121)))
@@ -550,17 +552,6 @@ public class LogfileDialog extends javax.swing.JDialog implements
                         .addComponent(labelIconWarning, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
-        buttonReloadXml.setToolTipText(bundle.getString("LogfileDialog.buttonReloadXml.toolTipText")); // NOI18N
-        buttonReloadXml.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        buttonReloadXml.setMaximumSize(new java.awt.Dimension(32, 32));
-        buttonReloadXml.setMinimumSize(new java.awt.Dimension(32, 32));
-        buttonReloadXml.setPreferredSize(new java.awt.Dimension(32, 32));
-        buttonReloadXml.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonReloadXmlActionPerformed(evt);
-            }
-        });
-
         labelSearch.setText(bundle.getString("LogfileDialog.labelSearch.text")); // NOI18N
 
         textFieldSearch.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -593,8 +584,7 @@ public class LogfileDialog extends javax.swing.JDialog implements
                 .addContainerGap()
                 .addGroup(panelFilterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(panelFilterLayout.createSequentialGroup()
-                        .addComponent(buttonReloadXml, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(46, 46, 46)
                         .addComponent(panelSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(panelFilterCheckBoxes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
@@ -604,9 +594,7 @@ public class LogfileDialog extends javax.swing.JDialog implements
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelFilterLayout.createSequentialGroup()
                 .addComponent(panelFilterCheckBoxes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelFilterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(buttonReloadXml, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(panelSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(panelSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -623,12 +611,12 @@ public class LogfileDialog extends javax.swing.JDialog implements
         panelXml.setLayout(panelXmlLayout);
         panelXmlLayout.setHorizontalGroup(
             panelXmlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelXmlLayout.createSequentialGroup()
+            .addGroup(panelXmlLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panelXmlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(scrollPaneTextPaneDetails, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 514, Short.MAX_VALUE)
-                    .addComponent(scrollPaneTableLogfileRecords, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 514, Short.MAX_VALUE)
-                    .addComponent(panelFilter, javax.swing.GroupLayout.DEFAULT_SIZE, 514, Short.MAX_VALUE))
+                .addGroup(panelXmlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(scrollPaneTableLogfileRecords, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 514, Short.MAX_VALUE)
+                    .addComponent(panelFilter, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 514, Short.MAX_VALUE)
+                    .addComponent(scrollPaneTextPaneDetails, javax.swing.GroupLayout.DEFAULT_SIZE, 514, Short.MAX_VALUE))
                 .addContainerGap())
         );
         panelXmlLayout.setVerticalGroup(
@@ -636,9 +624,9 @@ public class LogfileDialog extends javax.swing.JDialog implements
             .addGroup(panelXmlLayout.createSequentialGroup()
                 .addComponent(panelFilter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPaneTableLogfileRecords, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
+                .addComponent(scrollPaneTableLogfileRecords, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPaneTextPaneDetails, javax.swing.GroupLayout.DEFAULT_SIZE, 241, Short.MAX_VALUE)
+                .addComponent(scrollPaneTextPaneDetails, javax.swing.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -647,39 +635,44 @@ public class LogfileDialog extends javax.swing.JDialog implements
         editorPaneSimple.setEditable(false);
         scrollPaneSimple.setViewportView(editorPaneSimple);
 
-        buttonReloadSimple.setToolTipText(bundle.getString("LogfileDialog.buttonReloadSimple.toolTipText")); // NOI18N
-        buttonReloadSimple.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        buttonReloadSimple.setMaximumSize(new java.awt.Dimension(32, 32));
-        buttonReloadSimple.setMinimumSize(new java.awt.Dimension(32, 32));
-        buttonReloadSimple.setPreferredSize(new java.awt.Dimension(32, 32));
-        buttonReloadSimple.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonReloadSimpleActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout panelSimpleLayout = new javax.swing.GroupLayout(panelSimple);
         panelSimple.setLayout(panelSimpleLayout);
         panelSimpleLayout.setHorizontalGroup(
             panelSimpleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelSimpleLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panelSimpleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scrollPaneSimple)
-                    .addComponent(buttonReloadSimple, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(scrollPaneSimple)
                 .addContainerGap())
         );
         panelSimpleLayout.setVerticalGroup(
             panelSimpleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSimpleLayout.createSequentialGroup()
+            .addGroup(panelSimpleLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(scrollPaneSimple, javax.swing.GroupLayout.DEFAULT_SIZE, 456, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(buttonReloadSimple, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(scrollPaneSimple, javax.swing.GroupLayout.DEFAULT_SIZE, 458, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         tabbedPane.addTab(bundle.getString("LogfileDialog.panelSimple.TabConstraints.tabTitle"), panelSimple); // NOI18N
+
+        buttonReload.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/lib/resource/icon_reload.png"))); // NOI18N
+        buttonReload.setToolTipText(bundle.getString("LogfileDialog.buttonReload.toolTipText")); // NOI18N
+        buttonReload.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        buttonReload.setPreferredSize(new java.awt.Dimension(40, 40));
+        buttonReload.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonReloadActionPerformed(evt);
+            }
+        });
+
+        buttonExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/lib/resource/icon_exit.png"))); // NOI18N
+        buttonExit.setToolTipText(bundle.getString("LogfileDialog.buttonExit.toolTipText")); // NOI18N
+        buttonExit.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        buttonExit.setPreferredSize(new java.awt.Dimension(40, 40));
+        buttonExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonExitActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -687,14 +680,23 @@ public class LogfileDialog extends javax.swing.JDialog implements
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 539, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(tabbedPane, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 539, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(buttonExit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonReload, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 551, Short.MAX_VALUE)
+                .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 505, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(buttonReload, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buttonExit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -705,13 +707,17 @@ private void textFieldSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRS
     search();
 }//GEN-LAST:event_textFieldSearchKeyReleased
 
-private void buttonReloadXmlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonReloadXmlActionPerformed
-    reloadXml();
-}//GEN-LAST:event_buttonReloadXmlActionPerformed
+private void buttonReloadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonReloadActionPerformed
+    reload();
+}//GEN-LAST:event_buttonReloadActionPerformed
 
-private void buttonReloadSimpleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonReloadSimpleActionPerformed
-    reloadSimple();
-}//GEN-LAST:event_buttonReloadSimpleActionPerformed
+private void buttonExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExitActionPerformed
+    setVisible(false);
+}//GEN-LAST:event_buttonExitActionPerformed
+
+private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+    setVisible(false);
+}//GEN-LAST:event_formWindowClosing
 
     /**
     * @param args the command line arguments
@@ -733,8 +739,8 @@ private void buttonReloadSimpleActionPerformed(java.awt.event.ActionEvent evt) {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton buttonReloadSimple;
-    private javax.swing.JButton buttonReloadXml;
+    private javax.swing.JButton buttonExit;
+    private javax.swing.JButton buttonReload;
     private javax.swing.JCheckBox checkBoxConfig;
     private javax.swing.JCheckBox checkBoxFine;
     private javax.swing.JCheckBox checkBoxFiner;
