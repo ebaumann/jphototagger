@@ -31,8 +31,8 @@
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="scrollPaneTreeDirectories" alignment="0" pref="490" max="32767" attributes="0"/>
-                  <Component id="labelUsage" alignment="0" pref="490" max="32767" attributes="0"/>
+                  <Component id="scrollPaneTreeDirectories" alignment="0" pref="323" max="32767" attributes="0"/>
+                  <Component id="labelUsage" alignment="0" pref="323" max="32767" attributes="0"/>
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="buttonCancel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -47,7 +47,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="scrollPaneTreeDirectories" pref="336" max="32767" attributes="0"/>
+              <Component id="scrollPaneTreeDirectories" pref="238" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="labelUsage" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>

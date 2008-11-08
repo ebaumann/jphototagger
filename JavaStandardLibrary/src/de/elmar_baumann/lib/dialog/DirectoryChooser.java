@@ -2,7 +2,6 @@ package de.elmar_baumann.lib.dialog;
 
 import de.elmar_baumann.lib.componentutil.TreeUtil;
 import de.elmar_baumann.lib.image.icon.IconUtil;
-import de.elmar_baumann.lib.io.FileUtil;
 import de.elmar_baumann.lib.model.TreeModelDirectories;
 import de.elmar_baumann.lib.persistence.PersistentAppSizes;
 import de.elmar_baumann.lib.resource.Bundle;
@@ -10,7 +9,6 @@ import de.elmar_baumann.lib.resource.Settings;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Stack;
 import javax.swing.JOptionPane;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
@@ -57,10 +55,6 @@ public class DirectoryChooser extends Dialog {
 
     private void postInitComponents() {
         setIcons();
-        if (model == null) {
-            model = new TreeModelDirectories(acceptHidden);
-        }
-        treeDirectories.setModel(model);
         registerKeyStrokes();
     }
 
@@ -157,32 +151,25 @@ public class DirectoryChooser extends Dialog {
     }
 
     private void selectStartDirectory() {
-        String delimiter = "|"; // NOI18N
-        TreePath path = TreeUtil.getTreePath(
-            treeDirectories.getModel(),
-            treeDirectories.getModel().getRoot().toString() +
-            delimiter + toPathString(startDirectory, delimiter),
-            delimiter);
-        if (path != null) {
-            treeDirectories.setSelectionPath(path);
-            treeDirectories.scrollPathToVisible(path);
-        }
-    }
+        new Thread(new Runnable() {
 
-    private String toPathString(File file, String delimiter) {
-        Stack<File> path = FileUtil.getPathFromRoot(file);
-        StringBuffer pathString = new StringBuffer();
-        while (!path.isEmpty()) {
-            File f = path.pop();
-            String n = f.getName();
-            String p = f.getPath();
-            String name = n.isEmpty() ? p : n;
-            while (name.endsWith("\\")) { // Windows-Laufwerksbuchstabe  // NOI18N
-                name = name.substring(0, name.length() - 1);
+            @Override
+            public void run() {
+                if (model == null) {
+                    model = new TreeModelDirectories(acceptHidden);
+                }
+                treeDirectories.setModel(model);
+                if (!startDirectory.getName().isEmpty()) {
+                    TreePath path = TreeUtil.getTreePath(
+                        startDirectory, treeDirectories.getModel());
+                    if (path != null) {
+                        TreeUtil.expandPathCascade(treeDirectories, path);
+                        treeDirectories.setSelectionPath(path);
+                        treeDirectories.scrollPathToVisible(path);
+                    }
+                }
             }
-            pathString.append(name + (path.isEmpty() ? "" : delimiter)); // NOI18N
-        }
-        return pathString.toString();
+        }).start();
     }
 
     private void cancel() {
@@ -258,8 +245,8 @@ public class DirectoryChooser extends Dialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scrollPaneTreeDirectories, javax.swing.GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE)
-                    .addComponent(labelUsage, javax.swing.GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE)
+                    .addComponent(scrollPaneTreeDirectories, javax.swing.GroupLayout.DEFAULT_SIZE, 323, Short.MAX_VALUE)
+                    .addComponent(labelUsage, javax.swing.GroupLayout.DEFAULT_SIZE, 323, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(buttonCancel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -270,7 +257,7 @@ public class DirectoryChooser extends Dialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(scrollPaneTreeDirectories, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE)
+                .addComponent(scrollPaneTreeDirectories, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelUsage)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
