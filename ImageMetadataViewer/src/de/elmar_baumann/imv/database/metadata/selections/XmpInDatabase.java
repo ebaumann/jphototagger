@@ -12,7 +12,6 @@ import java.util.List;
 public class XmpInDatabase {
 
     private static List<String> storedPathsStartsWith = new ArrayList<String>();
-    private static XmpInDatabase instance = new XmpInDatabase();
     
 
     static {
@@ -39,10 +38,6 @@ public class XmpInDatabase {
         storedPathsStartsWith.add("dc:subject"); // NOI18N
     }
 
-    public static XmpInDatabase getInstance() {
-        return instance;
-    }
-
     /**
      * Liefert, ob die Metadaten eines XMP-Pfads in die Datenbank gespeichert
      * werden.
@@ -50,15 +45,12 @@ public class XmpInDatabase {
      * @param  path  Pfad
      * @return true, falls gespeichert
      */
-    public boolean isInDatabase(String path) {
+    public static boolean isInDatabase(String path) {
         for (String storedPathStartsWith : storedPathsStartsWith) {
             if (path.startsWith(storedPathStartsWith)) {
                 return true;
             }
         }
         return false;
-    }
-
-    private XmpInDatabase() {
     }
 }

@@ -125,7 +125,7 @@ public class UserSettings implements UserSettingsChangeListener {
                 settings.getString(keyEditColumns), delimiterColumns);
             return ColumnUtil.columnKeysToColumns(columnKeys);
         }
-        return new ArrayList<Column>(EditColumns.getInstance().getColumns());
+        return new ArrayList<Column>(EditColumns.getColumns());
     }
 
     /**

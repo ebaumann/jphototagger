@@ -33,7 +33,6 @@ import java.util.Set;
 public class EditColumns {
 
     private static Map<Column, EditHints> editHintsForColumn = new LinkedHashMap<Column, EditHints>();
-    private static EditColumns instance = new EditColumns();
     
 
     static {
@@ -78,18 +77,11 @@ public class EditColumns {
             ColumnXmpPhotoshopCaptionwriter.getInstance(), notRepeatableHintSmall);
     }
 
-    public static EditColumns getInstance() {
-        return instance;
-    }
-
-    public Set<Column> getColumns() {
+    public static Set<Column> getColumns() {
         return editHintsForColumn.keySet();
     }
 
-    public EditHints getEditHintsForColumn(Column column) {
+    public static EditHints getEditHints(Column column) {
         return editHintsForColumn.get(column);
-    }
-
-    private EditColumns() {
     }
 }

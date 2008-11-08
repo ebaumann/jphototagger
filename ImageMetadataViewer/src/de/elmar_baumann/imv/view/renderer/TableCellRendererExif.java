@@ -19,7 +19,6 @@ public class TableCellRendererExif extends TableCellRendererMetadata
     implements TableCellRenderer {
 
     private static final Translation translation = new Translation("ExifTagIdTagNameTranslations"); // NOI18N
-    private static final ExifInDatabase exifInDatabase = ExifInDatabase.getInstance();
 
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
@@ -44,7 +43,7 @@ public class TableCellRendererExif extends TableCellRendererMetadata
     }
 
     private void setIsStoredInDatabaseColor(JLabel cellLabel, IdfEntryProxy ifdEntry) {
-        if (exifInDatabase.isInDatabase(ifdEntry.getTag())) {
+        if (ExifInDatabase.isInDatabase(ifdEntry.getTag())) {
             setIsStoredInDatabaseColors(cellLabel);
         }
     }

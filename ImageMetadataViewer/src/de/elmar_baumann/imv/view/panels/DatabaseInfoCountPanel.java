@@ -5,6 +5,8 @@ import de.elmar_baumann.imv.event.listener.TotalRecordCountListener;
 import de.elmar_baumann.imv.model.TableModelDatabaseInfo;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.view.renderer.TableCellRendererDatabaseInfoColumns;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Dislplays the database record count total and of specific columns.
@@ -26,7 +28,6 @@ public class DatabaseInfoCountPanel extends javax.swing.JPanel {
     public void listenToDatabaseChanges(boolean listen) {
         if (listen) {
             listenerTotalRecordCount.addLabel(labelTotalRecordCount);
-            setTotalRecordCount();
             setModelDatabaseInfo();
         } else {
             listenerTotalRecordCount.removeLabel(labelTotalRecordCount);
@@ -35,11 +36,6 @@ public class DatabaseInfoCountPanel extends javax.swing.JPanel {
         if (modelDatabaseInfo != null) {
             modelDatabaseInfo.setListenToDatabase(listen);
         }
-    }
-
-    private void setTotalRecordCount() {
-        labelTotalRecordCount.setText(Long.toString(
-            DatabaseStatistics.getInstance().getTotalRecordCount()));
     }
 
     private void setModelDatabaseInfo() {
@@ -54,6 +50,14 @@ public class DatabaseInfoCountPanel extends javax.swing.JPanel {
                 }
             }).start();
         } else {
+            new Thread(new Runnable() {
+
+                @Override
+                public void run() {
+                    labelTotalRecordCount.setText(Long.toString(
+                        DatabaseStatistics.getInstance().getTotalRecordCount()));
+                }
+            }).start();
             modelDatabaseInfo.setListenToDatabase(true);
             modelDatabaseInfo.update();
         }

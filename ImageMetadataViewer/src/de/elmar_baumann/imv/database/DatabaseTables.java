@@ -6,6 +6,8 @@ import de.elmar_baumann.imv.resource.Bundle;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import javax.swing.JOptionPane;
 
@@ -18,9 +20,33 @@ import javax.swing.JOptionPane;
 public class DatabaseTables extends Database {
 
     private static DatabaseTables instance = new DatabaseTables();
+    private static List<String> tableNames = new ArrayList<String>();
+    
+
+    static {
+        tableNames.add("files");
+        tableNames.add("xmp");
+        tableNames.add("xmp_dc_subjects");
+        tableNames.add("xmp_photoshop_supplementalcategories");
+        tableNames.add("exif");
+        tableNames.add("collection_names");
+        tableNames.add("collections");
+        tableNames.add("saved_searches");
+        tableNames.add("saved_searches_values");
+        tableNames.add("saved_searches_panels");
+        tableNames.add("autoscan_directories");
+        tableNames.add("metadata_edit_templates");
+        tableNames.add("favorite_directories");
+        tableNames.add("file_exclude_pattern");
+        tableNames.add("programs");
+    }
 
     public static DatabaseTables getInstance() {
         return instance;
+    }
+
+    public static List<String> getTableNames() {
+        return tableNames;
     }
 
     private DatabaseTables() {

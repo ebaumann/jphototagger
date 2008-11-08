@@ -25,7 +25,6 @@ import java.util.List;
 public class FastSearchColumns {
 
     private static List<Column> searchColumns = new ArrayList<Column>();
-    private static FastSearchColumns instance = new FastSearchColumns();
     
 
     static {
@@ -46,14 +45,7 @@ public class FastSearchColumns {
         searchColumns.add(ColumnFilesFilename.getInstance());
     }
 
-    public static FastSearchColumns getInstance() {
-        return instance;
-    }
-
-    public List<Column> getSearchColumns() {
+    public static List<Column> get() {
         return searchColumns;
-    }
-
-    private FastSearchColumns() {
     }
 }

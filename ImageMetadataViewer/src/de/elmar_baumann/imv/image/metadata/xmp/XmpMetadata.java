@@ -285,7 +285,7 @@ public class XmpMetadata {
     }
 
     private void writeMetadata(XMPMeta xmpMeta, Xmp metadata) throws XMPException {
-        Set<Column> xmpColumns = EditColumns.getInstance().getColumns();
+        Set<Column> xmpColumns = EditColumns.getColumns();
         for (Column column : xmpColumns) {
             String namespaceUri = mappingNamespaceUri.getNamespaceUriOfColumn(column);
             String propertyName = mappingName.getXmpPathStartOfColumn(column);
@@ -351,7 +351,7 @@ public class XmpMetadata {
     }
 
     private void writeSidecarFileDeleteItems(XMPMeta xmpMeta) {
-        Set<Column> xmpColumns = EditColumns.getInstance().getColumns();
+        Set<Column> xmpColumns = EditColumns.getColumns();
         for (Column column : xmpColumns) {
             String namespaceUri = mappingNamespaceUri.getNamespaceUriOfColumn(column);
             String name = mappingName.getXmpPathStartOfColumn(column);

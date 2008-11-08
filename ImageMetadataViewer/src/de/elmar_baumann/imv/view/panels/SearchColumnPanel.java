@@ -164,7 +164,7 @@ public class SearchColumnPanel extends javax.swing.JPanel {
     }
 
     private void initColumnsModel() {
-        List<Column> columns = AdvancedSearchColumns.getInstance().get();
+        List<Column> columns = AdvancedSearchColumns.get();
         for (Column column : columns) {
             if (!column.isPrimaryKey() && !column.isForeignKey()) {
                 modelColumns.addElement(column);
@@ -284,7 +284,7 @@ public class SearchColumnPanel extends javax.swing.JPanel {
         listenToActions = false;
         SavedSearchPanel data = new SavedSearchPanel();
         data.setBracketRightSelected(toggleButtonBracketRight.isSelected());
-        data.setColumnId(ColumnIds.getInstance().getId(
+        data.setColumnId(ColumnIds.getId(
             (Column) comboBoxColumns.getModel().getSelectedItem()));
         data.setComparatorId(
             ((Comparator) comboBoxComparators.getModel().getSelectedItem()).getId());
@@ -307,7 +307,7 @@ public class SearchColumnPanel extends javax.swing.JPanel {
         listenToActions = false;
         toggleButtonBracketRight.setSelected(data.isBracketRightSelected());
         comboBoxColumns.getModel().setSelectedItem(
-            ColumnIds.getInstance().getColumn(data.getColumnId()));
+            ColumnIds.getColumn(data.getColumnId()));
         comboBoxComparators.getModel().setSelectedItem(
             Comparator.get(data.getComparatorId()));
         toggleButtonBracketLeft1.setSelected(data.isBracketLeft1Selected());

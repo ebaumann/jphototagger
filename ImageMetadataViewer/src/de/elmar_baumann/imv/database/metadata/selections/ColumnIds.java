@@ -45,7 +45,6 @@ public class ColumnIds {
 
     private static Map<Integer, Column> columnOfId = new HashMap<Integer, Column>();
     private static Map<Column, Integer> idOfColumn = new HashMap<Column, Integer>();
-    private static ColumnIds instance = new ColumnIds();
     
 
     static {
@@ -86,17 +85,13 @@ public class ColumnIds {
         }
     }
 
-    public static ColumnIds getInstance() {
-        return instance;
-    }
-
     /**
      * Liefert eine Spalte mit bestimmter ID.
      * 
      * @param  id ID
      * @return Spalte oder null bei ungültiger ID
      */
-    public Column getColumn(int id) {
+    public static Column getColumn(int id) {
         return columnOfId.get(id);
     }
 
@@ -106,10 +101,7 @@ public class ColumnIds {
      * @param  column Spalte
      * @return ID
      */
-    public int getId(Column column) {
+    public static int getId(Column column) {
         return idOfColumn.get(column);
-    }
-
-    private ColumnIds() {
     }
 }

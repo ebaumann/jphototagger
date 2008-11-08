@@ -36,7 +36,6 @@ import java.util.List;
 public class AdvancedSearchColumns {
 
     private static List<Column> columns = new ArrayList<Column>();
-    private static AdvancedSearchColumns instance = new AdvancedSearchColumns();
     
 
     static {
@@ -66,23 +65,11 @@ public class AdvancedSearchColumns {
     }
 
     /**
-     * Liefert die einzige Klasseninstanz.
-     * 
-     * @return Instanz
-     */
-    public static AdvancedSearchColumns getInstance() {
-        return instance;
-    }
-
-    /**
      * Liefert die Spalten für die erweiterte Suche.
      * 
      * @return Suchspalten
      */
-    public List<Column> get() {
+    public static List<Column> get() {
         return columns;
-    }
-
-    private AdvancedSearchColumns() {
     }
 }

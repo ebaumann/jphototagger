@@ -29,7 +29,6 @@ public class TableIcons {
     private static final Icon iconImageCollection = AppSettings.getIcon("icon_imagecollection.png"); // NOI18N
     private static final Icon iconSavedSearch = AppSettings.getIcon("icon_search.png"); // NOI18N
     private static Map<Table, Icon> iconOfTable = new HashMap<Table, Icon>();
-    private static TableIcons instance = new TableIcons();
     
 
     static {
@@ -44,26 +43,14 @@ public class TableIcons {
     }
 
     /**
-     * Liefert die einzige Klasseninstanz.
-     * 
-     * @return Klasseninstanz
-     */
-    public static TableIcons getInstance() {
-        return instance;
-    }
-
-    /**
      * Liefert das Icon für eine Tabelle.
      * 
      * @param  table Tabelle
      * @return Icon der Tabelle oder ein Icon für eine undefinierte Tabelle
      *         (Standard-Tabellenicon)
      */
-    public Icon getIcon(Table table) {
+    public static Icon getIcon(Table table) {
         Icon icon = iconOfTable.get(table);
         return icon == null ? iconUndefined : icon;
-    }
-
-    private TableIcons() {
     }
 }

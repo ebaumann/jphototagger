@@ -13,7 +13,6 @@ import java.util.List;
 public class ExifInDatabase {
 
     private static List<ExifTag> storedTags = new ArrayList<ExifTag>();
-    private static ExifInDatabase instance = new ExifInDatabase();
     
 
     static {
@@ -23,10 +22,6 @@ public class ExifInDatabase {
         storedTags.add(ExifTag.Model);
     }
 
-    public static ExifInDatabase getInstance() {
-        return instance;
-    }
-
     /**
      * Liefert, ob die Metadaten eines EXIF-Tags in die Datenbank gespeichert
      * werden.
@@ -34,7 +29,7 @@ public class ExifInDatabase {
      * @param  exifTag  Tag 
      * @return true, falls gespeichert
      */
-    public boolean isInDatabase(ExifTag exifTag) {
+    public static boolean isInDatabase(ExifTag exifTag) {
         return storedTags.contains(exifTag);
     }
 
@@ -45,14 +40,11 @@ public class ExifInDatabase {
      * @param  tagId  ID des Tags
      * @return true, falls gespeichert
      */
-    public boolean isInDatabase(int tagId) {
+    public static boolean isInDatabase(int tagId) {
         ExifTag tag = ExifTag.getTag(tagId);
         if (tag != null) {
             return storedTags.contains(tag);
         }
         return false;
-    }
-
-    private ExifInDatabase() {
     }
 }

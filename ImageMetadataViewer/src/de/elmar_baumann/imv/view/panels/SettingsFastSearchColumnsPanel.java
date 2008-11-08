@@ -23,7 +23,7 @@ public class SettingsFastSearchColumnsPanel extends javax.swing.JPanel
 
     private  CheckList list = new CheckList();
     private ListModelSelectedColumns model = new ListModelSelectedColumns(
-        FastSearchColumns.getInstance().getSearchColumns());
+        FastSearchColumns.get());
     private ListenerProvider listenerProvider = ListenerProvider.getInstance();
 
     /** Creates new form SettingsFastSearchColumnsPanel */

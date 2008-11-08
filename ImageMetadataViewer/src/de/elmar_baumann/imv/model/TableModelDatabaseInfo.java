@@ -1,11 +1,10 @@
 package de.elmar_baumann.imv.model;
 
 import de.elmar_baumann.imv.database.DatabaseStatistics;
-import de.elmar_baumann.imv.database.metadata.selections.AllTables;
 import de.elmar_baumann.imv.database.metadata.Column;
-import de.elmar_baumann.imv.database.metadata.Table;
 import de.elmar_baumann.imv.database.metadata.collections.ColumnCollectionsSequenceNumber;
 import de.elmar_baumann.imv.database.metadata.file.ColumnFilesThumbnail;
+import de.elmar_baumann.imv.database.metadata.selections.DatabaseInfoRecordCountColumns;
 import de.elmar_baumann.imv.event.DatabaseAction;
 import de.elmar_baumann.imv.event.DatabaseListener;
 import de.elmar_baumann.imv.resource.Bundle;
@@ -30,25 +29,15 @@ public class TableModelDatabaseInfo extends DefaultTableModel
     private boolean listenToDatabase = false;
 
     private void initBufferOfColumn() {
-        List<Table> tables = AllTables.get();
-        for (Table table : tables) {
-            for (Column column : table.getColumns()) {
-                if (isInfoColumn(column)) {
-                    bufferOfColumn.put(column, new StringBuffer());
-                }
-            }
+        List<Column> columns = DatabaseInfoRecordCountColumns.get();
+        for (Column column : columns) {
+            bufferOfColumn.put(column, new StringBuffer());
         }
     }
 
     private void initExcludedColumns() {
         excludedColumns.add(ColumnFilesThumbnail.getInstance());
         excludedColumns.add(ColumnCollectionsSequenceNumber.getInstance());
-    }
-
-    private boolean isInfoColumn(Column column) {
-        return !column.isPrimaryKey() &&
-            !column.isForeignKey() &&
-            !excludedColumns.contains(column);
     }
 
     public TableModelDatabaseInfo() {

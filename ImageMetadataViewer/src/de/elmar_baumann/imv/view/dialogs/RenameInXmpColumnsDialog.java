@@ -36,7 +36,7 @@ public class RenameInXmpColumnsDialog extends Dialog {
     }
 
     private void setModel() {
-        Set<Column> columns = EditColumns.getInstance().getColumns();
+        Set<Column> columns = EditColumns.getColumns();
         comboBoxReplaceColumn.setModel(
             new DefaultComboBoxModel(columns.toArray(new Column[columns.size()])));
     }

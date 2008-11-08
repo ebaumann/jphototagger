@@ -294,11 +294,10 @@ public class EditMetadataPanelsArray implements FocusListener, DatabaseListener,
     }
 
     private void createEditPanels() {
-        EditColumns editColumns = EditColumns.getInstance();
         List<Column> columns = UserSettings.getInstance().getEditColumns();
 
         for (Column column : columns) {
-            EditHints editHints = editColumns.getEditHintsForColumn(column);
+            EditHints editHints = EditColumns.getEditHints(column);
             boolean large = editHints.getSizeEditField().equals(SizeEditField.large);
             boolean isRepeatable = editHints.isRepeatable();
 

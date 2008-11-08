@@ -1,8 +1,6 @@
 package de.elmar_baumann.imv.database;
 
 import de.elmar_baumann.imv.database.metadata.Column;
-import de.elmar_baumann.imv.database.metadata.Table;
-import de.elmar_baumann.imv.database.metadata.selections.AllTables;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -115,12 +113,12 @@ public class DatabaseStatistics extends Database {
     public long getTotalRecordCount() {
         long count = -1;
         Connection connection = null;
-        List<Table> tables = AllTables.get();
+        List<String> tableNames = DatabaseTables.getTableNames();
         try {
             connection = getConnection();
-            for (Table table : tables) {
+            for (String tableName : tableNames) {
                 Statement stmt = connection.createStatement();
-                String query = "SELECT COUNT(*) FROM " + table.getName(); // NOI18N
+                String query = "SELECT COUNT(*) FROM " + tableName; // NOI18N
                 ResultSet rs = stmt.executeQuery(query);
                 if (rs.next()) {
                     count += rs.getInt(1);

@@ -27,7 +27,6 @@ public class TableCellRendererXmp extends TableCellRendererMetadata
     private static final Translation xmpTranslation = new Translation("XmpPropertyTranslations"); // NOI18N
     private static final Translation xmpExifTagIdTranslation = new Translation("XmpPropertyExifTagIdTranslations"); // NOI18N
     private static final Translation exifTranslation = new Translation("ExifTagIdTagNameTranslations"); // NOI18N
-    private static final XmpInDatabase xmpInDatabase = XmpInDatabase.getInstance();
 
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value,
@@ -51,7 +50,7 @@ public class TableCellRendererXmp extends TableCellRendererMetadata
     }
 
     private void setIsStoredInDatabaseColor(JLabel cellLabel, XMPPropertyInfo xmpPropertyInfo) {
-        if (xmpInDatabase.isInDatabase(xmpPropertyInfo.getPath())) {
+        if (XmpInDatabase.isInDatabase(xmpPropertyInfo.getPath())) {
             setIsStoredInDatabaseColors(cellLabel);
         }
     }
