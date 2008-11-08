@@ -1,8 +1,8 @@
 package de.elmar_baumann.imv.controller.actions;
 
 import de.elmar_baumann.imv.controller.Controller;
-import de.elmar_baumann.imv.event.DialogActionsEvent;
-import de.elmar_baumann.imv.event.DialogActionsListener;
+import de.elmar_baumann.imv.event.ProgramActionEvent;
+import de.elmar_baumann.imv.event.ProgramActionListener;
 import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.tasks.ProgramExecutor;
 import de.elmar_baumann.imv.view.dialogs.ActionsDialog;
@@ -15,7 +15,7 @@ import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/11/06
  */
-public class ControllerActionExecutor extends Controller implements DialogActionsListener {
+public class ControllerActionExecutor extends Controller implements ProgramActionListener {
 
     private ImageFileThumbnailsPanel thumbnailsPanel;
     private ProgramExecutor executor;
@@ -37,7 +37,7 @@ public class ControllerActionExecutor extends Controller implements DialogAction
     }
 
     @Override
-    public void actionPerformed(DialogActionsEvent evt) {
+    public void actionPerformed(ProgramActionEvent evt) {
         if (isControl() && evt.isExecute()) {
             executor.execute(evt.getProgram(), thumbnailsPanel.getSelectedFiles());
         }

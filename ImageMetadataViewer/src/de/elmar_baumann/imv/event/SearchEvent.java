@@ -12,6 +12,7 @@ public class SearchEvent {
 
     private Type type;
     private SavedSearch data;
+    private String searchName;
     private boolean forceOverwrite;
 
     /**
@@ -27,7 +28,9 @@ public class SearchEvent {
          * Aktion ist eine Schnellsuche. Operationen bezüglich der gespeicherten
          * Suchen liefern null.
          */
-        FastSearch
+        FastSearch,
+        /** The name of a (saved) search has changend */
+        NameChanged
     };
 
     /**
@@ -89,5 +92,13 @@ public class SearchEvent {
      */
     public void setForceOverwrite(boolean forceOverwrite) {
         this.forceOverwrite = forceOverwrite;
+    }
+
+    public String getSearchName() {
+        return searchName;
+    }
+
+    public void setSearchName(String searchName) {
+        this.searchName = searchName;
     }
 }
