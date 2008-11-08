@@ -57,6 +57,38 @@ public class DatabaseStatistics extends Database {
     }
 
     /**
+     * Returns the count of records in a table for a specific column (where
+     * the column value is not NULL).
+     * 
+     * @param  column  column
+     * @return count count of records in the column's table where 
+     * <code>column</code> is not null
+     */
+    public int getTotalRecordCount(Column column) {
+        int count = -1;
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            Statement stmt = connection.createStatement();
+            String query = "SELECT COUNT(*) FROM " + // NOI18N
+                column.getTable().getName() +
+                " WHERE " + // NOI18N
+                column.getName() +
+                " IS NOT NULL"; // NOI18N
+            ResultSet rs = stmt.executeQuery(query);
+            if (rs.next()) {
+                count = rs.getInt(1);
+            }
+            stmt.close();
+        } catch (SQLException ex) {
+            handleException(ex, Level.SEVERE);
+        } finally {
+            free(connection);
+        }
+        return count;
+    }
+
+    /**
      * Liefert die Anzahl der Dateien in der Datenbank.
      *
      * @return Dateianzahl oder -1 bei Fehlern

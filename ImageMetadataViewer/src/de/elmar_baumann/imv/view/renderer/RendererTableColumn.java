@@ -23,7 +23,7 @@ public class RendererTableColumn {
             String description = column.getDescription();
             if (!column.isPrimaryKey() && !column.isForeignKey() &&
                 !description.isEmpty()) {
-                textOfColumn.put(column, getLabelText(column));
+                textOfColumn.put(column, column.getDescription());
             }
         }
     }
@@ -37,9 +37,5 @@ public class RendererTableColumn {
     public static void setLabelText(JLabel label, Column column) {
         label.setIcon(TableIcons.getIcon(column.getTable()));
         label.setText(textOfColumn.get(column));
-    }
-
-    private static String getLabelText(Column column) {
-        return "<html><strong>" + column.getDescription() + "</strong></html>"; // NOI18N
     }
 }

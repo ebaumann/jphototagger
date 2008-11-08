@@ -2,6 +2,7 @@ package de.elmar_baumann.imv.view.renderer;
 
 import de.elmar_baumann.imv.database.metadata.Column;
 import java.awt.Component;
+import java.awt.Font;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
@@ -16,6 +17,7 @@ import javax.swing.table.TableCellRenderer;
 public class TableCellRendererDatabaseInfoColumns implements TableCellRenderer {
 
     private static final String paddingLeft = "  "; // NOI18N
+    private static Font cellFont = new Font(Font.DIALOG, Font.PLAIN, 11);
 
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value,
@@ -24,7 +26,7 @@ public class TableCellRendererDatabaseInfoColumns implements TableCellRenderer {
         if (column == 0) {
             RendererTableColumn.setLabelText(cellLabel, (Column) value);
         } else {
-            assert column < 2 : column;
+            cellLabel.setFont(cellFont);
             cellLabel.setText(paddingLeft + value.toString());
         }
         return cellLabel;

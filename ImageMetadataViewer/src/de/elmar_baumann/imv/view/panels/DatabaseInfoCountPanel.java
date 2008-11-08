@@ -5,8 +5,6 @@ import de.elmar_baumann.imv.event.listener.TotalRecordCountListener;
 import de.elmar_baumann.imv.model.TableModelDatabaseInfo;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.view.renderer.TableCellRendererDatabaseInfoColumns;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Dislplays the database record count total and of specific columns.
@@ -38,6 +36,17 @@ public class DatabaseInfoCountPanel extends javax.swing.JPanel {
         }
     }
 
+    private void setInitTotalRecordCount() {
+        new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                labelTotalRecordCount.setText(Long.toString(
+                    DatabaseStatistics.getInstance().getTotalRecordCount()));
+            }
+        }).start();
+    }
+
     private void setModelDatabaseInfo() {
         if (modelDatabaseInfo == null) {
             new Thread(new Runnable() {
@@ -47,17 +56,11 @@ public class DatabaseInfoCountPanel extends javax.swing.JPanel {
                     modelDatabaseInfo = new TableModelDatabaseInfo();
                     table.setModel(modelDatabaseInfo);
                     modelDatabaseInfo.update();
+                    setInitTotalRecordCount();
                 }
             }).start();
         } else {
-            new Thread(new Runnable() {
-
-                @Override
-                public void run() {
-                    labelTotalRecordCount.setText(Long.toString(
-                        DatabaseStatistics.getInstance().getTotalRecordCount()));
-                }
-            }).start();
+            setInitTotalRecordCount();
             modelDatabaseInfo.setListenToDatabase(true);
             modelDatabaseInfo.update();
         }
@@ -80,7 +83,6 @@ public class DatabaseInfoCountPanel extends javax.swing.JPanel {
 
         scrollPane.setViewportView(table);
 
-        labelTable.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         labelTable.setText(Bundle.getString("DatabaseInfoCountPanel.labelTable.text")); // NOI18N
 
         labelPromptTotalRecordCount.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
@@ -93,12 +95,12 @@ public class DatabaseInfoCountPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelTable, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(labelTable, javax.swing.GroupLayout.DEFAULT_SIZE, 357, Short.MAX_VALUE)
                     .addComponent(scrollPane, 0, 0, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(labelPromptTotalRecordCount)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(labelTotalRecordCount, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)))
+                        .addComponent(labelTotalRecordCount, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(

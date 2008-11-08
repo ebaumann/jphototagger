@@ -24,14 +24,16 @@ public class TableModelDatabaseInfo extends DefaultTableModel
     implements DatabaseListener {
 
     private DatabaseStatistics db = DatabaseStatistics.getInstance();
-    private LinkedHashMap<Column, StringBuffer> bufferOfColumn = new LinkedHashMap<Column, StringBuffer>();
+    private LinkedHashMap<Column, StringBuffer> bufferDifferentOfColumn = new LinkedHashMap<Column, StringBuffer>();
+    private LinkedHashMap<Column, StringBuffer> bufferTotalOfColumn = new LinkedHashMap<Column, StringBuffer>();
     private List<Column> excludedColumns = new ArrayList<Column>();
     private boolean listenToDatabase = false;
 
     private void initBufferOfColumn() {
         List<Column> columns = DatabaseInfoRecordCountColumns.get();
         for (Column column : columns) {
-            bufferOfColumn.put(column, new StringBuffer());
+            bufferDifferentOfColumn.put(column, new StringBuffer());
+            bufferTotalOfColumn.put(column, new StringBuffer());
         }
     }
 
@@ -70,17 +72,23 @@ public class TableModelDatabaseInfo extends DefaultTableModel
     private void addColumnHeaders() {
         addColumn(Bundle.getString("TableModelDatabaseInfo.HeaderColumn.1"));
         addColumn(Bundle.getString("TableModelDatabaseInfo.HeaderColumn.2"));
+        addColumn(Bundle.getString("TableModelDatabaseInfo.HeaderColumn.3"));
     }
 
     private void addRows() {
-        Set<Column> columns = bufferOfColumn.keySet();
+        Set<Column> columns = bufferDifferentOfColumn.keySet();
         for (Column column : columns) {
-            addRow(getRow(column, bufferOfColumn.get(column)));
+            addRow(getRow(
+                column,
+                bufferDifferentOfColumn.get(column),
+                bufferTotalOfColumn.get(column)));
         }
     }
 
-    private Object[] getRow(Column rowHeader, StringBuffer count) {
-        return new Object[]{rowHeader, count};
+    private Object[] getRow(Column rowHeader,
+        StringBuffer bufferDifferent, StringBuffer bufferTotal) {
+
+        return new Object[]{rowHeader, bufferDifferent, bufferTotal};
     }
 
     private void setCount() {
@@ -91,9 +99,10 @@ public class TableModelDatabaseInfo extends DefaultTableModel
 
         @Override
         public void run() {
-            Set<Column> columns = bufferOfColumn.keySet();
+            Set<Column> columns = bufferDifferentOfColumn.keySet();
             for (Column column : columns) {
-                setCountToBuffer(bufferOfColumn.get(column), db.getDistinctCount(column));
+                setCountToBuffer(bufferDifferentOfColumn.get(column), db.getDistinctCount(column));
+                setCountToBuffer(bufferTotalOfColumn.get(column), db.getTotalRecordCount(column));
             }
             fireTableDataChanged();
         }
