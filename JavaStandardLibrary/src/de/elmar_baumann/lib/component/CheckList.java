@@ -8,6 +8,7 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JCheckBox;
+import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.ListCellRenderer;
 import javax.swing.ListModel;
@@ -30,22 +31,7 @@ public class CheckList extends JList {
 
     public CheckList() {
         setCellRenderer(new CellRenderer());
-
-        addMouseListener(new MouseAdapter() {
-
-            @Override
-            public void mousePressed(MouseEvent e) {
-                int index = locationToIndex(e.getPoint());
-
-                if (index != -1) {
-                    JCheckBox checkbox = (JCheckBox) getModel().getElementAt(index);
-                    checkbox.setSelected(!checkbox.isSelected());
-                    repaint();
-                    notifyActionListener(index);
-                }
-            }
-        });
-
+        listenToMouse();
         setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     }
 
@@ -67,6 +53,23 @@ public class CheckList extends JList {
      */
     public void removeActionListener(ActionListener listener) {
         actionListeners.add(listener);
+    }
+
+    private void listenToMouse() {
+        addMouseListener(new MouseAdapter() {
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                int index = locationToIndex(e.getPoint());
+
+                if (index != -1) {
+                    JCheckBox checkbox = (JCheckBox) getModel().getElementAt(index);
+                    checkbox.setSelected(!checkbox.isSelected());
+                    repaint();
+                    notifyActionListener(index);
+                }
+            }
+        });
     }
 
     private void notifyActionListener(int index) {
@@ -197,20 +200,27 @@ public class CheckList extends JList {
         public Component getListCellRendererComponent(
             JList list, Object value, int index,
             boolean isSelected, boolean cellHasFocus) {
-            JCheckBox checkbox = (JCheckBox) value;
-            checkbox.setBackground(
-                isSelected ? getSelectionBackground() : getBackground());
-            checkbox.setForeground(
-                isSelected ? getSelectionForeground() : getForeground());
-            checkbox.setEnabled(isEnabled());
-            checkbox.setFont(getFont());
-            checkbox.setFocusPainted(false);
-            checkbox.setBorderPainted(true);
-            checkbox.setBorder(
-                isSelected
-                ? UIManager.getBorder("List.focusCellHighlightBorder") // NOI18N
-                : noFocusBorder);
-            return checkbox;
+
+            if (value instanceof JCheckBox) {
+                JCheckBox checkBox = (JCheckBox) value;
+                checkBox.setBackground(
+                    isSelected ? getSelectionBackground() : getBackground());
+                checkBox.setForeground(
+                    isSelected ? getSelectionForeground() : getForeground());
+                checkBox.setEnabled(isEnabled());
+                checkBox.setFont(getFont());
+                checkBox.setFocusPainted(false);
+                checkBox.setBorderPainted(true);
+                checkBox.setBorder(
+                    isSelected
+                    ? UIManager.getBorder("List.focusCellHighlightBorder") // NOI18N
+                    : noFocusBorder);
+                return checkBox;
+            } else if (value instanceof String) {
+                String string = (String) value;
+                return new JLabel(string);
+            }
+            return new JLabel();
         }
     }
 }
