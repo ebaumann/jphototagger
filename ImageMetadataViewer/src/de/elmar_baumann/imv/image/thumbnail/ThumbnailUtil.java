@@ -13,6 +13,7 @@ import de.elmar_baumann.imv.io.FileType;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.lib.image.ImageTransform;
 import de.elmar_baumann.lib.runtime.External;
+import de.elmar_baumann.lib.template.Pair;
 import java.awt.Container;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -131,7 +132,9 @@ public class ThumbnailUtil {
      * @param maxLength maximum length of the image in pixel
      * @return          thumbnail or null if errors occured
      */
-    public static Image getThumbnailFromExternalApplication(File file, String command, int maxLength) {
+    public static Image getThumbnailFromExternalApplication(
+        File file, String command, int maxLength) {
+
         if (!file.exists()) {
             return null;
         }
@@ -139,10 +142,11 @@ public class ThumbnailUtil {
 
         String cmd = command.replace("%s", file.getAbsolutePath()).replace("%i", // NOI18N
             new Integer(maxLength).toString());
-        byte[] output = External.executeGetOutput(cmd);
-        if (output != null) {
+        Pair<byte[], byte[]> output = External.executeGetOutput(cmd);
+        byte[] stdout = output.getFirst();
+        if (stdout != null) {
             MediaTracker tracker = new MediaTracker(new JPanel());
-            image = Toolkit.getDefaultToolkit().createImage(output);
+            image = Toolkit.getDefaultToolkit().createImage(stdout);
             tracker.addImage(image, 0);
             try {
                 tracker.waitForID(0);
@@ -150,7 +154,18 @@ public class ThumbnailUtil {
                 Logger.getLogger(ThumbnailUtil.class.getName()).log(Level.WARNING, null, ex);
             }
         }
+        if (output.getSecond() != null) {
+            logStderr(output);
+        }
         return image;
+    }
+
+    private static void logStderr(Pair<byte[], byte[]> output) {
+        byte[] stderr = output.getSecond();
+        String message = (stderr == null ? "" : new String(stderr).trim());
+        if (!message.isEmpty()) {
+            Logger.getLogger(ThumbnailUtil.class.getName()).log(Level.WARNING, "Program message: " + message);
+        }
     }
 
     public static Image getScaledImage(File file, int maxLength) {
