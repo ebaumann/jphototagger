@@ -180,7 +180,7 @@
                                       <Component id="checkBoxFinest" pref="99" max="32767" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Component id="checkBoxFiner" pref="117" max="32767" attributes="0"/>
+                                      <Component id="checkBoxFiner" pref="125" max="32767" attributes="0"/>
                                       <EmptySpace min="121" pref="121" max="121" attributes="0"/>
                                   </Group>
                               </Group>
@@ -443,7 +443,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="scrollPaneSimple" pref="458" max="32767" attributes="0"/>
+                      <Component id="scrollPaneSimple" pref="454" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>

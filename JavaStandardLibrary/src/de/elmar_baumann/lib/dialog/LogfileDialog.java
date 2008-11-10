@@ -325,10 +325,11 @@ public class LogfileDialog extends javax.swing.JDialog implements
             }
             PersistentAppSizes.getSizeAndLocation(this);
             PersistentSettings.getInstance().getComponent(this, new PersistentSettingsHints());
-            super.setVisible(visible);
+            super.setVisible(true);
         } else {
             PersistentAppSizes.setSizeAndLocation(this);
             PersistentSettings.getInstance().setComponent(this, new PersistentSettingsHints());
+            super.setVisible(false);
         }
     }
 
