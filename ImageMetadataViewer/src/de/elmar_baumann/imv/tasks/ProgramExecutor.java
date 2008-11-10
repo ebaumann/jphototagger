@@ -4,7 +4,6 @@ import de.elmar_baumann.imv.AppSettings;
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.data.Program;
 import de.elmar_baumann.imv.event.ErrorEvent;
-import de.elmar_baumann.imv.event.ErrorListener;
 import de.elmar_baumann.imv.event.listener.ErrorListeners;
 import de.elmar_baumann.imv.io.IoUtil;
 import de.elmar_baumann.imv.resource.Bundle;
