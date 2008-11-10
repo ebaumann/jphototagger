@@ -153,8 +153,10 @@ public class ProgramExecutor {
         }
 
         private void logErrors(Pair<byte[], byte[]> output) {
-            if (output != null && output.getSecond() != null) {
-                String message = "Programm-Fehlerausgabe: " + new String(output.getSecond());
+            byte[] stderr = output.getSecond();
+            String message = (stderr == null ? "" : new String(stderr).trim());
+            if (!message.isEmpty()) {
+                message = "Program error message: " + message;
                 Logger.getLogger(Execute.class.getName()).log(Level.WARNING, message);
                 ErrorListeners.getInstance().notifyErrorListener(new ErrorEvent(message, this));
             }
