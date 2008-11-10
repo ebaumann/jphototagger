@@ -121,6 +121,7 @@ public class ProgramExecutor {
                     file.getAbsolutePath(),
                     getInput(file.getAbsolutePath(), count + 1),
                     dialog.isParametersBeforeFilename()));
+                logErrors(output);
                 setValueToProgressBar(++count);
             }
         }
