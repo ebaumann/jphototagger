@@ -1,5 +1,6 @@
 package de.elmar_baumann.lib.runtime;
 
+import de.elmar_baumann.lib.template.Pair;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.logging.Level;
@@ -13,19 +14,43 @@ import java.util.logging.Logger;
  */
 public class External {
 
+    private enum Stream {
+
+        StandardError,
+        StandardIn,
+        StandardOut,
+    }
+
     /**
-     * Führt ein externes Programm aus und liest dessen Output.
+     * Führt ein externes Programm aus und liefert dessen Output.
      * 
      * @param  command Kommando, z.B. <code>/bin/ls -l /home</code>
-     * @return         Ausgabe des Programms oder null bei Misserfolg
+     * @return         Ausgabe des Programms oder null bei Misserfolg oder
+     *                 keiner Ausgabe. Das erste Element des Paars ist die
+     *                 Standardausgabe, das zweite die Standardfehlerausgabe.
      */
-    public static byte[] executeGetOutput(String command) {
+    public static Pair<byte[], byte[]> executeGetOutput(String command) {
+        Runtime runtime = Runtime.getRuntime();
+        Process process = null;
+        try {
+            process = runtime.exec(command);
+            return new Pair<byte[], byte[]>(
+                getStream(process, Stream.StandardOut),
+                getStream(process, Stream.StandardError));
+        } catch (Exception ex) {
+            Logger.getLogger(External.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return new Pair<byte[], byte[]>(null, null);
+    }
+
+    private static byte[] getStream(Process process, Stream s) {
+        assert s.equals(Stream.StandardError) || s.equals(Stream.StandardOut);
         final int buffersize = 100 * 1024;
         byte[] returnBytes = null;
         try {
-            Runtime runtime = Runtime.getRuntime();
-            Process process = runtime.exec(command);
-            InputStream stream = process.getInputStream();
+            InputStream stream = s.equals(Stream.StandardOut)
+                ? process.getInputStream()
+                : process.getErrorStream();
             byte[] buffer = new byte[buffersize];
             int bytesRead = -1;
             boolean finished = false;
