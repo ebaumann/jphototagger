@@ -8,10 +8,14 @@ import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.types.DatabaseUpdate;
 import de.elmar_baumann.imv.view.dialogs.ProgramInputParametersDialog;
 import de.elmar_baumann.lib.io.FileUtil;
+import de.elmar_baumann.lib.runtime.External;
+import de.elmar_baumann.lib.template.Pair;
 import java.io.File;
 import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JProgressBar;
 
@@ -98,20 +102,21 @@ public class ProgramExecutor {
         }
 
         private void processAll() {
-            IoUtil.execute(
-                program.getFile().getAbsolutePath(),
+            Pair<byte[], byte[]> output = External.executeGetOutput(
+                program.getFile().getAbsolutePath() + " " +
                 program.getCommandlineAfterProgram(
                 IoUtil.getQuotedForCommandline(imageFiles, ""),
                 getInput("Alle Dateien", 2),
                 dialog.isParametersBeforeFilename()));
+            logErrors(output);
             setValueToProgressBar(imageFiles.size());
         }
 
         private void processSingle() {
             int count = 0;
             for (File file : imageFiles) {
-                IoUtil.execute(
-                    program.getFile().getAbsolutePath(),
+                Pair<byte[], byte[]> output = External.executeGetOutput(
+                    program.getFile().getAbsolutePath() + " " +
                     program.getCommandlineAfterProgram(
                     file.getAbsolutePath(),
                     getInput(file.getAbsolutePath(), count + 1),
@@ -141,6 +146,13 @@ public class ProgramExecutor {
                 if (!queue.isEmpty()) {
                     queue.poll().start();
                 }
+            }
+        }
+
+        private void logErrors(Pair<byte[], byte[]> output) {
+            if (output != null && output.getSecond() != null) {
+                String message = "Programm-Fehlerausgabe: " + new String(output.getSecond());
+                Logger.getLogger(Execute.class.getName()).log(Level.WARNING, message);
             }
         }
 
