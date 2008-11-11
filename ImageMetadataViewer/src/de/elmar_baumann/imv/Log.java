@@ -11,7 +11,7 @@ import java.util.logging.Logger;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/11/11
  */
-public class Logging {
+public class Log {
 
     /**
      * Logs an exception with the class' logger and notifies the error listeners.

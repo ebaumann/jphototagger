@@ -45,7 +45,7 @@ public class DatabaseImageCollections extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.Logging.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
             names.clear();
         } finally {
             free(connection);
@@ -81,7 +81,7 @@ public class DatabaseImageCollections extends Database {
                 DatabaseAction.Type.ImageCollectionRenamed, info);
             stmt.close();
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.Logging.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
         } finally {
             free(connection);
         }
@@ -114,7 +114,7 @@ public class DatabaseImageCollections extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.Logging.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
             filenames.clear();
         } finally {
             free(connection);
@@ -171,7 +171,7 @@ public class DatabaseImageCollections extends Database {
             stmtName.close();
             stmtColl.close();
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.Logging.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
             rollback(connection);
         } finally {
             free(connection);
@@ -201,7 +201,7 @@ public class DatabaseImageCollections extends Database {
                 DatabaseAction.Type.ImageCollectionDeleted, collectionname);
             stmt.close();
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.Logging.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
         } finally {
             free(connection);
         }
@@ -243,7 +243,7 @@ public class DatabaseImageCollections extends Database {
                 collectionName, filenames);
             stmt.close();
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.Logging.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
             rollback(connection);
         } finally {
             free(connection);
@@ -301,7 +301,7 @@ public class DatabaseImageCollections extends Database {
                 DatabaseAction.Type.ImageCollectionImagesAdded, 
                 collectionName, filenames);
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.Logging.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
             rollback(connection);
         } finally {
             free(connection);
@@ -378,7 +378,7 @@ public class DatabaseImageCollections extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.Logging.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
         } finally {
             free(connection);
         }
@@ -403,7 +403,7 @@ public class DatabaseImageCollections extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.Logging.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
         } finally {
             free(connection);
         }
@@ -428,7 +428,7 @@ public class DatabaseImageCollections extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.Logging.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
         } finally {
             free(connection);
         }

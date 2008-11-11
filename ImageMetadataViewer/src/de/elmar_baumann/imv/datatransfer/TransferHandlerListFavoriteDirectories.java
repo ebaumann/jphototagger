@@ -114,7 +114,7 @@ public class TransferHandlerListFavoriteDirectories extends TransferHandler {
                 model.swapFavorites(dropIndex, model.indexOf(item));
             }
         } catch (Exception ex) {
-            de.elmar_baumann.imv.Logging.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
         }
     }
 }

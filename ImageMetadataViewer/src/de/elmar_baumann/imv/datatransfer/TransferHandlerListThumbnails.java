@@ -51,7 +51,7 @@ public abstract class TransferHandlerListThumbnails extends TransferHandler {
             Transferable transferable = transferSupport.getTransferable();
             data = (String) transferable.getTransferData(DataFlavor.stringFlavor);
         } catch (Exception ex) {
-            de.elmar_baumann.imv.Logging.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
             return false;
         }
         int listIndex = ((JList.DropLocation) transferSupport.getDropLocation()).getIndex();

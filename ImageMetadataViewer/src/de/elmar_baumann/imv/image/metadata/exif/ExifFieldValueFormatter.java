@@ -77,7 +77,7 @@ public class ExifFieldValueFormatter {
                 dateFormat.format(calendar.getTime(), buffer, new FieldPosition(0));
                 return buffer.toString();
             } catch (NumberFormatException ex) {
-                de.elmar_baumann.imv.Logging.logWarning(ExifFieldValueFormatter.class, ex);
+                de.elmar_baumann.imv.Log.logWarning(ExifFieldValueFormatter.class, ex);
             }
         }
         return string;
@@ -111,7 +111,7 @@ public class ExifFieldValueFormatter {
                     return getFraction(numerator, denominator);
                 }
             } catch (NumberFormatException ex) {
-                de.elmar_baumann.imv.Logging.logWarning(ExifFieldValueFormatter.class, ex);
+                de.elmar_baumann.imv.Log.logWarning(ExifFieldValueFormatter.class, ex);
             }
         }
         return value;
@@ -171,7 +171,7 @@ public class ExifFieldValueFormatter {
                         Integer.toString((int) (denominator / 10));
                 }
             } catch (NumberFormatException ex) {
-                de.elmar_baumann.imv.Logging.logWarning(ExifFieldValueFormatter.class, ex);
+                de.elmar_baumann.imv.Log.logWarning(ExifFieldValueFormatter.class, ex);
             }
         }
         return value;
@@ -189,7 +189,7 @@ public class ExifFieldValueFormatter {
                     return getFraction(numerator, denominator);
                 }
             } catch (NumberFormatException ex) {
-                de.elmar_baumann.imv.Logging.logWarning(ExifFieldValueFormatter.class, ex);
+                de.elmar_baumann.imv.Log.logWarning(ExifFieldValueFormatter.class, ex);
             }
         }
         return value;

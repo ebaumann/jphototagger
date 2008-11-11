@@ -69,7 +69,7 @@ public class DatabaseSavedSearches extends Database {
                 notifyDatabaseListener(DatabaseAction.Type.SavedSearchInserted, data);
                 stmt.close();
             } catch (SQLException ex) {
-                de.elmar_baumann.imv.Logging.logWarning(getClass(), ex);
+                de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
                 rollback(connection);
             } finally {
                 free(connection);
@@ -167,7 +167,7 @@ public class DatabaseSavedSearches extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.Logging.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
         } finally {
             free(connection);
         }
@@ -188,7 +188,7 @@ public class DatabaseSavedSearches extends Database {
             long id = getIdSavedSearch(connection, name);
             return id > 0;
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.Logging.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
         } finally {
             free(connection);
         }
@@ -230,7 +230,7 @@ public class DatabaseSavedSearches extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.Logging.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
             rollback(connection);
         } finally {
             free(connection);
@@ -266,7 +266,7 @@ public class DatabaseSavedSearches extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.Logging.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
         } finally {
             free(connection);
         }
@@ -325,7 +325,7 @@ public class DatabaseSavedSearches extends Database {
             stmt.close();
         } catch (SQLException ex) {
             data = null;
-            de.elmar_baumann.imv.Logging.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
         } finally {
             free(connection);
         }
@@ -361,7 +361,7 @@ public class DatabaseSavedSearches extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.Logging.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
             allData.clear();
         } finally {
             free(connection);

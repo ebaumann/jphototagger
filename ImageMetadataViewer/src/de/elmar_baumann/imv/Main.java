@@ -87,7 +87,7 @@ public class Main {
             addStdoutLogHandler(usersLevel, logger);
             logger.setLevel(usersLevel);
         } catch (Exception ex) {
-            de.elmar_baumann.imv.Logging.logSevere(Main.class, ex);
+            de.elmar_baumann.imv.Log.logSevere(Main.class, ex);
         }
     }
 

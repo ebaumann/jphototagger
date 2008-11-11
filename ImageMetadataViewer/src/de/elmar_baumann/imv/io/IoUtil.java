@@ -30,7 +30,7 @@ public class IoUtil {
             try {
                 Runtime.getRuntime().exec(openCommand);
             } catch (IOException ex) {
-                de.elmar_baumann.imv.Logging.logWarning(IoUtil.class, ex);
+                de.elmar_baumann.imv.Log.logWarning(IoUtil.class, ex);
                 JOptionPane.showMessageDialog(null,
                     Bundle.getString("IoUtil.ErrorMessage.OpenFile"),
                     Bundle.getString("IoUtil.ErrorMessage.OpenFile.Title"),

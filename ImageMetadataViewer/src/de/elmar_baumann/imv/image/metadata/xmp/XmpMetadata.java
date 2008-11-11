@@ -102,10 +102,10 @@ public class XmpMetadata {
             }
         } catch (XMPException ex) {
             metadata = null;
-            de.elmar_baumann.imv.Logging.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
         } catch (Exception ex) {
             metadata = null;
-            de.elmar_baumann.imv.Logging.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
         }
         return metadata;
     }
@@ -120,7 +120,7 @@ public class XmpMetadata {
                 }
             }
         } catch (XMPException ex) {
-            de.elmar_baumann.imv.Logging.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
         }
     }
 
@@ -270,7 +270,7 @@ public class XmpMetadata {
             writeMetadata(xmpMeta, metadata);
             return writeSidecarFile(sidecarFilename, xmpMeta);
         } catch (XMPException ex) {
-            de.elmar_baumann.imv.Logging.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
             return false;
         }
     }
@@ -315,7 +315,7 @@ public class XmpMetadata {
             }
             return writeSidecarFile(sidecarFilename, xmpMeta);
         } catch (XMPException ex) {
-            de.elmar_baumann.imv.Logging.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
             return false;
         }
     }
@@ -440,10 +440,10 @@ public class XmpMetadata {
             out.close();
             return true;
         } catch (XMPException ex) {
-            de.elmar_baumann.imv.Logging.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
             return false;
         } catch (IOException ex) {
-            de.elmar_baumann.imv.Logging.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
             return false;
         }
     }

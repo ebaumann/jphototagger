@@ -73,7 +73,7 @@ public class DatabaseTables extends Database {
             UpdateTables.getInstance().update(connection);
             stmt.close();
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.Logging.logSevere(getClass(), ex);
+            de.elmar_baumann.imv.Log.logSevere(getClass(), ex);
             JOptionPane.showMessageDialog(null, Bundle.getString("Database.CreateTables.ErrorMessage"), Bundle.getString("Database.CreateTables.ErrorMessage.Title"), JOptionPane.ERROR_MESSAGE, AppSettings.getMediumAppIcon());
             AppLock.unlock();
             System.exit(0);

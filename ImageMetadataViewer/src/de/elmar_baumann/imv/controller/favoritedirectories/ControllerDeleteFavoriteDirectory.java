@@ -86,7 +86,7 @@ public class ControllerDeleteFavoriteDirectory extends Controller
                 try {
                     Thread.sleep(removeCheckIntervalSeconds * 1000);
                 } catch (InterruptedException ex) {
-                    de.elmar_baumann.imv.Logging.logWarning(getClass(), ex);
+                    de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
                 }
                 int size = model.getSize();
                 for (int i = 0; i < size; i++) {

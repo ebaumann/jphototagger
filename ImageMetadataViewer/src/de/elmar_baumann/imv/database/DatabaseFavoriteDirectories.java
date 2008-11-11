@@ -60,7 +60,7 @@ public class DatabaseFavoriteDirectories extends Database {
             inserted = count > 0;
             stmt.close();
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.Logging.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
             rollback(connection);
         } finally {
             free(connection);
@@ -89,7 +89,7 @@ public class DatabaseFavoriteDirectories extends Database {
             deleted = count > 0;
             stmt.close();
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.Logging.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
             rollback(connection);
         } finally {
             free(connection);
@@ -128,7 +128,7 @@ public class DatabaseFavoriteDirectories extends Database {
             updated = count > 0;
             stmt.close();
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.Logging.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
             rollback(connection);
         } finally {
             free(connection);
@@ -160,7 +160,7 @@ public class DatabaseFavoriteDirectories extends Database {
             stmt.close();
         } catch (SQLException ex) {
             directories.clear();
-            de.elmar_baumann.imv.Logging.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
         } finally {
             free(connection);
         }
@@ -191,7 +191,7 @@ public class DatabaseFavoriteDirectories extends Database {
             stmt.close();
             exists = count > 0;
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.Logging.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
         } finally {
             free(connection);
         }

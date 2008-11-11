@@ -53,7 +53,7 @@ public class DatabaseContent extends Database {
             resultSet.close();
             statement.close();
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.Logging.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
             content.clear();
         } finally {
             free(connection);

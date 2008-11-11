@@ -26,9 +26,9 @@ public class Bundle {
         try {
             return bundle.getString(key);
         } catch (MissingResourceException ex) {
-            de.elmar_baumann.imv.Logging.logWarning(Bundle.class, ex);
+            de.elmar_baumann.imv.Log.logWarning(Bundle.class, ex);
         } catch (Exception ex) {
-            de.elmar_baumann.imv.Logging.logWarning(Bundle.class, ex);
+            de.elmar_baumann.imv.Log.logWarning(Bundle.class, ex);
         }
         return "?" + key + "?"; // NOI18N
     }

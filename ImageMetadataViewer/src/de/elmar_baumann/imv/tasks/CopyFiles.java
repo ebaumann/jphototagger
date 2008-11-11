@@ -86,10 +86,10 @@ public class CopyFiles implements Runnable {
                 try {
                     FileUtil.copyFile(filePair.getFirst(), filePair.getSecond());
                 } catch (IOException ex) {
-                    de.elmar_baumann.imv.Logging.logWarning(getClass(), ex);
+                    de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
                     errorFiles.add(filePair.getFirst());
                 } catch (Exception ex) {
-                    de.elmar_baumann.imv.Logging.logWarning(getClass(), ex);
+                    de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
                     errorFiles.add(filePair.getFirst());
                 }
             }

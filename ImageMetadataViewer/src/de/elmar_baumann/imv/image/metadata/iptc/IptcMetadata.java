@@ -38,10 +38,10 @@ public class IptcMetadata {
             }
         } catch (IOException ex) {
             metadata = null;
-            de.elmar_baumann.imv.Logging.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
         } catch (Exception ex) {
             metadata = null;
-            de.elmar_baumann.imv.Logging.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
         }
         return metadata;
     }
