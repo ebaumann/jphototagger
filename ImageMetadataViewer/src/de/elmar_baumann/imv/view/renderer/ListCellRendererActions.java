@@ -31,6 +31,7 @@ public class ListCellRendererActions extends DefaultListCellRenderer {
             try {
                 setIcon(iconAction);
             } catch (Exception ex) {
+                de.elmar_baumann.imv.Logging.logWarning(getClass(), ex);
             }
         } else {
             label.setIcon(iconError);

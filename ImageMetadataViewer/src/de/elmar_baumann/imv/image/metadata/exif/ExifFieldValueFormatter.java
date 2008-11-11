@@ -8,8 +8,6 @@ import java.text.FieldPosition;
 import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
 import java.util.StringTokenizer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Formatiert EXIF-Werte.
@@ -79,7 +77,7 @@ public class ExifFieldValueFormatter {
                 dateFormat.format(calendar.getTime(), buffer, new FieldPosition(0));
                 return buffer.toString();
             } catch (NumberFormatException ex) {
-                Logger.getLogger(ExifFieldValueFormatter.class.getName()).log(Level.WARNING, null, ex);
+                de.elmar_baumann.imv.Logging.logWarning(ExifFieldValueFormatter.class, ex);
             }
         }
         return string;
@@ -113,7 +111,7 @@ public class ExifFieldValueFormatter {
                     return getFraction(numerator, denominator);
                 }
             } catch (NumberFormatException ex) {
-                Logger.getLogger(ExifFieldValueFormatter.class.getName()).log(Level.WARNING, null, ex);
+                de.elmar_baumann.imv.Logging.logWarning(ExifFieldValueFormatter.class, ex);
             }
         }
         return value;
@@ -173,7 +171,7 @@ public class ExifFieldValueFormatter {
                         Integer.toString((int) (denominator / 10));
                 }
             } catch (NumberFormatException ex) {
-                Logger.getLogger(ExifFieldValueFormatter.class.getName()).log(Level.WARNING, null, ex);
+                de.elmar_baumann.imv.Logging.logWarning(ExifFieldValueFormatter.class, ex);
             }
         }
         return value;
@@ -191,7 +189,7 @@ public class ExifFieldValueFormatter {
                     return getFraction(numerator, denominator);
                 }
             } catch (NumberFormatException ex) {
-                Logger.getLogger(ExifFieldValueFormatter.class.getName()).log(Level.WARNING, null, ex);
+                de.elmar_baumann.imv.Logging.logWarning(ExifFieldValueFormatter.class, ex);
             }
         }
         return value;

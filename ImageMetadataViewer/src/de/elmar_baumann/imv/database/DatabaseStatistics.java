@@ -49,7 +49,7 @@ public class DatabaseStatistics extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            handleException(ex, Level.SEVERE);
+            de.elmar_baumann.imv.Logging.logWarning(getClass(), ex);
         } finally {
             free(connection);
         }
@@ -81,7 +81,7 @@ public class DatabaseStatistics extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            handleException(ex, Level.SEVERE);
+            de.elmar_baumann.imv.Logging.logWarning(getClass(), ex);
         } finally {
             free(connection);
         }
@@ -105,7 +105,7 @@ public class DatabaseStatistics extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            handleException(ex, Level.SEVERE);
+            de.elmar_baumann.imv.Logging.logWarning(getClass(), ex);
         } finally {
             free(connection);
         }
@@ -130,7 +130,7 @@ public class DatabaseStatistics extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            handleException(ex, Level.SEVERE);
+            de.elmar_baumann.imv.Logging.logWarning(getClass(), ex);
         } finally {
             free(connection);
         }
@@ -159,7 +159,7 @@ public class DatabaseStatistics extends Database {
             }
         } catch (SQLException ex) {
             count = -1;
-            handleException(ex, Level.SEVERE);
+            de.elmar_baumann.imv.Logging.logWarning(getClass(), ex);
         } finally {
             free(connection);
         }
@@ -184,7 +184,7 @@ public class DatabaseStatistics extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            handleException(ex, Level.SEVERE);
+            de.elmar_baumann.imv.Logging.logWarning(getClass(), ex);
         } finally {
             free(connection);
         }
@@ -221,7 +221,7 @@ public class DatabaseStatistics extends Database {
                 stmt.close();
             }
         } catch (SQLException ex) {
-            handleException(ex, Level.SEVERE);
+            de.elmar_baumann.imv.Logging.logWarning(getClass(), ex);
         } finally {
             free(connection);
         }
@@ -254,7 +254,7 @@ public class DatabaseStatistics extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            handleException(ex, Level.SEVERE);
+            de.elmar_baumann.imv.Logging.logWarning(getClass(), ex);
         } finally {
             free(connection);
         }

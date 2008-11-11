@@ -2,8 +2,6 @@ package de.elmar_baumann.imv.resource;
 
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Übersetzt Strings. Die Übersetzungen stehen in einer locale-spezifischen
@@ -21,7 +19,7 @@ public class Translation {
         try {
             bundle = ResourceBundle.getBundle(pathPrefix + propertiesFileBasename);
         } catch (MissingResourceException ex) {
-            Logger.getLogger(Translation.class.getName()).log(Level.WARNING, null, ex);
+            de.elmar_baumann.imv.Logging.logWarning(getClass(), ex);
         }
     }
 
@@ -37,9 +35,9 @@ public class Translation {
         try {
             return bundle.getString(string);
         } catch (MissingResourceException ex) {
-            Logger.getLogger(Translation.class.getName()).log(Level.WARNING, null, ex);
+            de.elmar_baumann.imv.Logging.logWarning(getClass(), ex);
         } catch (Exception ex) {
-            Logger.getLogger(Translation.class.getName()).log(Level.WARNING, null, ex);
+            de.elmar_baumann.imv.Logging.logWarning(getClass(), ex);
         }
         return string;
     }
@@ -58,9 +56,9 @@ public class Translation {
         try {
             return bundle.getString(string);
         } catch (MissingResourceException ex) {
-            Logger.getLogger(Translation.class.getName()).log(Level.WARNING, null, ex);
+            de.elmar_baumann.imv.Logging.logWarning(getClass(), ex);
         } catch (Exception ex) {
-            Logger.getLogger(Translation.class.getName()).log(Level.WARNING, null, ex);
+            de.elmar_baumann.imv.Logging.logWarning(getClass(), ex);
         }
         return alternate;
     }

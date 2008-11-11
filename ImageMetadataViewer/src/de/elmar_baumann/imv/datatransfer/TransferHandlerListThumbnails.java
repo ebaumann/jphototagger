@@ -5,8 +5,6 @@ import de.elmar_baumann.lib.util.ArrayUtil;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JComponent;
 import javax.swing.JList;
 import javax.swing.TransferHandler;
@@ -53,7 +51,7 @@ public abstract class TransferHandlerListThumbnails extends TransferHandler {
             Transferable transferable = transferSupport.getTransferable();
             data = (String) transferable.getTransferData(DataFlavor.stringFlavor);
         } catch (Exception ex) {
-            Logger.getLogger(getClass().getName()).log(Level.WARNING, null, ex);
+            de.elmar_baumann.imv.Logging.logWarning(getClass(), ex);
             return false;
         }
         int listIndex = ((JList.DropLocation) transferSupport.getDropLocation()).getIndex();

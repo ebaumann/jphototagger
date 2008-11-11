@@ -9,9 +9,6 @@ import com.imagero.reader.tiff.IFDEntry;
 import com.imagero.reader.tiff.ImageFileDirectory;
 import com.imagero.reader.tiff.TiffReader;
 import de.elmar_baumann.imv.data.Exif;
-import de.elmar_baumann.imv.tasks.ImageMetadataToDatabase;
-import de.elmar_baumann.imv.event.ErrorEvent;
-import de.elmar_baumann.imv.event.listener.ErrorListeners;
 import de.elmar_baumann.imv.io.FileType;
 import java.io.File;
 import java.io.IOException;
@@ -25,8 +22,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Utils für EXIF.
@@ -87,9 +82,9 @@ public class ExifMetadata {
         try {
             addIFDEntries(file, metadata);
         } catch (IOException ex) {
-            handleException(ex);
+            de.elmar_baumann.imv.Logging.logWarning(ExifMetadata.class, ex);
         } catch (Exception ex) {
-            handleException(ex);
+            de.elmar_baumann.imv.Logging.logWarning(ExifMetadata.class, ex);
         }
         return metadata;
     }
@@ -245,8 +240,7 @@ public class ExifMetadata {
                 }
                 setExifEquipment(exif, modelEntry);
             } catch (Exception ex) {
-                Logger.getLogger(ImageMetadataToDatabase.class.getName()).log(Level.WARNING, ex.getMessage());
-                ErrorListeners.getInstance().notifyErrorListener(new ErrorEvent(ex.toString(), ExifMetadata.class));
+                de.elmar_baumann.imv.Logging.logWarning(ExifMetadata.class, ex);
                 exif = null;
             }
         }
@@ -266,11 +260,10 @@ public class ExifMetadata {
                 try {
                     exifData.setDateTimeOriginal(new Date(calendar.getTimeInMillis()));
                 } catch (Exception ex) {
-                    Logger.getLogger(ImageMetadataToDatabase.class.getName()).log(Level.WARNING, ex.getMessage());
+                    de.elmar_baumann.imv.Logging.logWarning(ExifMetadata.class, ex);
                 }
             } catch (NumberFormatException ex) {
-                Logger.getLogger(ImageMetadataToDatabase.class.getName()).log(Level.WARNING, ex.getMessage());
-                ErrorListeners.getInstance().notifyErrorListener(new ErrorEvent(ex.toString(), ExifMetadata.class));
+                de.elmar_baumann.imv.Logging.logWarning(ExifMetadata.class, ex);
             }
         }
     }
@@ -300,7 +293,7 @@ public class ExifMetadata {
                 exifData.setFocalLength(focalLength);
             }
         } catch (Exception ex) {
-            handleException(ex);
+            de.elmar_baumann.imv.Logging.logWarning(ExifMetadata.class, ex);
         }
     }
 
@@ -308,13 +301,8 @@ public class ExifMetadata {
         try {
             exifData.setIsoSpeedRatings(new Short(enry.toString().trim()).shortValue());
         } catch (Exception ex) {
-            handleException(ex);
+            de.elmar_baumann.imv.Logging.logWarning(ExifMetadata.class, ex);
         }
-    }
-
-    private static void handleException(Exception ex) {
-        Logger.getLogger(ExifMetadata.class.getName()).log(Level.WARNING, null, ex);
-        ErrorListeners.getInstance().notifyErrorListener(new ErrorEvent(ex.toString(), ExifMetadata.class));
     }
 
     /**
@@ -336,7 +324,7 @@ public class ExifMetadata {
             IPTCEntryCollection collection = MetadataUtils.getIPTC(reader);
             dumpPrintIptc(collection, System.out);
         } catch (IOException ex) {
-            Logger.getLogger(ExifMetadata.class.getName()).log(Level.WARNING, null, ex);
+            de.elmar_baumann.imv.Logging.logWarning(ExifMetadata.class, ex);
         }
     }
 

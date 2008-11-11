@@ -12,7 +12,6 @@ import de.elmar_baumann.imv.event.ErrorEvent;
 import de.elmar_baumann.imv.event.listener.ErrorListeners;
 import de.elmar_baumann.imv.image.metadata.exif.ExifMetadata;
 import de.elmar_baumann.imv.io.FileType;
-import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.lib.image.ImageTransform;
 import de.elmar_baumann.lib.runtime.External;
 import de.elmar_baumann.lib.template.Pair;
@@ -78,10 +77,10 @@ public class ThumbnailUtil {
             }
             close(reader);
         } catch (IOException ex) {
-            Logger.getLogger(ImageFileThumbnailsPanel.class.getName()).log(Level.WARNING, null, ex);
+            de.elmar_baumann.imv.Logging.logWarning(ThumbnailUtil.class, ex);
             return null;
         } catch (Exception ex) {
-            Logger.getLogger(ImageFileThumbnailsPanel.class.getName()).log(Level.WARNING, null, ex);
+            de.elmar_baumann.imv.Logging.logWarning(ThumbnailUtil.class, ex);
             return null;
         }
         return thumbnail;
@@ -100,9 +99,9 @@ public class ThumbnailUtil {
             close(procOptions.getImageReader());
             return image;
         } catch (IOException ex) {
-            Logger.getLogger(ThumbnailUtil.class.getName()).log(Level.WARNING, null, ex);
+            de.elmar_baumann.imv.Logging.logWarning(ThumbnailUtil.class, ex);
         } catch (Exception ex) {
-            Logger.getLogger(ImageFileThumbnailsPanel.class.getName()).log(Level.WARNING, null, ex);
+            de.elmar_baumann.imv.Logging.logWarning(ThumbnailUtil.class, ex);
         }
         return null;
     }
@@ -153,7 +152,7 @@ public class ThumbnailUtil {
             try {
                 tracker.waitForID(0);
             } catch (InterruptedException ex) {
-                Logger.getLogger(ThumbnailUtil.class.getName()).log(Level.WARNING, null, ex);
+                de.elmar_baumann.imv.Logging.logWarning(ThumbnailUtil.class, ex);
             }
         }
         if (output.getSecond() != null) {
@@ -244,8 +243,8 @@ public class ThumbnailUtil {
             // Letzter Skalierungsschritt auf Zielgröße
             scaledImage = scaleImage(scaledWidth, scaledHeight, image);
 
-        } catch (ImageFormatException e) {
-            Logger.getLogger(ThumbnailUtil.class.getName()).log(Level.WARNING, null, e);
+        } catch (ImageFormatException ex) {
+            de.elmar_baumann.imv.Logging.logWarning(ThumbnailUtil.class, ex);
         }
         return scaledImage;
     }
@@ -287,11 +286,11 @@ public class ThumbnailUtil {
             mediaTracker.addImage(image, 0);
             try {
                 mediaTracker.waitForID(0);
-            } catch (InterruptedException e) {
-                Logger.getLogger(ThumbnailUtil.class.getName()).log(Level.WARNING, null, e);
+            } catch (InterruptedException ex) {
+                de.elmar_baumann.imv.Logging.logWarning(ThumbnailUtil.class, ex);
             }
-        } catch (IOException e) {
-            Logger.getLogger(ThumbnailUtil.class.getName()).log(Level.WARNING, null, e);
+        } catch (IOException ex) {
+            de.elmar_baumann.imv.Logging.logWarning(ThumbnailUtil.class, ex);
         }
         return image;
     }

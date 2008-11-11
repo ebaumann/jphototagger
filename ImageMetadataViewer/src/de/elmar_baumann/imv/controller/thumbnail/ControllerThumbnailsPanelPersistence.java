@@ -80,8 +80,11 @@ public class ControllerThumbnailsPanelPersistence extends Controller
     private void readPersistentSort() {
         String name = PersistentSettings.getInstance().getString(keySort);
         try {
-            thumbnailsPanel.setSort(FileSort.valueOf(name));
+            if (!name.isEmpty()) {
+                thumbnailsPanel.setSort(FileSort.valueOf(name));
+            }
         } catch (Exception ex) {
+            de.elmar_baumann.imv.Logging.logWarning(getClass(), ex);
         }
     }
 

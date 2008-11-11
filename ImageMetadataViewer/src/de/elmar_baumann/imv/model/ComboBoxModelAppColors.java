@@ -4,8 +4,6 @@ import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.persistence.PersistentSettings;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 
 /**
@@ -70,7 +68,7 @@ public class ComboBoxModelAppColors extends DefaultComboBoxModel {
             try {
                 setSelectedItem(getElementAt(Integer.parseInt(index)));
             } catch (NumberFormatException ex) {
-                Logger.getLogger(ComboBoxModelAppColors.class.getName()).log(Level.WARNING, null, ex);
+                de.elmar_baumann.imv.Logging.logWarning(getClass(), ex);
             }
         }
     }

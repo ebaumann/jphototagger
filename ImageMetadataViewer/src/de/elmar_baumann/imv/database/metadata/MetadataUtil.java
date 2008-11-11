@@ -1,12 +1,8 @@
 package de.elmar_baumann.imv.database.metadata;
 
 import de.elmar_baumann.imv.database.metadata.Column.DataType;
-import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
-import java.util.Locale;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.text.DefaultFormatter;
 import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;
@@ -39,7 +35,7 @@ public class MetadataUtil {
             doubleFormatterFactory = new DefaultFormatterFactory(doubleFormatter);
             dateFormatterFactory = new DefaultFormatterFactory(new MaskFormatter("####-##-##"));
         } catch (ParseException ex) {
-            Logger.getLogger(MetadataUtil.class.getName()).log(Level.WARNING, null, ex);
+            de.elmar_baumann.imv.Logging.logWarning(MetadataUtil.class, ex);
         }
     }
 

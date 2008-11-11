@@ -9,8 +9,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JProgressBar;
 
@@ -89,7 +87,7 @@ public class ControllerArrayScheduledTasks extends Controller
         try {
             Thread.sleep(milliSecondsToStart);
         } catch (InterruptedException ex) {
-            Logger.getLogger(ControllerArrayScheduledTasks.class.getName()).log(Level.WARNING, null, ex);
+            de.elmar_baumann.imv.Logging.logWarning(getClass(), ex);
         }
         if (isControl()) {
             startFirstController();

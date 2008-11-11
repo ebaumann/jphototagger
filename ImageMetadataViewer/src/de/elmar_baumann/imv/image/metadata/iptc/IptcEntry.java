@@ -5,8 +5,6 @@ import com.imagero.reader.iptc.IPTCEntryMeta;
 import de.elmar_baumann.imv.UserSettings;
 import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * IPTC-Eintrag in einer Bilddatei. Dekodiert die Daten (getData()) als
@@ -100,8 +98,7 @@ public class IptcEntry {
             return new String(data, UserSettings.getInstance().
                 getIptcCharset()).trim();
         } catch (UnsupportedEncodingException ex) {
-            Logger.getLogger(IptcEntry.class.getName()).
-                log(Level.WARNING, null, ex);
+            de.elmar_baumann.imv.Logging.logWarning(getClass(), ex);
         }
         return ""; // NOI18N
     }

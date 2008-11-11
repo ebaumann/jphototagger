@@ -5,8 +5,6 @@ import de.elmar_baumann.lib.component.CheckList;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * 
@@ -35,7 +33,7 @@ public class ColumnUtil {
                     columns.add((Column) o);
                 }
             } catch (Exception ex) {
-                Logger.getLogger(ColumnUtil.class.getName()).log(Level.WARNING, ex.getMessage());
+                de.elmar_baumann.imv.Logging.logWarning(ColumnUtil.class, ex);
             }
         }
         return columns;

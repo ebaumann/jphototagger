@@ -6,14 +6,10 @@ import com.imagero.reader.iptc.IPTCEntry;
 import com.imagero.reader.iptc.IPTCEntryCollection;
 import com.imagero.reader.iptc.IPTCEntryMeta;
 import de.elmar_baumann.imv.data.Iptc;
-import de.elmar_baumann.imv.event.ErrorEvent;
-import de.elmar_baumann.imv.event.listener.ErrorListeners;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * IPTC-Metadaten einer Bilddatei.
@@ -42,10 +38,10 @@ public class IptcMetadata {
             }
         } catch (IOException ex) {
             metadata = null;
-            handleException(ex);
+            de.elmar_baumann.imv.Logging.logWarning(getClass(), ex);
         } catch (Exception ex) {
             metadata = null;
-            handleException(ex);
+            de.elmar_baumann.imv.Logging.logWarning(getClass(), ex);
         }
         return metadata;
     }
@@ -79,11 +75,6 @@ public class IptcMetadata {
 
     private static boolean isVersionInfo(IPTCEntry entry) {
         return entry.getRecordNumber() == 2 && entry.getDataSetNumber() == 0;
-    }
-
-    private void handleException(Exception ex) {
-        Logger.getLogger(IptcMetadata.class.getName()).log(Level.WARNING, null, ex);
-        ErrorListeners.getInstance().notifyErrorListener(new ErrorEvent(ex.toString(), this));
     }
 
     /**

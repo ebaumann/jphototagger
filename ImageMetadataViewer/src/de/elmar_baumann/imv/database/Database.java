@@ -4,8 +4,6 @@ import de.elmar_baumann.imv.data.ImageFile;
 import de.elmar_baumann.imv.data.SavedSearch;
 import de.elmar_baumann.imv.event.DatabaseAction;
 import de.elmar_baumann.imv.event.DatabaseListener;
-import de.elmar_baumann.imv.event.ErrorEvent;
-import de.elmar_baumann.imv.event.listener.ErrorListeners;
 import de.elmar_baumann.imv.event.ProgressEvent;
 import de.elmar_baumann.imv.event.ProgressListener;
 import java.sql.Connection;
@@ -93,6 +91,7 @@ public class Database {
     /**
      * Returns a connection from the Connection Pool.
      * @return The connection from the pool.
+     * @throws SQLException 
      */
     protected Connection getConnection() throws SQLException {
         return ConnectionPool.getInstance().getConnection();
@@ -100,14 +99,14 @@ public class Database {
 
     /**
      * Frees a connection in the Connection Pool so it can be reused at a later time.
-     * @param The connection to be freed.
+     * @param connection  The connection to be freed.
      */
     protected void free(Connection connection) {
         if (connection != null) {
             try {
                 ConnectionPool.getInstance().free(connection);
             } catch (SQLException ex) {
-                handleException(ex, Level.SEVERE);
+                de.elmar_baumann.imv.Logging.logSevere(getClass(), ex);
             }
         }
     }
@@ -122,20 +121,8 @@ public class Database {
         try {
             connection.rollback();
         } catch (SQLException ex) {
-            handleException(ex, Level.SEVERE);
+            de.elmar_baumann.imv.Logging.logWarning(getClass(), ex);
         }
-    }
-
-    /**
-     * Method for exception logging.
-     * 
-     * @param ex The exception to log.
-     * @param logLevel The log level.
-     */
-    protected void handleException(Exception ex, Level logLevel) {
-        Logger.getLogger(Database.class.getName()).log(logLevel, null, ex);
-        ErrorListeners.getInstance().notifyErrorListener(
-            new ErrorEvent(ex.toString(), this));
     }
 
     protected void logStatement(PreparedStatement stmt, Level level) {

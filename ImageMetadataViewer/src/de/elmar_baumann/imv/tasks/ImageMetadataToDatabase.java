@@ -102,7 +102,7 @@ public class ImageMetadataToDatabase implements Runnable {
             try {
                 Thread.sleep(delaySeconds * 1000);
             } catch (InterruptedException ex) {
-                Logger.getLogger(ImageMetadataToDatabase.class.getName()).log(Level.WARNING, null, ex);
+                de.elmar_baumann.imv.Logging.logWarning(getClass(), ex);
             }
         }
     }

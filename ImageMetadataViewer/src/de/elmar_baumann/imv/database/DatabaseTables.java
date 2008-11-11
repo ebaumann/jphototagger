@@ -8,7 +8,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
 import javax.swing.JOptionPane;
 
 /**
@@ -74,7 +73,7 @@ public class DatabaseTables extends Database {
             UpdateTables.getInstance().update(connection);
             stmt.close();
         } catch (SQLException ex) {
-            handleException(ex, Level.SEVERE);
+            de.elmar_baumann.imv.Logging.logSevere(getClass(), ex);
             JOptionPane.showMessageDialog(null, Bundle.getString("Database.CreateTables.ErrorMessage"), Bundle.getString("Database.CreateTables.ErrorMessage.Title"), JOptionPane.ERROR_MESSAGE, AppSettings.getMediumAppIcon());
             AppLock.unlock();
             System.exit(0);

@@ -76,7 +76,7 @@ public class DatabaseMetadataEditTemplates extends Database {
             inserted = true;
             stmt.close();
         } catch (SQLException ex) {
-            handleException(ex, Level.SEVERE);
+            de.elmar_baumann.imv.Logging.logWarning(getClass(), ex);
             rollback(connection);
         } finally {
             free(connection);
@@ -188,7 +188,7 @@ public class DatabaseMetadataEditTemplates extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            handleException(ex, Level.SEVERE);
+            de.elmar_baumann.imv.Logging.logWarning(getClass(), ex);
         } finally {
             free(connection);
         }
@@ -239,7 +239,7 @@ public class DatabaseMetadataEditTemplates extends Database {
             updated = count > 0;
             stmt.close();
         } catch (SQLException ex) {
-            handleException(ex, Level.SEVERE);
+            de.elmar_baumann.imv.Logging.logWarning(getClass(), ex);
             rollback(connection);
         } finally {
             free(connection);
@@ -274,7 +274,7 @@ public class DatabaseMetadataEditTemplates extends Database {
             renamed = count > 0;
             stmt.close();
         } catch (SQLException ex) {
-            handleException(ex, Level.SEVERE);
+            de.elmar_baumann.imv.Logging.logWarning(getClass(), ex);
             rollback(connection);
         } finally {
             free(connection);
@@ -303,7 +303,7 @@ public class DatabaseMetadataEditTemplates extends Database {
             deleted = count > 0;
             stmt.close();
         } catch (SQLException ex) {
-            handleException(ex, Level.SEVERE);
+            de.elmar_baumann.imv.Logging.logWarning(getClass(), ex);
             rollback(connection);
         } finally {
             free(connection);
@@ -328,7 +328,7 @@ public class DatabaseMetadataEditTemplates extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            handleException(ex, Level.SEVERE);
+            de.elmar_baumann.imv.Logging.logWarning(getClass(), ex);
         } finally {
             free(connection);
         }

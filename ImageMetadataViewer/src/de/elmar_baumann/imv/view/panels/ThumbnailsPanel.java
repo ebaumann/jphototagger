@@ -26,8 +26,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JPanel;
 import javax.swing.JViewport;
 import javax.swing.TransferHandler;
@@ -901,7 +899,7 @@ public abstract class ThumbnailsPanel extends JPanel
         try {
             tracker.waitForID(0);
         } catch (InterruptedException ex) {
-            Logger.getLogger(ThumbnailsPanel.class.getName()).log(Level.WARNING, null, ex);
+            de.elmar_baumann.imv.Logging.logWarning(getClass(), ex);
         }
         thumbnailAtIndex.put(cacheIndex, scaled);
         return scaled;

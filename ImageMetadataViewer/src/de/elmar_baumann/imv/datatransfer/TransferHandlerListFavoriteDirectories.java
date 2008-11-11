@@ -13,8 +13,6 @@ import java.awt.datatransfer.Transferable;
 import java.io.File;
 import java.text.MessageFormat;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JComponent;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
@@ -116,7 +114,7 @@ public class TransferHandlerListFavoriteDirectories extends TransferHandler {
                 model.swapFavorites(dropIndex, model.indexOf(item));
             }
         } catch (Exception ex) {
-            Logger.getLogger(TransferHandlerListFavoriteDirectories.class.getName()).log(Level.WARNING, null, ex);
+            de.elmar_baumann.imv.Logging.logWarning(getClass(), ex);
         }
     }
 }

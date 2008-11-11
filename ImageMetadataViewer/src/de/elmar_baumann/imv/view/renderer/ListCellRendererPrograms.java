@@ -32,6 +32,7 @@ public class ListCellRendererPrograms extends DefaultListCellRenderer {
             try {
                 setIcon(fileSystemView.getSystemIcon(file));
             } catch (Exception ex) {
+                de.elmar_baumann.imv.Logging.logWarning(getClass(), ex);
             }
         } else {
             label.setIcon(iconError);

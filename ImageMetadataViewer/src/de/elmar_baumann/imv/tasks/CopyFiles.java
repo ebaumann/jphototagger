@@ -1,8 +1,6 @@
 package de.elmar_baumann.imv.tasks;
 
 import de.elmar_baumann.imv.AppSettings;
-import de.elmar_baumann.imv.event.ErrorEvent;
-import de.elmar_baumann.imv.event.listener.ErrorListeners;
 import de.elmar_baumann.imv.event.ProgressEvent;
 import de.elmar_baumann.imv.event.ProgressListener;
 import de.elmar_baumann.imv.resource.Bundle;
@@ -13,8 +11,6 @@ import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -90,21 +86,16 @@ public class CopyFiles implements Runnable {
                 try {
                     FileUtil.copyFile(filePair.getFirst(), filePair.getSecond());
                 } catch (IOException ex) {
-                    handleException(ex);
+                    de.elmar_baumann.imv.Logging.logWarning(getClass(), ex);
                     errorFiles.add(filePair.getFirst());
                 } catch (Exception ex) {
-                    handleException(ex);
+                    de.elmar_baumann.imv.Logging.logWarning(getClass(), ex);
                     errorFiles.add(filePair.getFirst());
                 }
             }
             notifyPerformed(i, filePair);
         }
         notifyEnded();
-    }
-
-    private void handleException(Exception ex) {
-        Logger.getLogger(CopyFiles.class.getName()).log(Level.WARNING, null, ex);
-        ErrorListeners.getInstance().notifyErrorListener(new ErrorEvent(ex.toString(), this));
     }
 
     private void notifyStart() {

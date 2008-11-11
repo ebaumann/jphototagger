@@ -2,14 +2,11 @@ package de.elmar_baumann.imv.io;
 
 import de.elmar_baumann.imv.AppSettings;
 import de.elmar_baumann.imv.resource.Bundle;
-import de.elmar_baumann.imv.view.panels.ThumbnailsPanel;
 import de.elmar_baumann.lib.io.FileFilter;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -33,7 +30,7 @@ public class IoUtil {
             try {
                 Runtime.getRuntime().exec(openCommand);
             } catch (IOException ex) {
-                Logger.getLogger(ThumbnailsPanel.class.getName()).log(Level.WARNING, null, ex);
+                de.elmar_baumann.imv.Logging.logWarning(IoUtil.class, ex);
                 JOptionPane.showMessageDialog(null,
                     Bundle.getString("IoUtil.ErrorMessage.OpenFile"),
                     Bundle.getString("IoUtil.ErrorMessage.OpenFile.Title"),

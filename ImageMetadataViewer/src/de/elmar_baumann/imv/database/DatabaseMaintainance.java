@@ -4,7 +4,6 @@ import de.elmar_baumann.imv.event.DatabaseAction;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.logging.Level;
 
 /**
  * 
@@ -40,7 +39,7 @@ public class DatabaseMaintainance extends Database {
             notifyDatabaseListener(DatabaseAction.Type.MaintainanceDatabaseCompressed);
             stmt.close();
         } catch (SQLException ex) {
-            handleException(ex, Level.SEVERE);
+            de.elmar_baumann.imv.Logging.logSevere(getClass(), ex);
         } finally {
             free(connection);
         }

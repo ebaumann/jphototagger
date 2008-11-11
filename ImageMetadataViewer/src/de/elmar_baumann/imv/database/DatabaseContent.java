@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.LinkedHashSet;
 import java.util.Set;
-import java.util.logging.Level;
 
 /**
  * 
@@ -54,7 +53,7 @@ public class DatabaseContent extends Database {
             resultSet.close();
             statement.close();
         } catch (SQLException ex) {
-            handleException(ex, Level.SEVERE);
+            de.elmar_baumann.imv.Logging.logWarning(getClass(), ex);
             content.clear();
         } finally {
             free(connection);

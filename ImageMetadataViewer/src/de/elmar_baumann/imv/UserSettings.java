@@ -92,7 +92,7 @@ public class UserSettings implements UserSettingsChangeListener {
         try {
             level = Level.parse(levelString);
         } catch (IllegalArgumentException ex) {
-            Logger.getLogger(UserSettings.class.getName()).log(Level.WARNING, null, ex);
+            de.elmar_baumann.imv.Logging.logWarning(getClass(), ex);
             settings.setString(Level.WARNING.getLocalizedName(), keyLogLevel);
         }
         return level == null ? Level.WARNING : level;
@@ -210,7 +210,7 @@ public class UserSettings implements UserSettingsChangeListener {
         try {
             return Class.forName(className);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(UserSettings.class.getName()).log(Level.WARNING, ex.getMessage());
+            de.elmar_baumann.imv.Logging.logWarning(getClass(), ex);
             PersistentSettings.getInstance().setString(XMLFormatter.class.getName(), keyLogfileFormatterClass);
         }
         return XMLFormatter.class;

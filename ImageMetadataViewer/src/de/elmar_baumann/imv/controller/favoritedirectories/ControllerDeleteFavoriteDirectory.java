@@ -12,8 +12,6 @@ import de.elmar_baumann.lib.io.FileUtil;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.MessageFormat;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -88,7 +86,7 @@ public class ControllerDeleteFavoriteDirectory extends Controller
                 try {
                     Thread.sleep(removeCheckIntervalSeconds * 1000);
                 } catch (InterruptedException ex) {
-                    Logger.getLogger(ControllerDeleteFavoriteDirectory.class.getName()).log(Level.WARNING, null, ex);
+                    de.elmar_baumann.imv.Logging.logWarning(getClass(), ex);
                 }
                 int size = model.getSize();
                 for (int i = 0; i < size; i++) {

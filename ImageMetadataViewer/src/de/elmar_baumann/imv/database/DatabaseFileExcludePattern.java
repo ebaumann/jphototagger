@@ -51,7 +51,7 @@ public class DatabaseFileExcludePattern extends Database {
             stmt.close();
             inserted = count > 0;
         } catch (SQLException ex) {
-            handleException(ex, Level.SEVERE);
+            de.elmar_baumann.imv.Logging.logWarning(getClass(), ex);
         } finally {
             free(connection);
         }
@@ -79,7 +79,7 @@ public class DatabaseFileExcludePattern extends Database {
             stmt.close();
             deleted = count > 0;
         } catch (SQLException ex) {
-            handleException(ex, Level.SEVERE);
+            de.elmar_baumann.imv.Logging.logWarning(getClass(), ex);
         } finally {
             free(connection);
         }
@@ -107,7 +107,7 @@ public class DatabaseFileExcludePattern extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            handleException(ex, Level.SEVERE);
+            de.elmar_baumann.imv.Logging.logWarning(getClass(), ex);
         } finally {
             free(connection);
         }
@@ -132,7 +132,7 @@ public class DatabaseFileExcludePattern extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            handleException(ex, Level.SEVERE);
+            de.elmar_baumann.imv.Logging.logWarning(getClass(), ex);
         } finally {
             free(connection);
         }
@@ -187,7 +187,7 @@ public class DatabaseFileExcludePattern extends Database {
             notifyProgressListenerEnd(listener, event);
             notifyDatabaseListener(DatabaseAction.Type.ImageFilesDeleted, deletedFiles);
         } catch (SQLException ex) {
-            handleException(ex, Level.SEVERE);
+            de.elmar_baumann.imv.Logging.logWarning(getClass(), ex);
         } finally {
             free(connection);
         }
