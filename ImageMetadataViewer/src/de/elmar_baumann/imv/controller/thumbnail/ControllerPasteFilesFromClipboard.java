@@ -13,7 +13,6 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.List;
 import javax.swing.TransferHandler;
-import javax.swing.plaf.ComponentUI;
 
 /**
  * 
