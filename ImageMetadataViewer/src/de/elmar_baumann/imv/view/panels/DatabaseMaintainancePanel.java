@@ -55,6 +55,12 @@ public class DatabaseMaintainancePanel extends javax.swing.JPanel
         progressBar.setValue(evt.getValue());
     }
 
+    public void getsVisible(boolean visible) {
+        if (visible) {
+            setEnabledButtonStartMaintain();
+        }
+    }
+
     private void setEnabledButtonStartMaintain() {
         buttonStartMaintain.setEnabled(
             checkBoxCompressDatabase.isSelected() ||

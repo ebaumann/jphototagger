@@ -34,6 +34,7 @@ public class DatabaseMaintainanceDialog extends Dialog {
             PersistentAppSizes.getSizeAndLocation(this);
             PersistentSettings.getInstance().getComponent(this, new PersistentSettingsHints());
         }
+        panelMaintainance.getsVisible(visible);
         panelCount.listenToDatabaseChanges(visible);
     }
 
