@@ -34,4 +34,7 @@ public final class Bundle {
         }
         return "?" + key + "?"; // NOI18N
     }
+
+    private Bundle() {
+    }
 }

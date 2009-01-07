@@ -47,4 +47,7 @@ public final class LogLevelIcons {
                 "/de/elmar_baumann/lib/resource/logfiledialog_warning.png")); // NOI18N
         }
     }
+
+    private LogLevelIcons() {
+    }
 }
