@@ -19,9 +19,9 @@ import java.util.List;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/11/04
  */
-public class DatabasePrograms extends Database {
+public final class DatabasePrograms extends Database {
 
-    private static DatabasePrograms instance = new DatabasePrograms();
+    private static final DatabasePrograms instance = new DatabasePrograms();
 
     private DatabasePrograms() {
     }

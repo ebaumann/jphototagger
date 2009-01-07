@@ -13,10 +13,10 @@ import java.awt.event.ActionListener;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/10
  */
-public class ControllerEditSafedSearch extends Controller
+public final class ControllerEditSafedSearch extends Controller
     implements ActionListener {
 
-    private PopupMenuListSavedSearches actionPopup = PopupMenuListSavedSearches.getInstance();
+    private final PopupMenuListSavedSearches actionPopup = PopupMenuListSavedSearches.getInstance();
 
     public ControllerEditSafedSearch() {
         actionPopup.addActionListenerEdit(this);

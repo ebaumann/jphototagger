@@ -8,9 +8,9 @@ import de.elmar_baumann.imv.database.metadata.Table;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/08/27
  */
-public class TableXmpDcSubjects extends Table {
+public final class TableXmpDcSubjects extends Table {
 
-    private static TableXmpDcSubjects instance = new TableXmpDcSubjects();
+    private static final TableXmpDcSubjects instance = new TableXmpDcSubjects();
 
     public static TableXmpDcSubjects getInstance() {
         return instance;

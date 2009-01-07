@@ -32,7 +32,7 @@ import javax.swing.JPanel;
  * @author Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-07
  */
-public class ThumbnailUtil {
+public final class ThumbnailUtil {
 
     /**
      * Returns a thumbnail of an image file. If the preferred method fails -
@@ -111,10 +111,9 @@ public class ThumbnailUtil {
 
     private static Image rotateThumbnail(File file, Image thumbnail) {
         if (thumbnail != null) {
-            ExifMetadata exifMetadata = new ExifMetadata();
             double rotateAngle =
-                exifMetadata.getThumbnailRotationAngle(
-                exifMetadata.getMetadata(file));
+                ExifMetadata.getThumbnailRotationAngle(
+                ExifMetadata.getMetadata(file));
             if (rotateAngle != 0) {
                 return ImageTransform.rotate(thumbnail, rotateAngle);
             }
@@ -290,4 +289,6 @@ public class ThumbnailUtil {
         }
         return image;
     }
+
+    private ThumbnailUtil() {}
 }

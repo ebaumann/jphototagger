@@ -27,13 +27,13 @@ import javax.swing.JOptionPane;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/10
  */
-public class ControllerCreateSavedSearch extends Controller
+public final class ControllerCreateSavedSearch extends Controller
     implements ActionListener, SearchListener {
 
-    private DatabaseSavedSearches db = DatabaseSavedSearches.getInstance();
-    private AppPanel appPanel = Panels.getInstance().getAppPanel();
-    private JList list = appPanel.getListSavedSearches();
-    private ListModelSavedSearches model = (ListModelSavedSearches) list.getModel();
+    private final DatabaseSavedSearches db = DatabaseSavedSearches.getInstance();
+    private final AppPanel appPanel = Panels.getInstance().getAppPanel();
+    private final JList list = appPanel.getListSavedSearches();
+    private final ListModelSavedSearches model = (ListModelSavedSearches) list.getModel();
 
     public ControllerCreateSavedSearch() {
         listenToActionSources();
@@ -71,7 +71,7 @@ public class ControllerCreateSavedSearch extends Controller
         if (force || saveConfirmed(savedSearch)) {
             if (db.insertSavedSearch(savedSearch)) {
                 if (!model.contains(savedSearch)) {
-                    ListUtil.insertSorted(model, savedSearch, new ComparatorSavedSearch());
+                    ListUtil.insertSorted(model, savedSearch, ComparatorSavedSearch.INSTANCE);
                 }
             } else {
                 errorMessageSave();

@@ -6,10 +6,10 @@ package de.elmar_baumann.imv.event;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/08/03
  */
-public class ErrorEvent {
+public final class ErrorEvent {
 
-    private String message;
-    private Object source;
+    private final String message;
+    private final Object source;
 
     /**
      * Konstruktor.

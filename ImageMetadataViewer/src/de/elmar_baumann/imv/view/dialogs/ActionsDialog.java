@@ -16,9 +16,9 @@ import javax.swing.JProgressBar;
  * 
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  */
-public class ActionsDialog extends Dialog implements ProgramActionListener {
+public final class ActionsDialog extends Dialog implements ProgramActionListener {
 
-    private static ActionsDialog instance = new ActionsDialog();
+    private static final ActionsDialog instance = new ActionsDialog();
 
     private ActionsDialog() {
         super((java.awt.Frame) null, false);

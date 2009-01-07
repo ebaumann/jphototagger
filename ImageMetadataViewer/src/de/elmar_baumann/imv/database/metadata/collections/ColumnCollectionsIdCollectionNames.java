@@ -9,9 +9,9 @@ import de.elmar_baumann.imv.database.metadata.Column.DataType;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/07
  */
-public class ColumnCollectionsIdCollectionNames extends Column {
+public final class ColumnCollectionsIdCollectionNames extends Column {
 
-    private static ColumnCollectionsIdCollectionNames instance = new ColumnCollectionsIdCollectionNames();
+    private static final ColumnCollectionsIdCollectionNames instance = new ColumnCollectionsIdCollectionNames();
 
     public static ColumnCollectionsIdCollectionNames getInstance() {
         return instance;

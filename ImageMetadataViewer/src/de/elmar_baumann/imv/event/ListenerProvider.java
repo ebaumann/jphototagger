@@ -22,14 +22,14 @@ import java.util.List;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/18
  */
-public class ListenerProvider {
+public final class ListenerProvider {
 
-    private List<SearchListener> searchListeners = new LinkedList<SearchListener>();
-    private List<RenameFileListener> renameFileListeners = new LinkedList<RenameFileListener>();
-    private List<UserSettingsChangeListener> userSettingsChangeListeners = new LinkedList<UserSettingsChangeListener>();
-    private List<MetadataEditPanelListener> metadataEditPanelListeners = new LinkedList<MetadataEditPanelListener>();
-    private List<FileSystemActionListener> fileSystemActionListeners = new LinkedList<FileSystemActionListener>();
-    private static ListenerProvider instance = new ListenerProvider();
+    private final List<SearchListener> searchListeners = new LinkedList<SearchListener>();
+    private final List<RenameFileListener> renameFileListeners = new LinkedList<RenameFileListener>();
+    private final List<UserSettingsChangeListener> userSettingsChangeListeners = new LinkedList<UserSettingsChangeListener>();
+    private final List<MetadataEditPanelListener> metadataEditPanelListeners = new LinkedList<MetadataEditPanelListener>();
+    private final List<FileSystemActionListener> fileSystemActionListeners = new LinkedList<FileSystemActionListener>();
+    private static final ListenerProvider instance = new ListenerProvider();
 
     synchronized public void addFileSystemActionListener(FileSystemActionListener listener) {
         fileSystemActionListeners.add(listener);

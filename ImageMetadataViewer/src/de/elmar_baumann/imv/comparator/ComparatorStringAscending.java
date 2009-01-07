@@ -8,9 +8,9 @@ import java.util.Comparator;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/11/05
  */
-public class ComparatorStringAscending implements Comparator<String> {
+public final class ComparatorStringAscending implements Comparator<String> {
 
-    private boolean ignoreCase;
+    private final boolean ignoreCase;
 
     public ComparatorStringAscending(boolean ignoreCase) {
         this.ignoreCase = ignoreCase;

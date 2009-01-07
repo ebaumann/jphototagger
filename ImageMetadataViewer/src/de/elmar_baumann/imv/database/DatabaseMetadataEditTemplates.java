@@ -18,7 +18,7 @@ import java.util.List;
  */
 public class DatabaseMetadataEditTemplates extends Database {
     
-    private static DatabaseMetadataEditTemplates instance = new DatabaseMetadataEditTemplates();
+    private static final DatabaseMetadataEditTemplates instance = new DatabaseMetadataEditTemplates();
     
     public static DatabaseMetadataEditTemplates getInstance() {
         return instance;

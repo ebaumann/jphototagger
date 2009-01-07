@@ -8,9 +8,9 @@ import de.elmar_baumann.imv.database.metadata.Table;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/08/27
  */
-public class TableExif extends Table {
+public final class TableExif extends Table {
 
-    private static TableExif instance = new TableExif();
+    private static final TableExif instance = new TableExif();
 
     public static TableExif getInstance() {
         return instance;

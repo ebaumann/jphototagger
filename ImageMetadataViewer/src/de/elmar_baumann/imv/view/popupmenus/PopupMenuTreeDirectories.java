@@ -14,15 +14,15 @@ import javax.swing.tree.TreePath;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/24
  */
-public class PopupMenuTreeDirectories extends JPopupMenu {
+public final class PopupMenuTreeDirectories extends JPopupMenu {
 
     private final String actionAddToFavoriteDirectories = Bundle.getString("PopupMenuTreeDirectories.Action.AddToFavoriteDirectories");
     private final JMenuItem itemAddToFavoriteDirectories = new JMenuItem(actionAddToFavoriteDirectories);
-    private List<JMenuItem> fileItems = new ArrayList<JMenuItem>();
+    private final List<JMenuItem> fileItems = new ArrayList<JMenuItem>();
     private TreePath path;
     private String directoryName;
     private boolean treeSelected = false;
-    private static PopupMenuTreeDirectories instance = new PopupMenuTreeDirectories();
+    private static final PopupMenuTreeDirectories instance = new PopupMenuTreeDirectories();
 
     private void initLists() {
         fileItems.add(itemAddToFavoriteDirectories);

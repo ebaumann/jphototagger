@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/10
  */
-public class AppLock {
+public final class AppLock {
 
     private static final String lockFileName =
         PersistentSettings.getInstance().getDirectoryName() +
@@ -91,4 +91,6 @@ public class AppLock {
             return false;
         }
     }
+
+    private AppLock() {}
 }

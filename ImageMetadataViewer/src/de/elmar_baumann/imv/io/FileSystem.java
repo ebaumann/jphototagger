@@ -17,8 +17,10 @@ import java.util.List;
  */
 public class FileSystem {
 
-    private List<FileSystemActionListener> actionListeners = new ArrayList<FileSystemActionListener>();
-    private List<ProgressListener> progressListeners = new ArrayList<ProgressListener>();
+    private final List<FileSystemActionListener> actionListeners = new ArrayList<FileSystemActionListener>();
+    private final List<ProgressListener> progressListeners = new ArrayList<ProgressListener>();
+
+    protected FileSystem() {}
 
     public void addProgressListener(ProgressListener listener) {
         progressListeners.add(listener);

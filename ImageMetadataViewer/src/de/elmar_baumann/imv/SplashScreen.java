@@ -11,7 +11,7 @@ import java.awt.Graphics2D;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/08/23
  */
-public class SplashScreen {
+public final class SplashScreen {
 
     private static final int messagesX = 10;
 
@@ -59,4 +59,6 @@ public class SplashScreen {
         g.setColor(Color.BLUE);
         g.drawString(AppInfo.appDescription, messagesX, y + standardFontSize + 10);
     }
+
+    private SplashScreen() {}
 }

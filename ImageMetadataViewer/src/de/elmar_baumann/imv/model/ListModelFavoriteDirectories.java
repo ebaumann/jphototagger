@@ -16,9 +16,9 @@ import javax.swing.JOptionPane;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public class ListModelFavoriteDirectories extends DefaultListModel {
+public final class ListModelFavoriteDirectories extends DefaultListModel {
 
-    private DatabaseFavoriteDirectories db = DatabaseFavoriteDirectories.getInstance();
+    private final DatabaseFavoriteDirectories db = DatabaseFavoriteDirectories.getInstance();
 
     public ListModelFavoriteDirectories() {
         addElements();

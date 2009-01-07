@@ -22,7 +22,7 @@ import javax.swing.TransferHandler;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/24
  */
-public class TransferHandlerThumbnailsPanel extends TransferHandler {
+public final class TransferHandlerThumbnailsPanel extends TransferHandler {
 
     /**
      * Delimiter between the filenames in the transfered string.

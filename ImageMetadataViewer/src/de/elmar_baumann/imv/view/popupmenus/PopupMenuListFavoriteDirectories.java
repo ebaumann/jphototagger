@@ -3,7 +3,6 @@ package de.elmar_baumann.imv.view.popupmenus;
 import de.elmar_baumann.imv.data.FavoriteDirectory;
 import de.elmar_baumann.imv.resource.Bundle;
 import java.awt.event.ActionListener;
-import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 
@@ -13,7 +12,7 @@ import javax.swing.JPopupMenu;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/23
  */
-public class PopupMenuListFavoriteDirectories extends JPopupMenu {
+public final class PopupMenuListFavoriteDirectories extends JPopupMenu {
 
     private final String actionInsert = Bundle.getString("PopupMenuListFavoriteDirectories.Action.Insert");
     private final String actionUpdate = Bundle.getString("PopupMenuListFavoriteDirectories.Action.Update");
@@ -24,7 +23,7 @@ public class PopupMenuListFavoriteDirectories extends JPopupMenu {
     private final JMenuItem itemDelete = new JMenuItem(actionDelete);
     private final JMenuItem itemOpenInFolders = new JMenuItem(actionOpenInFolders);
     private FavoriteDirectory favoriteDirectory;
-    private static PopupMenuListFavoriteDirectories instance = new PopupMenuListFavoriteDirectories();
+    private static final PopupMenuListFavoriteDirectories instance = new PopupMenuListFavoriteDirectories();
 
     /**
      * Liefert die einzige Klasseninstanz.

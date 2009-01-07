@@ -26,16 +26,16 @@ import java.util.List;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public class ImageMetadataToDatabase implements Runnable {
+public final class ImageMetadataToDatabase implements Runnable {
 
-    private static DatabaseImageFiles db = DatabaseImageFiles.getInstance();
-    private List<ProgressListener> progressListeners = new ArrayList<ProgressListener>();
-    private int maxThumbnailWidth = UserSettings.getInstance().getMaxThumbnailWidth();
-    private boolean useEmbeddedThumbnails = UserSettings.getInstance().isUseEmbeddedThumbnails();
-    private List<String> filenames;
+    private static final DatabaseImageFiles db = DatabaseImageFiles.getInstance();
+    private final List<ProgressListener> progressListeners = new ArrayList<ProgressListener>();
+    private final int maxThumbnailWidth = UserSettings.getInstance().getMaxThumbnailWidth();
+    private final boolean useEmbeddedThumbnails = UserSettings.getInstance().isUseEmbeddedThumbnails();
+    private final List<String> filenames;
+    private final DatabaseUpdate update;
     private boolean stop = false;
     private long startTime;
-    private DatabaseUpdate update;
     private int delaySeconds = 0;
 
     /**

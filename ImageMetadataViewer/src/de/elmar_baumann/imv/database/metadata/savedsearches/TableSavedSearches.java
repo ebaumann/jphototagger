@@ -8,9 +8,9 @@ import de.elmar_baumann.imv.database.metadata.Table;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/17
  */
-public class TableSavedSearches extends Table {
+public final class TableSavedSearches extends Table {
 
-    private static TableSavedSearches instance = new TableSavedSearches();
+    private static final TableSavedSearches instance = new TableSavedSearches();
 
     private TableSavedSearches() {
         super("saved_searches"); // NOI18N

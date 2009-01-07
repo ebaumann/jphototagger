@@ -39,7 +39,7 @@ import java.util.List;
  * @since 2005-10-03
  * @author Tobias Stening  
  */
-public class ConnectionPool implements Runnable {
+public final class ConnectionPool implements Runnable {
 
     /**
      * The name of the JDBC-Driver.

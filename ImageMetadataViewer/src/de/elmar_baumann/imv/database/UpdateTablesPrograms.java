@@ -14,12 +14,11 @@ import java.util.List;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/11/04
  */
-class UpdateTablesPrograms extends Database {
+final class UpdateTablesPrograms extends Database {
 
     private static final String keyOtherImageOpenApps = "UserSettings.OtherImageOpenApps";
 
-    UpdateTablesPrograms() {
-    }
+    UpdateTablesPrograms() {}
 
     synchronized void update(Connection connection) throws SQLException {
         List<File> files = FileUtil.getAsFiles(

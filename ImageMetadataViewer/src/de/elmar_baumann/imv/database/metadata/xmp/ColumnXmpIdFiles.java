@@ -9,9 +9,9 @@ import de.elmar_baumann.imv.database.metadata.file.ColumnFilesId;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/08/27
  */
-public class ColumnXmpIdFiles extends Column {
+public final class ColumnXmpIdFiles extends Column {
 
-    private static ColumnXmpIdFiles instance = new ColumnXmpIdFiles();
+    private static final ColumnXmpIdFiles instance = new ColumnXmpIdFiles();
 
     public static ColumnXmpIdFiles getInstance() {
         return instance;

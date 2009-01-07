@@ -13,7 +13,7 @@ import javax.swing.JList;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/17
  */
-public class ListCellRendererSavedSearches extends DefaultListCellRenderer {
+public final class ListCellRendererSavedSearches extends DefaultListCellRenderer {
 
     private static final Icon icon = AppSettings.getIcon("icon_search.png"); // NOI18N
 

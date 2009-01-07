@@ -15,7 +15,7 @@ import java.util.StringTokenizer;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/08/31
  */
-public class ExifFieldValueFormatter {
+public final class ExifFieldValueFormatter {
 
     private static final Translation translation = new Translation("ExifFieldValueTranslations"); // NOI18N
 
@@ -264,4 +264,6 @@ public class ExifFieldValueFormatter {
         }
         return value;
     }
+
+    private ExifFieldValueFormatter() {}
 }

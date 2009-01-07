@@ -17,12 +17,12 @@ import javax.swing.JButton;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public class ControllerSaveMetadata extends Controller
+public final class ControllerSaveMetadata extends Controller
     implements ActionListener {
 
-    private AppPanel appPanel = Panels.getInstance().getAppPanel();
-    private JButton buttonSave = appPanel.getButtonSaveMetadata();
-    private EditMetadataPanelsArray editPanels = appPanel.getEditPanelsArray();
+    private final AppPanel appPanel = Panels.getInstance().getAppPanel();
+    private final JButton buttonSave = appPanel.getButtonSaveMetadata();
+    private final EditMetadataPanelsArray editPanels = appPanel.getEditPanelsArray();
 
     public ControllerSaveMetadata() {
         buttonSave.addActionListener(this);

@@ -10,7 +10,7 @@ import javax.swing.DefaultComboBoxModel;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/17
  */
-public class ComboBoxModelLogfileFormatter extends DefaultComboBoxModel {
+public final class ComboBoxModelLogfileFormatter extends DefaultComboBoxModel {
 
     public ComboBoxModelLogfileFormatter() {
         addFormatter();

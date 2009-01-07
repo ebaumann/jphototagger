@@ -16,11 +16,11 @@ import java.util.List;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/30
  */
-public class ControllerRenameInXmpColumns extends Controller
+public final class ControllerRenameInXmpColumns extends Controller
     implements ActionListener {
 
-    private UpdaterRenameInXmpColumnsArray updater = new UpdaterRenameInXmpColumnsArray();
-    private ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
+    private final UpdaterRenameInXmpColumnsArray updater = new UpdaterRenameInXmpColumnsArray();
+    private final ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
 
     public ControllerRenameInXmpColumns() {
         Panels.getInstance().getAppFrame().getMenuItemRenameInXmp().addActionListener(this);

@@ -13,9 +13,9 @@ import de.elmar_baumann.imv.view.popupmenus.PopupMenuPanelThumbnails;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/16
  */
-public class LateConnectionsFactory {
+public final class LateConnectionsFactory {
 
-    static LateConnectionsFactory instance = new LateConnectionsFactory();
+    static final LateConnectionsFactory instance = new LateConnectionsFactory();
 
     static LateConnectionsFactory getInstance() {
         return instance;

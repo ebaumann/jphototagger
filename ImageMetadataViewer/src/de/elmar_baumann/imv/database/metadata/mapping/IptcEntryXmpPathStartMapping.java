@@ -17,10 +17,10 @@ import java.util.Map;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/19
  */
-public class IptcEntryXmpPathStartMapping {
+public final class IptcEntryXmpPathStartMapping {
 
-    private static Map<IPTCEntryMeta, String> xmpPathStarOfIptcEntryMeta = new HashMap<IPTCEntryMeta, String>();
-    private static IptcEntryXmpPathStartMapping instance = new IptcEntryXmpPathStartMapping();
+    private static final Map<IPTCEntryMeta, String> xmpPathStarOfIptcEntryMeta = new HashMap<IPTCEntryMeta, String>();
+    private static final IptcEntryXmpPathStartMapping instance = new IptcEntryXmpPathStartMapping();
     
 
     static {

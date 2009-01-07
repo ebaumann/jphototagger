@@ -14,9 +14,9 @@ import java.util.List;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/30
  */
-public class DatabaseCompress implements Runnable {
+public final class DatabaseCompress implements Runnable {
 
-    private List<ProgressListener> listeners = new ArrayList<ProgressListener>();
+    private final List<ProgressListener> listeners = new ArrayList<ProgressListener>();
     private boolean success = false;
 
     public void addProgressListener(ProgressListener l) {

@@ -9,7 +9,7 @@ import de.elmar_baumann.imv.view.panels.ThumbnailsPanel;
  * @version 2008/07/20
  * @see     de.elmar_baumann.imv.view.panels.ThumbnailsPanel
  */
-public class ThumbnailsPanelAction {
+public final class ThumbnailsPanelAction {
 
     private int thumbnailIndex = -1;
     private int x = -1;

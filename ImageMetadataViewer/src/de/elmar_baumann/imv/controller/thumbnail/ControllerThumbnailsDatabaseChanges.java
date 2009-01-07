@@ -16,11 +16,11 @@ import java.util.List;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/15
  */
-public class ControllerThumbnailsDatabaseChanges extends Controller
+public final class ControllerThumbnailsDatabaseChanges extends Controller
     implements DatabaseListener {
     
-    private DatabaseImageFiles db = DatabaseImageFiles.getInstance();
-    private ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
+    private final DatabaseImageFiles db = DatabaseImageFiles.getInstance();
+    private final ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
 
     public ControllerThumbnailsDatabaseChanges() {
         db.addDatabaseListener(this);

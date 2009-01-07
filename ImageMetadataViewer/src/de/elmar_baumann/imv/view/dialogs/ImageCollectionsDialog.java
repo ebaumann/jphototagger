@@ -14,7 +14,7 @@ import javax.swing.ListModel;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/08
  */
-public class ImageCollectionsDialog extends Dialog {
+public final class ImageCollectionsDialog extends Dialog {
 
     private boolean ok = false;
 

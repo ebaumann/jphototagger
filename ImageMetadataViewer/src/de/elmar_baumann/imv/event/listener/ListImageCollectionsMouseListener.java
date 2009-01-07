@@ -12,9 +12,9 @@ import javax.swing.JList;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/08
  */
-public class ListImageCollectionsMouseListener extends MouseAdapter {
+public final class ListImageCollectionsMouseListener extends MouseAdapter {
 
-    private PopupMenuListImageCollections popup = PopupMenuListImageCollections.getInstance();
+    private final PopupMenuListImageCollections popup = PopupMenuListImageCollections.getInstance();
 
     @Override
     public void mousePressed(MouseEvent e) {

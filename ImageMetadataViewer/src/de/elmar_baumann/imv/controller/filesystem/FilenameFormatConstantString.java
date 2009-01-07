@@ -8,10 +8,7 @@ import de.elmar_baumann.imv.resource.Bundle;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/13
  */
-public class FilenameFormatConstantString extends FilenameFormat {
-
-    public FilenameFormatConstantString() {
-    }
+public final class FilenameFormatConstantString extends FilenameFormat {
 
     public FilenameFormatConstantString(String string) {
         setFormat(string);
@@ -41,4 +38,6 @@ public class FilenameFormatConstantString extends FilenameFormat {
     public String toString() {
         return Bundle.getString("StringFilenameFormat.String");
     }
+
+    private FilenameFormatConstantString() {}
 }

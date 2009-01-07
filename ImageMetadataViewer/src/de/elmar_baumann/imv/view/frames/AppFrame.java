@@ -26,14 +26,14 @@ import javax.swing.JRadioButtonMenuItem;
  * 
  * @author Elmar Baumann <eb@elmar-baumann.de>
  */
-public class AppFrame extends javax.swing.JFrame {
+public final class AppFrame extends javax.swing.JFrame {
 
-    private Map<FileSort, JRadioButtonMenuItem> menuItemOfSort = new HashMap<FileSort, JRadioButtonMenuItem>();
-    private Map<JRadioButtonMenuItem, FileSort> sortOfMenuItem = new HashMap<JRadioButtonMenuItem, FileSort>();
-    private Map<Goto, JMenuItem> menuItemOfGoto = new HashMap<Goto, JMenuItem>();
-    private Map<JMenuItem, Goto> gotoOfMenuItem = new HashMap<JMenuItem, Goto>();
-    private List<AppExitListener> exitListeners = new ArrayList<AppExitListener>();
-    private List<AppStartListener> startListeners = new ArrayList<AppStartListener>();
+    private final Map<FileSort, JRadioButtonMenuItem> menuItemOfSort = new HashMap<FileSort, JRadioButtonMenuItem>();
+    private final Map<JRadioButtonMenuItem, FileSort> sortOfMenuItem = new HashMap<JRadioButtonMenuItem, FileSort>();
+    private final Map<Goto, JMenuItem> menuItemOfGoto = new HashMap<Goto, JMenuItem>();
+    private final Map<JMenuItem, Goto> gotoOfMenuItem = new HashMap<JMenuItem, Goto>();
+    private final List<AppExitListener> exitListeners = new ArrayList<AppExitListener>();
+    private final List<AppStartListener> startListeners = new ArrayList<AppStartListener>();
     private AppPanel appPanel;
 
     public AppFrame() {

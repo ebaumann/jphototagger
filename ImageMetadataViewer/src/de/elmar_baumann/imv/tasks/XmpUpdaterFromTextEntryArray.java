@@ -17,10 +17,10 @@ import javax.swing.JProgressBar;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public class XmpUpdaterFromTextEntryArray implements ProgressListener {
+public final class XmpUpdaterFromTextEntryArray implements ProgressListener {
 
-    private Queue<XmpUpdaterFromTextEntry> updaters = new ConcurrentLinkedQueue<XmpUpdaterFromTextEntry>();
-    private ProgressBarCurrentTasks progressBarProvider = ProgressBarCurrentTasks.getInstance();
+    private final Queue<XmpUpdaterFromTextEntry> updaters = new ConcurrentLinkedQueue<XmpUpdaterFromTextEntry>();
+    private final ProgressBarCurrentTasks progressBarProvider = ProgressBarCurrentTasks.getInstance();
     private JProgressBar progressBar;
     private boolean wait = false;
     private boolean stop = false;

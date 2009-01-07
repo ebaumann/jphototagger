@@ -12,8 +12,8 @@ import javax.swing.JLabel;
  */
 public class TableCellRendererMetadata {
 
-    private static Font headerFont = null;
-    private static Font contentFont = null;
+    private Font headerFont = null;
+    private Font contentFont = null;
     protected static final String paddingLeft = " "; // NOI18N
 
     /**

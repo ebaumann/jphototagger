@@ -22,14 +22,14 @@ import javax.swing.event.ListSelectionListener;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public class ControllerImageCollectionSelected extends Controller
+public final class ControllerImageCollectionSelected extends Controller
     implements ListSelectionListener, RefreshListener {
 
-    private DatabaseImageCollections db = DatabaseImageCollections.getInstance();
-    private AppPanel appPanel = Panels.getInstance().getAppPanel();
-    private ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelThumbnails();
-    private EditMetadataPanelsArray editPanels = appPanel.getEditPanelsArray();
-    private JList list = appPanel.getListImageCollections();
+    private final DatabaseImageCollections db = DatabaseImageCollections.getInstance();
+    private final AppPanel appPanel = Panels.getInstance().getAppPanel();
+    private final ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelThumbnails();
+    private final EditMetadataPanelsArray editPanels = appPanel.getEditPanelsArray();
+    private final JList list = appPanel.getListImageCollections();
 
     public ControllerImageCollectionSelected() {
         listenToActionSources();

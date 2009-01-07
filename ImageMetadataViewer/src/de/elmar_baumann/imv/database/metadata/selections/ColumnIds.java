@@ -41,10 +41,10 @@ import java.util.Set;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/13
  */
-public class ColumnIds {
+public final class ColumnIds {
 
-    private static Map<Integer, Column> columnOfId = new HashMap<Integer, Column>();
-    private static Map<Column, Integer> idOfColumn = new HashMap<Column, Integer>();
+    private static final Map<Integer, Column> columnOfId = new HashMap<Integer, Column>();
+    private static final Map<Column, Integer> idOfColumn = new HashMap<Column, Integer>();
     
 
     static {

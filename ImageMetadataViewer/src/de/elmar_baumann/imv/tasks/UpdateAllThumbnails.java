@@ -16,12 +16,12 @@ import java.util.List;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/12
  */
-public class UpdateAllThumbnails implements Runnable, ProgressListener,
+public final class UpdateAllThumbnails implements Runnable, ProgressListener,
     ActionListener {
 
     private ProgressDialog progressDialog;
     private boolean stop = false;
-    private List<ActionListener> actionListeners = new ArrayList<ActionListener>();
+    private final List<ActionListener> actionListeners = new ArrayList<ActionListener>();
 
     /**
      * Adds an action listener. It will be notified when the work is done.

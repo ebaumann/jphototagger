@@ -24,7 +24,7 @@ import java.util.logging.StreamHandler;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/02/17
  */
-public class Main {
+public final class Main {
 
     /**
      * @param args the command line arguments
@@ -105,4 +105,6 @@ public class Main {
             logger.addHandler(stdoutHandler);
         }
     }
+
+    private Main() {}
 }

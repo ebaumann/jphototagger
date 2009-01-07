@@ -9,7 +9,7 @@ import java.util.List;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public class ParamStatement {
+public final class ParamStatement {
 
     private String sql;
     private Object[] values;

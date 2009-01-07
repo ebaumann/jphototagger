@@ -85,4 +85,6 @@ public class ViewUtil {
             treeDirectories.setSelectionPath(path);
         }
     }
+
+    private ViewUtil() {}
 }

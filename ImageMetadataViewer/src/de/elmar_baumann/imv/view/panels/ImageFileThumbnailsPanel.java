@@ -27,17 +27,17 @@ import javax.swing.JViewport;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public class ImageFileThumbnailsPanel extends ThumbnailsPanel {
+public final class ImageFileThumbnailsPanel extends ThumbnailsPanel {
 
-    private DatabaseImageFiles db = DatabaseImageFiles.getInstance();
+    private final DatabaseImageFiles db = DatabaseImageFiles.getInstance();
+    private final Map<Content, List<RefreshListener>> refreshListenersOfContent = new HashMap<Content, List<RefreshListener>>();
+    private final PopupMenuPanelThumbnails popupMenu = PopupMenuPanelThumbnails.getInstance();
     private List<File> files = new ArrayList<File>();
-    private PopupMenuPanelThumbnails popupMenu = PopupMenuPanelThumbnails.getInstance();
     private ControllerDoubleklickThumbnail controllerDoubleklick;
     private FileSort fileSort = FileSort.NamesAscending;
     private boolean hadFiles = false;
     private Content content = Content.Undefined;
     private FileAction fileAction = FileAction.Undefined;
-    private Map<Content, List<RefreshListener>> refreshListenersOfContent = new HashMap<Content, List<RefreshListener>>();
 
     public ImageFileThumbnailsPanel() {
         initMap();

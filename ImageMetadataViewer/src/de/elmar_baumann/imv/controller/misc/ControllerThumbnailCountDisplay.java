@@ -19,14 +19,14 @@ import javax.swing.event.ChangeListener;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/25
  */
-public class ControllerThumbnailCountDisplay extends Controller
+public final class ControllerThumbnailCountDisplay extends Controller
     implements ThumbnailsPanelListener, ChangeListener {
 
     private static final MessageFormat msg = new MessageFormat(Bundle.getString("ControllerThumbnailCount.InformationMessage"));
-    private AppPanel appPanel = Panels.getInstance().getAppPanel();
-    private JSlider sliderThumbnailSize = appPanel.getSliderThumbnailSize();
-    private JLabel label = appPanel.getLabelStatusbar();
-    private ImageFileThumbnailsPanel panelThumbnails = appPanel.getPanelThumbnails();
+    private final AppPanel appPanel = Panels.getInstance().getAppPanel();
+    private final JSlider sliderThumbnailSize = appPanel.getSliderThumbnailSize();
+    private final JLabel label = appPanel.getLabelStatusbar();
+    private final ImageFileThumbnailsPanel panelThumbnails = appPanel.getPanelThumbnails();
     private int thumbnailCount = 0;
     private int thumbnailZoom = sliderThumbnailSize.getValue();
 

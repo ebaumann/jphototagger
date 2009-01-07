@@ -17,11 +17,11 @@ import javax.swing.JProgressBar;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public class ControllerRecordsWithNotExistingFilesDeleter extends Controller
+public final class ControllerRecordsWithNotExistingFilesDeleter extends Controller
     implements ProgressListener {
 
-    private JProgressBar progressBar;
-    private List<TaskListener> taskListeners = new ArrayList<TaskListener>();
+    private final JProgressBar progressBar;
+    private final List<TaskListener> taskListeners = new ArrayList<TaskListener>();
 
     /**
      * Konstruktor.

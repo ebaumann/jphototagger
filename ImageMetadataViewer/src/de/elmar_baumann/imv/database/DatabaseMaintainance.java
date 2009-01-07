@@ -11,9 +11,9 @@ import java.sql.Statement;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/21
  */
-public class DatabaseMaintainance extends Database {
+public final class DatabaseMaintainance extends Database {
     
-    private static DatabaseMaintainance instance = new DatabaseMaintainance();
+    private static final DatabaseMaintainance instance = new DatabaseMaintainance();
     
     public static DatabaseMaintainance getInstacne() {
         return instance;

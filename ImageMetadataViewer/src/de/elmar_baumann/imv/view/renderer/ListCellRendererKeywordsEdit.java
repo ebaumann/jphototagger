@@ -13,7 +13,7 @@ import javax.swing.JList;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/28
  */
-public class ListCellRendererKeywordsEdit extends DefaultListCellRenderer {
+public final class ListCellRendererKeywordsEdit extends DefaultListCellRenderer {
 
     private static final Icon icon = AppSettings.getIcon("icon_keyword_list.png"); // NOI18N
 

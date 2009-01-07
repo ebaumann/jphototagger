@@ -33,9 +33,9 @@ import java.util.List;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/22
  */
-public class AdvancedSearchColumns {
+public final class AdvancedSearchColumns {
 
-    private static List<Column> columns = new ArrayList<Column>();
+    private static final List<Column> columns = new ArrayList<Column>();
     
 
     static {

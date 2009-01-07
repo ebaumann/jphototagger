@@ -15,7 +15,7 @@ import javax.swing.JList;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/11/06
  */
-public class ListCellRendererActions extends DefaultListCellRenderer {
+public final class ListCellRendererActions extends DefaultListCellRenderer {
 
     private static final Icon iconAction = AppSettings.getIcon("icon_action.png"); // NOI18N
     private static final Icon iconError = AppSettings.getIcon("icon_error.png"); // NOI18N

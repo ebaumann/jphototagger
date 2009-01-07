@@ -21,15 +21,15 @@ import javax.swing.JTextField;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/10
  */
-public class ControllerGoto extends Controller implements ActionListener {
+public final class ControllerGoto extends Controller implements ActionListener {
 
-    private AppPanel appPanel = Panels.getInstance().getAppPanel();
-    private ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelThumbnails();
-    private EditMetadataPanelsArray editPanels = appPanel.getEditPanelsArray();
-    private JTextField textFieldSearch = appPanel.getTextFieldSearch();
-    private AppFrame appFrame = Panels.getInstance().getAppFrame();
-    private Map<AppFrame.Goto, Component> componentOfGoto = new HashMap<AppFrame.Goto, Component>();
-    private Map<AppFrame.Goto, JTabbedPane> tabbedPaneOfGoto = new HashMap<AppFrame.Goto, JTabbedPane>();
+    private final AppPanel appPanel = Panels.getInstance().getAppPanel();
+    private final ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelThumbnails();
+    private final EditMetadataPanelsArray editPanels = appPanel.getEditPanelsArray();
+    private final JTextField textFieldSearch = appPanel.getTextFieldSearch();
+    private final AppFrame appFrame = Panels.getInstance().getAppFrame();
+    private final Map<AppFrame.Goto, Component> componentOfGoto = new HashMap<AppFrame.Goto, Component>();
+    private final Map<AppFrame.Goto, JTabbedPane> tabbedPaneOfGoto = new HashMap<AppFrame.Goto, JTabbedPane>();
 
     private void initMaps() {
         componentOfGoto.put(AppFrame.Goto.Categories, appPanel.getTabSelectionCategories());

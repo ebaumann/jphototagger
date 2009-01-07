@@ -6,7 +6,7 @@ package de.elmar_baumann.imv.event;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/08/27
  */
-public class ProgressEvent {
+public final class ProgressEvent {
 
     private Object source;
     private int maximum;

@@ -10,9 +10,9 @@ import de.elmar_baumann.imv.resource.Bundle;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/07
  */
-public class ColumnCollectionsSequenceNumber extends Column {
+public final class ColumnCollectionsSequenceNumber extends Column {
 
-    private static ColumnCollectionsSequenceNumber instance = new ColumnCollectionsSequenceNumber();
+    private static final ColumnCollectionsSequenceNumber instance = new ColumnCollectionsSequenceNumber();
 
     public static ColumnCollectionsSequenceNumber getInstance() {
         return instance;

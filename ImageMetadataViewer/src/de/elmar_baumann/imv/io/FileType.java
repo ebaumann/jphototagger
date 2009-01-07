@@ -6,7 +6,7 @@ package de.elmar_baumann.imv.io;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/08/31
  */
-public class FileType {
+public final class FileType {
 
     /**
      * Liefert, ob eine Datei eine JPEG-Datei ist. Es wird lediglich der Name
@@ -39,4 +39,6 @@ public class FileType {
             filenameLowerCase.endsWith("png");    // NOI18N
         return !isCommonImageFile;
     }
+
+    private FileType() {}
 }

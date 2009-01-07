@@ -16,9 +16,9 @@ import java.util.List;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/21
  */
-public class DatabaseAutoscanDirectories extends Database {
+public final class DatabaseAutoscanDirectories extends Database {
 
-    private static DatabaseAutoscanDirectories instance = new DatabaseAutoscanDirectories();
+    private static final DatabaseAutoscanDirectories instance = new DatabaseAutoscanDirectories();
 
     public static DatabaseAutoscanDirectories getInstance() {
         return instance;

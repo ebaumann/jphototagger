@@ -6,7 +6,7 @@ package de.elmar_baumann.imv.database.metadata.selections;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/18
  */
-public class EditHints {
+public final class EditHints {
 
     /**
      * Vorschlag: Größe des Editierfelds.
@@ -26,8 +26,8 @@ public class EditHints {
          */
         large
     }
-    private boolean repeatable;
-    private SizeEditField sizeEditField;
+    private final boolean repeatable;
+    private final SizeEditField sizeEditField;
 
     /**
      * Konstruktor.
@@ -50,29 +50,11 @@ public class EditHints {
     }
 
     /**
-     * Setzt, ob der Spaltenwert sich wiederholt.
-     * 
-     * @param repeatable true, wenn der Spaltenwert sich wiederholt
-     */
-    public void setRepeatable(boolean repeatable) {
-        this.repeatable = repeatable;
-    }
-
-    /**
      * Liefert den Größenvorschlag.
      * 
      * @return Größenvorschlag
      */
     public SizeEditField getSizeEditField() {
         return sizeEditField;
-    }
-
-    /**
-     * Setzt den Größenvorschlag.
-     * 
-     * @param sizeEditField Größenvorschlag
-     */
-    public void setSizeEditField(SizeEditField sizeEditField) {
-        this.sizeEditField = sizeEditField;
     }
 }

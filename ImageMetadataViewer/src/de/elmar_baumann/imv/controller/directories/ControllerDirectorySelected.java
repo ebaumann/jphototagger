@@ -22,14 +22,14 @@ import javax.swing.tree.TreePath;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public class ControllerDirectorySelected extends Controller
+public final class ControllerDirectorySelected extends Controller
     implements TreeSelectionListener, RefreshListener {
 
-    private AppPanel appPanel = Panels.getInstance().getAppPanel();
-    private JTree treeDirectories = appPanel.getTreeDirectories();
-    private EditMetadataPanelsArray editPanels = appPanel.getEditPanelsArray();
-    private ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelThumbnails();
-    private ImageFilteredDirectory imageFilteredDirectory = new ImageFilteredDirectory();
+    private final AppPanel appPanel = Panels.getInstance().getAppPanel();
+    private final JTree treeDirectories = appPanel.getTreeDirectories();
+    private final EditMetadataPanelsArray editPanels = appPanel.getEditPanelsArray();
+    private final ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelThumbnails();
+    private final ImageFilteredDirectory imageFilteredDirectory = new ImageFilteredDirectory();
 
     public ControllerDirectorySelected() {
         listenToActionSources();

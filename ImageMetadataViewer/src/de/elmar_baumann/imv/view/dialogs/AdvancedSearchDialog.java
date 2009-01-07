@@ -14,9 +14,9 @@ import de.elmar_baumann.lib.persistence.PersistentAppSizes;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public class AdvancedSearchDialog extends Dialog implements SearchListener {
+public final class AdvancedSearchDialog extends Dialog implements SearchListener {
 
-    private static AdvancedSearchDialog instance = new AdvancedSearchDialog(null, false);
+    private static final AdvancedSearchDialog instance = new AdvancedSearchDialog(null, false);
 
     private AdvancedSearchDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);

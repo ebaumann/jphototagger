@@ -15,7 +15,7 @@ import javax.swing.table.TableCellRenderer;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/14
  */
-public class TableCellRendererExif extends TableCellRendererMetadata
+public final class TableCellRendererExif extends TableCellRendererMetadata
     implements TableCellRenderer {
 
     private static final Translation translation = new Translation("ExifTagIdTagNameTranslations"); // NOI18N

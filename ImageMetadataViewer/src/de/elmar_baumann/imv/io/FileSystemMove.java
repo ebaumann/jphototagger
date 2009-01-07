@@ -18,7 +18,7 @@ import java.util.List;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/20
  */
-public class FileSystemMove extends FileSystem implements Runnable {
+public final class FileSystemMove extends FileSystem implements Runnable {
 
     private List<File> sourceFiles = new ArrayList<File>();
     private List<File> targetFiles = new ArrayList<File>();

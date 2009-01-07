@@ -25,7 +25,7 @@ import javax.swing.TransferHandler;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/24
  */
-public class TransferHandlerListFavoriteDirectories extends TransferHandler {
+public final class TransferHandlerListFavoriteDirectories extends TransferHandler {
 
     static final String itemDelimiter = "\n";
 

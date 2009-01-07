@@ -32,7 +32,7 @@ public enum ExifTag {
     Saturation(41993),
     Sharpness(41994),
     SubjectDistanceRange(41996),;
-    private int tagId;
+    private final int tagId;
 
     /**
      * Liefert die Tag-ID.

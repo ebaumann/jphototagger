@@ -20,14 +20,14 @@ import javax.swing.event.ListSelectionListener;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/25
  */
-public class ControllerKeywordItemSelected extends Controller
+public final class ControllerKeywordItemSelected extends Controller
     implements ListSelectionListener, RefreshListener {
 
-    private DatabaseImageFiles db = DatabaseImageFiles.getInstance();
-    private AppPanel appPanel = Panels.getInstance().getAppPanel();
-    private JList listKeywords = appPanel.getListKeywords();
-    private ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelThumbnails();
-    private EditMetadataPanelsArray editPanels = appPanel.getEditPanelsArray();
+    private final DatabaseImageFiles db = DatabaseImageFiles.getInstance();
+    private final AppPanel appPanel = Panels.getInstance().getAppPanel();
+    private final JList listKeywords = appPanel.getListKeywords();
+    private final ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelThumbnails();
+    private final EditMetadataPanelsArray editPanels = appPanel.getEditPanelsArray();
 
     public ControllerKeywordItemSelected() {
         listenToActionSources();

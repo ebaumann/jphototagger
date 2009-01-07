@@ -2,7 +2,6 @@ package de.elmar_baumann.imv.view.dialogs;
 
 import de.elmar_baumann.imv.AppSettings;
 import de.elmar_baumann.imv.data.Program;
-import de.elmar_baumann.imv.database.DatabasePrograms;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.component.TabLeavingTextArea;
 import de.elmar_baumann.lib.dialog.Dialog;
@@ -20,9 +19,8 @@ import javax.swing.JOptionPane;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/11/04
  */
-public class ProgramPropertiesDialog extends Dialog {
+public final class ProgramPropertiesDialog extends Dialog {
 
-    private DatabasePrograms db = DatabasePrograms.getInstance();
     private Program program = new Program();
     private File file;
     private boolean accecpted = false;

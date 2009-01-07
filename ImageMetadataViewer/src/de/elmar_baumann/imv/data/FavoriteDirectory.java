@@ -6,7 +6,7 @@ package de.elmar_baumann.imv.data;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/23
  */
-public class FavoriteDirectory {
+public final class FavoriteDirectory {
 
     private String directoryName;
     private String favoriteName;

@@ -12,10 +12,11 @@ import java.util.Map;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public class ExifIfdEntryDisplayComparator implements Comparator<IdfEntryProxy> {
+public final class ExifIfdEntryDisplayComparator implements Comparator<IdfEntryProxy> {
 
-    private static Map<Integer, Integer> orderOfTagValue = new HashMap<Integer, Integer>();
-    private static List<Integer> tagValues = new ArrayList<Integer>(30);
+    private static final Map<Integer, Integer> orderOfTagValue = new HashMap<Integer, Integer>();
+    private static final List<Integer> tagValues = new ArrayList<Integer>(30);
+    public static final ExifIfdEntryDisplayComparator INSTANCE = new ExifIfdEntryDisplayComparator();
     
     static {
         // So kann später leicht umsortiert werden
@@ -60,4 +61,6 @@ public class ExifIfdEntryDisplayComparator implements Comparator<IdfEntryProxy> 
         }
         return tag1 - tag2;
     }
+
+    private ExifIfdEntryDisplayComparator() {}
 }

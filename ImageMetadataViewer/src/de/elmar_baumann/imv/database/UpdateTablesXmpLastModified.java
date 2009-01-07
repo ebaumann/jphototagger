@@ -14,10 +14,10 @@ import java.sql.Statement;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/29
  */
-class UpdateTablesXmpLastModified {
+final class UpdateTablesXmpLastModified {
 
-    private UpdateTablesMessages messages = UpdateTablesMessages.getInstance();
-    private ProgressDialog dialog = messages.getProgressDialog();
+    private final UpdateTablesMessages messages = UpdateTablesMessages.getInstance();
+    private final ProgressDialog dialog = messages.getProgressDialog();
 
     synchronized void update(Connection connection) throws SQLException {
         removeColumnXmpLastModifiedFromTableXmp(connection);

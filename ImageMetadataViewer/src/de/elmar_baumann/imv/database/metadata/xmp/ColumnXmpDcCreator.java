@@ -10,9 +10,9 @@ import de.elmar_baumann.imv.resource.Bundle;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/08/23
  */
-public class ColumnXmpDcCreator extends Column {
+public final class ColumnXmpDcCreator extends Column {
 
-    private static ColumnXmpDcCreator instance = new ColumnXmpDcCreator();
+    private static final ColumnXmpDcCreator instance = new ColumnXmpDcCreator();
 
     public static Column getInstance() {
         return instance;

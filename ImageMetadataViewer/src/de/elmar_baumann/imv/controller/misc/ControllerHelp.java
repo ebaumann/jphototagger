@@ -16,10 +16,10 @@ import java.net.URL;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/12
  */
-public class ControllerHelp extends Controller implements ActionListener,
+public final class ControllerHelp extends Controller implements ActionListener,
     HelpBrowserListener {
 
-    private HelpBrowser help = HelpBrowser.getInstance();
+    private final HelpBrowser help = HelpBrowser.getInstance();
     private static final String keyCurrentUrl = ControllerHelp.class.getName() + ".CurrentURL";
     private String currentUrl = PersistentSettings.getInstance().getString(keyCurrentUrl);
 

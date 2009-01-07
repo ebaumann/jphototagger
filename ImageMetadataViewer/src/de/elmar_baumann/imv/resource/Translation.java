@@ -10,10 +10,10 @@ import java.util.ResourceBundle;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/05
  */
-public class Translation {
+public final class Translation {
 
     private static final String pathPrefix = "de/elmar_baumann/imv/resource/"; // NOI18N
-    ResourceBundle bundle;
+    private ResourceBundle bundle;
 
     public Translation(String propertiesFileBasename) {
         try {

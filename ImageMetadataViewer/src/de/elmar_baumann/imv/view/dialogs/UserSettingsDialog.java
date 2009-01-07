@@ -19,14 +19,14 @@ import java.util.Map;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public class UserSettingsDialog extends Dialog {
+public final class UserSettingsDialog extends Dialog {
 
-    private final String keyTabbedPaneIndex = "UserSettingsDialog.TabbedPaneIndex"; // NOI18N
-    private Map<Tab, Integer> indexOfTab = new HashMap<Tab, Integer>();
-    private Map<Integer, Tab> tabOfIndex = new HashMap<Integer, Tab>();
-    private Map<Component, String> helpUrlOfComponent = new HashMap<Component, String>();
-    private List<Persistence> persistentPanels = new ArrayList<Persistence>();
-    private static UserSettingsDialog instance = new UserSettingsDialog();
+    private static final String keyTabbedPaneIndex = "UserSettingsDialog.TabbedPaneIndex"; // NOI18N
+    private final Map<Tab, Integer> indexOfTab = new HashMap<Tab, Integer>();
+    private final Map<Integer, Tab> tabOfIndex = new HashMap<Integer, Tab>();
+    private final Map<Component, String> helpUrlOfComponent = new HashMap<Component, String>();
+    private final List<Persistence> persistentPanels = new ArrayList<Persistence>();
+    private static final UserSettingsDialog instance = new UserSettingsDialog();
 
     /**
      * Ein Tab mit bestimmten Einstellungen.

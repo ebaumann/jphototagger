@@ -16,12 +16,12 @@ import java.util.List;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/11/06
  */
-class UpdateTableRenameColumns {
+final class UpdateTableRenameColumns {
 
-    private UpdateTablesMessages messages = UpdateTablesMessages.getInstance();
-    private ProgressDialog dialog = messages.getProgressDialog();
-    private List<Pair<ColumnInfo, ColumnInfo>> renameColumns = new ArrayList<Pair<ColumnInfo, ColumnInfo>>();
-    private static List<Pair<ColumnInfo, ColumnInfo>> columns = new ArrayList<Pair<ColumnInfo, ColumnInfo>>();
+    private final UpdateTablesMessages messages = UpdateTablesMessages.getInstance();
+    private final ProgressDialog dialog = messages.getProgressDialog();
+    private final List<Pair<ColumnInfo, ColumnInfo>> renameColumns = new ArrayList<Pair<ColumnInfo, ColumnInfo>>();
+    private static final List<Pair<ColumnInfo, ColumnInfo>> columns = new ArrayList<Pair<ColumnInfo, ColumnInfo>>();
     
 
     static {
@@ -42,7 +42,7 @@ class UpdateTableRenameColumns {
         renameColumns.clear();
         for (Pair<ColumnInfo, ColumnInfo> info : columns) {
             if (dbMeta.existsColumn(
-                connection, info.getFirst().tableName, info.getFirst().columnName)) {
+                connection,info.getFirst().getTableName(), info.getFirst().getColumnName())) {
                 renameColumns.add(info);
             }
         }
@@ -58,14 +58,14 @@ class UpdateTableRenameColumns {
     }
 
     private void renameColumn(Connection connection, Pair<ColumnInfo, ColumnInfo> info) throws SQLException {
-        setMessage(info.getFirst().tableName, info.getFirst().columnName);
+        setMessage(info.getFirst().getTableName(), info.getFirst().getColumnName());
         Statement stmt = connection.createStatement();
         stmt.execute("ALTER TABLE " + // NOI18N
-            info.getFirst().tableName +
+            info.getFirst().getTableName() +
             " ALTER COLUMN " + // NOI18N
-            info.getFirst().columnName + // NOI18N
+            info.getFirst().getColumnName() + // NOI18N
             " RENAME TO " + // NOI18N
-            info.getSecond().columnName);
+            info.getSecond().getColumnName());
     }
 
     private void setMessage(String tableName, String columnName) {

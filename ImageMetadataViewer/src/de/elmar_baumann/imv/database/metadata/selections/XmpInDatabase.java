@@ -9,9 +9,9 @@ import java.util.List;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/14
  */
-public class XmpInDatabase {
+public final class XmpInDatabase {
 
-    private static List<String> storedPathsStartsWith = new ArrayList<String>();
+    private static final List<String> storedPathsStartsWith = new ArrayList<String>();
     
 
     static {

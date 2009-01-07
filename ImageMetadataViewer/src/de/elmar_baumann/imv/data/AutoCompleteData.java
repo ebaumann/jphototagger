@@ -15,11 +15,11 @@ import java.util.Set;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/10
  */
-public class AutoCompleteData {
+public final class AutoCompleteData {
 
-    private DatabaseContent db = DatabaseContent.getInstance();
-    private Set<Column> columns;
-    private List<String> content = Collections.synchronizedList(new ArrayList<String>());
+    private final DatabaseContent db = DatabaseContent.getInstance();
+    private final Set<Column> columns;
+    private final List<String> content = Collections.synchronizedList(new ArrayList<String>());
 
     /**
      * Standardkonstruktor.

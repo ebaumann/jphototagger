@@ -75,18 +75,18 @@ public abstract class ThumbnailsPanel extends JPanel
     private static final Color colorHighlightedBackground = new Color(245, 245, 245);
     private static final Font font = new Font("Arial", Font.PLAIN, fontHeight);  // NOI18N
     private static final int maxCharCountTextPer150px = 25;
-    private JViewport viewport;
-    private int maxCharCountText = 25;
     private static final int externalPadding = fontHeight + 10;
     private static final int internalPadding = 10;
     private static final int thumbnailBorderWidth = 1;
+    private final Map<Integer, ThumbnailFlag> flagOfThumbnail = new HashMap<Integer, ThumbnailFlag>();
+    private final Map<Integer, Image> thumbnailAtIndex = new HashMap<Integer, Image>();
+    private final List<ThumbnailsPanelListener> panelListener = new ArrayList<ThumbnailsPanelListener>();
+    private List<Integer> selectedThumbnails = new ArrayList<Integer>();
+    private JViewport viewport;
+    private int maxCharCountText = 25;
     private int thumbnailWidth = 0;
     private int thumbnailCount = 0;
     private int thumbnailCountPerRow = 0;
-    private List<Integer> selectedThumbnails = new ArrayList<Integer>();
-    private Map<Integer, ThumbnailFlag> flagOfThumbnail = new HashMap<Integer, ThumbnailFlag>();
-    private Map<Integer, Image> thumbnailAtIndex = new HashMap<Integer, Image>();
-    private List<ThumbnailsPanelListener> panelListener = new ArrayList<ThumbnailsPanelListener>();
     private boolean dragEnabled = false;
     private boolean transferData = false;
     private int clickInSelection = -1;

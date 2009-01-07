@@ -8,9 +8,9 @@ import de.elmar_baumann.imv.database.metadata.Column;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/08/27
  */
-public class ColumnXmpDcSubjectsIdXmp extends Column {
+public final class ColumnXmpDcSubjectsIdXmp extends Column {
 
-    private static ColumnXmpDcSubjectsIdXmp instance = new ColumnXmpDcSubjectsIdXmp();
+    private static final ColumnXmpDcSubjectsIdXmp instance = new ColumnXmpDcSubjectsIdXmp();
 
     public static ColumnXmpDcSubjectsIdXmp getInstance() {
         return instance;

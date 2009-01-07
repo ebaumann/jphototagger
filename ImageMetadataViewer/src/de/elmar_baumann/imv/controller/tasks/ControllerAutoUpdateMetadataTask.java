@@ -25,13 +25,13 @@ import javax.swing.JProgressBar;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public class ControllerAutoUpdateMetadataTask extends Controller
+public final class ControllerAutoUpdateMetadataTask extends Controller
     implements TaskListener {
 
-    private JProgressBar progressBar;
+    private final JProgressBar progressBar;
     private ImageMetadataToDatabaseArray updaterArray;
-    private List<String> systemDirectorySubstrings = new ArrayList<String>();
-    private List<TaskListener> taskListeners = new ArrayList<TaskListener>();
+    private final List<String> systemDirectorySubstrings = new ArrayList<String>();
+    private final List<TaskListener> taskListeners = new ArrayList<TaskListener>();
 
     /**
      * Konstruktor.

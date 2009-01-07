@@ -13,9 +13,9 @@ import de.elmar_baumann.imv.resource.Bundle;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/08/27
  */
-public class ColumnExifFocalLength extends Column {
+public final class ColumnExifFocalLength extends Column {
 
-    private static ColumnExifFocalLength instance = new ColumnExifFocalLength();
+    private static final ColumnExifFocalLength instance = new ColumnExifFocalLength();
 
     public static Column getInstance() {
         return instance;

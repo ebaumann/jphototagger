@@ -6,7 +6,6 @@ import de.elmar_baumann.imv.data.TextEntryContent;
 import de.elmar_baumann.imv.database.metadata.Column;
 import de.elmar_baumann.imv.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.imv.resource.Bundle;
-import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.view.renderer.ListCellRendererKeywordsEdit;
 import de.elmar_baumann.lib.component.InputVerifierMaxLength;
 import de.elmar_baumann.lib.componentutil.ComponentUtil;
@@ -25,14 +24,14 @@ import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/18
  */
-public class EditRepeatableTextEntryPanel extends javax.swing.JPanel
+public final class EditRepeatableTextEntryPanel extends javax.swing.JPanel
     implements TextEntry, ActionListener {
 
-    private Column column;
     private static final String delimiter = XmpMetadata.getArrayItemDelimiter();
     private static final String delimiterReplacement = "?";
+    private final DefaultListModel model = new DefaultListModel();
+    private Column column;
     private AutoCompleteData autoCompleteData;
-    private DefaultListModel model = new DefaultListModel();
     private boolean editable = true;
     private boolean dirty = false;
 

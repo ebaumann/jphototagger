@@ -13,9 +13,9 @@ import de.elmar_baumann.imv.resource.Bundle;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/08/27
  */
-public class ColumnExifDateTimeOriginal extends Column {
+public final class ColumnExifDateTimeOriginal extends Column {
 
-    private static ColumnExifDateTimeOriginal instance = new ColumnExifDateTimeOriginal();
+    private static final ColumnExifDateTimeOriginal instance = new ColumnExifDateTimeOriginal();
 
     public static Column getInstance() {
         return instance;

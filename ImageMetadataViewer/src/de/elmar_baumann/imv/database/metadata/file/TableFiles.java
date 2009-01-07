@@ -8,9 +8,9 @@ import de.elmar_baumann.imv.database.metadata.Table;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/08/27
  */
-public class TableFiles extends Table {
+public final class TableFiles extends Table {
 
-    private static TableFiles instance = new TableFiles();
+    private static final TableFiles instance = new TableFiles();
 
     public static TableFiles getInstance() {
         return instance;

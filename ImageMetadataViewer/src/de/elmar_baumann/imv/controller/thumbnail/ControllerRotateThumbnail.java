@@ -18,12 +18,12 @@ import java.util.List;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/10
  */
-public class ControllerRotateThumbnail extends Controller
+public final class ControllerRotateThumbnail extends Controller
     implements ActionListener {
 
-    private DatabaseImageFiles db = DatabaseImageFiles.getInstance();
-    private PopupMenuPanelThumbnails popup = PopupMenuPanelThumbnails.getInstance();
-    private ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
+    private final DatabaseImageFiles db = DatabaseImageFiles.getInstance();
+    private final PopupMenuPanelThumbnails popup = PopupMenuPanelThumbnails.getInstance();
+    private final ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
 
     public ControllerRotateThumbnail() {
         listenToActionSources();

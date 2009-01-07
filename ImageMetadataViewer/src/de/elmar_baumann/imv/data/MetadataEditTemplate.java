@@ -29,30 +29,30 @@ import java.util.Map;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/22
  */
-public class MetadataEditTemplate {
+public final class MetadataEditTemplate {
     // Diese Klasse sollte je ein Attribut enthalten für jede Spalte aus
     // de.elmar_baumann.imv.database.metadata.selections.EditColumns
-    private StringBuffer name = new StringBuffer();
-    private StringBuffer dcCreator = new StringBuffer();
-    private StringBuffer dcDescription = new StringBuffer();
-    private StringBuffer dcRights = new StringBuffer();
-    private StringBuffer dcSubjects = new StringBuffer();
-    private StringBuffer dcTitle = new StringBuffer();
-    private StringBuffer iptc4xmpcoreLocation = new StringBuffer();
-    private StringBuffer iptc4xmpcoreCountrycode = new StringBuffer();
-    private StringBuffer photoshopHeadline = new StringBuffer();
-    private StringBuffer photoshopCaptionwriter = new StringBuffer();
-    private StringBuffer photoshopCategory = new StringBuffer();
-    private StringBuffer photoshopSupplementalCategories = new StringBuffer();
-    private StringBuffer photoshopAuthorsposition = new StringBuffer();
-    private StringBuffer photoshopCity = new StringBuffer();
-    private StringBuffer photoshopState = new StringBuffer();
-    private StringBuffer photoshopCountry = new StringBuffer();
-    private StringBuffer photoshopTransmissionReference = new StringBuffer();
-    private StringBuffer photoshopInstructions = new StringBuffer();
-    private StringBuffer photoshopCredit = new StringBuffer();
-    private StringBuffer photoshopSource = new StringBuffer();
-    private Map<Column, StringBuffer> valueOfColumn = new HashMap<Column, StringBuffer>();
+    private final StringBuffer name = new StringBuffer();
+    private final StringBuffer dcCreator = new StringBuffer();
+    private final StringBuffer dcDescription = new StringBuffer();
+    private final StringBuffer dcRights = new StringBuffer();
+    private final StringBuffer dcSubjects = new StringBuffer();
+    private final StringBuffer dcTitle = new StringBuffer();
+    private final StringBuffer iptc4xmpcoreLocation = new StringBuffer();
+    private final StringBuffer iptc4xmpcoreCountrycode = new StringBuffer();
+    private final StringBuffer photoshopHeadline = new StringBuffer();
+    private final StringBuffer photoshopCaptionwriter = new StringBuffer();
+    private final StringBuffer photoshopCategory = new StringBuffer();
+    private final StringBuffer photoshopSupplementalCategories = new StringBuffer();
+    private final StringBuffer photoshopAuthorsposition = new StringBuffer();
+    private final StringBuffer photoshopCity = new StringBuffer();
+    private final StringBuffer photoshopState = new StringBuffer();
+    private final StringBuffer photoshopCountry = new StringBuffer();
+    private final StringBuffer photoshopTransmissionReference = new StringBuffer();
+    private final StringBuffer photoshopInstructions = new StringBuffer();
+    private final StringBuffer photoshopCredit = new StringBuffer();
+    private final StringBuffer photoshopSource = new StringBuffer();
+    private final Map<Column, StringBuffer> valueOfColumn = new HashMap<Column, StringBuffer>();
 
     private void initValueOfColumn() {
         valueOfColumn.put(ColumnXmpDcSubjectsSubject.getInstance(), dcSubjects);

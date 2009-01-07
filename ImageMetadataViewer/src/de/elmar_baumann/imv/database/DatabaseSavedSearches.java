@@ -19,9 +19,9 @@ import java.util.List;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/21
  */
-public class DatabaseSavedSearches extends Database {
+public final class DatabaseSavedSearches extends Database {
 
-    private static DatabaseSavedSearches instance = new DatabaseSavedSearches();
+    private static final DatabaseSavedSearches instance = new DatabaseSavedSearches();
 
     public static DatabaseSavedSearches getInstance() {
         return instance;

@@ -14,9 +14,9 @@ import java.util.Set;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/21
  */
-public class DatabaseContent extends Database {
+public final class DatabaseContent extends Database {
     
-    private static DatabaseContent instance = new DatabaseContent();
+    private static final DatabaseContent instance = new DatabaseContent();
     
     public static DatabaseContent getInstance() {
         return instance;

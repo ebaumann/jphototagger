@@ -24,11 +24,11 @@ import javax.swing.JOptionPane;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public class IptcToXmpDialog extends Dialog
+public final class IptcToXmpDialog extends Dialog
     implements ProgressListener {
 
-    private File directory = new File(""); // NOI18N
     private static final String keyDirectoryName = "de.elmar_baumann.imv.view.dialogs.IptcToXmpDialog.LastDirectory"; // NOI18N
+    private File directory = new File(""); // NOI18N
     private boolean stop = true;
 
     /** Creates new form IptcToXmpDialog */

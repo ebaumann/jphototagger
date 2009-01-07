@@ -12,10 +12,10 @@ public class Column {
     private String name;
     private String description;
     private String longerDescription;
-    private DataType dataType;
+    private final DataType dataType;
     private Column references = null;
-    private boolean isIgnoreCase = true;
-    private boolean isIndexed = true;
+    private final boolean isIgnoreCase = true;
+    private final boolean isIndexed = true;
     private boolean isUnique = false;
     private boolean isPrimaryKey = false;
     private boolean canBeNull = true;
@@ -110,32 +110,12 @@ public class Column {
     }
 
     /**
-     * Setzt, ob unterschieden wird zwischen Groß- und Kleinschreibung.
-     * 
-     * @param isIgnoreCase true, wenn unterschieden wird zwischen Groß-
-     *                     und Kleinschreibung. Default: false.
-     */
-    protected void setIsIgnoreCase(boolean isIgnoreCase) {
-        this.isIgnoreCase = isIgnoreCase;
-    }
-
-    /**
      * Liefert, ob ein Index existiert für diese Spalte.
      * 
      * @return true, wenn ein Index existiert für diese Spalte
      */
     public boolean isIndexed() {
         return isIndexed;
-    }
-
-    /**
-     * Setzt, dass ein Index existiert für diese Spalte.
-     * 
-     * @param isIndexed true, wenn ein Index existiert für diese Spalte.
-     *                  Default: true.
-     */
-    protected void setIsIndexed(boolean isIndexed) {
-        this.isIndexed = isIndexed;
     }
 
     /**
@@ -323,15 +303,6 @@ public class Column {
      */
     public DataType getDataType() {
         return dataType;
-    }
-
-    /**
-     * Setzt den Datentyp der Spalte.
-     * 
-     * @param dataType Datentyp der Spalte
-     */
-    protected void setDataType(DataType dataType) {
-        this.dataType = dataType;
     }
 
     /**

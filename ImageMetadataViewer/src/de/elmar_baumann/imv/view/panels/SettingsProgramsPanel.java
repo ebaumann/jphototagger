@@ -23,11 +23,11 @@ import javax.swing.JOptionPane;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/11/02
  */
-public class SettingsProgramsPanel extends javax.swing.JPanel
+public final class SettingsProgramsPanel extends javax.swing.JPanel
     implements Persistence {
 
-    private ListModelPrograms model = new ListModelPrograms(false);
-    private ListenerProvider listenerProvider = ListenerProvider.getInstance();
+    private final ListModelPrograms model = new ListModelPrograms(false);
+    private final ListenerProvider listenerProvider = ListenerProvider.getInstance();
 
     /** Creates new form SettingsProgramsPanel */
     public SettingsProgramsPanel() {

@@ -11,7 +11,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.logging.XMLFormatter;
 
 /**
@@ -19,7 +18,7 @@ import java.util.logging.XMLFormatter;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public class UserSettings implements UserSettingsChangeListener {
+public final class UserSettings implements UserSettingsChangeListener {
 
     private static final String delimiterColumns = "\t"; // NOI18N
     private static final int defaultMaxThumbnailWidth = 150;
@@ -41,8 +40,8 @@ public class UserSettings implements UserSettingsChangeListener {
     private static final String keyMinutesToStartScheduledTasks = "UserSettings.MinutesToStartScheduledTasks";
     private static final String keyThreadPriority = "UserSettings.ThreadPriority";
     private static final String keyAutocopyDirectory = "UserSettings.AutocopyDirectory";
-    private PersistentSettings settings = PersistentSettings.getInstance();
-    private static UserSettings instance = new UserSettings();
+    private static final PersistentSettings settings = PersistentSettings.getInstance();
+    private static final UserSettings instance = new UserSettings();
 
     private UserSettings() {
     }

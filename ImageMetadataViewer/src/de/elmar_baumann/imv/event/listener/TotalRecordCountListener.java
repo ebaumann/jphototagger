@@ -14,10 +14,10 @@ import javax.swing.JLabel;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/17
  */
-public class TotalRecordCountListener implements DatabaseListener {
+public final class TotalRecordCountListener implements DatabaseListener {
 
-    private DatabaseStatistics db = DatabaseStatistics.getInstance();
-    private List<JLabel> labels = new ArrayList<JLabel>();
+    private final DatabaseStatistics db = DatabaseStatistics.getInstance();
+    private final List<JLabel> labels = new ArrayList<JLabel>();
     boolean listen = false;
 
     public TotalRecordCountListener() {

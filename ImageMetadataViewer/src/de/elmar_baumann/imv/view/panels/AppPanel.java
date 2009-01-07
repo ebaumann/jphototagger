@@ -39,18 +39,18 @@ import javax.swing.tree.TreeSelectionModel;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public class AppPanel extends javax.swing.JPanel implements AppExitListener {
+public final class AppPanel extends javax.swing.JPanel implements AppExitListener {
 
-    private List<JTable> xmpTables = new ArrayList<JTable>();
-    private List<JTable> metadataTables = new ArrayList<JTable>();
-    private List<JTree> selectionTrees = new ArrayList<JTree>();
-    private List<JList> selectionLists = new ArrayList<JList>();
-    private EditMetadataPanelsArray editPanelsArray;
-    private EditMetadataActionsPanel editActionsPanel;
     private static final String keyDividerLocationMain = "AppPanel.DividerLocationMain";
     private static final String keyDividerLocationThumbnails = "AppPanel.DividerLocationThumbnails";
     private static final int minDividerLocationMain = 100;
     private static final int minDividerLocationThumbnails = 200;
+    private final List<JTable> xmpTables = new ArrayList<JTable>();
+    private final List<JTable> metadataTables = new ArrayList<JTable>();
+    private final List<JTree> selectionTrees = new ArrayList<JTree>();
+    private final List<JList> selectionLists = new ArrayList<JList>();
+    private EditMetadataPanelsArray editPanelsArray;
+    private EditMetadataActionsPanel editActionsPanel;
 
     public AppPanel() {
         Panels.getInstance().setAppPanel(this);

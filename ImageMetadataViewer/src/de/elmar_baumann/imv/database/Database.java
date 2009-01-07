@@ -19,7 +19,7 @@ import java.util.List;
  */
 public class Database {
 
-    private static List<DatabaseListener> databaseListener = new ArrayList<DatabaseListener>();
+    private static final List<DatabaseListener> databaseListener = new ArrayList<DatabaseListener>();
 
     public void addDatabaseListener(DatabaseListener listener) {
         databaseListener.add(listener);

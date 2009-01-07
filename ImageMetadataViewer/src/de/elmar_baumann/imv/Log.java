@@ -11,7 +11,7 @@ import java.util.logging.Logger;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/11/11
  */
-public class Log {
+public final class Log {
 
     /**
      * Logs a message with the class' logger and the log level

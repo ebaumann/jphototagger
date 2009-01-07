@@ -32,9 +32,9 @@ import java.util.List;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/11/08
  */
-public class DatabaseInfoRecordCountColumns {
+public final class DatabaseInfoRecordCountColumns {
 
-    private static List<Column> columns = new ArrayList<Column>();
+    private static final List<Column> columns = new ArrayList<Column>();
     
 
     static {

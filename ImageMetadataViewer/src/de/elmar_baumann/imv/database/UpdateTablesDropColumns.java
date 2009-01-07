@@ -15,12 +15,12 @@ import java.util.List;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/31
  */
-class UpdateTablesDropColumns {
+final class UpdateTablesDropColumns {
 
-    private UpdateTablesMessages messages = UpdateTablesMessages.getInstance();
-    private ProgressDialog dialog = messages.getProgressDialog();
-    private List<ColumnInfo> dropColumns = new ArrayList<ColumnInfo>();
-    private static List<ColumnInfo> columns = new ArrayList<ColumnInfo>();
+    private final UpdateTablesMessages messages = UpdateTablesMessages.getInstance();
+    private final ProgressDialog dialog = messages.getProgressDialog();
+    private final List<ColumnInfo> dropColumns = new ArrayList<ColumnInfo>();
+    private static final List<ColumnInfo> columns = new ArrayList<ColumnInfo>();
     
 
     static {
@@ -44,7 +44,7 @@ class UpdateTablesDropColumns {
         DatabaseMetadata dbMeta = DatabaseMetadata.getInstance();
         dropColumns.clear();
         for (ColumnInfo info : columns) {
-            if (dbMeta.existsColumn(connection, info.tableName, info.columnName)) {
+            if (dbMeta.existsColumn(connection,info.getTableName(), info.getColumnName())) {
                 dropColumns.add(info);
             }
         }
@@ -54,7 +54,7 @@ class UpdateTablesDropColumns {
         dialog.setIntermediate(true);
         messages.message(Bundle.getString("UpdateTablesDropUnusedColumns.InformationMessage.update"));
         for (ColumnInfo info : dropColumns) {
-            dropColumn(connection, info.tableName, info.columnName);
+            dropColumn(connection,info.getTableName(), info.getColumnName());
         }
         dialog.setIntermediate(false);
     }

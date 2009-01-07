@@ -17,12 +17,12 @@ import javax.swing.JProgressBar;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public class UpdaterRenameInXmpColumnsArray implements ProgressListener {
+public final class UpdaterRenameInXmpColumnsArray implements ProgressListener {
 
-    private Queue<UpdaterRenameInXmpColumns> updaters = new ConcurrentLinkedQueue<UpdaterRenameInXmpColumns>();
+    private final Queue<UpdaterRenameInXmpColumns> updaters = new ConcurrentLinkedQueue<UpdaterRenameInXmpColumns>();
+    private final ProgressBarCurrentTasks progressBarProvider = ProgressBarCurrentTasks.getInstance();
     private boolean wait = false;
     private JProgressBar progressBar;
-    private ProgressBarCurrentTasks progressBarProvider = ProgressBarCurrentTasks.getInstance();
     private boolean stop = false;
 
     synchronized private void setWait(boolean wait) {

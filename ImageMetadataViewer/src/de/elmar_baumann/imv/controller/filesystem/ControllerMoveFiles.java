@@ -21,11 +21,11 @@ import java.util.List;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/13
  */
-public class ControllerMoveFiles extends Controller
+public final class ControllerMoveFiles extends Controller
     implements ActionListener, FileSystemActionListener {
 
-    private ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
-    private DatabaseImageFiles db = DatabaseImageFiles.getInstance();
+    private final ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
+    private final DatabaseImageFiles db = DatabaseImageFiles.getInstance();
 
     public ControllerMoveFiles() {
         listenToActionSources();

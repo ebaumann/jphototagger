@@ -15,12 +15,12 @@ import java.util.List;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/11/06
  */
-class UpdateTablesAddColumns {
+final class UpdateTablesAddColumns {
 
-    private UpdateTablesMessages messages = UpdateTablesMessages.getInstance();
-    private ProgressDialog dialog = messages.getProgressDialog();
-    private List<ColumnInfo> missingColumns = new ArrayList<ColumnInfo>();
-    private static List<ColumnInfo> columns = new ArrayList<ColumnInfo>();
+    private final UpdateTablesMessages messages = UpdateTablesMessages.getInstance();
+    private final ProgressDialog dialog = messages.getProgressDialog();
+    private final List<ColumnInfo> missingColumns = new ArrayList<ColumnInfo>();
+    private static final List<ColumnInfo> columns = new ArrayList<ColumnInfo>();
     
 
     static {
@@ -49,7 +49,7 @@ class UpdateTablesAddColumns {
         DatabaseMetadata dbMeta = DatabaseMetadata.getInstance();
         missingColumns.clear();
         for (ColumnInfo info : columns) {
-            if (!dbMeta.existsColumn(connection, info.tableName, info.columnName)) {
+            if (!dbMeta.existsColumn(connection, info.getTableName(), info.getColumnName())) {
                 missingColumns.add(info);
             }
         }
@@ -65,12 +65,12 @@ class UpdateTablesAddColumns {
     }
 
     private void addColumn(Connection connection, ColumnInfo info) throws SQLException {
-        setMessage(info.tableName, info.columnName);
+        setMessage(info.getTableName(), info.getColumnName());
         Statement stmt = connection.createStatement();
-        stmt.execute("ALTER TABLE " + info.tableName + " ADD COLUMN " + // NOI18N
-            info.columnName + " " + info.dataType); // NOI18N
-        if (info.index != null) {
-            stmt.execute(info.index.getSql());
+        stmt.execute("ALTER TABLE " + info.getTableName() + " ADD COLUMN " + // NOI18N
+            info.getColumnName() + " " + info.getDataType()); // NOI18N
+        if (info.getIndex() != null) {
+            stmt.execute(info.getIndex().getSql());
         }
     }
 

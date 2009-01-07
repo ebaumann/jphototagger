@@ -9,9 +9,9 @@ import de.elmar_baumann.imv.resource.Bundle;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/17
  */
-public class ColumnSavedSearchesName extends Column {
+public final class ColumnSavedSearchesName extends Column {
     
-    private static ColumnSavedSearchesName instance = new ColumnSavedSearchesName();
+    private static final ColumnSavedSearchesName instance = new ColumnSavedSearchesName();
     
     public static ColumnSavedSearchesName getInstance() {
         return instance;

@@ -13,7 +13,7 @@ import javax.swing.table.DefaultTableModel;
  * @version 2008-10-05
  * @see     com.adobe.xmp.properties.XMPPropertyInfo
  */
-public class TableModelXmp extends DefaultTableModel {
+public final class TableModelXmp extends DefaultTableModel {
 
     private List<XMPPropertyInfo> propertyInfos;
     private String filename;

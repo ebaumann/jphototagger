@@ -10,7 +10,7 @@ import de.elmar_baumann.imv.resource.Bundle;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/08/23
  */
-public class ColumnXmpPhotoshopCity extends Column {
+public final class ColumnXmpPhotoshopCity extends Column {
 
     private static ColumnXmpPhotoshopCity instance = new ColumnXmpPhotoshopCity();
 

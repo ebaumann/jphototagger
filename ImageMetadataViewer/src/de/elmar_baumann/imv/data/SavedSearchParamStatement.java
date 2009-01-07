@@ -9,7 +9,7 @@ import java.util.List;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/12
  */
-public class SavedSearchParamStatement {
+public final class SavedSearchParamStatement {
 
     private String name;
     private String sql;

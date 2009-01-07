@@ -18,9 +18,9 @@ import java.util.List;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/21
  */
-public class DatabaseFileExcludePattern extends Database {
+public final class DatabaseFileExcludePattern extends Database {
     
-    private static DatabaseFileExcludePattern instance = new DatabaseFileExcludePattern();
+    private static final DatabaseFileExcludePattern instance = new DatabaseFileExcludePattern();
     
     public static DatabaseFileExcludePattern getInstance() {
         return instance;

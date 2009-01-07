@@ -10,9 +10,9 @@ import de.elmar_baumann.imv.resource.Bundle;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/08/23
  */
-public class ColumnXmpPhotoshopInstructions extends Column {
+public final class ColumnXmpPhotoshopInstructions extends Column {
 
-    private static ColumnXmpPhotoshopInstructions instance = new ColumnXmpPhotoshopInstructions();
+    private static final ColumnXmpPhotoshopInstructions instance = new ColumnXmpPhotoshopInstructions();
 
     public static Column getInstance() {
         return instance;

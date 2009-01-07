@@ -17,10 +17,10 @@ import java.util.logging.Level;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/11/02
  */
-public class SettingsMiscPanel extends javax.swing.JPanel
+public final class SettingsMiscPanel extends javax.swing.JPanel
     implements Persistence {
 
-    private ListenerProvider listenerProvider = ListenerProvider.getInstance();
+    private final ListenerProvider listenerProvider = ListenerProvider.getInstance();
     private String lastSelectedAutocopyDirectory = ""; // NOI18N
 
     /** Creates new form SettingsMiscPanel */

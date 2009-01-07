@@ -14,9 +14,9 @@ import de.elmar_baumann.imv.resource.Bundle;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/08/27
  */
-public class ColumnExifRecordingEquipment extends Column {
+public final class ColumnExifRecordingEquipment extends Column {
 
-    private static ColumnExifRecordingEquipment instance = new ColumnExifRecordingEquipment();
+    private static final ColumnExifRecordingEquipment instance = new ColumnExifRecordingEquipment();
 
     public static Column getInstance() {
         return instance;

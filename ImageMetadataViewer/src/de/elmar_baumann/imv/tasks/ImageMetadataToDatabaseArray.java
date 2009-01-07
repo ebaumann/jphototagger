@@ -27,15 +27,15 @@ import javax.swing.JProgressBar;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public class ImageMetadataToDatabaseArray implements ProgressListener {
+public final class ImageMetadataToDatabaseArray implements ProgressListener {
 
-    private Queue<ImageMetadataToDatabase> updaters = new ConcurrentLinkedQueue<ImageMetadataToDatabase>();
+    private final Queue<ImageMetadataToDatabase> updaters = new ConcurrentLinkedQueue<ImageMetadataToDatabase>();
+    private final Map<String, ImageMetadataToDatabase> updaterOfDirectory = new HashMap<String, ImageMetadataToDatabase>();
+    private final Map<ImageMetadataToDatabase, String> directoryOfUpdater = new HashMap<ImageMetadataToDatabase, String>();
+    private final List<TaskListener> taskListeners = new ArrayList<TaskListener>();
+    private final JProgressBar progressBar;
     private boolean wait = false;
     private boolean started = false;
-    private JProgressBar progressBar;
-    private Map<String, ImageMetadataToDatabase> updaterOfDirectory = new HashMap<String, ImageMetadataToDatabase>();
-    private Map<ImageMetadataToDatabase, String> directoryOfUpdater = new HashMap<ImageMetadataToDatabase, String>();
-    private List<TaskListener> taskListeners = new ArrayList<TaskListener>();
     private String tooltipTextProgressEnded;
 
     /**

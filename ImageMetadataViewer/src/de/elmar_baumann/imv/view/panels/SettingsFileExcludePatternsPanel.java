@@ -14,12 +14,12 @@ import java.util.List;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/11/02
  */
-public class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
+public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
     implements ProgressListener, Persistence {
 
     private static final String addInfoText = Bundle.getString("FileExcludePatternPanel.AddInfoText");
-    private DatabaseFileExcludePattern db = DatabaseFileExcludePattern.getInstance();
-    private ListModelFileExcludePatterns model = new ListModelFileExcludePatterns();
+    private final DatabaseFileExcludePattern db = DatabaseFileExcludePattern.getInstance();
+    private final ListModelFileExcludePatterns model = new ListModelFileExcludePatterns();
     private boolean isUpdateDatabase = false;
     private boolean isStopUpdateDatabase = false;
 

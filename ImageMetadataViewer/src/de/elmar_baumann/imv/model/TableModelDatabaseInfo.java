@@ -20,13 +20,13 @@ import javax.swing.table.DefaultTableModel;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public class TableModelDatabaseInfo extends DefaultTableModel
+public final class TableModelDatabaseInfo extends DefaultTableModel
     implements DatabaseListener {
 
-    private DatabaseStatistics db = DatabaseStatistics.getInstance();
-    private LinkedHashMap<Column, StringBuffer> bufferDifferentOfColumn = new LinkedHashMap<Column, StringBuffer>();
-    private LinkedHashMap<Column, StringBuffer> bufferTotalOfColumn = new LinkedHashMap<Column, StringBuffer>();
-    private List<Column> excludedColumns = new ArrayList<Column>();
+    private final DatabaseStatistics db = DatabaseStatistics.getInstance();
+    private final LinkedHashMap<Column, StringBuffer> bufferDifferentOfColumn = new LinkedHashMap<Column, StringBuffer>();
+    private final LinkedHashMap<Column, StringBuffer> bufferTotalOfColumn = new LinkedHashMap<Column, StringBuffer>();
+    private final List<Column> excludedColumns = new ArrayList<Column>();
     private boolean listenToDatabase = false;
 
     private void initBufferOfColumn() {

@@ -17,7 +17,7 @@ import javax.swing.Icon;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public class AppSettings {
+public final class AppSettings {
 
     /**
      * Dateifilter für alle Bilddateiformate, die verarbeitet werden können.
@@ -144,4 +144,6 @@ public class AppSettings {
         return PersistentSettings.getInstance().getDirectoryName() +
             File.separator + "imagemetadataviewerlog.xml";  // NOI18N
     }
+
+    private AppSettings() {}
 }

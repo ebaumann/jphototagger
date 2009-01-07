@@ -17,11 +17,11 @@ import java.util.List;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public class ControllerCopyFilesToDirectory extends Controller
+public final class ControllerCopyFilesToDirectory extends Controller
     implements ActionListener {
 
-    private AppPanel appPanel = Panels.getInstance().getAppPanel();
-    private ImageFileThumbnailsPanel panel = appPanel.getPanelThumbnails();
+    private final AppPanel appPanel = Panels.getInstance().getAppPanel();
+    private final ImageFileThumbnailsPanel panel = appPanel.getPanelThumbnails();
 
     public ControllerCopyFilesToDirectory() {
         PopupMenuPanelThumbnails.getInstance().addActionListenerCopySelectedFilesToDirectory(this);

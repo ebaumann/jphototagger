@@ -12,7 +12,7 @@ import java.awt.event.ActionListener;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/11/06
  */
-public class ControllerActionsShowDialog extends Controller implements ActionListener {
+public final class ControllerActionsShowDialog extends Controller implements ActionListener {
 
     public ControllerActionsShowDialog() {
         Panels.getInstance().getAppFrame().getMenuItemActions().addActionListener(this);

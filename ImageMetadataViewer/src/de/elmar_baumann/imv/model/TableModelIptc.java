@@ -15,7 +15,7 @@ import javax.swing.table.DefaultTableModel;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public class TableModelIptc extends DefaultTableModel {
+public final class TableModelIptc extends DefaultTableModel {
 
     private File file;
     private List<IptcEntry> iptcEntries;
@@ -33,8 +33,7 @@ public class TableModelIptc extends DefaultTableModel {
     public void setFile(File file) {
         this.file = file;
         removeAllElements();
-        IptcMetadata iptcMetadata = new IptcMetadata();
-        iptcEntries = iptcMetadata.getMetadata(file);
+        iptcEntries = IptcMetadata.getMetadata(file);
         addRows();
     }
 
@@ -56,7 +55,7 @@ public class TableModelIptc extends DefaultTableModel {
 
     private void addRows() {
         if (iptcEntries != null) {
-            Collections.sort(iptcEntries, new IptcEntryComparator());
+            Collections.sort(iptcEntries, IptcEntryComparator.INSTANCE);
             for (IptcEntry entry : iptcEntries) {
                 super.addRow(getTableRow(entry));
             }

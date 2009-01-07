@@ -7,7 +7,7 @@ package de.elmar_baumann.imv.data;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/12
  */
-public class SavedSearchPanel {
+public final class SavedSearchPanel {
 
     private int panelIndex = Integer.MIN_VALUE;
     private boolean bracketLeft1Selected;

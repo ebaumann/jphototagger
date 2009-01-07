@@ -9,7 +9,7 @@ import java.util.List;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/06
  */
-public class AutoCompleteUtil {
+public final class AutoCompleteUtil {
 
     /**
      * Adds XMP data of a specific column to autocomplete data.
@@ -34,4 +34,6 @@ public class AutoCompleteUtil {
             }
         }
     }
+
+    private AutoCompleteUtil() {}
 }

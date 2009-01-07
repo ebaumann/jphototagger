@@ -14,11 +14,11 @@ import javax.swing.JButton;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/22
  */
-public class ControllerEmptyMetadata extends Controller implements ActionListener {
+public final class ControllerEmptyMetadata extends Controller implements ActionListener {
 
-    private AppPanel appPanel = Panels.getInstance().getAppPanel();
-    private JButton buttonEmpty = appPanel.getButtonEmptyMetadata();
-    private EditMetadataPanelsArray editPanels = appPanel.getEditPanelsArray();
+    private final AppPanel appPanel = Panels.getInstance().getAppPanel();
+    private final JButton buttonEmpty = appPanel.getButtonEmptyMetadata();
+    private final EditMetadataPanelsArray editPanels = appPanel.getEditPanelsArray();
 
     public ControllerEmptyMetadata() {
         buttonEmpty.addActionListener(this);

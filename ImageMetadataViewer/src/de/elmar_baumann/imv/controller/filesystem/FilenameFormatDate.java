@@ -13,7 +13,7 @@ import java.util.Date;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/13
  */
-public class FilenameFormatDate extends FilenameFormat {
+public final class FilenameFormatDate extends FilenameFormat {
 
     private String delimiter;
     private String name;
@@ -67,4 +67,6 @@ public class FilenameFormatDate extends FilenameFormat {
     public String toString() {
         return Bundle.getString("DateFilenameFormat.String");
     }
+
+    private FilenameFormatDate() {}
 }

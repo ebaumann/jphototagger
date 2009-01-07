@@ -19,14 +19,14 @@ import java.util.List;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/15
  */
-public class ControllerThumbnailsPanelPersistence extends Controller
+public final class ControllerThumbnailsPanelPersistence extends Controller
     implements ThumbnailsPanelListener, AppExitListener {
 
     private boolean onceApplied = false;
     private static final String keySelectedFiles = "de.elmar_baumann.imv.view.controller.ControllerThumbnailsPanelPersistence.SelectedFiles"; // NOI18N
     private static final String keySort = "de.elmar_baumann.imv.view.controller.ControllerThumbnailsPanelPersistence.Sort"; // NOI18N
     private static final String keyThumbnailPanelViewportViewPosition = "de.elmar_baumann.imv.view.panels.controller.ViewportViewPosition"; // NOI18N
-    private ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
+    private final ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
     private List<File> persistentSelectedFiles;
 
     public ControllerThumbnailsPanelPersistence() {

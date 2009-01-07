@@ -12,7 +12,7 @@ import java.util.List;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/11/02
  */
-public class ColumnUtil {
+public final class ColumnUtil {
 
     /**
      * Creates via Reflection columns from the keys of the columns
@@ -70,4 +70,6 @@ public class ColumnUtil {
         }
         return columns;
     }
+
+    private ColumnUtil() {}
 }

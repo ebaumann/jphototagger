@@ -13,9 +13,9 @@ import de.elmar_baumann.imv.resource.Bundle;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/08/27
  */
-public class ColumnExifIsoSpeedRatings extends Column {
+public final class ColumnExifIsoSpeedRatings extends Column {
 
-    private static ColumnExifIsoSpeedRatings instance = new ColumnExifIsoSpeedRatings();
+    private static final ColumnExifIsoSpeedRatings instance = new ColumnExifIsoSpeedRatings();
 
     public static Column getInstance() {
         return instance;

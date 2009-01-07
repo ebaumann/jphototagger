@@ -8,7 +8,7 @@ import de.elmar_baumann.imv.resource.Bundle;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/13
  */
-public class FilenameFormatEmptyString extends FilenameFormat {
+public final class FilenameFormatEmptyString extends FilenameFormat {
 
     @Override
     public String toString() {

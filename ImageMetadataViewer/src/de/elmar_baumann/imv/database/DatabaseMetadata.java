@@ -13,9 +13,9 @@ import java.sql.Statement;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/23
  */
-public class DatabaseMetadata extends Database {
+public final class DatabaseMetadata extends Database {
 
-    private static DatabaseMetadata instance = new DatabaseMetadata();
+    private static final DatabaseMetadata instance = new DatabaseMetadata();
 
     public static DatabaseMetadata getInstance() {
         return instance;

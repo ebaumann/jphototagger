@@ -16,12 +16,12 @@ import java.awt.event.ActionListener;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/23
  */
-public class ControllerUpdateFavoriteDirectory extends Controller
+public final class ControllerUpdateFavoriteDirectory extends Controller
     implements ActionListener {
 
-    private PopupMenuListFavoriteDirectories popup = PopupMenuListFavoriteDirectories.getInstance();
-    private AppPanel appPanel = Panels.getInstance().getAppPanel();
-    private ListModelFavoriteDirectories model = (ListModelFavoriteDirectories) appPanel.getListFavoriteDirectories().getModel();
+    private final PopupMenuListFavoriteDirectories popup = PopupMenuListFavoriteDirectories.getInstance();
+    private final AppPanel appPanel = Panels.getInstance().getAppPanel();
+    private final ListModelFavoriteDirectories model = (ListModelFavoriteDirectories) appPanel.getListFavoriteDirectories().getModel();
 
     public ControllerUpdateFavoriteDirectory() {
         popup.addActionListenerUpdate(this);

@@ -16,7 +16,7 @@ import java.util.logging.Level;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/14
  */
-public class UserSettingsChangeEvent {
+public final class UserSettingsChangeEvent {
 
     private Type type;
     private Object source;

@@ -12,9 +12,9 @@ import de.elmar_baumann.imv.view.renderer.TableCellRendererDatabaseInfoColumns;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/11/08
  */
-public class DatabaseInfoCountPanel extends javax.swing.JPanel {
+public final class DatabaseInfoCountPanel extends javax.swing.JPanel {
 
-    private TotalRecordCountListener listenerTotalRecordCount = new TotalRecordCountListener();
+    private final TotalRecordCountListener listenerTotalRecordCount = new TotalRecordCountListener();
     private TableModelDatabaseInfo modelDatabaseInfo;
 
     /** Creates new form DatabaseInfoCountPanel */

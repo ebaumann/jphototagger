@@ -18,9 +18,9 @@ import javax.swing.JOptionPane;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public class ComboBoxModelMetadataEditTemplates extends DefaultComboBoxModel {
+public final class ComboBoxModelMetadataEditTemplates extends DefaultComboBoxModel {
 
-    private DatabaseMetadataEditTemplates db = DatabaseMetadataEditTemplates.getInstance();
+    private final DatabaseMetadataEditTemplates db = DatabaseMetadataEditTemplates.getInstance();
 
     public ComboBoxModelMetadataEditTemplates() {
         addColumns();

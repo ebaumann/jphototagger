@@ -11,7 +11,7 @@ import de.elmar_baumann.lib.persistence.PersistentSettingsHints;
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  */
-public class ProgramInputParametersDialog extends Dialog {
+public final class ProgramInputParametersDialog extends Dialog {
 
     private boolean accepted = false;
 

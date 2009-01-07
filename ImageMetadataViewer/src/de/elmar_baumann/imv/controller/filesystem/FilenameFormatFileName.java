@@ -9,7 +9,7 @@ import java.io.File;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/13
  */
-public class FilenameFormatFileName extends FilenameFormat {
+public final class FilenameFormatFileName extends FilenameFormat {
 
     @Override
     public String format() {

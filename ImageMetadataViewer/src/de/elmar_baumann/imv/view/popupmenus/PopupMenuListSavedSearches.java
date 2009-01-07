@@ -12,7 +12,7 @@ import javax.swing.JPopupMenu;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/08/31
  */
-public class PopupMenuListSavedSearches extends JPopupMenu {
+public final class PopupMenuListSavedSearches extends JPopupMenu {
 
     private final String actionDelete = Bundle.getString("PopupMenuTreeSavedSearches.Action.Delete");
     private final String actionEdit = Bundle.getString("PopupMenuTreeSavedSearches.Action.Edit");
@@ -23,7 +23,7 @@ public class PopupMenuListSavedSearches extends JPopupMenu {
     private final JMenuItem itemCreate = new JMenuItem(actionNew);
     private final JMenuItem itemRename = new JMenuItem(actionRename);
     private SavedSearch savedSearch;
-    private static PopupMenuListSavedSearches instance = new PopupMenuListSavedSearches();
+    private static final PopupMenuListSavedSearches instance = new PopupMenuListSavedSearches();
 
     private PopupMenuListSavedSearches() {
         addItems();

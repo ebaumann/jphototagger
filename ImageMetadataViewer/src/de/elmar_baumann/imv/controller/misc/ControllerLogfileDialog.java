@@ -22,11 +22,11 @@ import javax.swing.JButton;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/11
  */
-public class ControllerLogfileDialog extends Controller
+public final class ControllerLogfileDialog extends Controller
     implements ActionListener, ErrorListener {
 
-    private AppPanel appPanel = Panels.getInstance().getAppPanel();
-    private JButton buttonLogfileDialog = appPanel.getButtonLogfileDialog();
+    private final AppPanel appPanel = Panels.getInstance().getAppPanel();
+    private final JButton buttonLogfileDialog = appPanel.getButtonLogfileDialog();
     private static final String iconPath = AppSettings.getIconPath();
     private static final ImageIcon iconOk = IconUtil.getImageIcon(iconPath + "/icon_ok.png");
     private static final ImageIcon iconError = IconUtil.getImageIcon(iconPath + "/icon_error.png");

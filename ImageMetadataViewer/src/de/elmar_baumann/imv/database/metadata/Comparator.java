@@ -39,9 +39,9 @@ public enum Comparator {
     LOWER_EQUALS(6,
     "<=", // NOI18N
     Bundle.getString("Comparator.OperatorLessEquals")); // NOI18N
-    private int id;
-    private String sqlString;
-    private String localizedString;
+    private final int id;
+    private final String sqlString;
+    private final String localizedString;
 
     private Comparator(int id, String sqlString, String localizedString) {
         this.id = id;

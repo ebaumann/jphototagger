@@ -13,7 +13,7 @@ import java.util.List;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public class ImageFilteredDirectory {
+public final class ImageFilteredDirectory {
 
     private File directory;
     private List<File> imageFiles = new ArrayList<File>();

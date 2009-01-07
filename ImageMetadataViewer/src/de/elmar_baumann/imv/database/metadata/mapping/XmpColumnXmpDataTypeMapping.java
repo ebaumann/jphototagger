@@ -31,10 +31,10 @@ import java.util.Map;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/20
  */
-public class XmpColumnXmpDataTypeMapping {
+public final class XmpColumnXmpDataTypeMapping {
 
-    private static Map<Column, XmpValueType> xmpValueTypeOfColumn = new HashMap<Column, XmpValueType>();
-    private static XmpColumnXmpDataTypeMapping instance = new XmpColumnXmpDataTypeMapping();
+    private static final Map<Column, XmpValueType> xmpValueTypeOfColumn = new HashMap<Column, XmpValueType>();
+    private static final XmpColumnXmpDataTypeMapping instance = new XmpColumnXmpDataTypeMapping();
     
 
     static {

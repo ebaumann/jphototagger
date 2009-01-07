@@ -14,9 +14,9 @@ import de.elmar_baumann.imv.view.panels.AppPanel;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/29
  */
-public class MouseListenerFactory {
+public final class MouseListenerFactory {
 
-    private static MouseListenerFactory instance = new MouseListenerFactory();
+    private static final MouseListenerFactory instance = new MouseListenerFactory();
 
     static MouseListenerFactory getInstance() {
         return instance;

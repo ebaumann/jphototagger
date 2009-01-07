@@ -10,9 +10,9 @@ import de.elmar_baumann.imv.resource.Bundle;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/07
  */
-public class ColumnCollectionnamesName extends Column {
+public final class ColumnCollectionnamesName extends Column {
 
-    private static ColumnCollectionnamesName instance = new ColumnCollectionnamesName();
+    private static final ColumnCollectionnamesName instance = new ColumnCollectionnamesName();
 
     public static ColumnCollectionnamesName getInstance() {
         return instance;

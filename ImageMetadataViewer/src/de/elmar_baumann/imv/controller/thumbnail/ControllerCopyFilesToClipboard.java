@@ -15,11 +15,11 @@ import javax.swing.JMenuItem;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/26
  */
-public class ControllerCopyFilesToClipboard extends Controller implements ActionListener {
+public final class ControllerCopyFilesToClipboard extends Controller implements ActionListener {
 
-    private ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
-    private JMenuItem itemCopy = Panels.getInstance().getAppFrame().getMenuItemCopy();
-    private JMenuItem itemCut = Panels.getInstance().getAppFrame().getMenuItemCut();
+    private final ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
+    private final JMenuItem itemCopy = Panels.getInstance().getAppFrame().getMenuItemCopy();
+    private final JMenuItem itemCut = Panels.getInstance().getAppFrame().getMenuItemCut();
 
     public ControllerCopyFilesToClipboard() {
         listenToActionSources();

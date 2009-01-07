@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/12
  */
-public class ControllerAboutApp extends Controller implements ActionListener {
+public final class ControllerAboutApp extends Controller implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {

@@ -21,7 +21,7 @@ public enum FileSort {
     TypesDescending(new ComparatorFilesPostfixes(CompareOrder.Descending, CompareCase.Ignore)),
     LastModifiedAscending(new ComparatorFilesLastModified(CompareOrder.Ascending)),
     LastModifiedDescending(new ComparatorFilesLastModified(CompareOrder.Descending));
-    private Comparator<File> comparator;
+    private final Comparator<File> comparator;
 
     private FileSort(Comparator<File> comparator) {
         this.comparator = comparator;

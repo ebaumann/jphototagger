@@ -13,14 +13,14 @@ import java.util.List;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public class XmpUpdaterRenameInColumns implements Runnable, ProgressListener {
+public final class XmpUpdaterRenameInColumns implements Runnable, ProgressListener {
 
-    private DatabaseImageFiles db = DatabaseImageFiles.getInstance();
-    private List<String> filenames;
-    private List<ProgressListener> progressListeners = new ArrayList<ProgressListener>();
-    private Column column;
-    private String oldValue;
-    private String newValue;
+    private final DatabaseImageFiles db = DatabaseImageFiles.getInstance();
+    private final List<String> filenames;
+    private final List<ProgressListener> progressListeners = new ArrayList<ProgressListener>();
+    private final Column column;
+    private final String oldValue;
+    private final String newValue;
     private boolean stop = false;
 
     public XmpUpdaterRenameInColumns(List<String> filenames, Column column,

@@ -24,15 +24,15 @@ import javax.swing.tree.TreePath;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/11/05
  */
-public class ControllerFavoriteDirectoryOpenInFolders extends Controller
+public final class ControllerFavoriteDirectoryOpenInFolders extends Controller
     implements ActionListener {
 
-    PopupMenuListFavoriteDirectories popup = PopupMenuListFavoriteDirectories.getInstance();
-    AppPanel appPanel = Panels.getInstance().getAppPanel();
-    JTabbedPane tabbedPaneSelection = appPanel.getTabbedPaneSelection();
-    Component tabTreeDirectories = appPanel.getTabSelectionDirectories();
-    JTree treeDirectories = appPanel.getTreeDirectories();
-    JList listFavoriteDirectories = appPanel.getListFavoriteDirectories();
+    private final PopupMenuListFavoriteDirectories popup = PopupMenuListFavoriteDirectories.getInstance();
+    private final AppPanel appPanel = Panels.getInstance().getAppPanel();
+    private final JTabbedPane tabbedPaneSelection = appPanel.getTabbedPaneSelection();
+    private final Component tabTreeDirectories = appPanel.getTabSelectionDirectories();
+    private final JTree treeDirectories = appPanel.getTreeDirectories();
+    private final JList listFavoriteDirectories = appPanel.getListFavoriteDirectories();
 
     public ControllerFavoriteDirectoryOpenInFolders() {
         popup.addActionListenerOpenInFolders(this);

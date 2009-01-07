@@ -16,10 +16,10 @@ import javax.swing.JOptionPane;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/21
  */
-public class DatabaseTables extends Database {
+public final class DatabaseTables extends Database {
 
-    private static DatabaseTables instance = new DatabaseTables();
-    private static List<String> tableNames = new ArrayList<String>();
+    private static final List<String> tableNames = new ArrayList<String>();
+    private static final DatabaseTables instance = new DatabaseTables();
     
 
     static {

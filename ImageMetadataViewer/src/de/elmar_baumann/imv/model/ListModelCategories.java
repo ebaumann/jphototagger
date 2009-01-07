@@ -22,10 +22,10 @@ import javax.swing.DefaultListModel;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public class ListModelCategories extends DefaultListModel
+public final class ListModelCategories extends DefaultListModel
     implements DatabaseListener {
 
-    private DatabaseImageFiles db = DatabaseImageFiles.getInstance();
+    private final DatabaseImageFiles db = DatabaseImageFiles.getInstance();
     private ListModelElementRemover remover;
 
     public ListModelCategories() {

@@ -7,10 +7,10 @@ import de.elmar_baumann.imv.data.Program;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/11/06
  */
-public class ProgramActionEvent {
+public final class ProgramActionEvent {
 
-    private Type type;
-    private Program program;
+    private final Type type;
+    private final Program program;
 
     public enum Type {
 

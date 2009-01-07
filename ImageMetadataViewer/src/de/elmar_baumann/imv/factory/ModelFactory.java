@@ -22,9 +22,9 @@ import javax.swing.JTree;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/29
  */
-public class ModelFactory {
+public final class ModelFactory {
 
-    private static ModelFactory instance = new ModelFactory();
+    private static final ModelFactory instance = new ModelFactory();
 
     static ModelFactory getInstance() {
         return instance;

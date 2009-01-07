@@ -10,9 +10,9 @@ import de.elmar_baumann.imv.resource.Bundle;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/08/23
  */
-public class ColumnXmpPhotoshopHeadline extends Column {
+public final class ColumnXmpPhotoshopHeadline extends Column {
 
-    private static ColumnXmpPhotoshopHeadline instance = new ColumnXmpPhotoshopHeadline();
+    private static final ColumnXmpPhotoshopHeadline instance = new ColumnXmpPhotoshopHeadline();
 
     public static Column getInstance() {
         return instance;

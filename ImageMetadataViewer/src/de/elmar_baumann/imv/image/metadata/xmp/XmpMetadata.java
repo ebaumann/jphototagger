@@ -33,13 +33,12 @@ import java.util.List;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public class XmpMetadata {
+public final class XmpMetadata {
 
     private static final List<String> knownNamespaces = new ArrayList<String>();
-    private static XmpColumnNamespaceUriMapping mappingNamespaceUri = XmpColumnNamespaceUriMapping.getInstance();
-    private static XmpColumnXmpPathStartMapping mappingName = XmpColumnXmpPathStartMapping.getInstance();
-    private static XmpColumnXmpDataTypeMapping mappingDataType = XmpColumnXmpDataTypeMapping.getInstance();
-    
+    private static final XmpColumnNamespaceUriMapping mappingNamespaceUri = XmpColumnNamespaceUriMapping.getInstance();
+    private static final XmpColumnXmpPathStartMapping mappingName = XmpColumnXmpPathStartMapping.getInstance();
+    private static final XmpColumnXmpDataTypeMapping mappingDataType = XmpColumnXmpDataTypeMapping.getInstance();
 
     static {
         knownNamespaces.add("Iptc4xmpCore"); // NOI18N
@@ -87,7 +86,7 @@ public class XmpMetadata {
      * @param filename Dateiname
      * @return         Metadaten oder null bei Lesefehlern
      */
-    public List<XMPPropertyInfo> getPropertyInfosOfFile(String filename) {
+    public static List<XMPPropertyInfo> getPropertyInfosOfFile(String filename) {
         if (filename == null || !FileUtil.existsFile(filename)) {
             return null;
         }
@@ -102,15 +101,15 @@ public class XmpMetadata {
             }
         } catch (XMPException ex) {
             metadata = null;
-            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.Log.logWarning(XmpMetadata.class, ex);
         } catch (Exception ex) {
             metadata = null;
-            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.Log.logWarning(XmpMetadata.class, ex);
         }
         return metadata;
     }
 
-    private void addXmpPropertyInfo(XMPMeta xmpMeta,
+    private static void addXmpPropertyInfo(XMPMeta xmpMeta,
         List<XMPPropertyInfo> xmpPropertyInfos) {
         try {
             for (XMPIterator it = xmpMeta.iterator(); it.hasNext();) {
@@ -120,7 +119,7 @@ public class XmpMetadata {
                 }
             }
         } catch (XMPException ex) {
-            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.Log.logWarning(XmpMetadata.class, ex);
         }
     }
 
@@ -208,7 +207,7 @@ public class XmpMetadata {
      * @param  propertyInfos Beliebige Property-Infos
      * @return Gefilterte Property-Infos
      */
-    public List<XMPPropertyInfo> getFilteredPropertyInfosOfIptcEntryMeta(
+    public static List<XMPPropertyInfo> getFilteredPropertyInfosOfIptcEntryMeta(
         IPTCEntryMeta iptcEntryMeta, List<XMPPropertyInfo> propertyInfos) {
 
         List<XMPPropertyInfo> filteredPropertyInfos = new ArrayList<XMPPropertyInfo>();
@@ -263,19 +262,19 @@ public class XmpMetadata {
      * @param  metadata         Metadaten
      * @return true bei Erfolg
      */
-    public boolean writeMetadataToSidecarFile(String sidecarFilename, Xmp metadata) {
+    public static boolean writeMetadataToSidecarFile(String sidecarFilename, Xmp metadata) {
         try {
             XMPMeta xmpMeta = getXmpMetaOfSidecarFile(sidecarFilename);
             writeSidecarFileDeleteItems(xmpMeta);
             writeMetadata(xmpMeta, metadata);
             return writeSidecarFile(sidecarFilename, xmpMeta);
         } catch (XMPException ex) {
-            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.Log.logWarning(XmpMetadata.class, ex);
             return false;
         }
     }
 
-    private void writeMetadata(XMPMeta xmpMeta, Xmp metadata) throws XMPException {
+    private static void writeMetadata(XMPMeta xmpMeta, Xmp metadata) throws XMPException {
         Set<Column> xmpColumns = EditColumns.getColumns();
         for (Column column : xmpColumns) {
             String namespaceUri = mappingNamespaceUri.getNamespaceUriOfColumn(column);
@@ -298,7 +297,7 @@ public class XmpMetadata {
      *                          gelöscht
      * @return true bei Erfolg
      */
-    public boolean writeMetadataToSidecarFile(String sidecarFilename,
+    public static boolean writeMetadataToSidecarFile(String sidecarFilename,
         List<TextEntry> textEntries, boolean deleteEmpty, boolean append) {
         try {
             XMPMeta xmpMeta = getXmpMetaOfSidecarFile(sidecarFilename);
@@ -315,12 +314,12 @@ public class XmpMetadata {
             }
             return writeSidecarFile(sidecarFilename, xmpMeta);
         } catch (XMPException ex) {
-            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.Log.logWarning(XmpMetadata.class, ex);
             return false;
         }
     }
 
-    private XMPMeta getXmpMetaOfSidecarFile(String sidecarFilename) throws XMPException {
+    private static XMPMeta getXmpMetaOfSidecarFile(String sidecarFilename) throws XMPException {
         if (FileUtil.existsFile(sidecarFilename)) {
             return XMPMetaFactory.parseFromString(FileUtil.getFileAsString(sidecarFilename));
         } else {
@@ -328,7 +327,7 @@ public class XmpMetadata {
         }
     }
 
-    private void writeSidecarFileDeleteItems(XMPMeta xmpMeta,
+    private static void writeSidecarFileDeleteItems(XMPMeta xmpMeta,
         List<TextEntry> textEntries, boolean deleteEmpty, boolean append) {
         for (TextEntry textEntry : textEntries) {
             Column xmpColumn = textEntry.getColumn();
@@ -341,7 +340,7 @@ public class XmpMetadata {
         }
     }
 
-    private void writeSidecarFileDeleteItems(XMPMeta xmpMeta) {
+    private static void writeSidecarFileDeleteItems(XMPMeta xmpMeta) {
         Set<Column> xmpColumns = EditColumns.getColumns();
         for (Column column : xmpColumns) {
             String namespaceUri = mappingNamespaceUri.getNamespaceUriOfColumn(column);
@@ -350,7 +349,7 @@ public class XmpMetadata {
         }
     }
 
-    private void writeSidecarFileSetTextEntry(Column xmpColumn, String entryText,
+    private static void writeSidecarFileSetTextEntry(Column xmpColumn, String entryText,
         XMPMeta xmpMeta, String namespaceUri, String propertyName) throws XMPException {
         if (mappingDataType.isText(xmpColumn)) {
             xmpMeta.setProperty(namespaceUri, propertyName, entryText);
@@ -370,7 +369,7 @@ public class XmpMetadata {
         }
     }
 
-    private void writeSidecarFileSetMetadata(Column column, Xmp metadata,
+    private static void writeSidecarFileSetMetadata(Column column, Xmp metadata,
         XMPMeta xmpMeta, String namespaceUri, String propertyName) throws XMPException {
         Object o = metadata.getValue(column);
         if (o != null) {
@@ -397,7 +396,7 @@ public class XmpMetadata {
         }
     }
 
-    private boolean doesArrayItemExist(XMPMeta xmpMeta, String namespaceUri,
+    private static boolean doesArrayItemExist(XMPMeta xmpMeta, String namespaceUri,
         String propertyName, String item) throws XMPException {
         if (xmpMeta.doesPropertyExist(namespaceUri, propertyName)) {
             for (XMPIterator it = xmpMeta.iterator(namespaceUri, propertyName, new IteratorOptions());
@@ -432,7 +431,7 @@ public class XmpMetadata {
         }
     }
 
-    private boolean writeSidecarFile(String sidecarFilename, XMPMeta meta) {
+    private static boolean writeSidecarFile(String sidecarFilename, XMPMeta meta) {
         try {
             FileOutputStream out = new FileOutputStream(new File(sidecarFilename));
             XMPMetaFactory.serialize(meta, out,
@@ -440,10 +439,10 @@ public class XmpMetadata {
             out.close();
             return true;
         } catch (XMPException ex) {
-            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.Log.logWarning(XmpMetadata.class, ex);
             return false;
         } catch (IOException ex) {
-            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.Log.logWarning(XmpMetadata.class, ex);
             return false;
         }
     }
@@ -457,7 +456,7 @@ public class XmpMetadata {
     public static Xmp getXmp(String filename) {
         Xmp xmp = null;
         XmpMetadata xmpMetadata = new XmpMetadata();
-        List<XMPPropertyInfo> xmpPropertyInfos = xmpMetadata.getPropertyInfosOfFile(filename);
+        List<XMPPropertyInfo> xmpPropertyInfos = getPropertyInfosOfFile(filename);
         if (xmpPropertyInfos != null) {
             xmp = new Xmp();
             for (XMPPropertyInfo xmpPropertyInfo : xmpPropertyInfos) {
@@ -512,4 +511,6 @@ public class XmpMetadata {
             xmp.setLastModified(FileUtil.getLastModified(xmpFilename));
         }
     }
+
+    private XmpMetadata() {}
 }

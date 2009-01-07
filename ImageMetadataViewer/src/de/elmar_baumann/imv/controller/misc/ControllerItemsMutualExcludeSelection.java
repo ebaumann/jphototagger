@@ -19,12 +19,12 @@ import javax.swing.event.TreeSelectionListener;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public class ControllerItemsMutualExcludeSelection extends Controller
+public final class ControllerItemsMutualExcludeSelection extends Controller
     implements TreeSelectionListener, ListSelectionListener {
 
-    private AppPanel appPanel = Panels.getInstance().getAppPanel();
-    private List<JTree> trees = appPanel.getSelectionTrees();
-    private List<JList> lists = appPanel.getSelectionLists();
+    private final AppPanel appPanel = Panels.getInstance().getAppPanel();
+    private final List<JTree> trees = appPanel.getSelectionTrees();
+    private final List<JList> lists = appPanel.getSelectionLists();
     private boolean listen = true;
 
     public ControllerItemsMutualExcludeSelection() {

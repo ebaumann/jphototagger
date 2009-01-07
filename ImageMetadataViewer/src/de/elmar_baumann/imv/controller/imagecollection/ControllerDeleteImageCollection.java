@@ -17,13 +17,13 @@ import javax.swing.JList;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/00/10
  */
-public class ControllerDeleteImageCollection extends Controller
+public final class ControllerDeleteImageCollection extends Controller
     implements ActionListener {
 
-    private PopupMenuListImageCollections actionPopup = PopupMenuListImageCollections.getInstance();
-    private AppPanel appPanel = Panels.getInstance().getAppPanel();
-    private JList list = appPanel.getListImageCollections();
-    private ListModelImageCollections model = (ListModelImageCollections) list.getModel();
+    private final PopupMenuListImageCollections actionPopup = PopupMenuListImageCollections.getInstance();
+    private final AppPanel appPanel = Panels.getInstance().getAppPanel();
+    private final JList list = appPanel.getListImageCollections();
+    private final ListModelImageCollections model = (ListModelImageCollections) list.getModel();
 
     public ControllerDeleteImageCollection() {
         actionPopup.addActionListenerDelete(this);

@@ -12,7 +12,7 @@ import javax.swing.DefaultListModel;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public class ListModelImageCollections extends DefaultListModel {
+public final class ListModelImageCollections extends DefaultListModel {
 
     public ListModelImageCollections() {
         addItems();

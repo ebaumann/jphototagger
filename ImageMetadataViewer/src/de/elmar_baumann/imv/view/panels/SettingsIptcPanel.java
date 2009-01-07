@@ -11,10 +11,10 @@ import de.elmar_baumann.imv.types.Persistence;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/11/02
  */
-public class SettingsIptcPanel extends javax.swing.JPanel
+public final class SettingsIptcPanel extends javax.swing.JPanel
     implements Persistence {
 
-    private ListenerProvider listenerProvider = ListenerProvider.getInstance();
+    private final ListenerProvider listenerProvider = ListenerProvider.getInstance();
 
     /** Creates new form SettingsIptcPanel */
     public SettingsIptcPanel() {

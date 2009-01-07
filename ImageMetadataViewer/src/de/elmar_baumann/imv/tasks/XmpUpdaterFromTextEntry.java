@@ -14,14 +14,14 @@ import java.util.List;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public class XmpUpdaterFromTextEntry implements Runnable {
+public final class XmpUpdaterFromTextEntry implements Runnable {
 
-    private List<TextEntry> textEntries;
-    private List<String> filenames;
-    private boolean deleteEmpty;
-    private boolean append;
+    private final List<TextEntry> textEntries;
+    private final List<String> filenames;
+    private final boolean deleteEmpty;
+    private final boolean append;
+    private final List<ProgressListener> progressListeners = new ArrayList<ProgressListener>();
     private boolean stop = false;
-    private List<ProgressListener> progressListeners = new ArrayList<ProgressListener>();
 
     /**
      * Konstruktor.
@@ -62,12 +62,11 @@ public class XmpUpdaterFromTextEntry implements Runnable {
     @Override
     public void run() {
         notifyProgressStarted();
-        XmpMetadata meta = new XmpMetadata();
         int count = filenames.size();
         for (int i = 0; !stop && i < count; i++) {
             String filename = filenames.get(i);
             String sidecarFilename = XmpMetadata.suggestSidecarFilename(filename);
-            if (meta.writeMetadataToSidecarFile(sidecarFilename, textEntries,
+            if (XmpMetadata.writeMetadataToSidecarFile(sidecarFilename, textEntries,
                 deleteEmpty, append)) {
                 updateDatabase(sidecarFilename);
             }

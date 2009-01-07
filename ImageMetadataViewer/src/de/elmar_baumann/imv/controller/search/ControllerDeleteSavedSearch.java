@@ -22,14 +22,14 @@ import javax.swing.JOptionPane;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/10
  */
-public class ControllerDeleteSavedSearch extends Controller
+public final class ControllerDeleteSavedSearch extends Controller
     implements ActionListener {
 
-    private DatabaseSavedSearches db = DatabaseSavedSearches.getInstance();
-    private PopupMenuListSavedSearches actionPopup = PopupMenuListSavedSearches.getInstance();
-    private AppPanel appPanel = Panels.getInstance().getAppPanel();
-    private JList list = appPanel.getListSavedSearches();
-    private ListModelSavedSearches model = (ListModelSavedSearches) list.getModel();
+    private final DatabaseSavedSearches db = DatabaseSavedSearches.getInstance();
+    private final PopupMenuListSavedSearches actionPopup = PopupMenuListSavedSearches.getInstance();
+    private final AppPanel appPanel = Panels.getInstance().getAppPanel();
+    private final JList list = appPanel.getListSavedSearches();
+    private final ListModelSavedSearches model = (ListModelSavedSearches) list.getModel();
 
     public ControllerDeleteSavedSearch() {
         actionPopup.addActionListenerDelete(this);

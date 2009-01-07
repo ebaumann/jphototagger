@@ -3,8 +3,6 @@ package de.elmar_baumann.imv.database.metadata;
 import java.util.ArrayList;
 import java.util.List;
 
-
-
 /**
  * Eine Tabelle.
  *
@@ -13,9 +11,9 @@ import java.util.List;
  */
 public abstract class Table {
 
-    private List<Column> columns = new ArrayList<Column>();
-    private List<Column> referenceColumns = new ArrayList<Column>();
-    private String name;
+    private final List<Column> columns = new ArrayList<Column>();
+    private final List<Column> referenceColumns = new ArrayList<Column>();
+    private final String name;
 
     /**
      * Erzeugt eine Instanz.

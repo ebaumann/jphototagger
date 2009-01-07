@@ -10,9 +10,9 @@ import de.elmar_baumann.imv.resource.Bundle;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2007/07/29
  */
-public class ColumnFilesThumbnail extends Column {
+public final class ColumnFilesThumbnail extends Column {
 
-    private static ColumnFilesThumbnail instance = new ColumnFilesThumbnail();
+    private static final ColumnFilesThumbnail instance = new ColumnFilesThumbnail();
 
     public static Column getInstance() {
         return instance;

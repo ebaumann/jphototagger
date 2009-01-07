@@ -24,7 +24,7 @@ import javax.swing.JProgressBar;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/11/06
  */
-public class ProgramExecutor {
+public final class ProgramExecutor {
 
     private JProgressBar progressBar;
     private final Queue<Execute> queue = new ConcurrentLinkedQueue<Execute>();

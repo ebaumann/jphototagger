@@ -10,7 +10,7 @@ import java.util.List;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public class DatabaseMetadataUtil {
+public final class DatabaseMetadataUtil {
 
     /**
      * Liefert aus verschiedenen Spalten die gemeinsamen Tabellennamen.
@@ -153,4 +153,6 @@ public class DatabaseMetadataUtil {
 
         return sql.toString();
     }
+
+    private DatabaseMetadataUtil() {}
 }

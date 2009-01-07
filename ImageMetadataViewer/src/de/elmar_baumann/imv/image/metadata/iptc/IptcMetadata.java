@@ -17,7 +17,7 @@ import java.util.List;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public class IptcMetadata {
+public final class IptcMetadata {
 
     /**
      * Liefert die IPTC-Metadaten einer Datei.
@@ -25,7 +25,7 @@ public class IptcMetadata {
      * @param  file  Datei
      * @return Metadaten oder null bei Lesefehlern
      */
-    public List<IptcEntry> getMetadata(File file) {
+    public static List<IptcEntry> getMetadata(File file) {
         if (file == null || !file.exists()) {
             return null;
         }
@@ -38,10 +38,10 @@ public class IptcMetadata {
             }
         } catch (IOException ex) {
             metadata = null;
-            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.Log.logWarning(IptcMetadata.class, ex);
         } catch (Exception ex) {
             metadata = null;
-            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.Log.logWarning(IptcMetadata.class, ex);
         }
         return metadata;
     }
@@ -84,7 +84,7 @@ public class IptcMetadata {
      * @param  filter  Filter
      * @return Alle Entries mit den im Filter angegebenen Metadaten
      */
-    public List<IptcEntry> getFilteredEntries(List<IptcEntry> entries, IPTCEntryMeta filter) {
+    public static List<IptcEntry> getFilteredEntries(List<IptcEntry> entries, IPTCEntryMeta filter) {
         List<IptcEntry> filteredEntries = new ArrayList<IptcEntry>();
         for (IptcEntry entry : entries) {
             if (entry.getEntryMeta().equals(filter)) {
@@ -102,8 +102,7 @@ public class IptcMetadata {
      */
     public static Iptc getIptc(File file) {
         Iptc iptc = null;
-        IptcMetadata iptcMetadata = new IptcMetadata();
-        List<IptcEntry> iptcEntries = iptcMetadata.getMetadata(file);
+        List<IptcEntry> iptcEntries = getMetadata(file);
         if (iptcEntries != null) {
             iptc = new Iptc();
             for (IptcEntry iptcEntry : iptcEntries) {
@@ -113,4 +112,6 @@ public class IptcMetadata {
         }
         return iptc;
     }
+
+    private IptcMetadata() {}
 }

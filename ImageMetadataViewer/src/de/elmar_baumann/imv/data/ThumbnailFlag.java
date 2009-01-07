@@ -9,10 +9,11 @@ import java.awt.Color;
  * @author  Elmar Baumann <eb@elmar-aumann.de>
  * @version 2008/09/09
  */
-public class ThumbnailFlag {
+public final class ThumbnailFlag {
 
-    private Color color;
-    private String string;
+    private final Color color;
+    private final String string;
+
     /**
      * Flag: Datei wurde nicht gefunden.
      */
@@ -40,30 +41,12 @@ public class ThumbnailFlag {
     }
 
     /**
-     * Setzt die Farbe des Flags.
-     * 
-     * @param color Farbe
-     */
-    public void setColor(Color color) {
-        this.color = color;
-    }
-
-    /**
      * Liefert den String mit der Bedeutung des Flags.
      * 
      * @return String mit Bedeutung
      */
     public String getString() {
         return string;
-    }
-
-    /**
-     * Setzt den String mit der Bedeutung des Flags.
-     * 
-     * @param string Bedeutung
-     */
-    public void setString(String string) {
-        this.string = string;
     }
 
     @Override

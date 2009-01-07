@@ -11,7 +11,7 @@ import java.util.List;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/15
  */
-public class DatabaseAction {
+public final class DatabaseAction {
 
     /**
      * Typ der Aktion (Was geschah?)

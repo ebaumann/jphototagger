@@ -20,10 +20,10 @@ import javax.swing.DefaultListModel;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/25
  */
-public class ListModelKeywords extends DefaultListModel
+public final class ListModelKeywords extends DefaultListModel
     implements DatabaseListener {
 
-    private DatabaseImageFiles db = DatabaseImageFiles.getInstance();
+    private final DatabaseImageFiles db = DatabaseImageFiles.getInstance();
     private ListModelElementRemover remover;
 
     public ListModelKeywords() {

@@ -10,7 +10,7 @@ import java.io.File;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/11/04
  */
-public class Program {
+public final class Program {
 
     private long id = Long.MIN_VALUE;
     private boolean action = false;

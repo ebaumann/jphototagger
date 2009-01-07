@@ -10,9 +10,9 @@ import de.elmar_baumann.imv.resource.Bundle;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/08/23
  */
-public class ColumnXmpIptc4xmpcoreLocation extends Column {
+public final class ColumnXmpIptc4xmpcoreLocation extends Column {
 
-    private static ColumnXmpIptc4xmpcoreLocation instance = new ColumnXmpIptc4xmpcoreLocation();
+    private static final ColumnXmpIptc4xmpcoreLocation instance = new ColumnXmpIptc4xmpcoreLocation();
 
     public static Column getInstance() {
         return instance;

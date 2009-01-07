@@ -13,9 +13,9 @@ import java.awt.Frame;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public class UpdateMetadataOfDirectoriesDialog extends Dialog {
+public final class UpdateMetadataOfDirectoriesDialog extends Dialog {
 
-    private static UpdateMetadataOfDirectoriesDialog instance = new UpdateMetadataOfDirectoriesDialog();
+    private static final UpdateMetadataOfDirectoriesDialog instance = new UpdateMetadataOfDirectoriesDialog();
 
     private UpdateMetadataOfDirectoriesDialog() {
         super((Frame) null, false);

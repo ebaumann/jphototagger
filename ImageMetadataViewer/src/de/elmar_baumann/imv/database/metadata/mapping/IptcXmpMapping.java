@@ -34,11 +34,11 @@ import java.util.Set;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public class IptcXmpMapping {
+public final class IptcXmpMapping {
 
-    private static Map<IPTCEntryMeta, Column> xmpColumnOfIptcEntryMeta = new HashMap<IPTCEntryMeta, Column>();
-    private static Map<Column, IPTCEntryMeta> iptcEntryMetaOfXmpColumn = new HashMap<Column, IPTCEntryMeta>();
-    private static IptcXmpMapping instance = new IptcXmpMapping();
+    private static final Map<IPTCEntryMeta, Column> xmpColumnOfIptcEntryMeta = new HashMap<IPTCEntryMeta, Column>();
+    private static final Map<Column, IPTCEntryMeta> iptcEntryMetaOfXmpColumn = new HashMap<Column, IPTCEntryMeta>();
+    private static final IptcXmpMapping instance = new IptcXmpMapping();
     
 
     static {

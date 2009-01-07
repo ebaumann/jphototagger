@@ -19,11 +19,11 @@ import javax.swing.JOptionPane;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/24
  */
-public class CopyFiles implements Runnable {
+public final class CopyFiles implements Runnable {
 
-    private List<ProgressListener> progressListeners = new ArrayList<ProgressListener>();
+    private final List<ProgressListener> progressListeners = new ArrayList<ProgressListener>();
+    private final List<File> errorFiles = new ArrayList<File>();
     private List<Pair<File, File>> files = new ArrayList<Pair<File, File>>();
-    private List<File> errorFiles = new ArrayList<File>();
     private boolean stop = false;
     private boolean forceOverwrite = false;
 

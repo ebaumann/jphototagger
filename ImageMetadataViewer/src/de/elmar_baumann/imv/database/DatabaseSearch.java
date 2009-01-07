@@ -18,7 +18,7 @@ import java.util.List;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/21
  */
-public class DatabaseSearch extends Database {
+public final class DatabaseSearch extends Database {
 
     private static final DatabaseSearch instance = new DatabaseSearch();
 

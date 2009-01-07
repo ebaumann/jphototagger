@@ -13,7 +13,7 @@ import javax.swing.DefaultListModel;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/17
  */
-public class ListModelSavedSearches extends DefaultListModel {
+public final class ListModelSavedSearches extends DefaultListModel {
 
     public ListModelSavedSearches() {
         addItems();
@@ -30,7 +30,7 @@ public class ListModelSavedSearches extends DefaultListModel {
         int index = indexOf(oldSearch);
         if (index >= 0) {
             remove(index);
-            ListUtil.insertSorted(this, newSearch, new ComparatorSavedSearch());
+            ListUtil.insertSorted(this, newSearch, ComparatorSavedSearch.INSTANCE);
         }
     }
 }

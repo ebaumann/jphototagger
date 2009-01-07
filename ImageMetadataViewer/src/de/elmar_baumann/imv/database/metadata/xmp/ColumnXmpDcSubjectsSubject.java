@@ -10,9 +10,9 @@ import de.elmar_baumann.imv.resource.Bundle;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/08/23
  */
-public class ColumnXmpDcSubjectsSubject extends Column {
+public final class ColumnXmpDcSubjectsSubject extends Column {
 
-    private static ColumnXmpDcSubjectsSubject instance = new ColumnXmpDcSubjectsSubject();
+    private static final ColumnXmpDcSubjectsSubject instance = new ColumnXmpDcSubjectsSubject();
 
     public static Column getInstance() {
         return instance;

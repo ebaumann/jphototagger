@@ -39,11 +39,11 @@ import javax.swing.SpinnerNumberModel;
  * 
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  */
-public class RenameDialog extends Dialog {
+public final class RenameDialog extends Dialog {
 
+    private final FilenameFormatArray filenameFormatArray = new FilenameFormatArray();
     private List<File> files = new ArrayList<File>();
     private List<RenameFileListener> renameFileListeners = new LinkedList<RenameFileListener>();
-    private FilenameFormatArray filenameFormatArray = new FilenameFormatArray();
     private ListenerProvider listenerProvider;
     private int fileIndex = 0;
     private boolean lockClose = false;
@@ -72,7 +72,7 @@ public class RenameDialog extends Dialog {
 
     private ComboBoxModel getComboBoxModel() {
         DefaultComboBoxModel model = new DefaultComboBoxModel();
-        model.addElement(new FilenameFormatConstantString());
+        model.addElement(new FilenameFormatConstantString(""));
         model.addElement(new FilenameFormatNumberSequence(1, 1, 4));
         model.addElement(new FilenameFormatFileName());
         model.addElement(new FilenameFormatDate("-")); // NOI18N

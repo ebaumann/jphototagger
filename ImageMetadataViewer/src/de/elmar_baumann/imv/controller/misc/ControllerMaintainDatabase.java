@@ -11,7 +11,7 @@ import java.awt.event.ActionListener;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/12
  */
-public class ControllerMaintainDatabase extends Controller implements ActionListener {
+public final class ControllerMaintainDatabase extends Controller implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {

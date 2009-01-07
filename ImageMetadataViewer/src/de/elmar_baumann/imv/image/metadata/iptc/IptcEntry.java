@@ -13,13 +13,13 @@ import java.util.Arrays;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/02/17
  */
-public class IptcEntry {
+public final class IptcEntry {
 
-    private String name;
-    private byte[] data;
-    private int recordNumber;
-    private int datasetNumber;
-    private IPTCEntryMeta entryMeta;
+    private final String name;
+    private final byte[] data;
+    private final int recordNumber;
+    private final int datasetNumber;
+    private final IPTCEntryMeta entryMeta;
 
     /**
      * Erzeugt ein neues Objekt.

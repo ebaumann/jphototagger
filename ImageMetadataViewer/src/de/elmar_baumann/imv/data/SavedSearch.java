@@ -9,7 +9,7 @@ import java.util.List;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/12
  */
-public class SavedSearch {
+public final class SavedSearch {
 
     private SavedSearchParamStatement paramStatements;
     private List<SavedSearchPanel> panels;

@@ -8,13 +8,10 @@ import java.io.File;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/13
  */
-public class RenameFileAction {
+public final class RenameFileAction {
     
-    private File oldFile;
-    private File newFile;
-
-    public RenameFileAction() {
-    }
+    private final File oldFile;
+    private final File newFile;
 
     public RenameFileAction(File oldFile, File newFile) {
         this.oldFile = oldFile;
@@ -25,16 +22,7 @@ public class RenameFileAction {
         return newFile;
     }
 
-    public void setNewFile(File newFile) {
-        this.newFile = newFile;
-    }
-
     public File getOldFile() {
         return oldFile;
     }
-
-    public void setOldFile(File oldFile) {
-        this.oldFile = oldFile;
-    }
-
 }

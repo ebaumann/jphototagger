@@ -14,9 +14,9 @@ import javax.swing.JTable;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/29
  */
-public class RendererFactory {
+public final class RendererFactory {
 
-    private static RendererFactory instance = new RendererFactory();
+    private static final RendererFactory instance = new RendererFactory();
 
     static RendererFactory getInstance() {
         return instance;

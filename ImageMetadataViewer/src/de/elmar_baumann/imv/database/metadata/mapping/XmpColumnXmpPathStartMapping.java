@@ -16,10 +16,10 @@ import java.util.Map;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/19
  */
-public class XmpColumnXmpPathStartMapping {
+public final class XmpColumnXmpPathStartMapping {
 
-    private static Map<Column, String> xmpPathStartOfColumn = new HashMap<Column, String>();
-    private static XmpColumnXmpPathStartMapping instance = new XmpColumnXmpPathStartMapping();
+    private static final Map<Column, String> xmpPathStartOfColumn = new HashMap<Column, String>();
+    private static final XmpColumnXmpPathStartMapping instance = new XmpColumnXmpPathStartMapping();
     
 
     static {

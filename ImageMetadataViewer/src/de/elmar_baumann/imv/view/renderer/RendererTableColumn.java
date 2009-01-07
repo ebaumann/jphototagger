@@ -13,10 +13,9 @@ import javax.swing.JLabel;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/17
  */
-public class RendererTableColumn {
+public final class RendererTableColumn {
 
-    private static Map<Column, String> textOfColumn = new HashMap<Column, String>();
-    
+    private static final Map<Column, String> textOfColumn = new HashMap<Column, String>();
 
     static {
         for (Column column : DatabaseInfoRecordCountColumns.get()) {

@@ -11,7 +11,7 @@ import java.awt.event.ActionListener;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/25
  */
-public class ControllerShowUpdateMetadataDialog extends Controller
+public final class ControllerShowUpdateMetadataDialog extends Controller
     implements ActionListener {
 
     @Override

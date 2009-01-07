@@ -17,9 +17,9 @@ import de.elmar_baumann.imv.view.panels.AppPanel;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/29
  */
-public class ActionListenerFactory {
+public final class ActionListenerFactory {
     
-    private static ActionListenerFactory instance = new ActionListenerFactory();
+    private static final ActionListenerFactory instance = new ActionListenerFactory();
     
     static ActionListenerFactory getInstance() {
         return instance;

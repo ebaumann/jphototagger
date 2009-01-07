@@ -27,17 +27,17 @@ import javax.swing.DefaultComboBoxModel;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public class SearchColumnPanel extends javax.swing.JPanel {
+public final class SearchColumnPanel extends javax.swing.JPanel {
 
+    private final List<SearchListener> searchListener = new ArrayList<SearchListener>();
+    private final ListCellRendererTableColumns columnRenderer = new ListCellRendererTableColumns();
     private DefaultComboBoxModel modelOperators;
     private DefaultComboBoxModel modelColumns;
     private DefaultComboBoxModel modelComparators;
-    private ListCellRendererTableColumns columnRenderer = new ListCellRendererTableColumns();
     private boolean isFirst = false;
     private boolean isOperatorsEnabled = true;
     private boolean listenToActions = true;
     private boolean changed = false;
-    private List<SearchListener> searchListener = new ArrayList<SearchListener>();
 
     public SearchColumnPanel() {
         initComponents();

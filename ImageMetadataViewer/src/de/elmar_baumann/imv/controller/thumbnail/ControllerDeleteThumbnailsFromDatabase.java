@@ -22,12 +22,12 @@ import javax.swing.JOptionPane;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/10
  */
-public class ControllerDeleteThumbnailsFromDatabase extends Controller
+public final class ControllerDeleteThumbnailsFromDatabase extends Controller
     implements ActionListener {
 
-    private DatabaseImageFiles db = DatabaseImageFiles.getInstance();
-    private PopupMenuPanelThumbnails popup = PopupMenuPanelThumbnails.getInstance();
-    private ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
+    private final DatabaseImageFiles db = DatabaseImageFiles.getInstance();
+    private final PopupMenuPanelThumbnails popup = PopupMenuPanelThumbnails.getInstance();
+    private final ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
 
     public ControllerDeleteThumbnailsFromDatabase() {
         popup.addActionListenerDeleteThumbnail(this);

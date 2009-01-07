@@ -14,28 +14,28 @@ import java.util.Map;
  * @version 2008-10-05
  * @see     Xmp
  */
-public class Iptc {
+public final class Iptc {
 
-    private List<String> byLines = new ArrayList<String>();
-    private List<String> byLinesTitles = new ArrayList<String>();
-    private StringBuffer captionAbstract = new StringBuffer();
-    private StringBuffer category = new StringBuffer();
-    private StringBuffer city = new StringBuffer();
-    private List<String> contentLocationCodes = new ArrayList<String>();
-    private List<String> contentLocationNames = new ArrayList<String>();
-    private StringBuffer copyrightNotice = new StringBuffer();
-    private StringBuffer countryPrimaryLocationName = new StringBuffer();
-    private StringBuffer credit = new StringBuffer();
-    private StringBuffer headline = new StringBuffer();
-    private List<String> keywords = new ArrayList<String>();
-    private StringBuffer objectName = new StringBuffer();
-    private StringBuffer originalTransmissionReference = new StringBuffer();
-    private StringBuffer provinceState = new StringBuffer();
-    private StringBuffer source = new StringBuffer();
-    private StringBuffer specialInstructions = new StringBuffer();
-    private List<String> supplementalCategories = new ArrayList<String>();
-    private List<String> writersEditors = new ArrayList<String>();
-    private Map<IPTCEntryMeta, Object> valueOfEntryMeta = new HashMap<IPTCEntryMeta, Object>();
+    private final List<String> byLines = new ArrayList<String>();
+    private final List<String> byLinesTitles = new ArrayList<String>();
+    private final StringBuffer captionAbstract = new StringBuffer();
+    private final StringBuffer category = new StringBuffer();
+    private final StringBuffer city = new StringBuffer();
+    private final List<String> contentLocationCodes = new ArrayList<String>();
+    private final List<String> contentLocationNames = new ArrayList<String>();
+    private final StringBuffer copyrightNotice = new StringBuffer();
+    private final StringBuffer countryPrimaryLocationName = new StringBuffer();
+    private final StringBuffer credit = new StringBuffer();
+    private final StringBuffer headline = new StringBuffer();
+    private final List<String> keywords = new ArrayList<String>();
+    private final StringBuffer objectName = new StringBuffer();
+    private final StringBuffer originalTransmissionReference = new StringBuffer();
+    private final StringBuffer provinceState = new StringBuffer();
+    private final StringBuffer source = new StringBuffer();
+    private final StringBuffer specialInstructions = new StringBuffer();
+    private final List<String> supplementalCategories = new ArrayList<String>();
+    private final List<String> writersEditors = new ArrayList<String>();
+    private final Map<IPTCEntryMeta, Object> valueOfEntryMeta = new HashMap<IPTCEntryMeta, Object>();
 
     private void init() {
         valueOfEntryMeta.put(IPTCEntryMeta.COPYRIGHT_NOTICE, copyrightNotice);

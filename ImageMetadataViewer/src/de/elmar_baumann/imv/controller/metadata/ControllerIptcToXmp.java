@@ -12,7 +12,7 @@ import java.awt.event.ActionListener;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/30
  */
-public class ControllerIptcToXmp extends Controller implements ActionListener {
+public final class ControllerIptcToXmp extends Controller implements ActionListener {
 
     public ControllerIptcToXmp() {
         Panels.getInstance().getAppFrame().getMenuItemToolIptcToXmp().addActionListener(this);

@@ -17,7 +17,7 @@ import javax.swing.JOptionPane;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public class RenameInXmpColumnsDialog extends Dialog {
+public final class RenameInXmpColumnsDialog extends Dialog {
 
     private boolean accepted = true;
 

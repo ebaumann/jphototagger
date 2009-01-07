@@ -17,11 +17,11 @@ import java.awt.event.ActionListener;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/10
  */
-public class ControllerOpenFilesWithStandardApp extends Controller
+public final class ControllerOpenFilesWithStandardApp extends Controller
     implements ActionListener {
 
-    private PopupMenuPanelThumbnails popup = PopupMenuPanelThumbnails.getInstance();
-    private ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
+    private final PopupMenuPanelThumbnails popup = PopupMenuPanelThumbnails.getInstance();
+    private final ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
 
     public ControllerOpenFilesWithStandardApp() {
         popup.addActionListenerOpenFilesWithStandardApp(this);

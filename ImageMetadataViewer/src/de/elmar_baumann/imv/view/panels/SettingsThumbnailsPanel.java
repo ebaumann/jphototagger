@@ -20,11 +20,11 @@ import javax.swing.SpinnerNumberModel;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/11/02
  */
-public class SettingsThumbnailsPanel extends javax.swing.JPanel
+public final class SettingsThumbnailsPanel extends javax.swing.JPanel
     implements ActionListener, Persistence {
 
     private UpdateAllThumbnails thumbnailsUpdater;
-    private ListenerProvider listenerProvider = ListenerProvider.getInstance();
+    private final ListenerProvider listenerProvider = ListenerProvider.getInstance();
 
     /** Creates new form SettingsThumbnailsPanel */
     public SettingsThumbnailsPanel() {

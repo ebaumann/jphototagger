@@ -32,17 +32,17 @@ import javax.swing.JOptionPane;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/20
  */
-public class MoveToDirectoryDialog extends Dialog
+public final class MoveToDirectoryDialog extends Dialog
     implements ProgressListener, FileSystemActionListener {
 
     private static final String keyTargetDirectory = "de.elmar_baumann.imv.view.dialogs.MoveToDirectoryDialog.TargetDirectory"; // NOI18N
+    private final List<File> movedFiles = new ArrayList<File>();
+    private final List<ProgressListener> progressListeners = new ArrayList<ProgressListener>();
     private FileSystemMove moveTask;
     private boolean runs = false;
     private boolean stop = false;
     private boolean errors = false;
     private List<File> sourceFiles;
-    private List<File> movedFiles = new ArrayList<File>();
-    private List<ProgressListener> progressListeners = new ArrayList<ProgressListener>();
     private File targetDirectory = new File(""); // NOI18N
     private boolean moveIfVisible = false;
 

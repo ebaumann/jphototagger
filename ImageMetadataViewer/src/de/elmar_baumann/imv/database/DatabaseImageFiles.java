@@ -35,9 +35,9 @@ import javax.swing.ImageIcon;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/21
  */
-public class DatabaseImageFiles extends Database {
+public final class DatabaseImageFiles extends Database {
 
-    private static DatabaseImageFiles instance = new DatabaseImageFiles();
+    private static final DatabaseImageFiles instance = new DatabaseImageFiles();
 
     public static DatabaseImageFiles getInstance() {
         return instance;
@@ -797,7 +797,6 @@ public class DatabaseImageFiles extends Database {
         String columnName = tableName + "." + xmpColumn.getName(); // NOI18N
         boolean isXmpTable = xmpColumn.getTable().equals(TableXmp.getInstance());
         ProgressEvent event = new ProgressEvent(this, 0, 0, 0, null);
-        XmpMetadata meta = new XmpMetadata();
         Connection connection = null;
         try {
             connection = getConnection();
@@ -827,7 +826,7 @@ public class DatabaseImageFiles extends Database {
                     if (!newValue.isEmpty()) {
                         xmp.setValue(xmpColumn, newValue);
                     }
-                    if (meta.writeMetadataToSidecarFile(
+                    if (XmpMetadata.writeMetadataToSidecarFile(
                         XmpMetadata.suggestSidecarFilename(filename), xmp)) {
                         long idXmp = rs.getLong(2);
                         deleteXmp(connection, idXmp);

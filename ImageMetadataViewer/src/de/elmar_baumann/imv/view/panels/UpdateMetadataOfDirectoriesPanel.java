@@ -24,17 +24,17 @@ import javax.swing.DefaultListModel;
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  */
-public class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
+public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
     implements ProgressListener {
 
-    private final String keyLastDirectory = "de.elmar_baumann.imv.view.ScanDirectoriesDialog.lastSelectedDirectory"; // NOI18N
-    private final String keyForce = "de.elmar_baumann.imv.view.ScanDirectoriesDialog.force"; // NOI18N
-    private final String keySubdirectories = "de.elmar_baumann.imv.view.ScanDirectoriesDialog.subdirectories"; // NOI18N
-    private final String currentFilenameInfotextPrefix = Bundle.getString("UpdateMetadataOfDirectoriesPanel.InformationMessage.UpdateCurrentFile");
+    private static final String keyLastDirectory = "de.elmar_baumann.imv.view.ScanDirectoriesDialog.lastSelectedDirectory"; // NOI18N
+    private static final String keyForce = "de.elmar_baumann.imv.view.ScanDirectoriesDialog.force"; // NOI18N
+    private static final String keySubdirectories = "de.elmar_baumann.imv.view.ScanDirectoriesDialog.subdirectories"; // NOI18N
+    private static final String currentFilenameInfotextPrefix = Bundle.getString("UpdateMetadataOfDirectoriesPanel.InformationMessage.UpdateCurrentFile");
+    private final DefaultListModel modelSelectedDirectoryList = new DefaultListModel();
     private List<File> selectedFiles = new ArrayList<File>();
     private ImageMetadataToDatabase activeUpdater;
     private File lastSelectedDirectory = new File(""); // NOI18N
-    private DefaultListModel modelSelectedDirectoryList = new DefaultListModel();
     private int countSelectedFiles = 0;
 
     /** Creates new form UpdateMetadataOfDirectoriesPanel */

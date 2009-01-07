@@ -39,19 +39,19 @@ import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public class ControllerFastSearch extends Controller
+public final class ControllerFastSearch extends Controller
     implements UserSettingsChangeListener, DatabaseListener, RefreshListener {
 
-    private DatabaseSearch db = DatabaseSearch.getInstance();
-    private AppPanel appPanel = Panels.getInstance().getAppPanel();
-    private JTextField textFieldSearch = appPanel.getTextFieldSearch();
-    private ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelThumbnails();
-    private List<Column> fastSearchColumns = UserSettings.getInstance().getFastSearchColumns();
-    private List<JTree> selectionTrees = appPanel.getSelectionTrees();
-    private List<JList> selectionLists = appPanel.getSelectionLists();
+    private final DatabaseSearch db = DatabaseSearch.getInstance();
+    private final AppPanel appPanel = Panels.getInstance().getAppPanel();
+    private final JTextField textFieldSearch = appPanel.getTextFieldSearch();
+    private final ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelThumbnails();
+    private final List<Column> fastSearchColumns = UserSettings.getInstance().getFastSearchColumns();
+    private final List<JTree> selectionTrees = appPanel.getSelectionTrees();
+    private final List<JList> selectionLists = appPanel.getSelectionLists();
     private boolean isUseAutocomplete = UserSettings.getInstance().isUseAutocomplete();
     private AutoCompleteData searchAutoCompleteData;
-    private EditMetadataPanelsArray editPanels = appPanel.getEditPanelsArray();
+    private final EditMetadataPanelsArray editPanels = appPanel.getEditPanelsArray();
 
     public ControllerFastSearch() {
         textFieldSearch.setEnabled(UserSettings.getInstance().getFastSearchColumns().size() > 0);

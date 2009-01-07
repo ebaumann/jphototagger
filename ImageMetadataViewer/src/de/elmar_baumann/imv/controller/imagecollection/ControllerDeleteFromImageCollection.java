@@ -2,7 +2,6 @@ package de.elmar_baumann.imv.controller.imagecollection;
 
 import de.elmar_baumann.imv.controller.Controller;
 import de.elmar_baumann.imv.types.Content;
-import de.elmar_baumann.imv.model.ListModelImageCollections;
 import de.elmar_baumann.imv.tasks.ImageCollectionToDatabase;
 import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.view.panels.AppPanel;
@@ -22,14 +21,13 @@ import javax.swing.JList;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/00/10
  */
-public class ControllerDeleteFromImageCollection extends Controller
+public final class ControllerDeleteFromImageCollection extends Controller
     implements ActionListener {
 
-    private AppPanel appPanel = Panels.getInstance().getAppPanel();
-    private JList list = appPanel.getListImageCollections();
-    private ListModelImageCollections model = (ListModelImageCollections) list.getModel();
-    private PopupMenuPanelThumbnails popup = PopupMenuPanelThumbnails.getInstance();
-    private ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
+    private final AppPanel appPanel = Panels.getInstance().getAppPanel();
+    private final JList list = appPanel.getListImageCollections();
+    private final PopupMenuPanelThumbnails popup = PopupMenuPanelThumbnails.getInstance();
+    private final ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
 
     public ControllerDeleteFromImageCollection() {
         listenToActionSources();

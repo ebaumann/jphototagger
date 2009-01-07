@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/16
  */
-public class ListModelPrograms extends DefaultListModel {
+public final class ListModelPrograms extends DefaultListModel {
 
     private boolean action;
     

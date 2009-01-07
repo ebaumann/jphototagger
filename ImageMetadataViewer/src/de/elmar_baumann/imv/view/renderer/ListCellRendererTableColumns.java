@@ -14,9 +14,9 @@ import javax.swing.JList;
  * @version 2008/09/13
  * @see     de.elmar_baumann.imv.database.metadata.Column#getDescription()
  */
-public class ListCellRendererTableColumns extends DefaultListCellRenderer {
+public final class ListCellRendererTableColumns extends DefaultListCellRenderer {
 
-    private static Font cellFont = new Font(Font.DIALOG, Font.PLAIN, 11);
+    private static final Font cellFont = new Font(Font.DIALOG, Font.PLAIN, 11);
 
     @Override
     public Component getListCellRendererComponent(JList list, Object value,

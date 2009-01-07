@@ -9,7 +9,7 @@ import de.elmar_baumann.imv.view.panels.EditMetadataPanelsArray;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/22
  */
-public class MetadataEditPanelEvent {
+public final class MetadataEditPanelEvent {
 
     public enum Type {
 
@@ -22,8 +22,9 @@ public class MetadataEditPanelEvent {
          */
         EditDisabled
     }
-    private EditMetadataPanelsArray source;
-    private Type type;
+    
+    private final EditMetadataPanelsArray source;
+    private final Type type;
 
     /**
      * Konstruktor.
@@ -46,29 +47,11 @@ public class MetadataEditPanelEvent {
     }
 
     /**
-     * Setzt die Ereignisquelle.
-     * 
-     * @param source  Ereignisquelle
-     */
-    public void setSource(EditMetadataPanelsArray source) {
-        this.source = source;
-    }
-
-    /**
      * Liefert den Ereignistyp.
      * 
      * @return Ereignistyp
      */
     public Type getType() {
         return type;
-    }
-
-    /**
-     * Setzt den Ereignistyp.
-     * 
-     * @param type  Ereignistyp
-     */
-    public void setType(Type type) {
-        this.type = type;
     }
 }

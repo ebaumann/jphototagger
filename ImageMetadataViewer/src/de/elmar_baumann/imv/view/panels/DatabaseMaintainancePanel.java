@@ -19,14 +19,14 @@ import javax.swing.JLabel;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/11/08
  */
-public class DatabaseMaintainancePanel extends javax.swing.JPanel
+public final class DatabaseMaintainancePanel extends javax.swing.JPanel
     implements ProgressListener {
 
-    private Stack<Runnable> runnables = new Stack<Runnable>();
-    private Map<Runnable, JLabel> finishedLabelOfRunnable = new HashMap<Runnable, JLabel>();
+    private static final Icon iconFinished = AppSettings.getIcon("icon_finished.png"); // NOI18N
+    private final Stack<Runnable> runnables = new Stack<Runnable>();
+    private final Map<Runnable, JLabel> finishedLabelOfRunnable = new HashMap<Runnable, JLabel>();
     private boolean stop = false;
     private boolean canClose = true;
-    private final Icon iconFinished = AppSettings.getIcon("icon_finished.png"); // NOI18N
 
     /** Creates new form DatabaseMaintainancePanel */
     public DatabaseMaintainancePanel() {

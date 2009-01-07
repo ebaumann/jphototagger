@@ -29,12 +29,11 @@ import java.util.StringTokenizer;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public class ExifMetadata {
+public final class ExifMetadata {
 
-    private static Map<String, Double> rotationAngleOfString = new HashMap<String, Double>();
-    private static List<Integer> tagsToDisplay = new ArrayList<Integer>();
+    private static final Map<String, Double> rotationAngleOfString = new HashMap<String, Double>();
+    private static final List<Integer> tagsToDisplay = new ArrayList<Integer>();
     
-
     static {
         rotationAngleOfString.put("(0, 0) is top-left", new Double(0)); // 1 // NOI18N
         rotationAngleOfString.put("(0, 0) is top-right", new Double(0)); // 2 // NOI18N
@@ -74,7 +73,7 @@ public class ExifMetadata {
      * @param  file  file
      * @return metadata oder null if errors occured
      */
-    public List<IdfEntryProxy> getMetadata(File file) {
+    public static List<IdfEntryProxy> getMetadata(File file) {
         if (file == null || !file.exists()) {
             return null;
         }
@@ -168,7 +167,7 @@ public class ExifMetadata {
      * @param entries EXIF-Metadaten eines Bilds
      * @return        Drehwinkel im Uhrzeigersinn
      */
-    public double getThumbnailRotationAngle(List<IdfEntryProxy> entries) {
+    public static double getThumbnailRotationAngle(List<IdfEntryProxy> entries) {
         IdfEntryProxy entry = findEntryWithTag(entries, 274);
         if (entry != null) {
             Double angle = rotationAngleOfString.get(entry.toString());
@@ -203,9 +202,8 @@ public class ExifMetadata {
     }
 
     private static boolean contains(List<IdfEntryProxy> entries, IdfEntryProxy entry) {
-        ExifIfdEntryComparator comparator = new ExifIfdEntryComparator();
         for (IdfEntryProxy e : entries) {
-            if (comparator.compare(e, entry) == 0) {
+            if (ExifIfdEntryComparator.INSTANCE.compare(e, entry) == 0) {
                 return true;
             }
         }
@@ -363,7 +361,7 @@ public class ExifMetadata {
         out.println();
     }
 
-    static void dumpPrintEntry(IFDEntry e, PrintStream out) {
+    private static void dumpPrintEntry(IFDEntry e, PrintStream out) {
         out.println();
         int tag = e.getTag();
         out.print(tag);
@@ -373,7 +371,7 @@ public class ExifMetadata {
         out.print(e);
     }
 
-    static void dumpPrintIptc(IPTCEntryCollection entries, PrintStream out) {
+    private static void dumpPrintIptc(IPTCEntryCollection entries, PrintStream out) {
         out.println();
         Enumeration keys = entries.keys();
         while (keys.hasMoreElements()) {
@@ -389,4 +387,6 @@ public class ExifMetadata {
             }
         }
     }
+
+    private ExifMetadata() {}
 }

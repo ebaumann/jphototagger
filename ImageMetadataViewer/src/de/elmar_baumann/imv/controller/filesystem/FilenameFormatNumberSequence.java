@@ -9,7 +9,7 @@ import java.text.DecimalFormat;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/13
  */
-public class FilenameFormatNumberSequence extends FilenameFormat {
+public final class FilenameFormatNumberSequence extends FilenameFormat {
 
     private int current;
     private int start;
@@ -73,4 +73,6 @@ public class FilenameFormatNumberSequence extends FilenameFormat {
     public String toString() {
         return Bundle.getString("NumberSequenceFilenameFormat.String");
     }
+
+    private FilenameFormatNumberSequence() {}
 }

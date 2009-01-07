@@ -30,9 +30,9 @@ import java.util.Set;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public class EditColumns {
+public final class EditColumns {
 
-    private static Map<Column, EditHints> editHintsForColumn = new LinkedHashMap<Column, EditHints>();
+    private static final Map<Column, EditHints> editHintsForColumn = new LinkedHashMap<Column, EditHints>();
     
 
     static {

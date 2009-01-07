@@ -14,10 +14,10 @@ import javax.swing.table.TableCellRenderer;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/17
  */
-public class TableCellRendererDatabaseInfoColumns implements TableCellRenderer {
+public final class TableCellRendererDatabaseInfoColumns implements TableCellRenderer {
 
     private static final String paddingLeft = "  "; // NOI18N
-    private static Font cellFont = new Font(Font.DIALOG, Font.PLAIN, 11);
+    private static final Font cellFont = new Font(Font.DIALOG, Font.PLAIN, 11);
 
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value,

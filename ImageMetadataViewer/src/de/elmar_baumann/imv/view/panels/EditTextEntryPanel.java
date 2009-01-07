@@ -18,11 +18,11 @@ import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/18
  */
-public class EditTextEntryPanel extends javax.swing.JPanel implements TextEntry, DocumentListener {
+public final class EditTextEntryPanel extends javax.swing.JPanel implements TextEntry, DocumentListener {
 
+    private static final Color editableColor = Color.WHITE;
     private Column column;
     private AutoCompleteData autoCompleteData;
-    private static final Color editableColor = Color.WHITE;
     private boolean dirty = false;
 
     public EditTextEntryPanel(Column column) {

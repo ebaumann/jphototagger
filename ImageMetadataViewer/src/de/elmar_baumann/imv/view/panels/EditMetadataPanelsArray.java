@@ -47,14 +47,14 @@ import javax.swing.JTextField;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public class EditMetadataPanelsArray implements FocusListener, DatabaseListener,
+public final class EditMetadataPanelsArray implements FocusListener, DatabaseListener,
     AppExitListener {
 
-    boolean editable = true;
-    private JComponent container;
-    private List<JPanel> panels = new ArrayList<JPanel>();
+    private final List<JPanel> panels = new ArrayList<JPanel>();
     private List<String> filenames = new ArrayList<String>();
     private List<MetadataEditPanelListener> listeners = new LinkedList<MetadataEditPanelListener>();
+    boolean editable = true;
+    private JComponent container;
     private EditMetadataActionsPanel editActionsPanel;
     private boolean isUseAutocomplete = false;
     private Component lastFocussedComponent;
@@ -210,13 +210,12 @@ public class EditMetadataPanelsArray implements FocusListener, DatabaseListener,
         emptyPanels(false);
         this.filenames = filenames;
         IptcXmpMapping mapping = IptcXmpMapping.getInstance();
-        XmpMetadata xmpMetadata = new XmpMetadata();
         for (JPanel panel : panels) {
             TextEntry textEntry = (TextEntry) panel;
             Column xmpColumn = textEntry.getColumn();
             IPTCEntryMeta iptcEntryMeta = mapping.getIptcEntryMetaOfXmpColumn(xmpColumn);
             List<XMPPropertyInfo> matchingInfos =
-                xmpMetadata.getFilteredPropertyInfosOfIptcEntryMeta(iptcEntryMeta, infos);
+                XmpMetadata.getFilteredPropertyInfosOfIptcEntryMeta(iptcEntryMeta, infos);
 
             int countMatchingInfos = matchingInfos.size();
             StringBuffer buffer = new StringBuffer();

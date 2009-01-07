@@ -16,11 +16,11 @@ import java.util.List;
  * @version 2008-10-05
  * @see     Database#deleteNotExistingImageFiles(de.elmar_baumann.imv.event.ProgressListener)
  */
-public class RecordsWithNotExistingFilesDeleter implements Runnable,
+public final class RecordsWithNotExistingFilesDeleter implements Runnable,
     ProgressListener {
 
-    private DatabaseImageFiles db = DatabaseImageFiles.getInstance();
-    private List<ProgressListener> progressListeners = new ArrayList<ProgressListener>();
+    private final DatabaseImageFiles db = DatabaseImageFiles.getInstance();
+    private final List<ProgressListener> progressListeners = new ArrayList<ProgressListener>();
     private boolean notifyProgressEnded = false;
     private String startMessage;
     private String endMessage;

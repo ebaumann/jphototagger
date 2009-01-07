@@ -12,7 +12,7 @@ public enum FileSystemError {
     ReadOnly("Die Datei kann nur gelesen werden"),
     Unknown("Die Usache ist unbekannt.");
     
-    private String message;
+    private final String message;
     
     private FileSystemError(String message) {
         this.message = message;

@@ -22,14 +22,14 @@ import javax.swing.event.ListSelectionListener;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public class ControllerSafedSearchSelected extends Controller
+public final class ControllerSafedSearchSelected extends Controller
     implements ListSelectionListener, RefreshListener {
 
-    private AppPanel appPanel = Panels.getInstance().getAppPanel();
-    private DatabaseSearch db = DatabaseSearch.getInstance();
-    private JList list = appPanel.getListSavedSearches();
-    private ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelThumbnails();
-    private EditMetadataPanelsArray editPanels = appPanel.getEditPanelsArray();
+    private final AppPanel appPanel = Panels.getInstance().getAppPanel();
+    private final DatabaseSearch db = DatabaseSearch.getInstance();
+    private final JList list = appPanel.getListSavedSearches();
+    private final ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelThumbnails();
+    private final EditMetadataPanelsArray editPanels = appPanel.getEditPanelsArray();
 
     public ControllerSafedSearchSelected() {
         listenToActionSources();

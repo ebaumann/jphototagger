@@ -21,12 +21,12 @@ import javax.swing.event.ChangeListener;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/12
  */
-public class ControllerSliderThumbnailSize extends Controller
+public final class ControllerSliderThumbnailSize extends Controller
     implements ChangeListener, ThumbnailsPanelListener, UserSettingsChangeListener {
 
-    private AppPanel appPanel = Panels.getInstance().getAppPanel();
-    private ThumbnailsPanel thumbnailsPanel = appPanel.getPanelThumbnails();
-    private JSlider slider = appPanel.getSliderThumbnailSize();
+    private final AppPanel appPanel = Panels.getInstance().getAppPanel();
+    private final ThumbnailsPanel thumbnailsPanel = appPanel.getPanelThumbnails();
+    private final JSlider slider = appPanel.getSliderThumbnailSize();
     private static final int stepWidth = 10;
     private static final int maxMaginficationPercent = 100;
     private static final String keySliderValue = ControllerSliderThumbnailSize.class.getName() + "." + "SliderValue";

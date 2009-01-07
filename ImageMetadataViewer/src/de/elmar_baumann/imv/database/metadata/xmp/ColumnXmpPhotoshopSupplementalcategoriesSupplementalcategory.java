@@ -10,10 +10,10 @@ import de.elmar_baumann.imv.resource.Bundle;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/08/23
  */
-public class ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory
+public final class ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory
     extends Column {
 
-    private static ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory instance =
+    private static final ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory instance =
         new ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory();
 
     public static Column getInstance() {

@@ -19,10 +19,10 @@ import javax.swing.JProgressBar;
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  */
-public class ActionsPanel extends javax.swing.JPanel {
+public final class ActionsPanel extends javax.swing.JPanel {
 
-    private ListModelPrograms model = new ListModelPrograms(true);
-    private List<ProgramActionListener> actionListeners = new ArrayList<ProgramActionListener>();
+    private final ListModelPrograms model = new ListModelPrograms(true);
+    private final List<ProgramActionListener> actionListeners = new ArrayList<ProgramActionListener>();
     private Object progressBarOwner;
 
     /** Creates new form ActionsPanel */

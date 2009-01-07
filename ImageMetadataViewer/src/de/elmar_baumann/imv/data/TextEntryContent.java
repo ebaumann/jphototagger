@@ -8,7 +8,7 @@ import de.elmar_baumann.imv.database.metadata.Column;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/29
  */
-public class TextEntryContent implements TextEntry {
+public final class TextEntryContent implements TextEntry {
 
     private String text;
     private Column column;

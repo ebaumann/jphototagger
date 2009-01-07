@@ -17,10 +17,10 @@ import java.util.List;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/14
  */
-public class ErrorListeners {
+public final class ErrorListeners {
 
-    private static ErrorListeners instance = new ErrorListeners();
-    private List<ErrorListener> errorListeners;
+    private final List<ErrorListener> errorListeners = new ArrayList<ErrorListener>();
+    private static final ErrorListeners instance = new ErrorListeners();
 
     /**
      * Meldet einen Beobachter an.
@@ -52,6 +52,5 @@ public class ErrorListeners {
     }
 
     private ErrorListeners() {
-        errorListeners = new ArrayList<ErrorListener>();
     }
 }

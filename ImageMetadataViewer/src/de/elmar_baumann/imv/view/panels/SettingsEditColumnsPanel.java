@@ -21,11 +21,11 @@ import javax.swing.ListSelectionModel;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/11/01
  */
-public class SettingsEditColumnsPanel extends javax.swing.JPanel
+public final class SettingsEditColumnsPanel extends javax.swing.JPanel
     implements ActionListener, Persistence {
 
+    private final ListenerProvider listenerProvider = ListenerProvider.getInstance();
     CheckList list;
-    private ListenerProvider listenerProvider = ListenerProvider.getInstance();
 
     /** Creates new form SettingsEditColumnsPanel */
     public SettingsEditColumnsPanel() {

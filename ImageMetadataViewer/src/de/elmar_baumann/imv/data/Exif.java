@@ -8,7 +8,7 @@ import java.sql.Date;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/08/27
  */
-public class Exif {
+public final class Exif {
 
     private Date dateTimeOriginal;
     private double focalLength = -1;

@@ -19,13 +19,13 @@ import javax.swing.event.ListSelectionListener;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public class ControllerCategoryItemSelected extends Controller
+public final class ControllerCategoryItemSelected extends Controller
     implements ListSelectionListener, RefreshListener {
 
-    private DatabaseImageFiles db = DatabaseImageFiles.getInstance();
-    private AppPanel appPanel = Panels.getInstance().getAppPanel();
-    private JList listCategories = appPanel.getListCategories();
-    private ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelThumbnails();
+    private final DatabaseImageFiles db = DatabaseImageFiles.getInstance();
+    private final AppPanel appPanel = Panels.getInstance().getAppPanel();
+    private final JList listCategories = appPanel.getListCategories();
+    private final ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelThumbnails();
 
     public ControllerCategoryItemSelected() {
         listenToActionSources();

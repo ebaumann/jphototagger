@@ -16,9 +16,9 @@ import javax.swing.filechooser.FileSystemView;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/11/04
  */
-public class ListCellRendererPrograms extends DefaultListCellRenderer {
+public final class ListCellRendererPrograms extends DefaultListCellRenderer {
 
-    private FileSystemView fileSystemView = FileSystemView.getFileSystemView();
+    private static final FileSystemView fileSystemView = FileSystemView.getFileSystemView();
     private static final Icon iconError = AppSettings.getIcon("icon_error.png"); // NOI18N
 
     @Override

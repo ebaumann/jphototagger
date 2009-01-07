@@ -9,9 +9,9 @@ import de.elmar_baumann.imv.resource.Bundle;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/23
  */
-public class ColumnXmpLastModified extends Column {
+public final class ColumnXmpLastModified extends Column {
     
-    private static ColumnXmpLastModified instance = new ColumnXmpLastModified();
+    private static final ColumnXmpLastModified instance = new ColumnXmpLastModified();
     
     public static ColumnXmpLastModified getInstance() {
         return instance;

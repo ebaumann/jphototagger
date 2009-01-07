@@ -16,9 +16,9 @@ import java.util.List;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/21
  */
-public class DatabaseFavoriteDirectories extends Database {
+public final class DatabaseFavoriteDirectories extends Database {
     
-    private static DatabaseFavoriteDirectories instance = new DatabaseFavoriteDirectories();
+    private static final DatabaseFavoriteDirectories instance = new DatabaseFavoriteDirectories();
     
     public static DatabaseFavoriteDirectories getInstance() {
         return instance;

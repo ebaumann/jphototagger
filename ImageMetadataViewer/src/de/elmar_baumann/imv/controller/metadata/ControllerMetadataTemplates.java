@@ -25,19 +25,19 @@ import javax.swing.JOptionPane;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/22
  */
-public class ControllerMetadataTemplates extends Controller
+public final class ControllerMetadataTemplates extends Controller
     implements ActionListener, MetadataEditPanelListener {
 
-    private DatabaseMetadataEditTemplates db = DatabaseMetadataEditTemplates.getInstance();
-    private AppPanel appPanel = Panels.getInstance().getAppPanel();
-    private EditMetadataPanelsArray editPanels = appPanel.getEditPanelsArray();
-    private JComboBox comboBoxMetadataTemplates = appPanel.getComboBoxMetadataTemplates();
-    private ComboBoxModelMetadataEditTemplates model = (ComboBoxModelMetadataEditTemplates) comboBoxMetadataTemplates.getModel();
-    private JButton buttonMetadataTemplateCreate = appPanel.getButtonMetadataTemplateCreate();
-    private JButton buttonMetadataTemplateUpdate = appPanel.getButtonMetadataTemplateUpdate();
-    private JButton buttonMetadataTemplateDelete = appPanel.getButtonMetadataTemplateDelete();
-    private JButton buttonMetadataTemplateInsert = appPanel.getButtonMetadataTemplateInsert();
-    private JButton buttonMetadataTemplateRename = appPanel.getButtonMetadataTemplateRename();
+    private final DatabaseMetadataEditTemplates db = DatabaseMetadataEditTemplates.getInstance();
+    private final AppPanel appPanel = Panels.getInstance().getAppPanel();
+    private final EditMetadataPanelsArray editPanels = appPanel.getEditPanelsArray();
+    private final JComboBox comboBoxMetadataTemplates = appPanel.getComboBoxMetadataTemplates();
+    private final ComboBoxModelMetadataEditTemplates model = (ComboBoxModelMetadataEditTemplates) comboBoxMetadataTemplates.getModel();
+    private final JButton buttonMetadataTemplateCreate = appPanel.getButtonMetadataTemplateCreate();
+    private final JButton buttonMetadataTemplateUpdate = appPanel.getButtonMetadataTemplateUpdate();
+    private final JButton buttonMetadataTemplateDelete = appPanel.getButtonMetadataTemplateDelete();
+    private final JButton buttonMetadataTemplateInsert = appPanel.getButtonMetadataTemplateInsert();
+    private final JButton buttonMetadataTemplateRename = appPanel.getButtonMetadataTemplateRename();
 
     public ControllerMetadataTemplates() {
         listenToActionSources();

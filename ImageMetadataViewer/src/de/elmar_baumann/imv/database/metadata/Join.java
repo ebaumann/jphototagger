@@ -8,7 +8,7 @@ import java.util.List;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public class Join {
+public final class Join {
 
     /**
      * Liefert den JOIN-Anteil eines SQL-Statements für eine Verknüpfung
@@ -63,4 +63,6 @@ public class Join {
 
         return join.toString();
     }
+
+    private Join() {}
 }

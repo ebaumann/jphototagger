@@ -30,14 +30,14 @@ import javax.swing.JProgressBar;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public class ControllerCreateMetadataOfSelectedThumbnails extends Controller
+public final class ControllerCreateMetadataOfSelectedThumbnails extends Controller
     implements ActionListener, ProgressListener {
 
-    private Queue<ImageMetadataToDatabase> updaters = new ConcurrentLinkedQueue<ImageMetadataToDatabase>();
+    private final Queue<ImageMetadataToDatabase> updaters = new ConcurrentLinkedQueue<ImageMetadataToDatabase>();
     private boolean wait = false;
-    private PopupMenuPanelThumbnails popup = PopupMenuPanelThumbnails.getInstance();
-    private ProgressBarCurrentTasks progressBarProvider = ProgressBarCurrentTasks.getInstance();
-    private ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
+    private final PopupMenuPanelThumbnails popup = PopupMenuPanelThumbnails.getInstance();
+    private final ProgressBarCurrentTasks progressBarProvider = ProgressBarCurrentTasks.getInstance();
+    private final ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
     private JProgressBar progressBar;
 
     /**

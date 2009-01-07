@@ -24,14 +24,14 @@ import javax.swing.JOptionPane;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public class CopyToDirectoryDialog extends Dialog
+public final class CopyToDirectoryDialog extends Dialog
     implements ProgressListener {
 
     private static final String keyLastDirectory = "de.elmar_baumann.imv.view.dialogs.CopyToDirectoryDialog.LastDirectory"; // NOI18N
+    private final List<ProgressListener> progressListeners = new ArrayList<ProgressListener>();
     private CopyFiles copyTask;
     private boolean copy = false;
     private List<File> sourceFiles;
-    private List<ProgressListener> progressListeners = new ArrayList<ProgressListener>();
     private String lastDirectory = ""; // NOI18N
     private boolean copyIfVisible = false;
 

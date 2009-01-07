@@ -19,7 +19,7 @@ import javax.swing.table.TableCellRenderer;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public class TableCellRendererXmp extends TableCellRendererMetadata
+public final class TableCellRendererXmp extends TableCellRendererMetadata
     implements TableCellRenderer {
 
     private static final String pathDelimiter = "/"; // NOI18N

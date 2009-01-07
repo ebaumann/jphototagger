@@ -17,7 +17,7 @@ import javax.swing.filechooser.FileSystemView;
  * @version 2008/07/25
  * @see     de.elmar_baumann.imv.view.dialogs.UpdateMetadataOfDirectoriesDialog
  */
-public class ListCellRendererDirectories extends DefaultListCellRenderer {
+public final class ListCellRendererDirectories extends DefaultListCellRenderer {
 
     private static final FileSystemView fileSystemView = FileSystemView.getFileSystemView();
     private static final MessageFormat message = new MessageFormat(Bundle.getString("ListCellRendererDirectories.LabelText"));

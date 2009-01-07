@@ -22,9 +22,9 @@ import java.util.List;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/07/29
  */
-public class FastSearchColumns {
+public final class FastSearchColumns {
 
-    private static List<Column> searchColumns = new ArrayList<Column>();
+    private static final List<Column> searchColumns = new ArrayList<Column>();
     
 
     static {

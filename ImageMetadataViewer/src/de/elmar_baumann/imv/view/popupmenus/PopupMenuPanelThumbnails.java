@@ -23,7 +23,7 @@ import javax.swing.JSeparator;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public class PopupMenuPanelThumbnails extends JPopupMenu
+public final class PopupMenuPanelThumbnails extends JPopupMenu
         implements UserSettingsChangeListener {
 
     private final String actionUpdateMetadata = Bundle.getString("PopupMenuPanelThumbnails.Action.UpdateMetadata");
@@ -40,7 +40,7 @@ public class PopupMenuPanelThumbnails extends JPopupMenu
     private final String actionFileSystemDeleteFiles = Bundle.getString("PopupMenuPanelThumbnails.Action.FileSystemDeleteFiles");
     private final String actionFileSystemRenameFiles = Bundle.getString("PopupMenuPanelThumbnails.Action.FileSystemRename");
     private final String actionFileSystemMoveFiles = Bundle.getString("PopupMenuPanelThumbnails.Action.FileSystemMove");
-    private JMenu menuPrograms = new JMenu(Bundle.getString("PopupMenuPanelThumbnails.menuOtherOpenImageApps.text"));
+    private final JMenu menuPrograms = new JMenu(Bundle.getString("PopupMenuPanelThumbnails.menuOtherOpenImageApps.text"));
     private final JMenuItem itemUpdateMetadata = new JMenuItem(actionUpdateMetadata);
     private final JMenuItem itemUpdateThumbnail = new JMenuItem(actionUpdateThumbnail);
     private final JMenuItem itemCreateImageCollection = new JMenuItem(actionCreateImageCollection);
@@ -55,11 +55,11 @@ public class PopupMenuPanelThumbnails extends JPopupMenu
     private final JMenuItem itemFileSystemDeleteFiles = new JMenuItem(actionFileSystemDeleteFiles);
     private final JMenuItem itemFileSystemRenameFiles = new JMenuItem(actionFileSystemRenameFiles);
     private final JMenuItem itemFileSystemMoveFiles = new JMenuItem(actionFileSystemMoveFiles);
-    private List<ActionListener> actionListenersOpenFilesWithOtherApp = new ArrayList<ActionListener>();
-    private Map<JMenuItem, Float> angleOfItem = new HashMap<JMenuItem, Float>();
-    private Map<JMenuItem, DatabaseUpdate> databaseUpdateOfMenuItem = new HashMap<JMenuItem, DatabaseUpdate>();
-    private Map<JMenuItem, Program> programOfMenuItem = new HashMap<JMenuItem, Program>();
-    private static PopupMenuPanelThumbnails instance = new PopupMenuPanelThumbnails();
+    private final List<ActionListener> actionListenersOpenFilesWithOtherApp = new ArrayList<ActionListener>();
+    private final Map<JMenuItem, Float> angleOfItem = new HashMap<JMenuItem, Float>();
+    private final Map<JMenuItem, DatabaseUpdate> databaseUpdateOfMenuItem = new HashMap<JMenuItem, DatabaseUpdate>();
+    private final Map<JMenuItem, Program> programOfMenuItem = new HashMap<JMenuItem, Program>();
+    private static final PopupMenuPanelThumbnails instance = new PopupMenuPanelThumbnails();
 
     /**
      * Liefert die einzige Klasseninstanz.

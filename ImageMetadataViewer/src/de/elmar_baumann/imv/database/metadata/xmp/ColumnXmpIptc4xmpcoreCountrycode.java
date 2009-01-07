@@ -10,9 +10,9 @@ import de.elmar_baumann.imv.resource.Bundle;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/08/23
  */
-public class ColumnXmpIptc4xmpcoreCountrycode extends Column {
+public final class ColumnXmpIptc4xmpcoreCountrycode extends Column {
 
-    private static ColumnXmpIptc4xmpcoreCountrycode instance = new ColumnXmpIptc4xmpcoreCountrycode();
+    private static final ColumnXmpIptc4xmpcoreCountrycode instance = new ColumnXmpIptc4xmpcoreCountrycode();
 
     public static Column getInstance() {
         return instance;

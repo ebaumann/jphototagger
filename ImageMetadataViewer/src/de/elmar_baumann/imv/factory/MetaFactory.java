@@ -15,9 +15,9 @@ import javax.swing.JProgressBar;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/29
  */
-public class MetaFactory extends Thread {
+public final class MetaFactory extends Thread {
 
-    private static MetaFactory instance = new MetaFactory();
+    private static final MetaFactory instance = new MetaFactory();
 
     public static MetaFactory getInstance() {
         return instance;

@@ -9,7 +9,7 @@ import java.io.File;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/07/28
  */
-public class ImageFile {
+public final class ImageFile {
 
     private String filename;
     private long lastmodified = -1;

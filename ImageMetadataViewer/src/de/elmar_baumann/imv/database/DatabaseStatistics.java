@@ -15,9 +15,9 @@ import java.util.List;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/21
  */
-public class DatabaseStatistics extends Database {
+public final class DatabaseStatistics extends Database {
 
-    private static DatabaseStatistics instance = new DatabaseStatistics();
+    private static final DatabaseStatistics instance = new DatabaseStatistics();
 
     public static DatabaseStatistics getInstance() {
         return instance;

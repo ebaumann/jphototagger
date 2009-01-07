@@ -15,11 +15,11 @@ import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/11/06
  */
-public class ControllerActionExecutor extends Controller implements ProgramActionListener {
+public final class ControllerActionExecutor extends Controller implements ProgramActionListener {
 
-    private ImageFileThumbnailsPanel thumbnailsPanel;
-    private ProgramExecutor executor;
-    private ActionsDialog actionsDialog;
+    private final ImageFileThumbnailsPanel thumbnailsPanel;
+    private final ProgramExecutor executor;
+    private final ActionsDialog actionsDialog;
 
     public ControllerActionExecutor() {
         thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();

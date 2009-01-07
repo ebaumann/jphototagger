@@ -16,7 +16,7 @@ import javax.swing.table.DefaultTableModel;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public class TableModelExif extends DefaultTableModel {
+public final class TableModelExif extends DefaultTableModel {
 
     private File file;
     private List<IdfEntryProxy> allEntries;
@@ -63,12 +63,11 @@ public class TableModelExif extends DefaultTableModel {
     }
 
     private void setExifData() {
-        ExifMetadata exifMetadata = new ExifMetadata();
-        allEntries = exifMetadata.getMetadata(file);
+        allEntries = ExifMetadata.getMetadata(file);
         if (allEntries != null) {
             List<IdfEntryProxy> entries = ExifMetadata.getDisplayableMetadata(allEntries);
             if (entries != null) {
-                Collections.sort(entries, new ExifIfdEntryDisplayComparator());
+                Collections.sort(entries, ExifIfdEntryDisplayComparator.INSTANCE);
                 for (IdfEntryProxy entry : entries) {
                     String value = entry.toString();
                     if (value.length() > 0) {

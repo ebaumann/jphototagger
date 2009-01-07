@@ -18,6 +18,7 @@ public final class ImageProperties implements R3 {
 
         return s;
     }
+
     private final String[] res = {
         "rO0ABXVyAAJbQqzzF/gGCFTgAgAAeHAAAABurO0ABXQADUVsbWFyIEJhdW1hbm50", // NOI18N
         "AApYTVAtVmlld2VydAAAdAAEbWV0YXQAF25vbi1jb21tZXJjaWFsIHVzZSBvbmx5", // NOI18N

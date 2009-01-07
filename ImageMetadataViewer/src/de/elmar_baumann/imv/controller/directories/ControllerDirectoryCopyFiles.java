@@ -23,11 +23,11 @@ import javax.swing.TransferHandler;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/26
  */
-public class ControllerDirectoryCopyFiles extends Controller implements KeyListener {
+public final class ControllerDirectoryCopyFiles extends Controller implements KeyListener {
 
-    private AppPanel appPanel = Panels.getInstance().getAppPanel();
-    private ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelThumbnails();
-    private JTree treeDirectories = appPanel.getTreeDirectories();
+    private final AppPanel appPanel = Panels.getInstance().getAppPanel();
+    private final ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelThumbnails();
+    private final JTree treeDirectories = appPanel.getTreeDirectories();
 
     public ControllerDirectoryCopyFiles() {
         treeDirectories.addKeyListener(this);

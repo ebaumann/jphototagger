@@ -20,12 +20,12 @@ import javax.swing.JOptionPane;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/23
  */
-public class ControllerDeleteFavoriteDirectory extends Controller
+public final class ControllerDeleteFavoriteDirectory extends Controller
     implements ActionListener {
 
-    private AppPanel appPanel = Panels.getInstance().getAppPanel();
-    private ListModelFavoriteDirectories model = (ListModelFavoriteDirectories) appPanel.getListFavoriteDirectories().getModel();
-    private PopupMenuListFavoriteDirectories popup = PopupMenuListFavoriteDirectories.getInstance();
+    private final AppPanel appPanel = Panels.getInstance().getAppPanel();
+    private final ListModelFavoriteDirectories model = (ListModelFavoriteDirectories) appPanel.getListFavoriteDirectories().getModel();
+    private final PopupMenuListFavoriteDirectories popup = PopupMenuListFavoriteDirectories.getInstance();
     private CheckDirectoriesRemoved removeChecker;
     private static final int removeCheckIntervalSeconds = 3;
 

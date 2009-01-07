@@ -8,7 +8,7 @@ import de.elmar_baumann.imv.data.SavedSearch;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/08/23
  */
-public class SearchEvent {
+public final class SearchEvent {
 
     private Type type;
     private SavedSearch data;

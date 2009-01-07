@@ -16,11 +16,11 @@ import java.util.List;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public class IptcToXmp implements Runnable {
+public final class IptcToXmp implements Runnable {
 
-    private List<String> filenames;
+    private final List<ProgressListener> progressListeners = new ArrayList<ProgressListener>();
+    private final List<String> filenames;
     private boolean stop = false;
-    private List<ProgressListener> progressListeners = new ArrayList<ProgressListener>();
 
     public IptcToXmp(List<String> filenames) {
         this.filenames = filenames;
@@ -38,7 +38,6 @@ public class IptcToXmp implements Runnable {
     public void run() {
         notifyStart();
         int size = filenames.size();
-        XmpMetadata xmpMeta = new XmpMetadata();
         int index = 0;
         for (index = 0; !stop && index < size; index++) {
             String imageFilename = filenames.get(index);
@@ -49,7 +48,7 @@ public class IptcToXmp implements Runnable {
                 xmp = new Xmp();
             }
             xmp.setIptc(iptc, false);
-            xmpMeta.writeMetadataToSidecarFile(sidecarFilename, xmp);
+            XmpMetadata.writeMetadataToSidecarFile(sidecarFilename, xmp);
             notifyPerformed(index);
         }
         notifyEnd(index);

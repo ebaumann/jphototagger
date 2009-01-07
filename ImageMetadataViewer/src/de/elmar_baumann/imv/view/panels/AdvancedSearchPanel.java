@@ -29,11 +29,11 @@ import javax.swing.JOptionPane;
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  */
-public class AdvancedSearchPanel extends javax.swing.JPanel
+public final class AdvancedSearchPanel extends javax.swing.JPanel
     implements SearchListener {
 
+    private final List<SearchColumnPanel> searchColumnPanels = new LinkedList<SearchColumnPanel>();
     private List<SearchListener> searchListeners = new ArrayList<SearchListener>();
-    private List<SearchColumnPanel> searchColumnPanels = new LinkedList<SearchColumnPanel>();
     private String searchName = ""; // NOI18N
     private boolean isSavedSearch = false;
     private ListenerProvider listenerProvider;

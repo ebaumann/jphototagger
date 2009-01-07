@@ -13,7 +13,7 @@ import javax.swing.JCheckBox;
  * @version 2008-10-05
  * @see     de.elmar_baumann.lib.component.CheckList
  */
-public class ListModelSelectedColumns extends DefaultListModel {
+public final class ListModelSelectedColumns extends DefaultListModel {
 
     private List<Column> allColumns;
 

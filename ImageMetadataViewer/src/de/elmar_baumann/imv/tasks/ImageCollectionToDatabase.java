@@ -13,9 +13,9 @@ import javax.swing.JOptionPane;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public class ImageCollectionToDatabase {
+public final class ImageCollectionToDatabase {
 
-    private static DatabaseImageCollections db = DatabaseImageCollections.getInstance();
+    private static final DatabaseImageCollections db = DatabaseImageCollections.getInstance();
 
     /**
      * Fügt in die Datenbank eine neue Bildsammlung ein.

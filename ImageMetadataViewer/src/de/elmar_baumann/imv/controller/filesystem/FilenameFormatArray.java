@@ -9,7 +9,7 @@ import java.util.List;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/13
  */
-public class FilenameFormatArray {
+public final class FilenameFormatArray {
     
     private List<FilenameFormat> formats = new ArrayList<FilenameFormat>();
     

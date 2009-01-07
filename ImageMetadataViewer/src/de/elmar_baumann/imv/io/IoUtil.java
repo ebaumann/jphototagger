@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public class IoUtil {
+public final class IoUtil {
 
     /**
      * Startet eine Anwendung und zeigt im Fehlerfall einen Messagedialog.
@@ -72,4 +72,6 @@ public class IoUtil {
         }
         return buffer.toString();
     }
+
+    private IoUtil() {}
 }

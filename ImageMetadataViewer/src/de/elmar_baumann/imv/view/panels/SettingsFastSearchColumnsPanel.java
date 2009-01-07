@@ -18,13 +18,13 @@ import javax.swing.ListSelectionModel;
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  */
-public class SettingsFastSearchColumnsPanel extends javax.swing.JPanel
+public final class SettingsFastSearchColumnsPanel extends javax.swing.JPanel
     implements ActionListener, Persistence {
 
-    private  CheckList list = new CheckList();
-    private ListModelSelectedColumns model = new ListModelSelectedColumns(
+    private final CheckList list = new CheckList();
+    private final ListModelSelectedColumns model = new ListModelSelectedColumns(
         FastSearchColumns.get());
-    private ListenerProvider listenerProvider = ListenerProvider.getInstance();
+    private final ListenerProvider listenerProvider = ListenerProvider.getInstance();
 
     /** Creates new form SettingsFastSearchColumnsPanel */
     public SettingsFastSearchColumnsPanel() {

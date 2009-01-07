@@ -23,14 +23,14 @@ import javax.swing.JOptionPane;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public class FavoriteDirectoryPropertiesDialog extends Dialog {
+public final class FavoriteDirectoryPropertiesDialog extends Dialog {
 
-    private static List<Image> appIcons = AppSettings.getAppIcons();
+    private static final List<Image> appIcons = AppSettings.getAppIcons();
     private static final String keyLastDirectory = "de.elmar_baumann.imv.view.dialogs.FavoriteDirectoryPropertiesDialog.LastDirectory"; // NOI18N
+    private final DatabaseFavoriteDirectories db = DatabaseFavoriteDirectories.getInstance();
     private String lastDirectory = ""; // NOI18N
     private boolean accepted = false;
     private boolean isUpdate = false;
-    private DatabaseFavoriteDirectories db = DatabaseFavoriteDirectories.getInstance();
 
     /** Creates new form FavoriteDirectoryPropertiesDialog */
     public FavoriteDirectoryPropertiesDialog() {

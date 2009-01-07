@@ -66,11 +66,11 @@ import java.util.List;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/29
  */
-public class ControllerFactory {
+public final class ControllerFactory {
 
-    private List<Controller> controllers = new ArrayList<Controller>();
+    private final List<Controller> controllers = new ArrayList<Controller>();
     private ControllerArrayScheduledTasks controllerScheduledTasks;
-    private static ControllerFactory instance = new ControllerFactory();
+    private static final ControllerFactory instance = new ControllerFactory();
 
     static ControllerFactory getInstance() {
         return instance;

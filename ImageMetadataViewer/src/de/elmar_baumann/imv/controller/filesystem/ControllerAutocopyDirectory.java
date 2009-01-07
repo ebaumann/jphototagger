@@ -22,7 +22,7 @@ import javax.swing.JOptionPane;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/19
  */
-public class ControllerAutocopyDirectory extends Controller implements ActionListener {
+public final class ControllerAutocopyDirectory extends Controller implements ActionListener {
 
     public ControllerAutocopyDirectory() {
         Panels.getInstance().getAppFrame().getMenuItemAutocopyDirectory().addActionListener(this);

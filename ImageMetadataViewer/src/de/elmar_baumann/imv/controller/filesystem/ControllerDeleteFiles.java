@@ -24,11 +24,11 @@ import javax.swing.JOptionPane;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/12
  */
-public class ControllerDeleteFiles extends Controller implements ActionListener {
+public final class ControllerDeleteFiles extends Controller implements ActionListener {
 
-    private ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
-    DatabaseImageFiles db = DatabaseImageFiles.getInstance();
-    PopupMenuPanelThumbnails popup = PopupMenuPanelThumbnails.getInstance();
+    private final ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
+    private final DatabaseImageFiles db = DatabaseImageFiles.getInstance();
+    private final PopupMenuPanelThumbnails popup = PopupMenuPanelThumbnails.getInstance();
 
     public ControllerDeleteFiles() {
         listenToActionSources();

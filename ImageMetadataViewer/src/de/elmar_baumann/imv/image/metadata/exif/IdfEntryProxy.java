@@ -9,7 +9,7 @@ import com.imagero.reader.tiff.IFDEntry;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/15
  */
-public class IdfEntryProxy implements Comparable<IdfEntryProxy> {
+public final class IdfEntryProxy implements Comparable<IdfEntryProxy> {
 
     private int tag;
     private byte[] rawValue;

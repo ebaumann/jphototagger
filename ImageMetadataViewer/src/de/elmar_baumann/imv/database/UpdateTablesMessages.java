@@ -12,7 +12,7 @@ import de.elmar_baumann.lib.dialog.ProgressDialog;
 class UpdateTablesMessages {
 
     private ProgressDialog dialog;
-    private static UpdateTablesMessages instance = new UpdateTablesMessages();
+    private static final UpdateTablesMessages instance = new UpdateTablesMessages();
 
     static UpdateTablesMessages getInstance() {
         return instance;

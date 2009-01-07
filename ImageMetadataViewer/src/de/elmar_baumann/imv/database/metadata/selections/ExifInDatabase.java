@@ -10,9 +10,9 @@ import java.util.List;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/14
  */
-public class ExifInDatabase {
+public final class ExifInDatabase {
 
-    private static List<ExifTag> storedTags = new ArrayList<ExifTag>();
+    private static final List<ExifTag> storedTags = new ArrayList<ExifTag>();
     
 
     static {

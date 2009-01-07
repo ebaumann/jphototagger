@@ -25,16 +25,16 @@ import javax.swing.JMenuItem;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/27
  */
-public class ControllerMenuItemEnabler extends Controller
+public final class ControllerMenuItemEnabler extends Controller
     implements UserSettingsChangeListener, ThumbnailsPanelListener {
 
-    private Map<JMenuItem, List<Content>> contentsOfMenuItem = new HashMap<JMenuItem, List<Content>>();
-    private List<JMenuItem> itemsIsSelection = new ArrayList<JMenuItem>();
-    private AppFrame appFrame = Panels.getInstance().getAppFrame();
-    private PopupMenuPanelThumbnails popupThumbnails = PopupMenuPanelThumbnails.getInstance();
-    private ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
-    private JMenuItem itemOpenFilesWithStandardApp = popupThumbnails.getItemOpenFilesWithStandardApp();
-    private JMenu menuOtherOpenImageApps = popupThumbnails.getMenuOtherOpenImageApps();
+    private final Map<JMenuItem, List<Content>> contentsOfMenuItem = new HashMap<JMenuItem, List<Content>>();
+    private final List<JMenuItem> itemsIsSelection = new ArrayList<JMenuItem>();
+    private final AppFrame appFrame = Panels.getInstance().getAppFrame();
+    private final PopupMenuPanelThumbnails popupThumbnails = PopupMenuPanelThumbnails.getInstance();
+    private final ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
+    private final JMenuItem itemOpenFilesWithStandardApp = popupThumbnails.getItemOpenFilesWithStandardApp();
+    private final JMenu menuOtherOpenImageApps = popupThumbnails.getMenuOtherOpenImageApps();
     private boolean hasPrograms = DatabasePrograms.getInstance().hasProgram();
 
     public ControllerMenuItemEnabler() {

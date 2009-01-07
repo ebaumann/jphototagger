@@ -13,9 +13,9 @@ import javax.swing.JOptionPane;
  * 
  * @author Elmar Baumann <eb@elmar-baumann.de>
  */
-public class DatabaseMaintainanceDialog extends Dialog {
+public final class DatabaseMaintainanceDialog extends Dialog {
 
-    private static DatabaseMaintainanceDialog instance = new DatabaseMaintainanceDialog();
+    private static final DatabaseMaintainanceDialog instance = new DatabaseMaintainanceDialog();
 
     private DatabaseMaintainanceDialog() {
         super((java.awt.Frame) null, false);

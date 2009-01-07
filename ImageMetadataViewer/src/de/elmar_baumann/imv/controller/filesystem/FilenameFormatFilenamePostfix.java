@@ -6,7 +6,7 @@ package de.elmar_baumann.imv.controller.filesystem;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/13
  */
-public class FilenameFormatFilenamePostfix extends FilenameFormat {
+public final class FilenameFormatFilenamePostfix extends FilenameFormat {
 
     /**
      * Postfix prepanded by a period.

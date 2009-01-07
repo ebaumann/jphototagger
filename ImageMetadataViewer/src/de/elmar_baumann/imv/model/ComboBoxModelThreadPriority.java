@@ -11,10 +11,10 @@ import javax.swing.DefaultComboBoxModel;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/07/27
  */
-public class ComboBoxModelThreadPriority extends DefaultComboBoxModel {
+public final class ComboBoxModelThreadPriority extends DefaultComboBoxModel {
 
-    private static Map<String, Integer> priorityOfString = new HashMap<String, Integer>();
-    private static Map<Integer, String> stringOfPriority = new HashMap<Integer, String>();
+    private static final Map<String, Integer> priorityOfString = new HashMap<String, Integer>();
+    private static final Map<Integer, String> stringOfPriority = new HashMap<Integer, String>();
     private static final String highPriorityString = Bundle.getString("ComboBoxModelThreadPriority.ThreadPriority.High");
     private static final String mediumPriorityString = Bundle.getString("ComboBoxModelThreadPriority.ThreadPriority.Medium");
     private static final String lowPriorityString = Bundle.getString("ComboBoxModelThreadPriority.ThreadPriority.Low");

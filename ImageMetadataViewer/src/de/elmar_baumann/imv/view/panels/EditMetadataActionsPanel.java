@@ -8,7 +8,7 @@ import javax.swing.JComboBox;
  * 
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  */
-public class EditMetadataActionsPanel extends javax.swing.JPanel {
+public final class EditMetadataActionsPanel extends javax.swing.JPanel {
 
     /** Creates new form EditMetadataActionsPanel */
     public EditMetadataActionsPanel() {

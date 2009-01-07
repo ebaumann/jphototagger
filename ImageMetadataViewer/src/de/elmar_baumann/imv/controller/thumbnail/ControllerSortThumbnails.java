@@ -7,7 +7,6 @@ import de.elmar_baumann.imv.view.frames.AppFrame;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JRadioButtonMenuItem;
 
 /**
@@ -16,10 +15,10 @@ import javax.swing.JRadioButtonMenuItem;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/14
  */
-public class ControllerSortThumbnails extends Controller implements ActionListener {
+public final class ControllerSortThumbnails extends Controller implements ActionListener {
 
-    ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
-    AppFrame appFrame = Panels.getInstance().getAppFrame();
+    private final ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
+    private final AppFrame appFrame = Panels.getInstance().getAppFrame();
 
     public ControllerSortThumbnails() {
         listenToActionSources();

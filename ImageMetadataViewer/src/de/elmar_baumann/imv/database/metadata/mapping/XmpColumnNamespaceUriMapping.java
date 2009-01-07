@@ -32,10 +32,10 @@ import java.util.Map;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/19
  */
-public class XmpColumnNamespaceUriMapping {
+public final class XmpColumnNamespaceUriMapping {
 
-    private static Map<Column, String> namespaceUriOfColumn = new HashMap<Column, String>();
-    private static XmpColumnNamespaceUriMapping instance = new XmpColumnNamespaceUriMapping();
+    private static final Map<Column, String> namespaceUriOfColumn = new HashMap<Column, String>();
+    private static final XmpColumnNamespaceUriMapping instance = new XmpColumnNamespaceUriMapping();
 
     static  {
         namespaceUriOfColumn.put(ColumnXmpDcCreator.getInstance(), XMPConst.NS_DC);

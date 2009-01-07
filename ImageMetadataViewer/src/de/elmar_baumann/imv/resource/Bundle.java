@@ -9,9 +9,9 @@ import java.util.ResourceBundle;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/02
  */
-public class Bundle {
+public final class Bundle {
 
-    private static ResourceBundle bundle =
+    private static final ResourceBundle bundle =
         ResourceBundle.getBundle("de/elmar_baumann/imv/resource/Bundle");
 
     /**

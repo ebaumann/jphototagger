@@ -24,14 +24,14 @@ import javax.swing.SpinnerNumberModel;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/11/02
  */
-public class SettingsTasksPanel extends javax.swing.JPanel
+public final class SettingsTasksPanel extends javax.swing.JPanel
     implements Persistence {
 
-    private DatabaseAutoscanDirectories db = DatabaseAutoscanDirectories.getInstance();
+    private static final String keyLastSelectedAutoscanDirectory = "UserSettingsDialog.keyLastSelectedAutoscanDirectory"; // NOI18N
+    private final DatabaseAutoscanDirectories db = DatabaseAutoscanDirectories.getInstance();
+    private final ListenerProvider listenerProvider = ListenerProvider.getInstance();
     private ListModelAutoscanDirectories modelAutoscanDirectories = new ListModelAutoscanDirectories();
-    private ListenerProvider listenerProvider = ListenerProvider.getInstance();
     private String lastSelectedAutoscanDirectory = ""; // NOI18N
-    private final String keyLastSelectedAutoscanDirectory = "UserSettingsDialog.keyLastSelectedAutoscanDirectory"; // NOI18N
 
     /** Creates new form SettingsTasksPanel */
     public SettingsTasksPanel() {

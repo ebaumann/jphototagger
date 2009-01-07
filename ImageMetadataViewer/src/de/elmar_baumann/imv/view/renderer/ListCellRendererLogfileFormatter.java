@@ -16,11 +16,10 @@ import javax.swing.JList;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/17
  */
-public class ListCellRendererLogfileFormatter extends DefaultListCellRenderer {
+public final class ListCellRendererLogfileFormatter extends DefaultListCellRenderer {
 
-    private static Map<Class, String> textOfClass = new HashMap<Class, String>();
+    private static final Map<Class, String> textOfClass = new HashMap<Class, String>();
     private static final String undefined = Bundle.getString("ListCellRendererLogfileFormatter.InformationMessage.Format.Undefined");
-    
 
     static {
         textOfClass.put(XMLFormatter.class, Bundle.getString("ListCellRendererLogfileFormatter.InformationMessage.Format.Xml"));

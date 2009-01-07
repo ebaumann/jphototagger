@@ -8,9 +8,9 @@ import de.elmar_baumann.imv.database.metadata.Table;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/08/27
  */
-public class TableXmpPhotoshopSupplementalCategories extends Table {
+public final class TableXmpPhotoshopSupplementalCategories extends Table {
 
-    private static TableXmpPhotoshopSupplementalCategories instance = new TableXmpPhotoshopSupplementalCategories();
+    private static final TableXmpPhotoshopSupplementalCategories instance = new TableXmpPhotoshopSupplementalCategories();
 
     public static TableXmpPhotoshopSupplementalCategories getInstance() {
         return instance;

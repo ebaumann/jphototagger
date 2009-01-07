@@ -9,7 +9,7 @@ import java.util.List;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public class DirectoryInfo {
+public final class DirectoryInfo {
 
     private File directory;
     private List<File> imageFiles;

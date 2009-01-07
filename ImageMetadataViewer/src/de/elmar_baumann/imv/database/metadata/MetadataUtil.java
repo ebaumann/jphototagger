@@ -14,7 +14,7 @@ import javax.swing.text.NumberFormatter;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/28
  */
-public class MetadataUtil {
+public final class MetadataUtil {
 
     private static DefaultFormatterFactory integerFormatterFactory;
     private static DefaultFormatterFactory doubleFormatterFactory;

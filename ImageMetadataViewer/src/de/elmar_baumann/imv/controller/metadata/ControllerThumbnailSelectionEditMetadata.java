@@ -21,15 +21,15 @@ import javax.swing.JLabel;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public class ControllerThumbnailSelectionEditMetadata extends Controller
+public final class ControllerThumbnailSelectionEditMetadata extends Controller
     implements ThumbnailsPanelListener {
 
-    private AppPanel appPanel = Panels.getInstance().getAppPanel();
-    private JButton buttonSave = appPanel.getButtonSaveMetadata();
-    private JButton buttonEmpty = appPanel.getButtonEmptyMetadata();
-    private JLabel labelMetadataInfoEditable = appPanel.getLabelMetadataInfoEditable();
-    private EditMetadataPanelsArray editPanels = appPanel.getEditPanelsArray();
-    private ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelThumbnails();
+    private final AppPanel appPanel = Panels.getInstance().getAppPanel();
+    private final JButton buttonSave = appPanel.getButtonSaveMetadata();
+    private final JButton buttonEmpty = appPanel.getButtonEmptyMetadata();
+    private final JLabel labelMetadataInfoEditable = appPanel.getLabelMetadataInfoEditable();
+    private final EditMetadataPanelsArray editPanels = appPanel.getEditPanelsArray();
+    private final ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelThumbnails();
 
     public ControllerThumbnailSelectionEditMetadata() {
         thumbnailsPanel.addThumbnailsPanelListener(this);
@@ -89,8 +89,7 @@ public class ControllerThumbnailSelectionEditMetadata extends Controller
     private void setEditPanelsContent() {
         List<String> filenames = FileUtil.getAsFilenames(thumbnailsPanel.getSelectedFiles());
         if (filenames.size() == 1) {
-            XmpMetadata xmpMetadata = new XmpMetadata();
-            List<XMPPropertyInfo> xmpPropertyInfos = xmpMetadata.getPropertyInfosOfFile(filenames.get(0));
+            List<XMPPropertyInfo> xmpPropertyInfos = XmpMetadata.getPropertyInfosOfFile(filenames.get(0));
 
             if (xmpPropertyInfos != null && xmpPropertyInfos.size() > 0) {
                 editPanels.setXmpPropertyInfos(filenames, xmpPropertyInfos);

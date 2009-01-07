@@ -18,13 +18,13 @@ import javax.swing.JProgressBar;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/14
  */
-public class ControllerArrayScheduledTasks extends Controller
+public final class ControllerArrayScheduledTasks extends Controller
     implements ActionListener, Runnable, TaskListener {
 
-    private AppPanel appPanel = Panels.getInstance().getAppPanel();
-    private JProgressBar progressBar = appPanel.getProgressBarScheduledTasks();
-    private JButton buttonStop = appPanel.getButtonStopScheduledTasks();
-    private Queue<Controller> controllers = new ConcurrentLinkedQueue<Controller>();
+    private final AppPanel appPanel = Panels.getInstance().getAppPanel();
+    private final JProgressBar progressBar = appPanel.getProgressBarScheduledTasks();
+    private final JButton buttonStop = appPanel.getButtonStopScheduledTasks();
+    private final Queue<Controller> controllers = new ConcurrentLinkedQueue<Controller>();
     private Controller activeController;
     private int milliSecondsToStart = UserSettings.getInstance().
         getMinutesToStartScheduledTasks() * 60 * 1000;

@@ -16,12 +16,12 @@ import javax.swing.event.TreeSelectionListener;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/22
  */
-public class ControllerEnableInsertMetadataTemplate extends Controller
+public final class ControllerEnableInsertMetadataTemplate extends Controller
     implements TreeSelectionListener {
 
-    private AppPanel appPanel = Panels.getInstance().getAppPanel();
-    private JTree treeDirectories = appPanel.getTreeDirectories();
-    private JButton buttonMetadataTemplateInsert = appPanel.getButtonMetadataTemplateInsert();
+    private final AppPanel appPanel = Panels.getInstance().getAppPanel();
+    private final JTree treeDirectories = appPanel.getTreeDirectories();
+    private final JButton buttonMetadataTemplateInsert = appPanel.getButtonMetadataTemplateInsert();
 
     public ControllerEnableInsertMetadataTemplate() {
         treeDirectories.addTreeSelectionListener(this);

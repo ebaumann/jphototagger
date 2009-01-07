@@ -13,9 +13,9 @@ import javax.swing.JList;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/08/31
  */
-public class ListSavedSearchesMouseListener extends MouseAdapter {
+public final class ListSavedSearchesMouseListener extends MouseAdapter {
 
-    private PopupMenuListSavedSearches popup = PopupMenuListSavedSearches.getInstance();
+    private final PopupMenuListSavedSearches popup = PopupMenuListSavedSearches.getInstance();
 
     @Override
     public void mousePressed(MouseEvent e) {

@@ -20,13 +20,13 @@ import java.awt.event.ActionListener;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/10
  */
-public class ControllerCreateImageCollection extends Controller
+public final class ControllerCreateImageCollection extends Controller
     implements ActionListener {
 
-    private PopupMenuPanelThumbnails popup = PopupMenuPanelThumbnails.getInstance();
-    private AppPanel appPanel = Panels.getInstance().getAppPanel();
-    private ListModelImageCollections model = (ListModelImageCollections) appPanel.getListImageCollections().getModel();
-    private ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
+    private final PopupMenuPanelThumbnails popup = PopupMenuPanelThumbnails.getInstance();
+    private final AppPanel appPanel = Panels.getInstance().getAppPanel();
+    private final ListModelImageCollections model = (ListModelImageCollections) appPanel.getListImageCollections().getModel();
+    private final ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
 
     public ControllerCreateImageCollection() {
         popup.addActionListenerCreateImageCollection(this);

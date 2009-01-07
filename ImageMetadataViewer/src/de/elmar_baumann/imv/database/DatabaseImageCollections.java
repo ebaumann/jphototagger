@@ -16,9 +16,9 @@ import java.util.List;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/21
  */
-public class DatabaseImageCollections extends Database {
+public final class DatabaseImageCollections extends Database {
     
-    private static DatabaseImageCollections instance = new DatabaseImageCollections();
+    private static final DatabaseImageCollections instance = new DatabaseImageCollections();
     
     public static DatabaseImageCollections getInstance() {
         return instance;

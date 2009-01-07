@@ -15,14 +15,14 @@ import javax.swing.DefaultListModel;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/11/05
  */
-public class ListModelElementRemover {
+public final class ListModelElementRemover {
 
-    private DatabaseStatistics dbStatistics = DatabaseStatistics.getInstance();
-    private ExecutorService executor = Executors.newCachedThreadPool();
+    private final DatabaseStatistics dbStatistics = DatabaseStatistics.getInstance();
+    private final ExecutorService executor = Executors.newCachedThreadPool();
+    private final DefaultListModel model;
     private CheckForRemove removeChecker = new CheckForRemove();
     private Column column;
     private List<Column> columns;
-    private DefaultListModel model;
 
     /**
      * Constructor.

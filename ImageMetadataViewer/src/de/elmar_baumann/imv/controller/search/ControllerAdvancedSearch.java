@@ -28,14 +28,14 @@ import javax.swing.JTree;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public class ControllerAdvancedSearch extends Controller
+public final class ControllerAdvancedSearch extends Controller
     implements ActionListener, SearchListener {
 
-    private DatabaseSearch db = DatabaseSearch.getInstance();
-    private AppPanel appPanel = Panels.getInstance().getAppPanel();
-    private ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelThumbnails();
-    private List<JTree> selectionTrees = appPanel.getSelectionTrees();
-    private EditMetadataPanelsArray editPanels = appPanel.getEditPanelsArray();
+    private final DatabaseSearch db = DatabaseSearch.getInstance();
+    private final AppPanel appPanel = Panels.getInstance().getAppPanel();
+    private final ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelThumbnails();
+    private final List<JTree> selectionTrees = appPanel.getSelectionTrees();
+    private final EditMetadataPanelsArray editPanels = appPanel.getEditPanelsArray();
 
     public ControllerAdvancedSearch() {
         listenToActionSources();

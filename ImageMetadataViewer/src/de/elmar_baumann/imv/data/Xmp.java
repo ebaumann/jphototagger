@@ -37,29 +37,29 @@ import java.util.Map;
  * @version 2008/08/22
  * @see     Iptc
  */
-public class Xmp {
+public final class Xmp {
 
-    private StringBuffer dcDescription = new StringBuffer();
-    private StringBuffer dcRights = new StringBuffer();
-    private StringBuffer dcTitle = new StringBuffer();
-    private StringBuffer iptc4xmpcoreCountrycode = new StringBuffer();
-    private StringBuffer iptc4xmpcoreLocation = new StringBuffer();
-    private StringBuffer photoshopAuthorsposition = new StringBuffer();
-    private StringBuffer photoshopCaptionwriter = new StringBuffer();
-    private StringBuffer photoshopCategory = new StringBuffer();
-    private StringBuffer photoshopCity = new StringBuffer();
-    private StringBuffer photoshopCountry = new StringBuffer();
-    private StringBuffer photoshopCredit = new StringBuffer();
-    private StringBuffer photoshopHeadline = new StringBuffer();
-    private StringBuffer photoshopInstructions = new StringBuffer();
-    private StringBuffer photoshopSource = new StringBuffer();
-    private StringBuffer photoshopState = new StringBuffer();
-    private StringBuffer photoshopTransmissionReference = new StringBuffer();
-    private StringBuffer dcCreator = new StringBuffer();
-    private StringBuffer lastModified = new StringBuffer();
-    private List<String> dcSubjects = new ArrayList<String>();
-    private List<String> photoshopSupplementalCategories = new ArrayList<String>();
-    private Map<Column, Object> valueOfColumn = new HashMap<Column, Object>();
+    private final StringBuffer dcDescription = new StringBuffer();
+    private final StringBuffer dcRights = new StringBuffer();
+    private final StringBuffer dcTitle = new StringBuffer();
+    private final StringBuffer iptc4xmpcoreCountrycode = new StringBuffer();
+    private final StringBuffer iptc4xmpcoreLocation = new StringBuffer();
+    private final StringBuffer photoshopAuthorsposition = new StringBuffer();
+    private final StringBuffer photoshopCaptionwriter = new StringBuffer();
+    private final StringBuffer photoshopCategory = new StringBuffer();
+    private final StringBuffer photoshopCity = new StringBuffer();
+    private final StringBuffer photoshopCountry = new StringBuffer();
+    private final StringBuffer photoshopCredit = new StringBuffer();
+    private final StringBuffer photoshopHeadline = new StringBuffer();
+    private final StringBuffer photoshopInstructions = new StringBuffer();
+    private final StringBuffer photoshopSource = new StringBuffer();
+    private final StringBuffer photoshopState = new StringBuffer();
+    private final StringBuffer photoshopTransmissionReference = new StringBuffer();
+    private final StringBuffer dcCreator = new StringBuffer();
+    private final StringBuffer lastModified = new StringBuffer();
+    private final List<String> dcSubjects = new ArrayList<String>();
+    private final List<String> photoshopSupplementalCategories = new ArrayList<String>();
+    private final Map<Column, Object> valueOfColumn = new HashMap<Column, Object>();
 
     private void init() {
         valueOfColumn.put(ColumnXmpDcCreator.getInstance(),

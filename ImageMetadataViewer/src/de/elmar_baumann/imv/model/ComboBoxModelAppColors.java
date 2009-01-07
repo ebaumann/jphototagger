@@ -12,11 +12,11 @@ import javax.swing.DefaultComboBoxModel;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/10
  */
-public class ComboBoxModelAppColors extends DefaultComboBoxModel {
+public final class ComboBoxModelAppColors extends DefaultComboBoxModel {
 
     private static final Map<String, String> propertyFilenameOf = new HashMap<String, String>();
     private static final String standardLookAndFeel = Bundle.getString("ComboBoxModelAppColors.NameStandard");
-    public static final String keySelectedIndex = ComboBoxModelAppColors.class.getName() + ".SelectedIndex"; // NOI18N
+    private static final String keySelectedIndex = ComboBoxModelAppColors.class.getName() + ".SelectedIndex"; // NOI18N
     
 
     static {

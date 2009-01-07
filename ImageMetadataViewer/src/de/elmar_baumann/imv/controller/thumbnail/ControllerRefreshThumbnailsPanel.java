@@ -11,10 +11,10 @@ import java.awt.event.ActionListener;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/25
  */
-public class ControllerRefreshThumbnailsPanel extends Controller
+public final class ControllerRefreshThumbnailsPanel extends Controller
     implements ActionListener {
 
-    private ImageFileThumbnailsPanel thumbnailspanel;
+    private final ImageFileThumbnailsPanel thumbnailspanel;
 
     public ControllerRefreshThumbnailsPanel(ImageFileThumbnailsPanel thumbnailspanel) {
         this.thumbnailspanel = thumbnailspanel;
