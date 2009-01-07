@@ -6,7 +6,7 @@ package de.elmar_baumann.lib.util.help;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/02
  */
-public class HelpPage {
+public final class HelpPage {
     
     private String url;
     private String title;

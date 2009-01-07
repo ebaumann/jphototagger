@@ -14,7 +14,7 @@ import javax.swing.tree.TreePath;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/02
  */
-public class TreeModelHelpContents implements TreeModel {
+public final class TreeModelHelpContents implements TreeModel {
 
     private HelpNode root = new HelpNode();
 

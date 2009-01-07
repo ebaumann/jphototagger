@@ -12,7 +12,7 @@ import javax.swing.table.TableModel;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/02/17
  */
-public class TableUtil {
+public final class TableUtil {
 
     /**
      * Setzt die Spaltenbreiten so, dass auch die größte Zelle vollständig
@@ -60,5 +60,8 @@ public class TableUtil {
      */
     private static void setColumnWidth(int width, TableColumn column) {
         column.setPreferredWidth(width);
+    }
+
+    private TableUtil() {
     }
 }

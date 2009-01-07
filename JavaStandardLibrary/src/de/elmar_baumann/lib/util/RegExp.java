@@ -6,7 +6,7 @@ package de.elmar_baumann.lib.util;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/11
  */
-public class RegExp {
+public final class RegExp {
 
     /**
      * Maskiert in einem String Zeichen, die eine besondere Bedeutung haben
@@ -21,5 +21,8 @@ public class RegExp {
         return string.replace("\\", "\\\\"). // NOI18N
             replace("*", "\\*"). // NOI18N
             replace(".", "\\."); // NOI18N
+    }
+
+    private RegExp() {
     }
 }

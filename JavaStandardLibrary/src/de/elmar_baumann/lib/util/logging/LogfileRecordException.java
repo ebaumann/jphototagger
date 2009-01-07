@@ -11,7 +11,7 @@ import java.util.List;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public class LogfileRecordException {
+public final class LogfileRecordException {
 
     private List<LogfileRecordFrame> logfileRecordFrames = new ArrayList<LogfileRecordFrame>();
     private String message;

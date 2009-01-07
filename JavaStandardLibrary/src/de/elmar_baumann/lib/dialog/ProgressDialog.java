@@ -15,9 +15,9 @@ import java.util.List;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/08/03
  */
-public class ProgressDialog extends javax.swing.JDialog {
+public final class ProgressDialog extends javax.swing.JDialog {
 
-    private List<ActionListener> actionListeners = new ArrayList<ActionListener>();
+    private final List<ActionListener> actionListeners = new ArrayList<ActionListener>();
     private boolean closeEnabled = true;
 
     /**

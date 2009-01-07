@@ -12,7 +12,7 @@ import java.util.logging.Logger;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/08/02
  */
-public class External {
+public final class External {
 
     private enum Stream {
 
@@ -86,5 +86,8 @@ public class External {
         System.arraycopy(left, 0, newArray, 0, left.length);
         System.arraycopy(right, 0, newArray, left.length, count);
         return newArray;
+    }
+
+    private External() {
     }
 }

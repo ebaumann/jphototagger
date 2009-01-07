@@ -12,7 +12,7 @@ import java.util.List;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public class HelpNode {
+public final class HelpNode {
 
     private String title;
     private List<Object> children = new ArrayList<Object>();

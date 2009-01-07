@@ -9,9 +9,9 @@ import java.util.Comparator;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/14
  */
-public class ComparatorFilesLastModified implements Comparator<File> {
+public final class ComparatorFilesLastModified implements Comparator<File> {
 
-    private CompareOrder order;
+    private final CompareOrder order;
 
     public ComparatorFilesLastModified(CompareOrder order) {
         this.order = order;

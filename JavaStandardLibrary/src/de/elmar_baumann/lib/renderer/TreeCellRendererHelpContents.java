@@ -14,7 +14,7 @@ import javax.swing.tree.DefaultTreeCellRenderer;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/02
  */
-public class TreeCellRendererHelpContents extends DefaultTreeCellRenderer {
+public final class TreeCellRendererHelpContents extends DefaultTreeCellRenderer {
 
     private static final ImageIcon iconSectionCollapsed = IconUtil.getImageIcon("/de/elmar_baumann/lib/resource/icon_help_section_collapsed.png");
     private static final ImageIcon iconSectionExpanded = IconUtil.getImageIcon("/de/elmar_baumann/lib/resource/icon_help_section_expanded.png");

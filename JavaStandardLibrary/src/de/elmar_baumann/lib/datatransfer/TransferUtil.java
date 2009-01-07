@@ -19,13 +19,12 @@ import javax.swing.JList;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/17
  */
-public class TransferUtil {
+public final class TransferUtil {
 
     private static final String uriListMimeType = "text/uri-list;class=java.lang.String";
     private static final DataFlavor stringFlavor = DataFlavor.stringFlavor;
     private static final DataFlavor fileListFlavor = DataFlavor.javaFileListFlavor;
     private static DataFlavor uriListFlavor;
-    
 
     static {
         try {
@@ -222,5 +221,8 @@ public class TransferUtil {
             }
         }
         return false;
+    }
+
+    private TransferUtil() {
     }
 }

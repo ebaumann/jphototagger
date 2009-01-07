@@ -12,10 +12,10 @@ import java.io.IOException;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/17
  */
-public class TransferableObject implements Transferable {
+public final class TransferableObject implements Transferable {
 
-    private Object data;
-    private DataFlavor[] flavors = new DataFlavor[1];
+    private final Object data;
+    private final DataFlavor[] flavors = new DataFlavor[1];
     
     {
         flavors[0] = DataFlavor.stringFlavor;

@@ -24,7 +24,7 @@ public class Dialog extends JDialog {
 
     private ActionListener actionListenerEscape;
     private ActionListener actionListenerHelp;
-    private HelpBrowser help = HelpBrowser.getInstance();
+    private final HelpBrowser help = HelpBrowser.getInstance();
 
     protected Dialog() {
         super();

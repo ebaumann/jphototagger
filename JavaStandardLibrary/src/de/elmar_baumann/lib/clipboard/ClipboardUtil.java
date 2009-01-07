@@ -17,7 +17,7 @@ import java.util.List;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/26
  */
-public class ClipboardUtil {
+public final class ClipboardUtil {
 
     private static final DataFlavor stringFlavor = DataFlavor.stringFlavor;
     private static final DataFlavor fileListFlavor = DataFlavor.javaFileListFlavor;
@@ -79,5 +79,8 @@ public class ClipboardUtil {
             return TransferUtil.getFilesFromTokenString(transferable, delimiterStringList);
         }
         return files;
+    }
+
+    private ClipboardUtil() {
     }
 }

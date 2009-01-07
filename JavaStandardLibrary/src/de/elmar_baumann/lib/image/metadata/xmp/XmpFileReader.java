@@ -20,7 +20,7 @@ import java.util.logging.Logger;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2007/11/08
  */
-public class XmpFileReader {
+public final class XmpFileReader {
 
     /** Marker für den Beginn eines XMP-Packets (<?xpacket begin=) */
     private static final byte[] xmpPacketMarker = {0x3C, 0x3F, 0x78, 0x70,
@@ -151,5 +151,8 @@ public class XmpFileReader {
             }
         }
         return -1;
+    }
+
+    private XmpFileReader() {
     }
 }

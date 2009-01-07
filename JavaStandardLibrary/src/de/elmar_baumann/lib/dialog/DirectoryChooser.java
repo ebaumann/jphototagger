@@ -20,7 +20,7 @@ import javax.swing.tree.TreeSelectionModel;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public class DirectoryChooser extends Dialog {
+public final class DirectoryChooser extends Dialog {
 
     private boolean accepted = false;
     private boolean multiSelection = true;

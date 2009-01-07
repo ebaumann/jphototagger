@@ -10,7 +10,7 @@ import java.util.Comparator;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/07/23
  */
-public class FileComparator<File> implements
+public final class FileComparator<File> implements
     Comparator<File> {
 
     private SortType sortType = SortType.none;

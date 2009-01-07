@@ -11,9 +11,9 @@ import java.util.logging.Logger;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/02
  */
-public class Bundle {
+public final class Bundle {
 
-    private static ResourceBundle bundle =
+    private static final ResourceBundle bundle =
         ResourceBundle.getBundle("de/elmar_baumann/lib/resource/Bundle"); // NOI18N
 
     /**

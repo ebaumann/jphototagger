@@ -24,10 +24,10 @@ import javax.swing.border.EmptyBorder;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public class CheckList extends JList {
+public final class CheckList extends JList {
 
-    private static Border noFocusBorder = new EmptyBorder(1, 1, 1, 1);
-    private List<ActionListener> actionListeners = new ArrayList<ActionListener>();
+    private static final Border noFocusBorder = new EmptyBorder(1, 1, 1, 1);
+    private final List<ActionListener> actionListeners = new ArrayList<ActionListener>();
 
     public CheckList() {
         setCellRenderer(new CellRenderer());

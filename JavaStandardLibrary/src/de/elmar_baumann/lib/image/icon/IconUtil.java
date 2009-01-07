@@ -17,7 +17,7 @@ import javax.swing.filechooser.FileSystemView;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public class IconUtil {
+public final class IconUtil {
 
     /**
      * Liefert ein Bild eines Icons (z.B. aus einem JAR-File).

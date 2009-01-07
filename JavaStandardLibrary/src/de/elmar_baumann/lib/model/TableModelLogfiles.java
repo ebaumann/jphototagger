@@ -14,9 +14,9 @@ import javax.swing.table.DefaultTableModel;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public class TableModelLogfiles extends DefaultTableModel {
+public final class TableModelLogfiles extends DefaultTableModel {
 
-    private List<LogfileRecord> records = new ArrayList<LogfileRecord>();
+    private final List<LogfileRecord> records = new ArrayList<LogfileRecord>();
     private List<Level> visibleLevels = new ArrayList<Level>();
     private String filter = ""; // NOI18N
 

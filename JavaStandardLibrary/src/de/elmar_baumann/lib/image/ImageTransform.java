@@ -21,7 +21,7 @@ import javax.swing.ImageIcon;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/08/19
  */
-public class ImageTransform {
+public final class ImageTransform {
 
     /**
      * Rotiert ein Bild.
@@ -112,6 +112,9 @@ public class ImageTransform {
 
         ColorModel cm = pg.getColorModel();
         return cm == null ? false : cm.hasAlpha();
+    }
+
+    private ImageTransform() {
     }
 }
 

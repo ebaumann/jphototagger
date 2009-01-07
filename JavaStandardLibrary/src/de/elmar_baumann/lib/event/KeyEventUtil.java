@@ -8,7 +8,7 @@ import java.awt.event.KeyEvent;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/26
  */
-public class KeyEventUtil {
+public final class KeyEventUtil {
 
     /**
      * Returns whether to copy, i.e. that the key combination 
@@ -44,5 +44,8 @@ public class KeyEventUtil {
     public static boolean isInsert(KeyEvent e) {
         return e.getKeyCode() == KeyEvent.VK_V &&
             e.getModifiers() == KeyEvent.CTRL_MASK;
+    }
+
+    private KeyEventUtil() {
     }
 }

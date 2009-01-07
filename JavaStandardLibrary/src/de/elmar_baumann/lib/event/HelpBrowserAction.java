@@ -9,10 +9,10 @@ import java.net.URL;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/04
  */
-public class HelpBrowserAction {
+public final class HelpBrowserAction {
 
-    private Object source;
-    private Type type;
+    private final Object source;
+    private final Type type;
     private URL url;
 
     public HelpBrowserAction(Object source, Type type) {
@@ -35,15 +35,6 @@ public class HelpBrowserAction {
      */
     public Type getType() {
         return type;
-    }
-
-    /**
-     * Sets the action type.
-     * 
-     * @param type  action type
-     */
-    public void setType(Type type) {
-        this.type = type;
     }
 
     /**
@@ -72,14 +63,5 @@ public class HelpBrowserAction {
      */
     public Object getSource() {
         return source;
-    }
-
-    /**
-     * Sets the source of the action.
-     * 
-     * @param source  Source
-     */
-    public void setSource(Object source) {
-        this.source = source;
     }
 }

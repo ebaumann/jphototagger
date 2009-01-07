@@ -13,9 +13,9 @@ import javax.swing.ImageIcon;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/06
  */
-public class LogLevelIcons {
+public final class LogLevelIcons {
 
-    private static Map<Level, ImageIcon> iconOfLevel = new HashMap<Level, ImageIcon>();
+    private static final Map<Level, ImageIcon> iconOfLevel = new HashMap<Level, ImageIcon>();
 
     /**
      * Liefert das Icon für einen Loglevel.

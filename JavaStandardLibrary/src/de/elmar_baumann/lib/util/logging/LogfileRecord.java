@@ -10,7 +10,7 @@ import java.util.logging.Level;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public class LogfileRecord {
+public final class LogfileRecord {
 
     private String date;
     private Long millis;
@@ -25,9 +25,6 @@ public class LogfileRecord {
     private String catalog;
     private LogfileRecordException exception;
     private List<String> params;
-
-    public LogfileRecord() {
-    }
 
     /**
      * Liefert bei lokalisierten Nachrichten den Namen des Resource-Bundles

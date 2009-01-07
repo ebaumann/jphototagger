@@ -10,7 +10,7 @@ import java.util.ArrayList;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public class ArrayUtil {
+public final class ArrayUtil {
 
     /**
      * Erzeugt aus einem String eine String-List.
@@ -95,5 +95,8 @@ public class ArrayUtil {
             }
         }
         return false;
+    }
+
+    private ArrayUtil() {
     }
 }

@@ -16,7 +16,7 @@ import javax.swing.tree.TreePath;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public class TreeUtil {
+public final class TreeUtil {
 
     /**
      * Liefert, ob der Mauszeiger über einem selektierten Item steht.
@@ -175,5 +175,8 @@ public class TreeUtil {
             list.add(stack.pop());
         }
         return new TreePath(list.toArray());
+    }
+
+    private TreeUtil() {
     }
 }

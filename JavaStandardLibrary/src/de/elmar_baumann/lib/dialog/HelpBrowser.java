@@ -39,21 +39,21 @@ import javax.swing.tree.TreeSelectionModel;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public class HelpBrowser extends Dialog
+public final class HelpBrowser extends Dialog
     implements ActionListener, HyperlinkListener, MouseListener, TreeSelectionListener {
 
-    private static HelpBrowser instance = new HelpBrowser();
-    private LinkedList<URL> urlHistory = new LinkedList<URL>();
+    private static final String keySplitPane = HelpBrowser.class.getName() + ".SplitPane";
+    private static final String actionPrevious = Bundle.getString("HelpBrowser.Action.Previous");
+    private static final String actionNext = Bundle.getString("HelpBrowser.Action.Next");
+    private final LinkedList<URL> urlHistory = new LinkedList<URL>();
+    private final List<HelpBrowserListener> actionListeners = new ArrayList<HelpBrowserListener>();
     private int currentHistoryIndex = -1;
     private PopupMenu popupMenu;
-    private final String actionPrevious = Bundle.getString("HelpBrowser.Action.Previous");
-    private final String actionNext = Bundle.getString("HelpBrowser.Action.Next");
-    private List<HelpBrowserListener> actionListeners = new ArrayList<HelpBrowserListener>();
     private MenuItem itemPrevious;
     private MenuItem itemNext;
     private String startUrl;
     private String baseUrl;
-    private static final String keySplitPane = HelpBrowser.class.getName() + ".SplitPane";
+    private static HelpBrowser instance = new HelpBrowser();
 
     private HelpBrowser() {
         initComponents();

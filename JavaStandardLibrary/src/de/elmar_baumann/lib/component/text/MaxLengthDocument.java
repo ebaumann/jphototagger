@@ -10,9 +10,9 @@ import javax.swing.text.PlainDocument;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/18
  */
-public class MaxLengthDocument extends PlainDocument {
+public final class MaxLengthDocument extends PlainDocument {
 
-    private int maxLenght;
+    private final int maxLenght;
 
     /**
      * Konstruktor.
@@ -40,14 +40,5 @@ public class MaxLengthDocument extends PlainDocument {
      */
     public int getMaxLenght() {
         return maxLenght;
-    }
-
-    /**
-     * Setzt die maximale Zeichenanzahl.
-     * 
-     * @param maxLenght Maximale Zeichenanzahl
-     */
-    public void setMaxLenght(int maxLenght) {
-        this.maxLenght = maxLenght;
     }
 }

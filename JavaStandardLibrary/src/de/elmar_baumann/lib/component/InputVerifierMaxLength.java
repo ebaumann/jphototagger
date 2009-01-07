@@ -19,9 +19,9 @@ import javax.swing.JTextField;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/28
  */
-public class InputVerifierMaxLength extends InputVerifier {
+public final class InputVerifierMaxLength extends InputVerifier {
 
-    int maxLength;
+    private final int maxLength;
 
     public InputVerifierMaxLength(int maxLength) {
         this.maxLength = maxLength;

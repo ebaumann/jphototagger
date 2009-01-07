@@ -25,7 +25,7 @@ import org.xml.sax.SAXParseException;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/02
  */
-public class HelpIndexParser {
+public final class HelpIndexParser {
 
     /**
      * Reads the index file from an input stream and returns an the root node of

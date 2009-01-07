@@ -8,7 +8,7 @@ import java.awt.Component;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/27
  */
-public class ComponentUtil {
+public final class ComponentUtil {
 
     /**
      * Invalidates, validates and repaint a component.
@@ -19,5 +19,8 @@ public class ComponentUtil {
         component.invalidate();
         component.validate();
         component.repaint();
+    }
+
+    private ComponentUtil() {
     }
 }

@@ -8,7 +8,7 @@ import java.awt.event.MouseEvent;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/24
  */
-public class MouseEventUtil {
+public final class MouseEventUtil {
 
     /**
      * Workaround for some operating systems where 
@@ -21,7 +21,7 @@ public class MouseEventUtil {
     public static boolean isPopupTrigger(MouseEvent e) {
         return e.isPopupTrigger() || e.getModifiers() == 4;
     }
-    
+
     /**
      * A more descriptive variant of 
      * {@link java.awt.event.MouseEvent#getClickCount()} == 2.
@@ -41,5 +41,8 @@ public class MouseEventUtil {
      */
     public static boolean isLeftClick(MouseEvent e) {
         return e.getButton() == MouseEvent.BUTTON1;
+    }
+
+    private MouseEventUtil() {
     }
 }

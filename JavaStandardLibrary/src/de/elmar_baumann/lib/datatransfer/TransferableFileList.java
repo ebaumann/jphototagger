@@ -7,8 +7,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * 
@@ -16,12 +14,12 @@ import java.util.logging.Logger;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/17
  */
-public class TransferableFileList implements Transferable {
+public final class TransferableFileList implements Transferable {
 
     private static final DataFlavor fileListFlavor = DataFlavor.javaFileListFlavor;
     private static final DataFlavor uriListFlavor = TransferUtil.getUriListFlavor();
     private static final DataFlavor[] flavors = new DataFlavor[]{fileListFlavor, uriListFlavor};
-    private List files;
+    private final List files;
     private String fileUris;
 
     public TransferableFileList(File[] files) {

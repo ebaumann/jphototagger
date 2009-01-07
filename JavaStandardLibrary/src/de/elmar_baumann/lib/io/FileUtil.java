@@ -20,7 +20,7 @@ import java.util.logging.Logger;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public class FileUtil {
+public final class FileUtil {
 
     /**
      * Liefert den Inhalt einer Datei als String.
@@ -414,5 +414,8 @@ public class FileUtil {
             }
         }
         return directories;
+    }
+
+    private FileUtil() {
     }
 }

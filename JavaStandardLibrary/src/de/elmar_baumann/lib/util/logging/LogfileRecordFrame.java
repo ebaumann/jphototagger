@@ -7,14 +7,11 @@ package de.elmar_baumann.lib.util.logging;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 1.0 2008/08/04
  */
-public class LogfileRecordFrame {
+public final class LogfileRecordFrame {
 
     private String className;
     private String methodName;
     private String line;
-
-    public LogfileRecordFrame() {
-    }
 
     /**
      * Liefert den Namen der Klasse, die den Logeintrag veranlasste.

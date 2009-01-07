@@ -28,7 +28,7 @@ import org.xml.sax.SAXException;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public class LogfileParser implements EntityResolver {
+public final class LogfileParser implements EntityResolver {
 
     /**
      * Parst eine Logdatei und liefert deren Datensätze.
@@ -189,5 +189,8 @@ public class LogfileParser implements EntityResolver {
             }
         }
         return null;
+    }
+
+    private LogfileParser() {
     }
 }

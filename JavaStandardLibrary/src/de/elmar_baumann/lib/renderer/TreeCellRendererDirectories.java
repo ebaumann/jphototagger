@@ -16,7 +16,7 @@ import javax.swing.tree.DefaultTreeCellRenderer;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/07/23
  */
-public class TreeCellRendererDirectories extends DefaultTreeCellRenderer {
+public final class TreeCellRendererDirectories extends DefaultTreeCellRenderer {
 
     private FileSystemView fileSystemView = FileSystemView.getFileSystemView();
     private Icon rootIcon = IconUtil.getImageIcon("/de/elmar_baumann/lib/resource/icon_workspace.png"); // NOI18N

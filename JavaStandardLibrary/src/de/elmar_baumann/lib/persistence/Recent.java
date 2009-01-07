@@ -10,11 +10,11 @@ import java.util.Properties;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2007/11/12
  */
-public class Recent {
+public final class Recent {
 
+    private final LinkedList<String> recentList = new LinkedList<String>();
     private String name = "de.elmar_baumann.settings.Recent"; // NOI18N
     private int maxCount = 5;
-    private LinkedList<String> recentList = new LinkedList<String>();
 
     public Recent() {
     }

@@ -9,10 +9,10 @@ import java.util.Comparator;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/14
  */
-public class ComparatorFilesNames implements Comparator<File> {
+public final class ComparatorFilesNames implements Comparator<File> {
 
-    private CompareOrder order;
-    private CompareCase ccase;
+    private final CompareOrder order;
+    private final CompareCase ccase;
 
     public ComparatorFilesNames(CompareOrder order, CompareCase ccase) {
         this.order = order;

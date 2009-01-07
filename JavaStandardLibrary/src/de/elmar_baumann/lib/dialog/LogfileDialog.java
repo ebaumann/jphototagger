@@ -45,17 +45,17 @@ import javax.swing.text.html.HTMLDocument;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public class LogfileDialog extends javax.swing.JDialog implements
+public final class LogfileDialog extends javax.swing.JDialog implements
     ListSelectionListener, ActionListener {
 
-    String logfilename;
-    Map<JCheckBox, Level> levelOfCheckBox = new HashMap<JCheckBox, Level>();
-    List<Level> visibleLevels = new ArrayList<Level>();
-    static final private long criticalLogfileSizeInBytes = 10 * 1024 * 1024;
+    private static final long criticalLogfileSizeInBytes = 10 * 1024 * 1024;
+    private final Map<JCheckBox, Level> levelOfCheckBox = new HashMap<JCheckBox, Level>();
+    private final Map<Class, Integer> paneIndexOfFormatterClass = new HashMap<Class, Integer>();
+    private final List<Level> visibleLevels = new ArrayList<Level>();
     private String filterString;
     private List<LogfileRecord> logfileRecords;
     private Class formatterClass;
-    private Map<Class, Integer> paneIndexOfFormatterClass = new HashMap<Class, Integer>();
+    private String logfilename;
 
     private void initPaneIndexOfLogfileType() {
         paneIndexOfFormatterClass.put(XMLFormatter.class, 0);

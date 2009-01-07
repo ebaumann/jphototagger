@@ -9,7 +9,7 @@ import javax.swing.JTextArea;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/19
  */
-public class TabLeavingTextArea extends JTextArea {
+public final class TabLeavingTextArea extends JTextArea {
 
     @Override
     protected void processComponentKeyEvent(KeyEvent e) {

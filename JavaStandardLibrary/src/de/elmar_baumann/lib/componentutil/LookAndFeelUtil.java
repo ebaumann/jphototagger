@@ -17,7 +17,7 @@ import javax.swing.UnsupportedLookAndFeelException;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/07/14
  */
-public class LookAndFeelUtil {
+public final class LookAndFeelUtil {
 
     private static final String propertyColorDelim = ",";
 
@@ -77,7 +77,7 @@ public class LookAndFeelUtil {
             String red = tokenizer.nextToken().trim();
             String green = tokenizer.nextToken().trim();
             String blue = tokenizer.nextToken().trim();
-            int r = 0,  g = 0, b = 0;
+            int r = 0, g = 0, b = 0;
             try {
                 r = Integer.parseInt(red);
                 g = Integer.parseInt(green);
@@ -89,5 +89,8 @@ public class LookAndFeelUtil {
         } else {
             return null;
         }
+    }
+
+    private LookAndFeelUtil() {
     }
 }

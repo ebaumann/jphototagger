@@ -26,18 +26,18 @@ import javax.swing.tree.TreePath;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public class TreeModelDirectories implements TreeModel {
+public final class TreeModelDirectories implements TreeModel {
 
-    private Object root = new Object();
-    private List<File> rootNodes = new ArrayList<File>();
-    private Map<File, List<File>> childrenOfNode = new HashMap<File, List<File>>();
-    private List<TreeModelListener> listeners = new ArrayList<TreeModelListener>();
-    private List<File> filesForUpdateCheck = new LinkedList<File>();
+    private static final int updateIntervalSeconds = 3;
     private static final FileComparator sortComparator = new FileComparator(SortType.ascendingNoCase);
+    private final List<File> rootNodes = new ArrayList<File>();
+    private final Map<File, List<File>> childrenOfNode = new HashMap<File, List<File>>();
+    private final List<TreeModelListener> listeners = new ArrayList<TreeModelListener>();
+    private final List<File> filesForUpdateCheck = new LinkedList<File>();
+    private Object root = new Object();
     private boolean acceptHidden;
     private DirectoryFilter directoryFilter;
     private ScanForDirectoryUpdates updater;
-    private static final int updateIntervalSeconds = 3;
 
     public TreeModelDirectories(boolean accecptHidden) {
         this.acceptHidden = accecptHidden;

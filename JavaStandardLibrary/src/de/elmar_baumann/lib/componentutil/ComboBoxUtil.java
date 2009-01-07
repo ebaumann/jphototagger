@@ -8,7 +8,7 @@ import javax.swing.ComboBoxModel;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2007/08/29
  */
-public class ComboBoxUtil {
+public final class ComboBoxUtil {
 
     /**
      * Liefert, ob ein Combobox-Model ein Item mit bestimmtem String enthält
@@ -46,5 +46,8 @@ public class ComboBoxUtil {
             }
         }
         return null;
+    }
+
+    private ComboBoxUtil() {
     }
 }

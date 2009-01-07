@@ -17,10 +17,7 @@ import javax.swing.table.TableCellRenderer;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/08/03
  */
-public class TableCellRendererLogfileDialog implements TableCellRenderer {
-
-    public TableCellRendererLogfileDialog() {
-    }
+public final class TableCellRendererLogfileDialog implements TableCellRenderer {
 
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value,

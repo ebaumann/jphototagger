@@ -16,7 +16,7 @@ import javax.imageio.ImageIO;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/07/24
  */
-public class ImageUtil {
+public final class ImageUtil {
 
     /**
      * Liefert von einem Bild ein ByteArrayInputStream-Objekt.
@@ -42,5 +42,8 @@ public class ImageUtil {
                 ex);
         }
         return stream;
+    }
+
+    private ImageUtil() {
     }
 }

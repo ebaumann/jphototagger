@@ -8,7 +8,7 @@ import java.io.PrintStream;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/08/31
  */
-public class Util {
+public final class Util {
 
     /**
      * Liefert die in einem Byte gesetzten Bits.
@@ -43,5 +43,8 @@ public class Util {
             }
             out.print(" "); // NOI18N
         }
+    }
+
+    private Util() {
     }
 }

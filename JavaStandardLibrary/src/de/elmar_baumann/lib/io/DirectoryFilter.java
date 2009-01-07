@@ -9,10 +9,10 @@ import javax.swing.filechooser.FileSystemView;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/07/23
  */
-public class DirectoryFilter implements java.io.FileFilter {
+public final class DirectoryFilter implements java.io.FileFilter {
 
-    boolean accecptHidden = true;
-    FileSystemView fsv = FileSystemView.getFileSystemView();
+    private boolean accecptHidden = true;
+    private static FileSystemView fsv = FileSystemView.getFileSystemView();
 
     /**
      * Constructor.

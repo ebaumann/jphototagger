@@ -11,9 +11,9 @@ import java.util.List;
  * @version 2008-10-05
  * @see     de.elmar_baumann.lib.persistence.PersistentSettings
  */
-public class PersistentSettingsHints {
+public final class PersistentSettingsHints {
 
-    private List<String> excludedMembers = new ArrayList<String>();
+    private final List<String> excludedMembers = new ArrayList<String>();
     private boolean setComboBoxContent = false;
     private boolean setListContent = false;
     private boolean tabbedPaneContents = true;

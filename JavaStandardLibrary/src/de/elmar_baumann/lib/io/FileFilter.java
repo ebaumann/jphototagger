@@ -12,7 +12,7 @@ import java.util.StringTokenizer;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public class FileFilter implements java.io.FileFilter {
+public final class FileFilter implements java.io.FileFilter {
 
     private List<String> acceptedPatterns = new ArrayList<String>();
 

@@ -17,7 +17,7 @@ import java.util.logging.Logger;
  * @version 2007/08/08
  * @see     PersistentSettings
  */
-public class PersistentAppSizes {
+public final class PersistentAppSizes {
 
     private static final String postfixKeyWidth = ".Width"; // NOI18N
     private static final String postfixKeyHeight = ".Height"; // NOI18N
@@ -174,5 +174,8 @@ public class PersistentAppSizes {
 
         properties.setProperty(keyLocationX, Integer.toString(location.x));
         properties.setProperty(keyLocationY, Integer.toString(location.y));
+    }
+
+    private PersistentAppSizes() {
     }
 }

@@ -54,19 +54,19 @@ import javax.swing.tree.TreePath;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public class PersistentSettings {
+public final class PersistentSettings {
 
-    private Properties appProperties;
-    private String appName;
-    private static PersistentSettings instance = new PersistentSettings();
-    private final String delimiterNumberArray = ";"; // NOI18N
-    private final String delimiterArrayKeys = "."; // NOI18N
-    private final String filePathSeparator = "|"; // NOI18N
-    private final String keyPostfixViewportViewPositionX = ".ViewportViewPositionX"; // NOI18N
-    private final String keyPostfixViewportViewPositionY = ".ViewportViewPositionY"; // NOI18N
-    private final String keyAppendixSelected = "-selected"; // NOI18N
+    private static final String delimiterNumberArray = ";"; // NOI18N
+    private static final String delimiterArrayKeys = "."; // NOI18N
+    private static final String filePathSeparator = "|"; // NOI18N
+    private static final String keyPostfixViewportViewPositionX = ".ViewportViewPositionX"; // NOI18N
+    private static final String keyPostfixViewportViewPositionY = ".ViewportViewPositionY"; // NOI18N
+    private static final String keyAppendixSelected = "-selected"; // NOI18N
     private String propertiesFilename = "Settings.properties"; // NOI18N
     private String domainName = ".de.elmar_baumann"; // NOI18N
+    private Properties appProperties;
+    private String appName;
+    private static final PersistentSettings instance = new PersistentSettings();
 
     private PersistentSettings() {
     }
