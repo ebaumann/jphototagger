@@ -84,4 +84,7 @@ public final class EditColumns {
     public static EditHints getEditHints(Column column) {
         return editHintsForColumn.get(column);
     }
+
+    private EditColumns() {
+    }
 }

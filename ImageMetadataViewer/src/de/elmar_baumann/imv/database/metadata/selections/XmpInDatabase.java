@@ -53,4 +53,7 @@ public final class XmpInDatabase {
         }
         return false;
     }
+
+    private XmpInDatabase() {
+    }
 }

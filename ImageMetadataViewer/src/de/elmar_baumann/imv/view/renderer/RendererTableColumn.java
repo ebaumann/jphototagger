@@ -37,4 +37,7 @@ public final class RendererTableColumn {
         label.setIcon(TableIcons.getIcon(column.getTable()));
         label.setText(textOfColumn.get(column));
     }
+
+    protected RendererTableColumn() {
+    }
 }

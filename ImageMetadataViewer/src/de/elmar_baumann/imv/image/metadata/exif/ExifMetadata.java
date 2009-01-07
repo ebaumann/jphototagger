@@ -218,8 +218,7 @@ public final class ExifMetadata {
      */
     public static Exif getExif(File file) {
         Exif exif = null;
-        ExifMetadata exifMetadata = new ExifMetadata();
-        List<IdfEntryProxy> exifEntries = exifMetadata.getMetadata(file);
+        List<IdfEntryProxy> exifEntries = ExifMetadata.getMetadata(file);
         if (exifEntries != null) {
             exif = new Exif();
             try {

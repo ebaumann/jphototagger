@@ -65,4 +65,7 @@ public final class DatabaseInfoRecordCountColumns {
     public static List<Column> get() {
         return columns;
     }
+
+    private DatabaseInfoRecordCountColumns() {
+    }
 }

@@ -53,4 +53,7 @@ public final class TableIcons {
         Icon icon = iconOfTable.get(table);
         return icon == null ? iconUndefined : icon;
     }
+
+    private TableIcons() {
+    }
 }

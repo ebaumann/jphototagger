@@ -1,7 +1,6 @@
 package de.elmar_baumann.imv.controller.filesystem;
 
 import de.elmar_baumann.imv.resource.Bundle;
-import java.io.File;
 
 /**
  * Format with the name of a filname excluded the postfix and the parents.
