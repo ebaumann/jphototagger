@@ -28,7 +28,7 @@ public class IconUtil {
      *         falls dieses nicht geladen wurde
      */
     public static Image getIconImage(String path) {
-        java.net.URL imgURL = new IconUtil().getClass().getResource(path);
+        java.net.URL imgURL = IconUtil.class.getResource(path);
         if (imgURL != null) {
             return new ImageIcon(imgURL).getImage();
         } else {
@@ -64,7 +64,7 @@ public class IconUtil {
      *         nicht geladen wurde
      */
     public static ImageIcon getImageIcon(String path) {
-        java.net.URL imgURL = new IconUtil().getClass().getResource(path);
+        java.net.URL imgURL = IconUtil.class.getResource(path);
         if (imgURL != null) {
             return new ImageIcon(imgURL);
         } else {
@@ -93,7 +93,7 @@ public class IconUtil {
     }
 
     /**
-     * Returns a system specific ion of a file.
+     * Returns a system specific icon of a file.
      * 
      * @param  file file
      * @return icon or null on errors
@@ -103,7 +103,11 @@ public class IconUtil {
         try {
             icon = FileSystemView.getFileSystemView().getSystemIcon(file);
         } catch (Exception ex) {
+            Logger.getLogger(IconUtil.class.getName()).log(Level.SEVERE, null, ex);
         }
         return icon;
+    }
+
+    private IconUtil() {
     }
 }
