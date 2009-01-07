@@ -10,7 +10,7 @@ package de.elmar_baumann.lib.resource;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/16
  */
-public final class MutualExcludedResource {
+public class MutualExcludedResource {
 
     private Object resource = null;
     private boolean locked = false;
