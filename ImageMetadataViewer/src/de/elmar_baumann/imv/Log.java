@@ -14,6 +14,40 @@ import java.util.logging.Logger;
 public class Log {
 
     /**
+     * Logs a message with the class' logger and the log level
+     * {@link java.util.logging.Level#FINEST}.
+     *
+     * @param c        class
+     * @param message  Message
+     */
+    public static void logFinest(Class c, String message) {
+        Logger.getLogger(c.getName()).log(Level.FINEST, message);
+    }
+
+    /**
+     * Logs a message with the class' logger and the log level
+     * {@link java.util.logging.Level#FINER}.
+     *
+     * @param c        class
+     * @param message  Message
+     */
+    public static void logFiner(Class c, String message) {
+        Logger.getLogger(c.getName()).log(Level.FINER, message);
+    }
+
+    /**
+     * Logs a warning with the class' logger and notifies the error listeners.
+     * The log level is {@link java.util.logging.Level#WARNING}
+     *
+     * @param c        class
+     * @param message  Message
+     */
+    public static void logWarning(Class c, String message) {
+        Logger.getLogger(c.getName()).log(Level.WARNING, message);
+        ErrorListeners.getInstance().notifyErrorListener(new ErrorEvent(message, c));
+    }
+
+    /**
      * Logs an exception with the class' logger and notifies the error listeners.
      * The log level is {@link java.util.logging.Level#WARNING}
      * 
@@ -22,8 +56,7 @@ public class Log {
      */
     public static void logWarning(Class c, Exception ex) {
         Logger.getLogger(c.getName()).log(Level.WARNING, null, ex);
-        ErrorListeners.getInstance().notifyErrorListener(
-            new ErrorEvent(ex.getMessage(), c));
+        ErrorListeners.getInstance().notifyErrorListener(new ErrorEvent(ex.getMessage(), c));
     }
 
     /**
@@ -35,7 +68,8 @@ public class Log {
      */
     public static void logSevere(Class c, Exception ex) {
         Logger.getLogger(c.getName()).log(Level.SEVERE, null, ex);
-        ErrorListeners.getInstance().notifyErrorListener(
-            new ErrorEvent(ex.getMessage(), c));
+        ErrorListeners.getInstance().notifyErrorListener(new ErrorEvent(ex.getMessage(), c));
     }
+
+    private Log() {}
 }
