@@ -20,9 +20,9 @@ import javax.swing.TransferHandler;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/27
  */
-public class ControllerPasteFilesFromClipboard extends Controller implements ActionListener {
+public final class ControllerPasteFilesFromClipboard extends Controller implements ActionListener {
 
-    private ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
+    private final ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
 
     public ControllerPasteFilesFromClipboard() {
         Panels.getInstance().getAppFrame().getMenuItemInsert().addActionListener(this);
