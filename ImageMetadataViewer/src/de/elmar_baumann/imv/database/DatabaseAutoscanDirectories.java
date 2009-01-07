@@ -1,5 +1,6 @@
 package de.elmar_baumann.imv.database;
 
+import de.elmar_baumann.imv.Log;
 import de.elmar_baumann.imv.event.DatabaseAction;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,7 +9,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
 
 /**
  * 
@@ -43,7 +43,7 @@ public class DatabaseAutoscanDirectories extends Database {
                 PreparedStatement stmt = connection.prepareStatement(
                     "INSERT INTO autoscan_directories (directory) VALUES (?)"); // NOI18N
                 stmt.setString(1, directoryName);
-                logStatement(stmt, Level.FINER);
+                Log.logFiner(DatabaseAutoscanDirectories.class, stmt.toString());
                 int count = stmt.executeUpdate();
                 inserted = count > 0;
                 notifyDatabaseListener(
@@ -77,7 +77,7 @@ public class DatabaseAutoscanDirectories extends Database {
             for (String directoryName : directoryNames) {
                 if (!existsAutoscanDirectory(directoryName)) {
                     stmt.setString(1, directoryName);
-                    logStatement(stmt, Level.FINER);
+                    Log.logFiner(DatabaseAutoscanDirectories.class, stmt.toString());
                     stmt.executeUpdate();
                 }
             }
@@ -110,7 +110,7 @@ public class DatabaseAutoscanDirectories extends Database {
             PreparedStatement stmt = connection.prepareStatement(
                 "DELETE FROM autoscan_directories WHERE directory = ?"); // NOI18N
             stmt.setString(1, directoryName);
-            logStatement(stmt, Level.FINER);
+            Log.logFiner(DatabaseAutoscanDirectories.class, stmt.toString());
             int count = stmt.executeUpdate();
             deleted = count > 0;
             if (count > 0) {
@@ -141,7 +141,7 @@ public class DatabaseAutoscanDirectories extends Database {
             PreparedStatement stmt = connection.prepareStatement(
                 "SELECT COUNT(*) FROM autoscan_directories WHERE directory = ?"); // NOI18N
             stmt.setString(1, directoryName);
-            logStatement(stmt, Level.FINEST);
+            Log.logFinest(DatabaseAutoscanDirectories.class, stmt.toString());
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 exists = rs.getInt(1) > 0;

@@ -1,5 +1,6 @@
 package de.elmar_baumann.imv.database;
 
+import de.elmar_baumann.imv.Log;
 import de.elmar_baumann.imv.database.metadata.Column;
 import de.elmar_baumann.imv.database.metadata.DatabaseMetadataUtil;
 import de.elmar_baumann.imv.database.metadata.Join;
@@ -10,7 +11,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
 
 /**
  * 
@@ -47,7 +47,7 @@ public class DatabaseSearch extends Database {
                     preparedStatement.setObject(i + 1, paramStatement.getValues()[i]);
                 }
             }
-            logStatement(preparedStatement, Level.FINEST);
+            Log.logFinest(DatabaseSearch.class, preparedStatement.toString());
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 filenames.add(resultSet.getString(1));
@@ -94,7 +94,7 @@ public class DatabaseSearch extends Database {
                 for (int i = 0; i < searchColumns.size(); i++) {
                     preparedStatement.setString(i + 1, "%" + searchString + "%");
                 }
-                logStatement(preparedStatement, Level.FINEST);
+                Log.logFinest(DatabaseSearch.class, preparedStatement.toString());
                 ResultSet resultSet = preparedStatement.executeQuery();
                 String string;
                 while (resultSet.next()) {

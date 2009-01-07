@@ -1,15 +1,14 @@
 package de.elmar_baumann.imv.view.dialogs;
 
 import de.elmar_baumann.imv.AppSettings;
+import de.elmar_baumann.imv.Log;
 import de.elmar_baumann.imv.UserSettings;
-import de.elmar_baumann.imv.event.ErrorEvent;
 import de.elmar_baumann.imv.event.FileSystemAction;
 import de.elmar_baumann.imv.event.FileSystemActionListener;
 import de.elmar_baumann.imv.event.FileSystemError;
 import de.elmar_baumann.imv.event.ListenerProvider;
 import de.elmar_baumann.imv.event.ProgressEvent;
 import de.elmar_baumann.imv.event.ProgressListener;
-import de.elmar_baumann.imv.event.listener.ErrorListeners;
 import de.elmar_baumann.imv.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.imv.io.FileSystemMove;
 import de.elmar_baumann.imv.resource.Bundle;
@@ -26,8 +25,6 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -270,8 +267,7 @@ public class MoveToDirectoryDialog extends Dialog
         MessageFormat msg = new MessageFormat(Bundle.getString("MoveToDirectoryDialog.ErrorMessage.Logfile"));
         Object[] params = {src, target, error.getLocalizedMessage()};
         String errorMsg = msg.format(params);
-        Logger.getLogger(MoveToDirectoryDialog.class.getName()).log(Level.WARNING, errorMsg);
-        ErrorListeners.getInstance().notifyErrorListener(new ErrorEvent(errorMsg, this));
+        Log.logWarning(MoveToDirectoryDialog.class, errorMsg);
         errors = true;
     }
 

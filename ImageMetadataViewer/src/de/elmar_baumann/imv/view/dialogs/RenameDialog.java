@@ -1,6 +1,7 @@
 package de.elmar_baumann.imv.view.dialogs;
 
 import de.elmar_baumann.imv.AppSettings;
+import de.elmar_baumann.imv.Log;
 import de.elmar_baumann.imv.controller.filesystem.FilenameFormatDate;
 import de.elmar_baumann.imv.controller.filesystem.FilenameFormatEmptyString;
 import de.elmar_baumann.imv.controller.filesystem.FilenameFormat;
@@ -9,11 +10,9 @@ import de.elmar_baumann.imv.controller.filesystem.FilenameFormatFileName;
 import de.elmar_baumann.imv.controller.filesystem.FilenameFormatNumberSequence;
 import de.elmar_baumann.imv.controller.filesystem.FilenameFormatConstantString;
 import de.elmar_baumann.imv.controller.filesystem.FilenameFormatFilenamePostfix;
-import de.elmar_baumann.imv.event.ErrorEvent;
 import de.elmar_baumann.imv.event.ListenerProvider;
 import de.elmar_baumann.imv.event.RenameFileAction;
 import de.elmar_baumann.imv.event.RenameFileListener;
-import de.elmar_baumann.imv.event.listener.ErrorListeners;
 import de.elmar_baumann.imv.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.imv.image.thumbnail.ThumbnailUtil;
 import de.elmar_baumann.imv.io.FileType;
@@ -29,8 +28,6 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
@@ -117,21 +114,15 @@ public class RenameDialog extends Dialog {
                 if (!newXmpFile.delete()) {
                     MessageFormat msg = new MessageFormat(Bundle.getString("RenameDialog.ErrorMessage.XmpFileCouldNotBeDeleted"));
                     Object params[] = {newXmpFilename};
-                    handleError(msg.format(params));
+                    Log.logWarning(RenameDialog.class, msg.format(params));
                 }
             }
             if (!oldXmpFile.renameTo(newXmpFile)) {
                 MessageFormat msg = new MessageFormat(Bundle.getString("RenameDialog.ErrorMessage.XmpFileCouldNotBeRenamed"));
                 Object params[] = {oldXmpFilename, newXmpFilename};
-                handleError(msg.format(params));
+                Log.logWarning(RenameDialog.class, msg.format(params));
             }
         }
-    }
-
-    private void handleError(String message) {
-        Logger.getLogger(RenameDialog.class.getName()).log(Level.WARNING, message);
-        ErrorListeners.getInstance().notifyErrorListener(new ErrorEvent(message, this));
-
     }
 
     private void refreshThumbnailsPanel(int countRenamed) {

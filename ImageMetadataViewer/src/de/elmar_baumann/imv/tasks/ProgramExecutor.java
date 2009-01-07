@@ -1,10 +1,9 @@
 package de.elmar_baumann.imv.tasks;
 
 import de.elmar_baumann.imv.AppSettings;
+import de.elmar_baumann.imv.Log;
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.data.Program;
-import de.elmar_baumann.imv.event.ErrorEvent;
-import de.elmar_baumann.imv.event.listener.ErrorListeners;
 import de.elmar_baumann.imv.io.IoUtil;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.types.DatabaseUpdate;
@@ -16,8 +15,6 @@ import java.io.File;
 import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JProgressBar;
 
@@ -30,7 +27,7 @@ import javax.swing.JProgressBar;
 public class ProgramExecutor {
 
     private JProgressBar progressBar;
-    Queue<Execute> queue = new ConcurrentLinkedQueue<Execute>();
+    private final Queue<Execute> queue = new ConcurrentLinkedQueue<Execute>();
 
     /**
      * Constructor.
@@ -157,8 +154,7 @@ public class ProgramExecutor {
             String message = (stderr == null ? "" : new String(stderr).trim());
             if (!message.isEmpty()) {
                 message = "Program error message: " + message;
-                Logger.getLogger(Execute.class.getName()).log(Level.WARNING, message);
-                ErrorListeners.getInstance().notifyErrorListener(new ErrorEvent(message, this));
+                Log.logWarning(Execute.class, message);
             }
         }
 

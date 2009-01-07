@@ -1,5 +1,6 @@
 package de.elmar_baumann.imv.database;
 
+import de.elmar_baumann.imv.Log;
 import de.elmar_baumann.imv.event.DatabaseAction;
 import de.elmar_baumann.imv.event.ProgressEvent;
 import de.elmar_baumann.imv.event.ProgressListener;
@@ -10,7 +11,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.logging.Level;
 
 /**
  * 
@@ -45,7 +45,7 @@ public class DatabaseFileExcludePattern extends Database {
             PreparedStatement stmt = connection.prepareStatement(
                 "INSERT INTO file_exclude_pattern (pattern) VALUES (?)"); // NOI18N
             stmt.setString(1, pattern);
-            logStatement(stmt, Level.FINER);
+            Log.logFiner(DatabaseFileExcludePattern.class, stmt.toString());
             int count = stmt.executeUpdate();
             connection.commit();
             stmt.close();
@@ -73,7 +73,7 @@ public class DatabaseFileExcludePattern extends Database {
             PreparedStatement stmt = connection.prepareStatement(
                 "DELETE FROM file_exclude_pattern WHERE pattern = ?"); // NOI18N
             stmt.setString(1, pattern);
-            logStatement(stmt, Level.FINER);
+            Log.logFiner(DatabaseFileExcludePattern.class, stmt.toString());
             int count = stmt.executeUpdate();
             connection.commit();
             stmt.close();
@@ -100,7 +100,7 @@ public class DatabaseFileExcludePattern extends Database {
             PreparedStatement stmt = connection.prepareStatement(
                 "SELECT COUNT(*) FROM file_exclude_pattern WHERE pattern = ?"); // NOI18N
             stmt.setString(1, pattern);
-            logStatement(stmt, Level.FINEST);
+            Log.logFinest(DatabaseFileExcludePattern.class, stmt.toString());
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 exists = rs.getInt(1) > 0;
@@ -172,7 +172,7 @@ public class DatabaseFileExcludePattern extends Database {
                     if (filename.matches(pattern)) {
                         updateStmt.setString(1, filename);
                         deletedFiles.add(filename);
-                        logStatement(updateStmt, Level.FINER);
+                        Log.logFiner(DatabaseFileExcludePattern.class, updateStmt.toString());
                         updateStmt.executeUpdate();
                         stop = event.isStop();
                     }

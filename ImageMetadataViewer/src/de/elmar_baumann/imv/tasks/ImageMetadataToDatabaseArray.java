@@ -1,5 +1,6 @@
 package de.elmar_baumann.imv.tasks;
 
+import de.elmar_baumann.imv.Log;
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.event.ProgressEvent;
 import de.elmar_baumann.imv.event.ProgressListener;
@@ -17,8 +18,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JProgressBar;
 
 /**
@@ -214,13 +213,13 @@ public class ImageMetadataToDatabaseArray implements ProgressListener {
     private void messageEndUpdateDirectory(ImageMetadataToDatabase scanner) {
         MessageFormat message = new MessageFormat(Bundle.getString("ImageMetadataToDatabaseArray.InformationMessage.UpdateMetadataFinished")); // NOI18N
         Object[] params = {getDirectoryNameOfUpdater(scanner)};
-        Logger.getLogger(ImageMetadataToDatabaseArray.class.getName()).log(Level.FINEST, message.format(params));
+        Log.logFinest(ImageMetadataToDatabaseArray.class, message.format(params));
     }
 
     private void messageUpdateCurrentImage(String filename) {
         MessageFormat message = new MessageFormat(Bundle.getString("ImageMetadataToDatabaseArray.InformationMessage.CheckImageForModifications"));
         Object[] params = {filename};
-        Logger.getLogger(ImageMetadataToDatabaseArray.class.getName()).log(Level.FINEST, message.format(params));
+        Log.logFinest(ImageMetadataToDatabaseArray.class, message.format(params));
     }
 
     private String getDirectoryNameOfUpdater(ImageMetadataToDatabase scanner) {

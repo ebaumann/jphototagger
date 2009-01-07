@@ -1,12 +1,11 @@
 package de.elmar_baumann.imv.tasks;
 
+import de.elmar_baumann.imv.Log;
 import de.elmar_baumann.imv.data.Exif;
 import de.elmar_baumann.imv.data.ImageFile;
 import de.elmar_baumann.imv.data.Xmp;
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.database.DatabaseImageFiles;
-import de.elmar_baumann.imv.event.ErrorEvent;
-import de.elmar_baumann.imv.event.listener.ErrorListeners;
 import de.elmar_baumann.imv.event.ProgressEvent;
 import de.elmar_baumann.imv.event.ProgressListener;
 import de.elmar_baumann.imv.image.thumbnail.ThumbnailUtil;
@@ -20,8 +19,6 @@ import java.io.File;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Write image file metadata into the database.
@@ -202,8 +199,7 @@ public class ImageMetadataToDatabase implements Runnable {
         MessageFormat msg = new MessageFormat(Bundle.getString("ImageMetadataToDatabase.ErrorMessage.NullThumbnail")); // NOI18N
         Object[] params = {filename};
         String formattedMessage = msg.format(params);
-        Logger.getLogger(ImageMetadataToDatabase.class.getName()).log(Level.WARNING, formattedMessage);
-        ErrorListeners.getInstance().notifyErrorListener(new ErrorEvent(formattedMessage, this));
+        Log.logWarning(ImageMetadataToDatabase.class, formattedMessage);
     }
 
     private void notifyProgressStarted() {

@@ -1,5 +1,6 @@
 package de.elmar_baumann.imv.database;
 
+import de.elmar_baumann.imv.Log;
 import de.elmar_baumann.imv.database.metadata.Column;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,7 +8,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
-import java.util.logging.Level;
 
 /**
  * 
@@ -213,7 +213,7 @@ public class DatabaseStatistics extends Database {
                     column.getName() +
                     " = ?"); // NOI18N
                 stmt.setString(1, value);
-                logStatement(stmt, Level.FINEST);
+                Log.logFinest(DatabaseStatistics.class, stmt.toString());
                 ResultSet rs = stmt.executeQuery();
                 if (rs.next()) {
                     exists = rs.getInt(1) > 0;
@@ -247,7 +247,7 @@ public class DatabaseStatistics extends Database {
                 column.getName() +
                 " = ?"); // NOI18N
             stmt.setString(1, value);
-            logStatement(stmt, Level.FINEST);
+            Log.logFinest(DatabaseStatistics.class, stmt.toString());
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 count = rs.getInt(1);

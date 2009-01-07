@@ -1,5 +1,6 @@
 package de.elmar_baumann.imv.database;
 
+import de.elmar_baumann.imv.Log;
 import de.elmar_baumann.imv.data.FavoriteDirectory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,7 +9,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
 
 /**
  * 
@@ -54,7 +54,7 @@ public class DatabaseFavoriteDirectories extends Database {
             stmt.setString(1, favoriteDirectory.getFavoriteName());
             stmt.setString(2, favoriteDirectory.getDirectoryName());
             stmt.setInt(3, favoriteDirectory.getIndex());
-            logStatement(stmt, Level.FINER);
+            Log.logFiner(DatabaseFavoriteDirectories.class, stmt.toString());
             int count = stmt.executeUpdate();
             connection.commit();
             inserted = count > 0;
@@ -83,7 +83,7 @@ public class DatabaseFavoriteDirectories extends Database {
             PreparedStatement stmt = connection.prepareStatement(
                 "DELETE FROM favorite_directories WHERE favorite_name = ?"); // NOI18N
             stmt.setString(1, favoriteName);
-            logStatement(stmt, Level.FINER);
+            Log.logFiner(DatabaseFavoriteDirectories.class, stmt.toString());
             int count = stmt.executeUpdate();
             connection.commit();
             deleted = count > 0;
@@ -122,7 +122,7 @@ public class DatabaseFavoriteDirectories extends Database {
             stmt.setString(2, favorite.getDirectoryName());
             stmt.setInt(3, favorite.getIndex());
             stmt.setString(4, favoriteName);
-            logStatement(stmt, Level.FINER);
+            Log.logFiner(DatabaseFavoriteDirectories.class, stmt.toString());
             int count = stmt.executeUpdate();
             connection.commit();
             updated = count > 0;
@@ -182,7 +182,7 @@ public class DatabaseFavoriteDirectories extends Database {
                 "SELECT COUNT(*) FROM favorite_directories" + // NOI18N
                 " WHERE favorite_name = ?"); // NOI18N
             stmt.setString(1, favoriteName);
-            logStatement(stmt, Level.FINEST);
+            Log.logFinest(DatabaseFavoriteDirectories.class, stmt.toString());
             ResultSet rs = stmt.executeQuery();
             int count = 0;
             if (rs.next()) {

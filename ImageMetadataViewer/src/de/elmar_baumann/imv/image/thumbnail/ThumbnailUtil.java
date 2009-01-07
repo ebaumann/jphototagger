@@ -8,8 +8,7 @@ import com.imagero.reader.ReaderFactory;
 import com.imagero.reader.jpeg.JpegReader;
 import com.imagero.reader.tiff.TiffReader;
 import com.sun.image.codec.jpeg.ImageFormatException;
-import de.elmar_baumann.imv.event.ErrorEvent;
-import de.elmar_baumann.imv.event.listener.ErrorListeners;
+import de.elmar_baumann.imv.Log;
 import de.elmar_baumann.imv.image.metadata.exif.ExifMetadata;
 import de.elmar_baumann.imv.io.FileType;
 import de.elmar_baumann.lib.image.ImageTransform;
@@ -24,8 +23,6 @@ import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
@@ -166,8 +163,7 @@ public class ThumbnailUtil {
         String message = (stderr == null ? "" : new String(stderr).trim());
         if (!message.isEmpty()) {
             message = "Program error message: " + message;
-            Logger.getLogger(ThumbnailUtil.class.getName()).log(Level.WARNING, message);
-            ErrorListeners.getInstance().notifyErrorListener(new ErrorEvent(message, ThumbnailUtil.class));
+            Log.logWarning(ThumbnailUtil.class, message);
         }
     }
 

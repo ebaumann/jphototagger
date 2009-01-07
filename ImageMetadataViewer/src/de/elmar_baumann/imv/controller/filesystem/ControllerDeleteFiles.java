@@ -1,10 +1,9 @@
 package de.elmar_baumann.imv.controller.filesystem;
 
 import de.elmar_baumann.imv.AppSettings;
+import de.elmar_baumann.imv.Log;
 import de.elmar_baumann.imv.controller.Controller;
 import de.elmar_baumann.imv.database.DatabaseImageFiles;
-import de.elmar_baumann.imv.event.ErrorEvent;
-import de.elmar_baumann.imv.event.listener.ErrorListeners;
 import de.elmar_baumann.imv.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.Panels;
@@ -17,8 +16,6 @@ import java.io.File;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -87,8 +84,7 @@ public class ControllerDeleteFiles extends Controller implements ActionListener 
         MessageFormat msg = new MessageFormat(Bundle.getString("ControllerDeleteFiles.ErrorMessage.Delete"));
         Object[] params = {file.getAbsolutePath()};
         String message = msg.format(params);
-        Logger.getLogger(ControllerDeleteFiles.class.getName()).log(Level.WARNING, message);
-        ErrorListeners.getInstance().notifyErrorListener(new ErrorEvent(message, this));
+        Log.logWarning(ControllerDeleteFiles.class, message);
     }
 
     private boolean accepted() {

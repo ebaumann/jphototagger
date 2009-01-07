@@ -7,12 +7,9 @@ import de.elmar_baumann.imv.event.DatabaseListener;
 import de.elmar_baumann.imv.event.ProgressEvent;
 import de.elmar_baumann.imv.event.ProgressListener;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Base class of specialized database classes.
@@ -123,10 +120,6 @@ public class Database {
         } catch (SQLException ex) {
             de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
         }
-    }
-
-    protected void logStatement(PreparedStatement stmt, Level level) {
-        Logger.getLogger(Database.class.getName()).log(level, stmt.toString());
     }
 
     protected boolean notifyProgressListenerStart(
