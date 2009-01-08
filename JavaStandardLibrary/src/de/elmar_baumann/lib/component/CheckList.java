@@ -52,7 +52,7 @@ public final class CheckList extends JList {
      * @param listener Beobachter
      */
     public void removeActionListener(ActionListener listener) {
-        actionListeners.add(listener);
+        actionListeners.remove(listener);
     }
 
     private void listenToMouse() {
@@ -62,7 +62,7 @@ public final class CheckList extends JList {
             public void mousePressed(MouseEvent e) {
                 int index = locationToIndex(e.getPoint());
 
-                if (index != -1) {
+                if (index != -1 && getModel().getElementAt(index) instanceof JCheckBox) {
                     JCheckBox checkbox = (JCheckBox) getModel().getElementAt(index);
                     checkbox.setSelected(!checkbox.isSelected());
                     repaint();
@@ -106,9 +106,12 @@ public final class CheckList extends JList {
         ListModel model = getModel();
         int count = model.getSize();
         for (int index = 0; index < count; index++) {
-            JCheckBox checkBox = (JCheckBox) model.getElementAt(index);
-            if (checkBox.isSelected()) {
-                items.add(checkBox);
+            Object o = model.getElementAt(index);
+            if (o instanceof JCheckBox) {
+                JCheckBox checkBox = (JCheckBox) o;
+                if (checkBox.isSelected()) {
+                    items.add(checkBox);
+                }
             }
 
         }
@@ -125,7 +128,8 @@ public final class CheckList extends JList {
         ListModel model = getModel();
         int count = model.getSize();
         for (int index = 0; index < count; index++) {
-            if (((JCheckBox) model.getElementAt(index)).isSelected()) {
+            Object o = model.getElementAt(index);
+            if (o instanceof JCheckBox && ((JCheckBox) o).isSelected()) {
                 indices.add(index);
             }
         }
@@ -151,8 +155,12 @@ public final class CheckList extends JList {
      * 
      * @param delimiter Begrenzer zwischen den Itemtexten
      * @return          Texte
+     * @throws NullPointerException wenn delimiter == null
      */
     public String getSelectedItemTexts(String delimiter) {
+        if (delimiter == null) {
+            throw new NullPointerException("delimiter == null");
+        }
         List<String> texts = getSelectedItemTexts();
         StringBuffer textBuffer = new StringBuffer();
         for (String text : texts) {
@@ -167,9 +175,13 @@ public final class CheckList extends JList {
      * @param texts  Texte
      * @param select true, wenn selektiert werden soll, false, wenn deselektiert
      *               werden soll
+     * @throws NullPointerException wenn texts == null
      * @see          #setSelectedItemsWithText(java.lang.String, boolean)
      */
     public void setSelectedItemsWithText(List<String> texts, boolean select) {
+        if (texts == null) {
+            throw new NullPointerException("texts == null");
+        }
         for (String text : texts) {
             setSelectedItemsWithText(text, select);
         }
@@ -187,9 +199,12 @@ public final class CheckList extends JList {
         ListModel model = getModel();
         int count = model.getSize();
         for (int index = 0; index < count; index++) {
-            JCheckBox checkBox = (JCheckBox) model.getElementAt(index);
-            if (checkBox.getText().equals(text)) {
-                checkBox.setSelected(select);
+            Object o = model.getElementAt(index);
+            if (o instanceof JCheckBox) {
+                JCheckBox checkBox = (JCheckBox) o;
+                if (checkBox.getText().equals(text)) {
+                    checkBox.setSelected(select);
+                }
             }
         }
     }
