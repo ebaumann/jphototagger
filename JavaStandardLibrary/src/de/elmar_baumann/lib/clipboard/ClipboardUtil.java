@@ -13,6 +13,9 @@ import java.util.List;
 
 /**
  * 
+ * All functions with object-reference-parameters are throwing a
+ * <code>NullPointerException</code> if an object reference is null and it is
+ * not documentet that it can be null.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/26
@@ -28,7 +31,6 @@ public final class ClipboardUtil {
      * 
      * @param files  files
      * @param owner  owner of the clipboard, can be null
-     * @throws NullPointerException if files is null
      */
     public static void copyToSystemClipboard(List<File> files, ClipboardOwner owner) {
         if (files == null)
@@ -42,7 +44,6 @@ public final class ClipboardUtil {
      * @param files      files
      * @param clipboard  clipboard
      * @param owner      owner of the clipboard, can be null
-     * @throws NullPointerException if files is null or clipboard is null
      */
     public static void copyToClipboard(List<File> files, Clipboard clipboard, ClipboardOwner owner) {
         if (files == null)
@@ -59,7 +60,6 @@ public final class ClipboardUtil {
      * @param delimiterStringList  delimiter which separates file names if in 
      *                             the clipboard is a string with file names
      * @return list of files or null if no files in the clipboard
-     * @throws NullPointerException if delimiterStringList is null
      */
     public static List<File> getFilesFromSystemClipboard(String delimiterStringList) {
         if (delimiterStringList == null)
@@ -75,7 +75,6 @@ public final class ClipboardUtil {
      * @param  delimiterStringList  delimiter which separates file names if in 
      *                              the clipboard is a string with file names
      * @return list of files or null if no files in the clipboard
-     * @throws NullPointerException if clipboard is null or delimiterStringList is null
      */
     public static List<File> getFilesFromClipboard(Clipboard clipboard, String delimiterStringList) {
         if (clipboard == null)

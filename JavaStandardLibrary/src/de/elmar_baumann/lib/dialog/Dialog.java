@@ -17,8 +17,9 @@ import javax.swing.KeyStroke;
  * Dialog which can close by pressing the ESC key and showing the Help dialog
  * by pressing the F1 key.
  *
- * All functions are throwing a <code>NullPointerException</code> if a parameter
- * is null and it is not documentet that it can be null.
+ * All functions with object-reference-parameters are throwing a
+ * <code>NullPointerException</code> if an object reference is null and it is
+ * not documentet that it can be null.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/19

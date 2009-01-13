@@ -13,6 +13,10 @@ import javax.swing.tree.TreePath;
 /**
  * Werkzeuge für Trees.
  *
+ * All functions with object-reference-parameters are throwing a
+ * <code>NullPointerException</code> if an object reference is null and it is
+ * not documentet that it can be null.
+ *
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
@@ -64,7 +68,6 @@ public final class TreeUtil {
      * Deselektiert alle Treeitems von mehreren Trees.
      * 
      * @param trees Trees
-     * @throws NullPointerException wenn trees null ist
      */
     public static void clearSelection(List<JTree> trees) {
         if (trees == null) {
@@ -84,7 +87,6 @@ public final class TreeUtil {
      * @param pathString    String mit Pfad
      * @param pathSeparator Separator zwischen den einzelnen Pfadbestandteilen
      * @return              Pfad oder null, wenn nicht gefunden
-     * @throws NullPointerException wenn ein Parameter null ist
      */
     public static TreePath getTreePath(TreeModel treeModel, String pathString,
         String pathSeparator) {
@@ -135,7 +137,6 @@ public final class TreeUtil {
      * 
      * @param tree Tree
      * @param path Pfad
-     * @throws NullPointerException wenn ein Parameter null ist
      */
     public static void expandPath(JTree tree, TreePath path) {
         if (tree == null)
@@ -157,7 +158,6 @@ public final class TreeUtil {
      * 
      * @param tree tree
      * @param path path to expand in <code>tree</code>
-     * @throws NullPointerException wenn ein Parameter null ist
      */
     public static void expandPathCascade(JTree tree, TreePath path) {
         if (tree == null)
@@ -183,7 +183,6 @@ public final class TreeUtil {
      * @param  file   file
      * @param  model  model when the root is not a file, else null
      * @return path
-     * @throws NullPointerException wenn ein Parameter null ist
      */
     public static TreePath getTreePath(File file, TreeModel model) {
         if (file == null)

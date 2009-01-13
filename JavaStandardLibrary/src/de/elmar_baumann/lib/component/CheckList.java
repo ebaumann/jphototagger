@@ -21,6 +21,10 @@ import javax.swing.border.EmptyBorder;
  * Liste mit Checkboxes. Als Inhalt des Models werden Objekte des Typs
  * <code>JCheckBox</code> erwartet!
  *
+ * All functions with object-reference-parameters are throwing a
+ * <code>NullPointerException</code> if an object reference is null and it is
+ * not documentet that it can be null.
+ *
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
@@ -154,7 +158,6 @@ public final class CheckList extends JList {
      * 
      * @param delimiter Begrenzer zwischen den Itemtexten
      * @return          Texte
-     * @throws NullPointerException wenn delimiter == null
      */
     public String getSelectedItemTexts(String delimiter) {
         if (delimiter == null) {
@@ -174,7 +177,6 @@ public final class CheckList extends JList {
      * @param texts  Texte
      * @param select true, wenn selektiert werden soll, false, wenn deselektiert
      *               werden soll
-     * @throws NullPointerException wenn texts == null
      * @see          #setSelectedItemsWithText(java.lang.String, boolean)
      */
     public void setSelectedItemsWithText(List<String> texts, boolean select) {

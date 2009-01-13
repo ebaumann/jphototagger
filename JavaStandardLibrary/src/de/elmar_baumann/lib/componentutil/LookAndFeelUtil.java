@@ -14,8 +14,9 @@ import javax.swing.UnsupportedLookAndFeelException;
 /**
  * The application's Look and Feel.
  *
- * All functions are throwing a <code>NullPointerException</code> if a parameter
- * is null and it is not documentet that it can be null.
+ * All functions with object-reference-parameters are throwing a
+ * <code>NullPointerException</code> if an object reference is null and it is
+ * not documentet that it can be null.
  * 
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/07/14
