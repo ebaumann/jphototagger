@@ -13,6 +13,9 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  * The application's Look and Feel.
+ *
+ * All functions are throwing a <code>NullPointerException</code> if a parameter
+ * is null and it is not documentet that it can be null.
  * 
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/07/14
@@ -48,6 +51,8 @@ public final class LookAndFeelUtil {
      *        <code>/de/elmar_baumann/lib/resource/LookAndFeelColors.properties</code>
      */
     public static void setCustomColors(String propertyFilename) {
+        if (propertyFilename == null)
+            throw new NullPointerException("propertyFilename == null");
         setCustomColors(LookAndFeelUtil.class.getClassLoader().getResourceAsStream(propertyFilename));
     }
 
@@ -59,6 +64,8 @@ public final class LookAndFeelUtil {
      * @param is Input stream with the key - value pairs
      */
     public static void setCustomColors(InputStream is) {
+        if (is == null)
+            throw new NullPointerException("is == null");
         try {
             Properties properties = new Properties();
             properties.load(is);
@@ -72,6 +79,7 @@ public final class LookAndFeelUtil {
     }
 
     private static Color getColorFromProperty(String property) {
+        assert property != null : property;
         StringTokenizer tokenizer = new StringTokenizer(property, propertyColorDelim);
         if (tokenizer.countTokens() == 3) {
             String red = tokenizer.nextToken().trim();

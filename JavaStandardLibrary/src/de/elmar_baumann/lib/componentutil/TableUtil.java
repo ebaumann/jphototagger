@@ -21,8 +21,12 @@ public final class TableUtil {
      * BUG: Die Kopfspalte wird nicht berücksichtigt.
      * 
      * @param table Tabelle
+     * @throws NullPointerException wenn table == null
      */
     public static void resizeColumnWidthsToFit(JTable table) {
+        if (table == null)
+            throw new NullPointerException("table == null");
+
         TableModel model = table.getModel();
         TableColumnModel colModel = table.getColumnModel();
         int columnCount = model.getColumnCount();
@@ -59,6 +63,7 @@ public final class TableUtil {
      * @param column Spalte
      */
     private static void setColumnWidth(int width, TableColumn column) {
+        assert column != null : column;
         column.setPreferredWidth(width);
     }
 

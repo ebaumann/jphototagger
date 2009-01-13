@@ -17,16 +17,19 @@ public final class MaxLengthDocument extends PlainDocument {
     /**
      * Konstruktor.
      * 
-     * @param maxLenght Maximale Zeichenanzahl
+     * @param maxLenght Maximale Zeichenanzahl. Bedingung: {@code maxLenght >= 0}.
+     * @throws IllegalArgumentException wenn {@code maxLenght < 0}
      */
     public MaxLengthDocument(int maxLenght) {
+        if (maxLenght < 0)
+            throw new IllegalArgumentException("maxLength < 0: " + maxLenght);
         this.maxLenght = maxLenght;
     }
 
     @Override
     public void insertString(int offset, String str, AttributeSet a)
         throws BadLocationException {
-        if (getLength() + str.length() > maxLenght) {
+        if (getLength() + str.length() > maxLenght) { // TODO Löschen bei Überschreiben berücksichtigen
             java.awt.Toolkit.getDefaultToolkit().beep();
         } else {
             super.insertString(offset, str, a);

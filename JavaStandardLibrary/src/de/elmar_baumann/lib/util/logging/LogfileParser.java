@@ -35,12 +35,14 @@ public final class LogfileParser implements EntityResolver {
      * 
      * @param filename Dateiname
      * @return         Datensätze
+     * @throws         NullPointerException wenn der Dateiname null ist
      */
     public static List<LogfileRecord> parseLogfile(String filename) {
+        if (filename == null)
+            throw new NullPointerException("filename == null");
         List<LogfileRecord> records = new ArrayList<LogfileRecord>();
         try {
-            DocumentBuilderFactory factory =
-                DocumentBuilderFactory.newInstance();
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
             builder.setEntityResolver(new LogfileParser());
             Document document = builder.parse(getFileAsInputStream(filename));

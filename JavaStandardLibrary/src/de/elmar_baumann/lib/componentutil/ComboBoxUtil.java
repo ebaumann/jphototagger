@@ -5,6 +5,9 @@ import javax.swing.ComboBoxModel;
 /**
  * Werkzeuge für Comboboxen.
  * 
+ * All functions are throwing a <code>NullPointerException</code> if a parameter
+ * is null and it is not documentet that it can be null.
+ *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2007/08/29
  */
@@ -20,6 +23,11 @@ public final class ComboBoxUtil {
      * @see            #getItem(ComboBoxModel, String)
      */
     public static boolean hasItem(ComboBoxModel comboBox, String string) {
+        if (comboBox == null)
+            throw new NullPointerException("comboBox == null");
+        if (string == null)
+            throw new NullPointerException("string == null");
+
         for (int index = 0; index < comboBox.getSize(); index++) {
             Object currentItem = comboBox.getElementAt(index);
             if (currentItem.equals(string)) {
@@ -39,6 +47,11 @@ public final class ComboBoxUtil {
      * @see                 #hasItem(ComboBoxModel, String)
      */
     public static Object getItem(ComboBoxModel comboBoxModel, String string) {
+        if (comboBoxModel == null)
+            throw new NullPointerException("comboBoxModel == null");
+        if (string == null)
+            throw new NullPointerException("string == null");
+
         for (int index = 0; index < comboBoxModel.getSize(); index++) {
             Object currentItem = comboBoxModel.getElementAt(index);
             if (currentItem.equals(string)) {

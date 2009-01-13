@@ -17,6 +17,9 @@ import javax.swing.KeyStroke;
  * Dialog which can close by pressing the ESC key and showing the Help dialog
  * by pressing the F1 key.
  *
+ * All functions are throwing a <code>NullPointerException</code> if a parameter
+ * is null and it is not documentet that it can be null.
+ *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/19
  */
@@ -114,6 +117,8 @@ public class Dialog extends JDialog {
      * @see HelpBrowser#setContentsUrl(java.lang.String)
      */
     protected void setHelpContentsUrl(String url) {
+        if (url == null)
+            throw new NullPointerException("url == null");
         help.setContentsUrl(url);
     }
 
@@ -134,6 +139,8 @@ public class Dialog extends JDialog {
      * @param url  URL to display
      */
     protected void help(String url) {
+        if (url == null)
+            throw new NullPointerException("url == null");
         if (help.isVisible()) {
             help.showUrl(url);
             help.toFront();

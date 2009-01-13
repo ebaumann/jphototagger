@@ -23,7 +23,15 @@ public final class InputVerifierMaxLength extends InputVerifier {
 
     private final int maxLength;
 
+    /**
+     * Constructor.
+     *
+     * @param maxLength Maximum length of the input. {@code Must be >= 0}.
+     * @throws IllegalArgumentException if {@code maxLength < 0}
+     */
     public InputVerifierMaxLength(int maxLength) {
+        if (maxLength < 0)
+            throw new IllegalArgumentException("maxLength < 0: " + maxLength);
         this.maxLength = maxLength;
     }
 
@@ -41,6 +49,8 @@ public final class InputVerifierMaxLength extends InputVerifier {
             return ((JTextField) input).getText().length() <= maxLength;
         } else if (input instanceof JTextArea) {
             return ((JTextArea) input).getText().length() <= maxLength;
+        } else {
+            assert false : "Unknown component: " + input.getClass().toString();
         }
         return true;
     }

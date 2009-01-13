@@ -23,12 +23,15 @@ public final class Bundle {
      * @param  key Schlüssel
      * @return     Wert, bei einer Ausnahme der Schlüssel mit Fragezeichen
      *             umschlossen
+     * @throws NullPointerException wenn der Schlüssel null ist
      */
     public static String getString(String key) {
         try {
             return bundle.getString(key);
         } catch (MissingResourceException ex) {
             Logger.getLogger(Bundle.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NullPointerException ex) {
+            throw ex;
         } catch (Exception ex) {
             Logger.getLogger(Bundle.class.getName()).log(Level.SEVERE, null, ex);
         }

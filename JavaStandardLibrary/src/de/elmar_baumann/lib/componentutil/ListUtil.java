@@ -9,6 +9,9 @@ import javax.swing.JList;
 /**
  * Utils for {@link javax.swing.JList}.
  *
+ * All functions are throwing a <code>NullPointerException</code> if a parameter
+ * is null and it is not documentet that it can be null.
+ *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/19
  */
@@ -20,6 +23,9 @@ public final class ListUtil {
      * @param lists  lists
      */
     public static void clearSelection(List<JList> lists) {
+        if (lists == null)
+            throw new NullPointerException("lists == null");
+
         for (JList list : lists) {
             if (!list.isSelectionEmpty()) {
                 list.clearSelection();
@@ -35,6 +41,9 @@ public final class ListUtil {
      * @return list item or null if not found
      */
     public static Object getFirstItemWithText(String text, DefaultListModel model) {
+        if (model == null)
+            throw new NullPointerException("model == null");
+
         Object item = null;
         int size = model.size();
         for (int i = 0; i < size; i++) {
@@ -54,6 +63,13 @@ public final class ListUtil {
      * @param model  model
      */
     public static void setToken(String str, String delim, DefaultListModel model) {
+        if (str == null)
+            throw new NullPointerException("str == null");
+        if (delim == null)
+            throw new NullPointerException("delim == null");
+        if (model == null)
+            throw new NullPointerException("model == null");
+
         StringTokenizer tokenizer = new StringTokenizer(str, delim);
         model.clear();
         while (tokenizer.hasMoreTokens()) {
@@ -69,6 +85,11 @@ public final class ListUtil {
      * @return token  string
      */
     public static String getTokenString(DefaultListModel model, String delim) {
+        if (model == null)
+            throw new NullPointerException("model == null");
+        if (delim == null)
+            throw new NullPointerException("delim == null");
+
         StringBuffer buffer = new StringBuffer();
         int size = model.getSize();
         for (int i = 0; i < size; i++) {
@@ -86,6 +107,13 @@ public final class ListUtil {
      */
     @SuppressWarnings("unchecked")
     static public void insertSorted(DefaultListModel model, Object o, Comparator c) {
+        if (model == null)
+            throw new NullPointerException("model == null");
+        if (c == null)
+            throw new NullPointerException("c == null");
+        if (c == null)
+            throw new NullPointerException("c == null");
+
         synchronized (model) {
             if (!model.contains(o)) {
                 int size = model.getSize();

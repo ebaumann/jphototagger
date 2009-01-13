@@ -27,12 +27,12 @@ public final class TreeUtil {
     public static boolean isSelectedItemPosition(MouseEvent e) {
         if (e.getSource() instanceof JTree) {
             JTree tree = (JTree) e.getSource();
-            TreePath path = tree.getPathForLocation(e.getX(), e.getY());
-            if (path != null && tree.getSelectionPath() != null) {
-                Object selected = tree.getSelectionPath().getLastPathComponent();
-                Object clicked = path.getLastPathComponent();
-                if (selected != null && clicked != null) {
-                    return selected.equals(clicked);
+            TreePath mousePath = tree.getPathForLocation(e.getX(), e.getY());
+            if (mousePath != null && tree.getSelectionPath() != null) {
+                Object selectedItem = tree.getSelectionPath().getLastPathComponent();
+                Object mouseItem = mousePath.getLastPathComponent();
+                if (selectedItem != null && mouseItem != null) {
+                    return selectedItem.equals(mouseItem);
                 }
             }
         }
@@ -48,12 +48,12 @@ public final class TreeUtil {
     public static boolean isRootItemPosition(MouseEvent e) {
         if (e.getSource() instanceof JTree) {
             JTree tree = (JTree) e.getSource();
-            TreePath path = tree.getPathForLocation(e.getX(), e.getY());
-            if (path != null) {
+            TreePath mousePath = tree.getPathForLocation(e.getX(), e.getY());
+            if (mousePath != null) {
                 Object root = tree.getModel().getRoot();
-                Object clicked = path.getLastPathComponent();
-                if (root != null && clicked != null) {
-                    return root.equals(clicked);
+                Object mouseItem = mousePath.getLastPathComponent();
+                if (root != null && mouseItem != null) {
+                    return root.equals(mouseItem);
                 }
             }
         }
@@ -64,8 +64,12 @@ public final class TreeUtil {
      * Deselektiert alle Treeitems von mehreren Trees.
      * 
      * @param trees Trees
+     * @throws NullPointerException wenn trees null ist
      */
     public static void clearSelection(List<JTree> trees) {
+        if (trees == null) {
+            throw new NullPointerException("trees == null");
+        }
         for (JTree tree : trees) {
             if (tree.getSelectionCount() > 0) {
                 tree.clearSelection();
@@ -80,11 +84,18 @@ public final class TreeUtil {
      * @param pathString    String mit Pfad
      * @param pathSeparator Separator zwischen den einzelnen Pfadbestandteilen
      * @return              Pfad oder null, wenn nicht gefunden
+     * @throws NullPointerException wenn ein Parameter null ist
      */
     public static TreePath getTreePath(TreeModel treeModel, String pathString,
         String pathSeparator) {
-        StringTokenizer tokenizer = new StringTokenizer(pathString,
-            pathSeparator);
+        if (treeModel == null)
+            throw new NullPointerException("treeModel == null");
+        if (pathString == null)
+            throw new NullPointerException("pathString == null");
+        if (pathSeparator == null)
+            throw new NullPointerException("pathSeparator == null");
+
+        StringTokenizer tokenizer = new StringTokenizer(pathString, pathSeparator);
         int tokenCount = tokenizer.countTokens();
         int tokenNumber = 1;
         int tokenFoundCount = 0;
@@ -124,8 +135,14 @@ public final class TreeUtil {
      * 
      * @param tree Tree
      * @param path Pfad
+     * @throws NullPointerException wenn ein Parameter null ist
      */
     public static void expandPath(JTree tree, TreePath path) {
+        if (tree == null)
+            throw new NullPointerException("tree == null");
+        if (path == null)
+            throw new NullPointerException("path == null");
+
         TreePath expandPath = path;
         if (tree.getModel().isLeaf(path.getLastPathComponent())) {
             expandPath = path.getParentPath();
@@ -140,8 +157,14 @@ public final class TreeUtil {
      * 
      * @param tree tree
      * @param path path to expand in <code>tree</code>
+     * @throws NullPointerException wenn ein Parameter null ist
      */
     public static void expandPathCascade(JTree tree, TreePath path) {
+        if (tree == null)
+            throw new NullPointerException("tree == null");
+        if (path == null)
+            throw new NullPointerException("path == null");
+
         Stack<TreePath> stack = new Stack<TreePath>();
         TreePath parent = path;
         while (parent != null) {
@@ -160,8 +183,14 @@ public final class TreeUtil {
      * @param  file   file
      * @param  model  model when the root is not a file, else null
      * @return path
+     * @throws NullPointerException wenn ein Parameter null ist
      */
     public static TreePath getTreePath(File file, TreeModel model) {
+        if (file == null)
+            throw new NullPointerException("file == null");
+        if (model == null)
+            throw new NullPointerException("model == null");
+
         Stack<Object> stack = new Stack<Object>();
         while (file != null) {
             stack.push(file);

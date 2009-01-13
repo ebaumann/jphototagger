@@ -113,7 +113,6 @@ public final class CheckList extends JList {
                     items.add(checkBox);
                 }
             }
-
         }
         return items;
     }

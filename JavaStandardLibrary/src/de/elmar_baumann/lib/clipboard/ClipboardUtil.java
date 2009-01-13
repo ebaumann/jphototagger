@@ -28,8 +28,11 @@ public final class ClipboardUtil {
      * 
      * @param files  files
      * @param owner  owner of the clipboard, can be null
+     * @throws NullPointerException if files is null
      */
     public static void copyToSystemClipboard(List<File> files, ClipboardOwner owner) {
+        if (files == null)
+            throw new NullPointerException("files == null");
         copyToClipboard(files, Toolkit.getDefaultToolkit().getSystemClipboard(), owner);
     }
 
@@ -39,9 +42,13 @@ public final class ClipboardUtil {
      * @param files      files
      * @param clipboard  clipboard
      * @param owner      owner of the clipboard, can be null
+     * @throws NullPointerException if files is null or clipboard is null
      */
-    public static void copyToClipboard(
-        List<File> files, Clipboard clipboard, ClipboardOwner owner) {
+    public static void copyToClipboard(List<File> files, Clipboard clipboard, ClipboardOwner owner) {
+        if (files == null)
+            throw new NullPointerException("files == null");
+        if (clipboard == null)
+            throw new NullPointerException("clipboard == null");
         clipboard.setContents(
             new TransferableFileList(FileUtil.fileListToFileArray(files)), owner);
     }
@@ -52,8 +59,11 @@ public final class ClipboardUtil {
      * @param delimiterStringList  delimiter which separates file names if in 
      *                             the clipboard is a string with file names
      * @return list of files or null if no files in the clipboard
+     * @throws NullPointerException if delimiterStringList is null
      */
     public static List<File> getFilesFromSystemClipboard(String delimiterStringList) {
+        if (delimiterStringList == null)
+            throw new NullPointerException("delimiterStringList == null");
         return getFilesFromClipboard(
             Toolkit.getDefaultToolkit().getSystemClipboard(), delimiterStringList);
     }
@@ -65,9 +75,13 @@ public final class ClipboardUtil {
      * @param  delimiterStringList  delimiter which separates file names if in 
      *                              the clipboard is a string with file names
      * @return list of files or null if no files in the clipboard
+     * @throws NullPointerException if clipboard is null or delimiterStringList is null
      */
-    public static List<File> getFilesFromClipboard(Clipboard clipboard,
-        String delimiterStringList) {
+    public static List<File> getFilesFromClipboard(Clipboard clipboard, String delimiterStringList) {
+        if (clipboard == null)
+            throw new NullPointerException("files == null");
+        if (delimiterStringList == null)
+            throw new NullPointerException("delimiterStringList == null");
         List<File> files = null;
         DataFlavor[] flavors = clipboard.getAvailableDataFlavors();
         Transferable transferable = clipboard.getContents(ClipboardUtil.class);
