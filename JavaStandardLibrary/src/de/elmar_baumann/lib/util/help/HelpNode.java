@@ -9,6 +9,10 @@ import java.util.List;
  * Node in the applications help file tree structure. A node is a chapter
  * with help pages and subchapters.
  *
+ * All functions with object-reference-parameters are throwing a
+ * <code>NullPointerException</code> if an object reference is null and it is
+ * not documentet that it can be null.
+ *
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
@@ -33,6 +37,9 @@ public final class HelpNode {
      * @param title tile
      */
     public void setTitle(String title) {
+        if (title == null)
+            throw new NullPointerException("title == null");
+
         this.title = title;
     }
 
@@ -42,6 +49,9 @@ public final class HelpNode {
      * @param page help page
      */
     public void addPage(HelpPage page) {
+        if (page == null)
+            throw new NullPointerException("page == null");
+
         page.setParent(this);
         children.add(page);
     }
@@ -52,6 +62,9 @@ public final class HelpNode {
      * @param chapter chapter
      */
     public void addNode(HelpNode chapter) {
+        if (chapter == null)
+            throw new NullPointerException("chapter == null");
+
         chapter.parent = this;
         children.add(chapter);
     }
@@ -67,13 +80,17 @@ public final class HelpNode {
 
     /**
      * Returns a specific child.
-     * @param  index the child's index
+     * @param  index the child's index {@code >= 0)
      * 
      * @return child: an object of the type
      *         {@link HelpNode} or {@link HelpPage}
      *         or null if the index is invalid
+     * @throws IndexOutOfBoundsException if {@code index < 0)
      */
     public Object getChild(int index) {
+        if (index < 0)
+            throw new IndexOutOfBoundsException("index < 0: " + index);
+
         return children.get(index);
     }
 
@@ -84,6 +101,9 @@ public final class HelpNode {
      * @return index or -1 if the child does not exist
      */
     public int getIndexOfChild(Object child) {
+        if (child == null)
+            throw new NullPointerException("child == null");
+
         return children.indexOf(child);
     }
 
@@ -103,12 +123,20 @@ public final class HelpNode {
      * @return path or null if a page with the URL doesn't exist
      */
     public Object[] getPagePath(String url) {
+        if (url == null)
+            throw new NullPointerException("url == null");
+
         List<Object> found = new ArrayList<Object>();
         findPath(url, found);
         return found.size() > 0 ? found.toArray() : null;
     }
 
     private void findPath(String url, List<Object> found) {
+        if (url == null)
+            throw new NullPointerException("url == null");
+        if (found == null)
+            throw new NullPointerException("found == null");
+
         int size = children.size();
         for (int i = 0; found.size() <= 0 && i < size; i++) {
             Object child = children.get(i);
@@ -124,6 +152,9 @@ public final class HelpNode {
     }
 
     private Stack<Object> getPagePath(HelpPage helpPage) {
+        if (helpPage == null)
+            throw new NullPointerException("helpPage == null");
+
         Stack<Object> path = new Stack<Object>();
         path.push(helpPage);
         HelpNode p = helpPage.getParent();

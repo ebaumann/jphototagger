@@ -22,6 +22,10 @@ import org.xml.sax.SAXParseException;
  * Reads the index file of the application's help: a XML file wich validates
  * against <code>/de/elmar_baumann/lib/resource/helpindex.dtd</code>.
  *
+ * All functions with object-reference-parameters are throwing a
+ * <code>NullPointerException</code> if an object reference is null and it is
+ * not documentet that it can be null.
+ *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/02
  */
@@ -35,6 +39,9 @@ public final class HelpIndexParser {
      * @return help root node of the index or null when errors occured
      */
     public static HelpNode parse(InputStream is) {
+        if (is == null)
+            throw new NullPointerException("is == null");
+
         HelpNode rootNode = null;
         try {
             DocumentBuilderFactory factory = getDocBuilderFactory();
@@ -60,9 +67,9 @@ public final class HelpIndexParser {
             Node node = docNodes.item(i);
             String nodeName = node.getNodeName();
             if (nodeName.equals("node")) {
-                parseNode((Element)node, rootNode);
+                parseNode((Element) node, rootNode);
             } else if (nodeName.equals("page")) {
-                rootNode.addPage(getPage((Element)node));
+                rootNode.addPage(getPage((Element) node));
             }
         }
         return rootNode;
@@ -76,33 +83,33 @@ public final class HelpIndexParser {
         int length = nodes.getLength();
         for (int i = 0; i < length; i++) {
             if (nodes.item(i).getNodeName().equals("section")) {
-                parseNode((Element)nodes.item(i), rootNode);
+                parseNode((Element) nodes.item(i), rootNode);
             } else if (nodes.item(i).getNodeName().equals("page")) {
-                helpNode.addPage(getPage((Element)nodes.item(i)));
+                helpNode.addPage(getPage((Element) nodes.item(i)));
             }
         }
         rootNode.addNode(helpNode);
     }
 
     private static HelpPage getPage(Element page) throws DOMException {
-            HelpPage helpPage = new HelpPage();
-            NodeList url = page.getElementsByTagName("url");
-            NodeList title = page.getElementsByTagName("title");
-            helpPage.setUrl(url.item(0).getFirstChild().getNodeValue().trim());
-            helpPage.setTitle(title.item(0).getFirstChild().getNodeValue().trim());
-            return helpPage;
+        HelpPage helpPage = new HelpPage();
+        NodeList url = page.getElementsByTagName("url");
+        NodeList title = page.getElementsByTagName("title");
+        helpPage.setUrl(url.item(0).getFirstChild().getNodeValue().trim());
+        helpPage.setTitle(title.item(0).getFirstChild().getNodeValue().trim());
+        return helpPage;
     }
 
     private static DocumentBuilderFactory getDocBuilderFactory() throws
-        ParserConfigurationException {
+            ParserConfigurationException {
         DocumentBuilderFactory factory =
-            DocumentBuilderFactory.newInstance();
+                DocumentBuilderFactory.newInstance();
         factory.setFeature("http://xml.org/sax/features/validation", true);
         return factory;
     }
 
     private static DocumentBuilder getDocBuilder(DocumentBuilderFactory factory)
-        throws ParserConfigurationException {
+            throws ParserConfigurationException {
         DocumentBuilder documentBuilder = factory.newDocumentBuilder();
         setEntityResolver(documentBuilder);
         setErrorHandler(documentBuilder);
@@ -114,9 +121,9 @@ public final class HelpIndexParser {
 
             @Override
             public InputSource resolveEntity(String publicId, String systemId)
-                throws SAXException, IOException {
+                    throws SAXException, IOException {
                 InputStream is = HelpIndexParser.class.getResourceAsStream(
-                    "/de/elmar_baumann/lib/resource/helpindex.dtd");
+                        "/de/elmar_baumann/lib/resource/helpindex.dtd");
                 InputSource ip = new InputSource(is);
                 ip.setSystemId("helpindex.dtd");
                 return ip;
@@ -138,7 +145,7 @@ public final class HelpIndexParser {
 
             @Override
             public void fatalError(SAXParseException exception) throws
-                SAXException {
+                    SAXException {
                 throw exception;
             }
         });

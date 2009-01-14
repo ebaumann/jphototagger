@@ -7,6 +7,10 @@ import java.util.ArrayList;
 /**
  * Utils für Arrays.
  *
+ * All functions with object-reference-parameters are throwing a
+ * <code>NullPointerException</code> if an object reference is null and it is
+ * not documentet that it can be null.
+ *
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
@@ -16,11 +20,16 @@ public final class ArrayUtil {
      * Erzeugt aus einem String eine String-List.
      * 
      * @param string    String mit Token
-     * @param delimiter Begrenzer zwischen den Token
-     * @return          List
+     * @param delimiter Begrenzer zwischen den Token; jedes Zeichen ist
+     *                  ein unterschiedlicher Begrenzer
+     * @return          Einzelne Token
      */
-    public static List<String> stringTokenToList(String string,
-        String delimiter) {
+    public static List<String> stringTokenToList(String string, String delimiter) {
+        if (string == null)
+            throw new NullPointerException("string == null");
+        if (delimiter == null)
+            throw new NullPointerException("delimiter == null");
+
         StringTokenizer tokenizer = new StringTokenizer(string, delimiter);
         List<String> list = new ArrayList<String>(tokenizer.countTokens());
         while (tokenizer.hasMoreTokens()) {
@@ -30,30 +39,21 @@ public final class ArrayUtil {
     }
 
     /**
-     * Erzeugt aus einem String einen String-Vector.
-     * 
-     * @param string    String mit Token
-     * @param delimiter Begrenzer zwischen den Token
-     * @return          List
-     */
-    public static List<String> stringTokenToArray(String string, String delimiter) {
-        List<String> array = new ArrayList<String>();
-        StringTokenizer tokenizer = new StringTokenizer(string, delimiter);
-        while (tokenizer.hasMoreTokens()) {
-            array.add(tokenizer.nextToken());
-        }
-        return array;
-    }
-
-    /**
      * Converts a string into an integer array. <em>It is expected, that
      * each token can be parsed as an integer!</em>
      * 
      * @param string    string
      * @param delimiter delimiter between integer token
      * @return          list
+     * @throws          NumberFormatException if the string contains a not
+     *                  parsable Integer
      */
-    public static List<Integer> integerTokenToArray(String string, String delimiter) {
+    public static List<Integer> integerTokenToList(String string, String delimiter) {
+        if (string == null)
+            throw new NullPointerException("string == null");
+        if (delimiter == null)
+            throw new NullPointerException("delimiter == null");
+
         List<Integer> array = new ArrayList<Integer>();
         StringTokenizer tokenizer = new StringTokenizer(string, delimiter);
         while (tokenizer.hasMoreTokens()) {
@@ -70,6 +70,9 @@ public final class ArrayUtil {
      * @return Stringarray
      */
     public static String[] toStringArray(Object[] array) {
+        if (array == null)
+            throw new NullPointerException("array == null");
+
         String[] sArray = new String[array.length];
         for (int i = 0; i < array.length; i++) {
             Object o = array[i];
@@ -89,6 +92,11 @@ public final class ArrayUtil {
      * @return true, if the string matches at least one pattern
      */
     public static boolean matches(List<String> patterns, String string) {
+        if (patterns == null)
+            throw new NullPointerException("patterns == null");
+        if (string == null)
+            throw new NullPointerException("string == null");
+
         for (String pattern : patterns) {
             if (string.matches(pattern)) {
                 return true;

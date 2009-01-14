@@ -3,11 +3,15 @@ package de.elmar_baumann.lib.util.help;
 /**
  * A help page of an application's help.
  *
+ * All functions with object-reference-parameters are throwing a
+ * <code>NullPointerException</code> if an object reference is null and it is
+ * not documentet that it can be null.
+ *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/02
  */
 public final class HelpPage {
-    
+
     private String url;
     private String title;
     private HelpNode parent;
@@ -27,6 +31,9 @@ public final class HelpPage {
      * @param title  title
      */
     public void setTitle(String title) {
+        if (title == null)
+            throw new NullPointerException("title == null");
+
         this.title = title;
     }
 
@@ -45,6 +52,9 @@ public final class HelpPage {
      * @param url  URL
      */
     public void setUrl(String url) {
+        if (url == null)
+            throw new NullPointerException("url == null");
+
         this.url = url;
     }
 
@@ -63,7 +73,9 @@ public final class HelpPage {
      * @param parent  parent
      */
     void setParent(HelpNode parent) {
+        if (parent == null)
+            throw new NullPointerException("parent == null");
+
         this.parent = parent;
     }
-    
 }
