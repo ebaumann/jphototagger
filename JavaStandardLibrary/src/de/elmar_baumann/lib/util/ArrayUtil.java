@@ -54,12 +54,12 @@ public final class ArrayUtil {
         if (delimiter == null)
             throw new NullPointerException("delimiter == null");
 
-        List<Integer> array = new ArrayList<Integer>();
+        List<Integer> list = new ArrayList<Integer>();
         StringTokenizer tokenizer = new StringTokenizer(string, delimiter);
         while (tokenizer.hasMoreTokens()) {
-            array.add(Integer.parseInt(tokenizer.nextToken()));
+            list.add(Integer.parseInt(tokenizer.nextToken()));
         }
-        return array;
+        return list;
     }
 
     /**
