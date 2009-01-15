@@ -5,6 +5,7 @@ import de.elmar_baumann.imv.image.metadata.iptc.IptcEntry;
 import de.elmar_baumann.imv.image.metadata.iptc.IptcMetadata;
 import de.elmar_baumann.imv.resource.Bundle;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
@@ -18,7 +19,7 @@ import javax.swing.table.DefaultTableModel;
 public final class TableModelIptc extends DefaultTableModel {
 
     private File file;
-    private List<IptcEntry> iptcEntries;
+    private List<IptcEntry> iptcEntries = new ArrayList<IptcEntry>();
 
     public TableModelIptc() {
         addColumnHeaders();
@@ -54,11 +55,9 @@ public final class TableModelIptc extends DefaultTableModel {
     }
 
     private void addRows() {
-        if (iptcEntries != null) {
-            Collections.sort(iptcEntries, IptcEntryComparator.INSTANCE);
-            for (IptcEntry entry : iptcEntries) {
-                super.addRow(getTableRow(entry));
-            }
+        Collections.sort(iptcEntries, IptcEntryComparator.INSTANCE);
+        for (IptcEntry entry : iptcEntries) {
+            super.addRow(getTableRow(entry));
         }
     }
 

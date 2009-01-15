@@ -21,12 +21,15 @@ public final class Bundle {
      * @param  key  Schlüssel
      * @return Wert, bei einer Ausnahme der Schlüssel mit Fragezeichen
      *         umschlossen
+     * @throws NullPointerException wenn der Schlüssel null ist
      */
     public static String getString(String key) {
         try {
             return bundle.getString(key);
         } catch (MissingResourceException ex) {
             de.elmar_baumann.imv.Log.logWarning(Bundle.class, ex);
+        } catch (NullPointerException ex) {
+            throw ex;
         } catch (Exception ex) {
             de.elmar_baumann.imv.Log.logWarning(Bundle.class, ex);
         }

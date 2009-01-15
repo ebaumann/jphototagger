@@ -7,7 +7,6 @@ import com.imagero.reader.iptc.IPTCEntryCollection;
 import com.imagero.reader.iptc.IPTCEntryMeta;
 import de.elmar_baumann.imv.data.Iptc;
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,25 +22,19 @@ public final class IptcMetadata {
      * Liefert die IPTC-Metadaten einer Datei.
      * 
      * @param  file  Datei
-     * @return Metadaten oder null bei Lesefehlern
+     * @return Metadaten oder leere Liste bei Lesefehlern
      */
     public static List<IptcEntry> getMetadata(File file) {
-        if (file == null || !file.exists()) {
-            return null;
-        }
         List<IptcEntry> metadata = new ArrayList<IptcEntry>();
-
-        try {
-            IPTCEntryCollection collection = MetadataUtils.getIPTC(file);
-            if (collection != null) {
-                addEntries(collection.getEntries(IPTCConstants.RECORD_APPLICATION), metadata);
+        if (file != null && file.exists()) {
+            try {
+                IPTCEntryCollection collection = MetadataUtils.getIPTC(file);
+                if (collection != null) {
+                    addEntries(collection.getEntries(IPTCConstants.RECORD_APPLICATION), metadata);
+                }
+            } catch (Exception ex) {
+                de.elmar_baumann.imv.Log.logWarning(IptcMetadata.class, ex);
             }
-        } catch (IOException ex) {
-            metadata = null;
-            de.elmar_baumann.imv.Log.logWarning(IptcMetadata.class, ex);
-        } catch (Exception ex) {
-            metadata = null;
-            de.elmar_baumann.imv.Log.logWarning(IptcMetadata.class, ex);
         }
         return metadata;
     }
@@ -103,7 +96,7 @@ public final class IptcMetadata {
     public static Iptc getIptc(File file) {
         Iptc iptc = null;
         List<IptcEntry> iptcEntries = getMetadata(file);
-        if (iptcEntries != null) {
+        if (iptcEntries.size() > 0) {
             iptc = new Iptc();
             for (IptcEntry iptcEntry : iptcEntries) {
                 IPTCEntryMeta iptcEntryMeta = iptcEntry.getEntryMeta();
@@ -113,5 +106,6 @@ public final class IptcMetadata {
         return iptc;
     }
 
-    private IptcMetadata() {}
+    private IptcMetadata() {
+    }
 }

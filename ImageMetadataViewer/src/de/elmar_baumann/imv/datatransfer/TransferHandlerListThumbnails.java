@@ -55,7 +55,7 @@ public abstract class TransferHandlerListThumbnails extends TransferHandler {
             return false;
         }
         int listIndex = ((JList.DropLocation) transferSupport.getDropLocation()).getIndex();
-        List<String> filenames = ArrayUtil.stringTokenToArray(data, filenamesDelimiter);
+        List<String> filenames = ArrayUtil.stringTokenToList(data, filenamesDelimiter);
         handleDroppedThumbnails(listIndex, filenames);
         return true;
     }

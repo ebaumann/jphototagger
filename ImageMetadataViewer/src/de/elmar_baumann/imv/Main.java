@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv;
 
-import com.imagero.reader.AbstractImageReader;
+import com.imagero.reader.LicenseManager;
 import de.elmar_baumann.imv.database.DatabaseTables;
 import de.elmar_baumann.lib.componentutil.LookAndFeelUtil;
 import de.elmar_baumann.imv.resource.Bundle;
@@ -40,7 +40,7 @@ public final class Main {
         messageInitDatabase();
         DatabaseTables.getInstance().createTables();
         initLogger();
-        AbstractImageReader.install(ImageProperties.class);
+        LicenseManager.install(new ImageProperties());
         messageInitGui();
         showFrame();
     }
@@ -106,5 +106,6 @@ public final class Main {
         }
     }
 
-    private Main() {}
+    private Main() {
+    }
 }

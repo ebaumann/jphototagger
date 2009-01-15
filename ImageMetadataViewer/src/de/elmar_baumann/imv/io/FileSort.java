@@ -3,8 +3,6 @@ package de.elmar_baumann.imv.io;
 import de.elmar_baumann.lib.util.ComparatorFilesLastModified;
 import de.elmar_baumann.lib.util.ComparatorFilesNames;
 import de.elmar_baumann.lib.util.ComparatorFilesPostfixes;
-import de.elmar_baumann.lib.util.CompareCase;
-import de.elmar_baumann.lib.util.CompareOrder;
 import java.io.File;
 import java.util.Comparator;
 
@@ -15,12 +13,12 @@ import java.util.Comparator;
  */
 public enum FileSort {
 
-    NamesAscending(new ComparatorFilesNames(CompareOrder.Ascending, CompareCase.Ignore)),
-    NamesDescending(new ComparatorFilesNames(CompareOrder.Descending, CompareCase.Ignore)),
-    TypesAscending(new ComparatorFilesPostfixes(CompareOrder.Ascending, CompareCase.Ignore)),
-    TypesDescending(new ComparatorFilesPostfixes(CompareOrder.Descending, CompareCase.Ignore)),
-    LastModifiedAscending(new ComparatorFilesLastModified(CompareOrder.Ascending)),
-    LastModifiedDescending(new ComparatorFilesLastModified(CompareOrder.Descending));
+    NamesAscending(ComparatorFilesNames.COMPARE_ASCENDING_IGNORE_CASE),
+    NamesDescending(ComparatorFilesNames.COMPARE_DESCENDING_IGNORE_CASE),
+    TypesAscending(ComparatorFilesPostfixes.COMPARE_ASCENDING_IGNORE_CASE),
+    TypesDescending(ComparatorFilesPostfixes.COMPARE_DESCENDING_IGNORE_CASE),
+    LastModifiedAscending(ComparatorFilesLastModified.COMPARE_ASCENDING),
+    LastModifiedDescending(ComparatorFilesLastModified.COMPARE_DESCENDING);
     private final Comparator<File> comparator;
 
     private FileSort(Comparator<File> comparator) {

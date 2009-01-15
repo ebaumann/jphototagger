@@ -30,12 +30,15 @@ public final class Translation {
      * @return       Übersetzter String (Value eines Propertys) oder zu
      *               übersetzender String, falls keine Übersetzung möglich ist
      *               (Key nicht vorhanden in Properties-Datei)
+     * @throws NullPointerException wenn der Schlüssel null ist
      */
     public String translate(String string) {
         try {
             return bundle.getString(string);
         } catch (MissingResourceException ex) {
             de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+        } catch (NullPointerException ex) {
+            throw ex;
         } catch (Exception ex) {
             de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
         }
