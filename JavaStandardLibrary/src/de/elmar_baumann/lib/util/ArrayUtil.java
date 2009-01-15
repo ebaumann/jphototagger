@@ -3,9 +3,10 @@ package de.elmar_baumann.lib.util;
 import java.util.List;
 import java.util.StringTokenizer;
 import java.util.ArrayList;
+import java.util.regex.PatternSyntaxException;
 
 /**
- * Utils für Arrays.
+ * Utils for arrays and array like objects.
  *
  * All functions with object-reference-parameters are throwing a
  * <code>NullPointerException</code> if an object reference is null and it is
@@ -17,12 +18,19 @@ import java.util.ArrayList;
 public final class ArrayUtil {
 
     /**
-     * Erzeugt aus einem String eine String-List.
+     * Creates a list of strings from a string within tokens. Empty tokens will
+     * be omitted: If a string within tokens is <code>"a,,b,,c"</code> and the
+     * delimiter string is <code>","</code>, the returned list of strings
+     * contains the tree elements <code>"a", "b", "c"</code>.
      * 
-     * @param string    String mit Token
-     * @param delimiter Begrenzer zwischen den Token; jedes Zeichen ist
-     *                  ein unterschiedlicher Begrenzer
-     * @return          Einzelne Token
+     * @param string    String within tokens
+     * @param delimiter Delimiter that separates the tokens. Every character
+     *                  of the delimiter string is a separate delimiter. If
+     *                  the string within tokens is <code>"I,like:ice"</code>
+     *                  and the delimiter string is <code>",:"</code>, the
+     *                  returned list of strings contains the three elements
+     *                  <code>"I", "like", "ice"</code>.
+     * @return          List of strings
      */
     public static List<String> stringTokenToList(String string, String delimiter) {
         if (string == null)
@@ -39,14 +47,24 @@ public final class ArrayUtil {
     }
 
     /**
-     * Converts a string into an integer array. <em>It is expected, that
-     * each token can be parsed as an integer!</em>
+     * Creates a list of integers from a string within tokens. Empty tokens will
+     * be omitted: If a string within tokens is <code>"1,,2,,3"</code> and the
+     * delimiter string is <code>","</code>, the returned list of integers
+     * contains the tree elements <code>1, 2, 3</code>.
+     *
+     * <em>It is expected, that each token can be parsed as an integer or is
+     * empty!</em>
      * 
-     * @param string    string
-     * @param delimiter delimiter between integer token
-     * @return          list
-     * @throws          NumberFormatException if the string contains a not
-     *                  parsable Integer
+     * @param string    String within tokens parsable as integer
+     * @param delimiter Delimiter between the integer tokens. Every character
+     *                  of the delimiter string is a separate delimiter. If
+     *                  the string within tokens is <code>"1,2:3"</code>
+     *                  and the delimiter string is <code>",:"</code>, the
+     *                  returned list of integers contains the three elements
+     *                  <code>1, 2, 3</code>.
+     * @return          list of integers
+     * @throws          NumberFormatException if the string contains a not empty
+     *                  token that can't parsed as an integer
      */
     public static List<Integer> integerTokenToList(String string, String delimiter) {
         if (string == null)
@@ -54,42 +72,52 @@ public final class ArrayUtil {
         if (delimiter == null)
             throw new NullPointerException("delimiter == null");
 
-        List<Integer> list = new ArrayList<Integer>();
+        List<Integer> integerList = new ArrayList<Integer>();
         StringTokenizer tokenizer = new StringTokenizer(string, delimiter);
         while (tokenizer.hasMoreTokens()) {
-            list.add(Integer.parseInt(tokenizer.nextToken()));
+            integerList.add(Integer.parseInt(tokenizer.nextToken()));
         }
-        return list;
+        return integerList;
     }
 
     /**
-     * Liefert von einem Objektarray einen Array mit den Strings, die
-     * <code>toString()</code> der Objekte lieferte.
+     * Converts an array of objects into an array of strings. The strings are
+     * created with the object's <code>toString()</code> method.
      * 
-     * @param  array Objektarray
-     * @return Stringarray
+     * @param  objectArray array of objects
+     * @return array of strings
+     * @throws IllegalArgumentException if an element in the array of objects
+     *         is null
      */
-    public static String[] toStringArray(Object[] array) {
-        if (array == null)
+    public static String[] toStringArray(Object[] objectArray) {
+        if (objectArray == null)
             throw new NullPointerException("array == null");
 
-        String[] sArray = new String[array.length];
-        for (int i = 0; i < array.length; i++) {
-            Object o = array[i];
-            sArray[i] = o == null ? "" : o.toString(); // NOI18N
+        String[] stringArray = new String[objectArray.length];
+        for (int i = 0; i < objectArray.length; i++) {
+            if (objectArray[i] == null)
+                throw new IllegalArgumentException(
+                        "Element with index " + i + " is not an object: " +
+                        objectArray[i] + " (" + objectArray.toString() + ")");
+
+            Object object = objectArray[i];
+            stringArray[i] = object.toString(); // NOI18N
         }
-        return sArray;
+        return stringArray;
     }
 
     /**
-     * Returns, whether a string matches one ore more patterns in an array with
+     * Returns, whether a string matches at least one pattern in an array with
      * regular expressions.
      * 
-     * Uses <code>java.lang.String.matches(java.lang.String)</code>
+     * Uses <code>java.lang.String.matches(java.lang.String)</code>.
      * 
-     * @param  patterns  patterns
-     * @param  string    string
+     * @param  patterns  List of string patterns
+     * @param  string    String
      * @return true, if the string matches at least one pattern
+     * @throws PatternSyntaxException if the syntax of the regular expression
+     *         is invalid (as long as the elements in the list of string
+     *         patterns don't match)
      */
     public static boolean matches(List<String> patterns, String string) {
         if (patterns == null)
