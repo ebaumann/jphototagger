@@ -17,10 +17,18 @@ public final class RegExp {
      * @return       Maskierter String
      */
     public static String escape(String string) {
+        if (string == null)
+            throw new NullPointerException("string == null");
+
         // "\\", "\\\\" muss am Anfang stehen!
         return string.replace("\\", "\\\\"). // NOI18N
-            replace("*", "\\*"). // NOI18N
-            replace(".", "\\."); // NOI18N
+                replace("*", "\\*"). // NOI18N
+                replace("+", "\\+"). // NOI18N
+                replace("[", "\\["). // NOI18N
+                replace("]", "\\]"). // NOI18N
+                replace("(", "\\("). // NOI18N
+                replace(")", "\\)"). // NOI18N
+                replace(".", "\\."); // NOI18N
     }
 
     private RegExp() {
