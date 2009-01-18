@@ -2,7 +2,6 @@ package de.elmar_baumann.lib.persistence;
 
 import de.elmar_baumann.lib.componentutil.TreeUtil;
 import de.elmar_baumann.lib.resource.Bundle;
-import de.elmar_baumann.lib.util.RegExp;
 import java.awt.Component;
 import java.awt.Point;
 import java.io.File;
@@ -72,7 +71,7 @@ public final class PersistentSettings {
     }
 
     private String getArrayKeyMatchPattern(String key) {
-        return "^" + RegExp.escape(key + delimiterArrayKeys) + "[0-9]+$"; // NOI18N
+        return "^" + java.util.regex.Pattern.quote(key + delimiterArrayKeys) + "[0-9]+$"; // NOI18N
     }
 
     /**

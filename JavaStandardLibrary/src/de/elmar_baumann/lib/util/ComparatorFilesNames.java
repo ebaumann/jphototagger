@@ -11,19 +11,52 @@ import java.util.Comparator;
  */
 public final class ComparatorFilesNames implements Comparator<File> {
 
-    private final CompareOrder order;
-    private final CompareCase ccase;
+    /**
+     * Compares the names of two files case insensitive to sort them in
+     * ascending order.
+     */
+    public static final ComparatorFilesNames COMPARE_ASCENDING_IGNORE_CASE =
+        new ComparatorFilesNames(CompareOrder.Ascending, CompareCase.Ignore);
+    /**
+     * Compares the names of two files case sensitive to sort them in
+     * ascending order.
+     */
+    public static final ComparatorFilesNames COMPARE_ASCENDING_CASE_SENSITIVE =
+        new ComparatorFilesNames(CompareOrder.Ascending, CompareCase.Sensitive);
+    /**
+     * Compares the names of two files case insensitive to sort them in
+     * descending order.
+     */
+    public static final ComparatorFilesNames COMPARE_DESCENDING_IGNORE_CASE =
+        new ComparatorFilesNames(CompareOrder.Descending, CompareCase.Ignore);
+    /**
+     * Compares the names of two files case sensitive to sort them in
+     * descending order.
+     */
+    public static final ComparatorFilesNames COMPARE_DESCENDING_CASE_SENSITIVE =
+        new ComparatorFilesNames(CompareOrder.Descending, CompareCase.Sensitive);
+    /** Sort order of the files */
+    private final CompareOrder compareOrder;
+    /** Case sensitive? */
+    private final CompareCase compareCase;
 
-    public ComparatorFilesNames(CompareOrder order, CompareCase ccase) {
-        this.order = order;
-        this.ccase = ccase;
+    private ComparatorFilesNames(CompareOrder compareOrder, CompareCase compareCase) {
+        this.compareOrder = compareOrder;
+        this.compareCase = compareCase;
     }
 
     @Override
-    public int compare(File o1, File o2) {
-        String filename1 = ccase.equals(CompareCase.Ignore) ? o1.getAbsolutePath().toLowerCase() : o1.getAbsolutePath();
-        String filename2 = ccase.equals(CompareCase.Ignore) ? o2.getAbsolutePath().toLowerCase() : o2.getAbsolutePath();
-        int asc = filename1.compareTo(filename2);
-        return order.equals(CompareOrder.Ascending) ? asc : asc * -1;
+    public int compare(File leftFile, File rightFile) {
+        String leftFilename =
+            compareCase.equals(CompareCase.Ignore)
+            ? leftFile.getAbsolutePath().toLowerCase()
+            : leftFile.getAbsolutePath();
+        String rightFilename =
+            compareCase.equals(CompareCase.Ignore)
+            ? rightFile.getAbsolutePath().toLowerCase()
+            : rightFile.getAbsolutePath();
+        int resultAscending = leftFilename.compareTo(rightFilename);
+        return compareOrder.equals(CompareOrder.Ascending)
+            ? resultAscending : resultAscending * -1;
     }
 }
