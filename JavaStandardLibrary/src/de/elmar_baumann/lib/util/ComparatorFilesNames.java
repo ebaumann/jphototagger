@@ -4,7 +4,7 @@ import java.io.File;
 import java.util.Comparator;
 
 /**
- * Compares the names of two files.
+ * Compares the absolute path names of two files.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/14
@@ -45,6 +45,17 @@ public final class ComparatorFilesNames implements Comparator<File> {
         this.compareCase = compareCase;
     }
 
+    /**
+     * Compares the absolute path names of of two files. Uses {@link CompareOrder}
+     * and {@link CompareCase}.
+     *
+     * @param leftFile   left file
+     * @param rightFile  right file
+     * @return zero if both file paths are equals, less than zero if the
+     *         left file's sort order is before the right file's sort order
+     *         and greater than zero if the right file's sort order is before
+     *         the left file's sort order
+     */
     @Override
     public int compare(File leftFile, File rightFile) {
         String leftFilename =
