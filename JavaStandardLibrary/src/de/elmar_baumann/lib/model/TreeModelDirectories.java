@@ -1,8 +1,7 @@
 package de.elmar_baumann.lib.model;
 
 import de.elmar_baumann.lib.io.DirectoryFilter;
-import de.elmar_baumann.lib.types.SortType;
-import de.elmar_baumann.lib.util.FileComparator;
+import de.elmar_baumann.lib.util.ComparatorFilesNames;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -29,7 +28,7 @@ import javax.swing.tree.TreePath;
 public final class TreeModelDirectories implements TreeModel {
 
     private static final int updateIntervalSeconds = 3;
-    private static final FileComparator sortComparator = new FileComparator(SortType.ascendingNoCase);
+    private static final ComparatorFilesNames sortComparator = ComparatorFilesNames.COMPARE_ASCENDING_IGNORE_CASE;
     private final List<File> rootNodes = new ArrayList<File>();
     private final Map<File, List<File>> childrenOfNode = new HashMap<File, List<File>>();
     private final List<TreeModelListener> listeners = new ArrayList<TreeModelListener>();
