@@ -1,11 +1,12 @@
 package de.elmar_baumann.imv.image.thumbnail;
 
 import com.imagero.reader.IOParameterBlock;
-import com.imagero.reader.ImageFile;
 import com.imagero.reader.ImageProcOptions;
 import com.imagero.reader.ImageReader;
 import com.imagero.reader.Imagero;
 import com.imagero.reader.ReaderFactory;
+import com.imagero.reader.jpeg.JpegReader;
+import com.imagero.reader.tiff.TiffReader;
 import com.sun.image.codec.jpeg.ImageFormatException;
 import de.elmar_baumann.imv.Log;
 import de.elmar_baumann.imv.image.metadata.exif.ExifMetadata;
@@ -59,18 +60,19 @@ public final class ThumbnailUtil {
     private static Image getFileEmbeddedThumbnail(File file) {
         Image thumbnail = null;
         try {
-            IOParameterBlock ioParamBlock = new IOParameterBlock(file);
-            ImageFile imageFile = ReaderFactory.create(ioParamBlock);
-            int tnCount = imageFile.getThumbnailCount();
-            if (tnCount > 0) {
-                ImageReader tnReader = imageFile.getThumbnailReader(0);
-                if (tnReader != null) {
-                    ImageProcOptions procOptions = new ImageProcOptions();
-                    procOptions.setSource(tnReader);
-                    thumbnail = tnReader.readImage(procOptions);
-                    tnReader.close();
+            ImageReader reader = ReaderFactory.createReader(file);
+            if (reader instanceof JpegReader) {
+                IOParameterBlock ioParamBlock = new IOParameterBlock();
+                ioParamBlock.setSource(file);
+                thumbnail = Imagero.getThumbnail(ioParamBlock, 0);
+            } else if (reader instanceof TiffReader) {
+                TiffReader tiffReader = (TiffReader) reader;
+                if (tiffReader.getThumbnailCount() > 0) {
+                    thumbnail = Toolkit.getDefaultToolkit().createImage(
+                        tiffReader.getThumbnail(0));
                 }
             }
+            close(reader);
         } catch (Exception ex) {
             de.elmar_baumann.imv.Log.logWarning(ThumbnailUtil.class, ex);
             return null;
@@ -283,6 +285,5 @@ public final class ThumbnailUtil {
         return image;
     }
 
-    private ThumbnailUtil() {
-    }
+    private ThumbnailUtil() {}
 }

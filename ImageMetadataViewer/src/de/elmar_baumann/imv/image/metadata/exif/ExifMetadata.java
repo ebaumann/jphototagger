@@ -2,14 +2,21 @@ package de.elmar_baumann.imv.image.metadata.exif;
 
 import com.imagero.reader.ImageReader;
 import com.imagero.reader.MetadataUtils;
+import com.imagero.reader.iptc.IPTCEntry;
+import com.imagero.reader.iptc.IPTCEntryCollection;
+import com.imagero.reader.jpeg.JpegReader;
 import com.imagero.reader.tiff.IFDEntry;
 import com.imagero.reader.tiff.ImageFileDirectory;
+import com.imagero.reader.tiff.TiffReader;
 import de.elmar_baumann.imv.data.Exif;
+import de.elmar_baumann.imv.io.FileType;
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Enumeration;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
@@ -26,8 +33,7 @@ public final class ExifMetadata {
 
     private static final Map<String, Double> rotationAngleOfString = new HashMap<String, Double>();
     private static final List<Integer> tagsToDisplay = new ArrayList<Integer>();
-
-
+    
     static {
         rotationAngleOfString.put("(0, 0) is top-left", new Double(0)); // 1 // NOI18N
         rotationAngleOfString.put("(0, 0) is top-right", new Double(0)); // 2 // NOI18N
@@ -38,7 +44,7 @@ public final class ExifMetadata {
         rotationAngleOfString.put("(0, 0) is right-bottom", new Double(270)); // 7 // NOI18N
         rotationAngleOfString.put("(0, 0) is left-bottom", new Double(270)); // 8 // NOI18N
     }
-
+    
 
     static {
         tagsToDisplay.add(ExifTag.Make.getId());
@@ -83,9 +89,10 @@ public final class ExifMetadata {
     }
 
     private static void addIFDEntries(File file, List<IdfEntryProxy> metadata) throws IOException {
-        ImageFileDirectory[] ifds = MetadataUtils.getExif(file);
-        if (ifds != null) {
-            IFDEntry[][] allEntries = MetadataUtils.getEntries(ifds);
+        ImageReader reader = null;
+        if (FileType.isJpegFile(file.getName())) {
+            reader = new JpegReader(file);
+            IFDEntry[][] allEntries = MetadataUtils.getExif((JpegReader) reader);
             if (allEntries != null) {
                 for (int i = 0; i < allEntries.length; i++) {
                     IFDEntry[] currentEntries = allEntries[i];
@@ -94,13 +101,46 @@ public final class ExifMetadata {
                     }
                 }
             }
+        } else {
+            reader = new TiffReader(file);
+            int count = ((TiffReader) reader).getIFDCount();
+            for (int i = 0; i < count; i++) {
+                addIfdEntriesOfDirectory(((TiffReader) reader).getIFD(i), metadata);
+            }
         }
+        close(reader);
     }
 
     private static void close(ImageReader reader) {
         // causes exceptions e.g. in TableModelExif#setExifData(): entry.toString() ?
         if (reader != null) {
             reader.close();
+        }
+    }
+
+    private static void addIfdEntriesOfDirectory(ImageFileDirectory ifd, List<IdfEntryProxy> metadata) {
+        int entryCount = ifd.getEntryCount();
+        for (int i = 0; i < entryCount; i++) {
+            IFDEntry ifdEntry = ifd.getEntryAt(i);
+            if (ifdEntry != null) {
+                metadata.add(new IdfEntryProxy(ifdEntry));
+            }
+        }
+        for (int i = 0; i < ifd.getIFDCount(); i++) {
+            ImageFileDirectory ifd0 = ifd.getIFDAt(i);
+            addIfdEntriesOfDirectory(ifd0, metadata);
+        }
+        ImageFileDirectory exifIFD = ifd.getExifIFD();
+        if (exifIFD != null) {
+            addIfdEntriesOfDirectory(exifIFD, metadata);
+        }
+        ImageFileDirectory gpsIFD = ifd.getGpsIFD();
+        if (gpsIFD != null) {
+            addIfdEntriesOfDirectory(gpsIFD, metadata);
+        }
+        ImageFileDirectory interoperabilityIFD = ifd.getInteroperabilityIFD();
+        if (interoperabilityIFD != null) {
+            addIfdEntriesOfDirectory(interoperabilityIFD, metadata);
         }
     }
 
@@ -178,7 +218,7 @@ public final class ExifMetadata {
      */
     public static Exif getExif(File file) {
         Exif exif = null;
-        List<IdfEntryProxy> exifEntries = ExifMetadata.getMetadata(file);
+        List<IdfEntryProxy> exifEntries = getMetadata(file);
         if (exifEntries != null) {
             exif = new Exif();
             try {
@@ -262,6 +302,90 @@ public final class ExifMetadata {
         }
     }
 
-    private ExifMetadata() {
+    /**
+     * Dumps the exif metadata of a file to stdout.
+     * 
+     * @param file file
+     */
+    public static void dumpExif(File file) {
+        // Code inklusive aufgerufener Operation von Andrey Kuznetsov <imagero@gmx.de>
+        // E-Mail v. 22.08.2008
+        try {
+            TiffReader reader = new TiffReader(file);
+            int cnt = reader.getIFDCount();
+            System.out.println("Count IFDs: " + cnt); // NOI18N
+            for (int i = 0; i < cnt; i++) {
+                dumpPrintDirectory(reader.getIFD(i), "IFD#" + i, System.out); // NOI18N
+            }
+
+            IPTCEntryCollection collection = MetadataUtils.getIPTC(reader);
+            dumpPrintIptc(collection, System.out);
+        } catch (IOException ex) {
+            de.elmar_baumann.imv.Log.logWarning(ExifMetadata.class, ex);
+        }
     }
+
+    private static void dumpPrintDirectory(ImageFileDirectory ifd, String name,
+        PrintStream out)
+        throws IOException {
+        out.println("\n-----------------------------------------"); // NOI18N
+        out.println();
+        out.println(name);
+        out.println("Entry count " + ifd.getEntryCount()); // NOI18N
+        out.println("name: tag: valueOffset: {description}: value:"); // NOI18N
+
+        int entryCount = ifd.getEntryCount();
+        for (int i = 0; i < entryCount; i++) {
+            IFDEntry ifdEntry = ifd.getEntryAt(i);
+            if (ifdEntry != null) {
+                dumpPrintEntry(ifdEntry, out);
+            }
+        }
+        for (int i = 0; i < ifd.getIFDCount(); i++) {
+            ImageFileDirectory ifd0 = ifd.getIFDAt(i);
+            dumpPrintDirectory(ifd0, "", out); // NOI18N
+        }
+        ImageFileDirectory exifIFD = ifd.getExifIFD();
+        if (exifIFD != null) {
+            dumpPrintDirectory(exifIFD, "ExifIFD", out); // NOI18N
+        }
+        ImageFileDirectory gpsIFD = ifd.getGpsIFD();
+        if (gpsIFD != null) {
+            dumpPrintDirectory(gpsIFD, "GpsIFD", out); // NOI18N
+        }
+        ImageFileDirectory interoperabilityIFD = ifd.getInteroperabilityIFD();
+        if (interoperabilityIFD != null) {
+            dumpPrintDirectory(interoperabilityIFD, "InteroperabilityIFD", out); // NOI18N
+        }
+        out.println();
+    }
+
+    private static void dumpPrintEntry(IFDEntry e, PrintStream out) {
+        out.println();
+        int tag = e.getTag();
+        out.print(tag);
+        out.print("\t"); // NOI18N
+        out.print(e.getEntryMeta().getName());
+        out.print("\t"); // NOI18N
+        out.print(e);
+    }
+
+    private static void dumpPrintIptc(IPTCEntryCollection entries, PrintStream out) {
+        out.println();
+        Enumeration keys = entries.keys();
+        while (keys.hasMoreElements()) {
+            Object key = keys.nextElement();
+            int count = entries.getCount(key);
+            for (int j = 0; j < count; j++) {
+                IPTCEntry entry = entries.getEntry(key, j);
+                out.print(entry.getRecordNumber() + ":" + entry.getDataSetNumber()); // NOI18N
+                out.print(" ("); // NOI18N
+                out.print(entry.getEntryMeta().getName());
+                out.print(") "); // NOI18N
+                out.println(entries.toString(entry).replace((char) 0, (char) 32).trim());
+            }
+        }
+    }
+
+    private ExifMetadata() {}
 }
