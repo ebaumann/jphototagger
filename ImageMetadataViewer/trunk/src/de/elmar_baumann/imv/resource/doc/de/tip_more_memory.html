@@ -1,0 +1,21 @@
+ <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+	<title>Mehr Arbeitsspeicher</title>
+	<meta name="author" content="Elmar Baumann" />
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	
+<h1>Mehr Arbeitsspeicher</h1>
+
+<p>Sollte der Arbeitsspeicher nicht ausreichen für <strong>Bilder</strong>, können Sie mehr zur Verfügung stellen. Ergänzen Sie die Startdatei bei <strong>Heap Overflows</strong>:</p>
+
+<pre>java <font color="red">-Xms30m -Xmx500m</font> -jar Bilder.jar</pre>
+
+<p>So stellen Sie Anfangs 30 Megabyte zur Verfügung und <strong>Bilder</strong> kann - falls erforderlich - bis zu 500 Megabyte benutzen.</p>
+
+<p>Gibt es einen <strong>Thread Stack Overflow</strong>, kann der Stack vergrößert werden mit dem Parameter <font color="red">-Xss</font> gefolgt von einer Megabyte-Angabe.</p>
+
+</body>
+</html>
