@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+	<title>Was erledigt dieses Programm?</title>
+	<meta name="author" content="Elmar Baumann" />
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+
+<h1>Was erledigt dieses Programm?</h1>
+
+<p>Das Programm <strong>Bilder</strong> hilft Ihnen, Ihre Bilder zu finden. Gefundene Bilder können Sie öffnen zum Bearbeiten mit Ihrem Bildbearbeitungsprogramm, mit einem weiteren Programm betrachten oder in einen Ordner kopieren, vielleicht zum Hochladen an ein Fotolabor oder auf einen Webserver, umbenennen, löschen, ... Die Zahl der Programme, an die Sie Bilder schicken können, ist beliebig, ebenso die Zahl der Bilder für ein bestimmtes Programm.</p>
+
+<h2>Wie werden Bilder gefunden?</h2>
+
+<p>Gefunden werden die Bilder über verschiedene Merkmale wie Stichwörter, Kategorien und Aufnahmeorte. Diese Daten werden als <strong><a href="glossary_metadata.html">Metadaten</a></strong> bezeichnet und Sie können die Metadaten im Programm <strong>Bilder</strong> eingeben. Damit Sie möglichst wenig Arbeit haben, können Sie Vorlagen speichern mit immer wieder benutzten Angaben, z.B. Ihre Kontaktdaten und das Copyright. Haben Sie mehrere Bilder ausgewählt, werden Ihre Eingaben für alle Bilder gespeichert. Bei jedem Start des Programms werden Ihre bisherigen Eingaben gelesen und vorgeschlagen, während Sie neue Begriffe eingeben.</p>
+
+<h2>Wo werden die Metadaten gespeichert?</h2>
+
+<p>Was Sie eingeben, wird in eine <strong><a href="glossary_sidecar_file.html">XMP-Filialdatei</a></strong> gespeichert. Das ist eine Datei mit dem gleichen Namen wie das Bild und der Endung <code>xmp</code>. Heißt ein Bild <code>Blume.jpg</code>, ist seine Filialdatei <code>Blume.xmp</code>. Alle Filialdateien sind im gleichen Ordner gespeichert wie das Bild. Zusätzlich werden Ihre Eingaben in eine <strong>Datenbank</strong> geschrieben und so schnell gefunden. Auch die Vorschaubilder sind in der Datenbank gespeichert, damit sie schnell angezeigt werden. Wurde ein Bild aktualisiert, werden das Vorschaubild und die Metadaten in der Datenbank erneuert.</p>
+
+<h2>Vorteile der XMP-Filialdateien</h2>
+
+<p>Die Filialdateien und XMP haben die Vorteile:</p>
+
+<ul>
+	<li>Ihre Bilder werden nicht verändert. XMP ließe sich in die Bilder selbst schreiben, wäre dann aber nicht so schnell zu verändern, denn Bilddateien sind sehr viel größer als XMP-Textdateien und leer gelassener Platz nach den XMP-Daten - falls das Schreibprogramm daran dachte - ist begrenzt. So muss jedesmal das (ganze) Bild neu geschrieben werden. Im schlimmsten Fall könnte es dabei beschädigt werden.</li>
+	<li>XMP ist ein Standard und zukünftig sollten andere Bildprogramme diesen nutzen können. Aktuell trifft das zu für <strong>Adobe Photoshop Lightroom</strong>, das ebenfalls XMP-Filialdateien benutzt. So können Sie mit mehreren Programmen Bilder suchen und finden, müssen diese aber nur einmal katalogisieren und das mit einem Programm Ihrer Wahl. Vielleicht arbeiten Sie auf mehreren Betriebssystemen. Lightroom gibt es z.B. nicht für Linux. Sie können das Programm <strong>Bilder</strong> so einstellen, dass es automatisch Ordner nach Veränderungen (durch andere Programme) durchsucht und diese übernimmt.</li>
+	<li>Ist die Datenbank beschädigt, können Sie diese automatisch erneuern lassen anhand der XMP-Filialdateien</li>
+</ul>
+
+<h2>Weitere Anzeigen</h2>
+
+<p>Es werden zusätzlich <strong>IPTC</strong>-Daten angezeigt. Sie können <em>nicht</em> nach diesen suchen und sollten Sie vorher nach <a href="action_metadata_iptc_to_xmp.html">XMP kopieren</a>. <a href="glossary_iptc.html">IPTC</a> ist ein älterer Standard und die Daten stehen in den Bildern. Daneben werden <strong><a href="glossary_xmp.html">EXIF</a></strong>-Daten angezeigt und nach einigen kann gesucht werden. Die EXIF-Daten schreibt Ihre Kamera in die Bilder: Aufnahmedatum, Brennweite, Verschlusszeit, ...</p>
+
+</body>
+</html>
