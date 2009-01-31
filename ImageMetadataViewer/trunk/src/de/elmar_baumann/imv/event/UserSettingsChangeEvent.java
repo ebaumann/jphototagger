@@ -9,7 +9,7 @@ import java.util.logging.Level;
  * Action: The user has changed the settings.
  * 
  * <em>The get...() methos returns only valid content for the appropriate
- * action. E.g. if the action is {@link Type#AutocopyDirectory} the
+ * action. E.g. if the action is {@link Type#AUTOCOPY_DIRECTORY} the
  * appropriate method ist {@link #getAutoCopyDirectory()}. Other getters
  * will return null or an unitialized value!</em>
  * 
@@ -41,26 +41,26 @@ public final class UserSettingsChangeEvent {
 
     public enum Type {
 
-        AutoscanDirectories,
-        AutocopyDirectory,
-        DefaultImageOpenApp,
-        EditColumns,
-        ExternalThumbnailCreationCommand,
-        FastSearchColumns,
-        IptcCharset,
-        IsAcceptHiddenDirectories,
-        IsAutoscanIncludeSubdirectories,
-        IsCreateThumbnailsWithExternalApp,
-        IsTaskRemoveRecordsWithNotExistingFiles,
-        IsUseAutocomplete,
-        IsUseEmbeddedThumbnails,
-        LogfileFormatterClass,
-        LogLevel,
-        MaxThumbnailWidth,
-        MinutesToStartScheduledTasks,
-        NoFastSearchColumns,
-        OtherImageOpenApps,
-        ThreadPriority,
+        AUTOSCAN_DIRECTORIES,
+        AUTOCOPY_DIRECTORY,
+        DEFAULT_IMAGE_OPEN_APP,
+        EDIT_COLUMNS,
+        EXTERNAL_THUMBNAIL_CREATION_COMMAND,
+        FAST_SEARCH_COLUMNS,
+        IPTC_CHARSET,
+        IS_ACCEPT_HIDDEN_DIRECTORIES,
+        IS_AUTSCAN_INCLUDE_DIRECTORIES,
+        IS_CREATE_THUMBNAILS_WITH_EXTERNAL_APP,
+        IS_TASK_REMOVE_RECORDS_WITH_NOT_EXISTING_FILES,
+        IS_USE_AUTOCOMPLETE,
+        IS_USE_EMBEDDED_THUMBNAILS,
+        LOGFILE_FORMATTER_CLASS,
+        LOG_LEVEL,
+        MAX_THUMBNAIL_WIDTH,
+        MINUTES_TO_START_SCHEDULED_TASKS,
+        NO_FAST_SEARCH_COLUMNS,
+        OTHER_IMAGE_OPEN_APPS,
+        THREAD_PRIORITY,
     }
 
     public UserSettingsChangeEvent(Type type, Object source) {

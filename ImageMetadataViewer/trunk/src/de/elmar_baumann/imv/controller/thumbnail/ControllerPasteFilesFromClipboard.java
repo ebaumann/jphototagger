@@ -30,7 +30,7 @@ public final class ControllerPasteFilesFromClipboard extends Controller implemen
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (isControl() && thumbnailsPanel.getContent().equals(Content.Directory)) {
+        if (isControl() && thumbnailsPanel.getContent().equals(Content.DIRECTORY)) {
             insertFiles();
         }
     }

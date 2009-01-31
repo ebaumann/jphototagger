@@ -22,7 +22,7 @@ public final class ColumnXmpDcDescription extends Column {
         super(
             TableXmp.getInstance(),
             "dc_description", // NOI18N
-            DataType.String);
+            DataType.STRING);
 
         setLength(2000);
         setDescription(Bundle.getString("ColumnXmpDcDescription.Description"));

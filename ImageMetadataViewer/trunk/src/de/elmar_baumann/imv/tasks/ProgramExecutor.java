@@ -175,7 +175,7 @@ public final class ProgramExecutor {
         private void updateDatabase() {
             if (program.isChangeFile()) {
                 ImageMetadataToDatabase updater = new ImageMetadataToDatabase(
-                    FileUtil.getAbsolutePathnames(imageFiles), DatabaseUpdate.Complete);
+                    FileUtil.getAbsolutePathnames(imageFiles), DatabaseUpdate.COMPLETE);
                 updater.run(); // no subsequent thread
             }
         }

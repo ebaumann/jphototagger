@@ -82,7 +82,7 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
 
     private void checkKey(KeyEvent evt) {
         if (evt.getKeyChar() == KeyEvent.VK_ENTER) {
-            notifySearchListener(new SearchEvent(SearchEvent.Type.Start));
+            notifySearchListener(new SearchEvent(SearchEvent.Type.START));
         }
     }
 

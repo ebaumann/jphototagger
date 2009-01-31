@@ -55,10 +55,10 @@ public final class TransferHandlerThumbnailsPanel extends TransferHandler {
         }
         List<File> sourceFiles = TransferUtil.getFiles(transferSupport.getTransferable(), delimiter);
         File targetDirectory = null;
-        if (isContent(Content.Directory)) {
+        if (isContent(Content.DIRECTORY)) {
             JTree treeDirectories = Panels.getInstance().getAppPanel().getTreeDirectories();
             targetDirectory = ViewUtil.getSelectedDirectory(treeDirectories);
-        } else if (isContent(Content.FavoriteDirectory)) {
+        } else if (isContent(Content.FAVORITE_DIRECTORY)) {
             targetDirectory = ViewUtil.getSelectedDirectoryFromFavoriteDirectories();
         }
         if (targetDirectory != null & sourceFiles.size() > 0) {
@@ -73,8 +73,8 @@ public final class TransferHandlerThumbnailsPanel extends TransferHandler {
     }
 
     private boolean canPanelImport(ImageFileThumbnailsPanel thumbnailsPanel) {
-        return thumbnailsPanel.getContent().equals(Content.Directory) ||
-            thumbnailsPanel.getContent().equals(Content.FavoriteDirectory);
+        return thumbnailsPanel.getContent().equals(Content.DIRECTORY) ||
+            thumbnailsPanel.getContent().equals(Content.FAVORITE_DIRECTORY);
     }
 
     private boolean isContent(Content content) {

@@ -45,7 +45,7 @@ public final class ControllerCreateMetadataOfCurrentThumbnails extends Controlle
 
     private ImageMetadataToDatabase createUpdater(List<String> files) {
         ImageMetadataToDatabase updater =
-            new ImageMetadataToDatabase(files, DatabaseUpdate.LastModifiedChanged);
+            new ImageMetadataToDatabase(files, DatabaseUpdate.IF_LAST_MODIFIED_CHANGED);
         updater.addProgressListener(this);
         setDelay(updater);
         return updater;

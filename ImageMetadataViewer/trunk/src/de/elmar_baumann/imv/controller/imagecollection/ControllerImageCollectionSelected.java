@@ -37,7 +37,7 @@ public final class ControllerImageCollectionSelected extends Controller
 
     private void listenToActionSources() {
         list.addListSelectionListener(this);
-        thumbnailsPanel.addRefreshListener(this, Content.ImageCollection);
+        thumbnailsPanel.addRefreshListener(this, Content.IMAGE_COLLECTION);
     }
 
     @Override
@@ -66,7 +66,7 @@ public final class ControllerImageCollectionSelected extends Controller
     private void showImageCollection(String collectionName) {
         List<String> filenames = db.getFilenamesOfImageCollection(collectionName);
         thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames),
-            Content.ImageCollection);
+            Content.IMAGE_COLLECTION);
     }
 
     private void checkEditPanel() {

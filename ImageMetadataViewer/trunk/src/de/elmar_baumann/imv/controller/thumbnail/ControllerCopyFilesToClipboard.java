@@ -39,6 +39,6 @@ public final class ControllerCopyFilesToClipboard extends Controller implements 
     }
 
     private void setFileAction(Object source) {
-        thumbnailsPanel.setFileAction(source == itemCopy ? FileAction.Copy : FileAction.Cut);
+        thumbnailsPanel.setFileAction(source == itemCopy ? FileAction.COPY : FileAction.CUT);
     }
 }

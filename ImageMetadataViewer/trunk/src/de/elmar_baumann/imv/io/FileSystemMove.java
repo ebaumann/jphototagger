@@ -81,27 +81,27 @@ public final class FileSystemMove extends FileSystem implements Runnable {
     private boolean checkExists(File sourceFile, File targetFile) {
         boolean exists = targetFile.exists();
         if (exists) {
-            notifyError(FileSystemError.MoveRenameExists, sourceFile, targetFile);
+            notifyError(FileSystemError.MOVE_RENAME_EXISTS, sourceFile, targetFile);
         }
         return !exists;
     }
 
     private void checkMoved(boolean moved, File sourceFile, File targetFile) {
         if (moved) {
-            notifyActionListenersPerformed(FileSystemAction.Move, sourceFile, targetFile);
+            notifyActionListenersPerformed(FileSystemAction.MOVE, sourceFile, targetFile);
         } else {
-            notifyError(FileSystemError.Unknown, sourceFile, targetFile);
+            notifyError(FileSystemError.UNKNOWN, sourceFile, targetFile);
         }
     }
 
     private void notifyError(FileSystemError error, File sourceFile, File targetFile) {
         notifyActionListenersFailed(
-            FileSystemAction.Move,
+            FileSystemAction.MOVE,
             error,
             sourceFile,
             targetFile);
         notifyActionListenersFailed(
-            FileSystemAction.Move,
+            FileSystemAction.MOVE,
             error,
             sourceFile,
             targetFile);

@@ -20,7 +20,7 @@ public final class ColumnXmpDcSubjectsId extends Column {
         super(
             TableXmpDcSubjects.getInstance(),
             "id", // NOI18N
-            DataType.Bigint);
+            DataType.BIGINT);
 
         setIsPrimaryKey(true);
     }

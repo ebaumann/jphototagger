@@ -66,10 +66,10 @@ public final class ControllerMetadataTemplates extends Controller
     public void actionPerformed(MetadataEditPanelEvent event) {
         MetadataEditPanelEvent.Type type = event.getType();
 
-        if (type.equals(MetadataEditPanelEvent.Type.EditEnabled) ||
-            type.equals(MetadataEditPanelEvent.Type.EditDisabled)) {
+        if (type.equals(MetadataEditPanelEvent.Type.EDIT_ENABLED) ||
+            type.equals(MetadataEditPanelEvent.Type.EDIT_DISABLED)) {
             buttonMetadataTemplateInsert.setEnabled(
-                type.equals(MetadataEditPanelEvent.Type.EditEnabled));
+                type.equals(MetadataEditPanelEvent.Type.EDIT_ENABLED));
         }
     }
 

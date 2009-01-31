@@ -22,7 +22,7 @@ public final class ColumnXmpPhotoshopHeadline extends Column {
         super(
             TableXmp.getInstance(),
             "photoshop_headline", // NOI18N
-            DataType.String);
+            DataType.STRING);
 
         setLength(256);
         setDescription(Bundle.getString("ColumnXmpPhotoshopHeadline.Description"));

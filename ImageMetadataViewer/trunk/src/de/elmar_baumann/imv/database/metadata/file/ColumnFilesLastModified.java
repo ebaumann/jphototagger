@@ -22,7 +22,7 @@ public final class ColumnFilesLastModified extends Column {
         super(
             TableFiles.getInstance(),
             "lastmodified", // NOI18N
-            DataType.Date);
+            DataType.DATE);
 
         setDescription(Bundle.getString("ColumnFilesLastModified.Description"));
     }

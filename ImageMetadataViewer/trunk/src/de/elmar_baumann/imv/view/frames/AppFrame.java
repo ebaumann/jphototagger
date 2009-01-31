@@ -43,12 +43,12 @@ public final class AppFrame extends javax.swing.JFrame {
     }
 
     private void initSortMenuItemsMap() {
-        menuItemOfSort.put(FileSort.NamesAscending, radioButtonMenuItemSortFilenameAscending);
-        menuItemOfSort.put(FileSort.NamesDescending, radioButtonMenuItemSortFilenameDescending);
-        menuItemOfSort.put(FileSort.LastModifiedAscending, radioButtonMenuItemSortLastModifiedAscending);
-        menuItemOfSort.put(FileSort.LastModifiedDescending, radioButtonMenuItemSortLastModifiedDescending);
-        menuItemOfSort.put(FileSort.TypesAscending, radioButtonMenuItemSortFileTypeAscending);
-        menuItemOfSort.put(FileSort.TypesDescending, radioButtonMenuItemSortFileTypeDescending);
+        menuItemOfSort.put(FileSort.NAMES_ASCENDING, radioButtonMenuItemSortFilenameAscending);
+        menuItemOfSort.put(FileSort.NAMES_DESCENDING, radioButtonMenuItemSortFilenameDescending);
+        menuItemOfSort.put(FileSort.LAST_MODIFIED_ASCENDING, radioButtonMenuItemSortLastModifiedAscending);
+        menuItemOfSort.put(FileSort.LAST_MODIFIED_DESCENDING, radioButtonMenuItemSortLastModifiedDescending);
+        menuItemOfSort.put(FileSort.TYPES_ASCENDING, radioButtonMenuItemSortFileTypeAscending);
+        menuItemOfSort.put(FileSort.TYPES_DESCENDING, radioButtonMenuItemSortFileTypeDescending);
 
         for (FileSort sort : menuItemOfSort.keySet()) {
             sortOfMenuItem.put(menuItemOfSort.get(sort), sort);
@@ -56,18 +56,18 @@ public final class AppFrame extends javax.swing.JFrame {
     }
 
     private void initGotoMenuItemsMap() {
-        menuItemOfGoto.put(Goto.Categories, menuItemGotoCategories);
-        menuItemOfGoto.put(Goto.ImageCollections, menuItemGotoCollections);
-        menuItemOfGoto.put(Goto.Directories, menuItemGotoDirectories);
-        menuItemOfGoto.put(Goto.EditPanels, menuItemGotoEdit);
-        menuItemOfGoto.put(Goto.ExifMetadata, menuItemGotoExifMetadata);
-        menuItemOfGoto.put(Goto.FastSearch, menuItemGotoFastSearch);
-        menuItemOfGoto.put(Goto.FavoriteDirectories, menuItemGotoFavoriteDirectories);
-        menuItemOfGoto.put(Goto.IptcMetadata, menuItemGotoIptcMetadata);
-        menuItemOfGoto.put(Goto.SavedSearches, menuItemGotoSavedSearches);
-        menuItemOfGoto.put(Goto.Keywords, menuItemGotoKeywords);
-        menuItemOfGoto.put(Goto.ThumbnailsPanel, menuItemGotoThumbnailsPanel);
-        menuItemOfGoto.put(Goto.XmpMetadata, menuItemGotoXmpMetadata);
+        menuItemOfGoto.put(Goto.CATEGORIES, menuItemGotoCategories);
+        menuItemOfGoto.put(Goto.IMAGE_COLLECTIONS, menuItemGotoCollections);
+        menuItemOfGoto.put(Goto.DIRECTORIES, menuItemGotoDirectories);
+        menuItemOfGoto.put(Goto.EDIT_PANELS, menuItemGotoEdit);
+        menuItemOfGoto.put(Goto.EXIF_METADATA, menuItemGotoExifMetadata);
+        menuItemOfGoto.put(Goto.FAST_SEARCH, menuItemGotoFastSearch);
+        menuItemOfGoto.put(Goto.FAVORITE_DIRECTORIES, menuItemGotoFavoriteDirectories);
+        menuItemOfGoto.put(Goto.IPTC_METADATA, menuItemGotoIptcMetadata);
+        menuItemOfGoto.put(Goto.SAVED_SEARCHES, menuItemGotoSavedSearches);
+        menuItemOfGoto.put(Goto.KEYWORDS, menuItemGotoKeywords);
+        menuItemOfGoto.put(Goto.THUMBNAILS_PANEL, menuItemGotoThumbnailsPanel);
+        menuItemOfGoto.put(Goto.XMP_METADATA, menuItemGotoXmpMetadata);
 
         for (Goto gt : menuItemOfGoto.keySet()) {
             gotoOfMenuItem.put(menuItemOfGoto.get(gt), gt);
@@ -76,18 +76,18 @@ public final class AppFrame extends javax.swing.JFrame {
 
     public enum Goto {
 
-        FastSearch,
-        EditPanels,
-        Directories,
-        FavoriteDirectories,
-        Categories,
-        SavedSearches,
-        ImageCollections,
-        Keywords,
-        ThumbnailsPanel,
-        ExifMetadata,
-        IptcMetadata,
-        XmpMetadata,
+        FAST_SEARCH,
+        EDIT_PANELS,
+        DIRECTORIES,
+        FAVORITE_DIRECTORIES,
+        CATEGORIES,
+        SAVED_SEARCHES,
+        IMAGE_COLLECTIONS,
+        KEYWORDS,
+        THUMBNAILS_PANEL,
+        EXIF_METADATA,
+        IPTC_METADATA,
+        XMP_METADATA,
     };
 
     private void postInitComponents() {

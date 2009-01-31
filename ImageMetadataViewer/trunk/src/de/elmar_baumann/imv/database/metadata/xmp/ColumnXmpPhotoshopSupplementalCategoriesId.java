@@ -20,7 +20,7 @@ public final class ColumnXmpPhotoshopSupplementalCategoriesId extends Column {
         super(
             TableXmpPhotoshopSupplementalCategories.getInstance(),
             "id", // NOI18N
-            DataType.Bigint);
+            DataType.BIGINT);
 
         setIsPrimaryKey(true);
     }

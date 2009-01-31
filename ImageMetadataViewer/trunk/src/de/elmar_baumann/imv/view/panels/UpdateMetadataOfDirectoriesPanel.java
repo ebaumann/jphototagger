@@ -77,8 +77,8 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
 
     private DatabaseUpdate getDatabaseUpdateMethod() {
         return checkBoxForce.isSelected()
-            ? DatabaseUpdate.Complete
-            : DatabaseUpdate.LastModifiedChanged;
+            ? DatabaseUpdate.COMPLETE
+            : DatabaseUpdate.IF_LAST_MODIFIED_CHANGED;
     }
 
     private List<File> getAllImageFiles() {

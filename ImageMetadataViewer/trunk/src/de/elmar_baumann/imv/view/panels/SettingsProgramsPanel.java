@@ -111,13 +111,13 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel
 
     private void notifyChangeListenerOther() {
         UserSettingsChangeEvent evt = new UserSettingsChangeEvent(
-            UserSettingsChangeEvent.Type.OtherImageOpenApps, this);
+            UserSettingsChangeEvent.Type.OTHER_IMAGE_OPEN_APPS, this);
         listenerProvider.notifyUserSettingsChangeListener(evt);
     }
 
     private void notifyChangeListenerDefault() {
         UserSettingsChangeEvent evt = new UserSettingsChangeEvent(
-            UserSettingsChangeEvent.Type.DefaultImageOpenApp, this);
+            UserSettingsChangeEvent.Type.DEFAULT_IMAGE_OPEN_APP, this);
         evt.setDefaultImageOpenApp(new File(labelDefaultProgramFile.getText()));
         listenerProvider.notifyUserSettingsChangeListener(evt);
     }

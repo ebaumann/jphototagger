@@ -38,25 +38,25 @@ public final class XmpColumnXmpDataTypeMapping {
     
 
     static {
-        xmpValueTypeOfColumn.put(ColumnXmpDcCreator.getInstance(), XmpValueType.SeqProperName);
-        xmpValueTypeOfColumn.put(ColumnXmpDcDescription.getInstance(), XmpValueType.LangAlt);
-        xmpValueTypeOfColumn.put(ColumnXmpDcRights.getInstance(), XmpValueType.LangAlt);
-        xmpValueTypeOfColumn.put(ColumnXmpDcSubjectsSubject.getInstance(), XmpValueType.BagText);
-        xmpValueTypeOfColumn.put(ColumnXmpDcTitle.getInstance(), XmpValueType.LangAlt);
-        xmpValueTypeOfColumn.put(ColumnXmpIptc4xmpcoreLocation.getInstance(), XmpValueType.Text);
-        xmpValueTypeOfColumn.put(ColumnXmpIptc4xmpcoreCountrycode.getInstance(), XmpValueType.Text);
-        xmpValueTypeOfColumn.put(ColumnXmpPhotoshopAuthorsposition.getInstance(), XmpValueType.Text);
-        xmpValueTypeOfColumn.put(ColumnXmpPhotoshopCaptionwriter.getInstance(), XmpValueType.ProperName);
-        xmpValueTypeOfColumn.put(ColumnXmpPhotoshopCategory.getInstance(), XmpValueType.Text);
-        xmpValueTypeOfColumn.put(ColumnXmpPhotoshopCity.getInstance(), XmpValueType.Text);
-        xmpValueTypeOfColumn.put(ColumnXmpPhotoshopCountry.getInstance(), XmpValueType.Text);
-        xmpValueTypeOfColumn.put(ColumnXmpPhotoshopCredit.getInstance(), XmpValueType.Text);
-        xmpValueTypeOfColumn.put(ColumnXmpPhotoshopHeadline.getInstance(), XmpValueType.Text);
-        xmpValueTypeOfColumn.put(ColumnXmpPhotoshopInstructions.getInstance(), XmpValueType.Text);
-        xmpValueTypeOfColumn.put(ColumnXmpPhotoshopSource.getInstance(), XmpValueType.Text);
-        xmpValueTypeOfColumn.put(ColumnXmpPhotoshopState.getInstance(), XmpValueType.Text);
-        xmpValueTypeOfColumn.put(ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory.getInstance(), XmpValueType.BagText);
-        xmpValueTypeOfColumn.put(ColumnXmpPhotoshopTransmissionReference.getInstance(), XmpValueType.Text);
+        xmpValueTypeOfColumn.put(ColumnXmpDcCreator.getInstance(), XmpValueType.SEQ_PROPER_NAME);
+        xmpValueTypeOfColumn.put(ColumnXmpDcDescription.getInstance(), XmpValueType.LANG_ALT);
+        xmpValueTypeOfColumn.put(ColumnXmpDcRights.getInstance(), XmpValueType.LANG_ALT);
+        xmpValueTypeOfColumn.put(ColumnXmpDcSubjectsSubject.getInstance(), XmpValueType.BAG_TEXT);
+        xmpValueTypeOfColumn.put(ColumnXmpDcTitle.getInstance(), XmpValueType.LANG_ALT);
+        xmpValueTypeOfColumn.put(ColumnXmpIptc4xmpcoreLocation.getInstance(), XmpValueType.TEXT);
+        xmpValueTypeOfColumn.put(ColumnXmpIptc4xmpcoreCountrycode.getInstance(), XmpValueType.TEXT);
+        xmpValueTypeOfColumn.put(ColumnXmpPhotoshopAuthorsposition.getInstance(), XmpValueType.TEXT);
+        xmpValueTypeOfColumn.put(ColumnXmpPhotoshopCaptionwriter.getInstance(), XmpValueType.PROPER_NAME);
+        xmpValueTypeOfColumn.put(ColumnXmpPhotoshopCategory.getInstance(), XmpValueType.TEXT);
+        xmpValueTypeOfColumn.put(ColumnXmpPhotoshopCity.getInstance(), XmpValueType.TEXT);
+        xmpValueTypeOfColumn.put(ColumnXmpPhotoshopCountry.getInstance(), XmpValueType.TEXT);
+        xmpValueTypeOfColumn.put(ColumnXmpPhotoshopCredit.getInstance(), XmpValueType.TEXT);
+        xmpValueTypeOfColumn.put(ColumnXmpPhotoshopHeadline.getInstance(), XmpValueType.TEXT);
+        xmpValueTypeOfColumn.put(ColumnXmpPhotoshopInstructions.getInstance(), XmpValueType.TEXT);
+        xmpValueTypeOfColumn.put(ColumnXmpPhotoshopSource.getInstance(), XmpValueType.TEXT);
+        xmpValueTypeOfColumn.put(ColumnXmpPhotoshopState.getInstance(), XmpValueType.TEXT);
+        xmpValueTypeOfColumn.put(ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory.getInstance(), XmpValueType.BAG_TEXT);
+        xmpValueTypeOfColumn.put(ColumnXmpPhotoshopTransmissionReference.getInstance(), XmpValueType.TEXT);
     }
 
     /**
@@ -67,29 +67,29 @@ public final class XmpColumnXmpDataTypeMapping {
         /**
          * Name einer Person oder Organisation, Unicode-String
          */
-        ProperName,
+        PROPER_NAME,
         /**
          * Unicode-String
          */
-        Text,
+        TEXT,
         /**
          * Array mit Unicode-Strings in geordneter Reihenfolge,
          * wobei die Reihenfolge der Elemente keine Bedeutung hat; in
          * Schema Definitions ein <code>bag</code>
          */
-        BagText,
+        BAG_TEXT,
         /**
          * Array mit Namen von Personen oder Organisationen als Unicode-Strings
          * in geordneter Reihenfolge, wobei die Reihenfolge von Bedeutung ist;
          * in Schema Definitions eine <code>seq</code>
          */
-        SeqProperName,
+        SEQ_PROPER_NAME,
         /**
          * Array mit Sprachalternativen als Unicode-Strings in geordneter
          * Reihenfolge, wobei eine Anwendung eine bestimmte der Alternativen
          * auswählen kann; in Schema Definitions eine <code>alt</code>
          */
-        LangAlt
+        LANG_ALT
     }
 
     /**
@@ -120,9 +120,9 @@ public final class XmpColumnXmpDataTypeMapping {
     public boolean isArray(Column column) {
         XmpValueType valueType = xmpValueTypeOfColumn.get(column);
         if (valueType != null) {
-            return valueType.equals(XmpValueType.BagText) ||
-                valueType.equals(XmpValueType.LangAlt) ||
-                valueType.equals(XmpValueType.SeqProperName);
+            return valueType.equals(XmpValueType.BAG_TEXT) ||
+                valueType.equals(XmpValueType.LANG_ALT) ||
+                valueType.equals(XmpValueType.SEQ_PROPER_NAME);
         }
         return false;
     }
@@ -138,7 +138,7 @@ public final class XmpColumnXmpDataTypeMapping {
     public boolean isLanguageAlternative(Column xmpColumn) {
         XmpValueType type = XmpColumnXmpDataTypeMapping.getInstance().
             getXmpValueTypeOfColumn(xmpColumn);
-        return type != null && type.equals(XmpValueType.LangAlt);
+        return type != null && type.equals(XmpValueType.LANG_ALT);
     }
 
     /**
@@ -150,8 +150,8 @@ public final class XmpColumnXmpDataTypeMapping {
     public boolean isText(Column column) {
         XmpValueType valueType = xmpValueTypeOfColumn.get(column);
         if (valueType != null) {
-            return valueType.equals(XmpValueType.Text) ||
-                valueType.equals(XmpValueType.ProperName);
+            return valueType.equals(XmpValueType.TEXT) ||
+                valueType.equals(XmpValueType.PROPER_NAME);
         }
         return false;
     }

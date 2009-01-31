@@ -55,7 +55,7 @@ public final class SettingsEditColumnsPanel extends javax.swing.JPanel
 
     private UserSettingsChangeEvent getUserSettingsChangeEvent() {
         UserSettingsChangeEvent evt = new UserSettingsChangeEvent(
-            UserSettingsChangeEvent.Type.EditColumns, this);
+            UserSettingsChangeEvent.Type.EDIT_COLUMNS, this);
         evt.setEditColumns(ColumnUtil.getSelectedColumns(list));
         return evt;
     }

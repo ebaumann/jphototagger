@@ -25,7 +25,7 @@ public final class ColumnExifFocalLength extends Column {
         super(
             TableExif.getInstance(),
             "exif_focal_length", // NOI18N
-            DataType.Real);
+            DataType.REAL);
 
         setDescription(Bundle.getString("ColumnExifFocalLength.Description"));
     }

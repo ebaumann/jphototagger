@@ -6,11 +6,11 @@ package de.elmar_baumann.imv.event;
  */
 public enum FileSystemError {
 
-    Locked("Die Datei ist gesperrt."),
-    MissingPrivileges("Es fehlen die erforderlichen Rechte."),
-    MoveRenameExists("Die Zieldatei existiert bereits."),
-    ReadOnly("Die Datei kann nur gelesen werden"),
-    Unknown("Die Usache ist unbekannt.");
+    LOCKED("Die Datei ist gesperrt."),
+    MISSING_PRIVILEGES("Es fehlen die erforderlichen Rechte."),
+    MOVE_RENAME_EXISTS("Die Zieldatei existiert bereits."),
+    READ_ONLY("Die Datei kann nur gelesen werden"),
+    UNKNOWN("Die Usache ist unbekannt.");
     
     private final String message;
     

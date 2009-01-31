@@ -278,41 +278,41 @@ public final class UserSettings implements UserSettingsChangeListener {
 
     private void writePersistent(UserSettingsChangeEvent evt) {
         UserSettingsChangeEvent.Type type = evt.getType();
-        if (type.equals(UserSettingsChangeEvent.Type.DefaultImageOpenApp)) {
+        if (type.equals(UserSettingsChangeEvent.Type.DEFAULT_IMAGE_OPEN_APP)) {
             settings.setString(evt.getDefaultImageOpenApp().getAbsolutePath(), keyDefaultImageOpenApp);
-        } else if (type.equals(UserSettingsChangeEvent.Type.ExternalThumbnailCreationCommand)) {
+        } else if (type.equals(UserSettingsChangeEvent.Type.EXTERNAL_THUMBNAIL_CREATION_COMMAND)) {
             settings.setString(evt.getExternalThumbnailCreationCommand(), keyExternalThumbnailCreationCommand);
-        } else if (type.equals(UserSettingsChangeEvent.Type.FastSearchColumns)) {
+        } else if (type.equals(UserSettingsChangeEvent.Type.FAST_SEARCH_COLUMNS)) {
             settings.setString(getColumnKeys(evt.getFastSearchColumns()), keyFastSearchColumns);
-        } else if (type.equals(UserSettingsChangeEvent.Type.EditColumns)) {
+        } else if (type.equals(UserSettingsChangeEvent.Type.EDIT_COLUMNS)) {
             settings.setString(getColumnKeys(evt.getEditColumns()), keyEditColumns);
-        } else if (type.equals(UserSettingsChangeEvent.Type.IptcCharset)) {
+        } else if (type.equals(UserSettingsChangeEvent.Type.IPTC_CHARSET)) {
             settings.setString(evt.getIptcCharset(), keyIptcCharset);
-        } else if (type.equals(UserSettingsChangeEvent.Type.IsAcceptHiddenDirectories)) {
+        } else if (type.equals(UserSettingsChangeEvent.Type.IS_ACCEPT_HIDDEN_DIRECTORIES)) {
             settings.setBoolean(evt.isAcceptHiddenDirectories(), keyIsAcceptHiddenDirectories);
-        } else if (type.equals(UserSettingsChangeEvent.Type.IsAutoscanIncludeSubdirectories)) {
+        } else if (type.equals(UserSettingsChangeEvent.Type.IS_AUTSCAN_INCLUDE_DIRECTORIES)) {
             settings.setBoolean(evt.isAutoscanIncludeSubdirectories(), keyIsAutoscanIncludeSubdirectories);
-        } else if (type.equals(UserSettingsChangeEvent.Type.IsCreateThumbnailsWithExternalApp)) {
+        } else if (type.equals(UserSettingsChangeEvent.Type.IS_CREATE_THUMBNAILS_WITH_EXTERNAL_APP)) {
             writePersistentCreateThumbnailsWithExternalApp(evt.isCreateThumbnailsWithExternalApp());
-        } else if (type.equals(UserSettingsChangeEvent.Type.IsTaskRemoveRecordsWithNotExistingFiles)) {
+        } else if (type.equals(UserSettingsChangeEvent.Type.IS_TASK_REMOVE_RECORDS_WITH_NOT_EXISTING_FILES)) {
             settings.setBoolean(evt.isTaskRemoveRecordsWithNotExistingFiles(), keyIsTaskRemoveRecordsWithNotExistingFiles);
-        } else if (type.equals(UserSettingsChangeEvent.Type.IsUseAutocomplete)) {
+        } else if (type.equals(UserSettingsChangeEvent.Type.IS_USE_AUTOCOMPLETE)) {
             settings.setBoolean(evt.isAutocomplete(), keyIsAutocomplete);
-        } else if (type.equals(UserSettingsChangeEvent.Type.IsUseEmbeddedThumbnails)) {
+        } else if (type.equals(UserSettingsChangeEvent.Type.IS_USE_EMBEDDED_THUMBNAILS)) {
             writePersistentUseEmbeddedThumbnails(evt.isUseEmbeddedThumbnails());
-        } else if (type.equals(UserSettingsChangeEvent.Type.LogfileFormatterClass)) {
+        } else if (type.equals(UserSettingsChangeEvent.Type.LOGFILE_FORMATTER_CLASS)) {
             writePersistentLogfileFormatterClass(evt.getLogfileFormatterClass());
-        } else if (type.equals(UserSettingsChangeEvent.Type.LogLevel)) {
+        } else if (type.equals(UserSettingsChangeEvent.Type.LOG_LEVEL)) {
             settings.setString(evt.getLogLevel().toString(), keyLogLevel);
-        } else if (type.equals(UserSettingsChangeEvent.Type.MaxThumbnailWidth)) {
+        } else if (type.equals(UserSettingsChangeEvent.Type.MAX_THUMBNAIL_WIDTH)) {
             settings.setString(evt.getMaxThumbnailWidth().toString(), keyMaxThumbnailWidth);
-        } else if (type.equals(UserSettingsChangeEvent.Type.MinutesToStartScheduledTasks)) {
+        } else if (type.equals(UserSettingsChangeEvent.Type.MINUTES_TO_START_SCHEDULED_TASKS)) {
             settings.setString(evt.getMinutesToStartScheduledTasks().toString(), keyMinutesToStartScheduledTasks);
-        } else if (type.equals(UserSettingsChangeEvent.Type.NoFastSearchColumns)) {
+        } else if (type.equals(UserSettingsChangeEvent.Type.NO_FAST_SEARCH_COLUMNS)) {
             settings.getProperties().remove(keyFastSearchColumns);
-        } else if (type.equals(UserSettingsChangeEvent.Type.ThreadPriority)) {
+        } else if (type.equals(UserSettingsChangeEvent.Type.THREAD_PRIORITY)) {
             settings.setInt(evt.getThreadPriority(), keyThreadPriority);
-        } else if (type.equals(UserSettingsChangeEvent.Type.AutocopyDirectory)) {
+        } else if (type.equals(UserSettingsChangeEvent.Type.AUTOCOPY_DIRECTORY)) {
             settings.setString(evt.getAutoCopyDirectory().getAbsolutePath(), keyAutocopyDirectory);
         }
     }

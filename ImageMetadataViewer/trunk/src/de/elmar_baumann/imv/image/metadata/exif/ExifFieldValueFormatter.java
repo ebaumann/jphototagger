@@ -28,32 +28,32 @@ public final class ExifFieldValueFormatter {
     public static String format(IdfEntryProxy entry) {
         String value = entry.toString().trim();
         int tag = entry.getTag();
-        if (tag == ExifTag.Sharpness.getId()) {
+        if (tag == ExifTag.SHARPNESS.getId()) {
             return getSharpness(value);
-        } else if (tag == ExifTag.Saturation.getId()) {
+        } else if (tag == ExifTag.SATURATION.getId()) {
             return getSaturation(value);
-        } else if (tag == ExifTag.WhiteBalance.getId()) {
+        } else if (tag == ExifTag.WHITE_BALANCE.getId()) {
             return getWhiteBalance(value);
-        } else if (tag == ExifTag.FocalLength.getId()
-            || tag == ExifTag.FocalLengthIn35mmFilm.getId()) {
+        } else if (tag == ExifTag.FOCAL_LENGTH.getId()
+            || tag == ExifTag.FOCAL_LENGTH_IN_35_MM_FILM.getId()) {
             return getFocalLength(value);
-        } else if (tag == ExifTag.ExposureTime.getId()) {
+        } else if (tag == ExifTag.EXPOSURE_TIME.getId()) {
             return getExposureTime(value);
-        } else if (tag == ExifTag.FNumber.getId()) {
+        } else if (tag == ExifTag.F_NUMBER.getId()) {
             return getFNumber(value);
-        } else if (tag == ExifTag.ExposureProgram.getId()) {
+        } else if (tag == ExifTag.EXPOSURE_PROGRAM.getId()) {
             return getExposureProgram(value);
-        } else if (tag == ExifTag.MeteringMode.getId()) {
+        } else if (tag == ExifTag.METERING_MODE.getId()) {
             return getMeteringMode(value);
-        } else if (tag == ExifTag.FileSource.getId()) {
+        } else if (tag == ExifTag.FILE_SOURCE.getId()) {
             return getFileSource(value);
-        } else if (tag == ExifTag.UserComment.getId()) {
+        } else if (tag == ExifTag.USER_COMMENT.getId()) {
             return getUserComment(value);
-        } else if (tag == ExifTag.Contrast.getId()) {
+        } else if (tag == ExifTag.CONTRAST.getId()) {
             return getContrast(value);
-        } else if (tag == ExifTag.Flash.getId()) {
+        } else if (tag == ExifTag.FLASH.getId()) {
             return getFlash(entry);
-        } else if (tag == ExifTag.DateTimeOriginal.getId()) {
+        } else if (tag == ExifTag.DATE_TIME_ORIGINAL.getId()) {
             return getDateTimeOriginal(value);
         }
 

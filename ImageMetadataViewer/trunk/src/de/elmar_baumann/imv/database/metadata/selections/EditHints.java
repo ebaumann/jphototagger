@@ -16,15 +16,15 @@ public final class EditHints {
         /**
          * Kleines Feld reicht aus (einzeilig)
          */
-        small,
+        SMALL,
         /**
          * "Mittleres" Feld reicht aus (etwa drei Zeilen)
          */
-        medium,
+        MEDIUM,
         /**
          * Größeres Feld
          */
-        large
+        LARGE
     }
     private final boolean repeatable;
     private final SizeEditField sizeEditField;

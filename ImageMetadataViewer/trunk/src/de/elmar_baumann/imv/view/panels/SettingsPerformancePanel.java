@@ -24,14 +24,14 @@ public final class SettingsPerformancePanel extends javax.swing.JPanel
 
     private void handleActionPerformedCheckBoxIsAutocompleteDisabled() {
         UserSettingsChangeEvent evt = new UserSettingsChangeEvent(
-            UserSettingsChangeEvent.Type.IsUseAutocomplete, this);
+            UserSettingsChangeEvent.Type.IS_USE_AUTOCOMPLETE, this);
         evt.setAutocomplete(!checkBoxIsAutocompleteDisabled.isSelected());
         notifyChangeListener(evt);
     }
 
     private void handleActionComboBoxThreadPriorityAction() {
         UserSettingsChangeEvent evt = new UserSettingsChangeEvent(
-            UserSettingsChangeEvent.Type.ThreadPriority, this);
+            UserSettingsChangeEvent.Type.THREAD_PRIORITY, this);
         evt.setThreadPriority(getThreadPriority());
         notifyChangeListener(evt);
     }

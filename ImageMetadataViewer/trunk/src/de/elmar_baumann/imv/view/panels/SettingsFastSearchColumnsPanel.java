@@ -58,8 +58,8 @@ public final class SettingsFastSearchColumnsPanel extends javax.swing.JPanel
     private UserSettingsChangeEvent getUserSettingsChangeEvent() {
         boolean selected = list.getSelectionCount() > 0;
         UserSettingsChangeEvent evt = new UserSettingsChangeEvent(selected
-            ? UserSettingsChangeEvent.Type.FastSearchColumns
-            : UserSettingsChangeEvent.Type.NoFastSearchColumns, this);
+            ? UserSettingsChangeEvent.Type.FAST_SEARCH_COLUMNS
+            : UserSettingsChangeEvent.Type.NO_FAST_SEARCH_COLUMNS, this);
         evt.setFastSearchColumns(ColumnUtil.getSelectedColumns(list));
         evt.setNoFastSearchColumns(!selected);
         return evt;

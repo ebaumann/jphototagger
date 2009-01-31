@@ -69,7 +69,7 @@ public final class AdvancedSearchDialog extends Dialog implements SearchListener
 
     @Override
     public void actionPerformed(SearchEvent evt) {
-        if (evt.getType().equals(SearchEvent.Type.NameChanged)) {
+        if (evt.getType().equals(SearchEvent.Type.NAME_CHANGED)) {
             String name = evt.getSearchName();
             String separator = name.isEmpty() ? "" : ": "; // NOI18N
             setTitle(Bundle.getString("AdvancedSearchDialog.TitlePrefix") + separator + name);

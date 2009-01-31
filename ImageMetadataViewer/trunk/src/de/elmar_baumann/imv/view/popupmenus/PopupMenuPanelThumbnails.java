@@ -125,7 +125,7 @@ public final class PopupMenuPanelThumbnails extends JPopupMenu
 
     @Override
     public void applySettings(UserSettingsChangeEvent evt) {
-        if (evt.getType().equals(UserSettingsChangeEvent.Type.OtherImageOpenApps)) {
+        if (evt.getType().equals(UserSettingsChangeEvent.Type.OTHER_IMAGE_OPEN_APPS)) {
             addOtherPrograms();
         }
     }
@@ -260,7 +260,7 @@ public final class PopupMenuPanelThumbnails extends JPopupMenu
     }
 
     /**
-     * Liefert den Winkel, um den das Thumbnail gedreht werden soll.
+     * Liefert den Winkel, um den das THUMBNAIL gedreht werden soll.
      * 
      * @param item  Item, das die Aktion auslöste
      * @return      Winkel in Grad; 0 Grad, wenn das Kommando keine Drehung ist
@@ -284,7 +284,7 @@ public final class PopupMenuPanelThumbnails extends JPopupMenu
         angleOfItem.put(itemRotateThumbnai180, new Float(180));
         angleOfItem.put(itemRotateThumbnai270, new Float(270));
 
-        databaseUpdateOfMenuItem.put(itemUpdateMetadata, DatabaseUpdate.ExifAndXmp);
-        databaseUpdateOfMenuItem.put(itemUpdateThumbnail, DatabaseUpdate.Thumbnail);
+        databaseUpdateOfMenuItem.put(itemUpdateMetadata, DatabaseUpdate.EXIF_AND_XMP);
+        databaseUpdateOfMenuItem.put(itemUpdateThumbnail, DatabaseUpdate.THUMBNAIL);
     }
 }

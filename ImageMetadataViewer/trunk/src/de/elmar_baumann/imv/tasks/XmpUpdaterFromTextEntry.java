@@ -78,7 +78,7 @@ public final class XmpUpdaterFromTextEntry implements Runnable {
     private void updateDatabase(String sidecarFilename) {
         List<String> fNames = new ArrayList<String>();
         fNames.add(getArbitraryImageFilename(sidecarFilename));
-        ImageMetadataToDatabase updater = new ImageMetadataToDatabase(fNames, DatabaseUpdate.Xmp);
+        ImageMetadataToDatabase updater = new ImageMetadataToDatabase(fNames, DatabaseUpdate.XMP);
         updater.run();
     }
 

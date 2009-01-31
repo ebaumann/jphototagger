@@ -36,7 +36,7 @@ public final class DatabaseMaintainance extends Database {
             Statement stmt = connection.createStatement();
             stmt.executeUpdate("CHECKPOINT DEFRAG"); // NOI18N
             success = true;
-            notifyDatabaseListener(DatabaseAction.Type.MaintainanceDatabaseCompressed);
+            notifyDatabaseListener(DatabaseAction.Type.MAINTAINANCE_DATABASE_COMPRESSED);
             stmt.close();
         } catch (SQLException ex) {
             de.elmar_baumann.imv.Log.logSevere(getClass(), ex);

@@ -87,7 +87,7 @@ public final class ControllerAutoUpdateMetadataTask extends Controller
         if (!directories.isEmpty()) {
             for (String directory : directories) {
                 if (!isSystemDirectory(directory)) {
-                    updaterArray.addDirectory(directory, DatabaseUpdate.LastModifiedChanged);
+                    updaterArray.addDirectory(directory, DatabaseUpdate.IF_LAST_MODIFIED_CHANGED);
                 }
             }
         }

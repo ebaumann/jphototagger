@@ -189,10 +189,10 @@ public final class ControllerShowMetadata extends Controller
     @Override
     public void actionPerformed(DatabaseAction action) {
         DatabaseAction.Type actionType = action.getType();
-        if (isControl() && (actionType.equals(DatabaseAction.Type.ImageFileInserted) ||
-            actionType.equals(DatabaseAction.Type.ImageFileUpdated))) {
+        if (isControl() && (actionType.equals(DatabaseAction.Type.IMAGEFILE_INSERTED) ||
+            actionType.equals(DatabaseAction.Type.IMAGEFILE_UPDATED))) {
             showUpdates(action.getImageFileData().getFile());
-        } else if (isControl() && actionType.equals(DatabaseAction.Type.XmpUpdated)) {
+        } else if (isControl() && actionType.equals(DatabaseAction.Type.XMP_UPDATED)) {
             showUpdates(action.getFile());
         }
     }

@@ -25,7 +25,7 @@ public final class ColumnExifDateTimeOriginal extends Column {
         super(
             TableExif.getInstance(),
             "exif_date_time_original", // NOI18N
-            DataType.Date);
+            DataType.DATE);
 
         setDescription(Bundle.getString("ColumnExifDateTimeOriginal.Description"));
     }

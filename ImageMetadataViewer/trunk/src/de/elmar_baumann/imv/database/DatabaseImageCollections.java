@@ -78,7 +78,7 @@ public final class DatabaseImageCollections extends Database {
             info.add(oldName);
             info.add(newName);
             notifyDatabaseListener(
-                DatabaseAction.Type.ImageCollectionRenamed, info);
+                DatabaseAction.Type.IMAGE_COLLECTION_RENAMED, info);
             stmt.close();
         } catch (SQLException ex) {
             de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
@@ -166,7 +166,7 @@ public final class DatabaseImageCollections extends Database {
             connection.commit();
             added = true;
             notifyDatabaseListener(
-                DatabaseAction.Type.ImageCollectionInserted, 
+                DatabaseAction.Type.IMAGE_COLLECTION_INSERTED,
                 collectionName, filenames);
             stmtName.close();
             stmtColl.close();
@@ -198,7 +198,7 @@ public final class DatabaseImageCollections extends Database {
             stmt.executeUpdate();
             deleted = true;
             notifyDatabaseListener(
-                DatabaseAction.Type.ImageCollectionDeleted, collectionname);
+                DatabaseAction.Type.IMAGE_COLLECTION_DELETED, collectionname);
             stmt.close();
         } catch (SQLException ex) {
             de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
@@ -239,7 +239,7 @@ public final class DatabaseImageCollections extends Database {
             }
             connection.commit();
             notifyDatabaseListener(
-                DatabaseAction.Type.ImageCollectionImagesDeleted, 
+                DatabaseAction.Type.IMAGE_COLLECTION_IMAGES_DELETED,
                 collectionName, filenames);
             stmt.close();
         } catch (SQLException ex) {
@@ -298,7 +298,7 @@ public final class DatabaseImageCollections extends Database {
             connection.commit();
             added = true;
             notifyDatabaseListener(
-                DatabaseAction.Type.ImageCollectionImagesAdded, 
+                DatabaseAction.Type.IMAGE_COLLECTION_IMAGES_ADDED,
                 collectionName, filenames);
         } catch (SQLException ex) {
             de.elmar_baumann.imv.Log.logWarning(getClass(), ex);

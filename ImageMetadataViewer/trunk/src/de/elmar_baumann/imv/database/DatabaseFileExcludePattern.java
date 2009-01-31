@@ -185,7 +185,7 @@ public final class DatabaseFileExcludePattern extends Database {
             queryStmt.close();
             updateStmt.close();
             notifyProgressListenerEnd(listener, event);
-            notifyDatabaseListener(DatabaseAction.Type.ImageFilesDeleted, deletedFiles);
+            notifyDatabaseListener(DatabaseAction.Type.IMAGEFILES_DELETED, deletedFiles);
         } catch (SQLException ex) {
             de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
         } finally {

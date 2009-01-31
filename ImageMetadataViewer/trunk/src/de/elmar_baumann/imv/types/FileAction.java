@@ -8,8 +8,8 @@ package de.elmar_baumann.imv.types;
  */
 public enum FileAction {
 
-    Copy,
-    Cut,
-    Move,
-    Undefined,
+    COPY,
+    CUT,
+    MOVE,
+    UNDEFINED,
 }

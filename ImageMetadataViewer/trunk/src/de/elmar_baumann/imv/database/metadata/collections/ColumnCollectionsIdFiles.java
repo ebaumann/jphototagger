@@ -21,7 +21,7 @@ public final class ColumnCollectionsIdFiles extends Column {
         super(
             TableCollections.getInstance(),
             "id_files", // NOI18N
-            DataType.Bigint);
+            DataType.BIGINT);
 
         setIsPrimaryKey(true);
     }

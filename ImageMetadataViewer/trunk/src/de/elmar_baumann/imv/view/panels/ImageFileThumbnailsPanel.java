@@ -34,10 +34,10 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel {
     private final PopupMenuPanelThumbnails popupMenu = PopupMenuPanelThumbnails.getInstance();
     private List<File> files = new ArrayList<File>();
     private ControllerDoubleklickThumbnail controllerDoubleklick;
-    private FileSort fileSort = FileSort.NamesAscending;
+    private FileSort fileSort = FileSort.NAMES_ASCENDING;
     private boolean hadFiles = false;
-    private Content content = Content.Undefined;
-    private FileAction fileAction = FileAction.Undefined;
+    private Content content = Content.UNDEFINED;
+    private FileAction fileAction = FileAction.UNDEFINED;
 
     public ImageFileThumbnailsPanel() {
         initMap();

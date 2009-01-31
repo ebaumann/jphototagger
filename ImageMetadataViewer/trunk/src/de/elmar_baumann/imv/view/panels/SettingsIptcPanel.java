@@ -23,7 +23,7 @@ public final class SettingsIptcPanel extends javax.swing.JPanel
 
     private void handleActionComboBoxIptcCharset() {
         UserSettingsChangeEvent evt = new UserSettingsChangeEvent(
-            UserSettingsChangeEvent.Type.IptcCharset, this);
+            UserSettingsChangeEvent.Type.IPTC_CHARSET, this);
         evt.setIptcCharset(comboBoxIptcCharset.getSelectedItem().toString());
         listenerProvider.notifyUserSettingsChangeListener(evt);
     }

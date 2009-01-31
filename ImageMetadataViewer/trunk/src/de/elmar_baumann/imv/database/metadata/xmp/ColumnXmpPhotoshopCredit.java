@@ -22,7 +22,7 @@ public final class ColumnXmpPhotoshopCredit extends Column {
         super(
             TableXmp.getInstance(),
             "photoshop_credit", // NOI18N
-            DataType.String);
+            DataType.STRING);
 
         setLength(32);
         setDescription(Bundle.getString("ColumnXmpPhotoshopCredit.Description"));

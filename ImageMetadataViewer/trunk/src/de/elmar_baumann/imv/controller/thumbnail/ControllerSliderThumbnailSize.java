@@ -72,7 +72,7 @@ public final class ControllerSliderThumbnailSize extends Controller
 
     @Override
     public void applySettings(UserSettingsChangeEvent evt) {
-        if (evt.getType().equals(UserSettingsChangeEvent.Type.MaxThumbnailWidth)) {
+        if (evt.getType().equals(UserSettingsChangeEvent.Type.MAX_THUMBNAIL_WIDTH)) {
             maxThumbnailWidth = UserSettings.getInstance().getMaxThumbnailWidth();
             setThumbnailWidth();
         }

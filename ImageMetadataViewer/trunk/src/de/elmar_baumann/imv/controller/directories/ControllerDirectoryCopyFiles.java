@@ -47,7 +47,7 @@ public final class ControllerDirectoryCopyFiles extends Controller implements Ke
     }
 
     private void handleKeyPressed(KeyEvent e) {
-        if (isControl() && thumbnailsPanel.getContent().equals(Content.Directory) &&
+        if (isControl() && thumbnailsPanel.getContent().equals(Content.DIRECTORY) &&
             KeyEventUtil.isInsert(e)) {
             List<File> sourceFiles = ClipboardUtil.getFilesFromSystemClipboard("\n");
             File targetDirectory = ViewUtil.getSelectedDirectory(treeDirectories);
@@ -59,12 +59,12 @@ public final class ControllerDirectoryCopyFiles extends Controller implements Ke
 
     private void insertFiles(List<File> sourceFiles, File targetDirectory) {
         FileAction action = thumbnailsPanel.getFileAction();
-        int dropAction = action.equals(FileAction.Copy)
+        int dropAction = action.equals(FileAction.COPY)
             ? TransferHandler.COPY : TransferHandler.MOVE;
         TransferHandlerTreeDirectories.handleDroppedFiles(
             dropAction, sourceFiles, targetDirectory);
-        if (action.equals(FileAction.Cut)) {
-            thumbnailsPanel.setFileAction(FileAction.Undefined);
+        if (action.equals(FileAction.CUT)) {
+            thumbnailsPanel.setFileAction(FileAction.UNDEFINED);
         }
     }
 }

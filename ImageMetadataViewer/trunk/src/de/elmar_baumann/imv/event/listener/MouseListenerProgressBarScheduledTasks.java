@@ -19,7 +19,7 @@ public final class MouseListenerProgressBarScheduledTasks extends MouseAdapter {
 
     private void showUserSettingsDialog() {
         UserSettingsDialog dialog = UserSettingsDialog.getInstance();
-        dialog.selectTab(UserSettingsDialog.Tab.Tasks);
+        dialog.selectTab(UserSettingsDialog.Tab.TASKS);
         if (dialog.isVisible()) {
             dialog.toFront();
         } else {

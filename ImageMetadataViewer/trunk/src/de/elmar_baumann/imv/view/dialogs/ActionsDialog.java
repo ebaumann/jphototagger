@@ -58,8 +58,8 @@ public final class ActionsDialog extends Dialog implements ProgramActionListener
     @Override
     public void actionPerformed(ProgramActionEvent evt) {
         ProgramActionEvent.Type type = evt.getType();
-        if ((type.equals(ProgramActionEvent.Type.ActionCreated) ||
-            type.equals(ProgramActionEvent.Type.ActionUpdated)) && isVisible()) {
+        if ((type.equals(ProgramActionEvent.Type.ACTION_CREATED) ||
+            type.equals(ProgramActionEvent.Type.ACTION_UPDATED)) && isVisible()) {
             toFront();
         }
     }

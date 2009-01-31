@@ -22,7 +22,7 @@ public final class ColumnXmpDcCreator extends Column {
         super(
             TableXmp.getInstance(),
             "dc_creator", // NOI18N
-            DataType.String);
+            DataType.STRING);
 
         setLength(128);
         setDescription(Bundle.getString("ColumnXmpDcCreator.Description"));

@@ -20,31 +20,31 @@ public final class ExifIfdEntryDisplayComparator implements Comparator<IdfEntryP
     
     static {
         // So kann später leicht umsortiert werden
-        tagValues.add(ExifTag.DateTimeOriginal.getId());
-        tagValues.add(ExifTag.Make.getId());
-        tagValues.add(ExifTag.Model.getId());
-        tagValues.add(ExifTag.FocalLength.getId());
-        tagValues.add(ExifTag.FocalLengthIn35mmFilm.getId());
-        tagValues.add(ExifTag.SubjectDistanceRange.getId());
-        tagValues.add(ExifTag.ExposureTime.getId());
-        tagValues.add(ExifTag.FNumber.getId());
-        tagValues.add(ExifTag.ISOSpeedRatings.getId());
-        tagValues.add(ExifTag.MeteringMode.getId());
-        tagValues.add(ExifTag.ExposureMode.getId());
-        tagValues.add(ExifTag.ExposureProgram.getId());
-        tagValues.add(ExifTag.Flash.getId());
-        tagValues.add(ExifTag.WhiteBalance.getId());
-        tagValues.add(ExifTag.Saturation.getId());
-        tagValues.add(ExifTag.Sharpness.getId());
-        tagValues.add(ExifTag.Contrast.getId());
-        tagValues.add(ExifTag.UserComment.getId());
-        tagValues.add(ExifTag.ImageWidth.getId());
-        tagValues.add(ExifTag.ImageLength.getId());
-        tagValues.add(ExifTag.BitsPerSample.getId());
-        tagValues.add(ExifTag.DateTimeDigitized.getId());
-        tagValues.add(ExifTag.FileSource.getId());
-        tagValues.add(ExifTag.DateTime.getId());
-        tagValues.add(ExifTag.Software.getId());
+        tagValues.add(ExifTag.DATE_TIME_ORIGINAL.getId());
+        tagValues.add(ExifTag.MAKE.getId());
+        tagValues.add(ExifTag.MODEL.getId());
+        tagValues.add(ExifTag.FOCAL_LENGTH.getId());
+        tagValues.add(ExifTag.FOCAL_LENGTH_IN_35_MM_FILM.getId());
+        tagValues.add(ExifTag.SUBJECT_DISTANCE_RANGE.getId());
+        tagValues.add(ExifTag.EXPOSURE_TIME.getId());
+        tagValues.add(ExifTag.F_NUMBER.getId());
+        tagValues.add(ExifTag.ISO_SPEED_RATINGS.getId());
+        tagValues.add(ExifTag.METERING_MODE.getId());
+        tagValues.add(ExifTag.EXPOSURE_MODE.getId());
+        tagValues.add(ExifTag.EXPOSURE_PROGRAM.getId());
+        tagValues.add(ExifTag.FLASH.getId());
+        tagValues.add(ExifTag.WHITE_BALANCE.getId());
+        tagValues.add(ExifTag.SATURATION.getId());
+        tagValues.add(ExifTag.SHARPNESS.getId());
+        tagValues.add(ExifTag.CONTRAST.getId());
+        tagValues.add(ExifTag.USER_COMMENT.getId());
+        tagValues.add(ExifTag.IMAGE_WIDTH.getId());
+        tagValues.add(ExifTag.IMAGE_LENGTH.getId());
+        tagValues.add(ExifTag.BITS_PER_SAMPLE.getId());
+        tagValues.add(ExifTag.DATE_TIME_DIGITIZED.getId());
+        tagValues.add(ExifTag.FILE_SOURCE.getId());
+        tagValues.add(ExifTag.DATE_TIME.getId());
+        tagValues.add(ExifTag.SOFTWARE.getId());
 
         int size = tagValues.size();
         for (int i = 0; i < size; i++) {

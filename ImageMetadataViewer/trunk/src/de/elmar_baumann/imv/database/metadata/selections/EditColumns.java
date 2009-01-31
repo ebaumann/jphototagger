@@ -36,9 +36,9 @@ public final class EditColumns {
     
 
     static {
-        EditHints notRepeatableHintSmall = new EditHints(false, SizeEditField.small);
-        EditHints notRepeatableHintLarge = new EditHints(false, SizeEditField.large);
-        EditHints repeatableHint = new EditHints(true, SizeEditField.large);
+        EditHints notRepeatableHintSmall = new EditHints(false, SizeEditField.SMALL);
+        EditHints notRepeatableHintLarge = new EditHints(false, SizeEditField.LARGE);
+        EditHints repeatableHint = new EditHints(true, SizeEditField.LARGE);
         editHintsForColumn.put(
             ColumnXmpDcSubjectsSubject.getInstance(), repeatableHint);
         editHintsForColumn.put(

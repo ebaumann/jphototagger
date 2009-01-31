@@ -35,7 +35,7 @@ public final class ControllerKeywordItemSelected extends Controller
 
     private void listenToActionSources() {
         listKeywords.addListSelectionListener(this);
-        thumbnailsPanel.addRefreshListener(this, Content.Keyword);
+        thumbnailsPanel.addRefreshListener(this, Content.KEYWORD);
     }
 
     @Override
@@ -58,7 +58,7 @@ public final class ControllerKeywordItemSelected extends Controller
         String keyword = (String) listKeywords.getSelectedValue();
         Set<String> filenames = db.getFilenamesOfDcSubject(keyword);
 
-        thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames), Content.Keyword);
+        thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames), Content.KEYWORD);
     }
 
     private void checkEditPanel() {

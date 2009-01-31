@@ -46,16 +46,16 @@ public final class ControllerMenuItemEnabler extends Controller
         List<Content> contents;
 
         contents = new ArrayList<Content>();
-        contents.add(Content.Directory);
-        contents.add(Content.FavoriteDirectory);
+        contents.add(Content.DIRECTORY);
+        contents.add(Content.FAVORITE_DIRECTORY);
         contentsOfMenuItem.put(popupThumbnails.getItemFileSystemMoveFiles(), contents);
 
         contents = new ArrayList<Content>();
-        contents.add(Content.Directory);
+        contents.add(Content.DIRECTORY);
         contentsOfMenuItem.put(appFrame.getMenuItemInsert(), contents);
 
         contents = new ArrayList<Content>();
-        contents.add(Content.ImageCollection);
+        contents.add(Content.IMAGE_COLLECTION);
         contentsOfMenuItem.put(popupThumbnails.getItemDeleteFromImageCollection(), contents);
 
         itemsIsSelection.add(appFrame.getMenuItemCopy());
@@ -116,7 +116,7 @@ public final class ControllerMenuItemEnabler extends Controller
 
     @Override
     public void applySettings(UserSettingsChangeEvent evt) {
-        if (isControl() && evt.getType().equals(UserSettingsChangeEvent.Type.OtherImageOpenApps)) {
+        if (isControl() && evt.getType().equals(UserSettingsChangeEvent.Type.OTHER_IMAGE_OPEN_APPS)) {
             hasPrograms = DatabasePrograms.getInstance().hasProgram();
             setEnabled();
         }

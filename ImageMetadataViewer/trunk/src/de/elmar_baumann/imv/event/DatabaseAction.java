@@ -22,98 +22,98 @@ public final class DatabaseAction {
          * Mehrere automatisch nach Metadaten zu scannendes Verzeichnis wurden
          * eingefügt
          */
-        AutoscanDirectoriesInserted,
+        AUTOSCAN_DIRECTORIES_INSERTED,
         /**
          * Ein automatisch nach Metadaten zu scannendes Verzeichnis wurde
          * eingefügt
          */
-        AutoscanDirectoryInserted,
+        AUTOSCAN_DIRECTORY_INSERTED,
         /**
          * Mehrere automatisch nach Metadaten zu scannendes Verzeichnis wurden
          * gelöscht
          */
-        AutoscanDirectoriesDeleted,
+        AUTOSCAN_DIRECTORIES_DELETED,
         /**
          * Ein automatisch nach Metadaten zu scannendes Verzeichnis wurde
          * gelöscht
          */
-        AutoscanDirectoryDeleted,
+        AUTOSCAN_DIRECTORY_DELETED,
         /**
          * Die Datenbankverbindung wurde geschlossen
          */
-        Closed,
+        CLOSED,
         /**
          * Eine Datenbankverbindung wurde aufgebaut
          */
-        Connected,
+        CONNECTED,
         /**
          * Es wurden Bilder zu einer Bildsammlung hinzugefügt
          */
-        ImageCollectionImagesAdded,
+        IMAGE_COLLECTION_IMAGES_ADDED,
         /**
          * Es wurden Bilder aus einer Bildsammlung gelöscht
          */
-        ImageCollectionImagesDeleted,
+        IMAGE_COLLECTION_IMAGES_DELETED,
         /**
          * Eine Bildsammlung wurde eingefügt
          */
-        ImageCollectionInserted,
+        IMAGE_COLLECTION_INSERTED,
         /**
          * Eine Bildsammlung wurde gelöscht
          */
-        ImageCollectionDeleted,
+        IMAGE_COLLECTION_DELETED,
         /**
          * Eine Bildsammlung wurde umbenannt
          */
-        ImageCollectionRenamed,
+        IMAGE_COLLECTION_RENAMED,
         /**
          * Bilddateien wurden gelöscht
          */
-        ImageFilesDeleted,
+        IMAGEFILES_DELETED,
         /**
          * Eine Bilddatei wurde eingefügt
          */
-        ImageFileInserted,
+        IMAGEFILE_INSERTED,
         /**
          * Eine Bilddatei wurde aktualisiert
          */
-        ImageFileUpdated,
+        IMAGEFILE_UPDATED,
         /**
          * Die Datenbank wurde komprimiert
          */
-        MaintainanceDatabaseCompressed,
+        MAINTAINANCE_DATABASE_COMPRESSED,
         /**
          * Der komplette Datenbankinhalt wurde gelöscht
          */
-        MaintainanceDatabaseEmptied,
+        MAINTAINANCE_DATABASE_EMPTIED,
         /**
          * Im Dateisystem nicht existierende Bilder wurden gelöscht
          */
-        MaintainanceNotExistingImageFilesDeleted,
+        MAINTAINANCE_NOT_EXISTING_IMAGEFILES_DELETED,
         /**
          * Eine gespeicherte Suche wurde gelöscht
          */
-        SavedSearchDeleted,
+        SAVED_SEARCH_DELETED,
         /**
          * Eine gespeicherte Suche wurde eingefügt
          */
-        SavedSearchInserted,
+        SAVED_SEARCH_INSERTED,
         /**
          * Eine gespeicherte Suche wurde umbenannt
          */
-        SavedSearchRenamed,
+        SAVED_SEARCH_RENAMED,
         /**
          * Eine gespeicherte Suche wurde aktualisiert
          */
-        SavedSearchUpdated,
+        SAVED_SEARCH_UPDATED,
         /**
          * Ein Thumbnail wurde aktualisiert
          */
-        ThumbnailUpdated,
+        THUMBNAIL_UPDATED,
         /**
          * XMP-Daten wurden aktualisiert
          */
-        XmpUpdated,
+        XMP_UPDATED,
     };
     private ImageFile imageFileData;
     private SavedSearch savedSerachData;
@@ -146,19 +146,19 @@ public final class DatabaseAction {
     /**
      * Liefert alle betroffenen Dateinamen. Gültige Aktionen:
      * <ul>
-     * <li>{@link de.elmar_baumann.imv.event.DatabaseAction.Type#AutoscanDirectoryInserted}</li>
-     * <li>{@link de.elmar_baumann.imv.event.DatabaseAction.Type#AutoscanDirectoryDeleted}</li>
-     * <li>{@link de.elmar_baumann.imv.event.DatabaseAction.Type#ImageCollectionInserted}:
+     * <li>{@link de.elmar_baumann.imv.event.DatabaseAction.Type#AUTOSCAN_DIRECTORY_INSERTED}</li>
+     * <li>{@link de.elmar_baumann.imv.event.DatabaseAction.Type#AUTOSCAN_DIRECTORY_DELETED}</li>
+     * <li>{@link de.elmar_baumann.imv.event.DatabaseAction.Type#IMAGE_COLLECTION_INSERTED}:
      *     Dateinamen der Bilder</li>
-     * <li>{@link de.elmar_baumann.imv.event.DatabaseAction.Type#ImageCollectionImagesAdded}:
+     * <li>{@link de.elmar_baumann.imv.event.DatabaseAction.Type#IMAGE_COLLECTION_IMAGES_ADDED}:
      *     Dateinamen der eingefügten Bilder</li>
-     * <li>{@link de.elmar_baumann.imv.event.DatabaseAction.Type#ImageCollectionImagesDeleted}:
+     * <li>{@link de.elmar_baumann.imv.event.DatabaseAction.Type#IMAGE_COLLECTION_IMAGES_DELETED}:
      *     Dateinamen der gelöschen Bilder</li>
-     * <li>{@link de.elmar_baumann.imv.event.DatabaseAction.Type#ImageFilesDeleted}</li>
-     * <li>{@link de.elmar_baumann.imv.event.DatabaseAction.Type#MaintainanceNotExistingImageFilesDeleted}</li>
-     * <li>{@link de.elmar_baumann.imv.event.DatabaseAction.Type#ImageCollectionRenamed}:
+     * <li>{@link de.elmar_baumann.imv.event.DatabaseAction.Type#IMAGEFILES_DELETED}</li>
+     * <li>{@link de.elmar_baumann.imv.event.DatabaseAction.Type#MAINTAINANCE_NOT_EXISTING_IMAGEFILES_DELETED}</li>
+     * <li>{@link de.elmar_baumann.imv.event.DatabaseAction.Type#IMAGE_COLLECTION_RENAMED}:
      *     Das 1. Arrayelement ist der alte Name, das 2. der neue</li>
-     * <li>{@link de.elmar_baumann.imv.event.DatabaseAction.Type#SavedSearchRenamed}:
+     * <li>{@link de.elmar_baumann.imv.event.DatabaseAction.Type#SAVED_SEARCH_RENAMED}:
      *     Das 1. Arrayelement ist der alte Name, das 2. der neue</li>
      * </ul>
      * 
@@ -181,20 +181,20 @@ public final class DatabaseAction {
      * Liefert den betroffenen Dateinamen. Gültige Aktionen sind:
      * 
      * <ul>
-     * <li>{@link de.elmar_baumann.imv.event.DatabaseAction.Type#ThumbnailUpdated}</li>
-     * <li>{@link de.elmar_baumann.imv.event.DatabaseAction.Type#AutoscanDirectoryInserted}</li>
-     * <li>{@link de.elmar_baumann.imv.event.DatabaseAction.Type#AutoscanDirectoryDeleted}</li>
-     * <li>{@link de.elmar_baumann.imv.event.DatabaseAction.Type#ImageCollectionDeleted}: 
+     * <li>{@link de.elmar_baumann.imv.event.DatabaseAction.Type#THUMBNAIL_UPDATED}</li>
+     * <li>{@link de.elmar_baumann.imv.event.DatabaseAction.Type#AUTOSCAN_DIRECTORY_INSERTED}</li>
+     * <li>{@link de.elmar_baumann.imv.event.DatabaseAction.Type#AUTOSCAN_DIRECTORY_DELETED}</li>
+     * <li>{@link de.elmar_baumann.imv.event.DatabaseAction.Type#IMAGE_COLLECTION_DELETED}:
      *     Der Dateiname ist der Name der Bildsammlung</li>
-     * <li>{@link de.elmar_baumann.imv.event.DatabaseAction.Type#SavedSearchDeleted}: 
+     * <li>{@link de.elmar_baumann.imv.event.DatabaseAction.Type#SAVED_SEARCH_DELETED}:
      *     Der Dateiname ist der Name der gespeicherten Suche</li>
-     * <li>{@link de.elmar_baumann.imv.event.DatabaseAction.Type#ImageCollectionInserted}:
+     * <li>{@link de.elmar_baumann.imv.event.DatabaseAction.Type#IMAGE_COLLECTION_INSERTED}:
      *     Name der Bildsammlung</li>
-     * <li>{@link de.elmar_baumann.imv.event.DatabaseAction.Type#ImageCollectionImagesAdded}:
+     * <li>{@link de.elmar_baumann.imv.event.DatabaseAction.Type#IMAGE_COLLECTION_IMAGES_ADDED}:
      *     Name der Bildsammlung</li>
-     * <li>{@link de.elmar_baumann.imv.event.DatabaseAction.Type#ImageCollectionImagesDeleted}:
+     * <li>{@link de.elmar_baumann.imv.event.DatabaseAction.Type#IMAGE_COLLECTION_IMAGES_DELETED}:
      *     Name der Bildsammlung</li>
-     * <li>{@link de.elmar_baumann.imv.event.DatabaseAction.Type#XmpUpdated}:
+     * <li>{@link de.elmar_baumann.imv.event.DatabaseAction.Type#XMP_UPDATED}:
      *     Name der Bilddatei, deren XMP-Daten aktualisiert wurden
      * </li>
      * </ul>
@@ -222,8 +222,8 @@ public final class DatabaseAction {
      * Liefert die Daten aller betroffenen Bilddateidaten. Gültige Aktionen:
      * 
      * <ul>
-     * <li>{@link de.elmar_baumann.imv.event.DatabaseAction.Type#ImageFileInserted}</li>
-     * <li>{@link de.elmar_baumann.imv.event.DatabaseAction.Type#ImageFileUpdated}</li>
+     * <li>{@link de.elmar_baumann.imv.event.DatabaseAction.Type#IMAGEFILE_INSERTED}</li>
+     * <li>{@link de.elmar_baumann.imv.event.DatabaseAction.Type#IMAGEFILE_UPDATED}</li>
      * </ul>
      * 
      * @return Dateien oder null bei ungültigen Aktionen
@@ -245,8 +245,8 @@ public final class DatabaseAction {
      * Liefert alle Daten einer gespeicherten Suche. Gültige Aktionen:
      * 
      * <ul>
-     * <li>{@link de.elmar_baumann.imv.event.DatabaseAction.Type#SavedSearchInserted}</li>
-     * <li>{@link de.elmar_baumann.imv.event.DatabaseAction.Type#SavedSearchInserted}</li>
+     * <li>{@link de.elmar_baumann.imv.event.DatabaseAction.Type#SAVED_SEARCH_INSERTED}</li>
+     * <li>{@link de.elmar_baumann.imv.event.DatabaseAction.Type#SAVED_SEARCH_INSERTED}</li>
      * </ul>
      * 
      * @return Daten oder null bei ungültigen Aktionen
@@ -270,9 +270,9 @@ public final class DatabaseAction {
      * @return true, if modified
      */
     public boolean isImageModified() {
-        return type.equals(Type.ImageFileInserted) ||
-            type.equals(Type.ImageFileUpdated) ||
-            type.equals(Type.ImageFilesDeleted) ||
-            type.equals(Type.XmpUpdated);
+        return type.equals(Type.IMAGEFILE_INSERTED) ||
+            type.equals(Type.IMAGEFILE_UPDATED) ||
+            type.equals(Type.IMAGEFILES_DELETED) ||
+            type.equals(Type.XMP_UPDATED);
     }
 }

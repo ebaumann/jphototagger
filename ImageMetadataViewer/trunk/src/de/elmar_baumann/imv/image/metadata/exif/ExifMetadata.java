@@ -47,24 +47,24 @@ public final class ExifMetadata {
     
 
     static {
-        tagsToDisplay.add(ExifTag.Make.getId());
-        tagsToDisplay.add(ExifTag.Model.getId());
-        tagsToDisplay.add(ExifTag.Software.getId());
-        tagsToDisplay.add(ExifTag.ExposureTime.getId());
-        tagsToDisplay.add(ExifTag.FNumber.getId());
-        tagsToDisplay.add(ExifTag.ExposureProgram.getId());
-        tagsToDisplay.add(ExifTag.ISOSpeedRatings.getId());
-        tagsToDisplay.add(ExifTag.DateTimeOriginal.getId());
-        tagsToDisplay.add(ExifTag.MeteringMode.getId());
-        tagsToDisplay.add(ExifTag.Flash.getId());
-        tagsToDisplay.add(ExifTag.FocalLength.getId());
-        tagsToDisplay.add(ExifTag.UserComment.getId());
-        tagsToDisplay.add(ExifTag.FileSource.getId());
-        tagsToDisplay.add(ExifTag.WhiteBalance.getId());
-        tagsToDisplay.add(ExifTag.FocalLengthIn35mmFilm.getId());
-        tagsToDisplay.add(ExifTag.Contrast.getId());
-        tagsToDisplay.add(ExifTag.Saturation.getId());
-        tagsToDisplay.add(ExifTag.Sharpness.getId());
+        tagsToDisplay.add(ExifTag.MAKE.getId());
+        tagsToDisplay.add(ExifTag.MODEL.getId());
+        tagsToDisplay.add(ExifTag.SOFTWARE.getId());
+        tagsToDisplay.add(ExifTag.EXPOSURE_TIME.getId());
+        tagsToDisplay.add(ExifTag.F_NUMBER.getId());
+        tagsToDisplay.add(ExifTag.EXPOSURE_PROGRAM.getId());
+        tagsToDisplay.add(ExifTag.ISO_SPEED_RATINGS.getId());
+        tagsToDisplay.add(ExifTag.DATE_TIME_ORIGINAL.getId());
+        tagsToDisplay.add(ExifTag.METERING_MODE.getId());
+        tagsToDisplay.add(ExifTag.FLASH.getId());
+        tagsToDisplay.add(ExifTag.FOCAL_LENGTH.getId());
+        tagsToDisplay.add(ExifTag.USER_COMMENT.getId());
+        tagsToDisplay.add(ExifTag.FILE_SOURCE.getId());
+        tagsToDisplay.add(ExifTag.WHITE_BALANCE.getId());
+        tagsToDisplay.add(ExifTag.FOCAL_LENGTH_IN_35_MM_FILM.getId());
+        tagsToDisplay.add(ExifTag.CONTRAST.getId());
+        tagsToDisplay.add(ExifTag.SATURATION.getId());
+        tagsToDisplay.add(ExifTag.SHARPNESS.getId());
     }
 
     /**
@@ -222,10 +222,10 @@ public final class ExifMetadata {
         if (exifEntries != null) {
             exif = new Exif();
             try {
-                IdfEntryProxy dateTimeOriginalEntry = ExifMetadata.findEntryWithTag(exifEntries, ExifTag.DateTimeOriginal.getId());
-                IdfEntryProxy focalLengthEntry = ExifMetadata.findEntryWithTag(exifEntries, ExifTag.FocalLength.getId());
-                IdfEntryProxy isoSpeedRatingsEntry = ExifMetadata.findEntryWithTag(exifEntries, ExifTag.ISOSpeedRatings.getId());
-                IdfEntryProxy modelEntry = ExifMetadata.findEntryWithTag(exifEntries, ExifTag.Model.getId());
+                IdfEntryProxy dateTimeOriginalEntry = ExifMetadata.findEntryWithTag(exifEntries, ExifTag.DATE_TIME_ORIGINAL.getId());
+                IdfEntryProxy focalLengthEntry = ExifMetadata.findEntryWithTag(exifEntries, ExifTag.FOCAL_LENGTH.getId());
+                IdfEntryProxy isoSpeedRatingsEntry = ExifMetadata.findEntryWithTag(exifEntries, ExifTag.ISO_SPEED_RATINGS.getId());
+                IdfEntryProxy modelEntry = ExifMetadata.findEntryWithTag(exifEntries, ExifTag.MODEL.getId());
                 if (dateTimeOriginalEntry != null) {
                     setExifDateTimeOriginal(exif, dateTimeOriginalEntry);
                 }

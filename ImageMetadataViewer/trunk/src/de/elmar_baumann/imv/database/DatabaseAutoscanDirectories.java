@@ -47,7 +47,7 @@ public final class DatabaseAutoscanDirectories extends Database {
                 int count = stmt.executeUpdate();
                 inserted = count > 0;
                 notifyDatabaseListener(
-                    DatabaseAction.Type.AutoscanDirectoryInserted, directoryName);
+                    DatabaseAction.Type.AUTOSCAN_DIRECTORY_INSERTED, directoryName);
                 stmt.close();
             } catch (SQLException ex) {
                 de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
@@ -83,7 +83,7 @@ public final class DatabaseAutoscanDirectories extends Database {
             }
             connection.commit();
             notifyDatabaseListener(
-                DatabaseAction.Type.AutoscanDirectoriesInserted, directoryNames);
+                DatabaseAction.Type.AUTOSCAN_DIRECTORIES_INSERTED, directoryNames);
             stmt.close();
         } catch (SQLException ex) {
             de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
@@ -115,7 +115,7 @@ public final class DatabaseAutoscanDirectories extends Database {
             deleted = count > 0;
             if (count > 0) {
                 notifyDatabaseListener(
-                    DatabaseAction.Type.AutoscanDirectoryDeleted, directoryName);
+                    DatabaseAction.Type.AUTOSCAN_DIRECTORY_DELETED, directoryName);
             }
             stmt.close();
         } catch (SQLException ex) {

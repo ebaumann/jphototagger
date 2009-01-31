@@ -30,7 +30,7 @@ public final class ControllerHelp extends Controller implements ActionListener,
 
     @Override
     public void actionPerformed(HelpBrowserAction action) {
-        if (action.getType().equals(HelpBrowserAction.Type.UrlChanged)) {
+        if (action.getType().equals(HelpBrowserAction.Type.URL_CHANGED)) {
             setCurrentUrl(action);
         }
     }

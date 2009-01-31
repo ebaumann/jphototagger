@@ -115,8 +115,8 @@ public final class EditMetadataPanelsArray implements FocusListener, DatabaseLis
         }
         notifyActionListener(new MetadataEditPanelEvent(this,
             editable
-            ? MetadataEditPanelEvent.Type.EditEnabled
-            : MetadataEditPanelEvent.Type.EditDisabled));
+            ? MetadataEditPanelEvent.Type.EDIT_ENABLED
+            : MetadataEditPanelEvent.Type.EDIT_DISABLED));
     }
 
     /**
@@ -297,7 +297,7 @@ public final class EditMetadataPanelsArray implements FocusListener, DatabaseLis
 
         for (Column column : columns) {
             EditHints editHints = EditColumns.getEditHints(column);
-            boolean large = editHints.getSizeEditField().equals(SizeEditField.large);
+            boolean large = editHints.getSizeEditField().equals(SizeEditField.LARGE);
             boolean isRepeatable = editHints.isRepeatable();
 
             if (isRepeatable) {

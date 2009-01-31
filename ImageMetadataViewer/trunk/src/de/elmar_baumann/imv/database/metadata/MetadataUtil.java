@@ -41,12 +41,12 @@ public final class MetadataUtil {
 
     public static DefaultFormatterFactory getFormatterFactory(Column column) {
         DataType type = column.getDataType();
-        if (type.equals(DataType.Date)) {
+        if (type.equals(DataType.DATE)) {
             return dateFormatterFactory;
-        } else if (type.equals(DataType.Bigint) || type.equals(DataType.Integer) ||
-            type.equals(DataType.Smallint)) {
+        } else if (type.equals(DataType.BIGINT) || type.equals(DataType.INTEGER) ||
+            type.equals(DataType.SMALLINT)) {
             return integerFormatterFactory;
-        } else if (type.equals(DataType.Real)) {
+        } else if (type.equals(DataType.REAL)) {
             return doubleFormatterFactory;
         } else {
             return defaultFormatterFactory;

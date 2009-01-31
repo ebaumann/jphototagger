@@ -37,7 +37,7 @@ public final class ControllerDirectorySelected extends Controller
 
     private void listenToActionSources() {
         treeDirectories.addTreeSelectionListener(this);
-        thumbnailsPanel.addRefreshListener(this, Content.Directory);
+        thumbnailsPanel.addRefreshListener(this, Content.DIRECTORY);
     }
 
     @Override
@@ -62,7 +62,7 @@ public final class ControllerDirectorySelected extends Controller
         imageFilteredDirectory.setDirectory(selectedDirectory);
         thumbnailsPanel.setFiles(
             ImageFilteredDirectory.getImageFilesOfDirectory(selectedDirectory),
-            Content.Directory);
+            Content.DIRECTORY);
     }
 
     private String getDirectorynameFromTree(TreePath treePath) {

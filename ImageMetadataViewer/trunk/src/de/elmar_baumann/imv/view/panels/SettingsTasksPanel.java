@@ -140,7 +140,7 @@ public final class SettingsTasksPanel extends javax.swing.JPanel
 
     private void handleStateChangedSpinnerMinutesToStartScheduledTasks() {
         UserSettingsChangeEvent evt = new UserSettingsChangeEvent(
-            UserSettingsChangeEvent.Type.MinutesToStartScheduledTasks, this);
+            UserSettingsChangeEvent.Type.MINUTES_TO_START_SCHEDULED_TASKS, this);
         evt.setMinutesToStartScheduledTasks(
             (Integer) spinnerMinutesToStartScheduledTasks.getValue());
         notifyChangeListener(evt);
@@ -148,7 +148,7 @@ public final class SettingsTasksPanel extends javax.swing.JPanel
 
     private void handleActionCheckBoxIsAutoscanIncludeSubdirectories() {
         UserSettingsChangeEvent evt = new UserSettingsChangeEvent(
-            UserSettingsChangeEvent.Type.IsAutoscanIncludeSubdirectories, this);
+            UserSettingsChangeEvent.Type.IS_AUTSCAN_INCLUDE_DIRECTORIES, this);
         evt.setAutoscanIncludeSubdirectories(
             checkBoxIsAutoscanIncludeSubdirectories.isSelected());
         notifyChangeListener(evt);
@@ -156,7 +156,7 @@ public final class SettingsTasksPanel extends javax.swing.JPanel
 
     private void handleActionCheckBoxIsTaskRemoveRecordsWithNotExistingFiles() {
         UserSettingsChangeEvent evt = new UserSettingsChangeEvent(
-            UserSettingsChangeEvent.Type.IsTaskRemoveRecordsWithNotExistingFiles, this);
+            UserSettingsChangeEvent.Type.IS_TASK_REMOVE_RECORDS_WITH_NOT_EXISTING_FILES, this);
         evt.setTaskRemoveRecordsWithNotExistingFiles(
             checkBoxIsTaskRemoveRecordsWithNotExistingFiles.isSelected());
         notifyChangeListener(evt);

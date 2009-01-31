@@ -111,17 +111,17 @@ public final class ImageMetadataToDatabase implements Runnable {
     }
 
     private boolean isUpdateThumbnail(String filename) {
-        return update.isUpdate(DatabaseUpdate.Thumbnail) ||
+        return update.isUpdate(DatabaseUpdate.THUMBNAIL) ||
             !isImageFileUpToDate(filename);
     }
 
     private boolean isUpdateXmp(String filename) {
-        return update.isUpdate(DatabaseUpdate.Xmp) ||
+        return update.isUpdate(DatabaseUpdate.XMP) ||
             !isXmpFileUpToDate(filename);
     }
 
     private boolean isUpdateExif(String filename) {
-        return update.isUpdate(DatabaseUpdate.Exif) ||
+        return update.isUpdate(DatabaseUpdate.EXIF) ||
             !isImageFileUpToDate(filename);
     }
 

@@ -29,9 +29,9 @@ public final class ControllerThumbnailsDatabaseChanges extends Controller
     @Override
     public void actionPerformed(DatabaseAction action) {
         DatabaseAction.Type type = action.getType();
-        if (type.equals(DatabaseAction.Type.ThumbnailUpdated)) {
+        if (type.equals(DatabaseAction.Type.THUMBNAIL_UPDATED)) {
             thumbnailsPanel.repaint(new File(action.getFilename()));
-        } else if (type.equals(DatabaseAction.Type.ImageFilesDeleted)) {
+        } else if (type.equals(DatabaseAction.Type.IMAGEFILES_DELETED)) {
             removeThumbnails(action);
         }
     }

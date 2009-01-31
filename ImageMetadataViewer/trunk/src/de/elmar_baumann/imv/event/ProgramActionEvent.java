@@ -14,10 +14,10 @@ public final class ProgramActionEvent {
 
     public enum Type {
 
-        ActionCreated,
-        ActionDeleted,
-        ActionExecute,
-        ActionUpdated,
+        ACTION_CREATED,
+        ACTION_DELETED,
+        ACTION_EXECUTE,
+        ACTION_UPDATED,
     }
 
     public ProgramActionEvent(Type type, Program program) {
@@ -34,6 +34,6 @@ public final class ProgramActionEvent {
     }
 
     public boolean isExecute() {
-        return type.equals(Type.ActionExecute);
+        return type.equals(Type.ACTION_EXECUTE);
     }
 }

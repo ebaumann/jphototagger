@@ -46,7 +46,7 @@ public final class ControllerAutocopyDirectory extends Controller implements Act
 
     private void setAutocopyDirectory() {
         UserSettingsDialog dialog = UserSettingsDialog.getInstance();
-        dialog.selectTab(UserSettingsDialog.Tab.Misc);
+        dialog.selectTab(UserSettingsDialog.Tab.MISC);
         if (dialog.isVisible()) {
             dialog.toFront();
         } else {

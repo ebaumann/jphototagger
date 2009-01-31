@@ -21,16 +21,16 @@ public final class SearchEvent {
     public enum Type {
 
         /** Suche speichern */
-        Save,
+        SAVE,
         /** Suche starten */
-        Start,
+        START,
         /**
          * Aktion ist eine Schnellsuche. Operationen bezüglich der gespeicherten
          * Suchen liefern null.
          */
-        FastSearch,
+        FAST_SEARCH,
         /** The name of a (saved) search has changend */
-        NameChanged
+        NAME_CHANGED
     };
 
     /**
@@ -73,7 +73,7 @@ public final class SearchEvent {
      * Liefert, ob gespeicherte Suchen ohne Nachfrage überschrieben werden 
      * sollen.
      * 
-     * Auswertung sinnvoll bei {@link Type#Save}.
+     * Auswertung sinnvoll bei {@link Type#SAVE}.
      * 
      * @return true, wenn ohne Nachfrage
      */
@@ -85,7 +85,7 @@ public final class SearchEvent {
      * Setzt, dass gespeicherte Suchen ohne Nachfrage überschrieben werden
      * sollen.
      * 
-     * Sinnvoll bei {@link Type#Save}.
+     * Sinnvoll bei {@link Type#SAVE}.
      * 
      * @param forceOverwrite true, wenn ohne Nachfrage überschreiben.
      *                       Default: false

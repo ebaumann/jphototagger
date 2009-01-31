@@ -37,7 +37,7 @@ public final class ControllerSafedSearchSelected extends Controller
 
     private void listenToActionSources() {
         list.addListSelectionListener(this);
-        thumbnailsPanel.addRefreshListener(this, Content.SafedSearch);
+        thumbnailsPanel.addRefreshListener(this, Content.SAFED_SEARCH);
     }
 
     @Override
@@ -75,7 +75,7 @@ public final class ControllerSafedSearchSelected extends Controller
     private void searchParamStatement(ParamStatement stmt) {
         List<String> filenames = db.searchFilenames(stmt);
         thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames),
-            Content.SafedSearch);
+            Content.SAFED_SEARCH);
     }
 
     private void checkEditPanel() {

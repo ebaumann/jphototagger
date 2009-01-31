@@ -33,7 +33,7 @@ public final class ControllerCategoryItemSelected extends Controller
 
     private void listenToActionSources() {
         listCategories.addListSelectionListener(this);
-        thumbnailsPanel.addRefreshListener(this, Content.Category);
+        thumbnailsPanel.addRefreshListener(this, Content.CATEGORY);
     }
 
     @Override
@@ -54,6 +54,6 @@ public final class ControllerCategoryItemSelected extends Controller
         String category = (String) listCategories.getSelectedValue();
         Set<String> filenames = db.getFilenamesOfCategory(category);
 
-        thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames), Content.Category);
+        thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames), Content.CATEGORY);
     }
 }

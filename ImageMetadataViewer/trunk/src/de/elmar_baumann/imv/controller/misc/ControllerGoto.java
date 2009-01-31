@@ -32,29 +32,29 @@ public final class ControllerGoto extends Controller implements ActionListener {
     private final Map<AppFrame.Goto, JTabbedPane> tabbedPaneOfGoto = new HashMap<AppFrame.Goto, JTabbedPane>();
 
     private void initMaps() {
-        componentOfGoto.put(AppFrame.Goto.Categories, appPanel.getTabSelectionCategories());
-        componentOfGoto.put(AppFrame.Goto.ImageCollections, appPanel.getTabSelectionImageCollections());
-        componentOfGoto.put(AppFrame.Goto.Directories, appPanel.getTabSelectionDirectories());
-        componentOfGoto.put(AppFrame.Goto.FavoriteDirectories, appPanel.getTabSelectionFavoriteDirectories());
-        componentOfGoto.put(AppFrame.Goto.SavedSearches, appPanel.getTabSelectionSavedSearches());
-        componentOfGoto.put(AppFrame.Goto.Keywords, appPanel.getTabSelectionKeywords());
+        componentOfGoto.put(AppFrame.Goto.CATEGORIES, appPanel.getTabSelectionCategories());
+        componentOfGoto.put(AppFrame.Goto.IMAGE_COLLECTIONS, appPanel.getTabSelectionImageCollections());
+        componentOfGoto.put(AppFrame.Goto.DIRECTORIES, appPanel.getTabSelectionDirectories());
+        componentOfGoto.put(AppFrame.Goto.FAVORITE_DIRECTORIES, appPanel.getTabSelectionFavoriteDirectories());
+        componentOfGoto.put(AppFrame.Goto.SAVED_SEARCHES, appPanel.getTabSelectionSavedSearches());
+        componentOfGoto.put(AppFrame.Goto.KEYWORDS, appPanel.getTabSelectionKeywords());
 
-        componentOfGoto.put(AppFrame.Goto.EditPanels, appPanel.getTabMetadataEdit());
-        componentOfGoto.put(AppFrame.Goto.ExifMetadata, appPanel.getTabMetadataExif());
-        componentOfGoto.put(AppFrame.Goto.IptcMetadata, appPanel.getTabMetadataIptc());
-        componentOfGoto.put(AppFrame.Goto.XmpMetadata, appPanel.getTabMetadataXmp());
+        componentOfGoto.put(AppFrame.Goto.EDIT_PANELS, appPanel.getTabMetadataEdit());
+        componentOfGoto.put(AppFrame.Goto.EXIF_METADATA, appPanel.getTabMetadataExif());
+        componentOfGoto.put(AppFrame.Goto.IPTC_METADATA, appPanel.getTabMetadataIptc());
+        componentOfGoto.put(AppFrame.Goto.XMP_METADATA, appPanel.getTabMetadataXmp());
 
-        tabbedPaneOfGoto.put(AppFrame.Goto.Categories, appPanel.getTabbedPaneSelection());
-        tabbedPaneOfGoto.put(AppFrame.Goto.ImageCollections, appPanel.getTabbedPaneSelection());
-        tabbedPaneOfGoto.put(AppFrame.Goto.Directories, appPanel.getTabbedPaneSelection());
-        tabbedPaneOfGoto.put(AppFrame.Goto.FavoriteDirectories, appPanel.getTabbedPaneSelection());
-        tabbedPaneOfGoto.put(AppFrame.Goto.SavedSearches, appPanel.getTabbedPaneSelection());
-        tabbedPaneOfGoto.put(AppFrame.Goto.Keywords, appPanel.getTabbedPaneSelection());
+        tabbedPaneOfGoto.put(AppFrame.Goto.CATEGORIES, appPanel.getTabbedPaneSelection());
+        tabbedPaneOfGoto.put(AppFrame.Goto.IMAGE_COLLECTIONS, appPanel.getTabbedPaneSelection());
+        tabbedPaneOfGoto.put(AppFrame.Goto.DIRECTORIES, appPanel.getTabbedPaneSelection());
+        tabbedPaneOfGoto.put(AppFrame.Goto.FAVORITE_DIRECTORIES, appPanel.getTabbedPaneSelection());
+        tabbedPaneOfGoto.put(AppFrame.Goto.SAVED_SEARCHES, appPanel.getTabbedPaneSelection());
+        tabbedPaneOfGoto.put(AppFrame.Goto.KEYWORDS, appPanel.getTabbedPaneSelection());
 
-        tabbedPaneOfGoto.put(AppFrame.Goto.EditPanels, appPanel.getTabbedPaneMetadata());
-        tabbedPaneOfGoto.put(AppFrame.Goto.ExifMetadata, appPanel.getTabbedPaneMetadata());
-        tabbedPaneOfGoto.put(AppFrame.Goto.IptcMetadata, appPanel.getTabbedPaneMetadata());
-        tabbedPaneOfGoto.put(AppFrame.Goto.XmpMetadata, appPanel.getTabbedPaneMetadata());
+        tabbedPaneOfGoto.put(AppFrame.Goto.EDIT_PANELS, appPanel.getTabbedPaneMetadata());
+        tabbedPaneOfGoto.put(AppFrame.Goto.EXIF_METADATA, appPanel.getTabbedPaneMetadata());
+        tabbedPaneOfGoto.put(AppFrame.Goto.IPTC_METADATA, appPanel.getTabbedPaneMetadata());
+        tabbedPaneOfGoto.put(AppFrame.Goto.XMP_METADATA, appPanel.getTabbedPaneMetadata());
     }
 
     public ControllerGoto() {
@@ -80,12 +80,12 @@ public final class ControllerGoto extends Controller implements ActionListener {
         if (tabbedPaneOfGoto.containsKey(gt)) {
             tabbedPaneOfGoto.get(gt).setSelectedComponent(componentOfGoto.get(gt));
             componentOfGoto.get(gt).requestFocus();
-        } else if (gt.equals(AppFrame.Goto.FastSearch)) {
+        } else if (gt.equals(AppFrame.Goto.FAST_SEARCH)) {
             textFieldSearch.requestFocus();
-        } else if (gt.equals(AppFrame.Goto.ThumbnailsPanel)) {
+        } else if (gt.equals(AppFrame.Goto.THUMBNAILS_PANEL)) {
             thumbnailsPanel.requestFocus();
         }
-        if (gt.equals(AppFrame.Goto.EditPanels)) {
+        if (gt.equals(AppFrame.Goto.EDIT_PANELS)) {
             editPanels.setFocusToFirstEditField();
         }
     }

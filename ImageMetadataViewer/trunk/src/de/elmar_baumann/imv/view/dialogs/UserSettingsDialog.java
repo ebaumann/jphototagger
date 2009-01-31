@@ -34,27 +34,27 @@ public final class UserSettingsDialog extends Dialog {
     public enum Tab {
 
         /** Programme zum Öffnen von Bildern */
-        Programs,
+        PROGRAMS,
         /** Schnellsuche */
-        FastSearch,
-        /** Thumbnails */
-        Thumbnails,
+        FAST_SEARCH,
+        /** THUMBNAILS */
+        THUMBNAILS,
         /** IPTC */
-        Iptc,
-        /** Geplante Tasks */
-        Tasks,
+        IPTC,
+        /** Geplante TASKS */
+        TASKS,
         /** Geschwindigkeit */
-        Performance,
+        PERFORMANCE,
         /**
          * File exclude patterns
          */
-        FileExcludePatterns,
+        FILE_EXCLUDE_PATTERNS,
         /**
          * Edit
          */
-        Edit,
+        EDIT,
         /** Verschiedenes */
-        Misc,
+        MISC,
     };
 
     public static UserSettingsDialog getInstance() {
@@ -77,15 +77,15 @@ public final class UserSettingsDialog extends Dialog {
     }
 
     private void initMaps() {
-        indexOfTab.put(Tab.Programs, 0);
-        indexOfTab.put(Tab.FastSearch, 1);
-        indexOfTab.put(Tab.Thumbnails, 2);
-        indexOfTab.put(Tab.Iptc, 3);
-        indexOfTab.put(Tab.Tasks, 4);
-        indexOfTab.put(Tab.Performance, 5);
-        indexOfTab.put(Tab.FileExcludePatterns, 6);
-        indexOfTab.put(Tab.Edit, 7);
-        indexOfTab.put(Tab.Misc, 8);
+        indexOfTab.put(Tab.PROGRAMS, 0);
+        indexOfTab.put(Tab.FAST_SEARCH, 1);
+        indexOfTab.put(Tab.THUMBNAILS, 2);
+        indexOfTab.put(Tab.IPTC, 3);
+        indexOfTab.put(Tab.TASKS, 4);
+        indexOfTab.put(Tab.PERFORMANCE, 5);
+        indexOfTab.put(Tab.FILE_EXCLUDE_PATTERNS, 6);
+        indexOfTab.put(Tab.EDIT, 7);
+        indexOfTab.put(Tab.MISC, 8);
 
         for (Tab tab : indexOfTab.keySet()) {
             tabOfIndex.put(indexOfTab.get(tab), tab);

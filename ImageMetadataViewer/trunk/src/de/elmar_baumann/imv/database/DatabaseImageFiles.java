@@ -146,7 +146,7 @@ public final class DatabaseImageFiles extends Database {
             connection.commit();
             success = true;
             notifyDatabaseListener(
-                DatabaseAction.Type.ImageFileInserted, imageFile);
+                DatabaseAction.Type.IMAGEFILE_INSERTED, imageFile);
             preparedStatement.close();
         } catch (SQLException ex) {
             de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
@@ -187,7 +187,7 @@ public final class DatabaseImageFiles extends Database {
             connection.commit();
             success = true;
             notifyDatabaseListener(
-                DatabaseAction.Type.ImageFileUpdated, imageFileData);
+                DatabaseAction.Type.IMAGEFILE_UPDATED, imageFileData);
         } catch (SQLException ex) {
             de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
             rollback(connection);
@@ -288,7 +288,7 @@ public final class DatabaseImageFiles extends Database {
                 stmt.executeUpdate();
                 stmt.close();
                 notifyDatabaseListener(
-                    DatabaseAction.Type.ThumbnailUpdated, filename);
+                    DatabaseAction.Type.THUMBNAIL_UPDATED, filename);
             }
         }
     }
@@ -410,7 +410,7 @@ public final class DatabaseImageFiles extends Database {
             }
             stmt.close();
             notifyDatabaseListener(
-                DatabaseAction.Type.ImageFilesDeleted, filenames);
+                DatabaseAction.Type.IMAGEFILES_DELETED, filenames);
         } catch (SQLException ex) {
             de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
         } finally {
@@ -465,7 +465,7 @@ public final class DatabaseImageFiles extends Database {
         }
         if (countDeleted > 0) {
             notifyDatabaseListener(
-                DatabaseAction.Type.MaintainanceNotExistingImageFilesDeleted, 
+                DatabaseAction.Type.MAINTAINANCE_NOT_EXISTING_IMAGEFILES_DELETED,
                 deletedFiles);
         }
         event.setInfo(new Integer(countDeleted));
@@ -833,7 +833,7 @@ public final class DatabaseImageFiles extends Database {
                         insertXmp(connection, idFile, xmp);
                         countRenamed++;
                         notifyDatabaseListener(
-                            DatabaseAction.Type.XmpUpdated, filename);
+                            DatabaseAction.Type.XMP_UPDATED, filename);
                     }
                 }
                 connection.commit();

@@ -46,7 +46,7 @@ public final class ControllerCreateSavedSearch extends Controller
 
     @Override
     public void actionPerformed(SearchEvent evt) {
-        if (isControl() && evt.getType().equals(SearchEvent.Type.Save)) {
+        if (isControl() && evt.getType().equals(SearchEvent.Type.SAVE)) {
             saveSearch(evt.getSafedSearch(), evt.isForceOverwrite());
         }
     }

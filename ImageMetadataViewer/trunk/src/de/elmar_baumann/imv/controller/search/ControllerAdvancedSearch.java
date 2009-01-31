@@ -54,7 +54,7 @@ public final class ControllerAdvancedSearch extends Controller
 
     @Override
     public void actionPerformed(SearchEvent e) {
-        if (isControl() && e.getType().equals(SearchEvent.Type.Start)) {
+        if (isControl() && e.getType().equals(SearchEvent.Type.START)) {
             applySafedSearch(e);
             checkEditPanel();
         }
@@ -84,7 +84,7 @@ public final class ControllerAdvancedSearch extends Controller
         List<String> filenames = db.searchFilenames(stmt);
 
         thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames),
-            Content.SafedSearch);
+            Content.SAFED_SEARCH);
     }
 
     private void checkEditPanel() {

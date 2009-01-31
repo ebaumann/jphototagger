@@ -35,7 +35,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
             labelAutocopyDirectory.setText(directory);
             lastSelectedAutocopyDirectory = directory;
             UserSettingsChangeEvent evt = new UserSettingsChangeEvent(
-                UserSettingsChangeEvent.Type.AutocopyDirectory, this);
+                UserSettingsChangeEvent.Type.AUTOCOPY_DIRECTORY, this);
             evt.setAutoCopyDirectory(file);
             notifyChangeListener(evt);
         }
@@ -58,21 +58,21 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
 
     private void handleActionPerformedCheckBoxIsAcceptHiddenDirectories() {
         UserSettingsChangeEvent evt = new UserSettingsChangeEvent(
-            UserSettingsChangeEvent.Type.IsAcceptHiddenDirectories, this);
+            UserSettingsChangeEvent.Type.IS_ACCEPT_HIDDEN_DIRECTORIES, this);
         evt.setAcceptHiddenDirectories(checkBoxIsAcceptHiddenDirectories.isSelected());
         notifyChangeListener(evt);
     }
 
     private void handleActionPerformedComboBoxLogLevel() {
         UserSettingsChangeEvent evt = new UserSettingsChangeEvent(
-            UserSettingsChangeEvent.Type.LogLevel, this);
+            UserSettingsChangeEvent.Type.LOG_LEVEL, this);
         evt.setLogLevel(Level.parse(comboBoxLogLevel.getSelectedItem().toString()));
         notifyChangeListener(evt);
     }
 
     private void handleActionPerformedComboBoxLogfileFormatterClass() {
         UserSettingsChangeEvent evt = new UserSettingsChangeEvent(
-            UserSettingsChangeEvent.Type.LogfileFormatterClass, this);
+            UserSettingsChangeEvent.Type.LOGFILE_FORMATTER_CLASS, this);
         evt.setLogfileFormatterClass(
             (Class) comboBoxLogfileFormatterClass.getSelectedItem());
         notifyChangeListener(evt);

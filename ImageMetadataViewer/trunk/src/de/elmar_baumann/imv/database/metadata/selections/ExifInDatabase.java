@@ -16,10 +16,10 @@ public final class ExifInDatabase {
     
 
     static {
-        storedTags.add(ExifTag.DateTimeOriginal);
-        storedTags.add(ExifTag.FocalLength);
-        storedTags.add(ExifTag.ISOSpeedRatings);
-        storedTags.add(ExifTag.Model);
+        storedTags.add(ExifTag.DATE_TIME_ORIGINAL);
+        storedTags.add(ExifTag.FOCAL_LENGTH);
+        storedTags.add(ExifTag.ISO_SPEED_RATINGS);
+        storedTags.add(ExifTag.MODEL);
     }
 
     /**

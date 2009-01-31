@@ -16,11 +16,11 @@ public final class MetadataEditPanelEvent {
         /**
          * Bearbeiten wurde ermöglict
          */
-        EditEnabled,
+        EDIT_ENABLED,
         /**
          * Bearbeiten wurde deaktiviert
          */
-        EditDisabled
+        EDIT_DISABLED
     }
     
     private final EditMetadataPanelsArray source;

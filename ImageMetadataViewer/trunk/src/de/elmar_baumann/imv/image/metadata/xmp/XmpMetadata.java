@@ -419,11 +419,11 @@ public final class XmpMetadata {
     private static PropertyOptions getArrayPropertyOptions(Column xmpColumn) {
         XmpValueType valueType = XmpColumnXmpDataTypeMapping.getInstance().
             getXmpValueTypeOfColumn(xmpColumn);
-        if (valueType.equals(XmpValueType.BagText)) {
+        if (valueType.equals(XmpValueType.BAG_TEXT)) {
             return new PropertyOptions().setArray(true);
-        } else if (valueType.equals(XmpValueType.SeqProperName)) {
+        } else if (valueType.equals(XmpValueType.SEQ_PROPER_NAME)) {
             return new PropertyOptions().setArrayOrdered(true);
-        } else if (valueType.equals(XmpValueType.LangAlt)) {
+        } else if (valueType.equals(XmpValueType.LANG_ALT)) {
             return new PropertyOptions().setArrayAlternate(true);
         } else {
             assert false : valueType;

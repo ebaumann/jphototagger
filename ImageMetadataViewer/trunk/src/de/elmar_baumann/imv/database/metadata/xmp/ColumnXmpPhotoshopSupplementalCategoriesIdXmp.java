@@ -20,7 +20,7 @@ public final class ColumnXmpPhotoshopSupplementalCategoriesIdXmp extends Column 
         super(
             TableXmpPhotoshopSupplementalCategories.getInstance(),
             "id_xmp", // NOI18N
-            DataType.Bigint);
+            DataType.BIGINT);
 
         setCanBeNull(false);
         setReferences(ColumnXmpId.getInstance());

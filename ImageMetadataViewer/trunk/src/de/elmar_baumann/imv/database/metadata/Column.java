@@ -20,7 +20,7 @@ public class Column {
     private boolean isPrimaryKey = false;
     private boolean canBeNull = true;
     private int length = 0;
-    private ReferenceDirection referenceDirection = ReferenceDirection.backwards;
+    private ReferenceDirection referenceDirection = ReferenceDirection.BACKWARDS;
 
     /**
      * Typ der Spaltendaten.
@@ -28,19 +28,19 @@ public class Column {
     public enum DataType {
 
         /** Binärdaten, Java-Typ: byte[] */
-        Binary,
-        /** Datum, Java-Typ: java.sql.Date */
-        Date,
+        BINARY,
+        /** Datum, Java-Typ: java.sql.DATE */
+        DATE,
         /** Ganzzahl, Java-Typ: int */
-        Integer,
+        INTEGER,
         /** Java-Typ: long */
-        Bigint,
+        BIGINT,
         /** Realzahl, Java-Typ: double */
-        Real,
+        REAL,
         /** kleine Ganzzahl, Java-Typ: short */
-        Smallint,
-        /** Zeichenkette variabler Länge, Java-Typ: java.lang.String */
-        String
+        SMALLINT,
+        /** Zeichenkette variabler Länge, Java-Typ: java.lang.STRING */
+        STRING
     };
 
     /**
@@ -52,12 +52,12 @@ public class Column {
          * Rückwärtsgerichtete Referenz, üblich bei 1:n - Beziehungen für den
          * n-Teil
          */
-        backwards,
+        BACKWARDS,
         /** 
          * Rückwärtsgerichtete Referenz, üblich bei 1:n - Beziehungen für den
          * 1-Teil
          */
-        forwards
+        FORWARDS
     }
 
     /**
@@ -328,7 +328,7 @@ public class Column {
      * Setzt die Richtung der Referenz.
      * 
      * @param referenceDirection Richtung der Referenz.
-     *                           Default: backwards
+     *                           Default: BACKWARDS
      */
     protected void setReferenceDirection(ReferenceDirection referenceDirection) {
         this.referenceDirection = referenceDirection;

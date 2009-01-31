@@ -11,7 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * Controller für die Aktion: Dateien ausgewählter Thumbnails öffnen,
+ * Controller für die Aktion: Dateien ausgewählter THUMBNAILS öffnen,
  * ausgelöst von {@link de.elmar_baumann.imv.view.popupmenus.PopupMenuPanelThumbnails}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
@@ -48,7 +48,7 @@ public final class ControllerOpenFilesWithStandardApp extends Controller
     private boolean checkOpenAppIsDefined() {
         if (UserSettings.getInstance().getDefaultImageOpenApp().isEmpty()) {
             UserSettingsDialog dialog = UserSettingsDialog.getInstance();
-            dialog.selectTab(UserSettingsDialog.Tab.Programs);
+            dialog.selectTab(UserSettingsDialog.Tab.PROGRAMS);
             if (dialog.isVisible()) {
                 dialog.toFront();
             } else {

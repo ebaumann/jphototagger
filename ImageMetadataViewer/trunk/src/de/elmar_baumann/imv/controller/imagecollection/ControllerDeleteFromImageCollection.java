@@ -41,7 +41,7 @@ public final class ControllerDeleteFromImageCollection extends Controller
     @Override
     public void actionPerformed(ActionEvent e) {
         if (isControl() && 
-            thumbnailsPanel.getContent().equals(Content.ImageCollection) &&
+            thumbnailsPanel.getContent().equals(Content.IMAGE_COLLECTION) &&
             thumbnailsPanel.getSelectionCount() > 0) {
             deleteSelectedFilesFromImageCollection();
         }

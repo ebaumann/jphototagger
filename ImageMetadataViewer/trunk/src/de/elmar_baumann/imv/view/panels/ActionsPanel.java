@@ -62,7 +62,7 @@ public final class ActionsPanel extends javax.swing.JPanel {
     private void execute() {
         if (list.getSelectedIndex() >= 0) {
             Program program = getSelectedProgram();
-            notify(new ProgramActionEvent(ProgramActionEvent.Type.ActionExecute, program));
+            notify(new ProgramActionEvent(ProgramActionEvent.Type.ACTION_EXECUTE, program));
         }
     }
 
@@ -73,7 +73,7 @@ public final class ActionsPanel extends javax.swing.JPanel {
             Program program = dialog.getProgram();
             model.add(program);
             notify(new ProgramActionEvent(
-                ProgramActionEvent.Type.ActionCreated, program));
+                ProgramActionEvent.Type.ACTION_CREATED, program));
         }
         setButtonsEnabled();
     }
@@ -87,7 +87,7 @@ public final class ActionsPanel extends javax.swing.JPanel {
             if (dialog.isAccepted()) {
                 model.update(program);
                 notify(new ProgramActionEvent(
-                    ProgramActionEvent.Type.ActionUpdated, program));
+                    ProgramActionEvent.Type.ACTION_UPDATED, program));
             }
         }
         setButtonsEnabled();

@@ -66,7 +66,7 @@ public final class DatabaseSavedSearches extends Database {
                 insertSavedSearchPanelData(connection, id, panelData);
                 connection.commit();
                 inserted = true;
-                notifyDatabaseListener(DatabaseAction.Type.SavedSearchInserted, data);
+                notifyDatabaseListener(DatabaseAction.Type.SAVED_SEARCH_INSERTED, data);
                 stmt.close();
             } catch (SQLException ex) {
                 de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
@@ -226,7 +226,7 @@ public final class DatabaseSavedSearches extends Database {
             connection.commit();
             deleted = count > 0;
             if (deleted) {
-                notifyDatabaseListener(DatabaseAction.Type.SavedSearchDeleted, name);
+                notifyDatabaseListener(DatabaseAction.Type.SAVED_SEARCH_DELETED, name);
             }
             stmt.close();
         } catch (SQLException ex) {
@@ -262,7 +262,7 @@ public final class DatabaseSavedSearches extends Database {
                 List<String> info = new ArrayList<String>();
                 info.add(oldName);
                 info.add(newName);
-                notifyDatabaseListener(DatabaseAction.Type.SavedSearchUpdated, info);
+                notifyDatabaseListener(DatabaseAction.Type.SAVED_SEARCH_UPDATED, info);
             }
             stmt.close();
         } catch (SQLException ex) {
@@ -285,7 +285,7 @@ public final class DatabaseSavedSearches extends Database {
                 deleteSavedSearch(data.getParamStatements().getName()) && 
                 insertSavedSearch(data);
             if (updated) {
-                notifyDatabaseListener(DatabaseAction.Type.SavedSearchUpdated, data);
+                notifyDatabaseListener(DatabaseAction.Type.SAVED_SEARCH_UPDATED, data);
             }
             return updated;
         }

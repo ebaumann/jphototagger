@@ -61,9 +61,9 @@ public final class ControllerFastSearch extends Controller
 
     @Override
     public void applySettings(UserSettingsChangeEvent evt) {
-        if (evt.getType().equals(UserSettingsChangeEvent.Type.FastSearchColumns)) {
+        if (evt.getType().equals(UserSettingsChangeEvent.Type.FAST_SEARCH_COLUMNS)) {
             textFieldSearch.setEnabled(true);
-        } else if (evt.getType().equals(UserSettingsChangeEvent.Type.NoFastSearchColumns)) {
+        } else if (evt.getType().equals(UserSettingsChangeEvent.Type.NO_FAST_SEARCH_COLUMNS)) {
             textFieldSearch.setEnabled(false);
         }
     }
@@ -97,7 +97,7 @@ public final class ControllerFastSearch extends Controller
     private void checkEnabled() {
         if (!textFieldSearch.isEnabled()) {
             UserSettingsDialog settingsDialog = UserSettingsDialog.getInstance();
-            settingsDialog.selectTab(UserSettingsDialog.Tab.FastSearch);
+            settingsDialog.selectTab(UserSettingsDialog.Tab.FAST_SEARCH);
             if (settingsDialog.isVisible()) {
                 settingsDialog.toFront();
             } else {
@@ -122,7 +122,7 @@ public final class ControllerFastSearch extends Controller
             List<String> filenames =
                 db.searchFilenamesLikeOr(UserSettings.getInstance().getFastSearchColumns(), searchText.trim());
             thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames),
-                Content.SafedSearch);
+                Content.SAFED_SEARCH);
         }
     }
 
@@ -148,7 +148,7 @@ public final class ControllerFastSearch extends Controller
         });
 
         db.addDatabaseListener(this);
-        thumbnailsPanel.addRefreshListener(this, Content.FastSearch);
+        thumbnailsPanel.addRefreshListener(this, Content.FAST_SEARCH);
     }
 
     @Override

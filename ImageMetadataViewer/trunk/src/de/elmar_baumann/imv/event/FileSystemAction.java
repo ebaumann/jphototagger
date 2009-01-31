@@ -8,8 +8,8 @@ package de.elmar_baumann.imv.event;
  */
 public enum FileSystemAction {
 
-    Copy,
-    Delete,
-    Move,
-    Rename,
+    COPY,
+    DELETE,
+    MOVE,
+    RENAME,
 }

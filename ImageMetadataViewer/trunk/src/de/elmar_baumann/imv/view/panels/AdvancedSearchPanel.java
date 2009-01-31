@@ -111,7 +111,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
     }
 
     private void notifySearch() {
-        SearchEvent event = new SearchEvent(SearchEvent.Type.Start);
+        SearchEvent event = new SearchEvent(SearchEvent.Type.START);
         SavedSearch data = new SavedSearch();
         data.setParamStatements(getParamStatementData());
         event.setData(data);
@@ -121,7 +121,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
     }
 
     private void notifySave(SavedSearch search) {
-        SearchEvent event = new SearchEvent(SearchEvent.Type.Save);
+        SearchEvent event = new SearchEvent(SearchEvent.Type.SAVE);
         event.setData(search);
         event.setForceOverwrite(isSavedSearch);
         for (SearchListener listener : searchListeners) {
@@ -130,7 +130,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
     }
 
     private void notifyNameChanged() {
-        SearchEvent event = new SearchEvent(SearchEvent.Type.NameChanged);
+        SearchEvent event = new SearchEvent(SearchEvent.Type.NAME_CHANGED);
         event.setSearchName(searchName);
         for (SearchListener listener : searchListeners) {
             listener.actionPerformed(event);
@@ -312,7 +312,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
     private void appendFrom(StringBuffer statement) {
         List<Table> allTables =
             DatabaseMetadataUtil.getUniqueTablesOfColumnArray(getColumns());
-        Column.ReferenceDirection back = Column.ReferenceDirection.backwards;
+        Column.ReferenceDirection back = Column.ReferenceDirection.BACKWARDS;
         List<Table> refsXmpTables = DatabaseMetadataUtil.getTablesWithReferenceTo(allTables, TableXmp.getInstance(), back);
 
         statement.append(" " + TableFiles.getInstance().getName()); // NOI18N
@@ -354,7 +354,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
 
     @Override
     public void actionPerformed(SearchEvent evt) {
-        if (evt.getType().equals(SearchEvent.Type.Start)) {
+        if (evt.getType().equals(SearchEvent.Type.START)) {
             search();
         }
     }

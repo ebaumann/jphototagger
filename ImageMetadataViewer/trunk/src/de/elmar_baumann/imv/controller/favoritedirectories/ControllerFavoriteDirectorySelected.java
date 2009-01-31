@@ -35,7 +35,7 @@ public final class ControllerFavoriteDirectorySelected extends Controller
 
     private void listenToActionSources() {
         listFavoriteDirectories.addListSelectionListener(this);
-        thumbnailsPanel.addRefreshListener(this, Content.FavoriteDirectory);
+        thumbnailsPanel.addRefreshListener(this, Content.FAVORITE_DIRECTORY);
     }
 
     @Override
@@ -57,7 +57,7 @@ public final class ControllerFavoriteDirectorySelected extends Controller
     private void setFilesToThumbnailsPanel() {
         if (isControl() && listFavoriteDirectories.getSelectedValue() != null) {
             thumbnailsPanel.setFiles(getFilesOfCurrentDirectory(),
-                Content.FavoriteDirectory);
+                Content.FAVORITE_DIRECTORY);
         }
     }
 
