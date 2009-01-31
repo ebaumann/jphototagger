@@ -7,7 +7,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Externes (nicht in der JVM stattfindendes).
+ * Something what doesn't happen in the JVM.
+ *
+ * All functions with object-reference-parameters are throwing a
+ * <code>NullPointerException</code> if an object reference is null and it is
+ * not documentet that it can be null.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/08/02
@@ -22,14 +26,22 @@ public final class External {
     }
 
     /**
-     * Führt ein externes Programm aus und liefert dessen Output.
+     * Executes an external program and returns it's output.
      * 
-     * @param  command Kommando, z.B. <code>/bin/ls -l /home</code>
-     * @return         Ausgabe des Programms oder null bei Misserfolg oder
-     *                 keiner Ausgabe. Das erste Element des Paars ist die
-     *                 Standardausgabe, das zweite die Standardfehlerausgabe.
+     * @param  command command, e.g. <code>/bin/ls -l /home</code>
+     * @return         Pair of bytes written by the program or null if errors
+     *                 occured. The first element of the pair is null if the
+     *                 program didn't write anything to the system's standard
+     *                 output or the bytes the program has written to the
+     *                 system's standard output. The second element of the pair
+     *                 is null if the program didn't write anything to the
+     *                 system's standard error output or the bytes the program
+     *                 has written to the system's standard error output.
      */
     public static Pair<byte[], byte[]> executeGetOutput(String command) {
+        if (command == null)
+            throw new NullPointerException("command == null");
+
         Runtime runtime = Runtime.getRuntime();
         Process process = null;
         try {
@@ -39,12 +51,14 @@ public final class External {
                 getStream(process, Stream.STANDARD_ERROR));
         } catch (Exception ex) {
             Logger.getLogger(External.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
         }
-        return new Pair<byte[], byte[]>(null, null);
     }
 
     private static byte[] getStream(Process process, Stream s) {
+        assert process != null;
         assert s.equals(Stream.STANDARD_ERROR) || s.equals(Stream.STANDARD_OUT);
+
         final int buffersize = 100 * 1024;
         byte[] returnBytes = null;
         try {
