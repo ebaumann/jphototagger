@@ -1,11 +1,23 @@
 package de.elmar_baumann.lib.resource;
 
 /**
- * Ressource, die nicht von mehreren Objekten zur gleichen Zeit benutzt
- * werden kann.
+ * Resource that should't be used by two different objects at the same time. The
+ * owner gets the resource only <em>once</em> by calling
+ * {@link #getResource(java.lang.Object)}. After that call the resource is
+ * locked until {@link #releaseResource(java.lang.Object)} will be called.
+ *
+ * <em>The protection of the object is very weak! An object that keeps a
+ * reference to the resource can do anything with it. That means, You have
+ * to call {@link #isAvailable()} every time before using the resource,
+ * even if You got previously a reference to it or You set the reference to
+ * null before You call {@link #releaseResource(java.lang.Object)}!</em>
  * 
- * Spezialisierte Klassen sind Singletons und setzen spezialisierte Objekte
- * mit {@link #setResource(java.lang.Object)}.
+ * Specialized classes are singletons and set spezialized objects
+ * through {@link #setResource(java.lang.Object)}.
+ *
+ * All functions with object-reference-parameters are throwing a
+ * <code>NullPointerException</code> if an object reference is null and it is
+ * not documentet that it can be null.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/16
@@ -17,41 +29,31 @@ public class MutualExcludedResource {
     private Object owner = null;
 
     /**
-     * Liefert, ob die Ressource gesperrt ist. Im Gegensatz zu
-     * {@link #isAvailable()} wird nicht geprüft, ob die Ressource
-     * existiert (ungleich null ist).
+     * Returns, whether a resource can be used: It exists (is not null)
+     * and it is not locked.
      * 
-     * @return true, wenn gesperrt.
-     */
-    synchronized public boolean isLocked() {
-        return locked;
-    }
-
-    synchronized private void setLocked(boolean lock) {
-        this.locked = lock;
-    }
-
-    /**
-     * Liefert, ob die Ressource verfügbar ist: Sie existiert (ist ungleich null)
-     * und wird nicht von einem anderen Objekt benutzt.
-     * 
-     * @return true, wenn verfügbar.
+     * @return true, if the resource can be used
      */
     synchronized public boolean isAvailable() {
         return !isLocked() && resource != null;
     }
 
     /**
-     * Liefert die Ressource.
+     * Returns the resource, locks it and sets the owner of the resource.
      * 
-     * <em>Wird die Ressource nicht mehr gebraucht, ist sie mit
-     * {@link #releaseResource(java.lang.Object)} wieder freizugeben!</em>
+     * <em>If the resource isn't needed anymore, it has to be released with
+     * {@link #releaseResource(java.lang.Object)}!</em>
      * 
-     * @param  owner  Eigentümer. Nur der Eigentümer kann die Ressource
-     *                wieder freigeben.
-     * @return Ressource oder null, wenn nicht gesetzt oder nicht verfügbar
+     * @param  owner  owner. Only the owner can unlock the resource an has to
+     *                do that!
+     * @return Resource or null, if not available. If the returned resource
+     *         is not null, {@link #isAvailable()} returns <code>false</code>.
+     * @see #isAvailable()
      */
-    synchronized public Object getRessource(Object owner) {
+    synchronized public Object getResource(Object owner) {
+        if (owner == null)
+            throw new NullPointerException("owner == null");
+
         if (isAvailable()) {
             setLocked(true);
             setOwner(owner);
@@ -60,35 +62,76 @@ public class MutualExcludedResource {
         return null;
     }
 
-    private synchronized Object getOwner() {
-        return owner;
-    }
-
-    private synchronized void setOwner(Object owner) {
-        this.owner = owner;
-    }
-
     /**
-     * Gibt die Ressource wieder frei.
+     * Releases (unlocks) the resource.
      * 
-     * @param  o     Eigentümer der Ressource
-     * @return true, wenn freigegeben
+     * @param  o     owner of the resource. Only the owner can release the
+     *               resource.
+     * @return true, if released. If the return value is true,
+     *         {@link #isAvailable()} returns <code>true</code>.
      */
     synchronized public boolean releaseResource(Object o) {
+        if (o == null)
+            throw new NullPointerException("o == null");
+
         if (isLocked() && o != null && o == getOwner()) {
             setOwner(null);
             setLocked(false);
+            return true;
         }
         return false;
     }
 
     /**
-     * Setzt die Ressource. Vorher kann sie nicht benutzt werden.
-     * 
-     * @param resource Ressource
+     * Sets the ressource. Until this method is called,
+     * {@link #isAvailable()} will be <code>false</code>.
+     *
+     * @param resource resource
      */
     synchronized protected void setResource(Object resource) {
+        if (resource == null)
+            throw new NullPointerException("resource == null");
+
         this.resource = resource;
+    }
+
+    /**
+     * Locks or unlocks the resource.
+     *
+     * @param lock  true, if the resource shall be locked and false if it
+     *              shall be unlocked
+     */
+    synchronized private void setLocked(boolean lock) {
+        this.locked = lock;
+    }
+
+    /**
+     * Returns, whether the resource is locked. Does not test, whether the
+     * resource exists (is not null) contrary to {@link #isAvailable()}.
+     *
+     * @return true, if the resource is locked
+     */
+    synchronized private boolean isLocked() {
+        return locked;
+    }
+
+    /**
+     * Sets the owner of the resource.
+     *
+     * @param owner  owner
+     */
+    synchronized private void setOwner(Object owner) {
+        assert owner != null;
+        this.owner = owner;
+    }
+
+    /**
+     * Returns the owner of the resource.
+     *
+     * @return owner or null if nobody owns the resource
+     */
+    synchronized private Object getOwner() {
+        return owner;
     }
 
     protected MutualExcludedResource() {

@@ -1,12 +1,16 @@
 package de.elmar_baumann.lib.resource;
 
-import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Vereinfachter Zugriff auf String-Ressourcen.
+ * Returns the strings defined in the <code>Bundle.properties</code> file
+ * (<code>"de/elmar_baumann/lib/resource/Bundle"</code>).
+ *
+ * All functions with object-reference-parameters are throwing a
+ * <code>NullPointerException</code> if an object reference is null and it is
+ * not documentet that it can be null.
  * 
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/02
@@ -17,19 +21,17 @@ public final class Bundle {
         ResourceBundle.getBundle("de/elmar_baumann/lib/resource/Bundle"); // NOI18N
 
     /**
-     * Liefert <code>java.util.ResourceBundle.getBundle().getString()</code> und fängt
-     * dessen Ausnahmen ab.
+     * Returns <code>java.util.ResourceBundle.getBundle().getString()</code>
+     * and catches exceptions.
      * 
-     * @param  key Schlüssel
-     * @return     Wert, bei einer Ausnahme der Schlüssel mit Fragezeichen
-     *             umschlossen
-     * @throws NullPointerException wenn der Schlüssel null ist
+     * @param  key key
+     * @return     value or key between two question marks if the value could
+     *             not be retrieved
+     * @throws NullPointerException if the key is null
      */
     public static String getString(String key) {
         try {
             return bundle.getString(key);
-        } catch (MissingResourceException ex) {
-            Logger.getLogger(Bundle.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NullPointerException ex) {
             throw ex;
         } catch (Exception ex) {

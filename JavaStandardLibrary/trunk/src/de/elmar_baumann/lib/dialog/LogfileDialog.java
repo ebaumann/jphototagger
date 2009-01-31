@@ -88,9 +88,9 @@ public final class LogfileDialog extends javax.swing.JDialog implements
     }
 
     private void setIcons() {
-        Settings settings = Settings.getInstance();
-        if (settings.hasIconImages()) {
-            setIconImages(IconUtil.getIconImages(settings.getIconImagesPaths()));
+        if (Settings.INSTANCE.hasIconImages()) {
+            setIconImages(IconUtil.getIconImages(
+                Settings.INSTANCE.getIconImagesPaths()));
         }
     }
 
@@ -721,14 +721,16 @@ private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:even
 }//GEN-LAST:event_formWindowClosing
 
     /**
-    * @param args the command line arguments
-    */
+     * @param args the command line arguments
+     */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             @Override
             public void run() {
                 LogfileDialog dialog = new LogfileDialog(new javax.swing.JFrame(), "", XMLFormatter.class); // NOI18N
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);
@@ -771,5 +773,4 @@ private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:even
     private javax.swing.JTextField textFieldSearch;
     private javax.swing.JTextPane textPaneDetails;
     // End of variables declaration//GEN-END:variables
-
 }

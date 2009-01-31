@@ -70,9 +70,9 @@ public final class HelpBrowser extends Dialog
     }
 
     private void setIcons() {
-        Settings settings = Settings.getInstance();
-        if (settings.hasIconImages()) {
-            setIconImages(IconUtil.getIconImages(settings.getIconImagesPaths()));
+        if (Settings.INSTANCE.hasIconImages()) {
+            setIconImages(IconUtil.getIconImages(
+                Settings.INSTANCE.getIconImagesPaths()));
         }
     }
 
@@ -475,10 +475,11 @@ private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:even
 }//GEN-LAST:event_formWindowClosing
 
     /**
-    * @param args the command line arguments
-    */
+     * @param args the command line arguments
+     */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             @Override
             public void run() {
                 getInstance().setVisible(true);

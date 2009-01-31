@@ -67,9 +67,9 @@ public final class InputVerifierMaxLength extends InputVerifier {
     }
 
     private Icon getIcon() {
-        Settings settings = Settings.getInstance();
-        if (settings.hasIconImages()) {
-            return IconUtil.getImageIcon(settings.getIconImagesPaths().get(0));
+        if (Settings.INSTANCE.hasIconImages()) {
+            return IconUtil.getImageIcon(
+                Settings.INSTANCE.getIconImagesPaths().get(0));
         }
         return null;
     }

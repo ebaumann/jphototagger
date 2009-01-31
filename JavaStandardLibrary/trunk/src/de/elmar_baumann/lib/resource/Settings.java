@@ -1,53 +1,54 @@
 package de.elmar_baumann.lib.resource;
 
+import java.util.ArrayList;
 import java.util.List;
 
-
 /**
- * Einstellungen. Wird von Klassen dieser Lib genutzt.
+ * Settings that will be used by the classes of this Java library.
+ *
+ * All functions with object-reference-parameters are throwing a
+ * <code>NullPointerException</code> if an object reference is null and it is
+ * not documentet that it can be null.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
 public final class Settings {
 
-    private static final Settings instance = new Settings();
-    private List<String> iconImagesPaths;
+    public static final Settings INSTANCE = new Settings();
+    private List<String> iconImagesPaths = new ArrayList<String>();
 
     /**
-     * Liefert die Pfade zu den Icons der Anwendung.
+     * Returns the paths to icon images. Each path is a single icon image,
+     * e.g. <code>"/de/elmar_baumann/imv/resource/help.png"</code>.
      * 
-     * @return Pfade oder null, wenn nicht gesetzt
+     * @return paths. Is empty if not set through
+     *         {@link #setIconImagesPath(java.util.List)}
      */
     public List<String> getIconImagesPaths() {
         return iconImagesPaths;
     }
 
     /**
-     * Setzt die Pfade zu den Icons der der Anwendung.
+     * Sets the paths to icon images. Each path is a single icon image,
+     * e.g. <code>"/de/elmar_baumann/imv/resource/help.png"</code>.
      * 
-     * @param iconImagesPaths Pfade
+     * @param iconImagesPaths paths
      */
     public void setIconImagesPath(List<String> iconImagesPaths) {
-        this.iconImagesPaths = iconImagesPaths;
+        if (iconImagesPaths == null)
+            throw new NullPointerException("iconImagesPaths == null");
+
+        this.iconImagesPaths = new ArrayList<String>(iconImagesPaths);
     }
 
     /**
-     * Liefert, ob der Pfad zu den Icons der Anwendung definiert ist.
+     * Returns, whether at least one path to an icon image is defined.
      * 
-     * @return true, wenn definiert
+     * @return true, if one ore more paths to icon images are defined
      */
     public boolean hasIconImages() {
-        return iconImagesPaths != null;
-    }
-
-    /**
-     * Liefert die einzige Instanz.
-     * 
-     * @return Instanz
-     */
-    public static Settings getInstance() {
-        return instance;
+        return !iconImagesPaths.isEmpty();
     }
 
     private Settings() {
