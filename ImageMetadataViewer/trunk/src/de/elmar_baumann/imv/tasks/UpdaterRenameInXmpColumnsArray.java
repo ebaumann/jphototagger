@@ -61,7 +61,7 @@ public final class UpdaterRenameInXmpColumnsArray implements ProgressListener {
     @Override
     public void progressStarted(ProgressEvent evt) {
         evt.setStop(stop);
-        progressBar = (JProgressBar) progressBarProvider.getRessource(this);
+        progressBar = (JProgressBar) progressBarProvider.getResource(this);
         if (progressBar != null) {
             progressBar.setMinimum(evt.getMinimum());
             progressBar.setMaximum(evt.getMaximum());

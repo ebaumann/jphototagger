@@ -75,7 +75,7 @@ public final class XmpUpdaterFromTextEntryArray implements ProgressListener {
 
     @Override
     public void progressStarted(ProgressEvent evt) {
-        progressBar = (JProgressBar) progressBarProvider.getRessource(this);
+        progressBar = (JProgressBar) progressBarProvider.getResource(this);
         if (progressBar != null) {
             progressBar.setMinimum(evt.getMinimum());
             if (evt.getMaximum() > 0) {
@@ -102,8 +102,8 @@ public final class XmpUpdaterFromTextEntryArray implements ProgressListener {
         if (progressBar != null) {
             progressBar.setValue(evt.getValue());
             progressBar.setToolTipText(AppSettings.tooltipTextProgressBarCurrentTasks);
-            progressBarProvider.releaseResource(this);
             progressBar = null;
+            progressBarProvider.releaseResource(this);
         }
         setWait(false);
         if (updaters.size() > 0) {

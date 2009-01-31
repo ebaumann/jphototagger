@@ -91,7 +91,7 @@ public final class ControllerCreateMetadataOfSelectedThumbnails extends Controll
 
     @Override
     public void progressStarted(ProgressEvent evt) {
-        progressBar = (JProgressBar) progressBarProvider.getRessource(this);
+        progressBar = (JProgressBar) progressBarProvider.getResource(this);
         if (progressBar != null) {
             progressBar.setMinimum(evt.getMinimum());
             progressBar.setMaximum(evt.getMaximum());
@@ -116,8 +116,8 @@ public final class ControllerCreateMetadataOfSelectedThumbnails extends Controll
         if (progressBar != null) {
             progressBar.setValue(evt.getValue());
             progressBar.setToolTipText(AppSettings.tooltipTextProgressBarCurrentTasks);
-            progressBarProvider.releaseResource(this);
             progressBar = null;
+            progressBarProvider.releaseResource(this);
         }
         setWait(false);
         if (updaters.size() > 0) {
