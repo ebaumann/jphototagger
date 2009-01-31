@@ -107,8 +107,10 @@ public final class ProgramExecutor {
                 IoUtil.getQuotedForCommandline(imageFiles, ""),
                 getInput("Alle Dateien", 2),
                 dialog.isParametersBeforeFilename()));
-            logErrors(output);
-            setValueToProgressBar(imageFiles.size());
+            if (output != null) {
+                logErrors(output);
+                setValueToProgressBar(imageFiles.size());
+            }
         }
 
         private void processSingle() {
@@ -120,8 +122,10 @@ public final class ProgramExecutor {
                     file.getAbsolutePath(),
                     getInput(file.getAbsolutePath(), count + 1),
                     dialog.isParametersBeforeFilename()));
-                logErrors(output);
-                setValueToProgressBar(++count);
+                if (output != null) {
+                    logErrors(output);
+                    setValueToProgressBar(++count);
+                }
             }
         }
 

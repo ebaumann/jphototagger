@@ -135,6 +135,9 @@ public final class ThumbnailUtil {
         String cmd = command.replace("%s", file.getAbsolutePath()).replace("%i", // NOI18N
             new Integer(maxLength).toString());
         Pair<byte[], byte[]> output = External.executeGetOutput(cmd);
+
+        if (output == null) return null;
+
         byte[] stdout = output.getFirst();
         if (stdout != null) {
             MediaTracker tracker = new MediaTracker(new JPanel());
