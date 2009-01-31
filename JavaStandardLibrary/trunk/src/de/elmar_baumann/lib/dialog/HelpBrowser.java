@@ -104,7 +104,7 @@ public final class HelpBrowser extends Dialog
     }
 
     private void notifyUrlChanged(URL url) {
-        HelpBrowserAction action = new HelpBrowserAction(this, HelpBrowserAction.Type.UrlChanged);
+        HelpBrowserAction action = new HelpBrowserAction(this, HelpBrowserAction.Type.URL_CHANGED);
         action.setUrl(url);
         for (HelpBrowserListener listener : actionListeners) {
             listener.actionPerformed(action);

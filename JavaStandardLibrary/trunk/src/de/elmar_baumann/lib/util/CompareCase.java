@@ -8,7 +8,7 @@ package de.elmar_baumann.lib.util;
  */
 enum CompareCase {
 
-    Sensitive,
-    Ignore;
+    SENSITIVE,
+    IGNORE;
     
 }

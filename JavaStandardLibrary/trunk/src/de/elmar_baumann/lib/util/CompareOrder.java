@@ -8,6 +8,6 @@ package de.elmar_baumann.lib.util;
  */
 enum CompareOrder {
 
-    Ascending,
-    Descending;
+    ASCENDING,
+    DESCENDING;
 }

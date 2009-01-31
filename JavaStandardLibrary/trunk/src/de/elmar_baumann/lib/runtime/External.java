@@ -16,9 +16,9 @@ public final class External {
 
     private enum Stream {
 
-        StandardError,
-        StandardIn,
-        StandardOut,
+        STANDARD_ERROR,
+        STANDARD_IN,
+        STANDARD_OUT,
     }
 
     /**
@@ -35,8 +35,8 @@ public final class External {
         try {
             process = runtime.exec(command);
             return new Pair<byte[], byte[]>(
-                getStream(process, Stream.StandardOut),
-                getStream(process, Stream.StandardError));
+                getStream(process, Stream.STANDARD_OUT),
+                getStream(process, Stream.STANDARD_ERROR));
         } catch (Exception ex) {
             Logger.getLogger(External.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -44,11 +44,11 @@ public final class External {
     }
 
     private static byte[] getStream(Process process, Stream s) {
-        assert s.equals(Stream.StandardError) || s.equals(Stream.StandardOut);
+        assert s.equals(Stream.STANDARD_ERROR) || s.equals(Stream.STANDARD_OUT);
         final int buffersize = 100 * 1024;
         byte[] returnBytes = null;
         try {
-            InputStream stream = s.equals(Stream.StandardOut)
+            InputStream stream = s.equals(Stream.STANDARD_OUT)
                 ? process.getInputStream()
                 : process.getErrorStream();
             byte[] buffer = new byte[buffersize];

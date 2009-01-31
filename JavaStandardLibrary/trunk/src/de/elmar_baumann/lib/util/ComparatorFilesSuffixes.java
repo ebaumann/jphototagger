@@ -18,7 +18,7 @@ public final class ComparatorFilesSuffixes implements Comparator<File> {
      * The suffix is the string after the last period of the filename.
      */
     public final static ComparatorFilesSuffixes COMPARE_ASCENDING_IGNORE_CASE =
-        new ComparatorFilesSuffixes(CompareOrder.Ascending, CompareCase.Ignore);
+        new ComparatorFilesSuffixes(CompareOrder.ASCENDING, CompareCase.IGNORE);
     /**
      * Compares the suffixes of two files case sensitive to sort them in
      * ascending order.
@@ -26,7 +26,7 @@ public final class ComparatorFilesSuffixes implements Comparator<File> {
      * The suffix is the string after the last period of the filename.
      */
     public final static ComparatorFilesSuffixes COMPARE_ASCENDING_CASE_SENSITIVE =
-        new ComparatorFilesSuffixes(CompareOrder.Ascending, CompareCase.Sensitive);
+        new ComparatorFilesSuffixes(CompareOrder.ASCENDING, CompareCase.SENSITIVE);
     /**
      * Compares the suffixes of two files case insensitive to sort them in
      * descending order.
@@ -34,7 +34,7 @@ public final class ComparatorFilesSuffixes implements Comparator<File> {
      * The suffix is the string after the last period of the filename.
      */
     public final static ComparatorFilesSuffixes COMPARE_DESCENDING_IGNORE_CASE =
-        new ComparatorFilesSuffixes(CompareOrder.Descending, CompareCase.Ignore);
+        new ComparatorFilesSuffixes(CompareOrder.DESCENDING, CompareCase.IGNORE);
     /**
      * Compares the suffixes of two files case sensitive to sort them in
      * descending order.
@@ -42,10 +42,10 @@ public final class ComparatorFilesSuffixes implements Comparator<File> {
      * The suffix is the string after the last period of the filename.
      */
     public final static ComparatorFilesSuffixes COMPARE_DESCENDING_CASE_SENSITIVE =
-        new ComparatorFilesSuffixes(CompareOrder.Descending, CompareCase.Sensitive);
+        new ComparatorFilesSuffixes(CompareOrder.DESCENDING, CompareCase.SENSITIVE);
     /** Sort order */
     private final CompareOrder compareOrder;
-    /** Ignore case? */
+    /** IGNORE case? */
     private final CompareCase compareCase;
 
     private ComparatorFilesSuffixes(CompareOrder compareOrder, CompareCase compareCase) {
@@ -66,7 +66,7 @@ public final class ComparatorFilesSuffixes implements Comparator<File> {
             ? rightSuffix.substring(indexRightPeriod + 1) : "";
 
         boolean suffixesEquals = leftSuffix.isEmpty() || leftSuffix.isEmpty() ||
-            compareCase.equals(CompareCase.Ignore)
+            compareCase.equals(CompareCase.IGNORE)
             ? leftSuffix.equalsIgnoreCase(rightSuffix)
             : leftSuffix.equals(rightSuffix);
 
@@ -75,11 +75,11 @@ public final class ComparatorFilesSuffixes implements Comparator<File> {
             rightSuffix = rightFile.getAbsolutePath();
         }
 
-        return compareOrder.equals(CompareOrder.Ascending)
-            ? compareCase.equals(CompareCase.Ignore)
+        return compareOrder.equals(CompareOrder.ASCENDING)
+            ? compareCase.equals(CompareCase.IGNORE)
             ? leftSuffix.compareToIgnoreCase(rightSuffix)
             : leftSuffix.compareTo(rightSuffix)
-            : compareCase.equals(CompareCase.Ignore)
+            : compareCase.equals(CompareCase.IGNORE)
             ? rightSuffix.compareToIgnoreCase(leftSuffix)
             : rightSuffix.compareTo(leftSuffix);
     }

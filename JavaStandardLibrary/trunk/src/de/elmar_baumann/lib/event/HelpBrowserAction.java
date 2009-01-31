@@ -25,7 +25,7 @@ public final class HelpBrowserAction {
         /**
          * The URL displayed changed
          */
-        UrlChanged
+        URL_CHANGED
     }
 
     /**
@@ -38,7 +38,7 @@ public final class HelpBrowserAction {
     }
 
     /**
-     * Returns the url if the action was {@link Type#UrlChanged}.
+     * Returns the url if the action was {@link Type#URL_CHANGED}.
      * 
      * @return URL or null if unaprobriate action
      */
@@ -47,7 +47,7 @@ public final class HelpBrowserAction {
     }
 
     /**
-     * Sets the URL  if the action was {@link Type#UrlChanged}.
+     * Sets the URL  if the action was {@link Type#URL_CHANGED}.
      * 
      * @param url  URL
      */

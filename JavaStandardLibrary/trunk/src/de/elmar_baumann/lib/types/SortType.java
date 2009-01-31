@@ -8,13 +8,13 @@ package de.elmar_baumann.lib.types;
 public enum SortType {
 
     /** Objects are not sorted */
-    none, 
-    /** Objects sorted ascending, case sensitve */
-    ascending,
-    /** Objects sorted descending, case sensitve*/
-    descending,
-    /** Objects sorted ascending, case <em>in</em>sensitive */
-    ascendingNoCase,
-    /** Objects sorted descending, case <em>in</em>sensitive */
-    descendingNoCase,
+    NONE,
+    /** Objects sorted ASCENDING, case sensitve */
+    ASCENDING,
+    /** Objects sorted DESCENDING, case sensitve*/
+    DESCENDING,
+    /** Objects sorted ASCENDING, case <em>in</em>sensitive */
+    ASCENDING_NO_CASE,
+    /** Objects sorted DESCENDING, case <em>in</em>sensitive */
+    DESCENDING_NO_CASE,
 }

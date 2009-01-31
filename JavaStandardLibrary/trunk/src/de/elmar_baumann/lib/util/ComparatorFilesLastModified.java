@@ -20,7 +20,7 @@ public final class ComparatorFilesLastModified implements Comparator<File> {
      * <code>compare()</code> returns zero.
      */
     public static final ComparatorFilesLastModified COMPARE_ASCENDING =
-        new ComparatorFilesLastModified(CompareOrder.Ascending);
+        new ComparatorFilesLastModified(CompareOrder.ASCENDING);
     /**
      * Compares two file modification times to sort files in descending order:
      * If in <code>compare()</code> the left file is newer than the right
@@ -30,7 +30,7 @@ public final class ComparatorFilesLastModified implements Comparator<File> {
      * <code>compare()</code> returns zero.
      */
     public static final ComparatorFilesLastModified COMPARE_DESCENDING =
-        new ComparatorFilesLastModified(CompareOrder.Descending);
+        new ComparatorFilesLastModified(CompareOrder.DESCENDING);
     /** Sort order of the files */
     private final CompareOrder order;
 
@@ -44,7 +44,7 @@ public final class ComparatorFilesLastModified implements Comparator<File> {
         long timeRight = fileRight.lastModified();
         return timeLeft == timeRight
             ? 0
-            : order.equals(CompareOrder.Ascending)
+            : order.equals(CompareOrder.ASCENDING)
             ? timeLeft < timeRight ? -1 : 1
             : timeLeft > timeRight ? -1 : 1;
     }
