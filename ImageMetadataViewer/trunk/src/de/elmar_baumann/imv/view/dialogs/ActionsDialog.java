@@ -7,7 +7,7 @@ import de.elmar_baumann.imv.event.ProgramActionEvent;
 import de.elmar_baumann.imv.event.ProgramActionListener;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.dialog.Dialog;
-import de.elmar_baumann.lib.persistence.PersistentAppSizes;
+import de.elmar_baumann.lib.persistence.PersistentComponentSizes;
 import javax.swing.JProgressBar;
 
 /**
@@ -44,9 +44,9 @@ public final class ActionsDialog extends Dialog implements ProgramActionListener
     public void setVisible(boolean visible) {
         if (visible) {
             panelActions.setButtonsEnabled();
-            PersistentAppSizes.getSizeAndLocation(this);
+            PersistentComponentSizes.getSizeAndLocation(this);
         } else {
-            PersistentAppSizes.setSizeAndLocation(this);
+            PersistentComponentSizes.setSizeAndLocation(this);
         }
         super.setVisible(visible);
     }

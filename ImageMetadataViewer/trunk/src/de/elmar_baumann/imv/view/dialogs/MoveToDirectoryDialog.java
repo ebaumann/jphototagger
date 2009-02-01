@@ -17,7 +17,7 @@ import de.elmar_baumann.imv.view.ViewUtil;
 import de.elmar_baumann.lib.dialog.Dialog;
 import de.elmar_baumann.lib.dialog.DirectoryChooser;
 import de.elmar_baumann.lib.io.FileUtil;
-import de.elmar_baumann.lib.persistence.PersistentAppSizes;
+import de.elmar_baumann.lib.persistence.PersistentComponentSizes;
 import de.elmar_baumann.lib.persistence.PersistentSettings;
 import de.elmar_baumann.lib.template.Pair;
 import java.io.File;
@@ -188,7 +188,7 @@ public final class MoveToDirectoryDialog extends Dialog
     @Override
     public void setVisible(boolean visible) {
         if (visible) {
-            PersistentAppSizes.getSizeAndLocation(this);
+            PersistentComponentSizes.getSizeAndLocation(this);
             if (moveIfVisible) {
                 start();
             } else {
@@ -199,7 +199,7 @@ public final class MoveToDirectoryDialog extends Dialog
                 }
             }
         } else {
-            PersistentAppSizes.setSizeAndLocation(this);
+            PersistentComponentSizes.setSizeAndLocation(this);
             PersistentSettings.getInstance().setString(targetDirectory.getAbsolutePath(), keyTargetDirectory);
         }
         super.setVisible(visible);

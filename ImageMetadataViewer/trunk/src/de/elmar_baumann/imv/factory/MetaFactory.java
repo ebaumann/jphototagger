@@ -4,7 +4,7 @@ import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.view.frames.AppFrame;
 import de.elmar_baumann.imv.view.panels.AppPanel;
-import de.elmar_baumann.lib.persistence.PersistentAppSizes;
+import de.elmar_baumann.lib.persistence.PersistentComponentSizes;
 import de.elmar_baumann.lib.persistence.PersistentSettings;
 import javax.swing.JProgressBar;
 
@@ -59,7 +59,7 @@ public final class MetaFactory extends Thread {
 
     private void setAppFrame() {
         AppFrame appFrame = Panels.getInstance().getAppFrame();
-        PersistentAppSizes.getSizeAndLocation(appFrame);
+        PersistentComponentSizes.getSizeAndLocation(appFrame);
         appFrame.pack();
     }
 

@@ -3,7 +3,7 @@ package de.elmar_baumann.imv.view.dialogs;
 import de.elmar_baumann.imv.AppSettings;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.dialog.Dialog;
-import de.elmar_baumann.lib.persistence.PersistentAppSizes;
+import de.elmar_baumann.lib.persistence.PersistentComponentSizes;
 import de.elmar_baumann.lib.persistence.PersistentSettings;
 import de.elmar_baumann.lib.persistence.PersistentSettingsHints;
 
@@ -50,10 +50,10 @@ public final class ProgramInputParametersDialog extends Dialog {
     public void setVisible(boolean visible) {
         PersistentSettingsHints hints = new PersistentSettingsHints();
         if (visible) {
-            PersistentAppSizes.getSizeAndLocation(this);
+            PersistentComponentSizes.getSizeAndLocation(this);
             PersistentSettings.getInstance().getComponent(this, hints);
         } else {
-            PersistentAppSizes.setSizeAndLocation(this);
+            PersistentComponentSizes.setSizeAndLocation(this);
             PersistentSettings.getInstance().setComponent(this, hints);
         }
         super.setVisible(visible);

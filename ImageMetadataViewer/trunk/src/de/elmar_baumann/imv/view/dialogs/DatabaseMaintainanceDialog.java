@@ -3,7 +3,7 @@ package de.elmar_baumann.imv.view.dialogs;
 import de.elmar_baumann.imv.AppSettings;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.dialog.Dialog;
-import de.elmar_baumann.lib.persistence.PersistentAppSizes;
+import de.elmar_baumann.lib.persistence.PersistentComponentSizes;
 import de.elmar_baumann.lib.persistence.PersistentSettings;
 import de.elmar_baumann.lib.persistence.PersistentSettingsHints;
 import javax.swing.JOptionPane;
@@ -31,7 +31,7 @@ public final class DatabaseMaintainanceDialog extends Dialog {
     public void setVisible(boolean visible) {
         super.setVisible(visible);
         if (visible) {
-            PersistentAppSizes.getSizeAndLocation(this);
+            PersistentComponentSizes.getSizeAndLocation(this);
             PersistentSettings.getInstance().getComponent(this, new PersistentSettingsHints());
         }
         panelMaintainance.getsVisible(visible);
@@ -46,7 +46,7 @@ public final class DatabaseMaintainanceDialog extends Dialog {
 
     private void close() {
         if (panelMaintainance.canClose()) {
-            PersistentAppSizes.setSizeAndLocation(this);
+            PersistentComponentSizes.setSizeAndLocation(this);
             PersistentSettings.getInstance().setComponent(this, new PersistentSettingsHints());
             setVisible(false);
         } else {

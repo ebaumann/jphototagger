@@ -10,7 +10,7 @@ import de.elmar_baumann.imv.io.FileSort;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.view.panels.AppPanel;
-import de.elmar_baumann.lib.persistence.PersistentAppSizes;
+import de.elmar_baumann.lib.persistence.PersistentComponentSizes;
 import de.elmar_baumann.lib.persistence.PersistentSettings;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -208,7 +208,7 @@ public final class AppFrame extends javax.swing.JFrame {
     }
 
     private void writePersistent() {
-        PersistentAppSizes.setSizeAndLocation(this);
+        PersistentComponentSizes.setSizeAndLocation(this);
         PersistentSettings.getInstance().writeToFile();
     }
 

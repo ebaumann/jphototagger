@@ -4,7 +4,7 @@ import de.elmar_baumann.imv.AppSettings;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.types.Persistence;
 import de.elmar_baumann.lib.dialog.Dialog;
-import de.elmar_baumann.lib.persistence.PersistentAppSizes;
+import de.elmar_baumann.lib.persistence.PersistentComponentSizes;
 import de.elmar_baumann.lib.persistence.PersistentSettings;
 import de.elmar_baumann.lib.persistence.PersistentSettingsHints;
 import java.awt.Component;
@@ -134,7 +134,7 @@ public final class UserSettingsDialog extends Dialog {
     }
 
     private void readPersistent() {
-        PersistentAppSizes.getSizeAndLocation(this);
+        PersistentComponentSizes.getSizeAndLocation(this);
         PersistentSettings.getInstance().getTabbedPane(tabbedPane, keyTabbedPaneIndex, getPersistentSettingsHints());
         for (Persistence panel : persistentPanels) {
             panel.readPersistent();
@@ -143,7 +143,7 @@ public final class UserSettingsDialog extends Dialog {
 
     private void writePersistent() {
         PersistentSettings.getInstance().setTabbedPane(tabbedPane, keyTabbedPaneIndex, getPersistentSettingsHints());
-        PersistentAppSizes.setSizeAndLocation(this);
+        PersistentComponentSizes.setSizeAndLocation(this);
         for (Persistence panel : persistentPanels) {
             panel.writePersistent();
         }

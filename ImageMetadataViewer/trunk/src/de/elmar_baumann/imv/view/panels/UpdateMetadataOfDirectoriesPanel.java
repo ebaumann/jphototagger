@@ -11,7 +11,7 @@ import de.elmar_baumann.imv.types.DatabaseUpdate;
 import de.elmar_baumann.imv.view.ViewUtil;
 import de.elmar_baumann.lib.dialog.DirectoryChooser;
 import de.elmar_baumann.lib.io.FileUtil;
-import de.elmar_baumann.lib.persistence.PersistentAppSizes;
+import de.elmar_baumann.lib.persistence.PersistentComponentSizes;
 import de.elmar_baumann.lib.persistence.PersistentSettings;
 import java.awt.event.KeyEvent;
 import java.io.File;
@@ -270,7 +270,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
         PersistentSettings settings = PersistentSettings.getInstance();
         settings.setCheckBox(checkBoxForce, keyForce);
         settings.setCheckBox(checkBoxIncludeSubdirectories, keySubdirectories);
-        PersistentAppSizes.setSizeAndLocation(this);
+        PersistentComponentSizes.setSizeAndLocation(this);
     }
 
     @Override

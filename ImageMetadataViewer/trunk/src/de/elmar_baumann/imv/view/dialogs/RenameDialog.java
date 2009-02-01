@@ -19,7 +19,7 @@ import de.elmar_baumann.imv.io.FileType;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.lib.dialog.Dialog;
-import de.elmar_baumann.lib.persistence.PersistentAppSizes;
+import de.elmar_baumann.lib.persistence.PersistentComponentSizes;
 import de.elmar_baumann.lib.persistence.PersistentSettings;
 import de.elmar_baumann.lib.persistence.PersistentSettingsHints;
 import java.awt.Image;
@@ -335,12 +335,12 @@ public final class RenameDialog extends Dialog {
     @Override
     public void setVisible(boolean visible) {
         if (visible) {
-            PersistentAppSizes.getSizeAndLocation(this);
+            PersistentComponentSizes.getSizeAndLocation(this);
             PersistentSettings.getInstance().getComponent(this, getPersistentSettingsHints());
             setCurrentFilenameToInputPanel();
             setExampleFilename();
         } else {
-            PersistentAppSizes.setSizeAndLocation(this);
+            PersistentComponentSizes.setSizeAndLocation(this);
             PersistentSettings.getInstance().setComponent(this, getPersistentSettingsHints());
         }
         super.setVisible(visible);

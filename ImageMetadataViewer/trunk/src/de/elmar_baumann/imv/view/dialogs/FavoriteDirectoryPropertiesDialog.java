@@ -8,7 +8,7 @@ import de.elmar_baumann.imv.view.ViewUtil;
 import de.elmar_baumann.lib.dialog.Dialog;
 import de.elmar_baumann.lib.dialog.DirectoryChooser;
 import de.elmar_baumann.lib.io.FileUtil;
-import de.elmar_baumann.lib.persistence.PersistentAppSizes;
+import de.elmar_baumann.lib.persistence.PersistentComponentSizes;
 import de.elmar_baumann.lib.persistence.PersistentSettings;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
@@ -159,10 +159,10 @@ public final class FavoriteDirectoryPropertiesDialog extends Dialog {
         boolean visible) {
         if (visible) {
             lastDirectory = PersistentSettings.getInstance().getString(keyLastDirectory);
-            PersistentAppSizes.getSizeAndLocation(this);
+            PersistentComponentSizes.getSizeAndLocation(this);
         } else {
             PersistentSettings.getInstance().setString(lastDirectory, keyLastDirectory);
-            PersistentAppSizes.setSizeAndLocation(this);
+            PersistentComponentSizes.setSizeAndLocation(this);
         }
         super.setVisible(visible);
     }

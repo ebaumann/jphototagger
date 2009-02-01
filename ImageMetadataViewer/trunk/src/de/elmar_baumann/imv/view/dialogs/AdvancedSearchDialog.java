@@ -6,7 +6,7 @@ import de.elmar_baumann.imv.event.SearchEvent;
 import de.elmar_baumann.imv.event.SearchListener;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.dialog.Dialog;
-import de.elmar_baumann.lib.persistence.PersistentAppSizes;
+import de.elmar_baumann.lib.persistence.PersistentComponentSizes;
 
 /**
  * Nicht modaler Dialog für eine erweiterte Suche.
@@ -46,13 +46,13 @@ public final class AdvancedSearchDialog extends Dialog implements SearchListener
     @Override
     public void setVisible(boolean visible) {
         if (visible) {
-            PersistentAppSizes.getSizeAndLocation(this);
+            PersistentComponentSizes.getSizeAndLocation(this);
         }
         super.setVisible(visible);
     }
 
     private void beforeWindowClosing() {
-        PersistentAppSizes.setSizeAndLocation(this);
+        PersistentComponentSizes.setSizeAndLocation(this);
         panel.willDispose();
         setVisible(false);
     }

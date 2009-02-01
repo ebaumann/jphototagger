@@ -6,7 +6,7 @@ import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.component.TabLeavingTextArea;
 import de.elmar_baumann.lib.dialog.Dialog;
 import de.elmar_baumann.lib.image.icon.IconUtil;
-import de.elmar_baumann.lib.persistence.PersistentAppSizes;
+import de.elmar_baumann.lib.persistence.PersistentComponentSizes;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import javax.swing.JFileChooser;
@@ -124,9 +124,9 @@ public final class ProgramPropertiesDialog extends Dialog {
     @Override
     public void setVisible(boolean visible) {
         if (visible) {
-            PersistentAppSizes.getSizeAndLocation(this);
+            PersistentComponentSizes.getSizeAndLocation(this);
         } else {
-            PersistentAppSizes.setSizeAndLocation(this);
+            PersistentComponentSizes.setSizeAndLocation(this);
         }
         super.setVisible(visible);
     }
