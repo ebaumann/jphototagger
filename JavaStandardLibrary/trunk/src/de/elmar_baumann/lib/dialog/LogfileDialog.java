@@ -7,7 +7,7 @@ import de.elmar_baumann.lib.util.logging.LogfileRecord;
 import de.elmar_baumann.lib.util.logging.LogfileRecordException;
 import de.elmar_baumann.lib.util.logging.LogfileRecordFrame;
 import de.elmar_baumann.lib.model.TableModelLogfiles;
-import de.elmar_baumann.lib.persistence.PersistentAppSizes;
+import de.elmar_baumann.lib.persistence.PersistentComponentSizes;
 import de.elmar_baumann.lib.persistence.PersistentSettings;
 import de.elmar_baumann.lib.persistence.PersistentSettingsHints;
 import de.elmar_baumann.lib.resource.LogLevelIcons;
@@ -323,11 +323,11 @@ public final class LogfileDialog extends javax.swing.JDialog implements
                 errorMessageNotSupportedFormat();
                 readSimple();
             }
-            PersistentAppSizes.getSizeAndLocation(this);
+            PersistentComponentSizes.getSizeAndLocation(this);
             PersistentSettings.getInstance().getComponent(this, new PersistentSettingsHints());
             super.setVisible(true);
         } else {
-            PersistentAppSizes.setSizeAndLocation(this);
+            PersistentComponentSizes.setSizeAndLocation(this);
             PersistentSettings.getInstance().setComponent(this, new PersistentSettingsHints());
             super.setVisible(false);
         }

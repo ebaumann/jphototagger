@@ -3,7 +3,7 @@ package de.elmar_baumann.lib.dialog;
 import de.elmar_baumann.lib.componentutil.TreeUtil;
 import de.elmar_baumann.lib.image.icon.IconUtil;
 import de.elmar_baumann.lib.model.TreeModelDirectories;
-import de.elmar_baumann.lib.persistence.PersistentAppSizes;
+import de.elmar_baumann.lib.persistence.PersistentComponentSizes;
 import de.elmar_baumann.lib.resource.Bundle;
 import de.elmar_baumann.lib.resource.Settings;
 import java.io.File;
@@ -91,11 +91,11 @@ public final class DirectoryChooser extends Dialog {
     @Override
     public void setVisible(boolean visible) {
         if (visible) {
-            PersistentAppSizes.getSizeAndLocation(this);
+            PersistentComponentSizes.getSizeAndLocation(this);
             setSelectionMode();
             selectStartDirectory();
         } else {
-            PersistentAppSizes.setSizeAndLocation(this);
+            PersistentComponentSizes.setSizeAndLocation(this);
         }
         super.setVisible(visible);
     }
@@ -174,7 +174,7 @@ public final class DirectoryChooser extends Dialog {
 
     private void cancel() {
         accepted = false;
-        PersistentAppSizes.setSizeAndLocation(this);
+        PersistentComponentSizes.setSizeAndLocation(this);
         dispose();
     }
 

@@ -1,7 +1,7 @@
 package de.elmar_baumann.lib.dialog;
 
 import de.elmar_baumann.lib.image.icon.IconUtil;
-import de.elmar_baumann.lib.persistence.PersistentAppSizes;
+import de.elmar_baumann.lib.persistence.PersistentComponentSizes;
 import de.elmar_baumann.lib.resource.Bundle;
 import de.elmar_baumann.lib.resource.Settings;
 import java.awt.event.ActionEvent;
@@ -142,9 +142,9 @@ public final class ProgressDialog extends javax.swing.JDialog {
     @Override
     public void setVisible(boolean visible) {
         if (visible) {
-            PersistentAppSizes.getSizeAndLocation(this);
+            PersistentComponentSizes.getSizeAndLocation(this);
         } else {
-            PersistentAppSizes.setSizeAndLocation(this);
+            PersistentComponentSizes.setSizeAndLocation(this);
         }
         super.setVisible(visible);
     }

@@ -4,7 +4,7 @@ import de.elmar_baumann.lib.event.HelpBrowserAction;
 import de.elmar_baumann.lib.event.HelpBrowserListener;
 import de.elmar_baumann.lib.image.icon.IconUtil;
 import de.elmar_baumann.lib.model.TreeModelHelpContents;
-import de.elmar_baumann.lib.persistence.PersistentAppSizes;
+import de.elmar_baumann.lib.persistence.PersistentComponentSizes;
 import de.elmar_baumann.lib.persistence.PersistentSettings;
 import de.elmar_baumann.lib.persistence.PersistentSettingsHints;
 import de.elmar_baumann.lib.renderer.TreeCellRendererHelpContents;
@@ -333,14 +333,14 @@ public final class HelpBrowser extends Dialog
     }
 
     private void writePersistent() {
-        PersistentAppSizes.setSizeAndLocation(this);
+        PersistentComponentSizes.setSizeAndLocation(this);
         PersistentSettings settings = PersistentSettings.getInstance();
         settings.setComponent(this, getHints());
         settings.setSplitPane(splitPane, keySplitPane);
     }
 
     private void readPersistent() {
-        PersistentAppSizes.getSizeAndLocation(this);
+        PersistentComponentSizes.getSizeAndLocation(this);
         PersistentSettings settings = PersistentSettings.getInstance();
         settings.getComponent(this, getHints());
         settings.getSplitPane(splitPane, keySplitPane);
