@@ -8,28 +8,27 @@ import javax.swing.JList;
 import javax.swing.filechooser.FileSystemView;
 
 /**
- * Rendert ein passendes Dateisystem-Icon vor jedes Item.
+ * Renders an file specific icon for cell values that are an instance of
+ * {@link java.io.File}. Uses
+ * {@link javax.swing.filechooser.FileSystemView#getSystemIcon(java.io.File)}.
  * 
- * <em>Es wird erwartet, dass die Items Instanzen der Klasse java.io.File sind!</em>
- *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/14
  */
 public final class ListCellRendererFileSystem extends DefaultListCellRenderer {
 
     private static final FileSystemView fileSystemView = FileSystemView.getFileSystemView();
-    private boolean fullPathName;
+    private boolean absolutePathName;
 
     /**
-     * Konstruktor.
+     * Constructor.
      * 
-     * @param fullPathName true, wenn der komplette Pfad angezeigt werden soll,
-     *                     false, wenn nur der Name der letzten Pfadkomponente
-     *                     angezeigt werden soll.
-     *                     Default: false;
+     * @param absolutePathName true, if the absolute path shall be displayed and
+     *                     false, if only the file name shall be displayed.
+     *                     Default: false (only the file name shall be displayed).
      */
-    public ListCellRendererFileSystem(boolean fullPathName) {
-        this.fullPathName = fullPathName;
+    public ListCellRendererFileSystem(boolean absolutePathName) {
+        this.absolutePathName = absolutePathName;
     }
 
     @Override
@@ -40,7 +39,7 @@ public final class ListCellRendererFileSystem extends DefaultListCellRenderer {
         if (value instanceof File) {
             File file = (File) value;
             label.setIcon(fileSystemView.getSystemIcon(file));
-            label.setText(fullPathName ? file.getAbsolutePath() : file.getName());
+            label.setText(absolutePathName ? file.getAbsolutePath() : file.getName());
         }
         return label;
     }

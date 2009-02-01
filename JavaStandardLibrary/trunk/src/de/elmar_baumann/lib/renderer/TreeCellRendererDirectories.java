@@ -4,14 +4,18 @@ import de.elmar_baumann.lib.image.icon.IconUtil;
 import de.elmar_baumann.lib.resource.Bundle;
 import java.awt.Component;
 import java.io.File;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.JTree;
 import javax.swing.filechooser.FileSystemView;
 import javax.swing.tree.DefaultTreeCellRenderer;
 
 /**
- * Renderer für JTrees mit einem {@link de.elmar_baumann.lib.model.TreeModelDirectories }:
- * Für Verzeichnisse ohne Unterverzeichnisse (leafs) wird auch ein Ordnersymbol angzeigt.
+ * Renders items and text of trees displaying a 
+ * {@link de.elmar_baumann.lib.model.TreeModelDirectories }.
+ * Uses {@link javax.swing.filechooser.FileSystemView#getSystemIcon(java.io.File)}
+ * and displays only the directory names instead of their full path.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/07/23
@@ -36,6 +40,7 @@ public final class TreeCellRendererDirectories extends DefaultTreeCellRenderer {
                 setIcon(fileSystemView.getSystemIcon(file));
                 setText(getDirectoryName(file));
             } catch (Exception ex) {
+                Logger.getLogger(TreeCellRendererDirectories.class.getName()).log(Level.WARNING, null, ex);
             }
         }
         return this;

@@ -9,7 +9,10 @@ import javax.swing.JTree;
 import javax.swing.tree.DefaultTreeCellRenderer;
 
 /**
- * 
+ * Renders items and text for a tree displaying help contents for values that
+ * are an instance of
+ * {@link de.elmar_baumann.lib.util.help.HelpNode} and
+ * {@link de.elmar_baumann.lib.util.help.HelpPage}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/02
