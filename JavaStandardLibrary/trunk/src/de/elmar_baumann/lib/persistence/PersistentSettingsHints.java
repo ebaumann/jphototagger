@@ -5,11 +5,11 @@ import java.util.List;
 
 
 /**
- * Hinweise für die Klasse {@link PersistentSettings}.
+ * Hints for the class {@link PersistentSettings}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
- * @see     de.elmar_baumann.lib.persistence.PersistentSettings
+ * @see     PersistentSettings
  */
 public final class PersistentSettingsHints {
 
@@ -23,63 +23,70 @@ public final class PersistentSettingsHints {
     }
 
     /**
-     * Setzt ein Postfix für den Schlüssel. So können beispielsweise mehrere
-     * Instanzen des gleichen Objekts persistent gespeichert werden.
+     * Sets a key's postfix. Thus multiple instances of the same class can
+     * written persistent if the key is the class name.
      * 
-     * @param postfix Postfix. Default: Leerstring.
+     * @param postfix Postfix. Default: Empty string.
      */
     public void setKeyPostfix(String postfix) {
         this.keyPostfix = postfix;
     }
 
     /**
-     * Liefert das Postfix für den Schlüssel.
+     * Returns a key's postfix.
      * 
      * @return Postfix
+     * @see #setKeyPostfix(java.lang.String)
      */
     public String getKeyPostfix() {
         return keyPostfix;
     }
 
     /**
-     * Setzt, dass der Inhalt von Comboboxen persistent gespeichert wird.
-     * Andernfalls wird nur der Index des selektierten Items gespeichert.
+     * Sets that the <strong>content</strong> of
+     * {@link javax.swing.JComboBox}es shall be written persistent rather than
+     * the index of the selected item.
      * 
-     * @param set true, wenn der Inhalt persistent gespeichert werden soll.
-     *            Default: false.
+     * @param set true, if the content of {@link javax.swing.JComboBox}es shall
+     *            be written persistent. Default: false (the index of the
+     *            selected item shall be written persistent).
      */
     public void setComboBoxContent(boolean set) {
         setComboBoxContent = set;
     }
 
     /**
-     * Liefert, ob der Inhalt von Comboboxen persistent gespeichert werden
-     * soll.
+     * Returns wheter the content of {@link javax.swing.JComboBox}es shall be
+     * written persistent rather than the index of the selected item.
      * 
-     * @return true, wenn der Inhalt von Comboboxen persistent gespeichert
-     *         werden soll
+     * @return true, if the content of {@link javax.swing.JComboBox}es shall be
+     *         written persistent. false, if the index of the selected item
+     *         shall be written persistent
+     * @see #setComboBoxContent(boolean)
      */
     public boolean isSetComboBoxContent() {
         return setComboBoxContent;
     }
 
     /**
-     * Setzt, dass der Inhalt von Listen persistent gespeichert wird.
-     * Andernfalls wird nur der Index des selektierten Werts gespeichert.
-     * 
-     * @param set true, wenn der Inhalt persistent gespeichert werden soll.
-     *            Default: false.
+     * Sets that the <strong>content</strong> of {@link javax.swing.JList}s
+     * shall be written persistent rather than the index of the selected value.
+     *
+     * @param set true, if the content of {@link javax.swing.JList}s shall be
+     *            written persistent. Default: false (the index of the selected
+     *            value shall be written persistent).
      */
     public void setListContent(boolean set) {
         setListContent = set;
     }
 
     /**
-     * Liefert, ob der Inhalt von Listen persistent gespeichert werden
-     * soll.
+     * Returns, whether the <strong>content</strong> of {@link javax.swing.JList}s
+     * shall be written persistent rather than the index of the selected value.
      * 
-     * @return true, wenn der Inhalt von Listen persistent gespeichert
-     *         werden soll
+     * @return true, if the content of {@link javax.swing.JList}s shall be
+     *            written persistent. false if the index of the selected value
+     *            shall be written persistent.
      */
     public boolean isSetListContent() {
         return setListContent;
