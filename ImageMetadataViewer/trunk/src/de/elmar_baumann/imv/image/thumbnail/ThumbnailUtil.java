@@ -21,10 +21,12 @@ import java.awt.MediaTracker;
 import java.awt.RenderingHints;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
-import javax.swing.JPanel;
 
 /**
  * Hilfsklasse für Thumbnails.
@@ -140,13 +142,10 @@ public final class ThumbnailUtil {
 
         byte[] stdout = output.getFirst();
         if (stdout != null) {
-            MediaTracker tracker = new MediaTracker(new JPanel());
-            image = Toolkit.getDefaultToolkit().createImage(stdout);
-            tracker.addImage(image, 0);
             try {
-                tracker.waitForID(0);
-            } catch (InterruptedException ex) {
-                de.elmar_baumann.imv.Log.logWarning(ThumbnailUtil.class, ex);
+                image = javax.imageio.ImageIO.read(new ByteArrayInputStream(stdout));
+            } catch (Exception ex) {
+                Logger.getLogger(ThumbnailUtil.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         if (output.getSecond() != null) {
