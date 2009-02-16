@@ -6,7 +6,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * 
+ * Logs messages.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/11/11
@@ -21,7 +21,7 @@ public final class Log {
      * @param message  Message
      */
     public static void logFinest(Class c, String message) {
-        Logger.getLogger(c.getName()).log(Level.FINEST, message);
+        log(c, Level.FINEST, message);
     }
 
     /**
@@ -32,7 +32,18 @@ public final class Log {
      * @param message  Message
      */
     public static void logFiner(Class c, String message) {
-        Logger.getLogger(c.getName()).log(Level.FINER, message);
+        log(c, Level.FINER, message);
+    }
+
+    /**
+     * Logs a message with the class' logger and the log level
+     * {@link java.util.logging.Level#INFO}.
+     *
+     * @param c        class
+     * @param message  Message
+     */
+    public static void logInfo(Class c, String message) {
+        log(c, Level.INFO, message);
     }
 
     /**
@@ -43,7 +54,7 @@ public final class Log {
      * @param message  Message
      */
     public static void logWarning(Class c, String message) {
-        Logger.getLogger(c.getName()).log(Level.WARNING, message);
+        log(c, Level.WARNING, message);
         ErrorListeners.getInstance().notifyErrorListener(new ErrorEvent(message, c));
     }
 
@@ -55,8 +66,7 @@ public final class Log {
      * @param ex  Exception
      */
     public static void logWarning(Class c, Exception ex) {
-        Logger.getLogger(c.getName()).log(Level.WARNING, null, ex);
-        ErrorListeners.getInstance().notifyErrorListener(new ErrorEvent(ex.getMessage(), c));
+        log(c, Level.WARNING, ex);
     }
 
     /**
@@ -67,9 +77,17 @@ public final class Log {
      * @param ex  Exception
      */
     public static void logSevere(Class c, Exception ex) {
-        Logger.getLogger(c.getName()).log(Level.SEVERE, null, ex);
-        ErrorListeners.getInstance().notifyErrorListener(new ErrorEvent(ex.getMessage(), c));
+        log(c, Level.SEVERE, ex);
     }
 
+    private static void log(Class c, Level level, String message) {
+        Logger.getLogger(c.getName()).log(level, message);
+    }
+
+
+    private static void log(Class c, Level level, Exception ex) {
+        Logger.getLogger(c.getName()).log(level, null, ex);
+        ErrorListeners.getInstance().notifyErrorListener(new ErrorEvent(ex.getMessage(), c));
+    }
     private Log() {}
 }
