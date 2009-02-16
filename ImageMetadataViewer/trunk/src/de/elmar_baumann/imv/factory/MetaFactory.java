@@ -17,14 +17,11 @@ import javax.swing.JProgressBar;
  */
 public final class MetaFactory extends Thread {
 
-    private static final MetaFactory instance = new MetaFactory();
-
-    public static MetaFactory getInstance() {
-        return instance;
-    }
+    public static final MetaFactory INSTANCE = new MetaFactory();
+    private boolean init = false;
 
     synchronized public void stopController() {
-        ControllerFactory.getInstance().setControl(false);
+        ControllerFactory.INSTANCE.setControl(false);
     }
 
     private MetaFactory() {
@@ -33,28 +30,31 @@ public final class MetaFactory extends Thread {
 
     @Override
     public void run() {
-        createFactories();
+        init();
     }
 
-    synchronized private void createFactories() {
-        setAppFrame();
-        showProgress();
-        LateConnectionsFactory.getInstance();
-        ModelFactory.getInstance();
-        ControllerFactory.getInstance();
-        ActionListenerFactory.getInstance();
-        MouseListenerFactory.getInstance();
-        RendererFactory.getInstance();
-        ControllerFactory.getInstance().setControl(true);
-        setAppPanel();
-        stopProgress();
+    synchronized public void init() {
+        if (!init) {
+            init = true;
+            setAppFrame();
+            showProgress();
+            LateConnectionsFactory.INSTANCE.init();
+            ModelFactory.INSTANCE.init();
+            ControllerFactory.INSTANCE.init();
+            ActionListenerFactory.INSTANCE.init();
+            MouseListenerFactory.INSTANCE.init();
+            RendererFactory.INSTANCE.init();
+            ControllerFactory.INSTANCE.setControl(true);
+            setAppPanel();
+            stopProgress();
+        }
     }
 
     private void setAppPanel() {
         AppPanel appPanel = Panels.getInstance().getAppPanel();
         PersistentSettings.getInstance().getComponent(
-            appPanel,
-            appPanel.getPersistentSettingsHints());
+                appPanel,
+                appPanel.getPersistentSettingsHints());
     }
 
     private void setAppFrame() {

@@ -16,24 +16,20 @@ import javax.swing.JTable;
  */
 public final class RendererFactory {
 
-    private static final RendererFactory instance = new RendererFactory();
+    static final RendererFactory INSTANCE = new RendererFactory();
+    private boolean init = false;
 
-    static RendererFactory getInstance() {
-        return instance;
-    }
-
-    private RendererFactory() {
-        createRenderer();
-    }
-
-    private void createRenderer() {
-        AppPanel appPanel = Panels.getInstance().getAppPanel();
-        TableCellRendererXmp rendererTableCellXmp = new TableCellRendererXmp();
-        List<JTable> xmpTables = appPanel.getXmpTables();
-        for (JTable table : xmpTables) {
-            table.setDefaultRenderer(Object.class, rendererTableCellXmp);
+    synchronized void init() {
+        if (!init) {
+            init = true;
+            AppPanel appPanel = Panels.getInstance().getAppPanel();
+            TableCellRendererXmp rendererTableCellXmp = new TableCellRendererXmp();
+            List<JTable> xmpTables = appPanel.getXmpTables();
+            for (JTable table : xmpTables) {
+                table.setDefaultRenderer(Object.class, rendererTableCellXmp);
+            }
+            appPanel.getTableIptc().setDefaultRenderer(Object.class, new TableCellRendererIptc());
+            appPanel.getTableExif().setDefaultRenderer(Object.class, new TableCellRendererExif());
         }
-        appPanel.getTableIptc().setDefaultRenderer(Object.class, new TableCellRendererIptc());
-        appPanel.getTableExif().setDefaultRenderer(Object.class, new TableCellRendererExif());
     }
 }

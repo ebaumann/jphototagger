@@ -24,35 +24,31 @@ import javax.swing.JTree;
  */
 public final class ModelFactory {
 
-    private static final ModelFactory instance = new ModelFactory();
+    static final ModelFactory INSTANCE = new ModelFactory();
+    private boolean init = false;
 
-    static ModelFactory getInstance() {
-        return instance;
-    }
-
-    private ModelFactory() {
-        createModels();
-    }
-
-    private void createModels() {
-        final AppPanel appPanel = Panels.getInstance().getAppPanel();
-        appPanel.getTableIptc().setModel(new TableModelIptc());
-        appPanel.getTableXmpCameraRawSettings().setModel(new TableModelXmp());
-        appPanel.getTableXmpDc().setModel(new TableModelXmp());
-        appPanel.getTableXmpExif().setModel(new TableModelXmp());
-        appPanel.getTableXmpIptc().setModel(new TableModelXmp());
-        appPanel.getTableXmpLightroom().setModel(new TableModelXmp());
-        appPanel.getTableXmpPhotoshop().setModel(new TableModelXmp());
-        appPanel.getTableXmpTiff().setModel(new TableModelXmp());
-        appPanel.getTableXmpXap().setModel(new TableModelXmp());
-        appPanel.getTableExif().setModel(new TableModelExif());
-        appPanel.getListSavedSearches().setModel(new ListModelSavedSearches());
-        appPanel.getListImageCollections().setModel(new ListModelImageCollections());
-        createTreeModelDirectories(appPanel);
-        appPanel.getListFavoriteDirectories().setModel(new ListModelFavoriteDirectories());
-        appPanel.getListCategories().setModel(new ListModelCategories());
-        appPanel.getListKeywords().setModel(new ListModelKeywords());
-        appPanel.getMetadataEditActionsPanel().getComboBoxMetadataTemplates().setModel(new ComboBoxModelMetadataEditTemplates());
+    synchronized void init() {
+        if (!init) {
+            init = true;
+            final AppPanel appPanel = Panels.getInstance().getAppPanel();
+            appPanel.getTableIptc().setModel(new TableModelIptc());
+            appPanel.getTableXmpCameraRawSettings().setModel(new TableModelXmp());
+            appPanel.getTableXmpDc().setModel(new TableModelXmp());
+            appPanel.getTableXmpExif().setModel(new TableModelXmp());
+            appPanel.getTableXmpIptc().setModel(new TableModelXmp());
+            appPanel.getTableXmpLightroom().setModel(new TableModelXmp());
+            appPanel.getTableXmpPhotoshop().setModel(new TableModelXmp());
+            appPanel.getTableXmpTiff().setModel(new TableModelXmp());
+            appPanel.getTableXmpXap().setModel(new TableModelXmp());
+            appPanel.getTableExif().setModel(new TableModelExif());
+            appPanel.getListSavedSearches().setModel(new ListModelSavedSearches());
+            appPanel.getListImageCollections().setModel(new ListModelImageCollections());
+            createTreeModelDirectories(appPanel);
+            appPanel.getListFavoriteDirectories().setModel(new ListModelFavoriteDirectories());
+            appPanel.getListCategories().setModel(new ListModelCategories());
+            appPanel.getListKeywords().setModel(new ListModelKeywords());
+            appPanel.getMetadataEditActionsPanel().getComboBoxMetadataTemplates().setModel(new ComboBoxModelMetadataEditTemplates());
+        }
     }
 
     private void createTreeModelDirectories(final AppPanel appPanel) {
@@ -62,8 +58,8 @@ public final class ModelFactory {
             public void run() {
                 JTree treeDirectories = appPanel.getTreeDirectories();
                 treeDirectories.setModel(
-                    new TreeModelDirectories(
-                    UserSettings.getInstance().isAcceptHiddenDirectories()));
+                        new TreeModelDirectories(
+                        UserSettings.getInstance().isAcceptHiddenDirectories()));
                 ViewUtil.readPersistentTreeDirectories();
             }
         }).start();

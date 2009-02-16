@@ -18,28 +18,23 @@ import de.elmar_baumann.imv.view.panels.AppPanel;
  * @version 2008/09/29
  */
 public final class ActionListenerFactory {
-    
-    private static final ActionListenerFactory instance = new ActionListenerFactory();
-    
-    static ActionListenerFactory getInstance() {
-        return instance;
-    }
-    
-    private ActionListenerFactory() {
-        createActionListener();
-    }
 
-    private void createActionListener() {
-        AppPanel appPanel = Panels.getInstance().getAppPanel();
-        AppFrame appFrame = Panels.getInstance().getAppFrame();
-        
-        appFrame.getMenuItemAbout().addActionListener(new ControllerAboutApp());
-        appFrame.getMenuItemHelp().addActionListener(new ControllerHelp());
-        appFrame.getMenuItemMaintainDatabase().addActionListener(new ControllerMaintainDatabase());
-        appFrame.getMenuItemRefresh().addActionListener(new ControllerRefreshThumbnailsPanel(appPanel.getPanelThumbnails()));
-        appFrame.getMenuItemScanDirectory().addActionListener(new ControllerShowUpdateMetadataDialog());
-        appFrame.getMenuItemSettings().addActionListener(new ControllerShowUserSettingsDialog());
-        appFrame.getMenuItemSearch().addActionListener(new ControllerShowAdvancedSearchDialog());
-    }
+    static final ActionListenerFactory INSTANCE = new ActionListenerFactory();
+    private boolean init = false;
 
+    synchronized void init() {
+        if (!init) {
+            init = true;
+            AppPanel appPanel = Panels.getInstance().getAppPanel();
+            AppFrame appFrame = Panels.getInstance().getAppFrame();
+
+            appFrame.getMenuItemAbout().addActionListener(new ControllerAboutApp());
+            appFrame.getMenuItemHelp().addActionListener(new ControllerHelp());
+            appFrame.getMenuItemMaintainDatabase().addActionListener(new ControllerMaintainDatabase());
+            appFrame.getMenuItemRefresh().addActionListener(new ControllerRefreshThumbnailsPanel(appPanel.getPanelThumbnails()));
+            appFrame.getMenuItemScanDirectory().addActionListener(new ControllerShowUpdateMetadataDialog());
+            appFrame.getMenuItemSettings().addActionListener(new ControllerShowUserSettingsDialog());
+            appFrame.getMenuItemSearch().addActionListener(new ControllerShowAdvancedSearchDialog());
+        }
+    }
 }

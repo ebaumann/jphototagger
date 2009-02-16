@@ -15,31 +15,27 @@ import de.elmar_baumann.imv.view.popupmenus.PopupMenuPanelThumbnails;
  */
 public final class LateConnectionsFactory {
 
-    static final LateConnectionsFactory instance = new LateConnectionsFactory();
+    static final LateConnectionsFactory INSTANCE = new LateConnectionsFactory();
+    private boolean init = false;
 
-    static LateConnectionsFactory getInstance() {
-        return instance;
-    }
+    synchronized void init() {
+        if (!init) {
+            init = true;
+            AppPanel appPanel = Panels.getInstance().getAppPanel();
+            PopupMenuPanelThumbnails popupMenuPanelThumbnails = PopupMenuPanelThumbnails.getInstance();
+            UserSettings userSettings = UserSettings.getInstance();
 
-    private LateConnectionsFactory() {
-        init();
-    }
+            appPanel.getPanelThumbnails().setDefaultThumbnailWidth(userSettings.getMaxThumbnailWidth());
 
-    private void init() {
-        AppPanel appPanel = Panels.getInstance().getAppPanel();
-        PopupMenuPanelThumbnails popupMenuPanelThumbnails = PopupMenuPanelThumbnails.getInstance();
-        UserSettings userSettings = UserSettings.getInstance();
-        
-        appPanel.getPanelThumbnails().setDefaultThumbnailWidth(userSettings.getMaxThumbnailWidth());
-        
-        DatabaseImageFiles.getInstance().addDatabaseListener(appPanel.getEditPanelsArray());
-        if (userSettings.isUseAutocomplete()) {
-            appPanel.getEditPanelsArray().setAutocomplete();
+            DatabaseImageFiles.getInstance().addDatabaseListener(appPanel.getEditPanelsArray());
+            if (userSettings.isUseAutocomplete()) {
+                appPanel.getEditPanelsArray().setAutocomplete();
+            }
+
+            popupMenuPanelThumbnails.addOtherPrograms();
+            ListenerProvider listenerProvider = ListenerProvider.getInstance();
+            listenerProvider.addUserSettingsChangeListener(popupMenuPanelThumbnails);
+            listenerProvider.addUserSettingsChangeListener(userSettings);
         }
-        
-        popupMenuPanelThumbnails.addOtherPrograms();
-        ListenerProvider listenerProvider = ListenerProvider.getInstance();
-        listenerProvider.addUserSettingsChangeListener(popupMenuPanelThumbnails);
-        listenerProvider.addUserSettingsChangeListener(userSettings);
     }
 }

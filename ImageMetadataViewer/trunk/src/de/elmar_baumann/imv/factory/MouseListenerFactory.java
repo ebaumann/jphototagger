@@ -16,22 +16,18 @@ import de.elmar_baumann.imv.view.panels.AppPanel;
  */
 public final class MouseListenerFactory {
 
-    private static final MouseListenerFactory instance = new MouseListenerFactory();
+    static final MouseListenerFactory INSTANCE = new MouseListenerFactory();
+    private boolean init = false;
 
-    static MouseListenerFactory getInstance() {
-        return instance;
-    }
-
-    private MouseListenerFactory() {
-        createMouseListener();
-    }
-
-    private void createMouseListener() {
-        AppPanel appPanel = Panels.getInstance().getAppPanel();
-        appPanel.getTreeDirectories().addMouseListener(new TreeDirectoriesMouseListener());
-        appPanel.getListSavedSearches().addMouseListener(new ListSavedSearchesMouseListener());
-        appPanel.getListImageCollections().addMouseListener(new ListImageCollectionsMouseListener());
-        appPanel.getListFavoriteDirectories().addMouseListener(new ListFavoriteDirectoriesMouseListener());
-        appPanel.getProgressBarScheduledTasks().addMouseListener(new MouseListenerProgressBarScheduledTasks());
+    synchronized void init() {
+        if (!init) {
+            init = true;
+            AppPanel appPanel = Panels.getInstance().getAppPanel();
+            appPanel.getTreeDirectories().addMouseListener(new TreeDirectoriesMouseListener());
+            appPanel.getListSavedSearches().addMouseListener(new ListSavedSearchesMouseListener());
+            appPanel.getListImageCollections().addMouseListener(new ListImageCollectionsMouseListener());
+            appPanel.getListFavoriteDirectories().addMouseListener(new ListFavoriteDirectoriesMouseListener());
+            appPanel.getProgressBarScheduledTasks().addMouseListener(new MouseListenerProgressBarScheduledTasks());
+        }
     }
 }

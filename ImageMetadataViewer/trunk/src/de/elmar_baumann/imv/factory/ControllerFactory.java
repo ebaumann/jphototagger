@@ -70,11 +70,8 @@ public final class ControllerFactory {
 
     private final List<Controller> controllers = new ArrayList<Controller>();
     private ControllerArrayScheduledTasks controllerScheduledTasks;
-    private static final ControllerFactory instance = new ControllerFactory();
-
-    static ControllerFactory getInstance() {
-        return instance;
-    }
+    static final ControllerFactory INSTANCE = new ControllerFactory();
+    private boolean init = false;
 
     void setControl(boolean control) {
         for (Controller controller : controllers) {
@@ -91,66 +88,65 @@ public final class ControllerFactory {
         thread.start();
     }
 
-    private ControllerFactory() {
-        createController();
-    }
-
-    private void createController() {
-        controllers.add(new ControllerItemsMutualExcludeSelection());
-        controllers.add(new ControllerMenuItemEnabler());
-        controllers.add(new ControllerThumbnailCountDisplay());
-        controllers.add(new ControllerThumbnailsPanelPersistence());
-        controllers.add(new ControllerCreateMetadataOfSelectedThumbnails());
-        controllers.add(new ControllerCreateImageCollection());
-        controllers.add(new ControllerDeleteImageCollection());
-        controllers.add(new ControllerDeleteFromImageCollection());
-        controllers.add(new ControllerAddToImageCollection());
-        controllers.add(new ControllerRenameImageCollection());
-        controllers.add(new ControllerCreateSavedSearch());
-        controllers.add(new ControllerDeleteSavedSearch());
-        controllers.add(new ControllerEditSafedSearch());
-        controllers.add(new ControllerRenameSavedSearch());
-        controllers.add(new ControllerRotateThumbnail());
-        controllers.add(new ControllerOpenFilesWithStandardApp());
-        controllers.add(new ControllerOpenFilesWithOtherApp());
-        controllers.add(new ControllerDeleteThumbnailsFromDatabase());
-        controllers.add(new ControllerCreateMetadataOfCurrentThumbnails());
-        controllers.add(new ControllerSafedSearchSelected());
-        controllers.add(new ControllerImageCollectionSelected());
-        controllers.add(new ControllerLogfileDialog());
-        controllers.add(new ControllerFastSearch());
-        controllers.add(new ControllerAdvancedSearch());
-        controllers.add(new ControllerShowMetadata());
-        controllers.add(new ControllerThumbnailSelectionEditMetadata());
-        controllers.add(new ControllerSaveMetadata());
-        controllers.add(new ControllerEmptyMetadata());
-        controllers.add(new ControllerMetadataTemplates());
-        controllers.add(new ControllerEnableInsertMetadataTemplate());
-        controllers.add(new ControllerCategoryItemSelected());
-        controllers.add(new ControllerKeywordItemSelected());
-        controllers.add(new ControllerFavoriteDirectorySelected());
-        controllers.add(new ControllerDirectorySelected());
-        controllers.add(new ControllerInsertFavoriteDirectory());
-        controllers.add(new ControllerDeleteFavoriteDirectory());
-        controllers.add(new ControllerUpdateFavoriteDirectory());
-        controllers.add(new ControllerCopyFilesToDirectory());
-        controllers.add(new ControllerRenameInXmpColumns());
-        controllers.add(new ControllerIptcToXmp());
-        controllers.add(new ControllerGoto());
-        controllers.add(new ControllerSliderThumbnailSize());
-        controllers.add(new ControllerDeleteFiles());
-        controllers.add(new ControllerRenameFiles());
-        controllers.add(new ControllerMoveFiles());
-        controllers.add(new ControllerSortThumbnails());
-        controllers.add(new ControllerThumbnailsDatabaseChanges());
-        controllers.add(new ControllerAutocopyDirectory());
-        controllers.add(new ControllerCopyFilesToClipboard());
-        controllers.add(new ControllerDirectoryCopyFiles());
-        controllers.add(new ControllerPasteFilesFromClipboard());
-        controllers.add(new ControllerFavoriteDirectoryOpenInFolders());
-        controllers.add(new ControllerActionsShowDialog());
-        controllers.add(new ControllerActionExecutor());
-        controllerScheduledTasks = new ControllerArrayScheduledTasks();
-        controllers.add(controllerScheduledTasks);
+    synchronized void init() {
+        if (!init) {
+            controllers.add(new ControllerItemsMutualExcludeSelection());
+            controllers.add(new ControllerCategoryItemSelected());
+            controllers.add(new ControllerKeywordItemSelected());
+            controllers.add(new ControllerFavoriteDirectorySelected());
+            controllers.add(new ControllerDirectorySelected());
+            controllers.add(new ControllerSafedSearchSelected());
+            controllers.add(new ControllerImageCollectionSelected());
+            controllers.add(new ControllerMenuItemEnabler());
+            controllers.add(new ControllerThumbnailCountDisplay());
+            controllers.add(new ControllerThumbnailsPanelPersistence());
+            controllers.add(new ControllerCreateMetadataOfSelectedThumbnails());
+            controllers.add(new ControllerCreateImageCollection());
+            controllers.add(new ControllerDeleteImageCollection());
+            controllers.add(new ControllerDeleteFromImageCollection());
+            controllers.add(new ControllerAddToImageCollection());
+            controllers.add(new ControllerRenameImageCollection());
+            controllers.add(new ControllerCreateSavedSearch());
+            controllers.add(new ControllerDeleteSavedSearch());
+            controllers.add(new ControllerEditSafedSearch());
+            controllers.add(new ControllerRenameSavedSearch());
+            controllers.add(new ControllerRotateThumbnail());
+            controllers.add(new ControllerOpenFilesWithStandardApp());
+            controllers.add(new ControllerOpenFilesWithOtherApp());
+            controllers.add(new ControllerDeleteThumbnailsFromDatabase());
+            controllers.add(new ControllerCreateMetadataOfCurrentThumbnails());
+            controllers.add(new ControllerLogfileDialog());
+            controllers.add(new ControllerFastSearch());
+            controllers.add(new ControllerAdvancedSearch());
+            controllers.add(new ControllerShowMetadata());
+            controllers.add(new ControllerThumbnailSelectionEditMetadata());
+            controllers.add(new ControllerSaveMetadata());
+            controllers.add(new ControllerEmptyMetadata());
+            controllers.add(new ControllerMetadataTemplates());
+            controllers.add(new ControllerEnableInsertMetadataTemplate());
+            controllers.add(new ControllerInsertFavoriteDirectory());
+            controllers.add(new ControllerDeleteFavoriteDirectory());
+            controllers.add(new ControllerUpdateFavoriteDirectory());
+            controllers.add(new ControllerCopyFilesToDirectory());
+            controllers.add(new ControllerRenameInXmpColumns());
+            controllers.add(new ControllerIptcToXmp());
+            controllers.add(new ControllerGoto());
+            controllers.add(new ControllerSliderThumbnailSize());
+            controllers.add(new ControllerDeleteFiles());
+            controllers.add(new ControllerRenameFiles());
+            controllers.add(new ControllerMoveFiles());
+            controllers.add(new ControllerSortThumbnails());
+            controllers.add(new ControllerThumbnailsDatabaseChanges());
+            controllers.add(new ControllerAutocopyDirectory());
+            controllers.add(new ControllerCopyFilesToClipboard());
+            controllers.add(new ControllerDirectoryCopyFiles());
+            controllers.add(new ControllerPasteFilesFromClipboard());
+            controllers.add(new ControllerFavoriteDirectoryOpenInFolders());
+            controllers.add(new ControllerActionsShowDialog());
+            controllers.add(new ControllerActionExecutor());
+            controllerScheduledTasks = new ControllerArrayScheduledTasks();
+            controllers.add(controllerScheduledTasks);
+            init = true;
+        }
     }
 }
