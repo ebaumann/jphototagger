@@ -59,6 +59,7 @@ public final class ImageMetadataToDatabase implements Runnable {
             String filename = filenames.get(index);
             ImageFile data = getImageFileData(filename);
             if (isUpdate(data)) {
+                logInsertImageFile(data);
                 db.insertImageFile(data);
             }
             notifyProgressPerformed(index + 1, filename);
@@ -106,23 +107,23 @@ public final class ImageMetadataToDatabase implements Runnable {
 
     private boolean isUpdate(ImageFile data) {
         return data.getExif() != null ||
-            data.getXmp() != null ||
-            data.getThumbnail() != null;
+                data.getXmp() != null ||
+                data.getThumbnail() != null;
     }
 
     private boolean isUpdateThumbnail(String filename) {
         return update.isUpdate(DatabaseUpdate.THUMBNAIL) ||
-            !isImageFileUpToDate(filename);
+                !isImageFileUpToDate(filename);
     }
 
     private boolean isUpdateXmp(String filename) {
         return update.isUpdate(DatabaseUpdate.XMP) ||
-            !isXmpFileUpToDate(filename);
+                !isXmpFileUpToDate(filename);
     }
 
     private boolean isUpdateExif(String filename) {
         return update.isUpdate(DatabaseUpdate.EXIF) ||
-            !isImageFileUpToDate(filename);
+                !isImageFileUpToDate(filename);
     }
 
     private boolean isImageFileUpToDate(String filename) {
@@ -163,15 +164,21 @@ public final class ImageMetadataToDatabase implements Runnable {
         File file = new File(filename);
         if (settings.isCreateThumbnailsWithExternalApp()) {
             thumbnail = ThumbnailUtil.getThumbnailFromExternalApplication(
-                file, settings.getExternalThumbnailCreationCommand(), maxThumbnailWidth);
+                    file, settings.getExternalThumbnailCreationCommand(), maxThumbnailWidth);
         } else {
             thumbnail = ThumbnailUtil.getThumbnail(
-                file, maxThumbnailWidth, useEmbeddedThumbnails);
+                    file, maxThumbnailWidth, useEmbeddedThumbnails);
         }
         if (thumbnail == null) {
             notifyNullThumbnail(filename);
         }
         return thumbnail;
+    }
+
+    private void logInsertImageFile(ImageFile data) {
+        MessageFormat msg = new MessageFormat("Füge Metadaten ein für Datei '{0}': EXIF: {1}, XMP: {2}, Thumbnail: {3}");
+        Object[] params = {data.getFile(), data.getExif(), data.getXmp(), data.getThumbnail()};
+        Log.logInfo(ImageMetadataToDatabase.class, msg.format(params));
     }
 
     private void setExif(ImageFile imageFileData) {
