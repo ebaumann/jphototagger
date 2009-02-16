@@ -121,13 +121,6 @@ public abstract class ThumbnailsPanel extends JPanel
         return -1;
     }
 
-    private int getLastSelectedIndex() {
-        if (getSelectionCount() > 0) {
-            return selectedThumbnails.get(selectedThumbnails.size() - 1);
-        }
-        return -1;
-    }
-
     private int getSelectedIndex() {
         int indexSelectedThumbnail = -1;
         if (selectedThumbnails.size() == 1) {
