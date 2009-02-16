@@ -2,7 +2,7 @@ package de.elmar_baumann.imv.io;
 
 import de.elmar_baumann.imv.AppSettings;
 import de.elmar_baumann.imv.database.DatabaseFileExcludePattern;
-import de.elmar_baumann.lib.util.ArrayUtil;
+import de.elmar_baumann.lib.util.RegexUtil;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -59,7 +59,7 @@ public final class ImageFilteredDirectory {
         if (filteredFiles != null) {
             for (int index = 0; index < filteredFiles.length; index++) {
                 File file = filteredFiles[index];
-                if (!ArrayUtil.matches(excludePatterns, file.getAbsolutePath())) {
+                if (!RegexUtil.containsMatch(excludePatterns, file.getAbsolutePath())) {
                     files.add(file);
                 }
             }
@@ -91,7 +91,7 @@ public final class ImageFilteredDirectory {
         if (filesOfDirectory != null) {
             for (int index = 0; index < filesOfDirectory.length; index++) {
                 File file = filesOfDirectory[index];
-                if (!ArrayUtil.matches(excludePatterns, file.getAbsolutePath())) {
+                if (!RegexUtil.containsMatch(excludePatterns, file.getAbsolutePath())) {
                     imageFiles.add(file);
                 }
             }
