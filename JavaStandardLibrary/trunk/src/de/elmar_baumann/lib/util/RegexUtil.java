@@ -3,6 +3,7 @@ package de.elmar_baumann.lib.util;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.regex.PatternSyntaxException;
 
 /**
  * Utils for regular expressions.
@@ -37,4 +38,34 @@ public final class RegexUtil {
         }
         return stringsMatches;
     }
+    /**
+     * Returns, whether a string matches at least one pattern in a collection
+     * with regular expressions.
+     *
+     * Uses <code>java.lang.String.matches(java.lang.String)</code>.
+     *
+     * @param  patterns  collection of string patterns
+     * @param  string    string
+     * @return true, if the string matches at least one pattern
+     * @throws PatternSyntaxException if the syntax of the regular expression
+     *         is invalid (as long as the elements in the list of string
+     *         patterns don't match)
+     */
+    public static boolean containsMatch(Collection<String> patterns, String string) {
+        if (patterns == null)
+            throw new NullPointerException("patterns == null");
+        if (string == null)
+            throw new NullPointerException("string == null");
+
+        for (String pattern : patterns) {
+            if (string.matches(pattern)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private RegexUtil() {
+    }
+
 }

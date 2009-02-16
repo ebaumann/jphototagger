@@ -106,33 +106,6 @@ public final class ArrayUtil {
         return stringArray;
     }
 
-    /**
-     * Returns, whether a string matches at least one pattern in an array with
-     * regular expressions.
-     * 
-     * Uses <code>java.lang.String.matches(java.lang.String)</code>.
-     * 
-     * @param  patterns  List of string patterns
-     * @param  string    String
-     * @return true, if the string matches at least one pattern
-     * @throws PatternSyntaxException if the syntax of the regular expression
-     *         is invalid (as long as the elements in the list of string
-     *         patterns don't match)
-     */
-    public static boolean matches(List<String> patterns, String string) {
-        if (patterns == null)
-            throw new NullPointerException("patterns == null");
-        if (string == null)
-            throw new NullPointerException("string == null");
-
-        for (String pattern : patterns) {
-            if (string.matches(pattern)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     private ArrayUtil() {
     }
 }
