@@ -2,6 +2,7 @@ package de.elmar_baumann.lib.persistence;
 
 import de.elmar_baumann.lib.componentutil.TreeUtil;
 import de.elmar_baumann.lib.resource.Bundle;
+import de.elmar_baumann.lib.util.RegexUtil;
 import java.awt.Component;
 import java.awt.Point;
 import java.io.File;
@@ -81,15 +82,7 @@ public final class PersistentSettings {
      * @return        Passende Schlüssel
      */
     public List<String> getKeysMatches(String pattern) {
-        Set<String> allKeys = getProperties().stringPropertyNames();
-        List<String> keysMatches = new ArrayList<String>();
-
-        for (String key : allKeys) {
-            if (key.matches(pattern)) {
-                keysMatches.add(key);
-            }
-        }
-        return keysMatches;
+        return RegexUtil.getMatches(getProperties().stringPropertyNames(), pattern);
     }
 
     /**
