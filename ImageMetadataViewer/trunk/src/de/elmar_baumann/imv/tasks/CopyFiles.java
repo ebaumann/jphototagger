@@ -1,6 +1,7 @@
 package de.elmar_baumann.imv.tasks;
 
 import de.elmar_baumann.imv.AppSettings;
+import de.elmar_baumann.imv.Log;
 import de.elmar_baumann.imv.event.ProgressEvent;
 import de.elmar_baumann.imv.event.ProgressListener;
 import de.elmar_baumann.imv.resource.Bundle;
@@ -84,7 +85,10 @@ public final class CopyFiles implements Runnable {
             Pair<File, File> filePair = files.get(i);
             if (checkOverwrite(filePair)) {
                 try {
-                    FileUtil.copyFile(filePair.getFirst(), filePair.getSecond());
+                    File sourceFile = filePair.getFirst();
+                    File targetFile = filePair.getSecond();
+                    logCopyFile(sourceFile.getAbsolutePath(), targetFile.getAbsolutePath());
+                    FileUtil.copyFile(sourceFile, targetFile);
                 } catch (IOException ex) {
                     de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
                     errorFiles.add(filePair.getFirst());
@@ -96,6 +100,12 @@ public final class CopyFiles implements Runnable {
             notifyPerformed(i, filePair);
         }
         notifyEnded();
+    }
+
+    private void logCopyFile(String sourceFilename, String targetFilename) {
+        MessageFormat msg = new MessageFormat(Bundle.getString("CopyFiles.InformationMessage.StartCopy"));
+        Object[] params = {sourceFilename, targetFilename};
+        Log.logInfo(CopyFiles.class, msg.format(params));
     }
 
     private void notifyStart() {

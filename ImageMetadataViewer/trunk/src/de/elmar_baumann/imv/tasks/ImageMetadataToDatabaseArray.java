@@ -67,6 +67,13 @@ public final class ImageMetadataToDatabaseArray implements ProgressListener {
         return wait;
     }
 
+    private void logScanDirectory(String directoryName) {
+        MessageFormat msg = new MessageFormat(
+            Bundle.getString("ImageMetadataToDatabaseArray.InformationMessage.StartScanDirectory"));
+        Object[] params = {directoryName};
+        Log.logInfo(ImageMetadataToDatabaseArray.class, msg.format(params));
+    }
+
     synchronized private void setWait(boolean wait) {
         this.wait = wait;
     }
@@ -167,6 +174,7 @@ public final class ImageMetadataToDatabaseArray implements ProgressListener {
             }
             progressBar.setValue(evt.getValue());
         }
+        logScanDirectory(getDirectoryNameOfUpdater((ImageMetadataToDatabase) evt.getSource()));
     }
 
     @Override
@@ -211,7 +219,7 @@ public final class ImageMetadataToDatabaseArray implements ProgressListener {
     }
 
     private void messageEndUpdateDirectory(ImageMetadataToDatabase scanner) {
-        MessageFormat message = new MessageFormat(Bundle.getString("ImageMetadataToDatabaseArray.InformationMessage.UpdateMetadataFinished")); // NOI18N
+        MessageFormat message = new MessageFormat(Bundle.getString("ImageMetadataToDatabaseArray.InformationMessage.UpdateMetadataFinished"));
         Object[] params = {getDirectoryNameOfUpdater(scanner)};
         Log.logFinest(ImageMetadataToDatabaseArray.class, message.format(params));
     }

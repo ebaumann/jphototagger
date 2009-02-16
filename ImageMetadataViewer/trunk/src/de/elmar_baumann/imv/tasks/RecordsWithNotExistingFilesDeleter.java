@@ -1,5 +1,6 @@
 package de.elmar_baumann.imv.tasks;
 
+import de.elmar_baumann.imv.Log;
 import de.elmar_baumann.imv.database.Database;
 import de.elmar_baumann.imv.database.DatabaseImageFiles;
 import de.elmar_baumann.imv.event.ProgressEvent;
@@ -30,6 +31,7 @@ public final class RecordsWithNotExistingFilesDeleter implements Runnable,
     @Override
     public void run() {
         setMessagesFiles();
+        logDeleteRecords();
         db.deleteNotExistingImageFiles(this);
         if (!stop) {
             setMessagesXmp();
@@ -93,6 +95,11 @@ public final class RecordsWithNotExistingFilesDeleter implements Runnable,
 
     private Object getEndMessage() {
         return new MessageFormat(endMessage).format(new Object[]{countDeleted});
+    }
+
+    private void logDeleteRecords() {
+        Log.logInfo(RecordsWithNotExistingFilesDeleter.class,
+            Bundle.getString("RecordsWithNotExistingFilesDeleter.InformationMessage.StartRemove"));
     }
 
     private void setMessagesFiles() {

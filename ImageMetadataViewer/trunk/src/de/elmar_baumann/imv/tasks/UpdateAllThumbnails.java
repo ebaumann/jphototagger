@@ -1,5 +1,6 @@
 package de.elmar_baumann.imv.tasks;
 
+import de.elmar_baumann.imv.Log;
 import de.elmar_baumann.imv.database.DatabaseImageFiles;
 import de.elmar_baumann.imv.event.ProgressEvent;
 import de.elmar_baumann.imv.event.ProgressListener;
@@ -40,6 +41,7 @@ public final class UpdateAllThumbnails implements Runnable, ProgressListener,
         progressDialog.setInfoText(Bundle.getString("UpdateAllThumbnails.Dialog.InfoText"));
         progressDialog.addActionListener(this);
         progressDialog.setVisible(true);
+        logUpdateAllThumbnails();
         db.updateAllThumbnails(this);
     }
 
@@ -69,6 +71,11 @@ public final class UpdateAllThumbnails implements Runnable, ProgressListener,
     @Override
     public void actionPerformed(ActionEvent e) {
         stop = true;
+    }
+
+    private void logUpdateAllThumbnails() {
+        Log.logInfo(UpdateAllThumbnails.class,
+            Bundle.getString("UpdateAllThumbnails.InformationMessage.StartUpdate"));
     }
 
     private void notifyActionPerformed() {

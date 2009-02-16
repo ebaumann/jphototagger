@@ -1,6 +1,7 @@
 package de.elmar_baumann.imv.tasks;
 
 import de.elmar_baumann.imv.AppSettings;
+import de.elmar_baumann.imv.Log;
 import de.elmar_baumann.imv.database.DatabaseImageCollections;
 import de.elmar_baumann.imv.resource.Bundle;
 import java.text.MessageFormat;
@@ -26,6 +27,7 @@ public final class ImageCollectionToDatabase {
     public String addImageCollection(List<String> filenames) {
         String name = inputCollectionName(""); // NOI18N
         if (name != null && !name.isEmpty()) {
+            logAddImageCollection(name);
             if (!db.insertImageCollection(name, filenames)) {
                 messageErrorAddImageCollection(name);
                 return null;
@@ -106,6 +108,12 @@ public final class ImageCollectionToDatabase {
             }
         }
         return null;
+    }
+
+    private void logAddImageCollection(String name) {
+        MessageFormat msg = new MessageFormat(Bundle.getString("ImageCollectionToDatabase.InformationMessage.StartInsert"));
+        Object[] params = {name};
+        Log.logInfo(ImageCollectionToDatabase.class, msg.format(params));
     }
 
     private void messageErrorAddImagesToCollection(String collectionName) {

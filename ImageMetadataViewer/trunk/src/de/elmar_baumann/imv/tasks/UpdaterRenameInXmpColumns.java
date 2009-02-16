@@ -1,9 +1,12 @@
 package de.elmar_baumann.imv.tasks;
 
+import de.elmar_baumann.imv.Log;
 import de.elmar_baumann.imv.database.DatabaseImageFiles;
 import de.elmar_baumann.imv.database.metadata.Column;
 import de.elmar_baumann.imv.event.ProgressEvent;
 import de.elmar_baumann.imv.event.ProgressListener;
+import de.elmar_baumann.imv.resource.Bundle;
+import java.text.MessageFormat;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -49,6 +52,7 @@ public final class UpdaterRenameInXmpColumns implements Runnable, ProgressListen
 
     @Override
     public void run() {
+        logRename(column.getName(), oldValue, newValue);
         db.renameInXmpColumns(filenames, column, oldValue, newValue, this);
     }
 
@@ -73,5 +77,12 @@ public final class UpdaterRenameInXmpColumns implements Runnable, ProgressListen
         for (ProgressListener listener : progressListeners) {
             listener.progressEnded(evt);
         }
+    }
+
+    private void logRename(String columnName, String oldValue, String newValue) {
+            MessageFormat msg = new MessageFormat(
+                Bundle.getString("UpdaterRenameInXmpColumns.InformationMessage.StartRename"));
+            Object[] params = {columnName, oldValue, newValue};
+            Log.logInfo(UpdaterRenameInXmpColumns.class, msg.format(params));
     }
 }

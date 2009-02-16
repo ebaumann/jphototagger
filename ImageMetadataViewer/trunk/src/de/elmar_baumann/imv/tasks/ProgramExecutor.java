@@ -12,6 +12,7 @@ import de.elmar_baumann.lib.io.FileUtil;
 import de.elmar_baumann.lib.runtime.External;
 import de.elmar_baumann.lib.template.Pair;
 import java.io.File;
+import java.text.MessageFormat;
 import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -100,13 +101,20 @@ public final class ProgramExecutor {
             nextExecutor();
         }
 
+        private void logCommand(String command) {
+            MessageFormat msg = new MessageFormat(Bundle.getString("ProgramExecutor.InformationMessage.ExecuteCommand"));
+            Object[] params = {command};
+            Log.logInfo(ProgramExecutor.class, msg.format(params));
+        }
+
         private void processAll() {
-            Pair<byte[], byte[]> output = External.executeGetOutput(
-                program.getFile().getAbsolutePath() + " " +
+            String command = program.getFile().getAbsolutePath() + " " + // NOI18N
                 program.getCommandlineAfterProgram(
-                IoUtil.getQuotedForCommandline(imageFiles, ""),
-                getInput("Alle Dateien", 2),
-                dialog.isParametersBeforeFilename()));
+                IoUtil.getQuotedForCommandline(imageFiles, ""), // NOI18N
+                getInput(Bundle.getString("ProgramExecutor.GetInput.Title"), 2),
+                dialog.isParametersBeforeFilename());
+            logCommand(command);
+            Pair<byte[], byte[]> output = External.executeGetOutput(command);
             if (output != null) {
                 logErrors(output);
                 setValueToProgressBar(imageFiles.size());
@@ -116,12 +124,13 @@ public final class ProgramExecutor {
         private void processSingle() {
             int count = 0;
             for (File file : imageFiles) {
-                Pair<byte[], byte[]> output = External.executeGetOutput(
-                    program.getFile().getAbsolutePath() + " " +
+                String command = program.getFile().getAbsolutePath() + " " + // NOI18N
                     program.getCommandlineAfterProgram(
                     file.getAbsolutePath(),
                     getInput(file.getAbsolutePath(), count + 1),
-                    dialog.isParametersBeforeFilename()));
+                    dialog.isParametersBeforeFilename());
+                logCommand(command);
+                Pair<byte[], byte[]> output = External.executeGetOutput(command);
                 if (output != null) {
                     logErrors(output);
                     setValueToProgressBar(++count);
@@ -131,7 +140,7 @@ public final class ProgramExecutor {
 
         private String getInput(String filename, int count) {
             if (!program.isInputBeforeExecute()) {
-                return "";
+                return ""; // NOI18N
             }
             if ((!program.isInputBeforeExecutePerFile() && count > 1)) {
                 return dialog.getParameters();
@@ -142,7 +151,7 @@ public final class ProgramExecutor {
             if (dialog.isAccepted()) {
                 return dialog.getParameters();
             }
-            return "";
+            return ""; // NOI18N
         }
 
         private void nextExecutor() {
@@ -155,9 +164,9 @@ public final class ProgramExecutor {
 
         private void logErrors(Pair<byte[], byte[]> output) {
             byte[] stderr = output.getSecond();
-            String message = (stderr == null ? "" : new String(stderr).trim());
+            String message = (stderr == null ? "" : new String(stderr).trim()); // NOI18N
             if (!message.isEmpty()) {
-                message = "Program error message: " + message;
+                message = Bundle.getString("ProgramExecutor.ErrorMessage.Program") + message;
                 Log.logWarning(Execute.class, message);
             }
         }

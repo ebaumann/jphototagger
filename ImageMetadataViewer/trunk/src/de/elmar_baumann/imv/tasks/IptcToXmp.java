@@ -1,12 +1,15 @@
 package de.elmar_baumann.imv.tasks;
 
+import de.elmar_baumann.imv.Log;
 import de.elmar_baumann.imv.data.Iptc;
 import de.elmar_baumann.imv.data.Xmp;
 import de.elmar_baumann.imv.event.ProgressEvent;
 import de.elmar_baumann.imv.event.ProgressListener;
 import de.elmar_baumann.imv.image.metadata.iptc.IptcMetadata;
 import de.elmar_baumann.imv.image.metadata.xmp.XmpMetadata;
+import de.elmar_baumann.imv.resource.Bundle;
 import java.io.File;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,10 +51,17 @@ public final class IptcToXmp implements Runnable {
                 xmp = new Xmp();
             }
             xmp.setIptc(iptc, false);
+            logWriteXmpSidecarFile(imageFilename);
             XmpMetadata.writeMetadataToSidecarFile(sidecarFilename, xmp);
             notifyPerformed(index);
         }
         notifyEnd(index);
+    }
+
+    private void logWriteXmpSidecarFile(String imageFilename) {
+        MessageFormat msg = new MessageFormat(Bundle.getString("IptcToXmp.InformationMessage.StartWriteXmpFile"));
+        Object[] params = {imageFilename};
+        Log.logInfo(IptcToXmp.class, msg.format(params));
     }
 
     private void notifyStart() {
