@@ -1,7 +1,6 @@
 package de.elmar_baumann.imv.controller.thumbnail;
 
 import de.elmar_baumann.imv.UserSettings;
-import de.elmar_baumann.imv.controller.Controller;
 import de.elmar_baumann.imv.tasks.ImageMetadataToDatabase;
 import de.elmar_baumann.imv.event.ProgressEvent;
 import de.elmar_baumann.imv.event.ProgressListener;
@@ -23,8 +22,8 @@ import javax.swing.JProgressBar;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/29
  */
-public final class ControllerCreateMetadataOfCurrentThumbnails extends Controller
-    implements ThumbnailsPanelListener, ProgressListener {
+public final class ControllerCreateMetadataOfCurrentThumbnails
+        implements ThumbnailsPanelListener, ProgressListener {
 
     private final Queue<ImageMetadataToDatabase> updaters = new ConcurrentLinkedQueue<ImageMetadataToDatabase>();
     private boolean wait = false;
@@ -32,7 +31,6 @@ public final class ControllerCreateMetadataOfCurrentThumbnails extends Controlle
     private final ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelThumbnails();
     private final JProgressBar progressBar = appPanel.getProgressBarCreateMetadataOfCurrentThumbnails();
     private boolean stopCurrent = false;
-    private boolean firstRun = true;
 
     public ControllerCreateMetadataOfCurrentThumbnails() {
         thumbnailsPanel.addThumbnailsPanelListener(this);
@@ -45,17 +43,9 @@ public final class ControllerCreateMetadataOfCurrentThumbnails extends Controlle
 
     private ImageMetadataToDatabase createUpdater(List<String> files) {
         ImageMetadataToDatabase updater =
-            new ImageMetadataToDatabase(files, DatabaseUpdate.IF_LAST_MODIFIED_CHANGED);
+                new ImageMetadataToDatabase(files, DatabaseUpdate.IF_LAST_MODIFIED_CHANGED);
         updater.addProgressListener(this);
-        setDelay(updater);
         return updater;
-    }
-
-    private synchronized void setDelay(ImageMetadataToDatabase updater) {
-        if (firstRun) {
-            updater.setDelaySeconds(5);
-            firstRun = false;
-        }
     }
 
     private synchronized void startUpdateMetadataThread() {
@@ -89,10 +79,8 @@ public final class ControllerCreateMetadataOfCurrentThumbnails extends Controlle
 
     @Override
     public void thumbnailsChanged() {
-        if (isControl()) {
-            setStopCurrent(isWait());
-            updateMetadata();
-        }
+        setStopCurrent(isWait());
+        updateMetadata();
     }
 
     @Override

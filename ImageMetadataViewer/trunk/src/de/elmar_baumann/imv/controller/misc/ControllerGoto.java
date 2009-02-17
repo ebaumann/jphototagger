@@ -1,6 +1,5 @@
 package de.elmar_baumann.imv.controller.misc;
 
-import de.elmar_baumann.imv.controller.Controller;
 import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.view.frames.AppFrame;
 import de.elmar_baumann.imv.view.panels.AppPanel;
@@ -21,7 +20,7 @@ import javax.swing.JTextField;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/10
  */
-public final class ControllerGoto extends Controller implements ActionListener {
+public final class ControllerGoto implements ActionListener {
 
     private final AppPanel appPanel = Panels.getInstance().getAppPanel();
     private final ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelThumbnails();
@@ -70,9 +69,7 @@ public final class ControllerGoto extends Controller implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (isControl()) {
-            selectComponent((JMenuItem) e.getSource());
-        }
+        selectComponent((JMenuItem) e.getSource());
     }
 
     private void selectComponent(JMenuItem item) {

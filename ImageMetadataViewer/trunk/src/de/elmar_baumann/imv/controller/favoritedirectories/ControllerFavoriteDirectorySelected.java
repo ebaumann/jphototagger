@@ -1,6 +1,5 @@
 package de.elmar_baumann.imv.controller.favoritedirectories;
 
-import de.elmar_baumann.imv.controller.Controller;
 import de.elmar_baumann.imv.data.FavoriteDirectory;
 import de.elmar_baumann.imv.event.RefreshListener;
 import de.elmar_baumann.imv.io.ImageFilteredDirectory;
@@ -21,8 +20,7 @@ import javax.swing.event.ListSelectionListener;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/24
  */
-public final class ControllerFavoriteDirectorySelected extends Controller
-    implements ListSelectionListener, RefreshListener {
+public final class ControllerFavoriteDirectorySelected implements ListSelectionListener, RefreshListener {
 
     private final AppPanel appPanel = Panels.getInstance().getAppPanel();
     private final JList listFavoriteDirectories = appPanel.getListFavoriteDirectories();
@@ -40,7 +38,7 @@ public final class ControllerFavoriteDirectorySelected extends Controller
 
     @Override
     public void valueChanged(ListSelectionEvent e) {
-        if (isControl() && listFavoriteDirectories.getSelectedIndex() >= 0) {
+        if (listFavoriteDirectories.getSelectedIndex() >= 0) {
             setFilesToThumbnailsPanel();
             checkEditPanel();
         }
@@ -48,14 +46,14 @@ public final class ControllerFavoriteDirectorySelected extends Controller
 
     @Override
     public void refresh() {
-        if (isControl() && listFavoriteDirectories.getSelectedIndex() >= 0) {
+        if (listFavoriteDirectories.getSelectedIndex() >= 0) {
             setFilesToThumbnailsPanel();
             checkEditPanel();
         }
     }
 
     private void setFilesToThumbnailsPanel() {
-        if (isControl() && listFavoriteDirectories.getSelectedValue() != null) {
+        if (listFavoriteDirectories.getSelectedValue() != null) {
             thumbnailsPanel.setFiles(getFilesOfCurrentDirectory(),
                 Content.FAVORITE_DIRECTORY);
         }

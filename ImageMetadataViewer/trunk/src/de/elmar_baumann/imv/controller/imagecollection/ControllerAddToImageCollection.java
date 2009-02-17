@@ -1,6 +1,5 @@
 package de.elmar_baumann.imv.controller.imagecollection;
 
-import de.elmar_baumann.imv.controller.Controller;
 import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.tasks.ImageCollectionToDatabase;
 import de.elmar_baumann.imv.view.dialogs.ImageCollectionsDialog;
@@ -17,8 +16,7 @@ import java.awt.event.ActionListener;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/00/10
  */
-public final class ControllerAddToImageCollection extends Controller
-    implements ActionListener {
+public final class ControllerAddToImageCollection implements ActionListener {
 
     private final PopupMenuPanelThumbnails popup = PopupMenuPanelThumbnails.getInstance();
     private final ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
@@ -29,9 +27,7 @@ public final class ControllerAddToImageCollection extends Controller
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (isControl()) {
-            addSelectedFilesToImageCollection();
-        }
+        addSelectedFilesToImageCollection();
     }
 
     private void addSelectedFilesToImageCollection() {
@@ -39,7 +35,7 @@ public final class ControllerAddToImageCollection extends Controller
         if (collectionName != null) {
             ImageCollectionToDatabase manager = new ImageCollectionToDatabase();
             manager.addImagesToCollection(collectionName,
-                FileUtil.getAsFilenames(thumbnailsPanel.getSelectedFiles()));
+                    FileUtil.getAsFilenames(thumbnailsPanel.getSelectedFiles()));
         }
     }
 

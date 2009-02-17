@@ -2,7 +2,6 @@ package de.elmar_baumann.imv.controller.filesystem;
 
 import de.elmar_baumann.imv.AppSettings;
 import de.elmar_baumann.imv.Log;
-import de.elmar_baumann.imv.controller.Controller;
 import de.elmar_baumann.imv.database.DatabaseImageFiles;
 import de.elmar_baumann.imv.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.imv.resource.Bundle;
@@ -24,7 +23,7 @@ import javax.swing.JOptionPane;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/12
  */
-public final class ControllerDeleteFiles extends Controller implements ActionListener {
+public final class ControllerDeleteFiles implements ActionListener {
 
     private final ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
     private final DatabaseImageFiles db = DatabaseImageFiles.getInstance();
@@ -54,10 +53,8 @@ public final class ControllerDeleteFiles extends Controller implements ActionLis
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (isControl()) {
-            deleteSelectedFiles();
-            thumbnailsPanel.repaint();
-        }
+        deleteSelectedFiles();
+        thumbnailsPanel.repaint();
     }
 
     private void deleteSelectedFiles() {
@@ -89,11 +86,11 @@ public final class ControllerDeleteFiles extends Controller implements ActionLis
 
     private boolean accepted() {
         return JOptionPane.showConfirmDialog(
-            null,
-            Bundle.getString("ControllerDeleteFiles.ConfirmMessage.Delete"),
-            Bundle.getString("ControllerDeleteFiles.ConfirmMessage.Delete.Title"),
-            JOptionPane.YES_NO_OPTION,
-            JOptionPane.QUESTION_MESSAGE,
-            AppSettings.getMediumAppIcon()) == JOptionPane.YES_OPTION;
+                null,
+                Bundle.getString("ControllerDeleteFiles.ConfirmMessage.Delete"),
+                Bundle.getString("ControllerDeleteFiles.ConfirmMessage.Delete.Title"),
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                AppSettings.getMediumAppIcon()) == JOptionPane.YES_OPTION;
     }
 }

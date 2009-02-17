@@ -9,68 +9,60 @@ import de.elmar_baumann.lib.persistence.PersistentSettings;
 import javax.swing.JProgressBar;
 
 /**
- * Factory mit Kenntnis über alle Factories. Erzeugt diese in der richtigen
- * Reihenfolge.
+ * Initalizes all other factories in the right order and sets the persistent
+ * settings to the application's frame and panel.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/29
  */
-public final class MetaFactory extends Thread {
+public final class MetaFactory implements Runnable {
 
     public static final MetaFactory INSTANCE = new MetaFactory();
     private boolean init = false;
-
-    synchronized public void stopController() {
-        ControllerFactory.INSTANCE.setControl(false);
-    }
-
-    private MetaFactory() {
-        start();
-    }
 
     @Override
     public void run() {
         init();
     }
 
-    synchronized public void init() {
+    synchronized private void init() {
+        Util.checkInit(MetaFactory.class, init);
         if (!init) {
             init = true;
-            setAppFrame();
-            showProgress();
+            readPersistentAppFrame();
+            startDisplayProgressInProgressbarBar();
             LateConnectionsFactory.INSTANCE.init();
             ModelFactory.INSTANCE.init();
-            ControllerFactory.INSTANCE.init();
             ActionListenerFactory.INSTANCE.init();
             MouseListenerFactory.INSTANCE.init();
             RendererFactory.INSTANCE.init();
-            ControllerFactory.INSTANCE.setControl(true);
-            setAppPanel();
-            stopProgress();
+            ControllerFactory.INSTANCE.init();
+            readPersistentAppPanel();
+            stopDisplayProgressInProgressbarBar();
         }
     }
 
-    private void setAppPanel() {
+    private void readPersistentAppFrame() {
+        AppFrame appFrame = Panels.getInstance().getAppFrame();
+        PersistentComponentSizes.getSizeAndLocation(appFrame);
+        appFrame.pack();
+    }
+
+    private void readPersistentAppPanel() {
         AppPanel appPanel = Panels.getInstance().getAppPanel();
         PersistentSettings.getInstance().getComponent(
                 appPanel,
                 appPanel.getPersistentSettingsHints());
     }
 
-    private void setAppFrame() {
-        AppFrame appFrame = Panels.getInstance().getAppFrame();
-        PersistentComponentSizes.getSizeAndLocation(appFrame);
-        appFrame.pack();
-    }
-
-    private void showProgress() {
+    private void startDisplayProgressInProgressbarBar() {
         JProgressBar progressbar = Panels.getInstance().getAppPanel().getProgressBarCreateMetadataOfCurrentThumbnails();
         progressbar.setStringPainted(true);
         progressbar.setString(Bundle.getString("MetaFactory.Message.Init"));
         progressbar.setIndeterminate(true);
     }
 
-    private void stopProgress() {
+    private void stopDisplayProgressInProgressbarBar() {
         JProgressBar progressbar = Panels.getInstance().getAppPanel().getProgressBarCreateMetadataOfCurrentThumbnails();
         progressbar.setIndeterminate(false);
         progressbar.setString(""); // NOI18N

@@ -1,6 +1,5 @@
 package de.elmar_baumann.imv.controller.misc;
 
-import de.elmar_baumann.imv.controller.Controller;
 import de.elmar_baumann.imv.event.ThumbnailsPanelAction;
 import de.elmar_baumann.imv.event.ThumbnailsPanelListener;
 import de.elmar_baumann.imv.resource.Bundle;
@@ -19,8 +18,8 @@ import javax.swing.event.ChangeListener;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/25
  */
-public final class ControllerThumbnailCountDisplay extends Controller
-    implements ThumbnailsPanelListener, ChangeListener {
+public final class ControllerThumbnailCountDisplay
+        implements ThumbnailsPanelListener, ChangeListener {
 
     private static final MessageFormat msg = new MessageFormat(Bundle.getString("ControllerThumbnailCount.InformationMessage"));
     private final AppPanel appPanel = Panels.getInstance().getAppPanel();
@@ -45,16 +44,12 @@ public final class ControllerThumbnailCountDisplay extends Controller
 
     @Override
     public void thumbnailsChanged() {
-        if (isControl()) {
-            setCount();
-        }
+        setCount();
     }
 
     @Override
     public void stateChanged(ChangeEvent e) {
-        if (isControl()) {
-            setZoom();
-        }
+        setZoom();
     }
 
     private void setCount() {

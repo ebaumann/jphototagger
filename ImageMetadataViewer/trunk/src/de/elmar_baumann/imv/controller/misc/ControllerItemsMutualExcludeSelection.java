@@ -1,6 +1,5 @@
 package de.elmar_baumann.imv.controller.misc;
 
-import de.elmar_baumann.imv.controller.Controller;
 import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import java.util.List;
@@ -19,8 +18,8 @@ import javax.swing.event.TreeSelectionListener;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public final class ControllerItemsMutualExcludeSelection extends Controller
-    implements TreeSelectionListener, ListSelectionListener {
+public final class ControllerItemsMutualExcludeSelection
+        implements TreeSelectionListener, ListSelectionListener {
 
     private final AppPanel appPanel = Panels.getInstance().getAppPanel();
     private final List<JTree> trees = appPanel.getSelectionTrees();
@@ -43,7 +42,7 @@ public final class ControllerItemsMutualExcludeSelection extends Controller
     @Override
     public void valueChanged(TreeSelectionEvent e) {
         Object o = e.getSource();
-        if (listen && isControl() && e.isAddedPath() && o instanceof JTree) {
+        if (listen && e.isAddedPath() && o instanceof JTree) {
             handleSelection((JTree) o);
         }
     }
@@ -51,7 +50,7 @@ public final class ControllerItemsMutualExcludeSelection extends Controller
     @Override
     public void valueChanged(ListSelectionEvent e) {
         Object o = e.getSource();
-        if (listen && isControl() && o instanceof JList) {
+        if (listen && o instanceof JList) {
             handleSelection((JList) o);
         }
     }

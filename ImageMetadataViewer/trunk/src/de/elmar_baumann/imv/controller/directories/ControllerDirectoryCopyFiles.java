@@ -1,6 +1,5 @@
 package de.elmar_baumann.imv.controller.directories;
 
-import de.elmar_baumann.imv.controller.Controller;
 import de.elmar_baumann.imv.datatransfer.TransferHandlerTreeDirectories;
 import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.types.Content;
@@ -23,7 +22,7 @@ import javax.swing.TransferHandler;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/26
  */
-public final class ControllerDirectoryCopyFiles extends Controller implements KeyListener {
+public final class ControllerDirectoryCopyFiles implements KeyListener {
 
     private final AppPanel appPanel = Panels.getInstance().getAppPanel();
     private final ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelThumbnails();
@@ -47,7 +46,7 @@ public final class ControllerDirectoryCopyFiles extends Controller implements Ke
     }
 
     private void handleKeyPressed(KeyEvent e) {
-        if (isControl() && thumbnailsPanel.getContent().equals(Content.DIRECTORY) &&
+        if (thumbnailsPanel.getContent().equals(Content.DIRECTORY) &&
             KeyEventUtil.isInsert(e)) {
             List<File> sourceFiles = ClipboardUtil.getFilesFromSystemClipboard("\n");
             File targetDirectory = ViewUtil.getSelectedDirectory(treeDirectories);

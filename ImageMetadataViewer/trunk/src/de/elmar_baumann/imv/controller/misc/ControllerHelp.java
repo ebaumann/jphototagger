@@ -1,6 +1,5 @@
 package de.elmar_baumann.imv.controller.misc;
 
-import de.elmar_baumann.imv.controller.Controller;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.dialog.HelpBrowser;
 import de.elmar_baumann.lib.event.HelpBrowserAction;
@@ -16,8 +15,8 @@ import java.net.URL;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/12
  */
-public final class ControllerHelp extends Controller implements ActionListener,
-    HelpBrowserListener {
+public final class ControllerHelp implements ActionListener,
+        HelpBrowserListener {
 
     private final HelpBrowser help = HelpBrowser.getInstance();
     private static final String keyCurrentUrl = ControllerHelp.class.getName() + ".CurrentURL";
@@ -37,9 +36,7 @@ public final class ControllerHelp extends Controller implements ActionListener,
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (isControl()) {
-            showHelp();
-        }
+        showHelp();
     }
 
     private void setCurrentUrl(HelpBrowserAction action) {

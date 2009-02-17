@@ -2,7 +2,6 @@ package de.elmar_baumann.imv.controller.search;
 
 import de.elmar_baumann.imv.AppSettings;
 import de.elmar_baumann.imv.comparator.ComparatorSavedSearch;
-import de.elmar_baumann.imv.controller.Controller;
 import de.elmar_baumann.imv.data.SavedSearch;
 import de.elmar_baumann.imv.database.DatabaseSavedSearches;
 import de.elmar_baumann.imv.event.ListenerProvider;
@@ -27,8 +26,7 @@ import javax.swing.JOptionPane;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/10
  */
-public final class ControllerCreateSavedSearch extends Controller
-    implements ActionListener, SearchListener {
+public final class ControllerCreateSavedSearch implements ActionListener, SearchListener {
 
     private final DatabaseSavedSearches db = DatabaseSavedSearches.getInstance();
     private final AppPanel appPanel = Panels.getInstance().getAppPanel();
@@ -46,16 +44,14 @@ public final class ControllerCreateSavedSearch extends Controller
 
     @Override
     public void actionPerformed(SearchEvent evt) {
-        if (isControl() && evt.getType().equals(SearchEvent.Type.SAVE)) {
+        if (evt.getType().equals(SearchEvent.Type.SAVE)) {
             saveSearch(evt.getSafedSearch(), evt.isForceOverwrite());
         }
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (isControl()) {
-            showAdvancedSearchDialog();
-        }
+        showAdvancedSearchDialog();
     }
 
     private void showAdvancedSearchDialog() {
@@ -82,21 +78,21 @@ public final class ControllerCreateSavedSearch extends Controller
     private boolean saveConfirmed(SavedSearch savedSearch) {
         if (db.existsSavedSearch(savedSearch)) {
             return JOptionPane.showConfirmDialog(null,
-                Bundle.getString("ControllerRenameSavedSearch.ConfirmMessage.ReplaceExisting"),
-                Bundle.getString("ControllerRenameSavedSearch.ConfirmMessage.ReplaceExisting.Title"),
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.QUESTION_MESSAGE,
-                AppSettings.getMediumAppIcon()) == JOptionPane.YES_OPTION;
+                    Bundle.getString("ControllerRenameSavedSearch.ConfirmMessage.ReplaceExisting"),
+                    Bundle.getString("ControllerRenameSavedSearch.ConfirmMessage.ReplaceExisting.Title"),
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE,
+                    AppSettings.getMediumAppIcon()) == JOptionPane.YES_OPTION;
         }
         return true;
     }
 
     private void errorMessageSave() {
         JOptionPane.showMessageDialog(
-            null,
-            Bundle.getString("ControllerRenameSavedSearch.ErrorMessage.SearchCouldntBeSaved"),
-            Bundle.getString("ControllerRenameSavedSearch.ErrorMessage.SearchCouldntBeSaved.Title"),
-            JOptionPane.ERROR_MESSAGE,
-            AppSettings.getMediumAppIcon());
+                null,
+                Bundle.getString("ControllerRenameSavedSearch.ErrorMessage.SearchCouldntBeSaved"),
+                Bundle.getString("ControllerRenameSavedSearch.ErrorMessage.SearchCouldntBeSaved.Title"),
+                JOptionPane.ERROR_MESSAGE,
+                AppSettings.getMediumAppIcon());
     }
 }

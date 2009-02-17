@@ -1,7 +1,6 @@
 package de.elmar_baumann.imv.controller.imagecollection;
 
 import de.elmar_baumann.imv.comparator.ComparatorStringAscending;
-import de.elmar_baumann.imv.controller.Controller;
 import de.elmar_baumann.imv.model.ListModelImageCollections;
 import de.elmar_baumann.imv.tasks.ImageCollectionToDatabase;
 import de.elmar_baumann.imv.resource.Panels;
@@ -20,8 +19,7 @@ import java.awt.event.ActionListener;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/10
  */
-public final class ControllerCreateImageCollection extends Controller
-    implements ActionListener {
+public final class ControllerCreateImageCollection implements ActionListener {
 
     private final PopupMenuPanelThumbnails popup = PopupMenuPanelThumbnails.getInstance();
     private final AppPanel appPanel = Panels.getInstance().getAppPanel();
@@ -34,15 +32,13 @@ public final class ControllerCreateImageCollection extends Controller
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (isControl()) {
-            createCollectionOfSelectedFiles();
-        }
+        createCollectionOfSelectedFiles();
     }
 
     private void createCollectionOfSelectedFiles() {
         ImageCollectionToDatabase manager = new ImageCollectionToDatabase();
         String collectionName = manager.addImageCollection(
-            FileUtil.getAsFilenames(thumbnailsPanel.getSelectedFiles()));
+                FileUtil.getAsFilenames(thumbnailsPanel.getSelectedFiles()));
         if (collectionName != null) {
             ListUtil.insertSorted(model, collectionName, new ComparatorStringAscending(true));
         }

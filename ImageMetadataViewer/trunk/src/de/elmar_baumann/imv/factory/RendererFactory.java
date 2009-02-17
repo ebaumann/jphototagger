@@ -20,6 +20,7 @@ public final class RendererFactory {
     private boolean init = false;
 
     synchronized void init() {
+        Util.checkInit(RendererFactory.class, init);
         if (!init) {
             init = true;
             AppPanel appPanel = Panels.getInstance().getAppPanel();

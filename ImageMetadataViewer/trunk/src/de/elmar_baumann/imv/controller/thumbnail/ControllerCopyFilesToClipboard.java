@@ -1,6 +1,5 @@
 package de.elmar_baumann.imv.controller.thumbnail;
 
-import de.elmar_baumann.imv.controller.Controller;
 import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.types.FileAction;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
@@ -15,7 +14,7 @@ import javax.swing.JMenuItem;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/26
  */
-public final class ControllerCopyFilesToClipboard extends Controller implements ActionListener {
+public final class ControllerCopyFilesToClipboard implements ActionListener {
 
     private final ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
     private final JMenuItem itemCopy = Panels.getInstance().getAppFrame().getMenuItemCopy();
@@ -32,7 +31,7 @@ public final class ControllerCopyFilesToClipboard extends Controller implements 
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (isControl() && thumbnailsPanel.getSelectionCount() > 0) {
+        if (thumbnailsPanel.getSelectionCount() > 0) {
             setFileAction(e.getSource());
             ClipboardUtil.copyToSystemClipboard(thumbnailsPanel.getSelectedFiles(), null);
         }

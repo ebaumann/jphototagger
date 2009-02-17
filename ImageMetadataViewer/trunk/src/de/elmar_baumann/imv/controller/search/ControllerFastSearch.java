@@ -1,7 +1,6 @@
 package de.elmar_baumann.imv.controller.search;
 
 import de.elmar_baumann.imv.UserSettings;
-import de.elmar_baumann.imv.controller.Controller;
 import de.elmar_baumann.imv.data.AutoCompleteData;
 import de.elmar_baumann.imv.data.ImageFile;
 import de.elmar_baumann.imv.data.Xmp;
@@ -39,8 +38,8 @@ import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public final class ControllerFastSearch extends Controller
-    implements UserSettingsChangeListener, DatabaseListener, RefreshListener {
+public final class ControllerFastSearch
+        implements UserSettingsChangeListener, DatabaseListener, RefreshListener {
 
     private final DatabaseSearch db = DatabaseSearch.getInstance();
     private final AppPanel appPanel = Panels.getInstance().getAppPanel();
@@ -70,7 +69,7 @@ public final class ControllerFastSearch extends Controller
 
     @Override
     public void actionPerformed(DatabaseAction action) {
-        if (isControl() && isUseAutocomplete && action.isImageModified()) {
+        if (isUseAutocomplete && action.isImageModified()) {
             ImageFile data = action.getImageFileData();
             if (data != null && data.getXmp() != null) {
                 addAutoCompleteData(data.getXmp());
@@ -133,7 +132,7 @@ public final class ControllerFastSearch extends Controller
 
             @Override
             public void keyReleased(KeyEvent e) {
-                if (isControl() && e.getKeyCode() == KeyEvent.VK_ENTER) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
                     search();
                 }
             }
@@ -153,7 +152,7 @@ public final class ControllerFastSearch extends Controller
 
     @Override
     public void refresh() {
-        if (isControl() && textFieldSearch.isEnabled()) {
+        if (textFieldSearch.isEnabled()) {
             search(textFieldSearch.getText());
         }
     }

@@ -1,6 +1,5 @@
 package de.elmar_baumann.imv.controller.favoritedirectories;
 
-import de.elmar_baumann.imv.controller.Controller;
 import de.elmar_baumann.imv.data.FavoriteDirectory;
 import de.elmar_baumann.imv.model.ListModelFavoriteDirectories;
 import de.elmar_baumann.imv.resource.Panels;
@@ -17,8 +16,7 @@ import java.awt.event.ActionListener;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/23
  */
-public final class ControllerInsertFavoriteDirectory extends Controller
-    implements ActionListener {
+public final class ControllerInsertFavoriteDirectory implements ActionListener {
 
     private final AppPanel appPanel = Panels.getInstance().getAppPanel();
     private final ListModelFavoriteDirectories model = (ListModelFavoriteDirectories) appPanel.getListFavoriteDirectories().getModel();
@@ -35,9 +33,7 @@ public final class ControllerInsertFavoriteDirectory extends Controller
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (isControl()) {
-            insertFavorite(getDirectoryName(e.getSource()));
-        }
+        insertFavorite(getDirectoryName(e.getSource()));
     }
 
     private String getDirectoryName(Object o) {
@@ -57,7 +53,7 @@ public final class ControllerInsertFavoriteDirectory extends Controller
         dialog.setVisible(true);
         if (dialog.isAccepted()) {
             model.insertFavorite(new FavoriteDirectory(
-                dialog.getFavoriteName(), dialog.getDirectoryName(), -1));
+                    dialog.getFavoriteName(), dialog.getDirectoryName(), -1));
         }
     }
 }

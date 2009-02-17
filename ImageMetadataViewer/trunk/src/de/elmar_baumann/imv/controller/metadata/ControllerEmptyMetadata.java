@@ -1,6 +1,5 @@
 package de.elmar_baumann.imv.controller.metadata;
 
-import de.elmar_baumann.imv.controller.Controller;
 import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.view.panels.EditMetadataPanelsArray;
@@ -14,7 +13,7 @@ import javax.swing.JButton;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/22
  */
-public final class ControllerEmptyMetadata extends Controller implements ActionListener {
+public final class ControllerEmptyMetadata implements ActionListener {
 
     private final AppPanel appPanel = Panels.getInstance().getAppPanel();
     private final JButton buttonEmpty = appPanel.getButtonEmptyMetadata();
@@ -26,8 +25,6 @@ public final class ControllerEmptyMetadata extends Controller implements ActionL
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (isControl()) {
-            editPanels.emptyPanels(true);
-        }
+        editPanels.emptyPanels(true);
     }
 }

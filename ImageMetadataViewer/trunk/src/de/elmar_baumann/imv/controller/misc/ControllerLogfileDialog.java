@@ -2,7 +2,6 @@ package de.elmar_baumann.imv.controller.misc;
 
 import de.elmar_baumann.imv.AppSettings;
 import de.elmar_baumann.imv.UserSettings;
-import de.elmar_baumann.imv.controller.Controller;
 import de.elmar_baumann.imv.event.ErrorEvent;
 import de.elmar_baumann.imv.event.ErrorListener;
 import de.elmar_baumann.imv.event.listener.ErrorListeners;
@@ -22,8 +21,7 @@ import javax.swing.JButton;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/11
  */
-public final class ControllerLogfileDialog extends Controller
-    implements ActionListener, ErrorListener {
+public final class ControllerLogfileDialog implements ActionListener, ErrorListener {
 
     private final AppPanel appPanel = Panels.getInstance().getAppPanel();
     private final JButton buttonLogfileDialog = appPanel.getButtonLogfileDialog();
@@ -43,23 +41,19 @@ public final class ControllerLogfileDialog extends Controller
 
     @Override
     public void error(ErrorEvent evt) {
-        if (isControl()) {
-            setError(true);
-        }
+        setError(true);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (isControl()) {
-            showLogfileDialog();
-        }
+        showLogfileDialog();
     }
 
     private void showLogfileDialog() {
         LogfileDialog dialog = new LogfileDialog(
-            null,
-            AppSettings.getLogfileName(),
-            UserSettings.getInstance().getLogfileFormatterClass());
+                null,
+                AppSettings.getLogfileName(),
+                UserSettings.getInstance().getLogfileFormatterClass());
         dialog.setVisible(true);
         setError(false);
     }

@@ -1,7 +1,6 @@
 package de.elmar_baumann.imv.controller.metadata;
 
 import com.adobe.xmp.properties.XMPPropertyInfo;
-import de.elmar_baumann.imv.controller.Controller;
 import de.elmar_baumann.imv.event.ThumbnailsPanelAction;
 import de.elmar_baumann.imv.event.ThumbnailsPanelListener;
 import de.elmar_baumann.imv.image.metadata.xmp.XmpMetadata;
@@ -21,8 +20,7 @@ import javax.swing.JLabel;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public final class ControllerThumbnailSelectionEditMetadata extends Controller
-    implements ThumbnailsPanelListener {
+public final class ControllerThumbnailSelectionEditMetadata implements ThumbnailsPanelListener {
 
     private final AppPanel appPanel = Panels.getInstance().getAppPanel();
     private final JButton buttonSave = appPanel.getButtonSaveMetadata();
@@ -45,15 +43,13 @@ public final class ControllerThumbnailSelectionEditMetadata extends Controller
     }
 
     private void handleSelectionChanged() {
-        if (isControl()) {
-            if (thumbnailsPanel.getSelectionCount() > 0) {
-                boolean canEdit = canEdit();
-                setEnabled(canEdit);
-                setEditPanelsContent();
-                setInfoLabel(canEdit);
-            } else {
-                setEnabled(false);
-            }
+        if (thumbnailsPanel.getSelectionCount() > 0) {
+            boolean canEdit = canEdit();
+            setEnabled(canEdit);
+            setEditPanelsContent();
+            setInfoLabel(canEdit);
+        } else {
+            setEnabled(false);
         }
     }
 
@@ -65,11 +61,11 @@ public final class ControllerThumbnailSelectionEditMetadata extends Controller
 
     private void setInfoLabel(boolean canEdit) {
         labelMetadataInfoEditable.setText(
-            canEdit
-            ? multipleThumbnailsSelected()
-            ? Bundle.getString("ControllerThumbnailSelectionEditMetadata.InformationMessage.MetadataEditAddOnlyChanges")
-            : Bundle.getString("ControllerThumbnailSelectionEditMetadata.InformationMessage.EditIsEnabled")
-            : Bundle.getString("ControllerThumbnailSelectionEditMetadata.InformationMessage.EditIsDisabled"));
+                canEdit
+                ? multipleThumbnailsSelected()
+                ? Bundle.getString("ControllerThumbnailSelectionEditMetadata.InformationMessage.MetadataEditAddOnlyChanges")
+                : Bundle.getString("ControllerThumbnailSelectionEditMetadata.InformationMessage.EditIsEnabled")
+                : Bundle.getString("ControllerThumbnailSelectionEditMetadata.InformationMessage.EditIsDisabled"));
     }
 
     private boolean multipleThumbnailsSelected() {

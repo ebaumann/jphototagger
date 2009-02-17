@@ -1,6 +1,5 @@
 package de.elmar_baumann.imv.controller.thumbnail;
 
-import de.elmar_baumann.imv.controller.Controller;
 import de.elmar_baumann.imv.database.DatabaseImageFiles;
 import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
@@ -18,8 +17,7 @@ import java.util.List;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/10
  */
-public final class ControllerRotateThumbnail extends Controller
-    implements ActionListener {
+public final class ControllerRotateThumbnail implements ActionListener {
 
     private final DatabaseImageFiles db = DatabaseImageFiles.getInstance();
     private final PopupMenuPanelThumbnails popup = PopupMenuPanelThumbnails.getInstance();
@@ -37,17 +35,14 @@ public final class ControllerRotateThumbnail extends Controller
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (isControl()) {
-            rotateSelectedImages(
-                popup.getRotateAngle(e.getSource()));
-        }
+        rotateSelectedImages(popup.getRotateAngle(e.getSource()));
     }
 
     private void rotateSelectedImages(float rotateAngle) {
         List<Integer> selectedIndices = thumbnailsPanel.getSelected();
         for (Integer index : selectedIndices) {
             Image thumbnail = ImageTransform.rotate(
-                thumbnailsPanel.getThumbnail(index.intValue()), rotateAngle);
+                    thumbnailsPanel.getThumbnail(index.intValue()), rotateAngle);
             if (thumbnail != null) {
                 String filename = thumbnailsPanel.getFile(index.intValue()).getAbsolutePath();
                 if (db.updateThumbnail(filename, thumbnail)) {

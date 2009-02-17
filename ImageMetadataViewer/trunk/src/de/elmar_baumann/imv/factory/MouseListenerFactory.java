@@ -20,6 +20,7 @@ public final class MouseListenerFactory {
     private boolean init = false;
 
     synchronized void init() {
+        Util.checkInit(MouseListenerFactory.class, init);
         if (!init) {
             init = true;
             AppPanel appPanel = Panels.getInstance().getAppPanel();

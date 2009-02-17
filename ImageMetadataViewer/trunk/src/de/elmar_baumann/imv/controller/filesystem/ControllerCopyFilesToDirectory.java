@@ -1,6 +1,5 @@
 package de.elmar_baumann.imv.controller.filesystem;
 
-import de.elmar_baumann.imv.controller.Controller;
 import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.view.dialogs.CopyToDirectoryDialog;
 import de.elmar_baumann.imv.view.panels.AppPanel;
@@ -17,8 +16,7 @@ import java.util.List;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public final class ControllerCopyFilesToDirectory extends Controller
-    implements ActionListener {
+public final class ControllerCopyFilesToDirectory implements ActionListener {
 
     private final AppPanel appPanel = Panels.getInstance().getAppPanel();
     private final ImageFileThumbnailsPanel panel = appPanel.getPanelThumbnails();
@@ -29,9 +27,7 @@ public final class ControllerCopyFilesToDirectory extends Controller
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (isControl()) {
-            copySelectedFiles();
-        }
+        copySelectedFiles();
     }
 
     private void copySelectedFiles() {

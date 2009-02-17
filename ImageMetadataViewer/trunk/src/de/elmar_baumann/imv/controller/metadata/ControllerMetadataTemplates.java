@@ -1,7 +1,6 @@
 package de.elmar_baumann.imv.controller.metadata;
 
 import de.elmar_baumann.imv.AppSettings;
-import de.elmar_baumann.imv.controller.Controller;
 import de.elmar_baumann.imv.data.MetadataEditTemplate;
 import de.elmar_baumann.imv.database.DatabaseMetadataEditTemplates;
 import de.elmar_baumann.imv.event.ListenerProvider;
@@ -25,8 +24,7 @@ import javax.swing.JOptionPane;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/22
  */
-public final class ControllerMetadataTemplates extends Controller
-    implements ActionListener, MetadataEditPanelListener {
+public final class ControllerMetadataTemplates implements ActionListener, MetadataEditPanelListener {
 
     private final DatabaseMetadataEditTemplates db = DatabaseMetadataEditTemplates.getInstance();
     private final AppPanel appPanel = Panels.getInstance().getAppPanel();
@@ -67,27 +65,25 @@ public final class ControllerMetadataTemplates extends Controller
         MetadataEditPanelEvent.Type type = event.getType();
 
         if (type.equals(MetadataEditPanelEvent.Type.EDIT_ENABLED) ||
-            type.equals(MetadataEditPanelEvent.Type.EDIT_DISABLED)) {
+                type.equals(MetadataEditPanelEvent.Type.EDIT_DISABLED)) {
             buttonMetadataTemplateInsert.setEnabled(
-                type.equals(MetadataEditPanelEvent.Type.EDIT_ENABLED));
+                    type.equals(MetadataEditPanelEvent.Type.EDIT_ENABLED));
         }
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (isControl()) {
-            Object source = e.getSource();
-            if (source == buttonMetadataTemplateCreate) {
-                createTemplate();
-            } else if (source == buttonMetadataTemplateUpdate) {
-                updateTemplate();
-            } else if (source == buttonMetadataTemplateDelete) {
-                deleteTemplate();
-            } else if (source == buttonMetadataTemplateInsert) {
-                setCurrentTemplateToPanel();
-            } else if (source == buttonMetadataTemplateRename) {
-                renameTemplate();
-            }
+        Object source = e.getSource();
+        if (source == buttonMetadataTemplateCreate) {
+            createTemplate();
+        } else if (source == buttonMetadataTemplateUpdate) {
+            updateTemplate();
+        } else if (source == buttonMetadataTemplateDelete) {
+            deleteTemplate();
+        } else if (source == buttonMetadataTemplateInsert) {
+            setCurrentTemplateToPanel();
+        } else if (source == buttonMetadataTemplateRename) {
+            renameTemplate();
         }
         enableButtons();
     }
@@ -115,12 +111,12 @@ public final class ControllerMetadataTemplates extends Controller
         MessageFormat msg = new MessageFormat(Bundle.getString("ControllerMetadataTemplates.ConfirmMessage.Delete"));
         Object[] params = {templateName};
         return JOptionPane.showConfirmDialog(
-            null,
-            msg.format(params),
-            Bundle.getString("ControllerMetadataTemplates.ConfirmMessage.Delete.Title"),
-            JOptionPane.YES_NO_OPTION,
-            JOptionPane.QUESTION_MESSAGE,
-            AppSettings.getMediumAppIcon()) == JOptionPane.YES_OPTION;
+                null,
+                msg.format(params),
+                Bundle.getString("ControllerMetadataTemplates.ConfirmMessage.Delete.Title"),
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                AppSettings.getMediumAppIcon()) == JOptionPane.YES_OPTION;
     }
 
     private void renameTemplate() {
@@ -168,14 +164,14 @@ public final class ControllerMetadataTemplates extends Controller
 
     private boolean abortConfirmed(String name) {
         MessageFormat msg = new MessageFormat(
-            Bundle.getString("ControllerMetadataTemplates.ConfirmMessage.OverwriteExistingTemplate"));
+                Bundle.getString("ControllerMetadataTemplates.ConfirmMessage.OverwriteExistingTemplate"));
         Object[] params = {name};
         return JOptionPane.showConfirmDialog(
-            null,
-            msg.format(params),
-            Bundle.getString("ControllerMetadataTemplates.ConfirmMessage.OverwriteExistingTemplate.Title"),
-            JOptionPane.YES_NO_OPTION,
-            JOptionPane.QUESTION_MESSAGE,
-            AppSettings.getMediumAppIcon()) == JOptionPane.NO_OPTION;
+                null,
+                msg.format(params),
+                Bundle.getString("ControllerMetadataTemplates.ConfirmMessage.OverwriteExistingTemplate.Title"),
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                AppSettings.getMediumAppIcon()) == JOptionPane.NO_OPTION;
     }
 }

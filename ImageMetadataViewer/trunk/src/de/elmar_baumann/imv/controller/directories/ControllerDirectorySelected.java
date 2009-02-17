@@ -1,6 +1,5 @@
 package de.elmar_baumann.imv.controller.directories;
 
-import de.elmar_baumann.imv.controller.Controller;
 import de.elmar_baumann.imv.event.RefreshListener;
 import de.elmar_baumann.imv.io.ImageFilteredDirectory;
 import de.elmar_baumann.imv.resource.Panels;
@@ -22,8 +21,7 @@ import javax.swing.tree.TreePath;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public final class ControllerDirectorySelected extends Controller
-    implements TreeSelectionListener, RefreshListener {
+public final class ControllerDirectorySelected implements TreeSelectionListener, RefreshListener {
 
     private final AppPanel appPanel = Panels.getInstance().getAppPanel();
     private final JTree treeDirectories = appPanel.getTreeDirectories();
@@ -42,7 +40,7 @@ public final class ControllerDirectorySelected extends Controller
 
     @Override
     public void valueChanged(TreeSelectionEvent e) {
-        if (isControl() && e.isAddedPath() && !PopupMenuTreeDirectories.getInstance().isTreeSelected()) {
+        if (e.isAddedPath() && !PopupMenuTreeDirectories.getInstance().isTreeSelected()) {
             setFilesToThumbnailsPanel();
             checkEditPanel();
         }
@@ -50,7 +48,7 @@ public final class ControllerDirectorySelected extends Controller
 
     @Override
     public void refresh() {
-        if (isControl() && treeDirectories.getSelectionCount() > 0) {
+        if (treeDirectories.getSelectionCount() > 0) {
             setFilesToThumbnailsPanel();
             checkEditPanel();
         }

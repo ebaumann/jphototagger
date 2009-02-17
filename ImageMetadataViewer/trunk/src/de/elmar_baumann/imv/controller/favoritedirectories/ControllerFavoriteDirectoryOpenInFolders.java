@@ -1,6 +1,5 @@
 package de.elmar_baumann.imv.controller.favoritedirectories;
 
-import de.elmar_baumann.imv.controller.Controller;
 import de.elmar_baumann.imv.data.FavoriteDirectory;
 import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.view.panels.AppPanel;
@@ -21,8 +20,7 @@ import javax.swing.tree.TreePath;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/11/05
  */
-public final class ControllerFavoriteDirectoryOpenInFolders extends Controller
-    implements ActionListener {
+public final class ControllerFavoriteDirectoryOpenInFolders implements ActionListener {
 
     private final PopupMenuListFavoriteDirectories popup = PopupMenuListFavoriteDirectories.getInstance();
     private final AppPanel appPanel = Panels.getInstance().getAppPanel();
@@ -37,7 +35,7 @@ public final class ControllerFavoriteDirectoryOpenInFolders extends Controller
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (isControl() && listFavoriteDirectories.getSelectedIndex() >= 0) {
+        if (listFavoriteDirectories.getSelectedIndex() >= 0) {
             selectDirectory();
         }
     }

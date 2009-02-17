@@ -1,7 +1,6 @@
 package de.elmar_baumann.imv.controller.search;
 
 import de.elmar_baumann.imv.AppSettings;
-import de.elmar_baumann.imv.controller.Controller;
 import de.elmar_baumann.imv.data.SavedSearch;
 import de.elmar_baumann.imv.database.DatabaseSavedSearches;
 import de.elmar_baumann.imv.model.ListModelSavedSearches;
@@ -23,8 +22,7 @@ import javax.swing.JOptionPane;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/10
  */
-public final class ControllerRenameSavedSearch extends Controller
-    implements ActionListener {
+public final class ControllerRenameSavedSearch implements ActionListener {
 
     private final DatabaseSavedSearches db = DatabaseSavedSearches.getInstance();
     private final PopupMenuListSavedSearches actionPopup = PopupMenuListSavedSearches.getInstance();
@@ -38,9 +36,7 @@ public final class ControllerRenameSavedSearch extends Controller
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (isControl()) {
-            rename();
-        }
+        rename();
     }
 
     private void rename() {
@@ -80,42 +76,42 @@ public final class ControllerRenameSavedSearch extends Controller
 
     private String getInput(String oldName) {
         return JOptionPane.showInputDialog(
-            null,
-            Bundle.getString("ControllerRenameSavedSearch.Input.NewName"),
-            oldName);
+                null,
+                Bundle.getString("ControllerRenameSavedSearch.Input.NewName"),
+                oldName);
     }
 
     private boolean confirmInputDifferentName(String input) throws HeadlessException {
         MessageFormat message = new MessageFormat(Bundle.getString("ControllerRenameSavedSearch.ConfirmMessage.ChangeNameBecauseExists"));
         Object[] params = {input};
         return JOptionPane.showConfirmDialog(
-            null,
-            message.format(params),
-            Bundle.getString("ControllerRenameSavedSearch.ConfirmMessage.ChangeNameBecauseExists.Title"),
-            JOptionPane.YES_NO_OPTION,
-            JOptionPane.QUESTION_MESSAGE,
-            AppSettings.getMediumAppIcon()) == JOptionPane.YES_OPTION;
+                null,
+                message.format(params),
+                Bundle.getString("ControllerRenameSavedSearch.ConfirmMessage.ChangeNameBecauseExists.Title"),
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                AppSettings.getMediumAppIcon()) == JOptionPane.YES_OPTION;
     }
 
     private void messageErrorRename(String searchName) {
         MessageFormat msg = new MessageFormat(Bundle.getString("ControllerRenameSavedSearch.ErrorMessage.RenameFailed"));
         Object[] param = {searchName};
         JOptionPane.showMessageDialog(
-            null,
-            msg.format(param),
-            Bundle.getString("ControllerRenameSavedSearch.ErrorMessage.RenameFailed.Title"),
-            JOptionPane.ERROR_MESSAGE,
-            AppSettings.getMediumAppIcon());
+                null,
+                msg.format(param),
+                Bundle.getString("ControllerRenameSavedSearch.ErrorMessage.RenameFailed.Title"),
+                JOptionPane.ERROR_MESSAGE,
+                AppSettings.getMediumAppIcon());
     }
 
     private void messageErrorRenameGetUpdate(String searchName) {
         MessageFormat msg = new MessageFormat(Bundle.getString("ControllerRenameSavedSearch.ErrorMessage.SavedSearchWasRenamedButCouldntBeLoaded"));
         Object[] param = {searchName};
         JOptionPane.showMessageDialog(
-            null,
-            msg.format(param),
-            Bundle.getString("ControllerRenameSavedSearch.ErrorMessage.SavedSearchWasRenamedButCouldntBeLoadedTitle"),
-            JOptionPane.ERROR_MESSAGE,
-            AppSettings.getMediumAppIcon());
+                null,
+                msg.format(param),
+                Bundle.getString("ControllerRenameSavedSearch.ErrorMessage.SavedSearchWasRenamedButCouldntBeLoadedTitle"),
+                JOptionPane.ERROR_MESSAGE,
+                AppSettings.getMediumAppIcon());
     }
 }

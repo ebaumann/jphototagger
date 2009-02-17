@@ -1,6 +1,5 @@
 package de.elmar_baumann.imv.controller.metadata;
 
-import de.elmar_baumann.imv.controller.Controller;
 import de.elmar_baumann.imv.view.dialogs.UpdateMetadataOfDirectoriesDialog;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,14 +10,11 @@ import java.awt.event.ActionListener;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/25
  */
-public final class ControllerShowUpdateMetadataDialog extends Controller
-    implements ActionListener {
+public final class ControllerShowUpdateMetadataDialog implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (isControl()) {
-            showDialog();
-        }
+        showDialog();
     }
 
     private void showDialog() {

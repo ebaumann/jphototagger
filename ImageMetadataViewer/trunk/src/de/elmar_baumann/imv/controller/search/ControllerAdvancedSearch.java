@@ -1,6 +1,5 @@
 package de.elmar_baumann.imv.controller.search;
 
-import de.elmar_baumann.imv.controller.Controller;
 import de.elmar_baumann.imv.data.SavedSearch;
 import de.elmar_baumann.imv.data.SavedSearchParamStatement;
 import de.elmar_baumann.imv.database.DatabaseSearch;
@@ -28,8 +27,7 @@ import javax.swing.JTree;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public final class ControllerAdvancedSearch extends Controller
-    implements ActionListener, SearchListener {
+public final class ControllerAdvancedSearch implements ActionListener, SearchListener {
 
     private final DatabaseSearch db = DatabaseSearch.getInstance();
     private final AppPanel appPanel = Panels.getInstance().getAppPanel();
@@ -47,14 +45,12 @@ public final class ControllerAdvancedSearch extends Controller
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (isControl()) {
-            showAdvancedSearchDialog();
-        }
+        showAdvancedSearchDialog();
     }
 
     @Override
     public void actionPerformed(SearchEvent e) {
-        if (isControl() && e.getType().equals(SearchEvent.Type.START)) {
+        if (e.getType().equals(SearchEvent.Type.START)) {
             applySafedSearch(e);
             checkEditPanel();
         }
@@ -84,7 +80,7 @@ public final class ControllerAdvancedSearch extends Controller
         List<String> filenames = db.searchFilenames(stmt);
 
         thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames),
-            Content.SAFED_SEARCH);
+                Content.SAFED_SEARCH);
     }
 
     private void checkEditPanel() {

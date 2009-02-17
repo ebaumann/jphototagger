@@ -1,6 +1,5 @@
 package de.elmar_baumann.imv.controller.thumbnail;
 
-import de.elmar_baumann.imv.controller.Controller;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,8 +10,7 @@ import java.awt.event.ActionListener;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/25
  */
-public final class ControllerRefreshThumbnailsPanel extends Controller
-    implements ActionListener {
+public final class ControllerRefreshThumbnailsPanel implements ActionListener {
 
     private final ImageFileThumbnailsPanel thumbnailspanel;
 
@@ -22,8 +20,6 @@ public final class ControllerRefreshThumbnailsPanel extends Controller
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (isControl()) {
-            thumbnailspanel.refresh();
-        }
+        thumbnailspanel.refresh();
     }
 }

@@ -1,6 +1,5 @@
 package de.elmar_baumann.imv.controller.imagecollection;
 
-import de.elmar_baumann.imv.controller.Controller;
 import de.elmar_baumann.imv.database.DatabaseImageCollections;
 import de.elmar_baumann.imv.event.RefreshListener;
 import de.elmar_baumann.imv.resource.Panels;
@@ -22,8 +21,7 @@ import javax.swing.event.ListSelectionListener;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public final class ControllerImageCollectionSelected extends Controller
-    implements ListSelectionListener, RefreshListener {
+public final class ControllerImageCollectionSelected implements ListSelectionListener, RefreshListener {
 
     private final DatabaseImageCollections db = DatabaseImageCollections.getInstance();
     private final AppPanel appPanel = Panels.getInstance().getAppPanel();
@@ -42,7 +40,7 @@ public final class ControllerImageCollectionSelected extends Controller
 
     @Override
     public void valueChanged(ListSelectionEvent e) {
-        if (isControl() && list.getSelectedIndex() >= 0) {
+        if (list.getSelectedIndex() >= 0) {
             showImageCollection();
             checkEditPanel();
         }
@@ -50,7 +48,7 @@ public final class ControllerImageCollectionSelected extends Controller
 
     @Override
     public void refresh() {
-        if (isControl() && list.getSelectedIndex() >= 0) {
+        if (list.getSelectedIndex() >= 0) {
             showImageCollection();
             checkEditPanel();
         }
@@ -58,7 +56,7 @@ public final class ControllerImageCollectionSelected extends Controller
 
     private void showImageCollection() {
         Object selected = list.getSelectedValue();
-        if (isControl() && selected != null) {
+        if (selected != null) {
             showImageCollection(selected.toString());
         }
     }

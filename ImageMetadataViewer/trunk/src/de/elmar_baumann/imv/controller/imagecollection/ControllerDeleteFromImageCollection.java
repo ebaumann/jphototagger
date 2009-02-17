@@ -1,6 +1,5 @@
 package de.elmar_baumann.imv.controller.imagecollection;
 
-import de.elmar_baumann.imv.controller.Controller;
 import de.elmar_baumann.imv.types.Content;
 import de.elmar_baumann.imv.tasks.ImageCollectionToDatabase;
 import de.elmar_baumann.imv.resource.Panels;
@@ -21,8 +20,7 @@ import javax.swing.JList;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/00/10
  */
-public final class ControllerDeleteFromImageCollection extends Controller
-    implements ActionListener {
+public final class ControllerDeleteFromImageCollection implements ActionListener {
 
     private final AppPanel appPanel = Panels.getInstance().getAppPanel();
     private final JList list = appPanel.getListImageCollections();
@@ -40,9 +38,8 @@ public final class ControllerDeleteFromImageCollection extends Controller
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (isControl() && 
-            thumbnailsPanel.getContent().equals(Content.IMAGE_COLLECTION) &&
-            thumbnailsPanel.getSelectionCount() > 0) {
+        if (thumbnailsPanel.getContent().equals(Content.IMAGE_COLLECTION) &&
+                thumbnailsPanel.getSelectionCount() > 0) {
             deleteSelectedFilesFromImageCollection();
         }
     }
@@ -53,7 +50,7 @@ public final class ControllerDeleteFromImageCollection extends Controller
             ImageCollectionToDatabase manager = new ImageCollectionToDatabase();
             List<File> selectedFiles = thumbnailsPanel.getSelectedFiles();
             manager.deleteImagesFromCollection(selected.toString(),
-                FileUtil.getAsFilenames(selectedFiles));
+                    FileUtil.getAsFilenames(selectedFiles));
             thumbnailsPanel.remove(selectedFiles);
         }
     }

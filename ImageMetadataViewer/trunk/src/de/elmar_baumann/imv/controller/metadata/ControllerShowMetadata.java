@@ -2,7 +2,6 @@ package de.elmar_baumann.imv.controller.metadata;
 
 import com.adobe.xmp.XMPConst;
 import com.adobe.xmp.properties.XMPPropertyInfo;
-import de.elmar_baumann.imv.controller.Controller;
 import de.elmar_baumann.imv.data.MetadataDisplay;
 import de.elmar_baumann.imv.database.DatabaseImageFiles;
 import de.elmar_baumann.imv.event.DatabaseAction;
@@ -32,8 +31,7 @@ import javax.swing.JTable;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public final class ControllerShowMetadata extends Controller
-    implements DatabaseListener, ThumbnailsPanelListener {
+public final class ControllerShowMetadata implements DatabaseListener, ThumbnailsPanelListener {
 
     private final Map<TableModelXmp, String[]> namespacesOfXmpTableModel = new HashMap<TableModelXmp, String[]>();
     private final AppPanel appPanel = Panels.getInstance().getAppPanel();
@@ -72,27 +70,27 @@ public final class ControllerShowMetadata extends Controller
 
     private void initNamespacesOfXmpTableModelMap() {
         namespacesOfXmpTableModel.put(data.getXmpTableModelDc(),
-            new String[]{XMPConst.NS_DC, XMPConst.NS_DC_DEPRECATED});
+                new String[]{XMPConst.NS_DC, XMPConst.NS_DC_DEPRECATED});
         namespacesOfXmpTableModel.put(data.getXmpTableModelExif(),
-            new String[]{
-                XMPConst.NS_EXIF,
-                XMPConst.NS_EXIF_AUX
-            });
+                new String[]{
+                    XMPConst.NS_EXIF,
+                    XMPConst.NS_EXIF_AUX
+                });
         namespacesOfXmpTableModel.put(data.getXmpTableModelIptc(),
-            new String[]{XMPConst.NS_IPTCCORE});
+                new String[]{XMPConst.NS_IPTCCORE});
         namespacesOfXmpTableModel.put(data.getXmpTableModelLightroom(),
-            new String[]{"http://ns.adobe.com/lightroom/1.0/"}); // NOI18N;
+                new String[]{"http://ns.adobe.com/lightroom/1.0/"}); // NOI18N;
         namespacesOfXmpTableModel.put(data.getXmpTableModelPhotoshop(),
-            new String[]{XMPConst.NS_PHOTOSHOP});
+                new String[]{XMPConst.NS_PHOTOSHOP});
         namespacesOfXmpTableModel.put(data.getXmpTableModelTiff(),
-            new String[]{XMPConst.NS_TIFF});
+                new String[]{XMPConst.NS_TIFF});
         namespacesOfXmpTableModel.put(data.getXmpTableModelCameraRawSettings(),
-            new String[]{
-                XMPConst.NS_CAMERARAW,
-                "http://ns.adobe.com/camera-raw-saved-settings/1.0/" // NOI18N
-            });
+                new String[]{
+                    XMPConst.NS_CAMERARAW,
+                    "http://ns.adobe.com/camera-raw-saved-settings/1.0/" // NOI18N
+                });
         namespacesOfXmpTableModel.put(data.getXmpTableModelXap(),
-            new String[]{XMPConst.NS_XMP, XMPConst.NS_XMP_RIGHTS});
+                new String[]{XMPConst.NS_XMP, XMPConst.NS_XMP_RIGHTS});
     }
 
     private void listenToActionSources() {
@@ -102,12 +100,10 @@ public final class ControllerShowMetadata extends Controller
 
     @Override
     public void selectionChanged(ThumbnailsPanelAction action) {
-        if (isControl()) {
-            if (data.getThumbnailsPanel().getSelectionCount() == 1) {
-                showMetadataOfFile(data.getThumbnailsPanel().getFile(action.getThumbnailIndex()));
-            } else {
-                emptyMetadata();
-            }
+        if (data.getThumbnailsPanel().getSelectionCount() == 1) {
+            showMetadataOfFile(data.getThumbnailsPanel().getFile(action.getThumbnailIndex()));
+        } else {
+            emptyMetadata();
         }
     }
 
@@ -161,17 +157,17 @@ public final class ControllerShowMetadata extends Controller
         if (allInfos != null) {
             for (TableModelXmp model : data.getXmpTableModels()) {
                 setPropertyInfosToXmpTableModel(filename,
-                    model, allInfos, namespacesOfXmpTableModel.get(model));
+                        model, allInfos, namespacesOfXmpTableModel.get(model));
             }
         }
     }
 
     private void setPropertyInfosToXmpTableModel(String filename, TableModelXmp model,
-        List<XMPPropertyInfo> allInfos, String[] namespaces) {
+            List<XMPPropertyInfo> allInfos, String[] namespaces) {
         List<XMPPropertyInfo> infos = new ArrayList<XMPPropertyInfo>();
         for (int index = 0; index < namespaces.length; index++) {
             infos.addAll(XmpMetadata.getPropertyInfosOfNamespace(allInfos,
-                namespaces[index]));
+                    namespaces[index]));
         }
         model.setPropertyInfosOfFile(filename, infos);
     }
@@ -189,10 +185,10 @@ public final class ControllerShowMetadata extends Controller
     @Override
     public void actionPerformed(DatabaseAction action) {
         DatabaseAction.Type actionType = action.getType();
-        if (isControl() && (actionType.equals(DatabaseAction.Type.IMAGEFILE_INSERTED) ||
-            actionType.equals(DatabaseAction.Type.IMAGEFILE_UPDATED))) {
+        if ((actionType.equals(DatabaseAction.Type.IMAGEFILE_INSERTED) ||
+                actionType.equals(DatabaseAction.Type.IMAGEFILE_UPDATED))) {
             showUpdates(action.getImageFileData().getFile());
-        } else if (isControl() && actionType.equals(DatabaseAction.Type.XMP_UPDATED)) {
+        } else if (actionType.equals(DatabaseAction.Type.XMP_UPDATED)) {
             showUpdates(action.getFile());
         }
     }

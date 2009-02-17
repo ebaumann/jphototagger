@@ -1,6 +1,5 @@
 package de.elmar_baumann.imv.controller.programs;
 
-import de.elmar_baumann.imv.controller.Controller;
 import de.elmar_baumann.imv.data.Program;
 import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.tasks.ProgramExecutor;
@@ -17,8 +16,7 @@ import java.awt.event.ActionListener;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/10
  */
-public final class ControllerOpenFilesWithOtherApp extends Controller
-    implements ActionListener {
+public final class ControllerOpenFilesWithOtherApp implements ActionListener {
 
     private final PopupMenuPanelThumbnails popup;
     private final ImageFileThumbnailsPanel thumbnailsPanel;
@@ -33,9 +31,7 @@ public final class ControllerOpenFilesWithOtherApp extends Controller
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (isControl()) {
-            openFiles(popup.getProgram(e.getSource()));
-        }
+        openFiles(popup.getProgram(e.getSource()));
     }
 
     private void openFiles(Program program) {

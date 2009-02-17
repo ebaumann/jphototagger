@@ -1,7 +1,6 @@
 package de.elmar_baumann.imv.controller.thumbnail;
 
 import de.elmar_baumann.imv.UserSettings;
-import de.elmar_baumann.imv.controller.Controller;
 import de.elmar_baumann.imv.database.DatabasePrograms;
 import de.elmar_baumann.imv.event.ThumbnailsPanelAction;
 import de.elmar_baumann.imv.event.ThumbnailsPanelListener;
@@ -25,8 +24,8 @@ import javax.swing.JMenuItem;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/27
  */
-public final class ControllerMenuItemEnabler extends Controller
-    implements UserSettingsChangeListener, ThumbnailsPanelListener {
+public final class ControllerMenuItemEnabler
+        implements UserSettingsChangeListener, ThumbnailsPanelListener {
 
     private final Map<JMenuItem, List<Content>> contentsOfMenuItem = new HashMap<JMenuItem, List<Content>>();
     private final List<JMenuItem> itemsIsSelection = new ArrayList<JMenuItem>();
@@ -86,37 +85,33 @@ public final class ControllerMenuItemEnabler extends Controller
 
         for (JMenuItem item : contentsOfMenuItem.keySet()) {
             item.setEnabled(
-                isSelection &&
-                contentsOfMenuItem.get(item).contains(content));
+                    isSelection &&
+                    contentsOfMenuItem.get(item).contains(content));
         }
 
         UserSettings settings = UserSettings.getInstance();
 
         itemOpenFilesWithStandardApp.setEnabled(
-            isSelection &&
-            settings.hasDefaultImageOpenApp());
+                isSelection &&
+                settings.hasDefaultImageOpenApp());
 
         menuOtherOpenImageApps.setEnabled(
-            isSelection && hasPrograms);
+                isSelection && hasPrograms);
     }
 
     @Override
     public void selectionChanged(ThumbnailsPanelAction action) {
-        if (isControl()) {
-            setEnabled();
-        }
+        setEnabled();
     }
 
     @Override
     public void thumbnailsChanged() {
-        if (isControl()) {
-            setEnabled();
-        }
+        setEnabled();
     }
 
     @Override
     public void applySettings(UserSettingsChangeEvent evt) {
-        if (isControl() && evt.getType().equals(UserSettingsChangeEvent.Type.OTHER_IMAGE_OPEN_APPS)) {
+        if (evt.getType().equals(UserSettingsChangeEvent.Type.OTHER_IMAGE_OPEN_APPS)) {
             hasPrograms = DatabasePrograms.getInstance().hasProgram();
             setEnabled();
         }

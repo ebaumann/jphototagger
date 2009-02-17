@@ -1,6 +1,5 @@
 package de.elmar_baumann.imv.controller.imagecollection;
 
-import de.elmar_baumann.imv.controller.Controller;
 import de.elmar_baumann.imv.model.ListModelImageCollections;
 import de.elmar_baumann.imv.tasks.ImageCollectionToDatabase;
 import de.elmar_baumann.imv.resource.Panels;
@@ -17,8 +16,7 @@ import javax.swing.JList;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/00/10
  */
-public final class ControllerRenameImageCollection extends Controller
-    implements ActionListener {
+public final class ControllerRenameImageCollection implements ActionListener {
 
     private final PopupMenuListImageCollections actionPopup = PopupMenuListImageCollections.getInstance();
     private final AppPanel appPanel = Panels.getInstance().getAppPanel();
@@ -31,9 +29,7 @@ public final class ControllerRenameImageCollection extends Controller
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (isControl()) {
-            renameImageCollection();
-        }
+        renameImageCollection();
     }
 
     private void renameImageCollection() {

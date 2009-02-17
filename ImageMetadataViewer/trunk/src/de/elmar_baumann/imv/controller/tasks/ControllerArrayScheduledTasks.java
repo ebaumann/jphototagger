@@ -1,9 +1,9 @@
 package de.elmar_baumann.imv.controller.tasks;
 
 import de.elmar_baumann.imv.UserSettings;
-import de.elmar_baumann.imv.controller.Controller;
 import de.elmar_baumann.imv.event.TaskListener;
 import de.elmar_baumann.imv.resource.Panels;
+import de.elmar_baumann.imv.tasks.Task;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,47 +18,29 @@ import javax.swing.JProgressBar;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/14
  */
-public final class ControllerArrayScheduledTasks extends Controller
-    implements ActionListener, Runnable, TaskListener {
+public final class ControllerArrayScheduledTasks
+        implements ActionListener, Runnable, TaskListener {
 
     private final AppPanel appPanel = Panels.getInstance().getAppPanel();
     private final JProgressBar progressBar = appPanel.getProgressBarScheduledTasks();
     private final JButton buttonStop = appPanel.getButtonStopScheduledTasks();
-    private final Queue<Controller> controllers = new ConcurrentLinkedQueue<Controller>();
-    private Controller activeController;
+    private final Queue<Task> controllers = new ConcurrentLinkedQueue<Task>();
+    private Task activeController;
     private int milliSecondsToStart = UserSettings.getInstance().
-        getMinutesToStartScheduledTasks() * 60 * 1000;
+            getMinutesToStartScheduledTasks() * 60 * 1000;
 
     public ControllerArrayScheduledTasks() {
         buttonStop.addActionListener(this);
         initArray();
     }
 
-    @Override
-    public void setControl(boolean control) {
-        super.setControl(control);
-        setControlToArray(control);
-    }
-
-    // Can't call if true, because some controllers will start after call.
-    // The will be started in startFirstController() and taskCompleted()
-    // if this controller has control
-    private void setControlToArray(boolean control) {
-        if (!control) {
-            for (Controller controller : controllers) {
-                controller.setControl(false);
-            }
-        }
-    }
-
     private void handleButtonStopClicked() {
         buttonStop.setEnabled(false);
-        setControl(false);
     }
 
     private void initArray() {
         ControllerAutoUpdateMetadataTask controllerAutoUpdateMetadataTask =
-            new ControllerAutoUpdateMetadataTask(progressBar);
+                new ControllerAutoUpdateMetadataTask(progressBar);
 
         controllerAutoUpdateMetadataTask.addTaskListener(this);
 
@@ -66,7 +48,7 @@ public final class ControllerArrayScheduledTasks extends Controller
 
         if (UserSettings.getInstance().isTaskRemoveRecordsWithNotExistingFiles()) {
             ControllerRecordsWithNotExistingFilesDeleter controllerRecordsWithNotExistingFilesDeleter =
-                new ControllerRecordsWithNotExistingFilesDeleter(progressBar);
+                    new ControllerRecordsWithNotExistingFilesDeleter(progressBar);
 
             controllerRecordsWithNotExistingFilesDeleter.addTaskListener(this);
 
@@ -78,7 +60,6 @@ public final class ControllerArrayScheduledTasks extends Controller
         if (!controllers.isEmpty()) {
             buttonStop.setEnabled(true);
             activeController = controllers.remove();
-            activeController.setControl(true);
         }
     }
 
@@ -89,9 +70,7 @@ public final class ControllerArrayScheduledTasks extends Controller
         } catch (InterruptedException ex) {
             de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
         }
-        if (isControl()) {
-            startFirstController();
-        }
+        startFirstController();
     }
 
     @Override
@@ -100,7 +79,6 @@ public final class ControllerArrayScheduledTasks extends Controller
         System.gc();
         if (!controllers.isEmpty()) {
             activeController = controllers.remove();
-            activeController.setControl(true);
         }
     }
 

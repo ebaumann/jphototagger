@@ -96,7 +96,8 @@ public final class AppFrame extends javax.swing.JFrame {
         initGotoMenuItemsMap();
         listenToClose();
         setTitleAndFrameIcon();
-        MetaFactory.INSTANCE.init();
+        Thread thread = new Thread(MetaFactory.INSTANCE);
+        thread.start();
         addAppExitListener(appPanel);
         appPanel.getEditPanelsArray().addDeleteListenerTo(menuItemDelete);
         notifyStart();
@@ -218,7 +219,6 @@ public final class AppFrame extends javax.swing.JFrame {
 
     private void quit() {
         notifyExit();
-        MetaFactory.INSTANCE.stopController();
         writePersistent();
         dispose();
         AppLock.unlock();

@@ -1,6 +1,5 @@
 package de.elmar_baumann.imv.controller.thumbnail;
 
-import de.elmar_baumann.imv.controller.Controller;
 import de.elmar_baumann.imv.event.AppExitListener;
 import de.elmar_baumann.imv.event.ThumbnailsPanelAction;
 import de.elmar_baumann.imv.event.ThumbnailsPanelListener;
@@ -19,7 +18,7 @@ import java.util.List;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/15
  */
-public final class ControllerThumbnailsPanelPersistence extends Controller
+public final class ControllerThumbnailsPanelPersistence
     implements ThumbnailsPanelListener, AppExitListener {
 
     private boolean onceApplied = false;

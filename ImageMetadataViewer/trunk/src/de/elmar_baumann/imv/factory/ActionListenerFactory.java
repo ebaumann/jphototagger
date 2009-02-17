@@ -23,6 +23,7 @@ public final class ActionListenerFactory {
     private boolean init = false;
 
     synchronized void init() {
+        Util.checkInit(ActionListenerFactory.class, init);
         if (!init) {
             init = true;
             AppPanel appPanel = Panels.getInstance().getAppPanel();

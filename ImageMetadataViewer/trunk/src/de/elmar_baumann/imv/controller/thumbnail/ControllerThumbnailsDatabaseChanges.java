@@ -1,6 +1,5 @@
 package de.elmar_baumann.imv.controller.thumbnail;
 
-import de.elmar_baumann.imv.controller.Controller;
 import de.elmar_baumann.imv.database.DatabaseImageFiles;
 import de.elmar_baumann.imv.event.DatabaseAction;
 import de.elmar_baumann.imv.event.DatabaseListener;
@@ -16,7 +15,7 @@ import java.util.List;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/15
  */
-public final class ControllerThumbnailsDatabaseChanges extends Controller
+public final class ControllerThumbnailsDatabaseChanges
     implements DatabaseListener {
     
     private final DatabaseImageFiles db = DatabaseImageFiles.getInstance();

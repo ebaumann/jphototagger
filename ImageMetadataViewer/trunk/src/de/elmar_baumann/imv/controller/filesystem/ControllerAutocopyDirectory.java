@@ -2,7 +2,6 @@ package de.elmar_baumann.imv.controller.filesystem;
 
 import de.elmar_baumann.imv.AppSettings;
 import de.elmar_baumann.imv.UserSettings;
-import de.elmar_baumann.imv.controller.Controller;
 import de.elmar_baumann.imv.io.ImageFilteredDirectory;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.Panels;
@@ -22,7 +21,7 @@ import javax.swing.JOptionPane;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/19
  */
-public final class ControllerAutocopyDirectory extends Controller implements ActionListener {
+public final class ControllerAutocopyDirectory implements ActionListener {
 
     public ControllerAutocopyDirectory() {
         Panels.getInstance().getAppFrame().getMenuItemAutocopyDirectory().addActionListener(this);
@@ -30,9 +29,7 @@ public final class ControllerAutocopyDirectory extends Controller implements Act
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (isControl()) {
-            copy();
-        }
+        copy();
     }
 
     private void copy() {
@@ -70,20 +67,20 @@ public final class ControllerAutocopyDirectory extends Controller implements Act
 
     private void messageNoFilesFound() {
         JOptionPane.showMessageDialog(
-            null,
-            Bundle.getString("ControllerAutocopyDirectory.InformationMessage.NoFilesFound"),
-            Bundle.getString("ControllerAutocopyDirectory.InformationMessage.NoFilesFound.Title"),
-            JOptionPane.INFORMATION_MESSAGE,
-            AppSettings.getMediumAppIcon());
+                null,
+                Bundle.getString("ControllerAutocopyDirectory.InformationMessage.NoFilesFound"),
+                Bundle.getString("ControllerAutocopyDirectory.InformationMessage.NoFilesFound.Title"),
+                JOptionPane.INFORMATION_MESSAGE,
+                AppSettings.getMediumAppIcon());
     }
 
     private boolean settingsMessage() {
         return JOptionPane.showConfirmDialog(
-            null,
-            Bundle.getString("ControllerAutocopyDirectory.ConfirmMessage.DefineDirectory"),
-            Bundle.getString("ControllerAutocopyDirectory.ConfirmMessage.DefineDirectory.Title"),
-            JOptionPane.ERROR_MESSAGE,
-            JOptionPane.YES_NO_OPTION,
-            AppSettings.getMediumAppIcon()) == JOptionPane.YES_OPTION;
+                null,
+                Bundle.getString("ControllerAutocopyDirectory.ConfirmMessage.DefineDirectory"),
+                Bundle.getString("ControllerAutocopyDirectory.ConfirmMessage.DefineDirectory.Title"),
+                JOptionPane.ERROR_MESSAGE,
+                JOptionPane.YES_NO_OPTION,
+                AppSettings.getMediumAppIcon()) == JOptionPane.YES_OPTION;
     }
 }

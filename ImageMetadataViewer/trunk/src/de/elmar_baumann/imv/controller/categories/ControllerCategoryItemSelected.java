@@ -1,6 +1,5 @@
 package de.elmar_baumann.imv.controller.categories;
 
-import de.elmar_baumann.imv.controller.Controller;
 import de.elmar_baumann.imv.database.DatabaseImageFiles;
 import de.elmar_baumann.imv.event.RefreshListener;
 import de.elmar_baumann.imv.resource.Panels;
@@ -19,8 +18,7 @@ import javax.swing.event.ListSelectionListener;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public final class ControllerCategoryItemSelected extends Controller
-    implements ListSelectionListener, RefreshListener {
+public final class ControllerCategoryItemSelected implements ListSelectionListener, RefreshListener {
 
     private final DatabaseImageFiles db = DatabaseImageFiles.getInstance();
     private final AppPanel appPanel = Panels.getInstance().getAppPanel();
@@ -38,14 +36,14 @@ public final class ControllerCategoryItemSelected extends Controller
 
     @Override
     public void refresh() {
-        if (isControl() && listCategories.getSelectedIndex() >= 0) {
+        if (listCategories.getSelectedIndex() >= 0) {
             setFilesToThumbnailsPanel();
         }
     }
 
     @Override
     public void valueChanged(ListSelectionEvent e) {
-        if (isControl() && listCategories.getSelectedIndex() >= 0) {
+        if (listCategories.getSelectedIndex() >= 0) {
             setFilesToThumbnailsPanel();
         }
     }

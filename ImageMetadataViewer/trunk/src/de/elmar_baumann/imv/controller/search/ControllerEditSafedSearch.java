@@ -1,6 +1,5 @@
 package de.elmar_baumann.imv.controller.search;
 
-import de.elmar_baumann.imv.controller.Controller;
 import de.elmar_baumann.imv.view.dialogs.AdvancedSearchDialog;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuListSavedSearches;
 import java.awt.event.ActionEvent;
@@ -13,8 +12,7 @@ import java.awt.event.ActionListener;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/10
  */
-public final class ControllerEditSafedSearch extends Controller
-    implements ActionListener {
+public final class ControllerEditSafedSearch implements ActionListener {
 
     private final PopupMenuListSavedSearches actionPopup = PopupMenuListSavedSearches.getInstance();
 
@@ -24,9 +22,7 @@ public final class ControllerEditSafedSearch extends Controller
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (isControl()) {
-            showAdvancedSearchDialog();
-        }
+        showAdvancedSearchDialog();
     }
 
     private void showAdvancedSearchDialog() {

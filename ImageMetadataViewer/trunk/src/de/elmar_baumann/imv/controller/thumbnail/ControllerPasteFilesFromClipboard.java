@@ -1,6 +1,5 @@
 package de.elmar_baumann.imv.controller.thumbnail;
 
-import de.elmar_baumann.imv.controller.Controller;
 import de.elmar_baumann.imv.datatransfer.TransferHandlerTreeDirectories;
 import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.types.Content;
@@ -20,7 +19,7 @@ import javax.swing.TransferHandler;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/27
  */
-public final class ControllerPasteFilesFromClipboard extends Controller implements ActionListener {
+public final class ControllerPasteFilesFromClipboard implements ActionListener {
 
     private final ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
 
@@ -30,7 +29,7 @@ public final class ControllerPasteFilesFromClipboard extends Controller implemen
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (isControl() && thumbnailsPanel.getContent().equals(Content.DIRECTORY)) {
+        if (thumbnailsPanel.getContent().equals(Content.DIRECTORY)) {
             insertFiles();
         }
     }

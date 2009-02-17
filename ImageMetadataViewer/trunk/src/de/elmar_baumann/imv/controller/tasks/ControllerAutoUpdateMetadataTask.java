@@ -2,11 +2,11 @@ package de.elmar_baumann.imv.controller.tasks;
 
 import de.elmar_baumann.imv.AppSettings;
 import de.elmar_baumann.imv.UserSettings;
-import de.elmar_baumann.imv.controller.Controller;
 import de.elmar_baumann.imv.database.Database;
 import de.elmar_baumann.imv.database.DatabaseAutoscanDirectories;
 import de.elmar_baumann.imv.event.TaskListener;
 import de.elmar_baumann.imv.tasks.ImageMetadataToDatabaseArray;
+import de.elmar_baumann.imv.tasks.Task;
 import de.elmar_baumann.imv.types.DatabaseUpdate;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.util.ArrayList;
@@ -25,8 +25,8 @@ import javax.swing.JProgressBar;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public final class ControllerAutoUpdateMetadataTask extends Controller
-    implements TaskListener {
+public final class ControllerAutoUpdateMetadataTask
+        implements TaskListener, Task {
 
     private final JProgressBar progressBar;
     private ImageMetadataToDatabaseArray updaterArray;
@@ -44,7 +44,6 @@ public final class ControllerAutoUpdateMetadataTask extends Controller
 
         init();
         updaterArray.addTaskListener(this);
-        super.setControl(false);
     }
 
     private void init() {
@@ -72,13 +71,13 @@ public final class ControllerAutoUpdateMetadataTask extends Controller
     }
 
     @Override
-    public void setControl(boolean control) {
-        super.setControl(control);
-        if (control) {
-            startUpdate();
-        } else {
-            updaterArray.stop();
-        }
+    public void stop() {
+        updaterArray.stop();
+    }
+
+    @Override
+    public void start() {
+        startUpdate();
     }
 
     private void startUpdate() {
@@ -106,8 +105,8 @@ public final class ControllerAutoUpdateMetadataTask extends Controller
         if (UserSettings.getInstance().isAutoscanIncludeSubdirectories()) {
             for (String directoryName : directoryNames) {
                 subdirectoryNames.addAll(
-                    FileUtil.getAllSubDirectoryNames(directoryName,
-                    UserSettings.getInstance().isAcceptHiddenDirectories()));
+                        FileUtil.getAllSubDirectoryNames(directoryName,
+                        UserSettings.getInstance().isAcceptHiddenDirectories()));
             }
             directoryNames.addAll(subdirectoryNames);
         }

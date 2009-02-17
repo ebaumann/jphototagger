@@ -1,6 +1,5 @@
 package de.elmar_baumann.imv.controller.search;
 
-import de.elmar_baumann.imv.controller.Controller;
 import de.elmar_baumann.imv.data.SavedSearch;
 import de.elmar_baumann.imv.database.DatabaseSearch;
 import de.elmar_baumann.imv.database.metadata.ParamStatement;
@@ -22,8 +21,8 @@ import javax.swing.event.ListSelectionListener;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public final class ControllerSafedSearchSelected extends Controller
-    implements ListSelectionListener, RefreshListener {
+public final class ControllerSafedSearchSelected
+        implements ListSelectionListener, RefreshListener {
 
     private final AppPanel appPanel = Panels.getInstance().getAppPanel();
     private final DatabaseSearch db = DatabaseSearch.getInstance();
@@ -42,7 +41,7 @@ public final class ControllerSafedSearchSelected extends Controller
 
     @Override
     public void valueChanged(ListSelectionEvent e) {
-        if (isControl() && list.getSelectedIndex() >= 0) {
+        if (list.getSelectedIndex() >= 0) {
             searchSelectedValue();
             checkEditPanel();
         }
@@ -50,14 +49,14 @@ public final class ControllerSafedSearchSelected extends Controller
 
     @Override
     public void refresh() {
-        if (isControl() && list.getSelectedIndex() >= 0) {
+        if (list.getSelectedIndex() >= 0) {
             searchSelectedValue();
         }
     }
 
     private void searchSelectedValue() {
         Object selectedValue = list.getSelectedValue();
-        if (isControl() && selectedValue != null) {
+        if (selectedValue != null) {
             searchSelectedValue(selectedValue);
         }
     }

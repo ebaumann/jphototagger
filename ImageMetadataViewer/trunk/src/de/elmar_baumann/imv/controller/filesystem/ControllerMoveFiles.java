@@ -1,6 +1,5 @@
 package de.elmar_baumann.imv.controller.filesystem;
 
-import de.elmar_baumann.imv.controller.Controller;
 import de.elmar_baumann.imv.database.DatabaseImageFiles;
 import de.elmar_baumann.imv.event.FileSystemAction;
 import de.elmar_baumann.imv.event.FileSystemActionListener;
@@ -21,8 +20,7 @@ import java.util.List;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/13
  */
-public final class ControllerMoveFiles extends Controller
-    implements ActionListener, FileSystemActionListener {
+public final class ControllerMoveFiles implements ActionListener, FileSystemActionListener {
 
     private final ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
     private final DatabaseImageFiles db = DatabaseImageFiles.getInstance();
@@ -38,9 +36,7 @@ public final class ControllerMoveFiles extends Controller
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (isControl()) {
-            moveSelectedFiles();
-        }
+        moveSelectedFiles();
     }
 
     private void moveSelectedFiles() {

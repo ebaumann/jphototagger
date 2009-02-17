@@ -1,6 +1,5 @@
 package de.elmar_baumann.imv.controller.thumbnail;
 
-import de.elmar_baumann.imv.controller.Controller;
 import de.elmar_baumann.imv.io.FileSort;
 import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.view.frames.AppFrame;
@@ -15,7 +14,7 @@ import javax.swing.JRadioButtonMenuItem;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/14
  */
-public final class ControllerSortThumbnails extends Controller implements ActionListener {
+public final class ControllerSortThumbnails implements ActionListener {
 
     private final ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
     private final AppFrame appFrame = Panels.getInstance().getAppFrame();
@@ -33,9 +32,7 @@ public final class ControllerSortThumbnails extends Controller implements Action
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (isControl()) {
-            sortThumbnails(e);
-        }
+        sortThumbnails(e);
     }
 
     private void sortThumbnails(ActionEvent e) {

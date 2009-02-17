@@ -28,6 +28,7 @@ public final class ModelFactory {
     private boolean init = false;
 
     synchronized void init() {
+        Util.checkInit(ModelFactory.class, init);
         if (!init) {
             init = true;
             final AppPanel appPanel = Panels.getInstance().getAppPanel();

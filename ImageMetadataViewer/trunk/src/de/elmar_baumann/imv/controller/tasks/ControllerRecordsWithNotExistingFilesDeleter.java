@@ -1,12 +1,12 @@
 package de.elmar_baumann.imv.controller.tasks;
 
 import de.elmar_baumann.imv.UserSettings;
-import de.elmar_baumann.imv.controller.Controller;
 import de.elmar_baumann.imv.tasks.RecordsWithNotExistingFilesDeleter;
 import de.elmar_baumann.imv.event.ProgressEvent;
 import de.elmar_baumann.imv.event.ProgressListener;
 import de.elmar_baumann.imv.event.TaskListener;
 import de.elmar_baumann.imv.resource.Bundle;
+import de.elmar_baumann.imv.tasks.Task;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JProgressBar;
@@ -17,11 +17,12 @@ import javax.swing.JProgressBar;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public final class ControllerRecordsWithNotExistingFilesDeleter extends Controller
-    implements ProgressListener {
+public final class ControllerRecordsWithNotExistingFilesDeleter
+        implements ProgressListener, Task {
 
     private final JProgressBar progressBar;
     private final List<TaskListener> taskListeners = new ArrayList<TaskListener>();
+    volatile private boolean stop = false;
 
     /**
      * Konstruktor.
@@ -43,14 +44,6 @@ public final class ControllerRecordsWithNotExistingFilesDeleter extends Controll
     }
 
     @Override
-    public void setControl(boolean control) {
-        super.setControl(control);
-        if (control) {
-            startThread();
-        }
-    }
-
-    @Override
     public void progressStarted(ProgressEvent evt) {
         if (progressBar != null) {
             setProgressBar();
@@ -59,7 +52,7 @@ public final class ControllerRecordsWithNotExistingFilesDeleter extends Controll
 
     @Override
     public void progressPerformed(ProgressEvent evt) {
-        evt.setStop(!isControl());
+        evt.setStop(stop);
     }
 
     @Override
@@ -88,5 +81,17 @@ public final class ControllerRecordsWithNotExistingFilesDeleter extends Controll
         Thread thread = new Thread(deleter);
         thread.setPriority(UserSettings.getInstance().getThreadPriority());
         thread.start();
+    }
+
+    @Override
+    public void start() {
+        startThread();
+    }
+
+    @Override
+    public void stop() {
+        synchronized (this) {
+            stop = true;
+        }
     }
 }

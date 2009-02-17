@@ -1,7 +1,6 @@
 package de.elmar_baumann.imv.controller.thumbnail;
 
 import de.elmar_baumann.imv.UserSettings;
-import de.elmar_baumann.imv.controller.Controller;
 import de.elmar_baumann.imv.event.ListenerProvider;
 import de.elmar_baumann.imv.event.ThumbnailsPanelAction;
 import de.elmar_baumann.imv.event.ThumbnailsPanelListener;
@@ -21,8 +20,8 @@ import javax.swing.event.ChangeListener;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/12
  */
-public final class ControllerSliderThumbnailSize extends Controller
-    implements ChangeListener, ThumbnailsPanelListener, UserSettingsChangeListener {
+public final class ControllerSliderThumbnailSize
+        implements ChangeListener, ThumbnailsPanelListener, UserSettingsChangeListener {
 
     private final AppPanel appPanel = Panels.getInstance().getAppPanel();
     private final ThumbnailsPanel thumbnailsPanel = appPanel.getPanelThumbnails();
@@ -56,9 +55,7 @@ public final class ControllerSliderThumbnailSize extends Controller
 
     @Override
     public void stateChanged(ChangeEvent e) {
-        if (isControl()) {
-            handleSliderMoved();
-        }
+        handleSliderMoved();
     }
 
     @Override

@@ -19,6 +19,7 @@ public final class LateConnectionsFactory {
     private boolean init = false;
 
     synchronized void init() {
+        Util.checkInit(LateConnectionsFactory.class, init);
         if (!init) {
             init = true;
             AppPanel appPanel = Panels.getInstance().getAppPanel();

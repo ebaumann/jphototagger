@@ -1,6 +1,5 @@
 package de.elmar_baumann.imv.controller.metadata;
 
-import de.elmar_baumann.imv.controller.Controller;
 import de.elmar_baumann.imv.data.TextEntry;
 import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.tasks.XmpUpdaterFromTextEntryArray;
@@ -17,8 +16,7 @@ import javax.swing.JButton;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public final class ControllerSaveMetadata extends Controller
-    implements ActionListener {
+public final class ControllerSaveMetadata implements ActionListener {
 
     private final AppPanel appPanel = Panels.getInstance().getAppPanel();
     private final JButton buttonSave = appPanel.getButtonSaveMetadata();
@@ -29,15 +27,8 @@ public final class ControllerSaveMetadata extends Controller
     }
 
     @Override
-    public void setControl(boolean control) {
-        super.setControl(control);
-    }
-
-    @Override
     public void actionPerformed(ActionEvent e) {
-        if (isControl()) {
-            saveMetadata();
-        }
+        saveMetadata();
     }
 
     private void saveMetadata() {

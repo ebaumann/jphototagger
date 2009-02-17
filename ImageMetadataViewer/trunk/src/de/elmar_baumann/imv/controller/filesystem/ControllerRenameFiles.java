@@ -1,6 +1,5 @@
 package de.elmar_baumann.imv.controller.filesystem;
 
-import de.elmar_baumann.imv.controller.Controller;
 import de.elmar_baumann.imv.database.DatabaseImageFiles;
 import de.elmar_baumann.imv.event.ListenerProvider;
 import de.elmar_baumann.imv.event.RenameFileAction;
@@ -21,8 +20,7 @@ import java.util.List;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/13
  */
-public final class ControllerRenameFiles extends Controller
-    implements ActionListener, RenameFileListener {
+public final class ControllerRenameFiles implements ActionListener, RenameFileListener {
 
     private final ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
     private final DatabaseImageFiles db = DatabaseImageFiles.getInstance();
@@ -39,9 +37,7 @@ public final class ControllerRenameFiles extends Controller
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (isControl()) {
-            renameSelectedFiles();
-        }
+        renameSelectedFiles();
     }
 
     private void renameSelectedFiles() {
@@ -57,7 +53,7 @@ public final class ControllerRenameFiles extends Controller
     @Override
     public void actionPerformed(RenameFileAction action) {
         db.updateRenameImageFilename(action.getOldFile().getAbsolutePath(),
-            action.getNewFile().getAbsolutePath());
+                action.getNewFile().getAbsolutePath());
         thumbnailsPanel.rename(action.getOldFile(), action.getNewFile());
     }
 }
