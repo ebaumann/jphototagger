@@ -33,10 +33,9 @@ public final class ImageMetadataToDatabase implements Runnable {
     private final int maxThumbnailWidth = UserSettings.getInstance().getMaxThumbnailWidth();
     private final boolean useEmbeddedThumbnails = UserSettings.getInstance().isUseEmbeddedThumbnails();
     private final List<String> filenames;
-    private final DatabaseUpdate update;
+    private final DatabaseUpdate databaseUpdate;
     private boolean stop = false;
     private long startTime;
-    private int delaySeconds = 0;
 
     /**
      * Constructor.
@@ -46,12 +45,11 @@ public final class ImageMetadataToDatabase implements Runnable {
      */
     public ImageMetadataToDatabase(List<String> filenames, DatabaseUpdate update) {
         this.filenames = filenames;
-        this.update = update;
+        this.databaseUpdate = update;
     }
 
     @Override
     public void run() {
-        delay();
         notifyProgressStarted();
         int count = filenames.size();
         startTime = System.currentTimeMillis();
@@ -86,44 +84,30 @@ public final class ImageMetadataToDatabase implements Runnable {
         progressListeners.remove(listener);
     }
 
-    /**
-     * Sets the time to wait before the metadata will be created.
-     * 
-     * @param seconds  senconds to wait. Default: zero
-     */
-    public void setDelaySeconds(int seconds) {
-        delaySeconds = seconds;
-    }
-
-    private void delay() {
-        if (delaySeconds > 0) {
-            try {
-                Thread.sleep(delaySeconds * 1000);
-            } catch (InterruptedException ex) {
-                de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
-            }
-        }
-    }
-
     private boolean isUpdate(ImageFile data) {
         return data.getExif() != null ||
-            data.getXmp() != null ||
-            data.getThumbnail() != null;
+                data.getXmp() != null ||
+                data.getThumbnail() != null;
     }
 
     private boolean isUpdateThumbnail(String filename) {
-        return update.isUpdate(DatabaseUpdate.THUMBNAIL) ||
-            !isImageFileUpToDate(filename);
+        return databaseUpdate.isUpdate(DatabaseUpdate.THUMBNAIL) ||
+                databaseUpdate.isUpdate(DatabaseUpdate.COMPLETE) ||
+                !isImageFileUpToDate(filename);
     }
 
     private boolean isUpdateXmp(String filename) {
-        return update.isUpdate(DatabaseUpdate.XMP) ||
-            !isXmpFileUpToDate(filename);
+        return databaseUpdate.isUpdate(DatabaseUpdate.XMP) ||
+                databaseUpdate.isUpdate(DatabaseUpdate.EXIF_AND_XMP) ||
+                databaseUpdate.isUpdate(DatabaseUpdate.COMPLETE) ||
+                !isXmpFileUpToDate(filename);
     }
 
     private boolean isUpdateExif(String filename) {
-        return update.isUpdate(DatabaseUpdate.EXIF) ||
-            !isImageFileUpToDate(filename);
+        return databaseUpdate.isUpdate(DatabaseUpdate.EXIF) ||
+                databaseUpdate.isUpdate(DatabaseUpdate.EXIF_AND_XMP) ||
+                databaseUpdate.isUpdate(DatabaseUpdate.COMPLETE) ||
+                !isImageFileUpToDate(filename);
     }
 
     private boolean isImageFileUpToDate(String filename) {
@@ -164,10 +148,10 @@ public final class ImageMetadataToDatabase implements Runnable {
         File file = new File(filename);
         if (settings.isCreateThumbnailsWithExternalApp()) {
             thumbnail = ThumbnailUtil.getThumbnailFromExternalApplication(
-                file, settings.getExternalThumbnailCreationCommand(), maxThumbnailWidth);
+                    file, settings.getExternalThumbnailCreationCommand(), maxThumbnailWidth);
         } else {
             thumbnail = ThumbnailUtil.getThumbnail(
-                file, maxThumbnailWidth, useEmbeddedThumbnails);
+                    file, maxThumbnailWidth, useEmbeddedThumbnails);
         }
         if (thumbnail == null) {
             notifyNullThumbnail(filename);
