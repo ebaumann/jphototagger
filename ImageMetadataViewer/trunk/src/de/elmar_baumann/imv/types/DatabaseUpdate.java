@@ -27,20 +27,4 @@ public enum DatabaseUpdate {
      * Update the XMP data, regardless of the modification date
      */
     XMP;
-
-    /**
-     * Returns whether the database is to be updated <em>if the type is
-     * NOT {@link #COMPLETE}</em>.
-     * 
-     * @param   update update
-     * @return  true if update equals this or update ore this is {@link #COMPLETE},
-     *          false if this or update equals {@link #IF_LAST_MODIFIED_CHANGED}
-     */
-    public boolean isUpdate(DatabaseUpdate update) {
-        return !this.equals(IF_LAST_MODIFIED_CHANGED) &&
-            !update.equals(IF_LAST_MODIFIED_CHANGED) &&
-            (this.equals(update) ||
-            this.equals(COMPLETE) ||
-            update.equals(COMPLETE));
-    }
 }

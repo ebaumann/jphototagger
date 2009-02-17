@@ -91,22 +91,22 @@ public final class ImageMetadataToDatabase implements Runnable {
     }
 
     private boolean isUpdateThumbnail(String filename) {
-        return databaseUpdate.isUpdate(DatabaseUpdate.THUMBNAIL) ||
-                databaseUpdate.isUpdate(DatabaseUpdate.COMPLETE) ||
+        return databaseUpdate.equals(DatabaseUpdate.THUMBNAIL) ||
+                databaseUpdate.equals(DatabaseUpdate.COMPLETE) ||
                 !isImageFileUpToDate(filename);
     }
 
     private boolean isUpdateXmp(String filename) {
-        return databaseUpdate.isUpdate(DatabaseUpdate.XMP) ||
-                databaseUpdate.isUpdate(DatabaseUpdate.EXIF_AND_XMP) ||
-                databaseUpdate.isUpdate(DatabaseUpdate.COMPLETE) ||
+        return databaseUpdate.equals(DatabaseUpdate.XMP) ||
+                databaseUpdate.equals(DatabaseUpdate.EXIF_AND_XMP) ||
+                databaseUpdate.equals(DatabaseUpdate.COMPLETE) ||
                 !isXmpFileUpToDate(filename);
     }
 
     private boolean isUpdateExif(String filename) {
-        return databaseUpdate.isUpdate(DatabaseUpdate.EXIF) ||
-                databaseUpdate.isUpdate(DatabaseUpdate.EXIF_AND_XMP) ||
-                databaseUpdate.isUpdate(DatabaseUpdate.COMPLETE) ||
+        return databaseUpdate.equals(DatabaseUpdate.EXIF) ||
+                databaseUpdate.equals(DatabaseUpdate.EXIF_AND_XMP) ||
+                databaseUpdate.equals(DatabaseUpdate.COMPLETE) ||
                 !isImageFileUpToDate(filename);
     }
 
