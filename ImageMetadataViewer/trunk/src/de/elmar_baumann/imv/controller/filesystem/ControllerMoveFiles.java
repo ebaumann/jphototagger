@@ -26,10 +26,10 @@ public final class ControllerMoveFiles implements ActionListener, FileSystemActi
     private final DatabaseImageFiles db = DatabaseImageFiles.getInstance();
 
     public ControllerMoveFiles() {
-        listenToActionSources();
+        listen();
     }
 
-    private void listenToActionSources() {
+    private void listen() {
         PopupMenuPanelThumbnails.getInstance().addActionListenerFileSystemMoveFiles(this);
         ListenerProvider.getInstance().addFileSystemActionListener(this);
     }

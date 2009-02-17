@@ -28,10 +28,10 @@ public final class ControllerDeleteFromImageCollection implements ActionListener
     private final ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
 
     public ControllerDeleteFromImageCollection() {
-        listenToActionSources();
+        listen();
     }
 
-    private void listenToActionSources() {
+    private void listen() {
         popup.addActionListenerDeleteFromImageCollection(this);
         Panels.getInstance().getAppFrame().getMenuItemDelete().addActionListener(this);
     }

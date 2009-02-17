@@ -27,7 +27,7 @@ public final class ControllerCreateImageCollection implements ActionListener {
     private final ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
 
     public ControllerCreateImageCollection() {
-        popup.addActionListenerCreateImageCollection(this);
+        listen();
     }
 
     @Override
@@ -42,5 +42,9 @@ public final class ControllerCreateImageCollection implements ActionListener {
         if (collectionName != null) {
             ListUtil.insertSorted(model, collectionName, new ComparatorStringAscending(true));
         }
+    }
+
+    private void listen() {
+        popup.addActionListenerCreateImageCollection(this);
     }
 }

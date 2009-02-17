@@ -23,7 +23,7 @@ public final class ControllerActionExecutor implements ProgramActionListener {
     public ControllerActionExecutor() {
         thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
         actionsDialog = ActionsDialog.getInstance();
-        actionsDialog.addActionListener(this);
+        listen();
         executor = new ProgramExecutor(
                 ActionsDialog.getInstance().getProgressBar(this)); // no other executor expected
     }
@@ -31,5 +31,9 @@ public final class ControllerActionExecutor implements ProgramActionListener {
     @Override
     public void actionPerformed(ProgramActionEvent evt) {
         executor.execute(evt.getProgram(), thumbnailsPanel.getSelectedFiles());
+    }
+
+    private void listen() {
+        actionsDialog.addActionListener(this);
     }
 }

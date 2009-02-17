@@ -20,11 +20,15 @@ public final class ControllerEmptyMetadata implements ActionListener {
     private final EditMetadataPanelsArray editPanels = appPanel.getEditPanelsArray();
 
     public ControllerEmptyMetadata() {
-        buttonEmpty.addActionListener(this);
+        listen();
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         editPanels.emptyPanels(true);
+    }
+
+    private void listen() {
+        buttonEmpty.addActionListener(this);
     }
 }

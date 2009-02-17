@@ -30,10 +30,10 @@ public final class ControllerThumbnailCountDisplay
     private int thumbnailZoom = sliderThumbnailSize.getValue();
 
     public ControllerThumbnailCountDisplay() {
-        listenToActionSources();
+        listen();
     }
 
-    private void listenToActionSources() {
+    private void listen() {
         panelThumbnails.addThumbnailsPanelListener(this);
         sliderThumbnailSize.addChangeListener(this);
     }

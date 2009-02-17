@@ -34,10 +34,10 @@ public final class ControllerCreateSavedSearch implements ActionListener, Search
     private final ListModelSavedSearches model = (ListModelSavedSearches) list.getModel();
 
     public ControllerCreateSavedSearch() {
-        listenToActionSources();
+        listen();
     }
 
-    private void listenToActionSources() {
+    private void listen() {
         PopupMenuListSavedSearches.getInstance().addActionListenerCreate(this);
         ListenerProvider.getInstance().addSearchListener(this);
     }

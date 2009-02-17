@@ -27,10 +27,10 @@ public final class ControllerItemsMutualExcludeSelection
     private boolean listen = true;
 
     public ControllerItemsMutualExcludeSelection() {
-        listenToActionSources();
+        listen();
     }
 
-    private void listenToActionSources() {
+    private void listen() {
         for (JTree tree : trees) {
             tree.addTreeSelectionListener(this);
         }

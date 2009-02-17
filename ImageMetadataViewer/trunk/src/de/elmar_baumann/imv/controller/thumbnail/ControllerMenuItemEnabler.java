@@ -38,7 +38,7 @@ public final class ControllerMenuItemEnabler
 
     public ControllerMenuItemEnabler() {
         init();
-        thumbnailsPanel.addThumbnailsPanelListener(this);
+        listen();
     }
 
     private void init() {
@@ -73,6 +73,10 @@ public final class ControllerMenuItemEnabler
         itemsIsSelection.add(popupThumbnails.getItemFileSystemCopyToDirectory());
         itemsIsSelection.add(popupThumbnails.getItemFileSystemDeleteFiles());
         itemsIsSelection.add(popupThumbnails.getItemFileSystemRenameFiles());
+    }
+
+    private void listen() {
+        thumbnailsPanel.addThumbnailsPanelListener(this);
     }
 
     private void setEnabled() {

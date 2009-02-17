@@ -38,11 +38,11 @@ public final class ControllerMetadataTemplates implements ActionListener, Metada
     private final JButton buttonMetadataTemplateRename = appPanel.getButtonMetadataTemplateRename();
 
     public ControllerMetadataTemplates() {
-        listenToActionSources();
+        listen();
         enableButtons();
     }
 
-    private void listenToActionSources() {
+    private void listen() {
         comboBoxMetadataTemplates.addActionListener(this);
         buttonMetadataTemplateCreate.addActionListener(this);
         buttonMetadataTemplateUpdate.addActionListener(this);

@@ -29,8 +29,7 @@ public final class ControllerThumbnailsPanelPersistence
     private List<File> persistentSelectedFiles;
 
     public ControllerThumbnailsPanelPersistence() {
-        thumbnailsPanel.addThumbnailsPanelListener(this);
-        Panels.getInstance().getAppFrame().addAppExitListener(this);
+        listen();
         readPersistent();
     }
 
@@ -52,6 +51,11 @@ public final class ControllerThumbnailsPanelPersistence
             readPersistentViewportViewPosition();
             onceApplied = true;
         }
+    }
+
+    private void listen() {
+        thumbnailsPanel.addThumbnailsPanelListener(this);
+        Panels.getInstance().getAppFrame().addAppExitListener(this);
     }
 
     private void writePersistentSelection() {

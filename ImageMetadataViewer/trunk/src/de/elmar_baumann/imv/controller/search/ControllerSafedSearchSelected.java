@@ -31,10 +31,10 @@ public final class ControllerSafedSearchSelected
     private final EditMetadataPanelsArray editPanels = appPanel.getEditPanelsArray();
 
     public ControllerSafedSearchSelected() {
-        listenToActionSources();
+        listen();
     }
 
-    private void listenToActionSources() {
+    private void listen() {
         list.addListSelectionListener(this);
         thumbnailsPanel.addRefreshListener(this, Content.SAFED_SEARCH);
     }

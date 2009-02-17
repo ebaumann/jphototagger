@@ -22,7 +22,7 @@ public final class ControllerCopyFilesToDirectory implements ActionListener {
     private final ImageFileThumbnailsPanel panel = appPanel.getPanelThumbnails();
 
     public ControllerCopyFilesToDirectory() {
-        PopupMenuPanelThumbnails.getInstance().addActionListenerCopySelectedFilesToDirectory(this);
+        listen();
     }
 
     @Override
@@ -37,5 +37,9 @@ public final class ControllerCopyFilesToDirectory implements ActionListener {
             dialog.setSourceFiles(files);
             dialog.setVisible(true);
         }
+    }
+
+    private void listen() {
+        PopupMenuPanelThumbnails.getInstance().addActionListenerCopySelectedFilesToDirectory(this);
     }
 }

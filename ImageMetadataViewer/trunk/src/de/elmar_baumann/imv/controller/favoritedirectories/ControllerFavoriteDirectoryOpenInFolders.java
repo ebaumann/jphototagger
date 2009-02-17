@@ -30,7 +30,7 @@ public final class ControllerFavoriteDirectoryOpenInFolders implements ActionLis
     private final JList listFavoriteDirectories = appPanel.getListFavoriteDirectories();
 
     public ControllerFavoriteDirectoryOpenInFolders() {
-        popup.addActionListenerOpenInFolders(this);
+        listen();
     }
 
     @Override
@@ -38,6 +38,10 @@ public final class ControllerFavoriteDirectoryOpenInFolders implements ActionLis
         if (listFavoriteDirectories.getSelectedIndex() >= 0) {
             selectDirectory();
         }
+    }
+
+    private void listen() {
+        popup.addActionListenerOpenInFolders(this);
     }
 
     private void selectDirectory() {

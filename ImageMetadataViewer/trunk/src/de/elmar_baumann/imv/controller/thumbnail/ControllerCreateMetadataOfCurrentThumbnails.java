@@ -33,6 +33,10 @@ public final class ControllerCreateMetadataOfCurrentThumbnails
     private boolean stopCurrent = false;
 
     public ControllerCreateMetadataOfCurrentThumbnails() {
+        listen();
+    }
+
+    private void listen() {
         thumbnailsPanel.addThumbnailsPanelListener(this);
     }
 

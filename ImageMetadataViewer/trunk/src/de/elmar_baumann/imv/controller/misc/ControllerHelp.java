@@ -24,7 +24,7 @@ public final class ControllerHelp implements ActionListener,
 
     public ControllerHelp() {
         help.setContentsUrl(Bundle.getString("Help.Url.Contents"));
-        help.addActionListener(this);
+        listen();
     }
 
     @Override
@@ -37,6 +37,10 @@ public final class ControllerHelp implements ActionListener,
     @Override
     public void actionPerformed(ActionEvent e) {
         showHelp();
+    }
+
+    private void listen() {
+        help.addActionListener(this);
     }
 
     private void setCurrentUrl(HelpBrowserAction action) {

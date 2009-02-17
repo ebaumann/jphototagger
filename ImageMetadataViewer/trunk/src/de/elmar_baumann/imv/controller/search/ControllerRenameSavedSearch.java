@@ -31,12 +31,16 @@ public final class ControllerRenameSavedSearch implements ActionListener {
     private final ListModelSavedSearches model = (ListModelSavedSearches) list.getModel();
 
     public ControllerRenameSavedSearch() {
-        actionPopup.addActionListenerRename(this);
+        listen();
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         rename();
+    }
+
+    private void listen() {
+        actionPopup.addActionListenerRename(this);
     }
 
     private void rename() {

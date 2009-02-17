@@ -28,10 +28,10 @@ public final class ControllerFavoriteDirectorySelected implements ListSelectionL
     private final EditMetadataPanelsArray editPanels = appPanel.getEditPanelsArray();
 
     public ControllerFavoriteDirectorySelected() {
-        listenToActionSources();
+        listen();
     }
 
-    private void listenToActionSources() {
+    private void listen() {
         listFavoriteDirectories.addListSelectionListener(this);
         thumbnailsPanel.addRefreshListener(this, Content.FAVORITE_DIRECTORY);
     }

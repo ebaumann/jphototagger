@@ -24,7 +24,7 @@ public final class ControllerOpenFilesWithOtherApp implements ActionListener {
 
     public ControllerOpenFilesWithOtherApp() {
         popup = PopupMenuPanelThumbnails.getInstance();
-        popup.addActionListenerOpenFilesWithOtherApp(this);
+        listen();
         thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
         executor = new ProgramExecutor(null);
     }
@@ -32,6 +32,10 @@ public final class ControllerOpenFilesWithOtherApp implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         openFiles(popup.getProgram(e.getSource()));
+    }
+
+    private void listen() {
+        popup.addActionListenerOpenFilesWithOtherApp(this);
     }
 
     private void openFiles(Program program) {

@@ -21,10 +21,10 @@ public final class ControllerCopyFilesToClipboard implements ActionListener {
     private final JMenuItem itemCut = Panels.getInstance().getAppFrame().getMenuItemCut();
 
     public ControllerCopyFilesToClipboard() {
-        listenToActionSources();
+        listen();
     }
 
-    private void listenToActionSources() {
+    private void listen() {
         itemCopy.addActionListener(this);
         itemCut.addActionListener(this);
     }

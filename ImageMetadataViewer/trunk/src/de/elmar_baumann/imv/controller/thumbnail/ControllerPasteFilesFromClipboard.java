@@ -24,7 +24,7 @@ public final class ControllerPasteFilesFromClipboard implements ActionListener {
     private final ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
 
     public ControllerPasteFilesFromClipboard() {
-        Panels.getInstance().getAppFrame().getMenuItemInsert().addActionListener(this);
+        listen();
     }
 
     @Override
@@ -42,5 +42,9 @@ public final class ControllerPasteFilesFromClipboard implements ActionListener {
             thumbnailsPanel.refresh();
             ComponentUtil.forceRepaint(thumbnailsPanel);
         }
+    }
+
+    private void listen() {
+        Panels.getInstance().getAppFrame().getMenuItemInsert().addActionListener(this);
     }
 }

@@ -30,10 +30,10 @@ public final class ControllerDirectorySelected implements TreeSelectionListener,
     private final ImageFilteredDirectory imageFilteredDirectory = new ImageFilteredDirectory();
 
     public ControllerDirectorySelected() {
-        listenToActionSources();
+        listen();
     }
 
-    private void listenToActionSources() {
+    private void listen() {
         treeDirectories.addTreeSelectionListener(this);
         thumbnailsPanel.addRefreshListener(this, Content.DIRECTORY);
     }

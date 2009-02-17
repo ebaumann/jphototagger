@@ -14,7 +14,7 @@ import java.awt.event.ActionListener;
 public final class ControllerActionsShowDialog implements ActionListener {
 
     public ControllerActionsShowDialog() {
-        Panels.getInstance().getAppFrame().getMenuItemActions().addActionListener(this);
+        listen();
     }
 
     @Override
@@ -25,5 +25,9 @@ public final class ControllerActionsShowDialog implements ActionListener {
         } else {
             dialog.setVisible(true);
         }
+    }
+
+    private void listen() {
+        Panels.getInstance().getAppFrame().getMenuItemActions().addActionListener(this);
     }
 }

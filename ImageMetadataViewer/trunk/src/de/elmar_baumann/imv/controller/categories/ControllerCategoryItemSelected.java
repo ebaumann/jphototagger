@@ -26,10 +26,10 @@ public final class ControllerCategoryItemSelected implements ListSelectionListen
     private final ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelThumbnails();
 
     public ControllerCategoryItemSelected() {
-        listenToActionSources();
+        listen();
     }
 
-    private void listenToActionSources() {
+    private void listen() {
         listCategories.addListSelectionListener(this);
         thumbnailsPanel.addRefreshListener(this, Content.CATEGORY);
     }

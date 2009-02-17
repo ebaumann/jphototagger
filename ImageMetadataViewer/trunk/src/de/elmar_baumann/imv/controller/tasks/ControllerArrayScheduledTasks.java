@@ -26,16 +26,16 @@ public final class ControllerArrayScheduledTasks
     private final JButton buttonStop = appPanel.getButtonStopScheduledTasks();
     private final Queue<Task> controllers = new ConcurrentLinkedQueue<Task>();
     private Task activeController;
-    private int milliSecondsToStart = UserSettings.getInstance().
-            getMinutesToStartScheduledTasks() * 60 * 1000;
+    private int milliSecondsToStart = UserSettings.getInstance().getMinutesToStartScheduledTasks() * 60 * 1000;
 
     public ControllerArrayScheduledTasks() {
-        buttonStop.addActionListener(this);
+        listen();
         initArray();
     }
 
     private void handleButtonStopClicked() {
         buttonStop.setEnabled(false);
+        stopController();
     }
 
     private void initArray() {
@@ -56,10 +56,15 @@ public final class ControllerArrayScheduledTasks
         }
     }
 
+    private void listen() {
+        buttonStop.addActionListener(this);
+    }
+
     synchronized private void startFirstController() {
         if (!controllers.isEmpty()) {
             buttonStop.setEnabled(true);
             activeController = controllers.remove();
+            activeController.start();
         }
     }
 
@@ -79,6 +84,7 @@ public final class ControllerArrayScheduledTasks
         System.gc();
         if (!controllers.isEmpty()) {
             activeController = controllers.remove();
+            activeController.start();
         }
     }
 
@@ -86,6 +92,12 @@ public final class ControllerArrayScheduledTasks
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == buttonStop) {
             handleButtonStopClicked();
+        }
+    }
+
+    synchronized private void stopController() {
+        for (Task task : controllers) {
+            task.stop();
         }
     }
 }

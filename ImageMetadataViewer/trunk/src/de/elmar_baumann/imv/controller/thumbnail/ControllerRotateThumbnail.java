@@ -24,10 +24,10 @@ public final class ControllerRotateThumbnail implements ActionListener {
     private final ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
 
     public ControllerRotateThumbnail() {
-        listenToActionSources();
+        listen();
     }
 
-    private void listenToActionSources() {
+    private void listen() {
         popup.addActionListenerRotateThumbnail180(this);
         popup.addActionListenerRotateThumbnail270(this);
         popup.addActionListenerRotateThumbnail90(this);

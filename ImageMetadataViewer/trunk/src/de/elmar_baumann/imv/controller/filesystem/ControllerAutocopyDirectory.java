@@ -24,7 +24,7 @@ import javax.swing.JOptionPane;
 public final class ControllerAutocopyDirectory implements ActionListener {
 
     public ControllerAutocopyDirectory() {
-        Panels.getInstance().getAppFrame().getMenuItemAutocopyDirectory().addActionListener(this);
+        listen();
     }
 
     @Override
@@ -39,6 +39,10 @@ public final class ControllerAutocopyDirectory implements ActionListener {
         } else {
             copy(dir);
         }
+    }
+
+    private void listen() {
+        Panels.getInstance().getAppFrame().getMenuItemAutocopyDirectory().addActionListener(this);
     }
 
     private void setAutocopyDirectory() {

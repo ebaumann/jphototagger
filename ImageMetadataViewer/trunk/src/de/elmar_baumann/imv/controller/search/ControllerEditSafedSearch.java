@@ -17,12 +17,16 @@ public final class ControllerEditSafedSearch implements ActionListener {
     private final PopupMenuListSavedSearches actionPopup = PopupMenuListSavedSearches.getInstance();
 
     public ControllerEditSafedSearch() {
-        actionPopup.addActionListenerEdit(this);
+        listen();
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         showAdvancedSearchDialog();
+    }
+
+    private void listen() {
+        actionPopup.addActionListenerEdit(this);
     }
 
     private void showAdvancedSearchDialog() {

@@ -28,7 +28,7 @@ public final class ControllerDeleteThumbnailsFromDatabase implements ActionListe
     private final ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
 
     public ControllerDeleteThumbnailsFromDatabase() {
-        popup.addActionListenerDeleteThumbnail(this);
+        listen();
     }
 
     @Override
@@ -48,6 +48,10 @@ public final class ControllerDeleteThumbnailsFromDatabase implements ActionListe
             repaint(files);
             thumbnailsPanel.repaint();
         }
+    }
+
+    private void listen() {
+        popup.addActionListenerDeleteThumbnail(this);
     }
 
     private void repaint(List<String> filenames) {

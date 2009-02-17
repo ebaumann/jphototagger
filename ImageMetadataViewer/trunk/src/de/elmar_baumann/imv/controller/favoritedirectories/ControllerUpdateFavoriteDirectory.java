@@ -22,12 +22,16 @@ public final class ControllerUpdateFavoriteDirectory implements ActionListener {
     private final ListModelFavoriteDirectories model = (ListModelFavoriteDirectories) appPanel.getListFavoriteDirectories().getModel();
 
     public ControllerUpdateFavoriteDirectory() {
-        popup.addActionListenerUpdate(this);
+        listen();
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         updateFavorite();
+    }
+
+    private void listen() {
+        popup.addActionListenerUpdate(this);
     }
 
     private void updateFavorite() {

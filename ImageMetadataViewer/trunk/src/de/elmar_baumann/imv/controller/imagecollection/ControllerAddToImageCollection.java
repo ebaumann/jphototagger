@@ -22,7 +22,7 @@ public final class ControllerAddToImageCollection implements ActionListener {
     private final ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
 
     public ControllerAddToImageCollection() {
-        popup.addActionListenerAddToImageCollection(this);
+        listen();
     }
 
     @Override
@@ -37,6 +37,10 @@ public final class ControllerAddToImageCollection implements ActionListener {
             manager.addImagesToCollection(collectionName,
                     FileUtil.getAsFilenames(thumbnailsPanel.getSelectedFiles()));
         }
+    }
+
+    private void listen() {
+        popup.addActionListenerAddToImageCollection(this);
     }
 
     private String selectCollectionName() {

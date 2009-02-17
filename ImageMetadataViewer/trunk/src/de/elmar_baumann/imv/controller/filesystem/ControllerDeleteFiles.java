@@ -30,10 +30,10 @@ public final class ControllerDeleteFiles implements ActionListener {
     private final PopupMenuPanelThumbnails popup = PopupMenuPanelThumbnails.getInstance();
 
     public ControllerDeleteFiles() {
-        listenToActionSources();
+        listen();
     }
 
-    private void listenToActionSources() {
+    private void listen() {
         popup.addActionListenerFileSystemDeleteFiles(this);
         Panels.getInstance().getAppFrame().getMenuItemDelete().addActionListener(this);
     }

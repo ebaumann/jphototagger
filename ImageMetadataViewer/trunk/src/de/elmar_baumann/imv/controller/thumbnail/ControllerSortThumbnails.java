@@ -20,8 +20,12 @@ public final class ControllerSortThumbnails implements ActionListener {
     private final AppFrame appFrame = Panels.getInstance().getAppFrame();
 
     public ControllerSortThumbnails() {
-        listenToActionSources();
+        listen();
         appFrame.getMenuItemOfSort(thumbnailsPanel.getSort()).setSelected(true);
+    }
+
+    private void listen() {
+        listenToActionSources();
     }
 
     private void listenToActionSources() {

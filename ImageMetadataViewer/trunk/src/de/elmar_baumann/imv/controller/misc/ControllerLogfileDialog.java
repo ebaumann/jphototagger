@@ -31,10 +31,10 @@ public final class ControllerLogfileDialog implements ActionListener, ErrorListe
 
     public ControllerLogfileDialog() {
         buttonLogfileDialog.setIcon(iconOk);
-        listenToActionSources();
+        listen();
     }
 
-    private void listenToActionSources() {
+    private void listen() {
         buttonLogfileDialog.addActionListener(this);
         ErrorListeners.getInstance().addErrorListener(this);
     }

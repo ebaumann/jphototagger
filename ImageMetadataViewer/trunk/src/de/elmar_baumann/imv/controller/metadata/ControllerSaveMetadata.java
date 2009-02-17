@@ -23,12 +23,16 @@ public final class ControllerSaveMetadata implements ActionListener {
     private final EditMetadataPanelsArray editPanels = appPanel.getEditPanelsArray();
 
     public ControllerSaveMetadata() {
-        buttonSave.addActionListener(this);
+        listen();
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         saveMetadata();
+    }
+
+    private void listen() {
+        buttonSave.addActionListener(this);
     }
 
     private void saveMetadata() {

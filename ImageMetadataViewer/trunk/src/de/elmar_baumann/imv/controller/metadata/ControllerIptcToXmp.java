@@ -14,12 +14,16 @@ import java.awt.event.ActionListener;
 public final class ControllerIptcToXmp implements ActionListener {
 
     public ControllerIptcToXmp() {
-        Panels.getInstance().getAppFrame().getMenuItemToolIptcToXmp().addActionListener(this);
+        listen();
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         showIptcToXmpDialog();
+    }
+
+    private void listen() {
+        Panels.getInstance().getAppFrame().getMenuItemToolIptcToXmp().addActionListener(this);
     }
 
     private void showIptcToXmpDialog() {

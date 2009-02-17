@@ -30,10 +30,10 @@ public final class ControllerImageCollectionSelected implements ListSelectionLis
     private final JList list = appPanel.getListImageCollections();
 
     public ControllerImageCollectionSelected() {
-        listenToActionSources();
+        listen();
     }
 
-    private void listenToActionSources() {
+    private void listen() {
         list.addListSelectionListener(this);
         thumbnailsPanel.addRefreshListener(this, Content.IMAGE_COLLECTION);
     }

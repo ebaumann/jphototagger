@@ -22,7 +22,7 @@ public final class ControllerOpenFilesWithStandardApp implements ActionListener 
     private final ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
 
     public ControllerOpenFilesWithStandardApp() {
-        popup.addActionListenerOpenFilesWithStandardApp(this);
+        listen();
     }
 
     @Override
@@ -30,6 +30,10 @@ public final class ControllerOpenFilesWithStandardApp implements ActionListener 
         if (checkOpenAppIsDefined()) {
             openFiles();
         }
+    }
+
+    private void listen() {
+        popup.addActionListenerOpenFilesWithStandardApp(this);
     }
 
     private void openFiles() {

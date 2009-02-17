@@ -55,7 +55,7 @@ public final class ControllerFastSearch
     public ControllerFastSearch() {
         textFieldSearch.setEnabled(UserSettings.getInstance().getFastSearchColumns().size() > 0);
         decorateTextFieldSearch();
-        listenToActionSources();
+        listen();
     }
 
     @Override
@@ -125,7 +125,7 @@ public final class ControllerFastSearch
         }
     }
 
-    private void listenToActionSources() {
+    private void listen() {
         ListenerProvider.getInstance().addUserSettingsChangeListener(this);
 
         textFieldSearch.addKeyListener(new KeyAdapter() {

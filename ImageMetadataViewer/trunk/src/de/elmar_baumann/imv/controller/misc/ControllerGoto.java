@@ -30,6 +30,7 @@ public final class ControllerGoto implements ActionListener {
     private final Map<AppFrame.Goto, Component> componentOfGoto = new HashMap<AppFrame.Goto, Component>();
     private final Map<AppFrame.Goto, JTabbedPane> tabbedPaneOfGoto = new HashMap<AppFrame.Goto, JTabbedPane>();
 
+    // Not static (timing)
     private void initMaps() {
         componentOfGoto.put(AppFrame.Goto.CATEGORIES, appPanel.getTabSelectionCategories());
         componentOfGoto.put(AppFrame.Goto.IMAGE_COLLECTIONS, appPanel.getTabSelectionImageCollections());
@@ -58,10 +59,10 @@ public final class ControllerGoto implements ActionListener {
 
     public ControllerGoto() {
         initMaps();
-        listenToActionSources();
+        listen();
     }
 
-    private void listenToActionSources() {
+    private void listen() {
         for (AppFrame.Goto gt : AppFrame.Goto.values()) {
             appFrame.getMenuItemOfGoto(gt).addActionListener(this);
         }

@@ -43,7 +43,7 @@ public final class ControllerAutoUpdateMetadataTask
         this.progressBar = progressBar;
 
         init();
-        updaterArray.addTaskListener(this);
+        listen();
     }
 
     private void init() {
@@ -78,6 +78,10 @@ public final class ControllerAutoUpdateMetadataTask
     @Override
     public void start() {
         startUpdate();
+    }
+
+    private void listen() {
+        updaterArray.addTaskListener(this);
     }
 
     private void startUpdate() {

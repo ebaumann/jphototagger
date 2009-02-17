@@ -24,12 +24,16 @@ public final class ControllerRenameImageCollection implements ActionListener {
     private final ListModelImageCollections model = (ListModelImageCollections) list.getModel();
 
     public ControllerRenameImageCollection() {
-        actionPopup.addActionListenerRename(this);
+        listen();
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         renameImageCollection();
+    }
+
+    private void listen() {
+        actionPopup.addActionListenerRename(this);
     }
 
     private void renameImageCollection() {

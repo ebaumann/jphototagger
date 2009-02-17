@@ -30,7 +30,7 @@ public final class ControllerThumbnailSelectionEditMetadata implements Thumbnail
     private final ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelThumbnails();
 
     public ControllerThumbnailSelectionEditMetadata() {
-        thumbnailsPanel.addThumbnailsPanelListener(this);
+        listen();
     }
 
     @Override
@@ -51,6 +51,10 @@ public final class ControllerThumbnailSelectionEditMetadata implements Thumbnail
         } else {
             setEnabled(false);
         }
+    }
+
+    private void listen() {
+        thumbnailsPanel.addThumbnailsPanelListener(this);
     }
 
     private void setEnabled(boolean enabled) {

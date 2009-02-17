@@ -40,7 +40,7 @@ public final class ControllerShowMetadata implements DatabaseListener, Thumbnail
     public ControllerShowMetadata() {
         initData();
         initNamespacesOfXmpTableModelMap();
-        listenToActionSources();
+        listen();
     }
 
     private void initData() {
@@ -93,7 +93,7 @@ public final class ControllerShowMetadata implements DatabaseListener, Thumbnail
                 new String[]{XMPConst.NS_XMP, XMPConst.NS_XMP_RIGHTS});
     }
 
-    private void listenToActionSources() {
+    private void listen() {
         data.getThumbnailsPanel().addThumbnailsPanelListener(this);
         DatabaseImageFiles.getInstance().addDatabaseListener(this);
     }

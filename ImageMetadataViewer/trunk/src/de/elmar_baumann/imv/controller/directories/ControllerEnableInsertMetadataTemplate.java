@@ -22,7 +22,7 @@ public final class ControllerEnableInsertMetadataTemplate implements TreeSelecti
     private final JButton buttonMetadataTemplateInsert = appPanel.getButtonMetadataTemplateInsert();
 
     public ControllerEnableInsertMetadataTemplate() {
-        treeDirectories.addTreeSelectionListener(this);
+        listen();
     }
 
     @Override
@@ -30,6 +30,10 @@ public final class ControllerEnableInsertMetadataTemplate implements TreeSelecti
         if (e.isAddedPath()) {
             setEnabledButtonInsert();
         }
+    }
+
+    private void listen() {
+        treeDirectories.addTreeSelectionListener(this);
     }
 
     private void setEnabledButtonInsert() {

@@ -28,7 +28,7 @@ public final class ControllerDeleteFavoriteDirectory implements ActionListener {
     private static final int removeCheckIntervalSeconds = 3;
 
     public ControllerDeleteFavoriteDirectory() {
-        popup.addActionListenerDelete(this);
+        listen();
         checkForRemoves();
     }
 
@@ -66,6 +66,10 @@ public final class ControllerDeleteFavoriteDirectory implements ActionListener {
     public void finalize() throws Throwable {
         super.finalize();
         removeChecker.setStop(true);
+    }
+
+    private void listen() {
+        popup.addActionListenerDelete(this);
     }
 
     private class CheckDirectoriesRemoved extends Thread {

@@ -45,10 +45,10 @@ public final class ControllerCreateMetadataOfSelectedThumbnails
      * Konstruktor. <em>Nur eine Instanz erzeugen!</em>
      */
     public ControllerCreateMetadataOfSelectedThumbnails() {
-        listenToActionSources();
+        listen();
     }
 
-    private void listenToActionSources() {
+    private void listen() {
         popup.addActionListenerUpdateThumbnail(this);
         popup.addActionListenerUpdateMetadata(this);
     }

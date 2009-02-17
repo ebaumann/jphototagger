@@ -26,10 +26,10 @@ public final class ControllerRenameFiles implements ActionListener, RenameFileLi
     private final DatabaseImageFiles db = DatabaseImageFiles.getInstance();
 
     public ControllerRenameFiles() {
-        listenToActionSources();
+        listen();
     }
 
-    private void listenToActionSources() {
+    private void listen() {
         PopupMenuPanelThumbnails.getInstance().addActionListenerFileSystemRenameFiles(this);
         Panels.getInstance().getAppFrame().getMenuItemRename().addActionListener(this);
         ListenerProvider.getInstance().addRenameFileListener(this);

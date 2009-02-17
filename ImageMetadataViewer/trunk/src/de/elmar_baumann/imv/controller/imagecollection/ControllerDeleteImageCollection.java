@@ -24,7 +24,7 @@ public final class ControllerDeleteImageCollection implements ActionListener {
     private final ListModelImageCollections model = (ListModelImageCollections) list.getModel();
 
     public ControllerDeleteImageCollection() {
-        actionPopup.addActionListenerDelete(this);
+        listen();
     }
 
     @Override
@@ -40,5 +40,9 @@ public final class ControllerDeleteImageCollection implements ActionListener {
                 model.removeElement(collectionName);
             }
         }
+    }
+
+    private void listen() {
+        actionPopup.addActionListenerDelete(this);
     }
 }

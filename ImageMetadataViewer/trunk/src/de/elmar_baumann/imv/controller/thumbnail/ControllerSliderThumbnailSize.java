@@ -34,10 +34,10 @@ public final class ControllerSliderThumbnailSize
 
     public ControllerSliderThumbnailSize() {
         initSlider();
-        listenToActionSources();
+        listen();
     }
 
-    private void listenToActionSources() {
+    private void listen() {
         thumbnailsPanel.addThumbnailsPanelListener(this);
         slider.addChangeListener(this);
         ListenerProvider.getInstance().addUserSettingsChangeListener(this);

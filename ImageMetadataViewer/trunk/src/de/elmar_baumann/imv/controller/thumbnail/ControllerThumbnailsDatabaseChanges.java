@@ -22,7 +22,7 @@ public final class ControllerThumbnailsDatabaseChanges
     private final ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
 
     public ControllerThumbnailsDatabaseChanges() {
-        db.addDatabaseListener(this);
+        listen();
     }
 
     @Override
@@ -33,6 +33,10 @@ public final class ControllerThumbnailsDatabaseChanges
         } else if (type.equals(DatabaseAction.Type.IMAGEFILES_DELETED)) {
             removeThumbnails(action);
         }
+    }
+
+    private void listen() {
+        db.addDatabaseListener(this);
     }
 
     private void removeThumbnails(DatabaseAction action) {

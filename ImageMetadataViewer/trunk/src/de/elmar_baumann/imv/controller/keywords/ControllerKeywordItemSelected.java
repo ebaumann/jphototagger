@@ -28,10 +28,10 @@ public final class ControllerKeywordItemSelected implements ListSelectionListene
     private final EditMetadataPanelsArray editPanels = appPanel.getEditPanelsArray();
 
     public ControllerKeywordItemSelected() {
-        listenToActionSources();
+        listen();
     }
 
-    private void listenToActionSources() {
+    private void listen() {
         listKeywords.addListSelectionListener(this);
         thumbnailsPanel.addRefreshListener(this, Content.KEYWORD);
     }

@@ -29,7 +29,7 @@ public final class ControllerDirectoryCopyFiles implements KeyListener {
     private final JTree treeDirectories = appPanel.getTreeDirectories();
 
     public ControllerDirectoryCopyFiles() {
-        treeDirectories.addKeyListener(this);
+        listen();
     }
 
     @Override
@@ -65,5 +65,9 @@ public final class ControllerDirectoryCopyFiles implements KeyListener {
         if (action.equals(FileAction.CUT)) {
             thumbnailsPanel.setFileAction(FileAction.UNDEFINED);
         }
+    }
+
+    private void listen() {
+        treeDirectories.addKeyListener(this);
     }
 }

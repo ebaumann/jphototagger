@@ -23,10 +23,10 @@ public final class ControllerInsertFavoriteDirectory implements ActionListener {
     private final PopupMenuTreeDirectories popupDirectories = PopupMenuTreeDirectories.getInstance();
 
     public ControllerInsertFavoriteDirectory() {
-        listenToActionSources();
+        listen();
     }
 
-    private void listenToActionSources() {
+    private void listen() {
         PopupMenuListFavoriteDirectories.getInstance().addActionListenerInsert(this);
         popupDirectories.addActionListenerAddToFavoriteDirectories(this);
     }

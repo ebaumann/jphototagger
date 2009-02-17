@@ -36,10 +36,10 @@ public final class ControllerAdvancedSearch implements ActionListener, SearchLis
     private final EditMetadataPanelsArray editPanels = appPanel.getEditPanelsArray();
 
     public ControllerAdvancedSearch() {
-        listenToActionSources();
+        listen();
     }
 
-    private void listenToActionSources() {
+    private void listen() {
         ListenerProvider.getInstance().addSearchListener(this);
     }
 
