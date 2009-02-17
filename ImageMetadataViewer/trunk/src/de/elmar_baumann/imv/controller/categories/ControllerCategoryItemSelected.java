@@ -36,22 +36,20 @@ public final class ControllerCategoryItemSelected implements ListSelectionListen
 
     @Override
     public void refresh() {
-        if (listCategories.getSelectedIndex() >= 0) {
-            setFilesToThumbnailsPanel();
-        }
+        setFilesToThumbnailsPanel();
     }
 
     @Override
     public void valueChanged(ListSelectionEvent e) {
-        if (listCategories.getSelectedIndex() >= 0) {
-            setFilesToThumbnailsPanel();
-        }
+        setFilesToThumbnailsPanel();
     }
 
     private void setFilesToThumbnailsPanel() {
-        String category = (String) listCategories.getSelectedValue();
-        Set<String> filenames = db.getFilenamesOfCategory(category);
+        if (listCategories.getSelectedIndex() >= 0) {
+            String category = (String) listCategories.getSelectedValue();
+            Set<String> filenames = db.getFilenamesOfCategory(category);
 
-        thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames), Content.CATEGORY);
+            thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames), Content.CATEGORY);
+        }
     }
 }

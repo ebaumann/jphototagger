@@ -25,6 +25,10 @@ public final class ControllerEnableInsertMetadataTemplate implements TreeSelecti
         listen();
     }
 
+    private void listen() {
+        treeDirectories.addTreeSelectionListener(this);
+    }
+
     @Override
     public void valueChanged(TreeSelectionEvent e) {
         if (e.isAddedPath()) {
@@ -32,19 +36,14 @@ public final class ControllerEnableInsertMetadataTemplate implements TreeSelecti
         }
     }
 
-    private void listen() {
-        treeDirectories.addTreeSelectionListener(this);
-    }
-
     private void setEnabledButtonInsert() {
-        if (treeDirectories.getSelectionPath().getLastPathComponent()  instanceof File) {
+        if (treeDirectories.getSelectionPath().getLastPathComponent() instanceof File) {
 
-            String directoryName = ((File) 
-                treeDirectories.getSelectionPath().getLastPathComponent()).getAbsolutePath();
-            File directory = new File(directoryName);
-            
+            String fileName = ((File) treeDirectories.getSelectionPath().getLastPathComponent()).getAbsolutePath();
+            File file = new File(fileName);
+
             buttonMetadataTemplateInsert.setEnabled(
-                directory.isDirectory() && directory.canWrite());
+                    file.isDirectory() && file.canWrite());
         }
     }
 }

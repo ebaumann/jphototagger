@@ -42,7 +42,6 @@ public final class ControllerDirectorySelected implements TreeSelectionListener,
     public void valueChanged(TreeSelectionEvent e) {
         if (e.isAddedPath() && !PopupMenuTreeDirectories.getInstance().isTreeSelected()) {
             setFilesToThumbnailsPanel();
-            checkEditPanel();
         }
     }
 
@@ -50,20 +49,20 @@ public final class ControllerDirectorySelected implements TreeSelectionListener,
     public void refresh() {
         if (treeDirectories.getSelectionCount() > 0) {
             setFilesToThumbnailsPanel();
-            checkEditPanel();
         }
     }
 
     private void setFilesToThumbnailsPanel() {
-        File selectedDirectory = new File(
-            getDirectorynameFromTree(treeDirectories.getSelectionPath()));
+        File selectedDirectory = new File(getDirectorynameFromTree());
         imageFilteredDirectory.setDirectory(selectedDirectory);
         thumbnailsPanel.setFiles(
-            ImageFilteredDirectory.getImageFilesOfDirectory(selectedDirectory),
-            Content.DIRECTORY);
+                ImageFilteredDirectory.getImageFilesOfDirectory(selectedDirectory),
+                Content.DIRECTORY);
+        setMetadataEditable();
     }
 
-    private String getDirectorynameFromTree(TreePath treePath) {
+    private String getDirectorynameFromTree() {
+        TreePath treePath = treeDirectories.getSelectionPath();
         if (treePath.getLastPathComponent() instanceof File) {
             return ((File) treePath.getLastPathComponent()).getAbsolutePath();
         } else {
@@ -71,7 +70,7 @@ public final class ControllerDirectorySelected implements TreeSelectionListener,
         }
     }
 
-    private void checkEditPanel() {
+    private void setMetadataEditable() {
         if (thumbnailsPanel.getSelectionCount() <= 0) {
             editPanels.setEditable(false);
         }

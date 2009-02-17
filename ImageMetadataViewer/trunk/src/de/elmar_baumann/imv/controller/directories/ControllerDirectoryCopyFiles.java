@@ -32,8 +32,13 @@ public final class ControllerDirectoryCopyFiles implements KeyListener {
         listen();
     }
 
+    private void listen() {
+        treeDirectories.addKeyListener(this);
+    }
+
     @Override
     public void keyTyped(KeyEvent e) {
+        // nothing to do
     }
 
     @Override
@@ -43,16 +48,20 @@ public final class ControllerDirectoryCopyFiles implements KeyListener {
 
     @Override
     public void keyReleased(KeyEvent e) {
+        // nothing to do
     }
 
     private void handleKeyPressed(KeyEvent e) {
-        if (thumbnailsPanel.getContent().equals(Content.DIRECTORY) &&
-            KeyEventUtil.isInsert(e)) {
-            List<File> sourceFiles = ClipboardUtil.getFilesFromSystemClipboard("\n");
-            File targetDirectory = ViewUtil.getSelectedDirectory(treeDirectories);
-            if (sourceFiles.size() > 0 && targetDirectory != null) {
-                insertFiles(sourceFiles, targetDirectory);
-            }
+        if (thumbnailsPanel.getContent().equals(Content.DIRECTORY) && KeyEventUtil.isInsert(e)) {
+            insertFiles();
+        }
+    }
+
+    private void insertFiles() {
+        List<File> sourceFiles = ClipboardUtil.getFilesFromSystemClipboard("\n");
+        File targetDirectory = ViewUtil.getSelectedDirectory(treeDirectories);
+        if (sourceFiles.size() > 0 && targetDirectory != null) {
+            insertFiles(sourceFiles, targetDirectory);
         }
     }
 
@@ -65,9 +74,5 @@ public final class ControllerDirectoryCopyFiles implements KeyListener {
         if (action.equals(FileAction.CUT)) {
             thumbnailsPanel.setFileAction(FileAction.UNDEFINED);
         }
-    }
-
-    private void listen() {
-        treeDirectories.addKeyListener(this);
     }
 }

@@ -29,10 +29,14 @@ public final class ControllerDeleteFavoriteDirectory implements ActionListener {
 
     public ControllerDeleteFavoriteDirectory() {
         listen();
-        checkForRemoves();
+        startRemoveChecker();
     }
 
-    private void checkForRemoves() {
+    private void listen() {
+        popup.addActionListenerDelete(this);
+    }
+
+    private void startRemoveChecker() {
         removeChecker = new CheckDirectoriesRemoved();
         removeChecker.setPriority(1);
         removeChecker.start();
@@ -45,12 +49,12 @@ public final class ControllerDeleteFavoriteDirectory implements ActionListener {
 
     private void deleteFavorite() {
         FavoriteDirectory favorite = popup.getFavoriteDirectory();
-        if (deleteConfirmed(favorite.getFavoriteName())) {
+        if (confirmDelete(favorite.getFavoriteName())) {
             model.deleteFavorite(favorite);
         }
     }
 
-    private boolean deleteConfirmed(String favoriteName) {
+    private boolean confirmDelete(String favoriteName) {
         MessageFormat msg = new MessageFormat(Bundle.getString("ControllerDeleteFavoriteDirectory.ConfirmMessage.Delete"));
         Object[] params = {favoriteName};
         return JOptionPane.showConfirmDialog(
@@ -68,15 +72,11 @@ public final class ControllerDeleteFavoriteDirectory implements ActionListener {
         removeChecker.setStop(true);
     }
 
-    private void listen() {
-        popup.addActionListenerDelete(this);
-    }
-
     private class CheckDirectoriesRemoved extends Thread {
 
-        private boolean stop = false;
+        volatile private boolean stop = false;
 
-        public void setStop(boolean stop) {
+        public synchronized void setStop(boolean stop) {
             this.stop = stop;
         }
 
