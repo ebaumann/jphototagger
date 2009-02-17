@@ -41,7 +41,6 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel {
 
     public ImageFileThumbnailsPanel() {
         initMap();
-        setNewThumbnails(0);
         controllerDoubleklick = new ControllerDoubleklickThumbnail(this);
         setDragEnabled(true);
         setTransferHandler(new TransferHandlerThumbnailsPanel());
