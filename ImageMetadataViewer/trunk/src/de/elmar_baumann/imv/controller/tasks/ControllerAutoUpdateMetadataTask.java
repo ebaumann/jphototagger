@@ -6,8 +6,8 @@ import de.elmar_baumann.imv.database.Database;
 import de.elmar_baumann.imv.database.DatabaseAutoscanDirectories;
 import de.elmar_baumann.imv.event.TaskListener;
 import de.elmar_baumann.imv.tasks.ImageMetadataToDatabaseArray;
+import de.elmar_baumann.imv.tasks.InsertImageFilesIntoDatabase;
 import de.elmar_baumann.imv.tasks.Task;
-import de.elmar_baumann.imv.types.MetaDataForceDbUpdate;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -91,7 +91,8 @@ public final class ControllerAutoUpdateMetadataTask
         if (!directories.isEmpty()) {
             for (String directory : directories) {
                 if (!isSystemDirectory(directory)) {
-                    updaterArray.addDirectory(directory, EnumSet.of(MetaDataForceDbUpdate.NONE));
+                    updaterArray.addDirectory(directory, EnumSet.of(
+                        InsertImageFilesIntoDatabase.ForceUpdate.DO_NOT_FORCE));
                 }
             }
         }

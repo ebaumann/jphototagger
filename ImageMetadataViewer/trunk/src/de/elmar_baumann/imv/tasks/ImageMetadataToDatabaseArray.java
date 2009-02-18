@@ -7,7 +7,6 @@ import de.elmar_baumann.imv.event.ProgressListener;
 import de.elmar_baumann.imv.event.TaskListener;
 import de.elmar_baumann.imv.io.ImageFilteredDirectory;
 import de.elmar_baumann.imv.resource.Bundle;
-import de.elmar_baumann.imv.types.MetaDataForceDbUpdate;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.io.File;
 import java.text.MessageFormat;
@@ -139,18 +138,21 @@ public final class ImageMetadataToDatabaseArray implements ProgressListener {
      * Fügt ein einzuscannendes Verzeichnis hinzu.
      * 
      * @param directoryName    Verzeichnisname
-     * @param update           Update-Eigenschaften
+     * @param forceUpdate      Update dieser Metadaten erzwingen
      */
-    synchronized public void addDirectory(String directoryName, EnumSet<MetaDataForceDbUpdate> forceUpdateOf) {
-        updaters.add(createUpdater(directoryName, forceUpdateOf));
+    synchronized public void addDirectory(String directoryName, 
+        EnumSet<InsertImageFilesIntoDatabase.ForceUpdate> forceUpdate) {
+        updaters.add(createUpdater(directoryName, forceUpdate));
         startUpdateThread();
     }
 
-    private InsertImageFilesIntoDatabase createUpdater(String directoryName, EnumSet<MetaDataForceDbUpdate> forceUpdateOf) {
+    private InsertImageFilesIntoDatabase createUpdater(String directoryName,
+        EnumSet<InsertImageFilesIntoDatabase.ForceUpdate> forceUpdate) {
         List<String> filenames = FileUtil.getAsFilenames(
             ImageFilteredDirectory.getImageFilesOfDirectory(new File(directoryName)));
         Collections.sort(filenames);
-        InsertImageFilesIntoDatabase scanner = new InsertImageFilesIntoDatabase(filenames, forceUpdateOf);
+        InsertImageFilesIntoDatabase scanner = new InsertImageFilesIntoDatabase(
+            filenames, forceUpdate);
         scanner.addProgressListener(this);
         updaterOfDirectory.put(directoryName, scanner);
         directoryOfUpdater.put(scanner, directoryName);

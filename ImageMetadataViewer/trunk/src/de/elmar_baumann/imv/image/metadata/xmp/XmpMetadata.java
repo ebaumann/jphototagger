@@ -55,9 +55,9 @@ public final class XmpMetadata {
     }
 
     /**
-     * Optionen beim Schreiben von XMP-Dateien.
+     * Optionen beim Aktualisieren von XMP-Dateien.
      */
-    public enum WriteOption {
+    public enum UpdateOption {
 
         /**
          * In einer existierenden XMP-Datei <em>sich wiederholende</em> Einträge
@@ -67,7 +67,7 @@ public final class XmpMetadata {
          *
          * <p>Default: Existierende sich wiederholende Einträge werden ersetzt.
          */
-        APPEND,
+        APPEND_TO_REPEATABLE_VALUES,
         /**
          * In einer existierenden XMP-Datei sollen Einträge gelöscht werden,
          * wenn keine Daten existieren in beispielsweise Textfeldern
@@ -75,7 +75,7 @@ public final class XmpMetadata {
          *
          * <p>Default: Bestehender Inhalt wird nicht gelöscht
          */
-        DELETE_EMPTY
+        DELETE_IF_SOURCE_VALUE_IS_EMPTY
     }
 
     /**
@@ -318,7 +318,7 @@ public final class XmpMetadata {
      * @return true bei Erfolg
      */
     public static boolean writeMetadataToSidecarFile(String sidecarFilename,
-        List<TextEntry> textEntries, EnumSet<WriteOption> writeOptions) {
+        List<TextEntry> textEntries, EnumSet<UpdateOption> writeOptions) {
         try {
             XMPMeta xmpMeta = getXmpMetaOfSidecarFile(sidecarFilename);
             writeSidecarFileDeleteItems(xmpMeta, textEntries, writeOptions);
@@ -348,15 +348,15 @@ public final class XmpMetadata {
     }
 
     private static void writeSidecarFileDeleteItems(XMPMeta xmpMeta,
-        List<TextEntry> textEntries, EnumSet<WriteOption> options) {
+        List<TextEntry> textEntries, EnumSet<UpdateOption> options) {
         for (TextEntry textEntry : textEntries) {
             Column xmpColumn = textEntry.getColumn();
             String namespaceUri = mappingNamespaceUri.getNamespaceUriOfColumn(xmpColumn);
             String name = mappingName.getXmpPathStartOfColumn(xmpColumn);
             boolean textEntryIsEmpty = textEntry.getText().trim().isEmpty();
             boolean deleteProperty =
-                (!textEntryIsEmpty && !options.contains(WriteOption.APPEND)) // !textEntryIsEmpty: empty must not be deleted
-                || (textEntryIsEmpty && options.contains(WriteOption.DELETE_EMPTY));
+                (!textEntryIsEmpty && !options.contains(UpdateOption.APPEND_TO_REPEATABLE_VALUES)) // !textEntryIsEmpty: empty must not be deleted
+                || (textEntryIsEmpty && options.contains(UpdateOption.DELETE_IF_SOURCE_VALUE_IS_EMPTY));
             if (deleteProperty) {
                 xmpMeta.deleteProperty(namespaceUri, name);
             }

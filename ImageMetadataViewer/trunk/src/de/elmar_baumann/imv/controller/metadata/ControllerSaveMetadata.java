@@ -48,9 +48,9 @@ public final class ControllerSaveMetadata implements ActionListener {
         List<String> filenames = array.getFilenames();
         int filenameCount = filenames.size();
         if (filenameCount == 1) {
-            updater.add(filenames, entries, EnumSet.of(XmpMetadata.WriteOption.DELETE_EMPTY));
+            updater.add(filenames, entries, EnumSet.of(XmpMetadata.UpdateOption.DELETE_IF_SOURCE_VALUE_IS_EMPTY));
         } else if (filenameCount > 1) {
-            updater.add(filenames, entries, EnumSet.of(XmpMetadata.WriteOption.APPEND));
+            updater.add(filenames, entries, EnumSet.of(XmpMetadata.UpdateOption.APPEND_TO_REPEATABLE_VALUES));
         }
         array.setDirty(false);
     }

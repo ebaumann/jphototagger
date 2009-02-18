@@ -6,13 +6,13 @@ import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.data.Program;
 import de.elmar_baumann.imv.io.IoUtil;
 import de.elmar_baumann.imv.resource.Bundle;
-import de.elmar_baumann.imv.types.MetaDataForceDbUpdate;
 import de.elmar_baumann.imv.view.dialogs.ProgramInputParametersDialog;
 import de.elmar_baumann.lib.io.FileUtil;
 import de.elmar_baumann.lib.runtime.External;
 import de.elmar_baumann.lib.template.Pair;
 import java.io.File;
 import java.text.MessageFormat;
+import java.util.EnumSet;
 import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -193,7 +193,8 @@ public final class ProgramStarter {
         private void updateDatabase() {
             if (program.isChangeFile()) {
                 InsertImageFilesIntoDatabase updater = new InsertImageFilesIntoDatabase(
-                        FileUtil.getAbsolutePathnames(imageFiles), MetaDataForceDbUpdate.ALL_METADATA);
+                        FileUtil.getAbsolutePathnames(imageFiles),
+                        EnumSet.of(InsertImageFilesIntoDatabase.ForceUpdate.DO_NOT_FORCE));
                 updater.run(); // no subsequent thread
             }
         }

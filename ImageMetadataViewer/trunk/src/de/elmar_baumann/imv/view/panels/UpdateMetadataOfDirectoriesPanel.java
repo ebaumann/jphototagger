@@ -7,7 +7,6 @@ import de.elmar_baumann.imv.event.ProgressListener;
 import de.elmar_baumann.imv.io.DirectoryInfo;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.tasks.InsertImageFilesIntoDatabase;
-import de.elmar_baumann.imv.types.MetaDataForceDbUpdate;
 import de.elmar_baumann.imv.view.ViewUtil;
 import de.elmar_baumann.lib.dialog.DirectoryChooser;
 import de.elmar_baumann.lib.io.FileUtil;
@@ -17,6 +16,7 @@ import java.awt.event.KeyEvent;
 import java.io.File;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.List;
 import javax.swing.DefaultListModel;
 
@@ -75,10 +75,13 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
             FileUtil.getAsFilenames(selectedFiles), getDatabaseUpdateMethod());
     }
 
-    private MetaDataForceDbUpdate getDatabaseUpdateMethod() {
+    private EnumSet<InsertImageFilesIntoDatabase.ForceUpdate> getDatabaseUpdateMethod() {
         return checkBoxForce.isSelected()
-            ? MetaDataForceDbUpdate.ALL_METADATA
-            : MetaDataForceDbUpdate.IF_LAST_MODIFIED_CHANGED;
+            ? EnumSet.of(
+                InsertImageFilesIntoDatabase.ForceUpdate.EXIF,
+                InsertImageFilesIntoDatabase.ForceUpdate.THUMBNAIL,
+                InsertImageFilesIntoDatabase.ForceUpdate.XMP)
+            : EnumSet.of(InsertImageFilesIntoDatabase.ForceUpdate.DO_NOT_FORCE);
     }
 
     private List<File> getAllImageFiles() {

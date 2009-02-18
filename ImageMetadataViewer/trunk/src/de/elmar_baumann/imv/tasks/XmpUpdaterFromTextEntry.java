@@ -4,7 +4,7 @@ import de.elmar_baumann.imv.data.TextEntry;
 import de.elmar_baumann.imv.event.ProgressEvent;
 import de.elmar_baumann.imv.event.ProgressListener;
 import de.elmar_baumann.imv.image.metadata.xmp.XmpMetadata;
-import de.elmar_baumann.imv.types.MetaDataForceDbUpdate;
+import de.elmar_baumann.imv.tasks.InsertImageFilesIntoDatabase.ForceUpdate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.EnumSet;
@@ -20,7 +20,7 @@ public final class XmpUpdaterFromTextEntry implements Runnable {
 
     private final List<TextEntry> textEntries;
     private final List<String> filenames;
-    private final EnumSet<XmpMetadata.WriteOption> writeOptions;
+    private final EnumSet<XmpMetadata.UpdateOption> writeOptions;
     private final List<ProgressListener> progressListeners = new ArrayList<ProgressListener>();
     volatile private boolean stop = false;
 
@@ -29,10 +29,10 @@ public final class XmpUpdaterFromTextEntry implements Runnable {
      * 
      * @param filenames     Zu aktualisierende Dateien
      * @param textEntries   In alle Dateien zu schreibende Einträge
-     * @param options       Optionen
+     * @param writeOptions  Optionen
      */
     public XmpUpdaterFromTextEntry(List<String> filenames, List<TextEntry> textEntries,
-        EnumSet<XmpMetadata.WriteOption> writeOptions) {
+        EnumSet<XmpMetadata.UpdateOption> writeOptions) {
         this.filenames = filenames;
         this.textEntries = textEntries;
         this.writeOptions = writeOptions;
@@ -72,7 +72,7 @@ public final class XmpUpdaterFromTextEntry implements Runnable {
 
     private void updateDatabase(String filename) {
         InsertImageFilesIntoDatabase updater = new InsertImageFilesIntoDatabase(
-                Arrays.asList(filename), EnumSet.of(MetaDataForceDbUpdate.XMP));
+                Arrays.asList(filename), EnumSet.of(ForceUpdate.XMP));
         updater.run();
     }
 

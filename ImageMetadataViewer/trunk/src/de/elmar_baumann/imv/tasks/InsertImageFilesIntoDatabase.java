@@ -12,7 +12,6 @@ import de.elmar_baumann.imv.image.thumbnail.ThumbnailUtil;
 import de.elmar_baumann.imv.image.metadata.exif.ExifMetadata;
 import de.elmar_baumann.imv.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.imv.resource.Bundle;
-import de.elmar_baumann.imv.types.MetaDataForceDbUpdate;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.awt.Image;
 import java.io.File;
@@ -22,7 +21,7 @@ import java.util.EnumSet;
 import java.util.List;
 
 /**
- * Write image file metadata into the database.
+ * Write image file metadata into the database if out of date or not existing.
  * 
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
@@ -35,20 +34,50 @@ public final class InsertImageFilesIntoDatabase implements Runnable {
     private final boolean useEmbeddedThumbnails = UserSettings.getInstance().isUseEmbeddedThumbnails();
     private final String externalThumbnailCreationCommand = UserSettings.getInstance().getExternalThumbnailCreationCommand();
     private final List<String> filenames;
-    private final EnumSet<MetaDataForceDbUpdate> forceUpdateOf;
+    private final EnumSet<ForceUpdate> forceUpdate;
     volatile private boolean stop = false;
     private long startTime;
+
+    /**
+     * Force update of Metadata
+     */
+    public enum ForceUpdate {
+
+        /**
+         * Don't force insertion or update; update only if the information is
+         * out of date
+         */
+        DO_NOT_FORCE,
+        /**
+         * Insert into the database the image file's EXIF or update it, even
+         * when the image file's timestamp in the database is equal to the last
+         * modification time of the image file in the file system
+         */
+        EXIF,
+        /**
+         * Insert into the database the image file's thumbnail or update it, even
+         * when the image file's timestamp in the database is equal to the last
+         * modification time of the image file in the file system
+         */
+        THUMBNAIL,
+        /**
+         * Insert into the database the image file's XMP data or update it, even
+         * when the XMP file's timestamp in the database is equal to the last
+         * modification time of the XMP file in the file system
+         */
+        XMP;
+    }
 
     /**
      * Constructor.
      * 
      * @param filenames    names of the <em>image</em> files to be updated
-     * @param forceUpdate  metadata to insert even when file's dates equals to
-     *                     their time stamps in the database
+     * @param forceUpdate  metadata to update regardless of the database's
+     *                     timestamp
      */
-    public InsertImageFilesIntoDatabase(List<String> filenames, EnumSet<MetaDataForceDbUpdate> forceUpdateOf) {
+    public InsertImageFilesIntoDatabase(List<String> filenames, EnumSet<ForceUpdate> forceUpdate) {
         this.filenames = filenames;
-        this.forceUpdateOf = forceUpdateOf;
+        this.forceUpdate = forceUpdate;
     }
 
     /**
@@ -123,17 +152,17 @@ public final class InsertImageFilesIntoDatabase implements Runnable {
     }
 
     private boolean isUpdateThumbnail(String filename) {
-        return forceUpdateOf.contains(MetaDataForceDbUpdate.THUMBNAIL) ||
+        return forceUpdate.contains(ForceUpdate.THUMBNAIL) ||
                 !isImageFileUpToDate(filename);
     }
 
     private boolean isUpdateXmp(String filename) {
-        return forceUpdateOf.contains(MetaDataForceDbUpdate.XMP) ||
+        return forceUpdate.contains(ForceUpdate.XMP) ||
                 !isXmpFileUpToDate(filename);
     }
 
     private boolean isUpdateExif(String filename) {
-        return forceUpdateOf.contains(MetaDataForceDbUpdate.EXIF) ||
+        return forceUpdate.contains(ForceUpdate.EXIF) ||
                 !isImageFileUpToDate(filename);
     }
 

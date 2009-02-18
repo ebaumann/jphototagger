@@ -7,7 +7,6 @@ import de.elmar_baumann.imv.event.ProgressListener;
 import de.elmar_baumann.imv.event.ThumbnailsPanelAction;
 import de.elmar_baumann.imv.event.ThumbnailsPanelListener;
 import de.elmar_baumann.imv.resource.Panels;
-import de.elmar_baumann.imv.types.MetaDataForceDbUpdate;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.lib.io.FileUtil;
@@ -48,7 +47,8 @@ public final class ControllerCreateMetadataOfCurrentThumbnails
 
     private InsertImageFilesIntoDatabase createUpdater(List<String> files) {
         InsertImageFilesIntoDatabase updater =
-                new InsertImageFilesIntoDatabase(files, EnumSet.of(MetaDataForceDbUpdate.None));
+                new InsertImageFilesIntoDatabase(files, EnumSet.of(
+                InsertImageFilesIntoDatabase.ForceUpdate.DO_NOT_FORCE));
         updater.addProgressListener(this);
         return updater;
     }

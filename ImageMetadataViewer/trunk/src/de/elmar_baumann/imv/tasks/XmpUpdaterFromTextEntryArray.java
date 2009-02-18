@@ -35,7 +35,7 @@ public final class XmpUpdaterFromTextEntryArray implements ProgressListener {
      * @param writeOptions  Optionen
      */
     public void add(List<String> filenames, List<TextEntry> textEntries,
-        EnumSet<XmpMetadata.WriteOption> writeOptions) {
+        EnumSet<XmpMetadata.UpdateOption> writeOptions) {
         XmpUpdaterFromTextEntry updater = new XmpUpdaterFromTextEntry(filenames, textEntries, writeOptions);
         updater.addProgressListener(this);
         updaters.add(updater);

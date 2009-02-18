@@ -8,7 +8,6 @@ import de.elmar_baumann.imv.event.ProgressListener;
 import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.resource.ProgressBarCurrentTasks;
 import de.elmar_baumann.imv.tasks.Task;
-import de.elmar_baumann.imv.types.MetaDataForceDbUpdate;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuPanelThumbnails;
 import de.elmar_baumann.lib.io.FileUtil;
@@ -61,9 +60,9 @@ public final class ControllerCreateMetadataOfSelectedThumbnails
         }
     }
 
-    private void updateMetadata(EnumSet<MetaDataForceDbUpdate> forceUpdateOf) {
-        updaters.add(createUpdater(
-                FileUtil.getAsFilenames(thumbnailsPanel.getSelectedFiles()), forceUpdateOf));
+    private void updateMetadata(EnumSet<InsertImageFilesIntoDatabase.ForceUpdate> forceUpdate) {
+        updaters.add(createUpdater(FileUtil.getAsFilenames(
+            thumbnailsPanel.getSelectedFiles()), forceUpdate));
         startUpdateMetadataThread();
     }
 
@@ -84,8 +83,10 @@ public final class ControllerCreateMetadataOfSelectedThumbnails
         }
     }
 
-    private InsertImageFilesIntoDatabase createUpdater(List<String> files, EnumSet<MetaDataForceDbUpdate> forceUpdateOf) {
-        InsertImageFilesIntoDatabase updater = new InsertImageFilesIntoDatabase(files, forceUpdateOf);
+    private InsertImageFilesIntoDatabase createUpdater(List<String> files,
+        EnumSet<InsertImageFilesIntoDatabase.ForceUpdate> forceUpdate) {
+
+        InsertImageFilesIntoDatabase updater = new InsertImageFilesIntoDatabase(files, forceUpdate);
         updater.addProgressListener(this);
         return updater;
     }
