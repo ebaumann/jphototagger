@@ -40,7 +40,7 @@ public final class MoveToDirectoryDialog extends Dialog
     private final List<ProgressListener> progressListeners = new ArrayList<ProgressListener>();
     private FileSystemMove moveTask;
     private boolean runs = false;
-    private boolean stop = false;
+    volatile private boolean stop = false;
     private boolean errors = false;
     private List<File> sourceFiles;
     private File targetDirectory = new File(""); // NOI18N
@@ -205,6 +205,12 @@ public final class MoveToDirectoryDialog extends Dialog
         super.setVisible(visible);
     }
 
+    private void checkStopEvent(ProgressEvent evt) {
+        if (stop) {
+            evt.stop();
+        }
+    }
+
     @Override
     public void progressStarted(ProgressEvent evt) {
         buttonStart.setEnabled(false);
@@ -212,7 +218,7 @@ public final class MoveToDirectoryDialog extends Dialog
         progressBar.setMinimum(evt.getMinimum());
         progressBar.setMaximum(evt.getMaximum());
         progressBar.setValue(evt.getValue());
-        evt.setStop(stop);
+        checkStopEvent(evt);
         notifyProgressListenerStarted(evt);
     }
 
@@ -222,7 +228,7 @@ public final class MoveToDirectoryDialog extends Dialog
         @SuppressWarnings("unchecked")
         String filename = ((Pair<File, File>) evt.getInfo()).getFirst().getAbsolutePath();
         labelCurrentFilename.setText(filename);
-        evt.setStop(stop);
+        checkStopEvent(evt);
         notifyProgressListenerPerformed(evt);
     }
 

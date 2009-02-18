@@ -30,7 +30,7 @@ public final class ControllerSliderThumbnailSize
     private static final int maxMaginficationPercent = 100;
     private static final String keySliderValue = ControllerSliderThumbnailSize.class.getName() + "." + "SliderValue";
     private int currentValue = 100;
-    private int maxThumbnailWidth = UserSettings.getInstance().getMaxThumbnailWidth();
+    private int maxThumbnailWidth = UserSettings.getInstance().getMaxThumbnailLength();
 
     public ControllerSliderThumbnailSize() {
         initSlider();
@@ -70,7 +70,7 @@ public final class ControllerSliderThumbnailSize
     @Override
     public void applySettings(UserSettingsChangeEvent evt) {
         if (evt.getType().equals(UserSettingsChangeEvent.Type.MAX_THUMBNAIL_WIDTH)) {
-            maxThumbnailWidth = UserSettings.getInstance().getMaxThumbnailWidth();
+            maxThumbnailWidth = UserSettings.getInstance().getMaxThumbnailLength();
             setThumbnailWidth();
         }
     }

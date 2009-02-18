@@ -21,7 +21,7 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
     private final DatabaseFileExcludePattern db = DatabaseFileExcludePattern.getInstance();
     private final ListModelFileExcludePatterns model = new ListModelFileExcludePatterns();
     private boolean isUpdateDatabase = false;
-    private boolean isStopUpdateDatabase = false;
+    volatile private boolean stop = false;
 
     /** Creates new form SettingsFileExcludePatternsPanel */
     public SettingsFileExcludePatternsPanel() {
@@ -31,7 +31,7 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
     @Override
     public void setVisible(boolean visible) {
         if (visible) {
-            isStopUpdateDatabase = false;
+            stop = false;
             isUpdateDatabase = false;
             setEnabledButtons();
         } else {
@@ -82,14 +82,20 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
         List<String> patterns = model.getPatterns();
         if (patterns.size() > 0) {
             isUpdateDatabase = true;
-            isStopUpdateDatabase = false;
+            stop = false;
             setEnabledButtons();
             db.deleteFilesWithPattern(patterns, this);
         }
     }
 
     private void cancelUpdateDatabase() {
-        isStopUpdateDatabase = true;
+        stop = true;
+    }
+
+    private void checkStopEvent(ProgressEvent evt) {
+        if (stop) {
+            evt.stop();
+        }
     }
 
     @Override
@@ -97,20 +103,20 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
         progressBarUpdateDatabase.setMinimum(evt.getMinimum());
         progressBarUpdateDatabase.setMaximum(evt.getMaximum());
         progressBarUpdateDatabase.setValue(evt.getValue());
-        evt.setStop(isStopUpdateDatabase);
+        checkStopEvent(evt);
     }
 
     @Override
     public void progressPerformed(ProgressEvent evt) {
         progressBarUpdateDatabase.setValue(evt.getValue());
-        evt.setStop(isStopUpdateDatabase);
+        checkStopEvent(evt);
     }
 
     @Override
     public void progressEnded(ProgressEvent evt) {
         progressBarUpdateDatabase.setValue(evt.getValue());
         isUpdateDatabase = false;
-        isStopUpdateDatabase = false;
+        stop = false;
         setEnabledButtons();
     }
 

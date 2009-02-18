@@ -7,12 +7,13 @@ import de.elmar_baumann.imv.event.ProgressListener;
 import de.elmar_baumann.imv.event.TaskListener;
 import de.elmar_baumann.imv.io.ImageFilteredDirectory;
 import de.elmar_baumann.imv.resource.Bundle;
-import de.elmar_baumann.imv.types.DatabaseUpdate;
+import de.elmar_baumann.imv.types.MetaDataForceDbUpdate;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.io.File;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,9 +30,9 @@ import javax.swing.JProgressBar;
  */
 public final class ImageMetadataToDatabaseArray implements ProgressListener {
 
-    private final Queue<ImageMetadataToDatabase> updaters = new ConcurrentLinkedQueue<ImageMetadataToDatabase>();
-    private final Map<String, ImageMetadataToDatabase> updaterOfDirectory = new HashMap<String, ImageMetadataToDatabase>();
-    private final Map<ImageMetadataToDatabase, String> directoryOfUpdater = new HashMap<ImageMetadataToDatabase, String>();
+    private final Queue<InsertImageFilesIntoDatabase> updaters = new ConcurrentLinkedQueue<InsertImageFilesIntoDatabase>();
+    private final Map<String, InsertImageFilesIntoDatabase> updaterOfDirectory = new HashMap<String, InsertImageFilesIntoDatabase>();
+    private final Map<InsertImageFilesIntoDatabase, String> directoryOfUpdater = new HashMap<InsertImageFilesIntoDatabase, String>();
     private final List<TaskListener> taskListeners = new ArrayList<TaskListener>();
     private final JProgressBar progressBar;
     private boolean wait = false;
@@ -107,7 +108,7 @@ public final class ImageMetadataToDatabaseArray implements ProgressListener {
      * @param directoryName Name des Verzeichnisses
      */
     synchronized public void stopUpdateOfDirectory(String directoryName) {
-        ImageMetadataToDatabase scanner = updaterOfDirectory.get(directoryName);
+        InsertImageFilesIntoDatabase scanner = updaterOfDirectory.get(directoryName);
         if (scanner != null) {
             scanner.stop();
         }
@@ -140,16 +141,16 @@ public final class ImageMetadataToDatabaseArray implements ProgressListener {
      * @param directoryName    Verzeichnisname
      * @param update           Update-Eigenschaften
      */
-    synchronized public void addDirectory(String directoryName, DatabaseUpdate update) {
-        updaters.add(createUpdater(directoryName, update));
+    synchronized public void addDirectory(String directoryName, EnumSet<MetaDataForceDbUpdate> forceUpdateOf) {
+        updaters.add(createUpdater(directoryName, forceUpdateOf));
         startUpdateThread();
     }
 
-    private ImageMetadataToDatabase createUpdater(String directoryName, DatabaseUpdate update) {
+    private InsertImageFilesIntoDatabase createUpdater(String directoryName, EnumSet<MetaDataForceDbUpdate> forceUpdateOf) {
         List<String> filenames = FileUtil.getAsFilenames(
             ImageFilteredDirectory.getImageFilesOfDirectory(new File(directoryName)));
         Collections.sort(filenames);
-        ImageMetadataToDatabase scanner = new ImageMetadataToDatabase(filenames, update);
+        InsertImageFilesIntoDatabase scanner = new InsertImageFilesIntoDatabase(filenames, forceUpdateOf);
         scanner.addProgressListener(this);
         updaterOfDirectory.put(directoryName, scanner);
         directoryOfUpdater.put(scanner, directoryName);
@@ -174,7 +175,7 @@ public final class ImageMetadataToDatabaseArray implements ProgressListener {
             }
             progressBar.setValue(evt.getValue());
         }
-        logScanDirectory(getDirectoryNameOfUpdater((ImageMetadataToDatabase) evt.getSource()));
+        logScanDirectory(getDirectoryNameOfUpdater((InsertImageFilesIntoDatabase) evt.getSource()));
     }
 
     @Override
@@ -188,7 +189,7 @@ public final class ImageMetadataToDatabaseArray implements ProgressListener {
             }
         } else {
             updaters.clear();
-            evt.setStop(true);
+            evt.stop();
         }
     }
 
@@ -204,13 +205,13 @@ public final class ImageMetadataToDatabaseArray implements ProgressListener {
         if (updaters.size() > 0) {
             startUpdateThread();
         }
-        ImageMetadataToDatabase scanner = (ImageMetadataToDatabase) evt.getSource();
+        InsertImageFilesIntoDatabase scanner = (InsertImageFilesIntoDatabase) evt.getSource();
         messageEndUpdateDirectory(scanner);
         removeUpdater(scanner);
         checkTasksCompleted();
     }
 
-    private void removeUpdater(ImageMetadataToDatabase scanner) {
+    private void removeUpdater(InsertImageFilesIntoDatabase scanner) {
         if (scanner != null) {
             String directoryName = getDirectoryNameOfUpdater(scanner);
             directoryOfUpdater.remove(scanner);
@@ -218,7 +219,7 @@ public final class ImageMetadataToDatabaseArray implements ProgressListener {
         }
     }
 
-    private void messageEndUpdateDirectory(ImageMetadataToDatabase scanner) {
+    private void messageEndUpdateDirectory(InsertImageFilesIntoDatabase scanner) {
         MessageFormat message = new MessageFormat(Bundle.getString("ImageMetadataToDatabaseArray.InformationMessage.UpdateMetadataFinished"));
         Object[] params = {getDirectoryNameOfUpdater(scanner)};
         Log.logFinest(ImageMetadataToDatabaseArray.class, message.format(params));
@@ -230,7 +231,7 @@ public final class ImageMetadataToDatabaseArray implements ProgressListener {
         Log.logFinest(ImageMetadataToDatabaseArray.class, message.format(params));
     }
 
-    private String getDirectoryNameOfUpdater(ImageMetadataToDatabase scanner) {
+    private String getDirectoryNameOfUpdater(InsertImageFilesIntoDatabase scanner) {
         String name = null;
         if (scanner != null) {
             name = directoryOfUpdater.get(scanner);

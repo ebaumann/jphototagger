@@ -6,7 +6,7 @@ import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.data.Program;
 import de.elmar_baumann.imv.io.IoUtil;
 import de.elmar_baumann.imv.resource.Bundle;
-import de.elmar_baumann.imv.types.DatabaseUpdate;
+import de.elmar_baumann.imv.types.MetaDataForceDbUpdate;
 import de.elmar_baumann.imv.view.dialogs.ProgramInputParametersDialog;
 import de.elmar_baumann.lib.io.FileUtil;
 import de.elmar_baumann.lib.runtime.External;
@@ -25,9 +25,9 @@ import javax.swing.JProgressBar;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/11/06
  */
-public final class ProgramExecutor {
+public final class ProgramStarter {
 
-    private JProgressBar progressBar;
+    private final JProgressBar progressBar;
     private final Queue<Execute> queue = new ConcurrentLinkedQueue<Execute>();
 
     /**
@@ -36,7 +36,7 @@ public final class ProgramExecutor {
      * @param progressBar  progressbar or null, if the progress shouldn't be
      *                     displayed
      */
-    public ProgramExecutor(JProgressBar progressBar) {
+    public ProgramStarter(JProgressBar progressBar) {
         this.progressBar = progressBar;
     }
 
@@ -46,11 +46,11 @@ public final class ProgramExecutor {
      * @param  program     program
      * @param  imageFiles  files to process
      */
-    public void execute(Program program, List<File> imageFiles) {
+    public void startProgram(Program program, List<File> imageFiles) {
         if (checkFilecount(imageFiles)) {
             Execute execute = new Execute(program, imageFiles);
             execute.setPriority(UserSettings.getInstance().getThreadPriority());
-            synchronized (queue) {
+            synchronized (this) {
                 if (queue.isEmpty()) {
                     execute.start();
                 } else {
@@ -66,16 +66,15 @@ public final class ProgramExecutor {
             return false;
         }
         return true;
-
     }
 
     private void errorMessageSelection() {
         JOptionPane.showMessageDialog(
-            null,
-            Bundle.getString("ProgramExecutor.ErrorMessage.Selection"),
-            Bundle.getString("ProgramExecutor.ErrorMessage.Selection.Title"),
-            JOptionPane.ERROR_MESSAGE,
-            AppSettings.getMediumAppIcon());
+                null,
+                Bundle.getString("ProgramStarter.ErrorMessage.Selection"),
+                Bundle.getString("ProgramStarter.ErrorMessage.Selection.Title"),
+                JOptionPane.ERROR_MESSAGE,
+                AppSettings.getMediumAppIcon());
     }
 
     private class Execute extends Thread {
@@ -102,43 +101,51 @@ public final class ProgramExecutor {
         }
 
         private void logCommand(String command) {
-            MessageFormat msg = new MessageFormat(Bundle.getString("ProgramExecutor.InformationMessage.ExecuteCommand"));
+            MessageFormat msg = new MessageFormat(Bundle.getString("ProgramStarter.InformationMessage.ExecuteCommand"));
             Object[] params = {command};
-            Log.logInfo(ProgramExecutor.class, msg.format(params));
+            Log.logInfo(ProgramStarter.class, msg.format(params));
         }
 
         private void processAll() {
-            String command = program.getFile().getAbsolutePath() + " " + // NOI18N
-                program.getCommandlineAfterProgram(
-                IoUtil.getQuotedForCommandline(imageFiles, ""), // NOI18N
-                getInput(Bundle.getString("ProgramExecutor.GetInput.Title"), 2),
-                dialog.isParametersBeforeFilename());
+            String command = getProcessAllCommand();
             logCommand(command);
             Pair<byte[], byte[]> output = External.executeGetOutput(command);
             if (output != null) {
-                logErrors(output);
+                checkLogErrors(output);
                 setValueToProgressBar(imageFiles.size());
             }
+        }
+
+        private String getProcessAllCommand() {
+            return program.getFile().getAbsolutePath() + " " + // NOI18N
+                    program.getCommandlineParameters(
+                        IoUtil.getQuotedForCommandline(imageFiles, ""), // NOI18N
+                        getAdditionalParameters(Bundle.getString("ProgramStarter.GetInput.Title"), 2),
+                        dialog.isParametersBeforeFilename());
         }
 
         private void processSingle() {
             int count = 0;
             for (File file : imageFiles) {
-                String command = program.getFile().getAbsolutePath() + " " + // NOI18N
-                    program.getCommandlineAfterProgram(
-                    file.getAbsolutePath(),
-                    getInput(file.getAbsolutePath(), count + 1),
-                    dialog.isParametersBeforeFilename());
+                String command = getProcessSingleCommand(file, count);
                 logCommand(command);
                 Pair<byte[], byte[]> output = External.executeGetOutput(command);
                 if (output != null) {
-                    logErrors(output);
+                    checkLogErrors(output);
                     setValueToProgressBar(++count);
                 }
             }
         }
 
-        private String getInput(String filename, int count) {
+        private String getProcessSingleCommand(File file, int count) {
+            return program.getFile().getAbsolutePath() + " " + // NOI18N
+                    program.getCommandlineParameters(
+                        file.getAbsolutePath(),
+                        getAdditionalParameters(file.getAbsolutePath(), count + 1),
+                        dialog.isParametersBeforeFilename());
+        }
+
+        private String getAdditionalParameters(String filename, int count) {
             if (!program.isInputBeforeExecute()) {
                 return ""; // NOI18N
             }
@@ -154,19 +161,17 @@ public final class ProgramExecutor {
             return ""; // NOI18N
         }
 
-        private void nextExecutor() {
-            synchronized (queue) {
-                if (!queue.isEmpty()) {
-                    queue.poll().start();
-                }
+        synchronized private void nextExecutor() {
+            if (!queue.isEmpty()) {
+                queue.poll().start();
             }
         }
 
-        private void logErrors(Pair<byte[], byte[]> output) {
+        private void checkLogErrors(Pair<byte[], byte[]> output) {
             byte[] stderr = output.getSecond();
             String message = (stderr == null ? "" : new String(stderr).trim()); // NOI18N
             if (!message.isEmpty()) {
-                message = Bundle.getString("ProgramExecutor.ErrorMessage.Program") + message;
+                message = Bundle.getString("ProgramStarter.ErrorMessage.Program") + message;
                 Log.logWarning(Execute.class, message);
             }
         }
@@ -187,8 +192,8 @@ public final class ProgramExecutor {
 
         private void updateDatabase() {
             if (program.isChangeFile()) {
-                ImageMetadataToDatabase updater = new ImageMetadataToDatabase(
-                    FileUtil.getAbsolutePathnames(imageFiles), DatabaseUpdate.COMPLETE);
+                InsertImageFilesIntoDatabase updater = new InsertImageFilesIntoDatabase(
+                        FileUtil.getAbsolutePathnames(imageFiles), MetaDataForceDbUpdate.ALL_METADATA);
                 updater.run(); // no subsequent thread
             }
         }

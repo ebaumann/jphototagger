@@ -2,7 +2,7 @@ package de.elmar_baumann.imv.controller.imagecollection;
 
 import de.elmar_baumann.imv.comparator.ComparatorStringAscending;
 import de.elmar_baumann.imv.model.ListModelImageCollections;
-import de.elmar_baumann.imv.tasks.ImageCollectionToDatabase;
+import de.elmar_baumann.imv.tasks.ImageCollectionDatabaseUtils;
 import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
@@ -36,8 +36,8 @@ public final class ControllerCreateImageCollection implements ActionListener {
     }
 
     private void createCollectionOfSelectedFiles() {
-        ImageCollectionToDatabase manager = new ImageCollectionToDatabase();
-        String collectionName = manager.addImageCollection(
+        ImageCollectionDatabaseUtils manager = new ImageCollectionDatabaseUtils();
+        String collectionName = manager.insertImageCollection(
                 FileUtil.getAsFilenames(thumbnailsPanel.getSelectedFiles()));
         if (collectionName != null) {
             ListUtil.insertSorted(model, collectionName, new ComparatorStringAscending(true));

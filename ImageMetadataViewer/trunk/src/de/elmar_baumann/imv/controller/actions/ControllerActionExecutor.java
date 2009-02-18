@@ -3,7 +3,7 @@ package de.elmar_baumann.imv.controller.actions;
 import de.elmar_baumann.imv.event.ProgramActionEvent;
 import de.elmar_baumann.imv.event.ProgramActionListener;
 import de.elmar_baumann.imv.resource.Panels;
-import de.elmar_baumann.imv.tasks.ProgramExecutor;
+import de.elmar_baumann.imv.tasks.ProgramStarter;
 import de.elmar_baumann.imv.view.dialogs.ActionsDialog;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 
@@ -18,7 +18,7 @@ public final class ControllerActionExecutor implements ProgramActionListener {
 
     private final ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
     private final ActionsDialog actionsDialog = ActionsDialog.getInstance();
-    private final ProgramExecutor executor = new ProgramExecutor(actionsDialog.getProgressBar(this)); // no other executor expected
+    private final ProgramStarter executor = new ProgramStarter(actionsDialog.getProgressBar(this)); // no other executor expected
 
     public ControllerActionExecutor() {
         listen();
@@ -30,6 +30,6 @@ public final class ControllerActionExecutor implements ProgramActionListener {
 
     @Override
     public void actionPerformed(ProgramActionEvent evt) {
-        executor.execute(evt.getProgram(), thumbnailsPanel.getSelectedFiles());
+        executor.startProgram(evt.getProgram(), thumbnailsPanel.getSelectedFiles());
     }
 }

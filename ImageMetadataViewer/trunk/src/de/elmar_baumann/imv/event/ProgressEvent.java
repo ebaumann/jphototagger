@@ -8,17 +8,23 @@ package de.elmar_baumann.imv.event;
  */
 public final class ProgressEvent {
 
-    private Object source;
-    private int maximum;
-    private int minimum;
-    private boolean indeterminate = false;
+    private final Object source;
+    private final int maximum;
+    private final int minimum;
+    private final boolean indeterminate;
     private int value;
-    private long milliSecondsRemaining = -1;
+    private final long milliSecondsRemaining;
     private Object info;
-    private boolean stop = false;
+    volatile private boolean stop = false;
 
     /**
-     * Konstruktor.
+     * Konstruktor für Ereignisse mit bekanntem Umfang (Minimum, Maximum und
+     * aktueller Wert sind bekannt).
+     *
+     * <ul>
+     * <li>{@link #isIndeterminate()} liefert <code>false</code>
+     * <li>{@link #getMilliSecondsRemaining()} liefert <code>-1</code>
+     * </ul>
      * 
      * @param source  Quelle des Ereignisses
      * @param minimum Minimale Ereignisanzahl
@@ -27,13 +33,58 @@ public final class ProgressEvent {
      *                Ereignisanzahl)
      * @param info    Beliebige Information
      */
-    public ProgressEvent(Object source, int minimum, int maximum, int value,
-        Object info) {
+    public ProgressEvent(Object source, int minimum, int maximum, int value, Object info) {
         this.source = source;
         this.minimum = minimum;
         this.maximum = maximum;
         this.value = value;
         this.info = info;
+        indeterminate = false;
+        milliSecondsRemaining = -1;
+    }
+
+    /**
+     * Konstruktor für Ereignisse mit bekanntem Umfang (Minimum, Maximum und
+     * aktueller Wert sind bekannt) sowie bekannter Dauer.
+     *
+     * {@link #isIndeterminate()} liefert <code>false</code>.
+     *
+     * @param source                 Quelle des Ereignisses
+     * @param minimum                Minimale Ereignisanzahl
+     * @param maximum                Maximale Ereignisanzahl
+     * @param value                  Aktuelles Ereignis (Wert zwischen minimaler
+     *                               und maximaler Ereignisanzahl)
+     * @param milliSecondsRemaining  Verbleibende Zeit in Millisekunden
+     * @param info                   Beliebige Information
+     */
+    public ProgressEvent(Object source, int minimum, int maximum, int value, long milliSecondsRemaining, Object info) {
+        this.source = source;
+        this.minimum = minimum;
+        this.maximum = maximum;
+        this.value = value;
+        this.milliSecondsRemaining = milliSecondsRemaining;
+        this.info = info;
+        indeterminate = false;
+    }
+
+    /**
+     * Konstruktor für Ereignisse mit unbekanntem Umfang.
+     *
+     * <ul>
+     * <li>{@link #isIndeterminate()} liefert <code>true</code>
+     * <li>{@link #getMilliSecondsRemaining()} liefert <code>-1</code>
+     * </ul>
+     *
+     * @param source  Quelle des Ereignisses
+     * @param info    Beliebige Information
+     */
+    public ProgressEvent(Object source, Object info) {
+        this.source = source;
+        this.info = info;
+        indeterminate = true;
+        minimum = -1;
+        maximum = -1;
+        milliSecondsRemaining = -1;
     }
 
     /**
@@ -46,15 +97,6 @@ public final class ProgressEvent {
     }
 
     /**
-     * Setzt die Ereignisquelle.
-     * 
-     * @param source Ereignisquelle
-     */
-    public void setSource(Object source) {
-        this.source = source;
-    }
-
-    /**
      * Liefert die minimale Ereignisanzahl.
      * 
      * @return Minimale Ereignisanzahl
@@ -64,30 +106,12 @@ public final class ProgressEvent {
     }
 
     /**
-     * Setzt die minimale Ereignisanzahl.
-     * 
-     * @param minimum Minimale Ereignisanahl
-     */
-    public void setMinimum(int minimum) {
-        this.minimum = minimum;
-    }
-
-    /**
      * Liefert die maximale Ereignisanzahl.
      * 
      * @return Maximale Ereignisanzahl
      */
     public int getMaximum() {
         return maximum;
-    }
-
-    /**
-     * Setzt die maximale Ereignisanzahl.
-     * 
-     * @param maximum Maximale Ereignisanzahl
-     */
-    public void setMaximum(int maximum) {
-        this.maximum = maximum;
     }
 
     /**
@@ -136,22 +160,10 @@ public final class ProgressEvent {
     }
 
     /**
-     * Setzt die noch verbleibenden Millisekunden bis zum Abschluss.
-     * 
-     * @param milliSecondsRemaining Verbleibende Millisekunden
+     * Teilt der Quelle mit, dass die Aktion abgebrochen werden soll.
      */
-    public void setMilliSecondsRemaining(long milliSecondsRemaining) {
-        this.milliSecondsRemaining = milliSecondsRemaining;
-    }
-
-    /**
-     * Teilt der Quelle mit, ob die Aktion abgebrochen werden soll.
-     * 
-     * @param stop true, wenn die Aktion abgebrochen werden soll.
-     *              Default: false
-     */
-    public void setStop(boolean stop) {
-        this.stop = stop;
+    public void stop() {
+        stop = true;
     }
 
     /**
@@ -171,14 +183,4 @@ public final class ProgressEvent {
     public boolean isIndeterminate() {
         return indeterminate;
     }
-
-    /**
-     * Sets wheter the progress is indeterminate.
-     * 
-     * @param intermediate  true if indeterminate. Default: false.
-     */
-    public void setIndeterminate(boolean intermediate) {
-        this.indeterminate = intermediate;
-    }
-    
 }

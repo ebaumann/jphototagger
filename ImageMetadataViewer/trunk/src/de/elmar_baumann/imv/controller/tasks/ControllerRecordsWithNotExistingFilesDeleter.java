@@ -43,16 +43,23 @@ public final class ControllerRecordsWithNotExistingFilesDeleter
         taskListeners.add(listener);
     }
 
+    private void checkStopEvent(ProgressEvent evt) {
+        if (stop) {
+            evt.stop();
+        }
+    }
+
     @Override
     public void progressStarted(ProgressEvent evt) {
         if (progressBar != null) {
             setProgressBar();
         }
+        checkStopEvent(evt);
     }
 
     @Override
     public void progressPerformed(ProgressEvent evt) {
-        evt.setStop(stop);
+        checkStopEvent(evt);
     }
 
     @Override

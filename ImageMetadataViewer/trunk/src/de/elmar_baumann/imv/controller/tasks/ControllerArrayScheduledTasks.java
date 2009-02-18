@@ -29,35 +29,33 @@ public final class ControllerArrayScheduledTasks
     private int milliSecondsToStart = UserSettings.getInstance().getMinutesToStartScheduledTasks() * 60 * 1000;
 
     public ControllerArrayScheduledTasks() {
-        listen();
         initArray();
-    }
-
-    private void handleButtonStopClicked() {
-        buttonStop.setEnabled(false);
-        stopController();
-    }
-
-    private void initArray() {
-        ControllerAutoUpdateMetadataTask controllerAutoUpdateMetadataTask =
-                new ControllerAutoUpdateMetadataTask(progressBar);
-
-        controllerAutoUpdateMetadataTask.addTaskListener(this);
-
-        controllers.add(controllerAutoUpdateMetadataTask);
-
-        if (UserSettings.getInstance().isTaskRemoveRecordsWithNotExistingFiles()) {
-            ControllerRecordsWithNotExistingFilesDeleter controllerRecordsWithNotExistingFilesDeleter =
-                    new ControllerRecordsWithNotExistingFilesDeleter(progressBar);
-
-            controllerRecordsWithNotExistingFilesDeleter.addTaskListener(this);
-
-            controllers.add(controllerRecordsWithNotExistingFilesDeleter);
-        }
+        listen();
     }
 
     private void listen() {
         buttonStop.addActionListener(this);
+    }
+
+    private void initArray() {
+        addControllerAutoUpdateMetadataTask();
+        addControllerRecordsWithNotExistingFilesDeleter();
+    }
+
+    private void addControllerAutoUpdateMetadataTask() {
+        ControllerAutoUpdateMetadataTask controllerAutoUpdateMetadataTask =
+                new ControllerAutoUpdateMetadataTask(progressBar);
+        controllerAutoUpdateMetadataTask.addTaskListener(this);
+        controllers.add(controllerAutoUpdateMetadataTask);
+    }
+
+    private void addControllerRecordsWithNotExistingFilesDeleter() {
+        if (UserSettings.getInstance().isTaskRemoveRecordsWithNotExistingFiles()) {
+            ControllerRecordsWithNotExistingFilesDeleter controllerRecordsWithNotExistingFilesDeleter =
+                    new ControllerRecordsWithNotExistingFilesDeleter(progressBar);
+            controllerRecordsWithNotExistingFilesDeleter.addTaskListener(this);
+            controllers.add(controllerRecordsWithNotExistingFilesDeleter);
+        }
     }
 
     synchronized private void startFirstController() {
@@ -82,7 +80,9 @@ public final class ControllerArrayScheduledTasks
     synchronized public void taskCompleted() {
         activeController = null;
         System.gc();
-        if (!controllers.isEmpty()) {
+        if (controllers.isEmpty()) {
+            buttonStop.setEnabled(false);
+        } else {
             activeController = controllers.remove();
             activeController.start();
         }
@@ -93,6 +93,11 @@ public final class ControllerArrayScheduledTasks
         if (e.getSource() == buttonStop) {
             handleButtonStopClicked();
         }
+    }
+
+    synchronized private void handleButtonStopClicked() {
+        buttonStop.setEnabled(false);
+        stopController();
     }
 
     synchronized private void stopController() {

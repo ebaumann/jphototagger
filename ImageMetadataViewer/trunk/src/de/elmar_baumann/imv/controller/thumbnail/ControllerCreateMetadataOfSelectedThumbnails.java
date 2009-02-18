@@ -2,18 +2,19 @@ package de.elmar_baumann.imv.controller.thumbnail;
 
 import de.elmar_baumann.imv.AppSettings;
 import de.elmar_baumann.imv.UserSettings;
-import de.elmar_baumann.imv.tasks.ImageMetadataToDatabase;
+import de.elmar_baumann.imv.tasks.InsertImageFilesIntoDatabase;
 import de.elmar_baumann.imv.event.ProgressEvent;
 import de.elmar_baumann.imv.event.ProgressListener;
 import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.resource.ProgressBarCurrentTasks;
 import de.elmar_baumann.imv.tasks.Task;
-import de.elmar_baumann.imv.types.DatabaseUpdate;
+import de.elmar_baumann.imv.types.MetaDataForceDbUpdate;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuPanelThumbnails;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.EnumSet;
 import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -33,7 +34,7 @@ import javax.swing.JProgressBar;
 public final class ControllerCreateMetadataOfSelectedThumbnails
         implements ActionListener, ProgressListener, Task {
 
-    private final Queue<ImageMetadataToDatabase> updaters = new ConcurrentLinkedQueue<ImageMetadataToDatabase>();
+    private final Queue<InsertImageFilesIntoDatabase> updaters = new ConcurrentLinkedQueue<InsertImageFilesIntoDatabase>();
     private final PopupMenuPanelThumbnails popup = PopupMenuPanelThumbnails.getInstance();
     private final ProgressBarCurrentTasks progressBarProvider = ProgressBarCurrentTasks.getInstance();
     private final ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
@@ -60,9 +61,9 @@ public final class ControllerCreateMetadataOfSelectedThumbnails
         }
     }
 
-    private void updateMetadata(DatabaseUpdate update) {
+    private void updateMetadata(EnumSet<MetaDataForceDbUpdate> forceUpdateOf) {
         updaters.add(createUpdater(
-                FileUtil.getAsFilenames(thumbnailsPanel.getSelectedFiles()), update));
+                FileUtil.getAsFilenames(thumbnailsPanel.getSelectedFiles()), forceUpdateOf));
         startUpdateMetadataThread();
     }
 
@@ -83,8 +84,8 @@ public final class ControllerCreateMetadataOfSelectedThumbnails
         }
     }
 
-    private ImageMetadataToDatabase createUpdater(List<String> files, DatabaseUpdate update) {
-        ImageMetadataToDatabase updater = new ImageMetadataToDatabase(files, update);
+    private InsertImageFilesIntoDatabase createUpdater(List<String> files, EnumSet<MetaDataForceDbUpdate> forceUpdateOf) {
+        InsertImageFilesIntoDatabase updater = new InsertImageFilesIntoDatabase(files, forceUpdateOf);
         updater.addProgressListener(this);
         return updater;
     }
@@ -103,7 +104,7 @@ public final class ControllerCreateMetadataOfSelectedThumbnails
     public void progressPerformed(ProgressEvent evt) {
         if (stop) {
             updaters.clear();
-            evt.setStop(true);
+            evt.stop();
         } else {
             if (progressBar != null) {
                 progressBar.setValue(evt.getValue());

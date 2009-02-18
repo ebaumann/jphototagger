@@ -239,7 +239,7 @@ public final class DatabaseImageFiles extends Database {
 
     private Image getThumbnailFromFile(String filename) {
         UserSettings settings = UserSettings.getInstance();
-        int maxTnWidth = settings.getMaxThumbnailWidth();
+        int maxTnWidth = settings.getMaxThumbnailLength();
         boolean useEmbeddedTn = settings.isUseEmbeddedThumbnails();
         File file = new File(filename);
         if (settings.isCreateThumbnailsWithExternalApp()) {
@@ -435,12 +435,11 @@ public final class DatabaseImageFiles extends Database {
     public synchronized int deleteNotExistingImageFiles(ProgressListener listener) {
         int countDeleted = 0;
         List<String> deletedFiles = new ArrayList<String>();
-        ProgressEvent event = new ProgressEvent(this, 0, 0, 0, null);
+        ProgressEvent event = new ProgressEvent(this, 0, DatabaseStatistics.getInstance().getFileCount(), 0, null);
         Connection connection = null;
         try {
             connection = getConnection();
             connection.setAutoCommit(true);
-            event.setMaximum(DatabaseStatistics.getInstance().getFileCount());
             Statement stmt = connection.createStatement();
             String query = "SELECT filename FROM files"; // NOI18N
             ResultSet rs = stmt.executeQuery(query);
@@ -644,12 +643,11 @@ public final class DatabaseImageFiles extends Database {
      */
     public synchronized int deleteNotExistingXmpData(ProgressListener listener) {
         int countDeleted = 0;
-        ProgressEvent event = new ProgressEvent(this, 0, 0, 0, null);
+        ProgressEvent event = new ProgressEvent(this, 0, DatabaseStatistics.getInstance().getXmpCount(), 0, null);
         Connection connection = null;
         try {
             connection = getConnection();
             connection.setAutoCommit(true);
-            event.setMaximum(DatabaseStatistics.getInstance().getXmpCount());
             Statement stmt = connection.createStatement();
             String query = "SELECT files.filename FROM files," + // NOI18N
                 " xmp WHERE files.id = xmp.id_files"; // NOI18N
@@ -793,10 +791,11 @@ public final class DatabaseImageFiles extends Database {
         String oldValue, String newValue, ProgressListener listener) {
         
         int countRenamed = 0;
+        int filecount = filenames.size();
         String tableName = xmpColumn.getTable().getName();
         String columnName = tableName + "." + xmpColumn.getName(); // NOI18N
         boolean isXmpTable = xmpColumn.getTable().equals(TableXmp.getInstance());
-        ProgressEvent event = new ProgressEvent(this, 0, 0, 0, null);
+        ProgressEvent event = new ProgressEvent(this, 0, filecount, 0, null);
         Connection connection = null;
         try {
             connection = getConnection();
@@ -811,8 +810,6 @@ public final class DatabaseImageFiles extends Database {
                 " INNER JOIN files ON xmp.id_files = files.id" + // NOI18N
                 " WHERE " + columnName + " = ? AND files.filename = ?"); // NOI18N
             stmt.setString(1, oldValue);
-            int filecount = filenames.size();
-            event.setMaximum(filecount);
             boolean abort = notifyProgressListenerStart(listener, event);
             for (int i = 0; !abort && i < filecount; i++) {
                 String filename = filenames.get(i);

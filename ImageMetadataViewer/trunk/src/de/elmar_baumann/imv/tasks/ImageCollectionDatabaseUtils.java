@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public final class ImageCollectionToDatabase {
+public final class ImageCollectionDatabaseUtils {
 
     private static final DatabaseImageCollections db = DatabaseImageCollections.getInstance();
 
@@ -24,12 +24,12 @@ public final class ImageCollectionToDatabase {
      * @param filenames Namen der Bilddateien
      * @return          Name der Sammlung oder null, wenn keine eingefügt wurde
      */
-    public String addImageCollection(List<String> filenames) {
+    public String insertImageCollection(List<String> filenames) {
         String name = inputCollectionName(""); // NOI18N
         if (name != null && !name.isEmpty()) {
             logAddImageCollection(name);
             if (!db.insertImageCollection(name, filenames)) {
-                messageErrorAddImageCollection(name);
+                errorMessageAddImageCollection(name);
                 return null;
             }
         }
@@ -43,14 +43,11 @@ public final class ImageCollectionToDatabase {
      * @param filenames      Zu entfernende Bilder
      * @return               true, wenn die Bilder entfernt wurden
      */
-    public boolean deleteImagesFromCollection(
-        String collectionName, List<String> filenames) {
-        if (askDelete(collectionName,
-            Bundle.getString("ImageCollectionToDatabase.ConfirmMessage.DeleteSelectedFiles"))) {
-            boolean removed = db.deleteImagesFromCollection(
-                collectionName, filenames) == filenames.size();
+    public boolean deleteImagesFromCollection(String collectionName, List<String> filenames) {
+        if (confirmDelete(collectionName, Bundle.getString("ImageCollectionToDatabase.ConfirmMessage.DeleteSelectedFiles"))) {
+            boolean removed = db.deleteImagesFromCollection(collectionName, filenames) == filenames.size();
             if (!removed) {
-                messageErrorDeleteImagesFromCollection(collectionName);
+                errorMessageDeleteImagesFromCollection(collectionName);
             }
             return removed;
         }
@@ -65,10 +62,10 @@ public final class ImageCollectionToDatabase {
      */
     public boolean deleteImageCollection(String collectionName) {
         boolean deleted = false;
-        if (askDelete(collectionName, Bundle.getString("ImageCollectionToDatabase.ConfirmMessage.DeleteCollection"))) {
+        if (confirmDelete(collectionName, Bundle.getString("ImageCollectionToDatabase.ConfirmMessage.DeleteCollection"))) {
             deleted = db.deleteImageCollection(collectionName);
             if (!deleted) {
-                messageErrorDeleteImageCollection(collectionName);
+                errorMessageDeleteImageCollection(collectionName);
             }
         }
         return deleted;
@@ -84,7 +81,7 @@ public final class ImageCollectionToDatabase {
     public boolean addImagesToCollection(String collectionName, List<String> filenames) {
         boolean added = db.insertImagesIntoCollection(collectionName, filenames);
         if (!added) {
-            messageErrorAddImagesToCollection(collectionName);
+            errorMessageAddImagesToCollection(collectionName);
         }
         return added;
     }
@@ -103,7 +100,7 @@ public final class ImageCollectionToDatabase {
             if (renamed) {
                 return newName;
             } else {
-                messageErrorRenameImageCollection(oldName);
+                errorMessageRenameImageCollection(oldName);
                 return null;
             }
         }
@@ -113,69 +110,54 @@ public final class ImageCollectionToDatabase {
     private void logAddImageCollection(String name) {
         MessageFormat msg = new MessageFormat(Bundle.getString("ImageCollectionToDatabase.InformationMessage.StartInsert"));
         Object[] params = {name};
-        Log.logInfo(ImageCollectionToDatabase.class, msg.format(params));
+        Log.logInfo(ImageCollectionDatabaseUtils.class, msg.format(params));
     }
 
-    private void messageErrorAddImagesToCollection(String collectionName) {
+    private void errorMessageAddImagesToCollection(String collectionName) {
         errorMessage(Bundle.getString("ImageCollectionToDatabase.ErrorMessage.AddImagesToCollection"),
-            collectionName);
+                collectionName);
     }
 
-    private void messageErrorAddImageCollection(String collectionName) {
+    private void errorMessageAddImageCollection(String collectionName) {
         errorMessage(Bundle.getString("ImageCollectionToDatabase.ErrorMessage.AddImageCollection"),
-            collectionName);
+                collectionName);
     }
 
-    private void messageErrorDeleteImageCollection(String collectionName) {
+    private void errorMessageDeleteImageCollection(String collectionName) {
         errorMessage(Bundle.getString("ImageCollectionToDatabase.ErrorMessage.DeleteImageCollection"),
-            collectionName);
+                collectionName);
     }
 
-    private void messageErrorDeleteImagesFromCollection(String collectionName) {
+    private void errorMessageDeleteImagesFromCollection(String collectionName) {
         errorMessage(Bundle.getString("ImageCollectionToDatabase.ErrorMessage.DeleteImagesFromCollection"),
-            collectionName);
+                collectionName);
     }
 
-    private void messageErrorRenameImageCollection(String collectionName) {
+    private void errorMessageRenameImageCollection(String collectionName) {
         errorMessage(Bundle.getString("ImageCollectionToDatabase.ErrorMessage.RenameImageCollection"),
-            collectionName);
+                collectionName);
     }
 
     private void errorMessage(String format, String param) {
         MessageFormat msg = new MessageFormat(format);
         Object[] params = {param};
         JOptionPane.showMessageDialog(null,
-            msg.format(params),
-            Bundle.getString("ImageCollectionToDatabase.ErrorMessage.Title"),
-            JOptionPane.ERROR_MESSAGE,
-            AppSettings.getMediumAppIcon());
+                msg.format(params),
+                Bundle.getString("ImageCollectionToDatabase.ErrorMessage.Title"),
+                JOptionPane.ERROR_MESSAGE,
+                AppSettings.getMediumAppIcon());
     }
 
-    private boolean askDelete(String collectionName, String message) {
+    private boolean confirmDelete(String collectionName, String message) {
         MessageFormat msg = new MessageFormat(message);
         Object[] params = {collectionName};
         return JOptionPane.showConfirmDialog(
-            null,
-            msg.format(params),
-            Bundle.getString("ImageCollectionToDatabase.ConfirmMessage.Delete.Title"),
-            JOptionPane.YES_NO_OPTION,
-            JOptionPane.QUESTION_MESSAGE,
-            AppSettings.getMediumAppIcon()) == JOptionPane.YES_OPTION;
-    }
-
-    private String getCollectionName(String defaultName) {
-        String name = JOptionPane.showInputDialog(
-            Bundle.getString("ImageCollectionToDatabase.Input.CollectionName"),
-            defaultName);
-
-        if (name != null) {
-            name = name.trim();
-            if (name.isEmpty()) {
-                name = null;
-            }
-        }
-
-        return name;
+                null,
+                msg.format(params),
+                Bundle.getString("ImageCollectionToDatabase.ConfirmMessage.Delete.Title"),
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                AppSettings.getMediumAppIcon()) == JOptionPane.YES_OPTION;
     }
 
     private String inputCollectionName(String defaultName) {
@@ -188,15 +170,28 @@ public final class ImageCollectionToDatabase {
                 MessageFormat msg = new MessageFormat(Bundle.getString("ImageCollectionToDatabase.ConfirmMessage.InputNewCollectionName"));
                 Object[] params = {name};
                 willAdd = JOptionPane.showConfirmDialog(null,
-                    msg.format(params),
-                    Bundle.getString("ImageCollectionToDatabase.ConfirmMessage.InputNewCollectionName.Title"),
-                    JOptionPane.YES_NO_OPTION,
-                    JOptionPane.QUESTION_MESSAGE,
-                    AppSettings.getMediumAppIcon()) == JOptionPane.YES_OPTION;
+                        msg.format(params),
+                        Bundle.getString("ImageCollectionToDatabase.ConfirmMessage.InputNewCollectionName.Title"),
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.QUESTION_MESSAGE,
+                        AppSettings.getMediumAppIcon()) == JOptionPane.YES_OPTION;
                 name = null;
             }
             if (willAdd) {
                 name = getCollectionName(nameNextTry);
+            }
+        }
+        return name;
+    }
+
+    private String getCollectionName(String defaultName) {
+        String name = JOptionPane.showInputDialog(
+                Bundle.getString("ImageCollectionToDatabase.Input.CollectionName"),
+                defaultName);
+        if (name != null) {
+            name = name.trim();
+            if (name.isEmpty()) {
+                name = null;
             }
         }
         return name;

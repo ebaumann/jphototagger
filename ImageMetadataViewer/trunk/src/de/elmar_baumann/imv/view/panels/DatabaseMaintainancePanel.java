@@ -25,7 +25,7 @@ public final class DatabaseMaintainancePanel extends javax.swing.JPanel
     private static final Icon iconFinished = AppSettings.getIcon("icon_finished.png"); // NOI18N
     private final Stack<Runnable> runnables = new Stack<Runnable>();
     private final Map<Runnable, JLabel> finishedLabelOfRunnable = new HashMap<Runnable, JLabel>();
-    private boolean stop = false;
+    volatile private boolean stop = false;
     private boolean canClose = true;
 
     /** Creates new form DatabaseMaintainancePanel */
@@ -114,18 +114,25 @@ public final class DatabaseMaintainancePanel extends javax.swing.JPanel
         }
     }
 
+    private void checkStopEvent(ProgressEvent evt) {
+        if (stop) {
+            evt.stop();
+        }
+    }
+
     @Override
     public void progressStarted(ProgressEvent evt) {
         labelMessage.setText(evt.getInfo().toString());
         buttonAbortAction.setEnabled(true);
         setProgressbarStart(evt);
         buttonAbortAction.setEnabled(!(evt.getSource() instanceof DatabaseCompress));
+        checkStopEvent(evt);
     }
 
     @Override
     public void progressPerformed(ProgressEvent evt) {
         progressBar.setValue(evt.getValue());
-        evt.setStop(stop);
+        checkStopEvent(evt);
     }
 
     @Override

@@ -1,7 +1,7 @@
 package de.elmar_baumann.imv.controller.imagecollection;
 
 import de.elmar_baumann.imv.model.ListModelImageCollections;
-import de.elmar_baumann.imv.tasks.ImageCollectionToDatabase;
+import de.elmar_baumann.imv.tasks.ImageCollectionDatabaseUtils;
 import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuListImageCollections;
@@ -35,7 +35,7 @@ public final class ControllerDeleteImageCollection implements ActionListener {
     private void deleteCollection() {
         String collectionName = actionPopup.getImageCollectionName();
         if (collectionName != null) {
-            ImageCollectionToDatabase manager = new ImageCollectionToDatabase();
+            ImageCollectionDatabaseUtils manager = new ImageCollectionDatabaseUtils();
             if (manager.deleteImageCollection(collectionName)) {
                 model.removeElement(collectionName);
             }

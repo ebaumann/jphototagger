@@ -1,7 +1,7 @@
 package de.elmar_baumann.imv.tasks;
 
 /**
- * Task.
+ * A Task.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009/02/17

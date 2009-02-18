@@ -21,9 +21,9 @@ public final class UpdaterRenameInXmpColumnsArray implements ProgressListener {
 
     private final Queue<UpdaterRenameInXmpColumns> updaters = new ConcurrentLinkedQueue<UpdaterRenameInXmpColumns>();
     private final ProgressBarCurrentTasks progressBarProvider = ProgressBarCurrentTasks.getInstance();
-    private boolean wait = false;
     private JProgressBar progressBar;
-    private boolean stop = false;
+    volatile private boolean wait = false;
+    volatile private boolean stop = false;
 
     synchronized private void setWait(boolean wait) {
         this.wait = wait;
@@ -58,9 +58,15 @@ public final class UpdaterRenameInXmpColumnsArray implements ProgressListener {
         }
     }
 
+    private void checkStopEvent(ProgressEvent evt) {
+        if (stop) {
+            evt.stop();
+        }
+    }
+
     @Override
     public void progressStarted(ProgressEvent evt) {
-        evt.setStop(stop);
+        checkStopEvent(evt);
         progressBar = (JProgressBar) progressBarProvider.getResource(this);
         if (progressBar != null) {
             progressBar.setMinimum(evt.getMinimum());
@@ -71,7 +77,7 @@ public final class UpdaterRenameInXmpColumnsArray implements ProgressListener {
 
     @Override
     public void progressPerformed(ProgressEvent evt) {
-        evt.setStop(stop);
+        checkStopEvent(evt);
         if (progressBar != null) {
             progressBar.setValue(evt.getValue());
         }

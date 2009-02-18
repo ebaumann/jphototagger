@@ -1,12 +1,14 @@
 package de.elmar_baumann.imv.controller.metadata;
 
 import de.elmar_baumann.imv.data.TextEntry;
+import de.elmar_baumann.imv.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.tasks.XmpUpdaterFromTextEntryArray;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.view.panels.EditMetadataPanelsArray;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.EnumSet;
 import java.util.List;
 import javax.swing.JButton;
 
@@ -46,9 +48,9 @@ public final class ControllerSaveMetadata implements ActionListener {
         List<String> filenames = array.getFilenames();
         int filenameCount = filenames.size();
         if (filenameCount == 1) {
-            updater.add(filenames, entries, true, false);
+            updater.add(filenames, entries, EnumSet.of(XmpMetadata.WriteOption.DELETE_EMPTY));
         } else if (filenameCount > 1) {
-            updater.add(filenames, entries, false, true);
+            updater.add(filenames, entries, EnumSet.of(XmpMetadata.WriteOption.APPEND));
         }
         array.setDirty(false);
     }

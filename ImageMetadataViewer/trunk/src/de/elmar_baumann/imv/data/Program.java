@@ -120,7 +120,7 @@ public final class Program {
         this.changeFile = changeFile;
     }
 
-    public String getCommandlineAfterProgram(
+    public String getCommandlineParameters(
         String filenames,
         String additionalParameters, boolean additionalParametersBeforeFilenames) {
 

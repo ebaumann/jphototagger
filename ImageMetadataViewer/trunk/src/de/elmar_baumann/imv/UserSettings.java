@@ -161,7 +161,7 @@ public final class UserSettings implements UserSettingsChangeListener {
      * 
      * @return Seitenlänge in Pixel
      */
-    public int getMaxThumbnailWidth() {
+    public int getMaxThumbnailLength() {
         int width = settings.getInt(keyMaxThumbnailWidth);
         return width != Integer.MIN_VALUE ? width : defaultMaxThumbnailWidth;
     }

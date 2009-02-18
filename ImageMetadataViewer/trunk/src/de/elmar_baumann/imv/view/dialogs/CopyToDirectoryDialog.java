@@ -91,10 +91,8 @@ public final class CopyToDirectoryDialog extends Dialog
     }
 
     private void start() {
-        copyTask = new CopyFiles();
-        copyTask.setFiles(getFiles());
+        copyTask = new CopyFiles(getFiles(), checkBoxForceOverwrite.isSelected());
         copyTask.addProgressListener(this);
-        copyTask.setForceOverwrite(checkBoxForceOverwrite.isSelected());
         Thread thread = new Thread(copyTask);
         thread.setPriority(UserSettings.getInstance().getThreadPriority());
         thread.start();

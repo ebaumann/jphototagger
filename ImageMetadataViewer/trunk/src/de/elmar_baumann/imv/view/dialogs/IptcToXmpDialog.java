@@ -29,7 +29,7 @@ public final class IptcToXmpDialog extends Dialog
 
     private static final String keyDirectoryName = "de.elmar_baumann.imv.view.dialogs.IptcToXmpDialog.LastDirectory"; // NOI18N
     private File directory = new File(""); // NOI18N
-    private boolean stop = true;
+    volatile private boolean stop = true;
 
     /** Creates new form IptcToXmpDialog */
     public IptcToXmpDialog() {
@@ -131,18 +131,24 @@ public final class IptcToXmpDialog extends Dialog
         buttonChooseDirectory.setEnabled(stop);
     }
 
+    private void checkStopEvent(ProgressEvent evt) {
+        if (stop) {
+            evt.stop();
+        }
+    }
+
     @Override
     public void progressStarted(ProgressEvent evt) {
         progressBar.setMinimum(evt.getMinimum());
         progressBar.setMaximum(evt.getMaximum());
         progressBar.setValue(evt.getValue());
-        evt.setStop(stop);
+        checkStopEvent(evt);
     }
 
     @Override
     public void progressPerformed(ProgressEvent evt) {
         progressBar.setValue(evt.getValue());
-        evt.setStop(stop);
+        checkStopEvent(evt);
     }
 
     @Override

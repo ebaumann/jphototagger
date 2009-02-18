@@ -26,7 +26,7 @@ public final class LateConnectionsFactory {
             PopupMenuPanelThumbnails popupMenuPanelThumbnails = PopupMenuPanelThumbnails.getInstance();
             UserSettings userSettings = UserSettings.getInstance();
 
-            appPanel.getPanelThumbnails().setDefaultThumbnailWidth(userSettings.getMaxThumbnailWidth());
+            appPanel.getPanelThumbnails().setDefaultThumbnailWidth(userSettings.getMaxThumbnailLength());
 
             DatabaseImageFiles.getInstance().addDatabaseListener(appPanel.getEditPanelsArray());
             if (userSettings.isUseAutocomplete()) {

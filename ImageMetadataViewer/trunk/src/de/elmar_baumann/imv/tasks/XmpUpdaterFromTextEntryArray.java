@@ -5,7 +5,9 @@ import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.data.TextEntry;
 import de.elmar_baumann.imv.event.ProgressEvent;
 import de.elmar_baumann.imv.event.ProgressListener;
+import de.elmar_baumann.imv.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.imv.resource.ProgressBarCurrentTasks;
+import java.util.EnumSet;
 import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -23,23 +25,18 @@ public final class XmpUpdaterFromTextEntryArray implements ProgressListener {
     private final ProgressBarCurrentTasks progressBarProvider = ProgressBarCurrentTasks.getInstance();
     private JProgressBar progressBar;
     private boolean wait = false;
-    private boolean stop = false;
+    volatile private boolean stop = false;
 
     /**
      * Fügt zu aktualisierende Einträge hinzu.
      * 
      * @param filenames     Zu aktualisierende Dateien
      * @param textEntries   In alle Dateien zu schreibende Einträge
-     * @param deleteEmpty   true, wenn in einer existierenden XMP-Datei
-     *                      Einträge gelöscht werden sollen, wenn das
-     *                      zugehörige Textfeld leer ist
-     * @param append        true, wenn existierende Einträge um nicht
-     *                      existierende ergänzt werden sollen und nicht
-     *                      gelöscht
+     * @param writeOptions  Optionen
      */
     public void add(List<String> filenames, List<TextEntry> textEntries,
-        boolean deleteEmpty, boolean append) {
-        XmpUpdaterFromTextEntry updater = new XmpUpdaterFromTextEntry(filenames, textEntries, deleteEmpty, append);
+        EnumSet<XmpMetadata.WriteOption> writeOptions) {
+        XmpUpdaterFromTextEntry updater = new XmpUpdaterFromTextEntry(filenames, textEntries, writeOptions);
         updater.addProgressListener(this);
         updaters.add(updater);
         startThread();
@@ -89,7 +86,7 @@ public final class XmpUpdaterFromTextEntryArray implements ProgressListener {
     public void progressPerformed(ProgressEvent evt) {
         if (isStop()) {
             updaters.clear();
-            evt.setStop(true);
+            evt.stop();
         } else if (progressBar != null) {
             String filename = evt.getInfo().toString();
             progressBar.setValue(evt.getValue());

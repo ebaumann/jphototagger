@@ -17,15 +17,14 @@ import java.util.List;
  * @version 2008-10-05
  * @see     Database#deleteNotExistingImageFiles(de.elmar_baumann.imv.event.ProgressListener)
  */
-public final class RecordsWithNotExistingFilesDeleter implements Runnable,
-    ProgressListener {
+public final class RecordsWithNotExistingFilesDeleter implements Runnable, ProgressListener {
 
     private final DatabaseImageFiles db = DatabaseImageFiles.getInstance();
     private final List<ProgressListener> progressListeners = new ArrayList<ProgressListener>();
-    private boolean notifyProgressEnded = false;
+    volatile private boolean notifyProgressEnded = false;
     private String startMessage;
     private String endMessage;
-    private boolean stop = false;
+    volatile private boolean stop = false;
     private int countDeleted = 0;
 
     @Override
@@ -57,7 +56,6 @@ public final class RecordsWithNotExistingFilesDeleter implements Runnable,
     @Override
     public void progressStarted(ProgressEvent evt) {
         evt.setInfo(getStartMessage(evt));
-        evt.setSource(this);
         for (ProgressListener listener : progressListeners) {
             listener.progressStarted(evt);
             if (evt.isStop()) {
@@ -68,7 +66,6 @@ public final class RecordsWithNotExistingFilesDeleter implements Runnable,
 
     @Override
     public void progressPerformed(ProgressEvent evt) {
-        evt.setSource(this);
         for (ProgressListener listener : progressListeners) {
             listener.progressPerformed(evt);
             if (evt.isStop()) {
@@ -81,7 +78,6 @@ public final class RecordsWithNotExistingFilesDeleter implements Runnable,
     public void progressEnded(ProgressEvent evt) {
         countDeleted += (Integer) evt.getInfo();
         evt.setInfo(getEndMessage());
-        evt.setSource(this);
         if (stop || notifyProgressEnded) {
             for (ProgressListener listener : progressListeners) {
                 listener.progressEnded(evt);

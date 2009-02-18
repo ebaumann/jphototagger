@@ -4,8 +4,10 @@ import de.elmar_baumann.imv.data.TextEntry;
 import de.elmar_baumann.imv.event.ProgressEvent;
 import de.elmar_baumann.imv.event.ProgressListener;
 import de.elmar_baumann.imv.image.metadata.xmp.XmpMetadata;
-import de.elmar_baumann.imv.types.DatabaseUpdate;
+import de.elmar_baumann.imv.types.MetaDataForceDbUpdate;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.EnumSet;
 import java.util.List;
 
 /**
@@ -18,29 +20,22 @@ public final class XmpUpdaterFromTextEntry implements Runnable {
 
     private final List<TextEntry> textEntries;
     private final List<String> filenames;
-    private final boolean deleteEmpty;
-    private final boolean append;
+    private final EnumSet<XmpMetadata.WriteOption> writeOptions;
     private final List<ProgressListener> progressListeners = new ArrayList<ProgressListener>();
-    private boolean stop = false;
+    volatile private boolean stop = false;
 
     /**
      * Konstruktor.
      * 
      * @param filenames     Zu aktualisierende Dateien
      * @param textEntries   In alle Dateien zu schreibende Einträge
-     * @param deleteEmpty   true, wenn in einer existierenden XMP-Datei
-     *                      Einträge gelöscht werden sollen, wenn das
-     *                      zugehörige Textfeld leer ist
-     * @param append        true, wenn existierende Einträge um nicht
-     *                      existierende ergänzt werden sollen und nicht
-     *                      gelöscht
+     * @param options       Optionen
      */
     public XmpUpdaterFromTextEntry(List<String> filenames, List<TextEntry> textEntries,
-        boolean deleteEmpty, boolean append) {
+        EnumSet<XmpMetadata.WriteOption> writeOptions) {
         this.filenames = filenames;
         this.textEntries = textEntries;
-        this.deleteEmpty = deleteEmpty;
-        this.append = append;
+        this.writeOptions = writeOptions;
     }
 
     /**
@@ -53,7 +48,7 @@ public final class XmpUpdaterFromTextEntry implements Runnable {
     }
 
     /**
-     * Unterbricht die Arbeit.
+     * Beendet die Arbeit.
      */
     public void stop() {
         stop = true;
@@ -66,27 +61,19 @@ public final class XmpUpdaterFromTextEntry implements Runnable {
         for (int i = 0; !stop && i < count; i++) {
             String filename = filenames.get(i);
             String sidecarFilename = XmpMetadata.suggestSidecarFilename(filename);
-            if (XmpMetadata.writeMetadataToSidecarFile(sidecarFilename, textEntries,
-                deleteEmpty, append)) {
-                updateDatabase(sidecarFilename);
+            if (XmpMetadata.writeMetadataToSidecarFile(
+                    sidecarFilename, textEntries, writeOptions)) {
+                updateDatabase(filename);
             }
             notifyProgressPerformed(i + 1, filename);
         }
         notifyProgressEnded();
     }
 
-    private void updateDatabase(String sidecarFilename) {
-        List<String> fNames = new ArrayList<String>();
-        fNames.add(getArbitraryImageFilename(sidecarFilename));
-        ImageMetadataToDatabase updater = new ImageMetadataToDatabase(fNames, DatabaseUpdate.XMP);
+    private void updateDatabase(String filename) {
+        InsertImageFilesIntoDatabase updater = new InsertImageFilesIntoDatabase(
+                Arrays.asList(filename), EnumSet.of(MetaDataForceDbUpdate.XMP));
         updater.run();
-    }
-
-    private String getArbitraryImageFilename(String sidecarFilename) {
-        if (sidecarFilename.toLowerCase().endsWith(".xmp")) { // NOI18N
-            return sidecarFilename.substring(0, sidecarFilename.length() - 4) + ".jpg"; // NOI18N
-        }
-        return sidecarFilename;
     }
 
     private void notifyProgressStarted() {

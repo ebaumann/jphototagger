@@ -61,45 +61,50 @@ public final class Xmp {
     private final List<String> photoshopSupplementalCategories = new ArrayList<String>();
     private final Map<Column, Object> valueOfColumn = new HashMap<Column, Object>();
 
+    public enum SetIptc {
+
+        REPLACE_EXISTING_VALUES, DONT_CHANGE_EXISTING_VALUES
+    };
+
     private void init() {
         valueOfColumn.put(ColumnXmpDcCreator.getInstance(),
-            dcCreator);
+                dcCreator);
         valueOfColumn.put(ColumnXmpDcDescription.getInstance(),
-            dcDescription);
+                dcDescription);
         valueOfColumn.put(ColumnXmpDcRights.getInstance(),
-            dcRights);
+                dcRights);
         valueOfColumn.put(ColumnXmpDcSubjectsSubject.getInstance(),
-            dcSubjects);
+                dcSubjects);
         valueOfColumn.put(ColumnXmpDcTitle.getInstance(),
-            dcTitle);
+                dcTitle);
         valueOfColumn.put(ColumnXmpIptc4xmpcoreCountrycode.getInstance(),
-            iptc4xmpcoreCountrycode);
+                iptc4xmpcoreCountrycode);
         valueOfColumn.put(ColumnXmpIptc4xmpcoreLocation.getInstance(),
-            iptc4xmpcoreLocation);
+                iptc4xmpcoreLocation);
         valueOfColumn.put(ColumnXmpPhotoshopAuthorsposition.getInstance(),
-            photoshopAuthorsposition);
+                photoshopAuthorsposition);
         valueOfColumn.put(ColumnXmpPhotoshopCaptionwriter.getInstance(),
-            photoshopCaptionwriter);
+                photoshopCaptionwriter);
         valueOfColumn.put(ColumnXmpPhotoshopCategory.getInstance(),
-            photoshopCategory);
+                photoshopCategory);
         valueOfColumn.put(ColumnXmpPhotoshopCity.getInstance(),
-            photoshopCity);
+                photoshopCity);
         valueOfColumn.put(ColumnXmpPhotoshopCountry.getInstance(),
-            photoshopCountry);
+                photoshopCountry);
         valueOfColumn.put(ColumnXmpPhotoshopCredit.getInstance(),
-            photoshopCredit);
+                photoshopCredit);
         valueOfColumn.put(ColumnXmpPhotoshopHeadline.getInstance(),
-            photoshopHeadline);
+                photoshopHeadline);
         valueOfColumn.put(ColumnXmpPhotoshopInstructions.getInstance(),
-            photoshopInstructions);
+                photoshopInstructions);
         valueOfColumn.put(ColumnXmpPhotoshopSource.getInstance(),
-            photoshopSource);
+                photoshopSource);
         valueOfColumn.put(ColumnXmpPhotoshopState.getInstance(),
-            photoshopState);
+                photoshopState);
         valueOfColumn.put(ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory.getInstance(),
-            photoshopSupplementalCategories);
+                photoshopSupplementalCategories);
         valueOfColumn.put(ColumnXmpPhotoshopTransmissionReference.getInstance(),
-            photoshopTransmissionReference);
+                photoshopTransmissionReference);
         valueOfColumn.put(ColumnXmpLastModified.getInstance(), lastModified);
     }
 
@@ -115,8 +120,8 @@ public final class Xmp {
      */
     public String getDcCreator() {
         return dcCreator.length() > 0
-            ? dcCreator.toString()
-            : null;
+                ? dcCreator.toString()
+                : null;
     }
 
     /**
@@ -127,9 +132,9 @@ public final class Xmp {
      */
     public void setDcCreator(String creator) {
         this.dcCreator.replace(0,
-            this.dcCreator.length(), creator == null
-            ? "" // NOI18N
-            : creator);
+                this.dcCreator.length(), creator == null
+                ? "" // NOI18N
+                : creator);
     }
 
     /**
@@ -140,8 +145,8 @@ public final class Xmp {
      */
     public String getDcDescription() {
         return dcDescription.length() > 0
-            ? dcDescription.toString()
-            : null;
+                ? dcDescription.toString()
+                : null;
     }
 
     /**
@@ -152,9 +157,9 @@ public final class Xmp {
      */
     public void setDcDescription(String dcDescription) {
         this.dcDescription.replace(0,
-            this.dcDescription.length(), dcDescription == null
-            ? "" // NOI18N
-            : dcDescription);
+                this.dcDescription.length(), dcDescription == null
+                ? "" // NOI18N
+                : dcDescription);
     }
 
     /**
@@ -165,8 +170,8 @@ public final class Xmp {
      */
     public String getDcRights() {
         return dcRights.length() > 0
-            ? dcRights.toString()
-            : null;
+                ? dcRights.toString()
+                : null;
     }
 
     /**
@@ -177,9 +182,9 @@ public final class Xmp {
      */
     public void setDcRights(String dcRights) {
         this.dcRights.replace(0,
-            this.dcRights.length(), dcRights == null
-            ? "" // NOI18N
-            : dcRights);
+                this.dcRights.length(), dcRights == null
+                ? "" // NOI18N
+                : dcRights);
     }
 
     /**
@@ -190,8 +195,8 @@ public final class Xmp {
      */
     public List<String> getDcSubjects() {
         return dcSubjects.isEmpty()
-            ? null
-            : dcSubjects;
+                ? null
+                : dcSubjects;
     }
 
     /**
@@ -223,8 +228,8 @@ public final class Xmp {
      */
     public String getDcTitle() {
         return dcTitle.length() > 0
-            ? dcTitle.toString()
-            : null;
+                ? dcTitle.toString()
+                : null;
     }
 
     /**
@@ -235,9 +240,9 @@ public final class Xmp {
      */
     public void setDcTitle(String dcTitle) {
         this.dcTitle.replace(0,
-            this.dcTitle.length(), dcTitle == null
-            ? "" // NOI18N
-            : dcTitle);
+                this.dcTitle.length(), dcTitle == null
+                ? "" // NOI18N
+                : dcTitle);
     }
 
     /**
@@ -248,8 +253,8 @@ public final class Xmp {
      */
     public String getIptc4xmpcoreCountrycode() {
         return iptc4xmpcoreCountrycode.length() > 0
-            ? iptc4xmpcoreCountrycode.toString()
-            : null;
+                ? iptc4xmpcoreCountrycode.toString()
+                : null;
     }
 
     /**
@@ -259,9 +264,9 @@ public final class Xmp {
      */
     public void setIptc4xmpcoreCountrycode(String iptc4xmpcoreCountrycode) {
         this.iptc4xmpcoreCountrycode.replace(0,
-            this.iptc4xmpcoreCountrycode.length(), iptc4xmpcoreCountrycode == null
-            ? "" // NOI18N
-            : iptc4xmpcoreCountrycode);
+                this.iptc4xmpcoreCountrycode.length(), iptc4xmpcoreCountrycode == null
+                ? "" // NOI18N
+                : iptc4xmpcoreCountrycode);
     }
 
     /**
@@ -272,8 +277,8 @@ public final class Xmp {
      */
     public String getIptc4xmpcoreLocation() {
         return iptc4xmpcoreLocation.length() > 0
-            ? iptc4xmpcoreLocation.toString()
-            : null;
+                ? iptc4xmpcoreLocation.toString()
+                : null;
     }
 
     /**
@@ -283,9 +288,9 @@ public final class Xmp {
      */
     public void setIptc4xmpcoreLocation(String iptc4xmpcoreLocation) {
         this.iptc4xmpcoreLocation.replace(0,
-            this.iptc4xmpcoreLocation.length(), iptc4xmpcoreLocation == null
-            ? "" // NOI18N
-            : iptc4xmpcoreLocation);
+                this.iptc4xmpcoreLocation.length(), iptc4xmpcoreLocation == null
+                ? "" // NOI18N
+                : iptc4xmpcoreLocation);
     }
 
     /**
@@ -296,8 +301,8 @@ public final class Xmp {
      */
     public String getPhotoshopAuthorsposition() {
         return photoshopAuthorsposition.length() > 0
-            ? photoshopAuthorsposition.toString()
-            : null;
+                ? photoshopAuthorsposition.toString()
+                : null;
     }
 
     /**
@@ -307,9 +312,9 @@ public final class Xmp {
      */
     public void setPhotoshopAuthorsposition(String photoshopAuthorsposition) {
         this.photoshopAuthorsposition.replace(0,
-            this.photoshopAuthorsposition.length(), photoshopAuthorsposition == null
-            ? "" // NOI18N
-            : photoshopAuthorsposition);
+                this.photoshopAuthorsposition.length(), photoshopAuthorsposition == null
+                ? "" // NOI18N
+                : photoshopAuthorsposition);
     }
 
     /**
@@ -320,8 +325,8 @@ public final class Xmp {
      */
     public String getPhotoshopCaptionwriter() {
         return photoshopCaptionwriter.length() > 0
-            ? photoshopCaptionwriter.toString()
-            : null;
+                ? photoshopCaptionwriter.toString()
+                : null;
     }
 
     /**
@@ -331,9 +336,9 @@ public final class Xmp {
      */
     public void setPhotoshopCaptionwriter(String photoshopCaptionwriter) {
         this.photoshopCaptionwriter.replace(0,
-            this.photoshopCaptionwriter.length(), photoshopCaptionwriter == null
-            ? "" // NOI18N
-            : photoshopCaptionwriter);
+                this.photoshopCaptionwriter.length(), photoshopCaptionwriter == null
+                ? "" // NOI18N
+                : photoshopCaptionwriter);
     }
 
     /**
@@ -344,8 +349,8 @@ public final class Xmp {
      */
     public String getPhotoshopCategory() {
         return photoshopCategory.length() > 0
-            ? photoshopCategory.toString()
-            : null;
+                ? photoshopCategory.toString()
+                : null;
     }
 
     /**
@@ -356,9 +361,9 @@ public final class Xmp {
      */
     public void setPhotoshopCategory(String photoshopCategory) {
         this.photoshopCategory.replace(0,
-            this.photoshopCategory.length(), photoshopCategory == null
-            ? "" // NOI18N
-            : photoshopCategory);
+                this.photoshopCategory.length(), photoshopCategory == null
+                ? "" // NOI18N
+                : photoshopCategory);
     }
 
     /**
@@ -369,8 +374,8 @@ public final class Xmp {
      */
     public String getPhotoshopCity() {
         return photoshopCity.length() > 0
-            ? photoshopCity.toString()
-            : null;
+                ? photoshopCity.toString()
+                : null;
     }
 
     /**
@@ -381,9 +386,9 @@ public final class Xmp {
      */
     public void setPhotoshopCity(String photoshopCity) {
         this.photoshopCity.replace(0,
-            this.photoshopCity.length(), photoshopCity == null
-            ? "" // NOI18N
-            : photoshopCity);
+                this.photoshopCity.length(), photoshopCity == null
+                ? "" // NOI18N
+                : photoshopCity);
     }
 
     /**
@@ -394,8 +399,8 @@ public final class Xmp {
      */
     public String getPhotoshopCountry() {
         return photoshopCountry.length() > 0
-            ? photoshopCountry.toString()
-            : null;
+                ? photoshopCountry.toString()
+                : null;
     }
 
     /**
@@ -406,9 +411,9 @@ public final class Xmp {
      */
     public void setPhotoshopCountry(String photoshopCountry) {
         this.photoshopCountry.replace(0,
-            this.photoshopCountry.length(), photoshopCountry == null
-            ? "" // NOI18N
-            : photoshopCountry);
+                this.photoshopCountry.length(), photoshopCountry == null
+                ? "" // NOI18N
+                : photoshopCountry);
     }
 
     /**
@@ -419,8 +424,8 @@ public final class Xmp {
      */
     public String getPhotoshopCredit() {
         return photoshopCredit.length() > 0
-            ? photoshopCredit.toString()
-            : null;
+                ? photoshopCredit.toString()
+                : null;
     }
 
     /**
@@ -431,9 +436,9 @@ public final class Xmp {
      */
     public void setPhotoshopCredit(String photoshopCredit) {
         this.photoshopCredit.replace(0,
-            this.photoshopCredit.length(), photoshopCredit == null
-            ? "" // NOI18N
-            : photoshopCredit);
+                this.photoshopCredit.length(), photoshopCredit == null
+                ? "" // NOI18N
+                : photoshopCredit);
     }
 
     /**
@@ -444,8 +449,8 @@ public final class Xmp {
      */
     public String getPhotoshopHeadline() {
         return photoshopHeadline.length() > 0
-            ? photoshopHeadline.toString()
-            : null;
+                ? photoshopHeadline.toString()
+                : null;
     }
 
     /**
@@ -456,9 +461,9 @@ public final class Xmp {
      */
     public void setPhotoshopHeadline(String photoshopHeadline) {
         this.photoshopHeadline.replace(0,
-            this.photoshopHeadline.length(), photoshopHeadline == null
-            ? "" // NOI18N
-            : photoshopHeadline);
+                this.photoshopHeadline.length(), photoshopHeadline == null
+                ? "" // NOI18N
+                : photoshopHeadline);
     }
 
     /**
@@ -469,8 +474,8 @@ public final class Xmp {
      */
     public String getPhotoshopInstructions() {
         return photoshopInstructions.length() > 0
-            ? photoshopInstructions.toString()
-            : null;
+                ? photoshopInstructions.toString()
+                : null;
     }
 
     /**
@@ -481,9 +486,9 @@ public final class Xmp {
      */
     public void setPhotoshopInstructions(String photoshopInstructions) {
         this.photoshopInstructions.replace(0,
-            this.photoshopInstructions.length(), photoshopInstructions == null
-            ? "" // NOI18N
-            : photoshopInstructions);
+                this.photoshopInstructions.length(), photoshopInstructions == null
+                ? "" // NOI18N
+                : photoshopInstructions);
     }
 
     /**
@@ -494,8 +499,8 @@ public final class Xmp {
      */
     public String getPhotoshopSource() {
         return photoshopSource.length() > 0
-            ? photoshopSource.toString()
-            : null;
+                ? photoshopSource.toString()
+                : null;
     }
 
     /**
@@ -506,9 +511,9 @@ public final class Xmp {
      */
     public void setPhotoshopSource(String photoshopSource) {
         this.photoshopSource.replace(0,
-            this.photoshopSource.length(), photoshopSource == null
-            ? "" // NOI18N
-            : photoshopSource);
+                this.photoshopSource.length(), photoshopSource == null
+                ? "" // NOI18N
+                : photoshopSource);
     }
 
     /**
@@ -519,8 +524,8 @@ public final class Xmp {
      */
     public String getPhotoshopState() {
         return photoshopState.length() > 0
-            ? photoshopState.toString()
-            : null;
+                ? photoshopState.toString()
+                : null;
     }
 
     /**
@@ -531,9 +536,9 @@ public final class Xmp {
      */
     public void setPhotoshopState(String photoshopState) {
         this.photoshopState.replace(0,
-            this.photoshopState.length(), photoshopState == null
-            ? "" // NOI18N
-            : photoshopState);
+                this.photoshopState.length(), photoshopState == null
+                ? "" // NOI18N
+                : photoshopState);
     }
 
     /**
@@ -544,8 +549,8 @@ public final class Xmp {
      */
     public List<String> getPhotoshopSupplementalCategories() {
         return photoshopSupplementalCategories.isEmpty()
-            ? null
-            : photoshopSupplementalCategories;
+                ? null
+                : photoshopSupplementalCategories;
     }
 
     /**
@@ -578,8 +583,8 @@ public final class Xmp {
      */
     public String getPhotoshopTransmissionReference() {
         return photoshopTransmissionReference.length() > 0
-            ? photoshopTransmissionReference.toString()
-            : null;
+                ? photoshopTransmissionReference.toString()
+                : null;
     }
 
     /**
@@ -590,10 +595,10 @@ public final class Xmp {
      */
     public void setPhotoshopTransmissionReference(String photoshopTransmissionReference) {
         this.photoshopTransmissionReference.replace(0,
-            this.photoshopTransmissionReference.length(),
-            photoshopTransmissionReference == null
-            ? "" // NOI18N
-            : photoshopTransmissionReference);
+                this.photoshopTransmissionReference.length(),
+                photoshopTransmissionReference == null
+                ? "" // NOI18N
+                : photoshopTransmissionReference);
     }
 
     /**
@@ -603,8 +608,8 @@ public final class Xmp {
      */
     public void setLastModified(long lastModified) {
         this.lastModified.replace(0, this.lastModified.length(), lastModified >= 0
-            ? Long.toString(lastModified)
-            : ""); // NOI18N
+                ? Long.toString(lastModified)
+                : ""); // NOI18N
     }
 
     /**
@@ -615,12 +620,12 @@ public final class Xmp {
      */
     public Long getLastModified() {
         return lastModified.length() > 0
-            ? Long.parseLong(lastModified.toString())
-            : null;
+                ? Long.parseLong(lastModified.toString())
+                : null;
     }
 
-    public void setIptc(Iptc iptc, boolean replaceExistingValues) {
-        if (replaceExistingValues) {
+    public void setIptc(Iptc iptc, SetIptc options) {
+        if (options.equals(SetIptc.REPLACE_EXISTING_VALUES)) {
             empty();
         }
         Set<Column> xmpColumns = valueOfColumn.keySet();
@@ -631,7 +636,9 @@ public final class Xmp {
             if (iptcValue != null) {
                 if (iptcValue instanceof String) {
                     String string = (String) iptcValue;
-                    boolean replace = replaceExistingValues || getValue(xmpColumn) == null;
+                    boolean replace = options.equals(
+                            SetIptc.REPLACE_EXISTING_VALUES) ||
+                            getValue(xmpColumn) == null;
                     if (replace) {
                         setValue(xmpColumn, string);
                     }
@@ -687,8 +694,8 @@ public final class Xmp {
         if (o instanceof StringBuffer) {
             StringBuffer stringBuffer = (StringBuffer) o;
             stringBuffer.replace(0, stringBuffer.length(), value == null
-                ? "" // NOI18N
-                : value);
+                    ? "" // NOI18N
+                    : value);
         } else if (o instanceof List && value != null) {
             List array = (List) o;
             if (!array.contains(value)) {
@@ -739,23 +746,23 @@ public final class Xmp {
      */
     public boolean isEmpty() {
         return dcDescription.length() <= 0 &&
-            dcCreator.length() <= 0 &&
-            dcRights.length() <= 0 &&
-            dcTitle.length() <= 0 &&
-            iptc4xmpcoreCountrycode.length() <= 0 &&
-            iptc4xmpcoreLocation.length() <= 0 &&
-            photoshopAuthorsposition.length() <= 0 &&
-            photoshopCaptionwriter.length() <= 0 &&
-            photoshopCategory.length() <= 0 &&
-            photoshopCity.length() <= 0 &&
-            photoshopCountry.length() <= 0 &&
-            photoshopCredit.length() <= 0 &&
-            photoshopHeadline.length() <= 0 &&
-            photoshopInstructions.length() <= 0 &&
-            photoshopSource.length() <= 0 &&
-            photoshopState.length() <= 0 &&
-            photoshopTransmissionReference.length() <= 0 &&
-            dcSubjects.isEmpty() &&
-            photoshopSupplementalCategories.isEmpty();
+                dcCreator.length() <= 0 &&
+                dcRights.length() <= 0 &&
+                dcTitle.length() <= 0 &&
+                iptc4xmpcoreCountrycode.length() <= 0 &&
+                iptc4xmpcoreLocation.length() <= 0 &&
+                photoshopAuthorsposition.length() <= 0 &&
+                photoshopCaptionwriter.length() <= 0 &&
+                photoshopCategory.length() <= 0 &&
+                photoshopCity.length() <= 0 &&
+                photoshopCountry.length() <= 0 &&
+                photoshopCredit.length() <= 0 &&
+                photoshopHeadline.length() <= 0 &&
+                photoshopInstructions.length() <= 0 &&
+                photoshopSource.length() <= 0 &&
+                photoshopState.length() <= 0 &&
+                photoshopTransmissionReference.length() <= 0 &&
+                dcSubjects.isEmpty() &&
+                photoshopSupplementalCategories.isEmpty();
     }
 }

@@ -17,11 +17,11 @@ import java.util.List;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/12
  */
-public final class UpdateAllThumbnails implements Runnable, ProgressListener,
-    ActionListener {
+public final class UpdateAllThumbnails
+        implements Runnable, ProgressListener, ActionListener {
 
     private ProgressDialog progressDialog;
-    private boolean stop = false;
+    volatile private boolean stop = false;
     private final List<ActionListener> actionListeners = new ArrayList<ActionListener>();
 
     /**
@@ -36,13 +36,23 @@ public final class UpdateAllThumbnails implements Runnable, ProgressListener,
     @Override
     public void run() {
         DatabaseImageFiles db = DatabaseImageFiles.getInstance();
+        initProgressDialog();
+        logUpdateAllThumbnails();
+        db.updateAllThumbnails(this);
+    }
+
+    private void initProgressDialog() {
         progressDialog = new ProgressDialog(null);
         progressDialog.setTitle(Bundle.getString("UpdateAllThumbnails.Dialog.Title"));
         progressDialog.setInfoText(Bundle.getString("UpdateAllThumbnails.Dialog.InfoText"));
         progressDialog.addActionListener(this);
         progressDialog.setVisible(true);
-        logUpdateAllThumbnails();
-        db.updateAllThumbnails(this);
+    }
+
+    private void checkStopEvent(ProgressEvent evt) {
+        if (stop) {
+            evt.stop();
+        }
     }
 
     @Override
@@ -50,14 +60,14 @@ public final class UpdateAllThumbnails implements Runnable, ProgressListener,
         progressDialog.setMinimum(evt.getMinimum());
         progressDialog.setMaximum(evt.getMaximum());
         progressDialog.setValue(evt.getValue());
-        evt.setStop(stop);
+        checkStopEvent(evt);
     }
 
     @Override
     public void progressPerformed(ProgressEvent evt) {
         progressDialog.setValue(evt.getValue());
         progressDialog.setCurrentProgressInfoText(evt.getInfo().toString());
-        evt.setStop(stop);
+        checkStopEvent(evt);
     }
 
     @Override

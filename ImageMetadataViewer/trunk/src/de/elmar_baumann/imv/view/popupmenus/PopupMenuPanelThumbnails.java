@@ -5,7 +5,7 @@ import de.elmar_baumann.imv.database.DatabasePrograms;
 import de.elmar_baumann.imv.event.UserSettingsChangeEvent;
 import de.elmar_baumann.imv.event.UserSettingsChangeListener;
 import de.elmar_baumann.imv.resource.Bundle;
-import de.elmar_baumann.imv.types.DatabaseUpdate;
+import de.elmar_baumann.imv.types.MetaDataForceDbUpdate;
 import de.elmar_baumann.lib.image.icon.IconUtil;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -57,7 +57,7 @@ public final class PopupMenuPanelThumbnails extends JPopupMenu
     private final JMenuItem itemFileSystemMoveFiles = new JMenuItem(actionFileSystemMoveFiles);
     private final List<ActionListener> actionListenersOpenFilesWithOtherApp = new ArrayList<ActionListener>();
     private final Map<JMenuItem, Float> angleOfItem = new HashMap<JMenuItem, Float>();
-    private final Map<JMenuItem, DatabaseUpdate> databaseUpdateOfMenuItem = new HashMap<JMenuItem, DatabaseUpdate>();
+    private final Map<JMenuItem, MetaDataForceDbUpdate> databaseUpdateOfMenuItem = new HashMap<JMenuItem, MetaDataForceDbUpdate>();
     private final Map<JMenuItem, Program> programOfMenuItem = new HashMap<JMenuItem, Program>();
     private static final PopupMenuPanelThumbnails instance = new PopupMenuPanelThumbnails();
 
@@ -275,7 +275,7 @@ public final class PopupMenuPanelThumbnails extends JPopupMenu
         return angle.floatValue();
     }
 
-    public DatabaseUpdate getDatabaseUpdateOf(Object item) {
+    public MetaDataForceDbUpdate getDatabaseUpdateOf(Object item) {
         return databaseUpdateOfMenuItem.get(item);
     }
 
@@ -284,7 +284,7 @@ public final class PopupMenuPanelThumbnails extends JPopupMenu
         angleOfItem.put(itemRotateThumbnai180, new Float(180));
         angleOfItem.put(itemRotateThumbnai270, new Float(270));
 
-        databaseUpdateOfMenuItem.put(itemUpdateMetadata, DatabaseUpdate.EXIF_AND_XMP);
-        databaseUpdateOfMenuItem.put(itemUpdateThumbnail, DatabaseUpdate.THUMBNAIL);
+        databaseUpdateOfMenuItem.put(itemUpdateMetadata, MetaDataForceDbUpdate.EXIF_AND_XMP);
+        databaseUpdateOfMenuItem.put(itemUpdateThumbnail, MetaDataForceDbUpdate.THUMBNAIL);
     }
 }

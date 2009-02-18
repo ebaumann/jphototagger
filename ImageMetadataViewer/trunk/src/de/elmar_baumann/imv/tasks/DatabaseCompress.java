@@ -45,18 +45,17 @@ public final class DatabaseCompress implements Runnable {
         notifyEnded();
     }
 
-    private void logCompressDatabase() {
-        Log.logInfo(DatabaseCompress.class, Bundle.getString("DatabaseCompress.InformationMessage.StartCompress"));
-    }
-
     private void notifyStarted() {
         logCompressDatabase();
         String message = Bundle.getString("DatabaseCompress.StartMessage");
-        ProgressEvent evt = new ProgressEvent(this, 0, 1, 0, message);
-        evt.setIndeterminate(true);
+        ProgressEvent evt = new ProgressEvent(this, message);
         for (ProgressListener listener : listeners) {
             listener.progressStarted(evt);
         }
+    }
+
+    private void logCompressDatabase() {
+        Log.logInfo(DatabaseCompress.class, Bundle.getString("DatabaseCompress.InformationMessage.StartCompress"));
     }
 
     private void notifyEnded() {

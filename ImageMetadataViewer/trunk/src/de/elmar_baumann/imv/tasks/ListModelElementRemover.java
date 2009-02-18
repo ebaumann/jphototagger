@@ -68,11 +68,9 @@ public final class ListModelElementRemover {
         @Override
         public void run() {
             List<Object> existingElements = new ArrayList<Object>();
-            synchronized (model) {
-                int size = model.getSize();
-                for (int i = 0; i < size; i++) {
-                    existingElements.add(model.get(i));
-                }
+            int size = model.getSize();
+            for (int i = 0; i < size; i++) {
+                existingElements.add(model.get(i));
             }
             for (Object element : existingElements) {
                 if (column != null && !dbStatistics.exists(column, element.toString())) {

@@ -24,35 +24,27 @@ public final class CopyFiles implements Runnable {
 
     private final List<ProgressListener> progressListeners = new ArrayList<ProgressListener>();
     private final List<File> errorFiles = new ArrayList<File>();
-    private List<Pair<File, File>> files = new ArrayList<Pair<File, File>>();
-    private boolean stop = false;
-    private boolean forceOverwrite = false;
+    private final List<Pair<File, File>> files;
+    private final boolean forceOverwrite;
+    volatile private boolean stop = false;
+
+    /**
+     * Konstruktor
+     *
+     * @param files           Zu kopierende Dateien. Die erste im Paar
+     *                        ist die Quelldatei, die zweite die Zieldatei.
+     * @param forceOverwrite  true, wenn ohne Rückfrage überschreiben
+     */
+    public CopyFiles(List<Pair<File, File>> files, boolean forceOverwrite) {
+        this.files = files;
+        this.forceOverwrite = forceOverwrite;
+    }
 
     /**
      * Beendet das Kopieren.
      */
     public void stop() {
         stop = true;
-    }
-
-    /**
-     * Setzt die zu kopierenden Dateien.
-     * 
-     * @param files  Zu kopierende Dateien. Die erste im Paar
-     *               ist die Quelldatei, die zweite die Zieldatei.
-     */
-    public void setFiles(List<Pair<File, File>> files) {
-        this.files = files;
-    }
-
-    /**
-     * Setzt, ob existierende Zieldateien gleichen Namens ohne Rückfrage
-     * überschrieben werden sollen.
-     * 
-     * @param force  true, wenn ohne Rückfrage überschreiben. Default: false.
-     */
-    public void setForceOverwrite(boolean force) {
-        forceOverwrite = force;
     }
 
     /**

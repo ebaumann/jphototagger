@@ -1,7 +1,7 @@
 package de.elmar_baumann.imv.controller.imagecollection;
 
 import de.elmar_baumann.imv.model.ListModelImageCollections;
-import de.elmar_baumann.imv.tasks.ImageCollectionToDatabase;
+import de.elmar_baumann.imv.tasks.ImageCollectionDatabaseUtils;
 import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuListImageCollections;
@@ -39,7 +39,7 @@ public final class ControllerRenameImageCollection implements ActionListener {
     private void renameImageCollection() {
         String oldName = actionPopup.getImageCollectionName();
         if (oldName != null) {
-            ImageCollectionToDatabase manager = new ImageCollectionToDatabase();
+            ImageCollectionDatabaseUtils manager = new ImageCollectionDatabaseUtils();
             String newName = manager.renameImageCollection(oldName);
             if (newName != null) {
                 model.rename(oldName, newName);

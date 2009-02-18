@@ -25,6 +25,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Set;
 import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.List;
 
 /**
@@ -51,6 +52,30 @@ public final class XmpMetadata {
         knownNamespaces.add("tiff"); // NOI18N
         knownNamespaces.add("xap"); // NOI18N
         knownNamespaces.add("xapRights"); // NOI18N
+    }
+
+    /**
+     * Optionen beim Schreiben von XMP-Dateien.
+     */
+    public enum WriteOption {
+
+        /**
+         * In einer existierenden XMP-Datei <em>sich wiederholende</em> Einträge
+         * sollen ergänzt werden mit nicht vorhandenen, die gesetzt werden
+         * sollen beispielsweise aus Textfeldern oder Objekten des Typs
+         * {@link de.elmar_baumann.imv.data.Xmp}.
+         *
+         * <p>Default: Existierende sich wiederholende Einträge werden ersetzt.
+         */
+        APPEND,
+        /**
+         * In einer existierenden XMP-Datei sollen Einträge gelöscht werden,
+         * wenn keine Daten existieren in beispielsweise Textfeldern
+         * oder Objekten des Typs {@link de.elmar_baumann.imv.data.Xmp}.
+         *
+         * <p>Default: Bestehender Inhalt wird nicht gelöscht
+         */
+        DELETE_EMPTY
     }
 
     /**
@@ -289,19 +314,14 @@ public final class XmpMetadata {
      * 
      * @param  sidecarFilename  Name der Filialdatei
      * @param  textEntries      Zu schreibende Texteinträge
-     * @param  deleteEmpty      true, wenn in einer existierenden XMP-Datei
-     *                          Einträge gelöscht werden sollen, wenn das
-     *                          zugehörige Textfeld leer ist
-     * @param  append           true, wenn existierende Einträge um nicht
-     *                          existierende ergänzt werden sollen und nicht
-     *                          gelöscht
+     * @param  writeOptions     Optionen
      * @return true bei Erfolg
      */
     public static boolean writeMetadataToSidecarFile(String sidecarFilename,
-        List<TextEntry> textEntries, boolean deleteEmpty, boolean append) {
+        List<TextEntry> textEntries, EnumSet<WriteOption> writeOptions) {
         try {
             XMPMeta xmpMeta = getXmpMetaOfSidecarFile(sidecarFilename);
-            writeSidecarFileDeleteItems(xmpMeta, textEntries, deleteEmpty, append);
+            writeSidecarFileDeleteItems(xmpMeta, textEntries, writeOptions);
             for (TextEntry entry : textEntries) {
                 Column xmpColumn = entry.getColumn();
                 String namespaceUri = mappingNamespaceUri.getNamespaceUriOfColumn(xmpColumn);
@@ -328,13 +348,16 @@ public final class XmpMetadata {
     }
 
     private static void writeSidecarFileDeleteItems(XMPMeta xmpMeta,
-        List<TextEntry> textEntries, boolean deleteEmpty, boolean append) {
+        List<TextEntry> textEntries, EnumSet<WriteOption> options) {
         for (TextEntry textEntry : textEntries) {
             Column xmpColumn = textEntry.getColumn();
             String namespaceUri = mappingNamespaceUri.getNamespaceUriOfColumn(xmpColumn);
             String name = mappingName.getXmpPathStartOfColumn(xmpColumn);
             boolean textEntryIsEmpty = textEntry.getText().trim().isEmpty();
-            if ((!textEntryIsEmpty && !append) || (textEntryIsEmpty && deleteEmpty)) {
+            boolean deleteProperty =
+                (!textEntryIsEmpty && !options.contains(WriteOption.APPEND)) // !textEntryIsEmpty: empty must not be deleted
+                || (textEntryIsEmpty && options.contains(WriteOption.DELETE_EMPTY));
+            if (deleteProperty) {
                 xmpMeta.deleteProperty(namespaceUri, name);
             }
         }

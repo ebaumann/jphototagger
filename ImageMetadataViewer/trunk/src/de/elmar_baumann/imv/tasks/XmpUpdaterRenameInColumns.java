@@ -52,9 +52,15 @@ public final class XmpUpdaterRenameInColumns implements Runnable, ProgressListen
         db.renameInXmpColumns(filenames, column, oldValue, newValue, this);
     }
 
+    private void checkStopEvent(ProgressEvent evt) {
+        if (stop) {
+            evt.stop();
+        }
+    }
+
     @Override
     public void progressStarted(ProgressEvent evt) {
-        evt.setStop(stop);
+        checkStopEvent(evt);
         for (ProgressListener listener : progressListeners) {
             listener.progressStarted(evt);
         }
@@ -62,7 +68,7 @@ public final class XmpUpdaterRenameInColumns implements Runnable, ProgressListen
 
     @Override
     public void progressPerformed(ProgressEvent evt) {
-        evt.setStop(stop);
+        checkStopEvent(evt);
         for (ProgressListener listener : progressListeners) {
             listener.progressPerformed(evt);
         }

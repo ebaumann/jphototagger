@@ -24,7 +24,7 @@ public final class UpdaterRenameInXmpColumns implements Runnable, ProgressListen
     private final Column column;
     private final String oldValue;
     private final String newValue;
-    private boolean stop = false;
+    volatile private boolean stop = false;
 
     public UpdaterRenameInXmpColumns(List<String> filenames, Column column,
         String oldValue, String newValue) {
@@ -56,9 +56,15 @@ public final class UpdaterRenameInXmpColumns implements Runnable, ProgressListen
         db.renameInXmpColumns(filenames, column, oldValue, newValue, this);
     }
 
+    private void checkStopEvent(ProgressEvent evt) {
+        if (stop) {
+            evt.stop();
+        }
+    }
+
     @Override
     public void progressStarted(ProgressEvent evt) {
-        evt.setStop(stop);
+        checkStopEvent(evt);
         for (ProgressListener listener : progressListeners) {
             listener.progressStarted(evt);
         }
@@ -66,7 +72,7 @@ public final class UpdaterRenameInXmpColumns implements Runnable, ProgressListen
 
     @Override
     public void progressPerformed(ProgressEvent evt) {
-        evt.setStop(stop);
+        checkStopEvent(evt);
         for (ProgressListener listener : progressListeners) {
             listener.progressPerformed(evt);
         }

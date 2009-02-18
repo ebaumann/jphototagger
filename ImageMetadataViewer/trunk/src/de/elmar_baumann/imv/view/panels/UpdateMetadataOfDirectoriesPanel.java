@@ -6,8 +6,8 @@ import de.elmar_baumann.imv.event.ProgressEvent;
 import de.elmar_baumann.imv.event.ProgressListener;
 import de.elmar_baumann.imv.io.DirectoryInfo;
 import de.elmar_baumann.imv.resource.Bundle;
-import de.elmar_baumann.imv.tasks.ImageMetadataToDatabase;
-import de.elmar_baumann.imv.types.DatabaseUpdate;
+import de.elmar_baumann.imv.tasks.InsertImageFilesIntoDatabase;
+import de.elmar_baumann.imv.types.MetaDataForceDbUpdate;
 import de.elmar_baumann.imv.view.ViewUtil;
 import de.elmar_baumann.lib.dialog.DirectoryChooser;
 import de.elmar_baumann.lib.io.FileUtil;
@@ -33,7 +33,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
     private static final String currentFilenameInfotextPrefix = Bundle.getString("UpdateMetadataOfDirectoriesPanel.InformationMessage.UpdateCurrentFile");
     private final DefaultListModel modelSelectedDirectoryList = new DefaultListModel();
     private List<File> selectedFiles = new ArrayList<File>();
-    private ImageMetadataToDatabase activeUpdater;
+    private InsertImageFilesIntoDatabase activeUpdater;
     private File lastSelectedDirectory = new File(""); // NOI18N
     private int countSelectedFiles = 0;
 
@@ -71,14 +71,14 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
 
     private void createScanner() {
         activeUpdater =
-            new ImageMetadataToDatabase(
+            new InsertImageFilesIntoDatabase(
             FileUtil.getAsFilenames(selectedFiles), getDatabaseUpdateMethod());
     }
 
-    private DatabaseUpdate getDatabaseUpdateMethod() {
+    private MetaDataForceDbUpdate getDatabaseUpdateMethod() {
         return checkBoxForce.isSelected()
-            ? DatabaseUpdate.COMPLETE
-            : DatabaseUpdate.IF_LAST_MODIFIED_CHANGED;
+            ? MetaDataForceDbUpdate.ALL_METADATA
+            : MetaDataForceDbUpdate.IF_LAST_MODIFIED_CHANGED;
     }
 
     private List<File> getAllImageFiles() {

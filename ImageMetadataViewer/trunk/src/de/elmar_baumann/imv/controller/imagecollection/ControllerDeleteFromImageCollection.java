@@ -1,7 +1,7 @@
 package de.elmar_baumann.imv.controller.imagecollection;
 
 import de.elmar_baumann.imv.types.Content;
-import de.elmar_baumann.imv.tasks.ImageCollectionToDatabase;
+import de.elmar_baumann.imv.tasks.ImageCollectionDatabaseUtils;
 import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
@@ -47,7 +47,7 @@ public final class ControllerDeleteFromImageCollection implements ActionListener
     private void deleteSelectedFilesFromImageCollection() {
         Object selected = list.getSelectedValue();
         if (selected != null) {
-            ImageCollectionToDatabase manager = new ImageCollectionToDatabase();
+            ImageCollectionDatabaseUtils manager = new ImageCollectionDatabaseUtils();
             List<File> selectedFiles = thumbnailsPanel.getSelectedFiles();
             manager.deleteImagesFromCollection(selected.toString(),
                     FileUtil.getAsFilenames(selectedFiles));

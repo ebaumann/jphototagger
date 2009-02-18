@@ -23,7 +23,7 @@ public final class IptcToXmp implements Runnable {
 
     private final List<ProgressListener> progressListeners = new ArrayList<ProgressListener>();
     private final List<String> filenames;
-    private boolean stop = false;
+    volatile private boolean stop = false;
 
     public IptcToXmp(List<String> filenames) {
         this.filenames = filenames;
@@ -44,21 +44,27 @@ public final class IptcToXmp implements Runnable {
         int index = 0;
         for (index = 0; !stop && index < size; index++) {
             String imageFilename = filenames.get(index);
-            String sidecarFilename = XmpMetadata.suggestSidecarFilename(imageFilename);
+            String xmpFilename = XmpMetadata.suggestSidecarFilename(imageFilename);
             Iptc iptc = IptcMetadata.getIptc(new File(imageFilename));
             Xmp xmp = XmpMetadata.getXmp(imageFilename);
             if (xmp == null) {
                 xmp = new Xmp();
             }
-            xmp.setIptc(iptc, false);
-            logWriteXmpSidecarFile(imageFilename);
-            XmpMetadata.writeMetadataToSidecarFile(sidecarFilename, xmp);
+            xmp.setIptc(iptc, Xmp.SetIptc.DONT_CHANGE_EXISTING_VALUES);
+            logWriteXmpFile(imageFilename);
+            XmpMetadata.writeMetadataToSidecarFile(xmpFilename, xmp);
             notifyPerformed(index);
         }
         notifyEnd(index);
     }
 
-    private void logWriteXmpSidecarFile(String imageFilename) {
+    private void checkStopEvent(ProgressEvent event) {
+        if (event.isStop()) {
+            stop();
+        }
+    }
+
+    private void logWriteXmpFile(String imageFilename) {
         MessageFormat msg = new MessageFormat(Bundle.getString("IptcToXmp.InformationMessage.StartWriteXmpFile"));
         Object[] params = {imageFilename};
         Log.logInfo(IptcToXmp.class, msg.format(params));
@@ -70,9 +76,7 @@ public final class IptcToXmp implements Runnable {
             filenames.size() > 0 ? filenames.get(0) : ""); // NOI18N
         for (ProgressListener progressListener : progressListeners) {
             progressListener.progressStarted(event);
-            if (event.isStop()) {
-                stop();
-            }
+            checkStopEvent(event);
         }
     }
 
@@ -80,9 +84,7 @@ public final class IptcToXmp implements Runnable {
         ProgressEvent event = new ProgressEvent(this, 0, filenames.size(), index + 1, filenames.get(index));
         for (ProgressListener progressListener : progressListeners) {
             progressListener.progressPerformed(event);
-            if (event.isStop()) {
-                stop();
-            }
+            checkStopEvent(event);
         }
     }
 
