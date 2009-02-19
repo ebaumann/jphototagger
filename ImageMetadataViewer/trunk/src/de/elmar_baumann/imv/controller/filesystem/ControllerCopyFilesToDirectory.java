@@ -19,7 +19,7 @@ import java.util.List;
 public final class ControllerCopyFilesToDirectory implements ActionListener {
 
     private final AppPanel appPanel = Panels.getInstance().getAppPanel();
-    private final ImageFileThumbnailsPanel panel = appPanel.getPanelThumbnails();
+    private final ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelThumbnails();
 
     public ControllerCopyFilesToDirectory() {
         listen();
@@ -31,7 +31,7 @@ public final class ControllerCopyFilesToDirectory implements ActionListener {
     }
 
     private void copySelectedFiles() {
-        List<File> files = panel.getSelectedFiles();
+        List<File> files = thumbnailsPanel.getSelectedFiles();
         if (files.size() > 0) {
             CopyToDirectoryDialog dialog = new CopyToDirectoryDialog();
             dialog.setSourceFiles(files);

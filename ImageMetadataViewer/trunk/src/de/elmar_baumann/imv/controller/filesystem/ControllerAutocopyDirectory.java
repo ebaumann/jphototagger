@@ -34,8 +34,9 @@ public final class ControllerAutocopyDirectory implements ActionListener {
 
     private void copy() {
         File dir = UserSettings.getInstance().getAutocopyDirectory();
-        if (dir == null && settingsMessage()) {
+        if (dir == null && confirmSetAutocopyDirectory()) {
             setAutocopyDirectory();
+            copy(); // recursiv
         } else {
             copy(dir);
         }
@@ -78,7 +79,7 @@ public final class ControllerAutocopyDirectory implements ActionListener {
                 AppIcons.getMediumAppIcon());
     }
 
-    private boolean settingsMessage() {
+    private boolean confirmSetAutocopyDirectory() {
         return JOptionPane.showConfirmDialog(
                 null,
                 Bundle.getString("ControllerAutocopyDirectory.ConfirmMessage.DefineDirectory"),

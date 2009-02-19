@@ -38,19 +38,6 @@ public final class ControllerDeleteFiles implements ActionListener {
         Panels.getInstance().getAppFrame().getMenuItemDelete().addActionListener(this);
     }
 
-    private List<File> getFiles() {
-        List<File> files = new ArrayList<File>();
-        List<File> selectedFiles = thumbnailsPanel.getSelectedFiles();
-        for (File file : selectedFiles) {
-            files.add(file);
-            File sidecarFile = XmpMetadata.getSidecarFile(file);
-            if (sidecarFile != null) {
-                files.add(sidecarFile);
-            }
-        }
-        return files;
-    }
-
     @Override
     public void actionPerformed(ActionEvent e) {
         deleteSelectedFiles();
@@ -75,6 +62,19 @@ public final class ControllerDeleteFiles implements ActionListener {
                 thumbnailsPanel.remove(deletedFiles);
             }
         }
+    }
+
+    private List<File> getFiles() {
+        List<File> files = new ArrayList<File>();
+        List<File> selectedFiles = thumbnailsPanel.getSelectedFiles();
+        for (File file : selectedFiles) {
+            files.add(file);
+            File sidecarFile = XmpMetadata.getSidecarFile(file);
+            if (sidecarFile != null) {
+                files.add(sidecarFile);
+            }
+        }
+        return files;
     }
 
     private void errorMessageDelete(File file) {

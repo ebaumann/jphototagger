@@ -33,15 +33,15 @@ public final class ControllerFavoriteDirectoryOpenInFolders implements ActionLis
         listen();
     }
 
+    private void listen() {
+        popup.addActionListenerOpenInFolders(this);
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (listFavoriteDirectories.getSelectedIndex() >= 0) {
             selectDirectory();
         }
-    }
-
-    private void listen() {
-        popup.addActionListenerOpenInFolders(this);
     }
 
     private void selectDirectory() {

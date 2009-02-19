@@ -69,15 +69,15 @@ public final class ControllerDeleteFavoriteDirectory implements ActionListener {
     @Override
     public void finalize() throws Throwable {
         super.finalize();
-        removeChecker.setStop(true);
+        removeChecker.stopCheck();
     }
 
     private class CheckDirectoriesRemoved extends Thread {
 
         private boolean stop = false;
 
-        public synchronized void setStop(boolean stop) {
-            this.stop = stop;
+        public synchronized void stopCheck() {
+            stop = true;
         }
 
         @Override

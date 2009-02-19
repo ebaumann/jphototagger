@@ -80,7 +80,7 @@ public final class TransferHandlerListFavoriteDirectories extends TransferHandle
                 dialog.setDirectoryName(directory.getAbsolutePath());
                 dialog.setEnabledButtonChooseDirectory(false);
                 dialog.setVisible(true);
-                if (dialog.isAccepted()) {
+                if (dialog.accepted()) {
                     model.insertFavorite(new FavoriteDirectory(
                         dialog.getFavoriteName(), dialog.getDirectoryName(), -1));
                 }

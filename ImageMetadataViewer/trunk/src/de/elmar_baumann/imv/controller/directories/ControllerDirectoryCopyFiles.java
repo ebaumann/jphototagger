@@ -53,22 +53,23 @@ public final class ControllerDirectoryCopyFiles implements KeyListener {
 
     private void handleKeyPressed(KeyEvent e) {
         if (thumbnailsPanel.getContent().equals(Content.DIRECTORY) && KeyEventUtil.isInsert(e)) {
-            insertFiles();
+            insertFilesIntoSelectedDirectory();
         }
     }
 
-    private void insertFiles() {
+    private void insertFilesIntoSelectedDirectory() {
         List<File> sourceFiles = ClipboardUtil.getFilesFromSystemClipboard("\n");
         File targetDirectory = ViewUtil.getSelectedDirectory(treeDirectories);
         if (sourceFiles.size() > 0 && targetDirectory != null) {
-            insertFiles(sourceFiles, targetDirectory);
+            copyOrMoveFiles(sourceFiles, targetDirectory);
         }
     }
 
-    private void insertFiles(List<File> sourceFiles, File targetDirectory) {
+    private void copyOrMoveFiles(List<File> sourceFiles, File targetDirectory) {
         FileAction action = thumbnailsPanel.getFileAction();
         int dropAction = action.equals(FileAction.COPY)
-            ? TransferHandler.COPY : TransferHandler.MOVE;
+            ? TransferHandler.COPY
+            : TransferHandler.MOVE;
         TransferHandlerTreeDirectories.handleDroppedFiles(
             dropAction, sourceFiles, targetDirectory);
         if (action.equals(FileAction.CUT)) {

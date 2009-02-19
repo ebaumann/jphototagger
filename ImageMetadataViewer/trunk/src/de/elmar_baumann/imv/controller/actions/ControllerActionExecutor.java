@@ -18,7 +18,7 @@ public final class ControllerActionExecutor implements ProgramActionListener {
 
     private final ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
     private final ActionsDialog actionsDialog = ActionsDialog.getInstance();
-    private final ProgramStarter executor = new ProgramStarter(actionsDialog.getProgressBar(this)); // no other executor expected
+    private final ProgramStarter programStarter = new ProgramStarter(actionsDialog.getProgressBar(this)); // no other executor expected
 
     public ControllerActionExecutor() {
         listen();
@@ -30,6 +30,6 @@ public final class ControllerActionExecutor implements ProgramActionListener {
 
     @Override
     public void actionPerformed(ProgramActionEvent evt) {
-        executor.startProgram(evt.getProgram(), thumbnailsPanel.getSelectedFiles());
+        programStarter.startProgram(evt.getProgram(), thumbnailsPanel.getSelectedFiles());
     }
 }

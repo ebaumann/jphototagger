@@ -40,7 +40,7 @@ public final class ControllerFavoriteDirectorySelected implements ListSelectionL
     public void valueChanged(ListSelectionEvent e) {
         if (listFavoriteDirectories.getSelectedIndex() >= 0) {
             setFilesToThumbnailsPanel();
-            checkEditPanel();
+            setMetadataEditable();
         }
     }
 
@@ -48,7 +48,7 @@ public final class ControllerFavoriteDirectorySelected implements ListSelectionL
     public void refresh() {
         if (listFavoriteDirectories.getSelectedIndex() >= 0) {
             setFilesToThumbnailsPanel();
-            checkEditPanel();
+            setMetadataEditable();
         }
     }
 
@@ -64,7 +64,7 @@ public final class ControllerFavoriteDirectorySelected implements ListSelectionL
         return ImageFilteredDirectory.getImageFilesOfDirectory(new File(favorite.getDirectoryName()));
     }
 
-    private void checkEditPanel() {
+    private void setMetadataEditable() {
         if (thumbnailsPanel.getSelectionCount() <= 0) {
             editPanels.setEditable(false);
         }

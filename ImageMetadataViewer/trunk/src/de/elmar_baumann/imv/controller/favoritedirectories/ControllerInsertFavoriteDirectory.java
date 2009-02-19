@@ -51,7 +51,7 @@ public final class ControllerInsertFavoriteDirectory implements ActionListener {
             dialog.setEnabledButtonChooseDirectory(false);
         }
         dialog.setVisible(true);
-        if (dialog.isAccepted()) {
+        if (dialog.accepted()) {
             model.insertFavorite(new FavoriteDirectory(
                     dialog.getFavoriteName(), dialog.getDirectoryName(), -1));
         }

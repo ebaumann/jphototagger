@@ -113,7 +113,7 @@ public final class FavoriteDirectoryPropertiesDialog extends Dialog {
      * 
      * @return true, wenn ok
      */
-    public boolean isAccepted() {
+    public boolean accepted() {
         return accepted;
     }
 

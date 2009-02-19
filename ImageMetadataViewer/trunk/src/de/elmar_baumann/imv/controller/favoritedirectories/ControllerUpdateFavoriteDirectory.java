@@ -25,13 +25,13 @@ public final class ControllerUpdateFavoriteDirectory implements ActionListener {
         listen();
     }
 
+    private void listen() {
+        popup.addActionListenerUpdate(this);
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         updateFavorite();
-    }
-
-    private void listen() {
-        popup.addActionListenerUpdate(this);
     }
 
     private void updateFavorite() {
@@ -40,7 +40,7 @@ public final class ControllerUpdateFavoriteDirectory implements ActionListener {
         dialog.setFavoriteName(favorite.getFavoriteName());
         dialog.setDirectoryName(favorite.getDirectoryName());
         dialog.setVisible(true);
-        if (dialog.isAccepted()) {
+        if (dialog.accepted()) {
             model.replaceFavorite(favorite, new FavoriteDirectory(
                     dialog.getFavoriteName(),
                     dialog.getDirectoryName(),
