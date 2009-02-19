@@ -316,6 +316,22 @@ public final class FileUtil {
     }
 
     /**
+     * Returns the suffix of a filename - the substring after the last period
+     * in the name, e.g. "jpg" if the filename is "image.jpg".
+     *
+     * @param  filename  filename
+     * @return suffix or empty string if the filename has no suffix
+     */
+    public static String getSuffix(String filename) {
+        int index = filename.lastIndexOf('.');
+        int length = filename.length();
+        if (index >= 0 && index < length - 1) {
+            return filename.substring(index + 1, length);
+        }
+        return "";
+    }
+
+    /**
      * Liefert die absoluten Pfadnamen mehrerer Dateien.
      * 
      * @param files Dateien
