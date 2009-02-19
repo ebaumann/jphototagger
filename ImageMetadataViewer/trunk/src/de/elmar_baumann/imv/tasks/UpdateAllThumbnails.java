@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.tasks;
 
-import de.elmar_baumann.imv.Log;
+import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.database.DatabaseImageFiles;
 import de.elmar_baumann.imv.event.ProgressEvent;
 import de.elmar_baumann.imv.event.ProgressListener;
@@ -96,7 +96,7 @@ public final class UpdateAllThumbnails
     }
 
     private void logUpdateAllThumbnails() {
-        Log.logInfo(UpdateAllThumbnails.class,
+        AppLog.logInfo(UpdateAllThumbnails.class,
             Bundle.getString("UpdateAllThumbnails.InformationMessage.StartUpdate"));
     }
 

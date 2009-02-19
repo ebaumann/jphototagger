@@ -1,7 +1,7 @@
 package de.elmar_baumann.imv.view.dialogs;
 
-import de.elmar_baumann.imv.AppIcons;
-import de.elmar_baumann.imv.Log;
+import de.elmar_baumann.imv.app.AppIcons;
+import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.event.FileSystemAction;
 import de.elmar_baumann.imv.event.FileSystemActionListener;
@@ -273,7 +273,7 @@ public final class MoveToDirectoryDialog extends Dialog
         MessageFormat msg = new MessageFormat(Bundle.getString("MoveToDirectoryDialog.ErrorMessage.Logfile"));
         Object[] params = {src, target, error.getLocalizedMessage()};
         String errorMsg = msg.format(params);
-        Log.logWarning(MoveToDirectoryDialog.class, errorMsg);
+        AppLog.logWarning(MoveToDirectoryDialog.class, errorMsg);
         errors = true;
     }
 

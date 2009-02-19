@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.tasks;
 
-import de.elmar_baumann.imv.Log;
+import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.data.Iptc;
 import de.elmar_baumann.imv.data.Xmp;
 import de.elmar_baumann.imv.event.ProgressEvent;
@@ -67,7 +67,7 @@ public final class IptcToXmp implements Runnable {
     private void logWriteXmpFile(String imageFilename) {
         MessageFormat msg = new MessageFormat(Bundle.getString("IptcToXmp.InformationMessage.StartWriteXmpFile"));
         Object[] params = {imageFilename};
-        Log.logInfo(IptcToXmp.class, msg.format(params));
+        AppLog.logInfo(IptcToXmp.class, msg.format(params));
     }
 
     private void notifyStart() {

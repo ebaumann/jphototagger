@@ -1,7 +1,9 @@
-package de.elmar_baumann.imv;
+package de.elmar_baumann.imv.app;
 
 import de.elmar_baumann.imv.event.ErrorEvent;
 import de.elmar_baumann.imv.event.listener.ErrorListeners;
+import de.elmar_baumann.lib.persistence.PersistentSettings;
+import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -11,7 +13,7 @@ import java.util.logging.Logger;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/11/11
  */
-public final class Log {
+public final class AppLog {
 
     /**
      * Logs a message with the class' logger and the log level
@@ -89,5 +91,16 @@ public final class Log {
         Logger.getLogger(c.getName()).log(level, null, ex);
         ErrorListeners.getInstance().notifyErrorListener(new ErrorEvent(ex.getMessage(), c));
     }
-    private Log() {}
+
+    /**
+     * Liefert den Namen der Logdatei.
+     *
+     * @return Logdatei
+     */
+    public static String getLogfileName() {
+        return PersistentSettings.getInstance().getDirectoryName() +
+            File.separator + "imagemetadataviewerlog.xml";  // NOI18N
+    }
+
+    private AppLog() {}
 }

@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.database;
 
-import de.elmar_baumann.imv.Log;
+import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.data.SavedSearch;
 import de.elmar_baumann.imv.data.SavedSearchPanel;
 import de.elmar_baumann.imv.data.SavedSearchParamStatement;
@@ -59,7 +59,7 @@ public final class DatabaseSavedSearches extends Database {
                 stmt.setString(1, stmtData.getName());
                 stmt.setBytes(2, stmtData.getSql().getBytes());
                 stmt.setBoolean(3, stmtData.isQuery());
-                Log.logFiner(DatabaseSavedSearches.class, stmt.toString());
+                AppLog.logFiner(DatabaseSavedSearches.class, stmt.toString());
                 stmt.executeUpdate();
                 long id = getIdSavedSearch(connection, stmtData.getName());
                 insertSavedSearchValues(connection, id, stmtData.getValues());
@@ -69,7 +69,7 @@ public final class DatabaseSavedSearches extends Database {
                 notifyDatabaseListener(DatabaseAction.Type.SAVED_SEARCH_INSERTED, data);
                 stmt.close();
             } catch (SQLException ex) {
-                de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+                de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
                 rollback(connection);
             } finally {
                 free(connection);
@@ -95,7 +95,7 @@ public final class DatabaseSavedSearches extends Database {
                 String value = values.get(index);
                 stmt.setString(2, value);
                 stmt.setInt(3, index);
-                Log.logFiner(DatabaseSavedSearches.class, stmt.toString());
+                AppLog.logFiner(DatabaseSavedSearches.class, stmt.toString());
                 stmt.executeUpdate();
             }
             stmt.close();
@@ -128,7 +128,7 @@ public final class DatabaseSavedSearches extends Database {
                 stmt.setInt(7, data.getComparatorId());
                 stmt.setString(8, data.getValue());
                 stmt.setBoolean(9, data.isBracketRightSelected());
-                Log.logFiner(DatabaseSavedSearches.class, stmt.toString());
+                AppLog.logFiner(DatabaseSavedSearches.class, stmt.toString());
                 stmt.executeUpdate();
             }
             stmt.close();
@@ -140,7 +140,7 @@ public final class DatabaseSavedSearches extends Database {
         PreparedStatement stmt = connection.prepareStatement(
             "SELECT id FROM saved_searches WHERE name = ?"); // NOI18N
         stmt.setString(1, name);
-        Log.logFinest(DatabaseSavedSearches.class, stmt.toString());
+        AppLog.logFinest(DatabaseSavedSearches.class, stmt.toString());
         ResultSet rs = stmt.executeQuery();
         if (rs.next()) {
             id = rs.getLong(1);
@@ -167,7 +167,7 @@ public final class DatabaseSavedSearches extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
         } finally {
             free(connection);
         }
@@ -188,7 +188,7 @@ public final class DatabaseSavedSearches extends Database {
             long id = getIdSavedSearch(connection, name);
             return id > 0;
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
         } finally {
             free(connection);
         }
@@ -221,7 +221,7 @@ public final class DatabaseSavedSearches extends Database {
             PreparedStatement stmt = connection.prepareStatement(
                 "DELETE FROM saved_searches WHERE name = ?"); // NOI18N
             stmt.setString(1, name);
-            Log.logFiner(DatabaseSavedSearches.class, stmt.toString());
+            AppLog.logFiner(DatabaseSavedSearches.class, stmt.toString());
             int count = stmt.executeUpdate();
             connection.commit();
             deleted = count > 0;
@@ -230,7 +230,7 @@ public final class DatabaseSavedSearches extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
             rollback(connection);
         } finally {
             free(connection);
@@ -255,7 +255,7 @@ public final class DatabaseSavedSearches extends Database {
                 "UPDATE saved_searches SET name = ? WHERE name = ?"); // NOI18N
             stmt.setString(1, newName);
             stmt.setString(2, oldName);
-            Log.logFiner(DatabaseSavedSearches.class, stmt.toString());
+            AppLog.logFiner(DatabaseSavedSearches.class, stmt.toString());
             int count = stmt.executeUpdate();
             renamed = count > 0;
             if (renamed) {
@@ -266,7 +266,7 @@ public final class DatabaseSavedSearches extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
         } finally {
             free(connection);
         }
@@ -310,7 +310,7 @@ public final class DatabaseSavedSearches extends Database {
                 ", is_query" + // NOI18N -- 3 --
                 " FROM saved_searches WHERE name = ?"); // NOI18N
             stmt.setString(1, name);
-            Log.logFinest(DatabaseSavedSearches.class, stmt.toString());
+            AppLog.logFinest(DatabaseSavedSearches.class, stmt.toString());
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 data = new SavedSearch();
@@ -325,7 +325,7 @@ public final class DatabaseSavedSearches extends Database {
             stmt.close();
         } catch (SQLException ex) {
             data = null;
-            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
         } finally {
             free(connection);
         }
@@ -361,7 +361,7 @@ public final class DatabaseSavedSearches extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
             allData.clear();
         } finally {
             free(connection);
@@ -379,7 +379,7 @@ public final class DatabaseSavedSearches extends Database {
             " AND saved_searches.name = ?" + // NOI18N
             " ORDER BY saved_searches_values.value_index ASC"); // NOI18N
         stmt.setString(1, data.getParamStatements().getName());
-        Log.logFinest(DatabaseSavedSearches.class, stmt.toString());
+        AppLog.logFinest(DatabaseSavedSearches.class, stmt.toString());
         ResultSet rs = stmt.executeQuery();
         List<String> values = new ArrayList<String>();
         while (rs.next()) {
@@ -407,7 +407,7 @@ public final class DatabaseSavedSearches extends Database {
             " AND saved_searches.name = ?" + // NOI18N
             " ORDER BY saved_searches_panels.panel_index ASC"); // NOI18N
         stmt.setString(1, data.getParamStatements().getName());
-        Log.logFinest(DatabaseSavedSearches.class, stmt.toString());
+        AppLog.logFinest(DatabaseSavedSearches.class, stmt.toString());
         ResultSet rs = stmt.executeQuery();
         List<SavedSearchPanel> allPanelData = new ArrayList<SavedSearchPanel>();
         while (rs.next()) {

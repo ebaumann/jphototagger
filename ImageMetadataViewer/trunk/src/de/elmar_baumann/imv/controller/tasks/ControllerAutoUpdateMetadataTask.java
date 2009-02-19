@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.controller.tasks;
 
-import de.elmar_baumann.imv.AppTexts;
+import de.elmar_baumann.imv.app.AppTexts;
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.database.Database;
 import de.elmar_baumann.imv.database.DatabaseAutoscanDirectories;

@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.controller.metadata;
 
-import de.elmar_baumann.imv.AppIcons;
+import de.elmar_baumann.imv.app.AppIcons;
 import de.elmar_baumann.imv.data.MetadataEditTemplate;
 import de.elmar_baumann.imv.database.DatabaseMetadataEditTemplates;
 import de.elmar_baumann.imv.event.ListenerProvider;

@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.view.panels;
 
-import de.elmar_baumann.imv.Log;
+import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.event.ProgressEvent;
 import de.elmar_baumann.imv.event.ProgressListener;
@@ -113,7 +113,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
     private void messageThreadPriority(Thread thread) {
         MessageFormat message = new MessageFormat(Bundle.getString("UpdateMetadataOfDirectoriesPanel.InformationMessage.ThreadPriority"));
         Object[] params = {thread.getPriority()};
-        Log.logFinest(UpdateMetadataOfDirectoriesPanel.class, message.format(params));
+        AppLog.logFinest(UpdateMetadataOfDirectoriesPanel.class, message.format(params));
     }
 
     private void readPersistent() {
@@ -292,7 +292,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
     @Override
     public void progressEnded(ProgressEvent evt) {
         progressBar.setValue(evt.getValue());
-        Log.logFinest(UpdateMetadataOfDirectoriesPanel.class, Bundle.getString("UpdateMetadataOfDirectoriesPanel.InformationMessage.UdateCompleted"));
+        AppLog.logFinest(UpdateMetadataOfDirectoriesPanel.class, Bundle.getString("UpdateMetadataOfDirectoriesPanel.InformationMessage.UdateCompleted"));
         listSelectedDirectories.setEnabled(true);
         setEnabledButtons(false);
         setEnabledCheckboxes(false);

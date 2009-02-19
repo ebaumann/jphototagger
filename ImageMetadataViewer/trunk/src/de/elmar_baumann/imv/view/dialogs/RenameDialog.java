@@ -1,7 +1,7 @@
 package de.elmar_baumann.imv.view.dialogs;
 
-import de.elmar_baumann.imv.AppIcons;
-import de.elmar_baumann.imv.Log;
+import de.elmar_baumann.imv.app.AppIcons;
+import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.controller.filesystem.FilenameFormatDate;
 import de.elmar_baumann.imv.controller.filesystem.FilenameFormatEmptyString;
 import de.elmar_baumann.imv.controller.filesystem.FilenameFormat;
@@ -114,13 +114,13 @@ public final class RenameDialog extends Dialog {
                 if (!newXmpFile.delete()) {
                     MessageFormat msg = new MessageFormat(Bundle.getString("RenameDialog.ErrorMessage.XmpFileCouldNotBeDeleted"));
                     Object params[] = {newXmpFilename};
-                    Log.logWarning(RenameDialog.class, msg.format(params));
+                    AppLog.logWarning(RenameDialog.class, msg.format(params));
                 }
             }
             if (!oldXmpFile.renameTo(newXmpFile)) {
                 MessageFormat msg = new MessageFormat(Bundle.getString("RenameDialog.ErrorMessage.XmpFileCouldNotBeRenamed"));
                 Object params[] = {oldXmpFilename, newXmpFilename};
-                Log.logWarning(RenameDialog.class, msg.format(params));
+                AppLog.logWarning(RenameDialog.class, msg.format(params));
             }
         }
     }

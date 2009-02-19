@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.tasks;
 
-import de.elmar_baumann.imv.AppTexts;
+import de.elmar_baumann.imv.app.AppTexts;
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.data.TextEntry;
 import de.elmar_baumann.imv.event.ProgressEvent;

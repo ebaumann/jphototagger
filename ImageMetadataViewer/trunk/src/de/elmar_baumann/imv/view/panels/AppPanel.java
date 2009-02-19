@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.view.panels;
 
-import de.elmar_baumann.imv.AppTexts;
+import de.elmar_baumann.imv.app.AppTexts;
 import de.elmar_baumann.lib.renderer.TreeCellRendererDirectories;
 import de.elmar_baumann.imv.event.AppExitListener;
 import de.elmar_baumann.imv.resource.Bundle;

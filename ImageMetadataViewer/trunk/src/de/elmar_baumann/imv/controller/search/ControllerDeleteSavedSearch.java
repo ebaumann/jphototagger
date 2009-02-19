@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.controller.search;
 
-import de.elmar_baumann.imv.AppIcons;
+import de.elmar_baumann.imv.app.AppIcons;
 import de.elmar_baumann.imv.data.SavedSearch;
 import de.elmar_baumann.imv.database.DatabaseSavedSearches;
 import de.elmar_baumann.imv.model.ListModelSavedSearches;

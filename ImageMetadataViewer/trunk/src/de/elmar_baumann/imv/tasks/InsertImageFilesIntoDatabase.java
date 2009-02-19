@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.tasks;
 
-import de.elmar_baumann.imv.Log;
+import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.data.Exif;
 import de.elmar_baumann.imv.data.ImageFile;
 import de.elmar_baumann.imv.data.Xmp;
@@ -216,7 +216,7 @@ public final class InsertImageFilesIntoDatabase implements Runnable {
         MessageFormat msg = new MessageFormat(Bundle.getString("ImageMetadataToDatabase.ErrorMessage.NullThumbnail")); // NOI18N
         Object[] params = {filename};
         String formattedMessage = msg.format(params);
-        Log.logWarning(InsertImageFilesIntoDatabase.class, formattedMessage);
+        AppLog.logWarning(InsertImageFilesIntoDatabase.class, formattedMessage);
     }
 
     private void notifyProgressStarted() {
@@ -265,6 +265,6 @@ public final class InsertImageFilesIntoDatabase implements Runnable {
             data.getThumbnail() == null
             ? Bundle.getString("ImageMetadataToDatabase.InformationMessage.StartInsert.No")
             : Bundle.getString("ImageMetadataToDatabase.InformationMessage.StartInsert.Yes")};
-        Log.logInfo(InsertImageFilesIntoDatabase.class, msg.format(params));
+        AppLog.logInfo(InsertImageFilesIntoDatabase.class, msg.format(params));
     }
 }

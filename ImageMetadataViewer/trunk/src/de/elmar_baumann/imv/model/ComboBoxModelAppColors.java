@@ -68,7 +68,7 @@ public final class ComboBoxModelAppColors extends DefaultComboBoxModel {
             try {
                 setSelectedItem(getElementAt(Integer.parseInt(index)));
             } catch (NumberFormatException ex) {
-                de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+                de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
             }
         }
     }

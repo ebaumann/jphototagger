@@ -1,21 +1,19 @@
-package de.elmar_baumann.imv;
+package de.elmar_baumann.imv.app;
 
 import de.elmar_baumann.lib.io.FileFilter;
-import de.elmar_baumann.lib.persistence.PersistentSettings;
-import java.io.File;
 
 /**
- * Anwendungseinstellungen.
+ * 
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public final class AppSettings {
+public final class AppFileFilter {
 
     /**
      * Dateifilter für alle Bilddateiformate, die verarbeitet werden können.
      */
-    public static final FileFilter fileFilterAcceptedImageFileFormats = new FileFilter(
+    public static final FileFilter acceptedImageFileFormats = new FileFilter(
         ".*\\.[cC][rR][wW];" + // NOI18N
         ".*\\.[cC][rR]2;" + // NOI18N
         ".*\\.[dD][cC][rR];" + // NOI18N
@@ -29,15 +27,5 @@ public final class AppSettings {
         ".*\\.[tT][iI][fF][fF];", // NOI18N
         ";");  // NOI18N
 
-    /**
-     * Liefert den Namen der Logdatei.
-     * 
-     * @return Logdatei
-     */
-    public static String getLogfileName() {
-        return PersistentSettings.getInstance().getDirectoryName() +
-            File.separator + "imagemetadataviewerlog.xml";  // NOI18N
-    }
-
-    private AppSettings() {}
+    private AppFileFilter() {}
 }

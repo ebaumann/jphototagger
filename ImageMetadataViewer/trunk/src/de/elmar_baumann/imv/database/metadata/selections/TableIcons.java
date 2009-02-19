@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.database.metadata.selections;
 
-import de.elmar_baumann.imv.AppIcons;
+import de.elmar_baumann.imv.app.AppIcons;
 import de.elmar_baumann.imv.database.metadata.Table;
 import de.elmar_baumann.imv.database.metadata.collections.TableCollectionNames;
 import de.elmar_baumann.imv.database.metadata.collections.TableCollections;

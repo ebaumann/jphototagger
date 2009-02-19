@@ -1,4 +1,4 @@
-package de.elmar_baumann.imv;
+package de.elmar_baumann.imv.app;
 
 import java.awt.Color;
 

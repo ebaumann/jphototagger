@@ -71,7 +71,7 @@ public final class ControllerArrayScheduledTasks
         try {
             Thread.sleep(milliSecondsToStart);
         } catch (InterruptedException ex) {
-            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
         }
         startFirstController();
     }

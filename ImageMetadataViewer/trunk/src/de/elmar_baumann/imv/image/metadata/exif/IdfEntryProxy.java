@@ -23,7 +23,7 @@ public final class IdfEntryProxy implements Comparable<IdfEntryProxy> {
             name = entry.getEntryMeta().getName();
             rawValue = entry.getRawValue();
         } catch (Exception ex) {
-            de.elmar_baumann.imv.Log.logWarning(ExifMetadata.class, ex);
+            de.elmar_baumann.imv.app.AppLog.logWarning(ExifMetadata.class, ex);
         }
     }
 

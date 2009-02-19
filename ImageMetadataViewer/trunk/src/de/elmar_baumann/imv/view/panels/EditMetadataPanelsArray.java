@@ -2,7 +2,7 @@ package de.elmar_baumann.imv.view.panels;
 
 import com.adobe.xmp.properties.XMPPropertyInfo;
 import com.imagero.reader.iptc.IPTCEntryMeta;
-import de.elmar_baumann.imv.AppIcons;
+import de.elmar_baumann.imv.app.AppIcons;
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.controller.metadata.ControllerSaveMetadata;
 import de.elmar_baumann.imv.data.ImageFile;

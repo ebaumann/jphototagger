@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.tasks;
 
-import de.elmar_baumann.imv.Log;
+import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.event.ProgressEvent;
 import de.elmar_baumann.imv.event.ProgressListener;
@@ -71,7 +71,7 @@ public final class InsertImageFilesIntoDatabaseArray implements ProgressListener
         MessageFormat msg = new MessageFormat(
             Bundle.getString("ImageMetadataToDatabaseArray.InformationMessage.StartScanDirectory"));
         Object[] params = {directoryName};
-        Log.logInfo(InsertImageFilesIntoDatabaseArray.class, msg.format(params));
+        AppLog.logInfo(InsertImageFilesIntoDatabaseArray.class, msg.format(params));
     }
 
     private synchronized void setWait(boolean wait) {
@@ -243,13 +243,13 @@ public final class InsertImageFilesIntoDatabaseArray implements ProgressListener
     private void messageEndUpdateDirectory(InsertImageFilesIntoDatabase scanner) {
         MessageFormat message = new MessageFormat(Bundle.getString("ImageMetadataToDatabaseArray.InformationMessage.UpdateMetadataFinished"));
         Object[] params = {getDirectoryNameOfInserter(scanner)};
-        Log.logFinest(InsertImageFilesIntoDatabaseArray.class, message.format(params));
+        AppLog.logFinest(InsertImageFilesIntoDatabaseArray.class, message.format(params));
     }
 
     private void messageUpdateCurrentImage(String filename) {
         MessageFormat message = new MessageFormat(Bundle.getString("ImageMetadataToDatabaseArray.InformationMessage.CheckImageForModifications"));
         Object[] params = {filename};
-        Log.logFinest(InsertImageFilesIntoDatabaseArray.class, message.format(params));
+        AppLog.logFinest(InsertImageFilesIntoDatabaseArray.class, message.format(params));
     }
 
     private String getDirectoryNameOfInserter(InsertImageFilesIntoDatabase scanner) {

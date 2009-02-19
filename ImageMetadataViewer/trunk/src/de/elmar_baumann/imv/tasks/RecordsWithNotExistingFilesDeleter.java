@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.tasks;
 
-import de.elmar_baumann.imv.Log;
+import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.database.Database;
 import de.elmar_baumann.imv.database.DatabaseImageFiles;
 import de.elmar_baumann.imv.event.ProgressEvent;
@@ -94,7 +94,7 @@ public final class RecordsWithNotExistingFilesDeleter implements Runnable, Progr
     }
 
     private void logDeleteRecords() {
-        Log.logInfo(RecordsWithNotExistingFilesDeleter.class,
+        AppLog.logInfo(RecordsWithNotExistingFilesDeleter.class,
             Bundle.getString("RecordsWithNotExistingFilesDeleter.InformationMessage.StartRemove"));
     }
 

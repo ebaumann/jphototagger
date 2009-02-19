@@ -1,5 +1,6 @@
 package de.elmar_baumann.imv;
 
+import de.elmar_baumann.imv.app.AppInfo;
 import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Font;

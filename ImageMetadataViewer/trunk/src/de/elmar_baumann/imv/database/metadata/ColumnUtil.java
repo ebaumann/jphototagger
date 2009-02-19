@@ -33,7 +33,7 @@ public final class ColumnUtil {
                     columns.add((Column) o);
                 }
             } catch (Exception ex) {
-                de.elmar_baumann.imv.Log.logWarning(ColumnUtil.class, ex);
+                de.elmar_baumann.imv.app.AppLog.logWarning(ColumnUtil.class, ex);
             }
         }
         return columns;

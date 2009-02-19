@@ -1,7 +1,7 @@
 package de.elmar_baumann.imv.tasks;
 
-import de.elmar_baumann.imv.AppIcons;
-import de.elmar_baumann.imv.Log;
+import de.elmar_baumann.imv.app.AppIcons;
+import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.data.Program;
 import de.elmar_baumann.imv.io.IoUtil;
@@ -103,7 +103,7 @@ public final class ProgramStarter {
         private void logCommand(String command) {
             MessageFormat msg = new MessageFormat(Bundle.getString("ProgramStarter.InformationMessage.ExecuteCommand"));
             Object[] params = {command};
-            Log.logInfo(ProgramStarter.class, msg.format(params));
+            AppLog.logInfo(ProgramStarter.class, msg.format(params));
         }
 
         private void processAll() {
@@ -172,7 +172,7 @@ public final class ProgramStarter {
             String message = (stderr == null ? "" : new String(stderr).trim()); // NOI18N
             if (!message.isEmpty()) {
                 message = Bundle.getString("ProgramStarter.ErrorMessage.Program") + message;
-                Log.logWarning(Execute.class, message);
+                AppLog.logWarning(Execute.class, message);
             }
         }
 

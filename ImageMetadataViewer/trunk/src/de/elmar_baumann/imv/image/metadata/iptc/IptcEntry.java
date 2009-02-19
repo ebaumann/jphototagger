@@ -98,7 +98,7 @@ public final class IptcEntry {
             return new String(data, UserSettings.getInstance().
                 getIptcCharset()).trim();
         } catch (UnsupportedEncodingException ex) {
-            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
         }
         return ""; // NOI18N
     }

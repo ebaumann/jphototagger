@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.factory;
 
-import de.elmar_baumann.imv.Log;
+import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.resource.Bundle;
 import java.text.MessageFormat;
 
@@ -23,7 +23,7 @@ final class Util {
         if (init) {
             MessageFormat msg = new MessageFormat(Bundle.getString("FactoryMessages.ErrorMessage.InitCalledMoreThanOneTimes"));
             Object[] params = {c.getName()};
-            Log.logWarning(MetaFactory.class, msg.format(params));
+            AppLog.logWarning(MetaFactory.class, msg.format(params));
         }
     }
 

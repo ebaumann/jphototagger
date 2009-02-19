@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.view.dialogs;
 
-import de.elmar_baumann.imv.AppIcons;
+import de.elmar_baumann.imv.app.AppIcons;
 import de.elmar_baumann.imv.data.Program;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.component.TabLeavingTextArea;

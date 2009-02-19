@@ -1,5 +1,8 @@
 package de.elmar_baumann.imv;
 
+import de.elmar_baumann.imv.app.AppIcons;
+import de.elmar_baumann.imv.app.AppLog;
+import de.elmar_baumann.imv.app.AppLock;
 import com.imagero.reader.AbstractImageReader;
 import de.elmar_baumann.imv.database.DatabaseTables;
 import de.elmar_baumann.lib.componentutil.LookAndFeelUtil;
@@ -92,7 +95,7 @@ public final class Main {
     }
 
     private static void addFileLogHandler(Logger logger) throws IOException, SecurityException, InstantiationException, IllegalAccessException, SecurityException {
-        Handler fileHandler = new FileHandler(AppSettings.getLogfileName());
+        Handler fileHandler = new FileHandler(AppLog.getLogfileName());
         fileHandler.setLevel(Level.WARNING);
         fileHandler.setFormatter((Formatter) UserSettings.getInstance().getLogfileFormatterClass().newInstance());
         logger.addHandler(fileHandler);

@@ -1,7 +1,7 @@
 package de.elmar_baumann.imv.tasks;
 
-import de.elmar_baumann.imv.AppIcons;
-import de.elmar_baumann.imv.Log;
+import de.elmar_baumann.imv.app.AppIcons;
+import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.database.DatabaseImageCollections;
 import de.elmar_baumann.imv.resource.Bundle;
 import java.text.MessageFormat;
@@ -110,7 +110,7 @@ public final class ImageCollectionDatabaseUtils {
     private void logAddImageCollection(String name) {
         MessageFormat msg = new MessageFormat(Bundle.getString("ImageCollectionToDatabase.InformationMessage.StartInsert"));
         Object[] params = {name};
-        Log.logInfo(ImageCollectionDatabaseUtils.class, msg.format(params));
+        AppLog.logInfo(ImageCollectionDatabaseUtils.class, msg.format(params));
     }
 
     private void errorMessageAddImagesToCollection(String collectionName) {

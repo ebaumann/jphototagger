@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.database;
 
-import de.elmar_baumann.imv.Log;
+import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.data.Exif;
 import de.elmar_baumann.imv.data.ImageFile;
@@ -58,7 +58,7 @@ public final class DatabaseImageFiles extends Database {
         PreparedStatement stmt = connection.prepareStatement(
             "SELECT id FROM files WHERE filename = ?"); // NOI18N
         stmt.setString(1, filename);
-        Log.logFinest(DatabaseImageFiles.class, stmt.toString());
+        AppLog.logFinest(DatabaseImageFiles.class, stmt.toString());
         ResultSet rs = stmt.executeQuery();
         if (rs.next()) {
             id = rs.getLong(1);
@@ -86,11 +86,11 @@ public final class DatabaseImageFiles extends Database {
                 "UPDATE files SET filename = ? WHERE filename = ?"); // NOI18N
             stmt.setString(1, newFilename);
             stmt.setString(2, oldFilename);
-            Log.logFiner(DatabaseImageFiles.class, stmt.toString());
+            AppLog.logFiner(DatabaseImageFiles.class, stmt.toString());
             count = stmt.executeUpdate();
             stmt.close();
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
         } finally {
             free(connection);
         }
@@ -104,11 +104,11 @@ public final class DatabaseImageFiles extends Database {
             PreparedStatement stmt = connection.prepareStatement(
                 "DELETE FROM files WHERE filename = ?"); // NOI18N
             stmt.setString(1, filename);
-            Log.logFiner(DatabaseImageFiles.class, stmt.toString());
+            AppLog.logFiner(DatabaseImageFiles.class, stmt.toString());
             countDeleted = stmt.executeUpdate();
             stmt.close();
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
         }
         return countDeleted;
     }
@@ -136,7 +136,7 @@ public final class DatabaseImageFiles extends Database {
             preparedStatement.setString(1, filename);
             preparedStatement.setLong(2, imageFile.getLastmodified());
             preparedStatement.setLong(3, getLastmodifiedXmp(imageFile));
-            Log.logFiner(DatabaseImageFiles.class, preparedStatement.toString());
+            AppLog.logFiner(DatabaseImageFiles.class, preparedStatement.toString());
             preparedStatement.executeUpdate();
             long idFile = getIdFile(connection, filename);
             updateThumbnail(connection, idFile, 
@@ -149,7 +149,7 @@ public final class DatabaseImageFiles extends Database {
                 DatabaseAction.Type.IMAGEFILE_INSERTED, imageFile);
             preparedStatement.close();
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
             rollback(connection);
         } finally {
             free(connection);
@@ -177,7 +177,7 @@ public final class DatabaseImageFiles extends Database {
             stmt.setLong(1, imageFileData.getLastmodified());
             stmt.setLong(2, getLastmodifiedXmp(imageFileData));
             stmt.setLong(3, idFile);
-            Log.logFiner(DatabaseImageFiles.class, stmt.toString());
+            AppLog.logFiner(DatabaseImageFiles.class, stmt.toString());
             stmt.executeUpdate();
             stmt.close();
             updateThumbnail(connection, idFile, imageFileData.getThumbnail(), 
@@ -189,7 +189,7 @@ public final class DatabaseImageFiles extends Database {
             notifyDatabaseListener(
                 DatabaseAction.Type.IMAGEFILE_UPDATED, imageFileData);
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
             rollback(connection);
         } finally {
             free(connection);
@@ -230,7 +230,7 @@ public final class DatabaseImageFiles extends Database {
             stmt.close();
             notifyProgressListenerEnd(listener, event);
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
         } finally {
             free(connection);
         }
@@ -266,7 +266,7 @@ public final class DatabaseImageFiles extends Database {
             updateThumbnail(connection, idFile, thumbnail, filename);
             return true;
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
         } finally {
             free(connection);
         }
@@ -284,7 +284,7 @@ public final class DatabaseImageFiles extends Database {
                     "UPDATE files SET thumbnail = ? WHERE id = ?"); // NOI18N
                 stmt.setBinaryStream(1, inputStream, inputStream.available());
                 stmt.setLong(2, idFile);
-                Log.logFiner(DatabaseImageFiles.class, stmt.toString());
+                AppLog.logFiner(DatabaseImageFiles.class, stmt.toString());
                 stmt.executeUpdate();
                 stmt.close();
                 notifyDatabaseListener(
@@ -308,14 +308,14 @@ public final class DatabaseImageFiles extends Database {
             PreparedStatement stmt = connection.prepareStatement(
                 "SELECT lastmodified FROM files WHERE filename = ?"); // NOI18N
             stmt.setString(1, filename);
-            Log.logFinest(DatabaseImageFiles.class, stmt.toString());
+            AppLog.logFinest(DatabaseImageFiles.class, stmt.toString());
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 lastModified = rs.getLong(1);
             }
             stmt.close();
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
         } finally {
             free(connection);
         }
@@ -336,14 +336,14 @@ public final class DatabaseImageFiles extends Database {
             PreparedStatement stmt = connection.prepareStatement(
                 "SELECT COUNT(*) FROM files WHERE filename = ?"); // NOI18N
             stmt.setString(1, filename);
-            Log.logFinest(DatabaseImageFiles.class, stmt.toString());
+            AppLog.logFinest(DatabaseImageFiles.class, stmt.toString());
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 exists = rs.getInt(1) > 0;
             }
             stmt.close();
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
         } finally {
             free(connection);
         }
@@ -364,7 +364,7 @@ public final class DatabaseImageFiles extends Database {
             PreparedStatement stmt = connection.prepareStatement(
                 "SELECT thumbnail FROM files WHERE filename = ?"); // NOI18N
             stmt.setString(1, filename);
-            Log.logFinest(DatabaseImageFiles.class, stmt.toString());
+            AppLog.logFinest(DatabaseImageFiles.class, stmt.toString());
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 InputStream inputStream = rs.getBinaryStream(1);
@@ -378,10 +378,10 @@ public final class DatabaseImageFiles extends Database {
             }
             stmt.close();
         } catch (IOException ex) {
-            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
             thumbnail = null;
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
             thumbnail = null;
         } finally {
             free(connection);
@@ -405,14 +405,14 @@ public final class DatabaseImageFiles extends Database {
                 "DELETE FROM files WHERE filename = ?"); // NOI18N
             for (String filename : filenames) {
                 stmt.setString(1, filename);
-                Log.logFiner(DatabaseImageFiles.class, stmt.toString());
+                AppLog.logFiner(DatabaseImageFiles.class, stmt.toString());
                 countDeleted += stmt.executeUpdate();
             }
             stmt.close();
             notifyDatabaseListener(
                 DatabaseAction.Type.IMAGEFILES_DELETED, filenames);
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
         } finally {
             free(connection);
         }
@@ -458,7 +458,7 @@ public final class DatabaseImageFiles extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
         } finally {
             free(connection);
         }
@@ -477,7 +477,7 @@ public final class DatabaseImageFiles extends Database {
         PreparedStatement stmt = connection.prepareStatement(
             "SELECT id FROM xmp WHERE id_files = ?"); // NOI18N
         stmt.setLong(1, idFile);
-        Log.logFinest(DatabaseImageFiles.class, stmt.toString());
+        AppLog.logFinest(DatabaseImageFiles.class, stmt.toString());
         ResultSet rs = stmt.executeQuery();
         if (rs.next()) {
             id = rs.getLong(1);
@@ -502,14 +502,14 @@ public final class DatabaseImageFiles extends Database {
             PreparedStatement stmt = connection.prepareStatement(
                 "SELECT xmp_lastmodified FROM files WHERE filename = ?"); // NOI18N
             stmt.setString(1, imageFilename);
-            Log.logFinest(DatabaseImageFiles.class, stmt.toString());
+            AppLog.logFinest(DatabaseImageFiles.class, stmt.toString());
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 lastModified = rs.getLong(1);
             }
             stmt.close();
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
         } finally {
             free(connection);
         }
@@ -527,7 +527,7 @@ public final class DatabaseImageFiles extends Database {
         if (xmp != null && !xmp.isEmpty()) {
             PreparedStatement stmt = connection.prepareStatement(getInsertIntoXmpStatement());
             setXmpValues(stmt, idFile, xmp);
-            Log.logFiner(DatabaseImageFiles.class, stmt.toString());
+            AppLog.logFiner(DatabaseImageFiles.class, stmt.toString());
             stmt.executeUpdate();
             long idXmp = getIdXmpFromIdFile(connection, idFile);
             insertXmpDcSubjects(connection, idXmp, xmp.getDcSubjects());
@@ -566,7 +566,7 @@ public final class DatabaseImageFiles extends Database {
         for (String value : values) {
             stmt.setLong(1, id);
             stmt.setString(2, value);
-            Log.logFiner(DatabaseImageFiles.class, stmt.toString());
+            AppLog.logFiner(DatabaseImageFiles.class, stmt.toString());
             stmt.executeUpdate();
         }
         stmt.close();
@@ -665,7 +665,7 @@ public final class DatabaseImageFiles extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
         } finally {
             free(connection);
         }
@@ -683,11 +683,11 @@ public final class DatabaseImageFiles extends Database {
                 " (SELECT xmp.id_files FROM xmp, files" + // NOI18N
                 " WHERE xmp.id_files = files.id AND files.filename = ?)"); // NOI18N
             stmt.setString(1, filename);
-            Log.logFiner(DatabaseImageFiles.class, stmt.toString());
+            AppLog.logFiner(DatabaseImageFiles.class, stmt.toString());
             count = stmt.executeUpdate();
             stmt.close();
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
         }
         return count;
     }
@@ -737,7 +737,7 @@ public final class DatabaseImageFiles extends Database {
             PreparedStatement stmt = connection.prepareStatement(
                 getXmpOfFileStatement());
             stmt.setString(1, filename);
-            Log.logFinest(DatabaseImageFiles.class, stmt.toString());
+            AppLog.logFinest(DatabaseImageFiles.class, stmt.toString());
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 xmp.setDcCreator(rs.getString(1));
@@ -768,7 +768,7 @@ public final class DatabaseImageFiles extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
         } finally {
             free(connection);
         }
@@ -814,7 +814,7 @@ public final class DatabaseImageFiles extends Database {
             for (int i = 0; !abort && i < filecount; i++) {
                 String filename = filenames.get(i);
                 stmt.setString(2, filename);
-                Log.logFinest(DatabaseImageFiles.class, stmt.toString());
+                AppLog.logFinest(DatabaseImageFiles.class, stmt.toString());
                 ResultSet rs = stmt.executeQuery();
                 while (rs.next()) {
                     long idFile = rs.getLong(1);
@@ -840,7 +840,7 @@ public final class DatabaseImageFiles extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
             rollback(connection);
         } finally {
             free(connection);
@@ -854,7 +854,7 @@ public final class DatabaseImageFiles extends Database {
         PreparedStatement stmt = connection.prepareStatement(
             "DELETE FROM xmp WHERE id = ?"); // NOI18N
         stmt.setLong(1, idXmp);
-        Log.logFiner(DatabaseImageFiles.class, stmt.toString());
+        AppLog.logFiner(DatabaseImageFiles.class, stmt.toString());
         int count = stmt.executeUpdate();
         assert count > 0;
         stmt.close();
@@ -885,7 +885,7 @@ public final class DatabaseImageFiles extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
         } finally {
             free(connection);
         }
@@ -916,14 +916,14 @@ public final class DatabaseImageFiles extends Database {
 
             stmt.setString(1, category);
             stmt.setString(2, category);
-            Log.logFinest(DatabaseImageFiles.class, stmt.toString());
+            AppLog.logFinest(DatabaseImageFiles.class, stmt.toString());
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 filenames.add(rs.getString(1));
             }
             stmt.close();
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
         } finally {
             free(connection);
         }
@@ -952,7 +952,7 @@ public final class DatabaseImageFiles extends Database {
 
             stmt.setString(1, name);
             stmt.setString(2, name);
-            Log.logFinest(DatabaseImageFiles.class, stmt.toString());
+            AppLog.logFinest(DatabaseImageFiles.class, stmt.toString());
             ResultSet rs = stmt.executeQuery();
             int count = 0;
             if (rs.next()) {
@@ -961,7 +961,7 @@ public final class DatabaseImageFiles extends Database {
             stmt.close();
             exists = count > 0;
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
         } finally {
             free(connection);
         }
@@ -988,7 +988,7 @@ public final class DatabaseImageFiles extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
         } finally {
             free(connection);
         }
@@ -1014,14 +1014,14 @@ public final class DatabaseImageFiles extends Database {
                 " WHERE xmp_dc_subjects.subject = ?"); // NOI18N
 
             stmt.setString(1, dcSubject);
-            Log.logFinest(DatabaseImageFiles.class, stmt.toString());
+            AppLog.logFinest(DatabaseImageFiles.class, stmt.toString());
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 filenames.add(rs.getString(1));
             }
             stmt.close();
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
         } finally {
             free(connection);
         }
@@ -1073,7 +1073,7 @@ public final class DatabaseImageFiles extends Database {
             PreparedStatement stmt = connection.prepareStatement(
                 getInsertIntoExifStatement());
             setExifValues(stmt, idFile, exifData);
-            Log.logFiner(DatabaseImageFiles.class, stmt.toString());
+            AppLog.logFiner(DatabaseImageFiles.class, stmt.toString());
             stmt.executeUpdate();
             stmt.close();
         }
@@ -1084,7 +1084,7 @@ public final class DatabaseImageFiles extends Database {
         PreparedStatement stmt = connection.prepareStatement(
             "SELECT id FROM exif WHERE id_files = ?"); // NOI18N
         stmt.setLong(1, idFile);
-        Log.logFinest(DatabaseImageFiles.class, stmt.toString());
+        AppLog.logFinest(DatabaseImageFiles.class, stmt.toString());
         ResultSet rs = stmt.executeQuery();
         if (rs.next()) {
             id = rs.getLong(1);

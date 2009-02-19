@@ -1,7 +1,7 @@
 package de.elmar_baumann.imv.io;
 
-import de.elmar_baumann.imv.AppIcons;
-import de.elmar_baumann.imv.AppSettings;
+import de.elmar_baumann.imv.app.AppIcons;
+import de.elmar_baumann.imv.app.AppFileFilter;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.io.FileFilter;
 import java.io.File;
@@ -31,7 +31,7 @@ public final class IoUtil {
             try {
                 Runtime.getRuntime().exec(openCommand);
             } catch (IOException ex) {
-                de.elmar_baumann.imv.Log.logWarning(IoUtil.class, ex);
+                de.elmar_baumann.imv.app.AppLog.logWarning(IoUtil.class, ex);
                 JOptionPane.showMessageDialog(null,
                     Bundle.getString("IoUtil.ErrorMessage.OpenFile"),
                     Bundle.getString("IoUtil.ErrorMessage.OpenFile.Title"),
@@ -49,7 +49,7 @@ public final class IoUtil {
      */
     public static List<File> getImageFiles(List<File> files) {
         List<File> imageFiles = new ArrayList<File>();
-        FileFilter filter = AppSettings.fileFilterAcceptedImageFileFormats;
+        FileFilter filter = AppFileFilter.acceptedImageFileFormats;
         for (File file : files) {
             if (filter.accept(file)) {
                 imageFiles.add(file);

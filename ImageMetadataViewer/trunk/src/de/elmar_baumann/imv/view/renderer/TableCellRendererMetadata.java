@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.view.renderer;
 
-import de.elmar_baumann.imv.AppColors;
+import de.elmar_baumann.imv.app.AppColors;
 import java.awt.Font;
 import javax.swing.JLabel;
 

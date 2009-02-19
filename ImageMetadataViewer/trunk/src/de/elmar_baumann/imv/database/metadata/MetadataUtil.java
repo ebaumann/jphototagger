@@ -35,7 +35,7 @@ public final class MetadataUtil {
             doubleFormatterFactory = new DefaultFormatterFactory(doubleFormatter);
             dateFormatterFactory = new DefaultFormatterFactory(new MaskFormatter("####-##-##"));
         } catch (ParseException ex) {
-            de.elmar_baumann.imv.Log.logWarning(MetadataUtil.class, ex);
+            de.elmar_baumann.imv.app.AppLog.logWarning(MetadataUtil.class, ex);
         }
     }
 

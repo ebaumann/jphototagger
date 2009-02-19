@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.database;
 
-import de.elmar_baumann.imv.Log;
+import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.event.DatabaseAction;
 import de.elmar_baumann.imv.event.ProgressEvent;
 import de.elmar_baumann.imv.event.ProgressListener;
@@ -45,13 +45,13 @@ public final class DatabaseFileExcludePattern extends Database {
             PreparedStatement stmt = connection.prepareStatement(
                 "INSERT INTO file_exclude_pattern (pattern) VALUES (?)"); // NOI18N
             stmt.setString(1, pattern);
-            Log.logFiner(DatabaseFileExcludePattern.class, stmt.toString());
+            AppLog.logFiner(DatabaseFileExcludePattern.class, stmt.toString());
             int count = stmt.executeUpdate();
             connection.commit();
             stmt.close();
             inserted = count > 0;
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
         } finally {
             free(connection);
         }
@@ -73,13 +73,13 @@ public final class DatabaseFileExcludePattern extends Database {
             PreparedStatement stmt = connection.prepareStatement(
                 "DELETE FROM file_exclude_pattern WHERE pattern = ?"); // NOI18N
             stmt.setString(1, pattern);
-            Log.logFiner(DatabaseFileExcludePattern.class, stmt.toString());
+            AppLog.logFiner(DatabaseFileExcludePattern.class, stmt.toString());
             int count = stmt.executeUpdate();
             connection.commit();
             stmt.close();
             deleted = count > 0;
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
         } finally {
             free(connection);
         }
@@ -100,14 +100,14 @@ public final class DatabaseFileExcludePattern extends Database {
             PreparedStatement stmt = connection.prepareStatement(
                 "SELECT COUNT(*) FROM file_exclude_pattern WHERE pattern = ?"); // NOI18N
             stmt.setString(1, pattern);
-            Log.logFinest(DatabaseFileExcludePattern.class, stmt.toString());
+            AppLog.logFinest(DatabaseFileExcludePattern.class, stmt.toString());
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 exists = rs.getInt(1) > 0;
             }
             stmt.close();
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
         } finally {
             free(connection);
         }
@@ -132,7 +132,7 @@ public final class DatabaseFileExcludePattern extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
         } finally {
             free(connection);
         }
@@ -172,7 +172,7 @@ public final class DatabaseFileExcludePattern extends Database {
                     if (filename.matches(pattern)) {
                         updateStmt.setString(1, filename);
                         deletedFiles.add(filename);
-                        Log.logFiner(DatabaseFileExcludePattern.class, updateStmt.toString());
+                        AppLog.logFiner(DatabaseFileExcludePattern.class, updateStmt.toString());
                         updateStmt.executeUpdate();
                         stop = event.isStop();
                     }
@@ -187,7 +187,7 @@ public final class DatabaseFileExcludePattern extends Database {
             notifyProgressListenerEnd(listener, event);
             notifyDatabaseListener(DatabaseAction.Type.IMAGEFILES_DELETED, deletedFiles);
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
         } finally {
             free(connection);
         }

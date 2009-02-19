@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.database;
 
-import de.elmar_baumann.imv.Log;
+import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.data.MetadataEditTemplate;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -70,13 +70,13 @@ public class DatabaseMetadataEditTemplates extends Database {
                 ")" + // NOI18N
                 " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"); // NOI18N
             setMetadataEditTemplate(stmt, template);
-            Log.logFiner(DatabaseMetadataEditTemplates.class, stmt.toString());
+            AppLog.logFiner(DatabaseMetadataEditTemplates.class, stmt.toString());
             stmt.executeUpdate();
             connection.commit();
             inserted = true;
             stmt.close();
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
             rollback(connection);
         } finally {
             free(connection);
@@ -188,7 +188,7 @@ public class DatabaseMetadataEditTemplates extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
         } finally {
             free(connection);
         }
@@ -233,13 +233,13 @@ public class DatabaseMetadataEditTemplates extends Database {
                 ", photoshopSource = ?" + // NOI18N -- 20 --
                 " WHERE name = ?"); // NOI18N
             setMetadataEditTemplate(stmt, template);
-            Log.logFiner(DatabaseMetadataEditTemplates.class, stmt.toString());
+            AppLog.logFiner(DatabaseMetadataEditTemplates.class, stmt.toString());
             int count = stmt.executeUpdate();
             connection.commit();
             updated = count > 0;
             stmt.close();
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
             rollback(connection);
         } finally {
             free(connection);
@@ -268,13 +268,13 @@ public class DatabaseMetadataEditTemplates extends Database {
                 " WHERE name = ?"); // NOI18N
             stmt.setString(1, newName);
             stmt.setString(2, oldName);
-            Log.logFiner(DatabaseMetadataEditTemplates.class, stmt.toString());
+            AppLog.logFiner(DatabaseMetadataEditTemplates.class, stmt.toString());
             int count = stmt.executeUpdate();
             connection.commit();
             renamed = count > 0;
             stmt.close();
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
             rollback(connection);
         } finally {
             free(connection);
@@ -297,13 +297,13 @@ public class DatabaseMetadataEditTemplates extends Database {
             PreparedStatement stmt = connection.prepareStatement(
                 "DELETE FROM metadata_edit_templates WHERE name = ?"); // NOI18N
             stmt.setString(1, name);
-            Log.logFiner(DatabaseMetadataEditTemplates.class, stmt.toString());
+            AppLog.logFiner(DatabaseMetadataEditTemplates.class, stmt.toString());
             int count = stmt.executeUpdate();
             connection.commit();
             deleted = count > 0;
             stmt.close();
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
             rollback(connection);
         } finally {
             free(connection);
@@ -321,14 +321,14 @@ public class DatabaseMetadataEditTemplates extends Database {
                 " FROM metadata_edit_templates" + // NOI18N
                 " WHERE name = ?"); // NOI18N
             stmt.setString(1, name);
-            Log.logFinest(DatabaseMetadataEditTemplates.class, stmt.toString());
+            AppLog.logFinest(DatabaseMetadataEditTemplates.class, stmt.toString());
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 exists = rs.getInt(1) > 0;
             }
             stmt.close();
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
         } finally {
             free(connection);
         }

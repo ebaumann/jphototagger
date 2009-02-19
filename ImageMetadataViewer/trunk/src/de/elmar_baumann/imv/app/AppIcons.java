@@ -1,4 +1,4 @@
-package de.elmar_baumann.imv;
+package de.elmar_baumann.imv.app;
 
 import de.elmar_baumann.lib.image.icon.IconUtil;
 import java.awt.Image;

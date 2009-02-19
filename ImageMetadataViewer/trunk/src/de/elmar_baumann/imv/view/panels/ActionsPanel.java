@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.view.panels;
 
-import de.elmar_baumann.imv.AppIcons;
+import de.elmar_baumann.imv.app.AppIcons;
 import de.elmar_baumann.imv.data.Program;
 import de.elmar_baumann.imv.event.ProgramActionEvent;
 import de.elmar_baumann.imv.event.ProgramActionListener;

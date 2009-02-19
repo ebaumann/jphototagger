@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.database;
 
-import de.elmar_baumann.imv.Log;
+import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.event.DatabaseAction;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -45,7 +45,7 @@ public final class DatabaseImageCollections extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
             names.clear();
         } finally {
             free(connection);
@@ -72,7 +72,7 @@ public final class DatabaseImageCollections extends Database {
                 "UPDATE collection_names SET name = ? WHERE name = ?"); // NOI18N
             stmt.setString(1, newName);
             stmt.setString(2, oldName);
-            Log.logFiner(DatabaseImageCollections.class, stmt.toString());
+            AppLog.logFiner(DatabaseImageCollections.class, stmt.toString());
             count = stmt.executeUpdate();
             List<String> info = new ArrayList<String>();
             info.add(oldName);
@@ -81,7 +81,7 @@ public final class DatabaseImageCollections extends Database {
                 DatabaseAction.Type.IMAGE_COLLECTION_RENAMED, info);
             stmt.close();
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
         } finally {
             free(connection);
         }
@@ -107,14 +107,14 @@ public final class DatabaseImageCollections extends Database {
                 " WHERE collection_names.name = ?" + // NOI18N
                 " ORDER BY collections.sequence_number ASC"); // NOI18N
             stmt.setString(1, collectionName);
-            Log.logFinest(DatabaseImageCollections.class, stmt.toString());
+            AppLog.logFinest(DatabaseImageCollections.class, stmt.toString());
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 filenames.add(rs.getString(1));
             }
             stmt.close();
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
             filenames.clear();
         } finally {
             free(connection);
@@ -150,7 +150,7 @@ public final class DatabaseImageCollections extends Database {
                 ", sequence_number)" + // NOI18N -- 3 --
                 " VALUES (?, ?, ?)"); // NOI18N
             stmtName.setString(1, collectionName);
-            Log.logFiner(DatabaseImageCollections.class, stmtName.toString());
+            AppLog.logFiner(DatabaseImageCollections.class, stmtName.toString());
             stmtName.executeUpdate();
             long idCollectionName = getIdCollectionName(connection, collectionName);
             int sequence_number = 0;
@@ -160,7 +160,7 @@ public final class DatabaseImageCollections extends Database {
                 stmtColl.setLong(1, idCollectionName);
                 stmtColl.setLong(2, idFile);
                 stmtColl.setInt(3, sequence_number++);
-                Log.logFiner(DatabaseImageCollections.class, stmtColl.toString());
+                AppLog.logFiner(DatabaseImageCollections.class, stmtColl.toString());
                 stmtColl.executeUpdate();
             }
             connection.commit();
@@ -171,7 +171,7 @@ public final class DatabaseImageCollections extends Database {
             stmtName.close();
             stmtColl.close();
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
             rollback(connection);
         } finally {
             free(connection);
@@ -194,14 +194,14 @@ public final class DatabaseImageCollections extends Database {
             PreparedStatement stmt = connection.prepareStatement(
                 "DELETE FROM collection_names WHERE name = ?"); // NOI18N
             stmt.setString(1, collectionname);
-            Log.logFiner(DatabaseImageCollections.class, stmt.toString());
+            AppLog.logFiner(DatabaseImageCollections.class, stmt.toString());
             stmt.executeUpdate();
             deleted = true;
             notifyDatabaseListener(
                 DatabaseAction.Type.IMAGE_COLLECTION_DELETED, collectionname);
             stmt.close();
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
         } finally {
             free(connection);
         }
@@ -233,7 +233,7 @@ public final class DatabaseImageCollections extends Database {
                     connection, filename);
                 stmt.setLong(1, idCollectionName);
                 stmt.setLong(2, idFile);
-                Log.logFiner(DatabaseImageCollections.class, stmt.toString());
+                AppLog.logFiner(DatabaseImageCollections.class, stmt.toString());
                 delCount += stmt.executeUpdate();
                 reorderCollectionSequenceNumber(connection, collectionName);
             }
@@ -243,7 +243,7 @@ public final class DatabaseImageCollections extends Database {
                 collectionName, filenames);
             stmt.close();
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
             rollback(connection);
         } finally {
             free(connection);
@@ -286,7 +286,7 @@ public final class DatabaseImageCollections extends Database {
                         stmt.setLong(1, idFiles);
                         stmt.setLong(2, idCollectionNames);
                         stmt.setInt(3, sequence_number++);
-                        Log.logFiner(DatabaseImageCollections.class, stmt.toString());
+                        AppLog.logFiner(DatabaseImageCollections.class, stmt.toString());
                         stmt.executeUpdate();
                     }
                 }
@@ -301,7 +301,7 @@ public final class DatabaseImageCollections extends Database {
                 DatabaseAction.Type.IMAGE_COLLECTION_IMAGES_ADDED,
                 collectionName, filenames);
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
             rollback(connection);
         } finally {
             free(connection);
@@ -319,7 +319,7 @@ public final class DatabaseImageCollections extends Database {
             " ON collections.id_collectionnnames = collection_names.id" + // NOI18N
             " AND collection_names.name = ?"); // NOI18N
         stmt.setString(1, collectionName);
-        Log.logFinest(DatabaseImageCollections.class, stmt.toString());
+        AppLog.logFinest(DatabaseImageCollections.class, stmt.toString());
         ResultSet rs = stmt.executeQuery();
         if (rs.next()) {
             max = rs.getInt(1);
@@ -336,7 +336,7 @@ public final class DatabaseImageCollections extends Database {
             "SELECT id_files FROM collections WHERE id_collectionnnames = ?" + // NOI18N
             " ORDER BY collections.sequence_number ASC"); // NOI18N
         stmtIdFiles.setLong(1, idCollectionName);
-        Log.logFinest(DatabaseImageCollections.class, stmtIdFiles.toString());
+        AppLog.logFinest(DatabaseImageCollections.class, stmtIdFiles.toString());
         ResultSet rs = stmtIdFiles.executeQuery();
         List<Long> idFiles = new ArrayList<Long>();
         while (rs.next()) {
@@ -350,7 +350,7 @@ public final class DatabaseImageCollections extends Database {
             stmt.setInt(1, sequenceNumer++);
             stmt.setLong(2, idCollectionName);
             stmt.setLong(3, idFile);
-            Log.logFiner(DatabaseImageCollections.class, stmt.toString());
+            AppLog.logFiner(DatabaseImageCollections.class, stmt.toString());
             stmt.executeUpdate();
         }
         stmtIdFiles.close();
@@ -371,14 +371,14 @@ public final class DatabaseImageCollections extends Database {
             PreparedStatement stmt = connection.prepareStatement(
                 "SELECT COUNT(*) FROM collection_names WHERE name = ?"); // NOI18N
             stmt.setString(1, collectionName);
-            Log.logFinest(DatabaseImageCollections.class, stmt.toString());
+            AppLog.logFinest(DatabaseImageCollections.class, stmt.toString());
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 exists = rs.getInt(1) > 0;
             }
             stmt.close();
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
         } finally {
             free(connection);
         }
@@ -403,7 +403,7 @@ public final class DatabaseImageCollections extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
         } finally {
             free(connection);
         }
@@ -428,7 +428,7 @@ public final class DatabaseImageCollections extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
         } finally {
             free(connection);
         }
@@ -447,7 +447,7 @@ public final class DatabaseImageCollections extends Database {
             " WHERE collection_names.name = ? AND files.filename = ?"); // NOI18N
         stmt.setString(1, collectionName);
         stmt.setString(2, filename);
-        Log.logFinest(DatabaseImageCollections.class, stmt.toString());
+        AppLog.logFinest(DatabaseImageCollections.class, stmt.toString());
         ResultSet rs = stmt.executeQuery();
         if (rs.next()) {
             isInCollection = rs.getInt(1) > 0;
@@ -463,7 +463,7 @@ public final class DatabaseImageCollections extends Database {
         PreparedStatement stmt = connection.prepareStatement(
             "SELECT id FROM collection_names WHERE name = ?"); // NOI18N
         stmt.setString(1, collectionname);
-        Log.logFinest(DatabaseImageCollections.class, stmt.toString());
+        AppLog.logFinest(DatabaseImageCollections.class, stmt.toString());
         ResultSet rs = stmt.executeQuery();
         if (rs.next()) {
             id = rs.getLong(1);

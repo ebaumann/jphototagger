@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.database;
 
-import de.elmar_baumann.imv.Log;
+import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.data.Program;
 import java.io.File;
 import java.sql.Connection;
@@ -61,12 +61,12 @@ public final class DatabasePrograms extends Database {
                 ")" + // NOI18N
                 " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"); // NOI18N
             setValuesInsert(stmt, program);
-            Log.logFiner(DatabasePrograms.class, stmt.toString());
+            AppLog.logFiner(DatabasePrograms.class, stmt.toString());
             countAffectedRows = stmt.executeUpdate();
             connection.commit();
             stmt.close();
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
             rollback(connection);
         } finally {
             free(connection);
@@ -128,12 +128,12 @@ public final class DatabasePrograms extends Database {
                 " WHERE id = ?"); // NOI18N
             setValuesUpdate(stmt, program);
             stmt.setLong(11, program.getId());
-            Log.logFiner(DatabasePrograms.class, stmt.toString());
+            AppLog.logFiner(DatabasePrograms.class, stmt.toString());
             countAffectedRows = stmt.executeUpdate();
             connection.commit();
             stmt.close();
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
             rollback(connection);
         } finally {
             free(connection);
@@ -173,12 +173,12 @@ public final class DatabasePrograms extends Database {
             PreparedStatement stmt = connection.prepareStatement(
                 "DELETE FROM programs WHERE id = ?"); // NOI18N
             stmt.setLong(1, program.getId());
-            Log.logFiner(DatabasePrograms.class, stmt.toString());
+            AppLog.logFiner(DatabasePrograms.class, stmt.toString());
             countAffectedRows = stmt.executeUpdate();
             connection.commit();
             stmt.close();
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
             rollback(connection);
         } finally {
             free(connection);
@@ -215,7 +215,7 @@ public final class DatabasePrograms extends Database {
                 " WHERE action = ?" + // NOI18N
                 " ORDER BY alias"); // NOI18N
             stmt.setBoolean(1, action);
-            Log.logFinest(DatabasePrograms.class, stmt.toString());
+            AppLog.logFinest(DatabasePrograms.class, stmt.toString());
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 byte[] parametersBeforeFilename = rs.getBytes(5);
@@ -242,7 +242,7 @@ public final class DatabasePrograms extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
         } finally {
             free(connection);
         }
@@ -267,7 +267,7 @@ public final class DatabasePrograms extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
         } finally {
             free(connection);
         }

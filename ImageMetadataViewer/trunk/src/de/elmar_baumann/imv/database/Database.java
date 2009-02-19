@@ -103,7 +103,7 @@ public class Database {
             try {
                 ConnectionPool.getInstance().free(connection);
             } catch (SQLException ex) {
-                de.elmar_baumann.imv.Log.logSevere(getClass(), ex);
+                de.elmar_baumann.imv.app.AppLog.logSevere(getClass(), ex);
             }
         }
     }
@@ -118,7 +118,7 @@ public class Database {
         try {
             connection.rollback();
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
         }
     }
 

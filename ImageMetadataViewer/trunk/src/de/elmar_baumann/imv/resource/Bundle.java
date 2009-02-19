@@ -27,11 +27,11 @@ public final class Bundle {
         try {
             return bundle.getString(key);
         } catch (MissingResourceException ex) {
-            de.elmar_baumann.imv.Log.logWarning(Bundle.class, ex);
+            de.elmar_baumann.imv.app.AppLog.logWarning(Bundle.class, ex);
         } catch (NullPointerException ex) {
             throw ex;
         } catch (Exception ex) {
-            de.elmar_baumann.imv.Log.logWarning(Bundle.class, ex);
+            de.elmar_baumann.imv.app.AppLog.logWarning(Bundle.class, ex);
         }
         return "?" + key + "?"; // NOI18N
     }

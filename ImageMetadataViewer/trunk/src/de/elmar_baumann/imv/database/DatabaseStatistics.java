@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.database;
 
-import de.elmar_baumann.imv.Log;
+import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.database.metadata.Column;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -49,7 +49,7 @@ public final class DatabaseStatistics extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
         } finally {
             free(connection);
         }
@@ -81,7 +81,7 @@ public final class DatabaseStatistics extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
         } finally {
             free(connection);
         }
@@ -105,7 +105,7 @@ public final class DatabaseStatistics extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
         } finally {
             free(connection);
         }
@@ -130,7 +130,7 @@ public final class DatabaseStatistics extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
         } finally {
             free(connection);
         }
@@ -159,7 +159,7 @@ public final class DatabaseStatistics extends Database {
             }
         } catch (SQLException ex) {
             count = -1;
-            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
         } finally {
             free(connection);
         }
@@ -184,7 +184,7 @@ public final class DatabaseStatistics extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
         } finally {
             free(connection);
         }
@@ -213,7 +213,7 @@ public final class DatabaseStatistics extends Database {
                     column.getName() +
                     " = ?"); // NOI18N
                 stmt.setString(1, value);
-                Log.logFinest(DatabaseStatistics.class, stmt.toString());
+                AppLog.logFinest(DatabaseStatistics.class, stmt.toString());
                 ResultSet rs = stmt.executeQuery();
                 if (rs.next()) {
                     exists = rs.getInt(1) > 0;
@@ -221,7 +221,7 @@ public final class DatabaseStatistics extends Database {
                 stmt.close();
             }
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
         } finally {
             free(connection);
         }
@@ -247,14 +247,14 @@ public final class DatabaseStatistics extends Database {
                 column.getName() +
                 " = ?"); // NOI18N
             stmt.setString(1, value);
-            Log.logFinest(DatabaseStatistics.class, stmt.toString());
+            AppLog.logFinest(DatabaseStatistics.class, stmt.toString());
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 count = rs.getInt(1);
             }
             stmt.close();
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
         } finally {
             free(connection);
         }

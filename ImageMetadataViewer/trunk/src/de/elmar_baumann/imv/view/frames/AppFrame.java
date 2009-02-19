@@ -1,8 +1,8 @@
 package de.elmar_baumann.imv.view.frames;
 
-import de.elmar_baumann.imv.AppIcons;
-import de.elmar_baumann.imv.AppInfo;
-import de.elmar_baumann.imv.AppLock;
+import de.elmar_baumann.imv.app.AppIcons;
+import de.elmar_baumann.imv.app.AppInfo;
+import de.elmar_baumann.imv.app.AppLock;
 import de.elmar_baumann.imv.event.AppExitListener;
 import de.elmar_baumann.imv.event.AppStartListener;
 import de.elmar_baumann.imv.factory.MetaFactory;

@@ -1,7 +1,7 @@
 package de.elmar_baumann.imv.controller.filesystem;
 
-import de.elmar_baumann.imv.AppIcons;
-import de.elmar_baumann.imv.Log;
+import de.elmar_baumann.imv.app.AppIcons;
+import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.database.DatabaseImageFiles;
 import de.elmar_baumann.imv.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.imv.resource.Bundle;
@@ -81,7 +81,7 @@ public final class ControllerDeleteFiles implements ActionListener {
         MessageFormat msg = new MessageFormat(Bundle.getString("ControllerDeleteFiles.ErrorMessage.Delete"));
         Object[] params = {file.getAbsolutePath()};
         String message = msg.format(params);
-        Log.logWarning(ControllerDeleteFiles.class, message);
+        AppLog.logWarning(ControllerDeleteFiles.class, message);
     }
 
     private boolean accepted() {

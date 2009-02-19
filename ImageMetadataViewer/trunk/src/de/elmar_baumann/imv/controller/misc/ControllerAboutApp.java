@@ -1,7 +1,7 @@
 package de.elmar_baumann.imv.controller.misc;
 
-import de.elmar_baumann.imv.AppIcons;
-import de.elmar_baumann.imv.AppInfo;
+import de.elmar_baumann.imv.app.AppIcons;
+import de.elmar_baumann.imv.app.AppInfo;
 import de.elmar_baumann.imv.resource.Bundle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

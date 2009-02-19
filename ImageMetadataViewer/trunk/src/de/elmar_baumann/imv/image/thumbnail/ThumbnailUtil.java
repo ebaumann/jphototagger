@@ -8,7 +8,7 @@ import com.imagero.reader.ReaderFactory;
 import com.imagero.reader.jpeg.JpegReader;
 import com.imagero.reader.tiff.TiffReader;
 import com.sun.image.codec.jpeg.ImageFormatException;
-import de.elmar_baumann.imv.Log;
+import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.image.metadata.exif.ExifMetadata;
 import de.elmar_baumann.imv.io.FileType;
 import de.elmar_baumann.lib.image.ImageTransform;
@@ -76,7 +76,7 @@ public final class ThumbnailUtil {
             }
             close(reader);
         } catch (Exception ex) {
-            de.elmar_baumann.imv.Log.logWarning(ThumbnailUtil.class, ex);
+            de.elmar_baumann.imv.app.AppLog.logWarning(ThumbnailUtil.class, ex);
             return null;
         }
         return thumbnail;
@@ -95,7 +95,7 @@ public final class ThumbnailUtil {
             close(procOptions.getImageReader());
             return image;
         } catch (Exception ex) {
-            de.elmar_baumann.imv.Log.logWarning(ThumbnailUtil.class, ex);
+            de.elmar_baumann.imv.app.AppLog.logWarning(ThumbnailUtil.class, ex);
         }
         return null;
     }
@@ -159,7 +159,7 @@ public final class ThumbnailUtil {
         String message = (stderr == null ? "" : new String(stderr).trim());
         if (!message.isEmpty()) {
             message = "Program error message: " + message;
-            Log.logWarning(ThumbnailUtil.class, message);
+            AppLog.logWarning(ThumbnailUtil.class, message);
         }
     }
 
@@ -236,7 +236,7 @@ public final class ThumbnailUtil {
             scaledImage = scaleImage(scaledWidth, scaledHeight, image);
 
         } catch (ImageFormatException ex) {
-            de.elmar_baumann.imv.Log.logWarning(ThumbnailUtil.class, ex);
+            de.elmar_baumann.imv.app.AppLog.logWarning(ThumbnailUtil.class, ex);
         }
         return scaledImage;
     }
@@ -279,10 +279,10 @@ public final class ThumbnailUtil {
             try {
                 mediaTracker.waitForID(0);
             } catch (InterruptedException ex) {
-                de.elmar_baumann.imv.Log.logWarning(ThumbnailUtil.class, ex);
+                de.elmar_baumann.imv.app.AppLog.logWarning(ThumbnailUtil.class, ex);
             }
         } catch (IOException ex) {
-            de.elmar_baumann.imv.Log.logWarning(ThumbnailUtil.class, ex);
+            de.elmar_baumann.imv.app.AppLog.logWarning(ThumbnailUtil.class, ex);
         }
         return image;
     }

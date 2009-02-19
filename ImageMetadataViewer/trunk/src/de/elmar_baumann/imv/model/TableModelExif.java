@@ -50,7 +50,7 @@ public final class TableModelExif extends DefaultTableModel {
         try {
             setExifData();
         } catch (Exception ex) {
-            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
         }
     }
 

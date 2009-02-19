@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.database;
 
-import de.elmar_baumann.imv.Log;
+import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.database.metadata.Column;
 import de.elmar_baumann.imv.database.metadata.DatabaseMetadataUtil;
 import de.elmar_baumann.imv.database.metadata.Join;
@@ -47,7 +47,7 @@ public final class DatabaseSearch extends Database {
                     preparedStatement.setObject(i + 1, paramStatement.getValues()[i]);
                 }
             }
-            Log.logFinest(DatabaseSearch.class, preparedStatement.toString());
+            AppLog.logFinest(DatabaseSearch.class, preparedStatement.toString());
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 filenames.add(resultSet.getString(1));
@@ -55,7 +55,7 @@ public final class DatabaseSearch extends Database {
             resultSet.close();
             preparedStatement.close();
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
             filenames.clear();
         } finally {
             free(connection);
@@ -94,7 +94,7 @@ public final class DatabaseSearch extends Database {
                 for (int i = 0; i < searchColumns.size(); i++) {
                     preparedStatement.setString(i + 1, "%" + searchString + "%");
                 }
-                Log.logFinest(DatabaseSearch.class, preparedStatement.toString());
+                AppLog.logFinest(DatabaseSearch.class, preparedStatement.toString());
                 ResultSet resultSet = preparedStatement.executeQuery();
                 String string;
                 while (resultSet.next()) {
@@ -106,7 +106,7 @@ public final class DatabaseSearch extends Database {
                 resultSet.close();
                 preparedStatement.close();
             } catch (SQLException ex) {
-                de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+                de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
                 filenames.clear();
             } finally {
                 free(connection);

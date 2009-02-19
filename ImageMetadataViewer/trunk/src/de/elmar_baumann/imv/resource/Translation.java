@@ -19,7 +19,7 @@ public final class Translation {
         try {
             bundle = ResourceBundle.getBundle(pathPrefix + propertiesFileBasename);
         } catch (MissingResourceException ex) {
-            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
         }
     }
 
@@ -36,11 +36,11 @@ public final class Translation {
         try {
             return bundle.getString(string);
         } catch (MissingResourceException ex) {
-            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
         } catch (NullPointerException ex) {
             throw ex;
         } catch (Exception ex) {
-            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
         }
         return string;
     }
@@ -59,9 +59,9 @@ public final class Translation {
         try {
             return bundle.getString(string);
         } catch (MissingResourceException ex) {
-            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
         } catch (Exception ex) {
-            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
         }
         return alternate;
     }

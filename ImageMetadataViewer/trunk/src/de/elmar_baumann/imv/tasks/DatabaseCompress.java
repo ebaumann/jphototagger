@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.tasks;
 
-import de.elmar_baumann.imv.Log;
+import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.database.DatabaseMaintainance;
 import de.elmar_baumann.imv.event.ProgressEvent;
 import de.elmar_baumann.imv.event.ProgressListener;
@@ -54,7 +54,7 @@ public final class DatabaseCompress implements Runnable {
     }
 
     private void logCompressDatabase() {
-        Log.logInfo(DatabaseCompress.class, Bundle.getString("DatabaseCompress.InformationMessage.StartCompress"));
+        AppLog.logInfo(DatabaseCompress.class, Bundle.getString("DatabaseCompress.InformationMessage.StartCompress"));
     }
 
     private void notifyEnded() {

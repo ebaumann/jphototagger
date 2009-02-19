@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.database;
 
-import de.elmar_baumann.imv.Log;
+import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.event.DatabaseAction;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -43,14 +43,14 @@ public final class DatabaseAutoscanDirectories extends Database {
                 PreparedStatement stmt = connection.prepareStatement(
                     "INSERT INTO autoscan_directories (directory) VALUES (?)"); // NOI18N
                 stmt.setString(1, directoryName);
-                Log.logFiner(DatabaseAutoscanDirectories.class, stmt.toString());
+                AppLog.logFiner(DatabaseAutoscanDirectories.class, stmt.toString());
                 int count = stmt.executeUpdate();
                 inserted = count > 0;
                 notifyDatabaseListener(
                     DatabaseAction.Type.AUTOSCAN_DIRECTORY_INSERTED, directoryName);
                 stmt.close();
             } catch (SQLException ex) {
-                de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+                de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
             } finally {
                 free(connection);
             }
@@ -77,7 +77,7 @@ public final class DatabaseAutoscanDirectories extends Database {
             for (String directoryName : directoryNames) {
                 if (!existsAutoscanDirectory(directoryName)) {
                     stmt.setString(1, directoryName);
-                    Log.logFiner(DatabaseAutoscanDirectories.class, stmt.toString());
+                    AppLog.logFiner(DatabaseAutoscanDirectories.class, stmt.toString());
                     stmt.executeUpdate();
                 }
             }
@@ -86,7 +86,7 @@ public final class DatabaseAutoscanDirectories extends Database {
                 DatabaseAction.Type.AUTOSCAN_DIRECTORIES_INSERTED, directoryNames);
             stmt.close();
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
             rollback(connection);
         } finally {
             free(connection);
@@ -110,7 +110,7 @@ public final class DatabaseAutoscanDirectories extends Database {
             PreparedStatement stmt = connection.prepareStatement(
                 "DELETE FROM autoscan_directories WHERE directory = ?"); // NOI18N
             stmt.setString(1, directoryName);
-            Log.logFiner(DatabaseAutoscanDirectories.class, stmt.toString());
+            AppLog.logFiner(DatabaseAutoscanDirectories.class, stmt.toString());
             int count = stmt.executeUpdate();
             deleted = count > 0;
             if (count > 0) {
@@ -119,7 +119,7 @@ public final class DatabaseAutoscanDirectories extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
         } finally {
             free(connection);
         }
@@ -141,14 +141,14 @@ public final class DatabaseAutoscanDirectories extends Database {
             PreparedStatement stmt = connection.prepareStatement(
                 "SELECT COUNT(*) FROM autoscan_directories WHERE directory = ?"); // NOI18N
             stmt.setString(1, directoryName);
-            Log.logFinest(DatabaseAutoscanDirectories.class, stmt.toString());
+            AppLog.logFinest(DatabaseAutoscanDirectories.class, stmt.toString());
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 exists = rs.getInt(1) > 0;
             }
             stmt.close();
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
         } finally {
             free(connection);
         }
@@ -174,7 +174,7 @@ public final class DatabaseAutoscanDirectories extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
             directories.clear();
         } finally {
             free(connection);

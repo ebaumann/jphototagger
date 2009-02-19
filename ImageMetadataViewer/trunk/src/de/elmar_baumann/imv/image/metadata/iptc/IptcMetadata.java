@@ -33,7 +33,7 @@ public final class IptcMetadata {
                     addEntries(collection.getEntries(IPTCConstants.RECORD_APPLICATION), metadata);
                 }
             } catch (Exception ex) {
-                de.elmar_baumann.imv.Log.logWarning(IptcMetadata.class, ex);
+                de.elmar_baumann.imv.app.AppLog.logWarning(IptcMetadata.class, ex);
             }
         }
         return metadata;

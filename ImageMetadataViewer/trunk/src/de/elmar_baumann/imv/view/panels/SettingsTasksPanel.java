@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.view.panels;
 
-import de.elmar_baumann.imv.AppIcons;
+import de.elmar_baumann.imv.app.AppIcons;
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.database.DatabaseAutoscanDirectories;
 import de.elmar_baumann.imv.event.ListenerProvider;

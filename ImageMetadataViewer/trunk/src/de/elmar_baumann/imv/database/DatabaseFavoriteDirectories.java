@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.database;
 
-import de.elmar_baumann.imv.Log;
+import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.data.FavoriteDirectory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -54,13 +54,13 @@ public final class DatabaseFavoriteDirectories extends Database {
             stmt.setString(1, favoriteDirectory.getFavoriteName());
             stmt.setString(2, favoriteDirectory.getDirectoryName());
             stmt.setInt(3, favoriteDirectory.getIndex());
-            Log.logFiner(DatabaseFavoriteDirectories.class, stmt.toString());
+            AppLog.logFiner(DatabaseFavoriteDirectories.class, stmt.toString());
             int count = stmt.executeUpdate();
             connection.commit();
             inserted = count > 0;
             stmt.close();
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
             rollback(connection);
         } finally {
             free(connection);
@@ -83,13 +83,13 @@ public final class DatabaseFavoriteDirectories extends Database {
             PreparedStatement stmt = connection.prepareStatement(
                 "DELETE FROM favorite_directories WHERE favorite_name = ?"); // NOI18N
             stmt.setString(1, favoriteName);
-            Log.logFiner(DatabaseFavoriteDirectories.class, stmt.toString());
+            AppLog.logFiner(DatabaseFavoriteDirectories.class, stmt.toString());
             int count = stmt.executeUpdate();
             connection.commit();
             deleted = count > 0;
             stmt.close();
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
             rollback(connection);
         } finally {
             free(connection);
@@ -122,13 +122,13 @@ public final class DatabaseFavoriteDirectories extends Database {
             stmt.setString(2, favorite.getDirectoryName());
             stmt.setInt(3, favorite.getIndex());
             stmt.setString(4, favoriteName);
-            Log.logFiner(DatabaseFavoriteDirectories.class, stmt.toString());
+            AppLog.logFiner(DatabaseFavoriteDirectories.class, stmt.toString());
             int count = stmt.executeUpdate();
             connection.commit();
             updated = count > 0;
             stmt.close();
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
             rollback(connection);
         } finally {
             free(connection);
@@ -160,7 +160,7 @@ public final class DatabaseFavoriteDirectories extends Database {
             stmt.close();
         } catch (SQLException ex) {
             directories.clear();
-            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
         } finally {
             free(connection);
         }
@@ -182,7 +182,7 @@ public final class DatabaseFavoriteDirectories extends Database {
                 "SELECT COUNT(*) FROM favorite_directories" + // NOI18N
                 " WHERE favorite_name = ?"); // NOI18N
             stmt.setString(1, favoriteName);
-            Log.logFinest(DatabaseFavoriteDirectories.class, stmt.toString());
+            AppLog.logFinest(DatabaseFavoriteDirectories.class, stmt.toString());
             ResultSet rs = stmt.executeQuery();
             int count = 0;
             if (rs.next()) {
@@ -191,7 +191,7 @@ public final class DatabaseFavoriteDirectories extends Database {
             stmt.close();
             exists = count > 0;
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
+            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
         } finally {
             free(connection);
         }

@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.tasks;
 
-import de.elmar_baumann.imv.Log;
+import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.database.DatabaseImageFiles;
 import de.elmar_baumann.imv.database.metadata.Column;
 import de.elmar_baumann.imv.event.ProgressEvent;
@@ -89,6 +89,6 @@ public final class UpdaterRenameInXmpColumns implements Runnable, ProgressListen
             MessageFormat msg = new MessageFormat(
                 Bundle.getString("UpdaterRenameInXmpColumns.InformationMessage.StartRename"));
             Object[] params = {columnName, oldValue, newValue};
-            Log.logInfo(UpdaterRenameInXmpColumns.class, msg.format(params));
+            AppLog.logInfo(UpdaterRenameInXmpColumns.class, msg.format(params));
     }
 }

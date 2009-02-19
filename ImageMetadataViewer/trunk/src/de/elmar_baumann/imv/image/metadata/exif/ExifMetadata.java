@@ -81,9 +81,9 @@ public final class ExifMetadata {
         try {
             addIFDEntries(file, metadata);
         } catch (IOException ex) {
-            de.elmar_baumann.imv.Log.logWarning(ExifMetadata.class, ex);
+            de.elmar_baumann.imv.app.AppLog.logWarning(ExifMetadata.class, ex);
         } catch (Exception ex) {
-            de.elmar_baumann.imv.Log.logWarning(ExifMetadata.class, ex);
+            de.elmar_baumann.imv.app.AppLog.logWarning(ExifMetadata.class, ex);
         }
         return metadata;
     }
@@ -237,7 +237,7 @@ public final class ExifMetadata {
                 }
                 setExifEquipment(exif, modelEntry);
             } catch (Exception ex) {
-                de.elmar_baumann.imv.Log.logWarning(ExifMetadata.class, ex);
+                de.elmar_baumann.imv.app.AppLog.logWarning(ExifMetadata.class, ex);
                 exif = null;
             }
         }
@@ -257,10 +257,10 @@ public final class ExifMetadata {
                 try {
                     exifData.setDateTimeOriginal(new Date(calendar.getTimeInMillis()));
                 } catch (Exception ex) {
-                    de.elmar_baumann.imv.Log.logWarning(ExifMetadata.class, ex);
+                    de.elmar_baumann.imv.app.AppLog.logWarning(ExifMetadata.class, ex);
                 }
             } catch (NumberFormatException ex) {
-                de.elmar_baumann.imv.Log.logWarning(ExifMetadata.class, ex);
+                de.elmar_baumann.imv.app.AppLog.logWarning(ExifMetadata.class, ex);
             }
         }
     }
@@ -290,7 +290,7 @@ public final class ExifMetadata {
                 exifData.setFocalLength(focalLength);
             }
         } catch (Exception ex) {
-            de.elmar_baumann.imv.Log.logWarning(ExifMetadata.class, ex);
+            de.elmar_baumann.imv.app.AppLog.logWarning(ExifMetadata.class, ex);
         }
     }
 
@@ -298,7 +298,7 @@ public final class ExifMetadata {
         try {
             exifData.setIsoSpeedRatings(new Short(enry.toString().trim()).shortValue());
         } catch (Exception ex) {
-            de.elmar_baumann.imv.Log.logWarning(ExifMetadata.class, ex);
+            de.elmar_baumann.imv.app.AppLog.logWarning(ExifMetadata.class, ex);
         }
     }
 
@@ -321,7 +321,7 @@ public final class ExifMetadata {
             IPTCEntryCollection collection = MetadataUtils.getIPTC(reader);
             dumpPrintIptc(collection, System.out);
         } catch (IOException ex) {
-            de.elmar_baumann.imv.Log.logWarning(ExifMetadata.class, ex);
+            de.elmar_baumann.imv.app.AppLog.logWarning(ExifMetadata.class, ex);
         }
     }
 

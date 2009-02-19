@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.controller.thumbnail;
 
-import de.elmar_baumann.imv.AppTexts;
+import de.elmar_baumann.imv.app.AppTexts;
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.tasks.InsertImageFilesIntoDatabase;
 import de.elmar_baumann.imv.event.ProgressEvent;

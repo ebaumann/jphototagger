@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.model;
 
-import de.elmar_baumann.imv.AppIcons;
+import de.elmar_baumann.imv.app.AppIcons;
 import de.elmar_baumann.imv.data.FavoriteDirectory;
 import de.elmar_baumann.imv.database.DatabaseFavoriteDirectories;
 import de.elmar_baumann.imv.resource.Bundle;
