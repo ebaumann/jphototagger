@@ -40,7 +40,7 @@ public final class MoveToDirectoryDialog extends Dialog
     private final List<ProgressListener> progressListeners = new ArrayList<ProgressListener>();
     private FileSystemMove moveTask;
     private boolean runs = false;
-    volatile private boolean stop = false;
+    private boolean stop = false;
     private boolean errors = false;
     private List<File> sourceFiles;
     private File targetDirectory = new File(""); // NOI18N
@@ -119,7 +119,7 @@ public final class MoveToDirectoryDialog extends Dialog
         movedFiles.clear();
     }
 
-    synchronized private void start() {
+    private synchronized void start() {
         reset();
         moveTask = new FileSystemMove(sourceFiles, targetDirectory);
         addListenerToMoveTask();

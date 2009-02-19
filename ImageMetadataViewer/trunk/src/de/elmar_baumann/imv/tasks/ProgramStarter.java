@@ -161,7 +161,7 @@ public final class ProgramStarter {
             return ""; // NOI18N
         }
 
-        synchronized private void nextExecutor() {
+        private synchronized void nextExecutor() {
             if (!queue.isEmpty()) {
                 queue.poll().start();
             }

@@ -51,7 +51,7 @@ public final class ImageMetadataToDatabaseArray implements ProgressListener {
     /**
      * Startet den Scan. Default: false.
      */
-    synchronized public void start() {
+    public synchronized void start() {
         setStarted(true);
     }
 
@@ -59,11 +59,11 @@ public final class ImageMetadataToDatabaseArray implements ProgressListener {
      * Stoppt den Scan, unternimmt nichts mehr. Alle Aufgaben werden
      * verworfen. Default: true.
      */
-    synchronized public void stop() {
+    public synchronized void stop() {
         setStarted(false);
     }
 
-    synchronized private boolean isWait() {
+    private synchronized boolean isWait() {
         return wait;
     }
 
@@ -74,7 +74,7 @@ public final class ImageMetadataToDatabaseArray implements ProgressListener {
         Log.logInfo(ImageMetadataToDatabaseArray.class, msg.format(params));
     }
 
-    synchronized private void setWait(boolean wait) {
+    private synchronized void setWait(boolean wait) {
         this.wait = wait;
     }
 
@@ -97,7 +97,7 @@ public final class ImageMetadataToDatabaseArray implements ProgressListener {
      * 
      * @return true, wenn gestartet
      */
-    synchronized public boolean isStarted() {
+    public synchronized boolean isStarted() {
         return started;
     }
 
@@ -106,7 +106,7 @@ public final class ImageMetadataToDatabaseArray implements ProgressListener {
      * 
      * @param directoryName Name des Verzeichnisses
      */
-    synchronized public void stopUpdateOfDirectory(String directoryName) {
+    public synchronized void stopUpdateOfDirectory(String directoryName) {
         InsertImageFilesIntoDatabase scanner = updaterOfDirectory.get(directoryName);
         if (scanner != null) {
             scanner.stop();
@@ -140,7 +140,7 @@ public final class ImageMetadataToDatabaseArray implements ProgressListener {
      * @param directoryName    Verzeichnisname
      * @param forceUpdate      Update dieser Metadaten erzwingen
      */
-    synchronized public void addDirectory(String directoryName, 
+    public synchronized void addDirectory(String directoryName, 
         EnumSet<InsertImageFilesIntoDatabase.ForceUpdate> forceUpdate) {
         updaters.add(createUpdater(directoryName, forceUpdate));
         startUpdateThread();

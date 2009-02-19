@@ -25,7 +25,7 @@ public final class DatabaseMaintainancePanel extends javax.swing.JPanel
     private static final Icon iconFinished = AppSettings.getIcon("icon_finished.png"); // NOI18N
     private final Stack<Runnable> runnables = new Stack<Runnable>();
     private final Map<Runnable, JLabel> finishedLabelOfRunnable = new HashMap<Runnable, JLabel>();
-    volatile private boolean stop = false;
+    private boolean stop = false;
     private boolean canClose = true;
 
     /** Creates new form DatabaseMaintainancePanel */
@@ -75,7 +75,7 @@ public final class DatabaseMaintainancePanel extends javax.swing.JPanel
         return canClose;
     }
 
-    synchronized private void startNextThread() {
+    private synchronized void startNextThread() {
         if (runnables.size() > 0) {
             Thread thread = new Thread(runnables.pop());
             thread.setPriority(UserSettings.getInstance().getThreadPriority());

@@ -25,7 +25,7 @@ public final class MetaFactory implements Runnable {
         init();
     }
 
-    synchronized private void init() {
+    private synchronized void init() {
         Util.checkInit(MetaFactory.class, init);
         if (!init) {
             init = true;

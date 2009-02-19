@@ -22,32 +22,32 @@ public final class UpdaterRenameInXmpColumnsArray implements ProgressListener {
     private final Queue<UpdaterRenameInXmpColumns> updaters = new ConcurrentLinkedQueue<UpdaterRenameInXmpColumns>();
     private final ProgressBarCurrentTasks progressBarProvider = ProgressBarCurrentTasks.getInstance();
     private JProgressBar progressBar;
-    volatile private boolean wait = false;
-    volatile private boolean stop = false;
+    private boolean wait = false;
+    private boolean stop = false;
 
-    synchronized private void setWait(boolean wait) {
+    private synchronized void setWait(boolean wait) {
         this.wait = wait;
     }
     
-    synchronized private boolean isWait() {
+    private synchronized boolean isWait() {
         return wait;
     }
 
     /**
      * Beendet alle Threads.
      */
-    synchronized public void stop() {
+    public synchronized void stop() {
         updaters.clear();
         stop = true;
     }
 
-    synchronized public void update(List<String> filenames, Column column,
+    public synchronized void update(List<String> filenames, Column column,
         String oldValue, String newValue) {
         updaters.add(new UpdaterRenameInXmpColumns(filenames, column, oldValue, newValue));
         startNextThread();
     }
 
-    synchronized private void startNextThread() {
+    private synchronized void startNextThread() {
         if (!stop && !isWait() && !updaters.isEmpty()) {
             setWait(true);
             UpdaterRenameInXmpColumns updater = updaters.remove();

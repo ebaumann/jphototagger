@@ -26,7 +26,7 @@ public final class CopyFiles implements Runnable {
     private final List<File> errorFiles = new ArrayList<File>();
     private final List<Pair<File, File>> files;
     private final boolean forceOverwrite;
-    volatile private boolean stop = false;
+    private boolean stop = false;
 
     /**
      * Konstruktor

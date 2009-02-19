@@ -35,7 +35,7 @@ public final class InsertImageFilesIntoDatabase implements Runnable {
     private final String externalThumbnailCreationCommand = UserSettings.getInstance().getExternalThumbnailCreationCommand();
     private final List<String> filenames;
     private final EnumSet<ForceUpdate> forceUpdate;
-    volatile private boolean stop = false;
+    private boolean stop = false;
     private long startTime;
 
     /**

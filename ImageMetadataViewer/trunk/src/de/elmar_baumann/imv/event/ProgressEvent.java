@@ -15,7 +15,7 @@ public final class ProgressEvent {
     private int value;
     private final long milliSecondsRemaining;
     private Object info;
-    volatile private boolean stop = false;
+    private boolean stop = false;
 
     /**
      * Konstruktor für Ereignisse mit bekanntem Umfang (Minimum, Maximum und

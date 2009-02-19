@@ -24,7 +24,7 @@ public final class UpdaterRenameInXmpColumns implements Runnable, ProgressListen
     private final Column column;
     private final String oldValue;
     private final String newValue;
-    volatile private boolean stop = false;
+    private boolean stop = false;
 
     public UpdaterRenameInXmpColumns(List<String> filenames, Column column,
         String oldValue, String newValue) {

@@ -30,7 +30,7 @@ public final class ActionsPanel extends javax.swing.JPanel {
         initComponents();
     }
 
-    synchronized public JProgressBar getProgressBar(Object owner) {
+    public synchronized JProgressBar getProgressBar(Object owner) {
         if (progressBarOwner == null) {
             progressBarOwner = owner;
             return progressBar;
@@ -38,11 +38,11 @@ public final class ActionsPanel extends javax.swing.JPanel {
         return null;
     }
 
-    synchronized public boolean isProgressBarAvailable() {
+    public synchronized boolean isProgressBarAvailable() {
         return progressBarOwner == null;
     }
 
-    synchronized public void releaseProgressBar(Object owner) {
+    public synchronized void releaseProgressBar(Object owner) {
         if (progressBarOwner == owner) {
             progressBarOwner = null;
         }

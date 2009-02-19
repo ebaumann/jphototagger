@@ -74,7 +74,7 @@ public final class ControllerDeleteFavoriteDirectory implements ActionListener {
 
     private class CheckDirectoriesRemoved extends Thread {
 
-        volatile private boolean stop = false;
+        private boolean stop = false;
 
         public synchronized void setStop(boolean stop) {
             this.stop = stop;

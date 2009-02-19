@@ -21,7 +21,7 @@ public final class UpdateAllThumbnails
         implements Runnable, ProgressListener, ActionListener {
 
     private ProgressDialog progressDialog;
-    volatile private boolean stop = false;
+    private boolean stop = false;
     private final List<ActionListener> actionListeners = new ArrayList<ActionListener>();
 
     /**

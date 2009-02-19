@@ -306,7 +306,7 @@ public final class RenameDialog extends Dialog {
         labelDirectory.setText(dir.getAbsolutePath());
     }
 
-    synchronized private void setThumbnail(File file) {
+    private synchronized void setThumbnail(File file) {
         Image thumbnail = null;
         if (FileType.isJpegFile(file.getName())) {
             thumbnail = ThumbnailUtil.getScaledImage(file, panelThumbnail.getWidth());

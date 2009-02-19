@@ -25,7 +25,7 @@ public final class XmpUpdaterFromTextEntryArray implements ProgressListener {
     private final ProgressBarCurrentTasks progressBarProvider = ProgressBarCurrentTasks.getInstance();
     private JProgressBar progressBar;
     private boolean wait = false;
-    volatile private boolean stop = false;
+    private boolean stop = false;
 
     /**
      * Fügt zu aktualisierende Einträge hinzu.
@@ -62,11 +62,11 @@ public final class XmpUpdaterFromTextEntryArray implements ProgressListener {
         return stop;
     }
 
-    synchronized private boolean isWait() {
+    private synchronized boolean isWait() {
         return wait;
     }
 
-    synchronized private void setWait(boolean wait) {
+    private synchronized void setWait(boolean wait) {
         this.wait = wait;
     }
 

@@ -38,8 +38,8 @@ public final class ControllerCreateMetadataOfSelectedThumbnails
     private final ProgressBarCurrentTasks progressBarProvider = ProgressBarCurrentTasks.getInstance();
     private final ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
     private JProgressBar progressBar;
-    volatile private boolean wait = false;
-    volatile private boolean stop = false;
+    private boolean wait = false;
+    private boolean stop = false;
 
     /**
      * Konstruktor. <em>Nur eine Instanz erzeugen!</em>
@@ -66,11 +66,11 @@ public final class ControllerCreateMetadataOfSelectedThumbnails
         startUpdateMetadataThread();
     }
 
-    synchronized private boolean isWait() {
+    private synchronized boolean isWait() {
         return wait;
     }
 
-    synchronized private void setWait(boolean wait) {
+    private synchronized void setWait(boolean wait) {
         this.wait = wait;
     }
 

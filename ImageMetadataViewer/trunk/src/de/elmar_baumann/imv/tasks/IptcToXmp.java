@@ -23,7 +23,7 @@ public final class IptcToXmp implements Runnable {
 
     private final List<ProgressListener> progressListeners = new ArrayList<ProgressListener>();
     private final List<String> filenames;
-    volatile private boolean stop = false;
+    private boolean stop = false;
 
     public IptcToXmp(List<String> filenames) {
         this.filenames = filenames;

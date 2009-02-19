@@ -22,7 +22,7 @@ public final class XmpUpdaterFromTextEntry implements Runnable {
     private final List<String> filenames;
     private final EnumSet<XmpMetadata.UpdateOption> writeOptions;
     private final List<ProgressListener> progressListeners = new ArrayList<ProgressListener>();
-    volatile private boolean stop = false;
+    private boolean stop = false;
 
     /**
      * Konstruktor.

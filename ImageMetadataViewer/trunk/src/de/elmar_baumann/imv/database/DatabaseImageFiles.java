@@ -120,7 +120,7 @@ public final class DatabaseImageFiles extends Database {
      * @param  imageFile  image
      * @return true if inserted
      */
-    synchronized public boolean insertImageFile(ImageFile imageFile) {
+    public synchronized boolean insertImageFile(ImageFile imageFile) {
         boolean success = false;
         if (existsFilename(imageFile.getFilename())) {
             return updateImageFile(imageFile);

@@ -31,47 +31,47 @@ public final class ListenerProvider {
     private final List<FileSystemActionListener> fileSystemActionListeners = new LinkedList<FileSystemActionListener>();
     private static final ListenerProvider instance = new ListenerProvider();
 
-    synchronized public void addFileSystemActionListener(FileSystemActionListener listener) {
+    public synchronized void addFileSystemActionListener(FileSystemActionListener listener) {
         fileSystemActionListeners.add(listener);
     }
 
-    synchronized public List<FileSystemActionListener> getFileSystemActionListener() {
+    public synchronized List<FileSystemActionListener> getFileSystemActionListener() {
         return fileSystemActionListeners;
     }
 
-    synchronized public void addMetadataEditPanelListener(MetadataEditPanelListener listener) {
+    public synchronized void addMetadataEditPanelListener(MetadataEditPanelListener listener) {
         metadataEditPanelListeners.add(listener);
     }
 
-    synchronized public List<MetadataEditPanelListener> getMetadataEditPanelListeners() {
+    public synchronized List<MetadataEditPanelListener> getMetadataEditPanelListeners() {
         return metadataEditPanelListeners;
     }
 
-    synchronized public void addUserSettingsChangeListener(UserSettingsChangeListener listener) {
+    public synchronized void addUserSettingsChangeListener(UserSettingsChangeListener listener) {
         userSettingsChangeListeners.add(listener);
     }
 
-    synchronized public List<UserSettingsChangeListener> getUserSettingsChangeListeners() {
+    public synchronized List<UserSettingsChangeListener> getUserSettingsChangeListeners() {
         return userSettingsChangeListeners;
     }
 
-    synchronized public void addRenameFileListener(RenameFileListener listener) {
+    public synchronized void addRenameFileListener(RenameFileListener listener) {
         renameFileListeners.add(listener);
     }
 
-    synchronized public List<RenameFileListener> getRenameFileListeners() {
+    public synchronized List<RenameFileListener> getRenameFileListeners() {
         return renameFileListeners;
     }
 
-    synchronized public void addSearchListener(SearchListener listener) {
+    public synchronized void addSearchListener(SearchListener listener) {
         searchListeners.add(listener);
     }
 
-    synchronized public List<SearchListener> getSearchListeners() {
+    public synchronized List<SearchListener> getSearchListeners() {
         return searchListeners;
     }
 
-    synchronized public void notifyUserSettingsChangeListener(UserSettingsChangeEvent evt) {
+    public synchronized void notifyUserSettingsChangeListener(UserSettingsChangeEvent evt) {
         for (UserSettingsChangeListener l : userSettingsChangeListeners) {
             l.applySettings(evt);
         }

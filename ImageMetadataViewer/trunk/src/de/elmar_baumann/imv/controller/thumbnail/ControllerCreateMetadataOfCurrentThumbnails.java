@@ -30,7 +30,7 @@ public final class ControllerCreateMetadataOfCurrentThumbnails
     private final AppPanel appPanel = Panels.getInstance().getAppPanel();
     private final ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelThumbnails();
     private final JProgressBar progressBar = appPanel.getProgressBarCreateMetadataOfCurrentThumbnails();
-    volatile private boolean stop = false;
+    private boolean stop = false;
 
     public ControllerCreateMetadataOfCurrentThumbnails() {
         listen();
@@ -40,7 +40,7 @@ public final class ControllerCreateMetadataOfCurrentThumbnails
         thumbnailsPanel.addThumbnailsPanelListener(this);
     }
 
-    synchronized private void updateMetadata() {
+    private synchronized void updateMetadata() {
         updaters.add(createUpdater(FileUtil.getAsFilenames(thumbnailsPanel.getFiles())));
         startUpdateMetadataThread();
     }
@@ -62,11 +62,11 @@ public final class ControllerCreateMetadataOfCurrentThumbnails
         }
     }
 
-    synchronized private boolean isWait() {
+    private synchronized boolean isWait() {
         return wait;
     }
 
-    synchronized private void setWait(boolean wait) {
+    private synchronized void setWait(boolean wait) {
         this.wait = wait;
     }
 

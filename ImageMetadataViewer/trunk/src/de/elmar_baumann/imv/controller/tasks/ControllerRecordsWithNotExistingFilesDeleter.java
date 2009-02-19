@@ -22,7 +22,7 @@ public final class ControllerRecordsWithNotExistingFilesDeleter
 
     private final JProgressBar progressBar;
     private final List<TaskListener> taskListeners = new ArrayList<TaskListener>();
-    volatile private boolean stop = false;
+    private boolean stop = false;
 
     /**
      * Konstruktor.

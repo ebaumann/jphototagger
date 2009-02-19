@@ -21,7 +21,7 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
     private final DatabaseFileExcludePattern db = DatabaseFileExcludePattern.getInstance();
     private final ListModelFileExcludePatterns model = new ListModelFileExcludePatterns();
     private boolean isUpdateDatabase = false;
-    volatile private boolean stop = false;
+    private boolean stop = false;
 
     /** Creates new form SettingsFileExcludePatternsPanel */
     public SettingsFileExcludePatternsPanel() {

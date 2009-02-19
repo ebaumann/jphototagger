@@ -58,7 +58,7 @@ public final class ControllerArrayScheduledTasks
         }
     }
 
-    synchronized private void startFirstController() {
+    private synchronized void startFirstController() {
         if (!controllers.isEmpty()) {
             buttonStop.setEnabled(true);
             activeController = controllers.remove();
@@ -77,7 +77,7 @@ public final class ControllerArrayScheduledTasks
     }
 
     @Override
-    synchronized public void taskCompleted() {
+    public synchronized void taskCompleted() {
         activeController = null;
         System.gc();
         if (controllers.isEmpty()) {
@@ -95,12 +95,12 @@ public final class ControllerArrayScheduledTasks
         }
     }
 
-    synchronized private void handleButtonStopClicked() {
+    private synchronized void handleButtonStopClicked() {
         buttonStop.setEnabled(false);
         stopController();
     }
 
-    synchronized private void stopController() {
+    private synchronized void stopController() {
         for (Task task : controllers) {
             task.stop();
         }

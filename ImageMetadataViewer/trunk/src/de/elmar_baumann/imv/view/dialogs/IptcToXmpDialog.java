@@ -29,7 +29,7 @@ public final class IptcToXmpDialog extends Dialog
 
     private static final String keyDirectoryName = "de.elmar_baumann.imv.view.dialogs.IptcToXmpDialog.LastDirectory"; // NOI18N
     private File directory = new File(""); // NOI18N
-    volatile private boolean stop = true;
+    private boolean stop = true;
 
     /** Creates new form IptcToXmpDialog */
     public IptcToXmpDialog() {

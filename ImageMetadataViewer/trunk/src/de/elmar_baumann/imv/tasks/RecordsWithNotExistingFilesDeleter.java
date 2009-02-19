@@ -21,10 +21,10 @@ public final class RecordsWithNotExistingFilesDeleter implements Runnable, Progr
 
     private final DatabaseImageFiles db = DatabaseImageFiles.getInstance();
     private final List<ProgressListener> progressListeners = new ArrayList<ProgressListener>();
-    volatile private boolean notifyProgressEnded = false;
+    private boolean notifyProgressEnded = false;
     private String startMessage;
     private String endMessage;
-    volatile private boolean stop = false;
+    private boolean stop = false;
     private int countDeleted = 0;
 
     @Override
