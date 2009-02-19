@@ -19,6 +19,7 @@ import de.elmar_baumann.imv.database.metadata.mapping.XmpColumnXmpDataTypeMappin
 import de.elmar_baumann.imv.database.metadata.mapping.XmpColumnXmpPathStartMapping;
 import de.elmar_baumann.imv.database.metadata.selections.EditColumns;
 import de.elmar_baumann.lib.io.FileUtil;
+import de.elmar_baumann.lib.template.Pair;
 import de.elmar_baumann.lib.util.ArrayUtil;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -533,6 +534,40 @@ public final class XmpMetadata {
         if (xmpFilename != null) {
             xmp.setLastModified(FileUtil.getLastModified(xmpFilename));
         }
+    }
+
+    /**
+     * Returns whether the file suffix is <code>"xmp"</code>.
+     *
+     * @param  file file
+     * @return true, if the file is a file and it's name has the suffix
+     *         <code>"xmp"</code>.
+     */
+    public static boolean isSidecarFile(File file) {
+        return file.isFile() && FileUtil.getSuffix(file.getName()).equalsIgnoreCase("xmp");
+    }
+
+    /**
+     * Returns pairs of existing image and sidecar files from a list of some
+     * image files.
+     *
+     * @param  imageFiles image files
+     * @return pairs of image files with their corresponding sidecar files or
+     *         an empty list if no image file has a sidecar file.
+     *         {@link de.elmar_baumann.lib.template.Pair#getFirst()} returns
+     *         the image file and
+     *         {@link de.elmar_baumann.lib.template.Pair#getSecond()} returns
+     *         the sidecar file
+     */
+    public static List<Pair<File, File>> getImageFilesWithSidecarFiles(List<File> imageFiles) {
+        List<Pair<File, File>> sidecarFiles = new ArrayList<Pair<File, File>>();
+        for (File imageFile : imageFiles) {
+            File sidecarFile = getSidecarFile(imageFile);
+            if (imageFile.exists() && sidecarFile != null) {
+                sidecarFiles.add(new Pair<File, File>(imageFile, sidecarFile));
+            }
+        }
+        return sidecarFiles;
     }
 
     private XmpMetadata() {}

@@ -9,6 +9,7 @@ import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuPanelThumbnails;
 import de.elmar_baumann.lib.io.FileUtil;
+import de.elmar_baumann.lib.template.Pair;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -45,36 +46,36 @@ public final class ControllerDeleteFiles implements ActionListener {
     }
 
     private void deleteSelectedFiles() {
-        if (accepted()) {
+        if (confirmDelete()) {
             int countDeleted = 0;
-            List<File> files = getFiles();
-            List<File> deletedFiles = new ArrayList<File>(files.size());
-            for (File file : files) {
-                if (file.delete()) {
-                    deletedFiles.add(file);
+            List<File> imageFiles = thumbnailsPanel.getSelectedFiles();
+            List<Pair<File, File>> imageFilesWithSidecarFiles = XmpMetadata.getImageFilesWithSidecarFiles(imageFiles);
+            List<File> deletedImageFiles = new ArrayList<File>(imageFiles.size());
+            for (File imageFile : imageFiles) {
+                if (imageFile.delete()) {
+                    deleteSidecarFile(imageFile, imageFilesWithSidecarFiles);
+                    deletedImageFiles.add(imageFile);
                     countDeleted++;
                 } else {
-                    errorMessageDelete(file);
+                    errorMessageDelete(imageFile);
                 }
             }
             if (countDeleted > 0) {
-                db.deleteImageFiles(FileUtil.getAsFilenames(deletedFiles));
-                thumbnailsPanel.remove(deletedFiles);
+                db.deleteImageFiles(FileUtil.getAsFilenames(deletedImageFiles));
+                thumbnailsPanel.remove(deletedImageFiles);
             }
         }
     }
 
-    private List<File> getFiles() {
-        List<File> files = new ArrayList<File>();
-        List<File> selectedFiles = thumbnailsPanel.getSelectedFiles();
-        for (File file : selectedFiles) {
-            files.add(file);
-            File sidecarFile = XmpMetadata.getSidecarFile(file);
-            if (sidecarFile != null) {
-                files.add(sidecarFile);
+    private void deleteSidecarFile(File imageFile, List<Pair<File, File>> imageFilesWithSidecarFiles) {
+        for (Pair<File, File> filePair : imageFilesWithSidecarFiles) {
+            if (filePair.getFirst().equals(imageFile)) {
+                File sidecarFile = filePair.getSecond();
+                if (!sidecarFile.delete()) {
+                    errorMessageDelete(sidecarFile);
+                }
             }
         }
-        return files;
     }
 
     private void errorMessageDelete(File file) {
@@ -84,7 +85,7 @@ public final class ControllerDeleteFiles implements ActionListener {
         AppLog.logWarning(ControllerDeleteFiles.class, message);
     }
 
-    private boolean accepted() {
+    private boolean confirmDelete() {
         return JOptionPane.showConfirmDialog(
                 null,
                 Bundle.getString("ControllerDeleteFiles.ConfirmMessage.Delete"),
