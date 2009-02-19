@@ -18,10 +18,8 @@ import javax.swing.JOptionPane;
 public final class AppLock {
 
     private static final String lockFileName =
-        PersistentSettings.getInstance().getDirectoryName() +
-        File.separator +
-        PersistentSettings.getInstance().getAppName() +
-        ".lck"; // NOI18N
+        PersistentSettings.getInstance().getDirectoryName() + File.separator +
+        PersistentSettings.getInstance().getAppName() + ".lck"; // NOI18N
 
     /**
      * Returns whether the application ist locked.
@@ -64,15 +62,7 @@ public final class AppLock {
      * @return  true if unlocked
      */
     public static boolean forceUnlock() {
-        MessageFormat msg = new MessageFormat(Bundle.getString("Lock.ErrorMessage.LockFileExists"));
-        if (JOptionPane.showConfirmDialog(
-            null,
-            msg.format(new Object[]{lockFileName}),
-            Bundle.getString("Lock.ErrorMessage.LockFileExists.Title"),
-            JOptionPane.YES_NO_OPTION,
-            JOptionPane.ERROR_MESSAGE,
-            AppSettings.getMediumAppIcon()) == JOptionPane.YES_OPTION) {
-
+        if (confirmForceUnlock()) {
             return deleteLockFile();
         }
         return false;
@@ -82,14 +72,29 @@ public final class AppLock {
         if (new File(lockFileName).delete()) {
             return true;
         } else {
-            JOptionPane.showMessageDialog(
+            errorMessageDelete();
+            return false;
+        }
+    }
+
+    private static boolean confirmForceUnlock() {
+        MessageFormat msg = new MessageFormat(Bundle.getString("Lock.ErrorMessage.LockFileExists"));
+        return JOptionPane.showConfirmDialog(
+                null,
+                msg.format(new Object[]{lockFileName}),
+                Bundle.getString("Lock.ErrorMessage.LockFileExists.Title"),
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.ERROR_MESSAGE,
+                AppSettings.getMediumAppIcon()) == JOptionPane.YES_OPTION;
+    }
+
+    private static void errorMessageDelete() {
+        JOptionPane.showMessageDialog(
                 null,
                 Bundle.getString("Lock.ErrorMessage.DeleteLockFile"),
                 Bundle.getString("Lock.ErrorMessage.DeleteLockFile.Title"),
                 JOptionPane.ERROR_MESSAGE,
                 AppSettings.getMediumAppIcon());
-            return false;
-        }
     }
 
     private AppLock() {}

@@ -8,7 +8,6 @@ import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.Panels;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuListSavedSearches;
-import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.MessageFormat;
@@ -85,7 +84,7 @@ public final class ControllerRenameSavedSearch implements ActionListener {
                 oldName);
     }
 
-    private boolean confirmInputDifferentName(String input) throws HeadlessException {
+    private boolean confirmInputDifferentName(String input) {
         MessageFormat message = new MessageFormat(Bundle.getString("ControllerRenameSavedSearch.ConfirmMessage.ChangeNameBecauseExists"));
         Object[] params = {input};
         return JOptionPane.showConfirmDialog(
