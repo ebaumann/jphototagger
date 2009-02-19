@@ -21,7 +21,7 @@ import java.util.logging.XMLFormatter;
 public final class UserSettings implements UserSettingsChangeListener {
 
     private static final String delimiterColumns = "\t"; // NOI18N
-    private static final int defaultMaxThumbnailWidth = 150;
+    private static final int defaultMaxThumbnailLength = 150;
     private static final int defaultMinutesToStartScheduledTasks = 5;
     private static final String keyDefaultImageOpenApp = "UserSettings.DefaultImageOpenApp";
     private static final String keyExternalThumbnailCreationCommand = "UserSettings.ExternalThumbnailCreationCommand";
@@ -36,11 +36,11 @@ public final class UserSettings implements UserSettingsChangeListener {
     private static final String keyIsUseEmbeddedThumbnails = "UserSettings.IsUseEmbeddedThumbnails";
     private static final String keyLogfileFormatterClass = "UserSettings.LogfileFormatterClass";
     private static final String keyLogLevel = "UserSettings.LogLevel";
-    private static final String keyMaxThumbnailWidth = "UserSettings.MaxThumbnailWidth";
+    private static final String keyMaxThumbnailLength = "UserSettings.MaxThumbnailWidth";
     private static final String keyMinutesToStartScheduledTasks = "UserSettings.MinutesToStartScheduledTasks";
     private static final String keyThreadPriority = "UserSettings.ThreadPriority";
     private static final String keyAutocopyDirectory = "UserSettings.AutocopyDirectory";
-    private static final PersistentSettings settings = PersistentSettings.getInstance();
+    private static final PersistentSettings persistentSettings = PersistentSettings.getInstance();
     private static final UserSettings instance = new UserSettings();
 
     private UserSettings() {
@@ -63,8 +63,8 @@ public final class UserSettings implements UserSettingsChangeListener {
      * @see    #getExternalThumbnailCreationCommand() 
      */
     public boolean isCreateThumbnailsWithExternalApp() {
-        return settings.getProperties().containsKey(keyIsCreateThumbnailsWithExternalApp)
-            ? settings.getBoolean(keyIsCreateThumbnailsWithExternalApp)
+        return persistentSettings.getProperties().containsKey(keyIsCreateThumbnailsWithExternalApp)
+            ? persistentSettings.getBoolean(keyIsCreateThumbnailsWithExternalApp)
             : false;
     }
 
@@ -76,7 +76,7 @@ public final class UserSettings implements UserSettingsChangeListener {
      * @see    #isCreateThumbnailsWithExternalApp()
      */
     public String getExternalThumbnailCreationCommand() {
-        return settings.getString(keyExternalThumbnailCreationCommand);
+        return persistentSettings.getString(keyExternalThumbnailCreationCommand);
     }
 
     /**
@@ -86,13 +86,13 @@ public final class UserSettings implements UserSettingsChangeListener {
      * @see    java.util.logging.Level#getLocalizedName()
      */
     public Level getLogLevel() {
-        String levelString = settings.getString(keyLogLevel);
+        String levelString = persistentSettings.getString(keyLogLevel);
         Level level = null;
         try {
             level = Level.parse(levelString);
-        } catch (IllegalArgumentException ex) {
+        } catch (Exception ex) {
             de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
-            settings.setString(Level.WARNING.getLocalizedName(), keyLogLevel);
+            persistentSettings.setString(Level.WARNING.getLocalizedName(), keyLogLevel);
         }
         return level == null ? Level.WARNING : level;
     }
@@ -104,9 +104,9 @@ public final class UserSettings implements UserSettingsChangeListener {
      */
     public List<Column> getFastSearchColumns() {
         List<Column> columns = new ArrayList<Column>();
-        if (!settings.getString(keyFastSearchColumns).isEmpty()) {
+        if (!persistentSettings.getString(keyFastSearchColumns).isEmpty()) {
             List<String> columnKeys = ArrayUtil.stringTokenToList(
-                settings.getString(keyFastSearchColumns), delimiterColumns);
+                persistentSettings.getString(keyFastSearchColumns), delimiterColumns);
             return ColumnUtil.columnKeysToColumns(columnKeys);
         }
         return columns;
@@ -119,9 +119,9 @@ public final class UserSettings implements UserSettingsChangeListener {
      * @return edit columns
      */
     public List<Column> getEditColumns() {
-        if (!settings.getString(keyEditColumns).isEmpty()) {
+        if (!persistentSettings.getString(keyEditColumns).isEmpty()) {
             List<String> columnKeys = ArrayUtil.stringTokenToList(
-                settings.getString(keyEditColumns), delimiterColumns);
+                persistentSettings.getString(keyEditColumns), delimiterColumns);
             return ColumnUtil.columnKeysToColumns(columnKeys);
         }
         return new ArrayList<Column>(EditColumns.getColumns());
@@ -133,7 +133,7 @@ public final class UserSettings implements UserSettingsChangeListener {
      * @return Anwendung oder Leerstring, wenn nicht definiert
      */
     public String getDefaultImageOpenApp() {
-        return settings.getString(keyDefaultImageOpenApp);
+        return persistentSettings.getString(keyDefaultImageOpenApp);
     }
 
     /**
@@ -151,7 +151,7 @@ public final class UserSettings implements UserSettingsChangeListener {
      * @return Threadpriorität
      */
     public int getThreadPriority() {
-        int priority = settings.getInt(keyThreadPriority);
+        int priority = persistentSettings.getInt(keyThreadPriority);
         return priority >= 0 && priority <= 10 ? priority : 5;
     }
 
@@ -162,8 +162,8 @@ public final class UserSettings implements UserSettingsChangeListener {
      * @return Seitenlänge in Pixel
      */
     public int getMaxThumbnailLength() {
-        int width = settings.getInt(keyMaxThumbnailWidth);
-        return width != Integer.MIN_VALUE ? width : defaultMaxThumbnailWidth;
+        int width = persistentSettings.getInt(keyMaxThumbnailLength);
+        return width != Integer.MIN_VALUE ? width : defaultMaxThumbnailLength;
     }
 
     /**
@@ -172,8 +172,8 @@ public final class UserSettings implements UserSettingsChangeListener {
      * @return true, wenn eingebettete Thumbnails benutzt werden sollen
      */
     public boolean isUseEmbeddedThumbnails() {
-        return settings.getProperties().containsKey(keyIsUseEmbeddedThumbnails)
-            ? settings.getBoolean(keyIsUseEmbeddedThumbnails)
+        return persistentSettings.getProperties().containsKey(keyIsUseEmbeddedThumbnails)
+            ? persistentSettings.getBoolean(keyIsUseEmbeddedThumbnails)
             : false;
     }
 
@@ -183,7 +183,7 @@ public final class UserSettings implements UserSettingsChangeListener {
      * @return Zeichensatz
      */
     public String getIptcCharset() {
-        String charset = settings.getString(keyIptcCharset);
+        String charset = persistentSettings.getString(keyIptcCharset);
         return charset.isEmpty() ? "ISO-8859-1" : charset;
     }
 
@@ -194,8 +194,8 @@ public final class UserSettings implements UserSettingsChangeListener {
      * @return true, falls die Unterverzeichnisse einbezogen werden sollen
      */
     public boolean isAutoscanIncludeSubdirectories() {
-        return settings.getProperties().containsKey(keyIsAutoscanIncludeSubdirectories)
-            ? settings.getBoolean(keyIsAutoscanIncludeSubdirectories)
+        return persistentSettings.getProperties().containsKey(keyIsAutoscanIncludeSubdirectories)
+            ? persistentSettings.getBoolean(keyIsAutoscanIncludeSubdirectories)
             : true;
     }
 
@@ -205,7 +205,7 @@ public final class UserSettings implements UserSettingsChangeListener {
      * @return Logdateiformatierer
      */
     public Class getLogfileFormatterClass() {
-        String className = settings.getString(keyLogfileFormatterClass);
+        String className = persistentSettings.getString(keyLogfileFormatterClass);
         try {
             return Class.forName(className);
         } catch (ClassNotFoundException ex) {
@@ -222,8 +222,8 @@ public final class UserSettings implements UserSettingsChangeListener {
      * @return true, wenn dieser Task ausgeführt werden soll
      */
     public boolean isTaskRemoveRecordsWithNotExistingFiles() {
-        return settings.getProperties().containsKey(keyIsTaskRemoveRecordsWithNotExistingFiles)
-            ? settings.getBoolean(keyIsTaskRemoveRecordsWithNotExistingFiles)
+        return persistentSettings.getProperties().containsKey(keyIsTaskRemoveRecordsWithNotExistingFiles)
+            ? persistentSettings.getBoolean(keyIsTaskRemoveRecordsWithNotExistingFiles)
             : false;
     }
 
@@ -233,7 +233,7 @@ public final class UserSettings implements UserSettingsChangeListener {
      * @return Minuten
      */
     public int getMinutesToStartScheduledTasks() {
-        int minutes = settings.getInt(keyMinutesToStartScheduledTasks);
+        int minutes = persistentSettings.getInt(keyMinutesToStartScheduledTasks);
         return minutes > 0 ? minutes : defaultMinutesToStartScheduledTasks;
     }
 
@@ -243,8 +243,8 @@ public final class UserSettings implements UserSettingsChangeListener {
      * @return true, wenn Autocomplete eingeschaltet werden soll
      */
     public boolean isUseAutocomplete() {
-        return settings.getProperties().containsKey(keyIsAutocomplete)
-            ? settings.getBoolean(keyIsAutocomplete)
+        return persistentSettings.getProperties().containsKey(keyIsAutocomplete)
+            ? persistentSettings.getBoolean(keyIsAutocomplete)
             : true;
     }
 
@@ -255,8 +255,8 @@ public final class UserSettings implements UserSettingsChangeListener {
      * @return true, if accepted
      */
     public boolean isAcceptHiddenDirectories() {
-        return settings.getProperties().containsKey(keyIsAcceptHiddenDirectories)
-            ? settings.getBoolean(keyIsAcceptHiddenDirectories)
+        return persistentSettings.getProperties().containsKey(keyIsAcceptHiddenDirectories)
+            ? persistentSettings.getBoolean(keyIsAcceptHiddenDirectories)
             : false;
     }
 
@@ -267,7 +267,7 @@ public final class UserSettings implements UserSettingsChangeListener {
      * @return Existing directory or null if not defined or not existing
      */
     public File getAutocopyDirectory() {
-        File dir = new File(settings.getString(keyAutocopyDirectory));
+        File dir = new File(persistentSettings.getString(keyAutocopyDirectory));
         return dir.exists() && dir.isDirectory() ? dir : null;
     }
 
@@ -279,64 +279,64 @@ public final class UserSettings implements UserSettingsChangeListener {
     private void writePersistent(UserSettingsChangeEvent evt) {
         UserSettingsChangeEvent.Type type = evt.getType();
         if (type.equals(UserSettingsChangeEvent.Type.DEFAULT_IMAGE_OPEN_APP)) {
-            settings.setString(evt.getDefaultImageOpenApp().getAbsolutePath(), keyDefaultImageOpenApp);
+            persistentSettings.setString(evt.getDefaultImageOpenApp().getAbsolutePath(), keyDefaultImageOpenApp);
         } else if (type.equals(UserSettingsChangeEvent.Type.EXTERNAL_THUMBNAIL_CREATION_COMMAND)) {
-            settings.setString(evt.getExternalThumbnailCreationCommand(), keyExternalThumbnailCreationCommand);
+            persistentSettings.setString(evt.getExternalThumbnailCreationCommand(), keyExternalThumbnailCreationCommand);
         } else if (type.equals(UserSettingsChangeEvent.Type.FAST_SEARCH_COLUMNS)) {
-            settings.setString(getColumnKeys(evt.getFastSearchColumns()), keyFastSearchColumns);
+            persistentSettings.setString(getColumnKeys(evt.getFastSearchColumns()), keyFastSearchColumns);
         } else if (type.equals(UserSettingsChangeEvent.Type.EDIT_COLUMNS)) {
-            settings.setString(getColumnKeys(evt.getEditColumns()), keyEditColumns);
+            persistentSettings.setString(getColumnKeys(evt.getEditColumns()), keyEditColumns);
         } else if (type.equals(UserSettingsChangeEvent.Type.IPTC_CHARSET)) {
-            settings.setString(evt.getIptcCharset(), keyIptcCharset);
+            persistentSettings.setString(evt.getIptcCharset(), keyIptcCharset);
         } else if (type.equals(UserSettingsChangeEvent.Type.IS_ACCEPT_HIDDEN_DIRECTORIES)) {
-            settings.setBoolean(evt.isAcceptHiddenDirectories(), keyIsAcceptHiddenDirectories);
+            persistentSettings.setBoolean(evt.isAcceptHiddenDirectories(), keyIsAcceptHiddenDirectories);
         } else if (type.equals(UserSettingsChangeEvent.Type.IS_AUTSCAN_INCLUDE_DIRECTORIES)) {
-            settings.setBoolean(evt.isAutoscanIncludeSubdirectories(), keyIsAutoscanIncludeSubdirectories);
+            persistentSettings.setBoolean(evt.isAutoscanIncludeSubdirectories(), keyIsAutoscanIncludeSubdirectories);
         } else if (type.equals(UserSettingsChangeEvent.Type.IS_CREATE_THUMBNAILS_WITH_EXTERNAL_APP)) {
             writePersistentCreateThumbnailsWithExternalApp(evt.isCreateThumbnailsWithExternalApp());
         } else if (type.equals(UserSettingsChangeEvent.Type.IS_TASK_REMOVE_RECORDS_WITH_NOT_EXISTING_FILES)) {
-            settings.setBoolean(evt.isTaskRemoveRecordsWithNotExistingFiles(), keyIsTaskRemoveRecordsWithNotExistingFiles);
+            persistentSettings.setBoolean(evt.isTaskRemoveRecordsWithNotExistingFiles(), keyIsTaskRemoveRecordsWithNotExistingFiles);
         } else if (type.equals(UserSettingsChangeEvent.Type.IS_USE_AUTOCOMPLETE)) {
-            settings.setBoolean(evt.isAutocomplete(), keyIsAutocomplete);
+            persistentSettings.setBoolean(evt.isAutocomplete(), keyIsAutocomplete);
         } else if (type.equals(UserSettingsChangeEvent.Type.IS_USE_EMBEDDED_THUMBNAILS)) {
             writePersistentUseEmbeddedThumbnails(evt.isUseEmbeddedThumbnails());
         } else if (type.equals(UserSettingsChangeEvent.Type.LOGFILE_FORMATTER_CLASS)) {
             writePersistentLogfileFormatterClass(evt.getLogfileFormatterClass());
         } else if (type.equals(UserSettingsChangeEvent.Type.LOG_LEVEL)) {
-            settings.setString(evt.getLogLevel().toString(), keyLogLevel);
+            persistentSettings.setString(evt.getLogLevel().toString(), keyLogLevel);
         } else if (type.equals(UserSettingsChangeEvent.Type.MAX_THUMBNAIL_WIDTH)) {
-            settings.setString(evt.getMaxThumbnailWidth().toString(), keyMaxThumbnailWidth);
+            persistentSettings.setString(evt.getMaxThumbnailWidth().toString(), keyMaxThumbnailLength);
         } else if (type.equals(UserSettingsChangeEvent.Type.MINUTES_TO_START_SCHEDULED_TASKS)) {
-            settings.setString(evt.getMinutesToStartScheduledTasks().toString(), keyMinutesToStartScheduledTasks);
+            persistentSettings.setString(evt.getMinutesToStartScheduledTasks().toString(), keyMinutesToStartScheduledTasks);
         } else if (type.equals(UserSettingsChangeEvent.Type.NO_FAST_SEARCH_COLUMNS)) {
-            settings.getProperties().remove(keyFastSearchColumns);
+            persistentSettings.getProperties().remove(keyFastSearchColumns);
         } else if (type.equals(UserSettingsChangeEvent.Type.THREAD_PRIORITY)) {
-            settings.setInt(evt.getThreadPriority(), keyThreadPriority);
+            persistentSettings.setInt(evt.getThreadPriority(), keyThreadPriority);
         } else if (type.equals(UserSettingsChangeEvent.Type.AUTOCOPY_DIRECTORY)) {
-            settings.setString(evt.getAutoCopyDirectory().getAbsolutePath(), keyAutocopyDirectory);
+            persistentSettings.setString(evt.getAutoCopyDirectory().getAbsolutePath(), keyAutocopyDirectory);
         }
     }
 
     private void writePersistentCreateThumbnailsWithExternalApp(boolean create) {
-        settings.setBoolean(create, keyIsCreateThumbnailsWithExternalApp);
+        persistentSettings.setBoolean(create, keyIsCreateThumbnailsWithExternalApp);
         if (create) {
-            settings.setBoolean(false, keyIsUseEmbeddedThumbnails);
+            persistentSettings.setBoolean(false, keyIsUseEmbeddedThumbnails);
         }
     }
 
     private void writePersistentLogfileFormatterClass(Class formatterClass) {
         String classString = formatterClass.toString();
         int index = classString.lastIndexOf(" ");
-        settings.setString(index >= 0 && index + 1 < classString.length()
+        persistentSettings.setString(index >= 0 && index + 1 < classString.length()
             ? classString.substring(index + 1)
             : XMLFormatter.class.getName(),
             keyLogfileFormatterClass);
     }
 
     private void writePersistentUseEmbeddedThumbnails(boolean use) {
-        settings.setBoolean(use, keyIsUseEmbeddedThumbnails);
+        persistentSettings.setBoolean(use, keyIsUseEmbeddedThumbnails);
         if (use) {
-            settings.setBoolean(false, keyIsCreateThumbnailsWithExternalApp);
+            persistentSettings.setBoolean(false, keyIsCreateThumbnailsWithExternalApp);
         }
     }
 
