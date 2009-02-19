@@ -5,7 +5,6 @@ import java.awt.Graphics2D;
 import java.awt.GraphicsConfiguration;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
-import java.awt.HeadlessException;
 import java.awt.Image;
 import java.awt.Transparency;
 import java.awt.image.BufferedImage;
@@ -78,7 +77,7 @@ public final class ImageTransform {
             GraphicsConfiguration gc = gs.getDefaultConfiguration();
             bimage = gc.createCompatibleImage(
                 image.getWidth(null), image.getHeight(null), transparency);
-        } catch (HeadlessException ex) {
+        } catch (Exception ex) {
             Logger.getLogger(ImageTransform.class.getName()).log(Level.SEVERE, null, ex);
         }
 
