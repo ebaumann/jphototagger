@@ -57,25 +57,37 @@ public final class UpdateAllThumbnails
 
     @Override
     public void progressStarted(ProgressEvent evt) {
-        progressDialog.setMinimum(evt.getMinimum());
-        progressDialog.setMaximum(evt.getMaximum());
-        progressDialog.setValue(evt.getValue());
+        setProgressDialogStarted(evt);
         checkStopEvent(evt);
     }
 
     @Override
     public void progressPerformed(ProgressEvent evt) {
-        progressDialog.setValue(evt.getValue());
-        progressDialog.setCurrentProgressInfoText(evt.getInfo().toString());
+        setProgressDialogPerformed(evt);
         checkStopEvent(evt);
     }
 
     @Override
     public void progressEnded(ProgressEvent evt) {
+        setProgressDialogEnded(evt);
+        notifyActionPerformed();
+    }
+
+    private void setProgressDialogEnded(ProgressEvent evt) {
         progressDialog.setValue(evt.getValue());
         progressDialog.setVisible(false);
         progressDialog.dispose();
-        notifyActionPerformed();
+    }
+
+    private void setProgressDialogPerformed(ProgressEvent evt) {
+        progressDialog.setValue(evt.getValue());
+        progressDialog.setCurrentProgressInfoText(evt.getInfo().toString());
+    }
+
+    private void setProgressDialogStarted(ProgressEvent evt) {
+        progressDialog.setMinimum(evt.getMinimum());
+        progressDialog.setMaximum(evt.getMaximum());
+        progressDialog.setValue(evt.getValue());
     }
 
     @Override

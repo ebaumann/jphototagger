@@ -56,13 +56,13 @@ public final class ControllerCreateMetadataOfSelectedThumbnails
     @Override
     public void actionPerformed(ActionEvent e) {
         if (thumbnailsPanel.getSelectionCount() > 0) {
-            updateMetadata(popup.getDatabaseUpdateOf(e.getSource()));
+            updateMetadata(popup.getMetadataToInsertIntoDatabase(e.getSource()));
         }
     }
 
-    private void updateMetadata(EnumSet<InsertImageFilesIntoDatabase.ForceUpdate> forceUpdate) {
+    private void updateMetadata(EnumSet<InsertImageFilesIntoDatabase.Insert> what) {
         updaters.add(createUpdater(FileUtil.getAsFilenames(
-            thumbnailsPanel.getSelectedFiles()), forceUpdate));
+            thumbnailsPanel.getSelectedFiles()), what));
         startUpdateMetadataThread();
     }
 
@@ -84,9 +84,9 @@ public final class ControllerCreateMetadataOfSelectedThumbnails
     }
 
     private InsertImageFilesIntoDatabase createUpdater(List<String> files,
-        EnumSet<InsertImageFilesIntoDatabase.ForceUpdate> forceUpdate) {
+        EnumSet<InsertImageFilesIntoDatabase.Insert> what) {
 
-        InsertImageFilesIntoDatabase updater = new InsertImageFilesIntoDatabase(files, forceUpdate);
+        InsertImageFilesIntoDatabase updater = new InsertImageFilesIntoDatabase(files, what);
         updater.addProgressListener(this);
         return updater;
     }

@@ -5,7 +5,7 @@ import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.database.Database;
 import de.elmar_baumann.imv.database.DatabaseAutoscanDirectories;
 import de.elmar_baumann.imv.event.TaskListener;
-import de.elmar_baumann.imv.tasks.ImageMetadataToDatabaseArray;
+import de.elmar_baumann.imv.tasks.InsertImageFilesIntoDatabaseArray;
 import de.elmar_baumann.imv.tasks.InsertImageFilesIntoDatabase;
 import de.elmar_baumann.imv.tasks.Task;
 import de.elmar_baumann.lib.io.FileUtil;
@@ -30,7 +30,7 @@ public final class ControllerAutoUpdateMetadataTask
         implements TaskListener, Task {
 
     private final JProgressBar progressBar;
-    private ImageMetadataToDatabaseArray updaterArray;
+    private InsertImageFilesIntoDatabaseArray updaterArray;
     private final List<String> systemDirectorySubstrings = new ArrayList<String>();
     private final List<TaskListener> taskListeners = new ArrayList<TaskListener>();
 
@@ -58,7 +58,7 @@ public final class ControllerAutoUpdateMetadataTask
     }
 
     private void createUpdaterArray() {
-        updaterArray = new ImageMetadataToDatabaseArray(progressBar);
+        updaterArray = new InsertImageFilesIntoDatabaseArray(progressBar);
         updaterArray.setTooltipTextIfProgressEnded(AppSettings.tooltipTextProgressBarScheduledTasks);
     }
 
@@ -92,7 +92,7 @@ public final class ControllerAutoUpdateMetadataTask
             for (String directory : directories) {
                 if (!isSystemDirectory(directory)) {
                     updaterArray.addDirectory(directory, EnumSet.of(
-                        InsertImageFilesIntoDatabase.ForceUpdate.DO_NOT_FORCE));
+                        InsertImageFilesIntoDatabase.Insert.OUT_OF_DATE));
                 }
             }
         }

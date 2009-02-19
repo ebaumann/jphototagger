@@ -72,16 +72,16 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
     private void createScanner() {
         activeUpdater =
             new InsertImageFilesIntoDatabase(
-            FileUtil.getAsFilenames(selectedFiles), getDatabaseUpdateMethod());
+            FileUtil.getAsFilenames(selectedFiles), getWhatToInsertIntoDatabase());
     }
 
-    private EnumSet<InsertImageFilesIntoDatabase.ForceUpdate> getDatabaseUpdateMethod() {
+    private EnumSet<InsertImageFilesIntoDatabase.Insert> getWhatToInsertIntoDatabase() {
         return checkBoxForce.isSelected()
             ? EnumSet.of(
-                InsertImageFilesIntoDatabase.ForceUpdate.EXIF,
-                InsertImageFilesIntoDatabase.ForceUpdate.THUMBNAIL,
-                InsertImageFilesIntoDatabase.ForceUpdate.XMP)
-            : EnumSet.of(InsertImageFilesIntoDatabase.ForceUpdate.DO_NOT_FORCE);
+                InsertImageFilesIntoDatabase.Insert.EXIF,
+                InsertImageFilesIntoDatabase.Insert.THUMBNAIL,
+                InsertImageFilesIntoDatabase.Insert.XMP)
+            : EnumSet.of(InsertImageFilesIntoDatabase.Insert.OUT_OF_DATE);
     }
 
     private List<File> getAllImageFiles() {

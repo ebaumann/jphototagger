@@ -194,7 +194,7 @@ public final class ProgramStarter {
             if (program.isChangeFile()) {
                 InsertImageFilesIntoDatabase updater = new InsertImageFilesIntoDatabase(
                         FileUtil.getAbsolutePathnames(imageFiles),
-                        EnumSet.of(InsertImageFilesIntoDatabase.ForceUpdate.DO_NOT_FORCE));
+                        EnumSet.of(InsertImageFilesIntoDatabase.Insert.OUT_OF_DATE));
                 updater.run(); // no subsequent thread
             }
         }

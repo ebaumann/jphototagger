@@ -48,7 +48,7 @@ public final class ControllerCreateMetadataOfCurrentThumbnails
     private InsertImageFilesIntoDatabase createUpdater(List<String> files) {
         InsertImageFilesIntoDatabase updater =
                 new InsertImageFilesIntoDatabase(files, EnumSet.of(
-                InsertImageFilesIntoDatabase.ForceUpdate.DO_NOT_FORCE));
+                InsertImageFilesIntoDatabase.Insert.OUT_OF_DATE));
         updater.addProgressListener(this);
         return updater;
     }

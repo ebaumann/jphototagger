@@ -4,7 +4,7 @@ import de.elmar_baumann.imv.data.TextEntry;
 import de.elmar_baumann.imv.event.ProgressEvent;
 import de.elmar_baumann.imv.event.ProgressListener;
 import de.elmar_baumann.imv.image.metadata.xmp.XmpMetadata;
-import de.elmar_baumann.imv.tasks.InsertImageFilesIntoDatabase.ForceUpdate;
+import de.elmar_baumann.imv.tasks.InsertImageFilesIntoDatabase.Insert;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.EnumSet;
@@ -72,7 +72,7 @@ public final class XmpUpdaterFromTextEntry implements Runnable {
 
     private void updateDatabase(String filename) {
         InsertImageFilesIntoDatabase updater = new InsertImageFilesIntoDatabase(
-                Arrays.asList(filename), EnumSet.of(ForceUpdate.XMP));
+                Arrays.asList(filename), EnumSet.of(Insert.XMP));
         updater.run();
     }
 

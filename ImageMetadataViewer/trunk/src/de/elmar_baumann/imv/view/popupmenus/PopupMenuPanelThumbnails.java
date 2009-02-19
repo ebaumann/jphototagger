@@ -58,7 +58,7 @@ public final class PopupMenuPanelThumbnails extends JPopupMenu
     private final JMenuItem itemFileSystemMoveFiles = new JMenuItem(actionFileSystemMoveFiles);
     private final List<ActionListener> actionListenersOpenFilesWithOtherApp = new ArrayList<ActionListener>();
     private final Map<JMenuItem, Float> angleOfItem = new HashMap<JMenuItem, Float>();
-    private final Map<JMenuItem, EnumSet<InsertImageFilesIntoDatabase.ForceUpdate>> databaseUpdateOfMenuItem = new HashMap<JMenuItem, EnumSet<InsertImageFilesIntoDatabase.ForceUpdate>>();
+    private final Map<JMenuItem, EnumSet<InsertImageFilesIntoDatabase.Insert>> databaseUpdateOfMenuItem = new HashMap<JMenuItem, EnumSet<InsertImageFilesIntoDatabase.Insert>>();
     private final Map<JMenuItem, Program> programOfMenuItem = new HashMap<JMenuItem, Program>();
     private static final PopupMenuPanelThumbnails instance = new PopupMenuPanelThumbnails();
 
@@ -276,7 +276,7 @@ public final class PopupMenuPanelThumbnails extends JPopupMenu
         return angle.floatValue();
     }
 
-    public EnumSet<InsertImageFilesIntoDatabase.ForceUpdate> getDatabaseUpdateOf(Object item) {
+    public EnumSet<InsertImageFilesIntoDatabase.Insert> getMetadataToInsertIntoDatabase(Object item) {
         return databaseUpdateOfMenuItem.get(item);
     }
 
@@ -287,10 +287,10 @@ public final class PopupMenuPanelThumbnails extends JPopupMenu
 
         databaseUpdateOfMenuItem.put(
             itemUpdateMetadata, EnumSet.of(
-            InsertImageFilesIntoDatabase.ForceUpdate.EXIF,
-            InsertImageFilesIntoDatabase.ForceUpdate.XMP));
+            InsertImageFilesIntoDatabase.Insert.EXIF,
+            InsertImageFilesIntoDatabase.Insert.XMP));
         databaseUpdateOfMenuItem.put(
             itemUpdateThumbnail, EnumSet.of(
-            InsertImageFilesIntoDatabase.ForceUpdate.THUMBNAIL));
+            InsertImageFilesIntoDatabase.Insert.THUMBNAIL));
     }
 }

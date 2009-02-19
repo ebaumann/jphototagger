@@ -8,14 +8,13 @@ import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.io.FileUtil;
 import de.elmar_baumann.lib.template.Pair;
 import java.io.File;
-import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
- * Kopieren von Dateien in ein Verzeichnis.
+ * Kopieren von Dateien.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/24
@@ -25,19 +24,29 @@ public final class CopyFiles implements Runnable {
     private final List<ProgressListener> progressListeners = new ArrayList<ProgressListener>();
     private final List<File> errorFiles = new ArrayList<File>();
     private final List<Pair<File, File>> files;
-    private final boolean forceOverwrite;
+    private final Options options;
     private boolean stop = false;
+
+    /**
+     * Copy options.
+     */
+    public enum Options {
+        /** Overwrite existing files only if confirmed */
+        CONFIRM_OVERWRITE,
+        /** Overwrite existing files without confirm */
+        FORCE_OVERWRITE
+    }
 
     /**
      * Konstruktor
      *
-     * @param files           Zu kopierende Dateien. Die erste im Paar
-     *                        ist die Quelldatei, die zweite die Zieldatei.
-     * @param forceOverwrite  true, wenn ohne Rückfrage überschreiben
+     * @param files    Zu kopierende Dateien. Die erste im Paar
+     *                 ist die Quelldatei, die zweite die Zieldatei.
+     * @param Options  Optionen
      */
-    public CopyFiles(List<Pair<File, File>> files, boolean forceOverwrite) {
+    public CopyFiles(List<Pair<File, File>> files, Options options) {
         this.files = files;
-        this.forceOverwrite = forceOverwrite;
+        this.options = options;
     }
 
     /**
@@ -75,15 +84,12 @@ public final class CopyFiles implements Runnable {
         int size = files.size();
         for (int i = 0; !stop && i < size; i++) {
             Pair<File, File> filePair = files.get(i);
-            if (checkOverwrite(filePair)) {
+            if (checkDifferent(filePair) && checkOverwrite(filePair)) {
                 try {
                     File sourceFile = filePair.getFirst();
                     File targetFile = filePair.getSecond();
                     logCopyFile(sourceFile.getAbsolutePath(), targetFile.getAbsolutePath());
                     FileUtil.copyFile(sourceFile, targetFile);
-                } catch (IOException ex) {
-                    de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
-                    errorFiles.add(filePair.getFirst());
                 } catch (Exception ex) {
                     de.elmar_baumann.imv.Log.logWarning(getClass(), ex);
                     errorFiles.add(filePair.getFirst());
@@ -122,7 +128,7 @@ public final class CopyFiles implements Runnable {
     }
 
     private boolean checkOverwrite(Pair<File, File> filePair) {
-        if (forceOverwrite) {
+        if (options.equals(Options.FORCE_OVERWRITE)) {
             return true;
         }
         File target = filePair.getSecond();
@@ -142,5 +148,24 @@ public final class CopyFiles implements Runnable {
             }
         }
         return true;
+    }
+
+    private boolean checkDifferent(Pair<File, File> filePair) {
+        if (filePair.getFirst().equals(filePair.getSecond())) {
+            errorMessageFilesAreEquals(filePair.getFirst());
+            return false;
+        }
+        return true;
+    }
+
+    private void errorMessageFilesAreEquals(File file) {
+        MessageFormat msg = new MessageFormat(Bundle.getString("CopyFiles.ErrorMessageFilesAreEquals"));
+        Object[] params = {file.getAbsolutePath()};
+        JOptionPane.showMessageDialog(
+                null,
+                msg.format(params),
+                Bundle.getString("CopyFiles.ErrorMessageFilesAreEquals.Title"),
+                JOptionPane.ERROR_MESSAGE,
+                AppSettings.getMediumAppIcon());
     }
 }

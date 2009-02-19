@@ -27,11 +27,11 @@ import javax.swing.JProgressBar;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public final class ImageMetadataToDatabaseArray implements ProgressListener {
+public final class InsertImageFilesIntoDatabaseArray implements ProgressListener {
 
-    private final Queue<InsertImageFilesIntoDatabase> updaters = new ConcurrentLinkedQueue<InsertImageFilesIntoDatabase>();
-    private final Map<String, InsertImageFilesIntoDatabase> updaterOfDirectory = new HashMap<String, InsertImageFilesIntoDatabase>();
-    private final Map<InsertImageFilesIntoDatabase, String> directoryOfUpdater = new HashMap<InsertImageFilesIntoDatabase, String>();
+    private final Queue<InsertImageFilesIntoDatabase> inserters = new ConcurrentLinkedQueue<InsertImageFilesIntoDatabase>();
+    private final Map<String, InsertImageFilesIntoDatabase> inserterOfDirectory = new HashMap<String, InsertImageFilesIntoDatabase>();
+    private final Map<InsertImageFilesIntoDatabase, String> directoryOfInserter = new HashMap<InsertImageFilesIntoDatabase, String>();
     private final List<TaskListener> taskListeners = new ArrayList<TaskListener>();
     private final JProgressBar progressBar;
     private boolean wait = false;
@@ -44,7 +44,7 @@ public final class ImageMetadataToDatabaseArray implements ProgressListener {
      * @param progressBar Progressbar zum Anzeigen des Fortschritts oder null,
      *                    wenn der Fortschritt nicht angezeigt werden soll
      */
-    public ImageMetadataToDatabaseArray(JProgressBar progressBar) {
+    public InsertImageFilesIntoDatabaseArray(JProgressBar progressBar) {
         this.progressBar = progressBar;
     }
 
@@ -67,11 +67,11 @@ public final class ImageMetadataToDatabaseArray implements ProgressListener {
         return wait;
     }
 
-    private void logScanDirectory(String directoryName) {
+    private void logUpdateDirectory(String directoryName) {
         MessageFormat msg = new MessageFormat(
             Bundle.getString("ImageMetadataToDatabaseArray.InformationMessage.StartScanDirectory"));
         Object[] params = {directoryName};
-        Log.logInfo(ImageMetadataToDatabaseArray.class, msg.format(params));
+        Log.logInfo(InsertImageFilesIntoDatabaseArray.class, msg.format(params));
     }
 
     private synchronized void setWait(boolean wait) {
@@ -107,9 +107,9 @@ public final class ImageMetadataToDatabaseArray implements ProgressListener {
      * @param directoryName Name des Verzeichnisses
      */
     public synchronized void stopUpdateOfDirectory(String directoryName) {
-        InsertImageFilesIntoDatabase scanner = updaterOfDirectory.get(directoryName);
-        if (scanner != null) {
-            scanner.stop();
+        InsertImageFilesIntoDatabase inserter = inserterOfDirectory.get(directoryName);
+        if (inserter != null) {
+            inserter.stop();
         }
     }
 
@@ -123,7 +123,7 @@ public final class ImageMetadataToDatabaseArray implements ProgressListener {
     }
 
     private void checkTasksCompleted() {
-        if (updaters.isEmpty()) {
+        if (inserters.isEmpty()) {
             notifyTaskListenerCompleted();
         }
     }
@@ -137,32 +137,35 @@ public final class ImageMetadataToDatabaseArray implements ProgressListener {
     /**
      * Fügt ein einzuscannendes Verzeichnis hinzu.
      * 
-     * @param directoryName    Verzeichnisname
-     * @param forceUpdate      Update dieser Metadaten erzwingen
+     * @param directoryName Verzeichnisname
+     * @param what          Einzufügende Metadaten
      */
     public synchronized void addDirectory(String directoryName, 
-        EnumSet<InsertImageFilesIntoDatabase.ForceUpdate> forceUpdate) {
-        updaters.add(createUpdater(directoryName, forceUpdate));
+        EnumSet<InsertImageFilesIntoDatabase.Insert> what) {
+        inserters.add(createInserter(directoryName, what));
         startUpdateThread();
     }
 
-    private InsertImageFilesIntoDatabase createUpdater(String directoryName,
-        EnumSet<InsertImageFilesIntoDatabase.ForceUpdate> forceUpdate) {
+    private InsertImageFilesIntoDatabase createInserter(String directoryName,
+        EnumSet<InsertImageFilesIntoDatabase.Insert> what) {
+
         List<String> filenames = FileUtil.getAsFilenames(
             ImageFilteredDirectory.getImageFilesOfDirectory(new File(directoryName)));
+
         Collections.sort(filenames);
-        InsertImageFilesIntoDatabase scanner = new InsertImageFilesIntoDatabase(
-            filenames, forceUpdate);
-        scanner.addProgressListener(this);
-        updaterOfDirectory.put(directoryName, scanner);
-        directoryOfUpdater.put(scanner, directoryName);
-        return scanner;
+
+        InsertImageFilesIntoDatabase inserter = new InsertImageFilesIntoDatabase(filenames, what);
+
+        inserter.addProgressListener(this);
+        updateDirectoryMapsInserterCreated(directoryName, inserter);
+
+        return inserter;
     }
 
     private synchronized void startUpdateThread() {
         if (!isWait()) {
             setWait(true);
-            Thread thread = new Thread(updaters.remove());
+            Thread thread = new Thread(inserters.remove());
             thread.setPriority(UserSettings.getInstance().getThreadPriority());
             thread.start();
         }
@@ -170,14 +173,8 @@ public final class ImageMetadataToDatabaseArray implements ProgressListener {
 
     @Override
     public void progressStarted(ProgressEvent evt) {
-        if (progressBar != null) {
-            progressBar.setMinimum(evt.getMinimum());
-            if (evt.getMaximum() > 0) {
-                progressBar.setMaximum(evt.getMaximum());
-            }
-            progressBar.setValue(evt.getValue());
-        }
-        logScanDirectory(getDirectoryNameOfUpdater((InsertImageFilesIntoDatabase) evt.getSource()));
+        logUpdateDirectory(getDirectoryNameOfInserter((InsertImageFilesIntoDatabase) evt.getSource()));
+        setProgressBarStarted(evt);
     }
 
     @Override
@@ -185,58 +182,80 @@ public final class ImageMetadataToDatabaseArray implements ProgressListener {
         if (isStarted()) {
             String filename = evt.getInfo().toString();
             messageUpdateCurrentImage(filename);
-            if (progressBar != null) {
-                progressBar.setValue(evt.getValue());
-                progressBar.setToolTipText(filename);
-            }
+            setProgressBarPerformed(evt, filename);
         } else {
-            updaters.clear();
+            inserters.clear();
             evt.stop();
         }
     }
 
     @Override
     public void progressEnded(ProgressEvent evt) {
+        setProgressBarEnded(evt);
+        messageEndUpdateDirectory((InsertImageFilesIntoDatabase) evt.getSource());
+        updateDirectoryMapsProgressEnded((InsertImageFilesIntoDatabase) evt.getSource());
+        checkTasksCompleted();
+        setWait(false);
+        if (inserters.size() > 0) {
+            startUpdateThread();
+        }
+    }
+
+    private void setProgressBarStarted(ProgressEvent evt) {
+        if (progressBar != null) {
+            progressBar.setMinimum(evt.getMinimum());
+            if (evt.getMaximum() > 0) {
+                progressBar.setMaximum(evt.getMaximum());
+            }
+            progressBar.setValue(evt.getValue());
+        }
+    }
+
+    private void setProgressBarPerformed(ProgressEvent evt, String filename) {
+        if (progressBar != null) {
+            progressBar.setValue(evt.getValue());
+            progressBar.setToolTipText(filename);
+        }
+    }
+
+    private void setProgressBarEnded(ProgressEvent evt) {
         if (progressBar != null) {
             progressBar.setValue(isStarted() ? evt.getMaximum() : 0);
             if (tooltipTextProgressEnded != null) {
                 progressBar.setToolTipText(tooltipTextProgressEnded);
             }
         }
-        setWait(false);
-        if (updaters.size() > 0) {
-            startUpdateThread();
-        }
-        InsertImageFilesIntoDatabase scanner = (InsertImageFilesIntoDatabase) evt.getSource();
-        messageEndUpdateDirectory(scanner);
-        removeUpdater(scanner);
-        checkTasksCompleted();
     }
 
-    private void removeUpdater(InsertImageFilesIntoDatabase scanner) {
-        if (scanner != null) {
-            String directoryName = getDirectoryNameOfUpdater(scanner);
-            directoryOfUpdater.remove(scanner);
-            updaterOfDirectory.remove(directoryName);
+    private void updateDirectoryMapsInserterCreated(String directoryName, InsertImageFilesIntoDatabase inserter) {
+        inserterOfDirectory.put(directoryName, inserter);
+        directoryOfInserter.put(inserter, directoryName);
+    }
+
+    private void updateDirectoryMapsProgressEnded(InsertImageFilesIntoDatabase inserter) {
+        if (inserter != null) {
+            String directoryName = getDirectoryNameOfInserter(inserter);
+            directoryOfInserter.remove(inserter);
+            inserterOfDirectory.remove(directoryName);
         }
     }
 
     private void messageEndUpdateDirectory(InsertImageFilesIntoDatabase scanner) {
         MessageFormat message = new MessageFormat(Bundle.getString("ImageMetadataToDatabaseArray.InformationMessage.UpdateMetadataFinished"));
-        Object[] params = {getDirectoryNameOfUpdater(scanner)};
-        Log.logFinest(ImageMetadataToDatabaseArray.class, message.format(params));
+        Object[] params = {getDirectoryNameOfInserter(scanner)};
+        Log.logFinest(InsertImageFilesIntoDatabaseArray.class, message.format(params));
     }
 
     private void messageUpdateCurrentImage(String filename) {
         MessageFormat message = new MessageFormat(Bundle.getString("ImageMetadataToDatabaseArray.InformationMessage.CheckImageForModifications"));
         Object[] params = {filename};
-        Log.logFinest(ImageMetadataToDatabaseArray.class, message.format(params));
+        Log.logFinest(InsertImageFilesIntoDatabaseArray.class, message.format(params));
     }
 
-    private String getDirectoryNameOfUpdater(InsertImageFilesIntoDatabase scanner) {
+    private String getDirectoryNameOfInserter(InsertImageFilesIntoDatabase scanner) {
         String name = null;
         if (scanner != null) {
-            name = directoryOfUpdater.get(scanner);
+            name = directoryOfInserter.get(scanner);
         }
         return name == null ? "" : name; // NOI18N
     }

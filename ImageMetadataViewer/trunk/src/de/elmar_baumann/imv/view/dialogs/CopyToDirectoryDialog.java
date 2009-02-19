@@ -7,6 +7,7 @@ import de.elmar_baumann.imv.event.ProgressListener;
 import de.elmar_baumann.imv.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.tasks.CopyFiles;
+import de.elmar_baumann.imv.tasks.CopyFiles.Options;
 import de.elmar_baumann.imv.view.ViewUtil;
 import de.elmar_baumann.lib.dialog.Dialog;
 import de.elmar_baumann.lib.dialog.DirectoryChooser;
@@ -47,7 +48,7 @@ public final class CopyToDirectoryDialog extends Dialog
     public void addProgressListener(ProgressListener listener) {
         progressListeners.add(listener);
     }
-    
+
     private void notifyProgressListenerStarted(ProgressEvent evt) {
         for (ProgressListener listener : progressListeners) {
             listener.progressStarted(evt);
@@ -91,11 +92,17 @@ public final class CopyToDirectoryDialog extends Dialog
     }
 
     private void start() {
-        copyTask = new CopyFiles(getFiles(), checkBoxForceOverwrite.isSelected());
+        copyTask = new CopyFiles(getFiles(), getCopyOptions());
         copyTask.addProgressListener(this);
         Thread thread = new Thread(copyTask);
         thread.setPriority(UserSettings.getInstance().getThreadPriority());
         thread.start();
+    }
+
+    private Options getCopyOptions() {
+        return checkBoxForceOverwrite.isSelected()
+            ? CopyFiles.Options.FORCE_OVERWRITE
+            : CopyFiles.Options.CONFIRM_OVERWRITE;
     }
 
     private List<Pair<File, File>> getFiles() {

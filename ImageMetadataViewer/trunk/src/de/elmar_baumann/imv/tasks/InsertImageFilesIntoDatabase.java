@@ -21,7 +21,7 @@ import java.util.EnumSet;
 import java.util.List;
 
 /**
- * Write image file metadata into the database if out of date or not existing.
+ * Writes image file metadata into the database if out of date or not existing.
  * 
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
@@ -34,20 +34,20 @@ public final class InsertImageFilesIntoDatabase implements Runnable {
     private final boolean useEmbeddedThumbnails = UserSettings.getInstance().isUseEmbeddedThumbnails();
     private final String externalThumbnailCreationCommand = UserSettings.getInstance().getExternalThumbnailCreationCommand();
     private final List<String> filenames;
-    private final EnumSet<ForceUpdate> forceUpdate;
+    private final EnumSet<Insert> what;
     private boolean stop = false;
     private long startTime;
 
     /**
-     * Force update of Metadata
+     * Metadata to insert.
      */
-    public enum ForceUpdate {
+    public enum Insert {
 
         /**
-         * Don't force insertion or update; update only if the information is
-         * out of date
+         * Insert metadata (EXIF, thumbnail, XMP) if the database's timestamp is
+         * not equal to the file's date
          */
-        DO_NOT_FORCE,
+        OUT_OF_DATE,
         /**
          * Insert into the database the image file's EXIF or update it, even
          * when the image file's timestamp in the database is equal to the last
@@ -71,13 +71,12 @@ public final class InsertImageFilesIntoDatabase implements Runnable {
     /**
      * Constructor.
      * 
-     * @param filenames    names of the <em>image</em> files to be updated
-     * @param forceUpdate  metadata to update regardless of the database's
-     *                     timestamp
+     * @param filenames  names of the <em>image</em> files to be updated
+     * @param what       what to insert
      */
-    public InsertImageFilesIntoDatabase(List<String> filenames, EnumSet<ForceUpdate> forceUpdate) {
+    public InsertImageFilesIntoDatabase(List<String> filenames, EnumSet<Insert> what) {
         this.filenames = filenames;
-        this.forceUpdate = forceUpdate;
+        this.what = what;
     }
 
     /**
@@ -152,18 +151,18 @@ public final class InsertImageFilesIntoDatabase implements Runnable {
     }
 
     private boolean isUpdateThumbnail(String filename) {
-        return forceUpdate.contains(ForceUpdate.THUMBNAIL) ||
-                !isImageFileUpToDate(filename);
-    }
-
-    private boolean isUpdateXmp(String filename) {
-        return forceUpdate.contains(ForceUpdate.XMP) ||
-                !isXmpFileUpToDate(filename);
+        return what.contains(Insert.THUMBNAIL) ||
+            (what.contains(Insert.OUT_OF_DATE) && !isImageFileUpToDate(filename));
     }
 
     private boolean isUpdateExif(String filename) {
-        return forceUpdate.contains(ForceUpdate.EXIF) ||
-                !isImageFileUpToDate(filename);
+        return what.contains(Insert.EXIF) ||
+            (what.contains(Insert.OUT_OF_DATE) && !isImageFileUpToDate(filename));
+    }
+
+    private boolean isUpdateXmp(String filename) {
+        return what.contains(Insert.XMP) ||
+            (what.contains(Insert.OUT_OF_DATE) && !isXmpFileUpToDate(filename));
     }
 
     private boolean isImageFileUpToDate(String filename) {

@@ -67,6 +67,23 @@ public final class UpdaterRenameInXmpColumnsArray implements ProgressListener {
     @Override
     public void progressStarted(ProgressEvent evt) {
         checkStopEvent(evt);
+        setProgressBarStarted(evt);
+    }
+
+    @Override
+    public void progressPerformed(ProgressEvent evt) {
+        checkStopEvent(evt);
+        setProgressBarPerformed(evt);
+    }
+
+    @Override
+    public void progressEnded(ProgressEvent evt) {
+        setProgressBarEnded(evt);
+        setWait(false);
+        startNextThread();
+    }
+
+    private void setProgressBarStarted(ProgressEvent evt) {
         progressBar = (JProgressBar) progressBarProvider.getResource(this);
         if (progressBar != null) {
             progressBar.setMinimum(evt.getMinimum());
@@ -75,22 +92,17 @@ public final class UpdaterRenameInXmpColumnsArray implements ProgressListener {
         }
     }
 
-    @Override
-    public void progressPerformed(ProgressEvent evt) {
-        checkStopEvent(evt);
+    private void setProgressBarPerformed(ProgressEvent evt) {
         if (progressBar != null) {
             progressBar.setValue(evt.getValue());
         }
     }
 
-    @Override
-    public void progressEnded(ProgressEvent evt) {
+    private void setProgressBarEnded(ProgressEvent evt) {
         if (progressBar != null) {
             progressBar.setValue(evt.getValue());
             progressBar = null;
             progressBarProvider.releaseResource(this);
         }
-        setWait(false);
-        startNextThread();
     }
 }
