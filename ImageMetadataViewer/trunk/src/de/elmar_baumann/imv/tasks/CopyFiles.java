@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.tasks;
 
-import de.elmar_baumann.imv.AppSettings;
+import de.elmar_baumann.imv.AppIcons;
 import de.elmar_baumann.imv.Log;
 import de.elmar_baumann.imv.event.ProgressEvent;
 import de.elmar_baumann.imv.event.ProgressListener;
@@ -140,7 +140,7 @@ public final class CopyFiles implements Runnable {
                 Bundle.getString("CopyFiles.ConfirmMessage.OverwriteExisting.Title"),
                 JOptionPane.YES_NO_CANCEL_OPTION,
                 JOptionPane.QUESTION_MESSAGE,
-                AppSettings.getMediumAppIcon());
+                AppIcons.getMediumAppIcon());
             if (option == JOptionPane.CANCEL_OPTION) {
                 stop();
             } else {
@@ -166,6 +166,6 @@ public final class CopyFiles implements Runnable {
                 msg.format(params),
                 Bundle.getString("CopyFiles.ErrorMessageFilesAreEquals.Title"),
                 JOptionPane.ERROR_MESSAGE,
-                AppSettings.getMediumAppIcon());
+                AppIcons.getMediumAppIcon());
     }
 }

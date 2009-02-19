@@ -1,15 +1,8 @@
 package de.elmar_baumann.imv;
 
-import de.elmar_baumann.imv.resource.Bundle;
-import de.elmar_baumann.lib.image.icon.IconUtil;
 import de.elmar_baumann.lib.io.FileFilter;
 import de.elmar_baumann.lib.persistence.PersistentSettings;
-import java.awt.Color;
-import java.awt.Image;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-import javax.swing.Icon;
 
 /**
  * Anwendungseinstellungen.
@@ -35,105 +28,6 @@ public final class AppSettings {
         ".*\\.[tT][iI][fF];" + // NOI18N
         ".*\\.[tT][iI][fF][fF];", // NOI18N
         ";");  // NOI18N
-    private static final String iconPath = "/de/elmar_baumann/imv/resource";
-    /**
-     * Pfad zum kleinen Anwendungssymbol.
-     */
-    public static final String pathAppIconSmall =
-        iconPath + "/icon_app_small.png";  // NOI18N
-    /**
-     * Pfad zum mittelgroßen Anwendungssymbol.
-     */
-    public static final String pathAppIconMedium =
-        iconPath + "/icon_app_medium.png";  // NOI18N
-    public static final String tooltipTextProgressBarDirectory = Bundle.getString("ProgressBarDirectory.TooltipText");
-    public static final String tooltipTextProgressBarCurrentTasks = Bundle.getString("ProgressBarCurrentTasks.TooltipText");
-    public static final String tooltipTextProgressBarScheduledTasks = Bundle.getString("ProgressBarScheduledTasks.TooltipText");
-    /**
-     * Vordergrundfarbe für Tabellentext, der in der Datenbank gespeichert ist.
-     */
-    public static final Color colorForegroundTableTextStoredInDatabase = Color.BLACK;
-    /**
-     * Hintergrundfarbe für Tabellentext, der in der Datenbank gespeichert ist.
-     */
-    public static final Color colorBackgroundTableTextStoredInDatabase = new Color(251, 249, 241);
-    /**
-     * Vordergrundfarbe für selektierten Tabellentext.
-     */
-    public static final Color colorForegroundTableTextSelected = Color.BLACK;
-    /**
-     * Vordergrundfarbe für selektierten Tabellentext.
-     */
-    public static final Color colorBackgroundTableTextSelected = new Color(226, 226, 255);
-    /**
-     * Standard-Vordergrundfarbe für Text in Tabellen.
-     */
-    public static final Color colorForegroundTableTextDefault = Color.BLACK;
-    /**
-     * Standard-Hintergrundfarbe für Text in Tabellen.
-     */
-    public static final Color colorBackgroundTableTextDefault = Color.WHITE;
-    private static List<String> appIconPaths = new ArrayList<String>();
-    private static List<Image> appIcons = new ArrayList<Image>();
-    private static final Icon mediumAppIcon = IconUtil.getImageIcon(pathAppIconMedium);
-    
-
-    static {
-        appIconPaths.add(pathAppIconSmall);
-        appIconPaths.add(pathAppIconMedium);
-    }
-    
-
-    static {
-        appIcons.add(IconUtil.getIconImage(AppSettings.pathAppIconSmall));
-        appIcons.add(IconUtil.getIconImage(AppSettings.pathAppIconMedium));
-    }
-
-    /**
-     * Liefert die Anwendungssymbole.
-     * 
-     * @return Anwendungssymbole
-     */
-    public static List<Image> getAppIcons() {
-        return appIcons;
-    }
-
-    /**
-     * Liefert die Pfade der Anwendungssymbole.
-     * 
-     * @return Pfade
-     */
-    public static List<String> getAppIconPaths() {
-        return appIconPaths;
-    }
-
-    /**
-     * Returns an icon within the app icon path.
-     * 
-     * @param  name  name of the image file
-     * @return icon
-     */
-    public static Icon getIcon(String name) {
-        return IconUtil.getImageIcon(iconPath + "/" + name);
-    }
-
-    /**
-     * Returns the path (directory name) of all icons.
-     * 
-     * @return path
-     */
-    public static String getIconPath() {
-        return iconPath;
-    }
-
-    /**
-     * Liefert das mittelgroße Anwendungssymbol.
-     * 
-     * @return Kleines Anwendungssymbol
-     */
-    public static Icon getMediumAppIcon() {
-        return mediumAppIcon;
-    }
 
     /**
      * Liefert den Namen der Logdatei.

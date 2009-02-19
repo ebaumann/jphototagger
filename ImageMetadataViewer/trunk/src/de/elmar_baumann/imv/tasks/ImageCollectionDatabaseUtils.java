@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.tasks;
 
-import de.elmar_baumann.imv.AppSettings;
+import de.elmar_baumann.imv.AppIcons;
 import de.elmar_baumann.imv.Log;
 import de.elmar_baumann.imv.database.DatabaseImageCollections;
 import de.elmar_baumann.imv.resource.Bundle;
@@ -145,7 +145,7 @@ public final class ImageCollectionDatabaseUtils {
                 msg.format(params),
                 Bundle.getString("ImageCollectionToDatabase.ErrorMessage.Title"),
                 JOptionPane.ERROR_MESSAGE,
-                AppSettings.getMediumAppIcon());
+                AppIcons.getMediumAppIcon());
     }
 
     private boolean confirmDelete(String collectionName, String message) {
@@ -157,7 +157,7 @@ public final class ImageCollectionDatabaseUtils {
                 Bundle.getString("ImageCollectionToDatabase.ConfirmMessage.Delete.Title"),
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.QUESTION_MESSAGE,
-                AppSettings.getMediumAppIcon()) == JOptionPane.YES_OPTION;
+                AppIcons.getMediumAppIcon()) == JOptionPane.YES_OPTION;
     }
 
     private String inputCollectionName(String defaultName) {
@@ -174,7 +174,7 @@ public final class ImageCollectionDatabaseUtils {
                         Bundle.getString("ImageCollectionToDatabase.ConfirmMessage.InputNewCollectionName.Title"),
                         JOptionPane.YES_NO_OPTION,
                         JOptionPane.QUESTION_MESSAGE,
-                        AppSettings.getMediumAppIcon()) == JOptionPane.YES_OPTION;
+                        AppIcons.getMediumAppIcon()) == JOptionPane.YES_OPTION;
                 name = null;
             }
             if (willAdd) {

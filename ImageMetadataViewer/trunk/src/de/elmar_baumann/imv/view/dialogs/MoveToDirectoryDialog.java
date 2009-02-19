@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.view.dialogs;
 
-import de.elmar_baumann.imv.AppSettings;
+import de.elmar_baumann.imv.AppIcons;
 import de.elmar_baumann.imv.Log;
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.event.FileSystemAction;
@@ -49,7 +49,7 @@ public final class MoveToDirectoryDialog extends Dialog
     public MoveToDirectoryDialog() {
         super((java.awt.Frame) null, false);
         initComponents();
-        setIconImages(AppSettings.getAppIcons());
+        setIconImages(AppIcons.getAppIcons());
         setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
         registerKeyStrokes();
     }
@@ -83,7 +83,7 @@ public final class MoveToDirectoryDialog extends Dialog
                 Bundle.getString("MoveToDirectoryDialog.ErrorMessage.AbortBeforeClose"),
                 Bundle.getString("MoveToDirectoryDialog.ErrorMessage.AbortBeforeClose.Title"),
                 JOptionPane.INFORMATION_MESSAGE,
-                AppSettings.getMediumAppIcon());
+                AppIcons.getMediumAppIcon());
         } else {
             setVisible(false);
         }
@@ -96,7 +96,7 @@ public final class MoveToDirectoryDialog extends Dialog
                 Bundle.getString("MoveToDirectoryDialog.ErrorMessage.CheckLogfile"),
                 Bundle.getString("MoveToDirectoryDialog.ErrorMessage.CheckLogfile.Title"),
                 JOptionPane.ERROR_MESSAGE,
-                AppSettings.getMediumAppIcon());
+                AppIcons.getMediumAppIcon());
         }
     }
 

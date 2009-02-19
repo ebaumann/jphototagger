@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.view.dialogs;
 
-import de.elmar_baumann.imv.AppSettings;
+import de.elmar_baumann.imv.AppIcons;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.dialog.Dialog;
 import de.elmar_baumann.lib.persistence.PersistentComponentSizes;
@@ -39,7 +39,7 @@ public final class DatabaseMaintainanceDialog extends Dialog {
     }
 
     private void postInitComponents() {
-        setIconImages(AppSettings.getAppIcons());
+        setIconImages(AppIcons.getAppIcons());
         setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
         registerKeyStrokes();
     }
@@ -59,7 +59,7 @@ public final class DatabaseMaintainanceDialog extends Dialog {
             Bundle.getString("DatabaseMaintainanceDialog.ErrorMessage.WaitBeforeClose"),
             Bundle.getString("DatabaseMaintainanceDialog.ErrorMessage.WaitBeforeClose.Title"),
             JOptionPane.INFORMATION_MESSAGE,
-            AppSettings.getMediumAppIcon());
+            AppIcons.getMediumAppIcon());
     }
 
     @Override

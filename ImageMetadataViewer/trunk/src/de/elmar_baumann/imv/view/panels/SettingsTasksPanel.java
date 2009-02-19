@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.view.panels;
 
-import de.elmar_baumann.imv.AppSettings;
+import de.elmar_baumann.imv.AppIcons;
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.database.DatabaseAutoscanDirectories;
 import de.elmar_baumann.imv.event.ListenerProvider;
@@ -118,7 +118,7 @@ public final class SettingsTasksPanel extends javax.swing.JPanel
             msg.format(params),
             Bundle.getString("UserSettingsDialog.ErrorMessage.InsertAutoscanDirectory.Title"),
             JOptionPane.ERROR_MESSAGE,
-            AppSettings.getMediumAppIcon());
+            AppIcons.getMediumAppIcon());
     }
 
     private void messageErrorDeleteAutoscanDirectory(String directoryName) {
@@ -129,7 +129,7 @@ public final class SettingsTasksPanel extends javax.swing.JPanel
             msg.format(params),
             Bundle.getString("UserSettingsDialog.ErrorMessage.DeleteAutoscanDirectory.Title"),
             JOptionPane.ERROR_MESSAGE,
-            AppSettings.getMediumAppIcon());
+            AppIcons.getMediumAppIcon());
     }
 
     private void handleKeyEventListTasksAutoscanDirectories(KeyEvent evt) {

@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.view.renderer;
 
-import de.elmar_baumann.imv.AppSettings;
+import de.elmar_baumann.imv.AppIcons;
 import de.elmar_baumann.imv.data.Program;
 import java.awt.Component;
 import java.io.File;
@@ -17,8 +17,8 @@ import javax.swing.JList;
  */
 public final class ListCellRendererActions extends DefaultListCellRenderer {
 
-    private static final Icon iconAction = AppSettings.getIcon("icon_action.png"); // NOI18N
-    private static final Icon iconError = AppSettings.getIcon("icon_error.png"); // NOI18N
+    private static final Icon iconAction = AppIcons.getIcon("icon_action.png"); // NOI18N
+    private static final Icon iconError = AppIcons.getIcon("icon_error.png"); // NOI18N
 
     @Override
     public Component getListCellRendererComponent(JList list, Object value,

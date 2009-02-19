@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.view.dialogs;
 
-import de.elmar_baumann.imv.AppSettings;
+import de.elmar_baumann.imv.AppIcons;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.dialog.Dialog;
 import de.elmar_baumann.lib.persistence.PersistentComponentSizes;
@@ -28,7 +28,7 @@ public final class UpdateMetadataOfDirectoriesDialog extends Dialog {
     }
 
     private void postInitComponents() {
-        setIconImages(AppSettings.getAppIcons());
+        setIconImages(AppIcons.getAppIcons());
         PersistentComponentSizes.getSizeAndLocation(this);
         setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
         registerKeyStrokes();

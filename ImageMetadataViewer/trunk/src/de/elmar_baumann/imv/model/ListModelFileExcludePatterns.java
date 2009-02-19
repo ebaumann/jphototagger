@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.model;
 
-import de.elmar_baumann.imv.AppSettings;
+import de.elmar_baumann.imv.AppIcons;
 import de.elmar_baumann.imv.database.DatabaseFileExcludePattern;
 import java.text.MessageFormat;
 import java.util.List;
@@ -55,7 +55,7 @@ public final class ListModelFileExcludePatterns extends DefaultListModel {
             null, msg.format(new Object[]{pattern}),
             "Fehler",
             JOptionPane.ERROR_MESSAGE,
-            AppSettings.getMediumAppIcon());
+            AppIcons.getMediumAppIcon());
     }
 
     private void addElements() {

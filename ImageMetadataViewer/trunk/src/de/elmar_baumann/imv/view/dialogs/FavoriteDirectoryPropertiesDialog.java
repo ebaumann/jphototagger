@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.view.dialogs;
 
-import de.elmar_baumann.imv.AppSettings;
+import de.elmar_baumann.imv.AppIcons;
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.database.DatabaseFavoriteDirectories;
 import de.elmar_baumann.imv.resource.Bundle;
@@ -25,7 +25,7 @@ import javax.swing.JOptionPane;
  */
 public final class FavoriteDirectoryPropertiesDialog extends Dialog {
 
-    private static final List<Image> appIcons = AppSettings.getAppIcons();
+    private static final List<Image> appIcons = AppIcons.getAppIcons();
     private static final String keyLastDirectory = "de.elmar_baumann.imv.view.dialogs.FavoriteDirectoryPropertiesDialog.LastDirectory"; // NOI18N
     private final DatabaseFavoriteDirectories db = DatabaseFavoriteDirectories.getInstance();
     private String lastDirectory = ""; // NOI18N
@@ -129,7 +129,7 @@ public final class FavoriteDirectoryPropertiesDialog extends Dialog {
                     msg.format(params),
                     Bundle.getString("FavoriteDirectoryPropertiesDialog.ErrorMessage.FavoriteExists.Title"),
                     JOptionPane.ERROR_MESSAGE,
-                    AppSettings.getMediumAppIcon());
+                    AppIcons.getMediumAppIcon());
             } else {
                 accepted = true;
                 setVisible(false);
@@ -148,7 +148,7 @@ public final class FavoriteDirectoryPropertiesDialog extends Dialog {
                 Bundle.getString("FavoriteDirectoryPropertiesDialog.ErrorMessage.InvalidInput"),
                 Bundle.getString("FavoriteDirectoryPropertiesDialog.ErrorMessage.InvalidInput.Title"),
                 JOptionPane.ERROR_MESSAGE,
-                AppSettings.getMediumAppIcon());
+                AppIcons.getMediumAppIcon());
             return false;
         }
         return true;

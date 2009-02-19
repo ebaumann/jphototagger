@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.controller.thumbnail;
 
-import de.elmar_baumann.imv.AppSettings;
+import de.elmar_baumann.imv.AppTexts;
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.tasks.InsertImageFilesIntoDatabase;
 import de.elmar_baumann.imv.event.ProgressEvent;
@@ -117,7 +117,7 @@ public final class ControllerCreateMetadataOfSelectedThumbnails
     public void progressEnded(ProgressEvent evt) {
         if (progressBar != null) {
             progressBar.setValue(evt.getValue());
-            progressBar.setToolTipText(AppSettings.tooltipTextProgressBarCurrentTasks);
+            progressBar.setToolTipText(AppTexts.tooltipTextProgressBarCurrentTasks);
             progressBar = null;
             progressBarProvider.releaseResource(this);
         }

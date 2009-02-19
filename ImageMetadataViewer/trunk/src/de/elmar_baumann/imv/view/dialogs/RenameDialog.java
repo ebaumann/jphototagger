@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.view.dialogs;
 
-import de.elmar_baumann.imv.AppSettings;
+import de.elmar_baumann.imv.AppIcons;
 import de.elmar_baumann.imv.Log;
 import de.elmar_baumann.imv.controller.filesystem.FilenameFormatDate;
 import de.elmar_baumann.imv.controller.filesystem.FilenameFormatEmptyString;
@@ -58,7 +58,7 @@ public final class RenameDialog extends Dialog {
     private void postInitComponents() {
         listenerProvider = ListenerProvider.getInstance();
         renameFileListeners = listenerProvider.getRenameFileListeners();
-        setIconImages(AppSettings.getAppIcons());
+        setIconImages(AppIcons.getAppIcons());
         setComboBoxModels();
         setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
         registerKeyStrokes();
@@ -213,7 +213,7 @@ public final class RenameDialog extends Dialog {
                 Bundle.getString("RenameDialog.ErrorMessage.InvalidInput"),
                 Bundle.getString("RenameDialog.ErrorMessage.InvalidInput.Title"),
                 JOptionPane.ERROR_MESSAGE,
-                AppSettings.getMediumAppIcon());
+                AppIcons.getMediumAppIcon());
         }
         return defined;
     }
@@ -226,7 +226,7 @@ public final class RenameDialog extends Dialog {
                 Bundle.getString("RenameDialog.ErrorMessage.FilenamesEquals"),
                 Bundle.getString("RenameDialog.ErrorMessage.FilenamesEquals.Title"),
                 JOptionPane.ERROR_MESSAGE,
-                AppSettings.getMediumAppIcon());
+                AppIcons.getMediumAppIcon());
         }
         return !equals;
     }
@@ -241,7 +241,7 @@ public final class RenameDialog extends Dialog {
                 msg.format(params),
                 Bundle.getString("RenameDialog.ErrorMessage.NewFileExists.Title"),
                 JOptionPane.ERROR_MESSAGE,
-                AppSettings.getMediumAppIcon());
+                AppIcons.getMediumAppIcon());
         }
         return !exists;
     }
@@ -325,7 +325,7 @@ public final class RenameDialog extends Dialog {
             Bundle.getString("RenameDialog.ConfirmMessage.RenameNextFile.Title"),
             JOptionPane.YES_NO_OPTION,
             JOptionPane.ERROR_MESSAGE,
-            AppSettings.getMediumAppIcon()) == JOptionPane.NO_OPTION) {
+            AppIcons.getMediumAppIcon()) == JOptionPane.NO_OPTION) {
             stop = true;
             setVisible(false);
             dispose();

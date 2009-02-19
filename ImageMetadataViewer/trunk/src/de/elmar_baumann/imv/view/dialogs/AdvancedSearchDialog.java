@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.view.dialogs;
 
-import de.elmar_baumann.imv.AppSettings;
+import de.elmar_baumann.imv.AppIcons;
 import de.elmar_baumann.imv.data.SavedSearch;
 import de.elmar_baumann.imv.event.SearchEvent;
 import de.elmar_baumann.imv.event.SearchListener;
@@ -25,7 +25,7 @@ public final class AdvancedSearchDialog extends Dialog implements SearchListener
     }
 
     private void postInitComponents() {
-        setIconImages(AppSettings.getAppIcons());
+        setIconImages(AppIcons.getAppIcons());
         setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
         registerKeyStrokes();
     }

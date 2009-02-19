@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.database.metadata.selections;
 
-import de.elmar_baumann.imv.AppSettings;
+import de.elmar_baumann.imv.AppIcons;
 import de.elmar_baumann.imv.database.metadata.Table;
 import de.elmar_baumann.imv.database.metadata.collections.TableCollectionNames;
 import de.elmar_baumann.imv.database.metadata.collections.TableCollections;
@@ -22,12 +22,12 @@ import javax.swing.Icon;
  */
 public final class TableIcons {
 
-    private static final Icon iconUndefined = AppSettings.getIcon("icon_table_undefined.png"); // NOI18N
-    private static final Icon iconFiles = AppSettings.getIcon("icon_file.png"); // NOI18N
-    private static final Icon iconExif = AppSettings.getIcon("icon_exif.png"); // NOI18N
-    private static final Icon iconXmp = AppSettings.getIcon("icon_xmp.png"); // NOI18N
-    private static final Icon iconImageCollection = AppSettings.getIcon("icon_imagecollection.png"); // NOI18N
-    private static final Icon iconSavedSearch = AppSettings.getIcon("icon_search.png"); // NOI18N
+    private static final Icon iconUndefined = AppIcons.getIcon("icon_table_undefined.png"); // NOI18N
+    private static final Icon iconFiles = AppIcons.getIcon("icon_file.png"); // NOI18N
+    private static final Icon iconExif = AppIcons.getIcon("icon_exif.png"); // NOI18N
+    private static final Icon iconXmp = AppIcons.getIcon("icon_xmp.png"); // NOI18N
+    private static final Icon iconImageCollection = AppIcons.getIcon("icon_imagecollection.png"); // NOI18N
+    private static final Icon iconSavedSearch = AppIcons.getIcon("icon_search.png"); // NOI18N
     private static final Map<Table, Icon> iconOfTable = new HashMap<Table, Icon>();
     
 

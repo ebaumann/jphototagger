@@ -951,14 +951,14 @@
               <Font name="Dialog" size="8" style="1"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="AppSettings.tooltipTextProgressBarDirectory" type="code"/>
+              <Connection code="AppTexts.tooltipTextProgressBarDirectory" type="code"/>
             </Property>
           </Properties>
         </Component>
         <Component class="javax.swing.JProgressBar" name="progressBarCurrentTasks">
           <Properties>
             <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="AppSettings.tooltipTextProgressBarCurrentTasks" type="code"/>
+              <Connection code="AppTexts.tooltipTextProgressBarCurrentTasks" type="code"/>
             </Property>
           </Properties>
         </Component>
@@ -994,7 +994,7 @@
             <Component class="javax.swing.JProgressBar" name="progressBarScheduledTasks">
               <Properties>
                 <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="AppSettings.tooltipTextProgressBarScheduledTasks" type="code"/>
+                  <Connection code="AppTexts.tooltipTextProgressBarScheduledTasks" type="code"/>
                 </Property>
               </Properties>
             </Component>

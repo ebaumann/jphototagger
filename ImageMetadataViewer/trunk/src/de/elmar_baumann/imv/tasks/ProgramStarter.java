@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.tasks;
 
-import de.elmar_baumann.imv.AppSettings;
+import de.elmar_baumann.imv.AppIcons;
 import de.elmar_baumann.imv.Log;
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.data.Program;
@@ -74,7 +74,7 @@ public final class ProgramStarter {
                 Bundle.getString("ProgramStarter.ErrorMessage.Selection"),
                 Bundle.getString("ProgramStarter.ErrorMessage.Selection.Title"),
                 JOptionPane.ERROR_MESSAGE,
-                AppSettings.getMediumAppIcon());
+                AppIcons.getMediumAppIcon());
     }
 
     private class Execute extends Thread {

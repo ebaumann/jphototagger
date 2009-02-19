@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.controller.tasks;
 
-import de.elmar_baumann.imv.AppSettings;
+import de.elmar_baumann.imv.AppTexts;
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.database.Database;
 import de.elmar_baumann.imv.database.DatabaseAutoscanDirectories;
@@ -59,7 +59,7 @@ public final class ControllerAutoUpdateMetadataTask
 
     private void createUpdaterArray() {
         updaterArray = new InsertImageFilesIntoDatabaseArray(progressBar);
-        updaterArray.setTooltipTextIfProgressEnded(AppSettings.tooltipTextProgressBarScheduledTasks);
+        updaterArray.setTooltipTextIfProgressEnded(AppTexts.tooltipTextProgressBarScheduledTasks);
     }
 
     private boolean isSystemDirectory(String directoryName) {

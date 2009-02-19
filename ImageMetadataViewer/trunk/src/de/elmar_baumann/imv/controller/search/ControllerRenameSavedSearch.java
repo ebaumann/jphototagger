@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.controller.search;
 
-import de.elmar_baumann.imv.AppSettings;
+import de.elmar_baumann.imv.AppIcons;
 import de.elmar_baumann.imv.data.SavedSearch;
 import de.elmar_baumann.imv.database.DatabaseSavedSearches;
 import de.elmar_baumann.imv.model.ListModelSavedSearches;
@@ -93,7 +93,7 @@ public final class ControllerRenameSavedSearch implements ActionListener {
                 Bundle.getString("ControllerRenameSavedSearch.ConfirmMessage.ChangeNameBecauseExists.Title"),
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.QUESTION_MESSAGE,
-                AppSettings.getMediumAppIcon()) == JOptionPane.YES_OPTION;
+                AppIcons.getMediumAppIcon()) == JOptionPane.YES_OPTION;
     }
 
     private void messageErrorRename(String searchName) {
@@ -104,7 +104,7 @@ public final class ControllerRenameSavedSearch implements ActionListener {
                 msg.format(param),
                 Bundle.getString("ControllerRenameSavedSearch.ErrorMessage.RenameFailed.Title"),
                 JOptionPane.ERROR_MESSAGE,
-                AppSettings.getMediumAppIcon());
+                AppIcons.getMediumAppIcon());
     }
 
     private void messageErrorRenameGetUpdate(String searchName) {
@@ -115,6 +115,6 @@ public final class ControllerRenameSavedSearch implements ActionListener {
                 msg.format(param),
                 Bundle.getString("ControllerRenameSavedSearch.ErrorMessage.SavedSearchWasRenamedButCouldntBeLoadedTitle"),
                 JOptionPane.ERROR_MESSAGE,
-                AppSettings.getMediumAppIcon());
+                AppIcons.getMediumAppIcon());
     }
 }

@@ -1,5 +1,6 @@
 package de.elmar_baumann.imv.controller.misc;
 
+import de.elmar_baumann.imv.AppIcons;
 import de.elmar_baumann.imv.AppSettings;
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.event.ErrorEvent;
@@ -25,7 +26,7 @@ public final class ControllerLogfileDialog implements ActionListener, ErrorListe
 
     private final AppPanel appPanel = Panels.getInstance().getAppPanel();
     private final JButton buttonLogfileDialog = appPanel.getButtonLogfileDialog();
-    private static final String iconPath = AppSettings.getIconPath();
+    private static final String iconPath = AppIcons.getIconPath();
     private static final ImageIcon iconOk = IconUtil.getImageIcon(iconPath + "/icon_ok.png");
     private static final ImageIcon iconError = IconUtil.getImageIcon(iconPath + "/icon_error.png");
 

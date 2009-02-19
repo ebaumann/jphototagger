@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.view.panels;
 
-import de.elmar_baumann.imv.AppSettings;
+import de.elmar_baumann.imv.AppIcons;
 import de.elmar_baumann.imv.data.SavedSearch;
 import de.elmar_baumann.imv.data.SavedSearchPanel;
 import de.elmar_baumann.imv.data.SavedSearchParamStatement;
@@ -71,7 +71,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
                 Bundle.getString("AdvancedSearchDialog.ErrorMessage.InvalidQuery"),
                 Bundle.getString("AdvancedSearchDialog.ErrorMessage.InvalidQuery.Title"),
                 JOptionPane.ERROR_MESSAGE,
-                AppSettings.getMediumAppIcon());
+                AppIcons.getMediumAppIcon());
         }
         return canSearch;
     }
@@ -177,7 +177,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
                 Bundle.getString("AdvancedSearchDialog.ConfirmMessage.SaveChanges.Title"),
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.QUESTION_MESSAGE,
-                AppSettings.getMediumAppIcon()) ==
+                AppIcons.getMediumAppIcon()) ==
                 JOptionPane.YES_OPTION) {
                 saveSearch();
             }

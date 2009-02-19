@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.controller.metadata;
 
-import de.elmar_baumann.imv.AppSettings;
+import de.elmar_baumann.imv.AppIcons;
 import de.elmar_baumann.imv.data.MetadataEditTemplate;
 import de.elmar_baumann.imv.database.DatabaseMetadataEditTemplates;
 import de.elmar_baumann.imv.event.ListenerProvider;
@@ -116,7 +116,7 @@ public final class ControllerMetadataTemplates implements ActionListener, Metada
                 Bundle.getString("ControllerMetadataTemplates.ConfirmMessage.Delete.Title"),
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.QUESTION_MESSAGE,
-                AppSettings.getMediumAppIcon()) == JOptionPane.YES_OPTION;
+                AppIcons.getMediumAppIcon()) == JOptionPane.YES_OPTION;
     }
 
     private void renameTemplate() {
@@ -172,6 +172,6 @@ public final class ControllerMetadataTemplates implements ActionListener, Metada
                 Bundle.getString("ControllerMetadataTemplates.ConfirmMessage.OverwriteExistingTemplate.Title"),
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.QUESTION_MESSAGE,
-                AppSettings.getMediumAppIcon()) == JOptionPane.NO_OPTION;
+                AppIcons.getMediumAppIcon()) == JOptionPane.NO_OPTION;
     }
 }

@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.model;
 
-import de.elmar_baumann.imv.AppSettings;
+import de.elmar_baumann.imv.AppIcons;
 import de.elmar_baumann.imv.data.MetadataEditTemplate;
 import de.elmar_baumann.imv.database.DatabaseMetadataEditTemplates;
 import de.elmar_baumann.imv.resource.Bundle;
@@ -108,6 +108,6 @@ public final class ComboBoxModelMetadataEditTemplates extends DefaultComboBoxMod
             msg.format(params),
             Bundle.getString("ComboBoxModelMetadataEditTemplates.ErrorMessage.Template.Title"),
             JOptionPane.ERROR_MESSAGE,
-            AppSettings.getMediumAppIcon());
+            AppIcons.getMediumAppIcon());
     }
 }

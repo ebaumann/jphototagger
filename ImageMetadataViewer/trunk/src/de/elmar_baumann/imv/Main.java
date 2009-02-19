@@ -49,7 +49,7 @@ public final class Main {
         PersistentSettings settings = PersistentSettings.getInstance();
         settings.setAppName("ImageMetaDataViewer"); // NOI18N NEVER CHANGE NAME AND LOCATION
         settings.removeEmptyKeys();
-        Settings.INSTANCE.setIconImagesPath(AppSettings.getAppIconPaths());
+        Settings.INSTANCE.setIconImagesPath(AppIcons.getAppIconPaths());
     }
 
     private static void lock() {

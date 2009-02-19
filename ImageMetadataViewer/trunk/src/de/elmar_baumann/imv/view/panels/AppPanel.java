@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.view.panels;
 
-import de.elmar_baumann.imv.AppSettings;
+import de.elmar_baumann.imv.AppTexts;
 import de.elmar_baumann.lib.renderer.TreeCellRendererDirectories;
 import de.elmar_baumann.imv.event.AppExitListener;
 import de.elmar_baumann.imv.resource.Bundle;
@@ -781,13 +781,13 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
         labelStatusbar.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
 
         progressBarCreateMetadataOfCurrentThumbnails.setFont(new java.awt.Font("Dialog", 1, 8));
-        progressBarCreateMetadataOfCurrentThumbnails.setToolTipText(AppSettings.tooltipTextProgressBarDirectory);
+        progressBarCreateMetadataOfCurrentThumbnails.setToolTipText(AppTexts.tooltipTextProgressBarDirectory);
 
-        progressBarCurrentTasks.setToolTipText(AppSettings.tooltipTextProgressBarCurrentTasks);
+        progressBarCurrentTasks.setToolTipText(AppTexts.tooltipTextProgressBarCurrentTasks);
 
         textFieldSearch.setToolTipText(Bundle.getString("AppPanel.textFieldSearch.toolTipText")); // NOI18N
 
-        progressBarScheduledTasks.setToolTipText(AppSettings.tooltipTextProgressBarScheduledTasks);
+        progressBarScheduledTasks.setToolTipText(AppTexts.tooltipTextProgressBarScheduledTasks);
 
         buttonStopScheduledTasks.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icon_stop_scheduled_tasks_enabled.png"))); // NOI18N
         buttonStopScheduledTasks.setAlignmentY(0.0F);

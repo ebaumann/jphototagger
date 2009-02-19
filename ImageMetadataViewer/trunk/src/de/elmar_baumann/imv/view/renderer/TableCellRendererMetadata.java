@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.view.renderer;
 
-import de.elmar_baumann.imv.AppSettings;
+import de.elmar_baumann.imv.AppColors;
 import java.awt.Font;
 import javax.swing.JLabel;
 
@@ -24,11 +24,11 @@ public class TableCellRendererMetadata {
      */
     protected static void setDefaultCellColors(JLabel cellLabel, boolean isSelected) {
         cellLabel.setForeground(isSelected
-            ? AppSettings.colorForegroundTableTextSelected
-            : AppSettings.colorForegroundTableTextDefault);
+            ? AppColors.colorForegroundTableTextSelected
+            : AppColors.colorForegroundTableTextDefault);
         cellLabel.setBackground(isSelected
-            ? AppSettings.colorBackgroundTableTextSelected
-            : AppSettings.colorBackgroundTableTextDefault);
+            ? AppColors.colorBackgroundTableTextSelected
+            : AppColors.colorBackgroundTableTextDefault);
         cellLabel.setOpaque(true);
     }
 
@@ -59,8 +59,8 @@ public class TableCellRendererMetadata {
      * @param cellLabel Label  Label
      */
     protected void setIsStoredInDatabaseColors(JLabel cellLabel) {
-        cellLabel.setForeground(AppSettings.colorForegroundTableTextStoredInDatabase);
-        cellLabel.setBackground(AppSettings.colorBackgroundTableTextStoredInDatabase);
+        cellLabel.setForeground(AppColors.colorForegroundTableTextStoredInDatabase);
+        cellLabel.setBackground(AppColors.colorBackgroundTableTextStoredInDatabase);
     }
 
     private void initFonts(JLabel cellLabel) {

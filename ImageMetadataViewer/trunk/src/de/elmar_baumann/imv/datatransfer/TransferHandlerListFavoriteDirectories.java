@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.datatransfer;
 
-import de.elmar_baumann.imv.AppSettings;
+import de.elmar_baumann.imv.AppIcons;
 import de.elmar_baumann.imv.data.FavoriteDirectory;
 import de.elmar_baumann.imv.model.ListModelFavoriteDirectories;
 import de.elmar_baumann.imv.resource.Panels;
@@ -97,7 +97,7 @@ public final class TransferHandlerListFavoriteDirectories extends TransferHandle
             "Frage",
             JOptionPane.YES_NO_OPTION,
             JOptionPane.QUESTION_MESSAGE,
-            AppSettings.getMediumAppIcon()) == JOptionPane.YES_OPTION;
+            AppIcons.getMediumAppIcon()) == JOptionPane.YES_OPTION;
     }
 
     private void handleDroppedString(TransferSupport transferSupport) {

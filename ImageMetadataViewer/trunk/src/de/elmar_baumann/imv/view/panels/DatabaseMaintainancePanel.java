@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.view.panels;
 
-import de.elmar_baumann.imv.AppSettings;
+import de.elmar_baumann.imv.AppIcons;
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.event.ProgressEvent;
 import de.elmar_baumann.imv.event.ProgressListener;
@@ -22,7 +22,7 @@ import javax.swing.JLabel;
 public final class DatabaseMaintainancePanel extends javax.swing.JPanel
     implements ProgressListener {
 
-    private static final Icon iconFinished = AppSettings.getIcon("icon_finished.png"); // NOI18N
+    private static final Icon iconFinished = AppIcons.getIcon("icon_finished.png"); // NOI18N
     private final Stack<Runnable> runnables = new Stack<Runnable>();
     private final Map<Runnable, JLabel> finishedLabelOfRunnable = new HashMap<Runnable, JLabel>();
     private boolean stop = false;

@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.view.renderer;
 
-import de.elmar_baumann.imv.AppSettings;
+import de.elmar_baumann.imv.AppIcons;
 import java.awt.Component;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.Icon;
@@ -15,7 +15,7 @@ import javax.swing.JList;
  */
 public final class ListCellRendererSavedSearches extends DefaultListCellRenderer {
 
-    private static final Icon icon = AppSettings.getIcon("icon_search.png"); // NOI18N
+    private static final Icon icon = AppIcons.getIcon("icon_search.png"); // NOI18N
 
     @Override
     public Component getListCellRendererComponent(JList list, Object value,

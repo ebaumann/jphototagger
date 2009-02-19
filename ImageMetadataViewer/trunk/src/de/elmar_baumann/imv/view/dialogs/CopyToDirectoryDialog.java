@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.view.dialogs;
 
-import de.elmar_baumann.imv.AppSettings;
+import de.elmar_baumann.imv.AppIcons;
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.event.ProgressEvent;
 import de.elmar_baumann.imv.event.ProgressListener;
@@ -40,7 +40,7 @@ public final class CopyToDirectoryDialog extends Dialog
     public CopyToDirectoryDialog() {
         super((java.awt.Frame) null, false);
         initComponents();
-        setIconImages(AppSettings.getAppIcons());
+        setIconImages(AppIcons.getAppIcons());
         setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
         registerKeyStrokes();
     }
@@ -74,7 +74,7 @@ public final class CopyToDirectoryDialog extends Dialog
                 Bundle.getString("CopyToDirectoryDialog.ErrorMessage.AbortBeforeClose"),
                 Bundle.getString("CopyToDirectoryDialog.ErrorMessage.AbortBeforeClose.Title"),
                 JOptionPane.INFORMATION_MESSAGE,
-                AppSettings.getMediumAppIcon());
+                AppIcons.getMediumAppIcon());
         } else {
             setVisible(false);
         }
@@ -87,7 +87,7 @@ public final class CopyToDirectoryDialog extends Dialog
                 Bundle.getString("CopyToDirectoryDialog.ErrorMessage.CopyErrorsOccured"),
                 Bundle.getString("CopyToDirectoryDialog.ErrorMessage.CopyErrorsOccured.Title"),
                 JOptionPane.ERROR_MESSAGE,
-                AppSettings.getMediumAppIcon());
+                AppIcons.getMediumAppIcon());
         }
     }
 

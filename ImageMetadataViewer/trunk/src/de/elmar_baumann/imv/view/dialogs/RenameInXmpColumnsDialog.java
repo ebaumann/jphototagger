@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.view.dialogs;
 
-import de.elmar_baumann.imv.AppSettings;
+import de.elmar_baumann.imv.AppIcons;
 import de.elmar_baumann.imv.database.metadata.Column;
 import de.elmar_baumann.imv.database.metadata.selections.EditColumns;
 import de.elmar_baumann.imv.resource.Bundle;
@@ -29,7 +29,7 @@ public final class RenameInXmpColumnsDialog extends Dialog {
     }
 
     private void postInitComponents() {
-        setIconImages(AppSettings.getAppIcons());
+        setIconImages(AppIcons.getAppIcons());
         setModel();
         setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
         registerKeyStrokes();
@@ -89,7 +89,7 @@ public final class RenameInXmpColumnsDialog extends Dialog {
             Bundle.getString("RenameInXmpColumnsDialog.ErrorMessage.MissingReplaceString"),
             Bundle.getString("RenameInXmpColumnsDialog.ErrorMessage.MissingReplaceString.Title"),
             JOptionPane.ERROR_MESSAGE,
-            AppSettings.getMediumAppIcon());
+            AppIcons.getMediumAppIcon());
     }
 
     @Override

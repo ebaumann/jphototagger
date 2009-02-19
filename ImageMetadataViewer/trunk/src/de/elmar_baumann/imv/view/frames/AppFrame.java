@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.view.frames;
 
-import de.elmar_baumann.imv.AppSettings;
+import de.elmar_baumann.imv.AppIcons;
 import de.elmar_baumann.imv.AppInfo;
 import de.elmar_baumann.imv.AppLock;
 import de.elmar_baumann.imv.event.AppExitListener;
@@ -214,7 +214,7 @@ public final class AppFrame extends javax.swing.JFrame {
     }
 
     private void setTitleAndFrameIcon() {
-        setIconImages(AppSettings.getAppIcons());
+        setIconImages(AppIcons.getAppIcons());
     }
 
     private void quit() {

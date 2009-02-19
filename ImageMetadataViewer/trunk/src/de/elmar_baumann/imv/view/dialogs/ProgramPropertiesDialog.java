@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.view.dialogs;
 
-import de.elmar_baumann.imv.AppSettings;
+import de.elmar_baumann.imv.AppIcons;
 import de.elmar_baumann.imv.data.Program;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.component.TabLeavingTextArea;
@@ -103,7 +103,7 @@ public final class ProgramPropertiesDialog extends Dialog {
     }
 
     private void postInitComponents() {
-        setIconImages(AppSettings.getAppIcons());
+        setIconImages(AppIcons.getAppIcons());
         if (action) {
             setActionTexts();
         } else {
@@ -166,7 +166,7 @@ public final class ProgramPropertiesDialog extends Dialog {
             string,
             Bundle.getString("ProgramPropertiesDialog.ErrorMessage.Title"),
             JOptionPane.ERROR_MESSAGE,
-            AppSettings.getMediumAppIcon());
+            AppIcons.getMediumAppIcon());
     }
 
     /** This method is called from within the constructor to

@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.view.panels;
 
-import de.elmar_baumann.imv.AppSettings;
+import de.elmar_baumann.imv.AppIcons;
 import de.elmar_baumann.imv.data.Program;
 import de.elmar_baumann.imv.event.ProgramActionEvent;
 import de.elmar_baumann.imv.event.ProgramActionListener;
@@ -121,7 +121,7 @@ public final class ActionsPanel extends javax.swing.JPanel {
             "Frage",
             JOptionPane.YES_NO_OPTION,
             JOptionPane.QUESTION_MESSAGE,
-            AppSettings.getMediumAppIcon()) == JOptionPane.YES_OPTION;
+            AppIcons.getMediumAppIcon()) == JOptionPane.YES_OPTION;
     }
 
     public void addActionListener(ProgramActionListener l) {

@@ -2,7 +2,7 @@ package de.elmar_baumann.imv.view.panels;
 
 import com.adobe.xmp.properties.XMPPropertyInfo;
 import com.imagero.reader.iptc.IPTCEntryMeta;
-import de.elmar_baumann.imv.AppSettings;
+import de.elmar_baumann.imv.AppIcons;
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.controller.metadata.ControllerSaveMetadata;
 import de.elmar_baumann.imv.data.ImageFile;
@@ -94,7 +94,7 @@ public final class EditMetadataPanelsArray implements FocusListener, DatabaseLis
             Bundle.getString("EditMetadataPanelsArray.ConfirmMessage.Save.Title"),
             JOptionPane.YES_NO_OPTION,
             JOptionPane.QUESTION_MESSAGE,
-            AppSettings.getMediumAppIcon()) == JOptionPane.YES_OPTION;
+            AppIcons.getMediumAppIcon()) == JOptionPane.YES_OPTION;
     }
 
     private void notifyActionListener(MetadataEditPanelEvent evt) {
