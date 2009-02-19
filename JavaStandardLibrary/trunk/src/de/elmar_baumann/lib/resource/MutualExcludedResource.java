@@ -34,7 +34,7 @@ public class MutualExcludedResource {
      * 
      * @return true, if the resource can be used
      */
-    synchronized public boolean isAvailable() {
+    public synchronized boolean isAvailable() {
         return !isLocked() && resource != null;
     }
 
@@ -50,7 +50,7 @@ public class MutualExcludedResource {
      *         is not null, {@link #isAvailable()} returns <code>false</code>.
      * @see #isAvailable()
      */
-    synchronized public Object getResource(Object owner) {
+    public synchronized Object getResource(Object owner) {
         if (owner == null)
             throw new NullPointerException("owner == null");
 
@@ -70,7 +70,7 @@ public class MutualExcludedResource {
      * @return true, if released. If the return value is true,
      *         {@link #isAvailable()} returns <code>true</code>.
      */
-    synchronized public boolean releaseResource(Object o) {
+    public synchronized boolean releaseResource(Object o) {
         if (o == null)
             throw new NullPointerException("o == null");
 
@@ -88,7 +88,7 @@ public class MutualExcludedResource {
      *
      * @param resource resource
      */
-    synchronized protected void setResource(Object resource) {
+    protected synchronized void setResource(Object resource) {
         if (resource == null)
             throw new NullPointerException("resource == null");
 
@@ -101,7 +101,7 @@ public class MutualExcludedResource {
      * @param lock  true, if the resource shall be locked and false if it
      *              shall be unlocked
      */
-    synchronized private void setLocked(boolean lock) {
+    private synchronized void setLocked(boolean lock) {
         this.locked = lock;
     }
 
@@ -111,7 +111,7 @@ public class MutualExcludedResource {
      *
      * @return true, if the resource is locked
      */
-    synchronized private boolean isLocked() {
+    private synchronized boolean isLocked() {
         return locked;
     }
 
@@ -120,7 +120,7 @@ public class MutualExcludedResource {
      *
      * @param owner  owner
      */
-    synchronized private void setOwner(Object owner) {
+    private synchronized void setOwner(Object owner) {
         assert owner != null;
         this.owner = owner;
     }
@@ -130,7 +130,7 @@ public class MutualExcludedResource {
      *
      * @return owner or null if nobody owns the resource
      */
-    synchronized private Object getOwner() {
+    private synchronized Object getOwner() {
         return owner;
     }
 
