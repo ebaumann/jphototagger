@@ -537,37 +537,22 @@ public final class XmpMetadata {
     }
 
     /**
-     * Returns whether the file suffix is <code>"xmp"</code>.
-     *
-     * @param  file file
-     * @return true, if the file is a file and it's name has the suffix
-     *         <code>"xmp"</code>.
-     */
-    public static boolean isSidecarFile(File file) {
-        return file.isFile() && FileUtil.getSuffix(file.getName()).equalsIgnoreCase("xmp");
-    }
-
-    /**
-     * Returns pairs of existing image and sidecar files from a list of some
-     * image files.
+     * Returns pairs of image files and their sidecar files.
      *
      * @param  imageFiles image files
-     * @return pairs of image files with their corresponding sidecar files or
-     *         an empty list if no image file has a sidecar file.
+     * @return pairs of image files with their corresponding sidecar files.
      *         {@link de.elmar_baumann.lib.template.Pair#getFirst()} returns
-     *         the image file and
-     *         {@link de.elmar_baumann.lib.template.Pair#getSecond()} returns
-     *         the sidecar file
+     *         a reference to an image file object in the <code>imageFiles</code>
+     *         list. {@link de.elmar_baumann.lib.template.Pair#getSecond()}
+     *         returns the sidecar file of the referenced image file or null if
+     *         the image file has no sidecar file.
      */
     public static List<Pair<File, File>> getImageFilesWithSidecarFiles(List<File> imageFiles) {
-        List<Pair<File, File>> sidecarFiles = new ArrayList<Pair<File, File>>();
+        List<Pair<File, File>> filePairs = new ArrayList<Pair<File, File>>();
         for (File imageFile : imageFiles) {
-            File sidecarFile = getSidecarFile(imageFile);
-            if (imageFile.exists() && sidecarFile != null) {
-                sidecarFiles.add(new Pair<File, File>(imageFile, sidecarFile));
-            }
+            filePairs.add(new Pair<File, File>(imageFile, getSidecarFile(imageFile)));
         }
-        return sidecarFiles;
+        return filePairs;
     }
 
     private XmpMetadata() {}

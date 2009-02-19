@@ -82,7 +82,7 @@ public final class ControllerArrayScheduledTasks
         System.gc();
         if (controllers.isEmpty()) {
             activeController = null;
-            buttonStop.setEnabled(false);
+            // buttonStop.setEnabled(false); BUG: Too early
         } else {
             activeController = controllers.remove();
             activeController.start();
