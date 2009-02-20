@@ -825,12 +825,12 @@ public final class PersistentSettings {
      */
     public void setSelectedItem(JComboBox comboBox, String key) {
         String sKey = key + keyAppendixSelected;
-        Object selected = comboBox.getSelectedItem();
+        Object selectedItem = comboBox.getSelectedItem();
 
-        if (selected == null) {
+        if (selectedItem == null) {
             getProperties().remove(sKey);
         } else {
-            getProperties().setProperty(sKey, selected.toString());
+            getProperties().setProperty(sKey, selectedItem.toString());
         }
     }
 
