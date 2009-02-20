@@ -46,7 +46,7 @@ public final class CheckList extends JList {
      * 
      * @param listener Beobachter
      */
-    public void addActionListener(ActionListener listener) {
+    public synchronized void addActionListener(ActionListener listener) {
         actionListeners.add(listener);
     }
 
@@ -55,7 +55,7 @@ public final class CheckList extends JList {
      * 
      * @param listener Beobachter
      */
-    public void removeActionListener(ActionListener listener) {
+    public synchronized void removeActionListener(ActionListener listener) {
         actionListeners.remove(listener);
     }
 
@@ -76,7 +76,7 @@ public final class CheckList extends JList {
         });
     }
 
-    private void notifyActionListener(int index) {
+    private synchronized void notifyActionListener(int index) {
         for (ActionListener listener : actionListeners) {
             listener.actionPerformed(new ActionEvent(this, index, "")); // NOI18N
         }
@@ -87,7 +87,7 @@ public final class CheckList extends JList {
      * 
      * @return true, wenn mindestens eines selektiert ist
      */
-    public boolean hasSelectedItems() {
+    public synchronized boolean hasSelectedItems() {
         return getSelectionCount() > 0;
     }
 
@@ -96,7 +96,7 @@ public final class CheckList extends JList {
      * 
      * @return Anzahl
      */
-    public int getSelectionCount() {
+    public synchronized int getSelectionCount() {
         return getSelectedItemIndices().size();
     }
 
@@ -105,7 +105,7 @@ public final class CheckList extends JList {
      * 
      * @return Items
      */
-    public List<JCheckBox> getSelectedItems() {
+    public synchronized List<JCheckBox> getSelectedItems() {
         List<JCheckBox> items = new ArrayList<JCheckBox>();
         ListModel model = getModel();
         int count = model.getSize();
@@ -126,7 +126,7 @@ public final class CheckList extends JList {
      * 
      * @return Indizes
      */
-    public List<Integer> getSelectedItemIndices() {
+    public synchronized List<Integer> getSelectedItemIndices() {
         List<Integer> indices = new ArrayList<Integer>();
         ListModel model = getModel();
         int count = model.getSize();
@@ -144,7 +144,7 @@ public final class CheckList extends JList {
      * 
      * @return Itemtexte
      */
-    public List<String> getSelectedItemTexts() {
+    public synchronized List<String> getSelectedItemTexts() {
         List<JCheckBox> items = getSelectedItems();
         List<String> texts = new ArrayList<String>();
         for (JCheckBox checkBox : items) {
@@ -159,7 +159,7 @@ public final class CheckList extends JList {
      * @param delimiter Begrenzer zwischen den Itemtexten
      * @return          Texte
      */
-    public String getSelectedItemTexts(String delimiter) {
+    public synchronized String getSelectedItemTexts(String delimiter) {
         if (delimiter == null) {
             throw new NullPointerException("delimiter == null");
         }
@@ -179,7 +179,7 @@ public final class CheckList extends JList {
      *               werden soll
      * @see          #setSelectedItemsWithText(java.lang.String, boolean)
      */
-    public void setSelectedItemsWithText(List<String> texts, boolean select) {
+    public synchronized void setSelectedItemsWithText(List<String> texts, boolean select) {
         if (texts == null) {
             throw new NullPointerException("texts == null");
         }
@@ -196,7 +196,7 @@ public final class CheckList extends JList {
      *     werden soll
      * @see #setSelectedItemsWithText(java.util.List, boolean)
      */
-    public void setSelectedItemsWithText(String text, boolean select) {
+    public synchronized void setSelectedItemsWithText(String text, boolean select) {
         ListModel model = getModel();
         int count = model.getSize();
         for (int index = 0; index < count; index++) {

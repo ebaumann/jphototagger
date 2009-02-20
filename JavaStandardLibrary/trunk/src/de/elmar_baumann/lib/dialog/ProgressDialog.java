@@ -43,7 +43,7 @@ public final class ProgressDialog extends javax.swing.JDialog {
      * 
      * @param listener  action listener
      */
-    public void addActionListener(ActionListener listener) {
+    public synchronized void addActionListener(ActionListener listener) {
         actionListeners.add(listener);
     }
 
@@ -52,7 +52,7 @@ public final class ProgressDialog extends javax.swing.JDialog {
      * 
      * @param listener  action listener
      */
-    public void removeActionListener(ActionListener listener) {
+    public synchronized void removeActionListener(ActionListener listener) {
         actionListeners.remove(listener);
     }
 

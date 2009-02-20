@@ -90,7 +90,7 @@ public final class HelpBrowser extends Dialog
      * 
      * @param listener  listener
      */
-    public void addActionListener(HelpBrowserListener listener) {
+    public synchronized void addActionListener(HelpBrowserListener listener) {
         actionListeners.add(listener);
     }
 
@@ -99,11 +99,11 @@ public final class HelpBrowser extends Dialog
      * 
      * @param listener  listener
      */
-    public void removeActionListener(HelpBrowserListener listener) {
+    public synchronized void removeActionListener(HelpBrowserListener listener) {
         actionListeners.remove(listener);
     }
 
-    private void notifyUrlChanged(URL url) {
+    private synchronized void notifyUrlChanged(URL url) {
         HelpBrowserAction action = new HelpBrowserAction(this, HelpBrowserAction.Type.URL_CHANGED);
         action.setUrl(url);
         for (HelpBrowserListener listener : actionListeners) {
@@ -125,7 +125,7 @@ public final class HelpBrowser extends Dialog
      * 
      * @param url  URL
      */
-    public void showUrl(String url) {
+    public synchronized void showUrl(String url) {
         if (isVisible()) {
             showUrl(getClass().getResource(baseUrl + "/" + url));
         }
@@ -138,7 +138,7 @@ public final class HelpBrowser extends Dialog
      * 
      * @param url  URL, eg. <code>firststeps.html</code>
      */
-    public void setStartUrl(String url) {
+    public synchronized void setStartUrl(String url) {
         startUrl = url;
     }
 
@@ -150,19 +150,19 @@ public final class HelpBrowser extends Dialog
      * 
      * @param url URL, eg. <code>/de/elmar_baumann/imv/resource/doc/de/contents.xml</code>
      */
-    public void setContentsUrl(String url) {
+    public synchronized void setContentsUrl(String url) {
         if (!isVisible()) {
             tree.setModel(new TreeModelHelpContents(url));
             setBaseUrl(url);
         }
     }
 
-    private void setBaseUrl(String url) {
+    private synchronized void setBaseUrl(String url) {
         int index = url.lastIndexOf("/"); // NOI18N
         baseUrl = url.substring(0, index);
     }
 
-    private void selectStartUrl() {
+    private synchronized void selectStartUrl() {
         if (startUrl != null) {
             HelpNode node = (HelpNode) tree.getModel().getRoot();
             Object[] path = node.getPagePath(startUrl);
