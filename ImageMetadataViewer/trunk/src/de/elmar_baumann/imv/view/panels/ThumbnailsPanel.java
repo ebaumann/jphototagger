@@ -4,6 +4,7 @@ import de.elmar_baumann.imv.event.ThumbnailsPanelAction;
 import de.elmar_baumann.imv.event.ThumbnailsPanelListener;
 import de.elmar_baumann.imv.data.ThumbnailFlag;
 import de.elmar_baumann.lib.event.MouseEventUtil;
+import de.elmar_baumann.lib.util.MathUtil;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Cursor;
@@ -736,8 +737,9 @@ public abstract class ThumbnailsPanel extends JPanel
     }
 
     private int getRowCount() {
+        double count = (double) thumbnailCount / (double) thumbnailCountPerRow;
         return thumbnailCount > thumbnailCountPerRow
-            ? (int) ((double) thumbnailCount / (double) thumbnailCountPerRow + 0.5)
+            ? (int) (MathUtil.isInteger(count) ?  count : count + 1)
             : thumbnailCount == 0
             ? 0
             : 1;
