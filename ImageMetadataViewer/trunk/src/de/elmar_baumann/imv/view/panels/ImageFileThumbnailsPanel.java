@@ -84,11 +84,11 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel {
      * @param listener  listener
      * @param content   content
      */
-    public void addRefreshListener(RefreshListener listener, Content content) {
+    public synchronized void addRefreshListener(RefreshListener listener, Content content) {
         refreshListenersOfContent.get(content).add(listener);
     }
 
-    private void notifyRefreshListeners() {
+    private synchronized void notifyRefreshListeners() {
         for (RefreshListener listener : refreshListenersOfContent.get(content)) {
             listener.refresh();
         }

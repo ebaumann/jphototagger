@@ -109,13 +109,13 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel
             AppIcons.getMediumAppIcon()) == JOptionPane.YES_OPTION;
     }
 
-    private void notifyChangeListenerOther() {
+    private synchronized void notifyChangeListenerOther() {
         UserSettingsChangeEvent evt = new UserSettingsChangeEvent(
             UserSettingsChangeEvent.Type.OTHER_IMAGE_OPEN_APPS, this);
         listenerProvider.notifyUserSettingsChangeListener(evt);
     }
 
-    private void notifyChangeListenerDefault() {
+    private synchronized void notifyChangeListenerDefault() {
         UserSettingsChangeEvent evt = new UserSettingsChangeEvent(
             UserSettingsChangeEvent.Type.DEFAULT_IMAGE_OPEN_APP, this);
         evt.setDefaultImageOpenApp(new File(labelDefaultProgramFile.getText()));

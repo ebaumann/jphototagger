@@ -97,7 +97,7 @@ public final class EditMetadataPanelsArray implements FocusListener, DatabaseLis
             AppIcons.getMediumAppIcon()) == JOptionPane.YES_OPTION;
     }
 
-    private void notifyActionListener(MetadataEditPanelEvent evt) {
+    private synchronized void notifyActionListener(MetadataEditPanelEvent evt) {
         for (MetadataEditPanelListener l : listeners) {
             l.actionPerformed(evt);
         }
@@ -230,7 +230,7 @@ public final class EditMetadataPanelsArray implements FocusListener, DatabaseLis
         }
     }
 
-    public void addDeleteListenerTo(JMenuItem itemDelete) {
+    public synchronized void addDeleteListenerTo(JMenuItem itemDelete) {
         for (JPanel panel : panels) {
             if (panel instanceof EditRepeatableTextEntryPanel) {
                 EditRepeatableTextEntryPanel listener = (EditRepeatableTextEntryPanel) panel;

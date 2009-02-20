@@ -54,23 +54,23 @@ public final class MoveToDirectoryDialog extends Dialog
         registerKeyStrokes();
     }
 
-    public void addProgressListener(ProgressListener listener) {
+    public synchronized void addProgressListener(ProgressListener listener) {
         progressListeners.add(listener);
     }
     
-    private void notifyProgressListenerStarted(ProgressEvent evt) {
+    private synchronized void notifyProgressListenerStarted(ProgressEvent evt) {
         for (ProgressListener listener : progressListeners) {
             listener.progressStarted(evt);
         }
     }
 
-    private void notifyProgressListenerPerformed(ProgressEvent evt) {
+    private synchronized void notifyProgressListenerPerformed(ProgressEvent evt) {
         for (ProgressListener listener : progressListeners) {
             listener.progressPerformed(evt);
         }
     }
 
-    private void notifyProgressListenerEnded(ProgressEvent evt) {
+    private synchronized void notifyProgressListenerEnded(ProgressEvent evt) {
         for (ProgressListener listener : progressListeners) {
             listener.progressEnded(evt);
         }
@@ -129,7 +129,7 @@ public final class MoveToDirectoryDialog extends Dialog
         runs = true;
     }
 
-    private void addListenerToMoveTask() {
+    private synchronized void addListenerToMoveTask() {
         moveTask.addActionListener(this);
         moveTask.addProgressListener(this);
         List<FileSystemActionListener> listeners = ListenerProvider.getInstance().getFileSystemActionListener();

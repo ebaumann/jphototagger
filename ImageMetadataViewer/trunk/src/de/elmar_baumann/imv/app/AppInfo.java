@@ -11,7 +11,7 @@ import de.elmar_baumann.imv.resource.Bundle;
 public final class AppInfo {
 
     /** Version der Anwendung */
-    public static final String appVersion = "0.5.50 2009/02/19";  // NOI18N
+    public static final String appVersion = "0.5.51 2009/02/20";  // NOI18N
     /** Name der Anwendung */
     public static final String appName = "Bilder";  // NOI18N
     /** Beschreibung der Anwendung */

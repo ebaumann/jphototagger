@@ -58,19 +58,19 @@ public final class PopupMenuListFavoriteDirectories extends JPopupMenu {
         this.favoriteDirectory = favoriteDirectory;
     }
 
-    public void addActionListenerInsert(ActionListener listener) {
+    public synchronized void addActionListenerInsert(ActionListener listener) {
         itemInsert.addActionListener(listener);
     }
 
-    public void addActionListenerDelete(ActionListener listener) {
+    public synchronized void addActionListenerDelete(ActionListener listener) {
         itemDelete.addActionListener(listener);
     }
 
-    public void addActionListenerUpdate(ActionListener listener) {
+    public synchronized void addActionListenerUpdate(ActionListener listener) {
         itemUpdate.addActionListener(listener);
     }
 
-    public void addActionListenerOpenInFolders(ActionListener listener) {
+    public synchronized void addActionListenerOpenInFolders(ActionListener listener) {
         itemOpenInFolders.addActionListener(listener);
     }
 

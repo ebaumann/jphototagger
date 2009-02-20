@@ -103,7 +103,7 @@ public final class PopupMenuListSavedSearches extends JPopupMenu {
      * 
      * @param listener Beobachter
      */
-    public void addActionListenerDelete(ActionListener listener) {
+    public synchronized void addActionListenerDelete(ActionListener listener) {
         itemDelete.addActionListener(listener);
     }
 
@@ -113,7 +113,7 @@ public final class PopupMenuListSavedSearches extends JPopupMenu {
      * 
      * @param listener Beobachter
      */
-    public void addActionListenerEdit(ActionListener listener) {
+    public synchronized void addActionListenerEdit(ActionListener listener) {
         itemEdit.addActionListener(listener);
     }
 
@@ -123,7 +123,7 @@ public final class PopupMenuListSavedSearches extends JPopupMenu {
      * 
      * @param listener Beobachter
      */
-    public void addActionListenerCreate(ActionListener listener) {
+    public synchronized void addActionListenerCreate(ActionListener listener) {
         itemCreate.addActionListener(listener);
     }
 
@@ -133,7 +133,7 @@ public final class PopupMenuListSavedSearches extends JPopupMenu {
      * 
      * @param listener Beobachter
      */
-    public void addActionListenerRename(ActionListener listener) {
+    public synchronized void addActionListenerRename(ActionListener listener) {
         itemRename.addActionListener(listener);
     }
 

@@ -78,7 +78,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
         notifyChangeListener(evt);
     }
 
-    private void notifyChangeListener(UserSettingsChangeEvent evt) {
+    private synchronized void notifyChangeListener(UserSettingsChangeEvent evt) {
         listenerProvider.notifyUserSettingsChangeListener(evt);
     }
 

@@ -36,7 +36,7 @@ public final class XmpUpdaterRenameInColumns implements Runnable, ProgressListen
      * 
      * @param listener Beobachter
      */
-    public void addProgressListener(ProgressListener listener) {
+    public synchronized void addProgressListener(ProgressListener listener) {
         progressListeners.add(listener);
     }
 

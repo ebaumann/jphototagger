@@ -22,33 +22,33 @@ public class FileSystem {
 
     protected FileSystem() {}
 
-    public void addProgressListener(ProgressListener listener) {
+    public synchronized void addProgressListener(ProgressListener listener) {
         progressListeners.add(listener);
     }
 
-    protected void notifyProgressListenerStarted(ProgressEvent evt) {
+    protected synchronized void notifyProgressListenerStarted(ProgressEvent evt) {
         for (ProgressListener listener : progressListeners) {
             listener.progressStarted(evt);
         }
     }
 
-    protected void notifyProgressListenerPerformed(ProgressEvent evt) {
+    protected synchronized void notifyProgressListenerPerformed(ProgressEvent evt) {
         for (ProgressListener listener : progressListeners) {
             listener.progressPerformed(evt);
         }
     }
 
-    protected void notifyProgressListenerEnded(ProgressEvent evt) {
+    protected synchronized void notifyProgressListenerEnded(ProgressEvent evt) {
         for (ProgressListener listener : progressListeners) {
             listener.progressEnded(evt);
         }
     }
 
-    public void addActionListener(FileSystemActionListener listener) {
+    public synchronized void addActionListener(FileSystemActionListener listener) {
         actionListeners.add(listener);
     }
 
-    protected void notifyActionListenersPerformed(
+    protected synchronized void notifyActionListenersPerformed(
         FileSystemAction action, File src, File target) {
         
         for (FileSystemActionListener listener : actionListeners) {
@@ -56,7 +56,7 @@ public class FileSystem {
         }
     }
 
-    protected void notifyActionListenersFailed(
+    protected synchronized void notifyActionListenersFailed(
         FileSystemAction action, FileSystemError error, File src, File target) {
         
         for (FileSystemActionListener listener : actionListeners) {

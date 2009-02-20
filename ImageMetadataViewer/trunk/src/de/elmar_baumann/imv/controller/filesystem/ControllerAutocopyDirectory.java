@@ -36,7 +36,7 @@ public final class ControllerAutocopyDirectory implements ActionListener {
         File dir = UserSettings.getInstance().getAutocopyDirectory();
         if (dir == null && confirmSetAutocopyDirectory()) {
             setAutocopyDirectory();
-            copy(); // recursiv
+            copy(); // recursive
         } else {
             copy(dir);
         }

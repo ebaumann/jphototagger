@@ -27,7 +27,7 @@ public final class ErrorListeners {
      * 
      * @param listener  Beobachter
      */
-    public void addErrorListener(ErrorListener listener) {
+    public synchronized void addErrorListener(ErrorListener listener) {
         errorListeners.add(listener);
     }
 
@@ -36,7 +36,7 @@ public final class ErrorListeners {
      * 
      * @param evt  Fehlerereignis
      */
-    public void notifyErrorListener(ErrorEvent evt) {
+    public synchronized void notifyErrorListener(ErrorEvent evt) {
         for (ErrorListener listener : errorListeners) {
             listener.error(evt);
         }

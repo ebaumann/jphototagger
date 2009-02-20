@@ -25,6 +25,10 @@ public final class ControllerAddToImageCollection implements ActionListener {
         listen();
     }
 
+    private void listen() {
+        popup.addActionListenerAddToImageCollection(this);
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         addSelectedFilesToImageCollection();
@@ -37,10 +41,6 @@ public final class ControllerAddToImageCollection implements ActionListener {
             manager.addImagesToCollection(collectionName,
                     FileUtil.getAsFilenames(thumbnailsPanel.getSelectedFiles()));
         }
-    }
-
-    private void listen() {
-        popup.addActionListenerAddToImageCollection(this);
     }
 
     private String selectCollectionName() {

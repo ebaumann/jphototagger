@@ -118,7 +118,7 @@ public final class InsertImageFilesIntoDatabaseArray implements ProgressListener
      * 
      * @param listener  Beobachter
      */
-    public void addTaskListener(TaskListener listener) {
+    public synchronized void addTaskListener(TaskListener listener) {
         taskListeners.add(listener);
     }
 
@@ -128,7 +128,7 @@ public final class InsertImageFilesIntoDatabaseArray implements ProgressListener
         }
     }
 
-    private void notifyTaskListenerCompleted() {
+    private synchronized void notifyTaskListenerCompleted() {
         for (TaskListener listener : taskListeners) {
             listener.taskCompleted();
         }

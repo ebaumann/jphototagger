@@ -90,11 +90,11 @@ public final class InsertImageFilesIntoDatabase implements Runnable {
      *
      * @param listener Fortschrittsbeobachter
      */
-    public void addProgressListener(ProgressListener listener) {
+    public synchronized void addProgressListener(ProgressListener listener) {
         progressListeners.add(listener);
     }
 
-    public void removeProgressListener(ProgressListener listener) {
+    public synchronized void removeProgressListener(ProgressListener listener) {
         progressListeners.remove(listener);
     }
 
@@ -219,13 +219,13 @@ public final class InsertImageFilesIntoDatabase implements Runnable {
         AppLog.logWarning(InsertImageFilesIntoDatabase.class, formattedMessage);
     }
 
-    private void notifyProgressStarted() {
+    private synchronized void notifyProgressStarted() {
         for (ProgressListener listener : progressListeners) {
             listener.progressStarted(getProgressEvent(0, Bundle.getString("ImageMetadataToDatabase.InformationMessage.ProgressStarted"))); // NOI18N
         }
     }
 
-    private void notifyProgressPerformed(int value, String filename) {
+    private synchronized void notifyProgressPerformed(int value, String filename) {
         for (ProgressListener listener : progressListeners) {
             ProgressEvent event = getProgressEvent(value, filename);
             listener.progressPerformed(event);
@@ -233,7 +233,7 @@ public final class InsertImageFilesIntoDatabase implements Runnable {
         }
     }
 
-    private void notifyProgressEnded() {
+    private synchronized void notifyProgressEnded() {
         for (ProgressListener listener : progressListeners) {
             listener.progressEnded(getProgressEvent(filenames.size(), Bundle.getString("ImageMetadataToDatabase.InformationMessage.ProgressEnded"))); // NOI18N
         }

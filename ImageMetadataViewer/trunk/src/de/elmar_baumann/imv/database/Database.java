@@ -21,11 +21,11 @@ public class Database {
 
     private static final List<DatabaseListener> databaseListener = new ArrayList<DatabaseListener>();
 
-    public void addDatabaseListener(DatabaseListener listener) {
+    public synchronized void addDatabaseListener(DatabaseListener listener) {
         databaseListener.add(listener);
     }
 
-    protected void notifyDatabaseListener(
+    protected synchronized void notifyDatabaseListener(
         DatabaseAction.Type type) {
         
         DatabaseAction action = new DatabaseAction(type);
@@ -34,7 +34,7 @@ public class Database {
         }
     }
 
-    protected void notifyDatabaseListener(
+    protected synchronized void notifyDatabaseListener(
         DatabaseAction.Type type, ImageFile imageFileData) {
         
         DatabaseAction action = new DatabaseAction(type);
@@ -44,7 +44,7 @@ public class Database {
         }
     }
 
-    protected void notifyDatabaseListener(
+    protected synchronized void notifyDatabaseListener(
         DatabaseAction.Type type, SavedSearch savedSerachData) {
         
         DatabaseAction action = new DatabaseAction(type);
@@ -54,7 +54,7 @@ public class Database {
         }
     }
 
-    protected void notifyDatabaseListener(
+    protected synchronized void notifyDatabaseListener(
         DatabaseAction.Type type, String filename) {
         
         DatabaseAction action = new DatabaseAction(type);
@@ -64,7 +64,7 @@ public class Database {
         }
     }
 
-    protected void notifyDatabaseListener(
+    protected synchronized void notifyDatabaseListener(
         DatabaseAction.Type type, List<String> filenames) {
         
         DatabaseAction action = new DatabaseAction(type);
@@ -74,7 +74,7 @@ public class Database {
         }
     }
 
-    protected void notifyDatabaseListener(
+    protected synchronized void notifyDatabaseListener(
         DatabaseAction.Type type, String filename, List<String> filenames) {
         
         DatabaseAction action = new DatabaseAction(type);
@@ -122,7 +122,7 @@ public class Database {
         }
     }
 
-    protected boolean notifyProgressListenerStart(
+    protected synchronized boolean notifyProgressListenerStart(
         ProgressListener listener, ProgressEvent event) {
         
         if (listener != null) {
@@ -132,7 +132,7 @@ public class Database {
         return false;
     }
 
-    protected boolean notifyProgressListenerPerformed(
+    protected synchronized boolean notifyProgressListenerPerformed(
         ProgressListener listener, ProgressEvent event) {
         
         if (listener != null) {
@@ -142,7 +142,7 @@ public class Database {
         return false;
     }
 
-    protected void notifyProgressListenerEnd(
+    protected synchronized void notifyProgressListenerEnd(
         ProgressListener listener, ProgressEvent event) {
         
         if (listener != null) {

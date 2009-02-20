@@ -54,7 +54,7 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
      * 
      * @param listener Beobachter
      */
-    public void addSearchListener(SearchListener listener) {
+    public synchronized void addSearchListener(SearchListener listener) {
         searchListener.add(listener);
     }
 
@@ -99,7 +99,7 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
             !toggleButtonBracketLeft1.isSelected());
     }
 
-    private void notifySearchListener(SearchEvent evt) {
+    private synchronized void notifySearchListener(SearchEvent evt) {
         for (SearchListener listener : searchListener) {
             listener.actionPerformed(evt);
         }

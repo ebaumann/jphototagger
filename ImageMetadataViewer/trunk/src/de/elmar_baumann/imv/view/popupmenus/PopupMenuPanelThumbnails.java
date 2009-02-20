@@ -191,64 +191,64 @@ public final class PopupMenuPanelThumbnails extends JPopupMenu
         return menuPrograms;
     }
 
-    public void addActionListenerOpenFilesWithOtherApp(ActionListener listener) {
+    public synchronized void addActionListenerOpenFilesWithOtherApp(ActionListener listener) {
         actionListenersOpenFilesWithOtherApp.add(listener);
         addOtherPrograms();
     }
 
-    public void addActionListenerOpenFilesWithStandardApp(ActionListener listener) {
+    public synchronized void addActionListenerOpenFilesWithStandardApp(ActionListener listener) {
         itemOpenFilesWithStandardApp.addActionListener(listener);
     }
 
-    public void addActionListenerCreateImageCollection(ActionListener listener) {
+    public synchronized void addActionListenerCreateImageCollection(ActionListener listener) {
         itemCreateImageCollection.addActionListener(listener);
     }
 
-    public void addActionListenerAddToImageCollection(ActionListener listener) {
+    public synchronized void addActionListenerAddToImageCollection(ActionListener listener) {
         itemAddToImageCollection.addActionListener(listener);
     }
 
-    public void addActionListenerDeleteFromImageCollection(ActionListener listener) {
+    public synchronized void addActionListenerDeleteFromImageCollection(ActionListener listener) {
         itemDeleteFromImageCollection.addActionListener(listener);
     }
 
-    public void addActionListenerUpdateMetadata(ActionListener listener) {
+    public synchronized void addActionListenerUpdateMetadata(ActionListener listener) {
         itemUpdateMetadata.addActionListener(listener);
     }
 
-    public void addActionListenerRotateThumbnail90(ActionListener listener) {
+    public synchronized void addActionListenerRotateThumbnail90(ActionListener listener) {
         itemRotateThumbnai90.addActionListener(listener);
     }
 
-    public void addActionListenerRotateThumbnail180(ActionListener listener) {
+    public synchronized void addActionListenerRotateThumbnail180(ActionListener listener) {
         itemRotateThumbnai180.addActionListener(listener);
     }
 
-    public void addActionListenerRotateThumbnail270(ActionListener listener) {
+    public synchronized void addActionListenerRotateThumbnail270(ActionListener listener) {
         itemRotateThumbnai270.addActionListener(listener);
     }
 
-    public void addActionListenerDeleteThumbnail(ActionListener listener) {
+    public synchronized void addActionListenerDeleteThumbnail(ActionListener listener) {
         itemDeleteImageFromDatabase.addActionListener(listener);
     }
 
-    public void addActionListenerCopySelectedFilesToDirectory(ActionListener listener) {
+    public synchronized void addActionListenerCopySelectedFilesToDirectory(ActionListener listener) {
         itemFileSystemCopyToDirectory.addActionListener(listener);
     }
 
-    public void addActionListenerFileSystemDeleteFiles(ActionListener listener) {
+    public synchronized void addActionListenerFileSystemDeleteFiles(ActionListener listener) {
         itemFileSystemDeleteFiles.addActionListener(listener);
     }
 
-    public void addActionListenerFileSystemRenameFiles(ActionListener listener) {
+    public synchronized void addActionListenerFileSystemRenameFiles(ActionListener listener) {
         itemFileSystemRenameFiles.addActionListener(listener);
     }
 
-    public void addActionListenerFileSystemMoveFiles(ActionListener listener) {
+    public synchronized void addActionListenerFileSystemMoveFiles(ActionListener listener) {
         itemFileSystemMoveFiles.addActionListener(listener);
     }
 
-    public void addActionListenerUpdateThumbnail(ActionListener listener) {
+    public synchronized void addActionListenerUpdateThumbnail(ActionListener listener) {
         itemUpdateThumbnail.addActionListener(listener);
     }
 

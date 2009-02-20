@@ -94,7 +94,7 @@ public final class FileSystemMove extends FileSystem implements Runnable {
         }
     }
 
-    private void notifyError(FileSystemError error, File sourceFile, File targetFile) {
+    private synchronized void notifyError(FileSystemError error, File sourceFile, File targetFile) {
         notifyActionListenersFailed(
             FileSystemAction.MOVE,
             error,

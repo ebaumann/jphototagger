@@ -40,7 +40,7 @@ public final class SettingsPerformancePanel extends javax.swing.JPanel
         return ((ComboBoxModelThreadPriority) comboBoxThreadPriority.getModel()).getSelectedPriority();
     }
 
-    private void notifyChangeListener(UserSettingsChangeEvent evt) {
+    private synchronized void notifyChangeListener(UserSettingsChangeEvent evt) {
         listenerProvider.notifyUserSettingsChangeListener(evt);
     }
 

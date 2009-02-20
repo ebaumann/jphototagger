@@ -83,7 +83,7 @@ public final class PopupMenuListImageCollections extends JPopupMenu {
      * 
      * @param listener Beobachter
      */
-    public void addActionListenerDelete(ActionListener listener) {
+    public synchronized void addActionListenerDelete(ActionListener listener) {
         itemDelete.addActionListener(listener);
     }
 
@@ -93,7 +93,7 @@ public final class PopupMenuListImageCollections extends JPopupMenu {
      * 
      * @param listener Beobachter
      */
-    public void addActionListenerRename(ActionListener listener) {
+    public synchronized void addActionListenerRename(ActionListener listener) {
         itemRename.addActionListener(listener);
     }
 

@@ -130,7 +130,7 @@ public final class TransferHandlerTreeDirectories extends TransferHandler {
             AppIcons.getMediumAppIcon()) == JOptionPane.YES_OPTION;
     }
 
-    private static void addProgressListener(MoveToDirectoryDialog dialog) {
+    private synchronized static void addProgressListener(MoveToDirectoryDialog dialog) {
 
         dialog.addProgressListener(new ProgressListener() {
 
@@ -150,7 +150,7 @@ public final class TransferHandlerTreeDirectories extends TransferHandler {
 
     }
 
-    private static void addProgressListener(CopyToDirectoryDialog dialog) {
+    private synchronized static void addProgressListener(CopyToDirectoryDialog dialog) {
 
         dialog.addProgressListener(new ProgressListener() {
 

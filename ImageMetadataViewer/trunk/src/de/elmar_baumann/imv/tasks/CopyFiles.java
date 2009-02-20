@@ -74,7 +74,7 @@ public final class CopyFiles implements Runnable {
      * 
      * @param listener  Beobachter
      */
-    public void addProgressListener(ProgressListener listener) {
+    public synchronized void addProgressListener(ProgressListener listener) {
         progressListeners.add(listener);
     }
 
@@ -106,21 +106,21 @@ public final class CopyFiles implements Runnable {
         AppLog.logInfo(CopyFiles.class, msg.format(params));
     }
 
-    private void notifyStart() {
+    private synchronized void notifyStart() {
         ProgressEvent evt = new ProgressEvent(this, 0, files.size(), 0, null);
         for (ProgressListener listener : progressListeners) {
             listener.progressStarted(evt);
         }
     }
 
-    private void notifyPerformed(int value, Pair<File, File> filePair) {
+    private synchronized void notifyPerformed(int value, Pair<File, File> filePair) {
         ProgressEvent evt = new ProgressEvent(this, 0, files.size(), value, filePair);
         for (ProgressListener listener : progressListeners) {
             listener.progressPerformed(evt);
         }
     }
 
-    private void notifyEnded() {
+    private synchronized void notifyEnded() {
         ProgressEvent evt = new ProgressEvent(this, 0, files.size(), files.size(), errorFiles);
         for (ProgressListener listener : progressListeners) {
             listener.progressEnded(evt);

@@ -123,7 +123,7 @@ public final class ControllerAutoUpdateMetadataTask
      * 
      * @param listener  Beobachter
      */
-    public void addTaskListener(TaskListener listener) {
+    public synchronized void addTaskListener(TaskListener listener) {
         taskListeners.add(listener);
     }
 

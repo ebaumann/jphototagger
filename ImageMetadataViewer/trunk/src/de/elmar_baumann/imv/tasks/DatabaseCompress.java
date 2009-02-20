@@ -20,7 +20,7 @@ public final class DatabaseCompress implements Runnable {
     private final List<ProgressListener> listeners = new ArrayList<ProgressListener>();
     private boolean success = false;
 
-    public void addProgressListener(ProgressListener l) {
+    public synchronized void addProgressListener(ProgressListener l) {
         listeners.add(l);
     }
 
@@ -46,7 +46,7 @@ public final class DatabaseCompress implements Runnable {
         notifyEnded();
     }
 
-    private void notifyStarted() {
+    private synchronized void notifyStarted() {
         ProgressEvent evt = new ProgressEvent(this, Bundle.getString("DatabaseCompress.StartMessage"));
         for (ProgressListener listener : listeners) {
             listener.progressStarted(evt);
@@ -57,7 +57,7 @@ public final class DatabaseCompress implements Runnable {
         AppLog.logInfo(DatabaseCompress.class, Bundle.getString("DatabaseCompress.InformationMessage.StartCompress"));
     }
 
-    private void notifyEnded() {
+    private synchronized void notifyEnded() {
         ProgressEvent evt = new ProgressEvent(this, 0, 1, 1, getEndMessage());
         for (ProgressListener listener : listeners) {
             listener.progressEnded(evt);

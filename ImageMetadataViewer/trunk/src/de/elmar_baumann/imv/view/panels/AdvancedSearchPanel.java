@@ -110,7 +110,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         return data;
     }
 
-    private void notifySearch() {
+    private synchronized void notifySearch() {
         SearchEvent event = new SearchEvent(SearchEvent.Type.START);
         SavedSearch data = new SavedSearch();
         data.setParamStatements(getParamStatementData());
@@ -120,7 +120,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         }
     }
 
-    private void notifySave(SavedSearch search) {
+    private synchronized void notifySave(SavedSearch search) {
         SearchEvent event = new SearchEvent(SearchEvent.Type.SAVE);
         event.setData(search);
         event.setForceOverwrite(isSavedSearch);
@@ -129,7 +129,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         }
     }
 
-    private void notifyNameChanged() {
+    private synchronized void notifyNameChanged() {
         SearchEvent event = new SearchEvent(SearchEvent.Type.NAME_CHANGED);
         event.setSearchName(searchName);
         for (SearchListener listener : searchListeners) {

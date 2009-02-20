@@ -124,11 +124,11 @@ public final class ActionsPanel extends javax.swing.JPanel {
             AppIcons.getMediumAppIcon()) == JOptionPane.YES_OPTION;
     }
 
-    public void addActionListener(ProgramActionListener l) {
+    public synchronized void addActionListener(ProgramActionListener l) {
         actionListeners.add(l);
     }
 
-    private void notify(ProgramActionEvent evt) {
+    private synchronized void notify(ProgramActionEvent evt) {
         for (ProgramActionListener l : actionListeners) {
             l.actionPerformed(evt);
         }

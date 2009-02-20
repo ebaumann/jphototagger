@@ -51,7 +51,7 @@ public final class ActionsDialog extends Dialog implements ProgramActionListener
         super.setVisible(visible);
     }
 
-    public void addActionListener(ProgramActionListener l) {
+    public synchronized void addActionListener(ProgramActionListener l) {
         panelActions.addActionListener(l);
     }
 

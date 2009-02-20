@@ -29,7 +29,7 @@ public final class UpdateAllThumbnails
      * 
      * @param listener  action listener
      */
-    public void addActionListener(ActionListener listener) {
+    public synchronized void addActionListener(ActionListener listener) {
         actionListeners.add(listener);
     }
 
@@ -100,7 +100,7 @@ public final class UpdateAllThumbnails
             Bundle.getString("UpdateAllThumbnails.InformationMessage.StartUpdate"));
     }
 
-    private void notifyActionPerformed() {
+    private synchronized void notifyActionPerformed() {
         for (ActionListener listener : actionListeners) {
             listener.actionPerformed(new ActionEvent(this, 0, "Stop")); // NOI18N
         }

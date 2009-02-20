@@ -191,7 +191,7 @@ public abstract class ThumbnailsPanel extends JPanel
      * 
      * @param listener Beobachter
      */
-    public void addThumbnailsPanelListener(ThumbnailsPanelListener listener) {
+    public synchronized void addThumbnailsPanelListener(ThumbnailsPanelListener listener) {
         panelListener.add(listener);
     }
 
@@ -743,13 +743,13 @@ public abstract class ThumbnailsPanel extends JPanel
             : 1;
     }
 
-    private void notifyAllThumbnailsDeselected() {
+    private synchronized void notifyAllThumbnailsDeselected() {
         for (ThumbnailsPanelListener listener : panelListener) {
             listener.selectionChanged(new ThumbnailsPanelAction(-1, -1, -1, this));
         }
     }
 
-    private void notifyThumbnailSelected() {
+    private synchronized void notifyThumbnailSelected() {
         for (ThumbnailsPanelListener listener : panelListener) {
             listener.selectionChanged(new ThumbnailsPanelAction(
                 getSelectedIndex(),
@@ -759,7 +759,7 @@ public abstract class ThumbnailsPanel extends JPanel
         }
     }
 
-    private void notifyThumbnailsChanged() {
+    private synchronized void notifyThumbnailsChanged() {
         for (ThumbnailsPanelListener listener : panelListener) {
             listener.thumbnailsChanged();
         }

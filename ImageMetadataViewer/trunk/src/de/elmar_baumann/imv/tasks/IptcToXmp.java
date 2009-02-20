@@ -29,7 +29,7 @@ public final class IptcToXmp implements Runnable {
         this.filenames = filenames;
     }
 
-    public void addProgressListener(ProgressListener listener) {
+    public synchronized void addProgressListener(ProgressListener listener) {
         progressListeners.add(listener);
     }
 
@@ -70,7 +70,7 @@ public final class IptcToXmp implements Runnable {
         AppLog.logInfo(IptcToXmp.class, msg.format(params));
     }
 
-    private void notifyStart() {
+    private synchronized void notifyStart() {
         int count = filenames.size();
         ProgressEvent event = new ProgressEvent(this, 0, count, 0,
             filenames.size() > 0 ? filenames.get(0) : ""); // NOI18N
@@ -80,7 +80,7 @@ public final class IptcToXmp implements Runnable {
         }
     }
 
-    private void notifyPerformed(int index) {
+    private synchronized void notifyPerformed(int index) {
         ProgressEvent event = new ProgressEvent(this, 0, filenames.size(), index + 1, filenames.get(index));
         for (ProgressListener progressListener : progressListeners) {
             progressListener.progressPerformed(event);
@@ -88,7 +88,7 @@ public final class IptcToXmp implements Runnable {
         }
     }
 
-    private void notifyEnd(int index) {
+    private synchronized void notifyEnd(int index) {
         ProgressEvent event = new ProgressEvent(this, 0, filenames.size(), index + 1, ""); // NOI18N
         for (ProgressListener progressListener : progressListeners) {
             progressListener.progressEnded(event);

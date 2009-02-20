@@ -108,21 +108,21 @@ public final class AppFrame extends javax.swing.JFrame {
         getContentPane().add(appPanel);
     }
 
-    public void addAppStartListener(AppStartListener listener) {
+    public synchronized void addAppStartListener(AppStartListener listener) {
         startListeners.add(listener);
     }
 
-    private void notifyStart() {
+    private synchronized void notifyStart() {
         for (AppStartListener listener : startListeners) {
             listener.appWillStart();
         }
     }
 
-    public void addAppExitListener(AppExitListener listener) {
+    public synchronized void addAppExitListener(AppExitListener listener) {
         exitListeners.add(listener);
     }
 
-    private void notifyExit() {
+    private synchronized void notifyExit() {
         for (AppExitListener listener : exitListeners) {
             listener.appWillExit();
         }

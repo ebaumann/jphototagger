@@ -89,7 +89,7 @@ public final class RenameDialog extends Dialog {
         this.files = files;
     }
 
-    public void notifyRenameListeners(File oldFile, File newFile) {
+    public synchronized void notifyRenameListeners(File oldFile, File newFile) {
         RenameFileAction action = new RenameFileAction(oldFile, newFile);
         for (RenameFileListener listener : renameFileListeners) {
             listener.actionPerformed(action);

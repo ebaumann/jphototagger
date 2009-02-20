@@ -26,7 +26,7 @@ public final class FilenameFormatArray {
     /**
      * Calls to every format {@link FilenameFormat#next()}
      */
-    public void notifyNext() {
+    public synchronized void notifyNext() {
         for (FilenameFormat format : formats) {
             format.next();
         }

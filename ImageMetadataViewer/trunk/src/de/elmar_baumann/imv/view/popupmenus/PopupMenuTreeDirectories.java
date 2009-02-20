@@ -47,7 +47,7 @@ public final class PopupMenuTreeDirectories extends JPopupMenu {
      * 
      * @param listener  Beobachter
      */
-    public void addActionListenerAddToFavoriteDirectories(ActionListener listener) {
+    public synchronized void addActionListenerAddToFavoriteDirectories(ActionListener listener) {
         itemAddToFavoriteDirectories.addActionListener(listener);
     }
 

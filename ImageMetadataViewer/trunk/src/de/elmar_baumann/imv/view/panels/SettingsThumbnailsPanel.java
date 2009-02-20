@@ -60,7 +60,7 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel
         }
     }
 
-    private void notifyChangeListener(UserSettingsChangeEvent evt) {
+    private synchronized void notifyChangeListener(UserSettingsChangeEvent evt) {
         listenerProvider.notifyUserSettingsChangeListener(evt);
     }
 

@@ -49,7 +49,7 @@ public final class RecordsWithNotExistingFilesDeleter implements Runnable, Progr
      * 
      * @param listener Fortschrittsbeobachter
      */
-    public void addProgressListener(ProgressListener listener) {
+    public synchronized void addProgressListener(ProgressListener listener) {
         progressListeners.add(listener);
     }
 
