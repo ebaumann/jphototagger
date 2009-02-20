@@ -1,6 +1,7 @@
 package de.elmar_baumann.imv.data;
 
 import com.imagero.reader.iptc.IPTCEntryMeta;
+import de.elmar_baumann.imv.database.metadata.mapping.IptcRepeatableValues;
 import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,52 +17,7 @@ import java.util.Map;
  */
 public final class Iptc {
 
-    private final List<String> byLines = new ArrayList<String>();
-    private final List<String> byLinesTitles = new ArrayList<String>();
-    private final StringBuffer captionAbstract = new StringBuffer();
-    private final StringBuffer category = new StringBuffer();
-    private final StringBuffer city = new StringBuffer();
-    private final List<String> contentLocationCodes = new ArrayList<String>();
-    private final List<String> contentLocationNames = new ArrayList<String>();
-    private final StringBuffer copyrightNotice = new StringBuffer();
-    private final StringBuffer countryPrimaryLocationName = new StringBuffer();
-    private final StringBuffer credit = new StringBuffer();
-    private final StringBuffer headline = new StringBuffer();
-    private final List<String> keywords = new ArrayList<String>();
-    private final StringBuffer objectName = new StringBuffer();
-    private final StringBuffer originalTransmissionReference = new StringBuffer();
-    private final StringBuffer provinceState = new StringBuffer();
-    private final StringBuffer source = new StringBuffer();
-    private final StringBuffer specialInstructions = new StringBuffer();
-    private final List<String> supplementalCategories = new ArrayList<String>();
-    private final List<String> writersEditors = new ArrayList<String>();
     private final Map<IPTCEntryMeta, Object> valueOfEntryMeta = new HashMap<IPTCEntryMeta, Object>();
-
-    private void init() {
-        valueOfEntryMeta.put(IPTCEntryMeta.COPYRIGHT_NOTICE, copyrightNotice);
-        valueOfEntryMeta.put(IPTCEntryMeta.CAPTION_ABSTRACT, captionAbstract);
-        valueOfEntryMeta.put(IPTCEntryMeta.OBJECT_NAME, objectName);
-        valueOfEntryMeta.put(IPTCEntryMeta.HEADLINE, headline);
-        valueOfEntryMeta.put(IPTCEntryMeta.CATEGORY, category);
-        valueOfEntryMeta.put(IPTCEntryMeta.CITY, city);
-        valueOfEntryMeta.put(IPTCEntryMeta.PROVINCE_STATE, provinceState);
-        valueOfEntryMeta.put(IPTCEntryMeta.COUNTRY_PRIMARY_LOCATION_NAME, countryPrimaryLocationName);
-        valueOfEntryMeta.put(IPTCEntryMeta.ORIGINAL_TRANSMISSION_REFERENCE, originalTransmissionReference);
-        valueOfEntryMeta.put(IPTCEntryMeta.SPECIAL_INSTRUCTIONS, specialInstructions);
-        valueOfEntryMeta.put(IPTCEntryMeta.CREDIT, credit);
-        valueOfEntryMeta.put(IPTCEntryMeta.SOURCE, source);
-        valueOfEntryMeta.put(IPTCEntryMeta.KEYWORDS, keywords);
-        valueOfEntryMeta.put(IPTCEntryMeta.BYLINE, byLines);
-        valueOfEntryMeta.put(IPTCEntryMeta.CONTENT_LOCATION_NAME, contentLocationNames);
-        valueOfEntryMeta.put(IPTCEntryMeta.CONTENT_LOCATION_CODE, contentLocationCodes);
-        valueOfEntryMeta.put(IPTCEntryMeta.WRITER_EDITOR, writersEditors);
-        valueOfEntryMeta.put(IPTCEntryMeta.SUPPLEMENTAL_CATEGORY, supplementalCategories);
-        valueOfEntryMeta.put(IPTCEntryMeta.BYLINE_TITLE, byLinesTitles);
-    }
-
-    public Iptc() {
-        init();
-    }
 
     /**
      * Liefert die IPTC-Felder 2:85 (By-line Title).
@@ -70,7 +26,7 @@ public final class Iptc {
      * @see    Xmp#getPhotoshopAuthorsposition()
      */
     public List<String> getByLinesTitles() {
-        return byLinesTitles.isEmpty() ? null : byLinesTitles;
+        return stringListOf(IPTCEntryMeta.BYLINE_TITLE);
     }
 
     /**
@@ -80,9 +36,7 @@ public final class Iptc {
      * @see               Xmp#setPhotoshopAuthorsposition(java.lang.String)
      */
     public void addByLineTitle(String byLineTitle) {
-        if (byLineTitle != null && !byLinesTitles.contains(byLineTitle)) {
-            byLinesTitles.add(byLineTitle);
-        }
+        addToStringList(IPTCEntryMeta.BYLINE_TITLE, byLineTitle);
     }
 
     /**
@@ -92,7 +46,7 @@ public final class Iptc {
      * @see    Xmp#getDcCreator()
      */
     public List<String> getByLines() {
-        return byLines.isEmpty() ? null : byLines;
+        return stringListOf(IPTCEntryMeta.BYLINE);
     }
 
     /**
@@ -102,9 +56,7 @@ public final class Iptc {
      * @see          Xmp#setDcCreator(java.lang.String)
      */
     public void addByLine(String byLine) {
-        if (byLine != null && !byLines.contains(byLine)) {
-            byLines.add(byLine);
-        }
+        addToStringList(IPTCEntryMeta.BYLINE, byLine);
     }
 
     /**
@@ -114,7 +66,7 @@ public final class Iptc {
      * @see    Xmp#getDcDescription()
      */
     public String getCaptionAbstract() {
-        return captionAbstract.length() <= 0 ? null : captionAbstract.toString();
+        return stringValueOf(IPTCEntryMeta.CAPTION_ABSTRACT);
     }
 
     /**
@@ -124,11 +76,7 @@ public final class Iptc {
      * @see                   Xmp#setDcDescription(java.lang.String)
      */
     public void setCaptionAbstract(String captionAbstract) {
-        this.captionAbstract.replace(0,
-            this.captionAbstract.length(),
-            captionAbstract == null
-            ? "" // NOI18N
-            : captionAbstract);
+        valueOfEntryMeta.put(IPTCEntryMeta.CAPTION_ABSTRACT, captionAbstract);
     }
 
     /**
@@ -138,7 +86,7 @@ public final class Iptc {
      * @see    Xmp#getPhotoshopCategory()
      */
     public String getCategory() {
-        return category.length() <= 0 ? null : category.toString();
+        return stringValueOf(IPTCEntryMeta.CATEGORY);
     }
 
     /**
@@ -148,11 +96,7 @@ public final class Iptc {
      * @see            Xmp#setPhotoshopCategory(java.lang.String)
      */
     public void setCategory(String category) {
-        this.category.replace(0,
-            this.category.length(),
-            category == null
-            ? "" // NOI18N
-            : category);
+        valueOfEntryMeta.put(IPTCEntryMeta.CATEGORY, category);
     }
 
     /**
@@ -162,7 +106,7 @@ public final class Iptc {
      * @see    Xmp#getPhotoshopCity()
      */
     public String getCity() {
-        return city.length() <= 0 ? null : city.toString();
+        return stringValueOf(IPTCEntryMeta.CITY);
     }
 
     /**
@@ -172,10 +116,7 @@ public final class Iptc {
      * @see        Xmp#setPhotoshopCity(java.lang.String)
      */
     public void setCity(String city) {
-        this.city.replace(0, this.city.length(),
-            city == null
-            ? "" // NOI18N
-            : city);
+        valueOfEntryMeta.put(IPTCEntryMeta.CITY, city);
     }
 
     /**
@@ -185,7 +126,7 @@ public final class Iptc {
      * @see    Xmp#getIptc4xmpcoreCountrycode()
      */
     public List<String> getContentLocationCodes() {
-        return contentLocationCodes.isEmpty() ? null : contentLocationCodes;
+        return stringListOf(IPTCEntryMeta.CONTENT_LOCATION_CODE);
     }
 
     /**
@@ -195,10 +136,7 @@ public final class Iptc {
      * @see                       Xmp#setIptc4xmpcoreCountrycode(java.lang.String)
      */
     public void addContentLocationCode(String contentLocationCode) {
-        if (contentLocationCode != null &&
-            !contentLocationCodes.contains(contentLocationCode)) {
-            contentLocationCodes.add(contentLocationCode);
-        }
+        addToStringList(IPTCEntryMeta.CONTENT_LOCATION_CODE, contentLocationCode);
     }
 
     /**
@@ -208,7 +146,7 @@ public final class Iptc {
      * @see    Xmp#getIptc4xmpcoreLocation()
      */
     public List<String> getContentLocationNames() {
-        return contentLocationNames.isEmpty() ? null : contentLocationNames;
+        return stringListOf(IPTCEntryMeta.CONTENT_LOCATION_NAME);
     }
 
     /**
@@ -218,10 +156,7 @@ public final class Iptc {
      * @see                       Xmp#setIptc4xmpcoreLocation(java.lang.String)
      */
     public void addContentLocationName(String contentLocationName) {
-        if (contentLocationName != null &&
-            !contentLocationNames.contains(contentLocationName)) {
-            contentLocationNames.add(contentLocationName);
-        }
+        addToStringList(IPTCEntryMeta.CONTENT_LOCATION_NAME, contentLocationName);
     }
 
     /**
@@ -231,7 +166,7 @@ public final class Iptc {
      * @see    Xmp#getDcRights()
      */
     public String getCopyrightNotice() {
-        return copyrightNotice.length() <= 0 ? null : copyrightNotice.toString();
+        return stringValueOf(IPTCEntryMeta.COPYRIGHT_NOTICE);
     }
 
     /**
@@ -241,10 +176,7 @@ public final class Iptc {
      * @see                   Xmp#setDcRights(java.lang.String)
      */
     public void setCopyrightNotice(String copyrightNotice) {
-        this.copyrightNotice.replace(0, this.copyrightNotice.length(),
-            copyrightNotice == null
-            ? "" // NOI18N
-            : copyrightNotice);
+        valueOfEntryMeta.put(IPTCEntryMeta.COPYRIGHT_NOTICE, copyrightNotice);
     }
 
     /**
@@ -254,8 +186,7 @@ public final class Iptc {
      * @see    Xmp#getPhotoshopCountry()
      */
     public String getCountryPrimaryLocationName() {
-        return countryPrimaryLocationName.length() <= 0
-            ? null : countryPrimaryLocationName.toString();
+        return stringValueOf(IPTCEntryMeta.COUNTRY_PRIMARY_LOCATION_NAME);
     }
 
     /**
@@ -265,11 +196,8 @@ public final class Iptc {
      * @see                              Xmp#setPhotoshopCountry(java.lang.String)
      */
     public void setCountryPrimaryLocationName(String countryPrimaryLocationName) {
-        this.countryPrimaryLocationName.replace(0,
-            this.countryPrimaryLocationName.length(),
-            countryPrimaryLocationName == null
-            ? "" // NOI18N
-            : countryPrimaryLocationName);
+        valueOfEntryMeta.put(IPTCEntryMeta.COUNTRY_PRIMARY_LOCATION_NAME,
+            countryPrimaryLocationName);
     }
 
     /**
@@ -279,7 +207,7 @@ public final class Iptc {
      * @see    Xmp#getPhotoshopCredit()
      */
     public String getCredit() {
-        return credit.length() <= 0 ? null : credit.toString();
+        return stringValueOf(IPTCEntryMeta.CREDIT);
     }
 
     /**
@@ -289,10 +217,7 @@ public final class Iptc {
      * @see          Xmp#setPhotoshopCredit(java.lang.String)
      */
     public void setCredit(String credit) {
-        this.credit.replace(0, this.credit.length(),
-            credit == null
-            ? "" // NOI18N
-            : credit);
+        valueOfEntryMeta.put(IPTCEntryMeta.CREDIT, credit);
     }
 
     /**
@@ -302,7 +227,7 @@ public final class Iptc {
      * @see    Xmp#getPhotoshopHeadline()
      */
     public String getHeadline() {
-        return headline.length() <= 0 ? null : headline.toString();
+        return stringValueOf(IPTCEntryMeta.HEADLINE);
     }
 
     /**
@@ -312,10 +237,7 @@ public final class Iptc {
      * @see            Xmp#setPhotoshopHeadline(java.lang.String)
      */
     public void setHeadline(String headline) {
-        this.headline.replace(0, this.headline.length(),
-            headline == null
-            ? "" // NOI18N
-            : headline);
+        valueOfEntryMeta.put(IPTCEntryMeta.HEADLINE, headline);
     }
 
     /**
@@ -325,7 +247,7 @@ public final class Iptc {
      * @see    Xmp#getDcSubjects()
      */
     public List<String> getKeywords() {
-        return keywords;
+        return stringListOf(IPTCEntryMeta.KEYWORDS);
     }
 
     /**
@@ -335,9 +257,7 @@ public final class Iptc {
      * @see           Xmp#addDcSubject(java.lang.String)
      */
     public void addKeyword(String keyword) {
-        if (keyword != null && !keywords.contains(keyword)) {
-            keywords.add(keyword);
-        }
+        addToStringList(IPTCEntryMeta.KEYWORDS, keyword);
     }
 
     /**
@@ -347,7 +267,7 @@ public final class Iptc {
      * @see    Xmp#getDcTitle()
      */
     public String getObjectName() {
-        return objectName.length() <= 0 ? null : objectName.toString();
+        return stringValueOf(IPTCEntryMeta.OBJECT_NAME);
     }
 
     /**
@@ -357,10 +277,7 @@ public final class Iptc {
      * @see              Xmp#setDcTitle(java.lang.String)
      */
     public void setObjectName(String objectName) {
-        this.objectName.replace(0, this.objectName.length(),
-            objectName == null
-            ? "" // NOI18N
-            : objectName);
+        valueOfEntryMeta.put(IPTCEntryMeta.OBJECT_NAME, objectName);
     }
 
     /**
@@ -370,8 +287,7 @@ public final class Iptc {
      * @see    Xmp#getPhotoshopTransmissionReference()
      */
     public String getOriginalTransmissionReference() {
-        return originalTransmissionReference.length() <= 0
-            ? null : originalTransmissionReference.toString();
+        return stringValueOf(IPTCEntryMeta.ORIGINAL_TRANSMISSION_REFERENCE);
     }
 
     /**
@@ -380,13 +296,9 @@ public final class Iptc {
      * @param originalTransmissionReference IPTC-Feld 2:103 (Original Transmission Reference)
      * @see                                 Xmp#setPhotoshopTransmissionReference(java.lang.String)
      */
-    public void setOriginalTransmissionReference(
-        String originalTransmissionReference) {
-        this.originalTransmissionReference.replace(0,
-            this.originalTransmissionReference.length(),
-            originalTransmissionReference == null
-            ? "" // NOI18N
-            : originalTransmissionReference);
+    public void setOriginalTransmissionReference(String originalTransmissionReference) {
+        valueOfEntryMeta.put(IPTCEntryMeta.ORIGINAL_TRANSMISSION_REFERENCE,
+            originalTransmissionReference);
     }
 
     /**
@@ -396,7 +308,7 @@ public final class Iptc {
      * @see    Xmp#getPhotoshopState()
      */
     public String getProvinceState() {
-        return provinceState.length() <= 0 ? null : provinceState.toString();
+        return stringValueOf(IPTCEntryMeta.PROVINCE_STATE);
     }
 
     /**
@@ -406,10 +318,7 @@ public final class Iptc {
      * @see                 Xmp#setPhotoshopState(java.lang.String)
      */
     public void setProvinceState(String provinceState) {
-        this.provinceState.replace(0, this.provinceState.length(),
-            provinceState == null
-            ? "" // NOI18N
-            : provinceState);
+        valueOfEntryMeta.put(IPTCEntryMeta.PROVINCE_STATE, provinceState);
     }
 
     /**
@@ -419,7 +328,7 @@ public final class Iptc {
      * @see    Xmp#getPhotoshopSource()
      */
     public String getSource() {
-        return source.length() <= 0 ? null : source.toString();
+        return stringValueOf(IPTCEntryMeta.SOURCE);
     }
 
     /**
@@ -429,10 +338,7 @@ public final class Iptc {
      * @see          Xmp#setPhotoshopSource(java.lang.String)
      */
     public void setSource(String source) {
-        this.source.replace(0, this.source.length(),
-            source == null
-            ? "" // NOI18N
-            : source);
+        valueOfEntryMeta.put(IPTCEntryMeta.SOURCE, source);
     }
 
     /**
@@ -442,7 +348,7 @@ public final class Iptc {
      * @see    Xmp#getPhotoshopInstructions()
      */
     public String getSpecialInstructions() {
-        return specialInstructions.length() <= 0 ? null : specialInstructions.toString();
+        return stringValueOf(IPTCEntryMeta.SPECIAL_INSTRUCTIONS);
     }
 
     /**
@@ -452,10 +358,7 @@ public final class Iptc {
      * @see                       Xmp#setPhotoshopInstructions(java.lang.String)
      */
     public void setSpecialInstructions(String specialInstructions) {
-        this.specialInstructions.replace(0, this.specialInstructions.length(),
-            specialInstructions == null
-            ? "" // NOI18N
-            : specialInstructions);
+        valueOfEntryMeta.put(IPTCEntryMeta.SPECIAL_INSTRUCTIONS, specialInstructions);
     }
 
     /**
@@ -465,7 +368,7 @@ public final class Iptc {
      * @see    Xmp#getPhotoshopSupplementalCategories()
      */
     public List<String> getSupplementalCategories() {
-        return supplementalCategories;
+        return stringListOf(IPTCEntryMeta.SUPPLEMENTAL_CATEGORY);
     }
 
     /**
@@ -475,10 +378,7 @@ public final class Iptc {
      * @see                        Xmp#addPhotoshopSupplementalCategory(java.lang.String)
      */
     public void addSupplementalCategory(String supplementalCategory) {
-        if (supplementalCategory != null &&
-            !supplementalCategories.contains(supplementalCategory)) {
-            supplementalCategories.add(supplementalCategory);
-        }
+        addToStringList(IPTCEntryMeta.SUPPLEMENTAL_CATEGORY, supplementalCategory);
     }
 
     /**
@@ -488,7 +388,7 @@ public final class Iptc {
      * @see    Xmp#getPhotoshopCaptionwriter()
      */
     public List<String> getWritersEditors() {
-        return writersEditors;
+        return stringListOf(IPTCEntryMeta.WRITER_EDITOR);
     }
 
     /**
@@ -498,9 +398,7 @@ public final class Iptc {
      * @see                Xmp#setPhotoshopCaptionwriter(java.lang.String)
      */
     public void addWriterEditor(String writerEditor) {
-        if (writerEditor != null && !writersEditors.contains(writerEditor)) {
-            writersEditors.add(writerEditor);
-        }
+        addToStringList(IPTCEntryMeta.WRITER_EDITOR, writerEditor);
     }
 
     /**
@@ -512,25 +410,7 @@ public final class Iptc {
      *         für dieses Metadatum kein Wert gesetzt ist
      */
     public Object getValue(IPTCEntryMeta meta) {
-        Object value = valueOfEntryMeta.get(meta);
-        if (value instanceof StringBuffer) {
-            StringBuffer stringBuffer = (StringBuffer) value;
-            if (stringBuffer.length() <= 0) {
-                return null;
-            } else {
-                return stringBuffer.toString();
-            }
-        } else if (value instanceof List) {
-            List array = (List) value;
-            if (array.isEmpty()) {
-                return null;
-            } else {
-                return array;
-            }
-        } else {
-            assert false : meta;
-        }
-        return null;
+        return valueOfEntryMeta.get(meta);
     }
 
     /**
@@ -540,46 +420,56 @@ public final class Iptc {
      * @param meta   IPTC-Metadatum
      * @param value  Wert
      */
-    @SuppressWarnings("unchecked")
     public void setValue(IPTCEntryMeta meta, String value) {
-        Object o = valueOfEntryMeta.get(meta);
-        if (o instanceof StringBuffer) {
-            StringBuffer stringBuffer = (StringBuffer) o;
-            stringBuffer.replace(0, stringBuffer.length(), value == null
-                ? "" // NOI18N
-                : value);
-        } else if (o instanceof List && value != null) {
-            List array = (List) o;
-            if (!array.contains(value)) {
-                array.add(value);
-            }
+        if (IptcRepeatableValues.isRepeatable(meta)) {
+            addToStringList(meta, value);
+        } else {
+            valueOfEntryMeta.put(meta, value);
         }
     }
 
     /**
      * Liefert, ob keine Daten enthalten sind.
-     * 
+     *
      * @return true, wenn keine Daten enthalten sind
      */
     public boolean isEmpty() {
-        return byLines.isEmpty() &&
-            byLinesTitles.isEmpty() &&
-            captionAbstract.length() <= 0 &&
-            category.length() <= 0 &&
-            city.length() <= 0 &&
-            contentLocationCodes.isEmpty() &&
-            contentLocationNames.isEmpty() &&
-            copyrightNotice.length() <= 0 &&
-            countryPrimaryLocationName.length() <= 0 &&
-            credit.length() <= 0 &&
-            headline.length() <= 0 &&
-            keywords.isEmpty() &&
-            objectName.length() <= 0 &&
-            originalTransmissionReference.length() <= 0 &&
-            provinceState.length() <= 0 &&
-            source.length() <= 0 &&
-            specialInstructions.length() <= 0 &&
-            supplementalCategories.isEmpty() &&
-            writersEditors.isEmpty();
+        for (IPTCEntryMeta meta : valueOfEntryMeta.keySet()) {
+            Object o = valueOfEntryMeta.get(meta);
+            if (o instanceof String) {
+                String string = (String) o;
+                if (!string.trim().isEmpty()) return false;
+            } else if (o instanceof List) {
+                List list = (List) o;
+                if (!list.isEmpty()) return false;
+            } else if (o != null) { // zuletzt, da leere Liste != null ist, aber trotzdem ein leeres Element
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private String stringValueOf(IPTCEntryMeta meta) {
+        Object o = valueOfEntryMeta.get(meta);
+        return o instanceof String ? (String) o : null;
+    }
+
+    @SuppressWarnings("unchecked")
+    private List<String> stringListOf(IPTCEntryMeta meta) {
+        Object o = valueOfEntryMeta.get(meta);
+        return o instanceof List ? (List<String>) o : null;
+    }
+
+    @SuppressWarnings("unchecked")
+    private void addToStringList(IPTCEntryMeta meta, String string) {
+        if (string == null) return;
+        List<String> list = stringListOf(meta);
+        if (list == null) {
+            list = new ArrayList<String>();
+            valueOfEntryMeta.put(meta, list);
+        }
+        if (!list.contains(string)) {
+            list.add(string);
+        }
     }
 }

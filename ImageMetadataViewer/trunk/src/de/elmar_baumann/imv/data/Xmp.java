@@ -4,6 +4,7 @@ import com.imagero.reader.iptc.IPTCEntryMeta;
 import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.database.metadata.Column;
 import de.elmar_baumann.imv.database.metadata.mapping.IptcXmpMapping;
+import de.elmar_baumann.imv.database.metadata.mapping.XmpRepeatableValues;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpDcCreator;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpDcDescription;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpDcRights;
@@ -25,9 +26,9 @@ import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopState;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopTransmissionReference;
 import de.elmar_baumann.imv.resource.Bundle;
+import de.elmar_baumann.lib.template.Pair;
 import java.util.List;
 import java.util.HashMap;
-import java.util.Set;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -42,11 +43,6 @@ import java.util.Map;
 public final class Xmp {
 
     private final Map<Column, Object> valueOfColumn = new HashMap<Column, Object>();
-
-    public enum SetIptc {
-
-        REPLACE_EXISTING_VALUES, DONT_CHANGE_EXISTING_VALUES
-    };
 
     /**
      * Liefert das XMP-Felder dc:creator (Fotograf).
@@ -444,29 +440,46 @@ public final class Xmp {
         return longValueOf(ColumnXmpLastModified.getInstance());
     }
 
+    public enum SetIptc {
+
+        /** Replace existing XMP values with existing IPTC values */
+        REPLACE_EXISTING_VALUES,
+        /**
+         * Don't replace existing XMP values with existing IPTC values but
+         * add IPTC values to repeatable XMP values
+         */
+        DONT_CHANGE_EXISTING_VALUES
+    };
+
     public void setIptc(Iptc iptc, SetIptc options) {
         if (options.equals(SetIptc.REPLACE_EXISTING_VALUES)) {
             empty();
         }
-        Set<Column> xmpColumns = valueOfColumn.keySet();
+        List<Pair<IPTCEntryMeta, Column>> mappings = IptcXmpMapping.getInstance().getAllPairs();
         IptcXmpMapping mapping = IptcXmpMapping.getInstance();
-        for (Column xmpColumn : xmpColumns) {
+        for (Pair<IPTCEntryMeta, Column> mappingPair : mappings) {
+            Column xmpColumn = mappingPair.getSecond();
             IPTCEntryMeta iptcEntryMeta = mapping.getIptcEntryMetaOfXmpColumn(xmpColumn);
             Object iptcValue = iptc.getValue(iptcEntryMeta);
             if (iptcValue != null) {
                 if (iptcValue instanceof String) {
                     String iptcString = (String) iptcValue;
-                    boolean replace = options.equals(
-                            SetIptc.REPLACE_EXISTING_VALUES) ||
-                            getValue(xmpColumn) == null;
-                    if (replace) {
+                    boolean isSet = options.equals(SetIptc.REPLACE_EXISTING_VALUES) ||
+                        getValue(xmpColumn) == null;
+                    if (isSet) {
                         setValue(xmpColumn, iptcString);
                     }
                 } else if (iptcValue instanceof List) {
                     @SuppressWarnings("unchecked")
                     List<String> array = (List<String>) iptcValue;
-                    for (String string : array) {
-                        setValue(xmpColumn, string);
+                    if (XmpRepeatableValues.isRepeatable(xmpColumn)) {
+                        for (String string : array) {
+                            setValue(xmpColumn, string);
+                        }
+                    } else {
+                        if (!array.isEmpty()) {
+                            setValue(xmpColumn, array.get(0));
+                        }
                     }
                 } else {
                     AppLog.logWarning(Xmp.class, Bundle.getString("Xmp.ErrorMessage.SetIptc") + iptcValue + " (" + xmpColumn + ")"); // NOI18N
@@ -501,18 +514,11 @@ public final class Xmp {
      * @param xmpColumn  XMP-Spalte
      * @param value      Wert
      */
-    @SuppressWarnings("unchecked")
     public void setValue(Column xmpColumn, String value) {
-        Object o = valueOfColumn.get(xmpColumn);
-        if (o instanceof String) {
-            valueOfColumn.put(xmpColumn, value);
-        } else if (o instanceof List && value != null) {
-            List list = (List) o;
-            if (!list.contains(value)) {
-                list.add(value);
-            }
+        if (XmpRepeatableValues.isRepeatable(xmpColumn)) {
+            addToStringList(xmpColumn, value);
         } else {
-            AppLog.logWarning(Xmp.class, Bundle.getString("Xmp.ErrorMessage.SetValue") + value + " (" + xmpColumn + ")"); // NOI18N
+            valueOfColumn.put(xmpColumn, value);
         }
     }
 
@@ -520,12 +526,14 @@ public final class Xmp {
      * Entfernt den Wert einer XMP-Spalte.
      * 
      * @param xmpColumn  XMP-Spalte
-     * @param value      Wert ungleich null
+     * @param value      Wert ungleich null. Wird nur bei sich wiederholenden
+     *                   Werten von Bedeutung: Dieser wird dann aus dem Werte-Array
+     *                   entfernt
      */
     @SuppressWarnings("unchecked")
     public void removeValue(Column xmpColumn, String value) {
         Object o = valueOfColumn.get(xmpColumn);
-        boolean remove = o != null;
+        boolean remove = true;
         if (o instanceof List) {
             List list = (List) o;
             list.remove(value);
@@ -539,8 +547,29 @@ public final class Xmp {
     /**
      * Entfernt alle Daten.
      */
-    void empty() {
+    private void empty() {
         valueOfColumn.clear();
+    }
+
+    /**
+     * Liefert, ob keine Daten enthalten sind.
+     * 
+     * @return true, wenn keine Daten enthalten sind
+     */
+    public boolean isEmpty() {
+        for (Column column : valueOfColumn.keySet()) {
+            Object o = valueOfColumn.get(column);
+            if (o instanceof String) {
+                String string = (String) o;
+                if (!string.trim().isEmpty()) return false;
+            } else if (o instanceof List) {
+                List list = (List) o;
+                if (!list.isEmpty()) return false;
+            } else if (o != null) { // zuletzt, da leere Liste != null ist, aber trotzdem ein leeres Element
+                return false;
+            }
+        }
+        return true;
     }
 
     private Long longValueOf(Column column) {
@@ -559,39 +588,15 @@ public final class Xmp {
         return o instanceof List ? (List<String>) o : null;
     }
 
-    private void addToStringList(Column column, String s) {
-        if (s == null)
-            return;
+    private void addToStringList(Column column, String string) {
+        if (string == null) return;
         List<String> list = stringListOf(column);
         if (list == null) {
             list = new ArrayList<String>();
             valueOfColumn.put(column, list);
         }
-        if (!list.contains(s)) {
-            list.add(s);
+        if (!list.contains(string)) {
+            list.add(string);
         }
-    }
-
-    /**
-     * Liefert, ob keine Daten enthalten sind.
-     * 
-     * @return true, wenn keine Daten enthalten sind
-     */
-    public boolean isEmpty() {
-        for (Column column : valueOfColumn.keySet()) {
-            Object o = valueOfColumn.get(column);
-            if (o instanceof String) {
-                String string = (String) o;
-                if (!string.trim().isEmpty())
-                    return false;
-            } else if (o instanceof List) {
-                List list = (List) o;
-                if (!list.isEmpty())
-                    return false;
-            } else if (o != null) { // zuletzt, da leere Liste != null ist, aber trotzdem ein leeres Element
-                return false;
-            }
-        }
-        return true;
     }
 }
