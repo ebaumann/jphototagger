@@ -40,34 +40,31 @@ public final class ControllerImageCollectionSelected implements ListSelectionLis
 
     @Override
     public void valueChanged(ListSelectionEvent e) {
-        if (list.getSelectedIndex() >= 0) {
-            showImageCollection();
-            checkEditPanel();
-        }
+        showImageCollection();
     }
 
     @Override
     public void refresh() {
-        if (list.getSelectedIndex() >= 0) {
-            showImageCollection();
-            checkEditPanel();
-        }
+        showImageCollection();
     }
 
     private void showImageCollection() {
-        Object selected = list.getSelectedValue();
-        if (selected != null) {
-            showImageCollection(selected.toString());
+        if (list.getSelectedIndex() >= 0) {
+            Object selectedValue = list.getSelectedValue();
+            if (selectedValue != null) {
+                showImageCollection(selectedValue.toString());
+            }
+            setMetadataEditable();
         }
     }
 
     private void showImageCollection(String collectionName) {
         List<String> filenames = db.getFilenamesOfImageCollection(collectionName);
         thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames),
-            Content.IMAGE_COLLECTION);
+                Content.IMAGE_COLLECTION);
     }
 
-    private void checkEditPanel() {
+    private void setMetadataEditable() {
         if (thumbnailsPanel.getSelectionCount() <= 0) {
             editPanels.setEditable(false);
         }

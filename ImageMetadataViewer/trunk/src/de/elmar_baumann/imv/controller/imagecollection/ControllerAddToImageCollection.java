@@ -18,7 +18,7 @@ import java.awt.event.ActionListener;
  */
 public final class ControllerAddToImageCollection implements ActionListener {
 
-    private final PopupMenuPanelThumbnails popup = PopupMenuPanelThumbnails.getInstance();
+    private final PopupMenuPanelThumbnails popupMenu = PopupMenuPanelThumbnails.getInstance();
     private final ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
 
     public ControllerAddToImageCollection() {
@@ -26,7 +26,7 @@ public final class ControllerAddToImageCollection implements ActionListener {
     }
 
     private void listen() {
-        popup.addActionListenerAddToImageCollection(this);
+        popupMenu.addActionListenerAddToImageCollection(this);
     }
 
     @Override
@@ -37,8 +37,7 @@ public final class ControllerAddToImageCollection implements ActionListener {
     private void addSelectedFilesToImageCollection() {
         String collectionName = selectCollectionName();
         if (collectionName != null) {
-            ImageCollectionDatabaseUtils manager = new ImageCollectionDatabaseUtils();
-            manager.addImagesToCollection(collectionName,
+            ImageCollectionDatabaseUtils.addImagesToCollection(collectionName,
                     FileUtil.getAsFilenames(thumbnailsPanel.getSelectedFiles()));
         }
     }
@@ -46,6 +45,6 @@ public final class ControllerAddToImageCollection implements ActionListener {
     private String selectCollectionName() {
         ImageCollectionsDialog dialog = new ImageCollectionsDialog(null);
         dialog.setVisible(true);
-        return dialog.getSelectedCollection();
+        return dialog.getSelectedCollectionName();
     }
 }

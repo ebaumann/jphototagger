@@ -25,6 +25,10 @@ public final class ControllerThumbnailsDatabaseChanges
         listen();
     }
 
+    private void listen() {
+        db.addDatabaseListener(this);
+    }
+
     @Override
     public void actionPerformed(DatabaseAction action) {
         DatabaseAction.Type type = action.getType();
@@ -33,10 +37,6 @@ public final class ControllerThumbnailsDatabaseChanges
         } else if (type.equals(DatabaseAction.Type.IMAGEFILES_DELETED)) {
             removeThumbnails(action);
         }
-    }
-
-    private void listen() {
-        db.addDatabaseListener(this);
     }
 
     private void removeThumbnails(DatabaseAction action) {

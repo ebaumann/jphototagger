@@ -18,7 +18,7 @@ import javax.swing.JList;
  */
 public final class ControllerRenameImageCollection implements ActionListener {
 
-    private final PopupMenuListImageCollections actionPopup = PopupMenuListImageCollections.getInstance();
+    private final PopupMenuListImageCollections popupMenu = PopupMenuListImageCollections.getInstance();
     private final AppPanel appPanel = Panels.getInstance().getAppPanel();
     private final JList list = appPanel.getListImageCollections();
     private final ListModelImageCollections model = (ListModelImageCollections) list.getModel();
@@ -27,20 +27,19 @@ public final class ControllerRenameImageCollection implements ActionListener {
         listen();
     }
 
+    private void listen() {
+        popupMenu.addActionListenerRename(this);
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         renameImageCollection();
     }
 
-    private void listen() {
-        actionPopup.addActionListenerRename(this);
-    }
-
     private void renameImageCollection() {
-        String oldName = actionPopup.getImageCollectionName();
+        String oldName = popupMenu.getImageCollectionName();
         if (oldName != null) {
-            ImageCollectionDatabaseUtils manager = new ImageCollectionDatabaseUtils();
-            String newName = manager.renameImageCollection(oldName);
+            String newName = ImageCollectionDatabaseUtils.renameImageCollection(oldName);
             if (newName != null) {
                 model.rename(oldName, newName);
             }

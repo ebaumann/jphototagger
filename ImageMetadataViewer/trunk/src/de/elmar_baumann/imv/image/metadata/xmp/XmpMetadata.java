@@ -9,6 +9,7 @@ import com.adobe.xmp.options.PropertyOptions;
 import com.adobe.xmp.options.SerializeOptions;
 import com.adobe.xmp.properties.XMPPropertyInfo;
 import com.imagero.reader.iptc.IPTCEntryMeta;
+import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.data.TextEntry;
 import de.elmar_baumann.imv.data.Xmp;
 import de.elmar_baumann.imv.database.metadata.Column;
@@ -18,6 +19,7 @@ import de.elmar_baumann.imv.database.metadata.mapping.XmpColumnXmpDataTypeMappin
 import de.elmar_baumann.imv.database.metadata.mapping.XmpColumnXmpDataTypeMapping.XmpValueType;
 import de.elmar_baumann.imv.database.metadata.mapping.XmpColumnXmpPathStartMapping;
 import de.elmar_baumann.imv.database.metadata.selections.EditColumns;
+import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.io.FileUtil;
 import de.elmar_baumann.lib.template.Pair;
 import de.elmar_baumann.lib.util.ArrayUtil;
@@ -405,8 +407,7 @@ public final class XmpMetadata {
                     xmpMeta.setLocalizedText(namespaceUri, propertyName, "", "x-default", // NOI18N
                         value);
                 }
-            }
-            if (o instanceof List) {
+            } else if (o instanceof List) {
                 @SuppressWarnings("unchecked")
                 List<String> values = (List<String>) o;
                 for (String value : values) {
@@ -416,6 +417,8 @@ public final class XmpMetadata {
                             getArrayPropertyOptions(column), value, null);
                     }
                 }
+            } else {
+                AppLog.logWarning(XmpMetadata.class, Bundle.getString("XmpMetadata.ErrorMessage.WriteSetMetadata") + o.toString());
             }
         }
     }

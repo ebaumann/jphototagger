@@ -49,10 +49,10 @@ public final class ActionsPanel extends javax.swing.JPanel {
     }
 
     public void setButtonsEnabled() {
-        boolean selected = list.getSelectedIndex() >= 0;
-        buttonDelete.setEnabled(selected);
-        buttonEdit.setEnabled(selected);
-        buttonExecute.setEnabled(selected);
+        boolean selectedIndex = list.getSelectedIndex() >= 0;
+        buttonDelete.setEnabled(selectedIndex);
+        buttonEdit.setEnabled(selectedIndex);
+        buttonExecute.setEnabled(selectedIndex);
     }
 
     private Program getSelectedProgram() {

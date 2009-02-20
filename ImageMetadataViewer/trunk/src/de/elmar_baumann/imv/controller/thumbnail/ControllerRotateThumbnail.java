@@ -20,7 +20,7 @@ import java.util.List;
 public final class ControllerRotateThumbnail implements ActionListener {
 
     private final DatabaseImageFiles db = DatabaseImageFiles.getInstance();
-    private final PopupMenuPanelThumbnails popup = PopupMenuPanelThumbnails.getInstance();
+    private final PopupMenuPanelThumbnails popupMenu = PopupMenuPanelThumbnails.getInstance();
     private final ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
 
     public ControllerRotateThumbnail() {
@@ -28,14 +28,14 @@ public final class ControllerRotateThumbnail implements ActionListener {
     }
 
     private void listen() {
-        popup.addActionListenerRotateThumbnail180(this);
-        popup.addActionListenerRotateThumbnail270(this);
-        popup.addActionListenerRotateThumbnail90(this);
+        popupMenu.addActionListenerRotateThumbnail180(this);
+        popupMenu.addActionListenerRotateThumbnail270(this);
+        popupMenu.addActionListenerRotateThumbnail90(this);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        rotateSelectedImages(popup.getRotateAngle(e.getSource()));
+        rotateSelectedImages(popupMenu.getRotateAngle(e.getSource()));
     }
 
     private void rotateSelectedImages(float rotateAngle) {

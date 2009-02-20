@@ -40,7 +40,7 @@ public final class ControllerKeywordItemSelected implements ListSelectionListene
     public void refresh() {
         if (listKeywords.getSelectedIndex() >= 0) {
             setFilesToThumbnailsPanel();
-            checkEditPanel();
+            setMetadataEditable();
         }
     }
 
@@ -48,7 +48,7 @@ public final class ControllerKeywordItemSelected implements ListSelectionListene
     public void valueChanged(ListSelectionEvent e) {
         if (listKeywords.getSelectedIndex() >= 0) {
             setFilesToThumbnailsPanel();
-            checkEditPanel();
+            setMetadataEditable();
         }
     }
 
@@ -59,7 +59,7 @@ public final class ControllerKeywordItemSelected implements ListSelectionListene
         thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames), Content.KEYWORD);
     }
 
-    private void checkEditPanel() {
+    private void setMetadataEditable() {
         if (thumbnailsPanel.getSelectionCount() <= 0) {
             editPanels.setEditable(false);
         }

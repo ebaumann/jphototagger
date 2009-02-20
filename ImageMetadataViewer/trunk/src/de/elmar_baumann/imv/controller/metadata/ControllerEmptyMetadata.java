@@ -23,12 +23,12 @@ public final class ControllerEmptyMetadata implements ActionListener {
         listen();
     }
 
+    private void listen() {
+        buttonEmpty.addActionListener(this);
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         editPanels.emptyPanels(true);
-    }
-
-    private void listen() {
-        buttonEmpty.addActionListener(this);
     }
 }

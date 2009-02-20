@@ -27,6 +27,10 @@ public final class ControllerDeleteImageCollection implements ActionListener {
         listen();
     }
 
+    private void listen() {
+        actionPopup.addActionListenerDelete(this);
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         deleteCollection();
@@ -35,14 +39,9 @@ public final class ControllerDeleteImageCollection implements ActionListener {
     private void deleteCollection() {
         String collectionName = actionPopup.getImageCollectionName();
         if (collectionName != null) {
-            ImageCollectionDatabaseUtils manager = new ImageCollectionDatabaseUtils();
-            if (manager.deleteImageCollection(collectionName)) {
+            if (ImageCollectionDatabaseUtils.deleteImageCollection(collectionName)) {
                 model.removeElement(collectionName);
             }
         }
-    }
-
-    private void listen() {
-        actionPopup.addActionListenerDelete(this);
     }
 }

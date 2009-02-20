@@ -14,7 +14,7 @@ import javax.swing.JList;
  */
 public final class ListImageCollectionsMouseListener extends MouseAdapter {
 
-    private final PopupMenuListImageCollections popup = PopupMenuListImageCollections.getInstance();
+    private final PopupMenuListImageCollections popupMenu = PopupMenuListImageCollections.getInstance();
 
     @Override
     public void mousePressed(MouseEvent e) {
@@ -24,12 +24,12 @@ public final class ListImageCollectionsMouseListener extends MouseAdapter {
         int index = list.locationToIndex(new Point(x, y));
         if ((e.isPopupTrigger() || e.getModifiers() == 4)) {
             boolean isItem = index >= 0 && index == list.getSelectedIndex();
-            popup.setImageCollectionName(isItem
+            popupMenu.setImageCollectionName(isItem
                 ? list.getSelectedValue().toString()
                 : null);
-            popup.setEnabledDelete(isItem);
-            popup.setEnabledRename(isItem);
-            popup.show(list, x, y);
+            popupMenu.setEnabledDelete(isItem);
+            popupMenu.setEnabledRename(isItem);
+            popupMenu.show(list, x, y);
         } else {
             if (index >= 0) {
                 list.setSelectedIndex(index);

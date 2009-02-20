@@ -28,7 +28,7 @@ public final class ImageCollectionsDialog extends Dialog {
         return ok && listImageCollectionNames.getSelectedValue() != null;
     }
 
-    public String getSelectedCollection() {
+    public String getSelectedCollectionName() {
         Object value = listImageCollectionNames.getSelectedValue();
         return value == null || !ok ? null : value.toString();
     }

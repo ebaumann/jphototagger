@@ -20,13 +20,13 @@ public final class ControllerEditSafedSearch implements ActionListener {
         listen();
     }
 
+    private void listen() {
+        actionPopup.addActionListenerEdit(this);
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         showAdvancedSearchDialog();
-    }
-
-    private void listen() {
-        actionPopup.addActionListenerEdit(this);
     }
 
     private void showAdvancedSearchDialog() {

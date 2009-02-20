@@ -17,13 +17,13 @@ public final class ControllerIptcToXmp implements ActionListener {
         listen();
     }
 
+    private void listen() {
+        Panels.getInstance().getAppFrame().getMenuItemToolIptcToXmp().addActionListener(this);
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         showIptcToXmpDialog();
-    }
-
-    private void listen() {
-        Panels.getInstance().getAppFrame().getMenuItemToolIptcToXmp().addActionListener(this);
     }
 
     private void showIptcToXmpDialog() {

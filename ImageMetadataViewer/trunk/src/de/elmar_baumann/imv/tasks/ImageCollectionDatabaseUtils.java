@@ -24,7 +24,7 @@ public final class ImageCollectionDatabaseUtils {
      * @param filenames Namen der Bilddateien
      * @return          Name der Sammlung oder null, wenn keine eingefügt wurde
      */
-    public String insertImageCollection(List<String> filenames) {
+    public static String insertImageCollection(List<String> filenames) {
         String name = inputCollectionName(""); // NOI18N
         if (name != null && !name.isEmpty()) {
             logAddImageCollection(name);
@@ -43,7 +43,7 @@ public final class ImageCollectionDatabaseUtils {
      * @param filenames      Zu entfernende Bilder
      * @return               true, wenn die Bilder entfernt wurden
      */
-    public boolean deleteImagesFromCollection(String collectionName, List<String> filenames) {
+    public static boolean deleteImagesFromCollection(String collectionName, List<String> filenames) {
         if (confirmDelete(collectionName, Bundle.getString("ImageCollectionToDatabase.ConfirmMessage.DeleteSelectedFiles"))) {
             boolean removed = db.deleteImagesFromCollection(collectionName, filenames) == filenames.size();
             if (!removed) {
@@ -60,7 +60,7 @@ public final class ImageCollectionDatabaseUtils {
      * @param collectionName Name der Bildsammlung
      * @return               true wenn gelöscht
      */
-    public boolean deleteImageCollection(String collectionName) {
+    public static boolean deleteImageCollection(String collectionName) {
         boolean deleted = false;
         if (confirmDelete(collectionName, Bundle.getString("ImageCollectionToDatabase.ConfirmMessage.DeleteCollection"))) {
             deleted = db.deleteImageCollection(collectionName);
@@ -78,7 +78,7 @@ public final class ImageCollectionDatabaseUtils {
      * @param filenames      Hinzuzufügende Bilddateien
      * @return               true bei Erfolg
      */
-    public boolean addImagesToCollection(String collectionName, List<String> filenames) {
+    public static boolean addImagesToCollection(String collectionName, List<String> filenames) {
         boolean added = db.insertImagesIntoCollection(collectionName, filenames);
         if (!added) {
             errorMessageAddImagesToCollection(collectionName);
@@ -93,7 +93,7 @@ public final class ImageCollectionDatabaseUtils {
      * @return        Neuer Name oder null, wenn die Sammlung nicht umbenannt
      *                wurde
      */
-    public String renameImageCollection(String oldName) {
+    public static String renameImageCollection(String oldName) {
         String newName = inputCollectionName(oldName);
         if (newName != null) {
             boolean renamed = db.updateRenameImageCollection(oldName, newName) > 0;
@@ -107,38 +107,38 @@ public final class ImageCollectionDatabaseUtils {
         return null;
     }
 
-    private void logAddImageCollection(String name) {
+    private static void logAddImageCollection(String name) {
         MessageFormat msg = new MessageFormat(Bundle.getString("ImageCollectionToDatabase.InformationMessage.StartInsert"));
         Object[] params = {name};
         AppLog.logInfo(ImageCollectionDatabaseUtils.class, msg.format(params));
     }
 
-    private void errorMessageAddImagesToCollection(String collectionName) {
+    private static void errorMessageAddImagesToCollection(String collectionName) {
         errorMessage(Bundle.getString("ImageCollectionToDatabase.ErrorMessage.AddImagesToCollection"),
                 collectionName);
     }
 
-    private void errorMessageAddImageCollection(String collectionName) {
+    private static void errorMessageAddImageCollection(String collectionName) {
         errorMessage(Bundle.getString("ImageCollectionToDatabase.ErrorMessage.AddImageCollection"),
                 collectionName);
     }
 
-    private void errorMessageDeleteImageCollection(String collectionName) {
+    private static void errorMessageDeleteImageCollection(String collectionName) {
         errorMessage(Bundle.getString("ImageCollectionToDatabase.ErrorMessage.DeleteImageCollection"),
                 collectionName);
     }
 
-    private void errorMessageDeleteImagesFromCollection(String collectionName) {
+    private static void errorMessageDeleteImagesFromCollection(String collectionName) {
         errorMessage(Bundle.getString("ImageCollectionToDatabase.ErrorMessage.DeleteImagesFromCollection"),
                 collectionName);
     }
 
-    private void errorMessageRenameImageCollection(String collectionName) {
+    private static void errorMessageRenameImageCollection(String collectionName) {
         errorMessage(Bundle.getString("ImageCollectionToDatabase.ErrorMessage.RenameImageCollection"),
                 collectionName);
     }
 
-    private void errorMessage(String format, String param) {
+    private static void errorMessage(String format, String param) {
         MessageFormat msg = new MessageFormat(format);
         Object[] params = {param};
         JOptionPane.showMessageDialog(null,
@@ -148,7 +148,7 @@ public final class ImageCollectionDatabaseUtils {
                 AppIcons.getMediumAppIcon());
     }
 
-    private boolean confirmDelete(String collectionName, String message) {
+    private static boolean confirmDelete(String collectionName, String message) {
         MessageFormat msg = new MessageFormat(message);
         Object[] params = {collectionName};
         return JOptionPane.showConfirmDialog(
@@ -160,7 +160,7 @@ public final class ImageCollectionDatabaseUtils {
                 AppIcons.getMediumAppIcon()) == JOptionPane.YES_OPTION;
     }
 
-    private String inputCollectionName(String defaultName) {
+    private static String inputCollectionName(String defaultName) {
         String name = getCollectionName(defaultName);
         boolean willAdd = name != null;
         while (name != null && willAdd) {
@@ -184,7 +184,7 @@ public final class ImageCollectionDatabaseUtils {
         return name;
     }
 
-    private String getCollectionName(String defaultName) {
+    private static String getCollectionName(String defaultName) {
         String name = JOptionPane.showInputDialog(
                 Bundle.getString("ImageCollectionToDatabase.Input.CollectionName"),
                 defaultName);
@@ -195,5 +195,8 @@ public final class ImageCollectionDatabaseUtils {
             }
         }
         return name;
+    }
+
+    private ImageCollectionDatabaseUtils() {
     }
 }

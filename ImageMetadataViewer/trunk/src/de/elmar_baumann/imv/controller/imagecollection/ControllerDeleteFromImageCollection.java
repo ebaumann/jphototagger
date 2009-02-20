@@ -24,7 +24,7 @@ public final class ControllerDeleteFromImageCollection implements ActionListener
 
     private final AppPanel appPanel = Panels.getInstance().getAppPanel();
     private final JList list = appPanel.getListImageCollections();
-    private final PopupMenuPanelThumbnails popup = PopupMenuPanelThumbnails.getInstance();
+    private final PopupMenuPanelThumbnails popupMenu = PopupMenuPanelThumbnails.getInstance();
     private final ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
 
     public ControllerDeleteFromImageCollection() {
@@ -32,7 +32,7 @@ public final class ControllerDeleteFromImageCollection implements ActionListener
     }
 
     private void listen() {
-        popup.addActionListenerDeleteFromImageCollection(this);
+        popupMenu.addActionListenerDeleteFromImageCollection(this);
         Panels.getInstance().getAppFrame().getMenuItemDelete().addActionListener(this);
     }
 
@@ -45,12 +45,11 @@ public final class ControllerDeleteFromImageCollection implements ActionListener
     }
 
     private void deleteSelectedFilesFromImageCollection() {
-        Object selected = list.getSelectedValue();
-        if (selected != null) {
-            ImageCollectionDatabaseUtils manager = new ImageCollectionDatabaseUtils();
+        Object selectedValue = list.getSelectedValue();
+        if (selectedValue != null) {
             List<File> selectedFiles = thumbnailsPanel.getSelectedFiles();
-            manager.deleteImagesFromCollection(selected.toString(),
-                    FileUtil.getAsFilenames(selectedFiles));
+            ImageCollectionDatabaseUtils.deleteImagesFromCollection(
+                    selectedValue.toString(), FileUtil.getAsFilenames(selectedFiles));
             thumbnailsPanel.remove(selectedFiles);
         }
     }

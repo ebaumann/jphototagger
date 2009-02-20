@@ -43,7 +43,7 @@ public final class ControllerSafedSearchSelected
     public void valueChanged(ListSelectionEvent e) {
         if (list.getSelectedIndex() >= 0) {
             searchSelectedValue();
-            checkEditPanel();
+            setMetadataEditable();
         }
     }
 
@@ -77,7 +77,7 @@ public final class ControllerSafedSearchSelected
             Content.SAFED_SEARCH);
     }
 
-    private void checkEditPanel() {
+    private void setMetadataEditable() {
         if (thumbnailsPanel.getSelectionCount() <= 0) {
             editPanels.setEditable(false);
         }

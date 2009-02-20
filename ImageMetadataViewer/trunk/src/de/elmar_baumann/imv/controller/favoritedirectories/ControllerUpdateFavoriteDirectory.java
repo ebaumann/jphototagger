@@ -17,7 +17,7 @@ import java.awt.event.ActionListener;
  */
 public final class ControllerUpdateFavoriteDirectory implements ActionListener {
 
-    private final PopupMenuListFavoriteDirectories popup = PopupMenuListFavoriteDirectories.getInstance();
+    private final PopupMenuListFavoriteDirectories popupMenu = PopupMenuListFavoriteDirectories.getInstance();
     private final AppPanel appPanel = Panels.getInstance().getAppPanel();
     private final ListModelFavoriteDirectories model = (ListModelFavoriteDirectories) appPanel.getListFavoriteDirectories().getModel();
 
@@ -26,7 +26,7 @@ public final class ControllerUpdateFavoriteDirectory implements ActionListener {
     }
 
     private void listen() {
-        popup.addActionListenerUpdate(this);
+        popupMenu.addActionListenerUpdate(this);
     }
 
     @Override
@@ -35,7 +35,7 @@ public final class ControllerUpdateFavoriteDirectory implements ActionListener {
     }
 
     private void updateFavorite() {
-        FavoriteDirectory favorite = popup.getFavoriteDirectory();
+        FavoriteDirectory favorite = popupMenu.getFavoriteDirectory();
         FavoriteDirectoryPropertiesDialog dialog = new FavoriteDirectoryPropertiesDialog();
         dialog.setFavoriteName(favorite.getFavoriteName());
         dialog.setDirectoryName(favorite.getDirectoryName());

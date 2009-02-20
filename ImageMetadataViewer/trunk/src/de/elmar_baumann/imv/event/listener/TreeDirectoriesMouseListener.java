@@ -16,7 +16,7 @@ import javax.swing.tree.TreePath;
  */
 public final class TreeDirectoriesMouseListener extends MouseAdapter {
 
-    private final PopupMenuTreeDirectories popup = PopupMenuTreeDirectories.getInstance();
+    private final PopupMenuTreeDirectories popupMenu = PopupMenuTreeDirectories.getInstance();
 
     @Override
     public void mousePressed(MouseEvent e) {
@@ -34,19 +34,19 @@ public final class TreeDirectoriesMouseListener extends MouseAdapter {
                     File selectedDirectory = (File) o;
                     File popupDirectory = (File) o2;
                     if (selectedDirectory.equals(popupDirectory)) {
-                        popup.setDirectoryName(selectedDirectory.getAbsolutePath());
-                        popup.setTreePath(path);
+                        popupMenu.setDirectoryName(selectedDirectory.getAbsolutePath());
+                        popupMenu.setTreePath(path);
                         isSelectedItem = true;
                     }
                 }
             }
-            popup.setFileItemsEnabled(isSelectedItem);
-            popup.show(tree, x, y);
+            popupMenu.setFileItemsEnabled(isSelectedItem);
+            popupMenu.show(tree, x, y);
         } else {
             if (path != null) {
-                popup.setTreeSelected(true);
+                popupMenu.setTreeSelected(true);
                 tree.setSelectionPath(path);
-                popup.setTreeSelected(false);
+                popupMenu.setTreeSelected(false);
             }
         }
     }

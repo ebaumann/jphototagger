@@ -123,9 +123,9 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel
     }
 
     private void setEnabled() {
-        boolean selected = isProgramSelected();
-        buttonEditOtherProgram.setEnabled(selected);
-        buttonRemoveOtherProgram.setEnabled(selected);
+        boolean programSelected = isProgramSelected();
+        buttonEditOtherProgram.setEnabled(programSelected);
+        buttonRemoveOtherProgram.setEnabled(programSelected);
     }
 
     private boolean isProgramSelected() {

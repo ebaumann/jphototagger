@@ -18,24 +18,24 @@ import java.awt.event.ActionListener;
  */
 public final class ControllerOpenFilesWithOtherApp implements ActionListener {
 
-    private final PopupMenuPanelThumbnails popup;
+    private final PopupMenuPanelThumbnails popupMenu;
     private final ImageFileThumbnailsPanel thumbnailsPanel;
     private final ProgramStarter executor;
 
     public ControllerOpenFilesWithOtherApp() {
-        popup = PopupMenuPanelThumbnails.getInstance();
+        popupMenu = PopupMenuPanelThumbnails.getInstance();
         listen();
         thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
         executor = new ProgramStarter(null);
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        openFiles(popup.getProgram(e.getSource()));
+    private void listen() {
+        popupMenu.addActionListenerOpenFilesWithOtherApp(this);
     }
 
-    private void listen() {
-        popup.addActionListenerOpenFilesWithOtherApp(this);
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        openFiles(popupMenu.getProgram(e.getSource()));
     }
 
     private void openFiles(Program program) {

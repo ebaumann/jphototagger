@@ -24,11 +24,15 @@ import javax.swing.JOptionPane;
 public final class ControllerDeleteThumbnailsFromDatabase implements ActionListener {
 
     private final DatabaseImageFiles db = DatabaseImageFiles.getInstance();
-    private final PopupMenuPanelThumbnails popup = PopupMenuPanelThumbnails.getInstance();
+    private final PopupMenuPanelThumbnails popupMenu = PopupMenuPanelThumbnails.getInstance();
     private final ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
 
     public ControllerDeleteThumbnailsFromDatabase() {
         listen();
+    }
+
+    private void listen() {
+        popupMenu.addActionListenerDeleteThumbnail(this);
     }
 
     @Override
@@ -48,10 +52,6 @@ public final class ControllerDeleteThumbnailsFromDatabase implements ActionListe
             repaint(files);
             thumbnailsPanel.repaint();
         }
-    }
-
-    private void listen() {
-        popup.addActionListenerDeleteThumbnail(this);
     }
 
     private void repaint(List<String> filenames) {

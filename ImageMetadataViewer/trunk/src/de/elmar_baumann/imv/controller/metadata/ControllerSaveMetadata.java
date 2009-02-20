@@ -28,13 +28,13 @@ public final class ControllerSaveMetadata implements ActionListener {
         listen();
     }
 
+    private void listen() {
+        buttonSave.addActionListener(this);
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         saveMetadata();
-    }
-
-    private void listen() {
-        buttonSave.addActionListener(this);
     }
 
     private void saveMetadata() {

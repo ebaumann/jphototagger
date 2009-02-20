@@ -33,13 +33,13 @@ public final class ControllerRenameSavedSearch implements ActionListener {
         listen();
     }
 
+    private void listen() {
+        actionPopup.addActionListenerRename(this);
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         rename();
-    }
-
-    private void listen() {
-        actionPopup.addActionListenerRename(this);
     }
 
     private void rename() {

@@ -61,7 +61,7 @@ public final class ListModelCategories extends DefaultListModel
         synchronized (this) {
             for (String category : categories) {
                 if (!contains(category)) {
-                    ListUtil.insertSorted(this, category, new ComparatorStringAscending(true));
+                    ListUtil.insertSorted(this, category, ComparatorStringAscending.IGNORE_CASE);
                 }
             }
         }

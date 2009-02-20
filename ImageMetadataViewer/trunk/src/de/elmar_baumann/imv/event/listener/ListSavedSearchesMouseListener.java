@@ -15,7 +15,7 @@ import javax.swing.JList;
  */
 public final class ListSavedSearchesMouseListener extends MouseAdapter {
 
-    private final PopupMenuListSavedSearches popup = PopupMenuListSavedSearches.getInstance();
+    private final PopupMenuListSavedSearches popupMenu = PopupMenuListSavedSearches.getInstance();
 
     @Override
     public void mousePressed(MouseEvent e) {
@@ -25,15 +25,15 @@ public final class ListSavedSearchesMouseListener extends MouseAdapter {
         int index = list.locationToIndex(new Point(x, y));
         if ((e.isPopupTrigger() || e.getModifiers() == 4)) {
             boolean isItem = index >= 0 && index == list.getSelectedIndex();
-            Object selected = list.getSelectedValue();
-            if (selected instanceof SavedSearch) {
-                SavedSearch data = (SavedSearch) selected;
-                popup.setSavedSearch(data);
+            Object selectedValue = list.getSelectedValue();
+            if (selectedValue instanceof SavedSearch) {
+                SavedSearch data = (SavedSearch) selectedValue;
+                popupMenu.setSavedSearch(data);
             }
-            popup.setEnabledDelete(isItem);
-            popup.setEnabledEdit(isItem);
-            popup.setEnabledRename(isItem);
-            popup.show(list, x, y);
+            popupMenu.setEnabledDelete(isItem);
+            popupMenu.setEnabledEdit(isItem);
+            popupMenu.setEnabledRename(isItem);
+            popupMenu.show(list, x, y);
         } else {
             if (index >= 0) {
                 list.setSelectedIndex(index);

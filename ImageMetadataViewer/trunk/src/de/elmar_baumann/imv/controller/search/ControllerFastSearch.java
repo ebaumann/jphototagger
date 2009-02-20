@@ -58,6 +58,31 @@ public final class ControllerFastSearch
         listen();
     }
 
+    private void listen() {
+        ListenerProvider.getInstance().addUserSettingsChangeListener(this);
+
+        textFieldSearch.addKeyListener(new KeyAdapter() {
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    search();
+                }
+            }
+        });
+
+        textFieldSearch.addMouseListener(new MouseAdapter() {
+
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                checkEnabled();
+            }
+        });
+
+        db.addDatabaseListener(this);
+        thumbnailsPanel.addRefreshListener(this, Content.FAST_SEARCH);
+    }
+
     @Override
     public void applySettings(UserSettingsChangeEvent evt) {
         if (evt.getType().equals(UserSettingsChangeEvent.Type.FAST_SEARCH_COLUMNS)) {
@@ -112,7 +137,7 @@ public final class ControllerFastSearch
 
     private void search() {
         search(textFieldSearch.getText());
-        checkEditPanel();
+        setMetadataEditable();
     }
 
     private void search(String searchText) {
@@ -125,31 +150,6 @@ public final class ControllerFastSearch
         }
     }
 
-    private void listen() {
-        ListenerProvider.getInstance().addUserSettingsChangeListener(this);
-
-        textFieldSearch.addKeyListener(new KeyAdapter() {
-
-            @Override
-            public void keyReleased(KeyEvent e) {
-                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    search();
-                }
-            }
-        });
-
-        textFieldSearch.addMouseListener(new MouseAdapter() {
-
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                checkEnabled();
-            }
-        });
-
-        db.addDatabaseListener(this);
-        thumbnailsPanel.addRefreshListener(this, Content.FAST_SEARCH);
-    }
-
     @Override
     public void refresh() {
         if (textFieldSearch.isEnabled()) {
@@ -157,7 +157,7 @@ public final class ControllerFastSearch
         }
     }
 
-    private void checkEditPanel() {
+    private void setMetadataEditable() {
         if (thumbnailsPanel.getSelectionCount() <= 0) {
             editPanels.setEditable(false);
         }

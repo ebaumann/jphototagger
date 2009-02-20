@@ -15,7 +15,7 @@ import javax.swing.JList;
  */
 public final class ListFavoriteDirectoriesMouseListener extends MouseAdapter {
 
-    private final PopupMenuListFavoriteDirectories popup = PopupMenuListFavoriteDirectories.getInstance();
+    private final PopupMenuListFavoriteDirectories popupMenu = PopupMenuListFavoriteDirectories.getInstance();
 
     @Override
     public void mousePressed(MouseEvent e) {
@@ -25,13 +25,13 @@ public final class ListFavoriteDirectoriesMouseListener extends MouseAdapter {
         int index = list.locationToIndex(new Point(x, y));
         if ((e.isPopupTrigger() || e.getModifiers() == 4)) {
             boolean isItem = index >= 0 && index == list.getSelectedIndex();
-            popup.setFavoriteDirectory(isItem
+            popupMenu.setFavoriteDirectory(isItem
                 ? (FavoriteDirectory) list.getSelectedValue()
                 : null);
-            popup.setEnabledDelete(isItem);
-            popup.setEnabledUpdate(isItem);
-            popup.setEnabledOpenInFolders(isItem);
-            popup.show(list, x, y);
+            popupMenu.setEnabledDelete(isItem);
+            popupMenu.setEnabledUpdate(isItem);
+            popupMenu.setEnabledOpenInFolders(isItem);
+            popupMenu.show(list, x, y);
         } else {
             if (index >= 0) {
                 list.setSelectedIndex(index);

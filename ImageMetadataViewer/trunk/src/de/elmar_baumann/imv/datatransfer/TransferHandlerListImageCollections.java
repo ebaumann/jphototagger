@@ -26,17 +26,15 @@ public final class TransferHandlerListImageCollections extends TransferHandlerLi
     }
 
     private void addToImageCollection(int itemIndex, List<String> filenames) {
-        ImageCollectionDatabaseUtils db = new ImageCollectionDatabaseUtils();
         boolean added =
-            db.addImagesToCollection(getImageCollectionName(itemIndex), filenames);
+            ImageCollectionDatabaseUtils.addImagesToCollection(getImageCollectionName(itemIndex), filenames);
         if (added) {
             refreshThumbnailsPanel();
         }
     }
 
     private void createImageCollection(List<String> filenames) {
-        ImageCollectionDatabaseUtils db = new ImageCollectionDatabaseUtils();
-        String newCollectionName = db.insertImageCollection(filenames);
+        String newCollectionName = ImageCollectionDatabaseUtils.insertImageCollection(filenames);
         if (newCollectionName != null) {
             ((ListModelImageCollections) Panels.getInstance().getAppPanel().
                 getListImageCollections().getModel()).addElement(newCollectionName);

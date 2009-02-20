@@ -52,7 +52,7 @@ public final class ControllerAdvancedSearch implements ActionListener, SearchLis
     public void actionPerformed(SearchEvent e) {
         if (e.getType().equals(SearchEvent.Type.START)) {
             applySafedSearch(e);
-            checkEditPanel();
+            setMetadataEditable();
         }
     }
 
@@ -83,7 +83,7 @@ public final class ControllerAdvancedSearch implements ActionListener, SearchLis
                 Content.SAFED_SEARCH);
     }
 
-    private void checkEditPanel() {
+    private void setMetadataEditable() {
         if (thumbnailsPanel.getSelectionCount() <= 0) {
             editPanels.setEditable(false);
         }

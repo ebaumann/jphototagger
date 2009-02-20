@@ -47,10 +47,10 @@ public final class ComboBoxModelAppColors extends DefaultComboBoxModel {
      * @return filename or null if the standard skin should be applied
      */
     public String getLookAndFeelPropertiesFilename() {
-        Object selected = getSelectedItem();
+        Object selectedItem = getSelectedItem();
         String filename = null;
-        if (selected != null) {
-            filename = propertyFilenameOf.get((String) selected);
+        if (selectedItem != null) {
+            filename = propertyFilenameOf.get((String) selectedItem);
         }
         return filename;
     }

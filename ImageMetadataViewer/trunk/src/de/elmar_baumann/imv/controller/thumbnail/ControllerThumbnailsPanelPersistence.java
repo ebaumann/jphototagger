@@ -33,6 +33,11 @@ public final class ControllerThumbnailsPanelPersistence
         readPersistent();
     }
 
+    private void listen() {
+        thumbnailsPanel.addThumbnailsPanelListener(this);
+        Panels.getInstance().getAppFrame().addAppExitListener(this);
+    }
+
     @Override
     public void selectionChanged(ThumbnailsPanelAction action) {
         writePersistentSelection();
@@ -51,11 +56,6 @@ public final class ControllerThumbnailsPanelPersistence
             readPersistentViewportViewPosition();
             onceApplied = true;
         }
-    }
-
-    private void listen() {
-        thumbnailsPanel.addThumbnailsPanelListener(this);
-        Panels.getInstance().getAppFrame().addAppExitListener(this);
     }
 
     private void writePersistentSelection() {

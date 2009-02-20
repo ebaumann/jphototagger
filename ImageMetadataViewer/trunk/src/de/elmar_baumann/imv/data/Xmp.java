@@ -1,6 +1,7 @@
 package de.elmar_baumann.imv.data;
 
 import com.imagero.reader.iptc.IPTCEntryMeta;
+import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.database.metadata.Column;
 import de.elmar_baumann.imv.database.metadata.mapping.IptcXmpMapping;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpDcCreator;
@@ -23,6 +24,7 @@ import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopSource;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopState;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopTransmissionReference;
+import de.elmar_baumann.imv.resource.Bundle;
 import java.util.List;
 import java.util.HashMap;
 import java.util.Set;
@@ -39,78 +41,12 @@ import java.util.Map;
  */
 public final class Xmp {
 
-    private final StringBuffer dcDescription = new StringBuffer();
-    private final StringBuffer dcRights = new StringBuffer();
-    private final StringBuffer dcTitle = new StringBuffer();
-    private final StringBuffer iptc4xmpcoreCountrycode = new StringBuffer();
-    private final StringBuffer iptc4xmpcoreLocation = new StringBuffer();
-    private final StringBuffer photoshopAuthorsposition = new StringBuffer();
-    private final StringBuffer photoshopCaptionwriter = new StringBuffer();
-    private final StringBuffer photoshopCategory = new StringBuffer();
-    private final StringBuffer photoshopCity = new StringBuffer();
-    private final StringBuffer photoshopCountry = new StringBuffer();
-    private final StringBuffer photoshopCredit = new StringBuffer();
-    private final StringBuffer photoshopHeadline = new StringBuffer();
-    private final StringBuffer photoshopInstructions = new StringBuffer();
-    private final StringBuffer photoshopSource = new StringBuffer();
-    private final StringBuffer photoshopState = new StringBuffer();
-    private final StringBuffer photoshopTransmissionReference = new StringBuffer();
-    private final StringBuffer dcCreator = new StringBuffer();
-    private final StringBuffer lastModified = new StringBuffer();
-    private final List<String> dcSubjects = new ArrayList<String>();
-    private final List<String> photoshopSupplementalCategories = new ArrayList<String>();
     private final Map<Column, Object> valueOfColumn = new HashMap<Column, Object>();
 
     public enum SetIptc {
 
         REPLACE_EXISTING_VALUES, DONT_CHANGE_EXISTING_VALUES
     };
-
-    private void init() {
-        valueOfColumn.put(ColumnXmpDcCreator.getInstance(),
-                dcCreator);
-        valueOfColumn.put(ColumnXmpDcDescription.getInstance(),
-                dcDescription);
-        valueOfColumn.put(ColumnXmpDcRights.getInstance(),
-                dcRights);
-        valueOfColumn.put(ColumnXmpDcSubjectsSubject.getInstance(),
-                dcSubjects);
-        valueOfColumn.put(ColumnXmpDcTitle.getInstance(),
-                dcTitle);
-        valueOfColumn.put(ColumnXmpIptc4xmpcoreCountrycode.getInstance(),
-                iptc4xmpcoreCountrycode);
-        valueOfColumn.put(ColumnXmpIptc4xmpcoreLocation.getInstance(),
-                iptc4xmpcoreLocation);
-        valueOfColumn.put(ColumnXmpPhotoshopAuthorsposition.getInstance(),
-                photoshopAuthorsposition);
-        valueOfColumn.put(ColumnXmpPhotoshopCaptionwriter.getInstance(),
-                photoshopCaptionwriter);
-        valueOfColumn.put(ColumnXmpPhotoshopCategory.getInstance(),
-                photoshopCategory);
-        valueOfColumn.put(ColumnXmpPhotoshopCity.getInstance(),
-                photoshopCity);
-        valueOfColumn.put(ColumnXmpPhotoshopCountry.getInstance(),
-                photoshopCountry);
-        valueOfColumn.put(ColumnXmpPhotoshopCredit.getInstance(),
-                photoshopCredit);
-        valueOfColumn.put(ColumnXmpPhotoshopHeadline.getInstance(),
-                photoshopHeadline);
-        valueOfColumn.put(ColumnXmpPhotoshopInstructions.getInstance(),
-                photoshopInstructions);
-        valueOfColumn.put(ColumnXmpPhotoshopSource.getInstance(),
-                photoshopSource);
-        valueOfColumn.put(ColumnXmpPhotoshopState.getInstance(),
-                photoshopState);
-        valueOfColumn.put(ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory.getInstance(),
-                photoshopSupplementalCategories);
-        valueOfColumn.put(ColumnXmpPhotoshopTransmissionReference.getInstance(),
-                photoshopTransmissionReference);
-        valueOfColumn.put(ColumnXmpLastModified.getInstance(), lastModified);
-    }
-
-    public Xmp() {
-        init();
-    }
 
     /**
      * Liefert das XMP-Felder dc:creator (Fotograf).
@@ -119,9 +55,7 @@ public final class Xmp {
      * @see    Iptc#getByLines()
      */
     public String getDcCreator() {
-        return dcCreator.length() > 0
-                ? dcCreator.toString()
-                : null;
+        return stringValueOf(ColumnXmpDcCreator.getInstance());
     }
 
     /**
@@ -131,10 +65,7 @@ public final class Xmp {
      * @see           Iptc#addByLine(java.lang.String)
      */
     public void setDcCreator(String creator) {
-        this.dcCreator.replace(0,
-                this.dcCreator.length(), creator == null
-                ? "" // NOI18N
-                : creator);
+        valueOfColumn.put(ColumnXmpDcCreator.getInstance(), creator);
     }
 
     /**
@@ -144,9 +75,7 @@ public final class Xmp {
      * @see    Iptc#getCaptionAbstract()
      */
     public String getDcDescription() {
-        return dcDescription.length() > 0
-                ? dcDescription.toString()
-                : null;
+        return stringValueOf(ColumnXmpDcDescription.getInstance());
     }
 
     /**
@@ -156,10 +85,7 @@ public final class Xmp {
      * @see                 Iptc#setCaptionAbstract(java.lang.String)
      */
     public void setDcDescription(String dcDescription) {
-        this.dcDescription.replace(0,
-                this.dcDescription.length(), dcDescription == null
-                ? "" // NOI18N
-                : dcDescription);
+        valueOfColumn.put(ColumnXmpDcDescription.getInstance(), dcDescription);
     }
 
     /**
@@ -169,9 +95,7 @@ public final class Xmp {
      * @see    Iptc#getCopyrightNotice()
      */
     public String getDcRights() {
-        return dcRights.length() > 0
-                ? dcRights.toString()
-                : null;
+        return stringValueOf(ColumnXmpDcRights.getInstance());
     }
 
     /**
@@ -181,10 +105,7 @@ public final class Xmp {
      * @see            Iptc#setCopyrightNotice(java.lang.String)
      */
     public void setDcRights(String dcRights) {
-        this.dcRights.replace(0,
-                this.dcRights.length(), dcRights == null
-                ? "" // NOI18N
-                : dcRights);
+        valueOfColumn.put(ColumnXmpDcRights.getInstance(), dcRights);
     }
 
     /**
@@ -194,9 +115,7 @@ public final class Xmp {
      * @see    Iptc#getKeywords()
      */
     public List<String> getDcSubjects() {
-        return dcSubjects.isEmpty()
-                ? null
-                : dcSubjects;
+        return stringListOf(ColumnXmpDcSubjectsSubject.getInstance());
     }
 
     /**
@@ -206,18 +125,7 @@ public final class Xmp {
      * @see           Iptc#addKeyword(java.lang.String)
      */
     public void addDcSubject(String subject) {
-        if (subject != null && !dcSubjects.contains(subject)) {
-            dcSubjects.add(subject);
-        }
-    }
-
-    /**
-     * Entfernt ein Stichwort.
-     * 
-     * @param subject  Stichwort
-     */
-    public void removeDcSubject(String subject) {
-        dcSubjects.remove(subject);
+        addToStringList(ColumnXmpDcSubjectsSubject.getInstance(), subject);
     }
 
     /**
@@ -227,9 +135,7 @@ public final class Xmp {
      * @see    Iptc#getObjectName()
      */
     public String getDcTitle() {
-        return dcTitle.length() > 0
-                ? dcTitle.toString()
-                : null;
+        return stringValueOf(ColumnXmpDcTitle.getInstance());
     }
 
     /**
@@ -239,10 +145,7 @@ public final class Xmp {
      * @see           Iptc#setObjectName(java.lang.String)
      */
     public void setDcTitle(String dcTitle) {
-        this.dcTitle.replace(0,
-                this.dcTitle.length(), dcTitle == null
-                ? "" // NOI18N
-                : dcTitle);
+        valueOfColumn.put(ColumnXmpDcTitle.getInstance(), dcTitle);
     }
 
     /**
@@ -252,9 +155,7 @@ public final class Xmp {
      * @see             Iptc#getContentLocationCodes()
      */
     public String getIptc4xmpcoreCountrycode() {
-        return iptc4xmpcoreCountrycode.length() > 0
-                ? iptc4xmpcoreCountrycode.toString()
-                : null;
+        return stringValueOf(ColumnXmpIptc4xmpcoreCountrycode.getInstance());
     }
 
     /**
@@ -263,10 +164,7 @@ public final class Xmp {
      * @param iptc4xmpcoreCountrycode XMP-Feld Iptc4xmpCore:CountryCode (ISO-Ländercode)
      */
     public void setIptc4xmpcoreCountrycode(String iptc4xmpcoreCountrycode) {
-        this.iptc4xmpcoreCountrycode.replace(0,
-                this.iptc4xmpcoreCountrycode.length(), iptc4xmpcoreCountrycode == null
-                ? "" // NOI18N
-                : iptc4xmpcoreCountrycode);
+        valueOfColumn.put(ColumnXmpIptc4xmpcoreCountrycode.getInstance(), iptc4xmpcoreCountrycode);
     }
 
     /**
@@ -276,9 +174,7 @@ public final class Xmp {
      * @see    Iptc#getContentLocationNames()
      */
     public String getIptc4xmpcoreLocation() {
-        return iptc4xmpcoreLocation.length() > 0
-                ? iptc4xmpcoreLocation.toString()
-                : null;
+        return stringValueOf(ColumnXmpIptc4xmpcoreLocation.getInstance());
     }
 
     /**
@@ -287,10 +183,7 @@ public final class Xmp {
      * @param iptc4xmpcoreLocation XMP-Feld Iptc4xmpCore:Location (Ort)
      */
     public void setIptc4xmpcoreLocation(String iptc4xmpcoreLocation) {
-        this.iptc4xmpcoreLocation.replace(0,
-                this.iptc4xmpcoreLocation.length(), iptc4xmpcoreLocation == null
-                ? "" // NOI18N
-                : iptc4xmpcoreLocation);
+        valueOfColumn.put(ColumnXmpIptc4xmpcoreLocation.getInstance(), iptc4xmpcoreLocation);
     }
 
     /**
@@ -300,9 +193,7 @@ public final class Xmp {
      * @see    Iptc#getByLinesTitles()
      */
     public String getPhotoshopAuthorsposition() {
-        return photoshopAuthorsposition.length() > 0
-                ? photoshopAuthorsposition.toString()
-                : null;
+        return stringValueOf(ColumnXmpPhotoshopAuthorsposition.getInstance());
     }
 
     /**
@@ -311,10 +202,7 @@ public final class Xmp {
      * @param photoshopAuthorsposition XMP-Feld photoshop:AuthorsPosition (Position des Fotografen)
      */
     public void setPhotoshopAuthorsposition(String photoshopAuthorsposition) {
-        this.photoshopAuthorsposition.replace(0,
-                this.photoshopAuthorsposition.length(), photoshopAuthorsposition == null
-                ? "" // NOI18N
-                : photoshopAuthorsposition);
+        valueOfColumn.put(ColumnXmpPhotoshopAuthorsposition.getInstance(), photoshopAuthorsposition);
     }
 
     /**
@@ -324,9 +212,7 @@ public final class Xmp {
      * @see    Iptc#getWritersEditors()
      */
     public String getPhotoshopCaptionwriter() {
-        return photoshopCaptionwriter.length() > 0
-                ? photoshopCaptionwriter.toString()
-                : null;
+        return stringValueOf(ColumnXmpPhotoshopCaptionwriter.getInstance());
     }
 
     /**
@@ -335,10 +221,7 @@ public final class Xmp {
      * @param photoshopCaptionwriter XMP-Feld photoshop:CaptionWriter (Autor der Beschreibung)
      */
     public void setPhotoshopCaptionwriter(String photoshopCaptionwriter) {
-        this.photoshopCaptionwriter.replace(0,
-                this.photoshopCaptionwriter.length(), photoshopCaptionwriter == null
-                ? "" // NOI18N
-                : photoshopCaptionwriter);
+        valueOfColumn.put(ColumnXmpPhotoshopCaptionwriter.getInstance(), photoshopCaptionwriter);
     }
 
     /**
@@ -348,9 +231,7 @@ public final class Xmp {
      * @see    Iptc#getCategory()
      */
     public String getPhotoshopCategory() {
-        return photoshopCategory.length() > 0
-                ? photoshopCategory.toString()
-                : null;
+        return stringValueOf(ColumnXmpPhotoshopCategory.getInstance());
     }
 
     /**
@@ -360,10 +241,7 @@ public final class Xmp {
      * @see                     Iptc#setCategory(java.lang.String)
      */
     public void setPhotoshopCategory(String photoshopCategory) {
-        this.photoshopCategory.replace(0,
-                this.photoshopCategory.length(), photoshopCategory == null
-                ? "" // NOI18N
-                : photoshopCategory);
+        valueOfColumn.put(ColumnXmpPhotoshopCategory.getInstance(), photoshopCategory);
     }
 
     /**
@@ -373,9 +251,7 @@ public final class Xmp {
      * @see Iptc#getCity()
      */
     public String getPhotoshopCity() {
-        return photoshopCity.length() > 0
-                ? photoshopCity.toString()
-                : null;
+        return stringValueOf(ColumnXmpPhotoshopCity.getInstance());
     }
 
     /**
@@ -385,10 +261,7 @@ public final class Xmp {
      * @see                 Iptc#setCity(java.lang.String)
      */
     public void setPhotoshopCity(String photoshopCity) {
-        this.photoshopCity.replace(0,
-                this.photoshopCity.length(), photoshopCity == null
-                ? "" // NOI18N
-                : photoshopCity);
+        valueOfColumn.put(ColumnXmpPhotoshopCity.getInstance(), photoshopCity);
     }
 
     /**
@@ -398,9 +271,7 @@ public final class Xmp {
      * @see    Iptc#getCountryPrimaryLocationName()
      */
     public String getPhotoshopCountry() {
-        return photoshopCountry.length() > 0
-                ? photoshopCountry.toString()
-                : null;
+        return stringValueOf(ColumnXmpPhotoshopCountry.getInstance());
     }
 
     /**
@@ -410,10 +281,7 @@ public final class Xmp {
      * @see   Iptc#setCountryPrimaryLocationName(java.lang.String)
      */
     public void setPhotoshopCountry(String photoshopCountry) {
-        this.photoshopCountry.replace(0,
-                this.photoshopCountry.length(), photoshopCountry == null
-                ? "" // NOI18N
-                : photoshopCountry);
+        valueOfColumn.put(ColumnXmpPhotoshopCountry.getInstance(), photoshopCountry);
     }
 
     /**
@@ -423,9 +291,7 @@ public final class Xmp {
      * @see    Iptc#getCredit()
      */
     public String getPhotoshopCredit() {
-        return photoshopCredit.length() > 0
-                ? photoshopCredit.toString()
-                : null;
+        return stringValueOf(ColumnXmpPhotoshopCredit.getInstance());
     }
 
     /**
@@ -435,10 +301,7 @@ public final class Xmp {
      * @see   Iptc#setCredit(java.lang.String)
      */
     public void setPhotoshopCredit(String photoshopCredit) {
-        this.photoshopCredit.replace(0,
-                this.photoshopCredit.length(), photoshopCredit == null
-                ? "" // NOI18N
-                : photoshopCredit);
+        valueOfColumn.put(ColumnXmpPhotoshopCredit.getInstance(), photoshopCredit);
     }
 
     /**
@@ -448,9 +311,7 @@ public final class Xmp {
      * @see    Iptc#getHeadline()
      */
     public String getPhotoshopHeadline() {
-        return photoshopHeadline.length() > 0
-                ? photoshopHeadline.toString()
-                : null;
+        return stringValueOf(ColumnXmpPhotoshopHeadline.getInstance());
     }
 
     /**
@@ -460,10 +321,7 @@ public final class Xmp {
      * @see                     Iptc#setHeadline(java.lang.String)
      */
     public void setPhotoshopHeadline(String photoshopHeadline) {
-        this.photoshopHeadline.replace(0,
-                this.photoshopHeadline.length(), photoshopHeadline == null
-                ? "" // NOI18N
-                : photoshopHeadline);
+        valueOfColumn.put(ColumnXmpPhotoshopHeadline.getInstance(), photoshopHeadline);
     }
 
     /**
@@ -473,9 +331,7 @@ public final class Xmp {
      * @see    Iptc#getSpecialInstructions()
      */
     public String getPhotoshopInstructions() {
-        return photoshopInstructions.length() > 0
-                ? photoshopInstructions.toString()
-                : null;
+        return stringValueOf(ColumnXmpPhotoshopInstructions.getInstance());
     }
 
     /**
@@ -485,10 +341,7 @@ public final class Xmp {
      * @see                         Iptc#setSpecialInstructions(java.lang.String)
      */
     public void setPhotoshopInstructions(String photoshopInstructions) {
-        this.photoshopInstructions.replace(0,
-                this.photoshopInstructions.length(), photoshopInstructions == null
-                ? "" // NOI18N
-                : photoshopInstructions);
+        valueOfColumn.put(ColumnXmpPhotoshopInstructions.getInstance(), photoshopInstructions);
     }
 
     /**
@@ -498,9 +351,7 @@ public final class Xmp {
      * @see    Iptc#getSource()
      */
     public String getPhotoshopSource() {
-        return photoshopSource.length() > 0
-                ? photoshopSource.toString()
-                : null;
+        return stringValueOf(ColumnXmpPhotoshopSource.getInstance());
     }
 
     /**
@@ -510,10 +361,7 @@ public final class Xmp {
      * @see                   Iptc#setSource(java.lang.String)
      */
     public void setPhotoshopSource(String photoshopSource) {
-        this.photoshopSource.replace(0,
-                this.photoshopSource.length(), photoshopSource == null
-                ? "" // NOI18N
-                : photoshopSource);
+        valueOfColumn.put(ColumnXmpPhotoshopSource.getInstance(), photoshopSource);
     }
 
     /**
@@ -523,9 +371,7 @@ public final class Xmp {
      * @see    Iptc#getProvinceState()
      */
     public String getPhotoshopState() {
-        return photoshopState.length() > 0
-                ? photoshopState.toString()
-                : null;
+        return stringValueOf(ColumnXmpPhotoshopState.getInstance());
     }
 
     /**
@@ -535,10 +381,7 @@ public final class Xmp {
      * @see                  Iptc#setProvinceState(java.lang.String)
      */
     public void setPhotoshopState(String photoshopState) {
-        this.photoshopState.replace(0,
-                this.photoshopState.length(), photoshopState == null
-                ? "" // NOI18N
-                : photoshopState);
+        valueOfColumn.put(ColumnXmpPhotoshopState.getInstance(), photoshopState);
     }
 
     /**
@@ -548,9 +391,7 @@ public final class Xmp {
      * @see    Iptc#getSupplementalCategories()
      */
     public List<String> getPhotoshopSupplementalCategories() {
-        return photoshopSupplementalCategories.isEmpty()
-                ? null
-                : photoshopSupplementalCategories;
+        return stringListOf(ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory.getInstance());
     }
 
     /**
@@ -561,18 +402,7 @@ public final class Xmp {
      * @see            Iptc#addSupplementalCategory(java.lang.String)
      */
     public void addPhotoshopSupplementalCategory(String category) {
-        if (category != null && !photoshopSupplementalCategories.contains(category)) {
-            photoshopSupplementalCategories.add(category);
-        }
-    }
-
-    /**
-     * Entfernt eine weitere Kategorie.
-     * 
-     * @param category  Kategorie
-     */
-    public void removePhotoshopSupplementalCategory(String category) {
-        photoshopSupplementalCategories.remove(category);
+        addToStringList(ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory.getInstance(), category);
     }
 
     /**
@@ -582,9 +412,7 @@ public final class Xmp {
      * @see    Iptc#getOriginalTransmissionReference()
      */
     public String getPhotoshopTransmissionReference() {
-        return photoshopTransmissionReference.length() > 0
-                ? photoshopTransmissionReference.toString()
-                : null;
+        return stringValueOf(ColumnXmpPhotoshopTransmissionReference.getInstance());
     }
 
     /**
@@ -594,11 +422,7 @@ public final class Xmp {
      * @see                                  Iptc#setOriginalTransmissionReference(java.lang.String)
      */
     public void setPhotoshopTransmissionReference(String photoshopTransmissionReference) {
-        this.photoshopTransmissionReference.replace(0,
-                this.photoshopTransmissionReference.length(),
-                photoshopTransmissionReference == null
-                ? "" // NOI18N
-                : photoshopTransmissionReference);
+        valueOfColumn.put(ColumnXmpPhotoshopTransmissionReference.getInstance(), photoshopTransmissionReference);
     }
 
     /**
@@ -607,9 +431,7 @@ public final class Xmp {
      * @param lastModified  milliseconds since 1970 of the modification time
      */
     public void setLastModified(long lastModified) {
-        this.lastModified.replace(0, this.lastModified.length(), lastModified >= 0
-                ? Long.toString(lastModified)
-                : ""); // NOI18N
+        valueOfColumn.put(ColumnXmpLastModified.getInstance(), lastModified);
     }
 
     /**
@@ -619,9 +441,7 @@ public final class Xmp {
      *         if not defined
      */
     public Long getLastModified() {
-        return lastModified.length() > 0
-                ? Long.parseLong(lastModified.toString())
-                : null;
+        return longValueOf(ColumnXmpLastModified.getInstance());
     }
 
     public void setIptc(Iptc iptc, SetIptc options) {
@@ -635,12 +455,12 @@ public final class Xmp {
             Object iptcValue = iptc.getValue(iptcEntryMeta);
             if (iptcValue != null) {
                 if (iptcValue instanceof String) {
-                    String string = (String) iptcValue;
+                    String iptcString = (String) iptcValue;
                     boolean replace = options.equals(
                             SetIptc.REPLACE_EXISTING_VALUES) ||
                             getValue(xmpColumn) == null;
                     if (replace) {
-                        setValue(xmpColumn, string);
+                        setValue(xmpColumn, iptcString);
                     }
                 } else if (iptcValue instanceof List) {
                     @SuppressWarnings("unchecked")
@@ -648,6 +468,8 @@ public final class Xmp {
                     for (String string : array) {
                         setValue(xmpColumn, string);
                     }
+                } else {
+                    AppLog.logWarning(Xmp.class, Bundle.getString("Xmp.ErrorMessage.SetIptc") + iptcValue + " (" + xmpColumn + ")"); // NOI18N
                 }
             }
         }
@@ -657,28 +479,19 @@ public final class Xmp {
      * Liefert den Wert einer XMP-Spalte.
      * 
      * @param  xmpColumn  XMP-Spalte
-     * @return Wert: Ein String für sich nicht wiederholende Werte oder eine
-     *         String-ArrayList für sich wiederholdende Werte oder null, wenn
-     *         für diese Spalte kein Wert gesetzt ist
+     * @return Wert oder null, wenn nicht gesetzt. Aktuelle Werte:
+     *         <ul>
+     *         <li>String für alle der Spalte zugeordneten
+     *             <code>set...()</code>-Methoden, die einen String setzen
+     *         <li>String-Liste für alle der Spalte zugeordneten
+     *             <code>add...()</code>-Methoden, die einen String
+     *             hinzufügen (keywords, categories)
+     *         <li>Long für alle der Spalte zugeordneten
+     *             <code>set...()</code>-Methoden, die einen Long-Wert setzen
+     *            (lastmodified)
      */
     public Object getValue(Column xmpColumn) {
-        Object value = valueOfColumn.get(xmpColumn);
-        if (value instanceof StringBuffer) {
-            StringBuffer stringBuffer = (StringBuffer) value;
-            if (stringBuffer.length() <= 0) {
-                return null;
-            } else {
-                return stringBuffer.toString();
-            }
-        } else if (value instanceof List) {
-            List array = (List) value;
-            if (array.isEmpty()) {
-                return null;
-            } else {
-                return array;
-            }
-        }
-        return null;
+        return valueOfColumn.get(xmpColumn);
     }
 
     /**
@@ -691,16 +504,15 @@ public final class Xmp {
     @SuppressWarnings("unchecked")
     public void setValue(Column xmpColumn, String value) {
         Object o = valueOfColumn.get(xmpColumn);
-        if (o instanceof StringBuffer) {
-            StringBuffer stringBuffer = (StringBuffer) o;
-            stringBuffer.replace(0, stringBuffer.length(), value == null
-                    ? "" // NOI18N
-                    : value);
+        if (o instanceof String) {
+            valueOfColumn.put(xmpColumn, value);
         } else if (o instanceof List && value != null) {
-            List array = (List) o;
-            if (!array.contains(value)) {
-                array.add(value);
+            List list = (List) o;
+            if (!list.contains(value)) {
+                list.add(value);
             }
+        } else {
+            AppLog.logWarning(Xmp.class, Bundle.getString("Xmp.ErrorMessage.SetValue") + value + " (" + xmpColumn + ")"); // NOI18N
         }
     }
 
@@ -713,12 +525,14 @@ public final class Xmp {
     @SuppressWarnings("unchecked")
     public void removeValue(Column xmpColumn, String value) {
         Object o = valueOfColumn.get(xmpColumn);
-        if (o instanceof StringBuffer) {
-            StringBuffer stringBuffer = (StringBuffer) o;
-            stringBuffer.replace(0, stringBuffer.length(), ""); // NOI18N
-        } else if (o instanceof List) {
-            List array = (List) o;
-            array.remove(value);
+        boolean remove = o != null;
+        if (o instanceof List) {
+            List list = (List) o;
+            list.remove(value);
+            remove = list.isEmpty();
+        }
+        if (remove) {
+            valueOfColumn.remove(xmpColumn);
         }
     }
 
@@ -726,16 +540,35 @@ public final class Xmp {
      * Entfernt alle Daten.
      */
     void empty() {
-        Set<Column> columns = valueOfColumn.keySet();
-        for (Column column : columns) {
-            Object value = valueOfColumn.get(column);
-            if (value instanceof StringBuffer) {
-                StringBuffer stringBuffer = (StringBuffer) value;
-                stringBuffer.replace(0, stringBuffer.length(), ""); // NOI18N
-            } else if (value instanceof List) {
-                List array = (List) value;
-                array.clear();
-            }
+        valueOfColumn.clear();
+    }
+
+    private Long longValueOf(Column column) {
+        Object o = valueOfColumn.get(column);
+        return o instanceof Long ? (Long) o : null;
+    }
+
+    private String stringValueOf(Column column) {
+        Object o = valueOfColumn.get(column);
+        return o instanceof String ? (String) o : null;
+    }
+
+    @SuppressWarnings("unchecked")
+    private List<String> stringListOf(Column column) {
+        Object o = valueOfColumn.get(column);
+        return o instanceof List ? (List<String>) o : null;
+    }
+
+    private void addToStringList(Column column, String s) {
+        if (s == null)
+            return;
+        List<String> list = stringListOf(column);
+        if (list == null) {
+            list = new ArrayList<String>();
+            valueOfColumn.put(column, list);
+        }
+        if (!list.contains(s)) {
+            list.add(s);
         }
     }
 
@@ -745,24 +578,20 @@ public final class Xmp {
      * @return true, wenn keine Daten enthalten sind
      */
     public boolean isEmpty() {
-        return dcDescription.length() <= 0 &&
-                dcCreator.length() <= 0 &&
-                dcRights.length() <= 0 &&
-                dcTitle.length() <= 0 &&
-                iptc4xmpcoreCountrycode.length() <= 0 &&
-                iptc4xmpcoreLocation.length() <= 0 &&
-                photoshopAuthorsposition.length() <= 0 &&
-                photoshopCaptionwriter.length() <= 0 &&
-                photoshopCategory.length() <= 0 &&
-                photoshopCity.length() <= 0 &&
-                photoshopCountry.length() <= 0 &&
-                photoshopCredit.length() <= 0 &&
-                photoshopHeadline.length() <= 0 &&
-                photoshopInstructions.length() <= 0 &&
-                photoshopSource.length() <= 0 &&
-                photoshopState.length() <= 0 &&
-                photoshopTransmissionReference.length() <= 0 &&
-                dcSubjects.isEmpty() &&
-                photoshopSupplementalCategories.isEmpty();
+        for (Column column : valueOfColumn.keySet()) {
+            Object o = valueOfColumn.get(column);
+            if (o instanceof String) {
+                String string = (String) o;
+                if (!string.trim().isEmpty())
+                    return false;
+            } else if (o instanceof List) {
+                List list = (List) o;
+                if (!list.isEmpty())
+                    return false;
+            } else if (o != null) { // zuletzt, da leere Liste != null ist, aber trotzdem ein leeres Element
+                return false;
+            }
+        }
+        return true;
     }
 }

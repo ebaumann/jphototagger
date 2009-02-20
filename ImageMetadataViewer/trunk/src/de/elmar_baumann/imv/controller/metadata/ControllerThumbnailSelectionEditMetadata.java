@@ -33,6 +33,10 @@ public final class ControllerThumbnailSelectionEditMetadata implements Thumbnail
         listen();
     }
 
+    private void listen() {
+        thumbnailsPanel.addThumbnailsPanelListener(this);
+    }
+
     @Override
     public void thumbnailsChanged() {
     }
@@ -51,10 +55,6 @@ public final class ControllerThumbnailSelectionEditMetadata implements Thumbnail
         } else {
             setEnabled(false);
         }
-    }
-
-    private void listen() {
-        thumbnailsPanel.addThumbnailsPanelListener(this);
     }
 
     private void setEnabled(boolean enabled) {

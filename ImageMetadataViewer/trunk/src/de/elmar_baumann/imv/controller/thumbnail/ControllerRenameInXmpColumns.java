@@ -25,13 +25,13 @@ public final class ControllerRenameInXmpColumns implements ActionListener, Task 
         listen();
     }
 
+    private void listen() {
+        Panels.getInstance().getAppFrame().getMenuItemRenameInXmp().addActionListener(this);
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         renameSelectedThumbnails();
-    }
-
-    private void listen() {
-        Panels.getInstance().getAppFrame().getMenuItemRenameInXmp().addActionListener(this);
     }
 
     private void renameSelectedThumbnails() {

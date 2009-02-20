@@ -51,7 +51,7 @@ public final class ListModelKeywords extends DefaultListModel
         List<String> keywords = getKeywords(imageFileData);
         for (String keyword : keywords) {
             if (!contains(keyword)) {
-                ListUtil.insertSorted(this, keyword, new ComparatorStringAscending(true));
+                ListUtil.insertSorted(this, keyword, ComparatorStringAscending.IGNORE_CASE);
             }
         }
     }

@@ -23,7 +23,7 @@ public final class ControllerDeleteFavoriteDirectory implements ActionListener {
 
     private final AppPanel appPanel = Panels.getInstance().getAppPanel();
     private final ListModelFavoriteDirectories model = (ListModelFavoriteDirectories) appPanel.getListFavoriteDirectories().getModel();
-    private final PopupMenuListFavoriteDirectories popup = PopupMenuListFavoriteDirectories.getInstance();
+    private final PopupMenuListFavoriteDirectories popupMenu = PopupMenuListFavoriteDirectories.getInstance();
     private CheckDirectoriesRemoved removeChecker;
     private static final int removeCheckIntervalSeconds = 3;
 
@@ -33,7 +33,7 @@ public final class ControllerDeleteFavoriteDirectory implements ActionListener {
     }
 
     private void listen() {
-        popup.addActionListenerDelete(this);
+        popupMenu.addActionListenerDelete(this);
     }
 
     private void startRemoveChecker() {
@@ -48,7 +48,7 @@ public final class ControllerDeleteFavoriteDirectory implements ActionListener {
     }
 
     private void deleteFavorite() {
-        FavoriteDirectory favorite = popup.getFavoriteDirectory();
+        FavoriteDirectory favorite = popupMenu.getFavoriteDirectory();
         if (confirmDelete(favorite.getFavoriteName())) {
             model.deleteFavorite(favorite);
         }

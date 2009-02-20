@@ -27,6 +27,10 @@ public final class ControllerAutocopyDirectory implements ActionListener {
         listen();
     }
 
+    private void listen() {
+        Panels.getInstance().getAppFrame().getMenuItemAutocopyDirectory().addActionListener(this);
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         copy();
@@ -40,10 +44,6 @@ public final class ControllerAutocopyDirectory implements ActionListener {
         } else {
             copy(dir);
         }
-    }
-
-    private void listen() {
-        Panels.getInstance().getAppFrame().getMenuItemAutocopyDirectory().addActionListener(this);
     }
 
     private void setAutocopyDirectory() {

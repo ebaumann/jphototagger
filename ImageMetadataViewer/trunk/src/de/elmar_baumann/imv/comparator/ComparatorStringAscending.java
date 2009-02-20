@@ -10,9 +10,12 @@ import java.util.Comparator;
  */
 public final class ComparatorStringAscending implements Comparator<String> {
 
+    public static final ComparatorStringAscending CASE_SENSITIVE = new ComparatorStringAscending(false);
+    public static final ComparatorStringAscending IGNORE_CASE = new ComparatorStringAscending(true);
+
     private final boolean ignoreCase;
 
-    public ComparatorStringAscending(boolean ignoreCase) {
+    private ComparatorStringAscending(boolean ignoreCase) {
         this.ignoreCase = ignoreCase;
     }
 

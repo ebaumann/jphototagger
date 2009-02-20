@@ -47,6 +47,10 @@ public final class ControllerAutoUpdateMetadataTask
         listen();
     }
 
+    private void listen() {
+        updaterArray.addTaskListener(this);
+    }
+
     private void init() {
         addSystemDirectorySubstrings();
         createUpdaterArray();
@@ -79,10 +83,6 @@ public final class ControllerAutoUpdateMetadataTask
     @Override
     public void start() {
         startUpdate();
-    }
-
-    private void listen() {
-        updaterArray.addTaskListener(this);
     }
 
     private void startUpdate() {

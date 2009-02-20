@@ -23,14 +23,14 @@ public final class ControllerDeleteFiles implements ActionListener {
 
     private final ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
     private final DatabaseImageFiles db = DatabaseImageFiles.getInstance();
-    private final PopupMenuPanelThumbnails popup = PopupMenuPanelThumbnails.getInstance();
+    private final PopupMenuPanelThumbnails popupMenu = PopupMenuPanelThumbnails.getInstance();
 
     public ControllerDeleteFiles() {
         listen();
     }
 
     private void listen() {
-        popup.addActionListenerFileSystemDeleteFiles(this);
+        popupMenu.addActionListenerFileSystemDeleteFiles(this);
         Panels.getInstance().getAppFrame().getMenuItemDelete().addActionListener(this);
     }
 

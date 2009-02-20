@@ -18,11 +18,15 @@ import java.awt.event.ActionListener;
  */
 public final class ControllerOpenFilesWithStandardApp implements ActionListener {
 
-    private final PopupMenuPanelThumbnails popup = PopupMenuPanelThumbnails.getInstance();
+    private final PopupMenuPanelThumbnails popupMenu = PopupMenuPanelThumbnails.getInstance();
     private final ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
 
     public ControllerOpenFilesWithStandardApp() {
         listen();
+    }
+
+    private void listen() {
+        popupMenu.addActionListenerOpenFilesWithStandardApp(this);
     }
 
     @Override
@@ -30,10 +34,6 @@ public final class ControllerOpenFilesWithStandardApp implements ActionListener 
         if (checkOpenAppIsDefined()) {
             openFiles();
         }
-    }
-
-    private void listen() {
-        popup.addActionListenerOpenFilesWithStandardApp(this);
     }
 
     private void openFiles() {

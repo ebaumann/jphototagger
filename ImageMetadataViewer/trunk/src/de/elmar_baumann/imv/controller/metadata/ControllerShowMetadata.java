@@ -43,6 +43,11 @@ public final class ControllerShowMetadata implements DatabaseListener, Thumbnail
         listen();
     }
 
+    private void listen() {
+        data.getThumbnailsPanel().addThumbnailsPanelListener(this);
+        DatabaseImageFiles.getInstance().addDatabaseListener(this);
+    }
+
     private void initData() {
         data.setMetadataTables(appPanel.getMetadataTables());
         data.setXmpTables(appPanel.getXmpTables());
@@ -91,11 +96,6 @@ public final class ControllerShowMetadata implements DatabaseListener, Thumbnail
                 });
         namespacesOfXmpTableModel.put(data.getXmpTableModelXap(),
                 new String[]{XMPConst.NS_XMP, XMPConst.NS_XMP_RIGHTS});
-    }
-
-    private void listen() {
-        data.getThumbnailsPanel().addThumbnailsPanelListener(this);
-        DatabaseImageFiles.getInstance().addDatabaseListener(this);
     }
 
     @Override

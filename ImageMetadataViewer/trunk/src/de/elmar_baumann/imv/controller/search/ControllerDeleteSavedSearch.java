@@ -33,6 +33,10 @@ public final class ControllerDeleteSavedSearch implements ActionListener {
         listen();
     }
 
+    private void listen() {
+        actionPopup.addActionListenerDelete(this);
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         delete();
@@ -58,10 +62,6 @@ public final class ControllerDeleteSavedSearch implements ActionListener {
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.QUESTION_MESSAGE,
                 AppIcons.getMediumAppIcon()) == JOptionPane.YES_OPTION;
-    }
-
-    private void listen() {
-        actionPopup.addActionListenerDelete(this);
     }
 
     private void messageErrorDelete() {

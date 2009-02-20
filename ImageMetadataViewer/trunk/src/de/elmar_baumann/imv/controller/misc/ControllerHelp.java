@@ -27,6 +27,10 @@ public final class ControllerHelp implements ActionListener,
         listen();
     }
 
+    private void listen() {
+        help.addActionListener(this);
+    }
+
     @Override
     public void actionPerformed(HelpBrowserAction action) {
         if (action.getType().equals(HelpBrowserAction.Type.URL_CHANGED)) {
@@ -37,10 +41,6 @@ public final class ControllerHelp implements ActionListener,
     @Override
     public void actionPerformed(ActionEvent e) {
         showHelp();
-    }
-
-    private void listen() {
-        help.addActionListener(this);
     }
 
     private void setCurrentUrl(HelpBrowserAction action) {

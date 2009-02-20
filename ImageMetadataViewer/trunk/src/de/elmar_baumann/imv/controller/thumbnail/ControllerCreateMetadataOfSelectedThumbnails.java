@@ -34,7 +34,7 @@ public final class ControllerCreateMetadataOfSelectedThumbnails
         implements ActionListener, ProgressListener, Task {
 
     private final Queue<InsertImageFilesIntoDatabase> updaters = new ConcurrentLinkedQueue<InsertImageFilesIntoDatabase>();
-    private final PopupMenuPanelThumbnails popup = PopupMenuPanelThumbnails.getInstance();
+    private final PopupMenuPanelThumbnails popupMenu = PopupMenuPanelThumbnails.getInstance();
     private final ProgressBarCurrentTasks progressBarProvider = ProgressBarCurrentTasks.getInstance();
     private final ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
     private JProgressBar progressBar;
@@ -49,14 +49,14 @@ public final class ControllerCreateMetadataOfSelectedThumbnails
     }
 
     private void listen() {
-        popup.addActionListenerUpdateThumbnail(this);
-        popup.addActionListenerUpdateMetadata(this);
+        popupMenu.addActionListenerUpdateThumbnail(this);
+        popupMenu.addActionListenerUpdateMetadata(this);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (thumbnailsPanel.getSelectionCount() > 0) {
-            updateMetadata(popup.getMetadataToInsertIntoDatabase(e.getSource()));
+            updateMetadata(popupMenu.getMetadataToInsertIntoDatabase(e.getSource()));
         }
     }
 

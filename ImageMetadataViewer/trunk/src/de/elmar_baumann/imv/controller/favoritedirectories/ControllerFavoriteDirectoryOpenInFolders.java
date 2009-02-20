@@ -22,7 +22,7 @@ import javax.swing.tree.TreePath;
  */
 public final class ControllerFavoriteDirectoryOpenInFolders implements ActionListener {
 
-    private final PopupMenuListFavoriteDirectories popup = PopupMenuListFavoriteDirectories.getInstance();
+    private final PopupMenuListFavoriteDirectories popupMenu = PopupMenuListFavoriteDirectories.getInstance();
     private final AppPanel appPanel = Panels.getInstance().getAppPanel();
     private final JTabbedPane tabbedPaneSelection = appPanel.getTabbedPaneSelection();
     private final Component tabTreeDirectories = appPanel.getTabSelectionDirectories();
@@ -34,7 +34,7 @@ public final class ControllerFavoriteDirectoryOpenInFolders implements ActionLis
     }
 
     private void listen() {
-        popup.addActionListenerOpenInFolders(this);
+        popupMenu.addActionListenerOpenInFolders(this);
     }
 
     @Override
