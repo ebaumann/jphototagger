@@ -42,6 +42,8 @@ public final class ListUtil {
      * @return list item or null if not found
      */
     public static Object getFirstItemWithText(String text, DefaultListModel model) {
+        if (text == null)
+            throw new NullPointerException("text == null");
         if (model == null)
             throw new NullPointerException("model == null");
 
@@ -110,8 +112,8 @@ public final class ListUtil {
     static public void insertSorted(DefaultListModel model, Object o, Comparator c) {
         if (model == null)
             throw new NullPointerException("model == null");
-        if (c == null)
-            throw new NullPointerException("c == null");
+        if (o == null)
+            throw new NullPointerException("o == null");
         if (c == null)
             throw new NullPointerException("c == null");
 

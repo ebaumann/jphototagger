@@ -4,6 +4,10 @@ package de.elmar_baumann.lib.util.logging;
  * (Stack-) Frame in einer Logdatei von <code>java.util.logging.Logger</code>.
  * Ein Frame beschreibt eine Zeile im Backtrace eines Throwable-Objekts.
  *
+ * All functions with object-reference-parameters are throwing a
+ * <code>NullPointerException</code> if an object reference is null and it is
+ * not documentet that it can be null.
+ *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 1.0 2008/08/04
  */
@@ -29,6 +33,9 @@ public final class LogfileRecordFrame {
      * @param className Klassenname
      */
     public void setClassName(String className) {
+        if (className == null)
+            throw new NullPointerException("className == null");
+
         this.className = className;
     }
 
@@ -58,6 +65,9 @@ public final class LogfileRecordFrame {
      * @param line Zeilennummer (Integer)
      */
     public void setLine(String line) {
+        if (line == null)
+            throw new NullPointerException("line == null");
+
         this.line = line;
     }
 
@@ -82,6 +92,9 @@ public final class LogfileRecordFrame {
      * @param methodname Methodenname
      */
     public void setMethodName(String methodname) {
+        if (methodname == null)
+            throw new NullPointerException("methodname == null");
+
         this.methodName = methodname;
     }
 
@@ -92,14 +105,18 @@ public final class LogfileRecordFrame {
      * @return          true, wenn der Teilstring in irgendeinem der Inhalte vorkommt
      */
     boolean contains(String substring) {
+        if (substring == null)
+            throw new NullPointerException("substring == null");
+
         return containsSubstring(getLine(), substring) ||
             containsSubstring(getClassName(), substring) ||
             containsSubstring(getMethodName(), substring);
     }
 
     private boolean containsSubstring(String string, String substring) {
-        return string == null
-            ? false
-            : string.toLowerCase().contains(substring.toLowerCase());
+        assert string != null : string;
+        assert substring != null : substring;
+
+        return string.toLowerCase().contains(substring.toLowerCase());
     }
 }

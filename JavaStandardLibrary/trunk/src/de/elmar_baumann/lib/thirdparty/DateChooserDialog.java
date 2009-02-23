@@ -246,6 +246,9 @@ public final class DateChooserDialog extends JComponent {
     }
 
     public void setCalendar(GregorianCalendar calendar) {
+        if (calendar == null)
+            throw new NullPointerException("calendar == null");
+
         gc = calendar;
         drawCalendar();
     }
@@ -331,6 +334,9 @@ public final class DateChooserDialog extends JComponent {
 
     @Override
     public void setFont(Font font) {
+        if (font == null)
+            throw new NullPointerException("font == null");
+        
         previousButton.setFont(font);
         nextButton.setFont(font);
         for (int i = 0; i < dayOfWeekLabels.length; i++) {

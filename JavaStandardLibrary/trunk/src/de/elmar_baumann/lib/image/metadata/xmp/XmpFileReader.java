@@ -15,7 +15,11 @@ import java.util.logging.Logger;
  * Motivation: Das Adobe XMP SDK hat für Java (noch) nicht XMPFiles
  * implementiert.
  * 
- * Bug: Liest nur UTF-8-kodierte XMP-Pakete richtig.
+ * All functions with object-reference-parameters are throwing a
+ * <code>NullPointerException</code> if an object reference is null and it is
+ * not documentet that it can be null.
+ *
+ * <strong>Bug:</strong> Liest nur UTF-8-kodierte XMP-Pakete richtig.
  * 
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2007/11/08
@@ -47,6 +51,9 @@ public final class XmpFileReader {
      *                 ein Eingabefehler aufgetreten ist
      */
     public static synchronized String readFile(String filename) {
+        if (filename == null)
+            throw new NullPointerException("filename == null");
+
         try {
             RandomAccessFile file = new RandomAccessFile(filename, "r"); // NOI18N
             int xmpPacketStartIndex = getMatchIndex(file, 0, xmpPacketMarker);
@@ -70,8 +77,11 @@ public final class XmpFileReader {
         return null;
     }
 
-    private static String getXmp(String filename, int xmpStartIndex,
-        int xmpEndIndex) {
+    private static String getXmp(String filename, int xmpStartIndex, int xmpEndIndex) {
+        assert filename != null : filename;
+        assert xmpStartIndex >= 0 && xmpStartIndex <= xmpEndIndex : xmpStartIndex;
+        assert xmpEndIndex >= xmpStartIndex : xmpEndIndex;
+
         try {
             RandomAccessFile file = new RandomAccessFile(filename, "r"); // NOI18N
             file.seek(xmpStartIndex);
@@ -94,6 +104,9 @@ public final class XmpFileReader {
      * @return         true, wenn die Datei XMP-Informationen enthält
      */
     public static boolean existsXmp(String filename) {
+        if (filename == null)
+            throw new NullPointerException("filename == null");
+
         try {
             BufferedReader inputStream = new BufferedReader(new FileReader(
                 filename));
@@ -112,8 +125,11 @@ public final class XmpFileReader {
         return false;
     }
 
-    private static int getMatchIndex(RandomAccessFile file, int startAtOffset,
-        byte[] pattern) throws IOException {
+    private static int getMatchIndex(RandomAccessFile file, int startAtOffset, byte[] pattern) throws IOException {
+        assert file != null : file;
+        assert startAtOffset >= 0;
+        assert pattern != null : pattern;
+
         long fileLength = file.length();
         byte byteRead = 0;
         int startOffset = -1;

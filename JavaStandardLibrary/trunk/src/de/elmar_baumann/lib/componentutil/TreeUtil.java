@@ -29,6 +29,9 @@ public final class TreeUtil {
      * @return true, falls der Zeiger über einem selektierten Item steht
      */
     public static boolean isSelectedItemPosition(MouseEvent e) {
+        if (e == null)
+            throw new NullPointerException("e == null");
+
         if (e.getSource() instanceof JTree) {
             JTree tree = (JTree) e.getSource();
             TreePath mousePath = tree.getPathForLocation(e.getX(), e.getY());
@@ -50,6 +53,9 @@ public final class TreeUtil {
      * @return true, falls der Zeiger über dem Wurzelitem steht
      */
     public static boolean isRootItemPosition(MouseEvent e) {
+        if (e == null)
+            throw new NullPointerException("e == null");
+
         if (e.getSource() instanceof JTree) {
             JTree tree = (JTree) e.getSource();
             TreePath mousePath = tree.getPathForLocation(e.getX(), e.getY());
@@ -70,9 +76,9 @@ public final class TreeUtil {
      * @param trees Trees
      */
     public static void clearSelection(List<JTree> trees) {
-        if (trees == null) {
+        if (trees == null)
             throw new NullPointerException("trees == null");
-        }
+
         for (JTree tree : trees) {
             if (tree.getSelectionCount() > 0) {
                 tree.clearSelection();

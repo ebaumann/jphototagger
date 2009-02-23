@@ -7,11 +7,11 @@ import de.elmar_baumann.lib.util.logging.LogfileRecord;
 import de.elmar_baumann.lib.util.logging.LogfileRecordException;
 import de.elmar_baumann.lib.util.logging.LogfileRecordFrame;
 import de.elmar_baumann.lib.model.TableModelLogfiles;
-import de.elmar_baumann.lib.util.ComponentSizesFromProperties;
 import de.elmar_baumann.lib.resource.LogLevelIcons;
 import de.elmar_baumann.lib.renderer.TableCellRendererLogfileDialog;
 import de.elmar_baumann.lib.resource.Bundle;
 import de.elmar_baumann.lib.resource.Resources;
+import de.elmar_baumann.lib.util.Settings;
 import java.awt.Frame;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
@@ -19,12 +19,12 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
-import java.util.logging.Formatter;
 import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -41,6 +41,10 @@ import javax.swing.text.html.HTMLDocument;
  * <code>java.util.logging.Logger</code>-Objekt. Das XML-Format muss validieren
  * gegen die <code>logger.dtd</code>.
  * 
+ * All functions with object-reference-parameters are throwing a
+ * <code>NullPointerException</code> if an object reference is null and it is
+ * not documentet that it can be null.
+ *
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
@@ -70,6 +74,11 @@ public final class LogfileDialog extends javax.swing.JDialog implements
      */
     public LogfileDialog(Frame parent, String logfilename, Class formatterClass) {
         super(parent, false);
+        if (logfilename == null)
+            throw new NullPointerException("logfilename == null");
+        if (formatterClass == null)
+            throw new NullPointerException("formatterClass == null");
+
         this.logfilename = logfilename;
         this.formatterClass = formatterClass;
         initPaneIndexOfLogfileType();
@@ -156,7 +165,7 @@ public final class LogfileDialog extends javax.swing.JDialog implements
         }
     }
 
-    private boolean checkSize() {
+    private boolean checkFileSize() {
         long logfileBytes = new File(logfilename).length();
         if (logfileBytes <= 0) {
             JOptionPane.showMessageDialog(
@@ -183,7 +192,7 @@ public final class LogfileDialog extends javax.swing.JDialog implements
         logfileRecords = LogfileParser.parseLogfile(logfilename);
     }
 
-    private void search() {
+    private void filterTable() {
         filterString = textFieldSearch.getText();
         setTable();
     }
@@ -272,9 +281,7 @@ public final class LogfileDialog extends javax.swing.JDialog implements
 
     private void setTable() {
         if (logfilename != null && !logfilename.isEmpty()) {
-            TableModelLogfiles model = new TableModelLogfiles();
-            model.setFilter(filterString);
-            model.setVisibleLevels(visibleLevels);
+            TableModelLogfiles model = new TableModelLogfiles(filterString, visibleLevels);
             tableLogfileRecords.setModel(model);
             model.setRecords(logfileRecords);
             setColumnWidths();
@@ -313,10 +320,10 @@ public final class LogfileDialog extends javax.swing.JDialog implements
 
     @Override
     public void setVisible(boolean visible) {
-        if (visible && checkSize()) {
-            if (getFormatterClass().equals(XMLFormatter.class)) {
+        if (visible && checkFileSize()) {
+            if (formatterClass.equals(XMLFormatter.class)) {
                 readXml();
-            } else if (getFormatterClass().equals(SimpleFormatter.class)) {
+            } else if (formatterClass.equals(SimpleFormatter.class)) {
                 readSimple();
             } else {
                 errorMessageNotSupportedFormat();
@@ -333,16 +340,16 @@ public final class LogfileDialog extends javax.swing.JDialog implements
     private void readProperties() {
         Properties properties = Resources.INSTANCE.getProperties();
         if (properties != null) {
-            ComponentSizesFromProperties sizes = new ComponentSizesFromProperties(properties);
-            sizes.getSizeAndLocation(this);
+            Settings settings = new Settings(properties);
+            settings.getSizeAndLocation(this);
         }
     }
 
     private void writeProperties() {
         Properties properties = Resources.INSTANCE.getProperties();
         if (properties != null) {
-            ComponentSizesFromProperties sizes = new ComponentSizesFromProperties(properties);
-            sizes.setSizeAndLocation(this);
+            Settings settings = new Settings(properties);
+            settings.setSizeAndLocation(this);
         }
     }
 
@@ -368,44 +375,15 @@ public final class LogfileDialog extends javax.swing.JDialog implements
     }
 
     private void selectPane() {
-        Class fClass = getFormatterClass();
         Set<Class> classes = paneIndexOfFormatterClass.keySet();
         for (Class c : classes) {
             int panelIndex = paneIndexOfFormatterClass.get(c);
-            boolean isCurrentFormatter = c.equals(fClass);
+            boolean isCurrentFormatter = c.equals(formatterClass);
             if (isCurrentFormatter) {
                 tabbedPane.setSelectedIndex(panelIndex);
             }
             tabbedPane.setEnabledAt(panelIndex, isCurrentFormatter);
         }
-    }
-
-    /**
-     * Liefert, ob ein Logdateiformat unterstützt wird.
-     * 
-     * @param  f  Format
-     * @return true, wenn das Format unterstützt wird
-     */
-    public boolean isSupportedFormat(Formatter f) {
-        return paneIndexOfFormatterClass.containsKey(f);
-    }
-
-    /**
-     * Setzt die Formatiererklasse der Logdatei.
-     * 
-     * @param formatterClass Klasse
-     */
-    public void setFormatter(Class formatterClass) {
-        this.formatterClass = formatterClass;
-    }
-
-    /**
-     * Liefert die Formatiererklasse der Logdatei.
-     * 
-     * @return Typ
-     */
-    public Class getFormatterClass() {
-        return formatterClass;
     }
 
     /** This method is called from within the constructor to
@@ -520,13 +498,13 @@ public final class LogfileDialog extends javax.swing.JDialog implements
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelFilterCheckBoxesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelFilterCheckBoxesLayout.createSequentialGroup()
-                        .addComponent(checkBoxFine, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)
+                        .addComponent(checkBoxFine, javax.swing.GroupLayout.PREFERRED_SIZE, 99, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(labelIconFinest, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
                         .addGap(14, 14, 14)
-                        .addComponent(checkBoxFinest, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE))
+                        .addComponent(checkBoxFinest, javax.swing.GroupLayout.PREFERRED_SIZE, 99, Short.MAX_VALUE))
                     .addGroup(panelFilterCheckBoxesLayout.createSequentialGroup()
-                        .addComponent(checkBoxFiner, javax.swing.GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE)
+                        .addComponent(checkBoxFiner, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
                         .addGap(121, 121, 121)))
                 .addContainerGap())
         );
@@ -616,7 +594,7 @@ public final class LogfileDialog extends javax.swing.JDialog implements
         scrollPaneTextPaneDetails.setViewportView(textPaneDetails);
 
         tableLogfileRecords.setAutoCreateRowSorter(true);
-        tableLogfileRecords.setModel(new de.elmar_baumann.lib.model.TableModelLogfiles());
+        tableLogfileRecords.setModel(new TableModelLogfiles("", Arrays.asList(Level.ALL)));
         tableLogfileRecords.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         tableLogfileRecords.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scrollPaneTableLogfileRecords.setViewportView(tableLogfileRecords);
@@ -662,7 +640,7 @@ public final class LogfileDialog extends javax.swing.JDialog implements
             panelSimpleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelSimpleLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(scrollPaneSimple, javax.swing.GroupLayout.DEFAULT_SIZE, 458, Short.MAX_VALUE)
+                .addComponent(scrollPaneSimple, javax.swing.GroupLayout.DEFAULT_SIZE, 454, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -718,7 +696,7 @@ public final class LogfileDialog extends javax.swing.JDialog implements
     }// </editor-fold>//GEN-END:initComponents
 
 private void textFieldSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldSearchKeyReleased
-    search();
+    filterTable();
 }//GEN-LAST:event_textFieldSearchKeyReleased
 
 private void buttonReloadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonReloadActionPerformed

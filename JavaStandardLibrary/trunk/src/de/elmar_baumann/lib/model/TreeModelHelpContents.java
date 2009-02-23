@@ -11,6 +11,10 @@ import javax.swing.tree.TreePath;
  * Contains the help index of an application's help, the root node of an
  * {@link de.elmar_baumann.lib.util.help.HelpNode} object.
  *
+ * All functions with object-reference-parameters are throwing a
+ * <code>NullPointerException</code> if an object reference is null and it is
+ * not documentet that it can be null.
+ *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/02
  */
@@ -64,10 +68,15 @@ public final class TreeModelHelpContents implements TreeModel {
      * @param url  URL of the XML file for the class
      */
     public TreeModelHelpContents(String url) {
+        if (url == null)
+            throw new NullPointerException("url == null");
+
         parse(url);
     }
 
     private void parse(String url) {
+        assert url != null : url;
+
         HelpNode rootNode = HelpIndexParser.parse(this.getClass().getResourceAsStream(url));
         if (rootNode != null) {
             root = rootNode;

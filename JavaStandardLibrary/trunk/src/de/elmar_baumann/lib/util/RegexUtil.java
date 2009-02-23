@@ -20,7 +20,8 @@ public final class RegexUtil {
     /**
      * Returns from a collection all strings matching a pattern.
      *
-     * @param  pattern  pattern
+     * @param  strings  strings
+     * @param pattern   pattern
      * @return All matching strings
      */
     public static List<String> getMatches(Collection<String> strings, String pattern) {

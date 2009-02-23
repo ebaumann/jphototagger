@@ -13,6 +13,10 @@ import java.util.logging.Logger;
  * Reads from and writes to a file values of an
  * {@link java.util.Properties} instance.
  *
+ * All functions with object-reference-parameters are throwing a
+ * <code>NullPointerException</code> if an object reference is null and it is
+ * not documentet that it can be null.
+ *
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
@@ -34,19 +38,19 @@ public final class PropertiesFile {
      *
      * <p>The slash is the system's file system path delimiter.
      *
-     * @param domainName  name of the domain from right to left, e.g.
-     *                    <code>de.elmar_baumann</code>.
-     *                    <p><em>Must comply with the file system's naming
-     *                    restrictions!</em>
-     * @param appName     name of the project
-     *                    <p><em>Must comply with the file system's naming
-     *                    restrictions!</em>
-     * @param filename    name of the file to store the properties, should
-     *                    have the suffix <code>.properties</code>
-     *                    <p><em>Must comply with the file system's naming
-     *                    restrictions!</em>
-     * @param properties  properties to retrieve values from a file and store
-     *                    values in a file
+     * @param domainName   name of the domain from right to left, e.g.
+     *                     <code>de.elmar_baumann</code>.
+     *                     <p><em>Must comply with the file system's naming
+     *                     restrictions!</em>
+     * @param projectName  name of the project
+     *                     <p><em>Must comply with the file system's naming
+     *                     restrictions!</em>
+     * @param filename     name of the file to store the properties, should
+     *                     have the suffix <code>.properties</code>
+     *                     <p><em>Must comply with the file system's naming
+     *                     restrictions!</em>
+     * @param properties   properties to retrieve values from a file and store
+     *                     values in a file
      */
     public PropertiesFile(String domainName, String projectName, String filename, Properties properties) {
         if (domainName == null)
@@ -100,7 +104,7 @@ public final class PropertiesFile {
      */
     public void readFromFile() {
         String propertyFilename = getPropertyFilePathName();
-        if (FileUtil.existsFile(filename)) {
+        if (FileUtil.existsFile(propertyFilename)) {
             FileInputStream in;
             try {
                 in = new FileInputStream(propertyFilename);

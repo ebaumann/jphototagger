@@ -76,8 +76,7 @@ public final class External {
                         returnBytes = new byte[bytesRead];
                         System.arraycopy(buffer, 0, returnBytes, 0, bytesRead);
                     } else {
-                        returnBytes = appendByteArray(returnBytes, buffer,
-                            bytesRead);
+                        returnBytes = appendByteArray(returnBytes, buffer, bytesRead);
                     }
                 }
                 finished = bytesRead < 0;
@@ -85,12 +84,10 @@ public final class External {
             try {
                 process.waitFor();
             } catch (InterruptedException ex) {
-                Logger.getLogger(External.class.getName()).
-                    log(Level.SEVERE, null, ex);
+                Logger.getLogger(External.class.getName()).log(Level.SEVERE, null, ex);
             }
         } catch (IOException ex) {
-            Logger.getLogger(External.class.getName()).
-                log(Level.SEVERE, null, ex);
+            Logger.getLogger(External.class.getName()).log(Level.SEVERE, null, ex);
         }
         return returnBytes;
     }

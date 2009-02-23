@@ -54,6 +54,7 @@ public final class LookAndFeelUtil {
     public static void setCustomColors(String propertyFilename) {
         if (propertyFilename == null)
             throw new NullPointerException("propertyFilename == null");
+
         setCustomColors(LookAndFeelUtil.class.getClassLoader().getResourceAsStream(propertyFilename));
     }
 
@@ -67,6 +68,7 @@ public final class LookAndFeelUtil {
     public static void setCustomColors(InputStream is) {
         if (is == null)
             throw new NullPointerException("is == null");
+
         try {
             Properties properties = new Properties();
             properties.load(is);
@@ -81,6 +83,7 @@ public final class LookAndFeelUtil {
 
     private static Color getColorFromProperty(String property) {
         assert property != null : property;
+
         StringTokenizer tokenizer = new StringTokenizer(property, propertyColorDelim);
         if (tokenizer.countTokens() == 3) {
             String red = tokenizer.nextToken().trim();

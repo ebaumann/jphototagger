@@ -4,7 +4,6 @@ import de.elmar_baumann.lib.event.HelpBrowserAction;
 import de.elmar_baumann.lib.event.HelpBrowserListener;
 import de.elmar_baumann.lib.image.icon.IconUtil;
 import de.elmar_baumann.lib.model.TreeModelHelpContents;
-import de.elmar_baumann.lib.util.ComponentSizesFromProperties;
 import de.elmar_baumann.lib.util.SettingsHints;
 import de.elmar_baumann.lib.renderer.TreeCellRendererHelpContents;
 import de.elmar_baumann.lib.resource.Bundle;
@@ -21,6 +20,7 @@ import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
@@ -41,7 +41,7 @@ import javax.swing.tree.TreeSelectionModel;
  * @version 2008-10-05
  */
 public final class HelpBrowser extends Dialog
-        implements ActionListener, HyperlinkListener, MouseListener, TreeSelectionListener {
+    implements ActionListener, HyperlinkListener, MouseListener, TreeSelectionListener {
 
     private static final String keySplitPane = HelpBrowser.class.getName() + ".SplitPane";
     private static final String actionPrevious = Bundle.getString("HelpBrowser.Action.Previous");
@@ -95,8 +95,7 @@ public final class HelpBrowser extends Dialog
     }
 
     private synchronized void notifyUrlChanged(URL url) {
-        HelpBrowserAction action = new HelpBrowserAction(this, HelpBrowserAction.Type.URL_CHANGED);
-        action.setUrl(url);
+        HelpBrowserAction action = new HelpBrowserAction(this, HelpBrowserAction.Type.URL_CHANGED, url);
         for (HelpBrowserListener listener : actionListeners) {
             listener.actionPerformed(action);
         }
@@ -165,17 +164,17 @@ public final class HelpBrowser extends Dialog
 
     private boolean canGoNext() {
         return currentHistoryIndex + 1 > 0 &&
-                currentHistoryIndex + 1 < urlHistory.size();
+            currentHistoryIndex + 1 < urlHistory.size();
     }
 
     private boolean canGoPrevious() {
         return currentHistoryIndex - 1 >= 0 &&
-                currentHistoryIndex - 1 < urlHistory.size();
+            currentHistoryIndex - 1 < urlHistory.size();
     }
 
     private void goNext() {
         if (currentHistoryIndex + 1 >= 0 && currentHistoryIndex + 1 <
-                urlHistory.size()) {
+            urlHistory.size()) {
             currentHistoryIndex++;
             setUrl(urlHistory.get(currentHistoryIndex));
             setButtonStatus();
@@ -184,7 +183,7 @@ public final class HelpBrowser extends Dialog
 
     private void goPrevious() {
         if (currentHistoryIndex - 1 >= 0 && currentHistoryIndex - 1 <
-                urlHistory.size()) {
+            urlHistory.size()) {
             currentHistoryIndex--;
             setUrl(urlHistory.get(currentHistoryIndex));
             setButtonStatus();
@@ -209,7 +208,7 @@ public final class HelpBrowser extends Dialog
     private void removeNextHistory() {
         int historyUrlCount = urlHistory.size();
         boolean canRemove = historyUrlCount > 0 && currentHistoryIndex >= 0 &&
-                currentHistoryIndex < historyUrlCount;
+            currentHistoryIndex < historyUrlCount;
         if (canRemove) {
             int removeCount = historyUrlCount - currentHistoryIndex - 1;
             for (int i = 0; i < removeCount; i++) {
@@ -326,9 +325,8 @@ public final class HelpBrowser extends Dialog
     private void readProperties() {
         Properties properties = de.elmar_baumann.lib.resource.Resources.INSTANCE.getProperties();
         if (properties != null) {
-            ComponentSizesFromProperties sizes = new ComponentSizesFromProperties(properties);
-            sizes.getSizeAndLocation(this);
             Settings settings = new Settings(properties);
+            settings.getSizeAndLocation(this);
             settings.getComponent(this, getHints());
             settings.getSplitPane(splitPane, keySplitPane);
         }
@@ -337,17 +335,16 @@ public final class HelpBrowser extends Dialog
     private void writeProperties() {
         Properties properties = de.elmar_baumann.lib.resource.Resources.INSTANCE.getProperties();
         if (properties != null) {
-            ComponentSizesFromProperties sizes = new ComponentSizesFromProperties(properties);
-            sizes.setSizeAndLocation(this);
             Settings settings = new Settings(properties);
+            settings.setSizeAndLocation(this);
             settings.setComponent(this, getHints());
             settings.setSplitPane(splitPane, keySplitPane);
         }
     }
 
     private SettingsHints getHints() {
-        SettingsHints hints = new SettingsHints();
-        hints.addExcludedMember(getClass().getName() + ".tree");
+        SettingsHints hints = new SettingsHints(EnumSet.of(SettingsHints.Option.SET_TABBED_PANE_CONTENT));
+        hints.addExclude(getClass().getName() + ".tree");
         return hints;
     }
 

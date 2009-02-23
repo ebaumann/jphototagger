@@ -3,8 +3,11 @@ package de.elmar_baumann.lib.event;
 import java.net.URL;
 
 /**
- * Action of an
- *  {@link de.elmar_baumann.lib.dialog.HelpBrowser} instance.
+ * Action of an {@link de.elmar_baumann.lib.dialog.HelpBrowser} instance.
+ *
+ * All functions with object-reference-parameters are throwing a
+ * <code>NullPointerException</code> if an object reference is null and it is
+ * not documentet that it can be null.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/04
@@ -13,11 +16,19 @@ public final class HelpBrowserAction {
 
     private final Object source;
     private final Type type;
-    private URL url;
+    private final URL url;
 
-    public HelpBrowserAction(Object source, Type type) {
+    public HelpBrowserAction(Object source, Type type, URL url) {
+        if (source == null)
+            throw new NullPointerException("source == null");
+        if (type == null)
+            throw new NullPointerException("type == null");
+        if (url == null)
+            throw new NullPointerException("url == null");
+
         this.source = source;
         this.type = type;
+        this.url = url;
     }
 
     public enum Type {
@@ -44,15 +55,6 @@ public final class HelpBrowserAction {
      */
     public URL getUrl() {
         return url;
-    }
-
-    /**
-     * Sets the URL  if the action was {@link Type#URL_CHANGED}.
-     * 
-     * @param url  URL
-     */
-    public void setUrl(URL url) {
-        this.url = url;
     }
 
     /**

@@ -25,6 +25,10 @@ import org.xml.sax.SAXException;
  * Parst Java-Logdateien <em>im XML-Format</em> geschrieben von 
  * <code>java.util.logging.Logger</code>.
  * 
+ * All functions with object-reference-parameters are throwing a
+ * <code>NullPointerException</code> if an object reference is null and it is
+ * not documentet that it can be null.
+ *
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
@@ -40,6 +44,7 @@ public final class LogfileParser implements EntityResolver {
     public static List<LogfileRecord> parseLogfile(String filename) {
         if (filename == null)
             throw new NullPointerException("filename == null");
+
         List<LogfileRecord> records = new ArrayList<LogfileRecord>();
         try {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -82,6 +87,9 @@ public final class LogfileParser implements EntityResolver {
     }
 
     private static void setException(LogfileRecord record, Node recordNode) {
+        assert record != null : record;
+        assert recordNode != null : recordNode;
+
         NodeList nodeList = ((Element) recordNode).getElementsByTagName("exception"); // NOI18N
         if (nodeList != null && nodeList.getLength() == 1) {
             Node exceptionNode = nodeList.item(0);
@@ -95,6 +103,9 @@ public final class LogfileParser implements EntityResolver {
     }
 
     private static void setFrames(LogfileRecordException ex, Node exceptionNode) {
+        assert ex != null : ex;
+        assert exceptionNode != null : exceptionNode;
+
         NodeList nodeList = ((Element) exceptionNode).getElementsByTagName(
             "frame"); // NOI18N
         if (nodeList != null) {
@@ -113,6 +124,9 @@ public final class LogfileParser implements EntityResolver {
     }
 
     private static void setParams(LogfileRecord record, Node recordNode) { // TODO Testen, bislang keinen Musterdatensatz gefunden
+        assert record != null : record;
+        assert recordNode != null : recordNode;
+
         NodeList nodeList = ((Element) recordNode).getElementsByTagName("param"); // NOI18N
         if (nodeList != null) {
             int count = nodeList.getLength();
@@ -136,6 +150,9 @@ public final class LogfileParser implements EntityResolver {
      * @return        Inhalt oder null
      */
     private static String getElement(Node recordNode, String tagName) {
+        assert recordNode != null : recordNode;
+        assert tagName != null : tagName;
+
         String elementData = null;
         NodeList nodeList = ((Element) recordNode).getElementsByTagName(tagName);
         if (nodeList != null) {
@@ -165,6 +182,8 @@ public final class LogfileParser implements EntityResolver {
     }
 
     private static InputStream getFileAsInputStream(String filename) {
+        assert filename != null;
+
         BufferedReader bufferedReader = null;
         try {
             bufferedReader = new BufferedReader(new FileReader(filename));

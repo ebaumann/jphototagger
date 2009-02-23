@@ -67,6 +67,7 @@ public final class TableUtil {
      */
     private static void setColumnWidth(int width, TableColumn column) {
         assert column != null : column;
+
         column.setPreferredWidth(width);
     }
 

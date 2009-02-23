@@ -1,5 +1,6 @@
 package de.elmar_baumann.lib.component;
 
+import de.elmar_baumann.lib.util.ArrayUtil;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -47,6 +48,9 @@ public final class CheckList extends JList {
      * @param listener Beobachter
      */
     public synchronized void addActionListener(ActionListener listener) {
+        if (listener == null)
+            throw new NullPointerException("listener == null");
+
         actionListeners.add(listener);
     }
 
@@ -56,6 +60,9 @@ public final class CheckList extends JList {
      * @param listener Beobachter
      */
     public synchronized void removeActionListener(ActionListener listener) {
+        if (listener == null)
+            throw new NullPointerException("listener == null");
+
         actionListeners.remove(listener);
     }
 
@@ -77,6 +84,8 @@ public final class CheckList extends JList {
     }
 
     private synchronized void notifyActionListener(int index) {
+        assert ArrayUtil.isValidIndex(actionListeners, index);
+
         for (ActionListener listener : actionListeners) {
             listener.actionPerformed(new ActionEvent(this, index, "")); // NOI18N
         }
@@ -160,9 +169,9 @@ public final class CheckList extends JList {
      * @return          Texte
      */
     public synchronized String getSelectedItemTexts(String delimiter) {
-        if (delimiter == null) {
+        if (delimiter == null)
             throw new NullPointerException("delimiter == null");
-        }
+
         List<String> texts = getSelectedItemTexts();
         StringBuffer textBuffer = new StringBuffer();
         for (String text : texts) {
@@ -180,9 +189,9 @@ public final class CheckList extends JList {
      * @see          #setSelectedItemsWithText(java.lang.String, boolean)
      */
     public synchronized void setSelectedItemsWithText(List<String> texts, boolean select) {
-        if (texts == null) {
+        if (texts == null)
             throw new NullPointerException("texts == null");
-        }
+
         for (String text : texts) {
             setSelectedItemsWithText(text, select);
         }
@@ -197,6 +206,9 @@ public final class CheckList extends JList {
      * @see #setSelectedItemsWithText(java.util.List, boolean)
      */
     public synchronized void setSelectedItemsWithText(String text, boolean select) {
+        if (text == null)
+            throw new NullPointerException("text == null");
+
         ListModel model = getModel();
         int count = model.getSize();
         for (int index = 0; index < count; index++) {

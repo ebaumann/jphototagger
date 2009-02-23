@@ -1,9 +1,9 @@
 package de.elmar_baumann.lib.dialog;
 
 import de.elmar_baumann.lib.image.icon.IconUtil;
-import de.elmar_baumann.lib.util.ComponentSizesFromProperties;
 import de.elmar_baumann.lib.resource.Bundle;
 import de.elmar_baumann.lib.resource.Resources;
+import de.elmar_baumann.lib.util.Settings;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -153,16 +153,16 @@ public final class ProgressDialog extends javax.swing.JDialog {
     private void readProperties() {
         Properties properties = Resources.INSTANCE.getProperties();
         if (properties != null) {
-            ComponentSizesFromProperties sizes = new ComponentSizesFromProperties(properties);
-            sizes.getSizeAndLocation(this);
+            Settings settings = new Settings(properties);
+            settings.getSizeAndLocation(this);
         }
     }
 
     private void writeProperties() {
         Properties properties = Resources.INSTANCE.getProperties();
         if (properties != null) {
-            ComponentSizesFromProperties sizes = new ComponentSizesFromProperties(properties);
-            sizes.setSizeAndLocation(this);
+            Settings settings = new Settings(properties);
+            settings.setSizeAndLocation(this);
         }
     }
 

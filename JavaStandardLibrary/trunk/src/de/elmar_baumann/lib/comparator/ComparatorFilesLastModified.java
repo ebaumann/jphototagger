@@ -1,4 +1,4 @@
-package de.elmar_baumann.lib.util;
+package de.elmar_baumann.lib.comparator;
 
 import java.io.File;
 import java.util.Comparator;

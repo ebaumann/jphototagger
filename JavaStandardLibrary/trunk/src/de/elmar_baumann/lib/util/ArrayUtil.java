@@ -3,7 +3,6 @@ package de.elmar_baumann.lib.util;
 import java.util.List;
 import java.util.StringTokenizer;
 import java.util.ArrayList;
-import java.util.regex.PatternSyntaxException;
 
 /**
  * Utils for arrays and array like objects.
@@ -104,6 +103,17 @@ public final class ArrayUtil {
             stringArray[i] = object.toString(); // NOI18N
         }
         return stringArray;
+    }
+
+    /**
+     * Returns wheter an list index is in the range of valid indexes.
+     *
+     * @param  list   list
+     * @param  index  index
+     * @return true if the index is valid
+     */
+    public static boolean isValidIndex(List list, int index) {
+        return index >= 0 && index < list.size();
     }
 
     private ArrayUtil() {

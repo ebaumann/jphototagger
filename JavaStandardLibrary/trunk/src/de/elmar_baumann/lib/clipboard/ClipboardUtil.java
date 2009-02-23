@@ -81,6 +81,7 @@ public final class ClipboardUtil {
             throw new NullPointerException("files == null");
         if (delimiterStringList == null)
             throw new NullPointerException("delimiterStringList == null");
+
         List<File> files = null;
         DataFlavor[] flavors = clipboard.getAvailableDataFlavors();
         Transferable transferable = clipboard.getContents(ClipboardUtil.class);

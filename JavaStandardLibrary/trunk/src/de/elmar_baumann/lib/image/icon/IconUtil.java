@@ -14,6 +14,10 @@ import javax.swing.filechooser.FileSystemView;
 /**
  * Werkzeuge für Icons.
  * 
+ * All functions with object-reference-parameters are throwing a
+ * <code>NullPointerException</code> if an object reference is null and it is
+ * not documentet that it can be null.
+ *
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
@@ -28,6 +32,9 @@ public final class IconUtil {
      *         falls dieses nicht geladen wurde
      */
     public static Image getIconImage(String path) {
+        if (path == null)
+            throw new NullPointerException("path == null");
+
         java.net.URL imgURL = IconUtil.class.getResource(path);
         if (imgURL != null) {
             return new ImageIcon(imgURL).getImage();
@@ -45,6 +52,9 @@ public final class IconUtil {
      * @see    #getIconImage(java.lang.String)
      */
     public static List<Image> getIconImages(List<String> paths) {
+        if (paths == null)
+            throw new NullPointerException("paths == null");
+
         List<Image> images = new ArrayList<Image>();
         for (String path : paths) {
             Image image = getIconImage(path);
@@ -64,6 +74,9 @@ public final class IconUtil {
      *         nicht geladen wurde
      */
     public static ImageIcon getImageIcon(String path) {
+        if (path == null)
+            throw new NullPointerException("path == null");
+
         java.net.URL imgURL = IconUtil.class.getResource(path);
         if (imgURL != null) {
             return new ImageIcon(imgURL);
@@ -82,6 +95,9 @@ public final class IconUtil {
      * @see    #getImageIcon(java.lang.String)
      */
     public static List<ImageIcon> getImageIcons(List<String> paths) {
+        if (paths == null)
+            throw new NullPointerException("paths == null");
+
         List<ImageIcon> icons = new ArrayList<ImageIcon>();
         for (String path : paths) {
             ImageIcon icon = getImageIcon(path);
@@ -99,6 +115,9 @@ public final class IconUtil {
      * @return icon or null on errors
      */
     public static Icon getSystemIcon(File file) {
+        if (file == null)
+            throw new NullPointerException("file == null");
+
         Icon icon = null;
         try {
             icon = FileSystemView.getFileSystemView().getSystemIcon(file);

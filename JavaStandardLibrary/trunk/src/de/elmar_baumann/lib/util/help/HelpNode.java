@@ -80,12 +80,12 @@ public final class HelpNode {
 
     /**
      * Returns a specific child.
-     * @param  index the child's index {@code >= 0)
+     * @param  index the child's index {@code >= 0}
      * 
      * @return child: an object of the type
      *         {@link HelpNode} or {@link HelpPage}
      *         or null if the index is invalid
-     * @throws IndexOutOfBoundsException if {@code index < 0)
+     * @throws IndexOutOfBoundsException if {@code index < 0}
      */
     public Object getChild(int index) {
         if (index < 0)

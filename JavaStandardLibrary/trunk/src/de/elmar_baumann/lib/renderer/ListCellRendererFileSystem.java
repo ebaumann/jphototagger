@@ -18,7 +18,7 @@ import javax.swing.filechooser.FileSystemView;
 public final class ListCellRendererFileSystem extends DefaultListCellRenderer {
 
     private static final FileSystemView fileSystemView = FileSystemView.getFileSystemView();
-    private boolean absolutePathName;
+    private final boolean absolutePathName;
 
     /**
      * Constructor.

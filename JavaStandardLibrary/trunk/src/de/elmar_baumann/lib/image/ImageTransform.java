@@ -17,6 +17,10 @@ import javax.swing.ImageIcon;
 /**
  * Bildtransformationen.
  *
+ * All functions with object-reference-parameters are throwing a
+ * <code>NullPointerException</code> if an object reference is null and it is
+ * not documentet that it can be null.
+ *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/08/19
  */
@@ -30,11 +34,16 @@ public final class ImageTransform {
      * @return      Rotiertes Bild
      */
     public static Image rotate(Image img, double angle) {
+        if (img == null)
+            throw new NullPointerException("img == null");
+
         return tilt(toBufferedImage(img), Math.toRadians(angle));
     }
 
     // Code von http://forums.sun.com/thread.jspa?forumID=54&threadID=5286788
     private static BufferedImage tilt(BufferedImage image, double angle) {
+        assert image != null : image;
+
         double sin = Math.abs(Math.sin(angle)), cos = Math.abs(Math.cos(angle));
         int w = image.getWidth(), h = image.getHeight();
         int neww = (int) Math.floor(w * cos + h * sin), newh = (int) Math.floor(
@@ -60,6 +69,8 @@ public final class ImageTransform {
 
     // Code von http://exampledepot.com/egs/java.awt.image/Image2Buf.html?l=rel
     private static BufferedImage toBufferedImage(Image image) {
+        assert image != null : image;
+
         if (image instanceof BufferedImage) {
             return (BufferedImage) image;
         }
@@ -97,6 +108,8 @@ public final class ImageTransform {
 
     // Code von http://exampledepot.com/egs/java.awt.image/Image2Buf.html?l=rel
     private static boolean hasAlpha(Image image) {
+        assert image != null;
+
         if (image instanceof BufferedImage) {
             BufferedImage bimage = (BufferedImage) image;
             return bimage.getColorModel().hasAlpha();

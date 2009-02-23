@@ -2,6 +2,7 @@ package de.elmar_baumann.lib.util;
 
 import de.elmar_baumann.lib.componentutil.TreeUtil;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Point;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -29,8 +30,9 @@ import javax.swing.table.TableModel;
 import javax.swing.tree.TreePath;
 
 /**
- * A typed property converts objects stored in {@link java.util.Properties}
- * instance to typed objects.
+ * A settings object writes the state of several objects to a
+ * {@link java.util.Properties} instance and resets the state of these objects
+ * from an {@link java.util.Properties} instance.
  *
  * All functions with object-reference-parameters are throwing a
  * <code>NullPointerException</code> if an object reference is null and it is
@@ -40,7 +42,7 @@ import javax.swing.tree.TreePath;
  * @version 2009/02/23
  */
 public final class Settings {
-    
+
     private final Properties properties;
     private static final String delimiterNumberArray = ";"; // NOI18N
     private static final String delimiterArrayKeys = "."; // NOI18N
@@ -48,6 +50,10 @@ public final class Settings {
     private static final String keyPostfixViewportViewPositionX = ".ViewportViewPositionX"; // NOI18N
     private static final String keyPostfixViewportViewPositionY = ".ViewportViewPositionY"; // NOI18N
     private static final String keyAppendixSelected = "-selected"; // NOI18N
+    private static final String postfixKeyWidth = ".Width"; // NOI18N
+    private static final String postfixKeyHeight = ".Height"; // NOI18N
+    private static final String postfixKeyLocationX = ".LocationX"; // NOI18N
+    private static final String postfixKeyLocationY = ".LocationY"; // NOI18N
 
     public Settings(Properties properties) {
         if (properties == null)
@@ -57,6 +63,7 @@ public final class Settings {
     }
 
     private String getArrayKeyMatchPattern(String key) {
+        assert key != null : key;
         return "^" + java.util.regex.Pattern.quote(key + delimiterArrayKeys) + "[0-9]+$"; // NOI18N
     }
 
@@ -67,6 +74,9 @@ public final class Settings {
      * @return        Passende Schlüssel
      */
     public List<String> getKeysMatches(String pattern) {
+        if (pattern == null)
+            throw new NullPointerException("pattern == null");
+
         return RegexUtil.getMatches(properties.stringPropertyNames(), pattern);
     }
 
@@ -91,9 +101,11 @@ public final class Settings {
      * @param hints     Hinweise
      */
     public void getComponent(Component component, SettingsHints hints) {
-        if (component == null) {
-            return;
-        }
+        if (component == null)
+            throw new NullPointerException("component == null");
+        if (hints == null)
+            throw new NullPointerException("hints == null");
+
         Class<? extends Component> c = component.getClass();
         String componentName = c.getName();
         Field[] fields = c.getDeclaredFields();
@@ -102,9 +114,9 @@ public final class Settings {
             Field field = fields[index];
             field.setAccessible(true);
             String fieldName = field.getName();
-            String key = componentName + "." + fieldName + hints.getKeyPostfix(); // NOI18N
+            String key = componentName + "." + fieldName; // NOI18N
 
-            if (hints.isPersistent(key)) {
+            if (hints.isSet(key)) {
                 try {
                     Class<?> fieldType = field.getType();
                     if (fieldType.equals(JTabbedPane.class)) {
@@ -114,13 +126,13 @@ public final class Settings {
                     } else if (fieldType.equals(JTree.class)) {
                         getTree((JTree) field.get(component), key);
                     } else if (fieldType.equals(JComboBox.class)) {
-                        if (hints.isSetComboBoxContent()) {
+                        if (hints.isOption(SettingsHints.Option.SET_COMBOBOX_CONTENT)) {
                             getComboBoxContent((JComboBox) field.get(component), key);
                         } else {
                             getSelectedIndex((JComboBox) field.get(component), key);
                         }
                     } else if (fieldType.equals(JList.class)) {
-                        if (hints.isSetListContent()) {
+                        if (hints.isOption(SettingsHints.Option.SET_LIST_CONTENT)) {
                             getListContent((JList) field.get(component), key);
                         } else {
                             getSelectedIndex((JList) field.get(component), key);
@@ -146,6 +158,11 @@ public final class Settings {
      * @param key      Schlüssel
      */
     public void getCheckBox(JCheckBox checkBox, String key) {
+        if (checkBox == null)
+            throw new NullPointerException("checkBox == null");
+        if (key == null)
+            throw new NullPointerException("key == null");
+
         if (properties.containsKey(key)) {
             String value = properties.getProperty(key);
             checkBox.setSelected(value.equals("1")); // NOI18N
@@ -160,6 +177,11 @@ public final class Settings {
      * @param key  Schlüssel
      */
     public void getTree(JTree tree, String key) {
+        if (tree == null)
+            throw new NullPointerException("tree == null");
+        if (key == null)
+            throw new NullPointerException("key == null");
+
         if (properties.containsKey(key)) {
             String value = properties.getProperty(key);
             TreePath path = TreeUtil.getTreePath(tree.getModel(), value, filePathSeparator);
@@ -178,6 +200,11 @@ public final class Settings {
      * @param key       Schlüssel
      */
     public void getSplitPane(JSplitPane splitPane, String key) {
+        if (splitPane == null)
+            throw new NullPointerException("splitPane == null");
+        if (key == null)
+            throw new NullPointerException("key == null");
+
         if (properties.containsKey(key)) {
             try {
                 Integer location = new Integer(properties.getProperty(key));
@@ -195,6 +222,11 @@ public final class Settings {
      * @param key        Schlüssel
      */
     public void getScrollPane(JScrollPane scrollPane, String key) {
+        if (scrollPane == null)
+            throw new NullPointerException("scrollPane == null");
+        if (key == null)
+            throw new NullPointerException("key == null");
+
         String keyX = key + keyPostfixViewportViewPositionX;
         String keyY = key + keyPostfixViewportViewPositionY;
         if (properties.containsKey(keyX) && properties.containsKey(keyY)) {
@@ -215,6 +247,11 @@ public final class Settings {
      * @param key   Schlüssel
      */
     public void getTable(JTable table, String key) {
+        if (table == null)
+            throw new NullPointerException("table == null");
+        if (key == null)
+            throw new NullPointerException("key == null");
+
         TableModel model = table.getModel();
 
         if (properties.containsKey(key)) {
@@ -237,6 +274,11 @@ public final class Settings {
      * @param key     Schlüssel
      */
     public void getSpinner(JSpinner spinner, String key) {
+        if (spinner == null)
+            throw new NullPointerException("spinner == null");
+        if (key == null)
+            throw new NullPointerException("key == null");
+
         if (properties.containsKey(key)) {
             String value = properties.getProperty(key);
             try {
@@ -255,6 +297,13 @@ public final class Settings {
      * @param hints Hinweise
      */
     public void getTabbedPane(JTabbedPane pane, String key, SettingsHints hints) {
+        if (pane == null)
+            throw new NullPointerException("pane == null");
+        if (key == null)
+            throw new NullPointerException("key == null");
+        if (hints == null)
+            throw new NullPointerException("hints == null");
+
         if (properties.containsKey(key)) {
             String value = properties.getProperty(key);
             try {
@@ -267,7 +316,7 @@ public final class Settings {
             }
         }
 
-        if (hints.isTabbedPaneContents()) {
+        if (hints.isOption(SettingsHints.Option.SET_TABBED_PANE_CONTENT)) {
             int componentCount = pane.getComponentCount();
             for (int index = 0; index < componentCount; index++) {
                 getComponent(pane.getComponentAt(index), hints);
@@ -283,6 +332,11 @@ public final class Settings {
      * @param key      Schlüssel
      */
     public void getComboBoxContent(JComboBox comboBox, String key) {
+        if (comboBox == null)
+            throw new NullPointerException("comboBox == null");
+        if (key == null)
+            throw new NullPointerException("key == null");
+
         List<String> keys = getKeysMatches(getArrayKeyMatchPattern(key));
 
         comboBox.removeAllItems();
@@ -301,6 +355,11 @@ public final class Settings {
      * @param key  Schlüssel
      */
     public void getListContent(JList list, String key) {
+        if (list == null)
+            throw new NullPointerException("list == null");
+        if (key == null)
+            throw new NullPointerException("key == null");
+
         ListModel lm = list.getModel();
         if (lm instanceof DefaultListModel) {
             DefaultListModel model = (DefaultListModel) lm;
@@ -322,6 +381,11 @@ public final class Settings {
      * @param key      Schlüssel
      */
     public void getSelectedItem(JComboBox comboBox, String key) {
+        if (comboBox == null)
+            throw new NullPointerException("comboBox == null");
+        if (key == null)
+            throw new NullPointerException("key == null");
+
         String sKey = key + keyAppendixSelected;
         String selected = properties.getProperty(sKey);
 
@@ -337,6 +401,11 @@ public final class Settings {
      * @param key      Schlüssel
      */
     public void getSelectedIndex(JComboBox comboBox, String key) {
+        if (comboBox == null)
+            throw new NullPointerException("comboBox == null");
+        if (key == null)
+            throw new NullPointerException("key == null");
+
         String index = properties.getProperty(key + keyAppendixSelected);
         if (index != null) {
             try {
@@ -356,8 +425,12 @@ public final class Settings {
      * @param button Button
      * @param key    Schlüssel
      */
-    public void getToggleButton(JToggleButton button,
-        String key) {
+    public void getToggleButton(JToggleButton button, String key) {
+        if (button == null)
+            throw new NullPointerException("button == null");
+        if (key == null)
+            throw new NullPointerException("key == null");
+
         String status = properties.getProperty(key);
         if (status != null) {
             boolean isSelected = status.equals("1"); // NOI18N
@@ -372,6 +445,11 @@ public final class Settings {
      * @param key  Schlüssel
      */
     public void getSelectedValue(JList list, String key) {
+        if (list == null)
+            throw new NullPointerException("list == null");
+        if (key == null)
+            throw new NullPointerException("key == null");
+
         String sKey = key + keyAppendixSelected;
         String selected = properties.getProperty(sKey);
 
@@ -387,6 +465,11 @@ public final class Settings {
      * @param key  Schlüssel
      */
     public void getSelectedIndex(JList list, String key) {
+        if (list == null)
+            throw new NullPointerException("list == null");
+        if (key == null)
+            throw new NullPointerException("key == null");
+
         String sKey = key + keyAppendixSelected;
         String index = properties.getProperty(sKey);
 
@@ -409,6 +492,11 @@ public final class Settings {
      * @param key       Schlüssel
      */
     public void getTextField(JTextField textField, String key) {
+        if (textField == null)
+            throw new NullPointerException("textField == null");
+        if (key == null)
+            throw new NullPointerException("key == null");
+
         if (properties.containsKey(key)) {
             String value = properties.getProperty(key);
             textField.setText(value);
@@ -422,6 +510,9 @@ public final class Settings {
      * @return    String, Leerstring, wenn zum Schlüssel keiner existiert
      */
     public String getString(String key) {
+        if (key == null)
+            throw new NullPointerException("key == null");
+
         if (properties.containsKey(key)) {
             return properties.getProperty(key);
         }
@@ -436,6 +527,11 @@ public final class Settings {
      * @param key    Schlüssel
      */
     public void setIntegerArray(List<Integer> array, String key) {
+        if (array == null)
+            throw new NullPointerException("array == null");
+        if (key == null)
+            throw new NullPointerException("key == null");
+
         StringBuffer buffer = new StringBuffer();
 
         for (Integer integer : array) {
@@ -451,6 +547,11 @@ public final class Settings {
      * @param key  Schlüssel
      */
     public void setStringArray(List<String> list, String key) {
+        if (list == null)
+            throw new NullPointerException("list == null");
+        if (key == null)
+            throw new NullPointerException("key == null");
+
         deleteKeysMatches(getArrayKeyMatchPattern(key));
         int count = list.size();
         for (int i = 0; i < count; i++) {
@@ -464,6 +565,9 @@ public final class Settings {
      * @param pattern Muster
      */
     public void deleteKeysMatches(String pattern) {
+        if (pattern == null)
+            throw new NullPointerException("pattern == null");
+
         List<String> keys = getKeysMatches(pattern);
         for (String pKey : keys) {
             properties.remove(pKey);
@@ -477,6 +581,9 @@ public final class Settings {
      * @return    Array
      */
     public List<Integer> getIntegerArray(String key) {
+        if (key == null)
+            throw new NullPointerException("key == null");
+
         List<Integer> array = new ArrayList<Integer>();
 
         if (properties.containsKey(key)) {
@@ -500,6 +607,9 @@ public final class Settings {
      * @return    Stringarray
      */
     public List<String> getStringArray(String key) {
+        if (key == null)
+            throw new NullPointerException("key == null");
+
         List<String> array = new ArrayList<String>();
         List<String> keys = getKeysMatches(getArrayKeyMatchPattern(key));
         for (String vKey : keys) {
@@ -514,6 +624,9 @@ public final class Settings {
      * @param key  key of the string array
      */
     public void removeStringArray(String key) {
+        if (key == null)
+            throw new NullPointerException("key == null");
+
         List<String> keys = getKeysMatches(getArrayKeyMatchPattern(key));
         for (String k : keys) {
             properties.remove(k);
@@ -539,11 +652,12 @@ public final class Settings {
      * @param component Komponente
      * @param hints     Hinweise
      */
-    public void setComponent(Component component,
-        SettingsHints hints) {
-        if (component == null) {
-            return;
-        }
+    public void setComponent(Component component, SettingsHints hints) {
+        if (component == null)
+            throw new NullPointerException("component == null");
+        if (hints == null)
+            throw new NullPointerException("hints == null");
+
         Class<? extends Component> c = component.getClass();
         String componentName = c.getName();
         Field[] fields = c.getDeclaredFields();
@@ -552,21 +666,21 @@ public final class Settings {
             Field field = fields[index];
             field.setAccessible(true);
             String fieldName = field.getName();
-            String key = componentName + "." + fieldName + hints.getKeyPostfix(); // NOI18N
+            String key = componentName + "." + fieldName; // NOI18N
 
-            if (hints.isPersistent(key)) {
+            if (hints.isSet(key)) {
                 try {
                     Class<?> fieldType = field.getType();
                     if (fieldType.equals(JTextField.class)) {
                         setTextField((JTextField) field.get(component), key);
                     } else if (fieldType.equals(JComboBox.class)) {
-                        if (hints.isSetComboBoxContent()) {
+                        if (hints.isOption(SettingsHints.Option.SET_COMBOBOX_CONTENT)) {
                             setComboBoxContent((JComboBox) field.get(component), key);
                         } else {
                             setSelectedIndex((JComboBox) field.get(component), key);
                         }
                     } else if (fieldType.equals(JList.class)) {
-                        if (hints.isSetListContent()) {
+                        if (hints.isOption(SettingsHints.Option.SET_LIST_CONTENT)) {
                             setListContent((JList) field.get(component), key);
                         } else {
                             setSelectedIndex((JList) field.get(component), key);
@@ -598,6 +712,11 @@ public final class Settings {
      * @param key      Schlüssel
      */
     public void setCheckBox(JCheckBox checkBox, String key) {
+        if (checkBox == null)
+            throw new NullPointerException("checkBox == null");
+        if (key == null)
+            throw new NullPointerException("key == null");
+
         String isSelected = checkBox.isSelected() ? "1" : "0"; // NOI18N
 
         properties.setProperty(key, isSelected);
@@ -610,6 +729,11 @@ public final class Settings {
      * @param key     Schlüssel
      */
     public void setSpinner(JSpinner spinner, String key) {
+        if (spinner == null)
+            throw new NullPointerException("spinner == null");
+        if (key == null)
+            throw new NullPointerException("key == null");
+
         properties.setProperty(key, spinner.getValue().toString());
     }
 
@@ -621,12 +745,17 @@ public final class Settings {
      * @param hints Hinweise
      */
     public void setTabbedPane(JTabbedPane pane, String key, SettingsHints hints) {
+        if (pane == null)
+            throw new NullPointerException("pane == null");
+        if (hints == null)
+            throw new NullPointerException("hints == null");
+
         try {
             Integer index = new Integer(pane.getSelectedIndex());
 
             properties.setProperty(key, index.toString());
 
-            if (hints.isTabbedPaneContents()) {
+            if (hints.isOption(SettingsHints.Option.SET_TABBED_PANE_CONTENT)) {
                 int componentCount = pane.getComponentCount();
                 for (int i = 0; i < componentCount; i++) {
                     setComponent(pane.getComponentAt(i), hints);
@@ -645,6 +774,11 @@ public final class Settings {
      * @param key      Schlüssel
      */
     public void setComboBoxContent(JComboBox comboBox, String key) {
+        if (comboBox == null)
+            throw new NullPointerException("comboBox == null");
+        if (key == null)
+            throw new NullPointerException("key == null");
+
         int itemCount = comboBox.getItemCount();
 
         deleteKeysMatches(getArrayKeyMatchPattern(key));
@@ -665,6 +799,11 @@ public final class Settings {
      * @param key  Schlüssel
      */
     public void setListContent(JList list, String key) {
+        if (list == null)
+            throw new NullPointerException("list == null");
+        if (key == null)
+            throw new NullPointerException("key == null");
+
         ListModel model = list.getModel();
         int itemCount = model.getSize();
 
@@ -684,6 +823,11 @@ public final class Settings {
      * @param key      Schlüssel
      */
     public void setSelectedIndex(JComboBox comboBox, String key) {
+        if (comboBox == null)
+            throw new NullPointerException("comboBox == null");
+        if (key == null)
+            throw new NullPointerException("key == null");
+
         properties.setProperty(
             key + keyAppendixSelected,
             Integer.toString(comboBox.getSelectedIndex()));
@@ -696,6 +840,11 @@ public final class Settings {
      * @param key Schlüssel
      */
     public void setToggleButton(JToggleButton button, String key) {
+        if (button == null)
+            throw new NullPointerException("button == null");
+        if (key == null)
+            throw new NullPointerException("key == null");
+
         String status = button.isSelected() ? "1" : "0"; // NOI18N
         properties.setProperty(key, status);
     }
@@ -708,6 +857,11 @@ public final class Settings {
      * @param key  Schlüssel
      */
     public void setSelectedValue(JList list, String key) {
+        if (list == null)
+            throw new NullPointerException("list == null");
+        if (key == null)
+            throw new NullPointerException("key == null");
+
         String sKey = key + keyAppendixSelected;
         Object selectedValue = list.getSelectedValue();
 
@@ -725,6 +879,11 @@ public final class Settings {
      * @param key   Schlüssel
      */
     public void setSelectedIndex(JList list, String key) {
+        if (list == null)
+            throw new NullPointerException("list == null");
+        if (key == null)
+            throw new NullPointerException("key == null");
+
         properties.setProperty(
             key + keyAppendixSelected,
             Integer.toString(list.getSelectedIndex()));
@@ -738,6 +897,11 @@ public final class Settings {
      * @param key      Schlüssel
      */
     public void setSelectedItem(JComboBox comboBox, String key) {
+        if (comboBox == null)
+            throw new NullPointerException("comboBox == null");
+        if (key == null)
+            throw new NullPointerException("key == null");
+
         String sKey = key + keyAppendixSelected;
         Object selectedItem = comboBox.getSelectedItem();
 
@@ -755,6 +919,11 @@ public final class Settings {
      * @param key       Schlüssel
      */
     public void setTextField(JTextField textField, String key) {
+        if (textField == null)
+            throw new NullPointerException("textField == null");
+        if (key == null)
+            throw new NullPointerException("key == null");
+
         properties.setProperty(key, textField.getText());
     }
 
@@ -765,6 +934,11 @@ public final class Settings {
      * @param key    Schlüssel
      */
     public void setString(String string, String key) {
+        if (string == null)
+            throw new NullPointerException("string == null");
+        if (key == null)
+            throw new NullPointerException("key == null");
+
         properties.setProperty(key, string);
     }
 
@@ -774,6 +948,9 @@ public final class Settings {
      * @param key Schlüssel
      */
     public void removeKey(String key) {
+        if (key == null)
+            throw new NullPointerException("key == null");
+
         properties.remove(key);
     }
 
@@ -784,6 +961,11 @@ public final class Settings {
      * @param key Schlüssel
      */
     public void setTable(JTable table, String key) {
+        if (table == null)
+            throw new NullPointerException("table == null");
+        if (key == null)
+            throw new NullPointerException("key == null");
+
         TableModel model = table.getModel();
         List<Integer> persistentColumnWidths = new ArrayList<Integer>();
 
@@ -805,6 +987,11 @@ public final class Settings {
      * @param key       Schlüssel
      */
     public void setSplitPane(JSplitPane splitPane, String key) {
+        if (splitPane == null)
+            throw new NullPointerException("splitPane == null");
+        if (key == null)
+            throw new NullPointerException("key == null");
+
         int dividerLocation = splitPane.getDividerLocation();
 
         properties.setProperty(key, Integer.toString(dividerLocation));
@@ -818,6 +1005,11 @@ public final class Settings {
      * @param key        Schlüssel Schlüssel
      */
     public void setScrollPane(JScrollPane scrollPane, String key) {
+        if (scrollPane == null)
+            throw new NullPointerException("scrollPane == null");
+        if (key == null)
+            throw new NullPointerException("key == null");
+
         Integer x = scrollPane.getViewport().getViewPosition().x;
         Integer y = scrollPane.getViewport().getViewPosition().y;
 
@@ -832,6 +1024,11 @@ public final class Settings {
      * @param key  Schlüssel
      */
     public void setTree(JTree tree, String key) {
+        if (tree == null)
+            throw new NullPointerException("tree == null");
+        if (key == null)
+            throw new NullPointerException("key == null");
+
         TreePath selectionPath = tree.getSelectionPath();
         if (selectionPath == null) {
             properties.remove(key);
@@ -853,6 +1050,9 @@ public final class Settings {
      * @return value or <code>Integer.MIN_VALUE</code> if not defined
      */
     public Integer getInt(String key) {
+        if (key == null)
+            throw new NullPointerException("key == null");
+
         Integer result = Integer.MIN_VALUE;
         if (properties.containsKey(key)) {
             try {
@@ -871,15 +1071,219 @@ public final class Settings {
      * @param key    key
      */
     public void setInt(Integer value, String key) {
+        if (value == null)
+            throw new NullPointerException("value == null");
+        if (key == null)
+            throw new NullPointerException("key == null");
+
         properties.setProperty(key, value.toString());
     }
 
     public boolean getBoolean(String key) {
+        if (key == null)
+            throw new NullPointerException("key == null");
+
         int result = getInt(key);
         return result == 1 ? true : false;
     }
 
     public void setBoolean(boolean b, String key) {
+        if (key == null)
+            throw new NullPointerException("key == null");
+
         setInt(b ? 1 : 0, key);
+    }
+
+    /**
+     * Sets to a component the persistent written size and location. Uses the
+     * class name as key. If the key does not exist, nothing will be done.
+     *
+     * @param component component
+     * @see             #getSize(java.awt.Component)
+     * @see             #getLocation(java.awt.Component)
+     */
+    public void getSizeAndLocation(Component component) {
+        if (component == null)
+            throw new NullPointerException("component == null");
+
+        getSize(component);
+        getLocation(component);
+    }
+
+    /**
+     * Sets to a component the persistent written size. Uses the class name as
+     * key. If the key does not exist, nothing will be done.
+     *
+     * @param component component
+     */
+    public void getSize(Component component) {
+        if (component == null)
+            throw new NullPointerException("component == null");
+
+        getSize(component, component.getClass().getName());
+    }
+
+    /**
+     * Sets to a component the persistent written size. If the key does not
+     * exist, nothing will be done.
+     *
+     * @param component component
+     * @param key       key
+     */
+    public void getSize(Component component, String key) {
+        if (component == null)
+            throw new NullPointerException("component == null");
+        if (key == null)
+            throw new NullPointerException("key == null");
+
+        String keyWidth = getKeyWidth(key);
+        String keyHeight = getKeyHeight(key);
+
+        try {
+            if (properties.containsKey(keyWidth) && properties.containsKey(keyHeight)) {
+                Integer width = new Integer(properties.getProperty(keyWidth));
+                Integer height = new Integer(properties.getProperty(keyHeight));
+                component.setPreferredSize(new Dimension(width, height));
+                component.setSize(new Dimension(width, height));
+            }
+        } catch (NumberFormatException ex) {
+            Logger.getLogger(Settings.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    /**
+     * Sets to a component the persistent written location. Uses the class name
+     * as key. If the key does not exist, nothing will be done.
+     *
+     * @param component component
+     */
+    public void getLocation(Component component) {
+        if (component == null)
+            throw new NullPointerException("component == null");
+
+        getLocation(component, component.getClass().getName());
+    }
+
+    /**
+     * Sets to a component the persistent written location. If the key does not
+     * exist, nothing will be done.
+     *
+     * @param component component
+     * @param key       key
+     */
+    public void getLocation(Component component, String key) {
+        if (component == null)
+            throw new NullPointerException("component == null");
+        if (key == null)
+            throw new NullPointerException("key == null");
+
+        String keyLocationX = getKeyLocationX(key);
+        String keyLocationY = getKeyLocationY(key);
+
+        if (properties.containsKey(keyLocationX) && properties.containsKey(keyLocationY)) {
+            try {
+                Integer locationX = new Integer(properties.getProperty(keyLocationX));
+                Integer locationY = new Integer(properties.getProperty(keyLocationY));
+                component.setLocation(new Point(locationX, locationY));
+            } catch (NumberFormatException ex) {
+                Logger.getLogger(Settings.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
+    /**
+     * Writes persistent the size and location of a component. Uses the
+     * class name as key.
+     *
+     * @param component component
+     * @see             #setSize(java.awt.Component)
+     * @see             #setLocation(java.awt.Component)
+     */
+    public void setSizeAndLocation(Component component) {
+        if (component == null)
+            throw new NullPointerException("component == null");
+
+        setSize(component);
+        setLocation(component);
+    }
+
+    /**
+     * Writes persistent the size of a component. Uses the class name as key.
+     *
+     * @param component component
+     */
+    public void setSize(Component component) {
+        if (component == null)
+            throw new NullPointerException("component == null");
+
+        setSize(component, component.getClass().getName());
+    }
+
+    /**
+     * Writes persistent the size of a component.
+     *
+     * @param component component
+     * @param key       key
+     */
+    public void setSize(Component component, String key) {
+        if (component == null)
+            throw new NullPointerException("component == null");
+        if (key == null)
+            throw new NullPointerException("key == null");
+
+        Dimension size = component.getSize();
+
+        properties.setProperty(getKeyWidth(key), Integer.toString(size.width));
+        properties.setProperty(getKeyHeight(key), Integer.toString(size.height));
+    }
+
+    /**
+     * Writes persistent the size of a component. Uses the class name as key.
+     *
+     * @param component component
+     */
+    public void setLocation(Component component) {
+        if (component == null)
+            throw new NullPointerException("component == null");
+
+        setLocation(component, component.getClass().getName());
+    }
+
+    /**
+     * Writes persistent the size of a component.
+     *
+     * @param component component
+     * @param key       key
+     */
+    public void setLocation(Component component, String key) {
+        if (component == null)
+            throw new NullPointerException("component == null");
+        if (key == null)
+            throw new NullPointerException("key == null");
+
+        Point location = component.getLocation();
+
+        properties.setProperty(getKeyLocationX(key), Integer.toString(location.x));
+        properties.setProperty(getKeyLocationY(key), Integer.toString(location.y));
+    }
+
+    private static String getKeyHeight(String key) {
+        assert key != null : key;
+        return key + postfixKeyHeight;
+    }
+
+    private static String getKeyWidth(String key) {
+        assert key != null : key;
+        return key + postfixKeyWidth;
+    }
+
+    private static String getKeyLocationX(String key) {
+        assert key != null : key;
+        return key + postfixKeyLocationX;
+    }
+
+    private static String getKeyLocationY(String key) {
+        assert key != null : key;
+        return key + postfixKeyLocationY;
     }
 }

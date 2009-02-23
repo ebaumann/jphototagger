@@ -1,11 +1,15 @@
 package de.elmar_baumann.lib.util;
 
 import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.List;
 
-
 /**
- * Hints for the class {@link SettingsFromProperties}.
+ * Hints for the class {@link Settings}.
+ *
+ * All functions with object-reference-parameters are throwing a
+ * <code>NullPointerException</code> if an object reference is null and it is
+ * not documentet that it can be null.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
@@ -13,97 +17,52 @@ import java.util.List;
 public final class SettingsHints {
 
     private final List<String> excludedMembers = new ArrayList<String>();
-    private boolean setComboBoxContent = false;
-    private boolean setListContent = false;
-    private boolean tabbedPaneContents = true;
-    private String keyPostfix = ""; // NOI18N
+    private final EnumSet<Option> options;
 
-    /**
-     * Sets a key's postfix. Thus multiple instances of the same class can
-     * written persistent if the key is the class name.
-     * 
-     * @param postfix Postfix. Default: Empty string.
-     */
-    public void setKeyPostfix(String postfix) {
-        this.keyPostfix = postfix;
+    public enum Option {
+
+        /**
+         * The content of {@link javax.swing.JComboBox}es shall be written to
+         * the properties
+         */
+        SET_COMBOBOX_CONTENT,
+        /**
+         * The content of {@link javax.swing.JComboBox}es shall <em>not</em> be
+         * written to the properties
+         */
+        DONT_SET_COMBOBOX_CONTENT,
+        /**
+         * The content of {@link javax.swing.JList}s shall be written to the
+         * properties
+         */
+        SET_LIST_CONTENT,
+        /**
+         * The content of {@link javax.swing.JList}s shall <em>not</em> be
+         * written to the properties
+         */
+        DONT_SET_LIST_CONTENT,
+        /**
+         * The tabbed pane contents shall be written to the properties
+         */
+        SET_TABBED_PANE_CONTENT,
+        /**
+         * The tabbed pane contents shall <em>not</em> be written to the
+         * properties
+         */
+        DONT_SET_TABBED_PANE_CONTENT,
+    }
+
+    boolean isOption(Option option) {
+        return options.contains(option);
     }
 
     /**
-     * Returns a key's postfix.
-     * 
-     * @return Postfix
-     * @see #setKeyPostfix(java.lang.String)
-     */
-    public String getKeyPostfix() {
-        return keyPostfix;
-    }
-
-    /**
-     * Sets that the <strong>content</strong> of
-     * {@link javax.swing.JComboBox}es shall be written persistent rather than
-     * the index of the selected item.
-     * 
-     * @param set true, if the content of {@link javax.swing.JComboBox}es shall
-     *            be written persistent. Default: false (the index of the
-     *            selected item shall be written persistent).
-     */
-    public void setComboBoxContent(boolean set) {
-        setComboBoxContent = set;
-    }
-
-    /**
-     * Returns wheter the content of {@link javax.swing.JComboBox}es shall be
-     * written persistent rather than the index of the selected item.
-     * 
-     * @return true, if the content of {@link javax.swing.JComboBox}es shall be
-     *         written persistent. false, if the index of the selected item
-     *         shall be written persistent
-     * @see #setComboBoxContent(boolean)
-     */
-    public boolean isSetComboBoxContent() {
-        return setComboBoxContent;
-    }
-
-    /**
-     * Sets that the <strong>content</strong> of {@link javax.swing.JList}s
-     * shall be written persistent rather than the index of the selected value.
+     * Constructor.
      *
-     * @param set true, if the content of {@link javax.swing.JList}s shall be
-     *            written persistent. Default: false (the index of the selected
-     *            value shall be written persistent).
+     * @param options options
      */
-    public void setListContent(boolean set) {
-        setListContent = set;
-    }
-
-    /**
-     * Returns, whether the <strong>content</strong> of {@link javax.swing.JList}s
-     * shall be written persistent rather than the index of the selected value.
-     * 
-     * @return true, if the content of {@link javax.swing.JList}s shall be
-     *            written persistent. false if the index of the selected value
-     *            shall be written persistent.
-     */
-    public boolean isSetListContent() {
-        return setListContent;
-    }
-
-    /**
-     * Returns wheter the tabbed pane contents should be set.
-     * 
-     * @return true if set
-     */
-    public boolean isTabbedPaneContents() {
-        return tabbedPaneContents;
-    }
-
-    /**
-     * Sets whether the tabbed pane conents should be set.
-     * 
-     * @param setTabbedPaneContents  true, if set. Default: true
-     */
-    public void setTabbedPaneContents(boolean setTabbedPaneContents) {
-        this.tabbedPaneContents = setTabbedPaneContents;
+    public SettingsHints(EnumSet<Option> options) {
+        this.options = options;
     }
 
     /**
@@ -114,19 +73,11 @@ public final class SettingsHints {
      *               <code>de.elmar_baumann.imv.view.AppPanel.tableXmp</code>
      *               Default: Kein Attribut ist ausgeschlossen.
      */
-    public void addExcludedMember(String member) {
-        excludedMembers.add(member);
-    }
+    public void addExclude(String member) {
+        if (member == null)
+            throw new NullPointerException("member == null");
 
-    /**
-     * Liefert, ob der Inhalt eines Attributs nicht gespeichert werden soll.
-     * 
-     * @param member Attribut, genauer Pfad, z.B.
-     *               <code>de.elmar_baumann.imv.view.AppPanel.tableXmp</code>
-     * @return       true wenn der Inhalt des Attributs nicht gespeichert werden soll
-     */
-    public boolean isExcludedMember(String member) {
-        return excludedMembers.contains(member);
+        excludedMembers.add(member);
     }
 
     /**
@@ -138,7 +89,16 @@ public final class SettingsHints {
      *               <code>de.elmar_baumann.imv.view.AppPanel.tableXmp</code>
      * @return       true, wenn der Inhalt des Attributs gespeichert werden soll
      */
-    public boolean isPersistent(String member) {
-        return !isExcludedMember(member);
+    boolean isSet(String member) {
+        if (member == null)
+            throw new NullPointerException("member == null");
+
+        return !isExclude(member);
+    }
+
+    private boolean isExclude(String member) {
+        assert member != null : member;
+
+        return excludedMembers.contains(member);
     }
 }

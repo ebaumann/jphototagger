@@ -5,6 +5,10 @@ import java.io.PrintStream;
 /**
  * Utils.
  *
+ * All functions with object-reference-parameters are throwing a
+ * <code>NullPointerException</code> if an object reference is null and it is
+ * not documentet that it can be null.
+ *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/08/31
  */
@@ -35,6 +39,11 @@ public final class Util {
      * @param out Ausgabe
      */
     public static void dumpBits(byte[] b, PrintStream out) {
+        if (b == null)
+            throw new NullPointerException("b == null");
+        if (out == null)
+            throw new NullPointerException("out == null");
+
         out.println();
         for (int i = 0; i < b.length; i++) {
             boolean[] bits = Util.getBits(b[i]);

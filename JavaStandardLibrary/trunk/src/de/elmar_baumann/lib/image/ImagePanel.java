@@ -8,6 +8,10 @@ import javax.swing.JPanel;
  * Displays an image centered whitin it's previous set area. Draws the empty
  * background if the image is null.
  * 
+ * All functions with object-reference-parameters are throwing a
+ * <code>NullPointerException</code> if an object reference is null and it is
+ * not documentet that it can be null.
+ *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/07/20
  */
@@ -21,6 +25,9 @@ public class ImagePanel extends JPanel {
      * @param image  image, can be null
      */
     public void setImage(Image image) {
+        if (image == null)
+            throw new NullPointerException("image == null");
+
         this.image = image;
     }
 

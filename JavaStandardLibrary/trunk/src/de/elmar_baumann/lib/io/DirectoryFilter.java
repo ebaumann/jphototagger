@@ -7,12 +7,16 @@ import javax.swing.filechooser.FileSystemView;
 /**
  * Accepts only directories.
  *
+ * All functions with object-reference-parameters are throwing a
+ * <code>NullPointerException</code> if an object reference is null and it is
+ * not documentet that it can be null.
+ *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/07/23
  */
 public final class DirectoryFilter implements java.io.FileFilter {
 
-    private static FileSystemView fsv = FileSystemView.getFileSystemView();
+    private static final FileSystemView fsv = FileSystemView.getFileSystemView();
     private final Set<Option> options;
 
     public enum Option {
@@ -24,9 +28,12 @@ public final class DirectoryFilter implements java.io.FileFilter {
     /**
      * Constructor.
      * 
-     * @param accecptHidden  true if accept hidden directories
+     * @param options  options
      */
     public DirectoryFilter(Set<Option> options) {
+        if (options == null)
+            throw new NullPointerException("options == null");
+
         this.options = options;
     }
 

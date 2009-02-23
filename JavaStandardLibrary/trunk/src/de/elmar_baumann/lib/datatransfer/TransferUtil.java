@@ -16,6 +16,10 @@ import javax.swing.JList;
 /**
  * 
  *
+ * All functions with object-reference-parameters are throwing a
+ * <code>NullPointerException</code> if an object reference is null and it is
+ * not documentet that it can be null.
+ *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/17
  */
@@ -25,6 +29,7 @@ public final class TransferUtil {
     private static final DataFlavor stringFlavor = DataFlavor.stringFlavor;
     private static final DataFlavor fileListFlavor = DataFlavor.javaFileListFlavor;
     private static DataFlavor uriListFlavor;
+
 
     static {
         try {
@@ -44,6 +49,11 @@ public final class TransferUtil {
      *         separated by <code>delimiter</code>
      */
     public static Transferable getSelectedItemStringsTransferable(JList list, String delimiter) {
+        if (list == null)
+            throw new NullPointerException("list == null");
+        if (delimiter == null)
+            throw new NullPointerException("delimiter == null");
+
         Object[] values = list.getSelectedValues();
         StringBuffer buffer = new StringBuffer();
         for (int i = 0; i < values.length; i++) {
@@ -64,6 +74,11 @@ public final class TransferUtil {
      *         separated by <code>delimiter</code>
      */
     public static Transferable getIntegerListTransferable(List<Integer> list, String delimiter) {
+        if (list == null)
+            throw new NullPointerException("list == null");
+        if (delimiter == null)
+            throw new NullPointerException("delimiter == null");
+
         StringBuffer buffer = new StringBuffer();
         int size = list.size();
         for (int i = 0; i < size; i++) {
@@ -84,6 +99,11 @@ public final class TransferUtil {
      *         separated by <code>delimiter</code>
      */
     public static Transferable getStringListTransferable(List<String> list, String delimiter) {
+        if (list == null)
+            throw new NullPointerException("list == null");
+        if (delimiter == null)
+            throw new NullPointerException("delimiter == null");
+
         StringBuffer buffer = new StringBuffer();
         int size = list.size();
         for (int i = 0; i < size; i++) {
@@ -96,7 +116,7 @@ public final class TransferUtil {
 
     /**
      * Returns the flavor of a string with a URI list, needed to get files from 
-     * {@link #getFilesFromUriList(javax.swing.TransferHandler.TransferSupport)}.
+     * {@link #getFilesFromUriList(java.awt.datatransfer.Transferable)}.
      * 
      * @return flavor
      */
@@ -113,6 +133,9 @@ public final class TransferUtil {
      * @return files
      */
     public static List<File> getFilesFromUriList(Transferable transferable) {
+        if (transferable == null)
+            throw new NullPointerException("transferable == null");
+
         List<File> list = new ArrayList<File>();
         try {
             String data = (String) transferable.getTransferData(uriListFlavor);
@@ -136,8 +159,12 @@ public final class TransferUtil {
      * @param  delimiter     delimiter which separates the file names
      * @return files
      */
-    public static List<File> getFilesFromTokenString(Transferable transferable,
-        String delimiter) {
+    public static List<File> getFilesFromTokenString(Transferable transferable, String delimiter) {
+        if (transferable == null)
+            throw new NullPointerException("transferable == null");
+        if (delimiter == null)
+            throw new NullPointerException("delimiter == null");
+
         List<File> list = new ArrayList<File>();
         try {
             String data = (String) transferable.getTransferData(stringFlavor);
@@ -158,6 +185,9 @@ public final class TransferUtil {
      * @return list of files
      */
     public static List<File> getFilesFromJavaFileList(Transferable transferable) {
+        if (transferable == null)
+            throw new NullPointerException("transferable == null");
+
         List<File> list = new ArrayList<File>();
         try {
             List files = (java.util.List) transferable.getTransferData(fileListFlavor);
@@ -181,6 +211,11 @@ public final class TransferUtil {
      * @return files
      */
     public static List<File> getFiles(Transferable transferable, String delimiter) {
+        if (transferable == null)
+            throw new NullPointerException("transferable == null");
+        if (delimiter == null)
+            throw new NullPointerException("delimiter == null");
+
         List<File> list = new ArrayList<File>();
         DataFlavor[] flavors = transferable.getTransferDataFlavors();
         if (isDataFlavorSupported(flavors, fileListFlavor)) {
@@ -192,7 +227,7 @@ public final class TransferUtil {
         }
         return list;
     }
-    
+
     /**
      * Returns wheter a transferable contains file data. This is true, if
      * it supports {@link java.awt.datatransfer.DataFlavor#javaFileListFlavor}
@@ -203,6 +238,9 @@ public final class TransferUtil {
      * @return true, if the transferable maybe contain file data
      */
     public static boolean maybeContainFileData(Transferable transferable) {
+        if (transferable == null)
+            throw new NullPointerException("transferable == null");
+
         return isDataFlavorSupported(transferable.getTransferDataFlavors(), DataFlavor.javaFileListFlavor) ||
             isDataFlavorSupported(transferable.getTransferDataFlavors(), DataFlavor.stringFlavor);
     }
@@ -215,6 +253,9 @@ public final class TransferUtil {
      * @return true if found (supported)
      */
     public static boolean isDataFlavorSupported(DataFlavor[] flavors, DataFlavor flavor) {
+        if (flavor == null)
+            throw new NullPointerException("flavor == null");
+
         for (DataFlavor f : flavors) {
             if (f.equals(flavor)) {
                 return true;

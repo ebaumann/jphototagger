@@ -8,16 +8,17 @@ import java.util.List;
  * Ausnahme in einer Logdatei von  <code>java.util.logging.Logger</code>,
  * benutzt für Java-Exceptions und sonstigen Throwable-Objekten.
  * 
+ * All functions with object-reference-parameters are throwing a
+ * <code>NullPointerException</code> if an object reference is null and it is
+ * not documentet that it can be null.
+ *
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
 public final class LogfileRecordException {
 
-    private List<LogfileRecordFrame> logfileRecordFrames = new ArrayList<LogfileRecordFrame>();
+    private final List<LogfileRecordFrame> logfileRecordFrames = new ArrayList<LogfileRecordFrame>();
     private String message;
-
-    public LogfileRecordException() {
-    }
 
     /**
      * Liefert die Stack-Frames der Ausnahme.
@@ -29,20 +30,14 @@ public final class LogfileRecordException {
     }
 
     /**
-     * Setzt die Stack-Frames der Ausnahme.
-     * 
-     * @param logfileRecordFrames Stack-Frames
-     */
-    public void setFrames(List<LogfileRecordFrame> logfileRecordFrames) {
-        this.logfileRecordFrames = logfileRecordFrames;
-    }
-
-    /**
      * Fügt einen Stack-Frame hinzu.
      * 
      * @param frame Stack-Frame
      */
     public void addFrame(LogfileRecordFrame frame) {
+        if (frame == null)
+            throw new NullPointerException("frame == null");
+
         logfileRecordFrames.add(frame);
     }
 
@@ -71,6 +66,9 @@ public final class LogfileRecordException {
      * @param message Nachricht
      */
     public void setMessage(String message) {
+        if (message == null)
+            throw new NullPointerException("message == null");
+
         this.message = message;
     }
 
@@ -81,6 +79,9 @@ public final class LogfileRecordException {
      * @return          true, wenn der Teilstring in irgendeinem der Inhalte vorkommt
      */
     boolean contains(String substring) {
+        if (substring == null)
+            throw new NullPointerException("substring == null");
+
         boolean contains = containsSubstring(getMessage(), substring);
         int count = logfileRecordFrames.size();
         int index = 0;
@@ -92,8 +93,9 @@ public final class LogfileRecordException {
     }
 
     private boolean containsSubstring(String string, String substring) {
-        return string == null
-            ? false
-            : string.toLowerCase().contains(substring.toLowerCase());
+        assert string != null : string;
+        assert substring != null : substring;
+
+        return string.toLowerCase().contains(substring.toLowerCase());
     }
 }
