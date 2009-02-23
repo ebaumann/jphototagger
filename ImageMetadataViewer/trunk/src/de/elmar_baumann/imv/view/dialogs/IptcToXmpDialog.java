@@ -11,9 +11,7 @@ import de.elmar_baumann.imv.view.ViewUtil;
 import de.elmar_baumann.lib.dialog.Dialog;
 import de.elmar_baumann.lib.dialog.DirectoryChooser;
 import de.elmar_baumann.lib.io.FileUtil;
-import de.elmar_baumann.lib.persistence.PersistentComponentSizes;
-import de.elmar_baumann.lib.persistence.PersistentSettings;
-import de.elmar_baumann.lib.persistence.PersistentSettingsHints;
+import de.elmar_baumann.lib.util.SettingsHints;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -47,10 +45,8 @@ public final class IptcToXmpDialog extends Dialog
     }
 
     private void chooseDirectory() {
-        DirectoryChooser dialog = new DirectoryChooser(null, UserSettings.INSTANCE.isAcceptHiddenDirectories());
+        DirectoryChooser dialog = new DirectoryChooser(null, directory, UserSettings.INSTANCE.getDefaultDirectoryChooserOptions());
         ViewUtil.setDirectoryTreeModel(dialog);
-        dialog.setStartDirectory(directory);
-        dialog.setMultiSelection(false);
         dialog.setVisible(true);
         if (dialog.accepted()) {
             directory = dialog.getSelectedDirectories().get(0);
@@ -78,14 +74,13 @@ public final class IptcToXmpDialog extends Dialog
     @Override
     public void setVisible(boolean visible) {
         if (visible) {
-            PersistentComponentSizes.getSizeAndLocation(this);
-            PersistentSettings.INSTANCE.getComponent(this, new PersistentSettingsHints());
-            directory = new File(PersistentSettings.INSTANCE.getString(keyDirectoryName));
+            UserSettings.INSTANCE.getSettings().getComponent(this, new SettingsHints());
+            directory = new File(UserSettings.INSTANCE.getSettings().getString(keyDirectoryName));
             init();
         } else {
-            PersistentComponentSizes.setSizeAndLocation(this);
-            PersistentSettings.INSTANCE.setComponent(this, new PersistentSettingsHints());
-            PersistentSettings.INSTANCE.setString(directory.getAbsolutePath(), keyDirectoryName);
+            UserSettings.INSTANCE.getComponentSizes().setSizeAndLocation(this);
+            UserSettings.INSTANCE.getSettings().setComponent(this, new SettingsHints());
+            UserSettings.INSTANCE.getSettings().setString(directory.getAbsolutePath(), keyDirectoryName);
             dispose();
         }
         super.setVisible(visible);
@@ -120,7 +115,7 @@ public final class IptcToXmpDialog extends Dialog
         directories.add(directory);
         if (checkBoxSubdirectories.isSelected()) {
             directories.addAll(FileUtil.getAllSubDirectories(directory,
-                UserSettings.INSTANCE.isAcceptHiddenDirectories()));
+                UserSettings.INSTANCE.getDefaultDirectoryFilter()));
         }
         return ImageFilteredDirectory.getImageFilesOfDirectories(directories);
     }

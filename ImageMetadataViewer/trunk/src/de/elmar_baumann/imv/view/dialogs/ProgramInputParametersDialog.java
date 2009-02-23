@@ -1,11 +1,10 @@
 package de.elmar_baumann.imv.view.dialogs;
 
+import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.app.AppIcons;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.dialog.Dialog;
-import de.elmar_baumann.lib.persistence.PersistentComponentSizes;
-import de.elmar_baumann.lib.persistence.PersistentSettings;
-import de.elmar_baumann.lib.persistence.PersistentSettingsHints;
+import de.elmar_baumann.lib.util.SettingsHints;
 
 /**
  *
@@ -33,7 +32,7 @@ public final class ProgramInputParametersDialog extends Dialog {
     public void setFilename(String filename) {
         labelContextFile.setText(filename);
     }
-    
+
     public boolean isAccepted() {
         return accepted;
     }
@@ -48,13 +47,13 @@ public final class ProgramInputParametersDialog extends Dialog {
 
     @Override
     public void setVisible(boolean visible) {
-        PersistentSettingsHints hints = new PersistentSettingsHints();
+        SettingsHints hints = new SettingsHints();
         if (visible) {
-            PersistentComponentSizes.getSizeAndLocation(this);
-            PersistentSettings.INSTANCE.getComponent(this, hints);
+            UserSettings.INSTANCE.getComponentSizes().getSizeAndLocation(this);
+            UserSettings.INSTANCE.getSettings().getComponent(this, hints);
         } else {
-            PersistentComponentSizes.setSizeAndLocation(this);
-            PersistentSettings.INSTANCE.setComponent(this, hints);
+            UserSettings.INSTANCE.getComponentSizes().setSizeAndLocation(this);
+            UserSettings.INSTANCE.getSettings().setComponent(this, hints);
         }
         super.setVisible(visible);
     }
@@ -230,14 +229,16 @@ private void buttonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
 }//GEN-LAST:event_buttonCancelActionPerformed
 
     /**
-    * @param args the command line arguments
-    */
+     * @param args the command line arguments
+     */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             @Override
             public void run() {
                 ProgramInputParametersDialog dialog = new ProgramInputParametersDialog();
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);

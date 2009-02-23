@@ -1,10 +1,10 @@
 package de.elmar_baumann.imv.controller.misc;
 
+import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.dialog.HelpBrowser;
 import de.elmar_baumann.lib.event.HelpBrowserAction;
 import de.elmar_baumann.lib.event.HelpBrowserListener;
-import de.elmar_baumann.lib.persistence.PersistentSettings;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.URL;
@@ -20,7 +20,7 @@ public final class ControllerHelp implements ActionListener,
 
     private final HelpBrowser help = HelpBrowser.INSTANCE;
     private static final String keyCurrentUrl = ControllerHelp.class.getName() + ".CurrentURL";
-    private String currentUrl = PersistentSettings.INSTANCE.getString(keyCurrentUrl);
+    private String currentUrl = UserSettings.INSTANCE.getSettings().getString(keyCurrentUrl);
 
     public ControllerHelp() {
         help.setContentsUrl(Bundle.getString("Help.Url.Contents"));
@@ -47,7 +47,7 @@ public final class ControllerHelp implements ActionListener,
         URL url = action.getUrl();
         if (!url.getProtocol().startsWith("http")) {
             currentUrl = HelpBrowser.getLastPathComponent(url);
-            PersistentSettings.INSTANCE.setString(currentUrl, keyCurrentUrl);
+            UserSettings.INSTANCE.getSettings().setString(currentUrl, keyCurrentUrl);
         }
     }
 

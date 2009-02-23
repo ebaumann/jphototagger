@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.database;
 
-import de.elmar_baumann.lib.persistence.PersistentSettings;
+import de.elmar_baumann.imv.UserSettings;
 import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -89,7 +89,7 @@ public final class ConnectionPool implements Runnable {
      */
     private ConnectionPool() throws SQLException {
         url = "jdbc:hsqldb:file:" + // NOI18N
-                PersistentSettings.INSTANCE.getDirectoryName() + File.separator + "database" + // NOI18N
+                UserSettings.INSTANCE.getSettingsDirectoryName() + File.separator + "database" + // NOI18N
                 ";shutdown=true";  // NOI18N
 
         driver = "org.hsqldb.jdbcDriver";

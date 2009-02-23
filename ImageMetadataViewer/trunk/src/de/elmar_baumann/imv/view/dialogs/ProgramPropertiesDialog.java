@@ -1,12 +1,12 @@
 package de.elmar_baumann.imv.view.dialogs;
 
+import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.app.AppIcons;
 import de.elmar_baumann.imv.data.Program;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.component.TabLeavingTextArea;
 import de.elmar_baumann.lib.dialog.Dialog;
 import de.elmar_baumann.lib.image.icon.IconUtil;
-import de.elmar_baumann.lib.persistence.PersistentComponentSizes;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import javax.swing.JFileChooser;
@@ -82,9 +82,9 @@ public final class ProgramPropertiesDialog extends Dialog {
             program.setFile(file);
             program.setAlias(textFieldAlias.getText().trim());
             program.setParametersBeforeFilename(parametersBeforeFilename.isEmpty()
-                ? null : parametersBeforeFilename);
+                    ? null : parametersBeforeFilename);
             program.setParametersAfterFilename(parametersAfterFilename.isEmpty()
-                ? null : parametersAfterFilename);
+                    ? null : parametersAfterFilename);
             program.setInputBeforeExecute(checkBoxInputBeforeExecute.isSelected());
             program.setInputBeforeExecutePerFile(checkBoxInputBeforeExecutePerFile.isSelected());
             program.setSingleFileProcessing(radioButtonSingleFileProcessingYes.isSelected());
@@ -99,7 +99,7 @@ public final class ProgramPropertiesDialog extends Dialog {
 
     private boolean inputsValid() {
         return file != null && file.exists() && !file.isDirectory() &&
-            !textFieldAlias.getText().trim().isEmpty();
+                !textFieldAlias.getText().trim().isEmpty();
     }
 
     private void postInitComponents() {
@@ -124,9 +124,9 @@ public final class ProgramPropertiesDialog extends Dialog {
     @Override
     public void setVisible(boolean visible) {
         if (visible) {
-            PersistentComponentSizes.getSizeAndLocation(this);
+            UserSettings.INSTANCE.getComponentSizes().getSizeAndLocation(this);
         } else {
-            PersistentComponentSizes.setSizeAndLocation(this);
+            UserSettings.INSTANCE.getComponentSizes().setSizeAndLocation(this);
         }
         super.setVisible(visible);
     }
@@ -162,11 +162,11 @@ public final class ProgramPropertiesDialog extends Dialog {
 
     private void errorMessage(String string) {
         JOptionPane.showMessageDialog(
-            this,
-            string,
-            Bundle.getString("ProgramPropertiesDialog.ErrorMessage.Title"),
-            JOptionPane.ERROR_MESSAGE,
-            AppIcons.getMediumAppIcon());
+                this,
+                string,
+                Bundle.getString("ProgramPropertiesDialog.ErrorMessage.Title"),
+                JOptionPane.ERROR_MESSAGE,
+                AppIcons.getMediumAppIcon());
     }
 
     /** This method is called from within the constructor to
@@ -480,14 +480,16 @@ private void checkBoxInputBeforeExecutePerFileActionPerformed(java.awt.event.Act
 }//GEN-LAST:event_checkBoxInputBeforeExecutePerFileActionPerformed
 
     /**
-    * @param args the command line arguments
-    */
+     * @param args the command line arguments
+     */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             @Override
             public void run() {
                 ProgramPropertiesDialog dialog = new ProgramPropertiesDialog(true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);

@@ -1,8 +1,8 @@
 package de.elmar_baumann.imv.app;
 
+import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.event.ErrorEvent;
 import de.elmar_baumann.imv.event.listener.ErrorListeners;
-import de.elmar_baumann.lib.persistence.PersistentSettings;
 import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -98,7 +98,7 @@ public final class AppLog {
      * @return Logdatei
      */
     public static String getLogfileName() {
-        return PersistentSettings.INSTANCE.getDirectoryName() +
+        return UserSettings.INSTANCE.getSettingsDirectoryName() +
             File.separator + "imagemetadataviewerlog.xml";  // NOI18N
     }
 

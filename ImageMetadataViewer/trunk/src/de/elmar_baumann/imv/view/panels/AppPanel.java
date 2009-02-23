@@ -1,5 +1,6 @@
 package de.elmar_baumann.imv.view.panels;
 
+import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.app.AppTexts;
 import de.elmar_baumann.lib.renderer.TreeCellRendererDirectories;
 import de.elmar_baumann.imv.event.AppExitListener;
@@ -11,8 +12,8 @@ import de.elmar_baumann.imv.view.renderer.ListCellRendererFavoriteDirectories;
 import de.elmar_baumann.imv.view.renderer.ListCellRendererImageCollections;
 import de.elmar_baumann.imv.view.renderer.ListCellRendererKeywords;
 import de.elmar_baumann.imv.view.renderer.ListCellRendererSavedSearches;
-import de.elmar_baumann.lib.persistence.PersistentSettings;
-import de.elmar_baumann.lib.persistence.PersistentSettingsHints;
+import de.elmar_baumann.lib.util.Settings;
+import de.elmar_baumann.lib.util.SettingsHints;
 import java.awt.Component;
 import java.awt.Container;
 import java.util.ArrayList;
@@ -353,7 +354,7 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
 
     @Override
     public void appWillExit() {
-        PersistentSettings settings = PersistentSettings.INSTANCE;
+        Settings settings = UserSettings.INSTANCE.getSettings();
         settings.setComponent(this, getPersistentSettingsHints());
         int dividerLocationThumbnails = splitPaneThumbnailsMetadata.getDividerLocation();
         int dividerLocationMain = splitPaneMain.getDividerLocation();
@@ -362,8 +363,8 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
         ViewUtil.writePersistentTreeDirectories();
     }
 
-    public PersistentSettingsHints getPersistentSettingsHints() {
-        PersistentSettingsHints hints = new PersistentSettingsHints();
+    public SettingsHints getPersistentSettingsHints() {
+        SettingsHints hints = new SettingsHints();
         String className = getClass().getName();
         hints.addExcludedMember(className + ".textFieldSearch"); // NOI18N
         hints.addExcludedMember(className + ".panelEditMetadata"); // NOI18N
@@ -371,12 +372,12 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
     }
 
     private int getDividerLocationThumbnails() {
-        int location = PersistentSettings.INSTANCE.getInt(keyDividerLocationThumbnails);
+        int location = UserSettings.INSTANCE.getSettings().getInt(keyDividerLocationThumbnails);
         return location > minDividerLocationThumbnails ? location : minDividerLocationThumbnails;
     }
 
     private int getDividerLocationMain() {
-        int location = PersistentSettings.INSTANCE.getInt(keyDividerLocationMain);
+        int location = UserSettings.INSTANCE.getSettings().getInt(keyDividerLocationMain);
         return location > minDividerLocationMain ? location : minDividerLocationMain;
     }
 

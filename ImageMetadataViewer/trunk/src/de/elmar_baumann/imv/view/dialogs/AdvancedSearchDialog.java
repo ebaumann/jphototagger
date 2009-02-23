@@ -1,12 +1,12 @@
 package de.elmar_baumann.imv.view.dialogs;
 
+import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.app.AppIcons;
 import de.elmar_baumann.imv.data.SavedSearch;
 import de.elmar_baumann.imv.event.SearchEvent;
 import de.elmar_baumann.imv.event.SearchListener;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.dialog.Dialog;
-import de.elmar_baumann.lib.persistence.PersistentComponentSizes;
 
 /**
  * Nicht modaler Dialog für eine erweiterte Suche.
@@ -37,13 +37,13 @@ public final class AdvancedSearchDialog extends Dialog implements SearchListener
     @Override
     public void setVisible(boolean visible) {
         if (visible) {
-            PersistentComponentSizes.getSizeAndLocation(this);
+            UserSettings.INSTANCE.getComponentSizes().getSizeAndLocation(this);
         }
         super.setVisible(visible);
     }
 
     private void beforeWindowClosing() {
-        PersistentComponentSizes.setSizeAndLocation(this);
+        UserSettings.INSTANCE.getComponentSizes().setSizeAndLocation(this);
         panel.willDispose();
         setVisible(false);
     }

@@ -1,11 +1,11 @@
 package de.elmar_baumann.imv.view;
 
+import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.data.FavoriteDirectory;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.lib.componentutil.TreeUtil;
 import de.elmar_baumann.lib.dialog.DirectoryChooser;
 import de.elmar_baumann.lib.io.FileUtil;
-import de.elmar_baumann.lib.persistence.PersistentSettings;
 import java.io.File;
 import javax.swing.JList;
 import javax.swing.JTree;
@@ -65,18 +65,17 @@ public class ViewUtil {
 
     public static void writePersistentTreeDirectories() {
         JTree treeDirectories = GUI.INSTANCE.getAppPanel().getTreeDirectories();
-        PersistentSettings settings = PersistentSettings.INSTANCE;
         if (treeDirectories.getSelectionCount() > 0) {
-            settings.setString(
+            UserSettings.INSTANCE.getSettings().setString(
                 treeDirectories.getSelectionPath().getLastPathComponent().toString(), keyTreeDirectories);
         } else {
-            settings.getProperties().remove(keyTreeDirectories);
+            UserSettings.INSTANCE.getProperties().remove(keyTreeDirectories);
         }
     }
 
     public static void readPersistentTreeDirectories() {
         JTree treeDirectories = GUI.INSTANCE.getAppPanel().getTreeDirectories();
-        String filename = PersistentSettings.INSTANCE.getString(keyTreeDirectories);
+        String filename = UserSettings.INSTANCE.getSettings().getString(keyTreeDirectories);
 
         if (!filename.isEmpty() && FileUtil.existsDirectory(filename)) {
             TreePath path = TreeUtil.getTreePath(

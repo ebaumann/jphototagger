@@ -10,14 +10,13 @@ import de.elmar_baumann.imv.tasks.InsertImageFilesIntoDatabase;
 import de.elmar_baumann.imv.view.ViewUtil;
 import de.elmar_baumann.lib.dialog.DirectoryChooser;
 import de.elmar_baumann.lib.io.FileUtil;
-import de.elmar_baumann.lib.persistence.PersistentComponentSizes;
-import de.elmar_baumann.lib.persistence.PersistentSettings;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
+import java.util.Set;
 import javax.swing.DefaultListModel;
 
 /**
@@ -46,15 +45,13 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
     public void willDispose() {
         stop();
         writePersistent();
-        PersistentSettings.INSTANCE.setString(
+        UserSettings.INSTANCE.getSettings().setString(
             lastSelectedDirectory.getAbsolutePath(), keyLastDirectory);
     }
 
     private void chooseDirectories() {
-        DirectoryChooser dialog = new DirectoryChooser(null, UserSettings.INSTANCE.isAcceptHiddenDirectories());
+        DirectoryChooser dialog = new DirectoryChooser(null, lastSelectedDirectory, getDirectoryChooserOptions());
         ViewUtil.setDirectoryTreeModel(dialog);
-        dialog.setStartDirectory(lastSelectedDirectory);
-        dialog.setMultiSelection(true);
         dialog.setVisible(true);
         if (dialog.accepted()) {
             List<File> newDirectories = getNotAlreadyChoosenDirectoriesFrom(
@@ -73,6 +70,13 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
         activeUpdater =
             new InsertImageFilesIntoDatabase(
             FileUtil.getAsFilenames(selectedFiles), getWhatToInsertIntoDatabase());
+    }
+
+    private Set<DirectoryChooser.Option> getDirectoryChooserOptions() {
+        return EnumSet.of(DirectoryChooser.Option.MULTI_SELECTION,
+                UserSettings.INSTANCE.isAcceptHiddenDirectories()
+                    ? DirectoryChooser.Option.SHOW_HIDDEN
+                    : DirectoryChooser.Option.HIDE_HIDDEN);
     }
 
     private EnumSet<InsertImageFilesIntoDatabase.Insert> getWhatToInsertIntoDatabase() {
@@ -117,9 +121,8 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
     }
 
     private void readPersistent() {
-        PersistentSettings settings = PersistentSettings.INSTANCE;
-        settings.getCheckBox(checkBoxForce, keyForce);
-        settings.getCheckBox(checkBoxIncludeSubdirectories, keySubdirectories);
+        UserSettings.INSTANCE.getSettings().getCheckBox(checkBoxForce, keyForce);
+        UserSettings.INSTANCE.getSettings().getCheckBox(checkBoxIncludeSubdirectories, keySubdirectories);
         readPersistentCurrentDirectory();
     }
 
@@ -219,7 +222,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
     }
 
     private void addSubdirectories(File directory) {
-        List<File> subdirectories = FileUtil.getAllSubDirectories(directory, UserSettings.INSTANCE.isAcceptHiddenDirectories());
+        List<File> subdirectories = FileUtil.getAllSubDirectories(directory, UserSettings.INSTANCE.getDefaultDirectoryFilter());
         for (File dir : subdirectories) {
             DirectoryInfo directoryInfo = new DirectoryInfo(dir);
             if (directoryInfo.hasImageFiles()) {
@@ -248,7 +251,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
 
     private void readPersistentCurrentDirectory() {
         String currentDirectoryname =
-            PersistentSettings.INSTANCE.getString(keyLastDirectory);
+            UserSettings.INSTANCE.getSettings().getString(keyLastDirectory);
         if (!currentDirectoryname.isEmpty()) {
             File directory = new File(currentDirectoryname);
             if (directory.exists() && directory.isDirectory()) {
@@ -270,10 +273,9 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
     }
 
     private void writePersistent() {
-        PersistentSettings settings = PersistentSettings.INSTANCE;
-        settings.setCheckBox(checkBoxForce, keyForce);
-        settings.setCheckBox(checkBoxIncludeSubdirectories, keySubdirectories);
-        PersistentComponentSizes.setSizeAndLocation(this);
+        UserSettings.INSTANCE.getSettings().setCheckBox(checkBoxForce, keyForce);
+        UserSettings.INSTANCE.getSettings().setCheckBox(checkBoxIncludeSubdirectories, keySubdirectories);
+        UserSettings.INSTANCE.getComponentSizes().setSizeAndLocation(this);
     }
 
     @Override

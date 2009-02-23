@@ -1,8 +1,8 @@
 package de.elmar_baumann.imv.app;
 
+import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.io.FileUtil;
-import de.elmar_baumann.lib.persistence.PersistentSettings;
 import java.io.File;
 import java.text.MessageFormat;
 import javax.swing.JOptionPane;
@@ -18,8 +18,8 @@ import javax.swing.JOptionPane;
 public final class AppLock {
 
     private static final String lockFileName =
-        PersistentSettings.INSTANCE.getDirectoryName() + File.separator +
-        PersistentSettings.INSTANCE.getAppName() + ".lck"; // NOI18N
+        UserSettings.INSTANCE.getSettingsDirectoryName() + File.separator +
+        UserSettings.getProjectName() + ".lck"; // NOI18N
 
     /**
      * Returns whether the application ist locked.

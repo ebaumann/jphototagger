@@ -1,7 +1,7 @@
 package de.elmar_baumann.imv.model;
 
+import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.resource.Bundle;
-import de.elmar_baumann.lib.persistence.PersistentSettings;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.DefaultComboBoxModel;
@@ -63,7 +63,7 @@ public final class ComboBoxModelAppColors extends DefaultComboBoxModel {
     }
 
     private void selectElement() {
-        String index = PersistentSettings.INSTANCE.getString(keySelectedIndex);
+        String index = UserSettings.INSTANCE.getSettings().getString(keySelectedIndex);
         if (!index.isEmpty()) {
             try {
                 setSelectedItem(getElementAt(Integer.parseInt(index)));

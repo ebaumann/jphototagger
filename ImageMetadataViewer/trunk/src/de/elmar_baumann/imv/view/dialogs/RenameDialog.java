@@ -1,5 +1,6 @@
 package de.elmar_baumann.imv.view.dialogs;
 
+import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.app.AppIcons;
 import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.controller.filesystem.FilenameFormatDate;
@@ -19,9 +20,7 @@ import de.elmar_baumann.imv.io.FileType;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.lib.dialog.Dialog;
-import de.elmar_baumann.lib.persistence.PersistentComponentSizes;
-import de.elmar_baumann.lib.persistence.PersistentSettings;
-import de.elmar_baumann.lib.persistence.PersistentSettingsHints;
+import de.elmar_baumann.lib.util.SettingsHints;
 import java.awt.Image;
 import java.io.File;
 import java.text.MessageFormat;
@@ -335,19 +334,19 @@ public final class RenameDialog extends Dialog {
     @Override
     public void setVisible(boolean visible) {
         if (visible) {
-            PersistentComponentSizes.getSizeAndLocation(this);
-            PersistentSettings.INSTANCE.getComponent(this, getPersistentSettingsHints());
+            UserSettings.INSTANCE.getComponentSizes().getSizeAndLocation(this);
+            UserSettings.INSTANCE.getSettings().getComponent(this, getPersistentSettingsHints());
             setCurrentFilenameToInputPanel();
             setExampleFilename();
         } else {
-            PersistentComponentSizes.setSizeAndLocation(this);
-            PersistentSettings.INSTANCE.setComponent(this, getPersistentSettingsHints());
+            UserSettings.INSTANCE.getComponentSizes().setSizeAndLocation(this);
+            UserSettings.INSTANCE.getSettings().setComponent(this, getPersistentSettingsHints());
         }
         super.setVisible(visible);
     }
 
-    private PersistentSettingsHints getPersistentSettingsHints() {
-        PersistentSettingsHints hints = new PersistentSettingsHints();
+    private SettingsHints getPersistentSettingsHints() {
+        SettingsHints hints = new SettingsHints();
         hints.addExcludedMember(getClass().getName() + ".labelBeforeFilename"); // NOI18N
         hints.addExcludedMember(getClass().getName() + ".labelAfterFilename"); // NOI18N
         return hints;

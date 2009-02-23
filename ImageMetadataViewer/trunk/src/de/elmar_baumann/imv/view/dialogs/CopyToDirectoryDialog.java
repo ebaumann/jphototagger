@@ -12,8 +12,6 @@ import de.elmar_baumann.imv.view.ViewUtil;
 import de.elmar_baumann.lib.dialog.Dialog;
 import de.elmar_baumann.lib.dialog.DirectoryChooser;
 import de.elmar_baumann.lib.io.FileUtil;
-import de.elmar_baumann.lib.persistence.PersistentComponentSizes;
-import de.elmar_baumann.lib.persistence.PersistentSettings;
 import de.elmar_baumann.lib.template.Pair;
 import java.io.File;
 import java.util.ArrayList;
@@ -135,10 +133,8 @@ public final class CopyToDirectoryDialog extends Dialog
     }
 
     private void chooseTargetDirectory() {
-        DirectoryChooser dialog = new DirectoryChooser(null, UserSettings.INSTANCE.isAcceptHiddenDirectories());
+        DirectoryChooser dialog = new DirectoryChooser(null, new File(lastDirectory), UserSettings.INSTANCE.getDefaultDirectoryChooserOptions());
         ViewUtil.setDirectoryTreeModel(dialog);
-        dialog.setStartDirectory(new File(lastDirectory));
-        dialog.setMultiSelection(false);
         dialog.setVisible(true);
         if (dialog.accepted()) {
             List<File> files = dialog.getSelectedDirectories();
@@ -186,19 +182,19 @@ public final class CopyToDirectoryDialog extends Dialog
     @Override
     public void setVisible(boolean visible) {
         if (visible) {
-            PersistentComponentSizes.getSizeAndLocation(this);
+            UserSettings.INSTANCE.getComponentSizes().getSizeAndLocation(this);
             if (copyIfVisible) {
                 start();
             } else {
-                lastDirectory = PersistentSettings.INSTANCE.getString(keyLastDirectory);
+                lastDirectory = UserSettings.INSTANCE.getSettings().getString(keyLastDirectory);
                 if (FileUtil.existsDirectory(lastDirectory)) {
                     labelTargetDirectory.setText(lastDirectory);
                     buttonStart.setEnabled(true);
                 }
             }
         } else {
-            PersistentComponentSizes.setSizeAndLocation(this);
-            PersistentSettings.INSTANCE.setString(lastDirectory, keyLastDirectory);
+            UserSettings.INSTANCE.getComponentSizes().setSizeAndLocation(this);
+            UserSettings.INSTANCE.getSettings().setString(lastDirectory, keyLastDirectory);
         }
         super.setVisible(visible);
     }

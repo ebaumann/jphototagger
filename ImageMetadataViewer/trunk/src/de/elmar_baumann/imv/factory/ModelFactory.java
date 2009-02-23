@@ -59,8 +59,7 @@ public final class ModelFactory {
             public void run() {
                 JTree treeDirectories = appPanel.getTreeDirectories();
                 treeDirectories.setModel(
-                        new TreeModelDirectories(
-                        UserSettings.INSTANCE.isAcceptHiddenDirectories()));
+                        new TreeModelDirectories(UserSettings.INSTANCE.getDefaultDirectoryFilter()));
                 ViewUtil.readPersistentTreeDirectories();
             }
         }).start();

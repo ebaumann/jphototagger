@@ -8,8 +8,6 @@ import de.elmar_baumann.imv.view.ViewUtil;
 import de.elmar_baumann.lib.dialog.Dialog;
 import de.elmar_baumann.lib.dialog.DirectoryChooser;
 import de.elmar_baumann.lib.io.FileUtil;
-import de.elmar_baumann.lib.persistence.PersistentComponentSizes;
-import de.elmar_baumann.lib.persistence.PersistentSettings;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.io.File;
@@ -42,10 +40,8 @@ public final class FavoriteDirectoryPropertiesDialog extends Dialog {
     }
 
     private void chooseDirectory() {
-        DirectoryChooser dialog = new DirectoryChooser(null, UserSettings.INSTANCE.isAcceptHiddenDirectories());
+        DirectoryChooser dialog = new DirectoryChooser(null, new File(lastDirectory), UserSettings.INSTANCE.getDefaultDirectoryChooserOptions());
         ViewUtil.setDirectoryTreeModel(dialog);
-        dialog.setStartDirectory(new File(lastDirectory));
-        dialog.setMultiSelection(false);
         dialog.setVisible(true);
         if (dialog.accepted()) {
             List<File> files = dialog.getSelectedDirectories();
@@ -158,11 +154,11 @@ public final class FavoriteDirectoryPropertiesDialog extends Dialog {
     public void setVisible(
         boolean visible) {
         if (visible) {
-            lastDirectory = PersistentSettings.INSTANCE.getString(keyLastDirectory);
-            PersistentComponentSizes.getSizeAndLocation(this);
+            lastDirectory = UserSettings.INSTANCE.getSettings().getString(keyLastDirectory);
+            UserSettings.INSTANCE.getComponentSizes().getSizeAndLocation(this);
         } else {
-            PersistentSettings.INSTANCE.setString(lastDirectory, keyLastDirectory);
-            PersistentComponentSizes.setSizeAndLocation(this);
+            UserSettings.INSTANCE.getSettings().setString(lastDirectory, keyLastDirectory);
+            UserSettings.INSTANCE.getComponentSizes().setSizeAndLocation(this);
         }
         super.setVisible(visible);
     }

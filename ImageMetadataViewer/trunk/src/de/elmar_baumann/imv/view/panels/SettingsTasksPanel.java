@@ -10,12 +10,14 @@ import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.types.Persistence;
 import de.elmar_baumann.imv.view.ViewUtil;
 import de.elmar_baumann.lib.dialog.DirectoryChooser;
-import de.elmar_baumann.lib.persistence.PersistentSettings;
+import de.elmar_baumann.lib.dialog.DirectoryChooser.Option;
 import de.elmar_baumann.lib.renderer.ListCellRendererFileSystem;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.text.MessageFormat;
+import java.util.EnumSet;
 import java.util.List;
+import java.util.Set;
 import javax.swing.JOptionPane;
 import javax.swing.SpinnerNumberModel;
 
@@ -39,6 +41,13 @@ public final class SettingsTasksPanel extends javax.swing.JPanel
         postInitComponents();
     }
 
+    private Set<Option> getDirectoryChooserFilter() {
+        return EnumSet.of(Option.MULTI_SELECTION,
+                UserSettings.INSTANCE.isAcceptHiddenDirectories()
+                ? Option.SHOW_HIDDEN
+                : Option.HIDE_HIDDEN);
+    }
+
     private void postInitComponents() {
         modelAutoscanDirectories = new ListModelAutoscanDirectories();
         listAutoscanDirectories.setModel(modelAutoscanDirectories);
@@ -59,21 +68,18 @@ public final class SettingsTasksPanel extends javax.swing.JPanel
             settings.isAutoscanIncludeSubdirectories());
         checkBoxIsTaskRemoveRecordsWithNotExistingFiles.setSelected(
             settings.isTaskRemoveRecordsWithNotExistingFiles());
-        lastSelectedAutoscanDirectory = PersistentSettings.INSTANCE.
-            getString(keyLastSelectedAutoscanDirectory);
+        lastSelectedAutoscanDirectory = settings.getSettings().getString(keyLastSelectedAutoscanDirectory);
     }
 
     @Override
     public void writePersistent() {
-        PersistentSettings.INSTANCE.setString(
+        UserSettings.INSTANCE.getSettings().setString(
             lastSelectedAutoscanDirectory, keyLastSelectedAutoscanDirectory);
     }
 
     private void addAutoscanDirectories() {
-        DirectoryChooser dialog = new DirectoryChooser(null, UserSettings.INSTANCE.isAcceptHiddenDirectories());
+        DirectoryChooser dialog = new DirectoryChooser(null, new File(lastSelectedAutoscanDirectory), getDirectoryChooserFilter());
         ViewUtil.setDirectoryTreeModel(dialog);
-        dialog.setStartDirectory(new File(lastSelectedAutoscanDirectory));
-        dialog.setMultiSelection(true);
         dialog.setVisible(true);
         if (dialog.accepted()) {
             List<File> directories = dialog.getSelectedDirectories();

@@ -1,12 +1,11 @@
 package de.elmar_baumann.imv.view.dialogs;
 
+import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.app.AppIcons;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.types.Persistence;
 import de.elmar_baumann.lib.dialog.Dialog;
-import de.elmar_baumann.lib.persistence.PersistentComponentSizes;
-import de.elmar_baumann.lib.persistence.PersistentSettings;
-import de.elmar_baumann.lib.persistence.PersistentSettingsHints;
+import de.elmar_baumann.lib.util.SettingsHints;
 import java.awt.Component;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -123,23 +122,23 @@ public final class UserSettingsDialog extends Dialog {
         return tabOfIndex.get(tabbedPane.getSelectedIndex());
     }
 
-    private PersistentSettingsHints getPersistentSettingsHints() {
-        PersistentSettingsHints hints = new PersistentSettingsHints();
+    private SettingsHints getPersistentSettingsHints() {
+        SettingsHints hints = new SettingsHints();
         hints.setTabbedPaneContents(false);
         return hints;
     }
 
     private void readPersistent() {
-        PersistentComponentSizes.getSizeAndLocation(this);
-        PersistentSettings.INSTANCE.getTabbedPane(tabbedPane, keyTabbedPaneIndex, getPersistentSettingsHints());
+        UserSettings.INSTANCE.getComponentSizes().getSizeAndLocation(this);
+        UserSettings.INSTANCE.getSettings().getTabbedPane(tabbedPane, keyTabbedPaneIndex, getPersistentSettingsHints());
         for (Persistence panel : persistentPanels) {
             panel.readPersistent();
         }
     }
 
     private void writePersistent() {
-        PersistentSettings.INSTANCE.setTabbedPane(tabbedPane, keyTabbedPaneIndex, getPersistentSettingsHints());
-        PersistentComponentSizes.setSizeAndLocation(this);
+        UserSettings.INSTANCE.getSettings().setTabbedPane(tabbedPane, keyTabbedPaneIndex, getPersistentSettingsHints());
+        UserSettings.INSTANCE.getComponentSizes().setSizeAndLocation(this);
         for (Persistence panel : persistentPanels) {
             panel.writePersistent();
         }
@@ -227,14 +226,16 @@ private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:even
 }//GEN-LAST:event_formWindowClosing
 
     /**
-    * @param args the command line arguments
-    */
+     * @param args the command line arguments
+     */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             @Override
             public void run() {
                 UserSettingsDialog dialog = UserSettingsDialog.INSTANCE;
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);

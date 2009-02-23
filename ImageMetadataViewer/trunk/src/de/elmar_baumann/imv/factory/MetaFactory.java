@@ -1,11 +1,11 @@
 package de.elmar_baumann.imv.factory;
 
+import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.frames.AppFrame;
 import de.elmar_baumann.imv.view.panels.AppPanel;
-import de.elmar_baumann.lib.persistence.PersistentComponentSizes;
-import de.elmar_baumann.lib.persistence.PersistentSettings;
+import de.elmar_baumann.lib.util.ComponentSizesFromProperties;
 import javax.swing.JProgressBar;
 
 /**
@@ -44,13 +44,13 @@ public final class MetaFactory implements Runnable {
 
     private void readPersistentAppFrame() {
         AppFrame appFrame = GUI.INSTANCE.getAppFrame();
-        PersistentComponentSizes.getSizeAndLocation(appFrame);
+        UserSettings.INSTANCE.getComponentSizes().getSizeAndLocation(appFrame);
         appFrame.pack();
     }
 
     private void readPersistentAppPanel() {
         AppPanel appPanel = GUI.INSTANCE.getAppPanel();
-        PersistentSettings.INSTANCE.getComponent(
+        UserSettings.INSTANCE.getSettings().getComponent(
                 appPanel,
                 appPanel.getPersistentSettingsHints());
     }

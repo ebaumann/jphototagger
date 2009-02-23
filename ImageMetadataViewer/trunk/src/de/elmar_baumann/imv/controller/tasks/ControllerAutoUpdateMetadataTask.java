@@ -112,7 +112,7 @@ public final class ControllerAutoUpdateMetadataTask
             for (String directoryName : directoryNames) {
                 subdirectoryNames.addAll(
                         FileUtil.getAllSubDirectoryNames(directoryName,
-                        UserSettings.INSTANCE.isAcceptHiddenDirectories()));
+                        UserSettings.INSTANCE.getDefaultDirectoryFilter()));
             }
             directoryNames.addAll(subdirectoryNames);
         }

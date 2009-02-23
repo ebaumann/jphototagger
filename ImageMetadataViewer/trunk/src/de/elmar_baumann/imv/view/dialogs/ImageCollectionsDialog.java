@@ -1,10 +1,10 @@
 package de.elmar_baumann.imv.view.dialogs;
 
+import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.app.AppIcons;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.view.renderer.ListCellRendererImageCollections;
 import de.elmar_baumann.lib.dialog.Dialog;
-import de.elmar_baumann.lib.persistence.PersistentComponentSizes;
 import java.awt.event.MouseEvent;
 import javax.swing.ListModel;
 
@@ -59,9 +59,9 @@ public final class ImageCollectionsDialog extends Dialog {
     @Override
     public void setVisible(boolean visible) {
         if (visible) {
-            PersistentComponentSizes.getSizeAndLocation(this);
+            UserSettings.INSTANCE.getComponentSizes().getSizeAndLocation(this);
         } else {
-            PersistentComponentSizes.setSizeAndLocation(this);
+            UserSettings.INSTANCE.getComponentSizes().setSizeAndLocation(this);
         }
         super.setVisible(visible);
     }

@@ -1,9 +1,9 @@
 package de.elmar_baumann.imv.view.dialogs;
 
+import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.app.AppIcons;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.dialog.Dialog;
-import de.elmar_baumann.lib.persistence.PersistentComponentSizes;
 import java.awt.Frame;
 
 /**
@@ -25,7 +25,7 @@ public final class UpdateMetadataOfDirectoriesDialog extends Dialog {
 
     private void postInitComponents() {
         setIconImages(AppIcons.getAppIcons());
-        PersistentComponentSizes.getSizeAndLocation(this);
+        UserSettings.INSTANCE.getComponentSizes().getSizeAndLocation(this);
         setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
         registerKeyStrokes();
     }

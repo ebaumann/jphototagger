@@ -1,6 +1,5 @@
 package de.elmar_baumann.imv;
 
-import de.elmar_baumann.imv.app.AppIcons;
 import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.app.AppLock;
 import com.imagero.reader.AbstractImageReader;
@@ -10,8 +9,6 @@ import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.ImageProperties;
 import de.elmar_baumann.imv.view.frames.AppFrame;
 import de.elmar_baumann.lib.io.FileUtil;
-import de.elmar_baumann.lib.persistence.PersistentSettings;
-import de.elmar_baumann.lib.resource.Settings;
 import java.io.IOException;
 import java.util.logging.FileHandler;
 import java.util.logging.Formatter;
@@ -37,7 +34,6 @@ public final class Main {
     }
 
     private static void init() {
-        initSettings();
         LookAndFeelUtil.setSystemLookAndFeel();
         lock();
         messageInitDatabase();
@@ -48,13 +44,6 @@ public final class Main {
         showFrame();
     }
 
-    private static void initSettings() {
-        PersistentSettings settings = PersistentSettings.INSTANCE;
-        settings.setAppName("ImageMetaDataViewer"); // NOI18N NEVER CHANGE NAME AND LOCATION
-        settings.removeEmptyKeys();
-        Settings.INSTANCE.setIconImagesPath(AppIcons.getAppIconPaths());
-    }
-
     private static void lock() {
         if (!AppLock.lock() && !AppLock.forceUnlock()) {
             System.exit(1);
@@ -63,12 +52,12 @@ public final class Main {
 
     private static void messageInitDatabase() {
         SplashScreen.setMessageToSplashScreen(
-            Bundle.getString("Main.Init.InformationMessage.SplashScreen.ConnectToDatabase"));
+                Bundle.getString("Main.Init.InformationMessage.SplashScreen.ConnectToDatabase"));
     }
 
     private static void messageInitGui() {
         SplashScreen.setMessageToSplashScreen(
-            Bundle.getString("Main.Main.InformationMessage.SplashScreen.InitGui"));
+                Bundle.getString("Main.Main.InformationMessage.SplashScreen.InitGui"));
     }
 
     private static void showFrame() {
@@ -83,7 +72,7 @@ public final class Main {
 
     private static void initLogger() {
         try {
-            FileUtil.ensureDirectoryExists(PersistentSettings.INSTANCE.getDirectoryName());
+            FileUtil.ensureDirectoryExists(UserSettings.INSTANCE.getSettingsDirectoryName());
             Logger logger = Logger.getLogger("de.elmar_baumann"); // NOI18N
             Level usersLevel = UserSettings.INSTANCE.getLogLevel();
             addFileLogHandler(logger);

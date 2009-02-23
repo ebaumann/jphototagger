@@ -17,8 +17,6 @@ import de.elmar_baumann.imv.view.ViewUtil;
 import de.elmar_baumann.lib.dialog.Dialog;
 import de.elmar_baumann.lib.dialog.DirectoryChooser;
 import de.elmar_baumann.lib.io.FileUtil;
-import de.elmar_baumann.lib.persistence.PersistentComponentSizes;
-import de.elmar_baumann.lib.persistence.PersistentSettings;
 import de.elmar_baumann.lib.template.Pair;
 import java.io.File;
 import java.text.MessageFormat;
@@ -57,7 +55,7 @@ public final class MoveToDirectoryDialog extends Dialog
     public synchronized void addProgressListener(ProgressListener listener) {
         progressListeners.add(listener);
     }
-    
+
     private synchronized void notifyProgressListenerStarted(ProgressEvent evt) {
         for (ProgressListener listener : progressListeners) {
             listener.progressStarted(evt);
@@ -143,10 +141,8 @@ public final class MoveToDirectoryDialog extends Dialog
     }
 
     private void chooseTargetDirectory() {
-        DirectoryChooser dialog = new DirectoryChooser(null, UserSettings.INSTANCE.isAcceptHiddenDirectories());
+        DirectoryChooser dialog = new DirectoryChooser(null, targetDirectory, UserSettings.INSTANCE.getDefaultDirectoryChooserOptions());
         ViewUtil.setDirectoryTreeModel(dialog);
-        dialog.setStartDirectory(targetDirectory);
-        dialog.setMultiSelection(false);
         dialog.setVisible(true);
         if (dialog.accepted()) {
             List<File> files = dialog.getSelectedDirectories();
@@ -188,19 +184,19 @@ public final class MoveToDirectoryDialog extends Dialog
     @Override
     public void setVisible(boolean visible) {
         if (visible) {
-            PersistentComponentSizes.getSizeAndLocation(this);
+            UserSettings.INSTANCE.getComponentSizes().getSizeAndLocation(this);
             if (moveIfVisible) {
                 start();
             } else {
-                targetDirectory = new File(PersistentSettings.INSTANCE.getString(keyTargetDirectory));
+                targetDirectory = new File(UserSettings.INSTANCE.getSettings().getString(keyTargetDirectory));
                 if (targetDirectory.exists()) {
                     labelDirectoryName.setText(targetDirectory.getAbsolutePath());
                     buttonStart.setEnabled(true);
                 }
             }
         } else {
-            PersistentComponentSizes.setSizeAndLocation(this);
-            PersistentSettings.INSTANCE.setString(targetDirectory.getAbsolutePath(), keyTargetDirectory);
+            UserSettings.INSTANCE.getComponentSizes().setSizeAndLocation(this);
+            UserSettings.INSTANCE.getSettings().setString(targetDirectory.getAbsolutePath(), keyTargetDirectory);
         }
         super.setVisible(visible);
     }

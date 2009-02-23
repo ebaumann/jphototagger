@@ -1,13 +1,12 @@
 package de.elmar_baumann.imv.view.dialogs;
 
+import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.app.AppIcons;
 import de.elmar_baumann.imv.database.metadata.Column;
 import de.elmar_baumann.imv.database.metadata.selections.EditColumns;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.dialog.Dialog;
-import de.elmar_baumann.lib.persistence.PersistentComponentSizes;
-import de.elmar_baumann.lib.persistence.PersistentSettings;
-import de.elmar_baumann.lib.persistence.PersistentSettingsHints;
+import de.elmar_baumann.lib.util.SettingsHints;
 import java.util.Set;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
@@ -60,11 +59,11 @@ public final class RenameInXmpColumnsDialog extends Dialog {
     @Override
     public void setVisible(boolean visible) {
         if (visible) {
-            PersistentComponentSizes.getSizeAndLocation(this);
-            PersistentSettings.INSTANCE.getComponent(this, new PersistentSettingsHints());
+            UserSettings.INSTANCE.getComponentSizes().getSizeAndLocation(this);
+            UserSettings.INSTANCE.getSettings().getComponent(this, new SettingsHints());
         } else {
-            PersistentComponentSizes.setSizeAndLocation(this);
-            PersistentSettings.INSTANCE.setComponent(this, new PersistentSettingsHints());
+            UserSettings.INSTANCE.getComponentSizes().setSizeAndLocation(this);
+            UserSettings.INSTANCE.getSettings().setComponent(this, new SettingsHints());
         }
         super.setVisible(visible);
     }

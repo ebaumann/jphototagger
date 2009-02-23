@@ -1,5 +1,6 @@
 package de.elmar_baumann.imv.controller.thumbnail;
 
+import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.event.AppExitListener;
 import de.elmar_baumann.imv.event.ThumbnailsPanelAction;
 import de.elmar_baumann.imv.event.ThumbnailsPanelListener;
@@ -7,7 +8,6 @@ import de.elmar_baumann.imv.io.FileSort;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.lib.io.FileUtil;
-import de.elmar_baumann.lib.persistence.PersistentSettings;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +46,7 @@ public final class ControllerThumbnailsPanelPersistence
     @Override
     public void thumbnailsChanged() {
         checkFirstChange();
-        PersistentSettings.INSTANCE.setString(thumbnailsPanel.getSort().name(), keySort);
+        UserSettings.INSTANCE.getSettings().setString(thumbnailsPanel.getSort().name(), keySort);
     }
 
     private void checkFirstChange() {
@@ -59,7 +59,7 @@ public final class ControllerThumbnailsPanelPersistence
     }
 
     private void writePersistentSelection() {
-        PersistentSettings.INSTANCE.setStringArray(
+        UserSettings.INSTANCE.getSettings().setStringArray(
             FileUtil.getAsFilenames(thumbnailsPanel.getSelectedFiles()), keySelectedFiles);
     }
 
@@ -76,12 +76,12 @@ public final class ControllerThumbnailsPanelPersistence
 
     private void readPersistent() {
         persistentSelectedFiles = FileUtil.getAsFiles(
-            PersistentSettings.INSTANCE.getStringArray(keySelectedFiles));
+            UserSettings.INSTANCE.getSettings().getStringArray(keySelectedFiles));
         readPersistentSort();
     }
 
     private void readPersistentSort() {
-        String name = PersistentSettings.INSTANCE.getString(keySort);
+        String name = UserSettings.INSTANCE.getSettings().getString(keySort);
         try {
             if (!name.isEmpty()) {
                 thumbnailsPanel.setSort(FileSort.valueOf(name));
@@ -92,7 +92,7 @@ public final class ControllerThumbnailsPanelPersistence
     }
 
     private void readPersistentViewportViewPosition() {
-        PersistentSettings.INSTANCE.getScrollPane(
+        UserSettings.INSTANCE.getSettings().getScrollPane(
             GUI.INSTANCE.getAppPanel().getScrollPaneThumbnailsPanel(),
             keyThumbnailPanelViewportViewPosition);
     }
@@ -103,7 +103,7 @@ public final class ControllerThumbnailsPanelPersistence
     }
 
     private void writePersistentViewportViewPosition() {
-        PersistentSettings.INSTANCE.setScrollPane(
+        UserSettings.INSTANCE.getSettings().setScrollPane(
             GUI.INSTANCE.getAppPanel().getScrollPaneThumbnailsPanel(),
             keyThumbnailPanelViewportViewPosition);
     }

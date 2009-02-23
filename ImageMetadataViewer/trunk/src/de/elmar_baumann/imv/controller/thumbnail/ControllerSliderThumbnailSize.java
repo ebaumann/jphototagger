@@ -9,7 +9,6 @@ import de.elmar_baumann.imv.event.UserSettingsChangeListener;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.view.panels.ThumbnailsPanel;
-import de.elmar_baumann.lib.persistence.PersistentSettings;
 import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -87,7 +86,7 @@ public final class ControllerSliderThumbnailSize
     }
 
     private void readPersistent() {
-        Integer value = PersistentSettings.INSTANCE.getInt(keySliderValue);
+        Integer value = UserSettings.INSTANCE.getSettings().getInt(keySliderValue);
         if (!value.equals(Integer.MIN_VALUE)) {
             currentValue = value;
         }
@@ -99,6 +98,6 @@ public final class ControllerSliderThumbnailSize
     }
 
     private void writePersistent() {
-        PersistentSettings.INSTANCE.setInt(currentValue, keySliderValue);
+        UserSettings.INSTANCE.getSettings().setInt(currentValue, keySliderValue);
     }
 }

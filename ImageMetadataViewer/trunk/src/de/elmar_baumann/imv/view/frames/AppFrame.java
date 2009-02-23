@@ -1,5 +1,6 @@
 package de.elmar_baumann.imv.view.frames;
 
+import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.app.AppIcons;
 import de.elmar_baumann.imv.app.AppInfo;
 import de.elmar_baumann.imv.app.AppLock;
@@ -10,8 +11,6 @@ import de.elmar_baumann.imv.io.FileSort;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.AppPanel;
-import de.elmar_baumann.lib.persistence.PersistentComponentSizes;
-import de.elmar_baumann.lib.persistence.PersistentSettings;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
@@ -209,8 +208,8 @@ public final class AppFrame extends javax.swing.JFrame {
     }
 
     private void writePersistent() {
-        PersistentComponentSizes.setSizeAndLocation(this);
-        PersistentSettings.INSTANCE.writeToFile();
+        UserSettings.INSTANCE.getComponentSizes().setSizeAndLocation(this);
+        UserSettings.INSTANCE.writeToFile();
     }
 
     private void setTitleAndFrameIcon() {

@@ -43,11 +43,9 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
 
     private File chooseDirectory(File startDirectory) {
         File dir = null;
-        DirectoryChooser dialog = new DirectoryChooser(null, false);
+        DirectoryChooser dialog = new DirectoryChooser(null, startDirectory, UserSettings.INSTANCE.getDefaultDirectoryChooserOptions());
         ViewUtil.setDirectoryTreeModel(dialog);
 
-        dialog.setStartDirectory(startDirectory);
-        dialog.setMultiSelection(false);
         dialog.setVisible(true);
 
         if (dialog.accepted()) {

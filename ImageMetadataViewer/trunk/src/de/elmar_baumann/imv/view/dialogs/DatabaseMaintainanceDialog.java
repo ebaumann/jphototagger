@@ -1,11 +1,10 @@
 package de.elmar_baumann.imv.view.dialogs;
 
+import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.app.AppIcons;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.dialog.Dialog;
-import de.elmar_baumann.lib.persistence.PersistentComponentSizes;
-import de.elmar_baumann.lib.persistence.PersistentSettings;
-import de.elmar_baumann.lib.persistence.PersistentSettingsHints;
+import de.elmar_baumann.lib.util.SettingsHints;
 import javax.swing.JOptionPane;
 
 /**
@@ -27,8 +26,8 @@ public final class DatabaseMaintainanceDialog extends Dialog {
     public void setVisible(boolean visible) {
         super.setVisible(visible);
         if (visible) {
-            PersistentComponentSizes.getSizeAndLocation(this);
-            PersistentSettings.INSTANCE.getComponent(this, new PersistentSettingsHints());
+            UserSettings.INSTANCE.getComponentSizes().getSizeAndLocation(this);
+            UserSettings.INSTANCE.getSettings().getComponent(this, new SettingsHints());
         }
         panelMaintainance.getsVisible(visible);
         panelCount.listenToDatabaseChanges(visible);
@@ -42,8 +41,8 @@ public final class DatabaseMaintainanceDialog extends Dialog {
 
     private void close() {
         if (panelMaintainance.canClose()) {
-            PersistentComponentSizes.setSizeAndLocation(this);
-            PersistentSettings.INSTANCE.setComponent(this, new PersistentSettingsHints());
+            UserSettings.INSTANCE.getComponentSizes().setSizeAndLocation(this);
+            UserSettings.INSTANCE.getSettings().setComponent(this, new SettingsHints());
             setVisible(false);
         } else {
             messageWaitBeforeClose();

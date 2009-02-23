@@ -7,11 +7,13 @@ import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.dialogs.CopyToDirectoryDialog;
 import de.elmar_baumann.imv.view.dialogs.UserSettingsDialog;
+import de.elmar_baumann.lib.io.DirectoryFilter.Option;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -59,7 +61,7 @@ public final class ControllerAutocopyDirectory implements ActionListener {
     private synchronized void copy(File srcDir) {
         List<File> directories = new ArrayList<File>();
         directories.add(srcDir);
-        directories.addAll(FileUtil.getAllSubDirectories(srcDir, false));
+        directories.addAll(FileUtil.getAllSubDirectories(srcDir, new HashSet<Option>()));
         List<File> files = ImageFilteredDirectory.getImageFilesOfDirectories(directories);
         if (files.size() > 0) {
             CopyToDirectoryDialog dialog = new CopyToDirectoryDialog();

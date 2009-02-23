@@ -1,5 +1,6 @@
 package de.elmar_baumann.imv.view.dialogs;
 
+import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.app.AppIcons;
 import de.elmar_baumann.imv.controller.actions.ControllerActionExecutor;
 import de.elmar_baumann.imv.data.Program;
@@ -7,7 +8,6 @@ import de.elmar_baumann.imv.event.ProgramActionEvent;
 import de.elmar_baumann.imv.event.ProgramActionListener;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.dialog.Dialog;
-import de.elmar_baumann.lib.persistence.PersistentComponentSizes;
 import javax.swing.JProgressBar;
 
 /**
@@ -40,9 +40,9 @@ public final class ActionsDialog extends Dialog implements ProgramActionListener
     public void setVisible(boolean visible) {
         if (visible) {
             panelActions.setButtonsEnabled();
-            PersistentComponentSizes.getSizeAndLocation(this);
+            UserSettings.INSTANCE.getComponentSizes().getSizeAndLocation(this);
         } else {
-            PersistentComponentSizes.setSizeAndLocation(this);
+            UserSettings.INSTANCE.getComponentSizes().setSizeAndLocation(this);
         }
         super.setVisible(visible);
     }
