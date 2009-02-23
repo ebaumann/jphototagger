@@ -87,7 +87,7 @@ public final class ControllerSliderThumbnailSize
     }
 
     private void readPersistent() {
-        Integer value = PersistentSettings.getInstance().getInt(keySliderValue);
+        Integer value = PersistentSettings.INSTANCE.getInt(keySliderValue);
         if (!value.equals(Integer.MIN_VALUE)) {
             currentValue = value;
         }
@@ -99,6 +99,6 @@ public final class ControllerSliderThumbnailSize
     }
 
     private void writePersistent() {
-        PersistentSettings.getInstance().setInt(currentValue, keySliderValue);
+        PersistentSettings.INSTANCE.setInt(currentValue, keySliderValue);
     }
 }

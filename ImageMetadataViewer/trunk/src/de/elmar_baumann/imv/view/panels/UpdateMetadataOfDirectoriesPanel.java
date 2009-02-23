@@ -46,7 +46,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
     public void willDispose() {
         stop();
         writePersistent();
-        PersistentSettings.getInstance().setString(
+        PersistentSettings.INSTANCE.setString(
             lastSelectedDirectory.getAbsolutePath(), keyLastDirectory);
     }
 
@@ -117,7 +117,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
     }
 
     private void readPersistent() {
-        PersistentSettings settings = PersistentSettings.getInstance();
+        PersistentSettings settings = PersistentSettings.INSTANCE;
         settings.getCheckBox(checkBoxForce, keyForce);
         settings.getCheckBox(checkBoxIncludeSubdirectories, keySubdirectories);
         readPersistentCurrentDirectory();
@@ -248,7 +248,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
 
     private void readPersistentCurrentDirectory() {
         String currentDirectoryname =
-            PersistentSettings.getInstance().getString(keyLastDirectory);
+            PersistentSettings.INSTANCE.getString(keyLastDirectory);
         if (!currentDirectoryname.isEmpty()) {
             File directory = new File(currentDirectoryname);
             if (directory.exists() && directory.isDirectory()) {
@@ -270,7 +270,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
     }
 
     private void writePersistent() {
-        PersistentSettings settings = PersistentSettings.getInstance();
+        PersistentSettings settings = PersistentSettings.INSTANCE;
         settings.setCheckBox(checkBoxForce, keyForce);
         settings.setCheckBox(checkBoxIncludeSubdirectories, keySubdirectories);
         PersistentComponentSizes.setSizeAndLocation(this);

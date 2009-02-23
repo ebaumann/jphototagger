@@ -49,7 +49,7 @@ public final class Main {
     }
 
     private static void initSettings() {
-        PersistentSettings settings = PersistentSettings.getInstance();
+        PersistentSettings settings = PersistentSettings.INSTANCE;
         settings.setAppName("ImageMetaDataViewer"); // NOI18N NEVER CHANGE NAME AND LOCATION
         settings.removeEmptyKeys();
         Settings.INSTANCE.setIconImagesPath(AppIcons.getAppIconPaths());
@@ -83,7 +83,7 @@ public final class Main {
 
     private static void initLogger() {
         try {
-            FileUtil.ensureDirectoryExists(PersistentSettings.getInstance().getDirectoryName());
+            FileUtil.ensureDirectoryExists(PersistentSettings.INSTANCE.getDirectoryName());
             Logger logger = Logger.getLogger("de.elmar_baumann"); // NOI18N
             Level usersLevel = UserSettings.INSTANCE.getLogLevel();
             addFileLogHandler(logger);

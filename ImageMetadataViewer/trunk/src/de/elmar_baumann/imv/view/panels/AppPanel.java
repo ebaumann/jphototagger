@@ -353,7 +353,7 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
 
     @Override
     public void appWillExit() {
-        PersistentSettings settings = PersistentSettings.getInstance();
+        PersistentSettings settings = PersistentSettings.INSTANCE;
         settings.setComponent(this, getPersistentSettingsHints());
         int dividerLocationThumbnails = splitPaneThumbnailsMetadata.getDividerLocation();
         int dividerLocationMain = splitPaneMain.getDividerLocation();
@@ -371,12 +371,12 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
     }
 
     private int getDividerLocationThumbnails() {
-        int location = PersistentSettings.getInstance().getInt(keyDividerLocationThumbnails);
+        int location = PersistentSettings.INSTANCE.getInt(keyDividerLocationThumbnails);
         return location > minDividerLocationThumbnails ? location : minDividerLocationThumbnails;
     }
 
     private int getDividerLocationMain() {
-        int location = PersistentSettings.getInstance().getInt(keyDividerLocationMain);
+        int location = PersistentSettings.INSTANCE.getInt(keyDividerLocationMain);
         return location > minDividerLocationMain ? location : minDividerLocationMain;
     }
 

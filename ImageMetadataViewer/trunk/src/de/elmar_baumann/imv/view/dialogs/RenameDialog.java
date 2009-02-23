@@ -336,12 +336,12 @@ public final class RenameDialog extends Dialog {
     public void setVisible(boolean visible) {
         if (visible) {
             PersistentComponentSizes.getSizeAndLocation(this);
-            PersistentSettings.getInstance().getComponent(this, getPersistentSettingsHints());
+            PersistentSettings.INSTANCE.getComponent(this, getPersistentSettingsHints());
             setCurrentFilenameToInputPanel();
             setExampleFilename();
         } else {
             PersistentComponentSizes.setSizeAndLocation(this);
-            PersistentSettings.getInstance().setComponent(this, getPersistentSettingsHints());
+            PersistentSettings.INSTANCE.setComponent(this, getPersistentSettingsHints());
         }
         super.setVisible(visible);
     }

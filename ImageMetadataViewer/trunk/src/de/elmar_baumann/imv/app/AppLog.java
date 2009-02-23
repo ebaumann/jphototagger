@@ -98,7 +98,7 @@ public final class AppLog {
      * @return Logdatei
      */
     public static String getLogfileName() {
-        return PersistentSettings.getInstance().getDirectoryName() +
+        return PersistentSettings.INSTANCE.getDirectoryName() +
             File.separator + "imagemetadataviewerlog.xml";  // NOI18N
     }
 

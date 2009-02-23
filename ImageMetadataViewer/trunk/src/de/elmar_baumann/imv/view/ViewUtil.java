@@ -65,7 +65,7 @@ public class ViewUtil {
 
     public static void writePersistentTreeDirectories() {
         JTree treeDirectories = GUI.INSTANCE.getAppPanel().getTreeDirectories();
-        PersistentSettings settings = PersistentSettings.getInstance();
+        PersistentSettings settings = PersistentSettings.INSTANCE;
         if (treeDirectories.getSelectionCount() > 0) {
             settings.setString(
                 treeDirectories.getSelectionPath().getLastPathComponent().toString(), keyTreeDirectories);
@@ -76,7 +76,7 @@ public class ViewUtil {
 
     public static void readPersistentTreeDirectories() {
         JTree treeDirectories = GUI.INSTANCE.getAppPanel().getTreeDirectories();
-        String filename = PersistentSettings.getInstance().getString(keyTreeDirectories);
+        String filename = PersistentSettings.INSTANCE.getString(keyTreeDirectories);
 
         if (!filename.isEmpty() && FileUtil.existsDirectory(filename)) {
             TreePath path = TreeUtil.getTreePath(

@@ -131,14 +131,14 @@ public final class UserSettingsDialog extends Dialog {
 
     private void readPersistent() {
         PersistentComponentSizes.getSizeAndLocation(this);
-        PersistentSettings.getInstance().getTabbedPane(tabbedPane, keyTabbedPaneIndex, getPersistentSettingsHints());
+        PersistentSettings.INSTANCE.getTabbedPane(tabbedPane, keyTabbedPaneIndex, getPersistentSettingsHints());
         for (Persistence panel : persistentPanels) {
             panel.readPersistent();
         }
     }
 
     private void writePersistent() {
-        PersistentSettings.getInstance().setTabbedPane(tabbedPane, keyTabbedPaneIndex, getPersistentSettingsHints());
+        PersistentSettings.INSTANCE.setTabbedPane(tabbedPane, keyTabbedPaneIndex, getPersistentSettingsHints());
         PersistentComponentSizes.setSizeAndLocation(this);
         for (Persistence panel : persistentPanels) {
             panel.writePersistent();

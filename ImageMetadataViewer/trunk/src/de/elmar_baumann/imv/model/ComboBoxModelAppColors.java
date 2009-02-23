@@ -63,7 +63,7 @@ public final class ComboBoxModelAppColors extends DefaultComboBoxModel {
     }
 
     private void selectElement() {
-        String index = PersistentSettings.getInstance().getString(keySelectedIndex);
+        String index = PersistentSettings.INSTANCE.getString(keySelectedIndex);
         if (!index.isEmpty()) {
             try {
                 setSelectedItem(getElementAt(Integer.parseInt(index)));

@@ -18,9 +18,9 @@ import java.net.URL;
 public final class ControllerHelp implements ActionListener,
         HelpBrowserListener {
 
-    private final HelpBrowser help = HelpBrowser.getInstance();
+    private final HelpBrowser help = HelpBrowser.INSTANCE;
     private static final String keyCurrentUrl = ControllerHelp.class.getName() + ".CurrentURL";
-    private String currentUrl = PersistentSettings.getInstance().getString(keyCurrentUrl);
+    private String currentUrl = PersistentSettings.INSTANCE.getString(keyCurrentUrl);
 
     public ControllerHelp() {
         help.setContentsUrl(Bundle.getString("Help.Url.Contents"));
@@ -47,7 +47,7 @@ public final class ControllerHelp implements ActionListener,
         URL url = action.getUrl();
         if (!url.getProtocol().startsWith("http")) {
             currentUrl = HelpBrowser.getLastPathComponent(url);
-            PersistentSettings.getInstance().setString(currentUrl, keyCurrentUrl);
+            PersistentSettings.INSTANCE.setString(currentUrl, keyCurrentUrl);
         }
     }
 

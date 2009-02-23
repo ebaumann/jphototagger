@@ -46,7 +46,7 @@ public final class ControllerThumbnailsPanelPersistence
     @Override
     public void thumbnailsChanged() {
         checkFirstChange();
-        PersistentSettings.getInstance().setString(thumbnailsPanel.getSort().name(), keySort);
+        PersistentSettings.INSTANCE.setString(thumbnailsPanel.getSort().name(), keySort);
     }
 
     private void checkFirstChange() {
@@ -59,7 +59,7 @@ public final class ControllerThumbnailsPanelPersistence
     }
 
     private void writePersistentSelection() {
-        PersistentSettings.getInstance().setStringArray(
+        PersistentSettings.INSTANCE.setStringArray(
             FileUtil.getAsFilenames(thumbnailsPanel.getSelectedFiles()), keySelectedFiles);
     }
 
@@ -76,12 +76,12 @@ public final class ControllerThumbnailsPanelPersistence
 
     private void readPersistent() {
         persistentSelectedFiles = FileUtil.getAsFiles(
-            PersistentSettings.getInstance().getStringArray(keySelectedFiles));
+            PersistentSettings.INSTANCE.getStringArray(keySelectedFiles));
         readPersistentSort();
     }
 
     private void readPersistentSort() {
-        String name = PersistentSettings.getInstance().getString(keySort);
+        String name = PersistentSettings.INSTANCE.getString(keySort);
         try {
             if (!name.isEmpty()) {
                 thumbnailsPanel.setSort(FileSort.valueOf(name));
@@ -92,7 +92,7 @@ public final class ControllerThumbnailsPanelPersistence
     }
 
     private void readPersistentViewportViewPosition() {
-        PersistentSettings.getInstance().getScrollPane(
+        PersistentSettings.INSTANCE.getScrollPane(
             GUI.INSTANCE.getAppPanel().getScrollPaneThumbnailsPanel(),
             keyThumbnailPanelViewportViewPosition);
     }
@@ -103,7 +103,7 @@ public final class ControllerThumbnailsPanelPersistence
     }
 
     private void writePersistentViewportViewPosition() {
-        PersistentSettings.getInstance().setScrollPane(
+        PersistentSettings.INSTANCE.setScrollPane(
             GUI.INSTANCE.getAppPanel().getScrollPaneThumbnailsPanel(),
             keyThumbnailPanelViewportViewPosition);
     }

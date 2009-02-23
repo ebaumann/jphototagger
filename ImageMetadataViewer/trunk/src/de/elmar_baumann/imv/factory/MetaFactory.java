@@ -50,7 +50,7 @@ public final class MetaFactory implements Runnable {
 
     private void readPersistentAppPanel() {
         AppPanel appPanel = GUI.INSTANCE.getAppPanel();
-        PersistentSettings.getInstance().getComponent(
+        PersistentSettings.INSTANCE.getComponent(
                 appPanel,
                 appPanel.getPersistentSettingsHints());
     }

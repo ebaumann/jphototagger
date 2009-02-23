@@ -40,7 +40,7 @@ public final class UserSettings implements UserSettingsChangeListener {
     private static final String keyMinutesToStartScheduledTasks = "UserSettings.MinutesToStartScheduledTasks";
     private static final String keyThreadPriority = "UserSettings.ThreadPriority";
     private static final String keyAutocopyDirectory = "UserSettings.AutocopyDirectory";
-    private static final PersistentSettings persistentSettings = PersistentSettings.getInstance();
+    private static final PersistentSettings persistentSettings = PersistentSettings.INSTANCE;
     public static final UserSettings INSTANCE = new UserSettings();
 
     private UserSettings() {
@@ -201,7 +201,7 @@ public final class UserSettings implements UserSettingsChangeListener {
             return Class.forName(className);
         } catch (ClassNotFoundException ex) {
             de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
-            PersistentSettings.getInstance().setString(XMLFormatter.class.getName(), keyLogfileFormatterClass);
+            PersistentSettings.INSTANCE.setString(XMLFormatter.class.getName(), keyLogfileFormatterClass);
         }
         return XMLFormatter.class;
     }

@@ -192,7 +192,7 @@ public final class MoveToDirectoryDialog extends Dialog
             if (moveIfVisible) {
                 start();
             } else {
-                targetDirectory = new File(PersistentSettings.getInstance().getString(keyTargetDirectory));
+                targetDirectory = new File(PersistentSettings.INSTANCE.getString(keyTargetDirectory));
                 if (targetDirectory.exists()) {
                     labelDirectoryName.setText(targetDirectory.getAbsolutePath());
                     buttonStart.setEnabled(true);
@@ -200,7 +200,7 @@ public final class MoveToDirectoryDialog extends Dialog
             }
         } else {
             PersistentComponentSizes.setSizeAndLocation(this);
-            PersistentSettings.getInstance().setString(targetDirectory.getAbsolutePath(), keyTargetDirectory);
+            PersistentSettings.INSTANCE.setString(targetDirectory.getAbsolutePath(), keyTargetDirectory);
         }
         super.setVisible(visible);
     }

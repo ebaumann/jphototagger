@@ -136,7 +136,7 @@ public abstract class Table {
 
     /**
      * Abgeleitete Tabellen sollen ihre Spalten hinzufügen. Dies können sie nicht
-     * im Konstruktor, da auch die Spalten Singletons sind, welche getInstance()
+     * im Konstruktor, da auch die Spalten Singletons sind, welche die Instanzen
      * der Tabellen aufrufen und es so zu einem Stackoverflow käme.
      */
     protected abstract void addColumns();

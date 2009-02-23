@@ -158,10 +158,10 @@ public final class FavoriteDirectoryPropertiesDialog extends Dialog {
     public void setVisible(
         boolean visible) {
         if (visible) {
-            lastDirectory = PersistentSettings.getInstance().getString(keyLastDirectory);
+            lastDirectory = PersistentSettings.INSTANCE.getString(keyLastDirectory);
             PersistentComponentSizes.getSizeAndLocation(this);
         } else {
-            PersistentSettings.getInstance().setString(lastDirectory, keyLastDirectory);
+            PersistentSettings.INSTANCE.setString(lastDirectory, keyLastDirectory);
             PersistentComponentSizes.setSizeAndLocation(this);
         }
         super.setVisible(visible);

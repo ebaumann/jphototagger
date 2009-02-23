@@ -59,13 +59,13 @@ public final class SettingsTasksPanel extends javax.swing.JPanel
             settings.isAutoscanIncludeSubdirectories());
         checkBoxIsTaskRemoveRecordsWithNotExistingFiles.setSelected(
             settings.isTaskRemoveRecordsWithNotExistingFiles());
-        lastSelectedAutoscanDirectory = PersistentSettings.getInstance().
+        lastSelectedAutoscanDirectory = PersistentSettings.INSTANCE.
             getString(keyLastSelectedAutoscanDirectory);
     }
 
     @Override
     public void writePersistent() {
-        PersistentSettings.getInstance().setString(
+        PersistentSettings.INSTANCE.setString(
             lastSelectedAutoscanDirectory, keyLastSelectedAutoscanDirectory);
     }
 

@@ -61,10 +61,10 @@ public final class RenameInXmpColumnsDialog extends Dialog {
     public void setVisible(boolean visible) {
         if (visible) {
             PersistentComponentSizes.getSizeAndLocation(this);
-            PersistentSettings.getInstance().getComponent(this, new PersistentSettingsHints());
+            PersistentSettings.INSTANCE.getComponent(this, new PersistentSettingsHints());
         } else {
             PersistentComponentSizes.setSizeAndLocation(this);
-            PersistentSettings.getInstance().setComponent(this, new PersistentSettingsHints());
+            PersistentSettings.INSTANCE.setComponent(this, new PersistentSettingsHints());
         }
         super.setVisible(visible);
     }

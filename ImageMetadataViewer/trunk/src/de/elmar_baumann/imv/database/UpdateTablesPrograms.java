@@ -22,14 +22,14 @@ final class UpdateTablesPrograms extends Database {
 
     synchronized void update(Connection connection) throws SQLException {
         List<File> files = FileUtil.getAsFiles(
-            PersistentSettings.getInstance().getStringArray(keyOtherImageOpenApps));
+            PersistentSettings.INSTANCE.getStringArray(keyOtherImageOpenApps));
         if (files.size() > 0) {
             DatabasePrograms db = DatabasePrograms.INSTANCE;
             for (File file : files) {
                 db.insert(new Program(file, file.getName()));
             }
-            PersistentSettings.getInstance().removeStringArray(keyOtherImageOpenApps);
-            PersistentSettings.getInstance().writeToFile();
+            PersistentSettings.INSTANCE.removeStringArray(keyOtherImageOpenApps);
+            PersistentSettings.INSTANCE.writeToFile();
         }
     }
 }

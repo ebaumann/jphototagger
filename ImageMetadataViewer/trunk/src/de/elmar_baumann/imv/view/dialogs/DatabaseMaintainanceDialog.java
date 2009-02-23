@@ -28,7 +28,7 @@ public final class DatabaseMaintainanceDialog extends Dialog {
         super.setVisible(visible);
         if (visible) {
             PersistentComponentSizes.getSizeAndLocation(this);
-            PersistentSettings.getInstance().getComponent(this, new PersistentSettingsHints());
+            PersistentSettings.INSTANCE.getComponent(this, new PersistentSettingsHints());
         }
         panelMaintainance.getsVisible(visible);
         panelCount.listenToDatabaseChanges(visible);
@@ -43,7 +43,7 @@ public final class DatabaseMaintainanceDialog extends Dialog {
     private void close() {
         if (panelMaintainance.canClose()) {
             PersistentComponentSizes.setSizeAndLocation(this);
-            PersistentSettings.getInstance().setComponent(this, new PersistentSettingsHints());
+            PersistentSettings.INSTANCE.setComponent(this, new PersistentSettingsHints());
             setVisible(false);
         } else {
             messageWaitBeforeClose();

@@ -210,7 +210,7 @@ public final class AppFrame extends javax.swing.JFrame {
 
     private void writePersistent() {
         PersistentComponentSizes.setSizeAndLocation(this);
-        PersistentSettings.getInstance().writeToFile();
+        PersistentSettings.INSTANCE.writeToFile();
     }
 
     private void setTitleAndFrameIcon() {

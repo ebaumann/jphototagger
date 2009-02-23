@@ -18,8 +18,8 @@ import javax.swing.JOptionPane;
 public final class AppLock {
 
     private static final String lockFileName =
-        PersistentSettings.getInstance().getDirectoryName() + File.separator +
-        PersistentSettings.getInstance().getAppName() + ".lck"; // NOI18N
+        PersistentSettings.INSTANCE.getDirectoryName() + File.separator +
+        PersistentSettings.INSTANCE.getAppName() + ".lck"; // NOI18N
 
     /**
      * Returns whether the application ist locked.

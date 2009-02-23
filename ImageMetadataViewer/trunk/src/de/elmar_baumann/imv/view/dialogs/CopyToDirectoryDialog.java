@@ -190,7 +190,7 @@ public final class CopyToDirectoryDialog extends Dialog
             if (copyIfVisible) {
                 start();
             } else {
-                lastDirectory = PersistentSettings.getInstance().getString(keyLastDirectory);
+                lastDirectory = PersistentSettings.INSTANCE.getString(keyLastDirectory);
                 if (FileUtil.existsDirectory(lastDirectory)) {
                     labelTargetDirectory.setText(lastDirectory);
                     buttonStart.setEnabled(true);
@@ -198,7 +198,7 @@ public final class CopyToDirectoryDialog extends Dialog
             }
         } else {
             PersistentComponentSizes.setSizeAndLocation(this);
-            PersistentSettings.getInstance().setString(lastDirectory, keyLastDirectory);
+            PersistentSettings.INSTANCE.setString(lastDirectory, keyLastDirectory);
         }
         super.setVisible(visible);
     }

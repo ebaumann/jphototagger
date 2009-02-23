@@ -79,13 +79,13 @@ public final class IptcToXmpDialog extends Dialog
     public void setVisible(boolean visible) {
         if (visible) {
             PersistentComponentSizes.getSizeAndLocation(this);
-            PersistentSettings.getInstance().getComponent(this, new PersistentSettingsHints());
-            directory = new File(PersistentSettings.getInstance().getString(keyDirectoryName));
+            PersistentSettings.INSTANCE.getComponent(this, new PersistentSettingsHints());
+            directory = new File(PersistentSettings.INSTANCE.getString(keyDirectoryName));
             init();
         } else {
             PersistentComponentSizes.setSizeAndLocation(this);
-            PersistentSettings.getInstance().setComponent(this, new PersistentSettingsHints());
-            PersistentSettings.getInstance().setString(directory.getAbsolutePath(), keyDirectoryName);
+            PersistentSettings.INSTANCE.setComponent(this, new PersistentSettingsHints());
+            PersistentSettings.INSTANCE.setString(directory.getAbsolutePath(), keyDirectoryName);
             dispose();
         }
         super.setVisible(visible);

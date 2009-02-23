@@ -51,10 +51,10 @@ public final class ProgramInputParametersDialog extends Dialog {
         PersistentSettingsHints hints = new PersistentSettingsHints();
         if (visible) {
             PersistentComponentSizes.getSizeAndLocation(this);
-            PersistentSettings.getInstance().getComponent(this, hints);
+            PersistentSettings.INSTANCE.getComponent(this, hints);
         } else {
             PersistentComponentSizes.setSizeAndLocation(this);
-            PersistentSettings.getInstance().setComponent(this, hints);
+            PersistentSettings.INSTANCE.setComponent(this, hints);
         }
         super.setVisible(visible);
     }
