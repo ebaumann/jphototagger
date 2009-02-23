@@ -8,7 +8,7 @@ import de.elmar_baumann.imv.event.MetadataEditPanelEvent;
 import de.elmar_baumann.imv.event.MetadataEditPanelListener;
 import de.elmar_baumann.imv.model.ComboBoxModelMetadataEditTemplates;
 import de.elmar_baumann.imv.resource.Bundle;
-import de.elmar_baumann.imv.resource.Panels;
+import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.view.panels.EditMetadataPanelsArray;
 import java.awt.event.ActionEvent;
@@ -26,8 +26,8 @@ import javax.swing.JOptionPane;
  */
 public final class ControllerMetadataTemplates implements ActionListener, MetadataEditPanelListener {
 
-    private final DatabaseMetadataEditTemplates db = DatabaseMetadataEditTemplates.getInstance();
-    private final AppPanel appPanel = Panels.getInstance().getAppPanel();
+    private final DatabaseMetadataEditTemplates db = DatabaseMetadataEditTemplates.INSTANCE;
+    private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
     private final EditMetadataPanelsArray editPanels = appPanel.getEditPanelsArray();
     private final JComboBox comboBoxMetadataTemplates = appPanel.getComboBoxMetadataTemplates();
     private final ComboBoxModelMetadataEditTemplates model = (ComboBoxModelMetadataEditTemplates) comboBoxMetadataTemplates.getModel();
@@ -49,7 +49,7 @@ public final class ControllerMetadataTemplates implements ActionListener, Metada
         buttonMetadataTemplateDelete.addActionListener(this);
         buttonMetadataTemplateInsert.addActionListener(this);
         buttonMetadataTemplateRename.addActionListener(this);
-        ListenerProvider.getInstance().addMetadataEditPanelListener(this);
+        ListenerProvider.INSTANCE.addMetadataEditPanelListener(this);
     }
 
     private void enableButtons() {

@@ -4,7 +4,7 @@ import de.elmar_baumann.imv.app.AppIcons;
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.io.ImageFilteredDirectory;
 import de.elmar_baumann.imv.resource.Bundle;
-import de.elmar_baumann.imv.resource.Panels;
+import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.dialogs.CopyToDirectoryDialog;
 import de.elmar_baumann.imv.view.dialogs.UserSettingsDialog;
 import de.elmar_baumann.lib.io.FileUtil;
@@ -28,7 +28,7 @@ public final class ControllerAutocopyDirectory implements ActionListener {
     }
 
     private void listen() {
-        Panels.getInstance().getAppFrame().getMenuItemAutocopyDirectory().addActionListener(this);
+        GUI.INSTANCE.getAppFrame().getMenuItemAutocopyDirectory().addActionListener(this);
     }
 
     @Override
@@ -37,7 +37,7 @@ public final class ControllerAutocopyDirectory implements ActionListener {
     }
 
     private void copy() {
-        File dir = UserSettings.getInstance().getAutocopyDirectory();
+        File dir = UserSettings.INSTANCE.getAutocopyDirectory();
         if (dir == null && confirmSetAutocopyDirectory()) {
             setAutocopyDirectory();
             copy(); // recursive
@@ -47,7 +47,7 @@ public final class ControllerAutocopyDirectory implements ActionListener {
     }
 
     private void setAutocopyDirectory() {
-        UserSettingsDialog dialog = UserSettingsDialog.getInstance();
+        UserSettingsDialog dialog = UserSettingsDialog.INSTANCE;
         dialog.selectTab(UserSettingsDialog.Tab.MISC);
         if (dialog.isVisible()) {
             dialog.toFront();

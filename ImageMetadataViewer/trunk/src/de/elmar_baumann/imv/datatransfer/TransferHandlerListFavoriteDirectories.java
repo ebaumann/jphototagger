@@ -3,7 +3,7 @@ package de.elmar_baumann.imv.datatransfer;
 import de.elmar_baumann.imv.app.AppIcons;
 import de.elmar_baumann.imv.data.FavoriteDirectory;
 import de.elmar_baumann.imv.model.ListModelFavoriteDirectories;
-import de.elmar_baumann.imv.resource.Panels;
+import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.dialogs.FavoriteDirectoryPropertiesDialog;
 import de.elmar_baumann.lib.componentutil.ListUtil;
 import de.elmar_baumann.lib.datatransfer.TransferUtil;
@@ -66,7 +66,7 @@ public final class TransferHandlerListFavoriteDirectories extends TransferHandle
     }
 
     private ListModelFavoriteDirectories getModel() {
-        return (ListModelFavoriteDirectories) Panels.getInstance().getAppPanel().
+        return (ListModelFavoriteDirectories) GUI.INSTANCE.getAppPanel().
             getListFavoriteDirectories().getModel();
     }
 

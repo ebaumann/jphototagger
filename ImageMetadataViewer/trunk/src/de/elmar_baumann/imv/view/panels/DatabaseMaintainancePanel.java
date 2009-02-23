@@ -78,7 +78,7 @@ public final class DatabaseMaintainancePanel extends javax.swing.JPanel
     private synchronized void startNextThread() {
         if (runnables.size() > 0) {
             Thread thread = new Thread(runnables.pop());
-            thread.setPriority(UserSettings.getInstance().getThreadPriority());
+            thread.setPriority(UserSettings.INSTANCE.getThreadPriority());
             thread.start();
         }
     }

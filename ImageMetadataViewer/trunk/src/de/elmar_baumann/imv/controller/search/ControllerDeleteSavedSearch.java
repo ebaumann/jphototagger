@@ -5,7 +5,7 @@ import de.elmar_baumann.imv.data.SavedSearch;
 import de.elmar_baumann.imv.database.DatabaseSavedSearches;
 import de.elmar_baumann.imv.model.ListModelSavedSearches;
 import de.elmar_baumann.imv.resource.Bundle;
-import de.elmar_baumann.imv.resource.Panels;
+import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuListSavedSearches;
 import java.awt.event.ActionEvent;
@@ -23,9 +23,9 @@ import javax.swing.JOptionPane;
  */
 public final class ControllerDeleteSavedSearch implements ActionListener {
 
-    private final DatabaseSavedSearches db = DatabaseSavedSearches.getInstance();
-    private final PopupMenuListSavedSearches actionPopup = PopupMenuListSavedSearches.getInstance();
-    private final AppPanel appPanel = Panels.getInstance().getAppPanel();
+    private final DatabaseSavedSearches db = DatabaseSavedSearches.INSTANCE;
+    private final PopupMenuListSavedSearches actionPopup = PopupMenuListSavedSearches.INSTANCE;
+    private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
     private final JList list = appPanel.getListSavedSearches();
     private final ListModelSavedSearches model = (ListModelSavedSearches) list.getModel();
 

@@ -17,7 +17,7 @@ import java.util.List;
  */
 final class UpdateTablesAddColumns {
 
-    private final UpdateTablesMessages messages = UpdateTablesMessages.getInstance();
+    private final UpdateTablesMessages messages = UpdateTablesMessages.INSTANCE;
     private final ProgressDialog dialog = messages.getProgressDialog();
     private final List<ColumnInfo> missingColumns = new ArrayList<ColumnInfo>();
     private static final List<ColumnInfo> columns = new ArrayList<ColumnInfo>();
@@ -46,7 +46,7 @@ final class UpdateTablesAddColumns {
     }
 
     private void setColumns(Connection connection) throws SQLException {
-        DatabaseMetadata dbMeta = DatabaseMetadata.getInstance();
+        DatabaseMetadata dbMeta = DatabaseMetadata.INSTANCE;
         missingColumns.clear();
         for (ColumnInfo info : columns) {
             if (!dbMeta.existsColumn(connection, info.getTableName(), info.getColumnName())) {

@@ -20,7 +20,7 @@ import java.util.List;
 public final class ErrorListeners {
 
     private final List<ErrorListener> errorListeners = new ArrayList<ErrorListener>();
-    private static final ErrorListeners instance = new ErrorListeners();
+    public static final ErrorListeners INSTANCE = new ErrorListeners();
 
     /**
      * Meldet einen Beobachter an.
@@ -40,15 +40,6 @@ public final class ErrorListeners {
         for (ErrorListener listener : errorListeners) {
             listener.error(evt);
         }
-    }
-
-    /**
-     * Liefert die einzige Instanz dieser Klasse.
-     * 
-     * @return Instanz
-     */
-    public static ErrorListeners getInstance() {
-        return instance;
     }
 
     private ErrorListeners() {

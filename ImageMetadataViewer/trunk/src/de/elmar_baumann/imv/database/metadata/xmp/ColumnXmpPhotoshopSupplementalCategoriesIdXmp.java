@@ -10,19 +10,15 @@ import de.elmar_baumann.imv.database.metadata.Column;
  */
 public final class ColumnXmpPhotoshopSupplementalCategoriesIdXmp extends Column {
 
-    private static final ColumnXmpPhotoshopSupplementalCategoriesIdXmp instance = new ColumnXmpPhotoshopSupplementalCategoriesIdXmp();
-
-    public static ColumnXmpPhotoshopSupplementalCategoriesIdXmp getInstance() {
-        return instance;
-    }
+    public static final ColumnXmpPhotoshopSupplementalCategoriesIdXmp INSTANCE = new ColumnXmpPhotoshopSupplementalCategoriesIdXmp();
 
     private ColumnXmpPhotoshopSupplementalCategoriesIdXmp() {
         super(
-            TableXmpPhotoshopSupplementalCategories.getInstance(),
+            TableXmpPhotoshopSupplementalCategories.INSTANCE,
             "id_xmp", // NOI18N
             DataType.BIGINT);
 
         setCanBeNull(false);
-        setReferences(ColumnXmpId.getInstance());
+        setReferences(ColumnXmpId.INSTANCE);
     }
 }

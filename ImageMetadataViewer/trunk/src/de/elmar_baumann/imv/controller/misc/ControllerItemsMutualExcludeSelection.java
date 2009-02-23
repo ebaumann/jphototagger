@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.controller.misc;
 
-import de.elmar_baumann.imv.resource.Panels;
+import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import java.util.List;
 import javax.swing.JList;
@@ -21,7 +21,7 @@ import javax.swing.event.TreeSelectionListener;
 public final class ControllerItemsMutualExcludeSelection
         implements TreeSelectionListener, ListSelectionListener {
 
-    private final AppPanel appPanel = Panels.getInstance().getAppPanel();
+    private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
     private final List<JTree> trees = appPanel.getSelectionTrees();
     private final List<JList> lists = appPanel.getSelectionLists();
     private boolean listen = true;

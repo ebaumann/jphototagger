@@ -10,23 +10,14 @@ import de.elmar_baumann.imv.database.metadata.Table;
  */
 public final class TableSavedSearches extends Table {
 
-    private static final TableSavedSearches instance = new TableSavedSearches();
+    public static final TableSavedSearches INSTANCE = new TableSavedSearches();
 
     private TableSavedSearches() {
         super("saved_searches"); // NOI18N
     }
 
-    /**
-     * Liefert die einzige Klasseninstanz.
-     * 
-     * @return Instanz
-     */
-    public static TableSavedSearches getInstance() {
-        return instance;
-    }
-
     @Override
     protected void addColumns() {
-        addColumn(ColumnSavedSearchesName.getInstance());
+        addColumn(ColumnSavedSearchesName.INSTANCE);
     }
 }

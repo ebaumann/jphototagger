@@ -15,16 +15,12 @@ import java.awt.Frame;
  */
 public final class UpdateMetadataOfDirectoriesDialog extends Dialog {
 
-    private static final UpdateMetadataOfDirectoriesDialog instance = new UpdateMetadataOfDirectoriesDialog();
+    public static final UpdateMetadataOfDirectoriesDialog INSTANCE = new UpdateMetadataOfDirectoriesDialog();
 
     private UpdateMetadataOfDirectoriesDialog() {
         super((Frame) null, false);
         initComponents();
         postInitComponents();
-    }
-
-    public static UpdateMetadataOfDirectoriesDialog getInstance() {
-        return instance;
     }
 
     private void postInitComponents() {

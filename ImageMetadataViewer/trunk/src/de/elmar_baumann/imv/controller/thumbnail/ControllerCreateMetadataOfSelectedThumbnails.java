@@ -5,7 +5,7 @@ import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.tasks.InsertImageFilesIntoDatabase;
 import de.elmar_baumann.imv.event.ProgressEvent;
 import de.elmar_baumann.imv.event.ProgressListener;
-import de.elmar_baumann.imv.resource.Panels;
+import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.resource.ProgressBarCurrentTasks;
 import de.elmar_baumann.imv.tasks.Task;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
@@ -34,9 +34,9 @@ public final class ControllerCreateMetadataOfSelectedThumbnails
         implements ActionListener, ProgressListener, Task {
 
     private final Queue<InsertImageFilesIntoDatabase> updaters = new ConcurrentLinkedQueue<InsertImageFilesIntoDatabase>();
-    private final PopupMenuPanelThumbnails popupMenu = PopupMenuPanelThumbnails.getInstance();
-    private final ProgressBarCurrentTasks progressBarProvider = ProgressBarCurrentTasks.getInstance();
-    private final ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
+    private final PopupMenuPanelThumbnails popupMenu = PopupMenuPanelThumbnails.INSTANCE;
+    private final ProgressBarCurrentTasks progressBarProvider = ProgressBarCurrentTasks.INSTANCE;
+    private final ImageFileThumbnailsPanel thumbnailsPanel = GUI.INSTANCE.getAppPanel().getPanelThumbnails();
     private JProgressBar progressBar;
     private boolean wait = false;
     private boolean stop = false;
@@ -78,7 +78,7 @@ public final class ControllerCreateMetadataOfSelectedThumbnails
         if (!isWait()) {
             setWait(true);
             Thread thread = new Thread(updaters.remove());
-            thread.setPriority(UserSettings.getInstance().getThreadPriority());
+            thread.setPriority(UserSettings.INSTANCE.getThreadPriority());
             thread.start();
         }
     }

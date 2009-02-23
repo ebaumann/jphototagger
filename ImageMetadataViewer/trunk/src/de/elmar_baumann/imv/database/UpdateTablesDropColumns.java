@@ -17,7 +17,7 @@ import java.util.List;
  */
 final class UpdateTablesDropColumns {
 
-    private final UpdateTablesMessages messages = UpdateTablesMessages.getInstance();
+    private final UpdateTablesMessages messages = UpdateTablesMessages.INSTANCE;
     private final ProgressDialog dialog = messages.getProgressDialog();
     private final List<ColumnInfo> dropColumns = new ArrayList<ColumnInfo>();
     private static final List<ColumnInfo> columns = new ArrayList<ColumnInfo>();
@@ -41,7 +41,7 @@ final class UpdateTablesDropColumns {
     }
 
     private void setColumns(Connection connection) throws SQLException {
-        DatabaseMetadata dbMeta = DatabaseMetadata.getInstance();
+        DatabaseMetadata dbMeta = DatabaseMetadata.INSTANCE;
         dropColumns.clear();
         for (ColumnInfo info : columns) {
             if (dbMeta.existsColumn(connection,info.getTableName(), info.getColumnName())) {

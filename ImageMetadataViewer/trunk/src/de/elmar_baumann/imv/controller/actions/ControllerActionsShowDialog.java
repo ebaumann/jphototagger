@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.controller.actions;
 
-import de.elmar_baumann.imv.resource.Panels;
+import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.dialogs.ActionsDialog;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,12 +18,12 @@ public final class ControllerActionsShowDialog implements ActionListener {
     }
 
     private void listen() {
-        Panels.getInstance().getAppFrame().getMenuItemActions().addActionListener(this);
+        GUI.INSTANCE.getAppFrame().getMenuItemActions().addActionListener(this);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        ActionsDialog dialog = ActionsDialog.getInstance();
+        ActionsDialog dialog = ActionsDialog.INSTANCE;
         if (dialog.isVisible()) {
             dialog.toFront();
         } else {

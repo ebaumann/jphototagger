@@ -24,7 +24,7 @@ import javax.swing.ListSelectionModel;
 public final class SettingsEditColumnsPanel extends javax.swing.JPanel
     implements ActionListener, Persistence {
 
-    private final ListenerProvider listenerProvider = ListenerProvider.getInstance();
+    private final ListenerProvider listenerProvider = ListenerProvider.INSTANCE;
     CheckList list;
 
     /** Creates new form SettingsEditColumnsPanel */
@@ -46,7 +46,7 @@ public final class SettingsEditColumnsPanel extends javax.swing.JPanel
     public void readPersistent() {
         list.setSelectedItemsWithText(
             ColumnUtil.getDescriptionsOfColumns(
-            UserSettings.getInstance().getEditColumns()), true);
+            UserSettings.INSTANCE.getEditColumns()), true);
     }
 
     @Override

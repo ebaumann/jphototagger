@@ -24,7 +24,7 @@ import de.elmar_baumann.imv.event.MetadataEditPanelEvent;
 import de.elmar_baumann.imv.event.MetadataEditPanelListener;
 import de.elmar_baumann.imv.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.imv.resource.Bundle;
-import de.elmar_baumann.imv.resource.Panels;
+import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.lib.component.TabLeavingTextArea;
 import java.awt.Component;
 import java.awt.GridBagConstraints;
@@ -62,7 +62,7 @@ public final class EditMetadataPanelsArray implements FocusListener, DatabaseLis
 
     public EditMetadataPanelsArray(JComponent container) {
         this.container = container;
-        listenerProvider = ListenerProvider.getInstance();
+        listenerProvider = ListenerProvider.INSTANCE;
         listeners = listenerProvider.getMetadataEditPanelListeners();
         createEditPanels();
         addPanels();
@@ -209,11 +209,10 @@ public final class EditMetadataPanelsArray implements FocusListener, DatabaseLis
     public void setXmpPropertyInfos(List<String> filenames, List<XMPPropertyInfo> infos) {
         emptyPanels(false);
         this.filenames = filenames;
-        IptcXmpMapping mapping = IptcXmpMapping.getInstance();
         for (JPanel panel : panels) {
             TextEntry textEntry = (TextEntry) panel;
             Column xmpColumn = textEntry.getColumn();
-            IPTCEntryMeta iptcEntryMeta = mapping.getIptcEntryMetaOfXmpColumn(xmpColumn);
+            IPTCEntryMeta iptcEntryMeta = IptcXmpMapping.getIptcEntryMetaOfXmpColumn(xmpColumn);
             List<XMPPropertyInfo> matchingInfos =
                 XmpMetadata.getFilteredPropertyInfosOfIptcEntryMeta(iptcEntryMeta, infos);
 
@@ -264,12 +263,12 @@ public final class EditMetadataPanelsArray implements FocusListener, DatabaseLis
     }
 
     private void listenToActionSources() {
-        DatabaseImageFiles.getInstance().addDatabaseListener(this);
-        Panels.getInstance().getAppFrame().addAppExitListener(this);
+        DatabaseImageFiles.INSTANCE.addDatabaseListener(this);
+        GUI.INSTANCE.getAppFrame().addAppExitListener(this);
     }
 
     private void addActionPanel() {
-        editActionsPanel = Panels.getInstance().getAppPanel().getMetadataEditActionsPanel();
+        editActionsPanel = GUI.INSTANCE.getAppPanel().getMetadataEditActionsPanel();
         GridBagConstraints gbc = newConstraints();
         gbc.weighty = 1;
         container.add(editActionsPanel, gbc);
@@ -293,7 +292,7 @@ public final class EditMetadataPanelsArray implements FocusListener, DatabaseLis
     }
 
     private void createEditPanels() {
-        List<Column> columns = UserSettings.getInstance().getEditColumns();
+        List<Column> columns = UserSettings.INSTANCE.getEditColumns();
 
         for (Column column : columns) {
             EditHints editHints = EditColumns.getEditHints(column);

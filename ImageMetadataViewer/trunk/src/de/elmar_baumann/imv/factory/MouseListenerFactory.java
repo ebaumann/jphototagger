@@ -5,7 +5,7 @@ import de.elmar_baumann.imv.event.listener.ListFavoriteDirectoriesMouseListener;
 import de.elmar_baumann.imv.event.listener.TreeDirectoriesMouseListener;
 import de.elmar_baumann.imv.event.listener.ListImageCollectionsMouseListener;
 import de.elmar_baumann.imv.event.listener.ListSavedSearchesMouseListener;
-import de.elmar_baumann.imv.resource.Panels;
+import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 
 /**
@@ -23,7 +23,7 @@ public final class MouseListenerFactory {
         Util.checkInit(MouseListenerFactory.class, init);
         if (!init) {
             init = true;
-            AppPanel appPanel = Panels.getInstance().getAppPanel();
+            AppPanel appPanel = GUI.INSTANCE.getAppPanel();
             appPanel.getTreeDirectories().addMouseListener(new TreeDirectoriesMouseListener());
             appPanel.getListSavedSearches().addMouseListener(new ListSavedSearchesMouseListener());
             appPanel.getListImageCollections().addMouseListener(new ListImageCollectionsMouseListener());

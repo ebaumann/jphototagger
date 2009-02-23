@@ -70,7 +70,7 @@ public final class ControllerFactory {
 
     private void startScheduledTasks() {
         Thread thread = new Thread(new ControllerArrayScheduledTasks());
-        thread.setPriority(UserSettings.getInstance().getThreadPriority());
+        thread.setPriority(UserSettings.INSTANCE.getThreadPriority());
         thread.start();
     }
 

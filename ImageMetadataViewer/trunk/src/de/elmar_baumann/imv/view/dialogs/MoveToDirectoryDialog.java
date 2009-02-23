@@ -12,7 +12,7 @@ import de.elmar_baumann.imv.event.ProgressListener;
 import de.elmar_baumann.imv.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.imv.io.FileSystemMove;
 import de.elmar_baumann.imv.resource.Bundle;
-import de.elmar_baumann.imv.resource.Panels;
+import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.ViewUtil;
 import de.elmar_baumann.lib.dialog.Dialog;
 import de.elmar_baumann.lib.dialog.DirectoryChooser;
@@ -124,7 +124,7 @@ public final class MoveToDirectoryDialog extends Dialog
         moveTask = new FileSystemMove(sourceFiles, targetDirectory);
         addListenerToMoveTask();
         Thread thread = new Thread(moveTask);
-        thread.setPriority(UserSettings.getInstance().getThreadPriority());
+        thread.setPriority(UserSettings.INSTANCE.getThreadPriority());
         thread.start();
         runs = true;
     }
@@ -132,7 +132,7 @@ public final class MoveToDirectoryDialog extends Dialog
     private synchronized void addListenerToMoveTask() {
         moveTask.addActionListener(this);
         moveTask.addProgressListener(this);
-        List<FileSystemActionListener> listeners = ListenerProvider.getInstance().getFileSystemActionListener();
+        List<FileSystemActionListener> listeners = ListenerProvider.INSTANCE.getFileSystemActionListener();
         for (FileSystemActionListener listener : listeners) {
             moveTask.addActionListener(listener);
         }
@@ -143,7 +143,7 @@ public final class MoveToDirectoryDialog extends Dialog
     }
 
     private void chooseTargetDirectory() {
-        DirectoryChooser dialog = new DirectoryChooser(null, UserSettings.getInstance().isAcceptHiddenDirectories());
+        DirectoryChooser dialog = new DirectoryChooser(null, UserSettings.INSTANCE.isAcceptHiddenDirectories());
         ViewUtil.setDirectoryTreeModel(dialog);
         dialog.setStartDirectory(targetDirectory);
         dialog.setMultiSelection(false);
@@ -239,7 +239,7 @@ public final class MoveToDirectoryDialog extends Dialog
         buttonStart.setEnabled(true);
         runs = false;
         moveTask = null;
-        Panels.getInstance().getAppPanel().getPanelThumbnails().remove(movedFiles);
+        GUI.INSTANCE.getAppPanel().getPanelThumbnails().remove(movedFiles);
         removeMovedFiles();
         notifyProgressListenerEnded(evt);
         checkErrors();

@@ -12,15 +12,11 @@ import de.elmar_baumann.imv.resource.Bundle;
  */
 public final class ColumnFilesThumbnail extends Column {
 
-    private static final ColumnFilesThumbnail instance = new ColumnFilesThumbnail();
-
-    public static Column getInstance() {
-        return instance;
-    }
+    public static final ColumnFilesThumbnail INSTANCE = new ColumnFilesThumbnail();
 
     private ColumnFilesThumbnail() {
         super(
-            TableFiles.getInstance(),
+            TableFiles.INSTANCE,
             "thumbnail", // NOI18N
             DataType.BINARY);
 

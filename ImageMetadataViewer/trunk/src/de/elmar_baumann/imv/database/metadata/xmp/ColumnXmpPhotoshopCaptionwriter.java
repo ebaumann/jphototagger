@@ -12,15 +12,11 @@ import de.elmar_baumann.imv.resource.Bundle;
  */
 public final class ColumnXmpPhotoshopCaptionwriter extends Column {
 
-    private static final ColumnXmpPhotoshopCaptionwriter instance = new ColumnXmpPhotoshopCaptionwriter();
-
-    public static Column getInstance() {
-        return instance;
-    }
+    public static final ColumnXmpPhotoshopCaptionwriter INSTANCE = new ColumnXmpPhotoshopCaptionwriter();
 
     private ColumnXmpPhotoshopCaptionwriter() {
         super(
-            TableXmp.getInstance(),
+            TableXmp.INSTANCE,
             "photoshop_captionwriter", // NOI18N
             DataType.STRING);
 

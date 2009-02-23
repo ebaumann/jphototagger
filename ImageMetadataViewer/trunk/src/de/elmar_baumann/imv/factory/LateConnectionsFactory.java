@@ -3,7 +3,7 @@ package de.elmar_baumann.imv.factory;
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.database.DatabaseImageFiles;
 import de.elmar_baumann.imv.event.ListenerProvider;
-import de.elmar_baumann.imv.resource.Panels;
+import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuPanelThumbnails;
 
@@ -22,19 +22,19 @@ public final class LateConnectionsFactory {
         Util.checkInit(LateConnectionsFactory.class, init);
         if (!init) {
             init = true;
-            AppPanel appPanel = Panels.getInstance().getAppPanel();
-            PopupMenuPanelThumbnails popupMenuPanelThumbnails = PopupMenuPanelThumbnails.getInstance();
-            UserSettings userSettings = UserSettings.getInstance();
+            AppPanel appPanel = GUI.INSTANCE.getAppPanel();
+            PopupMenuPanelThumbnails popupMenuPanelThumbnails = PopupMenuPanelThumbnails.INSTANCE;
+            UserSettings userSettings = UserSettings.INSTANCE;
 
             appPanel.getPanelThumbnails().setDefaultThumbnailWidth(userSettings.getMaxThumbnailLength());
 
-            DatabaseImageFiles.getInstance().addDatabaseListener(appPanel.getEditPanelsArray());
+            DatabaseImageFiles.INSTANCE.addDatabaseListener(appPanel.getEditPanelsArray());
             if (userSettings.isUseAutocomplete()) {
                 appPanel.getEditPanelsArray().setAutocomplete();
             }
 
             popupMenuPanelThumbnails.addOtherPrograms();
-            ListenerProvider listenerProvider = ListenerProvider.getInstance();
+            ListenerProvider listenerProvider = ListenerProvider.INSTANCE;
             listenerProvider.addUserSettingsChangeListener(popupMenuPanelThumbnails);
             listenerProvider.addUserSettingsChangeListener(userSettings);
         }

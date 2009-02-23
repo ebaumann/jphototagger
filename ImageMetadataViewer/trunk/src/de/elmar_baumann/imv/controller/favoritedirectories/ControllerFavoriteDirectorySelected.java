@@ -3,7 +3,7 @@ package de.elmar_baumann.imv.controller.favoritedirectories;
 import de.elmar_baumann.imv.data.FavoriteDirectory;
 import de.elmar_baumann.imv.event.RefreshListener;
 import de.elmar_baumann.imv.io.ImageFilteredDirectory;
-import de.elmar_baumann.imv.resource.Panels;
+import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.types.Content;
 import de.elmar_baumann.imv.view.panels.EditMetadataPanelsArray;
@@ -22,7 +22,7 @@ import javax.swing.event.ListSelectionListener;
  */
 public final class ControllerFavoriteDirectorySelected implements ListSelectionListener, RefreshListener {
 
-    private final AppPanel appPanel = Panels.getInstance().getAppPanel();
+    private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
     private final JList listFavoriteDirectories = appPanel.getListFavoriteDirectories();
     private final ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelThumbnails();
     private final EditMetadataPanelsArray editPanels = appPanel.getEditPanelsArray();

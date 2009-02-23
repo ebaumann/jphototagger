@@ -41,18 +41,9 @@ public final class UserSettings implements UserSettingsChangeListener {
     private static final String keyThreadPriority = "UserSettings.ThreadPriority";
     private static final String keyAutocopyDirectory = "UserSettings.AutocopyDirectory";
     private static final PersistentSettings persistentSettings = PersistentSettings.getInstance();
-    private static final UserSettings instance = new UserSettings();
+    public static final UserSettings INSTANCE = new UserSettings();
 
     private UserSettings() {
-    }
-
-    /**
-     * Liefert die einzige Klasseninstanz.
-     * 
-     * @return Instanz
-     */
-    public static UserSettings getInstance() {
-        return instance;
     }
 
     /**

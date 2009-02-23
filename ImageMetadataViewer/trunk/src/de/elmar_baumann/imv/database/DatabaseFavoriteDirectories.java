@@ -18,11 +18,7 @@ import java.util.List;
  */
 public final class DatabaseFavoriteDirectories extends Database {
     
-    private static final DatabaseFavoriteDirectories instance = new DatabaseFavoriteDirectories();
-    
-    public static DatabaseFavoriteDirectories getInstance() {
-        return instance;
-    }
+    public static final DatabaseFavoriteDirectories INSTANCE = new DatabaseFavoriteDirectories();
     
     private DatabaseFavoriteDirectories() {
     }

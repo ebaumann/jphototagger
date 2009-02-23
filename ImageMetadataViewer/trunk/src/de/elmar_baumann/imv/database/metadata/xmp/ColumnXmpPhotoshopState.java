@@ -12,15 +12,11 @@ import de.elmar_baumann.imv.resource.Bundle;
  */
 public final class ColumnXmpPhotoshopState extends Column {
 
-    private static final ColumnXmpPhotoshopState instance = new ColumnXmpPhotoshopState();
-
-    public static Column getInstance() {
-        return instance;
-    }
+    public static final ColumnXmpPhotoshopState INSTANCE = new ColumnXmpPhotoshopState();
 
     private ColumnXmpPhotoshopState() {
         super(
-            TableXmp.getInstance(),
+            TableXmp.INSTANCE,
             "photoshop_state", // NOI18N
             DataType.STRING);
 

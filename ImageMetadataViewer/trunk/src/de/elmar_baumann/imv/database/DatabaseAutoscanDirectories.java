@@ -18,11 +18,7 @@ import java.util.List;
  */
 public final class DatabaseAutoscanDirectories extends Database {
 
-    private static final DatabaseAutoscanDirectories instance = new DatabaseAutoscanDirectories();
-
-    public static DatabaseAutoscanDirectories getInstance() {
-        return instance;
-    }
+    public static final DatabaseAutoscanDirectories INSTANCE = new DatabaseAutoscanDirectories();
 
     private DatabaseAutoscanDirectories() {
     }

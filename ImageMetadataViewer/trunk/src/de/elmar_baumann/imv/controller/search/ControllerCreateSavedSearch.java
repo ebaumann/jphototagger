@@ -9,7 +9,7 @@ import de.elmar_baumann.imv.event.SearchEvent;
 import de.elmar_baumann.imv.event.SearchListener;
 import de.elmar_baumann.imv.model.ListModelSavedSearches;
 import de.elmar_baumann.imv.resource.Bundle;
-import de.elmar_baumann.imv.resource.Panels;
+import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.dialogs.AdvancedSearchDialog;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuListSavedSearches;
@@ -28,8 +28,8 @@ import javax.swing.JOptionPane;
  */
 public final class ControllerCreateSavedSearch implements ActionListener, SearchListener {
 
-    private final DatabaseSavedSearches db = DatabaseSavedSearches.getInstance();
-    private final AppPanel appPanel = Panels.getInstance().getAppPanel();
+    private final DatabaseSavedSearches db = DatabaseSavedSearches.INSTANCE;
+    private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
     private final JList list = appPanel.getListSavedSearches();
     private final ListModelSavedSearches model = (ListModelSavedSearches) list.getModel();
 
@@ -38,8 +38,8 @@ public final class ControllerCreateSavedSearch implements ActionListener, Search
     }
 
     private void listen() {
-        PopupMenuListSavedSearches.getInstance().addActionListenerCreate(this);
-        ListenerProvider.getInstance().addSearchListener(this);
+        PopupMenuListSavedSearches.INSTANCE.addActionListenerCreate(this);
+        ListenerProvider.INSTANCE.addSearchListener(this);
     }
 
     @Override
@@ -55,7 +55,7 @@ public final class ControllerCreateSavedSearch implements ActionListener, Search
     }
 
     private void showAdvancedSearchDialog() {
-        AdvancedSearchDialog dialog = AdvancedSearchDialog.getInstance();
+        AdvancedSearchDialog dialog = AdvancedSearchDialog.INSTANCE;
         if (dialog.isVisible()) {
             dialog.toFront();
         } else {

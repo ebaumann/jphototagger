@@ -19,17 +19,15 @@ import java.util.Map;
 public final class XmpColumnXmpPathStartMapping {
 
     private static final Map<Column, String> xmpPathStartOfColumn = new HashMap<Column, String>();
-    private static final XmpColumnXmpPathStartMapping instance = new XmpColumnXmpPathStartMapping();
     
 
     static {
-        List<Pair<IPTCEntryMeta, Column>> pairs = IptcXmpMapping.getInstance().getAllPairs();
-        IptcEntryXmpPathStartMapping iptcEntryXmpPathMapping = IptcEntryXmpPathStartMapping.getInstance();
+        List<Pair<IPTCEntryMeta, Column>> pairs = IptcXmpMapping.getAllPairs();
         for (Pair<IPTCEntryMeta, Column> pair : pairs) {
             IPTCEntryMeta iptcEntryMeta = pair.getFirst();
             Column xmpColumn = pair.getSecond();
             String xmpPathStart =
-                iptcEntryXmpPathMapping.getXmpPathStartOfIptcEntryMeta(iptcEntryMeta);
+                IptcEntryXmpPathStartMapping.getXmpPathStartOfIptcEntryMeta(iptcEntryMeta);
             xmpPathStartOfColumn.put(xmpColumn, xmpPathStart);
         }
     }
@@ -40,17 +38,8 @@ public final class XmpColumnXmpPathStartMapping {
      * @param  column  XMP-Spalte
      * @return Pfadstart oder null bei unzugeordneter Spalte
      */
-    public String getXmpPathStartOfColumn(Column column) {
+    public static String getXmpPathStartOfColumn(Column column) {
         return xmpPathStartOfColumn.get(column);
-    }
-
-    /**
-     * Liefert die einzige Klasseninstanz.
-     * 
-     * @return Instanz
-     */
-    public static XmpColumnXmpPathStartMapping getInstance() {
-        return instance;
     }
 
     private XmpColumnXmpPathStartMapping() {

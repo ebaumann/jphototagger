@@ -6,7 +6,7 @@ import de.elmar_baumann.imv.event.ProgressEvent;
 import de.elmar_baumann.imv.event.ProgressListener;
 import de.elmar_baumann.imv.event.ThumbnailsPanelAction;
 import de.elmar_baumann.imv.event.ThumbnailsPanelListener;
-import de.elmar_baumann.imv.resource.Panels;
+import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.lib.io.FileUtil;
@@ -27,7 +27,7 @@ public final class ControllerCreateMetadataOfCurrentThumbnails
 
     private final Queue<InsertImageFilesIntoDatabase> updaters = new ConcurrentLinkedQueue<InsertImageFilesIntoDatabase>();
     private boolean wait = false;
-    private final AppPanel appPanel = Panels.getInstance().getAppPanel();
+    private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
     private final ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelThumbnails();
     private final JProgressBar progressBar = appPanel.getProgressBarCreateMetadataOfCurrentThumbnails();
     private boolean stop = false;
@@ -57,7 +57,7 @@ public final class ControllerCreateMetadataOfCurrentThumbnails
         if (!isWait()) {
             setWait(true);
             Thread thread = new Thread(updaters.remove());
-            thread.setPriority(UserSettings.getInstance().getThreadPriority());
+            thread.setPriority(UserSettings.INSTANCE.getThreadPriority());
             thread.start();
         }
     }

@@ -17,7 +17,7 @@ import javax.swing.DefaultListModel;
  */
 public final class ListModelElementRemover {
 
-    private final DatabaseStatistics dbStatistics = DatabaseStatistics.getInstance();
+    private final DatabaseStatistics dbStatistics = DatabaseStatistics.INSTANCE;
     private final ExecutorService executor = Executors.newCachedThreadPool();
     private final DefaultListModel model;
     private CheckForRemove removeChecker = new CheckForRemove();

@@ -1,7 +1,7 @@
 package de.elmar_baumann.imv.controller.favoritedirectories;
 
 import de.elmar_baumann.imv.data.FavoriteDirectory;
-import de.elmar_baumann.imv.resource.Panels;
+import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuListFavoriteDirectories;
 import de.elmar_baumann.lib.componentutil.TreeUtil;
@@ -22,8 +22,8 @@ import javax.swing.tree.TreePath;
  */
 public final class ControllerFavoriteDirectoryOpenInFolders implements ActionListener {
 
-    private final PopupMenuListFavoriteDirectories popupMenu = PopupMenuListFavoriteDirectories.getInstance();
-    private final AppPanel appPanel = Panels.getInstance().getAppPanel();
+    private final PopupMenuListFavoriteDirectories popupMenu = PopupMenuListFavoriteDirectories.INSTANCE;
+    private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
     private final JTabbedPane tabbedPaneSelection = appPanel.getTabbedPaneSelection();
     private final Component tabTreeDirectories = appPanel.getTabSelectionDirectories();
     private final JTree treeDirectories = appPanel.getTreeDirectories();

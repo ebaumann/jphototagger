@@ -16,7 +16,7 @@ import java.sql.Statement;
  */
 final class UpdateTablesXmpLastModified {
 
-    private final UpdateTablesMessages messages = UpdateTablesMessages.getInstance();
+    private final UpdateTablesMessages messages = UpdateTablesMessages.INSTANCE;
     private final ProgressDialog dialog = messages.getProgressDialog();
 
     synchronized void update(Connection connection) throws SQLException {
@@ -26,7 +26,7 @@ final class UpdateTablesXmpLastModified {
 
     private synchronized void removeColumnXmpLastModifiedFromTableXmp(
         Connection connection) throws SQLException {
-        if (DatabaseMetadata.getInstance().existsColumn(
+        if (DatabaseMetadata.INSTANCE.existsColumn(
             connection, "xmp", "lastmodified")) {
             Statement stmt = connection.createStatement();
             messages.message(Bundle.getString("UpdateTablesXmpLastModified.InformationMessage.RemoveColumnXmpLastModified"));
@@ -36,7 +36,7 @@ final class UpdateTablesXmpLastModified {
 
     private synchronized void addColumnXmpLastModifiedToTableFiles(
         Connection connection) throws SQLException {
-        if (!DatabaseMetadata.getInstance().existsColumn(
+        if (!DatabaseMetadata.INSTANCE.existsColumn(
             connection, "files", "xmp_lastmodified")) { // NOI18N
             Statement stmt = connection.createStatement();
             messages.message(Bundle.getString("UpdateTablesXmpLastModified.InformationMessage.AddColumnXmpLastModified.AddColumn"));
@@ -73,7 +73,7 @@ final class UpdateTablesXmpLastModified {
         messages.message(Bundle.getString("UpdateTablesXmpLastModified.InformationMessage.AddColumnXmpLastModified.SetLastModified"));
         dialog.setIntermediate(false);
         dialog.setMinimum(0);
-        dialog.setMaximum(DatabaseStatistics.getInstance().getXmpCount());
+        dialog.setMaximum(DatabaseStatistics.INSTANCE.getXmpCount());
         dialog.setValue(0);
     }
 }

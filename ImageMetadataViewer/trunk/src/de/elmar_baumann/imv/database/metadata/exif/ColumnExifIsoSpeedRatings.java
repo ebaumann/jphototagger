@@ -15,15 +15,11 @@ import de.elmar_baumann.imv.resource.Bundle;
  */
 public final class ColumnExifIsoSpeedRatings extends Column {
 
-    private static final ColumnExifIsoSpeedRatings instance = new ColumnExifIsoSpeedRatings();
-
-    public static Column getInstance() {
-        return instance;
-    }
+    public static final ColumnExifIsoSpeedRatings INSTANCE = new ColumnExifIsoSpeedRatings();
 
     private ColumnExifIsoSpeedRatings() {
         super(
-            TableExif.getInstance(),
+            TableExif.INSTANCE,
             "exif_iso_speed_ratings", // NOI18N
             DataType.SMALLINT);
 

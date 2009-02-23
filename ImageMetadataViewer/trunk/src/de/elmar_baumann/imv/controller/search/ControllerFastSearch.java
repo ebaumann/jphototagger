@@ -13,7 +13,7 @@ import de.elmar_baumann.imv.event.ListenerProvider;
 import de.elmar_baumann.imv.event.RefreshListener;
 import de.elmar_baumann.imv.event.UserSettingsChangeEvent;
 import de.elmar_baumann.imv.event.UserSettingsChangeListener;
-import de.elmar_baumann.imv.resource.Panels;
+import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.dialogs.UserSettingsDialog;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.types.Content;
@@ -41,25 +41,25 @@ import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 public final class ControllerFastSearch
         implements UserSettingsChangeListener, DatabaseListener, RefreshListener {
 
-    private final DatabaseSearch db = DatabaseSearch.getInstance();
-    private final AppPanel appPanel = Panels.getInstance().getAppPanel();
+    private final DatabaseSearch db = DatabaseSearch.INSTANCE;
+    private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
     private final JTextField textFieldSearch = appPanel.getTextFieldSearch();
     private final ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelThumbnails();
-    private final List<Column> fastSearchColumns = UserSettings.getInstance().getFastSearchColumns();
+    private final List<Column> fastSearchColumns = UserSettings.INSTANCE.getFastSearchColumns();
     private final List<JTree> selectionTrees = appPanel.getSelectionTrees();
     private final List<JList> selectionLists = appPanel.getSelectionLists();
-    private boolean isUseAutocomplete = UserSettings.getInstance().isUseAutocomplete();
+    private boolean isUseAutocomplete = UserSettings.INSTANCE.isUseAutocomplete();
     private AutoCompleteData searchAutoCompleteData;
     private final EditMetadataPanelsArray editPanels = appPanel.getEditPanelsArray();
 
     public ControllerFastSearch() {
-        textFieldSearch.setEnabled(UserSettings.getInstance().getFastSearchColumns().size() > 0);
+        textFieldSearch.setEnabled(UserSettings.INSTANCE.getFastSearchColumns().size() > 0);
         decorateTextFieldSearch();
         listen();
     }
 
     private void listen() {
-        ListenerProvider.getInstance().addUserSettingsChangeListener(this);
+        ListenerProvider.INSTANCE.addUserSettingsChangeListener(this);
 
         textFieldSearch.addKeyListener(new KeyAdapter() {
 
@@ -109,7 +109,7 @@ public final class ControllerFastSearch
     }
 
     private void decorateTextFieldSearch() {
-        if (UserSettings.getInstance().isUseAutocomplete()) {
+        if (UserSettings.INSTANCE.isUseAutocomplete()) {
             searchAutoCompleteData = new AutoCompleteData();
             AutoCompleteDecorator.decorate(
                 textFieldSearch,
@@ -120,7 +120,7 @@ public final class ControllerFastSearch
 
     private void checkEnabled() {
         if (!textFieldSearch.isEnabled()) {
-            UserSettingsDialog settingsDialog = UserSettingsDialog.getInstance();
+            UserSettingsDialog settingsDialog = UserSettingsDialog.INSTANCE;
             settingsDialog.selectTab(UserSettingsDialog.Tab.FAST_SEARCH);
             if (settingsDialog.isVisible()) {
                 settingsDialog.toFront();
@@ -144,7 +144,7 @@ public final class ControllerFastSearch
         if (!searchText.trim().isEmpty()) {
             clearSelection();
             List<String> filenames =
-                db.searchFilenamesLikeOr(UserSettings.getInstance().getFastSearchColumns(), searchText.trim());
+                db.searchFilenamesLikeOr(UserSettings.INSTANCE.getFastSearchColumns(), searchText.trim());
             thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames),
                 Content.SAFED_SEARCH);
         }

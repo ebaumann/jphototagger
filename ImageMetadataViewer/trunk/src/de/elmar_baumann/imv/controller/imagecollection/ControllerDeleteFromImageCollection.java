@@ -2,7 +2,7 @@ package de.elmar_baumann.imv.controller.imagecollection;
 
 import de.elmar_baumann.imv.types.Content;
 import de.elmar_baumann.imv.tasks.ImageCollectionDatabaseUtils;
-import de.elmar_baumann.imv.resource.Panels;
+import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuPanelThumbnails;
@@ -22,10 +22,10 @@ import javax.swing.JList;
  */
 public final class ControllerDeleteFromImageCollection implements ActionListener {
 
-    private final AppPanel appPanel = Panels.getInstance().getAppPanel();
+    private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
     private final JList list = appPanel.getListImageCollections();
-    private final PopupMenuPanelThumbnails popupMenu = PopupMenuPanelThumbnails.getInstance();
-    private final ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
+    private final PopupMenuPanelThumbnails popupMenu = PopupMenuPanelThumbnails.INSTANCE;
+    private final ImageFileThumbnailsPanel thumbnailsPanel = GUI.INSTANCE.getAppPanel().getPanelThumbnails();
 
     public ControllerDeleteFromImageCollection() {
         listen();
@@ -33,7 +33,7 @@ public final class ControllerDeleteFromImageCollection implements ActionListener
 
     private void listen() {
         popupMenu.addActionListenerDeleteFromImageCollection(this);
-        Panels.getInstance().getAppFrame().getMenuItemDelete().addActionListener(this);
+        GUI.INSTANCE.getAppFrame().getMenuItemDelete().addActionListener(this);
     }
 
     @Override

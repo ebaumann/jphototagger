@@ -21,13 +21,9 @@ import java.util.List;
  */
 public final class DatabasePrograms extends Database {
 
-    private static final DatabasePrograms instance = new DatabasePrograms();
+    public static final DatabasePrograms INSTANCE = new DatabasePrograms();
 
     private DatabasePrograms() {
-    }
-
-    public static DatabasePrograms getInstance() {
-        return instance;
     }
 
     /**

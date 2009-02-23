@@ -3,7 +3,7 @@ package de.elmar_baumann.imv.controller.thumbnail;
 import de.elmar_baumann.imv.app.AppIcons;
 import de.elmar_baumann.imv.database.DatabaseImageFiles;
 import de.elmar_baumann.imv.resource.Bundle;
-import de.elmar_baumann.imv.resource.Panels;
+import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuPanelThumbnails;
 import de.elmar_baumann.lib.io.FileUtil;
@@ -23,9 +23,9 @@ import javax.swing.JOptionPane;
  */
 public final class ControllerDeleteThumbnailsFromDatabase implements ActionListener {
 
-    private final DatabaseImageFiles db = DatabaseImageFiles.getInstance();
-    private final PopupMenuPanelThumbnails popupMenu = PopupMenuPanelThumbnails.getInstance();
-    private final ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
+    private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
+    private final PopupMenuPanelThumbnails popupMenu = PopupMenuPanelThumbnails.INSTANCE;
+    private final ImageFileThumbnailsPanel thumbnailsPanel = GUI.INSTANCE.getAppPanel().getPanelThumbnails();
 
     public ControllerDeleteThumbnailsFromDatabase() {
         listen();

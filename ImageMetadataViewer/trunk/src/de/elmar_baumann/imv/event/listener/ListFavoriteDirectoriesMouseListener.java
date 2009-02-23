@@ -15,7 +15,7 @@ import javax.swing.JList;
  */
 public final class ListFavoriteDirectoriesMouseListener extends MouseAdapter {
 
-    private final PopupMenuListFavoriteDirectories popupMenu = PopupMenuListFavoriteDirectories.getInstance();
+    private final PopupMenuListFavoriteDirectories popupMenu = PopupMenuListFavoriteDirectories.INSTANCE;
 
     @Override
     public void mousePressed(MouseEvent e) {

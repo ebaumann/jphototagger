@@ -29,9 +29,9 @@ import javax.swing.JViewport;
  */
 public final class ImageFileThumbnailsPanel extends ThumbnailsPanel {
 
-    private final DatabaseImageFiles db = DatabaseImageFiles.getInstance();
+    private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
     private final Map<Content, List<RefreshListener>> refreshListenersOfContent = new HashMap<Content, List<RefreshListener>>();
-    private final PopupMenuPanelThumbnails popupMenu = PopupMenuPanelThumbnails.getInstance();
+    private final PopupMenuPanelThumbnails popupMenu = PopupMenuPanelThumbnails.INSTANCE;
     private List<File> files = new ArrayList<File>();
     private ControllerDoubleklickThumbnail controllerDoubleklick;
     private FileSort fileSort = FileSort.NAMES_ASCENDING;

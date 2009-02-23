@@ -20,7 +20,7 @@ import java.util.logging.Level;
 public final class SettingsMiscPanel extends javax.swing.JPanel
     implements Persistence {
 
-    private final ListenerProvider listenerProvider = ListenerProvider.getInstance();
+    private final ListenerProvider listenerProvider = ListenerProvider.INSTANCE;
     private String lastSelectedAutocopyDirectory = ""; // NOI18N
 
     /** Creates new form SettingsMiscPanel */
@@ -91,7 +91,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
     @Override
     public void readPersistent() {
         checkLogLevel();
-        UserSettings settings = UserSettings.getInstance();
+        UserSettings settings = UserSettings.INSTANCE;
         File lastAcDirectory = settings.getAutocopyDirectory();
         if (lastAcDirectory != null && lastAcDirectory.exists()) {
             String lastAcDirectoryName = lastAcDirectory.getAbsolutePath();

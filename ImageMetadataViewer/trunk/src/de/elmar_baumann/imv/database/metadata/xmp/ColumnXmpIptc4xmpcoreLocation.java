@@ -12,15 +12,11 @@ import de.elmar_baumann.imv.resource.Bundle;
  */
 public final class ColumnXmpIptc4xmpcoreLocation extends Column {
 
-    private static final ColumnXmpIptc4xmpcoreLocation instance = new ColumnXmpIptc4xmpcoreLocation();
-
-    public static Column getInstance() {
-        return instance;
-    }
+    public static final ColumnXmpIptc4xmpcoreLocation INSTANCE = new ColumnXmpIptc4xmpcoreLocation();
 
     private ColumnXmpIptc4xmpcoreLocation() {
         super(
-            TableXmp.getInstance(),
+            TableXmp.INSTANCE,
             "iptc4xmpcore_location", // NOI18N
             DataType.STRING);
 

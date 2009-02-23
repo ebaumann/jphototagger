@@ -57,7 +57,7 @@ public final class AppLog {
      */
     public static void logWarning(Class c, String message) {
         log(c, Level.WARNING, message);
-        ErrorListeners.getInstance().notifyErrorListener(new ErrorEvent(message, c));
+        ErrorListeners.INSTANCE.notifyErrorListener(new ErrorEvent(message, c));
     }
 
     /**
@@ -89,7 +89,7 @@ public final class AppLog {
 
     private static void log(Class c, Level level, Exception ex) {
         Logger.getLogger(c.getName()).log(level, null, ex);
-        ErrorListeners.getInstance().notifyErrorListener(new ErrorEvent(ex.getMessage(), c));
+        ErrorListeners.INSTANCE.notifyErrorListener(new ErrorEvent(ex.getMessage(), c));
     }
 
     /**

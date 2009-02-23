@@ -12,15 +12,11 @@ import de.elmar_baumann.imv.resource.Bundle;
  */
 public final class ColumnXmpPhotoshopTransmissionReference extends Column {
 
-    private static final ColumnXmpPhotoshopTransmissionReference instance = new ColumnXmpPhotoshopTransmissionReference();
-
-    public static Column getInstance() {
-        return instance;
-    }
+    public static final ColumnXmpPhotoshopTransmissionReference INSTANCE = new ColumnXmpPhotoshopTransmissionReference();
 
     private ColumnXmpPhotoshopTransmissionReference() {
         super(
-            TableXmp.getInstance(),
+            TableXmp.INSTANCE,
             "photoshop_transmissionReference", // NOI18N
             DataType.STRING);
 

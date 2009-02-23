@@ -20,7 +20,7 @@ public final class ListModelSavedSearches extends DefaultListModel {
     }
 
     private void addItems() {
-        List<SavedSearch> searches = DatabaseSavedSearches.getInstance().getSavedSearches();
+        List<SavedSearch> searches = DatabaseSavedSearches.INSTANCE.getSavedSearches();
         for (SavedSearch search : searches) {
             addElement(search);
         }

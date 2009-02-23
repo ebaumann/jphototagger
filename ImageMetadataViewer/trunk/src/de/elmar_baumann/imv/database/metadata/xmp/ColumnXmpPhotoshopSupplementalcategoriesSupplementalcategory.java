@@ -13,16 +13,12 @@ import de.elmar_baumann.imv.resource.Bundle;
 public final class ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory
     extends Column {
 
-    private static final ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory instance =
+    public static final ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory INSTANCE =
         new ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory();
-
-    public static Column getInstance() {
-        return instance;
-    }
 
     private ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory() {
         super(
-            TableXmpPhotoshopSupplementalCategories.getInstance(),
+            TableXmpPhotoshopSupplementalCategories.INSTANCE,
             "supplementalcategory", // NOI18N
             DataType.STRING);
 

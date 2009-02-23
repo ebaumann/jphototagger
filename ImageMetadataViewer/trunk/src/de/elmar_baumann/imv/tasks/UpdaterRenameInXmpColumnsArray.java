@@ -20,7 +20,7 @@ import javax.swing.JProgressBar;
 public final class UpdaterRenameInXmpColumnsArray implements ProgressListener {
 
     private final Queue<UpdaterRenameInXmpColumns> updaters = new ConcurrentLinkedQueue<UpdaterRenameInXmpColumns>();
-    private final ProgressBarCurrentTasks progressBarProvider = ProgressBarCurrentTasks.getInstance();
+    private final ProgressBarCurrentTasks progressBarProvider = ProgressBarCurrentTasks.INSTANCE;
     private JProgressBar progressBar;
     private boolean wait = false;
     private boolean stop = false;
@@ -53,7 +53,7 @@ public final class UpdaterRenameInXmpColumnsArray implements ProgressListener {
             UpdaterRenameInXmpColumns updater = updaters.remove();
             updater.addProgressListener(this);
             Thread thread = new Thread(updater);
-            thread.setPriority(UserSettings.getInstance().getThreadPriority());
+            thread.setPriority(UserSettings.INSTANCE.getThreadPriority());
             thread.start();
         }
     }

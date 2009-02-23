@@ -11,20 +11,16 @@ import de.elmar_baumann.imv.database.metadata.file.ColumnFilesId;
  */
 public final class ColumnXmpIdFiles extends Column {
 
-    private static final ColumnXmpIdFiles instance = new ColumnXmpIdFiles();
-
-    public static ColumnXmpIdFiles getInstance() {
-        return instance;
-    }
+    public static final ColumnXmpIdFiles INSTANCE = new ColumnXmpIdFiles();
 
     private ColumnXmpIdFiles() {
         super(
-            TableXmp.getInstance(),
+            TableXmp.INSTANCE,
             "id_files", // NOI18N
             DataType.BIGINT);
 
         setIsUnique(true);
         setCanBeNull(false);
-        setReferences(ColumnFilesId.getInstance());
+        setReferences(ColumnFilesId.INSTANCE);
     }
 }

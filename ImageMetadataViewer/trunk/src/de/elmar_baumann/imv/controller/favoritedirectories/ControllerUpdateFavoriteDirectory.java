@@ -2,7 +2,7 @@ package de.elmar_baumann.imv.controller.favoritedirectories;
 
 import de.elmar_baumann.imv.data.FavoriteDirectory;
 import de.elmar_baumann.imv.model.ListModelFavoriteDirectories;
-import de.elmar_baumann.imv.resource.Panels;
+import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.dialogs.FavoriteDirectoryPropertiesDialog;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuListFavoriteDirectories;
@@ -17,8 +17,8 @@ import java.awt.event.ActionListener;
  */
 public final class ControllerUpdateFavoriteDirectory implements ActionListener {
 
-    private final PopupMenuListFavoriteDirectories popupMenu = PopupMenuListFavoriteDirectories.getInstance();
-    private final AppPanel appPanel = Panels.getInstance().getAppPanel();
+    private final PopupMenuListFavoriteDirectories popupMenu = PopupMenuListFavoriteDirectories.INSTANCE;
+    private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
     private final ListModelFavoriteDirectories model = (ListModelFavoriteDirectories) appPanel.getListFavoriteDirectories().getModel();
 
     public ControllerUpdateFavoriteDirectory() {

@@ -32,14 +32,14 @@ public final class TableIcons {
     
 
     static {
-        iconOfTable.put(TableExif.getInstance(), iconExif);
-        iconOfTable.put(TableFiles.getInstance(), iconFiles);
-        iconOfTable.put(TableXmp.getInstance(), iconXmp);
-        iconOfTable.put(TableXmpDcSubjects.getInstance(), iconXmp);
-        iconOfTable.put(TableXmpPhotoshopSupplementalCategories.getInstance(), iconXmp);
-        iconOfTable.put(TableCollections.getInstance(), iconImageCollection);
-        iconOfTable.put(TableCollectionNames.getInstance(), iconImageCollection);
-        iconOfTable.put(TableSavedSearches.getInstance(), iconSavedSearch);
+        iconOfTable.put(TableExif.INSTANCE, iconExif);
+        iconOfTable.put(TableFiles.INSTANCE, iconFiles);
+        iconOfTable.put(TableXmp.INSTANCE, iconXmp);
+        iconOfTable.put(TableXmpDcSubjects.INSTANCE, iconXmp);
+        iconOfTable.put(TableXmpPhotoshopSupplementalCategories.INSTANCE, iconXmp);
+        iconOfTable.put(TableCollections.INSTANCE, iconImageCollection);
+        iconOfTable.put(TableCollectionNames.INSTANCE, iconImageCollection);
+        iconOfTable.put(TableSavedSearches.INSTANCE, iconSavedSearch);
     }
 
     /**

@@ -14,7 +14,7 @@ import de.elmar_baumann.imv.types.Persistence;
 public final class SettingsIptcPanel extends javax.swing.JPanel
     implements Persistence {
 
-    private final ListenerProvider listenerProvider = ListenerProvider.getInstance();
+    private final ListenerProvider listenerProvider = ListenerProvider.INSTANCE;
 
     /** Creates new form SettingsIptcPanel */
     public SettingsIptcPanel() {
@@ -31,7 +31,7 @@ public final class SettingsIptcPanel extends javax.swing.JPanel
     @Override
     public void readPersistent() {
         comboBoxIptcCharset.getModel().setSelectedItem(
-            UserSettings.getInstance().getIptcCharset());
+            UserSettings.INSTANCE.getIptcCharset());
     }
 
     @Override

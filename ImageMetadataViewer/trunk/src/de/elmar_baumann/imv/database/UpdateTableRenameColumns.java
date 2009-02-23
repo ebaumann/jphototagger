@@ -18,7 +18,7 @@ import java.util.List;
  */
 final class UpdateTableRenameColumns {
 
-    private final UpdateTablesMessages messages = UpdateTablesMessages.getInstance();
+    private final UpdateTablesMessages messages = UpdateTablesMessages.INSTANCE;
     private final ProgressDialog dialog = messages.getProgressDialog();
     private final List<Pair<ColumnInfo, ColumnInfo>> renameColumns = new ArrayList<Pair<ColumnInfo, ColumnInfo>>();
     private static final List<Pair<ColumnInfo, ColumnInfo>> columns = new ArrayList<Pair<ColumnInfo, ColumnInfo>>();
@@ -38,7 +38,7 @@ final class UpdateTableRenameColumns {
     }
 
     private void setColumns(Connection connection) throws SQLException {
-        DatabaseMetadata dbMeta = DatabaseMetadata.getInstance();
+        DatabaseMetadata dbMeta = DatabaseMetadata.INSTANCE;
         renameColumns.clear();
         for (Pair<ColumnInfo, ColumnInfo> info : columns) {
             if (dbMeta.existsColumn(

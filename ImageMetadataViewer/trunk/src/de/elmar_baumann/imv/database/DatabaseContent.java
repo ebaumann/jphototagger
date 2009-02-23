@@ -16,11 +16,7 @@ import java.util.Set;
  */
 public final class DatabaseContent extends Database {
     
-    private static final DatabaseContent instance = new DatabaseContent();
-    
-    public static DatabaseContent getInstance() {
-        return instance;
-    }
+    public static final DatabaseContent INSTANCE = new DatabaseContent();
     
     private DatabaseContent() {
     }

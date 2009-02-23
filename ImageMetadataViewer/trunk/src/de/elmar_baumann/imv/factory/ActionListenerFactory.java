@@ -7,7 +7,7 @@ import de.elmar_baumann.imv.controller.search.ControllerShowAdvancedSearchDialog
 import de.elmar_baumann.imv.controller.metadata.ControllerShowUpdateMetadataDialog;
 import de.elmar_baumann.imv.controller.misc.ControllerShowUserSettingsDialog;
 import de.elmar_baumann.imv.controller.thumbnail.ControllerRefreshThumbnailsPanel;
-import de.elmar_baumann.imv.resource.Panels;
+import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.frames.AppFrame;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 
@@ -26,8 +26,8 @@ public final class ActionListenerFactory {
         Util.checkInit(ActionListenerFactory.class, init);
         if (!init) {
             init = true;
-            AppPanel appPanel = Panels.getInstance().getAppPanel();
-            AppFrame appFrame = Panels.getInstance().getAppFrame();
+            AppPanel appPanel = GUI.INSTANCE.getAppPanel();
+            AppFrame appFrame = GUI.INSTANCE.getAppFrame();
 
             appFrame.getMenuItemAbout().addActionListener(new ControllerAboutApp());
             appFrame.getMenuItemHelp().addActionListener(new ControllerHelp());

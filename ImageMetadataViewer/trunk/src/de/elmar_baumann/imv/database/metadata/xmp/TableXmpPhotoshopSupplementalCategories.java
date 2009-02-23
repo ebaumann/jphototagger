@@ -10,11 +10,7 @@ import de.elmar_baumann.imv.database.metadata.Table;
  */
 public final class TableXmpPhotoshopSupplementalCategories extends Table {
 
-    private static final TableXmpPhotoshopSupplementalCategories instance = new TableXmpPhotoshopSupplementalCategories();
-
-    public static TableXmpPhotoshopSupplementalCategories getInstance() {
-        return instance;
-    }
+    public static final TableXmpPhotoshopSupplementalCategories INSTANCE = new TableXmpPhotoshopSupplementalCategories();
 
     private TableXmpPhotoshopSupplementalCategories() {
         super("xmp_photoshop_supplementalcategories"); // NOI18N
@@ -22,8 +18,8 @@ public final class TableXmpPhotoshopSupplementalCategories extends Table {
 
     @Override
     protected void addColumns() {
-        addColumn(ColumnXmpPhotoshopSupplementalCategoriesId.getInstance());
-        addColumn(ColumnXmpPhotoshopSupplementalCategoriesIdXmp.getInstance());
-        addColumn(ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory.getInstance());
+        addColumn(ColumnXmpPhotoshopSupplementalCategoriesId.INSTANCE);
+        addColumn(ColumnXmpPhotoshopSupplementalCategoriesIdXmp.INSTANCE);
+        addColumn(ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory.INSTANCE);
     }
 }

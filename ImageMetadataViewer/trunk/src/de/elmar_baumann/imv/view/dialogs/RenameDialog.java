@@ -17,7 +17,7 @@ import de.elmar_baumann.imv.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.imv.image.thumbnail.ThumbnailUtil;
 import de.elmar_baumann.imv.io.FileType;
 import de.elmar_baumann.imv.resource.Bundle;
-import de.elmar_baumann.imv.resource.Panels;
+import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.lib.dialog.Dialog;
 import de.elmar_baumann.lib.persistence.PersistentComponentSizes;
 import de.elmar_baumann.lib.persistence.PersistentSettings;
@@ -56,7 +56,7 @@ public final class RenameDialog extends Dialog {
     }
 
     private void postInitComponents() {
-        listenerProvider = ListenerProvider.getInstance();
+        listenerProvider = ListenerProvider.INSTANCE;
         renameFileListeners = listenerProvider.getRenameFileListeners();
         setIconImages(AppIcons.getAppIcons());
         setComboBoxModels();
@@ -127,7 +127,7 @@ public final class RenameDialog extends Dialog {
 
     private void refreshThumbnailsPanel(int countRenamed) {
         if (countRenamed > 0) {
-            Panels.getInstance().getAppPanel().getPanelThumbnails().refresh();
+            GUI.INSTANCE.getAppPanel().getPanelThumbnails().refresh();
         }
     }
 

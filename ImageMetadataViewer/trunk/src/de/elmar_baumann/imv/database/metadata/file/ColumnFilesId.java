@@ -10,15 +10,11 @@ import de.elmar_baumann.imv.database.metadata.Column;
  */
 public final class ColumnFilesId extends Column {
 
-    private static final ColumnFilesId instance = new ColumnFilesId();
-
-    public static ColumnFilesId getInstance() {
-        return instance;
-    }
+    public static final ColumnFilesId INSTANCE = new ColumnFilesId();
 
     private ColumnFilesId() {
         super(
-            TableFiles.getInstance(),
+            TableFiles.INSTANCE,
             "id", // NOI18N
             DataType.BIGINT);
 

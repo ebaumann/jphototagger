@@ -28,8 +28,8 @@ public final class SettingsTasksPanel extends javax.swing.JPanel
     implements Persistence {
 
     private static final String keyLastSelectedAutoscanDirectory = "UserSettingsDialog.keyLastSelectedAutoscanDirectory"; // NOI18N
-    private final DatabaseAutoscanDirectories db = DatabaseAutoscanDirectories.getInstance();
-    private final ListenerProvider listenerProvider = ListenerProvider.getInstance();
+    private final DatabaseAutoscanDirectories db = DatabaseAutoscanDirectories.INSTANCE;
+    private final ListenerProvider listenerProvider = ListenerProvider.INSTANCE;
     private ListModelAutoscanDirectories modelAutoscanDirectories = new ListModelAutoscanDirectories();
     private String lastSelectedAutoscanDirectory = ""; // NOI18N
 
@@ -52,7 +52,7 @@ public final class SettingsTasksPanel extends javax.swing.JPanel
 
     @Override
     public void readPersistent() {
-        UserSettings settings = UserSettings.getInstance();
+        UserSettings settings = UserSettings.INSTANCE;
         spinnerMinutesToStartScheduledTasks.setValue(
             settings.getMinutesToStartScheduledTasks());
         checkBoxIsAutoscanIncludeSubdirectories.setSelected(
@@ -70,7 +70,7 @@ public final class SettingsTasksPanel extends javax.swing.JPanel
     }
 
     private void addAutoscanDirectories() {
-        DirectoryChooser dialog = new DirectoryChooser(null, UserSettings.getInstance().isAcceptHiddenDirectories());
+        DirectoryChooser dialog = new DirectoryChooser(null, UserSettings.INSTANCE.isAcceptHiddenDirectories());
         ViewUtil.setDirectoryTreeModel(dialog);
         dialog.setStartDirectory(new File(lastSelectedAutoscanDirectory));
         dialog.setMultiSelection(true);

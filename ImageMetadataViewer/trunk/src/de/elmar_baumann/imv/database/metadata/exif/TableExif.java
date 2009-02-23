@@ -10,11 +10,7 @@ import de.elmar_baumann.imv.database.metadata.Table;
  */
 public final class TableExif extends Table {
 
-    private static final TableExif instance = new TableExif();
-
-    public static TableExif getInstance() {
-        return instance;
-    }
+    public static final TableExif INSTANCE = new TableExif();
 
     private TableExif() {
         super("exif"); // NOI18N
@@ -22,11 +18,11 @@ public final class TableExif extends Table {
 
     @Override
     protected void addColumns() {
-        addColumn(ColumnExifId.getInstance());
-        addColumn(ColumnExifIdFiles.getInstance());
-        addColumn(ColumnExifDateTimeOriginal.getInstance());
-        addColumn(ColumnExifFocalLength.getInstance());
-        addColumn(ColumnExifIsoSpeedRatings.getInstance());
-        addColumn(ColumnExifRecordingEquipment.getInstance());
+        addColumn(ColumnExifId.INSTANCE);
+        addColumn(ColumnExifIdFiles.INSTANCE);
+        addColumn(ColumnExifDateTimeOriginal.INSTANCE);
+        addColumn(ColumnExifFocalLength.INSTANCE);
+        addColumn(ColumnExifIsoSpeedRatings.INSTANCE);
+        addColumn(ColumnExifRecordingEquipment.INSTANCE);
     }
 }

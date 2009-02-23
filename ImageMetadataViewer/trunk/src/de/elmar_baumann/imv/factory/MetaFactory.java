@@ -1,7 +1,7 @@
 package de.elmar_baumann.imv.factory;
 
 import de.elmar_baumann.imv.resource.Bundle;
-import de.elmar_baumann.imv.resource.Panels;
+import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.frames.AppFrame;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.lib.persistence.PersistentComponentSizes;
@@ -43,27 +43,27 @@ public final class MetaFactory implements Runnable {
     }
 
     private void readPersistentAppFrame() {
-        AppFrame appFrame = Panels.getInstance().getAppFrame();
+        AppFrame appFrame = GUI.INSTANCE.getAppFrame();
         PersistentComponentSizes.getSizeAndLocation(appFrame);
         appFrame.pack();
     }
 
     private void readPersistentAppPanel() {
-        AppPanel appPanel = Panels.getInstance().getAppPanel();
+        AppPanel appPanel = GUI.INSTANCE.getAppPanel();
         PersistentSettings.getInstance().getComponent(
                 appPanel,
                 appPanel.getPersistentSettingsHints());
     }
 
     private void startDisplayProgressInProgressbarBar() {
-        JProgressBar progressbar = Panels.getInstance().getAppPanel().getProgressBarCreateMetadataOfCurrentThumbnails();
+        JProgressBar progressbar = GUI.INSTANCE.getAppPanel().getProgressBarCreateMetadataOfCurrentThumbnails();
         progressbar.setStringPainted(true);
         progressbar.setString(Bundle.getString("MetaFactory.Message.Init"));
         progressbar.setIndeterminate(true);
     }
 
     private void stopDisplayProgressInProgressbarBar() {
-        JProgressBar progressbar = Panels.getInstance().getAppPanel().getProgressBarCreateMetadataOfCurrentThumbnails();
+        JProgressBar progressbar = GUI.INSTANCE.getAppPanel().getProgressBarCreateMetadataOfCurrentThumbnails();
         progressbar.setIndeterminate(false);
         progressbar.setString(""); // NOI18N
         progressbar.setStringPainted(false);

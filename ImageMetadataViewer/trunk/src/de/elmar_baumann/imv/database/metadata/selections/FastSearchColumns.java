@@ -29,23 +29,26 @@ public final class FastSearchColumns {
 
     static {
         // XMP
-        searchColumns.add(ColumnXmpDcSubjectsSubject.getInstance());
-        searchColumns.add(ColumnXmpPhotoshopCategory.getInstance());
-        searchColumns.add(ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory.getInstance());
-        searchColumns.add(ColumnXmpDcTitle.getInstance());
-        searchColumns.add(ColumnXmpDcDescription.getInstance());
-        searchColumns.add(ColumnXmpPhotoshopHeadline.getInstance());
-        searchColumns.add(ColumnXmpIptc4xmpcoreLocation.getInstance());
-        searchColumns.add(ColumnXmpDcRights.getInstance());
+        searchColumns.add(ColumnXmpDcSubjectsSubject.INSTANCE);
+        searchColumns.add(ColumnXmpPhotoshopCategory.INSTANCE);
+        searchColumns.add(ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory.INSTANCE);
+        searchColumns.add(ColumnXmpDcTitle.INSTANCE);
+        searchColumns.add(ColumnXmpDcDescription.INSTANCE);
+        searchColumns.add(ColumnXmpPhotoshopHeadline.INSTANCE);
+        searchColumns.add(ColumnXmpIptc4xmpcoreLocation.INSTANCE);
+        searchColumns.add(ColumnXmpDcRights.INSTANCE);
         // EXIF
-        searchColumns.add(ColumnExifFocalLength.getInstance());
-        searchColumns.add(ColumnExifIsoSpeedRatings.getInstance());
-        searchColumns.add(ColumnExifRecordingEquipment.getInstance());
+        searchColumns.add(ColumnExifFocalLength.INSTANCE);
+        searchColumns.add(ColumnExifIsoSpeedRatings.INSTANCE);
+        searchColumns.add(ColumnExifRecordingEquipment.INSTANCE);
         // Files
-        searchColumns.add(ColumnFilesFilename.getInstance());
+        searchColumns.add(ColumnFilesFilename.INSTANCE);
     }
 
     public static List<Column> get() {
         return searchColumns;
+    }
+
+    private FastSearchColumns() {
     }
 }

@@ -24,7 +24,7 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel
     implements ActionListener, Persistence {
 
     private UpdateAllThumbnails thumbnailsUpdater;
-    private final ListenerProvider listenerProvider = ListenerProvider.getInstance();
+    private final ListenerProvider listenerProvider = ListenerProvider.INSTANCE;
 
     /** Creates new form SettingsThumbnailsPanel */
     public SettingsThumbnailsPanel() {
@@ -55,7 +55,7 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel
             thumbnailsUpdater = new UpdateAllThumbnails();
             thumbnailsUpdater.addActionListener(this);
             Thread thread = new Thread(thumbnailsUpdater);
-            thread.setPriority(UserSettings.getInstance().getThreadPriority());
+            thread.setPriority(UserSettings.INSTANCE.getThreadPriority());
             thread.start();
         }
     }
@@ -75,7 +75,7 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel
     }
 
     private void readPersistentContent() {
-        UserSettings settings = UserSettings.getInstance();
+        UserSettings settings = UserSettings.INSTANCE;
         spinnerMaxThumbnailWidth.setValue(settings.getMaxThumbnailLength());
         checkBoxIsCreateThumbnailsWithExternalApp.setSelected(settings.isCreateThumbnailsWithExternalApp());
         checkBoxIsUseEmbeddedThumbnails.setSelected(settings.isUseEmbeddedThumbnails());
@@ -108,7 +108,7 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel
 
     private void setExternalThumbnailAppEnabled() {
         textFieldExternalThumbnailCreationCommand.setEnabled(
-            UserSettings.getInstance().isCreateThumbnailsWithExternalApp());
+            UserSettings.INSTANCE.isCreateThumbnailsWithExternalApp());
     }
 
     private void handleTextFieldExternalThumbnailCreationCommandKeyReleased() {

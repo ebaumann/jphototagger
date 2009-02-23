@@ -166,7 +166,7 @@ public final class InsertImageFilesIntoDatabaseArray implements ProgressListener
         if (!isWait()) {
             setWait(true);
             Thread thread = new Thread(inserters.remove());
-            thread.setPriority(UserSettings.getInstance().getThreadPriority());
+            thread.setPriority(UserSettings.INSTANCE.getThreadPriority());
             thread.start();
         }
     }

@@ -18,19 +18,10 @@ public final class PopupMenuListImageCollections extends JPopupMenu {
     private final JMenuItem itemDelete = new JMenuItem(actionDelete);
     private final JMenuItem itemRename = new JMenuItem(actionRename);
     private String imageCollectionName;
-    private static final PopupMenuListImageCollections instance = new PopupMenuListImageCollections();
+    public static final PopupMenuListImageCollections INSTANCE = new PopupMenuListImageCollections();
 
     private PopupMenuListImageCollections() {
         addItems();
-    }
-
-    /**
-     * Erzeugt die einzige Klasseninstanz.
-     * 
-     * @return Klasseninstanz
-     */
-    public static PopupMenuListImageCollections getInstance() {
-        return instance;
     }
 
     public JMenuItem getItemDelete() {

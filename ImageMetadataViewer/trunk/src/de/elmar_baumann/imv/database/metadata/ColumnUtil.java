@@ -2,7 +2,7 @@ package de.elmar_baumann.imv.database.metadata;
 
 import de.elmar_baumann.imv.model.ListModelSelectedColumns;
 import de.elmar_baumann.lib.component.CheckList;
-import java.lang.reflect.Method;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,10 +27,9 @@ public final class ColumnUtil {
             try {
                 Class cl = Class.forName(key);
                 @SuppressWarnings("unchecked")
-                Method method = cl.getMethod("getInstance", new Class[0]); // NOI18N
-                Object o = method.invoke(null, new Object[0]);
-                if (o instanceof Column) {
-                    columns.add((Column) o);
+                Field field = cl.getField("INSTANCE");
+                if (field.get(null) instanceof Column) {
+                    columns.add((Column) field.get(null));
                 }
             } catch (Exception ex) {
                 de.elmar_baumann.imv.app.AppLog.logWarning(ColumnUtil.class, ex);

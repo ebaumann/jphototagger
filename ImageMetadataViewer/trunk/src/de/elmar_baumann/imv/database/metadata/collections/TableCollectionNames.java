@@ -10,11 +10,7 @@ import de.elmar_baumann.imv.database.metadata.Table;
  */
 public final class TableCollectionNames extends Table {
 
-    private static final TableCollectionNames instance = new TableCollectionNames();
-
-    public static TableCollectionNames getInstance() {
-        return instance;
-    }
+    public static final TableCollectionNames INSTANCE = new TableCollectionNames();
 
     private TableCollectionNames() {
         super("collection_names"); // NOI18N
@@ -22,7 +18,7 @@ public final class TableCollectionNames extends Table {
 
     @Override
     protected void addColumns() {
-        addColumn(ColumnCollectionnamesId.getInstance());
-        addColumn(ColumnCollectionnamesName.getInstance());
+        addColumn(ColumnCollectionnamesId.INSTANCE);
+        addColumn(ColumnCollectionnamesName.INSTANCE);
     }
 }

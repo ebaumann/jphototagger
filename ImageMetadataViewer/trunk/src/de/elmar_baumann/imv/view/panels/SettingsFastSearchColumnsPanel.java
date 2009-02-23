@@ -24,7 +24,7 @@ public final class SettingsFastSearchColumnsPanel extends javax.swing.JPanel
     private final CheckList list = new CheckList();
     private final ListModelSelectedColumns model = new ListModelSelectedColumns(
         FastSearchColumns.get());
-    private final ListenerProvider listenerProvider = ListenerProvider.getInstance();
+    private final ListenerProvider listenerProvider = ListenerProvider.INSTANCE;
 
     /** Creates new form SettingsFastSearchColumnsPanel */
     public SettingsFastSearchColumnsPanel() {
@@ -43,7 +43,7 @@ public final class SettingsFastSearchColumnsPanel extends javax.swing.JPanel
     public void readPersistent() {
         list.setSelectedItemsWithText(
             ColumnUtil.getDescriptionsOfColumns(
-            UserSettings.getInstance().getFastSearchColumns()), true);
+            UserSettings.INSTANCE.getFastSearchColumns()), true);
     }
 
     @Override

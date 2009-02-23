@@ -15,15 +15,11 @@ import de.elmar_baumann.imv.resource.Bundle;
  */
 public final class ColumnExifFocalLength extends Column {
 
-    private static final ColumnExifFocalLength instance = new ColumnExifFocalLength();
-
-    public static Column getInstance() {
-        return instance;
-    }
+    public static final ColumnExifFocalLength INSTANCE = new ColumnExifFocalLength();
 
     private ColumnExifFocalLength() {
         super(
-            TableExif.getInstance(),
+            TableExif.INSTANCE,
             "exif_focal_length", // NOI18N
             DataType.REAL);
 

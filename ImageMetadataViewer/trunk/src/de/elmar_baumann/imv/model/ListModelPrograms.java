@@ -26,7 +26,7 @@ public final class ListModelPrograms extends DefaultListModel {
     }
 
     public void add(Program program) {
-        if (!contains(program) && DatabasePrograms.getInstance().insert(program)) {
+        if (!contains(program) && DatabasePrograms.INSTANCE.insert(program)) {
             addElement(program);
         } else {
             errorMessage(Bundle.getString("ListModelPrograms.ErrorMessage.Add"),
@@ -35,7 +35,7 @@ public final class ListModelPrograms extends DefaultListModel {
     }
 
     public void remove(Program program) {
-        if (contains(program) && DatabasePrograms.getInstance().delete(program)) {
+        if (contains(program) && DatabasePrograms.INSTANCE.delete(program)) {
             removeElement(program);
         } else {
             errorMessage(Bundle.getString("ListModelPrograms.ErrorMessage.Remove"),
@@ -44,7 +44,7 @@ public final class ListModelPrograms extends DefaultListModel {
     }
 
     public void update(Program program) {
-        if (contains(program) && DatabasePrograms.getInstance().update(program)) {
+        if (contains(program) && DatabasePrograms.INSTANCE.update(program)) {
             int index = indexOf(program);
             fireContentsChanged(this, index, index);
         } else {
@@ -63,7 +63,7 @@ public final class ListModelPrograms extends DefaultListModel {
     }
 
     private void addItems() {
-        List<Program> programs = DatabasePrograms.getInstance().getAll(action);
+        List<Program> programs = DatabasePrograms.INSTANCE.getAll(action);
         for (Program program : programs) {
             addElement(program);
         }

@@ -11,15 +11,11 @@ import de.elmar_baumann.imv.resource.Bundle;
  */
 public final class ColumnSavedSearchesName extends Column {
     
-    private static final ColumnSavedSearchesName instance = new ColumnSavedSearchesName();
-    
-    public static ColumnSavedSearchesName getInstance() {
-        return instance;
-    }
+    public static final ColumnSavedSearchesName INSTANCE = new ColumnSavedSearchesName();
     
     private ColumnSavedSearchesName() {
         super(
-            TableSavedSearches.getInstance(),
+            TableSavedSearches.INSTANCE,
             "name", // NOI18N
             DataType.STRING);
 

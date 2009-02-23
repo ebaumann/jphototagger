@@ -50,34 +50,34 @@ public final class ColumnIds {
     static {
         // TODO PERMANENT: Neue für den Benutzer relevante Spalten hinzufügen
         // Vergebene IDs dürfen NIE verändert werden
-        columnOfId.put(0, ColumnExifDateTimeOriginal.getInstance());
-        columnOfId.put(1, ColumnExifFocalLength.getInstance());
-        columnOfId.put(2, ColumnExifIsoSpeedRatings.getInstance());
-        columnOfId.put(3, ColumnExifRecordingEquipment.getInstance());
-        columnOfId.put(4, ColumnFilesFilename.getInstance());
-        columnOfId.put(5, ColumnFilesLastModified.getInstance());
-        columnOfId.put(6, ColumnFilesThumbnail.getInstance());
-        columnOfId.put(7, ColumnXmpDcDescription.getInstance());
-        columnOfId.put(8, ColumnXmpDcRights.getInstance());
-        columnOfId.put(9, ColumnXmpDcTitle.getInstance());
-        columnOfId.put(10, ColumnXmpIptc4xmpcoreCountrycode.getInstance());
-        columnOfId.put(11, ColumnXmpIptc4xmpcoreLocation.getInstance());
-        columnOfId.put(12, ColumnXmpPhotoshopAuthorsposition.getInstance());
-        columnOfId.put(13, ColumnXmpPhotoshopCaptionwriter.getInstance());
-        columnOfId.put(14, ColumnXmpPhotoshopCategory.getInstance());
-        columnOfId.put(15, ColumnXmpPhotoshopCity.getInstance());
-        columnOfId.put(16, ColumnXmpPhotoshopCountry.getInstance());
-        columnOfId.put(17, ColumnXmpPhotoshopCredit.getInstance());
-        columnOfId.put(18, ColumnXmpPhotoshopHeadline.getInstance());
-        columnOfId.put(19, ColumnXmpPhotoshopInstructions.getInstance());
-        columnOfId.put(20, ColumnXmpPhotoshopSource.getInstance());
-        columnOfId.put(21, ColumnXmpPhotoshopState.getInstance());
-        columnOfId.put(22, ColumnXmpPhotoshopTransmissionReference.getInstance());
-        columnOfId.put(23, ColumnXmpDcCreator.getInstance());
-        columnOfId.put(24, ColumnXmpDcSubjectsSubject.getInstance());
-        columnOfId.put(25, ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory.getInstance());
-        columnOfId.put(26, ColumnCollectionnamesName.getInstance());
-        columnOfId.put(27, ColumnSavedSearchesName.getInstance());
+        columnOfId.put(0, ColumnExifDateTimeOriginal.INSTANCE);
+        columnOfId.put(1, ColumnExifFocalLength.INSTANCE);
+        columnOfId.put(2, ColumnExifIsoSpeedRatings.INSTANCE);
+        columnOfId.put(3, ColumnExifRecordingEquipment.INSTANCE);
+        columnOfId.put(4, ColumnFilesFilename.INSTANCE);
+        columnOfId.put(5, ColumnFilesLastModified.INSTANCE);
+        columnOfId.put(6, ColumnFilesThumbnail.INSTANCE);
+        columnOfId.put(7, ColumnXmpDcDescription.INSTANCE);
+        columnOfId.put(8, ColumnXmpDcRights.INSTANCE);
+        columnOfId.put(9, ColumnXmpDcTitle.INSTANCE);
+        columnOfId.put(10, ColumnXmpIptc4xmpcoreCountrycode.INSTANCE);
+        columnOfId.put(11, ColumnXmpIptc4xmpcoreLocation.INSTANCE);
+        columnOfId.put(12, ColumnXmpPhotoshopAuthorsposition.INSTANCE);
+        columnOfId.put(13, ColumnXmpPhotoshopCaptionwriter.INSTANCE);
+        columnOfId.put(14, ColumnXmpPhotoshopCategory.INSTANCE);
+        columnOfId.put(15, ColumnXmpPhotoshopCity.INSTANCE);
+        columnOfId.put(16, ColumnXmpPhotoshopCountry.INSTANCE);
+        columnOfId.put(17, ColumnXmpPhotoshopCredit.INSTANCE);
+        columnOfId.put(18, ColumnXmpPhotoshopHeadline.INSTANCE);
+        columnOfId.put(19, ColumnXmpPhotoshopInstructions.INSTANCE);
+        columnOfId.put(20, ColumnXmpPhotoshopSource.INSTANCE);
+        columnOfId.put(21, ColumnXmpPhotoshopState.INSTANCE);
+        columnOfId.put(22, ColumnXmpPhotoshopTransmissionReference.INSTANCE);
+        columnOfId.put(23, ColumnXmpDcCreator.INSTANCE);
+        columnOfId.put(24, ColumnXmpDcSubjectsSubject.INSTANCE);
+        columnOfId.put(25, ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory.INSTANCE);
+        columnOfId.put(26, ColumnCollectionnamesName.INSTANCE);
+        columnOfId.put(27, ColumnSavedSearchesName.INSTANCE);
 
         Set<Integer> keys = columnOfId.keySet();
         for (Integer key : keys) {
@@ -103,5 +103,8 @@ public final class ColumnIds {
      */
     public static int getId(Column column) {
         return idOfColumn.get(column);
+    }
+
+    private ColumnIds() {
     }
 }

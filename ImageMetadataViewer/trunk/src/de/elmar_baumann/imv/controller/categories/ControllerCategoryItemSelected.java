@@ -2,7 +2,7 @@ package de.elmar_baumann.imv.controller.categories;
 
 import de.elmar_baumann.imv.database.DatabaseImageFiles;
 import de.elmar_baumann.imv.event.RefreshListener;
-import de.elmar_baumann.imv.resource.Panels;
+import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.types.Content;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
@@ -20,8 +20,8 @@ import javax.swing.event.ListSelectionListener;
  */
 public final class ControllerCategoryItemSelected implements ListSelectionListener, RefreshListener {
 
-    private final DatabaseImageFiles db = DatabaseImageFiles.getInstance();
-    private final AppPanel appPanel = Panels.getInstance().getAppPanel();
+    private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
+    private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
     private final JList listCategories = appPanel.getListCategories();
     private final ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelThumbnails();
 

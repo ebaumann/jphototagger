@@ -23,19 +23,10 @@ public final class PopupMenuListSavedSearches extends JPopupMenu {
     private final JMenuItem itemCreate = new JMenuItem(actionNew);
     private final JMenuItem itemRename = new JMenuItem(actionRename);
     private SavedSearch savedSearch;
-    private static final PopupMenuListSavedSearches instance = new PopupMenuListSavedSearches();
+    public static final PopupMenuListSavedSearches INSTANCE = new PopupMenuListSavedSearches();
 
     private PopupMenuListSavedSearches() {
         addItems();
-    }
-
-    /**
-     * Liefert die einzige Klasseninstanz.
-     * 
-     * @return Instanz
-     */
-    public static PopupMenuListSavedSearches getInstance() {
-        return instance;
     }
 
     public JMenuItem getItemCreate() {

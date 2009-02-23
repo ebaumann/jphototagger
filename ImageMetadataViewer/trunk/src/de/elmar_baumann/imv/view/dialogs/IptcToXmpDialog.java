@@ -47,7 +47,7 @@ public final class IptcToXmpDialog extends Dialog
     }
 
     private void chooseDirectory() {
-        DirectoryChooser dialog = new DirectoryChooser(null, UserSettings.getInstance().isAcceptHiddenDirectories());
+        DirectoryChooser dialog = new DirectoryChooser(null, UserSettings.INSTANCE.isAcceptHiddenDirectories());
         ViewUtil.setDirectoryTreeModel(dialog);
         dialog.setStartDirectory(directory);
         dialog.setMultiSelection(false);
@@ -106,7 +106,7 @@ public final class IptcToXmpDialog extends Dialog
         IptcToXmp converter = new IptcToXmp(FileUtil.getAsFilenames(getFiles()));
         converter.addProgressListener(this);
         Thread thread = new Thread(converter);
-        thread.setPriority(UserSettings.getInstance().getThreadPriority());
+        thread.setPriority(UserSettings.INSTANCE.getThreadPriority());
         thread.start();
         buttonStop.setEnabled(true);
     }
@@ -120,7 +120,7 @@ public final class IptcToXmpDialog extends Dialog
         directories.add(directory);
         if (checkBoxSubdirectories.isSelected()) {
             directories.addAll(FileUtil.getAllSubDirectories(directory,
-                UserSettings.getInstance().isAcceptHiddenDirectories()));
+                UserSettings.INSTANCE.isAcceptHiddenDirectories()));
         }
         return ImageFilteredDirectory.getImageFilesOfDirectories(directories);
     }

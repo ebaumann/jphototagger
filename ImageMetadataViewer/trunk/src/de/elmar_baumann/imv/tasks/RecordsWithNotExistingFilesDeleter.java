@@ -19,7 +19,7 @@ import java.util.List;
  */
 public final class RecordsWithNotExistingFilesDeleter implements Runnable, ProgressListener {
 
-    private final DatabaseImageFiles db = DatabaseImageFiles.getInstance();
+    private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
     private final List<ProgressListener> progressListeners = new ArrayList<ProgressListener>();
     private boolean notifyProgressEnded = false;
     private String startMessage;

@@ -19,7 +19,7 @@ public final class ListModelImageCollections extends DefaultListModel {
     }
 
     private void addItems() {
-        DatabaseImageCollections db = DatabaseImageCollections.getInstance();
+        DatabaseImageCollections db = DatabaseImageCollections.INSTANCE;
         List<String> collections = db.getImageCollectionNames();
         for (String collection : collections) {
             addElement(collection);

@@ -10,20 +10,16 @@ import de.elmar_baumann.imv.database.metadata.Column;
  */
 public final class ColumnXmpDcSubjectsIdXmp extends Column {
 
-    private static final ColumnXmpDcSubjectsIdXmp instance = new ColumnXmpDcSubjectsIdXmp();
-
-    public static ColumnXmpDcSubjectsIdXmp getInstance() {
-        return instance;
-    }
+    public static final ColumnXmpDcSubjectsIdXmp INSTANCE = new ColumnXmpDcSubjectsIdXmp();
 
     private ColumnXmpDcSubjectsIdXmp() {
         super(
-            TableXmpDcSubjects.getInstance(),
+            TableXmpDcSubjects.INSTANCE,
             "id_xmp", // NOI18N
             DataType.BIGINT);
 
         setCanBeNull(false);
-        setReferences(ColumnXmpId.getInstance());
+        setReferences(ColumnXmpId.INSTANCE);
 
     }
 }

@@ -1,7 +1,7 @@
 package de.elmar_baumann.imv.controller.programs;
 
 import de.elmar_baumann.imv.data.Program;
-import de.elmar_baumann.imv.resource.Panels;
+import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.tasks.ProgramStarter;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuPanelThumbnails;
@@ -23,9 +23,9 @@ public final class ControllerOpenFilesWithOtherApp implements ActionListener {
     private final ProgramStarter executor;
 
     public ControllerOpenFilesWithOtherApp() {
-        popupMenu = PopupMenuPanelThumbnails.getInstance();
+        popupMenu = PopupMenuPanelThumbnails.INSTANCE;
         listen();
-        thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
+        thumbnailsPanel = GUI.INSTANCE.getAppPanel().getPanelThumbnails();
         executor = new ProgramStarter(null);
     }
 

@@ -25,7 +25,7 @@ public final class ControllerDoubleklickThumbnail {
 
     private void openImage(int index) {
         if (panel.isIndex(index)) {
-            IoUtil.execute(UserSettings.getInstance().getDefaultImageOpenApp(),
+            IoUtil.execute(UserSettings.INSTANCE.getDefaultImageOpenApp(),
                     panel.getFile(index).getAbsolutePath());
         }
     }

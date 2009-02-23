@@ -12,15 +12,11 @@ import de.elmar_baumann.imv.resource.Bundle;
  */
 public final class ColumnCollectionnamesName extends Column {
 
-    private static final ColumnCollectionnamesName instance = new ColumnCollectionnamesName();
-
-    public static ColumnCollectionnamesName getInstance() {
-        return instance;
-    }
+    public static final ColumnCollectionnamesName INSTANCE = new ColumnCollectionnamesName();
 
     private ColumnCollectionnamesName() {
         super(
-            TableCollectionNames.getInstance(),
+            TableCollectionNames.INSTANCE,
             "name", // NOI18N
             DataType.INTEGER);
 

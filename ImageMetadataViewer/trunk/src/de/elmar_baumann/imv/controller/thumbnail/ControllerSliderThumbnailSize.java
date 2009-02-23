@@ -6,7 +6,7 @@ import de.elmar_baumann.imv.event.ThumbnailsPanelAction;
 import de.elmar_baumann.imv.event.ThumbnailsPanelListener;
 import de.elmar_baumann.imv.event.UserSettingsChangeEvent;
 import de.elmar_baumann.imv.event.UserSettingsChangeListener;
-import de.elmar_baumann.imv.resource.Panels;
+import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.view.panels.ThumbnailsPanel;
 import de.elmar_baumann.lib.persistence.PersistentSettings;
@@ -23,14 +23,14 @@ import javax.swing.event.ChangeListener;
 public final class ControllerSliderThumbnailSize
         implements ChangeListener, ThumbnailsPanelListener, UserSettingsChangeListener {
 
-    private final AppPanel appPanel = Panels.getInstance().getAppPanel();
+    private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
     private final ThumbnailsPanel thumbnailsPanel = appPanel.getPanelThumbnails();
     private final JSlider slider = appPanel.getSliderThumbnailSize();
     private static final int stepWidth = 10;
     private static final int maxMaginficationPercent = 100;
     private static final String keySliderValue = ControllerSliderThumbnailSize.class.getName() + "." + "SliderValue";
     private int currentValue = 100;
-    private int maxThumbnailWidth = UserSettings.getInstance().getMaxThumbnailLength();
+    private int maxThumbnailWidth = UserSettings.INSTANCE.getMaxThumbnailLength();
 
     public ControllerSliderThumbnailSize() {
         initSlider();
@@ -40,7 +40,7 @@ public final class ControllerSliderThumbnailSize
     private void listen() {
         thumbnailsPanel.addThumbnailsPanelListener(this);
         slider.addChangeListener(this);
-        ListenerProvider.getInstance().addUserSettingsChangeListener(this);
+        ListenerProvider.INSTANCE.addUserSettingsChangeListener(this);
     }
 
     private void initSlider() {
@@ -70,7 +70,7 @@ public final class ControllerSliderThumbnailSize
     @Override
     public void applySettings(UserSettingsChangeEvent evt) {
         if (evt.getType().equals(UserSettingsChangeEvent.Type.MAX_THUMBNAIL_WIDTH)) {
-            maxThumbnailWidth = UserSettings.getInstance().getMaxThumbnailLength();
+            maxThumbnailWidth = UserSettings.INSTANCE.getMaxThumbnailLength();
             setThumbnailWidth();
         }
     }

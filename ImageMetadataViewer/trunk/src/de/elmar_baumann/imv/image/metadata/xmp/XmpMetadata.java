@@ -40,9 +40,6 @@ import java.util.List;
 public final class XmpMetadata {
 
     private static final List<String> knownNamespaces = new ArrayList<String>();
-    private static final XmpColumnNamespaceUriMapping mappingNamespaceUri = XmpColumnNamespaceUriMapping.getInstance();
-    private static final XmpColumnXmpPathStartMapping mappingName = XmpColumnXmpPathStartMapping.getInstance();
-    private static final XmpColumnXmpDataTypeMapping mappingDataType = XmpColumnXmpDataTypeMapping.getInstance();
 
     static {
         knownNamespaces.add("Iptc4xmpCore"); // NOI18N
@@ -239,8 +236,7 @@ public final class XmpMetadata {
         IPTCEntryMeta iptcEntryMeta, List<XMPPropertyInfo> propertyInfos) {
 
         List<XMPPropertyInfo> filteredPropertyInfos = new ArrayList<XMPPropertyInfo>();
-        IptcEntryXmpPathStartMapping mapping = IptcEntryXmpPathStartMapping.getInstance();
-        String startsWith = mapping.getXmpPathStartOfIptcEntryMeta(iptcEntryMeta);
+        String startsWith = IptcEntryXmpPathStartMapping.getXmpPathStartOfIptcEntryMeta(iptcEntryMeta);
 
         for (XMPPropertyInfo propertyInfo : propertyInfos) {
             if (propertyInfo.getPath().startsWith(startsWith)) {
@@ -305,8 +301,8 @@ public final class XmpMetadata {
     private static void writeMetadata(XMPMeta xmpMeta, Xmp metadata) throws XMPException {
         Set<Column> xmpColumns = EditColumns.getColumns();
         for (Column column : xmpColumns) {
-            String namespaceUri = mappingNamespaceUri.getNamespaceUriOfColumn(column);
-            String propertyName = mappingName.getXmpPathStartOfColumn(column);
+            String namespaceUri = XmpColumnNamespaceUriMapping.getNamespaceUriOfColumn(column);
+            String propertyName = XmpColumnXmpPathStartMapping.getXmpPathStartOfColumn(column);
             writeSidecarFileSetMetadata(column, metadata,
                 xmpMeta, namespaceUri, propertyName);
         }
@@ -327,8 +323,8 @@ public final class XmpMetadata {
             writeSidecarFileDeleteItems(xmpMeta, textEntries, writeOptions);
             for (TextEntry entry : textEntries) {
                 Column xmpColumn = entry.getColumn();
-                String namespaceUri = mappingNamespaceUri.getNamespaceUriOfColumn(xmpColumn);
-                String name = mappingName.getXmpPathStartOfColumn(xmpColumn);
+                String namespaceUri = XmpColumnNamespaceUriMapping.getNamespaceUriOfColumn(xmpColumn);
+                String name = XmpColumnXmpPathStartMapping.getXmpPathStartOfColumn(xmpColumn);
                 String entryText = entry.getText().trim();
                 if (!entryText.isEmpty()) {
                     writeSidecarFileSetTextEntry(xmpColumn, entryText,
@@ -354,8 +350,8 @@ public final class XmpMetadata {
         List<TextEntry> textEntries, EnumSet<UpdateOption> options) {
         for (TextEntry textEntry : textEntries) {
             Column xmpColumn = textEntry.getColumn();
-            String namespaceUri = mappingNamespaceUri.getNamespaceUriOfColumn(xmpColumn);
-            String name = mappingName.getXmpPathStartOfColumn(xmpColumn);
+            String namespaceUri = XmpColumnNamespaceUriMapping.getNamespaceUriOfColumn(xmpColumn);
+            String name = XmpColumnXmpPathStartMapping.getXmpPathStartOfColumn(xmpColumn);
             boolean textEntryIsEmpty = textEntry.getText().trim().isEmpty();
             boolean deleteProperty =
                 (!textEntryIsEmpty && !options.contains(UpdateOption.APPEND_TO_REPEATABLE_VALUES)) // !textEntryIsEmpty: empty must not be deleted
@@ -369,20 +365,20 @@ public final class XmpMetadata {
     private static void writeSidecarFileDeleteItems(XMPMeta xmpMeta) {
         Set<Column> xmpColumns = EditColumns.getColumns();
         for (Column column : xmpColumns) {
-            String namespaceUri = mappingNamespaceUri.getNamespaceUriOfColumn(column);
-            String name = mappingName.getXmpPathStartOfColumn(column);
+            String namespaceUri = XmpColumnNamespaceUriMapping.getNamespaceUriOfColumn(column);
+            String name = XmpColumnXmpPathStartMapping.getXmpPathStartOfColumn(column);
             xmpMeta.deleteProperty(namespaceUri, name);
         }
     }
 
     private static void writeSidecarFileSetTextEntry(Column xmpColumn, String entryText,
         XMPMeta xmpMeta, String namespaceUri, String propertyName) throws XMPException {
-        if (mappingDataType.isText(xmpColumn)) {
+        if (XmpColumnXmpDataTypeMapping.isText(xmpColumn)) {
             xmpMeta.setProperty(namespaceUri, propertyName, entryText);
-        } else if (mappingDataType.isLanguageAlternative(xmpColumn)) {
+        } else if (XmpColumnXmpDataTypeMapping.isLanguageAlternative(xmpColumn)) {
             xmpMeta.setLocalizedText(namespaceUri, propertyName, "", "x-default", // NOI18N
                 entryText);
-        } else if (mappingDataType.isArray(xmpColumn)) {
+        } else if (XmpColumnXmpDataTypeMapping.isArray(xmpColumn)) {
             List<String> items = ArrayUtil.stringTokenToList(
                 entryText, getArrayItemDelimiter());
             for (String item : items) {
@@ -401,9 +397,9 @@ public final class XmpMetadata {
         if (o != null) {
             if (o instanceof String) {
                 String value = (String) o;
-                if (mappingDataType.isText(column)) {
+                if (XmpColumnXmpDataTypeMapping.isText(column)) {
                     xmpMeta.setProperty(namespaceUri, propertyName, value);
-                } else if (mappingDataType.isLanguageAlternative(column)) {
+                } else if (XmpColumnXmpDataTypeMapping.isLanguageAlternative(column)) {
                     xmpMeta.setLocalizedText(namespaceUri, propertyName, "", "x-default", // NOI18N
                         value);
                 }
@@ -444,8 +440,7 @@ public final class XmpMetadata {
     }
 
     private static PropertyOptions getArrayPropertyOptions(Column xmpColumn) {
-        XmpValueType valueType = XmpColumnXmpDataTypeMapping.getInstance().
-            getXmpValueTypeOfColumn(xmpColumn);
+        XmpValueType valueType = XmpColumnXmpDataTypeMapping.getXmpValueTypeOfColumn(xmpColumn);
         if (valueType.equals(XmpValueType.BAG_TEXT)) {
             return new PropertyOptions().setArray(true);
         } else if (valueType.equals(XmpValueType.SEQ_PROPER_NAME)) {

@@ -16,15 +16,11 @@ import de.elmar_baumann.imv.resource.Bundle;
  */
 public final class ColumnExifRecordingEquipment extends Column {
 
-    private static final ColumnExifRecordingEquipment instance = new ColumnExifRecordingEquipment();
-
-    public static Column getInstance() {
-        return instance;
-    }
+    public static final ColumnExifRecordingEquipment INSTANCE = new ColumnExifRecordingEquipment();
 
     private ColumnExifRecordingEquipment() {
         super(
-            TableExif.getInstance(),
+            TableExif.INSTANCE,
             "exif_recording_equipment", // NOI18N
             DataType.STRING);
 

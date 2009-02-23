@@ -4,7 +4,7 @@ import de.elmar_baumann.imv.database.DatabaseImageFiles;
 import de.elmar_baumann.imv.event.ListenerProvider;
 import de.elmar_baumann.imv.event.RenameFileAction;
 import de.elmar_baumann.imv.event.RenameFileListener;
-import de.elmar_baumann.imv.resource.Panels;
+import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.dialogs.RenameDialog;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuPanelThumbnails;
@@ -22,17 +22,17 @@ import java.util.List;
  */
 public final class ControllerRenameFiles implements ActionListener, RenameFileListener {
 
-    private final ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
-    private final DatabaseImageFiles db = DatabaseImageFiles.getInstance();
+    private final ImageFileThumbnailsPanel thumbnailsPanel = GUI.INSTANCE.getAppPanel().getPanelThumbnails();
+    private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
 
     public ControllerRenameFiles() {
         listen();
     }
 
     private void listen() {
-        PopupMenuPanelThumbnails.getInstance().addActionListenerFileSystemRenameFiles(this);
-        Panels.getInstance().getAppFrame().getMenuItemRename().addActionListener(this);
-        ListenerProvider.getInstance().addRenameFileListener(this);
+        PopupMenuPanelThumbnails.INSTANCE.addActionListenerFileSystemRenameFiles(this);
+        GUI.INSTANCE.getAppFrame().getMenuItemRename().addActionListener(this);
+        ListenerProvider.INSTANCE.addRenameFileListener(this);
     }
 
     @Override

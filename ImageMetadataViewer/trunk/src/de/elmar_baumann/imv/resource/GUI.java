@@ -4,20 +4,16 @@ import de.elmar_baumann.imv.view.frames.AppFrame;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 
 /**
- * Panels.
+ * Provides access to GUI elements.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/29
  */
-public final class Panels {
+public final class GUI {
 
     private AppPanel appPanel;
     private AppFrame appFrame;
-    private static final Panels instance = new Panels();
-
-    public static Panels getInstance() {
-        return instance;
-    }
+    public static final GUI INSTANCE = new GUI();
 
     public void setAppPanel(AppPanel panel) {
         appPanel = panel;

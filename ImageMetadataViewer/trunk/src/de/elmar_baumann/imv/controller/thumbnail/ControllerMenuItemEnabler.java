@@ -6,7 +6,7 @@ import de.elmar_baumann.imv.event.ThumbnailsPanelAction;
 import de.elmar_baumann.imv.event.ThumbnailsPanelListener;
 import de.elmar_baumann.imv.event.UserSettingsChangeEvent;
 import de.elmar_baumann.imv.event.UserSettingsChangeListener;
-import de.elmar_baumann.imv.resource.Panels;
+import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.types.Content;
 import de.elmar_baumann.imv.view.frames.AppFrame;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
@@ -29,12 +29,12 @@ public final class ControllerMenuItemEnabler
 
     private final Map<JMenuItem, List<Content>> contentsOfMenuItem = new HashMap<JMenuItem, List<Content>>();
     private final List<JMenuItem> itemsIsSelection = new ArrayList<JMenuItem>();
-    private final AppFrame appFrame = Panels.getInstance().getAppFrame();
-    private final PopupMenuPanelThumbnails popupThumbnails = PopupMenuPanelThumbnails.getInstance();
-    private final ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
+    private final AppFrame appFrame = GUI.INSTANCE.getAppFrame();
+    private final PopupMenuPanelThumbnails popupThumbnails = PopupMenuPanelThumbnails.INSTANCE;
+    private final ImageFileThumbnailsPanel thumbnailsPanel = GUI.INSTANCE.getAppPanel().getPanelThumbnails();
     private final JMenuItem itemOpenFilesWithStandardApp = popupThumbnails.getItemOpenFilesWithStandardApp();
     private final JMenu menuOtherOpenImageApps = popupThumbnails.getMenuOtherOpenImageApps();
-    private boolean hasPrograms = DatabasePrograms.getInstance().hasProgram();
+    private boolean hasPrograms = DatabasePrograms.INSTANCE.hasProgram();
 
     public ControllerMenuItemEnabler() {
         init();
@@ -93,7 +93,7 @@ public final class ControllerMenuItemEnabler
                     contentsOfMenuItem.get(item).contains(content));
         }
 
-        UserSettings settings = UserSettings.getInstance();
+        UserSettings settings = UserSettings.INSTANCE;
 
         itemOpenFilesWithStandardApp.setEnabled(
                 isSelection &&
@@ -116,7 +116,7 @@ public final class ControllerMenuItemEnabler
     @Override
     public void applySettings(UserSettingsChangeEvent evt) {
         if (evt.getType().equals(UserSettingsChangeEvent.Type.OTHER_IMAGE_OPEN_APPS)) {
-            hasPrograms = DatabasePrograms.getInstance().hasProgram();
+            hasPrograms = DatabasePrograms.INSTANCE.hasProgram();
             setEnabled();
         }
     }

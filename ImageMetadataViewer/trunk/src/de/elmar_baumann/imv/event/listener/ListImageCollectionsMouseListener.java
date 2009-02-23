@@ -14,7 +14,7 @@ import javax.swing.JList;
  */
 public final class ListImageCollectionsMouseListener extends MouseAdapter {
 
-    private final PopupMenuListImageCollections popupMenu = PopupMenuListImageCollections.getInstance();
+    private final PopupMenuListImageCollections popupMenu = PopupMenuListImageCollections.INSTANCE;
 
     @Override
     public void mousePressed(MouseEvent e) {

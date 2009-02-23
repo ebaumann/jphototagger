@@ -15,15 +15,11 @@ import de.elmar_baumann.imv.resource.Bundle;
  */
 public final class ColumnExifDateTimeOriginal extends Column {
 
-    private static final ColumnExifDateTimeOriginal instance = new ColumnExifDateTimeOriginal();
-
-    public static Column getInstance() {
-        return instance;
-    }
+    public static final ColumnExifDateTimeOriginal INSTANCE = new ColumnExifDateTimeOriginal();
 
     private ColumnExifDateTimeOriginal() {
         super(
-            TableExif.getInstance(),
+            TableExif.INSTANCE,
             "exif_date_time_original", // NOI18N
             DataType.DATE);
 

@@ -2,7 +2,7 @@ package de.elmar_baumann.imv.controller.tasks;
 
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.event.TaskListener;
-import de.elmar_baumann.imv.resource.Panels;
+import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.tasks.Task;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import java.awt.event.ActionEvent;
@@ -21,12 +21,12 @@ import javax.swing.JProgressBar;
 public final class ControllerArrayScheduledTasks
         implements ActionListener, Runnable, TaskListener {
 
-    private final AppPanel appPanel = Panels.getInstance().getAppPanel();
+    private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
     private final JProgressBar progressBar = appPanel.getProgressBarScheduledTasks();
     private final JButton buttonStop = appPanel.getButtonStopScheduledTasks();
     private final Queue<Task> controllers = new ConcurrentLinkedQueue<Task>();
     private Task activeController;
-    private int milliSecondsToStart = UserSettings.getInstance().getMinutesToStartScheduledTasks() * 60 * 1000;
+    private int milliSecondsToStart = UserSettings.INSTANCE.getMinutesToStartScheduledTasks() * 60 * 1000;
 
     public ControllerArrayScheduledTasks() {
         initArray();
@@ -50,7 +50,7 @@ public final class ControllerArrayScheduledTasks
     }
 
     private void addControllerRecordsWithNotExistingFilesDeleter() {
-        if (UserSettings.getInstance().isTaskRemoveRecordsWithNotExistingFiles()) {
+        if (UserSettings.INSTANCE.isTaskRemoveRecordsWithNotExistingFiles()) {
             ControllerRecordsWithNotExistingFilesDeleter controllerRecordsWithNotExistingFilesDeleter =
                     new ControllerRecordsWithNotExistingFilesDeleter(progressBar);
             controllerRecordsWithNotExistingFilesDeleter.addTaskListener(this);

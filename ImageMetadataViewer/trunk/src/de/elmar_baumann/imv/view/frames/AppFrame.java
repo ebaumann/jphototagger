@@ -8,7 +8,7 @@ import de.elmar_baumann.imv.event.AppStartListener;
 import de.elmar_baumann.imv.factory.MetaFactory;
 import de.elmar_baumann.imv.io.FileSort;
 import de.elmar_baumann.imv.resource.Bundle;
-import de.elmar_baumann.imv.resource.Panels;
+import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.lib.persistence.PersistentComponentSizes;
 import de.elmar_baumann.lib.persistence.PersistentSettings;
@@ -37,7 +37,7 @@ public final class AppFrame extends javax.swing.JFrame {
     private AppPanel appPanel;
 
     public AppFrame() {
-        Panels.getInstance().setAppFrame(this);
+        GUI.INSTANCE.setAppFrame(this);
         initComponents();
         postInitComponents();
     }

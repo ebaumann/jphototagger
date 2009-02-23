@@ -13,7 +13,7 @@ import de.elmar_baumann.imv.model.TableModelExif;
 import de.elmar_baumann.imv.model.TableModelIptc;
 import de.elmar_baumann.imv.model.TableModelXmp;
 import de.elmar_baumann.imv.resource.Bundle;
-import de.elmar_baumann.imv.resource.Panels;
+import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.lib.componentutil.TableUtil;
 import java.awt.Component;
@@ -34,7 +34,7 @@ import javax.swing.JTable;
 public final class ControllerShowMetadata implements DatabaseListener, ThumbnailsPanelListener {
 
     private final Map<TableModelXmp, String[]> namespacesOfXmpTableModel = new HashMap<TableModelXmp, String[]>();
-    private final AppPanel appPanel = Panels.getInstance().getAppPanel();
+    private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
     private final MetadataDisplay data = new MetadataDisplay();
 
     public ControllerShowMetadata() {
@@ -45,7 +45,7 @@ public final class ControllerShowMetadata implements DatabaseListener, Thumbnail
 
     private void listen() {
         data.getThumbnailsPanel().addThumbnailsPanelListener(this);
-        DatabaseImageFiles.getInstance().addDatabaseListener(this);
+        DatabaseImageFiles.INSTANCE.addDatabaseListener(this);
     }
 
     private void initData() {

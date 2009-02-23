@@ -23,7 +23,7 @@ import javax.swing.table.DefaultTableModel;
 public final class TableModelDatabaseInfo extends DefaultTableModel
     implements DatabaseListener {
 
-    private final DatabaseStatistics db = DatabaseStatistics.getInstance();
+    private final DatabaseStatistics db = DatabaseStatistics.INSTANCE;
     private final LinkedHashMap<Column, StringBuffer> bufferDifferentOfColumn = new LinkedHashMap<Column, StringBuffer>();
     private final LinkedHashMap<Column, StringBuffer> bufferTotalOfColumn = new LinkedHashMap<Column, StringBuffer>();
     private final List<Column> excludedColumns = new ArrayList<Column>();
@@ -38,8 +38,8 @@ public final class TableModelDatabaseInfo extends DefaultTableModel
     }
 
     private void initExcludedColumns() {
-        excludedColumns.add(ColumnFilesThumbnail.getInstance());
-        excludedColumns.add(ColumnCollectionsSequenceNumber.getInstance());
+        excludedColumns.add(ColumnFilesThumbnail.INSTANCE);
+        excludedColumns.add(ColumnCollectionsSequenceNumber.INSTANCE);
     }
 
     public TableModelDatabaseInfo() {

@@ -22,7 +22,7 @@ import javax.swing.JProgressBar;
 public final class XmpUpdaterFromTextEntryArray implements ProgressListener {
 
     private final Queue<XmpUpdaterFromTextEntry> updaters = new ConcurrentLinkedQueue<XmpUpdaterFromTextEntry>();
-    private final ProgressBarCurrentTasks progressBarProvider = ProgressBarCurrentTasks.getInstance();
+    private final ProgressBarCurrentTasks progressBarProvider = ProgressBarCurrentTasks.INSTANCE;
     private JProgressBar progressBar;
     private boolean wait = false;
     private boolean stop = false;
@@ -46,7 +46,7 @@ public final class XmpUpdaterFromTextEntryArray implements ProgressListener {
         if (!isWait()) {
             setWait(true);
             Thread thread = new Thread(updaters.remove());
-            thread.setPriority(UserSettings.getInstance().getThreadPriority());
+            thread.setPriority(UserSettings.INSTANCE.getThreadPriority());
             thread.start();
         }
     }

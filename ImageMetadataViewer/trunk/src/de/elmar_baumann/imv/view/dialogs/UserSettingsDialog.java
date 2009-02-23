@@ -26,7 +26,7 @@ public final class UserSettingsDialog extends Dialog {
     private final Map<Integer, Tab> tabOfIndex = new HashMap<Integer, Tab>();
     private final Map<Component, String> helpUrlOfComponent = new HashMap<Component, String>();
     private final List<Persistence> persistentPanels = new ArrayList<Persistence>();
-    private static final UserSettingsDialog instance = new UserSettingsDialog();
+    public static final UserSettingsDialog INSTANCE = new UserSettingsDialog();
 
     /**
      * Ein Tab mit bestimmten Einstellungen.
@@ -56,10 +56,6 @@ public final class UserSettingsDialog extends Dialog {
         /** Verschiedenes */
         MISC,
     };
-
-    public static UserSettingsDialog getInstance() {
-        return instance;
-    }
 
     private UserSettingsDialog() {
         super((java.awt.Frame) null, false);
@@ -237,7 +233,7 @@ private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:even
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                UserSettingsDialog dialog = UserSettingsDialog.getInstance();
+                UserSettingsDialog dialog = UserSettingsDialog.INSTANCE;
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

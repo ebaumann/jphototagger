@@ -16,7 +16,7 @@ import de.elmar_baumann.lib.persistence.PersistentComponentSizes;
  */
 public final class AdvancedSearchDialog extends Dialog implements SearchListener {
 
-    private static final AdvancedSearchDialog instance = new AdvancedSearchDialog(null, false);
+    public static final AdvancedSearchDialog INSTANCE = new AdvancedSearchDialog(null, false);
 
     private AdvancedSearchDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -28,15 +28,6 @@ public final class AdvancedSearchDialog extends Dialog implements SearchListener
         setIconImages(AppIcons.getAppIcons());
         setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
         registerKeyStrokes();
-    }
-
-    /**
-     * Liefert die einige Klasseninstanz.
-     * 
-     * @return Klasseninstanz
-     */
-    public static AdvancedSearchDialog getInstance() {
-        return instance;
     }
 
     public void setSavedSearch(SavedSearch search) {

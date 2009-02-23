@@ -21,11 +21,7 @@ import java.util.List;
  */
 public final class DatabaseSavedSearches extends Database {
 
-    private static final DatabaseSavedSearches instance = new DatabaseSavedSearches();
-
-    public static DatabaseSavedSearches getInstance() {
-        return instance;
-    }
+    public static final DatabaseSavedSearches INSTANCE = new DatabaseSavedSearches();
 
     private DatabaseSavedSearches() {
     }

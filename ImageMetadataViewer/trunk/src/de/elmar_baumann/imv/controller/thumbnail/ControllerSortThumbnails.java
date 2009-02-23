@@ -1,7 +1,7 @@
 package de.elmar_baumann.imv.controller.thumbnail;
 
 import de.elmar_baumann.imv.io.FileSort;
-import de.elmar_baumann.imv.resource.Panels;
+import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.frames.AppFrame;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import java.awt.event.ActionEvent;
@@ -16,8 +16,8 @@ import javax.swing.JRadioButtonMenuItem;
  */
 public final class ControllerSortThumbnails implements ActionListener {
 
-    private final ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
-    private final AppFrame appFrame = Panels.getInstance().getAppFrame();
+    private final ImageFileThumbnailsPanel thumbnailsPanel = GUI.INSTANCE.getAppPanel().getPanelThumbnails();
+    private final AppFrame appFrame = GUI.INSTANCE.getAppFrame();
 
     public ControllerSortThumbnails() {
         listen();

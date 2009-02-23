@@ -35,37 +35,27 @@ import java.util.Map;
 public final class XmpColumnNamespaceUriMapping {
 
     private static final Map<Column, String> namespaceUriOfColumn = new HashMap<Column, String>();
-    private static final XmpColumnNamespaceUriMapping instance = new XmpColumnNamespaceUriMapping();
 
     static  {
-        namespaceUriOfColumn.put(ColumnXmpDcCreator.getInstance(), XMPConst.NS_DC);
-        namespaceUriOfColumn.put(ColumnXmpDcDescription.getInstance(), XMPConst.NS_DC);
-        namespaceUriOfColumn.put(ColumnXmpDcRights.getInstance(), XMPConst.NS_DC);
-        namespaceUriOfColumn.put(ColumnXmpDcSubjectsSubject.getInstance(), XMPConst.NS_DC);
-        namespaceUriOfColumn.put(ColumnXmpDcTitle.getInstance(), XMPConst.NS_DC);
-        namespaceUriOfColumn.put(ColumnXmpIptc4xmpcoreCountrycode.getInstance(), XMPConst.NS_IPTCCORE);
-        namespaceUriOfColumn.put(ColumnXmpIptc4xmpcoreLocation.getInstance(), XMPConst.NS_IPTCCORE);
-        namespaceUriOfColumn.put(ColumnXmpPhotoshopAuthorsposition.getInstance(), XMPConst.NS_PHOTOSHOP);
-        namespaceUriOfColumn.put(ColumnXmpPhotoshopCaptionwriter.getInstance(), XMPConst.NS_PHOTOSHOP);
-        namespaceUriOfColumn.put(ColumnXmpPhotoshopCategory.getInstance(), XMPConst.NS_PHOTOSHOP);
-        namespaceUriOfColumn.put(ColumnXmpPhotoshopCity.getInstance(), XMPConst.NS_PHOTOSHOP);
-        namespaceUriOfColumn.put(ColumnXmpPhotoshopCountry.getInstance(), XMPConst.NS_PHOTOSHOP);
-        namespaceUriOfColumn.put(ColumnXmpPhotoshopCredit.getInstance(), XMPConst.NS_PHOTOSHOP);
-        namespaceUriOfColumn.put(ColumnXmpPhotoshopHeadline.getInstance(), XMPConst.NS_PHOTOSHOP);
-        namespaceUriOfColumn.put(ColumnXmpPhotoshopInstructions.getInstance(), XMPConst.NS_PHOTOSHOP);
-        namespaceUriOfColumn.put(ColumnXmpPhotoshopSource.getInstance(), XMPConst.NS_PHOTOSHOP);
-        namespaceUriOfColumn.put(ColumnXmpPhotoshopState.getInstance(), XMPConst.NS_PHOTOSHOP);
-        namespaceUriOfColumn.put(ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory.getInstance(), XMPConst.NS_PHOTOSHOP);
-        namespaceUriOfColumn.put(ColumnXmpPhotoshopTransmissionReference.getInstance(), XMPConst.NS_PHOTOSHOP);
-    }
-
-    /**
-     * Liefert die einzige Klasseninstanz.
-     * 
-     * @return Instanz
-     */
-    public static XmpColumnNamespaceUriMapping getInstance() {
-        return instance;
+        namespaceUriOfColumn.put(ColumnXmpDcCreator.INSTANCE, XMPConst.NS_DC);
+        namespaceUriOfColumn.put(ColumnXmpDcDescription.INSTANCE, XMPConst.NS_DC);
+        namespaceUriOfColumn.put(ColumnXmpDcRights.INSTANCE, XMPConst.NS_DC);
+        namespaceUriOfColumn.put(ColumnXmpDcSubjectsSubject.INSTANCE, XMPConst.NS_DC);
+        namespaceUriOfColumn.put(ColumnXmpDcTitle.INSTANCE, XMPConst.NS_DC);
+        namespaceUriOfColumn.put(ColumnXmpIptc4xmpcoreCountrycode.INSTANCE, XMPConst.NS_IPTCCORE);
+        namespaceUriOfColumn.put(ColumnXmpIptc4xmpcoreLocation.INSTANCE, XMPConst.NS_IPTCCORE);
+        namespaceUriOfColumn.put(ColumnXmpPhotoshopAuthorsposition.INSTANCE, XMPConst.NS_PHOTOSHOP);
+        namespaceUriOfColumn.put(ColumnXmpPhotoshopCaptionwriter.INSTANCE, XMPConst.NS_PHOTOSHOP);
+        namespaceUriOfColumn.put(ColumnXmpPhotoshopCategory.INSTANCE, XMPConst.NS_PHOTOSHOP);
+        namespaceUriOfColumn.put(ColumnXmpPhotoshopCity.INSTANCE, XMPConst.NS_PHOTOSHOP);
+        namespaceUriOfColumn.put(ColumnXmpPhotoshopCountry.INSTANCE, XMPConst.NS_PHOTOSHOP);
+        namespaceUriOfColumn.put(ColumnXmpPhotoshopCredit.INSTANCE, XMPConst.NS_PHOTOSHOP);
+        namespaceUriOfColumn.put(ColumnXmpPhotoshopHeadline.INSTANCE, XMPConst.NS_PHOTOSHOP);
+        namespaceUriOfColumn.put(ColumnXmpPhotoshopInstructions.INSTANCE, XMPConst.NS_PHOTOSHOP);
+        namespaceUriOfColumn.put(ColumnXmpPhotoshopSource.INSTANCE, XMPConst.NS_PHOTOSHOP);
+        namespaceUriOfColumn.put(ColumnXmpPhotoshopState.INSTANCE, XMPConst.NS_PHOTOSHOP);
+        namespaceUriOfColumn.put(ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory.INSTANCE, XMPConst.NS_PHOTOSHOP);
+        namespaceUriOfColumn.put(ColumnXmpPhotoshopTransmissionReference.INSTANCE, XMPConst.NS_PHOTOSHOP);
     }
 
     /**
@@ -74,7 +64,7 @@ public final class XmpColumnNamespaceUriMapping {
      * @param  column  Spalte
      * @return Namespace-URI oder null bei unbekannter Spalte
      */
-    public String getNamespaceUriOfColumn(Column column) {
+    public static String getNamespaceUriOfColumn(Column column) {
         return namespaceUriOfColumn.get(column);
     }
 

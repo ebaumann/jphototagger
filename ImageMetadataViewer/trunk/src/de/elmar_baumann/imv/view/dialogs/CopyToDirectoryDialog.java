@@ -95,7 +95,7 @@ public final class CopyToDirectoryDialog extends Dialog
         copyTask = new CopyFiles(getFiles(), getCopyOptions());
         copyTask.addProgressListener(this);
         Thread thread = new Thread(copyTask);
-        thread.setPriority(UserSettings.getInstance().getThreadPriority());
+        thread.setPriority(UserSettings.INSTANCE.getThreadPriority());
         thread.start();
     }
 
@@ -135,7 +135,7 @@ public final class CopyToDirectoryDialog extends Dialog
     }
 
     private void chooseTargetDirectory() {
-        DirectoryChooser dialog = new DirectoryChooser(null, UserSettings.getInstance().isAcceptHiddenDirectories());
+        DirectoryChooser dialog = new DirectoryChooser(null, UserSettings.INSTANCE.isAcceptHiddenDirectories());
         ViewUtil.setDirectoryTreeModel(dialog);
         dialog.setStartDirectory(new File(lastDirectory));
         dialog.setMultiSelection(false);

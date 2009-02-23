@@ -18,7 +18,7 @@ import javax.swing.JOptionPane;
  */
 public final class ListModelFavoriteDirectories extends DefaultListModel {
 
-    private final DatabaseFavoriteDirectories db = DatabaseFavoriteDirectories.getInstance();
+    private final DatabaseFavoriteDirectories db = DatabaseFavoriteDirectories.INSTANCE;
 
     public ListModelFavoriteDirectories() {
         addElements();

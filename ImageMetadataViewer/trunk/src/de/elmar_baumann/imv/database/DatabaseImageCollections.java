@@ -18,11 +18,7 @@ import java.util.List;
  */
 public final class DatabaseImageCollections extends Database {
     
-    private static final DatabaseImageCollections instance = new DatabaseImageCollections();
-    
-    public static DatabaseImageCollections getInstance() {
-        return instance;
-    }
+    public static final DatabaseImageCollections INSTANCE = new DatabaseImageCollections();
     
     private DatabaseImageCollections() {
     }
@@ -155,7 +151,7 @@ public final class DatabaseImageCollections extends Database {
             long idCollectionName = getIdCollectionName(connection, collectionName);
             int sequence_number = 0;
             for (String filename : filenames) {
-                long idFile = DatabaseImageFiles.getInstance().getIdFile(
+                long idFile = DatabaseImageFiles.INSTANCE.getIdFile(
                     connection, filename);
                 stmtColl.setLong(1, idCollectionName);
                 stmtColl.setLong(2, idFile);
@@ -229,7 +225,7 @@ public final class DatabaseImageCollections extends Database {
             for (String filename : filenames) {
                 long idCollectionName = getIdCollectionName(
                     connection, collectionName);
-                long idFile = DatabaseImageFiles.getInstance().getIdFile(
+                long idFile = DatabaseImageFiles.INSTANCE.getIdFile(
                     connection, filename);
                 stmt.setLong(1, idCollectionName);
                 stmt.setLong(2, idFile);
@@ -281,7 +277,7 @@ public final class DatabaseImageCollections extends Database {
                     connection, collectionName) + 1;
                 for (String filename : filenames) {
                     if (!isImageInCollection(connection, collectionName, filename)) {
-                        long idFiles = DatabaseImageFiles.getInstance().getIdFile(
+                        long idFiles = DatabaseImageFiles.INSTANCE.getIdFile(
                             connection, filename);
                         stmt.setLong(1, idFiles);
                         stmt.setLong(2, idCollectionNames);

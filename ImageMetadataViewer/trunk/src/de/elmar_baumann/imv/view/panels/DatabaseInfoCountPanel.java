@@ -42,7 +42,7 @@ public final class DatabaseInfoCountPanel extends javax.swing.JPanel {
             @Override
             public void run() {
                 labelTotalRecordCount.setText(Long.toString(
-                    DatabaseStatistics.getInstance().getTotalRecordCount()));
+                    DatabaseStatistics.INSTANCE.getTotalRecordCount()));
             }
         }).start();
     }

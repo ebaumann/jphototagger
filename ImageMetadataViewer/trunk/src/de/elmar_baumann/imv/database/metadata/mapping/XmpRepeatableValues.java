@@ -35,26 +35,26 @@ public final class XmpRepeatableValues {
     private static final Map<Column, Boolean> repeatableOf = new HashMap<Column, Boolean>();
 
     static {
-        repeatableOf.put(ColumnXmpDcCreator.getInstance(), false);
-        repeatableOf.put(ColumnXmpDcDescription.getInstance(), false);
-        repeatableOf.put(ColumnXmpDcRights.getInstance(), false);
-        repeatableOf.put(ColumnXmpDcSubjectsSubject.getInstance(), true);
-        repeatableOf.put(ColumnXmpDcTitle.getInstance(), false);
-        repeatableOf.put(ColumnXmpIptc4xmpcoreCountrycode.getInstance(), false);
-        repeatableOf.put(ColumnXmpIptc4xmpcoreLocation.getInstance(), false);
-        repeatableOf.put(ColumnXmpPhotoshopAuthorsposition.getInstance(), false);
-        repeatableOf.put(ColumnXmpPhotoshopCaptionwriter.getInstance(), false);
-        repeatableOf.put(ColumnXmpPhotoshopCategory.getInstance(), false);
-        repeatableOf.put(ColumnXmpPhotoshopCity.getInstance(), false);
-        repeatableOf.put(ColumnXmpPhotoshopCountry.getInstance(), false);
-        repeatableOf.put(ColumnXmpPhotoshopCredit.getInstance(), false);
-        repeatableOf.put(ColumnXmpPhotoshopHeadline.getInstance(), false);
-        repeatableOf.put(ColumnXmpPhotoshopInstructions.getInstance(), false);
-        repeatableOf.put(ColumnXmpPhotoshopSource.getInstance(), false);
-        repeatableOf.put(ColumnXmpPhotoshopState.getInstance(), false);
-        repeatableOf.put(ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory.getInstance(), true);
-        repeatableOf.put(ColumnXmpPhotoshopTransmissionReference.getInstance(), false);
-        repeatableOf.put(ColumnXmpLastModified.getInstance(), false);
+        repeatableOf.put(ColumnXmpDcCreator.INSTANCE, false);
+        repeatableOf.put(ColumnXmpDcDescription.INSTANCE, false);
+        repeatableOf.put(ColumnXmpDcRights.INSTANCE, false);
+        repeatableOf.put(ColumnXmpDcSubjectsSubject.INSTANCE, true);
+        repeatableOf.put(ColumnXmpDcTitle.INSTANCE, false);
+        repeatableOf.put(ColumnXmpIptc4xmpcoreCountrycode.INSTANCE, false);
+        repeatableOf.put(ColumnXmpIptc4xmpcoreLocation.INSTANCE, false);
+        repeatableOf.put(ColumnXmpPhotoshopAuthorsposition.INSTANCE, false);
+        repeatableOf.put(ColumnXmpPhotoshopCaptionwriter.INSTANCE, false);
+        repeatableOf.put(ColumnXmpPhotoshopCategory.INSTANCE, false);
+        repeatableOf.put(ColumnXmpPhotoshopCity.INSTANCE, false);
+        repeatableOf.put(ColumnXmpPhotoshopCountry.INSTANCE, false);
+        repeatableOf.put(ColumnXmpPhotoshopCredit.INSTANCE, false);
+        repeatableOf.put(ColumnXmpPhotoshopHeadline.INSTANCE, false);
+        repeatableOf.put(ColumnXmpPhotoshopInstructions.INSTANCE, false);
+        repeatableOf.put(ColumnXmpPhotoshopSource.INSTANCE, false);
+        repeatableOf.put(ColumnXmpPhotoshopState.INSTANCE, false);
+        repeatableOf.put(ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory.INSTANCE, true);
+        repeatableOf.put(ColumnXmpPhotoshopTransmissionReference.INSTANCE, false);
+        repeatableOf.put(ColumnXmpLastModified.INSTANCE, false);
     }
 
     /**

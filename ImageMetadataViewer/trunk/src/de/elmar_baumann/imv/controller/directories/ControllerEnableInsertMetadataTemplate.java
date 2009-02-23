@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.controller.directories;
 
-import de.elmar_baumann.imv.resource.Panels;
+import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import java.io.File;
 import javax.swing.JButton;
@@ -17,7 +17,7 @@ import javax.swing.event.TreeSelectionListener;
  */
 public final class ControllerEnableInsertMetadataTemplate implements TreeSelectionListener {
 
-    private final AppPanel appPanel = Panels.getInstance().getAppPanel();
+    private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
     private final JTree treeDirectories = appPanel.getTreeDirectories();
     private final JButton buttonMetadataTemplateInsert = appPanel.getButtonMetadataTemplateInsert();
 

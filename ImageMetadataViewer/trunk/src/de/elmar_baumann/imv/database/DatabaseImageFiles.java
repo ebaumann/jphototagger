@@ -37,11 +37,7 @@ import javax.swing.ImageIcon;
  */
 public final class DatabaseImageFiles extends Database {
 
-    private static final DatabaseImageFiles instance = new DatabaseImageFiles();
-
-    public static DatabaseImageFiles getInstance() {
-        return instance;
-    }
+    public static final DatabaseImageFiles INSTANCE = new DatabaseImageFiles();
 
     private DatabaseImageFiles() {
     }
@@ -209,7 +205,7 @@ public final class DatabaseImageFiles extends Database {
         int updated = 0;
         Connection connection = null;
         try {
-            int filecount = DatabaseStatistics.getInstance().getFileCount();
+            int filecount = DatabaseStatistics.INSTANCE.getFileCount();
             ProgressEvent event = new ProgressEvent(this, 0, filecount, 0, ""); // NOI18N
             connection = getConnection();
             connection.setAutoCommit(true);
@@ -238,7 +234,7 @@ public final class DatabaseImageFiles extends Database {
     }
 
     private Image getThumbnailFromFile(String filename) {
-        UserSettings settings = UserSettings.getInstance();
+        UserSettings settings = UserSettings.INSTANCE;
         int maxTnWidth = settings.getMaxThumbnailLength();
         boolean useEmbeddedTn = settings.isUseEmbeddedThumbnails();
         File file = new File(filename);
@@ -435,7 +431,7 @@ public final class DatabaseImageFiles extends Database {
     public synchronized int deleteNotExistingImageFiles(ProgressListener listener) {
         int countDeleted = 0;
         List<String> deletedFiles = new ArrayList<String>();
-        ProgressEvent event = new ProgressEvent(this, 0, DatabaseStatistics.getInstance().getFileCount(), 0, null);
+        ProgressEvent event = new ProgressEvent(this, 0, DatabaseStatistics.INSTANCE.getFileCount(), 0, null);
         Connection connection = null;
         try {
             connection = getConnection();
@@ -643,7 +639,7 @@ public final class DatabaseImageFiles extends Database {
      */
     public synchronized int deleteNotExistingXmpData(ProgressListener listener) {
         int countDeleted = 0;
-        ProgressEvent event = new ProgressEvent(this, 0, DatabaseStatistics.getInstance().getXmpCount(), 0, null);
+        ProgressEvent event = new ProgressEvent(this, 0, DatabaseStatistics.INSTANCE.getXmpCount(), 0, null);
         Connection connection = null;
         try {
             connection = getConnection();
@@ -794,7 +790,7 @@ public final class DatabaseImageFiles extends Database {
         int filecount = filenames.size();
         String tableName = xmpColumn.getTable().getName();
         String columnName = tableName + "." + xmpColumn.getName(); // NOI18N
-        boolean isXmpTable = xmpColumn.getTable().equals(TableXmp.getInstance());
+        boolean isXmpTable = xmpColumn.getTable().equals(TableXmp.INSTANCE);
         ProgressEvent event = new ProgressEvent(this, 0, filecount, 0, null);
         Connection connection = null;
         try {

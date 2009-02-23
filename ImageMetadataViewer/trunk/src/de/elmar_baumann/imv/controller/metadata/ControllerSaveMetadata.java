@@ -2,7 +2,7 @@ package de.elmar_baumann.imv.controller.metadata;
 
 import de.elmar_baumann.imv.data.TextEntry;
 import de.elmar_baumann.imv.image.metadata.xmp.XmpMetadata;
-import de.elmar_baumann.imv.resource.Panels;
+import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.tasks.XmpUpdaterFromTextEntryArray;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.view.panels.EditMetadataPanelsArray;
@@ -20,7 +20,7 @@ import javax.swing.JButton;
  */
 public final class ControllerSaveMetadata implements ActionListener {
 
-    private final AppPanel appPanel = Panels.getInstance().getAppPanel();
+    private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
     private final JButton buttonSave = appPanel.getButtonSaveMetadata();
     private final EditMetadataPanelsArray editPanels = appPanel.getEditPanelsArray();
 

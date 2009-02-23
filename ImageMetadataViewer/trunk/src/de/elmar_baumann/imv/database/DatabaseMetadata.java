@@ -15,11 +15,7 @@ import java.sql.Statement;
  */
 public final class DatabaseMetadata extends Database {
 
-    private static final DatabaseMetadata instance = new DatabaseMetadata();
-
-    public static DatabaseMetadata getInstance() {
-        return instance;
-    }
+    public static final DatabaseMetadata INSTANCE = new DatabaseMetadata();
 
     private DatabaseMetadata() {
     }

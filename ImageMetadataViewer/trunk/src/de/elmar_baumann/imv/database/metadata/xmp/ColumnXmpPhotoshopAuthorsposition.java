@@ -12,15 +12,11 @@ import de.elmar_baumann.imv.resource.Bundle;
  */
 public final class ColumnXmpPhotoshopAuthorsposition extends Column {
 
-    private static final ColumnXmpPhotoshopAuthorsposition instance = new ColumnXmpPhotoshopAuthorsposition();
-
-    public static Column getInstance() {
-        return instance;
-    }
+    public static final ColumnXmpPhotoshopAuthorsposition INSTANCE = new ColumnXmpPhotoshopAuthorsposition();
 
     private ColumnXmpPhotoshopAuthorsposition() {
         super(
-            TableXmp.getInstance(),
+            TableXmp.INSTANCE,
             "photoshop_authorsposition", // NOI18N
             DataType.STRING);
 

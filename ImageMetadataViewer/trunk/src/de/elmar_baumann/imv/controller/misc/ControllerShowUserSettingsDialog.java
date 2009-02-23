@@ -18,7 +18,7 @@ public final class ControllerShowUserSettingsDialog implements ActionListener {
     }
 
     private void showDialog() {
-        UserSettingsDialog settingsDialog = UserSettingsDialog.getInstance();
+        UserSettingsDialog settingsDialog = UserSettingsDialog.INSTANCE;
         if (settingsDialog.isVisible()) {
             settingsDialog.toFront();
         } else {

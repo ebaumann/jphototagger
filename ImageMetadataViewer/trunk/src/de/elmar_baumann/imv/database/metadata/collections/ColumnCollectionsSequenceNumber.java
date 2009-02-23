@@ -12,15 +12,11 @@ import de.elmar_baumann.imv.resource.Bundle;
  */
 public final class ColumnCollectionsSequenceNumber extends Column {
 
-    private static final ColumnCollectionsSequenceNumber instance = new ColumnCollectionsSequenceNumber();
-
-    public static ColumnCollectionsSequenceNumber getInstance() {
-        return instance;
-    }
+    public static final ColumnCollectionsSequenceNumber INSTANCE = new ColumnCollectionsSequenceNumber();
 
     private ColumnCollectionsSequenceNumber() {
         super(
-            TableCollections.getInstance(),
+            TableCollections.INSTANCE,
             "sequence_number", // NOI18N
             DataType.INTEGER);
 

@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.factory;
 
-import de.elmar_baumann.imv.resource.Panels;
+import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.view.renderer.TableCellRendererExif;
 import de.elmar_baumann.imv.view.renderer.TableCellRendererIptc;
@@ -23,7 +23,7 @@ public final class RendererFactory {
         Util.checkInit(RendererFactory.class, init);
         if (!init) {
             init = true;
-            AppPanel appPanel = Panels.getInstance().getAppPanel();
+            AppPanel appPanel = GUI.INSTANCE.getAppPanel();
             TableCellRendererXmp rendererTableCellXmp = new TableCellRendererXmp();
             List<JTable> xmpTables = appPanel.getXmpTables();
             for (JTable table : xmpTables) {

@@ -2,7 +2,7 @@ package de.elmar_baumann.imv.controller.programs;
 
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.io.IoUtil;
-import de.elmar_baumann.imv.resource.Panels;
+import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.dialogs.UserSettingsDialog;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuPanelThumbnails;
@@ -18,8 +18,8 @@ import java.awt.event.ActionListener;
  */
 public final class ControllerOpenFilesWithStandardApp implements ActionListener {
 
-    private final PopupMenuPanelThumbnails popupMenu = PopupMenuPanelThumbnails.getInstance();
-    private final ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
+    private final PopupMenuPanelThumbnails popupMenu = PopupMenuPanelThumbnails.INSTANCE;
+    private final ImageFileThumbnailsPanel thumbnailsPanel = GUI.INSTANCE.getAppPanel().getPanelThumbnails();
 
     public ControllerOpenFilesWithStandardApp() {
         listen();
@@ -41,13 +41,13 @@ public final class ControllerOpenFilesWithStandardApp implements ActionListener 
                 thumbnailsPanel.getSelectedFiles(), "\"");
         if (!allFilenames.isEmpty()) {
             IoUtil.execute(
-                    UserSettings.getInstance().getDefaultImageOpenApp(), allFilenames);
+                    UserSettings.INSTANCE.getDefaultImageOpenApp(), allFilenames);
         }
     }
 
     private boolean checkOpenAppIsDefined() {
-        if (UserSettings.getInstance().getDefaultImageOpenApp().isEmpty()) {
-            UserSettingsDialog dialog = UserSettingsDialog.getInstance();
+        if (UserSettings.INSTANCE.getDefaultImageOpenApp().isEmpty()) {
+            UserSettingsDialog dialog = UserSettingsDialog.INSTANCE;
             dialog.selectTab(UserSettingsDialog.Tab.PROGRAMS);
             if (dialog.isVisible()) {
                 dialog.toFront();

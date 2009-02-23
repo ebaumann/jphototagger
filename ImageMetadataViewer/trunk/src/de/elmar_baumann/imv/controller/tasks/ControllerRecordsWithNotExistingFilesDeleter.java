@@ -86,7 +86,7 @@ public final class ControllerRecordsWithNotExistingFilesDeleter
         RecordsWithNotExistingFilesDeleter deleter = new RecordsWithNotExistingFilesDeleter();
         deleter.addProgressListener(this);
         Thread thread = new Thread(deleter);
-        thread.setPriority(UserSettings.getInstance().getThreadPriority());
+        thread.setPriority(UserSettings.INSTANCE.getThreadPriority());
         thread.start();
     }
 

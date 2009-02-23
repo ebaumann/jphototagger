@@ -51,7 +51,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
     }
 
     private void chooseDirectories() {
-        DirectoryChooser dialog = new DirectoryChooser(null, UserSettings.getInstance().isAcceptHiddenDirectories());
+        DirectoryChooser dialog = new DirectoryChooser(null, UserSettings.INSTANCE.isAcceptHiddenDirectories());
         ViewUtil.setDirectoryTreeModel(dialog);
         dialog.setStartDirectory(lastSelectedDirectory);
         dialog.setMultiSelection(true);
@@ -219,7 +219,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
     }
 
     private void addSubdirectories(File directory) {
-        List<File> subdirectories = FileUtil.getAllSubDirectories(directory, UserSettings.getInstance().isAcceptHiddenDirectories());
+        List<File> subdirectories = FileUtil.getAllSubDirectories(directory, UserSettings.INSTANCE.isAcceptHiddenDirectories());
         for (File dir : subdirectories) {
             DirectoryInfo directoryInfo = new DirectoryInfo(dir);
             if (directoryInfo.hasImageFiles()) {
@@ -230,7 +230,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
     }
 
     private void setThreadPriority(Thread thread) {
-        thread.setPriority(UserSettings.getInstance().getThreadPriority());
+        thread.setPriority(UserSettings.INSTANCE.getThreadPriority());
         messageThreadPriority(thread);
     }
 

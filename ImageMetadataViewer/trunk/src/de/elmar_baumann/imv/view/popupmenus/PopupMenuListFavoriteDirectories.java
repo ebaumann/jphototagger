@@ -23,16 +23,7 @@ public final class PopupMenuListFavoriteDirectories extends JPopupMenu {
     private final JMenuItem itemDelete = new JMenuItem(actionDelete);
     private final JMenuItem itemOpenInFolders = new JMenuItem(actionOpenInFolders);
     private FavoriteDirectory favoriteDirectory;
-    private static final PopupMenuListFavoriteDirectories instance = new PopupMenuListFavoriteDirectories();
-
-    /**
-     * Liefert die einzige Klasseninstanz.
-     * 
-     * @return Instanz
-     */
-    public static PopupMenuListFavoriteDirectories getInstance() {
-        return instance;
-    }
+    public static final PopupMenuListFavoriteDirectories INSTANCE = new PopupMenuListFavoriteDirectories();
 
     public JMenuItem getItemDelete() {
         return itemDelete;

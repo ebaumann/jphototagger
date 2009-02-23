@@ -35,7 +35,7 @@ public final class UpdateAllThumbnails
 
     @Override
     public void run() {
-        DatabaseImageFiles db = DatabaseImageFiles.getInstance();
+        DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
         initProgressDialog();
         logUpdateAllThumbnails();
         db.updateAllThumbnails(this);

@@ -1,7 +1,7 @@
 package de.elmar_baumann.imv.controller.thumbnail;
 
 import de.elmar_baumann.imv.datatransfer.TransferHandlerTreeDirectories;
-import de.elmar_baumann.imv.resource.Panels;
+import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.types.Content;
 import de.elmar_baumann.imv.view.ViewUtil;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
@@ -21,14 +21,14 @@ import javax.swing.TransferHandler;
  */
 public final class ControllerPasteFilesFromClipboard implements ActionListener {
 
-    private final ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
+    private final ImageFileThumbnailsPanel thumbnailsPanel = GUI.INSTANCE.getAppPanel().getPanelThumbnails();
 
     public ControllerPasteFilesFromClipboard() {
         listen();
     }
 
     private void listen() {
-        Panels.getInstance().getAppFrame().getMenuItemInsert().addActionListener(this);
+        GUI.INSTANCE.getAppFrame().getMenuItemInsert().addActionListener(this);
     }
 
     @Override
@@ -39,7 +39,7 @@ public final class ControllerPasteFilesFromClipboard implements ActionListener {
     }
 
     private void insertFiles() {
-        File directory = ViewUtil.getSelectedDirectory(Panels.getInstance().getAppPanel().getTreeDirectories());
+        File directory = ViewUtil.getSelectedDirectory(GUI.INSTANCE.getAppPanel().getTreeDirectories());
         if (directory != null) {
             List<File> files = ClipboardUtil.getFilesFromSystemClipboard("\n");
             TransferHandlerTreeDirectories.handleDroppedFiles(TransferHandler.COPY, files, directory);

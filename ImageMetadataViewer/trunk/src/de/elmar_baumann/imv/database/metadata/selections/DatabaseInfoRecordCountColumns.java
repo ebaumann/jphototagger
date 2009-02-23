@@ -38,28 +38,28 @@ public final class DatabaseInfoRecordCountColumns {
     
 
     static {
-        columns.add(ColumnFilesFilename.getInstance());
-        columns.add(ColumnXmpDcSubjectsSubject.getInstance());
-        columns.add(ColumnXmpPhotoshopCategory.getInstance());
-        columns.add(ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory.getInstance());
-        columns.add(ColumnXmpDcTitle.getInstance());
-        columns.add(ColumnXmpDcDescription.getInstance());
-        columns.add(ColumnXmpPhotoshopHeadline.getInstance());
-        columns.add(ColumnXmpIptc4xmpcoreLocation.getInstance());
-        columns.add(ColumnXmpPhotoshopAuthorsposition.getInstance());
-        columns.add(ColumnXmpDcCreator.getInstance());
-        columns.add(ColumnXmpPhotoshopCity.getInstance());
-        columns.add(ColumnXmpPhotoshopState.getInstance());
-        columns.add(ColumnXmpPhotoshopCountry.getInstance());
-        columns.add(ColumnXmpDcRights.getInstance());
-        columns.add(ColumnXmpPhotoshopCredit.getInstance());
-        columns.add(ColumnXmpPhotoshopSource.getInstance());
-        columns.add(ColumnXmpPhotoshopTransmissionReference.getInstance());
-        columns.add(ColumnXmpPhotoshopInstructions.getInstance());
-        columns.add(ColumnXmpPhotoshopCaptionwriter.getInstance());
-        columns.add(ColumnExifFocalLength.getInstance());
-        columns.add(ColumnExifIsoSpeedRatings.getInstance());
-        columns.add(ColumnExifRecordingEquipment.getInstance());
+        columns.add(ColumnFilesFilename.INSTANCE);
+        columns.add(ColumnXmpDcSubjectsSubject.INSTANCE);
+        columns.add(ColumnXmpPhotoshopCategory.INSTANCE);
+        columns.add(ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory.INSTANCE);
+        columns.add(ColumnXmpDcTitle.INSTANCE);
+        columns.add(ColumnXmpDcDescription.INSTANCE);
+        columns.add(ColumnXmpPhotoshopHeadline.INSTANCE);
+        columns.add(ColumnXmpIptc4xmpcoreLocation.INSTANCE);
+        columns.add(ColumnXmpPhotoshopAuthorsposition.INSTANCE);
+        columns.add(ColumnXmpDcCreator.INSTANCE);
+        columns.add(ColumnXmpPhotoshopCity.INSTANCE);
+        columns.add(ColumnXmpPhotoshopState.INSTANCE);
+        columns.add(ColumnXmpPhotoshopCountry.INSTANCE);
+        columns.add(ColumnXmpDcRights.INSTANCE);
+        columns.add(ColumnXmpPhotoshopCredit.INSTANCE);
+        columns.add(ColumnXmpPhotoshopSource.INSTANCE);
+        columns.add(ColumnXmpPhotoshopTransmissionReference.INSTANCE);
+        columns.add(ColumnXmpPhotoshopInstructions.INSTANCE);
+        columns.add(ColumnXmpPhotoshopCaptionwriter.INSTANCE);
+        columns.add(ColumnExifFocalLength.INSTANCE);
+        columns.add(ColumnExifIsoSpeedRatings.INSTANCE);
+        columns.add(ColumnExifRecordingEquipment.INSTANCE);
     }
 
     public static List<Column> get() {

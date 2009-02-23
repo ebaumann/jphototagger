@@ -99,7 +99,7 @@ public final class ControllerAutoUpdateMetadataTask
     }
 
     private List<String> getDirectoryNames() {
-        List<String> directoryNames = DatabaseAutoscanDirectories.getInstance().getAutoscanDirectories();
+        List<String> directoryNames = DatabaseAutoscanDirectories.INSTANCE.getAutoscanDirectories();
         addSubdirectoryNames(directoryNames);
         Collections.sort(directoryNames);
         Collections.reverse(directoryNames);
@@ -108,11 +108,11 @@ public final class ControllerAutoUpdateMetadataTask
 
     private void addSubdirectoryNames(List<String> directoryNames) {
         List<String> subdirectoryNames = new ArrayList<String>();
-        if (UserSettings.getInstance().isAutoscanIncludeSubdirectories()) {
+        if (UserSettings.INSTANCE.isAutoscanIncludeSubdirectories()) {
             for (String directoryName : directoryNames) {
                 subdirectoryNames.addAll(
                         FileUtil.getAllSubDirectoryNames(directoryName,
-                        UserSettings.getInstance().isAcceptHiddenDirectories()));
+                        UserSettings.INSTANCE.isAcceptHiddenDirectories()));
             }
             directoryNames.addAll(subdirectoryNames);
         }

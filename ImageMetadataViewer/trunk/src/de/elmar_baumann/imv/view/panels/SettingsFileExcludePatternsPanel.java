@@ -18,7 +18,7 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
     implements ProgressListener, Persistence {
 
     private static final String addInfoText = Bundle.getString("FileExcludePatternPanel.AddInfoText");
-    private final DatabaseFileExcludePattern db = DatabaseFileExcludePattern.getInstance();
+    private final DatabaseFileExcludePattern db = DatabaseFileExcludePattern.INSTANCE;
     private final ListModelFileExcludePatterns model = new ListModelFileExcludePatterns();
     private boolean isUpdateDatabase = false;
     private boolean stop = false;

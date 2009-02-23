@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.controller.thumbnail;
 
-import de.elmar_baumann.imv.resource.Panels;
+import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.types.FileAction;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.lib.clipboard.ClipboardUtil;
@@ -16,9 +16,9 @@ import javax.swing.JMenuItem;
  */
 public final class ControllerCopyFilesToClipboard implements ActionListener {
 
-    private final ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
-    private final JMenuItem itemCopy = Panels.getInstance().getAppFrame().getMenuItemCopy();
-    private final JMenuItem itemCut = Panels.getInstance().getAppFrame().getMenuItemCut();
+    private final ImageFileThumbnailsPanel thumbnailsPanel = GUI.INSTANCE.getAppPanel().getPanelThumbnails();
+    private final JMenuItem itemCopy = GUI.INSTANCE.getAppFrame().getMenuItemCopy();
+    private final JMenuItem itemCut = GUI.INSTANCE.getAppFrame().getMenuItemCut();
 
     public ControllerCopyFilesToClipboard() {
         listen();

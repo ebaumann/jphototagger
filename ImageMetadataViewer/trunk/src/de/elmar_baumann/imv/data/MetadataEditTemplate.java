@@ -55,25 +55,25 @@ public final class MetadataEditTemplate {
     private final Map<Column, StringBuffer> valueOfColumn = new HashMap<Column, StringBuffer>();
 
     private void initValueOfColumn() {
-        valueOfColumn.put(ColumnXmpDcSubjectsSubject.getInstance(), dcSubjects);
-        valueOfColumn.put(ColumnXmpDcTitle.getInstance(), dcTitle);
-        valueOfColumn.put(ColumnXmpPhotoshopHeadline.getInstance(), photoshopHeadline);
-        valueOfColumn.put(ColumnXmpDcDescription.getInstance(), dcDescription);
-        valueOfColumn.put(ColumnXmpPhotoshopCaptionwriter.getInstance(), photoshopCaptionwriter);
-        valueOfColumn.put(ColumnXmpIptc4xmpcoreLocation.getInstance(), iptc4xmpcoreLocation);
-        valueOfColumn.put(ColumnXmpIptc4xmpcoreCountrycode.getInstance(), iptc4xmpcoreCountrycode);
-        valueOfColumn.put(ColumnXmpPhotoshopCategory.getInstance(), photoshopCategory);
-        valueOfColumn.put(ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory.getInstance(), photoshopSupplementalCategories);
-        valueOfColumn.put(ColumnXmpDcRights.getInstance(), dcRights);
-        valueOfColumn.put(ColumnXmpDcCreator.getInstance(), dcCreator);
-        valueOfColumn.put(ColumnXmpPhotoshopAuthorsposition.getInstance(), photoshopAuthorsposition);
-        valueOfColumn.put(ColumnXmpPhotoshopCity.getInstance(), photoshopCity);
-        valueOfColumn.put(ColumnXmpPhotoshopState.getInstance(), photoshopState);
-        valueOfColumn.put(ColumnXmpPhotoshopCountry.getInstance(), photoshopCountry);
-        valueOfColumn.put(ColumnXmpPhotoshopTransmissionReference.getInstance(), photoshopTransmissionReference);
-        valueOfColumn.put(ColumnXmpPhotoshopInstructions.getInstance(), photoshopInstructions);
-        valueOfColumn.put(ColumnXmpPhotoshopCredit.getInstance(), photoshopCredit);
-        valueOfColumn.put(ColumnXmpPhotoshopSource.getInstance(), photoshopSource);
+        valueOfColumn.put(ColumnXmpDcSubjectsSubject.INSTANCE, dcSubjects);
+        valueOfColumn.put(ColumnXmpDcTitle.INSTANCE, dcTitle);
+        valueOfColumn.put(ColumnXmpPhotoshopHeadline.INSTANCE, photoshopHeadline);
+        valueOfColumn.put(ColumnXmpDcDescription.INSTANCE, dcDescription);
+        valueOfColumn.put(ColumnXmpPhotoshopCaptionwriter.INSTANCE, photoshopCaptionwriter);
+        valueOfColumn.put(ColumnXmpIptc4xmpcoreLocation.INSTANCE, iptc4xmpcoreLocation);
+        valueOfColumn.put(ColumnXmpIptc4xmpcoreCountrycode.INSTANCE, iptc4xmpcoreCountrycode);
+        valueOfColumn.put(ColumnXmpPhotoshopCategory.INSTANCE, photoshopCategory);
+        valueOfColumn.put(ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory.INSTANCE, photoshopSupplementalCategories);
+        valueOfColumn.put(ColumnXmpDcRights.INSTANCE, dcRights);
+        valueOfColumn.put(ColumnXmpDcCreator.INSTANCE, dcCreator);
+        valueOfColumn.put(ColumnXmpPhotoshopAuthorsposition.INSTANCE, photoshopAuthorsposition);
+        valueOfColumn.put(ColumnXmpPhotoshopCity.INSTANCE, photoshopCity);
+        valueOfColumn.put(ColumnXmpPhotoshopState.INSTANCE, photoshopState);
+        valueOfColumn.put(ColumnXmpPhotoshopCountry.INSTANCE, photoshopCountry);
+        valueOfColumn.put(ColumnXmpPhotoshopTransmissionReference.INSTANCE, photoshopTransmissionReference);
+        valueOfColumn.put(ColumnXmpPhotoshopInstructions.INSTANCE, photoshopInstructions);
+        valueOfColumn.put(ColumnXmpPhotoshopCredit.INSTANCE, photoshopCredit);
+        valueOfColumn.put(ColumnXmpPhotoshopSource.INSTANCE, photoshopSource);
     }
 
     public MetadataEditTemplate() {

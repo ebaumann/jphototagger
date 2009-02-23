@@ -10,7 +10,7 @@ import de.elmar_baumann.imv.model.ListModelSavedSearches;
 import de.elmar_baumann.imv.model.TableModelExif;
 import de.elmar_baumann.imv.model.TableModelIptc;
 import de.elmar_baumann.imv.model.TableModelXmp;
-import de.elmar_baumann.imv.resource.Panels;
+import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.ViewUtil;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.lib.model.TreeModelDirectories;
@@ -31,7 +31,7 @@ public final class ModelFactory {
         Util.checkInit(ModelFactory.class, init);
         if (!init) {
             init = true;
-            final AppPanel appPanel = Panels.getInstance().getAppPanel();
+            final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
             appPanel.getTableIptc().setModel(new TableModelIptc());
             appPanel.getTableXmpCameraRawSettings().setModel(new TableModelXmp());
             appPanel.getTableXmpDc().setModel(new TableModelXmp());
@@ -60,7 +60,7 @@ public final class ModelFactory {
                 JTree treeDirectories = appPanel.getTreeDirectories();
                 treeDirectories.setModel(
                         new TreeModelDirectories(
-                        UserSettings.getInstance().isAcceptHiddenDirectories()));
+                        UserSettings.INSTANCE.isAcceptHiddenDirectories()));
                 ViewUtil.readPersistentTreeDirectories();
             }
         }).start();

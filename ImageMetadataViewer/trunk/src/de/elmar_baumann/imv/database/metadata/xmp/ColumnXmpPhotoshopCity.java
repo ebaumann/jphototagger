@@ -12,15 +12,11 @@ import de.elmar_baumann.imv.resource.Bundle;
  */
 public final class ColumnXmpPhotoshopCity extends Column {
 
-    private static ColumnXmpPhotoshopCity instance = new ColumnXmpPhotoshopCity();
-
-    public static Column getInstance() {
-        return instance;
-    }
+    public static ColumnXmpPhotoshopCity INSTANCE = new ColumnXmpPhotoshopCity();
 
     private ColumnXmpPhotoshopCity() {
         super(
-            TableXmp.getInstance(),
+            TableXmp.INSTANCE,
             "photoshop_city", // NOI18N
             DataType.STRING);
 

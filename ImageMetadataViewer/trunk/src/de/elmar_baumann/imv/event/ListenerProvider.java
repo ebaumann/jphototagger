@@ -10,7 +10,7 @@ import java.util.List;
  * <ul>
  *     <li><strong>Declaring</strong> a field of a <code>ListenerProvider</code></li>
  *     <li>During <strong>construction</strong>
- *         they assign an instance of this class ({@link #getInstance()}) to
+ *         they assign an instance of this class ({@link #INSTANCE}) to
  *         the declared field and retrieving their specific listeners whith the
  *         <code>get...()</code> methods
  *     </li>
@@ -29,7 +29,7 @@ public final class ListenerProvider {
     private final List<UserSettingsChangeListener> userSettingsChangeListeners = new LinkedList<UserSettingsChangeListener>();
     private final List<MetadataEditPanelListener> metadataEditPanelListeners = new LinkedList<MetadataEditPanelListener>();
     private final List<FileSystemActionListener> fileSystemActionListeners = new LinkedList<FileSystemActionListener>();
-    private static final ListenerProvider instance = new ListenerProvider();
+    public static final ListenerProvider INSTANCE = new ListenerProvider();
 
     public synchronized void addFileSystemActionListener(FileSystemActionListener listener) {
         fileSystemActionListeners.add(listener);
@@ -75,10 +75,6 @@ public final class ListenerProvider {
         for (UserSettingsChangeListener l : userSettingsChangeListeners) {
             l.applySettings(evt);
         }
-    }
-
-    public static ListenerProvider getInstance() {
-        return instance;
     }
 
     private ListenerProvider() {

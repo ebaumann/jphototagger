@@ -10,15 +10,11 @@ import de.elmar_baumann.imv.database.metadata.Column;
  */
 public final class ColumnXmpPhotoshopSupplementalCategoriesId extends Column {
 
-    private static final ColumnXmpPhotoshopSupplementalCategoriesId instance = new ColumnXmpPhotoshopSupplementalCategoriesId();
-
-    public static ColumnXmpPhotoshopSupplementalCategoriesId getInstance() {
-        return instance;
-    }
+    public static final ColumnXmpPhotoshopSupplementalCategoriesId INSTANCE = new ColumnXmpPhotoshopSupplementalCategoriesId();
 
     private ColumnXmpPhotoshopSupplementalCategoriesId() {
         super(
-            TableXmpPhotoshopSupplementalCategories.getInstance(),
+            TableXmpPhotoshopSupplementalCategories.INSTANCE,
             "id", // NOI18N
             DataType.BIGINT);
 

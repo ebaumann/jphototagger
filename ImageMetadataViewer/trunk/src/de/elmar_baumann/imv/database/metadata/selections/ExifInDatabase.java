@@ -47,4 +47,7 @@ public final class ExifInDatabase {
         }
         return false;
     }
+
+    private ExifInDatabase() {
+    }
 }

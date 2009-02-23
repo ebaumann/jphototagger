@@ -41,7 +41,7 @@ public final class Main {
         LookAndFeelUtil.setSystemLookAndFeel();
         lock();
         messageInitDatabase();
-        DatabaseTables.getInstance().createTables();
+        DatabaseTables.INSTANCE.createTables();
         initLogger();
         AbstractImageReader.install(ImageProperties.class);
         messageInitGui();
@@ -85,7 +85,7 @@ public final class Main {
         try {
             FileUtil.ensureDirectoryExists(PersistentSettings.getInstance().getDirectoryName());
             Logger logger = Logger.getLogger("de.elmar_baumann"); // NOI18N
-            Level usersLevel = UserSettings.getInstance().getLogLevel();
+            Level usersLevel = UserSettings.INSTANCE.getLogLevel();
             addFileLogHandler(logger);
             addStdoutLogHandler(usersLevel, logger);
             logger.setLevel(usersLevel);
@@ -97,7 +97,7 @@ public final class Main {
     private static void addFileLogHandler(Logger logger) throws IOException, SecurityException, InstantiationException, IllegalAccessException, SecurityException {
         Handler fileHandler = new FileHandler(AppLog.getLogfileName());
         fileHandler.setLevel(Level.WARNING);
-        fileHandler.setFormatter((Formatter) UserSettings.getInstance().getLogfileFormatterClass().newInstance());
+        fileHandler.setFormatter((Formatter) UserSettings.INSTANCE.getLogfileFormatterClass().newInstance());
         logger.addHandler(fileHandler);
     }
 

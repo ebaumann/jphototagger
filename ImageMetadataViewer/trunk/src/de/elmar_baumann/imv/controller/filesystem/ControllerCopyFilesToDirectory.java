@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.controller.filesystem;
 
-import de.elmar_baumann.imv.resource.Panels;
+import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.dialogs.CopyToDirectoryDialog;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
@@ -18,7 +18,7 @@ import java.util.List;
  */
 public final class ControllerCopyFilesToDirectory implements ActionListener {
 
-    private final AppPanel appPanel = Panels.getInstance().getAppPanel();
+    private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
     private final ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelThumbnails();
 
     public ControllerCopyFilesToDirectory() {
@@ -26,7 +26,7 @@ public final class ControllerCopyFilesToDirectory implements ActionListener {
     }
 
     private void listen() {
-        PopupMenuPanelThumbnails.getInstance().addActionListenerCopySelectedFilesToDirectory(this);
+        PopupMenuPanelThumbnails.INSTANCE.addActionListenerCopySelectedFilesToDirectory(this);
     }
 
     @Override

@@ -28,11 +28,11 @@ import java.util.List;
  */
 public final class InsertImageFilesIntoDatabase implements Runnable {
 
-    private static final DatabaseImageFiles db = DatabaseImageFiles.getInstance();
+    private static final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
     private final List<ProgressListener> progressListeners = new ArrayList<ProgressListener>();
-    private final int maxThumbnailLength = UserSettings.getInstance().getMaxThumbnailLength();
-    private final boolean useEmbeddedThumbnails = UserSettings.getInstance().isUseEmbeddedThumbnails();
-    private final String externalThumbnailCreationCommand = UserSettings.getInstance().getExternalThumbnailCreationCommand();
+    private final int maxThumbnailLength = UserSettings.INSTANCE.getMaxThumbnailLength();
+    private final boolean useEmbeddedThumbnails = UserSettings.INSTANCE.isUseEmbeddedThumbnails();
+    private final String externalThumbnailCreationCommand = UserSettings.INSTANCE.getExternalThumbnailCreationCommand();
     private final List<String> filenames;
     private final EnumSet<Insert> what;
     private boolean stop = false;
@@ -185,7 +185,7 @@ public final class InsertImageFilesIntoDatabase implements Runnable {
         String filename = imageFile.getFilename();
         Image thumbnail = null;
         File file = new File(filename);
-        if (UserSettings.getInstance().isCreateThumbnailsWithExternalApp()) {
+        if (UserSettings.INSTANCE.isCreateThumbnailsWithExternalApp()) {
             thumbnail = ThumbnailUtil.getThumbnailFromExternalApplication(
                     file, externalThumbnailCreationCommand, maxThumbnailLength);
         } else {

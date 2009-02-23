@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.controller.imagecollection;
 
-import de.elmar_baumann.imv.resource.Panels;
+import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.tasks.ImageCollectionDatabaseUtils;
 import de.elmar_baumann.imv.view.dialogs.ImageCollectionsDialog;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
@@ -18,8 +18,8 @@ import java.awt.event.ActionListener;
  */
 public final class ControllerAddToImageCollection implements ActionListener {
 
-    private final PopupMenuPanelThumbnails popupMenu = PopupMenuPanelThumbnails.getInstance();
-    private final ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
+    private final PopupMenuPanelThumbnails popupMenu = PopupMenuPanelThumbnails.INSTANCE;
+    private final ImageFileThumbnailsPanel thumbnailsPanel = GUI.INSTANCE.getAppPanel().getPanelThumbnails();
 
     public ControllerAddToImageCollection() {
         listen();

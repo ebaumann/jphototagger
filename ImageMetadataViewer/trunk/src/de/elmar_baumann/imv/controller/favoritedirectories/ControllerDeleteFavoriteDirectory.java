@@ -4,7 +4,7 @@ import de.elmar_baumann.imv.app.AppIcons;
 import de.elmar_baumann.imv.data.FavoriteDirectory;
 import de.elmar_baumann.imv.model.ListModelFavoriteDirectories;
 import de.elmar_baumann.imv.resource.Bundle;
-import de.elmar_baumann.imv.resource.Panels;
+import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuListFavoriteDirectories;
 import de.elmar_baumann.lib.io.FileUtil;
@@ -21,9 +21,9 @@ import javax.swing.JOptionPane;
  */
 public final class ControllerDeleteFavoriteDirectory implements ActionListener {
 
-    private final AppPanel appPanel = Panels.getInstance().getAppPanel();
+    private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
     private final ListModelFavoriteDirectories model = (ListModelFavoriteDirectories) appPanel.getListFavoriteDirectories().getModel();
-    private final PopupMenuListFavoriteDirectories popupMenu = PopupMenuListFavoriteDirectories.getInstance();
+    private final PopupMenuListFavoriteDirectories popupMenu = PopupMenuListFavoriteDirectories.INSTANCE;
     private CheckDirectoriesRemoved removeChecker;
     private static final int removeCheckIntervalSeconds = 3;
 

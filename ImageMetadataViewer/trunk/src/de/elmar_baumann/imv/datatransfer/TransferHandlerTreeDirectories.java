@@ -5,7 +5,7 @@ import de.elmar_baumann.imv.event.ProgressEvent;
 import de.elmar_baumann.imv.event.ProgressListener;
 import de.elmar_baumann.imv.io.IoUtil;
 import de.elmar_baumann.imv.resource.Bundle;
-import de.elmar_baumann.imv.resource.Panels;
+import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.dialogs.CopyToDirectoryDialog;
 import de.elmar_baumann.imv.view.dialogs.MoveToDirectoryDialog;
 import de.elmar_baumann.lib.datatransfer.TransferUtil;
@@ -144,7 +144,7 @@ public final class TransferHandlerTreeDirectories extends TransferHandler {
 
             @Override
             public void progressEnded(ProgressEvent evt) {
-                Panels.getInstance().getAppPanel().getPanelThumbnails().refresh();
+                GUI.INSTANCE.getAppPanel().getPanelThumbnails().refresh();
             }
         });
 
@@ -164,7 +164,7 @@ public final class TransferHandlerTreeDirectories extends TransferHandler {
 
             @Override
             public void progressEnded(ProgressEvent evt) {
-                Panels.getInstance().getAppPanel().getPanelThumbnails().refresh();
+                GUI.INSTANCE.getAppPanel().getPanelThumbnails().refresh();
             }
         });
 

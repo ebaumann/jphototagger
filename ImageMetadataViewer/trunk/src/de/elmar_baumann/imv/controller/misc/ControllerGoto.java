@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.controller.misc;
 
-import de.elmar_baumann.imv.resource.Panels;
+import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.frames.AppFrame;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
@@ -22,11 +22,11 @@ import javax.swing.JTextField;
  */
 public final class ControllerGoto implements ActionListener {
 
-    private final AppPanel appPanel = Panels.getInstance().getAppPanel();
+    private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
     private final ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelThumbnails();
     private final EditMetadataPanelsArray editPanels = appPanel.getEditPanelsArray();
     private final JTextField textFieldSearch = appPanel.getTextFieldSearch();
-    private final AppFrame appFrame = Panels.getInstance().getAppFrame();
+    private final AppFrame appFrame = GUI.INSTANCE.getAppFrame();
     private final Map<AppFrame.Goto, Component> componentOfGoto = new HashMap<AppFrame.Goto, Component>();
     private final Map<AppFrame.Goto, JTabbedPane> tabbedPaneOfGoto = new HashMap<AppFrame.Goto, JTabbedPane>();
 

@@ -12,15 +12,11 @@ import de.elmar_baumann.imv.resource.Bundle;
  */
 public final class ColumnFilesLastModified extends Column {
 
-    private static final ColumnFilesLastModified instance = new ColumnFilesLastModified();
-
-    public static Column getInstance() {
-        return instance;
-    }
+    public static final ColumnFilesLastModified INSTANCE = new ColumnFilesLastModified();
 
     private ColumnFilesLastModified() {
         super(
-            TableFiles.getInstance(),
+            TableFiles.INSTANCE,
             "lastmodified", // NOI18N
             DataType.DATE);
 

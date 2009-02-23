@@ -18,7 +18,7 @@ import javax.swing.JProgressBar;
  */
 public final class ActionsDialog extends Dialog implements ProgramActionListener {
 
-    private static final ActionsDialog instance = new ActionsDialog();
+    public static final ActionsDialog INSTANCE = new ActionsDialog();
 
     private ActionsDialog() {
         super((java.awt.Frame) null, false);
@@ -34,10 +34,6 @@ public final class ActionsDialog extends Dialog implements ProgramActionListener
         setIconImages(AppIcons.getAppIcons());
         panelActions.addActionListener(this);
         registerKeyStrokes();
-    }
-
-    public static ActionsDialog getInstance() {
-        return instance;
     }
 
     @Override

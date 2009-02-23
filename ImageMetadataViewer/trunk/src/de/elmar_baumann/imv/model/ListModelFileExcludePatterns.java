@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
  */
 public final class ListModelFileExcludePatterns extends DefaultListModel {
 
-    private final DatabaseFileExcludePattern db = DatabaseFileExcludePattern.getInstance();
+    private final DatabaseFileExcludePattern db = DatabaseFileExcludePattern.INSTANCE;
     private List<String> patterns;
 
     public ListModelFileExcludePatterns() {

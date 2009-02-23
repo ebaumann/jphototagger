@@ -12,15 +12,11 @@ import de.elmar_baumann.imv.resource.Bundle;
  */
 public final class ColumnXmpPhotoshopHeadline extends Column {
 
-    private static final ColumnXmpPhotoshopHeadline instance = new ColumnXmpPhotoshopHeadline();
-
-    public static Column getInstance() {
-        return instance;
-    }
+    public static final ColumnXmpPhotoshopHeadline INSTANCE = new ColumnXmpPhotoshopHeadline();
 
     private ColumnXmpPhotoshopHeadline() {
         super(
-            TableXmp.getInstance(),
+            TableXmp.INSTANCE,
             "photoshop_headline", // NOI18N
             DataType.STRING);
 

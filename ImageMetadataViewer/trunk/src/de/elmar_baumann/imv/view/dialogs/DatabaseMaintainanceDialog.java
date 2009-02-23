@@ -15,16 +15,12 @@ import javax.swing.JOptionPane;
  */
 public final class DatabaseMaintainanceDialog extends Dialog {
 
-    private static final DatabaseMaintainanceDialog instance = new DatabaseMaintainanceDialog();
+    public static final DatabaseMaintainanceDialog INSTANCE = new DatabaseMaintainanceDialog();
 
     private DatabaseMaintainanceDialog() {
         super((java.awt.Frame) null, false);
         initComponents();
         postInitComponents();
-    }
-
-    public static DatabaseMaintainanceDialog getInstance() {
-        return instance;
     }
 
     @Override

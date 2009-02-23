@@ -4,7 +4,7 @@ import de.elmar_baumann.imv.app.AppTexts;
 import de.elmar_baumann.lib.renderer.TreeCellRendererDirectories;
 import de.elmar_baumann.imv.event.AppExitListener;
 import de.elmar_baumann.imv.resource.Bundle;
-import de.elmar_baumann.imv.resource.Panels;
+import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.ViewUtil;
 import de.elmar_baumann.imv.view.renderer.ListCellRendererCategories;
 import de.elmar_baumann.imv.view.renderer.ListCellRendererFavoriteDirectories;
@@ -53,7 +53,7 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
     private EditMetadataActionsPanel editActionsPanel;
 
     public AppPanel() {
-        Panels.getInstance().setAppPanel(this);
+        GUI.INSTANCE.setAppPanel(this);
         initComponents();
         postInitComponents();
     }

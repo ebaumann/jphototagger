@@ -12,15 +12,11 @@ import de.elmar_baumann.imv.resource.Bundle;
  */
 public final class ColumnXmpDcRights extends Column {
 
-    private static final ColumnXmpDcRights instance = new ColumnXmpDcRights();
-
-    public static Column getInstance() {
-        return instance;
-    }
+    public static final ColumnXmpDcRights INSTANCE = new ColumnXmpDcRights();
 
     private ColumnXmpDcRights() {
         super(
-            TableXmp.getInstance(),
+            TableXmp.INSTANCE,
             "dc_rights", // NOI18N
             DataType.STRING);
 

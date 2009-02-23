@@ -12,15 +12,11 @@ import de.elmar_baumann.imv.resource.Bundle;
  */
 public final class ColumnXmpIptc4xmpcoreCountrycode extends Column {
 
-    private static final ColumnXmpIptc4xmpcoreCountrycode instance = new ColumnXmpIptc4xmpcoreCountrycode();
-
-    public static Column getInstance() {
-        return instance;
-    }
+    public static final ColumnXmpIptc4xmpcoreCountrycode INSTANCE = new ColumnXmpIptc4xmpcoreCountrycode();
 
     private ColumnXmpIptc4xmpcoreCountrycode() {
         super(
-            TableXmp.getInstance(),
+            TableXmp.INSTANCE,
             "iptc4xmpcore_countrycode", // NOI18N
             DataType.STRING);
 

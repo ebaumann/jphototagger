@@ -3,7 +3,7 @@ package de.elmar_baumann.imv.controller.misc;
 import de.elmar_baumann.imv.event.ThumbnailsPanelAction;
 import de.elmar_baumann.imv.event.ThumbnailsPanelListener;
 import de.elmar_baumann.imv.resource.Bundle;
-import de.elmar_baumann.imv.resource.Panels;
+import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import java.text.MessageFormat;
@@ -22,7 +22,7 @@ public final class ControllerThumbnailCountDisplay
         implements ThumbnailsPanelListener, ChangeListener {
 
     private static final MessageFormat msg = new MessageFormat(Bundle.getString("ControllerThumbnailCount.InformationMessage"));
-    private final AppPanel appPanel = Panels.getInstance().getAppPanel();
+    private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
     private final JSlider sliderThumbnailSize = appPanel.getSliderThumbnailSize();
     private final JLabel label = appPanel.getLabelStatusbar();
     private final ImageFileThumbnailsPanel panelThumbnails = appPanel.getPanelThumbnails();

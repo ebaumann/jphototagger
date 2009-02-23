@@ -1,7 +1,7 @@
 package de.elmar_baumann.imv.controller.directories;
 
 import de.elmar_baumann.imv.datatransfer.TransferHandlerTreeDirectories;
-import de.elmar_baumann.imv.resource.Panels;
+import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.types.Content;
 import de.elmar_baumann.imv.types.FileAction;
 import de.elmar_baumann.imv.view.ViewUtil;
@@ -24,7 +24,7 @@ import javax.swing.TransferHandler;
  */
 public final class ControllerDirectoryCopyFiles implements KeyListener {
 
-    private final AppPanel appPanel = Panels.getInstance().getAppPanel();
+    private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
     private final ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelThumbnails();
     private final JTree treeDirectories = appPanel.getTreeDirectories();
 

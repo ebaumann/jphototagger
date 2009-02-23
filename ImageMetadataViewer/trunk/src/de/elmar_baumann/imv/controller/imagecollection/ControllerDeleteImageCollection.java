@@ -2,7 +2,7 @@ package de.elmar_baumann.imv.controller.imagecollection;
 
 import de.elmar_baumann.imv.model.ListModelImageCollections;
 import de.elmar_baumann.imv.tasks.ImageCollectionDatabaseUtils;
-import de.elmar_baumann.imv.resource.Panels;
+import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuListImageCollections;
 import java.awt.event.ActionEvent;
@@ -18,8 +18,8 @@ import javax.swing.JList;
  */
 public final class ControllerDeleteImageCollection implements ActionListener {
 
-    private final PopupMenuListImageCollections actionPopup = PopupMenuListImageCollections.getInstance();
-    private final AppPanel appPanel = Panels.getInstance().getAppPanel();
+    private final PopupMenuListImageCollections actionPopup = PopupMenuListImageCollections.INSTANCE;
+    private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
     private final JList list = appPanel.getListImageCollections();
     private final ListModelImageCollections model = (ListModelImageCollections) list.getModel();
 

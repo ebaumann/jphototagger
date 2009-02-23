@@ -14,7 +14,7 @@ import java.awt.event.ActionListener;
  */
 public final class ControllerEditSafedSearch implements ActionListener {
 
-    private final PopupMenuListSavedSearches actionPopup = PopupMenuListSavedSearches.getInstance();
+    private final PopupMenuListSavedSearches actionPopup = PopupMenuListSavedSearches.INSTANCE;
 
     public ControllerEditSafedSearch() {
         listen();
@@ -30,7 +30,7 @@ public final class ControllerEditSafedSearch implements ActionListener {
     }
 
     private void showAdvancedSearchDialog() {
-        AdvancedSearchDialog dialog = AdvancedSearchDialog.getInstance();
+        AdvancedSearchDialog dialog = AdvancedSearchDialog.INSTANCE;
         dialog.setSavedSearch(actionPopup.getSavedSearch());
         if (dialog.isVisible()) {
             dialog.toFront();

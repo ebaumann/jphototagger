@@ -20,11 +20,7 @@ import java.util.List;
  */
 public final class DatabaseFileExcludePattern extends Database {
     
-    private static final DatabaseFileExcludePattern instance = new DatabaseFileExcludePattern();
-    
-    public static DatabaseFileExcludePattern getInstance() {
-        return instance;
-    }
+    public static final DatabaseFileExcludePattern INSTANCE = new DatabaseFileExcludePattern();
     
     private DatabaseFileExcludePattern() {
     }
@@ -161,7 +157,7 @@ public final class DatabaseFileExcludePattern extends Database {
             ResultSet rs = queryStmt.executeQuery("SELECT filename FROM files"); // NOI18N
             int patternCount = patterns.size();
             int progress = 0;
-            ProgressEvent event = new ProgressEvent(this, 0, DatabaseStatistics.getInstance().getFileCount() * patternCount, 0, null);
+            ProgressEvent event = new ProgressEvent(this, 0, DatabaseStatistics.INSTANCE.getFileCount() * patternCount, 0, null);
             notifyProgressListenerStart(listener, event);
             boolean stop = event.isStop();
             while (!stop && rs.next()) {

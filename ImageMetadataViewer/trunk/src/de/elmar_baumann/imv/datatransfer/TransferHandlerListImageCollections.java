@@ -1,7 +1,7 @@
 package de.elmar_baumann.imv.datatransfer;
 
 import de.elmar_baumann.imv.model.ListModelImageCollections;
-import de.elmar_baumann.imv.resource.Panels;
+import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.tasks.ImageCollectionDatabaseUtils;
 import java.util.List;
 import javax.swing.JList;
@@ -36,17 +36,17 @@ public final class TransferHandlerListImageCollections extends TransferHandlerLi
     private void createImageCollection(List<String> filenames) {
         String newCollectionName = ImageCollectionDatabaseUtils.insertImageCollection(filenames);
         if (newCollectionName != null) {
-            ((ListModelImageCollections) Panels.getInstance().getAppPanel().
+            ((ListModelImageCollections) GUI.INSTANCE.getAppPanel().
                 getListImageCollections().getModel()).addElement(newCollectionName);
         }
     }
 
     private String getImageCollectionName(int itemIndex) {
-        JList list = Panels.getInstance().getAppPanel().getListImageCollections();
+        JList list = GUI.INSTANCE.getAppPanel().getListImageCollections();
         return list.getModel().getElementAt(itemIndex).toString();
     }
 
     private void refreshThumbnailsPanel() {
-        Panels.getInstance().getAppPanel().getPanelThumbnails().refresh();
+        GUI.INSTANCE.getAppPanel().getPanelThumbnails().refresh();
     }
 }

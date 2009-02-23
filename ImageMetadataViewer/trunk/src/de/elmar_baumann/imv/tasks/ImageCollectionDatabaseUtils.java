@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
  */
 public final class ImageCollectionDatabaseUtils {
 
-    private static final DatabaseImageCollections db = DatabaseImageCollections.getInstance();
+    private static final DatabaseImageCollections db = DatabaseImageCollections.INSTANCE;
 
     /**
      * Fügt in die Datenbank eine neue Bildsammlung ein.

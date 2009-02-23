@@ -10,11 +10,7 @@ import de.elmar_baumann.imv.database.metadata.Table;
  */
 public final class TableXmpDcSubjects extends Table {
 
-    private static final TableXmpDcSubjects instance = new TableXmpDcSubjects();
-
-    public static TableXmpDcSubjects getInstance() {
-        return instance;
-    }
+    public static final TableXmpDcSubjects INSTANCE = new TableXmpDcSubjects();
 
     private TableXmpDcSubjects() {
         super("xmp_dc_subjects"); // NOI18N
@@ -22,8 +18,8 @@ public final class TableXmpDcSubjects extends Table {
 
     @Override
     protected void addColumns() {
-        addColumn(ColumnXmpDcSubjectsId.getInstance());
-        addColumn(ColumnXmpDcSubjectsIdXmp.getInstance());
-        addColumn(ColumnXmpDcSubjectsSubject.getInstance());
+        addColumn(ColumnXmpDcSubjectsId.INSTANCE);
+        addColumn(ColumnXmpDcSubjectsIdXmp.INSTANCE);
+        addColumn(ColumnXmpDcSubjectsSubject.INSTANCE);
     }
 }

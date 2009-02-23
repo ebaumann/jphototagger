@@ -27,7 +27,7 @@ public final class FavoriteDirectoryPropertiesDialog extends Dialog {
 
     private static final List<Image> appIcons = AppIcons.getAppIcons();
     private static final String keyLastDirectory = "de.elmar_baumann.imv.view.dialogs.FavoriteDirectoryPropertiesDialog.LastDirectory"; // NOI18N
-    private final DatabaseFavoriteDirectories db = DatabaseFavoriteDirectories.getInstance();
+    private final DatabaseFavoriteDirectories db = DatabaseFavoriteDirectories.INSTANCE;
     private String lastDirectory = ""; // NOI18N
     private boolean accepted = false;
     private boolean isUpdate = false;
@@ -42,7 +42,7 @@ public final class FavoriteDirectoryPropertiesDialog extends Dialog {
     }
 
     private void chooseDirectory() {
-        DirectoryChooser dialog = new DirectoryChooser(null, UserSettings.getInstance().isAcceptHiddenDirectories());
+        DirectoryChooser dialog = new DirectoryChooser(null, UserSettings.INSTANCE.isAcceptHiddenDirectories());
         ViewUtil.setDirectoryTreeModel(dialog);
         dialog.setStartDirectory(new File(lastDirectory));
         dialog.setMultiSelection(false);

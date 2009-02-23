@@ -19,7 +19,7 @@ public final class ListModelAutoscanDirectories extends DefaultListModel {
     }
 
     private void addItems() {
-        List<String> directoryNames = DatabaseAutoscanDirectories.getInstance().getAutoscanDirectories();
+        List<String> directoryNames = DatabaseAutoscanDirectories.INSTANCE.getAutoscanDirectories();
         for (String directoryName : directoryNames) {
             File directory = new File(directoryName);
             if (directory.isDirectory() && directory.exists()) {

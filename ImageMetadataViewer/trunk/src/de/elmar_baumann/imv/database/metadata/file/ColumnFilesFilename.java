@@ -12,15 +12,11 @@ import de.elmar_baumann.imv.resource.Bundle;
  */
 public final class ColumnFilesFilename extends Column {
 
-    private static final ColumnFilesFilename instance = new ColumnFilesFilename();
-
-    public static Column getInstance() {
-        return instance;
-    }
+    public static final ColumnFilesFilename INSTANCE = new ColumnFilesFilename();
 
     private ColumnFilesFilename() {
         super(
-            TableFiles.getInstance(),
+            TableFiles.INSTANCE,
             "filename", // NOI18N
             DataType.STRING);
 

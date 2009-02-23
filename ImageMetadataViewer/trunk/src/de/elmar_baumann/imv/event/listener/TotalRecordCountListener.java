@@ -16,7 +16,7 @@ import javax.swing.JLabel;
  */
 public final class TotalRecordCountListener implements DatabaseListener {
 
-    private final DatabaseStatistics db = DatabaseStatistics.getInstance();
+    private final DatabaseStatistics db = DatabaseStatistics.INSTANCE;
     private final List<JLabel> labels = new ArrayList<JLabel>();
     boolean listen = false;
 

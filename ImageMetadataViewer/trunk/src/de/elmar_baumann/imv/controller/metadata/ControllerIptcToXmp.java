@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.controller.metadata;
 
-import de.elmar_baumann.imv.resource.Panels;
+import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.dialogs.IptcToXmpDialog;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,7 +18,7 @@ public final class ControllerIptcToXmp implements ActionListener {
     }
 
     private void listen() {
-        Panels.getInstance().getAppFrame().getMenuItemToolIptcToXmp().addActionListener(this);
+        GUI.INSTANCE.getAppFrame().getMenuItemToolIptcToXmp().addActionListener(this);
     }
 
     @Override

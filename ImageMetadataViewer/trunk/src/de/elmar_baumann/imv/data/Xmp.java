@@ -51,7 +51,7 @@ public final class Xmp {
      * @see    Iptc#getByLines()
      */
     public String getDcCreator() {
-        return stringValueOf(ColumnXmpDcCreator.getInstance());
+        return stringValueOf(ColumnXmpDcCreator.INSTANCE);
     }
 
     /**
@@ -61,7 +61,7 @@ public final class Xmp {
      * @see           Iptc#addByLine(java.lang.String)
      */
     public void setDcCreator(String creator) {
-        valueOfColumn.put(ColumnXmpDcCreator.getInstance(), creator);
+        valueOfColumn.put(ColumnXmpDcCreator.INSTANCE, creator);
     }
 
     /**
@@ -71,7 +71,7 @@ public final class Xmp {
      * @see    Iptc#getCaptionAbstract()
      */
     public String getDcDescription() {
-        return stringValueOf(ColumnXmpDcDescription.getInstance());
+        return stringValueOf(ColumnXmpDcDescription.INSTANCE);
     }
 
     /**
@@ -81,7 +81,7 @@ public final class Xmp {
      * @see                 Iptc#setCaptionAbstract(java.lang.String)
      */
     public void setDcDescription(String dcDescription) {
-        valueOfColumn.put(ColumnXmpDcDescription.getInstance(), dcDescription);
+        valueOfColumn.put(ColumnXmpDcDescription.INSTANCE, dcDescription);
     }
 
     /**
@@ -91,7 +91,7 @@ public final class Xmp {
      * @see    Iptc#getCopyrightNotice()
      */
     public String getDcRights() {
-        return stringValueOf(ColumnXmpDcRights.getInstance());
+        return stringValueOf(ColumnXmpDcRights.INSTANCE);
     }
 
     /**
@@ -101,7 +101,7 @@ public final class Xmp {
      * @see            Iptc#setCopyrightNotice(java.lang.String)
      */
     public void setDcRights(String dcRights) {
-        valueOfColumn.put(ColumnXmpDcRights.getInstance(), dcRights);
+        valueOfColumn.put(ColumnXmpDcRights.INSTANCE, dcRights);
     }
 
     /**
@@ -111,7 +111,7 @@ public final class Xmp {
      * @see    Iptc#getKeywords()
      */
     public List<String> getDcSubjects() {
-        return stringListOf(ColumnXmpDcSubjectsSubject.getInstance());
+        return stringListOf(ColumnXmpDcSubjectsSubject.INSTANCE);
     }
 
     /**
@@ -121,7 +121,7 @@ public final class Xmp {
      * @see           Iptc#addKeyword(java.lang.String)
      */
     public void addDcSubject(String subject) {
-        addToStringList(ColumnXmpDcSubjectsSubject.getInstance(), subject);
+        addToStringList(ColumnXmpDcSubjectsSubject.INSTANCE, subject);
     }
 
     /**
@@ -131,7 +131,7 @@ public final class Xmp {
      * @see    Iptc#getObjectName()
      */
     public String getDcTitle() {
-        return stringValueOf(ColumnXmpDcTitle.getInstance());
+        return stringValueOf(ColumnXmpDcTitle.INSTANCE);
     }
 
     /**
@@ -141,7 +141,7 @@ public final class Xmp {
      * @see           Iptc#setObjectName(java.lang.String)
      */
     public void setDcTitle(String dcTitle) {
-        valueOfColumn.put(ColumnXmpDcTitle.getInstance(), dcTitle);
+        valueOfColumn.put(ColumnXmpDcTitle.INSTANCE, dcTitle);
     }
 
     /**
@@ -151,7 +151,7 @@ public final class Xmp {
      * @see             Iptc#getContentLocationCodes()
      */
     public String getIptc4xmpcoreCountrycode() {
-        return stringValueOf(ColumnXmpIptc4xmpcoreCountrycode.getInstance());
+        return stringValueOf(ColumnXmpIptc4xmpcoreCountrycode.INSTANCE);
     }
 
     /**
@@ -160,7 +160,7 @@ public final class Xmp {
      * @param iptc4xmpcoreCountrycode XMP-Feld Iptc4xmpCore:CountryCode (ISO-Ländercode)
      */
     public void setIptc4xmpcoreCountrycode(String iptc4xmpcoreCountrycode) {
-        valueOfColumn.put(ColumnXmpIptc4xmpcoreCountrycode.getInstance(), iptc4xmpcoreCountrycode);
+        valueOfColumn.put(ColumnXmpIptc4xmpcoreCountrycode.INSTANCE, iptc4xmpcoreCountrycode);
     }
 
     /**
@@ -170,7 +170,7 @@ public final class Xmp {
      * @see    Iptc#getContentLocationNames()
      */
     public String getIptc4xmpcoreLocation() {
-        return stringValueOf(ColumnXmpIptc4xmpcoreLocation.getInstance());
+        return stringValueOf(ColumnXmpIptc4xmpcoreLocation.INSTANCE);
     }
 
     /**
@@ -179,7 +179,7 @@ public final class Xmp {
      * @param iptc4xmpcoreLocation XMP-Feld Iptc4xmpCore:Location (Ort)
      */
     public void setIptc4xmpcoreLocation(String iptc4xmpcoreLocation) {
-        valueOfColumn.put(ColumnXmpIptc4xmpcoreLocation.getInstance(), iptc4xmpcoreLocation);
+        valueOfColumn.put(ColumnXmpIptc4xmpcoreLocation.INSTANCE, iptc4xmpcoreLocation);
     }
 
     /**
@@ -189,7 +189,7 @@ public final class Xmp {
      * @see    Iptc#getByLinesTitles()
      */
     public String getPhotoshopAuthorsposition() {
-        return stringValueOf(ColumnXmpPhotoshopAuthorsposition.getInstance());
+        return stringValueOf(ColumnXmpPhotoshopAuthorsposition.INSTANCE);
     }
 
     /**
@@ -198,7 +198,7 @@ public final class Xmp {
      * @param photoshopAuthorsposition XMP-Feld photoshop:AuthorsPosition (Position des Fotografen)
      */
     public void setPhotoshopAuthorsposition(String photoshopAuthorsposition) {
-        valueOfColumn.put(ColumnXmpPhotoshopAuthorsposition.getInstance(), photoshopAuthorsposition);
+        valueOfColumn.put(ColumnXmpPhotoshopAuthorsposition.INSTANCE, photoshopAuthorsposition);
     }
 
     /**
@@ -208,7 +208,7 @@ public final class Xmp {
      * @see    Iptc#getWritersEditors()
      */
     public String getPhotoshopCaptionwriter() {
-        return stringValueOf(ColumnXmpPhotoshopCaptionwriter.getInstance());
+        return stringValueOf(ColumnXmpPhotoshopCaptionwriter.INSTANCE);
     }
 
     /**
@@ -217,7 +217,7 @@ public final class Xmp {
      * @param photoshopCaptionwriter XMP-Feld photoshop:CaptionWriter (Autor der Beschreibung)
      */
     public void setPhotoshopCaptionwriter(String photoshopCaptionwriter) {
-        valueOfColumn.put(ColumnXmpPhotoshopCaptionwriter.getInstance(), photoshopCaptionwriter);
+        valueOfColumn.put(ColumnXmpPhotoshopCaptionwriter.INSTANCE, photoshopCaptionwriter);
     }
 
     /**
@@ -227,7 +227,7 @@ public final class Xmp {
      * @see    Iptc#getCategory()
      */
     public String getPhotoshopCategory() {
-        return stringValueOf(ColumnXmpPhotoshopCategory.getInstance());
+        return stringValueOf(ColumnXmpPhotoshopCategory.INSTANCE);
     }
 
     /**
@@ -237,7 +237,7 @@ public final class Xmp {
      * @see                     Iptc#setCategory(java.lang.String)
      */
     public void setPhotoshopCategory(String photoshopCategory) {
-        valueOfColumn.put(ColumnXmpPhotoshopCategory.getInstance(), photoshopCategory);
+        valueOfColumn.put(ColumnXmpPhotoshopCategory.INSTANCE, photoshopCategory);
     }
 
     /**
@@ -247,7 +247,7 @@ public final class Xmp {
      * @see Iptc#getCity()
      */
     public String getPhotoshopCity() {
-        return stringValueOf(ColumnXmpPhotoshopCity.getInstance());
+        return stringValueOf(ColumnXmpPhotoshopCity.INSTANCE);
     }
 
     /**
@@ -257,7 +257,7 @@ public final class Xmp {
      * @see                 Iptc#setCity(java.lang.String)
      */
     public void setPhotoshopCity(String photoshopCity) {
-        valueOfColumn.put(ColumnXmpPhotoshopCity.getInstance(), photoshopCity);
+        valueOfColumn.put(ColumnXmpPhotoshopCity.INSTANCE, photoshopCity);
     }
 
     /**
@@ -267,7 +267,7 @@ public final class Xmp {
      * @see    Iptc#getCountryPrimaryLocationName()
      */
     public String getPhotoshopCountry() {
-        return stringValueOf(ColumnXmpPhotoshopCountry.getInstance());
+        return stringValueOf(ColumnXmpPhotoshopCountry.INSTANCE);
     }
 
     /**
@@ -277,7 +277,7 @@ public final class Xmp {
      * @see   Iptc#setCountryPrimaryLocationName(java.lang.String)
      */
     public void setPhotoshopCountry(String photoshopCountry) {
-        valueOfColumn.put(ColumnXmpPhotoshopCountry.getInstance(), photoshopCountry);
+        valueOfColumn.put(ColumnXmpPhotoshopCountry.INSTANCE, photoshopCountry);
     }
 
     /**
@@ -287,7 +287,7 @@ public final class Xmp {
      * @see    Iptc#getCredit()
      */
     public String getPhotoshopCredit() {
-        return stringValueOf(ColumnXmpPhotoshopCredit.getInstance());
+        return stringValueOf(ColumnXmpPhotoshopCredit.INSTANCE);
     }
 
     /**
@@ -297,7 +297,7 @@ public final class Xmp {
      * @see   Iptc#setCredit(java.lang.String)
      */
     public void setPhotoshopCredit(String photoshopCredit) {
-        valueOfColumn.put(ColumnXmpPhotoshopCredit.getInstance(), photoshopCredit);
+        valueOfColumn.put(ColumnXmpPhotoshopCredit.INSTANCE, photoshopCredit);
     }
 
     /**
@@ -307,7 +307,7 @@ public final class Xmp {
      * @see    Iptc#getHeadline()
      */
     public String getPhotoshopHeadline() {
-        return stringValueOf(ColumnXmpPhotoshopHeadline.getInstance());
+        return stringValueOf(ColumnXmpPhotoshopHeadline.INSTANCE);
     }
 
     /**
@@ -317,7 +317,7 @@ public final class Xmp {
      * @see                     Iptc#setHeadline(java.lang.String)
      */
     public void setPhotoshopHeadline(String photoshopHeadline) {
-        valueOfColumn.put(ColumnXmpPhotoshopHeadline.getInstance(), photoshopHeadline);
+        valueOfColumn.put(ColumnXmpPhotoshopHeadline.INSTANCE, photoshopHeadline);
     }
 
     /**
@@ -327,7 +327,7 @@ public final class Xmp {
      * @see    Iptc#getSpecialInstructions()
      */
     public String getPhotoshopInstructions() {
-        return stringValueOf(ColumnXmpPhotoshopInstructions.getInstance());
+        return stringValueOf(ColumnXmpPhotoshopInstructions.INSTANCE);
     }
 
     /**
@@ -337,7 +337,7 @@ public final class Xmp {
      * @see                         Iptc#setSpecialInstructions(java.lang.String)
      */
     public void setPhotoshopInstructions(String photoshopInstructions) {
-        valueOfColumn.put(ColumnXmpPhotoshopInstructions.getInstance(), photoshopInstructions);
+        valueOfColumn.put(ColumnXmpPhotoshopInstructions.INSTANCE, photoshopInstructions);
     }
 
     /**
@@ -347,7 +347,7 @@ public final class Xmp {
      * @see    Iptc#getSource()
      */
     public String getPhotoshopSource() {
-        return stringValueOf(ColumnXmpPhotoshopSource.getInstance());
+        return stringValueOf(ColumnXmpPhotoshopSource.INSTANCE);
     }
 
     /**
@@ -357,7 +357,7 @@ public final class Xmp {
      * @see                   Iptc#setSource(java.lang.String)
      */
     public void setPhotoshopSource(String photoshopSource) {
-        valueOfColumn.put(ColumnXmpPhotoshopSource.getInstance(), photoshopSource);
+        valueOfColumn.put(ColumnXmpPhotoshopSource.INSTANCE, photoshopSource);
     }
 
     /**
@@ -367,7 +367,7 @@ public final class Xmp {
      * @see    Iptc#getProvinceState()
      */
     public String getPhotoshopState() {
-        return stringValueOf(ColumnXmpPhotoshopState.getInstance());
+        return stringValueOf(ColumnXmpPhotoshopState.INSTANCE);
     }
 
     /**
@@ -377,7 +377,7 @@ public final class Xmp {
      * @see                  Iptc#setProvinceState(java.lang.String)
      */
     public void setPhotoshopState(String photoshopState) {
-        valueOfColumn.put(ColumnXmpPhotoshopState.getInstance(), photoshopState);
+        valueOfColumn.put(ColumnXmpPhotoshopState.INSTANCE, photoshopState);
     }
 
     /**
@@ -387,7 +387,7 @@ public final class Xmp {
      * @see    Iptc#getSupplementalCategories()
      */
     public List<String> getPhotoshopSupplementalCategories() {
-        return stringListOf(ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory.getInstance());
+        return stringListOf(ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory.INSTANCE);
     }
 
     /**
@@ -398,7 +398,7 @@ public final class Xmp {
      * @see            Iptc#addSupplementalCategory(java.lang.String)
      */
     public void addPhotoshopSupplementalCategory(String category) {
-        addToStringList(ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory.getInstance(), category);
+        addToStringList(ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory.INSTANCE, category);
     }
 
     /**
@@ -408,7 +408,7 @@ public final class Xmp {
      * @see    Iptc#getOriginalTransmissionReference()
      */
     public String getPhotoshopTransmissionReference() {
-        return stringValueOf(ColumnXmpPhotoshopTransmissionReference.getInstance());
+        return stringValueOf(ColumnXmpPhotoshopTransmissionReference.INSTANCE);
     }
 
     /**
@@ -418,7 +418,7 @@ public final class Xmp {
      * @see                                  Iptc#setOriginalTransmissionReference(java.lang.String)
      */
     public void setPhotoshopTransmissionReference(String photoshopTransmissionReference) {
-        valueOfColumn.put(ColumnXmpPhotoshopTransmissionReference.getInstance(), photoshopTransmissionReference);
+        valueOfColumn.put(ColumnXmpPhotoshopTransmissionReference.INSTANCE, photoshopTransmissionReference);
     }
 
     /**
@@ -427,7 +427,7 @@ public final class Xmp {
      * @param lastModified  milliseconds since 1970 of the modification time
      */
     public void setLastModified(long lastModified) {
-        valueOfColumn.put(ColumnXmpLastModified.getInstance(), lastModified);
+        valueOfColumn.put(ColumnXmpLastModified.INSTANCE, lastModified);
     }
 
     /**
@@ -437,7 +437,7 @@ public final class Xmp {
      *         if not defined
      */
     public Long getLastModified() {
-        return longValueOf(ColumnXmpLastModified.getInstance());
+        return longValueOf(ColumnXmpLastModified.INSTANCE);
     }
 
     public enum SetIptc {
@@ -455,11 +455,10 @@ public final class Xmp {
         if (options.equals(SetIptc.REPLACE_EXISTING_VALUES)) {
             empty();
         }
-        List<Pair<IPTCEntryMeta, Column>> mappings = IptcXmpMapping.getInstance().getAllPairs();
-        IptcXmpMapping mapping = IptcXmpMapping.getInstance();
+        List<Pair<IPTCEntryMeta, Column>> mappings = IptcXmpMapping.getAllPairs();
         for (Pair<IPTCEntryMeta, Column> mappingPair : mappings) {
             Column xmpColumn = mappingPair.getSecond();
-            IPTCEntryMeta iptcEntryMeta = mapping.getIptcEntryMetaOfXmpColumn(xmpColumn);
+            IPTCEntryMeta iptcEntryMeta = IptcXmpMapping.getIptcEntryMetaOfXmpColumn(xmpColumn);
             Object iptcValue = iptc.getValue(iptcEntryMeta);
             if (iptcValue != null) {
                 if (iptcValue instanceof String) {

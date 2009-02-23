@@ -16,7 +16,7 @@ import javax.swing.tree.TreePath;
  */
 public final class TreeDirectoriesMouseListener extends MouseAdapter {
 
-    private final PopupMenuTreeDirectories popupMenu = PopupMenuTreeDirectories.getInstance();
+    private final PopupMenuTreeDirectories popupMenu = PopupMenuTreeDirectories.INSTANCE;
 
     @Override
     public void mousePressed(MouseEvent e) {

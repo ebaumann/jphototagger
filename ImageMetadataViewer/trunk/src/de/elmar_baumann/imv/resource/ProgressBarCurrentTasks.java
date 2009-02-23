@@ -12,13 +12,9 @@ import javax.swing.JProgressBar;
  */
 public final class ProgressBarCurrentTasks extends MutualExcludedResource {
 
-    private final AppPanel appPanel = Panels.getInstance().getAppPanel();
+    private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
     private final JProgressBar progressBar = appPanel.getProgressBarCurrentTasks();
-    private static final ProgressBarCurrentTasks instance = new ProgressBarCurrentTasks();
-
-    public static ProgressBarCurrentTasks getInstance() {
-        return instance;
-    }
+    public static final ProgressBarCurrentTasks INSTANCE = new ProgressBarCurrentTasks();
 
     private ProgressBarCurrentTasks() {
         setResource(progressBar);

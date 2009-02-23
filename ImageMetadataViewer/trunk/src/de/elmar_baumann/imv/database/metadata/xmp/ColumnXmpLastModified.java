@@ -11,15 +11,11 @@ import de.elmar_baumann.imv.resource.Bundle;
  */
 public final class ColumnXmpLastModified extends Column {
     
-    private static final ColumnXmpLastModified instance = new ColumnXmpLastModified();
-    
-    public static ColumnXmpLastModified getInstance() {
-        return instance;
-    }
+    public static final ColumnXmpLastModified INSTANCE = new ColumnXmpLastModified();
     
     private ColumnXmpLastModified() {
         super(
-            TableXmp.getInstance(),
+            TableXmp.INSTANCE,
             "lastmodified", // NOI18N
             DataType.BIGINT);
 

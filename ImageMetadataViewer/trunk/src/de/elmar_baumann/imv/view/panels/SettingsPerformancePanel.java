@@ -15,7 +15,7 @@ import de.elmar_baumann.imv.types.Persistence;
 public final class SettingsPerformancePanel extends javax.swing.JPanel
     implements Persistence {
 
-    private final ListenerProvider listenerProvider = ListenerProvider.getInstance();
+    private final ListenerProvider listenerProvider = ListenerProvider.INSTANCE;
 
     /** Creates new form SettingsPerformancePanel */
     public SettingsPerformancePanel() {
@@ -46,7 +46,7 @@ public final class SettingsPerformancePanel extends javax.swing.JPanel
 
     @Override
     public void readPersistent() {
-        UserSettings settings = UserSettings.getInstance();
+        UserSettings settings = UserSettings.INSTANCE;
         ComboBoxModelThreadPriority modelThreadPriority =
             (ComboBoxModelThreadPriority) comboBoxThreadPriority.getModel();
         modelThreadPriority.setSelectedItem(modelThreadPriority.getItemOfPriority(

@@ -45,7 +45,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
     }
 
     private void postInitComponents() {
-        listenerProvider = ListenerProvider.getInstance();
+        listenerProvider = ListenerProvider.INSTANCE;
         searchListeners = listenerProvider.getSearchListeners();
         panelColumn1.setOperatorsEnabled(false);
         initSearchColumnPanelArray();
@@ -279,7 +279,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
     }
 
     private StringBuffer getStartSelectFrom() {
-        Column columnFilename = ColumnFilesFilename.getInstance();
+        Column columnFilename = ColumnFilesFilename.INSTANCE;
         String columnNameFilename = columnFilename.getName();
         String tableNameFiles = columnFilename.getTable().getName();
 
@@ -313,33 +313,33 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         List<Table> allTables =
             DatabaseMetadataUtil.getUniqueTablesOfColumnArray(getColumns());
         Column.ReferenceDirection back = Column.ReferenceDirection.BACKWARDS;
-        List<Table> refsXmpTables = DatabaseMetadataUtil.getTablesWithReferenceTo(allTables, TableXmp.getInstance(), back);
+        List<Table> refsXmpTables = DatabaseMetadataUtil.getTablesWithReferenceTo(allTables, TableXmp.INSTANCE, back);
 
-        statement.append(" " + TableFiles.getInstance().getName()); // NOI18N
+        statement.append(" " + TableFiles.INSTANCE.getName()); // NOI18N
 
-        if (allTables.contains(TableExif.getInstance())) {
-            statement.append(getJoinFiles(TableExif.getInstance(),
-                ColumnExifIdFiles.getInstance()));
+        if (allTables.contains(TableExif.INSTANCE)) {
+            statement.append(getJoinFiles(TableExif.INSTANCE,
+                ColumnExifIdFiles.INSTANCE));
         }
 
-        if (allTables.contains(TableXmp.getInstance()) ||
+        if (allTables.contains(TableXmp.INSTANCE) ||
             !refsXmpTables.isEmpty()) {
-            statement.append(getJoinFiles(TableXmp.getInstance(),
-                ColumnXmpIdFiles.getInstance()));
+            statement.append(getJoinFiles(TableXmp.INSTANCE,
+                ColumnXmpIdFiles.INSTANCE));
         }
 
         String xmpJoinCol =
-            TableXmp.getInstance().getName() + "." + // NOI18N
-            ColumnXmpId.getInstance().getName();
-        appendInnerJoin(statement, refsXmpTables, TableXmp.getInstance(),
+            TableXmp.INSTANCE.getName() + "." + // NOI18N
+            ColumnXmpId.INSTANCE.getName();
+        appendInnerJoin(statement, refsXmpTables, TableXmp.INSTANCE,
             xmpJoinCol);
     }
 
     private String getJoinFiles(Table joinTable, Column joinColumn) {
         return " INNER JOIN " + joinTable.getName() + " ON " + // NOI18N
             joinTable.getName() + "." + joinColumn.getName() + // NOI18N
-            " = " + TableFiles.getInstance().getName() + // NOI18N
-            "." + ColumnFilesId.getInstance().getName(); // NOI18N
+            " = " + TableFiles.INSTANCE.getName() + // NOI18N
+            "." + ColumnFilesId.INSTANCE.getName(); // NOI18N
     }
 
     private void appendInnerJoin(StringBuffer statement,

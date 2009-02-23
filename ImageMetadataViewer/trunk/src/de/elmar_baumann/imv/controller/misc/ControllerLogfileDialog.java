@@ -6,7 +6,7 @@ import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.event.ErrorEvent;
 import de.elmar_baumann.imv.event.ErrorListener;
 import de.elmar_baumann.imv.event.listener.ErrorListeners;
-import de.elmar_baumann.imv.resource.Panels;
+import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.lib.dialog.LogfileDialog;
 import de.elmar_baumann.lib.image.icon.IconUtil;
@@ -24,7 +24,7 @@ import javax.swing.JButton;
  */
 public final class ControllerLogfileDialog implements ActionListener, ErrorListener {
 
-    private final AppPanel appPanel = Panels.getInstance().getAppPanel();
+    private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
     private final JButton buttonLogfileDialog = appPanel.getButtonLogfileDialog();
     private static final String iconPath = AppIcons.getIconPath();
     private static final ImageIcon iconOk = IconUtil.getImageIcon(iconPath + "/icon_ok.png");
@@ -37,7 +37,7 @@ public final class ControllerLogfileDialog implements ActionListener, ErrorListe
 
     private void listen() {
         buttonLogfileDialog.addActionListener(this);
-        ErrorListeners.getInstance().addErrorListener(this);
+        ErrorListeners.INSTANCE.addErrorListener(this);
     }
 
     @Override
@@ -54,7 +54,7 @@ public final class ControllerLogfileDialog implements ActionListener, ErrorListe
         LogfileDialog dialog = new LogfileDialog(
                 null,
                 AppLog.getLogfileName(),
-                UserSettings.getInstance().getLogfileFormatterClass());
+                UserSettings.INSTANCE.getLogfileFormatterClass());
         dialog.setVisible(true);
         setError(false);
     }

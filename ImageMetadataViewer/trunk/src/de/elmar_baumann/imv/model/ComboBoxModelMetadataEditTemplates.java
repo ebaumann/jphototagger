@@ -20,7 +20,7 @@ import javax.swing.JOptionPane;
  */
 public final class ComboBoxModelMetadataEditTemplates extends DefaultComboBoxModel {
 
-    private final DatabaseMetadataEditTemplates db = DatabaseMetadataEditTemplates.getInstance();
+    private final DatabaseMetadataEditTemplates db = DatabaseMetadataEditTemplates.INSTANCE;
 
     public ComboBoxModelMetadataEditTemplates() {
         addColumns();

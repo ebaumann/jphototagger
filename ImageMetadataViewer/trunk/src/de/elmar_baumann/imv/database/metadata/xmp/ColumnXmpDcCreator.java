@@ -12,15 +12,11 @@ import de.elmar_baumann.imv.resource.Bundle;
  */
 public final class ColumnXmpDcCreator extends Column {
 
-    private static final ColumnXmpDcCreator instance = new ColumnXmpDcCreator();
-
-    public static Column getInstance() {
-        return instance;
-    }
+    public static final ColumnXmpDcCreator INSTANCE = new ColumnXmpDcCreator();
 
     private ColumnXmpDcCreator() {
         super(
-            TableXmp.getInstance(),
+            TableXmp.INSTANCE,
             "dc_creator", // NOI18N
             DataType.STRING);
 

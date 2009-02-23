@@ -20,7 +20,6 @@ import java.util.Map;
 public final class IptcEntryXmpPathStartMapping {
 
     private static final Map<IPTCEntryMeta, String> xmpPathStarOfIptcEntryMeta = new HashMap<IPTCEntryMeta, String>();
-    private static final IptcEntryXmpPathStartMapping instance = new IptcEntryXmpPathStartMapping();
     
 
     static {
@@ -45,20 +44,16 @@ public final class IptcEntryXmpPathStartMapping {
         xmpPathStarOfIptcEntryMeta.put(IPTCEntryMeta.ORIGINAL_TRANSMISSION_REFERENCE, "photoshop:TransmissionReference"); // NOI18N
     }
 
-    public static IptcEntryXmpPathStartMapping getInstance() {
-        return instance;
-    }
-
-    private IptcEntryXmpPathStartMapping() {
-    }
-
     /**
      * Liefert den Start des XMP-Pfads für IPTC-Entry-Metadaten.
      * 
      * @param  entryMeta  IPTC-Entry-Metadaten
      * @return Pfadstart oder null bei unzugeordneten Metadaten
      */
-    public String getXmpPathStartOfIptcEntryMeta(IPTCEntryMeta entryMeta) {
+    public static String getXmpPathStartOfIptcEntryMeta(IPTCEntryMeta entryMeta) {
         return xmpPathStarOfIptcEntryMeta.get(entryMeta);
+    }
+
+    private IptcEntryXmpPathStartMapping() {
     }
 }

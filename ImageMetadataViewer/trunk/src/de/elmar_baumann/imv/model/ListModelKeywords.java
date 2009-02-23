@@ -23,12 +23,12 @@ import javax.swing.DefaultListModel;
 public final class ListModelKeywords extends DefaultListModel
     implements DatabaseListener {
 
-    private final DatabaseImageFiles db = DatabaseImageFiles.getInstance();
+    private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
     private ListModelElementRemover remover;
 
     public ListModelKeywords() {
         addElements();
-        remover = new ListModelElementRemover(this, ColumnXmpDcSubjectsSubject.getInstance());
+        remover = new ListModelElementRemover(this, ColumnXmpDcSubjectsSubject.INSTANCE);
         db.addDatabaseListener(this);
     }
 

@@ -15,7 +15,7 @@ import java.util.List;
  */
 public final class XmpUpdaterRenameInColumns implements Runnable, ProgressListener {
 
-    private final DatabaseImageFiles db = DatabaseImageFiles.getInstance();
+    private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
     private final List<String> filenames;
     private final List<ProgressListener> progressListeners = new ArrayList<ProgressListener>();
     private final Column column;

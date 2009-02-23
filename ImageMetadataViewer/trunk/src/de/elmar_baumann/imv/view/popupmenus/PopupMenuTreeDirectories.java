@@ -22,19 +22,10 @@ public final class PopupMenuTreeDirectories extends JPopupMenu {
     private TreePath path;
     private String directoryName;
     private boolean treeSelected = false;
-    private static final PopupMenuTreeDirectories instance = new PopupMenuTreeDirectories();
+    public static final PopupMenuTreeDirectories INSTANCE = new PopupMenuTreeDirectories();
 
     private void initLists() {
         fileItems.add(itemAddToFavoriteDirectories);
-    }
-
-    /**
-     * Liefert die einzige Klasseninstanz.
-     * 
-     * @return Instanz
-     */
-    public static PopupMenuTreeDirectories getInstance() {
-        return instance;
     }
 
     public JMenuItem getItemAddToFavoriteDirectories() {

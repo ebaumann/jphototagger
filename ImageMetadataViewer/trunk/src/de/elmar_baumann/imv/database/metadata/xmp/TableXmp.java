@@ -10,11 +10,7 @@ import de.elmar_baumann.imv.database.metadata.Table;
  */
 public final class TableXmp extends Table {
 
-    private static final TableXmp instance = new TableXmp();
-
-    public static TableXmp getInstance() {
-        return instance;
-    }
+    public static final TableXmp INSTANCE = new TableXmp();
 
     private TableXmp() {
         super("xmp"); // NOI18N
@@ -22,24 +18,24 @@ public final class TableXmp extends Table {
 
     @Override
     protected void addColumns() {
-        addColumn(ColumnXmpId.getInstance());
-        addColumn(ColumnXmpIdFiles.getInstance());
-        addColumn(ColumnXmpDcCreator.getInstance());
-        addColumn(ColumnXmpDcDescription.getInstance());
-        addColumn(ColumnXmpDcRights.getInstance());
-        addColumn(ColumnXmpDcTitle.getInstance());
-        addColumn(ColumnXmpIptc4xmpcoreCountrycode.getInstance());
-        addColumn(ColumnXmpIptc4xmpcoreLocation.getInstance());
-        addColumn(ColumnXmpPhotoshopAuthorsposition.getInstance());
-        addColumn(ColumnXmpPhotoshopCaptionwriter.getInstance());
-        addColumn(ColumnXmpPhotoshopCategory.getInstance());
-        addColumn(ColumnXmpPhotoshopCity.getInstance());
-        addColumn(ColumnXmpPhotoshopCountry.getInstance());
-        addColumn(ColumnXmpPhotoshopCredit.getInstance());
-        addColumn(ColumnXmpPhotoshopHeadline.getInstance());
-        addColumn(ColumnXmpPhotoshopInstructions.getInstance());
-        addColumn(ColumnXmpPhotoshopSource.getInstance());
-        addColumn(ColumnXmpPhotoshopState.getInstance());
-        addColumn(ColumnXmpPhotoshopTransmissionReference.getInstance());
+        addColumn(ColumnXmpId.INSTANCE);
+        addColumn(ColumnXmpIdFiles.INSTANCE);
+        addColumn(ColumnXmpDcCreator.INSTANCE);
+        addColumn(ColumnXmpDcDescription.INSTANCE);
+        addColumn(ColumnXmpDcRights.INSTANCE);
+        addColumn(ColumnXmpDcTitle.INSTANCE);
+        addColumn(ColumnXmpIptc4xmpcoreCountrycode.INSTANCE);
+        addColumn(ColumnXmpIptc4xmpcoreLocation.INSTANCE);
+        addColumn(ColumnXmpPhotoshopAuthorsposition.INSTANCE);
+        addColumn(ColumnXmpPhotoshopCaptionwriter.INSTANCE);
+        addColumn(ColumnXmpPhotoshopCategory.INSTANCE);
+        addColumn(ColumnXmpPhotoshopCity.INSTANCE);
+        addColumn(ColumnXmpPhotoshopCountry.INSTANCE);
+        addColumn(ColumnXmpPhotoshopCredit.INSTANCE);
+        addColumn(ColumnXmpPhotoshopHeadline.INSTANCE);
+        addColumn(ColumnXmpPhotoshopInstructions.INSTANCE);
+        addColumn(ColumnXmpPhotoshopSource.INSTANCE);
+        addColumn(ColumnXmpPhotoshopState.INSTANCE);
+        addColumn(ColumnXmpPhotoshopTransmissionReference.INSTANCE);
     }
 }

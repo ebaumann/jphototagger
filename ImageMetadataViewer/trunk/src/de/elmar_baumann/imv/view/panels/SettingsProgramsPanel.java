@@ -27,7 +27,7 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel
     implements Persistence {
 
     private final ListModelPrograms model = new ListModelPrograms(false);
-    private final ListenerProvider listenerProvider = ListenerProvider.getInstance();
+    private final ListenerProvider listenerProvider = ListenerProvider.INSTANCE;
 
     /** Creates new form SettingsProgramsPanel */
     public SettingsProgramsPanel() {
@@ -37,7 +37,7 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel
 
     @Override
     public void readPersistent() {
-        String filename = UserSettings.getInstance().getDefaultImageOpenApp();
+        String filename = UserSettings.INSTANCE.getDefaultImageOpenApp();
         labelDefaultProgramFile.setText(filename);
         if (FileUtil.existsFile(filename)) {
             labelDefaultProgramFile.setIcon(IconUtil.getSystemIcon(new File(filename)));

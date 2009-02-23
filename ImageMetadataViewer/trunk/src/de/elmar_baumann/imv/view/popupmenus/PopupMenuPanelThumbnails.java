@@ -60,16 +60,7 @@ public final class PopupMenuPanelThumbnails extends JPopupMenu
     private final Map<JMenuItem, Float> angleOfItem = new HashMap<JMenuItem, Float>();
     private final Map<JMenuItem, EnumSet<InsertImageFilesIntoDatabase.Insert>> databaseUpdateOfMenuItem = new HashMap<JMenuItem, EnumSet<InsertImageFilesIntoDatabase.Insert>>();
     private final Map<JMenuItem, Program> programOfMenuItem = new HashMap<JMenuItem, Program>();
-    private static final PopupMenuPanelThumbnails instance = new PopupMenuPanelThumbnails();
-
-    /**
-     * Liefert die einzige Klasseninstanz.
-     * 
-     * @return Instanz
-     */
-    public static PopupMenuPanelThumbnails getInstance() {
-        return instance;
-    }
+    public static final PopupMenuPanelThumbnails INSTANCE = new PopupMenuPanelThumbnails();
 
     private PopupMenuPanelThumbnails() {
         initMaps();
@@ -106,7 +97,7 @@ public final class PopupMenuPanelThumbnails extends JPopupMenu
     public void addOtherPrograms() {
         menuPrograms.removeAll();
         programOfMenuItem.clear();
-        List<Program> programs = DatabasePrograms.getInstance().getAll(false);
+        List<Program> programs = DatabasePrograms.INSTANCE.getAll(false);
         if (!programs.isEmpty()) {
             for (Program program : programs) {
                 String alias = program.getAlias();

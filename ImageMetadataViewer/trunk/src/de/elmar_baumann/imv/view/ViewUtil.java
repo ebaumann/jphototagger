@@ -1,7 +1,7 @@
 package de.elmar_baumann.imv.view;
 
 import de.elmar_baumann.imv.data.FavoriteDirectory;
-import de.elmar_baumann.imv.resource.Panels;
+import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.lib.componentutil.TreeUtil;
 import de.elmar_baumann.lib.dialog.DirectoryChooser;
 import de.elmar_baumann.lib.io.FileUtil;
@@ -45,7 +45,7 @@ public class ViewUtil {
      * @return directory or null if no directory is selected
      */
     public static File getSelectedDirectoryFromFavoriteDirectories() {
-        JList list = Panels.getInstance().getAppPanel().getListFavoriteDirectories();
+        JList list = GUI.INSTANCE.getAppPanel().getListFavoriteDirectories();
         Object o = list.getSelectedValue();
         if (o instanceof FavoriteDirectory) {
             FavoriteDirectory favoriteDirectory = (FavoriteDirectory) o;
@@ -60,11 +60,11 @@ public class ViewUtil {
      * @param chooser  directory chooser
      */
     public static void setDirectoryTreeModel(DirectoryChooser chooser) {
-        chooser.setModel(Panels.getInstance().getAppPanel().getTreeDirectories().getModel());
+        chooser.setModel(GUI.INSTANCE.getAppPanel().getTreeDirectories().getModel());
     }
 
     public static void writePersistentTreeDirectories() {
-        JTree treeDirectories = Panels.getInstance().getAppPanel().getTreeDirectories();
+        JTree treeDirectories = GUI.INSTANCE.getAppPanel().getTreeDirectories();
         PersistentSettings settings = PersistentSettings.getInstance();
         if (treeDirectories.getSelectionCount() > 0) {
             settings.setString(
@@ -75,7 +75,7 @@ public class ViewUtil {
     }
 
     public static void readPersistentTreeDirectories() {
-        JTree treeDirectories = Panels.getInstance().getAppPanel().getTreeDirectories();
+        JTree treeDirectories = GUI.INSTANCE.getAppPanel().getTreeDirectories();
         String filename = PersistentSettings.getInstance().getString(keyTreeDirectories);
 
         if (!filename.isEmpty() && FileUtil.existsDirectory(filename)) {

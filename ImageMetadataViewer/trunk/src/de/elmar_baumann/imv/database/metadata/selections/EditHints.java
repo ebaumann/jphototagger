@@ -8,6 +8,9 @@ package de.elmar_baumann.imv.database.metadata.selections;
  */
 public final class EditHints {
 
+    private final boolean repeatable;
+    private final SizeEditField sizeEditField;
+
     /**
      * Vorschlag: Größe des Editierfelds.
      */
@@ -26,8 +29,6 @@ public final class EditHints {
          */
         LARGE
     }
-    private final boolean repeatable;
-    private final SizeEditField sizeEditField;
 
     /**
      * Konstruktor.

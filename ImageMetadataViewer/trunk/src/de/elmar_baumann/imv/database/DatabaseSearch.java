@@ -20,11 +20,7 @@ import java.util.List;
  */
 public final class DatabaseSearch extends Database {
 
-    private static final DatabaseSearch instance = new DatabaseSearch();
-
-    public static DatabaseSearch getInstance() {
-        return instance;
-    }
+    public static final DatabaseSearch INSTANCE = new DatabaseSearch();
 
     private DatabaseSearch() {
     }

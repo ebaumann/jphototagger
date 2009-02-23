@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.controller.thumbnail;
 
-import de.elmar_baumann.imv.resource.Panels;
+import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.tasks.Task;
 import de.elmar_baumann.imv.tasks.UpdaterRenameInXmpColumnsArray;
 import de.elmar_baumann.imv.view.dialogs.RenameInXmpColumnsDialog;
@@ -19,14 +19,14 @@ import java.util.List;
 public final class ControllerRenameInXmpColumns implements ActionListener, Task {
 
     private final UpdaterRenameInXmpColumnsArray updater = new UpdaterRenameInXmpColumnsArray();
-    private final ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
+    private final ImageFileThumbnailsPanel thumbnailsPanel = GUI.INSTANCE.getAppPanel().getPanelThumbnails();
 
     public ControllerRenameInXmpColumns() {
         listen();
     }
 
     private void listen() {
-        Panels.getInstance().getAppFrame().getMenuItemRenameInXmp().addActionListener(this);
+        GUI.INSTANCE.getAppFrame().getMenuItemRenameInXmp().addActionListener(this);
     }
 
     @Override

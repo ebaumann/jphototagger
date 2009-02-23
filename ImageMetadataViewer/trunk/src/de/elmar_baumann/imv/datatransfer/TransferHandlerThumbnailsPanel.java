@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.datatransfer;
 
-import de.elmar_baumann.imv.resource.Panels;
+import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.types.Content;
 import de.elmar_baumann.imv.view.ViewUtil;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
@@ -56,7 +56,7 @@ public final class TransferHandlerThumbnailsPanel extends TransferHandler {
         List<File> sourceFiles = TransferUtil.getFiles(transferSupport.getTransferable(), delimiter);
         File targetDirectory = null;
         if (isContent(Content.DIRECTORY)) {
-            JTree treeDirectories = Panels.getInstance().getAppPanel().getTreeDirectories();
+            JTree treeDirectories = GUI.INSTANCE.getAppPanel().getTreeDirectories();
             targetDirectory = ViewUtil.getSelectedDirectory(treeDirectories);
         } else if (isContent(Content.FAVORITE_DIRECTORY)) {
             targetDirectory = ViewUtil.getSelectedDirectoryFromFavoriteDirectories();
@@ -78,7 +78,7 @@ public final class TransferHandlerThumbnailsPanel extends TransferHandler {
     }
 
     private boolean isContent(Content content) {
-        ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
+        ImageFileThumbnailsPanel thumbnailsPanel = GUI.INSTANCE.getAppPanel().getPanelThumbnails();
         return thumbnailsPanel.getContent().equals(content);
     }
 }

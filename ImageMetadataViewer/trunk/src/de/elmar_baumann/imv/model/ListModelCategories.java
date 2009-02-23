@@ -25,7 +25,7 @@ import javax.swing.DefaultListModel;
 public final class ListModelCategories extends DefaultListModel
     implements DatabaseListener {
 
-    private final DatabaseImageFiles db = DatabaseImageFiles.getInstance();
+    private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
     private ListModelElementRemover remover;
 
     public ListModelCategories() {
@@ -36,8 +36,8 @@ public final class ListModelCategories extends DefaultListModel
 
     private void createRemover() {
         List<Column> columns = new ArrayList<Column>();
-        columns.add(ColumnXmpPhotoshopCategory.getInstance());
-        columns.add(ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory.getInstance());
+        columns.add(ColumnXmpPhotoshopCategory.INSTANCE);
+        columns.add(ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory.INSTANCE);
         remover = new ListModelElementRemover(this, columns);
     }
 

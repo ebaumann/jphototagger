@@ -11,11 +11,7 @@ import java.sql.SQLException;
  */
 final class UpdateTables extends Database {
 
-    private static final UpdateTables instance = new UpdateTables();
-
-    static UpdateTables getInstance() {
-        return instance;
-    }
+    static final UpdateTables INSTANCE = new UpdateTables();
 
     private UpdateTables() {}
 
@@ -25,6 +21,6 @@ final class UpdateTables extends Database {
         new UpdateTablesAddColumns().update(connection);
         new UpdateTablesXmpLastModified().update(connection);
         new UpdateTablesPrograms().update(connection);
-        UpdateTablesMessages.getInstance().getProgressDialog().setVisible(false);
+        UpdateTablesMessages.INSTANCE.getProgressDialog().setVisible(false);
     }
 }

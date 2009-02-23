@@ -17,11 +17,7 @@ import java.util.List;
  */
 public final class DatabaseStatistics extends Database {
 
-    private static final DatabaseStatistics instance = new DatabaseStatistics();
-
-    public static DatabaseStatistics getInstance() {
-        return instance;
-    }
+    public static final DatabaseStatistics INSTANCE = new DatabaseStatistics();
 
     private DatabaseStatistics() {
     }

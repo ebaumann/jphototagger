@@ -1,7 +1,7 @@
 package de.elmar_baumann.imv.controller.filesystem;
 
 import de.elmar_baumann.imv.database.DatabaseImageFiles;
-import de.elmar_baumann.imv.resource.Panels;
+import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.tasks.FileSystemDeleteImageFiles;
 import de.elmar_baumann.imv.types.DeleteOption;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
@@ -21,9 +21,9 @@ import java.util.List;
  */
 public final class ControllerDeleteFiles implements ActionListener {
 
-    private final ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
-    private final DatabaseImageFiles db = DatabaseImageFiles.getInstance();
-    private final PopupMenuPanelThumbnails popupMenu = PopupMenuPanelThumbnails.getInstance();
+    private final ImageFileThumbnailsPanel thumbnailsPanel = GUI.INSTANCE.getAppPanel().getPanelThumbnails();
+    private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
+    private final PopupMenuPanelThumbnails popupMenu = PopupMenuPanelThumbnails.INSTANCE;
 
     public ControllerDeleteFiles() {
         listen();
@@ -31,7 +31,7 @@ public final class ControllerDeleteFiles implements ActionListener {
 
     private void listen() {
         popupMenu.addActionListenerFileSystemDeleteFiles(this);
-        Panels.getInstance().getAppFrame().getMenuItemDelete().addActionListener(this);
+        GUI.INSTANCE.getAppFrame().getMenuItemDelete().addActionListener(this);
     }
 
     @Override

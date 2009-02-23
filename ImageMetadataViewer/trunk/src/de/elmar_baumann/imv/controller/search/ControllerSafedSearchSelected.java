@@ -4,7 +4,7 @@ import de.elmar_baumann.imv.data.SavedSearch;
 import de.elmar_baumann.imv.database.DatabaseSearch;
 import de.elmar_baumann.imv.database.metadata.ParamStatement;
 import de.elmar_baumann.imv.event.RefreshListener;
-import de.elmar_baumann.imv.resource.Panels;
+import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.types.Content;
 import de.elmar_baumann.imv.view.panels.EditMetadataPanelsArray;
@@ -24,8 +24,8 @@ import javax.swing.event.ListSelectionListener;
 public final class ControllerSafedSearchSelected
         implements ListSelectionListener, RefreshListener {
 
-    private final AppPanel appPanel = Panels.getInstance().getAppPanel();
-    private final DatabaseSearch db = DatabaseSearch.getInstance();
+    private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
+    private final DatabaseSearch db = DatabaseSearch.INSTANCE;
     private final JList list = appPanel.getListSavedSearches();
     private final ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelThumbnails();
     private final EditMetadataPanelsArray editPanels = appPanel.getEditPanelsArray();

@@ -95,7 +95,7 @@ public final class IptcEntry {
 
     private String getEncodedData() {
         try {
-            return new String(data, UserSettings.getInstance().
+            return new String(data, UserSettings.INSTANCE.
                 getIptcCharset()).trim();
         } catch (UnsupportedEncodingException ex) {
             de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);

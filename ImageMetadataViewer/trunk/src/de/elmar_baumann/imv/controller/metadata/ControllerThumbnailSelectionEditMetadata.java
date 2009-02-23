@@ -5,7 +5,7 @@ import de.elmar_baumann.imv.event.ThumbnailsPanelAction;
 import de.elmar_baumann.imv.event.ThumbnailsPanelListener;
 import de.elmar_baumann.imv.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.imv.resource.Bundle;
-import de.elmar_baumann.imv.resource.Panels;
+import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.imv.view.panels.EditMetadataPanelsArray;
@@ -22,7 +22,7 @@ import javax.swing.JLabel;
  */
 public final class ControllerThumbnailSelectionEditMetadata implements ThumbnailsPanelListener {
 
-    private final AppPanel appPanel = Panels.getInstance().getAppPanel();
+    private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
     private final JButton buttonSave = appPanel.getButtonSaveMetadata();
     private final JButton buttonEmpty = appPanel.getButtonEmptyMetadata();
     private final JLabel labelMetadataInfoEditable = appPanel.getLabelMetadataInfoEditable();

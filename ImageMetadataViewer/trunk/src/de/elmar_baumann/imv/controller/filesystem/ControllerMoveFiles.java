@@ -5,7 +5,7 @@ import de.elmar_baumann.imv.event.FileSystemAction;
 import de.elmar_baumann.imv.event.FileSystemActionListener;
 import de.elmar_baumann.imv.event.FileSystemError;
 import de.elmar_baumann.imv.event.ListenerProvider;
-import de.elmar_baumann.imv.resource.Panels;
+import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.dialogs.MoveToDirectoryDialog;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuPanelThumbnails;
@@ -22,16 +22,16 @@ import java.util.List;
  */
 public final class ControllerMoveFiles implements ActionListener, FileSystemActionListener {
 
-    private final ImageFileThumbnailsPanel thumbnailsPanel = Panels.getInstance().getAppPanel().getPanelThumbnails();
-    private final DatabaseImageFiles db = DatabaseImageFiles.getInstance();
+    private final ImageFileThumbnailsPanel thumbnailsPanel = GUI.INSTANCE.getAppPanel().getPanelThumbnails();
+    private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
 
     public ControllerMoveFiles() {
         listen();
     }
 
     private void listen() {
-        PopupMenuPanelThumbnails.getInstance().addActionListenerFileSystemMoveFiles(this);
-        ListenerProvider.getInstance().addFileSystemActionListener(this);
+        PopupMenuPanelThumbnails.INSTANCE.addActionListenerFileSystemMoveFiles(this);
+        ListenerProvider.INSTANCE.addFileSystemActionListener(this);
     }
 
     @Override
