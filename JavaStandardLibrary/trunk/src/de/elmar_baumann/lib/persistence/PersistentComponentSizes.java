@@ -69,7 +69,7 @@ public final class PersistentComponentSizes {
         if (key == null)
             throw new NullPointerException("key == null");
 
-        PersistentSettings settings = PersistentSettings.getInstance();
+        PersistentSettings settings = PersistentSettings.INSTANCE;
         Properties properties = settings.getProperties();
         String keyWidth = getKeyWidth(key);
         String keyHeight = getKeyHeight(key);
@@ -112,7 +112,7 @@ public final class PersistentComponentSizes {
         if (key == null)
             throw new NullPointerException("key == null");
 
-        PersistentSettings settings = PersistentSettings.getInstance();
+        PersistentSettings settings = PersistentSettings.INSTANCE;
         Properties properties = settings.getProperties();
         String keyLocationX = getKeyLocationX(key);
         String keyLocationY = getKeyLocationY(key);
@@ -169,7 +169,7 @@ public final class PersistentComponentSizes {
             throw new NullPointerException("key == null");
 
         Dimension size = component.getSize();
-        Properties properties = PersistentSettings.getInstance().getProperties();
+        Properties properties = PersistentSettings.INSTANCE.getProperties();
 
         properties.setProperty(getKeyWidth(key), Integer.toString(size.width));
         properties.setProperty(getKeyHeight(key), Integer.toString(size.height));
@@ -200,7 +200,7 @@ public final class PersistentComponentSizes {
             throw new NullPointerException("key == null");
 
         Point location = component.getLocation();
-        Properties properties = PersistentSettings.getInstance().getProperties();
+        Properties properties = PersistentSettings.INSTANCE.getProperties();
 
         properties.setProperty(getKeyLocationX(key), Integer.toString(location.x));
         properties.setProperty(getKeyLocationY(key), Integer.toString(location.y));

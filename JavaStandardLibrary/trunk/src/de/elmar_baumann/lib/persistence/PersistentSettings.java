@@ -66,7 +66,7 @@ public final class PersistentSettings {
     private String domainName = ".de.elmar_baumann"; // NOI18N
     private Properties appProperties;
     private String appName;
-    private static final PersistentSettings instance = new PersistentSettings();
+    public static final PersistentSettings INSTANCE = new PersistentSettings();
 
     private PersistentSettings() {
     }
@@ -110,15 +110,6 @@ public final class PersistentSettings {
      */
     public void setDomainName(String domainName) {
         this.domainName = domainName;
-    }
-
-    /**
-     * Liefert die einzige Klasseninstanz.
-     * 
-     * @return Instanz
-     */
-    public static PersistentSettings getInstance() {
-        return instance;
     }
 
     /**

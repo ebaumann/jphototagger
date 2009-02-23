@@ -324,11 +324,11 @@ public final class LogfileDialog extends javax.swing.JDialog implements
                 readSimple();
             }
             PersistentComponentSizes.getSizeAndLocation(this);
-            PersistentSettings.getInstance().getComponent(this, new PersistentSettingsHints());
+            PersistentSettings.INSTANCE.getComponent(this, new PersistentSettingsHints());
             super.setVisible(true);
         } else {
             PersistentComponentSizes.setSizeAndLocation(this);
-            PersistentSettings.getInstance().setComponent(this, new PersistentSettingsHints());
+            PersistentSettings.INSTANCE.setComponent(this, new PersistentSettingsHints());
             super.setVisible(false);
         }
     }

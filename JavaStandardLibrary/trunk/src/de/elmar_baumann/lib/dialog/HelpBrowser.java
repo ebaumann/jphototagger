@@ -53,7 +53,7 @@ public final class HelpBrowser extends Dialog
     private MenuItem itemNext;
     private String startUrl;
     private String baseUrl;
-    private static HelpBrowser instance = new HelpBrowser();
+    public static final HelpBrowser INSTANCE = new HelpBrowser();
 
     private HelpBrowser() {
         initComponents();
@@ -74,15 +74,6 @@ public final class HelpBrowser extends Dialog
             setIconImages(IconUtil.getIconImages(
                 Settings.INSTANCE.getIconImagesPaths()));
         }
-    }
-
-    /**
-     * Returns the singleton.
-     * 
-     * @return singleton
-     */
-    public static HelpBrowser getInstance() {
-        return instance;
     }
 
     /**
@@ -334,14 +325,14 @@ public final class HelpBrowser extends Dialog
 
     private void writePersistent() {
         PersistentComponentSizes.setSizeAndLocation(this);
-        PersistentSettings settings = PersistentSettings.getInstance();
+        PersistentSettings settings = PersistentSettings.INSTANCE;
         settings.setComponent(this, getHints());
         settings.setSplitPane(splitPane, keySplitPane);
     }
 
     private void readPersistent() {
         PersistentComponentSizes.getSizeAndLocation(this);
-        PersistentSettings settings = PersistentSettings.getInstance();
+        PersistentSettings settings = PersistentSettings.INSTANCE;
         settings.getComponent(this, getHints());
         settings.getSplitPane(splitPane, keySplitPane);
     }
@@ -482,7 +473,7 @@ private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:even
 
             @Override
             public void run() {
-                getInstance().setVisible(true);
+                INSTANCE.setVisible(true);
             }
         });
     }
