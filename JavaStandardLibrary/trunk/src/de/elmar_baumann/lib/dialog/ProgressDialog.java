@@ -1,13 +1,14 @@
 package de.elmar_baumann.lib.dialog;
 
 import de.elmar_baumann.lib.image.icon.IconUtil;
-import de.elmar_baumann.lib.persistence.PersistentComponentSizes;
+import de.elmar_baumann.lib.util.ComponentSizesFromProperties;
 import de.elmar_baumann.lib.resource.Bundle;
-import de.elmar_baumann.lib.resource.Settings;
+import de.elmar_baumann.lib.resource.Resources;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 /**
  * Nichtmodaler Dialog mit Fortschrittsbalken.
@@ -23,7 +24,7 @@ public final class ProgressDialog extends javax.swing.JDialog {
     /**
      * Konstruktor.
      * 
-     * @param parent Elternframe
+     * @param parent      Elternframe
      */
     public ProgressDialog(java.awt.Frame parent) {
         super(parent, false);
@@ -32,9 +33,9 @@ public final class ProgressDialog extends javax.swing.JDialog {
     }
 
     private void setIcons() {
-        if (Settings.INSTANCE.hasIconImages()) {
+        if (Resources.INSTANCE.hasIconImages()) {
             setIconImages(IconUtil.getIconImages(
-                Settings.INSTANCE.getIconImagesPaths()));
+                    Resources.INSTANCE.getIconImagesPaths()));
         }
     }
 
@@ -142,11 +143,27 @@ public final class ProgressDialog extends javax.swing.JDialog {
     @Override
     public void setVisible(boolean visible) {
         if (visible) {
-            PersistentComponentSizes.getSizeAndLocation(this);
+            readProperties();
         } else {
-            PersistentComponentSizes.setSizeAndLocation(this);
+            writeProperties();
         }
         super.setVisible(visible);
+    }
+
+    private void readProperties() {
+        Properties properties = Resources.INSTANCE.getProperties();
+        if (properties != null) {
+            ComponentSizesFromProperties sizes = new ComponentSizesFromProperties(properties);
+            sizes.getSizeAndLocation(this);
+        }
+    }
+
+    private void writeProperties() {
+        Properties properties = Resources.INSTANCE.getProperties();
+        if (properties != null) {
+            ComponentSizesFromProperties sizes = new ComponentSizesFromProperties(properties);
+            sizes.setSizeAndLocation(this);
+        }
     }
 
     /** This method is called from within the constructor to

@@ -2,13 +2,18 @@ package de.elmar_baumann.lib.dialog;
 
 import de.elmar_baumann.lib.componentutil.TreeUtil;
 import de.elmar_baumann.lib.image.icon.IconUtil;
+import de.elmar_baumann.lib.io.DirectoryFilter;
 import de.elmar_baumann.lib.model.TreeModelDirectories;
-import de.elmar_baumann.lib.persistence.PersistentComponentSizes;
+import de.elmar_baumann.lib.util.ComponentSizesFromProperties;
 import de.elmar_baumann.lib.resource.Bundle;
-import de.elmar_baumann.lib.resource.Settings;
+import de.elmar_baumann.lib.resource.Resources;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.EnumSet;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Properties;
+import java.util.Set;
 import javax.swing.JOptionPane;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
@@ -22,21 +27,34 @@ import javax.swing.tree.TreeSelectionModel;
  */
 public final class DirectoryChooser extends Dialog {
 
-    private boolean accepted = false;
-    private boolean multiSelection = true;
-    private boolean acceptHidden = true;
-    private File startDirectory = new File(""); // NOI18N
+    private final File startDirectory;
+    private final Set<Option> options;
+    private boolean accepted;
     private TreeModel model;
 
+    public enum Option {
+
+        /** show hidden directories */
+        SHOW_HIDDEN,
+        /** hide hidden directories */
+        HIDE_HIDDEN,
+        /** multiple directories can be selected */
+        MULTI_SELECTION,
+        /** only one directory can be selected */
+        SINGLE_SELECTION
+    }
+
     /**
-     * Erzeugt einen modalen Verzeichnisauswahldialog.
+     * Creates an instance.
      * 
-     * @param parent        Elternframe
-     * @param acceptHidden  true, if show hidden directories. Default: true
+     * @param parent          Elternframe
+     * @param startDirectory  start directory, will be selected or {@code new File("")}
+     * @param options         options
      */
-    public DirectoryChooser(java.awt.Frame parent, boolean acceptHidden) {
+    public DirectoryChooser(java.awt.Frame parent, File startDirectory, Set<Option> options) {
         super(parent, true);
-        this.acceptHidden = acceptHidden;
+        this.startDirectory = startDirectory;
+        this.options = options;
         initComponents();
         postInitComponents();
     }
@@ -59,45 +77,61 @@ public final class DirectoryChooser extends Dialog {
     }
 
     private void setIcons() {
-        if (Settings.INSTANCE.hasIconImages()) {
+        if (Resources.INSTANCE.hasIconImages()) {
             setIconImages(IconUtil.getIconImages(
-                Settings.INSTANCE.getIconImagesPaths()));
+                    Resources.INSTANCE.getIconImagesPaths()));
         }
     }
 
     private void setSelectionMode() {
         treeDirectories.getSelectionModel().setSelectionMode(
-            multiSelection
-            ? TreeSelectionModel.DISCONTIGUOUS_TREE_SELECTION
-            : TreeSelectionModel.SINGLE_TREE_SELECTION);
+                options.contains(Option.MULTI_SELECTION)
+                ? TreeSelectionModel.DISCONTIGUOUS_TREE_SELECTION
+                : TreeSelectionModel.SINGLE_TREE_SELECTION);
         setTitle();
         setUsageText();
     }
 
     private void setUsageText() {
         labelUsage.setText(
-            multiSelection
-            ? Bundle.getString("DirectoryChooser.LabelUsage.MultipleSelection")
-            : Bundle.getString("DirectoryChooser.LabelUsage.SingleSelection"));
+                options.contains(Option.MULTI_SELECTION)
+                ? Bundle.getString("DirectoryChooser.LabelUsage.MultipleSelection")
+                : Bundle.getString("DirectoryChooser.LabelUsage.SingleSelection"));
     }
 
     private void setTitle() {
         setTitle(
-            multiSelection
-            ? Bundle.getString("DirectoryChooser.Title.MultipleSelection")
-            : Bundle.getString("DirectoryChooser.Title.SingleSelection"));
+                options.contains(Option.MULTI_SELECTION)
+                ? Bundle.getString("DirectoryChooser.Title.MultipleSelection")
+                : Bundle.getString("DirectoryChooser.Title.SingleSelection"));
     }
 
     @Override
     public void setVisible(boolean visible) {
         if (visible) {
-            PersistentComponentSizes.getSizeAndLocation(this);
+            readProperties();
             setSelectionMode();
             selectStartDirectory();
         } else {
-            PersistentComponentSizes.setSizeAndLocation(this);
+            writeProperties();
         }
         super.setVisible(visible);
+    }
+
+    private void readProperties() {
+        Properties properties = Resources.INSTANCE.getProperties();
+        if (properties != null) {
+            ComponentSizesFromProperties sizes = new ComponentSizesFromProperties(properties);
+            sizes.getSizeAndLocation(this);
+        }
+    }
+
+    private void writeProperties() {
+        Properties properties = Resources.INSTANCE.getProperties();
+        if (properties != null) {
+            ComponentSizesFromProperties sizes = new ComponentSizesFromProperties(properties);
+            sizes.setSizeAndLocation(this);
+        }
     }
 
     /**
@@ -108,17 +142,6 @@ public final class DirectoryChooser extends Dialog {
      */
     public boolean accepted() {
         return accepted;
-    }
-
-    /**
-     * Setzt, ob mehr als ein Verzeichnis ausgewählt werden kann.
-     * 
-     * @param enable true, wenn mehr als ein Verzeichnis ausgewählt werden
-     *    kann (Default). false, wenn nur ein einziges Verzeichnis ausgewählt
-     *    werden kann.
-     */
-    public void setMultiSelection(boolean enable) {
-        multiSelection = enable;
     }
 
     /**
@@ -141,27 +164,18 @@ public final class DirectoryChooser extends Dialog {
         return files;
     }
 
-    /**
-     * Setzt das Startverzeichnis.
-     * 
-     * @param startDirectory  Name des Startverzeichnisses
-     */
-    public void setStartDirectory(File startDirectory) {
-        this.startDirectory = startDirectory;
-    }
-
     private void selectStartDirectory() {
         new Thread(new Runnable() {
 
             @Override
             public void run() {
                 if (model == null) {
-                    model = new TreeModelDirectories(acceptHidden);
+                    model = new TreeModelDirectories(getTreeModelFilter());
                 }
                 treeDirectories.setModel(model);
                 if (!startDirectory.getName().isEmpty()) {
                     TreePath path = TreeUtil.getTreePath(
-                        startDirectory, treeDirectories.getModel());
+                            startDirectory, treeDirectories.getModel());
                     if (path != null) {
                         TreeUtil.expandPathCascade(treeDirectories, path);
                         treeDirectories.setSelectionPath(path);
@@ -169,25 +183,31 @@ public final class DirectoryChooser extends Dialog {
                     }
                 }
             }
+
+            private Set<DirectoryFilter.Option> getTreeModelFilter() {
+                return options.contains(Option.SHOW_HIDDEN)
+                        ? EnumSet.of(DirectoryFilter.Option.ACCEPT_HIDDEN_FILES)
+                        : new HashSet<DirectoryFilter.Option>();
+            }
         }).start();
     }
 
     private void cancel() {
         accepted = false;
-        PersistentComponentSizes.setSizeAndLocation(this);
+        writeProperties();
         dispose();
     }
 
     private void checkOk() {
         if (treeDirectories.getSelectionCount() > 0 &&
-            treeDirectories.getSelectionPath().getLastPathComponent() instanceof File) {
+                treeDirectories.getSelectionPath().getLastPathComponent() instanceof File) {
             accepted = true;
             dispose();
         } else {
             JOptionPane.showMessageDialog(this,
-                Bundle.getString("DirectoryChooser.ErrorMessage.NoDirectoryChosen"),
-                Bundle.getString("DirectoryChooser.ErrorMessage.NoDirectoryChosen.Title"),
-                JOptionPane.ERROR_MESSAGE);
+                    Bundle.getString("DirectoryChooser.ErrorMessage.NoDirectoryChosen"),
+                    Bundle.getString("DirectoryChooser.ErrorMessage.NoDirectoryChosen.Title"),
+                    JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -290,7 +310,7 @@ private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:even
 
             @Override
             public void run() {
-                DirectoryChooser dialog = new DirectoryChooser(new javax.swing.JFrame(), false);
+                DirectoryChooser dialog = new DirectoryChooser(new javax.swing.JFrame(), new File(""), new HashSet<DirectoryChooser.Option>());
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
 
                     @Override

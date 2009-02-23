@@ -7,13 +7,11 @@ import de.elmar_baumann.lib.util.logging.LogfileRecord;
 import de.elmar_baumann.lib.util.logging.LogfileRecordException;
 import de.elmar_baumann.lib.util.logging.LogfileRecordFrame;
 import de.elmar_baumann.lib.model.TableModelLogfiles;
-import de.elmar_baumann.lib.persistence.PersistentComponentSizes;
-import de.elmar_baumann.lib.persistence.PersistentSettings;
-import de.elmar_baumann.lib.persistence.PersistentSettingsHints;
+import de.elmar_baumann.lib.util.ComponentSizesFromProperties;
 import de.elmar_baumann.lib.resource.LogLevelIcons;
 import de.elmar_baumann.lib.renderer.TableCellRendererLogfileDialog;
 import de.elmar_baumann.lib.resource.Bundle;
-import de.elmar_baumann.lib.resource.Settings;
+import de.elmar_baumann.lib.resource.Resources;
 import java.awt.Frame;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
@@ -24,6 +22,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.Set;
 import java.util.logging.Formatter;
 import java.util.logging.Handler;
@@ -88,9 +87,9 @@ public final class LogfileDialog extends javax.swing.JDialog implements
     }
 
     private void setIcons() {
-        if (Settings.INSTANCE.hasIconImages()) {
+        if (Resources.INSTANCE.hasIconImages()) {
             setIconImages(IconUtil.getIconImages(
-                Settings.INSTANCE.getIconImagesPaths()));
+                Resources.INSTANCE.getIconImagesPaths()));
         }
     }
 
@@ -323,13 +322,27 @@ public final class LogfileDialog extends javax.swing.JDialog implements
                 errorMessageNotSupportedFormat();
                 readSimple();
             }
-            PersistentComponentSizes.getSizeAndLocation(this);
-            PersistentSettings.INSTANCE.getComponent(this, new PersistentSettingsHints());
+            readProperties();
             super.setVisible(true);
         } else {
-            PersistentComponentSizes.setSizeAndLocation(this);
-            PersistentSettings.INSTANCE.setComponent(this, new PersistentSettingsHints());
+            writeProperties();
             super.setVisible(false);
+        }
+    }
+
+    private void readProperties() {
+        Properties properties = Resources.INSTANCE.getProperties();
+        if (properties != null) {
+            ComponentSizesFromProperties sizes = new ComponentSizesFromProperties(properties);
+            sizes.getSizeAndLocation(this);
+        }
+    }
+
+    private void writeProperties() {
+        Properties properties = Resources.INSTANCE.getProperties();
+        if (properties != null) {
+            ComponentSizesFromProperties sizes = new ComponentSizesFromProperties(properties);
+            sizes.setSizeAndLocation(this);
         }
     }
 

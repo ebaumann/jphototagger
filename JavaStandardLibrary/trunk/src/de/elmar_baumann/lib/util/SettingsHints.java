@@ -1,26 +1,22 @@
-package de.elmar_baumann.lib.persistence;
+package de.elmar_baumann.lib.util;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
 /**
- * Hints for the class {@link PersistentSettings}.
+ * Hints for the class {@link SettingsFromProperties}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
- * @see     PersistentSettings
  */
-public final class PersistentSettingsHints {
+public final class SettingsHints {
 
     private final List<String> excludedMembers = new ArrayList<String>();
     private boolean setComboBoxContent = false;
     private boolean setListContent = false;
     private boolean tabbedPaneContents = true;
     private String keyPostfix = ""; // NOI18N
-
-    public PersistentSettingsHints() {
-    }
 
     /**
      * Sets a key's postfix. Thus multiple instances of the same class can

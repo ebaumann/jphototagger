@@ -2,6 +2,7 @@ package de.elmar_baumann.lib.resource;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 /**
  * Settings that will be used by the classes of this Java library.
@@ -13,9 +14,10 @@ import java.util.List;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public final class Settings {
+public final class Resources {
 
-    public static final Settings INSTANCE = new Settings();
+    public static final Resources INSTANCE = new Resources();
+    private Properties properties;
     private List<String> iconImagesPaths = new ArrayList<String>();
 
     /**
@@ -43,6 +45,26 @@ public final class Settings {
     }
 
     /**
+     * Sets the properties for reading and writing sizes and locations of
+     * GUI elements.
+     *
+     * @param properties  properties
+     */
+    public void setProperties(Properties properties) {
+        this.properties = properties;
+    }
+
+    /**
+     * Returns the properties for reading and writing sizes and locations of
+     * GUI elements.
+     *
+     * @return properties
+     */
+    public Properties getProperties() {
+        return properties;
+    }
+
+    /**
      * Returns, whether at least one path to an icon image is defined.
      * 
      * @return true, if one ore more paths to icon images are defined
@@ -51,6 +73,6 @@ public final class Settings {
         return !iconImagesPaths.isEmpty();
     }
 
-    private Settings() {
+    private Resources() {
     }
 }

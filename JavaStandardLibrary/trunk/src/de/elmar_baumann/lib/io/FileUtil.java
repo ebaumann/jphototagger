@@ -1,5 +1,6 @@
 package de.elmar_baumann.lib.io;
 
+import de.elmar_baumann.lib.resource.Bundle;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -35,7 +36,7 @@ public final class FileUtil {
                 return new String(bytes, "UTF-8"); // NOI18N
             } catch (UnsupportedEncodingException ex) {
                 Logger.getLogger(FileUtil.class.getName()).
-                    log(Level.SEVERE, null, ex);
+                        log(Level.SEVERE, null, ex);
                 return null;
             }
         }
@@ -59,7 +60,7 @@ public final class FileUtil {
             return bytes;
         } catch (IOException ex) {
             Logger.getLogger(FileUtil.class.getName()).log(Level.SEVERE, null,
-                ex);
+                    ex);
         } finally {
             try {
                 if (fileInputStream != null) {
@@ -115,11 +116,18 @@ public final class FileUtil {
      * @return              true bei Erfolg
      */
     public static boolean ensureDirectoryExists(String directoryname) {
-        boolean exists = directoryname == null || existsDirectory(directoryname);
+        if (directoryname == null)
+            throw new NullPointerException("directoryname == null");
+
+        boolean exists = existsDirectory(directoryname);
         if (!exists) {
             File directory = new File(directoryname);
             if (!directory.exists()) {
                 exists = directory.mkdirs();
+                if (!exists) {
+                    Logger.getLogger(FileUtil.class.getName()).log(
+                            Level.SEVERE, null, Bundle.getString("FileUtil.ErrorMessage.CreateDirectoryFailed"));
+                }
             }
         }
         return exists;
@@ -144,7 +152,7 @@ public final class FileUtil {
      * @throws java.io.IOException
      */
     public static void copyFile(File source, File target)
-        throws IOException {
+            throws IOException {
         if (source.equals(target)) {
             return;
         }
@@ -207,15 +215,14 @@ public final class FileUtil {
     /**
      * Liefert alle Unterverzeichnisse eines Verzeichnisses.
      * 
-     * @param  directory      Verzeichnis
-     * @param  accecptHidden  true, wenn versteckte Verzeichnisse akzeptiert
-     *                         werden sollen
+     * @param  directory  Verzeichnis
+     * @param  options    Dateifilteroptionen
      * @return Unterverzeichnisse
      */
-    public static List<File> getSubDirectories(File directory, boolean accecptHidden) {
+    public static List<File> getSubDirectories(File directory, Set<DirectoryFilter.Option> options) {
         List<File> directories = new ArrayList<File>();
         if (directory.isDirectory()) {
-            File[] dirs = directory.listFiles(new DirectoryFilter(accecptHidden));
+            File[] dirs = directory.listFiles(new DirectoryFilter(options));
             if (dirs != null && dirs.length > 0) {
                 directories.addAll(Arrays.asList(dirs));
             }
@@ -231,8 +238,8 @@ public final class FileUtil {
      *                        werden sollen
      * @return Namen der Unterverzeichnisse
      */
-    public static List<String> getSubDirectoryNames(String directoryName, boolean accecptHidden) {
-        List<File> directories = getSubDirectories(new File(directoryName), accecptHidden);
+    public static List<String> getSubDirectoryNames(String directoryName, Set<DirectoryFilter.Option> options) {
+        List<File> directories = getSubDirectories(new File(directoryName), options);
         List<String> subdirectories = new ArrayList<String>();
         for (File directory : directories) {
             subdirectories.add(directory.getAbsolutePath());
@@ -249,16 +256,16 @@ public final class FileUtil {
      *                        werden sollen
      * @return Unterverzeichnisse
      */
-    public static List<File> getAllSubDirectories(File directory, boolean accecptHidden) {
+    public static List<File> getAllSubDirectories(File directory, Set<DirectoryFilter.Option> options) {
         List<File> directories = new ArrayList<File>();
         if (directory.isDirectory()) {
-            File[] subdirectories = directory.listFiles(new DirectoryFilter(accecptHidden));
+            File[] subdirectories = directory.listFiles(new DirectoryFilter(options));
             if (subdirectories != null && subdirectories.length > 0) {
                 List<File> subdirectoriesList = Arrays.asList(subdirectories);
                 for (File dir : subdirectoriesList) {
                     directories.add(dir);
                     List<File> subdirectoriesSubDirs = getAllSubDirectories(
-                        dir, accecptHidden);
+                            dir, options);
                     directories.addAll(subdirectoriesSubDirs);
                 }
             }
@@ -277,8 +284,8 @@ public final class FileUtil {
      *                         werden sollen
      * @return Namen der Unterverzeichnisse
      */
-    public static List<String> getAllSubDirectoryNames(String directoryName, boolean accecptHidden) {
-        List<File> directories = getAllSubDirectories(new File(directoryName), accecptHidden);
+    public static List<String> getAllSubDirectoryNames(String directoryName, Set<DirectoryFilter.Option> options) {
+        List<File> directories = getAllSubDirectories(new File(directoryName), options);
         List<String> subdirectories = new ArrayList<String>();
         for (File directory : directories) {
             subdirectories.add(directory.getAbsolutePath());

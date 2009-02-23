@@ -1,15 +1,8 @@
-package de.elmar_baumann.lib.persistence;
+package de.elmar_baumann.lib.util;
 
 import de.elmar_baumann.lib.componentutil.TreeUtil;
-import de.elmar_baumann.lib.resource.Bundle;
-import de.elmar_baumann.lib.util.RegexUtil;
 import java.awt.Component;
 import java.awt.Point;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,39 +29,31 @@ import javax.swing.table.TableModel;
 import javax.swing.tree.TreePath;
 
 /**
- * Persistent gespeicherte Einstellungen. Benutzung:
- * 
- * <ol>
- *  <li>Einmalig bei Programmstart aufrufen:
- *      <ol>
- *          <li>{@link #setDomainName(java.lang.String)}</li>
- *          <li>{@link #setAppName(java.lang.String)}</li>
- *          <li>bei Bedarf {@link #setFileName(java.lang.String)}</li>
- *      </ol>
- *  <li>Im Verlauf der Anwendung Getter und Setter benutzen</li>
- *  <li>Wenn die Einstellungen in eine Datei geschrieben werden sollen -
- *      spätestens bevor die Anwendung beendet wird -
- *      {@link #writeToFile()} aufrufen</li>
- * </ul>
- * 
- * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
- * @version 2008-10-05
+ * A typed property converts objects stored in {@link java.util.Properties}
+ * instance to typed objects.
+ *
+ * All functions with object-reference-parameters are throwing a
+ * <code>NullPointerException</code> if an object reference is null and it is
+ * not documentet that it can be null.
+ *
+ * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @version 2009/02/23
  */
-public final class PersistentSettings {
-
+public final class Settings {
+    
+    private final Properties properties;
     private static final String delimiterNumberArray = ";"; // NOI18N
     private static final String delimiterArrayKeys = "."; // NOI18N
     private static final String filePathSeparator = "|"; // NOI18N
     private static final String keyPostfixViewportViewPositionX = ".ViewportViewPositionX"; // NOI18N
     private static final String keyPostfixViewportViewPositionY = ".ViewportViewPositionY"; // NOI18N
     private static final String keyAppendixSelected = "-selected"; // NOI18N
-    private String propertiesFilename = "Settings.properties"; // NOI18N
-    private String domainName = ".de.elmar_baumann"; // NOI18N
-    private Properties appProperties;
-    private String appName;
-    public static final PersistentSettings INSTANCE = new PersistentSettings();
 
-    private PersistentSettings() {
+    public Settings(Properties properties) {
+        if (properties == null)
+            throw new NullPointerException("properties == null");
+
+        this.properties = properties;
     }
 
     private String getArrayKeyMatchPattern(String key) {
@@ -77,19 +62,18 @@ public final class PersistentSettings {
 
     /**
      * Liefert alle Schlüssel, die auf ein Muster passen.
-     * 
+     *
      * @param pattern Muster
      * @return        Passende Schlüssel
      */
     public List<String> getKeysMatches(String pattern) {
-        return RegexUtil.getMatches(getProperties().stringPropertyNames(), pattern);
+        return RegexUtil.getMatches(properties.stringPropertyNames(), pattern);
     }
 
     /**
      * Removes all keys with no value
      */
     public void removeEmptyKeys() {
-        Properties properties = getProperties();
         Set<String> keys = properties.stringPropertyNames();
         for (String key : keys) {
             String value = properties.getProperty(key);
@@ -100,42 +84,13 @@ public final class PersistentSettings {
     }
 
     /**
-     * Setzt den Namen der Domain, beispielsweise <code>.de.elmar_baumann</code>.
-     * In einem Verzeichnis dieses Namens unterhalb des Home-Verzeichnisses des
-     * Betriebssystems werden die Einstellungen gespeichert.
-     * 
-     * @param domainName Name, darf keine Zeichen enthalten, die das
-     *                   Dateisystem nicht akzeptiert. Tipp: Punkt + eigene Domain benutzen
-     *                   gemäß den Regeln zum Benennen von Java-Paketen.
-     */
-    public void setDomainName(String domainName) {
-        this.domainName = domainName;
-    }
-
-    /**
-     * Liefert die Properties, die persistent gespeichert werden beim Aufruf
-     * von {@link #writeToFile()}.
-     * 
-     * @return Properties
-     */
-    public Properties getProperties() {
-        if (appProperties == null) {
-            appProperties = new Properties();
-            ensureFileExists();
-            readFromFile();
-        }
-        return appProperties;
-    }
-
-    /**
      * Setzt bei den Attributen einer Komponente den gespeicherten Inhalt und
      * zwar bei den Attributen, die setComponent() speichert.
-     * 
+     *
      * @param component Komponente
      * @param hints     Hinweise
-     * @see             #setComponent(java.awt.Component, de.elmar_baumann.lib.persistence.PersistentSettingsHints)
      */
-    public void getComponent(Component component, PersistentSettingsHints hints) {
+    public void getComponent(Component component, SettingsHints hints) {
         if (component == null) {
             return;
         }
@@ -178,7 +133,7 @@ public final class PersistentSettings {
                         getSpinner((JSpinner) field.get(component), key);
                     }
                 } catch (Exception ex) {
-                    Logger.getLogger(PersistentSettings.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(Settings.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
@@ -186,13 +141,11 @@ public final class PersistentSettings {
 
     /**
      * Setzt den Zustand einer Checkbox (angekreuzt oder nicht).
-     * 
+     *
      * @param checkBox Checkbox
      * @param key      Schlüssel
      */
     public void getCheckBox(JCheckBox checkBox, String key) {
-        Properties properties = getProperties();
-
         if (properties.containsKey(key)) {
             String value = properties.getProperty(key);
             checkBox.setSelected(value.equals("1")); // NOI18N
@@ -202,13 +155,11 @@ public final class PersistentSettings {
     /**
      * Setzt den Zustand eines Trees, aktuell den selektierten Pfad
      * (nur <strong>eine</strong> Selektion).
-     * 
+     *
      * @param tree Tree
      * @param key  Schlüssel
      */
     public void getTree(JTree tree, String key) {
-        Properties properties = getProperties();
-
         if (properties.containsKey(key)) {
             String value = properties.getProperty(key);
             TreePath path = TreeUtil.getTreePath(tree.getModel(), value, filePathSeparator);
@@ -222,31 +173,28 @@ public final class PersistentSettings {
 
     /**
      * Setzt einer Splitpane (aktuell: Position des Dividers).
-     * 
+     *
      * @param splitPane Splitpane
      * @param key       Schlüssel
      */
     public void getSplitPane(JSplitPane splitPane, String key) {
-        Properties properties = getProperties();
-
         if (properties.containsKey(key)) {
             try {
                 Integer location = new Integer(properties.getProperty(key));
                 splitPane.setDividerLocation(location);
             } catch (NumberFormatException ex) {
-                Logger.getLogger(PersistentSettings.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Settings.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
 
     /**
      * Setzt  die Eigenschaften einer ScrollPane (aktuell die View-Position des Viewports).
-     * 
+     *
      * @param scrollPane ScrollPane
      * @param key        Schlüssel
      */
     public void getScrollPane(JScrollPane scrollPane, String key) {
-        Properties properties = getProperties();
         String keyX = key + keyPostfixViewportViewPositionX;
         String keyY = key + keyPostfixViewportViewPositionY;
         if (properties.containsKey(keyX) && properties.containsKey(keyY)) {
@@ -255,19 +203,18 @@ public final class PersistentSettings {
                 Integer y = new Integer(properties.getProperty(keyY));
                 scrollPane.getViewport().setViewPosition(new Point(x, y));
             } catch (NumberFormatException ex) {
-                Logger.getLogger(PersistentSettings.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Settings.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
 
     /**
      * Setzt die Eigenschaften einer Tabelle (aktuell: Spaltenbreiten).
-     * 
+     *
      * @param table Tabelle
      * @param key   Schlüssel
      */
     public void getTable(JTable table, String key) {
-        Properties properties = getProperties();
         TableModel model = table.getModel();
 
         if (properties.containsKey(key)) {
@@ -285,33 +232,29 @@ public final class PersistentSettings {
 
     /**
      * Setzt den Wert eines Spinners.
-     * 
+     *
      * @param spinner Spinner
      * @param key     Schlüssel
      */
     public void getSpinner(JSpinner spinner, String key) {
-        Properties properties = getProperties();
-
         if (properties.containsKey(key)) {
             String value = properties.getProperty(key);
             try {
                 spinner.setValue(new Integer(value));
             } catch (Exception ex) {
-                Logger.getLogger(PersistentSettings.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Settings.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
 
     /**
      * Setzt den Zustand einer Tabbedpane und ihrer Komponenten.
-     * 
+     *
      * @param pane  Pane
      * @param key   Schlüssel
      * @param hints Hinweise
      */
-    public void getTabbedPane(JTabbedPane pane, String key, PersistentSettingsHints hints) {
-        Properties properties = getProperties();
-
+    public void getTabbedPane(JTabbedPane pane, String key, SettingsHints hints) {
         if (properties.containsKey(key)) {
             String value = properties.getProperty(key);
             try {
@@ -320,7 +263,7 @@ public final class PersistentSettings {
                     pane.setSelectedIndex(index);
                 }
             } catch (Exception ex) {
-                Logger.getLogger(PersistentSettings.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Settings.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
 
@@ -335,12 +278,11 @@ public final class PersistentSettings {
     /**
      * Setzt den Inhalt einer Combobox. Existierender Inhalt wird entfernt.
      * Geeignet für Comboboxen, deren Items alle Stringobjekte sind.
-     * 
+     *
      * @param comboBox Combobox
      * @param key      Schlüssel
      */
     public void getComboBoxContent(JComboBox comboBox, String key) {
-        Properties properties = getProperties();
         List<String> keys = getKeysMatches(getArrayKeyMatchPattern(key));
 
         comboBox.removeAllItems();
@@ -354,12 +296,11 @@ public final class PersistentSettings {
      * Setzt den Inhalt einer Liste,
      * <em>sofern das Model eine Instanz von DefaultListModel ist</em>.
      * Existierender Inhalt wird entfernt.
-     * 
+     *
      * @param list Liste
      * @param key  Schlüssel
      */
     public void getListContent(JList list, String key) {
-        Properties properties = getProperties();
         ListModel lm = list.getModel();
         if (lm instanceof DefaultListModel) {
             DefaultListModel model = (DefaultListModel) lm;
@@ -376,12 +317,11 @@ public final class PersistentSettings {
 
     /**
      * Setzt das selektierte Item einer Combobox.
-     * 
+     *
      * @param comboBox Combobox
      * @param key      Schlüssel
      */
     public void getSelectedItem(JComboBox comboBox, String key) {
-        Properties properties = getProperties();
         String sKey = key + keyAppendixSelected;
         String selected = properties.getProperty(sKey);
 
@@ -392,12 +332,11 @@ public final class PersistentSettings {
 
     /**
      * Setzt den Index eines selektierten Combobox-Items.
-     * 
+     *
      * @param comboBox Combobox
      * @param key      Schlüssel
      */
     public void getSelectedIndex(JComboBox comboBox, String key) {
-        Properties properties = getProperties();
         String index = properties.getProperty(key + keyAppendixSelected);
         if (index != null) {
             try {
@@ -406,20 +345,19 @@ public final class PersistentSettings {
                     comboBox.setSelectedIndex(ind);
                 }
             } catch (Exception ex) {
-                Logger.getLogger(PersistentSettings.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Settings.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
 
     /**
      * Setzt den Status eines Toggle-Buttons (<code>isSelected()</code>).
-     * 
+     *
      * @param button Button
      * @param key    Schlüssel
      */
     public void getToggleButton(JToggleButton button,
         String key) {
-        Properties properties = getProperties();
         String status = properties.getProperty(key);
         if (status != null) {
             boolean isSelected = status.equals("1"); // NOI18N
@@ -429,12 +367,11 @@ public final class PersistentSettings {
 
     /**
      * Setzt selektierten Wert einer Liste.
-     * 
+     *
      * @param list Liste
      * @param key  Schlüssel
      */
     public void getSelectedValue(JList list, String key) {
-        Properties properties = getProperties();
         String sKey = key + keyAppendixSelected;
         String selected = properties.getProperty(sKey);
 
@@ -445,12 +382,11 @@ public final class PersistentSettings {
 
     /**
      * Setzt selektierten Wert einer Liste.
-     * 
+     *
      * @param list Liste
      * @param key  Schlüssel
      */
     public void getSelectedIndex(JList list, String key) {
-        Properties properties = getProperties();
         String sKey = key + keyAppendixSelected;
         String index = properties.getProperty(sKey);
 
@@ -461,20 +397,18 @@ public final class PersistentSettings {
                     list.setSelectedIndex(ind);
                 }
             } catch (Exception ex) {
-                Logger.getLogger(PersistentSettings.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Settings.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
 
     /**
      * Setzt den Inhalt eines Textfelds.
-     * 
+     *
      * @param textField Textfelds
      * @param key       Schlüssel
      */
     public void getTextField(JTextField textField, String key) {
-        Properties properties = getProperties();
-
         if (properties.containsKey(key)) {
             String value = properties.getProperty(key);
             textField.setText(value);
@@ -483,13 +417,11 @@ public final class PersistentSettings {
 
     /**
      * Liefert einen String.
-     * 
+     *
      * @param key Schlüssel
      * @return    String, Leerstring, wenn zum Schlüssel keiner existiert
      */
     public String getString(String key) {
-        Properties properties = getProperties();
-
         if (properties.containsKey(key)) {
             return properties.getProperty(key);
         }
@@ -499,7 +431,7 @@ public final class PersistentSettings {
 
     /**
      * Speichert ein Integer-Array.
-     * 
+     *
      * @param array  Array
      * @param key    Schlüssel
      */
@@ -510,18 +442,16 @@ public final class PersistentSettings {
             buffer.append(integer.toString());
             buffer.append(delimiterNumberArray);
         }
-        getProperties().setProperty(key, buffer.toString());
     }
 
     /**
      * Speichert ein Stringarray.
-     * 
+     *
      * @param list Array
      * @param key  Schlüssel
      */
     public void setStringArray(List<String> list, String key) {
         deleteKeysMatches(getArrayKeyMatchPattern(key));
-        Properties properties = getProperties();
         int count = list.size();
         for (int i = 0; i < count; i++) {
             properties.setProperty(key + delimiterArrayKeys + Integer.toString(i), list.get(i));
@@ -530,12 +460,11 @@ public final class PersistentSettings {
 
     /**
      * Löscht alle Schlüssel mit bestimmtem Muster.
-     * 
+     *
      * @param pattern Muster
      */
     public void deleteKeysMatches(String pattern) {
         List<String> keys = getKeysMatches(pattern);
-        Properties properties = getProperties();
         for (String pKey : keys) {
             properties.remove(pKey);
         }
@@ -543,12 +472,11 @@ public final class PersistentSettings {
 
     /**
      * Liefert ein Integer-Array.
-     * 
+     *
      * @param key Schlüssel
      * @return    Array
      */
     public List<Integer> getIntegerArray(String key) {
-        Properties properties = getProperties();
         List<Integer> array = new ArrayList<Integer>();
 
         if (properties.containsKey(key)) {
@@ -558,7 +486,7 @@ public final class PersistentSettings {
                 try {
                     array.add(new Integer(tokenizer.nextToken()));
                 } catch (Exception ex) {
-                    Logger.getLogger(PersistentSettings.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(Settings.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
@@ -567,14 +495,13 @@ public final class PersistentSettings {
 
     /**
      * Liefert ein Stringarray.
-     * 
+     *
      * @param key Schlüssel
      * @return    Stringarray
      */
     public List<String> getStringArray(String key) {
         List<String> array = new ArrayList<String>();
         List<String> keys = getKeysMatches(getArrayKeyMatchPattern(key));
-        Properties properties = getProperties();
         for (String vKey : keys) {
             array.add(properties.getProperty(vKey));
         }
@@ -583,12 +510,11 @@ public final class PersistentSettings {
 
     /**
      * Removes a string array.
-     * 
+     *
      * @param key  key of the string array
      */
     public void removeStringArray(String key) {
         List<String> keys = getKeysMatches(getArrayKeyMatchPattern(key));
-        Properties properties = getProperties();
         for (String k : keys) {
             properties.remove(k);
         }
@@ -596,7 +522,7 @@ public final class PersistentSettings {
 
     /**
      * Speichert die Attribute einer Komponente.
-     * 
+     *
      * Unterstützt:
      * <ul>
      *  <li>JCheckBox</li>
@@ -609,13 +535,12 @@ public final class PersistentSettings {
      *  <li>JTextField</li>
      *  <li>JTree</li>
      * </ul>
-     * 
+     *
      * @param component Komponente
      * @param hints     Hinweise
-     * @see             #getComponent(java.awt.Component, de.elmar_baumann.lib.persistence.PersistentSettingsHints)
      */
     public void setComponent(Component component,
-        PersistentSettingsHints hints) {
+        SettingsHints hints) {
         if (component == null) {
             return;
         }
@@ -660,7 +585,7 @@ public final class PersistentSettings {
                         setTree((JTree) field.get(component), key);
                     }
                 } catch (Exception ex) {
-                    Logger.getLogger(PersistentSettings.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(Settings.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
@@ -668,38 +593,38 @@ public final class PersistentSettings {
 
     /**
      * Speichert den Inhalt einer Checkbox (angekreuzt oder nicht).
-     * 
+     *
      * @param checkBox Checkbox
      * @param key      Schlüssel
      */
     public void setCheckBox(JCheckBox checkBox, String key) {
         String isSelected = checkBox.isSelected() ? "1" : "0"; // NOI18N
 
-        getProperties().setProperty(key, isSelected);
+        properties.setProperty(key, isSelected);
     }
 
     /**
      * Speichert den Wert eines Spinners.
-     * 
+     *
      * @param spinner Spinner
      * @param key     Schlüssel
      */
     public void setSpinner(JSpinner spinner, String key) {
-        getProperties().setProperty(key, spinner.getValue().toString());
+        properties.setProperty(key, spinner.getValue().toString());
     }
 
     /**
      * Speichert den Inhalt einer Tabbed Pane und ihrer Komponenten.
-     * 
+     *
      * @param pane  Pane
      * @param key   Schlüssel
      * @param hints Hinweise
      */
-    public void setTabbedPane(JTabbedPane pane, String key, PersistentSettingsHints hints) {
+    public void setTabbedPane(JTabbedPane pane, String key, SettingsHints hints) {
         try {
             Integer index = new Integer(pane.getSelectedIndex());
 
-            getProperties().setProperty(key, index.toString());
+            properties.setProperty(key, index.toString());
 
             if (hints.isTabbedPaneContents()) {
                 int componentCount = pane.getComponentCount();
@@ -708,19 +633,18 @@ public final class PersistentSettings {
                 }
             }
         } catch (Exception ex) {
-            Logger.getLogger(PersistentSettings.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Settings.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     /**
      * Speichert den Inhalt einer Combobox. Geeignet sind Comboboxen mit
      * Strings.
-     * 
+     *
      * @param comboBox Combobox
      * @param key      Schlüssel
      */
     public void setComboBoxContent(JComboBox comboBox, String key) {
-        Properties properties = getProperties();
         int itemCount = comboBox.getItemCount();
 
         deleteKeysMatches(getArrayKeyMatchPattern(key));
@@ -736,12 +660,11 @@ public final class PersistentSettings {
 
     /**
      * Speichert den Inhalt einer Liste. Geeignet für Listen mit Strings.
-     * 
+     *
      * @param list Liste
      * @param key  Schlüssel
      */
     public void setListContent(JList list, String key) {
-        Properties properties = getProperties();
         ListModel model = list.getModel();
         int itemCount = model.getSize();
 
@@ -756,31 +679,31 @@ public final class PersistentSettings {
 
     /**
      * Speichert den Index des selektierten Items einer Combobox.
-     * 
+     *
      * @param comboBox Combobox
      * @param key      Schlüssel
      */
     public void setSelectedIndex(JComboBox comboBox, String key) {
-        getProperties().setProperty(
+        properties.setProperty(
             key + keyAppendixSelected,
             Integer.toString(comboBox.getSelectedIndex()));
     }
 
     /**
      * Speichert den Status eines Toggle-Buttons (<code>isSelected()</code>).
-     * 
+     *
      * @param button Button
      * @param key Schlüssel
      */
     public void setToggleButton(JToggleButton button, String key) {
         String status = button.isSelected() ? "1" : "0"; // NOI18N
-        getProperties().setProperty(key, status);
+        properties.setProperty(key, status);
     }
 
     /**
      * Speichertden selektierten Wert einer Liste.
      * Geeignet für Listen mit Strings.
-     * 
+     *
      * @param list Liste
      * @param key  Schlüssel
      */
@@ -789,20 +712,20 @@ public final class PersistentSettings {
         Object selectedValue = list.getSelectedValue();
 
         if (selectedValue == null) {
-            getProperties().remove(key);
+            properties.remove(key);
         } else {
-            getProperties().setProperty(sKey, selectedValue.toString());
+            properties.setProperty(sKey, selectedValue.toString());
         }
     }
 
     /**
      * Speichert den Index des selektierten Items einer Combobox.
-     * 
+     *
      * @param list  Liste
      * @param key   Schlüssel
      */
     public void setSelectedIndex(JList list, String key) {
-        getProperties().setProperty(
+        properties.setProperty(
             key + keyAppendixSelected,
             Integer.toString(list.getSelectedIndex()));
     }
@@ -810,7 +733,7 @@ public final class PersistentSettings {
     /**
      * Speichert das selektierte Item einer Combobox.
      * Geeignet für Comboboxen mit Strings.
-     * 
+     *
      * @param comboBox Combobox
      * @param key      Schlüssel
      */
@@ -819,148 +742,44 @@ public final class PersistentSettings {
         Object selectedItem = comboBox.getSelectedItem();
 
         if (selectedItem == null) {
-            getProperties().remove(sKey);
+            properties.remove(sKey);
         } else {
-            getProperties().setProperty(sKey, selectedItem.toString());
+            properties.setProperty(sKey, selectedItem.toString());
         }
     }
 
     /**
      * Speichert den Inhalt eines Textfelds.
-     * 
+     *
      * @param textField Textfeld
      * @param key       Schlüssel
      */
     public void setTextField(JTextField textField, String key) {
-        getProperties().setProperty(key, textField.getText());
+        properties.setProperty(key, textField.getText());
     }
 
     /**
      * Speichert einen String.
-     * 
+     *
      * @param string String
      * @param key    Schlüssel
      */
     public void setString(String string, String key) {
-        getProperties().setProperty(key, string);
+        properties.setProperty(key, string);
     }
 
     /**
      * Entfernt einen Schlüssel (plus Wert).
-     * 
+     *
      * @param key Schlüssel
      */
     public void removeKey(String key) {
-        getProperties().remove(key);
-    }
-
-    /**
-     * Speichert gesetzte Einstellungen persistent.
-     * <em>Ohne Aufruf werden diese nicht gespeichert!</em>
-     * 
-     * @return true bei Erfolg
-     */
-    public boolean writeToFile() {
-        try {
-            FileOutputStream out = new FileOutputStream(getPropertyFilePathName());
-            getProperties().store(out, "--- " + appName + " persistent settings ---"); // NOI18N
-            out.close();
-            return true;
-        } catch (IOException ex) {
-            Logger.getLogger(PersistentSettings.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return false;
-    }
-
-    private void readFromFile() {
-        FileInputStream in;
-        try {
-            in = new FileInputStream(getPropertyFilePathName());
-            appProperties.load(in);
-            in.close();
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(PersistentSettings.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(PersistentSettings.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    private String getPropertyFilePathName() {
-        return getDirectoryName() + File.separator + getFileName();
-    }
-
-    /**
-     * Setzt den Namen der Datei, in die die Einstellungen geschrieben werden.
-     * 
-     * @param fileName Dateiname <em>ohne</em> Pfad.
-     *                 Default <code>Settings.properties</code>.
-     */
-    public void setFileName(String fileName) {
-        propertiesFilename = fileName;
-    }
-
-    private String getFileName() {
-        return propertiesFilename;
-    }
-
-    /**
-     * Setzt den Namen der Anwendung. Für diesen wird im Home-Verzeichnis ein
-     * Unterverzeichnis angelegt, in das die Einstellungsdatei geschrieben wird.
-     * 
-     * @param appName Anwendungsname
-     */
-    public void setAppName(String appName) {
-        this.appName = appName;
-    }
-
-    /**
-     * Returns the application's name.
-     * 
-     * @return name
-     */
-    public String getAppName() {
-        return appName;
-    }
-
-    /**
-     * Liefert den Namen des Verzeichnisses, in dem die Einstellungen
-     * gespeichert werden.
-     * 
-     * @return Verzeichnisname
-     */
-    public String getDirectoryName() {
-        String homeDir = System.getProperty("user.home"); // NOI18N
-        return homeDir + (appName == null
-            ? "" // NOI18N
-            : File.separator + domainName + File.separator + appName);
-    }
-
-    private void ensureFileExists() {
-        if (ensureDirectoryExists()) {
-            try {
-                File file = new File(getPropertyFilePathName());
-                file.createNewFile();
-            } catch (IOException ex) {
-                Logger.getLogger(PersistentSettings.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-    }
-
-    private boolean ensureDirectoryExists() {
-        String directoryName = getDirectoryName();
-        File directory = new File(directoryName);
-
-        if (!directory.exists() && !directory.mkdirs()) {
-            Logger.getLogger(PersistentSettings.class.getName()).log(
-                Level.SEVERE, null, Bundle.getString("PersistentSettings.ErrorMessage.CreateDirectoryFailed"));
-            return false;
-        }
-        return true;
+        properties.remove(key);
     }
 
     /**
      * Speichert die Eigenschaften einer Tabelle (aktuell die Spaltenbreiten).
-     * 
+     *
      * @param table Tabelle
      * @param key Schlüssel
      */
@@ -981,13 +800,12 @@ public final class PersistentSettings {
     /**
      * Speichert die Eigenschaften einer Splitpane (aktuell die Position des
      * Dividers).
-     * 
+     *
      * @param splitPane Splitpane
      * @param key       Schlüssel
      */
     public void setSplitPane(JSplitPane splitPane, String key) {
         int dividerLocation = splitPane.getDividerLocation();
-        Properties properties = getProperties();
 
         properties.setProperty(key, Integer.toString(dividerLocation));
     }
@@ -995,14 +813,13 @@ public final class PersistentSettings {
     /**
      * Speichert die Eigenschaften einer ScrollPane (aktuell die
      * View-Position des Viewports).
-     * 
+     *
      * @param scrollPane ScrolPane
      * @param key        Schlüssel Schlüssel
      */
     public void setScrollPane(JScrollPane scrollPane, String key) {
         Integer x = scrollPane.getViewport().getViewPosition().x;
         Integer y = scrollPane.getViewport().getViewPosition().y;
-        Properties properties = getProperties();
 
         properties.setProperty(key + keyPostfixViewportViewPositionX, x.toString());
         properties.setProperty(key + keyPostfixViewportViewPositionY, y.toString());
@@ -1010,14 +827,14 @@ public final class PersistentSettings {
 
     /**
      * Speichert einen Tree, aktuell den zuerst selektierten Pfad.
-     * 
+     *
      * @param tree Tree
      * @param key  Schlüssel
      */
     public void setTree(JTree tree, String key) {
         TreePath selectionPath = tree.getSelectionPath();
         if (selectionPath == null) {
-            getProperties().remove(key);
+            properties.remove(key);
         } else {
             Object[] path = selectionPath.getPath();
             StringBuffer pathBuffer = new StringBuffer();
@@ -1025,23 +842,23 @@ public final class PersistentSettings {
                 pathBuffer.append(path[index].toString() + (index + 1 <
                     path.length ? filePathSeparator : "")); // NOI18N
             }
-            getProperties().setProperty(key, pathBuffer.toString());
+            properties.setProperty(key, pathBuffer.toString());
         }
     }
 
     /**
      * Returns an Integer value.
-     * 
+     *
      * @param  key  key
      * @return value or <code>Integer.MIN_VALUE</code> if not defined
      */
     public Integer getInt(String key) {
         Integer result = Integer.MIN_VALUE;
-        if (getProperties().containsKey(key)) {
+        if (properties.containsKey(key)) {
             try {
-                result = Integer.parseInt(getProperties().getProperty(key));
+                result = Integer.parseInt(properties.getProperty(key));
             } catch (NumberFormatException ex) {
-                Logger.getLogger(PersistentSettings.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Settings.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return result;
@@ -1049,12 +866,11 @@ public final class PersistentSettings {
 
     /**
      * Sets an Integer value.
-     * 
+     *
      * @param value  value
      * @param key    key
      */
     public void setInt(Integer value, String key) {
-        Properties properties = getProperties();
         properties.setProperty(key, value.toString());
     }
 

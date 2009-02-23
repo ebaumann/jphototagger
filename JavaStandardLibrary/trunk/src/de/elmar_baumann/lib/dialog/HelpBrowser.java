@@ -4,12 +4,12 @@ import de.elmar_baumann.lib.event.HelpBrowserAction;
 import de.elmar_baumann.lib.event.HelpBrowserListener;
 import de.elmar_baumann.lib.image.icon.IconUtil;
 import de.elmar_baumann.lib.model.TreeModelHelpContents;
-import de.elmar_baumann.lib.persistence.PersistentComponentSizes;
-import de.elmar_baumann.lib.persistence.PersistentSettings;
-import de.elmar_baumann.lib.persistence.PersistentSettingsHints;
+import de.elmar_baumann.lib.util.ComponentSizesFromProperties;
+import de.elmar_baumann.lib.util.SettingsHints;
 import de.elmar_baumann.lib.renderer.TreeCellRendererHelpContents;
 import de.elmar_baumann.lib.resource.Bundle;
-import de.elmar_baumann.lib.resource.Settings;
+import de.elmar_baumann.lib.resource.Resources;
+import de.elmar_baumann.lib.util.Settings;
 import de.elmar_baumann.lib.util.help.HelpNode;
 import de.elmar_baumann.lib.util.help.HelpPage;
 import java.awt.MenuItem;
@@ -23,6 +23,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.event.HyperlinkEvent;
@@ -40,7 +41,7 @@ import javax.swing.tree.TreeSelectionModel;
  * @version 2008-10-05
  */
 public final class HelpBrowser extends Dialog
-    implements ActionListener, HyperlinkListener, MouseListener, TreeSelectionListener {
+        implements ActionListener, HyperlinkListener, MouseListener, TreeSelectionListener {
 
     private static final String keySplitPane = HelpBrowser.class.getName() + ".SplitPane";
     private static final String actionPrevious = Bundle.getString("HelpBrowser.Action.Previous");
@@ -70,9 +71,8 @@ public final class HelpBrowser extends Dialog
     }
 
     private void setIcons() {
-        if (Settings.INSTANCE.hasIconImages()) {
-            setIconImages(IconUtil.getIconImages(
-                Settings.INSTANCE.getIconImagesPaths()));
+        if (Resources.INSTANCE.hasIconImages()) {
+            setIconImages(IconUtil.getIconImages(Resources.INSTANCE.getIconImagesPaths()));
         }
     }
 
@@ -165,17 +165,17 @@ public final class HelpBrowser extends Dialog
 
     private boolean canGoNext() {
         return currentHistoryIndex + 1 > 0 &&
-            currentHistoryIndex + 1 < urlHistory.size();
+                currentHistoryIndex + 1 < urlHistory.size();
     }
 
     private boolean canGoPrevious() {
         return currentHistoryIndex - 1 >= 0 &&
-            currentHistoryIndex - 1 < urlHistory.size();
+                currentHistoryIndex - 1 < urlHistory.size();
     }
 
     private void goNext() {
         if (currentHistoryIndex + 1 >= 0 && currentHistoryIndex + 1 <
-            urlHistory.size()) {
+                urlHistory.size()) {
             currentHistoryIndex++;
             setUrl(urlHistory.get(currentHistoryIndex));
             setButtonStatus();
@@ -184,7 +184,7 @@ public final class HelpBrowser extends Dialog
 
     private void goPrevious() {
         if (currentHistoryIndex - 1 >= 0 && currentHistoryIndex - 1 <
-            urlHistory.size()) {
+                urlHistory.size()) {
             currentHistoryIndex--;
             setUrl(urlHistory.get(currentHistoryIndex));
             setButtonStatus();
@@ -209,7 +209,7 @@ public final class HelpBrowser extends Dialog
     private void removeNextHistory() {
         int historyUrlCount = urlHistory.size();
         boolean canRemove = historyUrlCount > 0 && currentHistoryIndex >= 0 &&
-            currentHistoryIndex < historyUrlCount;
+                currentHistoryIndex < historyUrlCount;
         if (canRemove) {
             int removeCount = historyUrlCount - currentHistoryIndex - 1;
             for (int i = 0; i < removeCount; i++) {
@@ -242,10 +242,10 @@ public final class HelpBrowser extends Dialog
     @Override
     public void setVisible(boolean visible) {
         if (visible) {
-            readPersistent();
+            readProperties();
             selectStartUrl();
         } else {
-            writePersistent();
+            writeProperties();
         }
         super.setVisible(visible);
     }
@@ -323,22 +323,30 @@ public final class HelpBrowser extends Dialog
     public void mouseExited(MouseEvent e) {
     }
 
-    private void writePersistent() {
-        PersistentComponentSizes.setSizeAndLocation(this);
-        PersistentSettings settings = PersistentSettings.INSTANCE;
-        settings.setComponent(this, getHints());
-        settings.setSplitPane(splitPane, keySplitPane);
+    private void readProperties() {
+        Properties properties = de.elmar_baumann.lib.resource.Resources.INSTANCE.getProperties();
+        if (properties != null) {
+            ComponentSizesFromProperties sizes = new ComponentSizesFromProperties(properties);
+            sizes.getSizeAndLocation(this);
+            Settings settings = new Settings(properties);
+            settings.getComponent(this, getHints());
+            settings.getSplitPane(splitPane, keySplitPane);
+        }
     }
 
-    private void readPersistent() {
-        PersistentComponentSizes.getSizeAndLocation(this);
-        PersistentSettings settings = PersistentSettings.INSTANCE;
-        settings.getComponent(this, getHints());
-        settings.getSplitPane(splitPane, keySplitPane);
+    private void writeProperties() {
+        Properties properties = de.elmar_baumann.lib.resource.Resources.INSTANCE.getProperties();
+        if (properties != null) {
+            ComponentSizesFromProperties sizes = new ComponentSizesFromProperties(properties);
+            sizes.setSizeAndLocation(this);
+            Settings settings = new Settings(properties);
+            settings.setComponent(this, getHints());
+            settings.setSplitPane(splitPane, keySplitPane);
+        }
     }
 
-    private PersistentSettingsHints getHints() {
-        PersistentSettingsHints hints = new PersistentSettingsHints();
+    private SettingsHints getHints() {
+        SettingsHints hints = new SettingsHints();
         hints.addExcludedMember(getClass().getName() + ".tree");
         return hints;
     }
@@ -462,7 +470,7 @@ private void buttonPreviousActionPerformed(java.awt.event.ActionEvent evt) {//GE
 }//GEN-LAST:event_buttonPreviousActionPerformed
 
 private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-    writePersistent();
+    writeProperties();
 }//GEN-LAST:event_formWindowClosing
 
     /**

@@ -1,7 +1,7 @@
 package de.elmar_baumann.lib.component;
 
 import de.elmar_baumann.lib.image.icon.IconUtil;
-import de.elmar_baumann.lib.resource.Settings;
+import de.elmar_baumann.lib.resource.Resources;
 import java.text.MessageFormat;
 import javax.swing.Icon;
 import javax.swing.InputVerifier;
@@ -67,9 +67,9 @@ public final class InputVerifierMaxLength extends InputVerifier {
     }
 
     private Icon getIcon() {
-        if (Settings.INSTANCE.hasIconImages()) {
+        if (Resources.INSTANCE.hasIconImages()) {
             return IconUtil.getImageIcon(
-                Settings.INSTANCE.getIconImagesPaths().get(0));
+                Resources.INSTANCE.getIconImagesPaths().get(0));
         }
         return null;
     }

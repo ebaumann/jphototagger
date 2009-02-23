@@ -71,11 +71,11 @@
       <SubComponents>
         <Component class="javax.swing.JTree" name="treeDirectories">
           <Properties>
-            <Property name="cellRenderer" type="javax.swing.tree.TreeCellRenderer" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="new de.elmar_baumann.lib.renderer.TreeCellRendererDirectories()" type="code"/>
-            </Property>
             <Property name="model" type="javax.swing.tree.TreeModel" editor="org.netbeans.modules.form.ComponentChooserEditor">
               <ComponentRef name="null"/>
+            </Property>
+            <Property name="cellRenderer" type="javax.swing.tree.TreeCellRenderer" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="new de.elmar_baumann.lib.renderer.TreeCellRendererDirectories()" type="code"/>
             </Property>
           </Properties>
         </Component>

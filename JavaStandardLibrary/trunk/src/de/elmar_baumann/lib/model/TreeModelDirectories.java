@@ -33,14 +33,12 @@ public final class TreeModelDirectories implements TreeModel {
     private final Map<File, List<File>> childrenOfNode = Collections.synchronizedMap(new HashMap<File, List<File>>());
     private final List<TreeModelListener> listeners = Collections.synchronizedList(new ArrayList<TreeModelListener>());
     private final List<File> filesForUpdateCheck = Collections.synchronizedList(new LinkedList<File>());
-    private Object root = new Object();
-    private boolean acceptHidden;
-    private DirectoryFilter directoryFilter;
+    private final Object root = new Object();
+    private final DirectoryFilter directoryFilter;
     private ScanForDirectoryUpdates updater;
 
-    public TreeModelDirectories(boolean accecptHidden) {
-        this.acceptHidden = accecptHidden;
-        directoryFilter = new DirectoryFilter(acceptHidden);
+    public TreeModelDirectories(Set<DirectoryFilter.Option> options) {
+        directoryFilter = new DirectoryFilter(options);
         setRootDirectories();
         startUpdater();
     }
