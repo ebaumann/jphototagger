@@ -1,7 +1,6 @@
 package de.elmar_baumann.imv.tasks;
 
 import de.elmar_baumann.imv.app.AppLog;
-import de.elmar_baumann.imv.database.Database;
 import de.elmar_baumann.imv.database.DatabaseImageFiles;
 import de.elmar_baumann.imv.event.ProgressEvent;
 import de.elmar_baumann.imv.event.ProgressListener;
@@ -15,7 +14,7 @@ import java.util.List;
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
- * @see     Database#deleteNotExistingImageFiles(de.elmar_baumann.imv.event.ProgressListener)
+ * @see     DatabaseImageFiles#deleteNotExistingImageFiles(de.elmar_baumann.imv.event.ProgressListener)
  */
 public final class RecordsWithNotExistingFilesDeleter implements Runnable, ProgressListener {
 

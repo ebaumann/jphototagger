@@ -17,6 +17,7 @@ import de.elmar_baumann.lib.util.SettingsHints;
 import java.awt.Component;
 import java.awt.Container;
 import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -360,14 +361,14 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
         int dividerLocationMain = splitPaneMain.getDividerLocation();
         settings.setInt(dividerLocationMain, keyDividerLocationMain);
         settings.setInt(dividerLocationThumbnails, keyDividerLocationThumbnails);
-        ViewUtil.writePersistentTreeDirectories();
+        ViewUtil.writeTreeDirectoriesToProperties();
     }
 
     public SettingsHints getPersistentSettingsHints() {
-        SettingsHints hints = new SettingsHints();
+        SettingsHints hints = new SettingsHints(EnumSet.of(SettingsHints.Option.SET_TABBED_PANE_CONTENT));
         String className = getClass().getName();
-        hints.addExcludedMember(className + ".textFieldSearch"); // NOI18N
-        hints.addExcludedMember(className + ".panelEditMetadata"); // NOI18N
+        hints.addExclude(className + ".textFieldSearch"); // NOI18N
+        hints.addExclude(className + ".panelEditMetadata"); // NOI18N
         return hints;
     }
 

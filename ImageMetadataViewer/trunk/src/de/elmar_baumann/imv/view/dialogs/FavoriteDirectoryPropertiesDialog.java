@@ -151,16 +151,23 @@ public final class FavoriteDirectoryPropertiesDialog extends Dialog {
     }
 
     @Override
-    public void setVisible(
-        boolean visible) {
+    public void setVisible(boolean visible) {
         if (visible) {
-            lastDirectory = UserSettings.INSTANCE.getSettings().getString(keyLastDirectory);
-            UserSettings.INSTANCE.getComponentSizes().getSizeAndLocation(this);
+            readProperties();
         } else {
-            UserSettings.INSTANCE.getSettings().setString(lastDirectory, keyLastDirectory);
-            UserSettings.INSTANCE.getComponentSizes().setSizeAndLocation(this);
+            writeProperties();
         }
         super.setVisible(visible);
+    }
+
+    private void readProperties() {
+        lastDirectory = UserSettings.INSTANCE.getSettings().getString(keyLastDirectory);
+        UserSettings.INSTANCE.getSettings().getSizeAndLocation(this);
+    }
+
+    private void writeProperties() {
+        UserSettings.INSTANCE.getSettings().setString(lastDirectory, keyLastDirectory);
+        UserSettings.INSTANCE.getSettings().setSizeAndLocation(this);
     }
 
     @Override
@@ -304,14 +311,16 @@ private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:even
 }//GEN-LAST:event_formWindowClosing
 
     /**
-    * @param args the command line arguments
-    */
+     * @param args the command line arguments
+     */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             @Override
             public void run() {
                 FavoriteDirectoryPropertiesDialog dialog = new FavoriteDirectoryPropertiesDialog();
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);
@@ -330,5 +339,4 @@ private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:even
     private javax.swing.JLabel labelPromptFavoriteName;
     private javax.swing.JTextField textFieldFavoriteName;
     // End of variables declaration//GEN-END:variables
-
 }

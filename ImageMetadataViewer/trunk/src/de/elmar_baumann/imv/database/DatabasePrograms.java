@@ -27,8 +27,7 @@ public final class DatabasePrograms extends Database {
     }
 
     /**
-     * Inserts a new program. Prevoius You should call 
-     * {@link #existsProgram(de.elmar_baumann.imv.data.Program)}.
+     * Inserts a new program. Prevoius You should call {@link #hasProgram()}.
      * 
      * @param  program  program
      * @return true if inserted

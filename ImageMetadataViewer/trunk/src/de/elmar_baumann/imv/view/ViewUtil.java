@@ -63,7 +63,7 @@ public class ViewUtil {
         chooser.setModel(GUI.INSTANCE.getAppPanel().getTreeDirectories().getModel());
     }
 
-    public static void writePersistentTreeDirectories() {
+    public static void writeTreeDirectoriesToProperties() {
         JTree treeDirectories = GUI.INSTANCE.getAppPanel().getTreeDirectories();
         if (treeDirectories.getSelectionCount() > 0) {
             UserSettings.INSTANCE.getSettings().setString(
@@ -73,7 +73,7 @@ public class ViewUtil {
         }
     }
 
-    public static void readPersistentTreeDirectories() {
+    public static void readTreeDirectoriesFromProperties() {
         JTree treeDirectories = GUI.INSTANCE.getAppPanel().getTreeDirectories();
         String filename = UserSettings.INSTANCE.getSettings().getString(keyTreeDirectories);
 

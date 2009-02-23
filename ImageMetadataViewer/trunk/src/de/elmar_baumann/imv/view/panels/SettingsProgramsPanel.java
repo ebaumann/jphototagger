@@ -36,7 +36,7 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel
     }
 
     @Override
-    public void readPersistent() {
+    public void readProperties() {
         String filename = UserSettings.INSTANCE.getDefaultImageOpenApp();
         labelDefaultProgramFile.setText(filename);
         if (FileUtil.existsFile(filename)) {
@@ -45,7 +45,7 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel
     }
 
     @Override
-    public void writePersistent() {
+    public void writeProperties() {
     }
 
     private void setDefaultProgram() {
@@ -71,7 +71,7 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel
     private void addOtherProgram() {
         ProgramPropertiesDialog dialog = new ProgramPropertiesDialog(false);
         dialog.setVisible(true);
-        if (dialog.isAccepted()) {
+        if (dialog.accepted()) {
             model.add(dialog.getProgram());
             notifyChangeListenerOther();
         }
@@ -82,7 +82,7 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel
             ProgramPropertiesDialog dialog = new ProgramPropertiesDialog(false);
             dialog.setProgram((Program) listOtherPrograms.getSelectedValue());
             dialog.setVisible(true);
-            if (dialog.isAccepted()) {
+            if (dialog.accepted()) {
                 model.update(dialog.getProgram());
                 notifyChangeListenerOther();
             }

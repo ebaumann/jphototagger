@@ -5,7 +5,6 @@ import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.frames.AppFrame;
 import de.elmar_baumann.imv.view.panels.AppPanel;
-import de.elmar_baumann.lib.util.ComponentSizesFromProperties;
 import javax.swing.JProgressBar;
 
 /**
@@ -29,7 +28,7 @@ public final class MetaFactory implements Runnable {
         Util.checkInit(MetaFactory.class, init);
         if (!init) {
             init = true;
-            readPersistentAppFrame();
+            readAppFrameFromProperties();
             startDisplayProgressInProgressbarBar();
             LateConnectionsFactory.INSTANCE.init();
             ModelFactory.INSTANCE.init();
@@ -37,18 +36,18 @@ public final class MetaFactory implements Runnable {
             MouseListenerFactory.INSTANCE.init();
             RendererFactory.INSTANCE.init();
             ControllerFactory.INSTANCE.init();
-            readPersistentAppPanel();
+            readAppPanelFromProperties();
             stopDisplayProgressInProgressbarBar();
         }
     }
 
-    private void readPersistentAppFrame() {
+    private void readAppFrameFromProperties() {
         AppFrame appFrame = GUI.INSTANCE.getAppFrame();
-        UserSettings.INSTANCE.getComponentSizes().getSizeAndLocation(appFrame);
+        UserSettings.INSTANCE.getSettings().getSizeAndLocation(appFrame);
         appFrame.pack();
     }
 
-    private void readPersistentAppPanel() {
+    private void readAppPanelFromProperties() {
         AppPanel appPanel = GUI.INSTANCE.getAppPanel();
         UserSettings.INSTANCE.getSettings().getComponent(
                 appPanel,

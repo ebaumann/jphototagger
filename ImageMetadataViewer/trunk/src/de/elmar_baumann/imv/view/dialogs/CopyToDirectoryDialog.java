@@ -42,7 +42,7 @@ public final class CopyToDirectoryDialog extends Dialog
         setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
         registerKeyStrokes();
     }
-    
+
     public synchronized void addProgressListener(ProgressListener listener) {
         progressListeners.add(listener);
     }
@@ -182,21 +182,33 @@ public final class CopyToDirectoryDialog extends Dialog
     @Override
     public void setVisible(boolean visible) {
         if (visible) {
-            UserSettings.INSTANCE.getComponentSizes().getSizeAndLocation(this);
+            readProperties();
             if (copyIfVisible) {
                 start();
             } else {
-                lastDirectory = UserSettings.INSTANCE.getSettings().getString(keyLastDirectory);
-                if (FileUtil.existsDirectory(lastDirectory)) {
-                    labelTargetDirectory.setText(lastDirectory);
-                    buttonStart.setEnabled(true);
-                }
+                setLastDirectory();
             }
         } else {
-            UserSettings.INSTANCE.getComponentSizes().setSizeAndLocation(this);
-            UserSettings.INSTANCE.getSettings().setString(lastDirectory, keyLastDirectory);
+            writeProperties();
         }
         super.setVisible(visible);
+    }
+
+    private void readProperties() {
+        UserSettings.INSTANCE.getSettings().getSizeAndLocation(this);
+    }
+
+    private void writeProperties() {
+        UserSettings.INSTANCE.getSettings().setSizeAndLocation(this);
+        UserSettings.INSTANCE.getSettings().setString(lastDirectory, keyLastDirectory);
+    }
+
+    private void setLastDirectory() {
+        lastDirectory = UserSettings.INSTANCE.getSettings().getString(keyLastDirectory);
+        if (FileUtil.existsDirectory(lastDirectory)) {
+            labelTargetDirectory.setText(lastDirectory);
+            buttonStart.setEnabled(true);
+        }
     }
 
     @Override
@@ -401,14 +413,16 @@ private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:even
 }//GEN-LAST:event_formWindowClosing
 
     /**
-    * @param args the command line arguments
-    */
+     * @param args the command line arguments
+     */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             @Override
             public void run() {
                 CopyToDirectoryDialog dialog = new CopyToDirectoryDialog();
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);

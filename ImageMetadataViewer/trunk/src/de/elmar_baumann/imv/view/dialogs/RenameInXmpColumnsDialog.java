@@ -7,6 +7,7 @@ import de.elmar_baumann.imv.database.metadata.selections.EditColumns;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.dialog.Dialog;
 import de.elmar_baumann.lib.util.SettingsHints;
+import java.util.EnumSet;
 import java.util.Set;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
@@ -59,13 +60,21 @@ public final class RenameInXmpColumnsDialog extends Dialog {
     @Override
     public void setVisible(boolean visible) {
         if (visible) {
-            UserSettings.INSTANCE.getComponentSizes().getSizeAndLocation(this);
-            UserSettings.INSTANCE.getSettings().getComponent(this, new SettingsHints());
+            readProperties();
         } else {
-            UserSettings.INSTANCE.getComponentSizes().setSizeAndLocation(this);
-            UserSettings.INSTANCE.getSettings().setComponent(this, new SettingsHints());
+            writeProperties();
         }
         super.setVisible(visible);
+    }
+
+    private void readProperties() {
+        UserSettings.INSTANCE.getSettings().getSizeAndLocation(this);
+        UserSettings.INSTANCE.getSettings().getComponent(this, new SettingsHints(EnumSet.of(SettingsHints.Option.SET_TABBED_PANE_CONTENT)));
+    }
+
+    private void writeProperties() {
+        UserSettings.INSTANCE.getSettings().setSizeAndLocation(this);
+        UserSettings.INSTANCE.getSettings().setComponent(this, new SettingsHints(EnumSet.of(SettingsHints.Option.SET_TABBED_PANE_CONTENT)));
     }
 
     private void checkOk() {
@@ -232,5 +241,4 @@ private void buttonReplaceActionPerformed(java.awt.event.ActionEvent evt) {//GEN
     private javax.swing.JTextField textFieldNewString;
     private javax.swing.JTextField textFieldOldString;
     // End of variables declaration//GEN-END:variables
-
 }

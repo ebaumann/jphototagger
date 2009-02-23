@@ -42,7 +42,7 @@ public final class CopyFiles implements Runnable {
      *
      * @param files    Zu kopierende Dateien. Die erste im Paar
      *                 ist die Quelldatei, die zweite die Zieldatei.
-     * @param Options  Optionen
+     * @param options  Optionen
      */
     public CopyFiles(List<Pair<File, File>> files, Options options) {
         this.files = files;

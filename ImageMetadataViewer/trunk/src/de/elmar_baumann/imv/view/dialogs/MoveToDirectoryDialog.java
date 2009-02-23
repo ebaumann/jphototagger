@@ -184,21 +184,33 @@ public final class MoveToDirectoryDialog extends Dialog
     @Override
     public void setVisible(boolean visible) {
         if (visible) {
-            UserSettings.INSTANCE.getComponentSizes().getSizeAndLocation(this);
+            readProperties();
             if (moveIfVisible) {
                 start();
             } else {
-                targetDirectory = new File(UserSettings.INSTANCE.getSettings().getString(keyTargetDirectory));
-                if (targetDirectory.exists()) {
-                    labelDirectoryName.setText(targetDirectory.getAbsolutePath());
-                    buttonStart.setEnabled(true);
-                }
+                setTargetDirectory();
             }
         } else {
-            UserSettings.INSTANCE.getComponentSizes().setSizeAndLocation(this);
-            UserSettings.INSTANCE.getSettings().setString(targetDirectory.getAbsolutePath(), keyTargetDirectory);
+            writeProperties();
         }
         super.setVisible(visible);
+    }
+
+    private void setTargetDirectory() {
+        targetDirectory = new File(UserSettings.INSTANCE.getSettings().getString(keyTargetDirectory));
+        if (targetDirectory.exists()) {
+            labelDirectoryName.setText(targetDirectory.getAbsolutePath());
+            buttonStart.setEnabled(true);
+        }
+    }
+
+    private void readProperties() {
+        UserSettings.INSTANCE.getSettings().getSizeAndLocation(this);
+    }
+
+    private void writeProperties() {
+        UserSettings.INSTANCE.getSettings().setSizeAndLocation(this);
+        UserSettings.INSTANCE.getSettings().setString(targetDirectory.getAbsolutePath(), keyTargetDirectory);
     }
 
     private void checkStopEvent(ProgressEvent evt) {
@@ -405,14 +417,16 @@ private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:even
 }//GEN-LAST:event_formWindowClosing
 
     /**
-    * @param args the command line arguments
-    */
+     * @param args the command line arguments
+     */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             @Override
             public void run() {
                 MoveToDirectoryDialog dialog = new MoveToDirectoryDialog();
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);
@@ -433,5 +447,4 @@ private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:even
     private javax.swing.JLabel labelInfoIsThread;
     private javax.swing.JProgressBar progressBar;
     // End of variables declaration//GEN-END:variables
-
 }

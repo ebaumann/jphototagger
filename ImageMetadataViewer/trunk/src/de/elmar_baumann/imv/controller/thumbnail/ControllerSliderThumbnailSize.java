@@ -43,7 +43,7 @@ public final class ControllerSliderThumbnailSize
     }
 
     private void initSlider() {
-        readPersistent();
+        readProperties();
         slider.setMinimum(stepWidth);
         slider.setMaximum(maxMaginficationPercent);
         slider.setMajorTickSpacing(stepWidth);
@@ -79,13 +79,13 @@ public final class ControllerSliderThumbnailSize
         synchronized (this) {
             if (value % stepWidth == 0 && value != currentValue) {
                 currentValue = value;
-                writePersistent();
+                writeProperties();
                 setThumbnailWidth();
             }
         }
     }
 
-    private void readPersistent() {
+    private void readProperties() {
         Integer value = UserSettings.INSTANCE.getSettings().getInt(keySliderValue);
         if (!value.equals(Integer.MIN_VALUE)) {
             currentValue = value;
@@ -97,7 +97,7 @@ public final class ControllerSliderThumbnailSize
         thumbnailsPanel.setThumbnailWidth(width);
     }
 
-    private void writePersistent() {
+    private void writeProperties() {
         UserSettings.INSTANCE.getSettings().setInt(currentValue, keySliderValue);
     }
 }

@@ -40,11 +40,19 @@ public final class ActionsDialog extends Dialog implements ProgramActionListener
     public void setVisible(boolean visible) {
         if (visible) {
             panelActions.setButtonsEnabled();
-            UserSettings.INSTANCE.getComponentSizes().getSizeAndLocation(this);
+            readProperties();
         } else {
-            UserSettings.INSTANCE.getComponentSizes().setSizeAndLocation(this);
+            writeProperties();
         }
         super.setVisible(visible);
+    }
+
+    private void readProperties() {
+        UserSettings.INSTANCE.getSettings().getSizeAndLocation(this);
+    }
+
+    private void writeProperties() {
+        UserSettings.INSTANCE.getSettings().setSizeAndLocation(this);
     }
 
     public synchronized void addActionListener(ProgramActionListener l) {

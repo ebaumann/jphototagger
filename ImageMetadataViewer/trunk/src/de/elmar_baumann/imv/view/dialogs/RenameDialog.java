@@ -25,6 +25,7 @@ import java.awt.Image;
 import java.io.File;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.LinkedList;
 import java.util.List;
 import javax.swing.ComboBoxModel;
@@ -334,21 +335,29 @@ public final class RenameDialog extends Dialog {
     @Override
     public void setVisible(boolean visible) {
         if (visible) {
-            UserSettings.INSTANCE.getComponentSizes().getSizeAndLocation(this);
-            UserSettings.INSTANCE.getSettings().getComponent(this, getPersistentSettingsHints());
+            readProperties();
             setCurrentFilenameToInputPanel();
             setExampleFilename();
         } else {
-            UserSettings.INSTANCE.getComponentSizes().setSizeAndLocation(this);
-            UserSettings.INSTANCE.getSettings().setComponent(this, getPersistentSettingsHints());
+            writeProperties();
         }
         super.setVisible(visible);
     }
 
+    private void readProperties() {
+        UserSettings.INSTANCE.getSettings().getSizeAndLocation(this);
+        UserSettings.INSTANCE.getSettings().getComponent(this, getPersistentSettingsHints());
+    }
+
+    private void writeProperties() {
+        UserSettings.INSTANCE.getSettings().setSizeAndLocation(this);
+        UserSettings.INSTANCE.getSettings().setComponent(this, getPersistentSettingsHints());
+    }
+
     private SettingsHints getPersistentSettingsHints() {
-        SettingsHints hints = new SettingsHints();
-        hints.addExcludedMember(getClass().getName() + ".labelBeforeFilename"); // NOI18N
-        hints.addExcludedMember(getClass().getName() + ".labelAfterFilename"); // NOI18N
+        SettingsHints hints = new SettingsHints(EnumSet.of(SettingsHints.Option.SET_TABBED_PANE_CONTENT));
+        hints.addExclude(getClass().getName() + ".labelBeforeFilename"); // NOI18N
+        hints.addExclude(getClass().getName() + ".labelAfterFilename"); // NOI18N
         return hints;
     }
 

@@ -1,22 +1,23 @@
 package de.elmar_baumann.imv;
 
 import de.elmar_baumann.imv.app.AppIcons;
+import de.elmar_baumann.imv.app.AppInfo;
+import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.database.metadata.Column;
 import de.elmar_baumann.imv.database.metadata.ColumnUtil;
 import de.elmar_baumann.imv.database.metadata.selections.EditColumns;
 import de.elmar_baumann.imv.event.UserSettingsChangeEvent;
 import de.elmar_baumann.imv.event.UserSettingsChangeListener;
+import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.dialog.DirectoryChooser;
 import de.elmar_baumann.lib.io.DirectoryFilter;
 import de.elmar_baumann.lib.resource.Resources;
 import de.elmar_baumann.lib.util.ArrayUtil;
-import de.elmar_baumann.lib.util.ComponentSizesFromProperties;
 import de.elmar_baumann.lib.util.PropertiesFile;
 import de.elmar_baumann.lib.util.Settings;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.EnumSet;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Properties;
 import java.util.Set;
@@ -24,6 +25,10 @@ import java.util.logging.Level;
 import java.util.logging.XMLFormatter;
 
 /**
+ * Stores user settings in a single {@link java.util.Properties} instance.
+ * To make changes permanent the application has to call {@link #writeToFile()}.
+ * When creating an instance, this class loads the written properties if the
+ * file exists.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
@@ -53,10 +58,9 @@ public final class UserSettings implements UserSettingsChangeListener {
     private final Properties properties = new Properties();
     private final Settings settings = new Settings(properties);
     private static final String domainName = "de.elmar_baumann"; // NOI18N NEVER CHANGE!
-    private static final String projectName = "ImageMetaDataViewer"; // NOI18N NEVER CHANGE!
     private static final String propertiesFilename = "Settings.properties"; // NOI18N NEVER CHANGE!
-    private final PropertiesFile propertiesToFile = new PropertiesFile(domainName, projectName, propertiesFilename, properties);
-    private final ComponentSizesFromProperties sizes = new ComponentSizesFromProperties(properties);
+    private final PropertiesFile propertiesToFile = new PropertiesFile(domainName, AppInfo.getProjectName(), propertiesFilename, properties);
+    private boolean isWrittenToFile = false;
     public static final UserSettings INSTANCE = new UserSettings();
 
     private UserSettings() {
@@ -65,40 +69,77 @@ public final class UserSettings implements UserSettingsChangeListener {
         Resources.INSTANCE.setIconImagesPath(AppIcons.getAppIconPaths());
     }
 
-    public String getSettingsDirectoryName() {
-        return propertiesToFile.getDirectoryName();
-    }
-
-    public static String getProjectName() {
-        return projectName;
-    }
-
-    public Settings getSettings() {
-        return settings;
-    }
-
+    /**
+     * Returns the properties.
+     *
+     * @return properties
+     */
     public Properties getProperties() {
         return properties;
     }
 
+    /**
+     * Returns a settings object instanciated with the properties file of
+     * this class. The settings offering easy writing and reading different
+     * types of objects.
+     *
+     * @return settings
+     */
+    public Settings getSettings() {
+        return settings;
+    }
+
+    /**
+     * Returns directory name of the propertie's file .
+     *
+     * @return directory name
+     */
+    public String getSettingsDirectoryName() {
+        return propertiesToFile.getDirectoryName();
+    }
+
+    /**
+     * Writes the properties to a file. If not called, settings are lost after
+     * exiting the program.
+     */
     public void writeToFile() {
         propertiesToFile.writeToFile();
+        isWrittenToFile = true;
     }
 
-    public Set<DirectoryFilter.Option> getDefaultDirectoryFilter() {
-        return isAcceptHiddenDirectories()
-                ? EnumSet.of(DirectoryFilter.Option.ACCEPT_HIDDEN_FILES)
-                : new HashSet<DirectoryFilter.Option>();
+    /**
+     * Returns the default options of a directory filter:
+     *
+     * <ul>
+     * <li>{@link de.elmar_baumann.lib.io.DirectoryFilter.Option#ACCEPT_HIDDEN_FILES} if
+     *     {@link #isAcceptHiddenDirectories()} is true
+     * <li>{@link de.elmar_baumann.lib.io.DirectoryFilter.Option#REJECT_HIDDEN_FILES} if
+     *     {@link #isAcceptHiddenDirectories()} is false
+     * </ul>
+     *
+     * @return default options
+     */
+    public Set<DirectoryFilter.Option> getDefaultDirectoryFilterOptions() {
+        return EnumSet.of(isAcceptHiddenDirectories()
+            ? DirectoryFilter.Option.ACCEPT_HIDDEN_FILES
+            : DirectoryFilter.Option.REJECT_HIDDEN_FILES);
     }
 
+    /**
+     * Returns the default options of a file chooser's file filter:
+     *
+     * <ul>
+     * <li>{@link de.elmar_baumann.lib.dialog.DirectoryChooser.Option#ACCEPT_HIDDEN_DIRECTORIES} if
+     *     {@link #isAcceptHiddenDirectories()} is true
+     * <li>{@link de.elmar_baumann.lib.dialog.DirectoryChooser.Option#REJECT_HIDDEN_DIRECTORIES} if
+     *     {@link #isAcceptHiddenDirectories()} is false
+     * </ul>
+     * @return default options
+     */
     public Set<DirectoryChooser.Option> getDefaultDirectoryChooserOptions() {
-        return isAcceptHiddenDirectories()
-                ? EnumSet.of(DirectoryChooser.Option.SHOW_HIDDEN)
-                : new HashSet<DirectoryChooser.Option>();
-    }
-
-    public ComponentSizesFromProperties getComponentSizes() {
-        return sizes;
+        return EnumSet.of(isAcceptHiddenDirectories()
+            ? DirectoryChooser.Option.ACCEPT_HIDDEN_DIRECTORIES
+            : DirectoryChooser.Option.REJECT_HIDDEN_DIRECTORIES);
     }
 
     /**
@@ -110,8 +151,8 @@ public final class UserSettings implements UserSettingsChangeListener {
      */
     public boolean isCreateThumbnailsWithExternalApp() {
         return properties.containsKey(keyIsCreateThumbnailsWithExternalApp)
-                ? settings.getBoolean(keyIsCreateThumbnailsWithExternalApp)
-                : false;
+            ? settings.getBoolean(keyIsCreateThumbnailsWithExternalApp)
+            : false;
     }
 
     /**
@@ -152,7 +193,7 @@ public final class UserSettings implements UserSettingsChangeListener {
         List<Column> columns = new ArrayList<Column>();
         if (!settings.getString(keyFastSearchColumns).isEmpty()) {
             List<String> columnKeys = ArrayUtil.stringTokenToList(
-                    settings.getString(keyFastSearchColumns), delimiterColumns);
+                settings.getString(keyFastSearchColumns), delimiterColumns);
             return ColumnUtil.columnKeysToColumns(columnKeys);
         }
         return columns;
@@ -167,7 +208,7 @@ public final class UserSettings implements UserSettingsChangeListener {
     public List<Column> getEditColumns() {
         if (!settings.getString(keyEditColumns).isEmpty()) {
             List<String> columnKeys = ArrayUtil.stringTokenToList(
-                    settings.getString(keyEditColumns), delimiterColumns);
+                settings.getString(keyEditColumns), delimiterColumns);
             return ColumnUtil.columnKeysToColumns(columnKeys);
         }
         return new ArrayList<Column>(EditColumns.getColumns());
@@ -219,8 +260,8 @@ public final class UserSettings implements UserSettingsChangeListener {
      */
     public boolean isUseEmbeddedThumbnails() {
         return properties.containsKey(keyIsUseEmbeddedThumbnails)
-                ? settings.getBoolean(keyIsUseEmbeddedThumbnails)
-                : false;
+            ? settings.getBoolean(keyIsUseEmbeddedThumbnails)
+            : false;
     }
 
     /**
@@ -241,8 +282,8 @@ public final class UserSettings implements UserSettingsChangeListener {
      */
     public boolean isAutoscanIncludeSubdirectories() {
         return properties.containsKey(keyIsAutoscanIncludeSubdirectories)
-                ? settings.getBoolean(keyIsAutoscanIncludeSubdirectories)
-                : true;
+            ? settings.getBoolean(keyIsAutoscanIncludeSubdirectories)
+            : true;
     }
 
     /**
@@ -269,8 +310,8 @@ public final class UserSettings implements UserSettingsChangeListener {
      */
     public boolean isTaskRemoveRecordsWithNotExistingFiles() {
         return properties.containsKey(keyIsTaskRemoveRecordsWithNotExistingFiles)
-                ? settings.getBoolean(keyIsTaskRemoveRecordsWithNotExistingFiles)
-                : false;
+            ? settings.getBoolean(keyIsTaskRemoveRecordsWithNotExistingFiles)
+            : false;
     }
 
     /**
@@ -290,8 +331,8 @@ public final class UserSettings implements UserSettingsChangeListener {
      */
     public boolean isUseAutocomplete() {
         return properties.containsKey(keyIsAutocomplete)
-                ? settings.getBoolean(keyIsAutocomplete)
-                : true;
+            ? settings.getBoolean(keyIsAutocomplete)
+            : true;
     }
 
     /**
@@ -302,8 +343,8 @@ public final class UserSettings implements UserSettingsChangeListener {
      */
     public boolean isAcceptHiddenDirectories() {
         return properties.containsKey(keyIsAcceptHiddenDirectories)
-                ? settings.getBoolean(keyIsAcceptHiddenDirectories)
-                : false;
+            ? settings.getBoolean(keyIsAcceptHiddenDirectories)
+            : false;
     }
 
     /**
@@ -319,10 +360,10 @@ public final class UserSettings implements UserSettingsChangeListener {
 
     @Override
     public void applySettings(UserSettingsChangeEvent evt) {
-        writePersistent(evt);
+        writeProperties(evt);
     }
 
-    private void writePersistent(UserSettingsChangeEvent evt) {
+    private void writeProperties(UserSettingsChangeEvent evt) {
         UserSettingsChangeEvent.Type type = evt.getType();
         if (type.equals(UserSettingsChangeEvent.Type.DEFAULT_IMAGE_OPEN_APP)) {
             settings.setString(evt.getDefaultImageOpenApp().getAbsolutePath(), keyDefaultImageOpenApp);
@@ -374,9 +415,9 @@ public final class UserSettings implements UserSettingsChangeListener {
         String classString = formatterClass.toString();
         int index = classString.lastIndexOf(" ");
         settings.setString(index >= 0 && index + 1 < classString.length()
-                ? classString.substring(index + 1)
-                : XMLFormatter.class.getName(),
-                keyLogfileFormatterClass);
+            ? classString.substring(index + 1)
+            : XMLFormatter.class.getName(),
+            keyLogfileFormatterClass);
     }
 
     private void writeToPropertiesUseEmbeddedThumbnails(boolean use) {
@@ -392,5 +433,13 @@ public final class UserSettings implements UserSettingsChangeListener {
             buffer.append(column.getKey() + delimiterColumns);
         }
         return buffer.toString();
+    }
+
+    @Override
+    public void finalize() {
+        if (!isWrittenToFile) {
+            writeToFile();
+            AppLog.logWarning(UserSettings.class, Bundle.getString("UserSettings.ErrorMessage.NotWrittenPersistent"));
+        }
     }
 }

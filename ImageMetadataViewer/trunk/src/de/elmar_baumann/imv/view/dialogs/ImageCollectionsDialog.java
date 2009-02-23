@@ -59,11 +59,19 @@ public final class ImageCollectionsDialog extends Dialog {
     @Override
     public void setVisible(boolean visible) {
         if (visible) {
-            UserSettings.INSTANCE.getComponentSizes().getSizeAndLocation(this);
+            readProperties();
         } else {
-            UserSettings.INSTANCE.getComponentSizes().setSizeAndLocation(this);
+            writeProperties();
         }
         super.setVisible(visible);
+    }
+
+    private void readProperties() {
+        UserSettings.INSTANCE.getSettings().getSizeAndLocation(this);
+    }
+
+    private void writeProperties() {
+        UserSettings.INSTANCE.getSettings().setSizeAndLocation(this);
     }
 
     @Override
@@ -175,5 +183,4 @@ private void listImageCollectionNamesMouseClicked(java.awt.event.MouseEvent evt)
     private javax.swing.JList listImageCollectionNames;
     private javax.swing.JScrollPane scrollPaneImageCollectionNames;
     // End of variables declaration//GEN-END:variables
-
 }

@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.app;
 
-import de.elmar_baumann.lib.io.FileFilter;
+import de.elmar_baumann.lib.io.RegexFileFilter;
 
 /**
  * 
@@ -13,7 +13,7 @@ public final class AppFileFilter {
     /**
      * Dateifilter für alle Bilddateiformate, die verarbeitet werden können.
      */
-    public static final FileFilter acceptedImageFileFormats = new FileFilter(
+    public static final RegexFileFilter acceptedImageFileFormats = new RegexFileFilter(
         ".*\\.[cC][rR][wW];" + // NOI18N
         ".*\\.[cC][rR]2;" + // NOI18N
         ".*\\.[dD][cC][rR];" + // NOI18N

@@ -11,6 +11,7 @@ import com.sun.image.codec.jpeg.ImageFormatException;
 import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.image.metadata.exif.ExifMetadata;
 import de.elmar_baumann.imv.io.FileType;
+import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.image.ImageTransform;
 import de.elmar_baumann.lib.runtime.External;
 import de.elmar_baumann.lib.template.Pair;
@@ -24,6 +25,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.text.MessageFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -106,6 +108,12 @@ public final class ThumbnailUtil {
         }
     }
 
+    private static void logExternalAppCommand(String cmd) {
+        MessageFormat msg = new MessageFormat(Bundle.getString("ThumbnailUtil.InformationMessage.ExternalAppCreationCommand"));
+        Object[] params = {cmd};
+        AppLog.logFinest(ThumbnailUtil.class, msg.format(params));
+    }
+
     private static Image rotateThumbnail(File file, Image thumbnail) {
         if (thumbnail != null) {
             double rotateAngle =
@@ -136,6 +144,7 @@ public final class ThumbnailUtil {
 
         String cmd = command.replace("%s", file.getAbsolutePath()).replace("%i", // NOI18N
             new Integer(maxLength).toString());
+        logExternalAppCommand(cmd);
         Pair<byte[], byte[]> output = External.executeGetOutput(cmd);
 
         if (output == null) return null;
@@ -287,5 +296,6 @@ public final class ThumbnailUtil {
         return image;
     }
 
-    private ThumbnailUtil() {}
+    private ThumbnailUtil() {
+    }
 }

@@ -45,7 +45,7 @@ public final class SettingsPerformancePanel extends javax.swing.JPanel
     }
 
     @Override
-    public void readPersistent() {
+    public void readProperties() {
         UserSettings settings = UserSettings.INSTANCE;
         ComboBoxModelThreadPriority modelThreadPriority =
             (ComboBoxModelThreadPriority) comboBoxThreadPriority.getModel();
@@ -56,7 +56,7 @@ public final class SettingsPerformancePanel extends javax.swing.JPanel
     }
 
     @Override
-    public void writePersistent() {
+    public void writeProperties() {
     }
 
     /** This method is called from within the constructor to

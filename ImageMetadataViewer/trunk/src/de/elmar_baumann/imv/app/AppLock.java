@@ -9,8 +9,8 @@ import javax.swing.JOptionPane;
 
 /**
  * Creates an application lock file to prevent multiple instances. Uses
- * {@link de.elmar_baumann.lib.persistence.PersistentSettings}
- * to get the settings directory where the lock file will be created.
+ * {@link de.elmar_baumann.imv.UserSettings#getSettingsDirectoryName()}
+ * to get the setting's directory where the lock file will be created.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/10
@@ -19,7 +19,7 @@ public final class AppLock {
 
     private static final String lockFileName =
         UserSettings.INSTANCE.getSettingsDirectoryName() + File.separator +
-        UserSettings.getProjectName() + ".lck"; // NOI18N
+        AppInfo.getProjectName() + ".lck"; // NOI18N
 
     /**
      * Returns whether the application ist locked.
@@ -31,8 +31,7 @@ public final class AppLock {
     }
 
     /**
-     * Locks the application. Typically called after
-     * {@link de.elmar_baumann.lib.persistence.PersistentSettings#setAppName(java.lang.String)}.
+     * Locks the application.
      * 
      * @return true if locked
      */

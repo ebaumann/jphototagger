@@ -44,8 +44,8 @@ public final class SettingsTasksPanel extends javax.swing.JPanel
     private Set<Option> getDirectoryChooserFilter() {
         return EnumSet.of(Option.MULTI_SELECTION,
                 UserSettings.INSTANCE.isAcceptHiddenDirectories()
-                ? Option.SHOW_HIDDEN
-                : Option.HIDE_HIDDEN);
+                ? Option.ACCEPT_HIDDEN_DIRECTORIES
+                : Option.REJECT_HIDDEN_DIRECTORIES);
     }
 
     private void postInitComponents() {
@@ -60,7 +60,7 @@ public final class SettingsTasksPanel extends javax.swing.JPanel
     }
 
     @Override
-    public void readPersistent() {
+    public void readProperties() {
         UserSettings settings = UserSettings.INSTANCE;
         spinnerMinutesToStartScheduledTasks.setValue(
             settings.getMinutesToStartScheduledTasks());
@@ -72,7 +72,7 @@ public final class SettingsTasksPanel extends javax.swing.JPanel
     }
 
     @Override
-    public void writePersistent() {
+    public void writeProperties() {
         UserSettings.INSTANCE.getSettings().setString(
             lastSelectedAutoscanDirectory, keyLastSelectedAutoscanDirectory);
     }

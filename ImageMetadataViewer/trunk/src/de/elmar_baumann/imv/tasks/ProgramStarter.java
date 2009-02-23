@@ -155,7 +155,7 @@ public final class ProgramStarter {
             dialog.setProgram(program.getAlias());
             dialog.setFilename(filename);
             dialog.setVisible(true);
-            if (dialog.isAccepted()) {
+            if (dialog.accepted()) {
                 return dialog.getParameters();
             }
             return ""; // NOI18N

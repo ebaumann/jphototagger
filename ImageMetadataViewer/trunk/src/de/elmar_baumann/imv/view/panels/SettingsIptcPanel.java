@@ -29,13 +29,13 @@ public final class SettingsIptcPanel extends javax.swing.JPanel
     }
 
     @Override
-    public void readPersistent() {
+    public void readProperties() {
         comboBoxIptcCharset.getModel().setSelectedItem(
             UserSettings.INSTANCE.getIptcCharset());
     }
 
     @Override
-    public void writePersistent() {
+    public void writeProperties() {
     }
 
     /** This method is called from within the constructor to

@@ -2,7 +2,7 @@ package de.elmar_baumann.imv.event;
 
 /**
  * Beobachtet ein
- * {@link de.elmar_baumann.imv.view.panels.MetadataEditPanelsArray}.
+ * {@link de.elmar_baumann.imv.view.panels.EditMetadataPanelsArray}.
  *
  * @author Elmar Baumann <eb@elmar-baumann.de>
  */

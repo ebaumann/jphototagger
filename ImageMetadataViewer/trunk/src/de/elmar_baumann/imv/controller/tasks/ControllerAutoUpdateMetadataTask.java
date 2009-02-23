@@ -2,7 +2,6 @@ package de.elmar_baumann.imv.controller.tasks;
 
 import de.elmar_baumann.imv.app.AppTexts;
 import de.elmar_baumann.imv.UserSettings;
-import de.elmar_baumann.imv.database.Database;
 import de.elmar_baumann.imv.database.DatabaseAutoscanDirectories;
 import de.elmar_baumann.imv.event.TaskListener;
 import de.elmar_baumann.imv.tasks.InsertImageFilesIntoDatabaseArray;
@@ -19,9 +18,6 @@ import javax.swing.JProgressBar;
  * Kontrolliert: Regelmäßiger Task, der Verzeichnisse nach modifizierten
  * Metadaten scannt und bei Funden die Datenbank aktualisiert. Arbeitet
  * erst durch Aufruf von {@link #start()}.
- * 
- * Ermittelt werden die Verzeichnisse durch
- * {@link de.elmar_baumann.imv.database.Database#getAutoscanDirectories()}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
@@ -112,7 +108,7 @@ public final class ControllerAutoUpdateMetadataTask
             for (String directoryName : directoryNames) {
                 subdirectoryNames.addAll(
                         FileUtil.getAllSubDirectoryNames(directoryName,
-                        UserSettings.INSTANCE.getDefaultDirectoryFilter()));
+                        UserSettings.INSTANCE.getDefaultDirectoryFilterOptions()));
             }
             directoryNames.addAll(subdirectoryNames);
         }

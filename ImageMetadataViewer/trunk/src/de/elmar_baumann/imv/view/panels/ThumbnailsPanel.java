@@ -148,7 +148,7 @@ public abstract class ThumbnailsPanel extends JPanel
 
     /**
      * Enables the Drag gesture whithin the thumbnails panel. Whitout calling
-     * this, {@link #handleDropped(int)} will never called.
+     * this, {@link #handleMouseDragged(java.awt.event.MouseEvent)} will never called.
      * 
      * @param enabled true if enabled. Default: false
      */

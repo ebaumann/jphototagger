@@ -8,7 +8,7 @@ package de.elmar_baumann.imv.types;
  */
 public interface Persistence {
 
-    public void readPersistent();
+    public void readProperties();
     
-    public void writePersistent();
+    public void writeProperties();
 }

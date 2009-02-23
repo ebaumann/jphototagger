@@ -39,12 +39,12 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
     /** Creates new form UpdateMetadataOfDirectoriesPanel */
     public UpdateMetadataOfDirectoriesPanel() {
         initComponents();
-        readPersistent();
+        readProperties();
     }
 
     public void willDispose() {
         stop();
-        writePersistent();
+        writeProperties();
         UserSettings.INSTANCE.getSettings().setString(
             lastSelectedDirectory.getAbsolutePath(), keyLastDirectory);
     }
@@ -75,8 +75,8 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
     private Set<DirectoryChooser.Option> getDirectoryChooserOptions() {
         return EnumSet.of(DirectoryChooser.Option.MULTI_SELECTION,
                 UserSettings.INSTANCE.isAcceptHiddenDirectories()
-                    ? DirectoryChooser.Option.SHOW_HIDDEN
-                    : DirectoryChooser.Option.HIDE_HIDDEN);
+                    ? DirectoryChooser.Option.ACCEPT_HIDDEN_DIRECTORIES
+                    : DirectoryChooser.Option.REJECT_HIDDEN_DIRECTORIES);
     }
 
     private EnumSet<InsertImageFilesIntoDatabase.Insert> getWhatToInsertIntoDatabase() {
@@ -120,10 +120,10 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
         AppLog.logFinest(UpdateMetadataOfDirectoriesPanel.class, message.format(params));
     }
 
-    private void readPersistent() {
+    private void readProperties() {
         UserSettings.INSTANCE.getSettings().getCheckBox(checkBoxForce, keyForce);
         UserSettings.INSTANCE.getSettings().getCheckBox(checkBoxIncludeSubdirectories, keySubdirectories);
-        readPersistentCurrentDirectory();
+        readCurrentDirectoryFromProperties();
     }
 
     private void removeSelectedDirectories() {
@@ -222,7 +222,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
     }
 
     private void addSubdirectories(File directory) {
-        List<File> subdirectories = FileUtil.getAllSubDirectories(directory, UserSettings.INSTANCE.getDefaultDirectoryFilter());
+        List<File> subdirectories = FileUtil.getAllSubDirectories(directory, UserSettings.INSTANCE.getDefaultDirectoryFilterOptions());
         for (File dir : subdirectories) {
             DirectoryInfo directoryInfo = new DirectoryInfo(dir);
             if (directoryInfo.hasImageFiles()) {
@@ -249,7 +249,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
         }
     }
 
-    private void readPersistentCurrentDirectory() {
+    private void readCurrentDirectoryFromProperties() {
         String currentDirectoryname =
             UserSettings.INSTANCE.getSettings().getString(keyLastDirectory);
         if (!currentDirectoryname.isEmpty()) {
@@ -272,10 +272,10 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
         checkBoxIncludeSubdirectories.setEnabled(!willCreateThumbnails);
     }
 
-    private void writePersistent() {
+    private void writeProperties() {
         UserSettings.INSTANCE.getSettings().setCheckBox(checkBoxForce, keyForce);
         UserSettings.INSTANCE.getSettings().setCheckBox(checkBoxIncludeSubdirectories, keySubdirectories);
-        UserSettings.INSTANCE.getComponentSizes().setSizeAndLocation(this);
+        UserSettings.INSTANCE.getSettings().setSizeAndLocation(this);
     }
 
     @Override

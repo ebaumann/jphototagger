@@ -40,14 +40,14 @@ public final class SettingsFastSearchColumnsPanel extends javax.swing.JPanel
     }
 
     @Override
-    public void readPersistent() {
+    public void readProperties() {
         list.setSelectedItemsWithText(
             ColumnUtil.getDescriptionsOfColumns(
             UserSettings.INSTANCE.getFastSearchColumns()), true);
     }
 
     @Override
-    public void writePersistent() {
+    public void writeProperties() {
     }
 
     @Override

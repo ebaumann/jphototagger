@@ -65,16 +65,16 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel
     }
 
     @Override
-    public void readPersistent() {
+    public void readProperties() {
         setExternalThumbnailAppEnabled();
-        readPersistentContent();
+        readContentFromProperties();
     }
 
     @Override
-    public void writePersistent() {
+    public void writeProperties() {
     }
 
-    private void readPersistentContent() {
+    private void readContentFromProperties() {
         UserSettings settings = UserSettings.INSTANCE;
         spinnerMaxThumbnailWidth.setValue(settings.getMaxThumbnailLength());
         checkBoxIsCreateThumbnailsWithExternalApp.setSelected(settings.isCreateThumbnailsWithExternalApp());

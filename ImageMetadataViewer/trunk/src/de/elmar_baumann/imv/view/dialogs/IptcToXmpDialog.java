@@ -14,6 +14,7 @@ import de.elmar_baumann.lib.io.FileUtil;
 import de.elmar_baumann.lib.util.SettingsHints;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -74,16 +75,24 @@ public final class IptcToXmpDialog extends Dialog
     @Override
     public void setVisible(boolean visible) {
         if (visible) {
-            UserSettings.INSTANCE.getSettings().getComponent(this, new SettingsHints());
-            directory = new File(UserSettings.INSTANCE.getSettings().getString(keyDirectoryName));
+            readProperties();
             init();
         } else {
-            UserSettings.INSTANCE.getComponentSizes().setSizeAndLocation(this);
-            UserSettings.INSTANCE.getSettings().setComponent(this, new SettingsHints());
-            UserSettings.INSTANCE.getSettings().setString(directory.getAbsolutePath(), keyDirectoryName);
+            writeProperties();
             dispose();
         }
         super.setVisible(visible);
+    }
+
+    private void readProperties() {
+        UserSettings.INSTANCE.getSettings().getComponent(this, new SettingsHints(EnumSet.of(SettingsHints.Option.SET_TABBED_PANE_CONTENT)));
+        directory = new File(UserSettings.INSTANCE.getSettings().getString(keyDirectoryName));
+    }
+
+    private void writeProperties() {
+        UserSettings.INSTANCE.getSettings().setSizeAndLocation(this);
+        UserSettings.INSTANCE.getSettings().setComponent(this, new SettingsHints(EnumSet.of(SettingsHints.Option.SET_TABBED_PANE_CONTENT)));
+        UserSettings.INSTANCE.getSettings().setString(directory.getAbsolutePath(), keyDirectoryName);
     }
 
     private void init() {
@@ -115,7 +124,7 @@ public final class IptcToXmpDialog extends Dialog
         directories.add(directory);
         if (checkBoxSubdirectories.isSelected()) {
             directories.addAll(FileUtil.getAllSubDirectories(directory,
-                UserSettings.INSTANCE.getDefaultDirectoryFilter()));
+                UserSettings.INSTANCE.getDefaultDirectoryFilterOptions()));
         }
         return ImageFilteredDirectory.getImageFilesOfDirectories(directories);
     }

@@ -7,7 +7,7 @@ import de.elmar_baumann.imv.app.AppLock;
 import de.elmar_baumann.imv.event.AppExitListener;
 import de.elmar_baumann.imv.event.AppStartListener;
 import de.elmar_baumann.imv.factory.MetaFactory;
-import de.elmar_baumann.imv.io.FileSort;
+import de.elmar_baumann.lib.comparator.FileSort;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.AppPanel;
@@ -207,8 +207,8 @@ public final class AppFrame extends javax.swing.JFrame {
         return menuItemToolIptcToXmp;
     }
 
-    private void writePersistent() {
-        UserSettings.INSTANCE.getComponentSizes().setSizeAndLocation(this);
+    private void writeProperties() {
+        UserSettings.INSTANCE.getSettings().setSizeAndLocation(this);
         UserSettings.INSTANCE.writeToFile();
     }
 
@@ -218,7 +218,7 @@ public final class AppFrame extends javax.swing.JFrame {
 
     private void quit() {
         notifyExit();
-        writePersistent();
+        writeProperties();
         dispose();
         AppLock.unlock();
         System.exit(0);

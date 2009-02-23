@@ -5,6 +5,7 @@ import de.elmar_baumann.imv.app.AppIcons;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.dialog.Dialog;
 import de.elmar_baumann.lib.util.SettingsHints;
+import java.util.EnumSet;
 import javax.swing.JOptionPane;
 
 /**
@@ -26,11 +27,20 @@ public final class DatabaseMaintainanceDialog extends Dialog {
     public void setVisible(boolean visible) {
         super.setVisible(visible);
         if (visible) {
-            UserSettings.INSTANCE.getComponentSizes().getSizeAndLocation(this);
-            UserSettings.INSTANCE.getSettings().getComponent(this, new SettingsHints());
+            readProperties();
         }
         panelMaintainance.getsVisible(visible);
         panelCount.listenToDatabaseChanges(visible);
+    }
+
+    private void readProperties() {
+        UserSettings.INSTANCE.getSettings().getSizeAndLocation(this);
+        UserSettings.INSTANCE.getSettings().getComponent(this, new SettingsHints(EnumSet.of(SettingsHints.Option.SET_TABBED_PANE_CONTENT)));
+    }
+
+    private void writeProperties() {
+        UserSettings.INSTANCE.getSettings().setSizeAndLocation(this);
+        UserSettings.INSTANCE.getSettings().setComponent(this, new SettingsHints(EnumSet.of(SettingsHints.Option.SET_TABBED_PANE_CONTENT)));
     }
 
     private void postInitComponents() {
@@ -41,8 +51,7 @@ public final class DatabaseMaintainanceDialog extends Dialog {
 
     private void close() {
         if (panelMaintainance.canClose()) {
-            UserSettings.INSTANCE.getComponentSizes().setSizeAndLocation(this);
-            UserSettings.INSTANCE.getSettings().setComponent(this, new SettingsHints());
+            writeProperties();
             setVisible(false);
         } else {
             messageWaitBeforeClose();
@@ -120,17 +129,19 @@ private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:even
      */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             @Override
             public void run() {
                 DatabaseMaintainanceDialog dialog = new DatabaseMaintainanceDialog();
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);
                     }
                 });
-            dialog.setVisible(true);
-          }
+                dialog.setVisible(true);
+            }
         });
     }
 

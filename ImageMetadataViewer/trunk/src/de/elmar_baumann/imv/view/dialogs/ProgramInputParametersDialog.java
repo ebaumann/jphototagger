@@ -5,6 +5,7 @@ import de.elmar_baumann.imv.app.AppIcons;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.dialog.Dialog;
 import de.elmar_baumann.lib.util.SettingsHints;
+import java.util.EnumSet;
 
 /**
  *
@@ -33,7 +34,7 @@ public final class ProgramInputParametersDialog extends Dialog {
         labelContextFile.setText(filename);
     }
 
-    public boolean isAccepted() {
+    public boolean accepted() {
         return accepted;
     }
 
@@ -47,15 +48,24 @@ public final class ProgramInputParametersDialog extends Dialog {
 
     @Override
     public void setVisible(boolean visible) {
-        SettingsHints hints = new SettingsHints();
         if (visible) {
-            UserSettings.INSTANCE.getComponentSizes().getSizeAndLocation(this);
-            UserSettings.INSTANCE.getSettings().getComponent(this, hints);
+            readProperties();
         } else {
-            UserSettings.INSTANCE.getComponentSizes().setSizeAndLocation(this);
-            UserSettings.INSTANCE.getSettings().setComponent(this, hints);
+            writeProperties();
         }
         super.setVisible(visible);
+    }
+
+    private void readProperties() {
+        SettingsHints hints = new SettingsHints(EnumSet.of(SettingsHints.Option.SET_TABBED_PANE_CONTENT));
+        UserSettings.INSTANCE.getSettings().getSizeAndLocation(this);
+        UserSettings.INSTANCE.getSettings().getComponent(this, hints);
+    }
+
+    private void writeProperties() {
+        SettingsHints hints = new SettingsHints(EnumSet.of(SettingsHints.Option.SET_TABBED_PANE_CONTENT));
+        UserSettings.INSTANCE.getSettings().setSizeAndLocation(this);
+        UserSettings.INSTANCE.getSettings().setComponent(this, hints);
     }
 
     @Override

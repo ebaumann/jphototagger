@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Moves files to a target directory. The info object in
  * {@link de.elmar_baumann.imv.event.ProgressEvent#getInfo()} is a
- * {@link de.elmar_baumann.lib.template.Pair<File, File>} where
+ * {@link de.elmar_baumann.lib.template.Pair} where
  * {@link de.elmar_baumann.lib.template.Pair#getFirst()} is the source file and
  * {@link de.elmar_baumann.lib.template.Pair#getSecond()} is the target file.
  *

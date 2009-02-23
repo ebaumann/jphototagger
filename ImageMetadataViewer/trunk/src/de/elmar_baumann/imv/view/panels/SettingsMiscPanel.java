@@ -87,7 +87,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
     }
 
     @Override
-    public void readPersistent() {
+    public void readProperties() {
         checkLogLevel();
         UserSettings settings = UserSettings.INSTANCE;
         File lastAcDirectory = settings.getAutocopyDirectory();
@@ -106,7 +106,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
     }
 
     @Override
-    public void writePersistent() {
+    public void writeProperties() {
     }
 
     /** This method is called from within the constructor to

@@ -43,14 +43,14 @@ public final class SettingsEditColumnsPanel extends javax.swing.JPanel
     }
 
     @Override
-    public void readPersistent() {
+    public void readProperties() {
         list.setSelectedItemsWithText(
             ColumnUtil.getDescriptionsOfColumns(
             UserSettings.INSTANCE.getEditColumns()), true);
     }
 
     @Override
-    public void writePersistent() {
+    public void writeProperties() {
     }
 
     private UserSettingsChangeEvent getUserSettingsChangeEvent() {

@@ -37,15 +37,23 @@ public final class AdvancedSearchDialog extends Dialog implements SearchListener
     @Override
     public void setVisible(boolean visible) {
         if (visible) {
-            UserSettings.INSTANCE.getComponentSizes().getSizeAndLocation(this);
+            readProperties();
         }
         super.setVisible(visible);
     }
 
     private void beforeWindowClosing() {
-        UserSettings.INSTANCE.getComponentSizes().setSizeAndLocation(this);
+        writeProperties();
         panel.willDispose();
         setVisible(false);
+    }
+
+    private void readProperties() {
+        UserSettings.INSTANCE.getSettings().getSizeAndLocation(this);
+    }
+
+    private void writeProperties() {
+        UserSettings.INSTANCE.getSettings().setSizeAndLocation(this);
     }
 
     @Override

@@ -3,7 +3,7 @@ package de.elmar_baumann.imv.io;
 import de.elmar_baumann.imv.app.AppIcons;
 import de.elmar_baumann.imv.app.AppFileFilter;
 import de.elmar_baumann.imv.resource.Bundle;
-import de.elmar_baumann.lib.io.FileFilter;
+import de.elmar_baumann.lib.io.RegexFileFilter;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -49,7 +49,7 @@ public final class IoUtil {
      */
     public static List<File> getImageFiles(List<File> files) {
         List<File> imageFiles = new ArrayList<File>();
-        FileFilter filter = AppFileFilter.acceptedImageFileFormats;
+        RegexFileFilter filter = AppFileFilter.acceptedImageFileFormats;
         for (File file : files) {
             if (filter.accept(file)) {
                 imageFiles.add(file);

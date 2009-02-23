@@ -69,7 +69,7 @@ public final class ActionsPanel extends javax.swing.JPanel {
     private void handleButtonNewActionPerformed() {
         ProgramPropertiesDialog dialog = new ProgramPropertiesDialog(true);
         dialog.setVisible(true);
-        if (dialog.isAccepted()) {
+        if (dialog.accepted()) {
             Program program = dialog.getProgram();
             model.add(program);
             notify(new ProgramActionEvent(
@@ -84,7 +84,7 @@ public final class ActionsPanel extends javax.swing.JPanel {
             ProgramPropertiesDialog dialog = new ProgramPropertiesDialog(true);
             dialog.setProgram(program);
             dialog.setVisible(true);
-            if (dialog.isAccepted()) {
+            if (dialog.accepted()) {
                 model.update(program);
                 notify(new ProgramActionEvent(
                     ProgramActionEvent.Type.ACTION_UPDATED, program));

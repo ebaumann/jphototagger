@@ -8,6 +8,7 @@ import de.elmar_baumann.lib.dialog.Dialog;
 import de.elmar_baumann.lib.util.SettingsHints;
 import java.awt.Component;
 import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -66,7 +67,7 @@ public final class UserSettingsDialog extends Dialog {
         initMaps();
         initPersistentPanels();
         setIconImages(AppIcons.getAppIcons());
-        readPersistent();
+        readProperties();
         setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
         registerKeyStrokes();
     }
@@ -123,31 +124,29 @@ public final class UserSettingsDialog extends Dialog {
     }
 
     private SettingsHints getPersistentSettingsHints() {
-        SettingsHints hints = new SettingsHints();
-        hints.setTabbedPaneContents(false);
-        return hints;
+        return new SettingsHints(EnumSet.of(SettingsHints.Option.DONT_SET_TABBED_PANE_CONTENT));
     }
 
-    private void readPersistent() {
-        UserSettings.INSTANCE.getComponentSizes().getSizeAndLocation(this);
+    private void readProperties() {
+        UserSettings.INSTANCE.getSettings().getSizeAndLocation(this);
         UserSettings.INSTANCE.getSettings().getTabbedPane(tabbedPane, keyTabbedPaneIndex, getPersistentSettingsHints());
         for (Persistence panel : persistentPanels) {
-            panel.readPersistent();
+            panel.readProperties();
         }
     }
 
-    private void writePersistent() {
+    private void writeProperties() {
         UserSettings.INSTANCE.getSettings().setTabbedPane(tabbedPane, keyTabbedPaneIndex, getPersistentSettingsHints());
-        UserSettings.INSTANCE.getComponentSizes().setSizeAndLocation(this);
+        UserSettings.INSTANCE.getSettings().setSizeAndLocation(this);
         for (Persistence panel : persistentPanels) {
-            panel.writePersistent();
+            panel.writeProperties();
         }
     }
 
     @Override
     public void setVisible(boolean visible) {
         if (!visible) {
-            writePersistent();
+            writeProperties();
         }
         super.setVisible(visible);
     }
@@ -222,7 +221,7 @@ public final class UserSettingsDialog extends Dialog {
     }// </editor-fold>//GEN-END:initComponents
 
 private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-    writePersistent();
+    writeProperties();
 }//GEN-LAST:event_formWindowClosing
 
     /**

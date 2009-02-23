@@ -6,7 +6,7 @@ import de.elmar_baumann.imv.data.ThumbnailFlag;
 import de.elmar_baumann.imv.database.DatabaseImageFiles;
 import de.elmar_baumann.imv.datatransfer.TransferHandlerThumbnailsPanel;
 import de.elmar_baumann.imv.event.RefreshListener;
-import de.elmar_baumann.imv.io.FileSort;
+import de.elmar_baumann.lib.comparator.FileSort;
 import de.elmar_baumann.imv.types.FileAction;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuPanelThumbnails;
 import de.elmar_baumann.lib.componentutil.ComponentUtil;
@@ -150,7 +150,7 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel {
     /**
      * Sorts the files.
      * 
-     * @see #setSort(de.elmar_baumann.imv.io.FileSort)
+     * @see #setSort(de.elmar_baumann.lib.comparator.FileSort)
      */
     public void sort() {
         List<File> selectedFiles = getSelectedFiles();
