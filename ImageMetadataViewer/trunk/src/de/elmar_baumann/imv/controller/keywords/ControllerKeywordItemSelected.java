@@ -1,8 +1,10 @@
 package de.elmar_baumann.imv.controller.keywords;
 
+import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.types.Content;
 import de.elmar_baumann.imv.database.DatabaseImageFiles;
 import de.elmar_baumann.imv.event.RefreshListener;
+import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.view.panels.EditMetadataPanelsArray;
@@ -38,17 +40,23 @@ public final class ControllerKeywordItemSelected implements ListSelectionListene
 
     @Override
     public void refresh() {
-        if (listKeywords.getSelectedIndex() >= 0) {
+        int index = listKeywords.getSelectedIndex();
+        if (index >= 0) {
             setFilesToThumbnailsPanel();
             setMetadataEditable();
+        } else {
+            AppLog.logWarning(ControllerKeywordItemSelected.class, Bundle.getString("ControllerKeywordItemSelected.ErrorMessage.InvalidIndex") + index);
         }
     }
 
     @Override
     public void valueChanged(ListSelectionEvent e) {
-        if (listKeywords.getSelectedIndex() >= 0) {
+        int index = listKeywords.getSelectedIndex();
+        if (index >= 0) {
             setFilesToThumbnailsPanel();
             setMetadataEditable();
+        } else {
+            AppLog.logWarning(ControllerKeywordItemSelected.class, Bundle.getString("ControllerKeywordItemSelected.ErrorMessage.InvalidIndex") + index);
         }
     }
 

@@ -1,7 +1,9 @@
 package de.elmar_baumann.imv.controller.metadata;
 
+import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.data.TextEntry;
 import de.elmar_baumann.imv.image.metadata.xmp.XmpMetadata;
+import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.tasks.XmpUpdaterFromTextEntryArray;
 import de.elmar_baumann.imv.view.panels.AppPanel;
@@ -51,6 +53,8 @@ public final class ControllerSaveMetadata implements ActionListener {
             updater.add(filenames, entries, EnumSet.of(XmpMetadata.UpdateOption.DELETE_IF_SOURCE_VALUE_IS_EMPTY));
         } else if (filenameCount > 1) {
             updater.add(filenames, entries, EnumSet.of(XmpMetadata.UpdateOption.APPEND_TO_REPEATABLE_VALUES));
+        } else {
+            AppLog.logWarning(ControllerSaveMetadata.class, Bundle.getString("ControllerSaveMetadata.ErrorMessage.NoImageFilesSelected"));
         }
         array.setDirty(false);
     }

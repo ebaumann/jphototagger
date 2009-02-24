@@ -1,9 +1,11 @@
 package de.elmar_baumann.imv.controller.filesystem;
 
+import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.database.DatabaseImageFiles;
 import de.elmar_baumann.imv.event.ListenerProvider;
 import de.elmar_baumann.imv.event.RenameFileAction;
 import de.elmar_baumann.imv.event.RenameFileListener;
+import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.dialogs.RenameDialog;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
@@ -47,6 +49,8 @@ public final class ControllerRenameFiles implements ActionListener, RenameFileLi
             Collections.sort(files);
             dialog.setFiles(files);
             dialog.setVisible(true);
+        } else {
+            AppLog.logWarning(ControllerRenameFiles.class, Bundle.getString("ControllerRenameFiles.ErrorMessage.NoImagesSelected"));
         }
     }
 

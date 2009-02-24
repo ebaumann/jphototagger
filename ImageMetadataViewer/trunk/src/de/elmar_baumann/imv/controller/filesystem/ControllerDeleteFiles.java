@@ -1,6 +1,8 @@
 package de.elmar_baumann.imv.controller.filesystem;
 
+import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.database.DatabaseImageFiles;
+import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.tasks.FileSystemDeleteImageFiles;
 import de.elmar_baumann.imv.types.DeleteOption;
@@ -43,12 +45,14 @@ public final class ControllerDeleteFiles implements ActionListener {
     private void deleteSelectedFiles() {
         List<File> deletedImageFiles = FileSystemDeleteImageFiles.delete(
             thumbnailsPanel.getSelectedFiles(), EnumSet.of(
-                DeleteOption.CONFIRM_DELETE,
-                DeleteOption.MESSAGES_ON_FAILURES));
+            DeleteOption.CONFIRM_DELETE,
+            DeleteOption.MESSAGES_ON_FAILURES));
 
-            if (deletedImageFiles.size() > 0) {
-                db.deleteImageFiles(FileUtil.getAsFilenames(deletedImageFiles));
-                thumbnailsPanel.remove(deletedImageFiles);
-            }
+        if (deletedImageFiles.size() > 0) {
+            db.deleteImageFiles(FileUtil.getAsFilenames(deletedImageFiles));
+            thumbnailsPanel.remove(deletedImageFiles);
+        } else {
+            AppLog.logWarning(ControllerDeleteFiles.class, Bundle.getString("ControllerDeleteFiles.ErrorMessage.NoImagesDeleted"));
+        }
     }
 }

@@ -42,8 +42,7 @@ public final class ControllerEnableInsertMetadataTemplate implements TreeSelecti
             String fileName = ((File) treeDirectories.getSelectionPath().getLastPathComponent()).getAbsolutePath();
             File file = new File(fileName);
 
-            buttonMetadataTemplateInsert.setEnabled(
-                    file.isDirectory() && file.canWrite());
+            buttonMetadataTemplateInsert.setEnabled(file.isDirectory() && file.canWrite());
         }
     }
 }

@@ -1,8 +1,10 @@
 package de.elmar_baumann.imv.controller.favoritedirectories;
 
+import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.data.FavoriteDirectory;
 import de.elmar_baumann.imv.event.RefreshListener;
 import de.elmar_baumann.imv.io.ImageFilteredDirectory;
+import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.types.Content;
@@ -41,6 +43,8 @@ public final class ControllerFavoriteDirectorySelected implements ListSelectionL
         if (listFavoriteDirectories.getSelectedIndex() >= 0) {
             setFilesToThumbnailsPanel();
             setMetadataEditable();
+        } else {
+            AppLog.logWarning(getClass(), Bundle.getString("ControllerFavoriteDirectorySelected.ErrorMessage.InvalidSelectionIndex"));
         }
     }
 
@@ -49,13 +53,16 @@ public final class ControllerFavoriteDirectorySelected implements ListSelectionL
         if (listFavoriteDirectories.getSelectedIndex() >= 0) {
             setFilesToThumbnailsPanel();
             setMetadataEditable();
+        } else {
+            AppLog.logWarning(getClass(), Bundle.getString("ControllerFavoriteDirectorySelected.ErrorMessage.InvalidSelectionIndex"));
         }
     }
 
     private void setFilesToThumbnailsPanel() {
         if (listFavoriteDirectories.getSelectedValue() != null) {
-            thumbnailsPanel.setFiles(getFilesOfCurrentDirectory(),
-                Content.FAVORITE_DIRECTORY);
+            thumbnailsPanel.setFiles(getFilesOfCurrentDirectory(), Content.FAVORITE_DIRECTORY);
+        } else {
+            AppLog.logWarning(getClass(), Bundle.getString("ControllerFavoriteDirectorySelected.ErrorMessage.SelectedValueIsNull"));
         }
     }
 

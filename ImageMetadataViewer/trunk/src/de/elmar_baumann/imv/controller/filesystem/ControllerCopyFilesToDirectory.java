@@ -1,5 +1,7 @@
 package de.elmar_baumann.imv.controller.filesystem;
 
+import de.elmar_baumann.imv.app.AppLog;
+import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.dialogs.CopyToDirectoryDialog;
 import de.elmar_baumann.imv.view.panels.AppPanel;
@@ -40,6 +42,8 @@ public final class ControllerCopyFilesToDirectory implements ActionListener {
             CopyToDirectoryDialog dialog = new CopyToDirectoryDialog();
             dialog.setSourceFiles(files);
             dialog.setVisible(true);
+        } else {
+            AppLog.logWarning(ControllerCopyFilesToDirectory.class, Bundle.getString("ControllerCopyFilesToDirectory.ErrorMessage.NoImagesSelected"));
         }
     }
 }

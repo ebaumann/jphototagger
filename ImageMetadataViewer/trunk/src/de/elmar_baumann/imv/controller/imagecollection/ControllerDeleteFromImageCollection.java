@@ -1,5 +1,7 @@
 package de.elmar_baumann.imv.controller.imagecollection;
 
+import de.elmar_baumann.imv.app.AppLog;
+import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.types.Content;
 import de.elmar_baumann.imv.tasks.ImageCollectionDatabaseUtils;
 import de.elmar_baumann.imv.resource.GUI;
@@ -38,9 +40,13 @@ public final class ControllerDeleteFromImageCollection implements ActionListener
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (thumbnailsPanel.getContent().equals(Content.IMAGE_COLLECTION) &&
-                thumbnailsPanel.getSelectionCount() > 0) {
-            deleteSelectedFilesFromImageCollection();
+        if (thumbnailsPanel.getContent().equals(Content.IMAGE_COLLECTION)) {
+            int count = thumbnailsPanel.getSelectionCount();
+            if (count > 0) {
+                deleteSelectedFilesFromImageCollection();
+            } else {
+                AppLog.logWarning(ControllerDeleteFromImageCollection.class, Bundle.getString("ControllerDeleteFromImageCollection.ErrorMessage.NoImagesSelected"));
+            }
         }
     }
 
@@ -49,8 +55,10 @@ public final class ControllerDeleteFromImageCollection implements ActionListener
         if (selectedValue != null) {
             List<File> selectedFiles = thumbnailsPanel.getSelectedFiles();
             ImageCollectionDatabaseUtils.deleteImagesFromCollection(
-                    selectedValue.toString(), FileUtil.getAsFilenames(selectedFiles));
+                selectedValue.toString(), FileUtil.getAsFilenames(selectedFiles));
             thumbnailsPanel.remove(selectedFiles);
+        } else {
+            AppLog.logWarning(ControllerDeleteFromImageCollection.class, Bundle.getString("ControllerDeleteFromImageCollection.ErrorMessage.SelectedImageCollectionIsNull"));
         }
     }
 }

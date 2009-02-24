@@ -1,7 +1,9 @@
 package de.elmar_baumann.imv.controller.imagecollection;
 
+import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.database.DatabaseImageCollections;
 import de.elmar_baumann.imv.event.RefreshListener;
+import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.types.Content;
@@ -49,19 +51,24 @@ public final class ControllerImageCollectionSelected implements ListSelectionLis
     }
 
     private void showImageCollection() {
-        if (list.getSelectedIndex() >= 0) {
+        int index = list.getSelectedIndex();
+        if (index >= 0) {
             Object selectedValue = list.getSelectedValue();
             if (selectedValue != null) {
                 showImageCollection(selectedValue.toString());
+            } else {
+                AppLog.logWarning(ControllerImageCollectionSelected.class, Bundle.getString("ControllerImageCollectionSelected.ErrorMessage.SelectedValueIsNull"));
             }
             setMetadataEditable();
+        } else {
+            AppLog.logWarning(ControllerImageCollectionSelected.class, Bundle.getString("ControllerImageCollectionSelected.ErrorMessage.InvalidIndex") + index);
         }
     }
 
     private void showImageCollection(String collectionName) {
         List<String> filenames = db.getFilenamesOfImageCollection(collectionName);
         thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames),
-                Content.IMAGE_COLLECTION);
+            Content.IMAGE_COLLECTION);
     }
 
     private void setMetadataEditable() {

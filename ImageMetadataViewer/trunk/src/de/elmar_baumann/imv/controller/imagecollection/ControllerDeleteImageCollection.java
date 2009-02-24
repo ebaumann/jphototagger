@@ -1,6 +1,8 @@
 package de.elmar_baumann.imv.controller.imagecollection;
 
+import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.model.ListModelImageCollections;
+import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.tasks.ImageCollectionDatabaseUtils;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.AppPanel;
@@ -42,6 +44,8 @@ public final class ControllerDeleteImageCollection implements ActionListener {
             if (ImageCollectionDatabaseUtils.deleteImageCollection(collectionName)) {
                 model.removeElement(collectionName);
             }
+        } else {
+            AppLog.logWarning(ControllerDeleteImageCollection.class, Bundle.getString("ControllerDeleteImageCollection.ErrorMessage.CollectionNameIsNull"));
         }
     }
 }

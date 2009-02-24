@@ -1,6 +1,8 @@
 package de.elmar_baumann.imv.controller.directories;
 
+import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.datatransfer.TransferHandlerTreeDirectories;
+import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.types.Content;
 import de.elmar_baumann.imv.types.FileAction;
@@ -60,8 +62,11 @@ public final class ControllerDirectoryCopyFiles implements KeyListener {
     private void insertFilesIntoSelectedDirectory() {
         List<File> sourceFiles = ClipboardUtil.getFilesFromSystemClipboard("\n");
         File targetDirectory = ViewUtil.getSelectedDirectory(treeDirectories);
-        if (sourceFiles.size() > 0 && targetDirectory != null) {
+        int filecount = sourceFiles.size();
+        if (filecount > 0 && targetDirectory != null) {
             copyOrMoveFiles(sourceFiles, targetDirectory);
+        } else if (filecount <= 0) {
+            AppLog.logWarning(getClass(), Bundle.getString("ControllerDirectoryCopyFiles.ErrorMessage.InvalidSelectionCount"));
         }
     }
 

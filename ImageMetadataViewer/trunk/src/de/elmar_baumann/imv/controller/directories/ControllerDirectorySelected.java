@@ -1,7 +1,9 @@
 package de.elmar_baumann.imv.controller.directories;
 
+import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.event.RefreshListener;
 import de.elmar_baumann.imv.io.ImageFilteredDirectory;
+import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.types.Content;
@@ -49,6 +51,8 @@ public final class ControllerDirectorySelected implements TreeSelectionListener,
     public void refresh() {
         if (treeDirectories.getSelectionCount() > 0) {
             setFilesToThumbnailsPanel();
+        } else {
+            AppLog.logWarning(getClass(), Bundle.getString("ControllerDirectorySelected.ErrorMessage.InvalidSelectionIndex"));
         }
     }
 
@@ -56,8 +60,8 @@ public final class ControllerDirectorySelected implements TreeSelectionListener,
         File selectedDirectory = new File(getDirectorynameFromTree());
         imageFilteredDirectory.setDirectory(selectedDirectory);
         thumbnailsPanel.setFiles(
-                ImageFilteredDirectory.getImageFilesOfDirectory(selectedDirectory),
-                Content.DIRECTORY);
+            ImageFilteredDirectory.getImageFilesOfDirectory(selectedDirectory),
+            Content.DIRECTORY);
         setMetadataEditable();
     }
 

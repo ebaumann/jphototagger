@@ -1,10 +1,12 @@
 package de.elmar_baumann.imv.controller.filesystem;
 
+import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.database.DatabaseImageFiles;
 import de.elmar_baumann.imv.event.FileSystemAction;
 import de.elmar_baumann.imv.event.FileSystemActionListener;
 import de.elmar_baumann.imv.event.FileSystemError;
 import de.elmar_baumann.imv.event.ListenerProvider;
+import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.dialogs.MoveToDirectoryDialog;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
@@ -45,6 +47,8 @@ public final class ControllerMoveFiles implements ActionListener, FileSystemActi
             MoveToDirectoryDialog dialog = new MoveToDirectoryDialog();
             dialog.setSourceFiles(files);
             dialog.setVisible(true);
+        } else {
+            AppLog.logWarning(ControllerMoveFiles.class, Bundle.getString("ControllerMoveFiles.ErrorMessaga.NoImagesSelected"));
         }
     }
 

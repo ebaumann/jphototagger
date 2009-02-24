@@ -11,7 +11,7 @@ import de.elmar_baumann.lib.io.RegexFileFilter;
 public final class AppFileFilter {
 
     /**
-     * Dateifilter für alle Bilddateiformate, die verarbeitet werden können.
+     * Filter für alle Bilddateiformate, die verarbeitet werden können.
      */
     public static final RegexFileFilter acceptedImageFileFormats = new RegexFileFilter(
         ".*\\.[cC][rR][wW];" + // NOI18N

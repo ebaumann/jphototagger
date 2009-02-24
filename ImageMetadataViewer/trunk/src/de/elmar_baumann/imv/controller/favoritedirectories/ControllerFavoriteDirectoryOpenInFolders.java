@@ -1,6 +1,8 @@
 package de.elmar_baumann.imv.controller.favoritedirectories;
 
+import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.data.FavoriteDirectory;
+import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuListFavoriteDirectories;
@@ -41,14 +43,14 @@ public final class ControllerFavoriteDirectoryOpenInFolders implements ActionLis
     public void actionPerformed(ActionEvent e) {
         if (listFavoriteDirectories.getSelectedIndex() >= 0) {
             selectDirectory();
+        } else {
+            AppLog.logWarning(getClass(), Bundle.getString("ControllerFavoriteDirectoryOpenInFolders.ErrorMessage.InvalidSelectionIndex"));
         }
     }
 
     private void selectDirectory() {
-        FavoriteDirectory favorite =
-            (FavoriteDirectory) listFavoriteDirectories.getSelectedValue();
-        TreePath path = TreeUtil.getTreePath(
-            new File(favorite.getDirectoryName()), treeDirectories.getModel());
+        FavoriteDirectory favorite = (FavoriteDirectory) listFavoriteDirectories.getSelectedValue();
+        TreePath path = TreeUtil.getTreePath(new File(favorite.getDirectoryName()), treeDirectories.getModel());
         listFavoriteDirectories.clearSelection();
         tabbedPaneSelection.setSelectedComponent(tabTreeDirectories);
         TreeUtil.expandPathCascade(treeDirectories, path);

@@ -1,5 +1,6 @@
 package de.elmar_baumann.imv.controller.imagecollection;
 
+import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.model.ListModelImageCollections;
 import de.elmar_baumann.imv.tasks.ImageCollectionDatabaseUtils;
 import de.elmar_baumann.imv.resource.GUI;
@@ -43,6 +44,8 @@ public final class ControllerRenameImageCollection implements ActionListener {
             if (newName != null) {
                 model.rename(oldName, newName);
             }
+        } else {
+            AppLog.logWarning(ControllerRenameImageCollection.class, "ControllerRenameImageCollection.ErrorMessage.NameIsNull");
         }
     }
 }
