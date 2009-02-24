@@ -108,7 +108,7 @@ public final class ProgressDialog extends javax.swing.JDialog {
      * 
      * @param intermediate  true, if intermediate
      */
-    public void setIntermediate(boolean intermediate) {
+    public void setIndeterminate(boolean intermediate) {
         progressBar.setIndeterminate(intermediate);
         progressBar.setStringPainted(!intermediate);
     }
@@ -187,7 +187,7 @@ public final class ProgressDialog extends javax.swing.JDialog {
             }
         });
 
-        labelInfo.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        labelInfo.setFont(new java.awt.Font("Dialog", 0, 12));
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/lib/resource/Bundle"); // NOI18N
         labelInfo.setText(bundle.getString("ProgressDialogLabelMessageText")); // NOI18N
 
@@ -202,6 +202,7 @@ public final class ProgressDialog extends javax.swing.JDialog {
         });
 
         labelProgressInfo.setText(Bundle.getString("ProgressDialog.labelProgressInfo.text")); // NOI18N
+        labelProgressInfo.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -228,7 +229,7 @@ public final class ProgressDialog extends javax.swing.JDialog {
                     .addComponent(buttonStop)
                     .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labelProgressInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(labelProgressInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 20, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
