@@ -38,7 +38,9 @@ public final class ControllerCategoryItemSelected implements ListSelectionListen
 
     @Override
     public void refresh() {
-        setFilesToThumbnailsPanel();
+        if (listCategories.getSelectedIndex() >= 0) {
+            setFilesToThumbnailsPanel();
+        }
     }
 
     @Override

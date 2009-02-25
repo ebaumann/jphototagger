@@ -51,18 +51,20 @@ public final class ControllerDirectorySelected implements TreeSelectionListener,
     public void refresh() {
         if (treeDirectories.getSelectionCount() > 0) {
             setFilesToThumbnailsPanel();
-        } else {
-            AppLog.logWarning(getClass(), Bundle.getString("ControllerDirectorySelected.ErrorMessage.InvalidSelectionIndex"));
         }
     }
 
     private void setFilesToThumbnailsPanel() {
-        File selectedDirectory = new File(getDirectorynameFromTree());
-        imageFilteredDirectory.setDirectory(selectedDirectory);
-        thumbnailsPanel.setFiles(
-            ImageFilteredDirectory.getImageFilesOfDirectory(selectedDirectory),
-            Content.DIRECTORY);
-        setMetadataEditable();
+        if (treeDirectories.getSelectionCount() > 0) {
+            File selectedDirectory = new File(getDirectorynameFromTree());
+            imageFilteredDirectory.setDirectory(selectedDirectory);
+            thumbnailsPanel.setFiles(
+                    ImageFilteredDirectory.getImageFilesOfDirectory(selectedDirectory),
+                    Content.DIRECTORY);
+            setMetadataEditable();
+        } else {
+            AppLog.logWarning(getClass(), Bundle.getString("ControllerDirectorySelected.ErrorMessage.InvalidSelectionIndex"));
+        }
     }
 
     private String getDirectorynameFromTree() {

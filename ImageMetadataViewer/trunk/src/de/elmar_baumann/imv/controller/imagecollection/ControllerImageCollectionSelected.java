@@ -42,33 +42,31 @@ public final class ControllerImageCollectionSelected implements ListSelectionLis
 
     @Override
     public void valueChanged(ListSelectionEvent e) {
-        showImageCollection();
+        if (list.getSelectedIndex() >= 0) {
+            showImageCollection();
+        }
     }
 
     @Override
     public void refresh() {
-        showImageCollection();
+        if (list.getSelectedIndex() >= 0) {
+            showImageCollection();
+        }
     }
 
     private void showImageCollection() {
-        int index = list.getSelectedIndex();
-        if (index >= 0) {
-            Object selectedValue = list.getSelectedValue();
-            if (selectedValue != null) {
-                showImageCollection(selectedValue.toString());
-            } else {
-                AppLog.logWarning(ControllerImageCollectionSelected.class, Bundle.getString("ControllerImageCollectionSelected.ErrorMessage.SelectedValueIsNull"));
-            }
-            setMetadataEditable();
+        Object selectedValue = list.getSelectedValue();
+        if (selectedValue != null) {
+            showImageCollection(selectedValue.toString());
         } else {
-            AppLog.logWarning(ControllerImageCollectionSelected.class, Bundle.getString("ControllerImageCollectionSelected.ErrorMessage.InvalidIndex") + index);
+            AppLog.logWarning(ControllerImageCollectionSelected.class, Bundle.getString("ControllerImageCollectionSelected.ErrorMessage.SelectedValueIsNull"));
         }
+        setMetadataEditable();
     }
 
     private void showImageCollection(String collectionName) {
         List<String> filenames = db.getFilenamesOfImageCollection(collectionName);
-        thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames),
-            Content.IMAGE_COLLECTION);
+        thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames), Content.IMAGE_COLLECTION);
     }
 
     private void setMetadataEditable() {
