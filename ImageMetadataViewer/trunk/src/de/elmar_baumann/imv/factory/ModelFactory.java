@@ -11,7 +11,6 @@ import de.elmar_baumann.imv.model.TableModelExif;
 import de.elmar_baumann.imv.model.TableModelIptc;
 import de.elmar_baumann.imv.model.TableModelXmp;
 import de.elmar_baumann.imv.resource.GUI;
-import de.elmar_baumann.imv.view.ViewUtil;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.lib.model.TreeModelDirectories;
 import javax.swing.JTree;
@@ -53,15 +52,18 @@ public final class ModelFactory {
     }
 
     private void createTreeModelDirectories(final AppPanel appPanel) {
-        new Thread(new Runnable() {
-
-            @Override
-            public void run() {
-                JTree treeDirectories = appPanel.getTreeDirectories();
-                treeDirectories.setModel(
-                        new TreeModelDirectories(UserSettings.INSTANCE.getDefaultDirectoryFilterOptions()));
-                ViewUtil.readTreeDirectoriesFromProperties();
-            }
-        }).start();
+        JTree treeDirectories = appPanel.getTreeDirectories();
+        treeDirectories.setModel(
+            new TreeModelDirectories(UserSettings.INSTANCE.getDefaultDirectoryFilterOptions()));
+//        new Thread(new Runnable() {
+//
+//            @Override
+//            public void run() {
+//                JTree treeDirectories = appPanel.getTreeDirectories();
+//                treeDirectories.setModel(
+//                        new TreeModelDirectories(UserSettings.INSTANCE.getDefaultDirectoryFilterOptions()));
+//                ViewUtil.readTreeDirectoriesFromProperties();
+//            }
+//        }).start();
     }
 }

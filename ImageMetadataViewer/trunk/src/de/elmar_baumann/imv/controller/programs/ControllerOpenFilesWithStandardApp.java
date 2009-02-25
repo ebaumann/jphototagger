@@ -38,10 +38,10 @@ public final class ControllerOpenFilesWithStandardApp implements ActionListener 
 
     private void openFiles() {
         String allFilenames = IoUtil.getQuotedForCommandline(
-                thumbnailsPanel.getSelectedFiles(), "\"");
+            thumbnailsPanel.getSelectedFiles(), "\"");
         if (!allFilenames.isEmpty()) {
             IoUtil.execute(
-                    UserSettings.INSTANCE.getDefaultImageOpenApp(), allFilenames);
+                UserSettings.INSTANCE.getDefaultImageOpenApp(), allFilenames);
         }
     }
 

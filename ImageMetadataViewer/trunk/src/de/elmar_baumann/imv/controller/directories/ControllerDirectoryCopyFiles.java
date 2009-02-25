@@ -1,8 +1,6 @@
 package de.elmar_baumann.imv.controller.directories;
 
-import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.datatransfer.TransferHandlerTreeDirectories;
-import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.types.Content;
 import de.elmar_baumann.imv.types.FileAction;

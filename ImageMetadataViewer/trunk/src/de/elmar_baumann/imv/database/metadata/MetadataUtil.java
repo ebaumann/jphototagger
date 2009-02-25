@@ -53,4 +53,7 @@ public final class MetadataUtil {
             return defaultFormatterFactory;
         }
     }
+
+    private MetadataUtil() {
+    }
 }

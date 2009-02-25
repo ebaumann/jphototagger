@@ -15,9 +15,6 @@ public final class Exif {
     private short isoSpeedRatings = -1;
     private String recordingEquipment;
 
-    public Exif() {
-    }
-
     /**
      * Liefert die Aufnahmezeit.
      * 

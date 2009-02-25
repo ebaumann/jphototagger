@@ -41,7 +41,7 @@ public final class ControllerDeleteThumbnailsFromDatabase implements ActionListe
     }
 
     private void deleteSelectedThumbnails() {
-        if (deleteConfirmed()) {
+        if (confirmDelete()) {
             List<String> files = FileUtil.getAsFilenames(
                     thumbnailsPanel.getSelectedFiles());
             int countFiles = files.size();
@@ -64,7 +64,7 @@ public final class ControllerDeleteThumbnailsFromDatabase implements ActionListe
         thumbnailsPanel.remove(FileUtil.getAsFiles(deleted));
     }
 
-    private boolean deleteConfirmed() {
+    private boolean confirmDelete() {
         MessageFormat msg = new MessageFormat(Bundle.getString("ControllerDeleteThumbnailsFromDatabase.ConfirmMessage.DeleteSelectedFiles"));
         Object[] params = {thumbnailsPanel.getSelectionCount()};
         return JOptionPane.showConfirmDialog(

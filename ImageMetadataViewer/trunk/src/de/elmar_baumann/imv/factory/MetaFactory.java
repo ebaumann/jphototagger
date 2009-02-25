@@ -3,6 +3,7 @@ package de.elmar_baumann.imv.factory;
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.GUI;
+import de.elmar_baumann.imv.view.ViewUtil;
 import de.elmar_baumann.imv.view.frames.AppFrame;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import javax.swing.JProgressBar;
@@ -50,8 +51,9 @@ public final class MetaFactory implements Runnable {
     private void readAppPanelFromProperties() {
         AppPanel appPanel = GUI.INSTANCE.getAppPanel();
         UserSettings.INSTANCE.getSettings().getComponent(
-                appPanel,
-                appPanel.getPersistentSettingsHints());
+            appPanel,
+            appPanel.getPersistentSettingsHints());
+        ViewUtil.readTreeDirectoriesFromProperties();
     }
 
     private void startDisplayProgressInProgressbarBar() {
