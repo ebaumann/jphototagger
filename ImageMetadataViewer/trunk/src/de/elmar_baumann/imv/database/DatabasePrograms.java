@@ -61,7 +61,7 @@ public final class DatabasePrograms extends Database {
             connection.commit();
             stmt.close();
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
+            AppLog.logWarning(getClass(), ex);
             rollback(connection);
         } finally {
             free(connection);
@@ -128,7 +128,7 @@ public final class DatabasePrograms extends Database {
             connection.commit();
             stmt.close();
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
+            AppLog.logWarning(getClass(), ex);
             rollback(connection);
         } finally {
             free(connection);
@@ -173,7 +173,7 @@ public final class DatabasePrograms extends Database {
             connection.commit();
             stmt.close();
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
+            AppLog.logWarning(getClass(), ex);
             rollback(connection);
         } finally {
             free(connection);
@@ -237,7 +237,7 @@ public final class DatabasePrograms extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
+            AppLog.logWarning(getClass(), ex);
         } finally {
             free(connection);
         }
@@ -262,7 +262,7 @@ public final class DatabasePrograms extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
+            AppLog.logWarning(getClass(), ex);
         } finally {
             free(connection);
         }

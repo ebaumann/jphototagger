@@ -91,7 +91,7 @@ public final class CopyFiles implements Runnable {
                     logCopyFile(sourceFile.getAbsolutePath(), targetFile.getAbsolutePath());
                     FileUtil.copyFile(sourceFile, targetFile);
                 } catch (Exception ex) {
-                    de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
+                    AppLog.logWarning(getClass(), ex);
                     errorFiles.add(filePair.getFirst());
                 }
             }

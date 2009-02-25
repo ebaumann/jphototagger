@@ -3,6 +3,7 @@ package de.elmar_baumann.imv.image.metadata.iptc;
 import com.imagero.reader.iptc.IPTCEntry;
 import com.imagero.reader.iptc.IPTCEntryMeta;
 import de.elmar_baumann.imv.UserSettings;
+import de.elmar_baumann.imv.app.AppLog;
 import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 
@@ -98,7 +99,7 @@ public final class IptcEntry {
             return new String(data, UserSettings.INSTANCE.
                 getIptcCharset()).trim();
         } catch (UnsupportedEncodingException ex) {
-            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
+            AppLog.logWarning(getClass(), ex);
         }
         return ""; // NOI18N
     }

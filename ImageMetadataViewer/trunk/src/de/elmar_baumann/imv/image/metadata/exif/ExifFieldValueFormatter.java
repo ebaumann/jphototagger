@@ -1,5 +1,6 @@
 package de.elmar_baumann.imv.image.metadata.exif;
 
+import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.Translation;
 import de.elmar_baumann.lib.lang.Util;
@@ -77,7 +78,7 @@ public final class ExifFieldValueFormatter {
                 dateFormat.format(calendar.getTime(), buffer, new FieldPosition(0));
                 return buffer.toString();
             } catch (NumberFormatException ex) {
-                de.elmar_baumann.imv.app.AppLog.logWarning(ExifFieldValueFormatter.class, ex);
+                AppLog.logWarning(ExifFieldValueFormatter.class, ex);
             }
         }
         return string;
@@ -111,7 +112,7 @@ public final class ExifFieldValueFormatter {
                     return getFraction(numerator, denominator);
                 }
             } catch (NumberFormatException ex) {
-                de.elmar_baumann.imv.app.AppLog.logWarning(ExifFieldValueFormatter.class, ex);
+                AppLog.logWarning(ExifFieldValueFormatter.class, ex);
             }
         }
         return value;
@@ -171,7 +172,7 @@ public final class ExifFieldValueFormatter {
                         Integer.toString((int) (denominator / 10));
                 }
             } catch (NumberFormatException ex) {
-                de.elmar_baumann.imv.app.AppLog.logWarning(ExifFieldValueFormatter.class, ex);
+                AppLog.logWarning(ExifFieldValueFormatter.class, ex);
             }
         }
         return value;
@@ -189,7 +190,7 @@ public final class ExifFieldValueFormatter {
                     return getFraction(numerator, denominator);
                 }
             } catch (NumberFormatException ex) {
-                de.elmar_baumann.imv.app.AppLog.logWarning(ExifFieldValueFormatter.class, ex);
+                AppLog.logWarning(ExifFieldValueFormatter.class, ex);
             }
         }
         return value;

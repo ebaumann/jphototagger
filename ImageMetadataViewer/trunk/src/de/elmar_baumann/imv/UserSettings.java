@@ -179,7 +179,7 @@ public final class UserSettings implements UserSettingsChangeListener {
         try {
             level = Level.parse(levelString);
         } catch (Exception ex) {
-            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
+            AppLog.logWarning(getClass(), ex);
             settings.setString(Level.WARNING.getLocalizedName(), keyLogLevel);
         }
         return level == null ? Level.WARNING : level;
@@ -297,7 +297,7 @@ public final class UserSettings implements UserSettingsChangeListener {
         try {
             return Class.forName(className);
         } catch (ClassNotFoundException ex) {
-            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
+            AppLog.logWarning(getClass(), ex);
             settings.setString(XMLFormatter.class.getName(), keyLogfileFormatterClass);
         }
         return XMLFormatter.class;

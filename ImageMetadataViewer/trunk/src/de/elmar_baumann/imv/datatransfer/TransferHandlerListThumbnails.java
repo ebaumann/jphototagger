@@ -1,5 +1,6 @@
 package de.elmar_baumann.imv.datatransfer;
 
+import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.lib.datatransfer.TransferUtil;
 import de.elmar_baumann.lib.util.ArrayUtil;
 import java.awt.datatransfer.DataFlavor;
@@ -51,7 +52,7 @@ public abstract class TransferHandlerListThumbnails extends TransferHandler {
             Transferable transferable = transferSupport.getTransferable();
             data = (String) transferable.getTransferData(DataFlavor.stringFlavor);
         } catch (Exception ex) {
-            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
+            AppLog.logWarning(getClass(), ex);
             return false;
         }
         int listIndex = ((JList.DropLocation) transferSupport.getDropLocation()).getIndex();

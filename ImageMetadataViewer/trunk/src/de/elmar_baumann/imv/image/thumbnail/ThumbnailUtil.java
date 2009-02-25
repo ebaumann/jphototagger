@@ -78,7 +78,7 @@ public final class ThumbnailUtil {
             }
             close(reader);
         } catch (Exception ex) {
-            de.elmar_baumann.imv.app.AppLog.logWarning(ThumbnailUtil.class, ex);
+            AppLog.logWarning(ThumbnailUtil.class, ex);
             return null;
         }
         return thumbnail;
@@ -97,7 +97,7 @@ public final class ThumbnailUtil {
             close(procOptions.getImageReader());
             return image;
         } catch (Exception ex) {
-            de.elmar_baumann.imv.app.AppLog.logWarning(ThumbnailUtil.class, ex);
+            AppLog.logWarning(ThumbnailUtil.class, ex);
         }
         return null;
     }
@@ -245,7 +245,7 @@ public final class ThumbnailUtil {
             scaledImage = scaleImage(scaledWidth, scaledHeight, image);
 
         } catch (ImageFormatException ex) {
-            de.elmar_baumann.imv.app.AppLog.logWarning(ThumbnailUtil.class, ex);
+            AppLog.logWarning(ThumbnailUtil.class, ex);
         }
         return scaledImage;
     }
@@ -288,10 +288,10 @@ public final class ThumbnailUtil {
             try {
                 mediaTracker.waitForID(0);
             } catch (InterruptedException ex) {
-                de.elmar_baumann.imv.app.AppLog.logWarning(ThumbnailUtil.class, ex);
+                AppLog.logWarning(ThumbnailUtil.class, ex);
             }
         } catch (IOException ex) {
-            de.elmar_baumann.imv.app.AppLog.logWarning(ThumbnailUtil.class, ex);
+            AppLog.logWarning(ThumbnailUtil.class, ex);
         }
         return image;
     }

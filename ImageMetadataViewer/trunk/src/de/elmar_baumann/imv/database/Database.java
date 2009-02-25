@@ -1,5 +1,6 @@
 package de.elmar_baumann.imv.database;
 
+import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.data.ImageFile;
 import de.elmar_baumann.imv.data.SavedSearch;
 import de.elmar_baumann.imv.event.DatabaseAction;
@@ -103,7 +104,7 @@ public class Database {
             try {
                 ConnectionPool.getInstance().free(connection);
             } catch (SQLException ex) {
-                de.elmar_baumann.imv.app.AppLog.logSevere(getClass(), ex);
+                AppLog.logSevere(getClass(), ex);
             }
         }
     }
@@ -118,7 +119,7 @@ public class Database {
         try {
             connection.rollback();
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
+            AppLog.logWarning(getClass(), ex);
         }
     }
 

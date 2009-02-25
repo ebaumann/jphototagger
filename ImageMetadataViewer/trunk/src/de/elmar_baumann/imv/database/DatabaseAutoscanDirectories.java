@@ -46,7 +46,7 @@ public final class DatabaseAutoscanDirectories extends Database {
                     DatabaseAction.Type.AUTOSCAN_DIRECTORY_INSERTED, directoryName);
                 stmt.close();
             } catch (SQLException ex) {
-                de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
+                AppLog.logWarning(getClass(), ex);
             } finally {
                 free(connection);
             }
@@ -82,7 +82,7 @@ public final class DatabaseAutoscanDirectories extends Database {
                 DatabaseAction.Type.AUTOSCAN_DIRECTORIES_INSERTED, directoryNames);
             stmt.close();
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
+            AppLog.logWarning(getClass(), ex);
             rollback(connection);
         } finally {
             free(connection);
@@ -115,7 +115,7 @@ public final class DatabaseAutoscanDirectories extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
+            AppLog.logWarning(getClass(), ex);
         } finally {
             free(connection);
         }
@@ -144,7 +144,7 @@ public final class DatabaseAutoscanDirectories extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
+            AppLog.logWarning(getClass(), ex);
         } finally {
             free(connection);
         }
@@ -170,7 +170,7 @@ public final class DatabaseAutoscanDirectories extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
+            AppLog.logWarning(getClass(), ex);
             directories.clear();
         } finally {
             free(connection);

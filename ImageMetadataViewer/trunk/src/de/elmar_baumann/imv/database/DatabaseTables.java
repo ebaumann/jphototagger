@@ -2,6 +2,7 @@ package de.elmar_baumann.imv.database;
 
 import de.elmar_baumann.imv.app.AppIcons;
 import de.elmar_baumann.imv.app.AppLock;
+import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.resource.Bundle;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -69,7 +70,7 @@ public final class DatabaseTables extends Database {
             UpdateTables.INSTANCE.update(connection);
             stmt.close();
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.app.AppLog.logSevere(getClass(), ex);
+            AppLog.logSevere(getClass(), ex);
             JOptionPane.showMessageDialog(null, Bundle.getString("Database.CreateTables.ErrorMessage"), Bundle.getString("Database.CreateTables.ErrorMessage.Title"), JOptionPane.ERROR_MESSAGE, AppIcons.getMediumAppIcon());
             AppLock.unlock();
             System.exit(0);

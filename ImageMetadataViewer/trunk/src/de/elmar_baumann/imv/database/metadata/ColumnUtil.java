@@ -1,5 +1,6 @@
 package de.elmar_baumann.imv.database.metadata;
 
+import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.model.ListModelSelectedColumns;
 import de.elmar_baumann.lib.component.CheckList;
 import java.lang.reflect.Field;
@@ -32,7 +33,7 @@ public final class ColumnUtil {
                     columns.add((Column) field.get(null));
                 }
             } catch (Exception ex) {
-                de.elmar_baumann.imv.app.AppLog.logWarning(ColumnUtil.class, ex);
+                AppLog.logWarning(ColumnUtil.class, ex);
             }
         }
         return columns;

@@ -1,5 +1,6 @@
 package de.elmar_baumann.imv.model;
 
+import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.image.metadata.exif.ExifIfdEntryDisplayComparator;
 import de.elmar_baumann.imv.image.metadata.exif.ExifMetadata;
 import de.elmar_baumann.imv.image.metadata.exif.IdfEntryProxy;
@@ -50,7 +51,7 @@ public final class TableModelExif extends DefaultTableModel {
         try {
             setExifData();
         } catch (Exception ex) {
-            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
+            AppLog.logWarning(getClass(), ex);
         }
     }
 

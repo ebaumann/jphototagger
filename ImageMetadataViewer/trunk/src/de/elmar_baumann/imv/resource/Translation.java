@@ -1,5 +1,6 @@
 package de.elmar_baumann.imv.resource;
 
+import de.elmar_baumann.imv.app.AppLog;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
@@ -19,7 +20,7 @@ public final class Translation {
         try {
             bundle = ResourceBundle.getBundle(pathPrefix + propertiesFileBasename);
         } catch (MissingResourceException ex) {
-            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
+            AppLog.logWarning(getClass(), ex);
         }
     }
 
@@ -36,11 +37,11 @@ public final class Translation {
         try {
             return bundle.getString(string);
         } catch (MissingResourceException ex) {
-            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
+            AppLog.logWarning(getClass(), ex);
         } catch (NullPointerException ex) {
             throw ex;
         } catch (Exception ex) {
-            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
+            AppLog.logWarning(getClass(), ex);
         }
         return string;
     }
@@ -59,9 +60,9 @@ public final class Translation {
         try {
             return bundle.getString(string);
         } catch (MissingResourceException ex) {
-            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
+            AppLog.logWarning(getClass(), ex);
         } catch (Exception ex) {
-            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
+            AppLog.logWarning(getClass(), ex);
         }
         return alternate;
     }

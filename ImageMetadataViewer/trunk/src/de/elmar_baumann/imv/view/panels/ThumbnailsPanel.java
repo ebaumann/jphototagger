@@ -1,5 +1,6 @@
 package de.elmar_baumann.imv.view.panels;
 
+import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.event.ThumbnailsPanelAction;
 import de.elmar_baumann.imv.event.ThumbnailsPanelListener;
 import de.elmar_baumann.imv.data.ThumbnailFlag;
@@ -888,7 +889,7 @@ public abstract class ThumbnailsPanel extends JPanel
         try {
             tracker.waitForID(0);
         } catch (InterruptedException ex) {
-            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
+            AppLog.logWarning(getClass(), ex);
         }
         thumbnailAtIndex.put(cacheIndex, scaled);
         return scaled;

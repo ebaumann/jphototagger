@@ -1,6 +1,7 @@
 package de.elmar_baumann.imv.view.renderer;
 
 import de.elmar_baumann.imv.app.AppIcons;
+import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.data.Program;
 import java.awt.Component;
 import java.io.File;
@@ -32,7 +33,7 @@ public final class ListCellRendererPrograms extends DefaultListCellRenderer {
             try {
                 setIcon(fileSystemView.getSystemIcon(file));
             } catch (Exception ex) {
-                de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
+                AppLog.logWarning(getClass(), ex);
             }
         } else {
             label.setIcon(iconError);

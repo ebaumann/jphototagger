@@ -33,7 +33,7 @@ import de.elmar_baumann.imv.controller.metadata.ControllerThumbnailSelectionEdit
 import de.elmar_baumann.imv.controller.search.ControllerAdvancedSearch;
 import de.elmar_baumann.imv.controller.filesystem.ControllerAutocopyDirectory;
 import de.elmar_baumann.imv.controller.search.ControllerFastSearch;
-import de.elmar_baumann.imv.controller.misc.ControllerGoto;
+import de.elmar_baumann.imv.controller.misc.ControllerGoTo;
 import de.elmar_baumann.imv.controller.metadata.ControllerIptcToXmp;
 import de.elmar_baumann.imv.controller.misc.ControllerItemsMutualExcludeSelection;
 import de.elmar_baumann.imv.controller.misc.ControllerLogfileDialog;
@@ -117,7 +117,7 @@ public final class ControllerFactory {
             new ControllerCopyFilesToDirectory();
             new ControllerRenameInXmpColumns();
             new ControllerIptcToXmp();
-            new ControllerGoto();
+            new ControllerGoTo();
             new ControllerSliderThumbnailSize();
             new ControllerDeleteFiles();
             new ControllerRenameFiles();

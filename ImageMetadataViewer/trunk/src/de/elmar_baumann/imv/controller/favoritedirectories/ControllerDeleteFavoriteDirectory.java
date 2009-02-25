@@ -1,6 +1,7 @@
 package de.elmar_baumann.imv.controller.favoritedirectories;
 
 import de.elmar_baumann.imv.app.AppIcons;
+import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.data.FavoriteDirectory;
 import de.elmar_baumann.imv.model.ListModelFavoriteDirectories;
 import de.elmar_baumann.imv.resource.Bundle;
@@ -86,7 +87,7 @@ public final class ControllerDeleteFavoriteDirectory implements ActionListener {
                 try {
                     Thread.sleep(removeCheckIntervalSeconds * 1000);
                 } catch (InterruptedException ex) {
-                    de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
+                    AppLog.logWarning(getClass(), ex);
                 }
                 int size = model.getSize();
                 for (int i = 0; i < size; i++) {

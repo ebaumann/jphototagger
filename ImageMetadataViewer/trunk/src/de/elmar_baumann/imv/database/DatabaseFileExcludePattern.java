@@ -47,7 +47,7 @@ public final class DatabaseFileExcludePattern extends Database {
             stmt.close();
             inserted = count > 0;
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
+            AppLog.logWarning(getClass(), ex);
         } finally {
             free(connection);
         }
@@ -75,7 +75,7 @@ public final class DatabaseFileExcludePattern extends Database {
             stmt.close();
             deleted = count > 0;
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
+            AppLog.logWarning(getClass(), ex);
         } finally {
             free(connection);
         }
@@ -103,7 +103,7 @@ public final class DatabaseFileExcludePattern extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
+            AppLog.logWarning(getClass(), ex);
         } finally {
             free(connection);
         }
@@ -128,7 +128,7 @@ public final class DatabaseFileExcludePattern extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
+            AppLog.logWarning(getClass(), ex);
         } finally {
             free(connection);
         }
@@ -183,7 +183,7 @@ public final class DatabaseFileExcludePattern extends Database {
             notifyProgressListenerEnd(listener, event);
             notifyDatabaseListener(DatabaseAction.Type.IMAGEFILES_DELETED, deletedFiles);
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
+            AppLog.logWarning(getClass(), ex);
         } finally {
             free(connection);
         }

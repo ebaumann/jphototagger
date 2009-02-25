@@ -1,6 +1,7 @@
 package de.elmar_baumann.imv.controller.thumbnail;
 
 import de.elmar_baumann.imv.UserSettings;
+import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.event.AppExitListener;
 import de.elmar_baumann.imv.event.ThumbnailsPanelAction;
 import de.elmar_baumann.imv.event.ThumbnailsPanelListener;
@@ -86,7 +87,7 @@ public final class ControllerThumbnailsPanelPersistence
                 thumbnailsPanel.setSort(FileSort.valueOf(name));
             }
         } catch (Exception ex) {
-            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
+            AppLog.logWarning(getClass(), ex);
         }
     }
 

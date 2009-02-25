@@ -1,6 +1,7 @@
 package de.elmar_baumann.imv.image.metadata.exif;
 
 import com.imagero.reader.tiff.IFDEntry;
+import de.elmar_baumann.imv.app.AppLog;
 
 /**
  * Proxy for {@link com.imagero.reader.tiff.IFDEntry}. Reason: Files are
@@ -23,7 +24,7 @@ public final class IdfEntryProxy implements Comparable<IdfEntryProxy> {
             name = entry.getEntryMeta().getName();
             rawValue = entry.getRawValue();
         } catch (Exception ex) {
-            de.elmar_baumann.imv.app.AppLog.logWarning(ExifMetadata.class, ex);
+            AppLog.logWarning(ExifMetadata.class, ex);
         }
     }
 

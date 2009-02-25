@@ -2,6 +2,7 @@ package de.elmar_baumann.imv.io;
 
 import de.elmar_baumann.imv.app.AppIcons;
 import de.elmar_baumann.imv.app.AppFileFilter;
+import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.io.RegexFileFilter;
 import java.io.File;
@@ -31,7 +32,7 @@ public final class IoUtil {
             try {
                 Runtime.getRuntime().exec(openCommand);
             } catch (IOException ex) {
-                de.elmar_baumann.imv.app.AppLog.logWarning(IoUtil.class, ex);
+                AppLog.logWarning(IoUtil.class, ex);
                 JOptionPane.showMessageDialog(null,
                     Bundle.getString("IoUtil.ErrorMessage.OpenFile"),
                     Bundle.getString("IoUtil.ErrorMessage.OpenFile.Title"),

@@ -1,5 +1,6 @@
 package de.elmar_baumann.imv.resource;
 
+import de.elmar_baumann.imv.app.AppLog;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
@@ -27,11 +28,11 @@ public final class Bundle {
         try {
             return bundle.getString(key);
         } catch (MissingResourceException ex) {
-            de.elmar_baumann.imv.app.AppLog.logWarning(Bundle.class, ex);
+            AppLog.logWarning(Bundle.class, ex);
         } catch (NullPointerException ex) {
             throw ex;
         } catch (Exception ex) {
-            de.elmar_baumann.imv.app.AppLog.logWarning(Bundle.class, ex);
+            AppLog.logWarning(Bundle.class, ex);
         }
         return "?" + key + "?"; // NOI18N
     }

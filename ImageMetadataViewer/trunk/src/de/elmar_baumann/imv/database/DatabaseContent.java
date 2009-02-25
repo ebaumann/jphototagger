@@ -1,5 +1,6 @@
 package de.elmar_baumann.imv.database;
 
+import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.database.metadata.Column;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -49,7 +50,7 @@ public final class DatabaseContent extends Database {
             resultSet.close();
             statement.close();
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
+            AppLog.logWarning(getClass(), ex);
             content.clear();
         } finally {
             free(connection);

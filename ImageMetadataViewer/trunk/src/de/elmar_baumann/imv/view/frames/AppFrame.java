@@ -29,8 +29,8 @@ public final class AppFrame extends javax.swing.JFrame {
 
     private final Map<FileSort, JRadioButtonMenuItem> menuItemOfSort = new HashMap<FileSort, JRadioButtonMenuItem>();
     private final Map<JRadioButtonMenuItem, FileSort> sortOfMenuItem = new HashMap<JRadioButtonMenuItem, FileSort>();
-    private final Map<Goto, JMenuItem> menuItemOfGoto = new HashMap<Goto, JMenuItem>();
-    private final Map<JMenuItem, Goto> gotoOfMenuItem = new HashMap<JMenuItem, Goto>();
+    private final Map<GoTo, JMenuItem> menuItemOfGoto = new HashMap<GoTo, JMenuItem>();
+    private final Map<JMenuItem, GoTo> gotoOfMenuItem = new HashMap<JMenuItem, GoTo>();
     private final List<AppExitListener> exitListeners = new ArrayList<AppExitListener>();
     private final List<AppStartListener> startListeners = new ArrayList<AppStartListener>();
     private AppPanel appPanel;
@@ -55,25 +55,25 @@ public final class AppFrame extends javax.swing.JFrame {
     }
 
     private void initGotoMenuItemsMap() {
-        menuItemOfGoto.put(Goto.CATEGORIES, menuItemGotoCategories);
-        menuItemOfGoto.put(Goto.IMAGE_COLLECTIONS, menuItemGotoCollections);
-        menuItemOfGoto.put(Goto.DIRECTORIES, menuItemGotoDirectories);
-        menuItemOfGoto.put(Goto.EDIT_PANELS, menuItemGotoEdit);
-        menuItemOfGoto.put(Goto.EXIF_METADATA, menuItemGotoExifMetadata);
-        menuItemOfGoto.put(Goto.FAST_SEARCH, menuItemGotoFastSearch);
-        menuItemOfGoto.put(Goto.FAVORITE_DIRECTORIES, menuItemGotoFavoriteDirectories);
-        menuItemOfGoto.put(Goto.IPTC_METADATA, menuItemGotoIptcMetadata);
-        menuItemOfGoto.put(Goto.SAVED_SEARCHES, menuItemGotoSavedSearches);
-        menuItemOfGoto.put(Goto.KEYWORDS, menuItemGotoKeywords);
-        menuItemOfGoto.put(Goto.THUMBNAILS_PANEL, menuItemGotoThumbnailsPanel);
-        menuItemOfGoto.put(Goto.XMP_METADATA, menuItemGotoXmpMetadata);
+        menuItemOfGoto.put(GoTo.CATEGORIES, menuItemGotoCategories);
+        menuItemOfGoto.put(GoTo.IMAGE_COLLECTIONS, menuItemGotoCollections);
+        menuItemOfGoto.put(GoTo.DIRECTORIES, menuItemGotoDirectories);
+        menuItemOfGoto.put(GoTo.EDIT_PANELS, menuItemGotoEdit);
+        menuItemOfGoto.put(GoTo.EXIF_METADATA, menuItemGotoExifMetadata);
+        menuItemOfGoto.put(GoTo.FAST_SEARCH, menuItemGotoFastSearch);
+        menuItemOfGoto.put(GoTo.FAVORITE_DIRECTORIES, menuItemGotoFavoriteDirectories);
+        menuItemOfGoto.put(GoTo.IPTC_METADATA, menuItemGotoIptcMetadata);
+        menuItemOfGoto.put(GoTo.SAVED_SEARCHES, menuItemGotoSavedSearches);
+        menuItemOfGoto.put(GoTo.KEYWORDS, menuItemGotoKeywords);
+        menuItemOfGoto.put(GoTo.THUMBNAILS_PANEL, menuItemGotoThumbnailsPanel);
+        menuItemOfGoto.put(GoTo.XMP_METADATA, menuItemGotoXmpMetadata);
 
-        for (Goto gt : menuItemOfGoto.keySet()) {
+        for (GoTo gt : menuItemOfGoto.keySet()) {
             gotoOfMenuItem.put(menuItemOfGoto.get(gt), gt);
         }
     }
 
-    public enum Goto {
+    public enum GoTo {
 
         FAST_SEARCH,
         EDIT_PANELS,
@@ -127,7 +127,7 @@ public final class AppFrame extends javax.swing.JFrame {
         }
     }
 
-    public Goto getGotoOfMenuItem(JMenuItem item) {
+    public GoTo getGotoOfMenuItem(JMenuItem item) {
         return gotoOfMenuItem.get(item);
     }
 
@@ -151,7 +151,7 @@ public final class AppFrame extends javax.swing.JFrame {
         return menuItemCut;
     }
 
-    public JMenuItem getMenuItemOfGoto(Goto gt) {
+    public JMenuItem getMenuItemOfGoto(GoTo gt) {
         return menuItemOfGoto.get(gt);
     }
 

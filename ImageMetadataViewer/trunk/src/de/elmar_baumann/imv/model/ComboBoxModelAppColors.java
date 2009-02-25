@@ -1,6 +1,7 @@
 package de.elmar_baumann.imv.model;
 
 import de.elmar_baumann.imv.UserSettings;
+import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.resource.Bundle;
 import java.util.HashMap;
 import java.util.Map;
@@ -68,7 +69,7 @@ public final class ComboBoxModelAppColors extends DefaultComboBoxModel {
             try {
                 setSelectedItem(getElementAt(Integer.parseInt(index)));
             } catch (NumberFormatException ex) {
-                de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
+                AppLog.logWarning(getClass(), ex);
             }
         }
     }

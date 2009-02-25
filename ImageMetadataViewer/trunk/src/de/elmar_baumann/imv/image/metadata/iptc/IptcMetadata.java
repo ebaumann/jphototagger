@@ -5,6 +5,7 @@ import com.imagero.reader.iptc.IPTCConstants;
 import com.imagero.reader.iptc.IPTCEntry;
 import com.imagero.reader.iptc.IPTCEntryCollection;
 import com.imagero.reader.iptc.IPTCEntryMeta;
+import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.data.Iptc;
 import java.io.File;
 import java.util.ArrayList;
@@ -33,7 +34,7 @@ public final class IptcMetadata {
                     addEntries(collection.getEntries(IPTCConstants.RECORD_APPLICATION), metadata);
                 }
             } catch (Exception ex) {
-                de.elmar_baumann.imv.app.AppLog.logWarning(IptcMetadata.class, ex);
+                AppLog.logWarning(IptcMetadata.class, ex);
             }
         }
         return metadata;

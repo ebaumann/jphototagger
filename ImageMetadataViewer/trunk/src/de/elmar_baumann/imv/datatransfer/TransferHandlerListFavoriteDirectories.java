@@ -1,6 +1,7 @@
 package de.elmar_baumann.imv.datatransfer;
 
 import de.elmar_baumann.imv.app.AppIcons;
+import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.data.FavoriteDirectory;
 import de.elmar_baumann.imv.model.ListModelFavoriteDirectories;
 import de.elmar_baumann.imv.resource.GUI;
@@ -114,7 +115,7 @@ public final class TransferHandlerListFavoriteDirectories extends TransferHandle
                 model.swapFavorites(dropIndex, model.indexOf(item));
             }
         } catch (Exception ex) {
-            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
+            AppLog.logWarning(getClass(), ex);
         }
     }
 }

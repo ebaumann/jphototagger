@@ -1,6 +1,7 @@
 package de.elmar_baumann.imv.controller.tasks;
 
 import de.elmar_baumann.imv.UserSettings;
+import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.event.TaskListener;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.tasks.Task;
@@ -71,7 +72,7 @@ public final class ControllerArrayScheduledTasks
         try {
             Thread.sleep(milliSecondsToStart);
         } catch (InterruptedException ex) {
-            de.elmar_baumann.imv.app.AppLog.logWarning(getClass(), ex);
+            AppLog.logWarning(getClass(), ex);
         }
         startFirstController();
     }

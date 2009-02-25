@@ -1,5 +1,6 @@
 package de.elmar_baumann.imv.database;
 
+import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.event.DatabaseAction;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -39,7 +40,7 @@ public final class DatabaseMaintainance extends Database {
             notifyDatabaseListener(DatabaseAction.Type.MAINTAINANCE_DATABASE_COMPRESSED);
             stmt.close();
         } catch (SQLException ex) {
-            de.elmar_baumann.imv.app.AppLog.logSevere(getClass(), ex);
+            AppLog.logSevere(getClass(), ex);
         } finally {
             free(connection);
         }
