@@ -43,8 +43,6 @@ public final class ControllerFavoriteDirectorySelected implements ListSelectionL
         if (listFavoriteDirectories.getSelectedIndex() >= 0) {
             setFilesToThumbnailsPanel();
             setMetadataEditable();
-        } else {
-            AppLog.logWarning(getClass(), Bundle.getString("ControllerFavoriteDirectorySelected.ErrorMessage.InvalidSelectionIndex"));
         }
     }
 
