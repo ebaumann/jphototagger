@@ -1,9 +1,7 @@
 package de.elmar_baumann.imv.controller.categories;
 
-import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.database.DatabaseImageFiles;
 import de.elmar_baumann.imv.event.RefreshListener;
-import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.types.Content;
@@ -54,8 +52,6 @@ public final class ControllerCategoryItemSelected implements ListSelectionListen
             Set<String> filenames = db.getFilenamesOfCategory(category);
 
             thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames), Content.CATEGORY);
-        } else {
-            AppLog.logWarning(getClass(), Bundle.getString("ControllerCategoryItemSelected.ErrorMessage.InvalidSelectionIndex"));
         }
     }
 }

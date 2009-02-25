@@ -49,7 +49,7 @@ public final class ControllerDeleteSavedSearch implements ActionListener {
             if (db.deleteSavedSearch(searchName)) {
                 model.removeElement(search);
             } else {
-                messageErrorDelete();
+                errorMessageDelete();
             }
         }
     }
@@ -64,7 +64,7 @@ public final class ControllerDeleteSavedSearch implements ActionListener {
                 AppIcons.getMediumAppIcon()) == JOptionPane.YES_OPTION;
     }
 
-    private void messageErrorDelete() {
+    private void errorMessageDelete() {
         JOptionPane.showMessageDialog(
                 null,
                 Bundle.getString("ControllerDeleteSavedSearch.ErrorMessage.SavedSearchCouldntBeDeleted"),

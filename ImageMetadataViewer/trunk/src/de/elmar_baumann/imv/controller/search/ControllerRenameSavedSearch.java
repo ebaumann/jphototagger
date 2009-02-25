@@ -50,12 +50,12 @@ public final class ControllerRenameSavedSearch implements ActionListener {
             if (db.updateRenameSavedSearch(oldName, newName)) {
                 SavedSearch newSearch = db.getSavedSearch(newName);
                 if (newSearch == null) {
-                    messageErrorRenameGetUpdate(oldName);
+                    errorMessageRenameGetUpdate(oldName);
                 } else {
                     model.rename(oldSearch, newSearch);
                 }
             } else {
-                messageErrorRename(oldName);
+                errorMessageRename(oldName);
             }
         }
     }
@@ -96,7 +96,7 @@ public final class ControllerRenameSavedSearch implements ActionListener {
                 AppIcons.getMediumAppIcon()) == JOptionPane.YES_OPTION;
     }
 
-    private void messageErrorRename(String searchName) {
+    private void errorMessageRename(String searchName) {
         MessageFormat msg = new MessageFormat(Bundle.getString("ControllerRenameSavedSearch.ErrorMessage.RenameFailed"));
         Object[] param = {searchName};
         JOptionPane.showMessageDialog(
@@ -107,7 +107,7 @@ public final class ControllerRenameSavedSearch implements ActionListener {
                 AppIcons.getMediumAppIcon());
     }
 
-    private void messageErrorRenameGetUpdate(String searchName) {
+    private void errorMessageRenameGetUpdate(String searchName) {
         MessageFormat msg = new MessageFormat(Bundle.getString("ControllerRenameSavedSearch.ErrorMessage.SavedSearchWasRenamedButCouldntBeLoaded"));
         Object[] param = {searchName};
         JOptionPane.showMessageDialog(

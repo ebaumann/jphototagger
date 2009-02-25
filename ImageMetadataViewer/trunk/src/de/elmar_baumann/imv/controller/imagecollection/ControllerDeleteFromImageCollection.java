@@ -41,8 +41,7 @@ public final class ControllerDeleteFromImageCollection implements ActionListener
     @Override
     public void actionPerformed(ActionEvent e) {
         if (thumbnailsPanel.getContent().equals(Content.IMAGE_COLLECTION)) {
-            int count = thumbnailsPanel.getSelectionCount();
-            if (count > 0) {
+            if (thumbnailsPanel.getSelectionCount() > 0) {
                 deleteSelectedFilesFromImageCollection();
             } else {
                 AppLog.logWarning(ControllerDeleteFromImageCollection.class, Bundle.getString("ControllerDeleteFromImageCollection.ErrorMessage.NoImagesSelected"));

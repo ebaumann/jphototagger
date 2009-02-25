@@ -54,11 +54,11 @@ public final class DatabaseMaintainanceDialog extends Dialog {
             writeProperties();
             setVisible(false);
         } else {
-            messageWaitBeforeClose();
+            errorMessageWaitBeforeClose();
         }
     }
 
-    private void messageWaitBeforeClose() {
+    private void errorMessageWaitBeforeClose() {
         JOptionPane.showMessageDialog(this,
             Bundle.getString("DatabaseMaintainanceDialog.ErrorMessage.WaitBeforeClose"),
             Bundle.getString("DatabaseMaintainanceDialog.ErrorMessage.WaitBeforeClose.Title"),

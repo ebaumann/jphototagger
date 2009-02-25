@@ -49,9 +49,7 @@ public final class ControllerDirectorySelected implements TreeSelectionListener,
 
     @Override
     public void refresh() {
-        if (treeDirectories.getSelectionCount() > 0) {
-            setFilesToThumbnailsPanel();
-        }
+        setFilesToThumbnailsPanel();
     }
 
     private void setFilesToThumbnailsPanel() {
@@ -62,8 +60,6 @@ public final class ControllerDirectorySelected implements TreeSelectionListener,
                     ImageFilteredDirectory.getImageFilesOfDirectory(selectedDirectory),
                     Content.DIRECTORY);
             setMetadataEditable();
-        } else {
-            AppLog.logWarning(getClass(), Bundle.getString("ControllerDirectorySelected.ErrorMessage.InvalidSelectionIndex"));
         }
     }
 

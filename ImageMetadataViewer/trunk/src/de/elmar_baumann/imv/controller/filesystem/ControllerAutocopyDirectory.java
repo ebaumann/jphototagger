@@ -68,11 +68,11 @@ public final class ControllerAutocopyDirectory implements ActionListener {
             dialog.setSourceFiles(files);
             dialog.setVisible(true);
         } else {
-            messageNoFilesFound();
+            errorMessageNoFilesFound();
         }
     }
 
-    private void messageNoFilesFound() {
+    private void errorMessageNoFilesFound() {
         JOptionPane.showMessageDialog(
                 null,
                 Bundle.getString("ControllerAutocopyDirectory.InformationMessage.NoFilesFound"),

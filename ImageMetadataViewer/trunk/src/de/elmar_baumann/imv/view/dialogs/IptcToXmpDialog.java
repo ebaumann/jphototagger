@@ -41,7 +41,7 @@ public final class IptcToXmpDialog extends Dialog
         if (stop) {
             setVisible(false);
         } else {
-            messageWait();
+            errorMessageWaitBeforeClose();
         }
     }
 
@@ -57,7 +57,7 @@ public final class IptcToXmpDialog extends Dialog
         }
     }
 
-    private void messageWait() {
+    private void errorMessageWaitBeforeClose() {
         JOptionPane.showMessageDialog(
             null,
             Bundle.getString("IptcToXmpDialog.ErrorMessage.CancelBeforeClose"),

@@ -114,7 +114,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
         return newDirectories;
     }
 
-    private void messageThreadPriority(Thread thread) {
+    private void informationMessageThreadPriority(Thread thread) {
         MessageFormat message = new MessageFormat(Bundle.getString("UpdateMetadataOfDirectoriesPanel.InformationMessage.ThreadPriority"));
         Object[] params = {thread.getPriority()};
         AppLog.logFinest(UpdateMetadataOfDirectoriesPanel.class, message.format(params));
@@ -234,7 +234,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
 
     private void setThreadPriority(Thread thread) {
         thread.setPriority(UserSettings.INSTANCE.getThreadPriority());
-        messageThreadPriority(thread);
+        informationMessageThreadPriority(thread);
     }
 
     private void zeroProgressBar() {

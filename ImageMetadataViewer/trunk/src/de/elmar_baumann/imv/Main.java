@@ -36,11 +36,11 @@ public final class Main {
     private static void init() {
         LookAndFeelUtil.setSystemLookAndFeel();
         lock();
-        messageInitDatabase();
+        informationMessageInitDatabase();
         DatabaseTables.INSTANCE.createTables();
         initLogger();
         AbstractImageReader.install(ImageProperties.class);
-        messageInitGui();
+        informationMessageInitGui();
         showFrame();
     }
 
@@ -50,12 +50,12 @@ public final class Main {
         }
     }
 
-    private static void messageInitDatabase() {
+    private static void informationMessageInitDatabase() {
         SplashScreen.setMessageToSplashScreen(
                 Bundle.getString("Main.Init.InformationMessage.SplashScreen.ConnectToDatabase"));
     }
 
-    private static void messageInitGui() {
+    private static void informationMessageInitGui() {
         SplashScreen.setMessageToSplashScreen(
                 Bundle.getString("Main.Main.InformationMessage.SplashScreen.InitGui"));
     }

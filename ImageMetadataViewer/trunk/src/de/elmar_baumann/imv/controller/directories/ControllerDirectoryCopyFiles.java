@@ -62,11 +62,8 @@ public final class ControllerDirectoryCopyFiles implements KeyListener {
     private void insertFilesIntoSelectedDirectory() {
         List<File> sourceFiles = ClipboardUtil.getFilesFromSystemClipboard("\n");
         File targetDirectory = ViewUtil.getSelectedDirectory(treeDirectories);
-        int filecount = sourceFiles.size();
-        if (filecount > 0 && targetDirectory != null) {
+        if (sourceFiles.size() > 0 && targetDirectory != null) {
             copyOrMoveFiles(sourceFiles, targetDirectory);
-        } else if (filecount <= 0) {
-            AppLog.logWarning(getClass(), Bundle.getString("ControllerDirectoryCopyFiles.ErrorMessage.InvalidSelectionCount"));
         }
     }
 

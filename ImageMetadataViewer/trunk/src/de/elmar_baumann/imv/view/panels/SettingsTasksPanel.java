@@ -91,7 +91,7 @@ public final class SettingsTasksPanel extends javax.swing.JPanel
                         if (db.insertAutoscanDirectory(directoryName)) {
                             modelAutoscanDirectories.addElement(directory);
                         } else {
-                            messageErrorInsertAutoscanDirectory(directoryName);
+                            errorMessageInsertAutoscanDirectory(directoryName);
                         }
                     }
                 }
@@ -109,14 +109,14 @@ public final class SettingsTasksPanel extends javax.swing.JPanel
                 if (db.deleteAutoscanDirectory(directoryName)) {
                     modelAutoscanDirectories.removeElement(directory);
                 } else {
-                    messageErrorDeleteAutoscanDirectory(directoryName);
+                    errorMessageDeleteAutoscanDirectory(directoryName);
                 }
             }
         }
         setEnabled();
     }
 
-    private void messageErrorInsertAutoscanDirectory(String directoryName) {
+    private void errorMessageInsertAutoscanDirectory(String directoryName) {
         MessageFormat msg = new MessageFormat(Bundle.getString("UserSettingsDialog.ErrorMessage.InsertAutoscanDirectory"));
         Object[] params = {directoryName};
         JOptionPane.showMessageDialog(
@@ -127,7 +127,7 @@ public final class SettingsTasksPanel extends javax.swing.JPanel
             AppIcons.getMediumAppIcon());
     }
 
-    private void messageErrorDeleteAutoscanDirectory(String directoryName) {
+    private void errorMessageDeleteAutoscanDirectory(String directoryName) {
         MessageFormat msg = new MessageFormat(Bundle.getString("UserSettingsDialog.ErrorMessage.DeleteAutoscanDirectory"));
         Object[] params = {directoryName};
         JOptionPane.showMessageDialog(
