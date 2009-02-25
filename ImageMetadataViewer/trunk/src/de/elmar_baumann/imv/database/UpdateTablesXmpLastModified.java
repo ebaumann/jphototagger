@@ -71,7 +71,7 @@ final class UpdateTablesXmpLastModified {
 
     private void setProgressDialog() {
         messages.message(Bundle.getString("UpdateTablesXmpLastModified.InformationMessage.AddColumnXmpLastModified.SetLastModified"));
-        dialog.setIntermediate(false);
+        dialog.setIndeterminate(false);
         dialog.setMinimum(0);
         dialog.setMaximum(DatabaseStatistics.INSTANCE.getXmpCount());
         dialog.setValue(0);

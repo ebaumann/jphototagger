@@ -51,12 +51,12 @@ final class UpdateTablesDropColumns {
     }
 
     private synchronized void dropColumns(Connection connection) throws SQLException {
-        dialog.setIntermediate(true);
+        dialog.setIndeterminate(true);
         messages.message(Bundle.getString("UpdateTablesDropUnusedColumns.InformationMessage.update"));
         for (ColumnInfo info : dropColumns) {
             dropColumn(connection,info.getTableName(), info.getColumnName());
         }
-        dialog.setIntermediate(false);
+        dialog.setIndeterminate(false);
     }
 
     private void dropColumn(Connection connection, String tableName, String columnName) throws SQLException {

@@ -56,12 +56,12 @@ final class UpdateTablesAddColumns {
     }
 
     private synchronized void addColumns(Connection connection) throws SQLException {
-        dialog.setIntermediate(true);
+        dialog.setIndeterminate(true);
         messages.message(Bundle.getString("UpdateTablesAddNewColumns.InformationMessage.update"));
         for (ColumnInfo info : missingColumns) {
             addColumn(connection, info);
         }
-        dialog.setIntermediate(false);
+        dialog.setIndeterminate(false);
     }
 
     private void addColumn(Connection connection, ColumnInfo info) throws SQLException {

@@ -49,12 +49,12 @@ final class UpdateTableRenameColumns {
     }
 
     private synchronized void renameColumns(Connection connection) throws SQLException {
-        dialog.setIntermediate(true);
+        dialog.setIndeterminate(true);
         messages.message(Bundle.getString("UpdateTableRenameColumns.InformationMessage.update"));
         for (Pair<ColumnInfo, ColumnInfo> info : renameColumns) {
             renameColumn(connection, info);
         }
-        dialog.setIntermediate(false);
+        dialog.setIndeterminate(false);
     }
 
     private void renameColumn(Connection connection, Pair<ColumnInfo, ColumnInfo> info) throws SQLException {
