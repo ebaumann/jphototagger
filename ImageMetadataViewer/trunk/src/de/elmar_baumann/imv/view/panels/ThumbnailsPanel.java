@@ -301,12 +301,6 @@ public abstract class ThumbnailsPanel extends JPanel
         return flagOfThumbnail.get(index);
     }
 
-    private void checkPopupMenu(MouseEvent e) {
-        if (e.isPopupTrigger()) {
-            showPopupMenu(e, getIndexAtPoint(e.getX(), e.getY()));
-        }
-    }
-
     private int getCountHoricontalLeftFromX(int x) {
         return x / (getThumbnailAreaWidth() + externalPadding);
     }
