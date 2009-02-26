@@ -28,7 +28,7 @@ public final class ControllerPasteFilesFromClipboard implements ActionListener {
     }
 
     private void listen() {
-        GUI.INSTANCE.getAppFrame().getMenuItemInsert().addActionListener(this);
+        GUI.INSTANCE.getAppFrame().getMenuItemPaste().addActionListener(this);
     }
 
     @Override

@@ -1,4 +1,4 @@
-package de.elmar_baumann.imv.controller.thumbnail;
+package de.elmar_baumann.imv.controller.misc;
 
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.database.DatabasePrograms;
@@ -27,8 +27,9 @@ import javax.swing.JMenuItem;
 public final class ControllerMenuItemEnabler
         implements UserSettingsChangeListener, ThumbnailsPanelListener {
 
-    private final Map<JMenuItem, List<Content>> contentsOfMenuItem = new HashMap<JMenuItem, List<Content>>();
-    private final List<JMenuItem> itemsIsSelection = new ArrayList<JMenuItem>();
+    private final Map<JMenuItem, List<Content>> contentsOfMenuItemRequiresSelectedImages = new HashMap<JMenuItem, List<Content>>();
+    private final Map<JMenuItem, List<Content>> contentsOfMenuItemRequiresContent = new HashMap<JMenuItem, List<Content>>();
+    private final List<JMenuItem> itemsRequiresSelectedImages = new ArrayList<JMenuItem>();
     private final AppFrame appFrame = GUI.INSTANCE.getAppFrame();
     private final PopupMenuPanelThumbnails popupThumbnails = PopupMenuPanelThumbnails.INSTANCE;
     private final ImageFileThumbnailsPanel thumbnailsPanel = GUI.INSTANCE.getAppPanel().getPanelThumbnails();
@@ -51,46 +52,51 @@ public final class ControllerMenuItemEnabler
         contents = new ArrayList<Content>();
         contents.add(Content.DIRECTORY);
         contents.add(Content.FAVORITE_DIRECTORY);
-        contentsOfMenuItem.put(popupThumbnails.getItemFileSystemMoveFiles(), contents);
+        contentsOfMenuItemRequiresSelectedImages.put(popupThumbnails.getItemFileSystemMoveFiles(), contents);
 
         contents = new ArrayList<Content>();
         contents.add(Content.DIRECTORY);
-        contentsOfMenuItem.put(appFrame.getMenuItemInsert(), contents);
+        contentsOfMenuItemRequiresContent.put(appFrame.getMenuItemPaste(), contents);
 
         contents = new ArrayList<Content>();
         contents.add(Content.IMAGE_COLLECTION);
-        contentsOfMenuItem.put(popupThumbnails.getItemDeleteFromImageCollection(), contents);
+        contentsOfMenuItemRequiresSelectedImages.put(popupThumbnails.getItemDeleteFromImageCollection(), contents);
 
-        itemsIsSelection.add(appFrame.getMenuItemCopy());
-        itemsIsSelection.add(appFrame.getMenuItemCut());
-        itemsIsSelection.add(appFrame.getMenuItemDelete());
-        itemsIsSelection.add(appFrame.getMenuItemRename());
-        itemsIsSelection.add(appFrame.getMenuItemRenameInXmp());
-        itemsIsSelection.add(popupThumbnails.getItemUpdateThumbnail());
-        itemsIsSelection.add(popupThumbnails.getItemUpdateMetadata());
-        itemsIsSelection.add(popupThumbnails.getItemDeleteImageFromDatabase());
-        itemsIsSelection.add(popupThumbnails.getItemCreateImageCollection());
-        itemsIsSelection.add(popupThumbnails.getItemAddToImageCollection());
-        itemsIsSelection.add(popupThumbnails.getItemRotateThumbnai90());
-        itemsIsSelection.add(popupThumbnails.getItemRotateThumbnai180());
-        itemsIsSelection.add(popupThumbnails.getItemRotateThumbnai270());
-        itemsIsSelection.add(popupThumbnails.getItemFileSystemCopyToDirectory());
-        itemsIsSelection.add(popupThumbnails.getItemFileSystemDeleteFiles());
-        itemsIsSelection.add(popupThumbnails.getItemFileSystemRenameFiles());
+        itemsRequiresSelectedImages.add(appFrame.getMenuItemCopy());
+        itemsRequiresSelectedImages.add(appFrame.getMenuItemCut());
+        itemsRequiresSelectedImages.add(appFrame.getMenuItemDelete());
+        itemsRequiresSelectedImages.add(appFrame.getMenuItemRename());
+        itemsRequiresSelectedImages.add(appFrame.getMenuItemRenameInXmp());
+        itemsRequiresSelectedImages.add(popupThumbnails.getItemUpdateThumbnail());
+        itemsRequiresSelectedImages.add(popupThumbnails.getItemUpdateMetadata());
+        itemsRequiresSelectedImages.add(popupThumbnails.getItemDeleteImageFromDatabase());
+        itemsRequiresSelectedImages.add(popupThumbnails.getItemCreateImageCollection());
+        itemsRequiresSelectedImages.add(popupThumbnails.getItemAddToImageCollection());
+        itemsRequiresSelectedImages.add(popupThumbnails.getItemRotateThumbnai90());
+        itemsRequiresSelectedImages.add(popupThumbnails.getItemRotateThumbnai180());
+        itemsRequiresSelectedImages.add(popupThumbnails.getItemRotateThumbnai270());
+        itemsRequiresSelectedImages.add(popupThumbnails.getItemFileSystemCopyToDirectory());
+        itemsRequiresSelectedImages.add(popupThumbnails.getItemFileSystemDeleteFiles());
+        itemsRequiresSelectedImages.add(popupThumbnails.getItemFileSystemRenameFiles());
     }
 
     private void setEnabled() {
         Content content = thumbnailsPanel.getContent();
         boolean isSelection = thumbnailsPanel.getSelectionCount() > 0;
 
-        for (JMenuItem item : itemsIsSelection) {
+        for (JMenuItem item : itemsRequiresSelectedImages) {
             item.setEnabled(isSelection);
         }
 
-        for (JMenuItem item : contentsOfMenuItem.keySet()) {
+        for (JMenuItem item : contentsOfMenuItemRequiresSelectedImages.keySet()) {
             item.setEnabled(
                     isSelection &&
-                    contentsOfMenuItem.get(item).contains(content));
+                    contentsOfMenuItemRequiresSelectedImages.get(item).contains(content));
+        }
+
+        for (JMenuItem item : contentsOfMenuItemRequiresContent.keySet()) {
+            item.setEnabled(
+                    contentsOfMenuItemRequiresContent.get(item).contains(content));
         }
 
         UserSettings settings = UserSettings.INSTANCE;

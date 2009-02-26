@@ -143,8 +143,8 @@ public final class AppFrame extends javax.swing.JFrame {
         return menuItemCopy;
     }
 
-    public JMenuItem getMenuItemInsert() {
-        return menuItemInsert;
+    public JMenuItem getMenuItemPaste() {
+        return menuItemPaste;
     }
 
     public JMenuItem getMenuItemCut() {
@@ -258,7 +258,7 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemSearch = new javax.swing.JMenuItem();
         jSeparator6 = new javax.swing.JSeparator();
         menuItemCut = new javax.swing.JMenuItem();
-        menuItemInsert = new javax.swing.JMenuItem();
+        menuItemPaste = new javax.swing.JMenuItem();
         menuItemCopy = new javax.swing.JMenuItem();
         menuItemFileSystemRename = new javax.swing.JMenuItem();
         menuItemDelete = new javax.swing.JMenuItem();
@@ -365,12 +365,12 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemCut.setEnabled(false);
         menuEdit.add(menuItemCut);
 
-        menuItemInsert.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.CTRL_MASK));
-        menuItemInsert.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icon_edit_paste.png"))); // NOI18N
-        menuItemInsert.setMnemonic('f');
-        menuItemInsert.setText(Bundle.getString("AppFrame.menuItemInsert.text")); // NOI18N
-        menuItemInsert.setEnabled(false);
-        menuEdit.add(menuItemInsert);
+        menuItemPaste.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.CTRL_MASK));
+        menuItemPaste.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icon_edit_paste.png"))); // NOI18N
+        menuItemPaste.setMnemonic('f');
+        menuItemPaste.setText(Bundle.getString("AppFrame.menuItemPaste.text")); // NOI18N
+        menuItemPaste.setEnabled(false);
+        menuEdit.add(menuItemPaste);
 
         menuItemCopy.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_MASK));
         menuItemCopy.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icon_edit_copy.png"))); // NOI18N
@@ -601,8 +601,8 @@ private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:even
     private javax.swing.JMenuItem menuItemGotoThumbnailsPanel;
     private javax.swing.JMenuItem menuItemGotoXmpMetadata;
     private javax.swing.JMenuItem menuItemHelp;
-    private javax.swing.JMenuItem menuItemInsert;
     private javax.swing.JMenuItem menuItemMaintainDatabase;
+    private javax.swing.JMenuItem menuItemPaste;
     private javax.swing.JMenuItem menuItemRefresh;
     private javax.swing.JMenuItem menuItemRenameInXmp;
     private javax.swing.JMenuItem menuItemScanDirectory;

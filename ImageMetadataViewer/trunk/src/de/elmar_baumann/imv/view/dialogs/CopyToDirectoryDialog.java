@@ -27,6 +27,7 @@ public final class CopyToDirectoryDialog extends Dialog
     implements ProgressListener {
 
     private static final String keyLastDirectory = "de.elmar_baumann.imv.view.dialogs.CopyToDirectoryDialog.LastDirectory"; // NOI18N
+    private static final String keyCopyXmp = "CopyToDirectoryDialog.CopyXmp"; // NOI18N
     private final List<ProgressListener> progressListeners = new ArrayList<ProgressListener>();
     private CopyFiles copyTask;
     private boolean copy = false;
@@ -196,15 +197,20 @@ public final class CopyToDirectoryDialog extends Dialog
 
     private void readProperties() {
         UserSettings.INSTANCE.getSettings().getSizeAndLocation(this);
+        UserSettings.INSTANCE.getSettings().getCheckBox(checkBoxCopyXmp, keyCopyXmp);
+        String dir = UserSettings.INSTANCE.getSettings().getString(keyLastDirectory);
+        if (FileUtil.existsDirectory(dir)) {
+            lastDirectory = dir;
+        }
     }
 
     private void writeProperties() {
         UserSettings.INSTANCE.getSettings().setSizeAndLocation(this);
         UserSettings.INSTANCE.getSettings().setString(lastDirectory, keyLastDirectory);
+        UserSettings.INSTANCE.getSettings().setCheckBox(checkBoxCopyXmp, keyCopyXmp);
     }
 
     private void setLastDirectory() {
-        lastDirectory = UserSettings.INSTANCE.getSettings().getString(keyLastDirectory);
         if (FileUtil.existsDirectory(lastDirectory)) {
             labelTargetDirectory.setText(lastDirectory);
             buttonStart.setEnabled(true);
@@ -284,7 +290,7 @@ public final class CopyToDirectoryDialog extends Dialog
 
         labelInfo.setText(Bundle.getString("CopyToDirectoryDialog.labelInfo.text")); // NOI18N
 
-        labelTargetDirectory.setFont(new java.awt.Font("Dialog", 0, 11));
+        labelTargetDirectory.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
         labelTargetDirectory.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         buttonChooseDirectory.setFont(new java.awt.Font("Dialog", 0, 12));
@@ -296,7 +302,7 @@ public final class CopyToDirectoryDialog extends Dialog
             }
         });
 
-        checkBoxForceOverwrite.setFont(new java.awt.Font("Dialog", 0, 12));
+        checkBoxForceOverwrite.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         checkBoxForceOverwrite.setMnemonic('x');
         checkBoxForceOverwrite.setText(Bundle.getString("CopyToDirectoryDialog.checkBoxForceOverwrite.text")); // NOI18N
 
@@ -320,15 +326,16 @@ public final class CopyToDirectoryDialog extends Dialog
             }
         });
 
-        labelCurrentFilename.setFont(new java.awt.Font("Dialog", 0, 10));
+        labelCurrentFilename.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
         labelCurrentFilename.setForeground(new java.awt.Color(0, 0, 255));
         labelCurrentFilename.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(225, 225, 225)));
 
-        labelInfoIsThread.setFont(new java.awt.Font("Dialog", 0, 12));
+        labelInfoIsThread.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         labelInfoIsThread.setText(Bundle.getString("CopyToDirectoryDialog.labelInfoIsThread.text")); // NOI18N
 
-        checkBoxCopyXmp.setFont(new java.awt.Font("Dialog", 0, 12));
+        checkBoxCopyXmp.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         checkBoxCopyXmp.setMnemonic('x');
+        checkBoxCopyXmp.setSelected(true);
         checkBoxCopyXmp.setText(Bundle.getString("CopyToDirectoryDialog.checkBoxCopyXmp.text")); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -336,29 +343,19 @@ public final class CopyToDirectoryDialog extends Dialog
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addComponent(checkBoxCopyXmp)
-                .addContainerGap(360, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addComponent(labelInfo)
-                .addContainerGap(289, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addComponent(labelInfoIsThread)
-                .addContainerGap(324, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(labelTargetDirectory, javax.swing.GroupLayout.DEFAULT_SIZE, 602, Short.MAX_VALUE)
-                    .addComponent(labelCurrentFilename, javax.swing.GroupLayout.DEFAULT_SIZE, 602, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(checkBoxForceOverwrite)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
-                        .addComponent(buttonChooseDirectory))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(progressBar, javax.swing.GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(10, 10, 10)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(labelInfoIsThread)
+                    .addComponent(labelCurrentFilename, javax.swing.GroupLayout.DEFAULT_SIZE, 441, Short.MAX_VALUE)
+                    .addComponent(progressBar, javax.swing.GroupLayout.DEFAULT_SIZE, 441, Short.MAX_VALUE)
+                    .addComponent(checkBoxCopyXmp)
+                    .addComponent(checkBoxForceOverwrite)
+                    .addComponent(labelTargetDirectory, javax.swing.GroupLayout.DEFAULT_SIZE, 441, Short.MAX_VALUE)
+                    .addComponent(labelInfo))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(buttonChooseDirectory, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(buttonStop)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonStart)))
