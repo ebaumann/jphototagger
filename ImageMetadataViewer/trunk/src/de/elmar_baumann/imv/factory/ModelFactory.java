@@ -55,15 +55,5 @@ public final class ModelFactory {
         JTree treeDirectories = appPanel.getTreeDirectories();
         treeDirectories.setModel(
             new TreeModelDirectories(UserSettings.INSTANCE.getDefaultDirectoryFilterOptions()));
-//        new Thread(new Runnable() {
-//
-//            @Override
-//            public void run() {
-//                JTree treeDirectories = appPanel.getTreeDirectories();
-//                treeDirectories.setModel(
-//                        new TreeModelDirectories(UserSettings.INSTANCE.getDefaultDirectoryFilterOptions()));
-//                ViewUtil.readTreeDirectoriesFromProperties();
-//            }
-//        }).start();
     }
 }
