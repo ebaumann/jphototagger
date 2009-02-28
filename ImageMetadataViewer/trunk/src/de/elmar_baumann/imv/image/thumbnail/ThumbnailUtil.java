@@ -167,7 +167,7 @@ public final class ThumbnailUtil {
         byte[] stderr = output.getSecond();
         String message = (stderr == null ? "" : new String(stderr).trim());
         if (!message.isEmpty()) {
-            message = "Program error message: " + message;
+            message = Bundle.getString("ThumbnailUtil.ErrorMessage.ExternalProgram") + message;
             AppLog.logWarning(ThumbnailUtil.class, message);
         }
     }
