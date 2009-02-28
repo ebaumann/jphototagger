@@ -26,7 +26,7 @@ public final class AppLock {
      * 
      * @return  true if locked
      */
-    public synchronized static boolean isLocked() {
+    public static synchronized boolean isLocked() {
         return FileUtil.existsFile(lockFileName);
     }
 
@@ -35,7 +35,7 @@ public final class AppLock {
      * 
      * @return true if locked
      */
-    public synchronized static boolean lock() {
+    public static synchronized boolean lock() {
         if (!isLocked()) {
             return FileUtil.ensureFileExists(lockFileName);
         }
@@ -47,7 +47,7 @@ public final class AppLock {
      * 
      * @return true if successful
      */
-    public synchronized static boolean unlock() {
+    public static synchronized boolean unlock() {
         if (isLocked()) {
             return new File(lockFileName).delete();
         }
@@ -60,7 +60,7 @@ public final class AppLock {
      * 
      * @return  true if unlocked
      */
-    public static boolean forceUnlock() {
+    public static synchronized boolean forceUnlock() {
         if (confirmForceUnlock()) {
             return deleteLockFile();
         }
