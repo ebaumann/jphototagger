@@ -40,6 +40,7 @@ public final class TreeModelDirectories implements TreeModel {
     private final Object root = new Object();
     private final DirectoryFilter directoryFilter;
     private ScanForDirectoryUpdates updater;
+    private final Object monitor = new Object();
 
     public TreeModelDirectories(Set<DirectoryFilter.Option> options) {
         if (options == null) {
@@ -75,7 +76,7 @@ public final class TreeModelDirectories implements TreeModel {
 
     @Override
     public int getChildCount(Object parent) {
-        synchronized (this) {
+        synchronized (monitor) {
             if (parent.equals(root)) {
                 return rootNodes.size();
             }
@@ -92,7 +93,7 @@ public final class TreeModelDirectories implements TreeModel {
 
     @Override
     public Object getChild(Object parent, int index) {
-        synchronized (this) {
+        synchronized (monitor) {
             File file;
             if (parent.equals(root)) {
                 file = rootNodes.get(index);
@@ -105,7 +106,7 @@ public final class TreeModelDirectories implements TreeModel {
         }
     }
 
-    private synchronized void addToUpdateChecks(File f) {
+    private void addToUpdateChecks(File f) {
         if (f != null && !filesForUpdateCheck.contains(f)) {
             filesForUpdateCheck.add(f);
         }
@@ -113,14 +114,14 @@ public final class TreeModelDirectories implements TreeModel {
 
     @Override
     public boolean isLeaf(Object node) {
-        synchronized (this) {
+        synchronized (monitor) {
             return getChildCount(node) <= 0;
         }
     }
 
     @Override
     public int getIndexOfChild(Object parent, Object child) {
-        synchronized (this) {
+        synchronized (monitor) {
             if (parent.equals(root)) {
                 return rootNodes.indexOf(child);
             }
@@ -134,14 +135,14 @@ public final class TreeModelDirectories implements TreeModel {
 
     @Override
     public void addTreeModelListener(TreeModelListener l) {
-        synchronized (this) {
+        synchronized (monitor) {
             listeners.add(l);
         }
     }
 
     @Override
     public void removeTreeModelListener(TreeModelListener l) {
-        synchronized (this) {
+        synchronized (monitor) {
             listeners.remove(l);
         }
     }
@@ -357,7 +358,7 @@ public final class TreeModelDirectories implements TreeModel {
                     for (File childOfFile : childrenOfFile) {
                         boolean childExists = false;
                         List<File> existingChildrenOfFile;
-                        synchronized (this) {
+                        synchronized (monitor) {
                             existingChildrenOfFile = childrenOfNode.get(file);
                             childExists = existingChildrenOfFile != null &&
                                     existingChildrenOfFile.contains(childOfFile);
@@ -380,13 +381,13 @@ public final class TreeModelDirectories implements TreeModel {
             }
         }
 
-        private synchronized boolean isRootNode(File file) {
+        private boolean isRootNode(File file) {
             assert file != null : file;
 
             return rootNodes.contains(file);
         }
 
-        private synchronized List<File> getFilesForUdateCheck() {
+        private List<File> getFilesForUdateCheck() {
             List<File> files = new ArrayList<File>();
             for (File file : filesForUpdateCheck) {
                 files.add(file);
