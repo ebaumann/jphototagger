@@ -8,10 +8,6 @@ import java.util.List;
  * Ausnahme in einer Logdatei von  <code>java.util.logging.Logger</code>,
  * benutzt für Java-Exceptions und sonstigen Throwable-Objekten.
  * 
- * All functions with object-reference-parameters are throwing a
- * <code>NullPointerException</code> if an object reference is null and it is
- * not documentet that it can be null.
- *
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
@@ -32,7 +28,8 @@ public final class LogfileRecordException {
     /**
      * Fügt einen Stack-Frame hinzu.
      * 
-     * @param frame Stack-Frame
+     * @param  frame Stack-Frame
+     * @throws NullPointerException if frame is null
      */
     public void addFrame(LogfileRecordFrame frame) {
         if (frame == null)
@@ -66,17 +63,15 @@ public final class LogfileRecordException {
      * @param message Nachricht
      */
     public void setMessage(String message) {
-        if (message == null)
-            throw new NullPointerException("message == null");
-
         this.message = message;
     }
 
     /**
      * Liefert, ob ein Teilstring in irgendeinem der Inhalte vorkommt.
      * 
-     * @param substring Teilstring
-     * @return          true, wenn der Teilstring in irgendeinem der Inhalte vorkommt
+     * @param  substring  Teilstring
+     * @return true, wenn der Teilstring in irgendeinem der Inhalte vorkommt
+     * @throws NullPointerException if substring is null
      */
     boolean contains(String substring) {
         if (substring == null)
@@ -93,9 +88,9 @@ public final class LogfileRecordException {
     }
 
     private boolean containsSubstring(String string, String substring) {
-        assert string != null : string;
-        assert substring != null : substring;
-
+        if (string == null) {
+            return false;
+        }
         return string.toLowerCase().contains(substring.toLowerCase());
     }
 }

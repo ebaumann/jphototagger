@@ -7,10 +7,6 @@ import java.util.logging.Level;
 /**
  * Datensatz einer Logdatei, geschrieben von <code>java.util.logging.Logger</code>.
  * 
- * All functions with object-reference-parameters are throwing a
- * <code>NullPointerException</code> if an object reference is null and it is
- * not documentet that it can be null.
- *
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
@@ -48,9 +44,6 @@ public final class LogfileRecord {
      * @param catalog Name des Resource-Bundles
      */
     public void setCatalog(String catalog) {
-        if (catalog == null)
-            throw new NullPointerException("catalog == null");
-
         this.catalog = catalog;
     }
 
@@ -73,9 +66,6 @@ public final class LogfileRecord {
      * @see       #setMessage(java.lang.String)
      */
     public void setKey(String key) {
-        if (key == null)
-            throw new NullPointerException("key == null");
-
         this.key = key;
     }
 
@@ -116,9 +106,6 @@ public final class LogfileRecord {
      * @param classname Klasenname
      */
     public void setClassname(String classname) {
-        if (classname == null)
-            throw new NullPointerException("classname == null");
-
         this.classname = classname;
     }
 
@@ -219,9 +206,6 @@ public final class LogfileRecord {
      * @param methodname Methodenname
      */
     public void setMethodname(String methodname) {
-        if (methodname == null)
-            throw new NullPointerException("methodname == null");
-
         this.methodname = methodname;
     }
 
@@ -244,9 +228,6 @@ public final class LogfileRecord {
      * @param sequence Sequenznummer in der Quell-VM
      */
     public void setSequence(String sequence) {
-        if (sequence == null)
-            throw new NullPointerException("sequence == null");
-
         this.sequence = sequence;
     }
 
@@ -266,9 +247,6 @@ public final class LogfileRecord {
      * @param thread Thread-ID (Integer)
      */
     public void setThread(String thread) {
-        if (thread == null)
-            throw new NullPointerException("thread == null");
-
         this.thread = thread;
     }
 
@@ -294,9 +272,6 @@ public final class LogfileRecord {
      * @see          #setMessage(java.lang.String)
      */
     public void setParams(List<String> params) {
-        if (params == null)
-            throw new NullPointerException("params == null");
-
         this.params = params;
     }
 
@@ -309,9 +284,6 @@ public final class LogfileRecord {
      * @see         #setMessage(java.lang.String)
      */
     public void addParam(String param) {
-        if (param == null)
-            throw new NullPointerException("param == null");
-
         if (params == null) {
             params = new ArrayList<String>();
         }
@@ -334,9 +306,6 @@ public final class LogfileRecord {
      * @param ex Ausnahme
      */
     public void setException(LogfileRecordException ex) {
-        if (ex == null)
-            throw new NullPointerException("ex == null");
-
         this.exception = ex;
     }
 
@@ -419,6 +388,7 @@ public final class LogfileRecord {
      * 
      * @param substring Teilstring
      * @return          true, wenn der Teilstring in irgendeinem der Inhalte vorkommt
+     * @throws          NullPointerException if substring is null
      */
     public boolean contains(String substring) {
         if (substring == null)
@@ -437,9 +407,9 @@ public final class LogfileRecord {
     }
 
     private boolean containsSubstring(String string, String substring) {
-        assert string != null : string;
-        assert substring != null : substring;
-
+        if (string == null) {
+            return false;
+        }
         return string.toLowerCase().contains(substring.toLowerCase());
     }
 }
