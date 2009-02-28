@@ -42,8 +42,9 @@ public final class TreeModelDirectories implements TreeModel {
     private ScanForDirectoryUpdates updater;
 
     public TreeModelDirectories(Set<DirectoryFilter.Option> options) {
-        if (options == null)
+        if (options == null) {
             throw new NullPointerException("options == null");
+        }
 
         directoryFilter = new DirectoryFilter(options);
         setRootDirectories();
@@ -74,27 +75,25 @@ public final class TreeModelDirectories implements TreeModel {
 
     @Override
     public int getChildCount(Object parent) {
-        if (parent.equals(root)) {
-            synchronized (this) {
+        synchronized (this) {
+            if (parent.equals(root)) {
                 return rootNodes.size();
             }
-        }
-        List<File> children;
-        synchronized (this) {
+            List<File> children;
             children = childrenOfNode.get(parent);
-        }
-        if (children == null) {
-            new Thread(new AddSubdirectories((File) parent)).run();
-            return 0;
-        } else {
-            return children.size();
+            if (children == null) {
+                new Thread(new AddSubdirectories((File) parent)).run();
+                return 0;
+            } else {
+                return children.size();
+            }
         }
     }
 
     @Override
     public Object getChild(Object parent, int index) {
-        File file;
         synchronized (this) {
+            File file;
             if (parent.equals(root)) {
                 file = rootNodes.get(index);
                 addToUpdateChecks(file);
@@ -102,8 +101,8 @@ public final class TreeModelDirectories implements TreeModel {
             }
             file = childrenOfNode.get(parent).get(index);
             addToUpdateChecks(file);
+            return file;
         }
-        return file;
     }
 
     private synchronized void addToUpdateChecks(File f) {
@@ -147,7 +146,7 @@ public final class TreeModelDirectories implements TreeModel {
         }
     }
 
-    private synchronized void notifyNodesInserted(TreeModelEvent evt) {
+    private void notifyNodesInserted(TreeModelEvent evt) {
         assert evt != null : evt;
 
         for (TreeModelListener l : listeners) {
@@ -155,7 +154,7 @@ public final class TreeModelDirectories implements TreeModel {
         }
     }
 
-    private synchronized void notifyNodesRemoved(TreeModelEvent evt) {
+    private void notifyNodesRemoved(TreeModelEvent evt) {
         assert evt != null : evt;
 
         for (TreeModelListener l : listeners) {
@@ -193,7 +192,7 @@ public final class TreeModelDirectories implements TreeModel {
     }
 
     @SuppressWarnings("unchecked")
-    private synchronized void insertRootNode(File node) {
+    private void insertRootNode(File node) {
         assert node != null : node;
 
         int index;
@@ -207,7 +206,7 @@ public final class TreeModelDirectories implements TreeModel {
     }
 
     @SuppressWarnings("unchecked")
-    private synchronized void insertChildNode(TreePath parentPath, File node) {
+    private void insertChildNode(TreePath parentPath, File node) {
         assert parentPath != null : parentPath;
         assert node != null : node;
 
@@ -236,7 +235,7 @@ public final class TreeModelDirectories implements TreeModel {
         }
     }
 
-    private synchronized void removeNode(TreePath parentPath, File node) {
+    private void removeNode(TreePath parentPath, File node) {
         assert parentPath != null : parentPath;
         assert node != null : node;
 
@@ -248,7 +247,7 @@ public final class TreeModelDirectories implements TreeModel {
             int indexOfNode = parentsFiles.indexOf(node);
             parentsFiles.remove(node);
             TreeModelEvent evt = new TreeModelEvent(this, parentPath.getPath(),
-                new int[]{indexOfNode}, new Object[]{node});
+                    new int[]{indexOfNode}, new Object[]{node});
             notifyNodesRemoved(evt);
         }
         childrenOfNode.remove(node);
@@ -257,7 +256,7 @@ public final class TreeModelDirectories implements TreeModel {
         updater.setPause(false);
     }
 
-    private synchronized void removeChildrenOf(File node) {
+    private void removeChildrenOf(File node) {
         assert node != null : node;
 
         List<File> cachedFiles = getCachedFiles();
@@ -270,7 +269,7 @@ public final class TreeModelDirectories implements TreeModel {
         }
     }
 
-    private synchronized List<File> getCachedFiles() {
+    private List<File> getCachedFiles() {
         List<File> cachedFiles = new ArrayList<File>();
         Set<File> files = childrenOfNode.keySet();
         for (File file : files) {
@@ -288,7 +287,7 @@ public final class TreeModelDirectories implements TreeModel {
         while (parentFile != null) {
             stack.push(parentFile);
             parentFile =
-                parentFile.getParentFile();
+                    parentFile.getParentFile();
         }
 
         Object[] path = new Object[stack.size() + 1];
@@ -302,7 +301,7 @@ public final class TreeModelDirectories implements TreeModel {
     }
 
     private class AddSubdirectories
-        implements Runnable {
+            implements Runnable {
 
         File parent;
 
@@ -361,7 +360,7 @@ public final class TreeModelDirectories implements TreeModel {
                         synchronized (this) {
                             existingChildrenOfFile = childrenOfNode.get(file);
                             childExists = existingChildrenOfFile != null &&
-                                existingChildrenOfFile.contains(childOfFile);
+                                    existingChildrenOfFile.contains(childOfFile);
                         }
                         if (!childExists) {
                             insertNode(parentPath, childOfFile);
