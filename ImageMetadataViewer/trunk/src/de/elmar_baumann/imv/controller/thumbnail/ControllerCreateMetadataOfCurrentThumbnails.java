@@ -1,6 +1,7 @@
 package de.elmar_baumann.imv.controller.thumbnail;
 
 import de.elmar_baumann.imv.UserSettings;
+import de.elmar_baumann.imv.app.AppTexts;
 import de.elmar_baumann.imv.tasks.InsertImageFilesIntoDatabase;
 import de.elmar_baumann.imv.event.ProgressEvent;
 import de.elmar_baumann.imv.event.ProgressListener;
@@ -80,11 +81,18 @@ public final class ControllerCreateMetadataOfCurrentThumbnails
         updateMetadata();
     }
 
+    private void setProgressBarValueAndTooltipText(ProgressEvent evt) {
+        progressBar.setValue(evt.getValue());
+        if (evt.getInfo() != null) {
+            progressBar.setToolTipText(evt.getInfo().toString());
+        }
+    }
+
     @Override
     public void progressStarted(ProgressEvent evt) {
         progressBar.setMinimum(evt.getMinimum());
         progressBar.setMaximum(evt.getMaximum());
-        progressBar.setValue(evt.getValue());
+        setProgressBarValueAndTooltipText(evt);
     }
 
     @Override
@@ -93,13 +101,14 @@ public final class ControllerCreateMetadataOfCurrentThumbnails
             evt.stop();
             stop = false;
         } else {
-            progressBar.setValue(evt.getValue());
+            setProgressBarValueAndTooltipText(evt);
         }
     }
 
     @Override
     public void progressEnded(ProgressEvent evt) {
         progressBar.setValue(evt.getValue());
+        progressBar.setToolTipText(AppTexts.tooltipTextProgressBarDirectory);
         setWait(false);
         if (updaters.size() > 0) {
             startUpdateMetadataThread();
