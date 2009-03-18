@@ -31,7 +31,18 @@ public enum ExifTag {
     CONTRAST(41992),
     SATURATION(41993),
     SHARPNESS(41994),
-    SUBJECT_DISTANCE_RANGE(41996),;
+    SUBJECT_DISTANCE_RANGE(41996),
+    GPS_VERSION_ID(0),
+    GPS_LATITUDE_REF(1),
+    GPS_LATITUDE(2),
+    GPS_LONGITUDE_REF(3),
+    GPS_LONGITUDE(4),
+    GPS_ALTITUDE_REF(5),
+    GPS_ALTITUDE(6),
+    GPS_TIME_STAMP(7),
+    GPS_SATELLITES(8),
+    GPS_DATE_STAMP(29),
+            ;
     private final int tagId;
 
     /**

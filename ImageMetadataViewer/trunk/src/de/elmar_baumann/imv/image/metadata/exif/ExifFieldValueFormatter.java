@@ -7,6 +7,7 @@ import de.elmar_baumann.lib.lang.Util;
 import java.text.DecimalFormat;
 import java.text.FieldPosition;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.GregorianCalendar;
 import java.util.StringTokenizer;
 
@@ -56,6 +57,30 @@ public final class ExifFieldValueFormatter {
             return getFlash(entry);
         } else if (tag == ExifTag.DATE_TIME_ORIGINAL.getId()) {
             return getDateTimeOriginal(value);
+        } else if (tag == ExifTag.GPS_VERSION_ID.getId()) {
+            return new ExifGpsVersion(entry.getRawValue()).toString();
+        } else if (tag == ExifTag.GPS_LATITUDE_REF.getId()) {
+            return ExifGpsLatitude.localizedString(ExifGpsLatitude.getRef(entry.getRawValue()));
+        } else if (tag == ExifTag.GPS_LATITUDE.getId()) {
+            byte[] rawValue = entry.getRawValue();
+            byte[] degreesNumerator = Arrays.copyOfRange(rawValue, 0, 4);
+            byte[] degreesDenominator = Arrays.copyOfRange(rawValue, 4, 8);
+            byte[] minutesNumerator = Arrays.copyOfRange(rawValue, 8, 12);
+            byte[] minutesDenominator = Arrays.copyOfRange(rawValue, 12, 16);
+            byte[] secondsNumerator = Arrays.copyOfRange(rawValue, 16, 20);
+            byte[] secondsDenominator = Arrays.copyOfRange(rawValue, 20, 24);
+        } else if (tag == ExifTag.GPS_LONGITUDE.getId()) {
+            byte[] rawValue = entry.getRawValue();
+            byte[] degreesNumerator = Arrays.copyOfRange(rawValue, 0, 4);
+            byte[] degreesDenominator = Arrays.copyOfRange(rawValue, 4, 8);
+            byte[] minutesNumerator = Arrays.copyOfRange(rawValue, 8, 12);
+            byte[] minutesDenominator = Arrays.copyOfRange(rawValue, 12, 16);
+            byte[] secondsNumerator = Arrays.copyOfRange(rawValue, 16, 20);
+            byte[] secondsDenominator = Arrays.copyOfRange(rawValue, 20, 24);
+        } else if (tag == ExifTag.GPS_ALTITUDE.getId()) {
+            byte[] rawValue = entry.getRawValue();
+            byte[] degreesNumerator = Arrays.copyOfRange(rawValue, 0, 4);
+            byte[] degreesDenominator = Arrays.copyOfRange(rawValue, 4, 8);
         }
 
         return value;

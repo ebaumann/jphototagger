@@ -45,6 +45,16 @@ public final class ExifIfdEntryDisplayComparator implements Comparator<IdfEntryP
         tagValues.add(ExifTag.FILE_SOURCE.getId());
         tagValues.add(ExifTag.DATE_TIME.getId());
         tagValues.add(ExifTag.SOFTWARE.getId());
+        tagValues.add(ExifTag.GPS_VERSION_ID.getId());
+        tagValues.add(ExifTag.GPS_LATITUDE_REF.getId());
+        tagValues.add(ExifTag.GPS_LATITUDE.getId());
+        tagValues.add(ExifTag.GPS_LONGITUDE_REF.getId());
+        tagValues.add(ExifTag.GPS_LONGITUDE.getId());
+        tagValues.add(ExifTag.GPS_ALTITUDE_REF.getId());
+        tagValues.add(ExifTag.GPS_ALTITUDE.getId());
+        tagValues.add(ExifTag.GPS_TIME_STAMP.getId());
+        tagValues.add(ExifTag.GPS_SATELLITES.getId());
+        tagValues.add(ExifTag.GPS_DATE_STAMP.getId());
 
         int size = tagValues.size();
         for (int i = 0; i < size; i++) {

@@ -13,7 +13,6 @@ import de.elmar_baumann.imv.data.Exif;
 import de.elmar_baumann.imv.io.FileType;
 import java.io.File;
 import java.io.IOException;
-import java.io.PrintStream;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -66,6 +65,16 @@ public final class ExifMetadata {
         tagsToDisplay.add(ExifTag.CONTRAST.getId());
         tagsToDisplay.add(ExifTag.SATURATION.getId());
         tagsToDisplay.add(ExifTag.SHARPNESS.getId());
+        tagsToDisplay.add(ExifTag.GPS_VERSION_ID.getId());
+        tagsToDisplay.add(ExifTag.GPS_LATITUDE_REF.getId());
+        tagsToDisplay.add(ExifTag.GPS_LATITUDE.getId());
+        tagsToDisplay.add(ExifTag.GPS_LONGITUDE_REF.getId());
+        tagsToDisplay.add(ExifTag.GPS_LONGITUDE.getId());
+        tagsToDisplay.add(ExifTag.GPS_ALTITUDE_REF.getId());
+        tagsToDisplay.add(ExifTag.GPS_ALTITUDE.getId());
+        tagsToDisplay.add(ExifTag.GPS_TIME_STAMP.getId());
+        tagsToDisplay.add(ExifTag.GPS_SATELLITES.getId());
+        tagsToDisplay.add(ExifTag.GPS_DATE_STAMP.getId());
     }
 
     /**
@@ -306,82 +315,84 @@ public final class ExifMetadata {
      * 
      * @param file file
      */
-    public static void dumpExif(File file) {
+    public static String getExifDump(File file) {
         // Code inklusive aufgerufener Operation von Andrey Kuznetsov <imagero@gmx.de>
-        // E-Mail v. 22.08.2008
+        // E-Mail v. 22.08.2008, modifiziert durch eb
+        StringBuffer sb = null;
         try {
             TiffReader reader = new TiffReader(file);
             int cnt = reader.getIFDCount();
-            System.out.println("Count IFDs: " + cnt); // NOI18N
+            sb = new StringBuffer(1000);
+            sb.append("Count IFDs: " + cnt); // NOI18N
             for (int i = 0; i < cnt; i++) {
-                dumpPrintDirectory(reader.getIFD(i), "IFD#" + i, System.out); // NOI18N
+                appendExifDumpDirectory(reader.getIFD(i), "IFD#" + i, sb); // NOI18N
             }
 
             IPTCEntryCollection collection = MetadataUtils.getIPTC(reader);
-            dumpPrintIptc(collection, System.out);
+            appendExifDumpIptc(collection, sb);
         } catch (IOException ex) {
             AppLog.logWarning(ExifMetadata.class, ex);
         }
+        return sb == null ? "" : sb.toString();
     }
 
-    private static void dumpPrintDirectory(ImageFileDirectory ifd, String name,
-        PrintStream out)
+    private static void appendExifDumpDirectory(ImageFileDirectory ifd, String name,
+        StringBuffer sb)
         throws IOException {
-        out.println("\n-----------------------------------------"); // NOI18N
-        out.println();
-        out.println(name);
-        out.println("Entry count " + ifd.getEntryCount()); // NOI18N
-        out.println("name: tag: valueOffset: {description}: value:"); // NOI18N
+        sb.append("\n-----------------------------------------\n"); // NOI18N
+        sb.append(name);
+        sb.append("Entry count " + ifd.getEntryCount()); // NOI18N
+        sb.append("name: tag: valueOffset: {description}: value:"); // NOI18N
 
         int entryCount = ifd.getEntryCount();
         for (int i = 0; i < entryCount; i++) {
             IFDEntry ifdEntry = ifd.getEntryAt(i);
             if (ifdEntry != null) {
-                dumpPrintEntry(ifdEntry, out);
+                appendExifDumpEntry(ifdEntry, sb);
             }
         }
         for (int i = 0; i < ifd.getIFDCount(); i++) {
             ImageFileDirectory ifd0 = ifd.getIFDAt(i);
-            dumpPrintDirectory(ifd0, "", out); // NOI18N
+            appendExifDumpDirectory(ifd0, "", sb); // NOI18N
         }
         ImageFileDirectory exifIFD = ifd.getExifIFD();
         if (exifIFD != null) {
-            dumpPrintDirectory(exifIFD, "ExifIFD", out); // NOI18N
+            appendExifDumpDirectory(exifIFD, "ExifIFD", sb); // NOI18N
         }
         ImageFileDirectory gpsIFD = ifd.getGpsIFD();
         if (gpsIFD != null) {
-            dumpPrintDirectory(gpsIFD, "GpsIFD", out); // NOI18N
+            appendExifDumpDirectory(gpsIFD, "GpsIFD", sb); // NOI18N
         }
         ImageFileDirectory interoperabilityIFD = ifd.getInteroperabilityIFD();
         if (interoperabilityIFD != null) {
-            dumpPrintDirectory(interoperabilityIFD, "InteroperabilityIFD", out); // NOI18N
+            appendExifDumpDirectory(interoperabilityIFD, "InteroperabilityIFD", sb); // NOI18N
         }
-        out.println();
+        sb.append("\n");
     }
 
-    private static void dumpPrintEntry(IFDEntry e, PrintStream out) {
-        out.println();
+    private static void appendExifDumpEntry(IFDEntry e, StringBuffer sb) {
+        sb.append("\n");
         int tag = e.getTag();
-        out.print(tag);
-        out.print("\t"); // NOI18N
-        out.print(e.getEntryMeta().getName());
-        out.print("\t"); // NOI18N
-        out.print(e);
+        sb.append(tag);
+        sb.append("\t"); // NOI18N
+        sb.append(e.getEntryMeta().getName());
+        sb.append("\t"); // NOI18N
+        sb.append(e);
     }
 
-    private static void dumpPrintIptc(IPTCEntryCollection entries, PrintStream out) {
-        out.println();
+    private static void appendExifDumpIptc(IPTCEntryCollection entries, StringBuffer sb) {
+        sb.append("\n");
         Enumeration keys = entries.keys();
         while (keys.hasMoreElements()) {
             Object key = keys.nextElement();
             int count = entries.getCount(key);
             for (int j = 0; j < count; j++) {
                 IPTCEntry entry = entries.getEntry(key, j);
-                out.print(entry.getRecordNumber() + ":" + entry.getDataSetNumber()); // NOI18N
-                out.print(" ("); // NOI18N
-                out.print(entry.getEntryMeta().getName());
-                out.print(") "); // NOI18N
-                out.println(entries.toString(entry).replace((char) 0, (char) 32).trim());
+                sb.append(entry.getRecordNumber() + ":" + entry.getDataSetNumber()); // NOI18N
+                sb.append(" ("); // NOI18N
+                sb.append(entry.getEntryMeta().getName());
+                sb.append(") "); // NOI18N
+                sb.append(entries.toString(entry).replace((char) 0, (char) 32).trim());
             }
         }
     }

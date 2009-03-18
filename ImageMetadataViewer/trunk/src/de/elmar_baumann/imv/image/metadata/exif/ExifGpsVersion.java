@@ -9,16 +9,25 @@ package de.elmar_baumann.imv.image.metadata.exif;
  */
 public final class ExifGpsVersion {
 
-    private int first;
-    private int second;
-    private int third;
-    private int fourth;
+    private int first = Integer.MIN_VALUE;
+    private int second = Integer.MIN_VALUE;
+    private int third = Integer.MIN_VALUE;
+    private int fourth = Integer.MIN_VALUE;
 
     public ExifGpsVersion(int first, int second, int third, int fourth) {
         this.first = first;
         this.second = second;
         this.third = third;
         this.fourth = fourth;
+    }
+
+    public ExifGpsVersion(byte[] rawValue) {
+        if (rawValue != null && rawValue.length == 4) {
+            first = new Byte(rawValue[0]).intValue();
+            second = new Byte(rawValue[1]).intValue();
+            third = new Byte(rawValue[2]).intValue();
+            fourth = new Byte(rawValue[3]).intValue();
+        }
     }
 
     public int getFirst() {
@@ -35,5 +44,15 @@ public final class ExifGpsVersion {
 
     public int getThird() {
         return third;
+    }
+
+    @Override
+    public String toString() {
+        StringBuffer sb = new StringBuffer(6);
+        sb.append(Integer.toString(first) + ".");
+        sb.append(Integer.toString(second) + ".");
+        sb.append(Integer.toString(third) + ".");
+        sb.append(Integer.toString(fourth));
+        return sb.toString();
     }
 }
