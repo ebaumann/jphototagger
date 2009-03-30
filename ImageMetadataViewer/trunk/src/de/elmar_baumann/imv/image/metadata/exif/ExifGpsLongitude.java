@@ -13,30 +13,18 @@ public final class ExifGpsLongitude {
         EAST, WEST
     }
     private Ref ref;
-    private ExifRational degrees;
-    private ExifRational minutes;
-    private ExifRational seconds;
+    private ExifDegrees degrees;
 
-    public ExifGpsLongitude(Ref ref, ExifRational degrees, ExifRational minutes, ExifRational seconds) {
+    public ExifGpsLongitude(Ref ref, byte[] degreesRawValue, ExifRational.ByteOrder byteOrder) {
         this.ref = ref;
-        this.degrees = degrees;
-        this.minutes = minutes;
-        this.seconds = seconds;
+        this.degrees = new ExifDegrees(degreesRawValue, byteOrder);
     }
 
-    public ExifRational getDegrees() {
+    public ExifDegrees getDegrees() {
         return degrees;
-    }
-
-    public ExifRational getMinutes() {
-        return minutes;
     }
 
     public Ref getRef() {
         return ref;
-    }
-
-    public ExifRational getSeconds() {
-        return seconds;
     }
 }

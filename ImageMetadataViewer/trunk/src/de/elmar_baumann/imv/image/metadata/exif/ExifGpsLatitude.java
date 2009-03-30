@@ -22,6 +22,7 @@ public final class ExifGpsLatitude {
     private static final Map<String, Ref> refOfString = new HashMap<String, Ref>();
     private static final Map<Ref, String> localizedStringOfRef = new HashMap<Ref, String>();
 
+
     static {
         refOfString.put("N", Ref.NORTH);
         refOfString.put("S", Ref.SOUTH);
@@ -29,24 +30,12 @@ public final class ExifGpsLatitude {
         localizedStringOfRef.put(Ref.NORTH, Bundle.getString("ExifGpsLatitudeRefNorth"));
         localizedStringOfRef.put(Ref.SOUTH, Bundle.getString("ExifGpsLatitudeRefSouth"));
     }
-
     private Ref ref;
-    private ExifRational degrees;
-    private ExifRational minutes;
-    private ExifRational seconds;
+    private ExifDegrees degrees;
 
-    public ExifGpsLatitude(Ref ref, ExifRational degrees, ExifRational minutes, ExifRational seconds) {
+    public ExifGpsLatitude(Ref ref, byte[] degreesRawValue, ExifRational.ByteOrder byteOrder) {
         this.ref = ref;
-        this.degrees = degrees;
-        this.minutes = minutes;
-        this.seconds = seconds;
-    }
-
-    public ExifGpsLatitude(byte[] rawValueRef, byte[] rawValue) {
-        ref = getRef(rawValueRef);
-        if (rawValue != null && rawValue.length == 3) {
-            //degrees = new ExifRational(ExifRational.getNumerator(), denominator)
-        }
+        this.degrees = new ExifDegrees(degreesRawValue, byteOrder);
     }
 
     /**
@@ -58,7 +47,7 @@ public final class ExifGpsLatitude {
     public static Ref getRef(byte[] rawValue) {
         String s = null;
         if (rawValue != null && rawValue.length == 2) {
-            s = new StringBuilder(1).append((char)new Byte(rawValue[0]).intValue()).toString();
+            s = new StringBuilder(1).append((char) new Byte(rawValue[0]).intValue()).toString();
         }
         return refOfString.get(s);
     }
@@ -73,19 +62,7 @@ public final class ExifGpsLatitude {
         return localizedStringOfRef.get(ref);
     }
 
-    public ExifRational getDegrees() {
+    public ExifDegrees getDegrees() {
         return degrees;
-    }
-
-    public ExifRational getMinutes() {
-        return minutes;
-    }
-
-    public Ref getRef() {
-        return ref;
-    }
-
-    public ExifRational getSeconds() {
-        return seconds;
     }
 }

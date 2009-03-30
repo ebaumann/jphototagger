@@ -1,5 +1,7 @@
 package de.elmar_baumann.imv.image.metadata.exif;
 
+import java.util.Arrays;
+
 /**
  * GPS altitude.
  *
@@ -15,9 +17,12 @@ public final class ExifGpsAltitude {
     private Ref ref;
     private ExifRational value;
 
-    public ExifGpsAltitude(Ref ref, ExifRational value) {
+    public ExifGpsAltitude(Ref ref, byte[] rawValue, ExifRational.ByteOrder byteOrder) {
         this.ref = ref;
-        this.value = value;
+        if (rawValue.length != 8) throw new IllegalArgumentException("rawValue.length != 8");
+        byte[] numerator = Arrays.copyOfRange(rawValue, 0, 4);
+        byte[] denominator = Arrays.copyOfRange(rawValue, 4, 8);
+        this.value = new ExifRational(numerator, denominator, byteOrder);
     }
 
     public Ref getRef() {

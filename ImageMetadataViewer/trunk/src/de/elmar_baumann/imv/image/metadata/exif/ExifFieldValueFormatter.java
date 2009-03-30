@@ -7,7 +7,6 @@ import de.elmar_baumann.lib.lang.Util;
 import java.text.DecimalFormat;
 import java.text.FieldPosition;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.GregorianCalendar;
 import java.util.StringTokenizer;
 
@@ -36,8 +35,7 @@ public final class ExifFieldValueFormatter {
             return getSaturation(value);
         } else if (tag == ExifTag.WHITE_BALANCE.getId()) {
             return getWhiteBalance(value);
-        } else if (tag == ExifTag.FOCAL_LENGTH.getId()
-            || tag == ExifTag.FOCAL_LENGTH_IN_35_MM_FILM.getId()) {
+        } else if (tag == ExifTag.FOCAL_LENGTH.getId() || tag == ExifTag.FOCAL_LENGTH_IN_35_MM_FILM.getId()) {
             return getFocalLength(value);
         } else if (tag == ExifTag.EXPOSURE_TIME.getId()) {
             return getExposureTime(value);
@@ -62,25 +60,14 @@ public final class ExifFieldValueFormatter {
         } else if (tag == ExifTag.GPS_LATITUDE_REF.getId()) {
             return ExifGpsLatitude.localizedString(ExifGpsLatitude.getRef(entry.getRawValue()));
         } else if (tag == ExifTag.GPS_LATITUDE.getId()) {
-            byte[] rawValue = entry.getRawValue();
-            byte[] degreesNumerator = Arrays.copyOfRange(rawValue, 0, 4);
-            byte[] degreesDenominator = Arrays.copyOfRange(rawValue, 4, 8);
-            byte[] minutesNumerator = Arrays.copyOfRange(rawValue, 8, 12);
-            byte[] minutesDenominator = Arrays.copyOfRange(rawValue, 12, 16);
-            byte[] secondsNumerator = Arrays.copyOfRange(rawValue, 16, 20);
-            byte[] secondsDenominator = Arrays.copyOfRange(rawValue, 20, 24);
+            ExifGpsLatitude latitude = new ExifGpsLatitude(null, entry.getRawValue(), ExifRational.ByteOrder.LITTLE_ENDIAN);
+            System.out.println("latitude: " + latitude);
         } else if (tag == ExifTag.GPS_LONGITUDE.getId()) {
-            byte[] rawValue = entry.getRawValue();
-            byte[] degreesNumerator = Arrays.copyOfRange(rawValue, 0, 4);
-            byte[] degreesDenominator = Arrays.copyOfRange(rawValue, 4, 8);
-            byte[] minutesNumerator = Arrays.copyOfRange(rawValue, 8, 12);
-            byte[] minutesDenominator = Arrays.copyOfRange(rawValue, 12, 16);
-            byte[] secondsNumerator = Arrays.copyOfRange(rawValue, 16, 20);
-            byte[] secondsDenominator = Arrays.copyOfRange(rawValue, 20, 24);
+            ExifGpsLongitude longitude = new ExifGpsLongitude(null, entry.getRawValue(), ExifRational.ByteOrder.LITTLE_ENDIAN);
+            System.out.println("longitude: " + longitude);
         } else if (tag == ExifTag.GPS_ALTITUDE.getId()) {
-            byte[] rawValue = entry.getRawValue();
-            byte[] degreesNumerator = Arrays.copyOfRange(rawValue, 0, 4);
-            byte[] degreesDenominator = Arrays.copyOfRange(rawValue, 4, 8);
+            ExifGpsAltitude altitude = new ExifGpsAltitude(null, entry.getRawValue(), ExifRational.ByteOrder.LITTLE_ENDIAN);
+            System.out.println("altitude: " + altitude);
         }
 
         return value;
@@ -291,5 +278,6 @@ public final class ExifFieldValueFormatter {
         return value;
     }
 
-    private ExifFieldValueFormatter() {}
+    private ExifFieldValueFormatter() {
+    }
 }
