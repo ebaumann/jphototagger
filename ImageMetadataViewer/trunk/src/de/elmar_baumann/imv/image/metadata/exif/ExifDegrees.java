@@ -14,7 +14,7 @@ public final class ExifDegrees {
     private final ExifRational minutes;
     private final ExifRational seconds;
 
-    public ExifDegrees(byte[] rawValue, ExifRational.ByteOrder byteOrder) {
+    public ExifDegrees(byte[] rawValue, ExifMetadata.ByteOrder byteOrder) {
         if (rawValue.length != 24) throw new IllegalArgumentException("rawValue.length != 24");
         byte[] degreesNumerator = Arrays.copyOfRange(rawValue, 0, 4);
         byte[] degreesDenominator = Arrays.copyOfRange(rawValue, 4, 8);

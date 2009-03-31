@@ -33,18 +33,17 @@ public final class ExifGpsLatitude {
     private Ref ref;
     private ExifDegrees degrees;
 
-    public ExifGpsLatitude(Ref ref, byte[] degreesRawValue, ExifRational.ByteOrder byteOrder) {
-        this.ref = ref;
+    public ExifGpsLatitude(byte[] refRawValue, byte[] degreesRawValue, ExifMetadata.ByteOrder byteOrder) {
+        if (refRawValue.length != 2)
+            throw new IllegalArgumentException("refRawValue.length != 2");
+        if (degreesRawValue.length != 24)
+            throw new IllegalArgumentException("rawValue.length != 24");
+
+        this.ref = getRef(refRawValue);
         this.degrees = new ExifDegrees(degreesRawValue, byteOrder);
     }
 
-    /**
-     * Returns whether the latitude is north or south latitude.
-     *
-     * @param  rawValue  two ASCII values as defined in the EXIF 2.2 standard
-     * @return Reference or null if the string is not valid
-     */
-    public static Ref getRef(byte[] rawValue) {
+    private static Ref getRef(byte[] rawValue) {
         String s = null;
         if (rawValue != null && rawValue.length == 2) {
             s = new StringBuilder(1).append((char) new Byte(rawValue[0]).intValue()).toString();
@@ -52,17 +51,15 @@ public final class ExifGpsLatitude {
         return refOfString.get(s);
     }
 
-    /**
-     * Returns a localized string of the latitude indicator.
-     *
-     * @param  ref latitude indicator
-     * @return localized string
-     */
-    public static String localizedString(Ref ref) {
+    private static String localizedString(Ref ref) {
         return localizedStringOfRef.get(ref);
     }
 
     public ExifDegrees getDegrees() {
         return degrees;
+    }
+
+    public Ref getRef() {
+        return ref;
     }
 }

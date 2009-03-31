@@ -1,6 +1,7 @@
 package de.elmar_baumann.imv.model;
 
 import de.elmar_baumann.imv.app.AppLog;
+import de.elmar_baumann.imv.image.metadata.exif.ExifGpsMetadata;
 import de.elmar_baumann.imv.image.metadata.exif.ExifIfdEntryDisplayComparator;
 import de.elmar_baumann.imv.image.metadata.exif.ExifMetadata;
 import de.elmar_baumann.imv.image.metadata.exif.IdfEntryProxy;
@@ -20,6 +21,7 @@ import javax.swing.table.DefaultTableModel;
 public final class TableModelExif extends DefaultTableModel {
 
     private File file;
+    private ExifGpsMetadata gps;
     private List<IdfEntryProxy> allEntries;
 
     public TableModelExif() {
@@ -76,7 +78,18 @@ public final class TableModelExif extends DefaultTableModel {
                     }
                 }
             }
+            addGps();
         }
+    }
+
+    private void addGps() {
+        gps = ExifMetadata.getGpsMetadata(allEntries);
+        if (gps != null) {
+        }
+    }
+
+    public ExifGpsMetadata getGps() {
+        return gps;
     }
 
     private void addRow(IdfEntryProxy entry) {

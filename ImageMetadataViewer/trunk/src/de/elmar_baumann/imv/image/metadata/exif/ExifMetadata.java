@@ -33,7 +33,8 @@ public final class ExifMetadata {
 
     private static final Map<String, Double> rotationAngleOfString = new HashMap<String, Double>();
     private static final List<Integer> tagsToDisplay = new ArrayList<Integer>();
-    
+
+
     static {
         rotationAngleOfString.put("(0, 0) is top-left", new Double(0)); // 1 // NOI18N
         rotationAngleOfString.put("(0, 0) is top-right", new Double(0)); // 2 // NOI18N
@@ -44,7 +45,7 @@ public final class ExifMetadata {
         rotationAngleOfString.put("(0, 0) is right-bottom", new Double(270)); // 7 // NOI18N
         rotationAngleOfString.put("(0, 0) is left-bottom", new Double(270)); // 8 // NOI18N
     }
-    
+
 
     static {
         tagsToDisplay.add(ExifTag.MAKE.getId());
@@ -65,16 +66,6 @@ public final class ExifMetadata {
         tagsToDisplay.add(ExifTag.CONTRAST.getId());
         tagsToDisplay.add(ExifTag.SATURATION.getId());
         tagsToDisplay.add(ExifTag.SHARPNESS.getId());
-        tagsToDisplay.add(ExifTag.GPS_VERSION_ID.getId());
-        tagsToDisplay.add(ExifTag.GPS_LATITUDE_REF.getId());
-        tagsToDisplay.add(ExifTag.GPS_LATITUDE.getId());
-        tagsToDisplay.add(ExifTag.GPS_LONGITUDE_REF.getId());
-        tagsToDisplay.add(ExifTag.GPS_LONGITUDE.getId());
-        tagsToDisplay.add(ExifTag.GPS_ALTITUDE_REF.getId());
-        tagsToDisplay.add(ExifTag.GPS_ALTITUDE.getId());
-        tagsToDisplay.add(ExifTag.GPS_TIME_STAMP.getId());
-        tagsToDisplay.add(ExifTag.GPS_SATELLITES.getId());
-        tagsToDisplay.add(ExifTag.GPS_DATE_STAMP.getId());
     }
 
     /**
@@ -209,6 +200,55 @@ public final class ExifMetadata {
         return tagsToDisplay.contains(tag);
     }
 
+    public static ExifGpsMetadata getGpsMetadata(List<IdfEntryProxy> entries) {
+        ExifGpsMetadata data = new ExifGpsMetadata();
+        ByteOrder byteOrder = getByteOrder(entries);
+
+        setGpsLatitude(data, entries, byteOrder);
+        setGpsLongitude(data, entries, byteOrder);
+        setGpsAltitude(data, entries, byteOrder);
+
+        return data;
+    }
+
+    private static void setGpsAltitude(ExifGpsMetadata data, List<IdfEntryProxy> entries, ByteOrder byteOrder) {
+        IdfEntryProxy entryAltitudeRef = findEntryWithTag(entries, ExifTag.GPS_ALTITUDE_REF.getId());
+        IdfEntryProxy entryAltitude = findEntryWithTag(entries, ExifTag.GPS_ALTITUDE.getId());
+        if (entryAltitudeRef != null && entryAltitude != null) {
+            data.setAltitude(new ExifGpsAltitude(entryAltitudeRef.getRawValue(),
+                    entryAltitude.getRawValue(), byteOrder));
+        }
+    }
+
+    private static void setGpsLatitude(ExifGpsMetadata data, List<IdfEntryProxy> entries, ByteOrder byteOrder) {
+        IdfEntryProxy entryLatitudeRef = findEntryWithTag(entries, ExifTag.GPS_LATITUDE_REF.getId());
+        IdfEntryProxy entryLatitude = findEntryWithTag(entries, ExifTag.GPS_LATITUDE.getId());
+        if (entryLatitudeRef != null && entryLatitude != null) {
+            data.setLatitude(new ExifGpsLatitude(entryLatitudeRef.getRawValue(),
+                    entryLatitude.getRawValue(), byteOrder));
+        }
+    }
+
+    private static void setGpsLongitude(ExifGpsMetadata data, List<IdfEntryProxy> entries, ByteOrder byteOrder) {
+        IdfEntryProxy entryLongitudeRef = findEntryWithTag(entries, ExifTag.GPS_LONGITUDE_REF.getId());
+        IdfEntryProxy entryLongitude = findEntryWithTag(entries, ExifTag.GPS_LONGITUDE.getId());
+        if (entryLongitudeRef != null && entryLongitude != null) {
+            data.setLongitude(new ExifGpsLongitude(entryLongitudeRef.getRawValue(),
+                    entryLongitude.getRawValue(), byteOrder));
+        }
+    }
+
+    public enum ByteOrder {
+
+        LITTLE_ENDIAN,
+        BIG_ENDIAN
+    }
+
+    private static ByteOrder getByteOrder(List<IdfEntryProxy> entries) {
+        // ImageFileDirectory#getByteOrder()
+        return ByteOrder.LITTLE_ENDIAN;
+    }
+
     private static boolean contains(List<IdfEntryProxy> entries, IdfEntryProxy entry) {
         for (IdfEntryProxy e : entries) {
             if (ExifIfdEntryComparator.INSTANCE.compare(e, entry) == 0) {
@@ -337,8 +377,8 @@ public final class ExifMetadata {
     }
 
     private static void appendExifDumpDirectory(ImageFileDirectory ifd, String name,
-        StringBuffer sb)
-        throws IOException {
+            StringBuffer sb)
+            throws IOException {
         sb.append("\n-----------------------------------------\n"); // NOI18N
         sb.append(name);
         sb.append("Entry count " + ifd.getEntryCount()); // NOI18N
@@ -397,5 +437,6 @@ public final class ExifMetadata {
         }
     }
 
-    private ExifMetadata() {}
+    private ExifMetadata() {
+    }
 }

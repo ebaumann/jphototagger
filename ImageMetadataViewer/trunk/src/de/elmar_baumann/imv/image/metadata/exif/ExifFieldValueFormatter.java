@@ -55,19 +55,6 @@ public final class ExifFieldValueFormatter {
             return getFlash(entry);
         } else if (tag == ExifTag.DATE_TIME_ORIGINAL.getId()) {
             return getDateTimeOriginal(value);
-        } else if (tag == ExifTag.GPS_VERSION_ID.getId()) {
-            return new ExifGpsVersion(entry.getRawValue()).toString();
-        } else if (tag == ExifTag.GPS_LATITUDE_REF.getId()) {
-            return ExifGpsLatitude.localizedString(ExifGpsLatitude.getRef(entry.getRawValue()));
-        } else if (tag == ExifTag.GPS_LATITUDE.getId()) {
-            ExifGpsLatitude latitude = new ExifGpsLatitude(null, entry.getRawValue(), ExifRational.ByteOrder.LITTLE_ENDIAN);
-            System.out.println("latitude: " + latitude);
-        } else if (tag == ExifTag.GPS_LONGITUDE.getId()) {
-            ExifGpsLongitude longitude = new ExifGpsLongitude(null, entry.getRawValue(), ExifRational.ByteOrder.LITTLE_ENDIAN);
-            System.out.println("longitude: " + longitude);
-        } else if (tag == ExifTag.GPS_ALTITUDE.getId()) {
-            ExifGpsAltitude altitude = new ExifGpsAltitude(null, entry.getRawValue(), ExifRational.ByteOrder.LITTLE_ENDIAN);
-            System.out.println("altitude: " + altitude);
         }
 
         return value;
