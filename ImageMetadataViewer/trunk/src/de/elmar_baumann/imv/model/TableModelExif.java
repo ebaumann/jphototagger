@@ -4,8 +4,10 @@ import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.image.metadata.exif.ExifGpsMetadata;
 import de.elmar_baumann.imv.image.metadata.exif.ExifIfdEntryDisplayComparator;
 import de.elmar_baumann.imv.image.metadata.exif.ExifMetadata;
+import de.elmar_baumann.imv.image.metadata.exif.ExifTag;
 import de.elmar_baumann.imv.image.metadata.exif.IdfEntryProxy;
 import de.elmar_baumann.imv.resource.Bundle;
+import de.elmar_baumann.imv.resource.Translation;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -23,6 +25,7 @@ public final class TableModelExif extends DefaultTableModel {
     private File file;
     private ExifGpsMetadata gps;
     private List<IdfEntryProxy> allEntries;
+    private static final Translation translation = new Translation("ExifTagIdTagNameTranslations"); // NOI18N
 
     public TableModelExif() {
         setRowHeaders();
@@ -84,7 +87,17 @@ public final class TableModelExif extends DefaultTableModel {
 
     private void addGps() {
         gps = ExifMetadata.getGpsMetadata(allEntries);
-        if (gps != null) {
+        if (gps.getLongitude() != null) {
+            String prompt = translation.translate(Integer.toString(ExifTag.GPS_LONGITUDE.getId()));
+            super.addRow(new Object[]{prompt, gps.getLongitude().localizedString()});
+        }
+        if (gps.getLatitude() != null) {
+            String prompt = translation.translate(Integer.toString(ExifTag.GPS_LATITUDE.getId()));
+            super.addRow(new Object[]{prompt, gps.getLatitude().localizedString()});
+        }
+        if (gps.getAltitude() != null) {
+            String prompt = translation.translate(Integer.toString(ExifTag.GPS_ALTITUDE.getId()));
+            super.addRow(new Object[]{prompt, gps.getAltitude().localizedString()});
         }
     }
 

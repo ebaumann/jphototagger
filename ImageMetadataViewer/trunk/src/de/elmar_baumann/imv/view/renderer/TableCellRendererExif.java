@@ -23,21 +23,31 @@ public final class TableCellRendererExif extends TableCellRendererMetadata
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
         assert column < 2 : column;
-        JLabel cellLabel = new JLabel();
-        IdfEntryProxy ifdEntry = (IdfEntryProxy) value;
 
+        JLabel cellLabel = new JLabel();
         setDefaultCellColors(cellLabel, isSelected);
-        setIsStoredInDatabaseColor(cellLabel, ifdEntry);
 
         if (column == 0) {
             setHeaderFont(cellLabel);
-            String translated = translation.translate(
-                Integer.toString(ifdEntry.getTag()),
-                ifdEntry.getName());
-            cellLabel.setText(translated.trim());
         } else {
             setContentFont(cellLabel);
-            cellLabel.setText(ExifFieldValueFormatter.format(ifdEntry));
+        }
+
+        if (value instanceof IdfEntryProxy) {
+            IdfEntryProxy ifdEntry = (IdfEntryProxy) value;
+
+            setIsStoredInDatabaseColor(cellLabel, ifdEntry);
+
+            if (column == 0) {
+                String translated = translation.translate(
+                    Integer.toString(ifdEntry.getTag()),
+                    ifdEntry.getName());
+                cellLabel.setText(translated.trim());
+            } else {
+                cellLabel.setText(ExifFieldValueFormatter.format(ifdEntry));
+            }
+        } else {
+            cellLabel.setText(value.toString());
         }
         return cellLabel;
     }

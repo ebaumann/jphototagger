@@ -51,8 +51,8 @@ public final class ExifGpsLatitude {
         return refOfString.get(s);
     }
 
-    private static String localizedString(Ref ref) {
-        return localizedStringOfRef.get(ref);
+    public String localizedString() {
+        return ExifGpsUtil.toString(degrees) + " " + localizedStringOfRef.get(ref);
     }
 
     public ExifDegrees getDegrees() {

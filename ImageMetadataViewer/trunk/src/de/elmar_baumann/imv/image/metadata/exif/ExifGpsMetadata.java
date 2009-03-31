@@ -591,4 +591,8 @@ public final class ExifGpsMetadata {
     public void setVersion(ExifGpsVersion version) {
         this.version = version;
     }
+
+    public boolean hasCoordinates() {
+        return latitude != null && longitude != null;
+    }
 }
