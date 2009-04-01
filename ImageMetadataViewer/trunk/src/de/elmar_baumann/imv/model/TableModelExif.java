@@ -98,20 +98,20 @@ public final class TableModelExif extends DefaultTableModel {
 
     private void addGps() {
         gps = ExifMetadata.getGpsMetadata(allEntries);
-        if (gps.getLongitude() != null) {
-            String prompt = translation.translate(Integer.toString(ExifTag.GPS_LONGITUDE.getId()));
-            super.addRow(new Object[]{prompt, gps.getLongitude().localizedString()});
-        }
         if (gps.getLatitude() != null) {
             String prompt = translation.translate(Integer.toString(ExifTag.GPS_LATITUDE.getId()));
             super.addRow(new Object[]{prompt, gps.getLatitude().localizedString()});
+        }
+        if (gps.getLongitude() != null) {
+            String prompt = translation.translate(Integer.toString(ExifTag.GPS_LONGITUDE.getId()));
+            super.addRow(new Object[]{prompt, gps.getLongitude().localizedString()});
         }
         if (gps.getAltitude() != null) {
             String prompt = translation.translate(Integer.toString(ExifTag.GPS_ALTITUDE.getId()));
             super.addRow(new Object[]{prompt, gps.getAltitude().localizedString()});
         }
         if (gps.getLongitude() != null && gps.getLatitude() != null) {
-            JButton button = new JButton("Google Maps...");
+            JButton button = new JButton(Bundle.getString("TableModelExif.Button.GoogleMaps"));
             button.addActionListener(new GpsListener());
             super.addRow(new Object[]{gps, button});
         }
@@ -153,7 +153,7 @@ public final class TableModelExif extends DefaultTableModel {
 
         private void errorMessage(Pair<byte[], byte[]> output) {
             byte[] stderr = output.getSecond();
-            String message = (stderr == null ? "" : new String(stderr).trim());
+            String message = (stderr == null ? "" : new String(stderr).trim()); // NOI18N
             if (!message.isEmpty()) {
                 message = Bundle.getString("ThumbnailUtil.ErrorMessage.ExternalProgram") + message;
                 AppLog.logWarning(GpsListener.class, message);
@@ -163,8 +163,9 @@ public final class TableModelExif extends DefaultTableModel {
         private void errorMessageWebBrowser() {
             JOptionPane.showMessageDialog(
                     null,
-                    "Bitte wählen Sie einen Webbrowser aus zum Anzeigen von Google Maps und versuchen es anschließend erneut!",
-                    "Fehler", JOptionPane.ERROR_MESSAGE,
+                    Bundle.getString("TableModelExif.ErrorMessage.WebBrowser"),
+                    Bundle.getString("TableModelExif.ErrorMessage.WebBrowser.Title"),
+                    JOptionPane.ERROR_MESSAGE,
                     AppIcons.getMediumAppIcon());
         }
 
@@ -181,7 +182,7 @@ public final class TableModelExif extends DefaultTableModel {
         private void startWebBrowser(String webBrowser) {
             if (gps != null) {
                 String url = ExifGpsUtil.getGoogleMapsUrl(gps.getLongitude(), gps.getLatitude());
-                String cmd = webBrowser + " " + url;
+                String cmd = webBrowser + " " + url; // NOI18N
                 logExternalAppCommand(cmd);
                 Pair<byte[], byte[]> output = External.executeGetOutput(cmd);
                 if (output.getSecond() != null) {
@@ -191,7 +192,7 @@ public final class TableModelExif extends DefaultTableModel {
         }
 
         private void logExternalAppCommand(String cmd) {
-            MessageFormat msg = new MessageFormat("Rufe Webbrowser auf für Google Maps: ");
+            MessageFormat msg = new MessageFormat(Bundle.getString("TableModelExif.LogMessage.ExternalAppCommand"));
             Object[] params = {cmd};
             AppLog.logFinest(GpsListener.class, msg.format(params));
         }

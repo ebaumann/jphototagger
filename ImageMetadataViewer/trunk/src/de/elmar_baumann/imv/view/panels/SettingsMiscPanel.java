@@ -4,6 +4,7 @@ import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.event.ListenerProvider;
 import de.elmar_baumann.imv.event.UserSettingsChangeEvent;
 import de.elmar_baumann.imv.model.ComboBoxModelLogfileFormatter;
+import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.types.Persistence;
 import de.elmar_baumann.imv.view.ViewUtil;
 import de.elmar_baumann.imv.view.renderer.ListCellRendererLogfileFormatter;
@@ -161,10 +162,10 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
         labelWebBrowser = new javax.swing.JLabel();
         buttonChooseWebBrowser = new javax.swing.JButton();
 
-        panelLogfile.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Protokolloptionen (Logdatei)", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 11))); // NOI18N
+        panelLogfile.setBorder(javax.swing.BorderFactory.createTitledBorder(null, Bundle.getString("SettingsMiscPanel.panelLogfile.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 11))); // NOI18N
 
         labelLogLevel.setFont(new java.awt.Font("Dialog", 0, 12));
-        labelLogLevel.setText("Was / wie viel soll protokolliert werden?");
+        labelLogLevel.setText(Bundle.getString("SettingsMiscPanel.labelLogLevel.text")); // NOI18N
 
         comboBoxLogLevel.setModel(new javax.swing.DefaultComboBoxModel(new String[] { java.util.logging.Level.WARNING.getLocalizedName(), java.util.logging.Level.SEVERE.getLocalizedName(), java.util.logging.Level.INFO.getLocalizedName(), java.util.logging.Level.CONFIG.getLocalizedName(), java.util.logging.Level.FINE.getLocalizedName(), java.util.logging.Level.FINER.getLocalizedName(), java.util.logging.Level.FINEST.getLocalizedName() }));
         comboBoxLogLevel.addActionListener(new java.awt.event.ActionListener() {
@@ -174,7 +175,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
         });
 
         labelLogLogfileFormatterClass.setFont(new java.awt.Font("Dialog", 0, 12));
-        labelLogLogfileFormatterClass.setText("Format nach Neustart:");
+        labelLogLogfileFormatterClass.setText(Bundle.getString("SettingsMiscPanel.labelLogLogfileFormatterClass.text")); // NOI18N
 
         comboBoxLogfileFormatterClass.setModel(new ComboBoxModelLogfileFormatter());
         comboBoxLogfileFormatterClass.setRenderer(new ListCellRendererLogfileFormatter());
@@ -210,7 +211,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        panelAutoCopyDirectory.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Ordner der Kamera-Speicherkarte", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 11))); // NOI18N
+        panelAutoCopyDirectory.setBorder(javax.swing.BorderFactory.createTitledBorder(null, Bundle.getString("SettingsMiscPanel.panelAutoCopyDirectory.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 11))); // NOI18N
 
         labelAutocopyDirectory.setFont(new java.awt.Font("Dialog", 0, 10));
         labelAutocopyDirectory.setForeground(new java.awt.Color(0, 0, 255));
@@ -218,7 +219,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
 
         buttonChooseAutocopyDirectory.setFont(new java.awt.Font("Dialog", 0, 12));
         buttonChooseAutocopyDirectory.setMnemonic('a');
-        buttonChooseAutocopyDirectory.setText("Auswählen...");
+        buttonChooseAutocopyDirectory.setText(Bundle.getString("SettingsMiscPanel.buttonChooseAutocopyDirectory.text")); // NOI18N
         buttonChooseAutocopyDirectory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonChooseAutocopyDirectoryActionPerformed(evt);
@@ -232,7 +233,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelAutoCopyDirectoryLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelAutoCopyDirectoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(labelAutocopyDirectory, javax.swing.GroupLayout.DEFAULT_SIZE, 462, Short.MAX_VALUE)
+                    .addComponent(labelAutocopyDirectory, javax.swing.GroupLayout.DEFAULT_SIZE, 509, Short.MAX_VALUE)
                     .addComponent(buttonChooseAutocopyDirectory))
                 .addContainerGap())
         );
@@ -246,14 +247,14 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
         );
 
         checkBoxIsAcceptHiddenDirectories.setFont(new java.awt.Font("Dialog", 0, 12));
-        checkBoxIsAcceptHiddenDirectories.setText("Versteckte Ordner einlesen und anzeigen");
+        checkBoxIsAcceptHiddenDirectories.setText(Bundle.getString("SettingsMiscPanel.checkBoxIsAcceptHiddenDirectories.text")); // NOI18N
         checkBoxIsAcceptHiddenDirectories.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxIsAcceptHiddenDirectoriesActionPerformed(evt);
             }
         });
 
-        panelWebBrowser.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Webbrowser, z.B. für Google Maps", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 11))); // NOI18N
+        panelWebBrowser.setBorder(javax.swing.BorderFactory.createTitledBorder(null, Bundle.getString("SettingsMiscPanel.panelWebBrowser.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 11))); // NOI18N
 
         labelWebBrowser.setFont(new java.awt.Font("Dialog", 0, 10));
         labelWebBrowser.setForeground(new java.awt.Color(0, 0, 255));
@@ -261,7 +262,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
 
         buttonChooseWebBrowser.setFont(new java.awt.Font("Dialog", 0, 12));
         buttonChooseWebBrowser.setMnemonic('a');
-        buttonChooseWebBrowser.setText("Auswählen...");
+        buttonChooseWebBrowser.setText(Bundle.getString("SettingsMiscPanel.buttonChooseWebBrowser.text")); // NOI18N
         buttonChooseWebBrowser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonChooseWebBrowserActionPerformed(evt);
@@ -275,7 +276,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelWebBrowserLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelWebBrowserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(labelWebBrowser, javax.swing.GroupLayout.DEFAULT_SIZE, 462, Short.MAX_VALUE)
+                    .addComponent(labelWebBrowser, javax.swing.GroupLayout.DEFAULT_SIZE, 509, Short.MAX_VALUE)
                     .addComponent(buttonChooseWebBrowser))
                 .addContainerGap())
         );

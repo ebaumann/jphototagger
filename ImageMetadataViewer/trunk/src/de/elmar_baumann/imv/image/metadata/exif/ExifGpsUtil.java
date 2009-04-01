@@ -31,7 +31,7 @@ public final class ExifGpsUtil {
     }
 
     public static String toString(ExifDegrees degrees) {
-        MessageFormat msg = new MessageFormat("{0}° {1}'' {2}''''");
+        MessageFormat msg = new MessageFormat("{0}° {1}'' {2}''''"); // NOI18N
         double deg = ExifGpsUtil.toDouble(degrees.getDegrees());
         double min = ExifGpsUtil.toDouble(degrees.getMinutes());
         double sec = ExifGpsUtil.toDouble(degrees.getSeconds());
@@ -39,26 +39,30 @@ public final class ExifGpsUtil {
             min = ExifGpsUtil.toLong(degrees.getMinutes());
             sec = ExifGpsUtil.getSeconds(degrees.getMinutes());
         }
-        Object[] params = {deg, min, sec};
+        DecimalFormat dfDegMin = new DecimalFormat("#"); // NOI18N
+        DecimalFormat dfSec = new DecimalFormat("#.##"); // NOI18N
+
+        Object[] params = {dfDegMin.format(deg), dfDegMin.format(min), dfSec.format(sec)};
         return msg.format(params);
     }
 
     public static String getGoogleMapsUrl(ExifGpsLongitude longitude, ExifGpsLatitude latitude) {
-        MessageFormat msg = new MessageFormat("http://maps.google.com/maps?q={0},{1}&spn=0.001,0.001&t=k&hl=de");
-        String dfPattern = "#.########";
+        MessageFormat msg = new MessageFormat("http://maps.google.com/maps?q={0},{1}&spn=0.001,0.001&t=k&hl=de"); // NOI18N
         NumberFormat nf = NumberFormat.getNumberInstance(Locale.ENGLISH);
         DecimalFormat df = (DecimalFormat) nf;
-        df.applyPattern(dfPattern);
+        df.applyPattern("#.########"); // NOI18N
+
         double latititudeValue = getDegrees(latitude.getDegrees());
         double longitudeValue = getDegrees(longitude.getDegrees());
+
         Object[] params = {df.format(latititudeValue), df.format(longitudeValue)};
         return msg.format(params);
     }
 
     public static double getDegrees(ExifDegrees degrees) {
         return toDouble(degrees.getDegrees()) +
-                toDouble(degrees.getMinutes()) / 60 +
-                toDouble(degrees.getSeconds()) / 3600;
+            toDouble(degrees.getMinutes()) / 60 +
+            toDouble(degrees.getSeconds()) / 3600;
     }
 
     private ExifGpsUtil() {

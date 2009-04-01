@@ -68,6 +68,12 @@ public final class ExifMetadata {
         tagsToDisplay.add(ExifTag.SHARPNESS.getId());
     }
 
+    public enum ByteOrder {
+
+        LITTLE_ENDIAN,
+        BIG_ENDIAN
+    }
+
     /**
      * Returns the EXIF metadata of a file.
      * 
@@ -202,51 +208,39 @@ public final class ExifMetadata {
 
     public static ExifGpsMetadata getGpsMetadata(List<IdfEntryProxy> entries) {
         ExifGpsMetadata data = new ExifGpsMetadata();
-        ByteOrder byteOrder = getByteOrder(entries);
 
-        setGpsLatitude(data, entries, byteOrder);
-        setGpsLongitude(data, entries, byteOrder);
-        setGpsAltitude(data, entries, byteOrder);
+        setGpsLatitude(data, entries);
+        setGpsLongitude(data, entries);
+        setGpsAltitude(data, entries);
 
         return data;
     }
 
-    private static void setGpsAltitude(ExifGpsMetadata data, List<IdfEntryProxy> entries, ByteOrder byteOrder) {
+    private static void setGpsAltitude(ExifGpsMetadata data, List<IdfEntryProxy> entries) {
         IdfEntryProxy entryAltitudeRef = findEntryWithTag(entries, ExifTag.GPS_ALTITUDE_REF.getId());
         IdfEntryProxy entryAltitude = findEntryWithTag(entries, ExifTag.GPS_ALTITUDE.getId());
         if (entryAltitudeRef != null && entryAltitude != null) {
             data.setAltitude(new ExifGpsAltitude(entryAltitudeRef.getRawValue(),
-                    entryAltitude.getRawValue(), byteOrder));
+                entryAltitude.getRawValue(), entryAltitude.getByteOrder()));
         }
     }
 
-    private static void setGpsLatitude(ExifGpsMetadata data, List<IdfEntryProxy> entries, ByteOrder byteOrder) {
+    private static void setGpsLatitude(ExifGpsMetadata data, List<IdfEntryProxy> entries) {
         IdfEntryProxy entryLatitudeRef = findEntryWithTag(entries, ExifTag.GPS_LATITUDE_REF.getId());
         IdfEntryProxy entryLatitude = findEntryWithTag(entries, ExifTag.GPS_LATITUDE.getId());
         if (entryLatitudeRef != null && entryLatitude != null) {
             data.setLatitude(new ExifGpsLatitude(entryLatitudeRef.getRawValue(),
-                    entryLatitude.getRawValue(), byteOrder));
+                entryLatitude.getRawValue(), entryLatitude.getByteOrder()));
         }
     }
 
-    private static void setGpsLongitude(ExifGpsMetadata data, List<IdfEntryProxy> entries, ByteOrder byteOrder) {
+    private static void setGpsLongitude(ExifGpsMetadata data, List<IdfEntryProxy> entries) {
         IdfEntryProxy entryLongitudeRef = findEntryWithTag(entries, ExifTag.GPS_LONGITUDE_REF.getId());
         IdfEntryProxy entryLongitude = findEntryWithTag(entries, ExifTag.GPS_LONGITUDE.getId());
         if (entryLongitudeRef != null && entryLongitude != null) {
             data.setLongitude(new ExifGpsLongitude(entryLongitudeRef.getRawValue(),
-                    entryLongitude.getRawValue(), byteOrder));
+                entryLongitude.getRawValue(), entryLongitude.getByteOrder()));
         }
-    }
-
-    public enum ByteOrder {
-
-        LITTLE_ENDIAN,
-        BIG_ENDIAN
-    }
-
-    private static ByteOrder getByteOrder(List<IdfEntryProxy> entries) {
-        // ImageFileDirectory#getByteOrder()
-        return ByteOrder.LITTLE_ENDIAN;
     }
 
     private static boolean contains(List<IdfEntryProxy> entries, IdfEntryProxy entry) {
@@ -354,6 +348,7 @@ public final class ExifMetadata {
      * Dumps the exif metadata of a file to stdout.
      * 
      * @param file file
+     * @return Dump
      */
     public static String getExifDump(File file) {
         // Code inklusive aufgerufener Operation von Andrey Kuznetsov <imagero@gmx.de>
@@ -377,8 +372,8 @@ public final class ExifMetadata {
     }
 
     private static void appendExifDumpDirectory(ImageFileDirectory ifd, String name,
-            StringBuffer sb)
-            throws IOException {
+        StringBuffer sb)
+        throws IOException {
         sb.append("\n-----------------------------------------\n"); // NOI18N
         sb.append(name);
         sb.append("Entry count " + ifd.getEntryCount()); // NOI18N
