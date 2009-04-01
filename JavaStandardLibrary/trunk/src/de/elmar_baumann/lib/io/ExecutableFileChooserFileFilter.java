@@ -1,0 +1,25 @@
+package de.elmar_baumann.lib.io;
+
+import de.elmar_baumann.lib.resource.Bundle;
+import java.io.File;
+import javax.swing.filechooser.FileFilter;
+
+/**
+ *
+ *
+ * @author  Elmar Baumann <ebaumann@feitsch.de>
+ * @version 2009/04/01
+ */
+public final class ExecutableFileChooserFileFilter extends FileFilter {
+
+    @Override
+    public boolean accept(File f) {
+        return f.canExecute();
+    }
+
+    @Override
+    public String getDescription() {
+        return Bundle.getString("ExecutableFileChooserFileFilter.Description");
+    }
+
+}
