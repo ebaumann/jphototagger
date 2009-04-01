@@ -126,6 +126,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
             lastSelectedAutocopyDirectory = lastAcDirectoryName;
         }
 
+        labelWebBrowser.setText(settings.getWebBrowser());
         comboBoxLogLevel.setSelectedItem(settings.getLogLevel().getLocalizedName());
         ComboBoxModelLogfileFormatter modelLogfileFormatter =
                 (ComboBoxModelLogfileFormatter) comboBoxLogfileFormatterClass.getModel();
