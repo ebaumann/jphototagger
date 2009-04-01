@@ -22,6 +22,7 @@ public final class UserSettingsChangeEvent {
     private Object source;
     private File defaultImageOpenApp;
     private String externalThumbnailCreationCommand;
+    private String webBrowser;
     private String iptcCharset;
     private File autoCopyDirectory;
     private boolean acceptHiddenDirectories;
@@ -61,6 +62,7 @@ public final class UserSettingsChangeEvent {
         NO_FAST_SEARCH_COLUMNS,
         OTHER_IMAGE_OPEN_APPS,
         THREAD_PRIORITY,
+        WEB_BROWSER,
     }
 
     public UserSettingsChangeEvent(Type type, Object source) {
@@ -218,5 +220,13 @@ public final class UserSettingsChangeEvent {
 
     public void setUseEmbeddedThumbnails(boolean useEmbeddedThumbnails) {
         this.useEmbeddedThumbnails = useEmbeddedThumbnails;
+    }
+
+    public String getWebBrowser() {
+        return webBrowser;
+    }
+
+    public void setWebBrowser(String webBrowser) {
+        this.webBrowser = webBrowser;
     }
 }

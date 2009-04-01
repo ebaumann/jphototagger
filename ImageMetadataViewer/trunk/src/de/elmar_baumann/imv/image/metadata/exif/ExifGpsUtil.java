@@ -1,6 +1,9 @@
 package de.elmar_baumann.imv.image.metadata.exif;
 
+import java.text.DecimalFormat;
 import java.text.MessageFormat;
+import java.text.NumberFormat;
+import java.util.Locale;
 
 /**
  * 
@@ -38,6 +41,24 @@ public final class ExifGpsUtil {
         }
         Object[] params = {deg, min, sec};
         return msg.format(params);
+    }
+
+    public static String getGoogleMapsUrl(ExifGpsLongitude longitude, ExifGpsLatitude latitude) {
+        MessageFormat msg = new MessageFormat("http://maps.google.com/maps?q={0},{1}&spn=0.001,0.001&t=k&hl=de");
+        String dfPattern = "#.########";
+        NumberFormat nf = NumberFormat.getNumberInstance(Locale.ENGLISH);
+        DecimalFormat df = (DecimalFormat) nf;
+        df.applyPattern(dfPattern);
+        double latititudeValue = getDegrees(latitude.getDegrees());
+        double longitudeValue = getDegrees(longitude.getDegrees());
+        Object[] params = {df.format(latititudeValue), df.format(longitudeValue)};
+        return msg.format(params);
+    }
+
+    public static double getDegrees(ExifDegrees degrees) {
+        return toDouble(degrees.getDegrees()) +
+                toDouble(degrees.getMinutes()) / 60 +
+                toDouble(degrees.getSeconds()) / 3600;
     }
 
     private ExifGpsUtil() {

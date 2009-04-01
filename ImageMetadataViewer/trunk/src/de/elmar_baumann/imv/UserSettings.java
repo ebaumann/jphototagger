@@ -55,6 +55,7 @@ public final class UserSettings implements UserSettingsChangeListener {
     private static final String keyMinutesToStartScheduledTasks = "UserSettings.MinutesToStartScheduledTasks";
     private static final String keyThreadPriority = "UserSettings.ThreadPriority";
     private static final String keyAutocopyDirectory = "UserSettings.AutocopyDirectory";
+    private static final String keyWebBrowser = "UserSettings.WebBrowser";
     private final Properties properties = new Properties();
     private final Settings settings = new Settings(properties);
     private static final String domainName = "de.elmar_baumann"; // NOI18N NEVER CHANGE!
@@ -122,8 +123,8 @@ public final class UserSettings implements UserSettingsChangeListener {
      */
     public Set<DirectoryFilter.Option> getDefaultDirectoryFilterOptions() {
         return EnumSet.of(isAcceptHiddenDirectories()
-            ? DirectoryFilter.Option.ACCEPT_HIDDEN_FILES
-            : DirectoryFilter.Option.REJECT_HIDDEN_FILES);
+                ? DirectoryFilter.Option.ACCEPT_HIDDEN_FILES
+                : DirectoryFilter.Option.REJECT_HIDDEN_FILES);
     }
 
     /**
@@ -139,8 +140,8 @@ public final class UserSettings implements UserSettingsChangeListener {
      */
     public Set<DirectoryChooser.Option> getDefaultDirectoryChooserOptions() {
         return EnumSet.of(isAcceptHiddenDirectories()
-            ? DirectoryChooser.Option.ACCEPT_HIDDEN_DIRECTORIES
-            : DirectoryChooser.Option.REJECT_HIDDEN_DIRECTORIES);
+                ? DirectoryChooser.Option.ACCEPT_HIDDEN_DIRECTORIES
+                : DirectoryChooser.Option.REJECT_HIDDEN_DIRECTORIES);
     }
 
     /**
@@ -152,8 +153,8 @@ public final class UserSettings implements UserSettingsChangeListener {
      */
     public boolean isCreateThumbnailsWithExternalApp() {
         return properties.containsKey(keyIsCreateThumbnailsWithExternalApp)
-            ? settings.getBoolean(keyIsCreateThumbnailsWithExternalApp)
-            : false;
+                ? settings.getBoolean(keyIsCreateThumbnailsWithExternalApp)
+                : false;
     }
 
     /**
@@ -165,6 +166,10 @@ public final class UserSettings implements UserSettingsChangeListener {
      */
     public String getExternalThumbnailCreationCommand() {
         return settings.getString(keyExternalThumbnailCreationCommand);
+    }
+
+    public String getWebBrowser() {
+        return settings.getString(keyWebBrowser);
     }
 
     /**
@@ -194,7 +199,7 @@ public final class UserSettings implements UserSettingsChangeListener {
         List<Column> columns = new ArrayList<Column>();
         if (!settings.getString(keyFastSearchColumns).isEmpty()) {
             List<String> columnKeys = ArrayUtil.stringTokenToList(
-                settings.getString(keyFastSearchColumns), delimiterColumns);
+                    settings.getString(keyFastSearchColumns), delimiterColumns);
             return ColumnUtil.columnKeysToColumns(columnKeys);
         }
         return columns;
@@ -209,7 +214,7 @@ public final class UserSettings implements UserSettingsChangeListener {
     public List<Column> getEditColumns() {
         if (!settings.getString(keyEditColumns).isEmpty()) {
             List<String> columnKeys = ArrayUtil.stringTokenToList(
-                settings.getString(keyEditColumns), delimiterColumns);
+                    settings.getString(keyEditColumns), delimiterColumns);
             return ColumnUtil.columnKeysToColumns(columnKeys);
         }
         return new ArrayList<Column>(EditColumns.getColumns());
@@ -261,8 +266,8 @@ public final class UserSettings implements UserSettingsChangeListener {
      */
     public boolean isUseEmbeddedThumbnails() {
         return properties.containsKey(keyIsUseEmbeddedThumbnails)
-            ? settings.getBoolean(keyIsUseEmbeddedThumbnails)
-            : false;
+                ? settings.getBoolean(keyIsUseEmbeddedThumbnails)
+                : false;
     }
 
     /**
@@ -283,8 +288,8 @@ public final class UserSettings implements UserSettingsChangeListener {
      */
     public boolean isAutoscanIncludeSubdirectories() {
         return properties.containsKey(keyIsAutoscanIncludeSubdirectories)
-            ? settings.getBoolean(keyIsAutoscanIncludeSubdirectories)
-            : true;
+                ? settings.getBoolean(keyIsAutoscanIncludeSubdirectories)
+                : true;
     }
 
     /**
@@ -311,8 +316,8 @@ public final class UserSettings implements UserSettingsChangeListener {
      */
     public boolean isTaskRemoveRecordsWithNotExistingFiles() {
         return properties.containsKey(keyIsTaskRemoveRecordsWithNotExistingFiles)
-            ? settings.getBoolean(keyIsTaskRemoveRecordsWithNotExistingFiles)
-            : false;
+                ? settings.getBoolean(keyIsTaskRemoveRecordsWithNotExistingFiles)
+                : false;
     }
 
     /**
@@ -332,8 +337,8 @@ public final class UserSettings implements UserSettingsChangeListener {
      */
     public boolean isUseAutocomplete() {
         return properties.containsKey(keyIsAutocomplete)
-            ? settings.getBoolean(keyIsAutocomplete)
-            : true;
+                ? settings.getBoolean(keyIsAutocomplete)
+                : true;
     }
 
     /**
@@ -344,8 +349,8 @@ public final class UserSettings implements UserSettingsChangeListener {
      */
     public boolean isAcceptHiddenDirectories() {
         return properties.containsKey(keyIsAcceptHiddenDirectories)
-            ? settings.getBoolean(keyIsAcceptHiddenDirectories)
-            : false;
+                ? settings.getBoolean(keyIsAcceptHiddenDirectories)
+                : false;
     }
 
     /**
@@ -402,6 +407,8 @@ public final class UserSettings implements UserSettingsChangeListener {
             settings.setInt(evt.getThreadPriority(), keyThreadPriority);
         } else if (type.equals(UserSettingsChangeEvent.Type.AUTOCOPY_DIRECTORY)) {
             settings.setString(evt.getAutoCopyDirectory().getAbsolutePath(), keyAutocopyDirectory);
+        } else if (type.equals(UserSettingsChangeEvent.Type.WEB_BROWSER)) {
+            settings.setString(evt.getWebBrowser(), keyWebBrowser);
         }
     }
 
@@ -416,9 +423,9 @@ public final class UserSettings implements UserSettingsChangeListener {
         String classString = formatterClass.toString();
         int index = classString.lastIndexOf(" ");
         settings.setString(index >= 0 && index + 1 < classString.length()
-            ? classString.substring(index + 1)
-            : XMLFormatter.class.getName(),
-            keyLogfileFormatterClass);
+                ? classString.substring(index + 1)
+                : XMLFormatter.class.getName(),
+                keyLogfileFormatterClass);
     }
 
     private void writeToPropertiesUseEmbeddedThumbnails(boolean use) {

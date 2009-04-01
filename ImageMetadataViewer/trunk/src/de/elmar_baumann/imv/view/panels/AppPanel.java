@@ -12,6 +12,7 @@ import de.elmar_baumann.imv.view.renderer.ListCellRendererFavoriteDirectories;
 import de.elmar_baumann.imv.view.renderer.ListCellRendererImageCollections;
 import de.elmar_baumann.imv.view.renderer.ListCellRendererKeywords;
 import de.elmar_baumann.imv.view.renderer.ListCellRendererSavedSearches;
+import de.elmar_baumann.lib.event.JTableButtonMouseListener;
 import de.elmar_baumann.lib.util.Settings;
 import de.elmar_baumann.lib.util.SettingsHints;
 import java.awt.Component;
@@ -66,6 +67,7 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
         setBackgroundColorTablesScrollPanes();
         disableTreeMultipleSelection();
         initArrays();
+        tableExif.addMouseListener(new JTableButtonMouseListener(tableExif));
     }
 
     private void initArrays() {
