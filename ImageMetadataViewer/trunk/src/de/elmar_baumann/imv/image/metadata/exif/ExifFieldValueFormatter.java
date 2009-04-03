@@ -4,9 +4,14 @@ import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.Translation;
 import de.elmar_baumann.lib.lang.Util;
+import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.FieldPosition;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.StringTokenizer;
 
@@ -55,6 +60,10 @@ public final class ExifFieldValueFormatter {
             return getFlash(entry);
         } else if (tag == ExifTag.DATE_TIME_ORIGINAL.getId()) {
             return getDateTimeOriginal(value);
+        } else if (tag == ExifTag.GPS_DATE_STAMP.getId()) {
+            return getGpsDate(entry.getRawValue());
+        } else if (tag == ExifTag.GPS_TIME_STAMP.getId()) {
+            return getGpsTime(entry);
         }
 
         return value;
@@ -200,6 +209,46 @@ public final class ExifFieldValueFormatter {
             return translation.translate("FileSourceDigitalCamera"); // NOI18N
         }
         return value;
+    }
+
+    private static String getGpsDate(byte[] rawValue) {
+        String rawString = new String(rawValue);
+        if (rawString.length() != 11)
+            return rawString;
+        try {
+            DateFormat df = new SimpleDateFormat("yyyy:MM:dd");
+            Date date = df.parse(rawString.substring(0, 10));
+            return DateFormat.getDateInstance(DateFormat.LONG).format(date);
+        } catch (ParseException ex) {
+            AppLog.logWarning(ExifFieldValueFormatter.class, ex);
+        }
+        return rawString;
+    }
+
+    private static String getGpsTime(IdfEntryProxy entry) {
+        ExifMetadata.ByteOrder byteOrder = entry.getByteOrder();
+        byte[] rawValue = entry.getRawValue();
+        if (rawValue.length != 24)
+            return new String(rawValue);
+        ExifRational hours = new ExifRational(
+            Arrays.copyOfRange(rawValue, 0, 4),
+            Arrays.copyOfRange(rawValue, 4, 8),
+            byteOrder);
+        ExifRational minutes = new ExifRational(
+            Arrays.copyOfRange(rawValue, 8, 12),
+            Arrays.copyOfRange(rawValue, 12, 16),
+            byteOrder);
+        ExifRational seconds = new ExifRational(
+            Arrays.copyOfRange(rawValue, 16, 20),
+            Arrays.copyOfRange(rawValue, 20, 24),
+            byteOrder);
+        int h = (int) ExifGpsUtil.toLong(hours);
+        int m = (int) ExifGpsUtil.toLong(minutes);
+        int s = (int) ExifGpsUtil.toLong(seconds);
+        Calendar cal = Calendar.getInstance();
+        cal.set(2009, 4, 3, h, m, s);
+        DateFormat df = DateFormat.getTimeInstance(DateFormat.LONG);
+        return df.format(cal.getTime());
     }
 
     private static String getMeteringMode(String value) {
