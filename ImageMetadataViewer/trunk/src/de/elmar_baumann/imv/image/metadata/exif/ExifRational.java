@@ -1,44 +1,59 @@
 package de.elmar_baumann.imv.image.metadata.exif;
 
-import java.nio.ByteBuffer;
-
 /**
- * Rational Data Type of Exif Metadata.
+ * EXIF data type RATIONAL as described in the standard: Two LONGs. The first
+ * LONG is the numerator and the second LONG expresses the denominator.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009/03/17
+ * @see ExifLong
  */
 public final class ExifRational {
 
-    private int numerator = Integer.MIN_VALUE;
-    private int denominator = Integer.MIN_VALUE;
+    private final int numerator;
+    private final int denominator;
 
-    public ExifRational(int numerator, int denominator) {
-        this.numerator = numerator;
-        this.denominator = denominator;
+    /**
+     * Creates a new instance.
+     *
+     * @param  numeratorRawValue    raw value of the numerator
+     * @param  denominatorRawValue  raw value of the denominator
+     * @param  byteOrder            byte order
+     * @throws IllegalArgumentException if the lengths of numerator or denominator
+     *         are not equals to 4 or if the values are smaller than zero
+     */
+    public ExifRational(byte[] numeratorRawValue, byte[] denominatorRawValue,
+        ExifMetadata.ByteOrder byteOrder) {
+
+        if (numeratorRawValue.length != 4)
+            throw new IllegalArgumentException("numeratorRawValue != 4: " + numeratorRawValue);
+        if (denominatorRawValue.length != 4)
+            throw new IllegalArgumentException("denominatorRawValue != 4: " + denominatorRawValue);
+
+        numerator = ExifGpsUtil.intFromRawValue(numeratorRawValue, byteOrder);
+        denominator = ExifGpsUtil.intFromRawValue(denominatorRawValue, byteOrder);
+
+        if (numerator < 0)
+            throw new IllegalArgumentException("numerator < 0: " + numerator);
+        if (denominator < 0)
+            throw new IllegalArgumentException("denominator < 0: " + denominator);
     }
 
-    public ExifRational(byte[] numeratorRawValue, byte[] denominatorRawValue, ExifMetadata.ByteOrder byteOrder) {
-        if (numeratorRawValue.length != 4 || denominatorRawValue.length != 4)
-            throw new IllegalArgumentException("Numerator und/oder Denominatorlänge != 4");
-        numerator = intFromRawValue(numeratorRawValue, byteOrder);
-        denominator = intFromRawValue(denominatorRawValue, byteOrder);
-    }
-
-    private int intFromRawValue(byte[] rawValue, ExifMetadata.ByteOrder byteOrder) {
-        assert rawValue.length == 4 : rawValue.length;
-        ByteBuffer buf = ByteBuffer.wrap(rawValue);
-        buf.order(byteOrder.equals(ExifMetadata.ByteOrder.LITTLE_ENDIAN)
-            ? java.nio.ByteOrder.LITTLE_ENDIAN
-            : java.nio.ByteOrder.BIG_ENDIAN);
-        return buf.getInt();
-    }
-
-    public long getDenominator() {
+    /**
+     * Returns the denominator.
+     *
+     * @return denominator {@code >= 0}
+     */
+    public int getDenominator() {
         return denominator;
     }
 
-    public long getNumerator() {
+    /**
+     * Returns the numerator.
+     *
+     * @return numerator {@code >= 0}
+     */
+    public int getNumerator() {
         return numerator;
     }
 }

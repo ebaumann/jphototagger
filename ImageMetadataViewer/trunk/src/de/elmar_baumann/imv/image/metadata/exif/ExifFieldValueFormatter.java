@@ -1,7 +1,6 @@
 package de.elmar_baumann.imv.image.metadata.exif;
 
 import de.elmar_baumann.imv.app.AppLog;
-import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.Translation;
 import de.elmar_baumann.lib.lang.Util;
 import java.text.DateFormat;
@@ -13,6 +12,8 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.StringTokenizer;
 
 /**
@@ -24,6 +25,48 @@ import java.util.StringTokenizer;
 public final class ExifFieldValueFormatter {
 
     private static final Translation translation = new Translation("ExifFieldValueTranslations"); // NOI18N
+    private static final Map<String, String> exifKeyOfExposureProgram = new HashMap<String, String>();
+    private static final Map<String, String> exifKeyOfContrast = new HashMap<String, String>();
+    private static final Map<String, String> exifKeyOfMeteringMode = new HashMap<String, String>();
+    private static final Map<String, String> exifKeyOfSaturation = new HashMap<String, String>();
+    private static final Map<String, String> exifKeyOfSharpness = new HashMap<String, String>();
+    private static final Map<String, String> exifKeyOfWhiteBalance = new HashMap<String, String>();
+
+
+    static {
+        exifKeyOfExposureProgram.put("0", "ExposureProgramUnkonwn"); // NOI18N
+        exifKeyOfExposureProgram.put("1", "ExposureProgramManual"); // NOI18N
+        exifKeyOfExposureProgram.put("2", "ExposureProgramNormalProgram"); // NOI18N
+        exifKeyOfExposureProgram.put("3", "ExposureProgramAperturePriority"); // NOI18N
+        exifKeyOfExposureProgram.put("4", "ExposureProgramTimePriority"); // NOI18N
+        exifKeyOfExposureProgram.put("5", "ExposureProgramCreativ"); // NOI18N
+        exifKeyOfExposureProgram.put("6", "ExposureProgramAction"); // NOI18N
+        exifKeyOfExposureProgram.put("7", "ExposureProgramPortrait"); // NOI18N
+        exifKeyOfExposureProgram.put("8", "ExposureProgramLandscape"); // NOI18N
+
+        exifKeyOfContrast.put("0", "ContrastNormal"); // NOI18N
+        exifKeyOfContrast.put("1", "ContrastLow"); // NOI18N
+        exifKeyOfContrast.put("2", "ContrastHigh"); // NOI18N
+
+        exifKeyOfMeteringMode.put("0", "MeteringModeUnknown"); // NOI18N
+        exifKeyOfMeteringMode.put("1", "MeteringModeIntegral"); // NOI18N
+        exifKeyOfMeteringMode.put("2", "MeteringModeIntegralCenter"); // NOI18N
+        exifKeyOfMeteringMode.put("3", "MeteringModeSpot"); // NOI18N
+        exifKeyOfMeteringMode.put("4", "MeteringModeMultiSpot"); // NOI18N
+        exifKeyOfMeteringMode.put("5", "MeteringModeMatrix"); // NOI18N
+        exifKeyOfMeteringMode.put("6", "MeteringModeSelective"); // NOI18N
+
+        exifKeyOfSaturation.put("0", "SaturationNormal"); // NOI18N
+        exifKeyOfSaturation.put("1", "SaturationLow"); // NOI18N
+        exifKeyOfSaturation.put("2", "SaturationHigh"); // NOI18N
+
+        exifKeyOfSharpness.put("0", "SaturationNormal"); // NOI18N
+        exifKeyOfSharpness.put("1", "SaturationLow"); // NOI18N
+        exifKeyOfSharpness.put("2", "SaturationHigh"); // NOI18N
+
+        exifKeyOfWhiteBalance.put("0", "WhiteBalanceAutomatic"); // NOI18N
+        exifKeyOfWhiteBalance.put("1", "WhiteBalanceManual"); // NOI18N
+    }
 
     /**
      * Formatiert einen Entry.
@@ -64,6 +107,10 @@ public final class ExifFieldValueFormatter {
             return getGpsDate(entry.getRawValue());
         } else if (tag == ExifTag.GPS_TIME_STAMP.getId()) {
             return getGpsTime(entry);
+        } else if (tag == ExifTag.GPS_VERSION_ID.getId()) {
+            return getGpsVersion(entry.getRawValue());
+        } else if (tag == ExifTag.GPS_SATELLITES.getId()) {
+            return getGpsSatellites(entry.getRawValue());
         }
 
         return value;
@@ -79,13 +126,11 @@ public final class ExifFieldValueFormatter {
                 int hour = Integer.parseInt(string.substring(11, 13));
                 int minute = Integer.parseInt(string.substring(14, 16));
                 int second = Integer.parseInt(string.substring(17, 19));
-                GregorianCalendar calendar = new GregorianCalendar(
+                GregorianCalendar cal = new GregorianCalendar(
                     year, month - 1, day, hour, minute, second);
-                SimpleDateFormat dateFormat = new SimpleDateFormat(Bundle.getString("ExifFieldValueFormatter.DateTimeDigitized.Format"));
-                StringBuffer buffer = new StringBuffer();
-                dateFormat.format(calendar.getTime(), buffer, new FieldPosition(0));
-                return buffer.toString();
-            } catch (NumberFormatException ex) {
+                DateFormat df = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG);
+                return df.format(cal.getTime());
+            } catch (Exception ex) {
                 AppLog.logWarning(ExifFieldValueFormatter.class, ex);
             }
         }
@@ -134,37 +179,19 @@ public final class ExifFieldValueFormatter {
     }
 
     private static String getContrast(String value) {
-        if (value.equals("0")) { // NOI18N
-            return translation.translate("ContrastNormal"); // NOI18N
-        } else if (value.equals("1")) { // NOI18N
-            return translation.translate("ContrastLow"); // NOI18N
-        } else if (value.equals("2")) { // NOI18N
-            return translation.translate("ContrastHigh"); // NOI18N
+        if (exifKeyOfContrast.containsKey(value)) {
+            return translation.translate(exifKeyOfContrast.get(value));
+        } else {
+            return value;
         }
-        return value;
     }
 
     private static String getExposureProgram(String value) {
-        if (value.equals("0")) { // NOI18N
-            return translation.translate("ExposureProgramUnkonwn"); // NOI18N
-        } else if (value.equals("1")) { // NOI18N
-            return translation.translate("ExposureProgramManual"); // NOI18N
-        } else if (value.equals("2")) { // NOI18N
-            return translation.translate("ExposureProgramNormalProgram"); // NOI18N
-        } else if (value.equals("3")) { // NOI18N
-            return translation.translate("ExposureProgramAperturePriority"); // NOI18N
-        } else if (value.equals("4")) { // NOI18N
-            return translation.translate("ExposureProgramTimePriority"); // NOI18N
-        } else if (value.equals("5")) { // NOI18N
-            return translation.translate("ExposureProgramCreativ"); // NOI18N
-        } else if (value.equals("6")) { // NOI18N
-            return translation.translate("ExposureProgramAction"); // NOI18N
-        } else if (value.equals("7")) { // NOI18N
-            return translation.translate("ExposureProgramPortrait"); // NOI18N
-        } else if (value.equals("8")) { // NOI18N
-            return translation.translate("ExposureProgramLandscape"); // NOI18N
+        if (exifKeyOfExposureProgram.containsKey(value)) {
+            return translation.translate(exifKeyOfExposureProgram.get(value));
+        } else {
+            return value;
         }
-        return value;
     }
 
     private static String getExposureTime(String value) {
@@ -225,6 +252,10 @@ public final class ExifFieldValueFormatter {
         return rawString;
     }
 
+    private static String getGpsSatellites(byte[] rawValue) {
+        return new ExifAscii(rawValue).getValue();
+    }
+
     private static String getGpsTime(IdfEntryProxy entry) {
         ExifMetadata.ByteOrder byteOrder = entry.getByteOrder();
         byte[] rawValue = entry.getRawValue();
@@ -251,45 +282,43 @@ public final class ExifFieldValueFormatter {
         return df.format(cal.getTime());
     }
 
+    private static String getGpsVersion(byte[] rawValue) {
+        assert rawValue.length == 4 : rawValue.length;
+        if (rawValue.length != 4)
+            return new String(rawValue);
+        ExifByte first = new ExifByte(Arrays.copyOfRange(rawValue, 0, 1));
+        ExifByte second = new ExifByte(Arrays.copyOfRange(rawValue, 1, 2));
+        ExifByte third = new ExifByte(Arrays.copyOfRange(rawValue, 2, 3));
+        ExifByte fourth = new ExifByte(Arrays.copyOfRange(rawValue, 3, 4));
+
+        return new String(first.getValue() +
+            "." + second.getValue() +
+            "." + third.getValue() +
+            "." + fourth.getValue());
+    }
+
     private static String getMeteringMode(String value) {
-        if (value.equals("0")) { // NOI18N
-            return translation.translate("MeteringModeUnknown"); // NOI18N
-        } else if (value.equals("1")) { // NOI18N
-            return translation.translate("MeteringModeIntegral"); // NOI18N
-        } else if (value.equals("2")) { // NOI18N
-            return translation.translate("MeteringModeIntegralCenter"); // NOI18N
-        } else if (value.equals("3")) { // NOI18N
-            return translation.translate("MeteringModeSpot"); // NOI18N
-        } else if (value.equals("4")) { // NOI18N
-            return translation.translate("MeteringModeMultiSpot"); // NOI18N
-        } else if (value.equals("5")) { // NOI18N
-            return translation.translate("MeteringModeMatrix"); // NOI18N
-        } else if (value.equals("6")) { // NOI18N
-            return translation.translate("MeteringModeSelective"); // NOI18N
+        if (exifKeyOfMeteringMode.containsKey(value)) {
+            return translation.translate(exifKeyOfMeteringMode.get(value));
+        } else {
+            return value;
         }
-        return value;
     }
 
     private static String getSaturation(String value) {
-        if (value.equals("0")) { // NOI18N
-            return translation.translate("SaturationNormal"); // NOI18N
-        } else if (value.equals("1")) { // NOI18N
-            return translation.translate("SaturationLow"); // NOI18N
-        } else if (value.equals("2")) { // NOI18N
-            return translation.translate("SaturationHigh"); // NOI18N
+        if (exifKeyOfSaturation.containsKey(value)) {
+            return translation.translate(exifKeyOfSaturation.get(value));
+        } else {
+            return value;
         }
-        return value;
     }
 
     private static String getSharpness(String value) {
-        if (value.equals("0")) { // NOI18N
-            return translation.translate("SaturationNormal"); // NOI18N
-        } else if (value.equals("1")) { // NOI18N
-            return translation.translate("SaturationLow"); // NOI18N
-        } else if (value.equals("2")) { // NOI18N
-            return translation.translate("SaturationHigh"); // NOI18N
+        if (exifKeyOfSharpness.containsKey(value)) {
+            return translation.translate(exifKeyOfSharpness.get(value));
+        } else {
+            return value;
         }
-        return value;
     }
 
     private static String getUserComment(String value) {
@@ -306,12 +335,11 @@ public final class ExifFieldValueFormatter {
     }
 
     private static String getWhiteBalance(String value) {
-        if (value.equals("0")) { // NOI18N
-            return translation.translate("WhiteBalanceAutomatic"); // NOI18N
-        } else if (value.equals("1")) { // NOI18N
-            return translation.translate("WhiteBalanceManual"); // NOI18N
+        if (exifKeyOfWhiteBalance.containsKey(value)) {
+            return translation.translate(exifKeyOfWhiteBalance.get(value));
+        } else {
+            return value;
         }
-        return value;
     }
 
     private ExifFieldValueFormatter() {

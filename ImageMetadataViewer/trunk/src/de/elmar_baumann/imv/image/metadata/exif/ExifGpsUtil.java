@@ -1,5 +1,6 @@
 package de.elmar_baumann.imv.image.metadata.exif;
 
+import java.nio.ByteBuffer;
 import java.text.DecimalFormat;
 import java.text.MessageFormat;
 import java.text.NumberFormat;
@@ -63,6 +64,14 @@ public final class ExifGpsUtil {
         return toDouble(degrees.getDegrees()) +
             toDouble(degrees.getMinutes()) / 60 +
             toDouble(degrees.getSeconds()) / 3600;
+    }
+
+    public static int intFromRawValue(byte[] rawValue, ExifMetadata.ByteOrder byteOrder) {
+        ByteBuffer buf = ByteBuffer.wrap(rawValue);
+        buf.order(byteOrder.equals(ExifMetadata.ByteOrder.LITTLE_ENDIAN)
+            ? java.nio.ByteOrder.LITTLE_ENDIAN
+            : java.nio.ByteOrder.BIG_ENDIAN);
+        return buf.getInt();
     }
 
     private ExifGpsUtil() {

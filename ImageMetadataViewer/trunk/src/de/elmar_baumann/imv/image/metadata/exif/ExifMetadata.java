@@ -66,6 +66,8 @@ public final class ExifMetadata {
         tagsToDisplay.add(ExifTag.CONTRAST.getId());
         tagsToDisplay.add(ExifTag.SATURATION.getId());
         tagsToDisplay.add(ExifTag.SHARPNESS.getId());
+        tagsToDisplay.add(ExifTag.GPS_VERSION_ID.getId());
+        tagsToDisplay.add(ExifTag.GPS_SATELLITES.getId());
         tagsToDisplay.add(ExifTag.GPS_DATE_STAMP.getId());
         tagsToDisplay.add(ExifTag.GPS_TIME_STAMP.getId());
     }
