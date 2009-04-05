@@ -465,9 +465,10 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
         buttonStopScheduledTasks = new javax.swing.JButton();
         labelFastSearch = new javax.swing.JLabel();
 
+        treeDirectories.setModel(null);
+        treeDirectories.setToolTipText(Bundle.getString("AppPanel.treeDirectories.toolTipText")); // NOI18N
         treeDirectories.setCellRenderer(new TreeCellRendererDirectories());
         treeDirectories.setDragEnabled(true);
-        treeDirectories.setModel(null);
         scrollPaneDirectories.setViewportView(treeDirectories);
         treeDirectories.setTransferHandler(new de.elmar_baumann.imv.datatransfer.TransferHandlerTreeDirectories());
 
@@ -719,7 +720,7 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
         panelScrollPaneEditMetadata.setLayout(panelScrollPaneEditMetadataLayout);
         panelScrollPaneEditMetadataLayout.setHorizontalGroup(
             panelScrollPaneEditMetadataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPaneEditMetadata, javax.swing.GroupLayout.DEFAULT_SIZE, 355, Short.MAX_VALUE)
+            .addComponent(scrollPaneEditMetadata, javax.swing.GroupLayout.DEFAULT_SIZE, 371, Short.MAX_VALUE)
         );
         panelScrollPaneEditMetadataLayout.setVerticalGroup(
             panelScrollPaneEditMetadataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -743,8 +744,8 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
         panelMetadata.setLayout(panelMetadataLayout);
         panelMetadataLayout.setHorizontalGroup(
             panelMetadataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(labelMetadataFilename, javax.swing.GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE)
-            .addComponent(tabbedPaneMetadata, javax.swing.GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE)
+            .addComponent(labelMetadataFilename, javax.swing.GroupLayout.DEFAULT_SIZE, 376, Short.MAX_VALUE)
+            .addComponent(tabbedPaneMetadata, javax.swing.GroupLayout.DEFAULT_SIZE, 376, Short.MAX_VALUE)
         );
         panelMetadataLayout.setVerticalGroup(
             panelMetadataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -760,9 +761,9 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
         panelThumbnailsMetadata.setLayout(panelThumbnailsMetadataLayout);
         panelThumbnailsMetadataLayout.setHorizontalGroup(
             panelThumbnailsMetadataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 394, Short.MAX_VALUE)
+            .addGap(0, 410, Short.MAX_VALUE)
             .addGroup(panelThumbnailsMetadataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(splitPaneThumbnailsMetadata, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 394, Short.MAX_VALUE))
+                .addComponent(splitPaneThumbnailsMetadata, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 410, Short.MAX_VALUE))
         );
         panelThumbnailsMetadataLayout.setVerticalGroup(
             panelThumbnailsMetadataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -807,7 +808,7 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
         panelMetadataProgressLayout.setHorizontalGroup(
             panelMetadataProgressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelMetadataProgressLayout.createSequentialGroup()
-                .addComponent(progressBarScheduledTasks, javax.swing.GroupLayout.DEFAULT_SIZE, 91, Short.MAX_VALUE)
+                .addComponent(progressBarScheduledTasks, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonStopScheduledTasks, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -837,11 +838,11 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
                         .addComponent(buttonLogfileDialog, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelStatusbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(progressBarCreateMetadataOfCurrentThumbnails, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)
-                    .addComponent(textFieldSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE))
+                    .addComponent(progressBarCreateMetadataOfCurrentThumbnails, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                    .addComponent(textFieldSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))
                 .addGap(6, 6, 6)
                 .addGroup(panelStatusbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(progressBarCurrentTasks, 0, 113, Short.MAX_VALUE)
+                    .addComponent(progressBarCurrentTasks, 0, 121, Short.MAX_VALUE)
                     .addComponent(panelMetadataProgress, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
@@ -871,7 +872,7 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(splitPaneMain, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 541, Short.MAX_VALUE)
+                    .addComponent(splitPaneMain, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 557, Short.MAX_VALUE)
                     .addComponent(panelStatusbar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
