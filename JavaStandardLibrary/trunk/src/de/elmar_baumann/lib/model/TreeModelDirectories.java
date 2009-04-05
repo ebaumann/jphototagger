@@ -48,8 +48,14 @@ public final class TreeModelDirectories implements TreeModel {
         }
 
         directoryFilter = new DirectoryFilter(options);
-        setRootDirectories();
-        startUpdater();
+        new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                setRootDirectories();
+                startUpdater();
+            }
+        }).start();
     }
 
     private void setRootDirectories() {
@@ -248,7 +254,7 @@ public final class TreeModelDirectories implements TreeModel {
             int indexOfNode = parentsFiles.indexOf(node);
             parentsFiles.remove(node);
             TreeModelEvent evt = new TreeModelEvent(this, parentPath.getPath(),
-                    new int[]{indexOfNode}, new Object[]{node});
+                new int[]{indexOfNode}, new Object[]{node});
             notifyNodesRemoved(evt);
         }
         childrenOfNode.remove(node);
@@ -288,7 +294,7 @@ public final class TreeModelDirectories implements TreeModel {
         while (parentFile != null) {
             stack.push(parentFile);
             parentFile =
-                    parentFile.getParentFile();
+                parentFile.getParentFile();
         }
 
         Object[] path = new Object[stack.size() + 1];
@@ -302,7 +308,7 @@ public final class TreeModelDirectories implements TreeModel {
     }
 
     private class AddSubdirectories
-            implements Runnable {
+        implements Runnable {
 
         File parent;
 
@@ -361,7 +367,7 @@ public final class TreeModelDirectories implements TreeModel {
                         synchronized (monitor) {
                             existingChildrenOfFile = childrenOfNode.get(file);
                             childExists = existingChildrenOfFile != null &&
-                                    existingChildrenOfFile.contains(childOfFile);
+                                existingChildrenOfFile.contains(childOfFile);
                         }
                         if (!childExists) {
                             insertNode(parentPath, childOfFile);

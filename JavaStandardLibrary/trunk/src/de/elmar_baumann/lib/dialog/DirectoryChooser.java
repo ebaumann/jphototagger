@@ -235,8 +235,9 @@ public final class DirectoryChooser extends Dialog {
             }
         });
 
-        treeDirectories.setCellRenderer(new de.elmar_baumann.lib.renderer.TreeCellRendererDirectories());
         treeDirectories.setModel(null);
+        treeDirectories.setToolTipText(Bundle.getString("DirectoryChooser.treeDirectories.toolTipText")); // NOI18N
+        treeDirectories.setCellRenderer(new de.elmar_baumann.lib.renderer.TreeCellRendererDirectories());
         scrollPaneTreeDirectories.setViewportView(treeDirectories);
 
         buttonChoose.setMnemonic('a');
