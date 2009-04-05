@@ -32,6 +32,7 @@ public final class UserSettingsChangeEvent {
     private boolean autocomplete;
     private boolean useEmbeddedThumbnails;
     private boolean noFastSearchColumns;
+    private boolean treeDirectoriesSelectLastDirectory;
     private Integer maxThumbnailWidth;
     private Integer minutesToStartScheduledTasks;
     private Integer threadPriority;
@@ -63,6 +64,7 @@ public final class UserSettingsChangeEvent {
         OTHER_IMAGE_OPEN_APPS,
         THREAD_PRIORITY,
         WEB_BROWSER,
+        TREE_DIRECTORIES_SELECT_LAST_DIRECTORY,
     }
 
     public UserSettingsChangeEvent(Type type, Object source) {
@@ -100,6 +102,14 @@ public final class UserSettingsChangeEvent {
 
     public void setAutocomplete(boolean autocomplete) {
         this.autocomplete = autocomplete;
+    }
+
+    public boolean isTreeDirectoriesSelectLastDirectory() {
+        return treeDirectoriesSelectLastDirectory;
+    }
+
+    public void setTreeDirectoriesSelectLastDirectory(boolean treeDirectoriesSelectLastDirectory) {
+        this.treeDirectoriesSelectLastDirectory = treeDirectoriesSelectLastDirectory;
     }
 
     public boolean isAutoscanIncludeSubdirectories() {

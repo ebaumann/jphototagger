@@ -53,7 +53,9 @@ public final class MetaFactory implements Runnable {
         UserSettings.INSTANCE.getSettings().getComponent(
             appPanel,
             appPanel.getPersistentSettingsHints());
-        ViewUtil.readTreeDirectoriesFromProperties();
+        if (UserSettings.INSTANCE.isTreeDirectoriesSelectLastDirectory()) {
+            ViewUtil.readTreeDirectoriesFromProperties();
+        }
     }
 
     private void startDisplayProgressInProgressbarBar() {
