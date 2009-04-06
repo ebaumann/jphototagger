@@ -12,12 +12,33 @@ public final class ExifByte {
 
     private final int value;
 
+    /**
+     * EXIF data type BYTE as described in the standard: An 8-bit unsigned
+     * integer.
+     * 
+     * @param  rawValue  raw value
+     * @throws IllegalArgumentException if the raw value byte count is not
+     *         equals to {@link #getRawValueByteCount()} or negativ
+     */
     public ExifByte(byte[] rawValue) {
-        if (rawValue.length != 1)
-            throw new IllegalArgumentException("raw Value length != 1: " + rawValue.length);
+        if (!isRawValueByteCountOk(rawValue))
+            throw new IllegalArgumentException("Illegal raw value byte count: " + rawValue.length);
         value = (int) rawValue[0];
         if (value < 0)
-            throw new IllegalArgumentException("value < 0: " + value);
+            throw new IllegalArgumentException("Negativ value: " + value);
+    }
+
+    /**
+     * Returns the valid raw value byte count.
+     *
+     * @return valid raw value byte count
+     */
+    public static int getRawValueByteCount() {
+        return 1;
+    }
+
+    public static boolean isRawValueByteCountOk(byte[] rawValue) {
+        return rawValue.length == getRawValueByteCount();
     }
 
     public int getValue() {

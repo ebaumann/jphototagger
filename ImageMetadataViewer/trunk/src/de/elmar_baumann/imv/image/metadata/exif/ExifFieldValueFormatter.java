@@ -3,18 +3,20 @@ package de.elmar_baumann.imv.image.metadata.exif;
 import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.resource.Translation;
 import de.elmar_baumann.lib.lang.Util;
+import de.elmar_baumann.lib.template.Pair;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
-import java.text.FieldPosition;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.StringTokenizer;
 
 /**
  * Formatiert EXIF-Werte.
@@ -25,84 +27,93 @@ import java.util.StringTokenizer;
 public final class ExifFieldValueFormatter {
 
     private static final Translation translation = new Translation("ExifFieldValueTranslations"); // NOI18N
-    private static final Map<String, String> exifKeyOfExposureProgram = new HashMap<String, String>();
-    private static final Map<String, String> exifKeyOfContrast = new HashMap<String, String>();
-    private static final Map<String, String> exifKeyOfMeteringMode = new HashMap<String, String>();
-    private static final Map<String, String> exifKeyOfSaturation = new HashMap<String, String>();
-    private static final Map<String, String> exifKeyOfSharpness = new HashMap<String, String>();
-    private static final Map<String, String> exifKeyOfWhiteBalance = new HashMap<String, String>();
+    private static final Map<Integer, String> exifKeyOfExposureProgram = new HashMap<Integer, String>();
+    private static final Map<Integer, String> exifKeyOfContrast = new HashMap<Integer, String>();
+    private static final Map<Integer, String> exifKeyOfMeteringMode = new HashMap<Integer, String>();
+    private static final Map<Integer, String> exifKeyOfSaturation = new HashMap<Integer, String>();
+    private static final Map<Integer, String> exifKeyOfSharpness = new HashMap<Integer, String>();
+    private static final Map<Integer, String> exifKeyOfWhiteBalance = new HashMap<Integer, String>();
+    private static final List<Integer> asciiTags = new ArrayList<Integer>();
 
 
     static {
-        exifKeyOfExposureProgram.put("0", "ExposureProgramUnkonwn"); // NOI18N
-        exifKeyOfExposureProgram.put("1", "ExposureProgramManual"); // NOI18N
-        exifKeyOfExposureProgram.put("2", "ExposureProgramNormalProgram"); // NOI18N
-        exifKeyOfExposureProgram.put("3", "ExposureProgramAperturePriority"); // NOI18N
-        exifKeyOfExposureProgram.put("4", "ExposureProgramTimePriority"); // NOI18N
-        exifKeyOfExposureProgram.put("5", "ExposureProgramCreativ"); // NOI18N
-        exifKeyOfExposureProgram.put("6", "ExposureProgramAction"); // NOI18N
-        exifKeyOfExposureProgram.put("7", "ExposureProgramPortrait"); // NOI18N
-        exifKeyOfExposureProgram.put("8", "ExposureProgramLandscape"); // NOI18N
+        // The translation of the keys are in the file
+        // ExifFieldValueTranslations.properties
 
-        exifKeyOfContrast.put("0", "ContrastNormal"); // NOI18N
-        exifKeyOfContrast.put("1", "ContrastLow"); // NOI18N
-        exifKeyOfContrast.put("2", "ContrastHigh"); // NOI18N
+        exifKeyOfExposureProgram.put(0, "ExposureProgramUnkonwn"); // NOI18N
+        exifKeyOfExposureProgram.put(1, "ExposureProgramManual"); // NOI18N
+        exifKeyOfExposureProgram.put(2, "ExposureProgramNormalProgram"); // NOI18N
+        exifKeyOfExposureProgram.put(3, "ExposureProgramAperturePriority"); // NOI18N
+        exifKeyOfExposureProgram.put(4, "ExposureProgramTimePriority"); // NOI18N
+        exifKeyOfExposureProgram.put(5, "ExposureProgramCreativ"); // NOI18N
+        exifKeyOfExposureProgram.put(6, "ExposureProgramAction"); // NOI18N
+        exifKeyOfExposureProgram.put(7, "ExposureProgramPortrait"); // NOI18N
+        exifKeyOfExposureProgram.put(8, "ExposureProgramLandscape"); // NOI18N
 
-        exifKeyOfMeteringMode.put("0", "MeteringModeUnknown"); // NOI18N
-        exifKeyOfMeteringMode.put("1", "MeteringModeIntegral"); // NOI18N
-        exifKeyOfMeteringMode.put("2", "MeteringModeIntegralCenter"); // NOI18N
-        exifKeyOfMeteringMode.put("3", "MeteringModeSpot"); // NOI18N
-        exifKeyOfMeteringMode.put("4", "MeteringModeMultiSpot"); // NOI18N
-        exifKeyOfMeteringMode.put("5", "MeteringModeMatrix"); // NOI18N
-        exifKeyOfMeteringMode.put("6", "MeteringModeSelective"); // NOI18N
+        exifKeyOfContrast.put(0, "ContrastNormal"); // NOI18N
+        exifKeyOfContrast.put(1, "ContrastLow"); // NOI18N
+        exifKeyOfContrast.put(2, "ContrastHigh"); // NOI18N
 
-        exifKeyOfSaturation.put("0", "SaturationNormal"); // NOI18N
-        exifKeyOfSaturation.put("1", "SaturationLow"); // NOI18N
-        exifKeyOfSaturation.put("2", "SaturationHigh"); // NOI18N
+        exifKeyOfMeteringMode.put(0, "MeteringModeUnknown"); // NOI18N
+        exifKeyOfMeteringMode.put(1, "MeteringModeIntegral"); // NOI18N
+        exifKeyOfMeteringMode.put(2, "MeteringModeIntegralCenter"); // NOI18N
+        exifKeyOfMeteringMode.put(3, "MeteringModeSpot"); // NOI18N
+        exifKeyOfMeteringMode.put(4, "MeteringModeMultiSpot"); // NOI18N
+        exifKeyOfMeteringMode.put(5, "MeteringModeMatrix"); // NOI18N
+        exifKeyOfMeteringMode.put(6, "MeteringModeSelective"); // NOI18N
 
-        exifKeyOfSharpness.put("0", "SaturationNormal"); // NOI18N
-        exifKeyOfSharpness.put("1", "SaturationLow"); // NOI18N
-        exifKeyOfSharpness.put("2", "SaturationHigh"); // NOI18N
+        exifKeyOfSaturation.put(0, "SaturationNormal"); // NOI18N
+        exifKeyOfSaturation.put(1, "SaturationLow"); // NOI18N
+        exifKeyOfSaturation.put(2, "SaturationHigh"); // NOI18N
 
-        exifKeyOfWhiteBalance.put("0", "WhiteBalanceAutomatic"); // NOI18N
-        exifKeyOfWhiteBalance.put("1", "WhiteBalanceManual"); // NOI18N
+        exifKeyOfSharpness.put(0, "SharpnessNormal"); // NOI18N
+        exifKeyOfSharpness.put(1, "SharpnessSoft"); // NOI18N
+        exifKeyOfSharpness.put(2, "SharpnessHard"); // NOI18N
+
+        exifKeyOfWhiteBalance.put(0, "WhiteBalanceAutomatic"); // NOI18N
+        exifKeyOfWhiteBalance.put(1, "WhiteBalanceManual"); // NOI18N
+
+        asciiTags.add(ExifTag.MAKE.getId());
+        asciiTags.add(ExifTag.MODEL.getId());
+        asciiTags.add(ExifTag.SOFTWARE.getId());
     }
 
     /**
-     * Formatiert einen Entry.
+     * Formatis an exif entry.
      * 
-     * @param  entry Entry
-     * @return       Formatierter Wert
+     * @param  entry  entry
+     * @return entry formatted
      */
     public static String format(IdfEntryProxy entry) {
-        String value = entry.toString().trim();
         int tag = entry.getTag();
         if (tag == ExifTag.SHARPNESS.getId()) {
-            return getSharpness(value);
+            return getSharpness(entry);
         } else if (tag == ExifTag.SATURATION.getId()) {
-            return getSaturation(value);
+            return getSaturation(entry);
         } else if (tag == ExifTag.WHITE_BALANCE.getId()) {
-            return getWhiteBalance(value);
-        } else if (tag == ExifTag.FOCAL_LENGTH.getId() || tag == ExifTag.FOCAL_LENGTH_IN_35_MM_FILM.getId()) {
-            return getFocalLength(value);
+            return getWhiteBalance(entry);
+        } else if (tag == ExifTag.FOCAL_LENGTH.getId()) {
+            return getFocalLength(entry);
+        } else if (tag == ExifTag.FOCAL_LENGTH_IN_35_MM_FILM.getId()) {
+            return getFocalLengthIn35mm(entry);
         } else if (tag == ExifTag.EXPOSURE_TIME.getId()) {
-            return getExposureTime(value);
+            return getExposureTime(entry);
         } else if (tag == ExifTag.F_NUMBER.getId()) {
-            return getFNumber(value);
+            return getFNumber(entry);
         } else if (tag == ExifTag.EXPOSURE_PROGRAM.getId()) {
-            return getExposureProgram(value);
+            return getExposureProgram(entry);
         } else if (tag == ExifTag.METERING_MODE.getId()) {
-            return getMeteringMode(value);
+            return getMeteringMode(entry);
         } else if (tag == ExifTag.FILE_SOURCE.getId()) {
-            return getFileSource(value);
+            return getFileSource(entry);
         } else if (tag == ExifTag.USER_COMMENT.getId()) {
-            return getUserComment(value);
+            return getUserComment(entry);
         } else if (tag == ExifTag.CONTRAST.getId()) {
-            return getContrast(value);
+            return getContrast(entry);
         } else if (tag == ExifTag.FLASH.getId()) {
             return getFlash(entry);
         } else if (tag == ExifTag.DATE_TIME_ORIGINAL.getId()) {
-            return getDateTimeOriginal(value);
+            return getDateTimeOriginal(entry);
         } else if (tag == ExifTag.GPS_DATE_STAMP.getId()) {
             return getGpsDate(entry.getRawValue());
         } else if (tag == ExifTag.GPS_TIME_STAMP.getId()) {
@@ -111,30 +122,39 @@ public final class ExifFieldValueFormatter {
             return getGpsVersion(entry.getRawValue());
         } else if (tag == ExifTag.GPS_SATELLITES.getId()) {
             return getGpsSatellites(entry.getRawValue());
+        } else if (tag == ExifTag.ISO_SPEED_RATINGS.getId()) {
+            return getShortString(entry, " ISO");
+        } else if (isAscii(tag)) {
+            return getAsciiString(entry.getRawValue());
         }
-
-        return value;
+        return entry.toString().trim();
     }
 
-    private static String getDateTimeOriginal(String value) {
-        String string = value.trim();
-        if (string.length() >= 18) {
+    private static String getAsciiString(byte[] rawValue) {
+        ExifAscii ea = new ExifAscii(rawValue);
+        return ea.getValue();
+    }
+
+    private static String getDateTimeOriginal(IdfEntryProxy entry) {
+        ExifAscii ea = new ExifAscii(entry.getRawValue());
+        String value = ea.getValue();
+        if (value.length() >= 18) {
             try {
-                int year = Integer.parseInt(string.substring(0, 4));
-                int month = Integer.parseInt(string.substring(5, 7));
-                int day = Integer.parseInt(string.substring(8, 10));
-                int hour = Integer.parseInt(string.substring(11, 13));
-                int minute = Integer.parseInt(string.substring(14, 16));
-                int second = Integer.parseInt(string.substring(17, 19));
+                int year = Integer.parseInt(value.substring(0, 4));
+                int month = Integer.parseInt(value.substring(5, 7));
+                int day = Integer.parseInt(value.substring(8, 10));
+                int hour = Integer.parseInt(value.substring(11, 13));
+                int minute = Integer.parseInt(value.substring(14, 16));
+                int second = Integer.parseInt(value.substring(17, 19));
                 GregorianCalendar cal = new GregorianCalendar(
-                    year, month - 1, day, hour, minute, second);
+                        year, month - 1, day, hour, minute, second);
                 DateFormat df = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG);
                 return df.format(cal.getTime());
             } catch (Exception ex) {
                 AppLog.logWarning(ExifFieldValueFormatter.class, ex);
             }
         }
-        return string;
+        return value;
     }
 
     private static String getFlash(IdfEntryProxy entry) {
@@ -147,95 +167,100 @@ public final class ExifFieldValueFormatter {
                 return translation.translate("FlashNone"); // NOI18N
             }
             return fired
-                ? translation.translate("FlashFired") // NOI18N
-                : translation.translate("FlashNotFired"); // NOI18N
+                    ? translation.translate("FlashFired") // NOI18N
+                    : translation.translate("FlashNotFired"); // NOI18N
         }
-        return entry.toString().trim();
+        return new ExifAscii(entry.getRawValue()).getValue();
     }
 
-    private static String getFocalLength(String value) {
-        StringTokenizer tokenizer = new StringTokenizer(value, "/"); // NOI18N
-        if (tokenizer.countTokens() == 2) {
-            String z = tokenizer.nextToken();
-            String n = tokenizer.nextToken();
-            try {
-                Double numerator = new Double(z);
-                Double denominator = new Double(n);
-                if (denominator != 0) {
-                    return getFraction(numerator, denominator);
-                }
-            } catch (NumberFormatException ex) {
-                AppLog.logWarning(ExifFieldValueFormatter.class, ex);
+    private static String getFocalLength(IdfEntryProxy entry) {
+        if (ExifRational.isRawValueByteCountOk(entry.getRawValue())) {
+            ExifRational er = new ExifRational(entry.getRawValue(), entry.getByteOrder());
+            DecimalFormat df = (DecimalFormat) NumberFormat.getNumberInstance();
+            df.applyPattern("#.# mm");
+            return df.format(ExifUtil.toDouble(er));
+        }
+        return "?";
+    }
+
+    private static String getFocalLengthIn35mm(IdfEntryProxy entry) {
+        if (ExifShort.isRawValueByteCountOk(entry.getRawValue())) {
+            ExifShort es = new ExifShort(entry.getRawValue(), entry.getByteOrder());
+            DecimalFormat df = (DecimalFormat) NumberFormat.getNumberInstance();
+            df.applyPattern("#.# mm");
+            return df.format(es.getValue());
+        }
+        return "?";
+    }
+
+    private static String getContrast(IdfEntryProxy entry) {
+        if (ExifShort.isRawValueByteCountOk(entry.getRawValue())) {
+            ExifShort es = new ExifShort(entry.getRawValue(), entry.getByteOrder());
+            int value = es.getValue();
+            if (exifKeyOfContrast.containsKey(value)) {
+                return translation.translate(exifKeyOfContrast.get(value));
             }
         }
-        return value;
+        return "?";
     }
 
-    private static String getFraction(Double numerator, Double denominator) {
-        StringBuffer buffer = new StringBuffer();
-        DecimalFormat format = new DecimalFormat();
-        format.format(numerator / denominator, buffer, new FieldPosition(0));
-        return buffer.toString();
+    private static String getExposureProgram(IdfEntryProxy entry) {
+        if (ExifShort.isRawValueByteCountOk(entry.getRawValue())) {
+            ExifShort es = new ExifShort(entry.getRawValue(), entry.getByteOrder());
+            int value = es.getValue();
+            if (exifKeyOfExposureProgram.containsKey(value)) {
+                return translation.translate(exifKeyOfExposureProgram.get(value));
+            }
+        }
+        return "?";
     }
 
-    private static String getContrast(String value) {
-        if (exifKeyOfContrast.containsKey(value)) {
-            return translation.translate(exifKeyOfContrast.get(value));
+    private static String getExposureTime(IdfEntryProxy entry) {
+        if (ExifRational.getRawValueByteCount() == entry.getRawValue().length) {
+            ExifRational time = new ExifRational(entry.getRawValue(), entry.getByteOrder());
+            Pair<Integer, Integer> pair = getAsExposureTime(time);
+            int numerator = pair.getFirst();
+            int denominator = pair.getSecond();
+            if (denominator > 1) {
+                return Integer.toString(numerator) + " / " + Integer.toString(denominator) + " s";
+            } else if (numerator > 1) {
+                return Integer.toString(numerator) + " s";
+            }
+        }
+        return "?";
+    }
+
+    private static Pair<Integer, Integer> getAsExposureTime(ExifRational er) {
+        int numerator = er.getNumerator();
+        int denominator = er.getDenominator();
+        double result = (double) numerator / (double) denominator;
+        if (result < 1) {
+            return new Pair<Integer, Integer>(1, denominator * numerator);
+        } else if (result >= 1) {
+            return new Pair<Integer, Integer>((int) ((double) numerator / (double) denominator + 0.5), 1);
         } else {
-            return value;
+            return new Pair<Integer, Integer>(0, 0);
         }
     }
 
-    private static String getExposureProgram(String value) {
-        if (exifKeyOfExposureProgram.containsKey(value)) {
-            return translation.translate(exifKeyOfExposureProgram.get(value));
-        } else {
-            return value;
+    private static String getFNumber(IdfEntryProxy entry) {
+        if (ExifRational.getRawValueByteCount() == entry.getRawValue().length) {
+            ExifRational fNumer = new ExifRational(entry.getRawValue(), entry.getByteOrder());
+            DecimalFormat df = (DecimalFormat) NumberFormat.getNumberInstance();
+            df.applyPattern("#.#"); // NOI18N
+            return df.format(ExifUtil.toDouble(fNumer));
         }
+        return "?";
     }
 
-    private static String getExposureTime(String value) {
-        StringTokenizer tokenizer = new StringTokenizer(value, "/"); // NOI18N
-        if (tokenizer.countTokens() == 2) {
-            String z = tokenizer.nextToken();
-            String n = tokenizer.nextToken();
-            try {
-                Double numerator = new Double(z);
-                Double denominator = new Double(n);
-                if (denominator != 0 && numerator % 10 == 0) {
-                    return Integer.toString((int) (numerator / 10)) + "/" + // NOI18N
-                        Integer.toString((int) (denominator / 10));
-                }
-            } catch (NumberFormatException ex) {
-                AppLog.logWarning(ExifFieldValueFormatter.class, ex);
+    private static String getFileSource(IdfEntryProxy entry) {
+        if (entry.getRawValue().length >= 1) {
+            int value = entry.getRawValue()[0];
+            if (value == 3) {
+                return translation.translate("FileSourceDigitalCamera"); // NOI18N
             }
         }
-        return value;
-    }
-
-    private static String getFNumber(String value) {
-        StringTokenizer tokenizer = new StringTokenizer(value, "/"); // NOI18N
-        if (tokenizer.countTokens() == 2) {
-            String z = tokenizer.nextToken();
-            String n = tokenizer.nextToken();
-            try {
-                Double numerator = new Double(z);
-                Double denominator = new Double(n);
-                if (denominator != 0) {
-                    return getFraction(numerator, denominator);
-                }
-            } catch (NumberFormatException ex) {
-                AppLog.logWarning(ExifFieldValueFormatter.class, ex);
-            }
-        }
-        return value;
-    }
-
-    private static String getFileSource(String value) {
-        if (value.equals("3") || value.startsWith("DSC")) { // NOI18N
-            return translation.translate("FileSourceDigitalCamera"); // NOI18N
-        }
-        return value;
+        return "?";
     }
 
     private static String getGpsDate(byte[] rawValue) {
@@ -262,20 +287,17 @@ public final class ExifFieldValueFormatter {
         if (rawValue.length != 24)
             return new String(rawValue);
         ExifRational hours = new ExifRational(
-            Arrays.copyOfRange(rawValue, 0, 4),
-            Arrays.copyOfRange(rawValue, 4, 8),
-            byteOrder);
+                Arrays.copyOfRange(rawValue, 0, 8),
+                byteOrder);
         ExifRational minutes = new ExifRational(
-            Arrays.copyOfRange(rawValue, 8, 12),
-            Arrays.copyOfRange(rawValue, 12, 16),
-            byteOrder);
+                Arrays.copyOfRange(rawValue, 8, 16),
+                byteOrder);
         ExifRational seconds = new ExifRational(
-            Arrays.copyOfRange(rawValue, 16, 20),
-            Arrays.copyOfRange(rawValue, 20, 24),
-            byteOrder);
-        int h = (int) ExifGpsUtil.toLong(hours);
-        int m = (int) ExifGpsUtil.toLong(minutes);
-        int s = (int) ExifGpsUtil.toLong(seconds);
+                Arrays.copyOfRange(rawValue, 16, 24),
+                byteOrder);
+        int h = (int) ExifUtil.toLong(hours);
+        int m = (int) ExifUtil.toLong(minutes);
+        int s = (int) ExifUtil.toLong(seconds);
         Calendar cal = Calendar.getInstance();
         cal.set(2009, 4, 3, h, m, s);
         DateFormat df = DateFormat.getTimeInstance(DateFormat.LONG);
@@ -291,37 +313,56 @@ public final class ExifFieldValueFormatter {
         ExifByte third = new ExifByte(Arrays.copyOfRange(rawValue, 2, 3));
         ExifByte fourth = new ExifByte(Arrays.copyOfRange(rawValue, 3, 4));
 
-        return new String(first.getValue() +
-            "." + second.getValue() +
-            "." + third.getValue() +
-            "." + fourth.getValue());
+        return first.getValue() +
+                "." + second.getValue() +
+                "." + third.getValue() +
+                "." + fourth.getValue();
     }
 
-    private static String getMeteringMode(String value) {
-        if (exifKeyOfMeteringMode.containsKey(value)) {
-            return translation.translate(exifKeyOfMeteringMode.get(value));
-        } else {
-            return value;
+    private static String getMeteringMode(IdfEntryProxy entry) {
+        if (ExifShort.isRawValueByteCountOk(entry.getRawValue())) {
+            ExifShort es = new ExifShort(entry.getRawValue(), entry.getByteOrder());
+            int value = es.getValue();
+            if (exifKeyOfMeteringMode.containsKey(value)) {
+                return translation.translate(exifKeyOfMeteringMode.get(value));
+            }
         }
+        return "?";
     }
 
-    private static String getSaturation(String value) {
-        if (exifKeyOfSaturation.containsKey(value)) {
-            return translation.translate(exifKeyOfSaturation.get(value));
-        } else {
-            return value;
+    private static String getSaturation(IdfEntryProxy entry) {
+        if (ExifShort.isRawValueByteCountOk(entry.getRawValue())) {
+            ExifShort es = new ExifShort(entry.getRawValue(), entry.getByteOrder());
+            int value = es.getValue();
+            if (exifKeyOfSaturation.containsKey(value)) {
+                return translation.translate(exifKeyOfSaturation.get(value));
+            }
         }
+        return "?";
     }
 
-    private static String getSharpness(String value) {
-        if (exifKeyOfSharpness.containsKey(value)) {
-            return translation.translate(exifKeyOfSharpness.get(value));
-        } else {
-            return value;
+    private static String getSharpness(IdfEntryProxy entry) {
+        if (ExifShort.getRawValueByteCount() == entry.getRawValue().length) {
+            ExifShort es = new ExifShort(entry.getRawValue(), entry.getByteOrder());
+            int value = es.getValue();
+            if (exifKeyOfSharpness.containsKey(value)) {
+                return translation.translate(exifKeyOfSharpness.get(value));
+            }
         }
+        return "?";
     }
 
-    private static String getUserComment(String value) {
+    private static String getShortString(IdfEntryProxy entry, String postfix) {
+        if (ExifShort.isRawValueByteCountOk(entry.getRawValue())) {
+            ExifShort es = new ExifShort(entry.getRawValue(), entry.getByteOrder());
+            return Integer.toString(es.getValue()) + postfix;
+        }
+        return "?" + postfix;
+    }
+
+    private static String getUserComment(IdfEntryProxy entry) {
+        ExifAscii ea = new ExifAscii(entry.getRawValue());
+        String value = ea.getValue();
         if (value.startsWith("ASCII")) { // NOI18N
             return value.substring(5).trim();
         } else if (value.startsWith("Unicode")) { // NOI18N
@@ -334,12 +375,19 @@ public final class ExifFieldValueFormatter {
         return value;
     }
 
-    private static String getWhiteBalance(String value) {
-        if (exifKeyOfWhiteBalance.containsKey(value)) {
-            return translation.translate(exifKeyOfWhiteBalance.get(value));
-        } else {
-            return value;
+    private static String getWhiteBalance(IdfEntryProxy entry) {
+        if (ExifShort.isRawValueByteCountOk(entry.getRawValue())) {
+            ExifShort es = new ExifShort(entry.getRawValue(), entry.getByteOrder());
+            int value = es.getValue();
+            if (exifKeyOfWhiteBalance.containsKey(value)) {
+                return translation.translate(exifKeyOfWhiteBalance.get(value));
+            }
         }
+        return "?";
+    }
+
+    private static boolean isAscii(int tag) {
+        return asciiTags.contains(tag);
     }
 
     private ExifFieldValueFormatter() {

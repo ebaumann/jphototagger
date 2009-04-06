@@ -3,7 +3,8 @@ package de.elmar_baumann.imv.image.metadata.exif;
 import java.util.Arrays;
 
 /**
- * 
+ * A coordinate described in degrees (minutes and seconds are the 1/60 and
+ * 1/3600 or a degree).
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009/03/30
@@ -14,17 +15,33 @@ public final class ExifDegrees {
     private final ExifRational minutes;
     private final ExifRational seconds;
 
+    /**
+     * Creates a new instance.
+     *
+     * @param  rawValue   raw value
+     * @param  byteOrder  byte order
+     * @throws IllegalArgumentException if the length of raw value is not equals
+     *         to {@link #getRawValueByteCount()}
+     */
     public ExifDegrees(byte[] rawValue, ExifMetadata.ByteOrder byteOrder) {
-        if (rawValue.length != 24) throw new IllegalArgumentException("rawValue.length != 24");
-        byte[] degreesNumerator = Arrays.copyOfRange(rawValue, 0, 4);
-        byte[] degreesDenominator = Arrays.copyOfRange(rawValue, 4, 8);
-        byte[] minutesNumerator = Arrays.copyOfRange(rawValue, 8, 12);
-        byte[] minutesDenominator = Arrays.copyOfRange(rawValue, 12, 16);
-        byte[] secondsNumerator = Arrays.copyOfRange(rawValue, 16, 20);
-        byte[] secondsDenominator = Arrays.copyOfRange(rawValue, 20, 24);
-        degrees = new ExifRational(degreesNumerator, degreesDenominator, byteOrder);
-        minutes = new ExifRational(minutesNumerator, minutesDenominator, byteOrder);
-        seconds = new ExifRational(secondsNumerator, secondsDenominator, byteOrder);
+        if (!isRawValueByteCountOk(rawValue))
+            throw new IllegalArgumentException("Illegal raw value byte count: " + rawValue.length);
+        degrees = new ExifRational(Arrays.copyOfRange(rawValue, 0, 8), byteOrder);
+        minutes = new ExifRational(Arrays.copyOfRange(rawValue, 8, 16), byteOrder);
+        seconds = new ExifRational(Arrays.copyOfRange(rawValue, 16, 24), byteOrder);
+    }
+
+    /**
+     * Returns the valid raw value byte count.
+     *
+     * @return valid raw value byte count
+     */
+    public static int getRawValueByteCount() {
+        return 24;
+    }
+
+    public boolean isRawValueByteCountOk(byte[] rawValue) {
+        return rawValue.length == getRawValueByteCount();
     }
 
     public ExifRational getDegrees() {
@@ -38,5 +55,4 @@ public final class ExifDegrees {
     public ExifRational getSeconds() {
         return seconds;
     }
-    
 }

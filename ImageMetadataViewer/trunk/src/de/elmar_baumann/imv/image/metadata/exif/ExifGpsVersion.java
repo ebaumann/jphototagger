@@ -22,12 +22,20 @@ public final class ExifGpsVersion {
     }
 
     public ExifGpsVersion(byte[] rawValue) {
-        if (rawValue != null && rawValue.length == 4) {
+        if (rawValue != null && isRawValueByteCountOk(rawValue)) {
             first = new Byte(rawValue[0]).intValue();
             second = new Byte(rawValue[1]).intValue();
             third = new Byte(rawValue[2]).intValue();
             fourth = new Byte(rawValue[3]).intValue();
         }
+    }
+
+    public static int getRawValueByteCount() {
+        return 4;
+    }
+
+    public static boolean isRawValueByteCountOk(byte[] rawValue) {
+        return rawValue.length == getRawValueByteCount();
     }
 
     public int getFirst() {

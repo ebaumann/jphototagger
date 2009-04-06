@@ -1,5 +1,7 @@
 package de.elmar_baumann.imv.image.metadata.exif;
 
+import java.util.Arrays;
+
 /**
  * EXIF data type RATIONAL as described in the standard: Two LONGs. The first
  * LONG is the numerator and the second LONG expresses the denominator.
@@ -16,27 +18,41 @@ public final class ExifRational {
     /**
      * Creates a new instance.
      *
-     * @param  numeratorRawValue    raw value of the numerator
-     * @param  denominatorRawValue  raw value of the denominator
-     * @param  byteOrder            byte order
-     * @throws IllegalArgumentException if the lengths of numerator or denominator
-     *         are not equals to 4 or if the values are smaller than zero
+     * @param  rawValue   raw value
+     * @param  byteOrder  byte order
+     * @throws IllegalArgumentException if the length of the raw value is not
+     *         equals to {@link #getRawValueByteCount()} or if the result is
+     *         negativ or if the denominator is zero
      */
-    public ExifRational(byte[] numeratorRawValue, byte[] denominatorRawValue,
-        ExifMetadata.ByteOrder byteOrder) {
+    public ExifRational(byte[] rawValue, ExifMetadata.ByteOrder byteOrder) {
 
-        if (numeratorRawValue.length != 4)
-            throw new IllegalArgumentException("numeratorRawValue != 4: " + numeratorRawValue);
-        if (denominatorRawValue.length != 4)
-            throw new IllegalArgumentException("denominatorRawValue != 4: " + denominatorRawValue);
+        if (!isRawValueByteCountOk(rawValue))
+            throw new IllegalArgumentException("Illegal raw value byte count: " + rawValue.length);
 
-        numerator = ExifGpsUtil.intFromRawValue(numeratorRawValue, byteOrder);
-        denominator = ExifGpsUtil.intFromRawValue(denominatorRawValue, byteOrder);
+        numerator = ExifUtil.intFromRawValue(Arrays.copyOfRange(rawValue, 0, 4), byteOrder);
+        denominator = ExifUtil.intFromRawValue(Arrays.copyOfRange(rawValue, 4, 8), byteOrder);
 
-        if (numerator < 0)
-            throw new IllegalArgumentException("numerator < 0: " + numerator);
-        if (denominator < 0)
-            throw new IllegalArgumentException("denominator < 0: " + denominator);
+        if (isNegativ())
+            throw new IllegalArgumentException("Negativ expression: " + numerator + "/" + denominator);
+        if (denominator == 0)
+            throw new IllegalArgumentException("Illegal denominator: " + denominator);
+    }
+
+    private boolean isNegativ() {
+        return numerator < 0 && denominator > 0 || numerator > 0 && denominator < 0;
+    }
+
+    /**
+     * Returns the valid raw value byte count.
+     *
+     * @return valid raw value byte count
+     */
+    public static int getRawValueByteCount() {
+        return 8;
+    }
+
+    public static boolean isRawValueByteCountOk(byte[] rawValue) {
+        return rawValue.length == getRawValueByteCount();
     }
 
     /**

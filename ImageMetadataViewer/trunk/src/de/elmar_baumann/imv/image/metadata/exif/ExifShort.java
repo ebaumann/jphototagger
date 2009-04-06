@@ -1,18 +1,18 @@
 package de.elmar_baumann.imv.image.metadata.exif;
 
 /**
- * EXIF data type LONG as described in the standard: A 32-bit (4-byte) unsigned
- * integer.
+ * EXIF data type <code>SHORT</code> as defined in the EXIF standard:
+ * A 16-bit (2-byte) unsigned integer.
  *
- * BUGS: Possibly too small because the EXIF LONG is unsigned and has the
+ * BUGS: Possibly too small because the EXIF SHORT is unsigned and has the
  * same byte count.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009/04/04
  */
-public final class ExifLong {
+public final class ExifShort {
 
-    private final int value;
+    private final short value;
 
     /**
      * Creates a new instance.
@@ -20,18 +20,26 @@ public final class ExifLong {
      * @param  rawValue   raw value
      * @param  byteOrder  byte order
      * @throws IllegalArgumentException if the length of the raw value is not
-     *         equals to {@link #getRawValueByteCount()} or if the value is
-     *         negativ
+     *         equals to {@link #getRawValueByteCount()) or negativ
      */
-    public ExifLong(byte[] rawValue, ExifMetadata.ByteOrder byteOrder) {
+    public ExifShort(byte[] rawValue, ExifMetadata.ByteOrder byteOrder) {
 
         if (!isRawValueByteCountOk(rawValue))
-            throw new IllegalArgumentException("Illegal raw value count: " + rawValue.length);
+            throw new IllegalArgumentException("Illegal byte count: " + rawValue.length);
 
-        value = ExifUtil.intFromRawValue(rawValue, byteOrder);
+        value = ExifUtil.shortFromRawValue(rawValue, byteOrder);
 
         if (value < 0)
             throw new IllegalArgumentException("Negativ value: " + value);
+    }
+
+    /**
+     * Returns the value.
+     *
+     * @return value
+     */
+    public short getValue() {
+        return value;
     }
 
     /**
@@ -40,19 +48,10 @@ public final class ExifLong {
      * @return valid raw value byte count
      */
     public static int getRawValueByteCount() {
-        return 4;
+        return 2;
     }
 
     public static boolean isRawValueByteCountOk(byte[] rawValue) {
         return rawValue.length == getRawValueByteCount();
-    }
-
-    /**
-     * Returns the value.
-     *
-     * @return value {@code >= 0}
-     */
-    public int getValue() {
-        return value;
     }
 }
