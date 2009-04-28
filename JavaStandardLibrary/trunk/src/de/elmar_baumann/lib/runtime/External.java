@@ -26,6 +26,20 @@ public final class External {
     }
 
     /**
+     * Executes an external program.
+     *
+     * @param command command
+     */
+    public static void execute(String command) {
+        Runtime runtime = Runtime.getRuntime();
+        try {
+            runtime.exec(command);
+        } catch (Exception ex) {
+            Logger.getLogger(External.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    /**
      * Executes an external program and returns it's output.
      * 
      * @param  command command, e.g. <code>/bin/ls -l /home</code>
@@ -47,8 +61,8 @@ public final class External {
         try {
             process = runtime.exec(command);
             return new Pair<byte[], byte[]>(
-                getStream(process, Stream.STANDARD_OUT),
-                getStream(process, Stream.STANDARD_ERROR));
+                    getStream(process, Stream.STANDARD_OUT),
+                    getStream(process, Stream.STANDARD_ERROR));
         } catch (Exception ex) {
             Logger.getLogger(External.class.getName()).log(Level.SEVERE, null, ex);
             return null;
@@ -63,8 +77,8 @@ public final class External {
         byte[] returnBytes = null;
         try {
             InputStream stream = s.equals(Stream.STANDARD_OUT)
-                ? process.getInputStream()
-                : process.getErrorStream();
+                    ? process.getInputStream()
+                    : process.getErrorStream();
             byte[] buffer = new byte[buffersize];
             int bytesRead = -1;
             boolean finished = false;
