@@ -296,7 +296,7 @@ public final class UserSettings implements UserSettingsChangeListener {
     public boolean isTreeDirectoriesSelectLastDirectory() {
         return properties.containsKey(keyTreeDirectoriesSelectLastDirectory)
             ? settings.getBoolean(keyTreeDirectoriesSelectLastDirectory)
-            : false;
+            : true;
     }
 
     /**
