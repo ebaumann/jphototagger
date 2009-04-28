@@ -184,10 +184,7 @@ public final class TableModelExif extends DefaultTableModel {
                 String url = ExifGpsUtil.getGoogleMapsUrl(gps.getLongitude(), gps.getLatitude());
                 String cmd = webBrowser + " " + url; // NOI18N
                 logExternalAppCommand(cmd);
-                Pair<byte[], byte[]> output = External.executeGetOutput(cmd);
-                if (output.getSecond() != null) {
-                    errorMessage(output);
-                }
+                External.execute(cmd);
             }
         }
 
