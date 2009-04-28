@@ -22,13 +22,13 @@ import javax.swing.tree.DefaultTreeCellRenderer;
  */
 public final class TreeCellRendererDirectories extends DefaultTreeCellRenderer {
 
-    private FileSystemView fileSystemView = FileSystemView.getFileSystemView();
+    private final FileSystemView fileSystemView = FileSystemView.getFileSystemView();
     private Icon rootIcon = IconUtil.getImageIcon("/de/elmar_baumann/lib/resource/icon_workspace.png"); // NOI18N
 
     @Override
     public Component getTreeCellRendererComponent(
-        JTree tree, Object value, boolean sel, boolean expanded, boolean leaf,
-        int row, boolean hasFocus) {
+            JTree tree, Object value, boolean sel, boolean expanded, boolean leaf,
+            int row, boolean hasFocus) {
         super.getTreeCellRendererComponent(tree, value, sel, expanded, false, row, hasFocus);
 
         if (value == tree.getModel().getRoot()) {
@@ -37,8 +37,10 @@ public final class TreeCellRendererDirectories extends DefaultTreeCellRenderer {
         } else if (value instanceof File) {
             File file = (File) value;
             try {
-                setIcon(fileSystemView.getSystemIcon(file));
-                setText(getDirectoryName(file));
+                synchronized (fileSystemView) {
+                    setIcon(fileSystemView.getSystemIcon(file));
+                    setText(getDirectoryName(file));
+                }
             } catch (Exception ex) {
                 Logger.getLogger(TreeCellRendererDirectories.class.getName()).log(Level.WARNING, null, ex);
             }
