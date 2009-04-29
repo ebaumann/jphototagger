@@ -13,7 +13,8 @@ final class UpdateTables extends Database {
 
     static final UpdateTables INSTANCE = new UpdateTables();
 
-    private UpdateTables() {}
+    private UpdateTables() {
+    }
 
     synchronized void update(Connection connection) throws SQLException {
         new UpdateTablesDropColumns().update(connection);
@@ -21,6 +22,7 @@ final class UpdateTables extends Database {
         new UpdateTablesAddColumns().update(connection);
         new UpdateTablesXmpLastModified().update(connection);
         new UpdateTablesPrograms().update(connection);
+        UpdateTablesThumbnails.update(connection);
         UpdateTablesMessages.INSTANCE.getProgressDialog().setVisible(false);
     }
 }

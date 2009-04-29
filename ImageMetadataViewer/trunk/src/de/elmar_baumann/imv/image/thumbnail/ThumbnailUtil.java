@@ -8,11 +8,14 @@ import com.imagero.reader.ReaderFactory;
 import com.imagero.reader.jpeg.JpegReader;
 import com.imagero.reader.tiff.TiffReader;
 import com.sun.image.codec.jpeg.ImageFormatException;
+import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.image.metadata.exif.ExifMetadata;
 import de.elmar_baumann.imv.io.FileType;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.image.ImageTransform;
+import de.elmar_baumann.lib.image.util.ImageUtil;
+import de.elmar_baumann.lib.io.FileUtil;
 import de.elmar_baumann.lib.runtime.External;
 import de.elmar_baumann.lib.template.Pair;
 import java.awt.Container;
@@ -24,11 +27,14 @@ import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
 /**
  * Hilfsklasse für Thumbnails.
@@ -49,14 +55,14 @@ public final class ThumbnailUtil {
      */
     public static Image getThumbnail(File file, int maxLength, boolean embedded) {
         Image thumbnail =
-            (embedded || FileType.isRawFile(file.getName())
-            ? rotateThumbnail(file, getFileEmbeddedThumbnail(file))
-            : getScaledImageImagero(file, maxLength));
+                (embedded || FileType.isRawFile(file.getName())
+                ? rotateThumbnail(file, getFileEmbeddedThumbnail(file))
+                : getScaledImageImagero(file, maxLength));
         if (thumbnail == null) {
             thumbnail =
-                (embedded
-                ? getScaledImageImagero(file, maxLength)
-                : rotateThumbnail(file, getFileEmbeddedThumbnail(file)));
+                    (embedded
+                    ? getScaledImageImagero(file, maxLength)
+                    : rotateThumbnail(file, getFileEmbeddedThumbnail(file)));
         }
         return thumbnail;
     }
@@ -73,7 +79,7 @@ public final class ThumbnailUtil {
                 TiffReader tiffReader = (TiffReader) reader;
                 if (tiffReader.getThumbnailCount() > 0) {
                     thumbnail = Toolkit.getDefaultToolkit().createImage(
-                        tiffReader.getThumbnail(0));
+                            tiffReader.getThumbnail(0));
                 }
             }
             close(reader);
@@ -117,8 +123,8 @@ public final class ThumbnailUtil {
     private static Image rotateThumbnail(File file, Image thumbnail) {
         if (thumbnail != null) {
             double rotateAngle =
-                ExifMetadata.getThumbnailRotationAngle(
-                ExifMetadata.getMetadata(file));
+                    ExifMetadata.getThumbnailRotationAngle(
+                    ExifMetadata.getMetadata(file));
             if (rotateAngle != 0) {
                 return ImageTransform.rotate(thumbnail, rotateAngle);
             }
@@ -135,7 +141,7 @@ public final class ThumbnailUtil {
      * @return          thumbnail or null if errors occured
      */
     public static Image getThumbnailFromExternalApplication(
-        File file, String command, int maxLength) {
+            File file, String command, int maxLength) {
 
         if (!file.exists()) {
             return null;
@@ -143,11 +149,12 @@ public final class ThumbnailUtil {
         Image image = null;
 
         String cmd = command.replace("%s", file.getAbsolutePath()).replace("%i", // NOI18N
-            new Integer(maxLength).toString());
+                new Integer(maxLength).toString());
         logExternalAppCommand(cmd);
         Pair<byte[], byte[]> output = External.executeGetOutput(cmd);
 
-        if (output == null) return null;
+        if (output == null)
+            return null;
 
         byte[] stdout = output.getFirst();
         if (stdout != null) {
@@ -294,6 +301,43 @@ public final class ThumbnailUtil {
             AppLog.logWarning(ThumbnailUtil.class, ex);
         }
         return image;
+    }
+
+    public static void writeThumbnail(Image thumbnail, long id) {
+        try {
+            FileOutputStream fos = new FileOutputStream(getThumbnailfile(id));
+            ByteArrayInputStream is = ImageUtil.getByteArrayInputStream(thumbnail);
+            if (is != null) {
+                int nextByte;
+                while ((nextByte = is.read()) != -1) {
+                    fos.write(nextByte);
+                }
+            }
+            fos.close();
+        } catch (Exception ex) {
+            AppLog.logWarning(ThumbnailUtil.class, ex);
+        }
+    }
+
+    public static Image getThumbnail(long id) {
+        Image thumbnail = null;
+        try {
+            FileInputStream fis = new FileInputStream(getThumbnailfile(id));
+            int bytecount = fis.available();
+            byte[] bytes = new byte[bytecount];
+            fis.read(bytes, 0, bytecount);
+            ImageIcon icon = new ImageIcon(bytes);
+            thumbnail = icon.getImage();
+        } catch (Exception ex) {
+            AppLog.logWarning(ThumbnailUtil.class, ex);
+        }
+        return thumbnail;
+    }
+
+    private static File getThumbnailfile(long id) {
+        String dir = UserSettings.INSTANCE.getThumbnailsDirectoryName();
+        FileUtil.ensureDirectoryExists(dir);
+        return new File(dir + File.separator + id);
     }
 
     private ThumbnailUtil() {

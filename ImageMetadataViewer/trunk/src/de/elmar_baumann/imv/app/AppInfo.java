@@ -12,7 +12,7 @@ public final class AppInfo {
 
     private static final String projectName = "ImageMetaDataViewer"; // NOI18N NEVER CHANGE!
     /** Version der Anwendung */
-    public static final String appVersion = "0.5.59 2009/04/28";  // NOI18N
+    public static final String appVersion = "0.5.60 2009/04/29";  // NOI18N
     /** Name der Anwendung */
     public static final String appName = "Bilder";  // NOI18N
     /** Beschreibung der Anwendung */
