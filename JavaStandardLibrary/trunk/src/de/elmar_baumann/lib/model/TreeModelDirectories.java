@@ -131,8 +131,8 @@ public final class TreeModelDirectories implements TreeModel {
             if (parent.equals(root)) {
                 return rootNodes.indexOf(child);
             }
-            return childrenOfNode.get(parent).indexOf(child);
         }
+        return childrenOfNode.get(parent).indexOf(child);
     }
 
     @Override
