@@ -25,27 +25,35 @@ final class UpdateTablesThumbnails extends Database {
 
     private static final UpdateTablesMessages messages = UpdateTablesMessages.INSTANCE;
     private static final ProgressDialog dialog = messages.getProgressDialog();
+    private static final int FETCH_MAX_ROWS = 1000;
 
     synchronized static void update(Connection connection) throws SQLException {
-        long count = getCount(connection);
+        int count = getCount(connection);
+        int current = 1;
         initDialog(count);
-        String sql = "SELECT id, thumbnail FROM files WHERE thumbnail IS NOT NULL"; // NOI18N
+        for (int offset = 0; offset < count; offset += FETCH_MAX_ROWS) {
+            current = updateRows(connection, current, count);
+        }
+        if (count > 0) {
+            compress();
+        }
+    }
+
+    private static int updateRows(Connection connection, int current, int count) throws SQLException {
+        String sql = "SELECT TOP " + FETCH_MAX_ROWS + " " + // NOI18N
+                "id, thumbnail FROM files WHERE thumbnail IS NOT NULL"; // NOI18N
         Statement stmt = connection.createStatement();
         ResultSet rs = stmt.executeQuery(sql);
-        int current = 1;
         while (rs.next()) {
-            long id = rs.getLong(1);
+            long id = rs.getInt(1);
             InputStream inputStream = rs.getBinaryStream(2);
             setThumbnailNull(connection, id);
             setMessage(id, current, count);
             writeThumbnail(inputStream, id);
             dialog.setValue(current++);
         }
-        stmt.close();
-        if (count > 0) {
-            messages.message(Bundle.getString("UpdateTablesThumbnails.Information.CompressDatabase"));
-            DatabaseMaintainance.getInstacne().compressDatabase();
-        }
+        clean(stmt, rs);
+        return current;
     }
 
     private static void setThumbnailNull(Connection connection, long id) throws SQLException {
@@ -71,15 +79,29 @@ final class UpdateTablesThumbnails extends Database {
         }
     }
 
-    private static long getCount(Connection connection) throws SQLException {
-        long count = 0;
+    private static void clean(Statement stmt, ResultSet rs) throws SQLException {
+        stmt.close();
+        stmt = null;
+        rs = null;
+        System.gc();
+    }
+
+    private static int getCount(Connection connection) throws SQLException {
+        int count = 0;
         Statement stmt = connection.createStatement();
         String sql = "SELECT  COUNT(*) FROM files WHERE thumbnail IS NOT NULL";
         ResultSet rs = stmt.executeQuery(sql);
         if (rs.next()) {
-            count = rs.getLong(1);
+            count = rs.getInt(1);
         }
         return count;
+    }
+
+    private static void compress() {
+        messages.message(Bundle.getString("UpdateTablesThumbnails.Information.CompressDatabase"));
+        dialog.setIndeterminate(true);
+        DatabaseMaintainance.getInstacne().compressDatabase();
+        dialog.setIndeterminate(false);
     }
 
     private static void initDialog(long count) {

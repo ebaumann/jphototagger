@@ -328,6 +328,7 @@ public final class ThumbnailUtil {
             fis.read(bytes, 0, bytecount);
             ImageIcon icon = new ImageIcon(bytes);
             thumbnail = icon.getImage();
+            fis.close();
         } catch (Exception ex) {
             AppLog.logWarning(ThumbnailUtil.class, ex);
         }
