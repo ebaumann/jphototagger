@@ -148,7 +148,7 @@ public final class ExifFieldValueFormatter {
                 int second = Integer.parseInt(value.substring(17, 19));
                 GregorianCalendar cal = new GregorianCalendar(
                         year, month - 1, day, hour, minute, second);
-                DateFormat df = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG);
+                DateFormat df = DateFormat.getDateTimeInstance(DateFormat.FULL, DateFormat.FULL);
                 return df.format(cal.getTime());
             } catch (Exception ex) {
                 AppLog.logWarning(ExifFieldValueFormatter.class, ex);
@@ -270,7 +270,7 @@ public final class ExifFieldValueFormatter {
         try {
             DateFormat df = new SimpleDateFormat("yyyy:MM:dd");
             Date date = df.parse(rawString.substring(0, 10));
-            return DateFormat.getDateInstance(DateFormat.LONG).format(date);
+            return DateFormat.getDateInstance(DateFormat.FULL).format(date);
         } catch (ParseException ex) {
             AppLog.logWarning(ExifFieldValueFormatter.class, ex);
         }
