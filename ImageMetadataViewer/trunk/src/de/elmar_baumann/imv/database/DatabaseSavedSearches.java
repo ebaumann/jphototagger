@@ -65,7 +65,7 @@ public final class DatabaseSavedSearches extends Database {
                 notifyDatabaseListener(DatabaseAction.Type.SAVED_SEARCH_INSERTED, data);
                 stmt.close();
             } catch (SQLException ex) {
-                AppLog.logWarning(getClass(), ex);
+                AppLog.logWarning(DatabaseSavedSearches.class, ex);
                 rollback(connection);
             } finally {
                 free(connection);
@@ -163,7 +163,7 @@ public final class DatabaseSavedSearches extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logWarning(getClass(), ex);
+            AppLog.logWarning(DatabaseSavedSearches.class, ex);
         } finally {
             free(connection);
         }
@@ -184,7 +184,7 @@ public final class DatabaseSavedSearches extends Database {
             long id = getIdSavedSearch(connection, name);
             return id > 0;
         } catch (SQLException ex) {
-            AppLog.logWarning(getClass(), ex);
+            AppLog.logWarning(DatabaseSavedSearches.class, ex);
         } finally {
             free(connection);
         }
@@ -226,7 +226,7 @@ public final class DatabaseSavedSearches extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logWarning(getClass(), ex);
+            AppLog.logWarning(DatabaseSavedSearches.class, ex);
             rollback(connection);
         } finally {
             free(connection);
@@ -262,7 +262,7 @@ public final class DatabaseSavedSearches extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logWarning(getClass(), ex);
+            AppLog.logWarning(DatabaseSavedSearches.class, ex);
         } finally {
             free(connection);
         }
@@ -321,7 +321,7 @@ public final class DatabaseSavedSearches extends Database {
             stmt.close();
         } catch (SQLException ex) {
             data = null;
-            AppLog.logWarning(getClass(), ex);
+            AppLog.logWarning(DatabaseSavedSearches.class, ex);
         } finally {
             free(connection);
         }
@@ -357,7 +357,7 @@ public final class DatabaseSavedSearches extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logWarning(getClass(), ex);
+            AppLog.logWarning(DatabaseSavedSearches.class, ex);
             allData.clear();
         } finally {
             free(connection);

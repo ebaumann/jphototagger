@@ -1,6 +1,5 @@
 package de.elmar_baumann.imv.tasks;
 
-import de.elmar_baumann.imv.app.AppIcons;
 import de.elmar_baumann.imv.comparator.ComparatorSavedSearch;
 import de.elmar_baumann.imv.data.SavedSearch;
 import de.elmar_baumann.imv.database.DatabaseSavedSearches;
@@ -120,8 +119,7 @@ public final class SavedSearchesModifier {
             message.format(params),
             Bundle.getString("SavedSearchesModifier.ConfirmMessage.ChangeNameBecauseExists.Title"),
             JOptionPane.YES_NO_OPTION,
-            JOptionPane.QUESTION_MESSAGE,
-            AppIcons.getMediumAppIcon()) == JOptionPane.YES_OPTION;
+            JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION;
     }
 
     private static void errorMessageRename(String searchName) {
@@ -131,8 +129,7 @@ public final class SavedSearchesModifier {
             null,
             msg.format(param),
             Bundle.getString("SavedSearchesModifier.ErrorMessage.RenameFailed.Title"),
-            JOptionPane.ERROR_MESSAGE,
-            AppIcons.getMediumAppIcon());
+            JOptionPane.ERROR_MESSAGE);
     }
 
     private static void errorMessageRenameGetUpdate(String searchName) {
@@ -142,8 +139,7 @@ public final class SavedSearchesModifier {
             null,
             msg.format(param),
             Bundle.getString("SavedSearchesModifier.ErrorMessage.SavedSearchWasRenamedButCouldntBeLoaded.Title"),
-            JOptionPane.ERROR_MESSAGE,
-            AppIcons.getMediumAppIcon());
+            JOptionPane.ERROR_MESSAGE);
     }
 
     private static boolean confirmDelete(String name) {
@@ -152,8 +148,7 @@ public final class SavedSearchesModifier {
         return JOptionPane.showConfirmDialog(null, msg.format(params),
             Bundle.getString("SavedSearchesModifier.ConfirmMessage.DeleteSearch.Title"),
             JOptionPane.YES_NO_OPTION,
-            JOptionPane.QUESTION_MESSAGE,
-            AppIcons.getMediumAppIcon()) == JOptionPane.YES_OPTION;
+            JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION;
     }
 
     private static void errorMessageDelete() {
@@ -161,8 +156,7 @@ public final class SavedSearchesModifier {
             null,
             Bundle.getString("SavedSearchesModifier.ErrorMessage.SavedSearchCouldntBeDeleted"),
             Bundle.getString("SavedSearchesModifier.ErrorMessage.SavedSearchCouldntBeDeleted.Title"),
-            JOptionPane.ERROR_MESSAGE,
-            AppIcons.getMediumAppIcon());
+            JOptionPane.ERROR_MESSAGE);
     }
 
     private static boolean confirmInsert(SavedSearch savedSearch) {
@@ -171,8 +165,7 @@ public final class SavedSearchesModifier {
                 Bundle.getString("SavedSearchesModifier.ConfirmMessage.ReplaceExisting"),
                 Bundle.getString("SavedSearchesModifier.ConfirmMessage.ReplaceExisting.Title"),
                 JOptionPane.YES_NO_OPTION,
-                JOptionPane.QUESTION_MESSAGE,
-                AppIcons.getMediumAppIcon()) == JOptionPane.YES_OPTION;
+                JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION;
         }
         return true;
     }
@@ -182,8 +175,7 @@ public final class SavedSearchesModifier {
             null,
             Bundle.getString("SavedSearchesModifier.ErrorMessage.SearchCouldntBeSaved"),
             Bundle.getString("SavedSearchesModifier.ErrorMessage.SearchCouldntBeSaved.Title"),
-            JOptionPane.ERROR_MESSAGE,
-            AppIcons.getMediumAppIcon());
+            JOptionPane.ERROR_MESSAGE);
     }
 
     private SavedSearchesModifier() {

@@ -58,7 +58,8 @@ public final class ControllerFavoriteDirectorySelected implements ListSelectionL
         if (listFavoriteDirectories.getSelectedValue() != null) {
             thumbnailsPanel.setFiles(getFilesOfCurrentDirectory(), Content.FAVORITE_DIRECTORY);
         } else {
-            AppLog.logWarning(getClass(), Bundle.getString("ControllerFavoriteDirectorySelected.ErrorMessage.SelectedValueIsNull"));
+            AppLog.logWarning(ControllerFavoriteDirectorySelected.class,
+                    Bundle.getString("ControllerFavoriteDirectorySelected.ErrorMessage.SelectedValueIsNull"));
         }
     }
 

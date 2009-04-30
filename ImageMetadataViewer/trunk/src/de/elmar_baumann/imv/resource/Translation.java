@@ -20,7 +20,7 @@ public final class Translation {
         try {
             bundle = ResourceBundle.getBundle(pathPrefix + propertiesFileBasename);
         } catch (MissingResourceException ex) {
-            AppLog.logWarning(getClass(), ex);
+            AppLog.logWarning(Translation.class, ex);
         }
     }
 
@@ -37,11 +37,11 @@ public final class Translation {
         try {
             return bundle.getString(string);
         } catch (MissingResourceException ex) {
-            AppLog.logWarning(getClass(), ex);
+            AppLog.logWarning(Translation.class, ex);
         } catch (NullPointerException ex) {
             throw ex;
         } catch (Exception ex) {
-            AppLog.logWarning(getClass(), ex);
+            AppLog.logWarning(Translation.class, ex);
         }
         return string;
     }
@@ -60,9 +60,9 @@ public final class Translation {
         try {
             return bundle.getString(string);
         } catch (MissingResourceException ex) {
-            AppLog.logWarning(getClass(), ex);
+            AppLog.logWarning(Translation.class, ex);
         } catch (Exception ex) {
-            AppLog.logWarning(getClass(), ex);
+            AppLog.logWarning(Translation.class, ex);
         }
         return alternate;
     }

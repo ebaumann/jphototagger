@@ -1,7 +1,7 @@
 package de.elmar_baumann.imv.model;
 
-import de.elmar_baumann.imv.app.AppIcons;
 import de.elmar_baumann.imv.database.DatabaseFileExcludePattern;
+import de.elmar_baumann.imv.resource.Bundle;
 import java.text.MessageFormat;
 import java.util.List;
 import javax.swing.DefaultListModel;
@@ -29,13 +29,13 @@ public final class ListModelFileExcludePatterns extends DefaultListModel {
     public void insertPattern(String pattern) {
         String trimmedPattern = pattern.trim();
         if (db.existsFileExcludePattern(trimmedPattern)) {
-            errorMessage("Das Muster {0} existiert bereits!", trimmedPattern);
+            errorMessage(Bundle.getString("ListModelFileExcludePatterns.ErrorMessage.InsertPattern.Exists"), trimmedPattern);
         }
         if (db.insertFileExcludePattern(trimmedPattern)) {
             addElement(trimmedPattern);
             patterns.add(trimmedPattern);
         } else {
-            errorMessage("Das Muster {0} konnte nicht hinzugefügt werden!", trimmedPattern);
+            errorMessage(Bundle.getString("ListModelFileExcludePatterns.ErrorMessage.InsertPattern.Add"), trimmedPattern);
         }
     }
 
@@ -45,7 +45,7 @@ public final class ListModelFileExcludePatterns extends DefaultListModel {
             removeElement(trimmedPattern);
             patterns.remove(trimmedPattern);
         } else {
-            errorMessage("Das Muster {0} konnte nicht gelöscht werden!", trimmedPattern);
+            errorMessage(Bundle.getString("ListModelFileExcludePatterns.ErrorMessage.Delete"), trimmedPattern);
         }
     }
 
@@ -53,9 +53,8 @@ public final class ListModelFileExcludePatterns extends DefaultListModel {
         MessageFormat msg = new MessageFormat(message);
         JOptionPane.showMessageDialog(
             null, msg.format(new Object[]{pattern}),
-            "Fehler",
-            JOptionPane.ERROR_MESSAGE,
-            AppIcons.getMediumAppIcon());
+            Bundle.getString("ListModelFileExcludePatterns.ErrorMessage.Title"),
+            JOptionPane.ERROR_MESSAGE);
     }
 
     private void addElements() {

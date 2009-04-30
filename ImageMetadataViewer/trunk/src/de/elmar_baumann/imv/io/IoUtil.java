@@ -1,6 +1,5 @@
 package de.elmar_baumann.imv.io;
 
-import de.elmar_baumann.imv.app.AppIcons;
 import de.elmar_baumann.imv.app.AppFileFilter;
 import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.resource.Bundle;
@@ -36,8 +35,7 @@ public final class IoUtil {
                 JOptionPane.showMessageDialog(null,
                     Bundle.getString("IoUtil.ErrorMessage.OpenFile"),
                     Bundle.getString("IoUtil.ErrorMessage.OpenFile.Title"),
-                    JOptionPane.ERROR_MESSAGE,
-                    AppIcons.getMediumAppIcon());
+                    JOptionPane.ERROR_MESSAGE);
             }
         }
     }

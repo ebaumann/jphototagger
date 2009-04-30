@@ -62,8 +62,7 @@ public final class DatabaseMaintainanceDialog extends Dialog {
         JOptionPane.showMessageDialog(this,
             Bundle.getString("DatabaseMaintainanceDialog.ErrorMessage.WaitBeforeClose"),
             Bundle.getString("DatabaseMaintainanceDialog.ErrorMessage.WaitBeforeClose.Title"),
-            JOptionPane.INFORMATION_MESSAGE,
-            AppIcons.getMediumAppIcon());
+            JOptionPane.INFORMATION_MESSAGE);
     }
 
     @Override

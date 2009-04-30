@@ -1,9 +1,9 @@
 package de.elmar_baumann.imv.database;
 
-import de.elmar_baumann.imv.app.AppIcons;
 import de.elmar_baumann.imv.app.AppLock;
 import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.resource.Bundle;
+import java.awt.HeadlessException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -71,8 +71,8 @@ public final class DatabaseTables extends Database {
             UpdateTables.INSTANCE.update(connection);
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logSevere(getClass(), ex);
-            JOptionPane.showMessageDialog(null, getExceptionMessage(ex), Bundle.getString("Database.CreateTables.ErrorMessage.Title"), JOptionPane.ERROR_MESSAGE, AppIcons.getMediumAppIcon());
+            AppLog.logSevere(DatabaseTables.class, ex);
+            errorMessageSqlException(ex);
             AppLock.unlock();
             System.exit(0);
         } finally {
@@ -345,6 +345,13 @@ public final class DatabaseTables extends Database {
             stmt.execute("CREATE INDEX idx_programs_sequence_number ON programs (sequence_number)"); // NOI18N
             stmt.execute("CREATE INDEX idx_programs_action ON programs (action)"); // NOI18N
         }
+    }
+
+    private void errorMessageSqlException(SQLException ex) throws HeadlessException {
+        JOptionPane.showMessageDialog(null,
+                getExceptionMessage(ex),
+                Bundle.getString("Database.CreateTables.ErrorMessage.Title"),
+                JOptionPane.ERROR_MESSAGE);
     }
 
     private Object getExceptionMessage(SQLException ex) {

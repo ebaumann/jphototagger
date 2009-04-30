@@ -1,6 +1,5 @@
 package de.elmar_baumann.imv.controller.metadata;
 
-import de.elmar_baumann.imv.app.AppIcons;
 import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.data.MetadataEditTemplate;
 import de.elmar_baumann.imv.database.DatabaseMetadataEditTemplates;
@@ -136,7 +135,8 @@ public final class ControllerMetadataTemplates implements ActionListener, Metada
             MetadataEditTemplate template = (MetadataEditTemplate) o;
             editPanels.setMetadataEditTemplate(template);
         } else {
-            AppLog.logWarning(getClass(), Bundle.getString("ControllerMetadataTemplates.ErrorMessage.InsertTemplateIsNull"));
+            AppLog.logWarning(ControllerMetadataTemplates.class,
+                    Bundle.getString("ControllerMetadataTemplates.ErrorMessage.InsertTemplateIsNull"));
         }
     }
 
@@ -165,8 +165,7 @@ public final class ControllerMetadataTemplates implements ActionListener, Metada
             msg.format(params),
             Bundle.getString("ControllerMetadataTemplates.ConfirmMessage.Delete.Title"),
             JOptionPane.YES_NO_OPTION,
-            JOptionPane.QUESTION_MESSAGE,
-            AppIcons.getMediumAppIcon()) == JOptionPane.YES_OPTION;
+            JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION;
     }
 
     private boolean confirmAbort(String name) {
@@ -177,7 +176,6 @@ public final class ControllerMetadataTemplates implements ActionListener, Metada
             msg.format(params),
             Bundle.getString("ControllerMetadataTemplates.ConfirmMessage.OverwriteExistingTemplate.Title"),
             JOptionPane.YES_NO_OPTION,
-            JOptionPane.QUESTION_MESSAGE,
-            AppIcons.getMediumAppIcon()) == JOptionPane.NO_OPTION;
+            JOptionPane.QUESTION_MESSAGE) == JOptionPane.NO_OPTION;
     }
 }

@@ -3,7 +3,6 @@ package de.elmar_baumann.imv;
 import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.app.AppLock;
 import com.imagero.reader.AbstractImageReader;
-import de.elmar_baumann.imv.app.AppIcons;
 import de.elmar_baumann.imv.app.AppInfo;
 import de.elmar_baumann.imv.database.DatabaseTables;
 import de.elmar_baumann.lib.componentutil.LookAndFeelUtil;

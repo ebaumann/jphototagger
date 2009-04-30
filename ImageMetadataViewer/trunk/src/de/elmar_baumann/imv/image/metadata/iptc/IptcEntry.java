@@ -99,7 +99,7 @@ public final class IptcEntry {
             return new String(data, UserSettings.INSTANCE.
                 getIptcCharset()).trim();
         } catch (UnsupportedEncodingException ex) {
-            AppLog.logWarning(getClass(), ex);
+            AppLog.logWarning(IptcEntry.class, ex);
         }
         return ""; // NOI18N
     }

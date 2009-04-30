@@ -124,8 +124,7 @@ public final class FavoriteDirectoryPropertiesDialog extends Dialog {
                     null,
                     msg.format(params),
                     Bundle.getString("FavoriteDirectoryPropertiesDialog.ErrorMessage.FavoriteExists.Title"),
-                    JOptionPane.ERROR_MESSAGE,
-                    AppIcons.getMediumAppIcon());
+                    JOptionPane.ERROR_MESSAGE);
             } else {
                 accepted = true;
                 setVisible(false);
@@ -143,8 +142,7 @@ public final class FavoriteDirectoryPropertiesDialog extends Dialog {
                 this,
                 Bundle.getString("FavoriteDirectoryPropertiesDialog.ErrorMessage.InvalidInput"),
                 Bundle.getString("FavoriteDirectoryPropertiesDialog.ErrorMessage.InvalidInput.Title"),
-                JOptionPane.ERROR_MESSAGE,
-                AppIcons.getMediumAppIcon());
+                JOptionPane.ERROR_MESSAGE);
             return false;
         }
         return true;

@@ -1,7 +1,6 @@
 package de.elmar_baumann.imv.model;
 
 import de.elmar_baumann.imv.UserSettings;
-import de.elmar_baumann.imv.app.AppIcons;
 import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.image.metadata.exif.ExifGpsMetadata;
 import de.elmar_baumann.imv.image.metadata.exif.ExifGpsUtil;
@@ -13,7 +12,6 @@ import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.Translation;
 import de.elmar_baumann.imv.view.dialogs.UserSettingsDialog;
 import de.elmar_baumann.lib.runtime.External;
-import de.elmar_baumann.lib.template.Pair;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -67,7 +65,7 @@ public final class TableModelExif extends DefaultTableModel {
         try {
             setExifData();
         } catch (Exception ex) {
-            AppLog.logWarning(getClass(), ex);
+            AppLog.logWarning(TableModelExif.class, ex);
         }
     }
 
@@ -151,22 +149,12 @@ public final class TableModelExif extends DefaultTableModel {
             return true;
         }
 
-        private void errorMessage(Pair<byte[], byte[]> output) {
-            byte[] stderr = output.getSecond();
-            String message = (stderr == null ? "" : new String(stderr).trim()); // NOI18N
-            if (!message.isEmpty()) {
-                message = Bundle.getString("ThumbnailUtil.ErrorMessage.ExternalProgram") + message;
-                AppLog.logWarning(GpsListener.class, message);
-            }
-        }
-
         private void errorMessageWebBrowser() {
             JOptionPane.showMessageDialog(
                     null,
                     Bundle.getString("TableModelExif.ErrorMessage.WebBrowser"),
                     Bundle.getString("TableModelExif.ErrorMessage.WebBrowser.Title"),
-                    JOptionPane.ERROR_MESSAGE,
-                    AppIcons.getMediumAppIcon());
+                    JOptionPane.ERROR_MESSAGE);
         }
 
         private void setWebBrowser() {

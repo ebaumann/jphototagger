@@ -1,6 +1,5 @@
 package de.elmar_baumann.imv.view.panels;
 
-import de.elmar_baumann.imv.app.AppIcons;
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.data.Program;
 import de.elmar_baumann.imv.event.ListenerProvider;
@@ -105,8 +104,7 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel
             msg.format(new Object[]{otherImageOpenApp}),
             Bundle.getString("UserSettingsDialog.ConfirmMessage.RemoveImageOpenApp.Title"),
             JOptionPane.YES_NO_OPTION,
-            JOptionPane.QUESTION_MESSAGE,
-            AppIcons.getMediumAppIcon()) == JOptionPane.YES_OPTION;
+            JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION;
     }
 
     private synchronized void notifyChangeListenerOther() {

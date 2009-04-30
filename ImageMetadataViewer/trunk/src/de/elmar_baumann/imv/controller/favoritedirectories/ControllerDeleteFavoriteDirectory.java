@@ -1,6 +1,5 @@
 package de.elmar_baumann.imv.controller.favoritedirectories;
 
-import de.elmar_baumann.imv.app.AppIcons;
 import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.data.FavoriteDirectory;
 import de.elmar_baumann.imv.model.ListModelFavoriteDirectories;
@@ -63,8 +62,7 @@ public final class ControllerDeleteFavoriteDirectory implements ActionListener {
                 msg.format(params),
                 Bundle.getString("ControllerDeleteFavoriteDirectory.ConfirmMessage.Delete.Title"),
                 JOptionPane.YES_NO_OPTION,
-                JOptionPane.QUESTION_MESSAGE,
-                AppIcons.getMediumAppIcon()) == JOptionPane.YES_OPTION;
+                JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION;
     }
 
     @Override
@@ -87,7 +85,7 @@ public final class ControllerDeleteFavoriteDirectory implements ActionListener {
                 try {
                     Thread.sleep(removeCheckIntervalSeconds * 1000);
                 } catch (InterruptedException ex) {
-                    AppLog.logWarning(getClass(), ex);
+                    AppLog.logWarning(ControllerDeleteFavoriteDirectory.class, ex);
                 }
                 int size = model.getSize();
                 for (int i = 0; i < size; i++) {

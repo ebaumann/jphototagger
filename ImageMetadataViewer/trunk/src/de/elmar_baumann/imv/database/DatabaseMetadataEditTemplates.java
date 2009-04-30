@@ -72,7 +72,7 @@ public class DatabaseMetadataEditTemplates extends Database {
             inserted = true;
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logWarning(getClass(), ex);
+            AppLog.logWarning(DatabaseMetadataEditTemplates.class, ex);
             rollback(connection);
         } finally {
             free(connection);
@@ -184,7 +184,7 @@ public class DatabaseMetadataEditTemplates extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logWarning(getClass(), ex);
+            AppLog.logWarning(DatabaseMetadataEditTemplates.class, ex);
         } finally {
             free(connection);
         }
@@ -235,7 +235,7 @@ public class DatabaseMetadataEditTemplates extends Database {
             updated = count > 0;
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logWarning(getClass(), ex);
+            AppLog.logWarning(DatabaseMetadataEditTemplates.class, ex);
             rollback(connection);
         } finally {
             free(connection);
@@ -270,7 +270,7 @@ public class DatabaseMetadataEditTemplates extends Database {
             renamed = count > 0;
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logWarning(getClass(), ex);
+            AppLog.logWarning(DatabaseMetadataEditTemplates.class, ex);
             rollback(connection);
         } finally {
             free(connection);
@@ -299,7 +299,7 @@ public class DatabaseMetadataEditTemplates extends Database {
             deleted = count > 0;
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logWarning(getClass(), ex);
+            AppLog.logWarning(DatabaseMetadataEditTemplates.class, ex);
             rollback(connection);
         } finally {
             free(connection);
@@ -324,7 +324,7 @@ public class DatabaseMetadataEditTemplates extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logWarning(getClass(), ex);
+            AppLog.logWarning(DatabaseMetadataEditTemplates.class, ex);
         } finally {
             free(connection);
         }

@@ -1,6 +1,5 @@
 package de.elmar_baumann.imv.datatransfer;
 
-import de.elmar_baumann.imv.app.AppIcons;
 import de.elmar_baumann.imv.event.ProgressEvent;
 import de.elmar_baumann.imv.event.ProgressListener;
 import de.elmar_baumann.imv.io.IoUtil;
@@ -126,8 +125,7 @@ public final class TransferHandlerTreeDirectories extends TransferHandler {
             msg.format(params),
             Bundle.getString("TransferHandlerTreeDirectories.ConfirmMessage.Title"),
             JOptionPane.YES_NO_OPTION,
-            JOptionPane.QUESTION_MESSAGE,
-            AppIcons.getMediumAppIcon()) == JOptionPane.YES_OPTION;
+            JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION;
     }
 
     private synchronized static void addProgressListener(MoveToDirectoryDialog dialog) {

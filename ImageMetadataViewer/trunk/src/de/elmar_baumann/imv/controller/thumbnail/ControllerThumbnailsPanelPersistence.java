@@ -87,7 +87,7 @@ public final class ControllerThumbnailsPanelPersistence
                 thumbnailsPanel.setSort(FileSort.valueOf(name));
             }
         } catch (Exception ex) {
-            AppLog.logWarning(getClass(), ex);
+            AppLog.logWarning(ControllerThumbnailsPanelPersistence.class, ex);
         }
     }
 

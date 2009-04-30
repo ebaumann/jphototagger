@@ -1,9 +1,9 @@
 package de.elmar_baumann.imv.datatransfer;
 
-import de.elmar_baumann.imv.app.AppIcons;
 import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.data.FavoriteDirectory;
 import de.elmar_baumann.imv.model.ListModelFavoriteDirectories;
+import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.dialogs.FavoriteDirectoryPropertiesDialog;
 import de.elmar_baumann.lib.componentutil.ListUtil;
@@ -28,7 +28,7 @@ import javax.swing.TransferHandler;
  */
 public final class TransferHandlerListFavoriteDirectories extends TransferHandler {
 
-    static final String itemDelimiter = "\n";
+    static final String itemDelimiter = "\n"; // NOI18N
 
     @Override
     public boolean canImport(TransferHandler.TransferSupport transferSupport) {
@@ -38,7 +38,7 @@ public final class TransferHandlerListFavoriteDirectories extends TransferHandle
     @Override
     protected Transferable createTransferable(JComponent c) {
         return TransferUtil.getSelectedItemStringsTransferable(
-            (JList) c, itemDelimiter);
+                (JList) c, itemDelimiter);
     }
 
     @Override
@@ -68,7 +68,7 @@ public final class TransferHandlerListFavoriteDirectories extends TransferHandle
 
     private ListModelFavoriteDirectories getModel() {
         return (ListModelFavoriteDirectories) GUI.INSTANCE.getAppPanel().
-            getListFavoriteDirectories().getModel();
+                getListFavoriteDirectories().getModel();
     }
 
     private void insertDirectories(List<File> files) {
@@ -83,39 +83,38 @@ public final class TransferHandlerListFavoriteDirectories extends TransferHandle
                 dialog.setVisible(true);
                 if (dialog.accepted()) {
                     model.insertFavorite(new FavoriteDirectory(
-                        dialog.getFavoriteName(), dialog.getDirectoryName(), -1));
+                            dialog.getFavoriteName(), dialog.getDirectoryName(), -1));
                 }
             }
         }
     }
 
     private boolean confirmAddDirectories(int size) {
-        MessageFormat msg = new MessageFormat("{0} neue Verzeichnis(se) zu den Favoriten hinzufügen?");
+        MessageFormat msg = new MessageFormat(Bundle.getString("TransferHandlerListFavoriteDirectories.ConfirmMessage.AddDirectories"));
         Object[] params = {size};
         return JOptionPane.showConfirmDialog(
-            null,
-            msg.format(params),
-            "Frage",
-            JOptionPane.YES_NO_OPTION,
-            JOptionPane.QUESTION_MESSAGE,
-            AppIcons.getMediumAppIcon()) == JOptionPane.YES_OPTION;
+                null,
+                msg.format(params),
+                Bundle.getString("TransferHandlerListFavoriteDirectories.ConfirmMessage.AddDirectories.Title"),
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION;
     }
 
     private void handleDroppedString(TransferSupport transferSupport) {
         JList list = (JList) transferSupport.getComponent();
         ListModelFavoriteDirectories model =
-            (ListModelFavoriteDirectories) list.getModel();
+                (ListModelFavoriteDirectories) list.getModel();
         int dropIndex =
-            ((JList.DropLocation) transferSupport.getDropLocation()).getIndex();
+                ((JList.DropLocation) transferSupport.getDropLocation()).getIndex();
         try {
             String itemName = (String) transferSupport.getTransferable().
-                getTransferData(DataFlavor.stringFlavor);
+                    getTransferData(DataFlavor.stringFlavor);
             Object item = ListUtil.getFirstItemWithText(itemName, model);
             if (dropIndex >= 0 && item != null) {
                 model.swapFavorites(dropIndex, model.indexOf(item));
             }
         } catch (Exception ex) {
-            AppLog.logWarning(getClass(), ex);
+            AppLog.logWarning(TransferHandlerListFavoriteDirectories.class, ex);
         }
     }
 }

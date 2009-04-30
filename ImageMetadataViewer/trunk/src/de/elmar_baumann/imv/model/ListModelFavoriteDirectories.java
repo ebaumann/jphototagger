@@ -1,6 +1,5 @@
 package de.elmar_baumann.imv.model;
 
-import de.elmar_baumann.imv.app.AppIcons;
 import de.elmar_baumann.imv.data.FavoriteDirectory;
 import de.elmar_baumann.imv.database.DatabaseFavoriteDirectories;
 import de.elmar_baumann.imv.resource.Bundle;
@@ -142,7 +141,6 @@ public final class ListModelFavoriteDirectories extends DefaultListModel {
             null,
             msg.format(params),
             Bundle.getString("ListModelFavoriteDirectories.ErrorMessage.Template.Title"),
-            JOptionPane.ERROR_MESSAGE,
-            AppIcons.getMediumAppIcon());
+            JOptionPane.ERROR_MESSAGE);
     }
 }

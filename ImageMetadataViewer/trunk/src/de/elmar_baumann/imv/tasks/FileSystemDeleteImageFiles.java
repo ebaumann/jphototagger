@@ -1,6 +1,5 @@
 package de.elmar_baumann.imv.tasks;
 
-import de.elmar_baumann.imv.app.AppIcons;
 import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.controller.filesystem.ControllerDeleteFiles;
 import de.elmar_baumann.imv.image.metadata.xmp.XmpMetadata;
@@ -72,8 +71,7 @@ public final class FileSystemDeleteImageFiles {
                 Bundle.getString("FileSystemDeleteImageFiles.ConfirmMessage.Delete"),
                 Bundle.getString("FileSystemDeleteImageFiles.ConfirmMessage.Delete.Title"),
                 JOptionPane.YES_NO_OPTION,
-                JOptionPane.QUESTION_MESSAGE,
-                AppIcons.getMediumAppIcon()) == JOptionPane.YES_OPTION;
+                JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION;
         }
         return true;
     }

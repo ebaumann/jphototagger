@@ -1,6 +1,5 @@
 package de.elmar_baumann.imv.controller.thumbnail;
 
-import de.elmar_baumann.imv.app.AppIcons;
 import de.elmar_baumann.imv.database.DatabaseImageFiles;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.GUI;
@@ -72,8 +71,7 @@ public final class ControllerDeleteThumbnailsFromDatabase implements ActionListe
                 msg.format(params),
                 Bundle.getString("ControllerDeleteThumbnailsFromDatabase.ConfirmMessage.DeleteSelectedFiles.Title"),
                 JOptionPane.YES_NO_OPTION,
-                JOptionPane.QUESTION_MESSAGE,
-                AppIcons.getMediumAppIcon()) == JOptionPane.YES_OPTION;
+                JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION;
     }
 
     private void errorMessageDeleteImageFiles(int countFiles, int countDeleted) {
@@ -83,7 +81,6 @@ public final class ControllerDeleteThumbnailsFromDatabase implements ActionListe
                 null,
                 msg.format(params),
                 Bundle.getString("ControllerDeleteThumbnailsFromDatabase.ErrorMessage.DeleteSelectedFiles.Title"),
-                JOptionPane.ERROR_MESSAGE,
-                AppIcons.getMediumAppIcon());
+                JOptionPane.ERROR_MESSAGE);
     }
 }

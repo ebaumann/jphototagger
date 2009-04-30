@@ -173,8 +173,7 @@ public final class ProgramPropertiesDialog extends Dialog {
                 this,
                 string,
                 Bundle.getString("ProgramPropertiesDialog.ErrorMessage.Title"),
-                JOptionPane.ERROR_MESSAGE,
-                AppIcons.getMediumAppIcon());
+                JOptionPane.ERROR_MESSAGE);
     }
 
     /** This method is called from within the constructor to

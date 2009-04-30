@@ -212,8 +212,7 @@ public final class RenameDialog extends Dialog {
                 null,
                 Bundle.getString("RenameDialog.ErrorMessage.InvalidInput"),
                 Bundle.getString("RenameDialog.ErrorMessage.InvalidInput.Title"),
-                JOptionPane.ERROR_MESSAGE,
-                AppIcons.getMediumAppIcon());
+                JOptionPane.ERROR_MESSAGE);
         }
         return defined;
     }
@@ -225,8 +224,7 @@ public final class RenameDialog extends Dialog {
                 null,
                 Bundle.getString("RenameDialog.ErrorMessage.FilenamesEquals"),
                 Bundle.getString("RenameDialog.ErrorMessage.FilenamesEquals.Title"),
-                JOptionPane.ERROR_MESSAGE,
-                AppIcons.getMediumAppIcon());
+                JOptionPane.ERROR_MESSAGE);
         }
         return !equals;
     }
@@ -240,8 +238,7 @@ public final class RenameDialog extends Dialog {
                 null,
                 msg.format(params),
                 Bundle.getString("RenameDialog.ErrorMessage.NewFileExists.Title"),
-                JOptionPane.ERROR_MESSAGE,
-                AppIcons.getMediumAppIcon());
+                JOptionPane.ERROR_MESSAGE);
         }
         return !exists;
     }
@@ -324,8 +321,7 @@ public final class RenameDialog extends Dialog {
             msg.format(params),
             Bundle.getString("RenameDialog.ConfirmMessage.RenameNextFile.Title"),
             JOptionPane.YES_NO_OPTION,
-            JOptionPane.ERROR_MESSAGE,
-            AppIcons.getMediumAppIcon()) == JOptionPane.NO_OPTION) {
+            JOptionPane.ERROR_MESSAGE) == JOptionPane.NO_OPTION) {
             stop = true;
             setVisible(false);
             dispose();

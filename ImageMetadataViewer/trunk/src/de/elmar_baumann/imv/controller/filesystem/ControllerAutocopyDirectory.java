@@ -1,6 +1,5 @@
 package de.elmar_baumann.imv.controller.filesystem;
 
-import de.elmar_baumann.imv.app.AppIcons;
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.io.ImageFilteredDirectory;
 import de.elmar_baumann.imv.resource.Bundle;
@@ -68,17 +67,16 @@ public final class ControllerAutocopyDirectory implements ActionListener {
             dialog.setSourceFiles(files);
             dialog.setVisible(true);
         } else {
-            errorMessageNoFilesFound();
+            informationMessageNoFilesFound();
         }
     }
 
-    private void errorMessageNoFilesFound() {
+    private void informationMessageNoFilesFound() {
         JOptionPane.showMessageDialog(
                 null,
                 Bundle.getString("ControllerAutocopyDirectory.InformationMessage.NoFilesFound"),
                 Bundle.getString("ControllerAutocopyDirectory.InformationMessage.NoFilesFound.Title"),
-                JOptionPane.INFORMATION_MESSAGE,
-                AppIcons.getMediumAppIcon());
+                JOptionPane.INFORMATION_MESSAGE);
     }
 
     private boolean confirmSetAutocopyDirectory() {
@@ -86,8 +84,7 @@ public final class ControllerAutocopyDirectory implements ActionListener {
                 null,
                 Bundle.getString("ControllerAutocopyDirectory.ConfirmMessage.DefineDirectory"),
                 Bundle.getString("ControllerAutocopyDirectory.ConfirmMessage.DefineDirectory.Title"),
-                JOptionPane.ERROR_MESSAGE,
                 JOptionPane.YES_NO_OPTION,
-                AppIcons.getMediumAppIcon()) == JOptionPane.YES_OPTION;
+                JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION;
     }
 }

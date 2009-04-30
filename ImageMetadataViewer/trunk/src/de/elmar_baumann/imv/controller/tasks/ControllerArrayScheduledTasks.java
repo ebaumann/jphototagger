@@ -72,7 +72,7 @@ public final class ControllerArrayScheduledTasks
         try {
             Thread.sleep(milliSecondsToStart);
         } catch (InterruptedException ex) {
-            AppLog.logWarning(getClass(), ex);
+            AppLog.logWarning(ControllerArrayScheduledTasks.class, ex);
         }
         startFirstController();
     }

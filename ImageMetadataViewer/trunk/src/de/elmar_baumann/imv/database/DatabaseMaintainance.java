@@ -40,7 +40,7 @@ public final class DatabaseMaintainance extends Database {
             notifyDatabaseListener(DatabaseAction.Type.MAINTAINANCE_DATABASE_COMPRESSED);
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logSevere(getClass(), ex);
+            AppLog.logSevere(DatabaseMaintainance.class, ex);
         } finally {
             free(connection);
         }

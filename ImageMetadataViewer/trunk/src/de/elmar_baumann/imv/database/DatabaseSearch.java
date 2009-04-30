@@ -51,7 +51,7 @@ public final class DatabaseSearch extends Database {
             resultSet.close();
             preparedStatement.close();
         } catch (SQLException ex) {
-            AppLog.logWarning(getClass(), ex);
+            AppLog.logWarning(DatabaseSearch.class, ex);
             filenames.clear();
         } finally {
             free(connection);
@@ -102,7 +102,7 @@ public final class DatabaseSearch extends Database {
                 resultSet.close();
                 preparedStatement.close();
             } catch (SQLException ex) {
-                AppLog.logWarning(getClass(), ex);
+                AppLog.logWarning(DatabaseSearch.class, ex);
                 filenames.clear();
             } finally {
                 free(connection);

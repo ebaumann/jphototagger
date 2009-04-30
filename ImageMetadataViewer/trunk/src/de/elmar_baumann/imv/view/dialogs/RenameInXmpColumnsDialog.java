@@ -96,8 +96,7 @@ public final class RenameInXmpColumnsDialog extends Dialog {
             null,
             Bundle.getString("RenameInXmpColumnsDialog.ErrorMessage.MissingReplaceString"),
             Bundle.getString("RenameInXmpColumnsDialog.ErrorMessage.MissingReplaceString.Title"),
-            JOptionPane.ERROR_MESSAGE,
-            AppIcons.getMediumAppIcon());
+            JOptionPane.ERROR_MESSAGE);
     }
 
     @Override

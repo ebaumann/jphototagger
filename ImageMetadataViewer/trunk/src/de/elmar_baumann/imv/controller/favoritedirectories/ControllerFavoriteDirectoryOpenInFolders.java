@@ -44,7 +44,7 @@ public final class ControllerFavoriteDirectoryOpenInFolders implements ActionLis
         if (listFavoriteDirectories.getSelectedIndex() >= 0) {
             selectDirectory();
         } else {
-            AppLog.logWarning(getClass(), Bundle.getString("ControllerFavoriteDirectoryOpenInFolders.ErrorMessage.InvalidSelectionIndex"));
+            AppLog.logWarning(ControllerFavoriteDirectoryOpenInFolders.class, Bundle.getString("ControllerFavoriteDirectoryOpenInFolders.ErrorMessage.InvalidSelectionIndex"));
         }
     }
 

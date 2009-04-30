@@ -1,6 +1,5 @@
 package de.elmar_baumann.imv.view.panels;
 
-import de.elmar_baumann.imv.app.AppIcons;
 import de.elmar_baumann.imv.data.Program;
 import de.elmar_baumann.imv.event.ProgramActionEvent;
 import de.elmar_baumann.imv.event.ProgramActionListener;
@@ -114,14 +113,13 @@ public final class ActionsPanel extends javax.swing.JPanel {
     }
 
     private boolean confirmDelete(String actionName) {
-        MessageFormat msg = new MessageFormat("Aktion {0} löschen?");
+        MessageFormat msg = new MessageFormat(Bundle.getString("ActionsPanel.ConfirmMessage.Delete"));
         return JOptionPane.showConfirmDialog(
             this,
             msg.format(new Object[]{actionName}),
-            "Frage",
+            Bundle.getString("ActionsPanel.ConfirmMessage.Delete.Title"),
             JOptionPane.YES_NO_OPTION,
-            JOptionPane.QUESTION_MESSAGE,
-            AppIcons.getMediumAppIcon()) == JOptionPane.YES_OPTION;
+            JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION;
     }
 
     public synchronized void addActionListener(ProgramActionListener l) {

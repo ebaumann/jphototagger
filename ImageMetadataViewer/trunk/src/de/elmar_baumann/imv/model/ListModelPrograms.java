@@ -1,6 +1,5 @@
 package de.elmar_baumann.imv.model;
 
-import de.elmar_baumann.imv.app.AppIcons;
 import de.elmar_baumann.imv.data.Program;
 import de.elmar_baumann.imv.database.DatabasePrograms;
 import de.elmar_baumann.imv.resource.Bundle;
@@ -58,8 +57,7 @@ public final class ListModelPrograms extends DefaultListModel {
             null,
             msg.format(new Object[]{alias}),
             Bundle.getString("ListModelPrograms.ErrorMessage.Title"),
-            JOptionPane.ERROR_MESSAGE,
-            AppIcons.getMediumAppIcon());
+            JOptionPane.ERROR_MESSAGE);
     }
 
     private void addItems() {

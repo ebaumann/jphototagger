@@ -50,7 +50,7 @@ public final class DatabaseContent extends Database {
             resultSet.close();
             statement.close();
         } catch (SQLException ex) {
-            AppLog.logWarning(getClass(), ex);
+            AppLog.logWarning(DatabaseContent.class, ex);
             content.clear();
         } finally {
             free(connection);

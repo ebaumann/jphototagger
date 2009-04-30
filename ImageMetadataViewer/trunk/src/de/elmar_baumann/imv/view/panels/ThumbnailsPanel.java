@@ -889,7 +889,7 @@ public abstract class ThumbnailsPanel extends JPanel
         try {
             tracker.waitForID(0);
         } catch (InterruptedException ex) {
-            AppLog.logWarning(getClass(), ex);
+            AppLog.logWarning(ThumbnailsPanel.class, ex);
         }
         thumbnailAtIndex.put(cacheIndex, scaled);
         return scaled;

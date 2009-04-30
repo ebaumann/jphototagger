@@ -256,7 +256,7 @@ public final class InsertImageFilesIntoDatabase implements Runnable {
     private void logCheckForUpdate(String filename) {
         MessageFormat msg = new MessageFormat(Bundle.getString("ImageMetadataToDatabase.InformationMessage.CheckForUpdate"));
         Object[] params = {filename};
-        AppLog.logFinest(getClass(), msg.format(params));
+        AppLog.logFinest(InsertImageFilesIntoDatabase.class, msg.format(params));
     }
 
     private void logInsertImageFile(ImageFile data) {

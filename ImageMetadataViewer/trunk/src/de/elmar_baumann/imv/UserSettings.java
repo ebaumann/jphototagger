@@ -189,7 +189,7 @@ public final class UserSettings implements UserSettingsChangeListener {
         try {
             level = Level.parse(levelString);
         } catch (Exception ex) {
-            AppLog.logWarning(getClass(), ex);
+            AppLog.logWarning(UserSettings.class, ex);
             settings.setString(Level.WARNING.getLocalizedName(), keyLogLevel);
         }
         return level == null ? Level.WARNING : level;
@@ -313,7 +313,7 @@ public final class UserSettings implements UserSettingsChangeListener {
         try {
             return Class.forName(className);
         } catch (ClassNotFoundException ex) {
-            AppLog.logWarning(getClass(), ex);
+            AppLog.logWarning(UserSettings.class, ex);
             settings.setString(XMLFormatter.class.getName(), keyLogfileFormatterClass);
         }
         return XMLFormatter.class;

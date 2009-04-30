@@ -47,7 +47,7 @@ public final class ControllerCreateImageCollection implements ActionListener {
         if (collectionName != null) {
             ListUtil.insertSorted(model, collectionName, ComparatorStringAscending.IGNORE_CASE);
         } else {
-            AppLog.logWarning(ControllerCreateImageCollection.class, Bundle.getString(""));
+            AppLog.logWarning(ControllerCreateImageCollection.class, Bundle.getString("ControllerCreateImageCollection.ErrorMessage.Create"));
         }
     }
 }

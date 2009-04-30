@@ -62,8 +62,7 @@ public final class IptcToXmpDialog extends Dialog
             null,
             Bundle.getString("IptcToXmpDialog.ErrorMessage.CancelBeforeClose"),
             Bundle.getString("IptcToXmpDialog.ErrorMessage.CancelBeforeClose.Title"),
-            JOptionPane.INFORMATION_MESSAGE,
-            AppIcons.getMediumAppIcon());
+            JOptionPane.INFORMATION_MESSAGE);
     }
 
     private void postInitComponents() {

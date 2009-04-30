@@ -80,8 +80,7 @@ public final class MoveToDirectoryDialog extends Dialog
                 null,
                 Bundle.getString("MoveToDirectoryDialog.ErrorMessage.AbortBeforeClose"),
                 Bundle.getString("MoveToDirectoryDialog.ErrorMessage.AbortBeforeClose.Title"),
-                JOptionPane.INFORMATION_MESSAGE,
-                AppIcons.getMediumAppIcon());
+                JOptionPane.INFORMATION_MESSAGE);
         } else {
             setVisible(false);
         }
@@ -93,8 +92,7 @@ public final class MoveToDirectoryDialog extends Dialog
                 this,
                 Bundle.getString("MoveToDirectoryDialog.ErrorMessage.CheckLogfile"),
                 Bundle.getString("MoveToDirectoryDialog.ErrorMessage.CheckLogfile.Title"),
-                JOptionPane.ERROR_MESSAGE,
-                AppIcons.getMediumAppIcon());
+                JOptionPane.ERROR_MESSAGE);
         }
     }
 

@@ -83,8 +83,7 @@ public final class AppLock {
                 msg.format(new Object[]{lockFileName}),
                 Bundle.getString("Lock.ErrorMessage.LockFileExists.Title"),
                 JOptionPane.YES_NO_OPTION,
-                JOptionPane.ERROR_MESSAGE,
-                AppIcons.getMediumAppIcon()) == JOptionPane.YES_OPTION;
+                JOptionPane.WARNING_MESSAGE) == JOptionPane.YES_OPTION;
     }
 
     private static void errorMessageDelete() {
@@ -92,8 +91,7 @@ public final class AppLock {
                 null,
                 Bundle.getString("Lock.ErrorMessage.DeleteLockFile"),
                 Bundle.getString("Lock.ErrorMessage.DeleteLockFile.Title"),
-                JOptionPane.ERROR_MESSAGE,
-                AppIcons.getMediumAppIcon());
+                JOptionPane.ERROR_MESSAGE);
     }
 
     private AppLock() {}

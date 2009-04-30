@@ -104,7 +104,7 @@ public class Database {
             try {
                 ConnectionPool.getInstance().free(connection);
             } catch (SQLException ex) {
-                AppLog.logSevere(getClass(), ex);
+                AppLog.logSevere(Database.class, ex);
             }
         }
     }
@@ -119,7 +119,7 @@ public class Database {
         try {
             connection.rollback();
         } catch (SQLException ex) {
-            AppLog.logWarning(getClass(), ex);
+            AppLog.logWarning(Database.class, ex);
         }
     }
 
