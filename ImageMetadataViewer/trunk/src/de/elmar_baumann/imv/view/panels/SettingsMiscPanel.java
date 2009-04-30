@@ -248,7 +248,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
                 .addComponent(labelLogLogfileFormatterClass)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(comboBoxLogfileFormatterClass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(78, Short.MAX_VALUE))
+                .addContainerGap(125, Short.MAX_VALUE))
         );
         panelLogfileLayout.setVerticalGroup(
             panelLogfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -282,7 +282,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
             panelAutoCopyDirectoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelAutoCopyDirectoryLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(labelAutocopyDirectory, javax.swing.GroupLayout.DEFAULT_SIZE, 409, Short.MAX_VALUE)
+                .addComponent(labelAutocopyDirectory, javax.swing.GroupLayout.DEFAULT_SIZE, 419, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonChooseAutocopyDirectory)
                 .addContainerGap())
@@ -302,7 +302,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
         labelWebBrowser.setForeground(new java.awt.Color(0, 0, 255));
         labelWebBrowser.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        buttonChooseWebBrowser.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        buttonChooseWebBrowser.setFont(new java.awt.Font("Dialog", 0, 12));
         buttonChooseWebBrowser.setMnemonic('u');
         buttonChooseWebBrowser.setText(Bundle.getString("SettingsMiscPanel.buttonChooseWebBrowser.text")); // NOI18N
         buttonChooseWebBrowser.addActionListener(new java.awt.event.ActionListener() {
@@ -317,7 +317,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
             panelWebBrowserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelWebBrowserLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(labelWebBrowser, javax.swing.GroupLayout.DEFAULT_SIZE, 409, Short.MAX_VALUE)
+                .addComponent(labelWebBrowser, javax.swing.GroupLayout.DEFAULT_SIZE, 419, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonChooseWebBrowser)
                 .addContainerGap())
@@ -333,11 +333,11 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
 
         panelDatabaseDirectory.setBorder(javax.swing.BorderFactory.createTitledBorder(null, Bundle.getString("SettingsMiscPanel.panelDatabaseDirectory.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 11))); // NOI18N
 
-        labelDatabaseDirectory.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
+        labelDatabaseDirectory.setFont(new java.awt.Font("Dialog", 0, 10));
         labelDatabaseDirectory.setForeground(new java.awt.Color(0, 0, 255));
         labelDatabaseDirectory.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        buttonChooseDatabaseDirectory.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        buttonChooseDatabaseDirectory.setFont(new java.awt.Font("Dialog", 0, 12));
         buttonChooseDatabaseDirectory.setMnemonic('w');
         buttonChooseDatabaseDirectory.setText(Bundle.getString("SettingsMiscPanel.buttonChooseDatabaseDirectory.text")); // NOI18N
         buttonChooseDatabaseDirectory.addActionListener(new java.awt.event.ActionListener() {
@@ -346,7 +346,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
             }
         });
 
-        buttonSetStandardDatabaseDirectoryName.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        buttonSetStandardDatabaseDirectoryName.setFont(new java.awt.Font("Dialog", 0, 12));
         buttonSetStandardDatabaseDirectoryName.setMnemonic('S');
         buttonSetStandardDatabaseDirectoryName.setText(Bundle.getString("SettingsMiscPanel.buttonSetStandardDatabaseDirectoryName.text")); // NOI18N
         buttonSetStandardDatabaseDirectoryName.addActionListener(new java.awt.event.ActionListener() {
@@ -361,7 +361,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
             panelDatabaseDirectoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelDatabaseDirectoryLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(labelDatabaseDirectory, javax.swing.GroupLayout.DEFAULT_SIZE, 317, Short.MAX_VALUE)
+                .addComponent(labelDatabaseDirectory, javax.swing.GroupLayout.DEFAULT_SIZE, 328, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonSetStandardDatabaseDirectoryName)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -403,9 +403,9 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
             panelFolderViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelFolderViewLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panelFolderViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(panelFolderViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(checkBoxIsAcceptHiddenDirectories)
-                    .addComponent(checkBoxTreeDirectoriesSelectLastDirectory, javax.swing.GroupLayout.PREFERRED_SIZE, 536, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(checkBoxTreeDirectoriesSelectLastDirectory, javax.swing.GroupLayout.DEFAULT_SIZE, 536, Short.MAX_VALUE))
                 .addContainerGap())
         );
         panelFolderViewLayout.setVerticalGroup(

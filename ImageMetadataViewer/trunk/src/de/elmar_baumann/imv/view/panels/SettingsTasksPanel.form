@@ -73,7 +73,7 @@
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Group type="102" alignment="1" attributes="0">
                                   <Component id="checkBoxIsAutoscanIncludeSubdirectories" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace pref="147" max="32767" attributes="0"/>
+                                  <EmptySpace pref="169" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
                                   <Component id="buttonRemoveAutoscanDirectories" min="-2" max="-2" attributes="0"/>
@@ -82,7 +82,7 @@
                           </Group>
                           <Component id="buttonAddAutoscanDirectories" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="labelAutoscanDirectoriesInfo" alignment="0" min="-2" pref="637" max="-2" attributes="0"/>
+                      <Component id="labelAutoscanDirectoriesInfo" alignment="0" pref="637" max="32767" attributes="0"/>
                       <Component id="labelAutoscanDirectoriesPrompt" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -214,7 +214,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <Component id="checkBoxIsTaskRemoveRecordsWithNotExistingFiles" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="123" max="32767" attributes="0"/>
+                  <EmptySpace pref="146" max="32767" attributes="1"/>
               </Group>
           </Group>
         </DimensionLayout>

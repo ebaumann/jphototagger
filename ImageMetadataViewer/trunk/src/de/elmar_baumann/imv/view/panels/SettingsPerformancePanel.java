@@ -86,8 +86,9 @@ public final class SettingsPerformancePanel extends javax.swing.JPanel
             }
         });
 
-        labelsAutocompleteDisabled.setFont(new java.awt.Font("Dialog", 0, 12));
+        labelsAutocompleteDisabled.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         labelsAutocompleteDisabled.setForeground(new java.awt.Color(255, 0, 0));
+        labelsAutocompleteDisabled.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         labelsAutocompleteDisabled.setText(Bundle.getString("SettingsPerformancePanel.labelsAutocompleteDisabled.text")); // NOI18N
 
         javax.swing.GroupLayout panelAccelerateStartLayout = new javax.swing.GroupLayout(panelAccelerateStart);
@@ -99,8 +100,8 @@ public final class SettingsPerformancePanel extends javax.swing.JPanel
                     .addComponent(checkBoxIsAutocompleteDisabled)
                     .addGroup(panelAccelerateStartLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(labelsAutocompleteDisabled)))
-                .addContainerGap(15, Short.MAX_VALUE))
+                        .addComponent(labelsAutocompleteDisabled, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(20, 20, 20))
         );
         panelAccelerateStartLayout.setVerticalGroup(
             panelAccelerateStartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -126,9 +127,9 @@ public final class SettingsPerformancePanel extends javax.swing.JPanel
             }
         });
 
-        labelInfoThreadPriority.setFont(new java.awt.Font("Dialog", 0, 12));
+        labelInfoThreadPriority.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         labelInfoThreadPriority.setForeground(new java.awt.Color(255, 0, 0));
-        labelInfoThreadPriority.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        labelInfoThreadPriority.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         labelInfoThreadPriority.setText(Bundle.getString("SettingsPerformancePanel.labelInfoThreadPriority.text")); // NOI18N
 
         javax.swing.GroupLayout panelThreadPriorityLayout = new javax.swing.GroupLayout(panelThreadPriority);
@@ -137,13 +138,13 @@ public final class SettingsPerformancePanel extends javax.swing.JPanel
             panelThreadPriorityLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelThreadPriorityLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panelThreadPriorityLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelInfoThreadPriority)
-                    .addGroup(panelThreadPriorityLayout.createSequentialGroup()
+                .addGroup(panelThreadPriorityLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(labelInfoThreadPriority, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelThreadPriorityLayout.createSequentialGroup()
                         .addComponent(labelThreadPriority)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(comboBoxThreadPriority, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(70, Short.MAX_VALUE))
+                .addGap(70, 70, 70))
         );
         panelThreadPriorityLayout.setVerticalGroup(
             panelThreadPriorityLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -163,7 +164,7 @@ public final class SettingsPerformancePanel extends javax.swing.JPanel
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelThreadPriority, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelThreadPriority, javax.swing.GroupLayout.DEFAULT_SIZE, 506, Short.MAX_VALUE)
                     .addComponent(panelAccelerateStart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );

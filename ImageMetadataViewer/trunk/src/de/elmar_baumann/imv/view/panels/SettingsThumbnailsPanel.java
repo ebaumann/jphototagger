@@ -142,7 +142,7 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel
 
         panelThumbnailDimensions.setBorder(javax.swing.BorderFactory.createTitledBorder(null, Bundle.getString("SettingsThumbnailsPanel.panelThumbnailDimensions.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 11))); // NOI18N
 
-        labelMaxThumbnailWidth.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        labelMaxThumbnailWidth.setFont(new java.awt.Font("Dialog", 0, 12));
         labelMaxThumbnailWidth.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         labelMaxThumbnailWidth.setText(Bundle.getString("SettingsThumbnailsPanel.labelMaxThumbnailWidth.text")); // NOI18N
 
@@ -166,6 +166,7 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel
 
         labelUpdateAllThumbnails.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         labelUpdateAllThumbnails.setForeground(new java.awt.Color(255, 0, 0));
+        labelUpdateAllThumbnails.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         labelUpdateAllThumbnails.setText(Bundle.getString("SettingsThumbnailsPanel.labelUpdateAllThumbnails.text")); // NOI18N
 
         javax.swing.GroupLayout panelThumbnailDimensionsLayout = new javax.swing.GroupLayout(panelThumbnailDimensions);
@@ -174,14 +175,14 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel
             panelThumbnailDimensionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelThumbnailDimensionsLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panelThumbnailDimensionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(panelThumbnailDimensionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelThumbnailDimensionsLayout.createSequentialGroup()
                         .addComponent(labelMaxThumbnailWidth)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(spinnerMaxThumbnailWidth, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonUpdateAllThumbnails))
-                    .addComponent(labelUpdateAllThumbnails, javax.swing.GroupLayout.PREFERRED_SIZE, 509, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(labelUpdateAllThumbnails, javax.swing.GroupLayout.DEFAULT_SIZE, 509, Short.MAX_VALUE))
                 .addContainerGap())
         );
         panelThumbnailDimensionsLayout.setVerticalGroup(
@@ -215,6 +216,7 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel
         });
 
         labelIsCreateThumbnailsWithExternalApp.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        labelIsCreateThumbnailsWithExternalApp.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         labelIsCreateThumbnailsWithExternalApp.setText(Bundle.getString("SettingsThumbnailsPanel.labelIsCreateThumbnailsWithExternalApp.text")); // NOI18N
 
         textFieldExternalThumbnailCreationCommand.setEnabled(false);
