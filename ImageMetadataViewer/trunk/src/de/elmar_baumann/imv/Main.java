@@ -3,13 +3,19 @@ package de.elmar_baumann.imv;
 import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.app.AppLock;
 import com.imagero.reader.AbstractImageReader;
+import de.elmar_baumann.imv.app.AppIcons;
+import de.elmar_baumann.imv.app.AppInfo;
 import de.elmar_baumann.imv.database.DatabaseTables;
 import de.elmar_baumann.lib.componentutil.LookAndFeelUtil;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.ImageProperties;
 import de.elmar_baumann.imv.view.frames.AppFrame;
+import de.elmar_baumann.lib.clipboard.lang.SystemUtil;
+import de.elmar_baumann.lib.clipboard.lang.Version;
 import de.elmar_baumann.lib.io.FileUtil;
+import java.awt.HeadlessException;
 import java.io.IOException;
+import java.text.MessageFormat;
 import java.util.logging.FileHandler;
 import java.util.logging.Formatter;
 import java.util.logging.Handler;
@@ -17,6 +23,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 import java.util.logging.StreamHandler;
+import javax.swing.JOptionPane;
 
 /**
  * Startet das Programm.
@@ -35,6 +42,7 @@ public final class Main {
 
     private static void init() {
         LookAndFeelUtil.setSystemLookAndFeel();
+        checkJavaVersion();
         lock();
         informationMessageInitDatabase();
         DatabaseTables.INSTANCE.createTables();
@@ -96,6 +104,26 @@ public final class Main {
             stdoutHandler.setLevel(usersLevel);
             logger.addHandler(stdoutHandler);
         }
+    }
+
+    private static void checkJavaVersion() {
+        Version javaVersion = SystemUtil.getJavaVersion();
+        if (javaVersion != null && javaVersion.compareTo(AppInfo.minJavaVersion) < 0) {
+            errorMessageJavaVersion(javaVersion);
+            System.exit(2);
+        }
+    }
+
+    private static void errorMessageJavaVersion(Version javaVersion) throws HeadlessException {
+        JOptionPane.showMessageDialog(null,
+                getVersionMessage(javaVersion),
+                Bundle.getString("Main.ErrorMessage.JavaVersion.Title"),
+                JOptionPane.ERROR_MESSAGE);
+    }
+
+    private static Object getVersionMessage(Version javaVersion) {
+        return new MessageFormat(
+                Bundle.getString("Main.ErrorMessage.JavaVersion")).format(new Object[]{javaVersion, AppInfo.minJavaVersion});
     }
 
     private Main() {
