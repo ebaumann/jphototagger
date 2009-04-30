@@ -4,9 +4,9 @@ import de.elmar_baumann.imv.database.metadata.selections.ExifInDatabase;
 import de.elmar_baumann.imv.image.metadata.exif.ExifFieldValueFormatter;
 import de.elmar_baumann.imv.image.metadata.exif.ExifGpsMetadata;
 import de.elmar_baumann.imv.image.metadata.exif.IdfEntryProxy;
+import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.Translation;
 import java.awt.Component;
-import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
@@ -50,7 +50,7 @@ public final class TableCellRendererExif extends TableCellRendererMetadata
             }
         } else if (value instanceof ExifGpsMetadata) {
             if (column == 0) {
-                cellLabel.setText("Aufnahmeort anzeigen in:");
+                cellLabel.setText(Bundle.getString("TableCellRendererExif.Column.ShowLocationIn"));
             }
         } else if (value instanceof Component) {
             return (Component) value;

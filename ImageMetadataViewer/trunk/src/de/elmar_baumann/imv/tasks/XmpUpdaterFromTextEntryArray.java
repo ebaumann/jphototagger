@@ -47,6 +47,7 @@ public final class XmpUpdaterFromTextEntryArray implements ProgressListener {
             setWait(true);
             Thread thread = new Thread(updaters.remove());
             thread.setPriority(UserSettings.INSTANCE.getThreadPriority());
+            thread.setName("XmpUpdaterFromTextEntryArray#startThread"); // NOI18N
             thread.start();
         }
     }

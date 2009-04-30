@@ -121,6 +121,7 @@ public final class MoveToDirectoryDialog extends Dialog
         addListenerToMoveTask();
         Thread thread = new Thread(moveTask);
         thread.setPriority(UserSettings.INSTANCE.getThreadPriority());
+        thread.setName("MoveToDirectoryDialog#start"); // NOI18N
         thread.start();
         runs = true;
     }

@@ -79,6 +79,7 @@ public final class DatabaseMaintainancePanel extends javax.swing.JPanel
         if (runnables.size() > 0) {
             Thread thread = new Thread(runnables.pop());
             thread.setPriority(UserSettings.INSTANCE.getThreadPriority());
+            thread.setName("DatabaseMaintainancePanel#startNextThread"); // NOI18N
             thread.start();
         }
     }
@@ -174,7 +175,7 @@ public final class DatabaseMaintainancePanel extends javax.swing.JPanel
         panelMaintainMessages = new javax.swing.JPanel();
         labelMessage = new javax.swing.JLabel();
 
-        panelMaintainanceTasks.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Wartungsarbeiten", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 11))); // NOI18N
+        panelMaintainanceTasks.setBorder(javax.swing.BorderFactory.createTitledBorder(null, Bundle.getString("DatabaseMaintainancePanel.panelMaintainanceTasks.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 11))); // NOI18N
 
         checkBoxDeleteRecordsOfNotExistingFilesInDatabase.setFont(new java.awt.Font("Dialog", 0, 12));
         checkBoxDeleteRecordsOfNotExistingFilesInDatabase.setMnemonic('e');
@@ -227,7 +228,7 @@ public final class DatabaseMaintainancePanel extends javax.swing.JPanel
                 .addContainerGap())
         );
 
-        buttonStartMaintain.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        buttonStartMaintain.setFont(new java.awt.Font("Dialog", 0, 12));
         buttonStartMaintain.setMnemonic('s');
         buttonStartMaintain.setText(Bundle.getString("DatabaseMaintainancePanel.buttonStartMaintain.text")); // NOI18N
         buttonStartMaintain.setEnabled(false);
@@ -237,7 +238,7 @@ public final class DatabaseMaintainancePanel extends javax.swing.JPanel
             }
         });
 
-        buttonAbortAction.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        buttonAbortAction.setFont(new java.awt.Font("Dialog", 0, 12));
         buttonAbortAction.setMnemonic('o');
         buttonAbortAction.setText(Bundle.getString("DatabaseMaintainancePanel.buttonAbortAction.text")); // NOI18N
         buttonAbortAction.setEnabled(false);
@@ -247,7 +248,7 @@ public final class DatabaseMaintainancePanel extends javax.swing.JPanel
             }
         });
 
-        panelMaintainMessages.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Nachrichten", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
+        panelMaintainMessages.setBorder(javax.swing.BorderFactory.createTitledBorder(null, Bundle.getString("DatabaseMaintainancePanel.panelMaintainMessages.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
 
         labelMessage.setFont(new java.awt.Font("Dialog", 0, 12));
         labelMessage.setPreferredSize(new java.awt.Dimension(0, 16));

@@ -54,6 +54,7 @@ public final class UpdaterRenameInXmpColumnsArray implements ProgressListener {
             updater.addProgressListener(this);
             Thread thread = new Thread(updater);
             thread.setPriority(UserSettings.INSTANCE.getThreadPriority());
+            thread.setName("UpdaterRenameInXmpColumnsArray#startNextThread"); // NOI18N
             thread.start();
         }
     }

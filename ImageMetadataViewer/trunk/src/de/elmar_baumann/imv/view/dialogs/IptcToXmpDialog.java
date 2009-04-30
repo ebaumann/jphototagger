@@ -110,6 +110,7 @@ public final class IptcToXmpDialog extends Dialog
         converter.addProgressListener(this);
         Thread thread = new Thread(converter);
         thread.setPriority(UserSettings.INSTANCE.getThreadPriority());
+        thread.setName("IptcToXmpDialog#start"); // NOI18N
         thread.start();
         buttonStop.setEnabled(true);
     }

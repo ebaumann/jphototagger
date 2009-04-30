@@ -93,6 +93,7 @@ public final class CopyToDirectoryDialog extends Dialog
         copyTask.addProgressListener(this);
         Thread thread = new Thread(copyTask);
         thread.setPriority(UserSettings.INSTANCE.getThreadPriority());
+        thread.setName("CopyToDirectoryDialog#start"); // NOI18N
         thread.start();
     }
 

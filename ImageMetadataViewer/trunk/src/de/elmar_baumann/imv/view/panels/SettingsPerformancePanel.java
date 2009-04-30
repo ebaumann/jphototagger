@@ -76,7 +76,7 @@ public final class SettingsPerformancePanel extends javax.swing.JPanel
         comboBoxThreadPriority = new javax.swing.JComboBox();
         labelInfoThreadPriority = new javax.swing.JLabel();
 
-        panelAccelerateStart.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Start beschleunigen", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 11))); // NOI18N
+        panelAccelerateStart.setBorder(javax.swing.BorderFactory.createTitledBorder(null, Bundle.getString("SettingsPerformancePanel.panelAccelerateStart.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 11))); // NOI18N
 
         checkBoxIsAutocompleteDisabled.setFont(new java.awt.Font("Dialog", 0, 12));
         checkBoxIsAutocompleteDisabled.setText(Bundle.getString("SettingsPerformancePanel.checkBoxIsAutocompleteDisabled.text")); // NOI18N
@@ -100,7 +100,7 @@ public final class SettingsPerformancePanel extends javax.swing.JPanel
                     .addGroup(panelAccelerateStartLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(labelsAutocompleteDisabled)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
         panelAccelerateStartLayout.setVerticalGroup(
             panelAccelerateStartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -111,7 +111,7 @@ public final class SettingsPerformancePanel extends javax.swing.JPanel
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        panelThreadPriority.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Rechenzeit", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 11))); // NOI18N
+        panelThreadPriority.setBorder(javax.swing.BorderFactory.createTitledBorder(null, Bundle.getString("SettingsPerformancePanel.panelThreadPriority.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 11))); // NOI18N
 
         labelThreadPriority.setFont(new java.awt.Font("Dialog", 0, 12));
         labelThreadPriority.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);

@@ -73,6 +73,9 @@
           </Layout>
           <SubComponents>
             <Container class="javax.swing.JTabbedPane" name="tabbedPaneSelection">
+              <Properties>
+                <Property name="name" type="java.lang.String" value="" noResource="true"/>
+              </Properties>
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
               <SubComponents>
@@ -122,6 +125,7 @@
                               <Connection code="new TreeCellRendererDirectories()" type="code"/>
                             </Property>
                             <Property name="dragEnabled" type="boolean" value="true"/>
+                            <Property name="name" type="java.lang.String" value="treeDirectories" noResource="true"/>
                           </Properties>
                           <AuxValues>
                             <AuxValue name="JavaCodeGenerator_allCodePost" type="java.lang.String" value="treeDirectories.setTransferHandler(new de.elmar_baumann.imv.datatransfer.TransferHandlerTreeDirectories());"/>
@@ -171,6 +175,7 @@
                             <Property name="cellRenderer" type="javax.swing.ListCellRenderer" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                               <Connection code="new ListCellRendererSavedSearches()" type="code"/>
                             </Property>
+                            <Property name="name" type="java.lang.String" value="listSavedSearches" noResource="true"/>
                           </Properties>
                         </Component>
                       </SubComponents>
@@ -218,6 +223,7 @@
                               <Connection code="new ListCellRendererImageCollections()" type="code"/>
                             </Property>
                             <Property name="dragEnabled" type="boolean" value="true"/>
+                            <Property name="name" type="java.lang.String" value="listImageCollections" noResource="true"/>
                           </Properties>
                           <AuxValues>
                             <AuxValue name="JavaCodeGenerator_allCodePost" type="java.lang.String" value="listImageCollections.setTransferHandler(new de.elmar_baumann.imv.datatransfer.TransferHandlerListImageCollections());"/>
@@ -270,6 +276,7 @@
                             <Property name="dropMode" type="javax.swing.DropMode" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                               <Connection code="javax.swing.DropMode.ON" type="code"/>
                             </Property>
+                            <Property name="name" type="java.lang.String" value="listCategories" noResource="true"/>
                           </Properties>
                         </Component>
                       </SubComponents>
@@ -326,6 +333,7 @@
                             <Property name="dropMode" type="javax.swing.DropMode" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                               <Connection code="javax.swing.DropMode.ON" type="code"/>
                             </Property>
+                            <Property name="name" type="java.lang.String" value="listFavoriteDirectories" noResource="true"/>
                           </Properties>
                           <AuxValues>
                             <AuxValue name="JavaCodeGenerator_allCodePost" type="java.lang.String" value="listFavoriteDirectories.setTransferHandler(new de.elmar_baumann.imv.datatransfer.TransferHandlerListFavoriteDirectories());"/>
@@ -381,6 +389,7 @@
                             <Property name="cellRenderer" type="javax.swing.ListCellRenderer" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                               <Connection code="new ListCellRendererKeywords()" type="code"/>
                             </Property>
+                            <Property name="name" type="java.lang.String" value="listKeywords" noResource="true"/>
                           </Properties>
                         </Component>
                       </SubComponents>
@@ -544,6 +553,7 @@
                               <Properties>
                                 <Property name="autoCreateRowSorter" type="boolean" value="true"/>
                                 <Property name="autoResizeMode" type="int" value="0"/>
+                                <Property name="name" type="java.lang.String" value="tableIptc" noResource="true"/>
                               </Properties>
                             </Component>
                           </SubComponents>
@@ -571,6 +581,7 @@
                               <Properties>
                                 <Property name="autoCreateRowSorter" type="boolean" value="true"/>
                                 <Property name="autoResizeMode" type="int" value="0"/>
+                                <Property name="name" type="java.lang.String" value="tableExif" noResource="true"/>
                               </Properties>
                             </Component>
                           </SubComponents>
@@ -614,6 +625,7 @@
                                   <Properties>
                                     <Property name="autoCreateRowSorter" type="boolean" value="true"/>
                                     <Property name="autoResizeMode" type="int" value="0"/>
+                                    <Property name="name" type="java.lang.String" value="tableXmpTiff" noResource="true"/>
                                   </Properties>
                                 </Component>
                               </SubComponents>
@@ -638,6 +650,7 @@
                                   <Properties>
                                     <Property name="autoCreateRowSorter" type="boolean" value="true"/>
                                     <Property name="autoResizeMode" type="int" value="0"/>
+                                    <Property name="name" type="java.lang.String" value="tableXmpExif" noResource="true"/>
                                   </Properties>
                                 </Component>
                               </SubComponents>
@@ -662,6 +675,7 @@
                                   <Properties>
                                     <Property name="autoCreateRowSorter" type="boolean" value="true"/>
                                     <Property name="autoResizeMode" type="int" value="0"/>
+                                    <Property name="name" type="java.lang.String" value="tableXmpDc" noResource="true"/>
                                   </Properties>
                                 </Component>
                               </SubComponents>
@@ -686,6 +700,7 @@
                                   <Properties>
                                     <Property name="autoCreateRowSorter" type="boolean" value="true"/>
                                     <Property name="autoResizeMode" type="int" value="0"/>
+                                    <Property name="name" type="java.lang.String" value="tableXmpIptc" noResource="true"/>
                                   </Properties>
                                 </Component>
                               </SubComponents>
@@ -710,6 +725,7 @@
                                   <Properties>
                                     <Property name="autoCreateRowSorter" type="boolean" value="true"/>
                                     <Property name="autoResizeMode" type="int" value="0"/>
+                                    <Property name="name" type="java.lang.String" value="tableXmpPhotoshop" noResource="true"/>
                                   </Properties>
                                 </Component>
                               </SubComponents>
@@ -734,6 +750,7 @@
                                   <Properties>
                                     <Property name="autoCreateRowSorter" type="boolean" value="true"/>
                                     <Property name="autoResizeMode" type="int" value="0"/>
+                                    <Property name="name" type="java.lang.String" value="tableXmpXap" noResource="true"/>
                                   </Properties>
                                 </Component>
                               </SubComponents>
@@ -758,6 +775,7 @@
                                   <Properties>
                                     <Property name="autoCreateRowSorter" type="boolean" value="true"/>
                                     <Property name="autoResizeMode" type="int" value="0"/>
+                                    <Property name="name" type="java.lang.String" value="tableXmpLightroom" noResource="true"/>
                                   </Properties>
                                 </Component>
                               </SubComponents>
@@ -782,6 +800,7 @@
                                   <Properties>
                                     <Property name="autoCreateRowSorter" type="boolean" value="true"/>
                                     <Property name="autoResizeMode" type="int" value="0"/>
+                                    <Property name="name" type="java.lang.String" value="tableXmpCameraRawSettings" noResource="true"/>
                                   </Properties>
                                 </Component>
                               </SubComponents>
@@ -957,6 +976,7 @@
             <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="AppTexts.tooltipTextProgressBarDirectory" type="code"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="progressBarCreateMetadataOfCurrentThumbnails" noResource="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JProgressBar" name="progressBarCurrentTasks">
@@ -964,6 +984,7 @@
             <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="AppTexts.tooltipTextProgressBarCurrentTasks" type="code"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="progressBarCurrentTasks" noResource="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="textFieldSearch">
@@ -1000,6 +1021,7 @@
                 <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="AppTexts.tooltipTextProgressBarScheduledTasks" type="code"/>
                 </Property>
+                <Property name="name" type="java.lang.String" value="progressBarScheduledTasks" noResource="true"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="buttonStopScheduledTasks">

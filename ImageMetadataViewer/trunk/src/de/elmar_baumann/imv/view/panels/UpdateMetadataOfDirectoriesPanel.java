@@ -158,6 +158,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
         activeUpdater.addProgressListener(this);
         Thread thread = new Thread(activeUpdater);
         setThreadPriority(thread);
+        thread.setName("UpdateMetadataOfDirectoriesPanel#start"); // NOI18N
         thread.start();
     }
 

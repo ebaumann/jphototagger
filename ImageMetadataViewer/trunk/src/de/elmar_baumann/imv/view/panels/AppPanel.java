@@ -371,6 +371,7 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
         String className = getClass().getName();
         hints.addExclude(className + ".textFieldSearch"); // NOI18N
         hints.addExclude(className + ".panelEditMetadata"); // NOI18N
+        hints.addExclude(className + ".treeDirectories"); // NOI18N
         return hints;
     }
 
@@ -465,10 +466,13 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
         buttonStopScheduledTasks = new javax.swing.JButton();
         labelFastSearch = new javax.swing.JLabel();
 
+        tabbedPaneSelection.setName(""); // NOI18N
+
         treeDirectories.setModel(null);
         treeDirectories.setToolTipText(Bundle.getString("AppPanel.treeDirectories.toolTipText")); // NOI18N
         treeDirectories.setCellRenderer(new TreeCellRendererDirectories());
         treeDirectories.setDragEnabled(true);
+        treeDirectories.setName("treeDirectories"); // NOI18N
         scrollPaneDirectories.setViewportView(treeDirectories);
         treeDirectories.setTransferHandler(new de.elmar_baumann.imv.datatransfer.TransferHandlerTreeDirectories());
 
@@ -487,6 +491,7 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
 
         listSavedSearches.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         listSavedSearches.setCellRenderer(new ListCellRendererSavedSearches());
+        listSavedSearches.setName("listSavedSearches"); // NOI18N
         scrollPaneSavedSearches.setViewportView(listSavedSearches);
 
         javax.swing.GroupLayout panelSelectionSavedSearchesLayout = new javax.swing.GroupLayout(panelSelectionSavedSearches);
@@ -505,6 +510,7 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
         listImageCollections.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         listImageCollections.setCellRenderer(new ListCellRendererImageCollections());
         listImageCollections.setDragEnabled(true);
+        listImageCollections.setName("listImageCollections"); // NOI18N
         scrollPaneImageCollections.setViewportView(listImageCollections);
         listImageCollections.setTransferHandler(new de.elmar_baumann.imv.datatransfer.TransferHandlerListImageCollections());
 
@@ -524,6 +530,7 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
         listCategories.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         listCategories.setCellRenderer(new ListCellRendererCategories());
         listCategories.setDropMode(javax.swing.DropMode.ON);
+        listCategories.setName("listCategories"); // NOI18N
         scrollPaneCategories.setViewportView(listCategories);
 
         javax.swing.GroupLayout panelSelectionCategoriesLayout = new javax.swing.GroupLayout(panelSelectionCategories);
@@ -543,6 +550,7 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
         listFavoriteDirectories.setCellRenderer(new ListCellRendererFavoriteDirectories());
         listFavoriteDirectories.setDragEnabled(true);
         listFavoriteDirectories.setDropMode(javax.swing.DropMode.ON);
+        listFavoriteDirectories.setName("listFavoriteDirectories"); // NOI18N
         scrollPaneFavoriteDirectories.setViewportView(listFavoriteDirectories);
         listFavoriteDirectories.setTransferHandler(new de.elmar_baumann.imv.datatransfer.TransferHandlerListFavoriteDirectories());
 
@@ -565,6 +573,7 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
 
         listKeywords.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         listKeywords.setCellRenderer(new ListCellRendererKeywords());
+        listKeywords.setName("listKeywords"); // NOI18N
         scrollPaneKeywords.setViewportView(listKeywords);
 
         javax.swing.GroupLayout panelSelectionKeywordsLayout = new javax.swing.GroupLayout(panelSelectionKeywords);
@@ -632,7 +641,7 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
         splitPaneThumbnailsMetadata.setLeftComponent(panelThumbnailsContent);
 
         labelMetadataFilename.setBackground(new java.awt.Color(255, 255, 255));
-        labelMetadataFilename.setFont(new java.awt.Font("Dialog", 0, 10));
+        labelMetadataFilename.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
         labelMetadataFilename.setText(Bundle.getString("AppPanel.labelMetadataFilename.text")); // NOI18N
         labelMetadataFilename.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         labelMetadataFilename.setOpaque(true);
@@ -641,12 +650,14 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
 
         tableIptc.setAutoCreateRowSorter(true);
         tableIptc.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        tableIptc.setName("tableIptc"); // NOI18N
         scrollPaneIptc.setViewportView(tableIptc);
 
         tabbedPaneMetadata.addTab(Bundle.getString("AppPanel.scrollPaneIptc.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icon_iptc.png")), scrollPaneIptc); // NOI18N
 
         tableExif.setAutoCreateRowSorter(true);
         tableExif.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        tableExif.setName("tableExif"); // NOI18N
         scrollPaneExif.setViewportView(tableExif);
 
         tabbedPaneMetadata.addTab(Bundle.getString("AppPanel.scrollPaneExif.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icon_exif.png")), scrollPaneExif); // NOI18N
@@ -655,48 +666,56 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
 
         tableXmpTiff.setAutoCreateRowSorter(true);
         tableXmpTiff.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        tableXmpTiff.setName("tableXmpTiff"); // NOI18N
         scrollPaneXmpTiff.setViewportView(tableXmpTiff);
 
         tabbedPaneXmp.addTab(Bundle.getString("AppPanel.scrollPaneXmpTiff.TabConstraints.tabTitle"), scrollPaneXmpTiff); // NOI18N
 
         tableXmpExif.setAutoCreateRowSorter(true);
         tableXmpExif.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        tableXmpExif.setName("tableXmpExif"); // NOI18N
         scrollPaneXmpExif.setViewportView(tableXmpExif);
 
         tabbedPaneXmp.addTab(Bundle.getString("AppPanel.scrollPaneXmpExif.TabConstraints.tabTitle"), scrollPaneXmpExif); // NOI18N
 
         tableXmpDc.setAutoCreateRowSorter(true);
         tableXmpDc.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        tableXmpDc.setName("tableXmpDc"); // NOI18N
         scrollPaneXmpDc.setViewportView(tableXmpDc);
 
         tabbedPaneXmp.addTab(Bundle.getString("AppPanel.scrollPaneXmpDc.TabConstraints.tabTitle"), scrollPaneXmpDc); // NOI18N
 
         tableXmpIptc.setAutoCreateRowSorter(true);
         tableXmpIptc.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        tableXmpIptc.setName("tableXmpIptc"); // NOI18N
         scrollPaneXmpIptc.setViewportView(tableXmpIptc);
 
         tabbedPaneXmp.addTab(Bundle.getString("AppPanel.scrollPaneXmpIptc.TabConstraints.tabTitle"), scrollPaneXmpIptc); // NOI18N
 
         tableXmpPhotoshop.setAutoCreateRowSorter(true);
         tableXmpPhotoshop.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        tableXmpPhotoshop.setName("tableXmpPhotoshop"); // NOI18N
         scrollPaneXmpPhotoshop.setViewportView(tableXmpPhotoshop);
 
         tabbedPaneXmp.addTab(Bundle.getString("AppPanel.scrollPaneXmpPhotoshop.TabConstraints.tabTitle"), scrollPaneXmpPhotoshop); // NOI18N
 
         tableXmpXap.setAutoCreateRowSorter(true);
         tableXmpXap.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        tableXmpXap.setName("tableXmpXap"); // NOI18N
         scrollPaneXmpXap.setViewportView(tableXmpXap);
 
         tabbedPaneXmp.addTab(Bundle.getString("AppPanel.scrollPaneXmpXap.TabConstraints.tabTitle"), scrollPaneXmpXap); // NOI18N
 
         tableXmpLightroom.setAutoCreateRowSorter(true);
         tableXmpLightroom.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        tableXmpLightroom.setName("tableXmpLightroom"); // NOI18N
         scrollPaneXmpLightroom.setViewportView(tableXmpLightroom);
 
         tabbedPaneXmp.addTab(Bundle.getString("AppPanel.scrollPaneXmpLightroom.TabConstraints.tabTitle"), scrollPaneXmpLightroom); // NOI18N
 
         tableXmpCameraRawSettings.setAutoCreateRowSorter(true);
         tableXmpCameraRawSettings.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        tableXmpCameraRawSettings.setName("tableXmpCameraRawSettings"); // NOI18N
         scrollPaneXmpCameraRawSettings.setViewportView(tableXmpCameraRawSettings);
 
         tabbedPaneXmp.addTab(Bundle.getString("AppPanel.scrollPaneXmpCameraRawSettings.TabConstraints.tabTitle"), scrollPaneXmpCameraRawSettings); // NOI18N
@@ -787,12 +806,15 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
 
         progressBarCreateMetadataOfCurrentThumbnails.setFont(new java.awt.Font("Dialog", 1, 8));
         progressBarCreateMetadataOfCurrentThumbnails.setToolTipText(AppTexts.tooltipTextProgressBarDirectory);
+        progressBarCreateMetadataOfCurrentThumbnails.setName("progressBarCreateMetadataOfCurrentThumbnails"); // NOI18N
 
         progressBarCurrentTasks.setToolTipText(AppTexts.tooltipTextProgressBarCurrentTasks);
+        progressBarCurrentTasks.setName("progressBarCurrentTasks"); // NOI18N
 
         textFieldSearch.setToolTipText(Bundle.getString("AppPanel.textFieldSearch.toolTipText")); // NOI18N
 
         progressBarScheduledTasks.setToolTipText(AppTexts.tooltipTextProgressBarScheduledTasks);
+        progressBarScheduledTasks.setName("progressBarScheduledTasks"); // NOI18N
 
         buttonStopScheduledTasks.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icon_stop_scheduled_tasks_enabled.png"))); // NOI18N
         buttonStopScheduledTasks.setAlignmentY(0.0F);

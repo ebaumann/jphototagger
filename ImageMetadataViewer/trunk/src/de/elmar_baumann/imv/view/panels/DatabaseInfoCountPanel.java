@@ -37,19 +37,21 @@ public final class DatabaseInfoCountPanel extends javax.swing.JPanel {
     }
 
     private void setInitTotalRecordCount() {
-        new Thread(new Runnable() {
+        Thread thread = new Thread(new Runnable() {
 
             @Override
             public void run() {
                 labelTotalRecordCount.setText(Long.toString(
                     DatabaseStatistics.INSTANCE.getTotalRecordCount()));
             }
-        }).start();
+        });
+        thread.setName("DatabaseInfoCountPanel#setInitTotalRecordCount"); // NOI18N
+        thread.start();
     }
 
     private void setModelDatabaseInfo() {
         if (modelDatabaseInfo == null) {
-            new Thread(new Runnable() {
+            Thread thread = new Thread(new Runnable() {
 
                 @Override
                 public void run() {
@@ -58,7 +60,9 @@ public final class DatabaseInfoCountPanel extends javax.swing.JPanel {
                     modelDatabaseInfo.update();
                     setInitTotalRecordCount();
                 }
-            }).start();
+            });
+            thread.setName("DatabaseInfoCountPanel#setModelDatabaseInfo"); // NOI18N
+            thread.start();
         } else {
             setInitTotalRecordCount();
             modelDatabaseInfo.setListenToDatabase(true);

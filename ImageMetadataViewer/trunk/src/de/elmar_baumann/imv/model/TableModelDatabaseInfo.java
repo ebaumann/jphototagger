@@ -97,6 +97,11 @@ public final class TableModelDatabaseInfo extends DefaultTableModel
 
     private class SetCountThread extends Thread {
 
+        public SetCountThread() {
+            super();
+            setName("TableModelDatabaseInfo.SetCountThread");
+        }
+
         @Override
         public void run() {
             Set<Column> columns = bufferDifferentOfColumn.keySet();

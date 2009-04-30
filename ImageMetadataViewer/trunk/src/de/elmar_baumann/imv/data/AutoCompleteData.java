@@ -57,13 +57,15 @@ public final class AutoCompleteData {
     }
 
     private void addColumnsContent() {
-        new Thread(new Runnable() {
+        Thread thread = new Thread(new Runnable() {
 
             @Override
             public void run() {
                 content.addAll(db.getContent(columns));
             }
-        }).start();
+        });
+        thread.setName("AutoCompleteData#addColumnsContent"); // NOI18N
+        thread.start();
 
     }
 

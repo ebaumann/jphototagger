@@ -196,12 +196,11 @@ public final class SettingsTasksPanel extends javax.swing.JPanel
         labelTasksMinutesToStartScheduledTasks = new javax.swing.JLabel();
         spinnerMinutesToStartScheduledTasks = new javax.swing.JSpinner();
 
-        panelTasksAutoscan.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Datenbank aktualisieren", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 11))); // NOI18N
+        panelTasksAutoscan.setBorder(javax.swing.BorderFactory.createTitledBorder(null, Bundle.getString("SettingsTasksPanel.panelTasksAutoscan.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 11))); // NOI18N
 
         labelAutoscanDirectoriesInfo.setFont(new java.awt.Font("Dialog", 0, 12));
         labelAutoscanDirectoriesInfo.setText(Bundle.getString("SettingsTasksPanel.labelAutoscanDirectoriesInfo.text")); // NOI18N
 
-        labelAutoscanDirectoriesPrompt.setFont(new java.awt.Font("Dialog", 0, 12));
         labelAutoscanDirectoriesPrompt.setText(Bundle.getString("SettingsTasksPanel.labelAutoscanDirectoriesPrompt.text")); // NOI18N
 
         listAutoscanDirectories.setFont(new java.awt.Font("Dialog", 0, 12));
@@ -284,7 +283,7 @@ public final class SettingsTasksPanel extends javax.swing.JPanel
                 .addContainerGap())
         );
 
-        panelTasksOther.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Weitere Aufgaben", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 11))); // NOI18N
+        panelTasksOther.setBorder(javax.swing.BorderFactory.createTitledBorder(null, Bundle.getString("SettingsTasksPanel.panelTasksOther.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 11))); // NOI18N
 
         checkBoxIsTaskRemoveRecordsWithNotExistingFiles.setFont(new java.awt.Font("Dialog", 0, 12));
         checkBoxIsTaskRemoveRecordsWithNotExistingFiles.setText(Bundle.getString("SettingsTasksPanel.checkBoxIsTaskRemoveRecordsWithNotExistingFiles.text")); // NOI18N

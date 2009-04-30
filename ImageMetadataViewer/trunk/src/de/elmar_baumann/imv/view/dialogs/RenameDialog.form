@@ -31,7 +31,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Component id="tabbedPane" pref="737" max="32767" attributes="0"/>
+              <Component id="tabbedPane" pref="566" max="32767" attributes="0"/>
               <EmptySpace min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -68,15 +68,15 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="labelDirectory" alignment="0" pref="708" max="32767" attributes="0"/>
+                          <Component id="labelDirectory" alignment="0" pref="537" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
                               <Component id="panelBorder" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="1" attributes="0">
                                   <Component id="labelOldNamePrompt" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="labelNewNamePrompt" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="labelOldName" alignment="0" pref="506" max="32767" attributes="0"/>
-                                  <Component id="textFieldNewName" alignment="0" pref="506" max="32767" attributes="0"/>
+                                  <Component id="labelOldName" alignment="0" pref="335" max="32767" attributes="0"/>
+                                  <Component id="textFieldNewName" alignment="0" pref="335" max="32767" attributes="0"/>
                                   <Group type="102" alignment="1" attributes="0">
                                       <Component id="buttonNextFile" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
@@ -419,7 +419,7 @@
                           <Component id="labelDateDelim" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="textFieldDateDelim" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="305" max="32767" attributes="0"/>
+                          <EmptySpace pref="134" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -687,8 +687,8 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="labelAfterFilename" alignment="0" pref="620" max="32767" attributes="0"/>
-                              <Component id="labelBeforeFilename" alignment="0" pref="620" max="32767" attributes="0"/>
+                              <Component id="labelAfterFilename" alignment="0" pref="449" max="32767" attributes="0"/>
+                              <Component id="labelBeforeFilename" alignment="0" pref="449" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>

@@ -300,7 +300,7 @@
               <Group type="102" alignment="0" attributes="0">
                   <Component id="checkBoxIsAcceptHiddenDirectories" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
-                  <Component id="checkBoxTreeDirectoriesSelectLastDirectory" pref="23" max="32767" attributes="0"/>
+                  <Component id="checkBoxTreeDirectoriesSelectLastDirectory" max="32767" attributes="0"/>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>

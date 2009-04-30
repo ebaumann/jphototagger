@@ -84,6 +84,7 @@ public final class ProgramStarter {
         public Execute(Program program, List<File> imageFiles) {
             this.imageFiles = imageFiles;
             this.program = program;
+            setName("ProgramStarter.Execute");
         }
 
         @Override

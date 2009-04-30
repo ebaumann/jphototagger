@@ -192,6 +192,7 @@ public final class ConnectionPool implements Runnable {
         connectionPending = true;
         try {
             Thread connectThread = new Thread(this);
+            connectThread.setName("ConnectionPool#makeBackgroundConnection"); // NOI18N
             connectThread.start();
         } catch (OutOfMemoryError oome) {
             // Give up on new connection

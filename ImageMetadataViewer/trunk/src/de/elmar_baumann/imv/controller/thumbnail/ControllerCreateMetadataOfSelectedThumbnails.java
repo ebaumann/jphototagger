@@ -79,6 +79,7 @@ public final class ControllerCreateMetadataOfSelectedThumbnails
             setWait(true);
             Thread thread = new Thread(updaters.remove());
             thread.setPriority(UserSettings.INSTANCE.getThreadPriority());
+            thread.setName("ControllerCreateMetadataOfSelectedThumbnails#startUpdateMetadataThread"); // NOI18N
             thread.start();
         }
     }
