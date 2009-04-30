@@ -151,7 +151,7 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
         labelInfoList.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
         labelInfoList.setText(Bundle.getString("SettingsFileExcludePatternsPanel.labelInfoList.text")); // NOI18N
 
-        listPattern.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        listPattern.setFont(new java.awt.Font("Dialog", 0, 12));
         listPattern.setModel(model);
         listPattern.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         listPattern.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
@@ -227,7 +227,7 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
                         .addComponent(buttonDeletePattern)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonInsertPattern))
-                    .addComponent(labelInfoDatabase, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 425, Short.MAX_VALUE)
+                    .addComponent(labelInfoDatabase, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 425, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(buttonCancelUpdateDatabase)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)

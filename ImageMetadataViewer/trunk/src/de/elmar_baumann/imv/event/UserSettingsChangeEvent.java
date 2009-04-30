@@ -24,6 +24,7 @@ public final class UserSettingsChangeEvent {
     private String externalThumbnailCreationCommand;
     private String webBrowser;
     private String iptcCharset;
+    private String databaseDirectoryName;
     private File autoCopyDirectory;
     private boolean acceptHiddenDirectories;
     private boolean autoscanIncludeSubdirectories;
@@ -45,6 +46,7 @@ public final class UserSettingsChangeEvent {
 
         AUTOSCAN_DIRECTORIES,
         AUTOCOPY_DIRECTORY,
+        DATABASE_DIRECTORY,
         DEFAULT_IMAGE_OPEN_APP,
         EDIT_COLUMNS,
         EXTERNAL_THUMBNAIL_CREATION_COMMAND,
@@ -238,5 +240,13 @@ public final class UserSettingsChangeEvent {
 
     public void setWebBrowser(String webBrowser) {
         this.webBrowser = webBrowser;
+    }
+
+    public String getDatabaseDirectoryName() {
+        return databaseDirectoryName;
+    }
+
+    public void setDatabaseDirectoryName(String databaseDirectoryName) {
+        this.databaseDirectoryName = databaseDirectoryName;
     }
 }

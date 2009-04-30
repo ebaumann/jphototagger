@@ -142,7 +142,7 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel
 
         panelThumbnailDimensions.setBorder(javax.swing.BorderFactory.createTitledBorder(null, Bundle.getString("SettingsThumbnailsPanel.panelThumbnailDimensions.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 11))); // NOI18N
 
-        labelMaxThumbnailWidth.setFont(new java.awt.Font("Dialog", 0, 12));
+        labelMaxThumbnailWidth.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         labelMaxThumbnailWidth.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         labelMaxThumbnailWidth.setText(Bundle.getString("SettingsThumbnailsPanel.labelMaxThumbnailWidth.text")); // NOI18N
 
@@ -174,14 +174,14 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel
             panelThumbnailDimensionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelThumbnailDimensionsLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panelThumbnailDimensionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelThumbnailDimensionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(panelThumbnailDimensionsLayout.createSequentialGroup()
                         .addComponent(labelMaxThumbnailWidth)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(spinnerMaxThumbnailWidth, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonUpdateAllThumbnails))
-                    .addComponent(labelUpdateAllThumbnails, javax.swing.GroupLayout.DEFAULT_SIZE, 509, Short.MAX_VALUE))
+                    .addComponent(labelUpdateAllThumbnails, javax.swing.GroupLayout.PREFERRED_SIZE, 509, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         panelThumbnailDimensionsLayout.setVerticalGroup(
@@ -193,10 +193,10 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel
                     .addComponent(buttonUpdateAllThumbnails))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelUpdateAllThumbnails)
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        checkBoxIsUseEmbeddedThumbnails.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        checkBoxIsUseEmbeddedThumbnails.setFont(new java.awt.Font("Dialog", 0, 12));
         checkBoxIsUseEmbeddedThumbnails.setText(Bundle.getString("SettingsThumbnailsPanel.checkBoxIsUseEmbeddedThumbnails.text")); // NOI18N
         checkBoxIsUseEmbeddedThumbnails.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -214,7 +214,7 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel
             }
         });
 
-        labelIsCreateThumbnailsWithExternalApp.setFont(new java.awt.Font("Dialog", 0, 12));
+        labelIsCreateThumbnailsWithExternalApp.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         labelIsCreateThumbnailsWithExternalApp.setText(Bundle.getString("SettingsThumbnailsPanel.labelIsCreateThumbnailsWithExternalApp.text")); // NOI18N
 
         textFieldExternalThumbnailCreationCommand.setEnabled(false);
@@ -254,21 +254,21 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelExternalThumbnailApp, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(checkBoxIsUseEmbeddedThumbnails)
                     .addComponent(panelThumbnailDimensions, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(checkBoxIsUseEmbeddedThumbnails))
+                    .addComponent(panelExternalThumbnailApp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(panelThumbnailDimensions, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(panelThumbnailDimensions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(checkBoxIsUseEmbeddedThumbnails)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(panelExternalThumbnailApp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(12, 12, 12))
+                .addComponent(panelExternalThumbnailApp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

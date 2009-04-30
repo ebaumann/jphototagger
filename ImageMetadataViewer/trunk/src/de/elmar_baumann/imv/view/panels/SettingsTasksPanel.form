@@ -82,7 +82,7 @@
                           </Group>
                           <Component id="buttonAddAutoscanDirectories" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="labelAutoscanDirectoriesInfo" alignment="0" pref="637" max="32767" attributes="0"/>
+                      <Component id="labelAutoscanDirectoriesInfo" alignment="0" min="-2" pref="637" max="-2" attributes="0"/>
                       <Component id="labelAutoscanDirectoriesPrompt" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" max="-2" attributes="0"/>

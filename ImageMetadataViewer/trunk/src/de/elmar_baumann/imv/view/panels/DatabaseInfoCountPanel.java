@@ -1,10 +1,12 @@
 package de.elmar_baumann.imv.view.panels;
 
+import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.database.DatabaseStatistics;
 import de.elmar_baumann.imv.event.listener.TotalRecordCountListener;
 import de.elmar_baumann.imv.model.TableModelDatabaseInfo;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.view.renderer.TableCellRendererDatabaseInfoColumns;
+import java.text.MessageFormat;
 
 /**
  * Dislplays the database record count total and of specific columns.
@@ -21,6 +23,7 @@ public final class DatabaseInfoCountPanel extends javax.swing.JPanel {
     public DatabaseInfoCountPanel() {
         initComponents();
         table.setDefaultRenderer(Object.class, new TableCellRendererDatabaseInfoColumns());
+        setLabelFilename();
     }
 
     public void listenToDatabaseChanges(boolean listen) {
@@ -47,6 +50,13 @@ public final class DatabaseInfoCountPanel extends javax.swing.JPanel {
         });
         thread.setName("DatabaseInfoCountPanel#setInitTotalRecordCount"); // NOI18N
         thread.start();
+    }
+
+    private void setLabelFilename() {
+        MessageFormat msg = new MessageFormat(Bundle.getString(
+            "DatabaseInfoCountPanel.labelFilename.Filename"));
+        labelFilename.setText(msg.format(new Object[]{
+                UserSettings.INSTANCE.getDatabaseFileName()}));
     }
 
     private void setModelDatabaseInfo() {
@@ -84,6 +94,7 @@ public final class DatabaseInfoCountPanel extends javax.swing.JPanel {
         labelTable = new javax.swing.JLabel();
         labelPromptTotalRecordCount = new javax.swing.JLabel();
         labelTotalRecordCount = new javax.swing.JLabel();
+        labelFilename = new javax.swing.JLabel();
 
         scrollPane.setViewportView(table);
 
@@ -92,6 +103,8 @@ public final class DatabaseInfoCountPanel extends javax.swing.JPanel {
         labelPromptTotalRecordCount.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         labelPromptTotalRecordCount.setText(Bundle.getString("DatabaseInfoCountPanel.labelPromptTotalRecordCount.text")); // NOI18N
 
+        labelFilename.setText(Bundle.getString("DatabaseInfoCountPanel.labelFilename.text")); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -99,8 +112,9 @@ public final class DatabaseInfoCountPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(scrollPane, 0, 357, Short.MAX_VALUE)
                     .addComponent(labelTable, javax.swing.GroupLayout.DEFAULT_SIZE, 357, Short.MAX_VALUE)
-                    .addComponent(scrollPane, 0, 0, Short.MAX_VALUE)
+                    .addComponent(labelFilename)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(labelPromptTotalRecordCount)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -113,15 +127,21 @@ public final class DatabaseInfoCountPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(labelTable)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
-                .addGap(9, 9, 9)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(labelTotalRecordCount, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(labelPromptTotalRecordCount, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(labelPromptTotalRecordCount, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(labelTotalRecordCount, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 15, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(labelFilename)
+                .addGap(12, 12, 12))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {labelPromptTotalRecordCount, labelTotalRecordCount});
+
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel labelFilename;
     private javax.swing.JLabel labelPromptTotalRecordCount;
     private javax.swing.JLabel labelTable;
     private javax.swing.JLabel labelTotalRecordCount;

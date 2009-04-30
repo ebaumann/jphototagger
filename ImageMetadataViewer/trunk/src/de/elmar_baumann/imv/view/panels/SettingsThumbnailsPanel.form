@@ -17,12 +17,12 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
+          <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="panelExternalThumbnailApp" alignment="1" max="32767" attributes="2"/>
-                  <Component id="panelThumbnailDimensions" alignment="0" max="32767" attributes="2"/>
                   <Component id="checkBoxIsUseEmbeddedThumbnails" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="panelThumbnailDimensions" alignment="0" max="32767" attributes="2"/>
+                  <Component id="panelExternalThumbnailApp" alignment="0" max="32767" attributes="2"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -31,13 +31,13 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Component id="panelThumbnailDimensions" max="32767" attributes="0"/>
-              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="panelThumbnailDimensions" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="checkBoxIsUseEmbeddedThumbnails" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
-              <Component id="panelExternalThumbnailApp" max="32767" attributes="0"/>
-              <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="panelExternalThumbnailApp" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -58,9 +58,9 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
+              <Group type="102" alignment="0" max="-2" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="labelMaxThumbnailWidth" min="-2" max="-2" attributes="1"/>
                           <EmptySpace max="-2" attributes="0"/>
@@ -68,7 +68,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="buttonUpdateAllThumbnails" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="labelUpdateAllThumbnails" alignment="0" pref="509" max="32767" attributes="0"/>
+                      <Component id="labelUpdateAllThumbnails" alignment="0" min="-2" pref="509" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -84,7 +84,7 @@
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="labelUpdateAllThumbnails" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="13" max="32767" attributes="1"/>
+                  <EmptySpace max="32767" attributes="1"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -178,7 +178,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="checkBoxIsCreateThumbnailsWithExternalApp" alignment="0" min="-2" max="-2" attributes="1"/>
-                      <Component id="labelIsCreateThumbnailsWithExternalApp" alignment="1" pref="509" max="32767" attributes="2"/>
+                      <Component id="labelIsCreateThumbnailsWithExternalApp" alignment="1" pref="509" max="32767" attributes="1"/>
                       <Component id="textFieldExternalThumbnailCreationCommand" alignment="0" pref="509" max="32767" attributes="2"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>

@@ -88,6 +88,25 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
         notifyChangeListener(evt);
     }
 
+    private void handleActionPerformedChooseDatabaseDirectory() {
+        File file = chooseDirectory(new File(UserSettings.INSTANCE.getDatabaseDirectoryName()));
+        if (file != null) {
+            setDatabaseDirectoryName(file.getAbsolutePath());
+        }
+    }
+
+    private void setDatabaseDirectoryName(String directoryName) {
+        labelDatabaseDirectory.setText(directoryName);
+        UserSettingsChangeEvent evt = new UserSettingsChangeEvent(
+            UserSettingsChangeEvent.Type.DATABASE_DIRECTORY, this);
+        evt.setDatabaseDirectoryName(directoryName);
+        notifyChangeListener(evt);
+    }
+
+    private void handleActionPerformedSetStandardDatabaseDirectory() {
+        setDatabaseDirectoryName(UserSettings.INSTANCE.getDefaultDatabaseDirectoryName());
+    }
+
     private void handleActionPerformedChooseWebBrowser() {
         File programFile = chooseFile(new ExecutableFileChooserFileFilter());
         if (programFile != null) {
@@ -140,6 +159,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
             settings.isAcceptHiddenDirectories());
         checkBoxTreeDirectoriesSelectLastDirectory.setSelected(
             settings.isTreeDirectoriesSelectLastDirectory());
+        labelDatabaseDirectory.setText(UserSettings.INSTANCE.getDatabaseDirectoryName());
     }
 
     private void readAutoCopyDirectoryProperties(UserSettings settings) {
@@ -184,6 +204,10 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
         panelWebBrowser = new javax.swing.JPanel();
         labelWebBrowser = new javax.swing.JLabel();
         buttonChooseWebBrowser = new javax.swing.JButton();
+        panelDatabaseDirectory = new javax.swing.JPanel();
+        labelDatabaseDirectory = new javax.swing.JLabel();
+        buttonChooseDatabaseDirectory = new javax.swing.JButton();
+        buttonSetStandardDatabaseDirectoryName = new javax.swing.JButton();
         panelFolderView = new javax.swing.JPanel();
         checkBoxIsAcceptHiddenDirectories = new javax.swing.JCheckBox();
         checkBoxTreeDirectoriesSelectLastDirectory = new javax.swing.JCheckBox();
@@ -224,7 +248,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
                 .addComponent(labelLogLogfileFormatterClass)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(comboBoxLogfileFormatterClass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(73, Short.MAX_VALUE))
+                .addContainerGap(78, Short.MAX_VALUE))
         );
         panelLogfileLayout.setVerticalGroup(
             panelLogfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -258,7 +282,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
             panelAutoCopyDirectoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelAutoCopyDirectoryLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(labelAutocopyDirectory, javax.swing.GroupLayout.DEFAULT_SIZE, 404, Short.MAX_VALUE)
+                .addComponent(labelAutocopyDirectory, javax.swing.GroupLayout.DEFAULT_SIZE, 409, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonChooseAutocopyDirectory)
                 .addContainerGap())
@@ -269,7 +293,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
                 .addGroup(panelAutoCopyDirectoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(buttonChooseAutocopyDirectory)
                     .addComponent(labelAutocopyDirectory, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         panelWebBrowser.setBorder(javax.swing.BorderFactory.createTitledBorder(null, Bundle.getString("SettingsMiscPanel.panelWebBrowser.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 11))); // NOI18N
@@ -278,8 +302,8 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
         labelWebBrowser.setForeground(new java.awt.Color(0, 0, 255));
         labelWebBrowser.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        buttonChooseWebBrowser.setFont(new java.awt.Font("Dialog", 0, 12));
-        buttonChooseWebBrowser.setMnemonic('a');
+        buttonChooseWebBrowser.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        buttonChooseWebBrowser.setMnemonic('u');
         buttonChooseWebBrowser.setText(Bundle.getString("SettingsMiscPanel.buttonChooseWebBrowser.text")); // NOI18N
         buttonChooseWebBrowser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -293,7 +317,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
             panelWebBrowserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelWebBrowserLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(labelWebBrowser, javax.swing.GroupLayout.DEFAULT_SIZE, 404, Short.MAX_VALUE)
+                .addComponent(labelWebBrowser, javax.swing.GroupLayout.DEFAULT_SIZE, 409, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonChooseWebBrowser)
                 .addContainerGap())
@@ -307,9 +331,57 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        panelDatabaseDirectory.setBorder(javax.swing.BorderFactory.createTitledBorder(null, Bundle.getString("SettingsMiscPanel.panelDatabaseDirectory.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 11))); // NOI18N
+
+        labelDatabaseDirectory.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
+        labelDatabaseDirectory.setForeground(new java.awt.Color(0, 0, 255));
+        labelDatabaseDirectory.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        buttonChooseDatabaseDirectory.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        buttonChooseDatabaseDirectory.setMnemonic('w');
+        buttonChooseDatabaseDirectory.setText(Bundle.getString("SettingsMiscPanel.buttonChooseDatabaseDirectory.text")); // NOI18N
+        buttonChooseDatabaseDirectory.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonChooseDatabaseDirectoryActionPerformed(evt);
+            }
+        });
+
+        buttonSetStandardDatabaseDirectoryName.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        buttonSetStandardDatabaseDirectoryName.setMnemonic('S');
+        buttonSetStandardDatabaseDirectoryName.setText(Bundle.getString("SettingsMiscPanel.buttonSetStandardDatabaseDirectoryName.text")); // NOI18N
+        buttonSetStandardDatabaseDirectoryName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonSetStandardDatabaseDirectoryNameActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelDatabaseDirectoryLayout = new javax.swing.GroupLayout(panelDatabaseDirectory);
+        panelDatabaseDirectory.setLayout(panelDatabaseDirectoryLayout);
+        panelDatabaseDirectoryLayout.setHorizontalGroup(
+            panelDatabaseDirectoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelDatabaseDirectoryLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(labelDatabaseDirectory, javax.swing.GroupLayout.DEFAULT_SIZE, 317, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(buttonSetStandardDatabaseDirectoryName)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(buttonChooseDatabaseDirectory)
+                .addContainerGap())
+        );
+        panelDatabaseDirectoryLayout.setVerticalGroup(
+            panelDatabaseDirectoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelDatabaseDirectoryLayout.createSequentialGroup()
+                .addGroup(panelDatabaseDirectoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(labelDatabaseDirectory, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(panelDatabaseDirectoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(buttonChooseDatabaseDirectory)
+                        .addComponent(buttonSetStandardDatabaseDirectoryName)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         panelFolderView.setBorder(javax.swing.BorderFactory.createTitledBorder(null, Bundle.getString("SettingsMiscPanel.panelFolderView.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 11))); // NOI18N
 
-        checkBoxIsAcceptHiddenDirectories.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        checkBoxIsAcceptHiddenDirectories.setFont(new java.awt.Font("Dialog", 0, 12));
         checkBoxIsAcceptHiddenDirectories.setText(Bundle.getString("SettingsMiscPanel.checkBoxIsAcceptHiddenDirectories.text")); // NOI18N
         checkBoxIsAcceptHiddenDirectories.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -331,17 +403,18 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
             panelFolderViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelFolderViewLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panelFolderViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelFolderViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(checkBoxIsAcceptHiddenDirectories)
-                    .addComponent(checkBoxTreeDirectoriesSelectLastDirectory, javax.swing.GroupLayout.DEFAULT_SIZE, 531, Short.MAX_VALUE))
+                    .addComponent(checkBoxTreeDirectoriesSelectLastDirectory, javax.swing.GroupLayout.PREFERRED_SIZE, 536, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         panelFolderViewLayout.setVerticalGroup(
             panelFolderViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelFolderViewLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(checkBoxIsAcceptHiddenDirectories)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(checkBoxTreeDirectoriesSelectLastDirectory, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(checkBoxTreeDirectoriesSelectLastDirectory)
                 .addContainerGap())
         );
 
@@ -352,8 +425,9 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(panelDatabaseDirectory, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panelLogfile, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panelAutoCopyDirectory, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelAutoCopyDirectory, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panelWebBrowser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panelFolderView, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -368,8 +442,10 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelWebBrowser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelFolderView, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(panelDatabaseDirectory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelFolderView, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -397,18 +473,30 @@ private void checkBoxTreeDirectoriesSelectLastDirectoryActionPerformed(java.awt.
     handleActionPerformedCheckBoxTreeDirectoriesSelectLastDirectory();
 }//GEN-LAST:event_checkBoxTreeDirectoriesSelectLastDirectoryActionPerformed
 
+private void buttonChooseDatabaseDirectoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonChooseDatabaseDirectoryActionPerformed
+    handleActionPerformedChooseDatabaseDirectory();
+}//GEN-LAST:event_buttonChooseDatabaseDirectoryActionPerformed
+
+private void buttonSetStandardDatabaseDirectoryNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSetStandardDatabaseDirectoryNameActionPerformed
+    handleActionPerformedSetStandardDatabaseDirectory();
+}//GEN-LAST:event_buttonSetStandardDatabaseDirectoryNameActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonChooseAutocopyDirectory;
+    private javax.swing.JButton buttonChooseDatabaseDirectory;
     private javax.swing.JButton buttonChooseWebBrowser;
+    private javax.swing.JButton buttonSetStandardDatabaseDirectoryName;
     private javax.swing.JCheckBox checkBoxIsAcceptHiddenDirectories;
     private javax.swing.JCheckBox checkBoxTreeDirectoriesSelectLastDirectory;
     private javax.swing.JComboBox comboBoxLogLevel;
     private javax.swing.JComboBox comboBoxLogfileFormatterClass;
     private javax.swing.JLabel labelAutocopyDirectory;
+    private javax.swing.JLabel labelDatabaseDirectory;
     private javax.swing.JLabel labelLogLevel;
     private javax.swing.JLabel labelLogLogfileFormatterClass;
     private javax.swing.JLabel labelWebBrowser;
     private javax.swing.JPanel panelAutoCopyDirectory;
+    private javax.swing.JPanel panelDatabaseDirectory;
     private javax.swing.JPanel panelFolderView;
     private javax.swing.JPanel panelLogfile;
     private javax.swing.JPanel panelWebBrowser;

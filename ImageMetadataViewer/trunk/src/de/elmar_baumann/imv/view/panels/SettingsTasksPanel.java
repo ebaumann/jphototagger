@@ -198,7 +198,7 @@ public final class SettingsTasksPanel extends javax.swing.JPanel
 
         panelTasksAutoscan.setBorder(javax.swing.BorderFactory.createTitledBorder(null, Bundle.getString("SettingsTasksPanel.panelTasksAutoscan.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 11))); // NOI18N
 
-        labelAutoscanDirectoriesInfo.setFont(new java.awt.Font("Dialog", 0, 12));
+        labelAutoscanDirectoriesInfo.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         labelAutoscanDirectoriesInfo.setText(Bundle.getString("SettingsTasksPanel.labelAutoscanDirectoriesInfo.text")); // NOI18N
 
         labelAutoscanDirectoriesPrompt.setText(Bundle.getString("SettingsTasksPanel.labelAutoscanDirectoriesPrompt.text")); // NOI18N
@@ -218,7 +218,7 @@ public final class SettingsTasksPanel extends javax.swing.JPanel
         });
         scrollPaneListAutoscanDirectories.setViewportView(listAutoscanDirectories);
 
-        checkBoxIsAutoscanIncludeSubdirectories.setFont(new java.awt.Font("Dialog", 0, 12));
+        checkBoxIsAutoscanIncludeSubdirectories.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         checkBoxIsAutoscanIncludeSubdirectories.setText(Bundle.getString("SettingsTasksPanel.checkBoxIsAutoscanIncludeSubdirectories.text")); // NOI18N
         checkBoxIsAutoscanIncludeSubdirectories.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -262,7 +262,7 @@ public final class SettingsTasksPanel extends javax.swing.JPanel
                                 .addComponent(buttonRemoveAutoscanDirectories)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                         .addComponent(buttonAddAutoscanDirectories))
-                    .addComponent(labelAutoscanDirectoriesInfo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 637, Short.MAX_VALUE)
+                    .addComponent(labelAutoscanDirectoriesInfo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 637, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labelAutoscanDirectoriesPrompt, javax.swing.GroupLayout.Alignment.LEADING))
                 .addContainerGap())
         );
@@ -285,7 +285,7 @@ public final class SettingsTasksPanel extends javax.swing.JPanel
 
         panelTasksOther.setBorder(javax.swing.BorderFactory.createTitledBorder(null, Bundle.getString("SettingsTasksPanel.panelTasksOther.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 11))); // NOI18N
 
-        checkBoxIsTaskRemoveRecordsWithNotExistingFiles.setFont(new java.awt.Font("Dialog", 0, 12));
+        checkBoxIsTaskRemoveRecordsWithNotExistingFiles.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         checkBoxIsTaskRemoveRecordsWithNotExistingFiles.setText(Bundle.getString("SettingsTasksPanel.checkBoxIsTaskRemoveRecordsWithNotExistingFiles.text")); // NOI18N
         checkBoxIsTaskRemoveRecordsWithNotExistingFiles.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -308,7 +308,7 @@ public final class SettingsTasksPanel extends javax.swing.JPanel
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        labelTasksMinutesToStartScheduledTasks.setFont(new java.awt.Font("Dialog", 0, 12));
+        labelTasksMinutesToStartScheduledTasks.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         labelTasksMinutesToStartScheduledTasks.setText(Bundle.getString("SettingsTasksPanel.labelTasksMinutesToStartScheduledTasks.text")); // NOI18N
 
         spinnerMinutesToStartScheduledTasks.setModel(new SpinnerNumberModel(5, 1, 6000, 1));

@@ -89,8 +89,8 @@ public final class ConnectionPool implements Runnable {
      */
     private ConnectionPool() throws SQLException {
         url = "jdbc:hsqldb:file:" + // NOI18N
-                UserSettings.INSTANCE.getSettingsDirectoryName() + File.separator + "database" + // NOI18N
-                ";shutdown=true";  // NOI18N
+            UserSettings.INSTANCE.getDatabaseFileName() + // NOI18N
+            ";shutdown=true";  // NOI18N
 
         driver = "org.hsqldb.jdbcDriver";
         username = "sa";
@@ -215,7 +215,6 @@ public final class ConnectionPool implements Runnable {
         } catch (Exception e) { // SQLException or OutOfMemory
             // Give up on new connection and wait for existing one
             // to free up.
-
         }
     }
 
