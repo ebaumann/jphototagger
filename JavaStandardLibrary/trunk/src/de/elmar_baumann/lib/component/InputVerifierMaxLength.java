@@ -1,9 +1,7 @@
 package de.elmar_baumann.lib.component;
 
-import de.elmar_baumann.lib.image.icon.IconUtil;
-import de.elmar_baumann.lib.resource.Resources;
+import de.elmar_baumann.lib.resource.Bundle;
 import java.text.MessageFormat;
-import javax.swing.Icon;
 import javax.swing.InputVerifier;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
@@ -59,21 +57,12 @@ public final class InputVerifierMaxLength extends InputVerifier {
     }
 
     private void errorMessage(JComponent input) {
-        MessageFormat msg = new MessageFormat("Bitte geben Sie maximal {0} Zeichen ein!");
+        MessageFormat msg = new MessageFormat(Bundle.getString("InputVerifierMaxLength.ErrorMessage"));
         Object[] params = {maxLength};
         JOptionPane.showMessageDialog(
             input,
             msg.format(params),
-            "Eingabe überprüfen",
-            JOptionPane.ERROR_MESSAGE,
-            getIcon());
-    }
-
-    private Icon getIcon() {
-        if (Resources.INSTANCE.hasIconImages()) {
-            return IconUtil.getImageIcon(
-                Resources.INSTANCE.getIconImagesPaths().get(0));
-        }
-        return null;
+            Bundle.getString("InputVerifierMaxLength.ErrorMessage.Title"),
+            JOptionPane.ERROR_MESSAGE);
     }
 }
