@@ -165,7 +165,7 @@ public final class DirectoryChooser extends Dialog {
     }
 
     private void selectStartDirectory() {
-        new Thread(new Runnable() {
+        Thread thread = new Thread(new Runnable() {
 
             @Override
             public void run() {
@@ -189,7 +189,9 @@ public final class DirectoryChooser extends Dialog {
                     ? DirectoryFilter.Option.ACCEPT_HIDDEN_FILES
                     : DirectoryFilter.Option.REJECT_HIDDEN_FILES);
             }
-        }).start();
+        });
+        thread.setName("DirectoryChooser#selectStartDirectory"); // NOI18N
+        thread.start();
     }
 
     private void cancel() {
