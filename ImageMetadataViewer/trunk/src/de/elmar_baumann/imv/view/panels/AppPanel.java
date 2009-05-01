@@ -469,9 +469,9 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
         tabbedPaneSelection.setName(""); // NOI18N
 
         treeDirectories.setModel(null);
-        treeDirectories.setToolTipText(Bundle.getString("AppPanel.treeDirectories.toolTipText")); // NOI18N
         treeDirectories.setCellRenderer(new TreeCellRendererDirectories());
         treeDirectories.setDragEnabled(true);
+        treeDirectories.setExpandsSelectedPaths(false);
         treeDirectories.setName("treeDirectories"); // NOI18N
         scrollPaneDirectories.setViewportView(treeDirectories);
         treeDirectories.setTransferHandler(new de.elmar_baumann.imv.datatransfer.TransferHandlerTreeDirectories());
@@ -641,7 +641,7 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
         splitPaneThumbnailsMetadata.setLeftComponent(panelThumbnailsContent);
 
         labelMetadataFilename.setBackground(new java.awt.Color(255, 255, 255));
-        labelMetadataFilename.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
+        labelMetadataFilename.setFont(new java.awt.Font("Dialog", 0, 10));
         labelMetadataFilename.setText(Bundle.getString("AppPanel.labelMetadataFilename.text")); // NOI18N
         labelMetadataFilename.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         labelMetadataFilename.setOpaque(true);
