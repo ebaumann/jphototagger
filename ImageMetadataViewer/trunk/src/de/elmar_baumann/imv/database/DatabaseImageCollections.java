@@ -56,8 +56,7 @@ public final class DatabaseImageCollections extends Database {
      * @param newName Neuer Name
      * @return        Anzahl umbenannter Sammlungen (sollte 1 oder 0 sein)
      */
-    public synchronized int updateRenameImageCollection(
-        String oldName, String newName) {
+    public int updateRenameImageCollection(String oldName, String newName) {
         
         int count = 0;
         Connection connection = null;
@@ -127,7 +126,7 @@ public final class DatabaseImageCollections extends Database {
      * @return               true bei Erfolg
      * @see                  #existsImageCollection(java.lang.String)
      */
-    public synchronized boolean insertImageCollection(
+    public boolean insertImageCollection(
         String collectionName, List<String> filenames) {
         boolean added = false;
         if (existsImageCollection(collectionName)) {
@@ -181,7 +180,7 @@ public final class DatabaseImageCollections extends Database {
      * @param collectionname Name der Bildsammlung
      * @return               true bei Erfolg
      */
-    public synchronized boolean deleteImageCollection(String collectionname) {
+    public boolean deleteImageCollection(String collectionname) {
         boolean deleted = false;
         Connection connection = null;
         try {
@@ -211,7 +210,7 @@ public final class DatabaseImageCollections extends Database {
      * @param filenames      Dateinamen
      * @return               Anzahl gelöschter Bilder
      */
-    public synchronized int deleteImagesFromCollection(
+    public int deleteImagesFromCollection(
         String collectionName, List<String> filenames) {
         
         int delCount = 0;
@@ -256,7 +255,7 @@ public final class DatabaseImageCollections extends Database {
      * Bildsammlung, wird sie nicht hinzugefügt
      * @return               true bei Erfolg
      */
-    public synchronized boolean insertImagesIntoCollection(
+    public boolean insertImagesIntoCollection(
         String collectionName, List<String> filenames) {
         
         boolean added = false;
@@ -324,7 +323,7 @@ public final class DatabaseImageCollections extends Database {
         return max;
     }
 
-    private synchronized void reorderCollectionSequenceNumber(
+    private void reorderCollectionSequenceNumber(
         Connection connection, String collectionName) throws SQLException {
         
         long idCollectionName = getIdCollectionName(connection, collectionName);

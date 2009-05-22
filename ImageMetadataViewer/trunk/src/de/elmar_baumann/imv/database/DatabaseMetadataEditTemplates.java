@@ -30,7 +30,7 @@ public class DatabaseMetadataEditTemplates extends Database {
      * @param  template  Template
      * @return true bei Erfolg
      */
-    public synchronized boolean insertMetadataEditTemplate(
+    public boolean insertMetadataEditTemplate(
         MetadataEditTemplate template) {
         
         if (existsMetadataEditTemplate(template.getName())) {
@@ -197,7 +197,7 @@ public class DatabaseMetadataEditTemplates extends Database {
      * @param  template  Template
      * @return true bei Erfolg
      */
-    public synchronized boolean updateMetadataEditTemplate(
+    public boolean updateMetadataEditTemplate(
         MetadataEditTemplate template) {
         
         boolean updated = false;
@@ -250,7 +250,7 @@ public class DatabaseMetadataEditTemplates extends Database {
      * @param  newName  Neuer Name
      * @return true bei Erfolg
      */
-    public synchronized boolean updateRenameMetadataEditTemplate(
+    public boolean updateRenameMetadataEditTemplate(
         String oldName, String newName) {
         
         boolean renamed = false;
@@ -284,7 +284,7 @@ public class DatabaseMetadataEditTemplates extends Database {
      * @param  name  Name des Templates
      * @return true bei Erfolg
      */
-    public synchronized boolean deleteMetadataEditTemplate(String name) {
+    public boolean deleteMetadataEditTemplate(String name) {
         boolean deleted = false;
         Connection connection = null;
         try {

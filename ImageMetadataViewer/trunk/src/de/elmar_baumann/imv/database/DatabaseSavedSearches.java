@@ -34,7 +34,7 @@ public final class DatabaseSavedSearches extends Database {
      * @param  data Suche
      * @return true bei Erfolg
      */
-    public synchronized boolean insertSavedSearch(SavedSearch data) {
+    public boolean insertSavedSearch(SavedSearch data) {
         boolean inserted = false;
         SavedSearchParamStatement stmtData = data.getParamStatements();
         List<SavedSearchPanel> panelData = data.getPanels();
@@ -75,7 +75,7 @@ public final class DatabaseSavedSearches extends Database {
         return inserted;
     }
 
-    private synchronized void insertSavedSearchValues(
+    private void insertSavedSearchValues(
         Connection connection, long idSavedSearch, List<String> values) throws SQLException {
         if (idSavedSearch > 0 && values.size() > 0) {
             PreparedStatement stmt = connection.prepareStatement(
@@ -98,7 +98,7 @@ public final class DatabaseSavedSearches extends Database {
         }
     }
 
-    private synchronized void insertSavedSearchPanelData(
+    private void insertSavedSearchPanelData(
         Connection connection, long idSavedSearch, List<SavedSearchPanel> panelData) throws SQLException {
         if (idSavedSearch > 0 && panelData != null) {
             PreparedStatement stmt = connection.prepareStatement(
@@ -208,7 +208,7 @@ public final class DatabaseSavedSearches extends Database {
      * @param  name Name der Suche
      * @return true bei Erfolg
      */
-    public synchronized boolean deleteSavedSearch(String name) {
+    public boolean deleteSavedSearch(String name) {
         boolean deleted = false;
         Connection connection = null;
         try {
@@ -241,7 +241,7 @@ public final class DatabaseSavedSearches extends Database {
      * @param  newName Neuer Name
      * @return true bei Erfolg
      */
-    public synchronized boolean updateRenameSavedSearch(String oldName, String newName) {
+    public boolean updateRenameSavedSearch(String oldName, String newName) {
         boolean renamed = false;
         Connection connection = null;
         try {
@@ -275,7 +275,7 @@ public final class DatabaseSavedSearches extends Database {
      * @param  data Suche
      * @return true bei Erfolg
      */
-    public synchronized boolean updateSavedSearch(SavedSearch data) {
+    public boolean updateSavedSearch(SavedSearch data) {
         if (data.hasParamStatement() && data.getParamStatements() != null) {
             boolean updated = 
                 deleteSavedSearch(data.getParamStatements().getName()) && 

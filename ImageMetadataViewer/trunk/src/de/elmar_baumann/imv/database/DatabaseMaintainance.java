@@ -28,7 +28,7 @@ public final class DatabaseMaintainance extends Database {
      *
      * @return true, wenn die Datenbank erfolgreich komprimiert wurde
      */
-    public synchronized boolean compressDatabase() {
+    public boolean compressDatabase() {
         boolean success = false;
         Connection connection = null;
         try {

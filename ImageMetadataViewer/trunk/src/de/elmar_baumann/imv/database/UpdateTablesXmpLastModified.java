@@ -19,13 +19,12 @@ final class UpdateTablesXmpLastModified {
     private final UpdateTablesMessages messages = UpdateTablesMessages.INSTANCE;
     private final ProgressDialog dialog = messages.getProgressDialog();
 
-    synchronized void update(Connection connection) throws SQLException {
+    void update(Connection connection) throws SQLException {
         removeColumnXmpLastModifiedFromTableXmp(connection);
         addColumnXmpLastModifiedToTableFiles(connection);
     }
 
-    private synchronized void removeColumnXmpLastModifiedFromTableXmp(
-        Connection connection) throws SQLException {
+    private void removeColumnXmpLastModifiedFromTableXmp(Connection connection) throws SQLException {
         if (DatabaseMetadata.INSTANCE.existsColumn(
             connection, "xmp", "lastmodified")) {
             Statement stmt = connection.createStatement();
@@ -34,8 +33,7 @@ final class UpdateTablesXmpLastModified {
         }
     }
 
-    private synchronized void addColumnXmpLastModifiedToTableFiles(
-        Connection connection) throws SQLException {
+    private void addColumnXmpLastModifiedToTableFiles(Connection connection) throws SQLException {
         if (!DatabaseMetadata.INSTANCE.existsColumn(
             connection, "files", "xmp_lastmodified")) { // NOI18N
             Statement stmt = connection.createStatement();
@@ -46,8 +44,7 @@ final class UpdateTablesXmpLastModified {
     }
 
     // too slow and no feedback: "UPDATE files SET xmp_lastmodified = lastmodified"
-    private synchronized void copyLastModifiedToXmp(
-        Connection connection) throws SQLException {
+    private void copyLastModifiedToXmp(Connection connection) throws SQLException {
         setProgressDialog();
         Statement stmtQueryXmp = connection.createStatement();
         PreparedStatement stmtUpdate = connection.prepareStatement(

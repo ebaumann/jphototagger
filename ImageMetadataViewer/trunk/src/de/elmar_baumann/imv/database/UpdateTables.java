@@ -16,7 +16,7 @@ final class UpdateTables extends Database {
     private UpdateTables() {
     }
 
-    synchronized void update(Connection connection) throws SQLException {
+    void update(Connection connection) throws SQLException {
         new UpdateTablesDropColumns().update(connection);
         new UpdateTableRenameColumns().update(connection);
         new UpdateTablesAddColumns().update(connection);

@@ -32,7 +32,7 @@ public final class DatabaseFileExcludePattern extends Database {
      * @return true if inserted
      * @see    #existsFileExcludePattern(java.lang.String)
      */
-    public synchronized boolean insertFileExcludePattern(String pattern) {
+    public boolean insertFileExcludePattern(String pattern) {
         boolean inserted = false;
         Connection connection = null;
         try {
@@ -60,7 +60,7 @@ public final class DatabaseFileExcludePattern extends Database {
      * @param  pattern  pattern
      * @return true if deleted
      */
-    public synchronized boolean deleteFileExcludePattern(String pattern) {
+    public boolean deleteFileExcludePattern(String pattern) {
         boolean deleted = false;
         Connection connection = null;
         try {
@@ -142,8 +142,7 @@ public final class DatabaseFileExcludePattern extends Database {
      * @param   listener  progress listener, can cancel the action
      * @return  count of deleted files
      */
-    public synchronized int deleteFilesWithPattern(
-        List<String> patterns, ProgressListener listener) {
+    public int deleteFilesWithPattern(List<String> patterns, ProgressListener listener) {
         
         Connection connection = null;
         int count = 0;

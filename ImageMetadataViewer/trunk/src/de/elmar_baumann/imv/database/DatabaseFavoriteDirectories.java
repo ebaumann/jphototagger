@@ -30,8 +30,7 @@ public final class DatabaseFavoriteDirectories extends Database {
      * @param  favoriteDirectory  Favoritenverzeichnis
      * @return true bei Erfolg
      */
-    public synchronized boolean insertFavoriteDirectory(
-        FavoriteDirectory favoriteDirectory) {
+    public boolean insertFavoriteDirectory(FavoriteDirectory favoriteDirectory) {
         
         boolean inserted = false;
         Connection connection = null;
@@ -70,7 +69,7 @@ public final class DatabaseFavoriteDirectories extends Database {
      * @param  favoriteName Favoritenname
      * @return true bei Erfolg
      */
-    public synchronized boolean deleteFavoriteDirectory(String favoriteName) {
+    public boolean deleteFavoriteDirectory(String favoriteName) {
         boolean deleted = false;
         Connection connection = null;
         try {
@@ -100,8 +99,7 @@ public final class DatabaseFavoriteDirectories extends Database {
      * @param favorite          Favoritenverzeichnis
      * @return true bei Erfolg
      */
-    public synchronized boolean updateFavoriteDirectory(
-        String favoriteName, FavoriteDirectory favorite) {
+    public boolean updateFavoriteDirectory(String favoriteName, FavoriteDirectory favorite) {
         
         boolean updated = false;
         Connection connection = null;

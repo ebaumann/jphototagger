@@ -27,7 +27,7 @@ final class UpdateTablesThumbnails extends Database {
     private static final ProgressDialog dialog = messages.getProgressDialog();
     private static final int FETCH_MAX_ROWS = 1000;
 
-    synchronized static void update(Connection connection) throws SQLException {
+    static void update(Connection connection) throws SQLException {
         int count = getCount(connection);
         int current = 1;
         initDialog(count);

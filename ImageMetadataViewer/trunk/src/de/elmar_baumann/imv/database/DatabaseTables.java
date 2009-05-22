@@ -52,7 +52,7 @@ public final class DatabaseTables extends Database {
     /**
      * Creates the necessary tables if not exists. Exits the VM if not successfully.
      */
-    public synchronized void createTables() {
+    public void createTables() {
         Connection connection = null;
         try {
             connection = getConnection();
@@ -80,7 +80,7 @@ public final class DatabaseTables extends Database {
         }
     }
 
-    private synchronized void createFilesTable(Connection connection, Statement stmt) throws SQLException {
+    private void createFilesTable(Connection connection, Statement stmt) throws SQLException {
         if (!DatabaseMetadata.INSTANCE.existsTable(connection, "files")) { // NOI18N
             stmt.execute("CREATE CACHED TABLE files " + // NOI18N
                     " (" + // NOI18N
@@ -94,7 +94,7 @@ public final class DatabaseTables extends Database {
         }
     }
 
-    private synchronized void createXmpTables(Connection connection, Statement stmt) throws SQLException {
+    private void createXmpTables(Connection connection, Statement stmt) throws SQLException {
         if (!DatabaseMetadata.INSTANCE.existsTable(connection, "xmp")) { // NOI18N
             stmt.execute("CREATE CACHED TABLE xmp" + // NOI18N
                     " (" + // NOI18N
@@ -176,7 +176,7 @@ public final class DatabaseTables extends Database {
         }
     }
 
-    private synchronized void createExifTables(Connection connection, Statement stmt) throws SQLException {
+    private void createExifTables(Connection connection, Statement stmt) throws SQLException {
         if (!DatabaseMetadata.INSTANCE.existsTable(connection, "exif")) { // NOI18N
             stmt.execute("CREATE CACHED TABLE exif" + // NOI18N
                     " (" + // NOI18N
@@ -196,7 +196,7 @@ public final class DatabaseTables extends Database {
         }
     }
 
-    private synchronized void createCollectionsTables(Connection connection, Statement stmt) throws SQLException {
+    private void createCollectionsTables(Connection connection, Statement stmt) throws SQLException {
         if (!DatabaseMetadata.INSTANCE.existsTable(connection, "collection_names")) { // NOI18N
             stmt.execute("CREATE CACHED TABLE collection_names" + // NOI18N
                     " (" + // NOI18N
@@ -221,7 +221,7 @@ public final class DatabaseTables extends Database {
         }
     }
 
-    private synchronized void createSavedSerachesTables(Connection connection, Statement stmt) throws SQLException {
+    private void createSavedSerachesTables(Connection connection, Statement stmt) throws SQLException {
         if (!DatabaseMetadata.INSTANCE.existsTable(connection, "saved_searches")) { // NOI18N
             stmt.execute("CREATE CACHED TABLE saved_searches" + // NOI18N
                     " (" + // NOI18N
@@ -263,7 +263,7 @@ public final class DatabaseTables extends Database {
         }
     }
 
-    private synchronized void createAutoScanDirectoriesTable(Connection connection, Statement stmt) throws SQLException {
+    private void createAutoScanDirectoriesTable(Connection connection, Statement stmt) throws SQLException {
         if (!DatabaseMetadata.INSTANCE.existsTable(connection, "autoscan_directories")) { // NOI18N
             stmt.execute("CREATE CACHED TABLE autoscan_directories" + // NOI18N
                     " (" + // NOI18N
@@ -273,7 +273,7 @@ public final class DatabaseTables extends Database {
         }
     }
 
-    private synchronized void createMetadataEditTemplateTable(Connection connection, Statement stmt) throws SQLException {
+    private void createMetadataEditTemplateTable(Connection connection, Statement stmt) throws SQLException {
         if (!DatabaseMetadata.INSTANCE.existsTable(connection, "metadata_edit_templates")) { // NOI18N
             stmt.execute("CREATE CACHED TABLE metadata_edit_templates" + // NOI18N
                     " (" + // NOI18N
@@ -301,7 +301,7 @@ public final class DatabaseTables extends Database {
         }
     }
 
-    private synchronized void createFavoriteDirectoriesTable(Connection connection, Statement stmt) throws SQLException {
+    private void createFavoriteDirectoriesTable(Connection connection, Statement stmt) throws SQLException {
         if (!DatabaseMetadata.INSTANCE.existsTable(connection, "favorite_directories")) { // NOI18N
             stmt.execute("CREATE CACHED TABLE favorite_directories" + // NOI18N
                     " (" + // NOI18N
@@ -313,7 +313,7 @@ public final class DatabaseTables extends Database {
         }
     }
 
-    private synchronized void createFileExcludePatternTable(Connection connection, Statement stmt) throws SQLException {
+    private void createFileExcludePatternTable(Connection connection, Statement stmt) throws SQLException {
         if (!DatabaseMetadata.INSTANCE.existsTable(connection, "file_exclude_pattern")) { // NOI18N
             stmt.execute("CREATE CACHED TABLE file_exclude_pattern" + // NOI18N
                     " (" + // NOI18N

@@ -29,7 +29,7 @@ public final class DatabaseAutoscanDirectories extends Database {
      * @param  directoryName Verzeichnisname
      * @return true bei Erfolg
      */
-    public synchronized boolean insertAutoscanDirectory(String directoryName) {
+    public boolean insertAutoscanDirectory(String directoryName) {
         boolean inserted = false;
         if (!existsAutoscanDirectory(directoryName)) {
             Connection connection = null;
@@ -60,8 +60,7 @@ public final class DatabaseAutoscanDirectories extends Database {
      * @param  directoryNames Verzeichnisnamen
      * @return true bei Erfolg
      */
-    public synchronized boolean insertAutoscanDirectories(
-        List<String> directoryNames) {
+    public boolean insertAutoscanDirectories(List<String> directoryNames) {
         
         boolean inserted = false;
         Connection connection = null;
@@ -97,7 +96,7 @@ public final class DatabaseAutoscanDirectories extends Database {
      * @param  directoryName Name des Verzeichnisses
      * @return true bei Erfolg
      */
-    public synchronized boolean deleteAutoscanDirectory(String directoryName) {
+    public boolean deleteAutoscanDirectory(String directoryName) {
         boolean deleted = false;
         Connection connection = null;
         try {

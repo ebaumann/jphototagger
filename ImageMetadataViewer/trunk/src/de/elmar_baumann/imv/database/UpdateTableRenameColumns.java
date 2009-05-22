@@ -30,7 +30,7 @@ final class UpdateTableRenameColumns {
             new ColumnInfo(null, "parameters_before_filename", null, null)));
     }
 
-    synchronized void update(Connection connection) throws SQLException {
+    void update(Connection connection) throws SQLException {
         setColumns(connection);
         if (renameColumns.size() > 0) {
             renameColumns(connection);
@@ -48,7 +48,7 @@ final class UpdateTableRenameColumns {
         }
     }
 
-    private synchronized void renameColumns(Connection connection) throws SQLException {
+    private void renameColumns(Connection connection) throws SQLException {
         dialog.setIndeterminate(true);
         messages.message(Bundle.getString("UpdateTableRenameColumns.InformationMessage.update"));
         for (Pair<ColumnInfo, ColumnInfo> info : renameColumns) {

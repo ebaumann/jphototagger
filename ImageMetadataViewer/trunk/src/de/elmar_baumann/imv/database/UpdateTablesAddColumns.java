@@ -38,7 +38,7 @@ final class UpdateTablesAddColumns {
             null));
     }
 
-    synchronized void update(Connection connection) throws SQLException {
+    void update(Connection connection) throws SQLException {
         setColumns(connection);
         if (missingColumns.size() > 0) {
             addColumns(connection);
@@ -55,7 +55,7 @@ final class UpdateTablesAddColumns {
         }
     }
 
-    private synchronized void addColumns(Connection connection) throws SQLException {
+    private void addColumns(Connection connection) throws SQLException {
         dialog.setIndeterminate(true);
         messages.message(Bundle.getString("UpdateTablesAddNewColumns.InformationMessage.update"));
         for (ColumnInfo info : missingColumns) {

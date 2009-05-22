@@ -123,8 +123,7 @@ public class Database {
         }
     }
 
-    protected synchronized boolean notifyProgressListenerStart(
-        ProgressListener listener, ProgressEvent event) {
+    protected boolean notifyProgressListenerStart(ProgressListener listener, ProgressEvent event) {
         
         if (listener != null) {
             listener.progressStarted(event);
@@ -133,8 +132,7 @@ public class Database {
         return false;
     }
 
-    protected synchronized boolean notifyProgressListenerPerformed(
-        ProgressListener listener, ProgressEvent event) {
+    protected boolean notifyProgressListenerPerformed(ProgressListener listener, ProgressEvent event) {
         
         if (listener != null) {
             listener.progressPerformed(event);
@@ -143,8 +141,7 @@ public class Database {
         return false;
     }
 
-    protected synchronized void notifyProgressListenerEnd(
-        ProgressListener listener, ProgressEvent event) {
+    protected void notifyProgressListenerEnd(ProgressListener listener, ProgressEvent event) {
         
         if (listener != null) {
             listener.progressEnded(event);

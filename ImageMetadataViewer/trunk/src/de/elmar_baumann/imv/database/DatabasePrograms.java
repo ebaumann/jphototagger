@@ -32,7 +32,7 @@ public final class DatabasePrograms extends Database {
      * @param  program  program
      * @return true if inserted
      */
-    public synchronized boolean insert(Program program) {
+    public boolean insert(Program program) {
         int countAffectedRows = 0;
         Connection connection = null;
         try {
@@ -87,7 +87,7 @@ public final class DatabasePrograms extends Database {
         stmt.setInt(11, program.getSequenceNumber());
     }
 
-    private synchronized void setId(Connection connection, Program program) throws SQLException {
+    private void setId(Connection connection, Program program) throws SQLException {
         Statement stmt = connection.createStatement();
         ResultSet rs = stmt.executeQuery("SELECT MAX(id) FROM programs");
         if (rs.next()) {
@@ -101,7 +101,7 @@ public final class DatabasePrograms extends Database {
      * @param   program  program
      * @return  true if updated
      */
-    public synchronized boolean update(Program program) {
+    public boolean update(Program program) {
         int countAffectedRows = 0;
         Connection connection = null;
         try {
@@ -159,7 +159,7 @@ public final class DatabasePrograms extends Database {
      * @param  program   program
      * @return true if deleted
      */
-    public synchronized boolean delete(Program program) {
+    public boolean delete(Program program) {
         int countAffectedRows = 0;
         Connection connection = null;
         try {

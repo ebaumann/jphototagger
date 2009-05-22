@@ -21,7 +21,7 @@ final class UpdateTablesPrograms extends Database {
     UpdateTablesPrograms() {
     }
 
-    synchronized void update(Connection connection) throws SQLException {
+    void update(Connection connection) throws SQLException {
         List<File> files = FileUtil.getAsFiles(
                 UserSettings.INSTANCE.getSettings().getStringArray(keyOtherImageOpenApps));
         if (files.size() > 0) {

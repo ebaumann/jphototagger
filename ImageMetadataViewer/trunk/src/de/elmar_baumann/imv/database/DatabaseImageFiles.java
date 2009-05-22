@@ -65,7 +65,7 @@ public final class DatabaseImageFiles extends Database {
      * @param  newFilename  new filename
      * @return count of renamed files
      */
-    public synchronized int updateRenameImageFilename(
+    public int updateRenameImageFilename(
             String oldFilename, String newFilename) {
 
         int count = 0;
@@ -88,8 +88,7 @@ public final class DatabaseImageFiles extends Database {
         return count;
     }
 
-    private synchronized int deleteRowWithFilename(
-            Connection connection, String filename) {
+    private int deleteRowWithFilename(Connection connection, String filename) {
         int countDeleted = 0;
         try {
             PreparedStatement stmt = connection.prepareStatement(
@@ -111,7 +110,7 @@ public final class DatabaseImageFiles extends Database {
      * @param  imageFile  image
      * @return true if inserted
      */
-    public synchronized boolean insertImageFile(ImageFile imageFile) {
+    public boolean insertImageFile(ImageFile imageFile) {
         boolean success = false;
         if (existsFilename(imageFile.getFilename())) {
             return updateImageFile(imageFile);
@@ -153,7 +152,7 @@ public final class DatabaseImageFiles extends Database {
      * @param imageFileData Bildmetadaten
      * @return              true bei Erfolg
      */
-    public synchronized boolean updateImageFile(ImageFile imageFileData) {
+    public boolean updateImageFile(ImageFile imageFileData) {
         boolean success = false;
         Connection connection = null;
         try {
@@ -194,7 +193,7 @@ public final class DatabaseImageFiles extends Database {
      * the current filename
      * @return count of updated thumbnails
      */
-    public synchronized int updateAllThumbnails(ProgressListener listener) {
+    public int updateAllThumbnails(ProgressListener listener) {
         int updated = 0;
         Connection connection = null;
         try {
@@ -262,7 +261,7 @@ public final class DatabaseImageFiles extends Database {
         return false;
     }
 
-    private synchronized void updateThumbnail(long idFile, Image thumbnail) {
+    private void updateThumbnail(long idFile, Image thumbnail) {
         if (thumbnail != null) {
             ThumbnailUtil.writeThumbnail(thumbnail, idFile);
         }
@@ -360,7 +359,7 @@ public final class DatabaseImageFiles extends Database {
      * @param filenames Namen der zu löschenden Dateien
      * @return          Anzahl gelöschter Datensätze
      */
-    public synchronized int deleteImageFiles(List<String> filenames) {
+    public int deleteImageFiles(List<String> filenames) {
         int countDeleted = 0;
         Connection connection = null;
         try {
@@ -397,7 +396,7 @@ public final class DatabaseImageFiles extends Database {
      * wird ausgewertet (Abbruch des Löschens).
      * @return         Anzahl gelöschter Datensätze
      */
-    public synchronized int deleteNotExistingImageFiles(ProgressListener listener) {
+    public int deleteNotExistingImageFiles(ProgressListener listener) {
         int countDeleted = 0;
         List<String> deletedFiles = new ArrayList<String>();
         ProgressEvent event = new ProgressEvent(this, 0, DatabaseStatistics.INSTANCE.getFileCount(), 0, null);
@@ -486,8 +485,7 @@ public final class DatabaseImageFiles extends Database {
         return xmp == null ? -1 : xmp.getLastModified();
     }
 
-    private synchronized void insertXmp(
-            Connection connection, long idFile, Xmp xmp) throws SQLException {
+    private void insertXmp(Connection connection, long idFile, Xmp xmp) throws SQLException {
 
         if (xmp != null && !xmp.isEmpty()) {
             PreparedStatement stmt = connection.prepareStatement(getInsertIntoXmpStatement());
@@ -523,8 +521,7 @@ public final class DatabaseImageFiles extends Database {
         }
     }
 
-    private synchronized void insertValues(
-            Connection connection, String statement, long id, List<String> values) throws SQLException {
+    private void insertValues(Connection connection, String statement, long id, List<String> values) throws SQLException {
 
         PreparedStatement stmt = connection.prepareStatement(statement +
                 " VALUES (?, ?)"); // NOI18N
@@ -583,8 +580,7 @@ public final class DatabaseImageFiles extends Database {
         stmt.setString(18, xmpData.getPhotoshopTransmissionReference());
     }
 
-    private synchronized void updateXmp(
-            Connection connection, long idFile, Xmp xmpData) throws SQLException {
+    private void updateXmp(Connection connection, long idFile, Xmp xmpData) throws SQLException {
 
         if (xmpData != null) {
             long idXmp = getIdXmpFromIdFile(connection, idFile);
@@ -606,7 +602,7 @@ public final class DatabaseImageFiles extends Database {
      * @param  listener   progress listener
      * @return count of deleted XMP data (one per image file)
      */
-    public synchronized int deleteNotExistingXmpData(ProgressListener listener) {
+    public int deleteNotExistingXmpData(ProgressListener listener) {
         int countDeleted = 0;
         ProgressEvent event = new ProgressEvent(this, 0, DatabaseStatistics.INSTANCE.getXmpCount(), 0, null);
         Connection connection = null;
@@ -751,7 +747,7 @@ public final class DatabaseImageFiles extends Database {
      * @param  listener   Beobachter oder null.
      * @return Anzahl umbenannter Strings
      */
-    public synchronized int renameInXmpColumns(
+    public int renameInXmpColumns(
             List<String> filenames, Column xmpColumn,
             String oldValue, String newValue, ProgressListener listener) {
 
@@ -1005,8 +1001,7 @@ public final class DatabaseImageFiles extends Database {
                 " VALUES (?, ?, ?, ?, ?)"; // NOI18N
     }
 
-    private void setExifValues(
-            PreparedStatement stmt, long idFile, Exif exifData) throws SQLException {
+    private void setExifValues(PreparedStatement stmt, long idFile, Exif exifData) throws SQLException {
 
         stmt.setLong(1, idFile);
         stmt.setString(2, exifData.getRecordingEquipment());
@@ -1015,8 +1010,7 @@ public final class DatabaseImageFiles extends Database {
         stmt.setShort(5, exifData.getIsoSpeedRatings());
     }
 
-    private synchronized void updateExif(
-            Connection connection, long idFile, Exif exifData) throws SQLException {
+    private void updateExif(Connection connection, long idFile, Exif exifData) throws SQLException {
 
         if (exifData != null) {
             long idExif = getIdExifFromIdFile(connection, idFile);
@@ -1031,8 +1025,7 @@ public final class DatabaseImageFiles extends Database {
         }
     }
 
-    private synchronized void insertExif(
-            Connection connection, long idFile, Exif exifData) throws SQLException {
+    private void insertExif(Connection connection, long idFile, Exif exifData) throws SQLException {
 
         if (exifData != null && !exifData.isEmpty()) {
             PreparedStatement stmt = connection.prepareStatement(

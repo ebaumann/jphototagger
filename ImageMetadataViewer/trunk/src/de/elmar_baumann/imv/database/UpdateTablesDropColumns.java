@@ -33,7 +33,7 @@ final class UpdateTablesDropColumns {
         columns.add(new ColumnInfo("metadata_edit_templates", "id", null, null));
     }
 
-    synchronized void update(Connection connection) throws SQLException {
+    void update(Connection connection) throws SQLException {
         setColumns(connection);
         if (dropColumns.size() > 0) {
             dropColumns(connection);
@@ -50,7 +50,7 @@ final class UpdateTablesDropColumns {
         }
     }
 
-    private synchronized void dropColumns(Connection connection) throws SQLException {
+    private void dropColumns(Connection connection) throws SQLException {
         dialog.setIndeterminate(true);
         messages.message(Bundle.getString("UpdateTablesDropUnusedColumns.InformationMessage.update"));
         for (ColumnInfo info : dropColumns) {
