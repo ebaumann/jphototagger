@@ -132,6 +132,10 @@ public final class AppFrame extends javax.swing.JFrame {
         return gotoOfMenuItem.get(item);
     }
 
+    public JMenuItem getMenuItemExtractEmbeddedXmp() {
+        return menuItemExtractEmbeddedXmp;
+    }
+
     public JMenuItem getMenuItemRenameInXmp() {
         return menuItemRenameInXmp;
     }
@@ -292,6 +296,7 @@ public final class AppFrame extends javax.swing.JFrame {
         radioButtonMenuItemSortFileTypeDescending = new javax.swing.JRadioButtonMenuItem();
         menuTools = new javax.swing.JMenu();
         menuItemToolIptcToXmp = new javax.swing.JMenuItem();
+        menuItemExtractEmbeddedXmp = new javax.swing.JMenuItem();
         menuItemRenameInXmp = new javax.swing.JMenuItem();
         menuItemActions = new javax.swing.JMenuItem();
         menuHelp = new javax.swing.JMenu();
@@ -525,6 +530,11 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemToolIptcToXmp.setText(Bundle.getString("AppFrame.menuItemToolIptcToXmp.text")); // NOI18N
         menuTools.add(menuItemToolIptcToXmp);
 
+        menuItemExtractEmbeddedXmp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icon_xmp.png"))); // NOI18N
+        menuItemExtractEmbeddedXmp.setMnemonic('b');
+        menuItemExtractEmbeddedXmp.setText(Bundle.getString("AppFrame.menuItemExtractEmbeddedXmp.text")); // NOI18N
+        menuTools.add(menuItemExtractEmbeddedXmp);
+
         menuItemRenameInXmp.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         menuItemRenameInXmp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icon_replace_in_xmp.png"))); // NOI18N
         menuItemRenameInXmp.setMnemonic('x');
@@ -588,6 +598,7 @@ private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:even
     private javax.swing.JMenuItem menuItemCut;
     private javax.swing.JMenuItem menuItemDelete;
     private javax.swing.JMenuItem menuItemExit;
+    private javax.swing.JMenuItem menuItemExtractEmbeddedXmp;
     private javax.swing.JMenuItem menuItemFileSystemRename;
     private javax.swing.JMenuItem menuItemGotoCategories;
     private javax.swing.JMenuItem menuItemGotoCollections;

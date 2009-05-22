@@ -32,6 +32,7 @@ import de.elmar_baumann.imv.controller.metadata.ControllerShowMetadata;
 import de.elmar_baumann.imv.controller.metadata.ControllerThumbnailSelectionEditMetadata;
 import de.elmar_baumann.imv.controller.search.ControllerAdvancedSearch;
 import de.elmar_baumann.imv.controller.filesystem.ControllerAutocopyDirectory;
+import de.elmar_baumann.imv.controller.metadata.ControllerExtractEmbeddedXmp;
 import de.elmar_baumann.imv.controller.search.ControllerFastSearch;
 import de.elmar_baumann.imv.controller.misc.ControllerGoTo;
 import de.elmar_baumann.imv.controller.metadata.ControllerIptcToXmp;
@@ -132,6 +133,7 @@ public final class ControllerFactory {
             new ControllerFavoriteDirectoryOpenInFolders();
             new ControllerActionsShowDialog();
             new ControllerActionExecutor();
+            new ControllerExtractEmbeddedXmp();
             startScheduledTasks();
             init = true;
         }

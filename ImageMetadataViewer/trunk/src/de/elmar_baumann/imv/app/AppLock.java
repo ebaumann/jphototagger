@@ -18,7 +18,7 @@ import javax.swing.JOptionPane;
 public final class AppLock {
 
     private static final String lockFileName =
-        UserSettings.INSTANCE.getSettingsDirectoryName() + File.separator +
+        UserSettings.INSTANCE.getDatabaseDirectoryName() + File.separator +
         AppInfo.getProjectName() + ".lck"; // NOI18N
 
     /**
