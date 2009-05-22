@@ -50,7 +50,7 @@ public final class XmpFileReader {
      *                 die Datei nicht existiert, keine XMP-Informationen enthält oder
      *                 ein Eingabefehler aufgetreten ist
      */
-    public static synchronized String readFile(String filename) {
+    public static String readFile(String filename) {
         if (filename == null)
             throw new NullPointerException("filename == null");
 
