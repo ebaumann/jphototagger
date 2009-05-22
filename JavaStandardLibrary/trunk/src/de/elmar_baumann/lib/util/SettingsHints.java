@@ -21,6 +21,8 @@ public final class SettingsHints {
 
     public enum Option {
 
+        NONE,
+
         /**
          * The content of {@link javax.swing.JComboBox}es shall be written to
          * the properties
