@@ -57,7 +57,7 @@ public final class ControllerAutocopyDirectory implements ActionListener {
         }
     }
 
-    private synchronized void copy(File srcDir) {
+    private void copy(File srcDir) {
         List<File> directories = new ArrayList<File>();
         directories.add(srcDir);
         directories.addAll(FileUtil.getAllSubDirectories(srcDir, new HashSet<Option>()));

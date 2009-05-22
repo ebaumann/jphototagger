@@ -31,7 +31,7 @@ import javax.swing.JProgressBar;
  * @version 2008-10-05
  */
 public final class ControllerCreateMetadataOfSelectedThumbnails
-        implements ActionListener, ProgressListener, Task {
+    implements ActionListener, ProgressListener, Task {
 
     private final Queue<InsertImageFilesIntoDatabase> updaters = new ConcurrentLinkedQueue<InsertImageFilesIntoDatabase>();
     private final PopupMenuPanelThumbnails popupMenu = PopupMenuPanelThumbnails.INSTANCE;
@@ -39,7 +39,7 @@ public final class ControllerCreateMetadataOfSelectedThumbnails
     private final ImageFileThumbnailsPanel thumbnailsPanel = GUI.INSTANCE.getAppPanel().getPanelThumbnails();
     private JProgressBar progressBar;
     private boolean wait = false;
-    private boolean stop = false;
+    private volatile boolean stop = false;
 
     /**
      * Konstruktor. <em>Nur eine Instanz erzeugen!</em>
@@ -93,7 +93,7 @@ public final class ControllerCreateMetadataOfSelectedThumbnails
     }
 
     @Override
-    public void progressStarted(ProgressEvent evt) {
+    public synchronized void progressStarted(ProgressEvent evt) {
         progressBar = (JProgressBar) progressBarProvider.getResource(this);
         if (progressBar != null) {
             progressBar.setMinimum(evt.getMinimum());
@@ -103,7 +103,7 @@ public final class ControllerCreateMetadataOfSelectedThumbnails
     }
 
     @Override
-    public void progressPerformed(ProgressEvent evt) {
+    public synchronized void progressPerformed(ProgressEvent evt) {
         if (stop) {
             updaters.clear();
             evt.stop();
@@ -115,7 +115,7 @@ public final class ControllerCreateMetadataOfSelectedThumbnails
     }
 
     @Override
-    public void progressEnded(ProgressEvent evt) {
+    public synchronized void progressEnded(ProgressEvent evt) {
         if (progressBar != null) {
             progressBar.setValue(evt.getValue());
             progressBar.setToolTipText(AppTexts.tooltipTextProgressBarCurrentTasks);
@@ -130,15 +130,11 @@ public final class ControllerCreateMetadataOfSelectedThumbnails
 
     @Override
     public void start() {
-        synchronized (this) {
-            stop = false;
-        }
+        stop = false;
     }
 
     @Override
     public void stop() {
-        synchronized (this) {
-            stop = true;
-        }
+        stop = true;
     }
 }

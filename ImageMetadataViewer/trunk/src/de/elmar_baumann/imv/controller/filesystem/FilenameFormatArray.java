@@ -19,7 +19,7 @@ public final class FilenameFormatArray {
      * 
      * @param format  format
      */
-    public void addFormat(FilenameFormat format) {
+    public synchronized void addFormat(FilenameFormat format) {
         formats.add(format);
     }
     
@@ -35,7 +35,7 @@ public final class FilenameFormatArray {
     /**
      * Removes all Formats.
      */
-    public void clear() {
+    public synchronized void clear() {
         formats.clear();
     }
     
@@ -45,7 +45,7 @@ public final class FilenameFormatArray {
      * 
      * @return filename
      */
-    public String format() {
+    public synchronized String format() {
         StringBuffer buffer = new StringBuffer();
         for (FilenameFormat format : formats) {
             buffer.append(format.format());

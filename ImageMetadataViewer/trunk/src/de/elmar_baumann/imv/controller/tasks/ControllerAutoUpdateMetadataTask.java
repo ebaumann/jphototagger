@@ -124,7 +124,7 @@ public final class ControllerAutoUpdateMetadataTask
     }
 
     @Override
-    public void taskCompleted() {
+    public synchronized void taskCompleted() {
         for (TaskListener listener : taskListeners) {
             listener.taskCompleted();
         }

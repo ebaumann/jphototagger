@@ -27,7 +27,7 @@ public final class ControllerCreateMetadataOfCurrentThumbnails
         implements ThumbnailsPanelListener, ProgressListener {
 
     private final Queue<InsertImageFilesIntoDatabase> updaters = new ConcurrentLinkedQueue<InsertImageFilesIntoDatabase>();
-    private boolean wait = false;
+    private volatile boolean wait = false;
     private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
     private final ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelThumbnails();
     private final JProgressBar progressBar = appPanel.getProgressBarCreateMetadataOfCurrentThumbnails();
@@ -64,11 +64,11 @@ public final class ControllerCreateMetadataOfCurrentThumbnails
         }
     }
 
-    private synchronized boolean isWait() {
+    private boolean isWait() {
         return wait;
     }
 
-    private synchronized void setWait(boolean wait) {
+    private void setWait(boolean wait) {
         this.wait = wait;
     }
 
@@ -77,12 +77,12 @@ public final class ControllerCreateMetadataOfCurrentThumbnails
     }
 
     @Override
-    public void thumbnailsChanged() {
+    public synchronized void thumbnailsChanged() {
         stop = isWait();
         updateMetadata();
     }
 
-    private void setProgressBarValueAndTooltipText(ProgressEvent evt) {
+    private synchronized void setProgressBarValueAndTooltipText(ProgressEvent evt) {
         progressBar.setValue(evt.getValue());
         if (evt.getInfo() != null) {
             progressBar.setToolTipText(evt.getInfo().toString());
@@ -90,14 +90,14 @@ public final class ControllerCreateMetadataOfCurrentThumbnails
     }
 
     @Override
-    public void progressStarted(ProgressEvent evt) {
+    public synchronized void progressStarted(ProgressEvent evt) {
         progressBar.setMinimum(evt.getMinimum());
         progressBar.setMaximum(evt.getMaximum());
         setProgressBarValueAndTooltipText(evt);
     }
 
     @Override
-    public void progressPerformed(ProgressEvent evt) {
+    public synchronized void progressPerformed(ProgressEvent evt) {
         if (stop) {
             evt.stop();
             stop = false;
@@ -107,7 +107,7 @@ public final class ControllerCreateMetadataOfCurrentThumbnails
     }
 
     @Override
-    public void progressEnded(ProgressEvent evt) {
+    public synchronized void progressEnded(ProgressEvent evt) {
         progressBar.setValue(evt.getValue());
         progressBar.setToolTipText(AppTexts.tooltipTextProgressBarDirectory);
         setWait(false);

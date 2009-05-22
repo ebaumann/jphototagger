@@ -26,8 +26,8 @@ public final class ControllerArrayScheduledTasks
     private final JProgressBar progressBar = appPanel.getProgressBarScheduledTasks();
     private final JButton buttonStop = appPanel.getButtonStopScheduledTasks();
     private final Queue<Task> controllers = new ConcurrentLinkedQueue<Task>();
+    private final int MILLISECONDS_TO_START = UserSettings.INSTANCE.getMinutesToStartScheduledTasks() * 60 * 1000;
     private Task activeController;
-    private int milliSecondsToStart = UserSettings.INSTANCE.getMinutesToStartScheduledTasks() * 60 * 1000;
 
     public ControllerArrayScheduledTasks() {
         initArray();
@@ -70,7 +70,7 @@ public final class ControllerArrayScheduledTasks
     @Override
     public void run() {
         try {
-            Thread.sleep(milliSecondsToStart);
+            Thread.sleep(MILLISECONDS_TO_START);
         } catch (InterruptedException ex) {
             AppLog.logWarning(ControllerArrayScheduledTasks.class, ex);
         }
@@ -97,7 +97,7 @@ public final class ControllerArrayScheduledTasks
         }
     }
 
-    private synchronized void handleButtonStopClicked() {
+    private void handleButtonStopClicked() {
         buttonStop.setEnabled(false);
         stopController();
     }

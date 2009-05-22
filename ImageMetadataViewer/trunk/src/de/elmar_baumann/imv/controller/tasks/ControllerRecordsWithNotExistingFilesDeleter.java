@@ -18,11 +18,11 @@ import javax.swing.JProgressBar;
  * @version 2008-10-05
  */
 public final class ControllerRecordsWithNotExistingFilesDeleter
-        implements ProgressListener, Task {
+    implements ProgressListener, Task {
 
     private final JProgressBar progressBar;
     private final List<TaskListener> taskListeners = new ArrayList<TaskListener>();
-    private boolean stop = false;
+    private volatile boolean stop = false;
 
     /**
      * Konstruktor.
@@ -98,8 +98,6 @@ public final class ControllerRecordsWithNotExistingFilesDeleter
 
     @Override
     public void stop() {
-        synchronized (this) {
-            stop = true;
-        }
+        stop = true;
     }
 }
