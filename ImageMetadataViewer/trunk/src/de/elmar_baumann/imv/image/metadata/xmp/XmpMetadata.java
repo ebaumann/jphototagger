@@ -20,6 +20,7 @@ import de.elmar_baumann.imv.database.metadata.mapping.XmpColumnXmpDataTypeMappin
 import de.elmar_baumann.imv.database.metadata.mapping.XmpColumnXmpPathStartMapping;
 import de.elmar_baumann.imv.database.metadata.selections.EditColumns;
 import de.elmar_baumann.imv.resource.Bundle;
+import de.elmar_baumann.lib.image.metadata.xmp.XmpFileReader;
 import de.elmar_baumann.lib.io.FileUtil;
 import de.elmar_baumann.lib.template.Pair;
 import de.elmar_baumann.lib.util.ArrayUtil;
@@ -209,7 +210,9 @@ public final class XmpMetadata {
         }
         String xmp = null;
         String sidecarFilename = getSidecarFilename(filename);
-        if (sidecarFilename != null) {
+        if (sidecarFilename == null) {
+            xmp = XmpFileReader.readFile(filename);
+        } else {
             xmp = FileUtil.getFileAsString(sidecarFilename);
         }
         return xmp;
@@ -477,7 +480,6 @@ public final class XmpMetadata {
      */
     public static Xmp getXmp(String filename) {
         Xmp xmp = null;
-        XmpMetadata xmpMetadata = new XmpMetadata();
         List<XMPPropertyInfo> xmpPropertyInfos = getPropertyInfosOfFile(filename);
         if (xmpPropertyInfos != null) {
             xmp = new Xmp();
