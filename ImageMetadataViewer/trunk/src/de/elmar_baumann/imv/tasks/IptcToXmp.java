@@ -11,6 +11,8 @@ import de.elmar_baumann.imv.resource.Bundle;
 import java.io.File;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.EnumSet;
 import java.util.List;
 
 /**
@@ -52,7 +54,9 @@ public final class IptcToXmp implements Runnable {
             }
             xmp.setIptc(iptc, Xmp.SetIptc.DONT_CHANGE_EXISTING_VALUES);
             logWriteXmpFile(imageFilename);
-            XmpMetadata.writeMetadataToSidecarFile(xmpFilename, xmp);
+            if (XmpMetadata.writeMetadataToSidecarFile(xmpFilename, xmp)) {
+                updateDatabase(imageFilename);
+            }
             notifyPerformed(index);
         }
         notifyEnd(index);
@@ -93,5 +97,12 @@ public final class IptcToXmp implements Runnable {
         for (ProgressListener progressListener : progressListeners) {
             progressListener.progressEnded(event);
         }
+    }
+
+    private void updateDatabase(String imageFilename) {
+        InsertImageFilesIntoDatabase insert = new InsertImageFilesIntoDatabase(
+            Arrays.asList(imageFilename),
+            EnumSet.of(InsertImageFilesIntoDatabase.Insert.XMP));
+        insert.run();
     }
 }
