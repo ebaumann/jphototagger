@@ -103,6 +103,6 @@ public final class IptcToXmp implements Runnable {
         InsertImageFilesIntoDatabase insert = new InsertImageFilesIntoDatabase(
             Arrays.asList(imageFilename),
             EnumSet.of(InsertImageFilesIntoDatabase.Insert.XMP));
-        insert.run();
+        insert.run(); // Shall run in this thread!
     }
 }
