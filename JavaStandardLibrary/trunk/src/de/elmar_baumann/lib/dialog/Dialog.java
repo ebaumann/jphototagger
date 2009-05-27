@@ -117,7 +117,7 @@ public class Dialog extends JDialog {
      * @param url  contents URL
      * @see HelpBrowser#setContentsUrl(java.lang.String)
      */
-    protected void setHelpContentsUrl(String url) {
+    public void setHelpContentsUrl(String url) {
         if (url == null)
             throw new NullPointerException("url == null");
         help.setContentsUrl(url);
