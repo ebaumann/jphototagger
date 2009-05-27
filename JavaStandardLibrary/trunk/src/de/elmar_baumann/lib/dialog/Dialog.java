@@ -28,6 +28,7 @@ public class Dialog extends JDialog {
 
     private ActionListener actionListenerEscape;
     private ActionListener actionListenerHelp;
+    private String helpPageUrl;
     private final HelpBrowser help = HelpBrowser.INSTANCE;
 
     protected Dialog() {
@@ -117,18 +118,33 @@ public class Dialog extends JDialog {
      * @param url  contents URL
      * @see HelpBrowser#setContentsUrl(java.lang.String)
      */
-    public void setHelpContentsUrl(String url) {
+    protected void setHelpContentsUrl(String url) {
         if (url == null)
             throw new NullPointerException("url == null");
         help.setContentsUrl(url);
     }
 
     /**
-     * This method will be called if the user presses F1. Does nothing.
+     * Sets the url to display in the help browser.
+     *
+     * @param url  URL
+     */
+    public void setHelpPageUrl(String url) {
+        helpPageUrl = url;
+    }
+
+    /**
+     * This method will be called if the user presses F1. If
+     * {@link #setHelpPageUrl(java.lang.String)} was called,
+     * {@link #help(java.lang.String)} will be called.
+     *
      * Specialized classes can call {@link #help(java.lang.String)}
      * with an appropriate URL.
      */
     protected void help() {
+        if (helpPageUrl != null) {
+            help(helpPageUrl);
+        }
     }
 
     /**
