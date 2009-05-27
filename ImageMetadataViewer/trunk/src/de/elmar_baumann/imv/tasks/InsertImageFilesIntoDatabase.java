@@ -5,11 +5,13 @@ import de.elmar_baumann.imv.data.Exif;
 import de.elmar_baumann.imv.data.ImageFile;
 import de.elmar_baumann.imv.data.Xmp;
 import de.elmar_baumann.imv.UserSettings;
+import de.elmar_baumann.imv.data.Iptc;
 import de.elmar_baumann.imv.database.DatabaseImageFiles;
 import de.elmar_baumann.imv.event.ProgressEvent;
 import de.elmar_baumann.imv.event.ProgressListener;
 import de.elmar_baumann.imv.image.thumbnail.ThumbnailUtil;
 import de.elmar_baumann.imv.image.metadata.exif.ExifMetadata;
+import de.elmar_baumann.imv.image.metadata.iptc.IptcMetadata;
 import de.elmar_baumann.imv.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.io.FileUtil;
@@ -131,8 +133,8 @@ public final class InsertImageFilesIntoDatabase implements Runnable {
 
     private boolean isUpdate(ImageFile imageFile) {
         return imageFile.getExif() != null ||
-                imageFile.getXmp() != null ||
-                imageFile.getThumbnail() != null;
+            imageFile.getXmp() != null ||
+            imageFile.getThumbnail() != null;
     }
 
     private ImageFile getImageFile(String filename) {
@@ -153,17 +155,17 @@ public final class InsertImageFilesIntoDatabase implements Runnable {
 
     private boolean isUpdateThumbnail(String filename) {
         return what.contains(Insert.THUMBNAIL) ||
-                (what.contains(Insert.OUT_OF_DATE) && !isImageFileUpToDate(filename));
+            (what.contains(Insert.OUT_OF_DATE) && !isImageFileUpToDate(filename));
     }
 
     private boolean isUpdateExif(String filename) {
         return what.contains(Insert.EXIF) ||
-                (what.contains(Insert.OUT_OF_DATE) && !isImageFileUpToDate(filename));
+            (what.contains(Insert.OUT_OF_DATE) && !isImageFileUpToDate(filename));
     }
 
     private boolean isUpdateXmp(String filename) {
         return what.contains(Insert.XMP) ||
-                (what.contains(Insert.OUT_OF_DATE) && !isXmpFileUpToDate(filename));
+            (what.contains(Insert.OUT_OF_DATE) && !isXmpFileUpToDate(filename));
     }
 
     private boolean isImageFileUpToDate(String filename) {
@@ -188,10 +190,10 @@ public final class InsertImageFilesIntoDatabase implements Runnable {
         File file = new File(filename);
         if (UserSettings.INSTANCE.isCreateThumbnailsWithExternalApp()) {
             thumbnail = ThumbnailUtil.getThumbnailFromExternalApplication(
-                    file, externalThumbnailCreationCommand, maxThumbnailLength);
+                file, externalThumbnailCreationCommand, maxThumbnailLength);
         } else {
             thumbnail = ThumbnailUtil.getThumbnail(
-                    file, maxThumbnailLength, useEmbeddedThumbnails);
+                file, maxThumbnailLength, useEmbeddedThumbnails);
         }
         imageFile.setThumbnail(thumbnail);
         if (thumbnail == null) {
@@ -207,9 +209,31 @@ public final class InsertImageFilesIntoDatabase implements Runnable {
     }
 
     private void setXmp(ImageFile imageFileData) {
-        Xmp xmp = XmpMetadata.getXmp(imageFileData.getFilename());
+        String imageFilename = imageFileData.getFilename();
+        Xmp xmp = XmpMetadata.getXmp(imageFilename);
+        if (xmp == null) {
+            xmp = getXmpFromIptc(imageFilename);
+        }
+        writeSidecarFileIfNotExists(imageFilename, xmp);
         if (xmp != null && !xmp.isEmpty()) {
             imageFileData.setXmp(xmp);
+        }
+    }
+
+    private Xmp getXmpFromIptc(String imageFilename) {
+        Xmp xmp = null;
+        Iptc iptc = IptcMetadata.getIptc(new File(imageFilename));
+        if (iptc != null) {
+            xmp = new Xmp();
+            xmp.setIptc(iptc, Xmp.SetIptc.DONT_CHANGE_EXISTING_VALUES);
+        }
+        return xmp;
+    }
+
+    private void writeSidecarFileIfNotExists(String imageFilename, Xmp xmp) {
+        if (xmp != null && !XmpMetadata.existsSidecarFile(imageFilename)) {
+            XmpMetadata.writeMetadataToSidecarFile(
+                XmpMetadata.suggestSidecarFilename(imageFilename), xmp);
         }
     }
 
