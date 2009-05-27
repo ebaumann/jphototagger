@@ -62,6 +62,13 @@ public final class IptcToXmp implements Runnable {
         notifyEnd(index);
     }
 
+    private void updateDatabase(String imageFilename) {
+        InsertImageFilesIntoDatabase insert = new InsertImageFilesIntoDatabase(
+            Arrays.asList(imageFilename),
+            EnumSet.of(InsertImageFilesIntoDatabase.Insert.XMP));
+        insert.run(); // Shall run in this thread!
+    }
+
     private void checkStopEvent(ProgressEvent event) {
         if (event.isStop()) {
             stop();
@@ -97,12 +104,5 @@ public final class IptcToXmp implements Runnable {
         for (ProgressListener progressListener : progressListeners) {
             progressListener.progressEnded(event);
         }
-    }
-
-    private void updateDatabase(String imageFilename) {
-        InsertImageFilesIntoDatabase insert = new InsertImageFilesIntoDatabase(
-            Arrays.asList(imageFilename),
-            EnumSet.of(InsertImageFilesIntoDatabase.Insert.XMP));
-        insert.run(); // Shall run in this thread!
     }
 }
