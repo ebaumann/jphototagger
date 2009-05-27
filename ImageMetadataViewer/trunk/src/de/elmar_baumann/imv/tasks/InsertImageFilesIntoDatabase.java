@@ -231,7 +231,8 @@ public final class InsertImageFilesIntoDatabase implements Runnable {
     }
 
     private void writeSidecarFileIfNotExists(String imageFilename, Xmp xmp) {
-        if (xmp != null && !XmpMetadata.existsSidecarFile(imageFilename)) {
+        if (xmp != null && !XmpMetadata.existsSidecarFile(imageFilename) &&
+            XmpMetadata.canWriteSidecarFile(imageFilename)) {
             XmpMetadata.writeMetadataToSidecarFile(
                 XmpMetadata.suggestSidecarFilename(imageFilename), xmp);
         }
