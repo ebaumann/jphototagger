@@ -235,7 +235,7 @@ public final class ExifFieldValueFormatter {
         int denominator = er.getDenominator();
         double result = (double) numerator / (double) denominator;
         if (result < 1) {
-            return new Pair<Integer, Integer>(1, denominator * numerator);
+            return new Pair<Integer, Integer>(1, (int) ((double) denominator / (double) numerator + 0.5));
         } else if (result >= 1) {
             return new Pair<Integer, Integer>((int) ((double) numerator / (double) denominator + 0.5), 1);
         } else {
