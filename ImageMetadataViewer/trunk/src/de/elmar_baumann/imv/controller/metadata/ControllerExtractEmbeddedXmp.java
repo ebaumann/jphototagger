@@ -39,6 +39,7 @@ public final class ControllerExtractEmbeddedXmp implements ActionListener {
         panel.setDescription(Bundle.getString("ControllerExtractEmbeddedXmp.Panel.Description"));
         panel.setDirChooserFileFilter(AppFileFilter.acceptedImageFileFormats);
         panel.setSelectDirs(true);
+        dialog.setHelpPageUrl(Bundle.getString("Help.Url.ExtractEmbeddedXmp"));
         dialog.setVisible(true);
     }
 
