@@ -1,13 +1,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
 <head>
-	<title>Einstellungen-Dialog / Sonstiges</title>
+	<title>Einstellungen-Dialog &gt; Sonstiges</title>
 	<meta name="author" content="Elmar Baumann" />
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 </head>
 <body>
 	
-<h1>Einstellungen-Dialog / Sonstiges</h1>
+<h1>Einstellungen-Dialog &gt; Sonstiges</h1>
 
 <h2>Protokolloptionen (Logdatei)</h2>
 
@@ -31,11 +31,30 @@
 
 <p>Wählen Sie den Ordner aus, in dem der Inhalt Ihrer Kamera-Speicherkarte angezeigt wird, wenn Sie Ihre Kamera mit dem Rechner verbinden oder die Karte in einen Kartenleser einführen: Unter Windows einen Laufwerksbuchstaben, unter Linux einen Ordner, beispielsweise <code>/mnt/compactflash</code>. Das Laufwerk / der Ordner werden nach Bildern durchsucht einschließlich aller Unterverzeichnisse.</p>
 
+<h2>Webbrowser, z.B. für Google Maps</h2>
+
+<p>Hier wählen Sie einen Webbrowser aus, der aufgerufen wird, falls Sie mit dem Internet verbunden werden müssen, beispielsweise zum Anzeigen von Satellitenbildern des Aufnahmeorts bei GPS-Daten im Bild.</p>
+
+<h2>Datenbankverzeichnis nach Neustart</h2>
+
+<p>Sie können die Datenbank in einem anderen Verzeichnis anlegen lassen. Wollen Sie Ihre bisherigen Daten übernehmen, kopieren Sie aus dem aktuellen Datenbankverzeichnis, das im Dialog angezeigt wird, bevor Sie es ändern, folgende Dateien nach Beenden von <strong>Bilder</strong> und vor einem Neustart:</p>
+
+<ul>
+	<li>Den Ordner <code>thumbnails</code>, dieser enthält die Vorschaubilder</li>
+	<li>Alle Dateien, die mit <code>database</code> starten, z.B. <code>database.data</code></li>
+</ul>
+
+<p>So können z.B. mehrere <em>- nicht gleichzeitig! -</em> die gleiche Datenbank benutzen und bearbeiten oder Sie wählen einen Ordner aus, der täglich automatisch gesichert wird.</p>
+
 <h2>Versteckte Ordner einlesen und anzeigen</h2>
 
 <p>Wollen Sie Bilder archivieren, die in versteckten Ordnern gespeichert sind, kreuzen Sie dieses Kästchen an.</p>
 
-<p><img src="img/settings-misc.gif" width="724" height="424" alt="" /></p>
+<h2>Versuchen, nach Programmstart im Kartenreiter <strong>Ordner</strong> zuletzt ausgewählten Ordner anzuzeigen</h2>
+
+<p>Ist diese Option angekreuzt, wird versucht, nach dem Start den Ordner auszuwählen, der beim Beenden von <strong>Bilder</strong> im Kartenreiter <strong>Ordner</strong> ausgewählt war. Hat ein Laufwerk viele Ordner, kann dies den Start verzögern. Unter dem Betriebssystem Windows kommt es aus unterschiedlichen Gründen zur Verzögerung, beispielsweise wenn ein Laufwerksbuchstabe mit einem Netzlaufwerk verknüpft war und dieses nicht erreicht werden kann.</p>
+
+<p><img src="img/settings-misc.gif" width="725" height="484" alt="" /></p>
 
 </body>
 </html>

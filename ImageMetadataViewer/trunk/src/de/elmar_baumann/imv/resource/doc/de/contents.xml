@@ -118,55 +118,59 @@
 		<title>Menübefehle</title>
 		<page>
 			<url>action_metadata_scan_directories.html</url>
-			<title>Datei / Ordner einlesen</title>
+			<title>Datei &gt; Ordner einlesen</title>
 		</page>
 		<page>
 			<url>action_database_maintain.html</url>
-			<title>Datei / Datenbank</title>
+			<title>Datei &gt; Datenbank</title>
 		</page>
 		<page>
 			<url>action_filesystem_autocopy_directory.html</url>
-			<title>Datei / Bilder von der Kamera-Speicherkarte kopieren</title>
+			<title>Datei &gt; Bilder von der Kamera-Speicherkarte kopieren</title>
 		</page>
 		<page>
 			<url>action_dialog_settings.html</url>
-			<title>Bearbeiten / Einstellungen</title>
+			<title>Bearbeiten &gt; Einstellungen</title>
 		</page>
 		<page>
 			<url>dialog_advanced_search.html</url>
-			<title>Bearbeiten / Suchen</title>
+			<title>Bearbeiten &gt; Suchen</title>
 		</page>
 		<page>
 			<url>action_filesystem_cut.html</url>
-			<title>Bearbeiten / Ausschneiden</title>
+			<title>Bearbeiten &gt; Ausschneiden</title>
 		</page>
 		<page>
 			<url>action_filesystem_paste.html</url>
-			<title>Bearbeiten / Einfügen</title>
+			<title>Bearbeiten &gt; Einfügen</title>
 		</page>
 		<page>
 			<url>action_filesystem_copy_to_clipboard.html</url>
-			<title>Bearbeiten / Kopieren</title>
+			<title>Bearbeiten &gt; Kopieren</title>
 		</page>
 		<page>
 			<url>action_filesystem_rename.html</url>
-			<title>Bearbeiten / Umbenennen</title>
+			<title>Bearbeiten &gt; Umbenennen</title>
 		</page>
 		<page>
 			<url>action_filesystem_delete_context.html</url>
-			<title>Bearbeiten / Löschen</title>
+			<title>Bearbeiten &gt; Löschen</title>
 		</page>
 		<page>
 			<url>action_metadata_iptc_to_xmp.html</url>
-			<title>Werkzeuge / IPTC-Daten nach XMP</title>
+			<title>Werkzeuge &gt; IPTC-Daten nach XMP</title>
+		</page>
+		<page>
+			<url>action_metadata_embedded_xmp_to_xmp_sidecar_file.html</url>
+			<title>Werkzeuge &gt; Eingebettete XMP-Daten in Filialdateien schreiben</title>
 		</page>
 		<page>
 			<url>action_metadata_replace_in_xmp.html</url>
-			<title>Werkzeuge / XMP-Daten suchen und ersetzen</title>
+			<title>Werkzeuge &gt; XMP-Daten suchen und ersetzen</title>
 		</page>
 		<page>
 			<url>dialog_actions.html</url>
-			<title>Werkzeuge / Aktionen</title>
+			<title>Werkzeuge &gt; Aktionen</title>
 		</page>
 	</node>
 	<node>
