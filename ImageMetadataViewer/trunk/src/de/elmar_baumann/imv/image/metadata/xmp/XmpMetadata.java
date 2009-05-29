@@ -42,6 +42,7 @@ public final class XmpMetadata {
 
     private static final List<String> knownNamespaces = new ArrayList<String>();
 
+
     static {
         knownNamespaces.add("Iptc4xmpCore"); // NOI18N
         knownNamespaces.add("aux"); // NOI18N
@@ -77,6 +78,16 @@ public final class XmpMetadata {
          * <p>Default: Bestehender Inhalt wird nicht gelöscht
          */
         DELETE_IF_SOURCE_VALUE_IS_EMPTY
+    }
+
+    /**
+     * Type of retrieved XMP metadata
+     */
+    private enum XmpType {
+        /** The XMP metadta is embedded into the data file */
+        EMBEDDED,
+        /** The XMP metadta exists in a sidecar file */
+        SIDECAR_FILE
     }
 
     /**
@@ -116,9 +127,12 @@ public final class XmpMetadata {
         if (filename == null || !FileUtil.existsFile(filename)) {
             return null;
         }
+        return getPropertyInfosOfXmpString(getXmpAsString(filename));
+    }
+
+    private static List<XMPPropertyInfo> getPropertyInfosOfXmpString(String xmp) {
         List<XMPPropertyInfo> metadata = new ArrayList<XMPPropertyInfo>();
         try {
-            String xmp = getXmpAsString(filename);
             if (xmp != null && xmp.length() > 0) {
                 XMPMeta xmpMeta = XMPMetaFactory.parseFromString(xmp);
                 if (xmpMeta != null) {
@@ -216,6 +230,13 @@ public final class XmpMetadata {
             xmp = FileUtil.getFileAsString(sidecarFilename);
         }
         return xmp;
+    }
+
+    private static String getEmbeddedXmpAsString(String filename) {
+        if (!FileUtil.existsFile(filename)) {
+            return null;
+        }
+        return XmpFileReader.readFile(filename);
     }
 
     /**
@@ -473,14 +494,36 @@ public final class XmpMetadata {
     }
 
     /**
-     * Liefert die XMP-Daten einer Datei.
+     * Liefert die XMP-Daten einer Datei. Existiert eine Filialdatei, werden die
+     * XMP-Metadaten aus der Filialdatei gelesen. Existiert <em>keine</em>
+     * Filialdatei und sind XMP-Metadaten eingebettet in die Datei, werden die
+     * eingebetteten XMP-Daten gelesen.
      * 
      * @param  filename  Dateiname
-     * @return Daten oder null bei Fehlern
+     * @return Daten oder null, falls keine XMP-Daten existieren oder bei
+     *         Fehlern
      */
     public static Xmp getXmp(String filename) {
+        XmpType xmpType = existsSidecarFile(filename) ? XmpType.SIDECAR_FILE : XmpType.EMBEDDED;
+        return getXmp(xmpType, filename, getPropertyInfosOfFile(filename));
+    }
+
+    /**
+     * Returns XMP from embedded XMP metadata (XMP exists in the file itself).
+     *
+     * @param   filename  name of a data file, e.g. an image file
+     * @return  embedded XMP metadata or null if no XMP is embedded or when
+     *          errors occur
+     */
+    public static Xmp getEmbeddedXmp(String filename) {
+        String xmpString = getXmpAsString(filename);
+        return xmpString == null
+            ? null
+            : getXmp(XmpType.EMBEDDED, filename, getPropertyInfosOfXmpString(xmpString));
+    }
+
+    private static Xmp getXmp(XmpType xmpType, String filename, List<XMPPropertyInfo> xmpPropertyInfos) {
         Xmp xmp = null;
-        List<XMPPropertyInfo> xmpPropertyInfos = getPropertyInfosOfFile(filename);
         if (xmpPropertyInfos != null) {
             xmp = new Xmp();
             for (XMPPropertyInfo xmpPropertyInfo : xmpPropertyInfos) {
@@ -524,15 +567,17 @@ public final class XmpMetadata {
                     xmp.setPhotoshopTransmissionReference(xmpPropertyInfo.getValue().toString());
                 }
             }
-            setLastModified(xmp, filename);
+            setLastModified(xmpType, xmp, filename);
         }
         return xmp;
     }
 
-    private static void setLastModified(Xmp xmp, String filename) {
-        String xmpFilename = getSidecarFilename(filename);
-        if (xmpFilename != null) {
-            xmp.setLastModified(FileUtil.getLastModified(xmpFilename));
+    private static void setLastModified(XmpType xmpType, Xmp xmp, String filename) {
+        String sidecarFilename = getSidecarFilename(filename);
+        if (xmpType.equals(XmpType.SIDECAR_FILE) && sidecarFilename != null) {
+            xmp.setLastModified(FileUtil.getLastModified(sidecarFilename));
+        } else if (xmpType.equals(XmpType.EMBEDDED) && FileUtil.existsFile(filename)) {
+            xmp.setLastModified(FileUtil.getLastModified(filename));
         }
     }
 
@@ -555,5 +600,6 @@ public final class XmpMetadata {
         return filePairs;
     }
 
-    private XmpMetadata() {}
+    private XmpMetadata() {
+    }
 }
