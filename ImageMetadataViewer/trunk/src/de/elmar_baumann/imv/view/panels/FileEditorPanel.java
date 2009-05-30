@@ -1,13 +1,13 @@
 package de.elmar_baumann.imv.view.panels;
 
 import de.elmar_baumann.imv.UserSettings;
+import de.elmar_baumann.imv.app.AppFileFilter;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.tasks.FileEditor;
 import de.elmar_baumann.imv.view.ViewUtil;
 import de.elmar_baumann.imv.view.dialogs.ShowFilesDialog;
 import de.elmar_baumann.lib.dialog.DirectoryChooser;
 import de.elmar_baumann.lib.dialog.DirectoryChooser.Option;
-import de.elmar_baumann.lib.io.AcceptAllFilesFilter;
 import de.elmar_baumann.lib.io.DirectoryFilter;
 import de.elmar_baumann.lib.io.FileUtil;
 import de.elmar_baumann.lib.io.RegexFileFilter;
@@ -31,20 +31,21 @@ import javax.swing.filechooser.FileFilter;
  */
 public final class FileEditorPanel extends javax.swing.JPanel {
 
-    private static final String KEY_DIRECTORY_NAME = "de.elmar_baumann.imv.view.FileEditorDialog.panels.Directory";
-    private List<File> files = new ArrayList<File>();
-    private File directory = new File("");
+    private static final String KEY_DIRECTORY_NAME = "de.elmar_baumann.imv.view.FileEditorDialog.panels.Directory"; // NOI18N
+    private List<File> selectedFiles = new ArrayList<File>();
+    private List<File> selectedDirectories = new ArrayList<File>();
+    private File prevSelectedDirectory = new File(""); // NOI18N
     private FileEditor fileEditor = new FileEditor();
-    private FileFilter fileChooserFileFilter = new AcceptAllFilesFilter();
-    private RegexFileFilter dirChooserFileFilter = new RegexFileFilter(".*", ";");
-    private String title = "";
+    private FileFilter fileChooserFileFilter = AppFileFilter.acceptedImageFileFormats.forFileChooser(Bundle.getString("FileEditorPanel.FileChooserFileFilter.Description"));
+    private RegexFileFilter dirChooserFileFilter = new RegexFileFilter(".*", ";"); // NOI18N
+    private String title = ""; // NOI18N
     private volatile boolean selectDirs;
     private volatile boolean stop;
     private volatile boolean isRunning;
 
     public FileEditorPanel() {
         initComponents();
-        setFileButtonText();
+        setModeInfo();
     }
 
     /**
@@ -58,12 +59,21 @@ public final class FileEditorPanel extends javax.swing.JPanel {
         this.fileEditor = fileEditor;
         this.selectDirs = selectDirs;
         initComponents();
+        setModeInfo();
+    }
+
+    private void setModeInfo() {
         setFileButtonText();
+        setInfoText();
     }
 
     public void setSelectDirs(boolean select) {
         selectDirs = select;
-        setFileButtonText();
+        setModeInfo();
+    }
+
+    public void setFileChooserFilter(FileFilter fileChooserFileFilter) {
+        this.fileChooserFileFilter = fileChooserFileFilter;
     }
 
     public boolean isSelectDirs() {
@@ -83,7 +93,7 @@ public final class FileEditorPanel extends javax.swing.JPanel {
     }
 
     private String asHtml(String description) {
-        return "<html><p>" + description + "</p></html>";
+        return "<html><p>" + description + "</p></html>"; // NOI18N
     }
 
     public void setFileChooserFileFilter(FileFilter filter) {
@@ -135,6 +145,36 @@ public final class FileEditorPanel extends javax.swing.JPanel {
         return allDirs;
     }
 
+    private void handleInfoMouseClicked() {
+        if (selectDirs) {
+            ShowFilesDialog dialog = new ShowFilesDialog(null, selectedDirectories);
+            dialog.setVisible(true);
+        }
+    }
+
+    private void handleSelectFilesActionPerformed() {
+        if (selectDirs) {
+            selectDirectories();
+        } else {
+            selectFiles();
+        }
+        boolean hasFiles = !selectedFiles.isEmpty();
+        buttonStart.setEnabled(hasFiles);
+        buttonShowFiles.setEnabled(hasFiles);
+    }
+
+    private void handleShowFilesActionPerformed() {
+        ShowFilesDialog dialog = new ShowFilesDialog(null, selectedFiles);
+        dialog.setVisible(true);
+    }
+
+    private void handleStartActionPerformed() {
+        Thread thread = new Thread(new EditThread());
+        thread.setPriority(UserSettings.INSTANCE.getThreadPriority());
+        thread.setName("FileEditorPanel.Action"); // NOI18N
+        thread.start();
+    }
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -150,6 +190,7 @@ public final class FileEditorPanel extends javax.swing.JPanel {
         checkBoxReplaceExistingFiles = new javax.swing.JCheckBox();
         progressBar = new javax.swing.JProgressBar();
         labelFilename = new javax.swing.JLabel();
+        labelInfo = new javax.swing.JLabel();
         buttonShowFiles = new javax.swing.JButton();
         buttonSelectFiles = new javax.swing.JButton();
         buttonStop = new javax.swing.JButton();
@@ -192,7 +233,15 @@ public final class FileEditorPanel extends javax.swing.JPanel {
         labelFilename.setText(Bundle.getString("FileEditorPanel.labelFilename.text")); // NOI18N
         labelFilename.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        buttonShowFiles.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        labelInfo.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        labelInfo.setText(Bundle.getString("FileEditorPanel.labelInfo.text")); // NOI18N
+        labelInfo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                labelInfoMouseClicked(evt);
+            }
+        });
+
+        buttonShowFiles.setFont(new java.awt.Font("Dialog", 0, 12));
         buttonShowFiles.setText(Bundle.getString("FileEditorPanel.buttonShowFiles.text")); // NOI18N
         buttonShowFiles.setEnabled(false);
         buttonShowFiles.addActionListener(new java.awt.event.ActionListener() {
@@ -201,7 +250,7 @@ public final class FileEditorPanel extends javax.swing.JPanel {
             }
         });
 
-        buttonSelectFiles.setFont(new java.awt.Font("Dialog", 0, 12));
+        buttonSelectFiles.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         buttonSelectFiles.setMnemonic('e');
         buttonSelectFiles.setText(Bundle.getString("FileEditorPanel.buttonSelectFiles.text")); // NOI18N
         buttonSelectFiles.addActionListener(new java.awt.event.ActionListener() {
@@ -234,28 +283,29 @@ public final class FileEditorPanel extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(labelDescription, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 382, Short.MAX_VALUE)
-                    .addComponent(panelOptions, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(labelDescription, javax.swing.GroupLayout.DEFAULT_SIZE, 382, Short.MAX_VALUE)
+                    .addComponent(panelOptions, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(labelFilename, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 382, Short.MAX_VALUE)
+                    .addComponent(progressBar, javax.swing.GroupLayout.DEFAULT_SIZE, 382, Short.MAX_VALUE)
+                    .addComponent(labelInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 382, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(buttonShowFiles)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonSelectFiles)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonStop)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonStart))
-                    .addComponent(labelFilename, javax.swing.GroupLayout.DEFAULT_SIZE, 382, Short.MAX_VALUE)
-                    .addComponent(progressBar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 382, Short.MAX_VALUE))
+                        .addComponent(buttonStart)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(labelDescription, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
+                .addComponent(labelDescription, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelOptions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -263,31 +313,23 @@ public final class FileEditorPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelFilename, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(labelInfo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonStop)
                     .addComponent(buttonSelectFiles)
                     .addComponent(buttonStart)
                     .addComponent(buttonShowFiles))
-                .addContainerGap())
+                .addGap(12, 12, 12))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonSelectFilesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSelectFilesActionPerformed
-        if (selectDirs) {
-            selectDirs();
-        } else {
-            selectFiles();
-        }
-        boolean hasFiles = !files.isEmpty();
-        buttonStart.setEnabled(hasFiles);
-        buttonShowFiles.setEnabled(hasFiles);
+        handleSelectFilesActionPerformed();
     }//GEN-LAST:event_buttonSelectFilesActionPerformed
 
     private void buttonStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonStartActionPerformed
-        Thread thread = new Thread(new EditThread());
-        thread.setPriority(UserSettings.INSTANCE.getThreadPriority());
-        thread.setName("FileEditorPanel.Action");
-        thread.start();
+        handleStartActionPerformed();
     }//GEN-LAST:event_buttonStartActionPerformed
 
     private void buttonStopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonStopActionPerformed
@@ -295,9 +337,12 @@ public final class FileEditorPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_buttonStopActionPerformed
 
     private void buttonShowFilesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonShowFilesActionPerformed
-        ShowFilesDialog dialog = new ShowFilesDialog(null, files);
-        dialog.setVisible(true);
+        handleShowFilesActionPerformed();
     }//GEN-LAST:event_buttonShowFilesActionPerformed
+
+    private void labelInfoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelInfoMouseClicked
+        handleInfoMouseClicked();
+    }//GEN-LAST:event_labelInfoMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonSelectFiles;
@@ -308,35 +353,38 @@ public final class FileEditorPanel extends javax.swing.JPanel {
     private javax.swing.JCheckBox checkBoxReplaceExistingFiles;
     private javax.swing.JLabel labelDescription;
     private javax.swing.JLabel labelFilename;
+    private javax.swing.JLabel labelInfo;
     private javax.swing.JPanel panelOptions;
     private javax.swing.JProgressBar progressBar;
     // End of variables declaration//GEN-END:variables
 
-    private void selectDirs() {
-        DirectoryChooser dialog = new DirectoryChooser(null, directory, getDirChooserOptions());
+    private void selectDirectories() {
+        DirectoryChooser dialog = new DirectoryChooser(null, prevSelectedDirectory, getDirChooserOptions());
         ViewUtil.setDirectoryTreeModel(dialog);
         dialog.setVisible(true);
         if (dialog.accepted()) {
-            files = getFilesOfDirectories(dialog.getSelectedDirectories());
-            directory = dialog.getSelectedDirectories().get(0);
+            selectedDirectories = dialog.getSelectedDirectories();
+            selectedFiles = getFilesOfDirectories(selectedDirectories);
+            prevSelectedDirectory = dialog.getSelectedDirectories().get(0);
+            labelInfo.setText(Bundle.getString("FileEditorPanel.SelectDirectories.LabelInfo.Text"));
         }
     }
 
     private void selectFiles() {
-        JFileChooser fileChooser = new JFileChooser(directory);
+        JFileChooser fileChooser = new JFileChooser(prevSelectedDirectory);
         fileChooser.setMultiSelectionEnabled(true);
         fileChooser.setFileFilter(fileChooserFileFilter);
         if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
-            files.clear();
+            selectedFiles.clear();
             File[] selFiles = fileChooser.getSelectedFiles();
-            files.addAll(Arrays.asList(selFiles));
+            selectedFiles.addAll(Arrays.asList(selFiles));
             setDirectory(selFiles);
         }
     }
 
     private void setDirectory(File[] selFiles) {
         if (selFiles.length > 0) {
-            directory = selFiles[0].getParentFile();
+            prevSelectedDirectory = selFiles[0].getParentFile();
         }
     }
 
@@ -346,13 +394,19 @@ public final class FileEditorPanel extends javax.swing.JPanel {
             : Bundle.getString("FileEditorDialog.ButtonFiles.FilesText"));
     }
 
+    private void setInfoText() {
+        labelInfo.setText(selectDirs
+            ? Bundle.getString("FileEditorPanel.LabelInfo.SelectDirs.Text")
+            : Bundle.getString("FileEditorPanel.LabelInfo.SelectFiles.Text"));
+    }
+
     public void readPersistent() {
-        directory = new File(UserSettings.INSTANCE.getSettings().getString(KEY_DIRECTORY_NAME));
+        prevSelectedDirectory = new File(UserSettings.INSTANCE.getSettings().getString(KEY_DIRECTORY_NAME));
         UserSettings.INSTANCE.getSettings().getComponent(this, new SettingsHints(EnumSet.of(SettingsHints.Option.NONE)));
     }
 
     public void writePersistent() {
-        UserSettings.INSTANCE.getSettings().setString(directory.getAbsolutePath(), KEY_DIRECTORY_NAME);
+        UserSettings.INSTANCE.getSettings().setString(prevSelectedDirectory.getAbsolutePath(), KEY_DIRECTORY_NAME);
         UserSettings.INSTANCE.getSettings().setComponent(this, new SettingsHints(EnumSet.of(SettingsHints.Option.NONE)));
     }
 
@@ -362,10 +416,10 @@ public final class FileEditorPanel extends javax.swing.JPanel {
         public void run() {
             setIsRunning(true);
             fileEditor.setConfirmOverwrite(!checkBoxReplaceExistingFiles.isSelected());
-            int filesCount = files.size();
+            int filesCount = selectedFiles.size();
             initProgressBar(filesCount);
             for (int i = 0; i < filesCount && !stop; i++) {
-                File file = files.get(i);
+                File file = selectedFiles.get(i);
                 fileEditor.edit(file);
                 labelFilename.setText(file.getAbsolutePath());
                 progressBar.setValue(i + 1);
@@ -386,7 +440,7 @@ public final class FileEditorPanel extends javax.swing.JPanel {
             buttonSelectFiles.setEnabled(!runs);
             checkBoxIncludeSubdirectories.setEnabled(!runs);
             checkBoxReplaceExistingFiles.setEnabled(!runs);
-            labelFilename.setText("");
+            labelFilename.setText(""); // NOI18N
             isRunning = runs;
             stop = false;
         }
