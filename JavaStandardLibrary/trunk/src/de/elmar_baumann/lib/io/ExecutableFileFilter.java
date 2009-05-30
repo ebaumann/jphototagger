@@ -14,4 +14,14 @@ public final class ExecutableFileFilter implements java.io.FileFilter {
     public boolean accept(File pathname) {
         return pathname.canExecute();
     }
+
+    /**
+     * Returns a file filter for f file chooser.
+     *
+     * @param  description  description
+     * @return file filter
+     */
+    public javax.swing.filechooser.FileFilter forFileChooser(String description) {
+        return new FileChooserFilter(this, description);
+    }
 }

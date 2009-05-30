@@ -56,4 +56,14 @@ public final class RegexFileFilter implements java.io.FileFilter {
         }
         return false;
     }
+
+    /**
+     * Returns a file filter for f file chooser.
+     *
+     * @param  description  description
+     * @return file filter
+     */
+    public javax.swing.filechooser.FileFilter forFileChooser(String description) {
+        return new FileChooserFilter(this, description);
+    }
 }
