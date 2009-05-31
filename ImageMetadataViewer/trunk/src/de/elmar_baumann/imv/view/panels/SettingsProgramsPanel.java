@@ -170,9 +170,8 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel
             }
         });
 
-        labelDefaultProgramFile.setFont(new java.awt.Font("Dialog", 0, 12));
+        labelDefaultProgramFile.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         labelDefaultProgramFile.setForeground(new java.awt.Color(0, 0, 255));
-        labelDefaultProgramFile.setText(Bundle.getString("SettingsProgramsPanel.labelDefaultProgramFile.text")); // NOI18N
         labelDefaultProgramFile.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         labelOtherPrograms.setFont(new java.awt.Font("Dialog", 0, 12));

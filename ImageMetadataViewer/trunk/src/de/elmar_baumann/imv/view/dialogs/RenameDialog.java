@@ -455,8 +455,6 @@ public final class RenameDialog extends Dialog {
         labelNewNamePrompt.setFont(new java.awt.Font("Dialog", 1, 11));
         labelNewNamePrompt.setText(Bundle.getString("RenameDialog.labelNewNamePrompt.text")); // NOI18N
 
-        textFieldNewName.setText(Bundle.getString("RenameDialog.textFieldNewName.text")); // NOI18N
-
         buttonRename.setMnemonic('u');
         buttonRename.setText(Bundle.getString("RenameDialog.buttonRename.text")); // NOI18N
         buttonRename.addActionListener(new java.awt.event.ActionListener() {
@@ -662,7 +660,6 @@ public final class RenameDialog extends Dialog {
             }
         });
 
-        textFieldAtBegin.setText(Bundle.getString("RenameDialog.textFieldAtBegin.text")); // NOI18N
         textFieldAtBegin.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 textFieldAtBeginKeyReleased(evt);
@@ -673,7 +670,6 @@ public final class RenameDialog extends Dialog {
         labelDelim1.setText(Bundle.getString("RenameDialog.labelDelim1.text")); // NOI18N
 
         textFieldDelim1.setColumns(1);
-        textFieldDelim1.setText(Bundle.getString("RenameDialog.textFieldDelim1.text")); // NOI18N
         textFieldDelim1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 textFieldDelim1KeyReleased(evt);
@@ -689,7 +685,6 @@ public final class RenameDialog extends Dialog {
             }
         });
 
-        textFieldInTheMiddle.setText(Bundle.getString("RenameDialog.textFieldInTheMiddle.text")); // NOI18N
         textFieldInTheMiddle.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 textFieldInTheMiddleKeyReleased(evt);
@@ -700,7 +695,6 @@ public final class RenameDialog extends Dialog {
         labelDelim2.setText(Bundle.getString("RenameDialog.labelDelim2.text")); // NOI18N
 
         textFieldDelim2.setColumns(1);
-        textFieldDelim2.setText(Bundle.getString("RenameDialog.textFieldDelim2.text")); // NOI18N
         textFieldDelim2.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 textFieldDelim2KeyReleased(evt);
@@ -716,7 +710,6 @@ public final class RenameDialog extends Dialog {
             }
         });
 
-        textFieldAtEnd.setText(Bundle.getString("RenameDialog.textFieldAtEnd.text")); // NOI18N
         textFieldAtEnd.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 textFieldAtEndMouseReleased(evt);
@@ -793,13 +786,11 @@ public final class RenameDialog extends Dialog {
         labelBefore.setText(Bundle.getString("RenameDialog.labelBefore.text")); // NOI18N
 
         labelBeforeFilename.setFont(new java.awt.Font("Dialog", 0, 12));
-        labelBeforeFilename.setText(Bundle.getString("RenameDialog.labelBeforeFilename.text")); // NOI18N
 
         labelAfter.setFont(new java.awt.Font("Tahoma", 1, 11));
         labelAfter.setText(Bundle.getString("RenameDialog.labelAfter.text")); // NOI18N
 
         labelAfterFilename.setFont(new java.awt.Font("Dialog", 0, 12));
-        labelAfterFilename.setText(Bundle.getString("RenameDialog.labelAfterFilename.text")); // NOI18N
 
         javax.swing.GroupLayout panelExampleLayout = new javax.swing.GroupLayout(panelExample);
         panelExample.setLayout(panelExampleLayout);
@@ -829,7 +820,7 @@ public final class RenameDialog extends Dialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        panelExampleLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {labelAfterFilename, labelBeforeFilename});
+        panelExampleLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {labelAfterFilename, labelBefore, labelBeforeFilename});
 
         buttonRenameTemplate.setFont(new java.awt.Font("Dialog", 0, 12));
         buttonRenameTemplate.setMnemonic('u');

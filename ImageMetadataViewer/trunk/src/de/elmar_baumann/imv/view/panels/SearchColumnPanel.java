@@ -452,7 +452,6 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
             }
         });
 
-        textFieldValue.setText(Bundle.getString("SearchColumnPanel.textFieldValue.text")); // NOI18N
         textFieldValue.setFocusLostBehavior(javax.swing.JFormattedTextField.PERSIST);
         textFieldValue.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {

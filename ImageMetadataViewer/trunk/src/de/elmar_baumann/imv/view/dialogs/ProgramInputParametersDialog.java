@@ -104,17 +104,15 @@ public final class ProgramInputParametersDialog extends Dialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(Bundle.getString("ProgramInputParametersDialog.title")); // NOI18N
 
-        panelContext.setBorder(javax.swing.BorderFactory.createTitledBorder(null, Bundle.getString("ProgramInputParametersDialog.panelContext.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 12))); // NOI18N
+        panelContext.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString("ProgramInputParametersDialog.panelContext.border.title"))); // NOI18N
 
         labelContextProgramPrompt.setText(Bundle.getString("ProgramInputParametersDialog.labelContextProgramPrompt.text")); // NOI18N
 
         labelContextProgram.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
-        labelContextProgram.setText(Bundle.getString("ProgramInputParametersDialog.labelContextProgram.text")); // NOI18N
 
         labelContextFilePrompt.setText(Bundle.getString("ProgramInputParametersDialog.labelContextFilePrompt.text")); // NOI18N
 
         labelContextFile.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
-        labelContextFile.setText(Bundle.getString("ProgramInputParametersDialog.labelContextFile.text")); // NOI18N
 
         javax.swing.GroupLayout panelContextLayout = new javax.swing.GroupLayout(panelContext);
         panelContext.setLayout(panelContextLayout);
@@ -155,13 +153,13 @@ public final class ProgramInputParametersDialog extends Dialog {
         scrollPaneAreaParameter.setViewportView(textAreaParameter);
 
         buttonGroup.add(radioButtonParametersBeforeFilename);
-        radioButtonParametersBeforeFilename.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        radioButtonParametersBeforeFilename.setFont(new java.awt.Font("Dialog", 0, 12));
         radioButtonParametersBeforeFilename.setMnemonic('v');
         radioButtonParametersBeforeFilename.setSelected(true);
         radioButtonParametersBeforeFilename.setText(Bundle.getString("ProgramInputParametersDialog.radioButtonParametersBeforeFilename.text")); // NOI18N
 
         buttonGroup.add(radioButtonParametersAfterFilename);
-        radioButtonParametersAfterFilename.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        radioButtonParametersAfterFilename.setFont(new java.awt.Font("Dialog", 0, 12));
         radioButtonParametersAfterFilename.setMnemonic('n');
         radioButtonParametersAfterFilename.setText(Bundle.getString("ProgramInputParametersDialog.radioButtonParametersAfterFilename.text")); // NOI18N
 

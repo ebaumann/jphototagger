@@ -225,8 +225,7 @@ public final class EditRepeatableTextEntryPanel extends javax.swing.JPanel
         gridBagConstraints.weighty = 1.0;
         add(scrollPane, gridBagConstraints);
 
-        textFieldInput.setFont(new java.awt.Font("Dialog", 0, 11));
-        textFieldInput.setText(Bundle.getString("EditRepeatableTextEntryPanel.textFieldInput.text")); // NOI18N
+        textFieldInput.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
         textFieldInput.setToolTipText(Bundle.getString("EditRepeatableTextEntryPanel.textFieldInput.toolTipText")); // NOI18N
         textFieldInput.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {

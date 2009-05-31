@@ -12,6 +12,7 @@ import de.elmar_baumann.imv.view.renderer.ListCellRendererFavoriteDirectories;
 import de.elmar_baumann.imv.view.renderer.ListCellRendererImageCollections;
 import de.elmar_baumann.imv.view.renderer.ListCellRendererKeywords;
 import de.elmar_baumann.imv.view.renderer.ListCellRendererSavedSearches;
+import de.elmar_baumann.lib.dialog.SystemOutputDialog;
 import de.elmar_baumann.lib.event.JTableButtonMouseListener;
 import de.elmar_baumann.lib.util.Settings;
 import de.elmar_baumann.lib.util.SettingsHints;
@@ -68,6 +69,7 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
         disableTreeMultipleSelection();
         initArrays();
         tableExif.addMouseListener(new JTableButtonMouseListener(tableExif));
+        SystemOutputDialog.INSTANCE.captureOutput();
     }
 
     private void initArrays() {
@@ -201,6 +203,10 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
 
     public JButton getButtonLogfileDialog() {
         return buttonLogfileDialog;
+    }
+
+    public JButton getButtonSystemOutput() {
+        return buttonSystemOutput;
     }
 
     public JButton getButtonSaveMetadata() {
@@ -457,6 +463,7 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
         panelStatusbar = new javax.swing.JPanel();
         sliderThumbnailSize = new javax.swing.JSlider();
         buttonLogfileDialog = new javax.swing.JButton();
+        buttonSystemOutput = new javax.swing.JButton();
         labelStatusbar = new javax.swing.JLabel();
         progressBarCreateMetadataOfCurrentThumbnails = new javax.swing.JProgressBar();
         progressBarCurrentTasks = new javax.swing.JProgressBar();
@@ -802,6 +809,13 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
         buttonLogfileDialog.setBorder(null);
         buttonLogfileDialog.setPreferredSize(new java.awt.Dimension(16, 16));
 
+        buttonSystemOutput.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        buttonSystemOutput.setMnemonic('u');
+        buttonSystemOutput.setText(Bundle.getString("AppPanel.buttonSystemOutput.text")); // NOI18N
+        buttonSystemOutput.setToolTipText(Bundle.getString("AppPanel.buttonSystemOutput.toolTipText")); // NOI18N
+        buttonSystemOutput.setBorder(null);
+        buttonSystemOutput.setPreferredSize(new java.awt.Dimension(16, 16));
+
         labelStatusbar.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
 
         progressBarCreateMetadataOfCurrentThumbnails.setFont(new java.awt.Font("Dialog", 1, 8));
@@ -851,13 +865,15 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
                 .addGroup(panelStatusbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(sliderThumbnailSize, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labelStatusbar, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(panelStatusbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelStatusbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(panelStatusbarLayout.createSequentialGroup()
                         .addGap(59, 59, 59)
                         .addComponent(labelFastSearch))
                     .addGroup(panelStatusbarLayout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addComponent(buttonLogfileDialog, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(buttonLogfileDialog, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonSystemOutput, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelStatusbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(progressBarCreateMetadataOfCurrentThumbnails, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
@@ -879,6 +895,7 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
                     .addComponent(progressBarCreateMetadataOfCurrentThumbnails, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(progressBarCurrentTasks, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(panelStatusbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(buttonSystemOutput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(buttonLogfileDialog, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(labelStatusbar, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))))
             .addComponent(sliderThumbnailSize, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -911,6 +928,7 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonLogfileDialog;
     private javax.swing.JButton buttonStopScheduledTasks;
+    private javax.swing.JButton buttonSystemOutput;
     private javax.swing.JLabel labelFastSearch;
     private javax.swing.JLabel labelMetadataFilename;
     private javax.swing.JLabel labelStatusbar;

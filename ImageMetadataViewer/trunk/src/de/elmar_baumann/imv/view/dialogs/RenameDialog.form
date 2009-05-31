@@ -166,11 +166,6 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="textFieldNewName">
-              <Properties>
-                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="RenameDialog.textFieldNewName.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
-                </Property>
-              </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="buttonRename">
               <Properties>
@@ -561,11 +556,6 @@
                   </Events>
                 </Component>
                 <Component class="javax.swing.JTextField" name="textFieldAtBegin">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="RenameDialog.textFieldAtBegin.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
-                    </Property>
-                  </Properties>
                   <Events>
                     <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="textFieldAtBeginKeyReleased"/>
                   </Events>
@@ -583,9 +573,6 @@
                 <Component class="javax.swing.JTextField" name="textFieldDelim1">
                   <Properties>
                     <Property name="columns" type="int" value="1"/>
-                    <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="RenameDialog.textFieldDelim1.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
-                    </Property>
                   </Properties>
                   <Events>
                     <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="textFieldDelim1KeyReleased"/>
@@ -607,11 +594,6 @@
                   </Events>
                 </Component>
                 <Component class="javax.swing.JTextField" name="textFieldInTheMiddle">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="RenameDialog.textFieldInTheMiddle.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
-                    </Property>
-                  </Properties>
                   <Events>
                     <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="textFieldInTheMiddleKeyReleased"/>
                   </Events>
@@ -629,9 +611,6 @@
                 <Component class="javax.swing.JTextField" name="textFieldDelim2">
                   <Properties>
                     <Property name="columns" type="int" value="1"/>
-                    <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="RenameDialog.textFieldDelim2.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
-                    </Property>
                   </Properties>
                   <Events>
                     <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="textFieldDelim2KeyReleased"/>
@@ -653,11 +632,6 @@
                   </Events>
                 </Component>
                 <Component class="javax.swing.JTextField" name="textFieldAtEnd">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="RenameDialog.textFieldAtEnd.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
-                    </Property>
-                  </Properties>
                   <Events>
                     <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="textFieldAtEndMouseReleased"/>
                   </Events>
@@ -698,7 +672,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="labelBefore" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="labelBefore" linkSize="6" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="labelBeforeFilename" linkSize="6" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
@@ -727,9 +701,6 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Dialog" size="12" style="0"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="RenameDialog.labelBeforeFilename.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
-                    </Property>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="labelAfter">
@@ -746,9 +717,6 @@
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Dialog" size="12" style="0"/>
-                    </Property>
-                    <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="RenameDialog.labelAfterFilename.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
                 </Component>

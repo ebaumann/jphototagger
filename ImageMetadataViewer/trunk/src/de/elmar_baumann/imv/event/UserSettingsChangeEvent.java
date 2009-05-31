@@ -34,6 +34,7 @@ public final class UserSettingsChangeEvent {
     private boolean useEmbeddedThumbnails;
     private boolean noFastSearchColumns;
     private boolean treeDirectoriesSelectLastDirectory;
+    private boolean openSystemOutputWindowAfterStart;
     private Integer maxThumbnailWidth;
     private Integer minutesToStartScheduledTasks;
     private Integer threadPriority;
@@ -67,6 +68,7 @@ public final class UserSettingsChangeEvent {
         THREAD_PRIORITY,
         WEB_BROWSER,
         TREE_DIRECTORIES_SELECT_LAST_DIRECTORY,
+        OPEN_SYSTEM_OUTPUT_WINDOW_AFTER_START,
     }
 
     public UserSettingsChangeEvent(Type type, Object source) {
@@ -88,6 +90,14 @@ public final class UserSettingsChangeEvent {
 
     public void setAcceptHiddenDirectories(boolean acceptHiddenDirectories) {
         this.acceptHiddenDirectories = acceptHiddenDirectories;
+    }
+
+    public boolean isOpenSystemOutputWindowAfterStart() {
+        return openSystemOutputWindowAfterStart;
+    }
+
+    public void setOpenSystemOutputWindowAfterStart(boolean openSystemOutputWindowAfterStart) {
+        this.openSystemOutputWindowAfterStart = openSystemOutputWindowAfterStart;
     }
 
     public File getAutoCopyDirectory() {

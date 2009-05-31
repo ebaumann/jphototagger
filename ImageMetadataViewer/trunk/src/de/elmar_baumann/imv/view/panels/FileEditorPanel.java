@@ -196,8 +196,7 @@ public final class FileEditorPanel extends javax.swing.JPanel {
         buttonStop = new javax.swing.JButton();
         buttonStart = new javax.swing.JButton();
 
-        labelDescription.setFont(new java.awt.Font("Dialog", 0, 12));
-        labelDescription.setText(Bundle.getString("FileEditorPanel.labelDescription.text")); // NOI18N
+        labelDescription.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         labelDescription.setBorder(javax.swing.BorderFactory.createTitledBorder(null, Bundle.getString("FileEditorPanel.labelDescription.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 11))); // NOI18N
 
         panelOptions.setBorder(javax.swing.BorderFactory.createTitledBorder(null, Bundle.getString("FileEditorPanel.panelOptions.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 11))); // NOI18N
@@ -230,10 +229,9 @@ public final class FileEditorPanel extends javax.swing.JPanel {
         );
 
         labelFilename.setForeground(new java.awt.Color(0, 0, 255));
-        labelFilename.setText(Bundle.getString("FileEditorPanel.labelFilename.text")); // NOI18N
         labelFilename.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        labelInfo.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        labelInfo.setFont(new java.awt.Font("Dialog", 0, 12));
         labelInfo.setText(Bundle.getString("FileEditorPanel.labelInfo.text")); // NOI18N
         labelInfo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -250,7 +248,7 @@ public final class FileEditorPanel extends javax.swing.JPanel {
             }
         });
 
-        buttonSelectFiles.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        buttonSelectFiles.setFont(new java.awt.Font("Dialog", 0, 12));
         buttonSelectFiles.setMnemonic('e');
         buttonSelectFiles.setText(Bundle.getString("FileEditorPanel.buttonSelectFiles.text")); // NOI18N
         buttonSelectFiles.addActionListener(new java.awt.event.ActionListener() {

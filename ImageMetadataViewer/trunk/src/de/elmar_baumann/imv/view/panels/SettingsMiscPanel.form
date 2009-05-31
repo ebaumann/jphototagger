@@ -17,14 +17,14 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" attributes="0">
+          <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Component id="panelFolderView" alignment="0" max="32767" attributes="2"/>
                   <Component id="panelDatabaseDirectory" alignment="0" max="32767" attributes="0"/>
                   <Component id="panelLogfile" alignment="0" max="32767" attributes="2"/>
                   <Component id="panelAutoCopyDirectory" alignment="1" max="32767" attributes="2"/>
                   <Component id="panelWebBrowser" alignment="0" max="32767" attributes="2"/>
-                  <Component id="panelFolderView" alignment="0" max="32767" attributes="2"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -42,7 +42,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="panelDatabaseDirectory" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="panelFolderView" min="-2" pref="100" max="-2" attributes="0"/>
+              <Component id="panelFolderView" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -154,7 +154,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="labelAutocopyDirectory" pref="419" max="32767" attributes="0"/>
+                  <Component id="labelAutocopyDirectory" pref="456" max="32767" attributes="0"/>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Component id="buttonChooseAutocopyDirectory" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
@@ -222,7 +222,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="labelWebBrowser" pref="419" max="32767" attributes="0"/>
+                  <Component id="labelWebBrowser" pref="456" max="32767" attributes="0"/>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Component id="buttonChooseWebBrowser" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
@@ -277,7 +277,7 @@
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-            <TitledBorder title="Datenbankverzeichnis nach Neustart">
+            <TitledBorder title="Datenbankordner nach Neustart">
               <ResourceString PropertyName="titleX" bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="SettingsMiscPanel.panelDatabaseDirectory.border.title" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
               <Font PropertyName="font" name="Dialog" size="11" style="1"/>
             </TitledBorder>
@@ -290,7 +290,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="labelDatabaseDirectory" pref="328" max="32767" attributes="0"/>
+                  <Component id="labelDatabaseDirectory" pref="364" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="buttonSetStandardDatabaseDirectoryName" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
@@ -364,7 +364,7 @@
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-            <TitledBorder title="Ordneranzeige">
+            <TitledBorder title="Verschiedenes">
               <ResourceString PropertyName="titleX" bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="SettingsMiscPanel.panelFolderView.border.title" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
               <Font PropertyName="font" name="Dialog" size="11" style="1"/>
             </TitledBorder>
@@ -376,23 +376,26 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
-                  <EmptySpace min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="checkBoxIsAcceptHiddenDirectories" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="checkBoxTreeDirectoriesSelectLastDirectory" alignment="0" pref="536" max="32767" attributes="0"/>
+                      <Component id="checkBoxTreeDirectoriesSelectLastDirectory" alignment="0" pref="583" max="32767" attributes="0"/>
+                      <Component id="checkBoxOpenSystemOutputWindowAfterStart" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace max="32767" attributes="1"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Component id="checkBoxIsAcceptHiddenDirectories" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Component id="checkBoxTreeDirectoriesSelectLastDirectory" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="checkBoxOpenSystemOutputWindowAfterStart" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -403,6 +406,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Dialog" size="12" style="0"/>
             </Property>
+            <Property name="mnemonic" type="int" value="111"/>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
               <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="SettingsMiscPanel.checkBoxIsAcceptHiddenDirectories.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
             </Property>
@@ -416,12 +420,27 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Dialog" size="12" style="0"/>
             </Property>
+            <Property name="mnemonic" type="int" value="115"/>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
               <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="SettingsMiscPanel.checkBoxTreeDirectoriesSelectLastDirectory.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
             </Property>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkBoxTreeDirectoriesSelectLastDirectoryActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JCheckBox" name="checkBoxOpenSystemOutputWindowAfterStart">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Dialog" size="12" style="0"/>
+            </Property>
+            <Property name="mnemonic" type="int" value="117"/>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+              <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="SettingsMiscPanel.checkBoxOpenSystemOutputWindowAfterStart.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkBoxOpenSystemOutputWindowAfterStartActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>
