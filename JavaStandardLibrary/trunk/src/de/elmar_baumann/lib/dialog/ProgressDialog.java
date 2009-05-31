@@ -193,7 +193,7 @@ public final class ProgressDialog extends javax.swing.JDialog {
 
         progressBar.setStringPainted(true);
 
-        buttonStop.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        buttonStop.setFont(new java.awt.Font("Dialog", 0, 12));
         buttonStop.setText(Bundle.getString("ProgressDialog.buttonStop.text")); // NOI18N
         buttonStop.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -201,7 +201,6 @@ public final class ProgressDialog extends javax.swing.JDialog {
             }
         });
 
-        labelProgressInfo.setText(Bundle.getString("ProgressDialog.labelProgressInfo.text")); // NOI18N
         labelProgressInfo.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -211,12 +210,12 @@ public final class ProgressDialog extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelProgressInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 535, Short.MAX_VALUE)
+                    .addComponent(labelProgressInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 543, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(progressBar, javax.swing.GroupLayout.DEFAULT_SIZE, 470, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonStop))
-                    .addComponent(labelInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 535, Short.MAX_VALUE))
+                    .addComponent(labelInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 543, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(

@@ -29,13 +29,13 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="labelProgressInfo" alignment="0" pref="535" max="32767" attributes="0"/>
+                  <Component id="labelProgressInfo" alignment="0" pref="543" max="32767" attributes="0"/>
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="progressBar" pref="470" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="buttonStop" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="labelInfo" alignment="0" pref="535" max="32767" attributes="0"/>
+                  <Component id="labelInfo" alignment="0" pref="543" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -89,9 +89,6 @@
     </Component>
     <Component class="javax.swing.JLabel" name="labelProgressInfo">
       <Properties>
-        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="de/elmar_baumann/lib/resource/Bundle.properties" key="ProgressDialog.labelProgressInfo.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
-        </Property>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
             <EtchetBorder/>
