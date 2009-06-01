@@ -8,7 +8,6 @@ import de.elmar_baumann.imv.view.popupmenus.PopupMenuPanelThumbnails;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -64,22 +63,18 @@ public final class ControllerDeleteThumbnailsFromDatabase implements ActionListe
     }
 
     private boolean confirmDelete() {
-        MessageFormat msg = new MessageFormat(Bundle.getString("ControllerDeleteThumbnailsFromDatabase.ConfirmMessage.DeleteSelectedFiles"));
-        Object[] params = {thumbnailsPanel.getSelectionCount()};
         return JOptionPane.showConfirmDialog(
                 null,
-                msg.format(params),
+                Bundle.getString("ControllerDeleteThumbnailsFromDatabase.ConfirmMessage.DeleteSelectedFiles", thumbnailsPanel.getSelectionCount()),
                 Bundle.getString("ControllerDeleteThumbnailsFromDatabase.ConfirmMessage.DeleteSelectedFiles.Title"),
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION;
     }
 
     private void errorMessageDeleteImageFiles(int countFiles, int countDeleted) {
-        MessageFormat msg = new MessageFormat(Bundle.getString("ControllerDeleteThumbnailsFromDatabase.ErrorMessage.DeleteSelectedFiles"));
-        Object[] params = {countFiles, countDeleted};
         JOptionPane.showMessageDialog(
                 null,
-                msg.format(params),
+                Bundle.getString("ControllerDeleteThumbnailsFromDatabase.ErrorMessage.DeleteSelectedFiles", countFiles, countDeleted),
                 Bundle.getString("ControllerDeleteThumbnailsFromDatabase.ErrorMessage.DeleteSelectedFiles.Title"),
                 JOptionPane.ERROR_MESSAGE);
     }

@@ -10,7 +10,6 @@ import de.elmar_baumann.imv.view.dialogs.MoveToDirectoryDialog;
 import de.elmar_baumann.lib.datatransfer.TransferUtil;
 import java.awt.datatransfer.Transferable;
 import java.io.File;
-import java.text.MessageFormat;
 import java.util.List;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
@@ -81,12 +80,10 @@ public final class TransferHandlerTreeDirectories extends TransferHandler {
         if (imageFiles.isEmpty()) {
             return;
         }
-        String msgFormatCopy = Bundle.getString("TransferHandlerTreeDirectories.ConfirmMessage.Copy");
-        String msgFormatMove = Bundle.getString("TransferHandlerTreeDirectories.ConfirmMessage.Move");
-        if (dropAction == COPY && confirmFileAction(msgFormatCopy, imageFiles.size(),
+        if (dropAction == COPY && confirmFileAction("TransferHandlerTreeDirectories.ConfirmMessage.Copy", imageFiles.size(),
             targetDirectory.getAbsolutePath())) {
             copyFiles(targetDirectory, imageFiles);
-        } else if (dropAction == MOVE && confirmFileAction(msgFormatMove,
+        } else if (dropAction == MOVE && confirmFileAction("TransferHandlerTreeDirectories.ConfirmMessage.Move",
             imageFiles.size(), targetDirectory.getAbsolutePath())) {
             moveFiles(targetDirectory, imageFiles);
         }
@@ -117,12 +114,10 @@ public final class TransferHandlerTreeDirectories extends TransferHandler {
         return null;
     }
 
-    private static boolean confirmFileAction(String messageFormat, int size, String absolutePath) {
-        MessageFormat msg = new MessageFormat(messageFormat);
-        Object[] params = {size, absolutePath};
+    private static boolean confirmFileAction(String bundleKey, int size, String absolutePath) {
         return JOptionPane.showConfirmDialog(
             null,
-            msg.format(params),
+            Bundle.getString(bundleKey, size, absolutePath),
             Bundle.getString("TransferHandlerTreeDirectories.ConfirmMessage.Title"),
             JOptionPane.YES_NO_OPTION,
             JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION;

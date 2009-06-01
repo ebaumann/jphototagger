@@ -3,7 +3,6 @@ package de.elmar_baumann.imv.model;
 import de.elmar_baumann.imv.data.MetadataEditTemplate;
 import de.elmar_baumann.imv.database.DatabaseMetadataEditTemplates;
 import de.elmar_baumann.imv.resource.Bundle;
-import java.text.MessageFormat;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
@@ -100,11 +99,9 @@ public final class ComboBoxModelMetadataEditTemplates extends DefaultComboBoxMod
     }
 
     private void errorMessage(String name, String cause) {
-        MessageFormat msg = new MessageFormat(Bundle.getString("ComboBoxModelMetadataEditTemplates.ErrorMessage.Template"));
-        Object[] params = {name, cause};
         JOptionPane.showMessageDialog(
             null,
-            msg.format(params),
+            Bundle.getString("ComboBoxModelMetadataEditTemplates.ErrorMessage.Template", name, cause),
             Bundle.getString("ComboBoxModelMetadataEditTemplates.ErrorMessage.Template.Title"),
             JOptionPane.ERROR_MESSAGE);
     }

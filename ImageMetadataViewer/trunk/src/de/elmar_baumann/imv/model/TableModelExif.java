@@ -15,7 +15,6 @@ import de.elmar_baumann.lib.runtime.External;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -177,9 +176,8 @@ public final class TableModelExif extends DefaultTableModel {
         }
 
         private void logExternalAppCommand(String cmd) {
-            MessageFormat msg = new MessageFormat(Bundle.getString("TableModelExif.LogMessage.ExternalAppCommand"));
-            Object[] params = {cmd};
-            AppLog.logFinest(GpsListener.class, msg.format(params));
+            AppLog.logFinest(GpsListener.class, Bundle.getString(
+                    "TableModelExif.LogMessage.ExternalAppCommand", cmd));
         }
     }
 }

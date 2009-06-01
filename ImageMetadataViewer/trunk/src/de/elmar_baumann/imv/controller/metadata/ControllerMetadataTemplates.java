@@ -13,7 +13,6 @@ import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.view.panels.EditMetadataPanelsArray;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.MessageFormat;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
@@ -158,22 +157,18 @@ public final class ControllerMetadataTemplates implements ActionListener, Metada
     }
 
     private boolean confirmDelete(String templateName) {
-        MessageFormat msg = new MessageFormat(Bundle.getString("ControllerMetadataTemplates.ConfirmMessage.Delete"));
-        Object[] params = {templateName};
         return JOptionPane.showConfirmDialog(
             null,
-            msg.format(params),
+            Bundle.getString("ControllerMetadataTemplates.ConfirmMessage.Delete", templateName),
             Bundle.getString("ControllerMetadataTemplates.ConfirmMessage.Delete.Title"),
             JOptionPane.YES_NO_OPTION,
             JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION;
     }
 
     private boolean confirmAbort(String name) {
-        MessageFormat msg = new MessageFormat(Bundle.getString("ControllerMetadataTemplates.ConfirmMessage.OverwriteExistingTemplate"));
-        Object[] params = {name};
         return JOptionPane.showConfirmDialog(
             null,
-            msg.format(params),
+            Bundle.getString("ControllerMetadataTemplates.ConfirmMessage.OverwriteExistingTemplate", name),
             Bundle.getString("ControllerMetadataTemplates.ConfirmMessage.OverwriteExistingTemplate.Title"),
             JOptionPane.YES_NO_OPTION,
             JOptionPane.QUESTION_MESSAGE) == JOptionPane.NO_OPTION;

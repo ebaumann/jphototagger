@@ -10,7 +10,6 @@ import de.elmar_baumann.imv.view.popupmenus.PopupMenuListFavoriteDirectories;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.MessageFormat;
 import javax.swing.JOptionPane;
 
 /**
@@ -55,11 +54,9 @@ public final class ControllerDeleteFavoriteDirectory implements ActionListener {
     }
 
     private boolean confirmDelete(String favoriteName) {
-        MessageFormat msg = new MessageFormat(Bundle.getString("ControllerDeleteFavoriteDirectory.ConfirmMessage.Delete"));
-        Object[] params = {favoriteName};
         return JOptionPane.showConfirmDialog(
                 null,
-                msg.format(params),
+                Bundle.getString("ControllerDeleteFavoriteDirectory.ConfirmMessage.Delete", favoriteName),
                 Bundle.getString("ControllerDeleteFavoriteDirectory.ConfirmMessage.Delete.Title"),
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION;

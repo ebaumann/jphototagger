@@ -6,7 +6,6 @@ import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
-import java.text.MessageFormat;
 import javax.swing.JLabel;
 import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
@@ -21,7 +20,6 @@ import javax.swing.event.ChangeListener;
 public final class ControllerThumbnailCountDisplay
         implements ThumbnailsPanelListener, ChangeListener {
 
-    private static final MessageFormat msg = new MessageFormat(Bundle.getString("ControllerThumbnailCount.InformationMessage"));
     private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
     private final JSlider sliderThumbnailSize = appPanel.getSliderThumbnailSize();
     private final JLabel label = appPanel.getLabelStatusbar();
@@ -63,6 +61,7 @@ public final class ControllerThumbnailCountDisplay
     }
 
     private void setLabel() {
-        label.setText(msg.format(new Object[]{thumbnailCount, thumbnailZoom}));
+        label.setText(Bundle.getString("ControllerThumbnailCount.InformationMessage",
+                thumbnailCount, thumbnailZoom));
     }
 }

@@ -12,7 +12,6 @@ import de.elmar_baumann.lib.io.FileUtil;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.io.File;
-import java.text.MessageFormat;
 import java.util.List;
 import javax.swing.JComponent;
 import javax.swing.JList;
@@ -90,11 +89,9 @@ public final class TransferHandlerListFavoriteDirectories extends TransferHandle
     }
 
     private boolean confirmAddDirectories(int size) {
-        MessageFormat msg = new MessageFormat(Bundle.getString("TransferHandlerListFavoriteDirectories.ConfirmMessage.AddDirectories"));
-        Object[] params = {size};
         return JOptionPane.showConfirmDialog(
                 null,
-                msg.format(params),
+                Bundle.getString("TransferHandlerListFavoriteDirectories.ConfirmMessage.AddDirectories", size),
                 Bundle.getString("TransferHandlerListFavoriteDirectories.ConfirmMessage.AddDirectories.Title"),
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION;

@@ -6,7 +6,6 @@ import de.elmar_baumann.lib.template.Pair;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -69,9 +68,7 @@ final class UpdateTableRenameColumns {
     }
 
     private void setMessage(String tableName, String columnName) {
-        MessageFormat msg = new MessageFormat(
-            Bundle.getString("UpdateTableRenameColumns.InformationMessage.RenameColumn"));
-        Object[] params = {tableName, columnName};
-        messages.message(msg.format(params));
+        messages.message(Bundle.getString("UpdateTableRenameColumns.InformationMessage.RenameColumn",
+                tableName, columnName));
     }
 }

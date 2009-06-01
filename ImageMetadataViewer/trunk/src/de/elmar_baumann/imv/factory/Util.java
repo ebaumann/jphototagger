@@ -2,7 +2,6 @@ package de.elmar_baumann.imv.factory;
 
 import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.resource.Bundle;
-import java.text.MessageFormat;
 
 /**
  * Factorie's utils.
@@ -21,9 +20,9 @@ final class Util {
      */
     static void checkInit(Class c, boolean init) {
         if (init) {
-            MessageFormat msg = new MessageFormat(Bundle.getString("FactoryMessages.ErrorMessage.InitCalledMoreThanOneTimes"));
-            Object[] params = {c.getName()};
-            AppLog.logWarning(MetaFactory.class, msg.format(params));
+            AppLog.logWarning(MetaFactory.class, Bundle.getString(
+                    "FactoryMessages.ErrorMessage.InitCalledMoreThanOneTimes",
+                    c.getName()));
         }
     }
 

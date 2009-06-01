@@ -7,7 +7,6 @@ import java.awt.HeadlessException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -355,8 +354,6 @@ public final class DatabaseTables extends Database {
     }
 
     private Object getExceptionMessage(SQLException ex) {
-        MessageFormat msg = new MessageFormat(Bundle.getString("Database.CreateTables.ErrorMessage"));
-        Object[] params = {ex.getLocalizedMessage()};
-        return msg.format(params);
+        return Bundle.getString("Database.CreateTables.ErrorMessage", ex.getLocalizedMessage());
     }
 }

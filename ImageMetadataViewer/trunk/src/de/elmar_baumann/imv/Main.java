@@ -14,7 +14,6 @@ import de.elmar_baumann.lib.clipboard.lang.Version;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.awt.HeadlessException;
 import java.io.IOException;
-import java.text.MessageFormat;
 import java.util.logging.FileHandler;
 import java.util.logging.Formatter;
 import java.util.logging.Handler;
@@ -121,8 +120,8 @@ public final class Main {
     }
 
     private static Object getVersionMessage(Version javaVersion) {
-        return new MessageFormat(
-                Bundle.getString("Main.ErrorMessage.JavaVersion")).format(new Object[]{javaVersion, AppInfo.minJavaVersion});
+        return Bundle.getString("Main.ErrorMessage.JavaVersion",
+                javaVersion, AppInfo.minJavaVersion);
     }
 
     private Main() {

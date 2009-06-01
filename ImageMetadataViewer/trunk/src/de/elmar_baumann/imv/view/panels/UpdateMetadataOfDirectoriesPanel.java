@@ -12,7 +12,6 @@ import de.elmar_baumann.lib.dialog.DirectoryChooser;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.awt.event.KeyEvent;
 import java.io.File;
-import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
@@ -24,7 +23,7 @@ import javax.swing.DefaultListModel;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  */
 public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
-    implements ProgressListener {
+        implements ProgressListener {
 
     private static final String keyLastDirectory = "de.elmar_baumann.imv.view.ScanDirectoriesDialog.lastSelectedDirectory"; // NOI18N
     private static final String keyForce = "de.elmar_baumann.imv.view.ScanDirectoriesDialog.force"; // NOI18N
@@ -46,7 +45,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
         stop();
         writeProperties();
         UserSettings.INSTANCE.getSettings().setString(
-            lastSelectedDirectory.getAbsolutePath(), keyLastDirectory);
+                lastSelectedDirectory.getAbsolutePath(), keyLastDirectory);
     }
 
     private void chooseDirectories() {
@@ -55,7 +54,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
         dialog.setVisible(true);
         if (dialog.accepted()) {
             List<File> newDirectories = getNotAlreadyChoosenDirectoriesFrom(
-                dialog.getSelectedDirectories());
+                    dialog.getSelectedDirectories());
             if (newDirectories.size() > 0) {
                 empty();
                 addDirectories(newDirectories);
@@ -68,24 +67,24 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
 
     private void createScanner() {
         activeUpdater =
-            new InsertImageFilesIntoDatabase(
-            FileUtil.getAsFilenames(selectedFiles), getWhatToInsertIntoDatabase());
+                new InsertImageFilesIntoDatabase(
+                FileUtil.getAsFilenames(selectedFiles), getWhatToInsertIntoDatabase());
     }
 
     private Set<DirectoryChooser.Option> getDirectoryChooserOptions() {
         return EnumSet.of(DirectoryChooser.Option.MULTI_SELECTION,
                 UserSettings.INSTANCE.isAcceptHiddenDirectories()
-                    ? DirectoryChooser.Option.ACCEPT_HIDDEN_DIRECTORIES
-                    : DirectoryChooser.Option.REJECT_HIDDEN_DIRECTORIES);
+                ? DirectoryChooser.Option.ACCEPT_HIDDEN_DIRECTORIES
+                : DirectoryChooser.Option.REJECT_HIDDEN_DIRECTORIES);
     }
 
     private EnumSet<InsertImageFilesIntoDatabase.Insert> getWhatToInsertIntoDatabase() {
         return checkBoxForce.isSelected()
-            ? EnumSet.of(
+                ? EnumSet.of(
                 InsertImageFilesIntoDatabase.Insert.EXIF,
                 InsertImageFilesIntoDatabase.Insert.THUMBNAIL,
                 InsertImageFilesIntoDatabase.Insert.XMP)
-            : EnumSet.of(InsertImageFilesIntoDatabase.Insert.OUT_OF_DATE);
+                : EnumSet.of(InsertImageFilesIntoDatabase.Insert.OUT_OF_DATE);
     }
 
     private List<File> getAllImageFiles() {
@@ -95,7 +94,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
             for (int index = 0; index < elements.length; index++) {
                 if (elements[index] instanceof DirectoryInfo) {
                     DirectoryInfo directoryInfo =
-                        (DirectoryInfo) elements[index];
+                            (DirectoryInfo) elements[index];
                     imageFiles.addAll(directoryInfo.getImageFiles());
                 }
             }
@@ -104,7 +103,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
     }
 
     private List<File> getNotAlreadyChoosenDirectoriesFrom(
-        List<File> directories) {
+            List<File> directories) {
         List<File> newDirectories = new ArrayList<File>();
         for (File directory : directories) {
             if (!modelSelectedDirectoryList.contains(directory)) {
@@ -115,9 +114,9 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
     }
 
     private void informationMessageThreadPriority(Thread thread) {
-        MessageFormat message = new MessageFormat(Bundle.getString("UpdateMetadataOfDirectoriesPanel.InformationMessage.ThreadPriority"));
-        Object[] params = {thread.getPriority()};
-        AppLog.logFinest(UpdateMetadataOfDirectoriesPanel.class, message.format(params));
+        AppLog.logFinest(UpdateMetadataOfDirectoriesPanel.class, Bundle.getString(
+                "UpdateMetadataOfDirectoriesPanel.InformationMessage.ThreadPriority",
+                thread.getPriority()));
     }
 
     private void readProperties() {
@@ -169,9 +168,9 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
     }
 
     private void setFileCountInfo() {
-        MessageFormat message = new MessageFormat(Bundle.getString("UpdateMetadataOfDirectoriesPanel.InformationMessage.SelectedFileCount"));
-        Object[] params = {countSelectedFiles};
-        labelCountSelectedFiles.setText(message.format(params));
+        labelCountSelectedFiles.setText(Bundle.getString(
+                "UpdateMetadataOfDirectoriesPanel.InformationMessage.SelectedFileCount",
+                countSelectedFiles));
     }
 
     private void afterUpdate() {
@@ -195,7 +194,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
     private void setLastDirectory() {
         if (!modelSelectedDirectoryList.isEmpty()) {
             Object object = modelSelectedDirectoryList.elementAt(
-                modelSelectedDirectoryList.getSize() - 1);
+                    modelSelectedDirectoryList.getSize() - 1);
             if (object instanceof DirectoryInfo) {
                 DirectoryInfo directoryInfo = (DirectoryInfo) object;
                 lastSelectedDirectory = directoryInfo.getDirectory();
@@ -252,7 +251,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
 
     private void readCurrentDirectoryFromProperties() {
         String currentDirectoryname =
-            UserSettings.INSTANCE.getSettings().getString(keyLastDirectory);
+                UserSettings.INSTANCE.getSettings().getString(keyLastDirectory);
         if (!currentDirectoryname.isEmpty()) {
             File directory = new File(currentDirectoryname);
             if (directory.exists() && directory.isDirectory()) {
@@ -305,12 +304,10 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
         long remainingMilliSeconds = evt.getMilliSecondsRemaining();
         long remainingMinutes = remainingMilliSeconds / 60000;
         boolean isTime = remainingMinutes > 0;
-        MessageFormat message = new MessageFormat(
-            isTime
-            ? Bundle.getString("UpdateMetadataOfDirectoriesPanel.InformationMessage.ProgressWithTime")
-            : Bundle.getString("UpdateMetadataOfDirectoriesPanel.InformationMessage.ProgressWithoutTime"));
-        Object[] params = {currentFilenameInfotextPrefix, evt.getInfo(), remainingMinutes};
-        labelCurrentFilename.setText(message.format(params));
+        String bundleKey = isTime
+                ? "UpdateMetadataOfDirectoriesPanel.InformationMessage.ProgressWithTime"
+                : "UpdateMetadataOfDirectoriesPanel.InformationMessage.ProgressWithoutTime";
+        labelCurrentFilename.setText(Bundle.getString(bundleKey, currentFilenameInfotextPrefix, evt.getInfo(), remainingMinutes));
     }
 
     /** This method is called from within the constructor to

@@ -3,7 +3,6 @@ package de.elmar_baumann.imv.tasks;
 import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.database.DatabaseImageCollections;
 import de.elmar_baumann.imv.resource.Bundle;
-import java.text.MessageFormat;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -43,7 +42,7 @@ public final class ImageCollectionDatabaseUtils {
      * @return               true, wenn die Bilder entfernt wurden
      */
     public static boolean deleteImagesFromCollection(String collectionName, List<String> filenames) {
-        if (confirmDelete(collectionName, Bundle.getString("ImageCollectionToDatabase.ConfirmMessage.DeleteSelectedFiles"))) {
+        if (confirmDelete("ImageCollectionToDatabase.ConfirmMessage.DeleteSelectedFiles", collectionName)) {
             boolean removed = db.deleteImagesFromCollection(collectionName, filenames) == filenames.size();
             if (!removed) {
                 errorMessageDeleteImagesFromCollection(collectionName);
@@ -61,7 +60,7 @@ public final class ImageCollectionDatabaseUtils {
      */
     public static boolean deleteImageCollection(String collectionName) {
         boolean deleted = false;
-        if (confirmDelete(collectionName, Bundle.getString("ImageCollectionToDatabase.ConfirmMessage.DeleteCollection"))) {
+        if (confirmDelete("ImageCollectionToDatabase.ConfirmMessage.DeleteCollection", collectionName)) {
             deleted = db.deleteImageCollection(collectionName);
             if (!deleted) {
                 errorMessageDeleteImageCollection(collectionName);
@@ -107,51 +106,47 @@ public final class ImageCollectionDatabaseUtils {
     }
 
     private static void logAddImageCollection(String name) {
-        MessageFormat msg = new MessageFormat(Bundle.getString("ImageCollectionToDatabase.InformationMessage.StartInsert"));
-        Object[] params = {name};
-        AppLog.logInfo(ImageCollectionDatabaseUtils.class, msg.format(params));
+        AppLog.logInfo(ImageCollectionDatabaseUtils.class, Bundle.getString(
+                "ImageCollectionToDatabase.InformationMessage.StartInsert",
+                name));
     }
 
     private static void errorMessageAddImagesToCollection(String collectionName) {
-        errorMessage(Bundle.getString("ImageCollectionToDatabase.ErrorMessage.AddImagesToCollection"),
+        errorMessage("ImageCollectionToDatabase.ErrorMessage.AddImagesToCollection",
                 collectionName);
     }
 
     private static void errorMessageAddImageCollection(String collectionName) {
-        errorMessage(Bundle.getString("ImageCollectionToDatabase.ErrorMessage.AddImageCollection"),
+        errorMessage("ImageCollectionToDatabase.ErrorMessage.AddImageCollection",
                 collectionName);
     }
 
     private static void errorMessageDeleteImageCollection(String collectionName) {
-        errorMessage(Bundle.getString("ImageCollectionToDatabase.ErrorMessage.DeleteImageCollection"),
+        errorMessage("ImageCollectionToDatabase.ErrorMessage.DeleteImageCollection",
                 collectionName);
     }
 
     private static void errorMessageDeleteImagesFromCollection(String collectionName) {
-        errorMessage(Bundle.getString("ImageCollectionToDatabase.ErrorMessage.DeleteImagesFromCollection"),
+        errorMessage("ImageCollectionToDatabase.ErrorMessage.DeleteImagesFromCollection",
                 collectionName);
     }
 
     private static void errorMessageRenameImageCollection(String collectionName) {
-        errorMessage(Bundle.getString("ImageCollectionToDatabase.ErrorMessage.RenameImageCollection"),
+        errorMessage("ImageCollectionToDatabase.ErrorMessage.RenameImageCollection",
                 collectionName);
     }
 
-    private static void errorMessage(String format, String param) {
-        MessageFormat msg = new MessageFormat(format);
-        Object[] params = {param};
+    private static void errorMessage(String bundleKey, String param) {
         JOptionPane.showMessageDialog(null,
-                msg.format(params),
+                Bundle.getString(bundleKey, param),
                 Bundle.getString("ImageCollectionToDatabase.ErrorMessage.Title"),
                 JOptionPane.ERROR_MESSAGE);
     }
 
-    private static boolean confirmDelete(String collectionName, String message) {
-        MessageFormat msg = new MessageFormat(message);
-        Object[] params = {collectionName};
+    private static boolean confirmDelete(String bundleKey, String collectionName) {
         return JOptionPane.showConfirmDialog(
                 null,
-                msg.format(params),
+                Bundle.getString(bundleKey, collectionName),
                 Bundle.getString("ImageCollectionToDatabase.ConfirmMessage.Delete.Title"),
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION;
@@ -164,10 +159,8 @@ public final class ImageCollectionDatabaseUtils {
             willAdd = false;
             String nameNextTry = name;
             if (db.existsImageCollection(name)) {
-                MessageFormat msg = new MessageFormat(Bundle.getString("ImageCollectionToDatabase.ConfirmMessage.InputNewCollectionName"));
-                Object[] params = {name};
                 willAdd = JOptionPane.showConfirmDialog(null,
-                        msg.format(params),
+                        Bundle.getString("ImageCollectionToDatabase.ConfirmMessage.InputNewCollectionName", name),
                         Bundle.getString("ImageCollectionToDatabase.ConfirmMessage.InputNewCollectionName.Title"),
                         JOptionPane.YES_NO_OPTION,
                         JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION;

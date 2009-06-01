@@ -5,7 +5,6 @@ import de.elmar_baumann.lib.dialog.ProgressDialog;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,21 +20,21 @@ final class UpdateTablesAddColumns {
     private final ProgressDialog dialog = messages.getProgressDialog();
     private final List<ColumnInfo> missingColumns = new ArrayList<ColumnInfo>();
     private static final List<ColumnInfo> columns = new ArrayList<ColumnInfo>();
-    
+
 
     static {
         columns.add(new ColumnInfo("programs", "parameters_after_filename", "BINARY",
-            null));
+                null));
         columns.add(new ColumnInfo("programs", "action", "BOOLEAN",
-            new IndexOfColumn("programs", "action", "idx_programs_action", false)));
+                new IndexOfColumn("programs", "action", "idx_programs_action", false)));
         columns.add(new ColumnInfo("programs", "input_before_execute", "BOOLEAN",
-            null));
+                null));
         columns.add(new ColumnInfo("programs", "input_before_execute_per_file", "BOOLEAN",
-            null));
+                null));
         columns.add(new ColumnInfo("programs", "single_file_processing", "BOOLEAN",
-            null));
+                null));
         columns.add(new ColumnInfo("programs", "change_file", "BOOLEAN",
-            null));
+                null));
     }
 
     void update(Connection connection) throws SQLException {
@@ -68,16 +67,14 @@ final class UpdateTablesAddColumns {
         setMessage(info.getTableName(), info.getColumnName());
         Statement stmt = connection.createStatement();
         stmt.execute("ALTER TABLE " + info.getTableName() + " ADD COLUMN " + // NOI18N
-            info.getColumnName() + " " + info.getDataType()); // NOI18N
+                info.getColumnName() + " " + info.getDataType()); // NOI18N
         if (info.getIndex() != null) {
             stmt.execute(info.getIndex().getSql());
         }
     }
 
     private void setMessage(String tableName, String columnName) {
-        MessageFormat msg = new MessageFormat(
-            Bundle.getString("UpdateTablesAddNewColumns.InformationMessage.AddColumns"));
-        Object[] params = {tableName, columnName};
-        messages.message(msg.format(params));
+        messages.message(Bundle.getString("UpdateTablesAddNewColumns.InformationMessage.AddColumns",
+                tableName, columnName));
     }
 }

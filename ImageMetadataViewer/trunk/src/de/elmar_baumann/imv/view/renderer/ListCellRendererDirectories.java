@@ -3,7 +3,6 @@ package de.elmar_baumann.imv.view.renderer;
 import de.elmar_baumann.imv.io.DirectoryInfo;
 import de.elmar_baumann.imv.resource.Bundle;
 import java.awt.Component;
-import java.text.MessageFormat;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -20,13 +19,12 @@ import javax.swing.filechooser.FileSystemView;
 public final class ListCellRendererDirectories extends DefaultListCellRenderer {
 
     private static final FileSystemView fileSystemView = FileSystemView.getFileSystemView();
-    private static final MessageFormat message = new MessageFormat(Bundle.getString("ListCellRendererDirectories.LabelText"));
 
     @Override
     public Component getListCellRendererComponent(JList list, Object value,
-        int index, boolean isSelected, boolean cellHasFocus) {
+            int index, boolean isSelected, boolean cellHasFocus) {
         JLabel label = (JLabel) super.getListCellRendererComponent(list, value,
-            index, isSelected, cellHasFocus);
+                index, isSelected, cellHasFocus);
         DirectoryInfo directoryInfo = (DirectoryInfo) value;
         label.setIcon(fileSystemView.getSystemIcon(directoryInfo.getDirectory()));
         label.setText(getLabelText(directoryInfo));
@@ -34,9 +32,8 @@ public final class ListCellRendererDirectories extends DefaultListCellRenderer {
     }
 
     private static String getLabelText(DirectoryInfo directoryInfo) {
-        Object[] params = {directoryInfo.getDirectory().getAbsolutePath(),
-            directoryInfo.getImageFileCount()
-        };
-        return message.format(params);
+        return Bundle.getString("ListCellRendererDirectories.LabelText",
+                directoryInfo.getDirectory().getAbsolutePath(),
+                directoryInfo.getImageFileCount());
     }
 }

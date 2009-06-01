@@ -10,7 +10,6 @@ import de.elmar_baumann.lib.io.FileUtil;
 import de.elmar_baumann.lib.runtime.External;
 import de.elmar_baumann.lib.template.Pair;
 import java.io.File;
-import java.text.MessageFormat;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Queue;
@@ -100,9 +99,8 @@ public final class ProgramStarter {
         }
 
         private void logCommand(String command) {
-            MessageFormat msg = new MessageFormat(Bundle.getString("ProgramStarter.InformationMessage.ExecuteCommand"));
-            Object[] params = {command};
-            AppLog.logInfo(ProgramStarter.class, msg.format(params));
+            AppLog.logInfo(ProgramStarter.class, Bundle.getString(
+                    "ProgramStarter.InformationMessage.ExecuteCommand", command));
         }
 
         private void processAll() {

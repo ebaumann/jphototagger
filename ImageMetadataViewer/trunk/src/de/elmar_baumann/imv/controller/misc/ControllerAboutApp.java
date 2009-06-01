@@ -5,7 +5,6 @@ import de.elmar_baumann.imv.app.AppInfo;
 import de.elmar_baumann.imv.resource.Bundle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.MessageFormat;
 import javax.swing.JOptionPane;
 
 /**
@@ -23,10 +22,8 @@ public final class ControllerAboutApp implements ActionListener {
     }
 
     private void showAbout() {
-        MessageFormat message = new MessageFormat(Bundle.getString("ControllerAppAbout.InformationMessage.About")); // NOI18N
-        Object[] params = new Object[]{AppInfo.appName, AppInfo.appVersion};
         JOptionPane.showMessageDialog(null,
-                message.format(params),
+                Bundle.getString("ControllerAppAbout.InformationMessage.About", AppInfo.appName, AppInfo.appVersion),
                 Bundle.getString("ControllerAppAbout.InformationMessage.About.Title"), // NOI18N
                 JOptionPane.INFORMATION_MESSAGE,
                 AppIcons.getMediumAppIcon());

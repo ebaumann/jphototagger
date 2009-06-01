@@ -75,9 +75,8 @@ public final class ExifGpsAltitude {
     }
 
     public String localizedString() {
-        MessageFormat msg = new MessageFormat("{0} m {1}");
-        Object[] params = {ExifUtil.toLong(value), localizedStringOfRef.get(ref)};
-        return msg.format(params);
+        MessageFormat msg = new MessageFormat("{0} m {1}"); // NOI18N
+        return msg.format(new Object[] {ExifUtil.toLong(value), localizedStringOfRef.get(ref)});
     }
 
     public Ref getRef() {

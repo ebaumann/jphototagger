@@ -4,7 +4,6 @@ import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.io.File;
-import java.text.MessageFormat;
 import javax.swing.JOptionPane;
 
 /**
@@ -77,10 +76,9 @@ public final class AppLock {
     }
 
     private static boolean confirmForceUnlock() {
-        MessageFormat msg = new MessageFormat(Bundle.getString("Lock.ErrorMessage.LockFileExists"));
         return JOptionPane.showConfirmDialog(
                 null,
-                msg.format(new Object[]{lockFileName}),
+                Bundle.getString("Lock.ErrorMessage.LockFileExists", lockFileName),
                 Bundle.getString("Lock.ErrorMessage.LockFileExists.Title"),
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.WARNING_MESSAGE) == JOptionPane.YES_OPTION;

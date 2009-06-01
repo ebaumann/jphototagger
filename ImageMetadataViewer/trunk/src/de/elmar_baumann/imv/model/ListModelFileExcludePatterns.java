@@ -2,7 +2,6 @@ package de.elmar_baumann.imv.model;
 
 import de.elmar_baumann.imv.database.DatabaseFileExcludePattern;
 import de.elmar_baumann.imv.resource.Bundle;
-import java.text.MessageFormat;
 import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
@@ -29,13 +28,13 @@ public final class ListModelFileExcludePatterns extends DefaultListModel {
     public void insertPattern(String pattern) {
         String trimmedPattern = pattern.trim();
         if (db.existsFileExcludePattern(trimmedPattern)) {
-            errorMessage(Bundle.getString("ListModelFileExcludePatterns.ErrorMessage.InsertPattern.Exists"), trimmedPattern);
+            errorMessage("ListModelFileExcludePatterns.ErrorMessage.InsertPattern.Exists", trimmedPattern);
         }
         if (db.insertFileExcludePattern(trimmedPattern)) {
             addElement(trimmedPattern);
             patterns.add(trimmedPattern);
         } else {
-            errorMessage(Bundle.getString("ListModelFileExcludePatterns.ErrorMessage.InsertPattern.Add"), trimmedPattern);
+            errorMessage("ListModelFileExcludePatterns.ErrorMessage.InsertPattern.Add", trimmedPattern);
         }
     }
 
@@ -45,16 +44,15 @@ public final class ListModelFileExcludePatterns extends DefaultListModel {
             removeElement(trimmedPattern);
             patterns.remove(trimmedPattern);
         } else {
-            errorMessage(Bundle.getString("ListModelFileExcludePatterns.ErrorMessage.Delete"), trimmedPattern);
+            errorMessage("ListModelFileExcludePatterns.ErrorMessage.Delete", trimmedPattern);
         }
     }
 
-    private void errorMessage(String message, String pattern) {
-        MessageFormat msg = new MessageFormat(message);
+    private void errorMessage(String bundleKey, String pattern) {
         JOptionPane.showMessageDialog(
-            null, msg.format(new Object[]{pattern}),
-            Bundle.getString("ListModelFileExcludePatterns.ErrorMessage.Title"),
-            JOptionPane.ERROR_MESSAGE);
+                null, Bundle.getString(bundleKey, pattern),
+                Bundle.getString("ListModelFileExcludePatterns.ErrorMessage.Title"),
+                JOptionPane.ERROR_MESSAGE);
     }
 
     private void addElements() {

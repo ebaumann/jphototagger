@@ -12,7 +12,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.MessageFormat;
 import javax.swing.ImageIcon;
 
 /**
@@ -112,8 +111,7 @@ final class UpdateTablesThumbnails extends Database {
     }
 
     private static void setMessage(long id, long current, long count) {
-        MessageFormat msg = new MessageFormat(Bundle.getString("UpdateTablesThumbnails.Information.WriteCurrentThumbnail"));
-        Object[] params = {id, current, count};
-        messages.message(msg.format(params));
+        messages.message(Bundle.getString("UpdateTablesThumbnails.Information.WriteCurrentThumbnail",
+                id, current, count));
     }
 }

@@ -3,7 +3,6 @@ package de.elmar_baumann.imv.model;
 import de.elmar_baumann.imv.data.Program;
 import de.elmar_baumann.imv.database.DatabasePrograms;
 import de.elmar_baumann.imv.resource.Bundle;
-import java.text.MessageFormat;
 import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
@@ -18,7 +17,7 @@ import javax.swing.JOptionPane;
 public final class ListModelPrograms extends DefaultListModel {
 
     private boolean action;
-    
+
     public ListModelPrograms(boolean action) {
         this.action = action;
         addItems();
@@ -28,8 +27,8 @@ public final class ListModelPrograms extends DefaultListModel {
         if (!contains(program) && DatabasePrograms.INSTANCE.insert(program)) {
             addElement(program);
         } else {
-            errorMessage(Bundle.getString("ListModelPrograms.ErrorMessage.Add"),
-                program.getAlias());
+            errorMessage("ListModelPrograms.ErrorMessage.Add",
+                    program.getAlias());
         }
     }
 
@@ -37,8 +36,8 @@ public final class ListModelPrograms extends DefaultListModel {
         if (contains(program) && DatabasePrograms.INSTANCE.delete(program)) {
             removeElement(program);
         } else {
-            errorMessage(Bundle.getString("ListModelPrograms.ErrorMessage.Remove"),
-                program.getAlias());
+            errorMessage("ListModelPrograms.ErrorMessage.Remove",
+                    program.getAlias());
         }
     }
 
@@ -47,17 +46,16 @@ public final class ListModelPrograms extends DefaultListModel {
             int index = indexOf(program);
             fireContentsChanged(this, index, index);
         } else {
-            errorMessage(Bundle.getString("ListModelPrograms.ErrorMessage.Update"), program.getAlias());
+            errorMessage("ListModelPrograms.ErrorMessage.Update", program.getAlias());
         }
     }
 
-    private void errorMessage(String format, String alias) {
-        MessageFormat msg = new MessageFormat(format);
+    private void errorMessage(String bundleKey, String alias) {
         JOptionPane.showMessageDialog(
-            null,
-            msg.format(new Object[]{alias}),
-            Bundle.getString("ListModelPrograms.ErrorMessage.Title"),
-            JOptionPane.ERROR_MESSAGE);
+                null,
+                Bundle.getString(bundleKey, alias),
+                Bundle.getString("ListModelPrograms.ErrorMessage.Title"),
+                JOptionPane.ERROR_MESSAGE);
     }
 
     private void addItems() {

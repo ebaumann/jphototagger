@@ -17,7 +17,6 @@ import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.awt.Image;
 import java.io.File;
-import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
@@ -133,8 +132,8 @@ public final class InsertImageFilesIntoDatabase implements Runnable {
 
     private boolean isUpdate(ImageFile imageFile) {
         return imageFile.getExif() != null ||
-            imageFile.getXmp() != null ||
-            imageFile.getThumbnail() != null;
+                imageFile.getXmp() != null ||
+                imageFile.getThumbnail() != null;
     }
 
     private ImageFile getImageFile(String filename) {
@@ -155,17 +154,17 @@ public final class InsertImageFilesIntoDatabase implements Runnable {
 
     private boolean isUpdateThumbnail(String filename) {
         return what.contains(Insert.THUMBNAIL) ||
-            (what.contains(Insert.OUT_OF_DATE) && !isImageFileUpToDate(filename));
+                (what.contains(Insert.OUT_OF_DATE) && !isImageFileUpToDate(filename));
     }
 
     private boolean isUpdateExif(String filename) {
         return what.contains(Insert.EXIF) ||
-            (what.contains(Insert.OUT_OF_DATE) && !isImageFileUpToDate(filename));
+                (what.contains(Insert.OUT_OF_DATE) && !isImageFileUpToDate(filename));
     }
 
     private boolean isUpdateXmp(String filename) {
         return what.contains(Insert.XMP) ||
-            (what.contains(Insert.OUT_OF_DATE) && !isXmpFileUpToDate(filename));
+                (what.contains(Insert.OUT_OF_DATE) && !isXmpFileUpToDate(filename));
     }
 
     private boolean isImageFileUpToDate(String filename) {
@@ -177,8 +176,8 @@ public final class InsertImageFilesIntoDatabase implements Runnable {
     private boolean isXmpFileUpToDate(String imageFilename) {
         String sidecarFileName = XmpMetadata.getSidecarFilename(imageFilename);
         return sidecarFileName == null
-            ? isEmbeddedXmpUpToDate(imageFilename)
-            : isXmpSidecarFileUpToDate(imageFilename, sidecarFileName);
+                ? isEmbeddedXmpUpToDate(imageFilename)
+                : isXmpSidecarFileUpToDate(imageFilename, sidecarFileName);
     }
 
     private boolean isXmpSidecarFileUpToDate(String imageFilename, String sidecarFilename) {
@@ -190,9 +189,13 @@ public final class InsertImageFilesIntoDatabase implements Runnable {
 
     private boolean isEmbeddedXmpUpToDate(String imageFilename) {
         long dbTime = db.getLastModifiedXmp(imageFilename);
-        if (dbTime > 0) return true;
+        if (dbTime > 0) {
+            return true;
+        }
         Xmp xmp = XmpMetadata.getEmbeddedXmp(imageFilename); // This can slow down the update process
-        if (xmp == null) return true;
+        if (xmp == null) {
+            return true;
+        }
         long fileTime = FileUtil.getLastModified(imageFilename);
         return fileTime == dbTime;
     }
@@ -203,10 +206,10 @@ public final class InsertImageFilesIntoDatabase implements Runnable {
         File file = new File(filename);
         if (UserSettings.INSTANCE.isCreateThumbnailsWithExternalApp()) {
             thumbnail = ThumbnailUtil.getThumbnailFromExternalApplication(
-                file, externalThumbnailCreationCommand, maxThumbnailLength);
+                    file, externalThumbnailCreationCommand, maxThumbnailLength);
         } else {
             thumbnail = ThumbnailUtil.getThumbnail(
-                file, maxThumbnailLength, useEmbeddedThumbnails);
+                    file, maxThumbnailLength, useEmbeddedThumbnails);
         }
         imageFile.setThumbnail(thumbnail);
         if (thumbnail == null) {
@@ -245,17 +248,16 @@ public final class InsertImageFilesIntoDatabase implements Runnable {
 
     private void writeSidecarFileIfNotExists(String imageFilename, Xmp xmp) {
         if (xmp != null && !XmpMetadata.existsSidecarFile(imageFilename) &&
-            XmpMetadata.canWriteSidecarFile(imageFilename)) {
+                XmpMetadata.canWriteSidecarFile(imageFilename)) {
             XmpMetadata.writeMetadataToSidecarFile(
-                XmpMetadata.suggestSidecarFilename(imageFilename), xmp);
+                    XmpMetadata.suggestSidecarFilename(imageFilename), xmp);
         }
     }
 
     private void errorMessageNullThumbnail(String filename) {
-        MessageFormat msg = new MessageFormat(Bundle.getString("ImageMetadataToDatabase.ErrorMessage.NullThumbnail")); // NOI18N
-        Object[] params = {filename};
-        String formattedMessage = msg.format(params);
-        AppLog.logWarning(InsertImageFilesIntoDatabase.class, formattedMessage);
+        AppLog.logWarning(InsertImageFilesIntoDatabase.class, Bundle.getString(
+                "ImageMetadataToDatabase.ErrorMessage.NullThumbnail",
+                filename));
     }
 
     private synchronized void notifyProgressStarted(String filename) {
@@ -292,13 +294,12 @@ public final class InsertImageFilesIntoDatabase implements Runnable {
     }
 
     private void logCheckForUpdate(String filename) {
-        MessageFormat msg = new MessageFormat(Bundle.getString("ImageMetadataToDatabase.InformationMessage.CheckForUpdate"));
-        Object[] params = {filename};
-        AppLog.logFinest(InsertImageFilesIntoDatabase.class, msg.format(params));
+        AppLog.logFinest(InsertImageFilesIntoDatabase.class, Bundle.getString(
+                "ImageMetadataToDatabase.InformationMessage.CheckForUpdate",
+                filename));
     }
 
     private void logInsertImageFile(ImageFile data) {
-        MessageFormat msg = new MessageFormat(Bundle.getString("ImageMetadataToDatabase.InformationMessage.StartInsert"));
         Object[] params = {
             data.getFile().getAbsolutePath(),
             data.getExif() == null
@@ -310,6 +311,8 @@ public final class InsertImageFilesIntoDatabase implements Runnable {
             data.getThumbnail() == null
             ? Bundle.getString("ImageMetadataToDatabase.InformationMessage.StartInsert.No")
             : Bundle.getString("ImageMetadataToDatabase.InformationMessage.StartInsert.Yes")};
-        AppLog.logInfo(InsertImageFilesIntoDatabase.class, msg.format(params));
+        AppLog.logInfo(InsertImageFilesIntoDatabase.class, Bundle.getString(
+                "ImageMetadataToDatabase.InformationMessage.StartInsert",
+                params));
     }
 }

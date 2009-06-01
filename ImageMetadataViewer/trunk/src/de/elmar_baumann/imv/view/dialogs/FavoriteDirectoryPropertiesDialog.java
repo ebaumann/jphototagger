@@ -11,7 +11,6 @@ import de.elmar_baumann.lib.io.FileUtil;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.io.File;
-import java.text.MessageFormat;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -118,11 +117,9 @@ public final class FavoriteDirectoryPropertiesDialog extends Dialog {
             String favoriteName = textFieldFavoriteName.getText().trim();
             boolean exists = db.existsFavoriteDirectory(favoriteName);
             if (!isUpdate && exists) {
-                MessageFormat msg = new MessageFormat(Bundle.getString("FavoriteDirectoryPropertiesDialog.ErrorMessage.FavoriteExists"));
-                Object[] params = {favoriteName};
                 JOptionPane.showMessageDialog(
                     null,
-                    msg.format(params),
+                    Bundle.getString("FavoriteDirectoryPropertiesDialog.ErrorMessage.FavoriteExists", favoriteName),
                     Bundle.getString("FavoriteDirectoryPropertiesDialog.ErrorMessage.FavoriteExists.Title"),
                     JOptionPane.ERROR_MESSAGE);
             } else {

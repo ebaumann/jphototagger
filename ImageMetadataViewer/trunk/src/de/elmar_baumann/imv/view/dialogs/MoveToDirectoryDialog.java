@@ -19,7 +19,6 @@ import de.elmar_baumann.lib.dialog.DirectoryChooser;
 import de.elmar_baumann.lib.io.FileUtil;
 import de.elmar_baumann.lib.template.Pair;
 import java.io.File;
-import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -31,7 +30,7 @@ import javax.swing.JOptionPane;
  * @version 2008/10/20
  */
 public final class MoveToDirectoryDialog extends Dialog
-    implements ProgressListener, FileSystemActionListener {
+        implements ProgressListener, FileSystemActionListener {
 
     private static final String keyTargetDirectory = "de.elmar_baumann.imv.view.dialogs.MoveToDirectoryDialog.TargetDirectory"; // NOI18N
     private final List<File> movedFiles = new ArrayList<File>();
@@ -77,10 +76,10 @@ public final class MoveToDirectoryDialog extends Dialog
     private void checkClosing() {
         if (runs) {
             JOptionPane.showMessageDialog(
-                null,
-                Bundle.getString("MoveToDirectoryDialog.ErrorMessage.AbortBeforeClose"),
-                Bundle.getString("MoveToDirectoryDialog.ErrorMessage.AbortBeforeClose.Title"),
-                JOptionPane.INFORMATION_MESSAGE);
+                    null,
+                    Bundle.getString("MoveToDirectoryDialog.ErrorMessage.AbortBeforeClose"),
+                    Bundle.getString("MoveToDirectoryDialog.ErrorMessage.AbortBeforeClose.Title"),
+                    JOptionPane.INFORMATION_MESSAGE);
         } else {
             setVisible(false);
         }
@@ -89,10 +88,10 @@ public final class MoveToDirectoryDialog extends Dialog
     private void checkErrors() {
         if (errors) {
             JOptionPane.showMessageDialog(
-                this,
-                Bundle.getString("MoveToDirectoryDialog.ErrorMessage.CheckLogfile"),
-                Bundle.getString("MoveToDirectoryDialog.ErrorMessage.CheckLogfile.Title"),
-                JOptionPane.ERROR_MESSAGE);
+                    this,
+                    Bundle.getString("MoveToDirectoryDialog.ErrorMessage.CheckLogfile"),
+                    Bundle.getString("MoveToDirectoryDialog.ErrorMessage.CheckLogfile.Title"),
+                    JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -100,7 +99,7 @@ public final class MoveToDirectoryDialog extends Dialog
         List<File> xmpFiles = new ArrayList<File>();
         for (File sourceFile : sourceFiles) {
             String xmpFilename =
-                XmpMetadata.getSidecarFilename(sourceFile.getAbsolutePath());
+                    XmpMetadata.getSidecarFilename(sourceFile.getAbsolutePath());
             if (xmpFilename != null) {
                 xmpFiles.add(new File(xmpFilename));
             }
@@ -277,10 +276,9 @@ public final class MoveToDirectoryDialog extends Dialog
 
     @Override
     public void actionFailed(FileSystemAction action, FileSystemError error, File src, File target) {
-        MessageFormat msg = new MessageFormat(Bundle.getString("MoveToDirectoryDialog.ErrorMessage.Logfile"));
-        Object[] params = {src, target, error.getLocalizedMessage()};
-        String errorMsg = msg.format(params);
-        AppLog.logWarning(MoveToDirectoryDialog.class, errorMsg);
+        AppLog.logWarning(MoveToDirectoryDialog.class, Bundle.getString(
+                "MoveToDirectoryDialog.ErrorMessage.Logfile", src, target,
+                error.getLocalizedMessage()));
         errors = true;
     }
 

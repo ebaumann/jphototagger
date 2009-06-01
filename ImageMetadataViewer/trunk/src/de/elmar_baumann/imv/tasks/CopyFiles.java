@@ -7,7 +7,6 @@ import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.io.FileUtil;
 import de.elmar_baumann.lib.template.Pair;
 import java.io.File;
-import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -30,6 +29,7 @@ public final class CopyFiles implements Runnable {
      * Copy options.
      */
     public enum Options {
+
         /** Overwrite existing files only if confirmed */
         CONFIRM_OVERWRITE,
         /** Overwrite existing files without confirm */
@@ -100,9 +100,9 @@ public final class CopyFiles implements Runnable {
     }
 
     private void logCopyFile(String sourceFilename, String targetFilename) {
-        MessageFormat msg = new MessageFormat(Bundle.getString("CopyFiles.InformationMessage.StartCopy"));
-        Object[] params = {sourceFilename, targetFilename};
-        AppLog.logInfo(CopyFiles.class, msg.format(params));
+        AppLog.logInfo(CopyFiles.class, Bundle.getString(
+                "CopyFiles.InformationMessage.StartCopy",
+                sourceFilename, targetFilename));
     }
 
     private synchronized void notifyStart() {
@@ -132,13 +132,12 @@ public final class CopyFiles implements Runnable {
         }
         File target = filePair.getSecond();
         if (target.exists()) {
-            MessageFormat msg = new MessageFormat(Bundle.getString("CopyFiles.ConfirmMessage.OverwriteExisting"));
-            Object[] params = {filePair.getSecond(), filePair.getFirst()};
             int option = JOptionPane.showConfirmDialog(null,
-                msg.format(params),
-                Bundle.getString("CopyFiles.ConfirmMessage.OverwriteExisting.Title"),
-                JOptionPane.YES_NO_CANCEL_OPTION,
-                JOptionPane.QUESTION_MESSAGE);
+                    Bundle.getString("CopyFiles.ConfirmMessage.OverwriteExisting",
+                    filePair.getSecond(), filePair.getFirst()),
+                    Bundle.getString("CopyFiles.ConfirmMessage.OverwriteExisting.Title"),
+                    JOptionPane.YES_NO_CANCEL_OPTION,
+                    JOptionPane.QUESTION_MESSAGE);
             if (option == JOptionPane.CANCEL_OPTION) {
                 stop();
             } else {
@@ -157,11 +156,10 @@ public final class CopyFiles implements Runnable {
     }
 
     private void errorMessageFilesAreEquals(File file) {
-        MessageFormat msg = new MessageFormat(Bundle.getString("CopyFiles.ErrorMessageFilesAreEquals"));
-        Object[] params = {file.getAbsolutePath()};
         JOptionPane.showMessageDialog(
                 null,
-                msg.format(params),
+                Bundle.getString("CopyFiles.ErrorMessageFilesAreEquals",
+                file.getAbsolutePath()),
                 Bundle.getString("CopyFiles.ErrorMessageFilesAreEquals.Title"),
                 JOptionPane.ERROR_MESSAGE);
     }

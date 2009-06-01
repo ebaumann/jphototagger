@@ -5,7 +5,6 @@ import de.elmar_baumann.imv.database.DatabaseMaintainance;
 import de.elmar_baumann.imv.event.ProgressEvent;
 import de.elmar_baumann.imv.event.ProgressListener;
 import de.elmar_baumann.imv.resource.Bundle;
-import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,11 +64,10 @@ public final class DatabaseCompress implements Runnable {
     }
 
     private Object getEndMessage() {
-        MessageFormat msg = new MessageFormat(Bundle.getString("DatabaseCompress.EndMessage"));
         Object[] params = {success
             ? Bundle.getString("DatabaseCompress.EndMessage.Success.True")
             : Bundle.getString("DatabaseCompress.EndMessage.Success.False")
         };
-        return msg.format(params);
+        return Bundle.getString("DatabaseCompress.EndMessage", params);
     }
 }

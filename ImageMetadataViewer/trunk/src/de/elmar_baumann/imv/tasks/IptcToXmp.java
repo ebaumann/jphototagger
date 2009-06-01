@@ -9,7 +9,6 @@ import de.elmar_baumann.imv.image.metadata.iptc.IptcMetadata;
 import de.elmar_baumann.imv.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.imv.resource.Bundle;
 import java.io.File;
-import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.EnumSet;
@@ -64,8 +63,8 @@ public final class IptcToXmp implements Runnable {
 
     private void updateDatabase(String imageFilename) {
         InsertImageFilesIntoDatabase insert = new InsertImageFilesIntoDatabase(
-            Arrays.asList(imageFilename),
-            EnumSet.of(InsertImageFilesIntoDatabase.Insert.XMP));
+                Arrays.asList(imageFilename),
+                EnumSet.of(InsertImageFilesIntoDatabase.Insert.XMP));
         insert.run(); // Shall run in this thread!
     }
 
@@ -76,15 +75,14 @@ public final class IptcToXmp implements Runnable {
     }
 
     private void logWriteXmpFile(String imageFilename) {
-        MessageFormat msg = new MessageFormat(Bundle.getString("IptcToXmp.InformationMessage.StartWriteXmpFile"));
-        Object[] params = {imageFilename};
-        AppLog.logInfo(IptcToXmp.class, msg.format(params));
+        AppLog.logInfo(IptcToXmp.class, Bundle.getString(
+                "IptcToXmp.InformationMessage.StartWriteXmpFile", imageFilename));
     }
 
     private synchronized void notifyStart() {
         int count = filenames.size();
         ProgressEvent event = new ProgressEvent(this, 0, count, 0,
-            filenames.size() > 0 ? filenames.get(0) : ""); // NOI18N
+                filenames.size() > 0 ? filenames.get(0) : ""); // NOI18N
         for (ProgressListener progressListener : progressListeners) {
             progressListener.progressStarted(event);
             checkStopEvent(event);

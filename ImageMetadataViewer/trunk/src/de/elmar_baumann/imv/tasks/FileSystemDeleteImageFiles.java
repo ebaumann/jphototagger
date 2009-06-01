@@ -7,7 +7,6 @@ import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.types.DeleteOption;
 import de.elmar_baumann.lib.template.Pair;
 import java.io.File;
-import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
@@ -57,10 +56,9 @@ public final class FileSystemDeleteImageFiles {
 
     private static void errorMessageDelete(File file, EnumSet<DeleteOption> options) {
         if (options.contains(DeleteOption.MESSAGES_ON_FAILURES)) {
-            MessageFormat msg = new MessageFormat(Bundle.getString("FileSystemDeleteImageFiles.ErrorMessage.Delete"));
-            Object[] params = {file.getAbsolutePath()};
-            String message = msg.format(params);
-            AppLog.logWarning(ControllerDeleteFiles.class, message);
+            AppLog.logWarning(ControllerDeleteFiles.class, Bundle.getString(
+                    "FileSystemDeleteImageFiles.ErrorMessage.Delete",
+                    file.getAbsolutePath()));
         }
     }
 

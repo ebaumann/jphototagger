@@ -23,7 +23,6 @@ import de.elmar_baumann.lib.dialog.Dialog;
 import de.elmar_baumann.lib.util.SettingsHints;
 import java.awt.Image;
 import java.io.File;
-import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.LinkedList;
@@ -112,15 +111,15 @@ public final class RenameDialog extends Dialog {
             File oldXmpFile = new File(oldXmpFilename);
             if (newXmpFile.exists()) {
                 if (!newXmpFile.delete()) {
-                    MessageFormat msg = new MessageFormat(Bundle.getString("RenameDialog.ErrorMessage.XmpFileCouldNotBeDeleted"));
-                    Object params[] = {newXmpFilename};
-                    AppLog.logWarning(RenameDialog.class, msg.format(params));
+                    AppLog.logWarning(RenameDialog.class, Bundle.getString(
+                            "RenameDialog.ErrorMessage.XmpFileCouldNotBeDeleted",
+                            newXmpFilename));
                 }
             }
             if (!oldXmpFile.renameTo(newXmpFile)) {
-                MessageFormat msg = new MessageFormat(Bundle.getString("RenameDialog.ErrorMessage.XmpFileCouldNotBeRenamed"));
-                Object params[] = {oldXmpFilename, newXmpFilename};
-                AppLog.logWarning(RenameDialog.class, msg.format(params));
+                AppLog.logWarning(RenameDialog.class, Bundle.getString(
+                        "RenameDialog.ErrorMessage.XmpFileCouldNotBeRenamed",
+                        oldXmpFilename, newXmpFilename));
             }
         }
     }
@@ -232,11 +231,9 @@ public final class RenameDialog extends Dialog {
     private boolean checkNewFileNotExists(File file) {
         boolean exists = file.exists();
         if (exists) {
-            MessageFormat msg = new MessageFormat(Bundle.getString("RenameDialog.ErrorMessage.NewFileExists"));
-            Object[] params = {file.getName()};
             JOptionPane.showMessageDialog(
                 null,
-                msg.format(params),
+                Bundle.getString("RenameDialog.ErrorMessage.NewFileExists", file.getName()),
                 Bundle.getString("RenameDialog.ErrorMessage.NewFileExists.Title"),
                 JOptionPane.ERROR_MESSAGE);
         }
@@ -317,10 +314,8 @@ public final class RenameDialog extends Dialog {
     }
 
     private void errorMessageNotRenamed(String filename) {
-        MessageFormat msg = new MessageFormat(Bundle.getString("RenameDialog.ConfirmMessage.RenameNextFile"));
-        Object[] params = {filename};
         if (JOptionPane.showConfirmDialog(null,
-            msg.format(params),
+            Bundle.getString("RenameDialog.ConfirmMessage.RenameNextFile", filename),
             Bundle.getString("RenameDialog.ConfirmMessage.RenameNextFile.Title"),
             JOptionPane.YES_NO_OPTION,
             JOptionPane.ERROR_MESSAGE) == JOptionPane.NO_OPTION) {

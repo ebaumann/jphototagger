@@ -3,7 +3,6 @@ package de.elmar_baumann.imv.model;
 import de.elmar_baumann.imv.data.FavoriteDirectory;
 import de.elmar_baumann.imv.database.DatabaseFavoriteDirectories;
 import de.elmar_baumann.imv.resource.Bundle;
-import java.text.MessageFormat;
 import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
@@ -135,11 +134,9 @@ public final class ListModelFavoriteDirectories extends DefaultListModel {
     }
 
     private void errorMessage(String favoriteName, String cause) {
-        MessageFormat msg = new MessageFormat(Bundle.getString("ListModelFavoriteDirectories.ErrorMessage.Template"));
-        Object[] params = {favoriteName, cause};
         JOptionPane.showMessageDialog(
             null,
-            msg.format(params),
+            Bundle.getString("ListModelFavoriteDirectories.ErrorMessage.Template", favoriteName, cause),
             Bundle.getString("ListModelFavoriteDirectories.ErrorMessage.Template.Title"),
             JOptionPane.ERROR_MESSAGE);
     }

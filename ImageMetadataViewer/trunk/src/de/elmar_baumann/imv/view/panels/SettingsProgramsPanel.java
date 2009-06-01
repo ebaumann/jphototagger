@@ -13,7 +13,6 @@ import de.elmar_baumann.lib.image.icon.IconUtil;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.awt.event.MouseEvent;
 import java.io.File;
-import java.text.MessageFormat;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
@@ -98,10 +97,9 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel
     }
 
     private boolean askRemove(String otherImageOpenApp) {
-        MessageFormat msg = new MessageFormat(Bundle.getString("UserSettingsDialog.ConfirmMessage.RemoveImageOpenApp"));
         return JOptionPane.showConfirmDialog(
             this,
-            msg.format(new Object[]{otherImageOpenApp}),
+            Bundle.getString("UserSettingsDialog.ConfirmMessage.RemoveImageOpenApp", otherImageOpenApp),
             Bundle.getString("UserSettingsDialog.ConfirmMessage.RemoveImageOpenApp.Title"),
             JOptionPane.YES_NO_OPTION,
             JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION;

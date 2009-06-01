@@ -6,7 +6,6 @@ import de.elmar_baumann.imv.event.listener.TotalRecordCountListener;
 import de.elmar_baumann.imv.model.TableModelDatabaseInfo;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.view.renderer.TableCellRendererDatabaseInfoColumns;
-import java.text.MessageFormat;
 
 /**
  * Dislplays the database record count total and of specific columns.
@@ -45,7 +44,7 @@ public final class DatabaseInfoCountPanel extends javax.swing.JPanel {
             @Override
             public void run() {
                 labelTotalRecordCount.setText(Long.toString(
-                    DatabaseStatistics.INSTANCE.getTotalRecordCount()));
+                        DatabaseStatistics.INSTANCE.getTotalRecordCount()));
             }
         });
         thread.setName("DatabaseInfoCountPanel#setInitTotalRecordCount"); // NOI18N
@@ -53,10 +52,9 @@ public final class DatabaseInfoCountPanel extends javax.swing.JPanel {
     }
 
     private void setLabelFilename() {
-        MessageFormat msg = new MessageFormat(Bundle.getString(
-            "DatabaseInfoCountPanel.labelFilename.Filename"));
-        labelFilename.setText(msg.format(new Object[]{
-                UserSettings.INSTANCE.getDatabaseFileName()}));
+        labelFilename.setText(Bundle.getString(
+                "DatabaseInfoCountPanel.labelFilename.Filename",
+                UserSettings.INSTANCE.getDatabaseFileName()));
     }
 
     private void setModelDatabaseInfo() {

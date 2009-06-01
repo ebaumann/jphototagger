@@ -8,7 +8,6 @@ import de.elmar_baumann.imv.model.ListModelPrograms;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.view.dialogs.ProgramPropertiesDialog;
 import java.awt.event.MouseEvent;
-import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -113,10 +112,9 @@ public final class ActionsPanel extends javax.swing.JPanel {
     }
 
     private boolean confirmDelete(String actionName) {
-        MessageFormat msg = new MessageFormat(Bundle.getString("ActionsPanel.ConfirmMessage.Delete"));
         return JOptionPane.showConfirmDialog(
             this,
-            msg.format(new Object[]{actionName}),
+            Bundle.getString("ActionsPanel.ConfirmMessage.Delete", actionName),
             Bundle.getString("ActionsPanel.ConfirmMessage.Delete.Title"),
             JOptionPane.YES_NO_OPTION,
             JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION;

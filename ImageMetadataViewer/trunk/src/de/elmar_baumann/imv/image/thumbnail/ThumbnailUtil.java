@@ -30,7 +30,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.text.MessageFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -115,9 +114,10 @@ public final class ThumbnailUtil {
     }
 
     private static void logExternalAppCommand(String cmd) {
-        MessageFormat msg = new MessageFormat(Bundle.getString("ThumbnailUtil.InformationMessage.ExternalAppCreationCommand"));
-        Object[] params = {cmd};
-        AppLog.logFinest(ThumbnailUtil.class, msg.format(params));
+        AppLog.logFinest(ThumbnailUtil.class,
+                Bundle.getString(
+                "ThumbnailUtil.InformationMessage.ExternalAppCreationCommand",
+                cmd));
     }
 
     private static Image rotateThumbnail(File file, Image thumbnail) {

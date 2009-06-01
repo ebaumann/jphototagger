@@ -7,7 +7,6 @@ import de.elmar_baumann.imv.model.ListModelSavedSearches;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.lib.componentutil.ListUtil;
-import java.text.MessageFormat;
 import javax.swing.JOptionPane;
 
 /**
@@ -106,76 +105,69 @@ public final class SavedSearchesModifier {
 
     private static String getInput(String oldName) {
         return JOptionPane.showInputDialog(
-            null,
-            Bundle.getString("SavedSearchesModifier.Input.NewName"),
-            oldName);
+                null,
+                Bundle.getString("SavedSearchesModifier.Input.NewName"),
+                oldName);
     }
 
     private static boolean confirmInputDifferentName(String input) {
-        MessageFormat message = new MessageFormat(Bundle.getString("SavedSearchesModifier.ConfirmMessage.ChangeNameBecauseExists"));
-        Object[] params = {input};
         return JOptionPane.showConfirmDialog(
-            null,
-            message.format(params),
-            Bundle.getString("SavedSearchesModifier.ConfirmMessage.ChangeNameBecauseExists.Title"),
-            JOptionPane.YES_NO_OPTION,
-            JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION;
+                null,
+                Bundle.getString("SavedSearchesModifier.ConfirmMessage.ChangeNameBecauseExists", input),
+                Bundle.getString("SavedSearchesModifier.ConfirmMessage.ChangeNameBecauseExists.Title"),
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION;
     }
 
     private static void errorMessageRename(String searchName) {
-        MessageFormat msg = new MessageFormat(Bundle.getString("SavedSearchesModifier.ErrorMessage.RenameFailed"));
-        Object[] param = {searchName};
         JOptionPane.showMessageDialog(
-            null,
-            msg.format(param),
-            Bundle.getString("SavedSearchesModifier.ErrorMessage.RenameFailed.Title"),
-            JOptionPane.ERROR_MESSAGE);
+                null,
+                Bundle.getString("SavedSearchesModifier.ErrorMessage.RenameFailed", searchName),
+                Bundle.getString("SavedSearchesModifier.ErrorMessage.RenameFailed.Title"),
+                JOptionPane.ERROR_MESSAGE);
     }
 
     private static void errorMessageRenameGetUpdate(String searchName) {
-        MessageFormat msg = new MessageFormat(Bundle.getString("SavedSearchesModifier.ErrorMessage.SavedSearchWasRenamedButCouldntBeLoaded"));
-        Object[] param = {searchName};
         JOptionPane.showMessageDialog(
-            null,
-            msg.format(param),
-            Bundle.getString("SavedSearchesModifier.ErrorMessage.SavedSearchWasRenamedButCouldntBeLoaded.Title"),
-            JOptionPane.ERROR_MESSAGE);
+                null,
+                Bundle.getString("SavedSearchesModifier.ErrorMessage.SavedSearchWasRenamedButCouldntBeLoaded", searchName),
+                Bundle.getString("SavedSearchesModifier.ErrorMessage.SavedSearchWasRenamedButCouldntBeLoaded.Title"),
+                JOptionPane.ERROR_MESSAGE);
     }
 
     private static boolean confirmDelete(String name) {
-        MessageFormat msg = new MessageFormat(Bundle.getString("SavedSearchesModifier.ConfirmMessage.DeleteSearch"));
-        Object[] params = {name};
-        return JOptionPane.showConfirmDialog(null, msg.format(params),
-            Bundle.getString("SavedSearchesModifier.ConfirmMessage.DeleteSearch.Title"),
-            JOptionPane.YES_NO_OPTION,
-            JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION;
+        return JOptionPane.showConfirmDialog(null,
+                Bundle.getString("SavedSearchesModifier.ConfirmMessage.DeleteSearch", name),
+                Bundle.getString("SavedSearchesModifier.ConfirmMessage.DeleteSearch.Title"),
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION;
     }
 
     private static void errorMessageDelete() {
         JOptionPane.showMessageDialog(
-            null,
-            Bundle.getString("SavedSearchesModifier.ErrorMessage.SavedSearchCouldntBeDeleted"),
-            Bundle.getString("SavedSearchesModifier.ErrorMessage.SavedSearchCouldntBeDeleted.Title"),
-            JOptionPane.ERROR_MESSAGE);
+                null,
+                Bundle.getString("SavedSearchesModifier.ErrorMessage.SavedSearchCouldntBeDeleted"),
+                Bundle.getString("SavedSearchesModifier.ErrorMessage.SavedSearchCouldntBeDeleted.Title"),
+                JOptionPane.ERROR_MESSAGE);
     }
 
     private static boolean confirmInsert(SavedSearch savedSearch) {
         if (getDb().existsSavedSearch(savedSearch)) {
             return JOptionPane.showConfirmDialog(null,
-                Bundle.getString("SavedSearchesModifier.ConfirmMessage.ReplaceExisting"),
-                Bundle.getString("SavedSearchesModifier.ConfirmMessage.ReplaceExisting.Title"),
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION;
+                    Bundle.getString("SavedSearchesModifier.ConfirmMessage.ReplaceExisting"),
+                    Bundle.getString("SavedSearchesModifier.ConfirmMessage.ReplaceExisting.Title"),
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION;
         }
         return true;
     }
 
     private static void errorMessageInsert() {
         JOptionPane.showMessageDialog(
-            null,
-            Bundle.getString("SavedSearchesModifier.ErrorMessage.SearchCouldntBeSaved"),
-            Bundle.getString("SavedSearchesModifier.ErrorMessage.SearchCouldntBeSaved.Title"),
-            JOptionPane.ERROR_MESSAGE);
+                null,
+                Bundle.getString("SavedSearchesModifier.ErrorMessage.SearchCouldntBeSaved"),
+                Bundle.getString("SavedSearchesModifier.ErrorMessage.SearchCouldntBeSaved.Title"),
+                JOptionPane.ERROR_MESSAGE);
     }
 
     private SavedSearchesModifier() {

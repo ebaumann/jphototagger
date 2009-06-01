@@ -7,7 +7,6 @@ import de.elmar_baumann.lib.image.metadata.xmp.XmpFileReader;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.text.MessageFormat;
 import java.util.Arrays;
 import java.util.EnumSet;
 import javax.swing.JOptionPane;
@@ -29,10 +28,8 @@ public final class ExtractEmbeddedXmpEditor extends FileEditor {
 
     private boolean confirmRemove(String absolutePath) {
         if (getConfirmOverwrite()) {
-            MessageFormat msg = new MessageFormat(Bundle.getString("ExtractEmbeddedXmpEditor.ConfirmMessage.Overwrite"));
-            Object[] params = {absolutePath};
             return JOptionPane.showConfirmDialog(null,
-                msg.format(params),
+                Bundle.getString("ExtractEmbeddedXmpEditor.ConfirmMessage.Overwrite", absolutePath),
                 Bundle.getString("ExtractEmbeddedXmpEditor.ConfirmMessage.Overwrite.Title"),
                 JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION;
         }

@@ -9,7 +9,6 @@ import de.elmar_baumann.imv.io.ImageFilteredDirectory;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.io.File;
-import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.EnumSet;
@@ -68,10 +67,9 @@ public final class InsertImageFilesIntoDatabaseArray implements ProgressListener
     }
 
     private void logUpdateDirectory(String directoryName) {
-        MessageFormat msg = new MessageFormat(
-            Bundle.getString("ImageMetadataToDatabaseArray.InformationMessage.StartScanDirectory"));
-        Object[] params = {directoryName};
-        AppLog.logInfo(InsertImageFilesIntoDatabaseArray.class, msg.format(params));
+        AppLog.logInfo(InsertImageFilesIntoDatabaseArray.class, Bundle.getString(
+                "ImageMetadataToDatabaseArray.InformationMessage.StartScanDirectory",
+                directoryName));
     }
 
     private synchronized void setWait(boolean wait) {
@@ -140,17 +138,17 @@ public final class InsertImageFilesIntoDatabaseArray implements ProgressListener
      * @param directoryName Verzeichnisname
      * @param what          Einzufügende Metadaten
      */
-    public synchronized void addDirectory(String directoryName, 
-        EnumSet<InsertImageFilesIntoDatabase.Insert> what) {
+    public synchronized void addDirectory(String directoryName,
+            EnumSet<InsertImageFilesIntoDatabase.Insert> what) {
         inserters.add(createInserter(directoryName, what));
         startUpdateThread();
     }
 
     private InsertImageFilesIntoDatabase createInserter(String directoryName,
-        EnumSet<InsertImageFilesIntoDatabase.Insert> what) {
+            EnumSet<InsertImageFilesIntoDatabase.Insert> what) {
 
         List<String> filenames = FileUtil.getAsFilenames(
-            ImageFilteredDirectory.getImageFilesOfDirectory(new File(directoryName)));
+                ImageFilteredDirectory.getImageFilesOfDirectory(new File(directoryName)));
 
         Collections.sort(filenames);
 
@@ -242,15 +240,15 @@ public final class InsertImageFilesIntoDatabaseArray implements ProgressListener
     }
 
     private void informationMessageEndUpdateDirectory(InsertImageFilesIntoDatabase scanner) {
-        MessageFormat message = new MessageFormat(Bundle.getString("ImageMetadataToDatabaseArray.InformationMessage.UpdateMetadataFinished"));
-        Object[] params = {getDirectoryNameOfInserter(scanner)};
-        AppLog.logFinest(InsertImageFilesIntoDatabaseArray.class, message.format(params));
+        AppLog.logFinest(InsertImageFilesIntoDatabaseArray.class, Bundle.getString(
+                "ImageMetadataToDatabaseArray.InformationMessage.UpdateMetadataFinished",
+                getDirectoryNameOfInserter(scanner)));
     }
 
     private void informationMessageUpdateCurrentImage(String filename) {
-        MessageFormat message = new MessageFormat(Bundle.getString("ImageMetadataToDatabaseArray.InformationMessage.CheckImageForModifications"));
-        Object[] params = {filename};
-        AppLog.logFinest(InsertImageFilesIntoDatabaseArray.class, message.format(params));
+        AppLog.logFinest(InsertImageFilesIntoDatabaseArray.class, Bundle.getString(
+                "ImageMetadataToDatabaseArray.InformationMessage.CheckImageForModifications",
+                filename));
     }
 
     private String getDirectoryNameOfInserter(InsertImageFilesIntoDatabase scanner) {
