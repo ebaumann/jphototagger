@@ -1,7 +1,6 @@
 package de.elmar_baumann.lib.component;
 
 import de.elmar_baumann.lib.resource.Bundle;
-import java.text.MessageFormat;
 import javax.swing.InputVerifier;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
@@ -28,8 +27,9 @@ public final class InputVerifierMaxLength extends InputVerifier {
      * @throws IllegalArgumentException if {@code maxLength < 0}
      */
     public InputVerifierMaxLength(int maxLength) {
-        if (maxLength < 0)
+        if (maxLength < 0) {
             throw new IllegalArgumentException("maxLength < 0: " + maxLength);
+        }
 
         this.maxLength = maxLength;
     }
@@ -57,12 +57,10 @@ public final class InputVerifierMaxLength extends InputVerifier {
     }
 
     private void errorMessage(JComponent input) {
-        MessageFormat msg = new MessageFormat(Bundle.getString("InputVerifierMaxLength.ErrorMessage"));
-        Object[] params = {maxLength};
         JOptionPane.showMessageDialog(
-            input,
-            msg.format(params),
-            Bundle.getString("InputVerifierMaxLength.ErrorMessage.Title"),
-            JOptionPane.ERROR_MESSAGE);
+                input,
+                Bundle.getString("InputVerifierMaxLength.ErrorMessage", maxLength),
+                Bundle.getString("InputVerifierMaxLength.ErrorMessage.Title"),
+                JOptionPane.ERROR_MESSAGE);
     }
 }
