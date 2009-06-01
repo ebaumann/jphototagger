@@ -1,5 +1,6 @@
 package de.elmar_baumann.lib.runtime;
 
+import de.elmar_baumann.lib.resource.Bundle;
 import de.elmar_baumann.lib.template.Pair;
 import java.io.IOException;
 import java.io.InputStream;
@@ -42,7 +43,10 @@ public final class External {
     /**
      * Executes an external program and returns it's output.
      * 
-     * @param  command command, e.g. <code>/bin/ls -l /home</code>
+     * @param  command          command, e.g. <code>/bin/ls -l /home</code>
+     * @param  maxMilliseconds  Maximum time in milliseconds to wait for closing
+     *                          the process' streams. If this time is exceeded,
+     *                          the process streams will be closed.
      * @return         Pair of bytes written by the program or null if errors
      *                 occured. The first element of the pair is null if the
      *                 program didn't write anything to the system's standard
@@ -52,17 +56,30 @@ public final class External {
      *                 system's standard error output or the bytes the program
      *                 has written to the system's standard error output.
      */
-    public static Pair<byte[], byte[]> executeGetOutput(String command) {
-        if (command == null)
+    public static Pair<byte[], byte[]> executeGetOutput(String command, long maxMilliseconds) {
+        if (command == null) {
             throw new NullPointerException("command == null");
+        }
 
         Runtime runtime = Runtime.getRuntime();
         Process process = null;
         try {
             process = runtime.exec(command);
-            return new Pair<byte[], byte[]>(
+            String errorMessage = Bundle.getString("External.ExecuteGetOutput.ErrorMessage", maxMilliseconds, command);
+            InputStreamCloser closerStdOut = new InputStreamCloser(
+                    process.getInputStream(), maxMilliseconds, errorMessage);
+            InputStreamCloser closerStdErr = new InputStreamCloser(
+                    process.getErrorStream(), maxMilliseconds, errorMessage);
+            Thread threadCloseStdOut = new Thread(closerStdOut);
+            Thread threadCloseStdErr = new Thread(closerStdErr);
+            threadCloseStdOut.start();
+            threadCloseStdErr.start();
+            Pair<byte[], byte[]> streamContent = new Pair<byte[], byte[]>(
                     getStream(process, Stream.STANDARD_OUT),
                     getStream(process, Stream.STANDARD_ERROR));
+            closerStdOut.ready();
+            closerStdErr.ready();
+            return streamContent;
         } catch (Exception ex) {
             Logger.getLogger(External.class.getName()).log(Level.SEVERE, null, ex);
             return null;
@@ -111,6 +128,41 @@ public final class External {
         System.arraycopy(left, 0, newArray, 0, left.length);
         System.arraycopy(right, 0, newArray, left.length, count);
         return newArray;
+    }
+
+    private static class InputStreamCloser implements Runnable {
+
+        private final InputStream is;
+        private final long millisecondsToClose;
+        private final String errorMessage;
+        private volatile boolean ready;
+
+        public InputStreamCloser(InputStream is, long millisecondsToClose, String errorMessage) {
+            this.is = is;
+            this.millisecondsToClose = millisecondsToClose;
+            this.errorMessage = errorMessage;
+        }
+
+        public void ready() {
+            ready = true;
+        }
+
+        @Override
+        public void run() {
+            try {
+                Thread.sleep(millisecondsToClose);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(External.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            if (!ready) {
+                try {
+                    is.close();
+                    Logger.getLogger(External.class.getName()).log(Level.SEVERE, errorMessage);
+                } catch (IOException ex) {
+                    Logger.getLogger(External.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
     }
 
     private External() {
