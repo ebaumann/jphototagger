@@ -36,6 +36,7 @@ public final class UserSettingsChangeEvent {
     private boolean treeDirectoriesSelectLastDirectory;
     private boolean openSystemOutputWindowAfterStart;
     private Integer maxThumbnailWidth;
+    private Integer maxSecondsToTerminateExternalPrograms;
     private Integer minutesToStartScheduledTasks;
     private Integer threadPriority;
     private Level logLevel;
@@ -69,6 +70,7 @@ public final class UserSettingsChangeEvent {
         WEB_BROWSER,
         TREE_DIRECTORIES_SELECT_LAST_DIRECTORY,
         OPEN_SYSTEM_OUTPUT_WINDOW_AFTER_START,
+        MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS,
     }
 
     public UserSettingsChangeEvent(Type type, Object source) {
@@ -258,5 +260,13 @@ public final class UserSettingsChangeEvent {
 
     public void setDatabaseDirectoryName(String databaseDirectoryName) {
         this.databaseDirectoryName = databaseDirectoryName;
+    }
+
+    public void setMaxSecondsToTerminateExternalPrograms(Integer seconds) {
+        maxSecondsToTerminateExternalPrograms = seconds;
+    }
+
+    public int getMaxSecondsToTerminateExternalPrograms() {
+        return maxSecondsToTerminateExternalPrograms;
     }
 }

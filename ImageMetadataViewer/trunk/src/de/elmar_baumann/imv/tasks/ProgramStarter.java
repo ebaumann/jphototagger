@@ -108,7 +108,8 @@ public final class ProgramStarter {
         private void processAll() {
             String command = getProcessAllCommand();
             logCommand(command);
-            Pair<byte[], byte[]> output = External.executeGetOutput(command);
+            Pair<byte[], byte[]> output = External.executeGetOutput(command,
+                    UserSettings.INSTANCE.getMaxSecondsToTerminateExternalPrograms());
             if (output != null) {
                 checkLogErrors(output);
                 setValueToProgressBar(imageFiles.size());
@@ -118,9 +119,9 @@ public final class ProgramStarter {
         private String getProcessAllCommand() {
             return program.getFile().getAbsolutePath() + " " + // NOI18N
                     program.getCommandlineParameters(
-                        IoUtil.getQuotedForCommandline(imageFiles, ""), // NOI18N
-                        getAdditionalParameters(Bundle.getString("ProgramStarter.GetInput.Title"), 2),
-                        dialog.isParametersBeforeFilename());
+                    IoUtil.getQuotedForCommandline(imageFiles, ""), // NOI18N
+                    getAdditionalParameters(Bundle.getString("ProgramStarter.GetInput.Title"), 2),
+                    dialog.isParametersBeforeFilename());
         }
 
         private void processSingle() {
@@ -128,7 +129,8 @@ public final class ProgramStarter {
             for (File file : imageFiles) {
                 String command = getProcessSingleCommand(file, count);
                 logCommand(command);
-                Pair<byte[], byte[]> output = External.executeGetOutput(command);
+                Pair<byte[], byte[]> output = External.executeGetOutput(command,
+                        UserSettings.INSTANCE.getMaxSecondsToTerminateExternalPrograms());
                 if (output != null) {
                     checkLogErrors(output);
                     setValueToProgressBar(++count);
@@ -139,9 +141,9 @@ public final class ProgramStarter {
         private String getProcessSingleCommand(File file, int count) {
             return program.getFile().getAbsolutePath() + " " + // NOI18N
                     program.getCommandlineParameters(
-                        file.getAbsolutePath(),
-                        getAdditionalParameters(file.getAbsolutePath(), count + 1),
-                        dialog.isParametersBeforeFilename());
+                    file.getAbsolutePath(),
+                    getAdditionalParameters(file.getAbsolutePath(), count + 1),
+                    dialog.isParametersBeforeFilename());
         }
 
         private String getAdditionalParameters(String filename, int count) {

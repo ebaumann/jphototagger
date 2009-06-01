@@ -151,10 +151,12 @@ public final class ThumbnailUtil {
         String cmd = command.replace("%s", file.getAbsolutePath()).replace("%i", // NOI18N
                 new Integer(maxLength).toString());
         logExternalAppCommand(cmd);
-        Pair<byte[], byte[]> output = External.executeGetOutput(cmd);
+        Pair<byte[], byte[]> output = External.executeGetOutput(cmd,
+                UserSettings.INSTANCE.getMaxSecondsToTerminateExternalPrograms());
 
-        if (output == null)
+        if (output == null) {
             return null;
+        }
 
         byte[] stdout = output.getFirst();
         if (stdout != null) {

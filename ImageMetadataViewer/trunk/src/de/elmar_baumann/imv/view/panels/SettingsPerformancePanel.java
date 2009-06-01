@@ -13,7 +13,7 @@ import de.elmar_baumann.imv.types.Persistence;
  * @version 2008/11/02
  */
 public final class SettingsPerformancePanel extends javax.swing.JPanel
-    implements Persistence {
+        implements Persistence {
 
     private final ListenerProvider listenerProvider = ListenerProvider.INSTANCE;
 
@@ -24,20 +24,28 @@ public final class SettingsPerformancePanel extends javax.swing.JPanel
 
     private void handleActionPerformedCheckBoxIsAutocompleteDisabled() {
         UserSettingsChangeEvent evt = new UserSettingsChangeEvent(
-            UserSettingsChangeEvent.Type.IS_USE_AUTOCOMPLETE, this);
+                UserSettingsChangeEvent.Type.IS_USE_AUTOCOMPLETE, this);
         evt.setAutocomplete(!checkBoxIsAutocompleteDisabled.isSelected());
         notifyChangeListener(evt);
     }
 
     private void handleActionComboBoxThreadPriorityAction() {
         UserSettingsChangeEvent evt = new UserSettingsChangeEvent(
-            UserSettingsChangeEvent.Type.THREAD_PRIORITY, this);
+                UserSettingsChangeEvent.Type.THREAD_PRIORITY, this);
         evt.setThreadPriority(getThreadPriority());
         notifyChangeListener(evt);
     }
 
     private int getThreadPriority() {
         return ((ComboBoxModelThreadPriority) comboBoxThreadPriority.getModel()).getSelectedPriority();
+    }
+
+    private void handleMaximumSecondsToTerminateExternalProgramsStateChanged() {
+        UserSettingsChangeEvent evt = new UserSettingsChangeEvent(
+                UserSettingsChangeEvent.Type.MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS, this);
+        evt.setMaxSecondsToTerminateExternalPrograms(
+                (Integer) spinnerMaximumSecondsToTerminateExternalPrograms.getModel().getValue());
+        notifyChangeListener(evt);
     }
 
     private synchronized void notifyChangeListener(UserSettingsChangeEvent evt) {
@@ -48,11 +56,12 @@ public final class SettingsPerformancePanel extends javax.swing.JPanel
     public void readProperties() {
         UserSettings settings = UserSettings.INSTANCE;
         ComboBoxModelThreadPriority modelThreadPriority =
-            (ComboBoxModelThreadPriority) comboBoxThreadPriority.getModel();
+                (ComboBoxModelThreadPriority) comboBoxThreadPriority.getModel();
         modelThreadPriority.setSelectedItem(modelThreadPriority.getItemOfPriority(
-            settings.getThreadPriority()));
+                settings.getThreadPriority()));
 
         checkBoxIsAutocompleteDisabled.setSelected(!settings.isUseAutocomplete());
+        spinnerMaximumSecondsToTerminateExternalPrograms.getModel().setValue(settings.getMaxSecondsToTerminateExternalPrograms());
     }
 
     @Override
@@ -75,6 +84,8 @@ public final class SettingsPerformancePanel extends javax.swing.JPanel
         labelThreadPriority = new javax.swing.JLabel();
         comboBoxThreadPriority = new javax.swing.JComboBox();
         labelInfoThreadPriority = new javax.swing.JLabel();
+        labelMaximumSecondsToTerminateExternalPrograms = new javax.swing.JLabel();
+        spinnerMaximumSecondsToTerminateExternalPrograms = new javax.swing.JSpinner();
 
         panelAccelerateStart.setBorder(javax.swing.BorderFactory.createTitledBorder(null, Bundle.getString("SettingsPerformancePanel.panelAccelerateStart.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 11))); // NOI18N
 
@@ -86,7 +97,7 @@ public final class SettingsPerformancePanel extends javax.swing.JPanel
             }
         });
 
-        labelsAutocompleteDisabled.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        labelsAutocompleteDisabled.setFont(new java.awt.Font("Dialog", 0, 12));
         labelsAutocompleteDisabled.setForeground(new java.awt.Color(255, 0, 0));
         labelsAutocompleteDisabled.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         labelsAutocompleteDisabled.setText(Bundle.getString("SettingsPerformancePanel.labelsAutocompleteDisabled.text")); // NOI18N
@@ -127,10 +138,20 @@ public final class SettingsPerformancePanel extends javax.swing.JPanel
             }
         });
 
-        labelInfoThreadPriority.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        labelInfoThreadPriority.setFont(new java.awt.Font("Dialog", 0, 12));
         labelInfoThreadPriority.setForeground(new java.awt.Color(255, 0, 0));
         labelInfoThreadPriority.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         labelInfoThreadPriority.setText(Bundle.getString("SettingsPerformancePanel.labelInfoThreadPriority.text")); // NOI18N
+
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/imv/resource/Bundle"); // NOI18N
+        labelMaximumSecondsToTerminateExternalPrograms.setText(bundle.getString("SettingsPerformancePanel.labelMaximumSecondsToTerminateExternalPrograms.text")); // NOI18N
+
+        spinnerMaximumSecondsToTerminateExternalPrograms.setModel(new javax.swing.SpinnerNumberModel(60, 10, 600, 1));
+        spinnerMaximumSecondsToTerminateExternalPrograms.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                spinnerMaximumSecondsToTerminateExternalProgramsStateChanged(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelThreadPriorityLayout = new javax.swing.GroupLayout(panelThreadPriority);
         panelThreadPriority.setLayout(panelThreadPriorityLayout);
@@ -138,13 +159,18 @@ public final class SettingsPerformancePanel extends javax.swing.JPanel
             panelThreadPriorityLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelThreadPriorityLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panelThreadPriorityLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(labelInfoThreadPriority, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelThreadPriorityLayout.createSequentialGroup()
-                        .addComponent(labelThreadPriority)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(comboBoxThreadPriority, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(70, 70, 70))
+                .addGroup(panelThreadPriorityLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelThreadPriorityLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(labelInfoThreadPriority, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelThreadPriorityLayout.createSequentialGroup()
+                            .addComponent(labelThreadPriority)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(comboBoxThreadPriority, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(panelThreadPriorityLayout.createSequentialGroup()
+                        .addComponent(labelMaximumSecondsToTerminateExternalPrograms)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(spinnerMaximumSecondsToTerminateExternalPrograms, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(70, Short.MAX_VALUE))
         );
         panelThreadPriorityLayout.setVerticalGroup(
             panelThreadPriorityLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -154,6 +180,10 @@ public final class SettingsPerformancePanel extends javax.swing.JPanel
                     .addComponent(comboBoxThreadPriority, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelInfoThreadPriority)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelThreadPriorityLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelMaximumSecondsToTerminateExternalPrograms)
+                    .addComponent(spinnerMaximumSecondsToTerminateExternalPrograms, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -164,7 +194,7 @@ public final class SettingsPerformancePanel extends javax.swing.JPanel
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelThreadPriority, javax.swing.GroupLayout.DEFAULT_SIZE, 506, Short.MAX_VALUE)
+                    .addComponent(panelThreadPriority, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panelAccelerateStart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -186,13 +216,20 @@ private void checkBoxIsAutocompleteDisabledActionPerformed(java.awt.event.Action
 private void comboBoxThreadPriorityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxThreadPriorityActionPerformed
     handleActionComboBoxThreadPriorityAction();
 }//GEN-LAST:event_comboBoxThreadPriorityActionPerformed
+
+private void spinnerMaximumSecondsToTerminateExternalProgramsStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spinnerMaximumSecondsToTerminateExternalProgramsStateChanged
+    handleMaximumSecondsToTerminateExternalProgramsStateChanged();
+}//GEN-LAST:event_spinnerMaximumSecondsToTerminateExternalProgramsStateChanged
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox checkBoxIsAutocompleteDisabled;
     private javax.swing.JComboBox comboBoxThreadPriority;
     private javax.swing.JLabel labelInfoThreadPriority;
+    private javax.swing.JLabel labelMaximumSecondsToTerminateExternalPrograms;
     private javax.swing.JLabel labelThreadPriority;
     private javax.swing.JLabel labelsAutocompleteDisabled;
     private javax.swing.JPanel panelAccelerateStart;
     private javax.swing.JPanel panelThreadPriority;
+    private javax.swing.JSpinner spinnerMaximumSecondsToTerminateExternalPrograms;
     // End of variables declaration//GEN-END:variables
 }
