@@ -1,6 +1,6 @@
 package de.elmar_baumann.lib.component;
 
-import de.elmar_baumann.lib.resource.Bundle;
+import java.awt.Color;
 import java.io.IOException;
 import java.io.PipedInputStream;
 import java.io.PipedOutputStream;
@@ -48,6 +48,18 @@ public class SystemOutputPanel extends JPanel {
     public void caputure() {
         System.setOut(new PrintStream(poOut, true));
         System.setErr(new PrintStream(poErr, true));
+    }
+
+    public void setTextForeground(Color color) {
+        textArea.setForeground(color);
+    }
+
+    public void setTextBackground(Color color) {
+        textArea.setBackground(color);
+    }
+
+    public void setInitText(String text) {
+        textArea.append(text);
     }
 
     private class ReaderThread extends Thread {
@@ -103,10 +115,12 @@ public class SystemOutputPanel extends JPanel {
         scrollPane = new javax.swing.JScrollPane();
         textArea = new javax.swing.JTextArea();
 
-        textArea.setColumns(20);
+        textArea.setColumns(1);
         textArea.setEditable(false);
         textArea.setLineWrap(true);
-        textArea.setRows(5);
+        textArea.setTabSize(4);
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/lib/resource/Bundle"); // NOI18N
+        textArea.setToolTipText(bundle.getString("SystemOutputPanel.textArea.toolTipText")); // NOI18N
         textArea.setWrapStyleWord(true);
         scrollPane.setViewportView(textArea);
 
@@ -114,11 +128,11 @@ public class SystemOutputPanel extends JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+            .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE)
+            .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
