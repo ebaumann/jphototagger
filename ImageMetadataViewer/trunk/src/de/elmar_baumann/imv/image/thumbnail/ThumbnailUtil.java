@@ -7,7 +7,6 @@ import com.imagero.reader.Imagero;
 import com.imagero.reader.ReaderFactory;
 import com.imagero.reader.jpeg.JpegReader;
 import com.imagero.reader.tiff.TiffReader;
-import com.sun.image.codec.jpeg.ImageFormatException;
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.image.metadata.exif.ExifMetadata;
@@ -188,7 +187,6 @@ public final class ThumbnailUtil {
             scaledImage = stepScaleImage(image, maxLength, 0.5);
         }
         return scaledImage;
-
     }
 
     /**
@@ -253,7 +251,7 @@ public final class ThumbnailUtil {
             // Letzter Skalierungsschritt auf Zielgröße
             scaledImage = scaleImage(scaledWidth, scaledHeight, image);
 
-        } catch (ImageFormatException ex) {
+        } catch (Exception ex) {
             AppLog.logWarning(ThumbnailUtil.class, ex);
         }
         return scaledImage;
