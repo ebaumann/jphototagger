@@ -152,7 +152,7 @@ public final class ThumbnailUtil {
                 new Integer(maxLength).toString());
         logExternalAppCommand(cmd);
         Pair<byte[], byte[]> output = External.executeGetOutput(cmd,
-                UserSettings.INSTANCE.getMaxSecondsToTerminateExternalPrograms());
+                UserSettings.INSTANCE.getMaxSecondsToTerminateExternalPrograms() * 1000);
 
         if (output == null) {
             return null;

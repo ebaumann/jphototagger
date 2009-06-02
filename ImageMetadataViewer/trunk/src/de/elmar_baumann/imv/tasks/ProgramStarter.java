@@ -107,7 +107,7 @@ public final class ProgramStarter {
             String command = getProcessAllCommand();
             logCommand(command);
             Pair<byte[], byte[]> output = External.executeGetOutput(command,
-                    UserSettings.INSTANCE.getMaxSecondsToTerminateExternalPrograms());
+                    UserSettings.INSTANCE.getMaxSecondsToTerminateExternalPrograms() * 1000);
             if (output != null) {
                 checkLogErrors(output);
                 setValueToProgressBar(imageFiles.size());
@@ -128,7 +128,7 @@ public final class ProgramStarter {
                 String command = getProcessSingleCommand(file, count);
                 logCommand(command);
                 Pair<byte[], byte[]> output = External.executeGetOutput(command,
-                        UserSettings.INSTANCE.getMaxSecondsToTerminateExternalPrograms());
+                        UserSettings.INSTANCE.getMaxSecondsToTerminateExternalPrograms() * 1000);
                 if (output != null) {
                     checkLogErrors(output);
                     setValueToProgressBar(++count);
