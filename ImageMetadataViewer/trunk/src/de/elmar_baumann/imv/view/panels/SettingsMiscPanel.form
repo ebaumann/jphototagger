@@ -33,7 +33,7 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
               <Component id="panelLogfile" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="panelAutoCopyDirectory" min="-2" max="-2" attributes="0"/>
@@ -43,7 +43,6 @@
               <Component id="panelDatabaseDirectory" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="panelFolderView" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -73,7 +72,7 @@
                   <Component id="labelLogLogfileFormatterClass" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="comboBoxLogfileFormatterClass" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="125" max="32767" attributes="0"/>
+                  <EmptySpace pref="172" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -154,7 +153,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="labelAutocopyDirectory" pref="456" max="32767" attributes="0"/>
+                  <Component id="labelAutocopyDirectory" pref="466" max="32767" attributes="0"/>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Component id="buttonChooseAutocopyDirectory" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
@@ -222,7 +221,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="labelWebBrowser" pref="456" max="32767" attributes="0"/>
+                  <Component id="labelWebBrowser" pref="466" max="32767" attributes="0"/>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Component id="buttonChooseWebBrowser" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
@@ -290,7 +289,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="labelDatabaseDirectory" pref="364" max="32767" attributes="0"/>
+                  <Component id="labelDatabaseDirectory" pref="375" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="buttonSetStandardDatabaseDirectoryName" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
@@ -380,7 +379,6 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="checkBoxIsAcceptHiddenDirectories" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="checkBoxTreeDirectoriesSelectLastDirectory" alignment="0" pref="583" max="32767" attributes="0"/>
-                      <Component id="checkBoxOpenSystemOutputWindowAfterStart" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -393,8 +391,6 @@
                   <Component id="checkBoxIsAcceptHiddenDirectories" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="checkBoxTreeDirectoriesSelectLastDirectory" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="checkBoxOpenSystemOutputWindowAfterStart" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -427,20 +423,6 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkBoxTreeDirectoriesSelectLastDirectoryActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JCheckBox" name="checkBoxOpenSystemOutputWindowAfterStart">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Dialog" size="12" style="0"/>
-            </Property>
-            <Property name="mnemonic" type="int" value="117"/>
-            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="SettingsMiscPanel.checkBoxOpenSystemOutputWindowAfterStart.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
-            </Property>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkBoxOpenSystemOutputWindowAfterStartActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

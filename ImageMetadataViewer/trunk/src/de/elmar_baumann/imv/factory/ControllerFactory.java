@@ -39,7 +39,6 @@ import de.elmar_baumann.imv.controller.metadata.ControllerIptcToXmp;
 import de.elmar_baumann.imv.controller.misc.ControllerItemsMutualExcludeSelection;
 import de.elmar_baumann.imv.controller.misc.ControllerLogfileDialog;
 import de.elmar_baumann.imv.controller.misc.ControllerMenuItemEnabler;
-import de.elmar_baumann.imv.controller.misc.ControllerShowSystemOutput;
 import de.elmar_baumann.imv.controller.misc.ControllerThumbnailCountDisplay;
 import de.elmar_baumann.imv.controller.search.ControllerCreateSavedSearch;
 import de.elmar_baumann.imv.controller.search.ControllerDeleteSavedSearch;
@@ -135,7 +134,6 @@ public final class ControllerFactory {
             new ControllerActionsShowDialog();
             new ControllerActionExecutor();
             new ControllerExtractEmbeddedXmp();
-            new ControllerShowSystemOutput();
             startScheduledTasks();
             init = true;
         }

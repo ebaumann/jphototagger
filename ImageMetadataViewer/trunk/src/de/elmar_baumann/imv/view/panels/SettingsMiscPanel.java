@@ -22,7 +22,7 @@ import javax.swing.filechooser.FileFilter;
  * @version 2008/11/02
  */
 public final class SettingsMiscPanel extends javax.swing.JPanel
-    implements Persistence {
+        implements Persistence {
 
     private final ListenerProvider listenerProvider = ListenerProvider.INSTANCE;
     private String lastSelectedAutocopyDirectory = ""; // NOI18N
@@ -40,7 +40,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
             lastSelectedAutocopyDirectory = directory;
             labelAutocopyDirectory.setIcon(IconUtil.getSystemIcon(file));
             UserSettingsChangeEvent evt = new UserSettingsChangeEvent(
-                UserSettingsChangeEvent.Type.AUTOCOPY_DIRECTORY, this);
+                    UserSettingsChangeEvent.Type.AUTOCOPY_DIRECTORY, this);
             evt.setAutoCopyDirectory(file);
             notifyChangeListener(evt);
         }
@@ -76,14 +76,14 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
 
     private void handleActionPerformedCheckBoxIsAcceptHiddenDirectories() {
         UserSettingsChangeEvent evt = new UserSettingsChangeEvent(
-            UserSettingsChangeEvent.Type.IS_ACCEPT_HIDDEN_DIRECTORIES, this);
+                UserSettingsChangeEvent.Type.IS_ACCEPT_HIDDEN_DIRECTORIES, this);
         evt.setAcceptHiddenDirectories(checkBoxIsAcceptHiddenDirectories.isSelected());
         notifyChangeListener(evt);
     }
 
     private void handleActionPerformedCheckBoxTreeDirectoriesSelectLastDirectory() {
         UserSettingsChangeEvent evt = new UserSettingsChangeEvent(
-            UserSettingsChangeEvent.Type.TREE_DIRECTORIES_SELECT_LAST_DIRECTORY, this);
+                UserSettingsChangeEvent.Type.TREE_DIRECTORIES_SELECT_LAST_DIRECTORY, this);
         evt.setTreeDirectoriesSelectLastDirectory(checkBoxTreeDirectoriesSelectLastDirectory.isSelected());
         notifyChangeListener(evt);
     }
@@ -95,17 +95,10 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
         }
     }
 
-    private void handleActionPerformedOpenSystemOutputWindowAfterStart() {
-        UserSettingsChangeEvent evt = new UserSettingsChangeEvent(
-            UserSettingsChangeEvent.Type.OPEN_SYSTEM_OUTPUT_WINDOW_AFTER_START, this);
-        evt.setOpenSystemOutputWindowAfterStart(checkBoxOpenSystemOutputWindowAfterStart.isSelected());
-        notifyChangeListener(evt);
-    }
-
     private void setDatabaseDirectoryName(String directoryName) {
         labelDatabaseDirectory.setText(directoryName);
         UserSettingsChangeEvent evt = new UserSettingsChangeEvent(
-            UserSettingsChangeEvent.Type.DATABASE_DIRECTORY, this);
+                UserSettingsChangeEvent.Type.DATABASE_DIRECTORY, this);
         evt.setDatabaseDirectoryName(directoryName);
         notifyChangeListener(evt);
     }
@@ -121,7 +114,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
             labelWebBrowser.setText(browserPath);
             labelWebBrowser.setIcon(IconUtil.getSystemIcon(programFile));
             UserSettingsChangeEvent evt = new UserSettingsChangeEvent(
-                UserSettingsChangeEvent.Type.WEB_BROWSER, this);
+                    UserSettingsChangeEvent.Type.WEB_BROWSER, this);
             evt.setWebBrowser(browserPath);
             notifyChangeListener(evt);
         }
@@ -129,16 +122,16 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
 
     private void handleActionPerformedComboBoxLogLevel() {
         UserSettingsChangeEvent evt = new UserSettingsChangeEvent(
-            UserSettingsChangeEvent.Type.LOG_LEVEL, this);
+                UserSettingsChangeEvent.Type.LOG_LEVEL, this);
         evt.setLogLevel(Level.parse(comboBoxLogLevel.getSelectedItem().toString()));
         notifyChangeListener(evt);
     }
 
     private void handleActionPerformedComboBoxLogfileFormatterClass() {
         UserSettingsChangeEvent evt = new UserSettingsChangeEvent(
-            UserSettingsChangeEvent.Type.LOGFILE_FORMATTER_CLASS, this);
+                UserSettingsChangeEvent.Type.LOGFILE_FORMATTER_CLASS, this);
         evt.setLogfileFormatterClass(
-            (Class) comboBoxLogfileFormatterClass.getSelectedItem());
+                (Class) comboBoxLogfileFormatterClass.getSelectedItem());
         notifyChangeListener(evt);
     }
 
@@ -160,13 +153,12 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
         readWebBrowserProperties(settings);
         comboBoxLogLevel.setSelectedItem(settings.getLogLevel().getLocalizedName());
         ComboBoxModelLogfileFormatter modelLogfileFormatter =
-            (ComboBoxModelLogfileFormatter) comboBoxLogfileFormatterClass.getModel();
+                (ComboBoxModelLogfileFormatter) comboBoxLogfileFormatterClass.getModel();
         modelLogfileFormatter.setSelectedItem(settings.getLogfileFormatterClass());
         checkBoxIsAcceptHiddenDirectories.setSelected(
-            settings.isAcceptHiddenDirectories());
+                settings.isAcceptHiddenDirectories());
         checkBoxTreeDirectoriesSelectLastDirectory.setSelected(
-            settings.isTreeDirectoriesSelectLastDirectory());
-        checkBoxOpenSystemOutputWindowAfterStart.setSelected(settings.isOpenSystemOutputAfterStart());
+                settings.isTreeDirectoriesSelectLastDirectory());
         labelDatabaseDirectory.setText(UserSettings.INSTANCE.getDatabaseDirectoryName());
     }
 
@@ -219,7 +211,6 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
         panelFolderView = new javax.swing.JPanel();
         checkBoxIsAcceptHiddenDirectories = new javax.swing.JCheckBox();
         checkBoxTreeDirectoriesSelectLastDirectory = new javax.swing.JCheckBox();
-        checkBoxOpenSystemOutputWindowAfterStart = new javax.swing.JCheckBox();
 
         panelLogfile.setBorder(javax.swing.BorderFactory.createTitledBorder(null, Bundle.getString("SettingsMiscPanel.panelLogfile.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 11))); // NOI18N
 
@@ -257,7 +248,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
                 .addComponent(labelLogLogfileFormatterClass)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(comboBoxLogfileFormatterClass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(125, Short.MAX_VALUE))
+                .addContainerGap(172, Short.MAX_VALUE))
         );
         panelLogfileLayout.setVerticalGroup(
             panelLogfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -291,7 +282,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
             panelAutoCopyDirectoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelAutoCopyDirectoryLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(labelAutocopyDirectory, javax.swing.GroupLayout.DEFAULT_SIZE, 456, Short.MAX_VALUE)
+                .addComponent(labelAutocopyDirectory, javax.swing.GroupLayout.DEFAULT_SIZE, 466, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonChooseAutocopyDirectory)
                 .addContainerGap())
@@ -326,7 +317,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
             panelWebBrowserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelWebBrowserLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(labelWebBrowser, javax.swing.GroupLayout.DEFAULT_SIZE, 456, Short.MAX_VALUE)
+                .addComponent(labelWebBrowser, javax.swing.GroupLayout.DEFAULT_SIZE, 466, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonChooseWebBrowser)
                 .addContainerGap())
@@ -370,7 +361,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
             panelDatabaseDirectoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelDatabaseDirectoryLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(labelDatabaseDirectory, javax.swing.GroupLayout.DEFAULT_SIZE, 364, Short.MAX_VALUE)
+                .addComponent(labelDatabaseDirectory, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonSetStandardDatabaseDirectoryName)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -390,7 +381,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
 
         panelFolderView.setBorder(javax.swing.BorderFactory.createTitledBorder(null, Bundle.getString("SettingsMiscPanel.panelFolderView.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 11))); // NOI18N
 
-        checkBoxIsAcceptHiddenDirectories.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        checkBoxIsAcceptHiddenDirectories.setFont(new java.awt.Font("Dialog", 0, 12));
         checkBoxIsAcceptHiddenDirectories.setMnemonic('o');
         checkBoxIsAcceptHiddenDirectories.setText(Bundle.getString("SettingsMiscPanel.checkBoxIsAcceptHiddenDirectories.text")); // NOI18N
         checkBoxIsAcceptHiddenDirectories.addActionListener(new java.awt.event.ActionListener() {
@@ -408,15 +399,6 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
             }
         });
 
-        checkBoxOpenSystemOutputWindowAfterStart.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
-        checkBoxOpenSystemOutputWindowAfterStart.setMnemonic('u');
-        checkBoxOpenSystemOutputWindowAfterStart.setText(Bundle.getString("SettingsMiscPanel.checkBoxOpenSystemOutputWindowAfterStart.text")); // NOI18N
-        checkBoxOpenSystemOutputWindowAfterStart.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkBoxOpenSystemOutputWindowAfterStartActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout panelFolderViewLayout = new javax.swing.GroupLayout(panelFolderView);
         panelFolderView.setLayout(panelFolderViewLayout);
         panelFolderViewLayout.setHorizontalGroup(
@@ -425,8 +407,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
                 .addContainerGap()
                 .addGroup(panelFolderViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(checkBoxIsAcceptHiddenDirectories)
-                    .addComponent(checkBoxTreeDirectoriesSelectLastDirectory, javax.swing.GroupLayout.DEFAULT_SIZE, 583, Short.MAX_VALUE)
-                    .addComponent(checkBoxOpenSystemOutputWindowAfterStart))
+                    .addComponent(checkBoxTreeDirectoriesSelectLastDirectory, javax.swing.GroupLayout.DEFAULT_SIZE, 583, Short.MAX_VALUE))
                 .addContainerGap())
         );
         panelFolderViewLayout.setVerticalGroup(
@@ -436,8 +417,6 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
                 .addComponent(checkBoxIsAcceptHiddenDirectories)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(checkBoxTreeDirectoriesSelectLastDirectory)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(checkBoxOpenSystemOutputWindowAfterStart)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -458,7 +437,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(panelLogfile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelAutoCopyDirectory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -467,8 +446,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelDatabaseDirectory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelFolderView, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(panelFolderView, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -504,17 +482,12 @@ private void buttonSetStandardDatabaseDirectoryNameActionPerformed(java.awt.even
     handleActionPerformedSetStandardDatabaseDirectory();
 }//GEN-LAST:event_buttonSetStandardDatabaseDirectoryNameActionPerformed
 
-private void checkBoxOpenSystemOutputWindowAfterStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxOpenSystemOutputWindowAfterStartActionPerformed
-    handleActionPerformedOpenSystemOutputWindowAfterStart();
-}//GEN-LAST:event_checkBoxOpenSystemOutputWindowAfterStartActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonChooseAutocopyDirectory;
     private javax.swing.JButton buttonChooseDatabaseDirectory;
     private javax.swing.JButton buttonChooseWebBrowser;
     private javax.swing.JButton buttonSetStandardDatabaseDirectoryName;
     private javax.swing.JCheckBox checkBoxIsAcceptHiddenDirectories;
-    private javax.swing.JCheckBox checkBoxOpenSystemOutputWindowAfterStart;
     private javax.swing.JCheckBox checkBoxTreeDirectoriesSelectLastDirectory;
     private javax.swing.JComboBox comboBoxLogLevel;
     private javax.swing.JComboBox comboBoxLogfileFormatterClass;

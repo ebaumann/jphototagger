@@ -17,601 +17,544 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
+          <Group type="102" attributes="0">
+              <EmptySpace min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="splitPaneMain" alignment="1" pref="557" max="32767" attributes="2"/>
-                  <Component id="panelStatusbar" alignment="1" max="32767" attributes="2"/>
+                  <Component id="splitPaneMain" alignment="0" pref="630" max="32767" attributes="0"/>
+                  <Component id="panelStatusbar" alignment="0" max="32767" attributes="2"/>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="1" attributes="0">
-              <Component id="splitPaneMain" pref="412" max="32767" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+          <Group type="102" alignment="0" attributes="0">
+              <Component id="splitPaneMain" pref="376" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
               <Component id="panelStatusbar" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
     <Container class="javax.swing.JSplitPane" name="splitPaneMain">
+      <Properties>
+        <Property name="orientation" type="int" value="0"/>
+      </Properties>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="splitPaneMain.setDividerLocation(getDividerLocationMain());"/>
       </AuxValues>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout"/>
       <SubComponents>
-        <Container class="javax.swing.JPanel" name="panelSelection">
+        <Container class="javax.swing.JSplitPane" name="splitPaneMainImages">
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="splitPaneMainImages.setDividerLocation(getDividerLocationMainImages());"/>
+          </AuxValues>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout$JSplitPaneConstraintsDescription">
               <JSplitPaneConstraints position="left"/>
             </Constraint>
           </Constraints>
 
-          <Layout>
-            <DimensionLayout dim="0">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="135" max="32767" attributes="0"/>
-                  <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                      <Component id="tabbedPaneSelection" alignment="0" pref="135" max="32767" attributes="0"/>
-                  </Group>
-              </Group>
-            </DimensionLayout>
-            <DimensionLayout dim="1">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="410" max="32767" attributes="0"/>
-                  <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                      <Component id="tabbedPaneSelection" alignment="0" pref="410" max="32767" attributes="0"/>
-                  </Group>
-              </Group>
-            </DimensionLayout>
-          </Layout>
+          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout"/>
           <SubComponents>
-            <Container class="javax.swing.JTabbedPane" name="tabbedPaneSelection">
-              <Properties>
-                <Property name="name" type="java.lang.String" value="" noResource="true"/>
-              </Properties>
+            <Container class="javax.swing.JPanel" name="panelSelection">
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout$JSplitPaneConstraintsDescription">
+                  <JSplitPaneConstraints position="left"/>
+                </Constraint>
+              </Constraints>
 
-              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
+              <Layout>
+                <DimensionLayout dim="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <EmptySpace min="0" pref="135" max="32767" attributes="0"/>
+                      <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
+                          <Component id="tabbedPaneSelection" alignment="0" pref="135" max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+                <DimensionLayout dim="1">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <EmptySpace min="0" pref="335" max="32767" attributes="0"/>
+                      <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
+                          <Component id="tabbedPaneSelection" alignment="0" pref="335" max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+              </Layout>
               <SubComponents>
-                <Container class="javax.swing.JPanel" name="panelSelectionDirectories">
-                  <Constraints>
-                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                      <JTabbedPaneConstraints tabName="Ordner">
-                        <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                          <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="AppPanel.panelSelectionDirectories.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
-                        </Property>
-                        <Property name="tabIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                          <Image iconType="3" name="/de/elmar_baumann/imv/resource/icon_folder.png"/>
-                        </Property>
-                      </JTabbedPaneConstraints>
-                    </Constraint>
-                  </Constraints>
+                <Container class="javax.swing.JTabbedPane" name="tabbedPaneSelection">
+                  <Properties>
+                    <Property name="name" type="java.lang.String" value="" noResource="true"/>
+                  </Properties>
 
-                  <Layout>
-                    <DimensionLayout dim="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="scrollPaneDirectories" alignment="1" pref="130" max="32767" attributes="2"/>
-                      </Group>
-                    </DimensionLayout>
-                    <DimensionLayout dim="1">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="scrollPaneDirectories" alignment="0" pref="315" max="32767" attributes="0"/>
-                      </Group>
-                    </DimensionLayout>
-                  </Layout>
+                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
                   <SubComponents>
-                    <Container class="javax.swing.JScrollPane" name="scrollPaneDirectories">
-                      <AuxValues>
-                        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-                      </AuxValues>
+                    <Container class="javax.swing.JPanel" name="panelSelectionDirectories">
+                      <Constraints>
+                        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+                          <JTabbedPaneConstraints tabName="Ordner">
+                            <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                              <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="AppPanel.panelSelectionDirectories.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                            </Property>
+                            <Property name="tabIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                              <Image iconType="3" name="/de/elmar_baumann/imv/resource/icon_folder.png"/>
+                            </Property>
+                          </JTabbedPaneConstraints>
+                        </Constraint>
+                      </Constraints>
 
-                      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                      <Layout>
+                        <DimensionLayout dim="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="scrollPaneDirectories" alignment="1" pref="130" max="32767" attributes="2"/>
+                          </Group>
+                        </DimensionLayout>
+                        <DimensionLayout dim="1">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="scrollPaneDirectories" alignment="0" pref="240" max="32767" attributes="0"/>
+                          </Group>
+                        </DimensionLayout>
+                      </Layout>
                       <SubComponents>
-                        <Component class="javax.swing.JTree" name="treeDirectories">
-                          <Properties>
-                            <Property name="model" type="javax.swing.tree.TreeModel" editor="org.netbeans.modules.form.ComponentChooserEditor">
-                              <ComponentRef name="null"/>
-                            </Property>
-                            <Property name="cellRenderer" type="javax.swing.tree.TreeCellRenderer" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                              <Connection code="new TreeCellRendererDirectories()" type="code"/>
-                            </Property>
-                            <Property name="dragEnabled" type="boolean" value="true"/>
-                            <Property name="expandsSelectedPaths" type="boolean" value="false"/>
-                            <Property name="name" type="java.lang.String" value="treeDirectories" noResource="true"/>
-                          </Properties>
+                        <Container class="javax.swing.JScrollPane" name="scrollPaneDirectories">
                           <AuxValues>
-                            <AuxValue name="JavaCodeGenerator_allCodePost" type="java.lang.String" value="treeDirectories.setTransferHandler(new de.elmar_baumann.imv.datatransfer.TransferHandlerTreeDirectories());"/>
+                            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
                           </AuxValues>
-                        </Component>
+
+                          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                          <SubComponents>
+                            <Component class="javax.swing.JTree" name="treeDirectories">
+                              <Properties>
+                                <Property name="model" type="javax.swing.tree.TreeModel" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                                  <ComponentRef name="null"/>
+                                </Property>
+                                <Property name="cellRenderer" type="javax.swing.tree.TreeCellRenderer" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                                  <Connection code="new TreeCellRendererDirectories()" type="code"/>
+                                </Property>
+                                <Property name="dragEnabled" type="boolean" value="true"/>
+                                <Property name="expandsSelectedPaths" type="boolean" value="false"/>
+                                <Property name="name" type="java.lang.String" value="treeDirectories" noResource="true"/>
+                              </Properties>
+                              <AuxValues>
+                                <AuxValue name="JavaCodeGenerator_allCodePost" type="java.lang.String" value="treeDirectories.setTransferHandler(new de.elmar_baumann.imv.datatransfer.TransferHandlerTreeDirectories());"/>
+                              </AuxValues>
+                            </Component>
+                          </SubComponents>
+                        </Container>
                       </SubComponents>
                     </Container>
-                  </SubComponents>
-                </Container>
-                <Container class="javax.swing.JPanel" name="panelSelectionSavedSearches">
-                  <Constraints>
-                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                      <JTabbedPaneConstraints tabName="Suchen">
-                        <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                          <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="AppPanel.panelSelectionSavedSearches.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
-                        </Property>
-                        <Property name="tabIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                          <Image iconType="3" name="/de/elmar_baumann/imv/resource/icon_search.png"/>
-                        </Property>
-                      </JTabbedPaneConstraints>
-                    </Constraint>
-                  </Constraints>
-
-                  <Layout>
-                    <DimensionLayout dim="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="scrollPaneSavedSearches" alignment="0" pref="130" max="32767" attributes="0"/>
-                      </Group>
-                    </DimensionLayout>
-                    <DimensionLayout dim="1">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="scrollPaneSavedSearches" alignment="0" pref="315" max="32767" attributes="0"/>
-                      </Group>
-                    </DimensionLayout>
-                  </Layout>
-                  <SubComponents>
-                    <Container class="javax.swing.JScrollPane" name="scrollPaneSavedSearches">
-                      <AuxValues>
-                        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-                      </AuxValues>
-
-                      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-                      <SubComponents>
-                        <Component class="javax.swing.JList" name="listSavedSearches">
-                          <Properties>
-                            <Property name="selectionMode" type="int" value="0"/>
-                            <Property name="cellRenderer" type="javax.swing.ListCellRenderer" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                              <Connection code="new ListCellRendererSavedSearches()" type="code"/>
+                    <Container class="javax.swing.JPanel" name="panelSelectionSavedSearches">
+                      <Constraints>
+                        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+                          <JTabbedPaneConstraints tabName="Suchen">
+                            <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                              <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="AppPanel.panelSelectionSavedSearches.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                             </Property>
-                            <Property name="name" type="java.lang.String" value="listSavedSearches" noResource="true"/>
-                          </Properties>
-                        </Component>
-                      </SubComponents>
-                    </Container>
-                  </SubComponents>
-                </Container>
-                <Container class="javax.swing.JPanel" name="panelSelectionImageCollections">
-                  <Constraints>
-                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                      <JTabbedPaneConstraints tabName="Bildsammlungen">
-                        <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                          <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="AppPanel.panelSelectionImageCollections.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
-                        </Property>
-                        <Property name="tabIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                          <Image iconType="3" name="/de/elmar_baumann/imv/resource/icon_imagecollection.png"/>
-                        </Property>
-                      </JTabbedPaneConstraints>
-                    </Constraint>
-                  </Constraints>
-
-                  <Layout>
-                    <DimensionLayout dim="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="scrollPaneImageCollections" alignment="0" pref="130" max="32767" attributes="0"/>
-                      </Group>
-                    </DimensionLayout>
-                    <DimensionLayout dim="1">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="scrollPaneImageCollections" alignment="0" pref="315" max="32767" attributes="0"/>
-                      </Group>
-                    </DimensionLayout>
-                  </Layout>
-                  <SubComponents>
-                    <Container class="javax.swing.JScrollPane" name="scrollPaneImageCollections">
-                      <AuxValues>
-                        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-                      </AuxValues>
-
-                      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-                      <SubComponents>
-                        <Component class="javax.swing.JList" name="listImageCollections">
-                          <Properties>
-                            <Property name="selectionMode" type="int" value="0"/>
-                            <Property name="cellRenderer" type="javax.swing.ListCellRenderer" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                              <Connection code="new ListCellRendererImageCollections()" type="code"/>
+                            <Property name="tabIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                              <Image iconType="3" name="/de/elmar_baumann/imv/resource/icon_search.png"/>
                             </Property>
-                            <Property name="dragEnabled" type="boolean" value="true"/>
-                            <Property name="name" type="java.lang.String" value="listImageCollections" noResource="true"/>
-                          </Properties>
+                          </JTabbedPaneConstraints>
+                        </Constraint>
+                      </Constraints>
+
+                      <Layout>
+                        <DimensionLayout dim="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="scrollPaneSavedSearches" alignment="0" pref="130" max="32767" attributes="0"/>
+                          </Group>
+                        </DimensionLayout>
+                        <DimensionLayout dim="1">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="scrollPaneSavedSearches" alignment="0" pref="240" max="32767" attributes="0"/>
+                          </Group>
+                        </DimensionLayout>
+                      </Layout>
+                      <SubComponents>
+                        <Container class="javax.swing.JScrollPane" name="scrollPaneSavedSearches">
                           <AuxValues>
-                            <AuxValue name="JavaCodeGenerator_allCodePost" type="java.lang.String" value="listImageCollections.setTransferHandler(new de.elmar_baumann.imv.datatransfer.TransferHandlerListImageCollections());"/>
+                            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
                           </AuxValues>
-                        </Component>
+
+                          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                          <SubComponents>
+                            <Component class="javax.swing.JList" name="listSavedSearches">
+                              <Properties>
+                                <Property name="selectionMode" type="int" value="0"/>
+                                <Property name="cellRenderer" type="javax.swing.ListCellRenderer" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                                  <Connection code="new ListCellRendererSavedSearches()" type="code"/>
+                                </Property>
+                                <Property name="name" type="java.lang.String" value="listSavedSearches" noResource="true"/>
+                              </Properties>
+                            </Component>
+                          </SubComponents>
+                        </Container>
                       </SubComponents>
                     </Container>
-                  </SubComponents>
-                </Container>
-                <Container class="javax.swing.JPanel" name="panelSelectionCategories">
-                  <Constraints>
-                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                      <JTabbedPaneConstraints tabName="Kategorien">
-                        <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                          <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="AppPanel.panelSelectionCategories.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
-                        </Property>
-                        <Property name="tabIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                          <Image iconType="3" name="/de/elmar_baumann/imv/resource/icon_category.png"/>
-                        </Property>
-                      </JTabbedPaneConstraints>
-                    </Constraint>
-                  </Constraints>
-
-                  <Layout>
-                    <DimensionLayout dim="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="scrollPaneCategories" alignment="0" pref="130" max="32767" attributes="0"/>
-                      </Group>
-                    </DimensionLayout>
-                    <DimensionLayout dim="1">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="scrollPaneCategories" alignment="0" pref="315" max="32767" attributes="0"/>
-                      </Group>
-                    </DimensionLayout>
-                  </Layout>
-                  <SubComponents>
-                    <Container class="javax.swing.JScrollPane" name="scrollPaneCategories">
-                      <AuxValues>
-                        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-                      </AuxValues>
-
-                      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-                      <SubComponents>
-                        <Component class="javax.swing.JList" name="listCategories">
-                          <Properties>
-                            <Property name="selectionMode" type="int" value="0"/>
-                            <Property name="cellRenderer" type="javax.swing.ListCellRenderer" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                              <Connection code="new ListCellRendererCategories()" type="code"/>
+                    <Container class="javax.swing.JPanel" name="panelSelectionImageCollections">
+                      <Constraints>
+                        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+                          <JTabbedPaneConstraints tabName="Bildsammlungen">
+                            <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                              <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="AppPanel.panelSelectionImageCollections.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                             </Property>
-                            <Property name="dropMode" type="javax.swing.DropMode" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                              <Connection code="javax.swing.DropMode.ON" type="code"/>
+                            <Property name="tabIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                              <Image iconType="3" name="/de/elmar_baumann/imv/resource/icon_imagecollection.png"/>
                             </Property>
-                            <Property name="name" type="java.lang.String" value="listCategories" noResource="true"/>
-                          </Properties>
-                        </Component>
-                      </SubComponents>
-                    </Container>
-                  </SubComponents>
-                </Container>
-                <Container class="javax.swing.JPanel" name="panelSelectionFavoriteDirectories">
-                  <Constraints>
-                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                      <JTabbedPaneConstraints tabName="Favoriten-Ordner">
-                        <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                          <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="AppPanel.panelSelectionFavoriteDirectories.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
-                        </Property>
-                        <Property name="tabIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                          <Image iconType="3" name="/de/elmar_baumann/imv/resource/icon_favorite.png"/>
-                        </Property>
-                      </JTabbedPaneConstraints>
-                    </Constraint>
-                  </Constraints>
+                          </JTabbedPaneConstraints>
+                        </Constraint>
+                      </Constraints>
 
-                  <Layout>
-                    <DimensionLayout dim="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <EmptySpace min="0" pref="130" max="32767" attributes="0"/>
-                          <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                              <Component id="scrollPaneFavoriteDirectories" alignment="0" pref="130" max="32767" attributes="0"/>
+                      <Layout>
+                        <DimensionLayout dim="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="scrollPaneImageCollections" alignment="0" pref="130" max="32767" attributes="0"/>
                           </Group>
-                      </Group>
-                    </DimensionLayout>
-                    <DimensionLayout dim="1">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <EmptySpace min="0" pref="315" max="32767" attributes="0"/>
-                          <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                              <Component id="scrollPaneFavoriteDirectories" alignment="0" pref="315" max="32767" attributes="0"/>
+                        </DimensionLayout>
+                        <DimensionLayout dim="1">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="scrollPaneImageCollections" alignment="0" pref="240" max="32767" attributes="0"/>
                           </Group>
-                      </Group>
-                    </DimensionLayout>
-                  </Layout>
-                  <SubComponents>
-                    <Container class="javax.swing.JScrollPane" name="scrollPaneFavoriteDirectories">
-                      <AuxValues>
-                        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-                      </AuxValues>
-
-                      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                        </DimensionLayout>
+                      </Layout>
                       <SubComponents>
-                        <Component class="javax.swing.JList" name="listFavoriteDirectories">
-                          <Properties>
-                            <Property name="selectionMode" type="int" value="0"/>
-                            <Property name="cellRenderer" type="javax.swing.ListCellRenderer" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                              <Connection code="new ListCellRendererFavoriteDirectories()" type="code"/>
-                            </Property>
-                            <Property name="dragEnabled" type="boolean" value="true"/>
-                            <Property name="dropMode" type="javax.swing.DropMode" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                              <Connection code="javax.swing.DropMode.ON" type="code"/>
-                            </Property>
-                            <Property name="name" type="java.lang.String" value="listFavoriteDirectories" noResource="true"/>
-                          </Properties>
+                        <Container class="javax.swing.JScrollPane" name="scrollPaneImageCollections">
                           <AuxValues>
-                            <AuxValue name="JavaCodeGenerator_allCodePost" type="java.lang.String" value="listFavoriteDirectories.setTransferHandler(new de.elmar_baumann.imv.datatransfer.TransferHandlerListFavoriteDirectories());"/>
+                            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
                           </AuxValues>
-                        </Component>
+
+                          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                          <SubComponents>
+                            <Component class="javax.swing.JList" name="listImageCollections">
+                              <Properties>
+                                <Property name="selectionMode" type="int" value="0"/>
+                                <Property name="cellRenderer" type="javax.swing.ListCellRenderer" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                                  <Connection code="new ListCellRendererImageCollections()" type="code"/>
+                                </Property>
+                                <Property name="dragEnabled" type="boolean" value="true"/>
+                                <Property name="name" type="java.lang.String" value="listImageCollections" noResource="true"/>
+                              </Properties>
+                              <AuxValues>
+                                <AuxValue name="JavaCodeGenerator_allCodePost" type="java.lang.String" value="listImageCollections.setTransferHandler(new de.elmar_baumann.imv.datatransfer.TransferHandlerListImageCollections());"/>
+                              </AuxValues>
+                            </Component>
+                          </SubComponents>
+                        </Container>
                       </SubComponents>
                     </Container>
-                  </SubComponents>
-                </Container>
-                <Container class="javax.swing.JPanel" name="panelSelectionKeywords">
-                  <Constraints>
-                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                      <JTabbedPaneConstraints tabName="Stichw&#xf6;rter">
-                        <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                          <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="AppPanel.panelSelectionKeywords.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
-                        </Property>
-                        <Property name="tabIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                          <Image iconType="3" name="/de/elmar_baumann/imv/resource/icon_keyword.png"/>
-                        </Property>
-                      </JTabbedPaneConstraints>
-                    </Constraint>
-                  </Constraints>
-
-                  <Layout>
-                    <DimensionLayout dim="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <EmptySpace min="0" pref="130" max="32767" attributes="0"/>
-                          <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                              <Component id="scrollPaneKeywords" alignment="0" pref="130" max="32767" attributes="0"/>
-                          </Group>
-                      </Group>
-                    </DimensionLayout>
-                    <DimensionLayout dim="1">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <EmptySpace min="0" pref="315" max="32767" attributes="0"/>
-                          <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                              <Component id="scrollPaneKeywords" alignment="0" pref="315" max="32767" attributes="0"/>
-                          </Group>
-                      </Group>
-                    </DimensionLayout>
-                  </Layout>
-                  <SubComponents>
-                    <Container class="javax.swing.JScrollPane" name="scrollPaneKeywords">
-                      <AuxValues>
-                        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-                      </AuxValues>
-
-                      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-                      <SubComponents>
-                        <Component class="javax.swing.JList" name="listKeywords">
-                          <Properties>
-                            <Property name="selectionMode" type="int" value="0"/>
-                            <Property name="cellRenderer" type="javax.swing.ListCellRenderer" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                              <Connection code="new ListCellRendererKeywords()" type="code"/>
+                    <Container class="javax.swing.JPanel" name="panelSelectionCategories">
+                      <Constraints>
+                        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+                          <JTabbedPaneConstraints tabName="Kategorien">
+                            <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                              <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="AppPanel.panelSelectionCategories.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                             </Property>
-                            <Property name="name" type="java.lang.String" value="listKeywords" noResource="true"/>
-                          </Properties>
-                        </Component>
+                            <Property name="tabIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                              <Image iconType="3" name="/de/elmar_baumann/imv/resource/icon_category.png"/>
+                            </Property>
+                          </JTabbedPaneConstraints>
+                        </Constraint>
+                      </Constraints>
+
+                      <Layout>
+                        <DimensionLayout dim="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="scrollPaneCategories" alignment="0" pref="130" max="32767" attributes="0"/>
+                          </Group>
+                        </DimensionLayout>
+                        <DimensionLayout dim="1">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="scrollPaneCategories" alignment="0" pref="240" max="32767" attributes="0"/>
+                          </Group>
+                        </DimensionLayout>
+                      </Layout>
+                      <SubComponents>
+                        <Container class="javax.swing.JScrollPane" name="scrollPaneCategories">
+                          <AuxValues>
+                            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                          </AuxValues>
+
+                          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                          <SubComponents>
+                            <Component class="javax.swing.JList" name="listCategories">
+                              <Properties>
+                                <Property name="selectionMode" type="int" value="0"/>
+                                <Property name="cellRenderer" type="javax.swing.ListCellRenderer" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                                  <Connection code="new ListCellRendererCategories()" type="code"/>
+                                </Property>
+                                <Property name="dropMode" type="javax.swing.DropMode" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                                  <Connection code="javax.swing.DropMode.ON" type="code"/>
+                                </Property>
+                                <Property name="name" type="java.lang.String" value="listCategories" noResource="true"/>
+                              </Properties>
+                            </Component>
+                          </SubComponents>
+                        </Container>
+                      </SubComponents>
+                    </Container>
+                    <Container class="javax.swing.JPanel" name="panelSelectionFavoriteDirectories">
+                      <Constraints>
+                        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+                          <JTabbedPaneConstraints tabName="Favoriten-Ordner">
+                            <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                              <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="AppPanel.panelSelectionFavoriteDirectories.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                            </Property>
+                            <Property name="tabIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                              <Image iconType="3" name="/de/elmar_baumann/imv/resource/icon_favorite.png"/>
+                            </Property>
+                          </JTabbedPaneConstraints>
+                        </Constraint>
+                      </Constraints>
+
+                      <Layout>
+                        <DimensionLayout dim="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <EmptySpace min="0" pref="130" max="32767" attributes="0"/>
+                              <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
+                                  <Component id="scrollPaneFavoriteDirectories" alignment="0" pref="130" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
+                        </DimensionLayout>
+                        <DimensionLayout dim="1">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <EmptySpace min="0" pref="240" max="32767" attributes="0"/>
+                              <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
+                                  <Component id="scrollPaneFavoriteDirectories" alignment="0" pref="240" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
+                        </DimensionLayout>
+                      </Layout>
+                      <SubComponents>
+                        <Container class="javax.swing.JScrollPane" name="scrollPaneFavoriteDirectories">
+                          <AuxValues>
+                            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                          </AuxValues>
+
+                          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                          <SubComponents>
+                            <Component class="javax.swing.JList" name="listFavoriteDirectories">
+                              <Properties>
+                                <Property name="selectionMode" type="int" value="0"/>
+                                <Property name="cellRenderer" type="javax.swing.ListCellRenderer" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                                  <Connection code="new ListCellRendererFavoriteDirectories()" type="code"/>
+                                </Property>
+                                <Property name="dragEnabled" type="boolean" value="true"/>
+                                <Property name="dropMode" type="javax.swing.DropMode" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                                  <Connection code="javax.swing.DropMode.ON" type="code"/>
+                                </Property>
+                                <Property name="name" type="java.lang.String" value="listFavoriteDirectories" noResource="true"/>
+                              </Properties>
+                              <AuxValues>
+                                <AuxValue name="JavaCodeGenerator_allCodePost" type="java.lang.String" value="listFavoriteDirectories.setTransferHandler(new de.elmar_baumann.imv.datatransfer.TransferHandlerListFavoriteDirectories());"/>
+                              </AuxValues>
+                            </Component>
+                          </SubComponents>
+                        </Container>
+                      </SubComponents>
+                    </Container>
+                    <Container class="javax.swing.JPanel" name="panelSelectionKeywords">
+                      <Constraints>
+                        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+                          <JTabbedPaneConstraints tabName="Stichw&#xf6;rter">
+                            <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                              <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="AppPanel.panelSelectionKeywords.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                            </Property>
+                            <Property name="tabIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                              <Image iconType="3" name="/de/elmar_baumann/imv/resource/icon_keyword.png"/>
+                            </Property>
+                          </JTabbedPaneConstraints>
+                        </Constraint>
+                      </Constraints>
+
+                      <Layout>
+                        <DimensionLayout dim="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <EmptySpace min="0" pref="130" max="32767" attributes="0"/>
+                              <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
+                                  <Component id="scrollPaneKeywords" alignment="0" pref="130" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
+                        </DimensionLayout>
+                        <DimensionLayout dim="1">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <EmptySpace min="0" pref="240" max="32767" attributes="0"/>
+                              <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
+                                  <Component id="scrollPaneKeywords" alignment="0" pref="240" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
+                        </DimensionLayout>
+                      </Layout>
+                      <SubComponents>
+                        <Container class="javax.swing.JScrollPane" name="scrollPaneKeywords">
+                          <AuxValues>
+                            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                          </AuxValues>
+
+                          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                          <SubComponents>
+                            <Component class="javax.swing.JList" name="listKeywords">
+                              <Properties>
+                                <Property name="selectionMode" type="int" value="0"/>
+                                <Property name="cellRenderer" type="javax.swing.ListCellRenderer" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                                  <Connection code="new ListCellRendererKeywords()" type="code"/>
+                                </Property>
+                                <Property name="name" type="java.lang.String" value="listKeywords" noResource="true"/>
+                              </Properties>
+                            </Component>
+                          </SubComponents>
+                        </Container>
                       </SubComponents>
                     </Container>
                   </SubComponents>
                 </Container>
               </SubComponents>
             </Container>
-          </SubComponents>
-        </Container>
-        <Container class="javax.swing.JPanel" name="panelThumbnailsMetadata">
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout$JSplitPaneConstraintsDescription">
-              <JSplitPaneConstraints position="right"/>
-            </Constraint>
-          </Constraints>
+            <Container class="javax.swing.JPanel" name="panelThumbnailsMetadata">
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout$JSplitPaneConstraintsDescription">
+                  <JSplitPaneConstraints position="right"/>
+                </Constraint>
+              </Constraints>
 
-          <Layout>
-            <DimensionLayout dim="0">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="415" max="32767" attributes="0"/>
-                  <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                      <Component id="splitPaneThumbnailsMetadata" alignment="1" pref="415" max="32767" attributes="0"/>
+              <Layout>
+                <DimensionLayout dim="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <EmptySpace min="0" pref="486" max="32767" attributes="0"/>
+                      <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
+                          <Component id="splitPaneThumbnailsMetadata" alignment="1" pref="486" max="32767" attributes="0"/>
+                      </Group>
                   </Group>
-              </Group>
-            </DimensionLayout>
-            <DimensionLayout dim="1">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="410" max="32767" attributes="0"/>
-                  <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                      <Component id="splitPaneThumbnailsMetadata" alignment="0" pref="410" max="32767" attributes="0"/>
+                </DimensionLayout>
+                <DimensionLayout dim="1">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <EmptySpace min="0" pref="335" max="32767" attributes="0"/>
+                      <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
+                          <Component id="splitPaneThumbnailsMetadata" alignment="0" pref="335" max="32767" attributes="0"/>
+                      </Group>
                   </Group>
-              </Group>
-            </DimensionLayout>
-          </Layout>
-          <SubComponents>
-            <Container class="javax.swing.JSplitPane" name="splitPaneThumbnailsMetadata">
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="splitPaneThumbnailsMetadata.setDividerLocation(getDividerLocationThumbnails());"/>
-              </AuxValues>
-
-              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout"/>
+                </DimensionLayout>
+              </Layout>
               <SubComponents>
-                <Container class="javax.swing.JPanel" name="panelThumbnailsContent">
-                  <Constraints>
-                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout$JSplitPaneConstraintsDescription">
-                      <JSplitPaneConstraints position="left"/>
-                    </Constraint>
-                  </Constraints>
+                <Container class="javax.swing.JSplitPane" name="splitPaneThumbnailsMetadata">
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="splitPaneThumbnailsMetadata.setDividerLocation(getDividerLocationThumbnails());"/>
+                  </AuxValues>
 
-                  <Layout>
-                    <DimensionLayout dim="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <EmptySpace min="0" pref="22" max="32767" attributes="0"/>
-                          <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                              <Component id="scrollPaneThumbnails" alignment="0" pref="22" max="32767" attributes="0"/>
-                          </Group>
-                      </Group>
-                    </DimensionLayout>
-                    <DimensionLayout dim="1">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <EmptySpace min="0" pref="408" max="32767" attributes="0"/>
-                          <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                              <Component id="scrollPaneThumbnails" alignment="0" pref="408" max="32767" attributes="0"/>
-                          </Group>
-                      </Group>
-                    </DimensionLayout>
-                  </Layout>
+                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout"/>
                   <SubComponents>
-                    <Container class="javax.swing.JScrollPane" name="scrollPaneThumbnails">
+                    <Container class="javax.swing.JPanel" name="panelThumbnailsContent">
+                      <Constraints>
+                        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout$JSplitPaneConstraintsDescription">
+                          <JSplitPaneConstraints position="left"/>
+                        </Constraint>
+                      </Constraints>
 
-                      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                      <Layout>
+                        <DimensionLayout dim="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <EmptySpace min="0" pref="196" max="32767" attributes="0"/>
+                              <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
+                                  <Component id="scrollPaneThumbnails" alignment="0" pref="196" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
+                        </DimensionLayout>
+                        <DimensionLayout dim="1">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <EmptySpace min="0" pref="333" max="32767" attributes="0"/>
+                              <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
+                                  <Component id="scrollPaneThumbnails" alignment="0" pref="333" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
+                        </DimensionLayout>
+                      </Layout>
                       <SubComponents>
-                        <Container class="de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel" name="panelThumbnails">
+                        <Container class="javax.swing.JScrollPane" name="scrollPaneThumbnails">
 
-                          <Layout>
-                            <DimensionLayout dim="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <EmptySpace min="0" pref="18" max="32767" attributes="0"/>
-                              </Group>
-                            </DimensionLayout>
-                            <DimensionLayout dim="1">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <EmptySpace min="0" pref="404" max="32767" attributes="0"/>
-                              </Group>
-                            </DimensionLayout>
-                          </Layout>
+                          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                          <SubComponents>
+                            <Container class="de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel" name="panelThumbnails">
+
+                              <Layout>
+                                <DimensionLayout dim="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <EmptySpace min="0" pref="192" max="32767" attributes="0"/>
+                                  </Group>
+                                </DimensionLayout>
+                                <DimensionLayout dim="1">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <EmptySpace min="0" pref="329" max="32767" attributes="0"/>
+                                  </Group>
+                                </DimensionLayout>
+                              </Layout>
+                            </Container>
+                          </SubComponents>
                         </Container>
                       </SubComponents>
                     </Container>
-                  </SubComponents>
-                </Container>
-                <Container class="javax.swing.JPanel" name="panelMetadata">
-                  <Constraints>
-                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout$JSplitPaneConstraintsDescription">
-                      <JSplitPaneConstraints position="right"/>
-                    </Constraint>
-                  </Constraints>
+                    <Container class="javax.swing.JPanel" name="panelMetadata">
+                      <Constraints>
+                        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout$JSplitPaneConstraintsDescription">
+                          <JSplitPaneConstraints position="right"/>
+                        </Constraint>
+                      </Constraints>
 
-                  <Layout>
-                    <DimensionLayout dim="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="labelMetadataFilename" alignment="0" pref="386" max="32767" attributes="2"/>
-                          <Component id="tabbedPaneMetadata" alignment="0" pref="386" max="32767" attributes="2"/>
-                      </Group>
-                    </DimensionLayout>
-                    <DimensionLayout dim="1">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="labelMetadataFilename" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="tabbedPaneMetadata" pref="384" max="32767" attributes="0"/>
+                      <Layout>
+                        <DimensionLayout dim="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="labelMetadataFilename" alignment="0" pref="283" max="32767" attributes="2"/>
+                              <Component id="tabbedPaneMetadata" alignment="0" pref="283" max="32767" attributes="2"/>
                           </Group>
-                      </Group>
-                    </DimensionLayout>
-                  </Layout>
-                  <SubComponents>
-                    <Component class="javax.swing.JLabel" name="labelMetadataFilename">
-                      <Properties>
-                        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                          <Color blue="ff" green="ff" red="ff" type="rgb"/>
-                        </Property>
-                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="Dialog" size="10" style="0"/>
-                        </Property>
-                        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                          <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="AppPanel.labelMetadataFilename.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
-                        </Property>
-                        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                          <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
-                            <EtchetBorder/>
-                          </Border>
-                        </Property>
-                        <Property name="opaque" type="boolean" value="true"/>
-                      </Properties>
-                    </Component>
-                    <Container class="javax.swing.JTabbedPane" name="tabbedPaneMetadata">
-                      <Properties>
-                        <Property name="opaque" type="boolean" value="true"/>
-                      </Properties>
-
-                      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
+                        </DimensionLayout>
+                        <DimensionLayout dim="1">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="labelMetadataFilename" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="tabbedPaneMetadata" pref="309" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
+                        </DimensionLayout>
+                      </Layout>
                       <SubComponents>
-                        <Container class="javax.swing.JScrollPane" name="scrollPaneIptc">
-                          <Constraints>
-                            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                              <JTabbedPaneConstraints tabName="IPTC">
-                                <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                  <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="AppPanel.scrollPaneIptc.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
-                                </Property>
-                                <Property name="tabIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                                  <Image iconType="3" name="/de/elmar_baumann/imv/resource/icon_iptc.png"/>
-                                </Property>
-                              </JTabbedPaneConstraints>
-                            </Constraint>
-                          </Constraints>
-
-                          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-                          <SubComponents>
-                            <Component class="javax.swing.JTable" name="tableIptc">
-                              <Properties>
-                                <Property name="autoCreateRowSorter" type="boolean" value="true"/>
-                                <Property name="autoResizeMode" type="int" value="0"/>
-                                <Property name="name" type="java.lang.String" value="tableIptc" noResource="true"/>
-                              </Properties>
-                            </Component>
-                          </SubComponents>
-                        </Container>
-                        <Container class="javax.swing.JScrollPane" name="scrollPaneExif">
-                          <AuxValues>
-                            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-                          </AuxValues>
-                          <Constraints>
-                            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                              <JTabbedPaneConstraints tabName="EXIF">
-                                <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                  <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="AppPanel.scrollPaneExif.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
-                                </Property>
-                                <Property name="tabIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                                  <Image iconType="3" name="/de/elmar_baumann/imv/resource/icon_exif.png"/>
-                                </Property>
-                              </JTabbedPaneConstraints>
-                            </Constraint>
-                          </Constraints>
-
-                          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-                          <SubComponents>
-                            <Component class="javax.swing.JTable" name="tableExif">
-                              <Properties>
-                                <Property name="autoCreateRowSorter" type="boolean" value="true"/>
-                                <Property name="autoResizeMode" type="int" value="0"/>
-                                <Property name="name" type="java.lang.String" value="tableExif" noResource="true"/>
-                              </Properties>
-                            </Component>
-                          </SubComponents>
-                        </Container>
-                        <Container class="javax.swing.JTabbedPane" name="tabbedPaneXmp">
+                        <Component class="javax.swing.JLabel" name="labelMetadataFilename">
+                          <Properties>
+                            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                            </Property>
+                            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                              <Font name="Dialog" size="10" style="0"/>
+                            </Property>
+                            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                              <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="AppPanel.labelMetadataFilename.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                            </Property>
+                            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                              <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
+                                <EtchetBorder/>
+                              </Border>
+                            </Property>
+                            <Property name="opaque" type="boolean" value="true"/>
+                          </Properties>
+                        </Component>
+                        <Container class="javax.swing.JTabbedPane" name="tabbedPaneMetadata">
                           <Properties>
                             <Property name="opaque" type="boolean" value="true"/>
                           </Properties>
-                          <Constraints>
-                            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                              <JTabbedPaneConstraints tabName="XMP">
-                                <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                  <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="AppPanel.tabbedPaneXmp.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
-                                </Property>
-                                <Property name="tabIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                                  <Image iconType="3" name="/de/elmar_baumann/imv/resource/icon_xmp.png"/>
-                                </Property>
-                              </JTabbedPaneConstraints>
-                            </Constraint>
-                          </Constraints>
 
                           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
                           <SubComponents>
-                            <Container class="javax.swing.JScrollPane" name="scrollPaneXmpTiff">
-                              <AuxValues>
-                                <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-                              </AuxValues>
+                            <Container class="javax.swing.JScrollPane" name="scrollPaneIptc">
                               <Constraints>
                                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                                  <JTabbedPaneConstraints tabName="TIFF">
+                                  <JTabbedPaneConstraints tabName="IPTC">
                                     <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="AppPanel.scrollPaneXmpTiff.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="AppPanel.scrollPaneIptc.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                                    </Property>
+                                    <Property name="tabIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                                      <Image iconType="3" name="/de/elmar_baumann/imv/resource/icon_iptc.png"/>
                                     </Property>
                                   </JTabbedPaneConstraints>
                                 </Constraint>
@@ -619,16 +562,16 @@
 
                               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                               <SubComponents>
-                                <Component class="javax.swing.JTable" name="tableXmpTiff">
+                                <Component class="javax.swing.JTable" name="tableIptc">
                                   <Properties>
                                     <Property name="autoCreateRowSorter" type="boolean" value="true"/>
                                     <Property name="autoResizeMode" type="int" value="0"/>
-                                    <Property name="name" type="java.lang.String" value="tableXmpTiff" noResource="true"/>
+                                    <Property name="name" type="java.lang.String" value="tableIptc" noResource="true"/>
                                   </Properties>
                                 </Component>
                               </SubComponents>
                             </Container>
-                            <Container class="javax.swing.JScrollPane" name="scrollPaneXmpExif">
+                            <Container class="javax.swing.JScrollPane" name="scrollPaneExif">
                               <AuxValues>
                                 <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
                               </AuxValues>
@@ -636,7 +579,10 @@
                                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
                                   <JTabbedPaneConstraints tabName="EXIF">
                                     <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="AppPanel.scrollPaneXmpExif.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="AppPanel.scrollPaneExif.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                                    </Property>
+                                    <Property name="tabIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                                      <Image iconType="3" name="/de/elmar_baumann/imv/resource/icon_exif.png"/>
                                     </Property>
                                   </JTabbedPaneConstraints>
                                 </Constraint>
@@ -644,227 +590,298 @@
 
                               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                               <SubComponents>
-                                <Component class="javax.swing.JTable" name="tableXmpExif">
+                                <Component class="javax.swing.JTable" name="tableExif">
                                   <Properties>
                                     <Property name="autoCreateRowSorter" type="boolean" value="true"/>
                                     <Property name="autoResizeMode" type="int" value="0"/>
-                                    <Property name="name" type="java.lang.String" value="tableXmpExif" noResource="true"/>
+                                    <Property name="name" type="java.lang.String" value="tableExif" noResource="true"/>
                                   </Properties>
                                 </Component>
                               </SubComponents>
                             </Container>
-                            <Container class="javax.swing.JScrollPane" name="scrollPaneXmpDc">
-                              <AuxValues>
-                                <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-                              </AuxValues>
+                            <Container class="javax.swing.JTabbedPane" name="tabbedPaneXmp">
+                              <Properties>
+                                <Property name="opaque" type="boolean" value="true"/>
+                              </Properties>
                               <Constraints>
                                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                                  <JTabbedPaneConstraints tabName="Dublin Core">
+                                  <JTabbedPaneConstraints tabName="XMP">
                                     <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="AppPanel.scrollPaneXmpDc.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="AppPanel.tabbedPaneXmp.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                                    </Property>
+                                    <Property name="tabIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                                      <Image iconType="3" name="/de/elmar_baumann/imv/resource/icon_xmp.png"/>
                                     </Property>
                                   </JTabbedPaneConstraints>
                                 </Constraint>
                               </Constraints>
 
-                              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
                               <SubComponents>
-                                <Component class="javax.swing.JTable" name="tableXmpDc">
-                                  <Properties>
-                                    <Property name="autoCreateRowSorter" type="boolean" value="true"/>
-                                    <Property name="autoResizeMode" type="int" value="0"/>
-                                    <Property name="name" type="java.lang.String" value="tableXmpDc" noResource="true"/>
-                                  </Properties>
-                                </Component>
+                                <Container class="javax.swing.JScrollPane" name="scrollPaneXmpTiff">
+                                  <AuxValues>
+                                    <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                                  </AuxValues>
+                                  <Constraints>
+                                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+                                      <JTabbedPaneConstraints tabName="TIFF">
+                                        <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                                          <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="AppPanel.scrollPaneXmpTiff.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                                        </Property>
+                                      </JTabbedPaneConstraints>
+                                    </Constraint>
+                                  </Constraints>
+
+                                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                                  <SubComponents>
+                                    <Component class="javax.swing.JTable" name="tableXmpTiff">
+                                      <Properties>
+                                        <Property name="autoCreateRowSorter" type="boolean" value="true"/>
+                                        <Property name="autoResizeMode" type="int" value="0"/>
+                                        <Property name="name" type="java.lang.String" value="tableXmpTiff" noResource="true"/>
+                                      </Properties>
+                                    </Component>
+                                  </SubComponents>
+                                </Container>
+                                <Container class="javax.swing.JScrollPane" name="scrollPaneXmpExif">
+                                  <AuxValues>
+                                    <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                                  </AuxValues>
+                                  <Constraints>
+                                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+                                      <JTabbedPaneConstraints tabName="EXIF">
+                                        <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                                          <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="AppPanel.scrollPaneXmpExif.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                                        </Property>
+                                      </JTabbedPaneConstraints>
+                                    </Constraint>
+                                  </Constraints>
+
+                                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                                  <SubComponents>
+                                    <Component class="javax.swing.JTable" name="tableXmpExif">
+                                      <Properties>
+                                        <Property name="autoCreateRowSorter" type="boolean" value="true"/>
+                                        <Property name="autoResizeMode" type="int" value="0"/>
+                                        <Property name="name" type="java.lang.String" value="tableXmpExif" noResource="true"/>
+                                      </Properties>
+                                    </Component>
+                                  </SubComponents>
+                                </Container>
+                                <Container class="javax.swing.JScrollPane" name="scrollPaneXmpDc">
+                                  <AuxValues>
+                                    <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                                  </AuxValues>
+                                  <Constraints>
+                                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+                                      <JTabbedPaneConstraints tabName="Dublin Core">
+                                        <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                                          <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="AppPanel.scrollPaneXmpDc.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                                        </Property>
+                                      </JTabbedPaneConstraints>
+                                    </Constraint>
+                                  </Constraints>
+
+                                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                                  <SubComponents>
+                                    <Component class="javax.swing.JTable" name="tableXmpDc">
+                                      <Properties>
+                                        <Property name="autoCreateRowSorter" type="boolean" value="true"/>
+                                        <Property name="autoResizeMode" type="int" value="0"/>
+                                        <Property name="name" type="java.lang.String" value="tableXmpDc" noResource="true"/>
+                                      </Properties>
+                                    </Component>
+                                  </SubComponents>
+                                </Container>
+                                <Container class="javax.swing.JScrollPane" name="scrollPaneXmpIptc">
+                                  <AuxValues>
+                                    <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                                  </AuxValues>
+                                  <Constraints>
+                                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+                                      <JTabbedPaneConstraints tabName="IPTC">
+                                        <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                                          <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="AppPanel.scrollPaneXmpIptc.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                                        </Property>
+                                      </JTabbedPaneConstraints>
+                                    </Constraint>
+                                  </Constraints>
+
+                                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                                  <SubComponents>
+                                    <Component class="javax.swing.JTable" name="tableXmpIptc">
+                                      <Properties>
+                                        <Property name="autoCreateRowSorter" type="boolean" value="true"/>
+                                        <Property name="autoResizeMode" type="int" value="0"/>
+                                        <Property name="name" type="java.lang.String" value="tableXmpIptc" noResource="true"/>
+                                      </Properties>
+                                    </Component>
+                                  </SubComponents>
+                                </Container>
+                                <Container class="javax.swing.JScrollPane" name="scrollPaneXmpPhotoshop">
+                                  <AuxValues>
+                                    <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                                  </AuxValues>
+                                  <Constraints>
+                                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+                                      <JTabbedPaneConstraints tabName="Photoshop">
+                                        <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                                          <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="AppPanel.scrollPaneXmpPhotoshop.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                                        </Property>
+                                      </JTabbedPaneConstraints>
+                                    </Constraint>
+                                  </Constraints>
+
+                                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                                  <SubComponents>
+                                    <Component class="javax.swing.JTable" name="tableXmpPhotoshop">
+                                      <Properties>
+                                        <Property name="autoCreateRowSorter" type="boolean" value="true"/>
+                                        <Property name="autoResizeMode" type="int" value="0"/>
+                                        <Property name="name" type="java.lang.String" value="tableXmpPhotoshop" noResource="true"/>
+                                      </Properties>
+                                    </Component>
+                                  </SubComponents>
+                                </Container>
+                                <Container class="javax.swing.JScrollPane" name="scrollPaneXmpXap">
+                                  <AuxValues>
+                                    <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                                  </AuxValues>
+                                  <Constraints>
+                                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+                                      <JTabbedPaneConstraints tabName="Sonstige">
+                                        <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                                          <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="AppPanel.scrollPaneXmpXap.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                                        </Property>
+                                      </JTabbedPaneConstraints>
+                                    </Constraint>
+                                  </Constraints>
+
+                                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                                  <SubComponents>
+                                    <Component class="javax.swing.JTable" name="tableXmpXap">
+                                      <Properties>
+                                        <Property name="autoCreateRowSorter" type="boolean" value="true"/>
+                                        <Property name="autoResizeMode" type="int" value="0"/>
+                                        <Property name="name" type="java.lang.String" value="tableXmpXap" noResource="true"/>
+                                      </Properties>
+                                    </Component>
+                                  </SubComponents>
+                                </Container>
+                                <Container class="javax.swing.JScrollPane" name="scrollPaneXmpLightroom">
+                                  <AuxValues>
+                                    <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                                  </AuxValues>
+                                  <Constraints>
+                                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+                                      <JTabbedPaneConstraints tabName="Lightroom">
+                                        <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                                          <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="AppPanel.scrollPaneXmpLightroom.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                                        </Property>
+                                      </JTabbedPaneConstraints>
+                                    </Constraint>
+                                  </Constraints>
+
+                                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                                  <SubComponents>
+                                    <Component class="javax.swing.JTable" name="tableXmpLightroom">
+                                      <Properties>
+                                        <Property name="autoCreateRowSorter" type="boolean" value="true"/>
+                                        <Property name="autoResizeMode" type="int" value="0"/>
+                                        <Property name="name" type="java.lang.String" value="tableXmpLightroom" noResource="true"/>
+                                      </Properties>
+                                    </Component>
+                                  </SubComponents>
+                                </Container>
+                                <Container class="javax.swing.JScrollPane" name="scrollPaneXmpCameraRawSettings">
+                                  <AuxValues>
+                                    <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                                  </AuxValues>
+                                  <Constraints>
+                                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+                                      <JTabbedPaneConstraints tabName="Camera Raw">
+                                        <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                                          <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="AppPanel.scrollPaneXmpCameraRawSettings.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                                        </Property>
+                                      </JTabbedPaneConstraints>
+                                    </Constraint>
+                                  </Constraints>
+
+                                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                                  <SubComponents>
+                                    <Component class="javax.swing.JTable" name="tableXmpCameraRawSettings">
+                                      <Properties>
+                                        <Property name="autoCreateRowSorter" type="boolean" value="true"/>
+                                        <Property name="autoResizeMode" type="int" value="0"/>
+                                        <Property name="name" type="java.lang.String" value="tableXmpCameraRawSettings" noResource="true"/>
+                                      </Properties>
+                                    </Component>
+                                  </SubComponents>
+                                </Container>
                               </SubComponents>
                             </Container>
-                            <Container class="javax.swing.JScrollPane" name="scrollPaneXmpIptc">
-                              <AuxValues>
-                                <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-                              </AuxValues>
+                            <Container class="javax.swing.JPanel" name="panelTabEditMetadata">
                               <Constraints>
                                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                                  <JTabbedPaneConstraints tabName="IPTC">
+                                  <JTabbedPaneConstraints tabName="Bearbeiten">
                                     <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="AppPanel.scrollPaneXmpIptc.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="AppPanel.panelTabEditMetadata.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                                    </Property>
+                                    <Property name="tabIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                                      <Image iconType="3" name="/de/elmar_baumann/imv/resource/icon_workspace.png"/>
                                     </Property>
                                   </JTabbedPaneConstraints>
                                 </Constraint>
                               </Constraints>
-
-                              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-                              <SubComponents>
-                                <Component class="javax.swing.JTable" name="tableXmpIptc">
-                                  <Properties>
-                                    <Property name="autoCreateRowSorter" type="boolean" value="true"/>
-                                    <Property name="autoResizeMode" type="int" value="0"/>
-                                    <Property name="name" type="java.lang.String" value="tableXmpIptc" noResource="true"/>
-                                  </Properties>
-                                </Component>
-                              </SubComponents>
-                            </Container>
-                            <Container class="javax.swing.JScrollPane" name="scrollPaneXmpPhotoshop">
-                              <AuxValues>
-                                <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-                              </AuxValues>
-                              <Constraints>
-                                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                                  <JTabbedPaneConstraints tabName="Photoshop">
-                                    <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="AppPanel.scrollPaneXmpPhotoshop.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
-                                    </Property>
-                                  </JTabbedPaneConstraints>
-                                </Constraint>
-                              </Constraints>
-
-                              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-                              <SubComponents>
-                                <Component class="javax.swing.JTable" name="tableXmpPhotoshop">
-                                  <Properties>
-                                    <Property name="autoCreateRowSorter" type="boolean" value="true"/>
-                                    <Property name="autoResizeMode" type="int" value="0"/>
-                                    <Property name="name" type="java.lang.String" value="tableXmpPhotoshop" noResource="true"/>
-                                  </Properties>
-                                </Component>
-                              </SubComponents>
-                            </Container>
-                            <Container class="javax.swing.JScrollPane" name="scrollPaneXmpXap">
-                              <AuxValues>
-                                <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-                              </AuxValues>
-                              <Constraints>
-                                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                                  <JTabbedPaneConstraints tabName="Sonstige">
-                                    <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="AppPanel.scrollPaneXmpXap.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
-                                    </Property>
-                                  </JTabbedPaneConstraints>
-                                </Constraint>
-                              </Constraints>
-
-                              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-                              <SubComponents>
-                                <Component class="javax.swing.JTable" name="tableXmpXap">
-                                  <Properties>
-                                    <Property name="autoCreateRowSorter" type="boolean" value="true"/>
-                                    <Property name="autoResizeMode" type="int" value="0"/>
-                                    <Property name="name" type="java.lang.String" value="tableXmpXap" noResource="true"/>
-                                  </Properties>
-                                </Component>
-                              </SubComponents>
-                            </Container>
-                            <Container class="javax.swing.JScrollPane" name="scrollPaneXmpLightroom">
-                              <AuxValues>
-                                <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-                              </AuxValues>
-                              <Constraints>
-                                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                                  <JTabbedPaneConstraints tabName="Lightroom">
-                                    <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="AppPanel.scrollPaneXmpLightroom.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
-                                    </Property>
-                                  </JTabbedPaneConstraints>
-                                </Constraint>
-                              </Constraints>
-
-                              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-                              <SubComponents>
-                                <Component class="javax.swing.JTable" name="tableXmpLightroom">
-                                  <Properties>
-                                    <Property name="autoCreateRowSorter" type="boolean" value="true"/>
-                                    <Property name="autoResizeMode" type="int" value="0"/>
-                                    <Property name="name" type="java.lang.String" value="tableXmpLightroom" noResource="true"/>
-                                  </Properties>
-                                </Component>
-                              </SubComponents>
-                            </Container>
-                            <Container class="javax.swing.JScrollPane" name="scrollPaneXmpCameraRawSettings">
-                              <AuxValues>
-                                <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-                              </AuxValues>
-                              <Constraints>
-                                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                                  <JTabbedPaneConstraints tabName="Camera Raw">
-                                    <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                      <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="AppPanel.scrollPaneXmpCameraRawSettings.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
-                                    </Property>
-                                  </JTabbedPaneConstraints>
-                                </Constraint>
-                              </Constraints>
-
-                              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-                              <SubComponents>
-                                <Component class="javax.swing.JTable" name="tableXmpCameraRawSettings">
-                                  <Properties>
-                                    <Property name="autoCreateRowSorter" type="boolean" value="true"/>
-                                    <Property name="autoResizeMode" type="int" value="0"/>
-                                    <Property name="name" type="java.lang.String" value="tableXmpCameraRawSettings" noResource="true"/>
-                                  </Properties>
-                                </Component>
-                              </SubComponents>
-                            </Container>
-                          </SubComponents>
-                        </Container>
-                        <Container class="javax.swing.JPanel" name="panelTabEditMetadata">
-                          <Constraints>
-                            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                              <JTabbedPaneConstraints tabName="Bearbeiten">
-                                <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                  <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="AppPanel.panelTabEditMetadata.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
-                                </Property>
-                                <Property name="tabIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                                  <Image iconType="3" name="/de/elmar_baumann/imv/resource/icon_workspace.png"/>
-                                </Property>
-                              </JTabbedPaneConstraints>
-                            </Constraint>
-                          </Constraints>
-
-                          <Layout>
-                            <DimensionLayout dim="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="panelScrollPaneEditMetadata" alignment="0" max="32767" attributes="0"/>
-                              </Group>
-                            </DimensionLayout>
-                            <DimensionLayout dim="1">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="panelScrollPaneEditMetadata" alignment="0" max="32767" attributes="0"/>
-                              </Group>
-                            </DimensionLayout>
-                          </Layout>
-                          <SubComponents>
-                            <Container class="javax.swing.JPanel" name="panelScrollPaneEditMetadata">
 
                               <Layout>
                                 <DimensionLayout dim="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="scrollPaneEditMetadata" alignment="0" pref="381" max="32767" attributes="0"/>
+                                      <Component id="panelScrollPaneEditMetadata" alignment="0" max="32767" attributes="0"/>
                                   </Group>
                                 </DimensionLayout>
                                 <DimensionLayout dim="1">
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="scrollPaneEditMetadata" alignment="1" pref="357" max="32767" attributes="0"/>
+                                      <Component id="panelScrollPaneEditMetadata" alignment="0" max="32767" attributes="0"/>
                                   </Group>
                                 </DimensionLayout>
                               </Layout>
                               <SubComponents>
-                                <Container class="javax.swing.JScrollPane" name="scrollPaneEditMetadata">
+                                <Container class="javax.swing.JPanel" name="panelScrollPaneEditMetadata">
 
-                                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                                  <Layout>
+                                    <DimensionLayout dim="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="scrollPaneEditMetadata" alignment="0" pref="278" max="32767" attributes="0"/>
+                                      </Group>
+                                    </DimensionLayout>
+                                    <DimensionLayout dim="1">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="scrollPaneEditMetadata" alignment="1" pref="282" max="32767" attributes="0"/>
+                                      </Group>
+                                    </DimensionLayout>
+                                  </Layout>
                                   <SubComponents>
-                                    <Container class="javax.swing.JPanel" name="panelEditMetadata">
+                                    <Container class="javax.swing.JScrollPane" name="scrollPaneEditMetadata">
 
-                                      <Layout>
-                                        <DimensionLayout dim="0">
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <EmptySpace min="0" pref="923" max="32767" attributes="0"/>
-                                          </Group>
-                                        </DimensionLayout>
-                                        <DimensionLayout dim="1">
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <EmptySpace min="0" pref="499" max="32767" attributes="0"/>
-                                          </Group>
-                                        </DimensionLayout>
-                                      </Layout>
+                                      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                                      <SubComponents>
+                                        <Container class="javax.swing.JPanel" name="panelEditMetadata">
+
+                                          <Layout>
+                                            <DimensionLayout dim="0">
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <EmptySpace min="0" pref="923" max="32767" attributes="0"/>
+                                              </Group>
+                                            </DimensionLayout>
+                                            <DimensionLayout dim="1">
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <EmptySpace min="0" pref="499" max="32767" attributes="0"/>
+                                              </Group>
+                                            </DimensionLayout>
+                                          </Layout>
+                                        </Container>
+                                      </SubComponents>
                                     </Container>
                                   </SubComponents>
                                 </Container>
@@ -880,6 +897,18 @@
             </Container>
           </SubComponents>
         </Container>
+        <Component class="de.elmar_baumann.lib.component.SystemOutputPanel" name="panelSystemOutput">
+          <Properties>
+            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[179, 29]"/>
+            </Property>
+          </Properties>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout$JSplitPaneConstraintsDescription">
+              <JSplitPaneConstraints position="right"/>
+            </Constraint>
+          </Constraints>
+        </Component>
       </SubComponents>
     </Container>
     <Container class="javax.swing.JPanel" name="panelStatusbar">
@@ -892,26 +921,24 @@
                       <Component id="sliderThumbnailSize" linkSize="5" min="-2" pref="212" max="-2" attributes="1"/>
                       <Component id="labelStatusbar" linkSize="5" min="-2" pref="192" max="-2" attributes="1"/>
                   </Group>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <EmptySpace min="-2" pref="59" max="-2" attributes="0"/>
-                          <Component id="labelFastSearch" min="-2" max="-2" attributes="0"/>
+                          <Component id="labelSearch" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="1">
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="buttonLogfileDialog" min="-2" pref="20" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="buttonSystemOutput" max="32767" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="progressBarCreateMetadataOfCurrentThumbnails" pref="106" max="32767" attributes="2"/>
-                      <Component id="textFieldSearch" alignment="1" pref="106" max="32767" attributes="2"/>
+                      <Component id="progressBarCreateMetadataOfCurrentThumbnails" pref="109" max="32767" attributes="2"/>
+                      <Component id="textFieldSearch" alignment="1" pref="109" max="32767" attributes="2"/>
                   </Group>
                   <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="progressBarCurrentTasks" min="0" pref="126" max="32767" attributes="2"/>
+                      <Component id="progressBarCurrentTasks" min="0" pref="196" max="32767" attributes="2"/>
                       <Component id="panelMetadataProgress" alignment="0" max="32767" attributes="2"/>
                   </Group>
               </Group>
@@ -926,7 +953,6 @@
                       <Component id="progressBarCreateMetadataOfCurrentThumbnails" alignment="0" min="-2" max="-2" attributes="1"/>
                       <Component id="progressBarCurrentTasks" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                          <Component id="buttonSystemOutput" alignment="1" min="-2" max="-2" attributes="0"/>
                           <Component id="buttonLogfileDialog" alignment="1" min="-2" max="-2" attributes="0"/>
                           <Component id="labelStatusbar" alignment="1" min="-2" pref="14" max="-2" attributes="1"/>
                       </Group>
@@ -935,7 +961,7 @@
               <Component id="sliderThumbnailSize" alignment="0" min="-2" max="-2" attributes="0"/>
               <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                   <Component id="textFieldSearch" alignment="3" min="-2" max="-2" attributes="1"/>
-                  <Component id="labelFastSearch" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="labelSearch" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -955,26 +981,6 @@
           <Properties>
             <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
               <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="AppPanel.buttonLogfileDialog.toolTipText" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
-            </Property>
-            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-              <Border info="null"/>
-            </Property>
-            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[16, 16]"/>
-            </Property>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JButton" name="buttonSystemOutput">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Dialog" size="12" style="0"/>
-            </Property>
-            <Property name="mnemonic" type="int" value="117"/>
-            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="AppPanel.buttonSystemOutput.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
-            </Property>
-            <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="AppPanel.buttonSystemOutput.toolTipText" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
             </Property>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="null"/>
@@ -1008,6 +1014,13 @@
             <Property name="name" type="java.lang.String" value="progressBarCurrentTasks" noResource="true"/>
           </Properties>
         </Component>
+        <Component class="javax.swing.JLabel" name="labelSearch">
+          <Properties>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+              <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="AppPanel.labelSearch.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+            </Property>
+          </Properties>
+        </Component>
         <Component class="javax.swing.JTextField" name="textFieldSearch">
           <Properties>
             <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
@@ -1021,7 +1034,7 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
-                      <Component id="progressBarScheduledTasks" pref="104" max="32767" attributes="2"/>
+                      <Component id="progressBarScheduledTasks" pref="174" max="32767" attributes="2"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="buttonStopScheduledTasks" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -1075,13 +1088,6 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JLabel" name="labelFastSearch">
-          <Properties>
-            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="AppPanel.labelFastSearch.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
-            </Property>
-          </Properties>
-        </Component>
       </SubComponents>
     </Container>
   </SubComponents>

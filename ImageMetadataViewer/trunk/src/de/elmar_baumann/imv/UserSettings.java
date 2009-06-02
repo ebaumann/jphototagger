@@ -58,7 +58,6 @@ public final class UserSettings implements UserSettingsChangeListener {
     private static final String KEY_AUTOCOPY_DIRECTORY = "UserSettings.AutocopyDirectory";
     private static final String KEY_WEB_BROWSER = "UserSettings.WebBrowser";
     private static final String KEY_TREE_DIRECTORIES_SELECT_LAST_DIRECTORY = "UserSettings.TreeDirectoriesSelectLastDirectory";
-    private static final String KEY_OPEN_SYSTEM_OUTPUT_WINDOW_AFTER_START = "UserSettings.OpenSystemOutputWindowAfterStart";
     private static final String KEY_MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS = "UserSettings.MaximumSecondsToTerminateExternalPrograms";
     private static final String DOMAIN_NAME = "de.elmar_baumann"; // NOI18N NEVER CHANGE!
     private static final String PROPERTIES_FILENAME = "Settings.properties"; // NOI18N NEVER CHANGE!
@@ -209,7 +208,7 @@ public final class UserSettings implements UserSettingsChangeListener {
             AppLog.logWarning(UserSettings.class, ex);
             settings.setString(Level.WARNING.getLocalizedName(), KEY_LOG_LEVEL);
         }
-        return level == null ? Level.WARNING : level;
+        return level == null ? Level.INFO : level;
     }
 
     /**
@@ -370,18 +369,6 @@ public final class UserSettings implements UserSettingsChangeListener {
     }
 
     /**
-     * Returns whether to open the output window for system outputs after
-     * starting the program.
-     *
-     * @return true, if the window is to open. Default: false
-     */
-    public boolean isOpenSystemOutputAfterStart() {
-        return properties.containsKey(KEY_OPEN_SYSTEM_OUTPUT_WINDOW_AFTER_START)
-                ? settings.getBoolean(KEY_OPEN_SYSTEM_OUTPUT_WINDOW_AFTER_START)
-                : false;
-    }
-
-    /**
      * Returns the maximum time to wait before terminating external programs.
      *
      * @return time in seconds. Default: 60.
@@ -464,8 +451,6 @@ public final class UserSettings implements UserSettingsChangeListener {
             settings.setBoolean(evt.isTreeDirectoriesSelectLastDirectory(), KEY_TREE_DIRECTORIES_SELECT_LAST_DIRECTORY);
         } else if (type.equals(UserSettingsChangeEvent.Type.DATABASE_DIRECTORY)) {
             settings.setString(evt.getDatabaseDirectoryName(), KEY_DATABASE_DIRECTORY_NAME);
-        } else if (type.equals(UserSettingsChangeEvent.Type.OPEN_SYSTEM_OUTPUT_WINDOW_AFTER_START)) {
-            settings.setBoolean(evt.isOpenSystemOutputWindowAfterStart(), KEY_OPEN_SYSTEM_OUTPUT_WINDOW_AFTER_START);
         } else if (type.equals(UserSettingsChangeEvent.Type.MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS)) {
             settings.setInt(evt.getMaxSecondsToTerminateExternalPrograms(), KEY_MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS);
         }
