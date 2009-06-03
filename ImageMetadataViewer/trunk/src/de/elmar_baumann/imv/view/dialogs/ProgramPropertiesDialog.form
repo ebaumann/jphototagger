@@ -227,11 +227,11 @@
               <Group type="102" alignment="0" attributes="0">
                   <Component id="labelParametersBeforeFilename" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
-                  <Component id="scrollPaneParametersBeforeFilename" pref="22" max="32767" attributes="0"/>
+                  <Component id="scrollPaneParametersBeforeFilename" pref="24" max="32767" attributes="0"/>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Component id="labelParametersAfterFilename" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
-                  <Component id="scrollPaneParametersAfterFilename" pref="23" max="32767" attributes="0"/>
+                  <Component id="scrollPaneParametersAfterFilename" pref="25" max="32767" attributes="0"/>
                   <EmptySpace min="-2" max="-2" attributes="1"/>
               </Group>
           </Group>
@@ -363,9 +363,6 @@
             </Property>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkBoxInputBeforeExecutePerFileActionPerformed"/>
-          </Events>
         </Component>
       </SubComponents>
     </Container>

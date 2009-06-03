@@ -230,7 +230,7 @@ public final class ProgramPropertiesDialog extends Dialog {
             }
         });
 
-        labelFile.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        labelFile.setFont(new java.awt.Font("Dialog", 0, 12));
         labelFile.setForeground(new java.awt.Color(0, 0, 255));
         labelFile.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -289,7 +289,7 @@ public final class ProgramPropertiesDialog extends Dialog {
         labelParametersBeforeFilename.setText(Bundle.getString("ProgramPropertiesDialog.labelParametersBeforeFilename.text")); // NOI18N
 
         textAreaParametersBeforeFilename.setColumns(20);
-        textAreaParametersBeforeFilename.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
+        textAreaParametersBeforeFilename.setFont(new java.awt.Font("Dialog", 0, 11));
         textAreaParametersBeforeFilename.setLineWrap(true);
         textAreaParametersBeforeFilename.setRows(1);
         scrollPaneParametersBeforeFilename.setViewportView(textAreaParametersBeforeFilename);
@@ -298,7 +298,7 @@ public final class ProgramPropertiesDialog extends Dialog {
         labelParametersAfterFilename.setText(Bundle.getString("ProgramPropertiesDialog.labelParametersAfterFilename.text")); // NOI18N
 
         textAreaParametersAfterFilename.setColumns(20);
-        textAreaParametersAfterFilename.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
+        textAreaParametersAfterFilename.setFont(new java.awt.Font("Dialog", 0, 11));
         textAreaParametersAfterFilename.setLineWrap(true);
         textAreaParametersAfterFilename.setRows(1);
         scrollPaneParametersAfterFilename.setViewportView(textAreaParametersAfterFilename);
@@ -321,11 +321,11 @@ public final class ProgramPropertiesDialog extends Dialog {
             .addGroup(panelParameterLayout.createSequentialGroup()
                 .addComponent(labelParametersBeforeFilename)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPaneParametersBeforeFilename, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE)
+                .addComponent(scrollPaneParametersBeforeFilename, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelParametersAfterFilename)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPaneParametersAfterFilename, javax.swing.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
+                .addComponent(scrollPaneParametersAfterFilename, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -339,14 +339,9 @@ public final class ProgramPropertiesDialog extends Dialog {
             }
         });
 
-        checkBoxInputBeforeExecutePerFile.setFont(new java.awt.Font("Dialog", 0, 12));
+        checkBoxInputBeforeExecutePerFile.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         checkBoxInputBeforeExecutePerFile.setText(Bundle.getString("ProgramPropertiesDialog.checkBoxInputBeforeExecutePerFile.text")); // NOI18N
         checkBoxInputBeforeExecutePerFile.setEnabled(false);
-        checkBoxInputBeforeExecutePerFile.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkBoxInputBeforeExecutePerFileActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout panelInputBeforeExecuteLayout = new javax.swing.GroupLayout(panelInputBeforeExecute);
         panelInputBeforeExecute.setLayout(panelInputBeforeExecuteLayout);
@@ -479,10 +474,6 @@ private void checkBoxInputBeforeExecuteActionPerformed(java.awt.event.ActionEven
 private void textFieldAliasKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldAliasKeyPressed
     handleTextFieldAliasKeyPressed(evt);
 }//GEN-LAST:event_textFieldAliasKeyPressed
-
-private void checkBoxInputBeforeExecutePerFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxInputBeforeExecutePerFileActionPerformed
-// TODO add your handling code here:
-}//GEN-LAST:event_checkBoxInputBeforeExecutePerFileActionPerformed
 
     /**
      * @param args the command line arguments
