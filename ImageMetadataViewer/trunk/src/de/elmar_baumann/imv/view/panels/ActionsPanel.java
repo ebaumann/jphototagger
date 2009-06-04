@@ -147,6 +147,10 @@ public final class ActionsPanel extends javax.swing.JPanel {
         buttonNew = new javax.swing.JButton();
         buttonExecute = new javax.swing.JButton();
 
+        setFocusable(false);
+
+        scrollPane.setFocusable(false);
+
         list.setModel(model);
         list.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         list.setCellRenderer(new ListCellRendererActions());
@@ -159,7 +163,6 @@ public final class ActionsPanel extends javax.swing.JPanel {
 
         progressBar.setToolTipText(Bundle.getString("ActionsPanel.progressBar.toolTipText")); // NOI18N
 
-        buttonDelete.setFont(new java.awt.Font("Dialog", 0, 12));
         buttonDelete.setMnemonic('l');
         buttonDelete.setText(Bundle.getString("ActionsPanel.buttonDelete.text")); // NOI18N
         buttonDelete.setToolTipText(Bundle.getString("ActionsPanel.buttonDelete.toolTipText")); // NOI18N
@@ -170,7 +173,6 @@ public final class ActionsPanel extends javax.swing.JPanel {
             }
         });
 
-        buttonEdit.setFont(new java.awt.Font("Dialog", 0, 12));
         buttonEdit.setMnemonic('b');
         buttonEdit.setText(Bundle.getString("ActionsPanel.buttonEdit.text")); // NOI18N
         buttonEdit.setToolTipText(Bundle.getString("ActionsPanel.buttonEdit.toolTipText")); // NOI18N
@@ -181,7 +183,6 @@ public final class ActionsPanel extends javax.swing.JPanel {
             }
         });
 
-        buttonNew.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         buttonNew.setMnemonic('n');
         buttonNew.setText(Bundle.getString("ActionsPanel.buttonNew.text")); // NOI18N
         buttonNew.setToolTipText(Bundle.getString("ActionsPanel.buttonNew.toolTipText")); // NOI18N
@@ -191,7 +192,6 @@ public final class ActionsPanel extends javax.swing.JPanel {
             }
         });
 
-        buttonExecute.setFont(new java.awt.Font("Dialog", 0, 12));
         buttonExecute.setMnemonic('a');
         buttonExecute.setText(Bundle.getString("ActionsPanel.buttonExecute.text")); // NOI18N
         buttonExecute.setToolTipText(Bundle.getString("ActionsPanel.buttonExecute.toolTipText")); // NOI18N
@@ -206,31 +206,29 @@ public final class ActionsPanel extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 391, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(scrollPane, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 367, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 371, Short.MAX_VALUE)
+                    .addComponent(progressBar, javax.swing.GroupLayout.DEFAULT_SIZE, 371, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(buttonDelete)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonEdit)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonNew)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonExecute))
-                    .addComponent(progressBar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 367, Short.MAX_VALUE))
+                        .addComponent(buttonExecute)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 219, Short.MAX_VALUE)
+                .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonExecute)
                     .addComponent(buttonNew)

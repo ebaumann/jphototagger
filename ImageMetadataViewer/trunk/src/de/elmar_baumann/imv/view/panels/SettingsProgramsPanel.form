@@ -17,7 +17,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <EmptySpace min="0" pref="633" max="32767" attributes="0"/>
+          <EmptySpace min="0" pref="500" max="32767" attributes="0"/>
           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
@@ -29,7 +29,7 @@
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <EmptySpace min="0" pref="324" max="32767" attributes="0"/>
+          <EmptySpace min="0" pref="194" max="32767" attributes="0"/>
           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
@@ -47,7 +47,6 @@
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
             <TitledBorder title="Programme zum &#xd6;ffnen von Bildern">
               <ResourceString PropertyName="titleX" bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="SettingsProgramsPanel.panelBorder.border.title" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
-              <Font PropertyName="font" name="Dialog" size="11" style="1"/>
             </TitledBorder>
           </Border>
         </Property>
@@ -60,11 +59,11 @@
                   <Group type="103" groupAlignment="1" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="scrollPaneOtherPrograms" pref="575" max="32767" attributes="2"/>
+                          <Component id="scrollPaneOtherPrograms" pref="448" max="32767" attributes="2"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="labelDefaultProgramFile" pref="575" max="32767" attributes="2"/>
+                          <Component id="labelDefaultProgramFile" pref="448" max="32767" attributes="2"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -77,11 +76,11 @@
                                   <Component id="labelChooseDefaultProgram" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace pref="42" max="32767" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                           <Component id="buttonChooseDefaultProgram" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace pref="279" max="32767" attributes="0"/>
+                          <EmptySpace pref="175" max="32767" attributes="0"/>
                           <Component id="buttonRemoveOtherProgram" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="buttonEditOtherProgram" min="-2" max="-2" attributes="0"/>
@@ -105,7 +104,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="labelOtherPrograms" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="scrollPaneOtherPrograms" pref="147" max="32767" attributes="0"/>
+                  <Component id="scrollPaneOtherPrograms" pref="24" max="32767" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="buttonAddOtherProgram" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -120,9 +119,6 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="labelChooseDefaultProgram">
           <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Dialog" size="12" style="0"/>
-            </Property>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
               <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="SettingsProgramsPanel.labelChooseDefaultProgram.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
             </Property>
@@ -130,9 +126,6 @@
         </Component>
         <Component class="javax.swing.JButton" name="buttonChooseDefaultProgram">
           <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Dialog" size="12" style="0"/>
-            </Property>
             <Property name="mnemonic" type="int" value="97"/>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
               <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="SettingsProgramsPanel.buttonChooseDefaultProgram.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
@@ -144,9 +137,6 @@
         </Component>
         <Component class="javax.swing.JLabel" name="labelDefaultProgramFile">
           <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Dialog" size="12" style="0"/>
-            </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="0" red="0" type="rgb"/>
             </Property>
@@ -159,9 +149,6 @@
         </Component>
         <Component class="javax.swing.JLabel" name="labelOtherPrograms">
           <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Dialog" size="12" style="0"/>
-            </Property>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
               <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="SettingsProgramsPanel.labelOtherPrograms.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
             </Property>
@@ -193,9 +180,6 @@
         </Container>
         <Component class="javax.swing.JButton" name="buttonRemoveOtherProgram">
           <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Dialog" size="12" style="0"/>
-            </Property>
             <Property name="mnemonic" type="int" value="101"/>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
               <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="SettingsProgramsPanel.buttonRemoveOtherProgram.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
@@ -209,28 +193,8 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonRemoveOtherProgramActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="buttonAddOtherProgram">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Dialog" size="12" style="0"/>
-            </Property>
-            <Property name="mnemonic" type="int" value="104"/>
-            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="SettingsProgramsPanel.buttonAddOtherProgram.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
-            </Property>
-            <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="SettingsProgramsPanel.buttonAddOtherProgram.toolTipText" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
-            </Property>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonAddOtherProgramActionPerformed"/>
-          </Events>
-        </Component>
         <Component class="javax.swing.JButton" name="buttonEditOtherProgram">
           <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Dialog" size="12" style="0"/>
-            </Property>
             <Property name="mnemonic" type="int" value="98"/>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
               <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="SettingsProgramsPanel.buttonEditOtherProgram.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
@@ -242,6 +206,20 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonEditOtherProgramActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="buttonAddOtherProgram">
+          <Properties>
+            <Property name="mnemonic" type="int" value="104"/>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+              <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="SettingsProgramsPanel.buttonAddOtherProgram.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+            </Property>
+            <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+              <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="SettingsProgramsPanel.buttonAddOtherProgram.toolTipText" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonAddOtherProgramActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

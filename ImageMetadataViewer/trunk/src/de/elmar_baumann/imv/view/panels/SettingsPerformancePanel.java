@@ -77,59 +77,22 @@ public final class SettingsPerformancePanel extends javax.swing.JPanel
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panelAccelerateStart = new javax.swing.JPanel();
-        checkBoxIsAutocompleteDisabled = new javax.swing.JCheckBox();
-        labelsAutocompleteDisabled = new javax.swing.JLabel();
-        panelThreadPriority = new javax.swing.JPanel();
+        panelProcessingTime = new javax.swing.JPanel();
         labelThreadPriority = new javax.swing.JLabel();
         comboBoxThreadPriority = new javax.swing.JComboBox();
         labelInfoThreadPriority = new javax.swing.JLabel();
         labelMaximumSecondsToTerminateExternalPrograms = new javax.swing.JLabel();
         spinnerMaximumSecondsToTerminateExternalPrograms = new javax.swing.JSpinner();
+        checkBoxScanForEmbeddedXmp = new javax.swing.JCheckBox();
+        panelAccelerateStart = new javax.swing.JPanel();
+        checkBoxIsAutocompleteDisabled = new javax.swing.JCheckBox();
+        labelsAutocompleteDisabled = new javax.swing.JLabel();
 
-        panelAccelerateStart.setBorder(javax.swing.BorderFactory.createTitledBorder(null, Bundle.getString("SettingsPerformancePanel.panelAccelerateStart.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 11))); // NOI18N
+        panelProcessingTime.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString("SettingsPerformancePanel.panelProcessingTime.border.title"))); // NOI18N
 
-        checkBoxIsAutocompleteDisabled.setFont(new java.awt.Font("Dialog", 0, 12));
-        checkBoxIsAutocompleteDisabled.setText(Bundle.getString("SettingsPerformancePanel.checkBoxIsAutocompleteDisabled.text")); // NOI18N
-        checkBoxIsAutocompleteDisabled.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkBoxIsAutocompleteDisabledActionPerformed(evt);
-            }
-        });
-
-        labelsAutocompleteDisabled.setFont(new java.awt.Font("Dialog", 0, 12));
-        labelsAutocompleteDisabled.setForeground(new java.awt.Color(255, 0, 0));
-        labelsAutocompleteDisabled.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        labelsAutocompleteDisabled.setText(Bundle.getString("SettingsPerformancePanel.labelsAutocompleteDisabled.text")); // NOI18N
-
-        javax.swing.GroupLayout panelAccelerateStartLayout = new javax.swing.GroupLayout(panelAccelerateStart);
-        panelAccelerateStart.setLayout(panelAccelerateStartLayout);
-        panelAccelerateStartLayout.setHorizontalGroup(
-            panelAccelerateStartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelAccelerateStartLayout.createSequentialGroup()
-                .addGroup(panelAccelerateStartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(checkBoxIsAutocompleteDisabled)
-                    .addGroup(panelAccelerateStartLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(labelsAutocompleteDisabled, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGap(20, 20, 20))
-        );
-        panelAccelerateStartLayout.setVerticalGroup(
-            panelAccelerateStartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelAccelerateStartLayout.createSequentialGroup()
-                .addComponent(checkBoxIsAutocompleteDisabled)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labelsAutocompleteDisabled)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        panelThreadPriority.setBorder(javax.swing.BorderFactory.createTitledBorder(null, Bundle.getString("SettingsPerformancePanel.panelThreadPriority.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 11))); // NOI18N
-
-        labelThreadPriority.setFont(new java.awt.Font("Dialog", 0, 12));
         labelThreadPriority.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         labelThreadPriority.setText(Bundle.getString("SettingsPerformancePanel.labelThreadPriority.text")); // NOI18N
 
-        comboBoxThreadPriority.setFont(new java.awt.Font("Dialog", 0, 12));
         comboBoxThreadPriority.setModel(new de.elmar_baumann.imv.model.ComboBoxModelThreadPriority());
         comboBoxThreadPriority.setEditor(null);
         comboBoxThreadPriority.addActionListener(new java.awt.event.ActionListener() {
@@ -138,8 +101,7 @@ public final class SettingsPerformancePanel extends javax.swing.JPanel
             }
         });
 
-        labelInfoThreadPriority.setFont(new java.awt.Font("Dialog", 0, 12));
-        labelInfoThreadPriority.setForeground(new java.awt.Color(255, 0, 0));
+        labelInfoThreadPriority.setForeground(new java.awt.Color(0, 0, 255));
         labelInfoThreadPriority.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         labelInfoThreadPriority.setText(Bundle.getString("SettingsPerformancePanel.labelInfoThreadPriority.text")); // NOI18N
 
@@ -153,37 +115,76 @@ public final class SettingsPerformancePanel extends javax.swing.JPanel
             }
         });
 
-        javax.swing.GroupLayout panelThreadPriorityLayout = new javax.swing.GroupLayout(panelThreadPriority);
-        panelThreadPriority.setLayout(panelThreadPriorityLayout);
-        panelThreadPriorityLayout.setHorizontalGroup(
-            panelThreadPriorityLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelThreadPriorityLayout.createSequentialGroup()
+        checkBoxScanForEmbeddedXmp.setText(Bundle.getString("SettingsPerformancePanel.checkBoxScanForEmbeddedXmp.text")); // NOI18N
+
+        javax.swing.GroupLayout panelProcessingTimeLayout = new javax.swing.GroupLayout(panelProcessingTime);
+        panelProcessingTime.setLayout(panelProcessingTimeLayout);
+        panelProcessingTimeLayout.setHorizontalGroup(
+            panelProcessingTimeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelProcessingTimeLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panelThreadPriorityLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelThreadPriorityLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addGroup(panelProcessingTimeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelProcessingTimeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(labelInfoThreadPriority, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelThreadPriorityLayout.createSequentialGroup()
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelProcessingTimeLayout.createSequentialGroup()
                             .addComponent(labelThreadPriority)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(comboBoxThreadPriority, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(panelThreadPriorityLayout.createSequentialGroup()
+                    .addGroup(panelProcessingTimeLayout.createSequentialGroup()
                         .addComponent(labelMaximumSecondsToTerminateExternalPrograms)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(spinnerMaximumSecondsToTerminateExternalPrograms, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(70, Short.MAX_VALUE))
+                        .addComponent(spinnerMaximumSecondsToTerminateExternalPrograms, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(checkBoxScanForEmbeddedXmp))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        panelThreadPriorityLayout.setVerticalGroup(
-            panelThreadPriorityLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelThreadPriorityLayout.createSequentialGroup()
-                .addGroup(panelThreadPriorityLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+        panelProcessingTimeLayout.setVerticalGroup(
+            panelProcessingTimeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelProcessingTimeLayout.createSequentialGroup()
+                .addGroup(panelProcessingTimeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelThreadPriority, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(comboBoxThreadPriority, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelInfoThreadPriority)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelThreadPriorityLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(panelProcessingTimeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelMaximumSecondsToTerminateExternalPrograms)
                     .addComponent(spinnerMaximumSecondsToTerminateExternalPrograms, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(checkBoxScanForEmbeddedXmp)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        panelAccelerateStart.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString("SettingsPerformancePanel.panelAccelerateStart.border.title"))); // NOI18N
+
+        checkBoxIsAutocompleteDisabled.setText(Bundle.getString("SettingsPerformancePanel.checkBoxIsAutocompleteDisabled.text")); // NOI18N
+        checkBoxIsAutocompleteDisabled.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkBoxIsAutocompleteDisabledActionPerformed(evt);
+            }
+        });
+
+        labelsAutocompleteDisabled.setForeground(new java.awt.Color(0, 0, 255));
+        labelsAutocompleteDisabled.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        labelsAutocompleteDisabled.setText(Bundle.getString("SettingsPerformancePanel.labelsAutocompleteDisabled.text")); // NOI18N
+
+        javax.swing.GroupLayout panelAccelerateStartLayout = new javax.swing.GroupLayout(panelAccelerateStart);
+        panelAccelerateStart.setLayout(panelAccelerateStartLayout);
+        panelAccelerateStartLayout.setHorizontalGroup(
+            panelAccelerateStartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelAccelerateStartLayout.createSequentialGroup()
+                .addGroup(panelAccelerateStartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(checkBoxIsAutocompleteDisabled)
+                    .addGroup(panelAccelerateStartLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(labelsAutocompleteDisabled)))
+                .addContainerGap())
+        );
+        panelAccelerateStartLayout.setVerticalGroup(
+            panelAccelerateStartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelAccelerateStartLayout.createSequentialGroup()
+                .addComponent(checkBoxIsAutocompleteDisabled)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(labelsAutocompleteDisabled)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -194,15 +195,14 @@ public final class SettingsPerformancePanel extends javax.swing.JPanel
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelThreadPriority, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panelAccelerateStart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(panelProcessingTime, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelAccelerateStart, javax.swing.GroupLayout.DEFAULT_SIZE, 455, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(panelThreadPriority, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panelProcessingTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelAccelerateStart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -223,13 +223,14 @@ private void spinnerMaximumSecondsToTerminateExternalProgramsStateChanged(javax.
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox checkBoxIsAutocompleteDisabled;
+    private javax.swing.JCheckBox checkBoxScanForEmbeddedXmp;
     private javax.swing.JComboBox comboBoxThreadPriority;
     private javax.swing.JLabel labelInfoThreadPriority;
     private javax.swing.JLabel labelMaximumSecondsToTerminateExternalPrograms;
     private javax.swing.JLabel labelThreadPriority;
     private javax.swing.JLabel labelsAutocompleteDisabled;
     private javax.swing.JPanel panelAccelerateStart;
-    private javax.swing.JPanel panelThreadPriority;
+    private javax.swing.JPanel panelProcessingTime;
     private javax.swing.JSpinner spinnerMaximumSecondsToTerminateExternalPrograms;
     // End of variables declaration//GEN-END:variables
 }

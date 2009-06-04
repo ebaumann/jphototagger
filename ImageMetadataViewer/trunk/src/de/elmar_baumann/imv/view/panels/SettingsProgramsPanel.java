@@ -151,15 +151,13 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel
         scrollPaneOtherPrograms = new javax.swing.JScrollPane();
         listOtherPrograms = new javax.swing.JList();
         buttonRemoveOtherProgram = new javax.swing.JButton();
-        buttonAddOtherProgram = new javax.swing.JButton();
         buttonEditOtherProgram = new javax.swing.JButton();
+        buttonAddOtherProgram = new javax.swing.JButton();
 
-        panelBorder.setBorder(javax.swing.BorderFactory.createTitledBorder(null, Bundle.getString("SettingsProgramsPanel.panelBorder.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 11))); // NOI18N
+        panelBorder.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString("SettingsProgramsPanel.panelBorder.border.title"))); // NOI18N
 
-        labelChooseDefaultProgram.setFont(new java.awt.Font("Dialog", 0, 12));
         labelChooseDefaultProgram.setText(Bundle.getString("SettingsProgramsPanel.labelChooseDefaultProgram.text")); // NOI18N
 
-        buttonChooseDefaultProgram.setFont(new java.awt.Font("Dialog", 0, 12));
         buttonChooseDefaultProgram.setMnemonic('a');
         buttonChooseDefaultProgram.setText(Bundle.getString("SettingsProgramsPanel.buttonChooseDefaultProgram.text")); // NOI18N
         buttonChooseDefaultProgram.addActionListener(new java.awt.event.ActionListener() {
@@ -168,11 +166,9 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel
             }
         });
 
-        labelDefaultProgramFile.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         labelDefaultProgramFile.setForeground(new java.awt.Color(0, 0, 255));
         labelDefaultProgramFile.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        labelOtherPrograms.setFont(new java.awt.Font("Dialog", 0, 12));
         labelOtherPrograms.setText(Bundle.getString("SettingsProgramsPanel.labelOtherPrograms.text")); // NOI18N
 
         listOtherPrograms.setModel(model);
@@ -190,7 +186,6 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel
         });
         scrollPaneOtherPrograms.setViewportView(listOtherPrograms);
 
-        buttonRemoveOtherProgram.setFont(new java.awt.Font("Dialog", 0, 12));
         buttonRemoveOtherProgram.setMnemonic('e');
         buttonRemoveOtherProgram.setText(Bundle.getString("SettingsProgramsPanel.buttonRemoveOtherProgram.text")); // NOI18N
         buttonRemoveOtherProgram.setToolTipText(Bundle.getString("SettingsProgramsPanel.buttonRemoveOtherProgram.toolTipText")); // NOI18N
@@ -201,17 +196,6 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel
             }
         });
 
-        buttonAddOtherProgram.setFont(new java.awt.Font("Dialog", 0, 12));
-        buttonAddOtherProgram.setMnemonic('h');
-        buttonAddOtherProgram.setText(Bundle.getString("SettingsProgramsPanel.buttonAddOtherProgram.text")); // NOI18N
-        buttonAddOtherProgram.setToolTipText(Bundle.getString("SettingsProgramsPanel.buttonAddOtherProgram.toolTipText")); // NOI18N
-        buttonAddOtherProgram.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonAddOtherProgramActionPerformed(evt);
-            }
-        });
-
-        buttonEditOtherProgram.setFont(new java.awt.Font("Dialog", 0, 12));
         buttonEditOtherProgram.setMnemonic('b');
         buttonEditOtherProgram.setText(Bundle.getString("SettingsProgramsPanel.buttonEditOtherProgram.text")); // NOI18N
         buttonEditOtherProgram.setToolTipText(Bundle.getString("SettingsProgramsPanel.buttonEditOtherProgram.toolTipText")); // NOI18N
@@ -219,6 +203,15 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel
         buttonEditOtherProgram.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonEditOtherProgramActionPerformed(evt);
+            }
+        });
+
+        buttonAddOtherProgram.setMnemonic('h');
+        buttonAddOtherProgram.setText(Bundle.getString("SettingsProgramsPanel.buttonAddOtherProgram.text")); // NOI18N
+        buttonAddOtherProgram.setToolTipText(Bundle.getString("SettingsProgramsPanel.buttonAddOtherProgram.toolTipText")); // NOI18N
+        buttonAddOtherProgram.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonAddOtherProgramActionPerformed(evt);
             }
         });
 
@@ -230,10 +223,10 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel
                 .addGroup(panelBorderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(panelBorderLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(scrollPaneOtherPrograms, javax.swing.GroupLayout.DEFAULT_SIZE, 575, Short.MAX_VALUE))
+                        .addComponent(scrollPaneOtherPrograms, javax.swing.GroupLayout.DEFAULT_SIZE, 448, Short.MAX_VALUE))
                     .addGroup(panelBorderLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(labelDefaultProgramFile, javax.swing.GroupLayout.DEFAULT_SIZE, 575, Short.MAX_VALUE))
+                        .addComponent(labelDefaultProgramFile, javax.swing.GroupLayout.DEFAULT_SIZE, 448, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelBorderLayout.createSequentialGroup()
                         .addGroup(panelBorderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panelBorderLayout.createSequentialGroup()
@@ -242,10 +235,10 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel
                             .addGroup(panelBorderLayout.createSequentialGroup()
                                 .addContainerGap()
                                 .addComponent(labelChooseDefaultProgram)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(buttonChooseDefaultProgram))
                     .addGroup(panelBorderLayout.createSequentialGroup()
-                        .addContainerGap(279, Short.MAX_VALUE)
+                        .addContainerGap(175, Short.MAX_VALUE)
                         .addComponent(buttonRemoveOtherProgram)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonEditOtherProgram)
@@ -264,7 +257,7 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelOtherPrograms)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPaneOtherPrograms, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
+                .addComponent(scrollPaneOtherPrograms, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panelBorderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonAddOtherProgram)
@@ -277,7 +270,7 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 633, Short.MAX_VALUE)
+            .addGap(0, 500, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
@@ -286,7 +279,7 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 324, Short.MAX_VALUE)
+            .addGap(0, 194, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()

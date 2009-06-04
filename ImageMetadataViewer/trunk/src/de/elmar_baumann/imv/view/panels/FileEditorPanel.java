@@ -196,16 +196,15 @@ public final class FileEditorPanel extends javax.swing.JPanel {
         buttonStop = new javax.swing.JButton();
         buttonStart = new javax.swing.JButton();
 
-        labelDescription.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
-        labelDescription.setBorder(javax.swing.BorderFactory.createTitledBorder(null, Bundle.getString("FileEditorPanel.labelDescription.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 11))); // NOI18N
+        setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString("FileEditorPanel.panelOptions.border.title"))); // NOI18N
 
-        panelOptions.setBorder(javax.swing.BorderFactory.createTitledBorder(null, Bundle.getString("FileEditorPanel.panelOptions.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 11))); // NOI18N
+        labelDescription.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString("FileEditorPanel.labelDescription.border.title"))); // NOI18N
 
-        checkBoxIncludeSubdirectories.setFont(new java.awt.Font("Dialog", 0, 12));
+        panelOptions.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString("FileEditorPanel.panelOptions.border.title"))); // NOI18N
+
         checkBoxIncludeSubdirectories.setMnemonic('u');
         checkBoxIncludeSubdirectories.setText(Bundle.getString("FileEditorPanel.checkBoxIncludeSubdirectories.text")); // NOI18N
 
-        checkBoxReplaceExistingFiles.setFont(new java.awt.Font("Dialog", 0, 12));
         checkBoxReplaceExistingFiles.setMnemonic('x');
         checkBoxReplaceExistingFiles.setText(Bundle.getString("FileEditorPanel.checkBoxReplaceExistingFiles.text")); // NOI18N
 
@@ -217,7 +216,7 @@ public final class FileEditorPanel extends javax.swing.JPanel {
                 .addGroup(panelOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(checkBoxReplaceExistingFiles)
                     .addComponent(checkBoxIncludeSubdirectories))
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
         panelOptionsLayout.setVerticalGroup(
             panelOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -231,7 +230,6 @@ public final class FileEditorPanel extends javax.swing.JPanel {
         labelFilename.setForeground(new java.awt.Color(0, 0, 255));
         labelFilename.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        labelInfo.setFont(new java.awt.Font("Dialog", 0, 12));
         labelInfo.setText(Bundle.getString("FileEditorPanel.labelInfo.text")); // NOI18N
         labelInfo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -239,7 +237,6 @@ public final class FileEditorPanel extends javax.swing.JPanel {
             }
         });
 
-        buttonShowFiles.setFont(new java.awt.Font("Dialog", 0, 12));
         buttonShowFiles.setText(Bundle.getString("FileEditorPanel.buttonShowFiles.text")); // NOI18N
         buttonShowFiles.setEnabled(false);
         buttonShowFiles.addActionListener(new java.awt.event.ActionListener() {
@@ -248,7 +245,6 @@ public final class FileEditorPanel extends javax.swing.JPanel {
             }
         });
 
-        buttonSelectFiles.setFont(new java.awt.Font("Dialog", 0, 12));
         buttonSelectFiles.setMnemonic('e');
         buttonSelectFiles.setText(Bundle.getString("FileEditorPanel.buttonSelectFiles.text")); // NOI18N
         buttonSelectFiles.addActionListener(new java.awt.event.ActionListener() {
@@ -257,7 +253,6 @@ public final class FileEditorPanel extends javax.swing.JPanel {
             }
         });
 
-        buttonStop.setFont(new java.awt.Font("Dialog", 0, 12));
         buttonStop.setMnemonic('o');
         buttonStop.setText(Bundle.getString("FileEditorPanel.buttonStop.text")); // NOI18N
         buttonStop.setEnabled(false);
@@ -267,7 +262,6 @@ public final class FileEditorPanel extends javax.swing.JPanel {
             }
         });
 
-        buttonStart.setFont(new java.awt.Font("Dialog", 0, 12));
         buttonStart.setMnemonic('s');
         buttonStart.setText(Bundle.getString("FileEditorPanel.buttonStart.text")); // NOI18N
         buttonStart.setEnabled(false);
@@ -284,11 +278,11 @@ public final class FileEditorPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelDescription, javax.swing.GroupLayout.DEFAULT_SIZE, 382, Short.MAX_VALUE)
+                    .addComponent(labelDescription, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
                     .addComponent(panelOptions, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(labelFilename, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 382, Short.MAX_VALUE)
-                    .addComponent(progressBar, javax.swing.GroupLayout.DEFAULT_SIZE, 382, Short.MAX_VALUE)
-                    .addComponent(labelInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 382, Short.MAX_VALUE)
+                    .addComponent(progressBar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
+                    .addComponent(labelFilename, javax.swing.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
+                    .addComponent(labelInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(buttonShowFiles)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -302,23 +296,22 @@ public final class FileEditorPanel extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(labelDescription, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(labelDescription, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(5, 5, 5)
                 .addComponent(panelOptions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelFilename, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labelInfo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(labelInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonStop)
                     .addComponent(buttonSelectFiles)
                     .addComponent(buttonStart)
                     .addComponent(buttonShowFiles))
-                .addGap(12, 12, 12))
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 

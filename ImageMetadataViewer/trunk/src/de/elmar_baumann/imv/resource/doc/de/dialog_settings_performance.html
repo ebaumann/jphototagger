@@ -11,13 +11,17 @@
 
 <h2>Rechenzeit</h2>
 
-<h3>Prozessor-Leistung für das Berechnen der Vorschaubilder</h3>
+<h3>Prozessor-Leistung für gleichzeitige Berechnungen</h3>
 
 <p>Sie können einstellen, wieviel Rechenleistung das Programm zum Berechnen der Vorschaubilder und Lesen der <a href="glossary_metadata.html">Metadaten</a> benutzt. Wollen Sie noch mit anderen Programmen arbeiten, ist die Einstellung <strong>Mittel</strong> in der Regel geeignet. Sollte der Rechner langsamer reagieren als gewohnt, wählen Sie <strong>Niedrig</strong>. Das Erzeugen der Vorschaubilder dauert dann länger. Die Einstellung <strong>Hoch</strong> ist nur geeignet, wenn Sie nicht mehr am Rechner arbeiten müssen, erzeugt die Vorschaubilder aber am schnellsten.</p>
 
 <h3>Maximale Wartezeit in Sekunden, bis externe Programme beendet werden</h3>
 
 <p>Hier geben Sie ein, nach wievielen Sekunden ein externes Programm beendet wird. Das ist von Belang, falls Sie die Vorschaubilder von einem externen Programm erzeugen lassen und eigene Skripte einsetzen zum Verarbeiten von Bildern. Sollte ein Programm nach dieser Zeit nicht fertig sein, wird es beendet, damit <strong>Bilder</strong> weiter arbeiten kann.</p>
+
+<h3>In Bildern nach eingebetteten XMP-Metadaten suchen, falls keine Filialdatei existiert</h3>
+
+<p>Aktivieren Sie diese Option, falls in Bilddateien ohne XMP-Filialdatei nach eingebetteten XMP-Metadaten gesucht werden soll. Haben viele Bilder keine Filialdatei <em>und</em> keine eingebetteten XMP-Informationen, dauert das Aktualisieren der Datebank sehr lange, da alle Bilder komplett durchsucht werden (Hat ein Bild XMP-Informationen <em>und</em> stehen diese am Dateianfang, ist das Einlesen schnell, da nur so lange eingelesen wird, bis das Ende der XMP-Daten erreicht ist).</p>
 
 <h2>Start beschleunigen</h2>
 

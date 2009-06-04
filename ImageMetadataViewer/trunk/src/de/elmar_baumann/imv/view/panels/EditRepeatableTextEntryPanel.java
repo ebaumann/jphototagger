@@ -192,7 +192,6 @@ public final class EditRepeatableTextEntryPanel extends javax.swing.JPanel
 
         setLayout(new java.awt.GridBagLayout());
 
-        labelPrompt.setFont(new java.awt.Font("Dialog", 1, 11));
         labelPrompt.setText(Bundle.getString("EditRepeatableTextEntryPanel.labelPrompt.text")); // NOI18N
         labelPrompt.setToolTipText(column.getLongerDescription());
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -203,7 +202,6 @@ public final class EditRepeatableTextEntryPanel extends javax.swing.JPanel
 
         scrollPane.setMinimumSize(new java.awt.Dimension(22, 44));
 
-        list.setFont(new java.awt.Font("Dialog", 0, 11));
         list.setModel(model);
         list.setToolTipText(Bundle.getString("EditRepeatableTextEntryPanel.list.toolTipText")); // NOI18N
         list.setCellRenderer(new ListCellRendererKeywordsEdit());
@@ -225,7 +223,6 @@ public final class EditRepeatableTextEntryPanel extends javax.swing.JPanel
         gridBagConstraints.weighty = 1.0;
         add(scrollPane, gridBagConstraints);
 
-        textFieldInput.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
         textFieldInput.setToolTipText(Bundle.getString("EditRepeatableTextEntryPanel.textFieldInput.toolTipText")); // NOI18N
         textFieldInput.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {

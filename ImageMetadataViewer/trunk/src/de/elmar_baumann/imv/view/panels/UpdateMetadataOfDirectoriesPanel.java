@@ -325,29 +325,25 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
         labelHeadingTreeChosenDirectories = new javax.swing.JLabel();
         scrollPaneSelectedDirectories = new javax.swing.JScrollPane();
         listSelectedDirectories = new javax.swing.JList();
-        buttonChooseDirectory = new javax.swing.JButton();
-        buttonStart = new javax.swing.JButton();
-        buttonStop = new javax.swing.JButton();
-        checkBoxIncludeSubdirectories = new javax.swing.JCheckBox();
         labelCountSelectedFiles = new javax.swing.JLabel();
         checkBoxForce = new javax.swing.JCheckBox();
+        checkBoxIncludeSubdirectories = new javax.swing.JCheckBox();
+        buttonChooseDirectory = new javax.swing.JButton();
+        buttonStop = new javax.swing.JButton();
+        buttonStart = new javax.swing.JButton();
 
-        labelInfotext.setFont(new java.awt.Font("Dialog", 0, 12));
         labelInfotext.setText(Bundle.getString("UpdateMetadataOfDirectoriesPanel.labelInfotext.text")); // NOI18N
+        labelInfotext.setPreferredSize(new java.awt.Dimension(637, 28));
 
-        progressBar.setFont(new java.awt.Font("Dialog", 0, 12));
         progressBar.setFocusable(false);
         progressBar.setStringPainted(true);
 
-        labelCurrentFilename.setFont(new java.awt.Font("Dialog", 0, 10));
         labelCurrentFilename.setForeground(new java.awt.Color(51, 51, 255));
         labelCurrentFilename.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         labelCurrentFilename.setPreferredSize(new java.awt.Dimension(4, 20));
 
-        labelHeadingTreeChosenDirectories.setFont(new java.awt.Font("Dialog", 0, 12));
         labelHeadingTreeChosenDirectories.setText(Bundle.getString("UpdateMetadataOfDirectoriesPanel.labelHeadingTreeChosenDirectories.text")); // NOI18N
 
-        listSelectedDirectories.setFont(new java.awt.Font("Dialog", 0, 12));
         listSelectedDirectories.setModel(modelSelectedDirectoryList);
         listSelectedDirectories.setCellRenderer(new de.elmar_baumann.imv.view.renderer.ListCellRendererDirectories());
         listSelectedDirectories.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -357,7 +353,15 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
         });
         scrollPaneSelectedDirectories.setViewportView(listSelectedDirectories);
 
-        buttonChooseDirectory.setFont(new java.awt.Font("Dialog", 0, 12));
+        labelCountSelectedFiles.setForeground(new java.awt.Color(0, 153, 0));
+        labelCountSelectedFiles.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        labelCountSelectedFiles.setPreferredSize(new java.awt.Dimension(4, 20));
+
+        checkBoxForce.setText(Bundle.getString("UpdateMetadataOfDirectoriesPanel.checkBoxForce.text")); // NOI18N
+
+        checkBoxIncludeSubdirectories.setSelected(true);
+        checkBoxIncludeSubdirectories.setText(Bundle.getString("UpdateMetadataOfDirectoriesPanel.checkBoxIncludeSubdirectories.text")); // NOI18N
+
         buttonChooseDirectory.setMnemonic('v');
         buttonChooseDirectory.setText(Bundle.getString("UpdateMetadataOfDirectoriesPanel.buttonChooseDirectory.text")); // NOI18N
         buttonChooseDirectory.addActionListener(new java.awt.event.ActionListener() {
@@ -366,17 +370,6 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
             }
         });
 
-        buttonStart.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
-        buttonStart.setMnemonic('m');
-        buttonStart.setText(Bundle.getString("UpdateMetadataOfDirectoriesPanel.buttonStart.text")); // NOI18N
-        buttonStart.setEnabled(false);
-        buttonStart.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonStartActionPerformed(evt);
-            }
-        });
-
-        buttonStop.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         buttonStop.setMnemonic('b');
         buttonStop.setText(Bundle.getString("UpdateMetadataOfDirectoriesPanel.buttonStop.text")); // NOI18N
         buttonStop.setEnabled(false);
@@ -386,17 +379,14 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
             }
         });
 
-        checkBoxIncludeSubdirectories.setFont(new java.awt.Font("Dialog", 0, 12));
-        checkBoxIncludeSubdirectories.setSelected(true);
-        checkBoxIncludeSubdirectories.setText(Bundle.getString("UpdateMetadataOfDirectoriesPanel.checkBoxIncludeSubdirectories.text")); // NOI18N
-
-        labelCountSelectedFiles.setFont(new java.awt.Font("Dialog", 0, 10));
-        labelCountSelectedFiles.setForeground(new java.awt.Color(0, 153, 0));
-        labelCountSelectedFiles.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        labelCountSelectedFiles.setPreferredSize(new java.awt.Dimension(4, 20));
-
-        checkBoxForce.setFont(new java.awt.Font("Dialog", 0, 12));
-        checkBoxForce.setText(Bundle.getString("UpdateMetadataOfDirectoriesPanel.checkBoxForce.text")); // NOI18N
+        buttonStart.setMnemonic('m');
+        buttonStart.setText(Bundle.getString("UpdateMetadataOfDirectoriesPanel.buttonStart.text")); // NOI18N
+        buttonStart.setEnabled(false);
+        buttonStart.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonStartActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -407,12 +397,12 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(checkBoxIncludeSubdirectories)
                     .addComponent(checkBoxForce)
-                    .addComponent(scrollPaneSelectedDirectories, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 590, Short.MAX_VALUE)
-                    .addComponent(progressBar, javax.swing.GroupLayout.DEFAULT_SIZE, 590, Short.MAX_VALUE)
-                    .addComponent(labelInfotext, javax.swing.GroupLayout.DEFAULT_SIZE, 590, Short.MAX_VALUE)
+                    .addComponent(scrollPaneSelectedDirectories, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 494, Short.MAX_VALUE)
+                    .addComponent(progressBar, javax.swing.GroupLayout.DEFAULT_SIZE, 494, Short.MAX_VALUE)
+                    .addComponent(labelInfotext, javax.swing.GroupLayout.DEFAULT_SIZE, 494, Short.MAX_VALUE)
                     .addComponent(labelHeadingTreeChosenDirectories)
-                    .addComponent(labelCurrentFilename, javax.swing.GroupLayout.DEFAULT_SIZE, 590, Short.MAX_VALUE)
-                    .addComponent(labelCountSelectedFiles, javax.swing.GroupLayout.DEFAULT_SIZE, 590, Short.MAX_VALUE)
+                    .addComponent(labelCurrentFilename, javax.swing.GroupLayout.DEFAULT_SIZE, 494, Short.MAX_VALUE)
+                    .addComponent(labelCountSelectedFiles, javax.swing.GroupLayout.DEFAULT_SIZE, 494, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(buttonChooseDirectory)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -433,7 +423,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelHeadingTreeChosenDirectories)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPaneSelectedDirectories, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE)
+                .addComponent(scrollPaneSelectedDirectories, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelCountSelectedFiles, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)

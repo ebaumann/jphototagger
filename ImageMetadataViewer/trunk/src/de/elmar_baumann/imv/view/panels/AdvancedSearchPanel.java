@@ -381,11 +381,11 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         panelColumns.setLayout(panelColumnsLayout);
         panelColumnsLayout.setHorizontalGroup(
             panelColumnsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelColumn5, javax.swing.GroupLayout.DEFAULT_SIZE, 683, Short.MAX_VALUE)
-            .addComponent(panelColumn4, javax.swing.GroupLayout.DEFAULT_SIZE, 683, Short.MAX_VALUE)
-            .addComponent(panelColumn3, javax.swing.GroupLayout.DEFAULT_SIZE, 683, Short.MAX_VALUE)
-            .addComponent(panelColumn2, javax.swing.GroupLayout.DEFAULT_SIZE, 683, Short.MAX_VALUE)
-            .addComponent(panelColumn1, javax.swing.GroupLayout.DEFAULT_SIZE, 683, Short.MAX_VALUE)
+            .addComponent(panelColumn5, javax.swing.GroupLayout.DEFAULT_SIZE, 687, Short.MAX_VALUE)
+            .addComponent(panelColumn4, javax.swing.GroupLayout.DEFAULT_SIZE, 687, Short.MAX_VALUE)
+            .addComponent(panelColumn3, javax.swing.GroupLayout.DEFAULT_SIZE, 687, Short.MAX_VALUE)
+            .addComponent(panelColumn2, javax.swing.GroupLayout.DEFAULT_SIZE, 687, Short.MAX_VALUE)
+            .addComponent(panelColumn1, javax.swing.GroupLayout.DEFAULT_SIZE, 687, Short.MAX_VALUE)
         );
         panelColumnsLayout.setVerticalGroup(
             panelColumnsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -402,7 +402,6 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
                 .addContainerGap())
         );
 
-        buttonSaveSearch.setFont(new java.awt.Font("Dialog", 0, 12));
         buttonSaveSearch.setMnemonic('p');
         buttonSaveSearch.setText(Bundle.getString("AdvancedSearchPanel.buttonSaveSearch.text")); // NOI18N
         buttonSaveSearch.addActionListener(new java.awt.event.ActionListener() {
@@ -411,7 +410,6 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
             }
         });
 
-        buttonSaveAs.setFont(new java.awt.Font("Dialog", 0, 12));
         buttonSaveAs.setText(Bundle.getString("AdvancedSearchPanel.buttonSaveAs.text")); // NOI18N
         buttonSaveAs.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -419,7 +417,6 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
             }
         });
 
-        buttonReset.setFont(new java.awt.Font("Dialog", 0, 12));
         buttonReset.setMnemonic('e');
         buttonReset.setText(Bundle.getString("AdvancedSearchPanel.buttonReset.text")); // NOI18N
         buttonReset.addActionListener(new java.awt.event.ActionListener() {
@@ -428,7 +425,6 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
             }
         });
 
-        buttonSearch.setFont(new java.awt.Font("Dialog", 0, 12));
         buttonSearch.setMnemonic('s');
         buttonSearch.setText(Bundle.getString("AdvancedSearchPanel.buttonSearch.text")); // NOI18N
         buttonSearch.addActionListener(new java.awt.event.ActionListener() {
@@ -463,7 +459,6 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 707, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -473,13 +468,12 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 210, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(panelColumns, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(panelButtons, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

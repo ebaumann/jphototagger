@@ -77,7 +77,6 @@ public final class SettingsFastSearchColumnsPanel extends javax.swing.JPanel
         labelFastSearchColumns = new javax.swing.JLabel();
         scrollPaneFastSearchColumns = new JScrollPane(list);
 
-        labelFastSearchColumns.setFont(new java.awt.Font("Dialog", 0, 11));
         labelFastSearchColumns.setText(Bundle.getString("SettingsFastSearchColumnsPanel.labelFastSearchColumns.text")); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -87,11 +86,11 @@ public final class SettingsFastSearchColumnsPanel extends javax.swing.JPanel
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(labelFastSearchColumns)
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(scrollPaneFastSearchColumns, javax.swing.GroupLayout.DEFAULT_SIZE, 376, Short.MAX_VALUE)
+                    .addComponent(scrollPaneFastSearchColumns, javax.swing.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE)
                     .addContainerGap()))
         );
         layout.setVerticalGroup(
@@ -99,11 +98,11 @@ public final class SettingsFastSearchColumnsPanel extends javax.swing.JPanel
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(labelFastSearchColumns)
-                .addContainerGap(147, Short.MAX_VALUE))
+                .addContainerGap(106, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                     .addGap(38, 38, 38)
-                    .addComponent(scrollPaneFastSearchColumns, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
+                    .addComponent(scrollPaneFastSearchColumns, javax.swing.GroupLayout.DEFAULT_SIZE, 82, Short.MAX_VALUE)
                     .addContainerGap()))
         );
     }// </editor-fold>//GEN-END:initComponents

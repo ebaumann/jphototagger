@@ -169,15 +169,14 @@ public final class DatabaseMaintainancePanel extends javax.swing.JPanel
         labelFinishedDeleteRecordsOfNotExistingFilesInDatabase = new javax.swing.JLabel();
         checkBoxCompressDatabase = new javax.swing.JCheckBox();
         labelFinishedCompressDatabase = new javax.swing.JLabel();
-        progressBar = new javax.swing.JProgressBar();
-        buttonStartMaintain = new javax.swing.JButton();
-        buttonAbortAction = new javax.swing.JButton();
         panelMaintainMessages = new javax.swing.JPanel();
         labelMessage = new javax.swing.JLabel();
+        progressBar = new javax.swing.JProgressBar();
+        buttonAbortAction = new javax.swing.JButton();
+        buttonStartMaintain = new javax.swing.JButton();
 
-        panelMaintainanceTasks.setBorder(javax.swing.BorderFactory.createTitledBorder(null, Bundle.getString("DatabaseMaintainancePanel.panelMaintainanceTasks.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 11))); // NOI18N
+        panelMaintainanceTasks.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString("DatabaseMaintainancePanel.panelMaintainanceTasks.border.title"))); // NOI18N
 
-        checkBoxDeleteRecordsOfNotExistingFilesInDatabase.setFont(new java.awt.Font("Dialog", 0, 12));
         checkBoxDeleteRecordsOfNotExistingFilesInDatabase.setMnemonic('e');
         checkBoxDeleteRecordsOfNotExistingFilesInDatabase.setText(Bundle.getString("DatabaseMaintainancePanel.checkBoxDeleteRecordsOfNotExistingFilesInDatabase.text")); // NOI18N
         checkBoxDeleteRecordsOfNotExistingFilesInDatabase.addActionListener(new java.awt.event.ActionListener() {
@@ -188,7 +187,6 @@ public final class DatabaseMaintainancePanel extends javax.swing.JPanel
 
         labelFinishedDeleteRecordsOfNotExistingFilesInDatabase.setPreferredSize(new java.awt.Dimension(16, 16));
 
-        checkBoxCompressDatabase.setFont(new java.awt.Font("Dialog", 0, 12));
         checkBoxCompressDatabase.setMnemonic('k');
         checkBoxCompressDatabase.setText(Bundle.getString("DatabaseMaintainancePanel.checkBoxCompressDatabase.text")); // NOI18N
         checkBoxCompressDatabase.addActionListener(new java.awt.event.ActionListener() {
@@ -212,7 +210,7 @@ public final class DatabaseMaintainancePanel extends javax.swing.JPanel
                 .addGroup(panelMaintainanceTasksLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(labelFinishedCompressDatabase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labelFinishedDeleteRecordsOfNotExistingFilesInDatabase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(58, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelMaintainanceTasksLayout.setVerticalGroup(
             panelMaintainanceTasksLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -228,17 +226,26 @@ public final class DatabaseMaintainancePanel extends javax.swing.JPanel
                 .addContainerGap())
         );
 
-        buttonStartMaintain.setFont(new java.awt.Font("Dialog", 0, 12));
-        buttonStartMaintain.setMnemonic('s');
-        buttonStartMaintain.setText(Bundle.getString("DatabaseMaintainancePanel.buttonStartMaintain.text")); // NOI18N
-        buttonStartMaintain.setEnabled(false);
-        buttonStartMaintain.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonStartMaintainActionPerformed(evt);
-            }
-        });
+        panelMaintainMessages.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString("DatabaseMaintainancePanel.panelMaintainMessages.border.title"))); // NOI18N
 
-        buttonAbortAction.setFont(new java.awt.Font("Dialog", 0, 12));
+        labelMessage.setPreferredSize(new java.awt.Dimension(0, 16));
+
+        javax.swing.GroupLayout panelMaintainMessagesLayout = new javax.swing.GroupLayout(panelMaintainMessages);
+        panelMaintainMessages.setLayout(panelMaintainMessagesLayout);
+        panelMaintainMessagesLayout.setHorizontalGroup(
+            panelMaintainMessagesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelMaintainMessagesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(labelMessage, javax.swing.GroupLayout.DEFAULT_SIZE, 343, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        panelMaintainMessagesLayout.setVerticalGroup(
+            panelMaintainMessagesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelMaintainMessagesLayout.createSequentialGroup()
+                .addComponent(labelMessage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
         buttonAbortAction.setMnemonic('o');
         buttonAbortAction.setText(Bundle.getString("DatabaseMaintainancePanel.buttonAbortAction.text")); // NOI18N
         buttonAbortAction.setEnabled(false);
@@ -248,26 +255,14 @@ public final class DatabaseMaintainancePanel extends javax.swing.JPanel
             }
         });
 
-        panelMaintainMessages.setBorder(javax.swing.BorderFactory.createTitledBorder(null, Bundle.getString("DatabaseMaintainancePanel.panelMaintainMessages.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
-
-        labelMessage.setFont(new java.awt.Font("Dialog", 0, 12));
-        labelMessage.setPreferredSize(new java.awt.Dimension(0, 16));
-
-        javax.swing.GroupLayout panelMaintainMessagesLayout = new javax.swing.GroupLayout(panelMaintainMessages);
-        panelMaintainMessages.setLayout(panelMaintainMessagesLayout);
-        panelMaintainMessagesLayout.setHorizontalGroup(
-            panelMaintainMessagesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelMaintainMessagesLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(labelMessage, javax.swing.GroupLayout.DEFAULT_SIZE, 446, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        panelMaintainMessagesLayout.setVerticalGroup(
-            panelMaintainMessagesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelMaintainMessagesLayout.createSequentialGroup()
-                .addComponent(labelMessage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        buttonStartMaintain.setMnemonic('s');
+        buttonStartMaintain.setText(Bundle.getString("DatabaseMaintainancePanel.buttonStartMaintain.text")); // NOI18N
+        buttonStartMaintain.setEnabled(false);
+        buttonStartMaintain.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonStartMaintainActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -282,7 +277,7 @@ public final class DatabaseMaintainancePanel extends javax.swing.JPanel
                         .addComponent(buttonAbortAction)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonStartMaintain))
-                    .addComponent(progressBar, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE))
+                    .addComponent(progressBar, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -291,14 +286,14 @@ public final class DatabaseMaintainancePanel extends javax.swing.JPanel
                 .addContainerGap()
                 .addComponent(panelMaintainanceTasks, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelMaintainMessages, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panelMaintainMessages, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonStartMaintain)
                     .addComponent(buttonAbortAction))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 

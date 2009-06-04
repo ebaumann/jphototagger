@@ -50,10 +50,8 @@ public final class SettingsIptcPanel extends javax.swing.JPanel
         labelIptcCharset = new javax.swing.JLabel();
         comboBoxIptcCharset = new javax.swing.JComboBox();
 
-        labelIptcCharset.setFont(new java.awt.Font("Dialog", 0, 12));
         labelIptcCharset.setText(Bundle.getString("SettingsIptcPanel.labelIptcCharset.text")); // NOI18N
 
-        comboBoxIptcCharset.setFont(new java.awt.Font("Dialog", 0, 12));
         comboBoxIptcCharset.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "ISO-8859-1", "UTF-8" }));
         comboBoxIptcCharset.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
