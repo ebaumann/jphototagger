@@ -224,9 +224,9 @@ public final class DirectoryChooser extends Dialog {
 
         scrollPaneTreeDirectories = new javax.swing.JScrollPane();
         treeDirectories = new javax.swing.JTree();
-        buttonChoose = new javax.swing.JButton();
-        buttonCancel = new javax.swing.JButton();
         labelUsage = new javax.swing.JLabel();
+        buttonCancel = new javax.swing.JButton();
+        buttonChoose = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/lib/resource/Bundle"); // NOI18N
@@ -242,13 +242,7 @@ public final class DirectoryChooser extends Dialog {
         treeDirectories.setCellRenderer(new de.elmar_baumann.lib.renderer.TreeCellRendererDirectories());
         scrollPaneTreeDirectories.setViewportView(treeDirectories);
 
-        buttonChoose.setMnemonic('a');
-        buttonChoose.setText(bundle.getString("DirectoryChooser.buttonChoose.text")); // NOI18N
-        buttonChoose.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonChooseActionPerformed(evt);
-            }
-        });
+        labelUsage.setText(bundle.getString("DirectoryChooser.labelUsage.text")); // NOI18N
 
         buttonCancel.setMnemonic('b');
         buttonCancel.setText(bundle.getString("DirectoryChooser.buttonCancel.text")); // NOI18N
@@ -258,8 +252,13 @@ public final class DirectoryChooser extends Dialog {
             }
         });
 
-        labelUsage.setFont(new java.awt.Font("Dialog", 0, 12));
-        labelUsage.setText(bundle.getString("DirectoryChooser.labelUsage.text")); // NOI18N
+        buttonChoose.setMnemonic('a');
+        buttonChoose.setText(bundle.getString("DirectoryChooser.buttonChoose.text")); // NOI18N
+        buttonChoose.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonChooseActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -280,7 +279,7 @@ public final class DirectoryChooser extends Dialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(scrollPaneTreeDirectories, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE)
+                .addComponent(scrollPaneTreeDirectories, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelUsage)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)

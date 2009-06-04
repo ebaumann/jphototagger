@@ -416,10 +416,10 @@ public final class LogfileDialog extends javax.swing.JDialog implements
         panelSearch = new javax.swing.JPanel();
         labelSearch = new javax.swing.JLabel();
         textFieldSearch = new javax.swing.JTextField();
-        scrollPaneTextPaneDetails = new javax.swing.JScrollPane();
-        textPaneDetails = new javax.swing.JTextPane();
         scrollPaneTableLogfileRecords = new javax.swing.JScrollPane();
         tableLogfileRecords = new javax.swing.JTable();
+        scrollPaneTextPaneDetails = new javax.swing.JScrollPane();
+        textPaneDetails = new javax.swing.JTextPane();
         panelSimple = new javax.swing.JPanel();
         scrollPaneSimple = new javax.swing.JScrollPane();
         editorPaneSimple = new javax.swing.JEditorPane();
@@ -434,7 +434,7 @@ public final class LogfileDialog extends javax.swing.JDialog implements
             }
         });
 
-        panelFilter.setBorder(javax.swing.BorderFactory.createTitledBorder(null, bundle.getString("LogfileDialog.panelFilter.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 11))); // NOI18N
+        panelFilter.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("LogfileDialog.panelFilter.border.title"))); // NOI18N
 
         labelIconSevere.setPreferredSize(new java.awt.Dimension(16, 16));
 
@@ -498,11 +498,11 @@ public final class LogfileDialog extends javax.swing.JDialog implements
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelFilterCheckBoxesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelFilterCheckBoxesLayout.createSequentialGroup()
-                        .addComponent(checkBoxFine, javax.swing.GroupLayout.PREFERRED_SIZE, 99, Short.MAX_VALUE)
+                        .addComponent(checkBoxFine, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(labelIconFinest, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
+                        .addComponent(labelIconFinest, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
                         .addGap(14, 14, 14)
-                        .addComponent(checkBoxFinest, javax.swing.GroupLayout.PREFERRED_SIZE, 99, Short.MAX_VALUE))
+                        .addComponent(checkBoxFinest, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE))
                     .addGroup(panelFilterCheckBoxesLayout.createSequentialGroup()
                         .addComponent(checkBoxFiner, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
                         .addGap(121, 121, 121)))
@@ -590,14 +590,14 @@ public final class LogfileDialog extends javax.swing.JDialog implements
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        textPaneDetails.setEditable(false);
-        scrollPaneTextPaneDetails.setViewportView(textPaneDetails);
-
         tableLogfileRecords.setAutoCreateRowSorter(true);
         tableLogfileRecords.setModel(new TableModelLogfiles("", Arrays.asList(Level.ALL)));
         tableLogfileRecords.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         tableLogfileRecords.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scrollPaneTableLogfileRecords.setViewportView(tableLogfileRecords);
+
+        textPaneDetails.setEditable(false);
+        scrollPaneTextPaneDetails.setViewportView(textPaneDetails);
 
         javax.swing.GroupLayout panelXmlLayout = new javax.swing.GroupLayout(panelXml);
         panelXml.setLayout(panelXmlLayout);
@@ -618,7 +618,7 @@ public final class LogfileDialog extends javax.swing.JDialog implements
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(scrollPaneTableLogfileRecords, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPaneTextPaneDetails, javax.swing.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE)
+                .addComponent(scrollPaneTextPaneDetails, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -640,7 +640,7 @@ public final class LogfileDialog extends javax.swing.JDialog implements
             panelSimpleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelSimpleLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(scrollPaneSimple, javax.swing.GroupLayout.DEFAULT_SIZE, 454, Short.MAX_VALUE)
+                .addComponent(scrollPaneSimple, javax.swing.GroupLayout.DEFAULT_SIZE, 458, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
