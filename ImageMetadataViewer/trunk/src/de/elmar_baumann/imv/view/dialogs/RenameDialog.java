@@ -389,14 +389,14 @@ public final class RenameDialog extends Dialog {
         panelInputName = new javax.swing.JPanel();
         labelDirectoryPrompt = new javax.swing.JLabel();
         labelDirectory = new javax.swing.JLabel();
+        panelBorder = new javax.swing.JPanel();
+        panelThumbnail = new de.elmar_baumann.lib.image.ImagePanel();
         labelOldNamePrompt = new javax.swing.JLabel();
         labelOldName = new javax.swing.JLabel();
         labelNewNamePrompt = new javax.swing.JLabel();
         textFieldNewName = new javax.swing.JTextField();
-        buttonRename = new javax.swing.JButton();
         buttonNextFile = new javax.swing.JButton();
-        panelBorder = new javax.swing.JPanel();
-        panelThumbnail = new de.elmar_baumann.lib.image.ImagePanel();
+        buttonRename = new javax.swing.JButton();
         panelTemplates = new javax.swing.JPanel();
         panelNumbers = new javax.swing.JPanel();
         labelStartNumber = new javax.swing.JLabel();
@@ -437,34 +437,10 @@ public final class RenameDialog extends Dialog {
             }
         });
 
-        labelDirectoryPrompt.setFont(new java.awt.Font("Dialog", 1, 11));
         labelDirectoryPrompt.setText(Bundle.getString("RenameDialog.labelDirectoryPrompt.text")); // NOI18N
 
+        labelDirectory.setForeground(new java.awt.Color(0, 175, 0));
         labelDirectory.setText(Bundle.getString("RenameDialog.labelDirectory.text")); // NOI18N
-
-        labelOldNamePrompt.setFont(new java.awt.Font("Dialog", 1, 11));
-        labelOldNamePrompt.setText(Bundle.getString("RenameDialog.labelOldNamePrompt.text")); // NOI18N
-
-        labelOldName.setText(Bundle.getString("RenameDialog.labelOldName.text")); // NOI18N
-
-        labelNewNamePrompt.setFont(new java.awt.Font("Dialog", 1, 11));
-        labelNewNamePrompt.setText(Bundle.getString("RenameDialog.labelNewNamePrompt.text")); // NOI18N
-
-        buttonRename.setMnemonic('u');
-        buttonRename.setText(Bundle.getString("RenameDialog.buttonRename.text")); // NOI18N
-        buttonRename.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonRenameActionPerformed(evt);
-            }
-        });
-
-        buttonNextFile.setMnemonic('b');
-        buttonNextFile.setText(Bundle.getString("RenameDialog.buttonNextFile.text")); // NOI18N
-        buttonNextFile.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonNextFileActionPerformed(evt);
-            }
-        });
 
         panelBorder.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
@@ -487,34 +463,61 @@ public final class RenameDialog extends Dialog {
         panelBorder.setLayout(panelBorderLayout);
         panelBorderLayout.setHorizontalGroup(
             panelBorderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelThumbnail, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
+            .addComponent(panelThumbnail, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         panelBorderLayout.setVerticalGroup(
             panelBorderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(panelThumbnail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
+        labelOldNamePrompt.setText(Bundle.getString("RenameDialog.labelOldNamePrompt.text")); // NOI18N
+
+        labelOldName.setForeground(new java.awt.Color(0, 175, 0));
+        labelOldName.setText(Bundle.getString("RenameDialog.labelOldName.text")); // NOI18N
+
+        labelNewNamePrompt.setText(Bundle.getString("RenameDialog.labelNewNamePrompt.text")); // NOI18N
+
+        buttonNextFile.setMnemonic('b');
+        buttonNextFile.setText(Bundle.getString("RenameDialog.buttonNextFile.text")); // NOI18N
+        buttonNextFile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonNextFileActionPerformed(evt);
+            }
+        });
+
+        buttonRename.setMnemonic('u');
+        buttonRename.setText(Bundle.getString("RenameDialog.buttonRename.text")); // NOI18N
+        buttonRename.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonRenameActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelInputNameLayout = new javax.swing.GroupLayout(panelInputName);
         panelInputName.setLayout(panelInputNameLayout);
         panelInputNameLayout.setHorizontalGroup(
             panelInputNameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelInputNameLayout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(panelInputNameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelDirectory, javax.swing.GroupLayout.DEFAULT_SIZE, 537, Short.MAX_VALUE)
                     .addGroup(panelInputNameLayout.createSequentialGroup()
+                        .addGap(10, 10, 10)
                         .addComponent(panelBorder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(panelInputNameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(labelOldNamePrompt, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(labelNewNamePrompt, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelOldName, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 335, Short.MAX_VALUE)
-                            .addComponent(textFieldNewName, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 335, Short.MAX_VALUE)
-                            .addGroup(panelInputNameLayout.createSequentialGroup()
-                                .addComponent(buttonNextFile)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(buttonRename))))
-                    .addComponent(labelDirectoryPrompt))
+                            .addComponent(labelOldName, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE)
+                            .addComponent(labelOldNamePrompt, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(textFieldNewName, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelInputNameLayout.createSequentialGroup()
+                        .addContainerGap(247, Short.MAX_VALUE)
+                        .addComponent(buttonNextFile)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonRename))
+                    .addGroup(panelInputNameLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(panelInputNameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelDirectory, javax.swing.GroupLayout.DEFAULT_SIZE, 439, Short.MAX_VALUE)
+                            .addComponent(labelDirectoryPrompt))))
                 .addContainerGap())
         );
         panelInputNameLayout.setVerticalGroup(
@@ -535,18 +538,17 @@ public final class RenameDialog extends Dialog {
                         .addComponent(labelNewNamePrompt)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(textFieldNewName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 166, Short.MAX_VALUE)
                         .addGroup(panelInputNameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(buttonRename)
                             .addComponent(buttonNextFile))))
-                .addContainerGap(135, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         tabbedPane.addTab(Bundle.getString("RenameDialog.panelInputName.TabConstraints.tabTitle"), panelInputName); // NOI18N
 
-        panelNumbers.setBorder(javax.swing.BorderFactory.createTitledBorder(null, Bundle.getString("RenameDialog.panelNumbers.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 11))); // NOI18N
+        panelNumbers.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString("RenameDialog.panelNumbers.border.title"))); // NOI18N
 
-        labelStartNumber.setFont(new java.awt.Font("Dialog", 0, 12));
         labelStartNumber.setText(Bundle.getString("RenameDialog.labelStartNumber.text")); // NOI18N
 
         spinnerStartNumber.setModel(new SpinnerNumberModel(1, 1, 999999, 1));
@@ -556,7 +558,6 @@ public final class RenameDialog extends Dialog {
             }
         });
 
-        labelNumberStepWidth.setFont(new java.awt.Font("Dialog", 0, 12));
         labelNumberStepWidth.setText(Bundle.getString("RenameDialog.labelNumberStepWidth.text")); // NOI18N
 
         spinnerNumberStepWidth.setModel(new SpinnerNumberModel(1, 1, 99, 1));
@@ -566,7 +567,6 @@ public final class RenameDialog extends Dialog {
             }
         });
 
-        labelNumberCount.setFont(new java.awt.Font("Dialog", 0, 12));
         labelNumberCount.setText(Bundle.getString("RenameDialog.labelNumberCount.text")); // NOI18N
 
         spinnerNumberCount.setModel(new SpinnerNumberModel(3, 1, 7, 1));
@@ -611,9 +611,6 @@ public final class RenameDialog extends Dialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        panelOther.setBorder(javax.swing.BorderFactory.createTitledBorder(null, Bundle.getString("RenameDialog.panelOther.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 11))); // NOI18N
-
-        labelDateDelim.setFont(new java.awt.Font("Dialog", 0, 12));
         labelDateDelim.setText(Bundle.getString("RenameDialog.labelDateDelim.text")); // NOI18N
 
         textFieldDateDelim.setColumns(1);
@@ -633,7 +630,7 @@ public final class RenameDialog extends Dialog {
                 .addComponent(labelDateDelim)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(textFieldDateDelim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(134, Short.MAX_VALUE))
+                .addContainerGap(117, Short.MAX_VALUE))
         );
         panelOtherLayout.setVerticalGroup(
             panelOtherLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -644,9 +641,8 @@ public final class RenameDialog extends Dialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        panelDefineName.setBorder(javax.swing.BorderFactory.createTitledBorder(null, Bundle.getString("RenameDialog.panelDefineName.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 11))); // NOI18N
+        panelDefineName.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString("RenameDialog.panelDefineName.border.title"))); // NOI18N
 
-        labelAtBegin.setFont(new java.awt.Font("Dialog", 0, 12));
         labelAtBegin.setText(Bundle.getString("RenameDialog.labelAtBegin.text")); // NOI18N
 
         comboBoxAtBegin.addActionListener(new java.awt.event.ActionListener() {
@@ -661,7 +657,6 @@ public final class RenameDialog extends Dialog {
             }
         });
 
-        labelDelim1.setFont(new java.awt.Font("Dialog", 0, 12));
         labelDelim1.setText(Bundle.getString("RenameDialog.labelDelim1.text")); // NOI18N
 
         textFieldDelim1.setColumns(1);
@@ -671,7 +666,6 @@ public final class RenameDialog extends Dialog {
             }
         });
 
-        labelInTheMid.setFont(new java.awt.Font("Dialog", 0, 12));
         labelInTheMid.setText(Bundle.getString("RenameDialog.labelInTheMid.text")); // NOI18N
 
         comboBoxInTheMiddle.addActionListener(new java.awt.event.ActionListener() {
@@ -686,7 +680,6 @@ public final class RenameDialog extends Dialog {
             }
         });
 
-        labelDelim2.setFont(new java.awt.Font("Dialog", 0, 12));
         labelDelim2.setText(Bundle.getString("RenameDialog.labelDelim2.text")); // NOI18N
 
         textFieldDelim2.setColumns(1);
@@ -696,7 +689,6 @@ public final class RenameDialog extends Dialog {
             }
         });
 
-        labelAtEnd.setFont(new java.awt.Font("Dialog", 0, 12));
         labelAtEnd.setText(Bundle.getString("RenameDialog.labelAtEnd.text")); // NOI18N
 
         comboBoxAtEnd.addActionListener(new java.awt.event.ActionListener() {
@@ -718,106 +710,103 @@ public final class RenameDialog extends Dialog {
             .addGroup(panelDefineNameLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelDefineNameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelAtBegin)
-                    .addComponent(comboBoxAtBegin, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(textFieldAtBegin, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelDefineNameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(labelDelim1)
-                    .addComponent(textFieldDelim1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(textFieldAtBegin, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
+                    .addComponent(comboBoxAtBegin, 0, 93, Short.MAX_VALUE)
+                    .addComponent(labelAtBegin))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelDefineNameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelInTheMid)
-                    .addComponent(comboBoxInTheMiddle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(textFieldInTheMiddle, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(textFieldDelim1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelDelim1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelDefineNameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(labelDelim2)
-                    .addComponent(textFieldDelim2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(panelDefineNameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(textFieldInTheMiddle, javax.swing.GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE)
+                    .addComponent(comboBoxInTheMiddle, 0, 96, Short.MAX_VALUE)
+                    .addComponent(labelInTheMid))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelDefineNameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(textFieldDelim2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelDelim2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelDefineNameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(labelAtEnd)
-                    .addComponent(comboBoxAtEnd, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(textFieldAtEnd, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE))
+                    .addComponent(comboBoxAtEnd, 0, 110, Short.MAX_VALUE)
+                    .addComponent(textFieldAtEnd, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
-        panelDefineNameLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {comboBoxAtBegin, comboBoxAtEnd, comboBoxInTheMiddle, labelInTheMid, textFieldAtBegin, textFieldAtEnd, textFieldInTheMiddle});
+        panelDefineNameLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {labelDelim1, textFieldDelim1});
+
+        panelDefineNameLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {labelDelim2, textFieldDelim2});
 
         panelDefineNameLayout.setVerticalGroup(
             panelDefineNameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelDefineNameLayout.createSequentialGroup()
+                .addGroup(panelDefineNameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(labelInTheMid)
+                    .addComponent(labelDelim2)
+                    .addComponent(labelAtEnd)
+                    .addComponent(labelAtBegin)
+                    .addComponent(labelDelim1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelDefineNameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(textFieldDelim1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(comboBoxInTheMiddle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(textFieldDelim2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(comboBoxAtBegin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(comboBoxAtEnd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelDefineNameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(panelDefineNameLayout.createSequentialGroup()
-                        .addGroup(panelDefineNameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                            .addComponent(labelInTheMid)
-                            .addComponent(labelDelim1)
-                            .addComponent(labelDelim2)
-                            .addComponent(labelAtEnd))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panelDefineNameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                            .addComponent(textFieldDelim1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(comboBoxInTheMiddle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(textFieldDelim2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(comboBoxAtEnd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panelDefineNameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                            .addComponent(textFieldInTheMiddle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(textFieldAtEnd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(panelDefineNameLayout.createSequentialGroup()
-                        .addComponent(labelAtBegin)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(comboBoxAtBegin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(textFieldAtBegin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(panelDefineNameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                        .addComponent(textFieldInTheMiddle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(textFieldAtEnd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(textFieldAtBegin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         panelDefineNameLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {textFieldAtBegin, textFieldAtEnd, textFieldInTheMiddle});
 
-        panelExample.setBorder(javax.swing.BorderFactory.createTitledBorder(null, Bundle.getString("RenameDialog.panelExample.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
+        panelExample.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString("RenameDialog.panelExample.border.title"))); // NOI18N
 
-        labelBefore.setFont(new java.awt.Font("Tahoma", 1, 11));
         labelBefore.setText(Bundle.getString("RenameDialog.labelBefore.text")); // NOI18N
 
-        labelBeforeFilename.setFont(new java.awt.Font("Dialog", 0, 12));
+        labelBeforeFilename.setForeground(new java.awt.Color(0, 0, 175));
+        labelBeforeFilename.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        labelAfter.setFont(new java.awt.Font("Tahoma", 1, 11));
         labelAfter.setText(Bundle.getString("RenameDialog.labelAfter.text")); // NOI18N
 
-        labelAfterFilename.setFont(new java.awt.Font("Dialog", 0, 12));
+        labelAfterFilename.setForeground(new java.awt.Color(0, 0, 255));
+        labelAfterFilename.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         javax.swing.GroupLayout panelExampleLayout = new javax.swing.GroupLayout(panelExample);
         panelExample.setLayout(panelExampleLayout);
         panelExampleLayout.setHorizontalGroup(
             panelExampleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelExampleLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelExampleLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelExampleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelBefore, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(labelAfter, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(labelAfter, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(labelBefore, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelExampleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelAfterFilename, javax.swing.GroupLayout.DEFAULT_SIZE, 449, Short.MAX_VALUE)
-                    .addComponent(labelBeforeFilename, javax.swing.GroupLayout.DEFAULT_SIZE, 449, Short.MAX_VALUE))
+                    .addComponent(labelAfterFilename, javax.swing.GroupLayout.DEFAULT_SIZE, 357, Short.MAX_VALUE)
+                    .addComponent(labelBeforeFilename, javax.swing.GroupLayout.DEFAULT_SIZE, 357, Short.MAX_VALUE))
                 .addContainerGap())
         );
         panelExampleLayout.setVerticalGroup(
             panelExampleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelExampleLayout.createSequentialGroup()
-                .addGroup(panelExampleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelBefore)
-                    .addComponent(labelBeforeFilename))
+                .addGroup(panelExampleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(labelBeforeFilename, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelBefore))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelExampleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelAfter)
-                    .addComponent(labelAfterFilename))
+                .addGroup(panelExampleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(labelAfterFilename, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelAfter))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        panelExampleLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {labelAfterFilename, labelBefore, labelBeforeFilename});
+        panelExampleLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {labelAfterFilename, labelBeforeFilename});
 
-        buttonRenameTemplate.setFont(new java.awt.Font("Dialog", 0, 12));
         buttonRenameTemplate.setMnemonic('u');
         buttonRenameTemplate.setText(Bundle.getString("RenameDialog.buttonRenameTemplate.text")); // NOI18N
         buttonRenameTemplate.addActionListener(new java.awt.event.ActionListener() {
@@ -851,7 +840,7 @@ public final class RenameDialog extends Dialog {
                 .addComponent(panelDefineName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelExample, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(buttonRenameTemplate)
                 .addContainerGap())
         );
@@ -864,14 +853,14 @@ public final class RenameDialog extends Dialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 566, Short.MAX_VALUE)
+                .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 464, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 389, Short.MAX_VALUE)
+                .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 356, Short.MAX_VALUE)
                 .addContainerGap())
         );
 

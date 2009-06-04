@@ -183,9 +183,9 @@ public final class IptcToXmpDialog extends Dialog
 
         labelInfo = new javax.swing.JLabel();
         labelDirectoryPrompt = new javax.swing.JLabel();
+        buttonChooseDirectory = new javax.swing.JButton();
         labelDirectoryName = new javax.swing.JLabel();
         checkBoxSubdirectories = new javax.swing.JCheckBox();
-        buttonChooseDirectory = new javax.swing.JButton();
         progressBar = new javax.swing.JProgressBar();
         buttonStop = new javax.swing.JButton();
         buttonStart = new javax.swing.JButton();
@@ -198,18 +198,10 @@ public final class IptcToXmpDialog extends Dialog
             }
         });
 
-        labelInfo.setFont(new java.awt.Font("Dialog", 0, 12));
         labelInfo.setText(Bundle.getString("IptcToXmpDialog.labelInfo.text")); // NOI18N
 
         labelDirectoryPrompt.setText(Bundle.getString("IptcToXmpDialog.labelDirectoryPrompt.text")); // NOI18N
 
-        labelDirectoryName.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        checkBoxSubdirectories.setFont(new java.awt.Font("Dialog", 0, 12));
-        checkBoxSubdirectories.setMnemonic('u');
-        checkBoxSubdirectories.setText(Bundle.getString("IptcToXmpDialog.checkBoxSubdirectories.text")); // NOI18N
-
-        buttonChooseDirectory.setFont(new java.awt.Font("Dialog", 0, 12));
         buttonChooseDirectory.setMnemonic('a');
         buttonChooseDirectory.setText(Bundle.getString("IptcToXmpDialog.buttonChooseDirectory.text")); // NOI18N
         buttonChooseDirectory.addActionListener(new java.awt.event.ActionListener() {
@@ -218,7 +210,11 @@ public final class IptcToXmpDialog extends Dialog
             }
         });
 
-        buttonStop.setFont(new java.awt.Font("Dialog", 0, 12));
+        labelDirectoryName.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        checkBoxSubdirectories.setMnemonic('u');
+        checkBoxSubdirectories.setText(Bundle.getString("IptcToXmpDialog.checkBoxSubdirectories.text")); // NOI18N
+
         buttonStop.setMnemonic('o');
         buttonStop.setText(Bundle.getString("IptcToXmpDialog.buttonStop.text")); // NOI18N
         buttonStop.setEnabled(false);
@@ -228,7 +224,6 @@ public final class IptcToXmpDialog extends Dialog
             }
         });
 
-        buttonStart.setFont(new java.awt.Font("Dialog", 0, 12));
         buttonStart.setMnemonic('s');
         buttonStart.setText(Bundle.getString("IptcToXmpDialog.buttonStart.text")); // NOI18N
         buttonStart.setEnabled(false);
@@ -245,15 +240,14 @@ public final class IptcToXmpDialog extends Dialog
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(progressBar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 585, Short.MAX_VALUE)
-                    .addComponent(labelDirectoryName, javax.swing.GroupLayout.DEFAULT_SIZE, 585, Short.MAX_VALUE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(labelInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(labelDirectoryPrompt))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(checkBoxSubdirectories)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 120, Short.MAX_VALUE)
+                    .addComponent(progressBar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 486, Short.MAX_VALUE)
+                    .addComponent(labelDirectoryName, javax.swing.GroupLayout.DEFAULT_SIZE, 486, Short.MAX_VALUE)
+                    .addComponent(labelInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(labelDirectoryPrompt)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 313, Short.MAX_VALUE)
                         .addComponent(buttonChooseDirectory))
+                    .addComponent(checkBoxSubdirectories)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(buttonStop)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -266,13 +260,13 @@ public final class IptcToXmpDialog extends Dialog
                 .addGap(11, 11, 11)
                 .addComponent(labelInfo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labelDirectoryPrompt)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelDirectoryPrompt)
+                    .addComponent(buttonChooseDirectory))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelDirectoryName, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(buttonChooseDirectory)
-                    .addComponent(checkBoxSubdirectories))
+                .addComponent(checkBoxSubdirectories)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)

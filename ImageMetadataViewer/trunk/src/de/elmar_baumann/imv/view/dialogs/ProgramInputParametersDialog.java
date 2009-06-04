@@ -98,8 +98,8 @@ public final class ProgramInputParametersDialog extends Dialog {
         textAreaParameter = new javax.swing.JTextArea();
         radioButtonParametersBeforeFilename = new javax.swing.JRadioButton();
         radioButtonParametersAfterFilename = new javax.swing.JRadioButton();
-        buttonOk = new javax.swing.JButton();
         buttonCancel = new javax.swing.JButton();
+        buttonOk = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(Bundle.getString("ProgramInputParametersDialog.title")); // NOI18N
@@ -108,11 +108,7 @@ public final class ProgramInputParametersDialog extends Dialog {
 
         labelContextProgramPrompt.setText(Bundle.getString("ProgramInputParametersDialog.labelContextProgramPrompt.text")); // NOI18N
 
-        labelContextProgram.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
-
         labelContextFilePrompt.setText(Bundle.getString("ProgramInputParametersDialog.labelContextFilePrompt.text")); // NOI18N
-
-        labelContextFile.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
 
         javax.swing.GroupLayout panelContextLayout = new javax.swing.GroupLayout(panelContext);
         panelContext.setLayout(panelContextLayout);
@@ -125,8 +121,8 @@ public final class ProgramInputParametersDialog extends Dialog {
                     .addComponent(labelContextFilePrompt))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelContextLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelContextFile, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE)
-                    .addComponent(labelContextProgram, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE))
+                    .addComponent(labelContextFile, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
+                    .addComponent(labelContextProgram, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE))
                 .addContainerGap())
         );
         panelContextLayout.setVerticalGroup(
@@ -153,31 +149,27 @@ public final class ProgramInputParametersDialog extends Dialog {
         scrollPaneAreaParameter.setViewportView(textAreaParameter);
 
         buttonGroup.add(radioButtonParametersBeforeFilename);
-        radioButtonParametersBeforeFilename.setFont(new java.awt.Font("Dialog", 0, 12));
         radioButtonParametersBeforeFilename.setMnemonic('v');
         radioButtonParametersBeforeFilename.setSelected(true);
         radioButtonParametersBeforeFilename.setText(Bundle.getString("ProgramInputParametersDialog.radioButtonParametersBeforeFilename.text")); // NOI18N
 
         buttonGroup.add(radioButtonParametersAfterFilename);
-        radioButtonParametersAfterFilename.setFont(new java.awt.Font("Dialog", 0, 12));
         radioButtonParametersAfterFilename.setMnemonic('n');
         radioButtonParametersAfterFilename.setText(Bundle.getString("ProgramInputParametersDialog.radioButtonParametersAfterFilename.text")); // NOI18N
 
-        buttonOk.setFont(new java.awt.Font("Dialog", 0, 12));
-        buttonOk.setMnemonic('o');
-        buttonOk.setText(Bundle.getString("ProgramInputParametersDialog.buttonOk.text")); // NOI18N
-        buttonOk.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonOkActionPerformed(evt);
-            }
-        });
-
-        buttonCancel.setFont(new java.awt.Font("Dialog", 0, 12));
         buttonCancel.setMnemonic('a');
         buttonCancel.setText(Bundle.getString("ProgramInputParametersDialog.buttonCancel.text")); // NOI18N
         buttonCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonCancelActionPerformed(evt);
+            }
+        });
+
+        buttonOk.setMnemonic('o');
+        buttonOk.setText(Bundle.getString("ProgramInputParametersDialog.buttonOk.text")); // NOI18N
+        buttonOk.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonOkActionPerformed(evt);
             }
         });
 
@@ -188,15 +180,15 @@ public final class ProgramInputParametersDialog extends Dialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(radioButtonParametersAfterFilename)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 105, Short.MAX_VALUE)
-                        .addComponent(buttonCancel))
                     .addComponent(radioButtonParametersBeforeFilename)
-                    .addComponent(buttonOk, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(panelContext, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(labelPrompt)
-                    .addComponent(scrollPaneAreaParameter, javax.swing.GroupLayout.DEFAULT_SIZE, 382, Short.MAX_VALUE))
+                    .addComponent(scrollPaneAreaParameter, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE)
+                    .addComponent(radioButtonParametersAfterFilename)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(buttonCancel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonOk)))
                 .addContainerGap())
         );
 
@@ -210,17 +202,15 @@ public final class ProgramInputParametersDialog extends Dialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelPrompt)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPaneAreaParameter, javax.swing.GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE)
+                .addComponent(scrollPaneAreaParameter, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(radioButtonParametersBeforeFilename)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(radioButtonParametersAfterFilename))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(buttonOk)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonCancel)))
+                .addComponent(radioButtonParametersBeforeFilename)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(radioButtonParametersAfterFilename)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(buttonOk)
+                    .addComponent(buttonCancel))
                 .addContainerGap())
         );
 

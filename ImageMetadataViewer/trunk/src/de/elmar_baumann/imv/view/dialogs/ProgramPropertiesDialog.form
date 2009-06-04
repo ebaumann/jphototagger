@@ -91,14 +91,14 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="1">
                           <Component id="labelFilePrompt" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="231" max="32767" attributes="0"/>
+                          <EmptySpace pref="256" max="32767" attributes="0"/>
                           <Component id="buttonChooseFile" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Component id="labelFile" alignment="0" pref="431" max="32767" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="labelAlias" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="textFieldAlias" pref="328" max="32767" attributes="0"/>
+                          <Component id="textFieldAlias" pref="354" max="32767" attributes="0"/>
                       </Group>
                       <Component id="checkBoxChangeFile" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -130,9 +130,6 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="labelFilePrompt">
           <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Dialog" size="12" style="0"/>
-            </Property>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
               <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="ProgramPropertiesDialog.labelFilePrompt.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
             </Property>
@@ -140,9 +137,6 @@
         </Component>
         <Component class="javax.swing.JButton" name="buttonChooseFile">
           <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Dialog" size="12" style="0"/>
-            </Property>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
               <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="ProgramPropertiesDialog.buttonChooseFile.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
             </Property>
@@ -153,9 +147,6 @@
         </Component>
         <Component class="javax.swing.JLabel" name="labelFile">
           <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Dialog" size="12" style="0"/>
-            </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="0" red="0" type="rgb"/>
             </Property>
@@ -168,9 +159,6 @@
         </Component>
         <Component class="javax.swing.JLabel" name="labelAlias">
           <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Dialog" size="12" style="0"/>
-            </Property>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
               <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="ProgramPropertiesDialog.labelAlias.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
             </Property>
@@ -183,9 +171,6 @@
         </Component>
         <Component class="javax.swing.JCheckBox" name="checkBoxChangeFile">
           <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Dialog" size="12" style="0"/>
-            </Property>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
               <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="ProgramPropertiesDialog.checkBoxChangeFile.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
             </Property>
@@ -227,11 +212,11 @@
               <Group type="102" alignment="0" attributes="0">
                   <Component id="labelParametersBeforeFilename" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
-                  <Component id="scrollPaneParametersBeforeFilename" pref="24" max="32767" attributes="0"/>
+                  <Component id="scrollPaneParametersBeforeFilename" pref="33" max="32767" attributes="0"/>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Component id="labelParametersAfterFilename" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
-                  <Component id="scrollPaneParametersAfterFilename" pref="25" max="32767" attributes="0"/>
+                  <Component id="scrollPaneParametersAfterFilename" pref="34" max="32767" attributes="0"/>
                   <EmptySpace min="-2" max="-2" attributes="1"/>
               </Group>
           </Group>
@@ -240,9 +225,6 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="labelParametersBeforeFilename">
           <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Dialog" size="12" style="0"/>
-            </Property>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
               <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="ProgramPropertiesDialog.labelParametersBeforeFilename.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
             </Property>
@@ -258,9 +240,6 @@
             <Component class="javax.swing.JTextArea" name="textAreaParametersBeforeFilename">
               <Properties>
                 <Property name="columns" type="int" value="20"/>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Dialog" size="11" style="0"/>
-                </Property>
                 <Property name="lineWrap" type="boolean" value="true"/>
                 <Property name="rows" type="int" value="1"/>
               </Properties>
@@ -272,9 +251,6 @@
         </Container>
         <Component class="javax.swing.JLabel" name="labelParametersAfterFilename">
           <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Dialog" size="12" style="0"/>
-            </Property>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
               <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="ProgramPropertiesDialog.labelParametersAfterFilename.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
             </Property>
@@ -290,9 +266,6 @@
             <Component class="javax.swing.JTextArea" name="textAreaParametersAfterFilename">
               <Properties>
                 <Property name="columns" type="int" value="20"/>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Dialog" size="11" style="0"/>
-                </Property>
                 <Property name="lineWrap" type="boolean" value="true"/>
                 <Property name="rows" type="int" value="1"/>
               </Properties>
@@ -324,7 +297,7 @@
                       <Component id="checkBoxInputBeforeExecute" linkSize="3" min="-2" max="-2" attributes="0"/>
                       <Component id="checkBoxInputBeforeExecutePerFile" linkSize="3" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="22" max="32767" attributes="0"/>
+                  <EmptySpace pref="88" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -342,9 +315,6 @@
       <SubComponents>
         <Component class="javax.swing.JCheckBox" name="checkBoxInputBeforeExecute">
           <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Dialog" size="12" style="0"/>
-            </Property>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
               <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="ProgramPropertiesDialog.checkBoxInputBeforeExecute.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
             </Property>
@@ -355,9 +325,6 @@
         </Component>
         <Component class="javax.swing.JCheckBox" name="checkBoxInputBeforeExecutePerFile">
           <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Dialog" size="12" style="0"/>
-            </Property>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
               <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="ProgramPropertiesDialog.checkBoxInputBeforeExecutePerFile.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
             </Property>
@@ -386,7 +353,7 @@
                       <Component id="radioButtonSingleFileProcessingYes" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="radioButtonSingleFileProcessingNo" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="29" max="32767" attributes="0"/>
+                  <EmptySpace pref="98" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -407,9 +374,6 @@
             <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
               <ComponentRef name="buttonGroupSingleFileProcessing"/>
             </Property>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Dialog" size="12" style="0"/>
-            </Property>
             <Property name="selected" type="boolean" value="true"/>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
               <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="ProgramPropertiesDialog.radioButtonSingleFileProcessingYes.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
@@ -421,9 +385,6 @@
             <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
               <ComponentRef name="buttonGroupSingleFileProcessing"/>
             </Property>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Dialog" size="12" style="0"/>
-            </Property>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
               <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="ProgramPropertiesDialog.radioButtonSingleFileProcessingNo.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
             </Property>
@@ -433,9 +394,6 @@
     </Container>
     <Component class="javax.swing.JButton" name="buttonCancel">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Dialog" size="12" style="0"/>
-        </Property>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="ProgramPropertiesDialog.buttonCancel.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
         </Property>
@@ -446,9 +404,6 @@
     </Component>
     <Component class="javax.swing.JButton" name="buttonOk">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Dialog" size="12" style="0"/>
-        </Property>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="ProgramPropertiesDialog.buttonOk.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
         </Property>

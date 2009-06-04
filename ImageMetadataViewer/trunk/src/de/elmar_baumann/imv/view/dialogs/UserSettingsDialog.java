@@ -189,7 +189,6 @@ public final class UserSettingsDialog extends Dialog {
             }
         });
 
-        tabbedPane.setFont(new java.awt.Font("Dialog", 0, 12));
         tabbedPane.addTab(Bundle.getString("UserSettingsDialog.panelPrograms.TabConstraints.tabTitle"), panelPrograms); // NOI18N
         tabbedPane.addTab(Bundle.getString("UserSettingsDialog.panelFastSearchColumns.TabConstraints.tabTitle"), panelFastSearchColumns); // NOI18N
         tabbedPane.addTab(Bundle.getString("UserSettingsDialog.panelThumbnails.TabConstraints.tabTitle"), panelThumbnails); // NOI18N
@@ -206,14 +205,14 @@ public final class UserSettingsDialog extends Dialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tabbedPane)
+                .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 654, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 362, Short.MAX_VALUE)
+                .addComponent(tabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 362, Short.MAX_VALUE)
                 .addContainerGap())
         );
 

@@ -219,10 +219,8 @@ public final class ProgramPropertiesDialog extends Dialog {
 
         panelProgram.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString("ProgramPropertiesDialog.panelProgram.border.title"))); // NOI18N
 
-        labelFilePrompt.setFont(new java.awt.Font("Dialog", 0, 12));
         labelFilePrompt.setText(Bundle.getString("ProgramPropertiesDialog.labelFilePrompt.text")); // NOI18N
 
-        buttonChooseFile.setFont(new java.awt.Font("Dialog", 0, 12));
         buttonChooseFile.setText(Bundle.getString("ProgramPropertiesDialog.buttonChooseFile.text")); // NOI18N
         buttonChooseFile.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -230,11 +228,9 @@ public final class ProgramPropertiesDialog extends Dialog {
             }
         });
 
-        labelFile.setFont(new java.awt.Font("Dialog", 0, 12));
         labelFile.setForeground(new java.awt.Color(0, 0, 255));
         labelFile.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        labelAlias.setFont(new java.awt.Font("Dialog", 0, 12));
         labelAlias.setText(Bundle.getString("ProgramPropertiesDialog.labelAlias.text")); // NOI18N
 
         textFieldAlias.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -243,7 +239,6 @@ public final class ProgramPropertiesDialog extends Dialog {
             }
         });
 
-        checkBoxChangeFile.setFont(new java.awt.Font("Dialog", 0, 12));
         checkBoxChangeFile.setText(Bundle.getString("ProgramPropertiesDialog.checkBoxChangeFile.text")); // NOI18N
         checkBoxChangeFile.setToolTipText(Bundle.getString("ProgramPropertiesDialog.checkBoxChangeFile.toolTipText")); // NOI18N
 
@@ -256,13 +251,13 @@ public final class ProgramPropertiesDialog extends Dialog {
                 .addGroup(panelProgramLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelProgramLayout.createSequentialGroup()
                         .addComponent(labelFilePrompt)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 231, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 256, Short.MAX_VALUE)
                         .addComponent(buttonChooseFile))
                     .addComponent(labelFile, javax.swing.GroupLayout.DEFAULT_SIZE, 431, Short.MAX_VALUE)
                     .addGroup(panelProgramLayout.createSequentialGroup()
                         .addComponent(labelAlias)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(textFieldAlias, javax.swing.GroupLayout.DEFAULT_SIZE, 328, Short.MAX_VALUE))
+                        .addComponent(textFieldAlias, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE))
                     .addComponent(checkBoxChangeFile))
                 .addContainerGap())
         );
@@ -285,20 +280,16 @@ public final class ProgramPropertiesDialog extends Dialog {
 
         panelParameter.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString("ProgramPropertiesDialog.panelParameter.border.title"))); // NOI18N
 
-        labelParametersBeforeFilename.setFont(new java.awt.Font("Dialog", 0, 12));
         labelParametersBeforeFilename.setText(Bundle.getString("ProgramPropertiesDialog.labelParametersBeforeFilename.text")); // NOI18N
 
         textAreaParametersBeforeFilename.setColumns(20);
-        textAreaParametersBeforeFilename.setFont(new java.awt.Font("Dialog", 0, 11));
         textAreaParametersBeforeFilename.setLineWrap(true);
         textAreaParametersBeforeFilename.setRows(1);
         scrollPaneParametersBeforeFilename.setViewportView(textAreaParametersBeforeFilename);
 
-        labelParametersAfterFilename.setFont(new java.awt.Font("Dialog", 0, 12));
         labelParametersAfterFilename.setText(Bundle.getString("ProgramPropertiesDialog.labelParametersAfterFilename.text")); // NOI18N
 
         textAreaParametersAfterFilename.setColumns(20);
-        textAreaParametersAfterFilename.setFont(new java.awt.Font("Dialog", 0, 11));
         textAreaParametersAfterFilename.setLineWrap(true);
         textAreaParametersAfterFilename.setRows(1);
         scrollPaneParametersAfterFilename.setViewportView(textAreaParametersAfterFilename);
@@ -321,17 +312,16 @@ public final class ProgramPropertiesDialog extends Dialog {
             .addGroup(panelParameterLayout.createSequentialGroup()
                 .addComponent(labelParametersBeforeFilename)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPaneParametersBeforeFilename, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
+                .addComponent(scrollPaneParametersBeforeFilename, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelParametersAfterFilename)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPaneParametersAfterFilename, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
+                .addComponent(scrollPaneParametersAfterFilename, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         panelInputBeforeExecute.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString("ProgramPropertiesDialog.panelInputBeforeExecute.border.title"))); // NOI18N
 
-        checkBoxInputBeforeExecute.setFont(new java.awt.Font("Dialog", 0, 12));
         checkBoxInputBeforeExecute.setText(Bundle.getString("ProgramPropertiesDialog.checkBoxInputBeforeExecute.text")); // NOI18N
         checkBoxInputBeforeExecute.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -339,7 +329,6 @@ public final class ProgramPropertiesDialog extends Dialog {
             }
         });
 
-        checkBoxInputBeforeExecutePerFile.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         checkBoxInputBeforeExecutePerFile.setText(Bundle.getString("ProgramPropertiesDialog.checkBoxInputBeforeExecutePerFile.text")); // NOI18N
         checkBoxInputBeforeExecutePerFile.setEnabled(false);
 
@@ -352,7 +341,7 @@ public final class ProgramPropertiesDialog extends Dialog {
                 .addGroup(panelInputBeforeExecuteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(checkBoxInputBeforeExecute)
                     .addComponent(checkBoxInputBeforeExecutePerFile))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(88, Short.MAX_VALUE))
         );
 
         panelInputBeforeExecuteLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {checkBoxInputBeforeExecute, checkBoxInputBeforeExecutePerFile});
@@ -369,12 +358,10 @@ public final class ProgramPropertiesDialog extends Dialog {
         panelMultipleSelection.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString("ProgramPropertiesDialog.panelSingleFileProcessing.border.title"))); // NOI18N
 
         buttonGroupSingleFileProcessing.add(radioButtonSingleFileProcessingYes);
-        radioButtonSingleFileProcessingYes.setFont(new java.awt.Font("Dialog", 0, 12));
         radioButtonSingleFileProcessingYes.setSelected(true);
         radioButtonSingleFileProcessingYes.setText(Bundle.getString("ProgramPropertiesDialog.radioButtonSingleFileProcessingYes.text")); // NOI18N
 
         buttonGroupSingleFileProcessing.add(radioButtonSingleFileProcessingNo);
-        radioButtonSingleFileProcessingNo.setFont(new java.awt.Font("Dialog", 0, 12));
         radioButtonSingleFileProcessingNo.setText(Bundle.getString("ProgramPropertiesDialog.radioButtonSingleFileProcessingNo.text")); // NOI18N
 
         javax.swing.GroupLayout panelMultipleSelectionLayout = new javax.swing.GroupLayout(panelMultipleSelection);
@@ -386,7 +373,7 @@ public final class ProgramPropertiesDialog extends Dialog {
                 .addGroup(panelMultipleSelectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(radioButtonSingleFileProcessingYes)
                     .addComponent(radioButtonSingleFileProcessingNo))
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addContainerGap(98, Short.MAX_VALUE))
         );
         panelMultipleSelectionLayout.setVerticalGroup(
             panelMultipleSelectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -397,7 +384,6 @@ public final class ProgramPropertiesDialog extends Dialog {
                 .addContainerGap(9, Short.MAX_VALUE))
         );
 
-        buttonCancel.setFont(new java.awt.Font("Dialog", 0, 12));
         buttonCancel.setText(Bundle.getString("ProgramPropertiesDialog.buttonCancel.text")); // NOI18N
         buttonCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -405,7 +391,6 @@ public final class ProgramPropertiesDialog extends Dialog {
             }
         });
 
-        buttonOk.setFont(new java.awt.Font("Dialog", 0, 12));
         buttonOk.setText(Bundle.getString("ProgramPropertiesDialog.buttonOk.text")); // NOI18N
         buttonOk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

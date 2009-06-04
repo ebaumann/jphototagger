@@ -101,7 +101,6 @@ public final class ImageCollectionsDialog extends Dialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(Bundle.getString("ImageCollectionsDialog.title")); // NOI18N
 
-        labelSelectImageCollection.setFont(new java.awt.Font("Dialog", 0, 12));
         labelSelectImageCollection.setText(Bundle.getString("ImageCollectionsDialog.labelSelectImageCollection.text")); // NOI18N
 
         listImageCollectionNames.setModel(new de.elmar_baumann.imv.model.ListModelImageCollections());
@@ -114,7 +113,6 @@ public final class ImageCollectionsDialog extends Dialog {
         });
         scrollPaneImageCollectionNames.setViewportView(listImageCollectionNames);
 
-        buttonOk.setFont(new java.awt.Font("Dialog", 0, 12));
         buttonOk.setMnemonic('o');
         buttonOk.setText(Bundle.getString("ImageCollectionsDialog.buttonOk.text")); // NOI18N
         buttonOk.addActionListener(new java.awt.event.ActionListener() {
@@ -130,8 +128,8 @@ public final class ImageCollectionsDialog extends Dialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scrollPaneImageCollectionNames, javax.swing.GroupLayout.DEFAULT_SIZE, 376, Short.MAX_VALUE)
-                    .addComponent(labelSelectImageCollection, javax.swing.GroupLayout.DEFAULT_SIZE, 376, Short.MAX_VALUE)
+                    .addComponent(scrollPaneImageCollectionNames, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
+                    .addComponent(labelSelectImageCollection, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
                     .addComponent(buttonOk, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
@@ -141,7 +139,7 @@ public final class ImageCollectionsDialog extends Dialog {
                 .addContainerGap()
                 .addComponent(labelSelectImageCollection)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPaneImageCollectionNames, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
+                .addComponent(scrollPaneImageCollectionNames, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonOk)
                 .addContainerGap())

@@ -123,39 +123,33 @@ public final class RenameInXmpColumnsDialog extends Dialog {
         textFieldOldString = new javax.swing.JTextField();
         labelNewString = new javax.swing.JLabel();
         textFieldNewString = new javax.swing.JTextField();
-        buttonReplace = new javax.swing.JButton();
         buttonCancel = new javax.swing.JButton();
+        buttonReplace = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle(Bundle.getString("RenameInXmpColumnsDialog.title")); // NOI18N
 
-        labelReplaceIn.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         labelReplaceIn.setText(Bundle.getString("RenameInXmpColumnsDialog.labelReplaceIn.text")); // NOI18N
 
-        comboBoxReplaceColumn.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         comboBoxReplaceColumn.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        labelOldString.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         labelOldString.setText(Bundle.getString("RenameInXmpColumnsDialog.labelOldString.text")); // NOI18N
 
-        labelNewString.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         labelNewString.setText(Bundle.getString("RenameInXmpColumnsDialog.labelNewString.text")); // NOI18N
 
-        buttonReplace.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
-        buttonReplace.setMnemonic('r');
-        buttonReplace.setText(Bundle.getString("RenameInXmpColumnsDialog.buttonReplace.text")); // NOI18N
-        buttonReplace.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonReplaceActionPerformed(evt);
-            }
-        });
-
-        buttonCancel.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         buttonCancel.setMnemonic('a');
         buttonCancel.setText(Bundle.getString("RenameInXmpColumnsDialog.buttonCancel.text")); // NOI18N
         buttonCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonCancelActionPerformed(evt);
+            }
+        });
+
+        buttonReplace.setMnemonic('r');
+        buttonReplace.setText(Bundle.getString("RenameInXmpColumnsDialog.buttonReplace.text")); // NOI18N
+        buttonReplace.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonReplaceActionPerformed(evt);
             }
         });
 
