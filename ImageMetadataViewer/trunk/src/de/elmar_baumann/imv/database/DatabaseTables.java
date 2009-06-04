@@ -3,13 +3,13 @@ package de.elmar_baumann.imv.database;
 import de.elmar_baumann.imv.app.AppLock;
 import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.resource.Bundle;
+import de.elmar_baumann.lib.dialog.LongMessageDialog;
 import java.awt.HeadlessException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JOptionPane;
 
 /**
  * 
@@ -347,13 +347,13 @@ public final class DatabaseTables extends Database {
     }
 
     private void errorMessageSqlException(SQLException ex) throws HeadlessException {
-        JOptionPane.showMessageDialog(null,
-                getExceptionMessage(ex),
-                Bundle.getString("Database.CreateTables.ErrorMessage.Title"),
-                JOptionPane.ERROR_MESSAGE);
+        LongMessageDialog dlg = new LongMessageDialog(null, true);
+        dlg.setTitle(Bundle.getString("Database.CreateTables.ErrorMessage.Title"));
+        dlg.setMessage(getExceptionMessage(ex));
+        dlg.setVisible(true);
     }
 
-    private Object getExceptionMessage(SQLException ex) {
+    private String getExceptionMessage(SQLException ex) {
         return Bundle.getString("Database.CreateTables.ErrorMessage", ex.getLocalizedMessage());
     }
 }
