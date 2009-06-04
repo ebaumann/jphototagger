@@ -45,10 +45,10 @@ import javax.swing.tree.TreeSelectionModel;
  */
 public final class AppPanel extends javax.swing.JPanel implements AppExitListener {
 
-    private static final String keyDividerLocationMain = "AppPanel.DividerLocationMain";
-    private static final String keyDividerLocationThumbnails = "AppPanel.DividerLocationThumbnails";
-    private static final int minDividerLocationMain = 100;
-    private static final int minDividerLocationThumbnails = 200;
+    private static final String KEY_DIVIDER_LOCATION_MAIN = "AppPanel.DividerLocationMain";
+    private static final String KEY_DIVIDER_LOCATION_THUMBNAILS = "AppPanel.DividerLocationThumbnails";
+    private static final int MIN_DIVIDER_LOCATION_MAIN = 100;
+    private static final int MIN_DIVIDER_LOCATION_THUMBNAILS = 200;
     private final List<JTable> xmpTables = new ArrayList<JTable>();
     private final List<JTable> metadataTables = new ArrayList<JTable>();
     private final List<JTree> selectionTrees = new ArrayList<JTree>();
@@ -367,8 +367,8 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
         settings.setComponent(this, getPersistentSettingsHints());
         int dividerLocationThumbnails = splitPaneThumbnailsMetadata.getDividerLocation();
         int dividerLocationMain = splitPaneMain.getDividerLocation();
-        settings.setInt(dividerLocationMain, keyDividerLocationMain);
-        settings.setInt(dividerLocationThumbnails, keyDividerLocationThumbnails);
+        settings.setInt(dividerLocationMain, KEY_DIVIDER_LOCATION_MAIN);
+        settings.setInt(dividerLocationThumbnails, KEY_DIVIDER_LOCATION_THUMBNAILS);
         ViewUtil.writeTreeDirectoriesToProperties();
     }
 
@@ -382,13 +382,13 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
     }
 
     private int getDividerLocationThumbnails() {
-        int location = UserSettings.INSTANCE.getSettings().getInt(keyDividerLocationThumbnails);
-        return location > minDividerLocationThumbnails ? location : minDividerLocationThumbnails;
+        int location = UserSettings.INSTANCE.getSettings().getInt(KEY_DIVIDER_LOCATION_THUMBNAILS);
+        return location > MIN_DIVIDER_LOCATION_THUMBNAILS ? location : MIN_DIVIDER_LOCATION_THUMBNAILS;
     }
 
     private int getDividerLocationMain() {
-        int location = UserSettings.INSTANCE.getSettings().getInt(keyDividerLocationMain);
-        return location > minDividerLocationMain ? location : minDividerLocationMain;
+        int location = UserSettings.INSTANCE.getSettings().getInt(KEY_DIVIDER_LOCATION_MAIN);
+        return location > MIN_DIVIDER_LOCATION_MAIN ? location : MIN_DIVIDER_LOCATION_MAIN;
     }
 
     private void disableTreeMultipleSelection() {
