@@ -188,13 +188,16 @@ public final class InsertImageFilesIntoDatabase implements Runnable {
     }
 
     private boolean isEmbeddedXmpUpToDate(String imageFilename) {
-        long dbTime = db.getLastModifiedXmp(imageFilename);
-        long fileTime = FileUtil.getLastModified(imageFilename);
-        if (dbTime >= fileTime) {
+        if (!UserSettings.INSTANCE.isScanForEmbeddedXmp()) {
             return true;
         }
-        Xmp xmp = XmpMetadata.getEmbeddedXmp(imageFilename);
-        return xmp == null || fileTime == dbTime;
+        long dbTime = db.getLastModifiedXmp(imageFilename);
+        long fileTime = FileUtil.getLastModified(imageFilename);
+        if (dbTime == fileTime) {
+            return true;
+        }
+        boolean hasEmbeddedXmp = XmpMetadata.getEmbeddedXmp(imageFilename) != null; // slow if large image file whitout XMP
+        return !hasEmbeddedXmp || fileTime == dbTime;
     }
 
     private void setThumbnail(ImageFile imageFile) {

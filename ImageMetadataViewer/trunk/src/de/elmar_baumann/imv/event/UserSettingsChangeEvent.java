@@ -34,6 +34,7 @@ public final class UserSettingsChangeEvent {
     private boolean useEmbeddedThumbnails;
     private boolean noFastSearchColumns;
     private boolean treeDirectoriesSelectLastDirectory;
+    private boolean scanForEmbeddedXmp;
     private Integer maxThumbnailWidth;
     private Integer maxSecondsToTerminateExternalPrograms;
     private Integer minutesToStartScheduledTasks;
@@ -69,6 +70,7 @@ public final class UserSettingsChangeEvent {
         WEB_BROWSER,
         TREE_DIRECTORIES_SELECT_LAST_DIRECTORY,
         MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS,
+        SCAN_FOR_EMBEDDED_XMP,
     }
 
     public UserSettingsChangeEvent(Type type, Object source) {
@@ -258,5 +260,13 @@ public final class UserSettingsChangeEvent {
 
     public int getMaxSecondsToTerminateExternalPrograms() {
         return maxSecondsToTerminateExternalPrograms;
+    }
+
+    public boolean isScanForEmbeddedXmp() {
+        return scanForEmbeddedXmp;
+    }
+
+    public void setScanForEmbeddedXmp(boolean scanForEmbeddedXmp) {
+        this.scanForEmbeddedXmp = scanForEmbeddedXmp;
     }
 }

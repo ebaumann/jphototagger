@@ -48,6 +48,13 @@ public final class SettingsPerformancePanel extends javax.swing.JPanel
         notifyChangeListener(evt);
     }
 
+    private void handleScanForEmbeddedXmpActionPerformed() {
+        UserSettingsChangeEvent evt = new UserSettingsChangeEvent(
+                UserSettingsChangeEvent.Type.SCAN_FOR_EMBEDDED_XMP, this);
+        evt.setScanForEmbeddedXmp(checkBoxScanForEmbeddedXmp.isSelected());
+        notifyChangeListener(evt);
+    }
+
     private synchronized void notifyChangeListener(UserSettingsChangeEvent evt) {
         listenerProvider.notifyUserSettingsChangeListener(evt);
     }
@@ -61,6 +68,7 @@ public final class SettingsPerformancePanel extends javax.swing.JPanel
                 settings.getThreadPriority()));
 
         checkBoxIsAutocompleteDisabled.setSelected(!settings.isUseAutocomplete());
+        checkBoxScanForEmbeddedXmp.setSelected(settings.isScanForEmbeddedXmp());
         spinnerMaximumSecondsToTerminateExternalPrograms.getModel().setValue(settings.getMaxSecondsToTerminateExternalPrograms());
     }
 
@@ -116,6 +124,11 @@ public final class SettingsPerformancePanel extends javax.swing.JPanel
         });
 
         checkBoxScanForEmbeddedXmp.setText(Bundle.getString("SettingsPerformancePanel.checkBoxScanForEmbeddedXmp.text")); // NOI18N
+        checkBoxScanForEmbeddedXmp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkBoxScanForEmbeddedXmpActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelProcessingTimeLayout = new javax.swing.GroupLayout(panelProcessingTime);
         panelProcessingTime.setLayout(panelProcessingTimeLayout);
@@ -220,6 +233,10 @@ private void comboBoxThreadPriorityActionPerformed(java.awt.event.ActionEvent ev
 private void spinnerMaximumSecondsToTerminateExternalProgramsStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spinnerMaximumSecondsToTerminateExternalProgramsStateChanged
     handleMaximumSecondsToTerminateExternalProgramsStateChanged();
 }//GEN-LAST:event_spinnerMaximumSecondsToTerminateExternalProgramsStateChanged
+
+private void checkBoxScanForEmbeddedXmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxScanForEmbeddedXmpActionPerformed
+    handleScanForEmbeddedXmpActionPerformed();
+}//GEN-LAST:event_checkBoxScanForEmbeddedXmpActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox checkBoxIsAutocompleteDisabled;

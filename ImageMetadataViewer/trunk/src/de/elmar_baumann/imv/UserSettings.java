@@ -59,6 +59,7 @@ public final class UserSettings implements UserSettingsChangeListener {
     private static final String KEY_WEB_BROWSER = "UserSettings.WebBrowser";
     private static final String KEY_TREE_DIRECTORIES_SELECT_LAST_DIRECTORY = "UserSettings.TreeDirectoriesSelectLastDirectory";
     private static final String KEY_MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS = "UserSettings.MaximumSecondsToTerminateExternalPrograms";
+    private static final String KEY_SCAN_FOR_EMBEDDED_XMP = "UserSettings.ScanForEmbeddedXmp";
     private static final String DOMAIN_NAME = "de.elmar_baumann"; // NOI18N NEVER CHANGE!
     private static final String PROPERTIES_FILENAME = "Settings.properties"; // NOI18N NEVER CHANGE!
     private final Properties properties = new Properties();
@@ -292,6 +293,19 @@ public final class UserSettings implements UserSettingsChangeListener {
     }
 
     /**
+     * Returns whether to scan for embedded XMP metadata if no sidecar file
+     * exists.
+     *
+     * @return true, when to scan image files for embedded XMP metadata.
+     *         Default: false.
+     */
+    public boolean isScanForEmbeddedXmp() {
+        return properties.containsKey(KEY_SCAN_FOR_EMBEDDED_XMP)
+                ? settings.getBoolean(KEY_SCAN_FOR_EMBEDDED_XMP)
+                : false;
+    }
+
+    /**
      * Liefert den Zeichensatz, mit dem IPTC-Daten dekodiert werden sollen.
      * 
      * @return Zeichensatz
@@ -453,6 +467,8 @@ public final class UserSettings implements UserSettingsChangeListener {
             settings.setString(evt.getDatabaseDirectoryName(), KEY_DATABASE_DIRECTORY_NAME);
         } else if (type.equals(UserSettingsChangeEvent.Type.MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS)) {
             settings.setInt(evt.getMaxSecondsToTerminateExternalPrograms(), KEY_MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS);
+        } else if (type.equals(UserSettingsChangeEvent.Type.SCAN_FOR_EMBEDDED_XMP)) {
+            settings.setBoolean(evt.isScanForEmbeddedXmp(), KEY_SCAN_FOR_EMBEDDED_XMP);
         }
     }
 

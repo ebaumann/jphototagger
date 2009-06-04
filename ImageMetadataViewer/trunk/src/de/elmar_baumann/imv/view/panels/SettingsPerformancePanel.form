@@ -152,6 +152,9 @@
               <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="SettingsPerformancePanel.checkBoxScanForEmbeddedXmp.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkBoxScanForEmbeddedXmpActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

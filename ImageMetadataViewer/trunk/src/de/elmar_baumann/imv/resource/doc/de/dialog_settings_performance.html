@@ -21,7 +21,14 @@
 
 <h3>In Bildern nach eingebetteten XMP-Metadaten suchen, falls keine Filialdatei existiert</h3>
 
-<p>Aktivieren Sie diese Option, falls in Bilddateien ohne XMP-Filialdatei nach eingebetteten XMP-Metadaten gesucht werden soll. Haben viele Bilder keine Filialdatei <em>und</em> keine eingebetteten XMP-Informationen, dauert das Aktualisieren der Datebank sehr lange, da alle Bilder komplett durchsucht werden (Hat ein Bild XMP-Informationen <em>und</em> stehen diese am Dateianfang, ist das Einlesen schnell, da nur so lange eingelesen wird, bis das Ende der XMP-Daten erreicht ist).</p>
+<p>Aktivieren Sie diese Option, falls in Bilddateien ohne XMP-Filialdatei nach eingebetteten XMP-Metadaten gesucht werden soll. Haben viele Bilder keine Filialdatei <em>und</em> keine eingebetteten XMP-Informationen, dauert das Aktualisieren der Datebank sehr lange, da alle Bilder komplett durchsucht werden (Hat ein Bild XMP-Informationen <em>und</em> stehen diese am Dateianfang, ist das Einlesen schnell, da nur so lange eingelesen wird, bis das Ende der XMP-Daten erreicht ist). Aktivieren Sie diese Aktion nur, falls:</p>
+
+<ul>
+    <li>für fast alle Bilder Filialdateien existieren</li>
+    <li>fast alle Bilder eingebettete XMP-Metadaten haben</li>
+</ul>
+
+<p>Aktivieren Sie diese Option <em>nicht</em>, falls Sie viele Bilder ohne Filialdateien haben und wenige mit eingebetteten XMP-Metadaten, da das Einlesen der Verzeichnisse unnötig verzögert wird.</p>
 
 <h2>Start beschleunigen</h2>
 
@@ -29,7 +36,7 @@
 
 <p>Beim <em>Start</em> werden alle Wörter aus der Datenbank geladen wodurch er sich verzögert. Dafür können Sie schneller eingeben, da bekannte Wörter vorgeschlagen werden.</p>
 
-<p><img src="img/settings-performance.gif" width="708" height="506" alt="" /></p>
+<p><img src="img/settings-performance.gif" width="699" height="410" alt="" /></p>
 
 </body>
 </html>
