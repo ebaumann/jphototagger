@@ -7,7 +7,6 @@ import de.elmar_baumann.lib.util.logging.LogfileRecord;
 import de.elmar_baumann.lib.util.logging.LogfileRecordException;
 import de.elmar_baumann.lib.util.logging.LogfileRecordFrame;
 import de.elmar_baumann.lib.model.TableModelLogfiles;
-import de.elmar_baumann.lib.resource.LogLevelIcons;
 import de.elmar_baumann.lib.renderer.TableCellRendererLogfileDialog;
 import de.elmar_baumann.lib.resource.Bundle;
 import de.elmar_baumann.lib.resource.Resources;
@@ -89,7 +88,6 @@ public final class LogfileDialog extends javax.swing.JDialog implements
 
     private void postInitComponents() {
         setIcons();
-        setLabelIcons();
         initTextPaneDetails(); // NOI18N
         initTableLogfileRecords();
         initLevelOfCheckbox();
@@ -101,16 +99,6 @@ public final class LogfileDialog extends javax.swing.JDialog implements
             setIconImages(IconUtil.getIconImages(
                     Resources.INSTANCE.getIconImagesPaths()));
         }
-    }
-
-    private void setLabelIcons() {
-        labelIconConfig.setIcon(LogLevelIcons.getIcon(Level.CONFIG));
-        labelIconFine.setIcon(LogLevelIcons.getIcon(Level.FINE));
-        labelIconFiner.setIcon(LogLevelIcons.getIcon(Level.FINER));
-        labelIconFinest.setIcon(LogLevelIcons.getIcon(Level.FINEST));
-        labelIconInfo.setIcon(LogLevelIcons.getIcon(Level.INFO));
-        labelIconSevere.setIcon(LogLevelIcons.getIcon(Level.SEVERE));
-        labelIconWarning.setIcon(LogLevelIcons.getIcon(Level.WARNING));
     }
 
     private void initTextPaneDetails() {
@@ -401,18 +389,18 @@ public final class LogfileDialog extends javax.swing.JDialog implements
         panelFilterCheckBoxes = new javax.swing.JPanel();
         labelIconSevere = new javax.swing.JLabel();
         checkBoxSevere = new javax.swing.JCheckBox();
-        labelIconInfo = new javax.swing.JLabel();
-        checkBoxInfo = new javax.swing.JCheckBox();
-        labelIconFine = new javax.swing.JLabel();
-        checkBoxFine = new javax.swing.JCheckBox();
-        labelIconFinest = new javax.swing.JLabel();
-        checkBoxFinest = new javax.swing.JCheckBox();
         labelIconWarning = new javax.swing.JLabel();
         checkBoxWarning = new javax.swing.JCheckBox();
+        labelIconInfo = new javax.swing.JLabel();
+        checkBoxInfo = new javax.swing.JCheckBox();
         labelIconConfig = new javax.swing.JLabel();
         checkBoxConfig = new javax.swing.JCheckBox();
+        labelIconFine = new javax.swing.JLabel();
+        checkBoxFine = new javax.swing.JCheckBox();
         labelIconFiner = new javax.swing.JLabel();
         checkBoxFiner = new javax.swing.JCheckBox();
+        labelIconFinest = new javax.swing.JLabel();
+        checkBoxFinest = new javax.swing.JCheckBox();
         panelSearch = new javax.swing.JPanel();
         labelSearch = new javax.swing.JLabel();
         textFieldSearch = new javax.swing.JTextField();
@@ -436,113 +424,123 @@ public final class LogfileDialog extends javax.swing.JDialog implements
 
         panelFilter.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("LogfileDialog.panelFilter.border.title"))); // NOI18N
 
+        labelIconSevere.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/lib/resource/logfiledialog_severe.png"))); // NOI18N
+        labelIconSevere.setMaximumSize(new java.awt.Dimension(16, 16));
+        labelIconSevere.setMinimumSize(new java.awt.Dimension(16, 16));
         labelIconSevere.setPreferredSize(new java.awt.Dimension(16, 16));
 
         checkBoxSevere.setSelected(true);
         checkBoxSevere.setText(Level.SEVERE.getLocalizedName());
 
-        labelIconInfo.setPreferredSize(new java.awt.Dimension(16, 16));
-
-        checkBoxInfo.setSelected(true);
-        checkBoxInfo.setText(Level.INFO.getLocalizedName());
-
-        labelIconFine.setPreferredSize(new java.awt.Dimension(16, 16));
-
-        checkBoxFine.setSelected(true);
-        checkBoxFine.setText(Level.FINE.getLocalizedName());
-
-        labelIconFinest.setPreferredSize(new java.awt.Dimension(16, 16));
-
-        checkBoxFinest.setSelected(true);
-        checkBoxFinest.setText(Level.FINEST.getLocalizedName());
-
+        labelIconWarning.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/lib/resource/logfiledialog_warning.png"))); // NOI18N
+        labelIconWarning.setMaximumSize(new java.awt.Dimension(16, 16));
+        labelIconWarning.setMinimumSize(new java.awt.Dimension(16, 16));
         labelIconWarning.setPreferredSize(new java.awt.Dimension(16, 16));
 
         checkBoxWarning.setSelected(true);
         checkBoxWarning.setText(Level.WARNING.getLocalizedName());
 
+        labelIconInfo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/lib/resource/logfiledialog_info.png"))); // NOI18N
+        labelIconInfo.setMaximumSize(new java.awt.Dimension(16, 16));
+        labelIconInfo.setMinimumSize(new java.awt.Dimension(16, 16));
+        labelIconInfo.setPreferredSize(new java.awt.Dimension(16, 16));
+
+        checkBoxInfo.setSelected(true);
+        checkBoxInfo.setText(Level.INFO.getLocalizedName());
+
+        labelIconConfig.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/lib/resource/logfiledialog_config.png"))); // NOI18N
+        labelIconConfig.setMaximumSize(new java.awt.Dimension(16, 16));
+        labelIconConfig.setMinimumSize(new java.awt.Dimension(16, 16));
         labelIconConfig.setPreferredSize(new java.awt.Dimension(16, 16));
 
         checkBoxConfig.setSelected(true);
         checkBoxConfig.setText(Level.CONFIG.getLocalizedName());
 
+        labelIconFine.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/lib/resource/logfiledialog_fine.png"))); // NOI18N
+        labelIconFine.setMaximumSize(new java.awt.Dimension(16, 16));
+        labelIconFine.setMinimumSize(new java.awt.Dimension(16, 16));
+        labelIconFine.setPreferredSize(new java.awt.Dimension(16, 16));
+
+        checkBoxFine.setSelected(true);
+        checkBoxFine.setText(Level.FINE.getLocalizedName());
+
+        labelIconFiner.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/lib/resource/logfiledialog_finer.png"))); // NOI18N
+        labelIconFiner.setMaximumSize(new java.awt.Dimension(16, 16));
+        labelIconFiner.setMinimumSize(new java.awt.Dimension(16, 16));
         labelIconFiner.setPreferredSize(new java.awt.Dimension(16, 16));
 
         checkBoxFiner.setSelected(true);
         checkBoxFiner.setText(Level.FINER.getLocalizedName());
+
+        labelIconFinest.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/lib/resource/logfiledialog_finest.png"))); // NOI18N
+        labelIconFinest.setMaximumSize(new java.awt.Dimension(16, 16));
+        labelIconFinest.setMinimumSize(new java.awt.Dimension(16, 16));
+        labelIconFinest.setPreferredSize(new java.awt.Dimension(16, 16));
+
+        checkBoxFinest.setSelected(true);
+        checkBoxFinest.setText(Level.FINEST.getLocalizedName());
 
         javax.swing.GroupLayout panelFilterCheckBoxesLayout = new javax.swing.GroupLayout(panelFilterCheckBoxes);
         panelFilterCheckBoxes.setLayout(panelFilterCheckBoxesLayout);
         panelFilterCheckBoxesLayout.setHorizontalGroup(
             panelFilterCheckBoxesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelFilterCheckBoxesLayout.createSequentialGroup()
-                .addGroup(panelFilterCheckBoxesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(labelIconWarning, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(labelIconSevere, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE))
+                .addGroup(panelFilterCheckBoxesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(labelIconSevere, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelIconFine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelFilterCheckBoxesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(checkBoxWarning, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(checkBoxSevere, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelFilterCheckBoxesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(labelIconConfig, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(labelIconInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(checkBoxSevere)
+                    .addComponent(checkBoxFine))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelFilterCheckBoxesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(checkBoxInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(checkBoxConfig, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelFilterCheckBoxesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(labelIconFiner, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(labelIconFine, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(labelIconWarning, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelIconFiner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelFilterCheckBoxesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelFilterCheckBoxesLayout.createSequentialGroup()
-                        .addComponent(checkBoxFine, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(labelIconFinest, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
-                        .addGap(14, 14, 14)
-                        .addComponent(checkBoxFinest, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE))
-                    .addGroup(panelFilterCheckBoxesLayout.createSequentialGroup()
-                        .addComponent(checkBoxFiner, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
-                        .addGap(121, 121, 121)))
-                .addContainerGap())
+                    .addComponent(checkBoxWarning)
+                    .addComponent(checkBoxFiner))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelFilterCheckBoxesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(labelIconInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelIconFinest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(panelFilterCheckBoxesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(checkBoxInfo)
+                    .addComponent(checkBoxFinest))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(labelIconConfig, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(checkBoxConfig))
         );
+
+        panelFilterCheckBoxesLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {labelIconConfig, labelIconFine, labelIconFiner, labelIconFinest, labelIconInfo, labelIconSevere, labelIconWarning});
+
         panelFilterCheckBoxesLayout.setVerticalGroup(
             panelFilterCheckBoxesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelFilterCheckBoxesLayout.createSequentialGroup()
                 .addGroup(panelFilterCheckBoxesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(checkBoxSevere, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(panelFilterCheckBoxesLayout.createSequentialGroup()
-                        .addGap(7, 7, 7)
-                        .addComponent(labelIconInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(checkBoxInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(panelFilterCheckBoxesLayout.createSequentialGroup()
-                        .addGap(7, 7, 7)
-                        .addComponent(labelIconFine, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(checkBoxFine, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(panelFilterCheckBoxesLayout.createSequentialGroup()
-                        .addGap(7, 7, 7)
-                        .addComponent(labelIconFinest, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(checkBoxFinest, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(panelFilterCheckBoxesLayout.createSequentialGroup()
-                        .addGap(7, 7, 7)
-                        .addComponent(labelIconSevere, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(checkBoxConfig)
+                    .addComponent(labelIconConfig, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(checkBoxInfo)
+                    .addComponent(labelIconInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(checkBoxWarning)
+                    .addComponent(labelIconWarning, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(checkBoxSevere)
+                    .addComponent(labelIconSevere, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelFilterCheckBoxesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(checkBoxFiner, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(panelFilterCheckBoxesLayout.createSequentialGroup()
-                        .addGap(7, 7, 7)
-                        .addComponent(labelIconFiner, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(checkBoxConfig, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(panelFilterCheckBoxesLayout.createSequentialGroup()
-                        .addGap(7, 7, 7)
-                        .addComponent(labelIconConfig, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(checkBoxWarning, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(panelFilterCheckBoxesLayout.createSequentialGroup()
-                        .addGap(7, 7, 7)
-                        .addComponent(labelIconWarning, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addComponent(checkBoxFinest)
+                    .addComponent(labelIconFinest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(checkBoxFiner)
+                    .addComponent(labelIconFiner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(checkBoxFine)))
+            .addGroup(panelFilterCheckBoxesLayout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addComponent(labelIconFine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
+
+        panelFilterCheckBoxesLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {labelIconConfig, labelIconFine, labelIconFiner, labelIconFinest, labelIconInfo, labelIconSevere, labelIconWarning});
 
         labelSearch.setText(bundle.getString("LogfileDialog.labelSearch.text")); // NOI18N
 
@@ -559,7 +557,7 @@ public final class LogfileDialog extends javax.swing.JDialog implements
             .addGroup(panelSearchLayout.createSequentialGroup()
                 .addComponent(labelSearch)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textFieldSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 454, Short.MAX_VALUE))
+                .addComponent(textFieldSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 397, Short.MAX_VALUE))
         );
         panelSearchLayout.setVerticalGroup(
             panelSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -574,16 +572,14 @@ public final class LogfileDialog extends javax.swing.JDialog implements
             panelFilterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelFilterLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panelFilterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(panelFilterLayout.createSequentialGroup()
-                        .addGap(46, 46, 46)
-                        .addComponent(panelSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(panelFilterCheckBoxes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(panelFilterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(panelSearch, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelFilterCheckBoxes, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         panelFilterLayout.setVerticalGroup(
             panelFilterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelFilterLayout.createSequentialGroup()
+            .addGroup(panelFilterLayout.createSequentialGroup()
                 .addComponent(panelFilterCheckBoxes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -606,9 +602,9 @@ public final class LogfileDialog extends javax.swing.JDialog implements
             .addGroup(panelXmlLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelXmlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scrollPaneTableLogfileRecords, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 514, Short.MAX_VALUE)
-                    .addComponent(panelFilter, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 514, Short.MAX_VALUE)
-                    .addComponent(scrollPaneTextPaneDetails, javax.swing.GroupLayout.DEFAULT_SIZE, 514, Short.MAX_VALUE))
+                    .addComponent(scrollPaneTableLogfileRecords, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 472, Short.MAX_VALUE)
+                    .addComponent(panelFilter, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(scrollPaneTextPaneDetails, javax.swing.GroupLayout.DEFAULT_SIZE, 472, Short.MAX_VALUE))
                 .addContainerGap())
         );
         panelXmlLayout.setVerticalGroup(
@@ -616,9 +612,9 @@ public final class LogfileDialog extends javax.swing.JDialog implements
             .addGroup(panelXmlLayout.createSequentialGroup()
                 .addComponent(panelFilter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPaneTableLogfileRecords, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
+                .addComponent(scrollPaneTableLogfileRecords, javax.swing.GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPaneTextPaneDetails, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
+                .addComponent(scrollPaneTextPaneDetails, javax.swing.GroupLayout.DEFAULT_SIZE, 61, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -633,14 +629,14 @@ public final class LogfileDialog extends javax.swing.JDialog implements
             panelSimpleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelSimpleLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(scrollPaneSimple)
+                .addComponent(scrollPaneSimple, javax.swing.GroupLayout.DEFAULT_SIZE, 472, Short.MAX_VALUE)
                 .addContainerGap())
         );
         panelSimpleLayout.setVerticalGroup(
             panelSimpleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelSimpleLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(scrollPaneSimple, javax.swing.GroupLayout.DEFAULT_SIZE, 458, Short.MAX_VALUE)
+                .addComponent(scrollPaneSimple, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -673,7 +669,7 @@ public final class LogfileDialog extends javax.swing.JDialog implements
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(tabbedPane, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 539, Short.MAX_VALUE)
+                    .addComponent(tabbedPane, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 497, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(buttonExit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -684,7 +680,7 @@ public final class LogfileDialog extends javax.swing.JDialog implements
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 505, Short.MAX_VALUE)
+                .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 289, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(buttonReload, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)

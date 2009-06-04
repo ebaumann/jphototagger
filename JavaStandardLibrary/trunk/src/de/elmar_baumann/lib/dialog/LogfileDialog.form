@@ -31,7 +31,7 @@
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="tabbedPane" alignment="0" pref="539" max="32767" attributes="0"/>
+                  <Component id="tabbedPane" alignment="0" pref="497" max="32767" attributes="0"/>
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="buttonExit" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -46,7 +46,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="tabbedPane" pref="505" max="32767" attributes="0"/>
+              <Component id="tabbedPane" pref="289" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
                   <Component id="buttonReload" min="-2" max="-2" attributes="0"/>
@@ -65,7 +65,7 @@
         <Container class="javax.swing.JPanel" name="panelXml">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="Detailliert">
+              <JTabbedPaneConstraints tabName="Formatiert">
                 <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                   <ResourceString bundle="de/elmar_baumann/lib/resource/Bundle.properties" key="LogfileDialog.panelXml.TabConstraints.tabTitle" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
@@ -79,9 +79,9 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="scrollPaneTableLogfileRecords" alignment="1" pref="514" max="32767" attributes="2"/>
-                          <Component id="panelFilter" alignment="1" pref="514" max="32767" attributes="1"/>
-                          <Component id="scrollPaneTextPaneDetails" alignment="0" pref="514" max="32767" attributes="2"/>
+                          <Component id="scrollPaneTableLogfileRecords" alignment="1" pref="472" max="32767" attributes="2"/>
+                          <Component id="panelFilter" alignment="1" max="32767" attributes="1"/>
+                          <Component id="scrollPaneTextPaneDetails" alignment="0" pref="472" max="32767" attributes="2"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -92,9 +92,9 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="panelFilter" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Component id="scrollPaneTableLogfileRecords" pref="178" max="32767" attributes="0"/>
+                      <Component id="scrollPaneTableLogfileRecords" pref="71" max="32767" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Component id="scrollPaneTextPaneDetails" pref="168" max="32767" attributes="0"/>
+                      <Component id="scrollPaneTextPaneDetails" pref="61" max="32767" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -115,14 +115,11 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Group type="102" attributes="1">
-                                  <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
-                                  <Component id="panelSearch" max="32767" attributes="0"/>
-                              </Group>
-                              <Component id="panelFilterCheckBoxes" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="panelSearch" alignment="0" max="32767" attributes="2"/>
+                              <Component id="panelFilterCheckBoxes" alignment="0" max="32767" attributes="1"/>
                           </Group>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -130,7 +127,7 @@
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="1" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
                           <Component id="panelFilterCheckBoxes" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="panelSearch" min="-2" max="-2" attributes="0"/>
@@ -146,45 +143,39 @@
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="labelIconWarning" pref="0" max="32767" attributes="0"/>
-                                  <Component id="labelIconSevere" alignment="1" pref="0" max="32767" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="checkBoxWarning" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="checkBoxSevere" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="labelIconSevere" linkSize="1" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="labelIconFine" linkSize="1" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="-2" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="2" attributes="0">
-                                  <Component id="labelIconConfig" alignment="2" pref="0" max="32767" attributes="0"/>
-                                  <Component id="labelIconInfo" alignment="2" pref="0" max="32767" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="checkBoxInfo" max="32767" attributes="0"/>
-                                  <Component id="checkBoxConfig" max="32767" attributes="0"/>
+                                  <Component id="checkBoxSevere" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="checkBoxFine" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="-2" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="2" attributes="0">
-                                  <Component id="labelIconFiner" alignment="2" pref="0" max="32767" attributes="0"/>
-                                  <Component id="labelIconFine" alignment="2" pref="0" max="32767" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="checkBoxFine" pref="101" max="32767" attributes="0"/>
-                                      <EmptySpace min="-2" max="-2" attributes="0"/>
-                                      <Component id="labelIconFinest" pref="30" max="32767" attributes="0"/>
-                                      <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
-                                      <Component id="checkBoxFinest" pref="101" max="32767" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="checkBoxFiner" pref="125" max="32767" attributes="0"/>
-                                      <EmptySpace min="121" pref="121" max="121" attributes="0"/>
-                                  </Group>
+                                  <Component id="labelIconWarning" linkSize="1" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="labelIconFiner" linkSize="1" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="checkBoxWarning" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="checkBoxFiner" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="labelIconInfo" linkSize="1" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="labelIconFinest" linkSize="1" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="checkBoxInfo" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="checkBoxFinest" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="labelIconConfig" linkSize="1" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="checkBoxConfig" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -192,45 +183,27 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="2" attributes="0">
-                                  <Component id="checkBoxSevere" alignment="2" max="32767" attributes="0"/>
-                                  <Group type="102" alignment="2" attributes="0">
-                                      <EmptySpace min="7" pref="7" max="7" attributes="0"/>
-                                      <Component id="labelIconInfo" max="32767" attributes="0"/>
-                                  </Group>
-                                  <Component id="checkBoxInfo" alignment="2" max="32767" attributes="0"/>
-                                  <Group type="102" alignment="2" attributes="0">
-                                      <EmptySpace min="7" pref="7" max="7" attributes="0"/>
-                                      <Component id="labelIconFine" max="32767" attributes="0"/>
-                                  </Group>
-                                  <Component id="checkBoxFine" alignment="2" max="32767" attributes="0"/>
-                                  <Group type="102" alignment="2" attributes="0">
-                                      <EmptySpace min="7" pref="7" max="7" attributes="0"/>
-                                      <Component id="labelIconFinest" max="32767" attributes="0"/>
-                                  </Group>
-                                  <Component id="checkBoxFinest" alignment="2" max="32767" attributes="0"/>
-                                  <Group type="102" alignment="2" attributes="0">
-                                      <EmptySpace min="7" pref="7" max="7" attributes="0"/>
-                                      <Component id="labelIconSevere" max="32767" attributes="0"/>
-                                  </Group>
+                                  <Component id="checkBoxConfig" alignment="2" min="-2" max="-2" attributes="0"/>
+                                  <Component id="labelIconConfig" linkSize="2" alignment="2" min="-2" max="-2" attributes="0"/>
+                                  <Component id="checkBoxInfo" alignment="2" min="-2" max="-2" attributes="0"/>
+                                  <Component id="labelIconInfo" linkSize="2" alignment="2" min="-2" max="-2" attributes="0"/>
+                                  <Component id="checkBoxWarning" alignment="2" min="-2" max="-2" attributes="0"/>
+                                  <Component id="labelIconWarning" linkSize="2" alignment="2" min="-2" max="-2" attributes="0"/>
+                                  <Component id="checkBoxSevere" alignment="2" min="-2" max="-2" attributes="0"/>
+                                  <Component id="labelIconSevere" linkSize="2" alignment="2" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="2" attributes="0">
-                                  <Component id="checkBoxFiner" alignment="2" max="32767" attributes="0"/>
-                                  <Group type="102" alignment="2" attributes="0">
-                                      <EmptySpace min="7" pref="7" max="7" attributes="0"/>
-                                      <Component id="labelIconFiner" max="32767" attributes="0"/>
-                                  </Group>
-                                  <Component id="checkBoxConfig" alignment="2" max="32767" attributes="0"/>
-                                  <Group type="102" alignment="2" attributes="0">
-                                      <EmptySpace min="7" pref="7" max="7" attributes="0"/>
-                                      <Component id="labelIconConfig" max="32767" attributes="0"/>
-                                  </Group>
-                                  <Component id="checkBoxWarning" alignment="2" max="32767" attributes="0"/>
-                                  <Group type="102" alignment="2" attributes="0">
-                                      <EmptySpace min="7" pref="7" max="7" attributes="0"/>
-                                      <Component id="labelIconWarning" max="32767" attributes="0"/>
-                                  </Group>
+                                  <Component id="checkBoxFinest" alignment="2" min="-2" max="-2" attributes="0"/>
+                                  <Component id="labelIconFinest" linkSize="2" alignment="2" min="-2" max="-2" attributes="0"/>
+                                  <Component id="checkBoxFiner" alignment="2" min="-2" max="-2" attributes="0"/>
+                                  <Component id="labelIconFiner" linkSize="2" alignment="2" min="-2" max="-2" attributes="0"/>
+                                  <Component id="checkBoxFine" alignment="2" min="-2" max="-2" attributes="0"/>
                               </Group>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
+                              <Component id="labelIconFine" linkSize="2" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -238,6 +211,15 @@
                   <SubComponents>
                     <Component class="javax.swing.JLabel" name="labelIconSevere">
                       <Properties>
+                        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                          <Image iconType="3" name="/de/elmar_baumann/lib/resource/logfiledialog_severe.png"/>
+                        </Property>
+                        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                          <Dimension value="[16, 16]"/>
+                        </Property>
+                        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                          <Dimension value="[16, 16]"/>
+                        </Property>
                         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                           <Dimension value="[16, 16]"/>
                         </Property>
@@ -251,53 +233,17 @@
                         </Property>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JLabel" name="labelIconInfo">
-                      <Properties>
-                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                          <Dimension value="[16, 16]"/>
-                        </Property>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JCheckBox" name="checkBoxInfo">
-                      <Properties>
-                        <Property name="selected" type="boolean" value="true"/>
-                        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                          <Connection code="Level.INFO.getLocalizedName()" type="code"/>
-                        </Property>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="labelIconFine">
-                      <Properties>
-                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                          <Dimension value="[16, 16]"/>
-                        </Property>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JCheckBox" name="checkBoxFine">
-                      <Properties>
-                        <Property name="selected" type="boolean" value="true"/>
-                        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                          <Connection code="Level.FINE.getLocalizedName()" type="code"/>
-                        </Property>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="labelIconFinest">
-                      <Properties>
-                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                          <Dimension value="[16, 16]"/>
-                        </Property>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JCheckBox" name="checkBoxFinest">
-                      <Properties>
-                        <Property name="selected" type="boolean" value="true"/>
-                        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                          <Connection code="Level.FINEST.getLocalizedName()" type="code"/>
-                        </Property>
-                      </Properties>
-                    </Component>
                     <Component class="javax.swing.JLabel" name="labelIconWarning">
                       <Properties>
+                        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                          <Image iconType="3" name="/de/elmar_baumann/lib/resource/logfiledialog_warning.png"/>
+                        </Property>
+                        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                          <Dimension value="[16, 16]"/>
+                        </Property>
+                        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                          <Dimension value="[16, 16]"/>
+                        </Property>
                         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                           <Dimension value="[16, 16]"/>
                         </Property>
@@ -311,8 +257,41 @@
                         </Property>
                       </Properties>
                     </Component>
+                    <Component class="javax.swing.JLabel" name="labelIconInfo">
+                      <Properties>
+                        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                          <Image iconType="3" name="/de/elmar_baumann/lib/resource/logfiledialog_info.png"/>
+                        </Property>
+                        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                          <Dimension value="[16, 16]"/>
+                        </Property>
+                        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                          <Dimension value="[16, 16]"/>
+                        </Property>
+                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                          <Dimension value="[16, 16]"/>
+                        </Property>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JCheckBox" name="checkBoxInfo">
+                      <Properties>
+                        <Property name="selected" type="boolean" value="true"/>
+                        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                          <Connection code="Level.INFO.getLocalizedName()" type="code"/>
+                        </Property>
+                      </Properties>
+                    </Component>
                     <Component class="javax.swing.JLabel" name="labelIconConfig">
                       <Properties>
+                        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                          <Image iconType="3" name="/de/elmar_baumann/lib/resource/logfiledialog_config.png"/>
+                        </Property>
+                        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                          <Dimension value="[16, 16]"/>
+                        </Property>
+                        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                          <Dimension value="[16, 16]"/>
+                        </Property>
                         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                           <Dimension value="[16, 16]"/>
                         </Property>
@@ -326,8 +305,41 @@
                         </Property>
                       </Properties>
                     </Component>
+                    <Component class="javax.swing.JLabel" name="labelIconFine">
+                      <Properties>
+                        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                          <Image iconType="3" name="/de/elmar_baumann/lib/resource/logfiledialog_fine.png"/>
+                        </Property>
+                        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                          <Dimension value="[16, 16]"/>
+                        </Property>
+                        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                          <Dimension value="[16, 16]"/>
+                        </Property>
+                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                          <Dimension value="[16, 16]"/>
+                        </Property>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JCheckBox" name="checkBoxFine">
+                      <Properties>
+                        <Property name="selected" type="boolean" value="true"/>
+                        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                          <Connection code="Level.FINE.getLocalizedName()" type="code"/>
+                        </Property>
+                      </Properties>
+                    </Component>
                     <Component class="javax.swing.JLabel" name="labelIconFiner">
                       <Properties>
+                        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                          <Image iconType="3" name="/de/elmar_baumann/lib/resource/logfiledialog_finer.png"/>
+                        </Property>
+                        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                          <Dimension value="[16, 16]"/>
+                        </Property>
+                        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                          <Dimension value="[16, 16]"/>
+                        </Property>
                         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                           <Dimension value="[16, 16]"/>
                         </Property>
@@ -341,6 +353,30 @@
                         </Property>
                       </Properties>
                     </Component>
+                    <Component class="javax.swing.JLabel" name="labelIconFinest">
+                      <Properties>
+                        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                          <Image iconType="3" name="/de/elmar_baumann/lib/resource/logfiledialog_finest.png"/>
+                        </Property>
+                        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                          <Dimension value="[16, 16]"/>
+                        </Property>
+                        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                          <Dimension value="[16, 16]"/>
+                        </Property>
+                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                          <Dimension value="[16, 16]"/>
+                        </Property>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JCheckBox" name="checkBoxFinest">
+                      <Properties>
+                        <Property name="selected" type="boolean" value="true"/>
+                        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                          <Connection code="Level.FINEST.getLocalizedName()" type="code"/>
+                        </Property>
+                      </Properties>
+                    </Component>
                   </SubComponents>
                 </Container>
                 <Container class="javax.swing.JPanel" name="panelSearch">
@@ -351,7 +387,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="labelSearch" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="textFieldSearch" pref="454" max="32767" attributes="0"/>
+                              <Component id="textFieldSearch" pref="397" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -434,7 +470,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="scrollPaneSimple" max="32767" attributes="0"/>
+                      <Component id="scrollPaneSimple" pref="472" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -443,7 +479,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="scrollPaneSimple" pref="458" max="32767" attributes="0"/>
+                      <Component id="scrollPaneSimple" pref="242" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
