@@ -21,7 +21,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="panelProcessingTime" max="32767" attributes="2"/>
-                  <Component id="panelAccelerateStart" alignment="0" pref="455" max="32767" attributes="0"/>
+                  <Component id="panelAccelerateStart" alignment="0" pref="485" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
