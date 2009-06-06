@@ -4,8 +4,8 @@ import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.app.AppLock;
 import com.imagero.reader.AbstractImageReader;
 import de.elmar_baumann.imv.app.AppInfo;
+import de.elmar_baumann.imv.app.AppLookAndFeel;
 import de.elmar_baumann.imv.database.DatabaseTables;
-import de.elmar_baumann.lib.componentutil.LookAndFeelUtil;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.ImageProperties;
 import de.elmar_baumann.imv.view.frames.AppFrame;
@@ -39,7 +39,7 @@ public final class Main {
     }
 
     private static void init() {
-        LookAndFeelUtil.setSystemLookAndFeel();
+        AppLookAndFeel.set();
         checkJavaVersion();
         lock();
         informationMessageInitDatabase();
@@ -58,12 +58,12 @@ public final class Main {
 
     private static void informationMessageInitDatabase() {
         SplashScreen.setMessageToSplashScreen(
-                Bundle.getString("Main.Init.InformationMessage.SplashScreen.ConnectToDatabase"));
+            Bundle.getString("Main.Init.InformationMessage.SplashScreen.ConnectToDatabase"));
     }
 
     private static void informationMessageInitGui() {
         SplashScreen.setMessageToSplashScreen(
-                Bundle.getString("Main.Main.InformationMessage.SplashScreen.InitGui"));
+            Bundle.getString("Main.Main.InformationMessage.SplashScreen.InitGui"));
     }
 
     private static void showFrame() {
@@ -114,14 +114,14 @@ public final class Main {
 
     private static void errorMessageJavaVersion(Version javaVersion) throws HeadlessException {
         JOptionPane.showMessageDialog(null,
-                getVersionMessage(javaVersion),
-                Bundle.getString("Main.ErrorMessage.JavaVersion.Title"),
-                JOptionPane.ERROR_MESSAGE);
+            getVersionMessage(javaVersion),
+            Bundle.getString("Main.ErrorMessage.JavaVersion.Title"),
+            JOptionPane.ERROR_MESSAGE);
     }
 
     private static Object getVersionMessage(Version javaVersion) {
         return Bundle.getString("Main.ErrorMessage.JavaVersion",
-                javaVersion, AppInfo.minJavaVersion);
+            javaVersion, AppInfo.minJavaVersion);
     }
 
     private Main() {
