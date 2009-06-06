@@ -1,6 +1,7 @@
 package de.elmar_baumann.imv.database.metadata.selections;
 
 import de.elmar_baumann.imv.database.metadata.Column;
+import de.elmar_baumann.imv.database.metadata.exif.ColumnExifDateTimeOriginal;
 import de.elmar_baumann.imv.database.metadata.exif.ColumnExifFocalLength;
 import de.elmar_baumann.imv.database.metadata.exif.ColumnExifIsoSpeedRatings;
 import de.elmar_baumann.imv.database.metadata.exif.ColumnExifRecordingEquipment;
@@ -57,6 +58,7 @@ public final class DatabaseInfoRecordCountColumns {
         columns.add(ColumnXmpPhotoshopTransmissionReference.INSTANCE);
         columns.add(ColumnXmpPhotoshopInstructions.INSTANCE);
         columns.add(ColumnXmpPhotoshopCaptionwriter.INSTANCE);
+        columns.add(ColumnExifDateTimeOriginal.INSTANCE);
         columns.add(ColumnExifFocalLength.INSTANCE);
         columns.add(ColumnExifIsoSpeedRatings.INSTANCE);
         columns.add(ColumnExifRecordingEquipment.INSTANCE);
