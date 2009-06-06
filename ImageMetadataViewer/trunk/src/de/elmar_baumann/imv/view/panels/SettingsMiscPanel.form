@@ -64,24 +64,28 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace pref="270" max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Component id="labelLogLevel" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="comboBoxLogLevel" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Component id="labelLogLogfileFormatterClass" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="comboBoxLogfileFormatterClass" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="comboBoxLogLevel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="labelLogLevel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="labelLogLogfileFormatterClass" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="comboBoxLogfileFormatterClass" alignment="3" min="-2" max="-2" attributes="0"/>
+              <Group type="102" attributes="0">
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="comboBoxLogLevel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="labelLogLevel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="labelLogLogfileFormatterClass" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="comboBoxLogfileFormatterClass" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -142,7 +146,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="labelAutocopyDirectory" pref="520" max="32767" attributes="0"/>
+                  <Component id="labelAutocopyDirectory" pref="367" max="32767" attributes="0"/>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Component id="buttonChooseAutocopyDirectory" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
@@ -203,7 +207,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="labelWebBrowser" pref="520" max="32767" attributes="0"/>
+                  <Component id="labelWebBrowser" pref="367" max="32767" attributes="0"/>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Component id="buttonChooseWebBrowser" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
@@ -264,7 +268,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="labelDatabaseDirectory" pref="435" max="32767" attributes="0"/>
+                  <Component id="labelDatabaseDirectory" pref="272" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="buttonSetStandardDatabaseDirectoryName" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
@@ -343,7 +347,7 @@
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="checkBoxIsAcceptHiddenDirectories" min="-2" max="-2" attributes="0"/>
-                      <Component id="checkBoxTreeDirectoriesSelectLastDirectory" alignment="0" max="32767" attributes="0"/>
+                      <Component id="checkBoxTreeDirectoriesSelectLastDirectory" alignment="0" pref="499" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
               </Group>
