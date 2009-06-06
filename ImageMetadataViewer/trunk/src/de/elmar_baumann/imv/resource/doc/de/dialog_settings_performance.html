@@ -1,58 +1,121 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
-<head>
-	<title>Einstellungen-Dialog &gt; Leistung</title>
-	<meta name="author" content="Elmar Baumann" />
-	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-</head>
-<body>
-	
-<h1>Einstellungen-Dialog &gt; Leistung</h1>
+    <head>
+        <title>Einstellungen-Dialog &gt; Leistung</title>
+        <meta name="author" content="Elmar Baumann" />
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    </head>
+    <body>
 
-<h2>Rechenzeit</h2>
+        <h1>Einstellungen-Dialog &gt; Leistung</h1>
 
-<h3>Prozessor-Leistung für gleichzeitige Berechnungen</h3>
+        <h2>Rechenzeit</h2>
 
-<p>Sie können einstellen, wieviel Rechenleistung das Programm zum Berechnen der Vorschaubilder und Lesen der <a href="glossary_metadata.html">Metadaten</a> benutzt. Wollen Sie noch mit anderen Programmen arbeiten, ist die Einstellung <strong>Mittel</strong> in der Regel geeignet. Sollte der Rechner langsamer reagieren als gewohnt, wählen Sie <strong>Niedrig</strong>. Das Erzeugen der Vorschaubilder dauert dann länger. Die Einstellung <strong>Hoch</strong> ist nur geeignet, wenn Sie nicht mehr am Rechner arbeiten müssen, erzeugt die Vorschaubilder aber am schnellsten.</p>
+        <h3>Prozessor-Leistung für gleichzeitige Berechnungen</h3>
 
-<h3>Maximale Wartezeit in Sekunden, bis externe Programme beendet werden</h3>
+        <p>Sie können einstellen, wieviel Rechenleistung das Programm zum
+            Berechnen der Vorschaubilder und Lesen der
+            <a href="glossary_metadata.html">Metadaten</a> benutzt. Wollen Sie
+            noch mit anderen Programmen arbeiten, ist die Einstellung
+            <strong>Mittel</strong> in der Regel geeignet. Sollte der Rechner
+            langsamer reagieren als gewohnt, wählen Sie
+            <strong>Niedrig</strong>. Das Erzeugen der Vorschaubilder dauert
+            dann länger. Die Einstellung <strong>Hoch</strong> ist nur geeignet,
+            wenn Sie nicht mehr am Rechner arbeiten müssen, erzeugt die
+            Vorschaubilder aber am schnellsten.
+        </p>
 
-<p>Hier geben Sie ein, nach wievielen Sekunden ein externes Programm beendet wird. Das ist von Belang, falls Sie die Vorschaubilder von einem externen Programm erzeugen lassen und eigene Skripte einsetzen zum Verarbeiten von Bildern. Sollte ein Programm nach dieser Zeit nicht fertig sein, wird es beendet, damit <strong>Bilder</strong> weiter arbeiten kann.</p>
+        <h3>Maximale Wartezeit in Sekunden, bis externe Programme beendet werden</h3>
 
-<h3>In Bildern nach eingebetteten IPTC/XMP-Metadaten suchen, falls keine Filialdatei existiert</h3>
+        <p>Hier geben Sie ein, nach wievielen Sekunden ein externes Programm
+            beendet wird. Das ist von Belang, falls Sie die Vorschaubilder von
+            einem externen Programm erzeugen lassen und eigene Skripte einsetzen
+            zum Verarbeiten von Bildern. Sollte ein Programm nach dieser Zeit
+            nicht fertig sein, wird es beendet, damit <strong>Bilder</strong>
+            weiter arbeiten kann.
+        </p>
 
-<p>Aktivieren Sie diese Option, falls <strong>zum Aktualisieren der Metadaten in der Datenbank</strong> in Bilddateien <em>ohne XMP-Filialdatei</em> nach eingebetteten XMP-Metadaten gesucht werden soll. Haben viele Bilder keine Filialdatei <em>und</em> keine eingebetteten XMP-Informationen, dauert das Aktualisieren der Datebank sehr lange, da alle Bilder komplett durchsucht werden. Wurden keine eingebettete XMP-Metadaten gefunden, wird darin nach IPTC-Daten gesucht, falls diese Option aktiviert ist. Hat ein Bild XMP-Informationen <em>und</em> stehen diese am Dateianfang, ist das Einlesen schnell, da nur so lange eingelesen wird, bis das Ende der XMP-Daten erreicht ist.</p>
+        <h3>In Bildern nach eingebetteten IPTC/XMP-Metadaten suchen, falls keine
+            Filialdatei existiert
+        </h3>
 
-<p>Aktivieren Sie diese Aktion nur, falls:</p>
+        <p>Aktivieren Sie diese Option, falls <strong>zum Aktualisieren der
+            Metadaten in der Datenbank</strong> in Bilddateien <em>ohne
+            XMP-Filialdatei</em> nach eingebetteten XMP-Metadaten gesucht werden
+            soll. Haben viele Bilder keine Filialdatei <em>und</em> keine
+            eingebetteten XMP-Informationen, dauert das Aktualisieren der
+            Datebank sehr lange, da alle Bilder komplett durchsucht werden.
+            Wurden keine eingebettete XMP-Metadaten gefunden, wird darin nach
+            IPTC-Daten gesucht, falls diese Option aktiviert ist. Hat ein Bild
+            XMP-Informationen <em>und</em> stehen diese am Dateianfang, ist das
+            Einlesen schnell, da nur so lange eingelesen wird, bis das Ende der
+            XMP-Daten erreicht ist.
+        </p>
 
-<ul>
-    <li>für fast alle Bilder Filialdateien existieren</li>
-    <li>fast alle Bilder eingebettete XMP-Metadaten haben</li>
-</ul>
+        <p>Aktivieren Sie diese Aktion nur, falls:
+        </p>
 
-<p>Aktivieren Sie diese Option <em>nicht</em>, falls Sie viele Bilder ohne Filialdateien haben und wenige mit eingebetteten XMP-Metadaten, da das Einlesen der Verzeichnisse unnötig verzögert wird.</p>
+        <ul>
+            <li>für fast alle Bilder Filialdateien existieren
+            </li>
+            <li>fast alle Bilder eingebettete XMP-Metadaten haben
+            </li>
+        </ul>
 
-<p><strong>Angezeigt</strong> werden unabhängig von dieser Option eingebettete IPTC-Metadaten immer und eingebettete XMP-Metadaten, falls keine Filialdatei existiert.</p>
+        <p>Aktivieren Sie diese Option <em>nicht</em>, falls Sie viele Bilder
+            ohne Filialdateien haben und wenige mit eingebetteten XMP-Metadaten,
+            da das Einlesen der Verzeichnisse unnötig verzögert wird.
+        </p>
 
-<p>Ist diese Aktion deaktiviert, können Sie trotzdem eingebettete IPTC- und XMP-Metadaten in die Datenbank schreiben lassen:</p>
+        <p><strong>Angezeigt</strong> werden unabhängig von dieser Option
+            eingebettete IPTC-Metadaten immer und eingebettete XMP-Metadaten,
+            falls keine Filialdatei existiert.
+        </p>
 
-<ol>
-    <li>Wählen Sie die Bilder mit den eingebetteten IPTC-/XMP-Metadaten aus</li>
-    <li>Klicken Sie mit der rechten Maustaste auf eines der ausgewählten Bilder</li>
-    <li>Wählen Sie aus dem aufklappenden Kontextmenü die Option <strong>Metadaten aktualisieren</strong></li>
-</ol>
+        <p>Ist diese Aktion deaktiviert, können Sie trotzdem eingebettete
+            IPTC- und XMP-Metadaten in die Datenbank schreiben lassen:
+        </p>
 
-<p>Sie können auch Filialdateien <a href="action_metadata_embedded_xmp_to_xmp_sidecar_file.html">erzeugen lassen aus eingebetteten XMP-Metadaten</a> sowie <a href="action_metadata_iptc_to_xmp.html">aus eingebetteten IPTC-Metadaten</a>.</p>
+        <ol>
+            <li>Wählen Sie die Bilder mit den eingebetteten IPTC-/XMP-Metadaten
+                aus
+            </li>
+            <li>Klicken Sie mit der rechten Maustaste auf eines der ausgewählten
+                Bilder
+            </li>
+            <li>Wählen Sie aus dem aufklappenden Kontextmenü die Option
+                <strong>Metadaten aktualisieren</strong>
+            </li>
+        </ol>
 
-<p>Schließlich ist es möglich, diese Option ein- und auszuschalten vor dem Einlesen einzelner Ordner, falls in einigen Ordnern ohne Filialdateien viele Bilder mit eingebetteten XMP-Metadaten sind, in anderen nicht.</p>
+        <p>Sie können auch Filialdateien
+            <a href="action_metadata_embedded_xmp_to_xmp_sidecar_file.html">erzeugen
+            lassen aus eingebetteten XMP-Metadaten</a> sowie
+            <a href="action_metadata_iptc_to_xmp.html">aus eingebetteten
+            IPTC-Metadaten</a>.
+        </p>
 
-<h2>Start beschleunigen</h2>
+        <p>Schließlich ist es möglich, diese Option ein- und auszuschalten vor
+            dem Einlesen einzelner Ordner, falls in einigen Ordnern ohne
+            Filialdateien viele Bilder mit eingebetteten XMP-Metadaten sind, in
+            anderen nicht.
+        </p>
 
-<h3>Auto-Vervollständigen ausschalten</h3>
+        <h2>Start beschleunigen</h2>
 
-<p>Beim <em>Start</em> werden alle Wörter aus der Datenbank geladen wodurch er sich verzögert. Dafür können Sie schneller eingeben, da bekannte Wörter vorgeschlagen werden.</p>
+        <h3>Auto-Vervollständigen ausschalten</h3>
 
-<p><img src="img/settings-performance.gif" width="682" height="410" alt="" /></p>
+        <p>Beim <em>Start</em> werden alle Wörter aus der Datenbank geladen
+            wodurch er sich verzögert. Dafür können Sie schneller eingeben, da
+            bekannte Wörter vorgeschlagen werden.
+        </p>
 
-</body>
+        <p><img src="img/settings-performance.gif"
+                    width="682"
+                    height="410"
+                    alt="" />
+        </p>
+
+    </body>
 </html>

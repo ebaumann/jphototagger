@@ -1,31 +1,54 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
-<head>
-	<title>Einstellungen-Dialog &gt; Ausschließen</title>
-	<meta name="author" content="Elmar Baumann" />
-	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-</head>
-<body>
-	
-<h1>Einstellungen-Dialog &gt; Ausschließen</h1>
+    <head>
+        <title>Einstellungen-Dialog &gt; Ausschließen</title>
+        <meta name="author" content="Elmar Baumann" />
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    </head>
+    <body>
 
-<p>Hier können Sie <strong>reguläre Ausdrücke</strong> eingeben für Bilder, die <em>nicht</em> angezeigt werden sollen.</p>
+        <h1>Einstellungen-Dialog &gt; Ausschließen</h1>
 
-<p>Informieren Sie sich über reguläre Ausdrücke im Web, falls Sie diese nicht kennen. Für die meisten Fälle reicht die Zeichenfolge <strong>Punkt + Stern</strong> (<code>.*</code>), die bedeutet: Hier kann nichts stehen oder beliebig viel. Wollen Sie alle Bilder im Ordner <code>Testfotos</code> ausschließen, erreichen Sie das durch den regulären Ausdruck:</p> 
+        <p>Hier können Sie <strong>reguläre Ausdrücke</strong> eingeben für
+            Bilder, die <em>nicht</em> angezeigt werden sollen.
+        </p>
 
-<pre>.*Testfotos.*</pre>
+        <p>Informieren Sie sich über reguläre Ausdrücke im Web, falls Sie diese
+            nicht kennen. Für die meisten Fälle reicht die Zeichenfolge
+            <strong>Punkt + Stern</strong> (<code>.*</code>), die bedeutet: Hier
+            kann nichts stehen oder beliebig viel. Wollen Sie alle Bilder im
+            Ordner <code>Testfotos</code> ausschließen, erreichen Sie das durch
+            den regulären Ausdruck:
+        </p>
 
-<p>Wählen Sie einen ausgeschlossenen Ordner an, werden dessen Bilder nicht mehr angezeigt. Hängen Sie allen Vorschaubildern auf dem Datenträger vor der Endung <code>-vorschau</code> an, können Sie diese ausblenden mit dem regulären Ausdruck:</p>
+        <pre>.*Testfotos.*</pre>
 
-<pre>.*-vorschau.*</pre>
+        <p>Wählen Sie einen ausgeschlossenen Ordner an, werden dessen Bilder
+            nicht mehr angezeigt. Hängen Sie allen Vorschaubildern auf dem
+            Datenträger vor der Endung <code>-vorschau</code> an, können Sie
+            diese ausblenden mit dem regulären Ausdruck:
+        </p>
 
-<p>oder genauer (eine von mehreren Varianten):</p>
+        <pre>.*-vorschau.*</pre>
 
-<pre>.*-vorschau\....$</pre>
+        <p>oder genauer (eine von mehreren Varianten):
+        </p>
 
-<p>Sie sollten auf die Schaltfläche <strong>Datenbank aktualisieren</strong> klicken, nachdem Sie reguläre Ausdrücke <em>hinzufügten</em>, damit Bilder aus der Datenbank gelöscht werden, die auf die regulären Ausdrücke passen, sonst erscheinen diese bei Suchen, Stichwörtern, Kategorien und Bildsammlungen.</p>
+        <pre>.*-vorschau\....$</pre>
 
-<p><img src="img/settings-excludepattern.gif" width="719" height="472" alt="" /></p>
+        <p>Sie sollten auf die Schaltfläche <strong>Datenbank
+            aktualisieren</strong> klicken, nachdem Sie reguläre Ausdrücke
+            hinzufügten, damit Bilder aus der Datenbank gelöscht werden, die auf
+            die regulären Ausdrücke passen, sonst erscheinen diese bei Suchen,
+            Stichwörtern, Kategorien und Bildsammlungen.
+        </p>
 
-</body>
+        <p><img src="img/settings-excludepattern.gif"
+                    width="719"
+                    height="472"
+                    alt="" />
+        </p>
+
+    </body>
 </html>

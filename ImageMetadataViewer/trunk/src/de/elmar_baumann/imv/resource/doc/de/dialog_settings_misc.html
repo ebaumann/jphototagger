@@ -1,60 +1,151 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
-<head>
-	<title>Einstellungen-Dialog &gt; Sonstiges</title>
-	<meta name="author" content="Elmar Baumann" />
-	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-</head>
-<body>
-	
-<h1>Einstellungen-Dialog &gt; Sonstiges</h1>
+    <head>
+        <title>Einstellungen-Dialog &gt; Sonstiges</title>
+        <meta name="author" content="Elmar Baumann" />
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    </head>
+    <body>
 
-<h2>Protokolloptionen (Logdatei)</h2>
+        <h1>Einstellungen-Dialog &gt; Sonstiges</h1>
 
-<p>Der Programmablauf wird protokolliert und das Protokoll in eine Logdatei geschrieben. Diese kann angezeigt werden durch Klick auf eine Schaltfläche am unteren Fensterrand. Sie hat ein grünes Häkchen, wenn alles ok ist und ein rotes Kreuz, falls Fehler auftraten. Bedeutung der Auswahl: </p>
+        <h2>Protokolloptionen (Logdatei)</h2>
 
-<ul>
-	<li><strong>WARNUNG</strong>: Nur wichtige Fehler und weniger wichtige werden protokolliert; im Normalfall ist das die günstigste Einstellung</li>
-	<li><strong>SCHWERWIEGEND</strong>: Nur wichtige Fehler werden protokolliert</li>
-	<li><strong>INFO</strong>: Informative Ausgaben, für den Benutzer eines Programms meist unwichtig</li>
-	<li><strong>KONFIG</strong>: Ausgaben betreffend die Konfiguration, für den Benutzer eines Programms meist unwichtig</li>
-	<li><strong>FEIN</strong>: Detaillierte Ausgaben, insbesondere SQL-Statements, die die Datenbank aktualisieren</li>
-	<li><strong>FEINER</strong>: Noch detailliertere Ausgaben, insbesondere SQL-Statements, die die Datenbank abfragen (und nicht modifizieren)</li>
-	<li><strong>AM FEINSTEN</strong>: Alles wird protokolliert</li>
-</ul>
+        <h3>Was / wie viel soll protokolliert werden?</h3>
 
-<p>Wählen Sie <strong>WARNUNG</strong>, solange keine Probleme bestehen und zur Fehlerbehebung <strong>AM FEINSTEN</strong>.  Meldungen, die keine Warnungen sind oder keine wichtigen Fehler, werden in die <strong>Standardausgabe</strong> geschrieben, andernfalls würde die Protokolldatei viele Megabyte groß (erfahrene Computerbenutzer wissen: Die Standardausgabe lässt sich umleiten in eine Datei). Die Standardausgabe sehen Sie im Fenster, über das das Programm <strong>Bilder</strong> gestartet wurde. Unter Windows ist es minimiert in der <strong>Taskleiste</strong>.</p>
+        <p>Der Programmablauf wird protokolliert und das Protokoll in eine
+            Logdatei geschrieben. Diese kann angezeigt werden durch Klick auf
+            eine Schaltfläche am unteren Fensterrand. Sie hat ein grünes
+            Häkchen, falls alles ok ist und ein rotes Kreuz, falls Fehler
+            auftraten. Bedeutungen der Auswahl:
+        </p>
 
-<h2>Ordner der Kamera-Speicherkarte</h2>
+        <ul>
+            <li><strong>WARNUNG</strong>: Nur wichtige Fehler und weniger
+                wichtige werden protokolliert. Warnungen werden bei anderen
+                Einstellungen zusätzlich protokolliert.
+            </li>
+            <li><strong>SCHWERWIEGEND</strong>: Nur wichtige Fehler werden
+                protokolliert.  Schwer wiegendes wird bei anderen
+                Einstellungen zusätzlich protokolliert.
+            </li>
+            <li><strong>INFO</strong>: Informative Ausgaben, beispielsweise
+                welche Verzeichnisse gerade automatisch eingelesen werden. Dies
+                ist die Grunddeinstellung.
+            </li>
+            <li><strong>KONFIG</strong>: Ausgaben betreffend die Konfiguration,
+                für den Benutzer eines Programms meist unwichtig.
+            </li>
+            <li><strong>FEIN</strong>: Detaillierte Ausgaben, insbesondere
+                SQL-Statements, die die Datenbank aktualisieren
+            </li>
+            <li><strong>FEINER</strong>: Noch detailliertere Ausgaben,
+                auch SQL-Statements, die die Datenbank abfragen und
+                <em>nicht</em> modifizieren
+            </li>
+            <li><strong>AM FEINSTEN</strong>: Detailliertere Informationen über
+                den Programmablauf
+            </li>
+        </ul>
 
-<p>Hier können Sie einen Ordner auswählen, von dem alle Bilder einer Speicherkarte in einen Ordner kopiert werden.</p>
+        <p>Wählen Sie <strong>WARNUNG</strong> oder <strong>INFO</strong>,
+            solange keine Probleme bestehen und zur Fehlerbehebung
+            <strong>AM FEINSTEN</strong>. Meldungen, die keine Warnungen sind
+            oder keine wichtigen Fehler, werden in die
+            <strong>Standardausgabe</strong> des Betriebssystems geschrieben,
+            andernfalls würde die Protokolldatei viele Megabyte groß. Die
+            Standardausgabe sehen Sie im Fenster <strong>Ausgaben</strong>, zu
+            erreichen über die Schaltfläche <strong>Ausgaben</strong> am unteren
+            Fensterrand.
+        </p>
 
-<p>Wählen Sie den Ordner aus, in dem der Inhalt Ihrer Kamera-Speicherkarte angezeigt wird, wenn Sie Ihre Kamera mit dem Rechner verbinden oder die Karte in einen Kartenleser einführen: Unter Windows einen Laufwerksbuchstaben, unter Linux einen Ordner, beispielsweise <code>/mnt/compactflash</code>. Das Laufwerk / der Ordner werden nach Bildern durchsucht einschließlich aller untergeordneten Ordner.</p>
+        <h3>Format nach Neustart</h3>
 
-<h2>Webbrowser, z.B. für Google Maps</h2>
+        <ul>
+            <li><strong>Strukturiert:</strong> Nachrichten können sortiert
+                werden nach ihrer Kategorie, jede Nachricht kann einzeln
+                ausgewählt werden und betrachtet im Detail und Sie können
+                filtern und suchen innerhalb der Nachrichten. Dies ist die
+                Grundeinstellung.
+            </li>
+            <li><strong>Textzeilen:</strong> Die Nachrichten werden Zeile für
+                Zeile untereinander angezeigt. Sie können die Zeilen
+                betrachten und haben sonst keine weitere Optionen.
+            </li>
+        </ul>
 
-<p>Hier wählen Sie einen Webbrowser aus, der aufgerufen wird, falls Sie mit dem Internet verbunden werden müssen, beispielsweise zum Anzeigen von Satellitenbildern des Aufnahmeorts bei GPS-Daten im Bild.</p>
+        <h2>Ordner der Kamera-Speicherkarte</h2>
 
-<h2>Datenbankordner nach Neustart</h2>
+        <p>Hier können Sie einen Ordner auswählen, von dem alle Bilder einer
+            Speicherkarte in einen Ordner kopiert werden.
+        </p>
 
-<p>Sie können die Datenbank in einem anderen Ordner anlegen lassen. Wollen Sie Ihre bisherigen Daten übernehmen, kopieren Sie aus dem aktuellen Datenbankordner, der im Dialog angezeigt wird, bevor Sie es ändern, folgende Dateien nach Beenden von <strong>Bilder</strong> und vor einem Neustart:</p>
+        <p>Wählen Sie den Ordner aus, in dem der Inhalt Ihrer
+            Kamera-Speicherkarte angezeigt wird, wenn Sie Ihre Kamera mit dem
+            Rechner verbinden oder die Karte in einen Kartenleser einführen:
+            Unter Windows einen Laufwerksbuchstaben, unter Linux einen Ordner,
+            beispielsweise <code>/mnt/compactflash</code>. Das Laufwerk oder der
+            Ordner werden nach Bildern durchsucht einschließlich aller
+            untergeordneten Ordner.
+        </p>
 
-<ul>
-	<li>Den Ordner <code>thumbnails</code>, dieser enthält die Vorschaubilder</li>
-	<li>Alle Dateien, die mit <code>database</code> starten, z.B. <code>database.data</code></li>
-</ul>
+        <h2>Webbrowser, z.B. für Google Maps</h2>
 
-<p>So können z.B. mehrere <em>- nicht gleichzeitig! -</em> die gleiche Datenbank benutzen und bearbeiten oder Sie wählen einen Ordner aus, der täglich automatisch gesichert wird.</p>
+        <p>Hier wählen Sie einen Webbrowser aus, der aufgerufen wird, falls Sie
+            mit dem Internet verbunden werden müssen, beispielsweise zum
+            Anzeigen von Satellitenbildern des Aufnahmeorts bei GPS-Daten im
+            Bild.
+        </p>
 
-<h2>Versteckte Ordner einlesen und anzeigen</h2>
+        <h2>Datenbankordner nach Neustart</h2>
 
-<p>Wollen Sie Bilder archivieren, die in versteckten Ordnern gespeichert sind, kreuzen Sie dieses Kästchen an.</p>
+        <p>Sie können die Datenbank in einem anderen Ordner anlegen lassen.
+            Wollen Sie Ihre bisherigen Daten übernehmen, kopieren Sie aus dem
+            aktuellen Datenbankordner, der im Dialog angezeigt wird, bevor Sie
+            es ändern, folgende Dateien nach Beenden von <strong>Bilder</strong>
+            und vor einem Neustart:
+        </p>
 
-<h2>Versuchen, nach Programmstart im Kartenreiter <strong>Ordner</strong> zuletzt ausgewählten Ordner anzuzeigen</h2>
+        <ul>
+            <li>Den Ordner <code>thumbnails</code>, dieser enthält die
+                Vorschaubilder
+            </li>
+            <li>Alle Dateien, die mit <code>database</code> starten, z.B.
+                <code>database.data</code>
+            </li>
+        </ul>
 
-<p>Ist diese Option angekreuzt, wird versucht, nach dem Start den Ordner auszuwählen, der beim Beenden von <strong>Bilder</strong> im Kartenreiter <strong>Ordner</strong> ausgewählt war. Hat ein Laufwerk viele Ordner, kann dies den Start verzögern. Unter dem Betriebssystem Windows kommt es aus unterschiedlichen Gründen zur Verzögerung, beispielsweise wenn ein Laufwerksbuchstabe mit einem Netzlaufwerk verknüpft war und dieses nicht erreicht werden kann.</p>
+        <p>So können z.B. mehrere <em>- nicht gleichzeitig! -</em> die selbe
+            Datenbank benutzen und bearbeiten oder Sie wählen einen Ordner aus,
+            der täglich automatisch gesichert wird, sodass das Backup der
+            Datenbank gewährleistet ist.
+        </p>
 
-<p><img src="img/settings-misc.gif" width="797" height="471" alt="" /></p>
+        <h2>Versteckte Ordner einlesen und anzeigen</h2>
 
-</body>
+        <p>Wollen Sie Bilder archivieren, die in versteckten Ordnern gespeichert
+            sind, kreuzen Sie dieses Kästchen an.
+        </p>
+
+        <h2>Versuchen, nach Programmstart im Kartenreiter
+            <strong>Ordner</strong> zuletzt ausgewählten Ordner anzuzeigen
+        </h2>
+
+        <p>Ist diese Option angekreuzt, wird versucht, nach dem Start den Ordner
+            auszuwählen, der beim Beenden von <strong>Bilder</strong> im
+            Kartenreiter <strong>Ordner</strong> ausgewählt war. Hat ein
+            Laufwerk viele Ordner, kann dies den Start verzögern. Unter dem
+            Betriebssystem Windows kommt es aus unterschiedlichen Gründen zur
+            Verzögerung, beispielsweise wenn ein Laufwerksbuchstabe mit einem
+            Netzlaufwerk verknüpft war und dieses nicht erreicht werden kann.
+        </p>
+
+        <p><img src="img/settings-misc.gif"
+                    width="804"
+                    height="487"
+                    alt="" />
+        </p>
+
+    </body>
 </html>

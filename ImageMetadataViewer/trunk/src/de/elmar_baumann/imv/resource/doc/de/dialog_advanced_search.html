@@ -1,66 +1,183 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
-<head>
-	<title>Erweiterte Suche</title>
-	<meta name="author" content="Elmar Baumann" />
-	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-</head>
-<body>
-	
-<h1>Erweiterte Suche</h1>
- 
-<p>Mit der erweiterten Suche können Sie fast alles finden, was in der Datenbank gespeichert ist. Sie können definieren, wie gesucht werden soll, eine Suche speichern und sie zukünftig schnell benutzen.</p>
+    <head>
+        <title>Erweiterte Suche</title>
+        <meta name="author" content="Elmar Baumann" />
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    </head>
+    <body>
 
-<p><img src="img/dialog-advanced-search.gif" width="672" height="227" alt="" /></p>
+        <h1>Erweiterte Suche</h1>
 
-<p>Im zweiten Dropdown-Listenfeld von links wählen Sie aus, <strong>was</strong> Sie suchen: Aufnahmezeit, Bildbeschreibung, Fotograf, ... Im folgenden Dropdown-Listenfeld wählen Sie aus, worauf der folgende Suchtext passen soll:</p>
+        <p>Mit der erweiterten Suche können Sie fast alles finden, was in der
+            Datenbank gespeichert ist. Sie können definieren, wie gesucht werden
+            soll, eine Suche speichern und sie zukünftig schnell benutzen.
+        </p>
 
-<ul>
-	<li><strong>ist gleich</strong>: Der Suchbegriff muss <strong>genau so</strong> in der Datenbank stehen. SQL: <strong>=</strong>.</li>
-	<li><strong>passt auf</strong>: Der Suchbegriff entspricht einem <strong>Muster</strong>. In der Regel benutzen Sie Prozentzeichen vor und nach dem Suchbegriff. Anstelle des Prozentzeichens können keine oder beliebig viele Zeichen stehen. <code>Ei%</code> passt auf alles, das mit <code>Ei</code> anfängt: <code>Ei, Eier, Einser, Eis, ...</code> <code>%en</code> passt auf Begriffe mit <code>en</code> am Ende: <code>Einsen, Wiesen, Burgen, ...</code> und <code>%eier%</code> auf alles, das irgendwo <code>eier</code> enthält: <code>Eier, Schlaumeier, Eierbecher, Zweierbeziehung, ...</code>. SQL: <strong>LIKE</strong>.</li>
-	<li><strong>ungleich</strong>: Alles andere als der Suchbegriff (das Gegenteil von <code>ist gleich</code>, <strong>nicht</strong>): Alle Bilder, die nicht mit 50 mm Brennweite fotografiert wurden, alle Bilder, die nicht von Heinz fotografiert wurden, ... SQL: <strong>&lt;&gt;</strong>.</li>
-	<li><strong>größer</strong>: Größer als der Suchbegriff (<strong>mehr als</strong>). Wird in der Regel für Zahlen benutzt: Welche Bilder wurden mit mehr als 200 ISO fotografiert, welche mit längerer Brennweite als 50 mm, welche nach dem 01. Januar 2002? SQL: <strong>&gt;</strong>.</li>
-	<li><strong>größer oder gleich</strong>:  Ist wie größer, schließt aber den Suchbegriff mit ein (<strong>mindestens</strong>). Größer als der 01. Januar 2000 findet erst Bilder ab dem 02. Januar 2000, größer gleich ab dem 01. Januar 2000. <strong></strong> SQL: <strong>&gt;=</strong>.</li>
-	<li><strong>kleiner</strong>:  Kleiner als der Suchbegriff (<strong>weniger als</strong>): Welche Bilder wurden vor dem 01. Januar 2000 fotografiert, welche mit weniger als 400 ISO? SQL: <strong>&lt;</strong>.</li>
-	<li><strong>kleiner oder gleich</strong>:  Wie kleiner, der Suchbegriff wird aber mit eingeschlossen (<strong>höchstens</strong>): Welche Bilder wurden bis einschließlich 24.12.2007 fotografiert? SQL: <strong>&lt;=</strong>.</li>
-</ul>
+        <p><img src="img/dialog-advanced-search.gif"
+                    width="672"
+                    height="227"
+                    alt="" />
+        </p>
 
-<p>Groß- und Kleinschreibung sind egal: Sie können nach <strong>meyer</strong> suchen oder nach <strong>Meyer</strong>, gefunden werden die gleichen Bilder.</p>
+        <p>Im zweiten Dropdown-Listenfeld von links wählen Sie aus,
+            <strong>was</strong> Sie suchen: Aufnahmezeit, Bildbeschreibung,
+            Fotograf, ... Im folgenden Dropdown-Listenfeld wählen Sie aus,
+            worauf der folgende Suchtext passen soll:
+        </p>
 
-<h2>Eingabeformate</h2>
+        <ul>
+            <li><strong>ist gleich</strong>: Der Suchbegriff muss <strong>genau
+                so</strong> in der Datenbank stehen. SQL: <strong>=</strong>.
+            </li>
+            <li><strong>passt auf</strong>: Der Suchbegriff entspricht einem
+                <strong>Muster</strong>. In der Regel benutzen Sie
+                Prozentzeichen vor und nach dem Suchbegriff. Anstelle des
+                Prozentzeichens können keine oder beliebig viele Zeichen stehen.
+                <code>Ei%</code> passt auf alles, das mit <code>Ei</code>
+                anfängt: <code>Ei, Eier, Einser, Eis, ...</code>
+                <code>%en</code> passt auf Begriffe mit <code>en</code> am Ende:
+                <code>Einsen, Wiesen, Burgen, ...</code> und <code>%eier%</code>
+                auf alles, das irgendwo <code>eier</code> enthält: <code>Eier,
+                Schlaumeier, Eierbecher, Zweierbeziehung, ...</code>. SQL:
+                <strong>LIKE</strong>.
+            </li>
+            <li><strong>ungleich</strong>: Alles andere als der Suchbegriff (das
+                Gegenteil von <code>ist gleich</code>, <strong>nicht</strong>):
+                Alle Bilder, die nicht mit 50 mm Brennweite fotografiert wurden,
+                alle Bilder, die nicht von Heinz fotografiert wurden, ... SQL:
+                <strong>&lt;&gt;</strong>.
+            </li>
+            <li><strong>größer</strong>: Größer als der Suchbegriff
+                (<strong>mehr als</strong>). Wird in der Regel für Zahlen
+                benutzt: Welche Bilder wurden mit mehr als 200 ISO fotografiert,
+                welche mit längerer Brennweite als 50 mm, welche nach dem
+                01. Januar 2002? SQL: <strong>&gt;</strong>.
+            </li>
+            <li><strong>größer oder gleich</strong>:  Ist wie größer, schließt
+                aber den Suchbegriff mit ein (<strong>mindestens</strong>).
+                Größer als der 01. Januar 2000 findet erst Bilder ab dem 02.
+                Januar 2000, größer gleich ab dem 01. Januar 2000. SQL:
+                <strong>&gt;=</strong>.
+            </li>
+            <li><strong>kleiner</strong>:  Kleiner als der Suchbegriff
+                (<strong>weniger als</strong>): Welche Bilder wurden vor dem 01.
+                Januar 2000 fotografiert, welche mit weniger als 400 ISO? SQL:
+                <strong>&lt;</strong>.
+            </li>
+            <li><strong>kleiner oder gleich</strong>:  Wie kleiner, der
+                Suchbegriff wird aber mit eingeschlossen
+                (<strong>höchstens</strong>): Welche Bilder wurden bis
+                einschließlich 24.12.2007 fotografiert? SQL:
+                <strong>&lt;=</strong>.
+            </li>
+        </ul>
 
-<p>Der Dialog versucht, für die Eingabefelder nur passende Formate zuzulassen. Geben Sie beispielsweise Buchstaben ein für eine ISO-Zahl, werden diese nicht angenommen. Ist Ein Punkt zu sehen, steht dieser für ein Komma und Sie geben Zahlen so ein, dass ganze Zahlen vor dem Punkt enden. Mit den Pfeiltasten können Sie den Eingabecursor positionieren. Beispiele sehen Sie in folgender Abbildung:</p>
+        <p>Groß- und Kleinschreibung sind egal: Sie können nach
+            <strong>meyer</strong> suchen oder nach <strong>Meyer</strong>,
+            gefunden werden die gleichen Bilder.
+        </p>
 
-<p><img src="img/dialog-advanced-search_formatted_fields.gif" width="92" height="153" alt="" /></p>
+        <h2>Eingabeformate</h2>
 
-<p>In der Abbildung oben ist das erste Eingabefeld ein Feld für Kommazahlen. Ganze Zahlen enden am Punkt, wie die 35 im dritten Feld, im zweiten ist die Zahl 7,8 zu sehen. Das vorletzte Feld dient der Eingabe eines Datums in der Form Jahr-Monat-Tag, so wie im letzten Eingabefeld zu sehen ist am Beispiel des 10. März 2008.</p>
+        <p>Der Dialog versucht, für die Eingabefelder nur passende Formate
+            zuzulassen. Geben Sie beispielsweise Buchstaben ein für eine
+            ISO-Zahl, werden diese nicht angenommen. Ist Ein Punkt zu sehen,
+            steht dieser für ein Komma und Sie geben Zahlen so ein, dass ganze
+            Zahlen vor dem Punkt enden. Mit den Pfeiltasten können Sie den
+            Eingabecursor positionieren. Beispiele sehen Sie in folgender
+            Abbildung:
+        </p>
 
-<h2>Suche nach Datum</h2>
+        <p><img src="img/dialog-advanced-search_formatted_fields.gif"
+                    width="92"
+                    height="153"
+                    alt="" />
+        </p>
 
-<p>Das Datumsformat ist: <code>YYYY-MM-DD</code>: Das Jahr vierstellig, danach ein Bindestrich, folgend der Monat zweistellig, wieder ein Bindestrich und zuletzt der Tag zweistellig. Für den 24.12.2007 geben Sie ein <code>2007-12-24</code>. Sie können auch den <strong>Kalender</strong> benutzen (Schaltfläche rechts).</p>
+        <p>In der Abbildung oben ist das erste Eingabefeld ein Feld für
+            Kommazahlen. Ganze Zahlen enden am Punkt, wie die 35 im dritten
+            Feld, im zweiten ist die Zahl 7,8 zu sehen. Das vorletzte Feld dient
+            der Eingabe eines Datums in der Form Jahr-Monat-Tag, so wie im
+            letzten Eingabefeld zu sehen ist am Beispiel des 10. März 2008.
+        </p>
 
-<h2>Mehrere Suchbegriffe (Verknüpfungen)</h2>
+        <h2>Suche nach Datum</h2>
 
-<p>Suchbegriffe können Sie mit verknüpfen mit <strong>und</strong> sowie mit <strong>oder</strong>. <strong>Und</strong> bedeutet, der folgende Begriff muss auf jeden Fall in der Datenbank stehen, <strong>oder</strong> findet den folgenden Suchbegriff unabhängig vom vorhergehenden. Beispiele:</p>
+        <p>Das Datumsformat ist: <code>YYYY-MM-DD</code>: Das Jahr vierstellig,
+            danach ein Bindestrich, folgend der Monat zweistellig, wieder ein
+            Bindestrich und zuletzt der Tag zweistellig. Für den 24.12.2007
+            geben Sie ein <code>2007-12-24</code>. Sie können auch den
+            <strong>Kalender</strong> benutzen (Schaltfläche rechts).
+        </p>
 
-<ul>
-	<li><code>Kamera ist gleich Nikon D300 <strong>und</strong> Aufnahmeort ist gleich München</code> findet Bilder, die mit der Nikon D300 in München fotografiert wurden</li>
-	<li><code>Kamera ist gleich Nikon D300 <strong>oder</strong> Aufnahmeort ist gleich München</code> findet alle Bilder, die mit der Nikon D300 überall auf der Welt fotografiert wurden und zusätzlich alle Bilder, die in München mit jeder beliebigen Kamera fotografiert wurden</li>
-	<li> <code>Datum größer gleich 2005-01-01 <strong>und</strong> Datum kleiner gleich 2005-12-31</code> findet alle Bilder, die im Jahr 2005 fotografiert wurden</li>
-	<li> <code>Datum größer 2005-12-31 <strong>oder</strong> Datum kleiner 2005-01-01</code> findet alle Bilder vor 2005 und nach 2005, also alle, die nicht 2005 fotografiert wurden</li>
-</ul>
+        <h2>Mehrere Suchbegriffe (Verknüpfungen)</h2>
 
-<p>Mit mehreren Suchbegriffen lassen sich versehentlich unlösbare Aufgaben stellen: <code>Stichwort ist gleich Baum UND Stichwort ist gleich Himmel</code> wird nie Bilder finden, da ein Stichwort entweder &quot;Baum&quot; heißt <em>oder</em> &quot;Himmel&quot;.</p>
-	
-<h2>Klammern</h2>
+        <p>Suchbegriffe können Sie mit verknüpfen mit <strong>und</strong> sowie
+            mit <strong>oder</strong>. <strong>Und</strong> bedeutet, der
+            folgende Begriff muss auf jeden Fall in der Datenbank stehen,
+            <strong>oder</strong> findet den folgenden Suchbegriff unabhängig
+            vom vorhergehenden. Beispiele:
+        </p>
 
-<p>Mit Klammern lassen sich Probleme lösen wie: Finde alle Bilder, die vom Fotografen <code>Peter</code> oder vom Fotografen <code>Heinz</code> im Jahr <code>2006</code> fotografiert wurden. Die Anfrage <code>Fotograf ist gleich Peter oder Fotograf ist gleich Heinz und Aufnahmezeit größer gleich 2006-01-01 und Aufnahmezeit kleiner gleich 2006-12-31</code> findet zwar alle Bilder, die Peter und Heinz 2005 fotografierten, aber auch alle Bilder, die 2005 von irgendwem (anders) fotografiert wurden. Mit Klammern lässt sich die Abfrage richtig formulieren: <code>(Fotograf ist gleich Peter oder Fotograf ist gleich Heinz) und Aufnahmezeit größer gleich 2006-01-01 und Aufnahmezeit kleiner gleich 2006-12-31</code>.</p>
+        <ul>
+            <li><code>Kamera ist gleich Nikon D300 <strong>und</strong>
+                Aufnahmeort ist gleich München</code> findet Bilder, die mit der
+                Nikon D300 in München fotografiert wurden
+            </li>
+            <li><code>Kamera ist gleich Nikon D300 <strong>oder</strong>
+                Aufnahmeort ist gleich München</code> findet alle Bilder, die
+                mit der Nikon D300 überall auf der Welt fotografiert wurden und
+                zusätzlich alle Bilder, die in München mit jeder beliebigen
+                Kamera fotografiert wurden
+            </li>
+            <li> <code>Datum größer gleich 2005-01-01 <strong>und</strong> Datum
+                kleiner gleich 2005-12-31</code> findet alle Bilder, die im Jahr
+                2005 fotografiert wurden
+            </li>
+            <li><code>Datum größer 2005-12-31 <strong>oder</strong> Datum
+                kleiner 2005-01-01</code> findet alle Bilder vor 2005 und nach
+                2005, also alle, die nicht 2005 fotografiert wurden
+            </li>
+        </ul>
 
-<p><em>Werden Klammern falsch gesetzt, erzeugt das einen Fehler und am unteren Fensterrand erscheint auf der Logdatei-Schaltfläche ein rotes Kreuz!</em></p>
+        <p>Mit mehreren Suchbegriffen lassen sich versehentlich unlösbare
+            Aufgaben stellen: <code>Stichwort ist gleich Baum UND Stichwort ist
+            gleich Himmel</code> wird nie Bilder finden, da ein Stichwort
+            entweder &quot;Baum&quot; heißt <em>oder</em> &quot;Himmel&quot;.
+        </p>
 
-<h2>Suchen speichern</h2>
+        <h2>Klammern</h2>
 
-<p>Speichern Sie wichtige Suchen! Alle gespeicherten Suchen sehen Sie links im Programmfenster durch Klick auf den Kartenreiter <strong>Suchen</strong>. Dort lassen sie sich ändern, löschen und neu erzeugen durch Klick mit der <strong>rechten</strong> Maustaste auf eine gespeicherte Suche. Klicken Sie mit der <strong>linken</strong> Maustaste auf den Namen einer gespeicherten Suche, erscheinen alle gefundenen Bilder.</p>
+        <p>Mit Klammern lassen sich Probleme lösen wie: Finde alle Bilder, die
+            vom Fotografen <code>Peter</code> oder vom Fotografen
+            <code>Heinz</code> im Jahr <code>2006</code> fotografiert wurden.
+            Die Anfrage <code>Fotograf ist gleich Peter oder Fotograf ist gleich
+           Heinz und Aufnahmezeit größer gleich 2006-01-01 und Aufnahmezeit
+            kleiner gleich 2006-12-31</code> findet zwar alle Bilder, die Peter
+            und Heinz 2005 fotografierten, aber auch alle Bilder, die 2005 von
+            irgendwem (anders) fotografiert wurden. Mit Klammern lässt sich die
+            Abfrage richtig formulieren: <code>(Fotograf ist gleich Peter oder
+           Fotograf ist gleich Heinz) und Aufnahmezeit größer gleich 2006-01-01
+            und Aufnahmezeit kleiner gleich 2006-12-31</code>.
+        </p>
 
-</body>
+        <p><em>Werden Klammern falsch gesetzt, erzeugt das einen Fehler und am
+                unteren Fensterrand erscheint auf der Logdatei-Schaltfläche ein
+            rotes Kreuz!</em>
+        </p>
+
+        <h2>Suchen speichern</h2>
+
+        <p>Speichern Sie wichtige Suchen! Alle gespeicherten Suchen sehen Sie
+            links im Programmfenster durch Klick auf den Kartenreiter
+            <strong>Suchen</strong>. Dort lassen sie sich ändern, löschen und
+            neu erzeugen durch Klick mit der <strong>rechten</strong> Maustaste
+            auf eine gespeicherte Suche. Klicken Sie mit der
+            <strong>linken</strong> Maustaste auf den Namen einer gespeicherten
+            Suche, erscheinen alle gefundenen Bilder.
+        </p>
+
+    </body>
 </html>

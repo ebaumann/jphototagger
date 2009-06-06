@@ -1,61 +1,102 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
-<head>
-	<title>Was ist in der Datenbank gespeichert?</title>
-	<meta name="author" content="Elmar Baumann" />
-	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-</head>
-<body>
+    <head>
+        <title>Was ist in der Datenbank gespeichert?</title>
+        <meta name="author" content="Elmar Baumann" />
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    </head>
+    <body>
 
-<h1>Was ist in der Datenbank gespeichert?</h1>
+        <h1>Was ist in der Datenbank gespeichert?</h1>
 
-<p>In der Datenbank sind <strong>Vorschaubilder</strong> gespeichert, eine <em>Auswahl</em> an <strong><a href="glossary_metadata.html">Metadaten</a></strong> und einige weitere Daten:</p>
+        <p>In der Datenbank gespeichert sind eine <em>Auswahl</em> an
+            <a href="glossary_metadata.html">Metadaten</a> und einige weitere
+            Daten:
+        </p>
 
-<h2>Aus den <a href="glossary_sidecar_file.html">XMP-Filialdateien</a> oder in Bilddateien eingebettetem XMP:</h2>
-<ul>
-	<li>dc:subject</li>
-	<li>dc:creator</li>
-	<li>dc:rights</li>
-	<li>dc:description</li>
-	<li>Iptc4xmpCore:Location</li>
-	<li>dc:title</li>
-	<li>Iptc4xmpCore:CountryCode</li>
-	<li>photoshop:Headline</li>
-	<li>photoshop:CaptionWriter</li>
-	<li>photoshop:Category</li>
-	<li>photoshop:SupplementalCategories</li>
-	<li>photoshop:City</li>
-	<li>photoshop:State</li>
-	<li>photoshop:Country</li>
-	<li>photoshop:TransmissionReference</li>
-	<li>photoshop:Instructions</li>
-	<li>photoshop:Credit</li>
-	<li>photoshop:Source</li>
-	<li>photoshop:AuthorsPosition</li>
-</ul>
+        <h2>Aus den <a href="glossary_sidecar_file.html">XMP-Filialdateien</a>
+            oder in Bilddateien eingebettetem XMP:
+        </h2>
 
-<h2>Aus den <a href="glossary_xmp.html">EXIF</a>-Daten der Bilddatei:</h2>
-<ul>
-	<li>DateTimeOriginal</li>
-	<li>FocalLength</li>
-	<li>ISOSpeedRatings</li>
-	<li>Model</li>
-</ul>
+        <ul>
+            <li>dc:subject
+            </li>
+            <li>dc:creator
+            </li>
+            <li>dc:rights
+            </li>
+            <li>dc:description
+            </li>
+            <li>Iptc4xmpCore:Location
+            </li>
+            <li>dc:title
+            </li>
+            <li>Iptc4xmpCore:CountryCode
+            </li>
+            <li>photoshop:Headline
+            </li>
+            <li>photoshop:CaptionWriter
+            </li>
+            <li>photoshop:Category
+            </li>
+            <li>photoshop:SupplementalCategories
+            </li>
+            <li>photoshop:City
+            </li>
+            <li>photoshop:State
+            </li>
+            <li>photoshop:Country
+            </li>
+            <li>photoshop:TransmissionReference
+            </li>
+            <li>photoshop:Instructions
+            </li>
+            <li>photoshop:Credit
+            </li>
+            <li>photoshop:Source
+            </li>
+            <li>photoshop:AuthorsPosition
+            </li>
+        </ul>
 
-<h2>Weitere Daten in der Datenbank</h2>
+        <h2>Aus den <a href="glossary_xmp.html">EXIF</a>-Daten der Bilddatei:
+        </h2>
+        <ul>
+            <li>DateTimeOriginal
+            </li>
+            <li>FocalLength
+            </li>
+            <li>ISOSpeedRatings
+            </li>
+            <li>Model
+            </li>
+        </ul>
 
-<ul>
-	<li>Automatisch einzulesende Ordner</li>
-	<li>Bildsammlungen</li>
-	<li>Reguläre Ausdrücke zum Ausschließen von Bilddateien</li>
-	<li>Vorlagen zum Bearbeiten von Metadaten</li>
-	<li>Weitere Programme zum Öffnen von Bildern</li>
-	<li>Gespeicherte Suchen</li>
-</ul>
+        <h2>Weitere Daten in der Datenbank</h2>
 
-<h2>Nicht in der Datenbank</h2>
+        <ul>
+            <li>Automatisch einzulesende Ordner
+            </li>
+            <li>Bildsammlungen
+            </li>
+            <li>Reguläre Ausdrücke zum Ausschließen von Bilddateien
+            </li>
+            <li>Vorlagen zum Bearbeiten von Metadaten
+            </li>
+            <li>Weitere Programme zum Öffnen von Bildern
+            </li>
+            <li>Gespeicherte Suchen
+            </li>
+        </ul>
 
-<p>Alles andere, beispielsweise das Standardprogramm zum Öffnen von Bildern oder die Spalten für die Schnellsuche, ist in der Einstellungen-Datei gespeichert (<code>Settings.properties</code>) im <a href="facts_database_location.html">Benutzerordner</a>.<p>
+        <h2>Nicht in der Datenbank</h2>
 
-</body>
+        <p>Alles andere, beispielsweise das Standardprogramm zum Öffnen von
+            Bildern oder die Spalten für die Schnellsuche, ist in der
+            Einstellungen-Datei gespeichert (<code>Settings.properties</code>)
+            im <a href="facts_database_location.html">Benutzerordner</a>.
+        </p>
+
+    </body>
 </html>

@@ -1,17 +1,23 @@
- <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
-<head>
-	<title>Programm zum Erzeugen von Vorschaubildern</title>
-	<meta name="author" content="Elmar Baumann" />
-	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-</head>
-<body>
-	
-<h1>Programm zum Erzeugen von Vorschaubildern</h1>
+    <head>
+        <title>Programm zum Erzeugen von Vorschaubildern</title>
+        <meta name="author" content="Elmar Baumann" />
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    </head>
+    <body>
 
-<p>Sie können im Einstellungen-Dialog ein Programm zum Erzeugen von Vorschaubildern <a href="dialog_settings_thumbnails.html">definieren</a>. Hier ist ein Skript, mit dem ich unter <strong>Linux</strong> Vorschaubilder erzeugen lasse:</p>
+        <h1>Programm zum Erzeugen von Vorschaubildern</h1>
 
-<pre>
+        <p>Sie können im Einstellungen-Dialog ein Programm zum Erzeugen von
+            Vorschaubildern
+            <a href="dialog_settings_thumbnails.html">definieren</a>. Hier ist
+            ein Skript, mit dem ich unter <strong>Linux</strong> Vorschaubilder
+            erzeugen lasse:
+        </p>
+
+        <pre>
 #!/bin/sh
 #
 # Author : Elmar Baumann &lt;eb@elmar-baumann.de&gt;
@@ -57,32 +63,32 @@ tiff"
 function check_params() {
     if [ -z $image_filename ] || [ -z $length ]
     then
-	echo "Falsche Parameteranzahl (1. Bilddatei, 2. Länge)!" &gt;&amp;2
-	exit 1
+    echo "Falsche Parameteranzahl (1. Bilddatei, 2. Länge)!" &gt;&amp;2
+    exit 1
     fi
     if [ $length -lt $MIN_LENGTH ]
     then
-	echo "Thumbnaillänge muss mindestens $MIN_LENGTH sein!" &gt;&amp;2
-	exit 2
+    echo "Thumbnaillänge muss mindestens $MIN_LENGTH sein!" &gt;&amp;2
+    exit 2
     fi
 }
 
 function check_files() {
     if ! [ -f $image_filename ]
     then
-	echo "Bilddatei '$image_filename' existiert nicht!" &gt;&amp;2
-	exit 3
+    echo "Bilddatei '$image_filename' existiert nicht!" &gt;&amp;2
+    exit 3
     fi
     if ! [ -d $temp_dir ]
     then
-	echo "Temporärverzeichnis '$temp_dir' existiert nicht!" &gt;&amp;2
-	exit 4
+    echo "Temporärverzeichnis '$temp_dir' existiert nicht!" &gt;&amp;2
+    exit 4
     fi
     touch $temp_filename
     if [ $? -ne 0 ]
     then
-	echo "$temp_dir lässt sich nicht beschreiben!" &gt;&amp;2
-	exit 5
+    echo "$temp_dir lässt sich nicht beschreiben!" &gt;&amp;2
+    exit 5
     fi
     rm $temp_filename
 }
@@ -107,7 +113,7 @@ function image_to_stdout() {
 
     if [ $(is_landscape $filename) -eq 0 ]
     then
-	length_cmd="${length}x"
+    length_cmd="${length}x"
     fi
 
     convert $filename -resize $length_cmd -unsharp 0.5x0.5+1.0+0.1 jpg:-
@@ -126,16 +132,16 @@ function raw_to_stdout() {
 function thumbnail_to_stdout() {
     if [ $(is_raw_file) -eq 0 ]
     then
-	raw_to_stdout
+    raw_to_stdout
     else
-	image_to_stdout $image_filename
+    image_to_stdout $image_filename
     fi
 }
 
 function tear_down {
     if [ -f $temp_filename ]
     then
-	rm $temp_filename
+    rm $temp_filename
     fi
 }
 
@@ -143,7 +149,7 @@ check_params
 check_files
 thumbnail_to_stdout
 tear_down
-</pre>
+        </pre>
 
-</body>
+    </body>
 </html>
