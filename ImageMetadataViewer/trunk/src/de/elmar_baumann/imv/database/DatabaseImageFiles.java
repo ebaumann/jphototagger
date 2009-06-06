@@ -682,7 +682,7 @@ public final class DatabaseImageFiles extends Database {
             " xmp LEFT JOIN xmp_dc_subjects" + // NOI18N
             " ON xmp.id = xmp_dc_subjects.id_xmp" + // NOI18N
             " LEFT JOIN xmp_photoshop_supplementalcategories" + // NOI18N
-            " ON xmp.id = xmp_photoshop_supplementalcategories.id" + // NOI18N
+            " ON xmp.id = xmp_photoshop_supplementalcategories.id_xmp" + // NOI18N
             " INNER JOIN files" + // NOI18N
             " ON xmp.id_files = files.id" + // NOI18N
             " WHERE files.filename = ?"; // NOI18N
@@ -798,7 +798,7 @@ public final class DatabaseImageFiles extends Database {
                             DatabaseAction.Type.XMP_UPDATED, filename);
                     }
                 }
-                connection.commit();
+                    connection.commit();
                 event.setValue(i + 1);
                 notifyProgressListenerPerformed(listener, event);
                 abort = event.isStop();
