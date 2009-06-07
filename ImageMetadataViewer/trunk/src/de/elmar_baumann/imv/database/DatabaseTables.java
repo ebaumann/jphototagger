@@ -67,6 +67,7 @@ public final class DatabaseTables extends Database {
             createFavoriteDirectoriesTable(connection, stmt);
             createFileExcludePatternTable(connection, stmt);
             createProgramsTable(connection, stmt);
+            createActionsAfterDbInsertionTable(connection, stmt);
             UpdateTables.INSTANCE.update(connection);
             stmt.close();
         } catch (SQLException ex) {
@@ -343,6 +344,18 @@ public final class DatabaseTables extends Database {
             stmt.execute("CREATE INDEX idx_programs_alias ON programs (alias)"); // NOI18N
             stmt.execute("CREATE INDEX idx_programs_sequence_number ON programs (sequence_number)"); // NOI18N
             stmt.execute("CREATE INDEX idx_programs_action ON programs (action)"); // NOI18N
+        }
+    }
+
+    private void createActionsAfterDbInsertionTable(Connection connection, Statement stmt) throws SQLException {
+        if (!DatabaseMetadata.INSTANCE.existsTable(connection, "actions_after_db_insertion")) { // NOI18N
+            stmt.execute("CREATE CACHED TABLE actions_after_db_insertion " + // NOI18N
+                    " (" + // NOI18N
+                    "id_programs BIGINT NOT NULL" + // NOI18N
+                    ", action_order INTEGER" + // NOI18N
+                    ");"); // NOI18N
+            stmt.execute("CREATE UNIQUE INDEX idx_actions_after_db_insertion_id_programs ON actions_after_db_insertion (id_programs)"); // NOI18N
+            stmt.execute("CREATE INDEX idx_actions_after_db_insertion_action_order ON actions_after_db_insertion (action_order)"); // NOI18N
         }
     }
 

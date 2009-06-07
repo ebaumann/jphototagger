@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+    <head>
+        <title>Tipp: XMP-Metadaten einbetten über ein Skript</title>
+        <meta name="author" content="Elmar Baumann" />
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    </head>
+    <body>
+
+        <h1>Tipp: XMP-Metadaten einbetten über ein Skript</h1>
+
+        <p>Sie können über ein Skript XMP-Metdaten in eine Bilddatei einbetten
+            lassen. Am bequemsten ist es, Sie
+            <a href="dialog_settings_actions.html">stellen das ein</a>.
+            Hier als Beispiel ein Bash-Skript für <strong>Linux</strong>, das
+            die Daten der XMP-Filialdateien einbettet in die Bilddateien:
+        </p>
+        <pre>
+#!/bin/sh
+
+IFS="
+"
+
+THIS=$(basename $0)
+EXIFTOOL=/usr/bin/exiftool
+
+if ! [ -x $EXIFTOOL ]
+then
+    echo "${THIS}: Das Program ${EXIFTOOL} existiert nicht oder ist nicht ausführbar!" 1>&2
+    exit 1
+fi
+
+if [ -z $1 ]
+then
+    echo "${THIS}: Dateiname fehlt (Parameter 1)!" 1>&2
+    exit 1
+fi
+
+IMAGE_FILE=$1
+
+if ! [ -f $IMAGE_FILE ]
+then
+    echo "${THIS}: Datei '${IMAGE_FILE}' existiert nicht!" 1>&2
+    exit 1
+fi
+
+SIDCAR_FILE=${IMAGE_FILE%*.*}.xmp
+
+if ! [ -f $SIDCAR_FILE ]
+then
+    echo "${THIS}: Filialdatei '${SIDCAR_FILE}' existiert nicht!" 1>&2
+    exit 1
+fi
+
+$EXIFTOOL -tagsFromFile $SIDCAR_FILE $IMAGE_FILE
+
+if [ $? -ne 0 ]
+then
+    echo "Fehler beim Ausführen von ${EXIFTOOL} -tagsFromFile ${SIDCAR_FILE} ${IMAGE_FILE}!"
+    exit 1
+fi
+        </pre>
+
+    </body>
+</html>

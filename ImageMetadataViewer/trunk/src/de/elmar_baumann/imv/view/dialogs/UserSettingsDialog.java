@@ -55,6 +55,8 @@ public final class UserSettingsDialog extends Dialog {
         EDIT,
         /** Verschiedenes */
         MISC,
+        /** Actions */
+        ACTIONS,
     };
 
     private UserSettingsDialog() {
@@ -82,6 +84,7 @@ public final class UserSettingsDialog extends Dialog {
         indexOfTab.put(Tab.FILE_EXCLUDE_PATTERNS, 6);
         indexOfTab.put(Tab.EDIT, 7);
         indexOfTab.put(Tab.MISC, 8);
+        indexOfTab.put(Tab.ACTIONS, 9);
 
         for (Tab tab : indexOfTab.keySet()) {
             tabOfIndex.put(indexOfTab.get(tab), tab);
@@ -96,6 +99,7 @@ public final class UserSettingsDialog extends Dialog {
         helpUrlOfComponent.put(tabbedPane.getComponentAt(6), Bundle.getString("Help.Url.UserSettingsDialog.FileExcludePattern"));
         helpUrlOfComponent.put(tabbedPane.getComponentAt(7), Bundle.getString("Help.Url.UserSettingsDialog.Edit"));
         helpUrlOfComponent.put(tabbedPane.getComponentAt(8), Bundle.getString("Help.Url.UserSettingsDialog.Misc"));
+        helpUrlOfComponent.put(tabbedPane.getComponentAt(9), Bundle.getString("Help.Url.UserSettingsDialog.Actions"));
     }
 
     private void initPersistentPanels() {
@@ -180,6 +184,7 @@ public final class UserSettingsDialog extends Dialog {
         panelFileExcludePatterns = new de.elmar_baumann.imv.view.panels.SettingsFileExcludePatternsPanel();
         panelEditColumns = new de.elmar_baumann.imv.view.panels.SettingsEditColumnsPanel();
         panelMisc = new de.elmar_baumann.imv.view.panels.SettingsMiscPanel();
+        panelActions = new de.elmar_baumann.imv.view.panels.SettingsActionsPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(Bundle.getString("UserSettingsDialog.title")); // NOI18N
@@ -198,6 +203,7 @@ public final class UserSettingsDialog extends Dialog {
         tabbedPane.addTab(Bundle.getString("UserSettingsDialog.panelFileExcludePatterns.TabConstraints.tabTitle"), panelFileExcludePatterns); // NOI18N
         tabbedPane.addTab(Bundle.getString("UserSettingsDialog.panelEditColumns.TabConstraints.tabTitle"), panelEditColumns); // NOI18N
         tabbedPane.addTab(Bundle.getString("UserSettingsDialog.panelMisc.TabConstraints.tabTitle"), panelMisc); // NOI18N
+        tabbedPane.addTab(Bundle.getString("UserSettingsDialog.panelActions.TabConstraints.tabTitle"), panelActions); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -205,7 +211,7 @@ public final class UserSettingsDialog extends Dialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 654, Short.MAX_VALUE)
+                .addComponent(tabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 654, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -245,6 +251,7 @@ private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:even
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private de.elmar_baumann.imv.view.panels.SettingsActionsPanel panelActions;
     private de.elmar_baumann.imv.view.panels.SettingsEditColumnsPanel panelEditColumns;
     private de.elmar_baumann.imv.view.panels.SettingsFastSearchColumnsPanel panelFastSearchColumns;
     private de.elmar_baumann.imv.view.panels.SettingsFileExcludePatternsPanel panelFileExcludePatterns;

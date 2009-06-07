@@ -211,6 +211,10 @@
 			<url>dialog_settings_misc.html</url>
 			<title>Sonstiges</title>
 		</page>
+        <page>
+            <url>dialog_settings_actions.html</url>
+            <title>Aktionen</title>
+        </page>
 	</node>
 	<node>
 		<title>Sonstige Dialoge</title>
@@ -236,6 +240,10 @@
 		<page>
 			<url>tip_large_thumbnails.html</url>
 			<title>Große Vorschaubilder</title>
+		</page>
+		<page>
+			<url>tip_action_embed_xmp.html</url>
+			<title>XMP-Metadaten einbetten über ein Skript</title>
 		</page>
 		<page>
 			<url>tip_check_settings.html</url>

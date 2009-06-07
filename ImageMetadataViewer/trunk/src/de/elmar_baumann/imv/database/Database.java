@@ -2,6 +2,7 @@ package de.elmar_baumann.imv.database;
 
 import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.data.ImageFile;
+import de.elmar_baumann.imv.data.Program;
 import de.elmar_baumann.imv.data.SavedSearch;
 import de.elmar_baumann.imv.event.DatabaseAction;
 import de.elmar_baumann.imv.event.DatabaseListener;
@@ -27,8 +28,8 @@ public class Database {
     }
 
     protected synchronized void notifyDatabaseListener(
-        DatabaseAction.Type type) {
-        
+            DatabaseAction.Type type) {
+
         DatabaseAction action = new DatabaseAction(type);
         for (DatabaseListener listener : databaseListener) {
             listener.actionPerformed(action);
@@ -36,8 +37,8 @@ public class Database {
     }
 
     protected synchronized void notifyDatabaseListener(
-        DatabaseAction.Type type, ImageFile imageFileData) {
-        
+            DatabaseAction.Type type, ImageFile imageFileData) {
+
         DatabaseAction action = new DatabaseAction(type);
         action.setImageFileData(imageFileData);
         for (DatabaseListener listener : databaseListener) {
@@ -46,8 +47,8 @@ public class Database {
     }
 
     protected synchronized void notifyDatabaseListener(
-        DatabaseAction.Type type, SavedSearch savedSerachData) {
-        
+            DatabaseAction.Type type, SavedSearch savedSerachData) {
+
         DatabaseAction action = new DatabaseAction(type);
         action.setSavedSerachData(savedSerachData);
         for (DatabaseListener listener : databaseListener) {
@@ -56,8 +57,8 @@ public class Database {
     }
 
     protected synchronized void notifyDatabaseListener(
-        DatabaseAction.Type type, String filename) {
-        
+            DatabaseAction.Type type, String filename) {
+
         DatabaseAction action = new DatabaseAction(type);
         action.setFilename(filename);
         for (DatabaseListener listener : databaseListener) {
@@ -66,8 +67,8 @@ public class Database {
     }
 
     protected synchronized void notifyDatabaseListener(
-        DatabaseAction.Type type, List<String> filenames) {
-        
+            DatabaseAction.Type type, List<String> filenames) {
+
         DatabaseAction action = new DatabaseAction(type);
         action.setFilenames(filenames);
         for (DatabaseListener listener : databaseListener) {
@@ -75,12 +76,22 @@ public class Database {
         }
     }
 
-    protected synchronized void notifyDatabaseListener(
-        DatabaseAction.Type type, String filename, List<String> filenames) {
-        
+    protected synchronized void notifyDatabaseListenerFilenames(
+            DatabaseAction.Type type, String filename, List<String> filenames) {
+
         DatabaseAction action = new DatabaseAction(type);
         action.setFilename(filename);
         action.setFilenames(filenames);
+        for (DatabaseListener listener : databaseListener) {
+            listener.actionPerformed(action);
+        }
+    }
+
+    protected synchronized void notifyDatabaseListener(
+            DatabaseAction.Type type, Program program) {
+
+        DatabaseAction action = new DatabaseAction(type);
+        action.setProgram(program);
         for (DatabaseListener listener : databaseListener) {
             listener.actionPerformed(action);
         }
@@ -123,8 +134,9 @@ public class Database {
         }
     }
 
-    protected boolean notifyProgressListenerStart(ProgressListener listener, ProgressEvent event) {
-        
+    protected boolean notifyProgressListenerStart(ProgressListener listener,
+            ProgressEvent event) {
+
         if (listener != null) {
             listener.progressStarted(event);
             return event.isStop();
@@ -132,8 +144,9 @@ public class Database {
         return false;
     }
 
-    protected boolean notifyProgressListenerPerformed(ProgressListener listener, ProgressEvent event) {
-        
+    protected boolean notifyProgressListenerPerformed(ProgressListener listener,
+            ProgressEvent event) {
+
         if (listener != null) {
             listener.progressPerformed(event);
             return event.isStop();
@@ -141,8 +154,9 @@ public class Database {
         return false;
     }
 
-    protected void notifyProgressListenerEnd(ProgressListener listener, ProgressEvent event) {
-        
+    protected void notifyProgressListenerEnd(ProgressListener listener,
+            ProgressEvent event) {
+
         if (listener != null) {
             listener.progressEnded(event);
         }

@@ -160,7 +160,7 @@ public final class DatabaseImageCollections extends Database {
             }
             connection.commit();
             added = true;
-            notifyDatabaseListener(
+            notifyDatabaseListenerFilenames(
                 DatabaseAction.Type.IMAGE_COLLECTION_INSERTED,
                 collectionName, filenames);
             stmtName.close();
@@ -233,7 +233,7 @@ public final class DatabaseImageCollections extends Database {
                 reorderCollectionSequenceNumber(connection, collectionName);
             }
             connection.commit();
-            notifyDatabaseListener(
+            notifyDatabaseListenerFilenames(
                 DatabaseAction.Type.IMAGE_COLLECTION_IMAGES_DELETED,
                 collectionName, filenames);
             stmt.close();
@@ -292,7 +292,7 @@ public final class DatabaseImageCollections extends Database {
             }
             connection.commit();
             added = true;
-            notifyDatabaseListener(
+            notifyDatabaseListenerFilenames(
                 DatabaseAction.Type.IMAGE_COLLECTION_IMAGES_ADDED,
                 collectionName, filenames);
         } catch (SQLException ex) {

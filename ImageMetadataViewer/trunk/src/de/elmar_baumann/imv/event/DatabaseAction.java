@@ -1,6 +1,7 @@
 package de.elmar_baumann.imv.event;
 
 import de.elmar_baumann.imv.data.ImageFile;
+import de.elmar_baumann.imv.data.Program;
 import de.elmar_baumann.imv.data.SavedSearch;
 import java.io.File;
 import java.util.List;
@@ -91,6 +92,18 @@ public final class DatabaseAction {
          */
         MAINTAINANCE_NOT_EXISTING_IMAGEFILES_DELETED,
         /**
+         * A program has been added
+         */
+        PROGRAM_INSERTED,
+        /**
+         * A program has been deleted
+         */
+        PROGRAM_DELETED,
+        /**
+         * A program has been updated
+         */
+        PROGRAM_UPDATED,
+        /**
          * Eine gespeicherte Suche wurde gelöscht
          */
         SAVED_SEARCH_DELETED,
@@ -118,6 +131,7 @@ public final class DatabaseAction {
     private ImageFile imageFileData;
     private SavedSearch savedSerachData;
     private List<String> filenames;
+    private Program program;
     private String filename;
     private Type type;
 
@@ -271,8 +285,16 @@ public final class DatabaseAction {
      */
     public boolean isImageModified() {
         return type.equals(Type.IMAGEFILE_INSERTED) ||
-            type.equals(Type.IMAGEFILE_UPDATED) ||
-            type.equals(Type.IMAGEFILES_DELETED) ||
-            type.equals(Type.XMP_UPDATED);
+                type.equals(Type.IMAGEFILE_UPDATED) ||
+                type.equals(Type.IMAGEFILES_DELETED) ||
+                type.equals(Type.XMP_UPDATED);
+    }
+
+    public Program getProgram() {
+        return program;
+    }
+
+    public void setProgram(Program program) {
+        this.program = program;
     }
 }

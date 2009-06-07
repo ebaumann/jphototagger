@@ -6,6 +6,8 @@ import de.elmar_baumann.imv.data.ImageFile;
 import de.elmar_baumann.imv.data.Xmp;
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.data.Iptc;
+import de.elmar_baumann.imv.data.Program;
+import de.elmar_baumann.imv.database.DatabaseActionsAfterDbInsertion;
 import de.elmar_baumann.imv.database.DatabaseImageFiles;
 import de.elmar_baumann.imv.event.ProgressEvent;
 import de.elmar_baumann.imv.event.ProgressListener;
@@ -18,6 +20,7 @@ import de.elmar_baumann.lib.io.FileUtil;
 import java.awt.Image;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.EnumSet;
 import java.util.List;
 
@@ -124,6 +127,7 @@ public final class InsertImageFilesIntoDatabase implements Runnable {
             if (isUpdate(imageFile)) {
                 logInsertImageFile(imageFile);
                 db.insertImageFile(imageFile);
+                runActionsAfterInserting(imageFile.getFilename());
             }
             notifyProgressPerformed(index + 1, index + 1 < count ? filenames.get(index + 1) : filename);
         }
@@ -251,6 +255,14 @@ public final class InsertImageFilesIntoDatabase implements Runnable {
                 XmpMetadata.canWriteSidecarFile(imageFilename)) {
             XmpMetadata.writeMetadataToSidecarFile(
                     XmpMetadata.suggestSidecarFilename(imageFilename), xmp);
+        }
+    }
+
+    private void runActionsAfterInserting(String filename) {
+        List<Program> actions = DatabaseActionsAfterDbInsertion.INSTANCE.getAll();
+        for (Program action : actions) {
+            ProgramStarter programStarter = new ProgramStarter(null);
+            programStarter.startProgram(action, Collections.singletonList(new File(filename)));
         }
     }
 
