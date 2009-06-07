@@ -41,7 +41,8 @@ public final class ListUtil {
      * @param  model list model
      * @return list item or null if not found
      */
-    public static Object getFirstItemWithText(String text, DefaultListModel model) {
+    public static Object getFirstItemWithText(String text,
+            DefaultListModel model) {
         if (text == null)
             throw new NullPointerException("text == null");
         if (model == null)
@@ -109,7 +110,8 @@ public final class ListUtil {
      * @param c      comparator
      */
     @SuppressWarnings("unchecked")
-    static public void insertSorted(DefaultListModel model, Object o, Comparator c) {
+    static public void insertSorted(DefaultListModel model, Object o,
+            Comparator c) {
         if (model == null)
             throw new NullPointerException("model == null");
         if (o == null)
@@ -132,6 +134,31 @@ public final class ListUtil {
                 }
             }
         }
+    }
+
+    /**
+     * Swaps two list elements into a {@link javax.swing.DefaultListModel}.
+     *
+     * @param  model               model with the elements
+     * @param  indexFirstElement   index of the first element
+     * @param  indexSecondElement  index of the second element
+     * @return true if swapped
+     */
+    static public boolean swapModelElements(DefaultListModel model,
+            int indexFirstElement,
+            int indexSecondElement) {
+        if (model == null)
+            throw new NullPointerException("model == null");
+        int size = model.getSize();
+        boolean canSwap = indexFirstElement >= 0 && indexFirstElement < size &&
+                indexSecondElement >= 0 && indexSecondElement < size &&
+                indexSecondElement != indexFirstElement;
+        if (!canSwap) return false;
+        Object firstElement = model.get(indexFirstElement);
+        Object secondElement = model.get(indexSecondElement);
+        model.set(indexFirstElement, secondElement);
+        model.set(indexSecondElement, firstElement);
+        return true;
     }
 
     private ListUtil() {
