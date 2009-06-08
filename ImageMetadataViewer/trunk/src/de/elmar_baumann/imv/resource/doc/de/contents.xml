@@ -242,10 +242,6 @@
 			<title>Große Vorschaubilder</title>
 		</page>
 		<page>
-			<url>tip_action_embed_xmp.html</url>
-			<title>XMP-Metadaten einbetten über ein Skript</title>
-		</page>
-		<page>
 			<url>tip_check_settings.html</url>
 			<title>Einstellungen überprüfen</title>
 		</page>
@@ -256,6 +252,10 @@
 		<page>
 			<url>tip_thumbnail_creating_script.html</url>
 			<title>Programm zum Erzeugen von Vorschaubildern</title>
+		</page>
+		<page>
+			<url>tip_action_embed_xmp.html</url>
+			<title>XMP-Metadaten einbetten über ein Skript</title>
 		</page>
 		<page>
 			<url>tip_use_scripts.html</url>

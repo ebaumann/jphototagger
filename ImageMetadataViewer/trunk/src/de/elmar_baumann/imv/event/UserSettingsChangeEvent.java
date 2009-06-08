@@ -35,6 +35,8 @@ public final class UserSettingsChangeEvent {
     private boolean noFastSearchColumns;
     private boolean treeDirectoriesSelectLastDirectory;
     private boolean scanForEmbeddedXmp;
+    private boolean executeActionsAfterImageChangeInDbAlways;
+    private boolean executeActionsAfterImageChangeInDbIfImageHasXmp;
     private Integer maxThumbnailWidth;
     private Integer maxSecondsToTerminateExternalPrograms;
     private Integer minutesToStartScheduledTasks;
@@ -52,6 +54,8 @@ public final class UserSettingsChangeEvent {
         DEFAULT_IMAGE_OPEN_APP,
         EDIT_COLUMNS,
         EXTERNAL_THUMBNAIL_CREATION_COMMAND,
+        EXECUTE_ACTION_AFTER_IMAGE_CHANGE_IN_DB_ALWAYS,
+        EXECUTE_ACTION_AFTER_IMAGE_CHANGE_IN_DB_IF_IMAGE_HAS_XMP,
         FAST_SEARCH_COLUMNS,
         IPTC_CHARSET,
         IS_ACCEPT_HIDDEN_DIRECTORIES,
@@ -268,5 +272,21 @@ public final class UserSettingsChangeEvent {
 
     public void setScanForEmbeddedXmp(boolean scanForEmbeddedXmp) {
         this.scanForEmbeddedXmp = scanForEmbeddedXmp;
+    }
+
+    public boolean isExecuteActionsAfterImageChangeInDbAlways() {
+        return executeActionsAfterImageChangeInDbAlways;
+    }
+
+    public void setExecuteActionsAfterImageChangeInDbAlways(boolean executeActionAfterImageChangeInDbAlways) {
+        this.executeActionsAfterImageChangeInDbAlways = executeActionAfterImageChangeInDbAlways;
+    }
+
+    public boolean isExecuteActionsAfterImageChangeInDbIfImageHasXmp() {
+        return executeActionsAfterImageChangeInDbIfImageHasXmp;
+    }
+
+    public void setExecuteActionsAfterImageChangeInDbIfImageHasXmp(boolean executeActionAfterImageChangeInDbIfImageHasXmp) {
+        this.executeActionsAfterImageChangeInDbIfImageHasXmp = executeActionAfterImageChangeInDbIfImageHasXmp;
     }
 }

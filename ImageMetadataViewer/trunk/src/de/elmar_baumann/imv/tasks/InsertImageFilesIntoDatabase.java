@@ -127,7 +127,7 @@ public final class InsertImageFilesIntoDatabase implements Runnable {
             if (isUpdate(imageFile)) {
                 logInsertImageFile(imageFile);
                 db.insertImageFile(imageFile);
-                runActionsAfterInserting(imageFile.getFilename());
+                runActionsAfterInserting(imageFile);
             }
             notifyProgressPerformed(index + 1, index + 1 < count ? filenames.get(index + 1) : filename);
         }
@@ -258,12 +258,20 @@ public final class InsertImageFilesIntoDatabase implements Runnable {
         }
     }
 
-    private void runActionsAfterInserting(String filename) {
+    private void runActionsAfterInserting(ImageFile imageFile) {
+        if (!isRunActionsAfterInserting(imageFile)) return;
+        File imgFile = imageFile.getFile();
         List<Program> actions = DatabaseActionsAfterDbInsertion.INSTANCE.getAll();
         for (Program action : actions) {
             ProgramStarter programStarter = new ProgramStarter(null);
-            programStarter.startProgram(action, Collections.singletonList(new File(filename)));
+            programStarter.startProgram(action, Collections.singletonList(imgFile));
         }
+    }
+
+    private boolean isRunActionsAfterInserting(ImageFile imageFile) {
+        UserSettings settings = UserSettings.INSTANCE;
+        return settings.isExecuteActionsAfterImageChangeInDbAlways() || settings.isExecuteActionsAfterImageChangeInDbIfImageHasXmp() &&
+                imageFile.getXmp() != null;
     }
 
     private void errorMessageNullThumbnail(String filename) {
