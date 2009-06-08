@@ -32,7 +32,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="panelThumbnailDimensions" min="-2" max="-2" attributes="0"/>
+              <Component id="panelThumbnailDimensions" min="-2" pref="87" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="checkBoxIsUseEmbeddedThumbnails" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
@@ -67,7 +67,7 @@
                           <EmptySpace pref="100" max="32767" attributes="0"/>
                           <Component id="buttonUpdateAllThumbnails" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="labelUpdateAllThumbnails" alignment="0" pref="524" max="32767" attributes="0"/>
+                      <Component id="labelUpdateAllThumbnails" alignment="0" pref="631" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
               </Group>
@@ -164,8 +164,8 @@
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="checkBoxIsCreateThumbnailsWithExternalApp" alignment="0" min="-2" max="-2" attributes="1"/>
-                      <Component id="labelIsCreateThumbnailsWithExternalApp" alignment="1" pref="524" max="32767" attributes="2"/>
-                      <Component id="textFieldExternalThumbnailCreationCommand" alignment="0" pref="524" max="32767" attributes="2"/>
+                      <Component id="labelIsCreateThumbnailsWithExternalApp" alignment="1" pref="631" max="32767" attributes="2"/>
+                      <Component id="textFieldExternalThumbnailCreationCommand" alignment="0" pref="631" max="32767" attributes="2"/>
                   </Group>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
               </Group>
@@ -202,7 +202,7 @@
               <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="SettingsThumbnailsPanel.labelIsCreateThumbnailsWithExternalApp.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
             </Property>
             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[1694, 48]"/>
+              <Dimension value="[1694, 60]"/>
             </Property>
           </Properties>
         </Component>

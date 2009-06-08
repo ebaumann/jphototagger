@@ -24,7 +24,7 @@
                   <Component id="panelAutoCopyDirectory" alignment="1" max="32767" attributes="2"/>
                   <Component id="panelWebBrowser" alignment="0" max="32767" attributes="2"/>
                   <Component id="panelDatabaseDirectory" alignment="0" max="32767" attributes="0"/>
-                  <Component id="panelFolderView" alignment="1" max="32767" attributes="2"/>
+                  <Component id="panelFolderView" alignment="0" max="32767" attributes="2"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -43,7 +43,7 @@
               <Component id="panelDatabaseDirectory" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="panelFolderView" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace pref="17" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -64,15 +64,15 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Component id="labelLogLevel" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="comboBoxLogLevel" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
+                  <Component id="comboBoxLogLevel" pref="32" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Component id="labelLogLogfileFormatterClass" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="comboBoxLogfileFormatterClass" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
+                  <Component id="comboBoxLogfileFormatterClass" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -358,8 +358,8 @@
               <Group type="102" alignment="0" attributes="0">
                   <Component id="checkBoxIsAcceptHiddenDirectories" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
-                  <Component id="checkBoxTreeDirectoriesSelectLastDirectory" max="32767" attributes="0"/>
-                  <EmptySpace min="-2" max="-2" attributes="0"/>
+                  <Component id="checkBoxTreeDirectoriesSelectLastDirectory" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="1"/>
               </Group>
           </Group>
         </DimensionLayout>
