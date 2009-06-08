@@ -129,6 +129,35 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
     }
 
     /**
+     * Returns whether an action exists in this database.
+     *
+     * @param  action  action
+     * @return true if the action exists
+     */
+    public boolean existsAction(Program action) {
+        boolean exists = false;
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            PreparedStatement stmt = connection.prepareStatement("SELECT" + // NOI18N
+                    " COUNT(*) " + // NOI18N -- 1 --
+                    " FROM actions_after_db_insertion" +
+                    " WHERE id_programs = ?"); // NOI18N
+            stmt.setLong(1, action.getId());
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                exists = rs.getInt(1) > 0;
+            }
+            stmt.close();
+        } catch (SQLException ex) {
+            AppLog.logWarning(DatabaseAutoscanDirectories.class, ex);
+        } finally {
+            free(connection);
+        }
+        return exists;
+    }
+
+    /**
      * Sets the order of the actions.
      *
      * @param actions     actions: the order in the list is the action's new
@@ -153,8 +182,7 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
             for (Program action : actions) {
                 stmt.setInt(1, index++);
                 stmt.setLong(2, action.getId());
-                AppLog.logFiner(DatabaseActionsAfterDbInsertion.class, stmt.
-                        toString());
+                AppLog.logFiner(DatabaseActionsAfterDbInsertion.class, stmt.toString());
                 countAffected += stmt.executeUpdate();
             }
             connection.commit();

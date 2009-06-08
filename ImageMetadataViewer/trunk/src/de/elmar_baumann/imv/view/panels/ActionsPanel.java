@@ -1,6 +1,7 @@
 package de.elmar_baumann.imv.view.panels;
 
 import de.elmar_baumann.imv.data.Program;
+import de.elmar_baumann.imv.database.DatabaseActionsAfterDbInsertion;
 import de.elmar_baumann.imv.event.ProgramActionEvent;
 import de.elmar_baumann.imv.event.ProgramActionListener;
 import de.elmar_baumann.imv.view.renderer.ListCellRendererActions;
@@ -71,7 +72,7 @@ public final class ActionsPanel extends javax.swing.JPanel {
             Program program = dialog.getProgram();
             model.add(program);
             notify(new ProgramActionEvent(
-                ProgramActionEvent.Type.ACTION_CREATED, program));
+                    ProgramActionEvent.Type.ACTION_CREATED, program));
         }
         setButtonsEnabled();
     }
@@ -85,7 +86,7 @@ public final class ActionsPanel extends javax.swing.JPanel {
             if (dialog.accepted()) {
                 model.update(program);
                 notify(new ProgramActionEvent(
-                    ProgramActionEvent.Type.ACTION_UPDATED, program));
+                        ProgramActionEvent.Type.ACTION_UPDATED, program));
             }
         }
         setButtonsEnabled();
@@ -104,20 +105,28 @@ public final class ActionsPanel extends javax.swing.JPanel {
     private void handleButtonDeleteActionPerformed() {
         if (list.getSelectedIndex() >= 0) {
             Program program = getSelectedProgram();
-            if (confirmDelete(program.getAlias())) {
+            if (confirmDelete(program)) {
                 model.remove(program);
             }
             setButtonsEnabled();
         }
     }
 
-    private boolean confirmDelete(String actionName) {
+    private boolean confirmDelete(Program program) {
+        String programName = program.getAlias();
+        boolean existsInActionsAfterDbInsertion = DatabaseActionsAfterDbInsertion.INSTANCE.existsAction(program);
+        String msgPrefix = existsInActionsAfterDbInsertion
+                ? Bundle.getString("ActionsPanel.ConfirmMessage.Delete.ExistsInOtherDb")
+                : "";
         return JOptionPane.showConfirmDialog(
-            this,
-            Bundle.getString("ActionsPanel.ConfirmMessage.Delete", actionName),
-            Bundle.getString("ActionsPanel.ConfirmMessage.Delete.Title"),
-            JOptionPane.YES_NO_OPTION,
-            JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION;
+                this,
+                msgPrefix +
+                Bundle.getString("ActionsPanel.ConfirmMessage.Delete", programName),
+                Bundle.getString("ActionsPanel.ConfirmMessage.Delete.Title"),
+                JOptionPane.YES_NO_OPTION,
+                existsInActionsAfterDbInsertion
+                    ? JOptionPane.WARNING_MESSAGE
+                    : JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION;
     }
 
     public synchronized void addActionListener(ProgramActionListener l) {
