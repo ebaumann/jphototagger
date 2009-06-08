@@ -11,8 +11,8 @@
         <h1>Erweiterte Suche</h1>
 
         <p>Mit der erweiterten Suche können Sie fast alles finden, was in der
-            Datenbank gespeichert ist. Sie können definieren, wie gesucht werden
-            soll, eine Suche speichern und sie zukünftig schnell benutzen.
+            Datenbank gespeichert ist. Sie definieren, wie gesucht werden soll,
+            und speichern Suchen, die sie zukünftig schnell benutzen.
         </p>
 
         <p><img src="img/dialog-advanced-search.gif"
@@ -28,8 +28,8 @@
         </p>
 
         <ul>
-            <li><strong>ist gleich</strong>: Der Suchbegriff muss <strong>genau
-                so</strong> in der Datenbank stehen. SQL: <strong>=</strong>.
+            <li><strong>ist gleich</strong>: Der Suchbegriff steht <strong>genau
+                so</strong> in der Datenbank. SQL: <strong>=</strong>.
             </li>
             <li><strong>passt auf</strong>: Der Suchbegriff entspricht einem
                 <strong>Muster</strong>. In der Regel benutzen Sie
@@ -83,7 +83,7 @@
 
         <p>Der Dialog versucht, für die Eingabefelder nur passende Formate
             zuzulassen. Geben Sie beispielsweise Buchstaben ein für eine
-            ISO-Zahl, werden diese nicht angenommen. Ist Ein Punkt zu sehen,
+            ISO-Zahl, werden diese nicht angenommen. Ist ein Punkt zu sehen,
             steht dieser für ein Komma und Sie geben Zahlen so ein, dass ganze
             Zahlen vor dem Punkt enden. Mit den Pfeiltasten können Sie den
             Eingabecursor positionieren. Beispiele sehen Sie in folgender
@@ -97,10 +97,11 @@
         </p>
 
         <p>In der Abbildung oben ist das erste Eingabefeld ein Feld für
-            Kommazahlen. Ganze Zahlen enden am Punkt, wie die 35 im dritten
-            Feld, im zweiten ist die Zahl 7,8 zu sehen. Das vorletzte Feld dient
-            der Eingabe eines Datums in der Form Jahr-Monat-Tag, so wie im
-            letzten Eingabefeld zu sehen ist am Beispiel des 10. März 2008.
+            Kommazahlen. Ganze Zahlen enden vor dem Punkt, wie die 35 im dritten
+            Feld, im zweiten ist die Zahl 7,8 zu sehen (Der Punkt bedeutet ein
+            Komma). Das vorletzte Feld dient der Eingabe eines Datums in der
+            Form Jahr-Monat-Tag, so wie im letzten Eingabefeld zu sehen ist am
+            Beispiel des 10. März 2008.
         </p>
 
         <h2>Suche nach Datum</h2>
@@ -114,7 +115,7 @@
 
         <h2>Mehrere Suchbegriffe (Verknüpfungen)</h2>
 
-        <p>Suchbegriffe können Sie mit verknüpfen mit <strong>und</strong> sowie
+        <p>Suchbegriffe können Sie verknüpfen mit <strong>und</strong> sowie
             mit <strong>oder</strong>. <strong>Und</strong> bedeutet, der
             folgende Begriff muss auf jeden Fall in der Datenbank stehen,
             <strong>oder</strong> findet den folgenden Suchbegriff unabhängig
@@ -156,7 +157,7 @@
             Die Anfrage <code>Fotograf ist gleich Peter oder Fotograf ist gleich
            Heinz und Aufnahmezeit größer gleich 2006-01-01 und Aufnahmezeit
             kleiner gleich 2006-12-31</code> findet zwar alle Bilder, die Peter
-            und Heinz 2005 fotografierten, aber auch alle Bilder, die 2005 von
+            und Heinz 2006 fotografierten, aber auch alle Bilder, die 2006 von
             irgendwem (anders) fotografiert wurden. Mit Klammern lässt sich die
             Abfrage richtig formulieren: <code>(Fotograf ist gleich Peter oder
            Fotograf ist gleich Heinz) und Aufnahmezeit größer gleich 2006-01-01
@@ -171,12 +172,13 @@
         <h2>Suchen speichern</h2>
 
         <p>Speichern Sie wichtige Suchen! Alle gespeicherten Suchen sehen Sie
-            links im Programmfenster durch Klick auf den Kartenreiter
-            <strong>Suchen</strong>. Dort lassen sie sich ändern, löschen und
-            neu erzeugen durch Klick mit der <strong>rechten</strong> Maustaste
-            auf eine gespeicherte Suche. Klicken Sie mit der
-            <strong>linken</strong> Maustaste auf den Namen einer gespeicherten
-            Suche, erscheinen alle gefundenen Bilder.
+            links im Programmfenster durch Klick auf den
+            <a href="mainwindow_panel_saved_searches.html">Kartenreiter
+            Suchen</a>. Dort lassen sie sich ändern, löschen und neu erzeugen
+            durch Klick mit der <strong>rechten</strong> Maustaste auf eine
+            gespeicherte Suche. Klicken Sie mit der <strong>linken</strong>
+            Maustaste auf den Namen einer gespeicherten Suche, erscheinen alle
+            gefundenen Bilder.
         </p>
 
     </body>

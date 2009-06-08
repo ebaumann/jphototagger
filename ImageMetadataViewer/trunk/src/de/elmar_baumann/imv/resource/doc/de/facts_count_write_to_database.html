@@ -10,16 +10,19 @@
 
         <h1>Wie oft werden Bilder in die Datenbank geschrieben?</h1>
 
-        <p>Es werden nur Dateien eingelesen und in die Datenbank geschrieben,
-            die:
+        <p><strong>Automatisch</strong> werden nur Dateien eingelesen und in die
+            Datenbank geschrieben, die:
         </p>
 
         <ul>
-            <li>dort noch nicht gespeichert sind
+            <li>deren Endung hinweist auf ein Dateiformat, das dem Programm
+                <strong>Bilder</strong> bekannt ist
             </li>
-            <li>sowie Dateien, die in der Datenbank gespeichert sind und deren
-                <strong>letztes Änderungsdatum</strong> <em>neuer</em> ist als
-                zum Zeitpunkt des letzten Einlesens.
+            <li>die noch nicht in der Datenbank gespeichert sind
+            </li>
+            <li>die in der Datenbank gespeichert sind und deren <strong>letztes
+                Änderungsdatum</strong> <em>anders</em> ist als zum Zeitpunkt
+                des letzten Einlesens
             </li>
         </ul>
 

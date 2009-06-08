@@ -24,10 +24,11 @@
         <ul>
             <li><strong>WARNUNG</strong>: Nur wichtige Fehler und weniger
                 wichtige werden protokolliert. Warnungen werden bei anderen
-                Einstellungen zusätzlich protokolliert.
+                Einstellungen zusätzlich protokolliert außer bei
+                <strong>SCHWERWIEGEND</strong>.
             </li>
             <li><strong>SCHWERWIEGEND</strong>: Nur wichtige Fehler werden
-                protokolliert.  Schwer wiegendes wird bei anderen
+                protokolliert. Schwer wiegendes wird bei allen anderen
                 Einstellungen zusätzlich protokolliert.
             </li>
             <li><strong>INFO</strong>: Informative Ausgaben, beispielsweise
@@ -51,13 +52,13 @@
 
         <p>Wählen Sie <strong>WARNUNG</strong> oder <strong>INFO</strong>,
             solange keine Probleme bestehen und zur Fehlerbehebung
-            <strong>AM FEINSTEN</strong>. Meldungen, die keine Warnungen sind
-            oder keine wichtigen Fehler, werden in die
-            <strong>Standardausgabe</strong> des Betriebssystems geschrieben,
-            andernfalls würde die Protokolldatei viele Megabyte groß. Die
-            Standardausgabe sehen Sie im Fenster <strong>Ausgaben</strong>, zu
-            erreichen über die Schaltfläche <strong>Ausgaben</strong> am unteren
-            Fensterrand.
+            <strong>AM FEINSTEN</strong>. Meldungen anderer Kategorien als
+            <strong>WARNUNG</strong> oder <strong>SCHWERWIEGEND</strong> werden
+            in die <strong>Standardausgabe</strong> des Betriebssystems
+            geschrieben, andernfalls würde die Protokolldatei viele Megabyte
+            groß. Die Standardausgabe sehen Sie im Fenster
+            <strong>Ausgaben</strong>, zu erreichen über die Schaltfläche
+            <strong>Ausgaben</strong> am unteren Fensterrand.
         </p>
 
         <h3>Format nach Neustart</h3>
@@ -71,14 +72,17 @@
             </li>
             <li><strong>Textzeilen:</strong> Die Nachrichten werden Zeile für
                 Zeile untereinander angezeigt. Sie können die Zeilen
-                betrachten und haben sonst keine weitere Optionen.
+                betrachten und haben sonst keine weitere Optionen. Bei dieser
+                Einstellung benötigt das Protokollieren am wenigsten
+                Speicherplatz.
             </li>
         </ul>
 
         <h2>Ordner der Kamera-Speicherkarte</h2>
 
-        <p>Hier können Sie einen Ordner auswählen, von dem alle Bilder einer
-            Speicherkarte in einen Ordner kopiert werden.
+        <p>Hier können Sie einen Ordner auswählen, von dem alle Bilder auf einer
+            Speicherkarte <a href="action_filesystem_autocopy_directory.html">in
+            einen Ordner kopiert</a> werden.
         </p>
 
         <p>Wählen Sie den Ordner aus, in dem der Inhalt Ihrer
@@ -102,9 +106,9 @@
 
         <p>Sie können die Datenbank in einem anderen Ordner anlegen lassen.
             Wollen Sie Ihre bisherigen Daten übernehmen, kopieren Sie aus dem
-            aktuellen Datenbankordner, der im Dialog angezeigt wird, bevor Sie
-            es ändern, folgende Dateien nach Beenden von <strong>Bilder</strong>
-            und vor einem Neustart:
+            aktuellen Datenbankordner, der im Dialog angezeigt wird, folgende
+            Dateien <em>nach Beenden</em> von <strong>Bilder</strong> und
+            <em>vor einem Neustart</em>:
         </p>
 
         <ul>
