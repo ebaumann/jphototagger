@@ -1,6 +1,5 @@
 package de.elmar_baumann.imv.model;
 
-import de.elmar_baumann.imv.comparator.ComparatorStringAscending;
 import de.elmar_baumann.imv.data.ImageFile;
 import de.elmar_baumann.imv.data.Xmp;
 import de.elmar_baumann.imv.database.DatabaseImageFiles;
@@ -8,7 +7,6 @@ import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 import de.elmar_baumann.imv.event.DatabaseAction;
 import de.elmar_baumann.imv.event.DatabaseListener;
 import de.elmar_baumann.imv.tasks.ListModelElementRemover;
-import de.elmar_baumann.lib.componentutil.ListUtil;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -51,7 +49,7 @@ public final class ListModelKeywords extends DefaultListModel
         List<String> keywords = getKeywords(imageFileData);
         for (String keyword : keywords) {
             if (!contains(keyword)) {
-                ListUtil.insertSorted(this, keyword, ComparatorStringAscending.IGNORE_CASE);
+                addElement(keyword);
             }
         }
     }

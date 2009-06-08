@@ -13,6 +13,7 @@ import de.elmar_baumann.imv.model.TableModelXmp;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.lib.model.TreeModelDirectories;
+import de.elmar_baumann.lib.thirdparty.SortedListModel;
 import javax.swing.JTree;
 
 /**
@@ -45,8 +46,8 @@ public final class ModelFactory {
             appPanel.getListImageCollections().setModel(new ListModelImageCollections());
             createTreeModelDirectories(appPanel);
             appPanel.getListFavoriteDirectories().setModel(new ListModelFavoriteDirectories());
-            appPanel.getListCategories().setModel(new ListModelCategories());
-            appPanel.getListKeywords().setModel(new ListModelKeywords());
+            appPanel.getListCategories().setModel(new SortedListModel(new ListModelCategories()));
+            appPanel.getListKeywords().setModel(new SortedListModel(new ListModelKeywords()));
             appPanel.getMetadataEditActionsPanel().getComboBoxMetadataTemplates().setModel(new ComboBoxModelMetadataEditTemplates());
         }
     }

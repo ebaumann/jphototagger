@@ -1,6 +1,5 @@
 package de.elmar_baumann.imv.model;
 
-import de.elmar_baumann.imv.comparator.ComparatorStringAscending;
 import de.elmar_baumann.imv.data.ImageFile;
 import de.elmar_baumann.imv.data.Xmp;
 import de.elmar_baumann.imv.database.DatabaseImageFiles;
@@ -10,7 +9,6 @@ import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopSupplemental
 import de.elmar_baumann.imv.event.DatabaseAction;
 import de.elmar_baumann.imv.event.DatabaseListener;
 import de.elmar_baumann.imv.tasks.ListModelElementRemover;
-import de.elmar_baumann.lib.componentutil.ListUtil;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -61,7 +59,7 @@ public final class ListModelCategories extends DefaultListModel
         synchronized (this) {
             for (String category : categories) {
                 if (!contains(category)) {
-                    ListUtil.insertSorted(this, category, ComparatorStringAscending.IGNORE_CASE);
+                    addElement(category);
                 }
             }
         }
