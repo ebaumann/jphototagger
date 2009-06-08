@@ -103,6 +103,7 @@ public final class UserSettingsDialog extends Dialog {
     }
 
     private void initPersistentPanels() {
+        persistentPanels.add(panelActions);
         persistentPanels.add(panelEditColumns);
         persistentPanels.add(panelFastSearchColumns);
         persistentPanels.add(panelFileExcludePatterns);
