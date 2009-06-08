@@ -43,6 +43,7 @@ THIS=$(basename $0)
 EXIFTOOL=/usr/bin/exiftool
 EXIF_TOOL_BACKUP_SUFFIX='_original'
 TIMESTAMP_FILE=${HOME}/tmp/${THIS}.$$
+EXIT_VALUE=0
 
 if ! [ -x $EXIFTOOL ]
 then
@@ -71,11 +72,11 @@ then
     exit 1
 fi
 
-SIDCAR_FILE=${IMAGE_FILE%*.*}.xmp
+SIDECAR_FILE=${IMAGE_FILE%*.*}.xmp
 
-if ! [ -f $SIDCAR_FILE ]
+if ! [ -f $SIDECAR_FILE ]
 then
-    echo "${THIS}: XMP-Filialdatei '${SIDCAR_FILE}' existiert nicht!" 1>&2
+    echo "${THIS}: XMP-Filialdatei '${SIDECAR_FILE}' existiert nicht!" 1>&2
     exit 1
 fi
 
@@ -83,8 +84,8 @@ touch --reference=${IMAGE_FILE} ${TIMESTAMP_FILE}
 
 $EXIFTOOL \
     -tagsFromFile \
-    $SIDCAR_FILE \
-    $IMAGE_FILE
+    ${SIDECAR_FILE} \
+    ${IMAGE_FILE}
 
 if [ $? -eq 0 ]
 then
@@ -94,11 +95,12 @@ then
     rm ${IMAGE_FILE}${EXIF_TOOL_BACKUP_SUFFIX}
     touch --reference=${TIMESTAMP_FILE} ${IMAGE_FILE}
 else
-    echo "Fehler beim Ausführen von ${EXIFTOOL} -tagsFromFile -preserve ${SIDCAR_FILE} ${IMAGE_FILE}!"
-    exit 1
+    echo "Fehler beim Ausführen von ${EXIFTOOL} -tagsFromFile -preserve ${SIDECAR_FILE} ${IMAGE_FILE}!"
+    EXIT_VALUE=1
 fi
 
-exit 0
+rm ${TIMESTAMP_FILE}
+exit ${EXIT_VALUE}
         </pre>
 
     </body>
