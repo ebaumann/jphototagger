@@ -101,7 +101,7 @@ public class SettingsActionsPanel extends javax.swing.JPanel implements
 
     @Override
     public void writeProperties() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        // Nothing to write
     }
 
     private synchronized void notifyChangeListener(UserSettingsChangeEvent evt) {
