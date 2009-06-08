@@ -41,6 +41,8 @@ IFS="
 
 THIS=$(basename $0)
 EXIFTOOL=/usr/bin/exiftool
+EXIF_TOOL_BACKUP_SUFFIX='_original'
+TIMESTAMP_FILE=${HOME}/tmp/${THIS}.$$
 
 if ! [ -x $EXIFTOOL ]
 then
@@ -62,6 +64,13 @@ then
     exit 1
 fi
 
+touch $TIMESTAMP_FILE
+if [ $? -ne 0 ]
+then
+    echo "${THIS}: Temporäre Datei '${TIMESTAMP_FILE}' kann nicht erzeugt werden!" 1>&2
+    exit 1
+fi
+
 SIDCAR_FILE=${IMAGE_FILE%*.*}.xmp
 
 if ! [ -f $SIDCAR_FILE ]
@@ -70,21 +79,21 @@ then
     exit 1
 fi
 
-# Parameter löschen, falls nicht erwünscht:
-#
-# -preserve            Datum/Uhrzeit der Bilddatei werden nicht modifiziert
-# -overwrite_original  Überschreibt die Bilddatei (andernfalls werden
-#                      Backupdateien erzeugt mit der Endung "_original")
+touch --reference=${IMAGE_FILE} ${TIMESTAMP_FILE}
 
 $EXIFTOOL \
     -tagsFromFile \
-    -preserve \
-    -overwrite_original \
     $SIDCAR_FILE \
     $IMAGE_FILE
 
-if [ $? -ne 0 ]
+if [ $? -eq 0 ]
 then
+    # Zeile im Anschluss an diesen Kommentar kommentieren, falls nicht das
+    # Risiko eingegangen werden soll, dass ExifTool ein beschädigtes Bild
+    # erzeugt und dann kein Backup mehr existiert
+    rm ${IMAGE_FILE}${EXIF_TOOL_BACKUP_SUFFIX}
+    touch --reference=${TIMESTAMP_FILE} ${IMAGE_FILE}
+else
     echo "Fehler beim Ausführen von ${EXIFTOOL} -tagsFromFile -preserve ${SIDCAR_FILE} ${IMAGE_FILE}!"
     exit 1
 fi
