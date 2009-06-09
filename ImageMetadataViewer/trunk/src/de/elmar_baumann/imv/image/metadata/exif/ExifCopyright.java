@@ -12,12 +12,29 @@ import java.util.Arrays;
  */
 public final class ExifCopyright {
 
+    /**
+     * Returns the copyright information of the image's photographer.
+     *
+     * @param  rawValue  raw value
+     * @return           copyright information or empty string if this
+     *                   information is not in the raw value
+     *
+     */
     public static String getPhotographerCopyright(byte[] rawValue) {
-        Pair<Integer, Integer> photographerOffsets = getPhotographerOffsets(rawValue);
+        Pair<Integer, Integer> photographerOffsets = getPhotographerOffsets(
+                rawValue);
         return string(rawValue, photographerOffsets.getFirst(),
                 photographerOffsets.getSecond());
     }
 
+    /**
+     * Returns the copyright information of the image's editor.
+     *
+     * @param  rawValue  raw value
+     * @return           copyright information or empty string if this
+     *                   information is not in the raw value
+     *
+     */
     public static String getEditorCopyright(byte[] rawValue) {
         Pair<Integer, Integer> editorOffsets = getEditorOffsets(rawValue);
         return string(rawValue, editorOffsets.getFirst(),
@@ -27,7 +44,8 @@ public final class ExifCopyright {
     private static String string(byte[] ba, int first, int last) {
         if (first < 0 || first > ba.length || last < first || last > ba.length)
             return "";
-        return new String(Arrays.copyOfRange(ba, first, last), Charset.forName("US-ASCII"));
+        return new String(Arrays.copyOfRange(ba, first, last), Charset.forName(
+                "US-ASCII"));
     }
 
     private static Pair<Integer, Integer> getPhotographerOffsets(byte[] rawValue) {
@@ -42,7 +60,8 @@ public final class ExifCopyright {
 
     private static Pair<Integer, Integer> getEditorOffsets(byte[] rawValue) {
         if (rawValue.length < 3) return new Pair<Integer, Integer>(-1, -1);
-        Pair<Integer, Integer> photographerOffsets = getPhotographerOffsets(rawValue);
+        Pair<Integer, Integer> photographerOffsets = getPhotographerOffsets(
+                rawValue);
         if (photographerOffsets.getFirst() == -1 ||
                 photographerOffsets.getSecond() == rawValue.length)
             return new Pair<Integer, Integer>(-1, -1);
