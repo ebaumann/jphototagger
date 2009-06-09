@@ -107,7 +107,7 @@ public final class ExifFieldValueFormatter {
         } else if (tag == ExifTag.FILE_SOURCE.getId()) {
             return getFileSource(entry);
         } else if (tag == ExifTag.USER_COMMENT.getId()) {
-            return getUserComment(entry);
+            return ExifUserComment.decode(entry.getRawValue());
         } else if (tag == ExifTag.CONTRAST.getId()) {
             return getContrast(entry);
         } else if (tag == ExifTag.FLASH.getId()) {
@@ -358,21 +358,6 @@ public final class ExifFieldValueFormatter {
             return Integer.toString(es.getValue()) + postfix;
         }
         return "?" + postfix;
-    }
-
-    private static String getUserComment(IdfEntryProxy entry) {
-        ExifAscii ea = new ExifAscii(entry.getRawValue());
-        String value = ea.getValue();
-        if (value.startsWith("ASCII")) { // NOI18N
-            return value.substring(5).trim();
-        } else if (value.startsWith("Unicode")) { // NOI18N
-            return value.substring(7).trim();
-        } else if (value.startsWith("JIS")) { // NOI18N
-            return value.substring(3).trim();
-        } else if (value.startsWith("Undefined")) { // NOI18N
-            return value.substring(9).trim();
-        }
-        return value;
     }
 
     private static String getWhiteBalance(IdfEntryProxy entry) {
