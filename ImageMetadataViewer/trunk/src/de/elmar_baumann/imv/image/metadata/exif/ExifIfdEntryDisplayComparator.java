@@ -12,15 +12,20 @@ import java.util.Map;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public final class ExifIfdEntryDisplayComparator implements Comparator<IdfEntryProxy> {
+public final class ExifIfdEntryDisplayComparator implements
+        Comparator<IdfEntryProxy> {
 
-    private static final Map<Integer, Integer> orderOfTagValue = new HashMap<Integer, Integer>();
+    private static final Map<Integer, Integer> orderOfTagValue =
+            new HashMap<Integer, Integer>();
     private static final List<Integer> tagValues = new ArrayList<Integer>(30);
-    public static final ExifIfdEntryDisplayComparator INSTANCE = new ExifIfdEntryDisplayComparator();
-    
+    public static final ExifIfdEntryDisplayComparator INSTANCE =
+            new ExifIfdEntryDisplayComparator();
+
+
     static {
-        // So kann später leicht umsortiert werden
+        // display order
         tagValues.add(ExifTag.DATE_TIME_ORIGINAL.getId());
+        tagValues.add(ExifTag.IMAGE_DESCRIPTION.getId());
         tagValues.add(ExifTag.MAKE.getId());
         tagValues.add(ExifTag.MODEL.getId());
         tagValues.add(ExifTag.FOCAL_LENGTH.getId());
@@ -38,6 +43,8 @@ public final class ExifIfdEntryDisplayComparator implements Comparator<IdfEntryP
         tagValues.add(ExifTag.SHARPNESS.getId());
         tagValues.add(ExifTag.CONTRAST.getId());
         tagValues.add(ExifTag.USER_COMMENT.getId());
+        tagValues.add(ExifTag.COPYRIGHT.getId());
+        tagValues.add(ExifTag.ARTIST.getId());
         tagValues.add(ExifTag.IMAGE_WIDTH.getId());
         tagValues.add(ExifTag.IMAGE_LENGTH.getId());
         tagValues.add(ExifTag.BITS_PER_SAMPLE.getId());
@@ -66,11 +73,13 @@ public final class ExifIfdEntryDisplayComparator implements Comparator<IdfEntryP
     public int compare(IdfEntryProxy o1, IdfEntryProxy o2) {
         int tag1 = o1.getTag();
         int tag2 = o2.getTag();
-        if (orderOfTagValue.containsKey(tag1) && orderOfTagValue.containsKey(tag2)) {
+        if (orderOfTagValue.containsKey(tag1) && orderOfTagValue.containsKey(
+                tag2)) {
             return orderOfTagValue.get(tag1) - orderOfTagValue.get(tag2);
         }
         return tag1 - tag2;
     }
 
-    private ExifIfdEntryDisplayComparator() {}
+    private ExifIfdEntryDisplayComparator() {
+    }
 }

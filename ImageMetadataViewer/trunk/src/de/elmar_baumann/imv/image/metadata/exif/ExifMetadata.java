@@ -2,8 +2,6 @@ package de.elmar_baumann.imv.image.metadata.exif;
 
 import com.imagero.reader.ImageReader;
 import com.imagero.reader.MetadataUtils;
-import com.imagero.reader.iptc.IPTCEntry;
-import com.imagero.reader.iptc.IPTCEntryCollection;
 import com.imagero.reader.jpeg.JpegReader;
 import com.imagero.reader.tiff.IFDEntry;
 import com.imagero.reader.tiff.ImageFileDirectory;
@@ -16,7 +14,6 @@ import java.io.IOException;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Enumeration;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
@@ -31,7 +28,8 @@ import java.util.StringTokenizer;
  */
 public final class ExifMetadata {
 
-    private static final Map<String, Double> rotationAngleOfString = new HashMap<String, Double>();
+    private static final Map<String, Double> rotationAngleOfString =
+            new HashMap<String, Double>();
     private static final List<Integer> tagsToDisplay = new ArrayList<Integer>();
 
 
@@ -48,28 +46,32 @@ public final class ExifMetadata {
 
 
     static {
-        tagsToDisplay.add(ExifTag.MAKE.getId());
-        tagsToDisplay.add(ExifTag.MODEL.getId());
-        tagsToDisplay.add(ExifTag.SOFTWARE.getId());
-        tagsToDisplay.add(ExifTag.EXPOSURE_TIME.getId());
-        tagsToDisplay.add(ExifTag.F_NUMBER.getId());
-        tagsToDisplay.add(ExifTag.EXPOSURE_PROGRAM.getId());
-        tagsToDisplay.add(ExifTag.ISO_SPEED_RATINGS.getId());
-        tagsToDisplay.add(ExifTag.DATE_TIME_ORIGINAL.getId());
-        tagsToDisplay.add(ExifTag.METERING_MODE.getId());
-        tagsToDisplay.add(ExifTag.FLASH.getId());
-        tagsToDisplay.add(ExifTag.FOCAL_LENGTH.getId());
-        tagsToDisplay.add(ExifTag.USER_COMMENT.getId());
-        tagsToDisplay.add(ExifTag.FILE_SOURCE.getId());
-        tagsToDisplay.add(ExifTag.WHITE_BALANCE.getId());
-        tagsToDisplay.add(ExifTag.FOCAL_LENGTH_IN_35_MM_FILM.getId());
+        // Ordered alphabetically
+        tagsToDisplay.add(ExifTag.ARTIST.getId());
         tagsToDisplay.add(ExifTag.CONTRAST.getId());
+        tagsToDisplay.add(ExifTag.COPYRIGHT.getId());
+        tagsToDisplay.add(ExifTag.DATE_TIME_ORIGINAL.getId());
+        tagsToDisplay.add(ExifTag.EXPOSURE_PROGRAM.getId());
+        tagsToDisplay.add(ExifTag.EXPOSURE_TIME.getId());
+        tagsToDisplay.add(ExifTag.FILE_SOURCE.getId());
+        tagsToDisplay.add(ExifTag.FLASH.getId());
+        tagsToDisplay.add(ExifTag.F_NUMBER.getId());
+        tagsToDisplay.add(ExifTag.FOCAL_LENGTH.getId());
+        tagsToDisplay.add(ExifTag.FOCAL_LENGTH_IN_35_MM_FILM.getId());
+        tagsToDisplay.add(ExifTag.GPS_DATE_STAMP.getId());
+        tagsToDisplay.add(ExifTag.GPS_SATELLITES.getId());
+        tagsToDisplay.add(ExifTag.GPS_TIME_STAMP.getId());
+        tagsToDisplay.add(ExifTag.GPS_VERSION_ID.getId());
+        tagsToDisplay.add(ExifTag.IMAGE_DESCRIPTION.getId());
+        tagsToDisplay.add(ExifTag.ISO_SPEED_RATINGS.getId());
+        tagsToDisplay.add(ExifTag.MAKE.getId());
+        tagsToDisplay.add(ExifTag.METERING_MODE.getId());
+        tagsToDisplay.add(ExifTag.MODEL.getId());
         tagsToDisplay.add(ExifTag.SATURATION.getId());
         tagsToDisplay.add(ExifTag.SHARPNESS.getId());
-        tagsToDisplay.add(ExifTag.GPS_VERSION_ID.getId());
-        tagsToDisplay.add(ExifTag.GPS_SATELLITES.getId());
-        tagsToDisplay.add(ExifTag.GPS_DATE_STAMP.getId());
-        tagsToDisplay.add(ExifTag.GPS_TIME_STAMP.getId());
+        tagsToDisplay.add(ExifTag.SOFTWARE.getId());
+        tagsToDisplay.add(ExifTag.USER_COMMENT.getId());
+        tagsToDisplay.add(ExifTag.WHITE_BALANCE.getId());
     }
 
     public enum ByteOrder {
@@ -97,7 +99,8 @@ public final class ExifMetadata {
         return metadata;
     }
 
-    private static void addIFDEntries(File file, List<IdfEntryProxy> metadata) throws IOException {
+    private static void addIFDEntries(File file, List<IdfEntryProxy> metadata)
+            throws IOException {
         ImageReader reader = null;
         if (FileType.isJpegFile(file.getName())) {
             reader = new JpegReader(file);
@@ -114,7 +117,8 @@ public final class ExifMetadata {
             reader = new TiffReader(file);
             int count = ((TiffReader) reader).getIFDCount();
             for (int i = 0; i < count; i++) {
-                addIfdEntriesOfDirectory(((TiffReader) reader).getIFD(i), metadata);
+                addIfdEntriesOfDirectory(((TiffReader) reader).getIFD(i),
+                        metadata);
             }
         }
         close(reader);
@@ -127,7 +131,8 @@ public final class ExifMetadata {
         }
     }
 
-    private static void addIfdEntriesOfDirectory(ImageFileDirectory ifd, List<IdfEntryProxy> metadata) {
+    private static void addIfdEntriesOfDirectory(ImageFileDirectory ifd,
+            List<IdfEntryProxy> metadata) {
         int entryCount = ifd.getEntryCount();
         for (int i = 0; i < entryCount; i++) {
             IFDEntry ifdEntry = ifd.getEntryAt(i);
@@ -160,7 +165,8 @@ public final class ExifMetadata {
      * @param tag     Tag
      * @return        Erster passender Entry oder null, falls nicht gefunden
      */
-    public static IdfEntryProxy findEntryWithTag(List<IdfEntryProxy> entries, int tag) {
+    public static IdfEntryProxy findEntryWithTag(List<IdfEntryProxy> entries,
+            int tag) {
         for (IdfEntryProxy entry : entries) {
             if (entry.getTag() == tag) {
                 return entry;
@@ -194,8 +200,10 @@ public final class ExifMetadata {
      * @param entries Beliebige Entries
      * @return        Entries aus entries, die angezeigt werden sollen
      */
-    public static List<IdfEntryProxy> getDisplayableMetadata(List<IdfEntryProxy> entries) {
-        List<IdfEntryProxy> displayableEntries = new ArrayList<IdfEntryProxy>(entries.size());
+    public static List<IdfEntryProxy> getDisplayableMetadata(
+            List<IdfEntryProxy> entries) {
+        List<IdfEntryProxy> displayableEntries = new ArrayList<IdfEntryProxy>(
+                entries.size());
         for (IdfEntryProxy entry : entries) {
             if (isTagToDisplay(entry.getTag())) {
                 if (!contains(displayableEntries, entry)) {
@@ -220,34 +228,45 @@ public final class ExifMetadata {
         return data;
     }
 
-    private static void setGpsAltitude(ExifGpsMetadata data, List<IdfEntryProxy> entries) {
-        IdfEntryProxy entryAltitudeRef = findEntryWithTag(entries, ExifTag.GPS_ALTITUDE_REF.getId());
-        IdfEntryProxy entryAltitude = findEntryWithTag(entries, ExifTag.GPS_ALTITUDE.getId());
+    private static void setGpsAltitude(ExifGpsMetadata data,
+            List<IdfEntryProxy> entries) {
+        IdfEntryProxy entryAltitudeRef = findEntryWithTag(entries,
+                ExifTag.GPS_ALTITUDE_REF.getId());
+        IdfEntryProxy entryAltitude = findEntryWithTag(entries,
+                ExifTag.GPS_ALTITUDE.getId());
         if (entryAltitudeRef != null && entryAltitude != null) {
             data.setAltitude(new ExifGpsAltitude(entryAltitudeRef.getRawValue(),
-                entryAltitude.getRawValue(), entryAltitude.getByteOrder()));
+                    entryAltitude.getRawValue(), entryAltitude.getByteOrder()));
         }
     }
 
-    private static void setGpsLatitude(ExifGpsMetadata data, List<IdfEntryProxy> entries) {
-        IdfEntryProxy entryLatitudeRef = findEntryWithTag(entries, ExifTag.GPS_LATITUDE_REF.getId());
-        IdfEntryProxy entryLatitude = findEntryWithTag(entries, ExifTag.GPS_LATITUDE.getId());
+    private static void setGpsLatitude(ExifGpsMetadata data,
+            List<IdfEntryProxy> entries) {
+        IdfEntryProxy entryLatitudeRef = findEntryWithTag(entries,
+                ExifTag.GPS_LATITUDE_REF.getId());
+        IdfEntryProxy entryLatitude = findEntryWithTag(entries,
+                ExifTag.GPS_LATITUDE.getId());
         if (entryLatitudeRef != null && entryLatitude != null) {
             data.setLatitude(new ExifGpsLatitude(entryLatitudeRef.getRawValue(),
-                entryLatitude.getRawValue(), entryLatitude.getByteOrder()));
+                    entryLatitude.getRawValue(), entryLatitude.getByteOrder()));
         }
     }
 
-    private static void setGpsLongitude(ExifGpsMetadata data, List<IdfEntryProxy> entries) {
-        IdfEntryProxy entryLongitudeRef = findEntryWithTag(entries, ExifTag.GPS_LONGITUDE_REF.getId());
-        IdfEntryProxy entryLongitude = findEntryWithTag(entries, ExifTag.GPS_LONGITUDE.getId());
+    private static void setGpsLongitude(ExifGpsMetadata data,
+            List<IdfEntryProxy> entries) {
+        IdfEntryProxy entryLongitudeRef = findEntryWithTag(entries,
+                ExifTag.GPS_LONGITUDE_REF.getId());
+        IdfEntryProxy entryLongitude = findEntryWithTag(entries,
+                ExifTag.GPS_LONGITUDE.getId());
         if (entryLongitudeRef != null && entryLongitude != null) {
-            data.setLongitude(new ExifGpsLongitude(entryLongitudeRef.getRawValue(),
-                entryLongitude.getRawValue(), entryLongitude.getByteOrder()));
+            data.setLongitude(new ExifGpsLongitude(
+                    entryLongitudeRef.getRawValue(),
+                    entryLongitude.getRawValue(), entryLongitude.getByteOrder()));
         }
     }
 
-    private static boolean contains(List<IdfEntryProxy> entries, IdfEntryProxy entry) {
+    private static boolean contains(List<IdfEntryProxy> entries,
+            IdfEntryProxy entry) {
         for (IdfEntryProxy e : entries) {
             if (ExifIfdEntryComparator.INSTANCE.compare(e, entry) == 0) {
                 return true;
@@ -268,10 +287,16 @@ public final class ExifMetadata {
         if (exifEntries != null) {
             exif = new Exif();
             try {
-                IdfEntryProxy dateTimeOriginalEntry = ExifMetadata.findEntryWithTag(exifEntries, ExifTag.DATE_TIME_ORIGINAL.getId());
-                IdfEntryProxy focalLengthEntry = ExifMetadata.findEntryWithTag(exifEntries, ExifTag.FOCAL_LENGTH.getId());
-                IdfEntryProxy isoSpeedRatingsEntry = ExifMetadata.findEntryWithTag(exifEntries, ExifTag.ISO_SPEED_RATINGS.getId());
-                IdfEntryProxy modelEntry = ExifMetadata.findEntryWithTag(exifEntries, ExifTag.MODEL.getId());
+                IdfEntryProxy dateTimeOriginalEntry = ExifMetadata.
+                        findEntryWithTag(exifEntries,
+                        ExifTag.DATE_TIME_ORIGINAL.getId());
+                IdfEntryProxy focalLengthEntry = ExifMetadata.findEntryWithTag(
+                        exifEntries, ExifTag.FOCAL_LENGTH.getId());
+                IdfEntryProxy isoSpeedRatingsEntry = ExifMetadata.
+                        findEntryWithTag(exifEntries, ExifTag.ISO_SPEED_RATINGS.
+                        getId());
+                IdfEntryProxy modelEntry = ExifMetadata.findEntryWithTag(
+                        exifEntries, ExifTag.MODEL.getId());
                 if (dateTimeOriginalEntry != null) {
                     setExifDateTimeOriginal(exif, dateTimeOriginalEntry);
                 }
@@ -290,7 +315,8 @@ public final class ExifMetadata {
         return exif;
     }
 
-    private static void setExifDateTimeOriginal(Exif exifData, IdfEntryProxy entry) {
+    private static void setExifDateTimeOriginal(Exif exifData,
+            IdfEntryProxy entry) {
         String datestring = null;
         datestring = entry.toString(); // had thrown a null pointer exception
         if (datestring != null && datestring.length() >= 11) {
@@ -301,7 +327,8 @@ public final class ExifMetadata {
                 Calendar calendar = new GregorianCalendar();
                 calendar.set(year, month - 1, day);
                 try {
-                    exifData.setDateTimeOriginal(new Date(calendar.getTimeInMillis()));
+                    exifData.setDateTimeOriginal(new Date(calendar.
+                            getTimeInMillis()));
                 } catch (Exception ex) {
                     AppLog.logWarning(ExifMetadata.class, ex);
                 }
@@ -342,97 +369,10 @@ public final class ExifMetadata {
 
     private static void setExifIsoSpeedRatings(Exif exifData, IdfEntryProxy enry) {
         try {
-            exifData.setIsoSpeedRatings(new Short(enry.toString().trim()).shortValue());
+            exifData.setIsoSpeedRatings(new Short(enry.toString().trim()).
+                    shortValue());
         } catch (Exception ex) {
             AppLog.logWarning(ExifMetadata.class, ex);
-        }
-    }
-
-    /**
-     * Dumps the exif metadata of a file to stdout.
-     * 
-     * @param file file
-     * @return Dump
-     */
-    public static String getExifDump(File file) {
-        // Code inklusive aufgerufener Operation von Andrey Kuznetsov <imagero@gmx.de>
-        // E-Mail v. 22.08.2008, modifiziert durch eb
-        StringBuffer sb = null;
-        try {
-            TiffReader reader = new TiffReader(file);
-            int cnt = reader.getIFDCount();
-            sb = new StringBuffer(1000);
-            sb.append("Count IFDs: " + cnt); // NOI18N
-            for (int i = 0; i < cnt; i++) {
-                appendExifDumpDirectory(reader.getIFD(i), "IFD#" + i, sb); // NOI18N
-            }
-
-            IPTCEntryCollection collection = MetadataUtils.getIPTC(reader);
-            appendExifDumpIptc(collection, sb);
-        } catch (IOException ex) {
-            AppLog.logWarning(ExifMetadata.class, ex);
-        }
-        return sb == null ? "" : sb.toString();
-    }
-
-    private static void appendExifDumpDirectory(ImageFileDirectory ifd, String name,
-        StringBuffer sb)
-        throws IOException {
-        sb.append("\n-----------------------------------------\n"); // NOI18N
-        sb.append(name);
-        sb.append("Entry count " + ifd.getEntryCount()); // NOI18N
-        sb.append("name: tag: valueOffset: {description}: value:"); // NOI18N
-
-        int entryCount = ifd.getEntryCount();
-        for (int i = 0; i < entryCount; i++) {
-            IFDEntry ifdEntry = ifd.getEntryAt(i);
-            if (ifdEntry != null) {
-                appendExifDumpEntry(ifdEntry, sb);
-            }
-        }
-        for (int i = 0; i < ifd.getIFDCount(); i++) {
-            ImageFileDirectory ifd0 = ifd.getIFDAt(i);
-            appendExifDumpDirectory(ifd0, "", sb); // NOI18N
-        }
-        ImageFileDirectory exifIFD = ifd.getExifIFD();
-        if (exifIFD != null) {
-            appendExifDumpDirectory(exifIFD, "ExifIFD", sb); // NOI18N
-        }
-        ImageFileDirectory gpsIFD = ifd.getGpsIFD();
-        if (gpsIFD != null) {
-            appendExifDumpDirectory(gpsIFD, "GpsIFD", sb); // NOI18N
-        }
-        ImageFileDirectory interoperabilityIFD = ifd.getInteroperabilityIFD();
-        if (interoperabilityIFD != null) {
-            appendExifDumpDirectory(interoperabilityIFD, "InteroperabilityIFD", sb); // NOI18N
-        }
-        sb.append("\n");
-    }
-
-    private static void appendExifDumpEntry(IFDEntry e, StringBuffer sb) {
-        sb.append("\n");
-        int tag = e.getTag();
-        sb.append(tag);
-        sb.append("\t"); // NOI18N
-        sb.append(e.getEntryMeta().getName());
-        sb.append("\t"); // NOI18N
-        sb.append(e);
-    }
-
-    private static void appendExifDumpIptc(IPTCEntryCollection entries, StringBuffer sb) {
-        sb.append("\n");
-        Enumeration keys = entries.keys();
-        while (keys.hasMoreElements()) {
-            Object key = keys.nextElement();
-            int count = entries.getCount(key);
-            for (int j = 0; j < count; j++) {
-                IPTCEntry entry = entries.getEntry(key, j);
-                sb.append(entry.getRecordNumber() + ":" + entry.getDataSetNumber()); // NOI18N
-                sb.append(" ("); // NOI18N
-                sb.append(entry.getEntryMeta().getName());
-                sb.append(") "); // NOI18N
-                sb.append(entries.toString(entry).replace((char) 0, (char) 32).trim());
-            }
         }
     }
 

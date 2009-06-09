@@ -26,13 +26,20 @@ import java.util.Map;
  */
 public final class ExifFieldValueFormatter {
 
-    private static final Translation translation = new Translation("ExifFieldValueTranslations"); // NOI18N
-    private static final Map<Integer, String> exifKeyOfExposureProgram = new HashMap<Integer, String>();
-    private static final Map<Integer, String> exifKeyOfContrast = new HashMap<Integer, String>();
-    private static final Map<Integer, String> exifKeyOfMeteringMode = new HashMap<Integer, String>();
-    private static final Map<Integer, String> exifKeyOfSaturation = new HashMap<Integer, String>();
-    private static final Map<Integer, String> exifKeyOfSharpness = new HashMap<Integer, String>();
-    private static final Map<Integer, String> exifKeyOfWhiteBalance = new HashMap<Integer, String>();
+    private static final Translation translation = new Translation(
+            "ExifFieldValueTranslations"); // NOI18N
+    private static final Map<Integer, String> exifKeyOfExposureProgram =
+            new HashMap<Integer, String>();
+    private static final Map<Integer, String> exifKeyOfContrast =
+            new HashMap<Integer, String>();
+    private static final Map<Integer, String> exifKeyOfMeteringMode =
+            new HashMap<Integer, String>();
+    private static final Map<Integer, String> exifKeyOfSaturation =
+            new HashMap<Integer, String>();
+    private static final Map<Integer, String> exifKeyOfSharpness =
+            new HashMap<Integer, String>();
+    private static final Map<Integer, String> exifKeyOfWhiteBalance =
+            new HashMap<Integer, String>();
     private static final List<Integer> asciiTags = new ArrayList<Integer>();
 
 
@@ -105,15 +112,15 @@ public final class ExifFieldValueFormatter {
         } else if (tag == ExifTag.METERING_MODE.getId()) {
             return getMeteringMode(entry);
         } else if (tag == ExifTag.FILE_SOURCE.getId()) {
-            return getFileSource(entry);
+            return getFileSource(entry.getRawValue());
         } else if (tag == ExifTag.USER_COMMENT.getId()) {
             return ExifUserComment.decode(entry.getRawValue());
         } else if (tag == ExifTag.CONTRAST.getId()) {
             return getContrast(entry);
         } else if (tag == ExifTag.FLASH.getId()) {
-            return getFlash(entry);
+            return getFlash(entry.getRawValue());
         } else if (tag == ExifTag.DATE_TIME_ORIGINAL.getId()) {
-            return getDateTimeOriginal(entry);
+            return getDateTimeOriginal(entry.getRawValue());
         } else if (tag == ExifTag.GPS_DATE_STAMP.getId()) {
             return getGpsDate(entry.getRawValue());
         } else if (tag == ExifTag.GPS_TIME_STAMP.getId()) {
@@ -124,20 +131,20 @@ public final class ExifFieldValueFormatter {
             return getGpsSatellites(entry.getRawValue());
         } else if (tag == ExifTag.ISO_SPEED_RATINGS.getId()) {
             return getShortString(entry, " ISO");
+        } else if (tag == ExifTag.COPYRIGHT.getId()) {
+            ExifCopyright.getPhotographerCopyright(entry.getRawValue());
+        } else if (tag == ExifTag.ARTIST.getId()) {
+            return ExifAscii.decode(entry.getRawValue());
+        } else if (tag == ExifTag.IMAGE_DESCRIPTION.getId()) {
+            return ExifAscii.decode(entry.getRawValue());
         } else if (isAscii(tag)) {
-            return getAsciiString(entry.getRawValue());
+            return ExifAscii.decode(entry.getRawValue());
         }
         return entry.toString().trim();
     }
 
-    private static String getAsciiString(byte[] rawValue) {
-        ExifAscii ea = new ExifAscii(rawValue);
-        return ea.getValue();
-    }
-
-    private static String getDateTimeOriginal(IdfEntryProxy entry) {
-        ExifAscii ea = new ExifAscii(entry.getRawValue());
-        String value = ea.getValue();
+    private static String getDateTimeOriginal(byte[] rawValue) {
+        String value = ExifAscii.decode(rawValue);
         if (value.length() >= 18) {
             try {
                 int year = Integer.parseInt(value.substring(0, 4));
@@ -148,7 +155,8 @@ public final class ExifFieldValueFormatter {
                 int second = Integer.parseInt(value.substring(17, 19));
                 GregorianCalendar cal = new GregorianCalendar(
                         year, month - 1, day, hour, minute, second);
-                DateFormat df = DateFormat.getDateTimeInstance(DateFormat.FULL, DateFormat.FULL);
+                DateFormat df = DateFormat.getDateTimeInstance(DateFormat.FULL,
+                        DateFormat.FULL);
                 return df.format(cal.getTime());
             } catch (Exception ex) {
                 AppLog.logWarning(ExifFieldValueFormatter.class, ex);
@@ -157,8 +165,7 @@ public final class ExifFieldValueFormatter {
         return value;
     }
 
-    private static String getFlash(IdfEntryProxy entry) {
-        byte[] rawValue = entry.getRawValue();
+    private static String getFlash(byte[] rawValue) {
         if (rawValue != null && rawValue.length >= 1) {
             boolean[] bitsByte1 = Util.getBits(rawValue[0]);
             boolean fired = bitsByte1[0];
@@ -167,15 +174,16 @@ public final class ExifFieldValueFormatter {
                 return translation.translate("FlashNone"); // NOI18N
             }
             return fired
-                    ? translation.translate("FlashFired") // NOI18N
-                    : translation.translate("FlashNotFired"); // NOI18N
+                   ? translation.translate("FlashFired") // NOI18N
+                   : translation.translate("FlashNotFired"); // NOI18N
         }
-        return new ExifAscii(entry.getRawValue()).getValue();
+        return ExifAscii.decode(rawValue);
     }
 
     private static String getFocalLength(IdfEntryProxy entry) {
         if (ExifRational.isRawValueByteCountOk(entry.getRawValue())) {
-            ExifRational er = new ExifRational(entry.getRawValue(), entry.getByteOrder());
+            ExifRational er = new ExifRational(entry.getRawValue(), entry.
+                    getByteOrder());
             DecimalFormat df = (DecimalFormat) NumberFormat.getNumberInstance();
             df.applyPattern("#.# mm");
             return df.format(ExifUtil.toDouble(er));
@@ -185,7 +193,8 @@ public final class ExifFieldValueFormatter {
 
     private static String getFocalLengthIn35mm(IdfEntryProxy entry) {
         if (ExifShort.isRawValueByteCountOk(entry.getRawValue())) {
-            ExifShort es = new ExifShort(entry.getRawValue(), entry.getByteOrder());
+            ExifShort es = new ExifShort(entry.getRawValue(),
+                    entry.getByteOrder());
             DecimalFormat df = (DecimalFormat) NumberFormat.getNumberInstance();
             df.applyPattern("#.# mm");
             return df.format(es.getValue());
@@ -195,7 +204,8 @@ public final class ExifFieldValueFormatter {
 
     private static String getContrast(IdfEntryProxy entry) {
         if (ExifShort.isRawValueByteCountOk(entry.getRawValue())) {
-            ExifShort es = new ExifShort(entry.getRawValue(), entry.getByteOrder());
+            ExifShort es = new ExifShort(entry.getRawValue(),
+                    entry.getByteOrder());
             int value = es.getValue();
             if (exifKeyOfContrast.containsKey(value)) {
                 return translation.translate(exifKeyOfContrast.get(value));
@@ -206,7 +216,8 @@ public final class ExifFieldValueFormatter {
 
     private static String getExposureProgram(IdfEntryProxy entry) {
         if (ExifShort.isRawValueByteCountOk(entry.getRawValue())) {
-            ExifShort es = new ExifShort(entry.getRawValue(), entry.getByteOrder());
+            ExifShort es = new ExifShort(entry.getRawValue(),
+                    entry.getByteOrder());
             int value = es.getValue();
             if (exifKeyOfExposureProgram.containsKey(value)) {
                 return translation.translate(exifKeyOfExposureProgram.get(value));
@@ -217,12 +228,14 @@ public final class ExifFieldValueFormatter {
 
     private static String getExposureTime(IdfEntryProxy entry) {
         if (ExifRational.getRawValueByteCount() == entry.getRawValue().length) {
-            ExifRational time = new ExifRational(entry.getRawValue(), entry.getByteOrder());
+            ExifRational time = new ExifRational(entry.getRawValue(), entry.
+                    getByteOrder());
             Pair<Integer, Integer> pair = getAsExposureTime(time);
             int numerator = pair.getFirst();
             int denominator = pair.getSecond();
             if (denominator > 1) {
-                return Integer.toString(numerator) + " / " + Integer.toString(denominator) + " s";
+                return Integer.toString(numerator) + " / " + Integer.toString(
+                        denominator) + " s";
             } else if (numerator > 1) {
                 return Integer.toString(numerator) + " s";
             }
@@ -235,9 +248,11 @@ public final class ExifFieldValueFormatter {
         int denominator = er.getDenominator();
         double result = (double) numerator / (double) denominator;
         if (result < 1) {
-            return new Pair<Integer, Integer>(1, (int) ((double) denominator / (double) numerator + 0.5));
+            return new Pair<Integer, Integer>(1, (int) ((double) denominator /
+                    (double) numerator + 0.5));
         } else if (result >= 1) {
-            return new Pair<Integer, Integer>((int) ((double) numerator / (double) denominator + 0.5), 1);
+            return new Pair<Integer, Integer>((int) ((double) numerator /
+                    (double) denominator + 0.5), 1);
         } else {
             return new Pair<Integer, Integer>(0, 0);
         }
@@ -245,7 +260,8 @@ public final class ExifFieldValueFormatter {
 
     private static String getFNumber(IdfEntryProxy entry) {
         if (ExifRational.getRawValueByteCount() == entry.getRawValue().length) {
-            ExifRational fNumer = new ExifRational(entry.getRawValue(), entry.getByteOrder());
+            ExifRational fNumer = new ExifRational(entry.getRawValue(), entry.
+                    getByteOrder());
             DecimalFormat df = (DecimalFormat) NumberFormat.getNumberInstance();
             df.applyPattern("#.#"); // NOI18N
             return df.format(ExifUtil.toDouble(fNumer));
@@ -253,9 +269,9 @@ public final class ExifFieldValueFormatter {
         return "?";
     }
 
-    private static String getFileSource(IdfEntryProxy entry) {
-        if (entry.getRawValue().length >= 1) {
-            int value = entry.getRawValue()[0];
+    private static String getFileSource(byte[] rawValue) {
+        if (rawValue.length >= 1) {
+            int value = rawValue[0];
             if (value == 3) {
                 return translation.translate("FileSourceDigitalCamera"); // NOI18N
             }
@@ -278,7 +294,7 @@ public final class ExifFieldValueFormatter {
     }
 
     private static String getGpsSatellites(byte[] rawValue) {
-        return new ExifAscii(rawValue).getValue();
+        return ExifAscii.decode(rawValue);
     }
 
     private static String getGpsTime(IdfEntryProxy entry) {
@@ -321,7 +337,8 @@ public final class ExifFieldValueFormatter {
 
     private static String getMeteringMode(IdfEntryProxy entry) {
         if (ExifShort.isRawValueByteCountOk(entry.getRawValue())) {
-            ExifShort es = new ExifShort(entry.getRawValue(), entry.getByteOrder());
+            ExifShort es = new ExifShort(entry.getRawValue(),
+                    entry.getByteOrder());
             int value = es.getValue();
             if (exifKeyOfMeteringMode.containsKey(value)) {
                 return translation.translate(exifKeyOfMeteringMode.get(value));
@@ -332,7 +349,8 @@ public final class ExifFieldValueFormatter {
 
     private static String getSaturation(IdfEntryProxy entry) {
         if (ExifShort.isRawValueByteCountOk(entry.getRawValue())) {
-            ExifShort es = new ExifShort(entry.getRawValue(), entry.getByteOrder());
+            ExifShort es = new ExifShort(entry.getRawValue(),
+                    entry.getByteOrder());
             int value = es.getValue();
             if (exifKeyOfSaturation.containsKey(value)) {
                 return translation.translate(exifKeyOfSaturation.get(value));
@@ -343,7 +361,8 @@ public final class ExifFieldValueFormatter {
 
     private static String getSharpness(IdfEntryProxy entry) {
         if (ExifShort.getRawValueByteCount() == entry.getRawValue().length) {
-            ExifShort es = new ExifShort(entry.getRawValue(), entry.getByteOrder());
+            ExifShort es = new ExifShort(entry.getRawValue(),
+                    entry.getByteOrder());
             int value = es.getValue();
             if (exifKeyOfSharpness.containsKey(value)) {
                 return translation.translate(exifKeyOfSharpness.get(value));
@@ -354,7 +373,8 @@ public final class ExifFieldValueFormatter {
 
     private static String getShortString(IdfEntryProxy entry, String postfix) {
         if (ExifShort.isRawValueByteCountOk(entry.getRawValue())) {
-            ExifShort es = new ExifShort(entry.getRawValue(), entry.getByteOrder());
+            ExifShort es = new ExifShort(entry.getRawValue(),
+                    entry.getByteOrder());
             return Integer.toString(es.getValue()) + postfix;
         }
         return "?" + postfix;
@@ -362,7 +382,8 @@ public final class ExifFieldValueFormatter {
 
     private static String getWhiteBalance(IdfEntryProxy entry) {
         if (ExifShort.isRawValueByteCountOk(entry.getRawValue())) {
-            ExifShort es = new ExifShort(entry.getRawValue(), entry.getByteOrder());
+            ExifShort es = new ExifShort(entry.getRawValue(),
+                    entry.getByteOrder());
             int value = es.getValue();
             if (exifKeyOfWhiteBalance.containsKey(value)) {
                 return translation.translate(exifKeyOfWhiteBalance.get(value));

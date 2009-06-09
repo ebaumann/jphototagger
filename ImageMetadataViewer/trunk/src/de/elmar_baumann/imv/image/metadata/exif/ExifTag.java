@@ -7,13 +7,17 @@ package de.elmar_baumann.imv.image.metadata.exif;
  */
 public enum ExifTag {
 
+    // Ordered by tag ID
     IMAGE_WIDTH(256),
     IMAGE_LENGTH(257),
     BITS_PER_SAMPLE(258),
+    IMAGE_DESCRIPTION(270),
     MAKE(271),
     MODEL(272),
     SOFTWARE(305),
     DATE_TIME(306),
+    ARTIST(315),
+    COPYRIGHT(33432),
     EXPOSURE_TIME(33434),
     F_NUMBER(33437),
     EXPOSURE_PROGRAM(34850),
@@ -41,8 +45,7 @@ public enum ExifTag {
     GPS_ALTITUDE(6),
     GPS_TIME_STAMP(7),
     GPS_SATELLITES(8),
-    GPS_DATE_STAMP(29),
-            ;
+    GPS_DATE_STAMP(29),;
     private final int tagId;
 
     /**

@@ -9,25 +9,18 @@ package de.elmar_baumann.imv.image.metadata.exif;
  */
 public final class ExifAscii {
 
-    private final String value;
-
     /**
-     * Creates a new instance.
+     * Decodes a raw value.
      *
-     * @param rawValue  raw value
+     * @param  rawValue raw value
+     * @return          decoded value
      */
-    public ExifAscii(byte[] rawValue) {
+    public static String decode(byte[] rawValue) {
         String nullTerminatedValue = new String(rawValue);
         int length = nullTerminatedValue.length();
-        value = length > 0 ? nullTerminatedValue.substring(0, length - 1) : "";
+        return length > 0 ? nullTerminatedValue.substring(0, length - 1) : "";
     }
 
-    /**
-     * Returns the value.
-     *
-     * @return value
-     */
-    public String getValue() {
-        return value;
+    private ExifAscii() {
     }
 }
