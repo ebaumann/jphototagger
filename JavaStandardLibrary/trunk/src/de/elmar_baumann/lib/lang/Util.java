@@ -1,6 +1,7 @@
 package de.elmar_baumann.lib.lang;
 
 import java.io.PrintStream;
+import java.nio.ByteBuffer;
 
 /**
  * Utils.
@@ -52,6 +53,22 @@ public final class Util {
             }
             out.print(" "); // NOI18N
         }
+    }
+
+    /**
+     * Compares two byte arrays.
+     *
+     * @param a1  first byte array
+     * @param a2  second byte array
+     *
+     * @return    A negative integer, zero, or a positive integer as the first
+     *            byte array is less than, equal to, or greater than the second
+     *            byte array
+     */
+    public static int compareTo(byte[] a1, byte[] a2) {
+        ByteBuffer buf1 = ByteBuffer.wrap(a1);
+        ByteBuffer buf2 = ByteBuffer.wrap(a2);
+        return buf1.compareTo(buf2);
     }
 
     private Util() {
