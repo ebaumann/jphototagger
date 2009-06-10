@@ -7,6 +7,7 @@ import de.elmar_baumann.imv.image.metadata.exif.ExifGpsUtil;
 import de.elmar_baumann.imv.image.metadata.exif.ExifIfdEntryDisplayComparator;
 import de.elmar_baumann.imv.image.metadata.exif.ExifMetadata;
 import de.elmar_baumann.imv.image.metadata.exif.ExifTag;
+import de.elmar_baumann.imv.image.metadata.exif.ExifMetadataToDisplay;
 import de.elmar_baumann.imv.image.metadata.exif.IdfEntryProxy;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.Translation;
@@ -33,7 +34,8 @@ public final class TableModelExif extends DefaultTableModel {
     private File file;
     private ExifGpsMetadata gps;
     private List<IdfEntryProxy> allEntries;
-    private static final Translation translation = new Translation("ExifTagIdTagNameTranslations"); // NOI18N
+    private static final Translation translation = new Translation(
+            "ExifTagIdTagNameTranslations"); // NOI18N
 
     public TableModelExif() {
         setRowHeaders();
@@ -79,7 +81,7 @@ public final class TableModelExif extends DefaultTableModel {
     private void setExifData() {
         allEntries = ExifMetadata.getMetadata(file);
         if (allEntries != null) {
-            List<IdfEntryProxy> entries = ExifMetadata.getDisplayableMetadata(allEntries);
+            List<IdfEntryProxy> entries = ExifMetadataToDisplay.get(allEntries);
             if (entries != null) {
                 Collections.sort(entries, ExifIfdEntryDisplayComparator.INSTANCE);
                 for (IdfEntryProxy entry : entries) {
@@ -96,19 +98,26 @@ public final class TableModelExif extends DefaultTableModel {
     private void addGps() {
         gps = ExifMetadata.getGpsMetadata(allEntries);
         if (gps.getLatitude() != null) {
-            String prompt = translation.translate(Integer.toString(ExifTag.GPS_LATITUDE.getId()));
-            super.addRow(new Object[]{prompt, gps.getLatitude().localizedString()});
+            String prompt = translation.translate(Integer.toString(
+                    ExifTag.GPS_LATITUDE.getId()));
+            super.addRow(new Object[]{prompt,
+                        gps.getLatitude().localizedString()});
         }
         if (gps.getLongitude() != null) {
-            String prompt = translation.translate(Integer.toString(ExifTag.GPS_LONGITUDE.getId()));
-            super.addRow(new Object[]{prompt, gps.getLongitude().localizedString()});
+            String prompt = translation.translate(Integer.toString(
+                    ExifTag.GPS_LONGITUDE.getId()));
+            super.addRow(new Object[]{prompt,
+                        gps.getLongitude().localizedString()});
         }
         if (gps.getAltitude() != null) {
-            String prompt = translation.translate(Integer.toString(ExifTag.GPS_ALTITUDE.getId()));
-            super.addRow(new Object[]{prompt, gps.getAltitude().localizedString()});
+            String prompt = translation.translate(Integer.toString(
+                    ExifTag.GPS_ALTITUDE.getId()));
+            super.addRow(new Object[]{prompt,
+                        gps.getAltitude().localizedString()});
         }
         if (gps.getLongitude() != null && gps.getLatitude() != null) {
-            JButton button = new JButton(Bundle.getString("TableModelExif.Button.GoogleMaps"));
+            JButton button = new JButton(Bundle.getString(
+                    "TableModelExif.Button.GoogleMaps"));
             button.addActionListener(new GpsListener());
             super.addRow(new Object[]{gps, button});
         }
@@ -152,7 +161,8 @@ public final class TableModelExif extends DefaultTableModel {
             JOptionPane.showMessageDialog(
                     null,
                     Bundle.getString("TableModelExif.ErrorMessage.WebBrowser"),
-                    Bundle.getString("TableModelExif.ErrorMessage.WebBrowser.Title"),
+                    Bundle.getString(
+                    "TableModelExif.ErrorMessage.WebBrowser.Title"),
                     JOptionPane.ERROR_MESSAGE);
         }
 
@@ -168,7 +178,8 @@ public final class TableModelExif extends DefaultTableModel {
 
         private void startWebBrowser(String webBrowser) {
             if (gps != null) {
-                String url = ExifGpsUtil.getGoogleMapsUrl(gps.getLongitude(), gps.getLatitude());
+                String url = ExifGpsUtil.getGoogleMapsUrl(gps.getLongitude(),
+                        gps.getLatitude());
                 String cmd = webBrowser + " " + url; // NOI18N
                 logExternalAppCommand(cmd);
                 External.execute(cmd);

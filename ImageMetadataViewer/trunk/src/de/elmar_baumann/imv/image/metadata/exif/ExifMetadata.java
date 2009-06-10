@@ -21,7 +21,8 @@ import java.util.Map;
 import java.util.StringTokenizer;
 
 /**
- * Utils für EXIF.
+ * Extracts EXIF metadata from images as {@link IdfEntryProxy} and
+ * {@link Exif} objects.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
@@ -30,7 +31,6 @@ public final class ExifMetadata {
 
     private static final Map<String, Double> rotationAngleOfString =
             new HashMap<String, Double>();
-    private static final List<Integer> tagsToDisplay = new ArrayList<Integer>();
 
 
     static {
@@ -42,36 +42,6 @@ public final class ExifMetadata {
         rotationAngleOfString.put("(0, 0) is right-top", new Double(90)); // 6 // NOI18N
         rotationAngleOfString.put("(0, 0) is right-bottom", new Double(270)); // 7 // NOI18N
         rotationAngleOfString.put("(0, 0) is left-bottom", new Double(270)); // 8 // NOI18N
-    }
-
-
-    static {
-        // Ordered alphabetically
-        tagsToDisplay.add(ExifTag.ARTIST.getId());
-        tagsToDisplay.add(ExifTag.CONTRAST.getId());
-        tagsToDisplay.add(ExifTag.COPYRIGHT.getId());
-        tagsToDisplay.add(ExifTag.DATE_TIME_ORIGINAL.getId());
-        tagsToDisplay.add(ExifTag.EXPOSURE_PROGRAM.getId());
-        tagsToDisplay.add(ExifTag.EXPOSURE_TIME.getId());
-        tagsToDisplay.add(ExifTag.FILE_SOURCE.getId());
-        tagsToDisplay.add(ExifTag.FLASH.getId());
-        tagsToDisplay.add(ExifTag.F_NUMBER.getId());
-        tagsToDisplay.add(ExifTag.FOCAL_LENGTH.getId());
-        tagsToDisplay.add(ExifTag.FOCAL_LENGTH_IN_35_MM_FILM.getId());
-        tagsToDisplay.add(ExifTag.GPS_DATE_STAMP.getId());
-        tagsToDisplay.add(ExifTag.GPS_SATELLITES.getId());
-        tagsToDisplay.add(ExifTag.GPS_TIME_STAMP.getId());
-        tagsToDisplay.add(ExifTag.GPS_VERSION_ID.getId());
-        tagsToDisplay.add(ExifTag.IMAGE_DESCRIPTION.getId());
-        tagsToDisplay.add(ExifTag.ISO_SPEED_RATINGS.getId());
-        tagsToDisplay.add(ExifTag.MAKE.getId());
-        tagsToDisplay.add(ExifTag.METERING_MODE.getId());
-        tagsToDisplay.add(ExifTag.MODEL.getId());
-        tagsToDisplay.add(ExifTag.SATURATION.getId());
-        tagsToDisplay.add(ExifTag.SHARPNESS.getId());
-        tagsToDisplay.add(ExifTag.SOFTWARE.getId());
-        tagsToDisplay.add(ExifTag.USER_COMMENT.getId());
-        tagsToDisplay.add(ExifTag.WHITE_BALANCE.getId());
     }
 
     public enum ByteOrder {
@@ -194,30 +164,6 @@ public final class ExifMetadata {
         return 0;
     }
 
-    /**
-     * Liefert Metadaten, die eine informative View anzeigen soll.
-     * 
-     * @param entries Beliebige Entries
-     * @return        Entries aus entries, die angezeigt werden sollen
-     */
-    public static List<IdfEntryProxy> getDisplayableMetadata(
-            List<IdfEntryProxy> entries) {
-        List<IdfEntryProxy> displayableEntries = new ArrayList<IdfEntryProxy>(
-                entries.size());
-        for (IdfEntryProxy entry : entries) {
-            if (isTagToDisplay(entry.getTag())) {
-                if (!contains(displayableEntries, entry)) {
-                    displayableEntries.add(entry);
-                }
-            }
-        }
-        return displayableEntries;
-    }
-
-    private static boolean isTagToDisplay(int tag) {
-        return tagsToDisplay.contains(tag);
-    }
-
     public static ExifGpsMetadata getGpsMetadata(List<IdfEntryProxy> entries) {
         ExifGpsMetadata data = new ExifGpsMetadata();
 
@@ -263,16 +209,6 @@ public final class ExifMetadata {
                     entryLongitudeRef.getRawValue(),
                     entryLongitude.getRawValue(), entryLongitude.getByteOrder()));
         }
-    }
-
-    private static boolean contains(List<IdfEntryProxy> entries,
-            IdfEntryProxy entry) {
-        for (IdfEntryProxy e : entries) {
-            if (ExifIfdEntryComparator.INSTANCE.compare(e, entry) == 0) {
-                return true;
-            }
-        }
-        return false;
     }
 
     /**
