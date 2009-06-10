@@ -3,6 +3,7 @@ package de.elmar_baumann.imv.image.metadata.exif;
 import java.text.DecimalFormat;
 import java.text.MessageFormat;
 import java.text.NumberFormat;
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -37,13 +38,18 @@ public final class ExifGpsUtil {
         DecimalFormat dfDegMin = new DecimalFormat("#"); // NOI18N
         DecimalFormat dfSec = new DecimalFormat("#.##"); // NOI18N
 
-        Object[] params = {dfDegMin.format(deg), dfDegMin.format(min), dfSec.format(sec)};
+        Object[] params = {dfDegMin.format(deg), dfDegMin.format(min), dfSec.
+            format(sec)};
         return msg.format(params);
     }
 
-    public static String getGoogleMapsUrl(ExifGpsLongitude longitude, ExifGpsLatitude latitude) {
-        MessageFormat msg = new MessageFormat("http://maps.google.com/maps?q={0},{1}&spn=0.001,0.001&t=k&hl=de"); // NOI18N
-        DecimalFormat df = (DecimalFormat) NumberFormat.getNumberInstance(Locale.ENGLISH);
+    public static String getGoogleMapsUrl(ExifGpsLongitude longitude,
+            ExifGpsLatitude latitude) {
+        MessageFormat msg =
+                new MessageFormat(
+                "http://maps.google.com/maps?q={0},{1}&spn=0.001,0.001&t=k&hl=de"); // NOI18N
+        DecimalFormat df = (DecimalFormat) NumberFormat.getNumberInstance(
+                Locale.ENGLISH);
         df.applyPattern("#.########"); // NOI18N
 
         double latititudeValue = getDegrees(latitude.getDegrees());
@@ -51,6 +57,53 @@ public final class ExifGpsUtil {
 
         Object[] params = {df.format(latititudeValue), df.format(longitudeValue)};
         return msg.format(params);
+    }
+
+    public static ExifGpsMetadata getGpsMetadata(List<IdfEntryProxy> entries) {
+        ExifGpsMetadata data = new ExifGpsMetadata();
+
+        setGpsLatitude(data, entries);
+        setGpsLongitude(data, entries);
+        setGpsAltitude(data, entries);
+
+        return data;
+    }
+
+    private static void setGpsAltitude(ExifGpsMetadata data,
+            List<IdfEntryProxy> entries) {
+        IdfEntryProxy entryAltitudeRef = ExifMetadata.findEntryWithTag(entries,
+                ExifTag.GPS_ALTITUDE_REF.getId());
+        IdfEntryProxy entryAltitude = ExifMetadata.findEntryWithTag(entries,
+                ExifTag.GPS_ALTITUDE.getId());
+        if (entryAltitudeRef != null && entryAltitude != null) {
+            data.setAltitude(new ExifGpsAltitude(entryAltitudeRef.getRawValue(),
+                    entryAltitude.getRawValue(), entryAltitude.getByteOrder()));
+        }
+    }
+
+    private static void setGpsLatitude(ExifGpsMetadata data,
+            List<IdfEntryProxy> entries) {
+        IdfEntryProxy entryLatitudeRef = ExifMetadata.findEntryWithTag(entries,
+                ExifTag.GPS_LATITUDE_REF.getId());
+        IdfEntryProxy entryLatitude = ExifMetadata.findEntryWithTag(entries,
+                ExifTag.GPS_LATITUDE.getId());
+        if (entryLatitudeRef != null && entryLatitude != null) {
+            data.setLatitude(new ExifGpsLatitude(entryLatitudeRef.getRawValue(),
+                    entryLatitude.getRawValue(), entryLatitude.getByteOrder()));
+        }
+    }
+
+    private static void setGpsLongitude(ExifGpsMetadata data,
+            List<IdfEntryProxy> entries) {
+        IdfEntryProxy entryLongitudeRef = ExifMetadata.findEntryWithTag(entries,
+                ExifTag.GPS_LONGITUDE_REF.getId());
+        IdfEntryProxy entryLongitude = ExifMetadata.findEntryWithTag(entries,
+                ExifTag.GPS_LONGITUDE.getId());
+        if (entryLongitudeRef != null && entryLongitude != null) {
+            data.setLongitude(new ExifGpsLongitude(
+                    entryLongitudeRef.getRawValue(),
+                    entryLongitude.getRawValue(), entryLongitude.getByteOrder()));
+        }
     }
 
     private ExifGpsUtil() {

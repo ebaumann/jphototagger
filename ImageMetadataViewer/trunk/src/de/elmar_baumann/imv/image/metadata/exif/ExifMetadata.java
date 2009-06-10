@@ -128,53 +128,6 @@ public final class ExifMetadata {
         return null;
     }
 
-    public static ExifGpsMetadata getGpsMetadata(List<IdfEntryProxy> entries) {
-        ExifGpsMetadata data = new ExifGpsMetadata();
-
-        setGpsLatitude(data, entries);
-        setGpsLongitude(data, entries);
-        setGpsAltitude(data, entries);
-
-        return data;
-    }
-
-    private static void setGpsAltitude(ExifGpsMetadata data,
-            List<IdfEntryProxy> entries) {
-        IdfEntryProxy entryAltitudeRef = findEntryWithTag(entries,
-                ExifTag.GPS_ALTITUDE_REF.getId());
-        IdfEntryProxy entryAltitude = findEntryWithTag(entries,
-                ExifTag.GPS_ALTITUDE.getId());
-        if (entryAltitudeRef != null && entryAltitude != null) {
-            data.setAltitude(new ExifGpsAltitude(entryAltitudeRef.getRawValue(),
-                    entryAltitude.getRawValue(), entryAltitude.getByteOrder()));
-        }
-    }
-
-    private static void setGpsLatitude(ExifGpsMetadata data,
-            List<IdfEntryProxy> entries) {
-        IdfEntryProxy entryLatitudeRef = findEntryWithTag(entries,
-                ExifTag.GPS_LATITUDE_REF.getId());
-        IdfEntryProxy entryLatitude = findEntryWithTag(entries,
-                ExifTag.GPS_LATITUDE.getId());
-        if (entryLatitudeRef != null && entryLatitude != null) {
-            data.setLatitude(new ExifGpsLatitude(entryLatitudeRef.getRawValue(),
-                    entryLatitude.getRawValue(), entryLatitude.getByteOrder()));
-        }
-    }
-
-    private static void setGpsLongitude(ExifGpsMetadata data,
-            List<IdfEntryProxy> entries) {
-        IdfEntryProxy entryLongitudeRef = findEntryWithTag(entries,
-                ExifTag.GPS_LONGITUDE_REF.getId());
-        IdfEntryProxy entryLongitude = findEntryWithTag(entries,
-                ExifTag.GPS_LONGITUDE.getId());
-        if (entryLongitudeRef != null && entryLongitude != null) {
-            data.setLongitude(new ExifGpsLongitude(
-                    entryLongitudeRef.getRawValue(),
-                    entryLongitude.getRawValue(), entryLongitude.getByteOrder()));
-        }
-    }
-
     /**
      * Returns the EXIF metadata of a file.
      * 

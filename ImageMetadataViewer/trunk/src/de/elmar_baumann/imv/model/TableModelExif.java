@@ -96,7 +96,7 @@ public final class TableModelExif extends DefaultTableModel {
     }
 
     private void addGps() {
-        gps = ExifMetadata.getGpsMetadata(allEntries);
+        gps = ExifGpsUtil.getGpsMetadata(allEntries);
         if (gps.getLatitude() != null) {
             String prompt = translation.translate(Integer.toString(
                     ExifTag.GPS_LATITUDE.getId()));
