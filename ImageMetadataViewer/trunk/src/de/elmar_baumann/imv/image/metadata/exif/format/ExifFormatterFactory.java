@@ -45,6 +45,8 @@ public final class ExifFormatterFactory {
                 ExifFormatterGpsTimeStamp.INSTANCE);
         formatterOfTagId.put(ExifTag.GPS_VERSION_ID.getId(),
                 ExifFormatterGpsVersionId.INSTANCE);
+        formatterOfTagId.put(ExifTag.IMAGE_UNIQUE_ID.getId(),
+                ExifFormatterAscii.INSTANCE);
         formatterOfTagId.put(ExifTag.ISO_SPEED_RATINGS.getId(),
                 ExifFormatterIsoSpeedRatings.INSTANCE);
         formatterOfTagId.put(ExifTag.METERING_MODE.getId(),
@@ -66,6 +68,8 @@ public final class ExifFormatterFactory {
         formatterOfTagId.put(ExifTag.MODEL.getId(),
                 ExifFormatterAscii.INSTANCE);
         formatterOfTagId.put(ExifTag.SOFTWARE.getId(),
+                ExifFormatterAscii.INSTANCE);
+        formatterOfTagId.put(ExifTag.SPECTRAL_SENSITIVITY.getId(),
                 ExifFormatterAscii.INSTANCE);
     }
 

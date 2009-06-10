@@ -32,6 +32,7 @@ public final class ExifMetadataToDisplay {
         tagsToDisplay.add(ExifTag.GPS_TIME_STAMP.getId());
         tagsToDisplay.add(ExifTag.GPS_VERSION_ID.getId());
         tagsToDisplay.add(ExifTag.IMAGE_DESCRIPTION.getId());
+        tagsToDisplay.add(ExifTag.IMAGE_UNIQUE_ID.getId());
         tagsToDisplay.add(ExifTag.ISO_SPEED_RATINGS.getId());
         tagsToDisplay.add(ExifTag.MAKE.getId());
         tagsToDisplay.add(ExifTag.METERING_MODE.getId());
@@ -41,6 +42,7 @@ public final class ExifMetadataToDisplay {
         tagsToDisplay.add(ExifTag.SOFTWARE.getId());
         tagsToDisplay.add(ExifTag.USER_COMMENT.getId());
         tagsToDisplay.add(ExifTag.WHITE_BALANCE.getId());
+        tagsToDisplay.add(ExifTag.SPECTRAL_SENSITIVITY.getId());
     }
 
     /**

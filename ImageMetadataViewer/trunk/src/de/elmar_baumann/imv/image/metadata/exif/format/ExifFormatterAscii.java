@@ -28,9 +28,11 @@ public final class ExifFormatterAscii extends ExifFormatter {
         // *****************************************************
         asciiTags.add(ExifTag.ARTIST.getId());
         asciiTags.add(ExifTag.IMAGE_DESCRIPTION.getId());
+        asciiTags.add(ExifTag.IMAGE_UNIQUE_ID.getId());
         asciiTags.add(ExifTag.MAKE.getId());
         asciiTags.add(ExifTag.MODEL.getId());
         asciiTags.add(ExifTag.SOFTWARE.getId());
+        asciiTags.add(ExifTag.SPECTRAL_SENSITIVITY.getId());
     }
 
     @Override
