@@ -68,7 +68,7 @@
                                   <Component id="buttonMetadataTemplateCreate" linkSize="3" alignment="0" min="-2" max="-2" attributes="1"/>
                               </Group>
                           </Group>
-                          <Component id="labelMetadataInfoEditable" alignment="0" pref="363" max="32767" attributes="0"/>
+                          <Component id="labelMetadataInfoEditable" alignment="0" pref="236" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -89,7 +89,7 @@
                           <Component id="buttonMetadataTemplateInsert" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="buttonEmptyMetadata" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="24" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -183,14 +183,13 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="comboBoxMetadataTemplates" alignment="0" pref="363" max="32767" attributes="0"/>
+                          <Component id="comboBoxMetadataTemplates" alignment="0" pref="236" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="buttonMetadataTemplateDelete" linkSize="1" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
                               <Component id="buttonMetadataTemplateRename" linkSize="1" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="buttonMetadataTemplateUpdate" linkSize="1" min="-2" max="-2" attributes="0"/>
                           </Group>
+                          <Component id="buttonMetadataTemplateDelete" linkSize="1" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -203,11 +202,12 @@
                       <Component id="comboBoxMetadataTemplates" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="buttonMetadataTemplateDelete" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="buttonMetadataTemplateRename" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="buttonMetadataTemplateUpdate" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="28" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="buttonMetadataTemplateDelete" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>

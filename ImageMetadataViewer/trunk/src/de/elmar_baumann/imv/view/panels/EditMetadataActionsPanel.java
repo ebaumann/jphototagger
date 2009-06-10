@@ -79,7 +79,7 @@ public final class EditMetadataActionsPanel extends javax.swing.JPanel {
                         .addGroup(panelGroupMetadataEditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(buttonMetadataTemplateInsert, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(buttonMetadataTemplateCreate, javax.swing.GroupLayout.Alignment.LEADING)))
-                    .addComponent(labelMetadataInfoEditable, javax.swing.GroupLayout.DEFAULT_SIZE, 363, Short.MAX_VALUE))
+                    .addComponent(labelMetadataInfoEditable, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -100,7 +100,7 @@ public final class EditMetadataActionsPanel extends javax.swing.JPanel {
                 .addGroup(panelGroupMetadataEditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonMetadataTemplateInsert)
                     .addComponent(buttonEmptyMetadata))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         tabbedPane.addTab(Bundle.getString("EditMetadataActionsPanel.panelGroupMetadataEdit.TabConstraints.tabTitle"), panelGroupMetadataEdit); // NOI18N
@@ -129,13 +129,12 @@ public final class EditMetadataActionsPanel extends javax.swing.JPanel {
             .addGroup(panelGroupMetadataTemplatesLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelGroupMetadataTemplatesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(comboBoxMetadataTemplates, 0, 363, Short.MAX_VALUE)
+                    .addComponent(comboBoxMetadataTemplates, 0, 236, Short.MAX_VALUE)
                     .addGroup(panelGroupMetadataTemplatesLayout.createSequentialGroup()
-                        .addComponent(buttonMetadataTemplateDelete)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonMetadataTemplateRename)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonMetadataTemplateUpdate)))
+                        .addComponent(buttonMetadataTemplateUpdate))
+                    .addComponent(buttonMetadataTemplateDelete))
                 .addContainerGap())
         );
 
@@ -148,10 +147,11 @@ public final class EditMetadataActionsPanel extends javax.swing.JPanel {
                 .addComponent(comboBoxMetadataTemplates, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelGroupMetadataTemplatesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonMetadataTemplateDelete)
                     .addComponent(buttonMetadataTemplateRename)
                     .addComponent(buttonMetadataTemplateUpdate))
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(buttonMetadataTemplateDelete)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         tabbedPane.addTab(Bundle.getString("EditMetadataActionsPanel.panelGroupMetadataTemplates.TabConstraints.tabTitle"), panelGroupMetadataTemplates); // NOI18N
