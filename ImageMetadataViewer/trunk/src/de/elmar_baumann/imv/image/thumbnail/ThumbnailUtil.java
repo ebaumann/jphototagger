@@ -9,6 +9,7 @@ import com.imagero.reader.jpeg.JpegReader;
 import com.imagero.reader.tiff.TiffReader;
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.app.AppLog;
+import de.elmar_baumann.imv.database.metadata.exif.ExifThumbnailUtil;
 import de.elmar_baumann.imv.image.metadata.exif.ExifMetadata;
 import de.elmar_baumann.imv.io.FileType;
 import de.elmar_baumann.imv.resource.Bundle;
@@ -54,13 +55,13 @@ public final class ThumbnailUtil {
     public static Image getThumbnail(File file, int maxLength, boolean embedded) {
         Image thumbnail =
                 (embedded || FileType.isRawFile(file.getName())
-                ? rotateThumbnail(file, getFileEmbeddedThumbnail(file))
-                : getScaledImageImagero(file, maxLength));
+                 ? rotateThumbnail(file, getFileEmbeddedThumbnail(file))
+                 : getScaledImageImagero(file, maxLength));
         if (thumbnail == null) {
             thumbnail =
                     (embedded
-                    ? getScaledImageImagero(file, maxLength)
-                    : rotateThumbnail(file, getFileEmbeddedThumbnail(file)));
+                     ? getScaledImageImagero(file, maxLength)
+                     : rotateThumbnail(file, getFileEmbeddedThumbnail(file)));
         }
         return thumbnail;
     }
@@ -122,7 +123,7 @@ public final class ThumbnailUtil {
     private static Image rotateThumbnail(File file, Image thumbnail) {
         if (thumbnail != null) {
             double rotateAngle =
-                    ExifMetadata.getThumbnailRotationAngle(
+                    ExifThumbnailUtil.getThumbnailRotationAngle(
                     ExifMetadata.getMetadata(file));
             if (rotateAngle != 0) {
                 return ImageTransform.rotate(thumbnail, rotateAngle);
@@ -150,8 +151,10 @@ public final class ThumbnailUtil {
         String cmd = command.replace("%s", file.getAbsolutePath()).replace("%i", // NOI18N
                 new Integer(maxLength).toString());
         logExternalAppCommand(cmd);
-        Pair<byte[], byte[]> output = External.executeGetOutput(cmd,
-                UserSettings.INSTANCE.getMaxSecondsToTerminateExternalPrograms() * 1000);
+        Pair<byte[], byte[]> output =
+                External.executeGetOutput(cmd,
+                UserSettings.INSTANCE.getMaxSecondsToTerminateExternalPrograms() *
+                1000);
 
         if (output == null) {
             return null;
@@ -160,9 +163,11 @@ public final class ThumbnailUtil {
         byte[] stdout = output.getFirst();
         if (stdout != null) {
             try {
-                image = javax.imageio.ImageIO.read(new ByteArrayInputStream(stdout));
+                image = javax.imageio.ImageIO.read(new ByteArrayInputStream(
+                        stdout));
             } catch (Exception ex) {
-                Logger.getLogger(ThumbnailUtil.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ThumbnailUtil.class.getName()).log(Level.SEVERE,
+                        null, ex);
             }
         }
         if (output.getSecond() != null) {
@@ -173,9 +178,12 @@ public final class ThumbnailUtil {
 
     private static void logStderr(Pair<byte[], byte[]> output) {
         byte[] stderr = output.getSecond();
-        String message = (stderr == null ? "" : new String(stderr).trim());
+        String message = (stderr == null
+                          ? ""
+                          : new String(stderr).trim());
         if (!message.isEmpty()) {
-            message = Bundle.getString("ThumbnailUtil.ErrorMessage.ExternalProgram") + message;
+            message = Bundle.getString(
+                    "ThumbnailUtil.ErrorMessage.ExternalProgram") + message;
             AppLog.logWarning(ThumbnailUtil.class, message);
         }
     }
@@ -220,7 +228,8 @@ public final class ThumbnailUtil {
      * @param qfactor Ein Wert zwichen 0 und 1. Je kleiner die Zahl, desto mehr Duchgänge wird der Skalierungsprozess machen. Empfohlener Wert ist 0.5.
      * @return Das skalierte Bild.
      */
-    private static BufferedImage stepScaleImage(BufferedImage image, int minWidth, double qfactor) {
+    private static BufferedImage stepScaleImage(BufferedImage image,
+            int minWidth, double qfactor) {
         // Damit Assertions ausgewertet werden, muss die VM mit dem Argument -ea gestartet werden.
         assert qfactor < 1.0 : "qfactor must be < 1.0";// wir wollen nur verkleinern! :-)
         BufferedImage scaledImage = null;
@@ -236,7 +245,8 @@ public final class ThumbnailUtil {
             // ob die Zielgröße im folgenden Schritt unterschritten werden würde.. Wenn nein, wird ein neuer Duchlauf
             // gestartet und wieder ein wenig skaliert.
             // In jedem Schleifendurchlauf werden origHeight und origWidth auf die aktuelle Größe gesetzt.
-            while (((origWidth * qfactor) > scaledWidth) || ((origHeight * qfactor) > scaledHeight)) {
+            while (((origWidth * qfactor) > scaledWidth) || ((origHeight *
+                    qfactor) > scaledHeight)) {
                 int width = (int) (origWidth * qfactor); // Die Breite in diesesm Skalierungsschritt
                 int height = (int) (origHeight * qfactor); // Die Höhe in diesem Skalierungsschritt
 
@@ -258,7 +268,9 @@ public final class ThumbnailUtil {
     }
 
     private static double getScaleFactor(int width, int height, int maxWidth) {
-        double longer = width > height ? width : height;
+        double longer = width > height
+                        ? width
+                        : height;
         return longer / (double) maxWidth;
     }
 
@@ -270,12 +282,17 @@ public final class ThumbnailUtil {
      * @param image Das zu skalierende Image.
      * @return Das skalierte Image.
      */
-    private static BufferedImage scaleImage(int scaledWidth, int scaledHeight, BufferedImage image) {
-        BufferedImage scaledImage = new BufferedImage(scaledWidth, scaledHeight, BufferedImage.TYPE_INT_RGB);
+    private static BufferedImage scaleImage(int scaledWidth, int scaledHeight,
+            BufferedImage image) {
+        BufferedImage scaledImage = new BufferedImage(scaledWidth, scaledHeight,
+                BufferedImage.TYPE_INT_RGB);
         Graphics2D graphics2D = scaledImage.createGraphics();
-        graphics2D.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-        graphics2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        graphics2D.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+        graphics2D.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
+                RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+        graphics2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON);
+        graphics2D.setRenderingHint(RenderingHints.KEY_RENDERING,
+                RenderingHints.VALUE_RENDER_QUALITY);
         graphics2D.drawImage(image, 0, 0, scaledWidth, scaledHeight, null);
         return scaledImage;
     }
@@ -306,7 +323,8 @@ public final class ThumbnailUtil {
     public static void writeThumbnail(Image thumbnail, long id) {
         try {
             FileOutputStream fos = new FileOutputStream(getThumbnailfile(id));
-            ByteArrayInputStream is = ImageUtil.getByteArrayInputStream(thumbnail);
+            ByteArrayInputStream is = ImageUtil.getByteArrayInputStream(
+                    thumbnail);
             if (is != null) {
                 int nextByte;
                 while ((nextByte = is.read()) != -1) {

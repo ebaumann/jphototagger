@@ -15,9 +15,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.StringTokenizer;
 
 /**
@@ -28,21 +26,6 @@ import java.util.StringTokenizer;
  * @version 2008-10-05
  */
 public final class ExifMetadata {
-
-    private static final Map<String, Double> rotationAngleOfString =
-            new HashMap<String, Double>();
-
-
-    static {
-        rotationAngleOfString.put("(0, 0) is top-left", new Double(0)); // 1 // NOI18N
-        rotationAngleOfString.put("(0, 0) is top-right", new Double(0)); // 2 // NOI18N
-        rotationAngleOfString.put("0, 0) is bottom-right", new Double(180)); // 3 // NOI18N
-        rotationAngleOfString.put("(0, 0) is bottom-left", new Double(180)); // 4 // NOI18N
-        rotationAngleOfString.put("(0, 0) is left-top", new Double(90)); // 5 // NOI18N
-        rotationAngleOfString.put("(0, 0) is right-top", new Double(90)); // 6 // NOI18N
-        rotationAngleOfString.put("(0, 0) is right-bottom", new Double(270)); // 7 // NOI18N
-        rotationAngleOfString.put("(0, 0) is left-bottom", new Double(270)); // 8 // NOI18N
-    }
 
     public enum ByteOrder {
 
@@ -143,25 +126,6 @@ public final class ExifMetadata {
             }
         }
         return null;
-    }
-
-    /**
-     * Liefert den Drehwinkel für die richtige Ausrichtung des eingebetteten 
-     * Thumbnails.
-     * 
-     * @param entries EXIF-Metadaten eines Bilds
-     * @return        Drehwinkel im Uhrzeigersinn
-     */
-    public static double getThumbnailRotationAngle(List<IdfEntryProxy> entries) {
-        IdfEntryProxy entry = findEntryWithTag(entries, 274);
-        if (entry != null) {
-            Double angle = rotationAngleOfString.get(entry.toString());
-            if (angle == null) {
-                return 0;
-            }
-            return angle.doubleValue();
-        }
-        return 0;
     }
 
     public static ExifGpsMetadata getGpsMetadata(List<IdfEntryProxy> entries) {
