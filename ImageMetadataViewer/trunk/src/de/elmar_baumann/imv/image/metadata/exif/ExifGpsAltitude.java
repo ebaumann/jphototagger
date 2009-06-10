@@ -18,29 +18,37 @@ public final class ExifGpsAltitude {
 
         OBOVE_SEA_LEVEL, BELOW_SEA_LEVEL
     }
-    private static final Map<Integer, Ref> refOfInteger = new HashMap<Integer, Ref>();
-    private static final Map<Ref, String> localizedStringOfRef = new HashMap<Ref, String>();
+    private static final Map<Integer, Ref> refOfInteger =
+            new HashMap<Integer, Ref>();
+    private static final Map<Ref, String> localizedStringOfRef =
+            new HashMap<Ref, String>();
 
 
     static {
         refOfInteger.put(0, Ref.OBOVE_SEA_LEVEL);
         refOfInteger.put(1, Ref.BELOW_SEA_LEVEL);
 
-        localizedStringOfRef.put(Ref.OBOVE_SEA_LEVEL, Bundle.getString("ExifGpsAltitudeRefOboveSeaLevel"));
-        localizedStringOfRef.put(Ref.BELOW_SEA_LEVEL, Bundle.getString("ExifGpsAltitudeRefBelowSeaLevel"));
+        localizedStringOfRef.put(Ref.OBOVE_SEA_LEVEL, Bundle.getString(
+                "ExifGpsAltitudeRefOboveSeaLevel"));
+        localizedStringOfRef.put(Ref.BELOW_SEA_LEVEL, Bundle.getString(
+                "ExifGpsAltitudeRefBelowSeaLevel"));
     }
     private Ref ref;
     private ExifRational value;
 
-    public ExifGpsAltitude(byte[] refRawValue, byte[] rawValue, ExifMetadata.ByteOrder byteOrder) {
+    public ExifGpsAltitude(byte[] refRawValue, byte[] rawValue,
+            ExifByteOrder byteOrder) {
 
         if (!isRefRawValueByteCountOk(refRawValue))
-            throw new IllegalArgumentException("Illegal ref raw value byte count: " + refRawValue.length);
+            throw new IllegalArgumentException(
+                    "Illegal ref raw value byte count: " + refRawValue.length);
         if (!isRawValueByteCountOk(rawValue))
-            throw new IllegalArgumentException("Illegal raw value byte count: " + rawValue.length);
+            throw new IllegalArgumentException(
+                    "Illegal raw value byte count: " + rawValue.length);
 
         this.ref = getRef(refRawValue);
-        this.value = new ExifRational(Arrays.copyOfRange(rawValue, 0, 8), byteOrder);
+        this.value = new ExifRational(Arrays.copyOfRange(rawValue, 0, 8),
+                byteOrder);
     }
 
     /**
@@ -76,7 +84,8 @@ public final class ExifGpsAltitude {
 
     public String localizedString() {
         MessageFormat msg = new MessageFormat("{0} m {1}"); // NOI18N
-        return msg.format(new Object[] {ExifUtil.toLong(value), localizedStringOfRef.get(ref)});
+        return msg.format(new Object[]{ExifUtil.toLong(value),
+                    localizedStringOfRef.get(ref)});
     }
 
     public Ref getRef() {

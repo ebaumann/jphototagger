@@ -1,6 +1,5 @@
 package de.elmar_baumann.imv.image.metadata.exif;
 
-import de.elmar_baumann.imv.image.metadata.exif.ExifMetadata.ByteOrder;
 import java.nio.ByteBuffer;
 
 /**
@@ -22,21 +21,23 @@ public final class ExifUtil {
         return (long) Math.floor(toDouble(rational));
     }
 
-    public static int intFromRawValue(byte[] rawValue, ExifMetadata.ByteOrder byteOrder) {
+    public static int intFromRawValue(byte[] rawValue, ExifByteOrder byteOrder) {
         ByteBuffer buf = getByeBuffer(rawValue, byteOrder);
         return buf.getInt();
     }
 
-    public static short shortFromRawValue(byte[] rawValue, ExifMetadata.ByteOrder byteOrder) {
+    public static short shortFromRawValue(byte[] rawValue,
+            ExifByteOrder byteOrder) {
         ByteBuffer buf = getByeBuffer(rawValue, byteOrder);
         return buf.getShort();
     }
 
-    private static ByteBuffer getByeBuffer(byte[] rawValue, ByteOrder byteOrder) {
+    private static ByteBuffer getByeBuffer(byte[] rawValue,
+            ExifByteOrder byteOrder) {
         ByteBuffer buf = ByteBuffer.wrap(rawValue);
-        buf.order(byteOrder.equals(ExifMetadata.ByteOrder.LITTLE_ENDIAN)
-                ? java.nio.ByteOrder.LITTLE_ENDIAN
-                : java.nio.ByteOrder.BIG_ENDIAN);
+        buf.order(byteOrder.equals(ExifByteOrder.LITTLE_ENDIAN)
+                  ? java.nio.ByteOrder.LITTLE_ENDIAN
+                  : java.nio.ByteOrder.BIG_ENDIAN);
         return buf;
     }
 

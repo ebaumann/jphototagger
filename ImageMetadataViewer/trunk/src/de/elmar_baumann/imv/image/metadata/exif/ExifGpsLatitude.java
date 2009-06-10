@@ -19,25 +19,32 @@ public final class ExifGpsLatitude {
 
         NORTH, SOUTH
     }
-    private static final Map<String, Ref> refOfString = new HashMap<String, Ref>();
-    private static final Map<Ref, String> localizedStringOfRef = new HashMap<Ref, String>();
+    private static final Map<String, Ref> refOfString =
+            new HashMap<String, Ref>();
+    private static final Map<Ref, String> localizedStringOfRef =
+            new HashMap<Ref, String>();
 
 
     static {
         refOfString.put("N", Ref.NORTH);
         refOfString.put("S", Ref.SOUTH);
 
-        localizedStringOfRef.put(Ref.NORTH, Bundle.getString("ExifGpsLatitudeRefNorth"));
-        localizedStringOfRef.put(Ref.SOUTH, Bundle.getString("ExifGpsLatitudeRefSouth"));
+        localizedStringOfRef.put(Ref.NORTH, Bundle.getString(
+                "ExifGpsLatitudeRefNorth"));
+        localizedStringOfRef.put(Ref.SOUTH, Bundle.getString(
+                "ExifGpsLatitudeRefSouth"));
     }
     private Ref ref;
     private ExifDegrees degrees;
 
-    public ExifGpsLatitude(byte[] refRawValue, byte[] degreesRawValue, ExifMetadata.ByteOrder byteOrder) {
+    public ExifGpsLatitude(byte[] refRawValue, byte[] degreesRawValue,
+            ExifByteOrder byteOrder) {
         if (!isRefRawValueByteCountOk(refRawValue))
-            throw new IllegalArgumentException("Illegal ref raw value byte count: " + refRawValue.length);
+            throw new IllegalArgumentException(
+                    "Illegal ref raw value byte count: " + refRawValue.length);
         if (!isRawValueByteCountOk(degreesRawValue))
-            throw new IllegalArgumentException("Illegal raw value byte count: " + degreesRawValue.length);
+            throw new IllegalArgumentException(
+                    "Illegal raw value byte count: " + degreesRawValue.length);
 
         this.ref = getRef(refRawValue);
         this.degrees = new ExifDegrees(degreesRawValue, byteOrder);
@@ -46,7 +53,8 @@ public final class ExifGpsLatitude {
     private static Ref getRef(byte[] rawValue) {
         String s = null;
         if (rawValue != null && rawValue.length == 2) {
-            s = new StringBuilder(1).append((char) new Byte(rawValue[0]).intValue()).toString();
+            s = new StringBuilder(1).append((char) new Byte(rawValue[0]).
+                    intValue()).toString();
         }
         return refOfString.get(s);
     }
@@ -68,7 +76,8 @@ public final class ExifGpsLatitude {
     }
 
     public String localizedString() {
-        return ExifGpsUtil.degreesToString(degrees) + " " + localizedStringOfRef.get(ref);
+        return ExifGpsUtil.degreesToString(degrees) + " " +
+                localizedStringOfRef.get(ref);
     }
 
     public ExifDegrees getDegrees() {

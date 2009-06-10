@@ -24,22 +24,28 @@ public final class ExifRational {
      *         equals to {@link #getRawValueByteCount()} or if the result is
      *         negativ or if the denominator is zero
      */
-    public ExifRational(byte[] rawValue, ExifMetadata.ByteOrder byteOrder) {
+    public ExifRational(byte[] rawValue, ExifByteOrder byteOrder) {
 
         if (!isRawValueByteCountOk(rawValue))
-            throw new IllegalArgumentException("Illegal raw value byte count: " + rawValue.length);
+            throw new IllegalArgumentException(
+                    "Illegal raw value byte count: " + rawValue.length);
 
-        numerator = ExifUtil.intFromRawValue(Arrays.copyOfRange(rawValue, 0, 4), byteOrder);
-        denominator = ExifUtil.intFromRawValue(Arrays.copyOfRange(rawValue, 4, 8), byteOrder);
+        numerator = ExifUtil.intFromRawValue(Arrays.copyOfRange(rawValue, 0, 4),
+                byteOrder);
+        denominator = ExifUtil.intFromRawValue(
+                Arrays.copyOfRange(rawValue, 4, 8), byteOrder);
 
         if (isNegativ())
-            throw new IllegalArgumentException("Negativ expression: " + numerator + "/" + denominator);
+            throw new IllegalArgumentException("Negativ expression: " +
+                    numerator + "/" + denominator);
         if (denominator == 0)
-            throw new IllegalArgumentException("Illegal denominator: " + denominator);
+            throw new IllegalArgumentException("Illegal denominator: " +
+                    denominator);
     }
 
     private boolean isNegativ() {
-        return numerator < 0 && denominator > 0 || numerator > 0 && denominator < 0;
+        return numerator < 0 && denominator > 0 || numerator > 0 &&
+                denominator < 0;
     }
 
     /**

@@ -298,7 +298,7 @@ public final class ExifFieldValueFormatter {
     }
 
     private static String getGpsTime(IdfEntryProxy entry) {
-        ExifMetadata.ByteOrder byteOrder = entry.getByteOrder();
+        ExifByteOrder byteOrder = entry.getByteOrder();
         byte[] rawValue = entry.getRawValue();
         if (rawValue.length != 24)
             return new String(rawValue);

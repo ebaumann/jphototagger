@@ -2,7 +2,6 @@ package de.elmar_baumann.imv.image.metadata.exif;
 
 import com.imagero.reader.tiff.IFDEntry;
 import de.elmar_baumann.imv.app.AppLog;
-import de.elmar_baumann.imv.image.metadata.exif.ExifMetadata.ByteOrder;
 
 /**
  * Proxy for {@link com.imagero.reader.tiff.IFDEntry}. Reason: Files are
@@ -17,7 +16,7 @@ public final class IdfEntryProxy implements Comparable<IdfEntryProxy> {
     private byte[] rawValue;
     private String string;
     private String name;
-    private ExifMetadata.ByteOrder byteOrder;
+    private ExifByteOrder byteOrder;
 
     public IdfEntryProxy(IFDEntry entry) {
         try {
@@ -26,14 +25,14 @@ public final class IdfEntryProxy implements Comparable<IdfEntryProxy> {
             name = entry.getEntryMeta().getName();
             rawValue = entry.getRawValue();
             byteOrder = entry.parent.getByteOrder() == 0x4949 // 18761
-                ? ExifMetadata.ByteOrder.LITTLE_ENDIAN
-                : ExifMetadata.ByteOrder.BIG_ENDIAN;
+                        ? ExifByteOrder.LITTLE_ENDIAN
+                        : ExifByteOrder.BIG_ENDIAN;
         } catch (Exception ex) {
             AppLog.logWarning(ExifMetadata.class, ex);
         }
     }
 
-    public ByteOrder getByteOrder() {
+    public ExifByteOrder getByteOrder() {
         return byteOrder;
     }
 

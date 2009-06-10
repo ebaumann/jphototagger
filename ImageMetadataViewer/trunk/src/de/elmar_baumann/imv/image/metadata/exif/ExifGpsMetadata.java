@@ -280,7 +280,8 @@ public final class ExifGpsMetadata {
      *
      * @param gpsDistanceToDestination distance to destination
      */
-    public void setGpsDistanceToDestination(ExifRational gpsDistanceToDestination) {
+    public void setGpsDistanceToDestination(
+            ExifRational gpsDistanceToDestination) {
         this.gpsDistanceToDestination = gpsDistanceToDestination;
     }
 

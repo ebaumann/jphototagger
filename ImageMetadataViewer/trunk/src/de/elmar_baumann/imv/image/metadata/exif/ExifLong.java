@@ -23,10 +23,11 @@ public final class ExifLong {
      *         equals to {@link #getRawValueByteCount()} or if the value is
      *         negativ
      */
-    public ExifLong(byte[] rawValue, ExifMetadata.ByteOrder byteOrder) {
+    public ExifLong(byte[] rawValue, ExifByteOrder byteOrder) {
 
         if (!isRawValueByteCountOk(rawValue))
-            throw new IllegalArgumentException("Illegal raw value count: " + rawValue.length);
+            throw new IllegalArgumentException("Illegal raw value count: " +
+                    rawValue.length);
 
         value = ExifUtil.intFromRawValue(rawValue, byteOrder);
 

@@ -22,10 +22,11 @@ public final class ExifShort {
      * @throws IllegalArgumentException if the length of the raw value is not
      *         equals to {@link #getRawValueByteCount()) or negativ
      */
-    public ExifShort(byte[] rawValue, ExifMetadata.ByteOrder byteOrder) {
+    public ExifShort(byte[] rawValue, ExifByteOrder byteOrder) {
 
         if (!isRawValueByteCountOk(rawValue))
-            throw new IllegalArgumentException("Illegal byte count: " + rawValue.length);
+            throw new IllegalArgumentException("Illegal byte count: " +
+                    rawValue.length);
 
         value = ExifUtil.shortFromRawValue(rawValue, byteOrder);
 

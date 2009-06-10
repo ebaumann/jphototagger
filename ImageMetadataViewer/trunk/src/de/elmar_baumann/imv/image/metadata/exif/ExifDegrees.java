@@ -23,12 +23,16 @@ public final class ExifDegrees {
      * @throws IllegalArgumentException if the length of raw value is not equals
      *         to {@link #getRawValueByteCount()}
      */
-    public ExifDegrees(byte[] rawValue, ExifMetadata.ByteOrder byteOrder) {
+    public ExifDegrees(byte[] rawValue, ExifByteOrder byteOrder) {
         if (!isRawValueByteCountOk(rawValue))
-            throw new IllegalArgumentException("Illegal raw value byte count: " + rawValue.length);
-        degrees = new ExifRational(Arrays.copyOfRange(rawValue, 0, 8), byteOrder);
-        minutes = new ExifRational(Arrays.copyOfRange(rawValue, 8, 16), byteOrder);
-        seconds = new ExifRational(Arrays.copyOfRange(rawValue, 16, 24), byteOrder);
+            throw new IllegalArgumentException(
+                    "Illegal raw value byte count: " + rawValue.length);
+        degrees =
+                new ExifRational(Arrays.copyOfRange(rawValue, 0, 8), byteOrder);
+        minutes = new ExifRational(Arrays.copyOfRange(rawValue, 8, 16),
+                byteOrder);
+        seconds = new ExifRational(Arrays.copyOfRange(rawValue, 16, 24),
+                byteOrder);
     }
 
     /**

@@ -27,12 +27,6 @@ import java.util.StringTokenizer;
  */
 public final class ExifMetadata {
 
-    public enum ByteOrder {
-
-        LITTLE_ENDIAN,
-        BIG_ENDIAN
-    }
-
     /**
      * Returns the EXIF metadata of a file.
      * 
