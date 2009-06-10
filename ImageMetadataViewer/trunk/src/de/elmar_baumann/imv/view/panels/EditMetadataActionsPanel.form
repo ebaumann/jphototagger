@@ -223,21 +223,6 @@
                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
               </AuxValues>
             </Component>
-            <Component class="javax.swing.JButton" name="buttonMetadataTemplateDelete">
-              <Properties>
-                <Property name="mnemonic" type="int" value="246"/>
-                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="EditMetadataActionsPanel.buttonMetadataTemplateDelete.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
-                </Property>
-                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="EditMetadataActionsPanel.buttonMetadataTemplateDelete.toolTipText" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
-                </Property>
-                <Property name="enabled" type="boolean" value="false"/>
-              </Properties>
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
-              </AuxValues>
-            </Component>
             <Component class="javax.swing.JButton" name="buttonMetadataTemplateRename">
               <Properties>
                 <Property name="mnemonic" type="int" value="109"/>
@@ -261,6 +246,21 @@
                 </Property>
                 <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                   <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="EditMetadataActionsPanel.buttonMetadataTemplateUpdate.toolTipText" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                </Property>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+              </AuxValues>
+            </Component>
+            <Component class="javax.swing.JButton" name="buttonMetadataTemplateDelete">
+              <Properties>
+                <Property name="mnemonic" type="int" value="246"/>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                  <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="EditMetadataActionsPanel.buttonMetadataTemplateDelete.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                </Property>
+                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                  <ResourceString bundle="de/elmar_baumann/imv/resource/Bundle.properties" key="EditMetadataActionsPanel.buttonMetadataTemplateDelete.toolTipText" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>

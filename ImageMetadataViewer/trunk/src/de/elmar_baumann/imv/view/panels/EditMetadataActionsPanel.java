@@ -37,9 +37,9 @@ public final class EditMetadataActionsPanel extends javax.swing.JPanel {
         buttonMetadataTemplateInsert = new javax.swing.JButton();
         panelGroupMetadataTemplates = new javax.swing.JPanel();
         comboBoxMetadataTemplates = new javax.swing.JComboBox();
-        buttonMetadataTemplateDelete = new javax.swing.JButton();
         buttonMetadataTemplateRename = new javax.swing.JButton();
         buttonMetadataTemplateUpdate = new javax.swing.JButton();
+        buttonMetadataTemplateDelete = new javax.swing.JButton();
 
         tabbedPane.setTabPlacement(javax.swing.JTabbedPane.BOTTOM);
 
@@ -107,11 +107,6 @@ public final class EditMetadataActionsPanel extends javax.swing.JPanel {
 
         comboBoxMetadataTemplates.setToolTipText(Bundle.getString("EditMetadataActionsPanel.comboBoxMetadataTemplates.toolTipText")); // NOI18N
 
-        buttonMetadataTemplateDelete.setMnemonic('\u00f6');
-        buttonMetadataTemplateDelete.setText(Bundle.getString("EditMetadataActionsPanel.buttonMetadataTemplateDelete.text")); // NOI18N
-        buttonMetadataTemplateDelete.setToolTipText(Bundle.getString("EditMetadataActionsPanel.buttonMetadataTemplateDelete.toolTipText")); // NOI18N
-        buttonMetadataTemplateDelete.setEnabled(false);
-
         buttonMetadataTemplateRename.setMnemonic('m');
         buttonMetadataTemplateRename.setText(Bundle.getString("EditMetadataActionsPanel.buttonMetadataTemplateRename.text")); // NOI18N
         buttonMetadataTemplateRename.setToolTipText(Bundle.getString("EditMetadataActionsPanel.buttonMetadataTemplateRename.toolTipText")); // NOI18N
@@ -121,6 +116,11 @@ public final class EditMetadataActionsPanel extends javax.swing.JPanel {
         buttonMetadataTemplateUpdate.setText(Bundle.getString("EditMetadataActionsPanel.buttonMetadataTemplateUpdate.text")); // NOI18N
         buttonMetadataTemplateUpdate.setToolTipText(Bundle.getString("EditMetadataActionsPanel.buttonMetadataTemplateUpdate.toolTipText")); // NOI18N
         buttonMetadataTemplateUpdate.setEnabled(false);
+
+        buttonMetadataTemplateDelete.setMnemonic('\u00f6');
+        buttonMetadataTemplateDelete.setText(Bundle.getString("EditMetadataActionsPanel.buttonMetadataTemplateDelete.text")); // NOI18N
+        buttonMetadataTemplateDelete.setToolTipText(Bundle.getString("EditMetadataActionsPanel.buttonMetadataTemplateDelete.toolTipText")); // NOI18N
+        buttonMetadataTemplateDelete.setEnabled(false);
 
         javax.swing.GroupLayout panelGroupMetadataTemplatesLayout = new javax.swing.GroupLayout(panelGroupMetadataTemplates);
         panelGroupMetadataTemplates.setLayout(panelGroupMetadataTemplatesLayout);
