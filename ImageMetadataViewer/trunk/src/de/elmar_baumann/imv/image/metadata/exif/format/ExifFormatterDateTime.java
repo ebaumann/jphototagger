@@ -1,7 +1,7 @@
 package de.elmar_baumann.imv.image.metadata.exif.format;
 
 import de.elmar_baumann.imv.app.AppLog;
-import de.elmar_baumann.imv.image.metadata.exif.ExifAscii;
+import de.elmar_baumann.imv.image.metadata.exif.datatype.ExifAscii;
 import de.elmar_baumann.imv.image.metadata.exif.ExifFieldValueFormatter;
 import de.elmar_baumann.imv.image.metadata.exif.ExifTag;
 import de.elmar_baumann.imv.image.metadata.exif.IdfEntryProxy;

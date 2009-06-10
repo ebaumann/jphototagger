@@ -1,5 +1,6 @@
 package de.elmar_baumann.imv.image.metadata.exif;
 
+import de.elmar_baumann.imv.image.metadata.exif.datatype.ExifByteOrder;
 import com.imagero.reader.tiff.IFDEntry;
 import de.elmar_baumann.imv.app.AppLog;
 

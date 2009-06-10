@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.image.metadata.exif.format;
 
-import de.elmar_baumann.imv.image.metadata.exif.ExifRational;
+import de.elmar_baumann.imv.image.metadata.exif.datatype.ExifRational;
 import de.elmar_baumann.imv.image.metadata.exif.ExifTag;
 import de.elmar_baumann.imv.image.metadata.exif.IdfEntryProxy;
 import de.elmar_baumann.lib.template.Pair;

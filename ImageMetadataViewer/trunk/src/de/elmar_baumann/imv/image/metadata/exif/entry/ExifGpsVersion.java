@@ -1,4 +1,4 @@
-package de.elmar_baumann.imv.image.metadata.exif;
+package de.elmar_baumann.imv.image.metadata.exif.entry;
 
 /**
  * The version of GPSInfoIFD. The version is given as 2.2.0.0. This tag is

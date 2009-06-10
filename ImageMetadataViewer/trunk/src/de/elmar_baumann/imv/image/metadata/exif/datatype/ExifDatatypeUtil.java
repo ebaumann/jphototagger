@@ -1,4 +1,4 @@
-package de.elmar_baumann.imv.image.metadata.exif;
+package de.elmar_baumann.imv.image.metadata.exif.datatype;
 
 import java.nio.ByteBuffer;
 
@@ -8,7 +8,7 @@ import java.nio.ByteBuffer;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009/03/31
  */
-public final class ExifUtil {
+public final class ExifDatatypeUtil {
 
     public static double toDouble(ExifRational rational) {
         double numerator = rational.getNumerator();
@@ -41,6 +41,6 @@ public final class ExifUtil {
         return buf;
     }
 
-    private ExifUtil() {
+    private ExifDatatypeUtil() {
     }
 }

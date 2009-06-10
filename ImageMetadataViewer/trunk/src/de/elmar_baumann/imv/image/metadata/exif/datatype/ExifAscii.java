@@ -1,4 +1,4 @@
-package de.elmar_baumann.imv.image.metadata.exif;
+package de.elmar_baumann.imv.image.metadata.exif.datatype;
 
 /**
  * EXIF data type ASCII as described in the standard: An 8-bit byte containing

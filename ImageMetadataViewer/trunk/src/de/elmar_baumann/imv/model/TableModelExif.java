@@ -2,8 +2,8 @@ package de.elmar_baumann.imv.model;
 
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.app.AppLog;
-import de.elmar_baumann.imv.image.metadata.exif.ExifGpsMetadata;
-import de.elmar_baumann.imv.image.metadata.exif.ExifGpsUtil;
+import de.elmar_baumann.imv.image.metadata.exif.entry.ExifGpsMetadata;
+import de.elmar_baumann.imv.image.metadata.exif.entry.ExifGpsUtil;
 import de.elmar_baumann.imv.image.metadata.exif.ExifIfdEntryDisplayComparator;
 import de.elmar_baumann.imv.image.metadata.exif.ExifMetadata;
 import de.elmar_baumann.imv.image.metadata.exif.ExifTag;

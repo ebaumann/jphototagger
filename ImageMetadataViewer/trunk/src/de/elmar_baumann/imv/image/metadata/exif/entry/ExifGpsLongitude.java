@@ -1,23 +1,21 @@
-package de.elmar_baumann.imv.image.metadata.exif;
+package de.elmar_baumann.imv.image.metadata.exif.entry;
 
+import de.elmar_baumann.imv.image.metadata.exif.datatype.ExifByteOrder;
 import de.elmar_baumann.imv.resource.Bundle;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * GPS latitude.
+ * GPS longitude.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009/03/17
  */
-public final class ExifGpsLatitude {
+public final class ExifGpsLongitude {
 
-    /**
-     * Indicates whether the latitude is north or south latitude.
-     */
     public enum Ref {
 
-        NORTH, SOUTH
+        EAST, WEST
     }
     private static final Map<String, Ref> refOfString =
             new HashMap<String, Ref>();
@@ -26,18 +24,18 @@ public final class ExifGpsLatitude {
 
 
     static {
-        refOfString.put("N", Ref.NORTH);
-        refOfString.put("S", Ref.SOUTH);
+        refOfString.put("E", Ref.EAST);
+        refOfString.put("W", Ref.WEST);
 
-        localizedStringOfRef.put(Ref.NORTH, Bundle.getString(
-                "ExifGpsLatitudeRefNorth"));
-        localizedStringOfRef.put(Ref.SOUTH, Bundle.getString(
-                "ExifGpsLatitudeRefSouth"));
+        localizedStringOfRef.put(Ref.EAST, Bundle.getString(
+                "ExifGpsLongitudeRefEast"));
+        localizedStringOfRef.put(Ref.WEST, Bundle.getString(
+                "ExifGpsLongitudeRefWest"));
     }
     private Ref ref;
     private ExifDegrees degrees;
 
-    public ExifGpsLatitude(byte[] refRawValue, byte[] degreesRawValue,
+    public ExifGpsLongitude(byte[] refRawValue, byte[] degreesRawValue,
             ExifByteOrder byteOrder) {
         if (!isRefRawValueByteCountOk(refRawValue))
             throw new IllegalArgumentException(
@@ -59,12 +57,12 @@ public final class ExifGpsLatitude {
         return refOfString.get(s);
     }
 
-    public static int getRawValueByteCount() {
-        return 24;
-    }
-
     public static int getRefRawValueByteCount() {
         return 2;
+    }
+
+    public static int getRawValueByteCount() {
+        return 24;
     }
 
     public static boolean isRawValueByteCountOk(byte[] rawValue) {

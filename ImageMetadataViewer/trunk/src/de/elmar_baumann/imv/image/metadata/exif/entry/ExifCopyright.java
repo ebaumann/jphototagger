@@ -1,4 +1,4 @@
-package de.elmar_baumann.imv.image.metadata.exif;
+package de.elmar_baumann.imv.image.metadata.exif.entry;
 
 import de.elmar_baumann.lib.template.Pair;
 import java.nio.charset.Charset;

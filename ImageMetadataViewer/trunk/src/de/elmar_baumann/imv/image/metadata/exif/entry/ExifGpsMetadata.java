@@ -1,4 +1,6 @@
-package de.elmar_baumann.imv.image.metadata.exif;
+package de.elmar_baumann.imv.image.metadata.exif.entry;
+
+import de.elmar_baumann.imv.image.metadata.exif.datatype.ExifRational;
 
 /**
  * GPS information in the EXIF metadata.

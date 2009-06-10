@@ -1,9 +1,9 @@
 package de.elmar_baumann.imv.image.metadata.exif.format;
 
-import de.elmar_baumann.imv.image.metadata.exif.ExifByteOrder;
-import de.elmar_baumann.imv.image.metadata.exif.ExifRational;
+import de.elmar_baumann.imv.image.metadata.exif.datatype.ExifByteOrder;
+import de.elmar_baumann.imv.image.metadata.exif.datatype.ExifRational;
 import de.elmar_baumann.imv.image.metadata.exif.ExifTag;
-import de.elmar_baumann.imv.image.metadata.exif.ExifUtil;
+import de.elmar_baumann.imv.image.metadata.exif.datatype.ExifDatatypeUtil;
 import de.elmar_baumann.imv.image.metadata.exif.IdfEntryProxy;
 import java.text.DateFormat;
 import java.util.Arrays;
@@ -40,9 +40,9 @@ public final class ExifFormatterGpsTimeStamp extends ExifFormatter {
         ExifRational seconds = new ExifRational(
                 Arrays.copyOfRange(rawValue, 16, 24),
                 byteOrder);
-        int h = (int) ExifUtil.toLong(hours);
-        int m = (int) ExifUtil.toLong(minutes);
-        int s = (int) ExifUtil.toLong(seconds);
+        int h = (int) ExifDatatypeUtil.toLong(hours);
+        int m = (int) ExifDatatypeUtil.toLong(minutes);
+        int s = (int) ExifDatatypeUtil.toLong(seconds);
         Calendar cal = Calendar.getInstance();
         cal.set(2009, 4, 3, h, m, s);
         DateFormat df = DateFormat.getTimeInstance(DateFormat.LONG);

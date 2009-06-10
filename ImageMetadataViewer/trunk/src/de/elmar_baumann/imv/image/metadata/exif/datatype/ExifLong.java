@@ -1,4 +1,4 @@
-package de.elmar_baumann.imv.image.metadata.exif;
+package de.elmar_baumann.imv.image.metadata.exif.datatype;
 
 /**
  * EXIF data type LONG as described in the standard: A 32-bit (4-byte) unsigned
@@ -29,7 +29,7 @@ public final class ExifLong {
             throw new IllegalArgumentException("Illegal raw value count: " +
                     rawValue.length);
 
-        value = ExifUtil.intFromRawValue(rawValue, byteOrder);
+        value = ExifDatatypeUtil.intFromRawValue(rawValue, byteOrder);
 
         if (value < 0)
             throw new IllegalArgumentException("Negativ value: " + value);

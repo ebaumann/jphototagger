@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.image.metadata.exif.format;
 
-import de.elmar_baumann.imv.image.metadata.exif.ExifByte;
+import de.elmar_baumann.imv.image.metadata.exif.datatype.ExifByte;
 import de.elmar_baumann.imv.image.metadata.exif.ExifTag;
 import de.elmar_baumann.imv.image.metadata.exif.IdfEntryProxy;
 import java.util.Arrays;

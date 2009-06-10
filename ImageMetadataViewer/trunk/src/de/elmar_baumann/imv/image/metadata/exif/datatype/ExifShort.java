@@ -1,4 +1,4 @@
-package de.elmar_baumann.imv.image.metadata.exif;
+package de.elmar_baumann.imv.image.metadata.exif.datatype;
 
 /**
  * EXIF data type <code>SHORT</code> as defined in the EXIF standard:
@@ -28,7 +28,7 @@ public final class ExifShort {
             throw new IllegalArgumentException("Illegal byte count: " +
                     rawValue.length);
 
-        value = ExifUtil.shortFromRawValue(rawValue, byteOrder);
+        value = ExifDatatypeUtil.shortFromRawValue(rawValue, byteOrder);
 
         if (value < 0)
             throw new IllegalArgumentException("Negativ value: " + value);

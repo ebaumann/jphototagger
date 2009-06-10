@@ -1,5 +1,10 @@
-package de.elmar_baumann.imv.image.metadata.exif;
+package de.elmar_baumann.imv.image.metadata.exif.entry;
 
+import de.elmar_baumann.imv.image.metadata.exif.ExifMetadata;
+import de.elmar_baumann.imv.image.metadata.exif.ExifTag;
+import de.elmar_baumann.imv.image.metadata.exif.IdfEntryProxy;
+import de.elmar_baumann.imv.image.metadata.exif.datatype.ExifDatatypeUtil;
+import de.elmar_baumann.imv.image.metadata.exif.datatype.ExifRational;
 import java.text.DecimalFormat;
 import java.text.MessageFormat;
 import java.text.NumberFormat;
@@ -15,24 +20,24 @@ import java.util.Locale;
 public final class ExifGpsUtil {
 
     public static double getDegrees(ExifDegrees degrees) {
-        return ExifUtil.toDouble(degrees.getDegrees()) +
-                ExifUtil.toDouble(degrees.getMinutes()) / 60 +
-                ExifUtil.toDouble(degrees.getSeconds()) / 3600;
+        return ExifDatatypeUtil.toDouble(degrees.getDegrees()) +
+                ExifDatatypeUtil.toDouble(degrees.getMinutes()) / 60 +
+                ExifDatatypeUtil.toDouble(degrees.getSeconds()) / 3600;
     }
 
     public static double getSecondsOfMinutes(ExifRational minutes) {
-        double doubleMinutes = ExifUtil.toDouble(minutes);
-        double integerMinutes = ExifUtil.toLong(minutes);
+        double doubleMinutes = ExifDatatypeUtil.toDouble(minutes);
+        double integerMinutes = ExifDatatypeUtil.toLong(minutes);
         return (doubleMinutes - integerMinutes) * 60;
     }
 
     public static String degreesToString(ExifDegrees degrees) {
         MessageFormat msg = new MessageFormat("{0}° {1}'' {2}''''"); // NOI18N
-        double deg = ExifUtil.toDouble(degrees.getDegrees());
-        double min = ExifUtil.toDouble(degrees.getMinutes());
-        double sec = ExifUtil.toDouble(degrees.getSeconds());
+        double deg = ExifDatatypeUtil.toDouble(degrees.getDegrees());
+        double min = ExifDatatypeUtil.toDouble(degrees.getMinutes());
+        double sec = ExifDatatypeUtil.toDouble(degrees.getSeconds());
         if (sec == 0) {
-            min = ExifUtil.toLong(degrees.getMinutes());
+            min = ExifDatatypeUtil.toLong(degrees.getMinutes());
             sec = ExifGpsUtil.getSecondsOfMinutes(degrees.getMinutes());
         }
         DecimalFormat dfDegMin = new DecimalFormat("#"); // NOI18N

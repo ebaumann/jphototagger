@@ -1,4 +1,4 @@
-package de.elmar_baumann.imv.image.metadata.exif;
+package de.elmar_baumann.imv.image.metadata.exif.datatype;
 
 import java.util.Arrays;
 
@@ -30,9 +30,10 @@ public final class ExifRational {
             throw new IllegalArgumentException(
                     "Illegal raw value byte count: " + rawValue.length);
 
-        numerator = ExifUtil.intFromRawValue(Arrays.copyOfRange(rawValue, 0, 4),
+        numerator = ExifDatatypeUtil.intFromRawValue(
+                Arrays.copyOfRange(rawValue, 0, 4),
                 byteOrder);
-        denominator = ExifUtil.intFromRawValue(
+        denominator = ExifDatatypeUtil.intFromRawValue(
                 Arrays.copyOfRange(rawValue, 4, 8), byteOrder);
 
         if (isNegativ())

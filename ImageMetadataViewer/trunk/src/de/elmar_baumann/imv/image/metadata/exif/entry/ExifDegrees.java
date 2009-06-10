@@ -1,5 +1,7 @@
-package de.elmar_baumann.imv.image.metadata.exif;
+package de.elmar_baumann.imv.image.metadata.exif.entry;
 
+import de.elmar_baumann.imv.image.metadata.exif.datatype.ExifByteOrder;
+import de.elmar_baumann.imv.image.metadata.exif.datatype.ExifRational;
 import java.util.Arrays;
 
 /**

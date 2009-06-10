@@ -2,7 +2,7 @@ package de.elmar_baumann.imv.view.renderer;
 
 import de.elmar_baumann.imv.database.metadata.selections.ExifInDatabase;
 import de.elmar_baumann.imv.image.metadata.exif.ExifFieldValueFormatter;
-import de.elmar_baumann.imv.image.metadata.exif.ExifGpsMetadata;
+import de.elmar_baumann.imv.image.metadata.exif.entry.ExifGpsMetadata;
 import de.elmar_baumann.imv.image.metadata.exif.IdfEntryProxy;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.Translation;

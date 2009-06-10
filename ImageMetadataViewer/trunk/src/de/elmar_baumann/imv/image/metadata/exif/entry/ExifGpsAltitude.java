@@ -1,5 +1,8 @@
-package de.elmar_baumann.imv.image.metadata.exif;
+package de.elmar_baumann.imv.image.metadata.exif.entry;
 
+import de.elmar_baumann.imv.image.metadata.exif.datatype.ExifDatatypeUtil;
+import de.elmar_baumann.imv.image.metadata.exif.datatype.ExifByteOrder;
+import de.elmar_baumann.imv.image.metadata.exif.datatype.ExifRational;
 import de.elmar_baumann.imv.resource.Bundle;
 import java.text.MessageFormat;
 import java.util.Arrays;
@@ -84,7 +87,7 @@ public final class ExifGpsAltitude {
 
     public String localizedString() {
         MessageFormat msg = new MessageFormat("{0} m {1}"); // NOI18N
-        return msg.format(new Object[]{ExifUtil.toLong(value),
+        return msg.format(new Object[]{ExifDatatypeUtil.toLong(value),
                     localizedStringOfRef.get(ref)});
     }
 

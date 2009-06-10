@@ -1,8 +1,8 @@
 package de.elmar_baumann.imv.image.metadata.exif.format;
 
-import de.elmar_baumann.imv.image.metadata.exif.ExifRational;
+import de.elmar_baumann.imv.image.metadata.exif.datatype.ExifRational;
 import de.elmar_baumann.imv.image.metadata.exif.ExifTag;
-import de.elmar_baumann.imv.image.metadata.exif.ExifUtil;
+import de.elmar_baumann.imv.image.metadata.exif.datatype.ExifDatatypeUtil;
 import de.elmar_baumann.imv.image.metadata.exif.IdfEntryProxy;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -30,7 +30,7 @@ public final class ExifFormatterFocalLength extends ExifFormatter {
                     getByteOrder());
             DecimalFormat df = (DecimalFormat) NumberFormat.getNumberInstance();
             df.applyPattern("#.# mm");
-            return df.format(ExifUtil.toDouble(er));
+            return df.format(ExifDatatypeUtil.toDouble(er));
         }
         return "?";
     }

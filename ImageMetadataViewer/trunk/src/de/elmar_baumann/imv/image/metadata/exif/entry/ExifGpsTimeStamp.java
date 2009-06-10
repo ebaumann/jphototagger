@@ -1,4 +1,6 @@
-package de.elmar_baumann.imv.image.metadata.exif;
+package de.elmar_baumann.imv.image.metadata.exif.entry;
+
+import de.elmar_baumann.imv.image.metadata.exif.datatype.ExifRational;
 
 /**
  * The time as UTC (Coordinated Universal Time).
@@ -12,7 +14,8 @@ public final class ExifGpsTimeStamp {
     private ExifRational minutes;
     private ExifRational seconds;
 
-    public ExifGpsTimeStamp(ExifRational hours, ExifRational minutes, ExifRational seconds) {
+    public ExifGpsTimeStamp(ExifRational hours, ExifRational minutes,
+            ExifRational seconds) {
         this.hours = hours;
         this.minutes = minutes;
         this.seconds = seconds;
