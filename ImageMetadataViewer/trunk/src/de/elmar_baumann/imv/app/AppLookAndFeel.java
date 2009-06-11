@@ -23,9 +23,11 @@ public final class AppLookAndFeel {
     private static void setFonts() {
         setFontWeight("Button.font", false);
         setFontWeight("CheckBox.font", false);
+        setFontWeight("CheckBoxMenuItem.font", false);
         setFontWeight("ColorChooser.font", false);
         setFontWeight("ComboBox.font", false);
         setFontWeight("EditorPane.font", false);
+        setFontWeight("FormattedTextField.font", false);
         setFontWeight("Label.font", false);
         setFontWeight("List.font", false);
         setFontWeight("MenuBar.font", false);
@@ -35,16 +37,22 @@ public final class AppLookAndFeel {
         setFontWeight("Panel.font", false);
         setFontWeight("PopupMenu.font", false);
         setFontWeight("RadioButton.font", false);
+        setFontWeight("RadioButtonMenuItem.font", false);
         setFontWeight("ScrollPane.font", false);
+        setFontWeight("Slider.font", false);
+        setFontWeight("Spinner.font", false);
+        setFontWeight("TabbedPane.font", false);
         setFontWeight("Table.font", false);
         setFontWeight("TextArea.font", false);
         setFontWeight("TextField.font", false);
         setFontWeight("Text.font", false);
         setFontWeight("TextPane.font", false);
+        setFontWeight("TextPane.font", false);
         setFontWeight("ToggleButton.font", false);
         setFontWeight("ToolBar.font", false);
         setFontWeight("ToolTip.font", false);
         setFontWeight("Tree.font", false);
+        setFontWeight("Viewport.font", false);
         // Bold
         setFontWeight("PasswordField.font", true);
         setFontWeight("ProgressBar.font", true);
@@ -54,13 +62,15 @@ public final class AppLookAndFeel {
 
     private static void setFontWeight(String key, boolean bold) {
         Font defaultFont = UIManager.getFont(key);
-        int weight = bold ? Font.BOLD : Font.PLAIN;
+        int weight = bold
+                     ? Font.BOLD
+                     : Font.PLAIN;
         if (defaultFont != null) {
             Font plainFont = new Font(defaultFont.getName(),
-                defaultFont.isItalic()
-                ? weight | Font.ITALIC
-                : Font.PLAIN,
-                defaultFont.getSize());
+                    defaultFont.isItalic()
+                    ? weight | Font.ITALIC
+                    : Font.PLAIN,
+                    defaultFont.getSize());
             UIManager.put(key, new FontUIResource(plainFont));
         }
     }
