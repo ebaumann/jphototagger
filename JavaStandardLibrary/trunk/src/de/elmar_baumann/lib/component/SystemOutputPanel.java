@@ -19,6 +19,8 @@ import javax.swing.SwingUtilities;
  */
 public class SystemOutputPanel extends JPanel {
 
+    private static volatile int MAX_CHAR_COUNT = 100000;
+    private static volatile int MAX_CHARS_EXESS = 1000;
     private final PipedInputStream piOut;
     private final PipedInputStream piErr;
     private final PipedOutputStream poOut;
@@ -86,13 +88,13 @@ public class SystemOutputPanel extends JPanel {
                             textArea.append(new String(buf, 0, len));
 
                             // Make sure the last line is always visible
-                            textArea.setCaretPosition(textArea.getDocument().getLength());
+                            textArea.setCaretPosition(textArea.getDocument().
+                                    getLength());
 
                             // Keep the text area down to a certain character size
-                            int idealSize = 10000;
-                            int maxExcess = 5000;
-                            int excess = textArea.getDocument().getLength() - idealSize;
-                            if (excess >= maxExcess) {
+                            int excess = textArea.getDocument().getLength() -
+                                    MAX_CHAR_COUNT;
+                            if (excess >= MAX_CHARS_EXESS) {
                                 textArea.replaceRange("", 0, excess);
                             }
                         }
