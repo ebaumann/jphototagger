@@ -1,6 +1,7 @@
 package de.elmar_baumann.imv.app;
 
 import de.elmar_baumann.lib.componentutil.LookAndFeelUtil;
+import de.elmar_baumann.lib.dialog.SystemOutputDialog;
 import java.awt.Font;
 import javax.swing.UIManager;
 import javax.swing.plaf.FontUIResource;
@@ -16,6 +17,7 @@ public final class AppLookAndFeel {
     public static void set() {
         LookAndFeelUtil.setSystemLookAndFeel();
         setFonts();
+        SystemOutputDialog.INSTANCE.setIconImages(AppIcons.getAppIcons());
     }
 
     private static void setFonts() {

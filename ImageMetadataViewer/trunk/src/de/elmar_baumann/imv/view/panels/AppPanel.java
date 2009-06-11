@@ -12,7 +12,6 @@ import de.elmar_baumann.imv.view.renderer.ListCellRendererFavoriteDirectories;
 import de.elmar_baumann.imv.view.renderer.ListCellRendererImageCollections;
 import de.elmar_baumann.imv.view.renderer.ListCellRendererKeywords;
 import de.elmar_baumann.imv.view.renderer.ListCellRendererSavedSearches;
-import de.elmar_baumann.lib.dialog.SystemOutputDialog;
 import de.elmar_baumann.lib.event.JTableButtonMouseListener;
 import de.elmar_baumann.lib.util.Settings;
 import de.elmar_baumann.lib.util.SettingsHints;
@@ -70,7 +69,6 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
         disableTreeMultipleSelection();
         initArrays();
         tableExif.addMouseListener(new JTableButtonMouseListener(tableExif));
-        SystemOutputDialog.INSTANCE.captureOutput();
     }
 
     private void initArrays() {
