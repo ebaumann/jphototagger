@@ -33,6 +33,10 @@ public final class FavoriteDirectoryPropertiesDialog extends Dialog {
     public FavoriteDirectoryPropertiesDialog() {
         super((java.awt.Frame) null, true);
         initComponents();
+        postInitComponents();
+    }
+
+    private void postInitComponents() {
         setIconImages(appIcons);
         setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
         registerKeyStrokes();
