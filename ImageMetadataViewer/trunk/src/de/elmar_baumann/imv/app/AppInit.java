@@ -1,7 +1,6 @@
 package de.elmar_baumann.imv.app;
 
 import com.imagero.reader.AbstractImageReader;
-import de.elmar_baumann.imv.SplashScreen;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.ImageProperties;
 import de.elmar_baumann.imv.view.frames.AppFrame;

@@ -1,6 +1,5 @@
 package de.elmar_baumann.imv.app;
 
-import de.elmar_baumann.imv.SplashScreen;
 import de.elmar_baumann.imv.database.DatabaseTables;
 import de.elmar_baumann.imv.resource.Bundle;
 
