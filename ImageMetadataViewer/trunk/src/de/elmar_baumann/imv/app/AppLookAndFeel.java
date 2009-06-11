@@ -21,30 +21,30 @@ public final class AppLookAndFeel {
     }
 
     private static void setFonts() {
-        setFontWeight("Button.font", true);
-        setFontWeight("Checkbox.font", true);
-        setFontWeight("ColorChooser.font", true);
-        setFontWeight("ComboBox.font", true);
-        setFontWeight("EditorPane.font", true);
-        setFontWeight("Label.font", true);
-        setFontWeight("List.font", true);
-        setFontWeight("MenuBar.font", true);
-        setFontWeight("Menu.font", true);
-        setFontWeight("MenuItem.font", true);
-        setFontWeight("OptionPane.font", true);
-        setFontWeight("Panel.font", true);
-        setFontWeight("PopupMenu.font", true);
-        setFontWeight("RadioButton.font", true);
-        setFontWeight("ScrollPane.font", true);
-        setFontWeight("Table.font", true);
-        setFontWeight("TextArea.font", true);
-        setFontWeight("TextField.font", true);
-        setFontWeight("Text.font", true);
-        setFontWeight("TextPane.font", true);
-        setFontWeight("ToggleButton.font", true);
-        setFontWeight("ToolBar.font", true);
-        setFontWeight("ToolTip.font", true);
-        setFontWeight("Tree.font", true);
+        setFontWeight("Button.font", false);
+        setFontWeight("CheckBox.font", false);
+        setFontWeight("ColorChooser.font", false);
+        setFontWeight("ComboBox.font", false);
+        setFontWeight("EditorPane.font", false);
+        setFontWeight("Label.font", false);
+        setFontWeight("List.font", false);
+        setFontWeight("MenuBar.font", false);
+        setFontWeight("Menu.font", false);
+        setFontWeight("MenuItem.font", false);
+        setFontWeight("OptionPane.font", false);
+        setFontWeight("Panel.font", false);
+        setFontWeight("PopupMenu.font", false);
+        setFontWeight("RadioButton.font", false);
+        setFontWeight("ScrollPane.font", false);
+        setFontWeight("Table.font", false);
+        setFontWeight("TextArea.font", false);
+        setFontWeight("TextField.font", false);
+        setFontWeight("Text.font", false);
+        setFontWeight("TextPane.font", false);
+        setFontWeight("ToggleButton.font", false);
+        setFontWeight("ToolBar.font", false);
+        setFontWeight("ToolTip.font", false);
+        setFontWeight("Tree.font", false);
         // Bold
         setFontWeight("PasswordField.font", true);
         setFontWeight("ProgressBar.font", true);
