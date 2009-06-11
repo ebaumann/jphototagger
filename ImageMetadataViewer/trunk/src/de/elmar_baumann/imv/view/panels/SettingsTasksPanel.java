@@ -188,13 +188,14 @@ public final class SettingsTasksPanel extends javax.swing.JPanel
         buttonAddAutoscanDirectories = new javax.swing.JButton();
         panelTasksOther = new javax.swing.JPanel();
         checkBoxIsTaskRemoveRecordsWithNotExistingFiles = new javax.swing.JCheckBox();
+        panelStartDelay = new javax.swing.JPanel();
         labelTasksMinutesToStartScheduledTasks = new javax.swing.JLabel();
         spinnerMinutesToStartScheduledTasks = new javax.swing.JSpinner();
 
         panelTasksAutoscan.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString("SettingsTasksPanel.panelTasksAutoscan.border.title"))); // NOI18N
 
         labelAutoscanDirectoriesInfo.setText(Bundle.getString("SettingsTasksPanel.labelAutoscanDirectoriesInfo.text")); // NOI18N
-        labelAutoscanDirectoriesInfo.setPreferredSize(new java.awt.Dimension(978, 28));
+        labelAutoscanDirectoriesInfo.setPreferredSize(new java.awt.Dimension(978, 48));
 
         labelAutoscanDirectoriesPrompt.setText(Bundle.getString("SettingsTasksPanel.labelAutoscanDirectoriesPrompt.text")); // NOI18N
 
@@ -243,12 +244,11 @@ public final class SettingsTasksPanel extends javax.swing.JPanel
             .addGroup(panelTasksAutoscanLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelTasksAutoscanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scrollPaneListAutoscanDirectories, javax.swing.GroupLayout.DEFAULT_SIZE, 601, Short.MAX_VALUE)
-                    .addComponent(labelAutoscanDirectoriesInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 601, Short.MAX_VALUE)
+                    .addComponent(scrollPaneListAutoscanDirectories, javax.swing.GroupLayout.DEFAULT_SIZE, 561, Short.MAX_VALUE)
+                    .addComponent(labelAutoscanDirectoriesInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 561, Short.MAX_VALUE)
                     .addComponent(labelAutoscanDirectoriesPrompt)
-                    .addGroup(panelTasksAutoscanLayout.createSequentialGroup()
-                        .addComponent(checkBoxIsAutoscanIncludeSubdirectories)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 6, Short.MAX_VALUE)
+                    .addComponent(checkBoxIsAutoscanIncludeSubdirectories)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTasksAutoscanLayout.createSequentialGroup()
                         .addComponent(buttonRemoveAutoscanDirectories)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonAddAutoscanDirectories)))
@@ -257,14 +257,15 @@ public final class SettingsTasksPanel extends javax.swing.JPanel
         panelTasksAutoscanLayout.setVerticalGroup(
             panelTasksAutoscanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelTasksAutoscanLayout.createSequentialGroup()
-                .addComponent(labelAutoscanDirectoriesInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(labelAutoscanDirectoriesInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelAutoscanDirectoriesPrompt, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPaneListAutoscanDirectories, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(scrollPaneListAutoscanDirectories, javax.swing.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(checkBoxIsAutoscanIncludeSubdirectories)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelTasksAutoscanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(checkBoxIsAutoscanIncludeSubdirectories)
                     .addComponent(buttonAddAutoscanDirectories)
                     .addComponent(buttonRemoveAutoscanDirectories))
                 .addContainerGap())
@@ -284,14 +285,14 @@ public final class SettingsTasksPanel extends javax.swing.JPanel
         panelTasksOtherLayout.setHorizontalGroup(
             panelTasksOtherLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelTasksOtherLayout.createSequentialGroup()
-                .addComponent(checkBoxIsTaskRemoveRecordsWithNotExistingFiles)
-                .addContainerGap(172, Short.MAX_VALUE))
+                .addComponent(checkBoxIsTaskRemoveRecordsWithNotExistingFiles, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         panelTasksOtherLayout.setVerticalGroup(
             panelTasksOtherLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelTasksOtherLayout.createSequentialGroup()
                 .addComponent(checkBoxIsTaskRemoveRecordsWithNotExistingFiles)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(10, Short.MAX_VALUE))
         );
 
         labelTasksMinutesToStartScheduledTasks.setText(Bundle.getString("SettingsTasksPanel.labelTasksMinutesToStartScheduledTasks.text")); // NOI18N
@@ -303,19 +304,32 @@ public final class SettingsTasksPanel extends javax.swing.JPanel
             }
         });
 
+        javax.swing.GroupLayout panelStartDelayLayout = new javax.swing.GroupLayout(panelStartDelay);
+        panelStartDelay.setLayout(panelStartDelayLayout);
+        panelStartDelayLayout.setHorizontalGroup(
+            panelStartDelayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelStartDelayLayout.createSequentialGroup()
+                .addComponent(labelTasksMinutesToStartScheduledTasks)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(spinnerMinutesToStartScheduledTasks, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(58, Short.MAX_VALUE))
+        );
+        panelStartDelayLayout.setVerticalGroup(
+            panelStartDelayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(spinnerMinutesToStartScheduledTasks, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(labelTasksMinutesToStartScheduledTasks)
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelTasksAutoscan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(labelTasksMinutesToStartScheduledTasks)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(spinnerMinutesToStartScheduledTasks, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(panelTasksOther, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(panelStartDelay, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelTasksAutoscan, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelTasksOther, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -323,12 +337,10 @@ public final class SettingsTasksPanel extends javax.swing.JPanel
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(panelTasksAutoscan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(1, 1, 1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelTasksOther, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(spinnerMinutesToStartScheduledTasks, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelTasksMinutesToStartScheduledTasks))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelStartDelay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -369,6 +381,7 @@ private void spinnerMinutesToStartScheduledTasksStateChanged(javax.swing.event.C
     private javax.swing.JLabel labelAutoscanDirectoriesPrompt;
     private javax.swing.JLabel labelTasksMinutesToStartScheduledTasks;
     private javax.swing.JList listAutoscanDirectories;
+    private javax.swing.JPanel panelStartDelay;
     private javax.swing.JPanel panelTasksAutoscan;
     private javax.swing.JPanel panelTasksOther;
     private javax.swing.JScrollPane scrollPaneListAutoscanDirectories;
