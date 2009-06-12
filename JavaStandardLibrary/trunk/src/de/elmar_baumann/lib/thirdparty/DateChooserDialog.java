@@ -113,7 +113,7 @@ public final class DateChooserDialog extends JComponent {
 
         c.anchor = GridBagConstraints.WEST;
         previousButton = new JButton();
-        previousButton.setIcon(IconUtil.getImageIcon("/de/elmar_baumann/lib/resource/icon_datechooser_prev.png"));  // NOI18N
+        previousButton.setIcon(IconUtil.getImageIcon("/de/elmar_baumann/lib/resource/icons/icon_datechooser_prev.png"));  // NOI18N
         previousButton.setBorder(BorderFactory.createEmptyBorder());
         previousButton.setPreferredSize(new Dimension(16, 16));
         previousButton.addActionListener(new ActionListener() {
@@ -139,7 +139,7 @@ public final class DateChooserDialog extends JComponent {
         ++c.gridx;
         c.anchor = GridBagConstraints.EAST;
         nextButton = new JButton();
-        nextButton.setIcon(IconUtil.getImageIcon("/de/elmar_baumann/lib/resource/icon_datechooser_next.png")); // NOI18N
+        nextButton.setIcon(IconUtil.getImageIcon("/de/elmar_baumann/lib/resource/icons/icon_datechooser_next.png")); // NOI18N
         nextButton.setBorder(BorderFactory.createEmptyBorder());
         nextButton.setPreferredSize(new Dimension(16, 16));
         nextButton.addActionListener(new ActionListener() {

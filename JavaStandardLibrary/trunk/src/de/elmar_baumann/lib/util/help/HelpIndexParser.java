@@ -20,7 +20,7 @@ import org.xml.sax.SAXParseException;
 
 /**
  * Reads the index file of the application's help: a XML file wich validates
- * against <code>/de/elmar_baumann/lib/resource/helpindex.dtd</code>.
+ * against <code>/de/elmar_baumann/lib/resource/dtd/helpindex.dtd</code>.
  *
  * All functions with object-reference-parameters are throwing a
  * <code>NullPointerException</code> if an object reference is null and it is
@@ -123,7 +123,7 @@ public final class HelpIndexParser {
             public InputSource resolveEntity(String publicId, String systemId)
                     throws SAXException, IOException {
                 InputStream is = HelpIndexParser.class.getResourceAsStream(
-                        "/de/elmar_baumann/lib/resource/helpindex.dtd");
+                        "/de/elmar_baumann/lib/resource/dtd/helpindex.dtd");
                 InputSource ip = new InputSource(is);
                 ip.setSystemId("helpindex.dtd");
                 return ip;

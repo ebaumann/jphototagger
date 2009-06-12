@@ -176,7 +176,7 @@ public final class LogfileParser implements EntityResolver {
         InputStream stream = null;
         if (systemId.endsWith("logger.dtd")) { // NOI18N
             stream = EntityResolver.class.getResourceAsStream(
-                "/de/elmar_baumann/lib/resource/logger.dtd"); // NOI18N
+                "/de/elmar_baumann/lib/resource/dtd/logger.dtd"); // NOI18N
         }
         return new InputSource(new InputStreamReader(stream));
     }

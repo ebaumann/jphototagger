@@ -7,7 +7,7 @@ import java.util.logging.Logger;
 
 /**
  * Returns the strings defined in the <code>Bundle.properties</code> file
- * (<code>"de/elmar_baumann/lib/resource/Bundle"</code>).
+ * (<code>"de/elmar_baumann/lib/resource/properties/Bundle"</code>).
  *
  * All functions with object-reference-parameters are throwing a
  * <code>NullPointerException</code> if an object reference is null and it is
@@ -19,7 +19,7 @@ import java.util.logging.Logger;
 public final class Bundle {
 
     private static final ResourceBundle bundle =
-        ResourceBundle.getBundle("de/elmar_baumann/lib/resource/Bundle"); // NOI18N
+        ResourceBundle.getBundle("de/elmar_baumann/lib/resource/properties/Bundle"); // NOI18N
 
     /**
      * Returns <code>java.util.ResourceBundle.getBundle().getString()</code>

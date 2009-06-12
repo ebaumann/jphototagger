@@ -19,9 +19,9 @@ import javax.swing.tree.DefaultTreeCellRenderer;
  */
 public final class TreeCellRendererHelpContents extends DefaultTreeCellRenderer {
 
-    private static final ImageIcon iconSectionCollapsed = IconUtil.getImageIcon("/de/elmar_baumann/lib/resource/icon_help_section_collapsed.png");
-    private static final ImageIcon iconSectionExpanded = IconUtil.getImageIcon("/de/elmar_baumann/lib/resource/icon_help_section_expanded.png");
-    private static final ImageIcon iconPage = IconUtil.getImageIcon("/de/elmar_baumann/lib/resource/icon_help_page.png");
+    private static final ImageIcon iconSectionCollapsed = IconUtil.getImageIcon("/de/elmar_baumann/lib/resource/icons/icon_help_section_collapsed.png");
+    private static final ImageIcon iconSectionExpanded = IconUtil.getImageIcon("/de/elmar_baumann/lib/resource/icons/icon_help_section_expanded.png");
+    private static final ImageIcon iconPage = IconUtil.getImageIcon("/de/elmar_baumann/lib/resource/icons/icon_help_page.png");
 
     @Override
     public Component getTreeCellRendererComponent(JTree tree, Object value, boolean sel, boolean expanded, boolean leaf, int row, boolean hasFocus) {

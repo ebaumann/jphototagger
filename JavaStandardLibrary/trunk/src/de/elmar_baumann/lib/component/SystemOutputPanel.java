@@ -121,7 +121,7 @@ public class SystemOutputPanel extends JPanel {
         textArea.setEditable(false);
         textArea.setLineWrap(true);
         textArea.setTabSize(4);
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/lib/resource/Bundle"); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/lib/resource/properties/Bundle"); // NOI18N
         textArea.setToolTipText(bundle.getString("SystemOutputPanel.textArea.toolTipText")); // NOI18N
         textArea.setWrapStyleWord(true);
         scrollPane.setViewportView(textArea);
