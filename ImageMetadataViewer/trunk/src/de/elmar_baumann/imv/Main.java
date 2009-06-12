@@ -14,7 +14,7 @@ public final class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        AppInit.init();
+        AppInit.init(args);
     }
 
     private Main() {

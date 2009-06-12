@@ -19,19 +19,22 @@ import javax.swing.JOptionPane;
 public final class AppInit {
 
     private static AppInit INSTANCE;
+    private static final String NO_OUTPUT_CAPTURE = "-nocapture";
+    private String[] args;
 
-    public static synchronized void init() {
+    public static synchronized void init(String[] args) {
         if (INSTANCE == null) {
-            INSTANCE = new AppInit();
+            INSTANCE = new AppInit(args);
         }
     }
 
-    private AppInit() {
+    private AppInit(String[] args) {
+        this.args = args;
         initApp();
     }
 
     private void initApp() {
-        SystemOutputDialog.INSTANCE.captureOutput();
+        captureOutput();
         AppLookAndFeel.set();
         checkJavaVersion();
         lock();
@@ -40,6 +43,21 @@ public final class AppInit {
         AbstractImageReader.install(ImageProperties.class);
         informationMessageInitGui();
         showMainWindow();
+    }
+
+    private void captureOutput() {
+        if (isCaptureOutput()) {
+            SystemOutputDialog.INSTANCE.captureOutput();
+        }
+    }
+
+    private boolean isCaptureOutput() {
+        if (args == null) return true;
+        for (String arg : args) {
+            if (arg.equals(NO_OUTPUT_CAPTURE))
+                return false;
+        }
+        return true;
     }
 
     private static void lock() {
