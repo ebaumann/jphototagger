@@ -27,7 +27,7 @@ public final class ExifFormatterDateTime extends ExifFormatter {
         if (entry.getTag() != ExifTag.DATE_TIME_ORIGINAL.getId())
             throw new IllegalArgumentException("Wrong tag: " + entry);
         byte[] rawValue = entry.getRawValue();
-        String value = ExifAscii.decode(rawValue);
+        String value = ExifAscii.decode(rawValue).trim();
         if (value.length() >= 18) {
             try {
                 int year = Integer.parseInt(value.substring(0, 4));
