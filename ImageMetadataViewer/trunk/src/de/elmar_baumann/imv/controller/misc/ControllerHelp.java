@@ -1,6 +1,7 @@
 package de.elmar_baumann.imv.controller.misc;
 
 import de.elmar_baumann.imv.UserSettings;
+import de.elmar_baumann.imv.app.AppIcons;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.dialog.HelpBrowser;
 import de.elmar_baumann.lib.event.HelpBrowserAction;
@@ -24,6 +25,7 @@ public final class ControllerHelp implements ActionListener,
 
     public ControllerHelp() {
         help.setContentsUrl(Bundle.getString("Help.Url.Contents"));
+        help.setIconImages(AppIcons.getAppIcons());
         listen();
     }
 
