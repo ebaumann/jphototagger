@@ -14,7 +14,7 @@ import java.util.ResourceBundle;
 public final class Bundle {
 
     private static final ResourceBundle bundle =
-        ResourceBundle.getBundle("de/elmar_baumann/imv/resource/Bundle");
+        ResourceBundle.getBundle("de/elmar_baumann/imv/resource/properties/Bundle");
 
     /**
      * Liefert java.util.ResourceBundle.getBundle().getString() und fängt

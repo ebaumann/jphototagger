@@ -14,7 +14,7 @@ import javax.swing.Icon;
  */
 public final class AppIcons {
 
-    private static final String iconPath = "/de/elmar_baumann/imv/resource";
+    private static final String iconPath = "/de/elmar_baumann/imv/resource/icons";
     /**
      * Pfad zum kleinen Anwendungssymbol.
      */

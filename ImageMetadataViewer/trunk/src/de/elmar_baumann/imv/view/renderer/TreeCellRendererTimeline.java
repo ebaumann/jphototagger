@@ -19,11 +19,13 @@ import javax.swing.tree.TreeNode;
 public final class TreeCellRendererTimeline extends DefaultTreeCellRenderer {
 
     private static final ImageIcon iconYear = IconUtil.getImageIcon(
-            "/de/elmar_baumann/imv/resource/icon_timeline.png");
+            "/de/elmar_baumann/imv/resource/icons/icon_timeline.png");
     private static final ImageIcon iconMonth = IconUtil.getImageIcon(
-            "/de/elmar_baumann/imv/resource/icon_timeline.png");
+            "/de/elmar_baumann/imv/resource/icons/icon_timeline_month.png");
     private static final ImageIcon iconDay = IconUtil.getImageIcon(
-            "/de/elmar_baumann/imv/resource/icon_calendar.png");
+            "/de/elmar_baumann/imv/resource/icons/icon_timeline_day.png");
+    private static final ImageIcon iconUnknown = IconUtil.getImageIcon(
+            "/de/elmar_baumann/imv/resource/icons/icon_timeline_unknown.png");
 
     @Override
     public Component getTreeCellRendererComponent(JTree tree, Object value,
