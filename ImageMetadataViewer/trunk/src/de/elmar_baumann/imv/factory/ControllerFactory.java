@@ -58,6 +58,7 @@ import de.elmar_baumann.imv.controller.thumbnail.ControllerSliderThumbnailSize;
 import de.elmar_baumann.imv.controller.thumbnail.ControllerSortThumbnails;
 import de.elmar_baumann.imv.controller.thumbnail.ControllerThumbnailsDatabaseChanges;
 import de.elmar_baumann.imv.controller.thumbnail.ControllerThumbnailsPanelPersistence;
+import de.elmar_baumann.imv.controller.timeline.ControllerTimelineItemSelected;
 
 /**
  * Erzeugt alle Controller.
@@ -136,6 +137,7 @@ public final class ControllerFactory {
             new ControllerActionExecutor();
             new ControllerExtractEmbeddedXmp();
             new ControllerShowSystemOutput();
+            new ControllerTimelineItemSelected();
             startScheduledTasks();
             init = true;
         }

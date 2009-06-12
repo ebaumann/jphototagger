@@ -11,7 +11,7 @@ public enum Content {
     FAVORITE_DIRECTORY,
     IMAGE_COLLECTION,
     KEYWORD,
+    TIMELINE,
     SAFED_SEARCH,
     UNDEFINED
-
 }

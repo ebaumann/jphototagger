@@ -27,12 +27,18 @@ import javax.swing.JRadioButtonMenuItem;
  */
 public final class AppFrame extends javax.swing.JFrame {
 
-    private final Map<FileSort, JRadioButtonMenuItem> menuItemOfSort = new HashMap<FileSort, JRadioButtonMenuItem>();
-    private final Map<JRadioButtonMenuItem, FileSort> sortOfMenuItem = new HashMap<JRadioButtonMenuItem, FileSort>();
-    private final Map<GoTo, JMenuItem> menuItemOfGoto = new HashMap<GoTo, JMenuItem>();
-    private final Map<JMenuItem, GoTo> gotoOfMenuItem = new HashMap<JMenuItem, GoTo>();
-    private final List<AppExitListener> exitListeners = new ArrayList<AppExitListener>();
-    private final List<AppStartListener> startListeners = new ArrayList<AppStartListener>();
+    private final Map<FileSort, JRadioButtonMenuItem> menuItemOfSort =
+            new HashMap<FileSort, JRadioButtonMenuItem>();
+    private final Map<JRadioButtonMenuItem, FileSort> sortOfMenuItem =
+            new HashMap<JRadioButtonMenuItem, FileSort>();
+    private final Map<GoTo, JMenuItem> menuItemOfGoto =
+            new HashMap<GoTo, JMenuItem>();
+    private final Map<JMenuItem, GoTo> gotoOfMenuItem =
+            new HashMap<JMenuItem, GoTo>();
+    private final List<AppExitListener> exitListeners =
+            new ArrayList<AppExitListener>();
+    private final List<AppStartListener> startListeners =
+            new ArrayList<AppStartListener>();
     private AppPanel appPanel;
 
     public AppFrame() {
@@ -42,12 +48,18 @@ public final class AppFrame extends javax.swing.JFrame {
     }
 
     private void initSortMenuItemsMap() {
-        menuItemOfSort.put(FileSort.NAMES_ASCENDING, radioButtonMenuItemSortFilenameAscending);
-        menuItemOfSort.put(FileSort.NAMES_DESCENDING, radioButtonMenuItemSortFilenameDescending);
-        menuItemOfSort.put(FileSort.LAST_MODIFIED_ASCENDING, radioButtonMenuItemSortLastModifiedAscending);
-        menuItemOfSort.put(FileSort.LAST_MODIFIED_DESCENDING, radioButtonMenuItemSortLastModifiedDescending);
-        menuItemOfSort.put(FileSort.TYPES_ASCENDING, radioButtonMenuItemSortFileTypeAscending);
-        menuItemOfSort.put(FileSort.TYPES_DESCENDING, radioButtonMenuItemSortFileTypeDescending);
+        menuItemOfSort.put(FileSort.NAMES_ASCENDING,
+                radioButtonMenuItemSortFilenameAscending);
+        menuItemOfSort.put(FileSort.NAMES_DESCENDING,
+                radioButtonMenuItemSortFilenameDescending);
+        menuItemOfSort.put(FileSort.LAST_MODIFIED_ASCENDING,
+                radioButtonMenuItemSortLastModifiedAscending);
+        menuItemOfSort.put(FileSort.LAST_MODIFIED_DESCENDING,
+                radioButtonMenuItemSortLastModifiedDescending);
+        menuItemOfSort.put(FileSort.TYPES_ASCENDING,
+                radioButtonMenuItemSortFileTypeAscending);
+        menuItemOfSort.put(FileSort.TYPES_DESCENDING,
+                radioButtonMenuItemSortFileTypeDescending);
 
         for (FileSort sort : menuItemOfSort.keySet()) {
             sortOfMenuItem.put(menuItemOfSort.get(sort), sort);
@@ -61,10 +73,12 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemOfGoto.put(GoTo.EDIT_PANELS, menuItemGotoEdit);
         menuItemOfGoto.put(GoTo.EXIF_METADATA, menuItemGotoExifMetadata);
         menuItemOfGoto.put(GoTo.FAST_SEARCH, menuItemGotoFastSearch);
-        menuItemOfGoto.put(GoTo.FAVORITE_DIRECTORIES, menuItemGotoFavoriteDirectories);
+        menuItemOfGoto.put(GoTo.FAVORITE_DIRECTORIES,
+                menuItemGotoFavoriteDirectories);
         menuItemOfGoto.put(GoTo.IPTC_METADATA, menuItemGotoIptcMetadata);
         menuItemOfGoto.put(GoTo.SAVED_SEARCHES, menuItemGotoSavedSearches);
         menuItemOfGoto.put(GoTo.KEYWORDS, menuItemGotoKeywords);
+        menuItemOfGoto.put(GoTo.TIMELINE, menuItemGotoTimeline);
         menuItemOfGoto.put(GoTo.THUMBNAILS_PANEL, menuItemGotoThumbnailsPanel);
         menuItemOfGoto.put(GoTo.XMP_METADATA, menuItemGotoXmpMetadata);
 
@@ -83,6 +97,7 @@ public final class AppFrame extends javax.swing.JFrame {
         SAVED_SEARCHES,
         IMAGE_COLLECTIONS,
         KEYWORDS,
+        TIMELINE,
         THUMBNAILS_PANEL,
         EXIF_METADATA,
         IPTC_METADATA,
@@ -175,7 +190,7 @@ public final class AppFrame extends javax.swing.JFrame {
     public JMenuItem getMenuItemAbout() {
         return menuItemAbout;
     }
-    
+
     public JMenuItem getMenuItemActions() {
         return menuItemActions;
     }
@@ -277,6 +292,7 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemGotoCategories = new javax.swing.JMenuItem();
         menuItemGotoFavoriteDirectories = new javax.swing.JMenuItem();
         menuItemGotoKeywords = new javax.swing.JMenuItem();
+        menuItemGotoTimeline = new javax.swing.JMenuItem();
         jSeparator8 = new javax.swing.JSeparator();
         menuItemGotoThumbnailsPanel = new javax.swing.JMenuItem();
         jSeparator9 = new javax.swing.JSeparator();
@@ -452,6 +468,12 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemGotoKeywords.setMnemonic('w');
         menuItemGotoKeywords.setText(Bundle.getString("AppFrame.menuItemGotoKeywords.text")); // NOI18N
         menuGoto.add(menuItemGotoKeywords);
+
+        menuItemGotoTimeline.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.CTRL_MASK));
+        menuItemGotoTimeline.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icon_timeline.png"))); // NOI18N
+        menuItemGotoTimeline.setMnemonic('z');
+        menuItemGotoTimeline.setText(Bundle.getString("AppFrame.menuItemGotoTimeline.text")); // NOI18N
+        menuGoto.add(menuItemGotoTimeline);
         menuGoto.add(jSeparator8);
 
         menuItemGotoThumbnailsPanel.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_6, java.awt.event.InputEvent.CTRL_MASK));
@@ -611,6 +633,7 @@ private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:even
     private javax.swing.JMenuItem menuItemGotoKeywords;
     private javax.swing.JMenuItem menuItemGotoSavedSearches;
     private javax.swing.JMenuItem menuItemGotoThumbnailsPanel;
+    private javax.swing.JMenuItem menuItemGotoTimeline;
     private javax.swing.JMenuItem menuItemGotoXmpMetadata;
     private javax.swing.JMenuItem menuItemHelp;
     private javax.swing.JMenuItem menuItemMaintainDatabase;

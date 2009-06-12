@@ -39,6 +39,10 @@
 			<url>mainwindow_panel_favorite_folders.html</url>
 			<title>Favoriten-Ordner</title>
 		</page>
+		<page>
+			<url>mainwindow_panel_timeline.html</url>
+			<title>Zeitleiste</title>
+		</page>
 	</node>
 	<node>
 		<title>Die Metadaten-Kartenreiter</title>
