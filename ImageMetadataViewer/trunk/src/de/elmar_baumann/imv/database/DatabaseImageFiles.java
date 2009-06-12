@@ -1104,6 +1104,7 @@ public final class DatabaseImageFiles extends Database {
                 timeline.add(cal);
             }
             stmt.close();
+            timeline.addUnknownNode();
         } catch (SQLException ex) {
             AppLog.logWarning(DatabaseImageFiles.class, ex);
         } finally {
@@ -1161,5 +1162,55 @@ public final class DatabaseImageFiles extends Database {
         return i >= 10
                ? "" // NOI18N
                : "0"; // NOI18N
+    }
+
+    /**
+     * Returns image files without EXIF date time taken.
+     *
+     * @return  image files
+     */
+    public List<File> getFilesOfUnknownExifDate() {
+        List<File> files = new ArrayList<File>();
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            String sql =
+                    "SELECT files.filename" + // NOI18N
+                    " FROM exif INNER JOIN files" + // NOI18N
+                    " ON exif.id_files = files.id" + // NOI18N
+                    " WHERE exif.exif_date_time_original IS NULL" + // NOI18N
+                    " ORDER BY files.filename ASC"; // NOI18N
+            Statement stmt = connection.createStatement();
+            AppLog.logFinest(DatabaseImageFiles.class, sql);
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                files.add(new File(rs.getString(1)));
+            }
+            stmt.close();
+            addFilesWithoutExif(files, connection);
+        } catch (SQLException ex) {
+            AppLog.logWarning(DatabaseImageFiles.class, ex);
+        } finally {
+            free(connection);
+        }
+        return files;
+    }
+
+    // UNION can cause memory exhausting
+    private void addFilesWithoutExif(List<File> files, Connection connection)
+            throws SQLException {
+        String sql =
+                "SELECT files.filename" + // NOI18N
+                " FROM files" + // NOI18N
+                " WHERE files.id NOT IN " + // NOI18N
+                " (SELECT exif.id_files FROM exif)" +
+                " ORDER BY files.filename ASC"; // NOI18N
+        Statement stmt = connection.createStatement();
+        AppLog.logFinest(DatabaseImageFiles.class, sql);
+        ResultSet rs = stmt.executeQuery(sql);
+        while (rs.next()) {
+            files.add(new File(rs.getString(1)));
+        }
+        stmt.close();
     }
 }

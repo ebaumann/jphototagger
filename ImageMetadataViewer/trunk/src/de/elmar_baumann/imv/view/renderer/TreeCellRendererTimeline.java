@@ -1,5 +1,6 @@
 package de.elmar_baumann.imv.view.renderer;
 
+import de.elmar_baumann.imv.data.Timeline;
 import de.elmar_baumann.lib.image.icon.IconUtil;
 import java.awt.Component;
 import java.util.Calendar;
@@ -52,6 +53,9 @@ public final class TreeCellRendererTimeline extends DefaultTreeCellRenderer {
                       ? cal.getDisplayName(Calendar.MONTH, Calendar.LONG,
                     Locale.getDefault())
                       : String.valueOf(cal.get(Calendar.DAY_OF_MONTH)));
+        } else if (node.equals(Timeline.getUnknownNode())) {
+            setIcon(iconUnknown);
+            setText(node.getUserObject().toString());
         }
         return this;
     }

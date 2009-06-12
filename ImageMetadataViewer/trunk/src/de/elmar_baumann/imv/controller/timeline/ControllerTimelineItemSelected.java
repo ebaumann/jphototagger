@@ -1,5 +1,6 @@
 package de.elmar_baumann.imv.controller.timeline;
 
+import de.elmar_baumann.imv.data.Timeline;
 import de.elmar_baumann.imv.database.DatabaseImageFiles;
 import de.elmar_baumann.imv.event.RefreshListener;
 import de.elmar_baumann.imv.resource.GUI;
@@ -61,16 +62,22 @@ public final class ControllerTimelineItemSelected implements
     }
 
     private void setFilesOfNodeToThumbnailsPanel(DefaultMutableTreeNode node) {
-        Calendar cal = (Calendar) node.getUserObject();
-        boolean isYear = node.getParent().equals(node.getRoot());
-        boolean isMonth = !isYear && node.getChildCount() > 0;
-        setFilesToThumbnailsPanel(cal.get(Calendar.YEAR),
-                isYear
-                ? -1
-                : cal.get(Calendar.MONTH) + 1,
-                isMonth
-                ? -1
-                : cal.get(Calendar.DAY_OF_MONTH));
+        Object userObject = node.getUserObject();
+        if (node.equals(Timeline.getUnknownNode())) {
+            thumbnailsPanel.setFiles(db.getFilesOfUnknownExifDate(),
+                    Content.TIMELINE);
+        } else if (userObject instanceof Calendar) {
+            Calendar cal = (Calendar) userObject;
+            boolean isYear = node.getParent().equals(node.getRoot());
+            boolean isMonth = !isYear && node.getChildCount() > 0;
+            setFilesToThumbnailsPanel(cal.get(Calendar.YEAR),
+                    isYear
+                    ? -1
+                    : cal.get(Calendar.MONTH) + 1,
+                    isMonth
+                    ? -1
+                    : cal.get(Calendar.DAY_OF_MONTH));
+        }
     }
 
     private void setFilesToThumbnailsPanel(int year, int month, int day) {
