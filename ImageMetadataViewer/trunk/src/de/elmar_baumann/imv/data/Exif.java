@@ -84,7 +84,11 @@ public final class Exif {
      * @param recordingEquipment Kamera
      */
     public void setRecordingEquipment(String recordingEquipment) {
-        this.recordingEquipment = recordingEquipment;
+        // Bugfix imagero: when first byte of RAW data is 0, then the returned
+        // string is "0"
+        if (recordingEquipment != null && !recordingEquipment.equals("0")) {
+            this.recordingEquipment = recordingEquipment;
+        }
     }
 
     /**
@@ -94,8 +98,8 @@ public final class Exif {
      */
     public boolean isEmpty() {
         return dateTimeOriginal == null &&
-            focalLength < 0 &&
-            isoSpeedRatings < 0 &&
-            recordingEquipment == null;
+                focalLength < 0 &&
+                isoSpeedRatings < 0 &&
+                recordingEquipment == null;
     }
 }
