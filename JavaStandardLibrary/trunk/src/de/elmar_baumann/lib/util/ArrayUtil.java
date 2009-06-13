@@ -3,6 +3,7 @@ package de.elmar_baumann.lib.util;
 import java.util.List;
 import java.util.StringTokenizer;
 import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * Utils for arrays and array like objects.
@@ -65,7 +66,8 @@ public final class ArrayUtil {
      * @throws          NumberFormatException if the string contains a not empty
      *                  token that can't parsed as an integer
      */
-    public static List<Integer> integerTokenToList(String string, String delimiter) {
+    public static List<Integer> integerTokenToList(String string,
+            String delimiter) {
         if (string == null)
             throw new NullPointerException("string == null");
         if (delimiter == null)
@@ -114,6 +116,22 @@ public final class ArrayUtil {
      */
     public static boolean isValidIndex(List list, int index) {
         return index >= 0 && index < list.size();
+    }
+
+    /**
+     * Returns an array of (primitive) integer from a collection.
+     *
+     * @param  <T> type of the collection's elements
+     * @param  c   collection
+     * @return     array with the length of {@link Collection#size()}
+     */
+    public static <T> int[] toIntArray(Collection<? extends Integer> c) {
+        int[] array = new int[c.size()];
+        int index = 0;
+        for (int el : c) {
+            array[index++] = el;
+        }
+        return array;
     }
 
     private ArrayUtil() {
