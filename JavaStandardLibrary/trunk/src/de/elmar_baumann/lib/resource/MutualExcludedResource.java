@@ -75,7 +75,7 @@ public class MutualExcludedResource {
             throw new NullPointerException("o == null");
 
         if (isLocked() && o != null && o == getOwner()) {
-            setOwner(null);
+            owner = null;
             setLocked(false);
             return true;
         }
