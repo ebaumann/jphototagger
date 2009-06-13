@@ -13,7 +13,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
 /**
- * Selection of misc metadata information.
+ * Misc metadata information.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009/06/12

@@ -68,15 +68,19 @@ public final class ControllerTimelineItemSelected implements
                     Content.TIMELINE);
         } else if (userObject instanceof Calendar) {
             Calendar cal = (Calendar) userObject;
-            boolean isYear = node.getParent().equals(node.getRoot());
-            boolean isMonth = !isYear && node.getChildCount() > 0;
-            setFilesToThumbnailsPanel(cal.get(Calendar.YEAR),
-                    isYear
-                    ? -1
-                    : cal.get(Calendar.MONTH) + 1,
-                    isMonth
-                    ? -1
-                    : cal.get(Calendar.DAY_OF_MONTH));
+            DefaultMutableTreeNode parent = (DefaultMutableTreeNode) node.
+                    getParent();
+            if (parent != null) {
+                boolean isYear = parent.equals(node.getRoot());
+                boolean isMonth = !isYear && node.getChildCount() > 0;
+                setFilesToThumbnailsPanel(cal.get(Calendar.YEAR),
+                        isYear
+                        ? -1
+                        : cal.get(Calendar.MONTH) + 1,
+                        isMonth
+                        ? -1
+                        : cal.get(Calendar.DAY_OF_MONTH));
+            }
         }
     }
 

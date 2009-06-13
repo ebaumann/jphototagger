@@ -1,7 +1,6 @@
 package de.elmar_baumann.imv.factory;
 
 import de.elmar_baumann.imv.UserSettings;
-import de.elmar_baumann.imv.database.DatabaseImageFiles;
 import de.elmar_baumann.imv.model.ComboBoxModelMetadataEditTemplates;
 import de.elmar_baumann.imv.model.ListModelCategories;
 import de.elmar_baumann.imv.model.ListModelFavoriteDirectories;
@@ -12,11 +11,11 @@ import de.elmar_baumann.imv.model.TableModelExif;
 import de.elmar_baumann.imv.model.TableModelIptc;
 import de.elmar_baumann.imv.model.TableModelXmp;
 import de.elmar_baumann.imv.model.TreeModelMiscMetadata;
+import de.elmar_baumann.imv.model.TreeModelTimeline;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.lib.model.TreeModelDirectories;
 import de.elmar_baumann.lib.thirdparty.SortedListModel;
-import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeModel;
 
 /**
@@ -76,7 +75,7 @@ public final class ModelFactory {
                 appPanel.getTreeSelectionMiscMetadata().setModel(model);
             }
         });
-        thread.setName("Misc-Metadata-Tree");
+        thread.setName("Tree Misc metadata");
         thread.start();
     }
 
@@ -85,13 +84,11 @@ public final class ModelFactory {
 
             @Override
             public void run() {
-                TreeModel model = new DefaultTreeModel(
-                        DatabaseImageFiles.INSTANCE.getTimeline().
-                        getRoot());
+                TreeModel model = new TreeModelTimeline();
                 appPanel.getTreeSelectionTimeline().setModel(model);
             }
         });
-        thread.setName("Timeline-Tree");
+        thread.setName("Tree Timeline");
         thread.start();
     }
 

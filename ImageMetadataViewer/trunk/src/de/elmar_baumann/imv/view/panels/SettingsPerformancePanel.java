@@ -113,7 +113,7 @@ public final class SettingsPerformancePanel extends javax.swing.JPanel
         labelInfoThreadPriority.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         labelInfoThreadPriority.setText(Bundle.getString("SettingsPerformancePanel.labelInfoThreadPriority.text")); // NOI18N
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/imv/resource/Bundle"); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/imv/resource/properties/Bundle"); // NOI18N
         labelMaximumSecondsToTerminateExternalPrograms.setText(bundle.getString("SettingsPerformancePanel.labelMaximumSecondsToTerminateExternalPrograms.text")); // NOI18N
 
         spinnerMaximumSecondsToTerminateExternalPrograms.setModel(new javax.swing.SpinnerNumberModel(60, 10, 600, 1));

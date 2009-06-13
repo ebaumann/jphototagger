@@ -373,8 +373,14 @@ public final class DatabaseImageFiles extends Database {
                     "DELETE FROM files WHERE filename = ?"); // NOI18N
             for (String filename : filenames) {
                 stmt.setString(1, filename);
+                ImageFile imageFile = new ImageFile();
+                imageFile.setFilename(filename);
+                imageFile.setExif(getExifOfFile(filename));
+                imageFile.setXmp(getXmpOfFile(filename));
                 AppLog.logFiner(DatabaseImageFiles.class, stmt.toString());
                 countDeleted += stmt.executeUpdate();
+                notifyDatabaseListener(
+                        DatabaseAction.Type.IMAGEFILE_DELETED, imageFile);
             }
             stmt.close();
             notifyDatabaseListener(
@@ -1286,5 +1292,76 @@ public final class DatabaseImageFiles extends Database {
             free(connection);
         }
         return files;
+    }
+
+    /**
+     * Returns exif metadata of a specific file.
+     *
+     * @param  filename filenam
+     * @return          EXIF metadata or null if that file has no EXIF metadata
+     */
+    public Exif getExifOfFile(String filename) {
+        Exif exif = null;
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            PreparedStatement stmt = connection.prepareStatement(
+                    getExifOfFileStatement());
+            stmt.setString(1, filename);
+            AppLog.logFinest(DatabaseImageFiles.class, stmt.toString());
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                exif = new Exif();
+                exif.setRecordingEquipment(rs.getString(1));
+                exif.setDateTimeOriginal(rs.getDate(2));
+                exif.setFocalLength(rs.getDouble(3));
+                exif.setIsoSpeedRatings(rs.getShort(4));
+            }
+            stmt.close();
+        } catch (SQLException ex) {
+            AppLog.logWarning(DatabaseImageFiles.class, ex);
+        } finally {
+            free(connection);
+        }
+        return exif;
+    }
+
+    private String getExifOfFileStatement() {
+        return "SELECT" + // NOI18N
+                " exif_recording_equipment" + // NOI18N -- 1 --
+                ", exif.exif_date_time_original" + // NOI18N -- 2 --
+                ", exif.exif_focal_length" + // NOI18N -- 3 --
+                ", exif.exif_iso_speed_ratings" + // NOI18N -- 4 --
+                " FROM files INNER JOIN exif" + // NOI18N
+                " ON files.id = exif.id_files" + // NOI18N
+                " AND files.filename = ?"; // NOI18N
+    }
+
+    public boolean existsExifDay(java.sql.Date date) {
+        boolean exists = false;
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(date);
+            int year = cal.get(Calendar.YEAR);
+            int month = cal.get(Calendar.MONTH) + 1;
+            int day = cal.get(Calendar.DAY_OF_MONTH);
+            String sql = "SELECT COUNT(*) FROM exif WHERE exif_date_time_original" +
+                    " LIKE '" + year + "-" + getMonthDayPrefix(month) + month +
+                    "-" + getMonthDayPrefix(day) + day + "%'";
+            Statement stmt = connection.createStatement();
+            AppLog.logFinest(DatabaseImageFiles.class, sql);
+            ResultSet rs = stmt.executeQuery(sql);
+            if (rs.next()) {
+                exists = rs.getInt(1) > 0;
+            }
+            stmt.close();
+        } catch (SQLException ex) {
+            AppLog.logWarning(DatabaseImageFiles.class, ex);
+        } finally {
+            free(connection);
+        }
+        return exists;
     }
 }

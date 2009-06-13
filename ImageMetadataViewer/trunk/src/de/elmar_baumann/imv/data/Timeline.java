@@ -1,7 +1,9 @@
 package de.elmar_baumann.imv.data;
 
 import de.elmar_baumann.imv.resource.Bundle;
+import de.elmar_baumann.lib.model.TreeModelUpdateInfo;
 import java.util.Calendar;
+import java.util.Enumeration;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeModel;
 
@@ -19,7 +21,8 @@ public final class Timeline {
 
     private final DefaultMutableTreeNode ROOT_NODE = new DefaultMutableTreeNode(
             Bundle.getString("Timeline.RootNode.DisplayName"));
-    private static final DefaultMutableTreeNode UNKNOWN_NODE = new DefaultMutableTreeNode(
+    private static final DefaultMutableTreeNode UNKNOWN_NODE =
+            new DefaultMutableTreeNode(
             Bundle.getString("Timeline.UnknownNode.DisplayName"));
     private boolean unknownNode;
 
@@ -45,12 +48,61 @@ public final class Timeline {
     /**
      * Adds a date.
      *
-     * @param cal date taken of the image
+     * @param cal date taken of the image - only year, month and day are
+     *            recognized
+     * @return    information about the inserted children
      */
-    public void add(Calendar cal) {
-        insertDayNode(insertMonth(insertYearNode(cal), cal), cal);
+    public synchronized TreeModelUpdateInfo.NodesAndChildIndices add(
+            Calendar cal) {
+        TreeModelUpdateInfo.NodesAndChildIndices info =
+                new TreeModelUpdateInfo.NodesAndChildIndices();
+        insertDayNode(insertMonthNode(insertYearNode(cal, info), cal, info), cal,
+                info);
+        return info;
     }
 
+    /**
+     * Removes a day.
+     *
+     * @param  cal date taken of th image - only year, month and day are
+     *             compared
+     * @return     update information. If {@link UpdateInfo#getSource()} equals
+     *             null nothing was updated.
+     */
+    public synchronized TreeModelUpdateInfo.NodeAndChild removeDay(Calendar cal) {
+        TreeModelUpdateInfo.NodeAndChild info =
+                new TreeModelUpdateInfo.NodeAndChild();
+        DefaultMutableTreeNode dayNode = getNodeOfDay(cal);
+        if (dayNode != null) {
+            DefaultMutableTreeNode parent = (DefaultMutableTreeNode) dayNode.
+                    getParent();
+            if (parent != null) {
+                info.setNode(parent);
+                info.setUpdatedChild(dayNode, parent.getIndex(dayNode));
+                parent.remove(dayNode);
+                removeIfEmpty(parent, info);
+            }
+        }
+        return info;
+    }
+
+    private void removeIfEmpty(DefaultMutableTreeNode node,
+            TreeModelUpdateInfo.NodeAndChild info) {
+        if (node.getChildCount() <= 0) {
+            DefaultMutableTreeNode parent = (DefaultMutableTreeNode) node.
+                    getParent();
+            if (parent != null) {
+                info.setNode(parent);
+                info.setUpdatedChild(node, parent.getIndex(node));
+                parent.remove(node);
+                removeIfEmpty(parent, info); // recursive
+            }
+        }
+    }
+
+    /**
+     * Adds the node for image files without date created informations.
+     */
     public synchronized void addUnknownNode() {
         if (!unknownNode) {
             unknownNode = true;
@@ -58,7 +110,92 @@ public final class Timeline {
         }
     }
 
-    private DefaultMutableTreeNode insertYearNode(Calendar cal) {
+    /**
+     * Returns whether a specific day exists into this timeline.
+     *
+     * @param   cal date - only year, month and day are compared
+     * @return  true if that day exists
+     */
+    public synchronized boolean existsDay(Calendar cal) {
+        return getNodeOfDay(cal) != null;
+    }
+
+    /**
+     * Returns a node of a specific month.
+     *
+     * @param   cal date - only the year, month and day are compared
+     * @return  node or null if no such node exists
+     */
+    private DefaultMutableTreeNode getNodeOfDay(Calendar cal) {
+        DefaultMutableTreeNode monthNodeOfCal = getNodeOfMonth(cal);
+        if (monthNodeOfCal == null) return null;
+        Enumeration days = monthNodeOfCal.children();
+        DefaultMutableTreeNode dayNodeOfCal = null;
+        while (dayNodeOfCal == null && days.hasMoreElements()) {
+            DefaultMutableTreeNode childNode =
+                    (DefaultMutableTreeNode) days.nextElement();
+            Object userObject = childNode.getUserObject();
+            if (userObject instanceof Calendar) {
+                Calendar nodeCalendar = (Calendar) userObject;
+                if (nodeCalendar.get(Calendar.DAY_OF_MONTH) == cal.get(
+                        Calendar.DAY_OF_MONTH)) {
+                    dayNodeOfCal = childNode;
+                }
+            }
+        }
+        return dayNodeOfCal;
+    }
+
+    /**
+     * Returns a node of a specific month.
+     *
+     * @param   cal date - only the year and month are compared
+     * @return  node or null if no such node exists
+     */
+    private DefaultMutableTreeNode getNodeOfMonth(Calendar cal) {
+        DefaultMutableTreeNode yearNodeOfCal = getNodeOfYear(cal);
+        if (yearNodeOfCal == null) return null;
+        Enumeration months = yearNodeOfCal.children();
+        DefaultMutableTreeNode monthNodeOfCal = null;
+        while (monthNodeOfCal == null && months.hasMoreElements()) {
+            DefaultMutableTreeNode childNode =
+                    (DefaultMutableTreeNode) months.nextElement();
+            Object userObject = childNode.getUserObject();
+            if (userObject instanceof Calendar) {
+                Calendar nodeCalendar = (Calendar) userObject;
+                if (nodeCalendar.get(Calendar.MONTH) == cal.get(Calendar.MONTH)) {
+                    monthNodeOfCal = childNode;
+                }
+            }
+        }
+        return monthNodeOfCal;
+    }
+
+    /**
+     * Returns a node of a specific year.
+     *
+     * @param   cal date - only the year is checked
+     * @return  node or null if no such node exists
+     */
+    private DefaultMutableTreeNode getNodeOfYear(Calendar cal) {
+        Enumeration years = ROOT_NODE.children();
+        DefaultMutableTreeNode yearNodeOfCal = null;
+        while (yearNodeOfCal == null && years.hasMoreElements()) {
+            DefaultMutableTreeNode childNode =
+                    (DefaultMutableTreeNode) years.nextElement();
+            Object userObject = childNode.getUserObject();
+            if (userObject instanceof Calendar) {
+                Calendar nodeCalendar = (Calendar) userObject;
+                if (nodeCalendar.get(Calendar.YEAR) == cal.get(Calendar.YEAR)) {
+                    yearNodeOfCal = childNode;
+                }
+            }
+        }
+        return yearNodeOfCal;
+    }
+
+    private DefaultMutableTreeNode insertYearNode(Calendar cal,
+            TreeModelUpdateInfo.NodesAndChildIndices info) {
         int indexYearNode = indexOfYearNode(cal);
         DefaultMutableTreeNode yearNode;
         if (indexYearNode >= 0) {
@@ -66,12 +203,13 @@ public final class Timeline {
                     indexYearNode);
         } else {
             yearNode = new DefaultMutableTreeNode(cal);
-            insertYearNode(yearNode);
+            insertYearNode(yearNode, info);
         }
         return yearNode;
     }
 
-    private void insertYearNode(DefaultMutableTreeNode yearNode) {
+    private void insertYearNode(DefaultMutableTreeNode yearNode,
+            TreeModelUpdateInfo.NodesAndChildIndices info) {
         int childCount = ROOT_NODE.getChildCount();
         boolean inserted = false;
         int index = 0;
@@ -82,11 +220,13 @@ public final class Timeline {
         }
         if (!inserted) {
             ROOT_NODE.add(yearNode);
+            info.addNode(ROOT_NODE, ROOT_NODE.getIndex(yearNode));
         }
     }
 
-    private DefaultMutableTreeNode insertMonth(DefaultMutableTreeNode yearNode,
-            Calendar cal) {
+    private DefaultMutableTreeNode insertMonthNode(
+            DefaultMutableTreeNode yearNode,
+            Calendar cal, TreeModelUpdateInfo.NodesAndChildIndices info) {
         DefaultMutableTreeNode monthNode = null;
         int month = cal.get(Calendar.MONTH) + 1;
         int childCount = yearNode.getChildCount();
@@ -104,11 +244,13 @@ public final class Timeline {
         if (!inserted) {
             monthNode = new DefaultMutableTreeNode(cal);
             yearNode.add(monthNode);
+            info.addNode(yearNode, yearNode.getIndex(monthNode));
         }
         return monthNode;
     }
 
-    private void insertDayNode(DefaultMutableTreeNode monthNode, Calendar cal) {
+    private void insertDayNode(DefaultMutableTreeNode monthNode, Calendar cal,
+            TreeModelUpdateInfo.NodesAndChildIndices info) {
         if (monthNode == null) return;
         DefaultMutableTreeNode dayNode = null;
         int day = cal.get(Calendar.DAY_OF_MONTH);
@@ -127,6 +269,7 @@ public final class Timeline {
         if (!inserted) {
             dayNode = new DefaultMutableTreeNode(cal);
             monthNode.add(dayNode);
+            info.addNode(monthNode, monthNode.getIndex(dayNode));
         }
     }
 

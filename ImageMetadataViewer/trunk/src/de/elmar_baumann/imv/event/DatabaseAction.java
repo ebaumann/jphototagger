@@ -72,6 +72,10 @@ public final class DatabaseAction {
          */
         IMAGEFILES_DELETED,
         /**
+         * Eine Bilddatei wurde gelöscht
+         */
+        IMAGEFILE_DELETED,
+        /**
          * Eine Bilddatei wurde eingefügt
          */
         IMAGEFILE_INSERTED,
@@ -238,6 +242,7 @@ public final class DatabaseAction {
      * <ul>
      * <li>{@link de.elmar_baumann.imv.event.DatabaseAction.Type#IMAGEFILE_INSERTED}</li>
      * <li>{@link de.elmar_baumann.imv.event.DatabaseAction.Type#IMAGEFILE_UPDATED}</li>
+     * <li>{@link de.elmar_baumann.imv.event.DatabaseAction.Type#IMAGEFILE_DELETED}</li>
      * </ul>
      * 
      * @return Dateien oder null bei ungültigen Aktionen
