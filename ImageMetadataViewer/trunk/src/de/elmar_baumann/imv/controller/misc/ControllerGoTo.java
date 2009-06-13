@@ -38,7 +38,8 @@ public final class ControllerGoTo implements ActionListener {
         componentOfGoTo.put(AppFrame.GoTo.FAVORITE_DIRECTORIES, appPanel.getTabSelectionFavoriteDirectories());
         componentOfGoTo.put(AppFrame.GoTo.SAVED_SEARCHES, appPanel.getTabSelectionSavedSearches());
         componentOfGoTo.put(AppFrame.GoTo.KEYWORDS, appPanel.getTabSelectionKeywords());
-        componentOfGoTo.put(AppFrame.GoTo.TIMELINE, appPanel.getTabTimeline());
+        componentOfGoTo.put(AppFrame.GoTo.TIMELINE, appPanel.getTabSelectionTimeline());
+        componentOfGoTo.put(AppFrame.GoTo.MISC_METADATA, appPanel.getTabSelectionMiscMetadata());
 
         componentOfGoTo.put(AppFrame.GoTo.EDIT_PANELS, appPanel.getTabMetadataEdit());
         componentOfGoTo.put(AppFrame.GoTo.EXIF_METADATA, appPanel.getTabMetadataExif());
@@ -52,6 +53,7 @@ public final class ControllerGoTo implements ActionListener {
         tabbedPaneOfGoTo.put(AppFrame.GoTo.SAVED_SEARCHES, appPanel.getTabbedPaneSelection());
         tabbedPaneOfGoTo.put(AppFrame.GoTo.KEYWORDS, appPanel.getTabbedPaneSelection());
         tabbedPaneOfGoTo.put(AppFrame.GoTo.TIMELINE, appPanel.getTabbedPaneSelection());
+        tabbedPaneOfGoTo.put(AppFrame.GoTo.MISC_METADATA, appPanel.getTabbedPaneSelection());
 
         tabbedPaneOfGoTo.put(AppFrame.GoTo.EDIT_PANELS, appPanel.getTabbedPaneMetadata());
         tabbedPaneOfGoTo.put(AppFrame.GoTo.EXIF_METADATA, appPanel.getTabbedPaneMetadata());

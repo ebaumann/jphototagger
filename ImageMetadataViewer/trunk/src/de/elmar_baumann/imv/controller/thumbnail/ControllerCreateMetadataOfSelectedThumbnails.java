@@ -38,7 +38,7 @@ public final class ControllerCreateMetadataOfSelectedThumbnails
     private final ProgressBarCurrentTasks progressBarProvider = ProgressBarCurrentTasks.INSTANCE;
     private final ImageFileThumbnailsPanel thumbnailsPanel = GUI.INSTANCE.getAppPanel().getPanelThumbnails();
     private JProgressBar progressBar;
-    private boolean wait = false;
+    private volatile boolean wait = false;
     private volatile boolean stop = false;
 
     /**
@@ -107,6 +107,7 @@ public final class ControllerCreateMetadataOfSelectedThumbnails
         if (stop) {
             updaters.clear();
             evt.stop();
+            setWait(false);
         } else {
             if (progressBar != null) {
                 progressBar.setValue(evt.getValue());

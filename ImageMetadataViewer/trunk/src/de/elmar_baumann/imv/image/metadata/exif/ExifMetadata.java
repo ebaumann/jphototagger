@@ -166,7 +166,7 @@ public final class ExifMetadata {
             IdfEntryProxy entry) {
         String datestring = null;
         datestring = entry.toString(); // had thrown a null pointer exception
-        if (datestring != null && datestring.length() >= 11) {
+        if (datestring != null && datestring.trim().length() >= 11) {
             try {
                 int year = new Integer(datestring.substring(0, 4)).intValue();
                 int month = new Integer(datestring.substring(5, 7)).intValue();

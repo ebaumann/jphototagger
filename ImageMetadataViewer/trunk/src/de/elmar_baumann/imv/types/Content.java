@@ -12,6 +12,7 @@ public enum Content {
     IMAGE_COLLECTION,
     KEYWORD,
     TIMELINE,
+    MISC_METADATA,
     SAFED_SEARCH,
     UNDEFINED
 }

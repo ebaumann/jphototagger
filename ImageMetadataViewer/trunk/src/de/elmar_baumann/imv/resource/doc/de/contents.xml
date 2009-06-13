@@ -43,6 +43,10 @@
 			<url>mainwindow_panel_timeline.html</url>
 			<title>Zeitleiste</title>
 		</page>
+        <page>
+            <url>mainwindow_panel_misc_metadata.html</url>
+            <title>Verschiedenes</title>
+        </page>
 	</node>
 	<node>
 		<title>Die Metadaten-Kartenreiter</title>

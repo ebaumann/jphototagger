@@ -41,6 +41,7 @@ import de.elmar_baumann.imv.controller.misc.ControllerLogfileDialog;
 import de.elmar_baumann.imv.controller.misc.ControllerMenuItemEnabler;
 import de.elmar_baumann.imv.controller.misc.ControllerShowSystemOutput;
 import de.elmar_baumann.imv.controller.misc.ControllerThumbnailCountDisplay;
+import de.elmar_baumann.imv.controller.miscmetadata.ControllerMiscMetadataItemSelected;
 import de.elmar_baumann.imv.controller.search.ControllerCreateSavedSearch;
 import de.elmar_baumann.imv.controller.search.ControllerDeleteSavedSearch;
 import de.elmar_baumann.imv.controller.search.ControllerEditSafedSearch;
@@ -138,6 +139,7 @@ public final class ControllerFactory {
             new ControllerExtractEmbeddedXmp();
             new ControllerShowSystemOutput();
             new ControllerTimelineItemSelected();
+            new ControllerMiscMetadataItemSelected();
             startScheduledTasks();
             init = true;
         }

@@ -11,12 +11,13 @@ import de.elmar_baumann.imv.model.ListModelSavedSearches;
 import de.elmar_baumann.imv.model.TableModelExif;
 import de.elmar_baumann.imv.model.TableModelIptc;
 import de.elmar_baumann.imv.model.TableModelXmp;
+import de.elmar_baumann.imv.model.TreeModelMiscMetadata;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.lib.model.TreeModelDirectories;
 import de.elmar_baumann.lib.thirdparty.SortedListModel;
-import javax.swing.JTree;
 import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreeModel;
 
 /**
  * Erzeugt die Models und verbindet sie mit den GUI-Elementen.
@@ -44,12 +45,11 @@ public final class ModelFactory {
             appPanel.getTableXmpTiff().setModel(new TableModelXmp());
             appPanel.getTableXmpXap().setModel(new TableModelXmp());
             appPanel.getTableExif().setModel(new TableModelExif());
-            setTimelineModel(appPanel);
             appPanel.getListSavedSearches().setModel(
                     new ListModelSavedSearches());
             appPanel.getListImageCollections().setModel(
                     new ListModelImageCollections());
-            createTreeModelDirectories(appPanel);
+            setTreeModels(appPanel);
             appPanel.getListFavoriteDirectories().setModel(
                     new ListModelFavoriteDirectories());
             appPanel.getListCategories().setModel(new SortedListModel(
@@ -61,26 +61,52 @@ public final class ModelFactory {
         }
     }
 
-    private void createTreeModelDirectories(final AppPanel appPanel) {
-        JTree treeDirectories = appPanel.getTreeDirectories();
-        treeDirectories.setModel(
-                new TreeModelDirectories(UserSettings.INSTANCE.
-                getDefaultDirectoryFilterOptions()));
+    private void setTreeModels(final AppPanel appPanel) {
+        setTreeModelTimeline(appPanel);
+        setTreeModelMiscMetadata(appPanel);
+        setTreeModelDirectories(appPanel);
     }
 
-    private void setTimelineModel(final AppPanel appPanel) {
+    private void setTreeModelMiscMetadata(final AppPanel appPanel) {
         Thread thread = new Thread(new Runnable() {
 
             @Override
             public void run() {
-                appPanel.getTreeTimeline().
-                        setModel(
-                        new DefaultTreeModel(DatabaseImageFiles.INSTANCE.
-                        getTimeline().
-                        getRoot()));
+                TreeModel model = new TreeModelMiscMetadata();
+                appPanel.getTreeSelectionMiscMetadata().setModel(model);
+            }
+        });
+        thread.setName("Misc-Metadata-Tree");
+        thread.start();
+    }
+
+    private void setTreeModelTimeline(final AppPanel appPanel) {
+        Thread thread = new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                TreeModel model = new DefaultTreeModel(
+                        DatabaseImageFiles.INSTANCE.getTimeline().
+                        getRoot());
+                appPanel.getTreeSelectionTimeline().setModel(model);
             }
         });
         thread.setName("Timeline-Tree");
+        thread.start();
+    }
+
+    private void setTreeModelDirectories(final AppPanel appPanel) {
+        Thread thread = new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                TreeModel model =
+                        new TreeModelDirectories(UserSettings.INSTANCE.
+                        getDefaultDirectoryFilterOptions());
+                appPanel.getTreeDirectories().setModel(model);
+            }
+        });
+        thread.setName("Tree Directories");
         thread.start();
     }
 }
