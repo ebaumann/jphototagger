@@ -2,11 +2,13 @@ package de.elmar_baumann.imv.view.renderer;
 
 import de.elmar_baumann.imv.data.Timeline;
 import de.elmar_baumann.lib.image.icon.IconUtil;
+import java.awt.Color;
 import java.awt.Component;
 import java.util.Calendar;
 import java.util.Locale;
 import javax.swing.ImageIcon;
 import javax.swing.JTree;
+import javax.swing.UIManager;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.TreeNode;
@@ -40,19 +42,24 @@ public final class TreeCellRendererTimeline extends DefaultTreeCellRenderer {
         TreeNode root = node.getRoot();
         if (userObject instanceof Calendar) {
             Calendar cal = (Calendar) userObject;
-            boolean isYear = node.getParent().equals(root);
-            boolean isMonth = !node.isLeaf() && !node.getParent().equals(root);
-            setIcon(isYear
-                    ? iconYear
-                    : isMonth
-                      ? iconMonth
-                      : iconDay);
-            setText(isYear
-                    ? String.valueOf(cal.get(Calendar.YEAR))
-                    : isMonth
-                      ? cal.getDisplayName(Calendar.MONTH, Calendar.LONG,
-                    Locale.getDefault())
-                      : String.valueOf(cal.get(Calendar.DAY_OF_MONTH)));
+            DefaultMutableTreeNode parent = (DefaultMutableTreeNode) node.
+                    getParent();
+            if (parent != null) {
+                boolean isYear = parent.equals(root);
+                boolean isMonth = node.getPath().length == 3 &&
+                        !node.getParent().equals(root);
+                setIcon(isYear
+                        ? iconYear
+                        : isMonth
+                          ? iconMonth
+                          : iconDay);
+                setText(isYear
+                        ? String.valueOf(cal.get(Calendar.YEAR))
+                        : isMonth
+                          ? cal.getDisplayName(Calendar.MONTH, Calendar.LONG,
+                        Locale.getDefault())
+                          : String.valueOf(cal.get(Calendar.DAY_OF_MONTH)));
+            }
         } else if (node.equals(Timeline.getUnknownNode())) {
             setIcon(iconUnknown);
             setText(node.getUserObject().toString());
