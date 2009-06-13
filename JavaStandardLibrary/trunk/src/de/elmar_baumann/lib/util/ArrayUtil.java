@@ -134,6 +134,20 @@ public final class ArrayUtil {
         return array;
     }
 
+    /**
+     * Puts into a list all elements of an array.
+     *
+     * @param   array array
+     * @return  list
+     */
+    public static List<Integer> toList(int[] array) {
+        List<Integer> list = new ArrayList<Integer>(array.length);
+        for (int el : array) {
+            list.add(el);
+        }
+        return list;
+    }
+
     private ArrayUtil() {
     }
 }
