@@ -517,7 +517,7 @@ public final class DatabaseImageFiles extends Database {
             SQLException {
         if (dcSubjects != null) {
             insertValues(connection,
-                    "INSERT INTO xmp_dc_subjects (id_xmp, subject)",
+                    "INSERT INTO xmp_dc_subjects (id_xmp, subject)", // NOI18N
                     idXmp, dcSubjects); // NOI18N
         }
     }
@@ -782,11 +782,11 @@ public final class DatabaseImageFiles extends Database {
                     "SELECT DISTINCT files.id, xmp.id" + // NOI18N
                     " FROM xmp" + // NOI18N
                     (isXmpTable
-                     ? ""
+                     ? "" // NOI18N
                      : ", " + tableName) + // NOI18N
                     ", files" + // NOI18N
                     (isXmpTable
-                     ? ""
+                     ? "" // NOI18N
                      : " LEFT JOIN xmp ON " + // NOI18N
                     tableName + ".id_xmp = xmp.id") + // NOI18N
                     " INNER JOIN files ON xmp.id_files = files.id" + // NOI18N
@@ -1029,10 +1029,25 @@ public final class DatabaseImageFiles extends Database {
             Exif exifData) throws SQLException {
 
         stmt.setLong(1, idFile);
-        stmt.setString(2, exifData.getRecordingEquipment());
+        String recordingEquipment = exifData.getRecordingEquipment();
+        if (recordingEquipment == null || recordingEquipment.trim().isEmpty()) {
+            stmt.setNull(2, java.sql.Types.VARCHAR);
+        } else {
+            stmt.setString(2, recordingEquipment);
+        }
         stmt.setDate(3, exifData.getDateTimeOriginal());
-        stmt.setDouble(4, exifData.getFocalLength());
-        stmt.setShort(5, exifData.getIsoSpeedRatings());
+        double focalLength = exifData.getFocalLength();
+        if (focalLength > 0) {
+            stmt.setDouble(4, focalLength);
+        } else {
+            stmt.setNull(4, java.sql.Types.DOUBLE);
+        }
+        short iso = exifData.getIsoSpeedRatings();
+        if (iso > 0) {
+            stmt.setShort(5, iso);
+        } else {
+            stmt.setNull(5, java.sql.Types.SMALLINT);
+        }
     }
 
     private void updateExif(Connection connection, long idFile, Exif exifData)
@@ -1203,7 +1218,7 @@ public final class DatabaseImageFiles extends Database {
                 "SELECT files.filename" + // NOI18N
                 " FROM files" + // NOI18N
                 " WHERE files.id NOT IN " + // NOI18N
-                " (SELECT exif.id_files FROM exif)" +
+                " (SELECT exif.id_files FROM exif)" + // NOI18N
                 " ORDER BY files.filename ASC"; // NOI18N
         Statement stmt = connection.createStatement();
         AppLog.logFinest(DatabaseImageFiles.class, sql);
@@ -1212,5 +1227,64 @@ public final class DatabaseImageFiles extends Database {
             files.add(new File(rs.getString(1)));
         }
         stmt.close();
+    }
+
+    public Set<String> getAllDistinctValues(Column column) {
+        Set<String> values = new LinkedHashSet<String>();
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            String sql =
+                    "SELECT DISTINCT " + // NOI18N
+                    column.getName() +
+                    " FROM " + // NOI18N
+                    column.getTable().getName() +
+                    " WHERE " + // NOI18N
+                    column.getName() +
+                    " IS NOT NULL" + // NOI18N
+                    " ORDER BY " + // NOI18N
+                    column.getName();
+            Statement stmt = connection.createStatement();
+            AppLog.logFinest(DatabaseImageFiles.class, sql);
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                values.add(rs.getString(1));
+            }
+            stmt.close();
+        } catch (SQLException ex) {
+            AppLog.logWarning(DatabaseImageFiles.class, ex);
+        } finally {
+            free(connection);
+        }
+        return values;
+    }
+
+    public List<File> getFilesFromExif(Column columnExif, String exactValue) {
+        List<File> files = new ArrayList<File>();
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            String sql =
+                    "SELECT files.filename" + // NOI18N
+                    " FROM exif INNER JOIN files" + // NOI18N
+                    " ON exif.id_files = files.id" + // NOI18N
+                    " WHERE exif." + // NOI18N
+                    columnExif.getName() + // NOI18N
+                    " = ?" + // NOI18N
+                    " ORDER BY files.filename ASC"; // NOI18N
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setString(1, exactValue);
+            AppLog.logFinest(DatabaseImageFiles.class, stmt.toString());
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                files.add(new File(rs.getString(1)));
+            }
+            stmt.close();
+        } catch (SQLException ex) {
+            AppLog.logWarning(DatabaseImageFiles.class, ex);
+        } finally {
+            free(connection);
+        }
+        return files;
     }
 }
