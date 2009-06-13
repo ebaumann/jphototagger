@@ -86,9 +86,10 @@ public final class Exif {
     public void setRecordingEquipment(String recordingEquipment) {
         // Bugfix imagero: when first byte of RAW data is 0, then the returned
         // string is "0"
-        if (recordingEquipment != null && !recordingEquipment.equals("0")) {
-            this.recordingEquipment = recordingEquipment;
-        }
+        this.recordingEquipment = recordingEquipment == null ||
+                recordingEquipment.equals("0")
+                                  ? null
+                                  : recordingEquipment;
     }
 
     /**
