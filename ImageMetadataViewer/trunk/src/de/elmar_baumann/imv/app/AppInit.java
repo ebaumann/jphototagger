@@ -21,6 +21,7 @@ public final class AppInit {
     private static AppInit INSTANCE;
     private static final String NO_OUTPUT_CAPTURE = "-nocapture";
     private String[] args;
+    private static boolean captureOutput = true;
 
     public static synchronized void init(String[] args) {
         if (INSTANCE == null) {
@@ -46,18 +47,24 @@ public final class AppInit {
     }
 
     private void captureOutput() {
-        if (isCaptureOutput()) {
+        setCaptureOutput();
+        if (captureOutput) {
             SystemOutputDialog.INSTANCE.captureOutput();
         }
     }
 
-    private boolean isCaptureOutput() {
-        if (args == null) return true;
+    private void setCaptureOutput() {
+        if (args == null) return;
         for (String arg : args) {
-            if (arg.equals(NO_OUTPUT_CAPTURE))
-                return false;
+            if (arg.equals(NO_OUTPUT_CAPTURE)) {
+                captureOutput = false;
+                return;
+            }
         }
-        return true;
+    }
+
+    public static boolean isCaptureOutput() {
+        return captureOutput;
     }
 
     private static void lock() {
