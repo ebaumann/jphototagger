@@ -6,6 +6,7 @@ import de.elmar_baumann.imv.event.RefreshListener;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.types.Content;
+import de.elmar_baumann.imv.view.InfoSetThumbnails;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import java.util.Calendar;
 import javax.swing.JTree;
@@ -45,10 +46,25 @@ public final class ControllerTimelineItemSelected implements
         }
     }
 
-    private void setFilesOfTreePathToThumbnailsPanel(TreePath path) {
+    @Override
+    public void valueChanged(TreeSelectionEvent e) {
+        setFilesOfTreePathToThumbnailsPanel(e.getNewLeadSelectionPath());
+    }
+
+    private void setFilesOfTreePathToThumbnailsPanel(final TreePath path) {
         if (path != null) {
-            Object lastPathComponent = path.getLastPathComponent();
-            setFilesOfPossibleNodeToThumbnailsPanel(lastPathComponent);
+            Thread thread = new Thread(new Runnable() {
+
+                @Override
+                public void run() {
+                    InfoSetThumbnails info = new InfoSetThumbnails();
+                    Object lastPathComponent = path.getLastPathComponent();
+                    setFilesOfPossibleNodeToThumbnailsPanel(lastPathComponent);
+                    info.hide();
+                }
+            });
+            thread.setName("Timeline item selected");
+            thread.start();
         }
     }
 
@@ -87,11 +103,5 @@ public final class ControllerTimelineItemSelected implements
     private void setFilesToThumbnailsPanel(int year, int month, int day) {
         thumbnailsPanel.setFiles(db.getFilesOf(year, month, day),
                 Content.TIMELINE);
-    }
-
-    @Override
-    public void valueChanged(TreeSelectionEvent e) {
-        TreePath path = e.getNewLeadSelectionPath();
-        setFilesOfTreePathToThumbnailsPanel(path);
     }
 }

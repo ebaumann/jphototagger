@@ -5,6 +5,7 @@ import de.elmar_baumann.imv.event.RefreshListener;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.types.Content;
+import de.elmar_baumann.imv.view.InfoSetThumbnails;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.util.Set;
@@ -18,12 +19,14 @@ import javax.swing.event.ListSelectionListener;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public final class ControllerCategoryItemSelected implements ListSelectionListener, RefreshListener {
+public final class ControllerCategoryItemSelected implements
+        ListSelectionListener, RefreshListener {
 
     private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
     private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
     private final JList listCategories = appPanel.getListCategories();
-    private final ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelThumbnails();
+    private final ImageFileThumbnailsPanel thumbnailsPanel = appPanel.
+            getPanelThumbnails();
 
     public ControllerCategoryItemSelected() {
         listen();
@@ -47,11 +50,22 @@ public final class ControllerCategoryItemSelected implements ListSelectionListen
     }
 
     private void setFilesToThumbnailsPanel() {
-        if (listCategories.getSelectedIndex() >= 0) {
-            String category = (String) listCategories.getSelectedValue();
-            Set<String> filenames = db.getFilenamesOfCategory(category);
+        Thread thread = new Thread(new Runnable() {
 
-            thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames), Content.CATEGORY);
-        }
+            @Override
+            public void run() {
+                if (listCategories.getSelectedIndex() >= 0) {
+                    InfoSetThumbnails info = new InfoSetThumbnails();
+                    String category = (String) listCategories.getSelectedValue();
+                    Set<String> filenames = db.getFilenamesOfCategory(category);
+
+                    thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames),
+                            Content.CATEGORY);
+                    info.hide();
+                }
+            }
+        });
+        thread.setName("Category Item selected");
+        thread.start();
     }
 }

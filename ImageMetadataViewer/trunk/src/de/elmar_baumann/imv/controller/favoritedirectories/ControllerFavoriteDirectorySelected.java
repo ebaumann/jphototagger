@@ -8,6 +8,7 @@ import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.types.Content;
+import de.elmar_baumann.imv.view.InfoSetThumbnails;
 import de.elmar_baumann.imv.view.panels.EditMetadataPanelsArray;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import java.io.File;
@@ -22,12 +23,16 @@ import javax.swing.event.ListSelectionListener;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/24
  */
-public final class ControllerFavoriteDirectorySelected implements ListSelectionListener, RefreshListener {
+public final class ControllerFavoriteDirectorySelected implements
+        ListSelectionListener, RefreshListener {
 
     private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
-    private final JList listFavoriteDirectories = appPanel.getListFavoriteDirectories();
-    private final ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelThumbnails();
-    private final EditMetadataPanelsArray editPanels = appPanel.getEditPanelsArray();
+    private final JList listFavoriteDirectories = appPanel.
+            getListFavoriteDirectories();
+    private final ImageFileThumbnailsPanel thumbnailsPanel = appPanel.
+            getPanelThumbnails();
+    private final EditMetadataPanelsArray editPanels = appPanel.
+            getEditPanelsArray();
 
     public ControllerFavoriteDirectorySelected() {
         listen();
@@ -41,31 +46,48 @@ public final class ControllerFavoriteDirectorySelected implements ListSelectionL
     @Override
     public void valueChanged(ListSelectionEvent e) {
         if (listFavoriteDirectories.getSelectedIndex() >= 0) {
-            setFilesToThumbnailsPanel();
-            setMetadataEditable();
+            update();
         }
     }
 
     @Override
     public void refresh() {
         if (listFavoriteDirectories.getSelectedIndex() >= 0) {
-            setFilesToThumbnailsPanel();
-            setMetadataEditable();
+            update();
         }
+    }
+
+    private void update() {
+        Thread thread = new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                InfoSetThumbnails info = new InfoSetThumbnails();
+                setFilesToThumbnailsPanel();
+                setMetadataEditable();
+                info.hide();
+            }
+        });
+        thread.setName("Favorite directory selected");
+        thread.start();
     }
 
     private void setFilesToThumbnailsPanel() {
         if (listFavoriteDirectories.getSelectedValue() != null) {
-            thumbnailsPanel.setFiles(getFilesOfCurrentDirectory(), Content.FAVORITE_DIRECTORY);
+            thumbnailsPanel.setFiles(getFilesOfCurrentDirectory(),
+                    Content.FAVORITE_DIRECTORY);
         } else {
             AppLog.logWarning(ControllerFavoriteDirectorySelected.class,
-                    Bundle.getString("ControllerFavoriteDirectorySelected.ErrorMessage.SelectedValueIsNull"));
+                    Bundle.getString(
+                    "ControllerFavoriteDirectorySelected.ErrorMessage.SelectedValueIsNull"));
         }
     }
 
     private List<File> getFilesOfCurrentDirectory() {
-        FavoriteDirectory favorite = (FavoriteDirectory) listFavoriteDirectories.getSelectedValue();
-        return ImageFilteredDirectory.getImageFilesOfDirectory(new File(favorite.getDirectoryName()));
+        FavoriteDirectory favorite =
+                (FavoriteDirectory) listFavoriteDirectories.getSelectedValue();
+        return ImageFilteredDirectory.getImageFilesOfDirectory(new File(favorite.
+                getDirectoryName()));
     }
 
     private void setMetadataEditable() {

@@ -7,6 +7,7 @@ import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.types.Content;
+import de.elmar_baumann.imv.view.InfoSetThumbnails;
 import de.elmar_baumann.imv.view.panels.EditMetadataPanelsArray;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.lib.io.FileUtil;
@@ -23,12 +24,16 @@ import javax.swing.event.ListSelectionListener;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public final class ControllerImageCollectionSelected implements ListSelectionListener, RefreshListener {
+public final class ControllerImageCollectionSelected implements
+        ListSelectionListener, RefreshListener {
 
-    private final DatabaseImageCollections db = DatabaseImageCollections.INSTANCE;
+    private final DatabaseImageCollections db =
+            DatabaseImageCollections.INSTANCE;
     private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
-    private final ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelThumbnails();
-    private final EditMetadataPanelsArray editPanels = appPanel.getEditPanelsArray();
+    private final ImageFileThumbnailsPanel thumbnailsPanel = appPanel.
+            getPanelThumbnails();
+    private final EditMetadataPanelsArray editPanels = appPanel.
+            getEditPanelsArray();
     private final JList list = appPanel.getListImageCollections();
 
     public ControllerImageCollectionSelected() {
@@ -55,18 +60,32 @@ public final class ControllerImageCollectionSelected implements ListSelectionLis
     }
 
     private void showImageCollection() {
-        Object selectedValue = list.getSelectedValue();
-        if (selectedValue != null) {
-            showImageCollection(selectedValue.toString());
-        } else {
-            AppLog.logWarning(ControllerImageCollectionSelected.class, Bundle.getString("ControllerImageCollectionSelected.ErrorMessage.SelectedValueIsNull"));
-        }
-        setMetadataEditable();
+        Thread thread = new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                InfoSetThumbnails info = new InfoSetThumbnails();
+                Object selectedValue = list.getSelectedValue();
+                if (selectedValue != null) {
+                    showImageCollection(selectedValue.toString());
+                } else {
+                    AppLog.logWarning(ControllerImageCollectionSelected.class,
+                            Bundle.getString(
+                            "ControllerImageCollectionSelected.ErrorMessage.SelectedValueIsNull"));
+                }
+                setMetadataEditable();
+                info.hide();
+            }
+        });
+        thread.setName("Image collection selected");
+        thread.start();
     }
 
     private void showImageCollection(String collectionName) {
-        List<String> filenames = db.getFilenamesOfImageCollection(collectionName);
-        thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames), Content.IMAGE_COLLECTION);
+        List<String> filenames =
+                db.getFilenamesOfImageCollection(collectionName);
+        thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames),
+                Content.IMAGE_COLLECTION);
     }
 
     private void setMetadataEditable() {

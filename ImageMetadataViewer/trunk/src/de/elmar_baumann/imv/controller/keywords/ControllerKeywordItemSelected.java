@@ -6,6 +6,7 @@ import de.elmar_baumann.imv.database.DatabaseImageFiles;
 import de.elmar_baumann.imv.event.RefreshListener;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.GUI;
+import de.elmar_baumann.imv.view.InfoSetThumbnails;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.view.panels.EditMetadataPanelsArray;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
@@ -21,13 +22,16 @@ import javax.swing.event.ListSelectionListener;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/25
  */
-public final class ControllerKeywordItemSelected implements ListSelectionListener, RefreshListener {
+public final class ControllerKeywordItemSelected implements
+        ListSelectionListener, RefreshListener {
 
     private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
     private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
     private final JList listKeywords = appPanel.getListKeywords();
-    private final ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelThumbnails();
-    private final EditMetadataPanelsArray editPanels = appPanel.getEditPanelsArray();
+    private final ImageFileThumbnailsPanel thumbnailsPanel = appPanel.
+            getPanelThumbnails();
+    private final EditMetadataPanelsArray editPanels = appPanel.
+            getEditPanelsArray();
 
     public ControllerKeywordItemSelected() {
         listen();
@@ -41,19 +45,34 @@ public final class ControllerKeywordItemSelected implements ListSelectionListene
     @Override
     public void refresh() {
         if (listKeywords.getSelectedIndex() >= 0) {
-            setFilesToThumbnailsPanel();
-            setMetadataEditable();
+            update();
         }
     }
 
     @Override
     public void valueChanged(ListSelectionEvent e) {
         if (listKeywords.getSelectedIndex() >= 0) {
-            setFilesToThumbnailsPanel();
-            setMetadataEditable();
+            update();
         } else {
-            AppLog.logWarning(ControllerKeywordItemSelected.class, Bundle.getString("ControllerKeywordItemSelected.ErrorMessage.InvalidIndex"));
+            AppLog.logWarning(ControllerKeywordItemSelected.class, Bundle.
+                    getString(
+                    "ControllerKeywordItemSelected.ErrorMessage.InvalidIndex"));
         }
+    }
+
+    private void update() {
+        Thread update = new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                InfoSetThumbnails info = new InfoSetThumbnails();
+                setFilesToThumbnailsPanel();
+                setMetadataEditable();
+                info.hide();
+            }
+        });
+        update.setName("Keyword selected");
+        update.start();
     }
 
     private void setFilesToThumbnailsPanel() {

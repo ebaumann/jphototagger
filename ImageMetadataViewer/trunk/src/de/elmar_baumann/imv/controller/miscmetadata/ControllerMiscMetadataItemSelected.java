@@ -2,12 +2,12 @@ package de.elmar_baumann.imv.controller.miscmetadata;
 
 import de.elmar_baumann.imv.database.DatabaseImageFiles;
 import de.elmar_baumann.imv.database.metadata.Column;
-import de.elmar_baumann.imv.database.metadata.exif.TableExif;
 import de.elmar_baumann.imv.event.RefreshListener;
 import de.elmar_baumann.imv.model.TreeModelMiscMetadata;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.types.Content;
+import de.elmar_baumann.imv.view.InfoSetThumbnails;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import java.io.File;
 import java.util.ArrayList;
@@ -41,16 +41,31 @@ public final class ControllerMiscMetadataItemSelected implements
     }
 
     @Override
+    public void valueChanged(TreeSelectionEvent e) {
+        setFilesOfTreePathToThumbnailsPanel(e.getNewLeadSelectionPath());
+    }
+
+    @Override
     public void refresh() {
         if (tree.getSelectionCount() == 1) {
             setFilesOfTreePathToThumbnailsPanel(tree.getLeadSelectionPath());
         }
     }
 
-    private void setFilesOfTreePathToThumbnailsPanel(TreePath path) {
+    private void setFilesOfTreePathToThumbnailsPanel(final TreePath path) {
         if (path != null) {
-            Object lastPathComponent = path.getLastPathComponent();
-            setFilesOfPossibleNodeToThumbnailsPanel(lastPathComponent);
+            Thread thread = new Thread(new Runnable() {
+
+                @Override
+                public void run() {
+                    InfoSetThumbnails info = new InfoSetThumbnails();
+                    Object lastPathComponent = path.getLastPathComponent();
+                    setFilesOfPossibleNodeToThumbnailsPanel(lastPathComponent);
+                    info.hide();
+                }
+            });
+            thread.setName("Misc Metadata item selected");
+            thread.start();
         }
     }
 
@@ -83,11 +98,5 @@ public final class ControllerMiscMetadataItemSelected implements
     private void setFilesToThumbnailsPanelExif(Column column, String value) {
         thumbnailsPanel.setFiles(db.getFilesFromExif(column, value),
                 Content.MISC_METADATA);
-    }
-
-    @Override
-    public void valueChanged(TreeSelectionEvent e) {
-        TreePath path = e.getNewLeadSelectionPath();
-        setFilesOfTreePathToThumbnailsPanel(path);
     }
 }

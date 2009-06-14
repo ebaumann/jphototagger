@@ -5,6 +5,7 @@ import de.elmar_baumann.imv.io.ImageFilteredDirectory;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.types.Content;
+import de.elmar_baumann.imv.view.InfoSetThumbnails;
 import de.elmar_baumann.imv.view.panels.EditMetadataPanelsArray;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuTreeDirectories;
@@ -21,13 +22,17 @@ import javax.swing.tree.TreePath;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public final class ControllerDirectorySelected implements TreeSelectionListener, RefreshListener {
+public final class ControllerDirectorySelected implements TreeSelectionListener,
+                                                          RefreshListener {
 
     private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
     private final JTree treeDirectories = appPanel.getTreeDirectories();
-    private final EditMetadataPanelsArray editPanels = appPanel.getEditPanelsArray();
-    private final ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelThumbnails();
-    private final ImageFilteredDirectory imageFilteredDirectory = new ImageFilteredDirectory();
+    private final EditMetadataPanelsArray editPanels = appPanel.
+            getEditPanelsArray();
+    private final ImageFileThumbnailsPanel thumbnailsPanel = appPanel.
+            getPanelThumbnails();
+    private final ImageFilteredDirectory imageFilteredDirectory =
+            new ImageFilteredDirectory();
 
     public ControllerDirectorySelected() {
         listen();
@@ -40,7 +45,8 @@ public final class ControllerDirectorySelected implements TreeSelectionListener,
 
     @Override
     public void valueChanged(TreeSelectionEvent e) {
-        if (e.isAddedPath() && !PopupMenuTreeDirectories.INSTANCE.isTreeSelected()) {
+        if (e.isAddedPath() &&
+                !PopupMenuTreeDirectories.INSTANCE.isTreeSelected()) {
             setFilesToThumbnailsPanel();
         }
     }
@@ -51,14 +57,26 @@ public final class ControllerDirectorySelected implements TreeSelectionListener,
     }
 
     private void setFilesToThumbnailsPanel() {
-        if (treeDirectories.getSelectionCount() > 0) {
-            File selectedDirectory = new File(getDirectorynameFromTree());
-            imageFilteredDirectory.setDirectory(selectedDirectory);
-            thumbnailsPanel.setFiles(
-                    ImageFilteredDirectory.getImageFilesOfDirectory(selectedDirectory),
-                    Content.DIRECTORY);
-            setMetadataEditable();
-        }
+        Thread thread = new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                if (treeDirectories.getSelectionCount() > 0) {
+                    InfoSetThumbnails info = new InfoSetThumbnails();
+                    File selectedDirectory =
+                            new File(getDirectorynameFromTree());
+                    imageFilteredDirectory.setDirectory(selectedDirectory);
+                    thumbnailsPanel.setFiles(
+                            ImageFilteredDirectory.getImageFilesOfDirectory(
+                            selectedDirectory),
+                            Content.DIRECTORY);
+                    setMetadataEditable();
+                    info.hide();
+                }
+            }
+        });
+        thread.setName("Directory selected");
+        thread.start();
     }
 
     private String getDirectorynameFromTree() {

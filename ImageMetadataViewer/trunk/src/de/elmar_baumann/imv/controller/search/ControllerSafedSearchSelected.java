@@ -7,6 +7,7 @@ import de.elmar_baumann.imv.event.RefreshListener;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.types.Content;
+import de.elmar_baumann.imv.view.InfoSetThumbnails;
 import de.elmar_baumann.imv.view.panels.EditMetadataPanelsArray;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.lib.io.FileUtil;
@@ -27,8 +28,10 @@ public final class ControllerSafedSearchSelected
     private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
     private final DatabaseSearch db = DatabaseSearch.INSTANCE;
     private final JList list = appPanel.getListSavedSearches();
-    private final ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelThumbnails();
-    private final EditMetadataPanelsArray editPanels = appPanel.getEditPanelsArray();
+    private final ImageFileThumbnailsPanel thumbnailsPanel = appPanel.
+            getPanelThumbnails();
+    private final EditMetadataPanelsArray editPanels = appPanel.
+            getEditPanelsArray();
 
     public ControllerSafedSearchSelected() {
         listen();
@@ -55,10 +58,20 @@ public final class ControllerSafedSearchSelected
     }
 
     private void searchSelectedValue() {
-        Object selectedValue = list.getSelectedValue();
-        if (selectedValue != null) {
-            searchSelectedValue(selectedValue);
-        }
+        Thread thread = new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                Object selectedValue = list.getSelectedValue();
+                if (selectedValue != null) {
+                    InfoSetThumbnails info = new InfoSetThumbnails();
+                    searchSelectedValue(selectedValue);
+                    info.hide();
+                }
+            }
+        });
+        thread.setName("Saved search item selected");
+        thread.start();
     }
 
     private void searchSelectedValue(Object selectedValue) {
@@ -74,7 +87,7 @@ public final class ControllerSafedSearchSelected
     private void searchParamStatement(ParamStatement stmt) {
         List<String> filenames = db.searchFilenames(stmt);
         thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames),
-            Content.SAFED_SEARCH);
+                Content.SAFED_SEARCH);
     }
 
     private void setMetadataEditable() {
