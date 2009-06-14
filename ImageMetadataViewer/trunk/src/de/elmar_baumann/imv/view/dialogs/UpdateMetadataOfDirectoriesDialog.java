@@ -15,7 +15,8 @@ import java.awt.Frame;
  */
 public final class UpdateMetadataOfDirectoriesDialog extends Dialog {
 
-    public static final UpdateMetadataOfDirectoriesDialog INSTANCE = new UpdateMetadataOfDirectoriesDialog();
+    public static final UpdateMetadataOfDirectoriesDialog INSTANCE =
+            new UpdateMetadataOfDirectoriesDialog();
 
     private UpdateMetadataOfDirectoriesDialog() {
         super((Frame) null, false);
@@ -31,6 +32,7 @@ public final class UpdateMetadataOfDirectoriesDialog extends Dialog {
     }
 
     private void endDialog() {
+        UserSettings.INSTANCE.getSettings().setSizeAndLocation(this);
         panel.willDispose();
         setVisible(false);
     }
@@ -86,22 +88,25 @@ private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:even
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-            java.awt.EventQueue.invokeLater(new Runnable() {
-                @Override
-                public void run() {
-                    UpdateMetadataOfDirectoriesDialog dialog = new UpdateMetadataOfDirectoriesDialog();
-                    dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                        @Override
-                        public void windowClosing(java.awt.event.WindowEvent e) {
-                            System.exit(0);
-                        }});
-                    dialog.setVisible(true);
-                }
+        java.awt.EventQueue.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {
+                UpdateMetadataOfDirectoriesDialog dialog =
+                        new UpdateMetadataOfDirectoriesDialog();
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                dialog.setVisible(true);
+            }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private de.elmar_baumann.imv.view.panels.UpdateMetadataOfDirectoriesPanel panel;
     // End of variables declaration//GEN-END:variables
-
 }
