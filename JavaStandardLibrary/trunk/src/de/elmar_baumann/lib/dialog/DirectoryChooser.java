@@ -51,7 +51,8 @@ public final class DirectoryChooser extends Dialog {
      * @param startDirectory  start directory, will be selected or {@code new File("")}
      * @param options         options
      */
-    public DirectoryChooser(java.awt.Frame parent, File startDirectory, Set<Option> options) {
+    public DirectoryChooser(java.awt.Frame parent, File startDirectory,
+            Set<Option> options) {
         super(parent, true);
         this.startDirectory = startDirectory;
         this.options = options;
@@ -79,31 +80,32 @@ public final class DirectoryChooser extends Dialog {
     private void setIcons() {
         if (Resources.INSTANCE.hasIconImages()) {
             setIconImages(IconUtil.getIconImages(
-                Resources.INSTANCE.getIconImagesPaths()));
+                    Resources.INSTANCE.getIconImagesPaths()));
         }
     }
 
     private void setSelectionMode() {
         treeDirectories.getSelectionModel().setSelectionMode(
-            options.contains(Option.MULTI_SELECTION)
-            ? TreeSelectionModel.DISCONTIGUOUS_TREE_SELECTION
-            : TreeSelectionModel.SINGLE_TREE_SELECTION);
+                options.contains(Option.MULTI_SELECTION)
+                ? TreeSelectionModel.DISCONTIGUOUS_TREE_SELECTION
+                : TreeSelectionModel.SINGLE_TREE_SELECTION);
         setTitle();
         setUsageText();
     }
 
     private void setUsageText() {
         labelUsage.setText(
-            options.contains(Option.MULTI_SELECTION)
-            ? Bundle.getString("DirectoryChooser.LabelUsage.MultipleSelection")
-            : Bundle.getString("DirectoryChooser.LabelUsage.SingleSelection"));
+                options.contains(Option.MULTI_SELECTION)
+                ? Bundle.getString(
+                "DirectoryChooser.LabelUsage.MultipleSelection")
+                : Bundle.getString("DirectoryChooser.LabelUsage.SingleSelection"));
     }
 
     private void setTitle() {
         setTitle(
-            options.contains(Option.MULTI_SELECTION)
-            ? Bundle.getString("DirectoryChooser.Title.MultipleSelection")
-            : Bundle.getString("DirectoryChooser.Title.SingleSelection"));
+                options.contains(Option.MULTI_SELECTION)
+                ? Bundle.getString("DirectoryChooser.Title.MultipleSelection")
+                : Bundle.getString("DirectoryChooser.Title.SingleSelection"));
     }
 
     @Override
@@ -157,7 +159,8 @@ public final class DirectoryChooser extends Dialog {
                 Object[] path = paths[index].getPath();
                 int filecount = path.length;
                 if (path != null && filecount >= 1) {
-                    files.add(new File(((File) path[filecount - 1]).getAbsolutePath()));
+                    files.add(new File(((File) path[filecount - 1]).
+                            getAbsolutePath()));
                 }
             }
         }
@@ -175,7 +178,7 @@ public final class DirectoryChooser extends Dialog {
                 treeDirectories.setModel(model);
                 if (!startDirectory.getName().isEmpty()) {
                     TreePath path = TreeUtil.getTreePath(
-                        startDirectory, treeDirectories.getModel());
+                            startDirectory, treeDirectories.getModel());
                     if (path != null) {
                         TreeUtil.expandPathCascade(treeDirectories, path);
                         treeDirectories.setSelectionPath(path);
@@ -185,12 +188,14 @@ public final class DirectoryChooser extends Dialog {
             }
 
             private Set<DirectoryFilter.Option> getTreeModelFilter() {
-                return EnumSet.of(options.contains(Option.ACCEPT_HIDDEN_DIRECTORIES)
-                    ? DirectoryFilter.Option.ACCEPT_HIDDEN_FILES
-                    : DirectoryFilter.Option.REJECT_HIDDEN_FILES);
+                return EnumSet.of(options.contains(
+                        Option.ACCEPT_HIDDEN_DIRECTORIES)
+                                  ? DirectoryFilter.Option.ACCEPT_HIDDEN_FILES
+                                  : DirectoryFilter.Option.REJECT_HIDDEN_FILES);
             }
         });
-        thread.setName("DirectoryChooser#selectStartDirectory"); // NOI18N
+        thread.setName("Start directory selected in directory chooser" + " @ " // NOI18N
+                + getClass().getName());
         thread.start();
     }
 
@@ -202,14 +207,16 @@ public final class DirectoryChooser extends Dialog {
 
     private void checkOk() {
         if (treeDirectories.getSelectionCount() > 0 &&
-            treeDirectories.getSelectionPath().getLastPathComponent() instanceof File) {
+                treeDirectories.getSelectionPath().getLastPathComponent() instanceof File) {
             accepted = true;
             dispose();
         } else {
             JOptionPane.showMessageDialog(this,
-                Bundle.getString("DirectoryChooser.ErrorMessage.NoDirectoryChosen"),
-                Bundle.getString("DirectoryChooser.ErrorMessage.NoDirectoryChosen.Title"),
-                JOptionPane.ERROR_MESSAGE);
+                    Bundle.getString(
+                    "DirectoryChooser.ErrorMessage.NoDirectoryChosen"),
+                    Bundle.getString(
+                    "DirectoryChooser.ErrorMessage.NoDirectoryChosen.Title"),
+                    JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -229,7 +236,7 @@ public final class DirectoryChooser extends Dialog {
         buttonChoose = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/lib/resource/Bundle"); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/lib/resource/properties/Bundle"); // NOI18N
         setTitle(bundle.getString("DirectoryChooser.title")); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -312,7 +319,9 @@ private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:even
 
             @Override
             public void run() {
-                DirectoryChooser dialog = new DirectoryChooser(new javax.swing.JFrame(), new File(""), new HashSet<DirectoryChooser.Option>());
+                DirectoryChooser dialog = new DirectoryChooser(
+                        new javax.swing.JFrame(), new File(""),
+                        new HashSet<DirectoryChooser.Option>());
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
 
                     @Override
