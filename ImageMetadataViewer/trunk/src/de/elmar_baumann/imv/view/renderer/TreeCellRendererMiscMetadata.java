@@ -13,6 +13,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
+import javax.swing.tree.TreeNode;
 
 /**
  * Renders items and text for
@@ -51,22 +52,40 @@ public final class TreeCellRendererMiscMetadata extends DefaultTreeCellRenderer 
         Object parentUserObject = parentNode == null
                                   ? null
                                   : parentNode.getUserObject();
-        if (userObject instanceof Column || parentUserObject != null &&
-                parentUserObject instanceof Column) {
-            Column column = (Column) (leaf
-                                      ? parentUserObject
-                                      : userObject);
+        setIcon(parentUserObject, userObject, parentNode,
+                (TreeNode) tree.getModel().getRoot());
+        setText(userObject);
+
+        return this;
+    }
+
+    private void setIcon(Object parentUserObject, Object userObject,
+            DefaultMutableTreeNode parentNode, TreeNode root) {
+        if (userObject instanceof Column) {
+            setColumnIcon((Column) userObject);
+        } else if (parentUserObject instanceof Column) {
+            setColumnIcon((Column) parentUserObject);
+        } else if (parentNode != null && parentNode.equals(root)) {
+            setIcon(iconMiscMetadata);
+        }
+    }
+
+    private void setColumnIcon(Column column) {
+        if (column != null) {
             ImageIcon icon = iconOfColumn.get(column);
             assert icon != null : "No icon defined for column: " + column;
             if (icon != null) {
                 setIcon(icon);
             }
-            setText(leaf ? userObject.toString() : column.getDescription());
-        } else if (parentNode != null && parentNode.equals(tree.getModel().
-                getRoot())) {
-            setIcon(iconMiscMetadata);
         }
+    }
 
-        return this;
+    private void setText(Object userObject) {
+        if (userObject instanceof Column) {
+            Column column = (Column) (userObject);
+            setText(column.getDescription());
+        } else if (userObject instanceof String) {
+            setText((String) userObject);
+        }
     }
 }
