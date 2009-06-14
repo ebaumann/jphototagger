@@ -27,7 +27,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="buttonStartMaintain" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="progressBar" alignment="0" pref="375" max="32767" attributes="2"/>
+                  <Component id="progressBar" alignment="0" pref="462" max="32767" attributes="2"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -154,7 +154,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="labelMessage" pref="343" max="32767" attributes="0"/>
+                  <Component id="labelMessage" pref="428" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -162,7 +162,7 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <Component id="labelMessage" max="32767" attributes="0"/>
+                  <Component id="labelMessage" pref="18" max="32767" attributes="0"/>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
