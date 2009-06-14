@@ -18,10 +18,11 @@ final class UpdateTables extends Database {
 
     void update(Connection connection) throws SQLException {
         new UpdateTablesDropColumns().update(connection);
-        new UpdateTableRenameColumns().update(connection);
+        new UpdateTablesRenameColumns().update(connection);
         new UpdateTablesAddColumns().update(connection);
         new UpdateTablesXmpLastModified().update(connection);
         new UpdateTablesPrograms().update(connection);
+        new UpdateTablesDeleteInvalidExif().update(connection);
         UpdateTablesThumbnails.update(connection);
         UpdateTablesMessages.INSTANCE.getProgressDialog().setVisible(false);
     }

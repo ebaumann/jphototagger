@@ -15,7 +15,7 @@ import java.util.List;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/11/06
  */
-final class UpdateTableRenameColumns {
+final class UpdateTablesRenameColumns {
 
     private final UpdateTablesMessages messages = UpdateTablesMessages.INSTANCE;
     private final ProgressDialog dialog = messages.getProgressDialog();
