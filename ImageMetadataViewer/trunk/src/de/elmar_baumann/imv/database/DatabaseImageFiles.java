@@ -1364,4 +1364,36 @@ public final class DatabaseImageFiles extends Database {
         }
         return exists;
     }
+
+    /**
+     * Returns wheter a specific value exists in a table.
+     *
+     * @param  column column of the table, where the value shall exist
+     * @param  value  value
+     * @return true if the value exists
+     */
+    public boolean exists(Column column, Object value) {
+        boolean exists = false;
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            String sql = "SELECT COUNT(*)" + // NOI18N
+                    " FROM " + column.getTable().getName() + // NOI18N
+                    " WHERE " + column.getName() + // NOI18N
+                    " = ?";
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            AppLog.logFinest(DatabaseImageFiles.class, stmt.toString());
+            stmt.setObject(1, value);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                exists = rs.getInt(1) > 0;
+            }
+            stmt.close();
+        } catch (SQLException ex) {
+            AppLog.logWarning(DatabaseImageFiles.class, ex);
+        } finally {
+            free(connection);
+        }
+        return exists;
+    }
 }

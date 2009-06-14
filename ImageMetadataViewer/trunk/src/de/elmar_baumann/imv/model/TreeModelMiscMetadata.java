@@ -51,6 +51,16 @@ public final class TreeModelMiscMetadata extends DefaultTreeModel implements
         db.addDatabaseListener(this);
     }
 
+    @Override
+    public void actionPerformed(DatabaseAction action) {
+        DatabaseAction.Type actionType = action.getType();
+        if (actionType.equals(DatabaseAction.Type.IMAGEFILE_INSERTED)) {
+            checkImageInserted(action.getImageFileData());
+        } else if (actionType.equals(DatabaseAction.Type.IMAGEFILE_DELETED)) {
+            checkImageDeleted(action.getImageFileData());
+        }
+    }
+
     public static boolean containsExifColumn(Column column) {
         return exifColumns.contains(column);
     }
@@ -86,10 +96,40 @@ public final class TreeModelMiscMetadata extends DefaultTreeModel implements
         }
     }
 
-    @Override
-    public void actionPerformed(DatabaseAction action) {
-        if (action.getType().equals(DatabaseAction.Type.IMAGEFILE_INSERTED)) {
-            checkImageInserted(action.getImageFileData());
+    private void checkImageDeleted(ImageFile imageFile) {
+        Exif exif = imageFile.getExif();
+        if (exif != null) {
+            checkExifDeleted(exif);
+        }
+    }
+
+    private void checkExifDeleted(Exif exif) {
+        String recordingEquipment = exif.getRecordingEquipment();
+        if (recordingEquipment != null) {
+            checkExifDeleted(ColumnExifRecordingEquipment.INSTANCE,
+                    recordingEquipment);
+        }
+        short iso = exif.getIsoSpeedRatings();
+        if (iso > 0) {
+            checkExifDeleted(ColumnExifIsoSpeedRatings.INSTANCE,
+                    Short.valueOf(iso));
+        }
+        double f = exif.getFocalLength();
+        if (f > 0) {
+            checkExifDeleted(ColumnExifFocalLength.INSTANCE, Double.valueOf(f));
+        }
+    }
+
+    private void checkExifDeleted(Column column, Object userObject) {
+        DefaultMutableTreeNode node = getColumnNode(column);
+        if (node != null && !db.exists(column, userObject)) {
+            DefaultMutableTreeNode child = getChildWithUserObject(node,
+                    userObject);
+            if (child != null) {
+                int index = node.getIndex(child);
+                node.remove(index);
+                nodesWereRemoved(node, new int[]{index}, new Object[]{child});
+            }
         }
     }
 
@@ -103,36 +143,50 @@ public final class TreeModelMiscMetadata extends DefaultTreeModel implements
     private void checkExifInserted(Exif exif) {
         String recordingEquipment = exif.getRecordingEquipment();
         if (recordingEquipment != null) {
-            checkExifRecordingEquipmentInserted(recordingEquipment);
+            checkExifInserted(ColumnExifRecordingEquipment.INSTANCE,
+                    recordingEquipment);
+        }
+        short iso = exif.getIsoSpeedRatings();
+        if (iso > 0) {
+            checkExifInserted(ColumnExifIsoSpeedRatings.INSTANCE,
+                    Short.valueOf(iso));
+        }
+        double f = exif.getFocalLength();
+        if (f > 0) {
+            checkExifInserted(ColumnExifFocalLength.INSTANCE, Double.valueOf(f));
         }
     }
 
-    private void checkExifRecordingEquipmentInserted(String recordingEquipment) {
-        DefaultMutableTreeNode node =
-                getColumnNode(ColumnExifRecordingEquipment.INSTANCE);
-        if (node != null &&
-                !existsChildUserObjectString(node, recordingEquipment)) {
-            DefaultMutableTreeNode child =
-                    new DefaultMutableTreeNode(recordingEquipment);
-            node.add(child);
-            nodesWereInserted(node, new int[]{node.getIndex(child)});
-        }
-    }
-
-    private boolean existsChildUserObjectString(DefaultMutableTreeNode node,
-            String string) {
-        boolean exists = false;
-        Enumeration children = node.children();
-        while (!exists && children.hasMoreElements()) {
-            DefaultMutableTreeNode child = (DefaultMutableTreeNode) children.
-                    nextElement();
-            Object userObject = child.getUserObject();
-            if (userObject instanceof String) {
-                String s = (String) userObject;
-                exists = s.equals(string);
+    private void checkExifInserted(Column column, Object userObject) {
+        DefaultMutableTreeNode node = getColumnNode(column);
+        if (node != null) {
+            DefaultMutableTreeNode child = getChildWithUserObject(node,
+                    userObject);
+            if (child == null) {
+                DefaultMutableTreeNode newChild =
+                        new DefaultMutableTreeNode(userObject);
+                node.add(newChild);
+                nodesWereInserted(node, new int[]{node.getIndex(newChild)});
             }
         }
-        return exists;
+    }
+
+    private DefaultMutableTreeNode getChildWithUserObject(
+            DefaultMutableTreeNode parent,
+            Object userObject) {
+        DefaultMutableTreeNode childNode = null;
+        Enumeration children = parent.children();
+        while (childNode == null && children.hasMoreElements()) {
+            DefaultMutableTreeNode child = (DefaultMutableTreeNode) children.
+                    nextElement();
+            Object childUserObject = child.getUserObject();
+            if (userObject == null && childUserObject == null ||
+                    childUserObject.equals(userObject)) {
+                childNode = child;
+            }
+
+        }
+        return childNode;
     }
 
     private DefaultMutableTreeNode getColumnNode(Column column) {
@@ -145,6 +199,7 @@ public final class TreeModelMiscMetadata extends DefaultTreeModel implements
             if (userObject.equals(exifUserObject)) {
                 exifNode = child;
             }
+
         }
         if (exifNode == null) return null;
         Enumeration exifNodeChildren = exifNode.children();
