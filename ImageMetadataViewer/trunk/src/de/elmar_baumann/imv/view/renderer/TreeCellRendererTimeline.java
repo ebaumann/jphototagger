@@ -2,13 +2,11 @@ package de.elmar_baumann.imv.view.renderer;
 
 import de.elmar_baumann.imv.data.Timeline;
 import de.elmar_baumann.lib.image.icon.IconUtil;
-import java.awt.Color;
 import java.awt.Component;
 import java.util.Calendar;
 import java.util.Locale;
 import javax.swing.ImageIcon;
 import javax.swing.JTree;
-import javax.swing.UIManager;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.TreeNode;
@@ -46,8 +44,7 @@ public final class TreeCellRendererTimeline extends DefaultTreeCellRenderer {
                     getParent();
             if (parent != null) {
                 boolean isYear = parent.equals(root);
-                boolean isMonth = node.getPath().length == 3 &&
-                        !node.getParent().equals(root);
+                boolean isMonth = node.getPath().length == 3;
                 setIcon(isYear
                         ? iconYear
                         : isMonth
