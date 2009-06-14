@@ -7,6 +7,7 @@ import de.elmar_baumann.imv.database.metadata.exif.ColumnExifRecordingEquipment;
 import de.elmar_baumann.imv.model.TreeModelMiscMetadata;
 import de.elmar_baumann.lib.image.icon.IconUtil;
 import java.awt.Component;
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.ImageIcon;
@@ -54,7 +55,7 @@ public final class TreeCellRendererMiscMetadata extends DefaultTreeCellRenderer 
                                   : parentNode.getUserObject();
         setIcon(parentUserObject, userObject, parentNode,
                 (TreeNode) tree.getModel().getRoot());
-        setText(userObject);
+        setText(userObject, parentUserObject);
 
         return this;
     }
@@ -80,12 +81,33 @@ public final class TreeCellRendererMiscMetadata extends DefaultTreeCellRenderer 
         }
     }
 
-    private void setText(Object userObject) {
+    private void setText(Object userObject, Object parenUObject) {
+        if (userObject == null) return;
+        DecimalFormat shortFormat = new DecimalFormat("#");
+        DecimalFormat doubleFormat = new DecimalFormat("#.#");
         if (userObject instanceof Column) {
-            Column column = (Column) (userObject);
-            setText(column.getDescription());
+            Column col = (Column) (userObject);
+            setText(col.getDescription());
         } else if (userObject instanceof String) {
             setText((String) userObject);
+        } else if (userObject instanceof Short) {
+            setText(shortFormat.format(userObject));
+        } else if (userObject instanceof Double) {
+            setText(doubleFormat.format(userObject) + getTextPostfix(
+                    parenUObject));
+        } else {
+            assert false : "Unrecognized data type: " + userObject.getClass().
+                    getName();
         }
+    }
+
+    private String getTextPostfix(Object userObject) {
+        if (userObject instanceof Column) {
+            Column column = (Column) userObject;
+            if (column.equals(ColumnExifFocalLength.INSTANCE)) {
+                return " mm";
+            }
+        }
+        return "";
     }
 }

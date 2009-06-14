@@ -61,16 +61,28 @@ public final class TreeModelMiscMetadata extends DefaultTreeModel implements
         for (Column column : exifColumns) {
             DefaultMutableTreeNode columnNode = new DefaultMutableTreeNode(
                     column);
-            Set<String> data = db.getAllDistinctValues(column);
-            addDataTo(data, columnNode);
+            addChildren(columnNode, db.getAllDistinctValues(column),
+                    column.getDataType());
             exifNode.add(columnNode);
         }
         ROOT.add(exifNode);
     }
 
-    private void addDataTo(Set<String> data, DefaultMutableTreeNode node) {
-        for (String s : data) {
-            node.add(new DefaultMutableTreeNode(s));
+    private void addChildren(DefaultMutableTreeNode parentNode,
+            Set<String> data, Column.DataType dataType) {
+
+        for (String string : data) {
+            DefaultMutableTreeNode node = new DefaultMutableTreeNode();
+            if (dataType.equals(Column.DataType.STRING)) {
+                node.setUserObject(string);
+            } else if (dataType.equals(Column.DataType.SMALLINT)) {
+                node.setUserObject(Short.valueOf(string));
+            } else if (dataType.equals(Column.DataType.REAL)) {
+                node.setUserObject(Double.valueOf(string));
+            } else {
+                assert false : "Unregognized data type: " + dataType;
+            }
+            parentNode.add(node);
         }
     }
 
