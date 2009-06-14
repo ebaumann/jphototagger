@@ -1,10 +1,12 @@
 package de.elmar_baumann.imv.tasks;
 
+import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.database.DatabaseMaintainance;
 import de.elmar_baumann.imv.event.ProgressEvent;
 import de.elmar_baumann.imv.event.ProgressListener;
 import de.elmar_baumann.imv.resource.Bundle;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,8 +18,11 @@ import java.util.List;
  */
 public final class DatabaseCompress implements Runnable {
 
-    private final List<ProgressListener> listeners = new ArrayList<ProgressListener>();
+    private final List<ProgressListener> listeners =
+            new ArrayList<ProgressListener>();
     private boolean success = false;
+    private long sizeBefore;
+    private long sizeAfter;
 
     public synchronized void addProgressListener(ProgressListener l) {
         listeners.add(l);
@@ -33,6 +38,28 @@ public final class DatabaseCompress implements Runnable {
     }
 
     /**
+     * Returns the size of the database file in bytes before compressing.
+     *
+     * <em>The value is (only) valid after compressing the database file!</em>
+     *
+     * @return size in bytes
+     */
+    public long getSizeAfter() {
+        return sizeAfter;
+    }
+
+    /**
+     * Returns the size of the database file in bytes after compressing.
+     *
+     * <em>The value is (only) valid after compressing the database file!</em>
+     *
+     * @return size in bytes
+     */
+    public long getSizeBefore() {
+        return sizeBefore;
+    }
+
+    /**
      * Compresses the database. The process can't be stopped and the progress
      * values can't submitted to them. The listeners are only notified about
      * the start and end of compressing.
@@ -41,19 +68,24 @@ public final class DatabaseCompress implements Runnable {
     public void run() {
         logCompressDatabase();
         notifyStarted();
+        File dbFile = new File(UserSettings.INSTANCE.getDatabaseFileName(true));
+        sizeBefore = dbFile.length();
         success = DatabaseMaintainance.getInstacne().compressDatabase();
+        sizeAfter = dbFile.length();
         notifyEnded();
     }
 
     private synchronized void notifyStarted() {
-        ProgressEvent evt = new ProgressEvent(this, Bundle.getString("DatabaseCompress.StartMessage"));
+        ProgressEvent evt = new ProgressEvent(this, Bundle.getString(
+                "DatabaseCompress.StartMessage"));
         for (ProgressListener listener : listeners) {
             listener.progressStarted(evt);
         }
     }
 
     private void logCompressDatabase() {
-        AppLog.logInfo(DatabaseCompress.class, Bundle.getString("DatabaseCompress.InformationMessage.StartCompress"));
+        AppLog.logInfo(DatabaseCompress.class, Bundle.getString(
+                "DatabaseCompress.InformationMessage.StartCompress"));
     }
 
     private synchronized void notifyEnded() {
@@ -64,9 +96,13 @@ public final class DatabaseCompress implements Runnable {
     }
 
     private Object getEndMessage() {
-        Object[] params = {success
-            ? Bundle.getString("DatabaseCompress.EndMessage.Success.True")
-            : Bundle.getString("DatabaseCompress.EndMessage.Success.False")
+        double mb = 1024 * 1024;
+        Object[] params = {Bundle.getString(
+            success
+            ? "DatabaseCompress.EndMessage.Success.True"
+            : "DatabaseCompress.EndMessage.Success.False"),
+            sizeBefore, new Double(sizeBefore / mb), sizeAfter,
+            new Double(sizeAfter / mb)
         };
         return Bundle.getString("DatabaseCompress.EndMessage", params);
     }

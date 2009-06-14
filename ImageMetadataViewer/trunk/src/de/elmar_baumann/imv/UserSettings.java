@@ -38,35 +38,57 @@ public final class UserSettings implements UserSettingsChangeListener {
     private static final int DEFAULT_MAX_THUMBNAIL_LENGTH = 150;
     private static final int DEFAULT_MINUTES_TO_START_SCHEDULED_TASKS = 5;
     private static final String DELIMITER_COLUMNS = "\t"; // NOI18N
-    private static final String KEY_DEFAULT_IMAGE_OPEN_APP = "UserSettings.DefaultImageOpenApp";
-    private static final String KEY_EXTERNAL_THUMBNAIL_CREATION_COMMAND = "UserSettings.ExternalThumbnailCreationCommand";
-    private static final String KEY_FAST_SEARCH_COLUMNS = "UserSettings.FastSearchColumns";
+    private static final String KEY_DEFAULT_IMAGE_OPEN_APP =
+            "UserSettings.DefaultImageOpenApp";
+    private static final String KEY_EXTERNAL_THUMBNAIL_CREATION_COMMAND =
+            "UserSettings.ExternalThumbnailCreationCommand";
+    private static final String KEY_FAST_SEARCH_COLUMNS =
+            "UserSettings.FastSearchColumns";
     private static final String KEY_EDIT_COLUMNS = "UserSettings.EditColumns";
     private static final String KEY_IPTC_CHARSET = "UserSettings.IptcCharset";
-    private static final String KEY_ACCEPT_HIDDEN_DIRECTORIES = "UserSettings.IsAcceptHiddenDirectories";
-    private static final String KEY_DATABASE_DIRECTORY_NAME = "UserSettings.DatabaseDirectoryName";
-    private static final String KEY_AUTOSCAN_INCLUDE_SUBDIRECTORIES = "UserSettings.IsAutoscanIncludeSubdirectories";
-    private static final String KEY_CREATE_THUMBNAILS_WITH_EXTERNAL_APP = "UserSettings.IsCreateThumbnailsWithExternalApp";
-    private static final String KEY_TASK_REMOVE_RECORDS_WITH_NOT_EXISTING_FILES = "UserSettings.IsTaskRemoveRecordsWithNotExistingFiles";
-    private static final String KEY_AUTOCOMPLETE = "UserSettings.IsUseAutocomplete";
-    private static final String KEY_USE_EMBEDDED_THUMBNAILS = "UserSettings.IsUseEmbeddedThumbnails";
-    private static final String KEY_LOGFILE_FORMATTER_CLASS = "UserSettings.LogfileFormatterClass";
+    private static final String KEY_ACCEPT_HIDDEN_DIRECTORIES =
+            "UserSettings.IsAcceptHiddenDirectories";
+    private static final String KEY_DATABASE_DIRECTORY_NAME =
+            "UserSettings.DatabaseDirectoryName";
+    private static final String KEY_AUTOSCAN_INCLUDE_SUBDIRECTORIES =
+            "UserSettings.IsAutoscanIncludeSubdirectories";
+    private static final String KEY_CREATE_THUMBNAILS_WITH_EXTERNAL_APP =
+            "UserSettings.IsCreateThumbnailsWithExternalApp";
+    private static final String KEY_TASK_REMOVE_RECORDS_WITH_NOT_EXISTING_FILES =
+            "UserSettings.IsTaskRemoveRecordsWithNotExistingFiles";
+    private static final String KEY_AUTOCOMPLETE =
+            "UserSettings.IsUseAutocomplete";
+    private static final String KEY_USE_EMBEDDED_THUMBNAILS =
+            "UserSettings.IsUseEmbeddedThumbnails";
+    private static final String KEY_LOGFILE_FORMATTER_CLASS =
+            "UserSettings.LogfileFormatterClass";
     private static final String KEY_LOG_LEVEL = "UserSettings.LogLevel";
-    private static final String KEY_MAX_THUMBNAIL_LENGTH = "UserSettings.MaxThumbnailWidth";
-    private static final String KEY_MINUTES_TO_START_SCHEDULED_TASKS = "UserSettings.MinutesToStartScheduledTasks";
-    private static final String KEY_THREAD_PRIORITY = "UserSettings.ThreadPriority";
-    private static final String KEY_AUTOCOPY_DIRECTORY = "UserSettings.AutocopyDirectory";
+    private static final String KEY_MAX_THUMBNAIL_LENGTH =
+            "UserSettings.MaxThumbnailWidth";
+    private static final String KEY_MINUTES_TO_START_SCHEDULED_TASKS =
+            "UserSettings.MinutesToStartScheduledTasks";
+    private static final String KEY_THREAD_PRIORITY =
+            "UserSettings.ThreadPriority";
+    private static final String KEY_AUTOCOPY_DIRECTORY =
+            "UserSettings.AutocopyDirectory";
     private static final String KEY_WEB_BROWSER = "UserSettings.WebBrowser";
-    private static final String KEY_TREE_DIRECTORIES_SELECT_LAST_DIRECTORY = "UserSettings.TreeDirectoriesSelectLastDirectory";
-    private static final String KEY_MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS = "UserSettings.MaximumSecondsToTerminateExternalPrograms";
-    private static final String KEY_SCAN_FOR_EMBEDDED_XMP = "UserSettings.ScanForEmbeddedXmp";
-    private static final String KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_ALWAYS = "UserSettings.ExecuteActionsAfterImageChangeInDbAlways";
-    private static final String KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_IF_IMAGE_HAS_XMP = "UserSettings.ExecuteActionsAfterImageChangeInDbIfImageHasXmp";
+    private static final String KEY_TREE_DIRECTORIES_SELECT_LAST_DIRECTORY =
+            "UserSettings.TreeDirectoriesSelectLastDirectory";
+    private static final String KEY_MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS =
+            "UserSettings.MaximumSecondsToTerminateExternalPrograms";
+    private static final String KEY_SCAN_FOR_EMBEDDED_XMP =
+            "UserSettings.ScanForEmbeddedXmp";
+    private static final String KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_ALWAYS =
+            "UserSettings.ExecuteActionsAfterImageChangeInDbAlways";
+    private static final String KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_IF_IMAGE_HAS_XMP =
+            "UserSettings.ExecuteActionsAfterImageChangeInDbIfImageHasXmp";
     private static final String DOMAIN_NAME = "de.elmar_baumann"; // NOI18N NEVER CHANGE!
     private static final String PROPERTIES_FILENAME = "Settings.properties"; // NOI18N NEVER CHANGE!
     private final Properties properties = new Properties();
     private final Settings settings = new Settings(properties);
-    private final PropertiesFile propertiesToFile = new PropertiesFile(DOMAIN_NAME, AppInfo.getProjectName(), PROPERTIES_FILENAME, properties);
+    private final PropertiesFile propertiesToFile = new PropertiesFile(
+            DOMAIN_NAME, AppInfo.getProjectName(), PROPERTIES_FILENAME,
+            properties);
     private boolean isWrittenToFile = false;
     public static final UserSettings INSTANCE = new UserSettings();
 
@@ -108,16 +130,19 @@ public final class UserSettings implements UserSettingsChangeListener {
 
     public String getDatabaseDirectoryName() {
         return properties.containsKey(KEY_DATABASE_DIRECTORY_NAME)
-                ? settings.getString(KEY_DATABASE_DIRECTORY_NAME)
-                : getDefaultDatabaseDirectoryName();
+               ? settings.getString(KEY_DATABASE_DIRECTORY_NAME)
+               : getDefaultDatabaseDirectoryName();
     }
 
     public String getDefaultDatabaseDirectoryName() {
         return getSettingsDirectoryName();
     }
 
-    public String getDatabaseFileName() {
-        return getDatabaseDirectoryName() + File.separator + "database";
+    public String getDatabaseFileName(boolean suffix) {
+        return getDatabaseDirectoryName() + File.separator + "database" +
+                (suffix
+                 ? ".data"
+                 : "");
     }
 
     public String getThumbnailsDirectoryName() {
@@ -147,8 +172,8 @@ public final class UserSettings implements UserSettingsChangeListener {
      */
     public Set<DirectoryFilter.Option> getDefaultDirectoryFilterOptions() {
         return EnumSet.of(isAcceptHiddenDirectories()
-                ? DirectoryFilter.Option.ACCEPT_HIDDEN_FILES
-                : DirectoryFilter.Option.REJECT_HIDDEN_FILES);
+                          ? DirectoryFilter.Option.ACCEPT_HIDDEN_FILES
+                          : DirectoryFilter.Option.REJECT_HIDDEN_FILES);
     }
 
     /**
@@ -164,8 +189,8 @@ public final class UserSettings implements UserSettingsChangeListener {
      */
     public Set<DirectoryChooser.Option> getDefaultDirectoryChooserOptions() {
         return EnumSet.of(isAcceptHiddenDirectories()
-                ? DirectoryChooser.Option.ACCEPT_HIDDEN_DIRECTORIES
-                : DirectoryChooser.Option.REJECT_HIDDEN_DIRECTORIES);
+                          ? DirectoryChooser.Option.ACCEPT_HIDDEN_DIRECTORIES
+                          : DirectoryChooser.Option.REJECT_HIDDEN_DIRECTORIES);
     }
 
     /**
@@ -177,8 +202,8 @@ public final class UserSettings implements UserSettingsChangeListener {
      */
     public boolean isCreateThumbnailsWithExternalApp() {
         return properties.containsKey(KEY_CREATE_THUMBNAILS_WITH_EXTERNAL_APP)
-                ? settings.getBoolean(KEY_CREATE_THUMBNAILS_WITH_EXTERNAL_APP)
-                : false;
+               ? settings.getBoolean(KEY_CREATE_THUMBNAILS_WITH_EXTERNAL_APP)
+               : false;
     }
 
     /**
@@ -215,7 +240,9 @@ public final class UserSettings implements UserSettingsChangeListener {
         if (level == null) {
             settings.setString(Level.INFO.getLocalizedName(), KEY_LOG_LEVEL);
         }
-        return level == null ? Level.INFO : level;
+        return level == null
+               ? Level.INFO
+               : level;
     }
 
     /**
@@ -227,7 +254,8 @@ public final class UserSettings implements UserSettingsChangeListener {
         List<Column> columns = new ArrayList<Column>();
         if (!settings.getString(KEY_FAST_SEARCH_COLUMNS).isEmpty()) {
             List<String> columnKeys = ArrayUtil.stringTokenToList(
-                    settings.getString(KEY_FAST_SEARCH_COLUMNS), DELIMITER_COLUMNS);
+                    settings.getString(KEY_FAST_SEARCH_COLUMNS),
+                    DELIMITER_COLUMNS);
             return ColumnUtil.columnKeysToColumns(columnKeys);
         }
         return columns;
@@ -273,7 +301,9 @@ public final class UserSettings implements UserSettingsChangeListener {
      */
     public int getThreadPriority() {
         int priority = settings.getInt(KEY_THREAD_PRIORITY);
-        return priority >= 0 && priority <= 10 ? priority : 5;
+        return priority >= 0 && priority <= 10
+               ? priority
+               : 5;
     }
 
     /**
@@ -284,7 +314,9 @@ public final class UserSettings implements UserSettingsChangeListener {
      */
     public int getMaxThumbnailLength() {
         int width = settings.getInt(KEY_MAX_THUMBNAIL_LENGTH);
-        return width != Integer.MIN_VALUE ? width : DEFAULT_MAX_THUMBNAIL_LENGTH;
+        return width != Integer.MIN_VALUE
+               ? width
+               : DEFAULT_MAX_THUMBNAIL_LENGTH;
     }
 
     /**
@@ -294,8 +326,8 @@ public final class UserSettings implements UserSettingsChangeListener {
      */
     public boolean isUseEmbeddedThumbnails() {
         return properties.containsKey(KEY_USE_EMBEDDED_THUMBNAILS)
-                ? settings.getBoolean(KEY_USE_EMBEDDED_THUMBNAILS)
-                : false;
+               ? settings.getBoolean(KEY_USE_EMBEDDED_THUMBNAILS)
+               : false;
     }
 
     /**
@@ -307,20 +339,24 @@ public final class UserSettings implements UserSettingsChangeListener {
      */
     public boolean isScanForEmbeddedXmp() {
         return properties.containsKey(KEY_SCAN_FOR_EMBEDDED_XMP)
-                ? settings.getBoolean(KEY_SCAN_FOR_EMBEDDED_XMP)
-                : false;
+               ? settings.getBoolean(KEY_SCAN_FOR_EMBEDDED_XMP)
+               : false;
     }
 
     public boolean isExecuteActionsAfterImageChangeInDbAlways() {
-        return properties.containsKey(KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_ALWAYS)
-                ? settings.getBoolean(KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_ALWAYS)
-                : false;
+        return properties.containsKey(
+                KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_ALWAYS)
+               ? settings.getBoolean(
+                KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_ALWAYS)
+               : false;
     }
 
     public boolean isExecuteActionsAfterImageChangeInDbIfImageHasXmp() {
-        return properties.containsKey(KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_IF_IMAGE_HAS_XMP)
-                ? settings.getBoolean(KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_IF_IMAGE_HAS_XMP)
-                : false;
+        return properties.containsKey(
+                KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_IF_IMAGE_HAS_XMP)
+               ? settings.getBoolean(
+                KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_IF_IMAGE_HAS_XMP)
+               : false;
     }
 
     /**
@@ -330,7 +366,9 @@ public final class UserSettings implements UserSettingsChangeListener {
      */
     public String getIptcCharset() {
         String charset = settings.getString(KEY_IPTC_CHARSET);
-        return charset.isEmpty() ? "ISO-8859-1" : charset;
+        return charset.isEmpty()
+               ? "ISO-8859-1"
+               : charset;
     }
 
     /**
@@ -341,14 +379,14 @@ public final class UserSettings implements UserSettingsChangeListener {
      */
     public boolean isAutoscanIncludeSubdirectories() {
         return properties.containsKey(KEY_AUTOSCAN_INCLUDE_SUBDIRECTORIES)
-                ? settings.getBoolean(KEY_AUTOSCAN_INCLUDE_SUBDIRECTORIES)
-                : true;
+               ? settings.getBoolean(KEY_AUTOSCAN_INCLUDE_SUBDIRECTORIES)
+               : true;
     }
 
     public boolean isTreeDirectoriesSelectLastDirectory() {
         return properties.containsKey(KEY_TREE_DIRECTORIES_SELECT_LAST_DIRECTORY)
-                ? settings.getBoolean(KEY_TREE_DIRECTORIES_SELECT_LAST_DIRECTORY)
-                : false;
+               ? settings.getBoolean(KEY_TREE_DIRECTORIES_SELECT_LAST_DIRECTORY)
+               : false;
     }
 
     /**
@@ -362,7 +400,8 @@ public final class UserSettings implements UserSettingsChangeListener {
             return Class.forName(className);
         } catch (ClassNotFoundException ex) {
             AppLog.logWarning(UserSettings.class, ex);
-            settings.setString(XMLFormatter.class.getName(), KEY_LOGFILE_FORMATTER_CLASS);
+            settings.setString(XMLFormatter.class.getName(),
+                    KEY_LOGFILE_FORMATTER_CLASS);
         }
         return XMLFormatter.class;
     }
@@ -374,9 +413,11 @@ public final class UserSettings implements UserSettingsChangeListener {
      * @return true, wenn dieser Task ausgeführt werden soll
      */
     public boolean isTaskRemoveRecordsWithNotExistingFiles() {
-        return properties.containsKey(KEY_TASK_REMOVE_RECORDS_WITH_NOT_EXISTING_FILES)
-                ? settings.getBoolean(KEY_TASK_REMOVE_RECORDS_WITH_NOT_EXISTING_FILES)
-                : false;
+        return properties.containsKey(
+                KEY_TASK_REMOVE_RECORDS_WITH_NOT_EXISTING_FILES)
+               ? settings.getBoolean(
+                KEY_TASK_REMOVE_RECORDS_WITH_NOT_EXISTING_FILES)
+               : false;
     }
 
     /**
@@ -386,7 +427,9 @@ public final class UserSettings implements UserSettingsChangeListener {
      */
     public int getMinutesToStartScheduledTasks() {
         int minutes = settings.getInt(KEY_MINUTES_TO_START_SCHEDULED_TASKS);
-        return minutes > 0 ? minutes : DEFAULT_MINUTES_TO_START_SCHEDULED_TASKS;
+        return minutes > 0
+               ? minutes
+               : DEFAULT_MINUTES_TO_START_SCHEDULED_TASKS;
     }
 
     /**
@@ -396,8 +439,8 @@ public final class UserSettings implements UserSettingsChangeListener {
      */
     public boolean isUseAutocomplete() {
         return properties.containsKey(KEY_AUTOCOMPLETE)
-                ? settings.getBoolean(KEY_AUTOCOMPLETE)
-                : true;
+               ? settings.getBoolean(KEY_AUTOCOMPLETE)
+               : true;
     }
 
     /**
@@ -406,9 +449,10 @@ public final class UserSettings implements UserSettingsChangeListener {
      * @return time in seconds. Default: 60.
      */
     public int getMaxSecondsToTerminateExternalPrograms() {
-        return properties.containsKey(KEY_MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS)
-                ? settings.getInt(KEY_MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS)
-                : 60;
+        return properties.containsKey(
+                KEY_MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS)
+               ? settings.getInt(KEY_MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS)
+               : 60;
     }
 
     /**
@@ -419,8 +463,8 @@ public final class UserSettings implements UserSettingsChangeListener {
      */
     public boolean isAcceptHiddenDirectories() {
         return properties.containsKey(KEY_ACCEPT_HIDDEN_DIRECTORIES)
-                ? settings.getBoolean(KEY_ACCEPT_HIDDEN_DIRECTORIES)
-                : false;
+               ? settings.getBoolean(KEY_ACCEPT_HIDDEN_DIRECTORIES)
+               : false;
     }
 
     /**
@@ -431,7 +475,9 @@ public final class UserSettings implements UserSettingsChangeListener {
      */
     public File getAutocopyDirectory() {
         File dir = new File(settings.getString(KEY_AUTOCOPY_DIRECTORY));
-        return dir.exists() && dir.isDirectory() ? dir : null;
+        return dir.exists() && dir.isDirectory()
+               ? dir
+               : null;
     }
 
     @Override
@@ -442,57 +488,91 @@ public final class UserSettings implements UserSettingsChangeListener {
     private void writeProperties(UserSettingsChangeEvent evt) {
         UserSettingsChangeEvent.Type type = evt.getType();
         if (type.equals(UserSettingsChangeEvent.Type.DEFAULT_IMAGE_OPEN_APP)) {
-            settings.setString(evt.getDefaultImageOpenApp().getAbsolutePath(), KEY_DEFAULT_IMAGE_OPEN_APP);
-        } else if (type.equals(UserSettingsChangeEvent.Type.EXTERNAL_THUMBNAIL_CREATION_COMMAND)) {
-            settings.setString(evt.getExternalThumbnailCreationCommand(), KEY_EXTERNAL_THUMBNAIL_CREATION_COMMAND);
+            settings.setString(evt.getDefaultImageOpenApp().getAbsolutePath(),
+                    KEY_DEFAULT_IMAGE_OPEN_APP);
+        } else if (type.equals(
+                UserSettingsChangeEvent.Type.EXTERNAL_THUMBNAIL_CREATION_COMMAND)) {
+            settings.setString(evt.getExternalThumbnailCreationCommand(),
+                    KEY_EXTERNAL_THUMBNAIL_CREATION_COMMAND);
         } else if (type.equals(UserSettingsChangeEvent.Type.FAST_SEARCH_COLUMNS)) {
-            settings.setString(getColumnKeys(evt.getFastSearchColumns()), KEY_FAST_SEARCH_COLUMNS);
+            settings.setString(getColumnKeys(evt.getFastSearchColumns()),
+                    KEY_FAST_SEARCH_COLUMNS);
         } else if (type.equals(UserSettingsChangeEvent.Type.EDIT_COLUMNS)) {
-            settings.setString(getColumnKeys(evt.getEditColumns()), KEY_EDIT_COLUMNS);
+            settings.setString(getColumnKeys(evt.getEditColumns()),
+                    KEY_EDIT_COLUMNS);
         } else if (type.equals(UserSettingsChangeEvent.Type.IPTC_CHARSET)) {
             settings.setString(evt.getIptcCharset(), KEY_IPTC_CHARSET);
-        } else if (type.equals(UserSettingsChangeEvent.Type.IS_ACCEPT_HIDDEN_DIRECTORIES)) {
-            settings.setBoolean(evt.isAcceptHiddenDirectories(), KEY_ACCEPT_HIDDEN_DIRECTORIES);
-        } else if (type.equals(UserSettingsChangeEvent.Type.IS_AUTSCAN_INCLUDE_DIRECTORIES)) {
-            settings.setBoolean(evt.isAutoscanIncludeSubdirectories(), KEY_AUTOSCAN_INCLUDE_SUBDIRECTORIES);
-        } else if (type.equals(UserSettingsChangeEvent.Type.IS_CREATE_THUMBNAILS_WITH_EXTERNAL_APP)) {
-            writeToPropertiesCreateThumbnailsWithExternalApp(evt.isCreateThumbnailsWithExternalApp());
-        } else if (type.equals(UserSettingsChangeEvent.Type.IS_TASK_REMOVE_RECORDS_WITH_NOT_EXISTING_FILES)) {
-            settings.setBoolean(evt.isTaskRemoveRecordsWithNotExistingFiles(), KEY_TASK_REMOVE_RECORDS_WITH_NOT_EXISTING_FILES);
+        } else if (type.equals(
+                UserSettingsChangeEvent.Type.IS_ACCEPT_HIDDEN_DIRECTORIES)) {
+            settings.setBoolean(evt.isAcceptHiddenDirectories(),
+                    KEY_ACCEPT_HIDDEN_DIRECTORIES);
+        } else if (type.equals(
+                UserSettingsChangeEvent.Type.IS_AUTSCAN_INCLUDE_DIRECTORIES)) {
+            settings.setBoolean(evt.isAutoscanIncludeSubdirectories(),
+                    KEY_AUTOSCAN_INCLUDE_SUBDIRECTORIES);
+        } else if (type.equals(
+                UserSettingsChangeEvent.Type.IS_CREATE_THUMBNAILS_WITH_EXTERNAL_APP)) {
+            writeToPropertiesCreateThumbnailsWithExternalApp(evt.
+                    isCreateThumbnailsWithExternalApp());
+        } else if (type.equals(
+                UserSettingsChangeEvent.Type.IS_TASK_REMOVE_RECORDS_WITH_NOT_EXISTING_FILES)) {
+            settings.setBoolean(evt.isTaskRemoveRecordsWithNotExistingFiles(),
+                    KEY_TASK_REMOVE_RECORDS_WITH_NOT_EXISTING_FILES);
         } else if (type.equals(UserSettingsChangeEvent.Type.IS_USE_AUTOCOMPLETE)) {
             settings.setBoolean(evt.isAutocomplete(), KEY_AUTOCOMPLETE);
-        } else if (type.equals(UserSettingsChangeEvent.Type.IS_USE_EMBEDDED_THUMBNAILS)) {
+        } else if (type.equals(
+                UserSettingsChangeEvent.Type.IS_USE_EMBEDDED_THUMBNAILS)) {
             writeToPropertiesUseEmbeddedThumbnails(evt.isUseEmbeddedThumbnails());
-        } else if (type.equals(UserSettingsChangeEvent.Type.LOGFILE_FORMATTER_CLASS)) {
-            writeToPropertiesLogfileFormatterClass(evt.getLogfileFormatterClass());
+        } else if (type.equals(
+                UserSettingsChangeEvent.Type.LOGFILE_FORMATTER_CLASS)) {
+            writeToPropertiesLogfileFormatterClass(
+                    evt.getLogfileFormatterClass());
         } else if (type.equals(UserSettingsChangeEvent.Type.LOG_LEVEL)) {
             settings.setString(evt.getLogLevel().toString(), KEY_LOG_LEVEL);
         } else if (type.equals(UserSettingsChangeEvent.Type.MAX_THUMBNAIL_WIDTH)) {
-            settings.setString(evt.getMaxThumbnailWidth().toString(), KEY_MAX_THUMBNAIL_LENGTH);
-        } else if (type.equals(UserSettingsChangeEvent.Type.MINUTES_TO_START_SCHEDULED_TASKS)) {
-            settings.setString(evt.getMinutesToStartScheduledTasks().toString(), KEY_MINUTES_TO_START_SCHEDULED_TASKS);
-        } else if (type.equals(UserSettingsChangeEvent.Type.NO_FAST_SEARCH_COLUMNS)) {
+            settings.setString(evt.getMaxThumbnailWidth().toString(),
+                    KEY_MAX_THUMBNAIL_LENGTH);
+        } else if (type.equals(
+                UserSettingsChangeEvent.Type.MINUTES_TO_START_SCHEDULED_TASKS)) {
+            settings.setString(evt.getMinutesToStartScheduledTasks().toString(),
+                    KEY_MINUTES_TO_START_SCHEDULED_TASKS);
+        } else if (type.equals(
+                UserSettingsChangeEvent.Type.NO_FAST_SEARCH_COLUMNS)) {
             properties.remove(KEY_FAST_SEARCH_COLUMNS);
         } else if (type.equals(UserSettingsChangeEvent.Type.THREAD_PRIORITY)) {
             settings.setInt(evt.getThreadPriority(), KEY_THREAD_PRIORITY);
         } else if (type.equals(UserSettingsChangeEvent.Type.AUTOCOPY_DIRECTORY)) {
-            settings.setString(evt.getAutoCopyDirectory().getAbsolutePath(), KEY_AUTOCOPY_DIRECTORY);
+            settings.setString(evt.getAutoCopyDirectory().getAbsolutePath(),
+                    KEY_AUTOCOPY_DIRECTORY);
         } else if (type.equals(UserSettingsChangeEvent.Type.WEB_BROWSER)) {
             settings.setString(evt.getWebBrowser(), KEY_WEB_BROWSER);
-        } else if (type.equals(UserSettingsChangeEvent.Type.TREE_DIRECTORIES_SELECT_LAST_DIRECTORY)) {
-            settings.setBoolean(evt.isTreeDirectoriesSelectLastDirectory(), KEY_TREE_DIRECTORIES_SELECT_LAST_DIRECTORY);
+        } else if (type.equals(
+                UserSettingsChangeEvent.Type.TREE_DIRECTORIES_SELECT_LAST_DIRECTORY)) {
+            settings.setBoolean(evt.isTreeDirectoriesSelectLastDirectory(),
+                    KEY_TREE_DIRECTORIES_SELECT_LAST_DIRECTORY);
         } else if (type.equals(UserSettingsChangeEvent.Type.DATABASE_DIRECTORY)) {
-            settings.setString(evt.getDatabaseDirectoryName(), KEY_DATABASE_DIRECTORY_NAME);
-        } else if (type.equals(UserSettingsChangeEvent.Type.MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS)) {
-            settings.setInt(evt.getMaxSecondsToTerminateExternalPrograms(), KEY_MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS);
-        } else if (type.equals(UserSettingsChangeEvent.Type.SCAN_FOR_EMBEDDED_XMP)) {
-            settings.setBoolean(evt.isScanForEmbeddedXmp(), KEY_SCAN_FOR_EMBEDDED_XMP);
-        } else if (type.equals(UserSettingsChangeEvent.Type.EXECUTE_ACTION_AFTER_IMAGE_CHANGE_IN_DB_ALWAYS)) {
-            settings.setBoolean(true, KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_ALWAYS);
-            settings.setBoolean(false, KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_IF_IMAGE_HAS_XMP);
-        } else if (type.equals(UserSettingsChangeEvent.Type.EXECUTE_ACTION_AFTER_IMAGE_CHANGE_IN_DB_IF_IMAGE_HAS_XMP)) {
-            settings.setBoolean(false, KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_ALWAYS);
-            settings.setBoolean(true, KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_IF_IMAGE_HAS_XMP);
+            settings.setString(evt.getDatabaseDirectoryName(),
+                    KEY_DATABASE_DIRECTORY_NAME);
+        } else if (type.equals(
+                UserSettingsChangeEvent.Type.MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS)) {
+            settings.setInt(evt.getMaxSecondsToTerminateExternalPrograms(),
+                    KEY_MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS);
+        } else if (type.equals(
+                UserSettingsChangeEvent.Type.SCAN_FOR_EMBEDDED_XMP)) {
+            settings.setBoolean(evt.isScanForEmbeddedXmp(),
+                    KEY_SCAN_FOR_EMBEDDED_XMP);
+        } else if (type.equals(
+                UserSettingsChangeEvent.Type.EXECUTE_ACTION_AFTER_IMAGE_CHANGE_IN_DB_ALWAYS)) {
+            settings.setBoolean(true,
+                    KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_ALWAYS);
+            settings.setBoolean(false,
+                    KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_IF_IMAGE_HAS_XMP);
+        } else if (type.equals(
+                UserSettingsChangeEvent.Type.EXECUTE_ACTION_AFTER_IMAGE_CHANGE_IN_DB_IF_IMAGE_HAS_XMP)) {
+            settings.setBoolean(false,
+                    KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_ALWAYS);
+            settings.setBoolean(true,
+                    KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_IF_IMAGE_HAS_XMP);
         }
     }
 
@@ -507,8 +587,8 @@ public final class UserSettings implements UserSettingsChangeListener {
         String classString = formatterClass.toString();
         int index = classString.lastIndexOf(" ");
         settings.setString(index >= 0 && index + 1 < classString.length()
-                ? classString.substring(index + 1)
-                : XMLFormatter.class.getName(),
+                           ? classString.substring(index + 1)
+                           : XMLFormatter.class.getName(),
                 KEY_LOGFILE_FORMATTER_CLASS);
     }
 
@@ -531,7 +611,8 @@ public final class UserSettings implements UserSettingsChangeListener {
     public void finalize() {
         if (!isWrittenToFile) {
             writeToFile();
-            AppLog.logWarning(UserSettings.class, Bundle.getString("UserSettings.ErrorMessage.NotWrittenPersistent"));
+            AppLog.logWarning(UserSettings.class, Bundle.getString(
+                    "UserSettings.ErrorMessage.NotWrittenPersistent"));
         }
     }
 }

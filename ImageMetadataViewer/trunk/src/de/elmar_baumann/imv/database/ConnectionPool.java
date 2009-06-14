@@ -89,7 +89,7 @@ public final class ConnectionPool implements Runnable {
      */
     private ConnectionPool() throws SQLException {
         url = "jdbc:hsqldb:file:" + // NOI18N
-                UserSettings.INSTANCE.getDatabaseFileName() + // NOI18N
+                UserSettings.INSTANCE.getDatabaseFileName(false) + // NOI18N
                 ";shutdown=true";  // NOI18N
 
         driver = "org.hsqldb.jdbcDriver";
