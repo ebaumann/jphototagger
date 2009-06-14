@@ -8,6 +8,7 @@ import de.elmar_baumann.imv.datatransfer.TransferHandlerThumbnailsPanel;
 import de.elmar_baumann.imv.event.RefreshListener;
 import de.elmar_baumann.lib.comparator.FileSort;
 import de.elmar_baumann.imv.types.FileAction;
+import de.elmar_baumann.imv.view.InfoSetThumbnails;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuPanelThumbnails;
 import de.elmar_baumann.lib.componentutil.ComponentUtil;
 import java.awt.Image;
@@ -30,12 +31,14 @@ import javax.swing.JViewport;
 public final class ImageFileThumbnailsPanel extends ThumbnailsPanel {
 
     private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
-    private final Map<Content, List<RefreshListener>> refreshListenersOfContent = new HashMap<Content, List<RefreshListener>>();
-    private final PopupMenuPanelThumbnails popupMenu = PopupMenuPanelThumbnails.INSTANCE;
+    private final Map<Content, List<RefreshListener>> refreshListenersOfContent =
+            new HashMap<Content, List<RefreshListener>>();
+    private final PopupMenuPanelThumbnails popupMenu =
+            PopupMenuPanelThumbnails.INSTANCE;
     private List<File> files = new ArrayList<File>();
     private ControllerDoubleklickThumbnail controllerDoubleklick;
     private FileSort fileSort = FileSort.NAMES_ASCENDING;
-    private boolean hadFiles = false;
+    private volatile boolean hadFiles = false;
     private Content content = Content.UNDEFINED;
     private FileAction fileAction = FileAction.UNDEFINED;
 
@@ -84,7 +87,8 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel {
      * @param listener  listener
      * @param content   content
      */
-    public synchronized void addRefreshListener(RefreshListener listener, Content content) {
+    public synchronized void addRefreshListener(RefreshListener listener,
+            Content content) {
         refreshListenersOfContent.get(content).add(listener);
     }
 
@@ -135,16 +139,41 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel {
      * @param files    files
      * @param content  content description of the files
      */
-    public void setFiles(List<File> files, Content content) {
-        boolean scrollToTop = hadFiles && files != this.files;
+    public synchronized void setFiles(List<File> files, Content content) {
+        final boolean scrollToTop = hadFiles && files != this.files;
         this.files = files;
         this.content = content;
-        Collections.sort(files, fileSort.getComparator());
-        setNewThumbnails(files.size());
-        scrollToTop(scrollToTop);
-        setMissingFilesFlags();
-        hadFiles = true;
-        ComponentUtil.forceRepaint(this);
+        Thread thread = new Thread(new SetFiles(files, this, scrollToTop));
+        thread.setName("Setting files to thumbnails panel");
+        thread.start();
+    }
+
+    private class SetFiles implements Runnable {
+
+        private final ThumbnailsPanel panel;
+        private final boolean scrollToTop;
+        private final List<File> files;
+
+        public SetFiles(List<File> files, ThumbnailsPanel panel,
+                boolean scrollToTop) {
+            this.files = files;
+            this.panel = panel;
+            this.scrollToTop = scrollToTop;
+        }
+
+        @Override
+        public void run() {
+            synchronized (files) {
+                InfoSetThumbnails info = new InfoSetThumbnails();
+                Collections.sort(files, fileSort.getComparator());
+                setNewThumbnails(files.size());
+                scrollToTop(scrollToTop);
+                setMissingFilesFlags();
+                hadFiles = true;
+                ComponentUtil.forceRepaint(panel);
+                info.hide();
+            }
+        }
     }
 
     /**
@@ -301,7 +330,9 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel {
      * @see    #isIndex(int)
      */
     public File getFile(int index) {
-        return isIndex(index) ? files.get(index) : null;
+        return isIndex(index)
+               ? files.get(index)
+               : null;
     }
 
     /**
@@ -334,7 +365,8 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel {
         if (isIndex(index)) {
             String heading = files.get(index).getAbsolutePath();
             int indexPathSeparator = heading.lastIndexOf(File.separator);
-            if (indexPathSeparator >= 0 && indexPathSeparator + 1 < heading.length()) {
+            if (indexPathSeparator >= 0 && indexPathSeparator + 1 < heading.
+                    length()) {
                 heading = heading.substring(indexPathSeparator + 1);
             }
             return heading;
