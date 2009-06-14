@@ -89,8 +89,8 @@ public final class ConnectionPool implements Runnable {
      */
     private ConnectionPool() throws SQLException {
         url = "jdbc:hsqldb:file:" + // NOI18N
-            UserSettings.INSTANCE.getDatabaseFileName() + // NOI18N
-            ";shutdown=true";  // NOI18N
+                UserSettings.INSTANCE.getDatabaseFileName() + // NOI18N
+                ";shutdown=true";  // NOI18N
 
         driver = "org.hsqldb.jdbcDriver";
         username = "sa";
@@ -192,7 +192,8 @@ public final class ConnectionPool implements Runnable {
         connectionPending = true;
         try {
             Thread connectThread = new Thread(this);
-            connectThread.setName("ConnectionPool#makeBackgroundConnection"); // NOI18N
+            connectThread.setName("Connection pool creating connection" + " @ " + // NOI18N
+                    getClass().getName());
             connectThread.start();
         } catch (OutOfMemoryError oome) {
             // Give up on new connection
@@ -228,7 +229,8 @@ public final class ConnectionPool implements Runnable {
             // Load database driver if not already loaded
             Class.forName(driver);
             // Establish network connection to database
-            Connection connection = DriverManager.getConnection(url, username, password);
+            Connection connection = DriverManager.getConnection(url, username,
+                    password);
             return (connection);
         } catch (ClassNotFoundException cnfe) {
             throw new SQLException("Can't find class for driver: " + driver);

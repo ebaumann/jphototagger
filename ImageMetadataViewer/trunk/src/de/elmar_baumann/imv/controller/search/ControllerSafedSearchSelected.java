@@ -70,7 +70,8 @@ public final class ControllerSafedSearchSelected
                 }
             }
         });
-        thread.setName("Saved search item selected");
+        thread.setName("Saved search item selected" + " @ " + // NOI18N
+                getClass().getName());
         thread.start();
     }
 

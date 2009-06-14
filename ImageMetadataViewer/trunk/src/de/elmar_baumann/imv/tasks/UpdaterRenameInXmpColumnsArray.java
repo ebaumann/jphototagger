@@ -19,8 +19,10 @@ import javax.swing.JProgressBar;
  */
 public final class UpdaterRenameInXmpColumnsArray implements ProgressListener {
 
-    private final Queue<UpdaterRenameInXmpColumns> updaters = new ConcurrentLinkedQueue<UpdaterRenameInXmpColumns>();
-    private final ProgressBarCurrentTasks progressBarProvider = ProgressBarCurrentTasks.INSTANCE;
+    private final Queue<UpdaterRenameInXmpColumns> updaters =
+            new ConcurrentLinkedQueue<UpdaterRenameInXmpColumns>();
+    private final ProgressBarCurrentTasks progressBarProvider =
+            ProgressBarCurrentTasks.INSTANCE;
     private JProgressBar progressBar;
     private boolean wait = false;
     private boolean stop = false;
@@ -28,7 +30,7 @@ public final class UpdaterRenameInXmpColumnsArray implements ProgressListener {
     private synchronized void setWait(boolean wait) {
         this.wait = wait;
     }
-    
+
     private synchronized boolean isWait() {
         return wait;
     }
@@ -42,8 +44,9 @@ public final class UpdaterRenameInXmpColumnsArray implements ProgressListener {
     }
 
     public synchronized void update(List<String> filenames, Column column,
-        String oldValue, String newValue) {
-        updaters.add(new UpdaterRenameInXmpColumns(filenames, column, oldValue, newValue));
+            String oldValue, String newValue) {
+        updaters.add(new UpdaterRenameInXmpColumns(filenames, column, oldValue,
+                newValue));
         startNextThread();
     }
 
@@ -54,7 +57,8 @@ public final class UpdaterRenameInXmpColumnsArray implements ProgressListener {
             updater.addProgressListener(this);
             Thread thread = new Thread(updater);
             thread.setPriority(UserSettings.INSTANCE.getThreadPriority());
-            thread.setName("UpdaterRenameInXmpColumnsArray#startNextThread"); // NOI18N
+            thread.setName("Renaming XMP in " + updater.getColumn().getName() + // NOI18N
+                    " @ " + getClass().getName()); // NOI18N
             thread.start();
         }
     }

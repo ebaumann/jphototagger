@@ -24,9 +24,10 @@ import javax.swing.JOptionPane;
  * @version 2008-10-05
  */
 public final class IptcToXmpDialog extends Dialog
-    implements ProgressListener {
+        implements ProgressListener {
 
-    private static final String keyDirectoryName = "de.elmar_baumann.imv.view.dialogs.IptcToXmpDialog.LastDirectory"; // NOI18N
+    private static final String keyDirectoryName =
+            "de.elmar_baumann.imv.view.dialogs.IptcToXmpDialog.LastDirectory"; // NOI18N
     private File directory = new File(""); // NOI18N
     private boolean stop = true;
 
@@ -46,7 +47,8 @@ public final class IptcToXmpDialog extends Dialog
     }
 
     private void chooseDirectory() {
-        DirectoryChooser dialog = new DirectoryChooser(null, directory, UserSettings.INSTANCE.getDefaultDirectoryChooserOptions());
+        DirectoryChooser dialog = new DirectoryChooser(null, directory,
+                UserSettings.INSTANCE.getDefaultDirectoryChooserOptions());
         ViewUtil.setDirectoryTreeModel(dialog);
         dialog.setVisible(true);
         if (dialog.accepted()) {
@@ -59,10 +61,12 @@ public final class IptcToXmpDialog extends Dialog
 
     private void errorMessageWaitBeforeClose() {
         JOptionPane.showMessageDialog(
-            null,
-            Bundle.getString("IptcToXmpDialog.ErrorMessage.CancelBeforeClose"),
-            Bundle.getString("IptcToXmpDialog.ErrorMessage.CancelBeforeClose.Title"),
-            JOptionPane.INFORMATION_MESSAGE);
+                null,
+                Bundle.getString(
+                "IptcToXmpDialog.ErrorMessage.CancelBeforeClose"),
+                Bundle.getString(
+                "IptcToXmpDialog.ErrorMessage.CancelBeforeClose.Title"),
+                JOptionPane.INFORMATION_MESSAGE);
     }
 
     private void postInitComponents() {
@@ -84,14 +88,20 @@ public final class IptcToXmpDialog extends Dialog
     }
 
     private void readProperties() {
-        UserSettings.INSTANCE.getSettings().getComponent(this, new SettingsHints(EnumSet.of(SettingsHints.Option.SET_TABBED_PANE_CONTENT)));
-        directory = new File(UserSettings.INSTANCE.getSettings().getString(keyDirectoryName));
+        UserSettings.INSTANCE.getSettings().getComponent(this,
+                new SettingsHints(EnumSet.of(
+                SettingsHints.Option.SET_TABBED_PANE_CONTENT)));
+        directory = new File(UserSettings.INSTANCE.getSettings().getString(
+                keyDirectoryName));
     }
 
     private void writeProperties() {
         UserSettings.INSTANCE.getSettings().setSizeAndLocation(this);
-        UserSettings.INSTANCE.getSettings().setComponent(this, new SettingsHints(EnumSet.of(SettingsHints.Option.SET_TABBED_PANE_CONTENT)));
-        UserSettings.INSTANCE.getSettings().setString(directory.getAbsolutePath(), keyDirectoryName);
+        UserSettings.INSTANCE.getSettings().setComponent(this,
+                new SettingsHints(EnumSet.of(
+                SettingsHints.Option.SET_TABBED_PANE_CONTENT)));
+        UserSettings.INSTANCE.getSettings().setString(
+                directory.getAbsolutePath(), keyDirectoryName);
     }
 
     private void init() {
@@ -110,7 +120,8 @@ public final class IptcToXmpDialog extends Dialog
         converter.addProgressListener(this);
         Thread thread = new Thread(converter);
         thread.setPriority(UserSettings.INSTANCE.getThreadPriority());
-        thread.setName("IptcToXmpDialog#start"); // NOI18N
+        thread.setName("Writing IPTC to XMP sidecar files" + " @ " + // NOI18N
+                getClass().getName());
         thread.start();
         buttonStop.setEnabled(true);
     }
@@ -124,7 +135,7 @@ public final class IptcToXmpDialog extends Dialog
         directories.add(directory);
         if (checkBoxSubdirectories.isSelected()) {
             directories.addAll(FileUtil.getAllSubDirectories(directory,
-                UserSettings.INSTANCE.getDefaultDirectoryFilterOptions()));
+                    UserSettings.INSTANCE.getDefaultDirectoryFilterOptions()));
         }
         return ImageFilteredDirectory.getImageFilesOfDirectories(directories);
     }
@@ -296,14 +307,16 @@ private void buttonStopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
 }//GEN-LAST:event_buttonStopActionPerformed
 
     /**
-    * @param args the command line arguments
-    */
+     * @param args the command line arguments
+     */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             @Override
             public void run() {
                 IptcToXmpDialog dialog = new IptcToXmpDialog();
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);

@@ -31,13 +31,17 @@ import javax.swing.filechooser.FileFilter;
  */
 public final class FileEditorPanel extends javax.swing.JPanel {
 
-    private static final String KEY_DIRECTORY_NAME = "de.elmar_baumann.imv.view.FileEditorDialog.panels.Directory"; // NOI18N
+    private static final String KEY_DIRECTORY_NAME =
+            "de.elmar_baumann.imv.view.FileEditorDialog.panels.Directory"; // NOI18N
     private List<File> selectedFiles = new ArrayList<File>();
     private List<File> selectedDirectories = new ArrayList<File>();
     private File prevSelectedDirectory = new File(""); // NOI18N
     private FileEditor fileEditor = new FileEditor();
-    private FileFilter fileChooserFileFilter = AppFileFilter.acceptedImageFileFormats.forFileChooser(Bundle.getString("FileEditorPanel.FileChooserFileFilter.Description"));
-    private RegexFileFilter dirChooserFileFilter = new RegexFileFilter(".*", ";"); // NOI18N
+    private FileFilter fileChooserFileFilter =
+            AppFileFilter.acceptedImageFileFormats.forFileChooser(Bundle.
+            getString("FileEditorPanel.FileChooserFileFilter.Description"));
+    private RegexFileFilter dirChooserFileFilter =
+            new RegexFileFilter(".*", ";"); // NOI18N
     private String title = ""; // NOI18N
     private volatile boolean selectDirs;
     private volatile boolean stop;
@@ -115,7 +119,8 @@ public final class FileEditorPanel extends javax.swing.JPanel {
     }
 
     private Set<Option> getDirChooserOptions() {
-        Set<Option> options = UserSettings.INSTANCE.getDefaultDirectoryChooserOptions();
+        Set<Option> options = UserSettings.INSTANCE.
+                getDefaultDirectoryChooserOptions();
         options.add(DirectoryChooser.Option.MULTI_SELECTION);
         return options;
     }
@@ -124,7 +129,8 @@ public final class FileEditorPanel extends javax.swing.JPanel {
         List<File> selFiles = new ArrayList<File>();
         List<File> selDirs = includeSubdirectories(selectedDirectories);
         for (File dir : selDirs) {
-            File[] foundFiles = FileUtil.getFiles(dir.getAbsolutePath(), dirChooserFileFilter);
+            File[] foundFiles = FileUtil.getFiles(dir.getAbsolutePath(),
+                    dirChooserFileFilter);
             if (foundFiles != null) {
                 selFiles.addAll(Arrays.asList(foundFiles));
             }
@@ -135,7 +141,8 @@ public final class FileEditorPanel extends javax.swing.JPanel {
     private List<File> includeSubdirectories(List<File> dirs) {
         List<File> allDirs = new ArrayList<File>();
         boolean includeSubDirs = checkBoxIncludeSubdirectories.isSelected();
-        Set<DirectoryFilter.Option> options = UserSettings.INSTANCE.getDefaultDirectoryFilterOptions();
+        Set<DirectoryFilter.Option> options = UserSettings.INSTANCE.
+                getDefaultDirectoryFilterOptions();
         for (File dir : dirs) {
             allDirs.add(dir);
             if (includeSubDirs) {
@@ -147,7 +154,8 @@ public final class FileEditorPanel extends javax.swing.JPanel {
 
     private void handleInfoMouseClicked() {
         if (selectDirs) {
-            ShowFilesDialog dialog = new ShowFilesDialog(null, selectedDirectories);
+            ShowFilesDialog dialog = new ShowFilesDialog(null,
+                    selectedDirectories);
             dialog.setVisible(true);
         }
     }
@@ -171,7 +179,7 @@ public final class FileEditorPanel extends javax.swing.JPanel {
     private void handleStartActionPerformed() {
         Thread thread = new Thread(new EditThread());
         thread.setPriority(UserSettings.INSTANCE.getThreadPriority());
-        thread.setName("FileEditorPanel.Action"); // NOI18N
+        thread.setName("File editor " + title + " @ " + getClass().getName()); // NOI18N
         thread.start();
     }
 
@@ -350,14 +358,16 @@ public final class FileEditorPanel extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
 
     private void selectDirectories() {
-        DirectoryChooser dialog = new DirectoryChooser(null, prevSelectedDirectory, getDirChooserOptions());
+        DirectoryChooser dialog = new DirectoryChooser(null,
+                prevSelectedDirectory, getDirChooserOptions());
         ViewUtil.setDirectoryTreeModel(dialog);
         dialog.setVisible(true);
         if (dialog.accepted()) {
             selectedDirectories = dialog.getSelectedDirectories();
             selectedFiles = getFilesOfDirectories(selectedDirectories);
             prevSelectedDirectory = dialog.getSelectedDirectories().get(0);
-            labelInfo.setText(Bundle.getString("FileEditorPanel.SelectDirectories.LabelInfo.Text"));
+            labelInfo.setText(Bundle.getString(
+                    "FileEditorPanel.SelectDirectories.LabelInfo.Text"));
         }
     }
 
@@ -381,24 +391,32 @@ public final class FileEditorPanel extends javax.swing.JPanel {
 
     private void setFileButtonText() {
         buttonSelectFiles.setText(selectDirs
-            ? Bundle.getString("FileEditorDialog.ButtonFiles.DirectoriesText")
-            : Bundle.getString("FileEditorDialog.ButtonFiles.FilesText"));
+                                  ? Bundle.getString(
+                "FileEditorDialog.ButtonFiles.DirectoriesText")
+                                  : Bundle.getString(
+                "FileEditorDialog.ButtonFiles.FilesText"));
     }
 
     private void setInfoText() {
         labelInfo.setText(selectDirs
-            ? Bundle.getString("FileEditorPanel.LabelInfo.SelectDirs.Text")
-            : Bundle.getString("FileEditorPanel.LabelInfo.SelectFiles.Text"));
+                          ? Bundle.getString(
+                "FileEditorPanel.LabelInfo.SelectDirs.Text")
+                          : Bundle.getString(
+                "FileEditorPanel.LabelInfo.SelectFiles.Text"));
     }
 
     public void readPersistent() {
-        prevSelectedDirectory = new File(UserSettings.INSTANCE.getSettings().getString(KEY_DIRECTORY_NAME));
-        UserSettings.INSTANCE.getSettings().getComponent(this, new SettingsHints(EnumSet.of(SettingsHints.Option.NONE)));
+        prevSelectedDirectory = new File(UserSettings.INSTANCE.getSettings().
+                getString(KEY_DIRECTORY_NAME));
+        UserSettings.INSTANCE.getSettings().getComponent(this,
+                new SettingsHints(EnumSet.of(SettingsHints.Option.NONE)));
     }
 
     public void writePersistent() {
-        UserSettings.INSTANCE.getSettings().setString(prevSelectedDirectory.getAbsolutePath(), KEY_DIRECTORY_NAME);
-        UserSettings.INSTANCE.getSettings().setComponent(this, new SettingsHints(EnumSet.of(SettingsHints.Option.NONE)));
+        UserSettings.INSTANCE.getSettings().setString(prevSelectedDirectory.
+                getAbsolutePath(), KEY_DIRECTORY_NAME);
+        UserSettings.INSTANCE.getSettings().setComponent(this,
+                new SettingsHints(EnumSet.of(SettingsHints.Option.NONE)));
     }
 
     private class EditThread implements Runnable {
@@ -406,7 +424,8 @@ public final class FileEditorPanel extends javax.swing.JPanel {
         @Override
         public void run() {
             setIsRunning(true);
-            fileEditor.setConfirmOverwrite(!checkBoxReplaceExistingFiles.isSelected());
+            fileEditor.setConfirmOverwrite(!checkBoxReplaceExistingFiles.
+                    isSelected());
             int filesCount = selectedFiles.size();
             initProgressBar(filesCount);
             for (int i = 0; i < filesCount && !stop; i++) {

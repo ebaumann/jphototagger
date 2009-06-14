@@ -64,7 +64,8 @@ public final class ControllerMiscMetadataItemSelected implements
                     info.hide();
                 }
             });
-            thread.setName("Misc Metadata item selected");
+            thread.setName("Misc metadata item selected" + " @ " + // NOI18N
+                    getClass().getName());
             thread.start();
         }
     }

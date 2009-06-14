@@ -83,7 +83,8 @@ public final class ProgramStarter {
         public Execute(Program program, List<File> imageFiles) {
             this.imageFiles = imageFiles;
             this.program = program;
-            setName("ProgramStarter.Execute");
+            setName("Executing program " + program.getAlias() + " @ " +
+                    getClass().getName());
         }
 
         @Override
@@ -107,7 +108,8 @@ public final class ProgramStarter {
             String command = getProcessAllCommand();
             logCommand(command);
             Pair<byte[], byte[]> output = External.executeGetOutput(command,
-                    UserSettings.INSTANCE.getMaxSecondsToTerminateExternalPrograms() * 1000);
+                    UserSettings.INSTANCE.
+                    getMaxSecondsToTerminateExternalPrograms() * 1000);
             if (output != null) {
                 checkLogErrors(output);
                 setValueToProgressBar(imageFiles.size());
@@ -118,7 +120,8 @@ public final class ProgramStarter {
             return program.getFile().getAbsolutePath() + " " + // NOI18N
                     program.getCommandlineParameters(
                     IoUtil.getQuotedForCommandline(imageFiles, ""), // NOI18N
-                    getAdditionalParameters(Bundle.getString("ProgramStarter.GetInput.Title"), 2),
+                    getAdditionalParameters(Bundle.getString(
+                    "ProgramStarter.GetInput.Title"), 2),
                     dialog.isParametersBeforeFilename());
         }
 
@@ -128,7 +131,8 @@ public final class ProgramStarter {
                 String command = getProcessSingleCommand(file, count);
                 logCommand(command);
                 Pair<byte[], byte[]> output = External.executeGetOutput(command,
-                        UserSettings.INSTANCE.getMaxSecondsToTerminateExternalPrograms() * 1000);
+                        UserSettings.INSTANCE.
+                        getMaxSecondsToTerminateExternalPrograms() * 1000);
                 if (output != null) {
                     checkLogErrors(output);
                     setValueToProgressBar(++count);
@@ -168,9 +172,13 @@ public final class ProgramStarter {
 
         private void checkLogErrors(Pair<byte[], byte[]> output) {
             byte[] stderr = output.getSecond();
-            String message = (stderr == null ? "" : new String(stderr).trim()); // NOI18N
+            String message = (stderr == null
+                              ? ""
+                              : new String(stderr).trim()); // NOI18N
             if (!message.isEmpty()) {
-                message = Bundle.getString("ProgramStarter.ErrorMessage.Program") + message;
+                message =
+                        Bundle.getString("ProgramStarter.ErrorMessage.Program") +
+                        message;
                 AppLog.logWarning(Execute.class, message);
             }
         }
@@ -193,7 +201,8 @@ public final class ProgramStarter {
             if (program.isChangeFile()) {
                 InsertImageFilesIntoDatabase updater = new InsertImageFilesIntoDatabase(
                         FileUtil.getAbsolutePathnames(imageFiles),
-                        EnumSet.of(InsertImageFilesIntoDatabase.Insert.OUT_OF_DATE));
+                        EnumSet.of(
+                        InsertImageFilesIntoDatabase.Insert.OUT_OF_DATE));
                 updater.run(); // no subsequent thread
             }
         }

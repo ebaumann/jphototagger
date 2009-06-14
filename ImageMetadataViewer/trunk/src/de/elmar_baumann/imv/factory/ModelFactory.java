@@ -75,7 +75,8 @@ public final class ModelFactory {
                 appPanel.getTreeSelectionMiscMetadata().setModel(model);
             }
         });
-        thread.setName("Tree Misc metadata");
+        thread.setName("Creating model of tree misc metadata" + " @ " + // NOI18N
+                getClass().getName());
         thread.start();
     }
 
@@ -88,7 +89,8 @@ public final class ModelFactory {
                 appPanel.getTreeSelectionTimeline().setModel(model);
             }
         });
-        thread.setName("Tree Timeline");
+        thread.setName("Creating model of tree timeline" + " @ " + // NOI18N
+                getClass().getName());
         thread.start();
     }
 
@@ -103,7 +105,8 @@ public final class ModelFactory {
                 appPanel.getTreeDirectories().setModel(model);
             }
         });
-        thread.setName("Tree Directories");
+        thread.setName("Creating model of tree directories" + " @ " + // NOI18N
+                getClass().getName());
         thread.start();
     }
 }

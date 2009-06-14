@@ -77,7 +77,8 @@ public final class ControllerImageCollectionSelected implements
                 info.hide();
             }
         });
-        thread.setName("Image collection selected");
+        thread.setName("Image collection selected" + " @ " + // NOI18N
+                getClass().getName());
         thread.start();
     }
 

@@ -42,6 +42,10 @@ public final class UpdaterRenameInXmpColumns implements Runnable, ProgressListen
         progressListeners.add(listener);
     }
 
+    public Column getColumn() {
+        return column;
+    }
+
     /**
      * Unterbricht die Arbeit.
      */

@@ -65,7 +65,7 @@ public final class ControllerCategoryItemSelected implements
                 }
             }
         });
-        thread.setName("Category Item selected");
+        thread.setName("Category item selected" + " @ " + getClass().getName()); // NOI18N
         thread.start();
     }
 }

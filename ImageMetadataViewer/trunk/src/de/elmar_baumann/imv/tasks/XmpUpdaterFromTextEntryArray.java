@@ -21,8 +21,10 @@ import javax.swing.JProgressBar;
  */
 public final class XmpUpdaterFromTextEntryArray implements ProgressListener {
 
-    private final Queue<XmpUpdaterFromTextEntry> updaters = new ConcurrentLinkedQueue<XmpUpdaterFromTextEntry>();
-    private final ProgressBarCurrentTasks progressBarProvider = ProgressBarCurrentTasks.INSTANCE;
+    private final Queue<XmpUpdaterFromTextEntry> updaters =
+            new ConcurrentLinkedQueue<XmpUpdaterFromTextEntry>();
+    private final ProgressBarCurrentTasks progressBarProvider =
+            ProgressBarCurrentTasks.INSTANCE;
     private JProgressBar progressBar;
     private boolean wait = false;
     private boolean stop = false;
@@ -35,8 +37,9 @@ public final class XmpUpdaterFromTextEntryArray implements ProgressListener {
      * @param writeOptions  Optionen
      */
     public void add(List<String> filenames, List<TextEntry> textEntries,
-        EnumSet<XmpMetadata.UpdateOption> writeOptions) {
-        XmpUpdaterFromTextEntry updater = new XmpUpdaterFromTextEntry(filenames, textEntries, writeOptions);
+            EnumSet<XmpMetadata.UpdateOption> writeOptions) {
+        XmpUpdaterFromTextEntry updater = new XmpUpdaterFromTextEntry(filenames,
+                textEntries, writeOptions);
         updater.addProgressListener(this);
         updaters.add(updater);
         startThread();
@@ -47,7 +50,8 @@ public final class XmpUpdaterFromTextEntryArray implements ProgressListener {
             setWait(true);
             Thread thread = new Thread(updaters.remove());
             thread.setPriority(UserSettings.INSTANCE.getThreadPriority());
-            thread.setName("XmpUpdaterFromTextEntryArray#startThread"); // NOI18N
+            thread.setName("Updating edited XMP metadata" + " @ " + // NOI18N
+                    getClass().getName());
             thread.start();
         }
     }
@@ -94,6 +98,7 @@ public final class XmpUpdaterFromTextEntryArray implements ProgressListener {
             startThread();
         }
     }
+
     private void setProgressBarStarted(ProgressEvent evt) {
         progressBar = (JProgressBar) progressBarProvider.getResource(this);
         if (progressBar != null) {
@@ -116,7 +121,8 @@ public final class XmpUpdaterFromTextEntryArray implements ProgressListener {
     private void setProgressBarEnded(ProgressEvent evt) {
         if (progressBar != null) {
             progressBar.setValue(evt.getValue());
-            progressBar.setToolTipText(AppTexts.tooltipTextProgressBarCurrentTasks);
+            progressBar.setToolTipText(
+                    AppTexts.tooltipTextProgressBarCurrentTasks);
             progressBar = null;
             progressBarProvider.releaseResource(this);
         }

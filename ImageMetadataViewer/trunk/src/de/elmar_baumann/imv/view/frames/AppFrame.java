@@ -113,7 +113,8 @@ public final class AppFrame extends javax.swing.JFrame {
         listenToClose();
         setTitleAndFrameIcon();
         Thread thread = new Thread(MetaFactory.INSTANCE);
-        thread.setName("AppFrame#postInitComponents"); // NOI18N
+        thread.setName("Initializing meta factory" + " @ " + // NOI18N
+                getClass().getName());
         thread.start();
         addAppExitListener(appPanel);
         appPanel.getEditPanelsArray().addDeleteListenerTo(menuItemDelete);

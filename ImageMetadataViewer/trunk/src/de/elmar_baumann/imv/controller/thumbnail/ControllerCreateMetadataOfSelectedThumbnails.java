@@ -31,12 +31,16 @@ import javax.swing.JProgressBar;
  * @version 2008-10-05
  */
 public final class ControllerCreateMetadataOfSelectedThumbnails
-    implements ActionListener, ProgressListener, Task {
+        implements ActionListener, ProgressListener, Task {
 
-    private final Queue<InsertImageFilesIntoDatabase> updaters = new ConcurrentLinkedQueue<InsertImageFilesIntoDatabase>();
-    private final PopupMenuPanelThumbnails popupMenu = PopupMenuPanelThumbnails.INSTANCE;
-    private final ProgressBarCurrentTasks progressBarProvider = ProgressBarCurrentTasks.INSTANCE;
-    private final ImageFileThumbnailsPanel thumbnailsPanel = GUI.INSTANCE.getAppPanel().getPanelThumbnails();
+    private final Queue<InsertImageFilesIntoDatabase> updaters =
+            new ConcurrentLinkedQueue<InsertImageFilesIntoDatabase>();
+    private final PopupMenuPanelThumbnails popupMenu =
+            PopupMenuPanelThumbnails.INSTANCE;
+    private final ProgressBarCurrentTasks progressBarProvider =
+            ProgressBarCurrentTasks.INSTANCE;
+    private final ImageFileThumbnailsPanel thumbnailsPanel = GUI.INSTANCE.
+            getAppPanel().getPanelThumbnails();
     private JProgressBar progressBar;
     private volatile boolean wait = false;
     private volatile boolean stop = false;
@@ -56,13 +60,15 @@ public final class ControllerCreateMetadataOfSelectedThumbnails
     @Override
     public void actionPerformed(ActionEvent e) {
         if (thumbnailsPanel.getSelectionCount() > 0) {
-            updateMetadata(popupMenu.getMetadataToInsertIntoDatabase(e.getSource()));
+            updateMetadata(popupMenu.getMetadataToInsertIntoDatabase(
+                    e.getSource()));
         }
     }
 
-    private void updateMetadata(EnumSet<InsertImageFilesIntoDatabase.Insert> what) {
+    private void updateMetadata(
+            EnumSet<InsertImageFilesIntoDatabase.Insert> what) {
         updaters.add(createUpdater(FileUtil.getAsFilenames(
-            thumbnailsPanel.getSelectedFiles()), what));
+                thumbnailsPanel.getSelectedFiles()), what));
         startUpdateMetadataThread();
     }
 
@@ -79,15 +85,17 @@ public final class ControllerCreateMetadataOfSelectedThumbnails
             setWait(true);
             Thread thread = new Thread(updaters.remove());
             thread.setPriority(UserSettings.INSTANCE.getThreadPriority());
-            thread.setName("ControllerCreateMetadataOfSelectedThumbnails#startUpdateMetadataThread"); // NOI18N
+            thread.setName("Creating metadata of selected thumbnails" + " @ " + // NOI18N
+                    getClass().getName());
             thread.start();
         }
     }
 
     private InsertImageFilesIntoDatabase createUpdater(List<String> files,
-        EnumSet<InsertImageFilesIntoDatabase.Insert> what) {
+            EnumSet<InsertImageFilesIntoDatabase.Insert> what) {
 
-        InsertImageFilesIntoDatabase updater = new InsertImageFilesIntoDatabase(files, what);
+        InsertImageFilesIntoDatabase updater = new InsertImageFilesIntoDatabase(
+                files, what);
         updater.addProgressListener(this);
         return updater;
     }
@@ -119,7 +127,8 @@ public final class ControllerCreateMetadataOfSelectedThumbnails
     public synchronized void progressEnded(ProgressEvent evt) {
         if (progressBar != null) {
             progressBar.setValue(evt.getValue());
-            progressBar.setToolTipText(AppTexts.tooltipTextProgressBarCurrentTasks);
+            progressBar.setToolTipText(
+                    AppTexts.tooltipTextProgressBarCurrentTasks);
             progressBar = null;
             progressBarProvider.releaseResource(this);
         }

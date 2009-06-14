@@ -24,11 +24,13 @@ import javax.swing.JOptionPane;
  * @version 2008-10-05
  */
 public final class CopyToDirectoryDialog extends Dialog
-    implements ProgressListener {
+        implements ProgressListener {
 
-    private static final String keyLastDirectory = "de.elmar_baumann.imv.view.dialogs.CopyToDirectoryDialog.LastDirectory"; // NOI18N
+    private static final String keyLastDirectory =
+            "de.elmar_baumann.imv.view.dialogs.CopyToDirectoryDialog.LastDirectory"; // NOI18N
     private static final String keyCopyXmp = "CopyToDirectoryDialog.CopyXmp"; // NOI18N
-    private final List<ProgressListener> progressListeners = new ArrayList<ProgressListener>();
+    private final List<ProgressListener> progressListeners =
+            new ArrayList<ProgressListener>();
     private CopyFiles copyTask;
     private boolean copy = false;
     private List<File> sourceFiles;
@@ -69,10 +71,12 @@ public final class CopyToDirectoryDialog extends Dialog
     private void checkClosing() {
         if (copy) {
             JOptionPane.showMessageDialog(
-                null,
-                Bundle.getString("CopyToDirectoryDialog.ErrorMessage.AbortBeforeClose"),
-                Bundle.getString("CopyToDirectoryDialog.ErrorMessage.AbortBeforeClose.Title"),
-                JOptionPane.INFORMATION_MESSAGE);
+                    null,
+                    Bundle.getString(
+                    "CopyToDirectoryDialog.ErrorMessage.AbortBeforeClose"),
+                    Bundle.getString(
+                    "CopyToDirectoryDialog.ErrorMessage.AbortBeforeClose.Title"),
+                    JOptionPane.INFORMATION_MESSAGE);
         } else {
             setVisible(false);
         }
@@ -81,10 +85,12 @@ public final class CopyToDirectoryDialog extends Dialog
     private void checkError(List<String> errorFiles) {
         if (errorFiles.size() > 0) {
             JOptionPane.showMessageDialog(
-                null,
-                Bundle.getString("CopyToDirectoryDialog.ErrorMessage.CopyErrorsOccured"),
-                Bundle.getString("CopyToDirectoryDialog.ErrorMessage.CopyErrorsOccured.Title"),
-                JOptionPane.ERROR_MESSAGE);
+                    null,
+                    Bundle.getString(
+                    "CopyToDirectoryDialog.ErrorMessage.CopyErrorsOccured"),
+                    Bundle.getString(
+                    "CopyToDirectoryDialog.ErrorMessage.CopyErrorsOccured.Title"),
+                    JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -93,21 +99,23 @@ public final class CopyToDirectoryDialog extends Dialog
         copyTask.addProgressListener(this);
         Thread thread = new Thread(copyTask);
         thread.setPriority(UserSettings.INSTANCE.getThreadPriority());
-        thread.setName("CopyToDirectoryDialog#start"); // NOI18N
+        thread.setName("Copying files to directories" + " @ " + // NOI18N
+                getClass().getName());
         thread.start();
     }
 
     private Options getCopyOptions() {
         return checkBoxForceOverwrite.isSelected()
-            ? CopyFiles.Options.FORCE_OVERWRITE
-            : CopyFiles.Options.CONFIRM_OVERWRITE;
+               ? CopyFiles.Options.FORCE_OVERWRITE
+               : CopyFiles.Options.CONFIRM_OVERWRITE;
     }
 
     private List<Pair<File, File>> getFiles() {
         String targetDirectory = labelTargetDirectory.getText().trim();
         List<Pair<File, File>> filePairs = new ArrayList<Pair<File, File>>();
         for (File sourceFile : sourceFiles) {
-            File targetFile = new File(targetDirectory + File.separator + sourceFile.getName());
+            File targetFile = new File(targetDirectory + File.separator +
+                    sourceFile.getName());
             filePairs.add(new Pair<File, File>(sourceFile, targetFile));
             addXmp(sourceFile, filePairs);
         }
@@ -118,11 +126,13 @@ public final class CopyToDirectoryDialog extends Dialog
         if (checkBoxCopyXmp.isSelected()) {
             String targetDirectory = labelTargetDirectory.getText().trim();
             String sidecarFilename =
-                XmpMetadata.getSidecarFilename(sourceFile.getAbsolutePath());
+                    XmpMetadata.getSidecarFilename(sourceFile.getAbsolutePath());
             if (sidecarFilename != null) {
                 File sourceSidecarFile = new File(sidecarFilename);
-                File targetSidecarFile = new File(targetDirectory + File.separator + sourceSidecarFile.getName());
-                filePairs.add(new Pair<File, File>(sourceSidecarFile, targetSidecarFile));
+                File targetSidecarFile = new File(targetDirectory +
+                        File.separator + sourceSidecarFile.getName());
+                filePairs.add(new Pair<File, File>(sourceSidecarFile,
+                        targetSidecarFile));
             }
         }
     }
@@ -133,7 +143,9 @@ public final class CopyToDirectoryDialog extends Dialog
     }
 
     private void chooseTargetDirectory() {
-        DirectoryChooser dialog = new DirectoryChooser(null, new File(lastDirectory), UserSettings.INSTANCE.getDefaultDirectoryChooserOptions());
+        DirectoryChooser dialog = new DirectoryChooser(null, new File(
+                lastDirectory), UserSettings.INSTANCE.
+                getDefaultDirectoryChooserOptions());
         ViewUtil.setDirectoryTreeModel(dialog);
         dialog.setVisible(true);
         if (dialog.accepted()) {
@@ -146,7 +158,8 @@ public final class CopyToDirectoryDialog extends Dialog
             }
         } else {
             String directoryName = labelTargetDirectory.getText().trim();
-            if (directoryName.isEmpty() || !FileUtil.existsDirectory(directoryName)) {
+            if (directoryName.isEmpty() || !FileUtil.existsDirectory(
+                    directoryName)) {
                 buttonStart.setEnabled(false);
             }
         }
@@ -196,8 +209,10 @@ public final class CopyToDirectoryDialog extends Dialog
 
     private void readProperties() {
         UserSettings.INSTANCE.getSettings().getSizeAndLocation(this);
-        UserSettings.INSTANCE.getSettings().getCheckBox(checkBoxCopyXmp, keyCopyXmp);
-        String dir = UserSettings.INSTANCE.getSettings().getString(keyLastDirectory);
+        UserSettings.INSTANCE.getSettings().getCheckBox(checkBoxCopyXmp,
+                keyCopyXmp);
+        String dir = UserSettings.INSTANCE.getSettings().getString(
+                keyLastDirectory);
         if (FileUtil.existsDirectory(dir)) {
             lastDirectory = dir;
         }
@@ -205,8 +220,10 @@ public final class CopyToDirectoryDialog extends Dialog
 
     private void writeProperties() {
         UserSettings.INSTANCE.getSettings().setSizeAndLocation(this);
-        UserSettings.INSTANCE.getSettings().setString(lastDirectory, keyLastDirectory);
-        UserSettings.INSTANCE.getSettings().setCheckBox(checkBoxCopyXmp, keyCopyXmp);
+        UserSettings.INSTANCE.getSettings().setString(lastDirectory,
+                keyLastDirectory);
+        UserSettings.INSTANCE.getSettings().setCheckBox(checkBoxCopyXmp,
+                keyCopyXmp);
     }
 
     private void setLastDirectory() {
@@ -231,7 +248,8 @@ public final class CopyToDirectoryDialog extends Dialog
     public void progressPerformed(ProgressEvent evt) {
         progressBar.setValue(evt.getValue());
         @SuppressWarnings("unchecked")
-        String filename = ((Pair<File, File>) evt.getInfo()).getFirst().getAbsolutePath();
+        String filename = ((Pair<File, File>) evt.getInfo()).getFirst().
+                getAbsolutePath();
         labelCurrentFilename.setText(filename);
         notifyProgressListenerPerformed(evt);
     }

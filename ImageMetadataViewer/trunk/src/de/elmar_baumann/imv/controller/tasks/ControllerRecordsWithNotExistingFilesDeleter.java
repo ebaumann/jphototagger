@@ -18,10 +18,11 @@ import javax.swing.JProgressBar;
  * @version 2008-10-05
  */
 public final class ControllerRecordsWithNotExistingFilesDeleter
-    implements ProgressListener, Task {
+        implements ProgressListener, Task {
 
     private final JProgressBar progressBar;
-    private final List<TaskListener> taskListeners = new ArrayList<TaskListener>();
+    private final List<TaskListener> taskListeners =
+            new ArrayList<TaskListener>();
     private volatile boolean stop = false;
 
     /**
@@ -78,16 +79,20 @@ public final class ControllerRecordsWithNotExistingFilesDeleter
     }
 
     private void setProgressBar() {
-        progressBar.setToolTipText(Bundle.getString("ControllerRecordsWithNotExistingFilesDeleter.ProgressBarTooltipText.DeleteRecordsWithNotExistingFiles"));
+        progressBar.setToolTipText(
+                Bundle.getString(
+                "ControllerRecordsWithNotExistingFilesDeleter.ProgressBarTooltipText.DeleteRecordsWithNotExistingFiles"));
         progressBar.setIndeterminate(true);
     }
 
     private void startThread() {
-        RecordsWithNotExistingFilesDeleter deleter = new RecordsWithNotExistingFilesDeleter();
+        RecordsWithNotExistingFilesDeleter deleter =
+                new RecordsWithNotExistingFilesDeleter();
         deleter.addProgressListener(this);
         Thread thread = new Thread(deleter);
         thread.setPriority(UserSettings.INSTANCE.getThreadPriority());
-        thread.setName("ControllerRecordsWithNotExistingFilesDeleter#startThread"); // NOI18N
+        thread.setName("Deleting records with not existing files" + " @ " + // NOI18N
+                getClass().getName());
         thread.start();
     }
 

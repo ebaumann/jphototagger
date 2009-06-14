@@ -63,7 +63,8 @@ public final class ControllerTimelineItemSelected implements
                     info.hide();
                 }
             });
-            thread.setName("Timeline item selected");
+            thread.setName("Timeline item selected" + " @ " + // NOI18N
+                    getClass().getName());
             thread.start();
         }
     }

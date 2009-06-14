@@ -15,13 +15,15 @@ import de.elmar_baumann.imv.view.renderer.TableCellRendererDatabaseInfoColumns;
  */
 public final class DatabaseInfoCountPanel extends javax.swing.JPanel {
 
-    private final TotalRecordCountListener listenerTotalRecordCount = new TotalRecordCountListener();
+    private final TotalRecordCountListener listenerTotalRecordCount =
+            new TotalRecordCountListener();
     private TableModelDatabaseInfo modelDatabaseInfo;
 
     /** Creates new form DatabaseInfoCountPanel */
     public DatabaseInfoCountPanel() {
         initComponents();
-        table.setDefaultRenderer(Object.class, new TableCellRendererDatabaseInfoColumns());
+        table.setDefaultRenderer(Object.class,
+                new TableCellRendererDatabaseInfoColumns());
         setLabelFilename();
     }
 
@@ -47,7 +49,8 @@ public final class DatabaseInfoCountPanel extends javax.swing.JPanel {
                         DatabaseStatistics.INSTANCE.getTotalRecordCount()));
             }
         });
-        thread.setName("DatabaseInfoCountPanel#setInitTotalRecordCount"); // NOI18N
+        thread.setName("Database info setting initial total record count" + // NOI18N
+                " @ " + getClass().getName()); // NOI18N
         thread.start();
     }
 
@@ -69,7 +72,8 @@ public final class DatabaseInfoCountPanel extends javax.swing.JPanel {
                     setInitTotalRecordCount();
                 }
             });
-            thread.setName("DatabaseInfoCountPanel#setModelDatabaseInfo"); // NOI18N
+            thread.setName("Database info creating table model database info" + // NOI18N
+                    " @ " + getClass().getName()); // NOI18N
             thread.start();
         } else {
             setInitTotalRecordCount();

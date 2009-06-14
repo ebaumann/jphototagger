@@ -144,7 +144,8 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel {
         this.files = files;
         this.content = content;
         Thread thread = new Thread(new SetFiles(files, this, scrollToTop));
-        thread.setName("Setting files to thumbnails panel");
+        thread.setName("Setting files to thumbnails panel" + " @ " + // NOI18N
+                getClass().getName());
         thread.start();
     }
 

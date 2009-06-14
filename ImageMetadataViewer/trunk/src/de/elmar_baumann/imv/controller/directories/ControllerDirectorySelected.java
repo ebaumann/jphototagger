@@ -75,7 +75,7 @@ public final class ControllerDirectorySelected implements TreeSelectionListener,
                 }
             }
         });
-        thread.setName("Directory selected");
+        thread.setName("Directory selected" + " @ " + getClass().getName()); // NOI18N
         thread.start();
     }
 

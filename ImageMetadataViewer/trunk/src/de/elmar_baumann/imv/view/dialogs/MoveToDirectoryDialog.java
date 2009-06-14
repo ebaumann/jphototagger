@@ -32,9 +32,11 @@ import javax.swing.JOptionPane;
 public final class MoveToDirectoryDialog extends Dialog
         implements ProgressListener, FileSystemActionListener {
 
-    private static final String keyTargetDirectory = "de.elmar_baumann.imv.view.dialogs.MoveToDirectoryDialog.TargetDirectory"; // NOI18N
+    private static final String keyTargetDirectory =
+            "de.elmar_baumann.imv.view.dialogs.MoveToDirectoryDialog.TargetDirectory"; // NOI18N
     private final List<File> movedFiles = new ArrayList<File>();
-    private final List<ProgressListener> progressListeners = new ArrayList<ProgressListener>();
+    private final List<ProgressListener> progressListeners =
+            new ArrayList<ProgressListener>();
     private FileSystemMove moveTask;
     private boolean runs = false;
     private boolean stop = false;
@@ -77,8 +79,10 @@ public final class MoveToDirectoryDialog extends Dialog
         if (runs) {
             JOptionPane.showMessageDialog(
                     null,
-                    Bundle.getString("MoveToDirectoryDialog.ErrorMessage.AbortBeforeClose"),
-                    Bundle.getString("MoveToDirectoryDialog.ErrorMessage.AbortBeforeClose.Title"),
+                    Bundle.getString(
+                    "MoveToDirectoryDialog.ErrorMessage.AbortBeforeClose"),
+                    Bundle.getString(
+                    "MoveToDirectoryDialog.ErrorMessage.AbortBeforeClose.Title"),
                     JOptionPane.INFORMATION_MESSAGE);
         } else {
             setVisible(false);
@@ -89,8 +93,10 @@ public final class MoveToDirectoryDialog extends Dialog
         if (errors) {
             JOptionPane.showMessageDialog(
                     this,
-                    Bundle.getString("MoveToDirectoryDialog.ErrorMessage.CheckLogfile"),
-                    Bundle.getString("MoveToDirectoryDialog.ErrorMessage.CheckLogfile.Title"),
+                    Bundle.getString(
+                    "MoveToDirectoryDialog.ErrorMessage.CheckLogfile"),
+                    Bundle.getString(
+                    "MoveToDirectoryDialog.ErrorMessage.CheckLogfile.Title"),
                     JOptionPane.ERROR_MESSAGE);
         }
     }
@@ -120,7 +126,8 @@ public final class MoveToDirectoryDialog extends Dialog
         addListenerToMoveTask();
         Thread thread = new Thread(moveTask);
         thread.setPriority(UserSettings.INSTANCE.getThreadPriority());
-        thread.setName("MoveToDirectoryDialog#start"); // NOI18N
+        thread.setName("Moving files to directory " + targetDirectory.getPath() + // NOI18N
+                " @ " + getClass().getName()); // NOI18N
         thread.start();
         runs = true;
     }
@@ -128,7 +135,8 @@ public final class MoveToDirectoryDialog extends Dialog
     private synchronized void addListenerToMoveTask() {
         moveTask.addActionListener(this);
         moveTask.addProgressListener(this);
-        List<FileSystemActionListener> listeners = ListenerProvider.INSTANCE.getFileSystemActionListener();
+        List<FileSystemActionListener> listeners = ListenerProvider.INSTANCE.
+                getFileSystemActionListener();
         for (FileSystemActionListener listener : listeners) {
             moveTask.addActionListener(listener);
         }
@@ -139,7 +147,8 @@ public final class MoveToDirectoryDialog extends Dialog
     }
 
     private void chooseTargetDirectory() {
-        DirectoryChooser dialog = new DirectoryChooser(null, targetDirectory, UserSettings.INSTANCE.getDefaultDirectoryChooserOptions());
+        DirectoryChooser dialog = new DirectoryChooser(null, targetDirectory,
+                UserSettings.INSTANCE.getDefaultDirectoryChooserOptions());
         ViewUtil.setDirectoryTreeModel(dialog);
         dialog.setVisible(true);
         if (dialog.accepted()) {
@@ -151,7 +160,8 @@ public final class MoveToDirectoryDialog extends Dialog
             }
         } else {
             String directoryName = labelDirectoryName.getText().trim();
-            if (directoryName.isEmpty() || !FileUtil.existsDirectory(directoryName)) {
+            if (directoryName.isEmpty() || !FileUtil.existsDirectory(
+                    directoryName)) {
                 buttonStart.setEnabled(false);
             }
         }
@@ -195,7 +205,9 @@ public final class MoveToDirectoryDialog extends Dialog
     }
 
     private void setTargetDirectory() {
-        targetDirectory = new File(UserSettings.INSTANCE.getSettings().getString(keyTargetDirectory));
+        targetDirectory =
+                new File(UserSettings.INSTANCE.getSettings().getString(
+                keyTargetDirectory));
         if (targetDirectory.exists()) {
             labelDirectoryName.setText(targetDirectory.getAbsolutePath());
             buttonStart.setEnabled(true);
@@ -208,7 +220,8 @@ public final class MoveToDirectoryDialog extends Dialog
 
     private void writeProperties() {
         UserSettings.INSTANCE.getSettings().setSizeAndLocation(this);
-        UserSettings.INSTANCE.getSettings().setString(targetDirectory.getAbsolutePath(), keyTargetDirectory);
+        UserSettings.INSTANCE.getSettings().setString(targetDirectory.
+                getAbsolutePath(), keyTargetDirectory);
     }
 
     private void checkStopEvent(ProgressEvent evt) {
@@ -232,7 +245,8 @@ public final class MoveToDirectoryDialog extends Dialog
     public void progressPerformed(ProgressEvent evt) {
         progressBar.setValue(evt.getValue());
         @SuppressWarnings("unchecked")
-        String filename = ((Pair<File, File>) evt.getInfo()).getFirst().getAbsolutePath();
+        String filename = ((Pair<File, File>) evt.getInfo()).getFirst().
+                getAbsolutePath();
         labelCurrentFilename.setText(filename);
         checkStopEvent(evt);
         notifyProgressListenerPerformed(evt);
@@ -275,7 +289,8 @@ public final class MoveToDirectoryDialog extends Dialog
     }
 
     @Override
-    public void actionFailed(FileSystemAction action, FileSystemError error, File src, File target) {
+    public void actionFailed(FileSystemAction action, FileSystemError error,
+            File src, File target) {
         AppLog.logWarning(MoveToDirectoryDialog.class, Bundle.getString(
                 "MoveToDirectoryDialog.ErrorMessage.Logfile", src, target,
                 error.getLocalizedMessage()));

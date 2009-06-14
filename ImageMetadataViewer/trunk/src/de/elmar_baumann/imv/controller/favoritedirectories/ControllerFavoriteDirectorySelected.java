@@ -68,7 +68,8 @@ public final class ControllerFavoriteDirectorySelected implements
                 info.hide();
             }
         });
-        thread.setName("Favorite directory selected");
+        thread.setName("Favorite directory selected" + " @ " + // NOI18N
+                getClass().getName()); // NOI18N
         thread.start();
     }
 

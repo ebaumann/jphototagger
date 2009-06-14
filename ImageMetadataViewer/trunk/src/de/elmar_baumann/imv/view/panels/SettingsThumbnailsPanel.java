@@ -21,7 +21,7 @@ import javax.swing.SpinnerNumberModel;
  * @version 2008/11/02
  */
 public final class SettingsThumbnailsPanel extends javax.swing.JPanel
-    implements ActionListener, Persistence {
+        implements ActionListener, Persistence {
 
     private UpdateAllThumbnails thumbnailsUpdater;
     private final ListenerProvider listenerProvider = ListenerProvider.INSTANCE;
@@ -37,14 +37,15 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel
         }
         setExternalThumbnailAppEnabled();
         UserSettingsChangeEvent evt = new UserSettingsChangeEvent(
-            UserSettingsChangeEvent.Type.IS_USE_EMBEDDED_THUMBNAILS, this);
-        evt.setUseEmbeddedThumbnails(checkBoxIsUseEmbeddedThumbnails.isSelected());
+                UserSettingsChangeEvent.Type.IS_USE_EMBEDDED_THUMBNAILS, this);
+        evt.setUseEmbeddedThumbnails(
+                checkBoxIsUseEmbeddedThumbnails.isSelected());
         notifyChangeListener(evt);
     }
 
     private void handleStateChangedSpinnerMaxThumbnailWidth() {
         UserSettingsChangeEvent evt = new UserSettingsChangeEvent(
-            UserSettingsChangeEvent.Type.MAX_THUMBNAIL_WIDTH, this);
+                UserSettingsChangeEvent.Type.MAX_THUMBNAIL_WIDTH, this);
         evt.setMaxThumbnailWidth((Integer) spinnerMaxThumbnailWidth.getValue());
         notifyChangeListener(evt);
     }
@@ -56,7 +57,7 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel
             thumbnailsUpdater.addActionListener(this);
             Thread thread = new Thread(thumbnailsUpdater);
             thread.setPriority(UserSettings.INSTANCE.getThreadPriority());
-            thread.setName("SettingsThumbnailsPanel#updateAllThumbnails"); // NOI18N
+            thread.setName("Updating thumbnails" + " @ " + getClass().getName()); // NOI18N
             thread.start();
         }
     }
@@ -78,26 +79,31 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel
     private void readContentFromProperties() {
         UserSettings settings = UserSettings.INSTANCE;
         spinnerMaxThumbnailWidth.setValue(settings.getMaxThumbnailLength());
-        checkBoxIsCreateThumbnailsWithExternalApp.setSelected(settings.isCreateThumbnailsWithExternalApp());
-        checkBoxIsUseEmbeddedThumbnails.setSelected(settings.isUseEmbeddedThumbnails());
-        textFieldExternalThumbnailCreationCommand.setText(settings.getExternalThumbnailCreationCommand());
+        checkBoxIsCreateThumbnailsWithExternalApp.setSelected(settings.
+                isCreateThumbnailsWithExternalApp());
+        checkBoxIsUseEmbeddedThumbnails.setSelected(settings.
+                isUseEmbeddedThumbnails());
+        textFieldExternalThumbnailCreationCommand.setText(settings.
+                getExternalThumbnailCreationCommand());
     }
 
     private void handleActionCheckBoxExternalThumbnail() {
         if (checkBoxIsCreateThumbnailsWithExternalApp.isSelected()) {
             checkBoxIsUseEmbeddedThumbnails.setSelected(false);
         }
-        UserSettingsChangeEvent evt = new UserSettingsChangeEvent(
-            UserSettingsChangeEvent.Type.IS_CREATE_THUMBNAILS_WITH_EXTERNAL_APP, this);
+        UserSettingsChangeEvent evt =
+                new UserSettingsChangeEvent(
+                UserSettingsChangeEvent.Type.IS_CREATE_THUMBNAILS_WITH_EXTERNAL_APP,
+                this);
         evt.setCreateThumbnailsWithExternalApp(
-            checkBoxIsCreateThumbnailsWithExternalApp.isSelected());
+                checkBoxIsCreateThumbnailsWithExternalApp.isSelected());
         notifyChangeListener(evt);
         setExternalThumbnailAppEnabled();
     }
 
     public void setEnabled() {
         textFieldExternalThumbnailCreationCommand.setEnabled(
-            checkBoxIsCreateThumbnailsWithExternalApp.isSelected());
+                checkBoxIsCreateThumbnailsWithExternalApp.isSelected());
     }
 
     @Override
@@ -109,14 +115,16 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel
 
     private void setExternalThumbnailAppEnabled() {
         textFieldExternalThumbnailCreationCommand.setEnabled(
-            UserSettings.INSTANCE.isCreateThumbnailsWithExternalApp());
+                UserSettings.INSTANCE.isCreateThumbnailsWithExternalApp());
     }
 
     private void handleTextFieldExternalThumbnailCreationCommandKeyReleased() {
-        UserSettingsChangeEvent evt = new UserSettingsChangeEvent(
-            UserSettingsChangeEvent.Type.EXTERNAL_THUMBNAIL_CREATION_COMMAND, this);
+        UserSettingsChangeEvent evt =
+                new UserSettingsChangeEvent(
+                UserSettingsChangeEvent.Type.EXTERNAL_THUMBNAIL_CREATION_COMMAND,
+                this);
         evt.setExternalThumbnailCreationCommand(
-            textFieldExternalThumbnailCreationCommand.getText());
+                textFieldExternalThumbnailCreationCommand.getText());
         notifyChangeListener(evt);
     }
 

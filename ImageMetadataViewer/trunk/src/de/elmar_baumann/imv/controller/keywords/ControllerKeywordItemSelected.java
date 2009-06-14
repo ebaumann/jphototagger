@@ -71,7 +71,7 @@ public final class ControllerKeywordItemSelected implements
                 info.hide();
             }
         });
-        update.setName("Keyword selected");
+        update.setName("Keyword selected" + " @ " + getClass().getName()); // NOI18N
         update.start();
     }
 

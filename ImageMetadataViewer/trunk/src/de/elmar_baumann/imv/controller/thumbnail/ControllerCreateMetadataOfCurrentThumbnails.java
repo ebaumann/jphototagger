@@ -26,11 +26,14 @@ import javax.swing.JProgressBar;
 public final class ControllerCreateMetadataOfCurrentThumbnails
         implements ThumbnailsPanelListener, ProgressListener {
 
-    private final Queue<InsertImageFilesIntoDatabase> updaters = new ConcurrentLinkedQueue<InsertImageFilesIntoDatabase>();
+    private final Queue<InsertImageFilesIntoDatabase> updaters =
+            new ConcurrentLinkedQueue<InsertImageFilesIntoDatabase>();
     private volatile boolean wait = false;
     private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
-    private final ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelThumbnails();
-    private final JProgressBar progressBar = appPanel.getProgressBarCreateMetadataOfCurrentThumbnails();
+    private final ImageFileThumbnailsPanel thumbnailsPanel = appPanel.
+            getPanelThumbnails();
+    private final JProgressBar progressBar = appPanel.
+            getProgressBarCreateMetadataOfCurrentThumbnails();
     private boolean stop = false;
 
     public ControllerCreateMetadataOfCurrentThumbnails() {
@@ -42,7 +45,8 @@ public final class ControllerCreateMetadataOfCurrentThumbnails
     }
 
     private synchronized void updateMetadata() {
-        updaters.add(createUpdater(FileUtil.getAsFilenames(thumbnailsPanel.getFiles())));
+        updaters.add(createUpdater(FileUtil.getAsFilenames(thumbnailsPanel.
+                getFiles())));
         startUpdateMetadataThread();
     }
 
@@ -59,7 +63,8 @@ public final class ControllerCreateMetadataOfCurrentThumbnails
             setWait(true);
             Thread thread = new Thread(updaters.remove());
             thread.setPriority(UserSettings.INSTANCE.getThreadPriority());
-            thread.setName("ControllerCreateMetadataOfCurrentThumbnails#startUpdateMetadataThread"); // NOI18N
+            thread.setName("Creating metadata of all thumbnails in panel" + // NOI18N
+                    " @ " + getClass().getName()); // NOI18N
             thread.start();
         }
     }
@@ -82,7 +87,8 @@ public final class ControllerCreateMetadataOfCurrentThumbnails
         updateMetadata();
     }
 
-    private synchronized void setProgressBarValueAndTooltipText(ProgressEvent evt) {
+    private synchronized void setProgressBarValueAndTooltipText(
+            ProgressEvent evt) {
         progressBar.setValue(evt.getValue());
         if (evt.getInfo() != null) {
             progressBar.setToolTipText(evt.getInfo().toString());

@@ -20,11 +20,13 @@ import javax.swing.JLabel;
  * @version 2008/11/08
  */
 public final class DatabaseMaintainancePanel extends javax.swing.JPanel
-    implements ProgressListener {
+        implements ProgressListener {
 
-    private static final Icon iconFinished = AppIcons.getIcon("icon_finished.png"); // NOI18N
+    private static final Icon iconFinished = AppIcons.getIcon(
+            "icon_finished.png"); // NOI18N
     private final Stack<Runnable> runnables = new Stack<Runnable>();
-    private final Map<Runnable, JLabel> finishedLabelOfRunnable = new HashMap<Runnable, JLabel>();
+    private final Map<Runnable, JLabel> finishedLabelOfRunnable =
+            new HashMap<Runnable, JLabel>();
     private boolean stop = false;
     private boolean canClose = true;
 
@@ -63,8 +65,8 @@ public final class DatabaseMaintainancePanel extends javax.swing.JPanel
 
     private void setEnabledButtonStartMaintain() {
         buttonStartMaintain.setEnabled(
-            checkBoxCompressDatabase.isSelected() ||
-            checkBoxDeleteRecordsOfNotExistingFilesInDatabase.isSelected());
+                checkBoxCompressDatabase.isSelected() ||
+                checkBoxDeleteRecordsOfNotExistingFilesInDatabase.isSelected());
     }
 
     private void setCanClose(boolean can) {
@@ -79,7 +81,8 @@ public final class DatabaseMaintainancePanel extends javax.swing.JPanel
         if (runnables.size() > 0) {
             Thread thread = new Thread(runnables.pop());
             thread.setPriority(UserSettings.INSTANCE.getThreadPriority());
-            thread.setName("DatabaseMaintainancePanel#startNextThread"); // NOI18N
+            thread.setName("Database maintainance next task" + " @ " + // NOI18N
+                    getClass().getName());
             thread.start();
         }
     }
@@ -104,13 +107,16 @@ public final class DatabaseMaintainancePanel extends javax.swing.JPanel
         if (checkBoxCompressDatabase.isSelected()) {
             DatabaseCompress databaseCompress = new DatabaseCompress();
             databaseCompress.addProgressListener(this);
-            finishedLabelOfRunnable.put(databaseCompress, labelFinishedCompressDatabase);
+            finishedLabelOfRunnable.put(databaseCompress,
+                    labelFinishedCompressDatabase);
             runnables.push(databaseCompress);
         }
         if (checkBoxDeleteRecordsOfNotExistingFilesInDatabase.isSelected()) {
-            RecordsWithNotExistingFilesDeleter deleter = new RecordsWithNotExistingFilesDeleter();
+            RecordsWithNotExistingFilesDeleter deleter =
+                    new RecordsWithNotExistingFilesDeleter();
             deleter.addProgressListener(this);
-            finishedLabelOfRunnable.put(deleter, labelFinishedDeleteRecordsOfNotExistingFilesInDatabase);
+            finishedLabelOfRunnable.put(deleter,
+                    labelFinishedDeleteRecordsOfNotExistingFilesInDatabase);
             runnables.push(deleter);
         }
     }
@@ -126,7 +132,8 @@ public final class DatabaseMaintainancePanel extends javax.swing.JPanel
         labelMessage.setText(evt.getInfo().toString());
         buttonAbortAction.setEnabled(true);
         setProgressbarStart(evt);
-        buttonAbortAction.setEnabled(!(evt.getSource() instanceof DatabaseCompress));
+        buttonAbortAction.setEnabled(
+                !(evt.getSource() instanceof DatabaseCompress));
         checkStopEvent(evt);
     }
 

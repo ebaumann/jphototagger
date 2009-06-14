@@ -19,7 +19,8 @@ public final class AutoCompleteData {
 
     private final DatabaseContent db = DatabaseContent.INSTANCE;
     private final Set<Column> columns;
-    private final List<String> content = Collections.synchronizedList(new ArrayList<String>());
+    private final List<String> content = Collections.synchronizedList(
+            new ArrayList<String>());
 
     /**
      * Standardkonstruktor.
@@ -28,7 +29,8 @@ public final class AutoCompleteData {
      * {@link de.elmar_baumann.imv.UserSettings#getFastSearchColumns()}.
      */
     public AutoCompleteData() {
-        columns = new LinkedHashSet<Column>(UserSettings.INSTANCE.getFastSearchColumns());
+        columns = new LinkedHashSet<Column>(UserSettings.INSTANCE.
+                getFastSearchColumns());
         addColumnsContent();
     }
 
@@ -64,7 +66,8 @@ public final class AutoCompleteData {
                 content.addAll(db.getContent(columns));
             }
         });
-        thread.setName("AutoCompleteData#addColumnsContent"); // NOI18N
+        thread.setName("Adding auto complete data of columns" + " @ " + // NOI18N
+                getClass().getName());
         thread.start();
 
     }
