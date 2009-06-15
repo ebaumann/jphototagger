@@ -187,7 +187,7 @@ public final class ProgressDialog extends javax.swing.JDialog {
             }
         });
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/lib/resource/Bundle"); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/lib/resource/properties/Bundle"); // NOI18N
         labelInfo.setText(bundle.getString("ProgressDialogLabelMessageText")); // NOI18N
 
         progressBar.setStringPainted(true);
