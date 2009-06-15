@@ -1,6 +1,7 @@
 package de.elmar_baumann.lib.io;
 
 import java.io.File;
+import java.util.EnumSet;
 import java.util.Set;
 import javax.swing.filechooser.FileSystemView;
 
@@ -16,6 +17,16 @@ import javax.swing.filechooser.FileSystemView;
  */
 public final class DirectoryFilter implements java.io.FileFilter {
 
+    /**
+     * Instance which accepts hidden files.
+     */
+    public static final DirectoryFilter ACCEPT_HIDDEN_FILES =
+            new DirectoryFilter(EnumSet.of(Option.ACCEPT_HIDDEN_FILES));
+    /**
+     * Instance which rejects hidden files.
+     */
+    public static final DirectoryFilter REJECT_HIDDEN_FILES =
+            new DirectoryFilter(EnumSet.of(Option.REJECT_HIDDEN_FILES));
     private static final FileSystemView fsv = FileSystemView.getFileSystemView();
     private final Set<Option> options;
 
@@ -41,8 +52,8 @@ public final class DirectoryFilter implements java.io.FileFilter {
     public boolean accept(File file) {
         boolean isDirectory = file.isDirectory();
         return options.contains(Option.ACCEPT_HIDDEN_FILES)
-            ? isDirectory
-            : isDirectory && !fsv.isHiddenFile(file);
+               ? isDirectory
+               : isDirectory && !fsv.isHiddenFile(file);
     }
 
     /**
