@@ -35,8 +35,8 @@ public final class AppInit {
     }
 
     private void initApp() {
-        captureOutput();
         AppLookAndFeel.set();
+        captureOutput();
         checkJavaVersion();
         lock();
         AppDatabase.init();
