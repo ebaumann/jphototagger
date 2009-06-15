@@ -3,13 +3,13 @@ package de.elmar_baumann.imv.factory;
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.model.ComboBoxModelMetadataEditTemplates;
 import de.elmar_baumann.imv.model.ListModelCategories;
-import de.elmar_baumann.imv.model.ListModelFavoriteDirectories;
 import de.elmar_baumann.imv.model.ListModelImageCollections;
 import de.elmar_baumann.imv.model.ListModelKeywords;
 import de.elmar_baumann.imv.model.ListModelSavedSearches;
 import de.elmar_baumann.imv.model.TableModelExif;
 import de.elmar_baumann.imv.model.TableModelIptc;
 import de.elmar_baumann.imv.model.TableModelXmp;
+import de.elmar_baumann.imv.model.TreeModelFavoriteDirectories;
 import de.elmar_baumann.imv.model.TreeModelMiscMetadata;
 import de.elmar_baumann.imv.model.TreeModelTimeline;
 import de.elmar_baumann.imv.resource.GUI;
@@ -49,8 +49,6 @@ public final class ModelFactory {
             appPanel.getListImageCollections().setModel(
                     new ListModelImageCollections());
             setTreeModels(appPanel);
-            appPanel.getListFavoriteDirectories().setModel(
-                    new ListModelFavoriteDirectories());
             appPanel.getListCategories().setModel(new SortedListModel(
                     new ListModelCategories()));
             appPanel.getListKeywords().setModel(new SortedListModel(
@@ -63,6 +61,7 @@ public final class ModelFactory {
     private void setTreeModels(final AppPanel appPanel) {
         setTreeModelTimeline(appPanel);
         setTreeModelMiscMetadata(appPanel);
+        setTreeModelFavoriteDirectories(appPanel);
         setTreeModelDirectories(appPanel);
     }
 
@@ -72,7 +71,7 @@ public final class ModelFactory {
             @Override
             public void run() {
                 TreeModel model = new TreeModelMiscMetadata();
-                appPanel.getTreeSelectionMiscMetadata().setModel(model);
+                appPanel.getTreeMiscMetadata().setModel(model);
             }
         });
         thread.setName("Creating model of tree misc metadata" + " @ " + // NOI18N
@@ -86,10 +85,24 @@ public final class ModelFactory {
             @Override
             public void run() {
                 TreeModel model = new TreeModelTimeline();
-                appPanel.getTreeSelectionTimeline().setModel(model);
+                appPanel.getTreeTimeline().setModel(model);
             }
         });
         thread.setName("Creating model of tree timeline" + " @ " + // NOI18N
+                getClass().getName());
+        thread.start();
+    }
+
+    private void setTreeModelFavoriteDirectories(final AppPanel appPanel) {
+        Thread thread = new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                TreeModel model = new TreeModelFavoriteDirectories();
+                appPanel.getTreeFavoriteDirectories().setModel(model);
+            }
+        });
+        thread.setName("Creating model of tree favorite directories" + " @ " + // NOI18N
                 getClass().getName());
         thread.start();
     }

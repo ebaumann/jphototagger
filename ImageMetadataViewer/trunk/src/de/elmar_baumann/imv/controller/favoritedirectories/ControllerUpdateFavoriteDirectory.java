@@ -1,11 +1,11 @@
 package de.elmar_baumann.imv.controller.favoritedirectories;
 
 import de.elmar_baumann.imv.data.FavoriteDirectory;
-import de.elmar_baumann.imv.model.ListModelFavoriteDirectories;
+import de.elmar_baumann.imv.model.TreeModelFavoriteDirectories;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.dialogs.FavoriteDirectoryPropertiesDialog;
 import de.elmar_baumann.imv.view.panels.AppPanel;
-import de.elmar_baumann.imv.view.popupmenus.PopupMenuListFavoriteDirectories;
+import de.elmar_baumann.imv.view.popupmenus.PopupMenuTreeFavoriteDirectories;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -17,9 +17,9 @@ import java.awt.event.ActionListener;
  */
 public final class ControllerUpdateFavoriteDirectory implements ActionListener {
 
-    private final PopupMenuListFavoriteDirectories popupMenu = PopupMenuListFavoriteDirectories.INSTANCE;
+    private final PopupMenuTreeFavoriteDirectories popupMenu =
+            PopupMenuTreeFavoriteDirectories.INSTANCE;
     private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
-    private final ListModelFavoriteDirectories model = (ListModelFavoriteDirectories) appPanel.getListFavoriteDirectories().getModel();
 
     public ControllerUpdateFavoriteDirectory() {
         listen();
@@ -36,11 +36,16 @@ public final class ControllerUpdateFavoriteDirectory implements ActionListener {
 
     private void updateFavorite() {
         FavoriteDirectory favorite = popupMenu.getFavoriteDirectory();
-        FavoriteDirectoryPropertiesDialog dialog = new FavoriteDirectoryPropertiesDialog();
+        FavoriteDirectoryPropertiesDialog dialog =
+                new FavoriteDirectoryPropertiesDialog();
         dialog.setFavoriteName(favorite.getFavoriteName());
         dialog.setDirectoryName(favorite.getDirectoryName());
         dialog.setVisible(true);
         if (dialog.accepted()) {
+            TreeModelFavoriteDirectories model =
+                    (TreeModelFavoriteDirectories) appPanel.
+                    getTreeFavoriteDirectories().
+                    getModel();
             model.replaceFavorite(favorite, new FavoriteDirectory(
                     dialog.getFavoriteName(),
                     dialog.getDirectoryName(),

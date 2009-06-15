@@ -9,6 +9,7 @@ import de.elmar_baumann.lib.io.FileUtil;
 import java.io.File;
 import javax.swing.JList;
 import javax.swing.JTree;
+import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 
 /**
@@ -40,16 +41,23 @@ public class ViewUtil {
     }
 
     /**
-     * Returns the selected directory in the list with favorite directories.
+     * Returns the selected directory in the tree with favorite directories.
      * 
      * @return directory or null if no directory is selected
      */
     public static File getSelectedDirectoryFromFavoriteDirectories() {
-        JList list = GUI.INSTANCE.getAppPanel().getListFavoriteDirectories();
-        Object o = list.getSelectedValue();
-        if (o instanceof FavoriteDirectory) {
-            FavoriteDirectory favoriteDirectory = (FavoriteDirectory) o;
-            return new File(favoriteDirectory.getDirectoryName());
+        JTree tree = GUI.INSTANCE.getAppPanel().getTreeFavoriteDirectories();
+        Object o = tree.getLastSelectedPathComponent();
+        if (o instanceof DefaultMutableTreeNode) {
+            DefaultMutableTreeNode node = (DefaultMutableTreeNode) o;
+            Object userObject = node.getUserObject();
+            if (userObject instanceof FavoriteDirectory) {
+                FavoriteDirectory favoriteDirectory =
+                        (FavoriteDirectory) userObject;
+                return new File(favoriteDirectory.getDirectoryName());
+            } else if (userObject instanceof File) {
+                return (File) userObject;
+            }
         }
         return null;
     }
@@ -60,14 +68,16 @@ public class ViewUtil {
      * @param chooser  directory chooser
      */
     public static void setDirectoryTreeModel(DirectoryChooser chooser) {
-        chooser.setModel(GUI.INSTANCE.getAppPanel().getTreeDirectories().getModel());
+        chooser.setModel(GUI.INSTANCE.getAppPanel().getTreeDirectories().
+                getModel());
     }
 
     public static void writeTreeDirectoriesToProperties() {
         JTree treeDirectories = GUI.INSTANCE.getAppPanel().getTreeDirectories();
         if (treeDirectories.getSelectionCount() > 0) {
             UserSettings.INSTANCE.getSettings().setString(
-                treeDirectories.getSelectionPath().getLastPathComponent().toString(), keyTreeDirectories);
+                    treeDirectories.getSelectionPath().getLastPathComponent().
+                    toString(), keyTreeDirectories);
         } else {
             UserSettings.INSTANCE.getProperties().remove(keyTreeDirectories);
         }
@@ -75,15 +85,17 @@ public class ViewUtil {
 
     public static void readTreeDirectoriesFromProperties() {
         JTree treeDirectories = GUI.INSTANCE.getAppPanel().getTreeDirectories();
-        String filename = UserSettings.INSTANCE.getSettings().getString(keyTreeDirectories);
+        String filename = UserSettings.INSTANCE.getSettings().getString(
+                keyTreeDirectories);
 
         if (!filename.isEmpty() && FileUtil.existsDirectory(filename)) {
             TreePath path = TreeUtil.getTreePath(
-                new File(filename), treeDirectories.getModel());
+                    new File(filename), treeDirectories.getModel());
             TreeUtil.expandPathCascade(treeDirectories, path);
             treeDirectories.setSelectionPath(path);
         }
     }
 
-    private ViewUtil() {}
+    private ViewUtil() {
+    }
 }

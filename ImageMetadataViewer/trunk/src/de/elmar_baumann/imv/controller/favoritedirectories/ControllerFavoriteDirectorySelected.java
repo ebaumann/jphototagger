@@ -1,10 +1,8 @@
 package de.elmar_baumann.imv.controller.favoritedirectories;
 
-import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.data.FavoriteDirectory;
 import de.elmar_baumann.imv.event.RefreshListener;
 import de.elmar_baumann.imv.io.ImageFilteredDirectory;
-import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.types.Content;
@@ -12,10 +10,13 @@ import de.elmar_baumann.imv.view.InfoSetThumbnails;
 import de.elmar_baumann.imv.view.panels.EditMetadataPanelsArray;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JList;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
+import javax.swing.JTree;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.TreePath;
 
 /**
  * 
@@ -24,11 +25,11 @@ import javax.swing.event.ListSelectionListener;
  * @version 2008/09/24
  */
 public final class ControllerFavoriteDirectorySelected implements
-        ListSelectionListener, RefreshListener {
+        TreeSelectionListener, RefreshListener {
 
     private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
-    private final JList listFavoriteDirectories = appPanel.
-            getListFavoriteDirectories();
+    private final JTree treeFavoriteDirectories = appPanel.
+            getTreeFavoriteDirectories();
     private final ImageFileThumbnailsPanel thumbnailsPanel = appPanel.
             getPanelThumbnails();
     private final EditMetadataPanelsArray editPanels = appPanel.
@@ -39,20 +40,21 @@ public final class ControllerFavoriteDirectorySelected implements
     }
 
     private void listen() {
-        listFavoriteDirectories.addListSelectionListener(this);
+        treeFavoriteDirectories.getSelectionModel().addTreeSelectionListener(
+                this);
         thumbnailsPanel.addRefreshListener(this, Content.FAVORITE_DIRECTORY);
     }
 
     @Override
-    public void valueChanged(ListSelectionEvent e) {
-        if (listFavoriteDirectories.getSelectedIndex() >= 0) {
+    public void valueChanged(TreeSelectionEvent e) {
+        if (treeFavoriteDirectories.getSelectionCount() > 0) {
             update();
         }
     }
 
     @Override
     public void refresh() {
-        if (listFavoriteDirectories.getSelectedIndex() >= 0) {
+        if (treeFavoriteDirectories.getSelectionCount() > 0) {
             update();
         }
     }
@@ -63,7 +65,8 @@ public final class ControllerFavoriteDirectorySelected implements
             @Override
             public void run() {
                 InfoSetThumbnails info = new InfoSetThumbnails();
-                setFilesToThumbnailsPanel();
+                thumbnailsPanel.setFiles(getFilesOfCurrentDirectory(),
+                        Content.FAVORITE_DIRECTORY);
                 setMetadataEditable();
                 info.hide();
             }
@@ -73,22 +76,23 @@ public final class ControllerFavoriteDirectorySelected implements
         thread.start();
     }
 
-    private void setFilesToThumbnailsPanel() {
-        if (listFavoriteDirectories.getSelectedValue() != null) {
-            thumbnailsPanel.setFiles(getFilesOfCurrentDirectory(),
-                    Content.FAVORITE_DIRECTORY);
-        } else {
-            AppLog.logWarning(ControllerFavoriteDirectorySelected.class,
-                    Bundle.getString(
-                    "ControllerFavoriteDirectorySelected.ErrorMessage.SelectedValueIsNull"));
-        }
-    }
-
     private List<File> getFilesOfCurrentDirectory() {
-        FavoriteDirectory favorite =
-                (FavoriteDirectory) listFavoriteDirectories.getSelectedValue();
-        return ImageFilteredDirectory.getImageFilesOfDirectory(new File(favorite.
-                getDirectoryName()));
+        TreePath path = treeFavoriteDirectories.getLeadSelectionPath();
+        if (path != null) {
+            File dir = null;
+            DefaultMutableTreeNode node = (DefaultMutableTreeNode) path.
+                    getLastPathComponent();
+            Object userObject = node.getUserObject();
+            if (userObject instanceof FavoriteDirectory) {
+                FavoriteDirectory favoriteDirectory =
+                        (FavoriteDirectory) userObject;
+                dir = new File(favoriteDirectory.getDirectoryName());
+            } else if (userObject instanceof File) {
+                dir = (File) userObject;
+            }
+            return ImageFilteredDirectory.getImageFilesOfDirectory(dir);
+        }
+        return new ArrayList<File>();
     }
 
     private void setMetadataEditable() {

@@ -25,7 +25,7 @@ public final class ControllerTimelineItemSelected implements
 
     private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
     private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
-    private final JTree treeTimeline = appPanel.getTreeSelectionTimeline();
+    private final JTree treeTimeline = appPanel.getTreeTimeline();
     private final ImageFileThumbnailsPanel thumbnailsPanel = appPanel.
             getPanelThumbnails();
 

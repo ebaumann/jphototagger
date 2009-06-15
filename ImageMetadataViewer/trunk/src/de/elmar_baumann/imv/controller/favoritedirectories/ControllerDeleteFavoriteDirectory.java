@@ -1,13 +1,11 @@
 package de.elmar_baumann.imv.controller.favoritedirectories;
 
-import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.data.FavoriteDirectory;
-import de.elmar_baumann.imv.model.ListModelFavoriteDirectories;
+import de.elmar_baumann.imv.model.TreeModelFavoriteDirectories;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.AppPanel;
-import de.elmar_baumann.imv.view.popupmenus.PopupMenuListFavoriteDirectories;
-import de.elmar_baumann.lib.io.FileUtil;
+import de.elmar_baumann.imv.view.popupmenus.PopupMenuTreeFavoriteDirectories;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
@@ -21,24 +19,15 @@ import javax.swing.JOptionPane;
 public final class ControllerDeleteFavoriteDirectory implements ActionListener {
 
     private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
-    private final ListModelFavoriteDirectories model = (ListModelFavoriteDirectories) appPanel.getListFavoriteDirectories().getModel();
-    private final PopupMenuListFavoriteDirectories popupMenu = PopupMenuListFavoriteDirectories.INSTANCE;
-    private CheckDirectoriesRemoved removeChecker;
-    private static final int removeCheckIntervalSeconds = 3;
+    private final PopupMenuTreeFavoriteDirectories popupMenu =
+            PopupMenuTreeFavoriteDirectories.INSTANCE;
 
     public ControllerDeleteFavoriteDirectory() {
         listen();
-        startRemoveChecker();
     }
 
     private void listen() {
         popupMenu.addActionListenerDelete(this);
-    }
-
-    private void startRemoveChecker() {
-        removeChecker = new CheckDirectoriesRemoved();
-        removeChecker.setPriority(1);
-        removeChecker.start();
     }
 
     @Override
@@ -49,6 +38,10 @@ public final class ControllerDeleteFavoriteDirectory implements ActionListener {
     private void deleteFavorite() {
         FavoriteDirectory favorite = popupMenu.getFavoriteDirectory();
         if (confirmDelete(favorite.getFavoriteName())) {
+            TreeModelFavoriteDirectories model =
+                    (TreeModelFavoriteDirectories) appPanel.
+                    getTreeFavoriteDirectories().
+                    getModel();
             model.deleteFavorite(favorite);
         }
     }
@@ -56,41 +49,12 @@ public final class ControllerDeleteFavoriteDirectory implements ActionListener {
     private boolean confirmDelete(String favoriteName) {
         return JOptionPane.showConfirmDialog(
                 null,
-                Bundle.getString("ControllerDeleteFavoriteDirectory.ConfirmMessage.Delete", favoriteName),
-                Bundle.getString("ControllerDeleteFavoriteDirectory.ConfirmMessage.Delete.Title"),
+                Bundle.getString(
+                "ControllerDeleteFavoriteDirectory.ConfirmMessage.Delete",
+                favoriteName),
+                Bundle.getString(
+                "ControllerDeleteFavoriteDirectory.ConfirmMessage.Delete.Title"),
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION;
-    }
-
-    @Override
-    public void finalize() throws Throwable {
-        super.finalize();
-        removeChecker.stopCheck();
-    }
-
-    private class CheckDirectoriesRemoved extends Thread {
-
-        private volatile boolean stop = false;
-
-        public void stopCheck() {
-            stop = true;
-        }
-
-        @Override
-        public void run() {
-            while (!stop) {
-                try {
-                    Thread.sleep(removeCheckIntervalSeconds * 1000);
-                } catch (InterruptedException ex) {
-                    AppLog.logWarning(ControllerDeleteFavoriteDirectory.class, ex);
-                }
-                int size = model.getSize();
-                for (int i = 0; i < size; i++) {
-                    if (!FileUtil.existsDirectory(((FavoriteDirectory) model.get(i)).getDirectoryName())) {
-                        model.deleteFavorite((FavoriteDirectory) model.get(i));
-                    }
-                }
-            }
-        }
     }
 }

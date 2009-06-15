@@ -27,7 +27,7 @@ public final class ControllerMiscMetadataItemSelected implements
 
     private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
     private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
-    private final JTree tree = appPanel.getTreeSelectionMiscMetadata();
+    private final JTree tree = appPanel.getTreeMiscMetadata();
     private final ImageFileThumbnailsPanel thumbnailsPanel = appPanel.
             getPanelThumbnails();
 

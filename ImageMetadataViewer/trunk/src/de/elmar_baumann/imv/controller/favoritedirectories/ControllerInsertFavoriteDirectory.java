@@ -1,11 +1,11 @@
 package de.elmar_baumann.imv.controller.favoritedirectories;
 
 import de.elmar_baumann.imv.data.FavoriteDirectory;
-import de.elmar_baumann.imv.model.ListModelFavoriteDirectories;
+import de.elmar_baumann.imv.model.TreeModelFavoriteDirectories;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.dialogs.FavoriteDirectoryPropertiesDialog;
 import de.elmar_baumann.imv.view.panels.AppPanel;
-import de.elmar_baumann.imv.view.popupmenus.PopupMenuListFavoriteDirectories;
+import de.elmar_baumann.imv.view.popupmenus.PopupMenuTreeFavoriteDirectories;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuTreeDirectories;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,15 +19,15 @@ import java.awt.event.ActionListener;
 public final class ControllerInsertFavoriteDirectory implements ActionListener {
 
     private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
-    private final ListModelFavoriteDirectories model = (ListModelFavoriteDirectories) appPanel.getListFavoriteDirectories().getModel();
-    private final PopupMenuTreeDirectories popupDirectories = PopupMenuTreeDirectories.INSTANCE;
+    private final PopupMenuTreeDirectories popupDirectories =
+            PopupMenuTreeDirectories.INSTANCE;
 
     public ControllerInsertFavoriteDirectory() {
         listen();
     }
 
     private void listen() {
-        PopupMenuListFavoriteDirectories.INSTANCE.addActionListenerInsert(this);
+        PopupMenuTreeFavoriteDirectories.INSTANCE.addActionListenerInsert(this);
         popupDirectories.addActionListenerAddToFavoriteDirectories(this);
     }
 
@@ -45,13 +45,18 @@ public final class ControllerInsertFavoriteDirectory implements ActionListener {
     }
 
     private void insertFavorite(String directoryName) {
-        FavoriteDirectoryPropertiesDialog dialog = new FavoriteDirectoryPropertiesDialog();
+        FavoriteDirectoryPropertiesDialog dialog =
+                new FavoriteDirectoryPropertiesDialog();
         if (directoryName != null) {
             dialog.setDirectoryName(directoryName);
             dialog.setEnabledButtonChooseDirectory(false);
         }
         dialog.setVisible(true);
         if (dialog.accepted()) {
+            TreeModelFavoriteDirectories model =
+                    (TreeModelFavoriteDirectories) appPanel.
+                    getTreeFavoriteDirectories().
+                    getModel();
             model.insertFavorite(new FavoriteDirectory(
                     dialog.getFavoriteName(), dialog.getDirectoryName(), -1));
         }

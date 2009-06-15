@@ -11,6 +11,7 @@ import de.elmar_baumann.imv.controller.favoritedirectories.ControllerDeleteFavor
 import de.elmar_baumann.imv.controller.favoritedirectories.ControllerFavoriteDirectoryOpenInFolders;
 import de.elmar_baumann.imv.controller.favoritedirectories.ControllerFavoriteDirectorySelected;
 import de.elmar_baumann.imv.controller.favoritedirectories.ControllerInsertFavoriteDirectory;
+import de.elmar_baumann.imv.controller.favoritedirectories.ControllerMoveFavoriteDirectory;
 import de.elmar_baumann.imv.controller.favoritedirectories.ControllerUpdateFavoriteDirectory;
 import de.elmar_baumann.imv.controller.filesystem.ControllerCopyFilesToDirectory;
 import de.elmar_baumann.imv.controller.programs.ControllerOpenFilesWithOtherApp;
@@ -140,6 +141,7 @@ public final class ControllerFactory {
             new ControllerShowSystemOutput();
             new ControllerTimelineItemSelected();
             new ControllerMiscMetadataItemSelected();
+            new ControllerMoveFavoriteDirectory();
             startScheduledTasks();
             init = true;
         }
