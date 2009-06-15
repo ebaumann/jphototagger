@@ -1,6 +1,9 @@
 package de.elmar_baumann.lib.componentutil;
 
 import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Rectangle;
+import java.awt.Window;
 
 /**
  * 
@@ -25,6 +28,18 @@ public final class ComponentUtil {
         component.invalidate();
         component.validate();
         component.repaint();
+    }
+
+    /**
+     * Centers a window on the screen.
+     *
+     * @param window window to center
+     */
+    public static void centerScreen(Window window) {
+        Dimension screenDimension = window.getToolkit().getScreenSize();
+        Rectangle frameBounds = window.getBounds();
+        window.setLocation((screenDimension.width - frameBounds.width) / 2,
+                (screenDimension.height - frameBounds.height) / 2);
     }
 
     private ComponentUtil() {
