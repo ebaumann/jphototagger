@@ -424,7 +424,7 @@ public final class LogfileDialog extends javax.swing.JDialog implements
 
         panelFilter.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("LogfileDialog.panelFilter.border.title"))); // NOI18N
 
-        labelIconSevere.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/lib/resource/logfiledialog_severe.png"))); // NOI18N
+        labelIconSevere.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/lib/resource/icons/icon_logfiledialog_severe.png"))); // NOI18N
         labelIconSevere.setMaximumSize(new java.awt.Dimension(16, 16));
         labelIconSevere.setMinimumSize(new java.awt.Dimension(16, 16));
         labelIconSevere.setPreferredSize(new java.awt.Dimension(16, 16));
@@ -432,7 +432,7 @@ public final class LogfileDialog extends javax.swing.JDialog implements
         checkBoxSevere.setSelected(true);
         checkBoxSevere.setText(Level.SEVERE.getLocalizedName());
 
-        labelIconWarning.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/lib/resource/logfiledialog_warning.png"))); // NOI18N
+        labelIconWarning.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/lib/resource/icons/icon_logfiledialog_warning.png"))); // NOI18N
         labelIconWarning.setMaximumSize(new java.awt.Dimension(16, 16));
         labelIconWarning.setMinimumSize(new java.awt.Dimension(16, 16));
         labelIconWarning.setPreferredSize(new java.awt.Dimension(16, 16));
@@ -440,7 +440,7 @@ public final class LogfileDialog extends javax.swing.JDialog implements
         checkBoxWarning.setSelected(true);
         checkBoxWarning.setText(Level.WARNING.getLocalizedName());
 
-        labelIconInfo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/lib/resource/logfiledialog_info.png"))); // NOI18N
+        labelIconInfo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/lib/resource/icons/icon_logfiledialog_info.png"))); // NOI18N
         labelIconInfo.setMaximumSize(new java.awt.Dimension(16, 16));
         labelIconInfo.setMinimumSize(new java.awt.Dimension(16, 16));
         labelIconInfo.setPreferredSize(new java.awt.Dimension(16, 16));
@@ -448,7 +448,7 @@ public final class LogfileDialog extends javax.swing.JDialog implements
         checkBoxInfo.setSelected(true);
         checkBoxInfo.setText(Level.INFO.getLocalizedName());
 
-        labelIconConfig.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/lib/resource/logfiledialog_config.png"))); // NOI18N
+        labelIconConfig.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/lib/resource/icons/icon_logfiledialog_config.png"))); // NOI18N
         labelIconConfig.setMaximumSize(new java.awt.Dimension(16, 16));
         labelIconConfig.setMinimumSize(new java.awt.Dimension(16, 16));
         labelIconConfig.setPreferredSize(new java.awt.Dimension(16, 16));
@@ -456,7 +456,7 @@ public final class LogfileDialog extends javax.swing.JDialog implements
         checkBoxConfig.setSelected(true);
         checkBoxConfig.setText(Level.CONFIG.getLocalizedName());
 
-        labelIconFine.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/lib/resource/logfiledialog_fine.png"))); // NOI18N
+        labelIconFine.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/lib/resource/icons/icon_logfiledialog_fine.png"))); // NOI18N
         labelIconFine.setMaximumSize(new java.awt.Dimension(16, 16));
         labelIconFine.setMinimumSize(new java.awt.Dimension(16, 16));
         labelIconFine.setPreferredSize(new java.awt.Dimension(16, 16));
@@ -464,7 +464,7 @@ public final class LogfileDialog extends javax.swing.JDialog implements
         checkBoxFine.setSelected(true);
         checkBoxFine.setText(Level.FINE.getLocalizedName());
 
-        labelIconFiner.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/lib/resource/logfiledialog_finer.png"))); // NOI18N
+        labelIconFiner.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/lib/resource/icons/icon_logfiledialog_finer.png"))); // NOI18N
         labelIconFiner.setMaximumSize(new java.awt.Dimension(16, 16));
         labelIconFiner.setMinimumSize(new java.awt.Dimension(16, 16));
         labelIconFiner.setPreferredSize(new java.awt.Dimension(16, 16));
@@ -472,7 +472,7 @@ public final class LogfileDialog extends javax.swing.JDialog implements
         checkBoxFiner.setSelected(true);
         checkBoxFiner.setText(Level.FINER.getLocalizedName());
 
-        labelIconFinest.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/lib/resource/logfiledialog_finest.png"))); // NOI18N
+        labelIconFinest.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/lib/resource/icons/icon_logfiledialog_finest.png"))); // NOI18N
         labelIconFinest.setMaximumSize(new java.awt.Dimension(16, 16));
         labelIconFinest.setMinimumSize(new java.awt.Dimension(16, 16));
         labelIconFinest.setPreferredSize(new java.awt.Dimension(16, 16));
@@ -642,7 +642,7 @@ public final class LogfileDialog extends javax.swing.JDialog implements
 
         tabbedPane.addTab(bundle.getString("LogfileDialog.panelSimple.TabConstraints.tabTitle"), panelSimple); // NOI18N
 
-        buttonReload.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/lib/resource/icon_reload.png"))); // NOI18N
+        buttonReload.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/lib/resource/icons/icon_reload.png"))); // NOI18N
         buttonReload.setToolTipText(bundle.getString("LogfileDialog.buttonReload.toolTipText")); // NOI18N
         buttonReload.setMargin(new java.awt.Insets(0, 0, 0, 0));
         buttonReload.setPreferredSize(new java.awt.Dimension(40, 40));
@@ -652,7 +652,7 @@ public final class LogfileDialog extends javax.swing.JDialog implements
             }
         });
 
-        buttonExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/lib/resource/icon_exit.png"))); // NOI18N
+        buttonExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/lib/resource/icons/icon_exit.png"))); // NOI18N
         buttonExit.setToolTipText(bundle.getString("LogfileDialog.buttonExit.toolTipText")); // NOI18N
         buttonExit.setMargin(new java.awt.Insets(0, 0, 0, 0));
         buttonExit.setPreferredSize(new java.awt.Dimension(40, 40));

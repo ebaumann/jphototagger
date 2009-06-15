@@ -212,7 +212,7 @@
                     <Component class="javax.swing.JLabel" name="labelIconSevere">
                       <Properties>
                         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                          <Image iconType="3" name="/de/elmar_baumann/lib/resource/logfiledialog_severe.png"/>
+                          <Image iconType="3" name="/de/elmar_baumann/lib/resource/icons/icon_logfiledialog_severe.png"/>
                         </Property>
                         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                           <Dimension value="[16, 16]"/>
@@ -236,7 +236,7 @@
                     <Component class="javax.swing.JLabel" name="labelIconWarning">
                       <Properties>
                         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                          <Image iconType="3" name="/de/elmar_baumann/lib/resource/logfiledialog_warning.png"/>
+                          <Image iconType="3" name="/de/elmar_baumann/lib/resource/icons/icon_logfiledialog_warning.png"/>
                         </Property>
                         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                           <Dimension value="[16, 16]"/>
@@ -260,7 +260,7 @@
                     <Component class="javax.swing.JLabel" name="labelIconInfo">
                       <Properties>
                         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                          <Image iconType="3" name="/de/elmar_baumann/lib/resource/logfiledialog_info.png"/>
+                          <Image iconType="3" name="/de/elmar_baumann/lib/resource/icons/icon_logfiledialog_info.png"/>
                         </Property>
                         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                           <Dimension value="[16, 16]"/>
@@ -284,7 +284,7 @@
                     <Component class="javax.swing.JLabel" name="labelIconConfig">
                       <Properties>
                         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                          <Image iconType="3" name="/de/elmar_baumann/lib/resource/logfiledialog_config.png"/>
+                          <Image iconType="3" name="/de/elmar_baumann/lib/resource/icons/icon_logfiledialog_config.png"/>
                         </Property>
                         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                           <Dimension value="[16, 16]"/>
@@ -308,7 +308,7 @@
                     <Component class="javax.swing.JLabel" name="labelIconFine">
                       <Properties>
                         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                          <Image iconType="3" name="/de/elmar_baumann/lib/resource/logfiledialog_fine.png"/>
+                          <Image iconType="3" name="/de/elmar_baumann/lib/resource/icons/icon_logfiledialog_fine.png"/>
                         </Property>
                         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                           <Dimension value="[16, 16]"/>
@@ -332,7 +332,7 @@
                     <Component class="javax.swing.JLabel" name="labelIconFiner">
                       <Properties>
                         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                          <Image iconType="3" name="/de/elmar_baumann/lib/resource/logfiledialog_finer.png"/>
+                          <Image iconType="3" name="/de/elmar_baumann/lib/resource/icons/icon_logfiledialog_finer.png"/>
                         </Property>
                         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                           <Dimension value="[16, 16]"/>
@@ -356,7 +356,7 @@
                     <Component class="javax.swing.JLabel" name="labelIconFinest">
                       <Properties>
                         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                          <Image iconType="3" name="/de/elmar_baumann/lib/resource/logfiledialog_finest.png"/>
+                          <Image iconType="3" name="/de/elmar_baumann/lib/resource/icons/icon_logfiledialog_finest.png"/>
                         </Property>
                         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                           <Dimension value="[16, 16]"/>
@@ -507,7 +507,7 @@
     <Component class="javax.swing.JButton" name="buttonReload">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/de/elmar_baumann/lib/resource/icon_reload.png"/>
+          <Image iconType="3" name="/de/elmar_baumann/lib/resource/icons/icon_reload.png"/>
         </Property>
         <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="de/elmar_baumann/lib/resource/properties/Bundle.properties" key="LogfileDialog.buttonReload.toolTipText" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
@@ -526,7 +526,7 @@
     <Component class="javax.swing.JButton" name="buttonExit">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/de/elmar_baumann/lib/resource/icon_exit.png"/>
+          <Image iconType="3" name="/de/elmar_baumann/lib/resource/icons/icon_exit.png"/>
         </Property>
         <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="de/elmar_baumann/lib/resource/properties/Bundle.properties" key="LogfileDialog.buttonExit.toolTipText" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
