@@ -1,6 +1,7 @@
 package de.elmar_baumann.imv.database;
 
 import de.elmar_baumann.imv.resource.Bundle;
+import de.elmar_baumann.lib.componentutil.ComponentUtil;
 import de.elmar_baumann.lib.dialog.ProgressDialog;
 
 /**
@@ -25,6 +26,7 @@ class UpdateTablesMessages {
         } else {
             dialog.setVisible(true);
         }
+        ComponentUtil.centerScreen(dialog);
     }
 
     private UpdateTablesMessages() {
@@ -35,7 +37,8 @@ class UpdateTablesMessages {
         dialog = new ProgressDialog(null);
         dialog.setEnabledClose(false);
         dialog.setEnabledStop(false);
-        dialog.setTitle(Bundle.getString("UpdateTables.InformationMessage.Title"));
+        dialog.setTitle(
+                Bundle.getString("UpdateTables.InformationMessage.Title"));
         dialog.setIndeterminate(true);
     }
 }
