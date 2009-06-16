@@ -209,6 +209,7 @@ public final class DirectoryChooser extends Dialog {
         if (treeDirectories.getSelectionCount() > 0 &&
                 treeDirectories.getSelectionPath().getLastPathComponent() instanceof File) {
             accepted = true;
+            writeProperties();
             dispose();
         } else {
             JOptionPane.showMessageDialog(this,
