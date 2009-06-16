@@ -3,7 +3,7 @@ package de.elmar_baumann.imv.view.panels;
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.app.AppInit;
 import de.elmar_baumann.imv.app.AppTexts;
-import de.elmar_baumann.lib.renderer.TreeCellRendererDirectories;
+import de.elmar_baumann.lib.renderer.TreeCellRendererSystemDirectories;
 import de.elmar_baumann.imv.event.AppExitListener;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.GUI;
@@ -520,7 +520,7 @@ public final class AppPanel extends javax.swing.JPanel implements
         tabbedPaneSelection.setName(""); // NOI18N
 
         treeDirectories.setModel(null);
-        treeDirectories.setCellRenderer(new TreeCellRendererDirectories());
+        treeDirectories.setCellRenderer(new TreeCellRendererSystemDirectories());
         treeDirectories.setDragEnabled(true);
         treeDirectories.setExpandsSelectedPaths(false);
         treeDirectories.setName("treeDirectories"); // NOI18N
