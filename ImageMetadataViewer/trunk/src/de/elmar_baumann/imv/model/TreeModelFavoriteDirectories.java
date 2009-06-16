@@ -28,6 +28,7 @@ public final class TreeModelFavoriteDirectories extends DefaultTreeModel {
             Bundle.getString("TreeModelFavoriteDirectories.Root.DisplayName"));
     private final DatabaseFavoriteDirectories db;
     private final ScanDirectories updateScanner;
+    private final Object monitor = new Object();
 
     public TreeModelFavoriteDirectories() {
         super(ROOT);
@@ -37,73 +38,86 @@ public final class TreeModelFavoriteDirectories extends DefaultTreeModel {
         updateScanner.start();
     }
 
-    public synchronized void insertFavorite(FavoriteDirectory favoriteDirectory) {
-        favoriteDirectory.setIndex(getNextNewFavoriteIndex());
-        if (!existsFavoriteDirectory(favoriteDirectory) &&
-                db.insertFavoriteDirectory(favoriteDirectory)) {
-            addDirectory(favoriteDirectory);
-        } else {
-            errorMessage(favoriteDirectory.getFavoriteName(), Bundle.getString(
-                    "TreeModelFavoriteDirectories.ErrorMessage.ParamInsert"));
+    public void insertFavorite(FavoriteDirectory favoriteDirectory) {
+        synchronized (monitor) {
+            favoriteDirectory.setIndex(getNextNewFavoriteIndex());
+            if (!existsFavoriteDirectory(favoriteDirectory) &&
+                    db.insertFavoriteDirectory(favoriteDirectory)) {
+                addDirectory(favoriteDirectory);
+            } else {
+                errorMessage(favoriteDirectory.getFavoriteName(), Bundle.
+                        getString(
+                        "TreeModelFavoriteDirectories.ErrorMessage.ParamInsert"));
+            }
         }
     }
 
-    public synchronized void deleteFavorite(FavoriteDirectory favoriteDirctory) {
-        DefaultMutableTreeNode favNode = getNode(favoriteDirctory);
-        if (favNode != null &&
-                db.deleteFavoriteDirectory(favoriteDirctory.getFavoriteName())) {
-            int index = ROOT.getIndex(favNode);
-            ROOT.remove(favNode);
-            nodesWereRemoved(ROOT, new int[]{index}, new Object[]{favNode});
-            for (Enumeration children = ROOT.children(); children.
-                    hasMoreElements();) {
-                Object userObject = ((DefaultMutableTreeNode) children.
-                        nextElement()).getUserObject();
-                int newIndex = 0;
-                if (userObject instanceof FavoriteDirectory) {
-                    FavoriteDirectory fav = (FavoriteDirectory) userObject;
-                    fav.setIndex(newIndex++);
-                    db.updateFavoriteDirectory(fav.getFavoriteName(), fav);
+    public void deleteFavorite(FavoriteDirectory favoriteDirctory) {
+        synchronized (monitor) {
+            DefaultMutableTreeNode favNode = getNode(favoriteDirctory);
+            if (favNode != null &&
+                    db.deleteFavoriteDirectory(
+                    favoriteDirctory.getFavoriteName())) {
+                int index = ROOT.getIndex(favNode);
+                ROOT.remove(favNode);
+                nodesWereRemoved(ROOT, new int[]{index}, new Object[]{favNode});
+                for (Enumeration children = ROOT.children(); children.
+                        hasMoreElements();) {
+                    Object userObject = ((DefaultMutableTreeNode) children.
+                            nextElement()).getUserObject();
+                    int newIndex = 0;
+                    if (userObject instanceof FavoriteDirectory) {
+                        FavoriteDirectory fav = (FavoriteDirectory) userObject;
+                        fav.setIndex(newIndex++);
+                        db.updateFavoriteDirectory(fav.getFavoriteName(), fav);
+                    }
                 }
+            } else {
+                errorMessage(favoriteDirctory.getFavoriteName(), Bundle.
+                        getString(
+                        "TreeModelFavoriteDirectories.ErrorMessage.ParamDelete"));
             }
-        } else {
-            errorMessage(favoriteDirctory.getFavoriteName(), Bundle.getString(
-                    "TreeModelFavoriteDirectories.ErrorMessage.ParamDelete"));
         }
     }
 
     public void replaceFavorite(FavoriteDirectory oldFavorite,
             FavoriteDirectory newFavorite) {
-        DefaultMutableTreeNode oldNode = getNode(oldFavorite);
-        if (oldNode != null &&
-                db.updateFavoriteDirectory(oldFavorite.getFavoriteName(),
-                newFavorite)) {
-            oldFavorite.setDirectoryName(newFavorite.getDirectoryName());
-            oldFavorite.setFavoriteName(newFavorite.getFavoriteName());
-            nodeChanged(oldNode);
-        } else {
-            errorMessage(oldFavorite.getFavoriteName(), Bundle.getString(
-                    "TreeModelFavoriteDirectories.ErrorMessage.ParamUpdate"));
+        synchronized (monitor) {
+            DefaultMutableTreeNode oldNode = getNode(oldFavorite);
+            if (oldNode != null &&
+                    db.updateFavoriteDirectory(oldFavorite.getFavoriteName(),
+                    newFavorite)) {
+                oldFavorite.setDirectoryName(newFavorite.getDirectoryName());
+                oldFavorite.setFavoriteName(newFavorite.getFavoriteName());
+                nodeChanged(oldNode);
+            } else {
+                errorMessage(oldFavorite.getFavoriteName(), Bundle.getString(
+                        "TreeModelFavoriteDirectories.ErrorMessage.ParamUpdate"));
+            }
         }
     }
 
     public void moveUpFavorite(FavoriteDirectory favorite) {
-        DefaultMutableTreeNode node = getNode(favorite);
-        if (node != null) {
-            int indexFavorite = ROOT.getIndex(node);
-            swapFavorites(indexFavorite, indexFavorite - 1);
+        synchronized (monitor) {
+            DefaultMutableTreeNode node = getNode(favorite);
+            if (node != null) {
+                int indexFavorite = ROOT.getIndex(node);
+                swapFavorites(indexFavorite, indexFavorite - 1);
+            }
         }
     }
 
     public void moveDownFavorite(FavoriteDirectory favorite) {
-        DefaultMutableTreeNode node = getNode(favorite);
-        if (node != null) {
-            int indexFavorite = ROOT.getIndex(node);
-            swapFavorites(indexFavorite, indexFavorite + 1);
+        synchronized (monitor) {
+            DefaultMutableTreeNode node = getNode(favorite);
+            if (node != null) {
+                int indexFavorite = ROOT.getIndex(node);
+                swapFavorites(indexFavorite, indexFavorite + 1);
+            }
         }
     }
 
-    public void swapFavorites(int fromIndex, int toIndex) {
+    private void swapFavorites(int fromIndex, int toIndex) {
         if (canSwapFavorites(fromIndex, toIndex)) {
             DefaultMutableTreeNode fromNode = (DefaultMutableTreeNode) ROOT.
                     getChildAt(fromIndex);
@@ -211,7 +225,7 @@ public final class TreeModelFavoriteDirectories extends DefaultTreeModel {
 
     private class ScanDirectories extends Thread {
 
-        private static final long SEARCH_INTERVAL_MILLISEC = 1000;
+        private static final long SEARCH_INTERVAL_MILLISEC = 2000;
         private final DefaultMutableTreeNode root;
 
         public ScanDirectories(DefaultMutableTreeNode root) {
@@ -226,10 +240,17 @@ public final class TreeModelFavoriteDirectories extends DefaultTreeModel {
             while (true) {
                 try {
                     sleep(SEARCH_INTERVAL_MILLISEC);
-                    scan(root);
-                    checkFavoriteDirectoryDeleted();
-                } catch (InterruptedException ex) {
+                } catch (Exception ex) {
                     AppLog.logWarning(TreeModelFavoriteDirectories.class, ex);
+                }
+                synchronized (monitor) {
+                    try {
+                        scan(root);
+                        checkFavoriteDirectoryDeleted();
+                    } catch (Exception ex) {
+                        AppLog.logWarning(TreeModelFavoriteDirectories.class, ex);
+
+                    }
                 }
             }
         }
