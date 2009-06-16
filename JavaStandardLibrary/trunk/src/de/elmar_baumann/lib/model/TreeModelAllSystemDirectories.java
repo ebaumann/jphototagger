@@ -111,8 +111,10 @@ public final class TreeModelAllSystemDirectories implements TreeModel {
     }
 
     private void addToUpdateChecks(File f) {
-        if (f != null && !filesForUpdateCheck.contains(f)) {
-            filesForUpdateCheck.add(f);
+        synchronized (filesForUpdateCheck) {
+            if (f != null && !filesForUpdateCheck.contains(f)) {
+                filesForUpdateCheck.add(f);
+            }
         }
     }
 
@@ -153,15 +155,13 @@ public final class TreeModelAllSystemDirectories implements TreeModel {
         }
     }
 
-    private void notifyNodesInserted(TreeModelEvent evt) {
-        synchronized (listeners) {
-            for (TreeModelListener l : listeners) {
-                l.treeNodesInserted(evt);
-            }
+    private void notifyNodesInserted(final TreeModelEvent evt) {
+        for (TreeModelListener l : listeners) {
+            l.treeNodesInserted(evt);
         }
     }
 
-    private void notifyNodesRemoved(TreeModelEvent evt) {
+    private void notifyNodesRemoved(final TreeModelEvent evt) {
         synchronized (listeners) {
             for (TreeModelListener l : listeners) {
                 l.treeNodesRemoved(evt);
@@ -185,54 +185,57 @@ public final class TreeModelAllSystemDirectories implements TreeModel {
 
     @SuppressWarnings("unchecked")
     private void insertNode(TreePath parentPath, File node) {
-        synchronized (monitor) {
-            Object parent = parentPath.getLastPathComponent();
-            if (parent == root) {
-                insertRootNode(node);
-            } else {
-                insertChildNode(parentPath, node);
-            }
+        Object parent = parentPath.getLastPathComponent();
+        if (parent == root) {
+            insertRootNode(node);
+        } else {
+            insertChildNode(parentPath, node);
         }
     }
 
     @SuppressWarnings("unchecked")
-    private void insertRootNode(File node) {
+    private void insertRootNode(File file) {
         int index;
-        rootNodes.add(node);
-        Collections.sort(rootNodes, SORT_COMPARATOR);
-        index = rootNodes.indexOf(node);
-        childrenOfNode.put(node, null);
+        synchronized (monitor) {
+            rootNodes.add(file);
+            Collections.sort(rootNodes, SORT_COMPARATOR);
+            index = rootNodes.indexOf(file);
+            childrenOfNode.put(file, null);
+        }
         TreeModelEvent evt = null;
         evt = new TreeModelEvent(this, new Object[]{root}, new int[]{index},
-                new Object[]{node});
+                new Object[]{file});
         notifyNodesInserted(evt);
     }
 
     @SuppressWarnings("unchecked")
-    private void insertChildNode(TreePath parentPath, File node) {
+    private void insertChildNode(TreePath parentPath, File file) {
         Object parent = parentPath.getLastPathComponent();
-        List<File> parentsChildren;
-        parentsChildren = childrenOfNode.get(parent);
+        List<File> parentsChildren = childrenOfNode.get(parent);
         if (parentsChildren == null) {
             List<File> newChildren = new ArrayList<File>();
-            newChildren.add(node);
-            childrenOfNode.put((File) parent, newChildren);
-            childrenOfNode.put(node, null);
+            newChildren.add(file);
+            synchronized (monitor) {
+                childrenOfNode.put((File) parent, newChildren);
+                childrenOfNode.put(file, null);
+            }
             TreeModelEvent evt = new TreeModelEvent(this, parentPath.getPath(),
-                    new int[]{0}, new Object[]{node});
+                    new int[]{0}, new Object[]{file});
             notifyNodesInserted(evt);
         } else {
             boolean contains = false;
-            contains = parentsChildren.contains(node);
+            contains = parentsChildren.contains(file);
             if (!contains) {
                 int index;
-                parentsChildren.add(node);
-                Collections.sort(parentsChildren, SORT_COMPARATOR);
-                index = parentsChildren.indexOf(node);
-                childrenOfNode.put(node, null);
+                synchronized (monitor) {
+                    parentsChildren.add(file);
+                    Collections.sort(parentsChildren, SORT_COMPARATOR);
+                    index = parentsChildren.indexOf(file);
+                    childrenOfNode.put(file, null);
+                }
                 TreeModelEvent evt = new TreeModelEvent(this,
                         parentPath.getPath(), new int[]{index}, new Object[]{
-                            node});
+                            file});
                 notifyNodesInserted(evt);
             }
         }
@@ -242,7 +245,8 @@ public final class TreeModelAllSystemDirectories implements TreeModel {
         updater.setPause(true);
         removeChildrenOf(node);
         File parentFile = (File) parentPath.getLastPathComponent();
-        List<File> parentsFiles = childrenOfNode.get(parentFile);
+        List<File> parentsFiles = new ArrayList<File>(childrenOfNode.get(
+                parentFile));
         if (parentsFiles != null) {
             int indexOfNode = parentsFiles.indexOf(node);
             parentsFiles.remove(node);
@@ -252,28 +256,26 @@ public final class TreeModelAllSystemDirectories implements TreeModel {
         }
         childrenOfNode.remove(node);
         rootNodes.remove(node);
-        filesForUpdateCheck.remove(node);
+        synchronized (filesForUpdateCheck) {
+            filesForUpdateCheck.remove(node);
+        }
         updater.setPause(false);
     }
 
     private void removeChildrenOf(File node) {
-        List<File> cachedFiles = getCachedFiles();
+        List<File> cachedFiles;
+        synchronized (monitor) {
+            cachedFiles = new ArrayList<File>(childrenOfNode.keySet());
+        }
         String nodeName = node.getAbsolutePath() + File.separator;
         for (File cachedFile : cachedFiles) {
             if (cachedFile.getAbsolutePath().startsWith(nodeName)) {
                 childrenOfNode.remove(cachedFile);
-                filesForUpdateCheck.remove(cachedFile);
+                synchronized (filesForUpdateCheck) {
+                    filesForUpdateCheck.remove(cachedFile);
+                }
             }
         }
-    }
-
-    private List<File> getCachedFiles() {
-        List<File> cachedFiles = new ArrayList<File>();
-        Set<File> files = childrenOfNode.keySet();
-        for (File file : files) {
-            cachedFiles.add(file);
-        }
-        return cachedFiles;
     }
 
     private TreePath getTreePath(File file) {
@@ -350,7 +352,10 @@ public final class TreeModelAllSystemDirectories implements TreeModel {
         }
 
         private void checkInserted() {
-            List<File> files = getFilesForUdateCheck();
+            List<File> files;
+            synchronized (filesForUpdateCheck) {
+                files = new ArrayList<File>(filesForUpdateCheck);
+            }
             for (File file : files) {
                 TreePath parentPath = getTreePath(file);
                 File[] childrenOfFile = file.listFiles(directoryFilter);
@@ -372,7 +377,10 @@ public final class TreeModelAllSystemDirectories implements TreeModel {
         }
 
         private void checkRemoved() {
-            List<File> files = getFilesForUdateCheck();
+            List<File> files;
+            synchronized (filesForUpdateCheck) {
+                files = new ArrayList<File>(filesForUpdateCheck);
+            }
             for (File file : files) {
                 if (!isRootNode(file) && !file.exists()) {
                     TreePath path = getTreePath(file).getParentPath();
@@ -383,14 +391,6 @@ public final class TreeModelAllSystemDirectories implements TreeModel {
 
         private boolean isRootNode(File file) {
             return rootNodes.contains(file);
-        }
-
-        private List<File> getFilesForUdateCheck() {
-            List<File> files = new ArrayList<File>();
-            for (File file : filesForUpdateCheck) {
-                files.add(file);
-            }
-            return files;
         }
     }
 
