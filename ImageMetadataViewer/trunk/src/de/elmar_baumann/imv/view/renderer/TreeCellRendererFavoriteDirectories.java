@@ -49,13 +49,15 @@ public final class TreeCellRendererFavoriteDirectories extends DefaultTreeCellRe
                     : "");
         }
         if (file != null) {
-            try {
+            if (file.exists()) {
                 synchronized (fileSystemView) {
-                    setIcon(fileSystemView.getSystemIcon(file));
+                    try {
+                        setIcon(fileSystemView.getSystemIcon(file));
+                    } catch (Exception ex) {
+                        AppLog.logWarning(
+                                TreeCellRendererFavoriteDirectories.class, ex);
+                    }
                 }
-            } catch (Exception ex) {
-                AppLog.logWarning(TreeCellRendererFavoriteDirectories.class,
-                        ex);
             }
         }
     }

@@ -1,8 +1,10 @@
 package de.elmar_baumann.imv.view.renderer;
 
+import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.io.DirectoryInfo;
 import de.elmar_baumann.imv.resource.Bundle;
 import java.awt.Component;
+import java.io.File;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -18,7 +20,8 @@ import javax.swing.filechooser.FileSystemView;
  */
 public final class ListCellRendererDirectories extends DefaultListCellRenderer {
 
-    private static final FileSystemView fileSystemView = FileSystemView.getFileSystemView();
+    private static final FileSystemView fileSystemView = FileSystemView.
+            getFileSystemView();
 
     @Override
     public Component getListCellRendererComponent(JList list, Object value,
@@ -26,7 +29,16 @@ public final class ListCellRendererDirectories extends DefaultListCellRenderer {
         JLabel label = (JLabel) super.getListCellRendererComponent(list, value,
                 index, isSelected, cellHasFocus);
         DirectoryInfo directoryInfo = (DirectoryInfo) value;
-        label.setIcon(fileSystemView.getSystemIcon(directoryInfo.getDirectory()));
+        File dir = directoryInfo.getDirectory();
+        if (dir.exists()) {
+            synchronized (fileSystemView) {
+                try {
+                    label.setIcon(fileSystemView.getSystemIcon(dir));
+                } catch (Exception ex) {
+                    AppLog.logWarning(ListCellRendererDirectories.class, ex);
+                }
+            }
+        }
         label.setText(getLabelText(directoryInfo));
         return label;
     }
