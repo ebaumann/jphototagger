@@ -3,7 +3,7 @@ package de.elmar_baumann.lib.dialog;
 import de.elmar_baumann.lib.componentutil.TreeUtil;
 import de.elmar_baumann.lib.image.icon.IconUtil;
 import de.elmar_baumann.lib.io.DirectoryFilter;
-import de.elmar_baumann.lib.model.TreeModelDirectories;
+import de.elmar_baumann.lib.model.TreeModelAllSystemDirectories;
 import de.elmar_baumann.lib.resource.Bundle;
 import de.elmar_baumann.lib.resource.Resources;
 import de.elmar_baumann.lib.util.Settings;
@@ -62,11 +62,11 @@ public final class DirectoryChooser extends Dialog {
 
     /**
      * Sets a model. Usually this is an instance of 
-     * {@link de.elmar_baumann.lib.model.TreeModelDirectories} used by
+     * {@link de.elmar_baumann.lib.model.TreeModelAllSystemDirectories} used by
      * other trees to save time.
      * 
      * @param model  model. Default: new instance of
-     *               {@link de.elmar_baumann.lib.model.TreeModelDirectories}
+     *               {@link de.elmar_baumann.lib.model.TreeModelAllSystemDirectories}
      */
     public void setModel(TreeModel model) {
         this.model = model;
@@ -173,7 +173,7 @@ public final class DirectoryChooser extends Dialog {
             @Override
             public void run() {
                 if (model == null) {
-                    model = new TreeModelDirectories(getTreeModelFilter());
+                    model = new TreeModelAllSystemDirectories(getTreeModelFilter());
                 }
                 treeDirectories.setModel(model);
                 if (!startDirectory.getName().isEmpty()) {

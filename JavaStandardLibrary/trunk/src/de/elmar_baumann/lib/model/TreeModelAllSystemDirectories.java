@@ -29,7 +29,7 @@ import javax.swing.tree.TreePath;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public final class TreeModelDirectories implements TreeModel {
+public final class TreeModelAllSystemDirectories implements TreeModel {
 
     private static final int UPDATE_INTERVAL_SECONDS = 3;
     private static final ComparatorFilesNames SORT_COMPARATOR =
@@ -47,7 +47,7 @@ public final class TreeModelDirectories implements TreeModel {
     private ScanForDirectoryUpdates updater;
     private final Object monitor = new Object();
 
-    public TreeModelDirectories(Set<DirectoryFilter.Option> options) {
+    public TreeModelAllSystemDirectories(Set<DirectoryFilter.Option> options) {
         directoryFilter = new DirectoryFilter(options);
         setRootDirectories();
         startUpdater();
