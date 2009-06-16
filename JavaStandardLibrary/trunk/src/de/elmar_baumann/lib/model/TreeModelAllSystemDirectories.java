@@ -185,11 +185,13 @@ public final class TreeModelAllSystemDirectories implements TreeModel {
 
     @SuppressWarnings("unchecked")
     private void insertNode(TreePath parentPath, File node) {
-        Object parent = parentPath.getLastPathComponent();
-        if (parent == root) {
-            insertRootNode(node);
-        } else {
-            insertChildNode(parentPath, node);
+        synchronized (monitor) {
+            Object parent = parentPath.getLastPathComponent();
+            if (parent == root) {
+                insertRootNode(node);
+            } else {
+                insertChildNode(parentPath, node);
+            }
         }
     }
 
