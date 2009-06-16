@@ -31,8 +31,8 @@ import javax.swing.tree.TreePath;
  */
 public final class TreeModelDirectories implements TreeModel {
 
-    private static final int updateIntervalSeconds = 3;
-    private static final ComparatorFilesNames sortComparator =
+    private static final int UPDATE_INTERVAL_SECONDS = 3;
+    private static final ComparatorFilesNames SORT_COMPARATOR =
             ComparatorFilesNames.COMPARE_ASCENDING_IGNORE_CASE;
     private final List<File> rootNodes = Collections.synchronizedList(
             new ArrayList<File>());
@@ -81,8 +81,7 @@ public final class TreeModelDirectories implements TreeModel {
             if (parent.equals(root)) {
                 return rootNodes.size();
             }
-            List<File> children;
-            children = childrenOfNode.get(parent);
+            List<File> children = childrenOfNode.get(parent);
             if (children == null) {
                 Thread thread = new Thread(new AddSubdirectories((File) parent));
                 thread.setName("Adding subdirectories of " + parent + " @ " + // NOI18N
@@ -179,7 +178,7 @@ public final class TreeModelDirectories implements TreeModel {
             for (int i = 0; i < listFiles.length; i++) {
                 subDirectories.add(listFiles[i]);
             }
-            Collections.sort(subDirectories, sortComparator);
+            Collections.sort(subDirectories, SORT_COMPARATOR);
         }
         return subDirectories;
     }
@@ -198,7 +197,7 @@ public final class TreeModelDirectories implements TreeModel {
     private void insertRootNode(File node) {
         int index;
         rootNodes.add(node);
-        Collections.sort(rootNodes, sortComparator);
+        Collections.sort(rootNodes, SORT_COMPARATOR);
         index = rootNodes.indexOf(node);
         childrenOfNode.put(node, null);
         TreeModelEvent evt = null;
@@ -226,7 +225,7 @@ public final class TreeModelDirectories implements TreeModel {
             if (!contains) {
                 int index;
                 parentsChildren.add(node);
-                Collections.sort(parentsChildren, sortComparator);
+                Collections.sort(parentsChildren, SORT_COMPARATOR);
                 index = parentsChildren.indexOf(node);
                 childrenOfNode.put(node, null);
                 TreeModelEvent evt = new TreeModelEvent(this,
@@ -337,7 +336,7 @@ public final class TreeModelDirectories implements TreeModel {
             while (!stop) {
                 if (!pause) {
                     try {
-                        Thread.sleep(updateIntervalSeconds * 1000);
+                        Thread.sleep(UPDATE_INTERVAL_SECONDS * 1000);
                     } catch (InterruptedException ex) {
                         Logger.getLogger(ScanForDirectoryUpdates.class.getName()).
                                 log(Level.SEVERE, null, ex);
