@@ -14,7 +14,7 @@ import de.elmar_baumann.imv.model.TreeModelMiscMetadata;
 import de.elmar_baumann.imv.model.TreeModelTimeline;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.AppPanel;
-import de.elmar_baumann.lib.model.TreeModelDirectories;
+import de.elmar_baumann.lib.model.TreeModelAllSystemDirectories;
 import de.elmar_baumann.lib.thirdparty.SortedListModel;
 import javax.swing.tree.TreeModel;
 
@@ -113,7 +113,7 @@ public final class ModelFactory {
             @Override
             public void run() {
                 TreeModel model =
-                        new TreeModelDirectories(UserSettings.INSTANCE.
+                        new TreeModelAllSystemDirectories(UserSettings.INSTANCE.
                         getDefaultDirectoryFilterOptions());
                 appPanel.getTreeDirectories().setModel(model);
             }
