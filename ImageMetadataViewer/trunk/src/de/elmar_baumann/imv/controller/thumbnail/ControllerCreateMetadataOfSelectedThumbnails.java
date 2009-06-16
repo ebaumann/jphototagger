@@ -6,7 +6,7 @@ import de.elmar_baumann.imv.tasks.InsertImageFilesIntoDatabase;
 import de.elmar_baumann.imv.event.ProgressEvent;
 import de.elmar_baumann.imv.event.ProgressListener;
 import de.elmar_baumann.imv.resource.GUI;
-import de.elmar_baumann.imv.resource.ProgressBarCurrentTasks;
+import de.elmar_baumann.imv.view.panels.ProgressBarCurrentTasks;
 import de.elmar_baumann.imv.tasks.Task;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuPanelThumbnails;

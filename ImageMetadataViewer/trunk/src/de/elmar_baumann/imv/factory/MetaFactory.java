@@ -3,6 +3,7 @@ package de.elmar_baumann.imv.factory;
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.GUI;
+import de.elmar_baumann.imv.view.panels.ProgressBarCreateMetadataOfCurrentThumbnails;
 import de.elmar_baumann.imv.view.ViewUtil;
 import de.elmar_baumann.imv.view.frames.AppFrame;
 import de.elmar_baumann.imv.view.panels.AppPanel;
@@ -19,6 +20,8 @@ public final class MetaFactory implements Runnable {
 
     public static final MetaFactory INSTANCE = new MetaFactory();
     private boolean init = false;
+    private final ProgressBarCreateMetadataOfCurrentThumbnails progressBarProvider =
+            ProgressBarCreateMetadataOfCurrentThumbnails.INSTANCE;
 
     @Override
     public void run() {
@@ -51,24 +54,32 @@ public final class MetaFactory implements Runnable {
     private void readAppPanelFromProperties() {
         AppPanel appPanel = GUI.INSTANCE.getAppPanel();
         UserSettings.INSTANCE.getSettings().getComponent(
-            appPanel,
-            appPanel.getPersistentSettingsHints());
+                appPanel,
+                appPanel.getPersistentSettingsHints());
         if (UserSettings.INSTANCE.isTreeDirectoriesSelectLastDirectory()) {
             ViewUtil.readTreeDirectoriesFromProperties();
         }
     }
 
     private void startDisplayProgressInProgressbarBar() {
-        JProgressBar progressbar = GUI.INSTANCE.getAppPanel().getProgressBarCreateMetadataOfCurrentThumbnails();
-        progressbar.setStringPainted(true);
-        progressbar.setString(Bundle.getString("MetaFactory.Message.Init"));
-        progressbar.setIndeterminate(true);
+        JProgressBar progressbar = (JProgressBar) progressBarProvider.
+                getResource(this);
+        if (progressbar != null) {
+            progressbar.setStringPainted(true);
+            progressbar.setString(Bundle.getString("MetaFactory.Message.Init"));
+            progressbar.setIndeterminate(true);
+            progressBarProvider.releaseResource(this);
+        }
     }
 
     private void stopDisplayProgressInProgressbarBar() {
-        JProgressBar progressbar = GUI.INSTANCE.getAppPanel().getProgressBarCreateMetadataOfCurrentThumbnails();
-        progressbar.setIndeterminate(false);
-        progressbar.setString(""); // NOI18N
-        progressbar.setStringPainted(false);
+        JProgressBar progressbar = (JProgressBar) progressBarProvider.
+                getResource(this);
+        if (progressbar != null) {
+            progressbar.setIndeterminate(false);
+            progressbar.setString(""); // NOI18N
+            progressbar.setStringPainted(false);
+            progressBarProvider.releaseResource(this);
+        }
     }
 }

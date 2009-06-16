@@ -8,6 +8,7 @@ import de.elmar_baumann.imv.event.ProgressListener;
 import de.elmar_baumann.imv.event.ThumbnailsPanelAction;
 import de.elmar_baumann.imv.event.ThumbnailsPanelListener;
 import de.elmar_baumann.imv.resource.GUI;
+import de.elmar_baumann.imv.view.panels.ProgressBarCreateMetadataOfCurrentThumbnails;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.lib.io.FileUtil;
@@ -32,8 +33,9 @@ public final class ControllerCreateMetadataOfCurrentThumbnails
     private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
     private final ImageFileThumbnailsPanel thumbnailsPanel = appPanel.
             getPanelThumbnails();
-    private final JProgressBar progressBar = appPanel.
-            getProgressBarCreateMetadataOfCurrentThumbnails();
+    private final ProgressBarCreateMetadataOfCurrentThumbnails progressBarProvider =
+            ProgressBarCreateMetadataOfCurrentThumbnails.INSTANCE;
+    private JProgressBar progressBar;
     private boolean stop = false;
 
     public ControllerCreateMetadataOfCurrentThumbnails() {
@@ -89,16 +91,21 @@ public final class ControllerCreateMetadataOfCurrentThumbnails
 
     private synchronized void setProgressBarValueAndTooltipText(
             ProgressEvent evt) {
-        progressBar.setValue(evt.getValue());
-        if (evt.getInfo() != null) {
-            progressBar.setToolTipText(evt.getInfo().toString());
+        if (progressBar != null) {
+            progressBar.setValue(evt.getValue());
+            if (evt.getInfo() != null) {
+                progressBar.setToolTipText(evt.getInfo().toString());
+            }
         }
     }
 
     @Override
     public synchronized void progressStarted(ProgressEvent evt) {
-        progressBar.setMinimum(evt.getMinimum());
-        progressBar.setMaximum(evt.getMaximum());
+        progressBar = (JProgressBar) progressBarProvider.getResource(this);
+        if (progressBar != null) {
+            progressBar.setMinimum(evt.getMinimum());
+            progressBar.setMaximum(evt.getMaximum());
+        }
         setProgressBarValueAndTooltipText(evt);
     }
 
@@ -107,6 +114,8 @@ public final class ControllerCreateMetadataOfCurrentThumbnails
         if (stop) {
             evt.stop();
             stop = false;
+            progressBar = null;
+            progressBarProvider.releaseResource(this);
         } else {
             setProgressBarValueAndTooltipText(evt);
         }
@@ -114,8 +123,12 @@ public final class ControllerCreateMetadataOfCurrentThumbnails
 
     @Override
     public synchronized void progressEnded(ProgressEvent evt) {
-        progressBar.setValue(evt.getValue());
-        progressBar.setToolTipText(AppTexts.tooltipTextProgressBarDirectory);
+        if (progressBar != null) {
+            progressBar.setValue(evt.getValue());
+            progressBar.setToolTipText(AppTexts.tooltipTextProgressBarDirectory);
+        }
+        progressBar = null;
+        progressBarProvider.releaseResource(this);
         setWait(false);
         if (updaters.size() > 0) {
             startUpdateMetadataThread();

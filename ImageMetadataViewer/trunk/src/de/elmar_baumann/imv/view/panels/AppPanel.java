@@ -166,7 +166,7 @@ public final class AppPanel extends javax.swing.JPanel implements
         return treeMiscMetadata;
     }
 
-    public JProgressBar getProgressBarCreateMetadataOfCurrentThumbnails() {
+    JProgressBar getProgressBarCreateMetadataOfCurrentThumbnails() {
         return progressBarCreateMetadataOfCurrentThumbnails;
     }
 
@@ -178,7 +178,7 @@ public final class AppPanel extends javax.swing.JPanel implements
      * 
      * @return  Progressbar
      */
-    public JProgressBar getProgressBarCurrentTasks() {
+    JProgressBar getProgressBarCurrentTasks() {
         return progressBarCurrentTasks;
     }
 

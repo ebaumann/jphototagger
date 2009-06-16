@@ -1,6 +1,6 @@
-package de.elmar_baumann.imv.resource;
+package de.elmar_baumann.imv.view.panels;
 
-import de.elmar_baumann.imv.view.panels.AppPanel;
+import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.lib.resource.MutualExcludedResource;
 import javax.swing.JProgressBar;
 
@@ -13,8 +13,10 @@ import javax.swing.JProgressBar;
 public final class ProgressBarCurrentTasks extends MutualExcludedResource {
 
     private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
-    private final JProgressBar progressBar = appPanel.getProgressBarCurrentTasks();
-    public static final ProgressBarCurrentTasks INSTANCE = new ProgressBarCurrentTasks();
+    private final JProgressBar progressBar =
+            appPanel.getProgressBarCurrentTasks();
+    public static final ProgressBarCurrentTasks INSTANCE =
+            new ProgressBarCurrentTasks();
 
     private ProgressBarCurrentTasks() {
         setResource(progressBar);

@@ -4,7 +4,7 @@ import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.database.metadata.Column;
 import de.elmar_baumann.imv.event.ProgressEvent;
 import de.elmar_baumann.imv.event.ProgressListener;
-import de.elmar_baumann.imv.resource.ProgressBarCurrentTasks;
+import de.elmar_baumann.imv.view.panels.ProgressBarCurrentTasks;
 import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
