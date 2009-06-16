@@ -59,9 +59,7 @@ public final class TreeModelFavoriteDirectories extends DefaultTreeModel {
             if (favNode != null &&
                     db.deleteFavoriteDirectory(
                     favoriteDirctory.getFavoriteName())) {
-                int index = ROOT.getIndex(favNode);
-                ROOT.remove(favNode);
-                nodesWereRemoved(ROOT, new int[]{index}, new Object[]{favNode});
+                removeNodeFromParent(favNode);
                 for (Enumeration children = ROOT.children(); children.
                         hasMoreElements();) {
                     Object userObject = ((DefaultMutableTreeNode) children.
@@ -100,70 +98,59 @@ public final class TreeModelFavoriteDirectories extends DefaultTreeModel {
 
     public void moveUpFavorite(FavoriteDirectory favorite) {
         synchronized (monitor) {
-            DefaultMutableTreeNode node = getNode(favorite);
-            if (node != null) {
-                int indexFavorite = ROOT.getIndex(node);
-                swapFavorites(indexFavorite, indexFavorite - 1);
+            DefaultMutableTreeNode nodeToMoveUp = getNode(favorite);
+            if (nodeToMoveUp != null) {
+                int indexNodeToMoveUp = ROOT.getIndex(nodeToMoveUp);
+                boolean isFirstNode = indexNodeToMoveUp == 0;
+                if (!isFirstNode) {
+                    DefaultMutableTreeNode prevNode =
+                            (DefaultMutableTreeNode) ROOT.getChildAt(
+                            indexNodeToMoveUp - 1);
+                    if (prevNode != null && updateFavoriteDirectory(
+                            nodeToMoveUp.getUserObject(), indexNodeToMoveUp - 1) &&
+                            updateFavoriteDirectory(prevNode.getUserObject(),
+                            indexNodeToMoveUp)) {
+                        removeNodeFromParent(prevNode);
+                        insertNodeInto(prevNode, ROOT, indexNodeToMoveUp);
+                    }
+                }
             }
         }
     }
 
     public void moveDownFavorite(FavoriteDirectory favorite) {
         synchronized (monitor) {
-            DefaultMutableTreeNode node = getNode(favorite);
-            if (node != null) {
-                int indexFavorite = ROOT.getIndex(node);
-                swapFavorites(indexFavorite, indexFavorite + 1);
+            DefaultMutableTreeNode nodeToMoveDown = getNode(favorite);
+            if (nodeToMoveDown != null) {
+                int indexNodeToMoveDown = ROOT.getIndex(nodeToMoveDown);
+                boolean isLastNode = indexNodeToMoveDown ==
+                        ROOT.getChildCount() - 1;
+                if (!isLastNode) {
+                    DefaultMutableTreeNode nextNode =
+                            (DefaultMutableTreeNode) ROOT.getChildAt(
+                            indexNodeToMoveDown + 1);
+                    if (nextNode != null && updateFavoriteDirectory(
+                            nodeToMoveDown.getUserObject(),
+                            indexNodeToMoveDown + 1) &&
+                            updateFavoriteDirectory(nextNode.getUserObject(),
+                            indexNodeToMoveDown)) {
+                        removeNodeFromParent(nextNode);
+                        insertNodeInto(nextNode, ROOT, indexNodeToMoveDown);
+                    }
+                }
             }
         }
     }
 
-    private void swapFavorites(int fromIndex, int toIndex) {
-        if (canSwapFavorites(fromIndex, toIndex)) {
-            DefaultMutableTreeNode fromNode = (DefaultMutableTreeNode) ROOT.
-                    getChildAt(fromIndex);
-            DefaultMutableTreeNode toNode = (DefaultMutableTreeNode) ROOT.
-                    getChildAt(toIndex);
-            Object fromUserObject = fromNode.getUserObject();
-            Object toUserObject = toNode.getUserObject();
-            assert fromUserObject instanceof FavoriteDirectory : fromUserObject;
-            assert toUserObject instanceof FavoriteDirectory : toUserObject;
-            if (fromUserObject instanceof FavoriteDirectory &&
-                    toUserObject instanceof FavoriteDirectory) {
-                FavoriteDirectory fromFavorite =
-                        (FavoriteDirectory) fromUserObject;
-                FavoriteDirectory toFavorite = (FavoriteDirectory) toUserObject;
-                fromFavorite.setIndex(toIndex);
-                toFavorite.setIndex(fromIndex);
-                db.updateFavoriteDirectory(fromFavorite.getFavoriteName(),
-                        fromFavorite);
-                db.updateFavoriteDirectory(toFavorite.getFavoriteName(),
-                        toFavorite);
-                removeNodeFromParent(fromNode);
-                removeNodeFromParent(toNode);
-                boolean fromFirst = toIndex < fromIndex;
-                insertNodeInto(fromFirst
-                               ? fromNode
-                               : toNode, ROOT, fromFirst
-                                               ? toIndex
-                                               : fromIndex);
-                insertNodeInto(fromFirst
-                               ? toNode
-                               : fromNode, ROOT, fromFirst
-                                                 ? fromIndex
-                                                 : toIndex);
-            }
+    private boolean updateFavoriteDirectory(Object userObject, int newIndex) {
+        if (userObject instanceof FavoriteDirectory) {
+            FavoriteDirectory favoriteDirectory = (FavoriteDirectory) userObject;
+            favoriteDirectory.setIndex(newIndex);
+            return db.updateFavoriteDirectory(
+                    favoriteDirectory.getFavoriteName(),
+                    favoriteDirectory);
         }
-    }
-
-    private boolean canSwapFavorites(int fromIndex, int toIndex) {
-        return fromIndex != toIndex &&
-                isValidIndex(fromIndex) &&
-                isValidIndex(toIndex);
-    }
-
-    private boolean isValidIndex(int index) {
-        return index >= 0 && index < ROOT.getChildCount();
+        return false;
     }
 
     private void addDirectories() {
@@ -184,9 +171,8 @@ public final class TreeModelFavoriteDirectories extends DefaultTreeModel {
     private void addDirectory(FavoriteDirectory directory) {
         DefaultMutableTreeNode dirNode = getNode(directory);
         if (dirNode == null) {
-            DefaultMutableTreeNode node = new DefaultMutableTreeNode(directory);
-            ROOT.add(node);
-            nodesWereInserted(ROOT, new int[]{ROOT.getIndex(node)});
+            insertNodeInto(new DefaultMutableTreeNode(directory), ROOT, ROOT.
+                    getChildCount());
         }
     }
 
@@ -302,10 +288,7 @@ public final class TreeModelFavoriteDirectories extends DefaultTreeModel {
                 if (userObject instanceof File) {
                     File file = (File) userObject;
                     if (!file.exists()) {
-                        int index = parentNode.getIndex(child);
-                        parentNode.remove(child);
-                        nodesWereRemoved(parentNode, new int[]{index},
-                                new Object[]{child});
+                        removeNodeFromParent(child);
                     }
                 }
             }
@@ -316,8 +299,10 @@ public final class TreeModelFavoriteDirectories extends DefaultTreeModel {
             if (userObject instanceof FavoriteDirectory) {
                 FavoriteDirectory favoriteDirectory =
                         (FavoriteDirectory) userObject;
-                addNewSubDirectories(node,
-                        new File(favoriteDirectory.getDirectoryName()));
+                File dir = new File(favoriteDirectory.getDirectoryName());
+                if (dir.exists()) {
+                    addNewSubDirectories(node, dir);
+                }
             } else if (userObject instanceof File) {
                 addNewSubDirectories(node, (File) userObject);
             }
@@ -336,10 +321,8 @@ public final class TreeModelFavoriteDirectories extends DefaultTreeModel {
                     ComparatorFilesNames.COMPARE_ASCENDING_IGNORE_CASE);
             for (File subDir : subDirs) {
                 if (!existsSubDirectory(node, subDir)) {
-                    DefaultMutableTreeNode child =
-                            new DefaultMutableTreeNode(subDir);
-                    node.add(child);
-                    nodesWereInserted(node, new int[]{node.getIndex(child)});
+                    insertNodeInto(new DefaultMutableTreeNode(subDir), node,
+                            node.getChildCount());
                 }
             }
         }
