@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Formats EXIF metadata fields in ASCII format.
  *
- * @author  Elmar Baumann <ebaumann@feitsch.de>
+ * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009/06/10
  */
 public final class ExifFormatterAscii extends ExifFormatter {
