@@ -247,7 +247,7 @@ public final class DirectoryChooser extends Dialog {
 
         treeDirectories.setModel(null);
         treeDirectories.setToolTipText(Bundle.getString("DirectoryChooser.treeDirectories.toolTipText")); // NOI18N
-        treeDirectories.setCellRenderer(new de.elmar_baumann.lib.renderer.TreeCellRendererDirectories());
+        treeDirectories.setCellRenderer(new de.elmar_baumann.lib.renderer.TreeCellRendererSystemDirectories());
         scrollPaneTreeDirectories.setViewportView(treeDirectories);
 
         labelUsage.setText(bundle.getString("DirectoryChooser.labelUsage.text")); // NOI18N

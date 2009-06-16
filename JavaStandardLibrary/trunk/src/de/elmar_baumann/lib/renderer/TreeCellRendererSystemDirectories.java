@@ -12,15 +12,16 @@ import javax.swing.filechooser.FileSystemView;
 import javax.swing.tree.DefaultTreeCellRenderer;
 
 /**
- * Renders items and text of trees displaying a 
- * {@link de.elmar_baumann.lib.model.TreeModelDirectories }.
+ * Renders items and text of trees displaying the directories of a
+ * {@link de.elmar_baumann.lib.model.TreeModelAllSystemDirectories}.
+ *
  * Uses {@link javax.swing.filechooser.FileSystemView#getSystemIcon(java.io.File)}
  * and displays only the directory names instead of their full path.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/07/23
  */
-public final class TreeCellRendererDirectories extends DefaultTreeCellRenderer {
+public final class TreeCellRendererSystemDirectories extends DefaultTreeCellRenderer {
 
     private final FileSystemView fileSystemView = FileSystemView.
             getFileSystemView();
@@ -45,7 +46,7 @@ public final class TreeCellRendererDirectories extends DefaultTreeCellRenderer {
                     try {
                         setIcon(fileSystemView.getSystemIcon(file));
                     } catch (Exception ex) {
-                        Logger.getLogger(TreeCellRendererDirectories.class.
+                        Logger.getLogger(TreeCellRendererSystemDirectories.class.
                                 getName()).log(Level.WARNING, null, ex);
                     }
                 }

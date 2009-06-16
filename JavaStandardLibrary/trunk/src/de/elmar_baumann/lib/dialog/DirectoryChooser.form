@@ -78,7 +78,7 @@
               <ResourceString bundle="de/elmar_baumann/lib/resource/properties/Bundle.properties" key="DirectoryChooser.treeDirectories.toolTipText" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
             </Property>
             <Property name="cellRenderer" type="javax.swing.tree.TreeCellRenderer" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="new de.elmar_baumann.lib.renderer.TreeCellRendererDirectories()" type="code"/>
+              <Connection code="new de.elmar_baumann.lib.renderer.TreeCellRendererSystemDirectories()" type="code"/>
             </Property>
           </Properties>
         </Component>
