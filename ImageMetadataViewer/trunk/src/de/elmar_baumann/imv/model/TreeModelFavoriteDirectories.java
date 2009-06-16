@@ -7,6 +7,7 @@ import de.elmar_baumann.imv.database.DatabaseFavoriteDirectories;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.comparator.ComparatorFilesNames;
 import de.elmar_baumann.lib.io.DirectoryFilter;
+import de.elmar_baumann.lib.io.FileUtil;
 import java.io.File;
 import java.util.Arrays;
 import java.util.Collections;
@@ -168,7 +169,15 @@ public final class TreeModelFavoriteDirectories extends DefaultTreeModel {
     private void addDirectories() {
         List<FavoriteDirectory> directories = db.getFavoriteDirectories();
         for (FavoriteDirectory directory : directories) {
-            addDirectory(directory);
+            if (FileUtil.existsDirectory(directory.getDirectoryName())) {
+                addDirectory(directory);
+            } else {
+                AppLog.logWarning(TreeModelFavoriteDirectories.class,
+                        Bundle.getString(
+                        "TreeModelFavoriteDirectories.ErrorMessage.DbDirectoryDoesNotExist",
+                        directory.getDirectoryName()));
+                db.deleteFavoriteDirectory(directory.getFavoriteName());
+            }
         }
     }
 
