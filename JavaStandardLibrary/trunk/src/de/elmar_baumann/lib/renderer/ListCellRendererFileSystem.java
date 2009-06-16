@@ -2,6 +2,8 @@ package de.elmar_baumann.lib.renderer;
 
 import java.awt.Component;
 import java.io.File;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -17,7 +19,8 @@ import javax.swing.filechooser.FileSystemView;
  */
 public final class ListCellRendererFileSystem extends DefaultListCellRenderer {
 
-    private static final FileSystemView fileSystemView = FileSystemView.getFileSystemView();
+    private static final FileSystemView fileSystemView = FileSystemView.
+            getFileSystemView();
     private final boolean absolutePathName;
 
     /**
@@ -33,13 +36,24 @@ public final class ListCellRendererFileSystem extends DefaultListCellRenderer {
 
     @Override
     public Component getListCellRendererComponent(JList list, Object value,
-        int index, boolean isSelected, boolean cellHasFocus) {
+            int index, boolean isSelected, boolean cellHasFocus) {
         JLabel label = (JLabel) super.getListCellRendererComponent(list, value,
-            index, isSelected, cellHasFocus);
+                index, isSelected, cellHasFocus);
         if (value instanceof File) {
             File file = (File) value;
-            label.setIcon(fileSystemView.getSystemIcon(file));
-            label.setText(absolutePathName ? file.getAbsolutePath() : file.getName());
+            if (file.exists()) {
+                synchronized (fileSystemView) {
+                    try {
+                        label.setIcon(fileSystemView.getSystemIcon(file));
+                    } catch (Exception ex) {
+                        Logger.getLogger(ListCellRendererFileSystem.class.
+                                getName()).log(Level.WARNING, null, ex);
+                    }
+                }
+            }
+            label.setText(absolutePathName
+                          ? file.getAbsolutePath()
+                          : file.getName());
         }
         return label;
     }

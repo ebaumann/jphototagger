@@ -22,28 +22,35 @@ import javax.swing.tree.DefaultTreeCellRenderer;
  */
 public final class TreeCellRendererDirectories extends DefaultTreeCellRenderer {
 
-    private final FileSystemView fileSystemView = FileSystemView.getFileSystemView();
-    private Icon rootIcon = IconUtil.getImageIcon("/de/elmar_baumann/lib/resource/icons/icon_workspace.png"); // NOI18N
+    private final FileSystemView fileSystemView = FileSystemView.
+            getFileSystemView();
+    private Icon rootIcon = IconUtil.getImageIcon(
+            "/de/elmar_baumann/lib/resource/icons/icon_workspace.png"); // NOI18N
 
     @Override
     public Component getTreeCellRendererComponent(
-            JTree tree, Object value, boolean sel, boolean expanded, boolean leaf,
+            JTree tree, Object value, boolean sel, boolean expanded,
+            boolean leaf,
             int row, boolean hasFocus) {
-        super.getTreeCellRendererComponent(tree, value, sel, expanded, false, row, hasFocus);
+        super.getTreeCellRendererComponent(tree, value, sel, expanded, false,
+                row, hasFocus);
 
         if (value == tree.getModel().getRoot()) {
             setIcon(rootIcon);
             setText(Bundle.getString("DirectoryTreeModel.Root.Text"));
         } else if (value instanceof File) {
             File file = (File) value;
-            try {
+            if (file.exists()) {
                 synchronized (fileSystemView) {
-                    setIcon(fileSystemView.getSystemIcon(file));
-                    setText(getDirectoryName(file));
+                    try {
+                        setIcon(fileSystemView.getSystemIcon(file));
+                    } catch (Exception ex) {
+                        Logger.getLogger(TreeCellRendererDirectories.class.
+                                getName()).log(Level.WARNING, null, ex);
+                    }
                 }
-            } catch (Exception ex) {
-                Logger.getLogger(TreeCellRendererDirectories.class.getName()).log(Level.WARNING, null, ex);
             }
+            setText(getDirectoryName(file));
         }
         return this;
     }

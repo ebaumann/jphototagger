@@ -39,7 +39,9 @@ public final class IconUtil {
         if (imgURL != null) {
             return new ImageIcon(imgURL).getImage();
         } else {
-            Logger.getLogger(IconUtil.class.getName()).log(Level.SEVERE, null, Bundle.getString("IconUtil.GetIconImage.ErrorMessage.FileNotFound") + path);
+            Logger.getLogger(IconUtil.class.getName()).log(Level.SEVERE, null,
+                    Bundle.getString(
+                    "IconUtil.GetIconImage.ErrorMessage.FileNotFound") + path);
         }
         return null;
     }
@@ -81,7 +83,9 @@ public final class IconUtil {
         if (imgURL != null) {
             return new ImageIcon(imgURL);
         } else {
-            Logger.getLogger(IconUtil.class.getName()).log(Level.SEVERE, null, Bundle.getString("IconUtil.GetImageIcon.ErrorMessage.FileNotFound") + path);
+            Logger.getLogger(IconUtil.class.getName()).log(Level.SEVERE, null,
+                    Bundle.getString(
+                    "IconUtil.GetImageIcon.ErrorMessage.FileNotFound") + path);
         }
         return null;
     }
@@ -119,10 +123,16 @@ public final class IconUtil {
             throw new NullPointerException("file == null");
 
         Icon icon = null;
-        try {
-            icon = FileSystemView.getFileSystemView().getSystemIcon(file);
-        } catch (Exception ex) {
-            Logger.getLogger(IconUtil.class.getName()).log(Level.SEVERE, null, ex);
+        FileSystemView fileSystemView = FileSystemView.getFileSystemView();
+        if (file.exists()) {
+            synchronized (fileSystemView) {
+                try {
+                    icon = fileSystemView.getSystemIcon(file);
+                } catch (Exception ex) {
+                    Logger.getLogger(IconUtil.class.getName()).log(Level.SEVERE,
+                            null, ex);
+                }
+            }
         }
         return icon;
     }
