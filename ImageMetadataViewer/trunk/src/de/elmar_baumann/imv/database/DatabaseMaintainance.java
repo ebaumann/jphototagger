@@ -73,8 +73,8 @@ public final class DatabaseMaintainance extends Database {
             connection.setAutoCommit(false);
             String tableName = column.getTable().getName();
             String columnName = column.getName();
-            String quotedSearch = search.replace("'", "\\'"); // NOI18N
-            String quotedReplacement = replacement.replace("'", "\\'"); // NOI18N
+            String quotedSearch = escapeString(search);
+            String quotedReplacement = escapeString(replacement);
             String sql = "UPDATE " + tableName + " SET " + columnName + // NOI18N
                     " = REPLACE(" + columnName + ", '" + quotedSearch + "', '" + // NOI18N
                     quotedReplacement + "') WHERE " + columnName + " " + // NOI18N
@@ -92,5 +92,9 @@ public final class DatabaseMaintainance extends Database {
             free(connection);
         }
         return affectedRows;
+    }
+
+    private String escapeString(String s) {
+        return s.replace("\\", "\\\\'").replace("'", "\\'"); // NOI18N
     }
 }
