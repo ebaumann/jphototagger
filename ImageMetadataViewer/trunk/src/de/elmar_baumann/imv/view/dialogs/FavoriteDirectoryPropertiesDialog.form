@@ -35,12 +35,12 @@
                   <Component id="labelDirectoryname" alignment="0" pref="281" max="32767" attributes="0"/>
                   <Component id="textFieldFavoriteName" alignment="0" pref="281" max="32767" attributes="0"/>
                   <Component id="labelPromptFavoriteName" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="buttonChooseDirectory" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="buttonCancel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="buttonOk" min="-2" max="-2" attributes="0"/>
                   </Group>
+                  <Component id="buttonChooseDirectory" alignment="1" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
