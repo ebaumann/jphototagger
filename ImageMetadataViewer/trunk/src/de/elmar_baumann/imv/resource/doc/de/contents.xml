@@ -177,6 +177,10 @@
 			<title>Werkzeuge &gt; XMP-Daten suchen und ersetzen</title>
 		</page>
 		<page>
+			<url>action_database_rename_filenames.html</url>
+			<title>Werkzeuge &gt; In der Datenbank Dateinamen umbenennen</title>
+		</page>
+		<page>
 			<url>dialog_actions.html</url>
 			<title>Werkzeuge &gt; Aktionen</title>
 		</page>

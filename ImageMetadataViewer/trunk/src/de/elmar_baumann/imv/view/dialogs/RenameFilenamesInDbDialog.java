@@ -34,6 +34,16 @@ public class RenameFilenamesInDbDialog extends Dialog {
         }
     }
 
+    @Override
+    protected void help() {
+        help(Bundle.getString("Help.Url.RenameFilenamesInDbDialog"));
+    }
+
+    @Override
+    protected void escape() {
+        checkClosing();
+    }
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
