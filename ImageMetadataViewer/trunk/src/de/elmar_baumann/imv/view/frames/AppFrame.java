@@ -194,6 +194,10 @@ public final class AppFrame extends javax.swing.JFrame {
         return menuItemAbout;
     }
 
+    public JMenuItem getMenuItemRenameFilenamesInDb() {
+        return menuItemRenameFilenamesInDb;
+    }
+
     public JMenuItem getMenuItemActions() {
         return menuItemActions;
     }
@@ -318,6 +322,7 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemToolIptcToXmp = new javax.swing.JMenuItem();
         menuItemExtractEmbeddedXmp = new javax.swing.JMenuItem();
         menuItemRenameInXmp = new javax.swing.JMenuItem();
+        menuItemRenameFilenamesInDb = new javax.swing.JMenuItem();
         menuItemActions = new javax.swing.JMenuItem();
         menuHelp = new javax.swing.JMenu();
         menuItemHelp = new javax.swing.JMenuItem();
@@ -574,6 +579,11 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemRenameInXmp.setEnabled(false);
         menuTools.add(menuItemRenameInXmp);
 
+        menuItemRenameFilenamesInDb.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icons/icon_file.png"))); // NOI18N
+        menuItemRenameFilenamesInDb.setMnemonic('d');
+        menuItemRenameFilenamesInDb.setText(Bundle.getString("AppFrame.menuItemRenameFilenamesInDb.text")); // NOI18N
+        menuTools.add(menuItemRenameFilenamesInDb);
+
         menuItemActions.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, 0));
         menuItemActions.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icons/icon_action.png"))); // NOI18N
         menuItemActions.setMnemonic('a');
@@ -650,6 +660,7 @@ private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:even
     private javax.swing.JMenuItem menuItemMaintainDatabase;
     private javax.swing.JMenuItem menuItemPaste;
     private javax.swing.JMenuItem menuItemRefresh;
+    private javax.swing.JMenuItem menuItemRenameFilenamesInDb;
     private javax.swing.JMenuItem menuItemRenameInXmp;
     private javax.swing.JMenuItem menuItemScanDirectory;
     private javax.swing.JMenuItem menuItemSearch;

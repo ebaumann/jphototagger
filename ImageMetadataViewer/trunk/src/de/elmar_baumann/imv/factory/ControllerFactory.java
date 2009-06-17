@@ -40,6 +40,7 @@ import de.elmar_baumann.imv.controller.metadata.ControllerIptcToXmp;
 import de.elmar_baumann.imv.controller.misc.ControllerItemsMutualExcludeSelection;
 import de.elmar_baumann.imv.controller.misc.ControllerLogfileDialog;
 import de.elmar_baumann.imv.controller.misc.ControllerMenuItemEnabler;
+import de.elmar_baumann.imv.controller.misc.ControllerRenameFilenamesInDb;
 import de.elmar_baumann.imv.controller.misc.ControllerShowSystemOutput;
 import de.elmar_baumann.imv.controller.misc.ControllerThumbnailCountDisplay;
 import de.elmar_baumann.imv.controller.miscmetadata.ControllerMiscMetadataItemSelected;
@@ -76,7 +77,8 @@ public final class ControllerFactory {
     private void startScheduledTasks() {
         Thread thread = new Thread(new ControllerArrayScheduledTasks());
         thread.setPriority(UserSettings.INSTANCE.getThreadPriority());
-        thread.setName("Scheduled tasks listening" + " @ " + getClass().getName()); // NOI18N
+        thread.setName("Scheduled tasks listening" + " @ " +
+                getClass().getName()); // NOI18N
         thread.start();
     }
 
@@ -142,6 +144,7 @@ public final class ControllerFactory {
             new ControllerTimelineItemSelected();
             new ControllerMiscMetadataItemSelected();
             new ControllerMoveFavoriteDirectory();
+            new ControllerRenameFilenamesInDb();
             startScheduledTasks();
             init = true;
         }
