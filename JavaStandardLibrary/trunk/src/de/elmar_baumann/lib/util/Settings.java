@@ -6,12 +6,15 @@ import java.awt.Dimension;
 import java.awt.Point;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
 import java.util.Properties;
 import java.util.Set;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.AbstractButton;
+import javax.swing.ButtonGroup;
 import javax.swing.DefaultListModel;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -47,8 +50,10 @@ public final class Settings {
     private static final String delimiterNumberArray = ";"; // NOI18N
     private static final String delimiterArrayKeys = "."; // NOI18N
     private static final String filePathSeparator = "|"; // NOI18N
-    private static final String keyPostfixViewportViewPositionX = ".ViewportViewPositionX"; // NOI18N
-    private static final String keyPostfixViewportViewPositionY = ".ViewportViewPositionY"; // NOI18N
+    private static final String keyPostfixViewportViewPositionX =
+            ".ViewportViewPositionX"; // NOI18N
+    private static final String keyPostfixViewportViewPositionY =
+            ".ViewportViewPositionY"; // NOI18N
     private static final String keyAppendixSelected = "-selected"; // NOI18N
     private static final String postfixKeyWidth = ".Width"; // NOI18N
     private static final String postfixKeyHeight = ".Height"; // NOI18N
@@ -64,7 +69,8 @@ public final class Settings {
 
     private String getArrayKeyMatchPattern(String key) {
         assert key != null : key;
-        return "^" + java.util.regex.Pattern.quote(key + delimiterArrayKeys) + "[0-9]+$"; // NOI18N
+        return "^" + java.util.regex.Pattern.quote(key + delimiterArrayKeys) +
+                "[0-9]+$"; // NOI18N
     }
 
     /**
@@ -120,16 +126,20 @@ public final class Settings {
                 try {
                     Class<?> fieldType = field.getType();
                     if (fieldType.equals(JTabbedPane.class)) {
-                        getTabbedPane((JTabbedPane) field.get(component), key, hints);
+                        getTabbedPane((JTabbedPane) field.get(component), key,
+                                hints);
                     } else if (fieldType.equals(JTable.class)) {
                         getTable((JTable) field.get(component), key);
                     } else if (fieldType.equals(JTree.class)) {
                         getTree((JTree) field.get(component), key);
                     } else if (fieldType.equals(JComboBox.class)) {
-                        if (hints.isOption(SettingsHints.Option.SET_COMBOBOX_CONTENT)) {
-                            getComboBoxContent((JComboBox) field.get(component), key);
+                        if (hints.isOption(
+                                SettingsHints.Option.SET_COMBOBOX_CONTENT)) {
+                            getComboBoxContent((JComboBox) field.get(component),
+                                    key);
                         } else {
-                            getSelectedIndex((JComboBox) field.get(component), key);
+                            getSelectedIndex((JComboBox) field.get(component),
+                                    key);
                         }
                     } else if (fieldType.equals(JList.class)) {
                         if (hints.isOption(SettingsHints.Option.SET_LIST_CONTENT)) {
@@ -143,9 +153,12 @@ public final class Settings {
                         getCheckBox((JCheckBox) field.get(component), key);
                     } else if (fieldType.equals(JSpinner.class)) {
                         getSpinner((JSpinner) field.get(component), key);
+                    } else if (fieldType.equals(ButtonGroup.class)) {
+                        getButtonGroup((ButtonGroup) field.get(component), key);
                     }
                 } catch (Exception ex) {
-                    Logger.getLogger(Settings.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(Settings.class.getName()).log(Level.SEVERE,
+                            null, ex);
                 }
             }
         }
@@ -170,6 +183,31 @@ public final class Settings {
     }
 
     /**
+     * Selects a button of a button group.
+     *
+     * @param buttonGroup button group
+     * @param key         key
+     */
+    public void getButtonGroup(ButtonGroup buttonGroup, String key) {
+        if (buttonGroup == null)
+            throw new NullPointerException("buttonGroup == null");
+        if (key == null)
+            throw new NullPointerException("key == null");
+
+        if (properties.containsKey(key)) {
+            String textOfSelectedButton = properties.getProperty(key);
+            for (Enumeration buttons = buttonGroup.getElements(); buttons.
+                    hasMoreElements();) {
+                AbstractButton button = (AbstractButton) buttons.nextElement();
+                if (button.getText().equals(textOfSelectedButton)) {
+                    button.setSelected(true);
+                    return;
+                }
+            }
+        }
+    }
+
+    /**
      * Setzt den Zustand eines Trees, aktuell den selektierten Pfad
      * (nur <strong>eine</strong> Selektion).
      *
@@ -184,7 +222,8 @@ public final class Settings {
 
         if (properties.containsKey(key)) {
             String value = properties.getProperty(key);
-            TreePath path = TreeUtil.getTreePath(tree.getModel(), value, filePathSeparator);
+            TreePath path = TreeUtil.getTreePath(tree.getModel(), value,
+                    filePathSeparator);
             if (path != null) {
                 TreeUtil.expandPath(tree, path);
                 tree.scrollPathToVisible(path);
@@ -210,7 +249,8 @@ public final class Settings {
                 Integer location = new Integer(properties.getProperty(key));
                 splitPane.setDividerLocation(location);
             } catch (NumberFormatException ex) {
-                Logger.getLogger(Settings.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Settings.class.getName()).log(Level.SEVERE,
+                        null, ex);
             }
         }
     }
@@ -235,7 +275,8 @@ public final class Settings {
                 Integer y = new Integer(properties.getProperty(keyY));
                 scrollPane.getViewport().setViewPosition(new Point(x, y));
             } catch (NumberFormatException ex) {
-                Logger.getLogger(Settings.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Settings.class.getName()).log(Level.SEVERE,
+                        null, ex);
             }
         }
     }
@@ -261,8 +302,9 @@ public final class Settings {
             int storedColumnCount = storedWidths.size();
 
             for (int index = 0; index < tableColumnCount && index <
-                storedColumnCount; index++) {
-                colModel.getColumn(index).setPreferredWidth(storedWidths.get(index));
+                    storedColumnCount; index++) {
+                colModel.getColumn(index).setPreferredWidth(storedWidths.get(
+                        index));
             }
         }
     }
@@ -284,7 +326,8 @@ public final class Settings {
             try {
                 spinner.setValue(new Integer(value));
             } catch (Exception ex) {
-                Logger.getLogger(Settings.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Settings.class.getName()).log(Level.SEVERE,
+                        null, ex);
             }
         }
     }
@@ -312,7 +355,8 @@ public final class Settings {
                     pane.setSelectedIndex(index);
                 }
             } catch (Exception ex) {
-                Logger.getLogger(Settings.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Settings.class.getName()).log(Level.SEVERE,
+                        null, ex);
             }
         }
 
@@ -414,7 +458,8 @@ public final class Settings {
                     comboBox.setSelectedIndex(ind);
                 }
             } catch (Exception ex) {
-                Logger.getLogger(Settings.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Settings.class.getName()).log(Level.SEVERE,
+                        null, ex);
             }
         }
     }
@@ -480,7 +525,8 @@ public final class Settings {
                     list.setSelectedIndex(ind);
                 }
             } catch (Exception ex) {
-                Logger.getLogger(Settings.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Settings.class.getName()).log(Level.SEVERE,
+                        null, ex);
             }
         }
     }
@@ -555,7 +601,8 @@ public final class Settings {
         deleteKeysMatches(getArrayKeyMatchPattern(key));
         int count = list.size();
         for (int i = 0; i < count; i++) {
-            properties.setProperty(key + delimiterArrayKeys + Integer.toString(i), list.get(i));
+            properties.setProperty(key + delimiterArrayKeys +
+                    Integer.toString(i), list.get(i));
         }
     }
 
@@ -587,13 +634,15 @@ public final class Settings {
         List<Integer> array = new ArrayList<Integer>();
 
         if (properties.containsKey(key)) {
-            StringTokenizer tokenizer = new StringTokenizer(properties.getProperty(key), delimiterNumberArray);
+            StringTokenizer tokenizer = new StringTokenizer(properties.
+                    getProperty(key), delimiterNumberArray);
 
             while (tokenizer.hasMoreTokens()) {
                 try {
                     array.add(new Integer(tokenizer.nextToken()));
                 } catch (Exception ex) {
-                    Logger.getLogger(Settings.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(Settings.class.getName()).log(Level.SEVERE,
+                            null, ex);
                 }
             }
         }
@@ -638,6 +687,7 @@ public final class Settings {
      *
      * Unterstützt:
      * <ul>
+     *  <li>ButtonGroup</li>
      *  <li>JCheckBox</li>
      *  <li>JComboBox</li>
      *  <li>JList</li>
@@ -674,10 +724,13 @@ public final class Settings {
                     if (fieldType.equals(JTextField.class)) {
                         setTextField((JTextField) field.get(component), key);
                     } else if (fieldType.equals(JComboBox.class)) {
-                        if (hints.isOption(SettingsHints.Option.SET_COMBOBOX_CONTENT)) {
-                            setComboBoxContent((JComboBox) field.get(component), key);
+                        if (hints.isOption(
+                                SettingsHints.Option.SET_COMBOBOX_CONTENT)) {
+                            setComboBoxContent((JComboBox) field.get(component),
+                                    key);
                         } else {
-                            setSelectedIndex((JComboBox) field.get(component), key);
+                            setSelectedIndex((JComboBox) field.get(component),
+                                    key);
                         }
                     } else if (fieldType.equals(JList.class)) {
                         if (hints.isOption(SettingsHints.Option.SET_LIST_CONTENT)) {
@@ -688,7 +741,8 @@ public final class Settings {
                     } else if (fieldType.equals(JCheckBox.class)) {
                         setCheckBox((JCheckBox) field.get(component), key);
                     } else if (fieldType.equals(JTabbedPane.class)) {
-                        setTabbedPane((JTabbedPane) field.get(component), key, hints);
+                        setTabbedPane((JTabbedPane) field.get(component), key,
+                                hints);
                     } else if (fieldType.equals(JSpinner.class)) {
                         setSpinner((JSpinner) field.get(component), key);
                     } else if (fieldType.equals(JTable.class)) {
@@ -697,9 +751,12 @@ public final class Settings {
                         setSplitPane((JSplitPane) field.get(component), key);
                     } else if (fieldType.equals(JTree.class)) {
                         setTree((JTree) field.get(component), key);
+                    } else if (fieldType.equals(ButtonGroup.class)) {
+                        setButtonGroup((ButtonGroup) field.get(component), key);
                     }
                 } catch (Exception ex) {
-                    Logger.getLogger(Settings.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(Settings.class.getName()).log(Level.SEVERE,
+                            null, ex);
                 }
             }
         }
@@ -717,9 +774,38 @@ public final class Settings {
         if (key == null)
             throw new NullPointerException("key == null");
 
-        String isSelected = checkBox.isSelected() ? "1" : "0"; // NOI18N
+        String isSelected = checkBox.isSelected()
+                            ? "1"
+                            : "0"; // NOI18N
 
         properties.setProperty(key, isSelected);
+    }
+
+    /**
+     * Writes to the properties the selected button of a button group.
+     *
+     * Uses the button text as identifier.
+     *
+     * @param buttonGroup button group
+     * @param key         key
+     */
+    public void setButtonGroup(ButtonGroup buttonGroup, String key) {
+        if (buttonGroup == null)
+            throw new NullPointerException("buttonGroup == null");
+        if (key == null)
+            throw new NullPointerException("key == null");
+
+        String textOfSelectedButton = null;
+        for (Enumeration buttons = buttonGroup.getElements(); buttons.
+                hasMoreElements();) {
+            AbstractButton button = (AbstractButton) buttons.nextElement();
+            if (button.isSelected()) {
+                textOfSelectedButton = button.getText();
+            }
+        }
+        if (textOfSelectedButton != null && !textOfSelectedButton.isEmpty()) {
+            properties.setProperty(key, textOfSelectedButton);
+        }
     }
 
     /**
@@ -762,7 +848,8 @@ public final class Settings {
                 }
             }
         } catch (Exception ex) {
-            Logger.getLogger(Settings.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Settings.class.getName()).log(Level.SEVERE, null,
+                    ex);
         }
     }
 
@@ -810,8 +897,8 @@ public final class Settings {
         deleteKeysMatches(getArrayKeyMatchPattern(key));
         for (int i = 0; i < itemCount; i++) {
             properties.setProperty(
-                key + delimiterArrayKeys + Integer.toString(i),
-                model.getElementAt(i).toString());
+                    key + delimiterArrayKeys + Integer.toString(i),
+                    model.getElementAt(i).toString());
         }
         setSelectedValue(list, key);
     }
@@ -829,8 +916,8 @@ public final class Settings {
             throw new NullPointerException("key == null");
 
         properties.setProperty(
-            key + keyAppendixSelected,
-            Integer.toString(comboBox.getSelectedIndex()));
+                key + keyAppendixSelected,
+                Integer.toString(comboBox.getSelectedIndex()));
     }
 
     /**
@@ -845,7 +932,9 @@ public final class Settings {
         if (key == null)
             throw new NullPointerException("key == null");
 
-        String status = button.isSelected() ? "1" : "0"; // NOI18N
+        String status = button.isSelected()
+                        ? "1"
+                        : "0"; // NOI18N
         properties.setProperty(key, status);
     }
 
@@ -885,8 +974,8 @@ public final class Settings {
             throw new NullPointerException("key == null");
 
         properties.setProperty(
-            key + keyAppendixSelected,
-            Integer.toString(list.getSelectedIndex()));
+                key + keyAppendixSelected,
+                Integer.toString(list.getSelectedIndex()));
     }
 
     /**
@@ -974,7 +1063,7 @@ public final class Settings {
 
         for (int index = 0; index < tableColumnCount; index++) {
             persistentColumnWidths.add(
-                new Integer(colModel.getColumn(index).getWidth()));
+                    new Integer(colModel.getColumn(index).getWidth()));
         }
         setIntegerArray(persistentColumnWidths, key);
     }
@@ -1013,8 +1102,10 @@ public final class Settings {
         Integer x = scrollPane.getViewport().getViewPosition().x;
         Integer y = scrollPane.getViewport().getViewPosition().y;
 
-        properties.setProperty(key + keyPostfixViewportViewPositionX, x.toString());
-        properties.setProperty(key + keyPostfixViewportViewPositionY, y.toString());
+        properties.setProperty(key + keyPostfixViewportViewPositionX,
+                x.toString());
+        properties.setProperty(key + keyPostfixViewportViewPositionY,
+                y.toString());
     }
 
     /**
@@ -1037,7 +1128,9 @@ public final class Settings {
             StringBuffer pathBuffer = new StringBuffer();
             for (int index = 0; index < path.length; index++) {
                 pathBuffer.append(path[index].toString() + (index + 1 <
-                    path.length ? filePathSeparator : "")); // NOI18N
+                        path.length
+                                                            ? filePathSeparator
+                                                            : "")); // NOI18N
             }
             properties.setProperty(key, pathBuffer.toString());
         }
@@ -1058,7 +1151,8 @@ public final class Settings {
             try {
                 result = Integer.parseInt(properties.getProperty(key));
             } catch (NumberFormatException ex) {
-                Logger.getLogger(Settings.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Settings.class.getName()).log(Level.SEVERE,
+                        null, ex);
             }
         }
         return result;
@@ -1084,14 +1178,18 @@ public final class Settings {
             throw new NullPointerException("key == null");
 
         int result = getInt(key);
-        return result == 1 ? true : false;
+        return result == 1
+               ? true
+               : false;
     }
 
     public void setBoolean(boolean b, String key) {
         if (key == null)
             throw new NullPointerException("key == null");
 
-        setInt(b ? 1 : 0, key);
+        setInt(b
+               ? 1
+               : 0, key);
     }
 
     /**
@@ -1140,14 +1238,16 @@ public final class Settings {
         String keyHeight = getKeyHeight(key);
 
         try {
-            if (properties.containsKey(keyWidth) && properties.containsKey(keyHeight)) {
+            if (properties.containsKey(keyWidth) && properties.containsKey(
+                    keyHeight)) {
                 Integer width = new Integer(properties.getProperty(keyWidth));
                 Integer height = new Integer(properties.getProperty(keyHeight));
                 component.setPreferredSize(new Dimension(width, height));
                 component.setSize(new Dimension(width, height));
             }
         } catch (NumberFormatException ex) {
-            Logger.getLogger(Settings.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Settings.class.getName()).log(Level.SEVERE, null,
+                    ex);
         }
     }
 
@@ -1180,13 +1280,17 @@ public final class Settings {
         String keyLocationX = getKeyLocationX(key);
         String keyLocationY = getKeyLocationY(key);
 
-        if (properties.containsKey(keyLocationX) && properties.containsKey(keyLocationY)) {
+        if (properties.containsKey(keyLocationX) && properties.containsKey(
+                keyLocationY)) {
             try {
-                Integer locationX = new Integer(properties.getProperty(keyLocationX));
-                Integer locationY = new Integer(properties.getProperty(keyLocationY));
+                Integer locationX = new Integer(properties.getProperty(
+                        keyLocationX));
+                Integer locationY = new Integer(properties.getProperty(
+                        keyLocationY));
                 component.setLocation(new Point(locationX, locationY));
             } catch (NumberFormatException ex) {
-                Logger.getLogger(Settings.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Settings.class.getName()).log(Level.SEVERE,
+                        null, ex);
             }
         }
     }
@@ -1263,8 +1367,10 @@ public final class Settings {
 
         Point location = component.getLocation();
 
-        properties.setProperty(getKeyLocationX(key), Integer.toString(location.x));
-        properties.setProperty(getKeyLocationY(key), Integer.toString(location.y));
+        properties.setProperty(getKeyLocationX(key),
+                Integer.toString(location.x));
+        properties.setProperty(getKeyLocationY(key),
+                Integer.toString(location.y));
     }
 
     private static String getKeyHeight(String key) {
