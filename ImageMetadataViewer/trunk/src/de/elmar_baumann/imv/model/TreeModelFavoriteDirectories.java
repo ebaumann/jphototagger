@@ -171,8 +171,12 @@ public final class TreeModelFavoriteDirectories extends DefaultTreeModel {
     private void addDirectory(FavoriteDirectory directory) {
         DefaultMutableTreeNode dirNode = getNode(directory);
         if (dirNode == null) {
-            insertNodeInto(new DefaultMutableTreeNode(directory), ROOT, ROOT.
-                    getChildCount());
+            DefaultMutableTreeNode node = new DefaultMutableTreeNode(directory);
+            int childCount = ROOT.getChildCount();
+            insertNodeInto(node, ROOT, childCount);
+            if (childCount == 1) { // Forcing repaint
+                setRoot(ROOT);
+            }
         }
     }
 
