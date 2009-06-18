@@ -25,12 +25,12 @@ public final class DatabaseMaintainanceDialog extends Dialog {
 
     @Override
     public void setVisible(boolean visible) {
-        super.setVisible(visible);
         if (visible) {
             readProperties();
         }
         panelMaintainance.getsVisible(visible);
         panelCount.listenToDatabaseChanges(visible);
+        super.setVisible(visible);
     }
 
     private void readProperties() {
