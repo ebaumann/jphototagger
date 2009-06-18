@@ -18,6 +18,7 @@ public final class DatabaseInfoCountPanel extends javax.swing.JPanel {
     private final TotalRecordCountListener listenerTotalRecordCount =
             new TotalRecordCountListener();
     private TableModelDatabaseInfo modelDatabaseInfo;
+    private volatile boolean listenToDbChanges;
 
     /** Creates new form DatabaseInfoCountPanel */
     public DatabaseInfoCountPanel() {
@@ -28,6 +29,7 @@ public final class DatabaseInfoCountPanel extends javax.swing.JPanel {
     }
 
     public void listenToDatabaseChanges(boolean listen) {
+        listenToDbChanges = listen;
         if (listen) {
             listenerTotalRecordCount.addLabel(labelTotalRecordCount);
             setModelDatabaseInfo();
@@ -67,6 +69,7 @@ public final class DatabaseInfoCountPanel extends javax.swing.JPanel {
                 @Override
                 public void run() {
                     modelDatabaseInfo = new TableModelDatabaseInfo();
+                    modelDatabaseInfo.setListenToDatabase(listenToDbChanges);
                     table.setModel(modelDatabaseInfo);
                     modelDatabaseInfo.update();
                     setInitTotalRecordCount();
