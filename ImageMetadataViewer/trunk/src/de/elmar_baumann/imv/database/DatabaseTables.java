@@ -24,6 +24,7 @@ public final class DatabaseTables extends Database {
 
 
     static {
+        // TODO: Update
         tableNames.add("files");
         tableNames.add("xmp");
         tableNames.add("xmp_dc_subjects");
@@ -39,6 +40,7 @@ public final class DatabaseTables extends Database {
         tableNames.add("favorite_directories");
         tableNames.add("file_exclude_pattern");
         tableNames.add("programs");
+        tableNames.add("actions_after_db_insertion");
     }
 
     public static List<String> getTableNames() {
