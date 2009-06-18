@@ -1,10 +1,8 @@
 package de.elmar_baumann.imv.controller.keywords;
 
-import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.types.Content;
 import de.elmar_baumann.imv.database.DatabaseImageFiles;
 import de.elmar_baumann.imv.event.RefreshListener;
-import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.InfoSetThumbnails;
 import de.elmar_baumann.imv.view.panels.AppPanel;
@@ -53,10 +51,6 @@ public final class ControllerKeywordItemSelected implements
     public void valueChanged(ListSelectionEvent e) {
         if (listKeywords.getSelectedIndex() >= 0) {
             update();
-        } else {
-            AppLog.logWarning(ControllerKeywordItemSelected.class, Bundle.
-                    getString(
-                    "ControllerKeywordItemSelected.ErrorMessage.InvalidIndex"));
         }
     }
 
