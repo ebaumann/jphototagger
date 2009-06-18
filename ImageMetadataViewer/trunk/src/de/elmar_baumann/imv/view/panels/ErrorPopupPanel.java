@@ -25,11 +25,10 @@ public class ErrorPopupPanel extends javax.swing.JPanel {
 
         label = new javax.swing.JLabel();
 
-        setBackground(new java.awt.Color(255, 255, 153));
-        setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 255, 0)));
+        setBackground(new java.awt.Color(255, 255, 255));
+        setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        label.setBackground(new java.awt.Color(255, 255, 153));
-        label.setForeground(new java.awt.Color(0, 0, 255));
+        label.setForeground(new java.awt.Color(255, 0, 0));
         label.setText(Bundle.getString("ErrorPopupPanel.label.text")); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
