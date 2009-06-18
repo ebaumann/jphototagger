@@ -286,9 +286,10 @@ public abstract class ThumbnailsPanel extends JPanel
      * 
      * @param listener Beobachter
      */
-    public synchronized void addThumbnailsPanelListener(
-            ThumbnailsPanelListener listener) {
-        panelListeners.add(listener);
+    public void addThumbnailsPanelListener(ThumbnailsPanelListener listener) {
+        synchronized (panelListeners) {
+            panelListeners.add(listener);
+        }
     }
 
     /**
@@ -863,26 +864,32 @@ public abstract class ThumbnailsPanel extends JPanel
                  : 1;
     }
 
-    private synchronized void notifyAllThumbnailsDeselected() {
-        for (ThumbnailsPanelListener listener : panelListeners) {
-            listener.selectionChanged(
-                    new ThumbnailsPanelAction(-1, -1, -1, this));
+    private void notifyAllThumbnailsDeselected() {
+        synchronized (panelListeners) {
+            for (ThumbnailsPanelListener listener : panelListeners) {
+                listener.selectionChanged(
+                        new ThumbnailsPanelAction(-1, -1, -1, this));
+            }
         }
     }
 
-    private synchronized void notifyThumbnailSelected() {
-        for (ThumbnailsPanelListener listener : panelListeners) {
-            listener.selectionChanged(new ThumbnailsPanelAction(
-                    getSelectedIndex(),
-                    getXSelectedThumbnail(),
-                    getYSelectedThumbnail(),
-                    this));
+    private void notifyThumbnailSelected() {
+        synchronized (panelListeners) {
+            for (ThumbnailsPanelListener listener : panelListeners) {
+                listener.selectionChanged(new ThumbnailsPanelAction(
+                        getSelectedIndex(),
+                        getXSelectedThumbnail(),
+                        getYSelectedThumbnail(),
+                        this));
+            }
         }
     }
 
-    private synchronized void notifyThumbnailsChanged() {
-        for (ThumbnailsPanelListener listener : panelListeners) {
-            listener.thumbnailsChanged();
+    private void notifyThumbnailsChanged() {
+        synchronized (panelListeners) {
+            for (ThumbnailsPanelListener listener : panelListeners) {
+                listener.thumbnailsChanged();
+            }
         }
     }
 
