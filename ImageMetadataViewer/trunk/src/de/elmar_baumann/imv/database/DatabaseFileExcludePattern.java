@@ -168,7 +168,7 @@ public final class DatabaseFileExcludePattern extends Database {
                         updateStmt.setString(1, filename);
                         deletedFiles.add(filename);
                         AppLog.logFiner(DatabaseFileExcludePattern.class, updateStmt.toString());
-                        updateStmt.executeUpdate();
+                        count += updateStmt.executeUpdate();
                         stop = event.isStop();
                     }
                     event.setInfo(filename);
@@ -182,6 +182,9 @@ public final class DatabaseFileExcludePattern extends Database {
             notifyProgressListenerEnd(listener, event);
             notifyDatabaseListener(DatabaseAction.Type.IMAGEFILES_DELETED, deletedFiles);
         } catch (SQLException ex) {
+            AppLog.logWarning(DatabaseFileExcludePattern.class, ex);
+        } catch (Exception ex) {
+            // regular expression exceptions are possible
             AppLog.logWarning(DatabaseFileExcludePattern.class, ex);
         } finally {
             free(connection);
