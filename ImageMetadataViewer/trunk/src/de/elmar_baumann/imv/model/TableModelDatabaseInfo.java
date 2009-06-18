@@ -2,8 +2,6 @@ package de.elmar_baumann.imv.model;
 
 import de.elmar_baumann.imv.database.DatabaseStatistics;
 import de.elmar_baumann.imv.database.metadata.Column;
-import de.elmar_baumann.imv.database.metadata.collections.ColumnCollectionsSequenceNumber;
-import de.elmar_baumann.imv.database.metadata.file.ColumnFilesThumbnail;
 import de.elmar_baumann.imv.database.metadata.selections.DatabaseInfoRecordCountColumns;
 import de.elmar_baumann.imv.event.DatabaseAction;
 import de.elmar_baumann.imv.event.DatabaseListener;
@@ -28,8 +26,16 @@ public final class TableModelDatabaseInfo extends DefaultTableModel
             new LinkedHashMap<Column, StringBuffer>();
     private final LinkedHashMap<Column, StringBuffer> bufferTotalOfColumn =
             new LinkedHashMap<Column, StringBuffer>();
-    private final List<Column> excludedColumns = new ArrayList<Column>();
+    private static final List<DatabaseAction.Type> countActions =
+            new ArrayList<DatabaseAction.Type>();
     private boolean listenToDatabase = false;
+
+
+    static {
+        countActions.add(DatabaseAction.Type.IMAGEFILE_DELETED);
+        countActions.add(DatabaseAction.Type.IMAGEFILE_INSERTED);
+        countActions.add(DatabaseAction.Type.IMAGEFILE_UPDATED);
+    }
 
     private void initBufferOfColumn() {
         List<Column> columns = DatabaseInfoRecordCountColumns.get();
@@ -39,23 +45,20 @@ public final class TableModelDatabaseInfo extends DefaultTableModel
         }
     }
 
-    private void initExcludedColumns() {
-        excludedColumns.add(ColumnFilesThumbnail.INSTANCE);
-        excludedColumns.add(ColumnCollectionsSequenceNumber.INSTANCE);
-    }
-
     public TableModelDatabaseInfo() {
-        initExcludedColumns();
         initBufferOfColumn();
         addColumnHeaders();
         addRows();
         db.addDatabaseListener(this);
     }
 
-    /**
-     * Aktualisiert die Information. Ist nur einmalig aufzurufen, nachdem dei
-     * Datenbankverbindung steht.
-     */
+    @Override
+    public void actionPerformed(DatabaseAction action) {
+        if (listenToDatabase && isCountEvent(action.getType())) {
+            update();
+        }
+    }
+
     public void update() {
         setCount();
     }
@@ -64,11 +67,8 @@ public final class TableModelDatabaseInfo extends DefaultTableModel
         listenToDatabase = listen;
     }
 
-    @Override
-    public void actionPerformed(DatabaseAction action) {
-        if (listenToDatabase) {
-            update();
-        }
+    private boolean isCountEvent(DatabaseAction.Type type) {
+        return countActions.contains(type);
     }
 
     private void addColumnHeaders() {
@@ -103,6 +103,7 @@ public final class TableModelDatabaseInfo extends DefaultTableModel
             super();
             setName("Setting count in database info" + " @ " + // NOI18N
                     getClass().getName());
+            setPriority(MIN_PRIORITY);
         }
 
         @Override
