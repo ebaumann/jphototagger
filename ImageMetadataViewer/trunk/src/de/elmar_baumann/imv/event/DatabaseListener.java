@@ -15,7 +15,7 @@ public interface DatabaseListener {
     public void actionPerformed(DatabaseImageEvent event);
 
     /**
-     * An program event occured.
+     * A program event occured.
      *
      * @param event event
      */
