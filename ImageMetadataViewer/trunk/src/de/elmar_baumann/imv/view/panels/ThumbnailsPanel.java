@@ -450,7 +450,7 @@ public abstract class ThumbnailsPanel extends JPanel
                 (getThumbnailAreaHeight() + MARGIN_THUMBNAIL) + 0.5);
     }
 
-    private Image getCashedThumbnail(int index) {
+    private Image getCachedThumbnail(int index) {
         Image thumbnail = null;
         if (thumbnailAtIndex.containsKey(index)) {
             thumbnail = thumbnailAtIndex.get(index);
@@ -757,7 +757,7 @@ public abstract class ThumbnailsPanel extends JPanel
                 MARGIN_THUMBNAIL);
         int areaY = MARGIN_THUMBNAIL + rowIndex * (getThumbnailAreaHeight() +
                 MARGIN_THUMBNAIL);
-        Image thumbnail = getCashedThumbnail(index);
+        Image thumbnail = getCachedThumbnail(index);
 
         paintThumbnailBackground(g, areaX, areaY, isSelected(index));
         paintThumbnailFlag(index, g, areaX, areaY);
