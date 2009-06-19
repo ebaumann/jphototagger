@@ -7,7 +7,7 @@ import de.elmar_baumann.imv.database.DatabaseImageFiles;
 import de.elmar_baumann.imv.event.DatabaseImageEvent;
 import de.elmar_baumann.imv.event.DatabaseListener;
 import de.elmar_baumann.imv.event.DatabaseProgramEvent;
-import de.elmar_baumann.imv.event.ThumbnailsPanelAction;
+import de.elmar_baumann.imv.event.ThumbnailsPanelEvent;
 import de.elmar_baumann.imv.event.ThumbnailsPanelListener;
 import de.elmar_baumann.imv.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.imv.model.TableModelExif;
@@ -112,7 +112,7 @@ public final class ControllerShowMetadata implements DatabaseListener,
     }
 
     @Override
-    public void selectionChanged(ThumbnailsPanelAction action) {
+    public void selectionChanged(ThumbnailsPanelEvent action) {
         if (data.getThumbnailsPanel().getSelectionCount() == 1) {
             showMetadataOfFile(data.getThumbnailsPanel().getFile(action.
                     getThumbnailIndex()));

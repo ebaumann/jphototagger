@@ -12,7 +12,7 @@ public interface ThumbnailsPanelListener {
      * 
      * @param action  action
      */
-    public void selectionChanged(ThumbnailsPanelAction action);
+    public void selectionChanged(ThumbnailsPanelEvent action);
 
     /**
      * Count and/or order of the thumbnails changed.

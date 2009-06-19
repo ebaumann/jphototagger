@@ -5,7 +5,7 @@ import de.elmar_baumann.imv.app.AppTexts;
 import de.elmar_baumann.imv.tasks.InsertImageFilesIntoDatabase;
 import de.elmar_baumann.imv.event.ProgressEvent;
 import de.elmar_baumann.imv.event.ProgressListener;
-import de.elmar_baumann.imv.event.ThumbnailsPanelAction;
+import de.elmar_baumann.imv.event.ThumbnailsPanelEvent;
 import de.elmar_baumann.imv.event.ThumbnailsPanelListener;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.ProgressBarCreateMetadataOfCurrentThumbnails;
@@ -80,7 +80,7 @@ public final class ControllerCreateMetadataOfCurrentThumbnails
     }
 
     @Override
-    public void selectionChanged(ThumbnailsPanelAction action) {
+    public void selectionChanged(ThumbnailsPanelEvent action) {
     }
 
     @Override

@@ -1,7 +1,7 @@
 package de.elmar_baumann.imv.view.panels;
 
 import de.elmar_baumann.imv.app.AppLog;
-import de.elmar_baumann.imv.event.ThumbnailsPanelAction;
+import de.elmar_baumann.imv.event.ThumbnailsPanelEvent;
 import de.elmar_baumann.imv.event.ThumbnailsPanelListener;
 import de.elmar_baumann.imv.data.ThumbnailFlag;
 import de.elmar_baumann.lib.event.MouseEventUtil;
@@ -868,7 +868,7 @@ public abstract class ThumbnailsPanel extends JPanel
         synchronized (panelListeners) {
             for (ThumbnailsPanelListener listener : panelListeners) {
                 listener.selectionChanged(
-                        new ThumbnailsPanelAction(-1, -1, -1, this));
+                        new ThumbnailsPanelEvent(-1));
             }
         }
     }
@@ -876,11 +876,8 @@ public abstract class ThumbnailsPanel extends JPanel
     private void notifyThumbnailSelected() {
         synchronized (panelListeners) {
             for (ThumbnailsPanelListener listener : panelListeners) {
-                listener.selectionChanged(new ThumbnailsPanelAction(
-                        getSelectedIndex(),
-                        getXSelectedThumbnail(),
-                        getYSelectedThumbnail(),
-                        this));
+                listener.selectionChanged(new ThumbnailsPanelEvent(
+                        getSelectedIndex()));
             }
         }
     }
@@ -980,8 +977,7 @@ public abstract class ThumbnailsPanel extends JPanel
         int indexSelectedThumbnail = getSelectedIndex();
         if (indexSelectedThumbnail >= 0) {
             int tnWidth = getThumbnailAreaWidth() + MARGIN_THUMBNAIL;
-            int columnIndex = getColumnIndexAt(
-                    indexSelectedThumbnail);
+            int columnIndex = getColumnIndexAt(indexSelectedThumbnail);
             return tnWidth * columnIndex;
         }
         return -1;
