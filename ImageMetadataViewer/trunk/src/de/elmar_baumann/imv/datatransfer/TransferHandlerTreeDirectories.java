@@ -5,6 +5,7 @@ import de.elmar_baumann.imv.event.listener.ProgressListener;
 import de.elmar_baumann.imv.io.IoUtil;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.GUI;
+import de.elmar_baumann.imv.tasks.CopyFiles;
 import de.elmar_baumann.imv.view.dialogs.CopyToDirectoryDialog;
 import de.elmar_baumann.imv.view.dialogs.MoveToDirectoryDialog;
 import de.elmar_baumann.lib.datatransfer.TransferUtil;
@@ -25,14 +26,16 @@ import javax.swing.tree.TreePath;
  */
 public final class TransferHandlerTreeDirectories extends TransferHandler {
 
-    static final String filenamesDelimiter = TransferHandlerThumbnailsPanel.delimiter;
+    static final String filenamesDelimiter =
+            TransferHandlerThumbnailsPanel.delimiter;
 
     @Override
     public boolean canImport(TransferSupport transferSupport) {
         if (!TransferUtil.maybeContainFileData(transferSupport.getTransferable())) {
             return false;
         }
-        JTree.DropLocation dropLocation = (JTree.DropLocation) transferSupport.getDropLocation();
+        JTree.DropLocation dropLocation = (JTree.DropLocation) transferSupport.
+                getDropLocation();
         return dropLocation.getPath() != null;
     }
 
@@ -54,10 +57,12 @@ public final class TransferHandlerTreeDirectories extends TransferHandler {
         }
         File targetDirectory = getTargetDirectory(transferSupport);
         Transferable transferable = transferSupport.getTransferable();
-        List<File> sourceFiles = IoUtil.getImageFiles(TransferUtil.getFiles(transferable, filenamesDelimiter));
+        List<File> sourceFiles = IoUtil.getImageFiles(TransferUtil.getFiles(
+                transferable, filenamesDelimiter));
         if (targetDirectory != null && !sourceFiles.isEmpty()) {
             handleDroppedFiles(
-                transferSupport.getUserDropAction(), sourceFiles, targetDirectory);
+                    transferSupport.getUserDropAction(), sourceFiles,
+                    targetDirectory);
         }
         return true;
     }
@@ -75,16 +80,19 @@ public final class TransferHandlerTreeDirectories extends TransferHandler {
      * @param targetDirectory  target directory
      */
     public static void handleDroppedFiles(
-        int dropAction, List<File> sourceFiles, File targetDirectory) {
+            int dropAction, List<File> sourceFiles, File targetDirectory) {
         List<File> imageFiles = IoUtil.getImageFiles(sourceFiles);
         if (imageFiles.isEmpty()) {
             return;
         }
-        if (dropAction == COPY && confirmFileAction("TransferHandlerTreeDirectories.ConfirmMessage.Copy", imageFiles.size(),
-            targetDirectory.getAbsolutePath())) {
+        if (dropAction == COPY && confirmFileAction(
+                "TransferHandlerTreeDirectories.ConfirmMessage.Copy",
+                imageFiles.size(),
+                targetDirectory.getAbsolutePath())) {
             copyFiles(targetDirectory, imageFiles);
-        } else if (dropAction == MOVE && confirmFileAction("TransferHandlerTreeDirectories.ConfirmMessage.Move",
-            imageFiles.size(), targetDirectory.getAbsolutePath())) {
+        } else if (dropAction == MOVE && confirmFileAction(
+                "TransferHandlerTreeDirectories.ConfirmMessage.Move",
+                imageFiles.size(), targetDirectory.getAbsolutePath())) {
             moveFiles(targetDirectory, imageFiles);
         }
     }
@@ -94,7 +102,7 @@ public final class TransferHandlerTreeDirectories extends TransferHandler {
         dialog.setTargetDirectory(targetDirectory);
         dialog.setSourceFiles(sourceFiles);
         addProgressListener(dialog);
-        dialog.setVisible(true);
+        dialog.copy(true, CopyFiles.Options.CONFIRM_OVERWRITE);
     }
 
     private static void moveFiles(File targetDirectory, List<File> sourceFiles) {
@@ -106,7 +114,8 @@ public final class TransferHandlerTreeDirectories extends TransferHandler {
     }
 
     private File getTargetDirectory(TransferSupport transferSupport) {
-        TreePath path = ((JTree.DropLocation) transferSupport.getDropLocation()).getPath();
+        TreePath path =
+                ((JTree.DropLocation) transferSupport.getDropLocation()).getPath();
         Object lastPathComponent = path.getLastPathComponent();
         if (lastPathComponent instanceof File) {
             return (File) lastPathComponent;
@@ -114,16 +123,19 @@ public final class TransferHandlerTreeDirectories extends TransferHandler {
         return null;
     }
 
-    private static boolean confirmFileAction(String bundleKey, int size, String absolutePath) {
+    private static boolean confirmFileAction(String bundleKey, int size,
+            String absolutePath) {
         return JOptionPane.showConfirmDialog(
-            null,
-            Bundle.getString(bundleKey, size, absolutePath),
-            Bundle.getString("TransferHandlerTreeDirectories.ConfirmMessage.Title"),
-            JOptionPane.YES_NO_OPTION,
-            JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION;
+                null,
+                Bundle.getString(bundleKey, size, absolutePath),
+                Bundle.getString(
+                "TransferHandlerTreeDirectories.ConfirmMessage.Title"),
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION;
     }
 
-    private synchronized static void addProgressListener(MoveToDirectoryDialog dialog) {
+    private synchronized static void addProgressListener(
+            MoveToDirectoryDialog dialog) {
 
         dialog.addProgressListener(new ProgressListener() {
 
@@ -143,7 +155,8 @@ public final class TransferHandlerTreeDirectories extends TransferHandler {
 
     }
 
-    private synchronized static void addProgressListener(CopyToDirectoryDialog dialog) {
+    private synchronized static void addProgressListener(
+            CopyToDirectoryDialog dialog) {
 
         dialog.addProgressListener(new ProgressListener() {
 

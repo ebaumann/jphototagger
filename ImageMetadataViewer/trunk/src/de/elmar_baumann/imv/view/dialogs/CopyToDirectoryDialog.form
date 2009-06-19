@@ -32,16 +32,16 @@
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="labelTargetDirectory" alignment="0" pref="451" max="32767" attributes="2"/>
+                  <Component id="labelTargetDirectory" alignment="0" pref="559" max="32767" attributes="2"/>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="labelInfoIsThread" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="83" max="32767" attributes="0"/>
+                      <EmptySpace pref="106" max="32767" attributes="0"/>
                       <Component id="buttonStop" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="buttonStart" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="labelCurrentFilename" alignment="0" pref="451" max="32767" attributes="0"/>
-                  <Component id="progressBar" alignment="0" pref="451" max="32767" attributes="0"/>
+                  <Component id="labelCurrentFilename" alignment="0" pref="559" max="32767" attributes="0"/>
+                  <Component id="progressBar" alignment="0" pref="559" max="32767" attributes="0"/>
                   <Component id="checkBoxCopyXmp" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="checkBoxForceOverwrite" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
@@ -78,7 +78,7 @@
                   <Component id="buttonStart" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="buttonStop" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="11" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
