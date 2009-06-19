@@ -3,7 +3,7 @@ package de.elmar_baumann.imv.controller.metadata;
 import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.data.MetadataEditTemplate;
 import de.elmar_baumann.imv.database.DatabaseMetadataEditTemplates;
-import de.elmar_baumann.imv.event.ListenerProvider;
+import de.elmar_baumann.imv.event.listener.impl.ListenerProvider;
 import de.elmar_baumann.imv.event.MetadataEditPanelEvent;
 import de.elmar_baumann.imv.event.listener.MetadataEditPanelListener;
 import de.elmar_baumann.imv.model.ComboBoxModelMetadataEditTemplates;

@@ -4,7 +4,7 @@ import de.elmar_baumann.imv.data.SavedSearch;
 import de.elmar_baumann.imv.data.SavedSearchParamStatement;
 import de.elmar_baumann.imv.database.DatabaseSearch;
 import de.elmar_baumann.imv.database.metadata.ParamStatement;
-import de.elmar_baumann.imv.event.ListenerProvider;
+import de.elmar_baumann.imv.event.listener.impl.ListenerProvider;
 import de.elmar_baumann.imv.event.SearchEvent;
 import de.elmar_baumann.imv.event.listener.SearchListener;
 import de.elmar_baumann.imv.resource.GUI;

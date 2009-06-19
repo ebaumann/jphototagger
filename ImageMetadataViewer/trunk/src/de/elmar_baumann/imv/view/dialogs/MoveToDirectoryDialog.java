@@ -6,7 +6,7 @@ import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.event.FileSystemEvent;
 import de.elmar_baumann.imv.event.listener.FileSystemActionListener;
 import de.elmar_baumann.imv.event.FileSystemError;
-import de.elmar_baumann.imv.event.ListenerProvider;
+import de.elmar_baumann.imv.event.listener.impl.ListenerProvider;
 import de.elmar_baumann.imv.event.ProgressEvent;
 import de.elmar_baumann.imv.event.listener.ProgressListener;
 import de.elmar_baumann.imv.image.metadata.xmp.XmpMetadata;

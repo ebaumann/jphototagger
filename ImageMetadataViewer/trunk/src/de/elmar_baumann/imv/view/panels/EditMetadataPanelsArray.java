@@ -19,7 +19,7 @@ import de.elmar_baumann.imv.event.listener.AppExitListener;
 import de.elmar_baumann.imv.event.DatabaseImageEvent;
 import de.elmar_baumann.imv.event.listener.DatabaseListener;
 import de.elmar_baumann.imv.event.DatabaseProgramEvent;
-import de.elmar_baumann.imv.event.ListenerProvider;
+import de.elmar_baumann.imv.event.listener.impl.ListenerProvider;
 import de.elmar_baumann.imv.event.MetadataEditPanelEvent;
 import de.elmar_baumann.imv.event.listener.MetadataEditPanelListener;
 import de.elmar_baumann.imv.image.metadata.xmp.XmpMetadata;

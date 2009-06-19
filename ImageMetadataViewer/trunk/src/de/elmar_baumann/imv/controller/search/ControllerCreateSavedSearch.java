@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.controller.search;
 
-import de.elmar_baumann.imv.event.ListenerProvider;
+import de.elmar_baumann.imv.event.listener.impl.ListenerProvider;
 import de.elmar_baumann.imv.event.SearchEvent;
 import de.elmar_baumann.imv.event.listener.SearchListener;
 import de.elmar_baumann.imv.tasks.SavedSearchesModifier;

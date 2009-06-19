@@ -2,7 +2,7 @@ package de.elmar_baumann.imv.controller.filesystem;
 
 import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.database.DatabaseImageFiles;
-import de.elmar_baumann.imv.event.ListenerProvider;
+import de.elmar_baumann.imv.event.listener.impl.ListenerProvider;
 import de.elmar_baumann.imv.event.RenameFileEvent;
 import de.elmar_baumann.imv.event.listener.RenameFileListener;
 import de.elmar_baumann.imv.resource.Bundle;

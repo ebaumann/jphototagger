@@ -1,5 +1,6 @@
-package de.elmar_baumann.imv.event;
+package de.elmar_baumann.imv.event.listener.impl;
 
+import de.elmar_baumann.imv.event.UserSettingsChangeEvent;
 import de.elmar_baumann.imv.event.listener.UserSettingsChangeListener;
 import de.elmar_baumann.imv.event.listener.FileSystemActionListener;
 import de.elmar_baumann.imv.event.listener.MetadataEditPanelListener;
