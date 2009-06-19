@@ -7,5 +7,5 @@ package de.elmar_baumann.imv.event;
  */
 public interface ProgramActionListener {
 
-    public void actionPerformed(ProgramActionEvent evt);
+    public void actionPerformed(ProgramEvent evt);
 }

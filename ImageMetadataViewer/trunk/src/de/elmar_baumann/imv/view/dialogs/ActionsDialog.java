@@ -4,7 +4,7 @@ import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.app.AppIcons;
 import de.elmar_baumann.imv.controller.actions.ControllerActionExecutor;
 import de.elmar_baumann.imv.data.Program;
-import de.elmar_baumann.imv.event.ProgramActionEvent;
+import de.elmar_baumann.imv.event.ProgramEvent;
 import de.elmar_baumann.imv.event.ProgramActionListener;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.dialog.Dialog;
@@ -60,10 +60,10 @@ public final class ActionsDialog extends Dialog implements ProgramActionListener
     }
 
     @Override
-    public void actionPerformed(ProgramActionEvent evt) {
-        ProgramActionEvent.Type type = evt.getType();
-        if ((type.equals(ProgramActionEvent.Type.ACTION_CREATED) ||
-            type.equals(ProgramActionEvent.Type.ACTION_UPDATED)) && isVisible()) {
+    public void actionPerformed(ProgramEvent evt) {
+        ProgramEvent.Type type = evt.getType();
+        if ((type.equals(ProgramEvent.Type.PROGRAM_CREATED) ||
+            type.equals(ProgramEvent.Type.PROGRAM_UPDATED)) && isVisible()) {
             toFront();
         }
     }

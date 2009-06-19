@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.controller.actions;
 
-import de.elmar_baumann.imv.event.ProgramActionEvent;
+import de.elmar_baumann.imv.event.ProgramEvent;
 import de.elmar_baumann.imv.event.ProgramActionListener;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.tasks.ProgramStarter;
@@ -31,8 +31,8 @@ public final class ControllerActionExecutor implements ProgramActionListener {
     }
 
     @Override
-    public void actionPerformed(ProgramActionEvent evt) {
-        if (evt.getType().equals(ProgramActionEvent.Type.ACTION_EXECUTE)) {
+    public void actionPerformed(ProgramEvent evt) {
+        if (evt.getType().equals(ProgramEvent.Type.PROGRAM_EXECUTED)) {
             programStarter.startProgram(evt.getProgram(), thumbnailsPanel.
                     getSelectedFiles());
         }

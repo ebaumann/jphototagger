@@ -2,7 +2,7 @@ package de.elmar_baumann.imv.view.panels;
 
 import de.elmar_baumann.imv.data.Program;
 import de.elmar_baumann.imv.database.DatabaseActionsAfterDbInsertion;
-import de.elmar_baumann.imv.event.ProgramActionEvent;
+import de.elmar_baumann.imv.event.ProgramEvent;
 import de.elmar_baumann.imv.event.ProgramActionListener;
 import de.elmar_baumann.imv.view.renderer.ListCellRendererActions;
 import de.elmar_baumann.imv.model.ListModelPrograms;
@@ -61,7 +61,7 @@ public final class ActionsPanel extends javax.swing.JPanel {
     private void execute() {
         if (list.getSelectedIndex() >= 0) {
             Program program = getSelectedProgram();
-            notify(new ProgramActionEvent(ProgramActionEvent.Type.ACTION_EXECUTE, program));
+            notify(new ProgramEvent(ProgramEvent.Type.PROGRAM_EXECUTED, program));
         }
     }
 
@@ -71,8 +71,8 @@ public final class ActionsPanel extends javax.swing.JPanel {
         if (dialog.accepted()) {
             Program program = dialog.getProgram();
             model.add(program);
-            notify(new ProgramActionEvent(
-                    ProgramActionEvent.Type.ACTION_CREATED, program));
+            notify(new ProgramEvent(
+                    ProgramEvent.Type.PROGRAM_CREATED, program));
         }
         setButtonsEnabled();
     }
@@ -85,8 +85,8 @@ public final class ActionsPanel extends javax.swing.JPanel {
             dialog.setVisible(true);
             if (dialog.accepted()) {
                 model.update(program);
-                notify(new ProgramActionEvent(
-                        ProgramActionEvent.Type.ACTION_UPDATED, program));
+                notify(new ProgramEvent(
+                        ProgramEvent.Type.PROGRAM_UPDATED, program));
             }
         }
         setButtonsEnabled();
@@ -133,7 +133,7 @@ public final class ActionsPanel extends javax.swing.JPanel {
         actionListeners.add(l);
     }
 
-    private synchronized void notify(ProgramActionEvent evt) {
+    private synchronized void notify(ProgramEvent evt) {
         for (ProgramActionListener l : actionListeners) {
             l.actionPerformed(evt);
         }
