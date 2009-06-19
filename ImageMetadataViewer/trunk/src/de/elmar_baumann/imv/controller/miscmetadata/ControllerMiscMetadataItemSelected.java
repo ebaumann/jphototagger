@@ -87,17 +87,14 @@ public final class ControllerMiscMetadataItemSelected implements
             if (parentUserObject instanceof Column) {
                 Column column = (Column) parentUserObject;
                 if (TreeModelMiscMetadata.containsExifColumn(column)) {
-                    setFilesToThumbnailsPanelExif(column, userObject.toString());
+                    thumbnailsPanel.setFiles(db.getFilesFromExif(column,
+                            userObject.toString()),
+                            Content.MISC_METADATA);
                 }
             }
         } else {
             thumbnailsPanel.setFiles(new ArrayList<File>(),
                     Content.MISC_METADATA);
         }
-    }
-
-    private void setFilesToThumbnailsPanelExif(Column column, String value) {
-        thumbnailsPanel.setFiles(db.getFilesFromExif(column, value),
-                Content.MISC_METADATA);
     }
 }
