@@ -3,7 +3,7 @@ package de.elmar_baumann.imv.controller.filesystem;
 import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.database.DatabaseImageFiles;
 import de.elmar_baumann.imv.event.ListenerProvider;
-import de.elmar_baumann.imv.event.RenameFileAction;
+import de.elmar_baumann.imv.event.RenameFileEvent;
 import de.elmar_baumann.imv.event.RenameFileListener;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.GUI;
@@ -55,7 +55,7 @@ public final class ControllerRenameFiles implements ActionListener, RenameFileLi
     }
 
     @Override
-    public void actionPerformed(RenameFileAction action) {
+    public void actionPerformed(RenameFileEvent action) {
         db.updateRenameImageFilename(action.getOldFile().getAbsolutePath(),
                 action.getNewFile().getAbsolutePath());
         thumbnailsPanel.rename(action.getOldFile(), action.getNewFile());

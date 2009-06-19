@@ -7,5 +7,5 @@ package de.elmar_baumann.imv.event;
  */
 public interface RenameFileListener {
 
-    public void actionPerformed(RenameFileAction action);
+    public void actionPerformed(RenameFileEvent action);
 }

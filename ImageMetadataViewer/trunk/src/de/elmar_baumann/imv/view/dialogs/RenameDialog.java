@@ -12,7 +12,7 @@ import de.elmar_baumann.imv.controller.filesystem.FilenameFormatNumberSequence;
 import de.elmar_baumann.imv.controller.filesystem.FilenameFormatConstantString;
 import de.elmar_baumann.imv.controller.filesystem.FilenameFormatFilenamePostfix;
 import de.elmar_baumann.imv.event.ListenerProvider;
-import de.elmar_baumann.imv.event.RenameFileAction;
+import de.elmar_baumann.imv.event.RenameFileEvent;
 import de.elmar_baumann.imv.event.RenameFileListener;
 import de.elmar_baumann.imv.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.imv.image.thumbnail.ThumbnailUtil;
@@ -89,7 +89,7 @@ public final class RenameDialog extends Dialog {
     }
 
     public synchronized void notifyRenameListeners(File oldFile, File newFile) {
-        RenameFileAction action = new RenameFileAction(oldFile, newFile);
+        RenameFileEvent action = new RenameFileEvent(oldFile, newFile);
         for (RenameFileListener listener : renameFileListeners) {
             listener.actionPerformed(action);
         }
