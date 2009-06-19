@@ -16,8 +16,9 @@ import de.elmar_baumann.imv.database.metadata.selections.EditHints.SizeEditField
 import de.elmar_baumann.imv.database.metadata.selections.EditColumns;
 import de.elmar_baumann.imv.database.metadata.mapping.IptcXmpMapping;
 import de.elmar_baumann.imv.event.AppExitListener;
-import de.elmar_baumann.imv.event.DatabaseAction;
+import de.elmar_baumann.imv.event.DatabaseImageEvent;
 import de.elmar_baumann.imv.event.DatabaseListener;
+import de.elmar_baumann.imv.event.DatabaseProgramEvent;
 import de.elmar_baumann.imv.event.ListenerProvider;
 import de.elmar_baumann.imv.event.MetadataEditPanelEvent;
 import de.elmar_baumann.imv.event.MetadataEditPanelListener;
@@ -46,12 +47,14 @@ import javax.swing.JTextField;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public final class EditMetadataPanelsArray implements FocusListener, DatabaseListener,
-    AppExitListener {
+public final class EditMetadataPanelsArray implements FocusListener,
+                                                      DatabaseListener,
+                                                      AppExitListener {
 
     private final List<JPanel> panels = new ArrayList<JPanel>();
     private List<String> filenames = new ArrayList<String>();
-    private List<MetadataEditPanelListener> listeners = new LinkedList<MetadataEditPanelListener>();
+    private List<MetadataEditPanelListener> listeners =
+            new LinkedList<MetadataEditPanelListener>();
     boolean editable = true;
     private JComponent container;
     private EditMetadataActionsPanel editActionsPanel;
@@ -88,11 +91,12 @@ public final class EditMetadataPanelsArray implements FocusListener, DatabaseLis
 
     private boolean confirmSave() {
         return JOptionPane.showConfirmDialog(
-            null,
-            Bundle.getString("EditMetadataPanelsArray.ConfirmMessage.Save"),
-            Bundle.getString("EditMetadataPanelsArray.ConfirmMessage.Save.Title"),
-            JOptionPane.YES_NO_OPTION,
-            JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION;
+                null,
+                Bundle.getString("EditMetadataPanelsArray.ConfirmMessage.Save"),
+                Bundle.getString(
+                "EditMetadataPanelsArray.ConfirmMessage.Save.Title"),
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION;
     }
 
     private synchronized void notifyActionListener(MetadataEditPanelEvent evt) {
@@ -112,9 +116,9 @@ public final class EditMetadataPanelsArray implements FocusListener, DatabaseLis
             ((TextEntry) panel).setEditable(editable);
         }
         notifyActionListener(new MetadataEditPanelEvent(this,
-            editable
-            ? MetadataEditPanelEvent.Type.EDIT_ENABLED
-            : MetadataEditPanelEvent.Type.EDIT_DISABLED));
+                editable
+                ? MetadataEditPanelEvent.Type.EDIT_ENABLED
+                : MetadataEditPanelEvent.Type.EDIT_DISABLED));
     }
 
     /**
@@ -204,21 +208,26 @@ public final class EditMetadataPanelsArray implements FocusListener, DatabaseLis
      * @param filenames Dateinamen, deren Metadaten angezeigt werden
      * @param infos     Zu setzende Einträge
      */
-    public void setXmpPropertyInfos(List<String> filenames, List<XMPPropertyInfo> infos) {
+    public void setXmpPropertyInfos(List<String> filenames,
+            List<XMPPropertyInfo> infos) {
         emptyPanels(false);
         this.filenames = filenames;
         for (JPanel panel : panels) {
             TextEntry textEntry = (TextEntry) panel;
             Column xmpColumn = textEntry.getColumn();
-            IPTCEntryMeta iptcEntryMeta = IptcXmpMapping.getIptcEntryMetaOfXmpColumn(xmpColumn);
+            IPTCEntryMeta iptcEntryMeta = IptcXmpMapping.
+                    getIptcEntryMetaOfXmpColumn(xmpColumn);
             List<XMPPropertyInfo> matchingInfos =
-                XmpMetadata.getFilteredPropertyInfosOfIptcEntryMeta(iptcEntryMeta, infos);
+                    XmpMetadata.getFilteredPropertyInfosOfIptcEntryMeta(
+                    iptcEntryMeta, infos);
 
             int countMatchingInfos = matchingInfos.size();
             StringBuffer buffer = new StringBuffer();
             for (int i = 0; i < countMatchingInfos; i++) {
-                buffer.append((i > 0 ? XmpMetadata.getArrayItemDelimiter() : "") + // NOI18N
-                    matchingInfos.get(i).getValue().toString().trim());
+                buffer.append((i > 0
+                               ? XmpMetadata.getArrayItemDelimiter()
+                               : "") + // NOI18N
+                        matchingInfos.get(i).getValue().toString().trim());
             }
             if (buffer.length() > 0) {
                 textEntry.setText(buffer.toString());
@@ -230,7 +239,8 @@ public final class EditMetadataPanelsArray implements FocusListener, DatabaseLis
     public synchronized void addDeleteListenerTo(JMenuItem itemDelete) {
         for (JPanel panel : panels) {
             if (panel instanceof EditRepeatableTextEntryPanel) {
-                EditRepeatableTextEntryPanel listener = (EditRepeatableTextEntryPanel) panel;
+                EditRepeatableTextEntryPanel listener =
+                        (EditRepeatableTextEntryPanel) panel;
                 itemDelete.addActionListener(listener);
             }
         }
@@ -266,7 +276,8 @@ public final class EditMetadataPanelsArray implements FocusListener, DatabaseLis
     }
 
     private void addActionPanel() {
-        editActionsPanel = GUI.INSTANCE.getAppPanel().getMetadataEditActionsPanel();
+        editActionsPanel = GUI.INSTANCE.getAppPanel().
+                getMetadataEditActionsPanel();
         GridBagConstraints gbc = newConstraints();
         gbc.weighty = 1;
         container.add(editActionsPanel, gbc);
@@ -294,17 +305,21 @@ public final class EditMetadataPanelsArray implements FocusListener, DatabaseLis
 
         for (Column column : columns) {
             EditHints editHints = EditColumns.getEditHints(column);
-            boolean large = editHints.getSizeEditField().equals(SizeEditField.LARGE);
+            boolean large = editHints.getSizeEditField().equals(
+                    SizeEditField.LARGE);
             boolean isRepeatable = editHints.isRepeatable();
 
             if (isRepeatable) {
-                EditRepeatableTextEntryPanel panel = new EditRepeatableTextEntryPanel(column);
+                EditRepeatableTextEntryPanel panel =
+                        new EditRepeatableTextEntryPanel(column);
                 panel.textFieldInput.addFocusListener(this);
                 panels.add(panel);
             } else {
                 EditTextEntryPanel panel = new EditTextEntryPanel(column);
                 panel.textAreaEdit.addFocusListener(this);
-                panel.textAreaEdit.setRows(large ? 2 : 1);
+                panel.textAreaEdit.setRows(large
+                                           ? 2
+                                           : 1);
                 panels.add(panel);
             }
         }
@@ -362,9 +377,9 @@ public final class EditMetadataPanelsArray implements FocusListener, DatabaseLis
     }
 
     @Override
-    public void actionPerformed(DatabaseAction action) {
-        if (isUseAutocomplete && action.isImageModified()) {
-            ImageFile data = action.getImageFileData();
+    public void actionPerformed(DatabaseImageEvent event) {
+        if (isUseAutocomplete && event.isTextMetadataAffected()) {
+            ImageFile data = event.getImageFile();
             if (data != null && data.getXmp() != null) {
                 addAutoCompleteData(data.getXmp());
             }
@@ -375,10 +390,13 @@ public final class EditMetadataPanelsArray implements FocusListener, DatabaseLis
         for (JPanel panel : panels) {
             if (panel instanceof EditTextEntryPanel) {
                 EditTextEntryPanel p = (EditTextEntryPanel) panel;
-                AutoCompleteUtil.addData(xmp, p.getColumn(), p.getAutoCompleteData());
+                AutoCompleteUtil.addData(xmp, p.getColumn(), p.
+                        getAutoCompleteData());
             } else if (panel instanceof EditRepeatableTextEntryPanel) {
-                EditRepeatableTextEntryPanel p = (EditRepeatableTextEntryPanel) panel;
-                AutoCompleteUtil.addData(xmp, p.getColumn(), p.getAutoCompleteData());
+                EditRepeatableTextEntryPanel p =
+                        (EditRepeatableTextEntryPanel) panel;
+                AutoCompleteUtil.addData(xmp, p.getColumn(), p.
+                        getAutoCompleteData());
             }
         }
     }
@@ -386,6 +404,11 @@ public final class EditMetadataPanelsArray implements FocusListener, DatabaseLis
     @Override
     public void appWillExit() {
         checkDirty();
+    }
+
+    @Override
+    public void actionPerformed(DatabaseProgramEvent event) {
+        // nothing to do
     }
 }
 

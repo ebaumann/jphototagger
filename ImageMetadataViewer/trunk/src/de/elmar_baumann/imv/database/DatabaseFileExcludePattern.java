@@ -2,7 +2,7 @@ package de.elmar_baumann.imv.database;
 
 import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.data.ImageFile;
-import de.elmar_baumann.imv.event.DatabaseAction;
+import de.elmar_baumann.imv.event.DatabaseImageEvent;
 import de.elmar_baumann.imv.event.ProgressEvent;
 import de.elmar_baumann.imv.event.ProgressListener;
 import java.sql.Connection;
@@ -182,7 +182,7 @@ public final class DatabaseFileExcludePattern extends Database {
                             ImageFile deletedImageFile = new ImageFile();
                             deletedImageFile.setFilename(filename);
                             notifyDatabaseListener(
-                                    DatabaseAction.Type.IMAGEFILE_DELETED,
+                                    DatabaseImageEvent.Type.IMAGEFILE_DELETED,
                                     deletedImageFile);
                         }
 

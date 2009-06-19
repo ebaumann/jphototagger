@@ -3,8 +3,9 @@ package de.elmar_baumann.imv.model;
 import de.elmar_baumann.imv.database.DatabaseStatistics;
 import de.elmar_baumann.imv.database.metadata.Column;
 import de.elmar_baumann.imv.database.metadata.selections.DatabaseInfoRecordCountColumns;
-import de.elmar_baumann.imv.event.DatabaseAction;
+import de.elmar_baumann.imv.event.DatabaseImageEvent;
 import de.elmar_baumann.imv.event.DatabaseListener;
+import de.elmar_baumann.imv.event.DatabaseProgramEvent;
 import de.elmar_baumann.imv.resource.Bundle;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -26,15 +27,15 @@ public final class TableModelDatabaseInfo extends DefaultTableModel
             new LinkedHashMap<Column, StringBuffer>();
     private final LinkedHashMap<Column, StringBuffer> bufferTotalOfColumn =
             new LinkedHashMap<Column, StringBuffer>();
-    private static final List<DatabaseAction.Type> countActions =
-            new ArrayList<DatabaseAction.Type>();
+    private static final List<DatabaseImageEvent.Type> countEvents =
+            new ArrayList<DatabaseImageEvent.Type>();
     private boolean listenToDatabase = false;
 
 
     static {
-        countActions.add(DatabaseAction.Type.IMAGEFILE_DELETED);
-        countActions.add(DatabaseAction.Type.IMAGEFILE_INSERTED);
-        countActions.add(DatabaseAction.Type.IMAGEFILE_UPDATED);
+        countEvents.add(DatabaseImageEvent.Type.IMAGEFILE_DELETED);
+        countEvents.add(DatabaseImageEvent.Type.IMAGEFILE_INSERTED);
+        countEvents.add(DatabaseImageEvent.Type.IMAGEFILE_UPDATED);
     }
 
     private void initBufferOfColumn() {
@@ -53,8 +54,8 @@ public final class TableModelDatabaseInfo extends DefaultTableModel
     }
 
     @Override
-    public void actionPerformed(DatabaseAction action) {
-        if (listenToDatabase && isCountEvent(action.getType())) {
+    public void actionPerformed(DatabaseImageEvent event) {
+        if (listenToDatabase && isCountEvent(event.getType())) {
             update();
         }
     }
@@ -67,8 +68,8 @@ public final class TableModelDatabaseInfo extends DefaultTableModel
         listenToDatabase = listen;
     }
 
-    private boolean isCountEvent(DatabaseAction.Type type) {
-        return countActions.contains(type);
+    private boolean isCountEvent(DatabaseImageEvent.Type type) {
+        return countEvents.contains(type);
     }
 
     private void addColumnHeaders() {
@@ -121,5 +122,10 @@ public final class TableModelDatabaseInfo extends DefaultTableModel
 
     private void setCountToBuffer(StringBuffer buffer, Integer count) {
         buffer.replace(0, buffer.length(), count.toString());
+    }
+
+    @Override
+    public void actionPerformed(DatabaseProgramEvent event) {
+        // nothing to do
     }
 }

@@ -2,7 +2,7 @@ package de.elmar_baumann.imv.database;
 
 import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.data.Program;
-import de.elmar_baumann.imv.event.DatabaseAction;
+import de.elmar_baumann.imv.event.DatabaseProgramEvent;
 import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -61,7 +61,6 @@ public final class DatabasePrograms extends Database {
             countAffectedRows = stmt.executeUpdate();
             connection.commit();
             stmt.close();
-            notifyDatabaseListener(DatabaseAction.Type.PROGRAM_INSERTED, program);
         } catch (SQLException ex) {
             AppLog.logWarning(DatabasePrograms.class, ex);
             rollback(connection);
@@ -131,7 +130,7 @@ public final class DatabasePrograms extends Database {
             countAffectedRows = stmt.executeUpdate();
             connection.commit();
             stmt.close();
-            notifyDatabaseListener(DatabaseAction.Type.PROGRAM_UPDATED, program);
+            notifyDatabaseListener(DatabaseProgramEvent.Type.PROGRAM_UPDATED, program);
         } catch (SQLException ex) {
             AppLog.logWarning(DatabasePrograms.class, ex);
             rollback(connection);
@@ -180,7 +179,7 @@ public final class DatabasePrograms extends Database {
             // Hack because of dirty design of this table (no cascade possible)
             DatabaseActionsAfterDbInsertion.INSTANCE.delete(program);
             stmt.close();
-            notifyDatabaseListener(DatabaseAction.Type.PROGRAM_DELETED, program);
+            notifyDatabaseListener(DatabaseProgramEvent.Type.PROGRAM_DELETED, program);
         } catch (SQLException ex) {
             AppLog.logWarning(DatabasePrograms.class, ex);
             rollback(connection);

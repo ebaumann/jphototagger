@@ -1,7 +1,6 @@
 package de.elmar_baumann.imv.database;
 
 import de.elmar_baumann.imv.app.AppLog;
-import de.elmar_baumann.imv.event.DatabaseAction;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,7 +17,8 @@ import java.util.List;
  */
 public final class DatabaseAutoscanDirectories extends Database {
 
-    public static final DatabaseAutoscanDirectories INSTANCE = new DatabaseAutoscanDirectories();
+    public static final DatabaseAutoscanDirectories INSTANCE =
+            new DatabaseAutoscanDirectories();
 
     private DatabaseAutoscanDirectories() {
     }
@@ -36,14 +36,14 @@ public final class DatabaseAutoscanDirectories extends Database {
             try {
                 connection = getConnection();
                 connection.setAutoCommit(true);
-                PreparedStatement stmt = connection.prepareStatement(
-                    "INSERT INTO autoscan_directories (directory) VALUES (?)"); // NOI18N
+                PreparedStatement stmt =
+                        connection.prepareStatement(
+                        "INSERT INTO autoscan_directories (directory) VALUES (?)"); // NOI18N
                 stmt.setString(1, directoryName);
-                AppLog.logFiner(DatabaseAutoscanDirectories.class, stmt.toString());
+                AppLog.logFiner(DatabaseAutoscanDirectories.class,
+                        stmt.toString());
                 int count = stmt.executeUpdate();
                 inserted = count > 0;
-                notifyDatabaseListener(
-                    DatabaseAction.Type.AUTOSCAN_DIRECTORY_INSERTED, directoryName);
                 stmt.close();
             } catch (SQLException ex) {
                 AppLog.logWarning(DatabaseAutoscanDirectories.class, ex);
@@ -61,24 +61,23 @@ public final class DatabaseAutoscanDirectories extends Database {
      * @return true bei Erfolg
      */
     public boolean insertAutoscanDirectories(List<String> directoryNames) {
-        
+
         boolean inserted = false;
         Connection connection = null;
         try {
             connection = getConnection();
             connection.setAutoCommit(false);
             PreparedStatement stmt = connection.prepareStatement(
-                "INSERT INTO autoscan_directories (directory) VALUES (?)"); // NOI18N
+                    "INSERT INTO autoscan_directories (directory) VALUES (?)"); // NOI18N
             for (String directoryName : directoryNames) {
                 if (!existsAutoscanDirectory(directoryName)) {
                     stmt.setString(1, directoryName);
-                    AppLog.logFiner(DatabaseAutoscanDirectories.class, stmt.toString());
+                    AppLog.logFiner(DatabaseAutoscanDirectories.class, stmt.
+                            toString());
                     stmt.executeUpdate();
                 }
             }
             connection.commit();
-            notifyDatabaseListener(
-                DatabaseAction.Type.AUTOSCAN_DIRECTORIES_INSERTED, directoryNames);
             stmt.close();
         } catch (SQLException ex) {
             AppLog.logWarning(DatabaseAutoscanDirectories.class, ex);
@@ -103,15 +102,11 @@ public final class DatabaseAutoscanDirectories extends Database {
             connection = getConnection();
             connection.setAutoCommit(true);
             PreparedStatement stmt = connection.prepareStatement(
-                "DELETE FROM autoscan_directories WHERE directory = ?"); // NOI18N
+                    "DELETE FROM autoscan_directories WHERE directory = ?"); // NOI18N
             stmt.setString(1, directoryName);
             AppLog.logFiner(DatabaseAutoscanDirectories.class, stmt.toString());
             int count = stmt.executeUpdate();
             deleted = count > 0;
-            if (count > 0) {
-                notifyDatabaseListener(
-                    DatabaseAction.Type.AUTOSCAN_DIRECTORY_DELETED, directoryName);
-            }
             stmt.close();
         } catch (SQLException ex) {
             AppLog.logWarning(DatabaseAutoscanDirectories.class, ex);
@@ -133,8 +128,9 @@ public final class DatabaseAutoscanDirectories extends Database {
         Connection connection = null;
         try {
             connection = getConnection();
-            PreparedStatement stmt = connection.prepareStatement(
-                "SELECT COUNT(*) FROM autoscan_directories WHERE directory = ?"); // NOI18N
+            PreparedStatement stmt =
+                    connection.prepareStatement(
+                    "SELECT COUNT(*) FROM autoscan_directories WHERE directory = ?"); // NOI18N
             stmt.setString(1, directoryName);
             AppLog.logFinest(DatabaseAutoscanDirectories.class, stmt.toString());
             ResultSet rs = stmt.executeQuery();
@@ -162,8 +158,8 @@ public final class DatabaseAutoscanDirectories extends Database {
             connection = getConnection();
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(
-                "SELECT directory FROM autoscan_directories" + // NOI18N
-                " ORDER BY directory ASC"); // NOI18N
+                    "SELECT directory FROM autoscan_directories" + // NOI18N
+                    " ORDER BY directory ASC"); // NOI18N
             while (rs.next()) {
                 directories.add(rs.getString(1));
             }

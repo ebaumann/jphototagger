@@ -1,16 +1,23 @@
 package de.elmar_baumann.imv.event;
 
 /**
- * Beobachtet Änderungen der Datenbank.
+ * Listens to events in the database.
  * 
  * @author Elmar Baumann <eb@elmar-baumann.de>
  */
 public interface DatabaseListener {
 
     /**
-     * Die Datenbank wurde modifiziert.
+     * An image event occured.
      * 
-     * @param action Aktion
+     * @param event event
      */
-    public void actionPerformed(DatabaseAction action);
+    public void actionPerformed(DatabaseImageEvent event);
+
+    /**
+     * An program event occured.
+     *
+     * @param event event
+     */
+    public void actionPerformed(DatabaseProgramEvent event);
 }

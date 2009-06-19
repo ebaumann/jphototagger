@@ -3,8 +3,9 @@ package de.elmar_baumann.imv.model;
 import de.elmar_baumann.imv.data.Program;
 import de.elmar_baumann.imv.database.DatabaseActionsAfterDbInsertion;
 import de.elmar_baumann.imv.database.DatabasePrograms;
-import de.elmar_baumann.imv.event.DatabaseAction;
+import de.elmar_baumann.imv.event.DatabaseImageEvent;
 import de.elmar_baumann.imv.event.DatabaseListener;
+import de.elmar_baumann.imv.event.DatabaseProgramEvent;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.componentutil.ListUtil;
 import java.util.ArrayList;
@@ -26,13 +27,13 @@ public final class ListModelActionsAfterDbInsertion extends DefaultListModel
     }
 
     public void add(Program action) {
-        assert action.isAction() : "Program is not an action!";
+        assert action.isAction() : "Program is not an action!"; // NOI18N
         if (!contains(action) &&
                 DatabaseActionsAfterDbInsertion.INSTANCE.insert(action,
                 getSize())) {
             addElement(action);
         } else {
-            errorMessage("ListModelActionsAfterDbInsertion.ErrorMessage.Add",
+            errorMessage("ListModelActionsAfterDbInsertion.ErrorMessage.Add", // NOI18N
                     action.getAlias());
         }
     }
@@ -71,9 +72,11 @@ public final class ListModelActionsAfterDbInsertion extends DefaultListModel
                 indexSecondElement)) {
             fireContentsChanged(this, indexFirstElement, indexFirstElement);
             fireContentsChanged(this, indexSecondElement, indexSecondElement);
-            if (!DatabaseActionsAfterDbInsertion.INSTANCE.reorder(getActions(), 0)) {
-                errorMessage("ListModelActionsAfterDbInsertion.ErrorMessage.Swap",
-                        ((Program)get(indexFirstElement)).getAlias());
+            if (!DatabaseActionsAfterDbInsertion.INSTANCE.reorder(getActions(),
+                    0)) {
+                errorMessage(
+                        "ListModelActionsAfterDbInsertion.ErrorMessage.Swap", // NOI18N
+                        ((Program) get(indexFirstElement)).getAlias());
             }
         }
     }
@@ -83,7 +86,7 @@ public final class ListModelActionsAfterDbInsertion extends DefaultListModel
                 action)) {
             removeElement(action);
         } else {
-            errorMessage("ListModelActionsAfterDbInsertion.ErrorMessage.Remove",
+            errorMessage("ListModelActionsAfterDbInsertion.ErrorMessage.Remove", // NOI18N
                     action.getAlias());
         }
     }
@@ -93,29 +96,37 @@ public final class ListModelActionsAfterDbInsertion extends DefaultListModel
                 null,
                 Bundle.getString(bundleKey, alias),
                 Bundle.getString(
-                "ListModelActionsAfterDbInsertion.ErrorMessage.Title"),
+                "ListModelActionsAfterDbInsertion.ErrorMessage.Title"), // NOI18N
                 JOptionPane.ERROR_MESSAGE);
     }
 
     private void addItems() {
-        List<Program> programs = DatabaseActionsAfterDbInsertion.INSTANCE.getAll();
+        List<Program> programs =
+                DatabaseActionsAfterDbInsertion.INSTANCE.getAll();
         for (Program program : programs) {
             addElement(program);
         }
     }
 
     @Override
-    public void actionPerformed(DatabaseAction action) {
-        DatabaseAction.Type type = action.getType();
-        Program program = action.getProgram();
+    public void actionPerformed(DatabaseProgramEvent event) {
+        DatabaseProgramEvent.Type eventType = event.getType();
+        Program program = event.getProgram();
         int index = indexOf(program);
-        boolean contains = program != null && index >= 0;
-        if (type.equals(DatabaseAction.Type.PROGRAM_DELETED) && contains) {
+        boolean contains = index >= 0;
+        if (eventType.equals(DatabaseProgramEvent.Type.PROGRAM_DELETED) &&
+                contains) {
             removeElementAt(index);
             fireIntervalRemoved(this, index, index);
-        } else if (type.equals(DatabaseAction.Type.PROGRAM_UPDATED) && contains) {
+        } else if (eventType.equals(DatabaseProgramEvent.Type.PROGRAM_UPDATED) &&
+                contains) {
             set(index, program);
             fireContentsChanged(this, index, index);
         }
+    }
+
+    @Override
+    public void actionPerformed(DatabaseImageEvent action) {
+        // nothing to do
     }
 }

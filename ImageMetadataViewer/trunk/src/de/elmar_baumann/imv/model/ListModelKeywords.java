@@ -4,8 +4,9 @@ import de.elmar_baumann.imv.data.ImageFile;
 import de.elmar_baumann.imv.data.Xmp;
 import de.elmar_baumann.imv.database.DatabaseImageFiles;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
-import de.elmar_baumann.imv.event.DatabaseAction;
+import de.elmar_baumann.imv.event.DatabaseImageEvent;
 import de.elmar_baumann.imv.event.DatabaseListener;
+import de.elmar_baumann.imv.event.DatabaseProgramEvent;
 import de.elmar_baumann.imv.tasks.ListModelElementRemover;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,14 +20,15 @@ import javax.swing.DefaultListModel;
  * @version 2008/10/25
  */
 public final class ListModelKeywords extends DefaultListModel
-    implements DatabaseListener {
+        implements DatabaseListener {
 
     private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
     private ListModelElementRemover remover;
 
     public ListModelKeywords() {
         addElements();
-        remover = new ListModelElementRemover(this, ColumnXmpDcSubjectsSubject.INSTANCE);
+        remover = new ListModelElementRemover(this,
+                ColumnXmpDcSubjectsSubject.INSTANCE);
         db.addDatabaseListener(this);
     }
 
@@ -38,9 +40,9 @@ public final class ListModelKeywords extends DefaultListModel
     }
 
     @Override
-    public void actionPerformed(DatabaseAction action) {
-        if (action.isImageModified() && action.getImageFileData() != null) {
-            checkForNewKeywords(action.getImageFileData());
+    public void actionPerformed(DatabaseImageEvent event) {
+        if (event.isTextMetadataAffected()) {
+            checkForNewKeywords(event.getImageFile());
             remover.removeNotExistingElements();
         }
     }
@@ -61,5 +63,10 @@ public final class ListModelKeywords extends DefaultListModel
             keywords.addAll(xmpData.getDcSubjects());
         }
         return keywords;
+    }
+
+    @Override
+    public void actionPerformed(DatabaseProgramEvent event) {
+        // nothing to do
     }
 }

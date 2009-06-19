@@ -7,8 +7,9 @@ import de.elmar_baumann.imv.data.Xmp;
 import de.elmar_baumann.imv.data.AutoCompleteUtil;
 import de.elmar_baumann.imv.database.DatabaseSearch;
 import de.elmar_baumann.imv.database.metadata.Column;
-import de.elmar_baumann.imv.event.DatabaseAction;
+import de.elmar_baumann.imv.event.DatabaseImageEvent;
 import de.elmar_baumann.imv.event.DatabaseListener;
+import de.elmar_baumann.imv.event.DatabaseProgramEvent;
 import de.elmar_baumann.imv.event.ListenerProvider;
 import de.elmar_baumann.imv.event.RefreshListener;
 import de.elmar_baumann.imv.event.UserSettingsChangeEvent;
@@ -44,16 +45,21 @@ public final class ControllerFastSearch
     private final DatabaseSearch db = DatabaseSearch.INSTANCE;
     private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
     private final JTextField textFieldSearch = appPanel.getTextFieldSearch();
-    private final ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelThumbnails();
-    private final List<Column> fastSearchColumns = UserSettings.INSTANCE.getFastSearchColumns();
+    private final ImageFileThumbnailsPanel thumbnailsPanel = appPanel.
+            getPanelThumbnails();
+    private final List<Column> fastSearchColumns = UserSettings.INSTANCE.
+            getFastSearchColumns();
     private final List<JTree> selectionTrees = appPanel.getSelectionTrees();
     private final List<JList> selectionLists = appPanel.getSelectionLists();
-    private boolean isUseAutocomplete = UserSettings.INSTANCE.isUseAutocomplete();
+    private boolean isUseAutocomplete =
+            UserSettings.INSTANCE.isUseAutocomplete();
     private AutoCompleteData searchAutoCompleteData;
-    private final EditMetadataPanelsArray editPanels = appPanel.getEditPanelsArray();
+    private final EditMetadataPanelsArray editPanels = appPanel.
+            getEditPanelsArray();
 
     public ControllerFastSearch() {
-        textFieldSearch.setEnabled(UserSettings.INSTANCE.getFastSearchColumns().size() > 0);
+        textFieldSearch.setEnabled(UserSettings.INSTANCE.getFastSearchColumns().
+                size() > 0);
         decorateTextFieldSearch();
         listen();
     }
@@ -85,17 +91,19 @@ public final class ControllerFastSearch
 
     @Override
     public void applySettings(UserSettingsChangeEvent evt) {
-        if (evt.getType().equals(UserSettingsChangeEvent.Type.FAST_SEARCH_COLUMNS)) {
+        if (evt.getType().equals(
+                UserSettingsChangeEvent.Type.FAST_SEARCH_COLUMNS)) {
             textFieldSearch.setEnabled(true);
-        } else if (evt.getType().equals(UserSettingsChangeEvent.Type.NO_FAST_SEARCH_COLUMNS)) {
+        } else if (evt.getType().equals(
+                UserSettingsChangeEvent.Type.NO_FAST_SEARCH_COLUMNS)) {
             textFieldSearch.setEnabled(false);
         }
     }
 
     @Override
-    public void actionPerformed(DatabaseAction action) {
-        if (isUseAutocomplete && action.isImageModified()) {
-            ImageFile data = action.getImageFileData();
+    public void actionPerformed(DatabaseImageEvent event) {
+        if (isUseAutocomplete && event.isTextMetadataAffected()) {
+            ImageFile data = event.getImageFile();
             if (data != null && data.getXmp() != null) {
                 addAutoCompleteData(data.getXmp());
             }
@@ -112,9 +120,9 @@ public final class ControllerFastSearch
         if (UserSettings.INSTANCE.isUseAutocomplete()) {
             searchAutoCompleteData = new AutoCompleteData();
             AutoCompleteDecorator.decorate(
-                textFieldSearch,
-                searchAutoCompleteData.getList(),
-                false);
+                    textFieldSearch,
+                    searchAutoCompleteData.getList(),
+                    false);
         }
     }
 
@@ -144,9 +152,10 @@ public final class ControllerFastSearch
         if (!searchText.trim().isEmpty()) {
             clearSelection();
             List<String> filenames =
-                db.searchFilenamesLikeOr(UserSettings.INSTANCE.getFastSearchColumns(), searchText.trim());
+                    db.searchFilenamesLikeOr(UserSettings.INSTANCE.
+                    getFastSearchColumns(), searchText.trim());
             thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames),
-                Content.SAFED_SEARCH);
+                    Content.SAFED_SEARCH);
         }
     }
 
@@ -161,5 +170,10 @@ public final class ControllerFastSearch
         if (thumbnailsPanel.getSelectionCount() <= 0) {
             editPanels.setEditable(false);
         }
+    }
+
+    @Override
+    public void actionPerformed(DatabaseProgramEvent event) {
+        // nothing to do
     }
 }

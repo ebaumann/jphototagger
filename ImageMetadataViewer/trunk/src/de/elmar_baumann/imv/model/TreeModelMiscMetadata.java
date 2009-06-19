@@ -7,8 +7,9 @@ import de.elmar_baumann.imv.database.metadata.Column;
 import de.elmar_baumann.imv.database.metadata.exif.ColumnExifFocalLength;
 import de.elmar_baumann.imv.database.metadata.exif.ColumnExifIsoSpeedRatings;
 import de.elmar_baumann.imv.database.metadata.exif.ColumnExifRecordingEquipment;
-import de.elmar_baumann.imv.event.DatabaseAction;
+import de.elmar_baumann.imv.event.DatabaseImageEvent;
 import de.elmar_baumann.imv.event.DatabaseListener;
+import de.elmar_baumann.imv.event.DatabaseProgramEvent;
 import de.elmar_baumann.imv.resource.Bundle;
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -52,12 +53,12 @@ public final class TreeModelMiscMetadata extends DefaultTreeModel implements
     }
 
     @Override
-    public void actionPerformed(DatabaseAction action) {
-        DatabaseAction.Type actionType = action.getType();
-        if (actionType.equals(DatabaseAction.Type.IMAGEFILE_INSERTED)) {
-            checkImageInserted(action.getImageFileData());
-        } else if (actionType.equals(DatabaseAction.Type.IMAGEFILE_DELETED)) {
-            checkImageDeleted(action.getImageFileData());
+    public void actionPerformed(DatabaseImageEvent event) {
+        DatabaseImageEvent.Type eventType = event.getType();
+        if (eventType.equals(DatabaseImageEvent.Type.IMAGEFILE_INSERTED)) {
+            checkImageInserted(event.getImageFile());
+        } else if (eventType.equals(DatabaseImageEvent.Type.IMAGEFILE_DELETED)) {
+            checkImageDeleted(event.getImageFile());
         }
     }
 
@@ -214,5 +215,10 @@ public final class TreeModelMiscMetadata extends DefaultTreeModel implements
 
         }
         return columnNode;
+    }
+
+    @Override
+    public void actionPerformed(DatabaseProgramEvent event) {
+        // nothing to do
     }
 }

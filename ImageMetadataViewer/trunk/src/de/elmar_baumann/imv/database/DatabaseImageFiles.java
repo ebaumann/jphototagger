@@ -8,7 +8,7 @@ import de.elmar_baumann.imv.data.Timeline;
 import de.elmar_baumann.imv.data.Xmp;
 import de.elmar_baumann.imv.database.metadata.Column;
 import de.elmar_baumann.imv.database.metadata.xmp.TableXmp;
-import de.elmar_baumann.imv.event.DatabaseAction;
+import de.elmar_baumann.imv.event.DatabaseImageEvent;
 import de.elmar_baumann.imv.event.ProgressEvent;
 import de.elmar_baumann.imv.event.ProgressListener;
 import de.elmar_baumann.imv.image.metadata.xmp.XmpMetadata;
@@ -138,7 +138,7 @@ public final class DatabaseImageFiles extends Database {
             connection.commit();
             success = true;
             notifyDatabaseListener(
-                    DatabaseAction.Type.IMAGEFILE_INSERTED, imageFile);
+                    DatabaseImageEvent.Type.IMAGEFILE_INSERTED, imageFile);
             preparedStatement.close();
         } catch (SQLException ex) {
             AppLog.logWarning(DatabaseImageFiles.class, ex);
@@ -178,7 +178,7 @@ public final class DatabaseImageFiles extends Database {
             connection.commit();
             success = true;
             notifyDatabaseListener(
-                    DatabaseAction.Type.IMAGEFILE_UPDATED, imageFileData);
+                    DatabaseImageEvent.Type.IMAGEFILE_UPDATED, imageFileData);
         } catch (SQLException ex) {
             AppLog.logWarning(DatabaseImageFiles.class, ex);
             rollback(connection);
@@ -380,7 +380,7 @@ public final class DatabaseImageFiles extends Database {
                 AppLog.logFiner(DatabaseImageFiles.class, stmt.toString());
                 countDeleted += stmt.executeUpdate();
                 notifyDatabaseListener(
-                        DatabaseAction.Type.IMAGEFILE_DELETED, imageFile);
+                        DatabaseImageEvent.Type.IMAGEFILE_DELETED, imageFile);
             }
             stmt.close();
         } catch (SQLException ex) {
@@ -406,7 +406,6 @@ public final class DatabaseImageFiles extends Database {
      */
     public int deleteNotExistingImageFiles(ProgressListener listener) {
         int countDeleted = 0;
-        List<String> deletedFiles = new ArrayList<String>();
         ProgressEvent event = new ProgressEvent(this, 0,
                 DatabaseStatistics.INSTANCE.getFileCount(), 0, null);
         Connection connection = null;
@@ -422,8 +421,16 @@ public final class DatabaseImageFiles extends Database {
                 filename = rs.getString(1);
                 File file = new File(filename);
                 if (!file.exists()) {
-                    countDeleted += deleteRowWithFilename(connection, filename);
-                    deletedFiles.add(filename);
+                    int deletedRows =
+                            deleteRowWithFilename(connection, filename);
+                    countDeleted += deletedRows;
+                    if (deletedRows > 0) {
+                        ImageFile imageFile = new ImageFile();
+                        imageFile.setFilename(filename);
+                        notifyDatabaseListener(
+                                DatabaseImageEvent.Type.MAINTAINANCE_NOT_EXISTING_IMAGEFILES_DELETED,
+                                imageFile);
+                    }
                 }
                 event.setValue(event.getValue() + 1);
                 notifyProgressListenerPerformed(listener, event);
@@ -434,11 +441,6 @@ public final class DatabaseImageFiles extends Database {
             AppLog.logWarning(DatabaseImageFiles.class, ex);
         } finally {
             free(connection);
-        }
-        if (countDeleted > 0) {
-            notifyDatabaseListener(
-                    DatabaseAction.Type.MAINTAINANCE_NOT_EXISTING_IMAGEFILES_DELETED,
-                    deletedFiles);
         }
         event.setInfo(new Integer(countDeleted));
         notifyProgressListenerEnd(listener, event);
@@ -797,6 +799,7 @@ public final class DatabaseImageFiles extends Database {
                     " WHERE " + columnName + " = ? AND files.filename = ?"); // NOI18N
             stmt.setString(1, oldValue);
             boolean abort = notifyProgressListenerStart(listener, event);
+            ImageFile imageFile = new ImageFile();
             for (int i = 0; !abort && i < filecount; i++) {
                 String filename = filenames.get(i);
                 stmt.setString(2, filename);
@@ -815,8 +818,9 @@ public final class DatabaseImageFiles extends Database {
                         deleteXmp(connection, idXmp);
                         insertXmp(connection, idFile, xmp);
                         countRenamed++;
+                        imageFile.setFilename(filename);
                         notifyDatabaseListener(
-                                DatabaseAction.Type.XMP_UPDATED, filename);
+                                DatabaseImageEvent.Type.XMP_UPDATED, imageFile);
                     }
                 }
                 connection.commit();

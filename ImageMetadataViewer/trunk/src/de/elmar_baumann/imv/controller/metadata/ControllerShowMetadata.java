@@ -4,8 +4,9 @@ import com.adobe.xmp.XMPConst;
 import com.adobe.xmp.properties.XMPPropertyInfo;
 import de.elmar_baumann.imv.data.MetadataDisplay;
 import de.elmar_baumann.imv.database.DatabaseImageFiles;
-import de.elmar_baumann.imv.event.DatabaseAction;
+import de.elmar_baumann.imv.event.DatabaseImageEvent;
 import de.elmar_baumann.imv.event.DatabaseListener;
+import de.elmar_baumann.imv.event.DatabaseProgramEvent;
 import de.elmar_baumann.imv.event.ThumbnailsPanelAction;
 import de.elmar_baumann.imv.event.ThumbnailsPanelListener;
 import de.elmar_baumann.imv.image.metadata.xmp.XmpMetadata;
@@ -31,9 +32,11 @@ import javax.swing.JTable;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public final class ControllerShowMetadata implements DatabaseListener, ThumbnailsPanelListener {
+public final class ControllerShowMetadata implements DatabaseListener,
+                                                     ThumbnailsPanelListener {
 
-    private final Map<TableModelXmp, String[]> namespacesOfXmpTableModel = new HashMap<TableModelXmp, String[]>();
+    private final Map<TableModelXmp, String[]> namespacesOfXmpTableModel =
+            new HashMap<TableModelXmp, String[]>();
     private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
     private final MetadataDisplay data = new MetadataDisplay();
 
@@ -51,16 +54,26 @@ public final class ControllerShowMetadata implements DatabaseListener, Thumbnail
     private void initData() {
         data.setMetadataTables(appPanel.getMetadataTables());
         data.setXmpTables(appPanel.getXmpTables());
-        data.setIptcTableModel((TableModelIptc) appPanel.getTableIptc().getModel());
-        data.setExifTableModel((TableModelExif) appPanel.getTableExif().getModel());
-        data.setXmpTableModelDc((TableModelXmp) appPanel.getTableXmpDc().getModel());
-        data.setXmpTableModelExif((TableModelXmp) appPanel.getTableXmpExif().getModel());
-        data.setXmpTableModelIptc((TableModelXmp) appPanel.getTableXmpIptc().getModel());
-        data.setXmpTableModelLightroom((TableModelXmp) appPanel.getTableXmpLightroom().getModel());
-        data.setXmpTableModelPhotoshop((TableModelXmp) appPanel.getTableXmpPhotoshop().getModel());
-        data.setXmpTableModelTiff((TableModelXmp) appPanel.getTableXmpTiff().getModel());
-        data.setXmpTableModelCameraRawSettings((TableModelXmp) appPanel.getTableXmpCameraRawSettings().getModel());
-        data.setXmpTableModelXap((TableModelXmp) appPanel.getTableXmpXap().getModel());
+        data.setIptcTableModel(
+                (TableModelIptc) appPanel.getTableIptc().getModel());
+        data.setExifTableModel(
+                (TableModelExif) appPanel.getTableExif().getModel());
+        data.setXmpTableModelDc((TableModelXmp) appPanel.getTableXmpDc().
+                getModel());
+        data.setXmpTableModelExif((TableModelXmp) appPanel.getTableXmpExif().
+                getModel());
+        data.setXmpTableModelIptc((TableModelXmp) appPanel.getTableXmpIptc().
+                getModel());
+        data.setXmpTableModelLightroom((TableModelXmp) appPanel.
+                getTableXmpLightroom().getModel());
+        data.setXmpTableModelPhotoshop((TableModelXmp) appPanel.
+                getTableXmpPhotoshop().getModel());
+        data.setXmpTableModelTiff((TableModelXmp) appPanel.getTableXmpTiff().
+                getModel());
+        data.setXmpTableModelCameraRawSettings((TableModelXmp) appPanel.
+                getTableXmpCameraRawSettings().getModel());
+        data.setXmpTableModelXap((TableModelXmp) appPanel.getTableXmpXap().
+                getModel());
         data.setAppPanel(appPanel);
         data.setThumbnailsPanel(appPanel.getPanelThumbnails());
         data.setEditPanelsArray(appPanel.getEditPanelsArray());
@@ -101,7 +114,8 @@ public final class ControllerShowMetadata implements DatabaseListener, Thumbnail
     @Override
     public void selectionChanged(ThumbnailsPanelAction action) {
         if (data.getThumbnailsPanel().getSelectionCount() == 1) {
-            showMetadataOfFile(data.getThumbnailsPanel().getFile(action.getThumbnailIndex()));
+            showMetadataOfFile(data.getThumbnailsPanel().getFile(action.
+                    getThumbnailIndex()));
         } else {
             emptyMetadata();
         }
@@ -120,7 +134,9 @@ public final class ControllerShowMetadata implements DatabaseListener, Thumbnail
     public void emptyMetadata() {
         removeMetadataFromTables();
         repaintMetadataTables();
-        setMetadataFilename(Bundle.getString("ControllerShowMetadata.InformationMessage.MetadataIsShownOnlyIfOneImageIsSelected"));
+        setMetadataFilename(
+                Bundle.getString(
+                "ControllerShowMetadata.InformationMessage.MetadataIsShownOnlyIfOneImageIsSelected"));
         data.getEditPanelsArray().emptyPanels(false);
     }
 
@@ -153,7 +169,8 @@ public final class ControllerShowMetadata implements DatabaseListener, Thumbnail
     }
 
     private void setXmpModels(String filename) {
-        List<XMPPropertyInfo> allInfos = XmpMetadata.getPropertyInfosOfFile(filename);
+        List<XMPPropertyInfo> allInfos = XmpMetadata.getPropertyInfosOfFile(
+                filename);
         if (allInfos != null) {
             for (TableModelXmp model : data.getXmpTableModels()) {
                 setPropertyInfosToXmpTableModel(filename,
@@ -162,7 +179,8 @@ public final class ControllerShowMetadata implements DatabaseListener, Thumbnail
         }
     }
 
-    private void setPropertyInfosToXmpTableModel(String filename, TableModelXmp model,
+    private void setPropertyInfosToXmpTableModel(String filename,
+            TableModelXmp model,
             List<XMPPropertyInfo> allInfos, String[] namespaces) {
         List<XMPPropertyInfo> infos = new ArrayList<XMPPropertyInfo>();
         for (int index = 0; index < namespaces.length; index++) {
@@ -183,22 +201,28 @@ public final class ControllerShowMetadata implements DatabaseListener, Thumbnail
     }
 
     @Override
-    public void actionPerformed(DatabaseAction action) {
-        DatabaseAction.Type actionType = action.getType();
-        if ((actionType.equals(DatabaseAction.Type.IMAGEFILE_INSERTED) ||
-                actionType.equals(DatabaseAction.Type.IMAGEFILE_UPDATED))) {
-            showUpdates(action.getImageFileData().getFile());
-        } else if (actionType.equals(DatabaseAction.Type.XMP_UPDATED)) {
-            showUpdates(action.getFile());
+    public void actionPerformed(DatabaseImageEvent event) {
+        DatabaseImageEvent.Type eventType = event.getType();
+        if ((eventType.equals(DatabaseImageEvent.Type.IMAGEFILE_INSERTED) ||
+                eventType.equals(DatabaseImageEvent.Type.IMAGEFILE_UPDATED))) {
+            showUpdates(event.getImageFile().getFile());
+        } else if (eventType.equals(DatabaseImageEvent.Type.XMP_UPDATED)) {
+            showUpdates(event.getImageFile().getFile());
         }
     }
 
     private void showUpdates(File file) {
         if (data.getThumbnailsPanel().getSelectionCount() == 1) {
-            File selectedFile = data.getThumbnailsPanel().getSelectedFiles().get(0);
+            File selectedFile =
+                    data.getThumbnailsPanel().getSelectedFiles().get(0);
             if (file.equals(selectedFile)) {
                 showMetadataOfFile(selectedFile);
             }
         }
+    }
+
+    @Override
+    public void actionPerformed(DatabaseProgramEvent event) {
+        // nothing to do
     }
 }

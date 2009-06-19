@@ -6,8 +6,9 @@ import de.elmar_baumann.imv.database.DatabaseImageFiles;
 import de.elmar_baumann.imv.database.metadata.Column;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopCategory;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory;
-import de.elmar_baumann.imv.event.DatabaseAction;
+import de.elmar_baumann.imv.event.DatabaseImageEvent;
 import de.elmar_baumann.imv.event.DatabaseListener;
+import de.elmar_baumann.imv.event.DatabaseProgramEvent;
 import de.elmar_baumann.imv.tasks.ListModelElementRemover;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +22,7 @@ import javax.swing.DefaultListModel;
  * @version 2008-10-05
  */
 public final class ListModelCategories extends DefaultListModel
-    implements DatabaseListener {
+        implements DatabaseListener {
 
     private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
     private ListModelElementRemover remover;
@@ -35,7 +36,8 @@ public final class ListModelCategories extends DefaultListModel
     private void createRemover() {
         List<Column> columns = new ArrayList<Column>();
         columns.add(ColumnXmpPhotoshopCategory.INSTANCE);
-        columns.add(ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory.INSTANCE);
+        columns.add(
+                ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory.INSTANCE);
         remover = new ListModelElementRemover(this, columns);
     }
 
@@ -47,9 +49,9 @@ public final class ListModelCategories extends DefaultListModel
     }
 
     @Override
-    public void actionPerformed(DatabaseAction action) {
-        if (action.isImageModified() && action.getImageFileData() != null) {
-            checkForNewCategories(action.getImageFileData());
+    public void actionPerformed(DatabaseImageEvent event) {
+        if (event.isTextMetadataAffected()) {
+            checkForNewCategories(event.getImageFile());
             remover.removeNotExistingElements();
         }
     }
@@ -68,12 +70,18 @@ public final class ListModelCategories extends DefaultListModel
     private List<String> getCategories(ImageFile imageFileData) {
         List<String> categories = new ArrayList<String>();
         Xmp xmpData = imageFileData.getXmp();
-        if (xmpData != null && xmpData.getPhotoshopSupplementalCategories() != null) {
+        if (xmpData != null && xmpData.getPhotoshopSupplementalCategories() !=
+                null) {
             categories.addAll(xmpData.getPhotoshopSupplementalCategories());
         }
         if (xmpData != null && xmpData.getPhotoshopCategory() != null) {
             categories.add(xmpData.getPhotoshopCategory());
         }
         return categories;
+    }
+
+    @Override
+    public void actionPerformed(DatabaseProgramEvent event) {
+        // nothing to do
     }
 }

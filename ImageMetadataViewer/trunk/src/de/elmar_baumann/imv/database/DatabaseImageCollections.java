@@ -1,7 +1,6 @@
 package de.elmar_baumann.imv.database;
 
 import de.elmar_baumann.imv.app.AppLog;
-import de.elmar_baumann.imv.event.DatabaseAction;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -72,8 +71,6 @@ public final class DatabaseImageCollections extends Database {
             List<String> info = new ArrayList<String>();
             info.add(oldName);
             info.add(newName);
-            notifyDatabaseListener(
-                DatabaseAction.Type.IMAGE_COLLECTION_RENAMED, info);
             stmt.close();
         } catch (SQLException ex) {
             AppLog.logWarning(DatabaseImageCollections.class, ex);
@@ -160,9 +157,6 @@ public final class DatabaseImageCollections extends Database {
             }
             connection.commit();
             added = true;
-            notifyDatabaseListenerFilenames(
-                DatabaseAction.Type.IMAGE_COLLECTION_INSERTED,
-                collectionName, filenames);
             stmtName.close();
             stmtColl.close();
         } catch (SQLException ex) {
@@ -192,8 +186,6 @@ public final class DatabaseImageCollections extends Database {
             AppLog.logFiner(DatabaseImageCollections.class, stmt.toString());
             stmt.executeUpdate();
             deleted = true;
-            notifyDatabaseListener(
-                DatabaseAction.Type.IMAGE_COLLECTION_DELETED, collectionname);
             stmt.close();
         } catch (SQLException ex) {
             AppLog.logWarning(DatabaseImageCollections.class, ex);
@@ -233,9 +225,6 @@ public final class DatabaseImageCollections extends Database {
                 reorderCollectionSequenceNumber(connection, collectionName);
             }
             connection.commit();
-            notifyDatabaseListenerFilenames(
-                DatabaseAction.Type.IMAGE_COLLECTION_IMAGES_DELETED,
-                collectionName, filenames);
             stmt.close();
         } catch (SQLException ex) {
             AppLog.logWarning(DatabaseImageCollections.class, ex);
@@ -292,9 +281,6 @@ public final class DatabaseImageCollections extends Database {
             }
             connection.commit();
             added = true;
-            notifyDatabaseListenerFilenames(
-                DatabaseAction.Type.IMAGE_COLLECTION_IMAGES_ADDED,
-                collectionName, filenames);
         } catch (SQLException ex) {
             AppLog.logWarning(DatabaseImageCollections.class, ex);
             rollback(connection);

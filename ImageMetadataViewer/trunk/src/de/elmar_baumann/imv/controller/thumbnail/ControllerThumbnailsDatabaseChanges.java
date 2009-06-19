@@ -1,8 +1,9 @@
 package de.elmar_baumann.imv.controller.thumbnail;
 
 import de.elmar_baumann.imv.database.DatabaseImageFiles;
-import de.elmar_baumann.imv.event.DatabaseAction;
+import de.elmar_baumann.imv.event.DatabaseImageEvent;
 import de.elmar_baumann.imv.event.DatabaseListener;
+import de.elmar_baumann.imv.event.DatabaseProgramEvent;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import java.io.File;
@@ -31,17 +32,23 @@ public final class ControllerThumbnailsDatabaseChanges
     }
 
     @Override
-    public void actionPerformed(DatabaseAction action) {
-        DatabaseAction.Type type = action.getType();
-        if (type.equals(DatabaseAction.Type.THUMBNAIL_UPDATED)) {
-            thumbnailsPanel.repaint(new File(action.getFilename()));
-        } else if (type.equals(DatabaseAction.Type.IMAGEFILE_DELETED)) {
-            removeThumbnails(action);
+    public void actionPerformed(DatabaseImageEvent event) {
+        DatabaseImageEvent.Type eventType = event.getType();
+        if (eventType.equals(DatabaseImageEvent.Type.THUMBNAIL_UPDATED)) {
+            thumbnailsPanel.repaint(event.getImageFile().getFile());
+        } else if (eventType.equals(DatabaseImageEvent.Type.IMAGEFILE_DELETED)) {
+            removeThumbnails(event);
         }
     }
 
-    private void removeThumbnails(DatabaseAction action) {
-        List<File> deleted = Collections.singletonList(action.getFile());
+    private void removeThumbnails(DatabaseImageEvent action) {
+        List<File> deleted = Collections.singletonList(
+                action.getImageFile().getFile());
         thumbnailsPanel.remove(deleted);
+    }
+
+    @Override
+    public void actionPerformed(DatabaseProgramEvent event) {
+        // nothing to do
     }
 }

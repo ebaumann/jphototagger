@@ -3,9 +3,9 @@ package de.elmar_baumann.imv.database;
 import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.data.ImageFile;
 import de.elmar_baumann.imv.data.Program;
-import de.elmar_baumann.imv.data.SavedSearch;
-import de.elmar_baumann.imv.event.DatabaseAction;
+import de.elmar_baumann.imv.event.DatabaseImageEvent;
 import de.elmar_baumann.imv.event.DatabaseListener;
+import de.elmar_baumann.imv.event.DatabaseProgramEvent;
 import de.elmar_baumann.imv.event.ProgressEvent;
 import de.elmar_baumann.imv.event.ProgressListener;
 import java.sql.Connection;
@@ -21,79 +21,30 @@ import java.util.List;
  */
 public class Database {
 
-    private static final List<DatabaseListener> databaseListener = new ArrayList<DatabaseListener>();
+    private static final List<DatabaseListener> databaseListener =
+            new ArrayList<DatabaseListener>();
 
     public synchronized void addDatabaseListener(DatabaseListener listener) {
         databaseListener.add(listener);
     }
 
     protected synchronized void notifyDatabaseListener(
-            DatabaseAction.Type type) {
+            DatabaseImageEvent.Type type, ImageFile imageFile) {
 
-        DatabaseAction action = new DatabaseAction(type);
+        DatabaseImageEvent event = new DatabaseImageEvent(type);
+        event.setImageFile(imageFile);
         for (DatabaseListener listener : databaseListener) {
-            listener.actionPerformed(action);
+            listener.actionPerformed(event);
         }
     }
 
     protected synchronized void notifyDatabaseListener(
-            DatabaseAction.Type type, ImageFile imageFileData) {
+            DatabaseProgramEvent.Type type, Program program) {
 
-        DatabaseAction action = new DatabaseAction(type);
-        action.setImageFileData(imageFileData);
+        DatabaseProgramEvent event = new DatabaseProgramEvent(type);
+        event.setProgram(program);
         for (DatabaseListener listener : databaseListener) {
-            listener.actionPerformed(action);
-        }
-    }
-
-    protected synchronized void notifyDatabaseListener(
-            DatabaseAction.Type type, SavedSearch savedSerachData) {
-
-        DatabaseAction action = new DatabaseAction(type);
-        action.setSavedSerachData(savedSerachData);
-        for (DatabaseListener listener : databaseListener) {
-            listener.actionPerformed(action);
-        }
-    }
-
-    protected synchronized void notifyDatabaseListener(
-            DatabaseAction.Type type, String filename) {
-
-        DatabaseAction action = new DatabaseAction(type);
-        action.setFilename(filename);
-        for (DatabaseListener listener : databaseListener) {
-            listener.actionPerformed(action);
-        }
-    }
-
-    protected synchronized void notifyDatabaseListener(
-            DatabaseAction.Type type, List<String> filenames) {
-
-        DatabaseAction action = new DatabaseAction(type);
-        action.setFilenames(filenames);
-        for (DatabaseListener listener : databaseListener) {
-            listener.actionPerformed(action);
-        }
-    }
-
-    protected synchronized void notifyDatabaseListenerFilenames(
-            DatabaseAction.Type type, String filename, List<String> filenames) {
-
-        DatabaseAction action = new DatabaseAction(type);
-        action.setFilename(filename);
-        action.setFilenames(filenames);
-        for (DatabaseListener listener : databaseListener) {
-            listener.actionPerformed(action);
-        }
-    }
-
-    protected synchronized void notifyDatabaseListener(
-            DatabaseAction.Type type, Program program) {
-
-        DatabaseAction action = new DatabaseAction(type);
-        action.setProgram(program);
-        for (DatabaseListener listener : databaseListener) {
-            listener.actionPerformed(action);
+            listener.actionPerformed(event);
         }
     }
 

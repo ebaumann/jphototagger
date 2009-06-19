@@ -2,7 +2,6 @@ package de.elmar_baumann.imv.database;
 
 import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.database.metadata.Column;
-import de.elmar_baumann.imv.event.DatabaseAction;
 import de.elmar_baumann.imv.types.SubstringPosition;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -41,8 +40,6 @@ public final class DatabaseMaintainance extends Database {
             Statement stmt = connection.createStatement();
             stmt.executeUpdate("CHECKPOINT DEFRAG"); // NOI18N
             success = true;
-            notifyDatabaseListener(
-                    DatabaseAction.Type.MAINTAINANCE_DATABASE_COMPRESSED);
             stmt.close();
         } catch (SQLException ex) {
             AppLog.logSevere(DatabaseMaintainance.class, ex);

@@ -4,8 +4,9 @@ import de.elmar_baumann.imv.data.Exif;
 import de.elmar_baumann.imv.data.ImageFile;
 import de.elmar_baumann.imv.data.Timeline;
 import de.elmar_baumann.imv.database.DatabaseImageFiles;
-import de.elmar_baumann.imv.event.DatabaseAction;
+import de.elmar_baumann.imv.event.DatabaseImageEvent;
 import de.elmar_baumann.imv.event.DatabaseListener;
+import de.elmar_baumann.imv.event.DatabaseProgramEvent;
 import de.elmar_baumann.lib.model.TreeModelUpdateInfo;
 import java.util.Calendar;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -36,12 +37,12 @@ public final class TreeModelTimeline extends DefaultTreeModel implements
     }
 
     @Override
-    public void actionPerformed(DatabaseAction action) {
-        DatabaseAction.Type actionType = action.getType();
-        if (actionType.equals(DatabaseAction.Type.IMAGEFILE_DELETED)) {
-            checkDeleted(action.getImageFileData());
-        } else if (actionType.equals(DatabaseAction.Type.IMAGEFILE_INSERTED)) {
-            checkInserted(action.getImageFileData());
+    public void actionPerformed(DatabaseImageEvent event) {
+        DatabaseImageEvent.Type eventType = event.getType();
+        if (eventType.equals(DatabaseImageEvent.Type.IMAGEFILE_DELETED)) {
+            checkDeleted(event.getImageFile());
+        } else if (eventType.equals(DatabaseImageEvent.Type.IMAGEFILE_INSERTED)) {
+            checkInserted(event.getImageFile());
         }
     }
 
@@ -77,5 +78,10 @@ public final class TreeModelTimeline extends DefaultTreeModel implements
                 }
             }
         }
+    }
+
+    @Override
+    public void actionPerformed(DatabaseProgramEvent event) {
+        // nothing to do
     }
 }
