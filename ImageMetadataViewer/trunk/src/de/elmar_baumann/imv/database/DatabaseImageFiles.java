@@ -152,10 +152,10 @@ public final class DatabaseImageFiles extends Database {
     /**
      * Aktualisiert ein Bild in der Datenbank.
      *
-     * @param imageFileData Bildmetadaten
-     * @return              true bei Erfolg
+     * @param imageFile Bild
+     * @return          true bei Erfolg
      */
-    public boolean updateImageFile(ImageFile imageFileData) {
+    public boolean updateImageFile(ImageFile imageFile) {
         boolean success = false;
         Connection connection = null;
         try {
@@ -164,21 +164,21 @@ public final class DatabaseImageFiles extends Database {
             PreparedStatement stmt = connection.prepareStatement(
                     "UPDATE files " + // NOI18N
                     "SET lastmodified = ?, xmp_lastmodified = ? WHERE id = ?"); // NOI18N
-            String filename = imageFileData.getFilename();
+            String filename = imageFile.getFilename();
             long idFile = getIdFile(connection, filename);
-            stmt.setLong(1, imageFileData.getLastmodified());
-            stmt.setLong(2, getLastmodifiedXmp(imageFileData));
+            stmt.setLong(1, imageFile.getLastmodified());
+            stmt.setLong(2, getLastmodifiedXmp(imageFile));
             stmt.setLong(3, idFile);
             AppLog.logFiner(DatabaseImageFiles.class, stmt.toString());
             stmt.executeUpdate();
             stmt.close();
-            updateThumbnail(idFile, imageFileData.getThumbnail());
-            updateXmp(connection, idFile, imageFileData.getXmp());
-            updateExif(connection, idFile, imageFileData.getExif());
+            updateThumbnail(idFile, imageFile.getThumbnail());
+            updateXmp(connection, idFile, imageFile.getXmp());
+            updateExif(connection, idFile, imageFile.getExif());
             connection.commit();
             success = true;
             notifyDatabaseListener(
-                    DatabaseImageEvent.Type.IMAGEFILE_UPDATED, imageFileData);
+                    DatabaseImageEvent.Type.IMAGEFILE_UPDATED, imageFile);
         } catch (SQLException ex) {
             AppLog.logWarning(DatabaseImageFiles.class, ex);
             rollback(connection);
@@ -492,8 +492,8 @@ public final class DatabaseImageFiles extends Database {
         return lastModified;
     }
 
-    private long getLastmodifiedXmp(ImageFile imageFileData) {
-        Xmp xmp = imageFileData.getXmp();
+    private long getLastmodifiedXmp(ImageFile imageFile) {
+        Xmp xmp = imageFile.getXmp();
         return xmp == null
                ? -1
                : xmp.getLastModified() == null

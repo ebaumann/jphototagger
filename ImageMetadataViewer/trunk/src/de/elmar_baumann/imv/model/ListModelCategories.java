@@ -56,8 +56,8 @@ public final class ListModelCategories extends DefaultListModel
         }
     }
 
-    private void checkForNewCategories(ImageFile imageFileData) {
-        List<String> categories = getCategories(imageFileData);
+    private void checkForNewCategories(ImageFile imageFile) {
+        List<String> categories = getCategories(imageFile);
         synchronized (this) {
             for (String category : categories) {
                 if (!contains(category)) {
@@ -67,9 +67,9 @@ public final class ListModelCategories extends DefaultListModel
         }
     }
 
-    private List<String> getCategories(ImageFile imageFileData) {
+    private List<String> getCategories(ImageFile imageFile) {
         List<String> categories = new ArrayList<String>();
-        Xmp xmpData = imageFileData.getXmp();
+        Xmp xmpData = imageFile.getXmp();
         if (xmpData != null && xmpData.getPhotoshopSupplementalCategories() !=
                 null) {
             categories.addAll(xmpData.getPhotoshopSupplementalCategories());

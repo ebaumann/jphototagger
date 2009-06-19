@@ -47,8 +47,8 @@ public final class ListModelKeywords extends DefaultListModel
         }
     }
 
-    private void checkForNewKeywords(ImageFile imageFileData) {
-        List<String> keywords = getKeywords(imageFileData);
+    private void checkForNewKeywords(ImageFile imageFile) {
+        List<String> keywords = getKeywords(imageFile);
         for (String keyword : keywords) {
             if (!contains(keyword)) {
                 addElement(keyword);
@@ -56,9 +56,9 @@ public final class ListModelKeywords extends DefaultListModel
         }
     }
 
-    private List<String> getKeywords(ImageFile imageFileData) {
+    private List<String> getKeywords(ImageFile imageFile) {
         List<String> keywords = new ArrayList<String>();
-        Xmp xmpData = imageFileData.getXmp();
+        Xmp xmpData = imageFile.getXmp();
         if (xmpData != null && xmpData.getDcSubjects() != null) {
             keywords.addAll(xmpData.getDcSubjects());
         }

@@ -228,15 +228,15 @@ public final class InsertImageFilesIntoDatabase implements Runnable {
         }
     }
 
-    private void setXmp(ImageFile imageFileData) {
-        String imageFilename = imageFileData.getFilename();
+    private void setXmp(ImageFile imageFile) {
+        String imageFilename = imageFile.getFilename();
         Xmp xmp = XmpMetadata.getXmp(imageFilename);
         if (xmp == null) {
             xmp = getXmpFromIptc(imageFilename);
         }
         writeSidecarFileIfNotExists(imageFilename, xmp);
         if (xmp != null && !xmp.isEmpty()) {
-            imageFileData.setXmp(xmp);
+            imageFile.setXmp(xmp);
         }
     }
 
