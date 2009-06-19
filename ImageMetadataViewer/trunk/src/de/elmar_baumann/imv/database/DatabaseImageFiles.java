@@ -383,8 +383,6 @@ public final class DatabaseImageFiles extends Database {
                         DatabaseAction.Type.IMAGEFILE_DELETED, imageFile);
             }
             stmt.close();
-            notifyDatabaseListener(
-                    DatabaseAction.Type.IMAGEFILES_DELETED, filenames);
         } catch (SQLException ex) {
             AppLog.logWarning(DatabaseImageFiles.class, ex);
         } finally {

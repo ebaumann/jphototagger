@@ -4,6 +4,7 @@ import de.elmar_baumann.imv.data.ImageFile;
 import de.elmar_baumann.imv.data.Program;
 import de.elmar_baumann.imv.data.SavedSearch;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -68,10 +69,6 @@ public final class DatabaseAction {
          */
         IMAGE_COLLECTION_RENAMED,
         /**
-         * Bilddateien wurden gelöscht
-         */
-        IMAGEFILES_DELETED,
-        /**
          * Eine Bilddatei wurde gelöscht
          */
         IMAGEFILE_DELETED,
@@ -87,10 +84,6 @@ public final class DatabaseAction {
          * Die Datenbank wurde komprimiert
          */
         MAINTAINANCE_DATABASE_COMPRESSED,
-        /**
-         * Der komplette Datenbankinhalt wurde gelöscht
-         */
-        MAINTAINANCE_DATABASE_EMPTIED,
         /**
          * Im Dateisystem nicht existierende Bilder wurden gelöscht
          */
@@ -132,12 +125,23 @@ public final class DatabaseAction {
          */
         XMP_UPDATED,
     };
+    private static final List<Type> updateEvents = new ArrayList<Type>(10);
     private ImageFile imageFileData;
     private SavedSearch savedSerachData;
     private List<String> filenames;
     private Program program;
     private String filename;
     private Type type;
+
+
+    static {
+        updateEvents.add(Type.IMAGEFILE_INSERTED);
+        updateEvents.add(Type.IMAGEFILE_DELETED);
+        updateEvents.add(Type.IMAGEFILE_UPDATED);
+        updateEvents.add(Type.XMP_UPDATED);
+        updateEvents.add(Type.MAINTAINANCE_NOT_EXISTING_IMAGEFILES_DELETED);
+        updateEvents.add(Type.THUMBNAIL_UPDATED);
+    }
 
     public DatabaseAction(Type type) {
         this.type = type;
@@ -223,6 +227,11 @@ public final class DatabaseAction {
         return filename;
     }
 
+    /**
+     * Returns a file created from the filename.
+     *
+     * @return file
+     */
     public File getFile() {
         return new File(filename);
     }
@@ -289,10 +298,7 @@ public final class DatabaseAction {
      * @return true, if modified
      */
     public boolean isImageModified() {
-        return type.equals(Type.IMAGEFILE_INSERTED) ||
-                type.equals(Type.IMAGEFILE_UPDATED) ||
-                type.equals(Type.IMAGEFILES_DELETED) ||
-                type.equals(Type.XMP_UPDATED);
+        return updateEvents.contains(type);
     }
 
     public Program getProgram() {

@@ -1,6 +1,7 @@
 package de.elmar_baumann.imv.database;
 
 import de.elmar_baumann.imv.app.AppLog;
+import de.elmar_baumann.imv.data.ImageFile;
 import de.elmar_baumann.imv.event.DatabaseAction;
 import de.elmar_baumann.imv.event.ProgressEvent;
 import de.elmar_baumann.imv.event.ProgressListener;
@@ -19,9 +20,10 @@ import java.util.List;
  * @version 2008/10/21
  */
 public final class DatabaseFileExcludePattern extends Database {
-    
-    public static final DatabaseFileExcludePattern INSTANCE = new DatabaseFileExcludePattern();
-    
+
+    public static final DatabaseFileExcludePattern INSTANCE =
+            new DatabaseFileExcludePattern();
+
     private DatabaseFileExcludePattern() {
     }
 
@@ -39,7 +41,7 @@ public final class DatabaseFileExcludePattern extends Database {
             connection = getConnection();
             connection.setAutoCommit(false);
             PreparedStatement stmt = connection.prepareStatement(
-                "INSERT INTO file_exclude_pattern (pattern) VALUES (?)"); // NOI18N
+                    "INSERT INTO file_exclude_pattern (pattern) VALUES (?)"); // NOI18N
             stmt.setString(1, pattern);
             AppLog.logFiner(DatabaseFileExcludePattern.class, stmt.toString());
             int count = stmt.executeUpdate();
@@ -67,7 +69,7 @@ public final class DatabaseFileExcludePattern extends Database {
             connection = getConnection();
             connection.setAutoCommit(false);
             PreparedStatement stmt = connection.prepareStatement(
-                "DELETE FROM file_exclude_pattern WHERE pattern = ?"); // NOI18N
+                    "DELETE FROM file_exclude_pattern WHERE pattern = ?"); // NOI18N
             stmt.setString(1, pattern);
             AppLog.logFiner(DatabaseFileExcludePattern.class, stmt.toString());
             int count = stmt.executeUpdate();
@@ -93,8 +95,9 @@ public final class DatabaseFileExcludePattern extends Database {
         Connection connection = null;
         try {
             connection = getConnection();
-            PreparedStatement stmt = connection.prepareStatement(
-                "SELECT COUNT(*) FROM file_exclude_pattern WHERE pattern = ?"); // NOI18N
+            PreparedStatement stmt =
+                    connection.prepareStatement(
+                    "SELECT COUNT(*) FROM file_exclude_pattern WHERE pattern = ?"); // NOI18N
             stmt.setString(1, pattern);
             AppLog.logFinest(DatabaseFileExcludePattern.class, stmt.toString());
             ResultSet rs = stmt.executeQuery();
@@ -121,8 +124,9 @@ public final class DatabaseFileExcludePattern extends Database {
         try {
             connection = getConnection();
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery(
-                "SELECT pattern FROM file_exclude_pattern ORDER BY pattern ASC"); // NOI18N
+            ResultSet rs =
+                    stmt.executeQuery(
+                    "SELECT pattern FROM file_exclude_pattern ORDER BY pattern ASC"); // NOI18N
             while (rs.next()) {
                 patterns.add(rs.getString(1));
             }
@@ -142,8 +146,9 @@ public final class DatabaseFileExcludePattern extends Database {
      * @param   listener  progress listener, can cancel the action
      * @return  count of deleted files
      */
-    public int deleteFilesWithPattern(List<String> patterns, ProgressListener listener) {
-        
+    public int deleteFilesWithPattern(List<String> patterns,
+            ProgressListener listener) {
+
         Connection connection = null;
         int count = 0;
         try {
@@ -152,11 +157,13 @@ public final class DatabaseFileExcludePattern extends Database {
             List<String> deletedFiles = new LinkedList<String>();
             Statement queryStmt = connection.createStatement();
             PreparedStatement updateStmt = connection.prepareStatement(
-                "DELETE FROM files WHERE filename = ?"); // NOI18N
+                    "DELETE FROM files WHERE filename = ?"); // NOI18N
             ResultSet rs = queryStmt.executeQuery("SELECT filename FROM files"); // NOI18N
             int patternCount = patterns.size();
             int progress = 0;
-            ProgressEvent event = new ProgressEvent(this, 0, DatabaseStatistics.INSTANCE.getFileCount() * patternCount, 0, null);
+            ProgressEvent event =
+                    new ProgressEvent(this, 0, DatabaseStatistics.INSTANCE.
+                    getFileCount() * patternCount, 0, null);
             notifyProgressListenerStart(listener, event);
             boolean stop = event.isStop();
             while (!stop && rs.next()) {
@@ -167,8 +174,18 @@ public final class DatabaseFileExcludePattern extends Database {
                     if (filename.matches(pattern)) {
                         updateStmt.setString(1, filename);
                         deletedFiles.add(filename);
-                        AppLog.logFiner(DatabaseFileExcludePattern.class, updateStmt.toString());
-                        count += updateStmt.executeUpdate();
+                        AppLog.logFiner(DatabaseFileExcludePattern.class,
+                                updateStmt.toString());
+                        int affectedRows = updateStmt.executeUpdate();
+                        count += affectedRows;
+                        if (affectedRows > 0) {
+                            ImageFile deletedImageFile = new ImageFile();
+                            deletedImageFile.setFilename(filename);
+                            notifyDatabaseListener(
+                                    DatabaseAction.Type.IMAGEFILE_DELETED,
+                                    deletedImageFile);
+                        }
+
                         stop = event.isStop();
                     }
                     event.setInfo(filename);
@@ -180,7 +197,6 @@ public final class DatabaseFileExcludePattern extends Database {
             queryStmt.close();
             updateStmt.close();
             notifyProgressListenerEnd(listener, event);
-            notifyDatabaseListener(DatabaseAction.Type.IMAGEFILES_DELETED, deletedFiles);
         } catch (SQLException ex) {
             AppLog.logWarning(DatabaseFileExcludePattern.class, ex);
         } catch (Exception ex) {
@@ -191,5 +207,4 @@ public final class DatabaseFileExcludePattern extends Database {
         }
         return count;
     }
-
 }
