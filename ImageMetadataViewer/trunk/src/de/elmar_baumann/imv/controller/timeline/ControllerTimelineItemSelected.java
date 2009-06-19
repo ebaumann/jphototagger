@@ -90,19 +90,16 @@ public final class ControllerTimelineItemSelected implements
             if (parent != null) {
                 boolean isYear = parent.equals(node.getRoot());
                 boolean isMonth = !isYear && node.getChildCount() > 0;
-                setFilesToThumbnailsPanel(cal.get(Calendar.YEAR),
-                        isYear
-                        ? -1
-                        : cal.get(Calendar.MONTH) + 1,
-                        isMonth
-                        ? -1
-                        : cal.get(Calendar.DAY_OF_MONTH));
+                int year = cal.get(Calendar.YEAR);
+                int month = isYear
+                            ? -1
+                            : cal.get(Calendar.MONTH) + 1;
+                int day = isMonth
+                          ? -1
+                          : cal.get(Calendar.DAY_OF_MONTH);
+                thumbnailsPanel.setFiles(db.getFilesOf(year, month, day),
+                        Content.TIMELINE);
             }
         }
-    }
-
-    private void setFilesToThumbnailsPanel(int year, int month, int day) {
-        thumbnailsPanel.setFiles(db.getFilesOf(year, month, day),
-                Content.TIMELINE);
     }
 }
