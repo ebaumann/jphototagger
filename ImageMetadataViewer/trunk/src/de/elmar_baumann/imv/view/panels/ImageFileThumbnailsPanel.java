@@ -18,8 +18,10 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import javax.swing.JPanel;
 import javax.swing.JViewport;
 
 /**
@@ -35,10 +37,11 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel {
             new HashMap<Content, List<RefreshListener>>();
     private final PopupMenuPanelThumbnails popupMenu =
             PopupMenuPanelThumbnails.INSTANCE;
-    private List<File> files = new ArrayList<File>();
+    private final List<File> files = Collections.synchronizedList(
+            new LinkedList<File>());
     private ControllerDoubleklickThumbnail controllerDoubleklick;
     private FileSort fileSort = FileSort.NAMES_ASCENDING;
-    private volatile boolean hadFiles = false;
+    private volatile boolean hadFiles;
     private Content content = Content.UNDEFINED;
     private FileAction fileAction = FileAction.UNDEFINED;
 
@@ -87,14 +90,18 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel {
      * @param listener  listener
      * @param content   content
      */
-    public synchronized void addRefreshListener(RefreshListener listener,
-            Content content) {
-        refreshListenersOfContent.get(content).add(listener);
+    public void addRefreshListener(RefreshListener listener, Content content) {
+        synchronized (refreshListenersOfContent) {
+            refreshListenersOfContent.get(content).add(listener);
+        }
     }
 
-    private synchronized void notifyRefreshListeners() {
-        for (RefreshListener listener : refreshListenersOfContent.get(content)) {
-            listener.refresh();
+    private void notifyRefreshListeners() {
+        synchronized (refreshListenersOfContent) {
+            for (RefreshListener listener : refreshListenersOfContent.get(
+                    content)) {
+                listener.refresh();
+            }
         }
     }
 
@@ -140,10 +147,10 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel {
      * @param content  content description of the files
      */
     public synchronized void setFiles(List<File> files, Content content) {
-        final boolean scrollToTop = hadFiles && files != this.files;
-        this.files = files;
+        this.files.clear();
+        this.files.addAll(files);
         this.content = content;
-        Thread thread = new Thread(new SetFiles(files, this, scrollToTop));
+        Thread thread = new Thread(new SetFiles(this));
         thread.setName("Setting files to thumbnails panel" + " @ " + // NOI18N
                 getClass().getName());
         thread.start();
@@ -151,29 +158,22 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel {
 
     private class SetFiles implements Runnable {
 
-        private final ThumbnailsPanel panel;
-        private final boolean scrollToTop;
-        private final List<File> files;
+        private final JPanel panel;
 
-        public SetFiles(List<File> files, ThumbnailsPanel panel,
-                boolean scrollToTop) {
-            this.files = files;
+        public SetFiles(JPanel panel) {
             this.panel = panel;
-            this.scrollToTop = scrollToTop;
         }
 
         @Override
         public void run() {
-            synchronized (files) {
-                InfoSetThumbnails info = new InfoSetThumbnails();
-                Collections.sort(files, fileSort.getComparator());
-                setNewThumbnails(files.size());
-                scrollToTop(scrollToTop);
-                setMissingFilesFlags();
-                hadFiles = true;
-                ComponentUtil.forceRepaint(panel);
-                info.hide();
-            }
+            InfoSetThumbnails info = new InfoSetThumbnails();
+            Collections.sort(files, fileSort.getComparator());
+            setNewThumbnails(files.size());
+            scrollToTop(hadFiles);
+            hadFiles = true;
+            setMissingFilesFlags();
+            ComponentUtil.forceRepaint(panel);
+            info.hide();
         }
     }
 
@@ -182,9 +182,9 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel {
      * 
      * @see #setSort(de.elmar_baumann.lib.comparator.FileSort)
      */
-    public void sort() {
+    public synchronized void sort() {
         List<File> selectedFiles = getSelectedFiles();
-        setFiles(files, content);
+        setFiles(new ArrayList<File>(files), content);
         setSelected(getIndices(selectedFiles, true));
     }
 
