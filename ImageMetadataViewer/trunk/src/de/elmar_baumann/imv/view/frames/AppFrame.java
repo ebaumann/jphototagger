@@ -5,7 +5,6 @@ import de.elmar_baumann.imv.app.AppIcons;
 import de.elmar_baumann.imv.app.AppInfo;
 import de.elmar_baumann.imv.app.AppLock;
 import de.elmar_baumann.imv.event.AppExitListener;
-import de.elmar_baumann.imv.event.AppStartListener;
 import de.elmar_baumann.imv.factory.MetaFactory;
 import de.elmar_baumann.lib.comparator.FileSort;
 import de.elmar_baumann.imv.resource.Bundle;
@@ -37,8 +36,6 @@ public final class AppFrame extends javax.swing.JFrame {
             new HashMap<JMenuItem, GoTo>();
     private final List<AppExitListener> exitListeners =
             new ArrayList<AppExitListener>();
-    private final List<AppStartListener> startListeners =
-            new ArrayList<AppStartListener>();
     private AppPanel appPanel;
 
     public AppFrame() {
@@ -118,22 +115,11 @@ public final class AppFrame extends javax.swing.JFrame {
         thread.start();
         addAppExitListener(appPanel);
         appPanel.getEditPanelsArray().addDeleteListenerTo(menuItemDelete);
-        notifyStart();
     }
 
     private void addAppPanel() {
         appPanel = new AppPanel();
         getContentPane().add(appPanel);
-    }
-
-    public synchronized void addAppStartListener(AppStartListener listener) {
-        startListeners.add(listener);
-    }
-
-    private synchronized void notifyStart() {
-        for (AppStartListener listener : startListeners) {
-            listener.appWillStart();
-        }
     }
 
     public synchronized void addAppExitListener(AppExitListener listener) {

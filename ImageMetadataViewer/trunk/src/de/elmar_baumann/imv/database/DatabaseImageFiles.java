@@ -428,7 +428,7 @@ public final class DatabaseImageFiles extends Database {
                         ImageFile imageFile = new ImageFile();
                         imageFile.setFilename(filename);
                         notifyDatabaseListener(
-                                DatabaseImageEvent.Type.MAINTAINANCE_NOT_EXISTING_IMAGEFILES_DELETED,
+                                DatabaseImageEvent.Type.NOT_EXISTING_IMAGEFILES_DELETED,
                                 imageFile);
                     }
                 }

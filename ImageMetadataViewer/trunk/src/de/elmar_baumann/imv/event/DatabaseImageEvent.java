@@ -33,7 +33,7 @@ public final class DatabaseImageEvent {
          * A in the filesystem not existing image file was deleted from the
          * database
          */
-        MAINTAINANCE_NOT_EXISTING_IMAGEFILES_DELETED,
+        NOT_EXISTING_IMAGEFILES_DELETED,
         /**
          * A thumbnail was updated
          */
@@ -52,7 +52,7 @@ public final class DatabaseImageEvent {
         metadataEvents.add(Type.IMAGEFILE_DELETED);
         metadataEvents.add(Type.IMAGEFILE_INSERTED);
         metadataEvents.add(Type.IMAGEFILE_UPDATED);
-        metadataEvents.add(Type.MAINTAINANCE_NOT_EXISTING_IMAGEFILES_DELETED);
+        metadataEvents.add(Type.NOT_EXISTING_IMAGEFILES_DELETED);
         metadataEvents.add(Type.XMP_UPDATED);
     }
 
