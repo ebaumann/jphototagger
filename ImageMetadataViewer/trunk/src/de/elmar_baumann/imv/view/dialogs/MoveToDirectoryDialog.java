@@ -3,7 +3,7 @@ package de.elmar_baumann.imv.view.dialogs;
 import de.elmar_baumann.imv.app.AppIcons;
 import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.UserSettings;
-import de.elmar_baumann.imv.event.FileSystemAction;
+import de.elmar_baumann.imv.event.FileSystemEvent;
 import de.elmar_baumann.imv.event.FileSystemActionListener;
 import de.elmar_baumann.imv.event.FileSystemError;
 import de.elmar_baumann.imv.event.ListenerProvider;
@@ -284,12 +284,12 @@ public final class MoveToDirectoryDialog extends Dialog
     }
 
     @Override
-    public void actionPerformed(FileSystemAction action, File src, File target) {
+    public void actionPerformed(FileSystemEvent action, File src, File target) {
         movedFiles.add(src);
     }
 
     @Override
-    public void actionFailed(FileSystemAction action, FileSystemError error,
+    public void actionFailed(FileSystemEvent action, FileSystemError error,
             File src, File target) {
         AppLog.logWarning(MoveToDirectoryDialog.class, Bundle.getString(
                 "MoveToDirectoryDialog.ErrorMessage.Logfile", src, target,

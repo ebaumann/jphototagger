@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.io;
 
-import de.elmar_baumann.imv.event.FileSystemAction;
+import de.elmar_baumann.imv.event.FileSystemEvent;
 import de.elmar_baumann.imv.event.FileSystemActionListener;
 import de.elmar_baumann.imv.event.FileSystemError;
 import de.elmar_baumann.imv.event.ProgressEvent;
@@ -49,7 +49,7 @@ public class FileSystem {
     }
 
     protected synchronized void notifyActionListenersPerformed(
-        FileSystemAction action, File src, File target) {
+        FileSystemEvent action, File src, File target) {
         
         for (FileSystemActionListener listener : actionListeners) {
             listener.actionPerformed(action, src, target);
@@ -57,7 +57,7 @@ public class FileSystem {
     }
 
     protected synchronized void notifyActionListenersFailed(
-        FileSystemAction action, FileSystemError error, File src, File target) {
+        FileSystemEvent action, FileSystemError error, File src, File target) {
         
         for (FileSystemActionListener listener : actionListeners) {
             listener.actionFailed(action, error, src, target);

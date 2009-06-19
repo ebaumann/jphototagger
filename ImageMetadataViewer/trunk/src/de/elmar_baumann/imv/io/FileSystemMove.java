@@ -1,7 +1,7 @@
 package de.elmar_baumann.imv.io;
 
 import de.elmar_baumann.imv.event.ProgressEvent;
-import de.elmar_baumann.imv.event.FileSystemAction;
+import de.elmar_baumann.imv.event.FileSystemEvent;
 import de.elmar_baumann.imv.event.FileSystemError;
 import de.elmar_baumann.lib.template.Pair;
 import java.io.File;
@@ -88,7 +88,7 @@ public final class FileSystemMove extends FileSystem implements Runnable {
 
     private void checkMoved(boolean moved, File sourceFile, File targetFile) {
         if (moved) {
-            notifyActionListenersPerformed(FileSystemAction.MOVE, sourceFile, targetFile);
+            notifyActionListenersPerformed(FileSystemEvent.MOVE, sourceFile, targetFile);
         } else {
             notifyError(FileSystemError.UNKNOWN, sourceFile, targetFile);
         }
@@ -96,12 +96,12 @@ public final class FileSystemMove extends FileSystem implements Runnable {
 
     private synchronized void notifyError(FileSystemError error, File sourceFile, File targetFile) {
         notifyActionListenersFailed(
-            FileSystemAction.MOVE,
+            FileSystemEvent.MOVE,
             error,
             sourceFile,
             targetFile);
         notifyActionListenersFailed(
-            FileSystemAction.MOVE,
+            FileSystemEvent.MOVE,
             error,
             sourceFile,
             targetFile);

@@ -2,7 +2,7 @@ package de.elmar_baumann.imv.controller.filesystem;
 
 import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.database.DatabaseImageFiles;
-import de.elmar_baumann.imv.event.FileSystemAction;
+import de.elmar_baumann.imv.event.FileSystemEvent;
 import de.elmar_baumann.imv.event.FileSystemActionListener;
 import de.elmar_baumann.imv.event.FileSystemError;
 import de.elmar_baumann.imv.event.ListenerProvider;
@@ -53,13 +53,13 @@ public final class ControllerMoveFiles implements ActionListener, FileSystemActi
     }
 
     @Override
-    public void actionPerformed(FileSystemAction action, File src, File target) {
+    public void actionPerformed(FileSystemEvent action, File src, File target) {
         if (!src.getName().toLowerCase().endsWith(".xmp")) {
             db.updateRenameImageFilename(src.getAbsolutePath(), target.getAbsolutePath());
         }
     }
 
     @Override
-    public void actionFailed(FileSystemAction action, FileSystemError error, File src, File target) {
+    public void actionFailed(FileSystemEvent action, FileSystemError error, File src, File target) {
     }
 }

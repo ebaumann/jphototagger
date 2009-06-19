@@ -18,7 +18,7 @@ public interface FileSystemActionListener {
      * @param src     source file
      * @param target  target file
      */
-    public void actionPerformed(FileSystemAction action, File src, File target);
+    public void actionPerformed(FileSystemEvent action, File src, File target);
     
     /**
      * Called if an file system action failed.
@@ -28,6 +28,6 @@ public interface FileSystemActionListener {
      * @param src     source file
      * @param target  target file
      */
-    public void actionFailed(FileSystemAction action, FileSystemError error, File src, File target);
+    public void actionFailed(FileSystemEvent action, FileSystemError error, File src, File target);
 
 }
