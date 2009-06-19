@@ -4,7 +4,7 @@ import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.data.Iptc;
 import de.elmar_baumann.imv.data.Xmp;
 import de.elmar_baumann.imv.event.ProgressEvent;
-import de.elmar_baumann.imv.event.ProgressListener;
+import de.elmar_baumann.imv.event.listener.ProgressListener;
 import de.elmar_baumann.imv.image.metadata.iptc.IptcMetadata;
 import de.elmar_baumann.imv.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.imv.resource.Bundle;

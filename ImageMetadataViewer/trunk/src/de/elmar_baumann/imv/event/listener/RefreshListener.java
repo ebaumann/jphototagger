@@ -1,4 +1,4 @@
-package de.elmar_baumann.imv.event;
+package de.elmar_baumann.imv.event.listener;
 
 /**
  * Listens to the action: Refresh the contents.

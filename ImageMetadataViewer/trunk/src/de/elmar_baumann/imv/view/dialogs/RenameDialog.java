@@ -13,7 +13,7 @@ import de.elmar_baumann.imv.controller.filesystem.FilenameFormatConstantString;
 import de.elmar_baumann.imv.controller.filesystem.FilenameFormatFilenamePostfix;
 import de.elmar_baumann.imv.event.ListenerProvider;
 import de.elmar_baumann.imv.event.RenameFileEvent;
-import de.elmar_baumann.imv.event.RenameFileListener;
+import de.elmar_baumann.imv.event.listener.RenameFileListener;
 import de.elmar_baumann.imv.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.imv.image.thumbnail.ThumbnailUtil;
 import de.elmar_baumann.imv.io.FileType;

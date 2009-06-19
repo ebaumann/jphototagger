@@ -5,7 +5,7 @@ import de.elmar_baumann.imv.app.AppIcons;
 import de.elmar_baumann.imv.controller.actions.ControllerActionExecutor;
 import de.elmar_baumann.imv.data.Program;
 import de.elmar_baumann.imv.event.ProgramEvent;
-import de.elmar_baumann.imv.event.ProgramActionListener;
+import de.elmar_baumann.imv.event.listener.ProgramActionListener;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.dialog.Dialog;
 import javax.swing.JProgressBar;

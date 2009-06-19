@@ -1,7 +1,7 @@
 package de.elmar_baumann.imv.event.listener.impl;
 
 import de.elmar_baumann.imv.event.ErrorEvent;
-import de.elmar_baumann.imv.event.ErrorListener;
+import de.elmar_baumann.imv.event.listener.ErrorListener;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -1,7 +1,7 @@
 package de.elmar_baumann.imv.controller.misc;
 
 import de.elmar_baumann.imv.event.ThumbnailsPanelEvent;
-import de.elmar_baumann.imv.event.ThumbnailsPanelListener;
+import de.elmar_baumann.imv.event.listener.ThumbnailsPanelListener;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.AppPanel;

@@ -8,7 +8,7 @@ import de.elmar_baumann.imv.database.metadata.exif.ColumnExifFocalLength;
 import de.elmar_baumann.imv.database.metadata.exif.ColumnExifIsoSpeedRatings;
 import de.elmar_baumann.imv.database.metadata.exif.ColumnExifRecordingEquipment;
 import de.elmar_baumann.imv.event.DatabaseImageEvent;
-import de.elmar_baumann.imv.event.DatabaseListener;
+import de.elmar_baumann.imv.event.listener.DatabaseListener;
 import de.elmar_baumann.imv.event.DatabaseProgramEvent;
 import de.elmar_baumann.imv.resource.Bundle;
 import java.util.ArrayList;

@@ -5,7 +5,7 @@ import de.elmar_baumann.imv.data.Xmp;
 import de.elmar_baumann.imv.database.DatabaseImageFiles;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 import de.elmar_baumann.imv.event.DatabaseImageEvent;
-import de.elmar_baumann.imv.event.DatabaseListener;
+import de.elmar_baumann.imv.event.listener.DatabaseListener;
 import de.elmar_baumann.imv.event.DatabaseProgramEvent;
 import de.elmar_baumann.imv.tasks.ListModelElementRemover;
 import java.util.ArrayList;

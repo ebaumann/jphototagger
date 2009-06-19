@@ -2,7 +2,7 @@ package de.elmar_baumann.imv.event.listener.impl;
 
 import de.elmar_baumann.imv.database.DatabaseStatistics;
 import de.elmar_baumann.imv.event.DatabaseImageEvent;
-import de.elmar_baumann.imv.event.DatabaseListener;
+import de.elmar_baumann.imv.event.listener.DatabaseListener;
 import de.elmar_baumann.imv.event.DatabaseProgramEvent;
 import java.util.ArrayList;
 import java.util.List;

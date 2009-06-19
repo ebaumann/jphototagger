@@ -3,7 +3,7 @@ package de.elmar_baumann.imv.view.panels;
 import de.elmar_baumann.imv.data.Program;
 import de.elmar_baumann.imv.database.DatabaseActionsAfterDbInsertion;
 import de.elmar_baumann.imv.event.ProgramEvent;
-import de.elmar_baumann.imv.event.ProgramActionListener;
+import de.elmar_baumann.imv.event.listener.ProgramActionListener;
 import de.elmar_baumann.imv.view.renderer.ListCellRendererActions;
 import de.elmar_baumann.imv.model.ListModelPrograms;
 import de.elmar_baumann.imv.resource.Bundle;

@@ -4,7 +4,7 @@ import de.elmar_baumann.imv.app.AppTexts;
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.tasks.InsertImageFilesIntoDatabase;
 import de.elmar_baumann.imv.event.ProgressEvent;
-import de.elmar_baumann.imv.event.ProgressListener;
+import de.elmar_baumann.imv.event.listener.ProgressListener;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.ProgressBarCurrentTasks;
 import de.elmar_baumann.imv.tasks.Task;

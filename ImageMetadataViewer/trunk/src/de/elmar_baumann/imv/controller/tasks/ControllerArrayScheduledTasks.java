@@ -2,7 +2,7 @@ package de.elmar_baumann.imv.controller.tasks;
 
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.app.AppLog;
-import de.elmar_baumann.imv.event.TaskListener;
+import de.elmar_baumann.imv.event.listener.TaskListener;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.tasks.Task;
 import de.elmar_baumann.imv.view.panels.AppPanel;

@@ -2,7 +2,7 @@ package de.elmar_baumann.imv.tasks;
 
 import de.elmar_baumann.imv.data.TextEntry;
 import de.elmar_baumann.imv.event.ProgressEvent;
-import de.elmar_baumann.imv.event.ProgressListener;
+import de.elmar_baumann.imv.event.listener.ProgressListener;
 import de.elmar_baumann.imv.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.imv.tasks.InsertImageFilesIntoDatabase.Insert;
 import java.util.ArrayList;

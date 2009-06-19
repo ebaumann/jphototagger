@@ -3,7 +3,7 @@ package de.elmar_baumann.imv.view.popupmenus;
 import de.elmar_baumann.imv.data.Program;
 import de.elmar_baumann.imv.database.DatabasePrograms;
 import de.elmar_baumann.imv.event.UserSettingsChangeEvent;
-import de.elmar_baumann.imv.event.UserSettingsChangeListener;
+import de.elmar_baumann.imv.event.listener.UserSettingsChangeListener;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.tasks.InsertImageFilesIntoDatabase;
 import de.elmar_baumann.lib.image.icon.IconUtil;

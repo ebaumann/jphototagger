@@ -1,4 +1,6 @@
-package de.elmar_baumann.imv.event;
+package de.elmar_baumann.imv.event.listener;
+
+import de.elmar_baumann.imv.event.ThumbnailsPanelEvent;
 
 /**
  * Listens to {@link de.elmar_baumann.imv.view.panels.ThumbnailsPanel}.

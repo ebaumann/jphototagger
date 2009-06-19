@@ -2,7 +2,7 @@ package de.elmar_baumann.imv.view.panels;
 
 import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.event.ThumbnailsPanelEvent;
-import de.elmar_baumann.imv.event.ThumbnailsPanelListener;
+import de.elmar_baumann.imv.event.listener.ThumbnailsPanelListener;
 import de.elmar_baumann.imv.data.ThumbnailFlag;
 import de.elmar_baumann.lib.event.MouseEventUtil;
 import de.elmar_baumann.lib.util.MathUtil;

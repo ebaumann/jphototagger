@@ -3,7 +3,7 @@ package de.elmar_baumann.imv.controller.tasks;
 import de.elmar_baumann.imv.app.AppTexts;
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.database.DatabaseAutoscanDirectories;
-import de.elmar_baumann.imv.event.TaskListener;
+import de.elmar_baumann.imv.event.listener.TaskListener;
 import de.elmar_baumann.imv.tasks.InsertImageFilesIntoDatabaseArray;
 import de.elmar_baumann.imv.tasks.InsertImageFilesIntoDatabase;
 import de.elmar_baumann.imv.tasks.Task;

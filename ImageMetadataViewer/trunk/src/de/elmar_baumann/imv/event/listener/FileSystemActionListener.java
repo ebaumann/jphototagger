@@ -1,5 +1,7 @@
-package de.elmar_baumann.imv.event;
+package de.elmar_baumann.imv.event.listener;
 
+import de.elmar_baumann.imv.event.FileSystemError;
+import de.elmar_baumann.imv.event.FileSystemEvent;
 import java.io.File;
 
 /**

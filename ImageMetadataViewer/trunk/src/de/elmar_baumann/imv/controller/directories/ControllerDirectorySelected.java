@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.controller.directories;
 
-import de.elmar_baumann.imv.event.RefreshListener;
+import de.elmar_baumann.imv.event.listener.RefreshListener;
 import de.elmar_baumann.imv.io.ImageFilteredDirectory;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.AppPanel;

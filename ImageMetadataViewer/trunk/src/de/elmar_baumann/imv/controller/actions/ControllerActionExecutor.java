@@ -1,7 +1,7 @@
 package de.elmar_baumann.imv.controller.actions;
 
 import de.elmar_baumann.imv.event.ProgramEvent;
-import de.elmar_baumann.imv.event.ProgramActionListener;
+import de.elmar_baumann.imv.event.listener.ProgramActionListener;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.tasks.ProgramStarter;
 import de.elmar_baumann.imv.view.dialogs.ActionsDialog;

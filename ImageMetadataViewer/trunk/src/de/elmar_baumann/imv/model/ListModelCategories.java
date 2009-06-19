@@ -7,7 +7,7 @@ import de.elmar_baumann.imv.database.metadata.Column;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopCategory;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory;
 import de.elmar_baumann.imv.event.DatabaseImageEvent;
-import de.elmar_baumann.imv.event.DatabaseListener;
+import de.elmar_baumann.imv.event.listener.DatabaseListener;
 import de.elmar_baumann.imv.event.DatabaseProgramEvent;
 import de.elmar_baumann.imv.tasks.ListModelElementRemover;
 import java.util.ArrayList;

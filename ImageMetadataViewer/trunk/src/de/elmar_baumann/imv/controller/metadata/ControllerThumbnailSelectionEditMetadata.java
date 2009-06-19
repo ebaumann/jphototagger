@@ -2,7 +2,7 @@ package de.elmar_baumann.imv.controller.metadata;
 
 import com.adobe.xmp.properties.XMPPropertyInfo;
 import de.elmar_baumann.imv.event.ThumbnailsPanelEvent;
-import de.elmar_baumann.imv.event.ThumbnailsPanelListener;
+import de.elmar_baumann.imv.event.listener.ThumbnailsPanelListener;
 import de.elmar_baumann.imv.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.GUI;

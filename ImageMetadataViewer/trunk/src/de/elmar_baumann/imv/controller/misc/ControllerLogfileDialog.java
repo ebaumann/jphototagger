@@ -4,7 +4,7 @@ import de.elmar_baumann.imv.app.AppIcons;
 import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.event.ErrorEvent;
-import de.elmar_baumann.imv.event.ErrorListener;
+import de.elmar_baumann.imv.event.listener.ErrorListener;
 import de.elmar_baumann.imv.event.listener.impl.ErrorListeners;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.AppPanel;

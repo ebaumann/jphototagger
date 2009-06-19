@@ -5,7 +5,7 @@ import de.elmar_baumann.imv.data.MetadataEditTemplate;
 import de.elmar_baumann.imv.database.DatabaseMetadataEditTemplates;
 import de.elmar_baumann.imv.event.ListenerProvider;
 import de.elmar_baumann.imv.event.MetadataEditPanelEvent;
-import de.elmar_baumann.imv.event.MetadataEditPanelListener;
+import de.elmar_baumann.imv.event.listener.MetadataEditPanelListener;
 import de.elmar_baumann.imv.model.ComboBoxModelMetadataEditTemplates;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.GUI;

@@ -3,7 +3,7 @@ package de.elmar_baumann.imv.controller.filesystem;
 import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.database.DatabaseImageFiles;
 import de.elmar_baumann.imv.event.FileSystemEvent;
-import de.elmar_baumann.imv.event.FileSystemActionListener;
+import de.elmar_baumann.imv.event.listener.FileSystemActionListener;
 import de.elmar_baumann.imv.event.FileSystemError;
 import de.elmar_baumann.imv.event.ListenerProvider;
 import de.elmar_baumann.imv.resource.Bundle;

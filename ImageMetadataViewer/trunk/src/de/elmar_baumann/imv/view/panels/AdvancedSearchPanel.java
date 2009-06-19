@@ -17,7 +17,7 @@ import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpIdFiles;
 import de.elmar_baumann.imv.database.metadata.xmp.TableXmp;
 import de.elmar_baumann.imv.event.ListenerProvider;
 import de.elmar_baumann.imv.event.SearchEvent;
-import de.elmar_baumann.imv.event.SearchListener;
+import de.elmar_baumann.imv.event.listener.SearchListener;
 import de.elmar_baumann.imv.resource.Bundle;
 import java.util.ArrayList;
 import java.util.LinkedList;

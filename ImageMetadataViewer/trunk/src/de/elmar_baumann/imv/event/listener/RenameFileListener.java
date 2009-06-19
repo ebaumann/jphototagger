@@ -1,4 +1,6 @@
-package de.elmar_baumann.imv.event;
+package de.elmar_baumann.imv.event.listener;
+
+import de.elmar_baumann.imv.event.RenameFileEvent;
 
 /**
  * Listens to file rename actions.

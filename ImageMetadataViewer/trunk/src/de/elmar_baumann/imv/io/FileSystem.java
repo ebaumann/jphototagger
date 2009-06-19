@@ -1,10 +1,10 @@
 package de.elmar_baumann.imv.io;
 
 import de.elmar_baumann.imv.event.FileSystemEvent;
-import de.elmar_baumann.imv.event.FileSystemActionListener;
+import de.elmar_baumann.imv.event.listener.FileSystemActionListener;
 import de.elmar_baumann.imv.event.FileSystemError;
 import de.elmar_baumann.imv.event.ProgressEvent;
-import de.elmar_baumann.imv.event.ProgressListener;
+import de.elmar_baumann.imv.event.listener.ProgressListener;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;

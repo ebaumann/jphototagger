@@ -10,7 +10,7 @@ import de.elmar_baumann.imv.database.metadata.MetadataUtil;
 import de.elmar_baumann.imv.database.metadata.Operator;
 import de.elmar_baumann.imv.database.metadata.selections.AdvancedSearchColumns;
 import de.elmar_baumann.imv.event.SearchEvent;
-import de.elmar_baumann.imv.event.SearchListener;
+import de.elmar_baumann.imv.event.listener.SearchListener;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.view.renderer.ListCellRendererTableColumns;
 import java.awt.event.KeyEvent;
