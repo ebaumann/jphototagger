@@ -55,21 +55,22 @@ public final class ThumbnailUtil {
     public static Image getThumbnail(File file, int maxLength, boolean embedded) {
         Image thumbnail =
                 (embedded || FileType.isRawFile(file.getName())
-                 ? rotateThumbnail(file, getFileEmbeddedThumbnail(file))
+                 ? getRotatedThumbnail(file)
                  : getScaledImageImagero(file, maxLength));
         if (thumbnail == null) {
             thumbnail =
                     (embedded
                      ? getScaledImageImagero(file, maxLength)
-                     : rotateThumbnail(file, getFileEmbeddedThumbnail(file)));
+                     : getRotatedThumbnail(file));
         }
         return thumbnail;
     }
 
-    private static Image getFileEmbeddedThumbnail(File file) {
+    private static Pair<Image, ImageReader> getFileEmbeddedThumbnail(File file) {
         Image thumbnail = null;
+        ImageReader reader = null;
         try {
-            ImageReader reader = ReaderFactory.createReader(file);
+            reader = ReaderFactory.createReader(file);
             if (reader instanceof JpegReader) {
                 IOParameterBlock ioParamBlock = new IOParameterBlock();
                 ioParamBlock.setSource(file);
@@ -81,12 +82,11 @@ public final class ThumbnailUtil {
                             tiffReader.getThumbnail(0));
                 }
             }
-            close(reader);
         } catch (Exception ex) {
             AppLog.logWarning(ThumbnailUtil.class, ex);
-            return null;
+            return new Pair<Image, ImageReader>(null, null);
         }
-        return thumbnail;
+        return new Pair<Image, ImageReader>(thumbnail, reader);
     }
 
     private static Image getScaledImageImagero(File file, int maxLength) {
@@ -120,16 +120,20 @@ public final class ThumbnailUtil {
                 cmd));
     }
 
-    private static Image rotateThumbnail(File file, Image thumbnail) {
+    private static Image getRotatedThumbnail(File file) {
+        Pair<Image, ImageReader> pair = getFileEmbeddedThumbnail(file);
+        Image thumbnail = pair.getFirst();
+        Image rotatedThumbnail = thumbnail;
         if (thumbnail != null) {
             double rotateAngle =
                     ExifThumbnailUtil.getThumbnailRotationAngle(
                     ExifMetadata.getMetadata(file));
             if (rotateAngle != 0) {
-                return ImageTransform.rotate(thumbnail, rotateAngle);
+                rotatedThumbnail = ImageTransform.rotate(thumbnail, rotateAngle);
             }
         }
-        return thumbnail;
+        close(pair.getSecond());
+        return rotatedThumbnail;
     }
 
     /**
