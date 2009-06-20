@@ -43,7 +43,7 @@ public final class FileUtil {
                 return new String(bytes, "UTF-8"); // NOI18N
             } catch (UnsupportedEncodingException ex) {
                 Logger.getLogger(FileUtil.class.getName()).
-                    log(Level.SEVERE, null, ex);
+                        log(Level.SEVERE, null, ex);
                 return null;
             }
         }
@@ -70,14 +70,15 @@ public final class FileUtil {
             return bytes;
         } catch (IOException ex) {
             Logger.getLogger(FileUtil.class.getName()).log(Level.SEVERE, null,
-                ex);
+                    ex);
         } finally {
             try {
                 if (fileInputStream != null) {
                     fileInputStream.close();
                 }
             } catch (IOException ex) {
-                Logger.getLogger(FileUtil.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(FileUtil.class.getName()).log(Level.SEVERE,
+                        null, ex);
             }
         }
         return null;
@@ -103,7 +104,8 @@ public final class FileUtil {
                     file.createNewFile();
                     exists = true;
                 } catch (IOException ex) {
-                    Logger.getLogger(FileUtil.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(FileUtil.class.getName()).log(Level.SEVERE,
+                            null, ex);
                 }
             }
         }
@@ -142,7 +144,8 @@ public final class FileUtil {
                 exists = directory.mkdirs();
                 if (!exists) {
                     Logger.getLogger(FileUtil.class.getName()).log(
-                        Level.SEVERE, null, Bundle.getString("FileUtil.ErrorMessage.CreateDirectoryFailed"));
+                            Level.SEVERE, null, Bundle.getString(
+                            "FileUtil.ErrorMessage.CreateDirectoryFailed"));
                 }
             }
         }
@@ -251,7 +254,8 @@ public final class FileUtil {
      * @param  options    file filtering optins
      * @return Unterverzeichnisse
      */
-    public static List<File> getSubDirectories(File directory, Set<DirectoryFilter.Option> options) {
+    public static List<File> getSubDirectories(File directory,
+            Set<DirectoryFilter.Option> options) {
         if (directory == null)
             throw new NullPointerException("directory == null");
         if (options == null)
@@ -275,13 +279,14 @@ public final class FileUtil {
      * @return Namen der Unterverzeichnisse
      */
     public static List<String> getSubDirectoryNames(String directoryName,
-        Set<DirectoryFilter.Option> options) {
+            Set<DirectoryFilter.Option> options) {
         if (directoryName == null)
             throw new NullPointerException("directoryName == null");
         if (options == null)
             throw new NullPointerException("options == null");
 
-        List<File> directories = getSubDirectories(new File(directoryName), options);
+        List<File> directories = getSubDirectories(new File(directoryName),
+                options);
         List<String> subdirectories = new ArrayList<String>();
         for (File directory : directories) {
             subdirectories.add(directory.getAbsolutePath());
@@ -297,7 +302,8 @@ public final class FileUtil {
      * @param  options    file filtering optins
      * @return Unterverzeichnisse
      */
-    public static List<File> getAllSubDirectories(File directory, Set<DirectoryFilter.Option> options) {
+    public static List<File> getAllSubDirectories(File directory,
+            Set<DirectoryFilter.Option> options) {
         if (directory == null)
             throw new NullPointerException("directory == null");
         if (options == null)
@@ -305,13 +311,14 @@ public final class FileUtil {
 
         List<File> directories = new ArrayList<File>();
         if (directory.isDirectory()) {
-            File[] subdirectories = directory.listFiles(new DirectoryFilter(options));
+            File[] subdirectories = directory.listFiles(new DirectoryFilter(
+                    options));
             if (subdirectories != null && subdirectories.length > 0) {
                 List<File> subdirectoriesList = Arrays.asList(subdirectories);
                 for (File dir : subdirectoriesList) {
                     directories.add(dir);
                     List<File> subdirectoriesSubDirs = getAllSubDirectories(
-                        dir, options);
+                            dir, options);
                     directories.addAll(subdirectoriesSubDirs);
                 }
             }
@@ -329,13 +336,15 @@ public final class FileUtil {
      * @param  options        file filtering optins
      * @return Namen der Unterverzeichnisse
      */
-    public static List<String> getAllSubDirectoryNames(String directoryName, Set<DirectoryFilter.Option> options) {
+    public static List<String> getAllSubDirectoryNames(String directoryName,
+            Set<DirectoryFilter.Option> options) {
         if (directoryName == null)
             throw new NullPointerException("directoryName == null");
         if (options == null)
             throw new NullPointerException("options == null");
 
-        List<File> directories = getAllSubDirectories(new File(directoryName), options);
+        List<File> directories = getAllSubDirectories(new File(directoryName),
+                options);
         List<String> subdirectories = new ArrayList<String>();
         for (File directory : directories) {
             subdirectories.add(directory.getAbsolutePath());
@@ -517,6 +526,26 @@ public final class FileUtil {
             }
         }
         return directories;
+    }
+
+    /**
+     * Deletes a directory and all it's contents: files and subdirectories.
+     *
+     * @param  dir directory
+     * @return     true if successfully deleted
+     */
+    public static boolean deleteDirectory(File dir) {
+        if (dir.exists()) {
+            File[] files = dir.listFiles();
+            for (File file : files) {
+                if (file.isDirectory()) {
+                    deleteDirectory(file);
+                } else {
+                    file.delete();
+                }
+            }
+        }
+        return (dir.delete());
     }
 
     private FileUtil() {
