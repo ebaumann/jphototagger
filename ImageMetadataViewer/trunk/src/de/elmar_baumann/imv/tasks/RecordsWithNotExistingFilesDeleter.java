@@ -14,7 +14,7 @@ import java.util.List;
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
- * @see     DatabaseImageFiles#deleteNotExistingImageFiles(de.elmar_baumann.imv.event.ProgressListener)
+ * @see     DatabaseImageFiles#deleteNotExistingImageFiles(de.elmar_baumann.imv.event.listener.ProgressListener)
  */
 public final class RecordsWithNotExistingFilesDeleter implements Runnable, ProgressListener {
 

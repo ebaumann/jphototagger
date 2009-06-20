@@ -86,11 +86,11 @@ public final class InsertImageFilesIntoDatabase implements Runnable {
     /**
      * Fügt einen Fortschrittsbeobachter hinzu. Dieser wird benachrichtigt,
      * bevor die erste Bilddatei abgearbeitet wurde
-     * ({@link de.elmar_baumann.imv.event.ProgressListener#progressStarted(de.elmar_baumann.imv.event.ProgressEvent)}),
+     * ({@link de.elmar_baumann.imv.event.listener.ProgressListener#progressStarted(de.elmar_baumann.imv.event.ProgressEvent)}),
      * nach dem Abarbeiten jeder Bilddatei
-     * ({@link de.elmar_baumann.imv.event.ProgressListener#progressPerformed(de.elmar_baumann.imv.event.ProgressEvent)})
+     * ({@link de.elmar_baumann.imv.event.listener.ProgressListener#progressPerformed(de.elmar_baumann.imv.event.ProgressEvent)})
      * und nachdem alle Bilddateien abgearbeitet sind
-     * ({@link de.elmar_baumann.imv.event.ProgressListener#progressEnded(de.elmar_baumann.imv.event.ProgressEvent)}).
+     * ({@link de.elmar_baumann.imv.event.listener.ProgressListener#progressEnded(de.elmar_baumann.imv.event.ProgressEvent)}).
      *
      * @param listener Fortschrittsbeobachter
      */

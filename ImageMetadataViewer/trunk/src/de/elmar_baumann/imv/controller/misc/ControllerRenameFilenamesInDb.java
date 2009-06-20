@@ -8,7 +8,7 @@ import javax.swing.JMenuItem;
 
 /**
  * Shows the dialog
- * {@link de.elmar_baumann.imv.view.dialogs.DbFilenameReplaceDialog}.
+ * {@link de.elmar_baumann.imv.view.dialogs.RenameFilenamesInDbDialog}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009/06/16

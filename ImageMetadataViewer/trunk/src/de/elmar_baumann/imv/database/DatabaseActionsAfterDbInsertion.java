@@ -26,7 +26,8 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
     }
 
     /**
-     * Inserts a new action. Prevoius You should call {@link #hasProgram()}.
+     * Inserts a new action. Prevoius You should call
+     * {@link DatabasePrograms#hasProgram()}.
      * 
      * @param action  action
      * @param order   order of the action

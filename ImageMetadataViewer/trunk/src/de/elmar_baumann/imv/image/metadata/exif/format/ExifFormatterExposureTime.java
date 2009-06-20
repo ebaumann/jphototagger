@@ -6,7 +6,7 @@ import de.elmar_baumann.imv.image.metadata.exif.IdfEntryProxy;
 import de.elmar_baumann.lib.template.Pair;
 
 /**
- * Formats an EXIF entry of the type {@link ExifTag# }.
+ * Formats an EXIF entry of the type {@link ExifTag#EXPOSURE_TIME}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009/06/10

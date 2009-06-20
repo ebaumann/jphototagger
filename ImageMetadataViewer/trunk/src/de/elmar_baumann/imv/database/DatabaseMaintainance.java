@@ -53,7 +53,7 @@ public final class DatabaseMaintainance extends Database {
      * Replaces in a column all strings or substrings with another string.
      *
      * @param  column      column <em>has to be of the type</em>
-     *                     {@link Column#DataType
+     *                     {@link Column#dataType}
      * @param  search      string to replace
      * @param  replacement string that replaces <code>search</code>
      * @param  pos         position of the string to search

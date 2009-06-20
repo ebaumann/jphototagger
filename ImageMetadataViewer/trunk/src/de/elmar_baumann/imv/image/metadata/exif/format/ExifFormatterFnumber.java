@@ -8,7 +8,7 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
 /**
- * Formats an EXIF entry of the type {@link ExifTag# }.
+ * Formats an EXIF entry of the type {@link ExifTag#F_NUMBER}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009/06/10

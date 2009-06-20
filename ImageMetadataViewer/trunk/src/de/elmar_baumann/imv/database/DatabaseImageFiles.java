@@ -399,7 +399,7 @@ public final class DatabaseImageFiles extends Database {
      * mehr im Dateisystem existieren.
      *
      * @param listener Listener oder null, falls kein Interesse am Fortschritt.
-     * {@link de.elmar_baumann.imv.event.ProgressListener#progressEnded(de.elmar_baumann.imv.event.ProgressEvent)}
+     * {@link de.elmar_baumann.imv.event.listener.ProgressListener#progressEnded(de.elmar_baumann.imv.event.ProgressEvent)}
      * liefert ein {@link de.elmar_baumann.imv.event.ProgressEvent}-Objekt,
      * das mit {@link de.elmar_baumann.imv.event.ProgressEvent#getInfo()}
      * ein Int-Objekt liefert mit der Anzahl der gelöschten Datensätze.

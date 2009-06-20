@@ -272,7 +272,7 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel {
 
     /**
      * Calls <code>refresh()</code> by all added
-     * {@link de.elmar_baumann.imv.event.RefreshListener} objects.
+     * {@link de.elmar_baumann.imv.event.listener.RefreshListener} objects.
      */
     public void refresh() {
         JViewport viewport = getViewport();

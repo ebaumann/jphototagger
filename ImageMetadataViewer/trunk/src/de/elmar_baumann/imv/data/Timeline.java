@@ -66,8 +66,7 @@ public final class Timeline {
      *
      * @param  cal date taken of th image - only year, month and day are
      *             compared
-     * @return     update information. If {@link UpdateInfo#getSource()} equals
-     *             null nothing was updated.
+     * @return     update information
      */
     public synchronized TreeModelUpdateInfo.NodeAndChild removeDay(Calendar cal) {
         TreeModelUpdateInfo.NodeAndChild info =

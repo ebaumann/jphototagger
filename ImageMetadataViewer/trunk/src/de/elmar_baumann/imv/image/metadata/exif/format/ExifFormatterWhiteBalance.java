@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Formats an EXIF entry of the type {@link ExifTag# }.
+ * Formats an EXIF entry of the type {@link ExifTag#WHITE_BALANCE}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009/06/10
