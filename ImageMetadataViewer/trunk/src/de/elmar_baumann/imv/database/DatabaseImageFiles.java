@@ -378,9 +378,12 @@ public final class DatabaseImageFiles extends Database {
                 imageFile.setExif(getExifOfFile(filename));
                 imageFile.setXmp(getXmpOfFile(filename));
                 AppLog.logFiner(DatabaseImageFiles.class, stmt.toString());
-                countDeleted += stmt.executeUpdate();
-                notifyDatabaseListener(
-                        DatabaseImageEvent.Type.IMAGEFILE_DELETED, imageFile);
+                int countAffectedRows = stmt.executeUpdate();
+                countDeleted += countAffectedRows;
+                if (countAffectedRows > 0) {
+                    notifyDatabaseListener(
+                            DatabaseImageEvent.Type.IMAGEFILE_DELETED, imageFile);
+                }
             }
             stmt.close();
         } catch (SQLException ex) {
