@@ -4,9 +4,12 @@ import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.controller.actions.ControllerActionExecutor;
 import de.elmar_baumann.imv.controller.actions.ControllerActionsShowDialog;
 import de.elmar_baumann.imv.controller.categories.ControllerCategoryItemSelected;
+import de.elmar_baumann.imv.controller.directories.ControllerCreateDirectory;
+import de.elmar_baumann.imv.controller.directories.ControllerDeleteDirectory;
 import de.elmar_baumann.imv.controller.directories.ControllerDirectoryCopyFiles;
 import de.elmar_baumann.imv.controller.directories.ControllerEnableInsertMetadataTemplate;
 import de.elmar_baumann.imv.controller.directories.ControllerDirectorySelected;
+import de.elmar_baumann.imv.controller.directories.ControllerRenameDirectory;
 import de.elmar_baumann.imv.controller.favoritedirectories.ControllerDeleteFavoriteDirectory;
 import de.elmar_baumann.imv.controller.favoritedirectories.ControllerFavoriteDirectoryOpenInFolders;
 import de.elmar_baumann.imv.controller.favoritedirectories.ControllerFavoriteDirectorySelected;
@@ -145,6 +148,9 @@ public final class ControllerFactory {
             new ControllerMiscMetadataItemSelected();
             new ControllerMoveFavoriteDirectory();
             new ControllerRenameFilenamesInDb();
+            new ControllerCreateDirectory();
+            new ControllerRenameDirectory();
+            new ControllerDeleteDirectory();
             startScheduledTasks();
             init = true;
         }

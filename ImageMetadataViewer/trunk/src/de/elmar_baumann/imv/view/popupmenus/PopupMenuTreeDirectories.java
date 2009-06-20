@@ -16,20 +16,50 @@ import javax.swing.tree.TreePath;
  */
 public final class PopupMenuTreeDirectories extends JPopupMenu {
 
-    private final String actionAddToFavoriteDirectories = Bundle.getString("PopupMenuTreeDirectories.Action.AddToFavoriteDirectories");
-    private final JMenuItem itemAddToFavoriteDirectories = new JMenuItem(actionAddToFavoriteDirectories);
+    private final String actionAddToFavoriteDirectories = Bundle.getString(
+            "PopupMenuTreeDirectories.Action.AddToFavoriteDirectories");
+    private final String actionCreateDirectory = Bundle.getString(
+            "PopupMenuTreeDirectories.Action.CreateDirectory");
+    private final String actionRenameDirectory = Bundle.getString(
+            "PopupMenuTreeDirectories.Action.RenameDirectory");
+    private final String actionDeleteDirectory = Bundle.getString(
+            "PopupMenuTreeDirectories.Action.DeleteDirectory");
+    private final JMenuItem itemAddToFavoriteDirectories = new JMenuItem(
+            actionAddToFavoriteDirectories);
+    private final JMenuItem itemCreateDirectory = new JMenuItem(
+            actionCreateDirectory);
+    private final JMenuItem itemRenameDirectory = new JMenuItem(
+            actionRenameDirectory);
+    private final JMenuItem itemDeleteDirectory = new JMenuItem(
+            actionDeleteDirectory);
     private final List<JMenuItem> fileItems = new ArrayList<JMenuItem>();
     private TreePath path;
     private String directoryName;
     private boolean treeSelected = false;
-    public static final PopupMenuTreeDirectories INSTANCE = new PopupMenuTreeDirectories();
+    public static final PopupMenuTreeDirectories INSTANCE =
+            new PopupMenuTreeDirectories();
 
     private void initLists() {
         fileItems.add(itemAddToFavoriteDirectories);
+        fileItems.add(itemCreateDirectory);
+        fileItems.add(itemRenameDirectory);
+        fileItems.add(itemDeleteDirectory);
     }
 
     public JMenuItem getItemAddToFavoriteDirectories() {
         return itemAddToFavoriteDirectories;
+    }
+
+    public JMenuItem getItemCreateDirectory() {
+        return itemCreateDirectory;
+    }
+
+    public JMenuItem getItemRenameDirectory() {
+        return itemRenameDirectory;
+    }
+
+    public JMenuItem getItemDeleteDirectory() {
+        return itemDeleteDirectory;
     }
 
     /**
@@ -38,7 +68,8 @@ public final class PopupMenuTreeDirectories extends JPopupMenu {
      * 
      * @param listener  Beobachter
      */
-    public synchronized void addActionListenerAddToFavoriteDirectories(ActionListener listener) {
+    public synchronized void addActionListenerAddToFavoriteDirectories(
+            ActionListener listener) {
         itemAddToFavoriteDirectories.addActionListener(listener);
     }
 
@@ -92,6 +123,9 @@ public final class PopupMenuTreeDirectories extends JPopupMenu {
 
     private void init() {
         add(itemAddToFavoriteDirectories);
+        add(itemCreateDirectory);
+        add(itemRenameDirectory);
+        add(itemDeleteDirectory);
         initLists();
     }
 
