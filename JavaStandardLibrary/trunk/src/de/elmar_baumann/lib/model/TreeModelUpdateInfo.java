@@ -82,7 +82,7 @@ public final class TreeModelUpdateInfo {
      * Update info of a node with one child.
      * 
      * Usage in
-     * {@link javax.swing.tree.DefaultTreeModel#nodesWereRemoved(javax.swing.tree.TreeNode, int[], java.lang.Object[])
+     * {@link javax.swing.tree.DefaultTreeModel#nodesWereRemoved(javax.swing.tree.TreeNode, int[], java.lang.Object[])}
      * where the node is the not deleted parent.
      *
      * @author Elmar Baumann <eb@elmar-baumann.de>
