@@ -10,7 +10,6 @@ import de.elmar_baumann.lib.comparator.FileSort;
 import de.elmar_baumann.imv.types.FileAction;
 import de.elmar_baumann.imv.view.InfoSetThumbnails;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuPanelThumbnails;
-import de.elmar_baumann.lib.componentutil.ComponentUtil;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
@@ -18,10 +17,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import javax.swing.JPanel;
 import javax.swing.JViewport;
 
 /**
@@ -38,7 +35,7 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel {
     private final PopupMenuPanelThumbnails popupMenu =
             PopupMenuPanelThumbnails.INSTANCE;
     private final List<File> files = Collections.synchronizedList(
-            new LinkedList<File>());
+            new ArrayList<File>());
     private ControllerDoubleklickThumbnail controllerDoubleklick;
     private FileSort fileSort = FileSort.NAMES_ASCENDING;
     private volatile boolean hadFiles;
@@ -58,7 +55,7 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel {
         }
     }
 
-    public Content getContent() {
+    public synchronized Content getContent() {
         return content;
     }
 
@@ -71,7 +68,7 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel {
      * 
      * @return file action
      */
-    public FileAction getFileAction() {
+    public synchronized FileAction getFileAction() {
         return fileAction;
     }
 
@@ -80,7 +77,7 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel {
      * 
      * @param fileAction  file action
      */
-    public void setFileAction(FileAction fileAction) {
+    public synchronized void setFileAction(FileAction fileAction) {
         this.fileAction = fileAction;
     }
 
@@ -110,8 +107,8 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel {
      * 
      * @return files
      */
-    public List<File> getFiles() {
-        return files;
+    public synchronized List<File> getFiles() {
+        return new ArrayList<File>(files);
     }
 
     /**
@@ -119,7 +116,7 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel {
      * 
      * @return thumbnail count
      */
-    public int getCount() {
+    public synchronized int getCount() {
         return files.size();
     }
 
@@ -129,7 +126,7 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel {
      * @param   file  file
      * @return  true if selected
      */
-    public boolean isSelected(File file) {
+    public synchronized boolean isSelected(File file) {
         List<File> selectedFiles = getSelectedFiles();
         for (File selectedFile : selectedFiles) {
             if (file.equals(selectedFile)) {
@@ -158,9 +155,9 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel {
 
     private class SetFiles implements Runnable {
 
-        private final JPanel panel;
+        private final ThumbnailsPanel panel;
 
-        public SetFiles(JPanel panel) {
+        public SetFiles(ThumbnailsPanel panel) {
             this.panel = panel;
         }
 
@@ -172,7 +169,7 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel {
             scrollToTop(hadFiles);
             hadFiles = true;
             setMissingFilesFlags();
-            ComponentUtil.forceRepaint(panel);
+            panel.forceRepaint();
             info.hide();
         }
     }
@@ -194,7 +191,7 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel {
      * @param fileSort  sort type
      * @see #sort()
      */
-    public void setSort(FileSort fileSort) {
+    public synchronized void setSort(FileSort fileSort) {
         this.fileSort = fileSort;
     }
 
@@ -203,7 +200,7 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel {
      * 
      * @return sort type
      */
-    public FileSort getSort() {
+    public synchronized FileSort getSort() {
         return fileSort;
     }
 
@@ -214,7 +211,7 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel {
      * @param oldFile  old file
      * @param newFile  new file
      */
-    public void rename(File oldFile, File newFile) {
+    public synchronized void rename(File oldFile, File newFile) {
         int index = files.indexOf(oldFile);
         if (index >= 0) {
             files.set(index, newFile);
@@ -228,7 +225,7 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel {
      * 
      * @param filesToRemove  files to remove
      */
-    public void remove(List<File> filesToRemove) {
+    public synchronized void remove(List<File> filesToRemove) {
         int removed = 0;
         List<File> selectedFiles = getSelectedFiles();
         for (File fileToRemove : filesToRemove) {
@@ -257,7 +254,7 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel {
         return indices;
     }
 
-    public void setDefaultThumbnailWidth(int width) {
+    public synchronized void setDefaultThumbnailWidth(int width) {
         setThumbnailWidth(width);
     }
 
@@ -274,7 +271,7 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel {
      * Calls <code>refresh()</code> by all added
      * {@link de.elmar_baumann.imv.event.listener.RefreshListener} objects.
      */
-    public void refresh() {
+    public synchronized void refresh() {
         JViewport viewport = getViewport();
         Point viewportPosition = null;
         if (viewport != null) {
@@ -291,7 +288,7 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel {
      * 
      * @param file  file
      */
-    public void repaint(File file) {
+    public synchronized void repaint(File file) {
         int index = getIndexOf(file);
         if (index >= 0) {
             removeFromCache(index);
@@ -299,7 +296,7 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel {
     }
 
     @Override
-    public Image getThumbnail(int index) {
+    public synchronized Image getThumbnail(int index) {
         return db.getThumbnail(files.get(index).getAbsolutePath());
     }
 
@@ -309,7 +306,7 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel {
      * @param  file  file
      * @return Index or -1 if not displayed
      */
-    public int getIndexOf(File file) {
+    public synchronized int getIndexOf(File file) {
         return files.indexOf(file);
     }
 
@@ -319,7 +316,7 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel {
      * @param  index index
      * @return true if valid
      */
-    public boolean isIndex(int index) {
+    public synchronized boolean isIndex(int index) {
         return index >= 0 && index < files.size();
     }
 
@@ -330,7 +327,7 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel {
      * @return file or null if the index is invalid
      * @see    #isIndex(int)
      */
-    public File getFile(int index) {
+    public synchronized File getFile(int index) {
         return isIndex(index)
                ? files.get(index)
                : null;
@@ -341,7 +338,7 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel {
      * 
      * @return filenames
      */
-    public List<File> getSelectedFiles() {
+    public synchronized List<File> getSelectedFiles() {
         return getFiles(getSelected());
     }
 
@@ -351,7 +348,7 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel {
      * @param  indices  file indices
      * @return files of valid indices
      */
-    public List<File> getFiles(List<Integer> indices) {
+    public synchronized List<File> getFiles(List<Integer> indices) {
         List<File> f = new ArrayList<File>();
         for (Integer index : indices) {
             if (isIndex(index)) {
@@ -359,6 +356,22 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel {
             }
         }
         return f;
+    }
+
+    public synchronized void moveSelectedToIndex(int index) {
+        if (!isValidIndex(index)) return;
+        List<Integer> selectedIndices = getSelected();
+        Collections.sort(selectedIndices);
+        List<File> selFiles = getFiles(selectedIndices);
+        List<File> filesWithoutMoved = new ArrayList<File>(files);
+        int fileCount = filesWithoutMoved.size();
+        filesWithoutMoved.removeAll(selFiles);
+        List<File> newOrderedFiles = new ArrayList<File>(fileCount);
+        newOrderedFiles.addAll(filesWithoutMoved.subList(0, index));
+        newOrderedFiles.addAll(selFiles);
+        newOrderedFiles.addAll(filesWithoutMoved.subList(index,
+                filesWithoutMoved.size()));
+        forceRepaint();
     }
 
     @Override
