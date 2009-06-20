@@ -1,10 +1,14 @@
 package de.elmar_baumann.imv.io;
 
+import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.app.AppFileFilter;
 import de.elmar_baumann.imv.database.DatabaseFileExcludePattern;
+import de.elmar_baumann.lib.io.DirectoryFilter;
+import de.elmar_baumann.lib.io.FileUtil;
 import de.elmar_baumann.lib.util.RegexUtil;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.List;
 
 /**
@@ -53,13 +57,16 @@ public final class ImageFilteredDirectory {
      * @return Bilddateien dieses Verzeichnisses
      */
     public static List<File> getImageFilesOfDirectory(File directory) {
-        File[] filteredFiles = directory.listFiles(AppFileFilter.acceptedImageFileFormats);
-        List<String> excludePatterns = DatabaseFileExcludePattern.INSTANCE.getFileExcludePatterns();
+        File[] filteredFiles = directory.listFiles(
+                AppFileFilter.acceptedImageFileFormats);
+        List<String> excludePatterns = DatabaseFileExcludePattern.INSTANCE.
+                getFileExcludePatterns();
         List<File> files = new ArrayList<File>();
         if (filteredFiles != null) {
             for (int index = 0; index < filteredFiles.length; index++) {
                 File file = filteredFiles[index];
-                if (!RegexUtil.containsMatch(excludePatterns, file.getAbsolutePath())) {
+                if (!RegexUtil.containsMatch(excludePatterns, file.
+                        getAbsolutePath())) {
                     files.add(file);
                 }
             }
@@ -81,17 +88,35 @@ public final class ImageFilteredDirectory {
         return files;
     }
 
+    /**
+     * Returns images files of a directory and all it's subdirectories.
+     *
+     * @param  dir directory
+     * @return image files
+     */
+    public static List<File> getImageFilesOfDirAndSubDirs(File dir) {
+        List<File> dirAndSubdirs = FileUtil.getAllSubDirectories(dir,
+                EnumSet.of(UserSettings.INSTANCE.isAcceptHiddenDirectories()
+                           ? DirectoryFilter.Option.ACCEPT_HIDDEN_FILES
+                           : DirectoryFilter.Option.REJECT_HIDDEN_FILES));
+        dirAndSubdirs.add(dir);
+        return getImageFilesOfDirectories(dirAndSubdirs);
+    }
+
     private void empty() {
         imageFiles.clear();
     }
 
     private void addFilesOfCurrentDirectory() {
-        File[] filesOfDirectory = directory.listFiles(AppFileFilter.acceptedImageFileFormats);
-        List<String> excludePatterns = DatabaseFileExcludePattern.INSTANCE.getFileExcludePatterns();
+        File[] filesOfDirectory = directory.listFiles(
+                AppFileFilter.acceptedImageFileFormats);
+        List<String> excludePatterns = DatabaseFileExcludePattern.INSTANCE.
+                getFileExcludePatterns();
         if (filesOfDirectory != null) {
             for (int index = 0; index < filesOfDirectory.length; index++) {
                 File file = filesOfDirectory[index];
-                if (!RegexUtil.containsMatch(excludePatterns, file.getAbsolutePath())) {
+                if (!RegexUtil.containsMatch(excludePatterns, file.
+                        getAbsolutePath())) {
                     imageFiles.add(file);
                 }
             }
