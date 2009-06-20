@@ -146,7 +146,7 @@ public abstract class ThumbnailsPanel extends JPanel
     /**
      * Contains the indices of the selected thumbnails
      */
-    private List<Integer> selectedThumbnails = new ArrayList<Integer>();
+    private final List<Integer> selectedThumbnails = new ArrayList<Integer>();
     /**
      * Monitors all accesses to all fields that represent the state of
      * the displayed thumbnails
@@ -228,7 +228,7 @@ public abstract class ThumbnailsPanel extends JPanel
      * 
      * @param width  width in pixel
      */
-    public void setThumbnailWidth(int width) {
+    public synchronized void setThumbnailWidth(int width) {
         if (width != thumbnailWidth) {
             thumbnailAtIndex.clear();
             System.gc();
@@ -246,15 +246,15 @@ public abstract class ThumbnailsPanel extends JPanel
      * 
      * @param enabled true if enabled. Default: false
      */
-    public void setDragEnabled(boolean enabled) {
+    public synchronized void setDragEnabled(boolean enabled) {
         dragEnabled = enabled;
     }
 
-    private boolean isValidIndex(int thumbnailIndex) {
+    protected boolean isValidIndex(int thumbnailIndex) {
         return thumbnailIndex >= 0 && thumbnailIndex < thumbnailCount;
     }
 
-    public int getThumbnailWidth() {
+    public synchronized int getThumbnailWidth() {
         return thumbnailWidth;
     }
 
@@ -263,8 +263,8 @@ public abstract class ThumbnailsPanel extends JPanel
      * 
      * @return Indexe
      */
-    public List<Integer> getSelected() {
-        return selectedThumbnails;
+    public synchronized List<Integer> getSelected() {
+        return new ArrayList<Integer>(selectedThumbnails);
     }
 
     /**
@@ -272,8 +272,9 @@ public abstract class ThumbnailsPanel extends JPanel
      * 
      * @param indices Indexe
      */
-    public void setSelected(List<Integer> indices) {
-        selectedThumbnails = indices;
+    public synchronized void setSelected(List<Integer> indices) {
+        selectedThumbnails.clear();
+        selectedThumbnails.addAll(indices);
         repaint();
         if (indices.size() > 0) {
             Collections.sort(selectedThumbnails);
@@ -352,7 +353,7 @@ public abstract class ThumbnailsPanel extends JPanel
      * @param index     Index
      * @param thumbnail Thumbnail
      */
-    public void set(int index, Image thumbnail) {
+    public synchronized void set(int index, Image thumbnail) {
         thumbnailAtIndex.put(index, thumbnail);
         repaint();
     }
@@ -373,7 +374,7 @@ public abstract class ThumbnailsPanel extends JPanel
      * @param index Index des Thumbnails
      * @param flag  Flag
      */
-    public void addFlag(int index, ThumbnailFlag flag) {
+    public synchronized void addFlag(int index, ThumbnailFlag flag) {
         flagOfThumbnail.put(index, flag);
     }
 
@@ -383,7 +384,7 @@ public abstract class ThumbnailsPanel extends JPanel
      * @param index Thumbnailindex
      * @return      true, wenn das Thumbnail ein Flag hat
      */
-    public boolean isFlagged(int index) {
+    public synchronized boolean isFlagged(int index) {
         return flagOfThumbnail.containsKey(index);
     }
 
@@ -393,7 +394,7 @@ public abstract class ThumbnailsPanel extends JPanel
      * @param index Thumbnailindex
      * @return      Flag oder null, wenn das Thumbnail kein Flag hat
      */
-    public ThumbnailFlag getFlag(int index) {
+    public synchronized ThumbnailFlag getFlag(int index) {
         return flagOfThumbnail.get(index);
     }
 
@@ -469,7 +470,7 @@ public abstract class ThumbnailsPanel extends JPanel
      * @param index Thumbnailindex
      * @return      true, wenn das Thumbnail selektiert ist
      */
-    public boolean isSelected(int index) {
+    public synchronized boolean isSelected(int index) {
         return selectedThumbnails.contains(index);
     }
 
@@ -478,7 +479,7 @@ public abstract class ThumbnailsPanel extends JPanel
      * 
      * @return Anzahl
      */
-    public int getSelectionCount() {
+    public synchronized int getSelectionCount() {
         return selectedThumbnails.size();
     }
 
@@ -536,7 +537,7 @@ public abstract class ThumbnailsPanel extends JPanel
         return index >= 0 && index < thumbnailCount;
     }
 
-    protected int getDropIndex(int x, int y) {
+    public synchronized int getDropIndex(int x, int y) {
         int maxBottom = MARGIN_THUMBNAIL + getRowCount() *
                 getThumbnailAreaHeight();
         int maxRight = MARGIN_THUMBNAIL + getColumnCount() *
@@ -720,7 +721,7 @@ public abstract class ThumbnailsPanel extends JPanel
         }
     }
 
-    private void forceRepaint() {
+    public void forceRepaint() {
         invalidate();
         validate();
         repaint();
@@ -1064,7 +1065,7 @@ public abstract class ThumbnailsPanel extends JPanel
      * 
      * @param viewport  Viewport
      */
-    public void setViewport(JViewport viewport) {
+    public synchronized void setViewport(JViewport viewport) {
         this.viewport = viewport;
     }
 
@@ -1073,7 +1074,7 @@ public abstract class ThumbnailsPanel extends JPanel
      * 
      * @return viewport or null if not set or if the panel is not in a viewport
      */
-    public JViewport getViewport() {
+    public synchronized JViewport getViewport() {
         return viewport;
     }
 
