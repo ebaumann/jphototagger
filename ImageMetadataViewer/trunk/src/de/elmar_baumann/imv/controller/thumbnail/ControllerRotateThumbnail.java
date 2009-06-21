@@ -39,7 +39,7 @@ public final class ControllerRotateThumbnail implements ActionListener {
     }
 
     private void rotateSelectedImages(float rotateAngle) {
-        List<Integer> selectedIndices = thumbnailsPanel.getSelected();
+        List<Integer> selectedIndices = thumbnailsPanel.getSelectedIndices();
         for (Integer index : selectedIndices) {
             Image thumbnail = ImageTransform.rotate(
                     thumbnailsPanel.getThumbnail(index.intValue()), rotateAngle);

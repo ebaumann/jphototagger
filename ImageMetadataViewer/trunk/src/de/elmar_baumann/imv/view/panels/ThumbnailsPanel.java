@@ -263,7 +263,7 @@ public abstract class ThumbnailsPanel extends JPanel
      * 
      * @return Indexe
      */
-    public synchronized List<Integer> getSelected() {
+    public synchronized List<Integer> getSelectedIndices() {
         return new ArrayList<Integer>(selectedThumbnails);
     }
 

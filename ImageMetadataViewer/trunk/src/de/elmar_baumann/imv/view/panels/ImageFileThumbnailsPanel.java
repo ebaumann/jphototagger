@@ -339,7 +339,7 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel {
      * @return filenames
      */
     public synchronized List<File> getSelectedFiles() {
-        return getFiles(getSelected());
+        return getFiles(getSelectedIndices());
     }
 
     /**
@@ -360,7 +360,7 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel {
 
     public synchronized void moveSelectedToIndex(int index) {
         if (!isValidIndex(index)) return;
-        List<Integer> selectedIndices = getSelected();
+        List<Integer> selectedIndices = getSelectedIndices();
         Collections.sort(selectedIndices);
         List<File> selFiles = getFiles(selectedIndices);
         List<File> filesWithoutMoved = new ArrayList<File>(files);
