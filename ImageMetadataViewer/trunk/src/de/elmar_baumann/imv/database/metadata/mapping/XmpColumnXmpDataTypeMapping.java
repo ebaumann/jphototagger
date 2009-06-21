@@ -33,29 +33,54 @@ import java.util.Map;
  */
 public final class XmpColumnXmpDataTypeMapping {
 
-    private static final Map<Column, XmpValueType> xmpValueTypeOfColumn = new HashMap<Column, XmpValueType>();
-    
+    private static final Map<Column, XmpValueType> xmpValueTypeOfColumn =
+            new HashMap<Column, XmpValueType>();
+
 
     static {
-        xmpValueTypeOfColumn.put(ColumnXmpDcCreator.INSTANCE, XmpValueType.SEQ_PROPER_NAME);
-        xmpValueTypeOfColumn.put(ColumnXmpDcDescription.INSTANCE, XmpValueType.LANG_ALT);
-        xmpValueTypeOfColumn.put(ColumnXmpDcRights.INSTANCE, XmpValueType.LANG_ALT);
-        xmpValueTypeOfColumn.put(ColumnXmpDcSubjectsSubject.INSTANCE, XmpValueType.BAG_TEXT);
-        xmpValueTypeOfColumn.put(ColumnXmpDcTitle.INSTANCE, XmpValueType.LANG_ALT);
-        xmpValueTypeOfColumn.put(ColumnXmpIptc4xmpcoreLocation.INSTANCE, XmpValueType.TEXT);
-        xmpValueTypeOfColumn.put(ColumnXmpIptc4xmpcoreCountrycode.INSTANCE, XmpValueType.TEXT);
-        xmpValueTypeOfColumn.put(ColumnXmpPhotoshopAuthorsposition.INSTANCE, XmpValueType.TEXT);
-        xmpValueTypeOfColumn.put(ColumnXmpPhotoshopCaptionwriter.INSTANCE, XmpValueType.PROPER_NAME);
-        xmpValueTypeOfColumn.put(ColumnXmpPhotoshopCategory.INSTANCE, XmpValueType.TEXT);
-        xmpValueTypeOfColumn.put(ColumnXmpPhotoshopCity.INSTANCE, XmpValueType.TEXT);
-        xmpValueTypeOfColumn.put(ColumnXmpPhotoshopCountry.INSTANCE, XmpValueType.TEXT);
-        xmpValueTypeOfColumn.put(ColumnXmpPhotoshopCredit.INSTANCE, XmpValueType.TEXT);
-        xmpValueTypeOfColumn.put(ColumnXmpPhotoshopHeadline.INSTANCE, XmpValueType.TEXT);
-        xmpValueTypeOfColumn.put(ColumnXmpPhotoshopInstructions.INSTANCE, XmpValueType.TEXT);
-        xmpValueTypeOfColumn.put(ColumnXmpPhotoshopSource.INSTANCE, XmpValueType.TEXT);
-        xmpValueTypeOfColumn.put(ColumnXmpPhotoshopState.INSTANCE, XmpValueType.TEXT);
-        xmpValueTypeOfColumn.put(ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory.INSTANCE, XmpValueType.BAG_TEXT);
-        xmpValueTypeOfColumn.put(ColumnXmpPhotoshopTransmissionReference.INSTANCE, XmpValueType.TEXT);
+        // Not copied into other XMP from
+        // data de.elmar_baumann.imv.image.metadata.xmp.XmpMetadata when
+        // XmpValueType.SEQ_PROPER_NAME
+        //xmpValueTypeOfColumn.put(ColumnXmpDcCreator.INSTANCE, XmpValueType.SEQ_PROPER_NAME);
+        xmpValueTypeOfColumn.put(ColumnXmpDcCreator.INSTANCE, XmpValueType.TEXT);
+        xmpValueTypeOfColumn.put(ColumnXmpDcDescription.INSTANCE,
+                XmpValueType.LANG_ALT);
+        xmpValueTypeOfColumn.put(ColumnXmpDcRights.INSTANCE,
+                XmpValueType.LANG_ALT);
+        xmpValueTypeOfColumn.put(ColumnXmpDcSubjectsSubject.INSTANCE,
+                XmpValueType.BAG_TEXT);
+        xmpValueTypeOfColumn.put(ColumnXmpDcTitle.INSTANCE,
+                XmpValueType.LANG_ALT);
+        xmpValueTypeOfColumn.put(ColumnXmpIptc4xmpcoreLocation.INSTANCE,
+                XmpValueType.TEXT);
+        xmpValueTypeOfColumn.put(ColumnXmpIptc4xmpcoreCountrycode.INSTANCE,
+                XmpValueType.TEXT);
+        xmpValueTypeOfColumn.put(ColumnXmpPhotoshopAuthorsposition.INSTANCE,
+                XmpValueType.TEXT);
+        xmpValueTypeOfColumn.put(ColumnXmpPhotoshopCaptionwriter.INSTANCE,
+                XmpValueType.PROPER_NAME);
+        xmpValueTypeOfColumn.put(ColumnXmpPhotoshopCategory.INSTANCE,
+                XmpValueType.TEXT);
+        xmpValueTypeOfColumn.put(ColumnXmpPhotoshopCity.INSTANCE,
+                XmpValueType.TEXT);
+        xmpValueTypeOfColumn.put(ColumnXmpPhotoshopCountry.INSTANCE,
+                XmpValueType.TEXT);
+        xmpValueTypeOfColumn.put(ColumnXmpPhotoshopCredit.INSTANCE,
+                XmpValueType.TEXT);
+        xmpValueTypeOfColumn.put(ColumnXmpPhotoshopHeadline.INSTANCE,
+                XmpValueType.TEXT);
+        xmpValueTypeOfColumn.put(ColumnXmpPhotoshopInstructions.INSTANCE,
+                XmpValueType.TEXT);
+        xmpValueTypeOfColumn.put(ColumnXmpPhotoshopSource.INSTANCE,
+                XmpValueType.TEXT);
+        xmpValueTypeOfColumn.put(ColumnXmpPhotoshopState.INSTANCE,
+                XmpValueType.TEXT);
+        xmpValueTypeOfColumn.put(
+                ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory.INSTANCE,
+                XmpValueType.BAG_TEXT);
+        xmpValueTypeOfColumn.put(
+                ColumnXmpPhotoshopTransmissionReference.INSTANCE,
+                XmpValueType.TEXT);
     }
 
     /**
@@ -111,8 +136,8 @@ public final class XmpColumnXmpDataTypeMapping {
         XmpValueType valueType = xmpValueTypeOfColumn.get(column);
         if (valueType != null) {
             return valueType.equals(XmpValueType.BAG_TEXT) ||
-                valueType.equals(XmpValueType.LANG_ALT) ||
-                valueType.equals(XmpValueType.SEQ_PROPER_NAME);
+                    valueType.equals(XmpValueType.LANG_ALT) ||
+                    valueType.equals(XmpValueType.SEQ_PROPER_NAME);
         }
         return false;
     }
@@ -126,7 +151,8 @@ public final class XmpColumnXmpDataTypeMapping {
      * @return  true, wenn der Spaltenwert für eine alternative Sprache gilt
      */
     public static boolean isLanguageAlternative(Column xmpColumn) {
-        XmpValueType type = XmpColumnXmpDataTypeMapping.getXmpValueTypeOfColumn(xmpColumn);
+        XmpValueType type = XmpColumnXmpDataTypeMapping.getXmpValueTypeOfColumn(
+                xmpColumn);
         return type != null && type.equals(XmpValueType.LANG_ALT);
     }
 
@@ -140,7 +166,7 @@ public final class XmpColumnXmpDataTypeMapping {
         XmpValueType valueType = xmpValueTypeOfColumn.get(column);
         if (valueType != null) {
             return valueType.equals(XmpValueType.TEXT) ||
-                valueType.equals(XmpValueType.PROPER_NAME);
+                    valueType.equals(XmpValueType.PROPER_NAME);
         }
         return false;
     }
