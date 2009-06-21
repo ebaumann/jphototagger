@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://web.resource.org/cc/"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="27.999998"
+   height="23"
+   id="svg2"
+   sodipodi:version="0.32"
+   inkscape:version="0.45.1"
+   version="1.0"
+   sodipodi:docbase="/home/elmar/projekte/ImageMetadataViewer/src/de/elmar_baumann/imv/resource/images"
+   sodipodi:docname="dnd_cursor_tn_panel.svg"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape"
+   inkscape:export-filename="/home/elmar/projekte/ImageMetadataViewer/src/de/elmar_baumann/imv/resource/images/dnd_cursor_tn_panel.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
+  <defs
+     id="defs4" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="24.287579"
+     inkscape:cx="15.000007"
+     inkscape:cy="12.884683"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     width="150px"
+     height="164.47563px"
+     objecttolerance="50"
+     showgrid="true"
+     gridtolerance="50"
+     guidetolerance="50"
+     inkscape:window-width="1272"
+     inkscape:window-height="995"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:grid-bbox="false"
+     showguides="true"
+     inkscape:guide-bbox="true" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:groupmode="layer"
+     id="layer8"
+     inkscape:label="Hintergrund"
+     transform="translate(64.795996,32.492643)">
+    <rect
+       style="opacity:1;fill:#dddddd;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect2196"
+       width="23.969328"
+       height="18.060675"
+       x="-63.388741"
+       y="-30.663841" />
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer6"
+     inkscape:label="Bildstapel Bild 3"
+     transform="translate(64.795996,32.492643)" />
+  <g
+     inkscape:groupmode="layer"
+     id="layer5"
+     inkscape:label="Bildstapel Bild 2"
+     transform="translate(64.795996,32.492643)">
+    <path
+       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.13059618;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       d="M -63.682722,-10.257417 L -63.682722,-9.5579417 L -36.861295,-9.5579417 L -36.861295,-31.241647 L -37.470873,-31.241647"
+       id="path4194" />
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer3"
+     inkscape:label="Bildstapel Bild 1"
+     transform="translate(64.795996,32.492643)">
+    <path
+       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.13059618;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       d="M -64.206959,-10.872954 L -64.206959,-10.173479 L -37.385531,-10.173479 L -37.385531,-31.857184 L -37.99511,-31.857184"
+       id="path4192" />
+  </g>
+  <g
+     inkscape:label="Bildstapel Bild oben"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(64.795996,32.492643)">
+    <rect
+       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.13059618;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect2160"
+       width="26.821424"
+       height="21.683704"
+       x="-64.730698"
+       y="-32.427345" />
+    <rect
+       style="opacity:1;fill:#aaaaaa;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect4148"
+       width="19"
+       height="14"
+       x="-60.795998"
+       y="-28.492641" />
+  </g>
+</svg>
