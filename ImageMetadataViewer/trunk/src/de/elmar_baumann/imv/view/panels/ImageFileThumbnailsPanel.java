@@ -43,13 +43,13 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel {
     private FileAction fileAction = FileAction.UNDEFINED;
 
     public ImageFileThumbnailsPanel() {
-        initMap();
+        initRefreshListeners();
         controllerDoubleklick = new ControllerDoubleklickThumbnail(this);
         setDragEnabled(true);
         setTransferHandler(new TransferHandlerThumbnailsPanel());
     }
 
-    private void initMap() {
+    private void initRefreshListeners() {
         for (Content c : Content.values()) {
             refreshListenersOfContent.put(c, new ArrayList<RefreshListener>());
         }
@@ -127,13 +127,7 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel {
      * @return  true if selected
      */
     public synchronized boolean isSelected(File file) {
-        List<File> selectedFiles = getSelectedFiles();
-        for (File selectedFile : selectedFiles) {
-            if (file.equals(selectedFile)) {
-                return true;
-            }
-        }
-        return false;
+        return getSelectedFiles().contains(file);
     }
 
     /**
@@ -182,9 +176,11 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel {
      * @see #setSort(de.elmar_baumann.lib.comparator.FileSort)
      */
     public synchronized void sort() {
-        List<File> selectedFiles = getSelectedFiles();
-        setFiles(new ArrayList<File>(files), content);
-        setSelected(getIndices(selectedFiles, true));
+        if (!content.equals(Content.IMAGE_COLLECTION)) {
+            List<File> selectedFiles = getSelectedFiles();
+            setFiles(new ArrayList<File>(files), content);
+            setSelected(getIndices(selectedFiles, true));
+        }
     }
 
     /**
@@ -228,17 +224,8 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel {
      * @param filesToRemove  files to remove
      */
     public synchronized void remove(List<File> filesToRemove) {
-        int removed = 0;
         List<File> selectedFiles = getSelectedFiles();
-        for (File fileToRemove : filesToRemove) {
-            int index = getIndexOf(fileToRemove);
-            if (index >= 0) {
-                files.remove(index);
-                selectedFiles.remove(fileToRemove);
-                removed++;
-            }
-        }
-        if (removed > 0) {
+        if (files.removeAll(filesToRemove)) {
             setFiles(files, content);
             setSelected(getIndices(selectedFiles, true));
             refresh();
@@ -279,7 +266,7 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel {
         if (viewport != null) {
             viewportPosition = viewport.getViewPosition();
         }
-        notifyRefreshListeners();
+        notifyRefreshListeners(); // does set the images
         if (viewport != null) {
             viewport.setViewPosition(viewportPosition);
         }
@@ -379,13 +366,13 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel {
     @Override
     protected String getText(int index) {
         if (isIndex(index)) {
-            String heading = files.get(index).getAbsolutePath();
-            int indexPathSeparator = heading.lastIndexOf(File.separator);
-            if (indexPathSeparator >= 0 && indexPathSeparator + 1 < heading.
+            String filename = files.get(index).getAbsolutePath();
+            int indexPathSeparator = filename.lastIndexOf(File.separator);
+            if (indexPathSeparator >= 0 && indexPathSeparator + 1 < filename.
                     length()) {
-                heading = heading.substring(indexPathSeparator + 1);
+                filename = filename.substring(indexPathSeparator + 1);
             }
-            return heading;
+            return filename;
         }
         return ""; // NOI18N
     }
