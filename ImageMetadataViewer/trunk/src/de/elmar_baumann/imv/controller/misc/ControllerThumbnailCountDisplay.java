@@ -51,7 +51,7 @@ public final class ControllerThumbnailCountDisplay
     }
 
     private void setCount() {
-        thumbnailCount = panelThumbnails.getCount();
+        thumbnailCount = panelThumbnails.getFileCount();
         setLabel();
     }
 

@@ -116,7 +116,7 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel {
      * 
      * @return thumbnail count
      */
-    public synchronized int getCount() {
+    public synchronized int getFileCount() {
         return files.size();
     }
 
