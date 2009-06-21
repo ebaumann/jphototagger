@@ -681,7 +681,7 @@ public final class DatabaseImageFiles extends Database {
 
     private String getXmpOfFileStatement() {
         return " SELECT" + // NOI18N
-                " dc_creator" + // NOI18N -- 1 --
+                " xmp.dc_creator" + // NOI18N -- 1 --
                 ", xmp.dc_description" + // NOI18N -- 2 --
                 ", xmp.dc_rights" + // NOI18N --3  --
                 ", xmp.dc_title" + // NOI18N -- 4 --
@@ -1270,17 +1270,38 @@ public final class DatabaseImageFiles extends Database {
         return values;
     }
 
-    public List<File> getFilesFromExif(Column columnExif, String exactValue) {
+    /**
+     * Returns files where:
+     *
+     * <ul>
+     * <li>a record has an exact value in a specific column</li>
+     * <li>the column's table has a foreign key that references the
+     *     file's table</li>
+     * <li>the column name of the foreign key column has the name
+     *     <code>id_files</code></li>
+     * </ul>
+     *
+     * This method is also unusable for one to many references (columns which
+     * are foreign keys).
+     *
+     * @param column     column whith the value
+     * @param exactValue exact value of the column content
+     * @return           files
+     */
+    public List<File> getFilesJoinTable(Column column, String exactValue) {
+        assert !column.isForeignKey() : column;
         List<File> files = new ArrayList<File>();
         Connection connection = null;
         try {
             connection = getConnection();
+            String tableName = column.getTable().getName();
+            String columnName = column.getName();
             String sql =
                     "SELECT files.filename" + // NOI18N
-                    " FROM exif INNER JOIN files" + // NOI18N
-                    " ON exif.id_files = files.id" + // NOI18N
-                    " WHERE exif." + // NOI18N
-                    columnExif.getName() + // NOI18N
+                    " FROM " + tableName +
+                    " INNER JOIN files" + // NOI18N
+                    " ON " + tableName + ".id_files = files.id" + // NOI18N
+                    " WHERE " + tableName + "." + columnName + // NOI18N
                     " = ?" + // NOI18N
                     " ORDER BY files.filename ASC"; // NOI18N
             PreparedStatement stmt = connection.prepareStatement(sql);
