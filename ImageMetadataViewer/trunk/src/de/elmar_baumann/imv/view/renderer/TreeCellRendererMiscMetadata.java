@@ -2,8 +2,6 @@ package de.elmar_baumann.imv.view.renderer;
 
 import de.elmar_baumann.imv.database.metadata.Column;
 import de.elmar_baumann.imv.database.metadata.exif.ColumnExifFocalLength;
-import de.elmar_baumann.imv.database.metadata.exif.ColumnExifIsoSpeedRatings;
-import de.elmar_baumann.imv.database.metadata.exif.ColumnExifRecordingEquipment;
 import de.elmar_baumann.imv.model.TreeModelMiscMetadata;
 import de.elmar_baumann.lib.image.icon.IconUtil;
 import java.awt.Component;
@@ -29,14 +27,22 @@ public final class TreeCellRendererMiscMetadata extends DefaultTreeCellRenderer 
             "/de/elmar_baumann/imv/resource/icons/icon_misc_metadata.png");
     private static final ImageIcon iconExif = IconUtil.getImageIcon(
             "/de/elmar_baumann/imv/resource/icons/icon_exif.png");
+    private static final ImageIcon iconXmp = IconUtil.getImageIcon(
+            "/de/elmar_baumann/imv/resource/icons/icon_xmp.png");
+    private static final ImageIcon iconDetail =
+            IconUtil.getImageIcon(
+            "/de/elmar_baumann/imv/resource/icons/icon_misc_metadata_detail.png");
     private static final Map<Column, ImageIcon> iconOfColumn =
             new HashMap<Column, ImageIcon>();
 
 
     static {
-        iconOfColumn.put(ColumnExifFocalLength.INSTANCE, iconExif);
-        iconOfColumn.put(ColumnExifIsoSpeedRatings.INSTANCE, iconExif);
-        iconOfColumn.put(ColumnExifRecordingEquipment.INSTANCE, iconExif);
+        for (Column exifColumn : TreeModelMiscMetadata.getExifColumns()) {
+            iconOfColumn.put(exifColumn, iconExif);
+        }
+        for (Column xmpColumn : TreeModelMiscMetadata.getXmpColumns()) {
+            iconOfColumn.put(xmpColumn, iconXmp);
+        }
     }
 
     @Override
@@ -53,19 +59,19 @@ public final class TreeCellRendererMiscMetadata extends DefaultTreeCellRenderer 
         Object parentUserObject = parentNode == null
                                   ? null
                                   : parentNode.getUserObject();
-        setIcon(parentUserObject, userObject, parentNode,
-                (TreeNode) tree.getModel().getRoot());
+        setIcon(userObject, parentNode, (TreeNode) tree.getModel().getRoot(),
+                leaf);
         setText(userObject, parentUserObject);
 
         return this;
     }
 
-    private void setIcon(Object parentUserObject, Object userObject,
-            DefaultMutableTreeNode parentNode, TreeNode root) {
+    private void setIcon(Object userObject, DefaultMutableTreeNode parentNode,
+            TreeNode root, boolean leaf) {
         if (userObject instanceof Column) {
             setColumnIcon((Column) userObject);
-        } else if (parentUserObject instanceof Column) {
-            setColumnIcon((Column) parentUserObject);
+        } else if (leaf) {
+            setIcon(iconDetail);
         } else if (parentNode != null && parentNode.equals(root)) {
             setIcon(iconMiscMetadata);
         }

@@ -3,7 +3,6 @@ package de.elmar_baumann.imv.controller.miscmetadata;
 import de.elmar_baumann.imv.database.DatabaseImageFiles;
 import de.elmar_baumann.imv.database.metadata.Column;
 import de.elmar_baumann.imv.event.listener.RefreshListener;
-import de.elmar_baumann.imv.model.TreeModelMiscMetadata;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.types.Content;
@@ -28,8 +27,8 @@ public final class ControllerMiscMetadataItemSelected implements
     private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
     private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
     private final JTree tree = appPanel.getTreeMiscMetadata();
-    private final ImageFileThumbnailsPanel thumbnailsPanel = appPanel.
-            getPanelThumbnails();
+    private final ImageFileThumbnailsPanel thumbnailsPanel =
+            appPanel.getPanelThumbnails();
 
     public ControllerMiscMetadataItemSelected() {
         listen();
@@ -86,11 +85,9 @@ public final class ControllerMiscMetadataItemSelected implements
                     ((DefaultMutableTreeNode) node.getParent()).getUserObject();
             if (parentUserObject instanceof Column) {
                 Column column = (Column) parentUserObject;
-                if (TreeModelMiscMetadata.containsExifColumn(column)) {
-                    thumbnailsPanel.setFiles(db.getFilesFromExif(column,
-                            userObject.toString()),
-                            Content.MISC_METADATA);
-                }
+                thumbnailsPanel.setFiles(db.getFilesJoinTable(column,
+                        userObject.toString()),
+                        Content.MISC_METADATA);
             }
         } else {
             thumbnailsPanel.setFiles(new ArrayList<File>(),
