@@ -164,7 +164,9 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel {
         @Override
         public void run() {
             InfoSetThumbnails info = new InfoSetThumbnails();
-            Collections.sort(files, fileSort.getComparator());
+            if (!content.equals(Content.IMAGE_COLLECTION)) {
+                Collections.sort(files, fileSort.getComparator());
+            }
             setNewThumbnails(files.size());
             scrollToTop(hadFiles);
             hadFiles = true;
@@ -329,8 +331,8 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel {
      */
     public synchronized File getFile(int index) {
         return isIndex(index)
-               ? files.get(index)
-               : null;
+                ? files.get(index)
+                : null;
     }
 
     /**
@@ -371,7 +373,7 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel {
         newOrderedFiles.addAll(selFiles);
         newOrderedFiles.addAll(filesWithoutMoved.subList(index,
                 filesWithoutMoved.size()));
-        forceRepaint();
+        setFiles(newOrderedFiles, content);
     }
 
     @Override
