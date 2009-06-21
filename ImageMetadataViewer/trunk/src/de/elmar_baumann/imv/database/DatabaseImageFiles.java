@@ -582,32 +582,32 @@ public final class DatabaseImageFiles extends Database {
                 " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"; // NOI18N
     }
 
-    private void setXmpValues(PreparedStatement stmt, long idFile, Xmp xmpData)
+    private void setXmpValues(PreparedStatement stmt, long idFile, Xmp xmp)
             throws SQLException {
         stmt.setLong(1, idFile);
-        stmt.setString(2, xmpData.getDcCreator());
-        stmt.setString(3, xmpData.getDcDescription());
-        stmt.setString(4, xmpData.getDcRights());
-        stmt.setString(5, xmpData.getDcTitle());
-        stmt.setString(6, xmpData.getIptc4xmpcoreCountrycode());
-        stmt.setString(7, xmpData.getIptc4xmpcoreLocation());
-        stmt.setString(8, xmpData.getPhotoshopAuthorsposition());
-        stmt.setString(9, xmpData.getPhotoshopCaptionwriter());
-        stmt.setString(10, xmpData.getPhotoshopCategory());
-        stmt.setString(11, xmpData.getPhotoshopCity());
-        stmt.setString(12, xmpData.getPhotoshopCountry());
-        stmt.setString(13, xmpData.getPhotoshopCredit());
-        stmt.setString(14, xmpData.getPhotoshopHeadline());
-        stmt.setString(15, xmpData.getPhotoshopInstructions());
-        stmt.setString(16, xmpData.getPhotoshopSource());
-        stmt.setString(17, xmpData.getPhotoshopState());
-        stmt.setString(18, xmpData.getPhotoshopTransmissionReference());
+        stmt.setString(2, xmp.getDcCreator());
+        stmt.setString(3, xmp.getDcDescription());
+        stmt.setString(4, xmp.getDcRights());
+        stmt.setString(5, xmp.getDcTitle());
+        stmt.setString(6, xmp.getIptc4xmpcoreCountrycode());
+        stmt.setString(7, xmp.getIptc4xmpcoreLocation());
+        stmt.setString(8, xmp.getPhotoshopAuthorsposition());
+        stmt.setString(9, xmp.getPhotoshopCaptionwriter());
+        stmt.setString(10, xmp.getPhotoshopCategory());
+        stmt.setString(11, xmp.getPhotoshopCity());
+        stmt.setString(12, xmp.getPhotoshopCountry());
+        stmt.setString(13, xmp.getPhotoshopCredit());
+        stmt.setString(14, xmp.getPhotoshopHeadline());
+        stmt.setString(15, xmp.getPhotoshopInstructions());
+        stmt.setString(16, xmp.getPhotoshopSource());
+        stmt.setString(17, xmp.getPhotoshopState());
+        stmt.setString(18, xmp.getPhotoshopTransmissionReference());
     }
 
-    private void updateXmp(Connection connection, long idFile, Xmp xmpData)
+    private void updateXmp(Connection connection, long idFile, Xmp xmp)
             throws SQLException {
 
-        if (xmpData != null) {
+        if (xmp != null) {
             long idXmp = getIdXmpFromIdFile(connection, idFile);
             if (idXmp > 0) {
                 PreparedStatement stmt = connection.prepareStatement(
@@ -616,7 +616,7 @@ public final class DatabaseImageFiles extends Database {
                 stmt.executeUpdate();
                 stmt.close();
             }
-            insertXmp(connection, idFile, xmpData);
+            insertXmp(connection, idFile, xmp);
         }
     }
 

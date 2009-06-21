@@ -9,7 +9,7 @@ import java.util.Map;
 
 /**
  * IPTC-Metadaten einer Bilddatei. Unter den Operationen ist ein Link auf die
- * Operationen von XmpData, die dort das gleiche bedeuten.
+ * Operationen von {@link Xmp}, die dort das gleiche bedeuten.
  * 
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05

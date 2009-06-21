@@ -58,9 +58,9 @@ public final class ListModelKeywords extends DefaultListModel
 
     private List<String> getKeywords(ImageFile imageFile) {
         List<String> keywords = new ArrayList<String>();
-        Xmp xmpData = imageFile.getXmp();
-        if (xmpData != null && xmpData.getDcSubjects() != null) {
-            keywords.addAll(xmpData.getDcSubjects());
+        Xmp xmp = imageFile.getXmp();
+        if (xmp != null && xmp.getDcSubjects() != null) {
+            keywords.addAll(xmp.getDcSubjects());
         }
         return keywords;
     }

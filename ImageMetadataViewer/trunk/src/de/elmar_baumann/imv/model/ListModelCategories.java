@@ -69,13 +69,13 @@ public final class ListModelCategories extends DefaultListModel
 
     private List<String> getCategories(ImageFile imageFile) {
         List<String> categories = new ArrayList<String>();
-        Xmp xmpData = imageFile.getXmp();
-        if (xmpData != null && xmpData.getPhotoshopSupplementalCategories() !=
+        Xmp xmp = imageFile.getXmp();
+        if (xmp != null && xmp.getPhotoshopSupplementalCategories() !=
                 null) {
-            categories.addAll(xmpData.getPhotoshopSupplementalCategories());
+            categories.addAll(xmp.getPhotoshopSupplementalCategories());
         }
-        if (xmpData != null && xmpData.getPhotoshopCategory() != null) {
-            categories.add(xmpData.getPhotoshopCategory());
+        if (xmp != null && xmp.getPhotoshopCategory() != null) {
+            categories.add(xmp.getPhotoshopCategory());
         }
         return categories;
     }
