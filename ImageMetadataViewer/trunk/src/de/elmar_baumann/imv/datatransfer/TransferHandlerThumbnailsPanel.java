@@ -1,5 +1,6 @@
 package de.elmar_baumann.imv.datatransfer;
 
+import de.elmar_baumann.imv.database.DatabaseImageCollections;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.types.Content;
 import de.elmar_baumann.imv.view.ViewUtil;
@@ -12,6 +13,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JComponent;
+import javax.swing.JList;
 import javax.swing.JTree;
 import javax.swing.TransferHandler;
 
@@ -69,28 +71,11 @@ public final class TransferHandlerThumbnailsPanel extends TransferHandler {
         if (!canImport(transferSupport)) return false;
         if (imagesSelected &&
                 panel.getContent().equals(Content.IMAGE_COLLECTION)) { // drop
-            Point dropPoint = transferSupport.getDropLocation().getDropPoint();
-            panel.moveSelectedToIndex(panel.getDropIndex(dropPoint.x,
-                    dropPoint.y));
+            moveSelectedImages(transferSupport, panel);
             return true;
         }
         if (imagesSelected) return false; // drop
-        List<File> sourceFiles = TransferUtil.getFiles(transferSupport.
-                getTransferable(), delimiter);
-        File targetDirectory = null;
-        if (isContent(Content.DIRECTORY)) {
-            JTree treeDirectories = GUI.INSTANCE.getAppPanel().
-                    getTreeDirectories();
-            targetDirectory = ViewUtil.getSelectedDirectory(treeDirectories);
-        } else if (isContent(Content.FAVORITE_DIRECTORY)) {
-            targetDirectory = ViewUtil.
-                    getSelectedDirectoryFromFavoriteDirectories();
-        }
-        if (targetDirectory != null & sourceFiles.size() > 0) {
-            TransferHandlerTreeDirectories.handleDroppedFiles(
-                    transferSupport.getDropAction(), sourceFiles,
-                    targetDirectory);
-        }
+        copyOrMoveSelectedImages(transferSupport);
         return true;
     }
 
@@ -102,9 +87,56 @@ public final class TransferHandlerThumbnailsPanel extends TransferHandler {
         return importableContent.contains(thumbnailsPanel.getContent());
     }
 
+    private void copyOrMoveSelectedImages(TransferSupport transferSupport) {
+        // drop
+        List<File> sourceFiles =
+                TransferUtil.getFiles(transferSupport.getTransferable(),
+                delimiter);
+        File targetDirectory = null;
+        if (isContent(Content.DIRECTORY)) {
+            JTree treeDirectories =
+                    GUI.INSTANCE.getAppPanel().getTreeDirectories();
+            targetDirectory =
+                    ViewUtil.getSelectedDirectory(treeDirectories);
+        } else if (isContent(Content.FAVORITE_DIRECTORY)) {
+            targetDirectory =
+                    ViewUtil.getSelectedDirectoryFromFavoriteDirectories();
+        }
+        if (targetDirectory != null & sourceFiles.size() > 0) {
+            TransferHandlerTreeDirectories.handleDroppedFiles(transferSupport.
+                    getDropAction(),
+                    sourceFiles, targetDirectory);
+        }
+    }
+
     private boolean isContent(Content content) {
         ImageFileThumbnailsPanel thumbnailsPanel = GUI.INSTANCE.getAppPanel().
                 getPanelThumbnails();
         return thumbnailsPanel.getContent().equals(content);
+    }
+
+    private void moveSelectedImages(TransferSupport transferSupport,
+            ImageFileThumbnailsPanel panel) {
+        Point dropPoint = transferSupport.getDropLocation().getDropPoint();
+        panel.moveSelectedToIndex(panel.getDropIndex(dropPoint.x, dropPoint.y));
+        String imageCollectionName = getImageCollectionName();
+        if (imageCollectionName != null) {
+            DatabaseImageCollections.INSTANCE.insertImageCollection(
+                    imageCollectionName,
+                    FileUtil.getAsFilenames(panel.getFiles()));
+        }
+    }
+
+    private String getImageCollectionName() {
+        JList listImageCollections = GUI.INSTANCE.getAppPanel().
+                getListImageCollections();
+        Object element = null;
+        int index = listImageCollections.getSelectedIndex();
+        if (index >= 0) {
+            element = listImageCollections.getModel().getElementAt(index);
+        }
+        return element == null
+                ? null
+                : element.toString();
     }
 }
