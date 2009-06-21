@@ -53,8 +53,6 @@ public final class TreeModelMiscMetadata extends DefaultTreeModel implements
         exifColumns.add(ColumnExifFocalLength.INSTANCE);
         exifColumns.add(ColumnExifIsoSpeedRatings.INSTANCE);
 
-        xmpColumns.add(ColumnXmpPhotoshopHeadline.INSTANCE);
-        xmpColumns.add(ColumnXmpDcTitle.INSTANCE);
         xmpColumns.add(ColumnXmpIptc4xmpcoreLocation.INSTANCE);
         xmpColumns.add(ColumnXmpDcCreator.INSTANCE);
         xmpColumns.add(ColumnXmpDcRights.INSTANCE);
