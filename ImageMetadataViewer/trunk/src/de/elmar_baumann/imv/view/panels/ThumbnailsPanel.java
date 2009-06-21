@@ -64,7 +64,7 @@ import javax.swing.TransferHandler;
  */
 public abstract class ThumbnailsPanel extends JPanel
         implements ComponentListener, MouseListener, MouseMotionListener,
-        KeyListener {
+                   KeyListener {
 
     /**
      * Width of a thumbnail flag in pixel
@@ -482,6 +482,16 @@ public abstract class ThumbnailsPanel extends JPanel
         return selectedThumbnails.size();
     }
 
+    private Point getTopLeftOfTnIndex(int index) {
+        int rowIndex = getRowIndexAt(index);
+        int columnIndex = getColumnIndexAt(index);
+        int x = MARGIN_THUMBNAIL + columnIndex * (getThumbnailAreaWidth() +
+                MARGIN_THUMBNAIL);
+        int y = MARGIN_THUMBNAIL + rowIndex * (getThumbnailAreaHeight() +
+                MARGIN_THUMBNAIL);
+        return new Point(x, y);
+    }
+
     private int getThumbnailAreaHeight() {
         return thumbnailWidth + 2 * PADDING_THUMBNIAL + 2 *
                 WIDHT_BORDER_THUMBNAIL;
@@ -514,12 +524,16 @@ public abstract class ThumbnailsPanel extends JPanel
         int keyCode = e.getKeyCode();
         if (keyCode == KeyEvent.VK_RIGHT) {
             setSelectedNext();
+            checkScrollDown();
         } else if (keyCode == KeyEvent.VK_LEFT) {
             setSelectedPrevious();
+            checkScrollUp();
         } else if (keyCode == KeyEvent.VK_UP) {
             setSelectedUp();
+            checkScrollUp();
         } else if (keyCode == KeyEvent.VK_DOWN) {
             setSelectedDown();
+            checkScrollDown();
         } else if (keyCode == KeyEvent.VK_ENTER) {
             handleMouseDoubleKlicked();
         } else if ((e.getModifiers() & KeyEvent.CTRL_MASK) ==
@@ -545,16 +559,16 @@ public abstract class ThumbnailsPanel extends JPanel
         boolean xIsOut = x > maxRight;
         boolean yIsOut = y > maxBottom;
         return inTnArea
-                ? (y - MARGIN_THUMBNAIL) / getThumbnailAreaHeight() *
+               ? (y - MARGIN_THUMBNAIL) / getThumbnailAreaHeight() *
                 getColumnCount() +
                 (x - MARGIN_THUMBNAIL) / getThumbnailAreaWidth()
-                : xIsOut && !yIsOut
-                ? (y - MARGIN_THUMBNAIL) / getThumbnailAreaHeight() *
+               : xIsOut && !yIsOut
+                 ? (y - MARGIN_THUMBNAIL) / getThumbnailAreaHeight() *
                 getColumnCount() +
                 getColumnCount() - 1
-                : yIsOut
-                ? thumbnailCount - 1
-                : -1;
+                 : yIsOut
+                   ? thumbnailCount - 1
+                   : -1;
     }
 
     private int getColumnCount() {
@@ -563,8 +577,8 @@ public abstract class ThumbnailsPanel extends JPanel
         int count = (int) ((double) (width - MARGIN_THUMBNAIL) /
                 (double) tnWidth);
         return count > thumbnailCount
-                ? thumbnailCount
-                : count;
+               ? thumbnailCount
+               : count;
     }
 
     private void transferData(MouseEvent e) {
@@ -663,11 +677,11 @@ public abstract class ThumbnailsPanel extends JPanel
             int firstSelected = getFirstSelectedIndex();
             selectedThumbnails.clear();
             int startIndex = index > firstSelected
-                    ? firstSelected
-                    : index;
+                             ? firstSelected
+                             : index;
             int endIndex = index > firstSelected
-                    ? index
-                    : firstSelected;
+                           ? index
+                           : firstSelected;
             for (int i = startIndex; i <= endIndex; i++) {
                 selectedThumbnails.add(i);
             }
@@ -703,14 +717,14 @@ public abstract class ThumbnailsPanel extends JPanel
 
     private int getColumnIndexAt(int thumbnailIndex) {
         return thumbnailIndex > 0 && thumbnailCountPerRow > 0
-                ? thumbnailIndex % thumbnailCountPerRow
-                : 0;
+               ? thumbnailIndex % thumbnailCountPerRow
+               : 0;
     }
 
     private int getRowIndexAt(int thumbnailIndex) {
         return thumbnailCountPerRow > 0
-                ? thumbnailIndex / thumbnailCountPerRow
-                : 0;
+               ? thumbnailIndex / thumbnailCountPerRow
+               : 0;
     }
 
     private void handleMouseDoubleKlicked() {
@@ -751,27 +765,23 @@ public abstract class ThumbnailsPanel extends JPanel
     }
 
     private void paintThumbnail(int index, Graphics g) {
-        int rowIndex = getRowIndexAt(index);
-        int columnIndex = getColumnIndexAt(index);
-        int areaX = MARGIN_THUMBNAIL + columnIndex * (getThumbnailAreaWidth() +
-                MARGIN_THUMBNAIL);
-        int areaY = MARGIN_THUMBNAIL + rowIndex * (getThumbnailAreaHeight() +
-                MARGIN_THUMBNAIL);
+        Point topLeft = getTopLeftOfTnIndex(index);
         Image thumbnail = getCachedThumbnail(index);
 
-        paintThumbnailBackground(g, areaX, areaY, isSelected(index));
-        paintThumbnailFlag(index, g, areaX, areaY);
+        paintThumbnailBackground(g, topLeft.x, topLeft.y, isSelected(index));
+        paintThumbnailFlag(index, g, topLeft.x, topLeft.y);
         if (thumbnail != null) {
-            paintThumbnail(getScaledInstance(index, thumbnail), g, areaX, areaY);
-            paintThumbnailTextAt(g, index, areaX, areaY);
+            paintThumbnail(getScaledInstance(index, thumbnail), g, topLeft.x,
+                    topLeft.y);
+            paintThumbnailTextAt(g, index, topLeft.x, topLeft.y);
         }
     }
 
     private void paintThumbnailBackground(Graphics g, int thumbnailAreaX,
             int thumbnailAreaY, boolean isSelected) {
         Color backgroundColor = isSelected
-                ? COLOR_BACKGROUND_PADDING_THUMBNAIL_HIGHLIGHTED
-                : COLOR_BACKGROUND_PADDING_THUMBNAIL;
+                                ? COLOR_BACKGROUND_PADDING_THUMBNAIL_HIGHLIGHTED
+                                : COLOR_BACKGROUND_PADDING_THUMBNAIL;
         Color oldColor = g.getColor();
         g.setColor(backgroundColor);
         g.fillRect(
@@ -826,8 +836,8 @@ public abstract class ThumbnailsPanel extends JPanel
 
         Color oldColor = g.getColor();
         g.setColor(isSelected(index)
-                ? COLOR_TEXT_HIGHLIGHTED
-                : COLOR_TEXT);
+                   ? COLOR_TEXT_HIGHLIGHTED
+                   : COLOR_TEXT);
         g.drawString(text, xText, areaY + getThumbnailAreaHeight() +
                 FONT_HEIGHT + 4);
         g.setColor(oldColor);
@@ -856,12 +866,12 @@ public abstract class ThumbnailsPanel extends JPanel
     private int getRowCount() {
         double count = (double) thumbnailCount / (double) thumbnailCountPerRow;
         return thumbnailCount > thumbnailCountPerRow
-                ? (int) (MathUtil.isInteger(count)
-                ? count
-                : count + 1)
-                : thumbnailCount == 0
-                ? 0
-                : 1;
+               ? (int) (MathUtil.isInteger(count)
+                        ? count
+                        : count + 1)
+               : thumbnailCount == 0
+                 ? 0
+                 : 1;
     }
 
     private void notifyAllThumbnailsDeselected() {
@@ -894,8 +904,8 @@ public abstract class ThumbnailsPanel extends JPanel
     public Dimension getPreferredSize() {
         Component parent = getParent();
         int width = parent instanceof JViewport
-                ? parent.getWidth()
-                : getWidth();
+                    ? parent.getWidth()
+                    : getWidth();
         int heigth = getCalculatedHeight();
         return new Dimension(width, heigth);
     }
@@ -918,8 +928,8 @@ public abstract class ThumbnailsPanel extends JPanel
                 (double) (width - MARGIN_THUMBNAIL) /
                 (double) (tnAreaWidth + MARGIN_THUMBNAIL);
         thumbnailCountPerRow = count >= 1
-                ? (int) count
-                : 1;
+                               ? (int) count
+                               : 1;
         if (prevCount != thumbnailCountPerRow) {
             setSize(getWidth(), getCalculatedHeight());
         }
@@ -986,8 +996,8 @@ public abstract class ThumbnailsPanel extends JPanel
         int width = image.getWidth(null);
         int height = image.getHeight(null);
         double longer = width > height
-                ? width
-                : height;
+                        ? width
+                        : height;
         if (longer == thumbnailWidth) {
             return image;
         }
@@ -1066,6 +1076,45 @@ public abstract class ThumbnailsPanel extends JPanel
     protected void scrollToBottom() {
         if (viewport != null) {
             viewport.setViewPosition(new Point(0, getHeight()));
+        }
+    }
+
+    private void checkScrollUp() {
+        if (viewport != null) {
+            int tnHeight = getThumbnailAreaHeight();
+            int topSel = getTopLeftOfTnIndex(getSelectedIndex()).y - tnHeight;
+            int viewPosBottom = viewport.getViewPosition().y;
+            if (topSel < viewPosBottom) {
+                scrollOneImageUp();
+            }
+        }
+    }
+
+    private void checkScrollDown() {
+        if (viewport != null) {
+            int tnHeight = getThumbnailAreaHeight();
+            int bottomSel = getTopLeftOfTnIndex(getSelectedIndex()).y + tnHeight;
+            int viewPosBottom = viewport.getViewPosition().y + viewport.
+                    getHeight();
+            if (bottomSel > viewPosBottom) {
+                scrollOneImageDown();
+            }
+        }
+    }
+
+    private void scrollOneImageUp() {
+        if (viewport != null) {
+            Point p = viewport.getViewPosition();
+            viewport.setViewPosition(
+                    new Point(0, p.y - getThumbnailAreaHeight()));
+        }
+    }
+
+    private void scrollOneImageDown() {
+        if (viewport != null) {
+            Point p = viewport.getViewPosition();
+            viewport.setViewPosition(
+                    new Point(0, p.y + getThumbnailAreaHeight()));
         }
     }
 
