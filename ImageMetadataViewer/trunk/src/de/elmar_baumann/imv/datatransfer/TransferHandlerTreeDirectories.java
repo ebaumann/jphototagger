@@ -52,9 +52,7 @@ public final class TransferHandlerTreeDirectories extends TransferHandler {
     @Override
     @SuppressWarnings("unchecked")
     public boolean importData(TransferSupport transferSupport) {
-        if (!transferSupport.isDrop()) {
-            return false;
-        }
+        if (!transferSupport.isDrop()) return false;
         File targetDirectory = getTargetDirectory(transferSupport);
         Transferable transferable = transferSupport.getTransferable();
         List<File> sourceFiles = IoUtil.getImageFiles(TransferUtil.getFiles(
@@ -82,9 +80,7 @@ public final class TransferHandlerTreeDirectories extends TransferHandler {
     public static void handleDroppedFiles(
             int dropAction, List<File> sourceFiles, File targetDirectory) {
         List<File> imageFiles = IoUtil.getImageFiles(sourceFiles);
-        if (imageFiles.isEmpty()) {
-            return;
-        }
+        if (imageFiles.isEmpty()) return;
         if (dropAction == COPY && confirmFileAction(
                 "TransferHandlerTreeDirectories.ConfirmMessage.Copy",
                 imageFiles.size(),
