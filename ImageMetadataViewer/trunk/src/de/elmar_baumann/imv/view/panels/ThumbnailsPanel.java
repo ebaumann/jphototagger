@@ -271,9 +271,11 @@ public abstract class ThumbnailsPanel extends JPanel
      * 
      * @param indices Indexe
      */
-    public synchronized void setSelected(List<Integer> indices) {
-        selectedThumbnails.clear();
-        selectedThumbnails.addAll(indices);
+    public void setSelected(List<Integer> indices) {
+        synchronized (this) {
+            selectedThumbnails.clear();
+            selectedThumbnails.addAll(indices);
+        }
         repaint();
         if (indices.size() > 0) {
             Collections.sort(selectedThumbnails);
