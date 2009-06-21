@@ -3,10 +3,13 @@ package de.elmar_baumann.lib.componentutil;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Enumeration;
 import java.util.List;
 import java.util.Stack;
 import java.util.StringTokenizer;
 import javax.swing.JTree;
+import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
 
@@ -36,7 +39,8 @@ public final class TreeUtil {
             JTree tree = (JTree) e.getSource();
             TreePath mousePath = tree.getPathForLocation(e.getX(), e.getY());
             if (mousePath != null && tree.getSelectionPath() != null) {
-                Object selectedItem = tree.getSelectionPath().getLastPathComponent();
+                Object selectedItem = tree.getSelectionPath().
+                        getLastPathComponent();
                 Object mouseItem = mousePath.getLastPathComponent();
                 if (selectedItem != null && mouseItem != null) {
                     return selectedItem.equals(mouseItem);
@@ -95,7 +99,7 @@ public final class TreeUtil {
      * @return              Pfad oder null, wenn nicht gefunden
      */
     public static TreePath getTreePath(TreeModel treeModel, String pathString,
-        String pathSeparator) {
+            String pathSeparator) {
         if (treeModel == null)
             throw new NullPointerException("treeModel == null");
         if (pathString == null)
@@ -103,11 +107,14 @@ public final class TreeUtil {
         if (pathSeparator == null)
             throw new NullPointerException("pathSeparator == null");
 
-        StringTokenizer tokenizer = new StringTokenizer(pathString, pathSeparator);
+        StringTokenizer tokenizer = new StringTokenizer(pathString,
+                pathSeparator);
         int tokenCount = tokenizer.countTokens();
         int tokenNumber = 1;
         int tokenFoundCount = 0;
-        Object[] path = new Object[tokenCount > 0 ? tokenCount : 1];
+        Object[] path = new Object[tokenCount > 0
+                                   ? tokenCount
+                                   : 1];
         if (tokenCount > 0) {
             path[0] = treeModel.getRoot();
             tokenizer.nextToken();
@@ -134,8 +141,8 @@ public final class TreeUtil {
             }
         }
         return tokenCount > 0 && tokenCount - 1 == tokenFoundCount
-            ? new TreePath(path)
-            : null;
+               ? new TreePath(path)
+               : null;
     }
 
     /**
@@ -209,6 +216,37 @@ public final class TreeUtil {
             list.add(stack.pop());
         }
         return new TreePath(list.toArray());
+    }
+
+    /**
+     * Adds all nodes with a specific user object of a node and it's children.
+     * 
+     * @param foundNodes container to add found nodes
+     * @param rootNode   node to search
+     * @param userObject user object to compare with equals
+     * @param maxCount   maximum count of nodes to add
+     */
+    public static void addNodesUserWithObject(
+            Collection<? super DefaultMutableTreeNode> foundNodes,
+            DefaultMutableTreeNode rootNode, Object userObject, int maxCount) {
+        if (foundNodes == null)
+            throw new NullPointerException("foundNodes == null");
+        if (rootNode == null)
+            throw new NullPointerException("rootNode == null");
+        if (userObject == null)
+            throw new NullPointerException("userObject == null");
+
+        int foundNodeCount = foundNodes.size();
+        for (Enumeration children = rootNode.children();
+                children.hasMoreElements() && foundNodeCount <= maxCount;) {
+            DefaultMutableTreeNode child = (DefaultMutableTreeNode) children.
+                    nextElement();
+            if (userObject.equals(child.getUserObject())) {
+                foundNodes.add(child);
+            } else {
+                addNodesUserWithObject(foundNodes, child, userObject, maxCount); // recursive
+            }
+        }
     }
 
     private TreeUtil() {
