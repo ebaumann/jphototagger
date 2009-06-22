@@ -31,7 +31,8 @@ public final class IptcMetadata {
             try {
                 IPTCEntryCollection collection = MetadataUtils.getIPTC(file);
                 if (collection != null) {
-                    addEntries(collection.getEntries(IPTCConstants.RECORD_APPLICATION), metadata);
+                    addEntries(collection.getEntries(
+                            IPTCConstants.RECORD_APPLICATION), metadata);
                 }
             } catch (Exception ex) {
                 AppLog.logWarning(IptcMetadata.class, ex);
@@ -41,7 +42,7 @@ public final class IptcMetadata {
     }
 
     private static void addEntries(IPTCEntry[][] entries,
-        List<IptcEntry> metadata) {
+            List<IptcEntry> metadata) {
         if (entries != null) {
             for (int i = 0; i < entries.length; i++) {
                 addEntries(entries[i], metadata);
@@ -78,7 +79,8 @@ public final class IptcMetadata {
      * @param  filter  Filter
      * @return Alle Entries mit den im Filter angegebenen Metadaten
      */
-    public static List<IptcEntry> getFilteredEntries(List<IptcEntry> entries, IPTCEntryMeta filter) {
+    public static List<IptcEntry> getFilteredEntries(List<IptcEntry> entries,
+            IPTCEntryMeta filter) {
         List<IptcEntry> filteredEntries = new ArrayList<IptcEntry>();
         for (IptcEntry entry : entries) {
             if (entry.getEntryMeta().equals(filter)) {
