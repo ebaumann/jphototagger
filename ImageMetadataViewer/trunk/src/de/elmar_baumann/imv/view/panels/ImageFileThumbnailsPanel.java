@@ -352,7 +352,9 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel {
     public synchronized void moveSelectedToIndex(int index) {
         if (!isValidIndex(index)) return;
         List<Integer> selectedIndices = getSelectedIndices();
+        if (selectedIndices.size() <= 0) return;
         Collections.sort(selectedIndices);
+        if (selectedIndices.get(0) == index) return;
         List<File> selFiles = getFiles(selectedIndices);
         List<File> filesWithoutMoved = new ArrayList<File>(files);
         int fileCount = filesWithoutMoved.size();
@@ -362,7 +364,23 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel {
         newOrderedFiles.addAll(selFiles);
         newOrderedFiles.addAll(filesWithoutMoved.subList(index,
                 filesWithoutMoved.size()));
-        setFiles(newOrderedFiles, content);
+        files.clear();
+        files.addAll(newOrderedFiles);
+        List<Integer> indicesToRemoveFromCache = getIndicesToEndFrom(Math.min(
+                index, selectedIndices.get(0)));
+        clearSelection();
+        removeFromCache(indicesToRemoveFromCache);
+    }
+
+    private List<Integer> getIndicesToEndFrom(int fromIndex) {
+        int size = files.size();
+        List<Integer> indices = new ArrayList<Integer>(size > 0
+                                                       ? size
+                                                       : 1);
+        for (int i = fromIndex; i < size; i++) {
+            indices.add(i);
+        }
+        return indices;
     }
 
     @Override
