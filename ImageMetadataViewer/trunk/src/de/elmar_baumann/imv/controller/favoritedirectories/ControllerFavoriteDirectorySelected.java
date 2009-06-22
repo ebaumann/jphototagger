@@ -49,7 +49,7 @@ public final class ControllerFavoriteDirectorySelected implements
 
     @Override
     public void valueChanged(TreeSelectionEvent e) {
-        if (e.isAddedPath() && treeFavoriteDirectories.getSelectionCount() > 0) {
+        if (e.isAddedPath()) {
             update();
         }
     }
@@ -62,44 +62,49 @@ public final class ControllerFavoriteDirectorySelected implements
     }
 
     private void update() {
-        Thread thread = new Thread(new Runnable() {
-
-            @Override
-            public void run() {
-                InfoSetThumbnails info = new InfoSetThumbnails();
-                thumbnailsPanel.setFiles(getFilesOfCurrentDirectory(),
-                        Content.FAVORITE_DIRECTORY);
-                setMetadataEditable();
-                info.hide();
-            }
-        });
-        thread.setName("Favorite directory selected" + " @ " + // NOI18N
-                getClass().getName()); // NOI18N
+        Thread thread = new Thread(new SetFiles());
         thread.start();
     }
 
-    private List<File> getFilesOfCurrentDirectory() {
-        TreePath path = treeFavoriteDirectories.getLeadSelectionPath();
-        if (path != null) {
-            File dir = null;
-            DefaultMutableTreeNode node = (DefaultMutableTreeNode) path.
-                    getLastPathComponent();
-            Object userObject = node.getUserObject();
-            if (userObject instanceof FavoriteDirectory) {
-                FavoriteDirectory favoriteDirectory =
-                        (FavoriteDirectory) userObject;
-                dir = new File(favoriteDirectory.getDirectoryName());
-            } else if (userObject instanceof File) {
-                dir = (File) userObject;
-            }
-            return ImageFilteredDirectory.getImageFilesOfDirectory(dir);
-        }
-        return new ArrayList<File>();
-    }
+    private class SetFiles extends Thread {
 
-    private void setMetadataEditable() {
-        if (thumbnailsPanel.getSelectionCount() <= 0) {
-            editPanels.setEditable(false);
+        public SetFiles() {
+            setName("Favorite directory selected" + " @ " + // NOI18N
+                    ControllerFavoriteDirectorySelected.class.getName());
+        }
+
+        @Override
+        public void run() {
+            InfoSetThumbnails info = new InfoSetThumbnails();
+            thumbnailsPanel.setFiles(getFilesOfCurrentDirectory(),
+                    Content.FAVORITE_DIRECTORY);
+            setMetadataEditable();
+            info.hide();
+        }
+
+        private List<File> getFilesOfCurrentDirectory() {
+            TreePath path = treeFavoriteDirectories.getSelectionPath();
+            if (path != null) {
+                File dir = null;
+                DefaultMutableTreeNode node = (DefaultMutableTreeNode) path.
+                        getLastPathComponent();
+                Object userObject = node.getUserObject();
+                if (userObject instanceof FavoriteDirectory) {
+                    FavoriteDirectory favoriteDirectory =
+                            (FavoriteDirectory) userObject;
+                    dir = new File(favoriteDirectory.getDirectoryName());
+                } else if (userObject instanceof File) {
+                    dir = (File) userObject;
+                }
+                return ImageFilteredDirectory.getImageFilesOfDirectory(dir);
+            }
+            return new ArrayList<File>();
+        }
+
+        private void setMetadataEditable() {
+            if (thumbnailsPanel.getSelectionCount() <= 0) {
+                editPanels.setEditable(false);
+            }
         }
     }
 }
