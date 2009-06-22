@@ -11,7 +11,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * Kontrolliert die Aktion: Favoritenverzeichnis einfügen.
+ * Listens to the {@link PopupMenuTreeFavoriteDirectories} and inserts a
+ * new favorite directory when the special menu item was clicked.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/23

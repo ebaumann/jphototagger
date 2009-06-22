@@ -4,21 +4,32 @@ import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.clipboard.lang.Version;
 
 /**
- * Informationen über die Anwendung.
+ * Informations about this application.
  * 
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/06/21
  */
 public final class AppInfo {
 
+    /**
+     * Name of this project
+     */
     private static final String projectName = "ImageMetaDataViewer"; // NOI18N NEVER CHANGE!
-    /** Version der Anwendung */
-    public static final String appVersion = "0.5.88 2009/06/21";  // NOI18N
-    /** Name der Anwendung */
+    /**
+     * The application's version
+     */
+    public static final String appVersion = "0.5.89 2009/06/22";  // NOI18N
+    /**
+     * The application's name
+     */
     public static final String appName = "Bilder";  // NOI18N
-    /** Beschreibung der Anwendung */
+    /**
+     * Title of the application
+     */
     public static final String appDescription = Bundle.getString("AppTitle");
-    /** Minimale Java-Version */
+    /**
+     * Minimum required Java version
+     */
     public static final Version minJavaVersion = new Version(1, 6);
 
     /**

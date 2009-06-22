@@ -86,21 +86,22 @@ public final class AppLog {
         Logger.getLogger(c.getName()).log(level, message);
     }
 
-
     private static void log(Class c, Level level, Exception ex) {
         Logger.getLogger(c.getName()).log(level, null, ex);
-        ErrorListeners.INSTANCE.notifyErrorListener(new ErrorEvent(ex.getMessage(), c));
+        ErrorListeners.INSTANCE.notifyErrorListener(new ErrorEvent(
+                ex.getMessage(), c));
     }
 
     /**
-     * Liefert den Namen der Logdatei.
+     * Returns the name of the log file (complete path).
      *
-     * @return Logdatei
+     * @return log file name
      */
     public static String getLogfileName() {
         return UserSettings.INSTANCE.getSettingsDirectoryName() +
-            File.separator + "imagemetadataviewerlog.xml";  // NOI18N
+                File.separator + "imagemetadataviewerlog.xml";  // NOI18N
     }
 
-    private AppLog() {}
+    private AppLog() {
+    }
 }

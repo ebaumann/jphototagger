@@ -16,8 +16,9 @@ import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.TreePath;
 
 /**
- * Kontrolliert die Aktion: Thumbnails eines selektierten Verzeichnisses
- * anzeigen.
+ * Listens for selections of items in the directory tree view. A tree item
+ * represents a directory. If a new item is selected, this controller sets the
+ * files of the selected directory to the image file thumbnails panel.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05

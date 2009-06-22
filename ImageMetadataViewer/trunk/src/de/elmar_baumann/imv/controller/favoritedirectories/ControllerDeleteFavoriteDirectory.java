@@ -11,7 +11,8 @@ import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 
 /**
- * Kontrolliert die Aktion: Favoritenverzeichnis entfernen.
+ * Listens to the {@link PopupMenuTreeFavoriteDirectories} and deletes a
+ * selected favorite directory when the delete item was clicked.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/23
@@ -36,13 +37,13 @@ public final class ControllerDeleteFavoriteDirectory implements ActionListener {
     }
 
     private void deleteFavorite() {
-        FavoriteDirectory favorite = popupMenu.getFavoriteDirectory();
-        if (confirmDelete(favorite.getFavoriteName())) {
+        FavoriteDirectory favoriteDirectory = popupMenu.getFavoriteDirectory();
+        if (confirmDelete(favoriteDirectory.getFavoriteName())) {
             TreeModelFavoriteDirectories model =
                     (TreeModelFavoriteDirectories) appPanel.
                     getTreeFavoriteDirectories().
                     getModel();
-            model.deleteFavorite(favorite);
+            model.deleteFavorite(favoriteDirectory);
         }
     }
 

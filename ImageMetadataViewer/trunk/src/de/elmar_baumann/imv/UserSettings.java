@@ -27,7 +27,7 @@ import java.util.logging.XMLFormatter;
 /**
  * Stores user settings in a single {@link java.util.Properties} instance.
  * To make changes permanent the application has to call {@link #writeToFile()}.
- * When creating an instance, this class loads the written properties if the
+ * While creating an instance, this class loads the written properties if the
  * file exists.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
@@ -128,16 +128,35 @@ public final class UserSettings implements UserSettingsChangeListener {
         return propertiesToFile.getDirectoryName();
     }
 
+    /**
+     * Returns the name of the directory where the database file is located.
+     *
+     * @return directory name
+     */
     public String getDatabaseDirectoryName() {
         return properties.containsKey(KEY_DATABASE_DIRECTORY_NAME)
                ? settings.getString(KEY_DATABASE_DIRECTORY_NAME)
                : getDefaultDatabaseDirectoryName();
     }
 
+    /**
+     * Returns the default name of the directory where the database file is
+     * located. When the user didn't change the directory, the database file is
+     * in the same directory as the properties file.
+     *
+     * @return directory name
+     */
     public String getDefaultDatabaseDirectoryName() {
         return getSettingsDirectoryName();
     }
 
+    /**
+     * Returns the filename of the database (complete path).
+     *
+     * @param  suffix true when the suffix shall be appended and false if not
+     *         (e.g. to create a connection string)
+     * @return filename
+     */
     public String getDatabaseFileName(boolean suffix) {
         return getDatabaseDirectoryName() + File.separator + "database" +
                 (suffix
@@ -145,13 +164,20 @@ public final class UserSettings implements UserSettingsChangeListener {
                  : "");
     }
 
+    /**
+     * Returns the directory name where the thumbnails are located. This is
+     * a directory below the database directory.
+     *
+     * @return directory name
+     */
     public String getThumbnailsDirectoryName() {
         return getDatabaseDirectoryName() + File.separator + "thumbnails";
     }
 
     /**
-     * Writes the properties to a file. If not called, settings are lost after
-     * exiting the program.
+     * Writes the properties to a file.
+     *
+     * <em>If not called, settings are lost after exiting the program!</em>
      */
     public void writeToFile() {
         propertiesToFile.writeToFile();
@@ -168,7 +194,8 @@ public final class UserSettings implements UserSettingsChangeListener {
      *     {@link #isAcceptHiddenDirectories()} is false
      * </ul>
      *
-     * @return default options
+     * @return options. Default:
+     *         {@link de.elmar_baumann.lib.io.DirectoryFilter.Option#REJECT_HIDDEN_FILES}
      */
     public Set<DirectoryFilter.Option> getDefaultDirectoryFilterOptions() {
         return EnumSet.of(isAcceptHiddenDirectories()
@@ -185,7 +212,8 @@ public final class UserSettings implements UserSettingsChangeListener {
      * <li>{@link de.elmar_baumann.lib.dialog.DirectoryChooser.Option#REJECT_HIDDEN_DIRECTORIES} if
      *     {@link #isAcceptHiddenDirectories()} is false
      * </ul>
-     * @return default options
+     * @return options. Default:
+     *         {@link de.elmar_baumann.lib.dialog.DirectoryChooser.Option#REJECT_HIDDEN_DIRECTORIES}
      */
     public Set<DirectoryChooser.Option> getDefaultDirectoryChooserOptions() {
         return EnumSet.of(isAcceptHiddenDirectories()
@@ -194,10 +222,10 @@ public final class UserSettings implements UserSettingsChangeListener {
     }
 
     /**
-     * Liefert, ob die Thumbnails von einer externen Anwendung erzeugt werden.
+     * Returns wheter to create thumbnails with an external application.
      * 
-     * @return true, wenn die Thumbnails von einer externen Anwendung erzeugt
-     *         werden sollen
+     * @return true if an external application shall create the thumbnails.
+     *         Default: <code>false</code>
      * @see    #getExternalThumbnailCreationCommand() 
      */
     public boolean isCreateThumbnailsWithExternalApp() {
@@ -207,25 +235,30 @@ public final class UserSettings implements UserSettingsChangeListener {
     }
 
     /**
-     * Liefert die Befehlszeile des externen Programms, das die Thumbnails
-     * erzeugt.
+     * Returns the command line of the external program which creates the
+     * thumbnails.
      * 
-     * @return Befehlszeile
+     * @return command line or empty string when not defined
      * @see    #isCreateThumbnailsWithExternalApp()
      */
     public String getExternalThumbnailCreationCommand() {
         return settings.getString(KEY_EXTERNAL_THUMBNAIL_CREATION_COMMAND);
     }
 
+    /**
+     * Returns the path to the web browser.
+     *
+     * @return path (filename) or empty string if not defined
+     */
     public String getWebBrowser() {
         return settings.getString(KEY_WEB_BROWSER);
     }
 
     /**
-     * Liefert den Loglevel.
+     * Returns the log level.
      * 
-     * @return Loglevel (Eine Ausgabe von getLocalizedName())
-     * @see    java.util.logging.Level#getLocalizedName()
+     * @return log level as returned from {@link Level#getLocalizedName()}.
+     *         Default: {@link Level#INFO}
      */
     public Level getLogLevel() {
         Level level = null;
@@ -246,9 +279,9 @@ public final class UserSettings implements UserSettingsChangeListener {
     }
 
     /**
-     * Liefert alle Spalten für die Schnellsuche.
+     * Returns the columns to include into the fast search.
      * 
-     * @return Suchspalten
+     * @return columns. Default: Empty list
      */
     public List<Column> getFastSearchColumns() {
         List<Column> columns = new ArrayList<Column>();
@@ -277,9 +310,10 @@ public final class UserSettings implements UserSettingsChangeListener {
     }
 
     /**
-     * Liefert die Anwendung, die ein Bild bei Doppelklick öffnen soll.
+     * Returns the path to the application which opens images when double
+     * clicking onto a thumbnail.
      * 
-     * @return Anwendung oder Leerstring, wenn nicht definiert
+     * @return path or empty string if not defined
      */
     public String getDefaultImageOpenApp() {
         return settings.getString(KEY_DEFAULT_IMAGE_OPEN_APP);
@@ -295,9 +329,10 @@ public final class UserSettings implements UserSettingsChangeListener {
     }
 
     /**
-     * Liefert die Priorität für Threads zum Erzeugen von Thumbnails und Metadaten.
+     * Returns the thread priority for time consuming tasks, e.g. for rendering
+     * thumbnails.
      * 
-     * @return Threadpriorität
+     * @return thread priority. Default: <code>5</code>
      */
     public int getThreadPriority() {
         int priority = settings.getInt(KEY_THREAD_PRIORITY);
@@ -307,10 +342,10 @@ public final class UserSettings implements UserSettingsChangeListener {
     }
 
     /**
-     * Liefert die maximale Seitenlänge (längere Seite) von Thumbnails,
-     * die skaliert werden.
+     * Returns the maximum length of the thumbnail width.
      * 
-     * @return Seitenlänge in Pixel
+     * @return maximum length in pixel. Default: Internal constant
+     *         <code>DEFAULT_MAX_THUMBNAIL_LENGTH</code>.
      */
     public int getMaxThumbnailLength() {
         int width = settings.getInt(KEY_MAX_THUMBNAIL_LENGTH);
@@ -320,9 +355,11 @@ public final class UserSettings implements UserSettingsChangeListener {
     }
 
     /**
-     * Liefert, ob eingebettete Thumbnails benutzt werden sollen.
+     * Returns wheter to use in image files embedded thumbnails rather than
+     * rendering them.
      * 
-     * @return true, wenn eingebettete Thumbnails benutzt werden sollen
+     * @return true, if when embedded thumbnails shall be used.
+     *         Default: <code>false</code>
      */
     public boolean isUseEmbeddedThumbnails() {
         return properties.containsKey(KEY_USE_EMBEDDED_THUMBNAILS)
@@ -335,7 +372,7 @@ public final class UserSettings implements UserSettingsChangeListener {
      * exists.
      *
      * @return true, when to scan image files for embedded XMP metadata.
-     *         Default: false.
+     *         Default: <code>false</code>.
      */
     public boolean isScanForEmbeddedXmp() {
         return properties.containsKey(KEY_SCAN_FOR_EMBEDDED_XMP)
@@ -343,6 +380,15 @@ public final class UserSettings implements UserSettingsChangeListener {
                : false;
     }
 
+    /**
+     * Returns wheter actions shall be executed always after changing images in
+     * the database, e.g. a user defined action which embeds XMP into the image
+     * files.
+     *
+     * @return true when the actions shall be executed always.
+     *         Default: <code>false</code>
+     * @see    #isExecuteActionsAfterImageChangeInDbIfImageHasXmp()
+     */
     public boolean isExecuteActionsAfterImageChangeInDbAlways() {
         return properties.containsKey(
                 KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_ALWAYS)
@@ -351,6 +397,14 @@ public final class UserSettings implements UserSettingsChangeListener {
                : false;
     }
 
+    /**
+     * Returns wheter actions shall be executed after changing images in the
+     * database when the image has embbeded XMP metadata.
+     *
+     * @return true when the actions shall be executed if the modified image
+     *         has embedded XMP metadata. Default: <code>false</code>
+     * @see    #isExecuteActionsAfterImageChangeInDbAlways()
+     */
     public boolean isExecuteActionsAfterImageChangeInDbIfImageHasXmp() {
         return properties.containsKey(
                 KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_IF_IMAGE_HAS_XMP)
@@ -360,9 +414,9 @@ public final class UserSettings implements UserSettingsChangeListener {
     }
 
     /**
-     * Liefert den Zeichensatz, mit dem IPTC-Daten dekodiert werden sollen.
+     * Returns the charset for decoding IPTC metadata strings.
      * 
-     * @return Zeichensatz
+     * @return charset. Default: <code>"ISO-8859-1"</code>
      */
     public String getIptcCharset() {
         String charset = settings.getString(KEY_IPTC_CHARSET);
@@ -372,10 +426,10 @@ public final class UserSettings implements UserSettingsChangeListener {
     }
 
     /**
-     * Liefert, ob beim automatischen Scan von Verzeichnissen auch die
-     * Unterverzeichnisse einbezogen werden sollen.
+     * Returns whether automatated scans of directories for updating the
+     * database shall include subdirectories.
      * 
-     * @return true, falls die Unterverzeichnisse einbezogen werden sollen
+     * @return true if include subdirectories. Default: <code>true</code>
      */
     public boolean isAutoscanIncludeSubdirectories() {
         return properties.containsKey(KEY_AUTOSCAN_INCLUDE_SUBDIRECTORIES)
@@ -383,6 +437,13 @@ public final class UserSettings implements UserSettingsChangeListener {
                : true;
     }
 
+    /**
+     * Returns whether in the directories tree the last selected item shall be
+     * selected while starting the application (only when the last selected
+     * tab is the directories tab).
+     *
+     * @return true if select the last selected item. Default: <code>false</code>
+     */
     public boolean isTreeDirectoriesSelectLastDirectory() {
         return properties.containsKey(KEY_TREE_DIRECTORIES_SELECT_LAST_DIRECTORY)
                ? settings.getBoolean(KEY_TREE_DIRECTORIES_SELECT_LAST_DIRECTORY)
@@ -390,9 +451,10 @@ public final class UserSettings implements UserSettingsChangeListener {
     }
 
     /**
-     * Liefert die Klasse des Logdateiformatierers.
+     * Returns the class object of the logfile formatter.
      * 
-     * @return Logdateiformatierer
+     * @return Class object of the logfile formatter.
+     *         Default: {@link XMLFormatter}
      */
     public Class getLogfileFormatterClass() {
         String className = settings.getString(KEY_LOGFILE_FORMATTER_CLASS);
@@ -407,10 +469,11 @@ public final class UserSettings implements UserSettingsChangeListener {
     }
 
     /**
-     * Liefert, ob zu den geplanten Tasks die Aufgabe gehört: Datensätze löschen,
-     * wenn eine Datei nicht mehr existiert.
+     * Returns whether automated tasks shall remove files from the database if
+     * the doesn't exist into the filesystem.
      * 
-     * @return true, wenn dieser Task ausgeführt werden soll
+     * @return true when removing those files from the database.
+     *         Default: <code>false</code>
      */
     public boolean isTaskRemoveRecordsWithNotExistingFiles() {
         return properties.containsKey(
@@ -421,9 +484,11 @@ public final class UserSettings implements UserSettingsChangeListener {
     }
 
     /**
-     * Liefert die Minuten, bevor geplante Tasks starten.
+     * Returns the miniutes to wait after starting before the application starts
+     * the automated tasks.
      * 
-     * @return Minuten
+     * @return minutes. Default: Internal constant
+     *         <code>DEFAULT_MINUTES_TO_START_SCHEDULED_TASKS</code>
      */
     public int getMinutesToStartScheduledTasks() {
         int minutes = settings.getInt(KEY_MINUTES_TO_START_SCHEDULED_TASKS);
@@ -433,9 +498,10 @@ public final class UserSettings implements UserSettingsChangeListener {
     }
 
     /**
-     * Liefert, ob Autocomplete eingeschaltet werden soll.
+     * Returns wheter to activate autocomplete.
      * 
-     * @return true, wenn Autocomplete eingeschaltet werden soll
+     * @return true when autocomplete shall be active. Default:
+     *         <code>true</code>
      */
     public boolean isUseAutocomplete() {
         return properties.containsKey(KEY_AUTOCOMPLETE)
@@ -446,7 +512,7 @@ public final class UserSettings implements UserSettingsChangeListener {
     /**
      * Returns the maximum time to wait before terminating external programs.
      *
-     * @return time in seconds. Default: 60.
+     * @return time in seconds. Default: <code>60</code>.
      */
     public int getMaxSecondsToTerminateExternalPrograms() {
         return properties.containsKey(
@@ -459,7 +525,7 @@ public final class UserSettings implements UserSettingsChangeListener {
      * Returns whether directory choosers and -trees shall show hidden
      * directories and if directory scans shall include them.
      * 
-     * @return true, if accepted
+     * @return true, if accepted. Default: <code>false</code>
      */
     public boolean isAcceptHiddenDirectories() {
         return properties.containsKey(KEY_ACCEPT_HIDDEN_DIRECTORIES)
@@ -471,7 +537,8 @@ public final class UserSettings implements UserSettingsChangeListener {
      * Returns the autocopy directory, a source directory from which all
      * image files should be copied to another directory automatically.
      * 
-     * @return Existing directory or null if not defined or not existing
+     * @return Existing directory or null if not defined or not existing.
+     *         Default: <code>null</code>
      */
     public File getAutocopyDirectory() {
         File dir = new File(settings.getString(KEY_AUTOCOPY_DIRECTORY));
@@ -485,6 +552,12 @@ public final class UserSettings implements UserSettingsChangeListener {
         writeProperties(evt);
     }
 
+    /**
+     * Changes the properties to apply changed user settings. Does <em>not</em>
+     * write them persistent into the file system.
+     *
+     * @param evt user settings change event
+     */
     private void writeProperties(UserSettingsChangeEvent evt) {
         UserSettingsChangeEvent.Type type = evt.getType();
         if (type.equals(UserSettingsChangeEvent.Type.DEFAULT_IMAGE_OPEN_APP)) {

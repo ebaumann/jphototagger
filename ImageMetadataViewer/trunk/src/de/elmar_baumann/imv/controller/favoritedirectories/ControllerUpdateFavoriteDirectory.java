@@ -10,7 +10,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * Kontrolliert die Aktion: Favoritenverzeichnis aktualisieren.
+ * Listens to the {@link PopupMenuTreeFavoriteDirectories} and renames the
+ * the selected favorite directory or set's a different directory when the
+ * special menu item was clicked.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/23

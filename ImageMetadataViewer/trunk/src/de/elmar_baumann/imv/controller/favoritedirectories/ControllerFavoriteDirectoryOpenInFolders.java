@@ -17,7 +17,9 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 
 /**
- * Opens the favorite directory in the folder panel.
+ * Listens to the {@link PopupMenuTreeFavoriteDirectories} and opens the
+ * selected favorite directory in the folder panel when the special menu item
+ * was clicked.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/11/05

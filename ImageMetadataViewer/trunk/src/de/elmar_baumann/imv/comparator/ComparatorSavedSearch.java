@@ -13,13 +13,15 @@ import java.util.Comparator;
  */
 public final class ComparatorSavedSearch implements Comparator<SavedSearch> {
 
-    public static final ComparatorSavedSearch INSTANCE = new ComparatorSavedSearch();
+    public static final ComparatorSavedSearch INSTANCE =
+            new ComparatorSavedSearch();
 
     @Override
     public int compare(SavedSearch o1, SavedSearch o2) {
         return o1.getParamStatements().getName().compareToIgnoreCase(
-            o2.getParamStatements().getName());
+                o2.getParamStatements().getName());
     }
 
-    private ComparatorSavedSearch() {}
+    private ComparatorSavedSearch() {
+    }
 }

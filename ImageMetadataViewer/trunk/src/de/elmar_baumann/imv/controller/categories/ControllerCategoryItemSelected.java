@@ -14,7 +14,9 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 /**
- * Kontrolliert die Aktion: Ein Kategorie-Item wurde selektiert.
+ * Listens for selections of items in the category list. A list item represents
+ * a category. If a new item is selected, this controller sets the files of the
+ * selected category to the image file thumbnails panel.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
@@ -46,7 +48,9 @@ public final class ControllerCategoryItemSelected implements
 
     @Override
     public void valueChanged(ListSelectionEvent e) {
-        setFilesToThumbnailsPanel();
+        if (!e.getValueIsAdjusting()) {
+            setFilesToThumbnailsPanel();
+        }
     }
 
     private void setFilesToThumbnailsPanel() {

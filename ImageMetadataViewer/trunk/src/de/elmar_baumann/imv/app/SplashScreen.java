@@ -6,7 +6,7 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 
 /**
- * Splashscreen der Anwendung.
+ * The application's splashscreen.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/08/23
@@ -16,9 +16,9 @@ public final class SplashScreen {
     private static final int messagesX = 10;
 
     /**
-     * Gibt eine Nachricht auf dem Splashscreen aus.
+     * Prints a message onto the splashscreen.
      * 
-     * @param message Nachricht
+     * @param message message
      */
     public static void setMessageToSplashScreen(String message) {
         java.awt.SplashScreen splash = java.awt.SplashScreen.getSplashScreen();
@@ -41,7 +41,7 @@ public final class SplashScreen {
     }
 
     private static void splashScreenDrawMessage(Graphics2D g, Font standardFont,
-        String message) {
+            String message) {
         g.setColor(Color.BLACK);
         g.setFont(standardFont);
         g.drawString(message, messagesX, 270);
@@ -51,14 +51,16 @@ public final class SplashScreen {
         int standardFontSize = standardFont.getSize();
         int y = 210;
         Font fontBold = new Font(standardFont.getName(), Font.BOLD,
-            (int) (standardFontSize * 1.5 + 0.5));
+                (int) (standardFontSize * 1.5 + 0.5));
         g.setFont(fontBold);
         g.setColor(Color.BLACK);
         g.drawString(AppInfo.appName + " " + AppInfo.appVersion, messagesX, y);  // NOI18N
         g.setFont(standardFont);
         g.setColor(Color.BLUE);
-        g.drawString(AppInfo.appDescription, messagesX, y + standardFontSize + 10);
+        g.drawString(AppInfo.appDescription, messagesX, y + standardFontSize +
+                10);
     }
 
-    private SplashScreen() {}
+    private SplashScreen() {
+    }
 }

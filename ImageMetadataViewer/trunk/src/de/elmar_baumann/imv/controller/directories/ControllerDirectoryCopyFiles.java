@@ -17,7 +17,8 @@ import javax.swing.JTree;
 import javax.swing.TransferHandler;
 
 /**
- * Listens to keyboard actions whithin the directories tree.
+ * Listens to keyboard actions whithin the directories tree and copies or
+ * moves files to directories when the keys related to a copy or move action.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/26

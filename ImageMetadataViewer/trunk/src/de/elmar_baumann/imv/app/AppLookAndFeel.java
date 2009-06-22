@@ -8,6 +8,9 @@ import javax.swing.plaf.FontUIResource;
 
 /**
  * Sets the look and feel of this application.
+ * 
+ * Currently only the font weights are set (bold or not) to look consistent
+ * under certain operation systems.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009/06/06

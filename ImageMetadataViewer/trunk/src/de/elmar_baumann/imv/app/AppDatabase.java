@@ -4,7 +4,7 @@ import de.elmar_baumann.imv.database.DatabaseTables;
 import de.elmar_baumann.imv.resource.Bundle;
 
 /**
- * Database of the application.
+ * Initializes the application's database.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009/06/11

@@ -19,7 +19,9 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 
 /**
- * 
+ * Listens for selections of items in the favorite directories tree view. A tree
+ * item represents a directory. If a new item is selected, this controller sets
+ * the files of the selected directory to the image file thumbnails panel.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/24

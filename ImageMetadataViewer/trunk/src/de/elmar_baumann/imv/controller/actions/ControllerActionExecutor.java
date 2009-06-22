@@ -19,8 +19,8 @@ public final class ControllerActionExecutor implements ProgramActionListener {
     private final ImageFileThumbnailsPanel thumbnailsPanel = GUI.INSTANCE.
             getAppPanel().getPanelThumbnails();
     private final ActionsDialog actionsDialog = ActionsDialog.INSTANCE;
-    private final ProgramStarter programStarter = new ProgramStarter(actionsDialog.
-            getProgressBar(this)); // no other executor expected
+    private final ProgramStarter programStarter = new ProgramStarter(
+            actionsDialog.getProgressBar(this)); // no other executor expected
 
     public ControllerActionExecutor() {
         listen();

@@ -12,6 +12,9 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 
 /**
+ * Listens to the {@link PopupMenuTreeFavoriteDirectories} and moves in the list
+ * up or down the selected favorite directory when the special menu item was
+ * clicked.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009/06/15

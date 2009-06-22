@@ -7,28 +7,32 @@ import java.util.List;
 import javax.swing.Icon;
 
 /**
- *
+ * Icons used in the application.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009/02/19
  */
 public final class AppIcons {
 
-    private static final String iconPath = "/de/elmar_baumann/imv/resource/icons";
     /**
-     * Pfad zum kleinen Anwendungssymbol.
+     * Path where all icons stored
+     */
+    private static final String iconPath =
+            "/de/elmar_baumann/imv/resource/icons";
+    /**
+     * Path to the small application's icon (16 x 16 pixels)
      */
     public static final String pathAppIconSmall =
-        iconPath + "/icon_app_small.png";  // NOI18N
+            iconPath + "/icon_app_small.png";  // NOI18N
     /**
-     * Pfad zum mittelgroßen Anwendungssymbol.
+     * Path to the medium sized application's icon (32 x 32 pixels)
      */
     public static final String pathAppIconMedium =
-        iconPath + "/icon_app_medium.png";  // NOI18N
-
+            iconPath + "/icon_app_medium.png";  // NOI18N
     private static List<String> appIconPaths = new ArrayList<String>();
     private static List<Image> appIcons = new ArrayList<Image>();
-    private static final Icon mediumAppIcon = IconUtil.getImageIcon(pathAppIconMedium);
+    private static final Icon mediumAppIcon = IconUtil.getImageIcon(
+            pathAppIconMedium);
 
 
     static {
@@ -43,16 +47,16 @@ public final class AppIcons {
     }
 
     /**
-     * Liefert die Anwendungssymbole.
+     * Returns the application's icons (small and medium sized).
      *
-     * @return Anwendungssymbole
+     * @return icons
      */
     public static List<Image> getAppIcons() {
         return appIcons;
     }
 
     /**
-     * Liefert die Pfade der Anwendungssymbole.
+     * Returns the paths to the application's icons (small and medium sized).
      *
      * @return Pfade
      */
@@ -61,9 +65,9 @@ public final class AppIcons {
     }
 
     /**
-     * Returns an icon within the app icon path.
+     * Returns an icon located in the application's icon path.
      *
-     * @param  name  name of the image file
+     * @param  name  name of the icon file
      * @return icon
      */
     public static Icon getIcon(String name) {
@@ -80,9 +84,9 @@ public final class AppIcons {
     }
 
     /**
-     * Liefert das mittelgroße Anwendungssymbol.
+     * Returns the medium sized application's icon (32 x 32 pixels).
      *
-     * @return Kleines Anwendungssymbol
+     * @return medium sized application's icon
      */
     public static Icon getMediumAppIcon() {
         return mediumAppIcon;
@@ -90,5 +94,4 @@ public final class AppIcons {
 
     private AppIcons() {
     }
-
 }

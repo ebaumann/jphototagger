@@ -3,7 +3,7 @@ package de.elmar_baumann.imv.app;
 import java.awt.Color;
 
 /**
- *
+ * Definitions of application wide colors.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009/02/19
@@ -11,27 +11,32 @@ import java.awt.Color;
 public final class AppColors {
 
     /**
-     * Vordergrundfarbe für Tabellentext, der in der Datenbank gespeichert ist.
+     * Foreground color of table cells containing text which is stored in the
+     * database
      */
-    public static final Color colorForegroundTableTextStoredInDatabase = Color.BLACK;
+    public static final Color colorForegroundTableTextStoredInDatabase =
+            Color.BLACK;
     /**
-     * Hintergrundfarbe für Tabellentext, der in der Datenbank gespeichert ist.
+     * Background color of table cells containing text which is stored in the
+     * database
      */
-    public static final Color colorBackgroundTableTextStoredInDatabase = new Color(251, 249, 241);
+    public static final Color colorBackgroundTableTextStoredInDatabase =
+            new Color(251, 249, 241);
     /**
-     * Vordergrundfarbe für selektierten Tabellentext.
+     * Foreground color of selected table cells
      */
     public static final Color colorForegroundTableTextSelected = Color.BLACK;
     /**
-     * Vordergrundfarbe für selektierten Tabellentext.
+     * Background color of selected table cells
      */
-    public static final Color colorBackgroundTableTextSelected = new Color(226, 226, 255);
+    public static final Color colorBackgroundTableTextSelected =
+            new Color(226, 226, 255);
     /**
-     * Standard-Vordergrundfarbe für Text in Tabellen.
+     * Default foreground color of table cells
      */
     public static final Color colorForegroundTableTextDefault = Color.BLACK;
     /**
-     * Standard-Hintergrundfarbe für Text in Tabellen.
+     * Default background color of table cells
      */
     public static final Color colorBackgroundTableTextDefault = Color.WHITE;
 
