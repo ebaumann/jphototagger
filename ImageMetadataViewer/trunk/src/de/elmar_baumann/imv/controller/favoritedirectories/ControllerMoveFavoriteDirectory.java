@@ -47,7 +47,7 @@ public final class ControllerMoveFavoriteDirectory implements ActionListener {
     }
 
     private FavoriteDirectory getFavoriteDirectory() {
-        TreePath selPath = tree.getLeadSelectionPath();
+        TreePath selPath = tree.getSelectionPath();
         if (selPath != null) {
             DefaultMutableTreeNode node = (DefaultMutableTreeNode) selPath.
                     getLastPathComponent();

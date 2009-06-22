@@ -41,8 +41,7 @@ public final class ControllerTimelineItemSelected implements
     @Override
     public void refresh() {
         if (treeTimeline.getSelectionCount() == 1) {
-            setFilesOfTreePathToThumbnailsPanel(treeTimeline.
-                    getLeadSelectionPath());
+            setFilesOfTreePathToThumbnailsPanel(treeTimeline.getSelectionPath());
         }
     }
 

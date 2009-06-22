@@ -58,7 +58,7 @@ public final class ControllerFavoriteDirectoryOpenInFolders implements
     }
 
     private void selectDirectory() {
-        TreePath selPath = treeFavoriteDirectories.getLeadSelectionPath();
+        TreePath selPath = treeFavoriteDirectories.getSelectionPath();
         if (selPath != null) {
             File dir = null;
             DefaultMutableTreeNode node = (DefaultMutableTreeNode) selPath.

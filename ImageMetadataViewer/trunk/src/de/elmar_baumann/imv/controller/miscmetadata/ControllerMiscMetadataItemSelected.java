@@ -49,7 +49,7 @@ public final class ControllerMiscMetadataItemSelected implements
     @Override
     public void refresh() {
         if (tree.getSelectionCount() == 1) {
-            setFilesOfTreePathToThumbnailsPanel(tree.getLeadSelectionPath());
+            setFilesOfTreePathToThumbnailsPanel(tree.getSelectionPath());
         }
     }
 
