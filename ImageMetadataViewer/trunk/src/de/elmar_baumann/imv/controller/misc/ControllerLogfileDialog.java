@@ -89,7 +89,12 @@ public final class ControllerLogfileDialog implements ActionListener,
                 Popup popup = factory.getPopup(buttonLogfileDialog, errorPanel,
                         x, y);
                 popup.show();
-                javax.swing.SwingUtilities.invokeLater(new HidePopup(popup));
+                Thread thread = new Thread(new HidePopup(popup));
+                thread.setName("Hiding error popup @ " +
+                        ControllerLogfileDialog.class.getName());
+                thread.setPriority(Thread.MIN_PRIORITY);
+                thread.start();
+            //javax.swing.SwingUtilities.invokeLater(new HidePopup(popup));
             }
         });
         thread.setPriority(Thread.MIN_PRIORITY);
