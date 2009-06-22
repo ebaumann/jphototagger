@@ -286,7 +286,9 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel {
 
     @Override
     public synchronized Image getThumbnail(int index) {
-        return db.getThumbnail(files.get(index).getAbsolutePath());
+        return isIndex(index)
+               ? db.getThumbnail(files.get(index).getAbsolutePath())
+               : null;
     }
 
     /**
@@ -318,8 +320,8 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel {
      */
     public synchronized File getFile(int index) {
         return isIndex(index)
-                ? files.get(index)
-                : null;
+               ? files.get(index)
+               : null;
     }
 
     /**
