@@ -972,6 +972,7 @@ public abstract class ThumbnailsPanel extends JPanel
         int indexSelectedThumbnail = getSelectedIndex();
         int indexToSelect = (indexSelectedThumbnail + 1) % thumbnailCount;
         if (indexSelectedThumbnail >= 0 && isIndex(indexToSelect)) {
+            if (indexToSelect == 0) scrollToTop();
             setSelected(indexToSelect);
             notifyThumbnailSelected();
         }
@@ -980,7 +981,9 @@ public abstract class ThumbnailsPanel extends JPanel
     private void setSelectedPrevious() {
         int indexSelectedThumbnail = getSelectedIndex();
         int indexToSelect = (indexSelectedThumbnail - 1) % thumbnailCount;
+        if (indexToSelect < 0) indexToSelect = thumbnailCount - 1;
         if (indexSelectedThumbnail >= 0 && isIndex(indexToSelect)) {
+            if (indexToSelect >= thumbnailCount - 1) scrollToBottom();
             setSelected(indexToSelect);
             notifyThumbnailSelected();
         }
