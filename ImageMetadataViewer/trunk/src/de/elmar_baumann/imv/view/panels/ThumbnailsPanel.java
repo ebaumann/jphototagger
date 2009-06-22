@@ -199,9 +199,8 @@ public abstract class ThumbnailsPanel extends JPanel
         System.gc();
     }
 
-    private void clearSelection() {
-        int selectionCount = selectedThumbnails.size();
-        if (selectionCount > 0) {
+    public synchronized void clearSelection() {
+        if (selectedThumbnails.size() > 0) {
             selectedThumbnails.clear();
             notifyAllThumbnailsDeselected();
         }
