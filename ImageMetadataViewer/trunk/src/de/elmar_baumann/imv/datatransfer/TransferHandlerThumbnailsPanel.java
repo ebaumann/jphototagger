@@ -32,23 +32,23 @@ public final class TransferHandlerThumbnailsPanel extends TransferHandler {
      * Delimiter between the filenames in the transfered string.
      */
     static final String delimiter = "\n";
-    private static final List<Content> importableContent =
+    private static final List<Content> contentIsAFilesystemDirectory =
             new ArrayList<Content>();
 
 
     static {
-        importableContent.add(Content.DIRECTORY);
-        importableContent.add(Content.FAVORITE_DIRECTORY);
-        importableContent.add(Content.IMAGE_COLLECTION);
+        contentIsAFilesystemDirectory.add(Content.DIRECTORY);
+        contentIsAFilesystemDirectory.add(Content.FAVORITE_DIRECTORY);
     }
 
     @Override
     public boolean canImport(TransferSupport transferSupport) {
-        boolean panelCanImport = canPanelImport(
-                (ImageFileThumbnailsPanel) transferSupport.getComponent());
-        boolean isFileData = TransferUtil.maybeContainFileData(transferSupport.
+        ImageFileThumbnailsPanel panel =
+                (ImageFileThumbnailsPanel) transferSupport.getComponent();
+        if (panel.getContent().equals(Content.IMAGE_COLLECTION)) return true;
+        return canPanelAddImageFiles(panel) &&
+                TransferUtil.maybeContainFileData(transferSupport.
                 getTransferable());
-        return panelCanImport && isFileData;
     }
 
     @Override
@@ -70,11 +70,10 @@ public final class TransferHandlerThumbnailsPanel extends TransferHandler {
         boolean imagesSelected = panel.getSelectionCount() > 0;
         if (!canImport(transferSupport)) return false;
         if (imagesSelected &&
-                panel.getContent().equals(Content.IMAGE_COLLECTION)) { // drop
+                panel.getContent().equals(Content.IMAGE_COLLECTION)) {
             moveSelectedImages(transferSupport, panel);
             return true;
         }
-        if (imagesSelected) return false; // drop
         copyOrMoveSelectedImages(transferSupport);
         return true;
     }
@@ -83,12 +82,13 @@ public final class TransferHandlerThumbnailsPanel extends TransferHandler {
     protected void exportDone(JComponent c, Transferable data, int action) {
     }
 
-    private boolean canPanelImport(ImageFileThumbnailsPanel thumbnailsPanel) {
-        return importableContent.contains(thumbnailsPanel.getContent());
+    private boolean canPanelAddImageFiles(
+            ImageFileThumbnailsPanel thumbnailsPanel) {
+        return contentIsAFilesystemDirectory.contains(
+                thumbnailsPanel.getContent());
     }
 
     private void copyOrMoveSelectedImages(TransferSupport transferSupport) {
-        // drop
         List<File> sourceFiles =
                 TransferUtil.getFiles(transferSupport.getTransferable(),
                 delimiter);
@@ -136,7 +136,7 @@ public final class TransferHandlerThumbnailsPanel extends TransferHandler {
             element = listImageCollections.getModel().getElementAt(index);
         }
         return element == null
-                ? null
-                : element.toString();
+               ? null
+               : element.toString();
     }
 }
