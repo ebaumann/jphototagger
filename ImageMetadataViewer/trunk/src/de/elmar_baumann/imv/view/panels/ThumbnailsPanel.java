@@ -1123,8 +1123,11 @@ public abstract class ThumbnailsPanel extends JPanel
     private void scrollOneImageUp() {
         if (viewport != null) {
             Point p = viewport.getViewPosition();
-            viewport.setViewPosition(
-                    new Point(0, p.y - getThumbnailAreaHeight()));
+            int tnHeight = getThumbnailAreaHeight();
+            int y = p.y - tnHeight >= 0
+                    ? p.y - tnHeight
+                    : 0;
+            viewport.setViewPosition(new Point(0, y));
         }
     }
 
