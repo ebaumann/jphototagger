@@ -163,31 +163,6 @@ public final class DatabaseStatistics extends Database {
     }
 
     /**
-     * Liefert die Anzahl der Thumbnails in der Datenbank.
-     *
-     * @return Thumbnailanzahl oder -1 bei Fehlern
-     */
-    public int getThumbnailCount() {
-        int count = -1;
-        Connection connection = null;
-        try {
-            connection = getConnection();
-            Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery(
-                "SELECT COUNT(*) FROM files WHERE thumbnail IS NOT NULL"); // NOI18N
-            if (rs.next()) {
-                count = rs.getInt(1);
-            }
-            stmt.close();
-        } catch (SQLException ex) {
-            AppLog.logWarning(DatabaseStatistics.class, ex);
-        } finally {
-            free(connection);
-        }
-        return count;
-    }
-
-    /**
      * Returns whether one column in a list of columns has at least one value.
      * 
      * @param  columns  columns
