@@ -1049,6 +1049,18 @@ public abstract class ThumbnailsPanel extends JPanel
     }
 
     /**
+     * Removes some thumbnails from the cache and repaints the panel.
+     *
+     * @param indices indices of the thumbnails to remove.
+     */
+    protected synchronized void removeFromCache(List<Integer> indices) {
+        for (Integer index : indices) {
+            thumbnailAtIndex.remove(index);
+        }
+        repaint();
+    }
+
+    /**
      * Sets the viewport. Have to be called before adding files.
      * If a viewport ist set, some additional functions supported, e.g.
      * special keyboard keys that are not handled through the viewport
