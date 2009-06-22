@@ -48,7 +48,9 @@ public final class ControllerTimelineItemSelected implements
 
     @Override
     public void valueChanged(TreeSelectionEvent e) {
-        setFilesOfTreePathToThumbnailsPanel(e.getNewLeadSelectionPath());
+        if (e.isAddedPath()) {
+            setFilesOfTreePathToThumbnailsPanel(e.getNewLeadSelectionPath());
+        }
     }
 
     private void setFilesOfTreePathToThumbnailsPanel(final TreePath path) {

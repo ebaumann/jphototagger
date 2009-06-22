@@ -41,7 +41,9 @@ public final class ControllerMiscMetadataItemSelected implements
 
     @Override
     public void valueChanged(TreeSelectionEvent e) {
-        setFilesOfTreePathToThumbnailsPanel(e.getNewLeadSelectionPath());
+        if (e.isAddedPath()) {
+            setFilesOfTreePathToThumbnailsPanel(e.getNewLeadSelectionPath());
+        }
     }
 
     @Override

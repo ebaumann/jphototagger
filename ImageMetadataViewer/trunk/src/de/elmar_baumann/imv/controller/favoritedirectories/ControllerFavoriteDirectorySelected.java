@@ -47,7 +47,7 @@ public final class ControllerFavoriteDirectorySelected implements
 
     @Override
     public void valueChanged(TreeSelectionEvent e) {
-        if (treeFavoriteDirectories.getSelectionCount() > 0) {
+        if (e.isAddedPath() && treeFavoriteDirectories.getSelectionCount() > 0) {
             update();
         }
     }
