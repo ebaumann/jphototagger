@@ -543,9 +543,14 @@ public abstract class ThumbnailsPanel extends JPanel
                 KeyEvent.CTRL_MASK && keyCode == KeyEvent.VK_A) {
             setSelectedAll(true);
         } else if (keyCode == KeyEvent.VK_HOME) {
+            clearSelection();
             scrollToTop();
         } else if (keyCode == KeyEvent.VK_END) {
+            clearSelection();
             scrollToBottom();
+        } else if (keyCode == KeyEvent.VK_PAGE_DOWN ||
+                keyCode == KeyEvent.VK_PAGE_UP) {
+            clearSelection();
         }
     }
 
