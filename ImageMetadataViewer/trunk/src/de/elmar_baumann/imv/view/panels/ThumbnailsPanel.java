@@ -543,7 +543,7 @@ public abstract class ThumbnailsPanel extends JPanel
                 KeyEvent.CTRL_MASK && keyCode == KeyEvent.VK_A) {
             setSelectedAll(true);
         } else if (keyCode == KeyEvent.VK_HOME) {
-            scrollToTop(true);
+            scrollToTop();
         } else if (keyCode == KeyEvent.VK_END) {
             scrollToBottom();
         }
@@ -1082,8 +1082,8 @@ public abstract class ThumbnailsPanel extends JPanel
         return viewport;
     }
 
-    protected void scrollToTop(boolean scroll) {
-        if (scroll && viewport != null) {
+    protected void scrollToTop() {
+        if (viewport != null) {
             viewport.setViewPosition(new Point(0, 0));
         }
     }

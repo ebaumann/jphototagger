@@ -162,7 +162,7 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel {
                 Collections.sort(files, fileSort.getComparator());
             }
             setNewThumbnails(files.size());
-            scrollToTop(hadFiles);
+            if (hadFiles) scrollToTop();
             hadFiles = true;
             setMissingFilesFlags();
             panel.forceRepaint();
