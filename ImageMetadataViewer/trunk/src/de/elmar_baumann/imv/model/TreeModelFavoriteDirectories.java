@@ -43,7 +43,7 @@ public final class TreeModelFavoriteDirectories extends DefaultTreeModel {
         synchronized (monitor) {
             favoriteDirectory.setIndex(getNextNewFavoriteIndex());
             if (!existsFavoriteDirectory(favoriteDirectory) &&
-                    db.insertFavoriteDirectory(favoriteDirectory)) {
+                    db.insertOrUpdateFavoriteDirectory(favoriteDirectory)) {
                 addDirectory(favoriteDirectory);
             } else {
                 errorMessage(favoriteDirectory.getFavoriteName(), Bundle.

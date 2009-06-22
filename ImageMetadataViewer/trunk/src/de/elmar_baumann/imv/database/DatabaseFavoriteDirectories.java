@@ -30,7 +30,7 @@ public final class DatabaseFavoriteDirectories extends Database {
      * @param  favoriteDirectory  Favoritenverzeichnis
      * @return true bei Erfolg
      */
-    public boolean insertFavoriteDirectory(FavoriteDirectory favoriteDirectory) {
+    public boolean insertOrUpdateFavoriteDirectory(FavoriteDirectory favoriteDirectory) {
         
         boolean inserted = false;
         Connection connection = null;
