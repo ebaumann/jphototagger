@@ -32,7 +32,8 @@ import javax.swing.border.EmptyBorder;
 public final class CheckList extends JList {
 
     private static final Border noFocusBorder = new EmptyBorder(1, 1, 1, 1);
-    private final List<ActionListener> actionListeners = new ArrayList<ActionListener>();
+    private final List<ActionListener> actionListeners =
+            new ArrayList<ActionListener>();
 
     public CheckList() {
         setCellRenderer(new CellRenderer());
@@ -73,8 +74,10 @@ public final class CheckList extends JList {
             public void mousePressed(MouseEvent e) {
                 int index = locationToIndex(e.getPoint());
 
-                if (index != -1 && getModel().getElementAt(index) instanceof JCheckBox) {
-                    JCheckBox checkbox = (JCheckBox) getModel().getElementAt(index);
+                if (index != -1 &&
+                        getModel().getElementAt(index) instanceof JCheckBox) {
+                    JCheckBox checkbox = (JCheckBox) getModel().getElementAt(
+                            index);
                     checkbox.setSelected(!checkbox.isSelected());
                     repaint();
                     notifyActionListener(index);
@@ -84,8 +87,6 @@ public final class CheckList extends JList {
     }
 
     private synchronized void notifyActionListener(int index) {
-        assert ArrayUtil.isValidIndex(actionListeners, index);
-
         for (ActionListener listener : actionListeners) {
             listener.actionPerformed(new ActionEvent(this, index, "")); // NOI18N
         }
@@ -188,7 +189,8 @@ public final class CheckList extends JList {
      *               werden soll
      * @see          #setSelectedItemsWithText(java.lang.String, boolean)
      */
-    public synchronized void setSelectedItemsWithText(List<String> texts, boolean select) {
+    public synchronized void setSelectedItemsWithText(List<String> texts,
+            boolean select) {
         if (texts == null)
             throw new NullPointerException("texts == null");
 
@@ -205,7 +207,8 @@ public final class CheckList extends JList {
      *     werden soll
      * @see #setSelectedItemsWithText(java.util.List, boolean)
      */
-    public synchronized void setSelectedItemsWithText(String text, boolean select) {
+    public synchronized void setSelectedItemsWithText(String text,
+            boolean select) {
         if (text == null)
             throw new NullPointerException("text == null");
 
@@ -226,23 +229,27 @@ public final class CheckList extends JList {
 
         @Override
         public Component getListCellRendererComponent(
-            JList list, Object value, int index,
-            boolean isSelected, boolean cellHasFocus) {
+                JList list, Object value, int index,
+                boolean isSelected, boolean cellHasFocus) {
 
             if (value instanceof JCheckBox) {
                 JCheckBox checkBox = (JCheckBox) value;
                 checkBox.setBackground(
-                    isSelected ? getSelectionBackground() : getBackground());
+                        isSelected
+                        ? getSelectionBackground()
+                        : getBackground());
                 checkBox.setForeground(
-                    isSelected ? getSelectionForeground() : getForeground());
+                        isSelected
+                        ? getSelectionForeground()
+                        : getForeground());
                 checkBox.setEnabled(isEnabled());
                 checkBox.setFont(getFont());
                 checkBox.setFocusPainted(false);
                 checkBox.setBorderPainted(true);
                 checkBox.setBorder(
-                    isSelected
-                    ? UIManager.getBorder("List.focusCellHighlightBorder") // NOI18N
-                    : noFocusBorder);
+                        isSelected
+                        ? UIManager.getBorder("List.focusCellHighlightBorder") // NOI18N
+                        : noFocusBorder);
                 return checkBox;
             } else if (value instanceof String) {
                 String string = (String) value;
