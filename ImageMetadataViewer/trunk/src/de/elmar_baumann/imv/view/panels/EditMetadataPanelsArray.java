@@ -255,7 +255,10 @@ public final class EditMetadataPanelsArray implements FocusListener,
             if (i == size - 1) {
                 constraints.insets.bottom += 10;
             }
-            container.add(panels.get(i), constraints);
+            ExpandCollapseComponentPanel panel =
+                    new ExpandCollapseComponentPanel(panels.get(i));
+            container.add(panel, constraints);
+            panel.readExpandedState();
         }
         addActionPanel();
     }
@@ -265,7 +268,7 @@ public final class EditMetadataPanelsArray implements FocusListener,
         constraints.gridwidth = GridBagConstraints.REMAINDER;
         constraints.anchor = GridBagConstraints.NORTHWEST;
         constraints.fill = GridBagConstraints.BOTH;
-        constraints.insets = new Insets(5, 10, 0, 10);
+        constraints.insets = new Insets(0, 10, 0, 10);
         constraints.weightx = 1;
         return constraints;
     }
