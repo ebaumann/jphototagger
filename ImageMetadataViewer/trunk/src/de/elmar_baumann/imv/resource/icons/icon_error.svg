@@ -18,7 +18,7 @@
    inkscape:export-filename="/home/elmar/projekte/ImageMetadataViewer/src/de/elmar_baumann/imv/resource/icons/icon_error.png"
    inkscape:export-xdpi="90"
    inkscape:export-ydpi="90"
-   sodipodi:docbase="/home/elmar/projekte/ImageMetadataViewer/src/de/elmar_baumann/imv/resource">
+   sodipodi:docbase="/home/elmar/projekte/ImageMetadataViewer/src/de/elmar_baumann/imv/resource/icons">
   <defs
      id="defs3222">
     <inkscape:perspective
@@ -37,7 +37,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="32.25"
-     inkscape:cx="8"
+     inkscape:cx="-6.1705426"
      inkscape:cy="8"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -59,6 +59,34 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>Elmar Baumann &lt;eb@elmar-baumann.de&gt;</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <dc:rights>
+          <cc:Agent>
+            <dc:title>Elmar Baumann &lt;eb@elmar-baumann.de&gt;</dc:title>
+          </cc:Agent>
+        </dc:rights>
+        <dc:publisher>
+          <cc:Agent>
+            <dc:title>Elmar Baumann &lt;eb@elmar-baumann.de&gt;</dc:title>
+          </cc:Agent>
+        </dc:publisher>
+        <dc:title>X cross</dc:title>
+        <dc:identifier>de.elmar_baumann.imv.resource.icons.icon_error.svg</dc:identifier>
+        <dc:source>http://www.elmar-baumann.de/fotografie/tipps/computer/lightroom/imagemetadataviewer.html</dc:source>
+        <dc:coverage>computer program, icon</dc:coverage>
+        <cc:license
+           rdf:resource="http://elmar-baumann.de/fotografie/copyright.html" />
+        <dc:subject>
+          <rdf:Bag>
+            <rdf:li>icon</rdf:li>
+            <rdf:li>error</rdf:li>
+          </rdf:Bag>
+        </dc:subject>
+        <dc:date>2008-10-25</dc:date>
       </cc:Work>
       <cc:Work
          rdf:about="">

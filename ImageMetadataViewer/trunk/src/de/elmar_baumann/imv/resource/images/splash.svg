@@ -2,7 +2,7 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 <svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://web.resource.org/cc/"
+   xmlns:cc="http://creativecommons.org/ns#"
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
@@ -13,7 +13,7 @@
    height="300"
    id="svg2"
    sodipodi:version="0.32"
-   inkscape:version="0.45.1"
+   inkscape:version="0.46"
    version="1.0"
    sodipodi:docbase="/home/elmar/projekte/ImageMetadataViewer/src/de/elmar_baumann/imv/resource/images"
    sodipodi:docname="splash.svg"
@@ -23,6 +23,13 @@
    inkscape:export-ydpi="90">
   <defs
      id="defs4">
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 150 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="500 : 150 : 1"
+       inkscape:persp3d-origin="250 : 100 : 1"
+       id="perspective28" />
     <pattern
        id="pattern4182"
        height="135"
@@ -46,7 +53,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="2.38"
-     inkscape:cx="244.73361"
+     inkscape:cx="52.716807"
      inkscape:cy="150"
      inkscape:document-units="px"
      inkscape:current-layer="layer8"
@@ -58,8 +65,8 @@
      guidetolerance="50"
      inkscape:window-width="1280"
      inkscape:window-height="1006"
-     inkscape:window-x="0"
-     inkscape:window-y="0"
+     inkscape:window-x="242"
+     inkscape:window-y="17"
      inkscape:grid-bbox="false" />
   <metadata
      id="metadata7">
@@ -69,6 +76,34 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>Splash Screen Image Metadata Viewer</dc:title>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>Elmar Baumann &lt;eb@elmar-baumann.de&gt;</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <dc:rights>
+          <cc:Agent>
+            <dc:title>Elmar Baumann &lt;eb@elmar-baumann.de&gt;</dc:title>
+          </cc:Agent>
+        </dc:rights>
+        <dc:publisher>
+          <cc:Agent>
+            <dc:title>Elmar Baumann &lt;eb@elmar-baumann.de&gt;</dc:title>
+          </cc:Agent>
+        </dc:publisher>
+        <dc:identifier>de.elmar_baumann.imv.resource.images.splash.svg</dc:identifier>
+        <dc:source>http://www.elmar-baumann.de/fotografie/tipps/computer/lightroom/imagemetadataviewer.html</dc:source>
+        <dc:language>English</dc:language>
+        <dc:subject>
+          <rdf:Bag>
+            <rdf:li>splash screen</rdf:li>
+          </rdf:Bag>
+        </dc:subject>
+        <dc:coverage>computer program, icon</dc:coverage>
+        <cc:license
+           rdf:resource="http://elmar-baumann.de/fotografie/copyright.html" />
+        <dc:date>2008-10-03</dc:date>
       </cc:Work>
     </rdf:RDF>
   </metadata>

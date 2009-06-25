@@ -88,7 +88,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="28.875"
-     inkscape:cx="8"
+     inkscape:cx="-23.65368"
      inkscape:cy="8"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -106,6 +106,34 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>Elmar Baumann &lt;eb@elmar-baumann.de&gt;</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <dc:rights>
+          <cc:Agent>
+            <dc:title>Elmar Baumann &lt;eb@elmar-baumann.de&gt;</dc:title>
+          </cc:Agent>
+        </dc:rights>
+        <dc:publisher>
+          <cc:Agent>
+            <dc:title>Elmar Baumann &lt;eb@elmar-baumann.de&gt;</dc:title>
+          </cc:Agent>
+        </dc:publisher>
+        <cc:license
+           rdf:resource="http://elmar-baumann.de/fotografie/copyright.html" />
+        <dc:identifier>de.elmar_baumann.imv.resource.icons.icon_rename.svg</dc:identifier>
+        <dc:source>http://www.elmar-baumann.de/fotografie/tipps/computer/lightroom/imagemetadataviewer.html</dc:source>
+        <dc:coverage>computer program, icon</dc:coverage>
+        <dc:subject>
+          <rdf:Bag>
+            <rdf:li>icon</rdf:li>
+            <rdf:li>rename</rdf:li>
+          </rdf:Bag>
+        </dc:subject>
+        <dc:title>Rename</dc:title>
+        <dc:date>2008-11-06</dc:date>
       </cc:Work>
     </rdf:RDF>
   </metadata>

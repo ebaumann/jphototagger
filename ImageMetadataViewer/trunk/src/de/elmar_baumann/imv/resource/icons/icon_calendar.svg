@@ -35,8 +35,8 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="51.0625"
-     inkscape:cx="4.5238678"
+     inkscape:zoom="17.75"
+     inkscape:cx="-4.8732394"
      inkscape:cy="8"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -49,10 +49,10 @@
      inkscape:snap-bbox="false"
      inkscape:object-paths="false"
      gridtolerance="1"
-     inkscape:window-width="1680"
-     inkscape:window-height="1030"
-     inkscape:window-x="0"
-     inkscape:window-y="0">
+     inkscape:window-width="837"
+     inkscape:window-height="675"
+     inkscape:window-x="309"
+     inkscape:window-y="174">
     <inkscape:grid
        type="xygrid"
        id="grid2403"
@@ -67,6 +67,35 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:source>http://www.elmar-baumann.de/fotografie/tipps/computer/lightroom/imagemetadataviewer.html</dc:source>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>Elmar Baumann &lt;eb@elmar-baumann.de&gt;</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <cc:license
+           rdf:resource="http://elmar-baumann.de/fotografie/copyright.html" />
+        <dc:rights>
+          <cc:Agent>
+            <dc:title>Elmar Baumann &lt;eb@elmar-baumann.de&gt;</dc:title>
+          </cc:Agent>
+        </dc:rights>
+        <dc:publisher>
+          <cc:Agent>
+            <dc:title>Elmar Baumann &lt;eb@elmar-baumann.de&gt;</dc:title>
+          </cc:Agent>
+        </dc:publisher>
+        <dc:identifier>de.elmar_baumann.imv.resource.icons.icon_calendar.svg</dc:identifier>
+        <dc:title>Calendar Sheet</dc:title>
+        <dc:coverage>computer program, icon</dc:coverage>
+        <dc:subject>
+          <rdf:Bag>
+            <rdf:li>icon</rdf:li>
+            <rdf:li>calendar</rdf:li>
+            <rdf:li>calendar sheet</rdf:li>
+          </rdf:Bag>
+        </dc:subject>
+        <dc:date>2008-03-10</dc:date>
       </cc:Work>
     </rdf:RDF>
   </metadata>

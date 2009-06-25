@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 <svg
-   xmlns:ns="http://creativecommons.org/ns#"
    xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://web.resource.org/cc/"
+   xmlns:cc="http://creativecommons.org/ns#"
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
@@ -13,7 +12,7 @@
    height="16px"
    id="svg3740"
    sodipodi:version="0.32"
-   inkscape:version="0.45.1"
+   inkscape:version="0.46"
    sodipodi:docname="icon_edit_metadata_expand.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape"
    inkscape:export-filename="/home/elmar/projekte/ImageMetadataViewer/src/de/elmar_baumann/imv/resource/icons/icon_edit_metadata_expand.png"
@@ -35,32 +34,63 @@
      pagecolor="#ffffff"
      bordercolor="#666666"
      borderopacity="1.0"
-     inkscape:pageopacity="1"
+     inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:zoom="48.125"
-     inkscape:cx="8"
+     inkscape:zoom="14.875"
+     inkscape:cx="-7.3613445"
      inkscape:cy="8"
      inkscape:current-layer="layer1"
      showgrid="true"
      inkscape:grid-bbox="true"
      inkscape:document-units="px"
-     inkscape:window-width="877"
-     inkscape:window-height="975"
+     inkscape:window-width="791"
+     inkscape:window-height="743"
      inkscape:window-x="146"
      inkscape:window-y="32">
     <inkscape:grid
        type="xygrid"
-       id="grid3750" />
+       id="grid3750"
+       visible="true"
+       enabled="true" />
   </sodipodi:namedview>
   <metadata
      id="metadata3745">
     <rdf:RDF>
-      <ns:Work
+      <cc:Work
          rdf:about="">
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-      </ns:Work>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>Elmar Baumann &lt;eb@elmar-baumann.de&gt;</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <dc:rights>
+          <cc:Agent>
+            <dc:title>Elmar Baumann &lt;eb@elmar-baumann.de&gt;</dc:title>
+          </cc:Agent>
+        </dc:rights>
+        <dc:publisher>
+          <cc:Agent>
+            <dc:title>Elmar Baumann &lt;eb@elmar-baumann.de&gt;</dc:title>
+          </cc:Agent>
+        </dc:publisher>
+        <dc:identifier>de.elmar_baumann.imv.resource.icons.icon_edit_metadata_expand.svg</dc:identifier>
+        <dc:title>Plus</dc:title>
+        <dc:source>http://www.elmar-baumann.de/fotografie/tipps/computer/lightroom/imagemetadataviewer.html</dc:source>
+        <dc:coverage>computer program, ico</dc:coverage>
+        <cc:license
+           rdf:resource="http://elmar-baumann.de/fotografie/copyright.html" />
+        <dc:description>Expanding edit metadata input field</dc:description>
+        <dc:subject>
+          <rdf:Bag>
+            <rdf:li>icon</rdf:li>
+            <rdf:li>plus</rdf:li>
+          </rdf:Bag>
+        </dc:subject>
+        <dc:date>2009-06-24</dc:date>
+      </cc:Work>
       <cc:Work
          rdf:about="">
         <dc:format>image/svg+xml</dc:format>
