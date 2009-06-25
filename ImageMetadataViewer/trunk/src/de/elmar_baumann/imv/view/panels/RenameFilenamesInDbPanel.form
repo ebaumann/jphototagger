@@ -36,8 +36,8 @@
                       </Group>
                   </Group>
                   <Component id="panelPosition" alignment="0" max="32767" attributes="1"/>
-                  <Component id="labelTitle" alignment="1" pref="442" max="32767" attributes="0"/>
-                  <Component id="progressBar" alignment="0" pref="442" max="32767" attributes="0"/>
+                  <Component id="labelTitle" alignment="1" pref="483" max="32767" attributes="0"/>
+                  <Component id="progressBar" alignment="0" pref="483" max="32767" attributes="0"/>
                   <Component id="buttonReplace" alignment="1" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -115,7 +115,7 @@
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-            <TitledBorder title="Dateinamen finden, in denen der Suchtext">
+            <TitledBorder title="Dateinamen finden, in denen die gesuchte Zeichenfolge">
               <ResourceString PropertyName="titleX" bundle="de/elmar_baumann/imv/resource/properties/Bundle.properties" key="RenameFilenamesInDbPanel.panelPosition.border.title" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
             </TitledBorder>
           </Border>
@@ -129,10 +129,10 @@
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="radioButtonExactMatch" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="radioButtonPositionAnywhere" alignment="0" pref="416" max="32767" attributes="0"/>
-                      <Component id="radioButtonPositionEnd" alignment="0" pref="416" max="32767" attributes="0"/>
-                      <Component id="radioButtonPositionMiddle" alignment="0" pref="416" max="32767" attributes="0"/>
-                      <Component id="radioButtonPositionBegin" alignment="0" pref="416" max="32767" attributes="0"/>
+                      <Component id="radioButtonPositionAnywhere" alignment="0" pref="457" max="32767" attributes="0"/>
+                      <Component id="radioButtonPositionEnd" alignment="0" pref="457" max="32767" attributes="0"/>
+                      <Component id="radioButtonPositionMiddle" alignment="0" pref="457" max="32767" attributes="0"/>
+                      <Component id="radioButtonPositionBegin" alignment="0" pref="457" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>

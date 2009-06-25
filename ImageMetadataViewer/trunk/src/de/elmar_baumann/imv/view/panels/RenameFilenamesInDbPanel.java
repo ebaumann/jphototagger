@@ -98,8 +98,7 @@ public class RenameFilenamesInDbPanel extends javax.swing.JPanel {
                     JRadioButton selectedRadioButton = getSelectedRadioButton();
                     if (selectedRadioButton != null) {
                         progressBar.setIndeterminate(true);
-                        int count = DatabaseMaintainance.getInstacne().
-                                replaceString(
+                        int count = DatabaseMaintainance.INSTANCE.replaceString(
                                 ColumnFilesFilename.INSTANCE,
                                 textFieldSearch.getText(),
                                 textFieldReplacement.getText(),
