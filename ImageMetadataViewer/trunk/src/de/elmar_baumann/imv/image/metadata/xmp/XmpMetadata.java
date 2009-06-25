@@ -232,13 +232,6 @@ public final class XmpMetadata {
         return xmp;
     }
 
-    private static String getEmbeddedXmpAsString(String filename) {
-        if (!FileUtil.existsFile(filename)) {
-            return null;
-        }
-        return XmpFileReader.readFile(filename);
-    }
-
     /**
      * Liefert, ob ein String ein bekannter Namensraum ist.
      * 
