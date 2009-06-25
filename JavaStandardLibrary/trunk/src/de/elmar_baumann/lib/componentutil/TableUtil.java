@@ -55,7 +55,6 @@ public final class TableUtil {
                       : HTML_LINE_BREAK + lines.get(i));
         }
         sb.append("</body></html>");
-        System.out.println(sb.toString());
         label.setText(sb.toString());
         int preferredHeight = label.getPreferredSize().height;
         if (preferredHeight > table.getRowHeight(row)) {
