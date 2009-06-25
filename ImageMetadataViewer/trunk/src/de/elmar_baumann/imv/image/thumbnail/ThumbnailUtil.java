@@ -341,6 +341,14 @@ public final class ThumbnailUtil {
         }
     }
 
+    public static boolean deleteThumbnail(long id) {
+        File thumbnailFile = getThumbnailfile(id);
+        if (thumbnailFile.exists()) {
+            return thumbnailFile.delete();
+        }
+        return false;
+    }
+
     public static Image getThumbnail(long id) {
         Image thumbnail = null;
         try {
