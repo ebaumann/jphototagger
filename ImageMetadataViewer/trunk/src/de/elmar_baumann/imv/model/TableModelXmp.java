@@ -68,7 +68,7 @@ public final class TableModelXmp extends DefaultTableModel {
     private void addRow(XMPPropertyInfo xmpPropertyInfo) {
         String path = xmpPropertyInfo.getPath();
         Object value = xmpPropertyInfo.getValue();
-        if (path != null && value != null) {
+        if (path != null && value != null && !path.contains("Digest")) {
             List<XMPPropertyInfo> newRow = new ArrayList<XMPPropertyInfo>();
             newRow.add(xmpPropertyInfo);
             newRow.add(xmpPropertyInfo);
