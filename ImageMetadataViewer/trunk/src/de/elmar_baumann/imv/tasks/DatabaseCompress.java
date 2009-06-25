@@ -70,7 +70,7 @@ public final class DatabaseCompress implements Runnable {
         notifyStarted();
         File dbFile = new File(UserSettings.INSTANCE.getDatabaseFileName(true));
         sizeBefore = dbFile.length();
-        success = DatabaseMaintainance.getInstacne().compressDatabase();
+        success = DatabaseMaintainance.INSTANCE.compressDatabase();
         sizeAfter = dbFile.length();
         notifyEnded();
     }
