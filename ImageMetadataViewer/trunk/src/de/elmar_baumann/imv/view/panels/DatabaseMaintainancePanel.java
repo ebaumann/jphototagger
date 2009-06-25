@@ -3,11 +3,13 @@ package de.elmar_baumann.imv.view.panels;
 import de.elmar_baumann.imv.app.AppIcons;
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.database.DatabaseImageFiles;
+import de.elmar_baumann.imv.database.DatabaseMaintainance;
 import de.elmar_baumann.imv.event.ProgressEvent;
 import de.elmar_baumann.imv.event.listener.ProgressListener;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.tasks.DatabaseCompress;
 import de.elmar_baumann.imv.tasks.RecordsWithNotExistingFilesDeleter;
+import de.elmar_baumann.imv.tasks.UnusedThumbnailsDeleter;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
@@ -38,8 +40,11 @@ public final class DatabaseMaintainancePanel extends javax.swing.JPanel
     }
 
     private void postInitComponents() {
+        // When two values are equal, this does not work!
         finishedLabelOfRunnable.put(DatabaseCompress.class,
                 labelFinishedCompressDatabase);
+        finishedLabelOfRunnable.put(DatabaseMaintainance.class,
+                labelFinishedDeleteUnusedThumbnails);
         finishedLabelOfRunnable.put(DatabaseImageFiles.class,
                 labelFinishedDeleteRecordsOfNotExistingFilesInDatabase);
     }
@@ -68,6 +73,7 @@ public final class DatabaseMaintainancePanel extends javax.swing.JPanel
 
     private void resetIcons() {
         labelFinishedCompressDatabase.setIcon(null);
+        labelFinishedDeleteUnusedThumbnails.setIcon(null);
         labelFinishedDeleteRecordsOfNotExistingFilesInDatabase.setIcon(null);
         progressBar.setValue(0);
     }
@@ -75,7 +81,8 @@ public final class DatabaseMaintainancePanel extends javax.swing.JPanel
     private void setEnabledButtonStartMaintain() {
         buttonStartMaintain.setEnabled(
                 checkBoxCompressDatabase.isSelected() ||
-                checkBoxDeleteRecordsOfNotExistingFilesInDatabase.isSelected());
+                checkBoxDeleteRecordsOfNotExistingFilesInDatabase.isSelected() ||
+                checkBoxDeleteUnusedThumbnails.isSelected());
     }
 
     private void setCanClose(boolean can) {
@@ -109,13 +116,18 @@ public final class DatabaseMaintainancePanel extends javax.swing.JPanel
         startNextThread();
     }
 
-    private void addRunnables() {
+    private synchronized void addRunnables() {
         runnables.clear();
         // reverse order of checkboxes because the runnables are in a stack
         if (checkBoxCompressDatabase.isSelected()) {
             DatabaseCompress databaseCompress = new DatabaseCompress();
             databaseCompress.addProgressListener(this);
             runnables.push(databaseCompress);
+        }
+        if (checkBoxDeleteUnusedThumbnails.isSelected()) {
+            UnusedThumbnailsDeleter deleter = new UnusedThumbnailsDeleter();
+            deleter.addProgressListener(this);
+            runnables.push(deleter);
         }
         if (checkBoxDeleteRecordsOfNotExistingFilesInDatabase.isSelected()) {
             RecordsWithNotExistingFilesDeleter deleter =
@@ -185,6 +197,8 @@ public final class DatabaseMaintainancePanel extends javax.swing.JPanel
         panelMaintainanceTasks = new javax.swing.JPanel();
         checkBoxDeleteRecordsOfNotExistingFilesInDatabase = new javax.swing.JCheckBox();
         labelFinishedDeleteRecordsOfNotExistingFilesInDatabase = new javax.swing.JLabel();
+        checkBoxDeleteUnusedThumbnails = new javax.swing.JCheckBox();
+        labelFinishedDeleteUnusedThumbnails = new javax.swing.JLabel();
         checkBoxCompressDatabase = new javax.swing.JCheckBox();
         labelFinishedCompressDatabase = new javax.swing.JLabel();
         panelMaintainMessages = new javax.swing.JPanel();
@@ -205,6 +219,16 @@ public final class DatabaseMaintainancePanel extends javax.swing.JPanel
 
         labelFinishedDeleteRecordsOfNotExistingFilesInDatabase.setPreferredSize(new java.awt.Dimension(16, 16));
 
+        checkBoxDeleteUnusedThumbnails.setMnemonic('l');
+        checkBoxDeleteUnusedThumbnails.setText(Bundle.getString("DatabaseMaintainancePanel.checkBoxDeleteUnusedThumbnails.text")); // NOI18N
+        checkBoxDeleteUnusedThumbnails.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkBoxDeleteUnusedThumbnailsActionPerformed(evt);
+            }
+        });
+
+        labelFinishedDeleteUnusedThumbnails.setPreferredSize(new java.awt.Dimension(16, 16));
+
         checkBoxCompressDatabase.setMnemonic('k');
         checkBoxCompressDatabase.setText(Bundle.getString("DatabaseMaintainancePanel.checkBoxCompressDatabase.text")); // NOI18N
         checkBoxCompressDatabase.addActionListener(new java.awt.event.ActionListener() {
@@ -220,27 +244,36 @@ public final class DatabaseMaintainancePanel extends javax.swing.JPanel
         panelMaintainanceTasksLayout.setHorizontalGroup(
             panelMaintainanceTasksLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelMaintainanceTasksLayout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(panelMaintainanceTasksLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(checkBoxDeleteRecordsOfNotExistingFilesInDatabase)
-                    .addComponent(checkBoxCompressDatabase))
-                .addGap(18, 18, 18)
+                    .addComponent(checkBoxCompressDatabase)
+                    .addComponent(checkBoxDeleteUnusedThumbnails))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(panelMaintainanceTasksLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelFinishedCompressDatabase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelFinishedDeleteRecordsOfNotExistingFilesInDatabase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(labelFinishedCompressDatabase, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelFinishedDeleteUnusedThumbnails, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelFinishedDeleteRecordsOfNotExistingFilesInDatabase, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
         panelMaintainanceTasksLayout.setVerticalGroup(
             panelMaintainanceTasksLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelMaintainanceTasksLayout.createSequentialGroup()
-                .addComponent(checkBoxDeleteRecordsOfNotExistingFilesInDatabase)
+                .addGroup(panelMaintainanceTasksLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(checkBoxDeleteRecordsOfNotExistingFilesInDatabase)
+                    .addGroup(panelMaintainanceTasksLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(labelFinishedDeleteRecordsOfNotExistingFilesInDatabase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(checkBoxCompressDatabase))
-            .addGroup(panelMaintainanceTasksLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(labelFinishedDeleteRecordsOfNotExistingFilesInDatabase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
-                .addComponent(labelFinishedCompressDatabase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(panelMaintainanceTasksLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(panelMaintainanceTasksLayout.createSequentialGroup()
+                        .addComponent(checkBoxDeleteUnusedThumbnails)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(checkBoxCompressDatabase))
+                    .addGroup(panelMaintainanceTasksLayout.createSequentialGroup()
+                        .addComponent(labelFinishedDeleteUnusedThumbnails, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(labelFinishedCompressDatabase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
@@ -254,13 +287,13 @@ public final class DatabaseMaintainancePanel extends javax.swing.JPanel
             panelMaintainMessagesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelMaintainMessagesLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(labelMessage, javax.swing.GroupLayout.DEFAULT_SIZE, 343, Short.MAX_VALUE)
+                .addComponent(labelMessage, javax.swing.GroupLayout.DEFAULT_SIZE, 428, Short.MAX_VALUE)
                 .addContainerGap())
         );
         panelMaintainMessagesLayout.setVerticalGroup(
             panelMaintainMessagesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelMaintainMessagesLayout.createSequentialGroup()
-                .addComponent(labelMessage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(labelMessage, javax.swing.GroupLayout.DEFAULT_SIZE, 14, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -295,7 +328,7 @@ public final class DatabaseMaintainancePanel extends javax.swing.JPanel
                         .addComponent(buttonAbortAction)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonStartMaintain))
-                    .addComponent(progressBar, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE))
+                    .addComponent(progressBar, javax.swing.GroupLayout.DEFAULT_SIZE, 462, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -330,13 +363,20 @@ private void buttonStartMaintainActionPerformed(java.awt.event.ActionEvent evt) 
 private void buttonAbortActionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAbortActionActionPerformed
     handleButtonAbortActionPerformed();
 }//GEN-LAST:event_buttonAbortActionActionPerformed
+
+private void checkBoxDeleteUnusedThumbnailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxDeleteUnusedThumbnailsActionPerformed
+    setEnabledButtonStartMaintain();
+}//GEN-LAST:event_checkBoxDeleteUnusedThumbnailsActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAbortAction;
     private javax.swing.JButton buttonStartMaintain;
     private javax.swing.JCheckBox checkBoxCompressDatabase;
     private javax.swing.JCheckBox checkBoxDeleteRecordsOfNotExistingFilesInDatabase;
+    private javax.swing.JCheckBox checkBoxDeleteUnusedThumbnails;
     private javax.swing.JLabel labelFinishedCompressDatabase;
     private javax.swing.JLabel labelFinishedDeleteRecordsOfNotExistingFilesInDatabase;
+    private javax.swing.JLabel labelFinishedDeleteUnusedThumbnails;
     private javax.swing.JLabel labelMessage;
     private javax.swing.JPanel panelMaintainMessages;
     private javax.swing.JPanel panelMaintainanceTasks;
