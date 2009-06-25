@@ -99,7 +99,7 @@ final class UpdateTablesThumbnails extends Database {
     private static void compress() {
         messages.message(Bundle.getString("UpdateTablesThumbnails.Information.CompressDatabase"));
         dialog.setIndeterminate(true);
-        DatabaseMaintainance.getInstacne().compressDatabase();
+        DatabaseMaintainance.INSTANCE.compressDatabase();
         dialog.setIndeterminate(false);
     }
 
