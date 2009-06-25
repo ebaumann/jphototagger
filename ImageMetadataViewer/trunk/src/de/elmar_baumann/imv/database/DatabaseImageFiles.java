@@ -377,10 +377,12 @@ public final class DatabaseImageFiles extends Database {
                 imageFile.setFilename(filename);
                 imageFile.setExif(getExifOfFile(filename));
                 imageFile.setXmp(getXmpOfFile(filename));
+                long idFile = getIdFile(connection, filename);
                 AppLog.logFiner(DatabaseImageFiles.class, stmt.toString());
                 int countAffectedRows = stmt.executeUpdate();
                 countDeleted += countAffectedRows;
                 if (countAffectedRows > 0) {
+                    ThumbnailUtil.deleteThumbnail(idFile);
                     notifyDatabaseListener(
                             DatabaseImageEvent.Type.IMAGEFILE_DELETED, imageFile);
                 }
@@ -424,10 +426,12 @@ public final class DatabaseImageFiles extends Database {
                 filename = rs.getString(1);
                 File file = new File(filename);
                 if (!file.exists()) {
+                    long idFile = getIdFile(connection, filename);
                     int deletedRows =
                             deleteRowWithFilename(connection, filename);
                     countDeleted += deletedRows;
                     if (deletedRows > 0) {
+                        ThumbnailUtil.deleteThumbnail(idFile);
                         ImageFile imageFile = new ImageFile();
                         imageFile.setFilename(filename);
                         notifyDatabaseListener(
