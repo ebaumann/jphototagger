@@ -11,6 +11,7 @@ import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import java.io.File;
 import java.util.ArrayList;
 import javax.swing.JTree;
+import javax.swing.SwingUtilities;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -42,58 +43,60 @@ public final class ControllerMiscMetadataItemSelected implements
     @Override
     public void valueChanged(TreeSelectionEvent e) {
         if (e.isAddedPath()) {
-            setFilesOfTreePathToThumbnailsPanel(e.getNewLeadSelectionPath());
+            SwingUtilities.invokeLater(new ShowThumbnails(e.
+                    getNewLeadSelectionPath()));
         }
     }
 
     @Override
     public void refresh() {
         if (tree.getSelectionCount() == 1) {
-            setFilesOfTreePathToThumbnailsPanel(tree.getSelectionPath());
+            SwingUtilities.invokeLater(new ShowThumbnails(
+                    tree.getSelectionPath()));
         }
     }
 
-    private void setFilesOfTreePathToThumbnailsPanel(final TreePath path) {
-        if (path != null) {
-            Thread thread = new Thread(new Runnable() {
+    private class ShowThumbnails implements Runnable {
 
-                @Override
-                public void run() {
-                    InfoSetThumbnails info = new InfoSetThumbnails();
-                    Object lastPathComponent = path.getLastPathComponent();
-                    setFilesOfPossibleNodeToThumbnailsPanel(lastPathComponent);
-                    info.hide();
+        private final TreePath treePath;
+
+        public ShowThumbnails(TreePath treePath) {
+            this.treePath = treePath;
+        }
+
+        @Override
+        public void run() {
+            InfoSetThumbnails info = new InfoSetThumbnails();
+            Object lastPathComponent = treePath.getLastPathComponent();
+            setFilesOfPossibleNodeToThumbnailsPanel(lastPathComponent);
+            info.hide();
+        }
+
+        private void setFilesOfPossibleNodeToThumbnailsPanel(
+                Object lastPathComponent) {
+            if (lastPathComponent instanceof DefaultMutableTreeNode) {
+                DefaultMutableTreeNode node =
+                        (DefaultMutableTreeNode) lastPathComponent;
+                setFilesOfNodeToThumbnailsPanel(node);
+            }
+        }
+
+        private void setFilesOfNodeToThumbnailsPanel(DefaultMutableTreeNode node) {
+            if (node.isLeaf()) {
+                Object userObject = node.getUserObject();
+                Object parentUserObject =
+                        ((DefaultMutableTreeNode) node.getParent()).
+                        getUserObject();
+                if (parentUserObject instanceof Column) {
+                    Column column = (Column) parentUserObject;
+                    thumbnailsPanel.setFiles(db.getFilesJoinTable(column,
+                            userObject.toString()),
+                            Content.MISC_METADATA);
                 }
-            });
-            thread.setName("Misc metadata item selected" + " @ " + // NOI18N
-                    getClass().getName());
-            thread.start();
-        }
-    }
-
-    private void setFilesOfPossibleNodeToThumbnailsPanel(
-            Object lastPathComponent) {
-        if (lastPathComponent instanceof DefaultMutableTreeNode) {
-            DefaultMutableTreeNode node =
-                    (DefaultMutableTreeNode) lastPathComponent;
-            setFilesOfNodeToThumbnailsPanel(node);
-        }
-    }
-
-    private void setFilesOfNodeToThumbnailsPanel(DefaultMutableTreeNode node) {
-        if (node.isLeaf()) {
-            Object userObject = node.getUserObject();
-            Object parentUserObject =
-                    ((DefaultMutableTreeNode) node.getParent()).getUserObject();
-            if (parentUserObject instanceof Column) {
-                Column column = (Column) parentUserObject;
-                thumbnailsPanel.setFiles(db.getFilesJoinTable(column,
-                        userObject.toString()),
+            } else {
+                thumbnailsPanel.setFiles(new ArrayList<File>(),
                         Content.MISC_METADATA);
             }
-        } else {
-            thumbnailsPanel.setFiles(new ArrayList<File>(),
-                    Content.MISC_METADATA);
         }
     }
 }
