@@ -13,6 +13,7 @@ import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.util.List;
 import javax.swing.JList;
+import javax.swing.SwingUtilities;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -44,56 +45,54 @@ public final class ControllerSafedSearchSelected
 
     @Override
     public void valueChanged(ListSelectionEvent e) {
-        if (list.getSelectedIndex() >= 0) {
-            searchSelectedValue();
-            setMetadataEditable();
-        }
+        search();
     }
 
     @Override
     public void refresh() {
+        search();
+    }
+
+    private void search() {
         if (list.getSelectedIndex() >= 0) {
-            searchSelectedValue();
+            SwingUtilities.invokeLater(new ShowThumbnails());
         }
     }
 
-    private void searchSelectedValue() {
-        Thread thread = new Thread(new Runnable() {
+    private class ShowThumbnails implements Runnable {
 
-            @Override
-            public void run() {
-                Object selectedValue = list.getSelectedValue();
-                if (selectedValue != null) {
-                    InfoSetThumbnails info = new InfoSetThumbnails();
-                    searchSelectedValue(selectedValue);
-                    info.hide();
+        @Override
+        public void run() {
+            Object selectedValue = list.getSelectedValue();
+            if (selectedValue != null) {
+                InfoSetThumbnails info = new InfoSetThumbnails();
+                searchSelectedValue(selectedValue);
+                info.hide();
+                setMetadataEditable();
+            }
+        }
+
+        private void searchSelectedValue(Object selectedValue) {
+            if (selectedValue instanceof SavedSearch) {
+                SavedSearch data = (SavedSearch) selectedValue;
+                ParamStatement stmt =
+                        data.getParamStatements().createStatement();
+                if (stmt != null) {
+                    searchParamStatement(stmt);
                 }
             }
-        });
-        thread.setName("Saved search item selected" + " @ " + // NOI18N
-                getClass().getName());
-        thread.start();
-    }
-
-    private void searchSelectedValue(Object selectedValue) {
-        if (selectedValue instanceof SavedSearch) {
-            SavedSearch data = (SavedSearch) selectedValue;
-            ParamStatement stmt = data.getParamStatements().createStatement();
-            if (stmt != null) {
-                searchParamStatement(stmt);
-            }
         }
-    }
 
-    private void searchParamStatement(ParamStatement stmt) {
-        List<String> filenames = db.searchFilenames(stmt);
-        thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames),
-                Content.SAFED_SEARCH);
-    }
+        private void searchParamStatement(ParamStatement stmt) {
+            List<String> filenames = db.searchFilenames(stmt);
+            thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames),
+                    Content.SAFED_SEARCH);
+        }
 
-    private void setMetadataEditable() {
-        if (thumbnailsPanel.getSelectionCount() <= 0) {
-            editPanels.setEditable(false);
+        private void setMetadataEditable() {
+            if (thumbnailsPanel.getSelectionCount() <= 0) {
+                editPanels.setEditable(false);
+            }
         }
     }
 }

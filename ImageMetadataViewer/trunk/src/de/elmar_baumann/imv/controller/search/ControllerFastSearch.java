@@ -31,6 +31,7 @@ import java.util.List;
 import javax.swing.JList;
 import javax.swing.JTextField;
 import javax.swing.JTree;
+import javax.swing.SwingUtilities;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 /**
@@ -118,11 +119,17 @@ public final class ControllerFastSearch
 
     private void decorateTextFieldSearch() {
         if (UserSettings.INSTANCE.isUseAutocomplete()) {
-            searchAutoCompleteData = new AutoCompleteData();
-            AutoCompleteDecorator.decorate(
-                    textFieldSearch,
-                    searchAutoCompleteData.getList(),
-                    false);
+            SwingUtilities.invokeLater(new Runnable() {
+
+                @Override
+                public void run() {
+                    searchAutoCompleteData = new AutoCompleteData();
+                    AutoCompleteDecorator.decorate(
+                            textFieldSearch,
+                            searchAutoCompleteData.getList(),
+                            false);
+                }
+            });
         }
     }
 
@@ -148,15 +155,21 @@ public final class ControllerFastSearch
         setMetadataEditable();
     }
 
-    private void search(String searchText) {
-        if (!searchText.trim().isEmpty()) {
-            clearSelection();
-            List<String> filenames =
-                    db.searchFilenamesLikeOr(UserSettings.INSTANCE.
-                    getFastSearchColumns(), searchText.trim());
-            thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames),
-                    Content.SAFED_SEARCH);
-        }
+    private void search(final String searchText) {
+        SwingUtilities.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {
+                if (!searchText.trim().isEmpty()) {
+                    clearSelection();
+                    List<String> filenames =
+                            db.searchFilenamesLikeOr(UserSettings.INSTANCE.
+                            getFastSearchColumns(), searchText.trim());
+                    thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames),
+                            Content.SAFED_SEARCH);
+                }
+            }
+        });
     }
 
     @Override
