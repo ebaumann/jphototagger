@@ -15,6 +15,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.Collections;
 import java.util.List;
+import javax.swing.SwingUtilities;
 
 /**
  * Renames files in the file system.
@@ -22,9 +23,11 @@ import java.util.List;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/13
  */
-public final class ControllerRenameFiles implements ActionListener, RenameFileListener {
+public final class ControllerRenameFiles implements ActionListener,
+                                                    RenameFileListener {
 
-    private final ImageFileThumbnailsPanel thumbnailsPanel = GUI.INSTANCE.getAppPanel().getPanelThumbnails();
+    private final ImageFileThumbnailsPanel thumbnailsPanel = GUI.INSTANCE.
+            getAppPanel().getPanelThumbnails();
     private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
 
     public ControllerRenameFiles() {
@@ -32,7 +35,8 @@ public final class ControllerRenameFiles implements ActionListener, RenameFileLi
     }
 
     private void listen() {
-        PopupMenuPanelThumbnails.INSTANCE.addActionListenerFileSystemRenameFiles(this);
+        PopupMenuPanelThumbnails.INSTANCE.addActionListenerFileSystemRenameFiles(
+                this);
         GUI.INSTANCE.getAppFrame().getMenuItemRename().addActionListener(this);
         ListenerProvider.INSTANCE.addRenameFileListener(this);
     }
@@ -50,14 +54,21 @@ public final class ControllerRenameFiles implements ActionListener, RenameFileLi
             dialog.setFiles(files);
             dialog.setVisible(true);
         } else {
-            AppLog.logWarning(ControllerRenameFiles.class, Bundle.getString("ControllerRenameFiles.ErrorMessage.NoImagesSelected"));
+            AppLog.logWarning(ControllerRenameFiles.class, Bundle.getString(
+                    "ControllerRenameFiles.ErrorMessage.NoImagesSelected"));
         }
     }
 
     @Override
-    public void actionPerformed(RenameFileEvent action) {
+    public void actionPerformed(final RenameFileEvent action) {
         db.updateRenameImageFilename(action.getOldFile().getAbsolutePath(),
                 action.getNewFile().getAbsolutePath());
-        thumbnailsPanel.rename(action.getOldFile(), action.getNewFile());
+        SwingUtilities.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {
+                thumbnailsPanel.rename(action.getOldFile(), action.getNewFile());
+            }
+        });
     }
 }
