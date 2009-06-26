@@ -15,6 +15,7 @@ import de.elmar_baumann.imv.database.metadata.selections.EditHints;
 import de.elmar_baumann.imv.database.metadata.selections.EditHints.SizeEditField;
 import de.elmar_baumann.imv.database.metadata.selections.EditColumns;
 import de.elmar_baumann.imv.database.metadata.mapping.IptcXmpMapping;
+import de.elmar_baumann.imv.event.TextSelectionEvent;
 import de.elmar_baumann.imv.event.listener.AppExitListener;
 import de.elmar_baumann.imv.event.DatabaseImageEvent;
 import de.elmar_baumann.imv.event.listener.DatabaseListener;
@@ -22,9 +23,11 @@ import de.elmar_baumann.imv.event.DatabaseProgramEvent;
 import de.elmar_baumann.imv.event.listener.impl.ListenerProvider;
 import de.elmar_baumann.imv.event.MetadataEditPanelEvent;
 import de.elmar_baumann.imv.event.listener.MetadataEditPanelListener;
+import de.elmar_baumann.imv.event.listener.TextSelectionListener;
 import de.elmar_baumann.imv.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.GUI;
+import de.elmar_baumann.imv.view.dialogs.TextSelectionDialog;
 import de.elmar_baumann.lib.component.TabLeavingTextArea;
 import java.awt.Component;
 import java.awt.GridBagConstraints;
@@ -32,6 +35,8 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -39,6 +44,7 @@ import javax.swing.JComponent;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 /**
@@ -49,7 +55,9 @@ import javax.swing.JTextField;
  */
 public final class EditMetadataPanelsArray implements FocusListener,
                                                       DatabaseListener,
-                                                      AppExitListener {
+                                                      AppExitListener,
+                                                      TextSelectionListener,
+                                                      KeyListener {
 
     private final List<JPanel> panels = new ArrayList<JPanel>();
     private List<String> filenames = new ArrayList<String>();
@@ -84,7 +92,7 @@ public final class EditMetadataPanelsArray implements FocusListener,
     }
 
     private void save() {
-        if (isEditable() && confirmSave()) {
+        if (isEditable() && isThumbnailSelected() && confirmSave()) {
             ControllerSaveMetadata.saveMetadata(this);
         }
     }
@@ -129,6 +137,11 @@ public final class EditMetadataPanelsArray implements FocusListener,
      */
     public boolean isEditable() {
         return editable;
+    }
+
+    private boolean isThumbnailSelected() {
+        return GUI.INSTANCE.getAppPanel().getPanelThumbnails().getSelectionCount() >
+                0;
     }
 
     /**
@@ -276,6 +289,7 @@ public final class EditMetadataPanelsArray implements FocusListener,
     private void listenToActionSources() {
         DatabaseImageFiles.INSTANCE.addDatabaseListener(this);
         GUI.INSTANCE.getAppFrame().addAppExitListener(this);
+        TextSelectionDialog.INSTANCE.getPanel().addTextSelectionListener(this);
     }
 
     private void addActionPanel() {
@@ -316,10 +330,12 @@ public final class EditMetadataPanelsArray implements FocusListener,
                 EditRepeatableTextEntryPanel panel =
                         new EditRepeatableTextEntryPanel(column);
                 panel.textFieldInput.addFocusListener(this);
+                panel.textFieldInput.addKeyListener(this);
                 panels.add(panel);
             } else {
                 EditTextEntryPanel panel = new EditTextEntryPanel(column);
                 panel.textAreaEdit.addFocusListener(this);
+                panel.textAreaEdit.addKeyListener(this);
                 panel.textAreaEdit.setRows(large
                                            ? 2
                                            : 1);
@@ -356,14 +372,28 @@ public final class EditMetadataPanelsArray implements FocusListener,
         } else {
             setFocusToFirstEditField();
         }
+        setTextToTextSelectionPanel(source);
     }
 
     private boolean isEditArea(Component c) {
         return c instanceof TabLeavingTextArea || c instanceof JTextField;
     }
 
+    private void setTextToTextSelectionPanel(Component c) {
+        String text = "";
+        if (c instanceof JTextField) {
+            text = ((JTextField) c).getText().trim();
+        } else if (c instanceof JTextArea) {
+            text = ((JTextArea) c).getText().trim();
+        }
+        if (!text.isEmpty()) {
+            TextSelectionDialog.INSTANCE.getPanel().setText(text);
+        }
+    }
+
     @Override
     public void focusLost(FocusEvent e) {
+        // noting to do
     }
 
     private void scrollToVisible(Object inputSource) {
@@ -411,6 +441,45 @@ public final class EditMetadataPanelsArray implements FocusListener,
 
     @Override
     public void actionPerformed(DatabaseProgramEvent event) {
+        // nothing to do
+    }
+
+    @Override
+    public void textSelected(TextSelectionEvent evt) {
+        if (lastFocussedComponent == null) return;
+        if (!lastFocussedComponent.isVisible()) return;
+        if (lastFocussedComponent instanceof JTextField) {
+            ((JTextField) lastFocussedComponent).setText(evt.getText());
+        } else if (lastFocussedComponent instanceof JTextArea) {
+            ((JTextArea) lastFocussedComponent).setText(evt.getText());
+        }
+        lastFocussedComponent.requestFocusInWindow();
+    }
+
+    @Override
+    public void textDeselected(TextSelectionEvent evt) {
+        // nothing to do
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+        // nothing to do
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+            if (lastFocussedComponent == null) return;
+            if (lastFocussedComponent instanceof JTextField) {
+                setTextToTextSelectionPanel(lastFocussedComponent);
+            } else if (lastFocussedComponent instanceof JTextArea) {
+                setTextToTextSelectionPanel(lastFocussedComponent);
+            }
+        }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
         // nothing to do
     }
 }

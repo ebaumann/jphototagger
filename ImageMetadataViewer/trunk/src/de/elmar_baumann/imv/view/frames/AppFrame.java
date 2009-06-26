@@ -9,6 +9,7 @@ import de.elmar_baumann.imv.factory.MetaFactory;
 import de.elmar_baumann.lib.comparator.FileSort;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.GUI;
+import de.elmar_baumann.imv.view.dialogs.TextSelectionDialog;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -270,6 +271,8 @@ public final class AppFrame extends javax.swing.JFrame {
         jSeparator5 = new javax.swing.JSeparator();
         menuItemSearch = new javax.swing.JMenuItem();
         jSeparator6 = new javax.swing.JSeparator();
+        menuItemLastEditedWords = new javax.swing.JMenuItem();
+        jSeparator10 = new javax.swing.JSeparator();
         menuItemCut = new javax.swing.JMenuItem();
         menuItemPaste = new javax.swing.JMenuItem();
         menuItemCopy = new javax.swing.JMenuItem();
@@ -374,6 +377,17 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemSearch.setText(Bundle.getString("AppFrame.menuItemSearch.text")); // NOI18N
         menuEdit.add(menuItemSearch);
         menuEdit.add(jSeparator6);
+
+        menuItemLastEditedWords.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F5, 0));
+        menuItemLastEditedWords.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icons/icon_insert_words.png"))); // NOI18N
+        menuItemLastEditedWords.setText(Bundle.getString("AppFrame.menuItemLastEditedWords.text")); // NOI18N
+        menuItemLastEditedWords.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemLastEditedWordsActionPerformed(evt);
+            }
+        });
+        menuEdit.add(menuItemLastEditedWords);
+        menuEdit.add(jSeparator10);
 
         menuItemCut.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.CTRL_MASK));
         menuItemCut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icons/icon_edit_cut.png"))); // NOI18N
@@ -604,8 +618,16 @@ private void menuItemExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
 private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
     quit();
 }//GEN-LAST:event_formWindowClosing
+
+private void menuItemLastEditedWordsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemLastEditedWordsActionPerformed
+    TextSelectionDialog.INSTANCE.setTitle(Bundle.getString(
+            "AppFrame.menuItemLastEditedWords.text"));
+    TextSelectionDialog.INSTANCE.setVisible(true);
+}//GEN-LAST:event_menuItemLastEditedWordsActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator10;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
@@ -643,6 +665,7 @@ private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:even
     private javax.swing.JMenuItem menuItemGotoTimeline;
     private javax.swing.JMenuItem menuItemGotoXmpMetadata;
     private javax.swing.JMenuItem menuItemHelp;
+    private javax.swing.JMenuItem menuItemLastEditedWords;
     private javax.swing.JMenuItem menuItemMaintainDatabase;
     private javax.swing.JMenuItem menuItemPaste;
     private javax.swing.JMenuItem menuItemRefresh;

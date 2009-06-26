@@ -145,6 +145,10 @@
 			<title>Bearbeiten &gt; Suchen</title>
 		</page>
 		<page>
+			<url>dialog_edit_metadata_text_selection.html</url>
+			<title>Bearbeiten &gt; Zuletzt eingegebene Begriffe</title>
+		</page>
+		<page>
 			<url>action_filesystem_cut.html</url>
 			<title>Bearbeiten &gt; Ausschneiden</title>
 		</page>
