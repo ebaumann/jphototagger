@@ -87,7 +87,7 @@ public final class SavedSearchesModifier {
                         if (newSearch == null) {
                             errorMessageRenameGetUpdate(oldName);
                         } else {
-                            getModel().rename(oldSearch, newSearch);
+                            getModel().rename(getModel(), oldSearch, newSearch);
                         }
                     } else {
                         errorMessageRename(oldName);
