@@ -20,6 +20,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.swing.JViewport;
+import javax.swing.SwingUtilities;
 
 /**
  * Zeigt Thumbnails von Bilddateien.
@@ -157,16 +158,22 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel {
 
         @Override
         public void run() {
-            InfoSetThumbnails info = new InfoSetThumbnails();
-            if (!content.equals(Content.IMAGE_COLLECTION)) {
-                Collections.sort(files, fileSort.getComparator());
-            }
-            setNewThumbnails(files.size());
-            if (hadFiles) scrollToTop();
-            hadFiles = true;
-            setMissingFilesFlags();
-            panel.forceRepaint();
-            info.hide();
+            SwingUtilities.invokeLater(new Runnable() {
+
+                @Override
+                public void run() {
+                    InfoSetThumbnails info = new InfoSetThumbnails();
+                    if (!content.equals(Content.IMAGE_COLLECTION)) {
+                        Collections.sort(files, fileSort.getComparator());
+                    }
+                    setNewThumbnails(files.size());
+                    if (hadFiles) scrollToTop();
+                    hadFiles = true;
+                    setMissingFilesFlags();
+                    panel.forceRepaint();
+                    info.hide();
+                }
+            });
         }
     }
 
