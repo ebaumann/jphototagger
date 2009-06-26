@@ -13,6 +13,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import javax.swing.JTabbedPane;
 import javax.swing.JTree;
+import javax.swing.SwingUtilities;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 
@@ -58,27 +59,35 @@ public final class ControllerFavoriteDirectoryOpenInFolders implements
     }
 
     private void selectDirectory() {
-        TreePath selPath = treeFavoriteDirectories.getSelectionPath();
-        if (selPath != null) {
-            File dir = null;
-            DefaultMutableTreeNode node = (DefaultMutableTreeNode) selPath.
-                    getLastPathComponent();
-            Object userObject = node.getUserObject();
-            if (userObject instanceof File) {
-                dir = (File) userObject;
-            } else if (userObject instanceof FavoriteDirectory) {
-                FavoriteDirectory favoriteDirectory =
-                        (FavoriteDirectory) userObject;
-                dir = new File(favoriteDirectory.getDirectoryName());
+        SwingUtilities.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {
+                TreePath selPath = treeFavoriteDirectories.getSelectionPath();
+                if (selPath != null) {
+                    File dir = null;
+                    DefaultMutableTreeNode node =
+                            (DefaultMutableTreeNode) selPath.
+                            getLastPathComponent();
+                    Object userObject = node.getUserObject();
+                    if (userObject instanceof File) {
+                        dir = (File) userObject;
+                    } else if (userObject instanceof FavoriteDirectory) {
+                        FavoriteDirectory favoriteDirectory =
+                                (FavoriteDirectory) userObject;
+                        dir = new File(favoriteDirectory.getDirectoryName());
+                    }
+                    if (dir != null && dir.isDirectory()) {
+                        TreePath path = TreeUtil.getTreePath(dir,
+                                treeDirectories.getModel());
+                        treeFavoriteDirectories.clearSelection();
+                        tabbedPaneSelection.setSelectedComponent(
+                                tabTreeDirectories);
+                        TreeUtil.expandPathCascade(treeDirectories, path);
+                        treeDirectories.setSelectionPath(path);
+                    }
+                }
             }
-            if (dir != null && dir.isDirectory()) {
-                TreePath path = TreeUtil.getTreePath(dir,
-                        treeDirectories.getModel());
-                treeFavoriteDirectories.clearSelection();
-                tabbedPaneSelection.setSelectedComponent(tabTreeDirectories);
-                TreeUtil.expandPathCascade(treeDirectories, path);
-                treeDirectories.setSelectionPath(path);
-            }
-        }
+        });
     }
 }

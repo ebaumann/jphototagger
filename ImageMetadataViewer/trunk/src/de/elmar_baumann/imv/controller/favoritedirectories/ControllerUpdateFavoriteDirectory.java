@@ -8,6 +8,7 @@ import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuTreeFavoriteDirectories;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.SwingUtilities;
 
 /**
  * Listens to the {@link PopupMenuTreeFavoriteDirectories} and renames the
@@ -37,21 +38,29 @@ public final class ControllerUpdateFavoriteDirectory implements ActionListener {
     }
 
     private void updateFavorite() {
-        FavoriteDirectory favorite = popupMenu.getFavoriteDirectory();
+        final FavoriteDirectory favorite = popupMenu.getFavoriteDirectory();
         FavoriteDirectoryPropertiesDialog dialog =
                 new FavoriteDirectoryPropertiesDialog();
         dialog.setFavoriteName(favorite.getFavoriteName());
         dialog.setDirectoryName(favorite.getDirectoryName());
         dialog.setVisible(true);
         if (dialog.accepted()) {
-            TreeModelFavoriteDirectories model =
-                    (TreeModelFavoriteDirectories) appPanel.
-                    getTreeFavoriteDirectories().
-                    getModel();
-            model.replaceFavorite(favorite, new FavoriteDirectory(
-                    dialog.getFavoriteName(),
-                    dialog.getDirectoryName(),
-                    favorite.getIndex()));
+            final String favoriteName = dialog.getFavoriteName();
+            final String directoryName = dialog.getDirectoryName();
+            SwingUtilities.invokeLater(new Runnable() {
+
+                @Override
+                public void run() {
+                    TreeModelFavoriteDirectories model =
+                            (TreeModelFavoriteDirectories) appPanel.
+                            getTreeFavoriteDirectories().
+                            getModel();
+                    model.replaceFavorite(favorite, new FavoriteDirectory(
+                            favoriteName,
+                            directoryName,
+                            favorite.getIndex()));
+                }
+            });
         }
     }
 }

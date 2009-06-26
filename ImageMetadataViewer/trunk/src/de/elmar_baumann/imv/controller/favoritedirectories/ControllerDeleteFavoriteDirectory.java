@@ -9,6 +9,7 @@ import de.elmar_baumann.imv.view.popupmenus.PopupMenuTreeFavoriteDirectories;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 
 /**
  * Listens to the {@link PopupMenuTreeFavoriteDirectories} and deletes a
@@ -37,13 +38,20 @@ public final class ControllerDeleteFavoriteDirectory implements ActionListener {
     }
 
     private void deleteFavorite() {
-        FavoriteDirectory favoriteDirectory = popupMenu.getFavoriteDirectory();
+        final FavoriteDirectory favoriteDirectory = popupMenu.
+                getFavoriteDirectory();
         if (confirmDelete(favoriteDirectory.getFavoriteName())) {
-            TreeModelFavoriteDirectories model =
-                    (TreeModelFavoriteDirectories) appPanel.
-                    getTreeFavoriteDirectories().
-                    getModel();
-            model.deleteFavorite(favoriteDirectory);
+            SwingUtilities.invokeLater(new Runnable() {
+
+                @Override
+                public void run() {
+                    TreeModelFavoriteDirectories model =
+                            (TreeModelFavoriteDirectories) appPanel.
+                            getTreeFavoriteDirectories().
+                            getModel();
+                    model.deleteFavorite(favoriteDirectory);
+                }
+            });
         }
     }
 

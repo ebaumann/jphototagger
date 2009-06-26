@@ -9,6 +9,7 @@ import de.elmar_baumann.imv.view.popupmenus.PopupMenuTreeFavoriteDirectories;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuTreeDirectories;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.SwingUtilities;
 
 /**
  * Listens to the {@link PopupMenuTreeFavoriteDirectories} and inserts a
@@ -45,21 +46,28 @@ public final class ControllerInsertFavoriteDirectory implements ActionListener {
         return directoryName;
     }
 
-    private void insertFavorite(String directoryName) {
-        FavoriteDirectoryPropertiesDialog dialog =
-                new FavoriteDirectoryPropertiesDialog();
-        if (directoryName != null) {
-            dialog.setDirectoryName(directoryName);
-            dialog.setEnabledButtonChooseDirectory(false);
-        }
-        dialog.setVisible(true);
-        if (dialog.accepted()) {
-            TreeModelFavoriteDirectories model =
-                    (TreeModelFavoriteDirectories) appPanel.
-                    getTreeFavoriteDirectories().
-                    getModel();
-            model.insertFavorite(new FavoriteDirectory(
-                    dialog.getFavoriteName(), dialog.getDirectoryName(), -1));
-        }
+    private void insertFavorite(final String directoryName) {
+        SwingUtilities.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {
+                FavoriteDirectoryPropertiesDialog dialog =
+                        new FavoriteDirectoryPropertiesDialog();
+                if (directoryName != null) {
+                    dialog.setDirectoryName(directoryName);
+                    dialog.setEnabledButtonChooseDirectory(false);
+                }
+                dialog.setVisible(true);
+                if (dialog.accepted()) {
+                    TreeModelFavoriteDirectories model =
+                            (TreeModelFavoriteDirectories) appPanel.
+                            getTreeFavoriteDirectories().
+                            getModel();
+                    model.insertFavorite(new FavoriteDirectory(
+                            dialog.getFavoriteName(), dialog.getDirectoryName(),
+                            -1));
+                }
+            }
+        });
     }
 }

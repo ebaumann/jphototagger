@@ -8,6 +8,7 @@ import de.elmar_baumann.imv.view.popupmenus.PopupMenuTreeFavoriteDirectories;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JTree;
+import javax.swing.SwingUtilities;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 
@@ -38,40 +39,53 @@ public final class ControllerMoveFavoriteDirectory implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        Object source = e.getSource();
-        if (popup.isMoveUp(source)) {
-            moveUp(getFavoriteDirectory());
-        } else if (popup.isMoveDown(source)) {
-            moveDown(getFavoriteDirectory());
-        }
+        SwingUtilities.invokeLater(new MoveDir(popup.isMoveUp(e.getSource())));
     }
 
-    private FavoriteDirectory getFavoriteDirectory() {
-        TreePath selPath = tree.getSelectionPath();
-        if (selPath != null) {
-            DefaultMutableTreeNode node = (DefaultMutableTreeNode) selPath.
-                    getLastPathComponent();
-            Object userObject = node.getUserObject();
-            if (userObject instanceof FavoriteDirectory) {
-                return (FavoriteDirectory) userObject;
+    private class MoveDir implements Runnable {
+
+        private boolean up;
+
+        public MoveDir(boolean up) {
+            this.up = up;
+        }
+
+        @Override
+        public void run() {
+            if (up) {
+                moveUp(getFavoriteDirectory());
+            } else {
+                moveDown(getFavoriteDirectory());
             }
         }
-        return null;
-    }
 
-    private void moveUp(FavoriteDirectory dir) {
-        if (dir != null) {
-            TreeModelFavoriteDirectories model =
-                    (TreeModelFavoriteDirectories) tree.getModel();
-            model.moveUpFavorite(dir);
+        private FavoriteDirectory getFavoriteDirectory() {
+            TreePath selPath = tree.getSelectionPath();
+            if (selPath != null) {
+                DefaultMutableTreeNode node = (DefaultMutableTreeNode) selPath.
+                        getLastPathComponent();
+                Object userObject = node.getUserObject();
+                if (userObject instanceof FavoriteDirectory) {
+                    return (FavoriteDirectory) userObject;
+                }
+            }
+            return null;
         }
-    }
 
-    private void moveDown(FavoriteDirectory dir) {
-        if (dir != null) {
-            TreeModelFavoriteDirectories model =
-                    (TreeModelFavoriteDirectories) tree.getModel();
-            model.moveDownFavorite(dir);
+        private void moveUp(FavoriteDirectory dir) {
+            if (dir != null) {
+                TreeModelFavoriteDirectories model =
+                        (TreeModelFavoriteDirectories) tree.getModel();
+                model.moveUpFavorite(dir);
+            }
+        }
+
+        private void moveDown(FavoriteDirectory dir) {
+            if (dir != null) {
+                TreeModelFavoriteDirectories model =
+                        (TreeModelFavoriteDirectories) tree.getModel();
+                model.moveDownFavorite(dir);
+            }
         }
     }
 }

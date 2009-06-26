@@ -13,6 +13,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JTree;
+import javax.swing.SwingUtilities;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -62,16 +63,10 @@ public final class ControllerFavoriteDirectorySelected implements
     }
 
     private void update() {
-        Thread thread = new Thread(new SetFiles());
-        thread.start();
+		SwingUtilities.invokeLater(new SetFiles());
     }
 
-    private class SetFiles extends Thread {
-
-        public SetFiles() {
-            setName("Favorite directory selected" + " @ " + // NOI18N
-                    ControllerFavoriteDirectorySelected.class.getName());
-        }
+    private class SetFiles implements  Runnable {
 
         @Override
         public void run() {
