@@ -78,6 +78,7 @@ public final class EditMetadataPanelsArray implements FocusListener,
         addPanels();
         setFocusToFirstEditField();
         listenToActionSources();
+        setEditable(false);
     }
 
     private void checkDirty() {
