@@ -11,6 +11,7 @@ import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuTreeDirectories;
 import java.io.File;
 import javax.swing.JTree;
+import javax.swing.SwingUtilities;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.TreePath;
@@ -58,40 +59,40 @@ public final class ControllerDirectorySelected implements TreeSelectionListener,
     }
 
     private void setFilesToThumbnailsPanel() {
-        Thread thread = new Thread(new Runnable() {
+        SwingUtilities.invokeLater(new ShowThumbnails());
+    }
 
-            @Override
-            public void run() {
-                if (treeDirectories.getSelectionCount() > 0) {
-                    InfoSetThumbnails info = new InfoSetThumbnails();
-                    File selectedDirectory =
-                            new File(getDirectorynameFromTree());
-                    imageFilteredDirectory.setDirectory(selectedDirectory);
-                    thumbnailsPanel.setFiles(
-                            ImageFilteredDirectory.getImageFilesOfDirectory(
-                            selectedDirectory),
-                            Content.DIRECTORY);
-                    setMetadataEditable();
-                    info.hide();
-                }
+    private class ShowThumbnails implements Runnable {
+
+        @Override
+        public void run() {
+            if (treeDirectories.getSelectionCount() > 0) {
+                InfoSetThumbnails info = new InfoSetThumbnails();
+                File selectedDirectory =
+                        new File(getDirectorynameFromTree());
+                imageFilteredDirectory.setDirectory(selectedDirectory);
+                thumbnailsPanel.setFiles(
+                        ImageFilteredDirectory.getImageFilesOfDirectory(
+                        selectedDirectory),
+                        Content.DIRECTORY);
+                setMetadataEditable();
+                info.hide();
             }
-        });
-        thread.setName("Directory selected" + " @ " + getClass().getName()); // NOI18N
-        thread.start();
-    }
-
-    private String getDirectorynameFromTree() {
-        TreePath treePath = treeDirectories.getSelectionPath();
-        if (treePath.getLastPathComponent() instanceof File) {
-            return ((File) treePath.getLastPathComponent()).getAbsolutePath();
-        } else {
-            return treePath.getLastPathComponent().toString();
         }
-    }
 
-    private void setMetadataEditable() {
-        if (thumbnailsPanel.getSelectionCount() <= 0) {
-            editPanels.setEditable(false);
+        private String getDirectorynameFromTree() {
+            TreePath treePath = treeDirectories.getSelectionPath();
+            if (treePath.getLastPathComponent() instanceof File) {
+                return ((File) treePath.getLastPathComponent()).getAbsolutePath();
+            } else {
+                return treePath.getLastPathComponent().toString();
+            }
+        }
+
+        private void setMetadataEditable() {
+            if (thumbnailsPanel.getSelectionCount() <= 0) {
+                editPanels.setEditable(false);
+            }
         }
     }
 }
