@@ -15,6 +15,7 @@ import java.util.List;
 import javax.swing.JComponent;
 import javax.swing.JList;
 import javax.swing.JTree;
+import javax.swing.SwingUtilities;
 import javax.swing.TransferHandler;
 
 /**
@@ -64,14 +65,20 @@ public final class TransferHandlerThumbnailsPanel extends TransferHandler {
     }
 
     @Override
-    public boolean importData(TransferSupport transferSupport) {
-        ImageFileThumbnailsPanel panel =
+    public boolean importData(final TransferSupport transferSupport) {
+        final ImageFileThumbnailsPanel panel =
                 (ImageFileThumbnailsPanel) transferSupport.getComponent();
         boolean imagesSelected = panel.getSelectionCount() > 0;
         if (!canImport(transferSupport)) return false;
         if (imagesSelected &&
                 panel.getContent().equals(Content.IMAGE_COLLECTION)) {
-            moveSelectedImages(transferSupport, panel);
+            SwingUtilities.invokeLater(new Runnable() {
+
+                @Override
+                public void run() {
+                    moveSelectedImages(transferSupport, panel);
+                }
+            });
             return true;
         }
         copyOrMoveSelectedImages(transferSupport);
