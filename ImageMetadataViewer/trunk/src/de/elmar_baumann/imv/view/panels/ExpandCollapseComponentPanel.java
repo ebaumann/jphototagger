@@ -215,7 +215,6 @@ public class ExpandCollapseComponentPanel extends JPanel implements
     @Override
     public void focusGained(FocusEvent e) {
         Object source = e.getSource();
-        System.out.println("Source: " + source + " - expanded: " + expanded);
         if (!expanded && source instanceof JTextComponent) {
             ((JTextComponent) source).transferFocus();
         }
