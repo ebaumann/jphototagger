@@ -10,6 +10,7 @@ import de.elmar_baumann.imv.view.InfoSetThumbnails;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import java.util.Calendar;
 import javax.swing.JTree;
+import javax.swing.SwingUtilities;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -58,10 +59,17 @@ public final class ControllerTimelineItemSelected implements
 
                 @Override
                 public void run() {
-                    InfoSetThumbnails info = new InfoSetThumbnails();
-                    Object lastPathComponent = path.getLastPathComponent();
-                    setFilesOfPossibleNodeToThumbnailsPanel(lastPathComponent);
-                    info.hide();
+                    final Object lastPathComponent = path.getLastPathComponent();
+                    SwingUtilities.invokeLater(new Runnable() {
+
+                        @Override
+                        public void run() {
+                            InfoSetThumbnails info = new InfoSetThumbnails();
+                            setFilesOfPossibleNodeToThumbnailsPanel(
+                                    lastPathComponent);
+                            info.hide();
+                        }
+                    });
                 }
             });
             thread.setName("Timeline item selected" + " @ " + // NOI18N
