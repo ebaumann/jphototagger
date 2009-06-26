@@ -32,17 +32,23 @@ public final class MetaFactory implements Runnable {
     private synchronized void init() {
         Util.checkInit(MetaFactory.class, init);
         if (!init) {
-            init = true;
-            readAppFrameFromProperties();
-            startDisplayProgressInProgressbarBar();
-            LateConnectionsFactory.INSTANCE.init();
-            ModelFactory.INSTANCE.init();
-            ActionListenerFactory.INSTANCE.init();
-            MouseListenerFactory.INSTANCE.init();
-            RendererFactory.INSTANCE.init();
-            ControllerFactory.INSTANCE.init();
-            readAppPanelFromProperties();
-            stopDisplayProgressInProgressbarBar();
+            SwingUtilities.invokeLater(new Runnable() {
+
+                @Override
+                public void run() {
+                    init = true;
+                    readAppFrameFromProperties();
+                    startDisplayProgressInProgressbarBar();
+                    LateConnectionsFactory.INSTANCE.init();
+                    ModelFactory.INSTANCE.init();
+                    ActionListenerFactory.INSTANCE.init();
+                    MouseListenerFactory.INSTANCE.init();
+                    RendererFactory.INSTANCE.init();
+                    ControllerFactory.INSTANCE.init();
+                    readAppPanelFromProperties();
+                    stopDisplayProgressInProgressbarBar();
+                }
+            });
         }
     }
 
@@ -63,37 +69,25 @@ public final class MetaFactory implements Runnable {
     }
 
     private void startDisplayProgressInProgressbarBar() {
-        SwingUtilities.invokeLater(new Runnable() {
-
-            @Override
-            public void run() {
-                JProgressBar progressbar = (JProgressBar) progressBarProvider.
-                        getResource(this);
-                if (progressbar != null) {
-                    progressbar.setStringPainted(true);
-                    progressbar.setString(Bundle.getString(
-                            "MetaFactory.Message.Init"));
-                    progressbar.setIndeterminate(true);
-                    progressBarProvider.releaseResource(this);
-                }
-            }
-        });
+        JProgressBar progressbar = (JProgressBar) progressBarProvider.
+                getResource(this);
+        if (progressbar != null) {
+            progressbar.setStringPainted(true);
+            progressbar.setString(Bundle.getString(
+                    "MetaFactory.Message.Init"));
+            progressbar.setIndeterminate(true);
+            progressBarProvider.releaseResource(this);
+        }
     }
 
     private void stopDisplayProgressInProgressbarBar() {
-        SwingUtilities.invokeLater(new Runnable() {
-
-            @Override
-            public void run() {
-                JProgressBar progressbar = (JProgressBar) progressBarProvider.
-                        getResource(this);
-                if (progressbar != null) {
-                    progressbar.setIndeterminate(false);
-                    progressbar.setString(""); // NOI18N
-                    progressbar.setStringPainted(false);
-                    progressBarProvider.releaseResource(this);
-                }
-            }
-        });
+        JProgressBar progressbar = (JProgressBar) progressBarProvider.
+                getResource(this);
+        if (progressbar != null) {
+            progressbar.setIndeterminate(false);
+            progressbar.setString(""); // NOI18N
+            progressbar.setStringPainted(false);
+            progressBarProvider.releaseResource(this);
+        }
     }
 }

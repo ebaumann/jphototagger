@@ -7,7 +7,6 @@ import de.elmar_baumann.imv.view.renderer.TableCellRendererIptc;
 import de.elmar_baumann.imv.view.renderer.TableCellRendererXmp;
 import java.util.List;
 import javax.swing.JTable;
-import javax.swing.SwingUtilities;
 
 /**
  * Erzeugt Renderer und verknüpft sie mit den GUI-Elementen.
@@ -24,24 +23,14 @@ public final class RendererFactory {
         Util.checkInit(RendererFactory.class, init);
         if (!init) {
             init = true;
-            SwingUtilities.invokeLater(new Runnable() {
-
-                @Override
-                public void run() {
-                    AppPanel appPanel = GUI.INSTANCE.getAppPanel();
-                    TableCellRendererXmp rendererTableCellXmp =
-                            new TableCellRendererXmp();
-                    List<JTable> xmpTables = appPanel.getXmpTables();
-                    for (JTable table : xmpTables) {
-                        table.setDefaultRenderer(Object.class,
-                                rendererTableCellXmp);
-                    }
-                    appPanel.getTableIptc().setDefaultRenderer(Object.class,
-                            new TableCellRendererIptc());
-                    appPanel.getTableExif().setDefaultRenderer(Object.class,
-                            new TableCellRendererExif());
-                }
-            });
+            AppPanel appPanel = GUI.INSTANCE.getAppPanel();
+            TableCellRendererXmp rendererTableCellXmp = new TableCellRendererXmp();
+            List<JTable> xmpTables = appPanel.getXmpTables();
+            for (JTable table : xmpTables) {
+                table.setDefaultRenderer(Object.class, rendererTableCellXmp);
+            }
+            appPanel.getTableIptc().setDefaultRenderer(Object.class, new TableCellRendererIptc());
+            appPanel.getTableExif().setDefaultRenderer(Object.class, new TableCellRendererExif());
         }
     }
 }
