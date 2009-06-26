@@ -16,6 +16,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
+import javax.swing.SwingUtilities;
 
 /**
  * Deletes files from the filesystem.
@@ -57,8 +58,14 @@ public final class ControllerDeleteFiles implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (isDeletable(thumbnailsPanel.getContent())) {
-            deleteSelectedFiles();
-            thumbnailsPanel.repaint();
+            SwingUtilities.invokeLater(new Runnable() {
+
+                @Override
+                public void run() {
+                    deleteSelectedFiles();
+                    thumbnailsPanel.repaint();
+                }
+            });
         }
     }
 
