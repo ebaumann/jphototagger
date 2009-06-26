@@ -1,9 +1,11 @@
 package de.elmar_baumann.imv.view.renderer;
 
 import com.adobe.xmp.properties.XMPPropertyInfo;
+import de.elmar_baumann.imv.app.AppLookAndFeel;
 import de.elmar_baumann.imv.database.metadata.selections.XmpInDatabase;
 import de.elmar_baumann.imv.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.imv.resource.Translation;
+import de.elmar_baumann.lib.componentutil.TableUtil;
 import java.awt.Component;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,17 +22,20 @@ import javax.swing.table.TableCellRenderer;
  * @version 2008-10-05
  */
 public final class TableCellRendererXmp extends TableCellRendererMetadata
-    implements TableCellRenderer {
+        implements TableCellRenderer {
 
     private static final String pathDelimiter = "/"; // NOI18N
     private static final String namespaceDelimiter = ":"; // NOI18N
-    private static final Translation xmpTranslation = new Translation("XmpPropertyTranslations"); // NOI18N
-    private static final Translation xmpExifTagIdTranslation = new Translation("XmpPropertyExifTagIdTranslations"); // NOI18N
-    private static final Translation exifTranslation = new Translation("ExifTagIdTagNameTranslations"); // NOI18N
+    private static final Translation xmpTranslation = new Translation(
+            "XmpPropertyTranslations"); // NOI18N
+    private static final Translation xmpExifTagIdTranslation = new Translation(
+            "XmpPropertyExifTagIdTranslations"); // NOI18N
+    private static final Translation exifTranslation = new Translation(
+            "ExifTagIdTagNameTranslations"); // NOI18N
 
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value,
-        boolean isSelected, boolean hasFocus, int row, int column) {
+            boolean isSelected, boolean hasFocus, int row, int column) {
 
         JLabel cellLabel = new JLabel();
         XMPPropertyInfo xmpPropertyInfo = (XMPPropertyInfo) value;
@@ -40,16 +45,23 @@ public final class TableCellRendererXmp extends TableCellRendererMetadata
 
         if (column == 0) {
             setHeaderFont(cellLabel);
-            cellLabel.setText(translate(xmpPropertyInfo.getPath()));
+            TableUtil.embedTableCellTextInHtml(table, row, cellLabel,
+                    translate(xmpPropertyInfo.getPath()),
+                    AppLookAndFeel.TABLE_MAX_CHARS_ROW_HEADER,
+                    AppLookAndFeel.TABLE_CSS_ROW_HEADER);
         } else {
             assert column < 2 : column;
             setContentFont(cellLabel);
-            cellLabel.setText(paddingLeft + xmpPropertyInfo.getValue().toString());
+            TableUtil.embedTableCellTextInHtml(table, row, cellLabel,
+                    xmpPropertyInfo.getValue().toString(),
+                    AppLookAndFeel.TABLE_MAX_CHARS_CELL,
+                    AppLookAndFeel.TABLE_CSS_CELL);
         }
         return cellLabel;
     }
 
-    private void setIsStoredInDatabaseColor(JLabel cellLabel, XMPPropertyInfo xmpPropertyInfo) {
+    private void setIsStoredInDatabaseColor(JLabel cellLabel,
+            XMPPropertyInfo xmpPropertyInfo) {
         if (XmpInDatabase.isInDatabase(xmpPropertyInfo.getPath())) {
             setIsStoredInDatabaseColors(cellLabel);
         }
@@ -63,12 +75,15 @@ public final class TableCellRendererXmp extends TableCellRendererMetadata
             String pathComponent = pathComponents.get(i);
             String withoutIndex = getWithoutIndex(pathComponent);
             String translated = (isExifNamespace(pathComponent)
-                ? exifTranslation.translate(xmpExifTagIdTranslation.translate(withoutIndex))
-                : xmpTranslation.translate(withoutIndex));
+                                 ? exifTranslation.translate(
+                    xmpExifTagIdTranslation.translate(withoutIndex))
+                                 : xmpTranslation.translate(withoutIndex));
             newPath.append(
-                getWithoutNamespace(translated) +
-                getIndexString(pathComponent) +
-                (count > 1 && i < count - 1 ? pathDelimiter : "")); // NOI18N
+                    getWithoutNamespace(translated) +
+                    getIndexString(pathComponent) +
+                    (count > 1 && i < count - 1
+                     ? pathDelimiter
+                     : "")); // NOI18N
         }
 
         return newPath.toString();

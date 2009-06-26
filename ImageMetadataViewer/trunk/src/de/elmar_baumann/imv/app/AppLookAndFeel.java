@@ -17,6 +17,27 @@ import javax.swing.plaf.FontUIResource;
  */
 public final class AppLookAndFeel {
 
+    /**
+     * CSS of the table row headers
+     */
+    public static final String TABLE_CSS_ROW_HEADER =
+            "margin-left:3px;margin-right:3px;";
+    /**
+     * CSS of the table cells
+     */
+    public static final String TABLE_CSS_CELL =
+            "margin-left:3px;margin-right:3px;";
+    /**
+     * Maximum character count in the table row headers before breaking into
+     * lines
+     */
+    public static final int TABLE_MAX_CHARS_ROW_HEADER = 40;
+    /**
+     * Maximum character count in the table cells before breaking into
+     * lines
+     */
+    public static final int TABLE_MAX_CHARS_CELL = 45;
+
     public static void set() {
         LookAndFeelUtil.setSystemLookAndFeel();
         setFonts();

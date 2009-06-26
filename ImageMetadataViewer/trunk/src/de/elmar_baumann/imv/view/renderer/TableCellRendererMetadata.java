@@ -14,7 +14,6 @@ public class TableCellRendererMetadata {
 
     private Font headerFont = null;
     private Font contentFont = null;
-    protected static final String paddingLeft = " "; // NOI18N
 
     /**
      * Setzt die Standard-Vorder- und Hintergrundfarbe einer Zelle.

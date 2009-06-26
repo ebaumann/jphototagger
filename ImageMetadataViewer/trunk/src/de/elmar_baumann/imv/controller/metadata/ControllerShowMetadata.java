@@ -24,6 +24,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.swing.JTable;
+import javax.swing.SwingUtilities;
 
 /**
  * Überprüft, ob die Metadaten <strong>einer</strong> Bilddatei angezeigt werden
@@ -154,13 +155,19 @@ public final class ControllerShowMetadata implements DatabaseListener,
         data.getExifTableModel().removeAllElements();
     }
 
-    public void showMetadataOfFile(File file) {
-        removeMetadataFromTables();
-        setFileToTableModels(file);
-        setXmpModels(file.getAbsolutePath());
-        setMetadataFilename(file.getName());
-        resizeMetadataTables();
-        repaintMetadataTables();
+    public void showMetadataOfFile(final File file) {
+        SwingUtilities.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {
+                removeMetadataFromTables();
+                setFileToTableModels(file);
+                setXmpModels(file.getAbsolutePath());
+                setMetadataFilename(file.getName());
+                resizeMetadataTables();
+                repaintMetadataTables();
+            }
+        });
     }
 
     private void setFileToTableModels(File file) {
