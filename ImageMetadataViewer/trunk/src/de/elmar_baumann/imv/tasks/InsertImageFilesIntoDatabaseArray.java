@@ -18,6 +18,7 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import javax.swing.JProgressBar;
+import javax.swing.SwingUtilities;
 
 /**
  * Scannt Verzeichnisse nach Bilddateien und aktualisiert die Datenbank mit
@@ -211,32 +212,51 @@ public final class InsertImageFilesIntoDatabaseArray implements ProgressListener
         }
     }
 
-    private void setProgressBarStarted(ProgressEvent evt) {
-        if (progressBar != null) {
-            progressBar.setMinimum(evt.getMinimum());
-            if (evt.getMaximum() > 0) {
-                progressBar.setMaximum(evt.getMaximum());
+    private void setProgressBarStarted(final ProgressEvent evt) {
+        SwingUtilities.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {
+                if (progressBar != null) {
+                    progressBar.setMinimum(evt.getMinimum());
+                    if (evt.getMaximum() > 0) {
+                        progressBar.setMaximum(evt.getMaximum());
+                    }
+                    progressBar.setValue(evt.getValue());
+                }
             }
-            progressBar.setValue(evt.getValue());
-        }
+        });
     }
 
-    private void setProgressBarPerformed(ProgressEvent evt, String filename) {
-        if (progressBar != null) {
-            progressBar.setValue(evt.getValue());
-            progressBar.setToolTipText(filename);
-        }
+    private void setProgressBarPerformed(final ProgressEvent evt,
+            final String filename) {
+        SwingUtilities.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {
+                if (progressBar != null) {
+                    progressBar.setValue(evt.getValue());
+                    progressBar.setToolTipText(filename);
+                }
+            }
+        });
     }
 
-    private void setProgressBarEnded(ProgressEvent evt) {
-        if (progressBar != null) {
-            progressBar.setValue(isStarted()
-                                 ? evt.getMaximum()
-                                 : 0);
-            if (tooltipTextProgressEnded != null) {
-                progressBar.setToolTipText(tooltipTextProgressEnded);
+    private void setProgressBarEnded(final ProgressEvent evt) {
+        SwingUtilities.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {
+                if (progressBar != null) {
+                    progressBar.setValue(isStarted()
+                                         ? evt.getMaximum()
+                                         : 0);
+                    if (tooltipTextProgressEnded != null) {
+                        progressBar.setToolTipText(tooltipTextProgressEnded);
+                    }
+                }
             }
-        }
+        });
     }
 
     private void updateDirectoryMapsInserterCreated(String directoryName,

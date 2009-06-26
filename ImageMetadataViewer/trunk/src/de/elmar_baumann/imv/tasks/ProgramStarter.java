@@ -16,6 +16,7 @@ import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import javax.swing.JOptionPane;
 import javax.swing.JProgressBar;
+import javax.swing.SwingUtilities;
 
 /**
  * Executes in a thread programs which processes image files.
@@ -185,15 +186,27 @@ public final class ProgramStarter {
 
         private void initProgressBar() {
             if (progressBar != null) {
-                progressBar.setMinimum(0);
-                progressBar.setMaximum(imageFiles.size());
-                progressBar.setValue(0);
+                SwingUtilities.invokeLater(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        progressBar.setMinimum(0);
+                        progressBar.setMaximum(imageFiles.size());
+                        progressBar.setValue(0);
+                    }
+                });
             }
         }
 
-        private void setValueToProgressBar(int value) {
+        private void setValueToProgressBar(final int value) {
             if (progressBar != null) {
-                progressBar.setValue(value);
+                SwingUtilities.invokeLater(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        progressBar.setValue(value);
+                    }
+                });
             }
         }
 

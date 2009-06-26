@@ -8,6 +8,7 @@ import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.lib.componentutil.ListUtil;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 
 /**
  * Inserts, updates, deletes  saved searches into/from the model and database.
@@ -24,16 +25,23 @@ public final class SavedSearchesModifier {
      * @param force        force insertion even if a saved search with the
      *                     same name exists
      */
-    public static void insert(SavedSearch savedSearch, boolean force) {
+    public static void insert(final SavedSearch savedSearch, boolean force) {
         if (force || confirmInsert(savedSearch)) {
-            if (getDb().insertSavedSearch(savedSearch)) {
-                ListModelSavedSearches model = getModel();
-                if (!model.contains(savedSearch)) {
-                    ListUtil.insertSorted(model, savedSearch, ComparatorSavedSearch.INSTANCE);
+            SwingUtilities.invokeLater(new Runnable() {
+
+                @Override
+                public void run() {
+                    if (getDb().insertSavedSearch(savedSearch)) {
+                        ListModelSavedSearches model = getModel();
+                        if (!model.contains(savedSearch)) {
+                            ListUtil.insertSorted(model, savedSearch,
+                                    ComparatorSavedSearch.INSTANCE);
+                        }
+                    } else {
+                        errorMessageInsert();
+                    }
                 }
-            } else {
-                errorMessageInsert();
-            }
+            });
         }
     }
 
@@ -42,16 +50,22 @@ public final class SavedSearchesModifier {
      *
      * @param search  saved search
      */
-    public static void delete(SavedSearch search) {
-        String searchName = search.getParamStatements().getName();
-        if (confirmDelete(searchName)) {
-            if (getDb().deleteSavedSearch(searchName)) {
-                ListModelSavedSearches model = getModel();
-                model.removeElement(search);
-            } else {
-                errorMessageDelete();
+    public static void delete(final SavedSearch search) {
+        SwingUtilities.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {
+                String searchName = search.getParamStatements().getName();
+                if (confirmDelete(searchName)) {
+                    if (getDb().deleteSavedSearch(searchName)) {
+                        ListModelSavedSearches model = getModel();
+                        model.removeElement(search);
+                    } else {
+                        errorMessageDelete();
+                    }
+                }
             }
-        }
+        });
     }
 
     /**
@@ -59,22 +73,28 @@ public final class SavedSearchesModifier {
      *
      * @param oldSearch  saved search
      */
-    public static void rename(SavedSearch oldSearch) {
-        String oldName = oldSearch.getName();
-        String newName = getNewName(oldName);
-        if (newName != null) {
-            DatabaseSavedSearches db = getDb();
-            if (db.updateRenameSavedSearch(oldName, newName)) {
-                SavedSearch newSearch = db.getSavedSearch(newName);
-                if (newSearch == null) {
-                    errorMessageRenameGetUpdate(oldName);
-                } else {
-                    getModel().rename(oldSearch, newSearch);
+    public static void rename(final SavedSearch oldSearch) {
+        SwingUtilities.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {
+                String oldName = oldSearch.getName();
+                String newName = getNewName(oldName);
+                if (newName != null) {
+                    DatabaseSavedSearches db = getDb();
+                    if (db.updateRenameSavedSearch(oldName, newName)) {
+                        SavedSearch newSearch = db.getSavedSearch(newName);
+                        if (newSearch == null) {
+                            errorMessageRenameGetUpdate(oldName);
+                        } else {
+                            getModel().rename(oldSearch, newSearch);
+                        }
+                    } else {
+                        errorMessageRename(oldName);
+                    }
                 }
-            } else {
-                errorMessageRename(oldName);
             }
-        }
+        });
     }
 
     private static String getNewName(String oldName) {
@@ -100,7 +120,8 @@ public final class SavedSearchesModifier {
     }
 
     private static ListModelSavedSearches getModel() {
-        return (ListModelSavedSearches) GUI.INSTANCE.getAppPanel().getListSavedSearches().getModel();
+        return (ListModelSavedSearches) GUI.INSTANCE.getAppPanel().
+                getListSavedSearches().getModel();
     }
 
     private static String getInput(String oldName) {
@@ -113,8 +134,11 @@ public final class SavedSearchesModifier {
     private static boolean confirmInputDifferentName(String input) {
         return JOptionPane.showConfirmDialog(
                 null,
-                Bundle.getString("SavedSearchesModifier.ConfirmMessage.ChangeNameBecauseExists", input),
-                Bundle.getString("SavedSearchesModifier.ConfirmMessage.ChangeNameBecauseExists.Title"),
+                Bundle.getString(
+                "SavedSearchesModifier.ConfirmMessage.ChangeNameBecauseExists",
+                input),
+                Bundle.getString(
+                "SavedSearchesModifier.ConfirmMessage.ChangeNameBecauseExists.Title"),
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION;
     }
@@ -122,23 +146,30 @@ public final class SavedSearchesModifier {
     private static void errorMessageRename(String searchName) {
         JOptionPane.showMessageDialog(
                 null,
-                Bundle.getString("SavedSearchesModifier.ErrorMessage.RenameFailed", searchName),
-                Bundle.getString("SavedSearchesModifier.ErrorMessage.RenameFailed.Title"),
+                Bundle.getString(
+                "SavedSearchesModifier.ErrorMessage.RenameFailed", searchName),
+                Bundle.getString(
+                "SavedSearchesModifier.ErrorMessage.RenameFailed.Title"),
                 JOptionPane.ERROR_MESSAGE);
     }
 
     private static void errorMessageRenameGetUpdate(String searchName) {
         JOptionPane.showMessageDialog(
                 null,
-                Bundle.getString("SavedSearchesModifier.ErrorMessage.SavedSearchWasRenamedButCouldntBeLoaded", searchName),
-                Bundle.getString("SavedSearchesModifier.ErrorMessage.SavedSearchWasRenamedButCouldntBeLoaded.Title"),
+                Bundle.getString(
+                "SavedSearchesModifier.ErrorMessage.SavedSearchWasRenamedButCouldntBeLoaded",
+                searchName),
+                Bundle.getString(
+                "SavedSearchesModifier.ErrorMessage.SavedSearchWasRenamedButCouldntBeLoaded.Title"),
                 JOptionPane.ERROR_MESSAGE);
     }
 
     private static boolean confirmDelete(String name) {
         return JOptionPane.showConfirmDialog(null,
-                Bundle.getString("SavedSearchesModifier.ConfirmMessage.DeleteSearch", name),
-                Bundle.getString("SavedSearchesModifier.ConfirmMessage.DeleteSearch.Title"),
+                Bundle.getString(
+                "SavedSearchesModifier.ConfirmMessage.DeleteSearch", name),
+                Bundle.getString(
+                "SavedSearchesModifier.ConfirmMessage.DeleteSearch.Title"),
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION;
     }
@@ -146,16 +177,20 @@ public final class SavedSearchesModifier {
     private static void errorMessageDelete() {
         JOptionPane.showMessageDialog(
                 null,
-                Bundle.getString("SavedSearchesModifier.ErrorMessage.SavedSearchCouldntBeDeleted"),
-                Bundle.getString("SavedSearchesModifier.ErrorMessage.SavedSearchCouldntBeDeleted.Title"),
+                Bundle.getString(
+                "SavedSearchesModifier.ErrorMessage.SavedSearchCouldntBeDeleted"),
+                Bundle.getString(
+                "SavedSearchesModifier.ErrorMessage.SavedSearchCouldntBeDeleted.Title"),
                 JOptionPane.ERROR_MESSAGE);
     }
 
     private static boolean confirmInsert(SavedSearch savedSearch) {
         if (getDb().existsSavedSearch(savedSearch)) {
             return JOptionPane.showConfirmDialog(null,
-                    Bundle.getString("SavedSearchesModifier.ConfirmMessage.ReplaceExisting"),
-                    Bundle.getString("SavedSearchesModifier.ConfirmMessage.ReplaceExisting.Title"),
+                    Bundle.getString(
+                    "SavedSearchesModifier.ConfirmMessage.ReplaceExisting"),
+                    Bundle.getString(
+                    "SavedSearchesModifier.ConfirmMessage.ReplaceExisting.Title"),
                     JOptionPane.YES_NO_OPTION,
                     JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION;
         }
@@ -165,8 +200,10 @@ public final class SavedSearchesModifier {
     private static void errorMessageInsert() {
         JOptionPane.showMessageDialog(
                 null,
-                Bundle.getString("SavedSearchesModifier.ErrorMessage.SearchCouldntBeSaved"),
-                Bundle.getString("SavedSearchesModifier.ErrorMessage.SearchCouldntBeSaved.Title"),
+                Bundle.getString(
+                "SavedSearchesModifier.ErrorMessage.SearchCouldntBeSaved"),
+                Bundle.getString(
+                "SavedSearchesModifier.ErrorMessage.SearchCouldntBeSaved.Title"),
                 JOptionPane.ERROR_MESSAGE);
     }
 

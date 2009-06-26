@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import javax.swing.DefaultListModel;
+import javax.swing.SwingUtilities;
 
 /**
  * Removes elements from list models when no corresponding value is an a
@@ -67,18 +68,26 @@ public final class ListModelElementRemover {
 
         @Override
         public void run() {
-            List<Object> existingElements = new ArrayList<Object>();
-            int size = model.getSize();
-            for (int i = 0; i < size; i++) {
-                existingElements.add(model.get(i));
-            }
-            for (Object element : existingElements) {
-                if (column != null && !dbStatistics.exists(column, element.toString())) {
-                    model.removeElement(element);
-                } else if (columns != null && !dbStatistics.exists(columns, element.toString())) {
-                    model.removeElement(element);
+            SwingUtilities.invokeLater(new Runnable() {
+
+                @Override
+                public void run() {
+                    List<Object> existingElements = new ArrayList<Object>();
+                    int size = model.getSize();
+                    for (int i = 0; i < size; i++) {
+                        existingElements.add(model.get(i));
+                    }
+                    for (Object element : existingElements) {
+                        if (column != null && !dbStatistics.exists(column,
+                                element.toString())) {
+                            model.removeElement(element);
+                        } else if (columns != null && !dbStatistics.exists(
+                                columns, element.toString())) {
+                            model.removeElement(element);
+                        }
+                    }
                 }
-            }
+            });
         }
     }
 }

@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import javax.swing.JProgressBar;
+import javax.swing.SwingUtilities;
 
 /**
  * 
@@ -99,32 +100,51 @@ public final class XmpUpdaterFromTextEntryArray implements ProgressListener {
         }
     }
 
-    private void setProgressBarStarted(ProgressEvent evt) {
-        progressBar = (JProgressBar) progressBarProvider.getResource(this);
-        if (progressBar != null) {
-            progressBar.setMinimum(evt.getMinimum());
-            if (evt.getMaximum() > 0) {
-                progressBar.setMaximum(evt.getMaximum());
+    private void setProgressBarStarted(final ProgressEvent evt) {
+        SwingUtilities.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {
+                progressBar = (JProgressBar) progressBarProvider.getResource(
+                        this);
+                if (progressBar != null) {
+                    progressBar.setMinimum(evt.getMinimum());
+                    if (evt.getMaximum() > 0) {
+                        progressBar.setMaximum(evt.getMaximum());
+                    }
+                    progressBar.setValue(evt.getValue());
+                }
             }
-            progressBar.setValue(evt.getValue());
-        }
+        });
     }
 
-    private void setProgressBarPerformed(ProgressEvent evt) {
-        if (progressBar != null) {
-            String filename = evt.getInfo().toString();
-            progressBar.setValue(evt.getValue());
-            progressBar.setToolTipText(filename);
-        }
+    private void setProgressBarPerformed(final ProgressEvent evt) {
+        SwingUtilities.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {
+                if (progressBar != null) {
+                    String filename = evt.getInfo().toString();
+                    progressBar.setValue(evt.getValue());
+                    progressBar.setToolTipText(filename);
+                }
+            }
+        });
     }
 
-    private void setProgressBarEnded(ProgressEvent evt) {
-        if (progressBar != null) {
-            progressBar.setValue(evt.getValue());
-            progressBar.setToolTipText(
-                    AppTexts.tooltipTextProgressBarCurrentTasks);
-            progressBar = null;
-            progressBarProvider.releaseResource(this);
-        }
+    private void setProgressBarEnded(final ProgressEvent evt) {
+        SwingUtilities.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {
+                if (progressBar != null) {
+                    progressBar.setValue(evt.getValue());
+                    progressBar.setToolTipText(
+                            AppTexts.tooltipTextProgressBarCurrentTasks);
+                    progressBar = null;
+                    progressBarProvider.releaseResource(this);
+                }
+            }
+        });
     }
 }
