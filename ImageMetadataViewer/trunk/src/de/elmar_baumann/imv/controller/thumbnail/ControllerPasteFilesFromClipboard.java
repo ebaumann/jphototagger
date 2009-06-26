@@ -12,6 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.List;
+import javax.swing.SwingUtilities;
 import javax.swing.TransferHandler;
 
 /**
@@ -41,16 +42,25 @@ public final class ControllerPasteFilesFromClipboard implements ActionListener {
     }
 
     private void insertFiles() {
-        File directory = ViewUtil.getSelectedDirectory(GUI.INSTANCE.getAppPanel().
-                getTreeDirectories());
-        if (directory != null) {
-            List<File> files = ClipboardUtil.getFilesFromSystemClipboard("\n");
-            TransferHandlerTreeDirectories.handleDroppedFiles(
-                    thumbnailsPanel.getFileAction().equals(FileAction.COPY)
-                    ? TransferHandler.COPY
-                    : TransferHandler.MOVE, files, directory);
-            thumbnailsPanel.refresh();
-            ComponentUtil.forceRepaint(thumbnailsPanel);
-        }
+        SwingUtilities.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {
+                File directory = ViewUtil.getSelectedDirectory(GUI.INSTANCE.
+                        getAppPanel().
+                        getTreeDirectories());
+                if (directory != null) {
+                    List<File> files =
+                            ClipboardUtil.getFilesFromSystemClipboard("\n");
+                    TransferHandlerTreeDirectories.handleDroppedFiles(
+                            thumbnailsPanel.getFileAction().equals(
+                            FileAction.COPY)
+                            ? TransferHandler.COPY
+                            : TransferHandler.MOVE, files, directory);
+                    thumbnailsPanel.refresh();
+                    ComponentUtil.forceRepaint(thumbnailsPanel);
+                }
+            }
+        });
     }
 }

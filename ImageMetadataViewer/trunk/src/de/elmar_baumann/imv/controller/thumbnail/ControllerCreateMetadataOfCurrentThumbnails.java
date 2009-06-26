@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import javax.swing.JProgressBar;
+import javax.swing.SwingUtilities;
 
 /**
  * 
@@ -90,22 +91,34 @@ public final class ControllerCreateMetadataOfCurrentThumbnails
     }
 
     private synchronized void setProgressBarValueAndTooltipText(
-            ProgressEvent evt) {
+            final ProgressEvent evt) {
         if (progressBar != null) {
-            progressBar.setValue(evt.getValue());
-            if (evt.getInfo() != null) {
-                progressBar.setToolTipText(evt.getInfo().toString());
-            }
+            SwingUtilities.invokeLater(new Runnable() {
+
+                @Override
+                public void run() {
+                    progressBar.setValue(evt.getValue());
+                    if (evt.getInfo() != null) {
+                        progressBar.setToolTipText(evt.getInfo().toString());
+                    }
+                }
+            });
         }
     }
 
     @Override
-    public synchronized void progressStarted(ProgressEvent evt) {
+    public synchronized void progressStarted(final ProgressEvent evt) {
         progressBar = (JProgressBar) progressBarProvider.getResource(this);
-        if (progressBar != null) {
-            progressBar.setMinimum(evt.getMinimum());
-            progressBar.setMaximum(evt.getMaximum());
-        }
+        SwingUtilities.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {
+                if (progressBar != null) {
+                    progressBar.setMinimum(evt.getMinimum());
+                    progressBar.setMaximum(evt.getMaximum());
+                }
+            }
+        });
         setProgressBarValueAndTooltipText(evt);
     }
 
@@ -122,16 +135,23 @@ public final class ControllerCreateMetadataOfCurrentThumbnails
     }
 
     @Override
-    public synchronized void progressEnded(ProgressEvent evt) {
-        if (progressBar != null) {
-            progressBar.setValue(evt.getValue());
-            progressBar.setToolTipText(AppTexts.tooltipTextProgressBarDirectory);
-        }
-        progressBar = null;
-        progressBarProvider.releaseResource(this);
-        setWait(false);
-        if (updaters.size() > 0) {
-            startUpdateMetadataThread();
-        }
+    public synchronized void progressEnded(final ProgressEvent evt) {
+        SwingUtilities.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {
+                if (progressBar != null) {
+                    progressBar.setValue(evt.getValue());
+                    progressBar.setToolTipText(
+                            AppTexts.tooltipTextProgressBarDirectory);
+                }
+                progressBar = null;
+                progressBarProvider.releaseResource(this);
+                setWait(false);
+                if (updaters.size() > 0) {
+                    startUpdateMetadataThread();
+                }
+            }
+        });
     }
 }

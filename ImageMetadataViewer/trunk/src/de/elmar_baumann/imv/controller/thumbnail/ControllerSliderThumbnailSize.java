@@ -10,6 +10,7 @@ import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.view.panels.ThumbnailsPanel;
 import javax.swing.JSlider;
+import javax.swing.SwingUtilities;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -20,16 +21,20 @@ import javax.swing.event.ChangeListener;
  * @version 2008/10/12
  */
 public final class ControllerSliderThumbnailSize
-        implements ChangeListener, ThumbnailsPanelListener, UserSettingsChangeListener {
+        implements ChangeListener, ThumbnailsPanelListener,
+                   UserSettingsChangeListener {
 
     private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
-    private final ThumbnailsPanel thumbnailsPanel = appPanel.getPanelThumbnails();
+    private final ThumbnailsPanel thumbnailsPanel =
+            appPanel.getPanelThumbnails();
     private final JSlider slider = appPanel.getSliderThumbnailSize();
     private static final int stepWidth = 10;
     private static final int maxMaginficationPercent = 100;
-    private static final String keySliderValue = ControllerSliderThumbnailSize.class.getName() + "." + "SliderValue";
+    private static final String keySliderValue =
+            ControllerSliderThumbnailSize.class.getName() + "." + "SliderValue";
     private int currentValue = 100;
-    private int maxThumbnailWidth = UserSettings.INSTANCE.getMaxThumbnailLength();
+    private int maxThumbnailWidth =
+            UserSettings.INSTANCE.getMaxThumbnailLength();
 
     public ControllerSliderThumbnailSize() {
         initSlider();
@@ -68,7 +73,8 @@ public final class ControllerSliderThumbnailSize
 
     @Override
     public void applySettings(UserSettingsChangeEvent evt) {
-        if (evt.getType().equals(UserSettingsChangeEvent.Type.MAX_THUMBNAIL_WIDTH)) {
+        if (evt.getType().equals(
+                UserSettingsChangeEvent.Type.MAX_THUMBNAIL_WIDTH)) {
             maxThumbnailWidth = UserSettings.INSTANCE.getMaxThumbnailLength();
             setThumbnailWidth();
         }
@@ -86,15 +92,23 @@ public final class ControllerSliderThumbnailSize
     }
 
     private void readProperties() {
-        Integer value = UserSettings.INSTANCE.getSettings().getInt(keySliderValue);
+        Integer value = UserSettings.INSTANCE.getSettings().getInt(
+                keySliderValue);
         if (!value.equals(Integer.MIN_VALUE)) {
             currentValue = value;
         }
     }
 
     private void setThumbnailWidth() {
-        int width = (int) ((double) maxThumbnailWidth * ((double) currentValue / 100.0));
-        thumbnailsPanel.setThumbnailWidth(width);
+        SwingUtilities.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {
+                int width = (int) ((double) maxThumbnailWidth *
+                        ((double) currentValue / 100.0));
+                thumbnailsPanel.setThumbnailWidth(width);
+            }
+        });
     }
 
     private void writeProperties() {

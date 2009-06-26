@@ -9,6 +9,7 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
+import javax.swing.SwingUtilities;
 
 /**
  * Kontrolliert die Aktion: Rotiere ein Thumbnail,
@@ -20,8 +21,10 @@ import java.util.List;
 public final class ControllerRotateThumbnail implements ActionListener {
 
     private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
-    private final PopupMenuPanelThumbnails popupMenu = PopupMenuPanelThumbnails.INSTANCE;
-    private final ImageFileThumbnailsPanel thumbnailsPanel = GUI.INSTANCE.getAppPanel().getPanelThumbnails();
+    private final PopupMenuPanelThumbnails popupMenu =
+            PopupMenuPanelThumbnails.INSTANCE;
+    private final ImageFileThumbnailsPanel thumbnailsPanel = GUI.INSTANCE.
+            getAppPanel().getPanelThumbnails();
 
     public ControllerRotateThumbnail() {
         listen();
@@ -38,17 +41,26 @@ public final class ControllerRotateThumbnail implements ActionListener {
         rotateSelectedImages(popupMenu.getRotateAngle(e.getSource()));
     }
 
-    private void rotateSelectedImages(float rotateAngle) {
-        List<Integer> selectedIndices = thumbnailsPanel.getSelectedIndices();
-        for (Integer index : selectedIndices) {
-            Image thumbnail = ImageTransform.rotate(
-                    thumbnailsPanel.getThumbnail(index.intValue()), rotateAngle);
-            if (thumbnail != null) {
-                String filename = thumbnailsPanel.getFile(index.intValue()).getAbsolutePath();
-                if (db.updateThumbnail(filename, thumbnail)) {
-                    thumbnailsPanel.set(index.intValue(), thumbnail);
+    private void rotateSelectedImages(final float rotateAngle) {
+        SwingUtilities.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {
+                List<Integer> selectedIndices = thumbnailsPanel.
+                        getSelectedIndices();
+                for (Integer index : selectedIndices) {
+                    Image thumbnail = ImageTransform.rotate(
+                            thumbnailsPanel.getThumbnail(index.intValue()),
+                            rotateAngle);
+                    if (thumbnail != null) {
+                        String filename = thumbnailsPanel.getFile(
+                                index.intValue()).getAbsolutePath();
+                        if (db.updateThumbnail(filename, thumbnail)) {
+                            thumbnailsPanel.set(index.intValue(), thumbnail);
+                        }
+                    }
                 }
             }
-        }
+        });
     }
 }

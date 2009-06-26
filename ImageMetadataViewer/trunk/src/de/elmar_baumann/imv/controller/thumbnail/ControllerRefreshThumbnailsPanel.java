@@ -3,6 +3,7 @@ package de.elmar_baumann.imv.controller.thumbnail;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.SwingUtilities;
 
 /**
  * Kontrolliert die Aktion: Thumbnailspanelanzeige aktualisieren.
@@ -14,12 +15,19 @@ public final class ControllerRefreshThumbnailsPanel implements ActionListener {
 
     private final ImageFileThumbnailsPanel thumbnailspanel;
 
-    public ControllerRefreshThumbnailsPanel(ImageFileThumbnailsPanel thumbnailspanel) {
+    public ControllerRefreshThumbnailsPanel(
+            ImageFileThumbnailsPanel thumbnailspanel) {
         this.thumbnailspanel = thumbnailspanel;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        thumbnailspanel.refresh();
+        SwingUtilities.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {
+                thumbnailspanel.refresh();
+            }
+        });
     }
 }
