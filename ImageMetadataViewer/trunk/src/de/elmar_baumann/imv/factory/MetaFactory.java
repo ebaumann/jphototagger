@@ -8,6 +8,7 @@ import de.elmar_baumann.imv.view.ViewUtil;
 import de.elmar_baumann.imv.view.frames.AppFrame;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import javax.swing.JProgressBar;
+import javax.swing.SwingUtilities;
 
 /**
  * Initalizes all other factories in the right order and sets the persistent
@@ -62,24 +63,37 @@ public final class MetaFactory implements Runnable {
     }
 
     private void startDisplayProgressInProgressbarBar() {
-        JProgressBar progressbar = (JProgressBar) progressBarProvider.
-                getResource(this);
-        if (progressbar != null) {
-            progressbar.setStringPainted(true);
-            progressbar.setString(Bundle.getString("MetaFactory.Message.Init"));
-            progressbar.setIndeterminate(true);
-            progressBarProvider.releaseResource(this);
-        }
+        SwingUtilities.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {
+                JProgressBar progressbar = (JProgressBar) progressBarProvider.
+                        getResource(this);
+                if (progressbar != null) {
+                    progressbar.setStringPainted(true);
+                    progressbar.setString(Bundle.getString(
+                            "MetaFactory.Message.Init"));
+                    progressbar.setIndeterminate(true);
+                    progressBarProvider.releaseResource(this);
+                }
+            }
+        });
     }
 
     private void stopDisplayProgressInProgressbarBar() {
-        JProgressBar progressbar = (JProgressBar) progressBarProvider.
-                getResource(this);
-        if (progressbar != null) {
-            progressbar.setIndeterminate(false);
-            progressbar.setString(""); // NOI18N
-            progressbar.setStringPainted(false);
-            progressBarProvider.releaseResource(this);
-        }
+        SwingUtilities.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {
+                JProgressBar progressbar = (JProgressBar) progressBarProvider.
+                        getResource(this);
+                if (progressbar != null) {
+                    progressbar.setIndeterminate(false);
+                    progressbar.setString(""); // NOI18N
+                    progressbar.setStringPainted(false);
+                    progressBarProvider.releaseResource(this);
+                }
+            }
+        });
     }
 }
