@@ -8,6 +8,7 @@ import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import javax.swing.JLabel;
 import javax.swing.JSlider;
+import javax.swing.SwingUtilities;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -21,9 +22,11 @@ public final class ControllerThumbnailCountDisplay
         implements ThumbnailsPanelListener, ChangeListener {
 
     private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
-    private final JSlider sliderThumbnailSize = appPanel.getSliderThumbnailSize();
+    private final JSlider sliderThumbnailSize =
+            appPanel.getSliderThumbnailSize();
     private final JLabel label = appPanel.getLabelStatusbar();
-    private final ImageFileThumbnailsPanel panelThumbnails = appPanel.getPanelThumbnails();
+    private final ImageFileThumbnailsPanel panelThumbnails = appPanel.
+            getPanelThumbnails();
     private int thumbnailCount = 0;
     private int thumbnailZoom = sliderThumbnailSize.getValue();
 
@@ -61,7 +64,14 @@ public final class ControllerThumbnailCountDisplay
     }
 
     private void setLabel() {
-        label.setText(Bundle.getString("ControllerThumbnailCount.InformationMessage",
-                thumbnailCount, thumbnailZoom));
+        SwingUtilities.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {
+                label.setText(Bundle.getString(
+                        "ControllerThumbnailCount.InformationMessage",
+                        thumbnailCount, thumbnailZoom));
+            }
+        });
     }
 }
