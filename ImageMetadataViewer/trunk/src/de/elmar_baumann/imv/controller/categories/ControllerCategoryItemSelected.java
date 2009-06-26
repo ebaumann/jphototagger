@@ -10,6 +10,7 @@ import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.util.Set;
 import javax.swing.JList;
+import javax.swing.SwingUtilities;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -54,7 +55,7 @@ public final class ControllerCategoryItemSelected implements
     }
 
     private void setFilesToThumbnailsPanel() {
-        Thread thread = new Thread(new Runnable() {
+        SwingUtilities.invokeLater(new Runnable() {
 
             @Override
             public void run() {
@@ -69,7 +70,5 @@ public final class ControllerCategoryItemSelected implements
                 }
             }
         });
-        thread.setName("Category item selected" + " @ " + getClass().getName()); // NOI18N
-        thread.start();
     }
 }
