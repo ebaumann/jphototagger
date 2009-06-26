@@ -10,7 +10,7 @@ import javax.swing.JLabel;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/14
  */
-public class TableCellRendererMetadata {
+public class FormatterTableCellRendererMetadata {
 
     private Font headerFont = null;
     private Font contentFont = null;

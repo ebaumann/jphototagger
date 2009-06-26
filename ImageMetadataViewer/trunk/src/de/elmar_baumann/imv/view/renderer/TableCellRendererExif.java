@@ -19,7 +19,7 @@ import javax.swing.table.TableCellRenderer;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/14
  */
-public final class TableCellRendererExif extends TableCellRendererMetadata
+public final class TableCellRendererExif extends FormatterTableCellRendererMetadata
         implements TableCellRenderer {
 
     private static final Translation translation = new Translation(
