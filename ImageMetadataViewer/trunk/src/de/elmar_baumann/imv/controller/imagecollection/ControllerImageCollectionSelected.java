@@ -13,6 +13,7 @@ import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.util.List;
 import javax.swing.JList;
+import javax.swing.SwingUtilities;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -82,11 +83,17 @@ public final class ControllerImageCollectionSelected implements
         thread.start();
     }
 
-    private void showImageCollection(String collectionName) {
-        List<String> filenames =
-                db.getFilenamesOfImageCollection(collectionName);
-        thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames),
-                Content.IMAGE_COLLECTION);
+    private void showImageCollection(final String collectionName) {
+        SwingUtilities.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {
+                List<String> filenames =
+                        db.getFilenamesOfImageCollection(collectionName);
+                thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames),
+                        Content.IMAGE_COLLECTION);
+            }
+        });
     }
 
     private void setMetadataEditable() {

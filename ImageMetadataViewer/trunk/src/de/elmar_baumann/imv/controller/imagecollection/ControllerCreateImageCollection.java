@@ -13,6 +13,7 @@ import de.elmar_baumann.lib.componentutil.ListUtil;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.SwingUtilities;
 
 /**
  * Kontrolliert Aktion: Erzeuge eine Bildsammlung, ausgelöst von
@@ -23,10 +24,13 @@ import java.awt.event.ActionListener;
  */
 public final class ControllerCreateImageCollection implements ActionListener {
 
-    private final PopupMenuPanelThumbnails popupMenu = PopupMenuPanelThumbnails.INSTANCE;
+    private final PopupMenuPanelThumbnails popupMenu =
+            PopupMenuPanelThumbnails.INSTANCE;
     private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
-    private final ListModelImageCollections model = (ListModelImageCollections) appPanel.getListImageCollections().getModel();
-    private final ImageFileThumbnailsPanel thumbnailsPanel = GUI.INSTANCE.getAppPanel().getPanelThumbnails();
+    private final ListModelImageCollections model = (ListModelImageCollections) appPanel.getListImageCollections().
+            getModel();
+    private final ImageFileThumbnailsPanel thumbnailsPanel = GUI.INSTANCE.
+            getAppPanel().getPanelThumbnails();
 
     public ControllerCreateImageCollection() {
         listen();
@@ -42,12 +46,22 @@ public final class ControllerCreateImageCollection implements ActionListener {
     }
 
     private void createImageCollectionOfSelectedFiles() {
-        String collectionName = ImageCollectionDatabaseUtils.insertImageCollection(
+        final String collectionName = ImageCollectionDatabaseUtils.
+                insertImageCollection(
                 FileUtil.getAsFilenames(thumbnailsPanel.getSelectedFiles()));
         if (collectionName != null) {
-            ListUtil.insertSorted(model, collectionName, ComparatorStringAscending.IGNORE_CASE);
+            SwingUtilities.invokeLater(new Runnable() {
+
+                @Override
+                public void run() {
+                    ListUtil.insertSorted(model, collectionName,
+                            ComparatorStringAscending.IGNORE_CASE);
+                }
+            });
         } else {
-            AppLog.logWarning(ControllerCreateImageCollection.class, Bundle.getString("ControllerCreateImageCollection.ErrorMessage.Create"));
+            AppLog.logWarning(ControllerCreateImageCollection.class, Bundle.
+                    getString(
+                    "ControllerCreateImageCollection.ErrorMessage.Create"));
         }
     }
 }

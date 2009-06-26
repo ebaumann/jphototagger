@@ -14,6 +14,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.List;
 import javax.swing.JList;
+import javax.swing.SwingUtilities;
 
 /**
  * Kontrolliert die Aktion: Lösche Bilder aus einer Bildsammlung, ausgelöst von
@@ -26,8 +27,10 @@ public final class ControllerDeleteFromImageCollection implements ActionListener
 
     private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
     private final JList list = appPanel.getListImageCollections();
-    private final PopupMenuPanelThumbnails popupMenu = PopupMenuPanelThumbnails.INSTANCE;
-    private final ImageFileThumbnailsPanel thumbnailsPanel = GUI.INSTANCE.getAppPanel().getPanelThumbnails();
+    private final PopupMenuPanelThumbnails popupMenu =
+            PopupMenuPanelThumbnails.INSTANCE;
+    private final ImageFileThumbnailsPanel thumbnailsPanel = GUI.INSTANCE.
+            getAppPanel().getPanelThumbnails();
 
     public ControllerDeleteFromImageCollection() {
         listen();
@@ -44,20 +47,32 @@ public final class ControllerDeleteFromImageCollection implements ActionListener
             if (thumbnailsPanel.getSelectionCount() > 0) {
                 deleteSelectedFilesFromImageCollection();
             } else {
-                AppLog.logWarning(ControllerDeleteFromImageCollection.class, Bundle.getString("ControllerDeleteFromImageCollection.ErrorMessage.NoImagesSelected"));
+                AppLog.logWarning(ControllerDeleteFromImageCollection.class,
+                        Bundle.getString(
+                        "ControllerDeleteFromImageCollection.ErrorMessage.NoImagesSelected"));
             }
         }
     }
 
     private void deleteSelectedFilesFromImageCollection() {
-        Object selectedValue = list.getSelectedValue();
-        if (selectedValue != null) {
-            List<File> selectedFiles = thumbnailsPanel.getSelectedFiles();
-            ImageCollectionDatabaseUtils.deleteImagesFromCollection(
-                selectedValue.toString(), FileUtil.getAsFilenames(selectedFiles));
-            thumbnailsPanel.remove(selectedFiles);
-        } else {
-            AppLog.logWarning(ControllerDeleteFromImageCollection.class, Bundle.getString("ControllerDeleteFromImageCollection.ErrorMessage.SelectedImageCollectionIsNull"));
-        }
+        SwingUtilities.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {
+                Object selectedValue = list.getSelectedValue();
+                if (selectedValue != null) {
+                    List<File> selectedFiles =
+                            thumbnailsPanel.getSelectedFiles();
+                    ImageCollectionDatabaseUtils.deleteImagesFromCollection(
+                            selectedValue.toString(), FileUtil.getAsFilenames(
+                            selectedFiles));
+                    thumbnailsPanel.remove(selectedFiles);
+                } else {
+                    AppLog.logWarning(ControllerDeleteFromImageCollection.class,
+                            Bundle.getString(
+                            "ControllerDeleteFromImageCollection.ErrorMessage.SelectedImageCollectionIsNull"));
+                }
+            }
+        });
     }
 }

@@ -10,6 +10,7 @@ import de.elmar_baumann.imv.view.popupmenus.PopupMenuListImageCollections;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JList;
+import javax.swing.SwingUtilities;
 
 /**
  * Kontrolliert Aktion: Lösche Bildsammlung, ausgelöst von
@@ -20,10 +21,12 @@ import javax.swing.JList;
  */
 public final class ControllerDeleteImageCollection implements ActionListener {
 
-    private final PopupMenuListImageCollections actionPopup = PopupMenuListImageCollections.INSTANCE;
+    private final PopupMenuListImageCollections actionPopup =
+            PopupMenuListImageCollections.INSTANCE;
     private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
     private final JList list = appPanel.getListImageCollections();
-    private final ListModelImageCollections model = (ListModelImageCollections) list.getModel();
+    private final ListModelImageCollections model =
+            (ListModelImageCollections) list.getModel();
 
     public ControllerDeleteImageCollection() {
         listen();
@@ -39,13 +42,22 @@ public final class ControllerDeleteImageCollection implements ActionListener {
     }
 
     private void deleteCollection() {
-        String collectionName = actionPopup.getImageCollectionName();
+        final String collectionName = actionPopup.getImageCollectionName();
         if (collectionName != null) {
-            if (ImageCollectionDatabaseUtils.deleteImageCollection(collectionName)) {
-                model.removeElement(collectionName);
+            if (ImageCollectionDatabaseUtils.deleteImageCollection(
+                    collectionName)) {
+                SwingUtilities.invokeLater(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        model.removeElement(collectionName);
+                    }
+                });
             }
         } else {
-            AppLog.logWarning(ControllerDeleteImageCollection.class, Bundle.getString("ControllerDeleteImageCollection.ErrorMessage.CollectionNameIsNull"));
+            AppLog.logWarning(ControllerDeleteImageCollection.class,
+                    Bundle.getString(
+                    "ControllerDeleteImageCollection.ErrorMessage.CollectionNameIsNull"));
         }
     }
 }

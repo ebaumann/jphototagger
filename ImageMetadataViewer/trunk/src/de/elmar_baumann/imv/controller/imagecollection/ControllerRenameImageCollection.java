@@ -10,6 +10,7 @@ import de.elmar_baumann.imv.view.popupmenus.PopupMenuListImageCollections;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JList;
+import javax.swing.SwingUtilities;
 
 /**
  * Kontrolliert die Aktion: Benenne eine Bildsammlung um, ausgelöst von
@@ -20,10 +21,12 @@ import javax.swing.JList;
  */
 public final class ControllerRenameImageCollection implements ActionListener {
 
-    private final PopupMenuListImageCollections popupMenu = PopupMenuListImageCollections.INSTANCE;
+    private final PopupMenuListImageCollections popupMenu =
+            PopupMenuListImageCollections.INSTANCE;
     private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
     private final JList list = appPanel.getListImageCollections();
-    private final ListModelImageCollections model = (ListModelImageCollections) list.getModel();
+    private final ListModelImageCollections model =
+            (ListModelImageCollections) list.getModel();
 
     public ControllerRenameImageCollection() {
         listen();
@@ -39,14 +42,23 @@ public final class ControllerRenameImageCollection implements ActionListener {
     }
 
     private void renameImageCollection() {
-        String oldName = popupMenu.getImageCollectionName();
+        final String oldName = popupMenu.getImageCollectionName();
         if (oldName != null) {
-            String newName = ImageCollectionDatabaseUtils.renameImageCollection(oldName);
+            final String newName = ImageCollectionDatabaseUtils.
+                    renameImageCollection(oldName);
             if (newName != null) {
-                model.rename(oldName, newName);
+                SwingUtilities.invokeLater(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        model.rename(oldName, newName);
+                    }
+                });
             }
         } else {
-            AppLog.logWarning(ControllerRenameImageCollection.class, Bundle.getString("ControllerRenameImageCollection.ErrorMessage.NameIsNull"));
+            AppLog.logWarning(ControllerRenameImageCollection.class, Bundle.
+                    getString(
+                    "ControllerRenameImageCollection.ErrorMessage.NameIsNull"));
         }
     }
 }
