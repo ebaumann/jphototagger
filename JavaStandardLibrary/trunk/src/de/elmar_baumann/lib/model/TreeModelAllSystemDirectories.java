@@ -188,13 +188,7 @@ public final class TreeModelAllSystemDirectories implements TreeModel {
     private void insertNode(final TreePath parentPath, final File node) {
         Object parent = parentPath.getLastPathComponent();
         if (parent == root) {
-            SwingUtilities.invokeLater(new Runnable() {
-
-                @Override
-                public void run() {
-                    insertRootNode(node);
-                }
-            });
+            insertRootNode(node);
         } else {
             SwingUtilities.invokeLater(new Runnable() {
 
@@ -207,7 +201,7 @@ public final class TreeModelAllSystemDirectories implements TreeModel {
     }
 
     @SuppressWarnings("unchecked")
-    private void insertRootNode(File file) {
+    private void insertRootNode(final File file) {
         int index;
         synchronized (monitor) {
             rootNodes.add(file);
@@ -216,7 +210,8 @@ public final class TreeModelAllSystemDirectories implements TreeModel {
             childrenOfNode.put(file, null);
         }
         TreeModelEvent evt = null;
-        evt = new TreeModelEvent(this, new Object[]{root}, new int[]{index},
+        evt = new TreeModelEvent(this, new Object[]{root}, new int[]{
+                    index},
                 new Object[]{file});
         notifyNodesInserted(evt);
     }
@@ -255,31 +250,24 @@ public final class TreeModelAllSystemDirectories implements TreeModel {
     }
 
     private void removeNode(final TreePath parentPath, final File node) {
-        SwingUtilities.invokeLater(new Runnable() {
-
-            @Override
-            public void run() {
-                updater.setPause(true);
-                removeChildrenOf(node);
-                File parentFile = (File) parentPath.getLastPathComponent();
-                List<File> parentsFiles = new ArrayList<File>(childrenOfNode.get(
-                        parentFile));
-                if (parentsFiles != null) {
-                    int indexOfNode = parentsFiles.indexOf(node);
-                    parentsFiles.remove(node);
-                    TreeModelEvent evt = new TreeModelEvent(this, parentPath.
-                            getPath(),
-                            new int[]{indexOfNode}, new Object[]{node});
-                    notifyNodesRemoved(evt);
-                }
-                childrenOfNode.remove(node);
-                rootNodes.remove(node);
-                synchronized (filesForUpdateCheck) {
-                    filesForUpdateCheck.remove(node);
-                }
-                updater.setPause(false);
-            }
-        });
+        updater.setPause(true);
+        removeChildrenOf(node);
+        File parentFile = (File) parentPath.getLastPathComponent();
+        List<File> parentsFiles = new ArrayList<File>(childrenOfNode.get(
+                parentFile));
+        if (parentsFiles != null) {
+            int indexOfNode = parentsFiles.indexOf(node);
+            parentsFiles.remove(node);
+            TreeModelEvent evt = new TreeModelEvent(this, parentPath.getPath(),
+                    new int[]{indexOfNode}, new Object[]{node});
+            notifyNodesRemoved(evt);
+        }
+        childrenOfNode.remove(node);
+        rootNodes.remove(node);
+        synchronized (filesForUpdateCheck) {
+            filesForUpdateCheck.remove(node);
+        }
+        updater.setPause(false);
     }
 
     private void removeChildrenOf(File node) {
