@@ -3,9 +3,9 @@ package de.elmar_baumann.imv.data;
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.database.DatabaseContent;
 import de.elmar_baumann.imv.database.metadata.Column;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -20,7 +20,7 @@ public final class AutoCompleteData {
     private final DatabaseContent db = DatabaseContent.INSTANCE;
     private final Set<Column> columns;
     private final List<String> content = Collections.synchronizedList(
-            new ArrayList<String>());
+            new LinkedList<String>());
 
     /**
      * Standardkonstruktor.
