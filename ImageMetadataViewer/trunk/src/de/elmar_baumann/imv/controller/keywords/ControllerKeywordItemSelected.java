@@ -11,6 +11,7 @@ import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.util.Set;
 import javax.swing.JList;
+import javax.swing.SwingUtilities;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -55,30 +56,31 @@ public final class ControllerKeywordItemSelected implements
     }
 
     private void update() {
-        Thread update = new Thread(new Runnable() {
+        SwingUtilities.invokeLater(new ShowThumbnails());
+    }
 
-            @Override
-            public void run() {
-                InfoSetThumbnails info = new InfoSetThumbnails();
-                setFilesToThumbnailsPanel();
-                setMetadataEditable();
-                info.hide();
+    private class ShowThumbnails implements Runnable {
+
+        @Override
+        public void run() {
+            InfoSetThumbnails info = new InfoSetThumbnails();
+            setFilesToThumbnailsPanel();
+            setMetadataEditable();
+            info.hide();
+        }
+
+        private void setFilesToThumbnailsPanel() {
+            String keyword = (String) listKeywords.getSelectedValue();
+            Set<String> filenames = db.getFilenamesOfDcSubject(keyword);
+
+            thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames),
+                    Content.KEYWORD);
+        }
+
+        private void setMetadataEditable() {
+            if (thumbnailsPanel.getSelectionCount() <= 0) {
+                editPanels.setEditable(false);
             }
-        });
-        update.setName("Keyword selected" + " @ " + getClass().getName()); // NOI18N
-        update.start();
-    }
-
-    private void setFilesToThumbnailsPanel() {
-        String keyword = (String) listKeywords.getSelectedValue();
-        Set<String> filenames = db.getFilenamesOfDcSubject(keyword);
-
-        thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames), Content.KEYWORD);
-    }
-
-    private void setMetadataEditable() {
-        if (thumbnailsPanel.getSelectionCount() <= 0) {
-            editPanels.setEditable(false);
         }
     }
 }
