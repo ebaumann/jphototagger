@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import javax.swing.DefaultListModel;
+import javax.swing.SwingUtilities;
 
 /**
  * Contains all Keywords.
@@ -47,13 +48,19 @@ public final class ListModelKeywords extends DefaultListModel
         }
     }
 
-    private void checkForNewKeywords(ImageFile imageFile) {
-        List<String> keywords = getKeywords(imageFile);
-        for (String keyword : keywords) {
-            if (!contains(keyword)) {
-                addElement(keyword);
+    private void checkForNewKeywords(final ImageFile imageFile) {
+        SwingUtilities.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {
+                List<String> keywords = getKeywords(imageFile);
+                for (String keyword : keywords) {
+                    if (!contains(keyword)) {
+                        addElement(keyword);
+                    }
+                }
             }
-        }
+        });
     }
 
     private List<String> getKeywords(ImageFile imageFile) {
