@@ -13,6 +13,7 @@ import de.elmar_baumann.lib.io.FileUtil;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.SwingUtilities;
 
 /**
  * Kontrolliert das Speichern von Metadaten.
@@ -20,14 +21,18 @@ import javax.swing.JLabel;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public final class ControllerThumbnailSelectionEditMetadata implements ThumbnailsPanelListener {
+public final class ControllerThumbnailSelectionEditMetadata implements
+        ThumbnailsPanelListener {
 
     private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
     private final JButton buttonSave = appPanel.getButtonSaveMetadata();
     private final JButton buttonEmpty = appPanel.getButtonEmptyMetadata();
-    private final JLabel labelMetadataInfoEditable = appPanel.getLabelMetadataInfoEditable();
-    private final EditMetadataPanelsArray editPanels = appPanel.getEditPanelsArray();
-    private final ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelThumbnails();
+    private final JLabel labelMetadataInfoEditable = appPanel.
+            getLabelMetadataInfoEditable();
+    private final EditMetadataPanelsArray editPanels = appPanel.
+            getEditPanelsArray();
+    private final ImageFileThumbnailsPanel thumbnailsPanel = appPanel.
+            getPanelThumbnails();
 
     public ControllerThumbnailSelectionEditMetadata() {
         listen();
@@ -47,14 +52,20 @@ public final class ControllerThumbnailSelectionEditMetadata implements Thumbnail
     }
 
     private void handleSelectionChanged() {
-        if (thumbnailsPanel.getSelectionCount() > 0) {
-            boolean canEdit = canEdit();
-            setEnabled(canEdit);
-            setEditPanelsContent();
-            setInfoLabel(canEdit);
-        } else {
-            setEnabled(false);
-        }
+        SwingUtilities.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {
+                if (thumbnailsPanel.getSelectionCount() > 0) {
+                    boolean canEdit = canEdit();
+                    setEnabled(canEdit);
+                    setEditPanelsContent();
+                    setInfoLabel(canEdit);
+                } else {
+                    setEnabled(false);
+                }
+            }
+        });
     }
 
     private void setEnabled(boolean enabled) {
@@ -67,9 +78,12 @@ public final class ControllerThumbnailSelectionEditMetadata implements Thumbnail
         labelMetadataInfoEditable.setText(
                 canEdit
                 ? multipleThumbnailsSelected()
-                ? Bundle.getString("ControllerThumbnailSelectionEditMetadata.InformationMessage.MetadataEditAddOnlyChanges")
-                : Bundle.getString("ControllerThumbnailSelectionEditMetadata.InformationMessage.EditIsEnabled")
-                : Bundle.getString("ControllerThumbnailSelectionEditMetadata.InformationMessage.EditIsDisabled"));
+                  ? Bundle.getString(
+                "ControllerThumbnailSelectionEditMetadata.InformationMessage.MetadataEditAddOnlyChanges")
+                  : Bundle.getString(
+                "ControllerThumbnailSelectionEditMetadata.InformationMessage.EditIsEnabled")
+                : Bundle.getString(
+                "ControllerThumbnailSelectionEditMetadata.InformationMessage.EditIsDisabled"));
     }
 
     private boolean multipleThumbnailsSelected() {
@@ -77,7 +91,8 @@ public final class ControllerThumbnailSelectionEditMetadata implements Thumbnail
     }
 
     private boolean canEdit() {
-        List<String> filenames = FileUtil.getAsFilenames(thumbnailsPanel.getSelectedFiles());
+        List<String> filenames = FileUtil.getAsFilenames(thumbnailsPanel.
+                getSelectedFiles());
         for (String filename : filenames) {
             if (!XmpMetadata.canWriteSidecarFile(filename)) {
                 return false;
@@ -87,9 +102,11 @@ public final class ControllerThumbnailSelectionEditMetadata implements Thumbnail
     }
 
     private void setEditPanelsContent() {
-        List<String> filenames = FileUtil.getAsFilenames(thumbnailsPanel.getSelectedFiles());
+        List<String> filenames = FileUtil.getAsFilenames(thumbnailsPanel.
+                getSelectedFiles());
         if (filenames.size() == 1) {
-            List<XMPPropertyInfo> xmpPropertyInfos = XmpMetadata.getPropertyInfosOfFile(filenames.get(0));
+            List<XMPPropertyInfo> xmpPropertyInfos = XmpMetadata.
+                    getPropertyInfosOfFile(filenames.get(0));
 
             if (xmpPropertyInfos != null && xmpPropertyInfos.size() > 0) {
                 editPanels.setXmpPropertyInfos(filenames, xmpPropertyInfos);

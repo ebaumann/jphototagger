@@ -16,6 +16,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 
 /**
  * Kontrolliert Eingaben bezüglich Metadaten-Templates.
@@ -23,18 +24,29 @@ import javax.swing.JOptionPane;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/22
  */
-public final class ControllerMetadataTemplates implements ActionListener, MetadataEditPanelListener {
+public final class ControllerMetadataTemplates implements ActionListener,
+                                                          MetadataEditPanelListener {
 
-    private final DatabaseMetadataEditTemplates db = DatabaseMetadataEditTemplates.INSTANCE;
+    private final DatabaseMetadataEditTemplates db =
+            DatabaseMetadataEditTemplates.INSTANCE;
     private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
-    private final EditMetadataPanelsArray editPanels = appPanel.getEditPanelsArray();
-    private final JComboBox comboBoxMetadataTemplates = appPanel.getComboBoxMetadataTemplates();
-    private final ComboBoxModelMetadataEditTemplates model = (ComboBoxModelMetadataEditTemplates) comboBoxMetadataTemplates.getModel();
-    private final JButton buttonMetadataTemplateCreate = appPanel.getButtonMetadataTemplateCreate();
-    private final JButton buttonMetadataTemplateUpdate = appPanel.getButtonMetadataTemplateUpdate();
-    private final JButton buttonMetadataTemplateDelete = appPanel.getButtonMetadataTemplateDelete();
-    private final JButton buttonMetadataTemplateInsert = appPanel.getButtonMetadataTemplateInsert();
-    private final JButton buttonMetadataTemplateRename = appPanel.getButtonMetadataTemplateRename();
+    private final EditMetadataPanelsArray editPanels = appPanel.
+            getEditPanelsArray();
+    private final JComboBox comboBoxMetadataTemplates = appPanel.
+            getComboBoxMetadataTemplates();
+    private final ComboBoxModelMetadataEditTemplates model =
+            (ComboBoxModelMetadataEditTemplates) comboBoxMetadataTemplates.
+            getModel();
+    private final JButton buttonMetadataTemplateCreate = appPanel.
+            getButtonMetadataTemplateCreate();
+    private final JButton buttonMetadataTemplateUpdate = appPanel.
+            getButtonMetadataTemplateUpdate();
+    private final JButton buttonMetadataTemplateDelete = appPanel.
+            getButtonMetadataTemplateDelete();
+    private final JButton buttonMetadataTemplateInsert = appPanel.
+            getButtonMetadataTemplateInsert();
+    private final JButton buttonMetadataTemplateRename = appPanel.
+            getButtonMetadataTemplateRename();
 
     public ControllerMetadataTemplates() {
         listen();
@@ -52,11 +64,13 @@ public final class ControllerMetadataTemplates implements ActionListener, Metada
     }
 
     private void setButtonsEnabled() {
-        boolean itemSelected = comboBoxMetadataTemplates.getSelectedItem() != null;
+        boolean itemSelected = comboBoxMetadataTemplates.getSelectedItem() !=
+                null;
         buttonMetadataTemplateUpdate.setEnabled(itemSelected);
         buttonMetadataTemplateDelete.setEnabled(itemSelected);
         buttonMetadataTemplateRename.setEnabled(itemSelected);
-        buttonMetadataTemplateInsert.setEnabled(itemSelected && editPanels.isEditable());
+        buttonMetadataTemplateInsert.setEnabled(itemSelected && editPanels.
+                isEditable());
     }
 
     @Override
@@ -64,9 +78,9 @@ public final class ControllerMetadataTemplates implements ActionListener, Metada
         MetadataEditPanelEvent.Type type = event.getType();
 
         if (type.equals(MetadataEditPanelEvent.Type.EDIT_ENABLED) ||
-            type.equals(MetadataEditPanelEvent.Type.EDIT_DISABLED)) {
+                type.equals(MetadataEditPanelEvent.Type.EDIT_DISABLED)) {
             buttonMetadataTemplateInsert.setEnabled(
-                type.equals(MetadataEditPanelEvent.Type.EDIT_ENABLED));
+                    type.equals(MetadataEditPanelEvent.Type.EDIT_ENABLED));
         }
     }
 
@@ -88,55 +102,94 @@ public final class ControllerMetadataTemplates implements ActionListener, Metada
     }
 
     private void createTemplate() {
-        String name = getNewName();
-        if (name != null) {
-            MetadataEditTemplate template = editPanels.getMetadataEditTemplate();
-            template.setName(name);
-            model.insertTemplate(template);
-        }
+        SwingUtilities.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {
+                final String name = getNewName();
+                if (name != null) {
+                    MetadataEditTemplate template = editPanels.
+                            getMetadataEditTemplate();
+                    template.setName(name);
+                    model.insertTemplate(template);
+                }
+            }
+        });
     }
 
     private void deleteTemplate() {
-        Object o = model.getSelectedItem();
-        if (o instanceof MetadataEditTemplate) {
-            MetadataEditTemplate template = (MetadataEditTemplate) o;
-            if (confirmDelete(template.getName())) {
-                model.deleteMetadataEditTemplate(template);
+        SwingUtilities.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {
+                Object o = model.getSelectedItem();
+                if (o instanceof MetadataEditTemplate) {
+                    MetadataEditTemplate template = (MetadataEditTemplate) o;
+                    if (confirmDelete(template.getName())) {
+                        model.deleteMetadataEditTemplate(template);
+                    }
+                } else {
+                    AppLog.logWarning(ControllerMetadataTemplates.class,
+                            Bundle.getString(
+                            "ControllerMetadataTemplates.ErrorMessage.WrongObject") +
+                            o);
+                }
             }
-        } else {
-            AppLog.logWarning(ControllerMetadataTemplates.class, Bundle.getString("ControllerMetadataTemplates.ErrorMessage.WrongObject") + o);
-        }
+        });
     }
 
     private void renameTemplate() {
-        Object o = model.getSelectedItem();
-        String name = getNewName();
-        if (name != null) {
-            model.renameTemplate((MetadataEditTemplate) o, name);
-        }
+        SwingUtilities.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {
+                Object o = model.getSelectedItem();
+                String name = getNewName();
+                if (name != null) {
+                    model.renameTemplate((MetadataEditTemplate) o, name);
+                }
+            }
+        });
     }
 
     private void updateTemplate() {
-        Object o = model.getSelectedItem();
-        if (o instanceof MetadataEditTemplate) {
-            MetadataEditTemplate oldTemplate = (MetadataEditTemplate) o;
-            MetadataEditTemplate newTemplate = editPanels.getMetadataEditTemplate();
-            newTemplate.setName(oldTemplate.getName());
-            model.updateTemplate(newTemplate);
-        } else {
-            AppLog.logWarning(ControllerMetadataTemplates.class, Bundle.getString("ControllerMetadataTemplates.ErrorMessage.WrongObject") + o);
-        }
+        SwingUtilities.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {
+                Object o = model.getSelectedItem();
+                if (o instanceof MetadataEditTemplate) {
+                    MetadataEditTemplate oldTemplate = (MetadataEditTemplate) o;
+                    MetadataEditTemplate newTemplate = editPanels.
+                            getMetadataEditTemplate();
+                    newTemplate.setName(oldTemplate.getName());
+                    model.updateTemplate(newTemplate);
+                } else {
+                    AppLog.logWarning(ControllerMetadataTemplates.class,
+                            Bundle.getString(
+                            "ControllerMetadataTemplates.ErrorMessage.WrongObject") +
+                            o);
+                }
+            }
+        });
     }
 
     private void setCurrentTemplateToPanel() {
-        Object o = model.getSelectedItem();
-        if (o != null) {
-            MetadataEditTemplate template = (MetadataEditTemplate) o;
-            editPanels.setMetadataEditTemplate(template);
-        } else {
-            AppLog.logWarning(ControllerMetadataTemplates.class,
-                    Bundle.getString("ControllerMetadataTemplates.ErrorMessage.InsertTemplateIsNull"));
-        }
+        SwingUtilities.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {
+                Object o = model.getSelectedItem();
+                if (o != null) {
+                    MetadataEditTemplate template = (MetadataEditTemplate) o;
+                    editPanels.setMetadataEditTemplate(template);
+                } else {
+                    AppLog.logWarning(ControllerMetadataTemplates.class,
+                            Bundle.getString(
+                            "ControllerMetadataTemplates.ErrorMessage.InsertTemplateIsNull"));
+                }
+            }
+        });
     }
 
     private String getNewName() {
@@ -144,7 +197,8 @@ public final class ControllerMetadataTemplates implements ActionListener, Metada
         boolean abort = false;
         String name = null;
         while (exists && !abort) {
-            name = JOptionPane.showInputDialog(Bundle.getString("ControllerMetadataTemplates.Input.TemplateName"), name);
+            name = JOptionPane.showInputDialog(Bundle.getString(
+                    "ControllerMetadataTemplates.Input.TemplateName"), name);
             exists = name != null && db.existsMetadataEditTemplate(name);
             if (exists) {
                 abort = confirmAbort(name);
@@ -158,19 +212,25 @@ public final class ControllerMetadataTemplates implements ActionListener, Metada
 
     private boolean confirmDelete(String templateName) {
         return JOptionPane.showConfirmDialog(
-            null,
-            Bundle.getString("ControllerMetadataTemplates.ConfirmMessage.Delete", templateName),
-            Bundle.getString("ControllerMetadataTemplates.ConfirmMessage.Delete.Title"),
-            JOptionPane.YES_NO_OPTION,
-            JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION;
+                null,
+                Bundle.getString(
+                "ControllerMetadataTemplates.ConfirmMessage.Delete",
+                templateName),
+                Bundle.getString(
+                "ControllerMetadataTemplates.ConfirmMessage.Delete.Title"),
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION;
     }
 
     private boolean confirmAbort(String name) {
         return JOptionPane.showConfirmDialog(
-            null,
-            Bundle.getString("ControllerMetadataTemplates.ConfirmMessage.OverwriteExistingTemplate", name),
-            Bundle.getString("ControllerMetadataTemplates.ConfirmMessage.OverwriteExistingTemplate.Title"),
-            JOptionPane.YES_NO_OPTION,
-            JOptionPane.QUESTION_MESSAGE) == JOptionPane.NO_OPTION;
+                null,
+                Bundle.getString(
+                "ControllerMetadataTemplates.ConfirmMessage.OverwriteExistingTemplate",
+                name),
+                Bundle.getString(
+                "ControllerMetadataTemplates.ConfirmMessage.OverwriteExistingTemplate.Title"),
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE) == JOptionPane.NO_OPTION;
     }
 }

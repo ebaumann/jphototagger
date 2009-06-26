@@ -6,6 +6,7 @@ import de.elmar_baumann.imv.view.panels.EditMetadataPanelsArray;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
+import javax.swing.SwingUtilities;
 
 /**
  * 
@@ -17,7 +18,8 @@ public final class ControllerEmptyMetadata implements ActionListener {
 
     private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
     private final JButton buttonEmpty = appPanel.getButtonEmptyMetadata();
-    private final EditMetadataPanelsArray editPanels = appPanel.getEditPanelsArray();
+    private final EditMetadataPanelsArray editPanels = appPanel.
+            getEditPanelsArray();
 
     public ControllerEmptyMetadata() {
         listen();
@@ -29,6 +31,12 @@ public final class ControllerEmptyMetadata implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        editPanels.emptyPanels(true);
+        SwingUtilities.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {
+                editPanels.emptyPanels(true);
+            }
+        });
     }
 }
