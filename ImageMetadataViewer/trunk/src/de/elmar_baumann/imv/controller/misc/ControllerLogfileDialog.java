@@ -94,7 +94,6 @@ public final class ControllerLogfileDialog implements ActionListener,
                         ControllerLogfileDialog.class.getName());
                 thread.setPriority(Thread.MIN_PRIORITY);
                 thread.start();
-            //javax.swing.SwingUtilities.invokeLater(new HidePopup(popup));
             }
         });
         thread.setPriority(Thread.MIN_PRIORITY);
