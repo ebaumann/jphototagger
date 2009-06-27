@@ -20,10 +20,10 @@ public final class ListModelElementRemover {
 
     private final DatabaseStatistics dbStatistics = DatabaseStatistics.INSTANCE;
     private final ExecutorService executor = Executors.newCachedThreadPool();
-    private final DefaultListModel model;
+    private volatile DefaultListModel model;
     private CheckForRemove removeChecker = new CheckForRemove();
-    private Column column;
-    private List<Column> columns;
+    private volatile Column column;
+    private volatile List<Column> columns;
 
     /**
      * Constructor.
