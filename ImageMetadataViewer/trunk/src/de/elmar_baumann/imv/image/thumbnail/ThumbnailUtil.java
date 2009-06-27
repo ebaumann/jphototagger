@@ -352,13 +352,16 @@ public final class ThumbnailUtil {
     public static Image getThumbnail(long id) {
         Image thumbnail = null;
         try {
-            FileInputStream fis = new FileInputStream(getThumbnailfile(id));
-            int bytecount = fis.available();
-            byte[] bytes = new byte[bytecount];
-            fis.read(bytes, 0, bytecount);
-            ImageIcon icon = new ImageIcon(bytes);
-            thumbnail = icon.getImage();
-            fis.close();
+            File tnFile = getThumbnailfile(id);
+            if (tnFile.exists()) {
+                FileInputStream fis = new FileInputStream(tnFile);
+                int bytecount = fis.available();
+                byte[] bytes = new byte[bytecount];
+                fis.read(bytes, 0, bytecount);
+                ImageIcon icon = new ImageIcon(bytes);
+                thumbnail = icon.getImage();
+                fis.close();
+            }
         } catch (Exception ex) {
             AppLog.logWarning(ThumbnailUtil.class, ex);
         }
