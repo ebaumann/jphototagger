@@ -50,7 +50,7 @@ public final class ControllerKeywordItemSelected implements
 
     @Override
     public void valueChanged(ListSelectionEvent e) {
-        if (listKeywords.getSelectedIndex() >= 0) {
+        if (!e.getValueIsAdjusting() && listKeywords.getSelectedIndex() >= 0) {
             update();
         }
     }
