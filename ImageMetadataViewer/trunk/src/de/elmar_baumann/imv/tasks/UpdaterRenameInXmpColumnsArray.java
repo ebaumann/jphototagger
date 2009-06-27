@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import javax.swing.JProgressBar;
-import javax.swing.SwingUtilities;
 
 /**
  * Verwaltet Threadinstanzen der Klasse
@@ -90,44 +89,25 @@ public final class UpdaterRenameInXmpColumnsArray implements ProgressListener {
     }
 
     private void setProgressBarStarted(final ProgressEvent evt) {
-        SwingUtilities.invokeLater(new Runnable() {
-
-            @Override
-            public void run() {
-                progressBar = (JProgressBar) progressBarProvider.getResource(
-                        this);
-                if (progressBar != null) {
-                    progressBar.setMinimum(evt.getMinimum());
-                    progressBar.setMaximum(evt.getMaximum());
-                    progressBar.setValue(evt.getValue());
-                }
-            }
-        });
+        progressBar = (JProgressBar) progressBarProvider.getResource(this);
+        if (progressBar != null) {
+            progressBar.setMinimum(evt.getMinimum());
+            progressBar.setMaximum(evt.getMaximum());
+            progressBar.setValue(evt.getValue());
+        }
     }
 
     private void setProgressBarPerformed(final ProgressEvent evt) {
-        SwingUtilities.invokeLater(new Runnable() {
-
-            @Override
-            public void run() {
-                if (progressBar != null) {
-                    progressBar.setValue(evt.getValue());
-                }
-            }
-        });
+        if (progressBar != null) {
+            progressBar.setValue(evt.getValue());
+        }
     }
 
     private void setProgressBarEnded(final ProgressEvent evt) {
-        SwingUtilities.invokeLater(new Runnable() {
-
-            @Override
-            public void run() {
-                if (progressBar != null) {
-                    progressBar.setValue(evt.getValue());
-                    progressBar = null;
-                    progressBarProvider.releaseResource(this);
-                }
-            }
-        });
+        if (progressBar != null) {
+            progressBar.setValue(evt.getValue());
+            progressBar = null;
+            progressBarProvider.releaseResource(this);
+        }
     }
 }

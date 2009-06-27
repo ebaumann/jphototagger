@@ -111,14 +111,8 @@ public final class ControllerThumbnailsPanelPersistence
     }
 
     private void writeViewportViewPositionToProperties() {
-        SwingUtilities.invokeLater(new Runnable() {
-
-            @Override
-            public void run() {
-                UserSettings.INSTANCE.getSettings().setScrollPane(
-                        GUI.INSTANCE.getAppPanel().getScrollPaneThumbnailsPanel(),
-                        keyThumbnailPanelViewportViewPosition);
-            }
-        });
+        UserSettings.INSTANCE.getSettings().setScrollPane(
+                GUI.INSTANCE.getAppPanel().getScrollPaneThumbnailsPanel(),
+                keyThumbnailPanelViewportViewPosition);
     }
 }

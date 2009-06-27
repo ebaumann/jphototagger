@@ -10,7 +10,6 @@ import de.elmar_baumann.imv.tasks.Task;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JProgressBar;
-import javax.swing.SwingUtilities;
 
 /**
  * 
@@ -66,16 +65,10 @@ public final class ControllerRecordsWithNotExistingFilesDeleter
 
     @Override
     public void progressEnded(ProgressEvent evt) {
-        SwingUtilities.invokeLater(new Runnable() {
-
-            @Override
-            public void run() {
-                if (progressBar != null) {
-                    progressBar.setIndeterminate(false);
-                    progressBar.setValue(progressBar.getMaximum());
-                }
-            }
-        });
+        if (progressBar != null) {
+            progressBar.setIndeterminate(false);
+            progressBar.setValue(progressBar.getMaximum());
+        }
         notifyTaskListenerCompleted();
     }
 
@@ -86,16 +79,10 @@ public final class ControllerRecordsWithNotExistingFilesDeleter
     }
 
     private void setProgressBar() {
-        SwingUtilities.invokeLater(new Runnable() {
-
-            @Override
-            public void run() {
-                progressBar.setToolTipText(
-                        Bundle.getString(
-                        "ControllerRecordsWithNotExistingFilesDeleter.ProgressBarTooltipText.DeleteRecordsWithNotExistingFiles"));
-                progressBar.setIndeterminate(true);
-            }
-        });
+        progressBar.setToolTipText(
+                Bundle.getString(
+                "ControllerRecordsWithNotExistingFilesDeleter.ProgressBarTooltipText.DeleteRecordsWithNotExistingFiles"));
+        progressBar.setIndeterminate(true);
     }
 
     private void startThread() {

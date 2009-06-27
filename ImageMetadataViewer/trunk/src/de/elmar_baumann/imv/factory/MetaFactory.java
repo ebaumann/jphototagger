@@ -8,7 +8,6 @@ import de.elmar_baumann.imv.view.ViewUtil;
 import de.elmar_baumann.imv.view.frames.AppFrame;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import javax.swing.JProgressBar;
-import javax.swing.SwingUtilities;
 
 /**
  * Initalizes all other factories in the right order and sets the persistent
@@ -31,25 +30,17 @@ public final class MetaFactory implements Runnable {
 
     private synchronized void init() {
         Util.checkInit(MetaFactory.class, init);
-        if (!init) {
-            SwingUtilities.invokeLater(new Runnable() {
-
-                @Override
-                public void run() {
-                    init = true;
-                    readAppFrameFromProperties();
-                    startDisplayProgressInProgressbarBar();
-                    LateConnectionsFactory.INSTANCE.init();
-                    ModelFactory.INSTANCE.init();
-                    ActionListenerFactory.INSTANCE.init();
-                    MouseListenerFactory.INSTANCE.init();
-                    RendererFactory.INSTANCE.init();
-                    ControllerFactory.INSTANCE.init();
-                    readAppPanelFromProperties();
-                    stopDisplayProgressInProgressbarBar();
-                }
-            });
-        }
+        init = true;
+        readAppFrameFromProperties();
+        startDisplayProgressInProgressbarBar();
+        LateConnectionsFactory.INSTANCE.init();
+        ModelFactory.INSTANCE.init();
+        ActionListenerFactory.INSTANCE.init();
+        MouseListenerFactory.INSTANCE.init();
+        RendererFactory.INSTANCE.init();
+        ControllerFactory.INSTANCE.init();
+        readAppPanelFromProperties();
+        stopDisplayProgressInProgressbarBar();
     }
 
     private void readAppFrameFromProperties() {

@@ -36,7 +36,7 @@ public final class TreeModelFavoriteDirectories extends DefaultTreeModel {
         db = DatabaseFavoriteDirectories.INSTANCE;
         addDirectories();
         updateScanner = new ScanDirectories(ROOT);
-        updateScanner.start();
+        //updateScanner.start();
     }
 
     public void insertFavorite(FavoriteDirectory favoriteDirectory) {
