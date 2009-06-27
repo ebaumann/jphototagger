@@ -70,6 +70,8 @@ public final class ThumbnailUtil {
         Image thumbnail = null;
         ImageReader reader = null;
         try {
+            AppLog.logInfo(ThumbnailUtil.class, Bundle.getString(
+                    "ThumbnailUtil.GetFileEmbeddedThumbnail.Info", file));
             reader = ReaderFactory.createReader(file);
             if (reader instanceof JpegReader) {
                 IOParameterBlock ioParamBlock = new IOParameterBlock();
@@ -91,6 +93,9 @@ public final class ThumbnailUtil {
 
     private static Image getScaledImageImagero(File file, int maxLength) {
         try {
+            AppLog.logInfo(ThumbnailUtil.class, Bundle.getString(
+                    "ThumbnailUtil.GetScaledImageImagero.Info",
+                    file, maxLength));
             IOParameterBlock ioParamBlock = new IOParameterBlock();
             ImageProcOptions procOptions = new ImageProcOptions();
 
@@ -129,6 +134,8 @@ public final class ThumbnailUtil {
                     ExifThumbnailUtil.getThumbnailRotationAngle(
                     ExifMetadata.getMetadata(file));
             if (rotateAngle != 0) {
+                AppLog.logInfo(ThumbnailUtil.class, Bundle.getString(
+                        "ThumbnailUtil.GetRotatedThumbnail.Information", file));
                 rotatedThumbnail = ImageTransform.rotate(thumbnail, rotateAngle);
             }
         }
@@ -152,6 +159,9 @@ public final class ThumbnailUtil {
         }
         Image image = null;
 
+        AppLog.logInfo(ThumbnailUtil.class, Bundle.getString(
+                "ThumbnailUtil.GetThumbnailFromExternalApplication,Information",
+                file, maxLength));
         String cmd = command.replace("%s", file.getAbsolutePath()).replace("%i", // NOI18N
                 new Integer(maxLength).toString());
         logExternalAppCommand(cmd);
@@ -193,6 +203,8 @@ public final class ThumbnailUtil {
     }
 
     public static Image getScaledImage(File file, int maxLength) {
+        AppLog.logInfo(ThumbnailUtil.class, Bundle.getString(
+                "ThumbnailUtil.GetScaledImage.Information", file, maxLength));
         BufferedImage image = loadImage(file);
         BufferedImage scaledImage = null;
         if (image != null) {
