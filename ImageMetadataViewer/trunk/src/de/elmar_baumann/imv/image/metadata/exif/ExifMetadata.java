@@ -9,6 +9,7 @@ import com.imagero.reader.tiff.TiffReader;
 import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.data.Exif;
 import de.elmar_baumann.imv.io.FileType;
+import de.elmar_baumann.imv.resource.Bundle;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Date;
@@ -50,6 +51,8 @@ public final class ExifMetadata {
             throws IOException {
         ImageReader reader = null;
         if (FileType.isJpegFile(file.getName())) {
+            AppLog.logInfo(ExifMetadata.class, Bundle.getString(
+                    "ExifMetadata.AddIFDEntries.JPEG.Info", file));
             reader = new JpegReader(file);
             IFDEntry[][] allEntries = MetadataUtils.getExif((JpegReader) reader);
             if (allEntries != null) {
@@ -61,6 +64,8 @@ public final class ExifMetadata {
                 }
             }
         } else {
+            AppLog.logInfo(ExifMetadata.class, Bundle.getString(
+                    "ExifMetadata.AddTIFFEntries.JPEG.Info", file));
             reader = new TiffReader(file);
             int count = ((TiffReader) reader).getIFDCount();
             for (int i = 0; i < count; i++) {
