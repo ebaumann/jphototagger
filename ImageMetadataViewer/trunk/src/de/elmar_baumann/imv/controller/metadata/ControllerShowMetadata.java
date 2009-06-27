@@ -18,7 +18,6 @@ import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.lib.componentutil.ComponentUtil;
 import de.elmar_baumann.lib.componentutil.TableUtil;
-import java.awt.Component;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -125,9 +124,9 @@ public final class ControllerShowMetadata implements DatabaseListener,
     @Override
     public void selectionChanged(ThumbnailsPanelEvent action) {
         if (metadataDisplay.getThumbnailsPanel().getSelectionCount() == 1) {
-            SwingUtilities.invokeLater(new ShowMetadata(metadataDisplay.
-                    getThumbnailsPanel().
-                    getFile(action.getThumbnailIndex())));
+            SwingUtilities.invokeLater(new ShowMetadata(
+                    metadataDisplay.getThumbnailsPanel().getFile(
+                    action.getThumbnailIndex())));
         } else {
             SwingUtilities.invokeLater(new RemoveMetadata());
         }
