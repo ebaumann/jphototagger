@@ -52,9 +52,9 @@ public final class ControllerFastSearch
             getFastSearchColumns();
     private final List<JTree> selectionTrees = appPanel.getSelectionTrees();
     private final List<JList> selectionLists = appPanel.getSelectionLists();
-    private boolean isUseAutocomplete =
+    private final boolean isUseAutocomplete =
             UserSettings.INSTANCE.isUseAutocomplete();
-    private AutoCompleteData searchAutoCompleteData;
+    private volatile AutoCompleteData searchAutoCompleteData;
     private final EditMetadataPanelsArray editPanels = appPanel.
             getEditPanelsArray();
 
