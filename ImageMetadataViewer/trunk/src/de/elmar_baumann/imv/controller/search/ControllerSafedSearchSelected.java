@@ -45,7 +45,9 @@ public final class ControllerSafedSearchSelected
 
     @Override
     public void valueChanged(ListSelectionEvent e) {
-        search();
+        if (!e.getValueIsAdjusting()) {
+            search();
+        }
     }
 
     @Override
