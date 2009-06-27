@@ -197,8 +197,7 @@ public class DatabaseMetadataEditTemplates extends Database {
      * @param  template  Template
      * @return true bei Erfolg
      */
-    public boolean updateMetadataEditTemplate(
-        MetadataEditTemplate template) {
+    public boolean updateMetadataEditTemplate(MetadataEditTemplate template) {
         
         boolean updated = false;
         Connection connection = null;
@@ -227,8 +226,9 @@ public class DatabaseMetadataEditTemplates extends Database {
                 ", photoshopInstructions = ?" + // NOI18N -- 18 --
                 ", photoshopCredit = ?" + // NOI18N -- 19 --
                 ", photoshopSource = ?" + // NOI18N -- 20 --
-                " WHERE name = ?"); // NOI18N
+                " WHERE name = ?"); // NOI18N -- 21 --
             setMetadataEditTemplate(stmt, template);
+            stmt.setString(21, template.getName());
             AppLog.logFiner(DatabaseMetadataEditTemplates.class, stmt.toString());
             int count = stmt.executeUpdate();
             connection.commit();
