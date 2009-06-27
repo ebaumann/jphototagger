@@ -1,5 +1,7 @@
 package de.elmar_baumann.imv.view.popupmenus;
 
+import de.elmar_baumann.imv.UserSettings;
+import de.elmar_baumann.imv.app.AppIcons;
 import de.elmar_baumann.imv.data.Program;
 import de.elmar_baumann.imv.database.DatabasePrograms;
 import de.elmar_baumann.imv.event.UserSettingsChangeEvent;
@@ -8,15 +10,18 @@ import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.tasks.InsertImageFilesIntoDatabase;
 import de.elmar_baumann.lib.image.icon.IconUtil;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.swing.Icon;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.JSeparator;
+import javax.swing.filechooser.FileSystemView;
 
 /**
  * Popupmenü für das Thumbnailpanel
@@ -27,49 +32,111 @@ import javax.swing.JSeparator;
 public final class PopupMenuPanelThumbnails extends JPopupMenu
         implements UserSettingsChangeListener {
 
-    private final String actionUpdateMetadata = Bundle.getString("PopupMenuPanelThumbnails.Action.UpdateMetadata");
-    private final String actionUpdateThumbnail = Bundle.getString("PopupMenuPanelThumbnails.Action.UpdateThumbnail");
-    private final String actionCreateImageCollection = Bundle.getString("PopupMenuPanelThumbnails.Action.CreateImageCollection");
-    private final String actionAddToImageCollection = Bundle.getString("PopupMenuPanelThumbnails.Action.AddToImageCollection");
-    private final String actionDeleteFromImageCollection = Bundle.getString("PopupMenuPanelThumbnails.Action.DeleteFromImageCollection");
-    private final String actionRotate90 = Bundle.getString("PopupMenuPanelThumbnails.Action.Rotate.90");
-    private final String actionRotate180 = Bundle.getString("PopupMenuPanelThumbnails.Action.Rotate.180");
-    private final String actionRotate270 = Bundle.getString("PopupMenuPanelThumbnails.Action.Rotate.270");
-    private final String actionOpenFiles = Bundle.getString("PopupMenuPanelThumbnails.Action.OpenFiles");
-    private final String actionDeleteImageFromDatabase = Bundle.getString("PopupMenuPanelThumbnails.Action.DeleteImageFromDatabase");
-    private final String actionFileSystemCopyToDirectory = Bundle.getString("PopupMenuPanelThumbnails.Action.FileSystemCopyToDirectory");
-    private final String actionFileSystemDeleteFiles = Bundle.getString("PopupMenuPanelThumbnails.Action.FileSystemDeleteFiles");
-    private final String actionFileSystemRenameFiles = Bundle.getString("PopupMenuPanelThumbnails.Action.FileSystemRename");
-    private final String actionFileSystemMoveFiles = Bundle.getString("PopupMenuPanelThumbnails.Action.FileSystemMove");
-    private final JMenu menuPrograms = new JMenu(Bundle.getString("PopupMenuPanelThumbnails.menuOtherOpenImageApps.text"));
-    private final JMenuItem itemUpdateMetadata = new JMenuItem(actionUpdateMetadata);
-    private final JMenuItem itemUpdateThumbnail = new JMenuItem(actionUpdateThumbnail);
-    private final JMenuItem itemCreateImageCollection = new JMenuItem(actionCreateImageCollection);
-    private final JMenuItem itemAddToImageCollection = new JMenuItem(actionAddToImageCollection);
-    private final JMenuItem itemDeleteFromImageCollection = new JMenuItem(actionDeleteFromImageCollection);
+    private final String actionUpdateMetadata = Bundle.getString(
+            "PopupMenuPanelThumbnails.Action.UpdateMetadata");
+    private final String actionUpdateThumbnail = Bundle.getString(
+            "PopupMenuPanelThumbnails.Action.UpdateThumbnail");
+    private final String actionCreateImageCollection = Bundle.getString(
+            "PopupMenuPanelThumbnails.Action.CreateImageCollection");
+    private final String actionAddToImageCollection = Bundle.getString(
+            "PopupMenuPanelThumbnails.Action.AddToImageCollection");
+    private final String actionDeleteFromImageCollection = Bundle.getString(
+            "PopupMenuPanelThumbnails.Action.DeleteFromImageCollection");
+    private final String actionRotate90 = Bundle.getString(
+            "PopupMenuPanelThumbnails.Action.Rotate.90");
+    private final String actionRotate180 = Bundle.getString(
+            "PopupMenuPanelThumbnails.Action.Rotate.180");
+    private final String actionRotate270 = Bundle.getString(
+            "PopupMenuPanelThumbnails.Action.Rotate.270");
+    private final String actionOpenFiles = Bundle.getString(
+            "PopupMenuPanelThumbnails.Action.OpenFiles");
+    private final String actionDeleteImageFromDatabase = Bundle.getString(
+            "PopupMenuPanelThumbnails.Action.DeleteImageFromDatabase");
+    private final String actionFileSystemCopyToDirectory = Bundle.getString(
+            "PopupMenuPanelThumbnails.Action.FileSystemCopyToDirectory");
+    private final String actionFileSystemDeleteFiles = Bundle.getString(
+            "PopupMenuPanelThumbnails.Action.FileSystemDeleteFiles");
+    private final String actionFileSystemRenameFiles = Bundle.getString(
+            "PopupMenuPanelThumbnails.Action.FileSystemRename");
+    private final String actionFileSystemMoveFiles = Bundle.getString(
+            "PopupMenuPanelThumbnails.Action.FileSystemMove");
+    private final JMenu menuPrograms = new JMenu(Bundle.getString(
+            "PopupMenuPanelThumbnails.menuOtherOpenImageApps.text"));
+    private final JMenuItem itemUpdateMetadata = new JMenuItem(
+            actionUpdateMetadata);
+    private final JMenuItem itemUpdateThumbnail = new JMenuItem(
+            actionUpdateThumbnail);
+    private final JMenuItem itemCreateImageCollection = new JMenuItem(
+            actionCreateImageCollection);
+    private final JMenuItem itemAddToImageCollection = new JMenuItem(
+            actionAddToImageCollection);
+    private final JMenuItem itemDeleteFromImageCollection = new JMenuItem(
+            actionDeleteFromImageCollection);
     private final JMenuItem itemRotateThumbnai90 = new JMenuItem(actionRotate90);
-    private final JMenuItem itemRotateThumbnai180 = new JMenuItem(actionRotate180);
-    private final JMenuItem itemRotateThumbnai270 = new JMenuItem(actionRotate270);
-    private final JMenuItem itemDeleteImageFromDatabase = new JMenuItem(actionDeleteImageFromDatabase);
-    private final JMenuItem itemOpenFilesWithStandardApp = new JMenuItem(actionOpenFiles);
-    private final JMenuItem itemFileSystemCopyToDirectory = new JMenuItem(actionFileSystemCopyToDirectory);
-    private final JMenuItem itemFileSystemDeleteFiles = new JMenuItem(actionFileSystemDeleteFiles);
-    private final JMenuItem itemFileSystemRenameFiles = new JMenuItem(actionFileSystemRenameFiles);
-    private final JMenuItem itemFileSystemMoveFiles = new JMenuItem(actionFileSystemMoveFiles);
-    private final List<ActionListener> actionListenersOpenFilesWithOtherApp = new ArrayList<ActionListener>();
-    private final Map<JMenuItem, Float> angleOfItem = new HashMap<JMenuItem, Float>();
-    private final Map<JMenuItem, EnumSet<InsertImageFilesIntoDatabase.Insert>> databaseUpdateOfMenuItem = new HashMap<JMenuItem, EnumSet<InsertImageFilesIntoDatabase.Insert>>();
-    private final Map<JMenuItem, Program> programOfMenuItem = new HashMap<JMenuItem, Program>();
-    public static final PopupMenuPanelThumbnails INSTANCE = new PopupMenuPanelThumbnails();
+    private final JMenuItem itemRotateThumbnai180 = new JMenuItem(
+            actionRotate180);
+    private final JMenuItem itemRotateThumbnai270 = new JMenuItem(
+            actionRotate270);
+    private final JMenuItem itemDeleteImageFromDatabase = new JMenuItem(
+            actionDeleteImageFromDatabase);
+    private final JMenuItem itemOpenFilesWithStandardApp = new JMenuItem(
+            actionOpenFiles);
+    private final JMenuItem itemFileSystemCopyToDirectory = new JMenuItem(
+            actionFileSystemCopyToDirectory);
+    private final JMenuItem itemFileSystemDeleteFiles = new JMenuItem(
+            actionFileSystemDeleteFiles);
+    private final JMenuItem itemFileSystemRenameFiles = new JMenuItem(
+            actionFileSystemRenameFiles);
+    private final JMenuItem itemFileSystemMoveFiles = new JMenuItem(
+            actionFileSystemMoveFiles);
+    private final List<ActionListener> actionListenersOpenFilesWithOtherApp =
+            new ArrayList<ActionListener>();
+    private final Map<JMenuItem, Float> angleOfItem =
+            new HashMap<JMenuItem, Float>();
+    private final Map<JMenuItem, EnumSet<InsertImageFilesIntoDatabase.Insert>> databaseUpdateOfMenuItem =
+            new HashMap<JMenuItem, EnumSet<InsertImageFilesIntoDatabase.Insert>>();
+    private final Map<JMenuItem, Program> programOfMenuItem =
+            new HashMap<JMenuItem, Program>();
+    public static final PopupMenuPanelThumbnails INSTANCE =
+            new PopupMenuPanelThumbnails();
 
     private PopupMenuPanelThumbnails() {
         initMaps();
         initItems();
+        setIcons();
         addItems();
     }
 
     private void initItems() {
         itemDeleteFromImageCollection.setEnabled(false);
+    }
+
+    private void setIcons() {
+        itemAddToImageCollection.setIcon(AppIcons.getIcon(
+                "icon_imagecollection.png"));
+        itemCreateImageCollection.setIcon(AppIcons.getIcon(
+                "icon_imagecollection.png"));
+        itemDeleteFromImageCollection.setIcon(AppIcons.getIcon(
+                "icon_imagecollection.png"));
+        itemDeleteImageFromDatabase.setIcon(AppIcons.getIcon("icon_database_delete_from.png"));
+        itemFileSystemCopyToDirectory.setIcon(
+                AppIcons.getIcon("icon_folder.png"));
+        itemFileSystemDeleteFiles.setIcon(AppIcons.getIcon("icon_edit_delete.png"));
+        itemFileSystemMoveFiles.setIcon(AppIcons.getIcon("icon_folder.png"));
+        itemFileSystemRenameFiles.setIcon(AppIcons.getIcon("icon_rename.png"));
+        setStandardAppIcon();
+        itemRotateThumbnai180.setIcon(AppIcons.getIcon("icon_rotate_180.png"));
+        itemRotateThumbnai270.setIcon(AppIcons.getIcon("icon_rotate_270.png"));
+        itemRotateThumbnai90.setIcon(AppIcons.getIcon("icon_rotate_90.png"));
+        itemUpdateMetadata.setIcon(AppIcons.getIcon("icon_xmp.png"));
+        itemUpdateThumbnail.setIcon(AppIcons.getIcon("icon_image.png"));
+    }
+
+    private void setStandardAppIcon() {
+        File app = new File(UserSettings.INSTANCE.getDefaultImageOpenApp());
+        if (app.exists()) {
+            itemOpenFilesWithStandardApp.setIcon(IconUtil.getSystemIcon(app));
+        }
     }
 
     private void addItems() {
@@ -117,7 +184,8 @@ public final class PopupMenuPanelThumbnails extends JPopupMenu
 
     @Override
     public void applySettings(UserSettingsChangeEvent evt) {
-        if (evt.getType().equals(UserSettingsChangeEvent.Type.OTHER_IMAGE_OPEN_APPS)) {
+        if (evt.getType().equals(
+                UserSettingsChangeEvent.Type.OTHER_IMAGE_OPEN_APPS)) {
             addOtherPrograms();
         }
     }
@@ -182,64 +250,79 @@ public final class PopupMenuPanelThumbnails extends JPopupMenu
         return menuPrograms;
     }
 
-    public synchronized void addActionListenerOpenFilesWithOtherApp(ActionListener listener) {
+    public synchronized void addActionListenerOpenFilesWithOtherApp(
+            ActionListener listener) {
         actionListenersOpenFilesWithOtherApp.add(listener);
         addOtherPrograms();
     }
 
-    public synchronized void addActionListenerOpenFilesWithStandardApp(ActionListener listener) {
+    public synchronized void addActionListenerOpenFilesWithStandardApp(
+            ActionListener listener) {
         itemOpenFilesWithStandardApp.addActionListener(listener);
     }
 
-    public synchronized void addActionListenerCreateImageCollection(ActionListener listener) {
+    public synchronized void addActionListenerCreateImageCollection(
+            ActionListener listener) {
         itemCreateImageCollection.addActionListener(listener);
     }
 
-    public synchronized void addActionListenerAddToImageCollection(ActionListener listener) {
+    public synchronized void addActionListenerAddToImageCollection(
+            ActionListener listener) {
         itemAddToImageCollection.addActionListener(listener);
     }
 
-    public synchronized void addActionListenerDeleteFromImageCollection(ActionListener listener) {
+    public synchronized void addActionListenerDeleteFromImageCollection(
+            ActionListener listener) {
         itemDeleteFromImageCollection.addActionListener(listener);
     }
 
-    public synchronized void addActionListenerUpdateMetadata(ActionListener listener) {
+    public synchronized void addActionListenerUpdateMetadata(
+            ActionListener listener) {
         itemUpdateMetadata.addActionListener(listener);
     }
 
-    public synchronized void addActionListenerRotateThumbnail90(ActionListener listener) {
+    public synchronized void addActionListenerRotateThumbnail90(
+            ActionListener listener) {
         itemRotateThumbnai90.addActionListener(listener);
     }
 
-    public synchronized void addActionListenerRotateThumbnail180(ActionListener listener) {
+    public synchronized void addActionListenerRotateThumbnail180(
+            ActionListener listener) {
         itemRotateThumbnai180.addActionListener(listener);
     }
 
-    public synchronized void addActionListenerRotateThumbnail270(ActionListener listener) {
+    public synchronized void addActionListenerRotateThumbnail270(
+            ActionListener listener) {
         itemRotateThumbnai270.addActionListener(listener);
     }
 
-    public synchronized void addActionListenerDeleteThumbnail(ActionListener listener) {
+    public synchronized void addActionListenerDeleteThumbnail(
+            ActionListener listener) {
         itemDeleteImageFromDatabase.addActionListener(listener);
     }
 
-    public synchronized void addActionListenerCopySelectedFilesToDirectory(ActionListener listener) {
+    public synchronized void addActionListenerCopySelectedFilesToDirectory(
+            ActionListener listener) {
         itemFileSystemCopyToDirectory.addActionListener(listener);
     }
 
-    public synchronized void addActionListenerFileSystemDeleteFiles(ActionListener listener) {
+    public synchronized void addActionListenerFileSystemDeleteFiles(
+            ActionListener listener) {
         itemFileSystemDeleteFiles.addActionListener(listener);
     }
 
-    public synchronized void addActionListenerFileSystemRenameFiles(ActionListener listener) {
+    public synchronized void addActionListenerFileSystemRenameFiles(
+            ActionListener listener) {
         itemFileSystemRenameFiles.addActionListener(listener);
     }
 
-    public synchronized void addActionListenerFileSystemMoveFiles(ActionListener listener) {
+    public synchronized void addActionListenerFileSystemMoveFiles(
+            ActionListener listener) {
         itemFileSystemMoveFiles.addActionListener(listener);
     }
 
-    public synchronized void addActionListenerUpdateThumbnail(ActionListener listener) {
+    public synchronized void addActionListenerUpdateThumbnail(
+            ActionListener listener) {
         itemUpdateThumbnail.addActionListener(listener);
     }
 
@@ -267,7 +350,8 @@ public final class PopupMenuPanelThumbnails extends JPopupMenu
         return angle.floatValue();
     }
 
-    public EnumSet<InsertImageFilesIntoDatabase.Insert> getMetadataToInsertIntoDatabase(Object item) {
+    public EnumSet<InsertImageFilesIntoDatabase.Insert> getMetadataToInsertIntoDatabase(
+            Object item) {
         return databaseUpdateOfMenuItem.get(item);
     }
 
@@ -277,11 +361,11 @@ public final class PopupMenuPanelThumbnails extends JPopupMenu
         angleOfItem.put(itemRotateThumbnai270, new Float(270));
 
         databaseUpdateOfMenuItem.put(
-            itemUpdateMetadata, EnumSet.of(
-            InsertImageFilesIntoDatabase.Insert.EXIF,
-            InsertImageFilesIntoDatabase.Insert.XMP));
+                itemUpdateMetadata, EnumSet.of(
+                InsertImageFilesIntoDatabase.Insert.EXIF,
+                InsertImageFilesIntoDatabase.Insert.XMP));
         databaseUpdateOfMenuItem.put(
-            itemUpdateThumbnail, EnumSet.of(
-            InsertImageFilesIntoDatabase.Insert.THUMBNAIL));
+                itemUpdateThumbnail, EnumSet.of(
+                InsertImageFilesIntoDatabase.Insert.THUMBNAIL));
     }
 }
