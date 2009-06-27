@@ -50,7 +50,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/de/elmar_baumann/imv/resource/icons/icon_card.png"/>
                 </Property>
-                <Property name="mnemonic" type="int" value="115"/>
+                <Property name="mnemonic" type="int" value="109"/>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                   <ResourceString bundle="de/elmar_baumann/imv/resource/properties/Bundle.properties" key="AppFrame.menuItemCopyFromAutocopyDirectory.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                 </Property>
@@ -104,7 +104,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="menuItemSearch">
               <Properties>
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
-                  <KeyStroke key="Ctrl+Alt+F"/>
+                  <KeyStroke key="F3"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/de/elmar_baumann/imv/resource/icons/icon_search.png"/>
@@ -120,11 +120,12 @@
             <MenuItem class="javax.swing.JMenuItem" name="menuItemLastEditedWords">
               <Properties>
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
-                  <KeyStroke key="F5"/>
+                  <KeyStroke key="F6"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/de/elmar_baumann/imv/resource/icons/icon_insert_words.png"/>
                 </Property>
+                <Property name="mnemonic" type="int" value="108"/>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                   <ResourceString bundle="de/elmar_baumann/imv/resource/properties/Bundle.properties" key="AppFrame.menuItemLastEditedWords.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                 </Property>
@@ -143,7 +144,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/de/elmar_baumann/imv/resource/icons/icon_edit_cut.png"/>
                 </Property>
-                <Property name="mnemonic" type="int" value="97"/>
+                <Property name="mnemonic" type="int" value="117"/>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                   <ResourceString bundle="de/elmar_baumann/imv/resource/properties/Bundle.properties" key="AppFrame.menuItemCut.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                 </Property>
@@ -158,7 +159,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/de/elmar_baumann/imv/resource/icons/icon_edit_paste.png"/>
                 </Property>
-                <Property name="mnemonic" type="int" value="102"/>
+                <Property name="mnemonic" type="int" value="105"/>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                   <ResourceString bundle="de/elmar_baumann/imv/resource/properties/Bundle.properties" key="AppFrame.menuItemPaste.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                 </Property>
@@ -173,7 +174,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/de/elmar_baumann/imv/resource/icons/icon_edit_copy.png"/>
                 </Property>
-                <Property name="mnemonic" type="int" value="107"/>
+                <Property name="mnemonic" type="int" value="111"/>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                   <ResourceString bundle="de/elmar_baumann/imv/resource/properties/Bundle.properties" key="AppFrame.menuItemCopy.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                 </Property>
@@ -188,7 +189,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/de/elmar_baumann/imv/resource/icons/icon_rename.png"/>
                 </Property>
-                <Property name="mnemonic" type="int" value="117"/>
+                <Property name="mnemonic" type="int" value="110"/>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                   <ResourceString bundle="de/elmar_baumann/imv/resource/properties/Bundle.properties" key="AppFrame.menuItemFileSystemRename.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                 </Property>
@@ -203,7 +204,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/de/elmar_baumann/imv/resource/icons/icon_edit_delete.png"/>
                 </Property>
-                <Property name="mnemonic" type="int" value="108"/>
+                <Property name="mnemonic" type="int" value="101"/>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                   <ResourceString bundle="de/elmar_baumann/imv/resource/properties/Bundle.properties" key="AppFrame.menuItemDelete.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                 </Property>
