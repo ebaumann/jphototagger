@@ -378,7 +378,7 @@ public final class AppFrame extends javax.swing.JFrame {
         menuEdit.add(menuItemSearch);
         menuEdit.add(jSeparator6);
 
-        menuItemLastEditedWords.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F6, 0));
+        menuItemLastEditedWords.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F7, 0));
         menuItemLastEditedWords.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icons/icon_insert_words.png"))); // NOI18N
         menuItemLastEditedWords.setMnemonic('l');
         menuItemLastEditedWords.setText(Bundle.getString("AppFrame.menuItemLastEditedWords.text")); // NOI18N
