@@ -1,5 +1,6 @@
 package de.elmar_baumann.imv.view.popupmenus;
 
+import de.elmar_baumann.imv.app.AppIcons;
 import de.elmar_baumann.imv.resource.Bundle;
 import java.awt.event.ActionListener;
 import javax.swing.JMenuItem;
@@ -91,5 +92,11 @@ public final class PopupMenuListImageCollections extends JPopupMenu {
     private void addItems() {
         add(itemRename);
         add(itemDelete);
+        setIcons();
+    }
+
+    private void setIcons() {
+        itemDelete.setIcon(AppIcons.getIcon("icon_remove.png"));
+        itemRename.setIcon(AppIcons.getIcon("icon_rename.png"));
     }
 }

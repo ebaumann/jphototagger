@@ -1,5 +1,6 @@
 package de.elmar_baumann.imv.view.popupmenus;
 
+import de.elmar_baumann.imv.app.AppIcons;
 import de.elmar_baumann.imv.resource.Bundle;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -126,6 +127,7 @@ public final class PopupMenuTreeDirectories extends JPopupMenu {
         add(itemCreateDirectory);
         add(itemRenameDirectory);
         add(itemDeleteDirectory);
+        setIcons();
         initLists();
     }
 
@@ -135,5 +137,12 @@ public final class PopupMenuTreeDirectories extends JPopupMenu {
 
     public void setTreeSelected(boolean treeSelected) {
         this.treeSelected = treeSelected;
+    }
+
+    private void setIcons() {
+        itemAddToFavoriteDirectories.setIcon(AppIcons.getIcon("icon_favorite.png"));
+        itemCreateDirectory.setIcon(AppIcons.getIcon("icon_add.png"));
+        itemDeleteDirectory.setIcon(AppIcons.getIcon("icon_edit_delete.png"));
+        itemRenameDirectory.setIcon(AppIcons.getIcon("icon_rename.png"));
     }
 }

@@ -1,5 +1,6 @@
 package de.elmar_baumann.imv.view.popupmenus;
 
+import de.elmar_baumann.imv.app.AppIcons;
 import de.elmar_baumann.imv.data.FavoriteDirectory;
 import de.elmar_baumann.imv.resource.Bundle;
 import java.awt.event.ActionListener;
@@ -26,11 +27,14 @@ public final class PopupMenuTreeFavoriteDirectories extends JPopupMenu {
             "PopupMenuListFavoriteDirectories.Action.MoveDown");
     private static final String ACTION_OPEN_IN_FOLDERS = Bundle.getString(
             "PopupMenuListFavoriteDirectories.Action.OpenInFolders");
+    private static final String ACTION_REFRESH = Bundle.getString(
+            "PopupMenuListFavoriteDirectories.Action.Refresh");
     private final JMenuItem itemInsert = new JMenuItem(ACTION_INSERT);
     private final JMenuItem itemUpdate = new JMenuItem(ACTION_UPDATE);
     private final JMenuItem itemDelete = new JMenuItem(ACTION_DELETE);
     private final JMenuItem itemOpenInFolders = new JMenuItem(
             ACTION_OPEN_IN_FOLDERS);
+    private final JMenuItem itemRefresh = new JMenuItem(ACTION_REFRESH);
     private final JMenuItem itemMoveUp = new JMenuItem(ACTION_MOVE_UP);
     private final JMenuItem itemMoveDown = new JMenuItem(ACTION_MOVE_DOWN);
     private FavoriteDirectory favoriteDirectory;
@@ -53,6 +57,10 @@ public final class PopupMenuTreeFavoriteDirectories extends JPopupMenu {
         return itemOpenInFolders;
     }
 
+    public JMenuItem getItemRefresh() {
+        return itemRefresh;
+    }
+
     public FavoriteDirectory getFavoriteDirectory() {
         return favoriteDirectory;
     }
@@ -71,6 +79,10 @@ public final class PopupMenuTreeFavoriteDirectories extends JPopupMenu {
 
     public synchronized void addActionListenerUpdate(ActionListener listener) {
         itemUpdate.addActionListener(listener);
+    }
+
+    public synchronized void addActionListenerRefresh(ActionListener listener) {
+        itemRefresh.addActionListener(listener);
     }
 
     public synchronized void addActionListenerMoveUp(ActionListener listener) {
@@ -92,6 +104,10 @@ public final class PopupMenuTreeFavoriteDirectories extends JPopupMenu {
 
     public boolean isMoveDown(Object source) {
         return itemMoveDown.equals(source);
+    }
+
+    public boolean isRefresh(Object source) {
+        return itemRefresh.equals(source);
     }
 
     public void setEnabledInsert(boolean enabled) {
@@ -129,5 +145,17 @@ public final class PopupMenuTreeFavoriteDirectories extends JPopupMenu {
         add(itemMoveUp);
         add(itemMoveDown);
         add(itemOpenInFolders);
+        add(itemRefresh);
+        setIcons();
+    }
+
+    private void setIcons() {
+        itemDelete.setIcon(AppIcons.getIcon("icon_remove.png"));
+        itemInsert.setIcon(AppIcons.getIcon("icon_add.png"));
+        itemMoveDown.setIcon(AppIcons.getIcon("icon_move_down.png"));
+        itemMoveUp.setIcon(AppIcons.getIcon("icon_move_up.png"));
+        itemOpenInFolders.setIcon(AppIcons.getIcon("icon_folder.png"));
+        itemRefresh.setIcon(AppIcons.getIcon("icon_refresh.png"));
+        itemUpdate.setIcon(AppIcons.getIcon("icon_edit.png"));
     }
 }
