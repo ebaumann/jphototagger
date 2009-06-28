@@ -140,13 +140,13 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer">
     <path
-       style="opacity:1;fill:#aaaaff;fill-opacity:1;stroke:#aaaaff;stroke-width:0.94244361;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       style="opacity:1;fill:#0000ff;fill-opacity:1;stroke:#0000ff;stroke-width:0.94244361;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        d="M 8.5797642,2.4778361 L 8.6138068,13.973459 C 8.6138068,13.973459 13.618594,13.552514 13.762768,8.1011404 C 13.906942,2.6497669 8.5840352,2.418034 8.5797642,2.4778361 z "
        id="path2165"
        sodipodi:nodetypes="ccsc" />
     <path
        sodipodi:type="arc"
-       style="opacity:1;fill:none;fill-opacity:1;stroke:#aaaaff;stroke-width:1.3;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#0000ff;stroke-width:1.3;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="path3151"
        sodipodi:cx="8.1089106"
        sodipodi:cy="8.1613865"
