@@ -5,11 +5,17 @@ import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.data.FavoriteDirectory;
 import de.elmar_baumann.imv.database.DatabaseFavoriteDirectories;
 import de.elmar_baumann.imv.resource.Bundle;
+import de.elmar_baumann.imv.resource.GUI;
+import de.elmar_baumann.lib.comparator.ComparatorTreeNodeLevel;
 import de.elmar_baumann.lib.io.DirectoryFilter;
 import de.elmar_baumann.lib.io.FileUtil;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Enumeration;
+import java.util.LinkedList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -21,7 +27,8 @@ import javax.swing.tree.DefaultTreeModel;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009/06/15
  */
-public final class TreeModelFavoriteDirectories extends DefaultTreeModel {
+public final class TreeModelFavoriteDirectories extends DefaultTreeModel
+        implements FocusListener {
 
     private static final DefaultMutableTreeNode ROOT = new DefaultMutableTreeNode(
             Bundle.getString("TreeModelFavoriteDirectories.Root.DisplayName"));
@@ -32,6 +39,8 @@ public final class TreeModelFavoriteDirectories extends DefaultTreeModel {
         super(ROOT);
         db = DatabaseFavoriteDirectories.INSTANCE;
         addDirectories();
+        GUI.INSTANCE.getAppPanel().getTreeFavoriteDirectories().addFocusListener(
+                this);
     }
 
     @Override
@@ -190,8 +199,16 @@ public final class TreeModelFavoriteDirectories extends DefaultTreeModel {
         }
     }
 
-    private void addChildren(DefaultMutableTreeNode node) {
-        Object userObject = node.getUserObject();
+    /**
+     * Adds to a parent node not existing children where the user object is
+     * a directory if the user object of the node is a directory or a favorite
+     * directory (wich refers to a directory). The children are child
+     * directories of the directory (user object).
+     *
+     * @param parentNode parent note which gets the new children
+     */
+    private void addChildren(DefaultMutableTreeNode parentNode) {
+        Object userObject = parentNode.getUserObject();
         File dir = userObject instanceof File
                    ? (File) userObject
                    : userObject instanceof FavoriteDirectory
@@ -203,23 +220,61 @@ public final class TreeModelFavoriteDirectories extends DefaultTreeModel {
                 new DirectoryFilter(
                 UserSettings.INSTANCE.getDefaultDirectoryFilterOptions()));
         if (subdirs == null) return;
-        int childCount = node.getChildCount();
-        List<File> fileChildren = new ArrayList<File>(childCount);
+        int childCount = parentNode.getChildCount();
+        List<File> nodeChildrenDirs = new ArrayList<File>(childCount);
         for (int i = 0; i < childCount; i++) {
             DefaultMutableTreeNode child =
-                    (DefaultMutableTreeNode) node.getChildAt(i);
+                    (DefaultMutableTreeNode) parentNode.getChildAt(i);
             Object usrObj = child.getUserObject();
             if (usrObj instanceof File) {
-                fileChildren.add((File) usrObj);
+                nodeChildrenDirs.add((File) usrObj);
             }
         }
         for (int i = 0; i < subdirs.length; i++) {
-            if (!fileChildren.contains(subdirs[i])) {
-                DefaultMutableTreeNode newChild =
-                        new DefaultMutableTreeNode(subdirs[i]);
-                node.insert(newChild, node.getChildCount());
+            if (!nodeChildrenDirs.contains(subdirs[i])) {
+                insertNodeInto(new DefaultMutableTreeNode(subdirs[i]),
+                        parentNode, parentNode.getChildCount());
             }
         }
+    }
+
+    /**
+     * Removes from a node child nodes with files as user objects when the
+     * file does not exist.
+     *
+     * @param  parentNode parent node
+     * @return            count of removed nodes
+     */
+    private int removeChildrenWithNotExistingFiles(
+            DefaultMutableTreeNode parentNode) {
+        int childCount = parentNode.getChildCount();
+        List<DefaultMutableTreeNode> nodesToRemove =
+                new ArrayList<DefaultMutableTreeNode>();
+        for (int i = 0; i < childCount; i++) {
+            DefaultMutableTreeNode child =
+                    (DefaultMutableTreeNode) parentNode.getChildAt(i);
+            Object userObject = child.getUserObject();
+            File file = null;
+            if (userObject instanceof File) {
+                file = (File) userObject;
+            } else if (userObject instanceof FavoriteDirectory) {
+                file = new File(
+                        ((FavoriteDirectory) userObject).getDirectoryName());
+
+            }
+            if (file != null && !file.exists()) {
+                nodesToRemove.add(child);
+            }
+        }
+        for (DefaultMutableTreeNode childNodeToRemove : nodesToRemove) {
+            Object userObject = childNodeToRemove.getUserObject();
+            if (userObject instanceof FavoriteDirectory) {
+                db.deleteFavoriteDirectory(
+                        ((FavoriteDirectory) userObject).getDirectoryName());
+            }
+            removeNodeFromParent(childNodeToRemove);
+        }
+        return nodesToRemove.size();
     }
 
     // ROOT.getChildCount() is valid now, but if later there are other user
@@ -262,5 +317,48 @@ public final class TreeModelFavoriteDirectories extends DefaultTreeModel {
                 Bundle.getString(
                 "TreeModelFavoriteDirectories.ErrorMessage.Template.Title"),
                 JOptionPane.ERROR_MESSAGE);
+    }
+
+    /**
+     * Updates this model: Adds nodes for new files, deletes nodes with not
+     * existing files.
+     */
+    public void update() {
+        updateAdd();
+        updateRemove();
+    }
+
+    private void updateAdd() {
+        List<DefaultMutableTreeNode> nodes = getAllNodes();
+        for (DefaultMutableTreeNode node : nodes) {
+            addChildren(node);
+        }
+    }
+
+    private void updateRemove() {
+        List<DefaultMutableTreeNode> nodes = getAllNodes();
+        Collections.sort(nodes, ComparatorTreeNodeLevel.INSTANCE_DESCENDING);
+        for (DefaultMutableTreeNode node : nodes) {
+            removeChildrenWithNotExistingFiles(node);
+        }
+    }
+
+    private List<DefaultMutableTreeNode> getAllNodes() {
+        List<DefaultMutableTreeNode> nodes =
+                new LinkedList<DefaultMutableTreeNode>();
+        for (Enumeration e = ROOT.depthFirstEnumeration(); e.hasMoreElements();) {
+            nodes.add((DefaultMutableTreeNode) e.nextElement());
+        }
+        return nodes;
+    }
+
+    @Override
+    public void focusGained(FocusEvent e) {
+        update();
+    }
+
+    @Override
+    public void focusLost(FocusEvent e) {
+        // nothing to do
     }
 }
