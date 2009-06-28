@@ -16,12 +16,10 @@ import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.swing.Icon;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.JSeparator;
-import javax.swing.filechooser.FileSystemView;
 
 /**
  * Popupmenü für das Thumbnailpanel
@@ -113,23 +111,23 @@ public final class PopupMenuPanelThumbnails extends JPopupMenu
 
     private void setIcons() {
         itemAddToImageCollection.setIcon(AppIcons.getIcon(
-                "icon_imagecollection.png"));
+                "icon_imagecollection_add_to.png"));
         itemCreateImageCollection.setIcon(AppIcons.getIcon(
                 "icon_imagecollection.png"));
         itemDeleteFromImageCollection.setIcon(AppIcons.getIcon(
-                "icon_imagecollection.png"));
+                "icon_imagecollection_remove_from.png"));
         itemDeleteImageFromDatabase.setIcon(AppIcons.getIcon("icon_database_delete_from.png"));
         itemFileSystemCopyToDirectory.setIcon(
-                AppIcons.getIcon("icon_folder.png"));
+                AppIcons.getIcon("icon_copy_to_folder.png"));
         itemFileSystemDeleteFiles.setIcon(AppIcons.getIcon("icon_edit_delete.png"));
-        itemFileSystemMoveFiles.setIcon(AppIcons.getIcon("icon_folder.png"));
+        itemFileSystemMoveFiles.setIcon(AppIcons.getIcon("icon_move_to_folder.png"));
         itemFileSystemRenameFiles.setIcon(AppIcons.getIcon("icon_rename.png"));
         setStandardAppIcon();
         itemRotateThumbnai180.setIcon(AppIcons.getIcon("icon_rotate_180.png"));
         itemRotateThumbnai270.setIcon(AppIcons.getIcon("icon_rotate_270.png"));
         itemRotateThumbnai90.setIcon(AppIcons.getIcon("icon_rotate_90.png"));
-        itemUpdateMetadata.setIcon(AppIcons.getIcon("icon_xmp.png"));
-        itemUpdateThumbnail.setIcon(AppIcons.getIcon("icon_image.png"));
+        itemUpdateMetadata.setIcon(AppIcons.getIcon("icon_metadata_refresh.png"));
+        itemUpdateThumbnail.setIcon(AppIcons.getIcon("icon_image_refresh.png"));
     }
 
     private void setStandardAppIcon() {
