@@ -23,8 +23,10 @@ import javax.swing.JOptionPane;
 public final class FavoriteDirectoryPropertiesDialog extends Dialog {
 
     private static final List<Image> appIcons = AppIcons.getAppIcons();
-    private static final String keyLastDirectory = "de.elmar_baumann.imv.view.dialogs.FavoriteDirectoryPropertiesDialog.LastDirectory"; // NOI18N
-    private final DatabaseFavoriteDirectories db = DatabaseFavoriteDirectories.INSTANCE;
+    private static final String keyLastDirectory =
+            "de.elmar_baumann.imv.view.dialogs.FavoriteDirectoryPropertiesDialog.LastDirectory"; // NOI18N
+    private final DatabaseFavoriteDirectories db =
+            DatabaseFavoriteDirectories.INSTANCE;
     private String lastDirectory = ""; // NOI18N
     private boolean accepted = false;
     private boolean isUpdate = false;
@@ -43,7 +45,9 @@ public final class FavoriteDirectoryPropertiesDialog extends Dialog {
     }
 
     private void chooseDirectory() {
-        DirectoryChooser dialog = new DirectoryChooser(null, new File(lastDirectory), UserSettings.INSTANCE.getDefaultDirectoryChooserOptions());
+        DirectoryChooser dialog = new DirectoryChooser(null, new File(
+                lastDirectory), UserSettings.INSTANCE.
+                getDefaultDirectoryChooserOptions());
         ViewUtil.setDirectoryTreeModel(dialog);
         dialog.setVisible(true);
         if (dialog.accepted()) {
@@ -55,6 +59,7 @@ public final class FavoriteDirectoryPropertiesDialog extends Dialog {
                 textFieldFavoriteName.setText(directoryName);
             }
         }
+        setOkEnabled();
     }
 
     /**
@@ -122,10 +127,13 @@ public final class FavoriteDirectoryPropertiesDialog extends Dialog {
             boolean exists = db.existsFavoriteDirectory(favoriteName);
             if (!isUpdate && exists) {
                 JOptionPane.showMessageDialog(
-                    null,
-                    Bundle.getString("FavoriteDirectoryPropertiesDialog.ErrorMessage.FavoriteExists", favoriteName),
-                    Bundle.getString("FavoriteDirectoryPropertiesDialog.ErrorMessage.FavoriteExists.Title"),
-                    JOptionPane.ERROR_MESSAGE);
+                        null,
+                        Bundle.getString(
+                        "FavoriteDirectoryPropertiesDialog.ErrorMessage.FavoriteExists",
+                        favoriteName),
+                        Bundle.getString(
+                        "FavoriteDirectoryPropertiesDialog.ErrorMessage.FavoriteExists.Title"),
+                        JOptionPane.ERROR_MESSAGE);
             } else {
                 accepted = true;
                 setVisible(false);
@@ -134,19 +142,25 @@ public final class FavoriteDirectoryPropertiesDialog extends Dialog {
     }
 
     private boolean checkValuesOk() {
-        String directoryName = labelDirectoryname.getText().trim();
-        String favoriteName = textFieldFavoriteName.getText().trim();
-        if (directoryName.isEmpty() ||
-            favoriteName.isEmpty() ||
-            !FileUtil.existsDirectory(directoryName)) {
+        if (!valuesOk()) {
             JOptionPane.showMessageDialog(
-                this,
-                Bundle.getString("FavoriteDirectoryPropertiesDialog.ErrorMessage.InvalidInput"),
-                Bundle.getString("FavoriteDirectoryPropertiesDialog.ErrorMessage.InvalidInput.Title"),
-                JOptionPane.ERROR_MESSAGE);
+                    this,
+                    Bundle.getString(
+                    "FavoriteDirectoryPropertiesDialog.ErrorMessage.InvalidInput"),
+                    Bundle.getString(
+                    "FavoriteDirectoryPropertiesDialog.ErrorMessage.InvalidInput.Title"),
+                    JOptionPane.ERROR_MESSAGE);
             return false;
         }
         return true;
+    }
+
+    private boolean valuesOk() {
+        String directoryName = labelDirectoryname.getText().trim();
+        String favoriteName = textFieldFavoriteName.getText().trim();
+        return !directoryName.isEmpty() &&
+                !favoriteName.isEmpty() &&
+                FileUtil.existsDirectory(directoryName);
     }
 
     @Override
@@ -160,12 +174,18 @@ public final class FavoriteDirectoryPropertiesDialog extends Dialog {
     }
 
     private void readProperties() {
-        lastDirectory = UserSettings.INSTANCE.getSettings().getString(keyLastDirectory);
+        lastDirectory = UserSettings.INSTANCE.getSettings().getString(
+                keyLastDirectory);
         UserSettings.INSTANCE.getSettings().getSizeAndLocation(this);
     }
 
+    private void setOkEnabled() {
+        buttonOk.setEnabled(valuesOk());
+    }
+
     private void writeProperties() {
-        UserSettings.INSTANCE.getSettings().setString(lastDirectory, keyLastDirectory);
+        UserSettings.INSTANCE.getSettings().setString(lastDirectory,
+                keyLastDirectory);
         UserSettings.INSTANCE.getSettings().setSizeAndLocation(this);
     }
 
@@ -181,6 +201,7 @@ public final class FavoriteDirectoryPropertiesDialog extends Dialog {
     }
 
     private void handleKeyPressed(KeyEvent evt) {
+        if (!buttonOk.isEnabled()) return;
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             exitIfOk();
         }
@@ -216,6 +237,12 @@ public final class FavoriteDirectoryPropertiesDialog extends Dialog {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 textFieldFavoriteNameKeyPressed(evt);
             }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                textFieldFavoriteNameKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                textFieldFavoriteNameKeyTyped(evt);
+            }
         });
 
         buttonChooseDirectory.setMnemonic('a');
@@ -238,6 +265,7 @@ public final class FavoriteDirectoryPropertiesDialog extends Dialog {
 
         buttonOk.setMnemonic('o');
         buttonOk.setText(Bundle.getString("FavoriteDirectoryPropertiesDialog.buttonOk.text")); // NOI18N
+        buttonOk.setEnabled(false);
         buttonOk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonOkActionPerformed(evt);
@@ -304,6 +332,14 @@ private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:even
     escape();
 }//GEN-LAST:event_formWindowClosing
 
+private void textFieldFavoriteNameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldFavoriteNameKeyTyped
+    setOkEnabled();
+}//GEN-LAST:event_textFieldFavoriteNameKeyTyped
+
+private void textFieldFavoriteNameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldFavoriteNameKeyReleased
+    setOkEnabled();
+}//GEN-LAST:event_textFieldFavoriteNameKeyReleased
+
     /**
      * @param args the command line arguments
      */
@@ -312,7 +348,8 @@ private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:even
 
             @Override
             public void run() {
-                FavoriteDirectoryPropertiesDialog dialog = new FavoriteDirectoryPropertiesDialog();
+                FavoriteDirectoryPropertiesDialog dialog =
+                        new FavoriteDirectoryPropertiesDialog();
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
 
                     @Override
