@@ -5,12 +5,10 @@ import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.data.FavoriteDirectory;
 import de.elmar_baumann.imv.database.DatabaseFavoriteDirectories;
 import de.elmar_baumann.imv.resource.Bundle;
-import de.elmar_baumann.lib.comparator.ComparatorFilesNames;
 import de.elmar_baumann.lib.io.DirectoryFilter;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.io.File;
-import java.util.Arrays;
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -28,15 +26,26 @@ public final class TreeModelFavoriteDirectories extends DefaultTreeModel {
     private static final DefaultMutableTreeNode ROOT = new DefaultMutableTreeNode(
             Bundle.getString("TreeModelFavoriteDirectories.Root.DisplayName"));
     private final DatabaseFavoriteDirectories db;
-    private final ScanDirectories updateScanner;
     private final Object monitor = new Object();
 
     public TreeModelFavoriteDirectories() {
         super(ROOT);
         db = DatabaseFavoriteDirectories.INSTANCE;
         addDirectories();
-        updateScanner = new ScanDirectories(ROOT);
-        updateScanner.start();
+    }
+
+    @Override
+    public int getChildCount(Object parent) {
+        if (parent.equals(ROOT)) return super.getChildCount(parent);
+        addChildren((DefaultMutableTreeNode) parent);
+        return super.getChildCount(parent);
+    }
+
+    @Override
+    public boolean isLeaf(Object node) {
+        if (node.equals(ROOT)) return super.isLeaf(node);
+        addChildren((DefaultMutableTreeNode) node);
+        return super.isLeaf(node);
     }
 
     public void insertFavorite(FavoriteDirectory favoriteDirectory) {
@@ -174,8 +183,41 @@ public final class TreeModelFavoriteDirectories extends DefaultTreeModel {
             DefaultMutableTreeNode node = new DefaultMutableTreeNode(directory);
             int childCount = ROOT.getChildCount();
             insertNodeInto(node, ROOT, childCount);
+            addChildren(node);
             if (childCount == 1) { // Forcing repaint
                 setRoot(ROOT);
+            }
+        }
+    }
+
+    private void addChildren(DefaultMutableTreeNode node) {
+        Object userObject = node.getUserObject();
+        File dir = userObject instanceof File
+                   ? (File) userObject
+                   : userObject instanceof FavoriteDirectory
+                     ? new File(((FavoriteDirectory) userObject).
+                getDirectoryName())
+                     : null;
+        if (dir == null || !dir.isDirectory()) return;
+        File[] subdirs = dir.listFiles(
+                new DirectoryFilter(
+                UserSettings.INSTANCE.getDefaultDirectoryFilterOptions()));
+        if (subdirs == null) return;
+        int childCount = node.getChildCount();
+        List<File> fileChildren = new ArrayList<File>(childCount);
+        for (int i = 0; i < childCount; i++) {
+            DefaultMutableTreeNode child =
+                    (DefaultMutableTreeNode) node.getChildAt(i);
+            Object usrObj = child.getUserObject();
+            if (usrObj instanceof File) {
+                fileChildren.add((File) usrObj);
+            }
+        }
+        for (int i = 0; i < subdirs.length; i++) {
+            if (!fileChildren.contains(subdirs[i])) {
+                DefaultMutableTreeNode newChild =
+                        new DefaultMutableTreeNode(subdirs[i]);
+                node.insert(newChild, node.getChildCount());
             }
         }
     }
@@ -220,131 +262,5 @@ public final class TreeModelFavoriteDirectories extends DefaultTreeModel {
                 Bundle.getString(
                 "TreeModelFavoriteDirectories.ErrorMessage.Template.Title"),
                 JOptionPane.ERROR_MESSAGE);
-    }
-
-    private class ScanDirectories extends Thread {
-
-        private static final long SEARCH_INTERVAL_MILLISEC = 2000;
-        private final DefaultMutableTreeNode root;
-
-        public ScanDirectories(DefaultMutableTreeNode root) {
-            this.root = root;
-            setName("Scanning subdirectories of favorite directories for updates @ " + // NOI18N
-                    TreeModelFavoriteDirectories.class.getName());
-            setPriority(MIN_PRIORITY);
-        }
-
-        @Override
-        public void run() {
-            while (true) {
-                try {
-                    sleep(SEARCH_INTERVAL_MILLISEC);
-                } catch (Exception ex) {
-                    AppLog.logWarning(TreeModelFavoriteDirectories.class, ex);
-                }
-                synchronized (monitor) {
-                    try {
-                        scan(root);
-                        checkFavoriteDirectoryDeleted();
-                    } catch (Exception ex) {
-                        AppLog.logWarning(TreeModelFavoriteDirectories.class, ex);
-
-                    }
-                }
-            }
-        }
-
-        private void checkFavoriteDirectoryDeleted() {
-            for (Enumeration children = root.children(); children.
-                    hasMoreElements();) {
-                Object userObject = ((DefaultMutableTreeNode) children.
-                        nextElement()).getUserObject();
-                if (userObject instanceof FavoriteDirectory) {
-                    FavoriteDirectory favoriteDirectory =
-                            (FavoriteDirectory) userObject;
-                    File dir = new File(favoriteDirectory.getDirectoryName());
-                    if (!dir.exists()) {
-                        deleteFavorite(favoriteDirectory);
-                    }
-                }
-            }
-        }
-
-        private void scan(DefaultMutableTreeNode node) {
-            for (Enumeration children = node.children();
-                    children.hasMoreElements();) {
-                DefaultMutableTreeNode child =
-                        (DefaultMutableTreeNode) children.nextElement();
-                addNewSubDirectories(child);
-                removeNotExistingSubDirecotries(child);
-                scan(child); // recursive
-            }
-        }
-
-        private void removeNotExistingSubDirecotries(
-                DefaultMutableTreeNode parentNode) {
-            for (Enumeration children = parentNode.children(); children.
-                    hasMoreElements();) {
-                DefaultMutableTreeNode child =
-                        (DefaultMutableTreeNode) children.nextElement();
-                Object userObject = child.getUserObject();
-                assert userObject instanceof File : userObject;
-                if (userObject instanceof File) {
-                    File file = (File) userObject;
-                    if (!file.exists()) {
-                        removeNodeFromParent(child);
-                    }
-                }
-            }
-        }
-
-        private void addNewSubDirectories(DefaultMutableTreeNode node) {
-            Object userObject = node.getUserObject();
-            if (userObject instanceof FavoriteDirectory) {
-                FavoriteDirectory favoriteDirectory =
-                        (FavoriteDirectory) userObject;
-                File dir = new File(favoriteDirectory.getDirectoryName());
-                if (dir.exists()) {
-                    addNewSubDirectories(node, dir);
-                }
-            } else if (userObject instanceof File) {
-                addNewSubDirectories(node, (File) userObject);
-            }
-        }
-
-        private void addNewSubDirectories(DefaultMutableTreeNode node,
-                File dirOfNode) {
-            assert dirOfNode.isDirectory() : dirOfNode;
-            File[] subDirArray =
-                    dirOfNode.listFiles(UserSettings.INSTANCE.
-                    isAcceptHiddenDirectories()
-                                        ? DirectoryFilter.ACCEPT_HIDDEN_FILES
-                                        : DirectoryFilter.REJECT_HIDDEN_FILES);
-            List<File> subDirs = Arrays.asList(subDirArray);
-            Collections.sort(subDirs,
-                    ComparatorFilesNames.COMPARE_ASCENDING_IGNORE_CASE);
-            for (File subDir : subDirs) {
-                if (!existsSubDirectory(node, subDir)) {
-                    insertNodeInto(new DefaultMutableTreeNode(subDir), node,
-                            node.getChildCount());
-                }
-            }
-        }
-
-        private boolean existsSubDirectory(DefaultMutableTreeNode node, File dir) {
-            for (Enumeration children = node.children(); children.
-                    hasMoreElements();) {
-                Object userObject = ((DefaultMutableTreeNode) children.
-                        nextElement()).getUserObject();
-                assert userObject instanceof File;
-                if (userObject instanceof File) {
-                    File subdir = (File) userObject;
-                    if (subdir.equals(dir)) {
-                        return true;
-                    }
-                }
-            }
-            return false;
-        }
     }
 }
