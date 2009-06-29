@@ -69,8 +69,8 @@ public final class TreeModelAllSystemDirectories extends DefaultTreeModel
     private void addChildren(DefaultMutableTreeNode parentNode) {
         Object parentUserObject = parentNode.getUserObject();
         File dir = parentUserObject instanceof File
-                   ? (File) parentUserObject
-                   : null;
+                ? (File) parentUserObject
+                : null;
         if (dir == null || !dir.isDirectory()) return;
         File[] subdirs = dir.listFiles(directoryFilter);
         if (subdirs == null) return;
@@ -165,7 +165,9 @@ public final class TreeModelAllSystemDirectories extends DefaultTreeModel
         tree.setCursor(waitCursor);
         DefaultMutableTreeNode node =
                 (DefaultMutableTreeNode) event.getPath().getLastPathComponent();
-        addChildren(node);
+        if (node.getChildCount() == 0) {
+            addChildren(node);
+        }
         for (Enumeration children = node.children(); children.hasMoreElements();) {
             addChildren((DefaultMutableTreeNode) children.nextElement());
         }
