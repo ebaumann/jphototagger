@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.5" maxVersion="1.6" type="org.netbeans.modules.form.forminfo.JDialogFormInfo">
+<Form version="1.7" maxVersion="1.7" type="org.netbeans.modules.form.forminfo.JDialogFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="0"/>
     <Property name="title" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
@@ -71,15 +71,16 @@
       <SubComponents>
         <Component class="javax.swing.JTree" name="treeDirectories">
           <Properties>
-            <Property name="model" type="javax.swing.tree.TreeModel" editor="org.netbeans.modules.form.ComponentChooserEditor">
-              <ComponentRef name="null"/>
+            <Property name="model" type="javax.swing.tree.TreeModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="new TreeModelAllSystemDirectories(treeDirectories, getTreeModelFilter())" type="code"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="de/elmar_baumann/lib/resource/properties/Bundle.properties" key="DirectoryChooser.treeDirectories.toolTipText" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="de/elmar_baumann/lib/resource/properties/Bundle.properties" key="DirectoryChooser.Tree directory chooser.toolTipText" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
             </Property>
             <Property name="cellRenderer" type="javax.swing.tree.TreeCellRenderer" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="new de.elmar_baumann.lib.renderer.TreeCellRendererSystemDirectories()" type="code"/>
+              <Connection code="new de.elmar_baumann.lib.renderer.TreeCellRendererAllSystemDirectories()" type="code"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="Tree directory chooser" noResource="true"/>
           </Properties>
         </Component>
       </SubComponents>

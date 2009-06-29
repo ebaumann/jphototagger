@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Properties;
 import java.util.Set;
 import javax.swing.JOptionPane;
-import javax.swing.tree.TreeModel;
+import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
@@ -28,9 +28,8 @@ import javax.swing.tree.TreeSelectionModel;
 public final class DirectoryChooser extends Dialog {
 
     private final File startDirectory;
-    private final Set<Option> options;
+    private final Set<Option> directoryFilter;
     private boolean accepted;
-    private TreeModel model;
 
     public enum Option {
 
@@ -55,21 +54,9 @@ public final class DirectoryChooser extends Dialog {
             Set<Option> options) {
         super(parent, true);
         this.startDirectory = startDirectory;
-        this.options = options;
+        this.directoryFilter = options;
         initComponents();
         postInitComponents();
-    }
-
-    /**
-     * Sets a model. Usually this is an instance of 
-     * {@link de.elmar_baumann.lib.model.TreeModelAllSystemDirectories} used by
-     * other trees to save time.
-     * 
-     * @param model  model. Default: new instance of
-     *               {@link de.elmar_baumann.lib.model.TreeModelAllSystemDirectories}
-     */
-    public void setModel(TreeModel model) {
-        this.model = model;
     }
 
     private void postInitComponents() {
@@ -86,7 +73,7 @@ public final class DirectoryChooser extends Dialog {
 
     private void setSelectionMode() {
         treeDirectories.getSelectionModel().setSelectionMode(
-                options.contains(Option.MULTI_SELECTION)
+                directoryFilter.contains(Option.MULTI_SELECTION)
                 ? TreeSelectionModel.DISCONTIGUOUS_TREE_SELECTION
                 : TreeSelectionModel.SINGLE_TREE_SELECTION);
         setTitle();
@@ -95,7 +82,7 @@ public final class DirectoryChooser extends Dialog {
 
     private void setUsageText() {
         labelUsage.setText(
-                options.contains(Option.MULTI_SELECTION)
+                directoryFilter.contains(Option.MULTI_SELECTION)
                 ? Bundle.getString(
                 "DirectoryChooser.LabelUsage.MultipleSelection")
                 : Bundle.getString("DirectoryChooser.LabelUsage.SingleSelection"));
@@ -103,7 +90,7 @@ public final class DirectoryChooser extends Dialog {
 
     private void setTitle() {
         setTitle(
-                options.contains(Option.MULTI_SELECTION)
+                directoryFilter.contains(Option.MULTI_SELECTION)
                 ? Bundle.getString("DirectoryChooser.Title.MultipleSelection")
                 : Bundle.getString("DirectoryChooser.Title.SingleSelection"));
     }
@@ -159,8 +146,13 @@ public final class DirectoryChooser extends Dialog {
                 Object[] path = paths[index].getPath();
                 int filecount = path.length;
                 if (path != null && filecount >= 1) {
-                    files.add(new File(((File) path[filecount - 1]).
-                            getAbsolutePath()));
+                    Object userObject =
+                            ((DefaultMutableTreeNode) path[filecount - 1]).
+                            getUserObject();
+                    if (userObject instanceof File) {
+                        files.add((File) userObject);
+
+                    }
                 }
             }
         }
@@ -168,35 +160,22 @@ public final class DirectoryChooser extends Dialog {
     }
 
     private void selectStartDirectory() {
-        Thread thread = new Thread(new Runnable() {
-
-            @Override
-            public void run() {
-                if (model == null) {
-                    model = new TreeModelAllSystemDirectories(getTreeModelFilter());
-                }
-                treeDirectories.setModel(model);
-                if (!startDirectory.getName().isEmpty()) {
-                    TreePath path = TreeUtil.getTreePath(
-                            startDirectory, treeDirectories.getModel());
-                    if (path != null) {
-                        TreeUtil.expandPathCascade(treeDirectories, path);
-                        treeDirectories.setSelectionPath(path);
-                        treeDirectories.scrollPathToVisible(path);
-                    }
-                }
+        if (!startDirectory.getName().isEmpty()) {
+            TreePath path = TreeUtil.getTreePath(
+                    startDirectory, treeDirectories.getModel());
+            if (path != null) {
+                TreeUtil.expandPathCascade(treeDirectories, path);
+                treeDirectories.setSelectionPath(path);
+                treeDirectories.scrollPathToVisible(path);
             }
+        }
+    }
 
-            private Set<DirectoryFilter.Option> getTreeModelFilter() {
-                return EnumSet.of(options.contains(
-                        Option.ACCEPT_HIDDEN_DIRECTORIES)
-                                  ? DirectoryFilter.Option.ACCEPT_HIDDEN_FILES
-                                  : DirectoryFilter.Option.REJECT_HIDDEN_FILES);
-            }
-        });
-        thread.setName("Start directory selected in directory chooser" + " @ " // NOI18N
-                + getClass().getName());
-        thread.start();
+    private Set<DirectoryFilter.Option> getTreeModelFilter() {
+        return EnumSet.of(directoryFilter.contains(
+                Option.ACCEPT_HIDDEN_DIRECTORIES)
+                          ? DirectoryFilter.Option.ACCEPT_HIDDEN_FILES
+                          : DirectoryFilter.Option.REJECT_HIDDEN_FILES);
     }
 
     private void cancel() {
@@ -206,18 +185,23 @@ public final class DirectoryChooser extends Dialog {
     }
 
     private void checkOk() {
-        if (treeDirectories.getSelectionCount() > 0 &&
-                treeDirectories.getSelectionPath().getLastPathComponent() instanceof File) {
-            accepted = true;
-            writeProperties();
-            dispose();
-        } else {
-            JOptionPane.showMessageDialog(this,
-                    Bundle.getString(
-                    "DirectoryChooser.ErrorMessage.NoDirectoryChosen"),
-                    Bundle.getString(
-                    "DirectoryChooser.ErrorMessage.NoDirectoryChosen.Title"),
-                    JOptionPane.ERROR_MESSAGE);
+        if (treeDirectories.getSelectionCount() > 0) {
+            DefaultMutableTreeNode selNode =
+                    (DefaultMutableTreeNode) treeDirectories.getSelectionPath().
+                    getLastPathComponent();
+            Object userObject = selNode.getUserObject();
+            if (userObject instanceof File) {
+                accepted = true;
+                writeProperties();
+                dispose();
+            } else {
+                JOptionPane.showMessageDialog(this,
+                        Bundle.getString(
+                        "DirectoryChooser.ErrorMessage.NoDirectoryChosen"),
+                        Bundle.getString(
+                        "DirectoryChooser.ErrorMessage.NoDirectoryChosen.Title"),
+                        JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
 
@@ -245,9 +229,10 @@ public final class DirectoryChooser extends Dialog {
             }
         });
 
-        treeDirectories.setModel(null);
-        treeDirectories.setToolTipText(Bundle.getString("DirectoryChooser.treeDirectories.toolTipText")); // NOI18N
-        treeDirectories.setCellRenderer(new de.elmar_baumann.lib.renderer.TreeCellRendererSystemDirectories());
+        treeDirectories.setModel(new TreeModelAllSystemDirectories(treeDirectories, getTreeModelFilter()));
+        treeDirectories.setToolTipText(Bundle.getString("DirectoryChooser.Tree directory chooser.toolTipText")); // NOI18N
+        treeDirectories.setCellRenderer(new de.elmar_baumann.lib.renderer.TreeCellRendererAllSystemDirectories());
+        treeDirectories.setName("Tree directory chooser"); // NOI18N
         scrollPaneTreeDirectories.setViewportView(treeDirectories);
 
         labelUsage.setText(bundle.getString("DirectoryChooser.labelUsage.text")); // NOI18N

@@ -192,6 +192,9 @@ public final class TreeUtil {
     /**
      * Returns the tree path of a file, each path component is a parent
      * (child) file of a file.
+     *
+     * <em>Expects that the nodes of the tree having the type
+     * {@link DefaultMutableTreeNode}!</em>
      * 
      * @param  file   file
      * @param  model  model when the root is not a file, else null
@@ -203,19 +206,19 @@ public final class TreeUtil {
         if (model == null)
             throw new NullPointerException("model == null");
 
-        Stack<Object> stack = new Stack<Object>();
+        Stack<DefaultMutableTreeNode> stack =
+                new Stack<DefaultMutableTreeNode>();
         while (file != null) {
-            stack.push(file);
+            stack.push(new DefaultMutableTreeNode(file));
             file = file.getParentFile();
         }
-        List<Object> list = new ArrayList<Object>(stack.size() + 1);
-        if (model != null) {
-            list.add(model.getRoot());
-        }
+        List<DefaultMutableTreeNode> nodes =
+                new ArrayList<DefaultMutableTreeNode>(stack.size() + 1);
+        nodes.add((DefaultMutableTreeNode) model.getRoot());
         while (!stack.isEmpty()) {
-            list.add(stack.pop());
+            nodes.add(stack.pop());
         }
-        return new TreePath(list.toArray());
+        return new TreePath(nodes.toArray());
     }
 
     /**
