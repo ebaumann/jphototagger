@@ -7,12 +7,14 @@ import de.elmar_baumann.imv.data.ImageFile;
 import de.elmar_baumann.imv.data.Timeline;
 import de.elmar_baumann.imv.data.Xmp;
 import de.elmar_baumann.imv.database.metadata.Column;
+import de.elmar_baumann.imv.database.metadata.file.ColumnFilesFilename;
 import de.elmar_baumann.imv.database.metadata.xmp.TableXmp;
 import de.elmar_baumann.imv.event.DatabaseImageEvent;
 import de.elmar_baumann.imv.event.ProgressEvent;
 import de.elmar_baumann.imv.event.listener.ProgressListener;
 import de.elmar_baumann.imv.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.imv.image.thumbnail.ThumbnailUtil;
+import de.elmar_baumann.imv.types.SubstringPosition;
 import java.awt.Image;
 import java.io.File;
 import java.sql.Connection;
@@ -88,6 +90,21 @@ public final class DatabaseImageFiles extends Database {
             free(connection);
         }
         return count;
+    }
+
+    /**
+     * Renames filenames starting with a substring. Usage: Renaming a directory
+     * in the filesystem.
+     *
+     * @param  start    start substring of the old filenames
+     * @param  newStart new start substring
+     * @return count of renamed files
+     */
+    public int updateRenameImageFilenamesStartingWith(
+            String start, String newStart) {
+        return DatabaseMaintainance.INSTANCE.replaceString(
+                ColumnFilesFilename.INSTANCE, start, newStart,
+                SubstringPosition.BEGIN);
     }
 
     private int deleteRowWithFilename(Connection connection, String filename) {
