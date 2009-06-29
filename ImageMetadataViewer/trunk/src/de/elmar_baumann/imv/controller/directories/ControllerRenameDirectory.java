@@ -1,12 +1,10 @@
 package de.elmar_baumann.imv.controller.directories;
 
-import de.elmar_baumann.imv.app.AppLog;
-import de.elmar_baumann.imv.resource.Bundle;
+import de.elmar_baumann.imv.io.FileSystemDirectories;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuTreeDirectories;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import javax.swing.JOptionPane;
 
 /**
  * Listens to {@link PopupMenuTreeDirectories#getItemRenameDirectory()} and
@@ -31,41 +29,7 @@ public final class ControllerRenameDirectory implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         String directoryName = popup.getDirectoryName();
         if (directoryName != null) {
-            File directory = new File(directoryName);
-            if (directory.isDirectory()) {
-                String newDirectoryName = getNewName(directory.getName());
-                if (newDirectoryName != null &&
-                        !newDirectoryName.trim().isEmpty()) {
-                    File newDirectory = new File(directory.getParentFile(), newDirectoryName);
-                    if (checkDoesNotExist(newDirectory)) {
-                        try {
-                            directory.renameTo(newDirectory);
-                        } catch (Exception ex) {
-                            AppLog.logWarning(ControllerRenameDirectory.class,
-                                    ex);
-                        }
-                    }
-                }
-            }
-
+            FileSystemDirectories.rename(new File(directoryName));
         }
-    }
-
-    private String getNewName(String currentName) {
-        return JOptionPane.showInputDialog(null, Bundle.getString(
-                "ControllerRenameDirectory.Input.NewName"), currentName);
-    }
-
-    private boolean checkDoesNotExist(File subdirectory) {
-        if (subdirectory.exists()) {
-            JOptionPane.showMessageDialog(null,
-                    Bundle.getString(
-                    "ControllerRenameDirectory.ErrorMessage.DirectoryAlreadyExists",
-                    subdirectory.getAbsolutePath()),
-                    Bundle.getString(
-                    "ControllerRenameDirectory.ErrorMessage.DirectoryAlreadyExists.Title"),
-                    JOptionPane.ERROR_MESSAGE);
-        }
-        return true;
     }
 }
