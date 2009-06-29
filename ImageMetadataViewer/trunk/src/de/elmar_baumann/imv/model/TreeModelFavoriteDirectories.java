@@ -199,11 +199,10 @@ public final class TreeModelFavoriteDirectories extends DefaultTreeModel
     private void addChildren(DefaultMutableTreeNode parentNode) {
         Object userObject = parentNode.getUserObject();
         File dir = userObject instanceof File
-                   ? (File) userObject
-                   : userObject instanceof FavoriteDirectory
-                     ? new File(((FavoriteDirectory) userObject).
-                getDirectoryName())
-                     : null;
+                ? (File) userObject
+                : userObject instanceof FavoriteDirectory
+                ? new File(((FavoriteDirectory) userObject).getDirectoryName())
+                : null;
         if (dir == null || !dir.isDirectory()) return;
         File[] subdirs = dir.listFiles(
                 new DirectoryFilter(
@@ -360,7 +359,9 @@ public final class TreeModelFavoriteDirectories extends DefaultTreeModel
         tree.setCursor(waitCursor);
         DefaultMutableTreeNode node =
                 (DefaultMutableTreeNode) event.getPath().getLastPathComponent();
-        addChildren(node);
+        if (node.getChildCount() == 0) {
+            addChildren(node);
+        }
         for (Enumeration children = node.children(); children.hasMoreElements();) {
             addChildren((DefaultMutableTreeNode) children.nextElement());
         }
