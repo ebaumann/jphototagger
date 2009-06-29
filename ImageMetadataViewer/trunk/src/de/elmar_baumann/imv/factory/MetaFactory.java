@@ -4,7 +4,6 @@ import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.ProgressBarCreateMetadataOfCurrentThumbnails;
-import de.elmar_baumann.imv.view.ViewUtil;
 import de.elmar_baumann.imv.view.frames.AppFrame;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import javax.swing.JProgressBar;
@@ -54,9 +53,6 @@ public final class MetaFactory implements Runnable {
         UserSettings.INSTANCE.getSettings().getComponent(
                 appPanel,
                 appPanel.getPersistentSettingsHints());
-        if (UserSettings.INSTANCE.isTreeDirectoriesSelectLastDirectory()) {
-            ViewUtil.readTreeDirectoriesFromProperties();
-        }
     }
 
     private void startDisplayProgressInProgressbarBar() {
