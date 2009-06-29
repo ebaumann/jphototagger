@@ -36,7 +36,8 @@ public final class External {
         try {
             runtime.exec(command);
         } catch (Exception ex) {
-            Logger.getLogger(External.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(External.class.getName()).log(Level.SEVERE, null,
+                    ex);
         }
     }
 
@@ -46,7 +47,9 @@ public final class External {
      * @param  command          command, e.g. <code>/bin/ls -l /home</code>
      * @param  maxMilliseconds  Maximum time in milliseconds to wait for closing
      *                          the process' streams. If this time is exceeded,
-     *                          the process streams will be closed.
+     *                          the process streams will be closed. In this case
+     *                          {@link Pair#getSecond()} contains an error
+     *                          message that the stream was closed.
      * @return         Pair of bytes written by the program or null if errors
      *                 occured. The first element of the pair is null if the
      *                 program didn't write anything to the system's standard
@@ -56,7 +59,8 @@ public final class External {
      *                 system's standard error output or the bytes the program
      *                 has written to the system's standard error output.
      */
-    public static Pair<byte[], byte[]> executeGetOutput(String command, long maxMilliseconds) {
+    public static Pair<byte[], byte[]> executeGetOutput(
+            String command, long maxMilliseconds) {
         if (command == null) {
             throw new NullPointerException("command == null");
         }
@@ -65,7 +69,9 @@ public final class External {
         Process process = null;
         try {
             process = runtime.exec(command);
-            String errorMessage = Bundle.getString("External.ExecuteGetOutput.ErrorMessage", maxMilliseconds, command);
+            String errorMessage = Bundle.getString(
+                    "External.ExecuteGetOutput.ErrorMessage", maxMilliseconds,
+                    command);
             InputStreamCloser closerStdOut = new InputStreamCloser(
                     process.getInputStream(), maxMilliseconds, errorMessage);
             InputStreamCloser closerStdErr = new InputStreamCloser(
@@ -77,11 +83,19 @@ public final class External {
             Pair<byte[], byte[]> streamContent = new Pair<byte[], byte[]>(
                     getStream(process, Stream.STANDARD_OUT),
                     getStream(process, Stream.STANDARD_ERROR));
-            closerStdOut.ready();
-            closerStdErr.ready();
+            boolean closed = closerStdOut.ready();
+            closed = closed || closerStdErr.ready();
+            if (closed) {
+                byte[] errorMessageBytes = errorMessage.getBytes();
+                byte[] second = appendToByteArray(streamContent.getSecond(),
+                        errorMessageBytes, errorMessageBytes.length);
+                streamContent = new Pair<byte[], byte[]>(
+                        streamContent.getFirst(), second);
+            }
             return streamContent;
         } catch (Exception ex) {
-            Logger.getLogger(External.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(External.class.getName()).log(Level.SEVERE, null,
+                    ex);
             return null;
         }
     }
@@ -94,8 +108,8 @@ public final class External {
         byte[] returnBytes = null;
         try {
             InputStream stream = s.equals(Stream.STANDARD_OUT)
-                    ? process.getInputStream()
-                    : process.getErrorStream();
+                                 ? process.getInputStream()
+                                 : process.getErrorStream();
             byte[] buffer = new byte[buffersize];
             int bytesRead = -1;
             boolean finished = false;
@@ -107,7 +121,8 @@ public final class External {
                         returnBytes = new byte[bytesRead];
                         System.arraycopy(buffer, 0, returnBytes, 0, bytesRead);
                     } else {
-                        returnBytes = appendByteArray(returnBytes, buffer, bytesRead);
+                        returnBytes = appendToByteArray(returnBytes, buffer,
+                                bytesRead);
                     }
                 }
                 finished = bytesRead < 0;
@@ -115,18 +130,21 @@ public final class External {
             try {
                 process.waitFor();
             } catch (InterruptedException ex) {
-                Logger.getLogger(External.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(External.class.getName()).log(Level.SEVERE,
+                        null, ex);
             }
         } catch (IOException ex) {
-            Logger.getLogger(External.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(External.class.getName()).log(Level.SEVERE, null,
+                    ex);
         }
         return returnBytes;
     }
 
-    private static byte[] appendByteArray(byte[] left, byte[] right, int count) {
-        byte[] newArray = new byte[left.length + count];
-        System.arraycopy(left, 0, newArray, 0, left.length);
-        System.arraycopy(right, 0, newArray, left.length, count);
+    private static byte[] appendToByteArray(
+            byte[] appendTo, byte[] appendThis, int count) {
+        byte[] newArray = new byte[appendTo.length + count];
+        System.arraycopy(appendTo, 0, newArray, 0, appendTo.length);
+        System.arraycopy(appendThis, 0, newArray, appendTo.length, count);
         return newArray;
     }
 
@@ -136,15 +154,18 @@ public final class External {
         private final long millisecondsToClose;
         private final String errorMessage;
         private volatile boolean ready;
+        private boolean closed = false;
 
-        public InputStreamCloser(InputStream is, long millisecondsToClose, String errorMessage) {
+        public InputStreamCloser(InputStream is, long millisecondsToClose,
+                String errorMessage) {
             this.is = is;
             this.millisecondsToClose = millisecondsToClose;
             this.errorMessage = errorMessage;
         }
 
-        public void ready() {
+        public boolean ready() {
             ready = true;
+            return closed;
         }
 
         @Override
@@ -152,14 +173,18 @@ public final class External {
             try {
                 Thread.sleep(millisecondsToClose);
             } catch (InterruptedException ex) {
-                Logger.getLogger(External.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(External.class.getName()).log(Level.SEVERE,
+                        null, ex);
             }
             if (!ready) {
                 try {
                     is.close();
-                    Logger.getLogger(External.class.getName()).log(Level.SEVERE, errorMessage);
+                    closed = true;
+                    Logger.getLogger(External.class.getName()).log(Level.SEVERE,
+                            errorMessage);
                 } catch (IOException ex) {
-                    Logger.getLogger(External.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(External.class.getName()).log(Level.SEVERE,
+                            null, ex);
                 }
             }
         }
