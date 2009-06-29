@@ -157,8 +157,8 @@ public final class DatabaseMaintainance extends Database {
             connection.setAutoCommit(false);
             String tableName = column.getTable().getName();
             String columnName = column.getName();
-            String quotedSearch = escapeString(search);
-            String quotedReplacement = escapeString(replacement);
+            String quotedSearch = escapeStringForQuotes(search);
+            String quotedReplacement = escapeStringForQuotes(replacement);
             String sql = "UPDATE " + tableName + " SET " + columnName + // NOI18N
                     " = REPLACE(" + columnName + ", '" + quotedSearch + "', '" + // NOI18N
                     quotedReplacement + "') WHERE " + columnName + " " + // NOI18N
@@ -178,7 +178,7 @@ public final class DatabaseMaintainance extends Database {
         return affectedRows;
     }
 
-    private String escapeString(String s) {
-        return s.replace("\\", "\\\\'").replace("'", "\\'"); // NOI18N
+    private String escapeStringForQuotes(String s) {
+        return s.replace("'", "\\'"); // NOI18N
     }
 }
