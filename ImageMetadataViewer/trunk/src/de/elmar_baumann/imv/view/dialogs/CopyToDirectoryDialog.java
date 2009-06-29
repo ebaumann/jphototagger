@@ -8,7 +8,6 @@ import de.elmar_baumann.imv.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.tasks.CopyFiles;
 import de.elmar_baumann.imv.tasks.CopyFiles.Options;
-import de.elmar_baumann.imv.view.ViewUtil;
 import de.elmar_baumann.lib.componentutil.ComponentUtil;
 import de.elmar_baumann.lib.dialog.Dialog;
 import de.elmar_baumann.lib.dialog.DirectoryChooser;
@@ -144,7 +143,6 @@ public final class CopyToDirectoryDialog extends Dialog
     private void chooseTargetDirectory() {
         DirectoryChooser dialog = new DirectoryChooser(null, targetDirectory,
                 UserSettings.INSTANCE.getDefaultDirectoryChooserOptions());
-        ViewUtil.setDirectoryTreeModel(dialog);
         dialog.setVisible(true);
         if (dialog.accepted()) {
             List<File> files = dialog.getSelectedDirectories();

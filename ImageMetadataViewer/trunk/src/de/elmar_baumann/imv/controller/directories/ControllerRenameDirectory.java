@@ -1,10 +1,12 @@
 package de.elmar_baumann.imv.controller.directories;
 
 import de.elmar_baumann.imv.io.FileSystemDirectories;
+import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuTreeDirectories;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
  * Listens to {@link PopupMenuTreeDirectories#getItemRenameDirectory()} and
@@ -27,9 +29,23 @@ public final class ControllerRenameDirectory implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        String directoryName = popup.getDirectoryName();
-        if (directoryName != null) {
-            FileSystemDirectories.rename(new File(directoryName));
+        renameDirectory();
+    }
+
+    private void renameDirectory() {
+        DefaultMutableTreeNode node = FileSystemDirectories.
+                getNodeOfLastPathComponent(popup.getTreePath());
+        File dir = node == null
+                   ? null
+                   : FileSystemDirectories.getFile(node);
+        if (dir != null) {
+            File newDir = FileSystemDirectories.rename(dir);
+            if (newDir != null) {
+                node.setUserObject(newDir);
+                FileSystemDirectories.updateInTreeModel(
+                        GUI.INSTANCE.getAppPanel().getTreeDirectories().getModel(),
+                        node);
+            }
         }
     }
 }

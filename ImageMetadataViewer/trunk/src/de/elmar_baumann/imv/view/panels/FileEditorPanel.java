@@ -4,7 +4,6 @@ import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.app.AppFileFilter;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.tasks.FileEditor;
-import de.elmar_baumann.imv.view.ViewUtil;
 import de.elmar_baumann.imv.view.dialogs.ShowFilesDialog;
 import de.elmar_baumann.lib.dialog.DirectoryChooser;
 import de.elmar_baumann.lib.dialog.DirectoryChooser.Option;
@@ -360,7 +359,6 @@ public final class FileEditorPanel extends javax.swing.JPanel {
     private void selectDirectories() {
         DirectoryChooser dialog = new DirectoryChooser(null,
                 prevSelectedDirectory, getDirChooserOptions());
-        ViewUtil.setDirectoryTreeModel(dialog);
         dialog.setVisible(true);
         if (dialog.accepted()) {
             selectedDirectories = dialog.getSelectedDirectories();

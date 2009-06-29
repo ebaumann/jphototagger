@@ -7,7 +7,6 @@ import de.elmar_baumann.imv.event.listener.ProgressListener;
 import de.elmar_baumann.imv.io.DirectoryInfo;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.tasks.InsertImageFilesIntoDatabase;
-import de.elmar_baumann.imv.view.ViewUtil;
 import de.elmar_baumann.lib.dialog.DirectoryChooser;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.awt.event.KeyEvent;
@@ -57,7 +56,6 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
     private void chooseDirectories() {
         DirectoryChooser dialog = new DirectoryChooser(null,
                 lastSelectedDirectory, getDirectoryChooserOptions());
-        ViewUtil.setDirectoryTreeModel(dialog);
         dialog.setVisible(true);
         if (dialog.accepted()) {
             List<File> newDirectories = getNotAlreadyChoosenDirectoriesFrom(

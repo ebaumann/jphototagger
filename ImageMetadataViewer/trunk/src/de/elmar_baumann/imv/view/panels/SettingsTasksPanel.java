@@ -7,7 +7,6 @@ import de.elmar_baumann.imv.event.UserSettingsChangeEvent;
 import de.elmar_baumann.imv.model.ListModelAutoscanDirectories;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.types.Persistence;
-import de.elmar_baumann.imv.view.ViewUtil;
 import de.elmar_baumann.lib.dialog.DirectoryChooser;
 import de.elmar_baumann.lib.dialog.DirectoryChooser.Option;
 import de.elmar_baumann.lib.renderer.ListCellRendererFileSystem;
@@ -27,10 +26,13 @@ import javax.swing.SpinnerNumberModel;
 public final class SettingsTasksPanel extends javax.swing.JPanel
         implements Persistence {
 
-    private static final String keyLastSelectedAutoscanDirectory = "UserSettingsDialog.keyLastSelectedAutoscanDirectory"; // NOI18N
-    private final DatabaseAutoscanDirectories db = DatabaseAutoscanDirectories.INSTANCE;
+    private static final String keyLastSelectedAutoscanDirectory =
+            "UserSettingsDialog.keyLastSelectedAutoscanDirectory"; // NOI18N
+    private final DatabaseAutoscanDirectories db =
+            DatabaseAutoscanDirectories.INSTANCE;
     private final ListenerProvider listenerProvider = ListenerProvider.INSTANCE;
-    private ListModelAutoscanDirectories modelAutoscanDirectories = new ListModelAutoscanDirectories();
+    private ListModelAutoscanDirectories modelAutoscanDirectories =
+            new ListModelAutoscanDirectories();
     private String lastSelectedAutoscanDirectory = ""; // NOI18N
 
     /** Creates new form SettingsTasksPanel */
@@ -66,7 +68,8 @@ public final class SettingsTasksPanel extends javax.swing.JPanel
                 settings.isAutoscanIncludeSubdirectories());
         checkBoxIsTaskRemoveRecordsWithNotExistingFiles.setSelected(
                 settings.isTaskRemoveRecordsWithNotExistingFiles());
-        lastSelectedAutoscanDirectory = settings.getSettings().getString(keyLastSelectedAutoscanDirectory);
+        lastSelectedAutoscanDirectory = settings.getSettings().getString(
+                keyLastSelectedAutoscanDirectory);
     }
 
     @Override
@@ -76,8 +79,8 @@ public final class SettingsTasksPanel extends javax.swing.JPanel
     }
 
     private void addAutoscanDirectories() {
-        DirectoryChooser dialog = new DirectoryChooser(null, new File(lastSelectedAutoscanDirectory), getDirectoryChooserFilter());
-        ViewUtil.setDirectoryTreeModel(dialog);
+        DirectoryChooser dialog = new DirectoryChooser(null, new File(
+                lastSelectedAutoscanDirectory), getDirectoryChooserFilter());
         dialog.setVisible(true);
         if (dialog.accepted()) {
             List<File> directories = dialog.getSelectedDirectories();
@@ -117,16 +120,22 @@ public final class SettingsTasksPanel extends javax.swing.JPanel
     private void errorMessageInsertAutoscanDirectory(String directoryName) {
         JOptionPane.showMessageDialog(
                 this,
-                Bundle.getString("UserSettingsDialog.ErrorMessage.InsertAutoscanDirectory", directoryName),
-                Bundle.getString("UserSettingsDialog.ErrorMessage.InsertAutoscanDirectory.Title"),
+                Bundle.getString(
+                "UserSettingsDialog.ErrorMessage.InsertAutoscanDirectory",
+                directoryName),
+                Bundle.getString(
+                "UserSettingsDialog.ErrorMessage.InsertAutoscanDirectory.Title"),
                 JOptionPane.ERROR_MESSAGE);
     }
 
     private void errorMessageDeleteAutoscanDirectory(String directoryName) {
         JOptionPane.showMessageDialog(
                 this,
-                Bundle.getString("UserSettingsDialog.ErrorMessage.DeleteAutoscanDirectory", directoryName),
-                Bundle.getString("UserSettingsDialog.ErrorMessage.DeleteAutoscanDirectory.Title"),
+                Bundle.getString(
+                "UserSettingsDialog.ErrorMessage.DeleteAutoscanDirectory",
+                directoryName),
+                Bundle.getString(
+                "UserSettingsDialog.ErrorMessage.DeleteAutoscanDirectory.Title"),
                 JOptionPane.ERROR_MESSAGE);
     }
 
@@ -138,7 +147,8 @@ public final class SettingsTasksPanel extends javax.swing.JPanel
 
     private void handleStateChangedSpinnerMinutesToStartScheduledTasks() {
         UserSettingsChangeEvent evt = new UserSettingsChangeEvent(
-                UserSettingsChangeEvent.Type.MINUTES_TO_START_SCHEDULED_TASKS, this);
+                UserSettingsChangeEvent.Type.MINUTES_TO_START_SCHEDULED_TASKS,
+                this);
         evt.setMinutesToStartScheduledTasks(
                 (Integer) spinnerMinutesToStartScheduledTasks.getValue());
         notifyChangeListener(evt);
@@ -146,15 +156,18 @@ public final class SettingsTasksPanel extends javax.swing.JPanel
 
     private void handleActionCheckBoxIsAutoscanIncludeSubdirectories() {
         UserSettingsChangeEvent evt = new UserSettingsChangeEvent(
-                UserSettingsChangeEvent.Type.IS_AUTSCAN_INCLUDE_DIRECTORIES, this);
+                UserSettingsChangeEvent.Type.IS_AUTSCAN_INCLUDE_DIRECTORIES,
+                this);
         evt.setAutoscanIncludeSubdirectories(
                 checkBoxIsAutoscanIncludeSubdirectories.isSelected());
         notifyChangeListener(evt);
     }
 
     private void handleActionCheckBoxIsTaskRemoveRecordsWithNotExistingFiles() {
-        UserSettingsChangeEvent evt = new UserSettingsChangeEvent(
-                UserSettingsChangeEvent.Type.IS_TASK_REMOVE_RECORDS_WITH_NOT_EXISTING_FILES, this);
+        UserSettingsChangeEvent evt =
+                new UserSettingsChangeEvent(
+                UserSettingsChangeEvent.Type.IS_TASK_REMOVE_RECORDS_WITH_NOT_EXISTING_FILES,
+                this);
         evt.setTaskRemoveRecordsWithNotExistingFiles(
                 checkBoxIsTaskRemoveRecordsWithNotExistingFiles.isSelected());
         notifyChangeListener(evt);

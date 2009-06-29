@@ -13,6 +13,7 @@ import de.elmar_baumann.imv.model.TreeModelFavoriteDirectories;
 import de.elmar_baumann.imv.model.TreeModelMiscMetadata;
 import de.elmar_baumann.imv.model.TreeModelTimeline;
 import de.elmar_baumann.imv.resource.GUI;
+import de.elmar_baumann.imv.view.ViewUtil;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.lib.model.TreeModelAllSystemDirectories;
 import de.elmar_baumann.lib.thirdparty.SortedListModel;
@@ -98,7 +99,8 @@ public final class ModelFactory {
 
             @Override
             public void run() {
-                TreeModel model = new TreeModelFavoriteDirectories();
+                TreeModel model = new TreeModelFavoriteDirectories(
+                        appPanel.getTreeFavoriteDirectories());
                 appPanel.getTreeFavoriteDirectories().setModel(model);
             }
         });
@@ -113,9 +115,13 @@ public final class ModelFactory {
             @Override
             public void run() {
                 TreeModel model =
-                        new TreeModelAllSystemDirectories(UserSettings.INSTANCE.
-                        getDefaultDirectoryFilterOptions());
+                        new TreeModelAllSystemDirectories(
+                        appPanel.getTreeDirectories(),
+                        UserSettings.INSTANCE.getDefaultDirectoryFilterOptions());
                 appPanel.getTreeDirectories().setModel(model);
+                if (UserSettings.INSTANCE.isTreeDirectoriesSelectLastDirectory()) {
+                    ViewUtil.readTreeDirectoriesFromProperties();
+                }
             }
         });
         thread.setName("Creating model of tree directories" + " @ " + // NOI18N

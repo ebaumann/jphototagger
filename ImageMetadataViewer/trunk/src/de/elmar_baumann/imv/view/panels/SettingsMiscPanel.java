@@ -6,7 +6,6 @@ import de.elmar_baumann.imv.event.UserSettingsChangeEvent;
 import de.elmar_baumann.imv.model.ComboBoxModelLogfileFormatter;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.types.Persistence;
-import de.elmar_baumann.imv.view.ViewUtil;
 import de.elmar_baumann.imv.view.renderer.ListCellRendererLogfileFormatter;
 import de.elmar_baumann.lib.dialog.DirectoryChooser;
 import de.elmar_baumann.lib.image.icon.IconUtil;
@@ -48,8 +47,8 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
 
     private File chooseDirectory(File startDirectory) {
         File dir = null;
-        DirectoryChooser dialog = new DirectoryChooser(null, startDirectory, UserSettings.INSTANCE.getDefaultDirectoryChooserOptions());
-        ViewUtil.setDirectoryTreeModel(dialog);
+        DirectoryChooser dialog = new DirectoryChooser(null, startDirectory,
+                UserSettings.INSTANCE.getDefaultDirectoryChooserOptions());
 
         dialog.setVisible(true);
 
@@ -77,19 +76,24 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
     private void handleActionPerformedCheckBoxIsAcceptHiddenDirectories() {
         UserSettingsChangeEvent evt = new UserSettingsChangeEvent(
                 UserSettingsChangeEvent.Type.IS_ACCEPT_HIDDEN_DIRECTORIES, this);
-        evt.setAcceptHiddenDirectories(checkBoxIsAcceptHiddenDirectories.isSelected());
+        evt.setAcceptHiddenDirectories(checkBoxIsAcceptHiddenDirectories.
+                isSelected());
         notifyChangeListener(evt);
     }
 
     private void handleActionPerformedCheckBoxTreeDirectoriesSelectLastDirectory() {
-        UserSettingsChangeEvent evt = new UserSettingsChangeEvent(
-                UserSettingsChangeEvent.Type.TREE_DIRECTORIES_SELECT_LAST_DIRECTORY, this);
-        evt.setTreeDirectoriesSelectLastDirectory(checkBoxTreeDirectoriesSelectLastDirectory.isSelected());
+        UserSettingsChangeEvent evt =
+                new UserSettingsChangeEvent(
+                UserSettingsChangeEvent.Type.TREE_DIRECTORIES_SELECT_LAST_DIRECTORY,
+                this);
+        evt.setTreeDirectoriesSelectLastDirectory(checkBoxTreeDirectoriesSelectLastDirectory.
+                isSelected());
         notifyChangeListener(evt);
     }
 
     private void handleActionPerformedChooseDatabaseDirectory() {
-        File file = chooseDirectory(new File(UserSettings.INSTANCE.getDatabaseDirectoryName()));
+        File file = chooseDirectory(new File(UserSettings.INSTANCE.
+                getDatabaseDirectoryName()));
         if (file != null) {
             setDatabaseDirectoryName(file.getAbsolutePath());
         }
@@ -104,7 +108,8 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
     }
 
     private void handleActionPerformedSetStandardDatabaseDirectory() {
-        setDatabaseDirectoryName(UserSettings.INSTANCE.getDefaultDatabaseDirectoryName());
+        setDatabaseDirectoryName(UserSettings.INSTANCE.
+                getDefaultDatabaseDirectoryName());
     }
 
     private void handleActionPerformedChooseWebBrowser() {
@@ -123,7 +128,8 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
     private void handleActionPerformedComboBoxLogLevel() {
         UserSettingsChangeEvent evt = new UserSettingsChangeEvent(
                 UserSettingsChangeEvent.Type.LOG_LEVEL, this);
-        evt.setLogLevel(Level.parse(comboBoxLogLevel.getSelectedItem().toString()));
+        evt.setLogLevel(Level.parse(
+                comboBoxLogLevel.getSelectedItem().toString()));
         notifyChangeListener(evt);
     }
 
@@ -151,15 +157,19 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
         UserSettings settings = UserSettings.INSTANCE;
         readAutoCopyDirectoryProperties(settings);
         readWebBrowserProperties(settings);
-        comboBoxLogLevel.setSelectedItem(settings.getLogLevel().getLocalizedName());
+        comboBoxLogLevel.setSelectedItem(
+                settings.getLogLevel().getLocalizedName());
         ComboBoxModelLogfileFormatter modelLogfileFormatter =
-                (ComboBoxModelLogfileFormatter) comboBoxLogfileFormatterClass.getModel();
-        modelLogfileFormatter.setSelectedItem(settings.getLogfileFormatterClass());
+                (ComboBoxModelLogfileFormatter) comboBoxLogfileFormatterClass.
+                getModel();
+        modelLogfileFormatter.setSelectedItem(
+                settings.getLogfileFormatterClass());
         checkBoxIsAcceptHiddenDirectories.setSelected(
                 settings.isAcceptHiddenDirectories());
         checkBoxTreeDirectoriesSelectLastDirectory.setSelected(
                 settings.isTreeDirectoriesSelectLastDirectory());
-        labelDatabaseDirectory.setText(UserSettings.INSTANCE.getDatabaseDirectoryName());
+        labelDatabaseDirectory.setText(UserSettings.INSTANCE.
+                getDatabaseDirectoryName());
     }
 
     private void readAutoCopyDirectoryProperties(UserSettings settings) {
@@ -168,7 +178,8 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
             String lastAcDirectoryName = lastAcDirectory.getAbsolutePath();
             labelAutocopyDirectory.setText(lastAcDirectoryName);
             lastSelectedAutocopyDirectory = lastAcDirectoryName;
-            labelAutocopyDirectory.setIcon(IconUtil.getSystemIcon(lastAcDirectory));
+            labelAutocopyDirectory.setIcon(IconUtil.getSystemIcon(
+                    lastAcDirectory));
         }
     }
 

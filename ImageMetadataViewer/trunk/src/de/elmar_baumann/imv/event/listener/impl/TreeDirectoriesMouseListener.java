@@ -6,6 +6,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import javax.swing.JTree;
+import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 
 /**
@@ -16,7 +17,8 @@ import javax.swing.tree.TreePath;
  */
 public final class TreeDirectoriesMouseListener extends MouseAdapter {
 
-    private final PopupMenuTreeDirectories popupMenu = PopupMenuTreeDirectories.INSTANCE;
+    private final PopupMenuTreeDirectories popupMenu =
+            PopupMenuTreeDirectories.INSTANCE;
 
     @Override
     public void mousePressed(MouseEvent e) {
@@ -30,13 +32,21 @@ public final class TreeDirectoriesMouseListener extends MouseAdapter {
             if (isSelectedItem && !isRootItem) {
                 Object o = tree.getSelectionPath().getLastPathComponent();
                 Object o2 = path.getLastPathComponent();
-                if (o instanceof File && o2 instanceof File) {
-                    File selectedDirectory = (File) o;
-                    File popupDirectory = (File) o2;
-                    if (selectedDirectory.equals(popupDirectory)) {
-                        popupMenu.setDirectoryName(selectedDirectory.getAbsolutePath());
-                        popupMenu.setTreePath(path);
-                        isSelectedItem = true;
+                if (o instanceof DefaultMutableTreeNode &&
+                        o2 instanceof DefaultMutableTreeNode) {
+                    Object userObj1 =
+                            ((DefaultMutableTreeNode) o).getUserObject();
+                    Object userObj2 = ((DefaultMutableTreeNode) o2).
+                            getUserObject();
+                    if (userObj1 instanceof File & userObj2 instanceof File) {
+                        File selectedDirectory = (File) userObj1;
+                        File popupDirectory = (File) userObj2;
+                        if (selectedDirectory.equals(popupDirectory)) {
+                            popupMenu.setDirectoryName(selectedDirectory.
+                                    getAbsolutePath());
+                            popupMenu.setTreePath(path);
+                            isSelectedItem = true;
+                        }
                     }
                 }
             }

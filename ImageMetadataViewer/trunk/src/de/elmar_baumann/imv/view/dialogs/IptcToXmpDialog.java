@@ -7,7 +7,6 @@ import de.elmar_baumann.imv.event.listener.ProgressListener;
 import de.elmar_baumann.imv.io.ImageFilteredDirectory;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.tasks.IptcToXmp;
-import de.elmar_baumann.imv.view.ViewUtil;
 import de.elmar_baumann.lib.dialog.Dialog;
 import de.elmar_baumann.lib.dialog.DirectoryChooser;
 import de.elmar_baumann.lib.io.FileUtil;
@@ -49,7 +48,6 @@ public final class IptcToXmpDialog extends Dialog
     private void chooseDirectory() {
         DirectoryChooser dialog = new DirectoryChooser(null, directory,
                 UserSettings.INSTANCE.getDefaultDirectoryChooserOptions());
-        ViewUtil.setDirectoryTreeModel(dialog);
         dialog.setVisible(true);
         if (dialog.accepted()) {
             directory = dialog.getSelectedDirectories().get(0);

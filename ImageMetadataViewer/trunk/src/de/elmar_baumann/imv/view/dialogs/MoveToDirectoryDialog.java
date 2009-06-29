@@ -13,7 +13,6 @@ import de.elmar_baumann.imv.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.imv.io.FileSystemMove;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.GUI;
-import de.elmar_baumann.imv.view.ViewUtil;
 import de.elmar_baumann.lib.dialog.Dialog;
 import de.elmar_baumann.lib.dialog.DirectoryChooser;
 import de.elmar_baumann.lib.io.FileUtil;
@@ -149,7 +148,6 @@ public final class MoveToDirectoryDialog extends Dialog
     private void chooseTargetDirectory() {
         DirectoryChooser dialog = new DirectoryChooser(null, targetDirectory,
                 UserSettings.INSTANCE.getDefaultDirectoryChooserOptions());
-        ViewUtil.setDirectoryTreeModel(dialog);
         dialog.setVisible(true);
         if (dialog.accepted()) {
             List<File> files = dialog.getSelectedDirectories();

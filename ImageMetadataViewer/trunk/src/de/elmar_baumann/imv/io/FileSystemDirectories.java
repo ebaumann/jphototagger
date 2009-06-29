@@ -7,6 +7,11 @@ import de.elmar_baumann.lib.io.FileUtil;
 import java.io.File;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.MutableTreeNode;
+import javax.swing.tree.TreeModel;
+import javax.swing.tree.TreePath;
 
 /**
  * Deletes a directory from the file system. Updates the database: Deletes
@@ -55,11 +60,10 @@ public final class FileSystemDirectories {
      * {@link DatabaseImageFiles}: Sets the directory to the new name.
      *
      * @param  directory directory
-     * @return           true if deleted and false if not deleted or the file
-     *                   isn't a directory
+     * @return           new file or null if not renamed
      *
      */
-    public static boolean rename(File directory) {
+    public static File rename(File directory) {
         if (directory.isDirectory()) {
             String newDirectoryName = getNewName(directory.getName());
             if (newDirectoryName != null &&
@@ -78,7 +82,7 @@ public final class FileSystemDirectories {
                                     updateRenameImageFilenamesStartingWith(
                                     oldParentDir, newParentDir);
                             logInfoRenamed(directory, newDirectory, dbCount);
-                            return true;
+                            return newDirectory;
                         }
                     } catch (Exception ex) {
                         AppLog.logWarning(FileSystemDirectories.class,
@@ -87,7 +91,7 @@ public final class FileSystemDirectories {
                 }
             }
         }
-        return false;
+        return null;
     }
 
     /**
@@ -95,9 +99,9 @@ public final class FileSystemDirectories {
      *
      * @param  parentDirectory parent directory into which the new directory
      *                         will be created
-     * @return                 true if created
+     * @return                 created subdirectory or null if not created
      */
-    public static boolean createSubDirectory(File parentDirectory) {
+    public static File createSubDirectory(File parentDirectory) {
         if (parentDirectory.isDirectory()) {
             String subdirectoryName = getSubDirectoryName();
             if (subdirectoryName != null &&
@@ -107,6 +111,7 @@ public final class FileSystemDirectories {
                     try {
                         if (subdirectory.mkdir()) {
                             logCreated(subdirectory);
+                            return subdirectory;
                         }
                     } catch (Exception ex) {
                         AppLog.logWarning(FileSystemDirectories.class,
@@ -115,7 +120,85 @@ public final class FileSystemDirectories {
                 }
             }
         }
-        return false;
+        return null;
+    }
+
+    /**
+     * Returns the node of the last component of a path.
+     *
+     * @param  path path
+     * @return      node or null if the type of the last path component has not
+     *              the type <code>DefaultMutableTreeNode</code>
+     */
+    public static DefaultMutableTreeNode getNodeOfLastPathComponent(
+            TreePath path) {
+        Object lastPathComponent = path.getLastPathComponent();
+        if (lastPathComponent instanceof DefaultMutableTreeNode) {
+            return (DefaultMutableTreeNode) lastPathComponent;
+        }
+        return null;
+    }
+
+    /**
+     * Returns a file when the user object of a node is a file.
+     *
+     * @param  node node can be null
+     * @return      file or null if the user object is not a file or node is
+     *              null
+     */
+    public static File getFile(DefaultMutableTreeNode node) {
+        if (node != null) {
+            Object userObject = node.getUserObject();
+            if (userObject instanceof File) {
+                return (File) userObject;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Updates a node into a model if the model has the type
+     * {@link DefaultTreeModel}.
+     *
+     * @param model  model
+     * @param node   updated node
+     */
+    public static void updateInTreeModel(TreeModel model, MutableTreeNode node) {
+        if (model instanceof DefaultTreeModel) {
+            ((DefaultTreeModel) model).nodeChanged(node);
+        }
+    }
+
+    /**
+     * Inserts into a model a file if the model has the type
+     * {@link DefaultTreeModel}.
+     * 
+     * @param model      model
+     * @param parentNode parent node
+     * @param file       file to insert as user object in a
+     *                   <code>DefaultMutableTreeNode</code> as the user object
+     *                   of a {@link DefaultMutableTreeNode}
+     */
+    public static void insertIntoTreeModel(
+            TreeModel model, DefaultMutableTreeNode parentNode, File file) {
+        if (model instanceof DefaultTreeModel) {
+            ((DefaultTreeModel) model).insertNodeInto(new DefaultMutableTreeNode(
+                    file), parentNode, parentNode.getChildCount());
+        }
+    }
+
+    /**
+     * Deletes from a model a tree node if the model's type is
+     * {@link DefaultTreeModel} and all it's nodes of the type
+     * {@link MutableTreeNode}.
+     *
+     * @param model model
+     * @param node  node to delete
+     */
+    public static void removeFromTreeModel(TreeModel model, MutableTreeNode node) {
+        if (model instanceof DefaultTreeModel) {
+            ((DefaultTreeModel) model).removeNodeFromParent(node);
+        }
     }
 
     private static String getNewName(String currentName) {

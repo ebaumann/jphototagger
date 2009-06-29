@@ -144,7 +144,7 @@ public final class PopupMenuTreeFavoriteDirectories extends JPopupMenu {
         add(itemDelete);
         add(itemMoveUp);
         add(itemMoveDown);
-        add(itemOpenInFolders);
+        //add(itemOpenInFolders);
         add(itemRefresh);
         setIcons();
     }

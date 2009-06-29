@@ -4,7 +4,6 @@ import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.data.FavoriteDirectory;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.lib.componentutil.TreeUtil;
-import de.elmar_baumann.lib.dialog.DirectoryChooser;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.io.File;
 import javax.swing.JTree;
@@ -59,16 +58,6 @@ public class ViewUtil {
             }
         }
         return null;
-    }
-
-    /**
-     * Sets the directory tree's model to a directory chooser (speed).
-     * 
-     * @param chooser  directory chooser
-     */
-    public static void setDirectoryTreeModel(DirectoryChooser chooser) {
-        chooser.setModel(GUI.INSTANCE.getAppPanel().getTreeDirectories().
-                getModel());
     }
 
     public static void writeTreeDirectoriesToProperties() {
