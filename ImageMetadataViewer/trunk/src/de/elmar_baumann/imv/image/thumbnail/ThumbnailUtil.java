@@ -104,18 +104,12 @@ public final class ThumbnailUtil {
             procOptions.setScale(maxLength);
 
             Image image = Imagero.readImage(procOptions);
-            close(procOptions.getImageReader());
+            closeReader(procOptions.getImageReader());
             return image;
         } catch (Exception ex) {
             AppLog.logWarning(ThumbnailUtil.class, ex);
         }
         return null;
-    }
-
-    private static void close(ImageReader reader) {
-        if (reader != null) {
-            reader.close();
-        }
     }
 
     private static void logExternalAppCommand(String cmd) {
@@ -139,7 +133,7 @@ public final class ThumbnailUtil {
                 rotatedThumbnail = ImageTransform.rotate(thumbnail, rotateAngle);
             }
         }
-        close(pair.getSecond());
+        closeReader(pair.getSecond());
         return rotatedThumbnail;
     }
 
@@ -337,19 +331,24 @@ public final class ThumbnailUtil {
     }
 
     public static void writeThumbnail(Image thumbnail, long id) {
+        FileOutputStream fos = null;
         try {
-            FileOutputStream fos = new FileOutputStream(getThumbnailfile(id));
-            ByteArrayInputStream is = ImageUtil.getByteArrayInputStream(
-                    thumbnail);
+            File tnFile = getThumbnailfile(id);
+            AppLog.logInfo(ThumbnailUtil.class,
+                    Bundle.getString("ThumbnailUtil.Info.WriteThumbnail", tnFile));
+            fos = new FileOutputStream(tnFile);
+            ByteArrayInputStream is =
+                    ImageUtil.getByteArrayInputStream(thumbnail);
             if (is != null) {
                 int nextByte;
                 while ((nextByte = is.read()) != -1) {
                     fos.write(nextByte);
                 }
             }
-            fos.close();
         } catch (Exception ex) {
             AppLog.logWarning(ThumbnailUtil.class, ex);
+        } finally {
+            closeStream(fos);
         }
     }
 
@@ -388,10 +387,26 @@ public final class ThumbnailUtil {
         return new File(dir + File.separator + id);
     }
 
+    private static void closeReader(ImageReader reader) {
+        if (reader != null) {
+            reader.close();
+        }
+    }
+
     private static void closeStream(FileInputStream fis) {
         if (fis != null) {
             try {
                 fis.close();
+            } catch (IOException ex) {
+                AppLog.logWarning(ThumbnailUtil.class, ex);
+            }
+        }
+    }
+
+    private static void closeStream(FileOutputStream fos) {
+        if (fos != null) {
+            try {
+                fos.close();
             } catch (IOException ex) {
                 AppLog.logWarning(ThumbnailUtil.class, ex);
             }
