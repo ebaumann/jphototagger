@@ -363,19 +363,21 @@ public final class ThumbnailUtil {
 
     public static Image getThumbnail(long id) {
         Image thumbnail = null;
+        FileInputStream fis = null;
         try {
             File tnFile = getThumbnailfile(id);
             if (tnFile.exists()) {
-                FileInputStream fis = new FileInputStream(tnFile);
+                fis = new FileInputStream(tnFile);
                 int bytecount = fis.available();
                 byte[] bytes = new byte[bytecount];
                 fis.read(bytes, 0, bytecount);
                 ImageIcon icon = new ImageIcon(bytes);
                 thumbnail = icon.getImage();
-                fis.close();
             }
         } catch (Exception ex) {
             AppLog.logWarning(ThumbnailUtil.class, ex);
+        } finally {
+            closeStream(fis);
         }
         return thumbnail;
     }
@@ -384,6 +386,16 @@ public final class ThumbnailUtil {
         String dir = UserSettings.INSTANCE.getThumbnailsDirectoryName();
         FileUtil.ensureDirectoryExists(dir);
         return new File(dir + File.separator + id);
+    }
+
+    private static void closeStream(FileInputStream fis) {
+        if (fis != null) {
+            try {
+                fis.close();
+            } catch (IOException ex) {
+                AppLog.logWarning(ThumbnailUtil.class, ex);
+            }
+        }
     }
 
     private ThumbnailUtil() {
