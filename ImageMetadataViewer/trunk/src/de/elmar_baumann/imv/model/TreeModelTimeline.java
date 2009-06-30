@@ -43,6 +43,12 @@ public final class TreeModelTimeline extends DefaultTreeModel implements
             checkDeleted(event.getImageFile());
         } else if (eventType.equals(DatabaseImageEvent.Type.IMAGEFILE_INSERTED)) {
             checkInserted(event.getImageFile());
+        } else if (eventType.equals(DatabaseImageEvent.Type.IMAGEFILE_UPDATED)) {
+            ImageFile imageFile = event.getImageFile();
+            if (imageFile != null && imageFile.isInsertExifIntoDb()) {
+                checkDeleted(event.getImageFile());
+                checkInserted(event.getImageFile());
+            }
         }
     }
 
