@@ -31,8 +31,11 @@ public class ViewUtil {
         TreePath path = treeDirectories.getSelectionPath();
         if (path != null) {
             Object o = path.getLastPathComponent();
-            if (o instanceof File) {
-                return (File) o;
+            if (o instanceof DefaultMutableTreeNode) {
+                Object userObject = ((DefaultMutableTreeNode) o).getUserObject();
+                if (userObject instanceof File) {
+                    return (File) userObject;
+                }
             }
         }
         return directory;
