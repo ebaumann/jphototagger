@@ -13,26 +13,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * IPTC-Metadaten einer Bilddatei.
+ * IPTC metadata of an image file.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
- * @version 2008-10-05
+ * @version 2008/10/05
  */
 public final class IptcMetadata {
 
     /**
-     * Liefert die IPTC-Metadaten einer Datei.
+     * Returns {@link IptcEntry} instances of an image file.
      * 
-     * @param  file  Datei
-     * @return Metadaten oder leere Liste bei Lesefehlern
+     * @param  imageFile image file
+     * @return           Metadata or empty list if the image has no IPTC
+     *                   metadata or when errors occur
      */
-    public static List<IptcEntry> getMetadata(File file) {
+    public static List<IptcEntry> getIptcEntries(File imageFile) {
         List<IptcEntry> metadata = new ArrayList<IptcEntry>();
-        if (file != null && file.exists()) {
+        if (imageFile != null && imageFile.exists()) {
             try {
                 AppLog.logInfo(IptcMetadata.class, Bundle.getString(
-                        "IptcMetadata.Info.GetMetadata", file));
-                IPTCEntryCollection collection = MetadataUtils.getIPTC(file);
+                        "IptcMetadata.Info.GetMetadata", imageFile));
+                IPTCEntryCollection collection =
+                        MetadataUtils.getIPTC(imageFile);
                 if (collection != null) {
                     addEntries(collection.getEntries(
                             IPTCConstants.RECORD_APPLICATION), metadata);
@@ -76,14 +78,14 @@ public final class IptcMetadata {
     }
 
     /**
-     * Filtert die Entries.
+     * Filters IPTC entries.
      * 
-     * @param  entries Entries
-     * @param  filter  Filter
-     * @return Alle Entries mit den im Filter angegebenen Metadaten
+     * @param  entries IPTC entries
+     * @param  filter  filter
+     * @return         filtered entries
      */
-    public static List<IptcEntry> getFilteredEntries(List<IptcEntry> entries,
-            IPTCEntryMeta filter) {
+    public static List<IptcEntry> getFilteredEntries(
+            List<IptcEntry> entries, IPTCEntryMeta filter) {
         List<IptcEntry> filteredEntries = new ArrayList<IptcEntry>();
         for (IptcEntry entry : entries) {
             if (entry.getEntryMeta().equals(filter)) {
@@ -94,14 +96,15 @@ public final class IptcMetadata {
     }
 
     /**
-     * Liefert die IPTC-Daten einer Datei.
+     * Returns a {@link Iptc} instance of an image file.
      * 
-     * @param  file  Datei
-     * @return Daten oder null bei Fehlern
+     * @param  imageFile image file
+     * @return           IPTC of that image file or null if the image has no
+     *                   IPTC metadata or when errors occur
      */
-    public static Iptc getIptc(File file) {
+    public static Iptc getIptc(File imageFile) {
         Iptc iptc = null;
-        List<IptcEntry> iptcEntries = getMetadata(file);
+        List<IptcEntry> iptcEntries = getIptcEntries(imageFile);
         if (iptcEntries.size() > 0) {
             iptc = new Iptc();
             for (IptcEntry iptcEntry : iptcEntries) {

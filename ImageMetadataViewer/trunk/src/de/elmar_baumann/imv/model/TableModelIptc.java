@@ -34,7 +34,7 @@ public final class TableModelIptc extends DefaultTableModel {
     public void setFile(File file) {
         this.file = file;
         removeAllElements();
-        iptcEntries = IptcMetadata.getMetadata(file);
+        iptcEntries = IptcMetadata.getIptcEntries(file);
         addRows();
     }
 
