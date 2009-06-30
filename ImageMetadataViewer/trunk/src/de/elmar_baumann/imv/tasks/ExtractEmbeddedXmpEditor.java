@@ -21,7 +21,7 @@ public final class ExtractEmbeddedXmpEditor extends FileEditor {
 
     @Override
     public void edit(File file) {
-        File sidecarFile = XmpMetadata.getSidecarFile(file);
+        File sidecarFile = XmpMetadata.getSidecarFileOfImageFileIfExists(file);
         if (sidecarFile != null && !confirmRemove(sidecarFile.getAbsolutePath())) return;
         writeSidecarFile(file);
     }
@@ -47,7 +47,7 @@ public final class ExtractEmbeddedXmpEditor extends FileEditor {
         if (xmp != null) {
             try {
                 create(file);
-                FileOutputStream fos = new FileOutputStream(new File(XmpMetadata.suggestSidecarFilename(file.getAbsolutePath())));
+                FileOutputStream fos = new FileOutputStream(new File(XmpMetadata.suggestSidecarFilenameForImageFile(file.getAbsolutePath())));
                 fos.write(xmp.getBytes());
                 fos.flush();
                 fos.close();

@@ -27,7 +27,7 @@ import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 public final class EditRepeatableTextEntryPanel extends javax.swing.JPanel
     implements TextEntry, ActionListener {
 
-    private static final String delimiter = XmpMetadata.getArrayItemDelimiter();
+    private static final String delimiter = XmpMetadata.getXmpTokenDelimiter();
     private static final String delimiterReplacement = "?";
     private final DefaultListModel model = new DefaultListModel();
     private Column column;

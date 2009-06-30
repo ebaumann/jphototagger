@@ -33,14 +33,16 @@ import java.util.EnumSet;
 import java.util.List;
 
 /**
- * Utils für XMP.
+ * Gets and sets XMP metadata from image files and XMP sidecar files and to
+ * XMP sidecar files.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
- * @version 2008-10-05
+ * @version 2008/10/05
  */
 public final class XmpMetadata {
 
     private static final List<String> knownNamespaces = new ArrayList<String>();
+    private static final String XMP_TOKEN_DELIMITER = "\\"; // NOI18N;
 
 
     static {
@@ -57,33 +59,28 @@ public final class XmpMetadata {
     }
 
     /**
-     * Optionen beim Aktualisieren von XMP-Dateien.
+     * Options when updating XMP metadata in a sidecar file.
      */
     public enum UpdateOption {
 
         /**
-         * In einer existierenden XMP-Datei <em>sich wiederholende</em> Einträge
-         * sollen ergänzt werden mit nicht vorhandenen, die gesetzt werden
-         * sollen beispielsweise aus Textfeldern oder Objekten des Typs
-         * {@link de.elmar_baumann.imv.data.Xmp}.
-         *
-         * <p>Default: Existierende sich wiederholende Einträge werden ersetzt.
+         * Not existing values shall be <strong>added</strong> to existing
+         * repeatable values
          */
         APPEND_TO_REPEATABLE_VALUES,
         /**
-         * In einer existierenden XMP-Datei sollen Einträge gelöscht werden,
-         * wenn keine Daten existieren in beispielsweise Textfeldern
-         * oder Objekten des Typs {@link de.elmar_baumann.imv.data.Xmp}.
-         *
-         * <p>Default: Bestehender Inhalt wird nicht gelöscht
+         * Delete existing values if the source does not contain corresponding
+         * values. E.g. if a sidecar file has a Dublin Core description and the
+         * metadata to set hasn't a dc description the dc description in the
+         * sidecar file is to delete.
          */
         DELETE_IF_SOURCE_VALUE_IS_EMPTY
     }
 
     /**
-     * Type of retrieved XMP metadata
+     * Location of the XMP metadata.
      */
-    private enum XmpType {
+    private enum XmpLocation {
 
         /** The XMP metadta is embedded into the data file */
         EMBEDDED,
@@ -92,20 +89,21 @@ public final class XmpMetadata {
     }
 
     /**
-     * Liefert das Begrenzungszeichen für die einzelnen Werte in Arrays.
+     * Returns the delimiter between multiple XMP tokens.
      * 
-     * @return Trennzeichen
+     * @return delimiter
      */
-    public static final String getArrayItemDelimiter() {
-        return "\\"; // NOI18N
+    public static final String getXmpTokenDelimiter() {
+        return XMP_TOKEN_DELIMITER;
     }
 
     /**
-     * Liefert alle XMP-Property-Infos eines bestimmten Namensraums.
+     * Returns all {@link XMPPropertyInfo}s of a specific namespace.
      * 
-     * @param propertyInfos XMP-Property-Infos beliebiger Namensräume
-     * @param namespace     Namensraum
-     * @return              Property-Infos dieses Namensraums
+     * @param propertyInfos XMP property infos of arbitrary namespaces
+     * @param namespace     namespace
+     * @return              property infos of <code>propertyInfos</code>
+     *                      matching that namespace
      */
     public static List<XMPPropertyInfo> getPropertyInfosOfNamespace(
             List<XMPPropertyInfo> propertyInfos, String namespace) {
@@ -119,16 +117,19 @@ public final class XmpMetadata {
     }
 
     /**
-     * Liefert die XMP-Metadaten einer Bilddatei.
+     * Returns XMP metadata of an image file.
      * 
-     * @param filename Dateiname
-     * @return         Metadaten oder null bei Lesefehlern
+     * @param imageFilename name of the image file
+     * @return              Metadata or null if the image file has no XMP
+     *                      metadata or on errors while reading
      */
-    public static List<XMPPropertyInfo> getPropertyInfosOfFile(String filename) {
-        if (filename == null || !FileUtil.existsFile(filename)) {
+    public static List<XMPPropertyInfo> getPropertyInfosOfImageFile(
+            String imageFilename) {
+        if (imageFilename == null || !FileUtil.existsFile(imageFilename)) {
             return null;
         }
-        return getPropertyInfosOfXmpString(getXmpAsString(filename));
+        return getPropertyInfosOfXmpString(getXmpAsStringFromImageFile(
+                imageFilename));
     }
 
     private static List<XMPPropertyInfo> getPropertyInfosOfXmpString(String xmp) {
@@ -172,34 +173,43 @@ public final class XmpMetadata {
     }
 
     /**
-     * Schlägt einen Filialdateinamen vor für eine Bilddatei.
+     * Suggests a sidecar filename for an image. If the image already has a
+     * sidecar file it's name will be returned. If the image does'nt have a
+     * sidecar file, the sidecar file has the same name as the image file with
+     * exception of the suffix: it's <code>xmp</code>. When the image file has
+     * the name <code>dog.jpg</code> the sidecar name is <code>dog.xmp</code>.
      * 
-     * @param  filename  Name der Bilddatei
-     * @return Namensvorschlag
+     * @param  imageFilename name of the image file
+     * @return               sidecar filename
      */
-    public static String suggestSidecarFilename(String filename) {
-        String existingFilename = getSidecarFilename(filename);
+    public static String suggestSidecarFilenameForImageFile(String imageFilename) {
+        String existingFilename =
+                getSidecarFilenameOfImageFileIfExists(imageFilename);
         if (existingFilename != null) {
             return existingFilename;
         }
-        int indexExtension = filename.lastIndexOf("."); // NOI18N
+        int indexExtension = imageFilename.lastIndexOf("."); // NOI18N
         if (indexExtension > 0) {
-            return filename.substring(0, indexExtension + 1) + "xmp"; // NOI18N
+            return imageFilename.substring(0, indexExtension + 1) + "xmp"; // NOI18N
         } else {
-            return filename + ".xmp"; // NOI18N
+            return imageFilename + ".xmp"; // NOI18N
         }
     }
 
     /**
-     * Liefert den Namen einer XMP-Filialdatei, falls existent.
+     * Returns the name of an image's sidecar file (only) if the image has
+     * a sidecar file.
      * 
-     * @param filename Dateiname
-     * @return         Name der Filialdatei oder null, falls nicht existent
+     * @param imageFilename image filename
+     * @return              name of the sidecar file or null, if the image
+     *                      hasn't a sidecar file
      */
-    public static String getSidecarFilename(String filename) {
-        int indexExtension = filename.lastIndexOf("."); // NOI18N
+    public static String getSidecarFilenameOfImageFileIfExists(
+            String imageFilename) {
+        int indexExtension = imageFilename.lastIndexOf("."); // NOI18N
         if (indexExtension > 0) {
-            String sidecarFilename = filename.substring(0, indexExtension + 1) +
+            String sidecarFilename = imageFilename.substring(0, indexExtension +
+                    1) +
                     "xmp"; // NOI18N
             File sidecarFile = new File(sidecarFilename);
             if (sidecarFile.exists()) {
@@ -210,53 +220,57 @@ public final class XmpMetadata {
     }
 
     /**
-     * Returns the XMP sidecar file of a file.
+     * Returns the XMP sidecar file of an image file (only) if the image has a
+     * sidecar file.
      * 
-     * @param  file  file
-     * @return sidecar file or null if not found
+     * @param  imageFile image file
+     * @return           sidecar file or null if the image hasn't a sidecar file
      */
-    public static File getSidecarFile(File file) {
-        String sidecarFilename = getSidecarFilename(file.getAbsolutePath());
+    public static File getSidecarFileOfImageFileIfExists(File imageFile) {
+        String sidecarFilename = getSidecarFilenameOfImageFileIfExists(
+                imageFile.getAbsolutePath());
         return sidecarFilename == null
                ? null
                : new File(sidecarFilename);
     }
 
-    private static String getXmpAsString(String filename) {
-        if (!FileUtil.existsFile(filename)) {
+    private static String getXmpAsStringFromImageFile(String imageFilename) {
+        if (!FileUtil.existsFile(imageFilename)) {
             return null;
         }
-        String xmp = null;
-        String sidecarFilename = getSidecarFilename(filename);
+        String xmpString = null;
+        String sidecarFilename =
+                getSidecarFilenameOfImageFileIfExists(imageFilename);
         if (sidecarFilename == null) {
             AppLog.logInfo(XmpMetadata.class, Bundle.getString(
-                    "XmpMetadata.Info.ReadEmbeddedXmp", filename));
-            xmp = XmpFileReader.readFile(filename);
+                    "XmpMetadata.Info.ReadEmbeddedXmp", imageFilename)); // NOI18N
+            xmpString = XmpFileReader.readFile(imageFilename);
         } else {
             AppLog.logInfo(XmpMetadata.class, Bundle.getString(
-                    "XmpMetadata.Info.ReadSidecarFile",
-                    sidecarFilename, filename));
-            xmp = FileUtil.getFileAsString(sidecarFilename);
+                    "XmpMetadata.Info.ReadSidecarFile", // NOI18N
+                    sidecarFilename, imageFilename));
+            xmpString = FileUtil.getFileAsString(sidecarFilename);
         }
-        return xmp;
+        return xmpString;
     }
 
     /**
-     * Liefert, ob ein String ein bekannter Namensraum ist.
+     * Returns wheter a string is a known XMP namespace.
      * 
-     * @param string String
-     * @return       true, wenn bekannt
+     * @param string string
+     * @return       true if that string is a known namespace
      */
     public static boolean isKnownNamespace(String string) {
         return knownNamespaces.contains(string);
     }
 
     /**
-     * Liefert alle Property-Infos, die auf ein IPTC-Entry-Meta-Datum passen.
+     * Returns all {@link XMPPropertyInfo}s matching a {@link IPTCEntryMeta}.
      * 
-     * @param  iptcEntryMeta IPTC-Entry-Meta-Datum
-     * @param  propertyInfos Beliebige Property-Infos
-     * @return Gefilterte Property-Infos
+     * @param  iptcEntryMeta IPTC entry metadata
+     * @param  propertyInfos arbitrary property infos
+     * @return               property infos of <code>propertyInfos</code>
+     *                       matching that metadata
      */
     public static List<XMPPropertyInfo> getFilteredPropertyInfosOfIptcEntryMeta(
             IPTCEntryMeta iptcEntryMeta, List<XMPPropertyInfo> propertyInfos) {
@@ -275,29 +289,33 @@ public final class XmpMetadata {
     }
 
     /**
-     * Liefert, ob für eine Datei eine XMP-Filialdatei existiert.
+     * Returns whether an image has a sidecar file and the sidecar file exists
+     * in the same directory as the image file.
      * 
-     * @param  filename  Dateiname
-     * @return true, wenn existent
+     * @param  imageFilename name of the image file
+     * @return               true if the image has a sidecar file
      */
-    public static boolean existsSidecarFile(String filename) {
-        String sidecarFilename = getSidecarFilename(filename);
-        if (sidecarFilename != null) {
-            return new File(sidecarFilename).exists();
-        }
-        return false;
+    public static boolean hasImageASidecarFile(String imageFilename) {
+        String sidecarFilename = getSidecarFilenameOfImageFileIfExists(
+                imageFilename);
+        return sidecarFilename == null
+               ? false
+               : new File(sidecarFilename).exists();
     }
 
     /**
-     * Liefert, ob für eine Datei eine XMP-Filialdatei geschrieben werden kann.
+     * Returns whether a sidecar file can be written to the file system. This
+     * is true if the sidecar file exists an is writable or if it does not
+     * exist and the directory is writable.
      * 
-     * @param  name  Dateiname
-     * @return true, wenn möglich
+     * @param  imageFilename  name of the image file
+     * @return                true if possible
      */
-    public static boolean canWriteSidecarFile(String name) {
-        if (name != null) {
-            File directory = new File(name).getParentFile();
-            String sidecarFilename = getSidecarFilename(name);
+    public static boolean canWriteSidecarFileForImageFile(String imageFilename) {
+        if (imageFilename != null) {
+            File directory = new File(imageFilename).getParentFile();
+            String sidecarFilename = getSidecarFilenameOfImageFileIfExists(
+                    imageFilename);
             if (sidecarFilename != null) {
                 return new File(sidecarFilename).canWrite();
             } else if (directory != null) {
@@ -308,14 +326,15 @@ public final class XmpMetadata {
     }
 
     /**
-     * Schreibt XMP-Metadaten in eine Filialdatei.
+     * Writes the values of a {@link Xmp} instance as or into a XMP sidecar
+     * file.
      * 
-     * @param  sidecarFilename  Name der Filialdatei
-     * @param  metadata         Metadaten
-     * @return true bei Erfolg
+     * @param  sidecarFilename  name of the sidecar file
+     * @param  metadata         metadata
+     * @return                  true if successfully written
      */
-    public static boolean writeMetadataToSidecarFile(String sidecarFilename,
-            Xmp metadata) {
+    public static boolean writeMetadataToSidecarFile(
+            String sidecarFilename, Xmp metadata) {
         try {
             XMPMeta xmpMeta = getXmpMetaOfSidecarFile(sidecarFilename);
             writeSidecarFileDeleteItems(xmpMeta);
@@ -341,12 +360,12 @@ public final class XmpMetadata {
     }
 
     /**
-     * Schreibt Metadaten in eine XMP-Filialdatei.
+     * Writes the values of a {@link TextEntry} instance into a sidecar file.
      * 
-     * @param  sidecarFilename  Name der Filialdatei
-     * @param  textEntries      Zu schreibende Texteinträge
-     * @param  writeOptions     Optionen
-     * @return true bei Erfolg
+     * @param  sidecarFilename  name of the sidecar file
+     * @param  textEntries      text entries to write
+     * @param  writeOptions     options
+     * @return                  true when successfully written
      */
     public static boolean writeMetadataToSidecarFile(String sidecarFilename,
             List<TextEntry> textEntries, EnumSet<UpdateOption> writeOptions) {
@@ -414,9 +433,8 @@ public final class XmpMetadata {
     }
 
     private static void writeSidecarFileSetTextEntry(Column xmpColumn,
-            String entryText,
-            XMPMeta xmpMeta, String namespaceUri, String propertyName) throws
-            XMPException {
+            String entryText, XMPMeta xmpMeta, String namespaceUri,
+            String propertyName) throws XMPException {
         if (XmpColumnXmpDataTypeMapping.isText(xmpColumn)) {
             xmpMeta.setProperty(namespaceUri, propertyName, entryText);
         } else if (XmpColumnXmpDataTypeMapping.isLanguageAlternative(xmpColumn)) {
@@ -424,7 +442,7 @@ public final class XmpMetadata {
                     entryText);
         } else if (XmpColumnXmpDataTypeMapping.isArray(xmpColumn)) {
             List<String> items = ArrayUtil.stringTokenToList(
-                    entryText, getArrayItemDelimiter());
+                    entryText, getXmpTokenDelimiter());
             for (String item : items) {
                 item = item.trim();
                 if (!doesArrayItemExist(xmpMeta, namespaceUri, propertyName,
@@ -437,8 +455,8 @@ public final class XmpMetadata {
     }
 
     private static void writeSidecarFileSetMetadata(Column column, Xmp metadata,
-            XMPMeta xmpMeta, String namespaceUri, String propertyName) throws
-            XMPException {
+            XMPMeta xmpMeta, String namespaceUri, String propertyName)
+            throws XMPException {
         Object o = metadata.getValue(column);
         if (o != null) {
             if (o instanceof String) {
@@ -447,7 +465,7 @@ public final class XmpMetadata {
                     xmpMeta.setProperty(namespaceUri, propertyName, value);
                 } else if (XmpColumnXmpDataTypeMapping.isLanguageAlternative(
                         column)) {
-                    xmpMeta.setLocalizedText(namespaceUri, propertyName, "",
+                    xmpMeta.setLocalizedText(namespaceUri, propertyName, "", // NOI18N
                             "x-default", // NOI18N
                             value);
                 }
@@ -456,23 +474,23 @@ public final class XmpMetadata {
                 List<String> values = (List<String>) o;
                 for (String value : values) {
                     value = value.trim();
-                    if (!doesArrayItemExist(xmpMeta, namespaceUri, propertyName,
-                            value)) {
+                    if (!doesArrayItemExist(
+                            xmpMeta, namespaceUri, propertyName, value)) {
                         xmpMeta.appendArrayItem(namespaceUri, propertyName,
                                 getArrayPropertyOptions(column), value, null);
                     }
                 }
             } else {
                 AppLog.logWarning(XmpMetadata.class, Bundle.getString(
-                        "XmpMetadata.ErrorMessage.WriteSetMetadata") + o.
+                        "XmpMetadata.ErrorMessage.WriteSetMetadata") + o. // NOI18N
                         toString());
             }
         }
     }
 
     private static boolean doesArrayItemExist(XMPMeta xmpMeta,
-            String namespaceUri,
-            String propertyName, String item) throws XMPException {
+            String namespaceUri, String propertyName, String item)
+            throws XMPException {
         if (xmpMeta.doesPropertyExist(namespaceUri, propertyName)) {
             for (XMPIterator it = xmpMeta.iterator(namespaceUri, propertyName,
                     new IteratorOptions());
@@ -526,38 +544,40 @@ public final class XmpMetadata {
     }
 
     /**
-     * Liefert die XMP-Daten einer Datei. Existiert eine Filialdatei, werden die
-     * XMP-Metadaten aus der Filialdatei gelesen. Existiert <em>keine</em>
-     * Filialdatei und sind XMP-Metadaten eingebettet in die Datei, werden die
-     * eingebetteten XMP-Daten gelesen.
+     * Returns XMP metadata of a image file. If the image has a sidecar file,
+     * it's metadata will be read. If the image hasn't a sidecar file but
+     * embedded XMP metadata, the embedded XMP metadata will be read.
      * 
-     * @param  filename  Dateiname
-     * @return Daten oder null, falls keine XMP-Daten existieren oder bei
-     *         Fehlern
+     * @param  imageFilename name of the image file
+     * @return               XMP metadata of the image file or null if the image
+     *                       file has no XMP metadata or on errors while reading
+     *                       the file
      */
-    public static Xmp getXmp(String filename) {
-        XmpType xmpType = existsSidecarFile(filename)
-                          ? XmpType.SIDECAR_FILE
-                          : XmpType.EMBEDDED;
-        return getXmp(xmpType, filename, getPropertyInfosOfFile(filename));
+    public static Xmp getXmpOfImageFile(String imageFilename) {
+        XmpLocation xmpType = hasImageASidecarFile(imageFilename)
+                              ? XmpLocation.SIDECAR_FILE
+                              : XmpLocation.EMBEDDED;
+        return getXmp(xmpType, imageFilename,
+                getPropertyInfosOfImageFile(imageFilename));
     }
 
     /**
-     * Returns XMP from embedded XMP metadata (XMP exists in the file itself).
+     * Returns XMP embedded in the image file.
      *
-     * @param   filename  name of a data file, e.g. an image file
-     * @return  embedded XMP metadata or null if no XMP is embedded or when
-     *          errors occur
+     * @param   imageFilename name of the image file
+     * @return                embedded XMP metadata or null if no XMP is
+     *                        embedded or when errors occur while reading the
+     *                        file
      */
-    public static Xmp getEmbeddedXmp(String filename) {
-        String xmpString = getXmpAsString(filename);
+    public static Xmp getEmbeddedXmp(String imageFilename) {
+        String xmpString = getXmpAsStringFromImageFile(imageFilename);
         return xmpString == null
                ? null
-               : getXmp(XmpType.EMBEDDED, filename, getPropertyInfosOfXmpString(
-                xmpString));
+               : getXmp(XmpLocation.EMBEDDED, imageFilename,
+                getPropertyInfosOfXmpString(xmpString));
     }
 
-    private static Xmp getXmp(XmpType xmpType, String filename,
+    private static Xmp getXmp(XmpLocation xmpType, String imageFilename,
             List<XMPPropertyInfo> xmpPropertyInfos) {
         Xmp xmp = null;
         if (xmpPropertyInfos != null) {
@@ -626,19 +646,20 @@ public final class XmpMetadata {
                             getValue().toString());
                 }
             }
-            setLastModified(xmpType, xmp, filename);
+            setLastModified(xmpType, xmp, imageFilename);
         }
         return xmp;
     }
 
-    private static void setLastModified(XmpType xmpType, Xmp xmp,
-            String filename) {
-        String sidecarFilename = getSidecarFilename(filename);
-        if (xmpType.equals(XmpType.SIDECAR_FILE) && sidecarFilename != null) {
+    private static void setLastModified(
+            XmpLocation xmpType, Xmp xmp, String imageFilename) {
+        String sidecarFilename =
+                getSidecarFilenameOfImageFileIfExists(imageFilename);
+        if (xmpType.equals(XmpLocation.SIDECAR_FILE) && sidecarFilename != null) {
             xmp.setLastModified(FileUtil.getLastModified(sidecarFilename));
-        } else if (xmpType.equals(XmpType.EMBEDDED) && FileUtil.existsFile(
-                filename)) {
-            xmp.setLastModified(FileUtil.getLastModified(filename));
+        } else if (xmpType.equals(XmpLocation.EMBEDDED) && FileUtil.existsFile(
+                imageFilename)) {
+            xmp.setLastModified(FileUtil.getLastModified(imageFilename));
         }
     }
 
@@ -646,18 +667,20 @@ public final class XmpMetadata {
      * Returns pairs of image files and their sidecar files.
      *
      * @param  imageFiles image files
-     * @return pairs of image files with their corresponding sidecar files.
-     *         {@link de.elmar_baumann.lib.template.Pair#getFirst()} returns
-     *         a reference to an image file object in the <code>imageFiles</code>
-     *         list. {@link de.elmar_baumann.lib.template.Pair#getSecond()}
-     *         returns the sidecar file of the referenced image file or null if
-     *         the image file has no sidecar file.
+     * @return            pairs of image files with their corresponding sidecar
+     *                    files.
+     *                    {@link de.elmar_baumann.lib.template.Pair#getFirst()}
+     *                    returns a reference to an image file object in the
+     *                    <code>imageFiles</code> list.
+     *                    {@link de.elmar_baumann.lib.template.Pair#getSecond()}
+     *                    returns the sidecar file of the referenced image file
+     *                    or null if the image file has no sidecar file.
      */
     public static List<Pair<File, File>> getImageFilesWithSidecarFiles(
             List<File> imageFiles) {
         List<Pair<File, File>> filePairs = new ArrayList<Pair<File, File>>();
         for (File imageFile : imageFiles) {
-            filePairs.add(new Pair<File, File>(imageFile, getSidecarFile(
+            filePairs.add(new Pair<File, File>(imageFile, getSidecarFileOfImageFileIfExists(
                     imageFile)));
         }
         return filePairs;

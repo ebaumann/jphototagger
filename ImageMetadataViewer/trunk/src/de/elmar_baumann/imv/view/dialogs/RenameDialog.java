@@ -104,9 +104,9 @@ public final class RenameDialog extends Dialog {
     }
 
     private void renameXmpFile(String oldFilenamne, String newFilename) {
-        String oldXmpFilename = XmpMetadata.getSidecarFilename(oldFilenamne);
+        String oldXmpFilename = XmpMetadata.getSidecarFilenameOfImageFileIfExists(oldFilenamne);
         if (oldXmpFilename != null) {
-            String newXmpFilename = XmpMetadata.suggestSidecarFilename(newFilename);
+            String newXmpFilename = XmpMetadata.suggestSidecarFilenameForImageFile(newFilename);
             File newXmpFile = new File(newXmpFilename);
             File oldXmpFile = new File(oldXmpFilename);
             if (newXmpFile.exists()) {

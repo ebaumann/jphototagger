@@ -194,7 +194,7 @@ public final class InsertImageFilesIntoDatabase implements Runnable {
     }
 
     private boolean isXmpFileUpToDate(String imageFilename) {
-        String sidecarFileName = XmpMetadata.getSidecarFilename(imageFilename);
+        String sidecarFileName = XmpMetadata.getSidecarFilenameOfImageFileIfExists(imageFilename);
         return sidecarFileName == null
                ? isEmbeddedXmpUpToDate(imageFilename)
                : isXmpSidecarFileUpToDate(imageFilename, sidecarFileName);
@@ -248,7 +248,7 @@ public final class InsertImageFilesIntoDatabase implements Runnable {
 
     private void setXmp(ImageFile imageFile) {
         String imageFilename = imageFile.getFilename();
-        Xmp xmp = XmpMetadata.getXmp(imageFilename);
+        Xmp xmp = XmpMetadata.getXmpOfImageFile(imageFilename);
         if (xmp == null) {
             xmp = getXmpFromIptc(imageFilename);
         }
@@ -269,10 +269,10 @@ public final class InsertImageFilesIntoDatabase implements Runnable {
     }
 
     private void writeSidecarFileIfNotExists(String imageFilename, Xmp xmp) {
-        if (xmp != null && !XmpMetadata.existsSidecarFile(imageFilename) &&
-                XmpMetadata.canWriteSidecarFile(imageFilename)) {
+        if (xmp != null && !XmpMetadata.hasImageASidecarFile(imageFilename) &&
+                XmpMetadata.canWriteSidecarFileForImageFile(imageFilename)) {
             XmpMetadata.writeMetadataToSidecarFile(
-                    XmpMetadata.suggestSidecarFilename(imageFilename), xmp);
+                    XmpMetadata.suggestSidecarFilenameForImageFile(imageFilename), xmp);
         }
     }
 

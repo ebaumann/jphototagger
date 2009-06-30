@@ -104,7 +104,7 @@ public final class MoveToDirectoryDialog extends Dialog
         List<File> xmpFiles = new ArrayList<File>();
         for (File sourceFile : sourceFiles) {
             String xmpFilename =
-                    XmpMetadata.getSidecarFilename(sourceFile.getAbsolutePath());
+                    XmpMetadata.getSidecarFilenameOfImageFileIfExists(sourceFile.getAbsolutePath());
             if (xmpFilename != null) {
                 xmpFiles.add(new File(xmpFilename));
             }

@@ -244,7 +244,7 @@ public final class ControllerShowMetadata implements DatabaseListener,
         }
 
         private void setXmpModels(String filename) {
-            List<XMPPropertyInfo> allInfos = XmpMetadata.getPropertyInfosOfFile(
+            List<XMPPropertyInfo> allInfos = XmpMetadata.getPropertyInfosOfImageFile(
                     filename);
             if (allInfos != null) {
                 for (TableModelXmp model : metadataTableModels.getXmpTableModels()) {

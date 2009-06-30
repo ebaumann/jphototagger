@@ -239,7 +239,7 @@ public final class EditMetadataPanelsArray implements FocusListener,
             StringBuffer buffer = new StringBuffer();
             for (int i = 0; i < countMatchingInfos; i++) {
                 buffer.append((i > 0
-                               ? XmpMetadata.getArrayItemDelimiter()
+                               ? XmpMetadata.getXmpTokenDelimiter()
                                : "") + // NOI18N
                         matchingInfos.get(i).getValue().toString().trim());
             }

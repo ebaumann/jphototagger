@@ -94,7 +94,7 @@ public final class ControllerThumbnailSelectionEditMetadata implements
         List<String> filenames = FileUtil.getAsFilenames(thumbnailsPanel.
                 getSelectedFiles());
         for (String filename : filenames) {
-            if (!XmpMetadata.canWriteSidecarFile(filename)) {
+            if (!XmpMetadata.canWriteSidecarFileForImageFile(filename)) {
                 return false;
             }
         }
@@ -106,7 +106,7 @@ public final class ControllerThumbnailSelectionEditMetadata implements
                 getSelectedFiles());
         if (filenames.size() == 1) {
             List<XMPPropertyInfo> xmpPropertyInfos = XmpMetadata.
-                    getPropertyInfosOfFile(filenames.get(0));
+                    getPropertyInfosOfImageFile(filenames.get(0));
 
             if (xmpPropertyInfos != null && xmpPropertyInfos.size() > 0) {
                 editPanels.setXmpPropertyInfos(filenames, xmpPropertyInfos);

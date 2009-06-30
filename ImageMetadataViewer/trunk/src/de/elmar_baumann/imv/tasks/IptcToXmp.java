@@ -45,9 +45,9 @@ public final class IptcToXmp implements Runnable {
         int index = 0;
         for (index = 0; !stop && index < size; index++) {
             String imageFilename = filenames.get(index);
-            String xmpFilename = XmpMetadata.suggestSidecarFilename(imageFilename);
+            String xmpFilename = XmpMetadata.suggestSidecarFilenameForImageFile(imageFilename);
             Iptc iptc = IptcMetadata.getIptc(new File(imageFilename));
-            Xmp xmp = XmpMetadata.getXmp(imageFilename);
+            Xmp xmp = XmpMetadata.getXmpOfImageFile(imageFilename);
             if (xmp == null) {
                 xmp = new Xmp();
             }
