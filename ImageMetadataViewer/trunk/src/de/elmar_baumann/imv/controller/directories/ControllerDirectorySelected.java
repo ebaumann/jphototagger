@@ -8,7 +8,7 @@ import de.elmar_baumann.imv.types.Content;
 import de.elmar_baumann.imv.view.InfoSetThumbnails;
 import de.elmar_baumann.imv.view.panels.EditMetadataPanelsArray;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
-import de.elmar_baumann.imv.view.popupmenus.PopupMenuTreeDirectories;
+import de.elmar_baumann.imv.view.popupmenus.PopupMenuDirectories;
 import java.io.File;
 import javax.swing.JTree;
 import javax.swing.SwingUtilities;
@@ -48,7 +48,7 @@ public final class ControllerDirectorySelected implements TreeSelectionListener,
     @Override
     public void valueChanged(TreeSelectionEvent e) {
         if (e.isAddedPath() &&
-                !PopupMenuTreeDirectories.INSTANCE.isTreeSelected()) {
+                !PopupMenuDirectories.INSTANCE.isTreeSelected()) {
             setFilesToThumbnailsPanel();
         }
     }

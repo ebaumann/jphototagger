@@ -1,30 +1,31 @@
-package de.elmar_baumann.imv.controller.directories;
+package de.elmar_baumann.imv.controller.favorites;
 
 import de.elmar_baumann.imv.io.FileSystemDirectories;
 import de.elmar_baumann.imv.resource.GUI;
-import de.elmar_baumann.imv.view.popupmenus.PopupMenuDirectories;
+import de.elmar_baumann.imv.view.popupmenus.PopupMenuFavorites;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
- * Listens to {@link PopupMenuDirectories#getItemRenameDirectory()} and
- * renames a directory when the action fires.
+ * Listens to {@link PopupMenuFavorites#getItemRenameFilesystemFolder()} and
+ * renames a directory in the file system when the action fires.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009/06/19
  */
-public final class ControllerRenameDirectory implements ActionListener {
+public final class ControllerFavoritesRenameFilesystemFolder implements
+        ActionListener {
 
-    PopupMenuDirectories popup = PopupMenuDirectories.INSTANCE;
+    PopupMenuFavorites popup = PopupMenuFavorites.INSTANCE;
 
-    public ControllerRenameDirectory() {
+    public ControllerFavoritesRenameFilesystemFolder() {
         listen();
     }
 
     private void listen() {
-        popup.getItemRenameDirectory().addActionListener(this);
+        popup.getItemRenameFilesystemFolder().addActionListener(this);
     }
 
     @Override
@@ -43,8 +44,8 @@ public final class ControllerRenameDirectory implements ActionListener {
             if (newDir != null) {
                 node.setUserObject(newDir);
                 FileSystemDirectories.updateInTreeModel(
-                        GUI.INSTANCE.getAppPanel().getTreeDirectories().getModel(),
-                        node);
+                        GUI.INSTANCE.getAppPanel().getTreeFavoriteDirectories().
+                        getModel(), node);
             }
         }
     }

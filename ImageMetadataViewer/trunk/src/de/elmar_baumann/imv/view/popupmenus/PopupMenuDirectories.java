@@ -15,7 +15,7 @@ import javax.swing.tree.TreePath;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/24
  */
-public final class PopupMenuTreeDirectories extends JPopupMenu {
+public final class PopupMenuDirectories extends JPopupMenu {
 
     private final String actionAddToFavoriteDirectories = Bundle.getString(
             "PopupMenuTreeDirectories.Action.AddToFavoriteDirectories");
@@ -40,8 +40,8 @@ public final class PopupMenuTreeDirectories extends JPopupMenu {
     private TreePath path;
     private String directoryName;
     private boolean treeSelected = false;
-    public static final PopupMenuTreeDirectories INSTANCE =
-            new PopupMenuTreeDirectories();
+    public static final PopupMenuDirectories INSTANCE =
+            new PopupMenuDirectories();
 
     private void initLists() {
         fileItems.add(itemAddToFavoriteDirectories);
@@ -125,7 +125,7 @@ public final class PopupMenuTreeDirectories extends JPopupMenu {
         return source == itemAddToFavoriteDirectories;
     }
 
-    private PopupMenuTreeDirectories() {
+    private PopupMenuDirectories() {
         init();
     }
 

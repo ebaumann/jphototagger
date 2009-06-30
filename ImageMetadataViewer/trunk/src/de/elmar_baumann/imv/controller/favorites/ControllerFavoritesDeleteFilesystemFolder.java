@@ -1,30 +1,30 @@
-package de.elmar_baumann.imv.controller.directories;
+package de.elmar_baumann.imv.controller.favorites;
 
 import de.elmar_baumann.imv.io.FileSystemDirectories;
 import de.elmar_baumann.imv.resource.GUI;
-import de.elmar_baumann.imv.view.popupmenus.PopupMenuDirectories;
+import de.elmar_baumann.imv.view.popupmenus.PopupMenuFavorites;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
- * Listens to {@link PopupMenuDirectories#getItemDeleteDirectory()} and
- * deletes a directory when the action fires.
+ * Listens to {@link PopupMenuFavorites#getItemDeleteFilesystemFolder()} and
+ * deletes a directory in the file system when the action fires.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/06/19
+ * @version 2009/06/30
  */
-public final class ControllerDeleteDirectory implements ActionListener {
+public final class ControllerFavoritesDeleteFilesystemFolder implements ActionListener {
 
-    PopupMenuDirectories popup = PopupMenuDirectories.INSTANCE;
+    PopupMenuFavorites popup = PopupMenuFavorites.INSTANCE;
 
-    public ControllerDeleteDirectory() {
+    public ControllerFavoritesDeleteFilesystemFolder() {
         listen();
     }
 
     private void listen() {
-        popup.getItemDeleteDirectory().addActionListener(this);
+        popup.getItemDeleteFilesystemFolder().addActionListener(this);
     }
 
     @Override
@@ -41,8 +41,8 @@ public final class ControllerDeleteDirectory implements ActionListener {
         if (dir != null) {
             if (FileSystemDirectories.delete(dir)) {
                 FileSystemDirectories.removeFromTreeModel(
-                        GUI.INSTANCE.getAppPanel().getTreeDirectories().getModel(),
-                        node);
+                        GUI.INSTANCE.getAppPanel().getTreeFavoriteDirectories().
+                        getModel(), node);
             }
         }
     }

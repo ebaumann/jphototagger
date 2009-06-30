@@ -1,6 +1,7 @@
 package de.elmar_baumann.imv.io;
 
 import de.elmar_baumann.imv.app.AppLog;
+import de.elmar_baumann.imv.data.FavoriteDirectory;
 import de.elmar_baumann.imv.database.DatabaseImageFiles;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.io.FileUtil;
@@ -151,6 +152,9 @@ public final class FileSystemDirectories {
             Object userObject = node.getUserObject();
             if (userObject instanceof File) {
                 return (File) userObject;
+            } else if (userObject instanceof FavoriteDirectory) {
+                return new File(
+                        ((FavoriteDirectory) userObject).getDirectoryName());
             }
         }
         return null;

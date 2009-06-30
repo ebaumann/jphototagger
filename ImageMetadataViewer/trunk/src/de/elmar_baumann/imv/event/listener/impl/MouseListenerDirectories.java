@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.event.listener.impl;
 
-import de.elmar_baumann.imv.view.popupmenus.PopupMenuTreeDirectories;
+import de.elmar_baumann.imv.view.popupmenus.PopupMenuDirectories;
 import de.elmar_baumann.lib.componentutil.TreeUtil;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -15,10 +15,10 @@ import javax.swing.tree.TreePath;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/24
  */
-public final class TreeDirectoriesMouseListener extends MouseAdapter {
+public final class MouseListenerDirectories extends MouseAdapter {
 
-    private final PopupMenuTreeDirectories popupMenu =
-            PopupMenuTreeDirectories.INSTANCE;
+    private final PopupMenuDirectories popupMenu =
+            PopupMenuDirectories.INSTANCE;
 
     @Override
     public void mousePressed(MouseEvent e) {
