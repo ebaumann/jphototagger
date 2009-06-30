@@ -3,12 +3,7 @@ package de.elmar_baumann.imv.data;
 import de.elmar_baumann.imv.model.TableModelExif;
 import de.elmar_baumann.imv.model.TableModelIptc;
 import de.elmar_baumann.imv.model.TableModelXmp;
-import de.elmar_baumann.imv.view.panels.AppPanel;
-import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
-import de.elmar_baumann.imv.view.panels.EditMetadataPanelsArray;
-import java.util.List;
-import javax.swing.JLabel;
-import javax.swing.JTable;
+import java.util.Set;
 
 /**
  * Enthält Objekte zur Anzeige von Metadaten.
@@ -18,8 +13,6 @@ import javax.swing.JTable;
  */
 public final class MetadataDisplay {
 
-    private List<JTable> metadataTables;
-    private List<JTable> xmpTables;
     private TableModelIptc iptcTableModel;
     private TableModelExif exifTableModel;
     private TableModelXmp xmpTableModelDc;
@@ -30,39 +23,7 @@ public final class MetadataDisplay {
     private TableModelXmp xmpTableModelTiff;
     private TableModelXmp xmpTableModelCameraRawSettings;
     private TableModelXmp xmpTableModelXap;
-    private AppPanel appPanel;
-    private ImageFileThumbnailsPanel thumbnailsPanel;
-    private EditMetadataPanelsArray editPanelsArray;
-    private List<TableModelXmp> xmpTableModels;
-    private JLabel labelMetadataFilename;
-
-    /**
-     * @return the metadataTables
-     */
-    public List<JTable> getMetadataTables() {
-        return metadataTables;
-    }
-
-    /**
-     * @param metadataTables the metadataTables to set
-     */
-    public void setMetadataTables(List<JTable> metadataTables) {
-        this.metadataTables = metadataTables;
-    }
-
-    /**
-     * @return the xmpTables
-     */
-    public List<JTable> getXmpTables() {
-        return xmpTables;
-    }
-
-    /**
-     * @param xmpTables the xmpTables to set
-     */
-    public void setXmpTables(List<JTable> xmpTables) {
-        this.xmpTables = xmpTables;
-    }
+    private Set<TableModelXmp> xmpTableModels;
 
     /**
      * @return the iptcTableModel
@@ -186,7 +147,8 @@ public final class MetadataDisplay {
     /**
      * @param xmpTableModelCameraRawSettings the xmpTableModelCameraRawSettings to set
      */
-    public void setXmpTableModelCameraRawSettings(TableModelXmp xmpTableModelCameraRawSettings) {
+    public void setXmpTableModelCameraRawSettings(
+            TableModelXmp xmpTableModelCameraRawSettings) {
         this.xmpTableModelCameraRawSettings = xmpTableModelCameraRawSettings;
     }
 
@@ -205,72 +167,16 @@ public final class MetadataDisplay {
     }
 
     /**
-     * @return the appPanel
-     */
-    public AppPanel getAppPanel() {
-        return appPanel;
-    }
-
-    /**
-     * @param appPanel the appPanel to set
-     */
-    public void setAppPanel(AppPanel appPanel) {
-        this.appPanel = appPanel;
-    }
-
-    /**
-     * @return the thumbnailsPanel
-     */
-    public ImageFileThumbnailsPanel getThumbnailsPanel() {
-        return thumbnailsPanel;
-    }
-
-    /**
-     * @param thumbnailsPanel the thumbnailsPanel to set
-     */
-    public void setThumbnailsPanel(ImageFileThumbnailsPanel thumbnailsPanel) {
-        this.thumbnailsPanel = thumbnailsPanel;
-    }
-
-    /**
-     * @return the editPanelsArray
-     */
-    public EditMetadataPanelsArray getEditPanelsArray() {
-        return editPanelsArray;
-    }
-
-    /**
-     * @param editPanelsArray the editPanelsArray to set
-     */
-    public void setEditPanelsArray(EditMetadataPanelsArray editPanelsArray) {
-        this.editPanelsArray = editPanelsArray;
-    }
-
-    /**
      * @return the xmpTableModels
      */
-    public List<TableModelXmp> getXmpTableModels() {
+    public Set<TableModelXmp> getXmpTableModels() {
         return xmpTableModels;
     }
 
     /**
      * @param xmpTableModels the xmpTableModels to set
      */
-    public void setXmpTableModels(List<TableModelXmp> xmpTableModels) {
+    public void setXmpTableModels(Set<TableModelXmp> xmpTableModels) {
         this.xmpTableModels = xmpTableModels;
-    }
-
-    /**
-     * @return the labelMetadataFilename
-     */
-    public JLabel getLabelMetadataFilename() {
-        return labelMetadataFilename;
-    }
-
-    /**
-     * @param labelMetadataFilename the labelMetadataFilename to set
-     */
-    public void setLabelMetadataFilename(JLabel labelMetadataFilename) {
-        this.labelMetadataFilename = labelMetadataFilename;
     }
 }
