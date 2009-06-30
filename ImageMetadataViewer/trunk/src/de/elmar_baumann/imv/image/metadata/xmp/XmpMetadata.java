@@ -229,8 +229,13 @@ public final class XmpMetadata {
         String xmp = null;
         String sidecarFilename = getSidecarFilename(filename);
         if (sidecarFilename == null) {
+            AppLog.logInfo(XmpMetadata.class, Bundle.getString(
+                    "XmpMetadata.Info.ReadEmbeddedXmp", filename));
             xmp = XmpFileReader.readFile(filename);
         } else {
+            AppLog.logInfo(XmpMetadata.class, Bundle.getString(
+                    "XmpMetadata.Info.ReadSidecarFile",
+                    sidecarFilename, filename));
             xmp = FileUtil.getFileAsString(sidecarFilename);
         }
         return xmp;
