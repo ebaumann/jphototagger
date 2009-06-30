@@ -1,6 +1,7 @@
 package de.elmar_baumann.imv.data;
 
 import de.elmar_baumann.imv.tasks.InsertImageFilesIntoDatabase;
+import de.elmar_baumann.imv.tasks.InsertImageFilesIntoDatabase.Insert;
 import java.awt.Image;
 import java.io.File;
 import java.util.HashSet;
@@ -159,6 +160,10 @@ public final class ImageFile {
     public boolean isInsertThumbnailIntoDb() {
         return insertIntoDb.contains(
                 InsertImageFilesIntoDatabase.Insert.THUMBNAIL);
+    }
+
+    public Set<Insert> getInsertIntoDb() {
+        return new HashSet<Insert>(insertIntoDb);
     }
 
     /**
