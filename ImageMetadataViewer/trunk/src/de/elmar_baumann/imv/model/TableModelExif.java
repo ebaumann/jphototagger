@@ -79,7 +79,7 @@ public final class TableModelExif extends DefaultTableModel {
     }
 
     private void setExifData() {
-        allEntries = ExifMetadata.getMetadata(file);
+        allEntries = ExifMetadata.getExifEntries(file);
         if (allEntries != null) {
             List<IdfEntryProxy> entries = ExifMetadataToDisplay.get(allEntries);
             if (entries != null) {

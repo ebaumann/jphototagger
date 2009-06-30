@@ -126,7 +126,7 @@ public final class ThumbnailUtil {
         if (thumbnail != null) {
             double rotateAngle =
                     ExifThumbnailUtil.getThumbnailRotationAngle(
-                    ExifMetadata.getMetadata(file));
+                    ExifMetadata.getExifEntries(file));
             if (rotateAngle != 0) {
                 AppLog.logInfo(ThumbnailUtil.class, Bundle.getString(
                         "ThumbnailUtil.GetRotatedThumbnail.Information", file));

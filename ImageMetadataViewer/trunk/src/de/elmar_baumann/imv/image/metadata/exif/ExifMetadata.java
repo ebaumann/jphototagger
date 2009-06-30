@@ -24,103 +24,102 @@ import java.util.StringTokenizer;
  * {@link Exif} objects.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
- * @version 2008-10-05
+ * @version 2008/10/05
  */
 public final class ExifMetadata {
 
     /**
-     * Returns the EXIF metadata of a file.
+     * Returns {@link IdfEntryProxy} instances of an image file.
      * 
-     * @param  file  file
-     * @return metadata oder null if errors occured
+     * @param  imageFile image file
+     * @return           EXIF entries or null if errors occured
      */
-    public static List<IdfEntryProxy> getMetadata(File file) {
-        if (file == null || !file.exists()) {
+    public static List<IdfEntryProxy> getExifEntries(File imageFile) {
+        if (imageFile == null || !imageFile.exists()) {
             return null;
         }
-        List<IdfEntryProxy> metadata = new ArrayList<IdfEntryProxy>();
+        List<IdfEntryProxy> exifEntries = new ArrayList<IdfEntryProxy>();
         try {
-            addIFDEntries(file, metadata);
+            addIFDEntries(imageFile, exifEntries);
         } catch (Exception ex) {
             AppLog.logWarning(ExifMetadata.class, ex);
         }
-        return metadata;
+        return exifEntries;
     }
 
-    private static void addIFDEntries(File file, List<IdfEntryProxy> metadata)
-            throws IOException {
+    private static void addIFDEntries(
+            File imageFile, List<IdfEntryProxy> exifEntries) throws IOException {
         ImageReader reader = null;
-        if (FileType.isJpegFile(file.getName())) {
+        if (FileType.isJpegFile(imageFile.getName())) {
             AppLog.logInfo(ExifMetadata.class, Bundle.getString(
-                    "ExifMetadata.AddIFDEntries.JPEG.Info", file));
-            reader = new JpegReader(file);
+                    "ExifMetadata.AddIFDEntries.JPEG.Info", imageFile));
+            reader = new JpegReader(imageFile);
             IFDEntry[][] allEntries = MetadataUtils.getExif((JpegReader) reader);
             if (allEntries != null) {
                 for (int i = 0; i < allEntries.length; i++) {
                     IFDEntry[] currentEntries = allEntries[i];
                     for (int j = 0; j < currentEntries.length; j++) {
-                        metadata.add(new IdfEntryProxy(currentEntries[j]));
+                        exifEntries.add(new IdfEntryProxy(currentEntries[j]));
                     }
                 }
             }
         } else {
             AppLog.logInfo(ExifMetadata.class, Bundle.getString(
-                    "ExifMetadata.AddTIFFEntries.JPEG.Info", file));
-            reader = new TiffReader(file);
+                    "ExifMetadata.AddTIFFEntries.JPEG.Info", imageFile));
+            reader = new TiffReader(imageFile);
             int count = ((TiffReader) reader).getIFDCount();
             for (int i = 0; i < count; i++) {
                 addIfdEntriesOfDirectory(((TiffReader) reader).getIFD(i),
-                        metadata);
+                        exifEntries);
             }
         }
         close(reader);
     }
 
     private static void close(ImageReader reader) {
-        // causes exceptions e.g. in TableModelExif#setExifData(): entry.toString() ?
         if (reader != null) {
             reader.close();
         }
     }
 
-    private static void addIfdEntriesOfDirectory(ImageFileDirectory ifd,
-            List<IdfEntryProxy> metadata) {
+    private static void addIfdEntriesOfDirectory(
+            ImageFileDirectory ifd, List<IdfEntryProxy> exifEntries) {
         int entryCount = ifd.getEntryCount();
         for (int i = 0; i < entryCount; i++) {
             IFDEntry ifdEntry = ifd.getEntryAt(i);
             if (ifdEntry != null) {
-                metadata.add(new IdfEntryProxy(ifdEntry));
+                exifEntries.add(new IdfEntryProxy(ifdEntry));
             }
         }
         for (int i = 0; i < ifd.getIFDCount(); i++) {
             ImageFileDirectory ifd0 = ifd.getIFDAt(i);
-            addIfdEntriesOfDirectory(ifd0, metadata);
+            addIfdEntriesOfDirectory(ifd0, exifEntries);
         }
         ImageFileDirectory exifIFD = ifd.getExifIFD();
         if (exifIFD != null) {
-            addIfdEntriesOfDirectory(exifIFD, metadata);
+            addIfdEntriesOfDirectory(exifIFD, exifEntries);
         }
         ImageFileDirectory gpsIFD = ifd.getGpsIFD();
         if (gpsIFD != null) {
-            addIfdEntriesOfDirectory(gpsIFD, metadata);
+            addIfdEntriesOfDirectory(gpsIFD, exifEntries);
         }
         ImageFileDirectory interoperabilityIFD = ifd.getInteroperabilityIFD();
         if (interoperabilityIFD != null) {
-            addIfdEntriesOfDirectory(interoperabilityIFD, metadata);
+            addIfdEntriesOfDirectory(interoperabilityIFD, exifEntries);
         }
     }
 
     /**
-     * Findet einen Entry mit bestimmten Tag.
+     * Finds in a list an EXIF entry of a specific EXIF tag value.
      * 
-     * @param entries Zu durchsuchende Entries
-     * @param tag     Tag
-     * @return        Erster passender Entry oder null, falls nicht gefunden
+     * @param entries  EXIF Entries to look in
+     * @param tagValue tag value as defined in the EXIF standard
+     * @return         first matching Entry or null if not found
      */
-    public static IdfEntryProxy findEntryWithTag(List<IdfEntryProxy> entries,
-            int tag) {
+    public static IdfEntryProxy findEntryWithTag(
+            List<IdfEntryProxy> entries, int tagValue) {
         for (IdfEntryProxy entry : entries) {
-            if (entry.getTag() == tag) {
+            if (entry.getTag() == tagValue) {
                 return entry;
             }
         }
@@ -128,14 +127,14 @@ public final class ExifMetadata {
     }
 
     /**
-     * Returns the EXIF metadata of a file.
+     * Returns EXIF metadata of a image file.
      * 
-     * @param  file  file
-     * @return EXIF metadata or null if errors occured
+     * @param  imageFile image file
+     * @return           EXIF metadata or null if errors occured
      */
-    public static Exif getExif(File file) {
+    public static Exif getExif(File imageFile) {
         Exif exif = null;
-        List<IdfEntryProxy> exifEntries = getMetadata(file);
+        List<IdfEntryProxy> exifEntries = getExifEntries(imageFile);
         if (exifEntries != null) {
             exif = new Exif();
             try {
