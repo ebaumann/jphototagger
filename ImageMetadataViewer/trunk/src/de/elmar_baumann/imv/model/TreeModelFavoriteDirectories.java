@@ -42,6 +42,7 @@ public final class TreeModelFavoriteDirectories extends DefaultTreeModel
                 Bundle.getString("TreeModelFavoriteDirectories.Root.DisplayName")));
         this.tree = tree;
         rootNode = (DefaultMutableTreeNode) getRoot();
+        tree.addTreeWillExpandListener(this);
         db = DatabaseFavoriteDirectories.INSTANCE;
         addDirectories();
     }
@@ -199,10 +200,11 @@ public final class TreeModelFavoriteDirectories extends DefaultTreeModel
     private void addChildren(DefaultMutableTreeNode parentNode) {
         Object userObject = parentNode.getUserObject();
         File dir = userObject instanceof File
-                ? (File) userObject
-                : userObject instanceof FavoriteDirectory
-                ? new File(((FavoriteDirectory) userObject).getDirectoryName())
-                : null;
+                   ? (File) userObject
+                   : userObject instanceof FavoriteDirectory
+                     ? new File(((FavoriteDirectory) userObject).
+                getDirectoryName())
+                     : null;
         if (dir == null || !dir.isDirectory()) return;
         File[] subdirs = dir.listFiles(
                 new DirectoryFilter(
@@ -317,36 +319,20 @@ public final class TreeModelFavoriteDirectories extends DefaultTreeModel
         Cursor treeCursor = tree.getCursor();
         Cursor waitCursor = Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR);
         tree.setCursor(waitCursor);
-        updateAdd();
-        updateRemove();
+        for (DefaultMutableTreeNode node : getTreeRowNodes()) {
+            addChildren(node);
+            removeChildrenWithNotExistingFiles(node);
+        }
         tree.setCursor(treeCursor);
     }
 
-    private void updateAdd() {
-        List<DefaultMutableTreeNode> nodes = getAllNodes();
-        for (DefaultMutableTreeNode node : nodes) {
-            if (!node.isLeaf()) {
-                addChildren(node);
-            }
-        }
-    }
-
-    private void updateRemove() {
-        List<DefaultMutableTreeNode> nodes = getAllNodes();
-        Collections.sort(nodes, ComparatorTreeNodeLevel.INSTANCE_DESCENDING);
-        for (DefaultMutableTreeNode node : nodes) {
-            if (!node.isLeaf()) {
-                removeChildrenWithNotExistingFiles(node);
-            }
-        }
-    }
-
-    private List<DefaultMutableTreeNode> getAllNodes() {
+    private List<DefaultMutableTreeNode> getTreeRowNodes() {
+        int rows = tree.getRowCount();
         List<DefaultMutableTreeNode> nodes =
-                new LinkedList<DefaultMutableTreeNode>();
-        for (Enumeration e = rootNode.depthFirstEnumeration();
-                e.hasMoreElements();) {
-            nodes.add((DefaultMutableTreeNode) e.nextElement());
+                new ArrayList<DefaultMutableTreeNode>(rows);
+        for (int i = 0; i < rows; i++) {
+            nodes.add((DefaultMutableTreeNode) tree.getPathForRow(i).
+                    getLastPathComponent());
         }
         return nodes;
     }
