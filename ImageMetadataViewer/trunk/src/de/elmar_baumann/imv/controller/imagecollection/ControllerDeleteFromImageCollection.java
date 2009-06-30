@@ -37,7 +37,7 @@ public final class ControllerDeleteFromImageCollection implements ActionListener
     }
 
     private void listen() {
-        popupMenu.addActionListenerDeleteFromImageCollection(this);
+        popupMenu.getItemDeleteFromImageCollection().addActionListener(this);
         GUI.INSTANCE.getAppFrame().getMenuItemDelete().addActionListener(this);
     }
 

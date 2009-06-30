@@ -37,7 +37,7 @@ public final class ControllerCreateImageCollection implements ActionListener {
     }
 
     private void listen() {
-        popupMenu.addActionListenerCreateImageCollection(this);
+        popupMenu.getItemCreateImageCollection().addActionListener(this);
     }
 
     @Override

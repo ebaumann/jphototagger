@@ -34,7 +34,7 @@ public final class ControllerDeleteThumbnailsFromDatabase implements
     }
 
     private void listen() {
-        popupMenu.addActionListenerDeleteThumbnail(this);
+        popupMenu.getItemDeleteImageFromDatabase().addActionListener(this);
     }
 
     @Override

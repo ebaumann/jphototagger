@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.event.listener.impl;
 
-import de.elmar_baumann.imv.view.popupmenus.PopupMenuListImageCollections;
+import de.elmar_baumann.imv.view.popupmenus.PopupMenuImageCollections;
 import java.awt.Cursor;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
@@ -12,9 +12,9 @@ import javax.swing.JList;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/08
  */
-public final class ListImageCollectionsMouseListener extends MouseAdapter {
+public final class MouseListenerImageCollections extends MouseAdapter {
 
-    private final PopupMenuListImageCollections popupMenu = PopupMenuListImageCollections.INSTANCE;
+    private final PopupMenuImageCollections popupMenu = PopupMenuImageCollections.INSTANCE;
 
     @Override
     public void mousePressed(MouseEvent e) {
@@ -27,8 +27,8 @@ public final class ListImageCollectionsMouseListener extends MouseAdapter {
             popupMenu.setImageCollectionName(isItem
                 ? list.getSelectedValue().toString()
                 : null);
-            popupMenu.setEnabledDelete(isItem);
-            popupMenu.setEnabledRename(isItem);
+            popupMenu.getItemDelete().setEnabled(isItem);
+            popupMenu.getItemRename().setEnabled(isItem);
             popupMenu.show(list, x, y);
         } else {
             if (index >= 0) {

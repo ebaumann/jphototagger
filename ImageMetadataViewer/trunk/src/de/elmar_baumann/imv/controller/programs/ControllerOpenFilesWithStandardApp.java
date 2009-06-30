@@ -18,15 +18,17 @@ import java.awt.event.ActionListener;
  */
 public final class ControllerOpenFilesWithStandardApp implements ActionListener {
 
-    private final PopupMenuPanelThumbnails popupMenu = PopupMenuPanelThumbnails.INSTANCE;
-    private final ImageFileThumbnailsPanel thumbnailsPanel = GUI.INSTANCE.getAppPanel().getPanelThumbnails();
+    private final PopupMenuPanelThumbnails popupMenu =
+            PopupMenuPanelThumbnails.INSTANCE;
+    private final ImageFileThumbnailsPanel thumbnailsPanel = GUI.INSTANCE.
+            getAppPanel().getPanelThumbnails();
 
     public ControllerOpenFilesWithStandardApp() {
         listen();
     }
 
     private void listen() {
-        popupMenu.addActionListenerOpenFilesWithStandardApp(this);
+        popupMenu.getItemOpenFilesWithStandardApp().addActionListener(this);
     }
 
     @Override
@@ -38,10 +40,10 @@ public final class ControllerOpenFilesWithStandardApp implements ActionListener 
 
     private void openFiles() {
         String allFilenames = IoUtil.getQuotedForCommandline(
-            thumbnailsPanel.getSelectedFiles(), "\"");
+                thumbnailsPanel.getSelectedFiles(), "\"");
         if (!allFilenames.isEmpty()) {
             IoUtil.execute(
-                UserSettings.INSTANCE.getDefaultImageOpenApp(), allFilenames);
+                    UserSettings.INSTANCE.getDefaultImageOpenApp(), allFilenames);
         }
     }
 

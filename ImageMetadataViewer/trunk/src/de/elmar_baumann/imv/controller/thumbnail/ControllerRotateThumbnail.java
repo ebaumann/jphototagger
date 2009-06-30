@@ -8,7 +8,10 @@ import de.elmar_baumann.lib.image.ImageTransform;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import javax.swing.JMenuItem;
 import javax.swing.SwingUtilities;
 
 /**
@@ -25,20 +28,39 @@ public final class ControllerRotateThumbnail implements ActionListener {
             PopupMenuPanelThumbnails.INSTANCE;
     private final ImageFileThumbnailsPanel thumbnailsPanel = GUI.INSTANCE.
             getAppPanel().getPanelThumbnails();
+    private final Map<JMenuItem, Float> angleOfItem =
+            new HashMap<JMenuItem, Float>();
 
     public ControllerRotateThumbnail() {
+        initAngleOfItem();
         listen();
     }
 
+    private void initAngleOfItem() {
+        angleOfItem.put(popupMenu.getItemRotateThumbnai90(), new Float(90));
+        angleOfItem.put(popupMenu.getItemRotateThumbnai180(), new Float(180));
+        angleOfItem.put(popupMenu.getItemRotateThumbnai270(), new Float(270));
+    }
+
     private void listen() {
-        popupMenu.addActionListenerRotateThumbnail180(this);
-        popupMenu.addActionListenerRotateThumbnail270(this);
-        popupMenu.addActionListenerRotateThumbnail90(this);
+        popupMenu.getItemRotateThumbnai90().addActionListener(this);
+        popupMenu.getItemRotateThumbnai180().addActionListener(this);
+        popupMenu.getItemRotateThumbnai270().addActionListener(this);
+    }
+
+    private float getRotateAngle(Object item) {
+        Float angle = new Float(0);
+
+        if (angleOfItem.containsKey(item)) {
+            angle = angleOfItem.get(item);
+        }
+
+        return angle.floatValue();
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        rotateSelectedImages(popupMenu.getRotateAngle(e.getSource()));
+        rotateSelectedImages(getRotateAngle(e.getSource()));
     }
 
     private void rotateSelectedImages(final float rotateAngle) {

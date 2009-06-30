@@ -51,7 +51,7 @@ public final class ControllerDeleteFiles implements ActionListener {
     }
 
     private void listen() {
-        popupMenu.addActionListenerFileSystemDeleteFiles(this);
+        popupMenu.getItemFileSystemDeleteFiles().addActionListener(this);
         GUI.INSTANCE.getAppFrame().getMenuItemDelete().addActionListener(this);
     }
 

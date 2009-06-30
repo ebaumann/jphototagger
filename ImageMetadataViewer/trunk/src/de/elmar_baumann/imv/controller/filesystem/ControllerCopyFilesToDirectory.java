@@ -21,14 +21,16 @@ import java.util.List;
 public final class ControllerCopyFilesToDirectory implements ActionListener {
 
     private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
-    private final ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelThumbnails();
+    private final ImageFileThumbnailsPanel thumbnailsPanel = appPanel.
+            getPanelThumbnails();
 
     public ControllerCopyFilesToDirectory() {
         listen();
     }
 
     private void listen() {
-        PopupMenuPanelThumbnails.INSTANCE.addActionListenerCopySelectedFilesToDirectory(this);
+        PopupMenuPanelThumbnails.INSTANCE.getItemFileSystemCopyToDirectory().
+                addActionListener(this);
     }
 
     @Override
@@ -43,7 +45,9 @@ public final class ControllerCopyFilesToDirectory implements ActionListener {
             dialog.setSourceFiles(files);
             dialog.setVisible(true);
         } else {
-            AppLog.logWarning(ControllerCopyFilesToDirectory.class, Bundle.getString("ControllerCopyFilesToDirectory.ErrorMessage.NoImagesSelected"));
+            AppLog.logWarning(ControllerCopyFilesToDirectory.class,
+                    Bundle.getString(
+                    "ControllerCopyFilesToDirectory.ErrorMessage.NoImagesSelected"));
         }
     }
 }

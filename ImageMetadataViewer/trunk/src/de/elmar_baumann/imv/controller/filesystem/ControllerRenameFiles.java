@@ -35,8 +35,8 @@ public final class ControllerRenameFiles implements ActionListener,
     }
 
     private void listen() {
-        PopupMenuPanelThumbnails.INSTANCE.addActionListenerFileSystemRenameFiles(
-                this);
+        PopupMenuPanelThumbnails.INSTANCE.getItemFileSystemRenameFiles().
+                addActionListener(this);
         GUI.INSTANCE.getAppFrame().getMenuItemRename().addActionListener(this);
         ListenerProvider.INSTANCE.addRenameFileListener(this);
     }

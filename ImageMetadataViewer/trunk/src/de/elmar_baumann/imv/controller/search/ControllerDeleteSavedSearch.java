@@ -14,14 +14,15 @@ import java.awt.event.ActionListener;
  */
 public final class ControllerDeleteSavedSearch implements ActionListener {
 
-    private final PopupMenuListSavedSearches actionPopup = PopupMenuListSavedSearches.INSTANCE;
+    private final PopupMenuListSavedSearches actionPopup =
+            PopupMenuListSavedSearches.INSTANCE;
 
     public ControllerDeleteSavedSearch() {
         listen();
     }
 
     private void listen() {
-        actionPopup.addActionListenerDelete(this);
+        actionPopup.getItemDelete().addActionListener(this);
     }
 
     @Override

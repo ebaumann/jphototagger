@@ -16,45 +16,53 @@ import javax.swing.tree.TreePath;
  */
 public final class PopupMenuFavorites extends JPopupMenu {
 
-    private static final String ACTION_INSERT_FAVORITE = Bundle.getString(
+    private static final String DISPLAY_NAME_ACTION_INSERT_FAVORITE =
+            Bundle.getString(
             "PopupMenuListFavoriteDirectories.Action.InsertFavorite");
-    private static final String ACTION_UPDATE_FAVORITE = Bundle.getString(
+    private static final String DISPLAY_NAME_ACTION_UPDATE_FAVORITE =
+            Bundle.getString(
             "PopupMenuListFavoriteDirectories.Action.UpdateFavorite");
-    private static final String ACTION_DELETE_FAVORITE = Bundle.getString(
+    private static final String DISPLAY_NAME_ACTION_DELETE_FAVORITE =
+            Bundle.getString(
             "PopupMenuListFavoriteDirectories.Action.DeleteFavorite");
-    private static final String ACTION_MOVE_UP = Bundle.getString(
-            "PopupMenuListFavoriteDirectories.Action.MoveUp");
-    private static final String ACTION_MOVE_DOWN = Bundle.getString(
-            "PopupMenuListFavoriteDirectories.Action.MoveDown");
-    private static final String ACTION_ADD_FILESYSTEM_FOLDER = Bundle.getString(
+    private static final String DISPLAY_NAME_ACTION_MOVE_UP =
+            Bundle.getString("PopupMenuListFavoriteDirectories.Action.MoveUp");
+    private static final String DISPLAY_NAME_ACTION_MOVE_DOWN =
+            Bundle.getString("PopupMenuListFavoriteDirectories.Action.MoveDown");
+    private static final String DISPLAY_NAME_ACTION_ADD_FILESYSTEM_FOLDER =
+            Bundle.getString(
             "PopupMenuListFavoriteDirectories.Action.AddFilesystemFolder");
-    private static final String ACTION_RENAME_FILESYSTEM_FOLDER =
+    private static final String DISPLAY_NAME_ACTION_RENAME_FILESYSTEM_FOLDER =
             Bundle.getString(
             "PopupMenuListFavoriteDirectories.Action.RenameFilesystemFolder");
-    private static final String ACTION_DELETE_FILESYSTEM_FOLDER =
+    private static final String DISPLAY_NAME_ACTION_DELETE_FILESYSTEM_FOLDER =
             Bundle.getString(
             "PopupMenuListFavoriteDirectories.Action.DeleteFilesystemFolder");
-    private static final String ACTION_OPEN_IN_FOLDERS = Bundle.getString(
+    private static final String DISPLAY_NAME_ACTION_OPEN_IN_FOLDERS =
+            Bundle.getString(
             "PopupMenuListFavoriteDirectories.Action.OpenInFolders");
-    private static final String ACTION_REFRESH = Bundle.getString(
-            "PopupMenuListFavoriteDirectories.Action.Refresh");
+    private static final String DISPLAY_NAME_ACTION_REFRESH =
+            Bundle.getString("PopupMenuListFavoriteDirectories.Action.Refresh");
     private final JMenuItem itemInsertFavorite =
-            new JMenuItem(ACTION_INSERT_FAVORITE);
+            new JMenuItem(DISPLAY_NAME_ACTION_INSERT_FAVORITE);
     private final JMenuItem itemUpdateFavorite =
-            new JMenuItem(ACTION_UPDATE_FAVORITE);
+            new JMenuItem(DISPLAY_NAME_ACTION_UPDATE_FAVORITE);
     private final JMenuItem itemDeleteFavorite =
-            new JMenuItem(ACTION_DELETE_FAVORITE);
+            new JMenuItem(DISPLAY_NAME_ACTION_DELETE_FAVORITE);
     private final JMenuItem itemOpenInFolders =
-            new JMenuItem(ACTION_OPEN_IN_FOLDERS);
-    private final JMenuItem itemRefresh = new JMenuItem(ACTION_REFRESH);
-    private final JMenuItem itemMoveUp = new JMenuItem(ACTION_MOVE_UP);
+            new JMenuItem(DISPLAY_NAME_ACTION_OPEN_IN_FOLDERS);
+    private final JMenuItem itemRefresh =
+            new JMenuItem(DISPLAY_NAME_ACTION_REFRESH);
+    private final JMenuItem itemMoveUp =
+            new JMenuItem(DISPLAY_NAME_ACTION_MOVE_UP);
     private final JMenuItem itemAddFilesystemFolder =
-            new JMenuItem(ACTION_ADD_FILESYSTEM_FOLDER);
+            new JMenuItem(DISPLAY_NAME_ACTION_ADD_FILESYSTEM_FOLDER);
     private final JMenuItem itemRenameFilesystemFolder =
-            new JMenuItem(ACTION_RENAME_FILESYSTEM_FOLDER);
+            new JMenuItem(DISPLAY_NAME_ACTION_RENAME_FILESYSTEM_FOLDER);
     private final JMenuItem itemDeleteFilesystemFolder =
-            new JMenuItem(ACTION_DELETE_FILESYSTEM_FOLDER);
-    private final JMenuItem itemMoveDown = new JMenuItem(ACTION_MOVE_DOWN);
+            new JMenuItem(DISPLAY_NAME_ACTION_DELETE_FILESYSTEM_FOLDER);
+    private final JMenuItem itemMoveDown =
+            new JMenuItem(DISPLAY_NAME_ACTION_MOVE_DOWN);
     private TreePath treePath;
     private FavoriteDirectory favoriteDirectory;
     public static final PopupMenuFavorites INSTANCE =

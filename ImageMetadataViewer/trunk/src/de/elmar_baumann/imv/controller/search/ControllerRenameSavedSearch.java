@@ -14,14 +14,15 @@ import java.awt.event.ActionListener;
  */
 public final class ControllerRenameSavedSearch implements ActionListener {
 
-    private final PopupMenuListSavedSearches actionPopup = PopupMenuListSavedSearches.INSTANCE;
+    private final PopupMenuListSavedSearches actionPopup =
+            PopupMenuListSavedSearches.INSTANCE;
 
     public ControllerRenameSavedSearch() {
         listen();
     }
 
     private void listen() {
-        actionPopup.addActionListenerRename(this);
+        actionPopup.getItemRename().addActionListener(this);
     }
 
     @Override
@@ -32,5 +33,4 @@ public final class ControllerRenameSavedSearch implements ActionListener {
     private void rename() {
         SavedSearchesModifier.rename(actionPopup.getSavedSearch());
     }
-
 }

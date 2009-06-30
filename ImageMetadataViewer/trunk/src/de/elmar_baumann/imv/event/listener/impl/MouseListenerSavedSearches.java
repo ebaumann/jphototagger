@@ -13,9 +13,10 @@ import javax.swing.JList;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/08/31
  */
-public final class ListSavedSearchesMouseListener extends MouseAdapter {
+public final class MouseListenerSavedSearches extends MouseAdapter {
 
-    private final PopupMenuListSavedSearches popupMenu = PopupMenuListSavedSearches.INSTANCE;
+    private final PopupMenuListSavedSearches popupMenu =
+            PopupMenuListSavedSearches.INSTANCE;
 
     @Override
     public void mousePressed(MouseEvent e) {
@@ -30,9 +31,9 @@ public final class ListSavedSearchesMouseListener extends MouseAdapter {
                 SavedSearch data = (SavedSearch) selectedValue;
                 popupMenu.setSavedSearch(data);
             }
-            popupMenu.setEnabledDelete(isItem);
-            popupMenu.setEnabledEdit(isItem);
-            popupMenu.setEnabledRename(isItem);
+            popupMenu.getItemEdit().setEnabled(isItem);
+            popupMenu.getItemDelete().setEnabled(isItem);
+            popupMenu.getItemRename().setEnabled(isItem);
             popupMenu.show(list, x, y);
         } else {
             if (index >= 0) {

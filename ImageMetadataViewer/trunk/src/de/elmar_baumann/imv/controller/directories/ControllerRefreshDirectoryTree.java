@@ -1,7 +1,7 @@
 package de.elmar_baumann.imv.controller.directories;
 
 import de.elmar_baumann.imv.resource.GUI;
-import de.elmar_baumann.imv.view.popupmenus.PopupMenuTreeDirectories;
+import de.elmar_baumann.imv.view.popupmenus.PopupMenuDirectories;
 import de.elmar_baumann.lib.model.TreeModelAllSystemDirectories;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,7 +15,7 @@ import java.awt.event.ActionListener;
  */
 public final class ControllerRefreshDirectoryTree implements ActionListener {
 
-    PopupMenuTreeDirectories popup = PopupMenuTreeDirectories.INSTANCE;
+    PopupMenuDirectories popup = PopupMenuDirectories.INSTANCE;
 
     public ControllerRefreshDirectoryTree() {
         listen();

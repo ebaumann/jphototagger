@@ -2,7 +2,7 @@ package de.elmar_baumann.imv.view.panels;
 
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.database.DatabaseStatistics;
-import de.elmar_baumann.imv.event.listener.impl.TotalRecordCountListener;
+import de.elmar_baumann.imv.event.listener.impl.DatabaseListenerTotalRecordCount;
 import de.elmar_baumann.imv.model.TableModelDatabaseInfo;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.view.renderer.TableCellRendererDatabaseInfoColumns;
@@ -15,8 +15,8 @@ import de.elmar_baumann.imv.view.renderer.TableCellRendererDatabaseInfoColumns;
  */
 public final class DatabaseInfoCountPanel extends javax.swing.JPanel {
 
-    private final TotalRecordCountListener listenerTotalRecordCount =
-            new TotalRecordCountListener();
+    private final DatabaseListenerTotalRecordCount listenerTotalRecordCount =
+            new DatabaseListenerTotalRecordCount();
     private TableModelDatabaseInfo modelDatabaseInfo;
     private volatile boolean listenToDbChanges;
 

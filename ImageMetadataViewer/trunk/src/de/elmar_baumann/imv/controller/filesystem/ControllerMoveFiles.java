@@ -22,9 +22,11 @@ import java.util.List;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/13
  */
-public final class ControllerMoveFiles implements ActionListener, FileSystemActionListener {
+public final class ControllerMoveFiles implements ActionListener,
+                                                  FileSystemActionListener {
 
-    private final ImageFileThumbnailsPanel thumbnailsPanel = GUI.INSTANCE.getAppPanel().getPanelThumbnails();
+    private final ImageFileThumbnailsPanel thumbnailsPanel = GUI.INSTANCE.
+            getAppPanel().getPanelThumbnails();
     private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
 
     public ControllerMoveFiles() {
@@ -32,7 +34,8 @@ public final class ControllerMoveFiles implements ActionListener, FileSystemActi
     }
 
     private void listen() {
-        PopupMenuPanelThumbnails.INSTANCE.addActionListenerFileSystemMoveFiles(this);
+        PopupMenuPanelThumbnails.INSTANCE.getItemFileSystemMoveFiles().
+                addActionListener(this);
         ListenerProvider.INSTANCE.addFileSystemActionListener(this);
     }
 
@@ -48,18 +51,21 @@ public final class ControllerMoveFiles implements ActionListener, FileSystemActi
             dialog.setSourceFiles(files);
             dialog.setVisible(true);
         } else {
-            AppLog.logWarning(ControllerMoveFiles.class, Bundle.getString("ControllerMoveFiles.ErrorMessaga.NoImagesSelected"));
+            AppLog.logWarning(ControllerMoveFiles.class, Bundle.getString(
+                    "ControllerMoveFiles.ErrorMessaga.NoImagesSelected"));
         }
     }
 
     @Override
     public void actionPerformed(FileSystemEvent action, File src, File target) {
         if (!src.getName().toLowerCase().endsWith(".xmp")) {
-            db.updateRenameImageFilename(src.getAbsolutePath(), target.getAbsolutePath());
+            db.updateRenameImageFilename(src.getAbsolutePath(), target.
+                    getAbsolutePath());
         }
     }
 
     @Override
-    public void actionFailed(FileSystemEvent action, FileSystemError error, File src, File target) {
+    public void actionFailed(FileSystemEvent action, FileSystemError error,
+            File src, File target) {
     }
 }

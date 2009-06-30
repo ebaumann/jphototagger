@@ -18,15 +18,17 @@ import java.awt.event.ActionListener;
  */
 public final class ControllerAddToImageCollection implements ActionListener {
 
-    private final PopupMenuPanelThumbnails popupMenu = PopupMenuPanelThumbnails.INSTANCE;
-    private final ImageFileThumbnailsPanel thumbnailsPanel = GUI.INSTANCE.getAppPanel().getPanelThumbnails();
+    private final PopupMenuPanelThumbnails popupMenu =
+            PopupMenuPanelThumbnails.INSTANCE;
+    private final ImageFileThumbnailsPanel thumbnailsPanel = GUI.INSTANCE.
+            getAppPanel().getPanelThumbnails();
 
     public ControllerAddToImageCollection() {
         listen();
     }
 
     private void listen() {
-        popupMenu.addActionListenerAddToImageCollection(this);
+        popupMenu.getItemAddToImageCollection().addActionListener(this);
     }
 
     @Override

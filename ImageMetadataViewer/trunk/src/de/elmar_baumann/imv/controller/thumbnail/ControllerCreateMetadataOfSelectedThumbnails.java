@@ -14,9 +14,12 @@ import de.elmar_baumann.lib.io.FileUtil;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.EnumSet;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import javax.swing.JMenuItem;
 import javax.swing.JProgressBar;
 
 /**
@@ -33,6 +36,8 @@ import javax.swing.JProgressBar;
 public final class ControllerCreateMetadataOfSelectedThumbnails
         implements ActionListener, ProgressListener, Task {
 
+    private final Map<JMenuItem, EnumSet<InsertImageFilesIntoDatabase.Insert>> databaseUpdateOfMenuItem =
+            new HashMap<JMenuItem, EnumSet<InsertImageFilesIntoDatabase.Insert>>();
     private final Queue<InsertImageFilesIntoDatabase> updaters =
             new ConcurrentLinkedQueue<InsertImageFilesIntoDatabase>();
     private final PopupMenuPanelThumbnails popupMenu =
@@ -49,19 +54,35 @@ public final class ControllerCreateMetadataOfSelectedThumbnails
      * Konstruktor. <em>Nur eine Instanz erzeugen!</em>
      */
     public ControllerCreateMetadataOfSelectedThumbnails() {
+        initDatabaseUpdateOfMenuItem();
         listen();
     }
 
+    private void initDatabaseUpdateOfMenuItem() {
+
+        databaseUpdateOfMenuItem.put(
+                popupMenu.getItemUpdateMetadata(), EnumSet.of(
+                InsertImageFilesIntoDatabase.Insert.EXIF,
+                InsertImageFilesIntoDatabase.Insert.XMP));
+        databaseUpdateOfMenuItem.put(
+                popupMenu.getItemUpdateThumbnail(), EnumSet.of(
+                InsertImageFilesIntoDatabase.Insert.THUMBNAIL));
+    }
+
+    private EnumSet<InsertImageFilesIntoDatabase.Insert> getMetadataToInsertIntoDatabase(
+            Object item) {
+        return databaseUpdateOfMenuItem.get(item);
+    }
+
     private void listen() {
-        popupMenu.addActionListenerUpdateThumbnail(this);
-        popupMenu.addActionListenerUpdateMetadata(this);
+        popupMenu.getItemUpdateThumbnail().addActionListener(this);
+        popupMenu.getItemUpdateMetadata().addActionListener(this);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (thumbnailsPanel.getSelectionCount() > 0) {
-            updateMetadata(popupMenu.getMetadataToInsertIntoDatabase(
-                    e.getSource()));
+            updateMetadata(getMetadataToInsertIntoDatabase(e.getSource()));
         }
     }
 

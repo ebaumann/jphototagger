@@ -29,9 +29,9 @@ public final class ControllerInsertFavorite implements ActionListener {
     }
 
     private void listen() {
-        PopupMenuFavorites.INSTANCE.getItemInsertFavorite().
-                addActionListener(this);
-        popupDirectories.addActionListenerAddToFavoriteDirectories(this);
+        PopupMenuFavorites.INSTANCE.getItemInsertFavorite().addActionListener(
+                this);
+        popupDirectories.getItemAddToFavorites().addActionListener(this);
     }
 
     @Override
@@ -41,7 +41,9 @@ public final class ControllerInsertFavorite implements ActionListener {
 
     private String getDirectoryName(Object o) {
         String directoryName = null;
-        if (popupDirectories.isAddToFavoriteDirectoriesItem(o)) {
+        boolean isAddToFavorites =
+                popupDirectories.getItemAddToFavorites().equals(o);
+        if (isAddToFavorites) {
             directoryName = popupDirectories.getDirectoryName();
         }
         return directoryName;

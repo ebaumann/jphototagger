@@ -50,7 +50,7 @@ public final class MouseListenerDirectories extends MouseAdapter {
                     }
                 }
             }
-            popupMenu.setFileItemsEnabled(isSelectedItem);
+            setFileItemsEnabled(isSelectedItem);
             popupMenu.show(tree, x, y);
         } else {
             if (path != null) {
@@ -59,5 +59,12 @@ public final class MouseListenerDirectories extends MouseAdapter {
                 popupMenu.setTreeSelected(false);
             }
         }
+    }
+
+    private void setFileItemsEnabled(boolean enabled) {
+        popupMenu.getItemAddToFavorites().setEnabled(enabled);
+        popupMenu.getItemCreateDirectory().setEnabled(enabled);
+        popupMenu.getItemRenameDirectory().setEnabled(enabled);
+        popupMenu.getItemDeleteDirectory().setEnabled(enabled);
     }
 }

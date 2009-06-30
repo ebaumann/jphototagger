@@ -3,7 +3,6 @@ package de.elmar_baumann.imv.view.popupmenus;
 import de.elmar_baumann.imv.app.AppIcons;
 import de.elmar_baumann.imv.data.SavedSearch;
 import de.elmar_baumann.imv.resource.Bundle;
-import java.awt.event.ActionListener;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 
@@ -15,16 +14,23 @@ import javax.swing.JPopupMenu;
  */
 public final class PopupMenuListSavedSearches extends JPopupMenu {
 
-    private final String actionDelete = Bundle.getString("PopupMenuTreeSavedSearches.Action.Delete");
-    private final String actionEdit = Bundle.getString("PopupMenuTreeSavedSearches.Action.Edit");
-    private final String actionNew = Bundle.getString("PopupMenuTreeSavedSearches.Action.New");
-    private final String actionRename = Bundle.getString("PopupMenuTreeSavedSearches.Action.Rename");
-    private final JMenuItem itemDelete = new JMenuItem(actionDelete);
-    private final JMenuItem itemEdit = new JMenuItem(actionEdit);
-    private final JMenuItem itemCreate = new JMenuItem(actionNew);
-    private final JMenuItem itemRename = new JMenuItem(actionRename);
+    private static final String DISPLAY_NAME_ACTION_DELETE =
+            Bundle.getString("PopupMenuTreeSavedSearches.Action.Delete");
+    private static final String DISPLAY_NAME_ACTION_EDIT =
+            Bundle.getString("PopupMenuTreeSavedSearches.Action.Edit");
+    private static final String DISPLAY_NAME_ACTION_NEW =
+            Bundle.getString("PopupMenuTreeSavedSearches.Action.New");
+    private static final String DISPLAY_NAME_ACTION_RENAME =
+            Bundle.getString("PopupMenuTreeSavedSearches.Action.Rename");
+    private final JMenuItem itemDelete =
+            new JMenuItem(DISPLAY_NAME_ACTION_DELETE);
+    private final JMenuItem itemEdit = new JMenuItem(DISPLAY_NAME_ACTION_EDIT);
+    private final JMenuItem itemCreate = new JMenuItem(DISPLAY_NAME_ACTION_NEW);
+    private final JMenuItem itemRename =
+            new JMenuItem(DISPLAY_NAME_ACTION_RENAME);
     private SavedSearch savedSearch;
-    public static final PopupMenuListSavedSearches INSTANCE = new PopupMenuListSavedSearches();
+    public static final PopupMenuListSavedSearches INSTANCE =
+            new PopupMenuListSavedSearches();
 
     private PopupMenuListSavedSearches() {
         addItems();
@@ -41,8 +47,10 @@ public final class PopupMenuListSavedSearches extends JPopupMenu {
     public JMenuItem getItemRename() {
         return itemRename;
     }
-    
-    
+
+    public JMenuItem getItemEdit() {
+        return itemEdit;
+    }
 
     /**
      * Setzt die gespeicherte Suche.
@@ -60,73 +68,6 @@ public final class PopupMenuListSavedSearches extends JPopupMenu {
      */
     public SavedSearch getSavedSearch() {
         return savedSearch;
-    }
-
-    /**
-     * Aktiviert das Item zum Löschen gespeicherter Suchen.
-     * 
-     * @param enabled true, wenn aktiviert. Default: true.
-     */
-    public void setEnabledDelete(boolean enabled) {
-        itemDelete.setEnabled(enabled);
-    }
-
-    /**
-     * Aktiviert das Item zum Bearbeiten gespeicherter Suchen.
-     * 
-     * @param enabled true, wenn aktiviert. Default: true.
-     */
-    public void setEnabledEdit(boolean enabled) {
-        itemEdit.setEnabled(enabled);
-    }
-
-    /**
-     * Aktiviert das Item zum Umbenennen gespeicherter Suchen.
-     * 
-     * @param enabled true, wenn aktiviert. Default: true.
-     */
-    public void setEnabledRename(boolean enabled) {
-        itemRename.setEnabled(enabled);
-    }
-
-    /**
-     * Fügt einen Beobachter hinzu für das Ereignis:
-     * Eine gespeicherte Suche soll gelöscht werden.
-     * 
-     * @param listener Beobachter
-     */
-    public synchronized void addActionListenerDelete(ActionListener listener) {
-        itemDelete.addActionListener(listener);
-    }
-
-    /**
-     * Fügt einen Beobachter hinzu für das Ereignis:
-     * Eine gespeicherte Suche soll bearbeitet werden.
-     * 
-     * @param listener Beobachter
-     */
-    public synchronized void addActionListenerEdit(ActionListener listener) {
-        itemEdit.addActionListener(listener);
-    }
-
-    /**
-     * Fügt einen Beobachter hinzu für das Ereignis:
-     * Eine gespeicherte Suche soll erzeugt werden.
-     * 
-     * @param listener Beobachter
-     */
-    public synchronized void addActionListenerCreate(ActionListener listener) {
-        itemCreate.addActionListener(listener);
-    }
-
-    /**
-     * Fügt einen Beobachter hinzu für das Ereignis:
-     * Eine gespeicherte Suche soll umbenannt werden.
-     * 
-     * @param listener Beobachter
-     */
-    public synchronized void addActionListenerRename(ActionListener listener) {
-        itemRename.addActionListener(listener);
     }
 
     private void addItems() {

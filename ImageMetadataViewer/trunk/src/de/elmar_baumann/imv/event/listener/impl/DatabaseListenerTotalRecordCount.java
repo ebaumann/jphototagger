@@ -15,13 +15,13 @@ import javax.swing.JLabel;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/17
  */
-public final class TotalRecordCountListener implements DatabaseListener {
+public final class DatabaseListenerTotalRecordCount implements DatabaseListener {
 
     private final DatabaseStatistics db = DatabaseStatistics.INSTANCE;
     private final List<JLabel> labels = new ArrayList<JLabel>();
     boolean listen = false;
 
-    public TotalRecordCountListener() {
+    public DatabaseListenerTotalRecordCount() {
         db.addDatabaseListener(this);
     }
 

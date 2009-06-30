@@ -14,14 +14,15 @@ import java.awt.event.ActionListener;
  */
 public final class ControllerEditSafedSearch implements ActionListener {
 
-    private final PopupMenuListSavedSearches actionPopup = PopupMenuListSavedSearches.INSTANCE;
+    private final PopupMenuListSavedSearches actionPopup =
+            PopupMenuListSavedSearches.INSTANCE;
 
     public ControllerEditSafedSearch() {
         listen();
     }
 
     private void listen() {
-        actionPopup.addActionListenerEdit(this);
+        actionPopup.getItemEdit().addActionListener(this);
     }
 
     @Override

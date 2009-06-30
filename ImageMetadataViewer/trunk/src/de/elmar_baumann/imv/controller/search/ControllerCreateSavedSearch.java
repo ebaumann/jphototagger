@@ -16,21 +16,24 @@ import java.awt.event.ActionListener;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/10
  */
-public final class ControllerCreateSavedSearch implements ActionListener, SearchListener {
+public final class ControllerCreateSavedSearch implements ActionListener,
+                                                          SearchListener {
 
     public ControllerCreateSavedSearch() {
         listen();
     }
 
     private void listen() {
-        PopupMenuListSavedSearches.INSTANCE.addActionListenerCreate(this);
+        PopupMenuListSavedSearches.INSTANCE.getItemCreate().addActionListener(
+                this);
         ListenerProvider.INSTANCE.addSearchListener(this);
     }
 
     @Override
     public void actionPerformed(SearchEvent evt) {
         if (evt.getType().equals(SearchEvent.Type.SAVE)) {
-            SavedSearchesModifier.insert(evt.getSafedSearch(), evt.isForceOverwrite());
+            SavedSearchesModifier.insert(evt.getSafedSearch(), evt.
+                    isForceOverwrite());
         }
     }
 
@@ -47,5 +50,4 @@ public final class ControllerCreateSavedSearch implements ActionListener, Search
             dialog.setVisible(true);
         }
     }
-
 }
