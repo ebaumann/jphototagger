@@ -79,6 +79,12 @@ public final class TreeModelMiscMetadata extends DefaultTreeModel implements
             checkImageInserted(event.getImageFile());
         } else if (eventType.equals(DatabaseImageEvent.Type.IMAGEFILE_DELETED)) {
             checkImageDeleted(event.getImageFile());
+        } else if (eventType.equals(DatabaseImageEvent.Type.IMAGEFILE_UPDATED)) {
+            ImageFile imageFile = event.getImageFile();
+            if (imageFile != null && imageFile.isInsertExifIntoDb()) {
+                checkImageInserted(event.getImageFile());
+                checkImageDeleted(event.getImageFile());
+            }
         }
     }
 
