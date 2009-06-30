@@ -1,7 +1,6 @@
 package de.elmar_baumann.lib.model;
 
 import de.elmar_baumann.lib.comparator.ComparatorFilesNames;
-import de.elmar_baumann.lib.comparator.ComparatorTreeNodeLevel;
 import de.elmar_baumann.lib.io.DirectoryFilter;
 import java.awt.Cursor;
 import java.io.File;
@@ -9,7 +8,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Enumeration;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import javax.swing.JTree;
