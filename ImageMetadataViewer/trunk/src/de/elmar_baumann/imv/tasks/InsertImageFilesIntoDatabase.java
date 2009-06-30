@@ -33,10 +33,14 @@ import java.util.List;
 public final class InsertImageFilesIntoDatabase implements Runnable {
 
     private static final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
-    private final List<ProgressListener> progressListeners = new ArrayList<ProgressListener>();
-    private final int maxThumbnailLength = UserSettings.INSTANCE.getMaxThumbnailLength();
-    private final boolean useEmbeddedThumbnails = UserSettings.INSTANCE.isUseEmbeddedThumbnails();
-    private final String externalThumbnailCreationCommand = UserSettings.INSTANCE.getExternalThumbnailCreationCommand();
+    private final List<ProgressListener> progressListeners =
+            new ArrayList<ProgressListener>();
+    private final int maxThumbnailLength = UserSettings.INSTANCE.
+            getMaxThumbnailLength();
+    private final boolean useEmbeddedThumbnails = UserSettings.INSTANCE.
+            isUseEmbeddedThumbnails();
+    private final String externalThumbnailCreationCommand =
+            UserSettings.INSTANCE.getExternalThumbnailCreationCommand();
     private final List<String> filenames;
     private final EnumSet<Insert> what;
     private boolean stop = false;
@@ -78,7 +82,8 @@ public final class InsertImageFilesIntoDatabase implements Runnable {
      * @param filenames  names of the <em>image</em> files to be updated
      * @param what       what to insert
      */
-    public InsertImageFilesIntoDatabase(List<String> filenames, EnumSet<Insert> what) {
+    public InsertImageFilesIntoDatabase(List<String> filenames,
+            EnumSet<Insert> what) {
         this.filenames = filenames;
         this.what = what;
     }
@@ -119,7 +124,9 @@ public final class InsertImageFilesIntoDatabase implements Runnable {
     public void run() {
         int count = filenames.size();
         startTime = System.currentTimeMillis();
-        notifyProgressStarted(count > 0 ? filenames.get(0) : "");
+        notifyProgressStarted(count > 0
+                              ? filenames.get(0)
+                              : "");
         for (int index = 0; !stop && index < count; index++) {
             String filename = filenames.get(index);
             logCheckForUpdate(filename);
@@ -129,7 +136,9 @@ public final class InsertImageFilesIntoDatabase implements Runnable {
                 db.insertImageFile(imageFile);
                 runActionsAfterInserting(imageFile);
             }
-            notifyProgressPerformed(index + 1, index + 1 < count ? filenames.get(index + 1) : filename);
+            notifyProgressPerformed(index + 1, index + 1 < count
+                                               ? filenames.get(index + 1)
+                                               : filename);
         }
         notifyProgressEnded();
     }
@@ -145,12 +154,16 @@ public final class InsertImageFilesIntoDatabase implements Runnable {
         imageFile.setFilename(filename);
         imageFile.setLastmodified(FileUtil.getLastModified(filename));
         if (isUpdateThumbnail(filename)) {
+            imageFile.addInsertIntoDb(
+                    InsertImageFilesIntoDatabase.Insert.THUMBNAIL);
             setThumbnail(imageFile);
         }
         if (isUpdateXmp(filename)) {
+            imageFile.addInsertIntoDb(InsertImageFilesIntoDatabase.Insert.XMP);
             setXmp(imageFile);
         }
         if (isUpdateExif(filename)) {
+            imageFile.addInsertIntoDb(InsertImageFilesIntoDatabase.Insert.EXIF);
             setExif(imageFile);
         }
         return imageFile;
@@ -158,17 +171,20 @@ public final class InsertImageFilesIntoDatabase implements Runnable {
 
     private boolean isUpdateThumbnail(String filename) {
         return what.contains(Insert.THUMBNAIL) ||
-                (what.contains(Insert.OUT_OF_DATE) && !isImageFileUpToDate(filename));
+                (what.contains(Insert.OUT_OF_DATE) && !isImageFileUpToDate(
+                filename));
     }
 
     private boolean isUpdateExif(String filename) {
         return what.contains(Insert.EXIF) ||
-                (what.contains(Insert.OUT_OF_DATE) && !isImageFileUpToDate(filename));
+                (what.contains(Insert.OUT_OF_DATE) && !isImageFileUpToDate(
+                filename));
     }
 
     private boolean isUpdateXmp(String filename) {
         return what.contains(Insert.XMP) ||
-                (what.contains(Insert.OUT_OF_DATE) && !isXmpFileUpToDate(filename));
+                (what.contains(Insert.OUT_OF_DATE) && !isXmpFileUpToDate(
+                filename));
     }
 
     private boolean isImageFileUpToDate(String filename) {
@@ -180,11 +196,12 @@ public final class InsertImageFilesIntoDatabase implements Runnable {
     private boolean isXmpFileUpToDate(String imageFilename) {
         String sidecarFileName = XmpMetadata.getSidecarFilename(imageFilename);
         return sidecarFileName == null
-                ? isEmbeddedXmpUpToDate(imageFilename)
-                : isXmpSidecarFileUpToDate(imageFilename, sidecarFileName);
+               ? isEmbeddedXmpUpToDate(imageFilename)
+               : isXmpSidecarFileUpToDate(imageFilename, sidecarFileName);
     }
 
-    private boolean isXmpSidecarFileUpToDate(String imageFilename, String sidecarFilename) {
+    private boolean isXmpSidecarFileUpToDate(String imageFilename,
+            String sidecarFilename) {
         assert FileUtil.existsFile(sidecarFilename);
         long dbTime = db.getLastModifiedXmp(imageFilename);
         long fileTime = FileUtil.getLastModified(sidecarFilename);
@@ -200,7 +217,8 @@ public final class InsertImageFilesIntoDatabase implements Runnable {
         if (dbTime == fileTime) {
             return true;
         }
-        boolean hasEmbeddedXmp = XmpMetadata.getEmbeddedXmp(imageFilename) != null; // slow if large image file whitout XMP
+        boolean hasEmbeddedXmp = XmpMetadata.getEmbeddedXmp(imageFilename) !=
+                null; // slow if large image file whitout XMP
         return !hasEmbeddedXmp || fileTime == dbTime;
     }
 
@@ -261,10 +279,12 @@ public final class InsertImageFilesIntoDatabase implements Runnable {
     private void runActionsAfterInserting(ImageFile imageFile) {
         if (!isRunActionsAfterInserting(imageFile)) return;
         File imgFile = imageFile.getFile();
-        List<Program> actions = DatabaseActionsAfterDbInsertion.INSTANCE.getAll();
+        List<Program> actions =
+                DatabaseActionsAfterDbInsertion.INSTANCE.getAll();
         for (Program action : actions) {
             ProgramStarter programStarter = new ProgramStarter(null);
-            programStarter.startProgram(action, Collections.singletonList(imgFile));
+            programStarter.startProgram(action, Collections.singletonList(
+                    imgFile));
         }
     }
 
@@ -296,7 +316,9 @@ public final class InsertImageFilesIntoDatabase implements Runnable {
 
     private synchronized void notifyProgressEnded() {
         for (ProgressListener listener : progressListeners) {
-            listener.progressEnded(getProgressEvent(filenames.size(), Bundle.getString("ImageMetadataToDatabase.InformationMessage.ProgressEnded"))); // NOI18N
+            listener.progressEnded(getProgressEvent(filenames.size(), Bundle.
+                    getString(
+                    "ImageMetadataToDatabase.InformationMessage.ProgressEnded"))); // NOI18N
         }
     }
 
@@ -307,7 +329,8 @@ public final class InsertImageFilesIntoDatabase implements Runnable {
             long timePerTask = usedTime / value;
             int remainingTaskCount = fileCount - value;
             long milliSecondsRemaining = timePerTask * remainingTaskCount;
-            return new ProgressEvent(this, 0, fileCount, value, milliSecondsRemaining, info);
+            return new ProgressEvent(this, 0, fileCount, value,
+                    milliSecondsRemaining, info);
         } else {
             return new ProgressEvent(this, 0, fileCount, value, info);
         }
@@ -323,14 +346,20 @@ public final class InsertImageFilesIntoDatabase implements Runnable {
         Object[] params = {
             data.getFile().getAbsolutePath(),
             data.getExif() == null
-            ? Bundle.getString("ImageMetadataToDatabase.InformationMessage.StartInsert.No")
-            : Bundle.getString("ImageMetadataToDatabase.InformationMessage.StartInsert.Yes"),
+            ? Bundle.getString(
+            "ImageMetadataToDatabase.InformationMessage.StartInsert.No")
+            : Bundle.getString(
+            "ImageMetadataToDatabase.InformationMessage.StartInsert.Yes"),
             data.getXmp() == null
-            ? Bundle.getString("ImageMetadataToDatabase.InformationMessage.StartInsert.No")
-            : Bundle.getString("ImageMetadataToDatabase.InformationMessage.StartInsert.Yes"),
+            ? Bundle.getString(
+            "ImageMetadataToDatabase.InformationMessage.StartInsert.No")
+            : Bundle.getString(
+            "ImageMetadataToDatabase.InformationMessage.StartInsert.Yes"),
             data.getThumbnail() == null
-            ? Bundle.getString("ImageMetadataToDatabase.InformationMessage.StartInsert.No")
-            : Bundle.getString("ImageMetadataToDatabase.InformationMessage.StartInsert.Yes")};
+            ? Bundle.getString(
+            "ImageMetadataToDatabase.InformationMessage.StartInsert.No")
+            : Bundle.getString(
+            "ImageMetadataToDatabase.InformationMessage.StartInsert.Yes")};
         AppLog.logInfo(InsertImageFilesIntoDatabase.class, Bundle.getString(
                 "ImageMetadataToDatabase.InformationMessage.StartInsert",
                 params));

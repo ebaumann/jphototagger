@@ -125,6 +125,14 @@ public final class DatabaseImageFiles extends Database {
     /**
      * Inserts an image file into the databse. If the image already exists
      * it's data will be updated.
+     *
+     * Inserts or updates this metadata:
+     *
+     * <ul>
+     * <li>EXIF when {@link ImageFile#isInsertExifIntoDb()} is true</li>
+     * <li>XMP when {@link ImageFile#isInsertXmpIntoDb()} is true</li>
+     * <li>Thumbnail when {@link ImageFile#isInsertThumbnailIntoDb()} is true</li>
+     * </ul>
      * 
      * @param  imageFile  image
      * @return true if inserted
@@ -138,20 +146,35 @@ public final class DatabaseImageFiles extends Database {
         try {
             connection = getConnection();
             connection.setAutoCommit(false);
+            String sqlWithXmp = "INSERT INTO files" + // NOI18N
+                    " (filename, lastmodified, xmp_lastmodified)" + // NOI18N
+                    " VALUES (?, ?, ?)"; // NOI18N
+            String sqlWithoutXmp = "INSERT INTO files" + // NOI18N
+                    " (filename, lastmodified)" + // NOI18N
+                    " VALUES (?, ?)"; // NOI18N
             PreparedStatement preparedStatement = connection.prepareStatement(
-                    "INSERT INTO files (filename, lastmodified, xmp_lastmodified)" + // NOI18N
-                    " VALUES (?, ?, ?)"); // NOI18N
+                    imageFile.isInsertXmpIntoDb()
+                    ? sqlWithXmp
+                    : sqlWithoutXmp);
             String filename = imageFile.getFilename();
             preparedStatement.setString(1, filename);
             preparedStatement.setLong(2, imageFile.getLastmodified());
-            preparedStatement.setLong(3, getLastmodifiedXmp(imageFile));
-            AppLog.logFiner(DatabaseImageFiles.class,
-                    preparedStatement.toString());
+            if (imageFile.isInsertXmpIntoDb()) {
+                preparedStatement.setLong(3, getLastmodifiedXmp(imageFile));
+            }
+            AppLog.logFiner(
+                    DatabaseImageFiles.class, preparedStatement.toString());
             preparedStatement.executeUpdate();
             long idFile = getIdFile(connection, filename);
-            updateThumbnail(idFile, imageFile.getThumbnail());
-            insertXmp(connection, idFile, imageFile.getXmp());
-            insertExif(connection, idFile, imageFile.getExif());
+            if (imageFile.isInsertThumbnailIntoDb()) {
+                updateThumbnail(idFile, imageFile.getThumbnail());
+            }
+            if (imageFile.isInsertXmpIntoDb()) {
+                insertXmp(connection, idFile, imageFile.getXmp());
+            }
+            if (imageFile.isInsertExifIntoDb()) {
+                insertExif(connection, idFile, imageFile.getExif());
+            }
             connection.commit();
             success = true;
             notifyDatabaseListener(
@@ -169,6 +192,14 @@ public final class DatabaseImageFiles extends Database {
     /**
      * Aktualisiert ein Bild in der Datenbank.
      *
+     * Updates this metadata:
+     *
+     * <ul>
+     * <li>EXIF when {@link ImageFile#isInsertExifIntoDb()} is true</li>
+     * <li>XMP when {@link ImageFile#isInsertXmpIntoDb()} is true</li>
+     * <li>Thumbnail when {@link ImageFile#isInsertThumbnailIntoDb()} is true</li>
+     * </ul>
+     *
      * @param imageFile Bild
      * @return          true bei Erfolg
      */
@@ -178,20 +209,35 @@ public final class DatabaseImageFiles extends Database {
         try {
             connection = getConnection();
             connection.setAutoCommit(false);
+            String sqlWithXmp = "UPDATE files " + // NOI18N
+                    "SET lastmodified = ?, xmp_lastmodified = ? WHERE id = ?"; // NOI18N
+            String sqlWithoutXmp = "UPDATE files " + // NOI18N
+                    "SET lastmodified = ? WHERE id = ?"; // NOI18N
             PreparedStatement stmt = connection.prepareStatement(
-                    "UPDATE files " + // NOI18N
-                    "SET lastmodified = ?, xmp_lastmodified = ? WHERE id = ?"); // NOI18N
+                    imageFile.isInsertXmpIntoDb()
+                    ? sqlWithXmp
+                    : sqlWithoutXmp);
             String filename = imageFile.getFilename();
             long idFile = getIdFile(connection, filename);
             stmt.setLong(1, imageFile.getLastmodified());
-            stmt.setLong(2, getLastmodifiedXmp(imageFile));
-            stmt.setLong(3, idFile);
+            if (imageFile.isInsertXmpIntoDb()) {
+                stmt.setLong(2, getLastmodifiedXmp(imageFile));
+            }
+            stmt.setLong(imageFile.isInsertXmpIntoDb()
+                         ? 3
+                         : 2, idFile);
             AppLog.logFiner(DatabaseImageFiles.class, stmt.toString());
             stmt.executeUpdate();
             stmt.close();
-            updateThumbnail(idFile, imageFile.getThumbnail());
-            updateXmp(connection, idFile, imageFile.getXmp());
-            updateExif(connection, idFile, imageFile.getExif());
+            if (imageFile.isInsertThumbnailIntoDb()) {
+                updateThumbnail(idFile, imageFile.getThumbnail());
+            }
+            if (imageFile.isInsertXmpIntoDb()) {
+                updateXmp(connection, idFile, imageFile.getXmp());
+            }
+            if (imageFile.isInsertExifIntoDb()) {
+                updateExif(connection, idFile, imageFile.getExif());
+            }
             connection.commit();
             success = true;
             notifyDatabaseListener(
@@ -1319,7 +1365,7 @@ public final class DatabaseImageFiles extends Database {
             String columnName = column.getName();
             String sql =
                     "SELECT files.filename" + // NOI18N
-                    " FROM " + tableName +
+                    " FROM " + tableName + // NOI18N
                     " INNER JOIN files" + // NOI18N
                     " ON " + tableName + ".id_files = files.id" + // NOI18N
                     " WHERE " + tableName + "." + columnName + // NOI18N
@@ -1394,9 +1440,9 @@ public final class DatabaseImageFiles extends Database {
             int year = cal.get(Calendar.YEAR);
             int month = cal.get(Calendar.MONTH) + 1;
             int day = cal.get(Calendar.DAY_OF_MONTH);
-            String sql = "SELECT COUNT(*) FROM exif WHERE exif_date_time_original" +
-                    " LIKE '" + year + "-" + getMonthDayPrefix(month) + month +
-                    "-" + getMonthDayPrefix(day) + day + "%'";
+            String sql = "SELECT COUNT(*) FROM exif WHERE exif_date_time_original" + // NOI18N
+                    " LIKE '" + year + "-" + getMonthDayPrefix(month) + month + // NOI18N
+                    "-" + getMonthDayPrefix(day) + day + "%'"; // NOI18N
             Statement stmt = connection.createStatement();
             AppLog.logFinest(DatabaseImageFiles.class, sql);
             ResultSet rs = stmt.executeQuery(sql);
@@ -1427,7 +1473,7 @@ public final class DatabaseImageFiles extends Database {
             String sql = "SELECT COUNT(*)" + // NOI18N
                     " FROM " + column.getTable().getName() + // NOI18N
                     " WHERE " + column.getName() + // NOI18N
-                    " = ?";
+                    " = ?"; // NOI18N
             PreparedStatement stmt = connection.prepareStatement(sql);
             AppLog.logFinest(DatabaseImageFiles.class, stmt.toString());
             stmt.setObject(1, value);
