@@ -3,7 +3,7 @@ package de.elmar_baumann.imv.data;
 import java.sql.Date;
 
 /**
- * EXIF-Daten einer Bilddatei.
+ * EXIF metadata or an image file.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/08/27
@@ -16,72 +16,72 @@ public final class Exif {
     private String recordingEquipment;
 
     /**
-     * Liefert die Aufnahmezeit.
+     * Returns the date when the image was created.
      * 
-     * @return Aufnahmezeit
+     * @return date
      */
     public Date getDateTimeOriginal() {
         return dateTimeOriginal;
     }
 
     /**
-     * Setzt die Aufnahmezeit.
+     * Sets the date when the image was created.
      * 
-     * @param dateTimeOriginal Aufnahmezeit
+     * @param dateTimeOriginal date
      */
     public void setDateTimeOriginal(Date dateTimeOriginal) {
         this.dateTimeOriginal = dateTimeOriginal;
     }
 
     /**
-     * Liefert die Brennweite.
+     * Returns the focal length of the camera's lens which projected the image.
      * 
-     * @return Brennweite
+     * @return focal length in mm
      */
     public double getFocalLength() {
         return focalLength;
     }
 
     /**
-     * Setzt die Brennweite.
+     * Sets the focal length of the camera's lens which projected the image.
      * 
-     * @param focalLength Brennweite
+     * @param focalLength focal length in mm
      */
     public void setFocalLength(double focalLength) {
         this.focalLength = focalLength;
     }
 
     /**
-     * Liefert die ISO-Einstellung.
+     * Returns the ISO adjustment of the camera which took the image.
      * 
-     * @return ISO-Einstellung
+     * @return ISO
      */
     public short getIsoSpeedRatings() {
         return isoSpeedRatings;
     }
 
     /**
-     * Setzt die ISO-Einstellung.
+     * Sets the ISO adjustment of the camera which took the image
      * 
-     * @param isoSpeedRatings ISO-Einstellung
+     * @param isoSpeedRatings ISO
      */
     public void setIsoSpeedRatings(short isoSpeedRatings) {
         this.isoSpeedRatings = isoSpeedRatings;
     }
 
     /**
-     * Liefert die Kamera.
+     * Returns the camera which took the image.
      * 
-     * @return Kamera
+     * @return camera
      */
     public String getRecordingEquipment() {
         return recordingEquipment;
     }
 
     /**
-     * Setzt die Kamera.
+     * Sets the camera which took the image.
      * 
-     * @param recordingEquipment Kamera
+     * @param recordingEquipment camera
      */
     public void setRecordingEquipment(String recordingEquipment) {
         // Bugfix imagero: when first byte of RAW data is 0, then the returned
@@ -93,9 +93,9 @@ public final class Exif {
     }
 
     /**
-     * Liefert, ob keine Attribute existitieren (nichts definiert ist).
+     * Returns wheter no EXIF field of this class was set.
      * 
-     * @return true, wenn keine Attribute existieren
+     * @return true if no EXIF field was set
      */
     public boolean isEmpty() {
         return dateTimeOriginal == null &&

@@ -8,21 +8,22 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * IPTC-Metadaten einer Bilddatei. Unter den Operationen ist ein Link auf die
- * Operationen von {@link Xmp}, die dort das gleiche bedeuten.
+ * IPTC metadata of an image file. The documentation of the mehtods contains
+ * a link to the corresponding {@link Xmp} method in the <code>see</code>
+ * section.
  * 
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
- * @version 2008-10-05
- * @see     Xmp
+ * @version 2008/10/05
  */
 public final class Iptc {
 
-    private final Map<IPTCEntryMeta, Object> valueOfEntryMeta = new HashMap<IPTCEntryMeta, Object>();
+    private final Map<IPTCEntryMeta, Object> valueOfEntryMeta =
+            new HashMap<IPTCEntryMeta, Object>();
 
     /**
-     * Liefert die IPTC-Felder 2:85 (By-line Title).
+     * Returns the IPTC fields 2:85 (By-line Title).
      * 
-     * @return IPTC-Felder 2:85 oder null, wenn nicht definiert
+     * @return IPTC fields 2:85 or null if not defined
      * @see    Xmp#getPhotoshopAuthorsposition()
      */
     public List<String> getByLinesTitles() {
@@ -30,9 +31,9 @@ public final class Iptc {
     }
 
     /**
-     * Fügt ein IPTC-Feld 2:85 (By-line Title) hinzu.
+     * Adds a value to the IPTC field 2:85 (By-line Title).
      * 
-     * @param byLineTitle IPTC-Feld 2:85 (By-line Title)
+     * @param byLineTitle IPTC field 2:85 (By-line Title)
      * @see               Xmp#setPhotoshopAuthorsposition(java.lang.String)
      */
     public void addByLineTitle(String byLineTitle) {
@@ -40,9 +41,9 @@ public final class Iptc {
     }
 
     /**
-     * Liefert die IPTC-Felder 2:80 (Byline).
+     * Returns the IPTC fields 2:80 (Byline).
      * 
-     * @return IPTC-Felder 2:80 (Byline) oder null, wenn nicht definiert
+     * @return IPTC fields 2:80 (Byline) or null if not defined
      * @see    Xmp#getDcCreator()
      */
     public List<String> getByLines() {
@@ -50,9 +51,9 @@ public final class Iptc {
     }
 
     /**
-     * Fügt ein IPTC-Feld 2:80 (Byline) hinzu.
+     * Adds a value to the IPTC field 2:80 (Byline).
      * 
-     * @param byLine IPTC-Feld 2:80 (Byline)
+     * @param byLine IPTC field 2:80 (Byline)
      * @see          Xmp#setDcCreator(java.lang.String)
      */
     public void addByLine(String byLine) {
@@ -60,9 +61,9 @@ public final class Iptc {
     }
 
     /**
-     * Liefert das IPTC-Feld 2:120 (Caption/Abstract).
+     * Returns the IPTC field 2:120 (Caption/Abstract).
      * 
-     * @return IPTC-Feld 2:120 (Caption/Abstract) oder null, wenn nicht definiert
+     * @return IPTC field 2:120 (Caption/Abstract) or null if not defined
      * @see    Xmp#getDcDescription()
      */
     public String getCaptionAbstract() {
@@ -70,9 +71,9 @@ public final class Iptc {
     }
 
     /**
-     * Setzt das IPTC-Feld 2:120 (Caption/Abstract).
+     * Sets the IPTC field 2:120 (Caption/Abstract).
      * 
-     * @param captionAbstract IPTC-Feld 2:120 (Caption/Abstract)
+     * @param captionAbstract IPTC field 2:120 (Caption/Abstract)
      * @see                   Xmp#setDcDescription(java.lang.String)
      */
     public void setCaptionAbstract(String captionAbstract) {
@@ -80,9 +81,9 @@ public final class Iptc {
     }
 
     /**
-     * Liefert das IPTC-Feld 2:15 (Category).
+     * Returns the IPTC field 2:15 (Category).
      * 
-     * @return IPTC-Feld 2:15 (Category) oder null, wenn nicht definiert
+     * @return IPTC field 2:15 (Category) or null if not defined
      * @see    Xmp#getPhotoshopCategory()
      */
     public String getCategory() {
@@ -90,9 +91,9 @@ public final class Iptc {
     }
 
     /**
-     * Setzt das IPTC-Feld 2:15 (Category).
+     * Sets the IPTC field 2:15 (Category).
      * 
-     * @param category IPTC-Feld 2:15 (Category)
+     * @param category IPTC field 2:15 (Category)
      * @see            Xmp#setPhotoshopCategory(java.lang.String)
      */
     public void setCategory(String category) {
@@ -100,9 +101,9 @@ public final class Iptc {
     }
 
     /**
-     * Liefert das IPTC-Feld 2:90 (City).
+     * Returns the IPTC field 2:90 (City).
      * 
-     * @return IPTC-Feld 2:90 (City) oder null, wenn nicht definiert
+     * @return IPTC field 2:90 (City) or null if not defined
      * @see    Xmp#getPhotoshopCity()
      */
     public String getCity() {
@@ -110,9 +111,9 @@ public final class Iptc {
     }
 
     /**
-     * Setzt das IPTC-Feld 2:90 (City).
+     * Sets the IPTC field 2:90 (City).
      * 
-     * @param city IPTC-Feld 2:90 (City)
+     * @param city IPTC field 2:90 (City)
      * @see        Xmp#setPhotoshopCity(java.lang.String)
      */
     public void setCity(String city) {
@@ -120,9 +121,9 @@ public final class Iptc {
     }
 
     /**
-     * Liefert die IPTC-Felder 2:26 (Content Location Code).
+     * Returns the IPTC fields 2:26 (Content Location Code).
      * 
-     * @return IPTC-Felder 2:26 (Content Location Code) oder null, wenn nicht definiert
+     * @return IPTC fields 2:26 (Content Location Code) or null if not defined
      * @see    Xmp#getIptc4xmpcoreCountrycode()
      */
     public List<String> getContentLocationCodes() {
@@ -130,9 +131,9 @@ public final class Iptc {
     }
 
     /**
-     * Fügt ein IPTC-Feld 2:26 (Content Location Code) hinzu.
+     * Adds a value to the IPTC field 2:26 (Content Location Code).
      * 
-     * @param contentLocationCode IPTC-Feld 2:26 (Content Location Code)
+     * @param contentLocationCode IPTC field 2:26 (Content Location Code)
      * @see                       Xmp#setIptc4xmpcoreCountrycode(java.lang.String)
      */
     public void addContentLocationCode(String contentLocationCode) {
@@ -140,9 +141,9 @@ public final class Iptc {
     }
 
     /**
-     * Liefert die IPTC-Felder 2:27 (Content Location Name).
+     * Returns the IPTC fields 2:27 (Content Location Name).
      * 
-     * @return IPTC-Felder 2:27 (Content Location Name) oder null, wenn nicht definiert
+     * @return IPTC fields 2:27 (Content Location Name) or null if not defined
      * @see    Xmp#getIptc4xmpcoreLocation()
      */
     public List<String> getContentLocationNames() {
@@ -150,9 +151,9 @@ public final class Iptc {
     }
 
     /**
-     * Fügt ein IPTC-Feld 2:27 (Content Location Name) hinzu.
+     * Fügt ein IPTC field 2:27 (Content Location Name) hinzu.
      * 
-     * @param contentLocationName IPTC-Feld 2:27 (Content Location Name)
+     * @param contentLocationName IPTC field 2:27 (Content Location Name)
      * @see                       Xmp#setIptc4xmpcoreLocation(java.lang.String)
      */
     public void addContentLocationName(String contentLocationName) {
@@ -160,9 +161,9 @@ public final class Iptc {
     }
 
     /**
-     * Liefert das IPTC-Feld 2:116 (Copyright Notice).
+     * Returns the IPTC field 2:116 (Copyright Notice).
      * 
-     * @return IPTC-Feld 2:116 (Copyright Notice) oder null, wenn nicht definiert
+     * @return IPTC field 2:116 (Copyright Notice) or null if not defined
      * @see    Xmp#getDcRights()
      */
     public String getCopyrightNotice() {
@@ -170,9 +171,9 @@ public final class Iptc {
     }
 
     /**
-     * Setzt das IPTC-Feld 2:116 (Copyright Notice).
+     * Sets the IPTC field 2:116 (Copyright Notice).
      * 
-     * @param copyrightNotice IPTC-Feld 2:116 (Copyright Notice)
+     * @param copyrightNotice IPTC field 2:116 (Copyright Notice)
      * @see                   Xmp#setDcRights(java.lang.String)
      */
     public void setCopyrightNotice(String copyrightNotice) {
@@ -180,9 +181,10 @@ public final class Iptc {
     }
 
     /**
-     * Liefert das IPTC-Feld 2:101 (Country/Primary Location Name).
+     * Returns the IPTC field 2:101 (Country/Primary Location Name).
      * 
-     * @return IPTC-Feld 2:101 (Country/Primary Location Name) oder null, wenn nicht definiert
+     * @return IPTC field 2:101 (Country/Primary Location Name) or null if not
+     *         defined
      * @see    Xmp#getPhotoshopCountry()
      */
     public String getCountryPrimaryLocationName() {
@@ -190,20 +192,21 @@ public final class Iptc {
     }
 
     /**
-     * Setzt das IPTC-Feld 2:101 (Country/Primary Location Name).
+     * Sets the IPTC field 2:101 (Country/Primary Location Name).
      * 
-     * @param countryPrimaryLocationName IPTC-Feld 2:101 (Country/Primary Location Name)
+     * @param countryPrimaryLocationName IPTC field 2:101 (Country/Primary
+     *                                   Location Name)
      * @see                              Xmp#setPhotoshopCountry(java.lang.String)
      */
     public void setCountryPrimaryLocationName(String countryPrimaryLocationName) {
         valueOfEntryMeta.put(IPTCEntryMeta.COUNTRY_PRIMARY_LOCATION_NAME,
-            countryPrimaryLocationName);
+                countryPrimaryLocationName);
     }
 
     /**
-     * Liefert das IPTC-Feld 2:110 (Credit).
+     * Returns the IPTC field 2:110 (Credit).
      * 
-     * @return IPTC-Feld 2:110 (Credit) oder null, wenn nicht definiert
+     * @return IPTC field 2:110 (Credit) or null if not defined
      * @see    Xmp#getPhotoshopCredit()
      */
     public String getCredit() {
@@ -211,9 +214,9 @@ public final class Iptc {
     }
 
     /**
-     * Setzt das IPTC-Feld 2:110 (Credit).
+     * Sets the IPTC field 2:110 (Credit).
      * 
-     * @param credit IPTC-Feld 2:110 (Credit)
+     * @param credit IPTC field 2:110 (Credit)
      * @see          Xmp#setPhotoshopCredit(java.lang.String)
      */
     public void setCredit(String credit) {
@@ -221,9 +224,9 @@ public final class Iptc {
     }
 
     /**
-     * Liefert das IPTC-Feld 2:105 (Headline).
+     * Returns the IPTC field 2:105 (Headline).
      * 
-     * @return IPTC-Feld 2:105 (Headline) oder null, wenn nicht definiert
+     * @return IPTC field 2:105 (Headline) or null if not defined
      * @see    Xmp#getPhotoshopHeadline()
      */
     public String getHeadline() {
@@ -231,9 +234,9 @@ public final class Iptc {
     }
 
     /**
-     * Setzt das IPTC-Feld 2:105 (Headline).
+     * Sets the IPTC field 2:105 (Headline).
      * 
-     * @param headline IPTC-Feld 2:105 (Headline)
+     * @param headline IPTC field 2:105 (Headline)
      * @see            Xmp#setPhotoshopHeadline(java.lang.String)
      */
     public void setHeadline(String headline) {
@@ -241,9 +244,9 @@ public final class Iptc {
     }
 
     /**
-     * Liefert die IPTC-Felder 2:25 (Keywords).
+     * Returns the IPTC fields 2:25 (Keywords).
      * 
-     * @return IPTC-Felder 2:25 (Keywords) oder null, wenn nicht definiert
+     * @return IPTC fields 2:25 (Keywords) or null if not defined
      * @see    Xmp#getDcSubjects()
      */
     public List<String> getKeywords() {
@@ -251,9 +254,9 @@ public final class Iptc {
     }
 
     /**
-     * Fügt ein IPTC-Feld 2:25 (Keywords) hinzu.
+     * Fügt ein IPTC field 2:25 (Keywords) hinzu.
      * 
-     * @param keyword IPTC-Feld 2:25 (Keyword)
+     * @param keyword IPTC field 2:25 (Keyword)
      * @see           Xmp#addDcSubject(java.lang.String)
      */
     public void addKeyword(String keyword) {
@@ -261,9 +264,9 @@ public final class Iptc {
     }
 
     /**
-     * Liefert das IPTC-Feld 2:05 (Object Name).
+     * Returns the IPTC field 2:05 (Object Name).
      * 
-     * @return IPTC-Feld 2:05 (Object Name) oder null, wenn nicht definiert
+     * @return IPTC field 2:05 (Object Name) or null if not defined
      * @see    Xmp#getDcTitle()
      */
     public String getObjectName() {
@@ -271,9 +274,9 @@ public final class Iptc {
     }
 
     /**
-     * Setzt das IPTC-Feld 2:05 (Object Name).
+     * Sets the IPTC field 2:05 (Object Name).
      * 
-     * @param objectName IPTC-Feld 2:05 (Object Name)
+     * @param objectName IPTC field 2:05 (Object Name)
      * @see              Xmp#setDcTitle(java.lang.String)
      */
     public void setObjectName(String objectName) {
@@ -281,9 +284,10 @@ public final class Iptc {
     }
 
     /**
-     * Liefert das IPTC-Feld 2:103 (Original Transmission Reference).
+     * Returns the IPTC field 2:103 (Original Transmission Reference).
      * 
-     * @return IPTC-Feld 2:103 (Original Transmission Reference) oder null, wenn nicht definiert
+     * @return IPTC field 2:103 (Original Transmission Reference) or null if not
+     *         defined
      * @see    Xmp#getPhotoshopTransmissionReference()
      */
     public String getOriginalTransmissionReference() {
@@ -291,20 +295,22 @@ public final class Iptc {
     }
 
     /**
-     * Setzt das IPTC-Feld 2:103 (Original Transmission Reference).
+     * Sets the IPTC field 2:103 (Original Transmission Reference).
      * 
-     * @param originalTransmissionReference IPTC-Feld 2:103 (Original Transmission Reference)
+     * @param originalTransmissionReference IPTC field 2:103 (Original
+     *                                      Transmission Reference)
      * @see                                 Xmp#setPhotoshopTransmissionReference(java.lang.String)
      */
-    public void setOriginalTransmissionReference(String originalTransmissionReference) {
+    public void setOriginalTransmissionReference(
+            String originalTransmissionReference) {
         valueOfEntryMeta.put(IPTCEntryMeta.ORIGINAL_TRANSMISSION_REFERENCE,
-            originalTransmissionReference);
+                originalTransmissionReference);
     }
 
     /**
-     * Liefert das IPTC-Feld 2:95 (Province/State).
+     * Returns the IPTC field 2:95 (Province/State).
      * 
-     * @return IPTC-Feld 2:95 (Province/State) oder null, wenn nicht definiert
+     * @return IPTC field 2:95 (Province/State) or null if not defined
      * @see    Xmp#getPhotoshopState()
      */
     public String getProvinceState() {
@@ -312,9 +318,9 @@ public final class Iptc {
     }
 
     /**
-     * Setzt das IPTC-Feld 2:95 (Province/State).
+     * Sets the IPTC field 2:95 (Province/State).
      * 
-     * @param provinceState IPTC-Feld 2:95 (Province/State)
+     * @param provinceState IPTC field 2:95 (Province/State)
      * @see                 Xmp#setPhotoshopState(java.lang.String)
      */
     public void setProvinceState(String provinceState) {
@@ -322,9 +328,9 @@ public final class Iptc {
     }
 
     /**
-     * Liefert das IPTC-Feld 2:115 (Source).
+     * Returns the IPTC field 2:115 (Source).
      * 
-     * @return IPTC-Feld 2:115 (Source) oder null, wenn nicht definiert
+     * @return IPTC field 2:115 (Source) or null if not defined
      * @see    Xmp#getPhotoshopSource()
      */
     public String getSource() {
@@ -332,9 +338,9 @@ public final class Iptc {
     }
 
     /**
-     * Setzt das IPTC-Feld 2:115 (Source).
+     * Sets the IPTC field 2:115 (Source).
      * 
-     * @param source IPTC-Feld 2:115 (Source)
+     * @param source IPTC field 2:115 (Source)
      * @see          Xmp#setPhotoshopSource(java.lang.String)
      */
     public void setSource(String source) {
@@ -342,9 +348,9 @@ public final class Iptc {
     }
 
     /**
-     * Liefert das IPTC-Feld 2:40 (Special Instructions).
+     * Returns the IPTC field 2:40 (Special Instructions).
      * 
-     * @return ITPTC-Feld 2:40 (Special Instructions) oder null, wenn nicht definiert
+     * @return ITPTC-Feld 2:40 (Special Instructions) or null if not defined
      * @see    Xmp#getPhotoshopInstructions()
      */
     public String getSpecialInstructions() {
@@ -352,19 +358,20 @@ public final class Iptc {
     }
 
     /**
-     * Setzt das IPTC-Feld 2:40 (Special Instructions).
+     * Sets the IPTC field 2:40 (Special Instructions).
      * 
-     * @param specialInstructions IPTC-Feld 2:40 (Special Instructions)
+     * @param specialInstructions IPTC field 2:40 (Special Instructions)
      * @see                       Xmp#setPhotoshopInstructions(java.lang.String)
      */
     public void setSpecialInstructions(String specialInstructions) {
-        valueOfEntryMeta.put(IPTCEntryMeta.SPECIAL_INSTRUCTIONS, specialInstructions);
+        valueOfEntryMeta.put(IPTCEntryMeta.SPECIAL_INSTRUCTIONS,
+                specialInstructions);
     }
 
     /**
-     * Liefert die IPTC-Felder 2:20 (Supplemental Category).
+     * Returns the IPTC fields 2:20 (Supplemental Category).
      * 
-     * @return IPTC-Felder 2:20 (Supplemental Category) oder null, wenn nicht definiert
+     * @return IPTC fields 2:20 (Supplemental Category) or null if not defined
      * @see    Xmp#getPhotoshopSupplementalCategories()
      */
     public List<String> getSupplementalCategories() {
@@ -372,19 +379,20 @@ public final class Iptc {
     }
 
     /**
-     * Fügt ein IPTC-Feld 2:20 (Supplemental Category) hinzu.
+     * Adds a value to the IPTC field 2:20 (Supplemental Category).
      * 
-     * @param supplementalCategory IPTC-Feld 2:20 (Supplemental Category)
+     * @param supplementalCategory IPTC field 2:20 (Supplemental Category)
      * @see                        Xmp#addPhotoshopSupplementalCategory(java.lang.String)
      */
     public void addSupplementalCategory(String supplementalCategory) {
-        addToStringList(IPTCEntryMeta.SUPPLEMENTAL_CATEGORY, supplementalCategory);
+        addToStringList(IPTCEntryMeta.SUPPLEMENTAL_CATEGORY,
+                supplementalCategory);
     }
 
     /**
-     * Liefert die IPTC-Felder 2:122 (Writer/Editor).
+     * Returns the IPTC fields 2:122 (Writer/Editor).
      * 
-     * @return IPTC-Felder 2:122 (Writer/Editor) oder null, wenn nicht definiert
+     * @return IPTC fields 2:122 (Writer/Editor) or null if not defined
      * @see    Xmp#getPhotoshopCaptionwriter()
      */
     public List<String> getWritersEditors() {
@@ -392,9 +400,9 @@ public final class Iptc {
     }
 
     /**
-     * Fügt ein IPTC-Feld 2:122 (Writer/Editor) hinzu.
+     * Adds a value to the IPTC field 2:122 (Writer/Editor).
      * 
-     * @param writerEditor IPTC-Feld 2:122 (Writer/Editor)
+     * @param writerEditor IPTC field 2:122 (Writer/Editor)
      * @see                Xmp#setPhotoshopCaptionwriter(java.lang.String)
      */
     public void addWriterEditor(String writerEditor) {
@@ -402,36 +410,35 @@ public final class Iptc {
     }
 
     /**
-     * Liefert den Wert eines IPTC-Metadatums.
+     * Returns the value of an IPTC entry.
      * 
-     * @param  meta  IPTC-Metadatum
-     * @return Wert: Ein String für sich nicht wiederholende Werte oder ein
-     *         String-ArrayList für sich wiederholdende Werte oder null, wenn
-     *         für dieses Metadatum kein Wert gesetzt ist
+     * @param  iptcEntry  IPTC entry
+     * @return value. It's a string for not repeatable values or a string list
+     *         for repeatable values or null if this entry has no value
      */
-    public Object getValue(IPTCEntryMeta meta) {
-        return valueOfEntryMeta.get(meta);
+    public Object getValue(IPTCEntryMeta iptcEntry) {
+        return valueOfEntryMeta.get(iptcEntry);
     }
 
     /**
-     * Setzt den Wert eines IPTC-Metadatums. Wiederholt sich der Wert, wird er
-     * seinem Array hinzugefügt.
+     * Sets the value of an IPTC entry. If the value is repeatable, it will be
+     * added to it's array.
      * 
-     * @param meta   IPTC-Metadatum
-     * @param value  Wert
+     * @param iptcEntry IPTC entry
+     * @param value     value of the entry
      */
-    public void setValue(IPTCEntryMeta meta, String value) {
-        if (IptcRepeatableValues.isRepeatable(meta)) {
-            addToStringList(meta, value);
+    public void setValue(IPTCEntryMeta iptcEntry, String value) {
+        if (IptcRepeatableValues.isRepeatable(iptcEntry)) {
+            addToStringList(iptcEntry, value);
         } else {
-            valueOfEntryMeta.put(meta, value);
+            valueOfEntryMeta.put(iptcEntry, value);
         }
     }
 
     /**
-     * Liefert, ob keine Daten enthalten sind.
+     * Returns whether no field in this class was set.
      *
-     * @return true, wenn keine Daten enthalten sind
+     * @return true if no field was set
      */
     public boolean isEmpty() {
         for (IPTCEntryMeta meta : valueOfEntryMeta.keySet()) {
@@ -442,7 +449,8 @@ public final class Iptc {
             } else if (o instanceof List) {
                 List list = (List) o;
                 if (!list.isEmpty()) return false;
-            } else if (o != null) { // zuletzt, da leere Liste != null ist, aber trotzdem ein leeres Element
+            // zuletzt, da leere Liste != null ist, aber trotzdem ein leeres Element
+            } else if (o != null) {
                 return false;
             }
         }
@@ -451,13 +459,17 @@ public final class Iptc {
 
     private String stringValueOf(IPTCEntryMeta meta) {
         Object o = valueOfEntryMeta.get(meta);
-        return o instanceof String ? (String) o : null;
+        return o instanceof String
+               ? (String) o
+               : null;
     }
 
     @SuppressWarnings("unchecked")
     private List<String> stringListOf(IPTCEntryMeta meta) {
         Object o = valueOfEntryMeta.get(meta);
-        return o instanceof List ? (List<String>) o : null;
+        return o instanceof List
+               ? (List<String>) o
+               : null;
     }
 
     @SuppressWarnings("unchecked")

@@ -33,21 +33,21 @@ import java.util.ArrayList;
 import java.util.Map;
 
 /**
- * XMP-Metadaten einer Bilddatei. Unter den Operationen ist ein Link auf die
- * Operationen von IptcData, die dort das gleiche bedeuten.
+ * XMP metadata of an image file. The <code>see</code> sections of the method
+ * documentation links to the corresponging {@link Iptc} method.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/08/22
- * @see     Iptc
  */
 public final class Xmp {
 
-    private final Map<Column, Object> valueOfColumn = new HashMap<Column, Object>();
+    private final Map<Column, Object> valueOfColumn =
+            new HashMap<Column, Object>();
 
     /**
-     * Liefert das XMP-Felder dc:creator (Fotograf).
+     * Returns the XMP value of dc:creator (photographer).
      * 
-     * @return XMP-Feld dc:creator (Fotograf) oder null wenn nicht definiert
+     * @return value of dc:creator (photographer) or null if not set
      * @see    de.elmar_baumann.imv.data.Iptc#getByLines()
      */
     public String getDcCreator() {
@@ -55,9 +55,9 @@ public final class Xmp {
     }
 
     /**
-     * Setzt das XMP-Feld dc:creator (Fotograf).
+     * Sets the value of dc:creator (photographer).
      * 
-     * @param creator XMP-Feld dc:creator (Fotograf) ungleich null
+     * @param creator value of dc:creator (photographer) not null
      * @see           de.elmar_baumann.imv.data.Iptc#addByLine(java.lang.String)
      */
     public void setDcCreator(String creator) {
@@ -65,9 +65,9 @@ public final class Xmp {
     }
 
     /**
-     * Liefert das XMP-Feld dc:description (Bildbeschreibung).
+     * Returns the XMP value of dc:description (image description).
      * 
-     * @return XMP-Feld dc:description (Bildbeschreibung) oder null wenn nicht definiert
+     * @return value of dc:description (image description) or null if not set
      * @see    de.elmar_baumann.imv.data.Iptc#getCaptionAbstract()
      */
     public String getDcDescription() {
@@ -75,9 +75,9 @@ public final class Xmp {
     }
 
     /**
-     * Setzt das XMP-Feld dc:description (Bildbeschreibung).
+     * Sets the value of dc:description (image description).
      * 
-     * @param dcDescription XMP-Feld dc:description (Bildbeschreibung)
+     * @param dcDescription value of dc:description (image description)
      * @see                 de.elmar_baumann.imv.data.Iptc#setCaptionAbstract(java.lang.String)
      */
     public void setDcDescription(String dcDescription) {
@@ -85,9 +85,9 @@ public final class Xmp {
     }
 
     /**
-     * Liefert das XMP-Feld dc:rights (Copyright).
+     * Returns the XMP value of dc:rights (Copyright).
      * 
-     * @return XMP-Feld dc:rights (Copyright) oder null wenn nicht definiert
+     * @return value of dc:rights (Copyright) or null if not set
      * @see    de.elmar_baumann.imv.data.Iptc#getCopyrightNotice()
      */
     public String getDcRights() {
@@ -95,9 +95,9 @@ public final class Xmp {
     }
 
     /**
-     * Setzt das XMP-Feld dc:rights (Copyright).
+     * Sets the value of dc:rights (Copyright).
      * 
-     * @param dcRights XMP-Feld dc:rights (Copyright)
+     * @param dcRights value of dc:rights (Copyright)
      * @see            de.elmar_baumann.imv.data.Iptc#setCopyrightNotice(java.lang.String)
      */
     public void setDcRights(String dcRights) {
@@ -105,9 +105,9 @@ public final class Xmp {
     }
 
     /**
-     * Liefert die XMP-Felder dc:subject (Stichwörter).
+     * Returns the values of dc:subject (keywords, tags).
      * 
-     * @return XMP-Felder dc:subject (Stichwörter) oder null wenn nicht definiert
+     * @return value of dc:subject (keywords, tags) or null if not set
      * @see    de.elmar_baumann.imv.data.Iptc#getKeywords()
      */
     public List<String> getDcSubjects() {
@@ -115,9 +115,9 @@ public final class Xmp {
     }
 
     /**
-     * Fügt ein XMP-Felder dc:subject (Stichwort) hinzu.
+     * Adds a value to dc:subject (keyword, tag).
      * 
-     * @param subject XMP-Felder dc:subject (Stichwort) ungleich null
+     * @param subject value of dc:subject (keyword, tag) not null
      * @see           de.elmar_baumann.imv.data.Iptc#addKeyword(java.lang.String)
      */
     public void addDcSubject(String subject) {
@@ -125,9 +125,9 @@ public final class Xmp {
     }
 
     /**
-     * Liefert das XMP-Feld dc:title (Bezeichnung).
+     * Returns the XMP value of dc:title (image title).
      * 
-     * @return XMP-Feld dc:title (Bezeichnung) oder null wenn nicht definiert
+     * @return value of dc:title (image title) or null if not set
      * @see    de.elmar_baumann.imv.data.Iptc#getObjectName()
      */
     public String getDcTitle() {
@@ -135,9 +135,9 @@ public final class Xmp {
     }
 
     /**
-     * Setzt das XMP-Feld dc:title (Bezeichnung).
+     * Sets the value of dc:title (image title).
      * 
-     * @param dcTitle XMP-Feld dc:title (Bezeichnung)
+     * @param dcTitle value of dc:title (image title)
      * @see           de.elmar_baumann.imv.data.Iptc#setObjectName(java.lang.String)
      */
     public void setDcTitle(String dcTitle) {
@@ -145,9 +145,10 @@ public final class Xmp {
     }
 
     /**
-     * Liefert das XMP-Feld Iptc4xmpCore:CountryCode (ISO-Ländercode).
+     * Returns the XMP value of Iptc4xmpCore:CountryCode (ISO country code).
      * 
-     * @return XMP-Feld Iptc4xmpCore:CountryCode (ISO-Ländercode) oder null wenn nicht definiert
+     * @return value of Iptc4xmpCore:CountryCode (ISO country code) or null if not
+     *         set
      * @see             de.elmar_baumann.imv.data.Iptc#getContentLocationCodes()
      */
     public String getIptc4xmpcoreCountrycode() {
@@ -155,18 +156,20 @@ public final class Xmp {
     }
 
     /**
-     * Setzt XMP-Feld Iptc4xmpCore:CountryCode (ISO-Ländercode).
+     * Sets the value of Iptc4xmpCore:CountryCode (ISO country code).
      * 
-     * @param iptc4xmpcoreCountrycode XMP-Feld Iptc4xmpCore:CountryCode (ISO-Ländercode)
+     * @param iptc4xmpcoreCountrycode value of Iptc4xmpCore:CountryCode (ISO country code)
      */
     public void setIptc4xmpcoreCountrycode(String iptc4xmpcoreCountrycode) {
-        valueOfColumn.put(ColumnXmpIptc4xmpcoreCountrycode.INSTANCE, iptc4xmpcoreCountrycode);
+        valueOfColumn.put(ColumnXmpIptc4xmpcoreCountrycode.INSTANCE,
+                iptc4xmpcoreCountrycode);
     }
 
     /**
-     * Liefert das XMP-Feld Iptc4xmpCore:Location (Ort).
+     * Returns the XMP value of Iptc4xmpCore:Location (location where the image
+     * was taken).
      * 
-     * @return XMP-Feld Iptc4xmpCore:Location (Ort) oder null wenn nicht definiert
+     * @return value of Iptc4xmpCore:Location or null if not set
      * @see    de.elmar_baumann.imv.data.Iptc#getContentLocationNames()
      */
     public String getIptc4xmpcoreLocation() {
@@ -174,18 +177,21 @@ public final class Xmp {
     }
 
     /**
-     * Setzt das XMP-Feld Iptc4xmpCore:Location (Ort).
+     * Sets the value of Iptc4xmpCore:Location (location where the image
+     * was taken).
      * 
-     * @param iptc4xmpcoreLocation XMP-Feld Iptc4xmpCore:Location (Ort)
+     * @param iptc4xmpcoreLocation value of Iptc4xmpCore:Location
      */
     public void setIptc4xmpcoreLocation(String iptc4xmpcoreLocation) {
-        valueOfColumn.put(ColumnXmpIptc4xmpcoreLocation.INSTANCE, iptc4xmpcoreLocation);
+        valueOfColumn.put(ColumnXmpIptc4xmpcoreLocation.INSTANCE,
+                iptc4xmpcoreLocation);
     }
 
     /**
-     * Liefert XMP-Feld photoshop:AuthorsPosition (Position des Fotografen).
+     * Liefert value of photoshop:AuthorsPosition (position of the photographer).
      * 
-     * @return XMP-Feld photoshop:AuthorsPosition (Position des Fotografen) oder null wenn nicht definiert
+     * @return value of photoshop:AuthorsPosition (position of the photographer)
+     *         or null if not set
      * @see    de.elmar_baumann.imv.data.Iptc#getByLinesTitles()
      */
     public String getPhotoshopAuthorsposition() {
@@ -193,18 +199,22 @@ public final class Xmp {
     }
 
     /**
-     * Setzt das XMP-Feld photoshop:AuthorsPosition (Position des Fotografen).
+     * Sets the value of photoshop:AuthorsPosition (position of the photographer).
      * 
-     * @param photoshopAuthorsposition XMP-Feld photoshop:AuthorsPosition (Position des Fotografen)
+     * @param photoshopAuthorsposition value of photoshop:AuthorsPosition
+     *        (position of the photographer)
      */
     public void setPhotoshopAuthorsposition(String photoshopAuthorsposition) {
-        valueOfColumn.put(ColumnXmpPhotoshopAuthorsposition.INSTANCE, photoshopAuthorsposition);
+        valueOfColumn.put(ColumnXmpPhotoshopAuthorsposition.INSTANCE,
+                photoshopAuthorsposition);
     }
 
     /**
-     * Liefert das XMP-Feld photoshop:CaptionWriter (Autor der Beschreibung).
+     * Returns the XMP value of photoshop:CaptionWriter (author of the
+     * description).
      * 
-     * @return XMP-Feld photoshop:CaptionWriter (Autor der Beschreibung) der Beschreibung oder null wenn nicht definiert
+     * @return value of photoshop:CaptionWriter (author of the description) or
+     *         null if not set
      * @see    de.elmar_baumann.imv.data.Iptc#getWritersEditors()
      */
     public String getPhotoshopCaptionwriter() {
@@ -212,18 +222,20 @@ public final class Xmp {
     }
 
     /**
-     * Setzt das XMP-Feld photoshop:CaptionWriter (Autor der Beschreibung).
+     * Sets the value of photoshop:CaptionWriter (author of the description).
      * 
-     * @param photoshopCaptionwriter XMP-Feld photoshop:CaptionWriter (Autor der Beschreibung)
+     * @param photoshopCaptionwriter value of photoshop:CaptionWriter (author of
+     *                               the description)
      */
     public void setPhotoshopCaptionwriter(String photoshopCaptionwriter) {
-        valueOfColumn.put(ColumnXmpPhotoshopCaptionwriter.INSTANCE, photoshopCaptionwriter);
+        valueOfColumn.put(ColumnXmpPhotoshopCaptionwriter.INSTANCE,
+                photoshopCaptionwriter);
     }
 
     /**
-     * Liefert das XMP-Feld photoshop:Category (Kategorie).
+     * Returns the XMP value of photoshop:Category (Kategorie).
      * 
-     * @return XMP-Feld photoshop:Category (Kategorie) oder null wenn nicht definiert
+     * @return value of photoshop:Category (Kategorie) or null if not set
      * @see    de.elmar_baumann.imv.data.Iptc#getCategory()
      */
     public String getPhotoshopCategory() {
@@ -231,9 +243,9 @@ public final class Xmp {
     }
 
     /**
-     * Setzt das XMP-Feld photoshop:Category (Kategorie).
+     * Sets the value of photoshop:Category (category).
      * 
-     * @param photoshopCategory XMP-Feld photoshop:Category (Kategorie)
+     * @param photoshopCategory value of photoshop:Category (category)
      * @see                     de.elmar_baumann.imv.data.Iptc#setCategory(java.lang.String)
      */
     public void setPhotoshopCategory(String photoshopCategory) {
@@ -241,9 +253,10 @@ public final class Xmp {
     }
 
     /**
-     * Liefert das XMP-Feld photoshop:City (Stadt des Fotografen).
+     * Returns the XMP value of photoshop:City (city of the photographer).
      * 
-     * @return XMP-Feld photoshop:City (Stadt des Fotografen) oder null wenn nicht definiert
+     * @return value of photoshop:City (city of the photographer) or null if not
+     *         set
      * @see    de.elmar_baumann.imv.data.Iptc#getCity()
      */
     public String getPhotoshopCity() {
@@ -251,9 +264,9 @@ public final class Xmp {
     }
 
     /**
-     * Setzt das XMP-Feld photoshop:City (Stadt des Fotografen).
+     * Sets the value of photoshop:City (city of the photographer).
      * 
-     * @param photoshopCity XMP-Feld photoshop:City (Stadt des Fotografen)
+     * @param photoshopCity value of photoshop:City (city of the photographer)
      * @see                 de.elmar_baumann.imv.data.Iptc#setCity(java.lang.String)
      */
     public void setPhotoshopCity(String photoshopCity) {
@@ -261,9 +274,10 @@ public final class Xmp {
     }
 
     /**
-     * Liefert das XMP-Feld photoshop:Country (Land des Fotografen).
+     * Returns the XMP value of photoshop:Country (country of the photographer).
      * 
-     * @return XMP-Feld photoshop:Country (Land des Fotografen) oder null wenn nicht definiert
+     * @return value of photoshop:Country (country of the photographer) or null
+     *         if not set
      * @see    de.elmar_baumann.imv.data.Iptc#getCountryPrimaryLocationName()
      */
     public String getPhotoshopCountry() {
@@ -271,9 +285,10 @@ public final class Xmp {
     }
 
     /**
-     * Setzt das XMP-Feld photoshop:Country (Land des Fotografen).
+     * Sets the value of photoshop:Country (country of the photographer).
      * 
-     * @param photoshopCountry XMP-Feld photoshop:Country (Land des Fotografen)
+     * @param photoshopCountry value of photoshop:Country (country of the
+     *                         photographer)
      * @see   de.elmar_baumann.imv.data.Iptc#setCountryPrimaryLocationName(java.lang.String)
      */
     public void setPhotoshopCountry(String photoshopCountry) {
@@ -281,9 +296,10 @@ public final class Xmp {
     }
 
     /**
-     * Liefert das XMP-Feld photoshop:Credit (Anbieter).
+     * Returns the XMP value of photoshop:Credit (provider of the image).
      * 
-     * @return XMP-Feld photoshop:Credit (Anbieter) oder null wenn nicht definiert
+     * @return value of photoshop:Credit (provider of the image) or null if not
+     *         set
      * @see    de.elmar_baumann.imv.data.Iptc#getCredit()
      */
     public String getPhotoshopCredit() {
@@ -291,9 +307,9 @@ public final class Xmp {
     }
 
     /**
-     * Setzt das XMP-Feld photoshop:Credit (Anbieter).
+     * Sets the value of photoshop:Credit (provider of the image).
      * 
-     * @param photoshopCredit XMP-Feld photoshop:Credit (Anbieter)
+     * @param photoshopCredit value of photoshop:Credit (provider of the image)
      * @see   de.elmar_baumann.imv.data.Iptc#setCredit(java.lang.String)
      */
     public void setPhotoshopCredit(String photoshopCredit) {
@@ -301,9 +317,9 @@ public final class Xmp {
     }
 
     /**
-     * Liefert das XMP-Feld photoshop:Headline (Bildtitel).
+     * Returns the XMP value of photoshop:Headline (image title).
      * 
-     * @return XMP-Feld photoshop:Headline (Bildtitel) oder null wenn nicht definiert
+     * @return value of photoshop:Headline (image title) or null if not set
      * @see    de.elmar_baumann.imv.data.Iptc#getHeadline()
      */
     public String getPhotoshopHeadline() {
@@ -311,9 +327,9 @@ public final class Xmp {
     }
 
     /**
-     * Setzt das XMP-Feld photoshop:Headline (Bildtitel).
+     * Sets the value of photoshop:Headline (image title).
      * 
-     * @param photoshopHeadline XMP-Feld photoshop:Headline (Bildtitel)
+     * @param photoshopHeadline value of photoshop:Headline (image title)
      * @see                     de.elmar_baumann.imv.data.Iptc#setHeadline(java.lang.String)
      */
     public void setPhotoshopHeadline(String photoshopHeadline) {
@@ -321,9 +337,9 @@ public final class Xmp {
     }
 
     /**
-     * Liefert das XMP-Feld photoshop:Instructions (Anweisungen).
+     * Returns the XMP value of photoshop:Instructions (instructions).
      * 
-     * @return XMP-Feld photoshop:Instructions (Anweisungen) oder null wenn nicht definiert
+     * @return value of photoshop:Instructions (instructions) or null if not set
      * @see    de.elmar_baumann.imv.data.Iptc#getSpecialInstructions()
      */
     public String getPhotoshopInstructions() {
@@ -331,19 +347,21 @@ public final class Xmp {
     }
 
     /**
-     * Setzt das XMP-Feld photoshop:Instructions (Anweisungen).
+     * Sets the value of photoshop:Instructions (instructions).
      * 
-     * @param photoshopInstructions XMP-Feld photoshop:Instructions (Anweisungen)
+     * @param photoshopInstructions value of photoshop:Instructions
+     *                              (instructions)
      * @see                         de.elmar_baumann.imv.data.Iptc#setSpecialInstructions(java.lang.String)
      */
     public void setPhotoshopInstructions(String photoshopInstructions) {
-        valueOfColumn.put(ColumnXmpPhotoshopInstructions.INSTANCE, photoshopInstructions);
+        valueOfColumn.put(ColumnXmpPhotoshopInstructions.INSTANCE,
+                photoshopInstructions);
     }
 
     /**
-     * Liefert das XMP-Feld photoshop:Source (Bildquelle).
+     * Returns the XMP value of photoshop:Source (image source).
      * 
-     * @return XMP-Feld photoshop:Source (Bildquelle) oder null wenn nicht definiert
+     * @return value of photoshop:Source (image source) or null if not set
      * @see    de.elmar_baumann.imv.data.Iptc#getSource()
      */
     public String getPhotoshopSource() {
@@ -351,9 +369,9 @@ public final class Xmp {
     }
 
     /**
-     * Setzt das XMP-Feld photoshop:Source (Bildquelle).
+     * Sets the value of photoshop:Source (image source).
      * 
-     * @param photoshopSource XMP-Feld photoshop:Source (Bildquelle)
+     * @param photoshopSource value of photoshop:Source (image source)
      * @see                   de.elmar_baumann.imv.data.Iptc#setSource(java.lang.String)
      */
     public void setPhotoshopSource(String photoshopSource) {
@@ -361,9 +379,10 @@ public final class Xmp {
     }
 
     /**
-     * Liefert das XMP-Feld photoshop:State (Bundesland des Fotografen).
+     * Returns the XMP value of photoshop:State (state of the photographer).
      * 
-     * @return XMP-Feld photoshop:State (Bundesland des Fotografen) oder null wenn nicht definiert
+     * @return value of photoshop:State (state of the photographer) or null if
+     *         not set
      * @see    de.elmar_baumann.imv.data.Iptc#getProvinceState()
      */
     public String getPhotoshopState() {
@@ -371,9 +390,9 @@ public final class Xmp {
     }
 
     /**
-     * Setzt das XMP-Feld photoshop:State (Bundesland des Fotografen).
+     * Sets the value of photoshop:State (state of the photographer).
      * 
-     * @param photoshopState XMP-Feld photoshop:State (Bundesland des Fotografen)
+     * @param photoshopState value of photoshop:State (state of the photographer)
      * @see                  de.elmar_baumann.imv.data.Iptc#setProvinceState(java.lang.String)
      */
     public void setPhotoshopState(String photoshopState) {
@@ -381,30 +400,34 @@ public final class Xmp {
     }
 
     /**
-     * Liefert die XMP-Felder photoshop:SupplementalCategories (weitere Kategorien).
+     * Returns the values of photoshop:SupplementalCategories (other categories).
      * 
-     * @return XMP-Felder photoshop:SupplementalCategories (weitere Kategorien) oder null wenn nicht definiert
+     * @return value of photoshop:SupplementalCategories (other categories) or
+     *         null if not set
      * @see    de.elmar_baumann.imv.data.Iptc#getSupplementalCategories()
      */
     public List<String> getPhotoshopSupplementalCategories() {
-        return stringListOf(ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory.INSTANCE);
+        return stringListOf(
+                ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory.INSTANCE);
     }
 
     /**
-     * Fügt ein XMP-Feld photoshop:SupplementalCategories (weitere Kategorien) hinzu.
+     * Adds a value to photoshop:SupplementalCategories (other categories).
      * 
-     * @param category XMP-Feld photoshop:SupplementalCategories (weitere Kategorien)
-     *                  ungleich null
+     * @param category value of photoshop:SupplementalCategories
+     *                 (other categories) not null
      * @see            de.elmar_baumann.imv.data.Iptc#addSupplementalCategory(java.lang.String)
      */
     public void addPhotoshopSupplementalCategory(String category) {
-        addToStringList(ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory.INSTANCE, category);
+        addToStringList(
+                ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory.INSTANCE,
+                category);
     }
 
     /**
-     * Liefert das XMP-Feld photoshop:TransmissionReference (Auftragskennung).
+     * Returns the XMP value of photoshop:TransmissionReference.
      * 
-     * @return XMP-Feld photoshop:TransmissionReference (Auftragskennung) oder null wenn nicht definiert
+     * @return value of photoshop:TransmissionReference or null if not set
      * @see    de.elmar_baumann.imv.data.Iptc#getOriginalTransmissionReference()
      */
     public String getPhotoshopTransmissionReference() {
@@ -412,13 +435,16 @@ public final class Xmp {
     }
 
     /**
-     * Setzt das XMP-Feld photoshop:TransmissionReference (Auftragskennung).
+     * Sets the value of photoshop:TransmissionReference.
      * 
-     * @param photoshopTransmissionReference XMP-Feld photoshop:TransmissionReference (Auftragskennung)
+     * @param photoshopTransmissionReference value of
+     *                                       photoshop:TransmissionReference
      * @see                                  de.elmar_baumann.imv.data.Iptc#setOriginalTransmissionReference(java.lang.String)
      */
-    public void setPhotoshopTransmissionReference(String photoshopTransmissionReference) {
-        valueOfColumn.put(ColumnXmpPhotoshopTransmissionReference.INSTANCE, photoshopTransmissionReference);
+    public void setPhotoshopTransmissionReference(
+            String photoshopTransmissionReference) {
+        valueOfColumn.put(ColumnXmpPhotoshopTransmissionReference.INSTANCE,
+                photoshopTransmissionReference);
     }
 
     /**
@@ -440,6 +466,9 @@ public final class Xmp {
         return longValueOf(ColumnXmpLastModified.INSTANCE);
     }
 
+    /**
+     * How to set IPTC values.
+     */
     public enum SetIptc {
 
         /** Replace existing XMP values with existing IPTC values */
@@ -451,20 +480,28 @@ public final class Xmp {
         DONT_CHANGE_EXISTING_VALUES
     };
 
+    /**
+     * Sets all values of an {@link Iptc} instance.
+     * @param iptc    IPTC instance
+     * @param options options (how to set)
+     */
     public void setIptc(Iptc iptc, SetIptc options) {
         if (options.equals(SetIptc.REPLACE_EXISTING_VALUES)) {
             empty();
         }
-        List<Pair<IPTCEntryMeta, Column>> mappings = IptcXmpMapping.getAllPairs();
+        List<Pair<IPTCEntryMeta, Column>> mappings =
+                IptcXmpMapping.getAllPairs();
         for (Pair<IPTCEntryMeta, Column> mappingPair : mappings) {
             Column xmpColumn = mappingPair.getSecond();
-            IPTCEntryMeta iptcEntryMeta = IptcXmpMapping.getIptcEntryMetaOfXmpColumn(xmpColumn);
+            IPTCEntryMeta iptcEntryMeta = IptcXmpMapping.
+                    getIptcEntryMetaOfXmpColumn(xmpColumn);
             Object iptcValue = iptc.getValue(iptcEntryMeta);
             if (iptcValue != null) {
                 if (iptcValue instanceof String) {
                     String iptcString = (String) iptcValue;
-                    boolean isSet = options.equals(SetIptc.REPLACE_EXISTING_VALUES) ||
-                        getValue(xmpColumn) == null;
+                    boolean isSet = options.equals(
+                            SetIptc.REPLACE_EXISTING_VALUES) ||
+                            getValue(xmpColumn) == null;
                     if (isSet) {
                         setValue(xmpColumn, iptcString);
                     }
@@ -481,37 +518,37 @@ public final class Xmp {
                         }
                     }
                 } else {
-                    AppLog.logWarning(Xmp.class, Bundle.getString("Xmp.ErrorMessage.SetIptc") + iptcValue + " (" + xmpColumn + ")"); // NOI18N
+                    AppLog.logWarning(Xmp.class, Bundle.getString(
+                            "Xmp.ErrorMessage.SetIptc") + iptcValue + " (" +
+                            xmpColumn + ")"); // NOI18N
                 }
             }
         }
     }
 
     /**
-     * Liefert den Wert einer XMP-Spalte.
+     * Returns a value of a XMP column.
      * 
-     * @param  xmpColumn  XMP-Spalte
-     * @return Wert oder null, wenn nicht gesetzt. Aktuelle Werte:
+     * @param  xmpColumn  XMP column
+     * @return Value or null if not set. Current values:
      *         <ul>
-     *         <li>String für alle der Spalte zugeordneten
-     *             <code>set...()</code>-Methoden, die einen String setzen
-     *         <li>String-Liste für alle der Spalte zugeordneten
-     *             <code>add...()</code>-Methoden, die einen String
-     *             hinzufügen (keywords, categories)
-     *         <li>Long für alle der Spalte zugeordneten
-     *             <code>set...()</code>-Methoden, die einen Long-Wert setzen
-     *            (lastmodified)
+     *         <li>String when set with a <code>set...()</code> method setting
+     *             a string
+     *         <li>String list when set with a
+     *             <code>add...()</code> methoden adding a string
+     *         <li>Long when set with a <code>set...()</code> method setting a
+     *             Long value (lastmodified)
      */
     public Object getValue(Column xmpColumn) {
         return valueOfColumn.get(xmpColumn);
     }
 
     /**
-     * Setzt den Wert einer Spalte. Wiederholt sich der Wert, wird er seinem
-     * Array hinzugefügt.
+     * Sets a value of a column. When the column has repetable values it will
+     * be added to it's list.
      * 
-     * @param xmpColumn  XMP-Spalte
-     * @param value      Wert
+     * @param xmpColumn  XMP column
+     * @param value      value
      */
     public void setValue(Column xmpColumn, String value) {
         if (XmpRepeatableValues.isRepeatable(xmpColumn)) {
@@ -522,12 +559,11 @@ public final class Xmp {
     }
 
     /**
-     * Entfernt den Wert einer XMP-Spalte.
+     * Removes a value of a XMP column.
      * 
-     * @param xmpColumn  XMP-Spalte
-     * @param value      Wert ungleich null. Wird nur bei sich wiederholenden
-     *                   Werten von Bedeutung: Dieser wird dann aus dem Werte-Array
-     *                   entfernt
+     * @param xmpColumn  XMP column
+     * @param value      value not null. If the column contains a repeatable
+     *                   value it will be removed from it's list.
      */
     @SuppressWarnings("unchecked")
     public void removeValue(Column xmpColumn, String value) {
@@ -544,16 +580,16 @@ public final class Xmp {
     }
 
     /**
-     * Entfernt alle Daten.
+     * Removes all XMP values.
      */
     private void empty() {
         valueOfColumn.clear();
     }
 
     /**
-     * Liefert, ob keine Daten enthalten sind.
+     * Returns, whether no value was set.
      * 
-     * @return true, wenn keine Daten enthalten sind
+     * @return true if no values were set.
      */
     public boolean isEmpty() {
         for (Column column : valueOfColumn.keySet()) {
@@ -564,7 +600,7 @@ public final class Xmp {
             } else if (o instanceof List) {
                 List list = (List) o;
                 if (!list.isEmpty()) return false;
-            } else if (o != null) { // zuletzt, da leere Liste != null ist, aber trotzdem ein leeres Element
+            } else if (o != null) { // last position, empty list can be != null but empty
                 return false;
             }
         }
@@ -573,18 +609,24 @@ public final class Xmp {
 
     private Long longValueOf(Column column) {
         Object o = valueOfColumn.get(column);
-        return o instanceof Long ? (Long) o : null;
+        return o instanceof Long
+               ? (Long) o
+               : null;
     }
 
     private String stringValueOf(Column column) {
         Object o = valueOfColumn.get(column);
-        return o instanceof String ? (String) o : null;
+        return o instanceof String
+               ? (String) o
+               : null;
     }
 
     @SuppressWarnings("unchecked")
     private List<String> stringListOf(Column column) {
         Object o = valueOfColumn.get(column);
-        return o instanceof List ? (List<String>) o : null;
+        return o instanceof List
+               ? (List<String>) o
+               : null;
     }
 
     private void addToStringList(Column column, String string) {
