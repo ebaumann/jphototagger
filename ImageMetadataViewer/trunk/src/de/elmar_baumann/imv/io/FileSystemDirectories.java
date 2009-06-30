@@ -17,7 +17,7 @@ import javax.swing.tree.TreePath;
  * Deletes a directory from the file system. Updates the database: Deletes
  * the removed image files.
  *
- * @author  Elmar Baumann <ebaumann@feitsch.de>
+ * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009/06/29
  */
 public final class FileSystemDirectories {

@@ -25,6 +25,8 @@ public final class PopupMenuTreeDirectories extends JPopupMenu {
             "PopupMenuTreeDirectories.Action.RenameDirectory");
     private final String actionDeleteDirectory = Bundle.getString(
             "PopupMenuTreeDirectories.Action.DeleteDirectory");
+    private static final String ACTION_REFRESH = Bundle.getString(
+            "PopupMenuTreeDirectories.Action.Refresh");
     private final JMenuItem itemAddToFavoriteDirectories = new JMenuItem(
             actionAddToFavoriteDirectories);
     private final JMenuItem itemCreateDirectory = new JMenuItem(
@@ -33,6 +35,7 @@ public final class PopupMenuTreeDirectories extends JPopupMenu {
             actionRenameDirectory);
     private final JMenuItem itemDeleteDirectory = new JMenuItem(
             actionDeleteDirectory);
+    private final JMenuItem itemRefresh = new JMenuItem(ACTION_REFRESH);
     private final List<JMenuItem> fileItems = new ArrayList<JMenuItem>();
     private TreePath path;
     private String directoryName;
@@ -61,6 +64,10 @@ public final class PopupMenuTreeDirectories extends JPopupMenu {
 
     public JMenuItem getItemDeleteDirectory() {
         return itemDeleteDirectory;
+    }
+
+    public JMenuItem getItemRefresh() {
+        return itemRefresh;
     }
 
     /**
@@ -127,6 +134,7 @@ public final class PopupMenuTreeDirectories extends JPopupMenu {
         add(itemCreateDirectory);
         add(itemRenameDirectory);
         add(itemDeleteDirectory);
+        add(itemRefresh);
         setIcons();
         initLists();
     }
@@ -140,9 +148,11 @@ public final class PopupMenuTreeDirectories extends JPopupMenu {
     }
 
     private void setIcons() {
-        itemAddToFavoriteDirectories.setIcon(AppIcons.getIcon("icon_favorite.png"));
+        itemAddToFavoriteDirectories.setIcon(AppIcons.getIcon(
+                "icon_favorite.png"));
         itemCreateDirectory.setIcon(AppIcons.getIcon("icon_add.png"));
         itemDeleteDirectory.setIcon(AppIcons.getIcon("icon_edit_delete.png"));
         itemRenameDirectory.setIcon(AppIcons.getIcon("icon_rename.png"));
+        itemRefresh.setIcon(AppIcons.getIcon("icon_refresh.png"));
     }
 }

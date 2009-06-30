@@ -9,6 +9,7 @@ import de.elmar_baumann.imv.controller.directories.ControllerDeleteDirectory;
 import de.elmar_baumann.imv.controller.directories.ControllerDirectoryCopyFiles;
 import de.elmar_baumann.imv.controller.directories.ControllerEnableInsertMetadataTemplate;
 import de.elmar_baumann.imv.controller.directories.ControllerDirectorySelected;
+import de.elmar_baumann.imv.controller.directories.ControllerRefreshDirectoryTree;
 import de.elmar_baumann.imv.controller.directories.ControllerRenameDirectory;
 import de.elmar_baumann.imv.controller.favoritedirectories.ControllerDeleteFavoriteDirectory;
 import de.elmar_baumann.imv.controller.favoritedirectories.ControllerFavoriteDirectoryOpenInFolders;
@@ -153,6 +154,7 @@ public final class ControllerFactory {
             new ControllerRenameDirectory();
             new ControllerDeleteDirectory();
             new ControllerRefreshFavoriteDirectories();
+            new ControllerRefreshDirectoryTree();
             startScheduledTasks();
             init = true;
         }
