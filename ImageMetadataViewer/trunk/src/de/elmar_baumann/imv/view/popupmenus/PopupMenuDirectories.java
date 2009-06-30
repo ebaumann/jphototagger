@@ -4,6 +4,7 @@ import de.elmar_baumann.imv.app.AppIcons;
 import de.elmar_baumann.imv.resource.Bundle;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
+import javax.swing.JSeparator;
 import javax.swing.tree.TreePath;
 
 /**
@@ -93,9 +94,11 @@ public final class PopupMenuDirectories extends JPopupMenu {
 
     private void init() {
         add(itemAddToFavorites);
+        add(new JSeparator());
         add(itemCreateDirectory);
         add(itemRenameDirectory);
         add(itemDeleteDirectory);
+        add(new JSeparator());
         add(itemRefresh);
         setIcons();
     }

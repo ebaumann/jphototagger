@@ -151,7 +151,7 @@ public final class PopupMenuFavorites extends JPopupMenu {
         itemMoveUp.setIcon(AppIcons.getIcon("icon_move_up.png"));
         itemOpenInFolders.setIcon(AppIcons.getIcon("icon_folder.png"));
         itemRefresh.setIcon(AppIcons.getIcon("icon_refresh.png"));
-        itemAddFilesystemFolder.setIcon(AppIcons.getIcon("icon_add.png"));
+        itemAddFilesystemFolder.setIcon(AppIcons.getIcon("icon_folder_add.png"));
         itemRenameFilesystemFolder.setIcon(
                 AppIcons.getIcon("icon_rename.png"));
         itemDeleteFilesystemFolder.setIcon(
