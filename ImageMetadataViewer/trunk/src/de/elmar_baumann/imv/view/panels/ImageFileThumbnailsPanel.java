@@ -9,7 +9,7 @@ import de.elmar_baumann.imv.event.listener.RefreshListener;
 import de.elmar_baumann.lib.comparator.FileSort;
 import de.elmar_baumann.imv.types.FileAction;
 import de.elmar_baumann.imv.view.InfoSetThumbnails;
-import de.elmar_baumann.imv.view.popupmenus.PopupMenuPanelThumbnails;
+import de.elmar_baumann.imv.view.popupmenus.PopupMenuThumbnails;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
@@ -33,8 +33,8 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel {
     private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
     private final Map<Content, List<RefreshListener>> refreshListenersOfContent =
             new HashMap<Content, List<RefreshListener>>();
-    private final PopupMenuPanelThumbnails popupMenu =
-            PopupMenuPanelThumbnails.INSTANCE;
+    private final PopupMenuThumbnails popupMenu =
+            PopupMenuThumbnails.INSTANCE;
     private final List<File> files = Collections.synchronizedList(
             new ArrayList<File>());
     private ControllerDoubleklickThumbnail controllerDoubleklick;

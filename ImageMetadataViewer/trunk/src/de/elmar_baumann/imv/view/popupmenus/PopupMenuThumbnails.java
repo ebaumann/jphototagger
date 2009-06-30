@@ -25,7 +25,7 @@ import javax.swing.JSeparator;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public final class PopupMenuPanelThumbnails extends JPopupMenu
+public final class PopupMenuThumbnails extends JPopupMenu
         implements UserSettingsChangeListener {
 
     private static final String DISPLAY_NAME_ACTION_UPDATE_METADATA =
@@ -97,10 +97,10 @@ public final class PopupMenuPanelThumbnails extends JPopupMenu
             new ArrayList<ActionListener>();
     private final Map<JMenuItem, Program> programOfMenuItem =
             new HashMap<JMenuItem, Program>();
-    public static final PopupMenuPanelThumbnails INSTANCE =
-            new PopupMenuPanelThumbnails();
+    public static final PopupMenuThumbnails INSTANCE =
+            new PopupMenuThumbnails();
 
-    private PopupMenuPanelThumbnails() {
+    private PopupMenuThumbnails() {
         initItems();
         setIcons();
         addItems();

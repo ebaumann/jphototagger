@@ -10,7 +10,7 @@ import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.types.Content;
 import de.elmar_baumann.imv.view.frames.AppFrame;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
-import de.elmar_baumann.imv.view.popupmenus.PopupMenuPanelThumbnails;
+import de.elmar_baumann.imv.view.popupmenus.PopupMenuThumbnails;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -31,7 +31,7 @@ public final class ControllerMenuItemEnabler
     private final Map<JMenuItem, List<Content>> contentsOfMenuItemRequiresContent = new HashMap<JMenuItem, List<Content>>();
     private final List<JMenuItem> itemsRequiresSelectedImages = new ArrayList<JMenuItem>();
     private final AppFrame appFrame = GUI.INSTANCE.getAppFrame();
-    private final PopupMenuPanelThumbnails popupThumbnails = PopupMenuPanelThumbnails.INSTANCE;
+    private final PopupMenuThumbnails popupThumbnails = PopupMenuThumbnails.INSTANCE;
     private final ImageFileThumbnailsPanel thumbnailsPanel = GUI.INSTANCE.getAppPanel().getPanelThumbnails();
     private final JMenuItem itemOpenFilesWithStandardApp = popupThumbnails.getItemOpenFilesWithStandardApp();
     private final JMenu menuOtherOpenImageApps = popupThumbnails.getMenuOtherOpenImageApps();

@@ -9,7 +9,7 @@ import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.ProgressBarCurrentTasks;
 import de.elmar_baumann.imv.tasks.Task;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
-import de.elmar_baumann.imv.view.popupmenus.PopupMenuPanelThumbnails;
+import de.elmar_baumann.imv.view.popupmenus.PopupMenuThumbnails;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -24,7 +24,7 @@ import javax.swing.JProgressBar;
 
 /**
  * Kontrolliert die Aktion: Metadaten erzeugen für ausgewählte Bilder,
- * ausgelöst von {@link de.elmar_baumann.imv.view.popupmenus.PopupMenuPanelThumbnails}.
+ * ausgelöst von {@link de.elmar_baumann.imv.view.popupmenus.PopupMenuThumbnails}.
  * 
  * <em>Nur eine Instanz erzeugen!</em>
  * 
@@ -40,8 +40,8 @@ public final class ControllerCreateMetadataOfSelectedThumbnails
             new HashMap<JMenuItem, EnumSet<InsertImageFilesIntoDatabase.Insert>>();
     private final Queue<InsertImageFilesIntoDatabase> updaters =
             new ConcurrentLinkedQueue<InsertImageFilesIntoDatabase>();
-    private final PopupMenuPanelThumbnails popupMenu =
-            PopupMenuPanelThumbnails.INSTANCE;
+    private final PopupMenuThumbnails popupMenu =
+            PopupMenuThumbnails.INSTANCE;
     private final ProgressBarCurrentTasks progressBarProvider =
             ProgressBarCurrentTasks.INSTANCE;
     private final ImageFileThumbnailsPanel thumbnailsPanel = GUI.INSTANCE.

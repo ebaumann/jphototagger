@@ -5,13 +5,13 @@ import de.elmar_baumann.imv.event.SearchEvent;
 import de.elmar_baumann.imv.event.listener.SearchListener;
 import de.elmar_baumann.imv.tasks.SavedSearchesModifier;
 import de.elmar_baumann.imv.view.dialogs.AdvancedSearchDialog;
-import de.elmar_baumann.imv.view.popupmenus.PopupMenuListSavedSearches;
+import de.elmar_baumann.imv.view.popupmenus.PopupMenuSavedSearches;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
  * Controller für die Aktion: Erzeuge eine gespeicherte Suche, ausgelöst von
- * {@link de.elmar_baumann.imv.view.popupmenus.PopupMenuListSavedSearches}.
+ * {@link de.elmar_baumann.imv.view.popupmenus.PopupMenuSavedSearches}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/10
@@ -24,7 +24,7 @@ public final class ControllerCreateSavedSearch implements ActionListener,
     }
 
     private void listen() {
-        PopupMenuListSavedSearches.INSTANCE.getItemCreate().addActionListener(
+        PopupMenuSavedSearches.INSTANCE.getItemCreate().addActionListener(
                 this);
         ListenerProvider.INSTANCE.addSearchListener(this);
     }

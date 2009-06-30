@@ -5,7 +5,7 @@ import de.elmar_baumann.imv.database.DatabaseImageFiles;
 import de.elmar_baumann.imv.event.listener.impl.ListenerProvider;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.AppPanel;
-import de.elmar_baumann.imv.view.popupmenus.PopupMenuPanelThumbnails;
+import de.elmar_baumann.imv.view.popupmenus.PopupMenuThumbnails;
 
 /**
  * Methods causing the form designer fail to display the AppFrame are called here. 
@@ -23,7 +23,7 @@ public final class LateConnectionsFactory {
         if (!init) {
             init = true;
             AppPanel appPanel = GUI.INSTANCE.getAppPanel();
-            PopupMenuPanelThumbnails popupMenuPanelThumbnails = PopupMenuPanelThumbnails.INSTANCE;
+            PopupMenuThumbnails popupMenuPanelThumbnails = PopupMenuThumbnails.INSTANCE;
             UserSettings userSettings = UserSettings.INSTANCE;
 
             appPanel.getPanelThumbnails().setDefaultThumbnailWidth(userSettings.getMaxThumbnailLength());

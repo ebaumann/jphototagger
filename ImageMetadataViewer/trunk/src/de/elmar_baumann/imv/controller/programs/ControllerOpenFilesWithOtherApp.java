@@ -4,26 +4,26 @@ import de.elmar_baumann.imv.data.Program;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.tasks.ProgramStarter;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
-import de.elmar_baumann.imv.view.popupmenus.PopupMenuPanelThumbnails;
+import de.elmar_baumann.imv.view.popupmenus.PopupMenuThumbnails;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
  * Kontrolliert die Aktion: Öffne ausgewählte Thumbnails mit einer anderen
  * Anwendung, ausgelöst von
- * {@link de.elmar_baumann.imv.view.popupmenus.PopupMenuPanelThumbnails}.
+ * {@link de.elmar_baumann.imv.view.popupmenus.PopupMenuThumbnails}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/10
  */
 public final class ControllerOpenFilesWithOtherApp implements ActionListener {
 
-    private final PopupMenuPanelThumbnails popupMenu;
+    private final PopupMenuThumbnails popupMenu;
     private final ImageFileThumbnailsPanel thumbnailsPanel;
     private final ProgramStarter executor;
 
     public ControllerOpenFilesWithOtherApp() {
-        popupMenu = PopupMenuPanelThumbnails.INSTANCE;
+        popupMenu = PopupMenuThumbnails.INSTANCE;
         listen();
         thumbnailsPanel = GUI.INSTANCE.getAppPanel().getPanelThumbnails();
         executor = new ProgramStarter(null);

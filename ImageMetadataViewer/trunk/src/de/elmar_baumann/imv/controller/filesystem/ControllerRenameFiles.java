@@ -9,7 +9,7 @@ import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.dialogs.RenameDialog;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
-import de.elmar_baumann.imv.view.popupmenus.PopupMenuPanelThumbnails;
+import de.elmar_baumann.imv.view.popupmenus.PopupMenuThumbnails;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -35,7 +35,7 @@ public final class ControllerRenameFiles implements ActionListener,
     }
 
     private void listen() {
-        PopupMenuPanelThumbnails.INSTANCE.getItemFileSystemRenameFiles().
+        PopupMenuThumbnails.INSTANCE.getItemFileSystemRenameFiles().
                 addActionListener(this);
         GUI.INSTANCE.getAppFrame().getMenuItemRename().addActionListener(this);
         ListenerProvider.INSTANCE.addRenameFileListener(this);

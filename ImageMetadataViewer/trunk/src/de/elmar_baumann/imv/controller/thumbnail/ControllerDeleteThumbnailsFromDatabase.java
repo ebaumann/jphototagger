@@ -4,7 +4,7 @@ import de.elmar_baumann.imv.database.DatabaseImageFiles;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
-import de.elmar_baumann.imv.view.popupmenus.PopupMenuPanelThumbnails;
+import de.elmar_baumann.imv.view.popupmenus.PopupMenuThumbnails;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,7 +15,7 @@ import javax.swing.SwingUtilities;
 
 /**
  * Kontrolliert die Aktion: Lösche selektierte Thumbnails,
- * ausgelöst von {@link de.elmar_baumann.imv.view.popupmenus.PopupMenuPanelThumbnails}.
+ * ausgelöst von {@link de.elmar_baumann.imv.view.popupmenus.PopupMenuThumbnails}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/10
@@ -24,8 +24,8 @@ public final class ControllerDeleteThumbnailsFromDatabase implements
         ActionListener {
 
     private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
-    private final PopupMenuPanelThumbnails popupMenu =
-            PopupMenuPanelThumbnails.INSTANCE;
+    private final PopupMenuThumbnails popupMenu =
+            PopupMenuThumbnails.INSTANCE;
     private final ImageFileThumbnailsPanel thumbnailsPanel = GUI.INSTANCE.
             getAppPanel().getPanelThumbnails();
 

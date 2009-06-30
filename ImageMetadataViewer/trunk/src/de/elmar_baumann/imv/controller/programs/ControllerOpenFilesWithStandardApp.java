@@ -5,21 +5,21 @@ import de.elmar_baumann.imv.io.IoUtil;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.dialogs.UserSettingsDialog;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
-import de.elmar_baumann.imv.view.popupmenus.PopupMenuPanelThumbnails;
+import de.elmar_baumann.imv.view.popupmenus.PopupMenuThumbnails;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
  * Controller für die Aktion: Dateien ausgewählter THUMBNAILS öffnen,
- * ausgelöst von {@link de.elmar_baumann.imv.view.popupmenus.PopupMenuPanelThumbnails}.
+ * ausgelöst von {@link de.elmar_baumann.imv.view.popupmenus.PopupMenuThumbnails}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/10
  */
 public final class ControllerOpenFilesWithStandardApp implements ActionListener {
 
-    private final PopupMenuPanelThumbnails popupMenu =
-            PopupMenuPanelThumbnails.INSTANCE;
+    private final PopupMenuThumbnails popupMenu =
+            PopupMenuThumbnails.INSTANCE;
     private final ImageFileThumbnailsPanel thumbnailsPanel = GUI.INSTANCE.
             getAppPanel().getPanelThumbnails();
 

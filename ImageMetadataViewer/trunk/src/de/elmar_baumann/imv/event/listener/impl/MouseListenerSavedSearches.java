@@ -1,7 +1,7 @@
 package de.elmar_baumann.imv.event.listener.impl;
 
 import de.elmar_baumann.imv.data.SavedSearch;
-import de.elmar_baumann.imv.view.popupmenus.PopupMenuListSavedSearches;
+import de.elmar_baumann.imv.view.popupmenus.PopupMenuSavedSearches;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -15,8 +15,8 @@ import javax.swing.JList;
  */
 public final class MouseListenerSavedSearches extends MouseAdapter {
 
-    private final PopupMenuListSavedSearches popupMenu =
-            PopupMenuListSavedSearches.INSTANCE;
+    private final PopupMenuSavedSearches popupMenu =
+            PopupMenuSavedSearches.INSTANCE;
 
     @Override
     public void mousePressed(MouseEvent e) {

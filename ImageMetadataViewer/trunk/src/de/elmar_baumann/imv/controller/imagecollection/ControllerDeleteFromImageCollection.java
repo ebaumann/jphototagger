@@ -7,7 +7,7 @@ import de.elmar_baumann.imv.tasks.ImageCollectionDatabaseUtils;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
-import de.elmar_baumann.imv.view.popupmenus.PopupMenuPanelThumbnails;
+import de.elmar_baumann.imv.view.popupmenus.PopupMenuThumbnails;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,7 +18,7 @@ import javax.swing.SwingUtilities;
 
 /**
  * Kontrolliert die Aktion: Lösche Bilder aus einer Bildsammlung, ausgelöst von
- * {@link de.elmar_baumann.imv.view.popupmenus.PopupMenuPanelThumbnails}.
+ * {@link de.elmar_baumann.imv.view.popupmenus.PopupMenuThumbnails}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/00/10
@@ -27,8 +27,8 @@ public final class ControllerDeleteFromImageCollection implements ActionListener
 
     private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
     private final JList list = appPanel.getListImageCollections();
-    private final PopupMenuPanelThumbnails popupMenu =
-            PopupMenuPanelThumbnails.INSTANCE;
+    private final PopupMenuThumbnails popupMenu =
+            PopupMenuThumbnails.INSTANCE;
     private final ImageFileThumbnailsPanel thumbnailsPanel = GUI.INSTANCE.
             getAppPanel().getPanelThumbnails();
 

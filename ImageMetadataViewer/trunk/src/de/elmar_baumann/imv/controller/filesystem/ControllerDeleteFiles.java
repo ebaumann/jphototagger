@@ -8,7 +8,7 @@ import de.elmar_baumann.imv.tasks.FileSystemDeleteImageFiles;
 import de.elmar_baumann.imv.types.Content;
 import de.elmar_baumann.imv.types.DeleteOption;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
-import de.elmar_baumann.imv.view.popupmenus.PopupMenuPanelThumbnails;
+import de.elmar_baumann.imv.view.popupmenus.PopupMenuThumbnails;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -29,8 +29,8 @@ public final class ControllerDeleteFiles implements ActionListener {
     private final ImageFileThumbnailsPanel thumbnailsPanel = GUI.INSTANCE.
             getAppPanel().getPanelThumbnails();
     private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
-    private final PopupMenuPanelThumbnails popupMenu =
-            PopupMenuPanelThumbnails.INSTANCE;
+    private final PopupMenuThumbnails popupMenu =
+            PopupMenuThumbnails.INSTANCE;
     private static final List<Content> deleteableContent =
             new ArrayList<Content>();
 
