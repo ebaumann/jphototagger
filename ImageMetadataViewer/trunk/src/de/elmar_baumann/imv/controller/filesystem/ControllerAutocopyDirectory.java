@@ -29,7 +29,8 @@ public final class ControllerAutocopyDirectory implements ActionListener {
     }
 
     private void listen() {
-        GUI.INSTANCE.getAppFrame().getMenuItemAutocopyDirectory().addActionListener(this);
+        GUI.INSTANCE.getAppFrame().getMenuItemAutocopyDirectory().
+                addActionListener(this);
     }
 
     @Override
@@ -43,7 +44,9 @@ public final class ControllerAutocopyDirectory implements ActionListener {
             setAutocopyDirectory();
             copy(); // recursive
         } else {
-            copy(dir);
+            if (dir != null) {
+                copy(dir);
+            }
         }
     }
 
@@ -60,8 +63,10 @@ public final class ControllerAutocopyDirectory implements ActionListener {
     private void copy(File srcDir) {
         List<File> directories = new ArrayList<File>();
         directories.add(srcDir);
-        directories.addAll(FileUtil.getAllSubDirectories(srcDir, new HashSet<Option>()));
-        List<File> files = ImageFilteredDirectory.getImageFilesOfDirectories(directories);
+        directories.addAll(FileUtil.getAllSubDirectories(srcDir,
+                new HashSet<Option>()));
+        List<File> files = ImageFilteredDirectory.getImageFilesOfDirectories(
+                directories);
         if (files.size() > 0) {
             CopyToDirectoryDialog dialog = new CopyToDirectoryDialog();
             dialog.setSourceFiles(files);
@@ -74,16 +79,20 @@ public final class ControllerAutocopyDirectory implements ActionListener {
     private void informationMessageNoFilesFound() {
         JOptionPane.showMessageDialog(
                 null,
-                Bundle.getString("ControllerAutocopyDirectory.InformationMessage.NoFilesFound"),
-                Bundle.getString("ControllerAutocopyDirectory.InformationMessage.NoFilesFound.Title"),
+                Bundle.getString(
+                "ControllerAutocopyDirectory.InformationMessage.NoFilesFound"),
+                Bundle.getString(
+                "ControllerAutocopyDirectory.InformationMessage.NoFilesFound.Title"),
                 JOptionPane.INFORMATION_MESSAGE);
     }
 
     private boolean confirmSetAutocopyDirectory() {
         return JOptionPane.showConfirmDialog(
                 null,
-                Bundle.getString("ControllerAutocopyDirectory.ConfirmMessage.DefineDirectory"),
-                Bundle.getString("ControllerAutocopyDirectory.ConfirmMessage.DefineDirectory.Title"),
+                Bundle.getString(
+                "ControllerAutocopyDirectory.ConfirmMessage.DefineDirectory"),
+                Bundle.getString(
+                "ControllerAutocopyDirectory.ConfirmMessage.DefineDirectory.Title"),
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION;
     }
