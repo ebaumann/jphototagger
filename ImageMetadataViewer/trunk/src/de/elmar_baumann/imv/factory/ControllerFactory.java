@@ -8,12 +8,10 @@ import de.elmar_baumann.imv.controller.directories.ControllerCreateDirectory;
 import de.elmar_baumann.imv.controller.directories.ControllerDeleteDirectory;
 import de.elmar_baumann.imv.controller.directories.ControllerDirectoryCopyFiles;
 import de.elmar_baumann.imv.controller.directories.ControllerEnableInsertMetadataTemplate;
-import de.elmar_baumann.imv.controller.directories.ControllerDirectorySelected;
 import de.elmar_baumann.imv.controller.directories.ControllerRefreshDirectoryTree;
 import de.elmar_baumann.imv.controller.directories.ControllerRenameDirectory;
 import de.elmar_baumann.imv.controller.favorites.ControllerDeleteFavorite;
 import de.elmar_baumann.imv.controller.favorites.ControllerOpenFavoriteInFolders;
-import de.elmar_baumann.imv.controller.favorites.ControllerFavoriteSelected;
 import de.elmar_baumann.imv.controller.favorites.ControllerFavoritesAddFilesystemFolder;
 import de.elmar_baumann.imv.controller.favorites.ControllerFavoritesDeleteFilesystemFolder;
 import de.elmar_baumann.imv.controller.favorites.ControllerFavoritesRenameFilesystemFolder;
@@ -51,7 +49,6 @@ import de.elmar_baumann.imv.controller.misc.ControllerMenuItemEnabler;
 import de.elmar_baumann.imv.controller.misc.ControllerRenameFilenamesInDb;
 import de.elmar_baumann.imv.controller.misc.ControllerShowSystemOutput;
 import de.elmar_baumann.imv.controller.misc.ControllerThumbnailCountDisplay;
-import de.elmar_baumann.imv.controller.miscmetadata.ControllerMiscMetadataItemSelected;
 import de.elmar_baumann.imv.controller.search.ControllerCreateSavedSearch;
 import de.elmar_baumann.imv.controller.search.ControllerDeleteSavedSearch;
 import de.elmar_baumann.imv.controller.search.ControllerEditSafedSearch;
@@ -69,7 +66,6 @@ import de.elmar_baumann.imv.controller.thumbnail.ControllerSliderThumbnailSize;
 import de.elmar_baumann.imv.controller.thumbnail.ControllerSortThumbnails;
 import de.elmar_baumann.imv.controller.thumbnail.ControllerThumbnailsDatabaseChanges;
 import de.elmar_baumann.imv.controller.thumbnail.ControllerThumbnailsPanelPersistence;
-import de.elmar_baumann.imv.controller.timeline.ControllerTimelineItemSelected;
 
 /**
  * Erzeugt alle Controller.
@@ -96,8 +92,6 @@ public final class ControllerFactory {
             new ControllerItemsMutualExcludeSelection();
             new ControllerCategoryItemSelected();
             new ControllerKeywordItemSelected();
-            new ControllerFavoriteSelected();
-            new ControllerDirectorySelected();
             new ControllerSafedSearchSelected();
             new ControllerImageCollectionSelected();
             new ControllerMenuItemEnabler();
@@ -149,8 +143,6 @@ public final class ControllerFactory {
             new ControllerActionExecutor();
             new ControllerExtractEmbeddedXmp();
             new ControllerShowSystemOutput();
-            new ControllerTimelineItemSelected();
-            new ControllerMiscMetadataItemSelected();
             new ControllerMoveFavorite();
             new ControllerRenameFilenamesInDb();
             new ControllerCreateDirectory();

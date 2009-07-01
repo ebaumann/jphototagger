@@ -1,6 +1,10 @@
 package de.elmar_baumann.imv.factory;
 
 import de.elmar_baumann.imv.UserSettings;
+import de.elmar_baumann.imv.controller.directories.ControllerDirectorySelected;
+import de.elmar_baumann.imv.controller.favorites.ControllerFavoriteSelected;
+import de.elmar_baumann.imv.controller.miscmetadata.ControllerMiscMetadataItemSelected;
+import de.elmar_baumann.imv.controller.timeline.ControllerTimelineItemSelected;
 import de.elmar_baumann.imv.model.ComboBoxModelMetadataEditTemplates;
 import de.elmar_baumann.imv.model.ListModelCategories;
 import de.elmar_baumann.imv.model.ListModelImageCollections;
@@ -62,7 +66,7 @@ public final class ModelFactory {
     private void setTreeModels(final AppPanel appPanel) {
         setTreeModelTimeline(appPanel);
         setTreeModelMiscMetadata(appPanel);
-        setTreeModelFavoriteDirectories(appPanel);
+        setTreeModelFavorites(appPanel);
         setTreeModelDirectories(appPanel);
     }
 
@@ -72,6 +76,7 @@ public final class ModelFactory {
             @Override
             public void run() {
                 TreeModel model = new TreeModelMiscMetadata();
+                new ControllerMiscMetadataItemSelected();
                 appPanel.getTreeMiscMetadata().setModel(model);
             }
         });
@@ -86,6 +91,7 @@ public final class ModelFactory {
             @Override
             public void run() {
                 TreeModel model = new TreeModelTimeline();
+                new ControllerTimelineItemSelected();
                 appPanel.getTreeTimeline().setModel(model);
             }
         });
@@ -94,13 +100,14 @@ public final class ModelFactory {
         thread.start();
     }
 
-    private void setTreeModelFavoriteDirectories(final AppPanel appPanel) {
+    private void setTreeModelFavorites(final AppPanel appPanel) {
         Thread thread = new Thread(new Runnable() {
 
             @Override
             public void run() {
                 TreeModelFavorites model = new TreeModelFavorites(
                         appPanel.getTreeFavorites());
+                new ControllerFavoriteSelected();
                 appPanel.getTreeFavorites().setModel(model);
                 model.readFromProperties();
             }
@@ -119,6 +126,7 @@ public final class ModelFactory {
                         new TreeModelAllSystemDirectories(
                         appPanel.getTreeDirectories(),
                         UserSettings.INSTANCE.getDefaultDirectoryFilterOptions());
+                new ControllerDirectorySelected();
                 appPanel.getTreeDirectories().setModel(model);
                 if (UserSettings.INSTANCE.isTreeDirectoriesSelectLastDirectory()) {
                     ViewUtil.readTreeDirectoriesFromProperties();
