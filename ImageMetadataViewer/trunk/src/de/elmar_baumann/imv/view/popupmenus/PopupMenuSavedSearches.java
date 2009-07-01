@@ -15,13 +15,13 @@ import javax.swing.JPopupMenu;
 public final class PopupMenuSavedSearches extends JPopupMenu {
 
     private static final String DISPLAY_NAME_ACTION_DELETE =
-            Bundle.getString("PopupMenuTreeSavedSearches.Action.Delete");
+            Bundle.getString("PopupMenuSavedSearches.DisplayName.Action.Delete");
     private static final String DISPLAY_NAME_ACTION_EDIT =
-            Bundle.getString("PopupMenuTreeSavedSearches.Action.Edit");
+            Bundle.getString("PopupMenuSavedSearches.DisplayName.Action.Edit");
     private static final String DISPLAY_NAME_ACTION_NEW =
-            Bundle.getString("PopupMenuTreeSavedSearches.Action.New");
+            Bundle.getString("PopupMenuSavedSearches.DisplayName.Action.New");
     private static final String DISPLAY_NAME_ACTION_RENAME =
-            Bundle.getString("PopupMenuTreeSavedSearches.Action.Rename");
+            Bundle.getString("PopupMenuSavedSearches.DisplayName.Action.Rename");
     private final JMenuItem itemDelete =
             new JMenuItem(DISPLAY_NAME_ACTION_DELETE);
     private final JMenuItem itemEdit = new JMenuItem(DISPLAY_NAME_ACTION_EDIT);

@@ -76,7 +76,7 @@ public final class AppInit {
     private static void informationMessageInitGui() {
         SplashScreen.setMessageToSplashScreen(
                 Bundle.getString(
-                "Main.Main.InformationMessage.SplashScreen.InitGui"));
+                "AppInit.InformationMessage.SplashScreen.InitGui"));
     }
 
     private static void showMainWindow() {
@@ -102,12 +102,12 @@ public final class AppInit {
             HeadlessException {
         JOptionPane.showMessageDialog(null,
                 getVersionMessage(javaVersion),
-                Bundle.getString("Main.ErrorMessage.JavaVersion.Title"),
+                Bundle.getString("AppInit.ErrorMessage.JavaVersion.Title"),
                 JOptionPane.ERROR_MESSAGE);
     }
 
     private static Object getVersionMessage(Version javaVersion) {
-        return Bundle.getString("Main.ErrorMessage.JavaVersion",
+        return Bundle.getString("AppInit.ErrorMessage.JavaVersion",
                 javaVersion, AppInfo.minJavaVersion);
     }
 }

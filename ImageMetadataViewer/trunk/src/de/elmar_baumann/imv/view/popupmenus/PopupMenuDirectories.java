@@ -17,15 +17,15 @@ public final class PopupMenuDirectories extends JPopupMenu {
 
     private static final String DISPLAY_NAME_ACTION_ADD_TO_FAVORITES =
             Bundle.getString(
-            "PopupMenuTreeDirectories.Action.AddToFavoriteDirectories");
+            "PopupMenuDirectories.DisplayName.Action.AddToFavoriteDirectories");
     private static final String DISPLAY_NAME_ACTION_CREATE_FOLDER =
-            Bundle.getString("PopupMenuTreeDirectories.Action.CreateDirectory");
+            Bundle.getString("PopupMenuDirectories.DisplayName.Action.CreateDirectory");
     private static final String DISPLAY_NAME_ACTION_RENAME_FODER =
-            Bundle.getString("PopupMenuTreeDirectories.Action.RenameDirectory");
+            Bundle.getString("PopupMenuDirectories.DisplayName.Action.RenameDirectory");
     private static final String DISPLAY_NAME_ACTION_DELETE_FOLDER =
-            Bundle.getString("PopupMenuTreeDirectories.Action.DeleteDirectory");
+            Bundle.getString("PopupMenuDirectories.DisplayName.Action.DeleteDirectory");
     private static final String DISPLAY_NAME_ACTION_REFRESH =
-            Bundle.getString("PopupMenuTreeDirectories.Action.Refresh");
+            Bundle.getString("PopupMenuDirectories.DisplayName.Action.Refresh");
     private static final JMenuItem itemAddToFavorites =
             new JMenuItem(DISPLAY_NAME_ACTION_ADD_TO_FAVORITES);
     private static final JMenuItem itemCreateDirectory =

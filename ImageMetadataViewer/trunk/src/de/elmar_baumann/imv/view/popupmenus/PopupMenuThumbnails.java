@@ -29,42 +29,42 @@ public final class PopupMenuThumbnails extends JPopupMenu
         implements UserSettingsChangeListener {
 
     private static final String DISPLAY_NAME_ACTION_UPDATE_METADATA =
-            Bundle.getString("PopupMenuPanelThumbnails.Action.UpdateMetadata");
+            Bundle.getString("PopupMenuThumbnails.DisplayName.Action.UpdateMetadata");
     private static final String DISPLAY_NAME_ACTION_UPDATE_THUMBNAIL =
-            Bundle.getString("PopupMenuPanelThumbnails.Action.UpdateThumbnail");
+            Bundle.getString("PopupMenuThumbnails.DisplayName.Action.UpdateThumbnail");
     private static final String DISPLAY_NAME_ACTION_CREATE_IMAGE_COLLECTION =
             Bundle.getString(
-            "PopupMenuPanelThumbnails.Action.CreateImageCollection");
+            "PopupMenuThumbnails.DisplayName.Action.CreateImageCollection");
     private static final String DISPLAY_NAME_ACTION_ADD_TO_IMAGE_COLLECTION =
             Bundle.getString(
-            "PopupMenuPanelThumbnails.Action.AddToImageCollection");
+            "PopupMenuThumbnails.DisplayName.Action.AddToImageCollection");
     private static final String DISPLAY_NAME_ACTION_DELETE_FROM_IMAGE_COLLECTION =
             Bundle.getString(
-            "PopupMenuPanelThumbnails.Action.DeleteFromImageCollection");
+            "PopupMenuThumbnails.DisplayName.Action.DeleteFromImageCollection");
     private static final String DISPLAY_NAME_ACTION_ROTATE_90_DEGREES =
-            Bundle.getString("PopupMenuPanelThumbnails.Action.Rotate.90");
+            Bundle.getString("PopupMenuThumbnails.DisplayName.Action.Rotate.90");
     private static final String DISPLAY_NAME_ACTION_ROTATE_180_DEGREES =
-            Bundle.getString("PopupMenuPanelThumbnails.Action.Rotate.180");
+            Bundle.getString("PopupMenuThumbnails.DisplayName.Action.Rotate.180");
     private static final String DISPLAY_NAME_ACTION_ROTATE_270_DEGREES =
-            Bundle.getString("PopupMenuPanelThumbnails.Action.Rotate.270");
+            Bundle.getString("PopupMenuThumbnails.DisplayName.Action.Rotate.270");
     private static final String DISPLAY_NAME_ACTION_OPEN_FILES = Bundle.
             getString(
-            "PopupMenuPanelThumbnails.Action.OpenFiles");
+            "PopupMenuThumbnails.DisplayName.Action.OpenFiles");
     private static final String DISPLAY_NAME_ACTION_DELETE_IMAGE_FROM_DATABASE =
             Bundle.getString(
-            "PopupMenuPanelThumbnails.Action.DeleteImageFromDatabase");
+            "PopupMenuThumbnails.DisplayName.Action.DeleteImageFromDatabase");
     private static final String DISPLAY_NAME_ACTION_FILESYSTEM_COPY_TO_FOLDER =
             Bundle.getString(
-            "PopupMenuPanelThumbnails.Action.FileSystemCopyToDirectory");
+            "PopupMenuThumbnails.DisplayName.Action.FileSystemCopyToDirectory");
     private static final String DISPLAY_NAME_ACTION_FILESYSTEM_DELETE_FILES =
             Bundle.getString(
-            "PopupMenuPanelThumbnails.Action.FileSystemDeleteFiles");
+            "PopupMenuThumbnails.DisplayName.Action.FileSystemDeleteFiles");
     private static final String DISPLAY_NAME_ACTION_FILESYSTEM_RENAME_FILES =
-            Bundle.getString("PopupMenuPanelThumbnails.Action.FileSystemRename");
+            Bundle.getString("PopupMenuThumbnails.DisplayName.Action.FileSystemRename");
     private static final String DISPLAY_NAME_ACTION_FILESYSTEM_MOVE_FILES =
-            Bundle.getString("PopupMenuPanelThumbnails.Action.FileSystemMove");
+            Bundle.getString("PopupMenuThumbnails.DisplayName.Action.FileSystemMove");
     private final JMenu menuPrograms = new JMenu(Bundle.getString(
-            "PopupMenuPanelThumbnails.menuOtherOpenImageApps.text"));
+            "PopupMenuThumbnails.DisplayName.menuOtherOpenImageApps.text"));
     private final JMenuItem itemUpdateMetadata = new JMenuItem(
             DISPLAY_NAME_ACTION_UPDATE_METADATA);
     private final JMenuItem itemUpdateThumbnail = new JMenuItem(

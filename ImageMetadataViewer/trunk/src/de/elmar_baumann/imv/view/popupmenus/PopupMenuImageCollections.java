@@ -14,9 +14,9 @@ import javax.swing.JPopupMenu;
 public final class PopupMenuImageCollections extends JPopupMenu {
 
     private static final String DISPLAY_NAME_ACTION_DELETE =
-            Bundle.getString("PopupMenuTreeImageCollections.Action.Delete");
+            Bundle.getString("PopupMenuImageCollections.DisplayName.Action.Delete");
     private static final String DISPLAY_NAME_ACTION_RENAME =
-            Bundle.getString("PopupMenuTreeImageCollections.Action.Rename");
+            Bundle.getString("PopupMenuImageCollections.DisplayName.Action.Rename");
     private final JMenuItem itemDelete =
             new JMenuItem(DISPLAY_NAME_ACTION_DELETE);
     private final JMenuItem itemRename =

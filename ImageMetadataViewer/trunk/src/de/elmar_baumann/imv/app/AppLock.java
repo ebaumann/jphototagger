@@ -78,8 +78,8 @@ public final class AppLock {
     private static boolean confirmForceUnlock() {
         return JOptionPane.showConfirmDialog(
                 null,
-                Bundle.getString("Lock.ErrorMessage.LockFileExists", lockFileName),
-                Bundle.getString("Lock.ErrorMessage.LockFileExists.Title"),
+                Bundle.getString("AppLock.ErrorMessage.LockFileExists", lockFileName),
+                Bundle.getString("AppLock.ErrorMessage.LockFileExists.Title"),
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.WARNING_MESSAGE) == JOptionPane.YES_OPTION;
     }
@@ -87,8 +87,8 @@ public final class AppLock {
     private static void errorMessageDelete() {
         JOptionPane.showMessageDialog(
                 null,
-                Bundle.getString("Lock.ErrorMessage.DeleteLockFile"),
-                Bundle.getString("Lock.ErrorMessage.DeleteLockFile.Title"),
+                Bundle.getString("AppLock.ErrorMessage.DeleteLockFile"),
+                Bundle.getString("AppLock.ErrorMessage.DeleteLockFile.Title"),
                 JOptionPane.ERROR_MESSAGE);
     }
 

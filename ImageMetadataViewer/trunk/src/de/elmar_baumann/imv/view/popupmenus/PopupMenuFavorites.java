@@ -18,31 +18,31 @@ public final class PopupMenuFavorites extends JPopupMenu {
 
     private static final String DISPLAY_NAME_ACTION_INSERT_FAVORITE =
             Bundle.getString(
-            "PopupMenuListFavoriteDirectories.Action.InsertFavorite");
+            "PopupMenuFavorites.DisplayName.Action.InsertFavorite");
     private static final String DISPLAY_NAME_ACTION_UPDATE_FAVORITE =
             Bundle.getString(
-            "PopupMenuListFavoriteDirectories.Action.UpdateFavorite");
+            "PopupMenuFavorites.DisplayName.Action.UpdateFavorite");
     private static final String DISPLAY_NAME_ACTION_DELETE_FAVORITE =
             Bundle.getString(
-            "PopupMenuListFavoriteDirectories.Action.DeleteFavorite");
+            "PopupMenuFavorites.DisplayName.Action.DeleteFavorite");
     private static final String DISPLAY_NAME_ACTION_MOVE_UP =
-            Bundle.getString("PopupMenuListFavoriteDirectories.Action.MoveUp");
+            Bundle.getString("PopupMenuFavorites.DisplayName.Action.MoveUp");
     private static final String DISPLAY_NAME_ACTION_MOVE_DOWN =
-            Bundle.getString("PopupMenuListFavoriteDirectories.Action.MoveDown");
+            Bundle.getString("PopupMenuFavorites.DisplayName.Action.MoveDown");
     private static final String DISPLAY_NAME_ACTION_ADD_FILESYSTEM_FOLDER =
             Bundle.getString(
-            "PopupMenuListFavoriteDirectories.Action.AddFilesystemFolder");
+            "PopupMenuFavorites.DisplayName.Action.AddFilesystemFolder");
     private static final String DISPLAY_NAME_ACTION_RENAME_FILESYSTEM_FOLDER =
             Bundle.getString(
-            "PopupMenuListFavoriteDirectories.Action.RenameFilesystemFolder");
+            "PopupMenuFavorites.DisplayName.Action.RenameFilesystemFolder");
     private static final String DISPLAY_NAME_ACTION_DELETE_FILESYSTEM_FOLDER =
             Bundle.getString(
-            "PopupMenuListFavoriteDirectories.Action.DeleteFilesystemFolder");
+            "PopupMenuFavorites.DisplayName.Action.DeleteFilesystemFolder");
     private static final String DISPLAY_NAME_ACTION_OPEN_IN_FOLDERS =
             Bundle.getString(
-            "PopupMenuListFavoriteDirectories.Action.OpenInFolders");
+            "PopupMenuFavorites.DisplayName.Action.OpenInFolders");
     private static final String DISPLAY_NAME_ACTION_REFRESH =
-            Bundle.getString("PopupMenuListFavoriteDirectories.Action.Refresh");
+            Bundle.getString("PopupMenuFavorites.DisplayName.Action.Refresh");
     private final JMenuItem itemInsertFavorite =
             new JMenuItem(DISPLAY_NAME_ACTION_INSERT_FAVORITE);
     private final JMenuItem itemUpdateFavorite =

@@ -46,7 +46,7 @@ public final class TreeModelFavorites extends DefaultTreeModel
 
     public TreeModelFavorites(JTree tree) {
         super(new DefaultMutableTreeNode(
-                Bundle.getString("TreeModelFavoriteDirectories.Root.DisplayName")));
+                Bundle.getString("TreeModelFavorites.Root.DisplayName")));
         this.tree = tree;
         rootNode = (DefaultMutableTreeNode) getRoot();
         tree.addTreeWillExpandListener(this);
@@ -64,7 +64,7 @@ public final class TreeModelFavorites extends DefaultTreeModel
             } else {
                 errorMessage(favoriteDirectory.getFavoriteName(), Bundle.
                         getString(
-                        "TreeModelFavoriteDirectories.ErrorMessage.ParamInsert"));
+                        "TreeModelFavorites.ErrorMessage.ParamInsert"));
             }
         }
     }
@@ -90,7 +90,7 @@ public final class TreeModelFavorites extends DefaultTreeModel
             } else {
                 errorMessage(favoriteDirctory.getFavoriteName(), Bundle.
                         getString(
-                        "TreeModelFavoriteDirectories.ErrorMessage.ParamDelete"));
+                        "TreeModelFavorites.ErrorMessage.ParamDelete"));
             }
         }
     }
@@ -107,7 +107,7 @@ public final class TreeModelFavorites extends DefaultTreeModel
                 nodeChanged(oldNode);
             } else {
                 errorMessage(oldFavorite.getFavoriteName(), Bundle.getString(
-                        "TreeModelFavoriteDirectories.ErrorMessage.ParamUpdate"));
+                        "TreeModelFavorites.ErrorMessage.ParamUpdate"));
             }
         }
     }
@@ -177,7 +177,7 @@ public final class TreeModelFavorites extends DefaultTreeModel
             } else {
                 AppLog.logWarning(TreeModelFavorites.class,
                         Bundle.getString(
-                        "TreeModelFavoriteDirectories.ErrorMessage.DbDirectoryDoesNotExist",
+                        "TreeModelFavorites.ErrorMessage.DbDirectoryDoesNotExist",
                         directory.getDirectoryName()));
                 db.deleteFavoriteDirectory(directory.getFavoriteName());
             }
@@ -312,10 +312,10 @@ public final class TreeModelFavorites extends DefaultTreeModel
         JOptionPane.showMessageDialog(
                 null,
                 Bundle.getString(
-                "TreeModelFavoriteDirectories.ErrorMessage.Template",
+                "TreeModelFavorites.ErrorMessage.Template",
                 favoriteName, cause),
                 Bundle.getString(
-                "TreeModelFavoriteDirectories.ErrorMessage.Template.Title"),
+                "TreeModelFavorites.ErrorMessage.Template.Title"),
                 JOptionPane.ERROR_MESSAGE);
     }
 

@@ -65,7 +65,7 @@ public final class FilenameFormatDate extends FilenameFormat {
     
     @Override
     public String toString() {
-        return Bundle.getString("DateFilenameFormat.String");
+        return Bundle.getString("FilenameFormatDate.String");
     }
 
     private FilenameFormatDate() {}

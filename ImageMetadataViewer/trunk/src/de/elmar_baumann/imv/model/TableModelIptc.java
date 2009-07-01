@@ -66,8 +66,8 @@ public final class TableModelIptc extends DefaultTableModel {
     }
 
     private void addColumnHeaders() {
-        addColumn(Bundle.getString("IptcTableModel.HeaderColumn.1"));
-        addColumn(Bundle.getString("IptcTableModel.HeaderColumn.2"));
-        addColumn(Bundle.getString("IptcTableModel.HeaderColumn.3"));
+        addColumn(Bundle.getString("TableModelIptc.HeaderColumn.1"));
+        addColumn(Bundle.getString("TableModelIptc.HeaderColumn.2"));
+        addColumn(Bundle.getString("TableModelIptc.HeaderColumn.3"));
     }
 }

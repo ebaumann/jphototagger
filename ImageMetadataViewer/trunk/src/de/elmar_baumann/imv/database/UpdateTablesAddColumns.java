@@ -56,7 +56,7 @@ final class UpdateTablesAddColumns {
 
     private void addColumns(Connection connection) throws SQLException {
         dialog.setIndeterminate(true);
-        messages.message(Bundle.getString("UpdateTablesAddNewColumns.InformationMessage.update"));
+        messages.message(Bundle.getString("UpdateTablesAddColumns.InformationMessage.update"));
         for (ColumnInfo info : missingColumns) {
             addColumn(connection, info);
         }
@@ -74,7 +74,7 @@ final class UpdateTablesAddColumns {
     }
 
     private void setMessage(String tableName, String columnName) {
-        messages.message(Bundle.getString("UpdateTablesAddNewColumns.InformationMessage.AddColumns",
+        messages.message(Bundle.getString("UpdateTablesAddColumns.InformationMessage.AddColumns",
                 tableName, columnName));
     }
 }

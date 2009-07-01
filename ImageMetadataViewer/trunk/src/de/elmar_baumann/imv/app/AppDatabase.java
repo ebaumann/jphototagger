@@ -19,7 +19,7 @@ public final class AppDatabase {
     private static void informationMessageInitDatabase() {
         SplashScreen.setMessageToSplashScreen(
                 Bundle.getString(
-                "Main.Init.InformationMessage.SplashScreen.ConnectToDatabase"));
+                "AppDatabase.InformationMessage.SplashScreen.ConnectToDatabase"));
     }
 
     private AppDatabase() {

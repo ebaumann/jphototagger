@@ -72,7 +72,7 @@ public final class InsertImageFilesIntoDatabaseArray implements ProgressListener
 
     private void logUpdateDirectory(String directoryName) {
         AppLog.logInfo(InsertImageFilesIntoDatabaseArray.class, Bundle.getString(
-                "ImageMetadataToDatabaseArray.InformationMessage.StartScanDirectory",
+                "InsertImageFilesIntoDatabaseArray.InformationMessage.StartScanDirectory",
                 directoryName));
     }
 
@@ -258,14 +258,14 @@ public final class InsertImageFilesIntoDatabaseArray implements ProgressListener
             InsertImageFilesIntoDatabase scanner) {
         AppLog.logFinest(InsertImageFilesIntoDatabaseArray.class, Bundle.
                 getString(
-                "ImageMetadataToDatabaseArray.InformationMessage.UpdateMetadataFinished",
+                "InsertImageFilesIntoDatabaseArray.InformationMessage.UpdateMetadataFinished",
                 getDirectoryNameOfInserter(scanner)));
     }
 
     private void informationMessageUpdateCurrentImage(String filename) {
         AppLog.logFinest(InsertImageFilesIntoDatabaseArray.class, Bundle.
                 getString(
-                "ImageMetadataToDatabaseArray.InformationMessage.CheckImageForModifications",
+                "InsertImageFilesIntoDatabaseArray.InformationMessage.CheckImageForModifications",
                 filename));
     }
 

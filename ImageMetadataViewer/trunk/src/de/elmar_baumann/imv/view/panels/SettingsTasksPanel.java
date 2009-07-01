@@ -121,10 +121,10 @@ public final class SettingsTasksPanel extends javax.swing.JPanel
         JOptionPane.showMessageDialog(
                 this,
                 Bundle.getString(
-                "UserSettingsDialog.ErrorMessage.InsertAutoscanDirectory",
+                "SettingsTasksPanel.ErrorMessage.InsertAutoscanDirectory",
                 directoryName),
                 Bundle.getString(
-                "UserSettingsDialog.ErrorMessage.InsertAutoscanDirectory.Title"),
+                "SettingsTasksPanel.ErrorMessage.InsertAutoscanDirectory.Title"),
                 JOptionPane.ERROR_MESSAGE);
     }
 
@@ -132,10 +132,10 @@ public final class SettingsTasksPanel extends javax.swing.JPanel
         JOptionPane.showMessageDialog(
                 this,
                 Bundle.getString(
-                "UserSettingsDialog.ErrorMessage.DeleteAutoscanDirectory",
+                "SettingsTasksPanel.ErrorMessage.DeleteAutoscanDirectory",
                 directoryName),
                 Bundle.getString(
-                "UserSettingsDialog.ErrorMessage.DeleteAutoscanDirectory.Title"),
+                "SettingsTasksPanel.ErrorMessage.DeleteAutoscanDirectory.Title"),
                 JOptionPane.ERROR_MESSAGE);
     }
 

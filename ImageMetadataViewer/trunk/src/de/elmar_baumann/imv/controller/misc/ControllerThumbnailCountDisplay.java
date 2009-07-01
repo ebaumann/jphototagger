@@ -69,7 +69,7 @@ public final class ControllerThumbnailCountDisplay
             @Override
             public void run() {
                 label.setText(Bundle.getString(
-                        "ControllerThumbnailCount.InformationMessage",
+                        "ControllerThumbnailCountDisplay.InformationMessage",
                         thumbnailCount, thumbnailZoom));
             }
         });

@@ -23,7 +23,7 @@ public final class InfoSettingThumbnails {
         progressBar = (JProgressBar) progressBarProvider.getResource(this);
         if (progressBar != null) {
             progressBar.setStringPainted(true);
-            progressBar.setString(Bundle.getString("InfoSetThumbnails.Text"));
+            progressBar.setString(Bundle.getString("InfoSettingThumbnails.Text"));
             progressBar.setIndeterminate(true);
         }
     }

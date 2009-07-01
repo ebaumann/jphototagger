@@ -296,7 +296,7 @@ public final class InsertImageFilesIntoDatabase implements Runnable {
 
     private void errorMessageNullThumbnail(String filename) {
         AppLog.logWarning(InsertImageFilesIntoDatabase.class, Bundle.getString(
-                "ImageMetadataToDatabase.ErrorMessage.NullThumbnail",
+                "InsertImageFilesIntoDatabase.ErrorMessage.NullThumbnail",
                 filename));
     }
 
@@ -318,7 +318,7 @@ public final class InsertImageFilesIntoDatabase implements Runnable {
         for (ProgressListener listener : progressListeners) {
             listener.progressEnded(getProgressEvent(filenames.size(), Bundle.
                     getString(
-                    "ImageMetadataToDatabase.InformationMessage.ProgressEnded"))); // NOI18N
+                    "InsertImageFilesIntoDatabase.InformationMessage.ProgressEnded"))); // NOI18N
         }
     }
 
@@ -338,7 +338,7 @@ public final class InsertImageFilesIntoDatabase implements Runnable {
 
     private void logCheckForUpdate(String filename) {
         AppLog.logFinest(InsertImageFilesIntoDatabase.class, Bundle.getString(
-                "ImageMetadataToDatabase.InformationMessage.CheckForUpdate",
+                "InsertImageFilesIntoDatabase.InformationMessage.CheckForUpdate",
                 filename));
     }
 
@@ -347,21 +347,21 @@ public final class InsertImageFilesIntoDatabase implements Runnable {
             data.getFile().getAbsolutePath(),
             data.getExif() == null
             ? Bundle.getString(
-            "ImageMetadataToDatabase.InformationMessage.StartInsert.No")
+            "InsertImageFilesIntoDatabase.InformationMessage.StartInsert.No")
             : Bundle.getString(
-            "ImageMetadataToDatabase.InformationMessage.StartInsert.Yes"),
+            "InsertImageFilesIntoDatabase.InformationMessage.StartInsert.Yes"),
             data.getXmp() == null
             ? Bundle.getString(
-            "ImageMetadataToDatabase.InformationMessage.StartInsert.No")
+            "InsertImageFilesIntoDatabase.InformationMessage.StartInsert.No")
             : Bundle.getString(
-            "ImageMetadataToDatabase.InformationMessage.StartInsert.Yes"),
+            "InsertImageFilesIntoDatabase.InformationMessage.StartInsert.Yes"),
             data.getThumbnail() == null
             ? Bundle.getString(
-            "ImageMetadataToDatabase.InformationMessage.StartInsert.No")
+            "InsertImageFilesIntoDatabase.InformationMessage.StartInsert.No")
             : Bundle.getString(
-            "ImageMetadataToDatabase.InformationMessage.StartInsert.Yes")};
+            "InsertImageFilesIntoDatabase.InformationMessage.StartInsert.Yes")};
         AppLog.logInfo(InsertImageFilesIntoDatabase.class, Bundle.getString(
-                "ImageMetadataToDatabase.InformationMessage.StartInsert",
+                "InsertImageFilesIntoDatabase.InformationMessage.StartInsert",
                 params));
     }
 }
