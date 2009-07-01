@@ -1,5 +1,6 @@
 package de.elmar_baumann.lib.componentutil;
 
+import de.elmar_baumann.lib.io.FileUtil;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.util.ArrayList;
@@ -11,6 +12,7 @@ import java.util.StringTokenizer;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeModel;
+import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 
 /**
@@ -250,6 +252,34 @@ public final class TreeUtil {
                 addNodesUserWithObject(foundNodes, child, userObject, maxCount); // recursive
             }
         }
+    }
+
+    /**
+     * Searches the child of a node which user object is a specific file.
+     *
+     * <em>All children have to be DefaultMutableTreeNode instances!</em>
+     *
+     * @param  parentNode parent node
+     * @param  file       file to find
+     * @return            the first matching child node containing that file
+     */
+    public static DefaultMutableTreeNode findChildNodeWithFile(
+            DefaultMutableTreeNode parentNode, File file) {
+        int childCount = parentNode.getChildCount();
+        for (int i = 0; i < childCount; i++) {
+            TreeNode childNode = parentNode.getChildAt(i);
+            if (childNode instanceof DefaultMutableTreeNode) {
+                DefaultMutableTreeNode node = (DefaultMutableTreeNode) childNode;
+                Object userObject = node.getUserObject();
+                if (userObject instanceof File) {
+                    File f = (File) userObject;
+                    if (f.equals(file)) {
+                        return node;
+                    }
+                }
+            }
+        }
+        return null;
     }
 
     private TreeUtil() {
