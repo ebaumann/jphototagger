@@ -1,6 +1,8 @@
 package de.elmar_baumann.lib.model;
 
 import de.elmar_baumann.lib.comparator.ComparatorFilesNames;
+import de.elmar_baumann.lib.componentutil.TreeUtil;
+import de.elmar_baumann.lib.io.FileUtil;
 import de.elmar_baumann.lib.io.filefilter.DirectoryFilter;
 import java.awt.Cursor;
 import java.io.File;
@@ -10,12 +12,14 @@ import java.util.Collections;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Set;
+import java.util.Stack;
 import javax.swing.JTree;
 import javax.swing.event.TreeExpansionEvent;
 import javax.swing.event.TreeWillExpandListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.ExpandVetoException;
+import javax.swing.tree.TreePath;
 
 /**
  * Tree model for all directories of a file system. All nodes have the type
@@ -111,6 +115,22 @@ public final class TreeModelAllSystemDirectories extends DefaultTreeModel
             removeNodeFromParent(childNodeToRemove);
         }
         return nodesToRemove.size();
+    }
+
+    public void expandToFile(File file) {
+        Stack<File> filePath = FileUtil.getPathFromRoot(file);
+        DefaultMutableTreeNode node = rootNode;
+        while (node != null && !filePath.isEmpty()) {
+            node = TreeUtil.findChildNodeWithFile(
+                    node, filePath.pop());
+            if (node != null && node.getChildCount() <= 0) {
+                addChildren(node);
+            }
+        }
+        if (node != null) {
+            tree.expandPath(new TreePath(((DefaultMutableTreeNode) node.
+                    getParent()).getPath()));
+        }
     }
 
     /**
