@@ -3,7 +3,7 @@ package de.elmar_baumann.imv.io;
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.app.AppFileFilter;
 import de.elmar_baumann.imv.database.DatabaseFileExcludePattern;
-import de.elmar_baumann.lib.io.DirectoryFilter;
+import de.elmar_baumann.lib.io.filefilter.DirectoryFilter;
 import de.elmar_baumann.lib.io.FileUtil;
 import de.elmar_baumann.lib.util.RegexUtil;
 import java.io.File;

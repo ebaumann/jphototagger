@@ -8,7 +8,7 @@ import de.elmar_baumann.imv.view.ViewUtil;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.lib.clipboard.ClipboardUtil;
-import de.elmar_baumann.lib.event.KeyEventUtil;
+import de.elmar_baumann.lib.event.util.KeyEventUtil;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;

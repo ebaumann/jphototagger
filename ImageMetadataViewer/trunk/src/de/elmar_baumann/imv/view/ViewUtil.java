@@ -47,7 +47,7 @@ public class ViewUtil {
      * @return directory or null if no directory is selected
      */
     public static File getSelectedDirectoryFromFavoriteDirectories() {
-        JTree tree = GUI.INSTANCE.getAppPanel().getTreeFavoriteDirectories();
+        JTree tree = GUI.INSTANCE.getAppPanel().getTreeFavorites();
         Object o = tree.getLastSelectedPathComponent();
         if (o instanceof DefaultMutableTreeNode) {
             DefaultMutableTreeNode node = (DefaultMutableTreeNode) o;

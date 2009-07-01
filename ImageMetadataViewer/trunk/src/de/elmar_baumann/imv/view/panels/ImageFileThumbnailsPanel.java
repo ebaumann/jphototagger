@@ -4,11 +4,11 @@ import de.elmar_baumann.imv.types.Content;
 import de.elmar_baumann.imv.controller.thumbnail.ControllerDoubleklickThumbnail;
 import de.elmar_baumann.imv.data.ThumbnailFlag;
 import de.elmar_baumann.imv.database.DatabaseImageFiles;
-import de.elmar_baumann.imv.datatransfer.TransferHandlerThumbnailsPanel;
+import de.elmar_baumann.imv.datatransfer.TransferHandlerPanelThumbnails;
 import de.elmar_baumann.imv.event.listener.RefreshListener;
 import de.elmar_baumann.lib.comparator.FileSort;
 import de.elmar_baumann.imv.types.FileAction;
-import de.elmar_baumann.imv.view.InfoSetThumbnails;
+import de.elmar_baumann.imv.view.InfoSettingThumbnails;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuThumbnails;
 import java.awt.Image;
 import java.awt.Point;
@@ -47,7 +47,7 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel {
         initRefreshListeners();
         controllerDoubleklick = new ControllerDoubleklickThumbnail(this);
         setDragEnabled(true);
-        setTransferHandler(new TransferHandlerThumbnailsPanel());
+        setTransferHandler(new TransferHandlerPanelThumbnails());
     }
 
     private void initRefreshListeners() {
@@ -162,7 +162,7 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel {
 
                 @Override
                 public void run() {
-                    InfoSetThumbnails info = new InfoSetThumbnails();
+                    InfoSettingThumbnails info = new InfoSettingThumbnails();
                     if (!content.equals(Content.IMAGE_COLLECTION)) {
                         Collections.sort(files, fileSort.getComparator());
                     }

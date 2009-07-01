@@ -41,7 +41,7 @@ public final class ControllerFavoritesDeleteFilesystemFolder implements ActionLi
         if (dir != null) {
             if (FileSystemDirectories.delete(dir)) {
                 FileSystemDirectories.removeFromTreeModel(
-                        GUI.INSTANCE.getAppPanel().getTreeFavoriteDirectories().
+                        GUI.INSTANCE.getAppPanel().getTreeFavorites().
                         getModel(), node);
             }
         }

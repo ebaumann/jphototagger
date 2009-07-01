@@ -16,7 +16,7 @@ import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.lib.dialog.Dialog;
 import de.elmar_baumann.lib.dialog.DirectoryChooser;
 import de.elmar_baumann.lib.io.FileUtil;
-import de.elmar_baumann.lib.template.Pair;
+import de.elmar_baumann.lib.generics.Pair;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;

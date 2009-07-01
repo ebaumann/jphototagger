@@ -8,7 +8,7 @@ public enum Content {
     CATEGORY,
     DIRECTORY,
     FAST_SEARCH,
-    FAVORITE_DIRECTORY,
+    FAVORITE,
     IMAGE_COLLECTION,
     KEYWORD,
     TIMELINE,

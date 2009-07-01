@@ -20,7 +20,7 @@ public final class ListModelPrograms extends DefaultListModel {
 
     public ListModelPrograms(boolean action) {
         this.action = action;
-        addItems();
+        addElements();
     }
 
     public void add(Program program) {
@@ -58,7 +58,7 @@ public final class ListModelPrograms extends DefaultListModel {
                 JOptionPane.ERROR_MESSAGE);
     }
 
-    private void addItems() {
+    private void addElements() {
         List<Program> programs = DatabasePrograms.INSTANCE.getAll(action);
         for (Program program : programs) {
             addElement(program);

@@ -15,10 +15,10 @@ import javax.swing.DefaultListModel;
 public final class ListModelAutoscanDirectories extends DefaultListModel {
 
     public ListModelAutoscanDirectories() {
-        addItems();
+        addElements();
     }
 
-    private void addItems() {
+    private void addElements() {
         List<String> directoryNames = DatabaseAutoscanDirectories.INSTANCE.getAutoscanDirectories();
         for (String directoryName : directoryNames) {
             File directory = new File(directoryName);

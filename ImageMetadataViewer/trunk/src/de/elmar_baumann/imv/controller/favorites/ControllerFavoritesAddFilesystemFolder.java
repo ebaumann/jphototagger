@@ -43,7 +43,7 @@ public final class ControllerFavoritesAddFilesystemFolder implements
             File newDir = FileSystemDirectories.createSubDirectory(dir);
             if (newDir != null) {
                 FileSystemDirectories.insertIntoTreeModel(
-                        GUI.INSTANCE.getAppPanel().getTreeFavoriteDirectories().
+                        GUI.INSTANCE.getAppPanel().getTreeFavorites().
                         getModel(), node, newDir);
             }
         }

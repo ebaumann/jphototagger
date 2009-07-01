@@ -44,7 +44,7 @@ public final class ControllerFavoritesRenameFilesystemFolder implements
             if (newDir != null) {
                 node.setUserObject(newDir);
                 FileSystemDirectories.updateInTreeModel(
-                        GUI.INSTANCE.getAppPanel().getTreeFavoriteDirectories().
+                        GUI.INSTANCE.getAppPanel().getTreeFavorites().
                         getModel(), node);
             }
         }

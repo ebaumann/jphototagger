@@ -1,7 +1,7 @@
 package de.elmar_baumann.imv.controller.favorites;
 
 import de.elmar_baumann.imv.data.FavoriteDirectory;
-import de.elmar_baumann.imv.model.TreeModelFavoriteDirectories;
+import de.elmar_baumann.imv.model.TreeModelFavorites;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.AppPanel;
@@ -44,9 +44,9 @@ public final class ControllerDeleteFavorite implements ActionListener {
 
                 @Override
                 public void run() {
-                    TreeModelFavoriteDirectories model =
-                            (TreeModelFavoriteDirectories) appPanel.
-                            getTreeFavoriteDirectories().
+                    TreeModelFavorites model =
+                            (TreeModelFavorites) appPanel.
+                            getTreeFavorites().
                             getModel();
                     model.deleteFavorite(favoriteDirectory);
                 }

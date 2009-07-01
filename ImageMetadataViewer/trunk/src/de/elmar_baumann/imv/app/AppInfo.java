@@ -1,7 +1,7 @@
 package de.elmar_baumann.imv.app;
 
 import de.elmar_baumann.imv.resource.Bundle;
-import de.elmar_baumann.lib.clipboard.lang.Version;
+import de.elmar_baumann.lib.util.Version;
 
 /**
  * Informations about this application.

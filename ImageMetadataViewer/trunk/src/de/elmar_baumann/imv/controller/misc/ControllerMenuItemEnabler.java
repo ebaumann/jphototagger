@@ -51,7 +51,7 @@ public final class ControllerMenuItemEnabler
 
         contents = new ArrayList<Content>();
         contents.add(Content.DIRECTORY);
-        contents.add(Content.FAVORITE_DIRECTORY);
+        contents.add(Content.FAVORITE);
         contentsOfMenuItemRequiresSelectedImages.put(popupThumbnails.getItemFileSystemMoveFiles(), contents);
 
         contents = new ArrayList<Content>();

@@ -3,7 +3,7 @@ package de.elmar_baumann.imv.image.metadata.exif.format;
 import de.elmar_baumann.imv.image.metadata.exif.datatype.ExifRational;
 import de.elmar_baumann.imv.image.metadata.exif.ExifTag;
 import de.elmar_baumann.imv.image.metadata.exif.IdfEntryProxy;
-import de.elmar_baumann.lib.template.Pair;
+import de.elmar_baumann.lib.generics.Pair;
 
 /**
  * Formats an EXIF entry of the type {@link ExifTag#EXPOSURE_TIME}.

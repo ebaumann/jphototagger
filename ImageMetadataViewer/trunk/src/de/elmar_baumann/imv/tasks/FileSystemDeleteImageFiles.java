@@ -5,7 +5,7 @@ import de.elmar_baumann.imv.controller.filesystem.ControllerDeleteFiles;
 import de.elmar_baumann.imv.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.types.DeleteOption;
-import de.elmar_baumann.lib.template.Pair;
+import de.elmar_baumann.lib.generics.Pair;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.EnumSet;

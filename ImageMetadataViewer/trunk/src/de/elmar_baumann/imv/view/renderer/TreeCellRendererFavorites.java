@@ -16,7 +16,7 @@ import javax.swing.tree.DefaultTreeCellRenderer;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009/06/12
  */
-public final class TreeCellRendererFavoriteDirectories extends DefaultTreeCellRenderer {
+public final class TreeCellRendererFavorites extends DefaultTreeCellRenderer {
 
     private final FileSystemView fileSystemView = FileSystemView.
             getFileSystemView();
@@ -55,7 +55,7 @@ public final class TreeCellRendererFavoriteDirectories extends DefaultTreeCellRe
                         setIcon(fileSystemView.getSystemIcon(file));
                     } catch (Exception ex) {
                         AppLog.logWarning(
-                                TreeCellRendererFavoriteDirectories.class, ex);
+                                TreeCellRendererFavorites.class, ex);
                     }
                 }
             }

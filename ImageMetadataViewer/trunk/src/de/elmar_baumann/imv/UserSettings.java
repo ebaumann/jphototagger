@@ -8,9 +8,8 @@ import de.elmar_baumann.imv.database.metadata.ColumnUtil;
 import de.elmar_baumann.imv.database.metadata.selections.EditColumns;
 import de.elmar_baumann.imv.event.UserSettingsChangeEvent;
 import de.elmar_baumann.imv.event.listener.UserSettingsChangeListener;
-import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.dialog.DirectoryChooser;
-import de.elmar_baumann.lib.io.DirectoryFilter;
+import de.elmar_baumann.lib.io.filefilter.DirectoryFilter;
 import de.elmar_baumann.lib.resource.Resources;
 import de.elmar_baumann.lib.util.ArrayUtil;
 import de.elmar_baumann.lib.util.PropertiesFile;
@@ -89,7 +88,6 @@ public final class UserSettings implements UserSettingsChangeListener {
     private final PropertiesFile propertiesToFile = new PropertiesFile(
             DOMAIN_NAME, AppInfo.getProjectName(), PROPERTIES_FILENAME,
             properties);
-    private boolean isWrittenToFile = false;
     public static final UserSettings INSTANCE = new UserSettings();
 
     private UserSettings() {
@@ -181,7 +179,6 @@ public final class UserSettings implements UserSettingsChangeListener {
      */
     public void writeToFile() {
         propertiesToFile.writeToFile();
-        isWrittenToFile = true;
     }
 
     /**
@@ -647,6 +644,7 @@ public final class UserSettings implements UserSettingsChangeListener {
             settings.setBoolean(true,
                     KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_IF_IMAGE_HAS_XMP);
         }
+        writeToFile();
     }
 
     private void writeToPropertiesCreateThumbnailsWithExternalApp(boolean create) {
@@ -678,14 +676,5 @@ public final class UserSettings implements UserSettingsChangeListener {
             buffer.append(column.getKey() + DELIMITER_COLUMNS);
         }
         return buffer.toString();
-    }
-
-    @Override
-    public void finalize() {
-        if (!isWrittenToFile) {
-            writeToFile();
-            AppLog.logWarning(UserSettings.class, Bundle.getString(
-                    "UserSettings.ErrorMessage.NotWrittenPersistent"));
-        }
     }
 }

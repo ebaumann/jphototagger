@@ -9,7 +9,7 @@ import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.types.Persistence;
 import de.elmar_baumann.imv.view.dialogs.ProgramPropertiesDialog;
 import de.elmar_baumann.imv.view.renderer.ListCellRendererPrograms;
-import de.elmar_baumann.lib.image.icon.IconUtil;
+import de.elmar_baumann.lib.image.util.IconUtil;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.awt.event.MouseEvent;
 import java.io.File;

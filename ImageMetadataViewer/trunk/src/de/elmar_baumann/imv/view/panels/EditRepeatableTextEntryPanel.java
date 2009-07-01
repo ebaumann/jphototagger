@@ -7,7 +7,7 @@ import de.elmar_baumann.imv.database.metadata.Column;
 import de.elmar_baumann.imv.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.view.renderer.ListCellRendererKeywordsEdit;
-import de.elmar_baumann.lib.component.InputVerifierMaxLength;
+import de.elmar_baumann.lib.componentutil.InputVerifierMaxLength;
 import de.elmar_baumann.lib.componentutil.ComponentUtil;
 import de.elmar_baumann.lib.componentutil.ListUtil;
 import java.awt.event.ActionEvent;

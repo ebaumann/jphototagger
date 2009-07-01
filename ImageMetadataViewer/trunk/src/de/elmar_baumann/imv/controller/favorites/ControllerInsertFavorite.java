@@ -1,7 +1,7 @@
 package de.elmar_baumann.imv.controller.favorites;
 
 import de.elmar_baumann.imv.data.FavoriteDirectory;
-import de.elmar_baumann.imv.model.TreeModelFavoriteDirectories;
+import de.elmar_baumann.imv.model.TreeModelFavorites;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.dialogs.FavoriteDirectoryPropertiesDialog;
 import de.elmar_baumann.imv.view.panels.AppPanel;
@@ -62,9 +62,9 @@ public final class ControllerInsertFavorite implements ActionListener {
                 }
                 dialog.setVisible(true);
                 if (dialog.accepted()) {
-                    TreeModelFavoriteDirectories model =
-                            (TreeModelFavoriteDirectories) appPanel.
-                            getTreeFavoriteDirectories().
+                    TreeModelFavorites model =
+                            (TreeModelFavorites) appPanel.
+                            getTreeFavorites().
                             getModel();
                     model.insertFavorite(new FavoriteDirectory(
                             dialog.getFavoriteName(), dialog.getDirectoryName(),

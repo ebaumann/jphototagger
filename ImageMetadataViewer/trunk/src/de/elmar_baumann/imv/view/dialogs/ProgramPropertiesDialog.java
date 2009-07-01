@@ -6,7 +6,7 @@ import de.elmar_baumann.imv.data.Program;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.component.TabLeavingTextArea;
 import de.elmar_baumann.lib.dialog.Dialog;
-import de.elmar_baumann.lib.image.icon.IconUtil;
+import de.elmar_baumann.lib.image.util.IconUtil;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import javax.swing.JFileChooser;

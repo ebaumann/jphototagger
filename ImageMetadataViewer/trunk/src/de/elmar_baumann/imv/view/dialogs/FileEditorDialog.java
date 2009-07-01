@@ -60,12 +60,12 @@ public class FileEditorDialog extends Dialog {
     }
 
     private void readProperties() {
-        panelFileEditor.readPersistent();
+        panelFileEditor.readProperties();
         UserSettings.INSTANCE.getSettings().getSizeAndLocation(this);
     }
 
     private void writeProperties() {
-        panelFileEditor.writePersistent();
+        panelFileEditor.writeProperties();
         UserSettings.INSTANCE.getSettings().setSizeAndLocation(this);
     }
 

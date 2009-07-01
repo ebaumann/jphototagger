@@ -27,7 +27,7 @@ public final class MouseListenerFactory {
             appPanel.getTreeDirectories().addMouseListener(new MouseListenerDirectories());
             appPanel.getListSavedSearches().addMouseListener(new MouseListenerSavedSearches());
             appPanel.getListImageCollections().addMouseListener(new MouseListenerImageCollections());
-            appPanel.getTreeFavoriteDirectories().addMouseListener(new MouseListenerFavorites());
+            appPanel.getTreeFavorites().addMouseListener(new MouseListenerFavorites());
             appPanel.getProgressBarScheduledTasks().addMouseListener(new MouseListenerProgressBarScheduledTasks());
         }
     }

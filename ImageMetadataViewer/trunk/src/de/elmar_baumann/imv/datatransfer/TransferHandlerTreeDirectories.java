@@ -27,7 +27,7 @@ import javax.swing.tree.TreePath;
 public final class TransferHandlerTreeDirectories extends TransferHandler {
 
     static final String filenamesDelimiter =
-            TransferHandlerThumbnailsPanel.delimiter;
+            TransferHandlerPanelThumbnails.delimiter;
 
     @Override
     public boolean canImport(TransferSupport transferSupport) {

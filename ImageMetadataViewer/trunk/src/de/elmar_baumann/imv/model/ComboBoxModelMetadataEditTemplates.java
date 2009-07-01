@@ -21,7 +21,7 @@ public final class ComboBoxModelMetadataEditTemplates extends DefaultComboBoxMod
     private final DatabaseMetadataEditTemplates db = DatabaseMetadataEditTemplates.INSTANCE;
 
     public ComboBoxModelMetadataEditTemplates() {
-        addColumns();
+        addElements();
     }
 
     /**
@@ -91,7 +91,7 @@ public final class ComboBoxModelMetadataEditTemplates extends DefaultComboBoxMod
         }
     }
 
-    private void addColumns() {
+    private void addElements() {
         List<MetadataEditTemplate> templates = db.getMetadataEditTemplates();
         for (MetadataEditTemplate template : templates) {
             addElement(template);

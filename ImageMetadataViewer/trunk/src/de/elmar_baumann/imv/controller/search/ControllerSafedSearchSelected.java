@@ -7,7 +7,7 @@ import de.elmar_baumann.imv.event.listener.RefreshListener;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.types.Content;
-import de.elmar_baumann.imv.view.InfoSetThumbnails;
+import de.elmar_baumann.imv.view.InfoSettingThumbnails;
 import de.elmar_baumann.imv.view.panels.EditMetadataPanelsArray;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.lib.io.FileUtil;
@@ -67,7 +67,7 @@ public final class ControllerSafedSearchSelected
         public void run() {
             Object selectedValue = list.getSelectedValue();
             if (selectedValue != null) {
-                InfoSetThumbnails info = new InfoSetThumbnails();
+                InfoSettingThumbnails info = new InfoSettingThumbnails();
                 searchSelectedValue(selectedValue);
                 info.hide();
                 setMetadataEditable();

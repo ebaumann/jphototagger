@@ -8,7 +8,7 @@ import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.view.dialogs.ProgramInputParametersDialog;
 import de.elmar_baumann.lib.io.FileUtil;
 import de.elmar_baumann.lib.runtime.External;
-import de.elmar_baumann.lib.template.Pair;
+import de.elmar_baumann.lib.generics.Pair;
 import java.io.File;
 import java.util.EnumSet;
 import java.util.List;

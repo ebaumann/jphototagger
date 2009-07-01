@@ -7,9 +7,9 @@ import de.elmar_baumann.imv.tasks.FileEditor;
 import de.elmar_baumann.imv.view.dialogs.ShowFilesDialog;
 import de.elmar_baumann.lib.dialog.DirectoryChooser;
 import de.elmar_baumann.lib.dialog.DirectoryChooser.Option;
-import de.elmar_baumann.lib.io.DirectoryFilter;
+import de.elmar_baumann.lib.io.filefilter.DirectoryFilter;
 import de.elmar_baumann.lib.io.FileUtil;
-import de.elmar_baumann.lib.io.RegexFileFilter;
+import de.elmar_baumann.lib.io.filefilter.RegexFileFilter;
 import de.elmar_baumann.lib.util.SettingsHints;
 import java.io.File;
 import java.util.ArrayList;
@@ -403,14 +403,14 @@ public final class FileEditorPanel extends javax.swing.JPanel {
                 "FileEditorPanel.LabelInfo.SelectFiles.Text"));
     }
 
-    public void readPersistent() {
+    public void readProperties() {
         prevSelectedDirectory = new File(UserSettings.INSTANCE.getSettings().
                 getString(KEY_DIRECTORY_NAME));
         UserSettings.INSTANCE.getSettings().getComponent(this,
                 new SettingsHints(EnumSet.of(SettingsHints.Option.NONE)));
     }
 
-    public void writePersistent() {
+    public void writeProperties() {
         UserSettings.INSTANCE.getSettings().setString(prevSelectedDirectory.
                 getAbsolutePath(), KEY_DIRECTORY_NAME);
         UserSettings.INSTANCE.getSettings().setComponent(this,

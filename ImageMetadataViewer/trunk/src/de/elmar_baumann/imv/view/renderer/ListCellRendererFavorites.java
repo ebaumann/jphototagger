@@ -13,7 +13,7 @@ import javax.swing.JList;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/23
  */
-public final class ListCellRendererFavoriteDirectories extends DefaultListCellRenderer {
+public final class ListCellRendererFavorites extends DefaultListCellRenderer {
 
     private static final Icon icon = AppIcons.getIcon("icon_favorite.png"); // NOI18N
 

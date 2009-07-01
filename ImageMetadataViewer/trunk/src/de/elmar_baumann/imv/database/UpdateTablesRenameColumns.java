@@ -2,7 +2,7 @@ package de.elmar_baumann.imv.database;
 
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.dialog.ProgressDialog;
-import de.elmar_baumann.lib.template.Pair;
+import de.elmar_baumann.lib.generics.Pair;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;

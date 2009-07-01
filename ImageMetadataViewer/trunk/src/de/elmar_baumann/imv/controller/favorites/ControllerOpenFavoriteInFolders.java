@@ -37,7 +37,7 @@ public final class ControllerOpenFavoriteInFolders implements
             appPanel.getTabSelectionDirectories();
     private final JTree treeDirectories = appPanel.getTreeDirectories();
     private final JTree treeFavoriteDirectories =
-            appPanel.getTreeFavoriteDirectories();
+            appPanel.getTreeFavorites();
 
     public ControllerOpenFavoriteInFolders() {
         listen();

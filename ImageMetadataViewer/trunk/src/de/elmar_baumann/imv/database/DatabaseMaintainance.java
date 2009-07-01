@@ -8,7 +8,7 @@ import de.elmar_baumann.imv.event.listener.ProgressListener;
 import de.elmar_baumann.imv.image.thumbnail.ThumbnailUtil;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.types.SubstringPosition;
-import de.elmar_baumann.lib.io.RegexFileFilter;
+import de.elmar_baumann.lib.io.filefilter.RegexFileFilter;
 import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

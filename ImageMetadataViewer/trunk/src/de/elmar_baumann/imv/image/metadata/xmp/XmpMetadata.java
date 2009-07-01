@@ -22,7 +22,7 @@ import de.elmar_baumann.imv.database.metadata.selections.EditColumns;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.image.metadata.xmp.XmpFileReader;
 import de.elmar_baumann.lib.io.FileUtil;
-import de.elmar_baumann.lib.template.Pair;
+import de.elmar_baumann.lib.generics.Pair;
 import de.elmar_baumann.lib.util.ArrayUtil;
 import java.io.File;
 import java.io.FileOutputStream;

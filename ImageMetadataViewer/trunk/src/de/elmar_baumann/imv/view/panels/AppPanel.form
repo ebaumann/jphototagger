@@ -101,7 +101,7 @@
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="scrollPaneDirectories" alignment="0" pref="94" max="32767" attributes="0"/>
+                          <Component id="scrollPaneDirectories" alignment="0" pref="101" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                   </Layout>
@@ -154,7 +154,7 @@
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="scrollPaneSavedSearches" alignment="0" pref="94" max="32767" attributes="0"/>
+                          <Component id="scrollPaneSavedSearches" alignment="0" pref="101" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                   </Layout>
@@ -201,7 +201,7 @@
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="scrollPaneImageCollections" alignment="0" pref="94" max="32767" attributes="0"/>
+                          <Component id="scrollPaneImageCollections" alignment="0" pref="101" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                   </Layout>
@@ -252,7 +252,7 @@
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="scrollPaneCategories" alignment="0" pref="94" max="32767" attributes="0"/>
+                          <Component id="scrollPaneCategories" alignment="0" pref="101" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                   </Layout>
@@ -280,12 +280,12 @@
                     </Container>
                   </SubComponents>
                 </Container>
-                <Container class="javax.swing.JPanel" name="panelFavoriteDirectories">
+                <Container class="javax.swing.JPanel" name="panelFavorites">
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
                       <JTabbedPaneConstraints tabName="Favoriten-Ordner">
                         <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                          <ResourceString bundle="de/elmar_baumann/imv/resource/properties/Bundle.properties" key="AppPanel.panelFavoriteDirectories.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                          <ResourceString bundle="de/elmar_baumann/imv/resource/properties/Bundle.properties" key="AppPanel.panelFavorites.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                         </Property>
                         <Property name="tabIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                           <Image iconType="3" name="/de/elmar_baumann/imv/resource/icons/icon_favorite.png"/>
@@ -297,30 +297,30 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="scrollPaneFavoriteDirectories" alignment="0" pref="115" max="32767" attributes="0"/>
+                          <Component id="scrollPaneFavorites" alignment="0" pref="115" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="scrollPaneFavoriteDirectories" alignment="0" pref="94" max="32767" attributes="0"/>
+                          <Component id="scrollPaneFavorites" alignment="0" pref="101" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                   </Layout>
                   <SubComponents>
-                    <Container class="javax.swing.JScrollPane" name="scrollPaneFavoriteDirectories">
+                    <Container class="javax.swing.JScrollPane" name="scrollPaneFavorites">
                       <AuxValues>
                         <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
                       </AuxValues>
 
                       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                       <SubComponents>
-                        <Component class="javax.swing.JTree" name="treeFavoriteDirectories">
+                        <Component class="javax.swing.JTree" name="treeFavorites">
                           <Properties>
                             <Property name="model" type="javax.swing.tree.TreeModel" editor="org.netbeans.modules.form.editors2.TreeModelEditor">
                               <TreeModel code=""/>
                             </Property>
                             <Property name="cellRenderer" type="javax.swing.tree.TreeCellRenderer" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                              <Connection code="new TreeCellRendererFavoriteDirectories()" type="code"/>
+                              <Connection code="new de.elmar_baumann.imv.view.renderer.TreeCellRendererFavorites()" type="code"/>
                             </Property>
                             <Property name="rootVisible" type="boolean" value="false"/>
                             <Property name="showsRootHandles" type="boolean" value="true"/>
@@ -355,9 +355,9 @@
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <EmptySpace min="0" pref="94" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="101" max="32767" attributes="0"/>
                           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                              <Component id="scrollPaneKeywords" alignment="0" pref="94" max="32767" attributes="0"/>
+                              <Component id="scrollPaneKeywords" alignment="0" pref="101" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -405,7 +405,7 @@
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="scrollPaneTimeline" alignment="0" pref="94" max="32767" attributes="0"/>
+                          <Component id="scrollPaneTimeline" alignment="0" pref="101" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                   </Layout>
@@ -455,7 +455,7 @@
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="scrollPaneMiscMetadata" alignment="0" pref="94" max="32767" attributes="0"/>
+                          <Component id="scrollPaneMiscMetadata" alignment="0" pref="101" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                   </Layout>
@@ -497,9 +497,9 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="306" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="311" max="32767" attributes="0"/>
                   <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                      <Component id="splitPaneThumbnailsMetadata" alignment="1" pref="306" max="32767" attributes="0"/>
+                      <Component id="splitPaneThumbnailsMetadata" alignment="1" pref="311" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -560,12 +560,12 @@
                           <Layout>
                             <DimensionLayout dim="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <EmptySpace min="0" pref="177" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="176" max="32767" attributes="0"/>
                               </Group>
                             </DimensionLayout>
                             <DimensionLayout dim="1">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <EmptySpace min="0" pref="242" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="241" max="32767" attributes="0"/>
                               </Group>
                             </DimensionLayout>
                           </Layout>
@@ -584,8 +584,8 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="labelMetadataFilename" alignment="0" pref="114" max="32767" attributes="2"/>
-                          <Component id="tabbedPaneMetadata" alignment="0" pref="114" max="32767" attributes="2"/>
+                          <Component id="labelMetadataFilename" alignment="0" pref="124" max="32767" attributes="2"/>
+                          <Component id="tabbedPaneMetadata" alignment="0" pref="124" max="32767" attributes="2"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
@@ -928,12 +928,12 @@
                               <Layout>
                                 <DimensionLayout dim="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="scrollPaneEditMetadata" alignment="0" pref="109" max="32767" attributes="0"/>
+                                      <Component id="scrollPaneEditMetadata" alignment="0" pref="119" max="32767" attributes="0"/>
                                   </Group>
                                 </DimensionLayout>
                                 <DimensionLayout dim="1">
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="scrollPaneEditMetadata" alignment="1" pref="140" max="32767" attributes="0"/>
+                                      <Component id="scrollPaneEditMetadata" alignment="1" pref="160" max="32767" attributes="0"/>
                                   </Group>
                                 </DimensionLayout>
                               </Layout>
@@ -990,13 +990,13 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="buttonSystemOutput" min="-2" pref="64" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="progressBarCreateMetadataOfCurrentThumbnails" pref="56" max="32767" attributes="2"/>
+                          <Component id="progressBarCreateMetadataOfCurrentThumbnails" pref="59" max="32767" attributes="2"/>
                       </Group>
                       <Component id="panelSearch" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="progressBarCurrentTasks" min="0" pref="56" max="32767" attributes="2"/>
+                      <Component id="progressBarCurrentTasks" min="0" pref="59" max="32767" attributes="2"/>
                       <Component id="panelMetadataProgress" alignment="0" max="32767" attributes="2"/>
                   </Group>
               </Group>
@@ -1041,7 +1041,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="labelSearch" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="textFieldSearch" pref="93" max="32767" attributes="2"/>
+                      <Component id="textFieldSearch" pref="112" max="32767" attributes="2"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1077,7 +1077,7 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
-                      <Component id="progressBarScheduledTasks" pref="34" max="32767" attributes="2"/>
+                      <Component id="progressBarScheduledTasks" pref="37" max="32767" attributes="2"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="buttonStopScheduledTasks" min="-2" max="-2" attributes="0"/>
                   </Group>

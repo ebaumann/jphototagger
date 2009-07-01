@@ -14,7 +14,7 @@ import javax.swing.JList;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/24
  */
-public final class TransferHandlerListImageCollections extends TransferHandlerListThumbnails {
+public final class TransferHandlerListImageCollections extends TransferHandlerListsDropThumbnails {
 
     @Override
     protected void handleDroppedThumbnails(int itemIndex, List<String> filenames) {

@@ -34,7 +34,7 @@ public final class TableModelXmp extends DefaultTableModel {
         List<XMPPropertyInfo> propertyInfos) {
         this.filename = filename;
         this.propertyInfos = propertyInfos;
-        removeAllElements();
+        removeAllRows();
         setXmpData();
     }
 
@@ -52,7 +52,7 @@ public final class TableModelXmp extends DefaultTableModel {
     /**
      * Entfernt alle XMP-Daten.
      */
-    public void removeAllElements() {
+    public void removeAllRows() {
         getDataVector().clear();
         filename = null;
     }

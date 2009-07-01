@@ -20,9 +20,10 @@ import javax.swing.TransferHandler;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/24
  */
-public abstract class TransferHandlerListThumbnails extends TransferHandler {
+public abstract class TransferHandlerListsDropThumbnails extends TransferHandler {
 
-    static final String filenamesDelimiter = TransferHandlerThumbnailsPanel.delimiter;
+    static final String filenamesDelimiter =
+            TransferHandlerPanelThumbnails.delimiter;
     static final String itemDelimiter = "\n";
 
     @Override
@@ -33,7 +34,7 @@ public abstract class TransferHandlerListThumbnails extends TransferHandler {
     @Override
     protected Transferable createTransferable(JComponent c) {
         return TransferUtil.getSelectedItemStringsTransferable(
-            (JList) c, itemDelimiter);
+                (JList) c, itemDelimiter);
     }
 
     @Override
@@ -50,13 +51,18 @@ public abstract class TransferHandlerListThumbnails extends TransferHandler {
         String data = null;
         try {
             Transferable transferable = transferSupport.getTransferable();
-            data = (String) transferable.getTransferData(DataFlavor.stringFlavor);
+            data =
+                    (String) transferable.getTransferData(
+                    DataFlavor.stringFlavor);
         } catch (Exception ex) {
-            AppLog.logWarning(TransferHandlerListThumbnails.class, ex);
+            AppLog.logWarning(TransferHandlerListsDropThumbnails.class, ex);
             return false;
         }
-        int listIndex = ((JList.DropLocation) transferSupport.getDropLocation()).getIndex();
-        List<String> filenames = ArrayUtil.stringTokenToList(data, filenamesDelimiter);
+        int listIndex =
+                ((JList.DropLocation) transferSupport.getDropLocation()).
+                getIndex();
+        List<String> filenames = ArrayUtil.stringTokenToList(data,
+                filenamesDelimiter);
         handleDroppedThumbnails(listIndex, filenames);
         return true;
     }
@@ -75,5 +81,5 @@ public abstract class TransferHandlerListThumbnails extends TransferHandler {
      * @param filenames  Filenames of the dropped thumbnails
      */
     protected abstract void handleDroppedThumbnails(
-        int itemIndex, List<String> filenames);
+            int itemIndex, List<String> filenames);
 }

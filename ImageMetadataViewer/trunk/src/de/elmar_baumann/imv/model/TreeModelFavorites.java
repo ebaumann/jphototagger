@@ -5,7 +5,7 @@ import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.data.FavoriteDirectory;
 import de.elmar_baumann.imv.database.DatabaseFavoriteDirectories;
 import de.elmar_baumann.imv.resource.Bundle;
-import de.elmar_baumann.lib.io.DirectoryFilter;
+import de.elmar_baumann.lib.io.filefilter.DirectoryFilter;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.awt.Cursor;
 import java.io.File;
@@ -26,7 +26,7 @@ import javax.swing.tree.ExpandVetoException;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009/06/15
  */
-public final class TreeModelFavoriteDirectories extends DefaultTreeModel
+public final class TreeModelFavorites extends DefaultTreeModel
         implements TreeWillExpandListener {
 
     private final DefaultMutableTreeNode rootNode;
@@ -34,7 +34,7 @@ public final class TreeModelFavoriteDirectories extends DefaultTreeModel
     private final JTree tree;
     private final Object monitor = new Object();
 
-    public TreeModelFavoriteDirectories(JTree tree) {
+    public TreeModelFavorites(JTree tree) {
         super(new DefaultMutableTreeNode(
                 Bundle.getString("TreeModelFavoriteDirectories.Root.DisplayName")));
         this.tree = tree;
@@ -164,7 +164,7 @@ public final class TreeModelFavoriteDirectories extends DefaultTreeModel
             if (FileUtil.existsDirectory(directory.getDirectoryName())) {
                 addDirectory(directory);
             } else {
-                AppLog.logWarning(TreeModelFavoriteDirectories.class,
+                AppLog.logWarning(TreeModelFavorites.class,
                         Bundle.getString(
                         "TreeModelFavoriteDirectories.ErrorMessage.DbDirectoryDoesNotExist",
                         directory.getDirectoryName()));

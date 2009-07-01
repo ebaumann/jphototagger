@@ -16,7 +16,7 @@ import de.elmar_baumann.imv.event.RenameFileEvent;
 import de.elmar_baumann.imv.event.listener.RenameFileListener;
 import de.elmar_baumann.imv.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.imv.image.thumbnail.ThumbnailUtil;
-import de.elmar_baumann.imv.io.FileType;
+import de.elmar_baumann.imv.types.FileType;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.lib.dialog.Dialog;
@@ -390,7 +390,7 @@ public final class RenameDialog extends Dialog {
         labelDirectoryPrompt = new javax.swing.JLabel();
         labelDirectory = new javax.swing.JLabel();
         panelBorder = new javax.swing.JPanel();
-        panelThumbnail = new de.elmar_baumann.lib.image.ImagePanel();
+        panelThumbnail = new de.elmar_baumann.lib.component.ImagePanel();
         labelOldNamePrompt = new javax.swing.JLabel();
         labelOldName = new javax.swing.JLabel();
         labelNewNamePrompt = new javax.swing.JLabel();
@@ -990,7 +990,7 @@ private void textFieldDateDelimKeyReleased(java.awt.event.KeyEvent evt) {//GEN-F
     private javax.swing.JPanel panelNumbers;
     private javax.swing.JPanel panelOther;
     private javax.swing.JPanel panelTemplates;
-    private de.elmar_baumann.lib.image.ImagePanel panelThumbnail;
+    private de.elmar_baumann.lib.component.ImagePanel panelThumbnail;
     private javax.swing.JSpinner spinnerNumberCount;
     private javax.swing.JSpinner spinnerNumberStepWidth;
     private javax.swing.JSpinner spinnerStartNumber;

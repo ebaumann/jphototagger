@@ -81,11 +81,11 @@ public class TextSelectionPanel extends javax.swing.JPanel {
         char mnemnonic = String.valueOf(Character.toChars(index + 65)).charAt(0);
         button.setText(MNEMONIC_START + mnemnonic + MNEMONIC_END);
         button.setMnemonic(mnemnonic);
-        readPersistent(button, index);
+        readProperties(button, index);
         return button;
     }
 
-    private void readPersistent(JButton button, int index) {
+    private void readProperties(JButton button, int index) {
         Settings settings = UserSettings.INSTANCE.getSettings();
         String key = KEY_PREFIX_BUTTONS + index;
         String text = settings.getString(key).trim();
@@ -111,7 +111,7 @@ public class TextSelectionPanel extends javax.swing.JPanel {
         return ""; // NOI18N
     }
 
-    public void writePersistent() {
+    public void writeProperties() {
         Settings settings = UserSettings.INSTANCE.getSettings();
         int buttonCount = buttons.size();
         for (int i = 0; i < buttonCount; i++) {

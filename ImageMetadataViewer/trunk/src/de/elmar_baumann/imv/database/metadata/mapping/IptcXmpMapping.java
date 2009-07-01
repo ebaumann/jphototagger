@@ -21,7 +21,7 @@ import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopSource;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopState;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopTransmissionReference;
-import de.elmar_baumann.lib.template.Pair;
+import de.elmar_baumann.lib.generics.Pair;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

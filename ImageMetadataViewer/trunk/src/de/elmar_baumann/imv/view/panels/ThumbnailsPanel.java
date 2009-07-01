@@ -4,7 +4,7 @@ import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.event.ThumbnailsPanelEvent;
 import de.elmar_baumann.imv.event.listener.ThumbnailsPanelListener;
 import de.elmar_baumann.imv.data.ThumbnailFlag;
-import de.elmar_baumann.lib.event.MouseEventUtil;
+import de.elmar_baumann.lib.event.util.MouseEventUtil;
 import de.elmar_baumann.lib.util.MathUtil;
 import java.awt.Color;
 import java.awt.Component;

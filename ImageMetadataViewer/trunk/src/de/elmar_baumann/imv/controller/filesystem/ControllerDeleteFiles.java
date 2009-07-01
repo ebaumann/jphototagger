@@ -39,7 +39,7 @@ public final class ControllerDeleteFiles implements ActionListener {
         deleteableContent.add(Content.CATEGORY);
         deleteableContent.add(Content.DIRECTORY);
         deleteableContent.add(Content.FAST_SEARCH);
-        deleteableContent.add(Content.FAVORITE_DIRECTORY);
+        deleteableContent.add(Content.FAVORITE);
         deleteableContent.add(Content.KEYWORD);
         deleteableContent.add(Content.MISC_METADATA);
         deleteableContent.add(Content.SAFED_SEARCH);

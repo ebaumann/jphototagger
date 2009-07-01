@@ -12,7 +12,7 @@ import de.elmar_baumann.lib.componentutil.ComponentUtil;
 import de.elmar_baumann.lib.dialog.Dialog;
 import de.elmar_baumann.lib.dialog.DirectoryChooser;
 import de.elmar_baumann.lib.io.FileUtil;
-import de.elmar_baumann.lib.template.Pair;
+import de.elmar_baumann.lib.generics.Pair;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -231,7 +231,7 @@ public final class CopyToDirectoryDialog extends Dialog
     public void setVisible(boolean visible) {
         if (visible) {
             readProperties();
-            setPersistentDirectory();
+            initDirectory();
         } else {
             if (writeProperties) {
                 writeProperties();
@@ -259,7 +259,7 @@ public final class CopyToDirectoryDialog extends Dialog
                 keyCopyXmp);
     }
 
-    private void setPersistentDirectory() {
+    private void initDirectory() {
         if (targetDirectory.exists()) {
             labelTargetDirectory.setText(targetDirectory.getAbsolutePath());
             buttonStart.setEnabled(true);

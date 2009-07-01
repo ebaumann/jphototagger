@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.app;
 
-import de.elmar_baumann.lib.image.icon.IconUtil;
+import de.elmar_baumann.lib.image.util.IconUtil;
 import java.awt.Image;
 import java.util.ArrayList;
 import java.util.List;

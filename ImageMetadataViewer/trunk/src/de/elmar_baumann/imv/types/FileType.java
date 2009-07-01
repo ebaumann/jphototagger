@@ -1,4 +1,4 @@
-package de.elmar_baumann.imv.io;
+package de.elmar_baumann.imv.types;
 
 /**
  * Dateitypen.

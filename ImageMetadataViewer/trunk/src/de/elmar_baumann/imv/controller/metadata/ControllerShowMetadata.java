@@ -288,7 +288,7 @@ public final class ControllerShowMetadata implements DatabaseListener,
     private void removeMetadataFromTables(Set<Metadata> metadata) {
         if (metadata.contains(Metadata.XMP)) {
             for (TableModelXmp model : metadataTableModels.getXmpTableModels()) {
-                model.removeAllElements();
+                model.removeAllRows();
             }
         }
         if (metadata.contains(Metadata.IPTC)) {

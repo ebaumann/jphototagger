@@ -166,7 +166,7 @@
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Container class="de.elmar_baumann.lib.image.ImagePanel" name="panelThumbnail">
+                <Container class="de.elmar_baumann.lib.component.ImagePanel" name="panelThumbnail">
                   <Properties>
                     <Property name="enabled" type="boolean" value="false"/>
                     <Property name="focusable" type="boolean" value="false"/>

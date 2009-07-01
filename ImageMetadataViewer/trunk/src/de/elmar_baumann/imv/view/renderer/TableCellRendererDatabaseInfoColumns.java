@@ -22,7 +22,7 @@ public final class TableCellRendererDatabaseInfoColumns implements TableCellRend
         boolean isSelected, boolean hasFocus, int row, int column) {
         JLabel cellLabel = new JLabel();
         if (column == 0) {
-            RendererTableColumn.setLabelText(cellLabel, (Column) value);
+            FormatterLabelTableColumn.setLabelText(cellLabel, (Column) value);
         } else {
             cellLabel.setText(paddingLeft + value.toString());
         }

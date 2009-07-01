@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.controller.favorites;
 
-import de.elmar_baumann.imv.model.TreeModelFavoriteDirectories;
+import de.elmar_baumann.imv.model.TreeModelFavorites;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuFavorites;
 import java.awt.event.ActionEvent;
@@ -29,9 +29,9 @@ public final class ControllerRefreshFavorites implements
     @Override
     public void actionPerformed(ActionEvent e) {
         if (popup.getItemRefresh().equals(e.getSource())) {
-            TreeModelFavoriteDirectories model =
-                    (TreeModelFavoriteDirectories) GUI.INSTANCE.getAppPanel().
-                    getTreeFavoriteDirectories().getModel();
+            TreeModelFavorites model =
+                    (TreeModelFavorites) GUI.INSTANCE.getAppPanel().
+                    getTreeFavorites().getModel();
             model.update();
         }
     }

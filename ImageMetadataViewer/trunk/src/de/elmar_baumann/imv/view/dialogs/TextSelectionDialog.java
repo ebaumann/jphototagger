@@ -44,7 +44,7 @@ public class TextSelectionDialog extends Dialog {
                 super.setVisible(true);
             }
         } else {
-            panelTextSelection.writePersistent();
+            panelTextSelection.writeProperties();
             UserSettings.INSTANCE.getSettings().setSizeAndLocation(this);
             super.setVisible(false);
         }

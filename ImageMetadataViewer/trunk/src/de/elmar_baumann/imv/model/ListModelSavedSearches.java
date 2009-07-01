@@ -16,10 +16,10 @@ import javax.swing.DefaultListModel;
 public final class ListModelSavedSearches extends DefaultListModel {
 
     public ListModelSavedSearches() {
-        addItems();
+        addElements();
     }
 
-    private void addItems() {
+    private void addElements() {
         List<SavedSearch> searches = DatabaseSavedSearches.INSTANCE.getSavedSearches();
         for (SavedSearch search : searches) {
             addElement(search);

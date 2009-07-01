@@ -6,7 +6,7 @@ import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.dialogs.CopyToDirectoryDialog;
 import de.elmar_baumann.imv.view.dialogs.UserSettingsDialog;
-import de.elmar_baumann.lib.io.DirectoryFilter.Option;
+import de.elmar_baumann.lib.io.filefilter.DirectoryFilter.Option;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

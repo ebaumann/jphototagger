@@ -9,7 +9,7 @@ import de.elmar_baumann.imv.model.ListModelSavedSearches;
 import de.elmar_baumann.imv.model.TableModelExif;
 import de.elmar_baumann.imv.model.TableModelIptc;
 import de.elmar_baumann.imv.model.TableModelXmp;
-import de.elmar_baumann.imv.model.TreeModelFavoriteDirectories;
+import de.elmar_baumann.imv.model.TreeModelFavorites;
 import de.elmar_baumann.imv.model.TreeModelMiscMetadata;
 import de.elmar_baumann.imv.model.TreeModelTimeline;
 import de.elmar_baumann.imv.resource.GUI;
@@ -99,9 +99,9 @@ public final class ModelFactory {
 
             @Override
             public void run() {
-                TreeModel model = new TreeModelFavoriteDirectories(
-                        appPanel.getTreeFavoriteDirectories());
-                appPanel.getTreeFavoriteDirectories().setModel(model);
+                TreeModel model = new TreeModelFavorites(
+                        appPanel.getTreeFavorites());
+                appPanel.getTreeFavorites().setModel(model);
             }
         });
         thread.setName("Creating model of tree favorite directories" + " @ " + // NOI18N

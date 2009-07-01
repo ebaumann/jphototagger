@@ -3,7 +3,7 @@ package de.elmar_baumann.imv.io;
 import de.elmar_baumann.imv.app.AppFileFilter;
 import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.resource.Bundle;
-import de.elmar_baumann.lib.io.RegexFileFilter;
+import de.elmar_baumann.lib.io.filefilter.RegexFileFilter;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;

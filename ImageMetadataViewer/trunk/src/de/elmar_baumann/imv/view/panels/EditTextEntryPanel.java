@@ -5,7 +5,7 @@ import de.elmar_baumann.imv.data.TextEntry;
 import de.elmar_baumann.imv.data.TextEntryContent;
 import de.elmar_baumann.imv.database.metadata.Column;
 import de.elmar_baumann.imv.resource.Bundle;
-import de.elmar_baumann.lib.component.InputVerifierMaxLength;
+import de.elmar_baumann.lib.componentutil.InputVerifierMaxLength;
 import de.elmar_baumann.lib.component.TabLeavingTextArea;
 import java.awt.Color;
 import javax.swing.event.DocumentEvent;

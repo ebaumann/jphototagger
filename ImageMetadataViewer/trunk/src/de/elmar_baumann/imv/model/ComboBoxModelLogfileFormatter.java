@@ -13,10 +13,10 @@ import javax.swing.DefaultComboBoxModel;
 public final class ComboBoxModelLogfileFormatter extends DefaultComboBoxModel {
 
     public ComboBoxModelLogfileFormatter() {
-        addFormatter();
+        addElements();
     }
 
-    private void addFormatter() {
+    private void addElements() {
         // Wird die Reihenfolge verändert, stimmen die Benutzereinstellungen
         // nicht mehr, da diese den Index speichern
         addElement(XMLFormatter.class);

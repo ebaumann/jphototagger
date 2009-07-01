@@ -24,7 +24,7 @@ public final class ComboBoxModelThreadPriority extends DefaultComboBoxModel {
 
     public ComboBoxModelThreadPriority() {
         initMap();
-        addContent();
+        insertElements();
     }
 
     /**
@@ -61,7 +61,7 @@ public final class ComboBoxModelThreadPriority extends DefaultComboBoxModel {
         return priorityOfString.containsKey(string);
     }
 
-    private void addContent() {
+    private void insertElements() {
         insertElementAt(lowPriorityString, 0);
         insertElementAt(mediumPriorityString, 1);
         insertElementAt(highPriorityString, 2);

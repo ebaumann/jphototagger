@@ -3,7 +3,7 @@ package de.elmar_baumann.imv.view.renderer;
 import de.elmar_baumann.imv.database.metadata.Column;
 import de.elmar_baumann.imv.database.metadata.exif.ColumnExifFocalLength;
 import de.elmar_baumann.imv.model.TreeModelMiscMetadata;
-import de.elmar_baumann.lib.image.icon.IconUtil;
+import de.elmar_baumann.lib.image.util.IconUtil;
 import java.awt.Component;
 import java.text.DecimalFormat;
 import java.util.HashMap;

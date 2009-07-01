@@ -15,10 +15,10 @@ import javax.swing.DefaultListModel;
 public final class ListModelImageCollections extends DefaultListModel {
 
     public ListModelImageCollections() {
-        addItems();
+        addElements();
     }
 
-    private void addItems() {
+    private void addElements() {
         DatabaseImageCollections db = DatabaseImageCollections.INSTANCE;
         List<String> collections = db.getImageCollectionNames();
         for (String collection : collections) {

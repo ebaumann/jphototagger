@@ -6,7 +6,7 @@ import de.elmar_baumann.imv.io.ImageFilteredDirectory;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.types.Content;
-import de.elmar_baumann.imv.view.InfoSetThumbnails;
+import de.elmar_baumann.imv.view.InfoSettingThumbnails;
 import de.elmar_baumann.imv.view.panels.EditMetadataPanelsArray;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import java.io.File;
@@ -32,7 +32,7 @@ public final class ControllerFavoriteSelected implements
 
     private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
     private final JTree treeFavoriteDirectories =
-            appPanel.getTreeFavoriteDirectories();
+            appPanel.getTreeFavorites();
     private final ImageFileThumbnailsPanel thumbnailsPanel =
             appPanel.getPanelThumbnails();
     private final EditMetadataPanelsArray editPanels =
@@ -45,7 +45,7 @@ public final class ControllerFavoriteSelected implements
     private void listen() {
         treeFavoriteDirectories.getSelectionModel().addTreeSelectionListener(
                 this);
-        thumbnailsPanel.addRefreshListener(this, Content.FAVORITE_DIRECTORY);
+        thumbnailsPanel.addRefreshListener(this, Content.FAVORITE);
     }
 
     @Override
@@ -70,9 +70,9 @@ public final class ControllerFavoriteSelected implements
 
         @Override
         public void run() {
-            InfoSetThumbnails info = new InfoSetThumbnails();
+            InfoSettingThumbnails info = new InfoSettingThumbnails();
             thumbnailsPanel.setFiles(getFilesOfCurrentDirectory(),
-                    Content.FAVORITE_DIRECTORY);
+                    Content.FAVORITE);
             setMetadataEditable();
             info.hide();
         }

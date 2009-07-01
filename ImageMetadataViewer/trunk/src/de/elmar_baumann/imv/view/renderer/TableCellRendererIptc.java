@@ -16,7 +16,7 @@ import javax.swing.table.TableCellRenderer;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/14
  */
-public final class TableCellRendererIptc extends FormatterTableCellRendererMetadata
+public final class TableCellRendererIptc extends FormatterLabelMetadata
         implements TableCellRenderer {
 
     private static final Translation translation = new Translation(

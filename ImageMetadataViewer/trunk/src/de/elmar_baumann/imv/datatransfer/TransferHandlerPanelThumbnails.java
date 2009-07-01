@@ -15,7 +15,6 @@ import java.util.List;
 import javax.swing.JComponent;
 import javax.swing.JList;
 import javax.swing.JTree;
-import javax.swing.SwingUtilities;
 import javax.swing.TransferHandler;
 
 /**
@@ -27,7 +26,7 @@ import javax.swing.TransferHandler;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/24
  */
-public final class TransferHandlerThumbnailsPanel extends TransferHandler {
+public final class TransferHandlerPanelThumbnails extends TransferHandler {
 
     /**
      * Delimiter between the filenames in the transfered string.
@@ -39,7 +38,7 @@ public final class TransferHandlerThumbnailsPanel extends TransferHandler {
 
     static {
         contentIsAFilesystemDirectory.add(Content.DIRECTORY);
-        contentIsAFilesystemDirectory.add(Content.FAVORITE_DIRECTORY);
+        contentIsAFilesystemDirectory.add(Content.FAVORITE);
     }
 
     @Override
@@ -99,7 +98,7 @@ public final class TransferHandlerThumbnailsPanel extends TransferHandler {
                     GUI.INSTANCE.getAppPanel().getTreeDirectories();
             targetDirectory =
                     ViewUtil.getSelectedDirectory(treeDirectories);
-        } else if (isContent(Content.FAVORITE_DIRECTORY)) {
+        } else if (isContent(Content.FAVORITE)) {
             targetDirectory =
                     ViewUtil.getSelectedDirectoryFromFavoriteDirectories();
         }

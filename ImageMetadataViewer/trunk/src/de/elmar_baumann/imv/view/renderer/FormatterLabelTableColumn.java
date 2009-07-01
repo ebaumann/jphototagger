@@ -10,7 +10,7 @@ import javax.swing.JLabel;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/17
  */
-public final class RendererTableColumn {
+public final class FormatterLabelTableColumn {
 
     /**
      * Setzt Icon und Text eines Labels, das eine Tabellenspalte darstellt.
@@ -23,6 +23,6 @@ public final class RendererTableColumn {
         label.setText(column.getDescription());
     }
 
-    protected RendererTableColumn() {
+    protected FormatterLabelTableColumn() {
     }
 }

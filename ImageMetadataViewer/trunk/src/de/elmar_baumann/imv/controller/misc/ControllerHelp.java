@@ -4,8 +4,8 @@ import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.app.AppIcons;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.dialog.HelpBrowser;
-import de.elmar_baumann.lib.event.HelpBrowserAction;
-import de.elmar_baumann.lib.event.HelpBrowserListener;
+import de.elmar_baumann.lib.event.HelpBrowserEvent;
+import de.elmar_baumann.lib.event.listener.HelpBrowserListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.URL;
@@ -34,8 +34,8 @@ public final class ControllerHelp implements ActionListener,
     }
 
     @Override
-    public void actionPerformed(HelpBrowserAction action) {
-        if (action.getType().equals(HelpBrowserAction.Type.URL_CHANGED)) {
+    public void actionPerformed(HelpBrowserEvent action) {
+        if (action.getType().equals(HelpBrowserEvent.Type.URL_CHANGED)) {
             setCurrentUrl(action);
         }
     }
@@ -45,7 +45,7 @@ public final class ControllerHelp implements ActionListener,
         showHelp();
     }
 
-    private void setCurrentUrl(HelpBrowserAction action) {
+    private void setCurrentUrl(HelpBrowserEvent action) {
         URL url = action.getUrl();
         if (!url.getProtocol().startsWith("http")) {
             currentUrl = HelpBrowser.getLastPathComponent(url);

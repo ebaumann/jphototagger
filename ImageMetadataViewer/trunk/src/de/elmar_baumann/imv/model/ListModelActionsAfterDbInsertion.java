@@ -22,7 +22,7 @@ public final class ListModelActionsAfterDbInsertion extends DefaultListModel
         implements DatabaseListener {
 
     public ListModelActionsAfterDbInsertion() {
-        addItems();
+        addElements();
         DatabasePrograms.INSTANCE.addDatabaseListener(this);
     }
 
@@ -100,7 +100,7 @@ public final class ListModelActionsAfterDbInsertion extends DefaultListModel
                 JOptionPane.ERROR_MESSAGE);
     }
 
-    private void addItems() {
+    private void addElements() {
         List<Program> programs =
                 DatabaseActionsAfterDbInsertion.INSTANCE.getAll();
         for (Program program : programs) {

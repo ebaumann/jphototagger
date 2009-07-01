@@ -2,7 +2,7 @@ package de.elmar_baumann.imv.view.panels;
 
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.resource.Bundle;
-import de.elmar_baumann.lib.image.icon.IconUtil;
+import de.elmar_baumann.lib.image.util.IconUtil;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Font;

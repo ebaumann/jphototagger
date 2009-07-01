@@ -1,7 +1,7 @@
 package de.elmar_baumann.imv.view.renderer;
 
 import de.elmar_baumann.imv.data.Timeline;
-import de.elmar_baumann.lib.image.icon.IconUtil;
+import de.elmar_baumann.lib.image.util.IconUtil;
 import java.awt.Component;
 import java.util.Calendar;
 import java.util.Locale;

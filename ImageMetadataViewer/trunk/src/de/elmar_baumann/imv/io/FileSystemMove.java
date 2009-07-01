@@ -3,7 +3,7 @@ package de.elmar_baumann.imv.io;
 import de.elmar_baumann.imv.event.ProgressEvent;
 import de.elmar_baumann.imv.event.FileSystemEvent;
 import de.elmar_baumann.imv.event.FileSystemError;
-import de.elmar_baumann.lib.template.Pair;
+import de.elmar_baumann.lib.generics.Pair;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;

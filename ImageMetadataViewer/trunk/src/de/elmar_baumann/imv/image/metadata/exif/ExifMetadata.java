@@ -8,7 +8,7 @@ import com.imagero.reader.tiff.ImageFileDirectory;
 import com.imagero.reader.tiff.TiffReader;
 import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.data.Exif;
-import de.elmar_baumann.imv.io.FileType;
+import de.elmar_baumann.imv.types.FileType;
 import de.elmar_baumann.imv.resource.Bundle;
 import java.io.File;
 import java.io.IOException;

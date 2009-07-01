@@ -19,10 +19,10 @@ public final class ListModelSelectedColumns extends DefaultListModel {
 
     public ListModelSelectedColumns(List<Column> allColumns) {
         this.allColumns = allColumns;
-        addColumns();
+        addElements();
     }
 
-    private void addColumns() {
+    private void addElements() {
         for (Column searchColumn : allColumns) {
             addElement(new JCheckBox(searchColumn.getDescription()));
         }

@@ -10,7 +10,7 @@ import javax.swing.JProgressBar;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009/06/14
  */
-public final class InfoSetThumbnails {
+public final class InfoSettingThumbnails {
 
     private final ProgressBarCreateMetadataOfCurrentThumbnails progressBarProvider =
             ProgressBarCreateMetadataOfCurrentThumbnails.INSTANCE;
@@ -19,7 +19,7 @@ public final class InfoSetThumbnails {
     /**
      * Shows the information.
      */
-    public InfoSetThumbnails() {
+    public InfoSettingThumbnails() {
         progressBar = (JProgressBar) progressBarProvider.getResource(this);
         if (progressBar != null) {
             progressBar.setStringPainted(true);

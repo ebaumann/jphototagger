@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.app;
 
-import de.elmar_baumann.lib.io.RegexFileFilter;
+import de.elmar_baumann.lib.io.filefilter.RegexFileFilter;
 
 /**
  * Special file filters used in the application.

@@ -1,7 +1,7 @@
 package de.elmar_baumann.imv.controller.favorites;
 
 import de.elmar_baumann.imv.data.FavoriteDirectory;
-import de.elmar_baumann.imv.model.TreeModelFavoriteDirectories;
+import de.elmar_baumann.imv.model.TreeModelFavorites;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuFavorites;
@@ -23,7 +23,7 @@ import javax.swing.tree.TreePath;
 public final class ControllerMoveFavorite implements ActionListener {
 
     private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
-    private final JTree tree = appPanel.getTreeFavoriteDirectories();
+    private final JTree tree = appPanel.getTreeFavorites();
     private final PopupMenuFavorites popup = PopupMenuFavorites.INSTANCE;
 
     public ControllerMoveFavorite() {
@@ -73,16 +73,16 @@ public final class ControllerMoveFavorite implements ActionListener {
 
         private void moveUp(FavoriteDirectory dir) {
             if (dir != null) {
-                TreeModelFavoriteDirectories model =
-                        (TreeModelFavoriteDirectories) tree.getModel();
+                TreeModelFavorites model =
+                        (TreeModelFavorites) tree.getModel();
                 model.moveUpFavorite(dir);
             }
         }
 
         private void moveDown(FavoriteDirectory dir) {
             if (dir != null) {
-                TreeModelFavoriteDirectories model =
-                        (TreeModelFavoriteDirectories) tree.getModel();
+                TreeModelFavorites model =
+                        (TreeModelFavorites) tree.getModel();
                 model.moveDownFavorite(dir);
             }
         }
