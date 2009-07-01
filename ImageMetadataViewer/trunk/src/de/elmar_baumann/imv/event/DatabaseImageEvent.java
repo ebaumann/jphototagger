@@ -45,6 +45,7 @@ public final class DatabaseImageEvent {
     };
     private static final List<Type> textMetadataEvents = new ArrayList<Type>(5);
     private ImageFile imageFile;
+    private ImageFile oldImageFile;
     private Type type;
 
 
@@ -94,6 +95,24 @@ public final class DatabaseImageEvent {
      */
     public void setImageFile(ImageFile imageFile) {
         this.imageFile = imageFile;
+    }
+
+    /**
+     * Returns the old image file before updating it.
+     *
+     * @return old image file
+     */
+    public ImageFile getOldImageFile() {
+        return oldImageFile;
+    }
+
+    /**
+     * Sets the old image file before updating it.
+     *
+     * @param oldImageFile old image file
+     */
+    public void setOldImageFile(ImageFile oldImageFile) {
+        this.oldImageFile = oldImageFile;
     }
 
     /**
