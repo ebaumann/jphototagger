@@ -5,7 +5,6 @@ import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.tasks.ImageCollectionDatabaseUtils;
 import java.util.List;
 import javax.swing.JList;
-import javax.swing.SwingUtilities;
 
 /**
  * Adds images to an image collection (item hitted) or creates a new one (free
@@ -36,19 +35,13 @@ public final class TransferHandlerListImageCollections extends TransferHandlerLi
     }
 
     private void createImageCollection(final List<String> filenames) {
-        SwingUtilities.invokeLater(new Runnable() {
-
-            @Override
-            public void run() {
-                String newCollectionName = ImageCollectionDatabaseUtils.
-                        insertImageCollection(filenames);
-                if (newCollectionName != null) {
-                    ((ListModelImageCollections) GUI.INSTANCE.getAppPanel().
-                            getListImageCollections().getModel()).addElement(
-                            newCollectionName);
-                }
-            }
-        });
+        String newCollectionName = ImageCollectionDatabaseUtils.
+                insertImageCollection(filenames);
+        if (newCollectionName != null) {
+            ((ListModelImageCollections) GUI.INSTANCE.getAppPanel().
+                    getListImageCollections().getModel()).addElement(
+                    newCollectionName);
+        }
     }
 
     private String getImageCollectionName(int itemIndex) {
