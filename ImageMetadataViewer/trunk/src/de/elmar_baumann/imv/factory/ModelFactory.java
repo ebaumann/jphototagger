@@ -21,6 +21,9 @@ import de.elmar_baumann.imv.view.ViewUtil;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.lib.model.TreeModelAllSystemDirectories;
 import de.elmar_baumann.lib.thirdparty.SortedListModel;
+import java.awt.Cursor;
+import javax.swing.JList;
+import javax.swing.JTree;
 import javax.swing.tree.TreeModel;
 
 /**
@@ -49,18 +52,60 @@ public final class ModelFactory {
             appPanel.getTableXmpTiff().setModel(new TableModelXmp());
             appPanel.getTableXmpXap().setModel(new TableModelXmp());
             appPanel.getTableExif().setModel(new TableModelExif());
-            appPanel.getListSavedSearches().setModel(
-                    new ListModelSavedSearches());
-            appPanel.getListImageCollections().setModel(
-                    new ListModelImageCollections());
-            setTreeModels(appPanel);
-            appPanel.getListCategories().setModel(new SortedListModel(
-                    new ListModelCategories()));
-            appPanel.getListKeywords().setModel(new SortedListModel(
-                    new ListModelKeywords()));
             appPanel.getMetadataEditActionsPanel().getComboBoxMetadataTemplates().
                     setModel(new ComboBoxModelMetadataEditTemplates());
+            setListModels(appPanel);
+            setTreeModels(appPanel);
         }
+    }
+
+    private void setListModels(final AppPanel appPanel) {
+        setListModelSavedSearches(appPanel);
+        setListModelImageCollections(appPanel);
+        setListModelCategories(appPanel);
+        setListModelKeywords(appPanel);
+    }
+
+    private void setListModelSavedSearches(final AppPanel appPanel) {
+        JList list = appPanel.getListSavedSearches();
+        Cursor listCursor = setWaitCursor(list);
+        list.setModel(new ListModelSavedSearches());
+        list.setCursor(listCursor);
+    }
+
+    private void setListModelImageCollections(final AppPanel appPanel) {
+        JList list = appPanel.getListImageCollections();
+        Cursor listCursor = setWaitCursor(list);
+        list.setModel(new ListModelImageCollections());
+        list.setCursor(listCursor);
+    }
+
+    private void setListModelCategories(final AppPanel appPanel) {
+        JList list = appPanel.getListCategories();
+        Cursor listCursor = setWaitCursor(list);
+        list.setModel(new SortedListModel(new ListModelCategories()));
+        list.setCursor(listCursor);
+    }
+
+    private void setListModelKeywords(final AppPanel appPanel) {
+        JList list = appPanel.getListKeywords();
+        Cursor listCursor = setWaitCursor(list);
+        list.setModel(new SortedListModel(new ListModelKeywords()));
+        list.setCursor(listCursor);
+    }
+
+    private Cursor setWaitCursor(JList list) {
+        Cursor listCursor = list.getCursor();
+        Cursor waitCursor = Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR);
+        list.setCursor(waitCursor);
+        return listCursor;
+    }
+
+    private synchronized Cursor setWaitCursor(JTree tree) {
+        Cursor treeCursor = tree.getCursor();
+        Cursor waitCursor = Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR);
+        tree.setCursor(waitCursor);
+        return treeCursor;
     }
 
     private void setTreeModels(final AppPanel appPanel) {
@@ -75,9 +120,12 @@ public final class ModelFactory {
 
             @Override
             public void run() {
+                JTree tree = appPanel.getTreeMiscMetadata();
+                Cursor treeCursor = setWaitCursor(tree);
                 TreeModel model = new TreeModelMiscMetadata();
+                tree.setModel(model);
                 new ControllerMiscMetadataItemSelected();
-                appPanel.getTreeMiscMetadata().setModel(model);
+                tree.setCursor(treeCursor);
             }
         });
         thread.setName("Creating model of tree misc metadata" + " @ " + // NOI18N
@@ -90,9 +138,12 @@ public final class ModelFactory {
 
             @Override
             public void run() {
+                JTree tree = appPanel.getTreeTimeline();
+                Cursor treeCursor = setWaitCursor(tree);
                 TreeModel model = new TreeModelTimeline();
+                tree.setModel(model);
                 new ControllerTimelineItemSelected();
-                appPanel.getTreeTimeline().setModel(model);
+                tree.setCursor(treeCursor);
             }
         });
         thread.setName("Creating model of tree timeline" + " @ " + // NOI18N
@@ -105,11 +156,13 @@ public final class ModelFactory {
 
             @Override
             public void run() {
-                TreeModelFavorites model = new TreeModelFavorites(
-                        appPanel.getTreeFavorites());
+                JTree tree = appPanel.getTreeFavorites();
+                Cursor treeCursor = setWaitCursor(tree);
+                TreeModelFavorites model = new TreeModelFavorites(tree);
+                tree.setModel(model);
                 new ControllerFavoriteSelected();
-                appPanel.getTreeFavorites().setModel(model);
                 model.readFromProperties();
+                tree.setCursor(treeCursor);
             }
         });
         thread.setName("Creating model of tree favorite directories" + " @ " + // NOI18N
@@ -122,15 +175,17 @@ public final class ModelFactory {
 
             @Override
             public void run() {
+                JTree tree = appPanel.getTreeDirectories();
+                Cursor treeCursor = setWaitCursor(tree);
                 TreeModel model =
-                        new TreeModelAllSystemDirectories(
-                        appPanel.getTreeDirectories(),
+                        new TreeModelAllSystemDirectories(tree,
                         UserSettings.INSTANCE.getDefaultDirectoryFilterOptions());
+                tree.setModel(model);
                 new ControllerDirectorySelected();
-                appPanel.getTreeDirectories().setModel(model);
                 if (UserSettings.INSTANCE.isTreeDirectoriesSelectLastDirectory()) {
                     ViewUtil.readTreeDirectoriesFromProperties();
                 }
+                tree.setCursor(treeCursor);
             }
         });
         thread.setName("Creating model of tree directories" + " @ " + // NOI18N
