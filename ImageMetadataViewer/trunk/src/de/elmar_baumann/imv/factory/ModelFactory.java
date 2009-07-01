@@ -99,9 +99,10 @@ public final class ModelFactory {
 
             @Override
             public void run() {
-                TreeModel model = new TreeModelFavorites(
+                TreeModelFavorites model = new TreeModelFavorites(
                         appPanel.getTreeFavorites());
                 appPanel.getTreeFavorites().setModel(model);
+                model.readFromProperties();
             }
         });
         thread.setName("Creating model of tree favorite directories" + " @ " + // NOI18N
