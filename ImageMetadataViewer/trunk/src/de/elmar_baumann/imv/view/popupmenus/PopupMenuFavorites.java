@@ -135,7 +135,8 @@ public final class PopupMenuFavorites extends JPopupMenu {
         add(itemMoveUp);
         add(itemMoveDown);
         add(new JSeparator());
-        //add(itemOpenInFolders);
+        add(itemOpenInFolders);
+        add(new JSeparator());
         add(itemAddFilesystemFolder);
         add(itemRenameFilesystemFolder);
         add(itemDeleteFilesystemFolder);

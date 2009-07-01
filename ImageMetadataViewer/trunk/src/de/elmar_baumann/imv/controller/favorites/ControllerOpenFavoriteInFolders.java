@@ -6,7 +6,7 @@ import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuFavorites;
-import de.elmar_baumann.lib.componentutil.TreeUtil;
+import de.elmar_baumann.lib.model.TreeModelAllSystemDirectories;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,6 +15,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTree;
 import javax.swing.SwingUtilities;
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
 
 /**
@@ -78,13 +79,15 @@ public final class ControllerOpenFavoriteInFolders implements
                         dir = new File(favoriteDirectory.getDirectoryName());
                     }
                     if (dir != null && dir.isDirectory()) {
-                        TreePath path = TreeUtil.getTreePath(dir,
-                                treeDirectories.getModel());
                         treeFavoriteDirectories.clearSelection();
                         tabbedPaneSelection.setSelectedComponent(
                                 tabTreeDirectories);
-                        TreeUtil.expandPathCascade(treeDirectories, path);
-                        treeDirectories.setSelectionPath(path);
+                        TreeModel m = treeDirectories.getModel();
+                        if (m instanceof TreeModelAllSystemDirectories) {
+                            ((TreeModelAllSystemDirectories) m).expandToFile(dir,
+                                    true);
+
+                        }
                     }
                 }
             }
