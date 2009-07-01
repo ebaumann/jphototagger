@@ -3,17 +3,17 @@ package de.elmar_baumann.imv.model;
 import de.elmar_baumann.imv.data.ImageFile;
 import de.elmar_baumann.imv.data.Xmp;
 import de.elmar_baumann.imv.database.DatabaseImageFiles;
-import de.elmar_baumann.imv.database.metadata.Column;
+import de.elmar_baumann.imv.database.DatabaseStatistics;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopCategory;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory;
 import de.elmar_baumann.imv.event.DatabaseImageEvent;
 import de.elmar_baumann.imv.event.listener.DatabaseListener;
 import de.elmar_baumann.imv.event.DatabaseProgramEvent;
-import de.elmar_baumann.imv.tasks.ListModelElementRemover;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import javax.swing.DefaultListModel;
+import javax.swing.SwingUtilities;
 
 /**
  * Enthält Kategorien.
@@ -25,20 +25,10 @@ public final class ListModelCategories extends DefaultListModel
         implements DatabaseListener {
 
     private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
-    private ListModelElementRemover remover;
 
     public ListModelCategories() {
         addElements();
-        createRemover();
         db.addDatabaseListener(this);
-    }
-
-    private void createRemover() {
-        List<Column> columns = new ArrayList<Column>();
-        columns.add(ColumnXmpPhotoshopCategory.INSTANCE);
-        columns.add(
-                ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory.INSTANCE);
-        remover = new ListModelElementRemover(this, columns);
     }
 
     private void addElements() {
@@ -52,7 +42,7 @@ public final class ListModelCategories extends DefaultListModel
     public void actionPerformed(DatabaseImageEvent event) {
         if (event.isTextMetadataAffected()) {
             checkForNewCategories(event.getImageFile());
-            remover.removeNotExistingElements();
+            removeNotExistingCategories(event.getOldImageFile());
         }
     }
 
@@ -65,6 +55,30 @@ public final class ListModelCategories extends DefaultListModel
                 }
             }
         }
+    }
+
+    private void removeNotExistingCategories(final ImageFile imageFile) {
+        if (imageFile == null) return;
+        SwingUtilities.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {
+                List<String> categories = getCategories(imageFile);
+                for (String category : categories) {
+                    if (contains(category) && !databaseHasCategory(category)) {
+                        removeElement(category);
+                    }
+                }
+            }
+        });
+    }
+
+    private boolean databaseHasCategory(String category) {
+        return DatabaseStatistics.INSTANCE.exists(
+                ColumnXmpPhotoshopCategory.INSTANCE, category) ||
+                DatabaseStatistics.INSTANCE.exists(
+                ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory.INSTANCE,
+                category);
     }
 
     private List<String> getCategories(ImageFile imageFile) {

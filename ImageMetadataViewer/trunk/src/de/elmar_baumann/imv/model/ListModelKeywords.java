@@ -3,11 +3,11 @@ package de.elmar_baumann.imv.model;
 import de.elmar_baumann.imv.data.ImageFile;
 import de.elmar_baumann.imv.data.Xmp;
 import de.elmar_baumann.imv.database.DatabaseImageFiles;
+import de.elmar_baumann.imv.database.DatabaseStatistics;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 import de.elmar_baumann.imv.event.DatabaseImageEvent;
 import de.elmar_baumann.imv.event.listener.DatabaseListener;
 import de.elmar_baumann.imv.event.DatabaseProgramEvent;
-import de.elmar_baumann.imv.tasks.ListModelElementRemover;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -24,12 +24,9 @@ public final class ListModelKeywords extends DefaultListModel
         implements DatabaseListener {
 
     private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
-    private ListModelElementRemover remover;
 
     public ListModelKeywords() {
         addElements();
-        remover = new ListModelElementRemover(this,
-                ColumnXmpDcSubjectsSubject.INSTANCE);
         db.addDatabaseListener(this);
     }
 
@@ -44,7 +41,7 @@ public final class ListModelKeywords extends DefaultListModel
     public void actionPerformed(DatabaseImageEvent event) {
         if (event.isTextMetadataAffected()) {
             checkForNewKeywords(event.getImageFile());
-            remover.removeNotExistingElements();
+            removeNotExistingKeywords(event.getOldImageFile());
         }
     }
 
@@ -61,6 +58,27 @@ public final class ListModelKeywords extends DefaultListModel
                 }
             }
         });
+    }
+
+    private void removeNotExistingKeywords(final ImageFile imageFile) {
+        if (imageFile == null) return;
+        SwingUtilities.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {
+                List<String> keywords = getKeywords(imageFile);
+                for (String keyword : keywords) {
+                    if (contains(keyword) && !databaseHasKeyword(keyword)) {
+                        removeElement(keyword);
+                    }
+                }
+            }
+        });
+    }
+
+    boolean databaseHasKeyword(String keyword) {
+        return DatabaseStatistics.INSTANCE.exists(
+                ColumnXmpDcSubjectsSubject.INSTANCE, keyword);
     }
 
     private List<String> getKeywords(ImageFile imageFile) {
