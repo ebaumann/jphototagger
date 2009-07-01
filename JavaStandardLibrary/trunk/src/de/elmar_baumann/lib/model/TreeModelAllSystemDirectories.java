@@ -117,7 +117,13 @@ public final class TreeModelAllSystemDirectories extends DefaultTreeModel
         return nodesToRemove.size();
     }
 
-    public void expandToFile(File file) {
+    /**
+     * Expands the tree to a specific file.
+     *
+     * @param file   file
+     * @param select if true the file node will be selected
+     */
+    public void expandToFile(File file, boolean select) {
         Stack<File> filePath = FileUtil.getPathFromRoot(file);
         DefaultMutableTreeNode node = rootNode;
         while (node != null && !filePath.isEmpty()) {
@@ -130,6 +136,9 @@ public final class TreeModelAllSystemDirectories extends DefaultTreeModel
         if (node != null) {
             tree.expandPath(new TreePath(((DefaultMutableTreeNode) node.
                     getParent()).getPath()));
+            if (select) {
+                tree.setSelectionPath(new TreePath(node.getPath()));
+            }
         }
     }
 
