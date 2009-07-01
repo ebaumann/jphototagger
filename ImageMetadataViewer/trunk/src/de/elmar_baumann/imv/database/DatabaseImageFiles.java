@@ -190,6 +190,22 @@ public final class DatabaseImageFiles extends Database {
     }
 
     /**
+     * Returns an image file.
+     *
+     * @param  filename name of the image file
+     * @return          image file
+     */
+    public ImageFile getImageFile(String filename) {
+        ImageFile imageFile = new ImageFile();
+        imageFile.setExif(getExifOfFile(filename));
+        imageFile.setFilename(filename);
+        imageFile.setLastmodified(getLastModifiedImageFile(filename));
+        imageFile.setThumbnail(getThumbnail(filename));
+        imageFile.setXmp(getXmpOfFile(filename));
+        return imageFile;
+    }
+
+    /**
      * Aktualisiert ein Bild in der Datenbank.
      *
      * Updates this metadata:
@@ -207,6 +223,7 @@ public final class DatabaseImageFiles extends Database {
         boolean success = false;
         Connection connection = null;
         try {
+            ImageFile oldImageFile = getImageFile(imageFile.getFilename());
             connection = getConnection();
             connection.setAutoCommit(false);
             String sqlWithXmp = "UPDATE files " + // NOI18N
@@ -240,8 +257,8 @@ public final class DatabaseImageFiles extends Database {
             }
             connection.commit();
             success = true;
-            notifyDatabaseListener(
-                    DatabaseImageEvent.Type.IMAGEFILE_UPDATED, imageFile);
+            notifyDatabaseListener(DatabaseImageEvent.Type.IMAGEFILE_UPDATED,
+                    oldImageFile, imageFile);
         } catch (SQLException ex) {
             AppLog.logWarning(DatabaseImageFiles.class, ex);
             rollback(connection);
@@ -710,7 +727,8 @@ public final class DatabaseImageFiles extends Database {
             boolean abort = notifyProgressListenerStart(listener, event);
             while (!abort && rs.next()) {
                 filename = rs.getString(1);
-                if (XmpMetadata.getSidecarFilenameOfImageFileIfExists(filename) == null) {
+                if (XmpMetadata.getSidecarFilenameOfImageFileIfExists(filename) ==
+                        null) {
                     countDeleted += deleteXmpOfFilename(connection, filename);
                 }
                 event.setValue(event.getValue() + 1);
@@ -883,7 +901,8 @@ public final class DatabaseImageFiles extends Database {
                         xmp.setValue(xmpColumn, newValue);
                     }
                     if (XmpMetadata.writeMetadataToSidecarFile(
-                            XmpMetadata.suggestSidecarFilenameForImageFile(filename), xmp)) {
+                            XmpMetadata.suggestSidecarFilenameForImageFile(
+                            filename), xmp)) {
                         long idXmp = rs.getLong(2);
                         deleteXmp(connection, idXmp);
                         insertXmp(connection, idFile, xmp);
