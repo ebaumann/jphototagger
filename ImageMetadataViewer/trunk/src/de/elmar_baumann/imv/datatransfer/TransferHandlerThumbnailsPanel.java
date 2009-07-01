@@ -72,13 +72,7 @@ public final class TransferHandlerThumbnailsPanel extends TransferHandler {
         if (!canImport(transferSupport)) return false;
         if (imagesSelected &&
                 panel.getContent().equals(Content.IMAGE_COLLECTION)) {
-            SwingUtilities.invokeLater(new Runnable() {
-
-                @Override
-                public void run() {
-                    moveSelectedImages(transferSupport, panel);
-                }
-            });
+            moveSelectedImages(transferSupport, panel);
             return true;
         }
         copyOrMoveSelectedImages(transferSupport);
