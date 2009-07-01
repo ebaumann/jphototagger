@@ -4,7 +4,10 @@ import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.data.FavoriteDirectory;
 import de.elmar_baumann.imv.database.DatabaseFavoriteDirectories;
+import de.elmar_baumann.imv.event.listener.AppExitListener;
 import de.elmar_baumann.imv.resource.Bundle;
+import de.elmar_baumann.imv.resource.GUI;
+import de.elmar_baumann.lib.componentutil.TreeUtil;
 import de.elmar_baumann.lib.io.filefilter.DirectoryFilter;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.awt.Cursor;
@@ -12,6 +15,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.Properties;
+import java.util.Stack;
 import javax.swing.JOptionPane;
 import javax.swing.JTree;
 import javax.swing.event.TreeExpansionEvent;
@@ -19,6 +24,8 @@ import javax.swing.event.TreeWillExpandListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.ExpandVetoException;
+import javax.swing.tree.TreeNode;
+import javax.swing.tree.TreePath;
 
 /**
  * Favorite directories.
@@ -27,8 +34,11 @@ import javax.swing.tree.ExpandVetoException;
  * @version 2009/06/15
  */
 public final class TreeModelFavorites extends DefaultTreeModel
-        implements TreeWillExpandListener {
+        implements TreeWillExpandListener, AppExitListener {
 
+    private static final String KEY_SELECTED_FAV_NAME =
+            "TreeModelFavorites.SelFavDir";
+    private static final String KEY_SELECTED_DIR = "TreeModelFavorites.SelDir";
     private final DefaultMutableTreeNode rootNode;
     private final DatabaseFavoriteDirectories db;
     private final JTree tree;
@@ -42,6 +52,7 @@ public final class TreeModelFavorites extends DefaultTreeModel
         tree.addTreeWillExpandListener(this);
         db = DatabaseFavoriteDirectories.INSTANCE;
         addDirectories();
+        GUI.INSTANCE.getAppFrame().addAppExitListener(this);
     }
 
     public void insertFavorite(FavoriteDirectory favoriteDirectory) {
@@ -309,6 +320,110 @@ public final class TreeModelFavorites extends DefaultTreeModel
     }
 
     /**
+     * Expands the tree to a specific file.
+     *
+     * @param favoriteName favorite containing this file
+     * @param file         file
+     * @param select       if true the file node will be selected
+     */
+    private void expandToFile(String favoriteName, File file, boolean select) {
+        Stack<File> filePath = FileUtil.getPathFromRoot(file);
+        filePath.pop(); // File's root is in favorite
+        DefaultMutableTreeNode node = getFavorite(favoriteName);
+        while (node != null && !filePath.isEmpty()) {
+            node = TreeUtil.findChildNodeWithFile(
+                    node, filePath.pop());
+            if (node != null && node.getChildCount() <= 0) {
+                addChildren(node);
+            }
+        }
+        if (node != null) {
+            tree.expandPath(new TreePath(((DefaultMutableTreeNode) node.
+                    getParent()).getPath()));
+            if (select) {
+                tree.setSelectionPath(new TreePath(node.getPath()));
+            }
+        }
+    }
+
+    private DefaultMutableTreeNode getFavorite(String name) {
+        for (Enumeration children = rootNode.children();
+                children.hasMoreElements();) {
+            DefaultMutableTreeNode childNode =
+                    (DefaultMutableTreeNode) children.nextElement();
+            Object userObject = childNode.getUserObject();
+            if (userObject instanceof FavoriteDirectory) {
+                FavoriteDirectory fav = (FavoriteDirectory) userObject;
+                if (name.equals(fav.getFavoriteName())) return childNode;
+            }
+        }
+        return null;
+    }
+
+    public void readFromProperties() {
+        Properties properties = UserSettings.INSTANCE.getProperties();
+        String favname = properties.getProperty(KEY_SELECTED_FAV_NAME);
+        String dirname = properties.getProperty(KEY_SELECTED_DIR);
+        if (favname != null && dirname != null && !favname.trim().isEmpty() &&
+                !dirname.trim().isEmpty()) {
+            expandToFile(favname.trim(), new File(dirname.trim()), true);
+        } else if (favname != null) {
+            DefaultMutableTreeNode fav = getFavorite(favname.trim());
+            if (fav != null) {
+                tree.setSelectionPath(new TreePath(fav.getPath()));
+            }
+        }
+    }
+
+    private void writeToProperties() {
+        if (tree.getSelectionCount() > 0) {
+            TreePath path = tree.getSelectionPath();
+            Object o = path.getLastPathComponent();
+            if (o instanceof DefaultMutableTreeNode) {
+                String favname = null;
+                String dirname = null;
+                DefaultMutableTreeNode node = (DefaultMutableTreeNode) o;
+                Object userObject = node.getUserObject();
+                if (userObject instanceof FavoriteDirectory) {
+                    favname = ((FavoriteDirectory) userObject).getFavoriteName();
+                } else if (userObject instanceof File) {
+                    File file = ((File) userObject);
+                    dirname = file.getAbsolutePath();
+                    FavoriteDirectory favDir = getParentFavDir(node);
+                    if (favDir != null) {
+                        favname = favDir.getFavoriteName();
+                    }
+                }
+                Properties properties = UserSettings.INSTANCE.getProperties();
+                if (dirname == null) {
+                    properties.remove(KEY_SELECTED_DIR);
+                } else {
+                    properties.setProperty(KEY_SELECTED_DIR, dirname);
+                }
+                if (favname == null) {
+                    properties.remove(KEY_SELECTED_FAV_NAME);
+                } else {
+                    properties.setProperty(KEY_SELECTED_FAV_NAME, favname);
+                }
+            }
+        }
+    }
+
+    private FavoriteDirectory getParentFavDir(DefaultMutableTreeNode childNode) {
+        TreeNode parentNode = childNode.getParent();
+        while (parentNode instanceof DefaultMutableTreeNode &&
+                !parentNode.equals(rootNode)) {
+            Object userObject =
+                    ((DefaultMutableTreeNode) parentNode).getUserObject();
+            if (userObject instanceof FavoriteDirectory) {
+                return (FavoriteDirectory) userObject;
+            }
+            parentNode = parentNode.getParent();
+        }
+        return null;
+    }
+
+    /**
      * Updates this model: Adds nodes for new files, deletes nodes with not
      * existing files.
      */
@@ -354,5 +469,10 @@ public final class TreeModelFavorites extends DefaultTreeModel
     @Override
     public void treeWillCollapse(TreeExpansionEvent event) throws
             ExpandVetoException {
+    }
+
+    @Override
+    public void appWillExit() {
+        writeToProperties();
     }
 }
