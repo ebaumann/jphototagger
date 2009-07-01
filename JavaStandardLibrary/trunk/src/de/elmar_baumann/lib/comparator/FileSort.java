@@ -10,12 +10,12 @@ import java.util.Comparator;
  */
 public enum FileSort {
 
-    NAMES_ASCENDING(ComparatorFilesNames.COMPARE_ASCENDING_IGNORE_CASE),
-    NAMES_DESCENDING(ComparatorFilesNames.COMPARE_DESCENDING_IGNORE_CASE),
-    TYPES_ASCENDING(ComparatorFilesSuffixes.COMPARE_ASCENDING_IGNORE_CASE),
-    TYPES_DESCENDING(ComparatorFilesSuffixes.COMPARE_DESCENDING_IGNORE_CASE),
-    LAST_MODIFIED_ASCENDING(ComparatorFilesLastModified.COMPARE_ASCENDING),
-    LAST_MODIFIED_DESCENDING(ComparatorFilesLastModified.COMPARE_DESCENDING);
+    NAMES_ASCENDING(ComparatorFilesNames.ASCENDING_IGNORE_CASE),
+    NAMES_DESCENDING(ComparatorFilesNames.DESCENDING_IGNORE_CASE),
+    TYPES_ASCENDING(ComparatorFilesSuffixes.ASCENDING_IGNORE_CASE),
+    TYPES_DESCENDING(ComparatorFilesSuffixes.DESCENDING_IGNORE_CASE),
+    LAST_MODIFIED_ASCENDING(ComparatorFilesLastModified.ASCENDING),
+    LAST_MODIFIED_DESCENDING(ComparatorFilesLastModified.DESCENDING);
     private final Comparator<File> comparator;
 
     private FileSort(Comparator<File> comparator) {

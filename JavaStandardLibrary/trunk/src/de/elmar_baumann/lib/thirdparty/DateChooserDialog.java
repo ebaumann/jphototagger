@@ -1,6 +1,6 @@
 package de.elmar_baumann.lib.thirdparty;
 
-import de.elmar_baumann.lib.image.icon.IconUtil;
+import de.elmar_baumann.lib.image.util.IconUtil;
 import de.elmar_baumann.lib.resource.Bundle;
 import java.awt.Color;
 import java.awt.Component;

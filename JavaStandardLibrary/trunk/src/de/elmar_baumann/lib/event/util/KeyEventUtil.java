@@ -1,4 +1,4 @@
-package de.elmar_baumann.lib.event;
+package de.elmar_baumann.lib.event.util;
 
 import java.awt.event.KeyEvent;
 

@@ -16,13 +16,13 @@ public final class ComparatorTreeNodeLevel implements
      * Sorts tree nodes in ascending order: A node with a lower level is before
      * a node with a higher level.
      */
-    public static final ComparatorTreeNodeLevel INSTANCE_ASCENDING =
+    public static final ComparatorTreeNodeLevel ASCENDING =
             new ComparatorTreeNodeLevel(CompareOrder.ASCENDING);
     /**
      * Sorts tree nodes in descending order: A node with a higher level is
      * before a node with a lower level.
      */
-    public static final ComparatorTreeNodeLevel INSTANCE_DESCENDING =
+    public static final ComparatorTreeNodeLevel DESCENDING =
             new ComparatorTreeNodeLevel(CompareOrder.DESCENDING);
     /**
      * Sort order.

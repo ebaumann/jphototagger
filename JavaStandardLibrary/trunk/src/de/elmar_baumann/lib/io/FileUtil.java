@@ -1,5 +1,7 @@
 package de.elmar_baumann.lib.io;
 
+import de.elmar_baumann.lib.io.filefilter.DirectoryFilter;
+import de.elmar_baumann.lib.io.filefilter.RegexFileFilter;
 import de.elmar_baumann.lib.resource.Bundle;
 import java.io.File;
 import java.io.FileInputStream;

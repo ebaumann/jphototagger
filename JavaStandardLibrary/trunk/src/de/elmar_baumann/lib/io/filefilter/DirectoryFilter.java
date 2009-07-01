@@ -1,5 +1,6 @@
-package de.elmar_baumann.lib.io;
+package de.elmar_baumann.lib.io.filefilter;
 
+import de.elmar_baumann.lib.io.filefilter.FileChooserFilter;
 import java.io.File;
 import java.util.EnumSet;
 import java.util.Set;

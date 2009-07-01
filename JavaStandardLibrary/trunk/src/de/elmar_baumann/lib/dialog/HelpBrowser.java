@@ -1,8 +1,8 @@
 package de.elmar_baumann.lib.dialog;
 
-import de.elmar_baumann.lib.event.HelpBrowserAction;
-import de.elmar_baumann.lib.event.HelpBrowserListener;
-import de.elmar_baumann.lib.image.icon.IconUtil;
+import de.elmar_baumann.lib.event.HelpBrowserEvent;
+import de.elmar_baumann.lib.event.listener.HelpBrowserListener;
+import de.elmar_baumann.lib.image.util.IconUtil;
 import de.elmar_baumann.lib.model.TreeModelHelpContents;
 import de.elmar_baumann.lib.util.SettingsHints;
 import de.elmar_baumann.lib.renderer.TreeCellRendererHelpContents;
@@ -95,7 +95,7 @@ public final class HelpBrowser extends Dialog
     }
 
     private synchronized void notifyUrlChanged(URL url) {
-        HelpBrowserAction action = new HelpBrowserAction(this, HelpBrowserAction.Type.URL_CHANGED, url);
+        HelpBrowserEvent action = new HelpBrowserEvent(this, HelpBrowserEvent.Type.URL_CHANGED, url);
         for (HelpBrowserListener listener : actionListeners) {
             listener.actionPerformed(action);
         }

@@ -1,6 +1,6 @@
 package de.elmar_baumann.lib.component;
 
-import de.elmar_baumann.lib.image.icon.IconUtil;
+import de.elmar_baumann.lib.image.util.IconUtil;
 
 /**
  * 

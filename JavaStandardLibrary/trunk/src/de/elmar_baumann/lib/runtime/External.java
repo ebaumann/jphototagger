@@ -1,7 +1,7 @@
 package de.elmar_baumann.lib.runtime;
 
 import de.elmar_baumann.lib.resource.Bundle;
-import de.elmar_baumann.lib.template.Pair;
+import de.elmar_baumann.lib.generics.Pair;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.logging.Level;

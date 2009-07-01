@@ -1,6 +1,6 @@
 package de.elmar_baumann.lib.dialog;
 
-import de.elmar_baumann.lib.image.icon.IconUtil;
+import de.elmar_baumann.lib.image.util.IconUtil;
 import de.elmar_baumann.lib.io.FileUtil;
 import de.elmar_baumann.lib.util.logging.LogfileParser;
 import de.elmar_baumann.lib.util.logging.LogfileRecord;

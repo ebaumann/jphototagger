@@ -1,8 +1,8 @@
 package de.elmar_baumann.lib.dialog;
 
 import de.elmar_baumann.lib.componentutil.TreeUtil;
-import de.elmar_baumann.lib.image.icon.IconUtil;
-import de.elmar_baumann.lib.io.DirectoryFilter;
+import de.elmar_baumann.lib.image.util.IconUtil;
+import de.elmar_baumann.lib.io.filefilter.DirectoryFilter;
 import de.elmar_baumann.lib.model.TreeModelAllSystemDirectories;
 import de.elmar_baumann.lib.resource.Bundle;
 import de.elmar_baumann.lib.resource.Resources;

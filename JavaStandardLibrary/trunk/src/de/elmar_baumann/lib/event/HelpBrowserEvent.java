@@ -12,13 +12,13 @@ import java.net.URL;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/04
  */
-public final class HelpBrowserAction {
+public final class HelpBrowserEvent {
 
     private final Object source;
     private final Type type;
     private final URL url;
 
-    public HelpBrowserAction(Object source, Type type, URL url) {
+    public HelpBrowserEvent(Object source, Type type, URL url) {
         if (source == null)
             throw new NullPointerException("source == null");
         if (type == null)

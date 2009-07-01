@@ -1,4 +1,4 @@
-package de.elmar_baumann.lib.component;
+package de.elmar_baumann.lib.componentutil;
 
 import de.elmar_baumann.lib.resource.Bundle;
 import javax.swing.InputVerifier;

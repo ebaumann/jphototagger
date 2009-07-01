@@ -1,6 +1,6 @@
 package de.elmar_baumann.lib.renderer;
 
-import de.elmar_baumann.lib.image.icon.IconUtil;
+import de.elmar_baumann.lib.image.util.IconUtil;
 import de.elmar_baumann.lib.model.TreeModelAllSystemDirectories;
 import de.elmar_baumann.lib.resource.Bundle;
 import java.awt.Component;

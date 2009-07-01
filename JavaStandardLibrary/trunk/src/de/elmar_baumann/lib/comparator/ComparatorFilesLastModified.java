@@ -19,7 +19,7 @@ public final class ComparatorFilesLastModified implements Comparator<File> {
      * negative. If the modification time of both files are equal,
      * <code>compare()</code> returns zero.
      */
-    public static final ComparatorFilesLastModified COMPARE_ASCENDING =
+    public static final ComparatorFilesLastModified ASCENDING =
         new ComparatorFilesLastModified(CompareOrder.ASCENDING);
     /**
      * Compares two file modification times to sort files in descending order:
@@ -29,7 +29,7 @@ public final class ComparatorFilesLastModified implements Comparator<File> {
      * positive. If the modification time of both files are equal,
      * <code>compare()</code> returns zero.
      */
-    public static final ComparatorFilesLastModified COMPARE_DESCENDING =
+    public static final ComparatorFilesLastModified DESCENDING =
         new ComparatorFilesLastModified(CompareOrder.DESCENDING);
     /** Sort order of the files */
     private final CompareOrder order;

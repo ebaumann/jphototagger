@@ -1,7 +1,7 @@
 package de.elmar_baumann.lib.model;
 
 import de.elmar_baumann.lib.comparator.ComparatorFilesNames;
-import de.elmar_baumann.lib.io.DirectoryFilter;
+import de.elmar_baumann.lib.io.filefilter.DirectoryFilter;
 import java.awt.Cursor;
 import java.io.File;
 import java.util.ArrayList;
@@ -55,7 +55,7 @@ public final class TreeModelAllSystemDirectories extends DefaultTreeModel
         if (roots == null) return;
         List<File> rootDirs = Arrays.asList(roots);
         Collections.sort(
-                rootDirs, ComparatorFilesNames.COMPARE_ASCENDING_IGNORE_CASE);
+                rootDirs, ComparatorFilesNames.ASCENDING_IGNORE_CASE);
 
         for (File dir : rootDirs) {
             DefaultMutableTreeNode rootDirNode = new DefaultMutableTreeNode(dir);

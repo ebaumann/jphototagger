@@ -1,4 +1,4 @@
-package de.elmar_baumann.lib.io;
+package de.elmar_baumann.lib.io.filefilter;
 
 import java.io.File;
 

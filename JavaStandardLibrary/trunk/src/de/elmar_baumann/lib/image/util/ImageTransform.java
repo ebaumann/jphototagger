@@ -1,4 +1,4 @@
-package de.elmar_baumann.lib.image;
+package de.elmar_baumann.lib.image.util;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;

@@ -15,25 +15,25 @@ public final class ComparatorFilesNames implements Comparator<File> {
      * Compares the names of two files case insensitive to sort them in
      * ascending order.
      */
-    public static final ComparatorFilesNames COMPARE_ASCENDING_IGNORE_CASE =
+    public static final ComparatorFilesNames ASCENDING_IGNORE_CASE =
         new ComparatorFilesNames(CompareOrder.ASCENDING, CompareCase.IGNORE);
     /**
      * Compares the names of two files case sensitive to sort them in
      * ascending order.
      */
-    public static final ComparatorFilesNames COMPARE_ASCENDING_CASE_SENSITIVE =
+    public static final ComparatorFilesNames ASCENDING_CASE_SENSITIVE =
         new ComparatorFilesNames(CompareOrder.ASCENDING, CompareCase.SENSITIVE);
     /**
      * Compares the names of two files case insensitive to sort them in
      * descending order.
      */
-    public static final ComparatorFilesNames COMPARE_DESCENDING_IGNORE_CASE =
+    public static final ComparatorFilesNames DESCENDING_IGNORE_CASE =
         new ComparatorFilesNames(CompareOrder.DESCENDING, CompareCase.IGNORE);
     /**
      * Compares the names of two files case sensitive to sort them in
      * descending order.
      */
-    public static final ComparatorFilesNames COMPARE_DESCENDING_CASE_SENSITIVE =
+    public static final ComparatorFilesNames DESCENDING_CASE_SENSITIVE =
         new ComparatorFilesNames(CompareOrder.DESCENDING, CompareCase.SENSITIVE);
     /** Sort order of the files */
     private final CompareOrder compareOrder;

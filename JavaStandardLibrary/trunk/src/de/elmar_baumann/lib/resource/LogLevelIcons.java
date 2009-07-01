@@ -1,6 +1,6 @@
 package de.elmar_baumann.lib.resource;
 
-import de.elmar_baumann.lib.image.icon.IconUtil;
+import de.elmar_baumann.lib.image.util.IconUtil;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;

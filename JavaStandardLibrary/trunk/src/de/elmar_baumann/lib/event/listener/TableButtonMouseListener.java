@@ -1,4 +1,4 @@
-package de.elmar_baumann.lib.event;
+package de.elmar_baumann.lib.event.listener;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -11,7 +11,7 @@ import javax.swing.SwingUtilities;
  *
  * @version 2009/04/01
  */
-public final class JTableButtonMouseListener implements MouseListener {
+public final class TableButtonMouseListener implements MouseListener {
 
     private final JTable table;
 
@@ -44,7 +44,7 @@ public final class JTableButtonMouseListener implements MouseListener {
         return null;
     }
 
-    public JTableButtonMouseListener(JTable table) {
+    public TableButtonMouseListener(JTable table) {
         this.table = table;
     }
 

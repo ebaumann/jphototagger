@@ -1,4 +1,6 @@
-package de.elmar_baumann.lib.event;
+package de.elmar_baumann.lib.event.listener;
+
+import de.elmar_baumann.lib.event.HelpBrowserEvent;
 
 /**
  * Listens to actions of
@@ -14,6 +16,6 @@ public interface HelpBrowserListener {
      * 
      * @param action  action
      */
-    public void actionPerformed(HelpBrowserAction action);
+    public void actionPerformed(HelpBrowserEvent action);
     
 }

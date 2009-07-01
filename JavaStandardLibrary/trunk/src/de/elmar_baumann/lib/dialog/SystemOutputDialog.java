@@ -1,7 +1,7 @@
 package de.elmar_baumann.lib.dialog;
 
 import de.elmar_baumann.lib.component.SystemOutputPanel;
-import de.elmar_baumann.lib.image.icon.IconUtil;
+import de.elmar_baumann.lib.image.util.IconUtil;
 import de.elmar_baumann.lib.resource.Bundle;
 import de.elmar_baumann.lib.resource.Resources;
 import de.elmar_baumann.lib.util.Settings;

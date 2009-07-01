@@ -1,6 +1,6 @@
 package de.elmar_baumann.lib.renderer;
 
-import de.elmar_baumann.lib.image.icon.IconUtil;
+import de.elmar_baumann.lib.image.util.IconUtil;
 import de.elmar_baumann.lib.util.help.HelpPage;
 import de.elmar_baumann.lib.util.help.HelpNode;
 import java.awt.Component;

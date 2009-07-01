@@ -17,7 +17,7 @@ public final class ComparatorFilesSuffixes implements Comparator<File> {
      *
      * The suffix is the string after the last period of the filename.
      */
-    public final static ComparatorFilesSuffixes COMPARE_ASCENDING_IGNORE_CASE =
+    public final static ComparatorFilesSuffixes ASCENDING_IGNORE_CASE =
         new ComparatorFilesSuffixes(CompareOrder.ASCENDING, CompareCase.IGNORE);
     /**
      * Compares the suffixes of two files case sensitive to sort them in
@@ -25,7 +25,7 @@ public final class ComparatorFilesSuffixes implements Comparator<File> {
      *
      * The suffix is the string after the last period of the filename.
      */
-    public final static ComparatorFilesSuffixes COMPARE_ASCENDING_CASE_SENSITIVE =
+    public final static ComparatorFilesSuffixes ASCENDING_CASE_SENSITIVE =
         new ComparatorFilesSuffixes(CompareOrder.ASCENDING, CompareCase.SENSITIVE);
     /**
      * Compares the suffixes of two files case insensitive to sort them in
@@ -33,7 +33,7 @@ public final class ComparatorFilesSuffixes implements Comparator<File> {
      *
      * The suffix is the string after the last period of the filename.
      */
-    public final static ComparatorFilesSuffixes COMPARE_DESCENDING_IGNORE_CASE =
+    public final static ComparatorFilesSuffixes DESCENDING_IGNORE_CASE =
         new ComparatorFilesSuffixes(CompareOrder.DESCENDING, CompareCase.IGNORE);
     /**
      * Compares the suffixes of two files case sensitive to sort them in
@@ -41,7 +41,7 @@ public final class ComparatorFilesSuffixes implements Comparator<File> {
      *
      * The suffix is the string after the last period of the filename.
      */
-    public final static ComparatorFilesSuffixes COMPARE_DESCENDING_CASE_SENSITIVE =
+    public final static ComparatorFilesSuffixes DESCENDING_CASE_SENSITIVE =
         new ComparatorFilesSuffixes(CompareOrder.DESCENDING, CompareCase.SENSITIVE);
     /** Sort order */
     private final CompareOrder compareOrder;
