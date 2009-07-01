@@ -403,6 +403,7 @@ public final class AppPanel extends javax.swing.JPanel implements
         hints.addExclude(className + ".textFieldSearch"); // NOI18N
         hints.addExclude(className + ".panelEditMetadata"); // NOI18N
         hints.addExclude(className + ".treeDirectories"); // NOI18N
+        hints.addExclude(className + ".treeFavorites"); // NOI18N
         return hints;
     }
 
