@@ -39,6 +39,18 @@ public class Database {
     }
 
     protected synchronized void notifyDatabaseListener(
+            DatabaseImageEvent.Type type,
+            ImageFile oldImageFile, ImageFile newImageFile) {
+
+        DatabaseImageEvent event = new DatabaseImageEvent(type);
+        event.setImageFile(newImageFile);
+        event.setOldImageFile(oldImageFile);
+        for (DatabaseListener listener : databaseListener) {
+            listener.actionPerformed(event);
+        }
+    }
+
+    protected synchronized void notifyDatabaseListener(
             DatabaseProgramEvent.Type type, Program program) {
 
         DatabaseProgramEvent event = new DatabaseProgramEvent(type);
