@@ -3,11 +3,12 @@ package de.elmar_baumann.imv.view;
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.data.FavoriteDirectory;
 import de.elmar_baumann.imv.resource.GUI;
-import de.elmar_baumann.lib.componentutil.TreeUtil;
 import de.elmar_baumann.lib.io.FileUtil;
+import de.elmar_baumann.lib.model.TreeModelAllSystemDirectories;
 import java.io.File;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
 
 /**
@@ -18,7 +19,8 @@ import javax.swing.tree.TreePath;
  */
 public class ViewUtil {
 
-    private static final String keyTreeDirectories = "ViewUtil.TreeDirectories";
+    private static final String KEY_TREE_DIRECTORIES_SELECTED_DIR =
+            "ViewUtil.TreeDirectories";
 
     /**
      * Returns the selected directory in the directories tree.
@@ -64,26 +66,31 @@ public class ViewUtil {
     }
 
     public static void writeTreeDirectoriesToProperties() {
-        JTree treeDirectories = GUI.INSTANCE.getAppPanel().getTreeDirectories();
-        if (treeDirectories.getSelectionCount() > 0) {
+        writeTreeToProperties(GUI.INSTANCE.getAppPanel().getTreeDirectories(),
+                KEY_TREE_DIRECTORIES_SELECTED_DIR);
+    }
+
+    private static void writeTreeToProperties(JTree tree, String key) {
+        if (tree.getSelectionCount() > 0) {
             UserSettings.INSTANCE.getSettings().setString(
-                    treeDirectories.getSelectionPath().getLastPathComponent().
-                    toString(), keyTreeDirectories);
+                    tree.getSelectionPath().getLastPathComponent().toString(),
+                    key);
         } else {
-            UserSettings.INSTANCE.getProperties().remove(keyTreeDirectories);
+            UserSettings.INSTANCE.getProperties().remove(key);
         }
     }
 
     public static void readTreeDirectoriesFromProperties() {
         JTree treeDirectories = GUI.INSTANCE.getAppPanel().getTreeDirectories();
         String filename = UserSettings.INSTANCE.getSettings().getString(
-                keyTreeDirectories);
+                KEY_TREE_DIRECTORIES_SELECTED_DIR);
 
         if (!filename.isEmpty() && FileUtil.existsDirectory(filename)) {
-            TreePath path = TreeUtil.getTreePath(
-                    new File(filename), treeDirectories.getModel());
-            TreeUtil.expandPathCascade(treeDirectories, path);
-            treeDirectories.setSelectionPath(path);
+            TreeModel model = treeDirectories.getModel();
+            if (model instanceof TreeModelAllSystemDirectories) {
+                ((TreeModelAllSystemDirectories) model).expandToFile(
+                        new File(filename), true);
+            }
         }
     }
 
