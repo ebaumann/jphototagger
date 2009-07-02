@@ -26,6 +26,11 @@ public class SystemOutputPanel extends JPanel {
     private final PipedOutputStream poOut;
     private final PipedOutputStream poErr;
 
+    private enum Type {
+
+        OUT, ERR
+    };
+
     /**
      * Default constructor.
      *
@@ -38,8 +43,8 @@ public class SystemOutputPanel extends JPanel {
         poOut = new PipedOutputStream(piOut);
         piErr = new PipedInputStream();
         poErr = new PipedOutputStream(piErr);
-        new ReaderThread(piOut).start();
-        new ReaderThread(piErr).start();
+        new ReaderThread(piOut, Type.OUT).start();
+        new ReaderThread(piErr, Type.ERR).start();
     }
 
     /**
@@ -66,10 +71,17 @@ public class SystemOutputPanel extends JPanel {
 
     private class ReaderThread extends Thread {
 
-        PipedInputStream pi;
+        private final PipedInputStream pi;
+        private final Type type;
 
-        ReaderThread(PipedInputStream pi) {
+        ReaderThread(PipedInputStream pi, Type type) {
             this.pi = pi;
+            this.type = type;
+            setPriority(MIN_PRIORITY);
+            setName("Reading System." + (type.equals(Type.OUT)
+                                         ? "out"
+                                         : "err") +
+                    " @ " + SystemOutputPanel.class.getName());
         }
 
         @Override
@@ -100,7 +112,7 @@ public class SystemOutputPanel extends JPanel {
                         }
                     });
                 }
-            } catch (IOException e) {
+            } catch (Exception e) {
             }
         }
     }
