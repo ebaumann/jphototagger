@@ -3,6 +3,7 @@ package de.elmar_baumann.imv.controller.favorites;
 import de.elmar_baumann.imv.io.FileSystemDirectories;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuFavorites;
+import de.elmar_baumann.lib.io.TreeFileSystemDirectories;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -33,14 +34,14 @@ public final class ControllerFavoritesDeleteFilesystemFolder implements ActionLi
     }
 
     private void deleteDirectory() {
-        DefaultMutableTreeNode node = FileSystemDirectories.
+        DefaultMutableTreeNode node = TreeFileSystemDirectories.
                 getNodeOfLastPathComponent(popup.getTreePath());
         File dir = node == null
                    ? null
-                   : FileSystemDirectories.getFile(node);
+                   : TreeFileSystemDirectories.getFile(node);
         if (dir != null) {
             if (FileSystemDirectories.delete(dir)) {
-                FileSystemDirectories.removeFromTreeModel(
+                TreeFileSystemDirectories.removeFromTreeModel(
                         GUI.INSTANCE.getAppPanel().getTreeFavorites().
                         getModel(), node);
             }

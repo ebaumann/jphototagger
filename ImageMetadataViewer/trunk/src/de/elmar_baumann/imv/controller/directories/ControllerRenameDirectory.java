@@ -3,6 +3,7 @@ package de.elmar_baumann.imv.controller.directories;
 import de.elmar_baumann.imv.io.FileSystemDirectories;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuDirectories;
+import de.elmar_baumann.lib.io.TreeFileSystemDirectories;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -33,16 +34,16 @@ public final class ControllerRenameDirectory implements ActionListener {
     }
 
     private void renameDirectory() {
-        DefaultMutableTreeNode node = FileSystemDirectories.
+        DefaultMutableTreeNode node = TreeFileSystemDirectories.
                 getNodeOfLastPathComponent(popup.getTreePath());
         File dir = node == null
                    ? null
-                   : FileSystemDirectories.getFile(node);
+                   : TreeFileSystemDirectories.getFile(node);
         if (dir != null) {
             File newDir = FileSystemDirectories.rename(dir);
             if (newDir != null) {
                 node.setUserObject(newDir);
-                FileSystemDirectories.updateInTreeModel(
+                TreeFileSystemDirectories.updateInTreeModel(
                         GUI.INSTANCE.getAppPanel().getTreeDirectories().getModel(),
                         node);
             }
