@@ -15,9 +15,9 @@
    sodipodi:version="0.32"
    inkscape:version="0.46"
    sodipodi:docbase="/home/elmar/projekte/ImageMetadataViewer/src/de/elmar_baumann/imv/resource/icons"
-   sodipodi:docname="icon_folder_add.svg"
+   sodipodi:docname="icon_folder_delete.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape"
-   inkscape:export-filename="/home/elmar/projekte/ImageMetadataViewer/src/de/elmar_baumann/imv/resource/icons/icon_folder_add.png"
+   inkscape:export-filename="/home/elmar/projekte/ImageMetadataViewer/src/de/elmar_baumann/imv/resource/icons/icon_folder_delete.png"
    inkscape:export-xdpi="90"
    inkscape:export-ydpi="90">
   <defs
@@ -76,12 +76,19 @@
       <stop
          id="stop3143"
          offset="0"
-         style="stop-color:#4bff14;stop-opacity:0.61176473;" />
+         style="stop-color:#4bff00;stop-opacity:0.61176473;" />
       <stop
          id="stop3145"
          offset="1"
          style="stop-color:#ffff00;stop-opacity:0;" />
     </linearGradient>
+    <inkscape:perspective
+       id="perspective3891"
+       inkscape:persp3d-origin="8 : 5.3333333 : 1"
+       inkscape:vp_z="16 : 8 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 8 : 1"
+       sodipodi:type="inkscape:persp3d" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -91,16 +98,16 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="28.875"
-     inkscape:cx="8"
+     inkscape:cx="1.8528139"
      inkscape:cy="8"
      inkscape:current-layer="layer1"
      showgrid="true"
      inkscape:grid-bbox="true"
      inkscape:document-units="px"
-     inkscape:window-width="1072"
+     inkscape:window-width="1142"
      inkscape:window-height="675"
-     inkscape:window-x="405"
-     inkscape:window-y="108" />
+     inkscape:window-x="254"
+     inkscape:window-y="159" />
   <metadata
      id="metadata2165">
     <rdf:RDF>
@@ -145,44 +152,36 @@
      id="layer1"
      inkscape:label="Folder"
      inkscape:groupmode="layer"
-     style="opacity:1">
+     style="opacity:1;display:inline">
     <g
-       id="g2196"
+       id="g2198"
+       inkscape:label="Layer 1"
        transform="translate(0,-0.1972477)">
-      <g
-         inkscape:label="Layer 1"
-         id="g2198">
-        <path
-           inkscape:export-ydpi="90"
-           inkscape:export-xdpi="90"
-           sodipodi:nodetypes="ccccccccc"
-           id="path3175"
-           d="M 1,14 L 15,14 L 15,4.0660712 L 7.9804982,4.0660711 L 7.3536734,2.3944954 L 2.7155126,2.443425 L 2.0549621,4.0874163 L 1,4.0874163 L 1,14 z "
-           style="opacity:1;fill:url(#linearGradient3147);fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.50000000000000000;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-      </g>
-      <g
-         inkscape:label="2"
-         id="layer2" />
+      <path
+         style="opacity:1;fill:url(#linearGradient3147);fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.50000000000000000;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="M 1,14 L 15,14 L 15,4.0660712 L 7.9804982,4.0660711 L 7.3536734,2.3944954 L 2.7155126,2.443425 L 2.0549621,4.0874163 L 1,4.0874163 L 1,14 z"
+         id="path3175"
+         sodipodi:nodetypes="ccccccccc"
+         inkscape:export-xdpi="90"
+         inkscape:export-ydpi="90" />
     </g>
+    <g
+       id="layer2"
+       inkscape:label="2"
+       transform="translate(0,-0.1972477)" />
   </g>
   <g
      inkscape:groupmode="layer"
-     id="layer3"
-     inkscape:label="Plus">
-    <rect
-       style="fill:#009900;fill-opacity:1;stroke:none;stroke-width:0.22200000000000000;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
-       id="rect2178"
-       width="8"
-       height="2"
-       x="4"
-       y="8" />
-    <rect
-       style="fill:#009900;fill-opacity:1;stroke:none;stroke-width:0.22200000000000000;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
-       id="rect3152"
-       width="8"
-       height="2"
-       x="5"
-       y="-9"
-       transform="matrix(0,1,-1,0,0,0)" />
+     id="layer4"
+     inkscape:label="Delete"
+     style="display:inline">
+    <path
+       style="opacity:1;fill:none;fill-opacity:1;fill-rule:nonzero;stroke:#dd0000;stroke-width:2.39171767;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:0;stroke-dasharray:none;stroke-opacity:1"
+       d="M 3.1958587,3.1958589 L 12.804141,12.804141"
+       id="path4406" />
+    <path
+       style="opacity:1;fill:none;fill-opacity:1;fill-rule:nonzero;stroke:#dd0000;stroke-width:2.39171767;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:0;stroke-dasharray:none;stroke-opacity:1"
+       d="M 12.804141,3.195859 L 3.1958589,12.804141"
+       id="path3132" />
   </g>
 </svg>
