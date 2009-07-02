@@ -1,6 +1,5 @@
 package de.elmar_baumann.lib.dialog;
 
-import de.elmar_baumann.lib.componentutil.TreeUtil;
 import de.elmar_baumann.lib.image.util.IconUtil;
 import de.elmar_baumann.lib.io.filefilter.DirectoryFilter;
 import de.elmar_baumann.lib.model.TreeModelAllSystemDirectories;
@@ -30,6 +29,7 @@ public final class DirectoryChooser extends Dialog {
     private final File startDirectory;
     private final Set<Option> directoryFilter;
     private boolean accepted;
+    private final TreeModelAllSystemDirectories model;
 
     public enum Option {
 
@@ -56,6 +56,9 @@ public final class DirectoryChooser extends Dialog {
         this.startDirectory = startDirectory;
         this.directoryFilter = options;
         initComponents();
+        model = new TreeModelAllSystemDirectories(
+                treeDirectories, getTreeModelFilter());
+        treeDirectories.setModel(model);
         postInitComponents();
     }
 
@@ -160,14 +163,8 @@ public final class DirectoryChooser extends Dialog {
     }
 
     private void selectStartDirectory() {
-        if (!startDirectory.getName().isEmpty()) {
-            TreePath path = TreeUtil.getTreePath(
-                    startDirectory, treeDirectories.getModel());
-            if (path != null) {
-                TreeUtil.expandPathCascade(treeDirectories, path);
-                treeDirectories.setSelectionPath(path);
-                treeDirectories.scrollPathToVisible(path);
-            }
+        if (startDirectory.isDirectory()) {
+            model.expandToFile(startDirectory, true);
         }
     }
 
@@ -205,6 +202,10 @@ public final class DirectoryChooser extends Dialog {
         }
     }
 
+    private void refresh() {
+        model.update();
+    }
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -219,6 +220,7 @@ public final class DirectoryChooser extends Dialog {
         labelUsage = new javax.swing.JLabel();
         buttonCancel = new javax.swing.JButton();
         buttonChoose = new javax.swing.JButton();
+        buttonRefresh = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/lib/resource/properties/Bundle"); // NOI18N
@@ -229,7 +231,8 @@ public final class DirectoryChooser extends Dialog {
             }
         });
 
-        treeDirectories.setModel(new TreeModelAllSystemDirectories(treeDirectories, getTreeModelFilter()));
+        javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("root");
+        treeDirectories.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
         treeDirectories.setToolTipText(Bundle.getString("DirectoryChooser.Tree directory chooser.toolTipText")); // NOI18N
         treeDirectories.setCellRenderer(new de.elmar_baumann.lib.renderer.TreeCellRendererAllSystemDirectories());
         treeDirectories.setName("Tree directory chooser"); // NOI18N
@@ -253,6 +256,14 @@ public final class DirectoryChooser extends Dialog {
             }
         });
 
+        buttonRefresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/lib/resource/icons/icon_refresh.png"))); // NOI18N
+        buttonRefresh.setPreferredSize(new java.awt.Dimension(25, 25));
+        buttonRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonRefreshActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -262,7 +273,9 @@ public final class DirectoryChooser extends Dialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(scrollPaneTreeDirectories, javax.swing.GroupLayout.DEFAULT_SIZE, 323, Short.MAX_VALUE)
                     .addComponent(labelUsage, javax.swing.GroupLayout.DEFAULT_SIZE, 323, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(buttonRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 118, Short.MAX_VALUE)
                         .addComponent(buttonCancel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonChoose)))
@@ -272,15 +285,18 @@ public final class DirectoryChooser extends Dialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(scrollPaneTreeDirectories, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
+                .addComponent(scrollPaneTreeDirectories, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelUsage)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonChoose)
-                    .addComponent(buttonCancel))
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(buttonChoose, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(buttonCancel, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(buttonRefresh, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(11, 11, 11))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {buttonCancel, buttonChoose, buttonRefresh});
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -296,6 +312,10 @@ private void buttonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
 private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
     cancel();
 }//GEN-LAST:event_formWindowClosing
+
+private void buttonRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRefreshActionPerformed
+    refresh();
+}//GEN-LAST:event_buttonRefreshActionPerformed
 
     /**
      * @param args the command line arguments
@@ -319,10 +339,10 @@ private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:even
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonCancel;
     private javax.swing.JButton buttonChoose;
+    private javax.swing.JButton buttonRefresh;
     private javax.swing.JLabel labelUsage;
     private javax.swing.JScrollPane scrollPaneTreeDirectories;
     private javax.swing.JTree treeDirectories;
