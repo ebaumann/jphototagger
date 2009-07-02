@@ -411,6 +411,10 @@ public final class TreeModelFavorites extends DefaultTreeModel
                     properties.setProperty(KEY_SELECTED_FAV_NAME, favname);
                 }
             }
+        } else {
+            Properties properties = UserSettings.INSTANCE.getProperties();
+            properties.remove(KEY_SELECTED_DIR);
+            properties.remove(KEY_SELECTED_FAV_NAME);
         }
     }
 
