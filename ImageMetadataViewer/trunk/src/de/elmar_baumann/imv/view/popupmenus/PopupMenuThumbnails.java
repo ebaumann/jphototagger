@@ -20,18 +20,20 @@ import javax.swing.JPopupMenu;
 import javax.swing.JSeparator;
 
 /**
- * Popupmenü für das Thumbnailpanel
+ * Popup menu of the thumbnails panel.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
- * @version 2008-10-05
+ * @version 2008/10/05
  */
 public final class PopupMenuThumbnails extends JPopupMenu
         implements UserSettingsChangeListener {
 
     private static final String DISPLAY_NAME_ACTION_UPDATE_METADATA =
-            Bundle.getString("PopupMenuThumbnails.DisplayName.Action.UpdateMetadata");
+            Bundle.getString(
+            "PopupMenuThumbnails.DisplayName.Action.UpdateMetadata");
     private static final String DISPLAY_NAME_ACTION_UPDATE_THUMBNAIL =
-            Bundle.getString("PopupMenuThumbnails.DisplayName.Action.UpdateThumbnail");
+            Bundle.getString(
+            "PopupMenuThumbnails.DisplayName.Action.UpdateThumbnail");
     private static final String DISPLAY_NAME_ACTION_CREATE_IMAGE_COLLECTION =
             Bundle.getString(
             "PopupMenuThumbnails.DisplayName.Action.CreateImageCollection");
@@ -60,9 +62,11 @@ public final class PopupMenuThumbnails extends JPopupMenu
             Bundle.getString(
             "PopupMenuThumbnails.DisplayName.Action.FileSystemDeleteFiles");
     private static final String DISPLAY_NAME_ACTION_FILESYSTEM_RENAME_FILES =
-            Bundle.getString("PopupMenuThumbnails.DisplayName.Action.FileSystemRename");
+            Bundle.getString(
+            "PopupMenuThumbnails.DisplayName.Action.FileSystemRename");
     private static final String DISPLAY_NAME_ACTION_FILESYSTEM_MOVE_FILES =
-            Bundle.getString("PopupMenuThumbnails.DisplayName.Action.FileSystemMove");
+            Bundle.getString(
+            "PopupMenuThumbnails.DisplayName.Action.FileSystemMove");
     private final JMenu menuPrograms = new JMenu(Bundle.getString(
             "PopupMenuThumbnails.DisplayName.menuOtherOpenImageApps.text"));
     private final JMenuItem itemUpdateMetadata = new JMenuItem(
@@ -171,7 +175,8 @@ public final class PopupMenuThumbnails extends JPopupMenu
             for (Program program : programs) {
                 String alias = program.getAlias();
                 JMenuItem item = new JMenuItem(alias);
-                for (ActionListener listener : actionListenersOpenFilesWithOtherApp) {
+                for (ActionListener listener :
+                        actionListenersOpenFilesWithOtherApp) {
                     item.addActionListener(listener);
                 }
                 menuPrograms.add(item);
@@ -259,6 +264,11 @@ public final class PopupMenuThumbnails extends JPopupMenu
     }
 
     public Program getProgram(Object source) {
-        return programOfMenuItem.get(source);
+        assert source instanceof JMenuItem;
+        if (source instanceof JMenuItem) {
+            return programOfMenuItem.get((JMenuItem) source);
+
+        }
+        return null;
     }
 }
