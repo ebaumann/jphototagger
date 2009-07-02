@@ -113,9 +113,9 @@ public final class PopupMenuDirectories extends JPopupMenu {
 
     private void setIcons() {
         itemAddToFavorites.setIcon(AppIcons.getIcon("icon_favorite.png"));
-        itemCreateDirectory.setIcon(AppIcons.getIcon("icon_add.png"));
-        itemDeleteDirectory.setIcon(AppIcons.getIcon("icon_edit_delete.png"));
-        itemRenameDirectory.setIcon(AppIcons.getIcon("icon_rename.png"));
+        itemCreateDirectory.setIcon(AppIcons.getIcon("icon_folder_add.png"));
+        itemDeleteDirectory.setIcon(AppIcons.getIcon("icon_folder_delete.png"));
+        itemRenameDirectory.setIcon(AppIcons.getIcon("icon_folder_rename.png"));
         itemRefresh.setIcon(AppIcons.getIcon("icon_refresh.png"));
     }
 }
