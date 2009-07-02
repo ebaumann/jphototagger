@@ -2,6 +2,7 @@ package de.elmar_baumann.lib.model;
 
 import de.elmar_baumann.lib.componentutil.TreeUtil;
 import de.elmar_baumann.lib.io.FileUtil;
+import de.elmar_baumann.lib.io.TreeFileSystemDirectories;
 import de.elmar_baumann.lib.io.filefilter.DirectoryFilter;
 import java.awt.Cursor;
 import java.io.File;
@@ -114,6 +115,28 @@ public final class TreeModelAllSystemDirectories extends DefaultTreeModel
             removeNodeFromParent(childNodeToRemove);
         }
         return nodesToRemove.size();
+    }
+
+    /**
+     * Creates a new directory as child of a node. Let's the user input the
+     * new name and inserts the new created directory.
+     *
+     * @param parentNode parent node. If null, nothing will be done.
+     */
+    public void createNewDirectory(DefaultMutableTreeNode parentNode) {
+        File dirOfParentNode = parentNode == null
+                               ? null
+                               : TreeFileSystemDirectories.getFile(parentNode);
+        if (dirOfParentNode != null) {
+            File newDir =
+                    TreeFileSystemDirectories.createSubDirectory(dirOfParentNode);
+            TreeNodeSortedChildren newDirNode = new TreeNodeSortedChildren(
+                    newDir);
+            parentNode.add(newDirNode);
+            int childIndex = parentNode.getIndex(newDirNode);
+            fireTreeNodesInserted(this, parentNode.getPath(),
+                    new int[]{childIndex}, new Object[]{newDirNode});
+        }
     }
 
     /**
