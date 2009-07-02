@@ -34,6 +34,13 @@ public final class TreeNodeSortedChildren extends DefaultMutableTreeNode
     }
 
     @Override
+    @SuppressWarnings("unchecked")
+    public void add(final MutableTreeNode newChild) {
+        super.add(newChild);
+        Collections.sort(this.children);
+    }
+
+    @Override
     public int compareTo(final Object o) {
         return this.toString().compareToIgnoreCase(o.toString());
     }
