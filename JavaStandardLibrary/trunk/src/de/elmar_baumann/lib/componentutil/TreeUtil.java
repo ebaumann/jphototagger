@@ -1,6 +1,5 @@
 package de.elmar_baumann.lib.componentutil;
 
-import de.elmar_baumann.lib.io.FileUtil;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.util.ArrayList;
