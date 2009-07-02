@@ -1,6 +1,5 @@
 package de.elmar_baumann.lib.model;
 
-import de.elmar_baumann.lib.comparator.ComparatorFilesNames;
 import de.elmar_baumann.lib.componentutil.TreeUtil;
 import de.elmar_baumann.lib.io.FileUtil;
 import de.elmar_baumann.lib.io.filefilter.DirectoryFilter;
@@ -8,7 +7,6 @@ import java.awt.Cursor;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Set;
@@ -46,7 +44,7 @@ public final class TreeModelAllSystemDirectories extends DefaultTreeModel
      */
     public TreeModelAllSystemDirectories(
             JTree tree, Set<DirectoryFilter.Option> directoryFilter) {
-        super(new DefaultMutableTreeNode("Root of TreeModelAllSystemDirectories"));
+        super(new TreeNodeSortedChildren("Root of TreeModelAllSystemDirectories"));
         rootNode = (DefaultMutableTreeNode) getRoot();
         this.tree = tree;
         this.directoryFilter = new DirectoryFilter(directoryFilter);
@@ -58,11 +56,8 @@ public final class TreeModelAllSystemDirectories extends DefaultTreeModel
         File[] roots = File.listRoots();
         if (roots == null) return;
         List<File> rootDirs = Arrays.asList(roots);
-        Collections.sort(
-                rootDirs, ComparatorFilesNames.ASCENDING_IGNORE_CASE);
-
         for (File dir : rootDirs) {
-            DefaultMutableTreeNode rootDirNode = new DefaultMutableTreeNode(dir);
+            DefaultMutableTreeNode rootDirNode = new TreeNodeSortedChildren(dir);
             insertNodeInto(rootDirNode, rootNode, rootNode.getChildCount());
             addChildren(rootDirNode);
         }
@@ -88,8 +83,12 @@ public final class TreeModelAllSystemDirectories extends DefaultTreeModel
         }
         for (int i = 0; i < subdirs.length; i++) {
             if (!nodeChildDirs.contains(subdirs[i])) {
-                insertNodeInto(new DefaultMutableTreeNode(subdirs[i]),
-                        parentNode, childCount++);
+                DefaultMutableTreeNode newChild =
+                        new TreeNodeSortedChildren(subdirs[i]);
+                parentNode.insert(newChild, childCount++);
+                int childIndex = parentNode.getIndex(newChild);
+                fireTreeNodesInserted(this, parentNode.getPath(),
+                        new int[]{childIndex}, new Object[]{newChild});
             }
         }
     }
