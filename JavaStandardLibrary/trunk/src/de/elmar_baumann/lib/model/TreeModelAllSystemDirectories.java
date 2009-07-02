@@ -85,7 +85,7 @@ public final class TreeModelAllSystemDirectories extends DefaultTreeModel
             if (!nodeChildDirs.contains(subdirs[i])) {
                 DefaultMutableTreeNode newChild =
                         new TreeNodeSortedChildren(subdirs[i]);
-                parentNode.insert(newChild, childCount++);
+                parentNode.add(newChild);
                 int childIndex = parentNode.getIndex(newChild);
                 fireTreeNodesInserted(this, parentNode.getPath(),
                         new int[]{childIndex}, new Object[]{newChild});
