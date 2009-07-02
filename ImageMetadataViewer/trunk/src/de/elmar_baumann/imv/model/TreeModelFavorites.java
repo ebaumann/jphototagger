@@ -10,6 +10,7 @@ import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.lib.componentutil.TreeUtil;
 import de.elmar_baumann.lib.io.filefilter.DirectoryFilter;
 import de.elmar_baumann.lib.io.FileUtil;
+import de.elmar_baumann.lib.model.TreeNodeSortedChildren;
 import java.awt.Cursor;
 import java.io.File;
 import java.util.ArrayList;
@@ -187,7 +188,7 @@ public final class TreeModelFavorites extends DefaultTreeModel
     private void addDirectory(FavoriteDirectory directory) {
         DefaultMutableTreeNode dirNode = getNode(directory);
         if (dirNode == null) {
-            DefaultMutableTreeNode node = new DefaultMutableTreeNode(directory);
+            DefaultMutableTreeNode node = new TreeNodeSortedChildren(directory);
             int childCount = rootNode.getChildCount();
             insertNodeInto(node, rootNode, childCount);
             addChildren(node);
@@ -230,8 +231,12 @@ public final class TreeModelFavorites extends DefaultTreeModel
         }
         for (int i = 0; i < subdirs.length; i++) {
             if (!nodeChildrenDirs.contains(subdirs[i])) {
-                insertNodeInto(new DefaultMutableTreeNode(subdirs[i]),
-                        parentNode, parentNode.getChildCount());
+                DefaultMutableTreeNode newChild =
+                        new TreeNodeSortedChildren(subdirs[i]);
+                parentNode.insert(newChild, childCount++);
+                int childIndex = parentNode.getIndex(newChild);
+                fireTreeNodesInserted(this, parentNode.getPath(),
+                        new int[]{childIndex}, new Object[]{newChild});
             }
         }
     }
