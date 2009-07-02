@@ -7,6 +7,7 @@ import java.util.logging.Formatter;
 import java.util.logging.FileHandler;
 import java.util.logging.Handler;
 import java.util.logging.Level;
+import java.util.logging.LogManager;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 import java.util.logging.StreamHandler;
@@ -35,6 +36,7 @@ public final class AppLoggingSystem {
             addFileLogHandler(logger);
             addStdoutLogHandler(usersLevel, logger);
             logger.setLevel(usersLevel);
+            LogManager.getLogManager().addLogger(logger);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
