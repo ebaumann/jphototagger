@@ -10,6 +10,7 @@ import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.lib.componentutil.TreeUtil;
 import de.elmar_baumann.lib.io.filefilter.DirectoryFilter;
 import de.elmar_baumann.lib.io.FileUtil;
+import de.elmar_baumann.lib.io.TreeFileSystemDirectories;
 import de.elmar_baumann.lib.model.TreeNodeSortedChildren;
 import java.awt.Cursor;
 import java.io.File;
@@ -322,6 +323,39 @@ public final class TreeModelFavorites extends DefaultTreeModel
                 Bundle.getString(
                 "TreeModelFavorites.ErrorMessage.Template.Title"),
                 JOptionPane.ERROR_MESSAGE);
+    }
+
+    /**
+     * Creates a new directory as child of a node. Let's the user input the
+     * new name and inserts the new created directory.
+     *
+     * @param parentNode parent node. If null, nothing will be done.
+     */
+    public void createNewDirectory(DefaultMutableTreeNode parentNode) {
+        File dirOfParentNode = parentNode == null
+                               ? null
+                               : getDirectory(parentNode);
+        if (dirOfParentNode != null) {
+            File newDir =
+                    TreeFileSystemDirectories.createSubDirectory(dirOfParentNode);
+            TreeNodeSortedChildren newDirNode = new TreeNodeSortedChildren(
+                    newDir);
+            parentNode.add(newDirNode);
+            int childIndex = parentNode.getIndex(newDirNode);
+            fireTreeNodesInserted(this, parentNode.getPath(),
+                    new int[]{childIndex}, new Object[]{newDirNode});
+        }
+    }
+
+    private File getDirectory(DefaultMutableTreeNode node) {
+        Object userObject = node.getUserObject();
+        return node == null
+               ? null
+               : userObject instanceof FavoriteDirectory
+                 ? new File(((FavoriteDirectory) userObject).getDirectoryName())
+                 : userObject instanceof File
+                   ? (File) userObject
+                   : null;
     }
 
     /**
