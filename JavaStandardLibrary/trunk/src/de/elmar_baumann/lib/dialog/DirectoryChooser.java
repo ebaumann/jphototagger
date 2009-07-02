@@ -211,11 +211,9 @@ public final class DirectoryChooser extends Dialog {
     private void addDirectory() {
         if (!checkSelected()) return;
         TreePath[] selPaths = treeDirectories.getSelectionPaths();
-        for (TreePath treePath : selPaths) {
-            model.createNewDirectory(
-                    TreeFileSystemDirectories.getNodeOfLastPathComponent(
-                    treePath));
-        }
+        model.createNewDirectory(
+                TreeFileSystemDirectories.getNodeOfLastPathComponent(
+                selPaths[0]));
     }
 
     private void renameDirectory() {
