@@ -23,24 +23,29 @@ public class ViewUtil {
             "ViewUtil.TreeDirectories";
 
     /**
-     * Returns the selected directory in the directories tree.
+     * Returns the selected file in a {@link JTree} if the selected node is a
+     * {@link DefaultMutableTreeNode} and it's user object is a {@link File} or
+     * a {@link FavoriteDirectory}.
      * 
-     * @param  treeDirectories  directories tree
-     * @return directory or null if no directory is selected
+     * @param  tree a tree
+     * @return      file or null if no node with a file user object is selected
      */
-    public static File getSelectedDirectory(JTree treeDirectories) {
-        File directory = null;
-        TreePath path = treeDirectories.getSelectionPath();
+    public static File getSelectedFile(JTree tree) {
+        TreePath path = tree.getSelectionPath();
         if (path != null) {
             Object o = path.getLastPathComponent();
             if (o instanceof DefaultMutableTreeNode) {
                 Object userObject = ((DefaultMutableTreeNode) o).getUserObject();
                 if (userObject instanceof File) {
                     return (File) userObject;
+                } else if (userObject instanceof FavoriteDirectory) {
+                    return new File(
+                            ((FavoriteDirectory) userObject).getDirectoryName());
+
                 }
             }
         }
-        return directory;
+        return null;
     }
 
     /**

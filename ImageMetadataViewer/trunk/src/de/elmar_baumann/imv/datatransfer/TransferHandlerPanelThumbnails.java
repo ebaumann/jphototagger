@@ -97,7 +97,7 @@ public final class TransferHandlerPanelThumbnails extends TransferHandler {
             JTree treeDirectories =
                     GUI.INSTANCE.getAppPanel().getTreeDirectories();
             targetDirectory =
-                    ViewUtil.getSelectedDirectory(treeDirectories);
+                    ViewUtil.getSelectedFile(treeDirectories);
         } else if (isContent(Content.FAVORITE)) {
             targetDirectory =
                     ViewUtil.getSelectedDirectoryFromFavoriteDirectories();

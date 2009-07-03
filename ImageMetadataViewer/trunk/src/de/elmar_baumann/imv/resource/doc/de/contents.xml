@@ -149,26 +149,6 @@
 			<title>Bearbeiten &gt; Zuletzt eingegebene Begriffe</title>
 		</page>
 		<page>
-			<url>action_filesystem_cut.html</url>
-			<title>Bearbeiten &gt; Ausschneiden</title>
-		</page>
-		<page>
-			<url>action_filesystem_paste.html</url>
-			<title>Bearbeiten &gt; Einfügen</title>
-		</page>
-		<page>
-			<url>action_filesystem_copy_to_clipboard.html</url>
-			<title>Bearbeiten &gt; Kopieren</title>
-		</page>
-		<page>
-			<url>action_filesystem_rename.html</url>
-			<title>Bearbeiten &gt; Umbenennen</title>
-		</page>
-		<page>
-			<url>action_filesystem_delete_context.html</url>
-			<title>Bearbeiten &gt; Löschen</title>
-		</page>
-		<page>
 			<url>action_metadata_iptc_to_xmp.html</url>
 			<title>Werkzeuge &gt; IPTC-Daten nach XMP</title>
 		</page>
@@ -237,6 +217,10 @@
 		<page>
 			<url>dialog_program_properties.html</url>
 			<title>Dialog Programmeigenschaften</title>
+		</page>
+		<page>
+			<url>dialog_filesystem_rename</url>
+			<title>Dialog: Umbenennen</title>
 		</page>
 	</node>
 	<node>

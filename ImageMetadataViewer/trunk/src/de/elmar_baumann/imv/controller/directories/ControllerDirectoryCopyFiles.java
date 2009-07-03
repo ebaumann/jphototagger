@@ -26,7 +26,8 @@ import javax.swing.TransferHandler;
 public final class ControllerDirectoryCopyFiles implements KeyListener {
 
     private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
-    private final ImageFileThumbnailsPanel thumbnailsPanel = appPanel.getPanelThumbnails();
+    private final ImageFileThumbnailsPanel thumbnailsPanel =
+            appPanel.getPanelThumbnails();
     private final JTree treeDirectories = appPanel.getTreeDirectories();
 
     public ControllerDirectoryCopyFiles() {
@@ -38,29 +39,20 @@ public final class ControllerDirectoryCopyFiles implements KeyListener {
     }
 
     @Override
-    public void keyTyped(KeyEvent e) {
-        // nothing to do
-    }
-
-    @Override
     public void keyPressed(KeyEvent e) {
-        handleKeyPressed(e);
+        copy(e);
     }
 
-    @Override
-    public void keyReleased(KeyEvent e) {
-        // nothing to do
-    }
-
-    private void handleKeyPressed(KeyEvent e) {
-        if (thumbnailsPanel.getContent().equals(Content.DIRECTORY) && KeyEventUtil.isInsert(e)) {
+    private void copy(KeyEvent e) {
+        if (thumbnailsPanel.getContent().equals(Content.DIRECTORY) &&
+                KeyEventUtil.isPaste(e)) {
             insertFilesIntoSelectedDirectory();
         }
     }
 
     private void insertFilesIntoSelectedDirectory() {
         List<File> sourceFiles = ClipboardUtil.getFilesFromSystemClipboard("\n");
-        File targetDirectory = ViewUtil.getSelectedDirectory(treeDirectories);
+        File targetDirectory = ViewUtil.getSelectedFile(treeDirectories);
         if (sourceFiles.size() > 0 && targetDirectory != null) {
             copyOrMoveFiles(sourceFiles, targetDirectory);
         }
@@ -69,12 +61,22 @@ public final class ControllerDirectoryCopyFiles implements KeyListener {
     private void copyOrMoveFiles(List<File> sourceFiles, File targetDirectory) {
         FileAction action = thumbnailsPanel.getFileAction();
         int dropAction = action.equals(FileAction.COPY)
-            ? TransferHandler.COPY
-            : TransferHandler.MOVE;
+                         ? TransferHandler.COPY
+                         : TransferHandler.MOVE;
         TransferHandlerTreeDirectories.handleDroppedFiles(
-            dropAction, sourceFiles, targetDirectory);
+                dropAction, sourceFiles, targetDirectory);
         if (action.equals(FileAction.CUT)) {
             thumbnailsPanel.setFileAction(FileAction.UNDEFINED);
         }
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+        // nothing to do
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        // nothing to do
     }
 }

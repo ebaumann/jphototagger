@@ -1,8 +1,7 @@
 package de.elmar_baumann.imv.controller.filesystem;
 
-import de.elmar_baumann.imv.app.AppLog;
+import de.elmar_baumann.imv.controller.imagecollection.ControllerDeleteFromImageCollection;
 import de.elmar_baumann.imv.database.DatabaseImageFiles;
-import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.tasks.FileSystemDeleteImageFiles;
 import de.elmar_baumann.imv.types.Content;
@@ -12,39 +11,30 @@ import de.elmar_baumann.imv.view.popupmenus.PopupMenuThumbnails;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.File;
-import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 import javax.swing.SwingUtilities;
 
 /**
- * Deletes files from the filesystem.
+ * Listens to key events of {@link ImageFileThumbnailsPanel} and when the
+ * <code>DEL</code> key was pressed deletes the selected files from the
+ * file system if the panel's content is <em>not</em>
+ * {@link Content#IMAGE_COLLECTION}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/12
+ * @see     ControllerDeleteFromImageCollection
  */
-public final class ControllerDeleteFiles implements ActionListener {
+public final class ControllerDeleteFiles implements ActionListener, KeyListener {
 
     private final ImageFileThumbnailsPanel thumbnailsPanel = GUI.INSTANCE.
             getAppPanel().getPanelThumbnails();
     private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
     private final PopupMenuThumbnails popupMenu =
             PopupMenuThumbnails.INSTANCE;
-    private static final List<Content> deleteableContent =
-            new ArrayList<Content>();
-
-
-    static {
-        deleteableContent.add(Content.CATEGORY);
-        deleteableContent.add(Content.DIRECTORY);
-        deleteableContent.add(Content.FAST_SEARCH);
-        deleteableContent.add(Content.FAVORITE);
-        deleteableContent.add(Content.KEYWORD);
-        deleteableContent.add(Content.MISC_METADATA);
-        deleteableContent.add(Content.SAFED_SEARCH);
-        deleteableContent.add(Content.TIMELINE);
-    }
 
     public ControllerDeleteFiles() {
         listen();
@@ -52,43 +42,52 @@ public final class ControllerDeleteFiles implements ActionListener {
 
     private void listen() {
         popupMenu.getItemFileSystemDeleteFiles().addActionListener(this);
-        GUI.INSTANCE.getAppFrame().getMenuItemDelete().addActionListener(this);
+        thumbnailsPanel.addKeyListener(this);
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_DELETE) {
+            delete();
+        }
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (isDeletable(thumbnailsPanel.getContent())) {
+        delete();
+    }
+
+    private void delete() {
+        if (thumbnailsPanel.getSelectionCount() > 0 &&
+                thumbnailsPanel.getContent().canDeleteImagesFromFileSystem()) {
             SwingUtilities.invokeLater(new Runnable() {
 
                 @Override
                 public void run() {
                     deleteSelectedFiles();
-                    thumbnailsPanel.repaint();
                 }
             });
         }
     }
 
-    private boolean isDeletable(Content content) {
-        return deleteableContent.contains(content);
-    }
-
     private void deleteSelectedFiles() {
-        int selCount = thumbnailsPanel.getSelectionCount();
         List<File> deletedImageFiles = FileSystemDeleteImageFiles.delete(
                 thumbnailsPanel.getSelectedFiles(), EnumSet.of(
                 DeleteOption.CONFIRM_DELETE,
                 DeleteOption.MESSAGES_ON_FAILURES));
-        int delCount = deletedImageFiles.size();
-
-        if (delCount > 0) {
+        if (deletedImageFiles.size() > 0) {
             db.deleteImageFiles(FileUtil.getAsFilenames(deletedImageFiles));
             thumbnailsPanel.remove(deletedImageFiles);
         }
-        if (delCount != selCount) {
-            AppLog.logWarning(ControllerDeleteFiles.class, Bundle.getString(
-                    "ControllerDeleteFiles.ErrorMessage.NotAllImagesDeleted",
-                    selCount, delCount));
-        }
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+        // nothing to do
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        // nothing to do
     }
 }

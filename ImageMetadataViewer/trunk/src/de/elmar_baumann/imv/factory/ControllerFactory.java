@@ -55,7 +55,7 @@ import de.elmar_baumann.imv.controller.search.ControllerEditSafedSearch;
 import de.elmar_baumann.imv.controller.search.ControllerRenameSavedSearch;
 import de.elmar_baumann.imv.controller.search.ControllerSafedSearchSelected;
 import de.elmar_baumann.imv.controller.tasks.ControllerArrayScheduledTasks;
-import de.elmar_baumann.imv.controller.thumbnail.ControllerCopyFilesToClipboard;
+import de.elmar_baumann.imv.controller.thumbnail.ControllerCopyOrCutFilesToClipboard;
 import de.elmar_baumann.imv.controller.thumbnail.ControllerCreateMetadataOfCurrentThumbnails;
 import de.elmar_baumann.imv.controller.thumbnail.ControllerCreateMetadataOfSelectedThumbnails;
 import de.elmar_baumann.imv.controller.thumbnail.ControllerDeleteThumbnailsFromDatabase;
@@ -135,7 +135,7 @@ public final class ControllerFactory {
             new ControllerSortThumbnails();
             new ControllerThumbnailsDatabaseChanges();
             new ControllerAutocopyDirectory();
-            new ControllerCopyFilesToClipboard();
+            new ControllerCopyOrCutFilesToClipboard();
             new ControllerDirectoryCopyFiles();
             new ControllerPasteFilesFromClipboard();
             new ControllerOpenFavoriteInFolders();

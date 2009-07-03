@@ -27,14 +27,19 @@ import javax.swing.JMenuItem;
 public final class ControllerMenuItemEnabler
         implements UserSettingsChangeListener, ThumbnailsPanelListener {
 
-    private final Map<JMenuItem, List<Content>> contentsOfMenuItemRequiresSelectedImages = new HashMap<JMenuItem, List<Content>>();
-    private final Map<JMenuItem, List<Content>> contentsOfMenuItemRequiresContent = new HashMap<JMenuItem, List<Content>>();
-    private final List<JMenuItem> itemsRequiresSelectedImages = new ArrayList<JMenuItem>();
+    private final Map<JMenuItem, List<Content>> contentsOfMenuItemRequiresSelectedImages =
+            new HashMap<JMenuItem, List<Content>>();
+    private final List<JMenuItem> itemsRequiresSelectedImages =
+            new ArrayList<JMenuItem>();
     private final AppFrame appFrame = GUI.INSTANCE.getAppFrame();
-    private final PopupMenuThumbnails popupThumbnails = PopupMenuThumbnails.INSTANCE;
-    private final ImageFileThumbnailsPanel thumbnailsPanel = GUI.INSTANCE.getAppPanel().getPanelThumbnails();
-    private final JMenuItem itemOpenFilesWithStandardApp = popupThumbnails.getItemOpenFilesWithStandardApp();
-    private final JMenu menuOtherOpenImageApps = popupThumbnails.getMenuOtherOpenImageApps();
+    private final PopupMenuThumbnails popupThumbnails =
+            PopupMenuThumbnails.INSTANCE;
+    private final ImageFileThumbnailsPanel thumbnailsPanel = GUI.INSTANCE.
+            getAppPanel().getPanelThumbnails();
+    private final JMenuItem itemOpenFilesWithStandardApp = popupThumbnails.
+            getItemOpenFilesWithStandardApp();
+    private final JMenu menuOtherOpenImageApps = popupThumbnails.
+            getMenuOtherOpenImageApps();
     private boolean hasPrograms = DatabasePrograms.INSTANCE.hasProgram();
 
     public ControllerMenuItemEnabler() {
@@ -52,32 +57,35 @@ public final class ControllerMenuItemEnabler
         contents = new ArrayList<Content>();
         contents.add(Content.DIRECTORY);
         contents.add(Content.FAVORITE);
-        contentsOfMenuItemRequiresSelectedImages.put(popupThumbnails.getItemFileSystemMoveFiles(), contents);
-
-        contents = new ArrayList<Content>();
-        contents.add(Content.DIRECTORY);
-        contentsOfMenuItemRequiresContent.put(appFrame.getMenuItemPaste(), contents);
+        contentsOfMenuItemRequiresSelectedImages.put(popupThumbnails.
+                getItemFileSystemMoveFiles(), contents);
 
         contents = new ArrayList<Content>();
         contents.add(Content.IMAGE_COLLECTION);
-        contentsOfMenuItemRequiresSelectedImages.put(popupThumbnails.getItemDeleteFromImageCollection(), contents);
+        contentsOfMenuItemRequiresSelectedImages.put(popupThumbnails.
+                getItemDeleteFromImageCollection(), contents);
 
-        itemsRequiresSelectedImages.add(appFrame.getMenuItemCopy());
-        itemsRequiresSelectedImages.add(appFrame.getMenuItemCut());
-        itemsRequiresSelectedImages.add(appFrame.getMenuItemDelete());
-        itemsRequiresSelectedImages.add(appFrame.getMenuItemRename());
         itemsRequiresSelectedImages.add(appFrame.getMenuItemRenameInXmp());
         itemsRequiresSelectedImages.add(popupThumbnails.getItemUpdateThumbnail());
         itemsRequiresSelectedImages.add(popupThumbnails.getItemUpdateMetadata());
-        itemsRequiresSelectedImages.add(popupThumbnails.getItemDeleteImageFromDatabase());
-        itemsRequiresSelectedImages.add(popupThumbnails.getItemCreateImageCollection());
-        itemsRequiresSelectedImages.add(popupThumbnails.getItemAddToImageCollection());
-        itemsRequiresSelectedImages.add(popupThumbnails.getItemRotateThumbnai90());
-        itemsRequiresSelectedImages.add(popupThumbnails.getItemRotateThumbnai180());
-        itemsRequiresSelectedImages.add(popupThumbnails.getItemRotateThumbnai270());
-        itemsRequiresSelectedImages.add(popupThumbnails.getItemFileSystemCopyToDirectory());
-        itemsRequiresSelectedImages.add(popupThumbnails.getItemFileSystemDeleteFiles());
-        itemsRequiresSelectedImages.add(popupThumbnails.getItemFileSystemRenameFiles());
+        itemsRequiresSelectedImages.add(popupThumbnails.
+                getItemDeleteImageFromDatabase());
+        itemsRequiresSelectedImages.add(popupThumbnails.
+                getItemCreateImageCollection());
+        itemsRequiresSelectedImages.add(popupThumbnails.
+                getItemAddToImageCollection());
+        itemsRequiresSelectedImages.add(
+                popupThumbnails.getItemRotateThumbnai90());
+        itemsRequiresSelectedImages.add(
+                popupThumbnails.getItemRotateThumbnai180());
+        itemsRequiresSelectedImages.add(
+                popupThumbnails.getItemRotateThumbnai270());
+        itemsRequiresSelectedImages.add(popupThumbnails.
+                getItemFileSystemCopyToDirectory());
+        itemsRequiresSelectedImages.add(popupThumbnails.
+                getItemFileSystemDeleteFiles());
+        itemsRequiresSelectedImages.add(popupThumbnails.
+                getItemFileSystemRenameFiles());
     }
 
     private void setEnabled() {
@@ -91,12 +99,8 @@ public final class ControllerMenuItemEnabler
         for (JMenuItem item : contentsOfMenuItemRequiresSelectedImages.keySet()) {
             item.setEnabled(
                     isSelection &&
-                    contentsOfMenuItemRequiresSelectedImages.get(item).contains(content));
-        }
-
-        for (JMenuItem item : contentsOfMenuItemRequiresContent.keySet()) {
-            item.setEnabled(
-                    contentsOfMenuItemRequiresContent.get(item).contains(content));
+                    contentsOfMenuItemRequiresSelectedImages.get(item).contains(
+                    content));
         }
 
         UserSettings settings = UserSettings.INSTANCE;
@@ -121,7 +125,8 @@ public final class ControllerMenuItemEnabler
 
     @Override
     public void applySettings(UserSettingsChangeEvent evt) {
-        if (evt.getType().equals(UserSettingsChangeEvent.Type.OTHER_IMAGE_OPEN_APPS)) {
+        if (evt.getType().equals(
+                UserSettingsChangeEvent.Type.OTHER_IMAGE_OPEN_APPS)) {
             hasPrograms = DatabasePrograms.INSTANCE.hasProgram();
             setEnabled();
         }

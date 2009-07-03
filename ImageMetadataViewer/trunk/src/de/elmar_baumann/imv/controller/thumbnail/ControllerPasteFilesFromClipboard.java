@@ -3,25 +3,28 @@ package de.elmar_baumann.imv.controller.thumbnail;
 import de.elmar_baumann.imv.datatransfer.TransferHandlerTreeDirectories;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.types.Content;
-import de.elmar_baumann.imv.types.FileAction;
 import de.elmar_baumann.imv.view.ViewUtil;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.lib.clipboard.ClipboardUtil;
-import de.elmar_baumann.lib.componentutil.ComponentUtil;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import de.elmar_baumann.lib.event.util.KeyEventUtil;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.File;
 import java.util.List;
 import javax.swing.SwingUtilities;
 import javax.swing.TransferHandler;
 
 /**
- * 
+ * Listen to key events in the {@link ImageFileThumbnailsPanel} and when
+ * {@link KeyEventUtil#isPaste(java.awt.event.KeyEvent)} is true and
+ * the thumbnail panel's content
+ * {@link Content#canInsertImagesFromFileSystem()} is true image files from
+ * the clipboard are pasted into the directory of the displayed thumbnails.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/27
  */
-public final class ControllerPasteFilesFromClipboard implements ActionListener {
+public final class ControllerPasteFilesFromClipboard implements KeyListener {
 
     private final ImageFileThumbnailsPanel thumbnailsPanel = GUI.INSTANCE.
             getAppPanel().getPanelThumbnails();
@@ -31,36 +34,52 @@ public final class ControllerPasteFilesFromClipboard implements ActionListener {
     }
 
     private void listen() {
-        GUI.INSTANCE.getAppFrame().getMenuItemPaste().addActionListener(this);
+        thumbnailsPanel.addKeyListener(this);
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
-        if (thumbnailsPanel.getContent().equals(Content.DIRECTORY)) {
-            insertFiles();
+    public void keyPressed(KeyEvent e) {
+        if (KeyEventUtil.isPaste(e) &&
+                thumbnailsPanel.getContent().canInsertImagesFromFileSystem()) {
+            insertFiles(getDirectory());
         }
     }
 
-    private void insertFiles() {
+    private File getDirectory() {
+        Content content = thumbnailsPanel.getContent();
+        if (content.equals(Content.DIRECTORY)) {
+            return ViewUtil.getSelectedFile(
+                    GUI.INSTANCE.getAppPanel().getTreeDirectories());
+        } else if (content.equals(Content.FAVORITE)) {
+            return ViewUtil.getSelectedFile(
+                    GUI.INSTANCE.getAppPanel().getTreeFavorites());
+        }
+        return null;
+    }
+
+    private void insertFiles(final File file) {
+        if (file == null || !file.isDirectory()) return;
         SwingUtilities.invokeLater(new Runnable() {
 
             @Override
             public void run() {
-                File directory = ViewUtil.getSelectedDirectory(GUI.INSTANCE.
-                        getAppPanel().
-                        getTreeDirectories());
-                if (directory != null) {
-                    List<File> files =
-                            ClipboardUtil.getFilesFromSystemClipboard("\n");
-                    TransferHandlerTreeDirectories.handleDroppedFiles(
-                            thumbnailsPanel.getFileAction().equals(
-                            FileAction.COPY)
-                            ? TransferHandler.COPY
-                            : TransferHandler.MOVE, files, directory);
-                    thumbnailsPanel.refresh();
-                    ComponentUtil.forceRepaint(thumbnailsPanel);
-                }
+                List<File> files =
+                        ClipboardUtil.getFilesFromSystemClipboard("\n");
+                // TODO determine COPY OR MOVE, when moving deleting from source
+                TransferHandlerTreeDirectories.handleDroppedFiles(
+                        TransferHandler.COPY, files, file);
+                thumbnailsPanel.refresh();
             }
         });
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+        // nothing to do
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        // nothing to do
     }
 }

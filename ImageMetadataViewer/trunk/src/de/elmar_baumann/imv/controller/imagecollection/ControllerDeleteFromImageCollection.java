@@ -1,6 +1,7 @@
 package de.elmar_baumann.imv.controller.imagecollection;
 
 import de.elmar_baumann.imv.app.AppLog;
+import de.elmar_baumann.imv.controller.filesystem.ControllerDeleteFiles;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.types.Content;
 import de.elmar_baumann.imv.tasks.ImageCollectionDatabaseUtils;
@@ -11,19 +12,25 @@ import de.elmar_baumann.imv.view.popupmenus.PopupMenuThumbnails;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.File;
 import java.util.List;
 import javax.swing.JList;
 import javax.swing.SwingUtilities;
 
 /**
- * Kontrolliert die Aktion: Lösche Bilder aus einer Bildsammlung, ausgelöst von
- * {@link de.elmar_baumann.imv.view.popupmenus.PopupMenuThumbnails}.
+ * Listens to key events of {@link ImageFileThumbnailsPanel} and when the
+ * <code>DEL</code> key was pressed deletes the selected files from the
+ * file system if the panel's content <em>is</em>
+ * {@link Content#IMAGE_COLLECTION}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/00/10
+ * @see     ControllerDeleteFiles
  */
-public final class ControllerDeleteFromImageCollection implements ActionListener {
+public final class ControllerDeleteFromImageCollection
+        implements ActionListener, KeyListener {
 
     private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
     private final JList list = appPanel.getListImageCollections();
@@ -38,19 +45,25 @@ public final class ControllerDeleteFromImageCollection implements ActionListener
 
     private void listen() {
         popupMenu.getItemDeleteFromImageCollection().addActionListener(this);
-        GUI.INSTANCE.getAppFrame().getMenuItemDelete().addActionListener(this);
+        thumbnailsPanel.addKeyListener(this);
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_DELETE) {
+            delete();
+        }
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (thumbnailsPanel.getContent().equals(Content.IMAGE_COLLECTION)) {
-            if (thumbnailsPanel.getSelectionCount() > 0) {
-                deleteSelectedFilesFromImageCollection();
-            } else {
-                AppLog.logWarning(ControllerDeleteFromImageCollection.class,
-                        Bundle.getString(
-                        "ControllerDeleteFromImageCollection.ErrorMessage.NoImagesSelected"));
-            }
+        delete();
+    }
+
+    private void delete() {
+        if (thumbnailsPanel.getContent().equals(Content.IMAGE_COLLECTION) &&
+                thumbnailsPanel.getSelectionCount() > 0) {
+            deleteSelectedFilesFromImageCollection();
         }
     }
 
@@ -63,10 +76,11 @@ public final class ControllerDeleteFromImageCollection implements ActionListener
                 if (selectedValue != null) {
                     List<File> selectedFiles =
                             thumbnailsPanel.getSelectedFiles();
-                    ImageCollectionDatabaseUtils.deleteImagesFromCollection(
+                    if (ImageCollectionDatabaseUtils.deleteImagesFromCollection(
                             selectedValue.toString(), FileUtil.getAsFilenames(
-                            selectedFiles));
-                    thumbnailsPanel.remove(selectedFiles);
+                            selectedFiles))) {
+                        thumbnailsPanel.remove(selectedFiles);
+                    }
                 } else {
                     AppLog.logWarning(ControllerDeleteFromImageCollection.class,
                             Bundle.getString(
@@ -74,5 +88,15 @@ public final class ControllerDeleteFromImageCollection implements ActionListener
                 }
             }
         });
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+        // nothing to do
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        // nothing to do
     }
 }
