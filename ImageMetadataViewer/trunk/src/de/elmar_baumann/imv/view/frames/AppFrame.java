@@ -115,7 +115,6 @@ public final class AppFrame extends javax.swing.JFrame {
                 getClass().getName());
         thread.start();
         addAppExitListener(appPanel);
-        appPanel.getEditPanelsArray().addDeleteListenerTo(menuItemDelete);
     }
 
     private void addAppPanel() {
@@ -149,24 +148,8 @@ public final class AppFrame extends javax.swing.JFrame {
         return menuItemCopyFromAutocopyDirectory;
     }
 
-    public JMenuItem getMenuItemCopy() {
-        return menuItemCopy;
-    }
-
-    public JMenuItem getMenuItemPaste() {
-        return menuItemPaste;
-    }
-
-    public JMenuItem getMenuItemCut() {
-        return menuItemCut;
-    }
-
     public JMenuItem getMenuItemOfGoto(GoTo gt) {
         return menuItemOfGoto.get(gt);
-    }
-
-    public JMenuItem getMenuItemDelete() {
-        return menuItemDelete;
     }
 
     public JRadioButtonMenuItem getMenuItemOfSort(FileSort sort) {
@@ -187,10 +170,6 @@ public final class AppFrame extends javax.swing.JFrame {
 
     public JMenuItem getMenuItemActions() {
         return menuItemActions;
-    }
-
-    public JMenuItem getMenuItemRename() {
-        return menuItemFileSystemRename;
     }
 
     public JMenuItem getMenuItemHelp() {
@@ -272,12 +251,6 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemSearch = new javax.swing.JMenuItem();
         jSeparator6 = new javax.swing.JSeparator();
         menuItemLastEditedWords = new javax.swing.JMenuItem();
-        jSeparator10 = new javax.swing.JSeparator();
-        menuItemCut = new javax.swing.JMenuItem();
-        menuItemPaste = new javax.swing.JMenuItem();
-        menuItemCopy = new javax.swing.JMenuItem();
-        menuItemFileSystemRename = new javax.swing.JMenuItem();
-        menuItemDelete = new javax.swing.JMenuItem();
         menuGoto = new javax.swing.JMenu();
         menuItemGotoFastSearch = new javax.swing.JMenuItem();
         menuItemGotoEdit = new javax.swing.JMenuItem();
@@ -388,42 +361,6 @@ public final class AppFrame extends javax.swing.JFrame {
             }
         });
         menuEdit.add(menuItemLastEditedWords);
-        menuEdit.add(jSeparator10);
-
-        menuItemCut.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.CTRL_MASK));
-        menuItemCut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icons/icon_edit_cut.png"))); // NOI18N
-        menuItemCut.setMnemonic('u');
-        menuItemCut.setText(Bundle.getString("AppFrame.menuItemCut.text")); // NOI18N
-        menuItemCut.setEnabled(false);
-        menuEdit.add(menuItemCut);
-
-        menuItemPaste.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.CTRL_MASK));
-        menuItemPaste.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icons/icon_edit_paste.png"))); // NOI18N
-        menuItemPaste.setMnemonic('i');
-        menuItemPaste.setText(Bundle.getString("AppFrame.menuItemPaste.text")); // NOI18N
-        menuItemPaste.setEnabled(false);
-        menuEdit.add(menuItemPaste);
-
-        menuItemCopy.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_MASK));
-        menuItemCopy.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icons/icon_edit_copy.png"))); // NOI18N
-        menuItemCopy.setMnemonic('o');
-        menuItemCopy.setText(Bundle.getString("AppFrame.menuItemCopy.text")); // NOI18N
-        menuItemCopy.setEnabled(false);
-        menuEdit.add(menuItemCopy);
-
-        menuItemFileSystemRename.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F2, 0));
-        menuItemFileSystemRename.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icons/icon_rename.png"))); // NOI18N
-        menuItemFileSystemRename.setMnemonic('n');
-        menuItemFileSystemRename.setText(Bundle.getString("AppFrame.menuItemFileSystemRename.text")); // NOI18N
-        menuItemFileSystemRename.setEnabled(false);
-        menuEdit.add(menuItemFileSystemRename);
-
-        menuItemDelete.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_DELETE, 0));
-        menuItemDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icons/icon_edit_delete.png"))); // NOI18N
-        menuItemDelete.setMnemonic('e');
-        menuItemDelete.setText(Bundle.getString("AppFrame.menuItemDelete.text")); // NOI18N
-        menuItemDelete.setEnabled(false);
-        menuEdit.add(menuItemDelete);
 
         menuBar.add(menuEdit);
 
@@ -625,10 +562,8 @@ private void menuItemLastEditedWordsActionPerformed(java.awt.event.ActionEvent e
             "AppFrame.menuItemLastEditedWords.text"));
     TextSelectionDialog.INSTANCE.setVisible(true);
 }//GEN-LAST:event_menuItemLastEditedWordsActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSeparator jSeparator10;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
@@ -644,13 +579,9 @@ private void menuItemLastEditedWordsActionPerformed(java.awt.event.ActionEvent e
     private javax.swing.JMenu menuHelp;
     private javax.swing.JMenuItem menuItemAbout;
     private javax.swing.JMenuItem menuItemActions;
-    private javax.swing.JMenuItem menuItemCopy;
     private javax.swing.JMenuItem menuItemCopyFromAutocopyDirectory;
-    private javax.swing.JMenuItem menuItemCut;
-    private javax.swing.JMenuItem menuItemDelete;
     private javax.swing.JMenuItem menuItemExit;
     private javax.swing.JMenuItem menuItemExtractEmbeddedXmp;
-    private javax.swing.JMenuItem menuItemFileSystemRename;
     private javax.swing.JMenuItem menuItemGotoCategories;
     private javax.swing.JMenuItem menuItemGotoCollections;
     private javax.swing.JMenuItem menuItemGotoDirectories;
@@ -668,7 +599,6 @@ private void menuItemLastEditedWordsActionPerformed(java.awt.event.ActionEvent e
     private javax.swing.JMenuItem menuItemHelp;
     private javax.swing.JMenuItem menuItemLastEditedWords;
     private javax.swing.JMenuItem menuItemMaintainDatabase;
-    private javax.swing.JMenuItem menuItemPaste;
     private javax.swing.JMenuItem menuItemRefresh;
     private javax.swing.JMenuItem menuItemRenameFilenamesInDb;
     private javax.swing.JMenuItem menuItemRenameInXmp;
