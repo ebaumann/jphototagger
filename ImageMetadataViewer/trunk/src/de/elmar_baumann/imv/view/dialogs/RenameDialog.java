@@ -40,9 +40,11 @@ import javax.swing.SpinnerNumberModel;
  */
 public final class RenameDialog extends Dialog {
 
-    private final FilenameFormatArray filenameFormatArray = new FilenameFormatArray();
+    private final FilenameFormatArray filenameFormatArray =
+            new FilenameFormatArray();
     private List<File> files = new ArrayList<File>();
-    private List<RenameFileListener> renameFileListeners = new LinkedList<RenameFileListener>();
+    private List<RenameFileListener> renameFileListeners =
+            new LinkedList<RenameFileListener>();
     private ListenerProvider listenerProvider;
     private int fileIndex = 0;
     private boolean lockClose = false;
@@ -80,6 +82,18 @@ public final class RenameDialog extends Dialog {
     }
 
     /**
+     * En- or disables the panel for renaming via templates.
+     *
+     * @param enabled true if enabled
+     */
+    public void setEnabledTemplates(boolean enabled) {
+        tabbedPane.setEnabledAt(1, enabled);
+        if (!enabled) {
+            tabbedPane.setSelectedComponent(panelInputName);
+        }
+    }
+
+    /**
      * Sets the files to rename;
      * 
      * @param files  files
@@ -104,9 +118,11 @@ public final class RenameDialog extends Dialog {
     }
 
     private void renameXmpFile(String oldFilenamne, String newFilename) {
-        String oldXmpFilename = XmpMetadata.getSidecarFilenameOfImageFileIfExists(oldFilenamne);
+        String oldXmpFilename = XmpMetadata.
+                getSidecarFilenameOfImageFileIfExists(oldFilenamne);
         if (oldXmpFilename != null) {
-            String newXmpFilename = XmpMetadata.suggestSidecarFilenameForImageFile(newFilename);
+            String newXmpFilename = XmpMetadata.
+                    suggestSidecarFilenameForImageFile(newFilename);
             File newXmpFile = new File(newXmpFilename);
             File oldXmpFile = new File(oldXmpFilename);
             if (newXmpFile.exists()) {
@@ -140,8 +156,10 @@ public final class RenameDialog extends Dialog {
             File oldFile = files.get(i);
             String parent = oldFile.getParent();
             File newFile = new File(
-                (parent == null ? "" : parent + File.separator) + // NOI18N
-                filenameFormatArray.format());
+                    (parent == null
+                     ? ""
+                     : parent + File.separator) + // NOI18N
+                    filenameFormatArray.format());
             if (checkNewFileNotExists(newFile) && renameFile(oldFile, newFile)) {
                 files.set(i, newFile);
                 notifyRenameListeners(oldFile, newFile);
@@ -191,16 +209,18 @@ public final class RenameDialog extends Dialog {
 
     private File getNewFileViaInput() {
         String directory = labelDirectory.getText();
-        return new File(directory + (directory.isEmpty() ? "" : File.separator) + // NOI18N
-            textFieldNewName.getText().trim());
+        return new File(directory + (directory.isEmpty()
+                                     ? ""
+                                     : File.separator) + // NOI18N
+                textFieldNewName.getText().trim());
     }
 
     private boolean canRenameViaInput() {
         File oldFile = files.get(fileIndex);
         File newFile = getNewFileViaInput();
         return checkNewFilenameIsDefined() &&
-            checkNamesNotEquals(oldFile, newFile) &&
-            checkNewFileNotExists(newFile);
+                checkNamesNotEquals(oldFile, newFile) &&
+                checkNewFileNotExists(newFile);
     }
 
     private boolean checkNewFilenameIsDefined() {
@@ -208,22 +228,25 @@ public final class RenameDialog extends Dialog {
         boolean defined = !input.isEmpty();
         if (!defined) {
             JOptionPane.showMessageDialog(
-                null,
-                Bundle.getString("RenameDialog.ErrorMessage.InvalidInput"),
-                Bundle.getString("RenameDialog.ErrorMessage.InvalidInput.Title"),
-                JOptionPane.ERROR_MESSAGE);
+                    null,
+                    Bundle.getString("RenameDialog.ErrorMessage.InvalidInput"),
+                    Bundle.getString(
+                    "RenameDialog.ErrorMessage.InvalidInput.Title"),
+                    JOptionPane.ERROR_MESSAGE);
         }
         return defined;
     }
 
     private boolean checkNamesNotEquals(File oldFile, File newFile) {
-        boolean equals = newFile.getAbsolutePath().equals(oldFile.getAbsolutePath());
+        boolean equals = newFile.getAbsolutePath().equals(oldFile.
+                getAbsolutePath());
         if (equals) {
             JOptionPane.showMessageDialog(
-                null,
-                Bundle.getString("RenameDialog.ErrorMessage.FilenamesEquals"),
-                Bundle.getString("RenameDialog.ErrorMessage.FilenamesEquals.Title"),
-                JOptionPane.ERROR_MESSAGE);
+                    null,
+                    Bundle.getString("RenameDialog.ErrorMessage.FilenamesEquals"),
+                    Bundle.getString(
+                    "RenameDialog.ErrorMessage.FilenamesEquals.Title"),
+                    JOptionPane.ERROR_MESSAGE);
         }
         return !equals;
     }
@@ -232,10 +255,12 @@ public final class RenameDialog extends Dialog {
         boolean exists = file.exists();
         if (exists) {
             JOptionPane.showMessageDialog(
-                null,
-                Bundle.getString("RenameDialog.ErrorMessage.NewFileExists", file.getName()),
-                Bundle.getString("RenameDialog.ErrorMessage.NewFileExists.Title"),
-                JOptionPane.ERROR_MESSAGE);
+                    null,
+                    Bundle.getString("RenameDialog.ErrorMessage.NewFileExists",
+                    file.getName()),
+                    Bundle.getString(
+                    "RenameDialog.ErrorMessage.NewFileExists.Title"),
+                    JOptionPane.ERROR_MESSAGE);
         }
         return !exists;
     }
@@ -252,18 +277,23 @@ public final class RenameDialog extends Dialog {
     }
 
     private void setFileToFilenameFormats(File file) {
-        setFilenameFormatToSelectedItem(comboBoxAtBegin, file, textFieldAtBegin.getText().trim());
-        setFilenameFormatToSelectedItem(comboBoxInTheMiddle, file, textFieldInTheMiddle.getText().trim());
-        setFilenameFormatToSelectedItem(comboBoxAtEnd, file, textFieldAtEnd.getText().trim());
+        setFilenameFormatToSelectedItem(comboBoxAtBegin, file, textFieldAtBegin.
+                getText().trim());
+        setFilenameFormatToSelectedItem(comboBoxInTheMiddle, file, textFieldInTheMiddle.getText().
+                trim());
+        setFilenameFormatToSelectedItem(comboBoxAtEnd, file, textFieldAtEnd.
+                getText().trim());
     }
 
-    private void setFilenameFormatToSelectedItem(JComboBox comboBox, File file, String fmt) {
+    private void setFilenameFormatToSelectedItem(JComboBox comboBox, File file,
+            String fmt) {
         ComboBoxModel model = comboBox.getModel();
         FilenameFormat format = (FilenameFormat) model.getSelectedItem();
         format.setFile(file);
         format.setFormat(fmt);
         if (format instanceof FilenameFormatNumberSequence) {
-            FilenameFormatNumberSequence f = (FilenameFormatNumberSequence) format;
+            FilenameFormatNumberSequence f =
+                    (FilenameFormatNumberSequence) format;
             f.setStart((Integer) spinnerStartNumber.getValue());
             f.setIncrement((Integer) spinnerNumberStepWidth.getValue());
             f.setCountDigits((Integer) spinnerNumberCount.getValue());
@@ -275,12 +305,18 @@ public final class RenameDialog extends Dialog {
 
     private void setFilenameFormatArray(File file) {
         filenameFormatArray.clear();
-        filenameFormatArray.addFormat((FilenameFormat) comboBoxAtBegin.getSelectedItem());
-        filenameFormatArray.addFormat(new FilenameFormatConstantString(textFieldDelim1.getText().trim()));
-        filenameFormatArray.addFormat((FilenameFormat) comboBoxInTheMiddle.getSelectedItem());
-        filenameFormatArray.addFormat(new FilenameFormatConstantString(textFieldDelim2.getText().trim()));
-        filenameFormatArray.addFormat((FilenameFormat) comboBoxAtEnd.getSelectedItem());
-        FilenameFormatFilenamePostfix postfix = new FilenameFormatFilenamePostfix();
+        filenameFormatArray.addFormat((FilenameFormat) comboBoxAtBegin.
+                getSelectedItem());
+        filenameFormatArray.addFormat(new FilenameFormatConstantString(textFieldDelim1.
+                getText().trim()));
+        filenameFormatArray.addFormat((FilenameFormat) comboBoxInTheMiddle.
+                getSelectedItem());
+        filenameFormatArray.addFormat(new FilenameFormatConstantString(textFieldDelim2.
+                getText().trim()));
+        filenameFormatArray.addFormat((FilenameFormat) comboBoxAtEnd.
+                getSelectedItem());
+        FilenameFormatFilenamePostfix postfix =
+                new FilenameFormatFilenamePostfix();
         postfix.setFile(file);
         filenameFormatArray.addFormat(postfix);
     }
@@ -303,9 +339,10 @@ public final class RenameDialog extends Dialog {
     private synchronized void setThumbnail(File file) {
         Image thumbnail = null;
         if (FileType.isJpegFile(file.getName())) {
-            thumbnail = ThumbnailUtil.getScaledImage(file, panelThumbnail.getWidth());
-        // Imagero locks the displayed file and it couldn't be renamed
-        //thumbnail = ThumbnailUtil.getThumbnail(file, panelThumbnail.getWidth(), true);
+            thumbnail = ThumbnailUtil.getScaledImage(file, panelThumbnail.
+                    getWidth());
+            // Imagero locks the displayed file and it couldn't be renamed
+            //thumbnail = ThumbnailUtil.getThumbnail(file, panelThumbnail.getWidth(), true);
         }
         if (thumbnail != null) {
             panelThumbnail.setImage(thumbnail);
@@ -315,10 +352,12 @@ public final class RenameDialog extends Dialog {
 
     private void errorMessageNotRenamed(String filename) {
         if (JOptionPane.showConfirmDialog(null,
-            Bundle.getString("RenameDialog.ConfirmMessage.RenameNextFile", filename),
-            Bundle.getString("RenameDialog.ConfirmMessage.RenameNextFile.Title"),
-            JOptionPane.YES_NO_OPTION,
-            JOptionPane.ERROR_MESSAGE) == JOptionPane.NO_OPTION) {
+                Bundle.getString("RenameDialog.ConfirmMessage.RenameNextFile",
+                filename),
+                Bundle.getString(
+                "RenameDialog.ConfirmMessage.RenameNextFile.Title"),
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.ERROR_MESSAGE) == JOptionPane.NO_OPTION) {
             stop = true;
             setVisible(false);
             dispose();
@@ -339,16 +378,22 @@ public final class RenameDialog extends Dialog {
 
     private void readProperties() {
         UserSettings.INSTANCE.getSettings().getSizeAndLocation(this);
-        UserSettings.INSTANCE.getSettings().getComponent(this, getPersistentSettingsHints());
+        UserSettings.INSTANCE.getSettings().getComponent(this,
+                getPersistentSettingsHints());
+        if (!tabbedPane.isEnabledAt(1)) {
+            tabbedPane.setSelectedComponent(panelInputName);
+        }
     }
 
     private void writeProperties() {
         UserSettings.INSTANCE.getSettings().setSizeAndLocation(this);
-        UserSettings.INSTANCE.getSettings().setComponent(this, getPersistentSettingsHints());
+        UserSettings.INSTANCE.getSettings().setComponent(this,
+                getPersistentSettingsHints());
     }
 
     private SettingsHints getPersistentSettingsHints() {
-        SettingsHints hints = new SettingsHints(EnumSet.of(SettingsHints.Option.SET_TABBED_PANE_CONTENT));
+        SettingsHints hints = new SettingsHints(EnumSet.of(
+                SettingsHints.Option.SET_TABBED_PANE_CONTENT));
         hints.addExclude(getClass().getName() + ".labelBeforeFilename"); // NOI18N
         hints.addExclude(getClass().getName() + ".labelAfterFilename"); // NOI18N
         return hints;
@@ -356,11 +401,11 @@ public final class RenameDialog extends Dialog {
 
     private void setEnabledConstantTextFields() {
         textFieldAtBegin.setEditable(
-            comboBoxAtBegin.getSelectedItem() instanceof FilenameFormatConstantString);
+                comboBoxAtBegin.getSelectedItem() instanceof FilenameFormatConstantString);
         textFieldInTheMiddle.setEditable(
-            comboBoxInTheMiddle.getSelectedItem() instanceof FilenameFormatConstantString);
+                comboBoxInTheMiddle.getSelectedItem() instanceof FilenameFormatConstantString);
         textFieldAtEnd.setEditable(
-            comboBoxAtEnd.getSelectedItem() instanceof FilenameFormatConstantString);
+                comboBoxAtEnd.getSelectedItem() instanceof FilenameFormatConstantString);
     }
 
     @Override
@@ -957,7 +1002,6 @@ private void textFieldDateDelimKeyReleased(java.awt.event.KeyEvent evt) {//GEN-F
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonNextFile;
     private javax.swing.JButton buttonRename;
