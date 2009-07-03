@@ -45,13 +45,13 @@ public final class KeyEventUtil {
     }
 
     /**
-     * Returns whether to insert, i.e. that the key combination 
+     * Returns whether to paste, i.e. that the key combination
      * <code>Ctrl+V</code> is pressed.
      * 
      * @param  e  key event
      * @return true if insert
      */
-    public static boolean isInsert(KeyEvent e) {
+    public static boolean isPaste(KeyEvent e) {
         if (e == null)
             throw new NullPointerException("e == null");
 
