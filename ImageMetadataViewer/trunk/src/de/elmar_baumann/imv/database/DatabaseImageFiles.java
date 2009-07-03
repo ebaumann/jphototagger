@@ -453,10 +453,10 @@ public final class DatabaseImageFiles extends Database {
                     "DELETE FROM files WHERE filename = ?"); // NOI18N
             for (String filename : filenames) {
                 stmt.setString(1, filename);
-                ImageFile imageFile = new ImageFile();
-                imageFile.setFilename(filename);
-                imageFile.setExif(getExifOfFile(filename));
-                imageFile.setXmp(getXmpOfFile(filename));
+                ImageFile oldImageFile = new ImageFile();
+                oldImageFile.setFilename(filename);
+                oldImageFile.setExif(getExifOfFile(filename));
+                oldImageFile.setXmp(getXmpOfFile(filename));
                 long idFile = getIdFile(connection, filename);
                 AppLog.logFiner(DatabaseImageFiles.class, stmt.toString());
                 int countAffectedRows = stmt.executeUpdate();
@@ -464,7 +464,7 @@ public final class DatabaseImageFiles extends Database {
                 if (countAffectedRows > 0) {
                     ThumbnailUtil.deleteThumbnail(idFile);
                     notifyDatabaseListener(
-                            DatabaseImageEvent.Type.IMAGEFILE_DELETED, imageFile);
+                            DatabaseImageEvent.Type.IMAGEFILE_DELETED, oldImageFile, oldImageFile);
                 }
             }
             stmt.close();
