@@ -249,8 +249,6 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemSettings = new javax.swing.JMenuItem();
         jSeparator5 = new javax.swing.JSeparator();
         menuItemSearch = new javax.swing.JMenuItem();
-        jSeparator6 = new javax.swing.JSeparator();
-        menuItemLastEditedWords = new javax.swing.JMenuItem();
         menuGoto = new javax.swing.JMenu();
         menuItemGotoFastSearch = new javax.swing.JMenuItem();
         menuItemGotoEdit = new javax.swing.JMenuItem();
@@ -280,6 +278,8 @@ public final class AppFrame extends javax.swing.JFrame {
         jSeparator3 = new javax.swing.JSeparator();
         radioButtonMenuItemSortFileTypeAscending = new javax.swing.JRadioButtonMenuItem();
         radioButtonMenuItemSortFileTypeDescending = new javax.swing.JRadioButtonMenuItem();
+        jSeparator6 = new javax.swing.JSeparator();
+        menuItemLastEditedWords = new javax.swing.JMenuItem();
         menuTools = new javax.swing.JMenu();
         menuItemToolIptcToXmp = new javax.swing.JMenuItem();
         menuItemExtractEmbeddedXmp = new javax.swing.JMenuItem();
@@ -349,18 +349,6 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemSearch.setMnemonic('s');
         menuItemSearch.setText(Bundle.getString("AppFrame.menuItemSearch.text")); // NOI18N
         menuEdit.add(menuItemSearch);
-        menuEdit.add(jSeparator6);
-
-        menuItemLastEditedWords.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F7, 0));
-        menuItemLastEditedWords.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icons/icon_insert_words.png"))); // NOI18N
-        menuItemLastEditedWords.setMnemonic('l');
-        menuItemLastEditedWords.setText(Bundle.getString("AppFrame.menuItemLastEditedWords.text")); // NOI18N
-        menuItemLastEditedWords.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuItemLastEditedWordsActionPerformed(evt);
-            }
-        });
-        menuEdit.add(menuItemLastEditedWords);
 
         menuBar.add(menuEdit);
 
@@ -493,6 +481,18 @@ public final class AppFrame extends javax.swing.JFrame {
         menuSort.add(radioButtonMenuItemSortFileTypeDescending);
 
         menuView.add(menuSort);
+        menuView.add(jSeparator6);
+
+        menuItemLastEditedWords.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F7, 0));
+        menuItemLastEditedWords.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icons/icon_insert_words.png"))); // NOI18N
+        menuItemLastEditedWords.setMnemonic('l');
+        menuItemLastEditedWords.setText(Bundle.getString("AppFrame.menuItemLastEditedWords.text")); // NOI18N
+        menuItemLastEditedWords.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemLastEditedWordsActionPerformed(evt);
+            }
+        });
+        menuView.add(menuItemLastEditedWords);
 
         menuBar.add(menuView);
 
