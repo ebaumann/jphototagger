@@ -338,12 +338,15 @@ public final class TreeModelFavorites extends DefaultTreeModel
         if (dirOfParentNode != null) {
             File newDir =
                     TreeFileSystemDirectories.createSubDirectory(dirOfParentNode);
-            TreeNodeSortedChildren newDirNode = new TreeNodeSortedChildren(
-                    newDir);
-            parentNode.add(newDirNode);
-            int childIndex = parentNode.getIndex(newDirNode);
-            fireTreeNodesInserted(this, parentNode.getPath(),
-                    new int[]{childIndex}, new Object[]{newDirNode});
+            if (newDir != null) {
+                TreeNodeSortedChildren newDirNode = new TreeNodeSortedChildren(
+                        newDir);
+                parentNode.add(newDirNode);
+                int childIndex = parentNode.getIndex(newDirNode);
+                fireTreeNodesInserted(this, parentNode.getPath(),
+                        new int[]{childIndex}, new Object[]{newDirNode});
+
+            }
         }
     }
 
