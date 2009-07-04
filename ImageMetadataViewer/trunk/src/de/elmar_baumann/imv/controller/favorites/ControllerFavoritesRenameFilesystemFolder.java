@@ -18,7 +18,8 @@ import javax.swing.tree.DefaultMutableTreeNode;
  * renames a directory in the file system when the action fires.
  *
  * Also listens to the {@link JTree}'s key events and renames the selected
- * file system directory if the keys <code>Strg+R</code> were pressed.
+ * file system directory if the keys <code>Strg+R</code> or <code>F2</code> were
+ * pressed.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009/06/19
