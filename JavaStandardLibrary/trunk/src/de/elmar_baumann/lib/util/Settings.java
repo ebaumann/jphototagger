@@ -522,6 +522,7 @@ public final class Settings {
             try {
                 Integer ind = new Integer(index);
                 if (ind < list.getModel().getSize()) {
+                    list.ensureIndexIsVisible(ind);
                     list.setSelectedIndex(ind);
                 }
             } catch (Exception ex) {
