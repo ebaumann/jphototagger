@@ -9,17 +9,23 @@ import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuImageCollections;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import javax.swing.JList;
 import javax.swing.SwingUtilities;
 
 /**
  * Kontrolliert Aktion: Lösche Bildsammlung, ausgelöst von
  * {@link de.elmar_baumann.imv.view.popupmenus.PopupMenuImageCollections}.
+ *
+ * Also listens to the {@link JList}'s key events and deletes the selected image
+ * collection when the keys <code>Ctrl+N</code> were pressed.
  * 
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/00/10
  */
-public final class ControllerDeleteImageCollection implements ActionListener {
+public final class ControllerDeleteImageCollection
+        implements ActionListener, KeyListener {
 
     private final PopupMenuImageCollections actionPopup =
             PopupMenuImageCollections.INSTANCE;
@@ -34,15 +40,25 @@ public final class ControllerDeleteImageCollection implements ActionListener {
 
     private void listen() {
         actionPopup.getItemDelete().addActionListener(this);
+        list.addKeyListener(this);
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_DELETE && !list.isSelectionEmpty()) {
+            Object value = list.getSelectedValue();
+            if (value instanceof String) {
+                deleteCollection((String) value);
+            }
+        }
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        deleteCollection();
+        deleteCollection(actionPopup.getImageCollectionName());
     }
 
-    private void deleteCollection() {
-        final String collectionName = actionPopup.getImageCollectionName();
+    private void deleteCollection(final String collectionName) {
         if (collectionName != null) {
             if (ImageCollectionDatabaseUtils.deleteImageCollection(
                     collectionName)) {
@@ -59,5 +75,15 @@ public final class ControllerDeleteImageCollection implements ActionListener {
                     Bundle.getString(
                     "ControllerDeleteImageCollection.ErrorMessage.CollectionNameIsNull"));
         }
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+        // ignore
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        // ignore
     }
 }
