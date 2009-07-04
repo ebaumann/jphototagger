@@ -17,14 +17,13 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.JList;
-import javax.swing.JTree;
 import javax.swing.SwingUtilities;
 
 /**
  * Kontrolliert Aktion: Erzeuge eine Bildsammlung, ausgelöst von
  * {@link de.elmar_baumann.imv.view.popupmenus.PopupMenuThumbnails}.
  *
- * Also listens to the {@link JTree}'s key events and creates a new image
+ * Also listens to the {@link JList}'s key events and creates a new image
  * when the keys <code>Ctrl+N</code> were pressed.
  * 
  * @author  Elmar Baumann <eb@elmar-baumann.de>
