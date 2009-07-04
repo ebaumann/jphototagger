@@ -3,22 +3,31 @@ package de.elmar_baumann.imv.controller.directories;
 import de.elmar_baumann.imv.io.FileSystemDirectories;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuDirectories;
+import de.elmar_baumann.lib.event.util.KeyEventUtil;
 import de.elmar_baumann.lib.io.TreeFileSystemDirectories;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.File;
+import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
  * Listens to {@link PopupMenuDirectories#getItemRenameDirectory()} and
  * renames a directory when the action fires.
  *
+ * Also listenes to the {@link JTree}'s key events and renames a directory when
+ * <code>Ctrl+R</code> was pressed.
+ *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009/06/19
  */
-public final class ControllerRenameDirectory implements ActionListener {
+public final class ControllerRenameDirectory
+        implements ActionListener, KeyListener {
 
     PopupMenuDirectories popup = PopupMenuDirectories.INSTANCE;
+    JTree tree = GUI.INSTANCE.getAppPanel().getTreeDirectories();
 
     public ControllerRenameDirectory() {
         listen();
@@ -26,16 +35,27 @@ public final class ControllerRenameDirectory implements ActionListener {
 
     private void listen() {
         popup.getItemRenameDirectory().addActionListener(this);
+        tree.addKeyListener(this);
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if (KeyEventUtil.isControl(e, KeyEvent.VK_R) && !tree.isSelectionEmpty()) {
+            Object node = tree.getSelectionPath().getLastPathComponent();
+            if (node instanceof DefaultMutableTreeNode) {
+                renameDirectory((DefaultMutableTreeNode) node);
+
+            }
+        }
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        renameDirectory();
+        renameDirectory(TreeFileSystemDirectories.getNodeOfLastPathComponent(
+                popup.getTreePath()));
     }
 
-    private void renameDirectory() {
-        DefaultMutableTreeNode node = TreeFileSystemDirectories.
-                getNodeOfLastPathComponent(popup.getTreePath());
+    private void renameDirectory(DefaultMutableTreeNode node) {
         File dir = node == null
                    ? null
                    : TreeFileSystemDirectories.getFile(node);
@@ -48,5 +68,15 @@ public final class ControllerRenameDirectory implements ActionListener {
                         node);
             }
         }
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+        // ignore
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        // ignore
     }
 }
