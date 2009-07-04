@@ -1,6 +1,5 @@
 package de.elmar_baumann.imv.controller.favorites;
 
-import de.elmar_baumann.imv.data.FavoriteDirectory;
 import de.elmar_baumann.imv.model.TreeModelFavorites;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuFavorites;
@@ -10,7 +9,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.io.File;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeModel;
