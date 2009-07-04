@@ -67,6 +67,9 @@ public final class PopupMenuThumbnails extends JPopupMenu
     private static final String DISPLAY_NAME_ACTION_FILESYSTEM_MOVE_FILES =
             Bundle.getString(
             "PopupMenuThumbnails.DisplayName.Action.FileSystemMove");
+    private static final String DISPLAY_NAME_ACTION_REFRESH =
+            Bundle.getString(
+            "PopupMenuThumbnails.DisplayName.Action.Refresh");
     private final JMenu menuPrograms = new JMenu(Bundle.getString(
             "PopupMenuThumbnails.DisplayName.menuOtherOpenImageApps.text"));
     private final JMenuItem itemUpdateMetadata = new JMenuItem(
@@ -97,6 +100,8 @@ public final class PopupMenuThumbnails extends JPopupMenu
             DISPLAY_NAME_ACTION_FILESYSTEM_RENAME_FILES);
     private final JMenuItem itemFileSystemMoveFiles = new JMenuItem(
             DISPLAY_NAME_ACTION_FILESYSTEM_MOVE_FILES);
+    private final JMenuItem itemRefresh = new JMenuItem(
+            DISPLAY_NAME_ACTION_REFRESH);
     private final List<ActionListener> actionListenersOpenFilesWithOtherApp =
             new ArrayList<ActionListener>();
     private final Map<JMenuItem, Program> programOfMenuItem =
@@ -136,6 +141,7 @@ public final class PopupMenuThumbnails extends JPopupMenu
         itemRotateThumbnai90.setIcon(AppIcons.getIcon("icon_rotate_90.png"));
         itemUpdateMetadata.setIcon(AppIcons.getIcon("icon_metadata_refresh.png"));
         itemUpdateThumbnail.setIcon(AppIcons.getIcon("icon_image_refresh.png"));
+        itemRefresh.setIcon(AppIcons.getIcon("icon_refresh.png"));
     }
 
     private void setStandardAppIcon() {
@@ -165,6 +171,8 @@ public final class PopupMenuThumbnails extends JPopupMenu
         add(itemFileSystemRenameFiles);
         add(itemFileSystemMoveFiles);
         add(itemFileSystemDeleteFiles);
+        add(new JSeparator());
+        add(itemRefresh);
     }
 
     public void addOtherPrograms() {
@@ -255,6 +263,10 @@ public final class PopupMenuThumbnails extends JPopupMenu
 
     public JMenu getMenuOtherOpenImageApps() {
         return menuPrograms;
+    }
+
+    public JMenuItem getItemRefresh() {
+        return itemRefresh;
     }
 
     public synchronized void addActionListenerOpenFilesWithOtherApp(

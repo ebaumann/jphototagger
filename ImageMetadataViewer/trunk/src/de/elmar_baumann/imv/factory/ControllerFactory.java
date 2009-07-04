@@ -60,6 +60,7 @@ import de.elmar_baumann.imv.controller.thumbnail.ControllerCreateMetadataOfCurre
 import de.elmar_baumann.imv.controller.thumbnail.ControllerCreateMetadataOfSelectedThumbnails;
 import de.elmar_baumann.imv.controller.thumbnail.ControllerDeleteThumbnailsFromDatabase;
 import de.elmar_baumann.imv.controller.thumbnail.ControllerPasteFilesFromClipboard;
+import de.elmar_baumann.imv.controller.thumbnail.ControllerRefreshThumbnailsPanel;
 import de.elmar_baumann.imv.controller.thumbnail.ControllerRenameInXmpColumns;
 import de.elmar_baumann.imv.controller.thumbnail.ControllerRotateThumbnail;
 import de.elmar_baumann.imv.controller.thumbnail.ControllerSliderThumbnailSize;
@@ -153,6 +154,7 @@ public final class ControllerFactory {
             new ControllerFavoritesAddFilesystemFolder();
             new ControllerFavoritesRenameFilesystemFolder();
             new ControllerFavoritesDeleteFilesystemFolder();
+            new ControllerRefreshThumbnailsPanel();
             startScheduledTasks();
             init = true;
         }

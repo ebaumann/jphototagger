@@ -15,6 +15,7 @@ import de.elmar_baumann.imv.view.InfoSettingThumbnails;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuThumbnails;
 import java.awt.Image;
 import java.awt.Point;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.util.ArrayList;
@@ -264,6 +265,14 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel
             if (!files.get(i).exists()) {
                 addFlag(i, ThumbnailFlag.ErrorFileNotFound);
             }
+        }
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        super.keyPressed(e);
+        if (e.getKeyCode() == KeyEvent.VK_F5) {
+            refresh();
         }
     }
 

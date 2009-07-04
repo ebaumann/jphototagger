@@ -180,10 +180,6 @@ public final class AppFrame extends javax.swing.JFrame {
         return menuItemMaintainDatabase;
     }
 
-    public JMenuItem getMenuItemRefresh() {
-        return menuItemRefresh;
-    }
-
     public JMenuItem getMenuItemScanDirectory() {
         return menuItemScanDirectory;
     }
@@ -268,7 +264,6 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemGotoExifMetadata = new javax.swing.JMenuItem();
         menuItemGotoXmpMetadata = new javax.swing.JMenuItem();
         menuView = new javax.swing.JMenu();
-        menuItemRefresh = new javax.swing.JMenuItem();
         menuSort = new javax.swing.JMenu();
         radioButtonMenuItemSortFilenameAscending = new javax.swing.JRadioButtonMenuItem();
         radioButtonMenuItemSortFilenameDescending = new javax.swing.JRadioButtonMenuItem();
@@ -447,12 +442,6 @@ public final class AppFrame extends javax.swing.JFrame {
         menuView.setMnemonic('a');
         menuView.setText(Bundle.getString("AppFrame.menuView.text")); // NOI18N
 
-        menuItemRefresh.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F5, 0));
-        menuItemRefresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icons/icon_refresh.png"))); // NOI18N
-        menuItemRefresh.setMnemonic('a');
-        menuItemRefresh.setText(Bundle.getString("AppFrame.menuItemRefresh.text")); // NOI18N
-        menuView.add(menuItemRefresh);
-
         menuSort.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icons/icon_sort.png"))); // NOI18N
         menuSort.setMnemonic('s');
         menuSort.setText(Bundle.getString("AppFrame.menuSort.text")); // NOI18N
@@ -599,7 +588,6 @@ private void menuItemLastEditedWordsActionPerformed(java.awt.event.ActionEvent e
     private javax.swing.JMenuItem menuItemHelp;
     private javax.swing.JMenuItem menuItemLastEditedWords;
     private javax.swing.JMenuItem menuItemMaintainDatabase;
-    private javax.swing.JMenuItem menuItemRefresh;
     private javax.swing.JMenuItem menuItemRenameFilenamesInDb;
     private javax.swing.JMenuItem menuItemRenameInXmp;
     private javax.swing.JMenuItem menuItemScanDirectory;
