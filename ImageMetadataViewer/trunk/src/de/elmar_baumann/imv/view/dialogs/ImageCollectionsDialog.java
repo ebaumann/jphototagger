@@ -100,6 +100,11 @@ public final class ImageCollectionsDialog extends Dialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(Bundle.getString("ImageCollectionsDialog.title")); // NOI18N
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         labelSelectImageCollection.setText(Bundle.getString("ImageCollectionsDialog.labelSelectImageCollection.text")); // NOI18N
 
@@ -155,6 +160,10 @@ private void buttonOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 private void listImageCollectionNamesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listImageCollectionNamesMouseClicked
     checkDoubleClick(evt);
 }//GEN-LAST:event_listImageCollectionNamesMouseClicked
+
+private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+    writeProperties();
+}//GEN-LAST:event_formWindowClosing
 
     /**
     * @param args the command line arguments
