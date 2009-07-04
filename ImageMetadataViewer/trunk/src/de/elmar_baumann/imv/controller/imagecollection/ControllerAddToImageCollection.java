@@ -20,8 +20,8 @@ public final class ControllerAddToImageCollection implements ActionListener {
 
     private final PopupMenuThumbnails popupMenu =
             PopupMenuThumbnails.INSTANCE;
-    private final ImageFileThumbnailsPanel thumbnailsPanel = GUI.INSTANCE.
-            getAppPanel().getPanelThumbnails();
+    private final ImageFileThumbnailsPanel thumbnailsPanel =
+            GUI.INSTANCE.getAppPanel().getPanelThumbnails();
 
     public ControllerAddToImageCollection() {
         listen();
@@ -45,7 +45,8 @@ public final class ControllerAddToImageCollection implements ActionListener {
     }
 
     private String selectCollectionName() {
-        ImageCollectionsDialog dialog = new ImageCollectionsDialog(null);
+        ImageCollectionsDialog dialog = new ImageCollectionsDialog(
+                GUI.INSTANCE.getAppFrame());
         dialog.setVisible(true);
         return dialog.getSelectedCollectionName();
     }
