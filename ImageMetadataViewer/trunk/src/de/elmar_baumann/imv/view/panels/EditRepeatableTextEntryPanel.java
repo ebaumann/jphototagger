@@ -25,7 +25,7 @@ import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
  * @version 2008/09/18
  */
 public final class EditRepeatableTextEntryPanel extends javax.swing.JPanel
-    implements TextEntry, ActionListener {
+        implements TextEntry, ActionListener {
 
     private static final String delimiter = XmpMetadata.getXmpTokenDelimiter();
     private static final String delimiterReplacement = "?";
@@ -42,7 +42,8 @@ public final class EditRepeatableTextEntryPanel extends javax.swing.JPanel
     }
 
     private void postInitComponents() {
-        textFieldInput.setInputVerifier(new InputVerifierMaxLength(column.getLength()));
+        textFieldInput.setInputVerifier(
+                new InputVerifierMaxLength(column.getLength()));
         setPropmt();
     }
 
@@ -54,9 +55,9 @@ public final class EditRepeatableTextEntryPanel extends javax.swing.JPanel
     public void setAutocomplete() {
         autoCompleteData = new AutoCompleteData(column);
         AutoCompleteDecorator.decorate(
-            textFieldInput,
-            autoCompleteData.getList(),
-            false);
+                textFieldInput,
+                autoCompleteData.getList(),
+                false);
     }
 
     public AutoCompleteData getAutoCompleteData() {
@@ -84,7 +85,7 @@ public final class EditRepeatableTextEntryPanel extends javax.swing.JPanel
     private void handleTextFieldKeyReleased(KeyEvent evt) {
         JComponent component = (JComponent) evt.getSource();
         if (evt.getKeyCode() == KeyEvent.VK_ENTER &&
-            component.getInputVerifier().verify(component)) {
+                component.getInputVerifier().verify(component)) {
             addInputToList();
         } else {
             setEnabledButtons();
@@ -137,7 +138,9 @@ public final class EditRepeatableTextEntryPanel extends javax.swing.JPanel
         textFieldInput.setEditable(editable);
         buttonAddInput.setEnabled(editable);
         buttonRemoveSelection.setEnabled(editable);
-        list.setBackground(editable ? textFieldInput.getBackground() : getBackground());
+        list.setBackground(editable
+                           ? textFieldInput.getBackground()
+                           : getBackground());
     }
 
     private void handleButtonAddInputActionPerformed() {
@@ -153,8 +156,10 @@ public final class EditRepeatableTextEntryPanel extends javax.swing.JPanel
     }
 
     private void setEnabledButtons() {
-        buttonAddInput.setEnabled(editable && !textFieldInput.getText().isEmpty());
-        buttonRemoveSelection.setEnabled(editable && list.getSelectedIndex() >= 0);
+        buttonAddInput.setEnabled(editable &&
+                !textFieldInput.getText().isEmpty());
+        buttonRemoveSelection.setEnabled(editable && list.getSelectedIndex() >=
+                0);
     }
 
     @Override
@@ -211,6 +216,11 @@ public final class EditRepeatableTextEntryPanel extends javax.swing.JPanel
         list.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
                 listValueChanged(evt);
+            }
+        });
+        list.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                listKeyPressed(evt);
             }
         });
         scrollPane.setViewportView(list);
@@ -281,6 +291,15 @@ private void buttonRemoveSelectionActionPerformed(java.awt.event.ActionEvent evt
 private void listValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listValueChanged
     handleListValueChanged(evt);
 }//GEN-LAST:event_listValueChanged
+
+private void listKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_listKeyPressed
+    // won't be called but avoids that other components's key listeners
+    // triggered
+    if (evt.getKeyCode() == KeyEvent.VK_DELETE) {
+        removeSelectedElements();
+    }
+}//GEN-LAST:event_listKeyPressed
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAddInput;
     private javax.swing.JButton buttonRemoveSelection;
