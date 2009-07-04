@@ -135,7 +135,7 @@ public final class HelpBrowser extends Dialog
     /**
      * Sets the URL of the contents XML-File wich validates against <code>helpindex.dtd</code>.
      * <code>helpindex.dtd</code> is in this library:
-     * <code>/de/elmar_baumann/lib/resource/helpindex.dtd</code>
+     * <code>/de/elmar_baumann/lib/resource/dtd/helpindex.dtd</code>
      * All paths to help pages within this file have to be relative.
      * 
      * @param url URL, eg. <code>/de/elmar_baumann/imv/resource/doc/de/contents.xml</code>
