@@ -18,7 +18,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
  * renames a directory when the action fires.
  *
  * Also listenes to the {@link JTree}'s key events and renames the selected
- * directory when <code>Ctrl+R</code> was pressed.
+ * directory when the keys <code>Ctrl+R</code> or <code>F2</code> were pressed.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009/06/19
@@ -40,7 +40,7 @@ public final class ControllerRenameDirectory
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if (KeyEventUtil.isControl(e, KeyEvent.VK_R) && !tree.isSelectionEmpty()) {
+        if (isRename(e) && !tree.isSelectionEmpty()) {
             Object node = tree.getSelectionPath().getLastPathComponent();
             if (node instanceof DefaultMutableTreeNode) {
                 renameDirectory((DefaultMutableTreeNode) node);
@@ -53,6 +53,11 @@ public final class ControllerRenameDirectory
     public void actionPerformed(ActionEvent e) {
         renameDirectory(TreeFileSystemDirectories.getNodeOfLastPathComponent(
                 popup.getTreePath()));
+    }
+
+    private boolean isRename(KeyEvent e) {
+        return KeyEventUtil.isControl(e, KeyEvent.VK_R) ||
+                e.getKeyCode() == KeyEvent.VK_F2;
     }
 
     private void renameDirectory(DefaultMutableTreeNode node) {
