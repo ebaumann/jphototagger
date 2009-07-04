@@ -159,7 +159,9 @@ public final class TreeModelAllSystemDirectories extends DefaultTreeModel
             tree.expandPath(new TreePath(((DefaultMutableTreeNode) node.
                     getParent()).getPath()));
             if (select) {
-                tree.setSelectionPath(new TreePath(node.getPath()));
+                TreePath path = new TreePath(node.getPath());
+                tree.setSelectionPath(path);
+                tree.scrollPathToVisible(path);
             }
         }
     }
