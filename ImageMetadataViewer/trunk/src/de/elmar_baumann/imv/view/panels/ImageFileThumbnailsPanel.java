@@ -1,11 +1,14 @@
 package de.elmar_baumann.imv.view.panels;
 
+import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.types.Content;
 import de.elmar_baumann.imv.controller.thumbnail.ControllerDoubleklickThumbnail;
 import de.elmar_baumann.imv.data.ThumbnailFlag;
 import de.elmar_baumann.imv.database.DatabaseImageFiles;
 import de.elmar_baumann.imv.datatransfer.TransferHandlerPanelThumbnails;
+import de.elmar_baumann.imv.event.listener.AppExitListener;
 import de.elmar_baumann.imv.event.listener.RefreshListener;
+import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.lib.comparator.FileSort;
 import de.elmar_baumann.imv.types.FileAction;
 import de.elmar_baumann.imv.view.InfoSettingThumbnails;
@@ -23,13 +26,16 @@ import javax.swing.JViewport;
 import javax.swing.SwingUtilities;
 
 /**
- * Zeigt Thumbnails von Bilddateien.
+ * Shows thumbnails of image files.
  * 
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
- * @version 2008-10-05
+ * @version 2008/10/05
  */
-public final class ImageFileThumbnailsPanel extends ThumbnailsPanel {
+public final class ImageFileThumbnailsPanel extends ThumbnailsPanel
+        implements AppExitListener {
 
+    private static final String KEY_THUMBNAIL_WIDTH =
+            "ImageFileThumbnailsPanel.ThumbnailWidth";
     private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
     private final Map<Content, List<RefreshListener>> refreshListenersOfContent =
             new HashMap<Content, List<RefreshListener>>();
@@ -48,6 +54,8 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel {
         controllerDoubleklick = new ControllerDoubleklickThumbnail(this);
         setDragEnabled(true);
         setTransferHandler(new TransferHandlerPanelThumbnails());
+        GUI.INSTANCE.getAppFrame().addAppExitListener(this);
+        readProperties();
     }
 
     private void initRefreshListeners() {
@@ -250,10 +258,6 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel {
         return indices;
     }
 
-    public synchronized void setDefaultThumbnailWidth(int width) {
-        setThumbnailWidth(width);
-    }
-
     private void setMissingFilesFlags() {
         int count = files.size();
         for (int i = 0; i < count; i++) {
@@ -431,6 +435,20 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel {
             return filename + flagText;
         } else {
             return ""; // NOI18N
+        }
+    }
+
+    @Override
+    public void appWillExit() {
+        UserSettings.INSTANCE.getSettings().setInt(getThumbnailWidth(),
+                KEY_THUMBNAIL_WIDTH);
+    }
+
+    private void readProperties() {
+        int tnWidth = UserSettings.INSTANCE.getSettings().getInt(
+                KEY_THUMBNAIL_WIDTH);
+        if (tnWidth > 0) {
+            setThumbnailWidth(tnWidth);
         }
     }
 }

@@ -8,7 +8,8 @@ import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuThumbnails;
 
 /**
- * Methods causing the form designer fail to display the AppFrame are called here. 
+ * Methods causing the form designer fail to display the AppFrame are called
+ * here.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/16
@@ -23,19 +24,20 @@ public final class LateConnectionsFactory {
         if (!init) {
             init = true;
             AppPanel appPanel = GUI.INSTANCE.getAppPanel();
-            PopupMenuThumbnails popupMenuPanelThumbnails = PopupMenuThumbnails.INSTANCE;
+            PopupMenuThumbnails popupMenuPanelThumbnails =
+                    PopupMenuThumbnails.INSTANCE;
             UserSettings userSettings = UserSettings.INSTANCE;
 
-            appPanel.getPanelThumbnails().setDefaultThumbnailWidth(userSettings.getMaxThumbnailLength());
-
-            DatabaseImageFiles.INSTANCE.addDatabaseListener(appPanel.getEditPanelsArray());
+            DatabaseImageFiles.INSTANCE.addDatabaseListener(
+                    appPanel.getEditPanelsArray());
             if (userSettings.isUseAutocomplete()) {
                 appPanel.getEditPanelsArray().setAutocomplete();
             }
 
             popupMenuPanelThumbnails.addOtherPrograms();
             ListenerProvider listenerProvider = ListenerProvider.INSTANCE;
-            listenerProvider.addUserSettingsChangeListener(popupMenuPanelThumbnails);
+            listenerProvider.addUserSettingsChangeListener(
+                    popupMenuPanelThumbnails);
             listenerProvider.addUserSettingsChangeListener(userSettings);
         }
     }
