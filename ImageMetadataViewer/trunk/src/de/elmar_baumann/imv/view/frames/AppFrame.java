@@ -245,6 +245,16 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemSettings = new javax.swing.JMenuItem();
         jSeparator5 = new javax.swing.JSeparator();
         menuItemSearch = new javax.swing.JMenuItem();
+        menuView = new javax.swing.JMenu();
+        menuSort = new javax.swing.JMenu();
+        radioButtonMenuItemSortFilenameAscending = new javax.swing.JRadioButtonMenuItem();
+        radioButtonMenuItemSortFilenameDescending = new javax.swing.JRadioButtonMenuItem();
+        jSeparator2 = new javax.swing.JSeparator();
+        radioButtonMenuItemSortLastModifiedAscending = new javax.swing.JRadioButtonMenuItem();
+        radioButtonMenuItemSortLastModifiedDescending = new javax.swing.JRadioButtonMenuItem();
+        jSeparator3 = new javax.swing.JSeparator();
+        radioButtonMenuItemSortFileTypeAscending = new javax.swing.JRadioButtonMenuItem();
+        radioButtonMenuItemSortFileTypeDescending = new javax.swing.JRadioButtonMenuItem();
         menuGoto = new javax.swing.JMenu();
         menuItemGotoFastSearch = new javax.swing.JMenuItem();
         menuItemGotoEdit = new javax.swing.JMenuItem();
@@ -263,24 +273,14 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemGotoIptcMetadata = new javax.swing.JMenuItem();
         menuItemGotoExifMetadata = new javax.swing.JMenuItem();
         menuItemGotoXmpMetadata = new javax.swing.JMenuItem();
-        menuView = new javax.swing.JMenu();
-        menuSort = new javax.swing.JMenu();
-        radioButtonMenuItemSortFilenameAscending = new javax.swing.JRadioButtonMenuItem();
-        radioButtonMenuItemSortFilenameDescending = new javax.swing.JRadioButtonMenuItem();
-        jSeparator2 = new javax.swing.JSeparator();
-        radioButtonMenuItemSortLastModifiedAscending = new javax.swing.JRadioButtonMenuItem();
-        radioButtonMenuItemSortLastModifiedDescending = new javax.swing.JRadioButtonMenuItem();
-        jSeparator3 = new javax.swing.JSeparator();
-        radioButtonMenuItemSortFileTypeAscending = new javax.swing.JRadioButtonMenuItem();
-        radioButtonMenuItemSortFileTypeDescending = new javax.swing.JRadioButtonMenuItem();
-        jSeparator6 = new javax.swing.JSeparator();
-        menuItemLastEditedWords = new javax.swing.JMenuItem();
         menuTools = new javax.swing.JMenu();
         menuItemToolIptcToXmp = new javax.swing.JMenuItem();
         menuItemExtractEmbeddedXmp = new javax.swing.JMenuItem();
         menuItemRenameInXmp = new javax.swing.JMenuItem();
         menuItemRenameFilenamesInDb = new javax.swing.JMenuItem();
         menuItemActions = new javax.swing.JMenuItem();
+        menuWindow = new javax.swing.JMenu();
+        menuItemLastEditedWords = new javax.swing.JMenuItem();
         menuHelp = new javax.swing.JMenu();
         menuItemHelp = new javax.swing.JMenuItem();
         menuItemAbout = new javax.swing.JMenuItem();
@@ -346,6 +346,40 @@ public final class AppFrame extends javax.swing.JFrame {
         menuEdit.add(menuItemSearch);
 
         menuBar.add(menuEdit);
+
+        menuView.setMnemonic('i');
+        menuView.setText(Bundle.getString("AppFrame.menuView.text")); // NOI18N
+
+        menuSort.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icons/icon_sort.png"))); // NOI18N
+        menuSort.setMnemonic('s');
+        menuSort.setText(Bundle.getString("AppFrame.menuSort.text")); // NOI18N
+
+        radioButtonMenuItemSortFilenameAscending.setMnemonic('n');
+        radioButtonMenuItemSortFilenameAscending.setText(Bundle.getString("AppFrame.radioButtonMenuItemSortFilenameAscending.text")); // NOI18N
+        menuSort.add(radioButtonMenuItemSortFilenameAscending);
+
+        radioButtonMenuItemSortFilenameDescending.setText(Bundle.getString("AppFrame.radioButtonMenuItemSortFilenameDescending.text")); // NOI18N
+        menuSort.add(radioButtonMenuItemSortFilenameDescending);
+        menuSort.add(jSeparator2);
+
+        radioButtonMenuItemSortLastModifiedAscending.setMnemonic('d');
+        radioButtonMenuItemSortLastModifiedAscending.setText(Bundle.getString("AppFrame.radioButtonMenuItemSortLastModifiedAscending.text")); // NOI18N
+        menuSort.add(radioButtonMenuItemSortLastModifiedAscending);
+
+        radioButtonMenuItemSortLastModifiedDescending.setText(Bundle.getString("AppFrame.radioButtonMenuItemSortLastModifiedDescending.text")); // NOI18N
+        menuSort.add(radioButtonMenuItemSortLastModifiedDescending);
+        menuSort.add(jSeparator3);
+
+        radioButtonMenuItemSortFileTypeAscending.setMnemonic('t');
+        radioButtonMenuItemSortFileTypeAscending.setText(Bundle.getString("AppFrame.radioButtonMenuItemSortFileTypeAscending.text")); // NOI18N
+        menuSort.add(radioButtonMenuItemSortFileTypeAscending);
+
+        radioButtonMenuItemSortFileTypeDescending.setText(Bundle.getString("AppFrame.radioButtonMenuItemSortFileTypeDescending.text")); // NOI18N
+        menuSort.add(radioButtonMenuItemSortFileTypeDescending);
+
+        menuView.add(menuSort);
+
+        menuBar.add(menuView);
 
         menuGoto.setMnemonic('g');
         menuGoto.setText(Bundle.getString("AppFrame.menuGoto.text")); // NOI18N
@@ -439,52 +473,6 @@ public final class AppFrame extends javax.swing.JFrame {
 
         menuBar.add(menuGoto);
 
-        menuView.setMnemonic('a');
-        menuView.setText(Bundle.getString("AppFrame.menuView.text")); // NOI18N
-
-        menuSort.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icons/icon_sort.png"))); // NOI18N
-        menuSort.setMnemonic('s');
-        menuSort.setText(Bundle.getString("AppFrame.menuSort.text")); // NOI18N
-
-        radioButtonMenuItemSortFilenameAscending.setMnemonic('n');
-        radioButtonMenuItemSortFilenameAscending.setText(Bundle.getString("AppFrame.radioButtonMenuItemSortFilenameAscending.text")); // NOI18N
-        menuSort.add(radioButtonMenuItemSortFilenameAscending);
-
-        radioButtonMenuItemSortFilenameDescending.setText(Bundle.getString("AppFrame.radioButtonMenuItemSortFilenameDescending.text")); // NOI18N
-        menuSort.add(radioButtonMenuItemSortFilenameDescending);
-        menuSort.add(jSeparator2);
-
-        radioButtonMenuItemSortLastModifiedAscending.setMnemonic('d');
-        radioButtonMenuItemSortLastModifiedAscending.setText(Bundle.getString("AppFrame.radioButtonMenuItemSortLastModifiedAscending.text")); // NOI18N
-        menuSort.add(radioButtonMenuItemSortLastModifiedAscending);
-
-        radioButtonMenuItemSortLastModifiedDescending.setText(Bundle.getString("AppFrame.radioButtonMenuItemSortLastModifiedDescending.text")); // NOI18N
-        menuSort.add(radioButtonMenuItemSortLastModifiedDescending);
-        menuSort.add(jSeparator3);
-
-        radioButtonMenuItemSortFileTypeAscending.setMnemonic('t');
-        radioButtonMenuItemSortFileTypeAscending.setText(Bundle.getString("AppFrame.radioButtonMenuItemSortFileTypeAscending.text")); // NOI18N
-        menuSort.add(radioButtonMenuItemSortFileTypeAscending);
-
-        radioButtonMenuItemSortFileTypeDescending.setText(Bundle.getString("AppFrame.radioButtonMenuItemSortFileTypeDescending.text")); // NOI18N
-        menuSort.add(radioButtonMenuItemSortFileTypeDescending);
-
-        menuView.add(menuSort);
-        menuView.add(jSeparator6);
-
-        menuItemLastEditedWords.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F7, 0));
-        menuItemLastEditedWords.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icons/icon_insert_words.png"))); // NOI18N
-        menuItemLastEditedWords.setMnemonic('l');
-        menuItemLastEditedWords.setText(Bundle.getString("AppFrame.menuItemLastEditedWords.text")); // NOI18N
-        menuItemLastEditedWords.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuItemLastEditedWordsActionPerformed(evt);
-            }
-        });
-        menuView.add(menuItemLastEditedWords);
-
-        menuBar.add(menuView);
-
         menuTools.setMnemonic('w');
         menuTools.setText(Bundle.getString("AppFrame.menuTools.text")); // NOI18N
 
@@ -518,6 +506,22 @@ public final class AppFrame extends javax.swing.JFrame {
         menuTools.add(menuItemActions);
 
         menuBar.add(menuTools);
+
+        menuWindow.setMnemonic('n');
+        menuWindow.setText(Bundle.getString("AppFrame.menuWindow.text")); // NOI18N
+
+        menuItemLastEditedWords.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F7, 0));
+        menuItemLastEditedWords.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icons/icon_insert_words.png"))); // NOI18N
+        menuItemLastEditedWords.setMnemonic('l');
+        menuItemLastEditedWords.setText(Bundle.getString("AppFrame.menuItemLastEditedWords.text")); // NOI18N
+        menuItemLastEditedWords.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemLastEditedWordsActionPerformed(evt);
+            }
+        });
+        menuWindow.add(menuItemLastEditedWords);
+
+        menuBar.add(menuWindow);
 
         menuHelp.setMnemonic('h');
         menuHelp.setText(Bundle.getString("AppFrame.menuHelp.text")); // NOI18N
@@ -557,7 +561,6 @@ private void menuItemLastEditedWordsActionPerformed(java.awt.event.ActionEvent e
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
-    private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator7;
     private javax.swing.JSeparator jSeparator8;
     private javax.swing.JSeparator jSeparator9;
@@ -597,6 +600,7 @@ private void menuItemLastEditedWordsActionPerformed(java.awt.event.ActionEvent e
     private javax.swing.JMenu menuSort;
     private javax.swing.JMenu menuTools;
     private javax.swing.JMenu menuView;
+    private javax.swing.JMenu menuWindow;
     private javax.swing.JRadioButtonMenuItem radioButtonMenuItemSortFileTypeAscending;
     private javax.swing.JRadioButtonMenuItem radioButtonMenuItemSortFileTypeDescending;
     private javax.swing.JRadioButtonMenuItem radioButtonMenuItemSortFilenameAscending;
