@@ -6,10 +6,13 @@ import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuFavorites;
+import de.elmar_baumann.lib.event.util.KeyEventUtil;
 import de.elmar_baumann.lib.model.TreeModelAllSystemDirectories;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.File;
 import javax.swing.JTabbedPane;
 import javax.swing.JTree;
@@ -23,11 +26,14 @@ import javax.swing.tree.TreePath;
  * selected favorite directory in the folder panel when the special menu item
  * was clicked.
  *
+ * Also listens to the {@link JTree}'s key events and opens the selected folder
+ * in the directorie's tree if the keys <code>Ctrl+O</code> were pressed.
+ *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/11/05
  */
-public final class ControllerOpenFavoriteInFolders implements
-        ActionListener {
+public final class ControllerOpenFavoriteInFolders
+        implements ActionListener, KeyListener {
 
     private final PopupMenuFavorites popupMenu =
             PopupMenuFavorites.INSTANCE;
@@ -46,16 +52,21 @@ public final class ControllerOpenFavoriteInFolders implements
 
     private void listen() {
         popupMenu.getItemOpenInFolders().addActionListener(this);
+        treeFavoriteDirectories.addKeyListener(this);
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if (KeyEventUtil.isControl(e, KeyEvent.VK_O) &&
+                !treeFavoriteDirectories.isSelectionEmpty()) {
+            selectDirectory();
+        }
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (treeFavoriteDirectories.getSelectionCount() >= 0) {
             selectDirectory();
-        } else {
-            AppLog.logWarning(ControllerOpenFavoriteInFolders.class,
-                    Bundle.getString(
-                    "ControllerOpenFavoriteInFolders.ErrorMessage.InvalidSelectionIndex"));
         }
     }
 
@@ -92,5 +103,15 @@ public final class ControllerOpenFavoriteInFolders implements
                 }
             }
         });
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+        // ignore
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        // ignore
     }
 }
