@@ -40,6 +40,7 @@ public final class ImageCollectionsDialog extends Dialog {
             Object item = model.getElementAt(index);
             if (item != null) {
                 ok = true;
+                writeProperties();
                 dispose();
             }
         }
@@ -47,6 +48,7 @@ public final class ImageCollectionsDialog extends Dialog {
 
     private void handleButtonOkClicked() {
         ok = true;
+        writeProperties();
         dispose();
     }
 
