@@ -62,7 +62,7 @@ public final class FileSystemDirectories {
     public static File rename(File directory) {
         if (directory.isDirectory()) {
             String newDirectoryName = TreeFileSystemDirectories.getNewName(
-                    directory.getName());
+                    directory);
             if (newDirectoryName != null &&
                     !newDirectoryName.trim().isEmpty()) {
                 File newDirectory = new File(directory.getParentFile(),
