@@ -81,11 +81,11 @@ public final class ControllerGoTo implements ActionListener {
         AppFrame.GoTo goTo = appFrame.getGotoOfMenuItem(item);
         if (tabbedPaneOfGoTo.containsKey(goTo)) {
             tabbedPaneOfGoTo.get(goTo).setSelectedComponent(componentOfGoTo.get(goTo));
-            componentOfGoTo.get(goTo).requestFocus();
+            componentOfGoTo.get(goTo).requestFocusInWindow();
         } else if (goTo.equals(AppFrame.GoTo.FAST_SEARCH)) {
-            textFieldSearch.requestFocus();
+            textFieldSearch.requestFocusInWindow();
         } else if (goTo.equals(AppFrame.GoTo.THUMBNAILS_PANEL)) {
-            thumbnailsPanel.requestFocus();
+            thumbnailsPanel.requestFocusInWindow();
         }
         if (goTo.equals(AppFrame.GoTo.EDIT_PANELS)) {
             editPanels.setFocusToFirstEditField();
