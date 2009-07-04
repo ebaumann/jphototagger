@@ -17,7 +17,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
  * deletes a directory when the action fires.
  *
  * Also listens to the directorie's {@link JTree} key events and deletes the
- * selected tree node if the delete key was typed.
+ * selected directory if the delete key was typed.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009/06/19
@@ -25,8 +25,8 @@ import javax.swing.tree.DefaultMutableTreeNode;
 public final class ControllerDeleteDirectory
         implements ActionListener, KeyListener {
 
-    PopupMenuDirectories popup = PopupMenuDirectories.INSTANCE;
-    JTree tree = GUI.INSTANCE.getAppPanel().getTreeDirectories();
+    private final PopupMenuDirectories popup = PopupMenuDirectories.INSTANCE;
+    private final JTree tree = GUI.INSTANCE.getAppPanel().getTreeDirectories();
 
     public ControllerDeleteDirectory() {
         listen();

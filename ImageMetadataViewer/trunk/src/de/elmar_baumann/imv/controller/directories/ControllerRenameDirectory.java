@@ -17,8 +17,8 @@ import javax.swing.tree.DefaultMutableTreeNode;
  * Listens to {@link PopupMenuDirectories#getItemRenameDirectory()} and
  * renames a directory when the action fires.
  *
- * Also listenes to the {@link JTree}'s key events and renames a directory when
- * <code>Ctrl+R</code> was pressed.
+ * Also listenes to the {@link JTree}'s key events and renames the selected
+ * directory when <code>Ctrl+R</code> was pressed.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009/06/19
@@ -26,8 +26,8 @@ import javax.swing.tree.DefaultMutableTreeNode;
 public final class ControllerRenameDirectory
         implements ActionListener, KeyListener {
 
-    PopupMenuDirectories popup = PopupMenuDirectories.INSTANCE;
-    JTree tree = GUI.INSTANCE.getAppPanel().getTreeDirectories();
+    private final PopupMenuDirectories popup = PopupMenuDirectories.INSTANCE;
+    private final JTree tree = GUI.INSTANCE.getAppPanel().getTreeDirectories();
 
     public ControllerRenameDirectory() {
         listen();

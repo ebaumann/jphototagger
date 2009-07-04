@@ -13,14 +13,17 @@ import javax.swing.JTree;
  * Listens to {@link PopupMenuTreeDirectories#getItemRefresh()} and
  * refreshes the directory tree when the action fires.
  *
+ * Also listens to the {@link JTree}'s key events and refreshes the tree
+ * when <code>F5</code> was pressed.
+ *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009/06/30
  */
 public final class ControllerRefreshDirectoryTree
         implements ActionListener, KeyListener {
 
-    PopupMenuDirectories popup = PopupMenuDirectories.INSTANCE;
-    JTree tree = GUI.INSTANCE.getAppPanel().getTreeDirectories();
+    private final PopupMenuDirectories popup = PopupMenuDirectories.INSTANCE;
+    private final JTree tree = GUI.INSTANCE.getAppPanel().getTreeDirectories();
 
     public ControllerRefreshDirectoryTree() {
         listen();

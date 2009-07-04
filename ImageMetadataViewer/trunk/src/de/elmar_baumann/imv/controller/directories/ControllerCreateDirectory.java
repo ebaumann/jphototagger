@@ -17,14 +17,17 @@ import javax.swing.tree.TreeModel;
  * Listens to {@link PopupMenuDirectories#getItemCreateDirectory()} and
  * creates a directory when the action fires.
  *
+ * Also listens to the {@link JTree}'s key events and creates a new directory
+ * into the selected directory when the keys <code>Ctrl+N</code> was pressed.
+ *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009/06/19
  */
 public final class ControllerCreateDirectory
         implements ActionListener, KeyListener {
 
-    PopupMenuDirectories popup = PopupMenuDirectories.INSTANCE;
-    JTree tree = GUI.INSTANCE.getAppPanel().getTreeDirectories();
+    private final PopupMenuDirectories popup = PopupMenuDirectories.INSTANCE;
+    private final JTree tree = GUI.INSTANCE.getAppPanel().getTreeDirectories();
 
     public ControllerCreateDirectory() {
         listen();
