@@ -57,7 +57,7 @@ public final class TreeFileSystemDirectories {
      */
     public static File rename(File directory) {
         if (directory.isDirectory()) {
-            String newDirectoryName = getNewName(directory.getName());
+            String newDirectoryName = getNewName(directory);
             if (newDirectoryName != null &&
                     !newDirectoryName.trim().isEmpty()) {
                 File newDirectory = new File(directory.getParentFile(),
@@ -186,14 +186,14 @@ public final class TreeFileSystemDirectories {
     }
 
     /**
-     * Let's the user input a new name.
+     * Let's the user input a new name for a file.
      *
-     * @param  currentName current name
-     * @return new name or null if the user didn't input a name
+     * @param  file file to rename
+     * @return      new name or null if the user didn't input a name
      */
-    public static String getNewName(String currentName) {
+    public static String getNewName(File file) {
         return JOptionPane.showInputDialog(null, Bundle.getString(
-                "TreeFileSystemDirectories.Input.NewName"), currentName);
+                "TreeFileSystemDirectories.Input.NewName", file), file.getName());
     }
 
     /**
