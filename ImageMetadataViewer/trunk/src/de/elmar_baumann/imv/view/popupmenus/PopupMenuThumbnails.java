@@ -9,6 +9,8 @@ import de.elmar_baumann.imv.event.listener.UserSettingsChangeListener;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.image.util.IconUtil;
 import java.awt.event.ActionListener;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,6 +20,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.JSeparator;
+import javax.swing.KeyStroke;
 
 /**
  * Popup menu of the thumbnails panel.
@@ -110,38 +113,7 @@ public final class PopupMenuThumbnails extends JPopupMenu
             new PopupMenuThumbnails();
 
     private PopupMenuThumbnails() {
-        initItems();
-        setIcons();
-        addItems();
-    }
-
-    private void initItems() {
-        itemDeleteFromImageCollection.setEnabled(false);
-    }
-
-    private void setIcons() {
-        itemAddToImageCollection.setIcon(AppIcons.getIcon(
-                "icon_imagecollection_add_to.png"));
-        itemCreateImageCollection.setIcon(AppIcons.getIcon(
-                "icon_imagecollection.png"));
-        itemDeleteFromImageCollection.setIcon(AppIcons.getIcon(
-                "icon_imagecollection_remove_from.png"));
-        itemDeleteImageFromDatabase.setIcon(AppIcons.getIcon(
-                "icon_database_delete_from.png"));
-        itemFileSystemCopyToDirectory.setIcon(
-                AppIcons.getIcon("icon_copy_to_folder.png"));
-        itemFileSystemDeleteFiles.setIcon(AppIcons.getIcon(
-                "icon_edit_delete.png"));
-        itemFileSystemMoveFiles.setIcon(AppIcons.getIcon(
-                "icon_move_to_folder.png"));
-        itemFileSystemRenameFiles.setIcon(AppIcons.getIcon("icon_rename.png"));
-        setStandardAppIcon();
-        itemRotateThumbnai180.setIcon(AppIcons.getIcon("icon_rotate_180.png"));
-        itemRotateThumbnai270.setIcon(AppIcons.getIcon("icon_rotate_270.png"));
-        itemRotateThumbnai90.setIcon(AppIcons.getIcon("icon_rotate_90.png"));
-        itemUpdateMetadata.setIcon(AppIcons.getIcon("icon_metadata_refresh.png"));
-        itemUpdateThumbnail.setIcon(AppIcons.getIcon("icon_image_refresh.png"));
-        itemRefresh.setIcon(AppIcons.getIcon("icon_refresh.png"));
+        init();
     }
 
     private void setStandardAppIcon() {
@@ -149,30 +121,6 @@ public final class PopupMenuThumbnails extends JPopupMenu
         if (app.exists()) {
             itemOpenFilesWithStandardApp.setIcon(IconUtil.getSystemIcon(app));
         }
-    }
-
-    private void addItems() {
-        add(itemUpdateThumbnail);
-        add(itemUpdateMetadata);
-        add(itemDeleteImageFromDatabase);
-        add(new JSeparator());
-        add(itemOpenFilesWithStandardApp);
-        add(menuPrograms);
-        add(new JSeparator());
-        add(itemCreateImageCollection);
-        add(itemAddToImageCollection);
-        add(itemDeleteFromImageCollection);
-        add(new JSeparator());
-        add(itemRotateThumbnai90);
-        add(itemRotateThumbnai180);
-        add(itemRotateThumbnai270);
-        add(new JSeparator());
-        add(itemFileSystemCopyToDirectory);
-        add(itemFileSystemRenameFiles);
-        add(itemFileSystemMoveFiles);
-        add(itemFileSystemDeleteFiles);
-        add(new JSeparator());
-        add(itemRefresh);
     }
 
     public void addOtherPrograms() {
@@ -282,5 +230,76 @@ public final class PopupMenuThumbnails extends JPopupMenu
 
         }
         return null;
+    }
+
+    private void init() {
+        addItems();
+        setItemsEnabled();
+        setIcons();
+        setAccelerators();
+    }
+
+    private void setItemsEnabled() {
+        itemDeleteFromImageCollection.setEnabled(false);
+    }
+
+    private void addItems() {
+        add(itemUpdateThumbnail);
+        add(itemUpdateMetadata);
+        add(itemDeleteImageFromDatabase);
+        add(new JSeparator());
+        add(itemOpenFilesWithStandardApp);
+        add(menuPrograms);
+        add(new JSeparator());
+        add(itemCreateImageCollection);
+        add(itemAddToImageCollection);
+        add(itemDeleteFromImageCollection);
+        add(new JSeparator());
+        add(itemRotateThumbnai90);
+        add(itemRotateThumbnai180);
+        add(itemRotateThumbnai270);
+        add(new JSeparator());
+        add(itemFileSystemCopyToDirectory);
+        add(itemFileSystemRenameFiles);
+        add(itemFileSystemMoveFiles);
+        add(itemFileSystemDeleteFiles);
+        add(new JSeparator());
+        add(itemRefresh);
+    }
+
+    private void setIcons() {
+        itemAddToImageCollection.setIcon(AppIcons.getIcon(
+                "icon_imagecollection_add_to.png"));
+        itemCreateImageCollection.setIcon(AppIcons.getIcon(
+                "icon_imagecollection.png"));
+        itemDeleteFromImageCollection.setIcon(AppIcons.getIcon(
+                "icon_imagecollection_remove_from.png"));
+        itemDeleteImageFromDatabase.setIcon(AppIcons.getIcon(
+                "icon_database_delete_from.png"));
+        itemFileSystemCopyToDirectory.setIcon(
+                AppIcons.getIcon("icon_copy_to_folder.png"));
+        itemFileSystemDeleteFiles.setIcon(AppIcons.getIcon(
+                "icon_edit_delete.png"));
+        itemFileSystemMoveFiles.setIcon(AppIcons.getIcon(
+                "icon_move_to_folder.png"));
+        itemFileSystemRenameFiles.setIcon(AppIcons.getIcon("icon_rename.png"));
+        setStandardAppIcon();
+        itemRotateThumbnai180.setIcon(AppIcons.getIcon("icon_rotate_180.png"));
+        itemRotateThumbnai270.setIcon(AppIcons.getIcon("icon_rotate_270.png"));
+        itemRotateThumbnai90.setIcon(AppIcons.getIcon("icon_rotate_90.png"));
+        itemUpdateMetadata.setIcon(AppIcons.getIcon("icon_metadata_refresh.png"));
+        itemUpdateThumbnail.setIcon(AppIcons.getIcon("icon_image_refresh.png"));
+        itemRefresh.setIcon(AppIcons.getIcon("icon_refresh.png"));
+    }
+
+    private void setAccelerators() {
+        itemDeleteFromImageCollection.setAccelerator(
+                KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0));
+        itemFileSystemDeleteFiles.setAccelerator(
+                KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0));
+        itemFileSystemRenameFiles.setAccelerator(
+                KeyStroke.getKeyStroke(KeyEvent.VK_F2, 0));
+        itemRefresh.setAccelerator(
+                KeyStroke.getKeyStroke(KeyEvent.VK_F5, 0));
     }
 }

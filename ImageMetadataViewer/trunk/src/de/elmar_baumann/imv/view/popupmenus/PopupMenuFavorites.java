@@ -3,9 +3,12 @@ package de.elmar_baumann.imv.view.popupmenus;
 import de.elmar_baumann.imv.app.AppIcons;
 import de.elmar_baumann.imv.data.FavoriteDirectory;
 import de.elmar_baumann.imv.resource.Bundle;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.JSeparator;
+import javax.swing.KeyStroke;
 import javax.swing.tree.TreePath;
 
 /**
@@ -129,6 +132,12 @@ public final class PopupMenuFavorites extends JPopupMenu {
     }
 
     private void init() {
+        addItems();
+        setIcons();
+        setAccelerators();
+    }
+
+    private void addItems() {
         add(itemInsertFavorite);
         add(itemUpdateFavorite);
         add(itemDeleteFavorite);
@@ -142,7 +151,6 @@ public final class PopupMenuFavorites extends JPopupMenu {
         add(itemDeleteFilesystemFolder);
         add(new JSeparator());
         add(itemRefresh);
-        setIcons();
     }
 
     private void setIcons() {
@@ -158,5 +166,24 @@ public final class PopupMenuFavorites extends JPopupMenu {
         itemDeleteFilesystemFolder.setIcon(
                 AppIcons.getIcon("icon_folder_delete.png"));
         itemUpdateFavorite.setIcon(AppIcons.getIcon("icon_edit.png"));
+    }
+
+    private void setAccelerators() {
+        itemUpdateFavorite.setAccelerator(
+                KeyStroke.getKeyStroke(KeyEvent.VK_E, InputEvent.CTRL_MASK));
+        itemInsertFavorite.setAccelerator(
+                KeyStroke.getKeyStroke(KeyEvent.VK_I, InputEvent.CTRL_MASK));
+        itemOpenInFolders.setAccelerator(
+                KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.CTRL_MASK));
+        itemAddFilesystemFolder.setAccelerator(
+                KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.CTRL_MASK));
+        itemDeleteFavorite.setAccelerator(
+                KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0));
+        itemDeleteFilesystemFolder.setAccelerator(
+                KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0));
+        itemRenameFilesystemFolder.setAccelerator(
+                KeyStroke.getKeyStroke(KeyEvent.VK_F2, 0));
+        itemRefresh.setAccelerator(
+                KeyStroke.getKeyStroke(KeyEvent.VK_F5, 0));
     }
 }

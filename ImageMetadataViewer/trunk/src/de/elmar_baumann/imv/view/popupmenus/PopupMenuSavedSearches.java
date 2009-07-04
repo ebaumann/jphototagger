@@ -3,8 +3,11 @@ package de.elmar_baumann.imv.view.popupmenus;
 import de.elmar_baumann.imv.app.AppIcons;
 import de.elmar_baumann.imv.data.SavedSearch;
 import de.elmar_baumann.imv.resource.Bundle;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
+import javax.swing.KeyStroke;
 
 /**
  * Popupmenü für gespeicherte Suchen.
@@ -33,7 +36,7 @@ public final class PopupMenuSavedSearches extends JPopupMenu {
             new PopupMenuSavedSearches();
 
     private PopupMenuSavedSearches() {
-        addItems();
+        init();
     }
 
     public JMenuItem getItemCreate() {
@@ -70,12 +73,17 @@ public final class PopupMenuSavedSearches extends JPopupMenu {
         return savedSearch;
     }
 
+    private void init() {
+        addItems();
+        setIcons();
+        setAccelerators();
+    }
+
     private void addItems() {
         add(itemCreate);
         add(itemEdit);
         add(itemRename);
         add(itemDelete);
-        setIcons();
     }
 
     private void setIcons() {
@@ -83,5 +91,16 @@ public final class PopupMenuSavedSearches extends JPopupMenu {
         itemDelete.setIcon(AppIcons.getIcon("icon_remove.png"));
         itemEdit.setIcon(AppIcons.getIcon("icon_edit.png"));
         itemRename.setIcon(AppIcons.getIcon("icon_rename.png"));
+    }
+
+    private void setAccelerators() {
+        itemCreate.setAccelerator(
+                KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.CTRL_MASK));
+        itemEdit.setAccelerator(
+                KeyStroke.getKeyStroke(KeyEvent.VK_E, InputEvent.CTRL_MASK));
+        itemDelete.setAccelerator(
+                KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0));
+        itemRename.setAccelerator(
+                KeyStroke.getKeyStroke(KeyEvent.VK_F2, 0));
     }
 }

@@ -2,8 +2,10 @@ package de.elmar_baumann.imv.view.popupmenus;
 
 import de.elmar_baumann.imv.app.AppIcons;
 import de.elmar_baumann.imv.resource.Bundle;
+import java.awt.event.KeyEvent;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
+import javax.swing.KeyStroke;
 
 /**
  * Popupmenü für den Tree mit Bildsammlungen.
@@ -14,9 +16,11 @@ import javax.swing.JPopupMenu;
 public final class PopupMenuImageCollections extends JPopupMenu {
 
     private static final String DISPLAY_NAME_ACTION_DELETE =
-            Bundle.getString("PopupMenuImageCollections.DisplayName.Action.Delete");
+            Bundle.getString(
+            "PopupMenuImageCollections.DisplayName.Action.Delete");
     private static final String DISPLAY_NAME_ACTION_RENAME =
-            Bundle.getString("PopupMenuImageCollections.DisplayName.Action.Rename");
+            Bundle.getString(
+            "PopupMenuImageCollections.DisplayName.Action.Rename");
     private final JMenuItem itemDelete =
             new JMenuItem(DISPLAY_NAME_ACTION_DELETE);
     private final JMenuItem itemRename =
@@ -26,7 +30,7 @@ public final class PopupMenuImageCollections extends JPopupMenu {
             new PopupMenuImageCollections();
 
     private PopupMenuImageCollections() {
-        addItems();
+        init();
     }
 
     public JMenuItem getItemDelete() {
@@ -55,14 +59,26 @@ public final class PopupMenuImageCollections extends JPopupMenu {
         return imageCollectionName;
     }
 
+    private void init() {
+        addItems();
+        setIcons();
+        setAccelerators();
+    }
+
     private void addItems() {
         add(itemRename);
         add(itemDelete);
-        setIcons();
     }
 
     private void setIcons() {
         itemDelete.setIcon(AppIcons.getIcon("icon_remove.png"));
         itemRename.setIcon(AppIcons.getIcon("icon_rename.png"));
+    }
+
+    private void setAccelerators() {
+        itemDelete.setAccelerator(
+                KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0));
+        itemRename.setAccelerator(
+                KeyStroke.getKeyStroke(KeyEvent.VK_F2, 0));
     }
 }
