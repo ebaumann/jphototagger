@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 <svg
+   xmlns:ns="http://creativecommons.org/ns#"
    xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:cc="http://web.resource.org/cc/"
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
@@ -13,12 +14,13 @@
    height="16px"
    id="svg7187"
    sodipodi:version="0.32"
-   inkscape:version="0.46"
+   inkscape:version="0.45.1"
    sodipodi:docname="icon_rename.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape"
    inkscape:export-filename="/home/elmar/projekte/ImageMetadataViewer/src/de/elmar_baumann/imv/resource/icons/icon_rename.png"
    inkscape:export-xdpi="90"
-   inkscape:export-ydpi="90">
+   inkscape:export-ydpi="90"
+   sodipodi:docbase="/home/elmar/projekte/ImageMetadataViewer/src/de/elmar_baumann/imv/resource/icons">
   <defs
      id="defs7189">
     <marker
@@ -214,17 +216,17 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="28.875"
+     inkscape:zoom="23.625"
      inkscape:cx="8"
      inkscape:cy="8"
      inkscape:current-layer="layer1"
      showgrid="true"
      inkscape:grid-bbox="true"
      inkscape:document-units="px"
-     inkscape:window-width="1288"
-     inkscape:window-height="775"
-     inkscape:window-x="392"
-     inkscape:window-y="103">
+     inkscape:window-width="788"
+     inkscape:window-height="583"
+     inkscape:window-x="275"
+     inkscape:window-y="172">
     <inkscape:grid
        type="xygrid"
        id="grid6396" />
@@ -232,27 +234,27 @@
   <metadata
      id="metadata7192">
     <rdf:RDF>
-      <cc:Work
+      <ns:Work
          rdf:about="">
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
         <dc:creator>
-          <cc:Agent>
+          <ns:Agent>
             <dc:title>Elmar Baumann &lt;eb@elmar-baumann.de&gt;</dc:title>
-          </cc:Agent>
+          </ns:Agent>
         </dc:creator>
         <dc:rights>
-          <cc:Agent>
+          <ns:Agent>
             <dc:title>Elmar Baumann &lt;eb@elmar-baumann.de&gt;</dc:title>
-          </cc:Agent>
+          </ns:Agent>
         </dc:rights>
         <dc:publisher>
-          <cc:Agent>
+          <ns:Agent>
             <dc:title>Elmar Baumann &lt;eb@elmar-baumann.de&gt;</dc:title>
-          </cc:Agent>
+          </ns:Agent>
         </dc:publisher>
-        <cc:license
+        <ns:license
            rdf:resource="http://elmar-baumann.de/fotografie/copyright.html" />
         <dc:identifier>de.elmar_baumann.imv.resource.icons.icon_rename.svg</dc:identifier>
         <dc:source>http://www.elmar-baumann.de/fotografie/tipps/computer/lightroom/imagemetadataviewer.html</dc:source>
@@ -265,6 +267,12 @@
         </dc:subject>
         <dc:title>Rename</dc:title>
         <dc:date>2008-11-06</dc:date>
+      </ns:Work>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -275,34 +283,30 @@
     <text
        xml:space="preserve"
        style="font-size:8px;font-style:normal;font-weight:bold;fill:#555555;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       x="0.14922418"
-       y="6.0581355"
+       x="0.49554452"
+       y="7"
        id="text7197"><tspan
          sodipodi:role="line"
          id="tspan7199"
-         x="0.14922418"
-         y="6.0581355">A</tspan></text>
+         x="0.49554452"
+         y="7">A</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:8px;font-style:normal;font-weight:bold;fill:#555555;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       x="10.118684"
-       y="15.594275"
+       x="10.084052"
+       y="14.589947"
        id="text7201"><tspan
          sodipodi:role="line"
          id="tspan7203"
-         x="10.118684"
-         y="15.594275">B</tspan></text>
-    <g
-       id="g3491"
-       transform="translate(-0.4465347,0)">
-      <path
-         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-         d="M 5.9465347,7.0351484 L 8.8972773,10"
-         id="path3485" />
-      <path
-         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-         d="M 6.9376238,11 L 9.9561882,7.9814356 L 9.9561882,11 L 6.9376238,11 z"
-         id="path3489" />
-    </g>
+         x="10.084052"
+         y="14.589947">B</tspan></text>
+    <path
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.94840342;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 1.4477346,11.497992 L 7.5522655,11.497992"
+       id="path3176" />
+    <path
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 5.5,8.5 L 8.5,11.5 L 5.5,14.5"
+       id="path4149" />
   </g>
 </svg>
