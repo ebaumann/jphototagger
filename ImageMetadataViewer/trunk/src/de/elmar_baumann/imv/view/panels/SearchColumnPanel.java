@@ -415,7 +415,7 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
         buttonCalendar = new javax.swing.JButton();
 
         toggleButtonBracketLeft1.setForeground(new java.awt.Color(255, 0, 0));
-        toggleButtonBracketLeft1.setText(Bundle.getString("SearchColumnPanel.toggleButtonBracketLeft1.text")); // NOI18N
+        toggleButtonBracketLeft1.setText("(");
         toggleButtonBracketLeft1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 toggleButtonBracketLeft1ActionPerformed(evt);
@@ -430,7 +430,7 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
         });
 
         toggleButtonBracketLeft2.setForeground(new java.awt.Color(255, 0, 0));
-        toggleButtonBracketLeft2.setText(Bundle.getString("SearchColumnPanel.toggleButtonBracketLeft2.text")); // NOI18N
+        toggleButtonBracketLeft2.setText("(");
         toggleButtonBracketLeft2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 toggleButtonBracketLeft2ActionPerformed(evt);
@@ -460,7 +460,7 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
         });
 
         toggleButtonBracketRight.setForeground(new java.awt.Color(255, 0, 0));
-        toggleButtonBracketRight.setText(Bundle.getString("SearchColumnPanel.toggleButtonBracketRight.text")); // NOI18N
+        toggleButtonBracketRight.setText(")");
         toggleButtonBracketRight.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 toggleButtonBracketRightActionPerformed(evt);
