@@ -358,6 +358,26 @@ public final class TreeModelFavorites extends DefaultTreeModel
                    : null;
     }
 
+    private Stack<File> getFilePathToNode(DefaultMutableTreeNode node, File file) {
+        if (node == null) return null;
+        Object userObject = node.getUserObject();
+        File nodeFile = userObject instanceof File
+                        ? (File) userObject
+                        : userObject instanceof FavoriteDirectory
+                          ? new File(
+                ((FavoriteDirectory) userObject).getDirectoryName())
+                          : null;
+        if (nodeFile != null) {
+            Stack<File> filePath = FileUtil.getPathFromRoot(file);
+            File filePathTop = filePath.peek();
+            while (!filePath.isEmpty() && !nodeFile.equals(filePathTop)) {
+                filePathTop = filePath.pop();
+            }
+            return filePath;
+        }
+        return null;
+    }
+
     /**
      * Expands the tree to a specific file.
      *
@@ -366,22 +386,25 @@ public final class TreeModelFavorites extends DefaultTreeModel
      * @param select       if true the file node will be selected
      */
     private void expandToFile(String favoriteName, File file, boolean select) {
-        Stack<File> filePath = FileUtil.getPathFromRoot(file);
-        filePath.pop(); // File's root is in favorite
         DefaultMutableTreeNode node = getFavorite(favoriteName);
-        while (node != null && !filePath.isEmpty()) {
-            node = TreeUtil.findChildNodeWithFile(
-                    node, filePath.pop());
+        Stack<File> filePathToFavorite = getFilePathToNode(node, file);
+        if (filePathToFavorite == null) return;
+        while (node != null && !filePathToFavorite.isEmpty()) {
+            node = TreeUtil.findChildNodeWithFile(node,
+                    filePathToFavorite.pop());
             if (node != null && node.getChildCount() <= 0) {
                 addChildren(node);
             }
         }
         if (node != null) {
-            tree.expandPath(new TreePath(((DefaultMutableTreeNode) node.
-                    getParent()).getPath()));
+            TreePath nodeParentsPath = new TreePath(
+                    ((DefaultMutableTreeNode) node.getParent()).getPath());
+            tree.expandPath(nodeParentsPath);
+            TreePath nodePath = new TreePath(node.getPath());
             if (select) {
-                tree.setSelectionPath(new TreePath(node.getPath()));
+                tree.setSelectionPath(nodePath);
             }
+            tree.scrollPathToVisible(nodePath);
         }
     }
 
@@ -409,7 +432,9 @@ public final class TreeModelFavorites extends DefaultTreeModel
         } else if (favname != null) {
             DefaultMutableTreeNode fav = getFavorite(favname.trim());
             if (fav != null) {
-                tree.setSelectionPath(new TreePath(fav.getPath()));
+                TreePath path = new TreePath(fav.getPath());
+                tree.setSelectionPath(path);
+                tree.scrollPathToVisible(path);
             }
         }
     }
