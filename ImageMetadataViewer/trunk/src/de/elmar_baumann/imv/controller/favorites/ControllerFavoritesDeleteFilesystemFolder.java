@@ -1,6 +1,5 @@
 package de.elmar_baumann.imv.controller.favorites;
 
-import de.elmar_baumann.imv.data.FavoriteDirectory;
 import de.elmar_baumann.imv.io.FileSystemDirectories;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuFavorites;
