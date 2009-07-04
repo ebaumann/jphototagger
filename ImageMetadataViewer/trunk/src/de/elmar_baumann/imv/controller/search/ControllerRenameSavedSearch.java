@@ -1,21 +1,33 @@
 package de.elmar_baumann.imv.controller.search;
 
+import de.elmar_baumann.imv.data.SavedSearch;
+import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.tasks.SavedSearchesModifier;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuSavedSearches;
+import de.elmar_baumann.lib.event.util.KeyEventUtil;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import javax.swing.JList;
 
 /**
- * Kontrolliert die Aktion: Benenne eine gespeicherte Suche um, ausgelöst von
- * {@link de.elmar_baumann.imv.view.popupmenus.PopupMenuSavedSearches}.
+ * Renames a selected saved search when the
+ * {@link de.elmar_baumann.imv.view.popupmenus.PopupMenuSavedSearches} fires
+ * the appropriate action.
+ *
+ * Also listens to the {@link JList}'s key events and renames a selected saved
+ * search when the keys <code>Ctrl+R</code> or <code>F2</code> were pressed.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/10
  */
-public final class ControllerRenameSavedSearch implements ActionListener {
+public final class ControllerRenameSavedSearch
+        implements ActionListener, KeyListener {
 
     private final PopupMenuSavedSearches actionPopup =
             PopupMenuSavedSearches.INSTANCE;
+    private final JList list = GUI.INSTANCE.getAppPanel().getListSavedSearches();
 
     public ControllerRenameSavedSearch() {
         listen();
@@ -23,6 +35,17 @@ public final class ControllerRenameSavedSearch implements ActionListener {
 
     private void listen() {
         actionPopup.getItemRename().addActionListener(this);
+        list.addKeyListener(this);
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if (isRename(e) && !list.isSelectionEmpty()) {
+            Object value = list.getSelectedValue();
+            if (value instanceof SavedSearch) {
+                SavedSearchesModifier.rename((SavedSearch) value);
+            }
+        }
     }
 
     @Override
@@ -30,7 +53,22 @@ public final class ControllerRenameSavedSearch implements ActionListener {
         rename();
     }
 
+    private boolean isRename(KeyEvent e) {
+        return KeyEventUtil.isControl(e, KeyEvent.VK_R) ||
+                e.getKeyCode() == KeyEvent.VK_F2;
+    }
+
     private void rename() {
         SavedSearchesModifier.rename(actionPopup.getSavedSearch());
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+        // ignore
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        // ignore
     }
 }
