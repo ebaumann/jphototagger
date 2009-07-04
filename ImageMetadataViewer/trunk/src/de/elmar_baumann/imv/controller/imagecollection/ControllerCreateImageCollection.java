@@ -24,7 +24,7 @@ import javax.swing.SwingUtilities;
  * {@link de.elmar_baumann.imv.view.popupmenus.PopupMenuThumbnails}.
  *
  * Also listens to the {@link JList}'s key events and creates a new image
- * when the keys <code>Ctrl+N</code> were pressed.
+ * collection when the keys <code>Ctrl+N</code> were pressed.
  * 
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/10
