@@ -1,5 +1,6 @@
 package de.elmar_baumann.imv.controller.favorites;
 
+import de.elmar_baumann.imv.data.FavoriteDirectory;
 import de.elmar_baumann.imv.io.FileSystemDirectories;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuFavorites;
@@ -61,9 +62,7 @@ public final class ControllerFavoritesRenameFilesystemFolder
     }
 
     private void renameDirectory(DefaultMutableTreeNode node) {
-        File dir = node == null
-                   ? null
-                   : TreeFileSystemDirectories.getFile(node);
+        File dir = getFile(node);
         if (dir != null) {
             File newDir = FileSystemDirectories.rename(dir);
             if (newDir != null) {
@@ -73,6 +72,16 @@ public final class ControllerFavoritesRenameFilesystemFolder
                         getModel(), node);
             }
         }
+    }
+
+    private File getFile(DefaultMutableTreeNode node) {
+        Object userObject = node.getUserObject();
+        if (userObject instanceof File) {
+            return (File) userObject;
+        } else if (userObject instanceof FavoriteDirectory) {
+            return new File(((FavoriteDirectory) userObject).getDirectoryName());
+        }
+        return null;
     }
 
     @Override
