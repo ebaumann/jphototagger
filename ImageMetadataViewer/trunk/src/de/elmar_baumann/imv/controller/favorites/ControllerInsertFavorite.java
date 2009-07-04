@@ -22,7 +22,7 @@ import javax.swing.tree.TreePath;
  * new favorite directory when the special menu item was clicked.
  *
  * Also listens to the {@link JTree}'s key events and inserts a new favorite if
- * the keys <code>Ctrl+N</code> were pressed.
+ * the keys <code>Ctrl+I</code> were pressed.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/23
@@ -48,7 +48,7 @@ public final class ControllerInsertFavorite
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if (KeyEventUtil.isControl(e, KeyEvent.VK_N) && tree.isSelectionEmpty()) {
+        if (KeyEventUtil.isControl(e, KeyEvent.VK_I)) {
             insertFavorite(null);
         }
     }
