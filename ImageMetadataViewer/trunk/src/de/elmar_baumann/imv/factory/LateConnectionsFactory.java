@@ -39,6 +39,8 @@ public final class LateConnectionsFactory {
             listenerProvider.addUserSettingsChangeListener(
                     popupMenuPanelThumbnails);
             listenerProvider.addUserSettingsChangeListener(userSettings);
+        GUI.INSTANCE.getAppFrame().addAppExitListener(
+                appPanel.getPanelThumbnails());
         }
     }
 }

@@ -55,7 +55,6 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel
         controllerDoubleklick = new ControllerDoubleklickThumbnail(this);
         setDragEnabled(true);
         setTransferHandler(new TransferHandlerPanelThumbnails());
-        GUI.INSTANCE.getAppFrame().addAppExitListener(this);
         readProperties();
     }
 
