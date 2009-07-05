@@ -40,12 +40,15 @@ public final class ControllerDirectoryCopyFiles implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        copy(e);
+        if (KeyEventUtil.isPaste(e)) {
+            copyOrMovePastedFiles();
+        }
     }
 
-    private void copy(KeyEvent e) {
+    private void copyOrMovePastedFiles() {
         if (thumbnailsPanel.getContent().equals(Content.DIRECTORY) &&
-                KeyEventUtil.isPaste(e)) {
+                thumbnailsPanel.getFileAction() == FileAction.COPY ||
+                thumbnailsPanel.getFileAction() == FileAction.CUT) {
             insertFilesIntoSelectedDirectory();
         }
     }
@@ -60,12 +63,15 @@ public final class ControllerDirectoryCopyFiles implements KeyListener {
 
     private void copyOrMoveFiles(List<File> sourceFiles, File targetDirectory) {
         FileAction action = thumbnailsPanel.getFileAction();
-        int dropAction = action.equals(FileAction.COPY)
-                         ? TransferHandler.COPY
-                         : TransferHandler.MOVE;
-        TransferHandlerTreeDirectories.handleDroppedFiles(
-                dropAction, sourceFiles, targetDirectory);
-        if (action.equals(FileAction.CUT)) {
+        boolean isValidAction = action == FileAction.COPY ||
+                action == FileAction.CUT;
+        assert isValidAction : action;
+        if (isValidAction) {
+            int fileAction = action.equals(FileAction.COPY)
+                             ? TransferHandler.COPY
+                             : TransferHandler.MOVE;
+            TransferHandlerTreeDirectories.handleDroppedFiles(
+                    fileAction, sourceFiles, targetDirectory);
             thumbnailsPanel.setFileAction(FileAction.UNDEFINED);
         }
     }
