@@ -40,6 +40,7 @@ public final class ControllerMenuItemEnabler
             getItemOpenFilesWithStandardApp();
     private final JMenu menuOtherOpenImageApps = popupThumbnails.
             getMenuOtherOpenImageApps();
+    private final JMenu menuSort = appFrame.getMenuSort();
     private boolean hasPrograms = DatabasePrograms.INSTANCE.hasProgram();
 
     public ControllerMenuItemEnabler() {
@@ -102,6 +103,8 @@ public final class ControllerMenuItemEnabler
                     contentsOfMenuItemRequiresSelectedImages.get(item).contains(
                     content));
         }
+
+        menuSort.setEnabled(thumbnailsPanel.getContent().isSortable());
 
         UserSettings settings = UserSettings.INSTANCE;
 
