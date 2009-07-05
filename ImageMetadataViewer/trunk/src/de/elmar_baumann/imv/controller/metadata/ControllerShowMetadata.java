@@ -301,6 +301,6 @@ public final class ControllerShowMetadata implements DatabaseListener,
 
     @Override
     public void actionPerformed(DatabaseProgramEvent event) {
-        // nothing to do
+        // ignore
     }
 }

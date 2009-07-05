@@ -67,11 +67,11 @@ public final class ControllerCopyOrCutFilesToClipboard implements KeyListener {
 
     @Override
     public void keyTyped(KeyEvent e) {
-        // nothing to do
+        // ignore
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-        // nothing to do
+        // ignore
     }
 }

@@ -92,6 +92,6 @@ public final class ListModelKeywords extends DefaultListModel
 
     @Override
     public void actionPerformed(DatabaseProgramEvent event) {
-        // nothing to do
+        // ignore
     }
 }

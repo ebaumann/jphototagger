@@ -431,7 +431,7 @@ public final class EditMetadataPanelsArray implements FocusListener,
 
     @Override
     public void actionPerformed(DatabaseProgramEvent event) {
-        // nothing to do
+        // ignore
     }
 
     @Override
@@ -448,12 +448,12 @@ public final class EditMetadataPanelsArray implements FocusListener,
 
     @Override
     public void textDeselected(TextSelectionEvent evt) {
-        // nothing to do
+        // ignore
     }
 
     @Override
     public void keyTyped(KeyEvent e) {
-        // nothing to do
+        // ignore
     }
 
     @Override
@@ -470,7 +470,7 @@ public final class EditMetadataPanelsArray implements FocusListener,
 
     @Override
     public void keyReleased(KeyEvent e) {
-        // nothing to do
+        // ignore
     }
 }
 

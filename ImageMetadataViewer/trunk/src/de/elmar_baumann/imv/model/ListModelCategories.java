@@ -96,6 +96,6 @@ public final class ListModelCategories extends DefaultListModel
 
     @Override
     public void actionPerformed(DatabaseProgramEvent event) {
-        // nothing to do
+        // ignore
     }
 }

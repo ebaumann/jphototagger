@@ -53,6 +53,6 @@ public final class ControllerThumbnailsDatabaseChanges
 
     @Override
     public void actionPerformed(DatabaseProgramEvent event) {
-        // nothing to do
+        // ignore
     }
 }

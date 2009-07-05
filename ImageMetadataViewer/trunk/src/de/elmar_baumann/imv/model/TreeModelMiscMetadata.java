@@ -239,6 +239,6 @@ public final class TreeModelMiscMetadata extends DefaultTreeModel implements
 
     @Override
     public void actionPerformed(DatabaseProgramEvent event) {
-        // nothing to do
+        // ignore
     }
 }

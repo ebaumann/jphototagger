@@ -126,6 +126,6 @@ public final class TableModelDatabaseInfo extends DefaultTableModel
 
     @Override
     public void actionPerformed(DatabaseProgramEvent event) {
-        // nothing to do
+        // ignore
     }
 }

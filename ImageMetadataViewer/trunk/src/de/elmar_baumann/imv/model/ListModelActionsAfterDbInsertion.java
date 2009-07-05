@@ -127,6 +127,6 @@ public final class ListModelActionsAfterDbInsertion extends DefaultListModel
 
     @Override
     public void actionPerformed(DatabaseImageEvent action) {
-        // nothing to do
+        // ignore
     }
 }

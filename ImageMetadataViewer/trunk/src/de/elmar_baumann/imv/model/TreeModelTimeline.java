@@ -88,6 +88,6 @@ public final class TreeModelTimeline extends DefaultTreeModel implements
 
     @Override
     public void actionPerformed(DatabaseProgramEvent event) {
-        // nothing to do
+        // ignore
     }
 }

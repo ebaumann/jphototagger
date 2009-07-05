@@ -83,11 +83,11 @@ public final class ControllerDeleteFiles implements ActionListener, KeyListener 
 
     @Override
     public void keyTyped(KeyEvent e) {
-        // nothing to do
+        // ignore
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-        // nothing to do
+        // ignore
     }
 }

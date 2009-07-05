@@ -187,6 +187,6 @@ public final class ControllerFastSearch
 
     @Override
     public void actionPerformed(DatabaseProgramEvent event) {
-        // nothing to do
+        // ignore
     }
 }
