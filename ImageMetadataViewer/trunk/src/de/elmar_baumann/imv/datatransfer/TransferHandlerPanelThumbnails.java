@@ -35,7 +35,6 @@ public final class TransferHandlerPanelThumbnails extends TransferHandler {
     private static final List<Content> contentIsAFilesystemDirectory =
             new ArrayList<Content>();
 
-
     static {
         contentIsAFilesystemDirectory.add(Content.DIRECTORY);
         contentIsAFilesystemDirectory.add(Content.FAVORITE);
