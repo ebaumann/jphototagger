@@ -41,14 +41,15 @@ public final class ControllerCopyOrCutFilesToClipboard implements KeyListener {
     }
 
     private void transferSelectedFiles(int action) {
-        TransferHandler transferHandler = thumbnailsPanel.getTransferHandler();
-        if (transferHandler != null) {
-            Clipboard clipboard =
-                    Toolkit.getDefaultToolkit().getSystemClipboard();
-            ClipboardUtil.copyToClipboard(thumbnailsPanel.getSelectedFiles(),
-                    clipboard, null);
-            transferHandler.exportToClipboard(thumbnailsPanel, clipboard, action);
-        }
+        Clipboard clipboard =
+                Toolkit.getDefaultToolkit().getSystemClipboard();
+        ClipboardUtil.copyToClipboard(thumbnailsPanel.getSelectedFiles(),
+                clipboard, null);
+        // Does not work with system's file manager
+//        TransferHandler transferHandler = thumbnailsPanel.getTransferHandler();
+//        if (transferHandler != null) {
+//            transferHandler.exportToClipboard(thumbnailsPanel, clipboard, action);
+//        }
     }
 
     private int getTransferAction(KeyEvent e) {
