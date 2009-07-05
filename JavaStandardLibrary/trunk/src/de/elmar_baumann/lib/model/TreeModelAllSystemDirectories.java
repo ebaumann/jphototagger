@@ -214,6 +214,6 @@ public final class TreeModelAllSystemDirectories extends DefaultTreeModel
     @Override
     public void treeWillCollapse(TreeExpansionEvent event) throws
             ExpandVetoException {
-        // Nothing to do
+        // ignore
     }
 }
