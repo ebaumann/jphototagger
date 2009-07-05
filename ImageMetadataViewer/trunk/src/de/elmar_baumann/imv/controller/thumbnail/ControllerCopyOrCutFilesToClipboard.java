@@ -5,12 +5,15 @@ import de.elmar_baumann.imv.types.FileAction;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.lib.clipboard.ClipboardUtil;
 import de.elmar_baumann.lib.event.util.KeyEventUtil;
-import java.awt.event.ActionEvent;
+import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import javax.swing.TransferHandler;
 
 /**
- * Copies the selected files in the thumbnails panel to the system clipboard.
+ * Copies or cuts the selected files in the thumbnails panel into the system
+ * clipboard.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/26
@@ -33,9 +36,26 @@ public final class ControllerCopyOrCutFilesToClipboard implements KeyListener {
         if (KeyEventUtil.isCopy(e) || KeyEventUtil.isCut(e) &&
                 thumbnailsPanel.getSelectionCount() > 0) {
             setFileAction(e);
-            ClipboardUtil.copyToSystemClipboard(
-                    thumbnailsPanel.getSelectedFiles(), null);
+            transferSelectedFiles(getTransferAction(e));
         }
+    }
+
+    private void transferSelectedFiles(int action) {
+        TransferHandler transferHandler = thumbnailsPanel.getTransferHandler();
+        if (transferHandler != null) {
+            Clipboard clipboard =
+                    Toolkit.getDefaultToolkit().getSystemClipboard();
+            ClipboardUtil.copyToClipboard(thumbnailsPanel.getSelectedFiles(),
+                    clipboard, null);
+            transferHandler.exportToClipboard(thumbnailsPanel, clipboard, action);
+        }
+    }
+
+    private int getTransferAction(KeyEvent e) {
+        assert KeyEventUtil.isCopy(e) || KeyEventUtil.isCut(e) : e;
+        return KeyEventUtil.isCopy(e)
+               ? TransferHandler.COPY
+               : TransferHandler.MOVE;
     }
 
     private void setFileAction(KeyEvent e) {
