@@ -11,7 +11,6 @@ import de.elmar_baumann.imv.view.renderer.ListCellRendererCategories;
 import de.elmar_baumann.imv.view.renderer.ListCellRendererImageCollections;
 import de.elmar_baumann.imv.view.renderer.ListCellRendererKeywords;
 import de.elmar_baumann.imv.view.renderer.ListCellRendererSavedSearches;
-import de.elmar_baumann.imv.view.renderer.TreeCellRendererFavorites;
 import de.elmar_baumann.imv.view.renderer.TreeCellRendererMiscMetadata;
 import de.elmar_baumann.imv.view.renderer.TreeCellRendererTimeline;
 import de.elmar_baumann.lib.event.listener.TableButtonMouseListener;
@@ -525,6 +524,7 @@ public final class AppPanel extends javax.swing.JPanel implements
         treeDirectories.setName("treeDirectories"); // NOI18N
         scrollPaneDirectories.setViewportView(treeDirectories);
         treeDirectories.setTransferHandler(new de.elmar_baumann.imv.datatransfer.TransferHandlerTreeDirectories());
+        treeFavorites.setTransferHandler(new de.elmar_baumann.imv.datatransfer.TransferHandlerTreeDirectories());
 
         javax.swing.GroupLayout panelDirectoriesLayout = new javax.swing.GroupLayout(panelDirectories);
         panelDirectories.setLayout(panelDirectoriesLayout);
@@ -599,6 +599,7 @@ public final class AppPanel extends javax.swing.JPanel implements
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("root");
         treeFavorites.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
         treeFavorites.setCellRenderer(new de.elmar_baumann.imv.view.renderer.TreeCellRendererFavorites());
+        treeFavorites.setDragEnabled(true);
         treeFavorites.setRootVisible(false);
         treeFavorites.setShowsRootHandles(true);
         scrollPaneFavorites.setViewportView(treeFavorites);
