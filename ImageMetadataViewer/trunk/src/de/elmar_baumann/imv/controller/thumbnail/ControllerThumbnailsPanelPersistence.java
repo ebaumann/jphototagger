@@ -12,7 +12,6 @@ import de.elmar_baumann.lib.io.FileUtil;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.SwingUtilities;
 
 /**
  * Applies persistent settings to the thumbnails panel.
@@ -32,7 +31,7 @@ public final class ControllerThumbnailsPanelPersistence
             "de.elmar_baumann.imv.view.panels.controller.ViewportViewPosition"; // NOI18N
     private final ImageFileThumbnailsPanel thumbnailsPanel = GUI.INSTANCE.
             getAppPanel().getPanelThumbnails();
-    private List<File> persistentSelectedFiles;
+    private List<File> persistentSelectedFiles = new ArrayList<File>();
 
     public ControllerThumbnailsPanelPersistence() {
         listen();
