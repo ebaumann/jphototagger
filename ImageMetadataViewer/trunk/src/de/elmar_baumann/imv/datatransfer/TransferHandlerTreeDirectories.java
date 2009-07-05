@@ -1,5 +1,6 @@
 package de.elmar_baumann.imv.datatransfer;
 
+import de.elmar_baumann.imv.data.FavoriteDirectory;
 import de.elmar_baumann.imv.event.ProgressEvent;
 import de.elmar_baumann.imv.event.listener.ProgressListener;
 import de.elmar_baumann.imv.io.IoUtil;
@@ -16,6 +17,7 @@ import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.JTree;
 import javax.swing.TransferHandler;
+import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 
 /**
@@ -34,8 +36,8 @@ public final class TransferHandlerTreeDirectories extends TransferHandler {
         if (!TransferUtil.maybeContainFileData(transferSupport.getTransferable())) {
             return false;
         }
-        JTree.DropLocation dropLocation = (JTree.DropLocation) transferSupport.
-                getDropLocation();
+        JTree.DropLocation dropLocation =
+                (JTree.DropLocation) transferSupport.getDropLocation();
         return dropLocation.getPath() != null;
     }
 
@@ -112,9 +114,17 @@ public final class TransferHandlerTreeDirectories extends TransferHandler {
     private File getTargetDirectory(TransferSupport transferSupport) {
         TreePath path =
                 ((JTree.DropLocation) transferSupport.getDropLocation()).getPath();
-        Object lastPathComponent = path.getLastPathComponent();
-        if (lastPathComponent instanceof File) {
-            return (File) lastPathComponent;
+        Object selNode = path.getLastPathComponent();
+        if (selNode instanceof DefaultMutableTreeNode) {
+            Object userObject =
+                    ((DefaultMutableTreeNode) selNode).getUserObject();
+            if (userObject instanceof File) {
+                return (File) userObject;
+            } else if (userObject instanceof FavoriteDirectory) {
+                return new File(
+                        ((FavoriteDirectory) userObject).getDirectoryName());
+            }
+            return (File) selNode;
         }
         return null;
     }
