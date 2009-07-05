@@ -3,6 +3,7 @@ package de.elmar_baumann.imv.controller.thumbnail;
 import de.elmar_baumann.imv.datatransfer.TransferHandlerTreeDirectories;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.types.Content;
+import de.elmar_baumann.imv.types.FileAction;
 import de.elmar_baumann.imv.view.ViewUtil;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.lib.clipboard.ClipboardUtil;
@@ -65,10 +66,19 @@ public final class ControllerPasteFilesFromClipboard implements KeyListener {
             public void run() {
                 List<File> files =
                         ClipboardUtil.getFilesFromSystemClipboard("\n");
-                // TODO determine COPY OR MOVE, when moving deleting from source
                 TransferHandlerTreeDirectories.handleDroppedFiles(
-                        TransferHandler.COPY, files, file);
+                        getEstimatedTransferHandlerAction(), files, file);
                 thumbnailsPanel.refresh();
+            }
+
+            public int getEstimatedTransferHandlerAction() {
+                FileAction action = thumbnailsPanel.getFileAction();
+                return action.equals(FileAction.COPY)
+                       ? TransferHandler.COPY
+                       : action.equals(FileAction.CUT) ||
+                        action.equals(FileAction.MOVE)
+                         ? TransferHandler.MOVE
+                         : TransferHandler.COPY;
             }
         });
     }
