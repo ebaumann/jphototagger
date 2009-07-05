@@ -71,6 +71,10 @@ public enum Content {
      */
     private static final Set<Content> contentInsertImagesFromFileSystemAllowed =
             new HashSet<Content>();
+    /**
+     * Contents which is sortable
+     */
+    private static final Set<Content> sortableContent = new HashSet<Content>();
 
     static {
         // Deletion from the file system is always allowed if the content is not
@@ -86,6 +90,16 @@ public enum Content {
         // are in the same directory.
         contentInsertImagesFromFileSystemAllowed.add(DIRECTORY);
         contentInsertImagesFromFileSystemAllowed.add(FAVORITE);
+
+        // Currently only image collections are not sortable
+        sortableContent.add(CATEGORY);
+        sortableContent.add(DIRECTORY);
+        sortableContent.add(FAST_SEARCH);
+        sortableContent.add(FAVORITE);
+        sortableContent.add(KEYWORD);
+        sortableContent.add(MISC_METADATA);
+        sortableContent.add(SAFED_SEARCH);
+        sortableContent.add(TIMELINE);
     }
 
     /**
@@ -115,5 +129,14 @@ public enum Content {
      */
     public boolean isUniqueFileSystemDirectory() {
         return this.equals(DIRECTORY) || this.equals(FAVORITE);
+    }
+
+    /**
+     * Returns whether the content is sortable.
+     *
+     * @return true if the content is sortable
+     */
+    public boolean isSortable() {
+        return sortableContent.contains(this);
     }
 }
