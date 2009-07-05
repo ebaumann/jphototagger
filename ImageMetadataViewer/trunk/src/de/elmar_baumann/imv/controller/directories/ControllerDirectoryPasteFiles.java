@@ -28,34 +28,38 @@ public final class ControllerDirectoryPasteFiles implements KeyListener {
     private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
     private final ImageFileThumbnailsPanel thumbnailsPanel =
             appPanel.getPanelThumbnails();
-    private final JTree treeDirectories = appPanel.getTreeDirectories();
 
     public ControllerDirectoryPasteFiles() {
         listen();
     }
 
     private void listen() {
-        treeDirectories.addKeyListener(this);
+        appPanel.getTreeDirectories().addKeyListener(this);
+        appPanel.getTreeFavorites().addKeyListener(this);
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
         if (KeyEventUtil.isPaste(e)) {
-            copyOrMovePastedFiles();
+            Object source = e.getSource();
+            if (source instanceof JTree) {
+                copyOrMovePastedFiles((JTree) source);
+            }
         }
     }
 
-    private void copyOrMovePastedFiles() {
-        if (thumbnailsPanel.getContent().equals(Content.DIRECTORY) &&
-                thumbnailsPanel.getFileAction() == FileAction.COPY ||
-                thumbnailsPanel.getFileAction() == FileAction.CUT) {
-            insertFilesIntoSelectedDirectory();
+    private void copyOrMovePastedFiles(JTree targetTree) {
+        if ((thumbnailsPanel.getContent().equals(Content.DIRECTORY) ||
+                thumbnailsPanel.getContent().equals(Content.FAVORITE)) &&
+                (thumbnailsPanel.getFileAction() == FileAction.COPY ||
+                thumbnailsPanel.getFileAction() == FileAction.CUT)) {
+            insertFilesIntoSelectedDirectory(targetTree);
         }
     }
 
-    private void insertFilesIntoSelectedDirectory() {
+    private void insertFilesIntoSelectedDirectory(JTree targetTree) {
         List<File> sourceFiles = ClipboardUtil.getFilesFromSystemClipboard("\n");
-        File targetDirectory = ViewUtil.getSelectedFile(treeDirectories);
+        File targetDirectory = ViewUtil.getSelectedFile(targetTree);
         if (sourceFiles.size() > 0 && targetDirectory != null) {
             copyOrMoveFiles(sourceFiles, targetDirectory);
         }
