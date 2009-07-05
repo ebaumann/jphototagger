@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JRadioButtonMenuItem;
 
@@ -130,6 +131,10 @@ public final class AppFrame extends javax.swing.JFrame {
         for (AppExitListener listener : exitListeners) {
             listener.appWillExit();
         }
+    }
+
+    public JMenu getMenuSort() {
+        return menuSort;
     }
 
     public GoTo getGotoOfMenuItem(JMenuItem item) {
