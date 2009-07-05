@@ -11,6 +11,7 @@ import de.elmar_baumann.lib.event.util.KeyEventUtil;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.SwingUtilities;
 import javax.swing.TransferHandler;
@@ -68,6 +69,7 @@ public final class ControllerPasteFilesFromClipboard implements KeyListener {
                         ClipboardUtil.getFilesFromSystemClipboard("\n");
                 TransferHandlerTreeDirectories.handleDroppedFiles(
                         getEstimatedTransferHandlerAction(), files, file);
+                emptyClipboard();
                 thumbnailsPanel.refresh();
             }
 
@@ -79,6 +81,10 @@ public final class ControllerPasteFilesFromClipboard implements KeyListener {
                         action.equals(FileAction.MOVE)
                          ? TransferHandler.MOVE
                          : TransferHandler.COPY;
+            }
+
+            private void emptyClipboard() {
+                ClipboardUtil.copyToSystemClipboard(new ArrayList<File>(), null);
             }
         });
     }
