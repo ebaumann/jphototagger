@@ -6,7 +6,7 @@ import de.elmar_baumann.imv.controller.actions.ControllerActionsShowDialog;
 import de.elmar_baumann.imv.controller.categories.ControllerCategoryItemSelected;
 import de.elmar_baumann.imv.controller.directories.ControllerCreateDirectory;
 import de.elmar_baumann.imv.controller.directories.ControllerDeleteDirectory;
-import de.elmar_baumann.imv.controller.directories.ControllerDirectoryCopyFiles;
+import de.elmar_baumann.imv.controller.directories.ControllerDirectoryPasteFiles;
 import de.elmar_baumann.imv.controller.directories.ControllerEnableInsertMetadataTemplate;
 import de.elmar_baumann.imv.controller.directories.ControllerRefreshDirectoryTree;
 import de.elmar_baumann.imv.controller.directories.ControllerRenameDirectory;
@@ -137,7 +137,7 @@ public final class ControllerFactory {
             new ControllerThumbnailsDatabaseChanges();
             new ControllerAutocopyDirectory();
             new ControllerCopyOrCutFilesToClipboard();
-            new ControllerDirectoryCopyFiles();
+            new ControllerDirectoryPasteFiles();
             new ControllerPasteFilesFromClipboard();
             new ControllerOpenFavoriteInFolders();
             new ControllerActionsShowDialog();

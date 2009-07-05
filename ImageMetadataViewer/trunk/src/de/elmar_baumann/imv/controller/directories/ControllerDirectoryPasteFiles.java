@@ -23,14 +23,14 @@ import javax.swing.TransferHandler;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/26
  */
-public final class ControllerDirectoryCopyFiles implements KeyListener {
+public final class ControllerDirectoryPasteFiles implements KeyListener {
 
     private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
     private final ImageFileThumbnailsPanel thumbnailsPanel =
             appPanel.getPanelThumbnails();
     private final JTree treeDirectories = appPanel.getTreeDirectories();
 
-    public ControllerDirectoryCopyFiles() {
+    public ControllerDirectoryPasteFiles() {
         listen();
     }
 
