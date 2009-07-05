@@ -145,10 +145,6 @@
 			<title>Bearbeiten &gt; Suchen</title>
 		</page>
 		<page>
-			<url>dialog_edit_metadata_text_selection.html</url>
-			<title>Bearbeiten &gt; Zuletzt eingegebene Begriffe</title>
-		</page>
-		<page>
 			<url>action_metadata_iptc_to_xmp.html</url>
 			<title>Werkzeuge &gt; IPTC-Daten nach XMP</title>
 		</page>
@@ -167,6 +163,10 @@
 		<page>
 			<url>dialog_actions.html</url>
 			<title>Werkzeuge &gt; Aktionen</title>
+		</page>
+		<page>
+			<url>dialog_edit_metadata_text_selection.html</url>
+			<title>Fenster &gt; Zuletzt eingegebene Begriffe</title>
 		</page>
 	</node>
 	<node>
