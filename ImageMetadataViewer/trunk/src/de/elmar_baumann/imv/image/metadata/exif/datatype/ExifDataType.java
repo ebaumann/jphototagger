@@ -16,4 +16,5 @@ public enum ExifDataType {
     UNDEFINED,
     SLONG,
     SRATIONAL,
+    SHORT_OR_LONG,
 }
