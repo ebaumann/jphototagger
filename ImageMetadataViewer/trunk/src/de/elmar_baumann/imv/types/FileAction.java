@@ -1,5 +1,7 @@
 package de.elmar_baumann.imv.types;
 
+import javax.swing.TransferHandler;
+
 /**
  *
  *
@@ -8,8 +10,25 @@ package de.elmar_baumann.imv.types;
  */
 public enum FileAction {
 
-    COPY,
-    CUT,
-    MOVE,
-    UNDEFINED,
+    COPY(TransferHandler.COPY),
+    CUT(TransferHandler.MOVE),
+    MOVE(TransferHandler.MOVE),
+    UNDEFINED(null),;
+    /**
+     * Action equivalent for a {@link TransferHandler}
+     */
+    private final Integer transferHandlerAction;
+
+    /**
+     * Returns the action equivalent for a {@link TransferHandler}.
+     *
+     * @return action or null if the transfer handler has no such action
+     */
+    public Integer getTransferHandlerAction() {
+        return transferHandlerAction;
+    }
+
+    private FileAction(Integer transferHandlerAction) {
+        this.transferHandlerAction = transferHandlerAction;
+    }
 }
