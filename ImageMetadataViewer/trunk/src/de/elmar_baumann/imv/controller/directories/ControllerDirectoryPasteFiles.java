@@ -14,7 +14,6 @@ import java.awt.event.KeyListener;
 import java.io.File;
 import java.util.List;
 import javax.swing.JTree;
-import javax.swing.TransferHandler;
 
 /**
  * Listens to keyboard actions whithin the directories tree and copies or
@@ -49,10 +48,8 @@ public final class ControllerDirectoryPasteFiles implements KeyListener {
     }
 
     private void copyOrMovePastedFiles(JTree targetTree) {
-        if ((thumbnailsPanel.getContent().equals(Content.DIRECTORY) ||
-                thumbnailsPanel.getContent().equals(Content.FAVORITE)) &&
-                (thumbnailsPanel.getFileAction() == FileAction.COPY ||
-                thumbnailsPanel.getFileAction() == FileAction.CUT)) {
+        if (isValidContent(thumbnailsPanel.getContent()) &&
+                isValidFileAction(thumbnailsPanel.getFileAction())) {
             insertFilesIntoSelectedDirectory(targetTree);
         }
     }
@@ -67,17 +64,22 @@ public final class ControllerDirectoryPasteFiles implements KeyListener {
 
     private void copyOrMoveFiles(List<File> sourceFiles, File targetDirectory) {
         FileAction action = thumbnailsPanel.getFileAction();
-        boolean isValidAction = action == FileAction.COPY ||
-                action == FileAction.CUT;
-        assert isValidAction : action;
-        if (isValidAction) {
-            int fileAction = action.equals(FileAction.COPY)
-                             ? TransferHandler.COPY
-                             : TransferHandler.MOVE;
+        assert isValidFileAction(action) : action;
+        if (isValidFileAction(action)) {
             TransferHandlerTreeDirectories.handleDroppedFiles(
-                    fileAction, sourceFiles, targetDirectory);
+                    action.getTransferHandlerAction(), sourceFiles,
+                    targetDirectory);
             thumbnailsPanel.setFileAction(FileAction.UNDEFINED);
         }
+    }
+
+    private boolean isValidFileAction(FileAction action) {
+        return action.equals(FileAction.COPY) || action.equals(FileAction.CUT);
+    }
+
+    private boolean isValidContent(Content content) {
+        return content.equals(Content.DIRECTORY) ||
+                content.equals(Content.FAVORITE);
     }
 
     @Override

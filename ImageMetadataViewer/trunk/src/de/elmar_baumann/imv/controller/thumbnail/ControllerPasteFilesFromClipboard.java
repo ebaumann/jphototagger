@@ -3,7 +3,6 @@ package de.elmar_baumann.imv.controller.thumbnail;
 import de.elmar_baumann.imv.datatransfer.TransferHandlerTreeDirectories;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.types.Content;
-import de.elmar_baumann.imv.types.FileAction;
 import de.elmar_baumann.imv.view.ViewUtil;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.lib.clipboard.ClipboardUtil;
@@ -74,13 +73,11 @@ public final class ControllerPasteFilesFromClipboard implements KeyListener {
             }
 
             public int getEstimatedTransferHandlerAction() {
-                FileAction action = thumbnailsPanel.getFileAction();
-                return action.equals(FileAction.COPY)
+                Integer action =
+                        thumbnailsPanel.getFileAction().getTransferHandlerAction();
+                return action == null
                        ? TransferHandler.COPY
-                       : action.equals(FileAction.CUT) ||
-                        action.equals(FileAction.MOVE)
-                         ? TransferHandler.MOVE
-                         : TransferHandler.COPY;
+                       : action;
             }
 
             private void emptyClipboard() {
