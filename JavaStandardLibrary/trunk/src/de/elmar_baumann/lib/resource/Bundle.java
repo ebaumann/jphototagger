@@ -18,8 +18,9 @@ import java.util.logging.Logger;
  */
 public final class Bundle {
 
-    private static final ResourceBundle bundle =
-        ResourceBundle.getBundle("de/elmar_baumann/lib/resource/properties/Bundle"); // NOI18N
+    private static final ResourceBundle BUNDLE =
+            ResourceBundle.getBundle(
+            "de/elmar_baumann/lib/resource/properties/Bundle"); // NOI18N
 
     /**
      * Returns <code>java.util.ResourceBundle.getBundle().getString()</code>
@@ -32,7 +33,7 @@ public final class Bundle {
      */
     public static String getString(String key) {
         try {
-            return bundle.getString(key);
+            return BUNDLE.getString(key);
         } catch (NullPointerException ex) {
             throw ex;
         } catch (Exception ex) {
@@ -53,7 +54,7 @@ public final class Bundle {
      */
     public static String getString(String key, Object... params) {
         try {
-            MessageFormat msg = new MessageFormat(bundle.getString(key));
+            MessageFormat msg = new MessageFormat(BUNDLE.getString(key));
             return msg.format(params);
         } catch (NullPointerException ex) {
             throw ex;

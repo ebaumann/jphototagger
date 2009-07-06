@@ -19,24 +19,31 @@ import javax.swing.ImageIcon;
  */
 public final class LogLevelIcons {
 
-    private static final Map<Level, ImageIcon> iconOfLevel = new HashMap<Level, ImageIcon>();
-
+    private static final Map<Level, ImageIcon> ICON_OF_LEVEL =
+            new HashMap<Level, ImageIcon>();
 
     static {
-        iconOfLevel.put(Level.CONFIG, IconUtil.getImageIcon(
-            "/de/elmar_baumann/lib/resource/icons/icon_logfiledialog_config.png")); // NOI18N
-        iconOfLevel.put(Level.FINE, IconUtil.getImageIcon(
-            "/de/elmar_baumann/lib/resource/icons/icon_logfiledialog_fine.png")); // NOI18N
-        iconOfLevel.put(Level.FINER, IconUtil.getImageIcon(
-            "/de/elmar_baumann/lib/resource/icons/icon_logfiledialog_finer.png")); // NOI18N
-        iconOfLevel.put(Level.FINEST, IconUtil.getImageIcon(
-            "/de/elmar_baumann/lib/resource/icons/icon_logfiledialog_finest.png")); // NOI18N
-        iconOfLevel.put(Level.INFO, IconUtil.getImageIcon(
-            "/de/elmar_baumann/lib/resource/icons/icon_logfiledialog_info.png")); // NOI18N
-        iconOfLevel.put(Level.SEVERE, IconUtil.getImageIcon(
-            "/de/elmar_baumann/lib/resource/icons/icon_logfiledialog_severe.png")); // NOI18N
-        iconOfLevel.put(Level.WARNING, IconUtil.getImageIcon(
-            "/de/elmar_baumann/lib/resource/icons/icon_logfiledialog_warning.png")); // NOI18N
+        ICON_OF_LEVEL.put(Level.CONFIG,
+                IconUtil.getImageIcon(
+                "/de/elmar_baumann/lib/resource/icons/icon_logfiledialog_config.png")); // NOI18N
+        ICON_OF_LEVEL.put(Level.FINE,
+                IconUtil.getImageIcon(
+                "/de/elmar_baumann/lib/resource/icons/icon_logfiledialog_fine.png")); // NOI18N
+        ICON_OF_LEVEL.put(Level.FINER,
+                IconUtil.getImageIcon(
+                "/de/elmar_baumann/lib/resource/icons/icon_logfiledialog_finer.png")); // NOI18N
+        ICON_OF_LEVEL.put(Level.FINEST,
+                IconUtil.getImageIcon(
+                "/de/elmar_baumann/lib/resource/icons/icon_logfiledialog_finest.png")); // NOI18N
+        ICON_OF_LEVEL.put(Level.INFO,
+                IconUtil.getImageIcon(
+                "/de/elmar_baumann/lib/resource/icons/icon_logfiledialog_info.png")); // NOI18N
+        ICON_OF_LEVEL.put(Level.SEVERE,
+                IconUtil.getImageIcon(
+                "/de/elmar_baumann/lib/resource/icons/icon_logfiledialog_severe.png")); // NOI18N
+        ICON_OF_LEVEL.put(Level.WARNING,
+                IconUtil.getImageIcon(
+                "/de/elmar_baumann/lib/resource/icons/icon_logfiledialog_warning.png")); // NOI18N
     }
 
     /**
@@ -51,7 +58,7 @@ public final class LogLevelIcons {
         if (level == null)
             throw new NullPointerException("level == null");
 
-        return iconOfLevel.get(level);
+        return ICON_OF_LEVEL.get(level);
     }
 
     private LogLevelIcons() {

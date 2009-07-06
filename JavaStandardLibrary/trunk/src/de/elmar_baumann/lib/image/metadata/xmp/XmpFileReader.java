@@ -26,13 +26,13 @@ import java.util.logging.Logger;
 public final class XmpFileReader {
 
     /** Marker für den Beginn eines XMP-Packets (<?xpacket begin=) */
-    private static final byte[] xmpPacketMarker = {0x3C, 0x3F, 0x78, 0x70,
+    private static final byte[] XMP_PACKET_MARKER = {0x3C, 0x3F, 0x78, 0x70,
         0x61, 0x63, 0x6B, 0x65, 0x74, 0x20, 0x62, 0x65, 0x67, 0x69, 0x6E,
         0x3D
     };
-    private static final byte[] xmpBeginMarker = new String("<x:xmpmeta").
+    private static final byte[] XMP_BEGIN_MARKER = new String("<x:xmpmeta").
             getBytes(); // NOI18N
-    private static final byte[] xmpEndMarker = new String("</x:xmpmeta>").
+    private static final byte[] XMP_END_MARKER = new String("</x:xmpmeta>").
             getBytes(); // NOI18N
 
     /**
@@ -58,13 +58,13 @@ public final class XmpFileReader {
         RandomAccessFile file = null;
         try {
             file = new RandomAccessFile(filename, "r"); // NOI18N
-            int xmpPacketStartIndex = getMatchIndex(file, 0, xmpPacketMarker);
+            int xmpPacketStartIndex = getMatchIndex(file, 0, XMP_PACKET_MARKER);
             if (xmpPacketStartIndex >= 0) {
                 int xmpStartIndex = getMatchIndex(file, xmpPacketStartIndex +
-                        xmpPacketMarker.length, xmpBeginMarker);
+                        XMP_PACKET_MARKER.length, XMP_BEGIN_MARKER);
                 if (xmpStartIndex > 0) {
                     int xmpEndIndex = getMatchIndex(file, xmpStartIndex +
-                            xmpBeginMarker.length, xmpEndMarker);
+                            XMP_BEGIN_MARKER.length, XMP_END_MARKER);
                     if (xmpEndIndex > 0) {
                         // file will be closed in finally
                         return getXmp(filename, xmpStartIndex, xmpEndIndex);
@@ -91,7 +91,7 @@ public final class XmpFileReader {
         try {
             file = new RandomAccessFile(filename, "r"); // NOI18N
             file.seek(xmpStartIndex);
-            int count = xmpEndIndex - xmpStartIndex + xmpEndMarker.length;
+            int count = xmpEndIndex - xmpStartIndex + XMP_END_MARKER.length;
             byte[] bytes = new byte[count];
             file.read(bytes, 0, count);
             // file will be closed in finally

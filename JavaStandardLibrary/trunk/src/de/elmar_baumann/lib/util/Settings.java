@@ -47,18 +47,18 @@ import javax.swing.tree.TreePath;
 public final class Settings {
 
     private final Properties properties;
-    private static final String delimiterNumberArray = ";"; // NOI18N
-    private static final String delimiterArrayKeys = "."; // NOI18N
-    private static final String filePathSeparator = "|"; // NOI18N
-    private static final String keyPostfixViewportViewPositionX =
+    private static final String DELIMITER_NUMBER_ARRAY = ";"; // NOI18N
+    private static final String DELIMITER_ARRAY_KEYS = "."; // NOI18N
+    private static final String FILE_PATH_SEPARATOR = "|"; // NOI18N
+    private static final String KEY_POSTFIX_VIEWPORT_VIEW_POSITION_X =
             ".ViewportViewPositionX"; // NOI18N
-    private static final String keyPostfixViewportViewPositionY =
+    private static final String KEY_POSTFIX_VIEWPORT_VIEW_POSITION_Y =
             ".ViewportViewPositionY"; // NOI18N
-    private static final String keyAppendixSelected = "-selected"; // NOI18N
-    private static final String postfixKeyWidth = ".Width"; // NOI18N
-    private static final String postfixKeyHeight = ".Height"; // NOI18N
-    private static final String postfixKeyLocationX = ".LocationX"; // NOI18N
-    private static final String postfixKeyLocationY = ".LocationY"; // NOI18N
+    private static final String KEY_APPENDIX_SELECTED = "-selected"; // NOI18N
+    private static final String POSTFIX_KEY_WIDTH = ".Width"; // NOI18N
+    private static final String POSTFIX_KEY_HEIGHT = ".Height"; // NOI18N
+    private static final String POSTFIX_KEY_LOCATION_X = ".LocationX"; // NOI18N
+    private static final String POSTFIX_KEY_LOCATION_Y = ".LocationY"; // NOI18N
 
     public Settings(Properties properties) {
         if (properties == null)
@@ -69,7 +69,7 @@ public final class Settings {
 
     private String getArrayKeyMatchPattern(String key) {
         assert key != null : key;
-        return "^" + java.util.regex.Pattern.quote(key + delimiterArrayKeys) +
+        return "^" + java.util.regex.Pattern.quote(key + DELIMITER_ARRAY_KEYS) +
                 "[0-9]+$"; // NOI18N
     }
 
@@ -223,7 +223,7 @@ public final class Settings {
         if (properties.containsKey(key)) {
             String value = properties.getProperty(key);
             TreePath path = TreeUtil.getTreePath(tree.getModel(), value,
-                    filePathSeparator);
+                    FILE_PATH_SEPARATOR);
             if (path != null) {
                 TreeUtil.expandPath(tree, path);
                 tree.scrollPathToVisible(path);
@@ -267,8 +267,8 @@ public final class Settings {
         if (key == null)
             throw new NullPointerException("key == null");
 
-        String keyX = key + keyPostfixViewportViewPositionX;
-        String keyY = key + keyPostfixViewportViewPositionY;
+        String keyX = key + KEY_POSTFIX_VIEWPORT_VIEW_POSITION_X;
+        String keyY = key + KEY_POSTFIX_VIEWPORT_VIEW_POSITION_Y;
         if (properties.containsKey(keyX) && properties.containsKey(keyY)) {
             try {
                 Integer x = new Integer(properties.getProperty(keyX));
@@ -430,7 +430,7 @@ public final class Settings {
         if (key == null)
             throw new NullPointerException("key == null");
 
-        String sKey = key + keyAppendixSelected;
+        String sKey = key + KEY_APPENDIX_SELECTED;
         String selected = properties.getProperty(sKey);
 
         if (selected != null) {
@@ -450,7 +450,7 @@ public final class Settings {
         if (key == null)
             throw new NullPointerException("key == null");
 
-        String index = properties.getProperty(key + keyAppendixSelected);
+        String index = properties.getProperty(key + KEY_APPENDIX_SELECTED);
         if (index != null) {
             try {
                 Integer ind = new Integer(index);
@@ -495,7 +495,7 @@ public final class Settings {
         if (key == null)
             throw new NullPointerException("key == null");
 
-        String sKey = key + keyAppendixSelected;
+        String sKey = key + KEY_APPENDIX_SELECTED;
         String selected = properties.getProperty(sKey);
 
         if (selected != null) {
@@ -515,7 +515,7 @@ public final class Settings {
         if (key == null)
             throw new NullPointerException("key == null");
 
-        String sKey = key + keyAppendixSelected;
+        String sKey = key + KEY_APPENDIX_SELECTED;
         String index = properties.getProperty(sKey);
 
         if (index != null) {
@@ -583,7 +583,7 @@ public final class Settings {
 
         for (Integer integer : array) {
             buffer.append(integer.toString());
-            buffer.append(delimiterNumberArray);
+            buffer.append(DELIMITER_NUMBER_ARRAY);
         }
     }
 
@@ -602,7 +602,7 @@ public final class Settings {
         deleteKeysMatches(getArrayKeyMatchPattern(key));
         int count = list.size();
         for (int i = 0; i < count; i++) {
-            properties.setProperty(key + delimiterArrayKeys +
+            properties.setProperty(key + DELIMITER_ARRAY_KEYS +
                     Integer.toString(i), list.get(i));
         }
     }
@@ -636,7 +636,7 @@ public final class Settings {
 
         if (properties.containsKey(key)) {
             StringTokenizer tokenizer = new StringTokenizer(properties.
-                    getProperty(key), delimiterNumberArray);
+                    getProperty(key), DELIMITER_NUMBER_ARRAY);
 
             while (tokenizer.hasMoreTokens()) {
                 try {
@@ -873,7 +873,8 @@ public final class Settings {
         for (int index = 0; index < itemCount; index++) {
             Object item = comboBox.getItemAt(index);
             if (item != null) {
-                String cKey = key + delimiterArrayKeys + Integer.toString(index);
+                String cKey = key + DELIMITER_ARRAY_KEYS + Integer.toString(
+                        index);
                 properties.setProperty(cKey, item.toString());
             }
         }
@@ -898,7 +899,7 @@ public final class Settings {
         deleteKeysMatches(getArrayKeyMatchPattern(key));
         for (int i = 0; i < itemCount; i++) {
             properties.setProperty(
-                    key + delimiterArrayKeys + Integer.toString(i),
+                    key + DELIMITER_ARRAY_KEYS + Integer.toString(i),
                     model.getElementAt(i).toString());
         }
         setSelectedValue(list, key);
@@ -917,7 +918,7 @@ public final class Settings {
             throw new NullPointerException("key == null");
 
         properties.setProperty(
-                key + keyAppendixSelected,
+                key + KEY_APPENDIX_SELECTED,
                 Integer.toString(comboBox.getSelectedIndex()));
     }
 
@@ -952,7 +953,7 @@ public final class Settings {
         if (key == null)
             throw new NullPointerException("key == null");
 
-        String sKey = key + keyAppendixSelected;
+        String sKey = key + KEY_APPENDIX_SELECTED;
         Object selectedValue = list.getSelectedValue();
 
         if (selectedValue == null) {
@@ -975,7 +976,7 @@ public final class Settings {
             throw new NullPointerException("key == null");
 
         properties.setProperty(
-                key + keyAppendixSelected,
+                key + KEY_APPENDIX_SELECTED,
                 Integer.toString(list.getSelectedIndex()));
     }
 
@@ -992,7 +993,7 @@ public final class Settings {
         if (key == null)
             throw new NullPointerException("key == null");
 
-        String sKey = key + keyAppendixSelected;
+        String sKey = key + KEY_APPENDIX_SELECTED;
         Object selectedItem = comboBox.getSelectedItem();
 
         if (selectedItem == null) {
@@ -1103,9 +1104,9 @@ public final class Settings {
         Integer x = scrollPane.getViewport().getViewPosition().x;
         Integer y = scrollPane.getViewport().getViewPosition().y;
 
-        properties.setProperty(key + keyPostfixViewportViewPositionX,
+        properties.setProperty(key + KEY_POSTFIX_VIEWPORT_VIEW_POSITION_X,
                 x.toString());
-        properties.setProperty(key + keyPostfixViewportViewPositionY,
+        properties.setProperty(key + KEY_POSTFIX_VIEWPORT_VIEW_POSITION_Y,
                 y.toString());
     }
 
@@ -1130,7 +1131,7 @@ public final class Settings {
             for (int index = 0; index < path.length; index++) {
                 pathBuffer.append(path[index].toString() + (index + 1 <
                         path.length
-                                                            ? filePathSeparator
+                                                            ? FILE_PATH_SEPARATOR
                                                             : "")); // NOI18N
             }
             properties.setProperty(key, pathBuffer.toString());
@@ -1376,21 +1377,21 @@ public final class Settings {
 
     private static String getKeyHeight(String key) {
         assert key != null : key;
-        return key + postfixKeyHeight;
+        return key + POSTFIX_KEY_HEIGHT;
     }
 
     private static String getKeyWidth(String key) {
         assert key != null : key;
-        return key + postfixKeyWidth;
+        return key + POSTFIX_KEY_WIDTH;
     }
 
     private static String getKeyLocationX(String key) {
         assert key != null : key;
-        return key + postfixKeyLocationX;
+        return key + POSTFIX_KEY_LOCATION_X;
     }
 
     private static String getKeyLocationY(String key) {
         assert key != null : key;
-        return key + postfixKeyLocationY;
+        return key + POSTFIX_KEY_LOCATION_Y;
     }
 }

@@ -31,7 +31,7 @@ import javax.swing.border.EmptyBorder;
  */
 public final class CheckList extends JList {
 
-    private static final Border noFocusBorder = new EmptyBorder(1, 1, 1, 1);
+    private static final Border BORDER_NO_FOCUS = new EmptyBorder(1, 1, 1, 1);
     private final List<ActionListener> actionListeners =
             new ArrayList<ActionListener>();
 
@@ -249,7 +249,7 @@ public final class CheckList extends JList {
                 checkBox.setBorder(
                         isSelected
                         ? UIManager.getBorder("List.focusCellHighlightBorder") // NOI18N
-                        : noFocusBorder);
+                        : BORDER_NO_FOCUS);
                 return checkBox;
             } else if (value instanceof String) {
                 String string = (String) value;

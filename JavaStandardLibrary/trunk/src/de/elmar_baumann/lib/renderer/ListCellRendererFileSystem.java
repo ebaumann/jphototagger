@@ -19,8 +19,8 @@ import javax.swing.filechooser.FileSystemView;
  */
 public final class ListCellRendererFileSystem extends DefaultListCellRenderer {
 
-    private static final FileSystemView fileSystemView = FileSystemView.
-            getFileSystemView();
+    private static final FileSystemView FILE_SYSTEM_VIEW =
+            FileSystemView.getFileSystemView();
     private final boolean absolutePathName;
 
     /**
@@ -37,14 +37,14 @@ public final class ListCellRendererFileSystem extends DefaultListCellRenderer {
     @Override
     public Component getListCellRendererComponent(JList list, Object value,
             int index, boolean isSelected, boolean cellHasFocus) {
-        JLabel label = (JLabel) super.getListCellRendererComponent(list, value,
-                index, isSelected, cellHasFocus);
+        JLabel label = (JLabel) super.getListCellRendererComponent(
+                list, value, index, isSelected, cellHasFocus);
         if (value instanceof File) {
             File file = (File) value;
             if (file.exists()) {
-                synchronized (fileSystemView) {
+                synchronized (FILE_SYSTEM_VIEW) {
                     try {
-                        label.setIcon(fileSystemView.getSystemIcon(file));
+                        label.setIcon(FILE_SYSTEM_VIEW.getSystemIcon(file));
                     } catch (Exception ex) {
                         Logger.getLogger(ListCellRendererFileSystem.class.
                                 getName()).log(Level.WARNING, null, ex);

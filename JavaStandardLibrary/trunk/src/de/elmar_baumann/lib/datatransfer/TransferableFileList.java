@@ -16,9 +16,12 @@ import java.util.List;
  */
 public final class TransferableFileList implements Transferable {
 
-    private static final DataFlavor fileListFlavor = DataFlavor.javaFileListFlavor;
-    private static final DataFlavor uriListFlavor = TransferUtil.getUriListFlavor();
-    private static final DataFlavor[] flavors = new DataFlavor[]{fileListFlavor, uriListFlavor};
+    private static final DataFlavor FILE_LIST_FLAVOR =
+            DataFlavor.javaFileListFlavor;
+    private static final DataFlavor URI_LIST_FLAVOR =
+            TransferUtil.getUriListFlavor();
+    private static final DataFlavor[] FLAVORS =
+            new DataFlavor[]{FILE_LIST_FLAVOR, URI_LIST_FLAVOR};
     private final List files;
     private String fileUris;
 
@@ -37,19 +40,20 @@ public final class TransferableFileList implements Transferable {
 
     @Override
     public DataFlavor[] getTransferDataFlavors() {
-        return (flavors);
+        return (FLAVORS);
     }
 
     @Override
     public boolean isDataFlavorSupported(DataFlavor flavor) {
-        return flavor.equals(fileListFlavor) || flavor.equals(uriListFlavor);
+        return flavor.equals(FILE_LIST_FLAVOR) || flavor.equals(URI_LIST_FLAVOR);
     }
 
     @Override
-    public Object getTransferData(DataFlavor flavor) throws UnsupportedFlavorException, IOException {
-        if (flavor.equals(fileListFlavor)) {
+    public Object getTransferData(DataFlavor flavor) throws
+            UnsupportedFlavorException, IOException {
+        if (flavor.equals(FILE_LIST_FLAVOR)) {
             return files;
-        } else if (flavor.equals(uriListFlavor)) {
+        } else if (flavor.equals(URI_LIST_FLAVOR)) {
             return fileUris;
         } else {
             throw new UnsupportedFlavorException(flavor);
