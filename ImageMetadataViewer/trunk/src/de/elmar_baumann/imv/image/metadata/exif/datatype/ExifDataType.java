@@ -8,9 +8,12 @@ package de.elmar_baumann.imv.image.metadata.exif.datatype;
  */
 public enum ExifDataType {
 
-    ASCII,
     BYTE,
+    ASCII,
+    SHORT,
     LONG,
     RATIONAL,
-    SHORT
+    UNDEFINED,
+    SLONG,
+    SRATIONAL,
 }
