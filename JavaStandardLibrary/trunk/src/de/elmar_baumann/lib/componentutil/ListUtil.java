@@ -25,7 +25,7 @@ public final class ListUtil {
      */
     public static void clearSelection(List<JList> lists) {
         if (lists == null)
-            throw new NullPointerException("lists == null");
+            throw new NullPointerException("lists == null"); // NOI18N
 
         for (JList list : lists) {
             if (!list.isSelectionEmpty()) {
@@ -44,9 +44,9 @@ public final class ListUtil {
     public static Object getFirstItemWithText(String text,
             DefaultListModel model) {
         if (text == null)
-            throw new NullPointerException("text == null");
+            throw new NullPointerException("text == null"); // NOI18N
         if (model == null)
-            throw new NullPointerException("model == null");
+            throw new NullPointerException("model == null"); // NOI18N
 
         Object item = null;
         int size = model.size();
@@ -68,11 +68,11 @@ public final class ListUtil {
      */
     public static void setToken(String str, String delim, DefaultListModel model) {
         if (str == null)
-            throw new NullPointerException("str == null");
+            throw new NullPointerException("str == null"); // NOI18N
         if (delim == null)
-            throw new NullPointerException("delim == null");
+            throw new NullPointerException("delim == null"); // NOI18N
         if (model == null)
-            throw new NullPointerException("model == null");
+            throw new NullPointerException("model == null"); // NOI18N
 
         StringTokenizer tokenizer = new StringTokenizer(str, delim);
         model.clear();
@@ -90,14 +90,16 @@ public final class ListUtil {
      */
     public static String getTokenString(DefaultListModel model, String delim) {
         if (model == null)
-            throw new NullPointerException("model == null");
+            throw new NullPointerException("model == null"); // NOI18N
         if (delim == null)
-            throw new NullPointerException("delim == null");
+            throw new NullPointerException("delim == null"); // NOI18N
 
         StringBuffer buffer = new StringBuffer();
         int size = model.getSize();
         for (int i = 0; i < size; i++) {
-            buffer.append(model.get(i).toString() + (i < size - 1 ? delim : ""));
+            buffer.append(model.get(i).toString() + (i < size - 1
+                                                     ? delim
+                                                     : ""));
         }
         return buffer.toString();
     }
@@ -105,19 +107,20 @@ public final class ListUtil {
     /**
      * Inserts an element into a model in a sort order.
      * 
-     * @param model  model
-     * @param o      object to insert
-     * @param c      comparator
+     * @param model      model
+     * @param o          object to insert
+     * @param c          comparator
+     * @param startIndex start index. List items before that index ignored.
      */
     @SuppressWarnings("unchecked")
-    static public void insertSorted(DefaultListModel model, Object o,
-            Comparator c) {
+    static public void insertSorted(
+            DefaultListModel model, Object o, Comparator c, int startIndex) {
         if (model == null)
-            throw new NullPointerException("model == null");
+            throw new NullPointerException("model == null"); // NOI18N
         if (o == null)
-            throw new NullPointerException("o == null");
+            throw new NullPointerException("o == null"); // NOI18N
         if (c == null)
-            throw new NullPointerException("c == null");
+            throw new NullPointerException("c == null"); // NOI18N
 
         synchronized (model) {
             if (!model.contains(o)) {
