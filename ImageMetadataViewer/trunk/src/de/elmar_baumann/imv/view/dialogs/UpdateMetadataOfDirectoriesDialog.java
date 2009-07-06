@@ -33,6 +33,7 @@ public final class UpdateMetadataOfDirectoriesDialog extends Dialog {
 
     private void endDialog() {
         UserSettings.INSTANCE.getSettings().setSizeAndLocation(this);
+        UserSettings.INSTANCE.writeToFile();
         panel.willDispose();
         setVisible(false);
     }

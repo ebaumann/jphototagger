@@ -8,7 +8,6 @@ import de.elmar_baumann.imv.database.DatabaseImageFiles;
 import de.elmar_baumann.imv.datatransfer.TransferHandlerPanelThumbnails;
 import de.elmar_baumann.imv.event.listener.AppExitListener;
 import de.elmar_baumann.imv.event.listener.RefreshListener;
-import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.lib.comparator.FileSort;
 import de.elmar_baumann.imv.types.FileAction;
 import de.elmar_baumann.imv.view.InfoSettingThumbnails;
@@ -448,8 +447,9 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel
 
     @Override
     public void appWillExit() {
-        UserSettings.INSTANCE.getSettings().setInt(getThumbnailWidth(),
-                KEY_THUMBNAIL_WIDTH);
+        UserSettings.INSTANCE.getSettings().setInt(
+                getThumbnailWidth(), KEY_THUMBNAIL_WIDTH);
+        UserSettings.INSTANCE.writeToFile();
     }
 
     private void readProperties() {

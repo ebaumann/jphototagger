@@ -15,7 +15,8 @@ import javax.swing.JOptionPane;
  */
 public final class DatabaseMaintainanceDialog extends Dialog {
 
-    public static final DatabaseMaintainanceDialog INSTANCE = new DatabaseMaintainanceDialog();
+    public static final DatabaseMaintainanceDialog INSTANCE =
+            new DatabaseMaintainanceDialog();
 
     private DatabaseMaintainanceDialog() {
         super((java.awt.Frame) null, false);
@@ -35,12 +36,17 @@ public final class DatabaseMaintainanceDialog extends Dialog {
 
     private void readProperties() {
         UserSettings.INSTANCE.getSettings().getSizeAndLocation(this);
-        UserSettings.INSTANCE.getSettings().getComponent(this, new SettingsHints(EnumSet.of(SettingsHints.Option.SET_TABBED_PANE_CONTENT)));
+        UserSettings.INSTANCE.getSettings().getComponent(this,
+                new SettingsHints(EnumSet.of(
+                SettingsHints.Option.SET_TABBED_PANE_CONTENT)));
     }
 
     private void writeProperties() {
         UserSettings.INSTANCE.getSettings().setSizeAndLocation(this);
-        UserSettings.INSTANCE.getSettings().setComponent(this, new SettingsHints(EnumSet.of(SettingsHints.Option.SET_TABBED_PANE_CONTENT)));
+        UserSettings.INSTANCE.getSettings().setComponent(this,
+                new SettingsHints(EnumSet.of(
+                SettingsHints.Option.SET_TABBED_PANE_CONTENT)));
+        UserSettings.INSTANCE.writeToFile();
     }
 
     private void postInitComponents() {
@@ -60,9 +66,11 @@ public final class DatabaseMaintainanceDialog extends Dialog {
 
     private void errorMessageWaitBeforeClose() {
         JOptionPane.showMessageDialog(this,
-            Bundle.getString("DatabaseMaintainanceDialog.ErrorMessage.WaitBeforeClose"),
-            Bundle.getString("DatabaseMaintainanceDialog.ErrorMessage.WaitBeforeClose.Title"),
-            JOptionPane.INFORMATION_MESSAGE);
+                Bundle.getString(
+                "DatabaseMaintainanceDialog.ErrorMessage.WaitBeforeClose"),
+                Bundle.getString(
+                "DatabaseMaintainanceDialog.ErrorMessage.WaitBeforeClose.Title"),
+                JOptionPane.INFORMATION_MESSAGE);
     }
 
     @Override
@@ -131,7 +139,8 @@ private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:even
 
             @Override
             public void run() {
-                DatabaseMaintainanceDialog dialog = new DatabaseMaintainanceDialog();
+                DatabaseMaintainanceDialog dialog =
+                        new DatabaseMaintainanceDialog();
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
 
                     @Override
@@ -143,7 +152,6 @@ private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:even
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private de.elmar_baumann.imv.view.panels.DatabaseInfoCountPanel panelCount;
     private de.elmar_baumann.imv.view.panels.DatabaseMaintainancePanel panelMaintainance;

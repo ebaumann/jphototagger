@@ -83,6 +83,7 @@ public class ViewUtil {
         } else {
             UserSettings.INSTANCE.getProperties().remove(key);
         }
+        UserSettings.INSTANCE.writeToFile();
     }
 
     public static void readTreeDirectoriesFromProperties() {

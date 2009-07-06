@@ -393,6 +393,7 @@ public final class AppPanel extends javax.swing.JPanel implements
         settings.setInt(dividerLocationThumbnails,
                 KEY_DIVIDER_LOCATION_THUMBNAILS);
         ViewUtil.writeTreeDirectoriesToProperties();
+        UserSettings.INSTANCE.writeToFile();
     }
 
     public SettingsHints getPersistentSettingsHints() {

@@ -53,6 +53,7 @@ public final class ActionsDialog extends Dialog implements ProgramActionListener
 
     private void writeProperties() {
         UserSettings.INSTANCE.getSettings().setSizeAndLocation(this);
+        UserSettings.INSTANCE.writeToFile();
     }
 
     public synchronized void addActionListener(ProgramActionListener l) {

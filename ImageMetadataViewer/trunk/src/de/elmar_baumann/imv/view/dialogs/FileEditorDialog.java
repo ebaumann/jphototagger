@@ -67,6 +67,7 @@ public class FileEditorDialog extends Dialog {
     private void writeProperties() {
         panelFileEditor.writeProperties();
         UserSettings.INSTANCE.getSettings().setSizeAndLocation(this);
+        UserSettings.INSTANCE.writeToFile();
     }
 
     /** This method is called from within the constructor to

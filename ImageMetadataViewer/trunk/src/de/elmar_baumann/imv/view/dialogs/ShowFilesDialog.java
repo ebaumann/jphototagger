@@ -36,6 +36,7 @@ public class ShowFilesDialog extends Dialog {
 
         } else {
             UserSettings.INSTANCE.getSettings().setSizeAndLocation(this);
+            UserSettings.INSTANCE.writeToFile();
         }
         super.setVisible(visible);
     }
@@ -96,7 +97,8 @@ public class ShowFilesDialog extends Dialog {
 
             @Override
             public void run() {
-                ShowFilesDialog dialog = new ShowFilesDialog(new javax.swing.JFrame(), new ArrayList<File>());
+                ShowFilesDialog dialog = new ShowFilesDialog(
+                        new javax.swing.JFrame(), new ArrayList<File>());
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
 
                     @Override
@@ -108,7 +110,6 @@ public class ShowFilesDialog extends Dialog {
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JList list;
     private javax.swing.JScrollPane scrollPane;

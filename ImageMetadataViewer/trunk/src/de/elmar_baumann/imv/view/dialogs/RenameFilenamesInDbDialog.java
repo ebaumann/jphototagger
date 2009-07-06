@@ -30,6 +30,7 @@ public class RenameFilenamesInDbDialog extends Dialog {
         if (!panelDbFilenameReplace.runs()) {
             panelDbFilenameReplace.writeProperties();
             UserSettings.INSTANCE.getSettings().setSizeAndLocation(this);
+            UserSettings.INSTANCE.writeToFile();
             dispose();
         }
     }
@@ -102,7 +103,6 @@ public class RenameFilenamesInDbDialog extends Dialog {
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private de.elmar_baumann.imv.view.panels.RenameFilenamesInDbPanel panelDbFilenameReplace;
     // End of variables declaration//GEN-END:variables

@@ -137,6 +137,7 @@ public final class ProgramPropertiesDialog extends Dialog {
 
     private void writeProperties() {
         UserSettings.INSTANCE.getSettings().setSizeAndLocation(this);
+        UserSettings.INSTANCE.writeToFile();
     }
 
     private void chooseProgram() {

@@ -66,6 +66,7 @@ public final class ProgramInputParametersDialog extends Dialog {
         SettingsHints hints = new SettingsHints(EnumSet.of(SettingsHints.Option.SET_TABBED_PANE_CONTENT));
         UserSettings.INSTANCE.getSettings().setSizeAndLocation(this);
         UserSettings.INSTANCE.getSettings().setComponent(this, hints);
+        UserSettings.INSTANCE.writeToFile();
     }
 
     @Override

@@ -54,6 +54,7 @@ public final class AdvancedSearchDialog extends Dialog implements SearchListener
 
     private void writeProperties() {
         UserSettings.INSTANCE.getSettings().setSizeAndLocation(this);
+        UserSettings.INSTANCE.writeToFile();
     }
 
     @Override

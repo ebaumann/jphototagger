@@ -146,6 +146,7 @@ public final class UserSettingsDialog extends Dialog {
         for (Persistence panel : persistentPanels) {
             panel.writeProperties();
         }
+        UserSettings.INSTANCE.writeToFile();
     }
 
     @Override

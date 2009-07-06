@@ -74,6 +74,7 @@ public final class ImageCollectionsDialog extends Dialog {
 
     private void writeProperties() {
         UserSettings.INSTANCE.getSettings().setSizeAndLocation(this);
+        UserSettings.INSTANCE.writeToFile();
     }
 
     @Override

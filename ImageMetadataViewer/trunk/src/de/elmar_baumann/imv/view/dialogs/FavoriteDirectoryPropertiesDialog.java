@@ -182,9 +182,10 @@ public final class FavoriteDirectoryPropertiesDialog extends Dialog {
     }
 
     private void writeProperties() {
-        UserSettings.INSTANCE.getSettings().setString(lastDirectory,
-                keyLastDirectory);
+        UserSettings.INSTANCE.getSettings().setString(
+                lastDirectory, keyLastDirectory);
         UserSettings.INSTANCE.getSettings().setSizeAndLocation(this);
+        UserSettings.INSTANCE.writeToFile();
     }
 
     @Override

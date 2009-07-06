@@ -76,6 +76,7 @@ public final class SettingsTasksPanel extends javax.swing.JPanel
     public void writeProperties() {
         UserSettings.INSTANCE.getSettings().setString(
                 lastSelectedAutoscanDirectory, keyLastSelectedAutoscanDirectory);
+        UserSettings.INSTANCE.writeToFile();
     }
 
     private void addAutoscanDirectories() {

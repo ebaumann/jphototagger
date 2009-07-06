@@ -46,6 +46,7 @@ public class TextSelectionDialog extends Dialog {
         } else {
             panelTextSelection.writeProperties();
             UserSettings.INSTANCE.getSettings().setSizeAndLocation(this);
+            UserSettings.INSTANCE.writeToFile();
             super.setVisible(false);
         }
     }
@@ -133,7 +134,6 @@ public class TextSelectionDialog extends Dialog {
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel labeInfo;
     private javax.swing.JPanel panel;

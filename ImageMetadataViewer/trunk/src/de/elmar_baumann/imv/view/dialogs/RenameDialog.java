@@ -389,6 +389,7 @@ public final class RenameDialog extends Dialog {
         UserSettings.INSTANCE.getSettings().setSizeAndLocation(this);
         UserSettings.INSTANCE.getSettings().setComponent(this,
                 getPersistentSettingsHints());
+        UserSettings.INSTANCE.writeToFile();
     }
 
     private SettingsHints getPersistentSettingsHints() {

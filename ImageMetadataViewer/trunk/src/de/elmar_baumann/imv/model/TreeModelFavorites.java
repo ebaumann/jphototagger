@@ -478,6 +478,7 @@ public final class TreeModelFavorites extends DefaultTreeModel
             properties.remove(KEY_SELECTED_DIR);
             properties.remove(KEY_SELECTED_FAV_NAME);
         }
+        UserSettings.INSTANCE.writeToFile();
     }
 
     private FavoriteDirectory getParentFavDir(DefaultMutableTreeNode childNode) {

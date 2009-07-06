@@ -120,6 +120,7 @@ public class TextSelectionPanel extends javax.swing.JPanel {
                 settings.setString(text, KEY_PREFIX_BUTTONS + i);
             }
         }
+        UserSettings.INSTANCE.writeToFile();
     }
 
     private void formatButton(JButton button) {

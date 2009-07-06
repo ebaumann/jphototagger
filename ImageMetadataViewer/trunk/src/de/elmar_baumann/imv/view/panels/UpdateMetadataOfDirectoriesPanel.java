@@ -51,6 +51,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
         writeProperties();
         UserSettings.INSTANCE.getSettings().setString(
                 lastSelectedDirectory.getAbsolutePath(), keyLastDirectory);
+        UserSettings.INSTANCE.writeToFile();
     }
 
     private void chooseDirectories() {
@@ -288,6 +289,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
         UserSettings.INSTANCE.getSettings().setCheckBox(
                 checkBoxIncludeSubdirectories, keySubdirectories);
         UserSettings.INSTANCE.getSettings().setSizeAndLocation(this);
+        UserSettings.INSTANCE.writeToFile();
     }
 
     @Override

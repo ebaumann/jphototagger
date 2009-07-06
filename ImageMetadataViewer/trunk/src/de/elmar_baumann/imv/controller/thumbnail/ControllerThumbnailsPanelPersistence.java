@@ -51,8 +51,8 @@ public final class ControllerThumbnailsPanelPersistence
     @Override
     public void thumbnailsChanged() {
         checkFirstChange();
-        UserSettings.INSTANCE.getSettings().setString(thumbnailsPanel.getSort().
-                name(), keySort);
+        UserSettings.INSTANCE.getSettings().setString(
+                thumbnailsPanel.getSort().name(), keySort);
     }
 
     private void checkFirstChange() {
@@ -67,6 +67,7 @@ public final class ControllerThumbnailsPanelPersistence
         UserSettings.INSTANCE.getSettings().setStringArray(
                 FileUtil.getAsFilenames(thumbnailsPanel.getSelectedFiles()),
                 keySelectedFiles);
+        UserSettings.INSTANCE.writeToFile();
     }
 
     private void readSelectedFilesFromProperties() {
@@ -113,5 +114,6 @@ public final class ControllerThumbnailsPanelPersistence
         UserSettings.INSTANCE.getSettings().setScrollPane(
                 GUI.INSTANCE.getAppPanel().getScrollPaneThumbnailsPanel(),
                 keyThumbnailPanelViewportViewPosition);
+        UserSettings.INSTANCE.writeToFile();
     }
 }

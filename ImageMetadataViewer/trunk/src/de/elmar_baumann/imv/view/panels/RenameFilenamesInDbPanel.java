@@ -147,8 +147,9 @@ public class RenameFilenamesInDbPanel extends javax.swing.JPanel {
     }
 
     public void writeProperties() {
-        UserSettings.INSTANCE.getSettings().setComponent(this,
-                new SettingsHints(EnumSet.of(SettingsHints.Option.NONE)));
+        UserSettings.INSTANCE.getSettings().setComponent(
+                this, new SettingsHints(EnumSet.of(SettingsHints.Option.NONE)));
+        UserSettings.INSTANCE.writeToFile();
     }
 
     /** This method is called from within the constructor to
@@ -299,7 +300,6 @@ public class RenameFilenamesInDbPanel extends javax.swing.JPanel {
     private void textFieldSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldSearchKeyReleased
         setButtonReplaceEnabled();
     }//GEN-LAST:event_textFieldSearchKeyReleased
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroupPosition;
     private javax.swing.JButton buttonReplace;

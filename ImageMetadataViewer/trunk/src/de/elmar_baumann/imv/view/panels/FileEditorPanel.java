@@ -415,6 +415,7 @@ public final class FileEditorPanel extends javax.swing.JPanel {
                 getAbsolutePath(), KEY_DIRECTORY_NAME);
         UserSettings.INSTANCE.getSettings().setComponent(this,
                 new SettingsHints(EnumSet.of(SettingsHints.Option.NONE)));
+        UserSettings.INSTANCE.writeToFile();
     }
 
     private class EditThread implements Runnable {

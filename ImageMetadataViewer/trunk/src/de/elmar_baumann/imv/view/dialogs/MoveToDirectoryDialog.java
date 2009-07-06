@@ -220,6 +220,7 @@ public final class MoveToDirectoryDialog extends Dialog
         UserSettings.INSTANCE.getSettings().setSizeAndLocation(this);
         UserSettings.INSTANCE.getSettings().setString(targetDirectory.
                 getAbsolutePath(), keyTargetDirectory);
+        UserSettings.INSTANCE.writeToFile();
     }
 
     private void checkStopEvent(ProgressEvent evt) {

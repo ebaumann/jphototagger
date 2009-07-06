@@ -100,6 +100,7 @@ public final class IptcToXmpDialog extends Dialog
                 SettingsHints.Option.SET_TABBED_PANE_CONTENT)));
         UserSettings.INSTANCE.getSettings().setString(
                 directory.getAbsolutePath(), keyDirectoryName);
+        UserSettings.INSTANCE.writeToFile();
     }
 
     private void init() {

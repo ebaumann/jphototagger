@@ -101,8 +101,9 @@ public class ExpandCollapseComponentPanel extends JPanel implements
 
     private void writeExpandedState() {
         if (!keyPersistence.isEmpty()) {
-            UserSettings.INSTANCE.getSettings().setBoolean(expanded,
-                    keyPersistence);
+            UserSettings.INSTANCE.getSettings().setBoolean(
+                    expanded, keyPersistence);
+        UserSettings.INSTANCE.writeToFile();
         }
     }
 

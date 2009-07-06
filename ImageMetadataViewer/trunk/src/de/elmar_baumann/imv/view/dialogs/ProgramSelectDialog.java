@@ -83,6 +83,7 @@ public class ProgramSelectDialog extends Dialog {
 
     private void writeProperties() {
         UserSettings.INSTANCE.getSettings().setSizeAndLocation(this);
+        UserSettings.INSTANCE.writeToFile();
     }
 
     private void handleMousClicked(MouseEvent e) {

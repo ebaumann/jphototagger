@@ -113,5 +113,6 @@ public final class ControllerSliderThumbnailSize
 
     private void writeProperties() {
         UserSettings.INSTANCE.getSettings().setInt(currentValue, keySliderValue);
+        UserSettings.INSTANCE.writeToFile();
     }
 }

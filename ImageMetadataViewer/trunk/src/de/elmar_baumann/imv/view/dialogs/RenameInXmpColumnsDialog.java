@@ -38,7 +38,8 @@ public final class RenameInXmpColumnsDialog extends Dialog {
     private void setModel() {
         Set<Column> columns = EditColumns.getColumns();
         comboBoxReplaceColumn.setModel(
-            new DefaultComboBoxModel(columns.toArray(new Column[columns.size()])));
+                new DefaultComboBoxModel(columns.toArray(
+                new Column[columns.size()])));
     }
 
     public boolean accepted() {
@@ -69,12 +70,17 @@ public final class RenameInXmpColumnsDialog extends Dialog {
 
     private void readProperties() {
         UserSettings.INSTANCE.getSettings().getSizeAndLocation(this);
-        UserSettings.INSTANCE.getSettings().getComponent(this, new SettingsHints(EnumSet.of(SettingsHints.Option.SET_TABBED_PANE_CONTENT)));
+        UserSettings.INSTANCE.getSettings().getComponent(
+                this, new SettingsHints(EnumSet.of(
+                SettingsHints.Option.SET_TABBED_PANE_CONTENT)));
     }
 
     private void writeProperties() {
         UserSettings.INSTANCE.getSettings().setSizeAndLocation(this);
-        UserSettings.INSTANCE.getSettings().setComponent(this, new SettingsHints(EnumSet.of(SettingsHints.Option.SET_TABBED_PANE_CONTENT)));
+        UserSettings.INSTANCE.getSettings().setComponent(
+                this, new SettingsHints(EnumSet.of(
+                SettingsHints.Option.SET_TABBED_PANE_CONTENT)));
+        UserSettings.INSTANCE.writeToFile();
     }
 
     private void checkOk() {
@@ -93,10 +99,12 @@ public final class RenameInXmpColumnsDialog extends Dialog {
 
     private void oldStringIsEmptyErrorMessage() {
         JOptionPane.showMessageDialog(
-            null,
-            Bundle.getString("RenameInXmpColumnsDialog.ErrorMessage.MissingReplaceString"),
-            Bundle.getString("RenameInXmpColumnsDialog.ErrorMessage.MissingReplaceString.Title"),
-            JOptionPane.ERROR_MESSAGE);
+                null,
+                Bundle.getString(
+                "RenameInXmpColumnsDialog.ErrorMessage.MissingReplaceString"),
+                Bundle.getString(
+                "RenameInXmpColumnsDialog.ErrorMessage.MissingReplaceString.Title"),
+                JOptionPane.ERROR_MESSAGE);
     }
 
     @Override
@@ -107,7 +115,7 @@ public final class RenameInXmpColumnsDialog extends Dialog {
     @Override
     protected void escape() {
     }
-    
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -206,14 +214,16 @@ private void buttonReplaceActionPerformed(java.awt.event.ActionEvent evt) {//GEN
 }//GEN-LAST:event_buttonReplaceActionPerformed
 
     /**
-    * @param args the command line arguments
-    */
+     * @param args the command line arguments
+     */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             @Override
             public void run() {
                 RenameInXmpColumnsDialog dialog = new RenameInXmpColumnsDialog();
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);
@@ -223,7 +233,6 @@ private void buttonReplaceActionPerformed(java.awt.event.ActionEvent evt) {//GEN
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonCancel;
     private javax.swing.JButton buttonReplace;

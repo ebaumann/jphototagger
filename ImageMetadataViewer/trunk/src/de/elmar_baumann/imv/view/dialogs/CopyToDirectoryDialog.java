@@ -125,7 +125,8 @@ public final class CopyToDirectoryDialog extends Dialog
 
     private void addXmp(File sourceFile, List<Pair<File, File>> filePairs) {
         String sidecarFilename =
-                XmpMetadata.getSidecarFilenameOfImageFileIfExists(sourceFile.getAbsolutePath());
+                XmpMetadata.getSidecarFilenameOfImageFileIfExists(sourceFile.
+                getAbsolutePath());
         if (sidecarFilename != null) {
             File sourceSidecarFile = new File(sidecarFilename);
             File targetSidecarFile = new File(targetDirectory +
@@ -257,6 +258,7 @@ public final class CopyToDirectoryDialog extends Dialog
                 targetDirectory.getAbsolutePath(), keyLastDirectory);
         UserSettings.INSTANCE.getSettings().setCheckBox(checkBoxCopyXmp,
                 keyCopyXmp);
+        UserSettings.INSTANCE.writeToFile();
     }
 
     private void initDirectory() {
@@ -471,7 +473,6 @@ private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:even
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonChooseDirectory;
     private javax.swing.JButton buttonStart;
