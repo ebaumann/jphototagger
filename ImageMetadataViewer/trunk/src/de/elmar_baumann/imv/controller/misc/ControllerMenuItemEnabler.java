@@ -34,12 +34,12 @@ public final class ControllerMenuItemEnabler
     private final AppFrame appFrame = GUI.INSTANCE.getAppFrame();
     private final PopupMenuThumbnails popupThumbnails =
             PopupMenuThumbnails.INSTANCE;
-    private final ImageFileThumbnailsPanel thumbnailsPanel = GUI.INSTANCE.
-            getAppPanel().getPanelThumbnails();
-    private final JMenuItem itemOpenFilesWithStandardApp = popupThumbnails.
-            getItemOpenFilesWithStandardApp();
-    private final JMenu menuOtherOpenImageApps = popupThumbnails.
-            getMenuOtherOpenImageApps();
+    private final ImageFileThumbnailsPanel thumbnailsPanel =
+            GUI.INSTANCE.getAppPanel().getPanelThumbnails();
+    private final JMenuItem itemOpenFilesWithStandardApp =
+            popupThumbnails.getItemOpenFilesWithStandardApp();
+    private final JMenu menuOtherOpenImageApps =
+            popupThumbnails.getMenuOtherOpenImageApps();
     private final JMenu menuSort = appFrame.getMenuSort();
     private boolean hasPrograms = DatabasePrograms.INSTANCE.hasProgram();
 
@@ -56,37 +56,43 @@ public final class ControllerMenuItemEnabler
         List<Content> contents;
 
         contents = new ArrayList<Content>();
-        contents.add(Content.DIRECTORY);
-        contents.add(Content.FAVORITE);
-        contentsOfMenuItemRequiresSelectedImages.put(popupThumbnails.
-                getItemFileSystemMoveFiles(), contents);
+        contents.add(
+                Content.DIRECTORY);
+        contents.add(
+                Content.FAVORITE);
+        contentsOfMenuItemRequiresSelectedImages.put(
+                popupThumbnails.getItemFileSystemMoveFiles(), contents);
 
         contents = new ArrayList<Content>();
-        contents.add(Content.IMAGE_COLLECTION);
-        contentsOfMenuItemRequiresSelectedImages.put(popupThumbnails.
-                getItemDeleteFromImageCollection(), contents);
+        contents.add(
+                Content.IMAGE_COLLECTION);
+        contentsOfMenuItemRequiresSelectedImages.put(
+                popupThumbnails.getItemDeleteFromImageCollection(), contents);
 
-        itemsRequiresSelectedImages.add(appFrame.getMenuItemRenameInXmp());
-        itemsRequiresSelectedImages.add(popupThumbnails.getItemUpdateThumbnail());
-        itemsRequiresSelectedImages.add(popupThumbnails.getItemUpdateMetadata());
-        itemsRequiresSelectedImages.add(popupThumbnails.
-                getItemDeleteImageFromDatabase());
-        itemsRequiresSelectedImages.add(popupThumbnails.
-                getItemCreateImageCollection());
-        itemsRequiresSelectedImages.add(popupThumbnails.
-                getItemAddToImageCollection());
+        itemsRequiresSelectedImages.add(
+                appFrame.getMenuItemRenameInXmp());
+        itemsRequiresSelectedImages.add(
+                popupThumbnails.getItemUpdateThumbnail());
+        itemsRequiresSelectedImages.add(
+                popupThumbnails.getItemUpdateMetadata());
+        itemsRequiresSelectedImages.add(
+                popupThumbnails.getItemDeleteImageFromDatabase());
+        itemsRequiresSelectedImages.add(
+                popupThumbnails.getItemCreateImageCollection());
+        itemsRequiresSelectedImages.add(
+                popupThumbnails.getItemAddToImageCollection());
         itemsRequiresSelectedImages.add(
                 popupThumbnails.getItemRotateThumbnai90());
         itemsRequiresSelectedImages.add(
                 popupThumbnails.getItemRotateThumbnai180());
         itemsRequiresSelectedImages.add(
                 popupThumbnails.getItemRotateThumbnai270());
-        itemsRequiresSelectedImages.add(popupThumbnails.
-                getItemFileSystemCopyToDirectory());
-        itemsRequiresSelectedImages.add(popupThumbnails.
-                getItemFileSystemDeleteFiles());
-        itemsRequiresSelectedImages.add(popupThumbnails.
-                getItemFileSystemRenameFiles());
+        itemsRequiresSelectedImages.add(
+                popupThumbnails.getItemFileSystemCopyToDirectory());
+        itemsRequiresSelectedImages.add(
+                popupThumbnails.getItemFileSystemDeleteFiles());
+        itemsRequiresSelectedImages.add(
+                popupThumbnails.getItemFileSystemRenameFiles());
     }
 
     private void setEnabled() {
@@ -109,11 +115,9 @@ public final class ControllerMenuItemEnabler
         UserSettings settings = UserSettings.INSTANCE;
 
         itemOpenFilesWithStandardApp.setEnabled(
-                isSelection &&
-                settings.hasDefaultImageOpenApp());
+                isSelection && settings.hasDefaultImageOpenApp());
 
-        menuOtherOpenImageApps.setEnabled(
-                isSelection && hasPrograms);
+        menuOtherOpenImageApps.setEnabled(isSelection && hasPrograms);
     }
 
     @Override
