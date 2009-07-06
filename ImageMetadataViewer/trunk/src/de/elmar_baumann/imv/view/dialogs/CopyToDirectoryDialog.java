@@ -15,7 +15,9 @@ import de.elmar_baumann.lib.io.FileUtil;
 import de.elmar_baumann.lib.generics.Pair;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.swing.JOptionPane;
 
 /**
@@ -29,8 +31,8 @@ public final class CopyToDirectoryDialog extends Dialog
     private static final String KEY_LAST_DIRECTORY =
             "de.elmar_baumann.imv.view.dialogs.CopyToDirectoryDialog.LastDirectory"; // NOI18N
     private static final String KEY_COPY_XMP = "CopyToDirectoryDialog.CopyXmp"; // NOI18N
-    private final List<ProgressListener> progressListeners =
-            new ArrayList<ProgressListener>();
+    private final Set<ProgressListener> progressListeners =
+            new HashSet<ProgressListener>();
     private CopyFiles copyTask;
     private boolean copy = false;
     private boolean writeProperties = true;
@@ -48,6 +50,10 @@ public final class CopyToDirectoryDialog extends Dialog
 
     public synchronized void addProgressListener(ProgressListener listener) {
         progressListeners.add(listener);
+    }
+
+    public synchronized void removeProgressListener(ProgressListener listener) {
+        progressListeners.remove(listener);
     }
 
     private synchronized void notifyProgressListenerStarted(ProgressEvent evt) {
