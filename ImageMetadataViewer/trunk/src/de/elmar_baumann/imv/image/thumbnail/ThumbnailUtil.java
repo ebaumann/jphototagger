@@ -53,6 +53,7 @@ public final class ThumbnailUtil {
      * @return thumbnail or null if errors occured
      */
     public static Image getThumbnail(File file, int maxLength, boolean embedded) {
+        if (!file.exists()) return null;
         Image thumbnail =
                 (embedded || FileType.isRawFile(file.getName())
                  ? getRotatedThumbnail(file)
