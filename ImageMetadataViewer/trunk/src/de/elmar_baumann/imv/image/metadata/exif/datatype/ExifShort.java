@@ -55,4 +55,8 @@ public final class ExifShort {
     public static boolean isRawValueByteCountOk(byte[] rawValue) {
         return rawValue.length == getRawValueByteCount();
     }
+
+    public ExifDataType getDataTyp() {
+        return ExifDataType.SHORT;
+    }
 }

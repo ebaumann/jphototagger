@@ -79,4 +79,8 @@ public final class ExifRational {
     public int getNumerator() {
         return numerator;
     }
+
+    public ExifDataType getDataTyp() {
+        return ExifDataType.RATIONAL;
+    }
 }

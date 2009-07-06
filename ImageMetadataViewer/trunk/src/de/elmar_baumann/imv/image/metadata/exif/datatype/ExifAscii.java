@@ -21,6 +21,10 @@ public final class ExifAscii {
         return length > 0 ? nullTerminatedValue.substring(0, length - 1) : "";
     }
 
+    public ExifDataType getDataTyp() {
+        return ExifDataType.ASCII;
+    }
+
     private ExifAscii() {
     }
 }
