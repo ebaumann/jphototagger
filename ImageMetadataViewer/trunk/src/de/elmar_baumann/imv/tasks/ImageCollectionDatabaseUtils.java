@@ -1,8 +1,10 @@
 package de.elmar_baumann.imv.tasks;
 
 import de.elmar_baumann.imv.app.AppLog;
+import de.elmar_baumann.imv.app.AppTexts;
 import de.elmar_baumann.imv.database.DatabaseImageCollections;
 import de.elmar_baumann.imv.resource.Bundle;
+import de.elmar_baumann.imv.resource.GUI;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -102,7 +104,7 @@ public final class ImageCollectionDatabaseUtils {
      */
     public static String renameImageCollection(String oldName) {
         String newName = inputCollectionName(oldName);
-        if (newName != null) {
+        if (newName != null && !newName.isEmpty()) {
             boolean renamed = DatabaseImageCollections.INSTANCE.
                     updateRenameImageCollection(oldName, newName) >
                     0;
@@ -114,6 +116,31 @@ public final class ImageCollectionDatabaseUtils {
             }
         }
         return null;
+    }
+
+    /**
+     * Returns wether a name is valid. This is true if the name is not equals
+     * to {@link AppTexts#DISPLAY_NAME_ITEM_IMAGE_COLLECTIONS_LAST_IMPORT}
+     * ignoring the case.
+     *
+     * @param  name name
+     * @return true if allowed
+     */
+    public static boolean isValidName(String name) {
+        return !name.trim().equalsIgnoreCase(
+                AppTexts.DISPLAY_NAME_ITEM_IMAGE_COLLECTIONS_LAST_IMPORT);
+    }
+
+    private static boolean checkIsValidName(String name) {
+        if (isValidName(name)) return true;
+        JOptionPane.showMessageDialog(
+                GUI.INSTANCE.getAppFrame(),
+                Bundle.getString(
+                "ImageCollectionDatabaseUtils.Error.InvalidName", name),
+                Bundle.getString(
+                "ImageCollectionDatabaseUtils.Error.InvalidName.Title", name),
+                JOptionPane.ERROR_MESSAGE);
+        return false;
     }
 
     private static void logAddImageCollection(String name) {
@@ -175,7 +202,8 @@ public final class ImageCollectionDatabaseUtils {
         while (name != null && willAdd) {
             willAdd = false;
             String nameNextTry = name;
-            if (DatabaseImageCollections.INSTANCE.existsImageCollection(name)) {
+            if (DatabaseImageCollections.INSTANCE.existsImageCollection(name) ||
+                    !checkIsValidName(name)) {
                 willAdd = JOptionPane.showConfirmDialog(null,
                         Bundle.getString(
                         "ImageCollectionToDatabase.ConfirmMessage.InputNewCollectionName", name),

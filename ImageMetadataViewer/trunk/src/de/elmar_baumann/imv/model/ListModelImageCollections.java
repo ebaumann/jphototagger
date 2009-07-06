@@ -1,5 +1,6 @@
 package de.elmar_baumann.imv.model;
 
+import de.elmar_baumann.imv.app.AppTexts;
 import de.elmar_baumann.imv.comparator.ComparatorStringAscending;
 import de.elmar_baumann.imv.database.DatabaseImageCollections;
 import de.elmar_baumann.lib.componentutil.ListUtil;
@@ -21,8 +22,15 @@ public final class ListModelImageCollections extends DefaultListModel {
     private void addElements() {
         DatabaseImageCollections db = DatabaseImageCollections.INSTANCE;
         List<String> collections = db.getImageCollectionNames();
+        if (DatabaseImageCollections.INSTANCE.existsImageCollection(
+                AppTexts.DISPLAY_NAME_ITEM_IMAGE_COLLECTIONS_LAST_IMPORT)) {
+            addElement(AppTexts.DISPLAY_NAME_ITEM_IMAGE_COLLECTIONS_LAST_IMPORT);
+        }
         for (String collection : collections) {
-            addElement(collection);
+            if (!collection.equalsIgnoreCase(
+                    AppTexts.DISPLAY_NAME_ITEM_IMAGE_COLLECTIONS_LAST_IMPORT)) {
+                addElement(collection);
+            }
         }
     }
 
@@ -36,7 +44,8 @@ public final class ListModelImageCollections extends DefaultListModel {
         int index = indexOf(oldName);
         if (index >= 0) {
             remove(index);
-            ListUtil.insertSorted(this, newName, ComparatorStringAscending.IGNORE_CASE);
+            ListUtil.insertSorted(this, newName,
+                    ComparatorStringAscending.IGNORE_CASE);
         }
     }
 }
