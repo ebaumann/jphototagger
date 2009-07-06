@@ -80,7 +80,7 @@ public final class ExifRational {
         return numerator;
     }
 
-    public ExifDataType getDataTyp() {
-        return ExifDataType.RATIONAL;
+    public ExifType getDataTyp() {
+        return ExifType.RATIONAL;
     }
 }

@@ -48,8 +48,8 @@ public final class ExifLong {
         return rawValue.length == getRawValueByteCount();
     }
 
-    public ExifDataType getDataTyp() {
-        return ExifDataType.LONG;
+    public ExifType getDataTyp() {
+        return ExifType.LONG;
     }
 
     /**
