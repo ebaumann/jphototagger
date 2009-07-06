@@ -1,6 +1,7 @@
 package de.elmar_baumann.imv.controller.imagecollection;
 
 import de.elmar_baumann.imv.app.AppLog;
+import de.elmar_baumann.imv.app.AppTexts;
 import de.elmar_baumann.imv.comparator.ComparatorStringAscending;
 import de.elmar_baumann.imv.model.ListModelImageCollections;
 import de.elmar_baumann.imv.resource.Bundle;
@@ -17,6 +18,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.JList;
+import javax.swing.ListModel;
 import javax.swing.SwingUtilities;
 
 /**
@@ -72,7 +74,8 @@ public final class ControllerCreateImageCollection
                 @Override
                 public void run() {
                     ListUtil.insertSorted(model, collectionName,
-                            ComparatorStringAscending.IGNORE_CASE);
+                            ComparatorStringAscending.IGNORE_CASE,
+                            getSortIndex(model));
                 }
             });
         } else {
@@ -80,6 +83,16 @@ public final class ControllerCreateImageCollection
                     getString(
                     "ControllerCreateImageCollection.ErrorMessage.Create"));
         }
+    }
+
+    private int getSortIndex(ListModel model) {
+        Object firstElement = model.getElementAt(0);
+        return firstElement == null
+               ? 0
+               : firstElement.toString().equalsIgnoreCase(
+                AppTexts.DISPLAY_NAME_ITEM_IMAGE_COLLECTIONS_PREV_IMPORT)
+                 ? 1
+                 : 0;
     }
 
     @Override

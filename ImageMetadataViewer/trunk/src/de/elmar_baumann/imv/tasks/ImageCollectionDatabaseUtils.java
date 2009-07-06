@@ -120,7 +120,7 @@ public final class ImageCollectionDatabaseUtils {
 
     /**
      * Returns wether a name is valid. This is true if the name is not equals
-     * to {@link AppTexts#DISPLAY_NAME_ITEM_IMAGE_COLLECTIONS_LAST_IMPORT}
+     * to {@link AppTexts#DISPLAY_NAME_ITEM_IMAGE_COLLECTIONS_PREV_IMPORT}
      * ignoring the case.
      *
      * @param  name name
@@ -128,7 +128,7 @@ public final class ImageCollectionDatabaseUtils {
      */
     public static boolean isValidName(String name) {
         return !name.trim().equalsIgnoreCase(
-                AppTexts.DISPLAY_NAME_ITEM_IMAGE_COLLECTIONS_LAST_IMPORT);
+                AppTexts.DISPLAY_NAME_ITEM_IMAGE_COLLECTIONS_PREV_IMPORT);
     }
 
     private static boolean checkIsValidName(String name) {

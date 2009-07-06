@@ -16,7 +16,7 @@ public final class AppTexts {
             getString("ProgressBarCurrentTasks.TooltipText");
     public static final String TOOLTIP_TEXT_PROGRESSBAR_SCHEDULED_TASKS = Bundle.
             getString("ProgressBarScheduledTasks.TooltipText");
-    public static final String DISPLAY_NAME_ITEM_IMAGE_COLLECTIONS_LAST_IMPORT =
+    public static final String DISPLAY_NAME_ITEM_IMAGE_COLLECTIONS_PREV_IMPORT =
             Bundle.getString("DisplayName.ItemImageCollections.LastImport");
 
     private AppTexts() {
