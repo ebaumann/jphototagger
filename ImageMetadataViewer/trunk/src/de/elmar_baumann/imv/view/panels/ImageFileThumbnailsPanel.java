@@ -261,7 +261,7 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel
         int count = files.size();
         for (int i = 0; i < count; i++) {
             if (!files.get(i).exists()) {
-                addFlag(i, ThumbnailFlag.ErrorFileNotFound);
+                addFlag(i, ThumbnailFlag.ERROR_FILE_NOT_FOUND);
             }
         }
     }

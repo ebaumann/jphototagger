@@ -25,7 +25,7 @@ import javax.swing.JLabel;
 public final class DatabaseMaintainancePanel extends javax.swing.JPanel
         implements ProgressListener {
 
-    private static final Icon iconFinished = AppIcons.getIcon(
+    private static final Icon ICON_FINISHED = AppIcons.getIcon(
             "icon_finished.png"); // NOI18N
     private final Stack<Runnable> runnables = new Stack<Runnable>();
     private final Map<Class, JLabel> finishedLabelOfRunnable =
@@ -168,7 +168,7 @@ public final class DatabaseMaintainancePanel extends javax.swing.JPanel
         Class sourceClass = source.getClass();
         JLabel labelFinished = finishedLabelOfRunnable.get(sourceClass);
         if (labelFinished != null) {
-            labelFinished.setIcon(iconFinished);
+            labelFinished.setIcon(ICON_FINISHED);
         }
         if (runnables.size() > 0) {
             startNextThread();

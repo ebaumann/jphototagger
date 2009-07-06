@@ -24,13 +24,13 @@ import javax.swing.DefaultListModel;
 public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
         implements ProgressListener {
 
-    private static final String keyLastDirectory =
+    private static final String KEY_LAST_DIRECTORY =
             "de.elmar_baumann.imv.view.ScanDirectoriesDialog.lastSelectedDirectory"; // NOI18N
-    private static final String keyForce =
+    private static final String KEY_FORCE =
             "de.elmar_baumann.imv.view.ScanDirectoriesDialog.force"; // NOI18N
-    private static final String keySubdirectories =
+    private static final String KEY_SUBDIRECTORIES =
             "de.elmar_baumann.imv.view.ScanDirectoriesDialog.subdirectories"; // NOI18N
-    private static final String currentFilenameInfotextPrefix =
+    private static final String CURRENT_FILENAME_INFOTEXT_PREFIX =
             Bundle.getString(
             "UpdateMetadataOfDirectoriesPanel.InformationMessage.UpdateCurrentFile");
     private final DefaultListModel modelSelectedDirectoryList =
@@ -50,7 +50,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
         stop();
         writeProperties();
         UserSettings.INSTANCE.getSettings().setString(
-                lastSelectedDirectory.getAbsolutePath(), keyLastDirectory);
+                lastSelectedDirectory.getAbsolutePath(), KEY_LAST_DIRECTORY);
         UserSettings.INSTANCE.writeToFile();
     }
 
@@ -129,9 +129,9 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
     }
 
     private void readProperties() {
-        UserSettings.INSTANCE.getSettings().getCheckBox(checkBoxForce, keyForce);
+        UserSettings.INSTANCE.getSettings().getCheckBox(checkBoxForce, KEY_FORCE);
         UserSettings.INSTANCE.getSettings().getCheckBox(
-                checkBoxIncludeSubdirectories, keySubdirectories);
+                checkBoxIncludeSubdirectories, KEY_SUBDIRECTORIES);
         readCurrentDirectoryFromProperties();
     }
 
@@ -263,7 +263,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
 
     private void readCurrentDirectoryFromProperties() {
         String currentDirectoryname =
-                UserSettings.INSTANCE.getSettings().getString(keyLastDirectory);
+                UserSettings.INSTANCE.getSettings().getString(KEY_LAST_DIRECTORY);
         if (!currentDirectoryname.isEmpty()) {
             File directory = new File(currentDirectoryname);
             if (directory.exists() && directory.isDirectory()) {
@@ -285,9 +285,9 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
     }
 
     private void writeProperties() {
-        UserSettings.INSTANCE.getSettings().setCheckBox(checkBoxForce, keyForce);
+        UserSettings.INSTANCE.getSettings().setCheckBox(checkBoxForce, KEY_FORCE);
         UserSettings.INSTANCE.getSettings().setCheckBox(
-                checkBoxIncludeSubdirectories, keySubdirectories);
+                checkBoxIncludeSubdirectories, KEY_SUBDIRECTORIES);
         UserSettings.INSTANCE.getSettings().setSizeAndLocation(this);
         UserSettings.INSTANCE.writeToFile();
     }
@@ -325,7 +325,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
                 ? "UpdateMetadataOfDirectoriesPanel.InformationMessage.ProgressWithTime"
                 : "UpdateMetadataOfDirectoriesPanel.InformationMessage.ProgressWithoutTime";
         labelCurrentFilename.setText(Bundle.getString(bundleKey,
-                currentFilenameInfotextPrefix, evt.getInfo(), remainingMinutes));
+                CURRENT_FILENAME_INFOTEXT_PREFIX, evt.getInfo(), remainingMinutes));
     }
 
     /** This method is called from within the constructor to

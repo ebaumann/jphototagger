@@ -19,21 +19,21 @@ import javax.swing.tree.TreeNode;
  */
 public final class TreeCellRendererTimeline extends DefaultTreeCellRenderer {
 
-    private static final ImageIcon iconYear = IconUtil.getImageIcon(
+    private static final ImageIcon ICON_YEAR = IconUtil.getImageIcon(
             "/de/elmar_baumann/imv/resource/icons/icon_timeline.png");
-    private static final ImageIcon iconMonth = IconUtil.getImageIcon(
+    private static final ImageIcon ICON_MONTH = IconUtil.getImageIcon(
             "/de/elmar_baumann/imv/resource/icons/icon_timeline_month.png");
-    private static final ImageIcon iconDay = IconUtil.getImageIcon(
+    private static final ImageIcon ICON_DAY = IconUtil.getImageIcon(
             "/de/elmar_baumann/imv/resource/icons/icon_timeline_day.png");
-    private static final ImageIcon iconUnknown = IconUtil.getImageIcon(
+    private static final ImageIcon ICON_UNKNOWN = IconUtil.getImageIcon(
             "/de/elmar_baumann/imv/resource/icons/icon_timeline_unknown.png");
 
     @Override
     public Component getTreeCellRendererComponent(JTree tree, Object value,
             boolean sel, boolean expanded, boolean leaf, int row,
             boolean hasFocus) {
-        super.getTreeCellRendererComponent(tree, value, sel, expanded, false,
-                row, hasFocus);
+        super.getTreeCellRendererComponent(
+                tree, value, sel, expanded, false, row, hasFocus);
 
         DefaultMutableTreeNode node = (DefaultMutableTreeNode) value;
         Object userObject = node.getUserObject();
@@ -46,10 +46,10 @@ public final class TreeCellRendererTimeline extends DefaultTreeCellRenderer {
                 boolean isYear = parent.equals(root);
                 boolean isMonth = node.getPath().length == 3;
                 setIcon(isYear
-                        ? iconYear
+                        ? ICON_YEAR
                         : isMonth
-                          ? iconMonth
-                          : iconDay);
+                          ? ICON_MONTH
+                          : ICON_DAY);
                 setText(isYear
                         ? String.valueOf(cal.get(Calendar.YEAR))
                         : isMonth
@@ -58,7 +58,7 @@ public final class TreeCellRendererTimeline extends DefaultTreeCellRenderer {
                           : String.valueOf(cal.get(Calendar.DAY_OF_MONTH)));
             }
         } else if (node.equals(Timeline.getUnknownNode())) {
-            setIcon(iconUnknown);
+            setIcon(ICON_UNKNOWN);
             setText(node.getUserObject().toString());
         }
         return this;

@@ -24,29 +24,29 @@ import java.util.List;
  */
 public final class FastSearchColumns {
 
-    private static final List<Column> searchColumns = new ArrayList<Column>();
-    
+    private static final List<Column> COLUMNS = new ArrayList<Column>();
 
     static {
         // XMP
-        searchColumns.add(ColumnXmpDcSubjectsSubject.INSTANCE);
-        searchColumns.add(ColumnXmpPhotoshopCategory.INSTANCE);
-        searchColumns.add(ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory.INSTANCE);
-        searchColumns.add(ColumnXmpDcTitle.INSTANCE);
-        searchColumns.add(ColumnXmpDcDescription.INSTANCE);
-        searchColumns.add(ColumnXmpPhotoshopHeadline.INSTANCE);
-        searchColumns.add(ColumnXmpIptc4xmpcoreLocation.INSTANCE);
-        searchColumns.add(ColumnXmpDcRights.INSTANCE);
+        COLUMNS.add(ColumnXmpDcSubjectsSubject.INSTANCE);
+        COLUMNS.add(ColumnXmpPhotoshopCategory.INSTANCE);
+        COLUMNS.add(
+                ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory.INSTANCE);
+        COLUMNS.add(ColumnXmpDcTitle.INSTANCE);
+        COLUMNS.add(ColumnXmpDcDescription.INSTANCE);
+        COLUMNS.add(ColumnXmpPhotoshopHeadline.INSTANCE);
+        COLUMNS.add(ColumnXmpIptc4xmpcoreLocation.INSTANCE);
+        COLUMNS.add(ColumnXmpDcRights.INSTANCE);
         // EXIF
-        searchColumns.add(ColumnExifFocalLength.INSTANCE);
-        searchColumns.add(ColumnExifIsoSpeedRatings.INSTANCE);
-        searchColumns.add(ColumnExifRecordingEquipment.INSTANCE);
+        COLUMNS.add(ColumnExifFocalLength.INSTANCE);
+        COLUMNS.add(ColumnExifIsoSpeedRatings.INSTANCE);
+        COLUMNS.add(ColumnExifRecordingEquipment.INSTANCE);
         // Files
-        searchColumns.add(ColumnFilesFilename.INSTANCE);
+        COLUMNS.add(ColumnFilesFilename.INSTANCE);
     }
 
     public static List<Column> get() {
-        return searchColumns;
+        return COLUMNS;
     }
 
     private FastSearchColumns() {

@@ -15,7 +15,7 @@ import javax.swing.table.TableCellRenderer;
  */
 public final class TableCellRendererDatabaseInfoColumns implements TableCellRenderer {
 
-    private static final String paddingLeft = "  "; // NOI18N
+    private static final String PADDING_LEFT = "  "; // NOI18N
 
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value,
@@ -24,7 +24,7 @@ public final class TableCellRendererDatabaseInfoColumns implements TableCellRend
         if (column == 0) {
             FormatterLabelTableColumn.setLabelText(cellLabel, (Column) value);
         } else {
-            cellLabel.setText(paddingLeft + value.toString());
+            cellLabel.setText(PADDING_LEFT + value.toString());
         }
         return cellLabel;
     }

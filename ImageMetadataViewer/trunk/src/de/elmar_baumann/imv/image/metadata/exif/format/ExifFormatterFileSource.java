@@ -25,7 +25,7 @@ public final class ExifFormatterFileSource extends ExifFormatter {
         if (rawValue.length >= 1) {
             int value = rawValue[0];
             if (value == 3) {
-                return translation.translate("FileSourceDigitalCamera"); // NOI18N
+                return TRANSLATION.translate("FileSourceDigitalCamera"); // NOI18N
             }
         }
         return "?";

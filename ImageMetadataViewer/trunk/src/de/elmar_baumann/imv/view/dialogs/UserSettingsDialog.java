@@ -21,11 +21,14 @@ import java.util.Map;
  */
 public final class UserSettingsDialog extends Dialog {
 
-    private static final String keyTabbedPaneIndex = "UserSettingsDialog.TabbedPaneIndex"; // NOI18N
+    private static final String KEY_INDEX_TABBED_PANE =
+            "UserSettingsDialog.TabbedPaneIndex"; // NOI18N
     private final Map<Tab, Integer> indexOfTab = new HashMap<Tab, Integer>();
     private final Map<Integer, Tab> tabOfIndex = new HashMap<Integer, Tab>();
-    private final Map<Component, String> helpUrlOfComponent = new HashMap<Component, String>();
-    private final List<Persistence> persistentPanels = new ArrayList<Persistence>();
+    private final Map<Component, String> helpUrlOfComponent =
+            new HashMap<Component, String>();
+    private final List<Persistence> persistentPanels =
+            new ArrayList<Persistence>();
     public static final UserSettingsDialog INSTANCE = new UserSettingsDialog();
 
     /**
@@ -90,16 +93,26 @@ public final class UserSettingsDialog extends Dialog {
             tabOfIndex.put(indexOfTab.get(tab), tab);
         }
 
-        helpUrlOfComponent.put(tabbedPane.getComponentAt(0), Bundle.getString("Help.Url.UserSettingsDialog.Programs"));
-        helpUrlOfComponent.put(tabbedPane.getComponentAt(1), Bundle.getString("Help.Url.UserSettingsDialog.FastSearch"));
-        helpUrlOfComponent.put(tabbedPane.getComponentAt(2), Bundle.getString("Help.Url.UserSettingsDialog.Thumbnails"));
-        helpUrlOfComponent.put(tabbedPane.getComponentAt(3), Bundle.getString("Help.Url.UserSettingsDialog.Iptc"));
-        helpUrlOfComponent.put(tabbedPane.getComponentAt(4), Bundle.getString("Help.Url.UserSettingsDialog.Tasks"));
-        helpUrlOfComponent.put(tabbedPane.getComponentAt(5), Bundle.getString("Help.Url.UserSettingsDialog.Performance"));
-        helpUrlOfComponent.put(tabbedPane.getComponentAt(6), Bundle.getString("Help.Url.UserSettingsDialog.FileExcludePattern"));
-        helpUrlOfComponent.put(tabbedPane.getComponentAt(7), Bundle.getString("Help.Url.UserSettingsDialog.Edit"));
-        helpUrlOfComponent.put(tabbedPane.getComponentAt(8), Bundle.getString("Help.Url.UserSettingsDialog.Misc"));
-        helpUrlOfComponent.put(tabbedPane.getComponentAt(9), Bundle.getString("Help.Url.UserSettingsDialog.Actions"));
+        helpUrlOfComponent.put(tabbedPane.getComponentAt(0), Bundle.getString(
+                "Help.Url.UserSettingsDialog.Programs"));
+        helpUrlOfComponent.put(tabbedPane.getComponentAt(1), Bundle.getString(
+                "Help.Url.UserSettingsDialog.FastSearch"));
+        helpUrlOfComponent.put(tabbedPane.getComponentAt(2), Bundle.getString(
+                "Help.Url.UserSettingsDialog.Thumbnails"));
+        helpUrlOfComponent.put(tabbedPane.getComponentAt(3), Bundle.getString(
+                "Help.Url.UserSettingsDialog.Iptc"));
+        helpUrlOfComponent.put(tabbedPane.getComponentAt(4), Bundle.getString(
+                "Help.Url.UserSettingsDialog.Tasks"));
+        helpUrlOfComponent.put(tabbedPane.getComponentAt(5), Bundle.getString(
+                "Help.Url.UserSettingsDialog.Performance"));
+        helpUrlOfComponent.put(tabbedPane.getComponentAt(6), Bundle.getString(
+                "Help.Url.UserSettingsDialog.FileExcludePattern"));
+        helpUrlOfComponent.put(tabbedPane.getComponentAt(7), Bundle.getString(
+                "Help.Url.UserSettingsDialog.Edit"));
+        helpUrlOfComponent.put(tabbedPane.getComponentAt(8), Bundle.getString(
+                "Help.Url.UserSettingsDialog.Misc"));
+        helpUrlOfComponent.put(tabbedPane.getComponentAt(9), Bundle.getString(
+                "Help.Url.UserSettingsDialog.Actions"));
     }
 
     private void initPersistentPanels() {
@@ -129,19 +142,22 @@ public final class UserSettingsDialog extends Dialog {
     }
 
     private SettingsHints getPersistentSettingsHints() {
-        return new SettingsHints(EnumSet.of(SettingsHints.Option.DONT_SET_TABBED_PANE_CONTENT));
+        return new SettingsHints(EnumSet.of(
+                SettingsHints.Option.DONT_SET_TABBED_PANE_CONTENT));
     }
 
     private void readProperties() {
         UserSettings.INSTANCE.getSettings().getSizeAndLocation(this);
-        UserSettings.INSTANCE.getSettings().getTabbedPane(tabbedPane, keyTabbedPaneIndex, getPersistentSettingsHints());
+        UserSettings.INSTANCE.getSettings().getTabbedPane(tabbedPane,
+                KEY_INDEX_TABBED_PANE, getPersistentSettingsHints());
         for (Persistence panel : persistentPanels) {
             panel.readProperties();
         }
     }
 
     private void writeProperties() {
-        UserSettings.INSTANCE.getSettings().setTabbedPane(tabbedPane, keyTabbedPaneIndex, getPersistentSettingsHints());
+        UserSettings.INSTANCE.getSettings().setTabbedPane(tabbedPane,
+                KEY_INDEX_TABBED_PANE, getPersistentSettingsHints());
         UserSettings.INSTANCE.getSettings().setSizeAndLocation(this);
         for (Persistence panel : persistentPanels) {
             panel.writeProperties();
@@ -251,7 +267,6 @@ private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:even
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private de.elmar_baumann.imv.view.panels.SettingsActionsPanel panelActions;
     private de.elmar_baumann.imv.view.panels.SettingsEditColumnsPanel panelEditColumns;

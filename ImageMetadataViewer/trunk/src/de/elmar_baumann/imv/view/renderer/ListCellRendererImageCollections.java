@@ -15,13 +15,15 @@ import javax.swing.JList;
  */
 public final class ListCellRendererImageCollections extends DefaultListCellRenderer {
 
-    private static final Icon icon = AppIcons.getIcon("icon_imagecollection.png"); // NOI18N
-    
+    private static final Icon ICON =
+            AppIcons.getIcon("icon_imagecollection.png"); // NOI18N
+
     @Override
     public Component getListCellRendererComponent(JList list, Object value,
-        int index, boolean isSelected, boolean cellHasFocus) {
-        JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-        label.setIcon(icon);
+            int index, boolean isSelected, boolean cellHasFocus) {
+        JLabel label = (JLabel) super.getListCellRendererComponent(
+                list, value, index, isSelected, cellHasFocus);
+        label.setIcon(ICON);
         return label;
     }
 }

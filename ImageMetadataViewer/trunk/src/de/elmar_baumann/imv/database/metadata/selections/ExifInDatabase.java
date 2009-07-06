@@ -12,14 +12,14 @@ import java.util.List;
  */
 public final class ExifInDatabase {
 
-    private static final List<ExifTag> storedTags = new ArrayList<ExifTag>();
+    private static final List<ExifTag> STORED_TAGS = new ArrayList<ExifTag>();
     
 
     static {
-        storedTags.add(ExifTag.DATE_TIME_ORIGINAL);
-        storedTags.add(ExifTag.FOCAL_LENGTH);
-        storedTags.add(ExifTag.ISO_SPEED_RATINGS);
-        storedTags.add(ExifTag.MODEL);
+        STORED_TAGS.add(ExifTag.DATE_TIME_ORIGINAL);
+        STORED_TAGS.add(ExifTag.FOCAL_LENGTH);
+        STORED_TAGS.add(ExifTag.ISO_SPEED_RATINGS);
+        STORED_TAGS.add(ExifTag.MODEL);
     }
 
     /**
@@ -30,7 +30,7 @@ public final class ExifInDatabase {
      * @return true, falls gespeichert
      */
     public static boolean isInDatabase(ExifTag exifTag) {
-        return storedTags.contains(exifTag);
+        return STORED_TAGS.contains(exifTag);
     }
 
     /**
@@ -43,7 +43,7 @@ public final class ExifInDatabase {
     public static boolean isInDatabase(int tagId) {
         ExifTag tag = ExifTag.getTag(tagId);
         if (tag != null) {
-            return storedTags.contains(tag);
+            return STORED_TAGS.contains(tag);
         }
         return false;
     }

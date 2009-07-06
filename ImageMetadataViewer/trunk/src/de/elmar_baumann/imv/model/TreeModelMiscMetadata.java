@@ -35,36 +35,36 @@ public final class TreeModelMiscMetadata extends DefaultTreeModel implements
 
     private static final DefaultMutableTreeNode ROOT = new DefaultMutableTreeNode(
             Bundle.getString("TreeModelMiscMetadata.Root.DisplayName"));
-    private static final Object exifUserObject = Bundle.getString(
+    private static final Object EXIF_USER_OBJECT = Bundle.getString(
             "TreeModelMiscMetadata.ExifNode.DisplayName");
-    private static final Object xmpUserObject = Bundle.getString(
+    private static final Object XMP_USER_OBJECT = Bundle.getString(
             "TreeModelMiscMetadata.XmpNode.DisplayName");
-    private static final Set<Column> exifColumns = new LinkedHashSet<Column>();
-    private static final Set<Column> xmpColumns = new LinkedHashSet<Column>();
-    private static final Set<Object> columnUserObjects =
+    private static final Set<Column> EXIF_COLUMNS = new LinkedHashSet<Column>();
+    private static final Set<Column> XMP_COLUMNS = new LinkedHashSet<Column>();
+    private static final Set<Object> COLUMN_USER_OBJECTS =
             new LinkedHashSet<Object>();
     private final DatabaseImageFiles db;
 
 
     static {
-        exifColumns.add(ColumnExifRecordingEquipment.INSTANCE);
-        exifColumns.add(ColumnExifFocalLength.INSTANCE);
-        exifColumns.add(ColumnExifIsoSpeedRatings.INSTANCE);
+        EXIF_COLUMNS.add(ColumnExifRecordingEquipment.INSTANCE);
+        EXIF_COLUMNS.add(ColumnExifFocalLength.INSTANCE);
+        EXIF_COLUMNS.add(ColumnExifIsoSpeedRatings.INSTANCE);
 
-        xmpColumns.add(ColumnXmpIptc4xmpcoreLocation.INSTANCE);
-        xmpColumns.add(ColumnXmpDcCreator.INSTANCE);
-        xmpColumns.add(ColumnXmpDcRights.INSTANCE);
-        xmpColumns.add(ColumnXmpPhotoshopSource.INSTANCE);
+        XMP_COLUMNS.add(ColumnXmpIptc4xmpcoreLocation.INSTANCE);
+        XMP_COLUMNS.add(ColumnXmpDcCreator.INSTANCE);
+        XMP_COLUMNS.add(ColumnXmpDcRights.INSTANCE);
+        XMP_COLUMNS.add(ColumnXmpPhotoshopSource.INSTANCE);
 
-        columnUserObjects.add(exifUserObject);
-        columnUserObjects.add(xmpUserObject);
+        COLUMN_USER_OBJECTS.add(EXIF_USER_OBJECT);
+        COLUMN_USER_OBJECTS.add(XMP_USER_OBJECT);
     }
 
     public TreeModelMiscMetadata() {
         super(ROOT);
         db = DatabaseImageFiles.INSTANCE;
-        addColumnNodes(exifUserObject, exifColumns);
-        addColumnNodes(xmpUserObject, xmpColumns);
+        addColumnNodes(EXIF_USER_OBJECT, EXIF_COLUMNS);
+        addColumnNodes(XMP_USER_OBJECT, XMP_COLUMNS);
         listen();
     }
 
@@ -89,11 +89,11 @@ public final class TreeModelMiscMetadata extends DefaultTreeModel implements
     }
 
     public static Set<Column> getExifColumns() {
-        return new LinkedHashSet<Column>(exifColumns);
+        return new LinkedHashSet<Column>(EXIF_COLUMNS);
     }
 
     public static Set<Column> getXmpColumns() {
-        return new LinkedHashSet<Column>(xmpColumns);
+        return new LinkedHashSet<Column>(XMP_COLUMNS);
     }
 
     private void addColumnNodes(Object userObject, Set<Column> columns) {
@@ -138,7 +138,7 @@ public final class TreeModelMiscMetadata extends DefaultTreeModel implements
     }
 
     private void checkXmpDeleted(Xmp xmp) {
-        for (Column xmpColumn : xmpColumns) {
+        for (Column xmpColumn : XMP_COLUMNS) {
             Object value = xmp.getValue(xmpColumn);
             if (value != null) {
                 checkDeleted(xmpColumn, value);
@@ -188,7 +188,7 @@ public final class TreeModelMiscMetadata extends DefaultTreeModel implements
     }
 
     private void checkXmpInserted(Xmp xmp) {
-        for (Column xmpColumn : xmpColumns) {
+        for (Column xmpColumn : XMP_COLUMNS) {
             Object value = xmp.getValue(xmpColumn);
             if (value != null) {
                 checkInserted(xmpColumn, value);

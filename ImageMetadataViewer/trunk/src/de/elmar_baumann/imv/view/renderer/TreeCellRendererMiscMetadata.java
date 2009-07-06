@@ -23,25 +23,24 @@ import javax.swing.tree.TreeNode;
  */
 public final class TreeCellRendererMiscMetadata extends DefaultTreeCellRenderer {
 
-    private static final ImageIcon iconMiscMetadata = IconUtil.getImageIcon(
+    private static final ImageIcon ICON_MISC_METADATA = IconUtil.getImageIcon(
             "/de/elmar_baumann/imv/resource/icons/icon_misc_metadata.png");
-    private static final ImageIcon iconExif = IconUtil.getImageIcon(
+    private static final ImageIcon ICON_EXIF = IconUtil.getImageIcon(
             "/de/elmar_baumann/imv/resource/icons/icon_exif.png");
-    private static final ImageIcon iconXmp = IconUtil.getImageIcon(
+    private static final ImageIcon ICON_XMP = IconUtil.getImageIcon(
             "/de/elmar_baumann/imv/resource/icons/icon_xmp.png");
-    private static final ImageIcon iconDetail =
+    private static final ImageIcon ICON_DETAIL =
             IconUtil.getImageIcon(
             "/de/elmar_baumann/imv/resource/icons/icon_misc_metadata_detail.png");
-    private static final Map<Column, ImageIcon> iconOfColumn =
+    private static final Map<Column, ImageIcon> ICON_OF_COLUMN =
             new HashMap<Column, ImageIcon>();
-
 
     static {
         for (Column exifColumn : TreeModelMiscMetadata.getExifColumns()) {
-            iconOfColumn.put(exifColumn, iconExif);
+            ICON_OF_COLUMN.put(exifColumn, ICON_EXIF);
         }
         for (Column xmpColumn : TreeModelMiscMetadata.getXmpColumns()) {
-            iconOfColumn.put(xmpColumn, iconXmp);
+            ICON_OF_COLUMN.put(xmpColumn, ICON_XMP);
         }
     }
 
@@ -71,15 +70,15 @@ public final class TreeCellRendererMiscMetadata extends DefaultTreeCellRenderer 
         if (userObject instanceof Column) {
             setColumnIcon((Column) userObject);
         } else if (leaf) {
-            setIcon(iconDetail);
+            setIcon(ICON_DETAIL);
         } else if (parentNode != null && parentNode.equals(root)) {
-            setIcon(iconMiscMetadata);
+            setIcon(ICON_MISC_METADATA);
         }
     }
 
     private void setColumnIcon(Column column) {
         if (column != null) {
-            ImageIcon icon = iconOfColumn.get(column);
+            ImageIcon icon = ICON_OF_COLUMN.get(column);
             assert icon != null : "No icon defined for column: " + column;
             if (icon != null) {
                 setIcon(icon);

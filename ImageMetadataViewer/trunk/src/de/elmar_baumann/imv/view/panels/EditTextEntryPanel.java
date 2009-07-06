@@ -20,7 +20,7 @@ import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
  */
 public final class EditTextEntryPanel extends javax.swing.JPanel implements TextEntry, DocumentListener {
 
-    private static final Color editableColor = Color.WHITE;
+    private static final Color EDITABLE_COLOR = Color.WHITE;
     private Column column;
     private AutoCompleteData autoCompleteData;
     private boolean dirty = false;
@@ -96,7 +96,7 @@ public final class EditTextEntryPanel extends javax.swing.JPanel implements Text
     @Override
     public void setEditable(boolean editable) {
         textAreaEdit.setEditable(editable);
-        textAreaEdit.setBackground(editable ? editableColor : getBackground());
+        textAreaEdit.setBackground(editable ? EDITABLE_COLOR : getBackground());
     }
 
     @Override

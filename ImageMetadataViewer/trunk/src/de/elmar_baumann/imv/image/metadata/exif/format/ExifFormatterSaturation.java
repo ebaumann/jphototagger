@@ -38,7 +38,7 @@ public final class ExifFormatterSaturation extends ExifFormatter {
                     entry.getByteOrder());
             int value = es.getValue();
             if (exifKeyOfSaturation.containsKey(value)) {
-                return translation.translate(exifKeyOfSaturation.get(value));
+                return TRANSLATION.translate(exifKeyOfSaturation.get(value));
             }
         }
         return "?";

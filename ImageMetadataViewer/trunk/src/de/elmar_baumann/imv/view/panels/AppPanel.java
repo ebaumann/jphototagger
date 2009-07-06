@@ -906,7 +906,7 @@ public final class AppPanel extends javax.swing.JPanel implements
                 .addComponent(labelSearch))
         );
 
-        progressBarScheduledTasks.setToolTipText(AppTexts.tooltipTextProgressBarScheduledTasks);
+        progressBarScheduledTasks.setToolTipText(AppTexts.TOOLTIP_TEXT_PROGRESSBAR_SCHEDULED_TASKS);
         progressBarScheduledTasks.setName("progressBarScheduledTasks"); // NOI18N
 
         buttonStopScheduledTasks.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icons/icon_stop_scheduled_tasks_enabled.png"))); // NOI18N
@@ -947,10 +947,10 @@ public final class AppPanel extends javax.swing.JPanel implements
         buttonSystemOutput.setEnabled(AppInit.isCaptureOutput());
         buttonSystemOutput.setPreferredSize(new java.awt.Dimension(16, 16));
 
-        progressBarCreateMetadataOfCurrentThumbnails.setToolTipText(AppTexts.tooltipTextProgressBarDirectory);
+        progressBarCreateMetadataOfCurrentThumbnails.setToolTipText(AppTexts.TOOLTIP_TEXT_PROGRESSBAR_DIRECTORY);
         progressBarCreateMetadataOfCurrentThumbnails.setName("progressBarCreateMetadataOfCurrentThumbnails"); // NOI18N
 
-        progressBarCurrentTasks.setToolTipText(AppTexts.tooltipTextProgressBarCurrentTasks);
+        progressBarCurrentTasks.setToolTipText(AppTexts.TOOLTIP_TEXT_PROGRESSBAR_CURRENT_TASKS);
         progressBarCurrentTasks.setName("progressBarCurrentTasks"); // NOI18N
 
         javax.swing.GroupLayout panelStatusbarLayout = new javax.swing.GroupLayout(panelStatusbar);

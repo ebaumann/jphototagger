@@ -31,7 +31,7 @@ import javax.swing.JOptionPane;
 public final class MoveToDirectoryDialog extends Dialog
         implements ProgressListener, FileSystemActionListener {
 
-    private static final String keyTargetDirectory =
+    private static final String KEY_TARGET_DIRECTORY =
             "de.elmar_baumann.imv.view.dialogs.MoveToDirectoryDialog.TargetDirectory"; // NOI18N
     private final List<File> movedFiles = new ArrayList<File>();
     private final List<ProgressListener> progressListeners =
@@ -104,7 +104,8 @@ public final class MoveToDirectoryDialog extends Dialog
         List<File> xmpFiles = new ArrayList<File>();
         for (File sourceFile : sourceFiles) {
             String xmpFilename =
-                    XmpMetadata.getSidecarFilenameOfImageFileIfExists(sourceFile.getAbsolutePath());
+                    XmpMetadata.getSidecarFilenameOfImageFileIfExists(
+                    sourceFile.getAbsolutePath());
             if (xmpFilename != null) {
                 xmpFiles.add(new File(xmpFilename));
             }
@@ -205,7 +206,7 @@ public final class MoveToDirectoryDialog extends Dialog
     private void setTargetDirectory() {
         targetDirectory =
                 new File(UserSettings.INSTANCE.getSettings().getString(
-                keyTargetDirectory));
+                KEY_TARGET_DIRECTORY));
         if (targetDirectory.exists()) {
             labelDirectoryName.setText(targetDirectory.getAbsolutePath());
             buttonStart.setEnabled(true);
@@ -219,7 +220,7 @@ public final class MoveToDirectoryDialog extends Dialog
     private void writeProperties() {
         UserSettings.INSTANCE.getSettings().setSizeAndLocation(this);
         UserSettings.INSTANCE.getSettings().setString(targetDirectory.
-                getAbsolutePath(), keyTargetDirectory);
+                getAbsolutePath(), KEY_TARGET_DIRECTORY);
         UserSettings.INSTANCE.writeToFile();
     }
 
@@ -443,7 +444,6 @@ private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:even
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonChooseDirectory;
     private javax.swing.JButton buttonStart;

@@ -14,23 +14,23 @@ public final class AppInfo {
     /**
      * Name of this project
      */
-    private static final String projectName = "ImageMetaDataViewer"; // NOI18N NEVER CHANGE!
+    private static final String PROJECT_NAME = "ImageMetaDataViewer"; // NOI18N NEVER CHANGE!
     /**
      * The application's version
      */
-    public static final String appVersion = "0.5.103 2009/07/05";  // NOI18N
+    public static final String APP_VERSION = "0.5.103 2009/07/05";  // NOI18N
     /**
      * The application's name
      */
-    public static final String appName = "Bilder";  // NOI18N
+    public static final String APP_NAME = "Bilder";  // NOI18N
     /**
      * Title of the application
      */
-    public static final String appDescription = Bundle.getString("AppTitle");
+    public static final String APP_DESCRIPTION = Bundle.getString("AppTitle");
     /**
      * Minimum required Java version
      */
-    public static final Version minJavaVersion = new Version(1, 6);
+    public static final Version MIN_JAVA_VERSION = new Version(1, 6);
 
     /**
      * Returns the long name of this project.
@@ -38,7 +38,7 @@ public final class AppInfo {
      * @return project name
      */
     public static String getProjectName() {
-        return projectName;
+        return PROJECT_NAME;
     }
 
     private AppInfo() {

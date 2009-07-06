@@ -19,29 +19,50 @@ import java.util.Map;
  */
 public final class IptcEntryXmpPathStartMapping {
 
-    private static final Map<IPTCEntryMeta, String> xmpPathStarOfIptcEntryMeta = new HashMap<IPTCEntryMeta, String>();
-    
+    private static final Map<IPTCEntryMeta, String> XMP_PATH_START_OF_IPTC_ENTRY_META =
+            new HashMap<IPTCEntryMeta, String>();
 
     static {
-        xmpPathStarOfIptcEntryMeta.put(IPTCEntryMeta.BYLINE, "dc:creator"); // NOI18N
-        xmpPathStarOfIptcEntryMeta.put(IPTCEntryMeta.CAPTION_ABSTRACT, "dc:description"); // NOI18N
-        xmpPathStarOfIptcEntryMeta.put(IPTCEntryMeta.COPYRIGHT_NOTICE, "dc:rights"); // NOI18N
-        xmpPathStarOfIptcEntryMeta.put(IPTCEntryMeta.KEYWORDS, "dc:subject"); // NOI18N
-        xmpPathStarOfIptcEntryMeta.put(IPTCEntryMeta.OBJECT_NAME, "dc:title"); // NOI18N
-        xmpPathStarOfIptcEntryMeta.put(IPTCEntryMeta.CONTENT_LOCATION_CODE, "Iptc4xmpCore:CountryCode"); // NOI18N
-        xmpPathStarOfIptcEntryMeta.put(IPTCEntryMeta.CONTENT_LOCATION_NAME, "Iptc4xmpCore:Location"); // NOI18N
-        xmpPathStarOfIptcEntryMeta.put(IPTCEntryMeta.BYLINE_TITLE, "photoshop:AuthorsPosition"); // NOI18N
-        xmpPathStarOfIptcEntryMeta.put(IPTCEntryMeta.WRITER_EDITOR, "photoshop:CaptionWriter"); // NOI18N
-        xmpPathStarOfIptcEntryMeta.put(IPTCEntryMeta.CATEGORY, "photoshop:Category"); // NOI18N
-        xmpPathStarOfIptcEntryMeta.put(IPTCEntryMeta.CITY, "photoshop:City"); // NOI18N
-        xmpPathStarOfIptcEntryMeta.put(IPTCEntryMeta.COUNTRY_PRIMARY_LOCATION_NAME, "photoshop:Country"); // NOI18N
-        xmpPathStarOfIptcEntryMeta.put(IPTCEntryMeta.CREDIT, "photoshop:Credit"); // NOI18N
-        xmpPathStarOfIptcEntryMeta.put(IPTCEntryMeta.HEADLINE, "photoshop:Headline"); // NOI18N
-        xmpPathStarOfIptcEntryMeta.put(IPTCEntryMeta.SPECIAL_INSTRUCTIONS, "photoshop:Instructions"); // NOI18N
-        xmpPathStarOfIptcEntryMeta.put(IPTCEntryMeta.SOURCE, "photoshop:Source"); // NOI18N
-        xmpPathStarOfIptcEntryMeta.put(IPTCEntryMeta.PROVINCE_STATE, "photoshop:State"); // NOI18N
-        xmpPathStarOfIptcEntryMeta.put(IPTCEntryMeta.SUPPLEMENTAL_CATEGORY, "photoshop:SupplementalCategories"); // NOI18N
-        xmpPathStarOfIptcEntryMeta.put(IPTCEntryMeta.ORIGINAL_TRANSMISSION_REFERENCE, "photoshop:TransmissionReference"); // NOI18N
+        XMP_PATH_START_OF_IPTC_ENTRY_META.put(
+                IPTCEntryMeta.BYLINE, "dc:creator"); // NOI18N
+        XMP_PATH_START_OF_IPTC_ENTRY_META.put(
+                IPTCEntryMeta.CAPTION_ABSTRACT, "dc:description"); // NOI18N
+        XMP_PATH_START_OF_IPTC_ENTRY_META.put(
+                IPTCEntryMeta.COPYRIGHT_NOTICE, "dc:rights"); // NOI18N
+        XMP_PATH_START_OF_IPTC_ENTRY_META.put(
+                IPTCEntryMeta.KEYWORDS, "dc:subject"); // NOI18N
+        XMP_PATH_START_OF_IPTC_ENTRY_META.put(
+                IPTCEntryMeta.OBJECT_NAME, "dc:title"); // NOI18N
+        XMP_PATH_START_OF_IPTC_ENTRY_META.put(
+                IPTCEntryMeta.CONTENT_LOCATION_CODE, "Iptc4xmpCore:CountryCode"); // NOI18N
+        XMP_PATH_START_OF_IPTC_ENTRY_META.put(
+                IPTCEntryMeta.CONTENT_LOCATION_NAME, "Iptc4xmpCore:Location"); // NOI18N
+        XMP_PATH_START_OF_IPTC_ENTRY_META.put(
+                IPTCEntryMeta.BYLINE_TITLE, "photoshop:AuthorsPosition"); // NOI18N
+        XMP_PATH_START_OF_IPTC_ENTRY_META.put(
+                IPTCEntryMeta.WRITER_EDITOR, "photoshop:CaptionWriter"); // NOI18N
+        XMP_PATH_START_OF_IPTC_ENTRY_META.put(
+                IPTCEntryMeta.CATEGORY, "photoshop:Category"); // NOI18N
+        XMP_PATH_START_OF_IPTC_ENTRY_META.put(
+                IPTCEntryMeta.CITY, "photoshop:City"); // NOI18N
+        XMP_PATH_START_OF_IPTC_ENTRY_META.put(
+                IPTCEntryMeta.COUNTRY_PRIMARY_LOCATION_NAME, "photoshop:Country"); // NOI18N
+        XMP_PATH_START_OF_IPTC_ENTRY_META.put(
+                IPTCEntryMeta.CREDIT, "photoshop:Credit"); // NOI18N
+        XMP_PATH_START_OF_IPTC_ENTRY_META.put(
+                IPTCEntryMeta.HEADLINE, "photoshop:Headline"); // NOI18N
+        XMP_PATH_START_OF_IPTC_ENTRY_META.put(
+                IPTCEntryMeta.SPECIAL_INSTRUCTIONS, "photoshop:Instructions"); // NOI18N
+        XMP_PATH_START_OF_IPTC_ENTRY_META.put(
+                IPTCEntryMeta.SOURCE, "photoshop:Source"); // NOI18N
+        XMP_PATH_START_OF_IPTC_ENTRY_META.put(
+                IPTCEntryMeta.PROVINCE_STATE, "photoshop:State"); // NOI18N
+        XMP_PATH_START_OF_IPTC_ENTRY_META.put(
+                IPTCEntryMeta.SUPPLEMENTAL_CATEGORY,
+                "photoshop:SupplementalCategories"); // NOI18N
+        XMP_PATH_START_OF_IPTC_ENTRY_META.put(
+                IPTCEntryMeta.ORIGINAL_TRANSMISSION_REFERENCE,
+                "photoshop:TransmissionReference"); // NOI18N
     }
 
     /**
@@ -51,7 +72,7 @@ public final class IptcEntryXmpPathStartMapping {
      * @return Pfadstart oder null bei unzugeordneten Metadaten
      */
     public static String getXmpPathStartOfIptcEntryMeta(IPTCEntryMeta entryMeta) {
-        return xmpPathStarOfIptcEntryMeta.get(entryMeta);
+        return XMP_PATH_START_OF_IPTC_ENTRY_META.get(entryMeta);
     }
 
     private IptcEntryXmpPathStartMapping() {

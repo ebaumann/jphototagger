@@ -25,7 +25,7 @@ import javax.swing.JOptionPane;
 public final class IptcToXmpDialog extends Dialog
         implements ProgressListener {
 
-    private static final String keyDirectoryName =
+    private static final String KEY_DIRECTORY_NAME =
             "de.elmar_baumann.imv.view.dialogs.IptcToXmpDialog.LastDirectory"; // NOI18N
     private File directory = new File(""); // NOI18N
     private boolean stop = true;
@@ -90,7 +90,7 @@ public final class IptcToXmpDialog extends Dialog
                 new SettingsHints(EnumSet.of(
                 SettingsHints.Option.SET_TABBED_PANE_CONTENT)));
         directory = new File(UserSettings.INSTANCE.getSettings().getString(
-                keyDirectoryName));
+                KEY_DIRECTORY_NAME));
     }
 
     private void writeProperties() {
@@ -99,7 +99,7 @@ public final class IptcToXmpDialog extends Dialog
                 new SettingsHints(EnumSet.of(
                 SettingsHints.Option.SET_TABBED_PANE_CONTENT)));
         UserSettings.INSTANCE.getSettings().setString(
-                directory.getAbsolutePath(), keyDirectoryName);
+                directory.getAbsolutePath(), KEY_DIRECTORY_NAME);
         UserSettings.INSTANCE.writeToFile();
     }
 
@@ -325,7 +325,6 @@ private void buttonStopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonChooseDirectory;
     private javax.swing.JButton buttonStart;

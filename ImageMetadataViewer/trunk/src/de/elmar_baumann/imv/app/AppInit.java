@@ -92,7 +92,7 @@ public final class AppInit {
     private static void checkJavaVersion() {
         Version javaVersion = SystemUtil.getJavaVersion();
         if (javaVersion != null &&
-                javaVersion.compareTo(AppInfo.minJavaVersion) < 0) {
+                javaVersion.compareTo(AppInfo.MIN_JAVA_VERSION) < 0) {
             errorMessageJavaVersion(javaVersion);
             System.exit(2);
         }
@@ -108,6 +108,6 @@ public final class AppInit {
 
     private static Object getVersionMessage(Version javaVersion) {
         return Bundle.getString("AppInit.ErrorMessage.JavaVersion",
-                javaVersion, AppInfo.minJavaVersion);
+                javaVersion, AppInfo.MIN_JAVA_VERSION);
     }
 }

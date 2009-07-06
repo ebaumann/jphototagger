@@ -16,20 +16,19 @@ public final class ExifFormatterExposureProgram extends ExifFormatter {
 
     public static final ExifFormatterExposureProgram INSTANCE =
             new ExifFormatterExposureProgram();
-    private static final Map<Integer, String> exifKeyOfExposureProgram =
+    private static final Map<Integer, String> EXIF_KEY_OF_EXPOSURE_PROGRAM =
             new HashMap<Integer, String>();
 
-
     static {
-        exifKeyOfExposureProgram.put(0, "ExposureProgramUnkonwn"); // NOI18N
-        exifKeyOfExposureProgram.put(1, "ExposureProgramManual"); // NOI18N
-        exifKeyOfExposureProgram.put(2, "ExposureProgramNormalProgram"); // NOI18N
-        exifKeyOfExposureProgram.put(3, "ExposureProgramAperturePriority"); // NOI18N
-        exifKeyOfExposureProgram.put(4, "ExposureProgramTimePriority"); // NOI18N
-        exifKeyOfExposureProgram.put(5, "ExposureProgramCreativ"); // NOI18N
-        exifKeyOfExposureProgram.put(6, "ExposureProgramAction"); // NOI18N
-        exifKeyOfExposureProgram.put(7, "ExposureProgramPortrait"); // NOI18N
-        exifKeyOfExposureProgram.put(8, "ExposureProgramLandscape"); // NOI18N
+        EXIF_KEY_OF_EXPOSURE_PROGRAM.put(0, "ExposureProgramUnkonwn"); // NOI18N
+        EXIF_KEY_OF_EXPOSURE_PROGRAM.put(1, "ExposureProgramManual"); // NOI18N
+        EXIF_KEY_OF_EXPOSURE_PROGRAM.put(2, "ExposureProgramNormalProgram"); // NOI18N
+        EXIF_KEY_OF_EXPOSURE_PROGRAM.put(3, "ExposureProgramAperturePriority"); // NOI18N
+        EXIF_KEY_OF_EXPOSURE_PROGRAM.put(4, "ExposureProgramTimePriority"); // NOI18N
+        EXIF_KEY_OF_EXPOSURE_PROGRAM.put(5, "ExposureProgramCreativ"); // NOI18N
+        EXIF_KEY_OF_EXPOSURE_PROGRAM.put(6, "ExposureProgramAction"); // NOI18N
+        EXIF_KEY_OF_EXPOSURE_PROGRAM.put(7, "ExposureProgramPortrait"); // NOI18N
+        EXIF_KEY_OF_EXPOSURE_PROGRAM.put(8, "ExposureProgramLandscape"); // NOI18N
     }
 
     private ExifFormatterExposureProgram() {
@@ -43,8 +42,9 @@ public final class ExifFormatterExposureProgram extends ExifFormatter {
             ExifShort es = new ExifShort(entry.getRawValue(),
                     entry.getByteOrder());
             int value = es.getValue();
-            if (exifKeyOfExposureProgram.containsKey(value)) {
-                return translation.translate(exifKeyOfExposureProgram.get(value));
+            if (EXIF_KEY_OF_EXPOSURE_PROGRAM.containsKey(value)) {
+                return TRANSLATION.translate(EXIF_KEY_OF_EXPOSURE_PROGRAM.get(
+                        value));
             }
         }
         return "?";

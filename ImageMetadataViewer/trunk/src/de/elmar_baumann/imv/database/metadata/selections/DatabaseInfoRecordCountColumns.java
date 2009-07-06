@@ -35,37 +35,37 @@ import java.util.List;
  */
 public final class DatabaseInfoRecordCountColumns {
 
-    private static final List<Column> columns = new ArrayList<Column>();
+    private static final List<Column> COLUMNS = new ArrayList<Column>();
     
 
     static {
-        columns.add(ColumnFilesFilename.INSTANCE);
-        columns.add(ColumnXmpDcSubjectsSubject.INSTANCE);
-        columns.add(ColumnXmpPhotoshopCategory.INSTANCE);
-        columns.add(ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory.INSTANCE);
-        columns.add(ColumnXmpDcTitle.INSTANCE);
-        columns.add(ColumnXmpDcDescription.INSTANCE);
-        columns.add(ColumnXmpPhotoshopHeadline.INSTANCE);
-        columns.add(ColumnXmpIptc4xmpcoreLocation.INSTANCE);
-        columns.add(ColumnXmpPhotoshopAuthorsposition.INSTANCE);
-        columns.add(ColumnXmpDcCreator.INSTANCE);
-        columns.add(ColumnXmpPhotoshopCity.INSTANCE);
-        columns.add(ColumnXmpPhotoshopState.INSTANCE);
-        columns.add(ColumnXmpPhotoshopCountry.INSTANCE);
-        columns.add(ColumnXmpDcRights.INSTANCE);
-        columns.add(ColumnXmpPhotoshopCredit.INSTANCE);
-        columns.add(ColumnXmpPhotoshopSource.INSTANCE);
-        columns.add(ColumnXmpPhotoshopTransmissionReference.INSTANCE);
-        columns.add(ColumnXmpPhotoshopInstructions.INSTANCE);
-        columns.add(ColumnXmpPhotoshopCaptionwriter.INSTANCE);
-        columns.add(ColumnExifDateTimeOriginal.INSTANCE);
-        columns.add(ColumnExifFocalLength.INSTANCE);
-        columns.add(ColumnExifIsoSpeedRatings.INSTANCE);
-        columns.add(ColumnExifRecordingEquipment.INSTANCE);
+        COLUMNS.add(ColumnFilesFilename.INSTANCE);
+        COLUMNS.add(ColumnXmpDcSubjectsSubject.INSTANCE);
+        COLUMNS.add(ColumnXmpPhotoshopCategory.INSTANCE);
+        COLUMNS.add(ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory.INSTANCE);
+        COLUMNS.add(ColumnXmpDcTitle.INSTANCE);
+        COLUMNS.add(ColumnXmpDcDescription.INSTANCE);
+        COLUMNS.add(ColumnXmpPhotoshopHeadline.INSTANCE);
+        COLUMNS.add(ColumnXmpIptc4xmpcoreLocation.INSTANCE);
+        COLUMNS.add(ColumnXmpPhotoshopAuthorsposition.INSTANCE);
+        COLUMNS.add(ColumnXmpDcCreator.INSTANCE);
+        COLUMNS.add(ColumnXmpPhotoshopCity.INSTANCE);
+        COLUMNS.add(ColumnXmpPhotoshopState.INSTANCE);
+        COLUMNS.add(ColumnXmpPhotoshopCountry.INSTANCE);
+        COLUMNS.add(ColumnXmpDcRights.INSTANCE);
+        COLUMNS.add(ColumnXmpPhotoshopCredit.INSTANCE);
+        COLUMNS.add(ColumnXmpPhotoshopSource.INSTANCE);
+        COLUMNS.add(ColumnXmpPhotoshopTransmissionReference.INSTANCE);
+        COLUMNS.add(ColumnXmpPhotoshopInstructions.INSTANCE);
+        COLUMNS.add(ColumnXmpPhotoshopCaptionwriter.INSTANCE);
+        COLUMNS.add(ColumnExifDateTimeOriginal.INSTANCE);
+        COLUMNS.add(ColumnExifFocalLength.INSTANCE);
+        COLUMNS.add(ColumnExifIsoSpeedRatings.INSTANCE);
+        COLUMNS.add(ColumnExifRecordingEquipment.INSTANCE);
     }
 
     public static List<Column> get() {
-        return columns;
+        return COLUMNS;
     }
 
     private DatabaseInfoRecordCountColumns() {

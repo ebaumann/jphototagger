@@ -34,7 +34,7 @@ public final class TableModelExif extends DefaultTableModel {
     private File file;
     private ExifGpsMetadata gps;
     private List<IdfEntryProxy> allEntries;
-    private static final Translation translation = new Translation(
+    private static final Translation TRANSLATION = new Translation(
             "ExifTagIdTagNameTranslations"); // NOI18N
 
     public TableModelExif() {
@@ -98,19 +98,19 @@ public final class TableModelExif extends DefaultTableModel {
     private void addGps() {
         gps = ExifGpsUtil.getGpsMetadata(allEntries);
         if (gps.getLatitude() != null) {
-            String prompt = translation.translate(Integer.toString(
+            String prompt = TRANSLATION.translate(Integer.toString(
                     ExifTag.GPS_LATITUDE.getId()));
             super.addRow(new Object[]{prompt,
                         gps.getLatitude().localizedString()});
         }
         if (gps.getLongitude() != null) {
-            String prompt = translation.translate(Integer.toString(
+            String prompt = TRANSLATION.translate(Integer.toString(
                     ExifTag.GPS_LONGITUDE.getId()));
             super.addRow(new Object[]{prompt,
                         gps.getLongitude().localizedString()});
         }
         if (gps.getAltitude() != null) {
-            String prompt = translation.translate(Integer.toString(
+            String prompt = TRANSLATION.translate(Integer.toString(
                     ExifTag.GPS_ALTITUDE.getId()));
             super.addRow(new Object[]{prompt,
                         gps.getAltitude().localizedString()});

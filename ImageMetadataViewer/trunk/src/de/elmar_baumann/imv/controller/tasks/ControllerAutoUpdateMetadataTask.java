@@ -59,7 +59,7 @@ public final class ControllerAutoUpdateMetadataTask
 
     private void createUpdaterArray() {
         updaterArray = new InsertImageFilesIntoDatabaseArray(progressBar);
-        updaterArray.setTooltipTextIfProgressEnded(AppTexts.tooltipTextProgressBarScheduledTasks);
+        updaterArray.setTooltipTextIfProgressEnded(AppTexts.TOOLTIP_TEXT_PROGRESSBAR_SCHEDULED_TASKS);
     }
 
     private boolean isSystemDirectory(String directoryName) {

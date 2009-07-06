@@ -19,8 +19,8 @@ import javax.swing.table.TableCellRenderer;
 public final class TableCellRendererIptc extends FormatterLabelMetadata
         implements TableCellRenderer {
 
-    private static final Translation translation = new Translation(
-            "IptcRecordDataSetNumberTranslations"); // NOI18N
+    private static final Translation TRANSLATION =
+            new Translation("IptcRecordDataSetNumberTranslations"); // NOI18N
 
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value,
@@ -43,7 +43,7 @@ public final class TableCellRendererIptc extends FormatterLabelMetadata
         } else if (column == 1) {
             setHeaderFont(cellLabel);
             TableUtil.embedTableCellTextInHtml(table, row, cellLabel,
-                    translation.translate(number),
+                    TRANSLATION.translate(number),
                     AppLookAndFeel.TABLE_MAX_CHARS_CELL,
                     AppLookAndFeel.TABLE_CSS_CELL);
         } else {

@@ -13,7 +13,8 @@ public final class AppFileFilter {
     /**
      * Filter of all computable image file formats
      */
-    public static final RegexFileFilter acceptedImageFileFormats = new RegexFileFilter(
+    public static final RegexFileFilter ACCEPTED_IMAGE_FILE_FORMATS =
+            new RegexFileFilter(
             ".*\\.[cC][rR][wW];" + // NOI18N
             ".*\\.[cC][rR]2;" + // NOI18N
             ".*\\.[dD][cC][rR];" + // NOI18N

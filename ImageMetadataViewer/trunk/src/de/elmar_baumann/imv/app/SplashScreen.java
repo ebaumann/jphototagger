@@ -13,7 +13,7 @@ import java.awt.Graphics2D;
  */
 public final class SplashScreen {
 
-    private static final int messagesX = 10;
+    private static final int MESSAGES_X = 10;
 
     /**
      * Prints a message onto the splashscreen.
@@ -44,7 +44,7 @@ public final class SplashScreen {
             String message) {
         g.setColor(Color.BLACK);
         g.setFont(standardFont);
-        g.drawString(message, messagesX, 270);
+        g.drawString(message, MESSAGES_X, 270);
     }
 
     private static void splashScreenDrawAppInfo(Graphics2D g, Font standardFont) {
@@ -54,10 +54,10 @@ public final class SplashScreen {
                 (int) (standardFontSize * 1.5 + 0.5));
         g.setFont(fontBold);
         g.setColor(Color.BLACK);
-        g.drawString(AppInfo.appName + " " + AppInfo.appVersion, messagesX, y);  // NOI18N
+        g.drawString(AppInfo.APP_NAME + " " + AppInfo.APP_VERSION, MESSAGES_X, y);  // NOI18N
         g.setFont(standardFont);
         g.setColor(Color.BLUE);
-        g.drawString(AppInfo.appDescription, messagesX, y + standardFontSize +
+        g.drawString(AppInfo.APP_DESCRIPTION, MESSAGES_X, y + standardFontSize +
                 10);
     }
 

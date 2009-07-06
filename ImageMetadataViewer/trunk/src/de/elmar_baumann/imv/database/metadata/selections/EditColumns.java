@@ -32,57 +32,58 @@ import java.util.Set;
  */
 public final class EditColumns {
 
-    private static final Map<Column, EditHints> editHintsForColumn = new LinkedHashMap<Column, EditHints>();
+    private static final Map<Column, EditHints> EDIT_HINT_OF_COLUMN =
+            new LinkedHashMap<Column, EditHints>();
     
 
     static {
         EditHints notRepeatableHintSmall = new EditHints(false, SizeEditField.SMALL);
         EditHints notRepeatableHintLarge = new EditHints(false, SizeEditField.LARGE);
         EditHints repeatableHint = new EditHints(true, SizeEditField.LARGE);
-        editHintsForColumn.put(
+        EDIT_HINT_OF_COLUMN.put(
             ColumnXmpDcSubjectsSubject.INSTANCE, repeatableHint);
-        editHintsForColumn.put(
+        EDIT_HINT_OF_COLUMN.put(
             ColumnXmpPhotoshopCategory.INSTANCE, notRepeatableHintSmall);
-        editHintsForColumn.put(
+        EDIT_HINT_OF_COLUMN.put(
             ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory.INSTANCE, repeatableHint);
-        editHintsForColumn.put(
+        EDIT_HINT_OF_COLUMN.put(
             ColumnXmpDcTitle.INSTANCE, notRepeatableHintSmall);
-        editHintsForColumn.put(
+        EDIT_HINT_OF_COLUMN.put(
             ColumnXmpDcDescription.INSTANCE, notRepeatableHintLarge);
-        editHintsForColumn.put(
+        EDIT_HINT_OF_COLUMN.put(
             ColumnXmpPhotoshopHeadline.INSTANCE, notRepeatableHintSmall);
-        editHintsForColumn.put(
+        EDIT_HINT_OF_COLUMN.put(
             ColumnXmpIptc4xmpcoreLocation.INSTANCE, notRepeatableHintSmall);
-        editHintsForColumn.put(
+        EDIT_HINT_OF_COLUMN.put(
             ColumnXmpPhotoshopAuthorsposition.INSTANCE, notRepeatableHintSmall);
-        editHintsForColumn.put(
+        EDIT_HINT_OF_COLUMN.put(
             ColumnXmpDcCreator.INSTANCE, notRepeatableHintSmall);
-        editHintsForColumn.put(
+        EDIT_HINT_OF_COLUMN.put(
             ColumnXmpPhotoshopCity.INSTANCE, notRepeatableHintSmall);
-        editHintsForColumn.put(
+        EDIT_HINT_OF_COLUMN.put(
             ColumnXmpPhotoshopState.INSTANCE, notRepeatableHintSmall);
-        editHintsForColumn.put(
+        EDIT_HINT_OF_COLUMN.put(
             ColumnXmpPhotoshopCountry.INSTANCE, notRepeatableHintSmall);
-        editHintsForColumn.put(
+        EDIT_HINT_OF_COLUMN.put(
             ColumnXmpDcRights.INSTANCE, notRepeatableHintSmall);
-        editHintsForColumn.put(
+        EDIT_HINT_OF_COLUMN.put(
             ColumnXmpPhotoshopCredit.INSTANCE, notRepeatableHintSmall);
-        editHintsForColumn.put(
+        EDIT_HINT_OF_COLUMN.put(
             ColumnXmpPhotoshopSource.INSTANCE, notRepeatableHintSmall);
-        editHintsForColumn.put(
+        EDIT_HINT_OF_COLUMN.put(
             ColumnXmpPhotoshopTransmissionReference.INSTANCE, notRepeatableHintSmall);
-        editHintsForColumn.put(
+        EDIT_HINT_OF_COLUMN.put(
             ColumnXmpPhotoshopInstructions.INSTANCE, notRepeatableHintSmall);
-        editHintsForColumn.put(
+        EDIT_HINT_OF_COLUMN.put(
             ColumnXmpPhotoshopCaptionwriter.INSTANCE, notRepeatableHintSmall);
     }
 
     public static Set<Column> getColumns() {
-        return editHintsForColumn.keySet();
+        return EDIT_HINT_OF_COLUMN.keySet();
     }
 
     public static EditHints getEditHints(Column column) {
-        return editHintsForColumn.get(column);
+        return EDIT_HINT_OF_COLUMN.get(column);
     }
 
     private EditColumns() {

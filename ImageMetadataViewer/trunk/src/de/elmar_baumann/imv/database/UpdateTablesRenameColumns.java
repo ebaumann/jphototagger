@@ -19,14 +19,15 @@ final class UpdateTablesRenameColumns {
 
     private final UpdateTablesMessages messages = UpdateTablesMessages.INSTANCE;
     private final ProgressDialog dialog = messages.getProgressDialog();
-    private final List<Pair<ColumnInfo, ColumnInfo>> renameColumns = new ArrayList<Pair<ColumnInfo, ColumnInfo>>();
-    private static final List<Pair<ColumnInfo, ColumnInfo>> columns = new ArrayList<Pair<ColumnInfo, ColumnInfo>>();
-    
+    private final List<Pair<ColumnInfo, ColumnInfo>> renameColumns =
+            new ArrayList<Pair<ColumnInfo, ColumnInfo>>();
+    private static final List<Pair<ColumnInfo, ColumnInfo>> COLUMNS =
+            new ArrayList<Pair<ColumnInfo, ColumnInfo>>();
 
     static {
-        columns.add(new Pair<ColumnInfo, ColumnInfo>(
-            new ColumnInfo("programs", "parameters", null, null),
-            new ColumnInfo(null, "parameters_before_filename", null, null)));
+        COLUMNS.add(new Pair<ColumnInfo, ColumnInfo>(
+                new ColumnInfo("programs", "parameters", null, null),
+                new ColumnInfo(null, "parameters_before_filename", null, null)));
     }
 
     void update(Connection connection) throws SQLException {
@@ -39,9 +40,10 @@ final class UpdateTablesRenameColumns {
     private void setColumns(Connection connection) throws SQLException {
         DatabaseMetadata dbMeta = DatabaseMetadata.INSTANCE;
         renameColumns.clear();
-        for (Pair<ColumnInfo, ColumnInfo> info : columns) {
+        for (Pair<ColumnInfo, ColumnInfo> info : COLUMNS) {
             if (dbMeta.existsColumn(
-                connection,info.getFirst().getTableName(), info.getFirst().getColumnName())) {
+                    connection, info.getFirst().getTableName(), info.getFirst().
+                    getColumnName())) {
                 renameColumns.add(info);
             }
         }
@@ -49,26 +51,30 @@ final class UpdateTablesRenameColumns {
 
     private void renameColumns(Connection connection) throws SQLException {
         dialog.setIndeterminate(true);
-        messages.message(Bundle.getString("UpdateTableRenameColumns.InformationMessage.update"));
+        messages.message(Bundle.getString(
+                "UpdateTableRenameColumns.InformationMessage.update"));
         for (Pair<ColumnInfo, ColumnInfo> info : renameColumns) {
             renameColumn(connection, info);
         }
         dialog.setIndeterminate(false);
     }
 
-    private void renameColumn(Connection connection, Pair<ColumnInfo, ColumnInfo> info) throws SQLException {
-        setMessage(info.getFirst().getTableName(), info.getFirst().getColumnName());
+    private void renameColumn(Connection connection,
+            Pair<ColumnInfo, ColumnInfo> info) throws SQLException {
+        setMessage(info.getFirst().getTableName(),
+                info.getFirst().getColumnName());
         Statement stmt = connection.createStatement();
         stmt.execute("ALTER TABLE " + // NOI18N
-            info.getFirst().getTableName() +
-            " ALTER COLUMN " + // NOI18N
-            info.getFirst().getColumnName() + // NOI18N
-            " RENAME TO " + // NOI18N
-            info.getSecond().getColumnName());
+                info.getFirst().getTableName() +
+                " ALTER COLUMN " + // NOI18N
+                info.getFirst().getColumnName() + // NOI18N
+                " RENAME TO " + // NOI18N
+                info.getSecond().getColumnName());
     }
 
     private void setMessage(String tableName, String columnName) {
-        messages.message(Bundle.getString("UpdateTableRenameColumns.InformationMessage.RenameColumn",
+        messages.message(Bundle.getString(
+                "UpdateTableRenameColumns.InformationMessage.RenameColumn",
                 tableName, columnName));
     }
 }

@@ -48,7 +48,7 @@ public final class IoUtil {
      */
     public static List<File> getImageFiles(List<File> files) {
         List<File> imageFiles = new ArrayList<File>();
-        RegexFileFilter filter = AppFileFilter.acceptedImageFileFormats;
+        RegexFileFilter filter = AppFileFilter.ACCEPTED_IMAGE_FILE_FORMATS;
         for (File file : files) {
             if (filter.accept(file)) {
                 imageFiles.add(file);

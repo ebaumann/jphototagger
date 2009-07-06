@@ -32,14 +32,14 @@ public final class ControllerLogfileDialog implements ActionListener,
     private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
     private final JButton buttonLogfileDialog =
             appPanel.getButtonLogfileDialog();
-    private static final String iconPath = AppIcons.getIconPath();
-    private static final ImageIcon iconOk = IconUtil.getImageIcon(iconPath +
-            "/icon_ok.png");
-    private static final ImageIcon iconError = IconUtil.getImageIcon(iconPath +
-            "/icon_error.png");
+    private static final String ICON_PATH = AppIcons.getIconPath();
+    private static final ImageIcon ICON_OK =
+            IconUtil.getImageIcon(ICON_PATH + "/icon_ok.png");
+    private static final ImageIcon ICON_ERROR =
+            IconUtil.getImageIcon(ICON_PATH + "/icon_error.png");
 
     public ControllerLogfileDialog() {
-        buttonLogfileDialog.setIcon(iconOk);
+        buttonLogfileDialog.setIcon(ICON_OK);
         listen();
     }
 
@@ -69,8 +69,8 @@ public final class ControllerLogfileDialog implements ActionListener,
 
     private void setError(boolean error) {
         buttonLogfileDialog.setIcon(error
-                                    ? iconError
-                                    : iconOk);
+                                    ? ICON_ERROR
+                                    : ICON_OK);
         buttonLogfileDialog.repaint();
         showErrorPopup();
     }

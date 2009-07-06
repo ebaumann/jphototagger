@@ -11,7 +11,7 @@ import de.elmar_baumann.imv.resource.Translation;
  */
 public abstract class ExifFormatter {
 
-    protected static final Translation translation = new Translation(
+    protected static final Translation TRANSLATION = new Translation(
             "ExifFieldValueTranslations"); // NOI18N
 
     /**

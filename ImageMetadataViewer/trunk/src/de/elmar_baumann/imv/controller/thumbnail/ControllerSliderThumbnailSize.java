@@ -28,9 +28,9 @@ public final class ControllerSliderThumbnailSize
     private final ThumbnailsPanel thumbnailsPanel =
             appPanel.getPanelThumbnails();
     private final JSlider slider = appPanel.getSliderThumbnailSize();
-    private static final int stepWidth = 10;
-    private static final int maxMaginficationPercent = 100;
-    private static final String keySliderValue =
+    private static final int STEP_WIDTH = 10;
+    private static final int MAX_MAGINFICATION_PERCENT = 100;
+    private static final String KEY_SLIDER_VALUE =
             ControllerSliderThumbnailSize.class.getName() + "." + "SliderValue";
     private int currentValue = 100;
     private int maxThumbnailWidth =
@@ -49,10 +49,10 @@ public final class ControllerSliderThumbnailSize
 
     private void initSlider() {
         readProperties();
-        slider.setMinimum(stepWidth);
-        slider.setMaximum(maxMaginficationPercent);
-        slider.setMajorTickSpacing(stepWidth);
-        slider.setMinorTickSpacing(stepWidth);
+        slider.setMinimum(STEP_WIDTH);
+        slider.setMaximum(MAX_MAGINFICATION_PERCENT);
+        slider.setMajorTickSpacing(STEP_WIDTH);
+        slider.setMinorTickSpacing(STEP_WIDTH);
         slider.setValue(currentValue);
         setThumbnailWidth();
     }
@@ -83,7 +83,7 @@ public final class ControllerSliderThumbnailSize
     private void handleSliderMoved() {
         int value = slider.getValue();
         synchronized (this) {
-            if (value % stepWidth == 0 && value != currentValue) {
+            if (value % STEP_WIDTH == 0 && value != currentValue) {
                 currentValue = value;
                 writeProperties();
                 setThumbnailWidth();
@@ -93,7 +93,7 @@ public final class ControllerSliderThumbnailSize
 
     private void readProperties() {
         Integer value = UserSettings.INSTANCE.getSettings().getInt(
-                keySliderValue);
+                KEY_SLIDER_VALUE);
         if (!value.equals(Integer.MIN_VALUE)) {
             currentValue = value;
         }
@@ -112,7 +112,7 @@ public final class ControllerSliderThumbnailSize
     }
 
     private void writeProperties() {
-        UserSettings.INSTANCE.getSettings().setInt(currentValue, keySliderValue);
+        UserSettings.INSTANCE.getSettings().setInt(currentValue, KEY_SLIDER_VALUE);
         UserSettings.INSTANCE.writeToFile();
     }
 }

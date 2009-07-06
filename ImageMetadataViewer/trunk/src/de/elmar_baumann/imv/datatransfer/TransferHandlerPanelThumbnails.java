@@ -21,7 +21,7 @@ import javax.swing.TransferHandler;
  * Handler for <strong>copying</strong> or <strong>moving</strong> a list of
  * thumbnails. The filenames of the thumbnails will be transferred as
  * <code>DataFlavor.stringFlavor</code>, each filename is separated by 
- * {@link #delimiter}.
+ * {@link #DELIMITER}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/24
@@ -31,13 +31,13 @@ public final class TransferHandlerPanelThumbnails extends TransferHandler {
     /**
      * Delimiter between the filenames in the transfered string.
      */
-    static final String delimiter = "\n";
-    private static final List<Content> contentIsAFilesystemDirectory =
+    static final String DELIMITER = "\n";
+    private static final List<Content> CONTENT_IS_A_FILESYSTEM_DIRECTORY =
             new ArrayList<Content>();
 
     static {
-        contentIsAFilesystemDirectory.add(Content.DIRECTORY);
-        contentIsAFilesystemDirectory.add(Content.FAVORITE);
+        CONTENT_IS_A_FILESYSTEM_DIRECTORY.add(Content.DIRECTORY);
+        CONTENT_IS_A_FILESYSTEM_DIRECTORY.add(Content.FAVORITE);
     }
 
     @Override
@@ -54,7 +54,7 @@ public final class TransferHandlerPanelThumbnails extends TransferHandler {
     protected Transferable createTransferable(JComponent c) {
         List<String> filenames = FileUtil.getAsFilenames(
                 ((ImageFileThumbnailsPanel) c).getSelectedFiles());
-        return TransferUtil.getStringListTransferable(filenames, delimiter);
+        return TransferUtil.getStringListTransferable(filenames, DELIMITER);
     }
 
     @Override
@@ -83,14 +83,14 @@ public final class TransferHandlerPanelThumbnails extends TransferHandler {
 
     private boolean canPanelAddImageFiles(
             ImageFileThumbnailsPanel thumbnailsPanel) {
-        return contentIsAFilesystemDirectory.contains(
+        return CONTENT_IS_A_FILESYSTEM_DIRECTORY.contains(
                 thumbnailsPanel.getContent());
     }
 
     private void copyOrMoveSelectedImages(TransferSupport transferSupport) {
         List<File> sourceFiles =
                 TransferUtil.getFiles(transferSupport.getTransferable(),
-                delimiter);
+                DELIMITER);
         File targetDirectory = null;
         if (isContent(Content.DIRECTORY)) {
             JTree treeDirectories =

@@ -24,17 +24,17 @@ import javax.swing.text.JTextComponent;
 public class ExpandCollapseComponentPanel extends JPanel implements
         FocusListener {
 
-    private static final String iconPathExpand =
+    private static final String ICON_PATH_EXPAND =
             "/de/elmar_baumann/imv/resource/icons/icon_edit_metadata_expand.png";
-    private static final String iconPathCollapse =
+    private static final String ICON_PATH_COLLAPSE =
             "/de/elmar_baumann/imv/resource/icons/icon_edit_metadata_collapse.png";
-    private static final ImageIcon iconExpand =
-            IconUtil.getImageIcon(iconPathExpand);
-    private static final ImageIcon iconCollapse = IconUtil.getImageIcon(
-            iconPathCollapse);
-    private static final String tooltipTextExpand = Bundle.getString(
+    private static final ImageIcon ICON_EXPAND =
+            IconUtil.getImageIcon(ICON_PATH_EXPAND);
+    private static final ImageIcon ICON_COLLAPSE = IconUtil.getImageIcon(
+            ICON_PATH_COLLAPSE);
+    private static final String TOOLTIP_TEXT_EXPAND = Bundle.getString(
             "ExpandCollapseComponentPanel.TooltipTextExpand");
-    private static final String tooltipTextCollapse = Bundle.getString(
+    private static final String TOOLTIP_TEXT_COLLAPSE = Bundle.getString(
             "ExpandCollapseComponentPanel.TooltipTextCollapse");
     private String keyPersistence = "";
     private final Component component;
@@ -83,11 +83,11 @@ public class ExpandCollapseComponentPanel extends JPanel implements
 
     private void decorateButton() {
         buttonExpandCollapse.setIcon(expanded
-                                     ? iconCollapse
-                                     : iconExpand);
+                                     ? ICON_COLLAPSE
+                                     : ICON_EXPAND);
         buttonExpandCollapse.setToolTipText(expanded
-                                            ? tooltipTextCollapse
-                                            : tooltipTextExpand);
+                                            ? TOOLTIP_TEXT_COLLAPSE
+                                            : TOOLTIP_TEXT_EXPAND);
     }
 
     private void setPersistenceKey() {

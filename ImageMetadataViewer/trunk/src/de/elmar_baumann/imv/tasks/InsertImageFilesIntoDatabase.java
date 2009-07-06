@@ -32,7 +32,7 @@ import java.util.List;
  */
 public final class InsertImageFilesIntoDatabase implements Runnable {
 
-    private static final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
+    private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
     private final List<ProgressListener> progressListeners =
             new ArrayList<ProgressListener>();
     private final int maxThumbnailLength = UserSettings.INSTANCE.

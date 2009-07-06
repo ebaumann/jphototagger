@@ -21,19 +21,18 @@ public final class ExifGpsAltitude {
 
         OBOVE_SEA_LEVEL, BELOW_SEA_LEVEL
     }
-    private static final Map<Integer, Ref> refOfInteger =
+    private static final Map<Integer, Ref> REF_OF_INTEGER =
             new HashMap<Integer, Ref>();
-    private static final Map<Ref, String> localizedStringOfRef =
+    private static final Map<Ref, String> LOCALIZED_STRING_OF_REF =
             new HashMap<Ref, String>();
 
-
     static {
-        refOfInteger.put(0, Ref.OBOVE_SEA_LEVEL);
-        refOfInteger.put(1, Ref.BELOW_SEA_LEVEL);
+        REF_OF_INTEGER.put(0, Ref.OBOVE_SEA_LEVEL);
+        REF_OF_INTEGER.put(1, Ref.BELOW_SEA_LEVEL);
 
-        localizedStringOfRef.put(Ref.OBOVE_SEA_LEVEL, Bundle.getString(
+        LOCALIZED_STRING_OF_REF.put(Ref.OBOVE_SEA_LEVEL, Bundle.getString(
                 "ExifGpsAltitudeRefOboveSeaLevel"));
-        localizedStringOfRef.put(Ref.BELOW_SEA_LEVEL, Bundle.getString(
+        LOCALIZED_STRING_OF_REF.put(Ref.BELOW_SEA_LEVEL, Bundle.getString(
                 "ExifGpsAltitudeRefBelowSeaLevel"));
     }
     private Ref ref;
@@ -82,13 +81,13 @@ public final class ExifGpsAltitude {
 
     private static Ref getRef(byte[] rawValue) {
         int i = new Byte(rawValue[0]).intValue();
-        return refOfInteger.get(i);
+        return REF_OF_INTEGER.get(i);
     }
 
     public String localizedString() {
         MessageFormat msg = new MessageFormat("{0} m {1}"); // NOI18N
         return msg.format(new Object[]{ExifDatatypeUtil.toLong(value),
-                    localizedStringOfRef.get(ref)});
+                    LOCALIZED_STRING_OF_REF.get(ref)});
     }
 
     public Ref getRef() {

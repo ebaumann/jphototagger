@@ -22,8 +22,8 @@ import javax.swing.table.TableCellRenderer;
 public final class TableCellRendererExif extends FormatterLabelMetadata
         implements TableCellRenderer {
 
-    private static final Translation translation = new Translation(
-            "ExifTagIdTagNameTranslations"); // NOI18N
+    private static final Translation TRANSLATION =
+            new Translation("ExifTagIdTagNameTranslations"); // NOI18N
 
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value,
@@ -45,7 +45,7 @@ public final class TableCellRendererExif extends FormatterLabelMetadata
             setIsStoredInDatabaseColor(cellLabel, ifdEntry);
 
             if (column == 0) {
-                String translated = translation.translate(
+                String translated = TRANSLATION.translate(
                         Integer.toString(ifdEntry.getTag()),
                         ifdEntry.getName());
                 TableUtil.embedTableCellTextInHtml(table, row, cellLabel,

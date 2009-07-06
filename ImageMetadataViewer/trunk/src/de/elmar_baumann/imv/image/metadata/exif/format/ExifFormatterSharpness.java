@@ -16,14 +16,14 @@ public final class ExifFormatterSharpness extends ExifFormatter {
 
     public static final ExifFormatterSharpness INSTANCE =
             new ExifFormatterSharpness();
-    private static final Map<Integer, String> exifKeyOfSharpness =
+    private static final Map<Integer, String> EXIF_KEY_OF_SHARPNESS =
             new HashMap<Integer, String>();
 
 
     static {
-        exifKeyOfSharpness.put(0, "SharpnessNormal"); // NOI18N
-        exifKeyOfSharpness.put(1, "SharpnessSoft"); // NOI18N
-        exifKeyOfSharpness.put(2, "SharpnessHard"); // NOI18N
+        EXIF_KEY_OF_SHARPNESS.put(0, "SharpnessNormal"); // NOI18N
+        EXIF_KEY_OF_SHARPNESS.put(1, "SharpnessSoft"); // NOI18N
+        EXIF_KEY_OF_SHARPNESS.put(2, "SharpnessHard"); // NOI18N
     }
 
     private ExifFormatterSharpness() {
@@ -37,8 +37,8 @@ public final class ExifFormatterSharpness extends ExifFormatter {
             ExifShort es = new ExifShort(entry.getRawValue(),
                     entry.getByteOrder());
             int value = es.getValue();
-            if (exifKeyOfSharpness.containsKey(value)) {
-                return translation.translate(exifKeyOfSharpness.get(value));
+            if (EXIF_KEY_OF_SHARPNESS.containsKey(value)) {
+                return TRANSLATION.translate(EXIF_KEY_OF_SHARPNESS.get(value));
             }
         }
         return "?";

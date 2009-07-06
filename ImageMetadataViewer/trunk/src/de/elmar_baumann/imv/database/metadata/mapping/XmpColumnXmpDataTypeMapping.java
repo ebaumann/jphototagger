@@ -33,52 +33,52 @@ import java.util.Map;
  */
 public final class XmpColumnXmpDataTypeMapping {
 
-    private static final Map<Column, XmpValueType> xmpValueTypeOfColumn =
+    private static final Map<Column, XmpValueType> XMP_VALUE_TYPE_OF_COLUMN =
             new HashMap<Column, XmpValueType>();
-
 
     static {
         // Not copied into other XMP from
         // data de.elmar_baumann.imv.image.metadata.xmp.XmpMetadata when
         // XmpValueType.SEQ_PROPER_NAME
-        //xmpValueTypeOfColumn.put(ColumnXmpDcCreator.INSTANCE, XmpValueType.SEQ_PROPER_NAME);
-        xmpValueTypeOfColumn.put(ColumnXmpDcCreator.INSTANCE, XmpValueType.TEXT);
-        xmpValueTypeOfColumn.put(ColumnXmpDcDescription.INSTANCE,
+        //XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpDcCreator.INSTANCE, XmpValueType.SEQ_PROPER_NAME);
+        XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpDcCreator.INSTANCE,
+                XmpValueType.TEXT);
+        XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpDcDescription.INSTANCE,
                 XmpValueType.LANG_ALT);
-        xmpValueTypeOfColumn.put(ColumnXmpDcRights.INSTANCE,
+        XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpDcRights.INSTANCE,
                 XmpValueType.LANG_ALT);
-        xmpValueTypeOfColumn.put(ColumnXmpDcSubjectsSubject.INSTANCE,
+        XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpDcSubjectsSubject.INSTANCE,
                 XmpValueType.BAG_TEXT);
-        xmpValueTypeOfColumn.put(ColumnXmpDcTitle.INSTANCE,
+        XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpDcTitle.INSTANCE,
                 XmpValueType.LANG_ALT);
-        xmpValueTypeOfColumn.put(ColumnXmpIptc4xmpcoreLocation.INSTANCE,
+        XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpIptc4xmpcoreLocation.INSTANCE,
                 XmpValueType.TEXT);
-        xmpValueTypeOfColumn.put(ColumnXmpIptc4xmpcoreCountrycode.INSTANCE,
+        XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpIptc4xmpcoreCountrycode.INSTANCE,
                 XmpValueType.TEXT);
-        xmpValueTypeOfColumn.put(ColumnXmpPhotoshopAuthorsposition.INSTANCE,
+        XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpPhotoshopAuthorsposition.INSTANCE,
                 XmpValueType.TEXT);
-        xmpValueTypeOfColumn.put(ColumnXmpPhotoshopCaptionwriter.INSTANCE,
+        XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpPhotoshopCaptionwriter.INSTANCE,
                 XmpValueType.PROPER_NAME);
-        xmpValueTypeOfColumn.put(ColumnXmpPhotoshopCategory.INSTANCE,
+        XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpPhotoshopCategory.INSTANCE,
                 XmpValueType.TEXT);
-        xmpValueTypeOfColumn.put(ColumnXmpPhotoshopCity.INSTANCE,
+        XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpPhotoshopCity.INSTANCE,
                 XmpValueType.TEXT);
-        xmpValueTypeOfColumn.put(ColumnXmpPhotoshopCountry.INSTANCE,
+        XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpPhotoshopCountry.INSTANCE,
                 XmpValueType.TEXT);
-        xmpValueTypeOfColumn.put(ColumnXmpPhotoshopCredit.INSTANCE,
+        XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpPhotoshopCredit.INSTANCE,
                 XmpValueType.TEXT);
-        xmpValueTypeOfColumn.put(ColumnXmpPhotoshopHeadline.INSTANCE,
+        XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpPhotoshopHeadline.INSTANCE,
                 XmpValueType.TEXT);
-        xmpValueTypeOfColumn.put(ColumnXmpPhotoshopInstructions.INSTANCE,
+        XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpPhotoshopInstructions.INSTANCE,
                 XmpValueType.TEXT);
-        xmpValueTypeOfColumn.put(ColumnXmpPhotoshopSource.INSTANCE,
+        XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpPhotoshopSource.INSTANCE,
                 XmpValueType.TEXT);
-        xmpValueTypeOfColumn.put(ColumnXmpPhotoshopState.INSTANCE,
+        XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpPhotoshopState.INSTANCE,
                 XmpValueType.TEXT);
-        xmpValueTypeOfColumn.put(
+        XMP_VALUE_TYPE_OF_COLUMN.put(
                 ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory.INSTANCE,
                 XmpValueType.BAG_TEXT);
-        xmpValueTypeOfColumn.put(
+        XMP_VALUE_TYPE_OF_COLUMN.put(
                 ColumnXmpPhotoshopTransmissionReference.INSTANCE,
                 XmpValueType.TEXT);
     }
@@ -123,7 +123,7 @@ public final class XmpColumnXmpDataTypeMapping {
      * @return Typ oder null bei ungültiger Spalte
      */
     public static XmpValueType getXmpValueTypeOfColumn(Column column) {
-        return xmpValueTypeOfColumn.get(column);
+        return XMP_VALUE_TYPE_OF_COLUMN.get(column);
     }
 
     /**
@@ -133,7 +133,7 @@ public final class XmpColumnXmpDataTypeMapping {
      * @return true, wenn der Wert in einem Array zu speichern ist
      */
     public static boolean isArray(Column column) {
-        XmpValueType valueType = xmpValueTypeOfColumn.get(column);
+        XmpValueType valueType = XMP_VALUE_TYPE_OF_COLUMN.get(column);
         if (valueType != null) {
             return valueType.equals(XmpValueType.BAG_TEXT) ||
                     valueType.equals(XmpValueType.LANG_ALT) ||
@@ -163,7 +163,7 @@ public final class XmpColumnXmpDataTypeMapping {
      * @return true, wenn der Spaltenwert ein einfacher String ist
      */
     public static boolean isText(Column column) {
-        XmpValueType valueType = xmpValueTypeOfColumn.get(column);
+        XmpValueType valueType = XMP_VALUE_TYPE_OF_COLUMN.get(column);
         if (valueType != null) {
             return valueType.equals(XmpValueType.TEXT) ||
                     valueType.equals(XmpValueType.PROPER_NAME);

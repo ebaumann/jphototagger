@@ -36,50 +36,77 @@ import java.util.Set;
  */
 public final class IptcXmpMapping {
 
-    private static final Map<IPTCEntryMeta, Column> xmpColumnOfIptcEntryMeta = new HashMap<IPTCEntryMeta, Column>();
-    private static final Map<Column, IPTCEntryMeta> iptcEntryMetaOfXmpColumn = new HashMap<Column, IPTCEntryMeta>();
-    
+    private static final Map<IPTCEntryMeta, Column> XMP_COLUMN_OF_IPTC_ENTRY_META =
+            new HashMap<IPTCEntryMeta, Column>();
+    private static final Map<Column, IPTCEntryMeta> IPTC_ENTRY_META_OF_XMP_COLUMN =
+            new HashMap<Column, IPTCEntryMeta>();
 
     static {
-        xmpColumnOfIptcEntryMeta.put(IPTCEntryMeta.COPYRIGHT_NOTICE, ColumnXmpDcRights.INSTANCE);
-        xmpColumnOfIptcEntryMeta.put(IPTCEntryMeta.CAPTION_ABSTRACT, ColumnXmpDcDescription.INSTANCE);
-        xmpColumnOfIptcEntryMeta.put(IPTCEntryMeta.OBJECT_NAME, ColumnXmpDcTitle.INSTANCE);
-        xmpColumnOfIptcEntryMeta.put(IPTCEntryMeta.HEADLINE, ColumnXmpPhotoshopHeadline.INSTANCE);
-        xmpColumnOfIptcEntryMeta.put(IPTCEntryMeta.CATEGORY, ColumnXmpPhotoshopCategory.INSTANCE);
-        xmpColumnOfIptcEntryMeta.put(IPTCEntryMeta.CITY, ColumnXmpPhotoshopCity.INSTANCE);
-        xmpColumnOfIptcEntryMeta.put(IPTCEntryMeta.PROVINCE_STATE, ColumnXmpPhotoshopState.INSTANCE);
-        xmpColumnOfIptcEntryMeta.put(IPTCEntryMeta.COUNTRY_PRIMARY_LOCATION_NAME, ColumnXmpPhotoshopCountry.INSTANCE);
-        xmpColumnOfIptcEntryMeta.put(IPTCEntryMeta.ORIGINAL_TRANSMISSION_REFERENCE, ColumnXmpPhotoshopTransmissionReference.INSTANCE);
-        xmpColumnOfIptcEntryMeta.put(IPTCEntryMeta.SPECIAL_INSTRUCTIONS, ColumnXmpPhotoshopInstructions.INSTANCE);
-        xmpColumnOfIptcEntryMeta.put(IPTCEntryMeta.CREDIT, ColumnXmpPhotoshopCredit.INSTANCE);
-        xmpColumnOfIptcEntryMeta.put(IPTCEntryMeta.SOURCE, ColumnXmpPhotoshopSource.INSTANCE);
-        xmpColumnOfIptcEntryMeta.put(IPTCEntryMeta.KEYWORDS, ColumnXmpDcSubjectsSubject.INSTANCE);
-        xmpColumnOfIptcEntryMeta.put(IPTCEntryMeta.BYLINE, ColumnXmpDcCreator.INSTANCE);
-        xmpColumnOfIptcEntryMeta.put(IPTCEntryMeta.CONTENT_LOCATION_NAME, ColumnXmpIptc4xmpcoreLocation.INSTANCE);
-        xmpColumnOfIptcEntryMeta.put(IPTCEntryMeta.CONTENT_LOCATION_CODE, ColumnXmpIptc4xmpcoreCountrycode.INSTANCE);
-        xmpColumnOfIptcEntryMeta.put(IPTCEntryMeta.WRITER_EDITOR, ColumnXmpPhotoshopCaptionwriter.INSTANCE);
-        xmpColumnOfIptcEntryMeta.put(IPTCEntryMeta.SUPPLEMENTAL_CATEGORY, ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory.INSTANCE);
-        xmpColumnOfIptcEntryMeta.put(IPTCEntryMeta.BYLINE_TITLE, ColumnXmpPhotoshopAuthorsposition.INSTANCE);
+        XMP_COLUMN_OF_IPTC_ENTRY_META.put(IPTCEntryMeta.COPYRIGHT_NOTICE,
+                ColumnXmpDcRights.INSTANCE);
+        XMP_COLUMN_OF_IPTC_ENTRY_META.put(IPTCEntryMeta.CAPTION_ABSTRACT,
+                ColumnXmpDcDescription.INSTANCE);
+        XMP_COLUMN_OF_IPTC_ENTRY_META.put(IPTCEntryMeta.OBJECT_NAME,
+                ColumnXmpDcTitle.INSTANCE);
+        XMP_COLUMN_OF_IPTC_ENTRY_META.put(IPTCEntryMeta.HEADLINE,
+                ColumnXmpPhotoshopHeadline.INSTANCE);
+        XMP_COLUMN_OF_IPTC_ENTRY_META.put(IPTCEntryMeta.CATEGORY,
+                ColumnXmpPhotoshopCategory.INSTANCE);
+        XMP_COLUMN_OF_IPTC_ENTRY_META.put(IPTCEntryMeta.CITY,
+                ColumnXmpPhotoshopCity.INSTANCE);
+        XMP_COLUMN_OF_IPTC_ENTRY_META.put(IPTCEntryMeta.PROVINCE_STATE,
+                ColumnXmpPhotoshopState.INSTANCE);
+        XMP_COLUMN_OF_IPTC_ENTRY_META.put(
+                IPTCEntryMeta.COUNTRY_PRIMARY_LOCATION_NAME,
+                ColumnXmpPhotoshopCountry.INSTANCE);
+        XMP_COLUMN_OF_IPTC_ENTRY_META.put(
+                IPTCEntryMeta.ORIGINAL_TRANSMISSION_REFERENCE,
+                ColumnXmpPhotoshopTransmissionReference.INSTANCE);
+        XMP_COLUMN_OF_IPTC_ENTRY_META.put(IPTCEntryMeta.SPECIAL_INSTRUCTIONS,
+                ColumnXmpPhotoshopInstructions.INSTANCE);
+        XMP_COLUMN_OF_IPTC_ENTRY_META.put(IPTCEntryMeta.CREDIT,
+                ColumnXmpPhotoshopCredit.INSTANCE);
+        XMP_COLUMN_OF_IPTC_ENTRY_META.put(IPTCEntryMeta.SOURCE,
+                ColumnXmpPhotoshopSource.INSTANCE);
+        XMP_COLUMN_OF_IPTC_ENTRY_META.put(IPTCEntryMeta.KEYWORDS,
+                ColumnXmpDcSubjectsSubject.INSTANCE);
+        XMP_COLUMN_OF_IPTC_ENTRY_META.put(IPTCEntryMeta.BYLINE,
+                ColumnXmpDcCreator.INSTANCE);
+        XMP_COLUMN_OF_IPTC_ENTRY_META.put(IPTCEntryMeta.CONTENT_LOCATION_NAME,
+                ColumnXmpIptc4xmpcoreLocation.INSTANCE);
+        XMP_COLUMN_OF_IPTC_ENTRY_META.put(IPTCEntryMeta.CONTENT_LOCATION_CODE,
+                ColumnXmpIptc4xmpcoreCountrycode.INSTANCE);
+        XMP_COLUMN_OF_IPTC_ENTRY_META.put(IPTCEntryMeta.WRITER_EDITOR,
+                ColumnXmpPhotoshopCaptionwriter.INSTANCE);
+        XMP_COLUMN_OF_IPTC_ENTRY_META.put(IPTCEntryMeta.SUPPLEMENTAL_CATEGORY,
+                ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory.INSTANCE);
+        XMP_COLUMN_OF_IPTC_ENTRY_META.put(IPTCEntryMeta.BYLINE_TITLE,
+                ColumnXmpPhotoshopAuthorsposition.INSTANCE);
 
-        for (IPTCEntryMeta iptcEntryMeta : xmpColumnOfIptcEntryMeta.keySet()) {
-            iptcEntryMetaOfXmpColumn.put(xmpColumnOfIptcEntryMeta.get(iptcEntryMeta), iptcEntryMeta);
+        for (IPTCEntryMeta iptcEntryMeta :
+                XMP_COLUMN_OF_IPTC_ENTRY_META.keySet()) {
+            IPTC_ENTRY_META_OF_XMP_COLUMN.put(XMP_COLUMN_OF_IPTC_ENTRY_META.get(
+                    iptcEntryMeta), iptcEntryMeta);
         }
     }
 
     public static Column getXmpColumnOfIptcEntryMeta(IPTCEntryMeta iptcEntryMeta) {
-        return xmpColumnOfIptcEntryMeta.get(iptcEntryMeta);
+        return XMP_COLUMN_OF_IPTC_ENTRY_META.get(iptcEntryMeta);
     }
 
     public static IPTCEntryMeta getIptcEntryMetaOfXmpColumn(Column xmpColumn) {
-        return iptcEntryMetaOfXmpColumn.get(xmpColumn);
+        return IPTC_ENTRY_META_OF_XMP_COLUMN.get(xmpColumn);
     }
 
     public static List<Pair<IPTCEntryMeta, Column>> getAllPairs() {
-        List<Pair<IPTCEntryMeta, Column>> pairs = new ArrayList<Pair<IPTCEntryMeta, Column>>();
-        Set<IPTCEntryMeta> iptcEntryMetas = xmpColumnOfIptcEntryMeta.keySet();
+        List<Pair<IPTCEntryMeta, Column>> pairs =
+                new ArrayList<Pair<IPTCEntryMeta, Column>>();
+        Set<IPTCEntryMeta> iptcEntryMetas =
+                XMP_COLUMN_OF_IPTC_ENTRY_META.keySet();
         for (IPTCEntryMeta iptcEntryMeta : iptcEntryMetas) {
             pairs.add(new Pair<IPTCEntryMeta, Column>(
-                iptcEntryMeta, xmpColumnOfIptcEntryMeta.get(iptcEntryMeta)));
+                    iptcEntryMeta, XMP_COLUMN_OF_IPTC_ENTRY_META.get(
+                    iptcEntryMeta)));
         }
         return pairs;
     }

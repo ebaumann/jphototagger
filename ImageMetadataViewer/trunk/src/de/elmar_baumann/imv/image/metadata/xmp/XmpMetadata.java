@@ -41,21 +41,21 @@ import java.util.List;
  */
 public final class XmpMetadata {
 
-    private static final List<String> knownNamespaces = new ArrayList<String>();
+    private static final List<String> KNOWN_NAMESPACES = new ArrayList<String>();
     private static final String XMP_TOKEN_DELIMITER = "\\"; // NOI18N;
 
 
     static {
-        knownNamespaces.add("Iptc4xmpCore"); // NOI18N
-        knownNamespaces.add("aux"); // NOI18N
-        knownNamespaces.add("crs"); // NOI18N
-        knownNamespaces.add("dc"); // NOI18N
-        knownNamespaces.add("exif"); // NOI18N
-        knownNamespaces.add("lr"); // NOI18N
-        knownNamespaces.add("photoshop"); // NOI18N
-        knownNamespaces.add("tiff"); // NOI18N
-        knownNamespaces.add("xap"); // NOI18N
-        knownNamespaces.add("xapRights"); // NOI18N
+        KNOWN_NAMESPACES.add("Iptc4xmpCore"); // NOI18N
+        KNOWN_NAMESPACES.add("aux"); // NOI18N
+        KNOWN_NAMESPACES.add("crs"); // NOI18N
+        KNOWN_NAMESPACES.add("dc"); // NOI18N
+        KNOWN_NAMESPACES.add("exif"); // NOI18N
+        KNOWN_NAMESPACES.add("lr"); // NOI18N
+        KNOWN_NAMESPACES.add("photoshop"); // NOI18N
+        KNOWN_NAMESPACES.add("tiff"); // NOI18N
+        KNOWN_NAMESPACES.add("xap"); // NOI18N
+        KNOWN_NAMESPACES.add("xapRights"); // NOI18N
     }
 
     /**
@@ -261,7 +261,7 @@ public final class XmpMetadata {
      * @return       true if that string is a known namespace
      */
     public static boolean isKnownNamespace(String string) {
-        return knownNamespaces.contains(string);
+        return KNOWN_NAMESPACES.contains(string);
     }
 
     /**

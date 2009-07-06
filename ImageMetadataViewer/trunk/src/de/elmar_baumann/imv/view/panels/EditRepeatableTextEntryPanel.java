@@ -27,8 +27,8 @@ import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 public final class EditRepeatableTextEntryPanel extends javax.swing.JPanel
         implements TextEntry, ActionListener {
 
-    private static final String delimiter = XmpMetadata.getXmpTokenDelimiter();
-    private static final String delimiterReplacement = "?";
+    private static final String DELIMITER = XmpMetadata.getXmpTokenDelimiter();
+    private static final String DELIMITER_REPLACEMENT = "?";
     private final DefaultListModel model = new DefaultListModel();
     private Column column;
     private AutoCompleteData autoCompleteData;
@@ -66,12 +66,12 @@ public final class EditRepeatableTextEntryPanel extends javax.swing.JPanel
 
     @Override
     public String getText() {
-        return ListUtil.getTokenString(model, delimiter);
+        return ListUtil.getTokenString(model, DELIMITER);
     }
 
     @Override
     public void setText(String text) {
-        ListUtil.setToken(text, delimiter, model);
+        ListUtil.setToken(text, DELIMITER, model);
         textFieldInput.setText("");
         dirty = false;
         setEnabledButtons();
@@ -103,7 +103,7 @@ public final class EditRepeatableTextEntryPanel extends javax.swing.JPanel
 
     private String getInputWithoutDelimiter() {
         String input = textFieldInput.getText().trim();
-        return input.replace(delimiter, delimiterReplacement).trim();
+        return input.replace(DELIMITER, DELIMITER_REPLACEMENT).trim();
     }
 
     @Override

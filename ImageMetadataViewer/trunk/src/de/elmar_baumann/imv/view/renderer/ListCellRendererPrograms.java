@@ -19,30 +19,30 @@ import javax.swing.filechooser.FileSystemView;
  */
 public final class ListCellRendererPrograms extends DefaultListCellRenderer {
 
-    private static final FileSystemView fileSystemView = FileSystemView.
-            getFileSystemView();
-    private static final Icon iconError = AppIcons.getIcon("icon_error.png"); // NOI18N
+    private static final FileSystemView FILE_SYSTEM_VIEW =
+            FileSystemView.getFileSystemView();
+    private static final Icon ICON_ERROR = AppIcons.getIcon("icon_error.png"); // NOI18N
 
     @Override
     public Component getListCellRendererComponent(JList list, Object value,
             int index, boolean isSelected, boolean cellHasFocus) {
-        JLabel label = (JLabel) super.getListCellRendererComponent(list, value,
-                index, isSelected, cellHasFocus);
+        JLabel label = (JLabel) super.getListCellRendererComponent(
+                list, value, index, isSelected, cellHasFocus);
         Program program = (Program) value;
         label.setText(program.getAlias());
         File file = program.getFile();
         if (file.exists()) {
             if (file.exists()) {
-                synchronized (fileSystemView) {
+                synchronized (FILE_SYSTEM_VIEW) {
                     try {
-                        setIcon(fileSystemView.getSystemIcon(file));
+                        setIcon(FILE_SYSTEM_VIEW.getSystemIcon(file));
                     } catch (Exception ex) {
                         AppLog.logWarning(ListCellRendererPrograms.class, ex);
                     }
                 }
             }
         } else {
-            label.setIcon(iconError);
+            label.setIcon(ICON_ERROR);
         }
         return label;
     }

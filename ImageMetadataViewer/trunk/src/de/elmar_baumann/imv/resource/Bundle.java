@@ -13,7 +13,7 @@ import java.util.ResourceBundle;
  */
 public final class Bundle {
 
-    private static final ResourceBundle bundle =
+    private static final ResourceBundle BUNDLE =
         ResourceBundle.getBundle("de/elmar_baumann/imv/resource/properties/Bundle");
 
     /**
@@ -27,7 +27,7 @@ public final class Bundle {
      */
     public static String getString(String key) {
         try {
-            return bundle.getString(key);
+            return BUNDLE.getString(key);
         } catch (MissingResourceException ex) {
             AppLog.logWarning(Bundle.class, ex);
         } catch (NullPointerException ex) {
@@ -50,7 +50,7 @@ public final class Bundle {
      */
     public static String getString(String key, Object... params) {
         try {
-            MessageFormat msg = new MessageFormat(bundle.getString(key));
+            MessageFormat msg = new MessageFormat(BUNDLE.getString(key));
             return msg.format(params);
         } catch (NullPointerException ex) {
             throw ex;

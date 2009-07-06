@@ -14,19 +14,18 @@ import java.util.Map;
  */
 public final class ExifThumbnailUtil {
 
-    private static final Map<String, Double> rotationAngleOfString =
+    private static final Map<String, Double> ROTATION_ANGLE_OF_STRING =
             new HashMap<String, Double>();
 
-
     static {
-        rotationAngleOfString.put("(0, 0) is top-left", new Double(0)); // 1 // NOI18N
-        rotationAngleOfString.put("(0, 0) is top-right", new Double(0)); // 2 // NOI18N
-        rotationAngleOfString.put("0, 0) is bottom-right", new Double(180)); // 3 // NOI18N
-        rotationAngleOfString.put("(0, 0) is bottom-left", new Double(180)); // 4 // NOI18N
-        rotationAngleOfString.put("(0, 0) is left-top", new Double(90)); // 5 // NOI18N
-        rotationAngleOfString.put("(0, 0) is right-top", new Double(90)); // 6 // NOI18N
-        rotationAngleOfString.put("(0, 0) is right-bottom", new Double(270)); // 7 // NOI18N
-        rotationAngleOfString.put("(0, 0) is left-bottom", new Double(270)); // 8 // NOI18N
+        ROTATION_ANGLE_OF_STRING.put("(0, 0) is top-left", new Double(0)); // 1 // NOI18N
+        ROTATION_ANGLE_OF_STRING.put("(0, 0) is top-right", new Double(0)); // 2 // NOI18N
+        ROTATION_ANGLE_OF_STRING.put("0, 0) is bottom-right", new Double(180)); // 3 // NOI18N
+        ROTATION_ANGLE_OF_STRING.put("(0, 0) is bottom-left", new Double(180)); // 4 // NOI18N
+        ROTATION_ANGLE_OF_STRING.put("(0, 0) is left-top", new Double(90)); // 5 // NOI18N
+        ROTATION_ANGLE_OF_STRING.put("(0, 0) is right-top", new Double(90)); // 6 // NOI18N
+        ROTATION_ANGLE_OF_STRING.put("(0, 0) is right-bottom", new Double(270)); // 7 // NOI18N
+        ROTATION_ANGLE_OF_STRING.put("(0, 0) is left-bottom", new Double(270)); // 8 // NOI18N
     }
 
     /**
@@ -38,7 +37,7 @@ public final class ExifThumbnailUtil {
     public static double getThumbnailRotationAngle(List<IdfEntryProxy> entries) {
         IdfEntryProxy entry = ExifMetadata.findEntryWithTag(entries, 274);
         if (entry != null) {
-            Double angle = rotationAngleOfString.get(entry.toString());
+            Double angle = ROTATION_ANGLE_OF_STRING.get(entry.toString());
             if (angle == null) {
                 return 0;
             }

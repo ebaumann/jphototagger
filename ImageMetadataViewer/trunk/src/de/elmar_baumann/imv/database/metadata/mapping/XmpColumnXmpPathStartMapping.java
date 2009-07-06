@@ -18,8 +18,8 @@ import java.util.Map;
  */
 public final class XmpColumnXmpPathStartMapping {
 
-    private static final Map<Column, String> xmpPathStartOfColumn = new HashMap<Column, String>();
-    
+    private static final Map<Column, String> XMP_PATH_START_OF_COLUMN =
+            new HashMap<Column, String>();
 
     static {
         List<Pair<IPTCEntryMeta, Column>> pairs = IptcXmpMapping.getAllPairs();
@@ -27,8 +27,9 @@ public final class XmpColumnXmpPathStartMapping {
             IPTCEntryMeta iptcEntryMeta = pair.getFirst();
             Column xmpColumn = pair.getSecond();
             String xmpPathStart =
-                IptcEntryXmpPathStartMapping.getXmpPathStartOfIptcEntryMeta(iptcEntryMeta);
-            xmpPathStartOfColumn.put(xmpColumn, xmpPathStart);
+                    IptcEntryXmpPathStartMapping.getXmpPathStartOfIptcEntryMeta(
+                    iptcEntryMeta);
+            XMP_PATH_START_OF_COLUMN.put(xmpColumn, xmpPathStart);
         }
     }
 
@@ -39,7 +40,7 @@ public final class XmpColumnXmpPathStartMapping {
      * @return Pfadstart oder null bei unzugeordneter Spalte
      */
     public static String getXmpPathStartOfColumn(Column column) {
-        return xmpPathStartOfColumn.get(column);
+        return XMP_PATH_START_OF_COLUMN.get(column);
     }
 
     private XmpColumnXmpPathStartMapping() {

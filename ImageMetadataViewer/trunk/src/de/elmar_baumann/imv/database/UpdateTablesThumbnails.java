@@ -22,8 +22,10 @@ import javax.swing.ImageIcon;
  */
 final class UpdateTablesThumbnails extends Database {
 
-    private static final UpdateTablesMessages messages = UpdateTablesMessages.INSTANCE;
-    private static final ProgressDialog dialog = messages.getProgressDialog();
+    private static final UpdateTablesMessages UPDATE_TABLES_MESSAGES =
+            UpdateTablesMessages.INSTANCE;
+    private static final ProgressDialog PROGRESS_DIALOG =
+            UPDATE_TABLES_MESSAGES.getProgressDialog();
     private static final int FETCH_MAX_ROWS = 1000;
 
     static void update(Connection connection) throws SQLException {
@@ -38,7 +40,8 @@ final class UpdateTablesThumbnails extends Database {
         }
     }
 
-    private static int updateRows(Connection connection, int current, int count) throws SQLException {
+    private static int updateRows(Connection connection, int current, int count)
+            throws SQLException {
         String sql = "SELECT TOP " + FETCH_MAX_ROWS + " " + // NOI18N
                 "id, thumbnail FROM files WHERE thumbnail IS NOT NULL"; // NOI18N
         Statement stmt = connection.createStatement();
@@ -49,14 +52,16 @@ final class UpdateTablesThumbnails extends Database {
             setThumbnailNull(connection, id);
             setMessage(id, current, count);
             writeThumbnail(inputStream, id);
-            dialog.setValue(current++);
+            PROGRESS_DIALOG.setValue(current++);
         }
         clean(stmt, rs);
         return current;
     }
 
-    private static void setThumbnailNull(Connection connection, long id) throws SQLException {
-        PreparedStatement stmt = connection.prepareStatement("UPDATE files SET thumbnail = NULL WHERE id = ?");
+    private static void setThumbnailNull(Connection connection, long id) throws
+            SQLException {
+        PreparedStatement stmt = connection.prepareStatement(
+                "UPDATE files SET thumbnail = NULL WHERE id = ?");
         stmt.setLong(1, id);
         AppLog.logFiner(UpdateTablesThumbnails.class, stmt.toString());
         stmt.executeUpdate();
@@ -97,21 +102,23 @@ final class UpdateTablesThumbnails extends Database {
     }
 
     private static void compress() {
-        messages.message(Bundle.getString("UpdateTablesThumbnails.Information.CompressDatabase"));
-        dialog.setIndeterminate(true);
+        UPDATE_TABLES_MESSAGES.message(Bundle.getString(
+                "UpdateTablesThumbnails.Information.CompressDatabase"));
+        PROGRESS_DIALOG.setIndeterminate(true);
         DatabaseMaintainance.INSTANCE.compressDatabase();
-        dialog.setIndeterminate(false);
+        PROGRESS_DIALOG.setIndeterminate(false);
     }
 
     private static void initDialog(long count) {
-        dialog.setIndeterminate(false);
-        dialog.setMinimum(0);
-        dialog.setMaximum((int) count);
-        dialog.setValue(0);
+        PROGRESS_DIALOG.setIndeterminate(false);
+        PROGRESS_DIALOG.setMinimum(0);
+        PROGRESS_DIALOG.setMaximum((int) count);
+        PROGRESS_DIALOG.setValue(0);
     }
 
     private static void setMessage(long id, long current, long count) {
-        messages.message(Bundle.getString("UpdateTablesThumbnails.Information.WriteCurrentThumbnail",
+        UPDATE_TABLES_MESSAGES.message(Bundle.getString(
+                "UpdateTablesThumbnails.Information.WriteCurrentThumbnail",
                 id, current, count));
     }
 }

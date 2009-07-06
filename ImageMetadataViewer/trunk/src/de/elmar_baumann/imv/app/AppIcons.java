@@ -17,33 +17,31 @@ public final class AppIcons {
     /**
      * Path where all icons stored
      */
-    private static final String iconPath =
+    private static final String PATH_ICONS =
             "/de/elmar_baumann/imv/resource/icons";
     /**
      * Path to the small application's icon (16 x 16 pixels)
      */
-    public static final String pathAppIconSmall =
-            iconPath + "/icon_app_small.png";  // NOI18N
+    public static final String PATH_APP_ICON_SMALL =
+            PATH_ICONS + "/icon_app_small.png";  // NOI18N
     /**
      * Path to the medium sized application's icon (32 x 32 pixels)
      */
-    public static final String pathAppIconMedium =
-            iconPath + "/icon_app_medium.png";  // NOI18N
+    public static final String PATH_APP_ICON_MEDIUM =
+            PATH_ICONS + "/icon_app_medium.png";  // NOI18N
     private static List<String> appIconPaths = new ArrayList<String>();
     private static List<Image> appIcons = new ArrayList<Image>();
-    private static final Icon mediumAppIcon = IconUtil.getImageIcon(
-            pathAppIconMedium);
-
+    private static final Icon APP_ICON_MEDIUM =
+            IconUtil.getImageIcon(PATH_APP_ICON_MEDIUM);
 
     static {
-        appIconPaths.add(pathAppIconSmall);
-        appIconPaths.add(pathAppIconMedium);
+        appIconPaths.add(PATH_APP_ICON_SMALL);
+        appIconPaths.add(PATH_APP_ICON_MEDIUM);
     }
 
-
     static {
-        appIcons.add(IconUtil.getIconImage(pathAppIconSmall));
-        appIcons.add(IconUtil.getIconImage(pathAppIconMedium));
+        appIcons.add(IconUtil.getIconImage(PATH_APP_ICON_SMALL));
+        appIcons.add(IconUtil.getIconImage(PATH_APP_ICON_MEDIUM));
     }
 
     /**
@@ -71,7 +69,7 @@ public final class AppIcons {
      * @return icon
      */
     public static Icon getIcon(String name) {
-        return IconUtil.getImageIcon(iconPath + "/" + name);
+        return IconUtil.getImageIcon(PATH_ICONS + "/" + name);
     }
 
     /**
@@ -80,7 +78,7 @@ public final class AppIcons {
      * @return path
      */
     public static String getIconPath() {
-        return iconPath;
+        return PATH_ICONS;
     }
 
     /**
@@ -89,7 +87,7 @@ public final class AppIcons {
      * @return medium sized application's icon
      */
     public static Icon getMediumAppIcon() {
-        return mediumAppIcon;
+        return APP_ICON_MEDIUM;
     }
 
     private AppIcons() {

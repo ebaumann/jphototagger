@@ -28,8 +28,8 @@ import javax.swing.tree.TreePath;
  */
 public final class TransferHandlerTreeDirectories extends TransferHandler {
 
-    static final String filenamesDelimiter =
-            TransferHandlerPanelThumbnails.delimiter;
+    static final String DELIMITER_FILENAMES =
+            TransferHandlerPanelThumbnails.DELIMITER;
 
     @Override
     public boolean canImport(TransferSupport transferSupport) {
@@ -58,7 +58,7 @@ public final class TransferHandlerTreeDirectories extends TransferHandler {
         File targetDirectory = getTargetDirectory(transferSupport);
         Transferable transferable = transferSupport.getTransferable();
         List<File> sourceFiles = IoUtil.getImageFiles(TransferUtil.getFiles(
-                transferable, filenamesDelimiter));
+                transferable, DELIMITER_FILENAMES));
         if (targetDirectory != null && !sourceFiles.isEmpty()) {
             handleDroppedFiles(
                     transferSupport.getUserDropAction(), sourceFiles,

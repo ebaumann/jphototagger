@@ -22,12 +22,12 @@ final class UpdateTablesDeleteInvalidExif {
 
     private final UpdateTablesMessages messages = UpdateTablesMessages.INSTANCE;
     private final ProgressDialog dialog = messages.getProgressDialog();
-    private static final Set<Column> columnsNotPositive = new HashSet<Column>();
+    private static final Set<Column> COLUMNS_NOT_POSITIVE = new HashSet<Column>();
 
 
     static {
-        columnsNotPositive.add(ColumnExifFocalLength.INSTANCE);
-        columnsNotPositive.add(ColumnExifIsoSpeedRatings.INSTANCE);
+        COLUMNS_NOT_POSITIVE.add(ColumnExifFocalLength.INSTANCE);
+        COLUMNS_NOT_POSITIVE.add(ColumnExifIsoSpeedRatings.INSTANCE);
     }
 
     void update(Connection connection) throws SQLException {
@@ -39,7 +39,7 @@ final class UpdateTablesDeleteInvalidExif {
     }
 
     private void setNull(Connection connection) throws SQLException {
-        for (Column column : columnsNotPositive) {
+        for (Column column : COLUMNS_NOT_POSITIVE) {
             setNullIfNotPositiv(connection, column);
         }
         checkRecordingEquipment(connection);

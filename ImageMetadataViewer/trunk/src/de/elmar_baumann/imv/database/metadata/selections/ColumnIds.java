@@ -43,45 +43,47 @@ import java.util.Set;
  */
 public final class ColumnIds {
 
-    private static final Map<Integer, Column> columnOfId = new HashMap<Integer, Column>();
-    private static final Map<Column, Integer> idOfColumn = new HashMap<Column, Integer>();
-    
+    private static final Map<Integer, Column> COLUMN_OF_ID =
+            new HashMap<Integer, Column>();
+    private static final Map<Column, Integer> ID_OF_COLUMN =
+            new HashMap<Column, Integer>();
 
     static {
         // TODO PERMANENT: Neue für den Benutzer relevante Spalten hinzufügen
         // Vergebene IDs dürfen NIE verändert werden
-        columnOfId.put(0, ColumnExifDateTimeOriginal.INSTANCE);
-        columnOfId.put(1, ColumnExifFocalLength.INSTANCE);
-        columnOfId.put(2, ColumnExifIsoSpeedRatings.INSTANCE);
-        columnOfId.put(3, ColumnExifRecordingEquipment.INSTANCE);
-        columnOfId.put(4, ColumnFilesFilename.INSTANCE);
-        columnOfId.put(5, ColumnFilesLastModified.INSTANCE);
-        columnOfId.put(6, ColumnFilesThumbnail.INSTANCE);
-        columnOfId.put(7, ColumnXmpDcDescription.INSTANCE);
-        columnOfId.put(8, ColumnXmpDcRights.INSTANCE);
-        columnOfId.put(9, ColumnXmpDcTitle.INSTANCE);
-        columnOfId.put(10, ColumnXmpIptc4xmpcoreCountrycode.INSTANCE);
-        columnOfId.put(11, ColumnXmpIptc4xmpcoreLocation.INSTANCE);
-        columnOfId.put(12, ColumnXmpPhotoshopAuthorsposition.INSTANCE);
-        columnOfId.put(13, ColumnXmpPhotoshopCaptionwriter.INSTANCE);
-        columnOfId.put(14, ColumnXmpPhotoshopCategory.INSTANCE);
-        columnOfId.put(15, ColumnXmpPhotoshopCity.INSTANCE);
-        columnOfId.put(16, ColumnXmpPhotoshopCountry.INSTANCE);
-        columnOfId.put(17, ColumnXmpPhotoshopCredit.INSTANCE);
-        columnOfId.put(18, ColumnXmpPhotoshopHeadline.INSTANCE);
-        columnOfId.put(19, ColumnXmpPhotoshopInstructions.INSTANCE);
-        columnOfId.put(20, ColumnXmpPhotoshopSource.INSTANCE);
-        columnOfId.put(21, ColumnXmpPhotoshopState.INSTANCE);
-        columnOfId.put(22, ColumnXmpPhotoshopTransmissionReference.INSTANCE);
-        columnOfId.put(23, ColumnXmpDcCreator.INSTANCE);
-        columnOfId.put(24, ColumnXmpDcSubjectsSubject.INSTANCE);
-        columnOfId.put(25, ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory.INSTANCE);
-        columnOfId.put(26, ColumnCollectionnamesName.INSTANCE);
-        columnOfId.put(27, ColumnSavedSearchesName.INSTANCE);
+        COLUMN_OF_ID.put(0, ColumnExifDateTimeOriginal.INSTANCE);
+        COLUMN_OF_ID.put(1, ColumnExifFocalLength.INSTANCE);
+        COLUMN_OF_ID.put(2, ColumnExifIsoSpeedRatings.INSTANCE);
+        COLUMN_OF_ID.put(3, ColumnExifRecordingEquipment.INSTANCE);
+        COLUMN_OF_ID.put(4, ColumnFilesFilename.INSTANCE);
+        COLUMN_OF_ID.put(5, ColumnFilesLastModified.INSTANCE);
+        COLUMN_OF_ID.put(6, ColumnFilesThumbnail.INSTANCE);
+        COLUMN_OF_ID.put(7, ColumnXmpDcDescription.INSTANCE);
+        COLUMN_OF_ID.put(8, ColumnXmpDcRights.INSTANCE);
+        COLUMN_OF_ID.put(9, ColumnXmpDcTitle.INSTANCE);
+        COLUMN_OF_ID.put(10, ColumnXmpIptc4xmpcoreCountrycode.INSTANCE);
+        COLUMN_OF_ID.put(11, ColumnXmpIptc4xmpcoreLocation.INSTANCE);
+        COLUMN_OF_ID.put(12, ColumnXmpPhotoshopAuthorsposition.INSTANCE);
+        COLUMN_OF_ID.put(13, ColumnXmpPhotoshopCaptionwriter.INSTANCE);
+        COLUMN_OF_ID.put(14, ColumnXmpPhotoshopCategory.INSTANCE);
+        COLUMN_OF_ID.put(15, ColumnXmpPhotoshopCity.INSTANCE);
+        COLUMN_OF_ID.put(16, ColumnXmpPhotoshopCountry.INSTANCE);
+        COLUMN_OF_ID.put(17, ColumnXmpPhotoshopCredit.INSTANCE);
+        COLUMN_OF_ID.put(18, ColumnXmpPhotoshopHeadline.INSTANCE);
+        COLUMN_OF_ID.put(19, ColumnXmpPhotoshopInstructions.INSTANCE);
+        COLUMN_OF_ID.put(20, ColumnXmpPhotoshopSource.INSTANCE);
+        COLUMN_OF_ID.put(21, ColumnXmpPhotoshopState.INSTANCE);
+        COLUMN_OF_ID.put(22, ColumnXmpPhotoshopTransmissionReference.INSTANCE);
+        COLUMN_OF_ID.put(23, ColumnXmpDcCreator.INSTANCE);
+        COLUMN_OF_ID.put(24, ColumnXmpDcSubjectsSubject.INSTANCE);
+        COLUMN_OF_ID.put(25,
+                ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory.INSTANCE);
+        COLUMN_OF_ID.put(26, ColumnCollectionnamesName.INSTANCE);
+        COLUMN_OF_ID.put(27, ColumnSavedSearchesName.INSTANCE);
 
-        Set<Integer> keys = columnOfId.keySet();
+        Set<Integer> keys = COLUMN_OF_ID.keySet();
         for (Integer key : keys) {
-            idOfColumn.put(columnOfId.get(key), key);
+            ID_OF_COLUMN.put(COLUMN_OF_ID.get(key), key);
         }
     }
 
@@ -92,7 +94,7 @@ public final class ColumnIds {
      * @return Spalte oder null bei ungültiger ID
      */
     public static Column getColumn(int id) {
-        return columnOfId.get(id);
+        return COLUMN_OF_ID.get(id);
     }
 
     /**
@@ -102,7 +104,7 @@ public final class ColumnIds {
      * @return ID
      */
     public static int getId(Column column) {
-        return idOfColumn.get(column);
+        return ID_OF_COLUMN.get(column);
     }
 
     private ColumnIds() {

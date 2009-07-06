@@ -23,11 +23,11 @@ public final class ControllerThumbnailsPanelPersistence
         implements ThumbnailsPanelListener, AppExitListener {
 
     private boolean propertiesRead = false;
-    private static final String keySelectedFiles =
+    private static final String KEY_SELECTED_FILES =
             "de.elmar_baumann.imv.view.controller.ControllerThumbnailsPanelPersistence.SelectedFiles"; // NOI18N
-    private static final String keySort =
+    private static final String KEY_SORT =
             "de.elmar_baumann.imv.view.controller.ControllerThumbnailsPanelPersistence.Sort"; // NOI18N
-    private static final String keyThumbnailPanelViewportViewPosition =
+    private static final String KEY_THUMBNAIL_PANEL_VIEWPORT_VIEW_POSITION =
             "de.elmar_baumann.imv.view.panels.controller.ViewportViewPosition"; // NOI18N
     private final ImageFileThumbnailsPanel thumbnailsPanel = GUI.INSTANCE.
             getAppPanel().getPanelThumbnails();
@@ -52,7 +52,7 @@ public final class ControllerThumbnailsPanelPersistence
     public void thumbnailsChanged() {
         checkFirstChange();
         UserSettings.INSTANCE.getSettings().setString(
-                thumbnailsPanel.getSort().name(), keySort);
+                thumbnailsPanel.getSort().name(), KEY_SORT);
     }
 
     private void checkFirstChange() {
@@ -66,7 +66,7 @@ public final class ControllerThumbnailsPanelPersistence
     private void writeSelectionToProperties() {
         UserSettings.INSTANCE.getSettings().setStringArray(
                 FileUtil.getAsFilenames(thumbnailsPanel.getSelectedFiles()),
-                keySelectedFiles);
+                KEY_SELECTED_FILES);
         UserSettings.INSTANCE.writeToFile();
     }
 
@@ -84,12 +84,12 @@ public final class ControllerThumbnailsPanelPersistence
     private void readProperties() {
         persistentSelectedFiles = FileUtil.getAsFiles(
                 UserSettings.INSTANCE.getSettings().getStringArray(
-                keySelectedFiles));
+                KEY_SELECTED_FILES));
         readSortFromProperties();
     }
 
     private void readSortFromProperties() {
-        String name = UserSettings.INSTANCE.getSettings().getString(keySort);
+        String name = UserSettings.INSTANCE.getSettings().getString(KEY_SORT);
         try {
             if (!name.isEmpty()) {
                 thumbnailsPanel.setSort(FileSort.valueOf(name));
@@ -102,7 +102,7 @@ public final class ControllerThumbnailsPanelPersistence
     private void readViewportViewPositionFromProperties() {
         UserSettings.INSTANCE.getSettings().getScrollPane(
                 GUI.INSTANCE.getAppPanel().getScrollPaneThumbnailsPanel(),
-                keyThumbnailPanelViewportViewPosition);
+                KEY_THUMBNAIL_PANEL_VIEWPORT_VIEW_POSITION);
     }
 
     @Override
@@ -113,7 +113,7 @@ public final class ControllerThumbnailsPanelPersistence
     private void writeViewportViewPositionToProperties() {
         UserSettings.INSTANCE.getSettings().setScrollPane(
                 GUI.INSTANCE.getAppPanel().getScrollPaneThumbnailsPanel(),
-                keyThumbnailPanelViewportViewPosition);
+                KEY_THUMBNAIL_PANEL_VIEWPORT_VIEW_POSITION);
         UserSettings.INSTANCE.writeToFile();
     }
 }

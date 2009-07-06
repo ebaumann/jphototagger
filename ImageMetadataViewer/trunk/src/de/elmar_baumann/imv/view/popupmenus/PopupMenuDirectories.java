@@ -32,13 +32,13 @@ public final class PopupMenuDirectories extends JPopupMenu {
             "PopupMenuDirectories.DisplayName.Action.DeleteDirectory");
     private static final String DISPLAY_NAME_ACTION_REFRESH =
             Bundle.getString("PopupMenuDirectories.DisplayName.Action.Refresh");
-    private static final JMenuItem itemAddToFavorites =
+    private final JMenuItem itemAddToFavorites =
             new JMenuItem(DISPLAY_NAME_ACTION_ADD_TO_FAVORITES);
-    private static final JMenuItem itemCreateDirectory =
+    private final JMenuItem itemCreateDirectory =
             new JMenuItem(DISPLAY_NAME_ACTION_CREATE_FOLDER);
-    private static final JMenuItem itemRenameDirectory =
+    private final JMenuItem itemRenameDirectory =
             new JMenuItem(DISPLAY_NAME_ACTION_RENAME_FODER);
-    private static final JMenuItem itemDeleteDirectory =
+    private final JMenuItem itemDeleteDirectory =
             new JMenuItem(DISPLAY_NAME_ACTION_DELETE_FOLDER);
     private final JMenuItem itemRefresh =
             new JMenuItem(DISPLAY_NAME_ACTION_REFRESH);

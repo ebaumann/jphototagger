@@ -18,24 +18,25 @@ import javax.swing.JList;
  */
 public final class ListCellRendererActions extends DefaultListCellRenderer {
 
-    private static final Icon iconAction = AppIcons.getIcon("icon_action.png"); // NOI18N
-    private static final Icon iconError = AppIcons.getIcon("icon_error.png"); // NOI18N
+    private static final Icon ICON_ACTION = AppIcons.getIcon("icon_action.png"); // NOI18N
+    private static final Icon ICON_ERROR = AppIcons.getIcon("icon_error.png"); // NOI18N
 
     @Override
     public Component getListCellRendererComponent(JList list, Object value,
-        int index, boolean isSelected, boolean cellHasFocus) {
-        JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+            int index, boolean isSelected, boolean cellHasFocus) {
+        JLabel label = (JLabel) super.getListCellRendererComponent(
+                list, value, index, isSelected, cellHasFocus);
         Program program = (Program) value;
         label.setText(program.getAlias());
         File file = program.getFile();
         if (file.exists()) {
             try {
-                setIcon(iconAction);
+                setIcon(ICON_ACTION);
             } catch (Exception ex) {
                 AppLog.logWarning(ListCellRendererActions.class, ex);
             }
         } else {
-            label.setIcon(iconError);
+            label.setIcon(ICON_ERROR);
         }
         return label;
     }

@@ -17,19 +17,18 @@ public final class ExifGpsLongitude {
 
         EAST, WEST
     }
-    private static final Map<String, Ref> refOfString =
+    private static final Map<String, Ref> REF_OF_STRING =
             new HashMap<String, Ref>();
-    private static final Map<Ref, String> localizedStringOfRef =
+    private static final Map<Ref, String> LOCALIZED_STRING_OF_REF =
             new HashMap<Ref, String>();
 
-
     static {
-        refOfString.put("E", Ref.EAST);
-        refOfString.put("W", Ref.WEST);
+        REF_OF_STRING.put("E", Ref.EAST);
+        REF_OF_STRING.put("W", Ref.WEST);
 
-        localizedStringOfRef.put(Ref.EAST, Bundle.getString(
+        LOCALIZED_STRING_OF_REF.put(Ref.EAST, Bundle.getString(
                 "ExifGpsLongitudeRefEast"));
-        localizedStringOfRef.put(Ref.WEST, Bundle.getString(
+        LOCALIZED_STRING_OF_REF.put(Ref.WEST, Bundle.getString(
                 "ExifGpsLongitudeRefWest"));
     }
     private Ref ref;
@@ -54,7 +53,7 @@ public final class ExifGpsLongitude {
             s = new StringBuilder(1).append((char) new Byte(rawValue[0]).
                     intValue()).toString();
         }
-        return refOfString.get(s);
+        return REF_OF_STRING.get(s);
     }
 
     public static int getRefRawValueByteCount() {
@@ -75,7 +74,7 @@ public final class ExifGpsLongitude {
 
     public String localizedString() {
         return ExifGpsUtil.degreesToString(degrees) + " " +
-                localizedStringOfRef.get(ref);
+                LOCALIZED_STRING_OF_REF.get(ref);
     }
 
     public ExifDegrees getDegrees() {

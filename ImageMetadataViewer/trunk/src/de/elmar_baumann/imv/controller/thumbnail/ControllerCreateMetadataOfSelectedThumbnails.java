@@ -149,7 +149,7 @@ public final class ControllerCreateMetadataOfSelectedThumbnails
         if (progressBar != null) {
             progressBar.setValue(evt.getValue());
             progressBar.setToolTipText(
-                    AppTexts.tooltipTextProgressBarCurrentTasks);
+                    AppTexts.TOOLTIP_TEXT_PROGRESSBAR_CURRENT_TASKS);
             progressBar = null;
             progressBarProvider.releaseResource(this);
         }

@@ -22,9 +22,9 @@ import javax.swing.TransferHandler;
  */
 public abstract class TransferHandlerListsDropThumbnails extends TransferHandler {
 
-    static final String filenamesDelimiter =
-            TransferHandlerPanelThumbnails.delimiter;
-    static final String itemDelimiter = "\n";
+    static final String DELIMITER_FILENAMES =
+            TransferHandlerPanelThumbnails.DELIMITER;
+    static final String DELIMITER_ITEMS = "\n";
 
     @Override
     public boolean canImport(TransferHandler.TransferSupport transferSupport) {
@@ -34,7 +34,7 @@ public abstract class TransferHandlerListsDropThumbnails extends TransferHandler
     @Override
     protected Transferable createTransferable(JComponent c) {
         return TransferUtil.getSelectedItemStringsTransferable(
-                (JList) c, itemDelimiter);
+                (JList) c, DELIMITER_ITEMS);
     }
 
     @Override
@@ -62,7 +62,7 @@ public abstract class TransferHandlerListsDropThumbnails extends TransferHandler
                 ((JList.DropLocation) transferSupport.getDropLocation()).
                 getIndex();
         List<String> filenames = ArrayUtil.stringTokenToList(data,
-                filenamesDelimiter);
+                DELIMITER_FILENAMES);
         handleDroppedThumbnails(listIndex, filenames);
         return true;
     }

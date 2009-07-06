@@ -19,32 +19,32 @@ import java.util.List;
  */
 public final class DatabaseTables extends Database {
 
-    private static final List<String> tableNames = new ArrayList<String>();
+    private static final List<String> TABLE_NAMES = new ArrayList<String>();
     public static final DatabaseTables INSTANCE = new DatabaseTables();
 
 
     static {
         // TODO: Update
-        tableNames.add("files");
-        tableNames.add("xmp");
-        tableNames.add("xmp_dc_subjects");
-        tableNames.add("xmp_photoshop_supplementalcategories");
-        tableNames.add("exif");
-        tableNames.add("collection_names");
-        tableNames.add("collections");
-        tableNames.add("saved_searches");
-        tableNames.add("saved_searches_values");
-        tableNames.add("saved_searches_panels");
-        tableNames.add("autoscan_directories");
-        tableNames.add("metadata_edit_templates");
-        tableNames.add("favorite_directories");
-        tableNames.add("file_exclude_pattern");
-        tableNames.add("programs");
-        tableNames.add("actions_after_db_insertion");
+        TABLE_NAMES.add("files");
+        TABLE_NAMES.add("xmp");
+        TABLE_NAMES.add("xmp_dc_subjects");
+        TABLE_NAMES.add("xmp_photoshop_supplementalcategories");
+        TABLE_NAMES.add("exif");
+        TABLE_NAMES.add("collection_names");
+        TABLE_NAMES.add("collections");
+        TABLE_NAMES.add("saved_searches");
+        TABLE_NAMES.add("saved_searches_values");
+        TABLE_NAMES.add("saved_searches_panels");
+        TABLE_NAMES.add("autoscan_directories");
+        TABLE_NAMES.add("metadata_edit_templates");
+        TABLE_NAMES.add("favorite_directories");
+        TABLE_NAMES.add("file_exclude_pattern");
+        TABLE_NAMES.add("programs");
+        TABLE_NAMES.add("actions_after_db_insertion");
     }
 
     public static List<String> getTableNames() {
-        return tableNames;
+        return TABLE_NAMES;
     }
 
     private DatabaseTables() {

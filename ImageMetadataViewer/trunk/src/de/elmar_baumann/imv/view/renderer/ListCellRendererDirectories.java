@@ -20,20 +20,20 @@ import javax.swing.filechooser.FileSystemView;
  */
 public final class ListCellRendererDirectories extends DefaultListCellRenderer {
 
-    private static final FileSystemView fileSystemView = FileSystemView.
-            getFileSystemView();
+    private static final FileSystemView FILE_SYSTEM_VIEW =
+            FileSystemView.getFileSystemView();
 
     @Override
     public Component getListCellRendererComponent(JList list, Object value,
             int index, boolean isSelected, boolean cellHasFocus) {
-        JLabel label = (JLabel) super.getListCellRendererComponent(list, value,
-                index, isSelected, cellHasFocus);
+        JLabel label = (JLabel) super.getListCellRendererComponent(
+                list, value, index, isSelected, cellHasFocus);
         DirectoryInfo directoryInfo = (DirectoryInfo) value;
         File dir = directoryInfo.getDirectory();
         if (dir.exists()) {
-            synchronized (fileSystemView) {
+            synchronized (FILE_SYSTEM_VIEW) {
                 try {
-                    label.setIcon(fileSystemView.getSystemIcon(dir));
+                    label.setIcon(FILE_SYSTEM_VIEW.getSystemIcon(dir));
                 } catch (Exception ex) {
                     AppLog.logWarning(ListCellRendererDirectories.class, ex);
                 }

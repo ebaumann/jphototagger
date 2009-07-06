@@ -15,11 +15,14 @@ import java.util.List;
  * @version 2008/11/02
  */
 public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
-    implements ProgressListener, Persistence {
+        implements ProgressListener, Persistence {
 
-    private static final String addInfoText = Bundle.getString("FileExcludePatternPanel.AddInfoText");
-    private final DatabaseFileExcludePattern db = DatabaseFileExcludePattern.INSTANCE;
-    private final ListModelFileExcludePatterns model = new ListModelFileExcludePatterns();
+    private static final String ADD_INFO_TEXT =
+            Bundle.getString("FileExcludePatternPanel.AddInfoText");
+    private final DatabaseFileExcludePattern db =
+            DatabaseFileExcludePattern.INSTANCE;
+    private final ListModelFileExcludePatterns model =
+            new ListModelFileExcludePatterns();
     private boolean isUpdateDatabase = false;
     private boolean stop = false;
 
@@ -55,12 +58,12 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
     }
 
     private boolean canInsertPattern(String input) {
-        return !input.isEmpty() && !input.equals(addInfoText);
+        return !input.isEmpty() && !input.equals(ADD_INFO_TEXT);
     }
 
     private void setEnabledButtonInsertPattern() {
         buttonInsertPattern.setEnabled(
-            canInsertPattern(textFieldInputPattern.getText().trim()));
+                canInsertPattern(textFieldInputPattern.getText().trim()));
     }
 
     private void setEnabledButtons() {
@@ -159,7 +162,7 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
         });
         scrollPaneListPattern.setViewportView(listPattern);
 
-        textFieldInputPattern.setText(addInfoText);
+        textFieldInputPattern.setText(ADD_INFO_TEXT);
         textFieldInputPattern.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 textFieldInputPatternKeyReleased(evt);

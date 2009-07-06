@@ -16,9 +16,9 @@ import javax.swing.JOptionPane;
  */
 public final class AppLock {
 
-    private static final String lockFileName =
-        UserSettings.INSTANCE.getDatabaseDirectoryName() + File.separator +
-        AppInfo.getProjectName() + ".lck"; // NOI18N
+    private static final String LOCKFILE_NAME =
+            UserSettings.INSTANCE.getDatabaseDirectoryName() + File.separator +
+            AppInfo.getProjectName() + ".lck"; // NOI18N
 
     /**
      * Returns whether the application ist locked.
@@ -26,7 +26,7 @@ public final class AppLock {
      * @return  true if locked
      */
     public static synchronized boolean isLocked() {
-        return FileUtil.existsFile(lockFileName);
+        return FileUtil.existsFile(LOCKFILE_NAME);
     }
 
     /**
@@ -36,7 +36,7 @@ public final class AppLock {
      */
     public static synchronized boolean lock() {
         if (!isLocked()) {
-            return FileUtil.ensureFileExists(lockFileName);
+            return FileUtil.ensureFileExists(LOCKFILE_NAME);
         }
         return false;
     }
@@ -48,7 +48,7 @@ public final class AppLock {
      */
     public static synchronized boolean unlock() {
         if (isLocked()) {
-            return new File(lockFileName).delete();
+            return new File(LOCKFILE_NAME).delete();
         }
         return true;
     }
@@ -67,7 +67,7 @@ public final class AppLock {
     }
 
     private static boolean deleteLockFile() {
-        if (new File(lockFileName).delete()) {
+        if (new File(LOCKFILE_NAME).delete()) {
             return true;
         } else {
             errorMessageDelete();
@@ -78,7 +78,8 @@ public final class AppLock {
     private static boolean confirmForceUnlock() {
         return JOptionPane.showConfirmDialog(
                 null,
-                Bundle.getString("AppLock.ErrorMessage.LockFileExists", lockFileName),
+                Bundle.getString("AppLock.ErrorMessage.LockFileExists",
+                LOCKFILE_NAME),
                 Bundle.getString("AppLock.ErrorMessage.LockFileExists.Title"),
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.WARNING_MESSAGE) == JOptionPane.YES_OPTION;
@@ -92,5 +93,6 @@ public final class AppLock {
                 JOptionPane.ERROR_MESSAGE);
     }
 
-    private AppLock() {}
+    private AppLock() {
+    }
 }

@@ -21,8 +21,8 @@ import javax.swing.JOptionPane;
  */
 public final class FavoriteDirectoryPropertiesDialog extends Dialog {
 
-    private static final List<Image> appIcons = AppIcons.getAppIcons();
-    private static final String keyLastDirectory =
+    private static final List<Image> APP_ICONS = AppIcons.getAppIcons();
+    private static final String KEY_LAST_DIRECTORY =
             "de.elmar_baumann.imv.view.dialogs.FavoriteDirectoryPropertiesDialog.LastDirectory"; // NOI18N
     private final DatabaseFavoriteDirectories db =
             DatabaseFavoriteDirectories.INSTANCE;
@@ -38,7 +38,7 @@ public final class FavoriteDirectoryPropertiesDialog extends Dialog {
     }
 
     private void postInitComponents() {
-        setIconImages(appIcons);
+        setIconImages(APP_ICONS);
         setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
         registerKeyStrokes();
     }
@@ -173,7 +173,7 @@ public final class FavoriteDirectoryPropertiesDialog extends Dialog {
 
     private void readProperties() {
         lastDirectory = UserSettings.INSTANCE.getSettings().getString(
-                keyLastDirectory);
+                KEY_LAST_DIRECTORY);
         UserSettings.INSTANCE.getSettings().getSizeAndLocation(this);
     }
 
@@ -183,7 +183,7 @@ public final class FavoriteDirectoryPropertiesDialog extends Dialog {
 
     private void writeProperties() {
         UserSettings.INSTANCE.getSettings().setString(
-                lastDirectory, keyLastDirectory);
+                lastDirectory, KEY_LAST_DIRECTORY);
         UserSettings.INSTANCE.getSettings().setSizeAndLocation(this);
         UserSettings.INSTANCE.writeToFile();
     }
@@ -360,7 +360,6 @@ private void textFieldFavoriteNameKeyReleased(java.awt.event.KeyEvent evt) {//GE
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonCancel;
     private javax.swing.JButton buttonChooseDirectory;

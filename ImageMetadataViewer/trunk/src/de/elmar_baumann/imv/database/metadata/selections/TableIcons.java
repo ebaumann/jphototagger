@@ -22,24 +22,24 @@ import javax.swing.Icon;
  */
 public final class TableIcons {
 
-    private static final Icon iconUndefined = AppIcons.getIcon("icon_table_undefined.png"); // NOI18N
-    private static final Icon iconFiles = AppIcons.getIcon("icon_file.png"); // NOI18N
-    private static final Icon iconExif = AppIcons.getIcon("icon_exif.png"); // NOI18N
-    private static final Icon iconXmp = AppIcons.getIcon("icon_xmp.png"); // NOI18N
-    private static final Icon iconImageCollection = AppIcons.getIcon("icon_imagecollection.png"); // NOI18N
-    private static final Icon iconSavedSearch = AppIcons.getIcon("icon_search.png"); // NOI18N
-    private static final Map<Table, Icon> iconOfTable = new HashMap<Table, Icon>();
+    private static final Icon ICON_UNDEFINED = AppIcons.getIcon("icon_table_undefined.png"); // NOI18N
+    private static final Icon ICON_FILES = AppIcons.getIcon("icon_file.png"); // NOI18N
+    private static final Icon ICON_EXIF = AppIcons.getIcon("icon_exif.png"); // NOI18N
+    private static final Icon ICON_XMP = AppIcons.getIcon("icon_xmp.png"); // NOI18N
+    private static final Icon ICON_IMAGE_COLLECTION = AppIcons.getIcon("icon_imagecollection.png"); // NOI18N
+    private static final Icon ICON_SAVED_SEARCH = AppIcons.getIcon("icon_search.png"); // NOI18N
+    private static final Map<Table, Icon> ICON_OF_TABLE = new HashMap<Table, Icon>();
     
 
     static {
-        iconOfTable.put(TableExif.INSTANCE, iconExif);
-        iconOfTable.put(TableFiles.INSTANCE, iconFiles);
-        iconOfTable.put(TableXmp.INSTANCE, iconXmp);
-        iconOfTable.put(TableXmpDcSubjects.INSTANCE, iconXmp);
-        iconOfTable.put(TableXmpPhotoshopSupplementalCategories.INSTANCE, iconXmp);
-        iconOfTable.put(TableCollections.INSTANCE, iconImageCollection);
-        iconOfTable.put(TableCollectionNames.INSTANCE, iconImageCollection);
-        iconOfTable.put(TableSavedSearches.INSTANCE, iconSavedSearch);
+        ICON_OF_TABLE.put(TableExif.INSTANCE, ICON_EXIF);
+        ICON_OF_TABLE.put(TableFiles.INSTANCE, ICON_FILES);
+        ICON_OF_TABLE.put(TableXmp.INSTANCE, ICON_XMP);
+        ICON_OF_TABLE.put(TableXmpDcSubjects.INSTANCE, ICON_XMP);
+        ICON_OF_TABLE.put(TableXmpPhotoshopSupplementalCategories.INSTANCE, ICON_XMP);
+        ICON_OF_TABLE.put(TableCollections.INSTANCE, ICON_IMAGE_COLLECTION);
+        ICON_OF_TABLE.put(TableCollectionNames.INSTANCE, ICON_IMAGE_COLLECTION);
+        ICON_OF_TABLE.put(TableSavedSearches.INSTANCE, ICON_SAVED_SEARCH);
     }
 
     /**
@@ -50,8 +50,8 @@ public final class TableIcons {
      *         (Standard-Tabellenicon)
      */
     public static Icon getIcon(Table table) {
-        Icon icon = iconOfTable.get(table);
-        return icon == null ? iconUndefined : icon;
+        Icon icon = ICON_OF_TABLE.get(table);
+        return icon == null ? ICON_UNDEFINED : icon;
     }
 
     private TableIcons() {

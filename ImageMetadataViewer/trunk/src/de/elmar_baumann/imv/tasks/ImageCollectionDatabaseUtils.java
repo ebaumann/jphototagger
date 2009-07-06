@@ -14,8 +14,6 @@ import javax.swing.JOptionPane;
  */
 public final class ImageCollectionDatabaseUtils {
 
-    private static final DatabaseImageCollections db = DatabaseImageCollections.INSTANCE;
-
     /**
      * Fügt in die Datenbank eine neue Bildsammlung ein.
      * 
@@ -26,7 +24,8 @@ public final class ImageCollectionDatabaseUtils {
         String name = inputCollectionName(""); // NOI18N
         if (name != null && !name.isEmpty()) {
             logAddImageCollection(name);
-            if (!db.insertImageCollection(name, filenames)) {
+            if (!DatabaseImageCollections.INSTANCE.insertImageCollection(
+                    name, filenames)) {
                 errorMessageAddImageCollection(name);
                 return null;
             }
@@ -41,9 +40,14 @@ public final class ImageCollectionDatabaseUtils {
      * @param filenames      Zu entfernende Bilder
      * @return               true, wenn die Bilder entfernt wurden
      */
-    public static boolean deleteImagesFromCollection(String collectionName, List<String> filenames) {
-        if (confirmDelete("ImageCollectionToDatabase.ConfirmMessage.DeleteSelectedFiles", collectionName)) {
-            boolean removed = db.deleteImagesFromCollection(collectionName, filenames) == filenames.size();
+    public static boolean deleteImagesFromCollection(String collectionName,
+            List<String> filenames) {
+        if (confirmDelete(
+                "ImageCollectionToDatabase.ConfirmMessage.DeleteSelectedFiles",
+                collectionName)) {
+            boolean removed = DatabaseImageCollections.INSTANCE.
+                    deleteImagesFromCollection(collectionName, filenames) ==
+                    filenames.size();
             if (!removed) {
                 errorMessageDeleteImagesFromCollection(collectionName);
             }
@@ -60,8 +64,11 @@ public final class ImageCollectionDatabaseUtils {
      */
     public static boolean deleteImageCollection(String collectionName) {
         boolean deleted = false;
-        if (confirmDelete("ImageCollectionToDatabase.ConfirmMessage.DeleteCollection", collectionName)) {
-            deleted = db.deleteImageCollection(collectionName);
+        if (confirmDelete(
+                "ImageCollectionToDatabase.ConfirmMessage.DeleteCollection",
+                collectionName)) {
+            deleted = DatabaseImageCollections.INSTANCE.deleteImageCollection(
+                    collectionName);
             if (!deleted) {
                 errorMessageDeleteImageCollection(collectionName);
             }
@@ -76,8 +83,10 @@ public final class ImageCollectionDatabaseUtils {
      * @param filenames      Hinzuzufügende Bilddateien
      * @return               true bei Erfolg
      */
-    public static boolean addImagesToCollection(String collectionName, List<String> filenames) {
-        boolean added = db.insertImagesIntoCollection(collectionName, filenames);
+    public static boolean addImagesToCollection(String collectionName,
+            List<String> filenames) {
+        boolean added = DatabaseImageCollections.INSTANCE.
+                insertImagesIntoCollection(collectionName, filenames);
         if (!added) {
             errorMessageAddImagesToCollection(collectionName);
         }
@@ -94,7 +103,9 @@ public final class ImageCollectionDatabaseUtils {
     public static String renameImageCollection(String oldName) {
         String newName = inputCollectionName(oldName);
         if (newName != null) {
-            boolean renamed = db.updateRenameImageCollection(oldName, newName) > 0;
+            boolean renamed = DatabaseImageCollections.INSTANCE.
+                    updateRenameImageCollection(oldName, newName) >
+                    0;
             if (renamed) {
                 return newName;
             } else {
@@ -112,7 +123,8 @@ public final class ImageCollectionDatabaseUtils {
     }
 
     private static void errorMessageAddImagesToCollection(String collectionName) {
-        errorMessage("ImageCollectionToDatabase.ErrorMessage.AddImagesToCollection",
+        errorMessage(
+                "ImageCollectionToDatabase.ErrorMessage.AddImagesToCollection",
                 collectionName);
     }
 
@@ -122,17 +134,21 @@ public final class ImageCollectionDatabaseUtils {
     }
 
     private static void errorMessageDeleteImageCollection(String collectionName) {
-        errorMessage("ImageCollectionToDatabase.ErrorMessage.DeleteImageCollection",
+        errorMessage(
+                "ImageCollectionToDatabase.ErrorMessage.DeleteImageCollection",
                 collectionName);
     }
 
-    private static void errorMessageDeleteImagesFromCollection(String collectionName) {
-        errorMessage("ImageCollectionToDatabase.ErrorMessage.DeleteImagesFromCollection",
+    private static void errorMessageDeleteImagesFromCollection(
+            String collectionName) {
+        errorMessage(
+                "ImageCollectionToDatabase.ErrorMessage.DeleteImagesFromCollection",
                 collectionName);
     }
 
     private static void errorMessageRenameImageCollection(String collectionName) {
-        errorMessage("ImageCollectionToDatabase.ErrorMessage.RenameImageCollection",
+        errorMessage(
+                "ImageCollectionToDatabase.ErrorMessage.RenameImageCollection",
                 collectionName);
     }
 
@@ -147,7 +163,8 @@ public final class ImageCollectionDatabaseUtils {
         return JOptionPane.showConfirmDialog(
                 null,
                 Bundle.getString(bundleKey, collectionName),
-                Bundle.getString("ImageCollectionToDatabase.ConfirmMessage.Delete.Title"),
+                Bundle.getString(
+                "ImageCollectionToDatabase.ConfirmMessage.Delete.Title"),
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION;
     }
@@ -158,10 +175,12 @@ public final class ImageCollectionDatabaseUtils {
         while (name != null && willAdd) {
             willAdd = false;
             String nameNextTry = name;
-            if (db.existsImageCollection(name)) {
+            if (DatabaseImageCollections.INSTANCE.existsImageCollection(name)) {
                 willAdd = JOptionPane.showConfirmDialog(null,
-                        Bundle.getString("ImageCollectionToDatabase.ConfirmMessage.InputNewCollectionName", name),
-                        Bundle.getString("ImageCollectionToDatabase.ConfirmMessage.InputNewCollectionName.Title"),
+                        Bundle.getString(
+                        "ImageCollectionToDatabase.ConfirmMessage.InputNewCollectionName", name),
+                        Bundle.getString(
+                        "ImageCollectionToDatabase.ConfirmMessage.InputNewCollectionName.Title"),
                         JOptionPane.YES_NO_OPTION,
                         JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION;
                 name = null;
@@ -175,7 +194,8 @@ public final class ImageCollectionDatabaseUtils {
 
     private static String getCollectionName(String defaultName) {
         String name = JOptionPane.showInputDialog(
-                Bundle.getString("ImageCollectionToDatabase.Input.CollectionName"),
+                Bundle.getString(
+                "ImageCollectionToDatabase.Input.CollectionName"),
                 defaultName);
         if (name != null) {
             name = name.trim();

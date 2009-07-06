@@ -10,11 +10,11 @@ import de.elmar_baumann.imv.resource.Bundle;
  */
 public final class AppTexts {
 
-    public static final String tooltipTextProgressBarDirectory = Bundle.
+    public static final String TOOLTIP_TEXT_PROGRESSBAR_DIRECTORY = Bundle.
             getString("ProgressBarDirectory.TooltipText");
-    public static final String tooltipTextProgressBarCurrentTasks = Bundle.
+    public static final String TOOLTIP_TEXT_PROGRESSBAR_CURRENT_TASKS = Bundle.
             getString("ProgressBarCurrentTasks.TooltipText");
-    public static final String tooltipTextProgressBarScheduledTasks = Bundle.
+    public static final String TOOLTIP_TEXT_PROGRESSBAR_SCHEDULED_TASKS = Bundle.
             getString("ProgressBarScheduledTasks.TooltipText");
 
     private AppTexts() {

@@ -11,38 +11,38 @@ import java.util.List;
  */
 public final class ExifMetadataToDisplay {
 
-    private static final List<Integer> tagsToDisplay = new ArrayList<Integer>();
-
+    private static final List<Integer> TAGS_TO_DISPLAY =
+            new ArrayList<Integer>();
 
     static {
         // Ordered alphabetically
-        tagsToDisplay.add(ExifTag.ARTIST.getId());
-        tagsToDisplay.add(ExifTag.CONTRAST.getId());
-        tagsToDisplay.add(ExifTag.COPYRIGHT.getId());
-        tagsToDisplay.add(ExifTag.DATE_TIME_ORIGINAL.getId());
-        tagsToDisplay.add(ExifTag.EXPOSURE_PROGRAM.getId());
-        tagsToDisplay.add(ExifTag.EXPOSURE_TIME.getId());
-        tagsToDisplay.add(ExifTag.FILE_SOURCE.getId());
-        tagsToDisplay.add(ExifTag.FLASH.getId());
-        tagsToDisplay.add(ExifTag.F_NUMBER.getId());
-        tagsToDisplay.add(ExifTag.FOCAL_LENGTH.getId());
-        tagsToDisplay.add(ExifTag.FOCAL_LENGTH_IN_35_MM_FILM.getId());
-        tagsToDisplay.add(ExifTag.GPS_DATE_STAMP.getId());
-        tagsToDisplay.add(ExifTag.GPS_SATELLITES.getId());
-        tagsToDisplay.add(ExifTag.GPS_TIME_STAMP.getId());
-        tagsToDisplay.add(ExifTag.GPS_VERSION_ID.getId());
-        tagsToDisplay.add(ExifTag.IMAGE_DESCRIPTION.getId());
-        tagsToDisplay.add(ExifTag.IMAGE_UNIQUE_ID.getId());
-        tagsToDisplay.add(ExifTag.ISO_SPEED_RATINGS.getId());
-        tagsToDisplay.add(ExifTag.MAKE.getId());
-        tagsToDisplay.add(ExifTag.METERING_MODE.getId());
-        tagsToDisplay.add(ExifTag.MODEL.getId());
-        tagsToDisplay.add(ExifTag.SATURATION.getId());
-        tagsToDisplay.add(ExifTag.SHARPNESS.getId());
-        tagsToDisplay.add(ExifTag.SOFTWARE.getId());
-        tagsToDisplay.add(ExifTag.USER_COMMENT.getId());
-        tagsToDisplay.add(ExifTag.WHITE_BALANCE.getId());
-        tagsToDisplay.add(ExifTag.SPECTRAL_SENSITIVITY.getId());
+        TAGS_TO_DISPLAY.add(ExifTag.ARTIST.getId());
+        TAGS_TO_DISPLAY.add(ExifTag.CONTRAST.getId());
+        TAGS_TO_DISPLAY.add(ExifTag.COPYRIGHT.getId());
+        TAGS_TO_DISPLAY.add(ExifTag.DATE_TIME_ORIGINAL.getId());
+        TAGS_TO_DISPLAY.add(ExifTag.EXPOSURE_PROGRAM.getId());
+        TAGS_TO_DISPLAY.add(ExifTag.EXPOSURE_TIME.getId());
+        TAGS_TO_DISPLAY.add(ExifTag.FILE_SOURCE.getId());
+        TAGS_TO_DISPLAY.add(ExifTag.FLASH.getId());
+        TAGS_TO_DISPLAY.add(ExifTag.F_NUMBER.getId());
+        TAGS_TO_DISPLAY.add(ExifTag.FOCAL_LENGTH.getId());
+        TAGS_TO_DISPLAY.add(ExifTag.FOCAL_LENGTH_IN_35_MM_FILM.getId());
+        TAGS_TO_DISPLAY.add(ExifTag.GPS_DATE_STAMP.getId());
+        TAGS_TO_DISPLAY.add(ExifTag.GPS_SATELLITES.getId());
+        TAGS_TO_DISPLAY.add(ExifTag.GPS_TIME_STAMP.getId());
+        TAGS_TO_DISPLAY.add(ExifTag.GPS_VERSION_ID.getId());
+        TAGS_TO_DISPLAY.add(ExifTag.IMAGE_DESCRIPTION.getId());
+        TAGS_TO_DISPLAY.add(ExifTag.IMAGE_UNIQUE_ID.getId());
+        TAGS_TO_DISPLAY.add(ExifTag.ISO_SPEED_RATINGS.getId());
+        TAGS_TO_DISPLAY.add(ExifTag.MAKE.getId());
+        TAGS_TO_DISPLAY.add(ExifTag.METERING_MODE.getId());
+        TAGS_TO_DISPLAY.add(ExifTag.MODEL.getId());
+        TAGS_TO_DISPLAY.add(ExifTag.SATURATION.getId());
+        TAGS_TO_DISPLAY.add(ExifTag.SHARPNESS.getId());
+        TAGS_TO_DISPLAY.add(ExifTag.SOFTWARE.getId());
+        TAGS_TO_DISPLAY.add(ExifTag.USER_COMMENT.getId());
+        TAGS_TO_DISPLAY.add(ExifTag.WHITE_BALANCE.getId());
+        TAGS_TO_DISPLAY.add(ExifTag.SPECTRAL_SENSITIVITY.getId());
     }
 
     /**
@@ -76,7 +76,7 @@ public final class ExifMetadataToDisplay {
     }
 
     private static boolean isTagToDisplay(int tag) {
-        return tagsToDisplay.contains(tag);
+        return TAGS_TO_DISPLAY.contains(tag);
     }
 
     private ExifMetadataToDisplay() {

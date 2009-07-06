@@ -26,7 +26,7 @@ import javax.swing.SpinnerNumberModel;
 public final class SettingsTasksPanel extends javax.swing.JPanel
         implements Persistence {
 
-    private static final String keyLastSelectedAutoscanDirectory =
+    private static final String KEY_LAST_SELECTED_AUTOSCAN_DIRECTORY =
             "UserSettingsDialog.keyLastSelectedAutoscanDirectory"; // NOI18N
     private final DatabaseAutoscanDirectories db =
             DatabaseAutoscanDirectories.INSTANCE;
@@ -69,13 +69,13 @@ public final class SettingsTasksPanel extends javax.swing.JPanel
         checkBoxIsTaskRemoveRecordsWithNotExistingFiles.setSelected(
                 settings.isTaskRemoveRecordsWithNotExistingFiles());
         lastSelectedAutoscanDirectory = settings.getSettings().getString(
-                keyLastSelectedAutoscanDirectory);
+                KEY_LAST_SELECTED_AUTOSCAN_DIRECTORY);
     }
 
     @Override
     public void writeProperties() {
         UserSettings.INSTANCE.getSettings().setString(
-                lastSelectedAutoscanDirectory, keyLastSelectedAutoscanDirectory);
+                lastSelectedAutoscanDirectory, KEY_LAST_SELECTED_AUTOSCAN_DIRECTORY);
         UserSettings.INSTANCE.writeToFile();
     }
 

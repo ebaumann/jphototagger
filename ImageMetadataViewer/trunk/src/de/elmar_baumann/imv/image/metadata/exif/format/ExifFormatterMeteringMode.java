@@ -16,18 +16,17 @@ public final class ExifFormatterMeteringMode extends ExifFormatter {
 
     public static final ExifFormatterMeteringMode INSTANCE =
             new ExifFormatterMeteringMode();
-    private static final Map<Integer, String> exifKeyOfMeteringMode =
+    private static final Map<Integer, String> EXIF_KEY_OF_METERING_MODE =
             new HashMap<Integer, String>();
 
-
     static {
-        exifKeyOfMeteringMode.put(0, "MeteringModeUnknown"); // NOI18N
-        exifKeyOfMeteringMode.put(1, "MeteringModeIntegral"); // NOI18N
-        exifKeyOfMeteringMode.put(2, "MeteringModeIntegralCenter"); // NOI18N
-        exifKeyOfMeteringMode.put(3, "MeteringModeSpot"); // NOI18N
-        exifKeyOfMeteringMode.put(4, "MeteringModeMultiSpot"); // NOI18N
-        exifKeyOfMeteringMode.put(5, "MeteringModeMatrix"); // NOI18N
-        exifKeyOfMeteringMode.put(6, "MeteringModeSelective"); // NOI18N
+        EXIF_KEY_OF_METERING_MODE.put(0, "MeteringModeUnknown"); // NOI18N
+        EXIF_KEY_OF_METERING_MODE.put(1, "MeteringModeIntegral"); // NOI18N
+        EXIF_KEY_OF_METERING_MODE.put(2, "MeteringModeIntegralCenter"); // NOI18N
+        EXIF_KEY_OF_METERING_MODE.put(3, "MeteringModeSpot"); // NOI18N
+        EXIF_KEY_OF_METERING_MODE.put(4, "MeteringModeMultiSpot"); // NOI18N
+        EXIF_KEY_OF_METERING_MODE.put(5, "MeteringModeMatrix"); // NOI18N
+        EXIF_KEY_OF_METERING_MODE.put(6, "MeteringModeSelective"); // NOI18N
     }
 
     private ExifFormatterMeteringMode() {
@@ -41,8 +40,9 @@ public final class ExifFormatterMeteringMode extends ExifFormatter {
             ExifShort es = new ExifShort(entry.getRawValue(),
                     entry.getByteOrder());
             int value = es.getValue();
-            if (exifKeyOfMeteringMode.containsKey(value)) {
-                return translation.translate(exifKeyOfMeteringMode.get(value));
+            if (EXIF_KEY_OF_METERING_MODE.containsKey(value)) {
+                return TRANSLATION.translate(
+                        EXIF_KEY_OF_METERING_MODE.get(value));
             }
         }
         return "?";

@@ -14,30 +14,29 @@ import java.util.List;
  */
 public final class ExifFormatterAscii extends ExifFormatter {
 
-    private static final List<Integer> asciiTags = new ArrayList<Integer>();
+    private static final List<Integer> ASCII_TAGS = new ArrayList<Integer>();
     public static final ExifFormatterAscii INSTANCE = new ExifFormatterAscii();
 
     private ExifFormatterAscii() {
     }
-
 
     static {
         // Ordered alphabetically for faster checks
         // *****************************************************
         // *** Add every new tag ID to ExifFormatterFactory! ***
         // *****************************************************
-        asciiTags.add(ExifTag.ARTIST.getId());
-        asciiTags.add(ExifTag.IMAGE_DESCRIPTION.getId());
-        asciiTags.add(ExifTag.IMAGE_UNIQUE_ID.getId());
-        asciiTags.add(ExifTag.MAKE.getId());
-        asciiTags.add(ExifTag.MODEL.getId());
-        asciiTags.add(ExifTag.SOFTWARE.getId());
-        asciiTags.add(ExifTag.SPECTRAL_SENSITIVITY.getId());
+        ASCII_TAGS.add(ExifTag.ARTIST.getId());
+        ASCII_TAGS.add(ExifTag.IMAGE_DESCRIPTION.getId());
+        ASCII_TAGS.add(ExifTag.IMAGE_UNIQUE_ID.getId());
+        ASCII_TAGS.add(ExifTag.MAKE.getId());
+        ASCII_TAGS.add(ExifTag.MODEL.getId());
+        ASCII_TAGS.add(ExifTag.SOFTWARE.getId());
+        ASCII_TAGS.add(ExifTag.SPECTRAL_SENSITIVITY.getId());
     }
 
     @Override
     public String format(IdfEntryProxy entry) {
-        boolean isAsciiTag = asciiTags.contains(entry.getTag());
+        boolean isAsciiTag = ASCII_TAGS.contains(entry.getTag());
         if (!isAsciiTag) throw new IllegalArgumentException(
                     "Not an ASCII-Tag: " + entry);
         return ExifAscii.decode(entry.getRawValue());

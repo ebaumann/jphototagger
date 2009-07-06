@@ -26,9 +26,9 @@ import javax.swing.JOptionPane;
 public final class CopyToDirectoryDialog extends Dialog
         implements ProgressListener {
 
-    private static final String keyLastDirectory =
+    private static final String KEY_LAST_DIRECTORY =
             "de.elmar_baumann.imv.view.dialogs.CopyToDirectoryDialog.LastDirectory"; // NOI18N
-    private static final String keyCopyXmp = "CopyToDirectoryDialog.CopyXmp"; // NOI18N
+    private static final String KEY_COPY_XMP = "CopyToDirectoryDialog.CopyXmp"; // NOI18N
     private final List<ProgressListener> progressListeners =
             new ArrayList<ProgressListener>();
     private CopyFiles copyTask;
@@ -244,9 +244,9 @@ public final class CopyToDirectoryDialog extends Dialog
     private void readProperties() {
         UserSettings.INSTANCE.getSettings().getSizeAndLocation(this);
         UserSettings.INSTANCE.getSettings().getCheckBox(checkBoxCopyXmp,
-                keyCopyXmp);
+                KEY_COPY_XMP);
         String dir = UserSettings.INSTANCE.getSettings().getString(
-                keyLastDirectory);
+                KEY_LAST_DIRECTORY);
         if (FileUtil.existsDirectory(dir)) {
             targetDirectory = new File(dir);
         }
@@ -255,9 +255,9 @@ public final class CopyToDirectoryDialog extends Dialog
     private void writeProperties() {
         UserSettings.INSTANCE.getSettings().setSizeAndLocation(this);
         UserSettings.INSTANCE.getSettings().setString(
-                targetDirectory.getAbsolutePath(), keyLastDirectory);
+                targetDirectory.getAbsolutePath(), KEY_LAST_DIRECTORY);
         UserSettings.INSTANCE.getSettings().setCheckBox(checkBoxCopyXmp,
-                keyCopyXmp);
+                KEY_COPY_XMP);
         UserSettings.INSTANCE.writeToFile();
     }
 

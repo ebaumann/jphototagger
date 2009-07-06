@@ -63,43 +63,43 @@ public enum Content {
      * Contents where images of displayed thumbnails can be deleted from the
      * file system
      */
-    private static final Set<Content> contentDeleteImagesFromFileSystemAllowed =
+    private static final Set<Content> CONTENT_DELETE_IMAGES_FROM_FILESYSTEM_ALLOWED =
             new HashSet<Content>();
     /**
      * Contents where images located elsewhere in the file system can be
      * inserted
      */
-    private static final Set<Content> contentInsertImagesFromFileSystemAllowed =
+    private static final Set<Content> CONTENT_INSERT_IMAGES_FROM_FILESYSTEM_ALLOWED =
             new HashSet<Content>();
     /**
      * Contents which is sortable
      */
-    private static final Set<Content> sortableContent = new HashSet<Content>();
+    private static final Set<Content> SORTABLE_CONTENT = new HashSet<Content>();
 
     static {
         // Deletion from the file system is always allowed if the content is not
         // not an image collection where deletion means deleting an image from
         // the image collection and not from the file system
         for (Content content : values()) {
-            contentDeleteImagesFromFileSystemAllowed.add(content);
+            CONTENT_DELETE_IMAGES_FROM_FILESYSTEM_ALLOWED.add(content);
         }
-        contentDeleteImagesFromFileSystemAllowed.remove(IMAGE_COLLECTION);
+        CONTENT_DELETE_IMAGES_FROM_FILESYSTEM_ALLOWED.remove(IMAGE_COLLECTION);
 
         // Insertion is allowed if the directory is not ambigious where the
         // files shall be inserted. This is true if all displayed thumbnails
         // are in the same directory.
-        contentInsertImagesFromFileSystemAllowed.add(DIRECTORY);
-        contentInsertImagesFromFileSystemAllowed.add(FAVORITE);
+        CONTENT_INSERT_IMAGES_FROM_FILESYSTEM_ALLOWED.add(DIRECTORY);
+        CONTENT_INSERT_IMAGES_FROM_FILESYSTEM_ALLOWED.add(FAVORITE);
 
         // Currently only image collections are not sortable
-        sortableContent.add(CATEGORY);
-        sortableContent.add(DIRECTORY);
-        sortableContent.add(FAST_SEARCH);
-        sortableContent.add(FAVORITE);
-        sortableContent.add(KEYWORD);
-        sortableContent.add(MISC_METADATA);
-        sortableContent.add(SAFED_SEARCH);
-        sortableContent.add(TIMELINE);
+        SORTABLE_CONTENT.add(CATEGORY);
+        SORTABLE_CONTENT.add(DIRECTORY);
+        SORTABLE_CONTENT.add(FAST_SEARCH);
+        SORTABLE_CONTENT.add(FAVORITE);
+        SORTABLE_CONTENT.add(KEYWORD);
+        SORTABLE_CONTENT.add(MISC_METADATA);
+        SORTABLE_CONTENT.add(SAFED_SEARCH);
+        SORTABLE_CONTENT.add(TIMELINE);
     }
 
     /**
@@ -108,7 +108,7 @@ public enum Content {
      * @return true if images in this content can be deleted from file system
      */
     public boolean canDeleteImagesFromFileSystem() {
-        return contentDeleteImagesFromFileSystemAllowed.contains(this);
+        return CONTENT_DELETE_IMAGES_FROM_FILESYSTEM_ALLOWED.contains(this);
     }
 
     /**
@@ -118,7 +118,7 @@ public enum Content {
      * @return true if images from file system can be inserted into this content
      */
     public boolean canInsertImagesFromFileSystem() {
-        return contentInsertImagesFromFileSystemAllowed.contains(this);
+        return CONTENT_INSERT_IMAGES_FROM_FILESYSTEM_ALLOWED.contains(this);
     }
 
     /**
@@ -137,6 +137,6 @@ public enum Content {
      * @return true if the content is sortable
      */
     public boolean isSortable() {
-        return sortableContent.contains(this);
+        return SORTABLE_CONTENT.contains(this);
     }
 }

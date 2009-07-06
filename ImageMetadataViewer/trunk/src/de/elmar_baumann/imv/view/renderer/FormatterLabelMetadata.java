@@ -23,11 +23,11 @@ public class FormatterLabelMetadata {
      */
     protected static void setDefaultCellColors(JLabel cellLabel, boolean isSelected) {
         cellLabel.setForeground(isSelected
-            ? AppColors.colorForegroundTableTextSelected
-            : AppColors.colorForegroundTableTextDefault);
+            ? AppColors.COLOR_FOREGROUND_TABLE_TEXT_SELECTED
+            : AppColors.COLOR_FOREGROUND_TABLE_TEXT_DEFAULT);
         cellLabel.setBackground(isSelected
-            ? AppColors.colorBackgroundTableTextSelected
-            : AppColors.colorBackgroundTableTextDefault);
+            ? AppColors.COLOR_BACKGROUND_TABLE_TEXT_SELECTED
+            : AppColors.COLOR_BACKGROUND_TABLE_TEXT_DEFAULT);
         cellLabel.setOpaque(true);
     }
 
@@ -58,8 +58,8 @@ public class FormatterLabelMetadata {
      * @param cellLabel Label  Label
      */
     protected void setIsStoredInDatabaseColors(JLabel cellLabel) {
-        cellLabel.setForeground(AppColors.colorForegroundTableTextStoredInDatabase);
-        cellLabel.setBackground(AppColors.colorBackgroundTableTextStoredInDatabase);
+        cellLabel.setForeground(AppColors.COLOR_FOREGROUND_TABLE_TEXT_STORED_IN_DATABASE);
+        cellLabel.setBackground(AppColors.COLOR_BACKGROUND_TABLE_TEXT_STORED_IN_DATABASE);
     }
 
     private void initFonts(JLabel cellLabel) {

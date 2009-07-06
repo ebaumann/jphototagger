@@ -20,10 +20,10 @@ public final class ControllerHelp implements ActionListener,
                                              HelpBrowserListener {
 
     private final HelpBrowser help = HelpBrowser.INSTANCE;
-    private static final String keyCurrentUrl = ControllerHelp.class.getName() +
-            ".CurrentURL";
-    private String currentUrl = UserSettings.INSTANCE.getSettings().getString(
-            keyCurrentUrl);
+    private static final String KEY_CURRENT_URL =
+            ControllerHelp.class.getName() + ".CurrentURL";
+    private String currentUrl =
+            UserSettings.INSTANCE.getSettings().getString(KEY_CURRENT_URL);
 
     public ControllerHelp() {
         help.setContentsUrl(Bundle.getString("Help.Url.Contents"));
@@ -52,7 +52,7 @@ public final class ControllerHelp implements ActionListener,
         if (!url.getProtocol().startsWith("http")) {
             currentUrl = HelpBrowser.getLastPathComponent(url);
             UserSettings.INSTANCE.getSettings().setString(
-                    currentUrl, keyCurrentUrl);
+                    currentUrl, KEY_CURRENT_URL);
             UserSettings.INSTANCE.writeToFile();
         }
     }

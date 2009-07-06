@@ -43,18 +43,18 @@ public final class DatabaseImageEvent {
          */
         XMP_UPDATED,
     };
-    private static final List<Type> textMetadataEvents = new ArrayList<Type>(5);
+    private static final List<Type> TEXT_METADATA_EVENTS =
+            new ArrayList<Type>(5);
     private ImageFile imageFile;
     private ImageFile oldImageFile;
     private Type type;
 
-
     static {
-        textMetadataEvents.add(Type.IMAGEFILE_DELETED);
-        textMetadataEvents.add(Type.IMAGEFILE_INSERTED);
-        textMetadataEvents.add(Type.IMAGEFILE_UPDATED);
-        textMetadataEvents.add(Type.NOT_EXISTING_IMAGEFILES_DELETED);
-        textMetadataEvents.add(Type.XMP_UPDATED);
+        TEXT_METADATA_EVENTS.add(Type.IMAGEFILE_DELETED);
+        TEXT_METADATA_EVENTS.add(Type.IMAGEFILE_INSERTED);
+        TEXT_METADATA_EVENTS.add(Type.IMAGEFILE_UPDATED);
+        TEXT_METADATA_EVENTS.add(Type.NOT_EXISTING_IMAGEFILES_DELETED);
+        TEXT_METADATA_EVENTS.add(Type.XMP_UPDATED);
     }
 
     public DatabaseImageEvent(Type type) {
@@ -121,6 +121,6 @@ public final class DatabaseImageEvent {
      * @return true if text metadata is affected
      */
     public boolean isTextMetadataAffected() {
-        return textMetadataEvents.contains(type);
+        return TEXT_METADATA_EVENTS.contains(type);
     }
 }

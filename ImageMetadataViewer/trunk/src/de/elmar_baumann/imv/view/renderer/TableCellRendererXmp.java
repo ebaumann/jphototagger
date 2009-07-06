@@ -24,13 +24,13 @@ import javax.swing.table.TableCellRenderer;
 public final class TableCellRendererXmp extends FormatterLabelMetadata
         implements TableCellRenderer {
 
-    private static final String pathDelimiter = "/"; // NOI18N
-    private static final String namespaceDelimiter = ":"; // NOI18N
-    private static final Translation xmpTranslation = new Translation(
+    private static final String DELIMITER_PATH = "/"; // NOI18N
+    private static final String DELIMITER_NAMESPACE = ":"; // NOI18N
+    private static final Translation TRANSLATION_XMP = new Translation(
             "XmpPropertyTranslations"); // NOI18N
-    private static final Translation xmpExifTagIdTranslation = new Translation(
+    private static final Translation TRANSLATION_XMP_EXIF_TAG_ID = new Translation(
             "XmpPropertyExifTagIdTranslations"); // NOI18N
-    private static final Translation exifTranslation = new Translation(
+    private static final Translation TRANSLATION_EXIF = new Translation(
             "ExifTagIdTagNameTranslations"); // NOI18N
 
     @Override
@@ -75,14 +75,14 @@ public final class TableCellRendererXmp extends FormatterLabelMetadata
             String pathComponent = pathComponents.get(i);
             String withoutIndex = getWithoutIndex(pathComponent);
             String translated = (isExifNamespace(pathComponent)
-                                 ? exifTranslation.translate(
-                    xmpExifTagIdTranslation.translate(withoutIndex))
-                                 : xmpTranslation.translate(withoutIndex));
+                                 ? TRANSLATION_EXIF.translate(
+                    TRANSLATION_XMP_EXIF_TAG_ID.translate(withoutIndex))
+                                 : TRANSLATION_XMP.translate(withoutIndex));
             newPath.append(
                     getWithoutNamespace(translated) +
                     getIndexString(pathComponent) +
                     (count > 1 && i < count - 1
-                     ? pathDelimiter
+                     ? DELIMITER_PATH
                      : "")); // NOI18N
         }
 
@@ -91,7 +91,7 @@ public final class TableCellRendererXmp extends FormatterLabelMetadata
 
     private static List<String> getPathComponents(String path) {
         List<String> components = new ArrayList<String>();
-        StringTokenizer tokenizer = new StringTokenizer(path, pathDelimiter);
+        StringTokenizer tokenizer = new StringTokenizer(path, DELIMITER_PATH);
         while (tokenizer.hasMoreTokens()) {
             components.add(tokenizer.nextToken());
         }
@@ -120,14 +120,14 @@ public final class TableCellRendererXmp extends FormatterLabelMetadata
 
     private static String getWithoutNamespace(String string) {
         if (hasNamespace(string)) {
-            int indexDelim = string.indexOf(namespaceDelimiter);
+            int indexDelim = string.indexOf(DELIMITER_NAMESPACE);
             return string.substring(indexDelim + 1);
         }
         return string;
     }
 
     private static boolean hasNamespace(String string) {
-        int indexDelim = string.indexOf(namespaceDelimiter);
+        int indexDelim = string.indexOf(DELIMITER_NAMESPACE);
         if (indexDelim > 0) {
             return XmpMetadata.isKnownNamespace(string.substring(0, indexDelim));
         }

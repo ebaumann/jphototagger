@@ -10,8 +10,8 @@ import de.elmar_baumann.imv.event.ProgressEvent;
 import de.elmar_baumann.imv.event.listener.ProgressListener;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 /**
  * Base class of specialized database classes.
@@ -21,11 +21,11 @@ import java.util.List;
  */
 public class Database {
 
-    private static final List<DatabaseListener> databaseListener =
-            new ArrayList<DatabaseListener>();
+    private static final Set<DatabaseListener> DATABASE_LISTENER =
+            new LinkedHashSet<DatabaseListener>();
 
     public synchronized void addDatabaseListener(DatabaseListener listener) {
-        databaseListener.add(listener);
+        DATABASE_LISTENER.add(listener);
     }
 
     protected synchronized void notifyDatabaseListener(
@@ -33,7 +33,7 @@ public class Database {
 
         DatabaseImageEvent event = new DatabaseImageEvent(type);
         event.setImageFile(imageFile);
-        for (DatabaseListener listener : databaseListener) {
+        for (DatabaseListener listener : DATABASE_LISTENER) {
             listener.actionPerformed(event);
         }
     }
@@ -45,7 +45,7 @@ public class Database {
         DatabaseImageEvent event = new DatabaseImageEvent(type);
         event.setImageFile(newImageFile);
         event.setOldImageFile(oldImageFile);
-        for (DatabaseListener listener : databaseListener) {
+        for (DatabaseListener listener : DATABASE_LISTENER) {
             listener.actionPerformed(event);
         }
     }
@@ -55,7 +55,7 @@ public class Database {
 
         DatabaseProgramEvent event = new DatabaseProgramEvent(type);
         event.setProgram(program);
-        for (DatabaseListener listener : databaseListener) {
+        for (DatabaseListener listener : DATABASE_LISTENER) {
             listener.actionPerformed(event);
         }
     }

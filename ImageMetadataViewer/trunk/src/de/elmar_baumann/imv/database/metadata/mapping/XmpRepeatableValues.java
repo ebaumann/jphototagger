@@ -32,29 +32,33 @@ import java.util.Map;
  */
 public final class XmpRepeatableValues {
 
-    private static final Map<Column, Boolean> repeatableOf = new HashMap<Column, Boolean>();
+    private static final Map<Column, Boolean> IS_REPEATABLE =
+            new HashMap<Column, Boolean>();
 
     static {
-        repeatableOf.put(ColumnXmpDcCreator.INSTANCE, false);
-        repeatableOf.put(ColumnXmpDcDescription.INSTANCE, false);
-        repeatableOf.put(ColumnXmpDcRights.INSTANCE, false);
-        repeatableOf.put(ColumnXmpDcSubjectsSubject.INSTANCE, true);
-        repeatableOf.put(ColumnXmpDcTitle.INSTANCE, false);
-        repeatableOf.put(ColumnXmpIptc4xmpcoreCountrycode.INSTANCE, false);
-        repeatableOf.put(ColumnXmpIptc4xmpcoreLocation.INSTANCE, false);
-        repeatableOf.put(ColumnXmpPhotoshopAuthorsposition.INSTANCE, false);
-        repeatableOf.put(ColumnXmpPhotoshopCaptionwriter.INSTANCE, false);
-        repeatableOf.put(ColumnXmpPhotoshopCategory.INSTANCE, false);
-        repeatableOf.put(ColumnXmpPhotoshopCity.INSTANCE, false);
-        repeatableOf.put(ColumnXmpPhotoshopCountry.INSTANCE, false);
-        repeatableOf.put(ColumnXmpPhotoshopCredit.INSTANCE, false);
-        repeatableOf.put(ColumnXmpPhotoshopHeadline.INSTANCE, false);
-        repeatableOf.put(ColumnXmpPhotoshopInstructions.INSTANCE, false);
-        repeatableOf.put(ColumnXmpPhotoshopSource.INSTANCE, false);
-        repeatableOf.put(ColumnXmpPhotoshopState.INSTANCE, false);
-        repeatableOf.put(ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory.INSTANCE, true);
-        repeatableOf.put(ColumnXmpPhotoshopTransmissionReference.INSTANCE, false);
-        repeatableOf.put(ColumnXmpLastModified.INSTANCE, false);
+        IS_REPEATABLE.put(ColumnXmpDcCreator.INSTANCE, false);
+        IS_REPEATABLE.put(ColumnXmpDcDescription.INSTANCE, false);
+        IS_REPEATABLE.put(ColumnXmpDcRights.INSTANCE, false);
+        IS_REPEATABLE.put(ColumnXmpDcSubjectsSubject.INSTANCE, true);
+        IS_REPEATABLE.put(ColumnXmpDcTitle.INSTANCE, false);
+        IS_REPEATABLE.put(ColumnXmpIptc4xmpcoreCountrycode.INSTANCE, false);
+        IS_REPEATABLE.put(ColumnXmpIptc4xmpcoreLocation.INSTANCE, false);
+        IS_REPEATABLE.put(ColumnXmpPhotoshopAuthorsposition.INSTANCE, false);
+        IS_REPEATABLE.put(ColumnXmpPhotoshopCaptionwriter.INSTANCE, false);
+        IS_REPEATABLE.put(ColumnXmpPhotoshopCategory.INSTANCE, false);
+        IS_REPEATABLE.put(ColumnXmpPhotoshopCity.INSTANCE, false);
+        IS_REPEATABLE.put(ColumnXmpPhotoshopCountry.INSTANCE, false);
+        IS_REPEATABLE.put(ColumnXmpPhotoshopCredit.INSTANCE, false);
+        IS_REPEATABLE.put(ColumnXmpPhotoshopHeadline.INSTANCE, false);
+        IS_REPEATABLE.put(ColumnXmpPhotoshopInstructions.INSTANCE, false);
+        IS_REPEATABLE.put(ColumnXmpPhotoshopSource.INSTANCE, false);
+        IS_REPEATABLE.put(ColumnXmpPhotoshopState.INSTANCE, false);
+        IS_REPEATABLE.put(
+                ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory.INSTANCE,
+                true);
+        IS_REPEATABLE.put(ColumnXmpPhotoshopTransmissionReference.INSTANCE,
+                false);
+        IS_REPEATABLE.put(ColumnXmpLastModified.INSTANCE, false);
     }
 
     /**
@@ -66,7 +70,7 @@ public final class XmpRepeatableValues {
      *         the column has repeatable values
      */
     public static boolean isRepeatable(Column xmpColumn) {
-        Boolean repeatable = repeatableOf.get(xmpColumn);
+        Boolean repeatable = IS_REPEATABLE.get(xmpColumn);
         if (repeatable == null)
             throw new IllegalArgumentException("Unknown column: " + xmpColumn);
         return repeatable;

@@ -1097,7 +1097,7 @@
             <Component class="javax.swing.JProgressBar" name="progressBarScheduledTasks">
               <Properties>
                 <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="AppTexts.tooltipTextProgressBarScheduledTasks" type="code"/>
+                  <Connection code="AppTexts.TOOLTIP_TEXT_PROGRESSBAR_SCHEDULED_TASKS" type="code"/>
                 </Property>
                 <Property name="name" type="java.lang.String" value="progressBarScheduledTasks" noResource="true"/>
               </Properties>
@@ -1180,7 +1180,7 @@
         <Component class="javax.swing.JProgressBar" name="progressBarCreateMetadataOfCurrentThumbnails">
           <Properties>
             <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="AppTexts.tooltipTextProgressBarDirectory" type="code"/>
+              <Connection code="AppTexts.TOOLTIP_TEXT_PROGRESSBAR_DIRECTORY" type="code"/>
             </Property>
             <Property name="name" type="java.lang.String" value="progressBarCreateMetadataOfCurrentThumbnails" noResource="true"/>
           </Properties>
@@ -1188,7 +1188,7 @@
         <Component class="javax.swing.JProgressBar" name="progressBarCurrentTasks">
           <Properties>
             <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="AppTexts.tooltipTextProgressBarCurrentTasks" type="code"/>
+              <Connection code="AppTexts.TOOLTIP_TEXT_PROGRESSBAR_CURRENT_TASKS" type="code"/>
             </Property>
             <Property name="name" type="java.lang.String" value="progressBarCurrentTasks" noResource="true"/>
           </Properties>

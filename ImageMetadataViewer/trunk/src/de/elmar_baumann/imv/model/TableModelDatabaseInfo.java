@@ -22,20 +22,19 @@ import javax.swing.table.DefaultTableModel;
 public final class TableModelDatabaseInfo extends DefaultTableModel
         implements DatabaseListener {
 
+    private static final List<DatabaseImageEvent.Type> COUNT_EVENTS =
+            new ArrayList<DatabaseImageEvent.Type>();
     private final DatabaseStatistics db = DatabaseStatistics.INSTANCE;
     private final LinkedHashMap<Column, StringBuffer> bufferDifferentOfColumn =
             new LinkedHashMap<Column, StringBuffer>();
     private final LinkedHashMap<Column, StringBuffer> bufferTotalOfColumn =
             new LinkedHashMap<Column, StringBuffer>();
-    private static final List<DatabaseImageEvent.Type> countEvents =
-            new ArrayList<DatabaseImageEvent.Type>();
     private boolean listenToDatabase = false;
 
-
     static {
-        countEvents.add(DatabaseImageEvent.Type.IMAGEFILE_DELETED);
-        countEvents.add(DatabaseImageEvent.Type.IMAGEFILE_INSERTED);
-        countEvents.add(DatabaseImageEvent.Type.IMAGEFILE_UPDATED);
+        COUNT_EVENTS.add(DatabaseImageEvent.Type.IMAGEFILE_DELETED);
+        COUNT_EVENTS.add(DatabaseImageEvent.Type.IMAGEFILE_INSERTED);
+        COUNT_EVENTS.add(DatabaseImageEvent.Type.IMAGEFILE_UPDATED);
     }
 
     private void initBufferOfColumn() {
@@ -69,7 +68,7 @@ public final class TableModelDatabaseInfo extends DefaultTableModel
     }
 
     private boolean isCountEvent(DatabaseImageEvent.Type type) {
-        return countEvents.contains(type);
+        return COUNT_EVENTS.contains(type);
     }
 
     private void addColumnHeaders() {

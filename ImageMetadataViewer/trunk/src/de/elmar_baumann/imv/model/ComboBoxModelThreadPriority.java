@@ -13,14 +13,19 @@ import javax.swing.DefaultComboBoxModel;
  */
 public final class ComboBoxModelThreadPriority extends DefaultComboBoxModel {
 
-    private static final Map<String, Integer> priorityOfString = new HashMap<String, Integer>();
-    private static final Map<Integer, String> stringOfPriority = new HashMap<Integer, String>();
-    private static final String highPriorityString = Bundle.getString("ComboBoxModelThreadPriority.ThreadPriority.High");
-    private static final String mediumPriorityString = Bundle.getString("ComboBoxModelThreadPriority.ThreadPriority.Medium");
-    private static final String lowPriorityString = Bundle.getString("ComboBoxModelThreadPriority.ThreadPriority.Low");
-    private static final Integer highPriority = new Integer(8);
-    private static final Integer mediumPriority = new Integer(5);
-    private static final Integer lowPriority = new Integer(1);
+    private static final Map<String, Integer> PRIORITY_OF_STRING =
+            new HashMap<String, Integer>();
+    private static final Map<Integer, String> STRING_OF_PRIORITY =
+            new HashMap<Integer, String>();
+    private static final String PRIORITY_HIGH_STRING =
+            Bundle.getString("ComboBoxModelThreadPriority.ThreadPriority.High");
+    private static final String PRIORITY_MEDIUM_STRING =
+            Bundle.getString("ComboBoxModelThreadPriority.ThreadPriority.Medium");
+    private static final String PRIORITY_LOW_STRING =
+            Bundle.getString("ComboBoxModelThreadPriority.ThreadPriority.Low");
+    private static final Integer PRIORITY_HIGH = new Integer(8);
+    private static final Integer PRIORITY_MEDIUM = new Integer(5);
+    private static final Integer PRIORITY_LOW = new Integer(1);
 
     public ComboBoxModelThreadPriority() {
         initMap();
@@ -35,20 +40,22 @@ public final class ComboBoxModelThreadPriority extends DefaultComboBoxModel {
      * @see           #isPriority(String)
      */
     public int getPriorityOf(String string) {
-        Integer priority = mediumPriority;
+        Integer priority = PRIORITY_MEDIUM;
         boolean isPriority = isPriority(string);
         if (isPriority) {
-            priority = priorityOfString.get(string);
+            priority = PRIORITY_OF_STRING.get(string);
         }
         return priority.intValue();
     }
 
     public String getItemOfPriority(int priority) {
-        return stringOfPriority.get(priority);
+        return STRING_OF_PRIORITY.get(priority);
     }
 
     public Integer getSelectedPriority() {
-        return priorityOfString.get(getSelectedItem());
+        return getSelectedItem() == null
+               ? null
+               : PRIORITY_OF_STRING.get(getSelectedItem().toString());
     }
 
     /**
@@ -58,24 +65,24 @@ public final class ComboBoxModelThreadPriority extends DefaultComboBoxModel {
      * @return       true, wenn der String eine gültige Priorität spezifiziert
      */
     public boolean isPriority(String string) {
-        return priorityOfString.containsKey(string);
+        return PRIORITY_OF_STRING.containsKey(string);
     }
 
     private void insertElements() {
-        insertElementAt(lowPriorityString, 0);
-        insertElementAt(mediumPriorityString, 1);
-        insertElementAt(highPriorityString, 2);
-        setSelectedItem(mediumPriorityString);
+        insertElementAt(PRIORITY_LOW_STRING, 0);
+        insertElementAt(PRIORITY_MEDIUM_STRING, 1);
+        insertElementAt(PRIORITY_HIGH_STRING, 2);
+        setSelectedItem(PRIORITY_MEDIUM_STRING);
     }
 
     private void initMap() {
-        if (priorityOfString.isEmpty()) {
-            priorityOfString.put(lowPriorityString, lowPriority);
-            priorityOfString.put(mediumPriorityString, mediumPriority);
-            priorityOfString.put(highPriorityString, highPriority);
+        if (PRIORITY_OF_STRING.isEmpty()) {
+            PRIORITY_OF_STRING.put(PRIORITY_LOW_STRING, PRIORITY_LOW);
+            PRIORITY_OF_STRING.put(PRIORITY_MEDIUM_STRING, PRIORITY_MEDIUM);
+            PRIORITY_OF_STRING.put(PRIORITY_HIGH_STRING, PRIORITY_HIGH);
 
-            for (String string : priorityOfString.keySet()) {
-                stringOfPriority.put(priorityOfString.get(string), string);
+            for (String string : PRIORITY_OF_STRING.keySet()) {
+                STRING_OF_PRIORITY.put(PRIORITY_OF_STRING.get(string), string);
             }
         }
     }

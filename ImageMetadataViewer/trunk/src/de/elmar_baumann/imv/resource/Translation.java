@@ -13,12 +13,14 @@ import java.util.ResourceBundle;
  */
 public final class Translation {
 
-    private static final String pathPrefix = "de/elmar_baumann/imv/resource/properties/"; // NOI18N
+    private static final String PATH_PREFIX =
+            "de/elmar_baumann/imv/resource/properties/"; // NOI18N
     private ResourceBundle bundle;
 
     public Translation(String propertiesFileBasename) {
         try {
-            bundle = ResourceBundle.getBundle(pathPrefix + propertiesFileBasename);
+            bundle = ResourceBundle.getBundle(
+                    PATH_PREFIX + propertiesFileBasename);
         } catch (MissingResourceException ex) {
             AppLog.logWarning(Translation.class, ex);
         }

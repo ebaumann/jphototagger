@@ -28,11 +28,11 @@ public final class ExifFormatterFlash extends ExifFormatter {
             boolean fired = bitsByte1[0];
             boolean hasFlash = !bitsByte1[5];
             if (!hasFlash) {
-                return translation.translate("FlashNone"); // NOI18N
+                return TRANSLATION.translate("FlashNone"); // NOI18N
             }
             return fired
-                   ? translation.translate("FlashFired") // NOI18N
-                   : translation.translate("FlashNotFired"); // NOI18N
+                   ? TRANSLATION.translate("FlashFired") // NOI18N
+                   : TRANSLATION.translate("FlashNotFired"); // NOI18N
         }
         return ExifAscii.decode(rawValue);
     }
