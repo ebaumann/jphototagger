@@ -28,6 +28,16 @@ public enum FileAction {
         return transferHandlerAction;
     }
 
+    /**
+     * Returns whether this action is a {@link FileAction#COPY} or a
+     * {@link FileAction#MOVE}.
+     *
+     * @return true if this action is a copy action or a move action
+     */
+    public boolean isCopyOrMove() {
+        return this.equals(COPY) || this.equals(MOVE);
+    }
+
     private FileAction(Integer transferHandlerAction) {
         this.transferHandlerAction = transferHandlerAction;
     }
