@@ -3,18 +3,16 @@ package de.elmar_baumann.imv.datatransfer;
 import de.elmar_baumann.imv.database.DatabaseImageCollections;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.types.Content;
-import de.elmar_baumann.imv.view.ViewUtil;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.lib.datatransfer.TransferUtil;
 import de.elmar_baumann.lib.io.FileUtil;
+import java.awt.Component;
 import java.awt.Point;
 import java.awt.datatransfer.Transferable;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JComponent;
 import javax.swing.JList;
-import javax.swing.JTree;
 import javax.swing.TransferHandler;
 
 /**
@@ -42,12 +40,12 @@ public final class TransferHandlerPanelThumbnails extends TransferHandler {
 
     @Override
     public boolean canImport(TransferSupport transferSupport) {
-        ImageFileThumbnailsPanel panel =
-                (ImageFileThumbnailsPanel) transferSupport.getComponent();
-        if (panel.getContent().equals(Content.IMAGE_COLLECTION)) return true;
-        return canPanelAddImageFiles(panel) &&
-                TransferUtil.maybeContainFileData(transferSupport.
-                getTransferable());
+        Component c = transferSupport.getComponent();
+        if (c instanceof ImageFileThumbnailsPanel) {
+            return ((ImageFileThumbnailsPanel) c).getContent().equals(
+                    Content.IMAGE_COLLECTION);
+        }
+        return false;
     }
 
     @Override
@@ -66,52 +64,16 @@ public final class TransferHandlerPanelThumbnails extends TransferHandler {
     public boolean importData(final TransferSupport transferSupport) {
         final ImageFileThumbnailsPanel panel =
                 (ImageFileThumbnailsPanel) transferSupport.getComponent();
-        boolean imagesSelected = panel.getSelectionCount() > 0;
-        if (!canImport(transferSupport)) return false;
-        if (imagesSelected &&
-                panel.getContent().equals(Content.IMAGE_COLLECTION)) {
+        if (panel.getSelectionCount() > 0) {
             moveSelectedImages(transferSupport, panel);
             return true;
         }
-        copyOrMoveSelectedImages(transferSupport);
-        return true;
+        return false;
     }
 
     @Override
     protected void exportDone(JComponent c, Transferable data, int action) {
-    }
-
-    private boolean canPanelAddImageFiles(
-            ImageFileThumbnailsPanel thumbnailsPanel) {
-        return CONTENT_IS_A_FILESYSTEM_DIRECTORY.contains(
-                thumbnailsPanel.getContent());
-    }
-
-    private void copyOrMoveSelectedImages(TransferSupport transferSupport) {
-        List<File> sourceFiles =
-                TransferUtil.getFiles(transferSupport.getTransferable(),
-                DELIMITER);
-        File targetDirectory = null;
-        if (isContent(Content.DIRECTORY)) {
-            JTree treeDirectories =
-                    GUI.INSTANCE.getAppPanel().getTreeDirectories();
-            targetDirectory =
-                    ViewUtil.getSelectedFile(treeDirectories);
-        } else if (isContent(Content.FAVORITE)) {
-            targetDirectory =
-                    ViewUtil.getSelectedDirectoryFromFavoriteDirectories();
-        }
-        if (targetDirectory != null & sourceFiles.size() > 0) {
-            TransferHandlerTreeDirectories.handleDroppedFiles(transferSupport.
-                    getDropAction(),
-                    sourceFiles, targetDirectory);
-        }
-    }
-
-    private boolean isContent(Content content) {
-        ImageFileThumbnailsPanel thumbnailsPanel = GUI.INSTANCE.getAppPanel().
-                getPanelThumbnails();
-        return thumbnailsPanel.getContent().equals(content);
+        // ignore
     }
 
     private void moveSelectedImages(TransferSupport transferSupport,
