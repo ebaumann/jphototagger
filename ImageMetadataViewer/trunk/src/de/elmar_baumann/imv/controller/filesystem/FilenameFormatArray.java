@@ -1,5 +1,6 @@
 package de.elmar_baumann.imv.controller.filesystem;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,9 +11,9 @@ import java.util.List;
  * @version 2008/10/13
  */
 public final class FilenameFormatArray {
-    
+
     private List<FilenameFormat> formats = new ArrayList<FilenameFormat>();
-    
+
     /**
      * Adds a format. {@link #format()} returns the filename built in the
      * same order of the calls to this function.
@@ -22,7 +23,7 @@ public final class FilenameFormatArray {
     public synchronized void addFormat(FilenameFormat format) {
         formats.add(format);
     }
-    
+
     /**
      * Calls to every format {@link FilenameFormat#next()}
      */
@@ -38,7 +39,7 @@ public final class FilenameFormatArray {
     public synchronized void clear() {
         formats.clear();
     }
-    
+
     /**
      * Returns the formatted filename: the appended strings of all formats
      * ({@link FilenameFormat#format()}).
@@ -53,4 +54,14 @@ public final class FilenameFormatArray {
         return buffer.toString();
     }
 
+    /**
+     * Sets a file to all formats.
+     *
+     * @param file file
+     */
+    public synchronized void setFile(File file) {
+        for (FilenameFormat format : formats) {
+            format.setFile(file);
+        }
+    }
 }
