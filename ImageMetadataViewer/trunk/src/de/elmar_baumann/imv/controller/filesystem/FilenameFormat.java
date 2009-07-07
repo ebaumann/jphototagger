@@ -11,6 +11,7 @@ import java.io.File;
 public abstract class FilenameFormat {
     
     private File file;
+    private File prevFile;
     private String format;
 
     /**
@@ -37,6 +38,7 @@ public abstract class FilenameFormat {
      * @param file  file
      */
     public void setFile(File file) {
+        this.prevFile = this.file;
         this.file = file;
     }
     
@@ -47,6 +49,15 @@ public abstract class FilenameFormat {
      */
     public File getFile() {
         return file;
+    }
+
+    /**
+     * Returns the previous set file.
+     *
+     * @return previous file
+     */
+    public File getPrevFile() {
+        return prevFile;
     }
 
     /**
