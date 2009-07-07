@@ -155,6 +155,7 @@ public final class RenameDialog extends Dialog {
             fileIndex = i;
             File oldFile = files.get(i);
             String parent = oldFile.getParent();
+            filenameFormatArray.setFile(oldFile);
             File newFile = new File(
                     (parent == null
                      ? ""
