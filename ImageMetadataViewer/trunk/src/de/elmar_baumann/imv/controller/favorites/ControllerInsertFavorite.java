@@ -14,8 +14,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.JTree;
 import javax.swing.SwingUtilities;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.TreePath;
 
 /**
  * Listens to the {@link PopupMenuFavorites} and inserts a
@@ -56,20 +54,6 @@ public final class ControllerInsertFavorite
     @Override
     public void actionPerformed(ActionEvent e) {
         insertFavorite(getDirectoryName(e.getSource()));
-    }
-
-    private boolean isFavoriteSelected() {
-        TreePath selPath = tree.getSelectionPath();
-        if (selPath == null) return false;
-        Object node = selPath.getLastPathComponent();
-        if (node instanceof DefaultMutableTreeNode) {
-            Object userObject = ((DefaultMutableTreeNode) node).getUserObject();
-            if (userObject instanceof FavoriteDirectory) {
-                return true;
-            }
-
-        }
-        return false;
     }
 
     private String getDirectoryName(Object o) {
