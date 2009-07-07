@@ -17,7 +17,8 @@ public final class FilenameFormatNumberSequence extends FilenameFormat {
     private int countDigits;
     private DecimalFormat decimalFormat;
 
-    public FilenameFormatNumberSequence(int start, int increment, int countDigits) {
+    public FilenameFormatNumberSequence(int start, int increment,
+            int countDigits) {
         this.start = start;
         this.increment = increment;
         this.countDigits = countDigits;
@@ -59,6 +60,13 @@ public final class FilenameFormatNumberSequence extends FilenameFormat {
         current = start;
     }
 
+    /**
+     * Sets the start value as the current value.
+     */
+    public void restart() {
+        current = start;
+    }
+
     @Override
     public void next() {
         current += increment;
@@ -74,5 +82,6 @@ public final class FilenameFormatNumberSequence extends FilenameFormat {
         return Bundle.getString("FilenameFormatNumberSequence.String");
     }
 
-    private FilenameFormatNumberSequence() {}
+    private FilenameFormatNumberSequence() {
+    }
 }
