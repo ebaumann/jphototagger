@@ -1,6 +1,9 @@
 package de.elmar_baumann.imv.controller.filesystem;
 
+import de.elmar_baumann.imv.event.listener.FilenameFormatListener;
 import java.io.File;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Format of a filename.
@@ -9,10 +12,12 @@ import java.io.File;
  * @version 2008/10/13
  */
 public abstract class FilenameFormat {
-    
+
     private File file;
     private File prevFile;
     private String format;
+    private final Set<FilenameFormatListener> listeners =
+            new HashSet<FilenameFormatListener>();
 
     /**
      * Returns a format string.
@@ -41,7 +46,7 @@ public abstract class FilenameFormat {
         this.prevFile = this.file;
         this.file = file;
     }
-    
+
     /**
      * Returns the affected file.
      * 
@@ -82,4 +87,39 @@ public abstract class FilenameFormat {
      * @return filename (-part)
      */
     abstract public String format();
+
+    /**
+     * Adds a filename format listener.
+     *
+     * @param listener listener
+     */
+    public void addFilenameFormatListener(FilenameFormatListener listener) {
+        synchronized (listeners) {
+            listeners.add(listener);
+        }
+    }
+
+    /**
+     * Removes a filename format listener.
+     *
+     * @param listener listener
+     */
+    public void removeFilenameFormatListener(FilenameFormatListener listener) {
+        synchronized (listeners) {
+            listeners.remove(listener);
+        }
+    }
+
+    /**
+     * Sends a request to all {@link FilenameFormatListener}s.
+     *
+     * @param request request
+     */
+    protected void requestListeners(FilenameFormatListener.Request request) {
+        synchronized (listeners) {
+            for (FilenameFormatListener listener : listeners) {
+                listener.request(request);
+            }
+        }
+    }
 }
