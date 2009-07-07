@@ -97,7 +97,6 @@ public final class ControllerFactory {
             new ControllerImageCollectionSelected();
             new ControllerMenuItemEnabler();
             new ControllerThumbnailCountDisplay();
-            new ControllerThumbnailsPanelPersistence();
             new ControllerCreateMetadataOfSelectedThumbnails();
             new ControllerCreateImageCollection();
             new ControllerDeleteImageCollection();
