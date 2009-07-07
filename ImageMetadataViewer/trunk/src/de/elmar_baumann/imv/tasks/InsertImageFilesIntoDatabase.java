@@ -35,10 +35,10 @@ public final class InsertImageFilesIntoDatabase implements Runnable {
     private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
     private final List<ProgressListener> progressListeners =
             new ArrayList<ProgressListener>();
-    private final int maxThumbnailLength = UserSettings.INSTANCE.
-            getMaxThumbnailLength();
-    private final boolean useEmbeddedThumbnails = UserSettings.INSTANCE.
-            isUseEmbeddedThumbnails();
+    private final int maxThumbnailLength =
+            UserSettings.INSTANCE.getMaxThumbnailLength();
+    private final boolean useEmbeddedThumbnails =
+            UserSettings.INSTANCE.isUseEmbeddedThumbnails();
     private final String externalThumbnailCreationCommand =
             UserSettings.INSTANCE.getExternalThumbnailCreationCommand();
     private final List<String> filenames;
@@ -82,8 +82,8 @@ public final class InsertImageFilesIntoDatabase implements Runnable {
      * @param filenames  names of the <em>image</em> files to be updated
      * @param what       what to insert
      */
-    public InsertImageFilesIntoDatabase(List<String> filenames,
-            EnumSet<Insert> what) {
+    public InsertImageFilesIntoDatabase(
+            List<String> filenames, EnumSet<Insert> what) {
         this.filenames = filenames;
         this.what = what;
     }
@@ -171,20 +171,20 @@ public final class InsertImageFilesIntoDatabase implements Runnable {
 
     private boolean isUpdateThumbnail(String filename) {
         return what.contains(Insert.THUMBNAIL) ||
-                (what.contains(Insert.OUT_OF_DATE) && !isImageFileUpToDate(
-                filename));
+                (what.contains(Insert.OUT_OF_DATE) &&
+                !isImageFileUpToDate(filename));
     }
 
     private boolean isUpdateExif(String filename) {
         return what.contains(Insert.EXIF) ||
-                (what.contains(Insert.OUT_OF_DATE) && !isImageFileUpToDate(
-                filename));
+                (what.contains(Insert.OUT_OF_DATE) &&
+                !isImageFileUpToDate(filename));
     }
 
     private boolean isUpdateXmp(String filename) {
         return what.contains(Insert.XMP) ||
-                (what.contains(Insert.OUT_OF_DATE) && !isXmpFileUpToDate(
-                filename));
+                (what.contains(Insert.OUT_OF_DATE) &&
+                !isXmpFileUpToDate(filename));
     }
 
     private boolean isImageFileUpToDate(String filename) {
@@ -194,14 +194,15 @@ public final class InsertImageFilesIntoDatabase implements Runnable {
     }
 
     private boolean isXmpFileUpToDate(String imageFilename) {
-        String sidecarFileName = XmpMetadata.getSidecarFilenameOfImageFileIfExists(imageFilename);
+        String sidecarFileName =
+                XmpMetadata.getSidecarFilenameOfImageFileIfExists(imageFilename);
         return sidecarFileName == null
                ? isEmbeddedXmpUpToDate(imageFilename)
                : isXmpSidecarFileUpToDate(imageFilename, sidecarFileName);
     }
 
-    private boolean isXmpSidecarFileUpToDate(String imageFilename,
-            String sidecarFilename) {
+    private boolean isXmpSidecarFileUpToDate(
+            String imageFilename, String sidecarFilename) {
         assert FileUtil.existsFile(sidecarFilename);
         long dbTime = db.getLastModifiedXmp(imageFilename);
         long fileTime = FileUtil.getLastModified(sidecarFilename);
@@ -217,8 +218,12 @@ public final class InsertImageFilesIntoDatabase implements Runnable {
         if (dbTime == fileTime) {
             return true;
         }
-        boolean hasEmbeddedXmp = XmpMetadata.getEmbeddedXmp(imageFilename) !=
-                null; // slow if large image file whitout XMP
+        boolean hasEmbeddedXmp =
+                XmpMetadata.getEmbeddedXmp(imageFilename) != null; // slow if large image file whitout XMP
+        // Avoid unneccesary 2nd calls
+        if (!hasEmbeddedXmp) {
+            db.setLastModifiedXmp(imageFilename, fileTime);
+        }
         return !hasEmbeddedXmp || fileTime == dbTime;
     }
 
@@ -272,7 +277,8 @@ public final class InsertImageFilesIntoDatabase implements Runnable {
         if (xmp != null && !XmpMetadata.hasImageASidecarFile(imageFilename) &&
                 XmpMetadata.canWriteSidecarFileForImageFile(imageFilename)) {
             XmpMetadata.writeMetadataToSidecarFile(
-                    XmpMetadata.suggestSidecarFilenameForImageFile(imageFilename), xmp);
+                    XmpMetadata.suggestSidecarFilenameForImageFile(imageFilename),
+                    xmp);
         }
     }
 
@@ -290,7 +296,8 @@ public final class InsertImageFilesIntoDatabase implements Runnable {
 
     private boolean isRunActionsAfterInserting(ImageFile imageFile) {
         UserSettings settings = UserSettings.INSTANCE;
-        return settings.isExecuteActionsAfterImageChangeInDbAlways() || settings.isExecuteActionsAfterImageChangeInDbIfImageHasXmp() &&
+        return settings.isExecuteActionsAfterImageChangeInDbAlways() ||
+                settings.isExecuteActionsAfterImageChangeInDbIfImageHasXmp() &&
                 imageFile.getXmp() != null;
     }
 
@@ -316,8 +323,9 @@ public final class InsertImageFilesIntoDatabase implements Runnable {
 
     private synchronized void notifyProgressEnded() {
         for (ProgressListener listener : progressListeners) {
-            listener.progressEnded(getProgressEvent(filenames.size(), Bundle.
-                    getString(
+            listener.progressEnded(
+                    getProgressEvent(filenames.size(),
+                    Bundle.getString(
                     "InsertImageFilesIntoDatabase.InformationMessage.ProgressEnded"))); // NOI18N
         }
     }
@@ -329,8 +337,8 @@ public final class InsertImageFilesIntoDatabase implements Runnable {
             long timePerTask = usedTime / value;
             int remainingTaskCount = fileCount - value;
             long milliSecondsRemaining = timePerTask * remainingTaskCount;
-            return new ProgressEvent(this, 0, fileCount, value,
-                    milliSecondsRemaining, info);
+            return new ProgressEvent(
+                    this, 0, fileCount, value, milliSecondsRemaining, info);
         } else {
             return new ProgressEvent(this, 0, fileCount, value, info);
         }
