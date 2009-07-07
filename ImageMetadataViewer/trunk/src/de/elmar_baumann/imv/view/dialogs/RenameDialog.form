@@ -73,13 +73,13 @@
                               <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="1" attributes="0">
                                   <Component id="labelNewNamePrompt" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="labelOldName" alignment="0" pref="328" max="32767" attributes="2"/>
+                                  <Component id="labelOldName" alignment="0" pref="338" max="32767" attributes="2"/>
                                   <Component id="labelOldNamePrompt" alignment="0" min="-2" max="-2" attributes="1"/>
-                                  <Component id="textFieldNewName" alignment="0" pref="328" max="32767" attributes="2"/>
+                                  <Component id="textFieldNewName" alignment="0" pref="338" max="32767" attributes="2"/>
                               </Group>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace pref="300" max="32767" attributes="0"/>
+                              <EmptySpace pref="340" max="32767" attributes="0"/>
                               <Component id="buttonNextFile" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="buttonRename" min="-2" max="-2" attributes="0"/>
@@ -87,7 +87,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="labelDirectory" alignment="0" pref="528" max="32767" attributes="2"/>
+                                  <Component id="labelDirectory" alignment="0" pref="532" max="32767" attributes="2"/>
                                   <Component id="labelDirectoryPrompt" alignment="0" min="-2" max="-2" attributes="1"/>
                               </Group>
                           </Group>
@@ -114,7 +114,7 @@
                               <Component id="labelNewNamePrompt" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="textFieldNewName" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="173" max="32767" attributes="0"/>
+                              <EmptySpace pref="183" max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="buttonRename" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="buttonNextFile" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -278,7 +278,7 @@
                       <Component id="panelDefineName" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="panelExample" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="7" max="32767" attributes="0"/>
                       <Component id="buttonRenameTemplate" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -397,7 +397,7 @@
                           <Component id="labelDateDelim" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="textFieldDateDelim" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="114" max="32767" attributes="0"/>
+                          <EmptySpace pref="210" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -449,8 +449,8 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="textFieldAtBegin" alignment="0" pref="110" max="32767" attributes="2"/>
-                              <Component id="comboBoxAtBegin" alignment="0" pref="110" max="32767" attributes="2"/>
+                              <Component id="textFieldAtBegin" alignment="0" pref="124" max="32767" attributes="2"/>
+                              <Component id="comboBoxAtBegin" alignment="0" pref="124" max="32767" attributes="2"/>
                               <Component id="labelAtBegin" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
@@ -460,8 +460,8 @@
                           </Group>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="textFieldInTheMiddle" alignment="0" pref="113" max="32767" attributes="0"/>
-                              <Component id="comboBoxInTheMiddle" alignment="0" pref="113" max="32767" attributes="0"/>
+                              <Component id="textFieldInTheMiddle" alignment="0" pref="127" max="32767" attributes="0"/>
+                              <Component id="comboBoxInTheMiddle" alignment="0" pref="127" max="32767" attributes="0"/>
                               <Component id="labelInTheMid" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -472,8 +472,8 @@
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="labelAtEnd" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="comboBoxAtEnd" alignment="0" pref="127" max="32767" attributes="2"/>
-                              <Component id="textFieldAtEnd" alignment="0" pref="127" max="32767" attributes="2"/>
+                              <Component id="comboBoxAtEnd" alignment="0" pref="141" max="32767" attributes="2"/>
+                              <Component id="textFieldAtEnd" alignment="0" pref="141" max="32767" attributes="2"/>
                           </Group>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -616,8 +616,8 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="labelAfterFilename" alignment="0" pref="441" max="32767" attributes="0"/>
-                              <Component id="labelBeforeFilename" alignment="0" pref="441" max="32767" attributes="0"/>
+                              <Component id="labelAfterFilename" alignment="0" pref="450" max="32767" attributes="0"/>
+                              <Component id="labelBeforeFilename" alignment="0" pref="450" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>

@@ -163,7 +163,7 @@ public final class RenameDialog extends Dialog {
             if (checkNewFileNotExists(newFile) && renameFile(oldFile, newFile)) {
                 files.set(i, newFile);
                 notifyRenameListeners(oldFile, newFile);
-                setCurrentFilenameToInputPanel();
+                setCurrentFilenameToInputPanel(false);
                 countRenamed++;
             } else {
                 errorMessageNotRenamed(oldFile.getAbsolutePath());
@@ -185,7 +185,7 @@ public final class RenameDialog extends Dialog {
                 if (renameFile(oldFile, newFile)) {
                     files.set(fileIndex, newFile);
                     notifyRenameListeners(oldFile, newFile);
-                    setCurrentFilenameToInputPanel();
+                    setCurrentFilenameToInputPanel(true);
                     countRenamed++;
                 } else {
                     errorMessageNotRenamed(oldFile.getAbsolutePath());
@@ -203,7 +203,7 @@ public final class RenameDialog extends Dialog {
             setVisible(false);
             dispose();
         } else {
-            setCurrentFilenameToInputPanel();
+            setCurrentFilenameToInputPanel(true);
         }
     }
 
@@ -265,13 +265,15 @@ public final class RenameDialog extends Dialog {
         return !exists;
     }
 
-    private void setCurrentFilenameToInputPanel() {
+    private void setCurrentFilenameToInputPanel(boolean paintThumbnail) {
         if (fileIndex >= 0 && fileIndex < files.size()) {
             File file = files.get(fileIndex);
             setDirectoryNameLabel(file);
             labelOldName.setText(file.getName());
             textFieldNewName.setText(file.getName());
-            setThumbnail(file);
+            if (paintThumbnail) {
+                setThumbnail(file);
+            }
             textFieldNewName.requestFocus();
         }
     }
@@ -368,7 +370,8 @@ public final class RenameDialog extends Dialog {
     public void setVisible(boolean visible) {
         if (visible) {
             readProperties();
-            setCurrentFilenameToInputPanel();
+            setCurrentFilenameToInputPanel(
+                    tabbedPane.getSelectedComponent() == panelInputName);
             setExampleFilename();
         } else {
             writeProperties();
