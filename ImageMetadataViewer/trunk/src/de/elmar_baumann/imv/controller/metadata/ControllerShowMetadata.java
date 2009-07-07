@@ -4,6 +4,7 @@ import com.adobe.xmp.XMPConst;
 import com.adobe.xmp.properties.XMPPropertyInfo;
 import de.elmar_baumann.imv.data.ImageFile;
 import de.elmar_baumann.imv.data.MetadataTableModels;
+import de.elmar_baumann.imv.data.SelectedFile;
 import de.elmar_baumann.imv.database.DatabaseImageFiles;
 import de.elmar_baumann.imv.event.DatabaseImageEvent;
 import de.elmar_baumann.imv.event.listener.DatabaseListener;
@@ -244,10 +245,21 @@ public final class ControllerShowMetadata implements DatabaseListener,
         }
 
         private void setXmpModels(String filename) {
-            List<XMPPropertyInfo> allInfos = XmpMetadata.getPropertyInfosOfImageFile(
-                    filename);
+            List<XMPPropertyInfo> allInfos = null;
+            File selFile = new File(filename);
+            synchronized (SelectedFile.INSTANCE) {
+                if (SelectedFile.INSTANCE.getFile().equals(selFile)) {
+                    allInfos = SelectedFile.INSTANCE.getPropertyInfos();
+                }
+            }
+            if (allInfos == null) {
+                allInfos =
+                        XmpMetadata.getPropertyInfosOfImageFile(filename);
+                SelectedFile.INSTANCE.setFile(selFile, allInfos);
+            }
             if (allInfos != null) {
-                for (TableModelXmp model : metadataTableModels.getXmpTableModels()) {
+                for (TableModelXmp model :
+                        metadataTableModels.getXmpTableModels()) {
                     setPropertyInfosToXmpTableModel(filename,
                             model, allInfos,
                             namespacesOfXmpTableModel.get(model));
