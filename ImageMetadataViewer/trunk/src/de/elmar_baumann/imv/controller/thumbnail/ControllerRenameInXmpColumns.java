@@ -18,15 +18,18 @@ import java.util.List;
  */
 public final class ControllerRenameInXmpColumns implements ActionListener, Task {
 
-    private final UpdaterRenameInXmpColumnsArray updater = new UpdaterRenameInXmpColumnsArray();
-    private final ImageFileThumbnailsPanel thumbnailsPanel = GUI.INSTANCE.getAppPanel().getPanelThumbnails();
+    private final UpdaterRenameInXmpColumnsArray updater =
+            new UpdaterRenameInXmpColumnsArray();
+    private final ImageFileThumbnailsPanel thumbnailsPanel =
+            GUI.INSTANCE.getAppPanel().getPanelThumbnails();
 
     public ControllerRenameInXmpColumns() {
         listen();
     }
 
     private void listen() {
-        GUI.INSTANCE.getAppFrame().getMenuItemRenameInXmp().addActionListener(this);
+        GUI.INSTANCE.getAppFrame().getMenuItemRenameInXmp().addActionListener(
+                this);
     }
 
     @Override
@@ -35,7 +38,8 @@ public final class ControllerRenameInXmpColumns implements ActionListener, Task 
     }
 
     private void renameSelectedThumbnails() {
-        List<String> filenames = FileUtil.getAsFilenames(thumbnailsPanel.getSelectedFiles());
+        List<String> filenames =
+                FileUtil.getAsFilenames(thumbnailsPanel.getSelectedFiles());
         if (!filenames.isEmpty()) {
             renameFiles(filenames);
         }

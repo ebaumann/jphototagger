@@ -17,8 +17,8 @@ import javax.swing.SwingUtilities;
  */
 public final class ControllerSortThumbnails implements ActionListener {
 
-    private final ImageFileThumbnailsPanel thumbnailsPanel = GUI.INSTANCE.
-            getAppPanel().getPanelThumbnails();
+    private final ImageFileThumbnailsPanel thumbnailsPanel =
+            GUI.INSTANCE.getAppPanel().getPanelThumbnails();
     private final AppFrame appFrame = GUI.INSTANCE.getAppFrame();
 
     public ControllerSortThumbnails() {
@@ -57,8 +57,8 @@ public final class ControllerSortThumbnails implements ActionListener {
 
     private void setSelectedMenuItems(FileSort sort) {
         for (FileSort sortType : FileSort.values()) {
-            appFrame.getMenuItemOfSort(sortType).setSelected(sortType.equals(
-                    sort));
+            appFrame.getMenuItemOfSort(sortType).setSelected(
+                    sortType.equals(sort));
         }
     }
 }

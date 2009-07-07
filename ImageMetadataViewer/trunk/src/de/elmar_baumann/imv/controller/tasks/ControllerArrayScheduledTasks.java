@@ -23,10 +23,12 @@ public final class ControllerArrayScheduledTasks
         implements ActionListener, Runnable, TaskListener {
 
     private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
-    private final JProgressBar progressBar = appPanel.getProgressBarScheduledTasks();
+    private final JProgressBar progressBar =
+            appPanel.getProgressBarScheduledTasks();
     private final JButton buttonStop = appPanel.getButtonStopScheduledTasks();
     private final Queue<Task> controllers = new ConcurrentLinkedQueue<Task>();
-    private final int MILLISECONDS_TO_START = UserSettings.INSTANCE.getMinutesToStartScheduledTasks() * 60 * 1000;
+    private final int MILLISECONDS_TO_START =
+            UserSettings.INSTANCE.getMinutesToStartScheduledTasks() * 60 * 1000;
     private Task activeController;
 
     public ControllerArrayScheduledTasks() {

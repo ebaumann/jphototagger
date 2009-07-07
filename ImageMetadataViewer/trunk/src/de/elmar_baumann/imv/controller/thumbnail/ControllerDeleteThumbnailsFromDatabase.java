@@ -26,8 +26,8 @@ public final class ControllerDeleteThumbnailsFromDatabase implements
     private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
     private final PopupMenuThumbnails popupMenu =
             PopupMenuThumbnails.INSTANCE;
-    private final ImageFileThumbnailsPanel thumbnailsPanel = GUI.INSTANCE.
-            getAppPanel().getPanelThumbnails();
+    private final ImageFileThumbnailsPanel thumbnailsPanel =
+            GUI.INSTANCE.getAppPanel().getPanelThumbnails();
 
     public ControllerDeleteThumbnailsFromDatabase() {
         listen();

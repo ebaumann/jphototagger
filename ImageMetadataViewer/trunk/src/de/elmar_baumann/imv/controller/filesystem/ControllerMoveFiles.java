@@ -25,8 +25,8 @@ import java.util.List;
 public final class ControllerMoveFiles implements ActionListener,
                                                   FileSystemActionListener {
 
-    private final ImageFileThumbnailsPanel thumbnailsPanel = GUI.INSTANCE.
-            getAppPanel().getPanelThumbnails();
+    private final ImageFileThumbnailsPanel thumbnailsPanel =
+            GUI.INSTANCE.getAppPanel().getPanelThumbnails();
     private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
 
     public ControllerMoveFiles() {
@@ -59,8 +59,8 @@ public final class ControllerMoveFiles implements ActionListener,
     @Override
     public void actionPerformed(FileSystemEvent action, File src, File target) {
         if (!src.getName().toLowerCase().endsWith(".xmp")) {
-            db.updateRenameImageFilename(src.getAbsolutePath(), target.
-                    getAbsolutePath());
+            db.updateRenameImageFilename(
+                    src.getAbsolutePath(), target.getAbsolutePath());
         }
     }
 

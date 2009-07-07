@@ -44,7 +44,6 @@ public final class ControllerRenameDirectory
             Object node = tree.getSelectionPath().getLastPathComponent();
             if (node instanceof DefaultMutableTreeNode) {
                 renameDirectory((DefaultMutableTreeNode) node);
-
             }
         }
     }

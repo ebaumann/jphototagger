@@ -63,16 +63,16 @@ public final class ControllerFavoriteSelected implements
     }
 
     private void update() {
-		SwingUtilities.invokeLater(new SetFiles());
+        SwingUtilities.invokeLater(new SetFiles());
     }
 
-    private class SetFiles implements  Runnable {
+    private class SetFiles implements Runnable {
 
         @Override
         public void run() {
             InfoSettingThumbnails info = new InfoSettingThumbnails();
-            thumbnailsPanel.setFiles(getFilesOfCurrentDirectory(),
-                    Content.FAVORITE);
+            thumbnailsPanel.setFiles(
+                    getFilesOfCurrentDirectory(), Content.FAVORITE);
             setMetadataEditable();
             info.hide();
         }
@@ -81,8 +81,8 @@ public final class ControllerFavoriteSelected implements
             TreePath path = treeFavoriteDirectories.getSelectionPath();
             if (path != null) {
                 File dir = null;
-                DefaultMutableTreeNode node = (DefaultMutableTreeNode) path.
-                        getLastPathComponent();
+                DefaultMutableTreeNode node =
+                        (DefaultMutableTreeNode) path.getLastPathComponent();
                 Object userObject = node.getUserObject();
                 if (userObject instanceof FavoriteDirectory) {
                     FavoriteDirectory favoriteDirectory =
@@ -91,7 +91,9 @@ public final class ControllerFavoriteSelected implements
                 } else if (userObject instanceof File) {
                     dir = (File) userObject;
                 }
-                return ImageFilteredDirectory.getImageFilesOfDirectory(dir);
+                if (dir != null) {
+                    return ImageFilteredDirectory.getImageFilesOfDirectory(dir);
+                }
             }
             return new ArrayList<File>();
         }

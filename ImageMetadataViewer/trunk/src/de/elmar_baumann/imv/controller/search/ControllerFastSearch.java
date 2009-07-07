@@ -46,21 +46,21 @@ public final class ControllerFastSearch
     private final DatabaseSearch db = DatabaseSearch.INSTANCE;
     private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
     private final JTextField textFieldSearch = appPanel.getTextFieldSearch();
-    private final ImageFileThumbnailsPanel thumbnailsPanel = appPanel.
-            getPanelThumbnails();
-    private final List<Column> fastSearchColumns = UserSettings.INSTANCE.
-            getFastSearchColumns();
+    private final ImageFileThumbnailsPanel thumbnailsPanel =
+            appPanel.getPanelThumbnails();
+    private final List<Column> fastSearchColumns =
+            UserSettings.INSTANCE.getFastSearchColumns();
     private final List<JTree> selectionTrees = appPanel.getSelectionTrees();
     private final List<JList> selectionLists = appPanel.getSelectionLists();
     private final boolean isUseAutocomplete =
             UserSettings.INSTANCE.isUseAutocomplete();
     private volatile AutoCompleteData searchAutoCompleteData;
-    private final EditMetadataPanelsArray editPanels = appPanel.
-            getEditPanelsArray();
+    private final EditMetadataPanelsArray editPanels =
+            appPanel.getEditPanelsArray();
 
     public ControllerFastSearch() {
-        textFieldSearch.setEnabled(UserSettings.INSTANCE.getFastSearchColumns().
-                size() > 0);
+        textFieldSearch.setEnabled(
+                UserSettings.INSTANCE.getFastSearchColumns().size() > 0);
         decorateTextFieldSearch();
         listen();
     }

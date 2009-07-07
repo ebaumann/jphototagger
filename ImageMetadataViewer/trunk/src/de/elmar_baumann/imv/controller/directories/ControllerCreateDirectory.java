@@ -44,7 +44,6 @@ public final class ControllerCreateDirectory
             Object node = tree.getSelectionPath().getLastPathComponent();
             if (node instanceof DefaultMutableTreeNode) {
                 createDirectory((DefaultMutableTreeNode) node);
-
             }
         }
     }

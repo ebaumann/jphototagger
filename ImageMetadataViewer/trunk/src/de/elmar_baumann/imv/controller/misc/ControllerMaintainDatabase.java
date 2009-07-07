@@ -18,11 +18,11 @@ public final class ControllerMaintainDatabase implements ActionListener {
     }
 
     private void maintainDatabase() {
-        DatabaseMaintainanceDialog maintainanceDialog = DatabaseMaintainanceDialog.INSTANCE;
-        if (maintainanceDialog.isVisible()) {
-            maintainanceDialog.toFront();
+        DatabaseMaintainanceDialog dialog = DatabaseMaintainanceDialog.INSTANCE;
+        if (dialog.isVisible()) {
+            dialog.toFront();
         } else {
-            maintainanceDialog.setVisible(true);
+            dialog.setVisible(true);
         }
     }
 }

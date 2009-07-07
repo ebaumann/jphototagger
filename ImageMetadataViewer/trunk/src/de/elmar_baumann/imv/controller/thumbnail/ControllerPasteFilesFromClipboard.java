@@ -27,8 +27,8 @@ import javax.swing.TransferHandler;
  */
 public final class ControllerPasteFilesFromClipboard implements KeyListener {
 
-    private final ImageFileThumbnailsPanel thumbnailsPanel = GUI.INSTANCE.
-            getAppPanel().getPanelThumbnails();
+    private final ImageFileThumbnailsPanel thumbnailsPanel =
+            GUI.INSTANCE.getAppPanel().getPanelThumbnails();
 
     public ControllerPasteFilesFromClipboard() {
         listen();

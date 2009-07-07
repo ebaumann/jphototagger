@@ -18,7 +18,8 @@ public final class ControllerShowUpdateMetadataDialog implements ActionListener 
     }
 
     private void showDialog() {
-        UpdateMetadataOfDirectoriesDialog dialog = UpdateMetadataOfDirectoriesDialog.INSTANCE;
+        UpdateMetadataOfDirectoriesDialog dialog =
+                UpdateMetadataOfDirectoriesDialog.INSTANCE;
         if (dialog.isVisible()) {
             dialog.toFront();
         } else {

@@ -25,8 +25,8 @@ public final class ControllerThumbnailCountDisplay
     private final JSlider sliderThumbnailSize =
             appPanel.getSliderThumbnailSize();
     private final JLabel label = appPanel.getLabelStatusbar();
-    private final ImageFileThumbnailsPanel panelThumbnails = appPanel.
-            getPanelThumbnails();
+    private final ImageFileThumbnailsPanel panelThumbnails =
+            appPanel.getPanelThumbnails();
     private int thumbnailCount = 0;
     private int thumbnailZoom = sliderThumbnailSize.getValue();
 

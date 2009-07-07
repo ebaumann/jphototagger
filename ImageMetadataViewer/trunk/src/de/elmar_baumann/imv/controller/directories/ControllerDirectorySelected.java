@@ -29,10 +29,10 @@ public final class ControllerDirectorySelected implements TreeSelectionListener,
 
     private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
     private final JTree treeDirectories = appPanel.getTreeDirectories();
-    private final EditMetadataPanelsArray editPanels = appPanel.
-            getEditPanelsArray();
-    private final ImageFileThumbnailsPanel thumbnailsPanel = appPanel.
-            getPanelThumbnails();
+    private final EditMetadataPanelsArray editPanels =
+            appPanel.getEditPanelsArray();
+    private final ImageFileThumbnailsPanel thumbnailsPanel =
+            appPanel.getPanelThumbnails();
     private final ImageFilteredDirectory imageFilteredDirectory =
             new ImageFilteredDirectory();
 

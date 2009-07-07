@@ -32,11 +32,11 @@ public final class ControllerAdvancedSearch implements ActionListener,
 
     private final DatabaseSearch db = DatabaseSearch.INSTANCE;
     private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
-    private final ImageFileThumbnailsPanel thumbnailsPanel = appPanel.
-            getPanelThumbnails();
+    private final ImageFileThumbnailsPanel thumbnailsPanel =
+            appPanel.getPanelThumbnails();
     private final List<JTree> selectionTrees = appPanel.getSelectionTrees();
-    private final EditMetadataPanelsArray editPanels = appPanel.
-            getEditPanelsArray();
+    private final EditMetadataPanelsArray editPanels =
+            appPanel.getEditPanelsArray();
 
     public ControllerAdvancedSearch() {
         listen();

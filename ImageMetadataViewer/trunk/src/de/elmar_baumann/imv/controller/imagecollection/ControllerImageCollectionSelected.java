@@ -31,10 +31,10 @@ public final class ControllerImageCollectionSelected implements
     private final DatabaseImageCollections db =
             DatabaseImageCollections.INSTANCE;
     private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
-    private final ImageFileThumbnailsPanel thumbnailsPanel = appPanel.
-            getPanelThumbnails();
-    private final EditMetadataPanelsArray editPanels = appPanel.
-            getEditPanelsArray();
+    private final ImageFileThumbnailsPanel thumbnailsPanel =
+            appPanel.getPanelThumbnails();
+    private final EditMetadataPanelsArray editPanels =
+            appPanel.getEditPanelsArray();
     private final JList list = appPanel.getListImageCollections();
 
     public ControllerImageCollectionSelected() {

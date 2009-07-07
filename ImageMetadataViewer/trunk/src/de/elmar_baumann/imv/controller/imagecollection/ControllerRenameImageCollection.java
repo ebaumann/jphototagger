@@ -68,8 +68,8 @@ public final class ControllerRenameImageCollection
 
     private void renameImageCollection(final String oldName) {
         if (oldName != null) {
-            final String newName = ImageCollectionDatabaseUtils.
-                    renameImageCollection(oldName);
+            final String newName =
+                    ImageCollectionDatabaseUtils.renameImageCollection(oldName);
             if (newName != null) {
                 SwingUtilities.invokeLater(new Runnable() {
 
@@ -80,8 +80,8 @@ public final class ControllerRenameImageCollection
                 });
             }
         } else {
-            AppLog.logWarning(ControllerRenameImageCollection.class, Bundle.
-                    getString(
+            AppLog.logWarning(ControllerRenameImageCollection.class,
+                    Bundle.getString(
                     "ControllerRenameImageCollection.ErrorMessage.NameIsNull"));
         }
     }

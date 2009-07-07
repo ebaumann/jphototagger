@@ -21,8 +21,8 @@ public final class ControllerThumbnailsDatabaseChanges
         implements DatabaseListener {
 
     private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
-    private final ImageFileThumbnailsPanel thumbnailsPanel = GUI.INSTANCE.
-            getAppPanel().getPanelThumbnails();
+    private final ImageFileThumbnailsPanel thumbnailsPanel =
+            GUI.INSTANCE.getAppPanel().getPanelThumbnails();
 
     public ControllerThumbnailsDatabaseChanges() {
         listen();

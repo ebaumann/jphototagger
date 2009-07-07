@@ -17,6 +17,8 @@ public final class FilenameFormatFilenamePostfix extends FilenameFormat {
     public String format() {
         String filename = getFile().getName();
         int index = filename.lastIndexOf(".");
-        return index >= 0 ? filename.substring(index) : "";
+        return index >= 0
+               ? filename.substring(index)
+               : "";
     }
 }

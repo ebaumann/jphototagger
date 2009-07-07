@@ -20,8 +20,8 @@ public final class ControllerOpenFilesWithStandardApp implements ActionListener 
 
     private final PopupMenuThumbnails popupMenu =
             PopupMenuThumbnails.INSTANCE;
-    private final ImageFileThumbnailsPanel thumbnailsPanel = GUI.INSTANCE.
-            getAppPanel().getPanelThumbnails();
+    private final ImageFileThumbnailsPanel thumbnailsPanel =
+            GUI.INSTANCE.getAppPanel().getPanelThumbnails();
 
     public ControllerOpenFilesWithStandardApp() {
         listen();

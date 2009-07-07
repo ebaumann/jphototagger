@@ -40,8 +40,8 @@ public final class SplashScreen {
         g.fillRect(1, 249, 488, 50);
     }
 
-    private static void splashScreenDrawMessage(Graphics2D g, Font standardFont,
-            String message) {
+    private static void splashScreenDrawMessage(
+            Graphics2D g, Font standardFont, String message) {
         g.setColor(Color.BLACK);
         g.setFont(standardFont);
         g.drawString(message, MESSAGES_X, 270);

@@ -21,8 +21,8 @@ import java.util.List;
 public final class ControllerCopyFilesToDirectory implements ActionListener {
 
     private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
-    private final ImageFileThumbnailsPanel thumbnailsPanel = appPanel.
-            getPanelThumbnails();
+    private final ImageFileThumbnailsPanel thumbnailsPanel =
+            appPanel.getPanelThumbnails();
 
     public ControllerCopyFilesToDirectory() {
         listen();

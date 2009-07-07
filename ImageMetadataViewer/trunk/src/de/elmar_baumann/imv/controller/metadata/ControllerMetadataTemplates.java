@@ -30,23 +30,23 @@ public final class ControllerMetadataTemplates implements ActionListener,
     private final DatabaseMetadataEditTemplates db =
             DatabaseMetadataEditTemplates.INSTANCE;
     private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
-    private final EditMetadataPanelsArray editPanels = appPanel.
-            getEditPanelsArray();
+    private final EditMetadataPanelsArray editPanels =
+            appPanel.getEditPanelsArray();
     private final JComboBox comboBoxMetadataTemplates = appPanel.
             getComboBoxMetadataTemplates();
     private final ComboBoxModelMetadataEditTemplates model =
             (ComboBoxModelMetadataEditTemplates) comboBoxMetadataTemplates.
             getModel();
-    private final JButton buttonMetadataTemplateCreate = appPanel.
-            getButtonMetadataTemplateCreate();
-    private final JButton buttonMetadataTemplateUpdate = appPanel.
-            getButtonMetadataTemplateUpdate();
-    private final JButton buttonMetadataTemplateDelete = appPanel.
-            getButtonMetadataTemplateDelete();
-    private final JButton buttonMetadataTemplateInsert = appPanel.
-            getButtonMetadataTemplateInsert();
-    private final JButton buttonMetadataTemplateRename = appPanel.
-            getButtonMetadataTemplateRename();
+    private final JButton buttonMetadataTemplateCreate =
+            appPanel.getButtonMetadataTemplateCreate();
+    private final JButton buttonMetadataTemplateUpdate =
+            appPanel.getButtonMetadataTemplateUpdate();
+    private final JButton buttonMetadataTemplateDelete =
+            appPanel.getButtonMetadataTemplateDelete();
+    private final JButton buttonMetadataTemplateInsert =
+            appPanel.getButtonMetadataTemplateInsert();
+    private final JButton buttonMetadataTemplateRename =
+            appPanel.getButtonMetadataTemplateRename();
 
     public ControllerMetadataTemplates() {
         listen();
@@ -69,8 +69,8 @@ public final class ControllerMetadataTemplates implements ActionListener,
         buttonMetadataTemplateUpdate.setEnabled(itemSelected);
         buttonMetadataTemplateDelete.setEnabled(itemSelected);
         buttonMetadataTemplateRename.setEnabled(itemSelected);
-        buttonMetadataTemplateInsert.setEnabled(itemSelected && editPanels.
-                isEditable());
+        buttonMetadataTemplateInsert.setEnabled(itemSelected &&
+                editPanels.isEditable());
     }
 
     @Override

@@ -564,7 +564,8 @@ public final class UserSettings implements UserSettingsChangeListener {
                 UserSettingsChangeEvent.Type.EXTERNAL_THUMBNAIL_CREATION_COMMAND)) {
             settings.setString(evt.getExternalThumbnailCreationCommand(),
                     KEY_EXTERNAL_THUMBNAIL_CREATION_COMMAND);
-        } else if (type.equals(UserSettingsChangeEvent.Type.FAST_SEARCH_COLUMNS)) {
+        } else if (type.equals(
+                UserSettingsChangeEvent.Type.FAST_SEARCH_COLUMNS)) {
             settings.setString(getColumnKeys(evt.getFastSearchColumns()),
                     KEY_FAST_SEARCH_COLUMNS);
         } else if (type.equals(UserSettingsChangeEvent.Type.EDIT_COLUMNS)) {
@@ -588,7 +589,8 @@ public final class UserSettings implements UserSettingsChangeListener {
                 UserSettingsChangeEvent.Type.IS_TASK_REMOVE_RECORDS_WITH_NOT_EXISTING_FILES)) {
             settings.setBoolean(evt.isTaskRemoveRecordsWithNotExistingFiles(),
                     KEY_TASK_REMOVE_RECORDS_WITH_NOT_EXISTING_FILES);
-        } else if (type.equals(UserSettingsChangeEvent.Type.IS_USE_AUTOCOMPLETE)) {
+        } else if (type.equals(
+                UserSettingsChangeEvent.Type.IS_USE_AUTOCOMPLETE)) {
             settings.setBoolean(evt.isAutocomplete(), KEY_AUTOCOMPLETE);
         } else if (type.equals(
                 UserSettingsChangeEvent.Type.IS_USE_EMBEDDED_THUMBNAILS)) {
@@ -599,7 +601,8 @@ public final class UserSettings implements UserSettingsChangeListener {
                     evt.getLogfileFormatterClass());
         } else if (type.equals(UserSettingsChangeEvent.Type.LOG_LEVEL)) {
             settings.setString(evt.getLogLevel().toString(), KEY_LOG_LEVEL);
-        } else if (type.equals(UserSettingsChangeEvent.Type.MAX_THUMBNAIL_WIDTH)) {
+        } else if (type.equals(
+                UserSettingsChangeEvent.Type.MAX_THUMBNAIL_WIDTH)) {
             settings.setString(evt.getMaxThumbnailWidth().toString(),
                     KEY_MAX_THUMBNAIL_LENGTH);
         } else if (type.equals(
@@ -611,7 +614,8 @@ public final class UserSettings implements UserSettingsChangeListener {
             properties.remove(KEY_FAST_SEARCH_COLUMNS);
         } else if (type.equals(UserSettingsChangeEvent.Type.THREAD_PRIORITY)) {
             settings.setInt(evt.getThreadPriority(), KEY_THREAD_PRIORITY);
-        } else if (type.equals(UserSettingsChangeEvent.Type.AUTOCOPY_DIRECTORY)) {
+        } else if (type.equals(
+                UserSettingsChangeEvent.Type.AUTOCOPY_DIRECTORY)) {
             settings.setString(evt.getAutoCopyDirectory().getAbsolutePath(),
                     KEY_AUTOCOPY_DIRECTORY);
         } else if (type.equals(UserSettingsChangeEvent.Type.WEB_BROWSER)) {
@@ -620,7 +624,8 @@ public final class UserSettings implements UserSettingsChangeListener {
                 UserSettingsChangeEvent.Type.TREE_DIRECTORIES_SELECT_LAST_DIRECTORY)) {
             settings.setBoolean(evt.isTreeDirectoriesSelectLastDirectory(),
                     KEY_TREE_DIRECTORIES_SELECT_LAST_DIRECTORY);
-        } else if (type.equals(UserSettingsChangeEvent.Type.DATABASE_DIRECTORY)) {
+        } else if (type.equals(
+                UserSettingsChangeEvent.Type.DATABASE_DIRECTORY)) {
             settings.setString(evt.getDatabaseDirectoryName(),
                     KEY_DATABASE_DIRECTORY_NAME);
         } else if (type.equals(

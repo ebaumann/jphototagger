@@ -23,8 +23,11 @@ public final class ControllerAboutApp implements ActionListener {
 
     private void showAbout() {
         JOptionPane.showMessageDialog(null,
-                Bundle.getString("ControllerAboutApp.InformationMessage.About", AppInfo.APP_NAME, AppInfo.APP_VERSION),
-                Bundle.getString("ControllerAboutApp.InformationMessage.About.Title"), // NOI18N
+                Bundle.getString(
+                "ControllerAboutApp.InformationMessage.About",
+                AppInfo.APP_NAME, AppInfo.APP_VERSION),
+                Bundle.getString(
+                "ControllerAboutApp.InformationMessage.About.Title"), // NOI18N
                 JOptionPane.INFORMATION_MESSAGE,
                 AppIcons.getMediumAppIcon());
     }

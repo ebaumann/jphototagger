@@ -29,8 +29,8 @@ public final class ControllerThumbnailsPanelPersistence
             "de.elmar_baumann.imv.view.controller.ControllerThumbnailsPanelPersistence.Sort"; // NOI18N
     private static final String KEY_THUMBNAIL_PANEL_VIEWPORT_VIEW_POSITION =
             "de.elmar_baumann.imv.view.panels.controller.ViewportViewPosition"; // NOI18N
-    private final ImageFileThumbnailsPanel thumbnailsPanel = GUI.INSTANCE.
-            getAppPanel().getPanelThumbnails();
+    private final ImageFileThumbnailsPanel thumbnailsPanel =
+            GUI.INSTANCE.getAppPanel().getPanelThumbnails();
     private List<File> persistentSelectedFiles = new ArrayList<File>();
 
     public ControllerThumbnailsPanelPersistence() {

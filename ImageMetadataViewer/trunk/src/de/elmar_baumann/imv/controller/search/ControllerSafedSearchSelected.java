@@ -29,10 +29,10 @@ public final class ControllerSafedSearchSelected
     private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
     private final DatabaseSearch db = DatabaseSearch.INSTANCE;
     private final JList list = appPanel.getListSavedSearches();
-    private final ImageFileThumbnailsPanel thumbnailsPanel = appPanel.
-            getPanelThumbnails();
-    private final EditMetadataPanelsArray editPanels = appPanel.
-            getEditPanelsArray();
+    private final ImageFileThumbnailsPanel thumbnailsPanel =
+            appPanel.getPanelThumbnails();
+    private final EditMetadataPanelsArray editPanels =
+            appPanel.getEditPanelsArray();
 
     public ControllerSafedSearchSelected() {
         listen();

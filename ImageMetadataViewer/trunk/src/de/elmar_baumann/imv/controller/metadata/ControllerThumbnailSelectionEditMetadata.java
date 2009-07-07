@@ -29,12 +29,12 @@ public final class ControllerThumbnailSelectionEditMetadata implements
     private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
     private final JButton buttonSave = appPanel.getButtonSaveMetadata();
     private final JButton buttonEmpty = appPanel.getButtonEmptyMetadata();
-    private final JLabel labelMetadataInfoEditable = appPanel.
-            getLabelMetadataInfoEditable();
-    private final EditMetadataPanelsArray editPanels = appPanel.
-            getEditPanelsArray();
-    private final ImageFileThumbnailsPanel thumbnailsPanel = appPanel.
-            getPanelThumbnails();
+    private final JLabel labelMetadataInfoEditable =
+            appPanel.getLabelMetadataInfoEditable();
+    private final EditMetadataPanelsArray editPanels =
+            appPanel.getEditPanelsArray();
+    private final ImageFileThumbnailsPanel thumbnailsPanel =
+            appPanel.getPanelThumbnails();
 
     public ControllerThumbnailSelectionEditMetadata() {
         listen();
@@ -93,8 +93,8 @@ public final class ControllerThumbnailSelectionEditMetadata implements
     }
 
     private boolean canEdit() {
-        List<String> filenames = FileUtil.getAsFilenames(thumbnailsPanel.
-                getSelectedFiles());
+        List<String> filenames =
+                FileUtil.getAsFilenames(thumbnailsPanel.getSelectedFiles());
         for (String filename : filenames) {
             if (!XmpMetadata.canWriteSidecarFileForImageFile(filename)) {
                 return false;

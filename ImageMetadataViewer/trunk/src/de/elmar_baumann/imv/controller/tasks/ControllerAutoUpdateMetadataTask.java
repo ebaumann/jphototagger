@@ -27,8 +27,10 @@ public final class ControllerAutoUpdateMetadataTask
 
     private final JProgressBar progressBar;
     private InsertImageFilesIntoDatabaseArray updaterArray;
-    private final List<String> systemDirectorySubstrings = new ArrayList<String>();
-    private final List<TaskListener> taskListeners = new ArrayList<TaskListener>();
+    private final List<String> systemDirectorySubstrings =
+            new ArrayList<String>();
+    private final List<TaskListener> taskListeners =
+            new ArrayList<TaskListener>();
 
     /**
      * Konstruktor.
@@ -59,7 +61,8 @@ public final class ControllerAutoUpdateMetadataTask
 
     private void createUpdaterArray() {
         updaterArray = new InsertImageFilesIntoDatabaseArray(progressBar);
-        updaterArray.setTooltipTextIfProgressEnded(AppTexts.TOOLTIP_TEXT_PROGRESSBAR_SCHEDULED_TASKS);
+        updaterArray.setTooltipTextIfProgressEnded(
+                AppTexts.TOOLTIP_TEXT_PROGRESSBAR_SCHEDULED_TASKS);
     }
 
     private boolean isSystemDirectory(String directoryName) {
@@ -88,14 +91,15 @@ public final class ControllerAutoUpdateMetadataTask
             for (String directory : directories) {
                 if (!isSystemDirectory(directory)) {
                     updaterArray.addDirectory(directory, EnumSet.of(
-                        InsertImageFilesIntoDatabase.Insert.OUT_OF_DATE));
+                            InsertImageFilesIntoDatabase.Insert.OUT_OF_DATE));
                 }
             }
         }
     }
 
     private List<String> getDirectoryNames() {
-        List<String> directoryNames = DatabaseAutoscanDirectories.INSTANCE.getAutoscanDirectories();
+        List<String> directoryNames = DatabaseAutoscanDirectories.INSTANCE.
+                getAutoscanDirectories();
         addSubdirectoryNames(directoryNames);
         Collections.sort(directoryNames);
         Collections.reverse(directoryNames);

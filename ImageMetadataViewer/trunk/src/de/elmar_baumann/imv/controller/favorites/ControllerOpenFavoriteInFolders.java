@@ -1,8 +1,6 @@
 package de.elmar_baumann.imv.controller.favorites;
 
-import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.data.FavoriteDirectory;
-import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuFavorites;
@@ -77,29 +75,33 @@ public final class ControllerOpenFavoriteInFolders
             public void run() {
                 TreePath selPath = treeFavoriteDirectories.getSelectionPath();
                 if (selPath != null) {
-                    File dir = null;
-                    DefaultMutableTreeNode node =
-                            (DefaultMutableTreeNode) selPath.
-                            getLastPathComponent();
-                    Object userObject = node.getUserObject();
-                    if (userObject instanceof File) {
-                        dir = (File) userObject;
-                    } else if (userObject instanceof FavoriteDirectory) {
-                        FavoriteDirectory favoriteDirectory =
-                                (FavoriteDirectory) userObject;
-                        dir = new File(favoriteDirectory.getDirectoryName());
-                    }
+                    File dir = getDir((DefaultMutableTreeNode) selPath.
+                            getLastPathComponent());
                     if (dir != null && dir.isDirectory()) {
-                        treeFavoriteDirectories.clearSelection();
-                        tabbedPaneSelection.setSelectedComponent(
-                                tabTreeDirectories);
-                        TreeModel m = treeDirectories.getModel();
-                        if (m instanceof TreeModelAllSystemDirectories) {
-                            ((TreeModelAllSystemDirectories) m).expandToFile(dir,
-                                    true);
-
-                        }
+                        expandTreeToDir(dir);
                     }
+                }
+            }
+
+            private File getDir(DefaultMutableTreeNode node) {
+                Object userObject = node.getUserObject();
+                if (userObject instanceof File) {
+                    return (File) userObject;
+                } else if (userObject instanceof FavoriteDirectory) {
+                    FavoriteDirectory favoriteDirectory =
+                            (FavoriteDirectory) userObject;
+                    return new File(favoriteDirectory.getDirectoryName());
+                }
+                return null;
+            }
+
+            private void expandTreeToDir(File dir) {
+                treeFavoriteDirectories.clearSelection();
+                tabbedPaneSelection.setSelectedComponent(tabTreeDirectories);
+                TreeModel m = treeDirectories.getModel();
+                if (m instanceof TreeModelAllSystemDirectories) {
+                    ((TreeModelAllSystemDirectories) m).expandToFile(dir,
+                            true);
                 }
             }
         });

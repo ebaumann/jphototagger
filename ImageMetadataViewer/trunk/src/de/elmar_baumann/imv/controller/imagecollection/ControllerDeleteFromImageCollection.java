@@ -36,8 +36,8 @@ public final class ControllerDeleteFromImageCollection
     private final JList list = appPanel.getListImageCollections();
     private final PopupMenuThumbnails popupMenu =
             PopupMenuThumbnails.INSTANCE;
-    private final ImageFileThumbnailsPanel thumbnailsPanel = GUI.INSTANCE.
-            getAppPanel().getPanelThumbnails();
+    private final ImageFileThumbnailsPanel thumbnailsPanel =
+            GUI.INSTANCE.getAppPanel().getPanelThumbnails();
 
     public ControllerDeleteFromImageCollection() {
         listen();

@@ -39,5 +39,6 @@ public final class FilenameFormatConstantString extends FilenameFormat {
         return Bundle.getString("FilenameFormatConstantString.String");
     }
 
-    private FilenameFormatConstantString() {}
+    private FilenameFormatConstantString() {
+    }
 }

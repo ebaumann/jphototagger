@@ -31,8 +31,8 @@ public final class ControllerCreateMetadataOfCurrentThumbnails
             new ConcurrentLinkedQueue<InsertImageFilesIntoDatabase>();
     private volatile boolean wait = false;
     private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
-    private final ImageFileThumbnailsPanel thumbnailsPanel = appPanel.
-            getPanelThumbnails();
+    private final ImageFileThumbnailsPanel thumbnailsPanel =
+            appPanel.getPanelThumbnails();
     private final ProgressBarCreateMetadataOfCurrentThumbnails progressBarProvider =
             ProgressBarCreateMetadataOfCurrentThumbnails.INSTANCE;
     private JProgressBar progressBar;

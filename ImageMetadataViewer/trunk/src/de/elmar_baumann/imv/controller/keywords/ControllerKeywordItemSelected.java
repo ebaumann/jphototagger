@@ -27,10 +27,10 @@ public final class ControllerKeywordItemSelected implements
     private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
     private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
     private final JList listKeywords = appPanel.getListKeywords();
-    private final ImageFileThumbnailsPanel thumbnailsPanel = appPanel.
-            getPanelThumbnails();
-    private final EditMetadataPanelsArray editPanels = appPanel.
-            getEditPanelsArray();
+    private final ImageFileThumbnailsPanel thumbnailsPanel =
+            appPanel.getPanelThumbnails();
+    private final EditMetadataPanelsArray editPanels =
+            appPanel.getEditPanelsArray();
 
     public ControllerKeywordItemSelected() {
         listen();
@@ -73,8 +73,8 @@ public final class ControllerKeywordItemSelected implements
             String keyword = (String) listKeywords.getSelectedValue();
             Set<String> filenames = db.getFilenamesOfDcSubject(keyword);
 
-            thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames),
-                    Content.KEYWORD);
+            thumbnailsPanel.setFiles(
+                    FileUtil.getAsFiles(filenames), Content.KEYWORD);
         }
 
         private void setMetadataEditable() {

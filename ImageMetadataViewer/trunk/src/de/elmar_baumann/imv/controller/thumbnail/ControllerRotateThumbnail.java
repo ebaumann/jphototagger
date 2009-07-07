@@ -48,11 +48,14 @@ public final class ControllerRotateThumbnail implements ActionListener {
         popupMenu.getItemRotateThumbnai270().addActionListener(this);
     }
 
-    private float getRotateAngle(Object item) {
+    private float getRotateAngle(Object obj) {
         Float angle = new Float(0);
 
-        if (angleOfItem.containsKey(item)) {
-            angle = angleOfItem.get(item);
+        if (obj instanceof JMenuItem) {
+            JMenuItem menuItem = (JMenuItem) obj;
+            if (angleOfItem.containsKey(menuItem)) {
+                angle = angleOfItem.get(menuItem);
+            }
         }
 
         return angle.floatValue();

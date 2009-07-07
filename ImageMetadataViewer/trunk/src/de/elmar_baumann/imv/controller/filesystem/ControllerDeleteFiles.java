@@ -30,8 +30,8 @@ import javax.swing.SwingUtilities;
  */
 public final class ControllerDeleteFiles implements ActionListener, KeyListener {
 
-    private final ImageFileThumbnailsPanel thumbnailsPanel = GUI.INSTANCE.
-            getAppPanel().getPanelThumbnails();
+    private final ImageFileThumbnailsPanel thumbnailsPanel =
+            GUI.INSTANCE.getAppPanel().getPanelThumbnails();
     private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
     private final PopupMenuThumbnails popupMenu =
             PopupMenuThumbnails.INSTANCE;

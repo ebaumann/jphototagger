@@ -25,8 +25,8 @@ public final class ControllerSaveMetadata implements ActionListener {
 
     private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
     private final JButton buttonSave = appPanel.getButtonSaveMetadata();
-    private final EditMetadataPanelsArray editPanels = appPanel.
-            getEditPanelsArray();
+    private final EditMetadataPanelsArray editPanels =
+            appPanel.getEditPanelsArray();
 
     public ControllerSaveMetadata() {
         listen();

@@ -18,7 +18,8 @@ public final class ControllerIptcToXmp implements ActionListener {
     }
 
     private void listen() {
-        GUI.INSTANCE.getAppFrame().getMenuItemToolIptcToXmp().addActionListener(this);
+        GUI.INSTANCE.getAppFrame().getMenuItemToolIptcToXmp().addActionListener(
+                this);
     }
 
     @Override

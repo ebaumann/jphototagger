@@ -29,8 +29,8 @@ public final class AppLoggingSystem {
 
     private static void initLogger() {
         try {
-            FileUtil.ensureDirectoryExists(UserSettings.INSTANCE.
-                    getSettingsDirectoryName());
+            FileUtil.ensureDirectoryExists(
+                    UserSettings.INSTANCE.getSettingsDirectoryName());
             Logger logger = Logger.getLogger("de.elmar_baumann"); // NOI18N
             Level usersLevel = UserSettings.INSTANCE.getLogLevel();
             addFileLogHandler(logger);
@@ -55,8 +55,8 @@ public final class AppLoggingSystem {
     private static void addStdoutLogHandler(Level usersLevel, Logger logger)
             throws SecurityException {
         if (usersLevel != Level.WARNING && usersLevel != Level.SEVERE) {
-            Handler stdoutHandler = new StreamHandler(System.out,
-                    new SimpleFormatter());
+            Handler stdoutHandler =
+                    new StreamHandler(System.out, new SimpleFormatter());
             stdoutHandler.setLevel(usersLevel);
             logger.addHandler(stdoutHandler);
         }

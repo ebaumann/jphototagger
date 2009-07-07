@@ -27,8 +27,8 @@ public final class ControllerTimelineItemSelected implements
     private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
     private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
     private final JTree treeTimeline = appPanel.getTreeTimeline();
-    private final ImageFileThumbnailsPanel thumbnailsPanel = appPanel.
-            getPanelThumbnails();
+    private final ImageFileThumbnailsPanel thumbnailsPanel =
+            appPanel.getPanelThumbnails();
 
     public ControllerTimelineItemSelected() {
         listen();
@@ -64,7 +64,8 @@ public final class ControllerTimelineItemSelected implements
 
                         @Override
                         public void run() {
-                            InfoSettingThumbnails info = new InfoSettingThumbnails();
+                            InfoSettingThumbnails info =
+                                    new InfoSettingThumbnails();
                             setFilesOfPossibleNodeToThumbnailsPanel(
                                     lastPathComponent);
                             info.hide();
@@ -94,8 +95,8 @@ public final class ControllerTimelineItemSelected implements
                     Content.TIMELINE);
         } else if (userObject instanceof Calendar) {
             Calendar cal = (Calendar) userObject;
-            DefaultMutableTreeNode parent = (DefaultMutableTreeNode) node.
-                    getParent();
+            DefaultMutableTreeNode parent =
+                    (DefaultMutableTreeNode) node.getParent();
             if (parent != null) {
                 boolean isYear = parent.equals(node.getRoot());
                 boolean isMonth = !isYear && node.getChildCount() > 0;

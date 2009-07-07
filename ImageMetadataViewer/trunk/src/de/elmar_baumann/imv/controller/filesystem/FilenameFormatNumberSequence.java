@@ -17,8 +17,8 @@ public final class FilenameFormatNumberSequence extends FilenameFormat {
     private int countDigits;
     private DecimalFormat decimalFormat;
 
-    public FilenameFormatNumberSequence(int start, int increment,
-            int countDigits) {
+    public FilenameFormatNumberSequence(
+            int start, int increment, int countDigits) {
         this.start = start;
         this.increment = increment;
         this.countDigits = countDigits;

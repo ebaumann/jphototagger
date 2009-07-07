@@ -15,8 +15,8 @@ import javax.swing.JMenuItem;
  */
 public final class ControllerRenameFilenamesInDb implements ActionListener {
 
-    private final JMenuItem menuItem = GUI.INSTANCE.getAppFrame().
-            getMenuItemRenameFilenamesInDb();
+    private final JMenuItem menuItem =
+            GUI.INSTANCE.getAppFrame().getMenuItemRenameFilenamesInDb();
 
     public ControllerRenameFilenamesInDb() {
         listen();
@@ -28,8 +28,8 @@ public final class ControllerRenameFilenamesInDb implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        RenameFilenamesInDbDialog dlg = new RenameFilenamesInDbDialog(
-                GUI.INSTANCE.getAppFrame());
+        RenameFilenamesInDbDialog dlg =
+                new RenameFilenamesInDbDialog(GUI.INSTANCE.getAppFrame());
         dlg.setVisible(true);
     }
 }

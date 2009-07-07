@@ -23,8 +23,8 @@ public final class ControllerEnableInsertMetadataTemplate implements
 
     private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
     private final JTree treeDirectories = appPanel.getTreeDirectories();
-    private final JButton buttonMetadataTemplateInsert = appPanel.
-            getButtonMetadataTemplateInsert();
+    private final JButton buttonMetadataTemplateInsert =
+            appPanel.getButtonMetadataTemplateInsert();
 
     public ControllerEnableInsertMetadataTemplate() {
         listen();
@@ -47,8 +47,8 @@ public final class ControllerEnableInsertMetadataTemplate implements
                     getLastPathComponent()).getAbsolutePath();
             File file = new File(fileName);
 
-            buttonMetadataTemplateInsert.setEnabled(file.isDirectory() && file.
-                    canWrite());
+            buttonMetadataTemplateInsert.setEnabled(
+                    file.isDirectory() && file.canWrite());
         }
     }
 }

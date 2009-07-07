@@ -28,8 +28,8 @@ public final class ControllerCategoryItemSelected implements
     private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
     private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
     private final JList listCategories = appPanel.getListCategories();
-    private final ImageFileThumbnailsPanel thumbnailsPanel = appPanel.
-            getPanelThumbnails();
+    private final ImageFileThumbnailsPanel thumbnailsPanel =
+            appPanel.getPanelThumbnails();
 
     public ControllerCategoryItemSelected() {
         listen();
@@ -64,8 +64,8 @@ public final class ControllerCategoryItemSelected implements
                     String category = (String) listCategories.getSelectedValue();
                     Set<String> filenames = db.getFilenamesOfCategory(category);
 
-                    thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames),
-                            Content.CATEGORY);
+                    thumbnailsPanel.setFiles(
+                            FileUtil.getAsFiles(filenames), Content.CATEGORY);
                     info.hide();
                 }
             }
