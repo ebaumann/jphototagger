@@ -1,5 +1,6 @@
 package de.elmar_baumann.imv.controller.filesystem;
 
+import de.elmar_baumann.imv.event.listener.FilenameFormatListener;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,9 +11,9 @@ import java.util.List;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/13
  */
-public final class FilenameFormatArray {
+public final class FilenameFormatArray implements FilenameFormatListener {
 
-    private List<FilenameFormat> formats = new ArrayList<FilenameFormat>();
+    private final List<FilenameFormat> formats = new ArrayList<FilenameFormat>();
 
     /**
      * Adds a format. {@link #format()} returns the filename built in the
@@ -20,24 +21,34 @@ public final class FilenameFormatArray {
      * 
      * @param format  format
      */
-    public synchronized void addFormat(FilenameFormat format) {
-        formats.add(format);
+    public void addFormat(FilenameFormat format) {
+        synchronized (formats) {
+            format.addFilenameFormatListener(this);
+            formats.add(format);
+        }
     }
 
     /**
      * Calls to every format {@link FilenameFormat#next()}
      */
-    public synchronized void notifyNext() {
-        for (FilenameFormat format : formats) {
-            format.next();
+    public void notifyNext() {
+        synchronized (formats) {
+            for (FilenameFormat format : formats) {
+                format.next();
+            }
         }
     }
 
     /**
      * Removes all Formats.
      */
-    public synchronized void clear() {
-        formats.clear();
+    public void clear() {
+        synchronized (formats) {
+            for (FilenameFormat format : formats) {
+                format.removeFilenameFormatListener(this);
+            }
+            formats.clear();
+        }
     }
 
     /**
@@ -46,10 +57,12 @@ public final class FilenameFormatArray {
      * 
      * @return filename
      */
-    public synchronized String format() {
+    public String format() {
         StringBuffer buffer = new StringBuffer();
-        for (FilenameFormat format : formats) {
-            buffer.append(format.format());
+        synchronized (formats) {
+            for (FilenameFormat format : formats) {
+                buffer.append(format.format());
+            }
         }
         return buffer.toString();
     }
@@ -59,9 +72,28 @@ public final class FilenameFormatArray {
      *
      * @param file file
      */
-    public synchronized void setFile(File file) {
-        for (FilenameFormat format : formats) {
-            format.setFile(file);
+    public void setFile(File file) {
+        synchronized (formats) {
+            for (FilenameFormat format : formats) {
+                format.setFile(file);
+            }
+        }
+    }
+
+    @Override
+    public void request(Request request) {
+        if (request.equals(FilenameFormatListener.Request.RESTART_SEQUENCE)) {
+            restartSequenceFormatter();
+        }
+    }
+
+    private void restartSequenceFormatter() {
+        synchronized (formats) {
+            for (FilenameFormat format : formats) {
+                if (format instanceof FilenameFormatNumberSequence) {
+                    ((FilenameFormatNumberSequence) format).restart();
+                }
+            }
         }
     }
 }
