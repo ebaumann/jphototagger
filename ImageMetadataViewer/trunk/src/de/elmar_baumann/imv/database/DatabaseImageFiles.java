@@ -464,7 +464,8 @@ public final class DatabaseImageFiles extends Database {
                 if (countAffectedRows > 0) {
                     ThumbnailUtil.deleteThumbnail(idFile);
                     notifyDatabaseListener(
-                            DatabaseImageEvent.Type.IMAGEFILE_DELETED, oldImageFile, oldImageFile);
+                            DatabaseImageEvent.Type.IMAGEFILE_DELETED,
+                            oldImageFile, oldImageFile);
                 }
             }
             stmt.close();
@@ -577,6 +578,34 @@ public final class DatabaseImageFiles extends Database {
             free(connection);
         }
         return lastModified;
+    }
+
+    /**
+     * Sets the last modification time of XMP metadata.
+     * 
+     * @param imageFilename image filename
+     * @param time          milliseconds since 1970
+     * @return              true if set
+     */
+    public boolean setLastModifiedXmp(String imageFilename, long time) {
+        boolean set = false;
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            PreparedStatement stmt = connection.prepareStatement(
+                    "UPDATE files SET xmp_lastmodified = ? WHERE filename = ?"); // NOI18N
+            stmt.setLong(1, time);
+            stmt.setString(2, imageFilename);
+            AppLog.logFiner(DatabaseImageFiles.class, stmt.toString());
+            int count = stmt.executeUpdate();
+            set = count > 0;
+            stmt.close();
+        } catch (SQLException ex) {
+            AppLog.logWarning(DatabaseImageFiles.class, ex);
+        } finally {
+            free(connection);
+        }
+        return set;
     }
 
     private long getLastmodifiedXmp(ImageFile imageFile) {
