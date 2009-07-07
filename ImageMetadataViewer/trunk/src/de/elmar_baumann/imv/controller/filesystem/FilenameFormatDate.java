@@ -1,10 +1,12 @@
 package de.elmar_baumann.imv.controller.filesystem;
 
 import de.elmar_baumann.imv.data.Exif;
+import de.elmar_baumann.imv.event.listener.FilenameFormatListener.Request;
 import de.elmar_baumann.imv.image.metadata.exif.ExifMetadata;
 import de.elmar_baumann.imv.resource.Bundle;
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -17,6 +19,7 @@ public final class FilenameFormatDate extends FilenameFormat {
 
     private String delimiter;
     private String name;
+    Date prevDate;
 
     public FilenameFormatDate(String delimiter) {
         this.delimiter = delimiter;
@@ -39,7 +42,7 @@ public final class FilenameFormatDate extends FilenameFormat {
             }
         }
     }
-    
+
     public void setDelimiter(String delimiter) {
         this.delimiter = delimiter;
     }
@@ -54,7 +57,11 @@ public final class FilenameFormatDate extends FilenameFormat {
     }
 
     private void formatDate(Date date) {
-        name = new SimpleDateFormat("yyyy" + delimiter + "MM" + delimiter + "dd").format(date); // NOI18N
+        checkNewDay(date);
+        prevDate = date;
+        name =
+                new SimpleDateFormat("yyyy" + delimiter + "MM" + delimiter +
+                "dd").format(date); // NOI18N
     }
 
     @Override
@@ -62,11 +69,31 @@ public final class FilenameFormatDate extends FilenameFormat {
         setFromExif(getFile());
         return name;
     }
-    
+
     @Override
     public String toString() {
         return Bundle.getString("FilenameFormatDate.String");
     }
 
-    private FilenameFormatDate() {}
+    private FilenameFormatDate() {
+    }
+
+    private void checkNewDay(Date date) {
+        if (prevDate == null) return;
+        Calendar newDate = Calendar.getInstance();
+        Calendar oldDate = Calendar.getInstance();
+        newDate.setTime(date);
+        oldDate.setTime(prevDate);
+        int newDay = newDate.get(Calendar.DAY_OF_MONTH);
+        int newMonth = newDate.get(Calendar.MONTH);
+        int newYear = newDate.get(Calendar.YEAR);
+        int oldDay = oldDate.get(Calendar.DAY_OF_MONTH);
+        int oldMonth = oldDate.get(Calendar.MONTH);
+        int oldYear = oldDate.get(Calendar.YEAR);
+        boolean datesDifferent = newDay != oldDay || newMonth != oldMonth ||
+                newYear != oldYear;
+        if (datesDifferent) {
+            requestListeners(Request.RESTART_SEQUENCE);
+        }
+    }
 }
