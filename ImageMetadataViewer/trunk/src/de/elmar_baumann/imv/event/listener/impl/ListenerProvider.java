@@ -30,14 +30,20 @@ import java.util.List;
  */
 public final class ListenerProvider {
 
-    private final List<SearchListener> searchListeners = new LinkedList<SearchListener>();
-    private final List<RenameFileListener> renameFileListeners = new LinkedList<RenameFileListener>();
-    private final List<UserSettingsChangeListener> userSettingsChangeListeners = new LinkedList<UserSettingsChangeListener>();
-    private final List<MetadataEditPanelListener> metadataEditPanelListeners = new LinkedList<MetadataEditPanelListener>();
-    private final List<FileSystemActionListener> fileSystemActionListeners = new LinkedList<FileSystemActionListener>();
+    private final List<SearchListener> searchListeners =
+            new LinkedList<SearchListener>();
+    private final List<RenameFileListener> renameFileListeners =
+            new LinkedList<RenameFileListener>();
+    private final List<UserSettingsChangeListener> userSettingsChangeListeners =
+            new LinkedList<UserSettingsChangeListener>();
+    private final List<MetadataEditPanelListener> metadataEditPanelListeners =
+            new LinkedList<MetadataEditPanelListener>();
+    private final List<FileSystemActionListener> fileSystemActionListeners =
+            new LinkedList<FileSystemActionListener>();
     public static final ListenerProvider INSTANCE = new ListenerProvider();
 
-    public synchronized void addFileSystemActionListener(FileSystemActionListener listener) {
+    public synchronized void addFileSystemActionListener(
+            FileSystemActionListener listener) {
         fileSystemActionListeners.add(listener);
     }
 
@@ -45,7 +51,8 @@ public final class ListenerProvider {
         return fileSystemActionListeners;
     }
 
-    public synchronized void addMetadataEditPanelListener(MetadataEditPanelListener listener) {
+    public synchronized void addMetadataEditPanelListener(
+            MetadataEditPanelListener listener) {
         metadataEditPanelListeners.add(listener);
     }
 
@@ -53,7 +60,8 @@ public final class ListenerProvider {
         return metadataEditPanelListeners;
     }
 
-    public synchronized void addUserSettingsChangeListener(UserSettingsChangeListener listener) {
+    public synchronized void addUserSettingsChangeListener(
+            UserSettingsChangeListener listener) {
         userSettingsChangeListeners.add(listener);
     }
 
@@ -61,7 +69,8 @@ public final class ListenerProvider {
         return userSettingsChangeListeners;
     }
 
-    public synchronized void addRenameFileListener(RenameFileListener listener) {
+    public synchronized void addRenameFileListener(
+            RenameFileListener listener) {
         renameFileListeners.add(listener);
     }
 
@@ -77,7 +86,8 @@ public final class ListenerProvider {
         return searchListeners;
     }
 
-    public synchronized void notifyUserSettingsChangeListener(UserSettingsChangeEvent evt) {
+    public synchronized void notifyUserSettingsChangeListener(
+            UserSettingsChangeEvent evt) {
         for (UserSettingsChangeListener l : userSettingsChangeListeners) {
             l.applySettings(evt);
         }
