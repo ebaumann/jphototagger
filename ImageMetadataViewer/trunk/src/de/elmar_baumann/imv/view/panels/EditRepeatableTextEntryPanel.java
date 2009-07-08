@@ -66,7 +66,12 @@ public final class EditRepeatableTextEntryPanel extends javax.swing.JPanel
 
     @Override
     public String getText() {
-        return ListUtil.getTokenString(model, DELIMITER);
+        String input = ListUtil.getTokenString(model, DELIMITER);
+        String textfieldText = textFieldInput.getText().trim();
+        input += textfieldText.isEmpty()
+                 ? ""
+                 : DELIMITER + textfieldText;
+        return input;
     }
 
     @Override
@@ -84,6 +89,7 @@ public final class EditRepeatableTextEntryPanel extends javax.swing.JPanel
 
     private void handleTextFieldKeyReleased(KeyEvent evt) {
         JComponent component = (JComponent) evt.getSource();
+        dirty = !textFieldInput.getText().trim().isEmpty();
         if (evt.getKeyCode() == KeyEvent.VK_ENTER &&
                 component.getInputVerifier().verify(component)) {
             addInputToList();
@@ -96,7 +102,6 @@ public final class EditRepeatableTextEntryPanel extends javax.swing.JPanel
         String input = getInputWithoutDelimiter();
         if (!input.isEmpty() && !model.contains(input)) {
             model.addElement(input);
-            dirty = true;
             ComponentUtil.forceRepaint(getParent().getParent());
         }
     }
@@ -299,7 +304,6 @@ private void listKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_list
         removeSelectedElements();
     }
 }//GEN-LAST:event_listKeyPressed
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAddInput;
     private javax.swing.JButton buttonRemoveSelection;
