@@ -58,7 +58,7 @@ public final class XmpInDatabase {
      *
      * @return path prefixes
      */
-    public Set<String> getPathPrefixes() {
+    public static Set<String> getPathPrefixes() {
         return new HashSet<String>(STORED_PATHS_PREFIXES);
     }
 
