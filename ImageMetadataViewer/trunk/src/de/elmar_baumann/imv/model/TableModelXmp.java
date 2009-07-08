@@ -57,6 +57,11 @@ public final class TableModelXmp extends DefaultTableModel {
         filename = null;
     }
 
+    @Override
+    public boolean isCellEditable(int row, int column) {
+        return false;
+    }
+
     private void setXmpData() {
         if (propertyInfos != null) {
             for (XMPPropertyInfo xmpPropertyInfo : propertyInfos) {

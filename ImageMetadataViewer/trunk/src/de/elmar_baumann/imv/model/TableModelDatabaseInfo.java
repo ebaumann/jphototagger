@@ -59,6 +59,11 @@ public final class TableModelDatabaseInfo extends DefaultTableModel
         }
     }
 
+    @Override
+    public boolean isCellEditable(int row, int column) {
+        return false;
+    }
+
     public void update() {
         setCount();
     }

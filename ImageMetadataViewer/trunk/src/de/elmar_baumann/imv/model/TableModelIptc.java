@@ -54,6 +54,11 @@ public final class TableModelIptc extends DefaultTableModel {
         return file;
     }
 
+    @Override
+    public boolean isCellEditable(int row, int column) {
+        return false;
+    }
+
     private void addRows() {
         Collections.sort(iptcEntries, IptcEntryComparator.INSTANCE);
         for (IptcEntry entry : iptcEntries) {
