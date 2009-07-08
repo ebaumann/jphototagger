@@ -57,18 +57,15 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="buttonSaveMetadata" linkSize="4" min="-2" max="-2" attributes="0"/>
-                                  <Component id="buttonEmptyMetadata" linkSize="4" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="buttonMetadataTemplateInsert" linkSize="3" alignment="0" max="32767" attributes="1"/>
-                                  <Component id="buttonMetadataTemplateCreate" linkSize="3" alignment="0" min="-2" max="-2" attributes="1"/>
+                          <Component id="labelMetadataInfoEditable" alignment="0" pref="236" max="32767" attributes="0"/>
+                          <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                              <Component id="buttonMetadataTemplateInsert" alignment="1" min="-2" pref="222" max="-2" attributes="1"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="buttonEmptyMetadata" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="buttonMetadataTemplateCreate" min="-2" max="-2" attributes="1"/>
                               </Group>
                           </Group>
-                          <Component id="labelMetadataInfoEditable" alignment="0" pref="236" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -81,14 +78,11 @@
                       <Component id="labelMetadataInfoEditable" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="buttonSaveMetadata" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="buttonMetadataTemplateCreate" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="buttonMetadataTemplateInsert" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="buttonEmptyMetadata" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="buttonMetadataTemplateInsert" linkSize="2" min="-2" max="-2" attributes="0"/>
                       <EmptySpace pref="24" max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -100,21 +94,6 @@
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                   <ResourceString bundle="de/elmar_baumann/imv/resource/properties/Bundle.properties" key="EditMetadataActionsPanel.labelMetadataInfoEditable.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                 </Property>
-              </Properties>
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
-              </AuxValues>
-            </Component>
-            <Component class="javax.swing.JButton" name="buttonSaveMetadata">
-              <Properties>
-                <Property name="mnemonic" type="int" value="115"/>
-                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/imv/resource/properties/Bundle.properties" key="EditMetadataActionsPanel.buttonSaveMetadata.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
-                </Property>
-                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/imv/resource/properties/Bundle.properties" key="EditMetadataActionsPanel.buttonSaveMetadata.toolTipText" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
-                </Property>
-                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>

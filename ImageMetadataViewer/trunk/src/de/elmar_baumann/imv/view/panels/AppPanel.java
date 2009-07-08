@@ -228,10 +228,6 @@ public final class AppPanel extends javax.swing.JPanel implements
         return buttonSystemOutput;
     }
 
-    public JButton getButtonSaveMetadata() {
-        return editActionsPanel.buttonSaveMetadata;
-    }
-
     public JButton getButtonEmptyMetadata() {
         return editActionsPanel.buttonEmptyMetadata;
     }

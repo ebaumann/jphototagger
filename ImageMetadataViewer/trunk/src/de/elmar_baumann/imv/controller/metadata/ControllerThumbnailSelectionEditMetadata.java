@@ -27,7 +27,6 @@ public final class ControllerThumbnailSelectionEditMetadata implements
         ThumbnailsPanelListener {
 
     private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
-    private final JButton buttonSave = appPanel.getButtonSaveMetadata();
     private final JButton buttonEmpty = appPanel.getButtonEmptyMetadata();
     private final JLabel labelMetadataInfoEditable =
             appPanel.getLabelMetadataInfoEditable();
@@ -71,7 +70,6 @@ public final class ControllerThumbnailSelectionEditMetadata implements
     }
 
     private void setEnabled(boolean enabled) {
-        buttonSave.setEnabled(enabled);
         buttonEmpty.setEnabled(enabled);
         editPanels.setEditable(enabled);
     }

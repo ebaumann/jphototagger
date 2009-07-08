@@ -1,48 +1,20 @@
-package de.elmar_baumann.imv.controller.metadata;
+package de.elmar_baumann.imv.tasks;
 
 import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.data.TextEntry;
 import de.elmar_baumann.imv.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.imv.resource.Bundle;
-import de.elmar_baumann.imv.resource.GUI;
-import de.elmar_baumann.imv.tasks.XmpUpdaterFromTextEntryArray;
-import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.view.panels.EditMetadataPanelsArray;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.EnumSet;
 import java.util.List;
-import javax.swing.JButton;
 
 /**
- * Kontrolliert die Aktion: Metadaten sollen gesichert werden.
+ * Saves Metadata input into an {@link EditMetadataPanelsArray}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
- * @version 2008-10-05
+ * @version 2008/10/05
  */
-public final class ControllerSaveMetadata implements ActionListener {
-
-    private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
-    private final JButton buttonSave = appPanel.getButtonSaveMetadata();
-    private final EditMetadataPanelsArray editPanels =
-            appPanel.getEditPanelsArray();
-
-    public ControllerSaveMetadata() {
-        listen();
-    }
-
-    private void listen() {
-        buttonSave.addActionListener(this);
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        saveMetadata();
-    }
-
-    private void saveMetadata() {
-        saveMetadata(editPanels);
-    }
+public final class SaveEditedMetadata {
 
     public static void saveMetadata(final EditMetadataPanelsArray editPanels) {
         final List<TextEntry> entries = editPanels.getTextEntries();
@@ -59,11 +31,14 @@ public final class ControllerSaveMetadata implements ActionListener {
                     EnumSet.of(
                     XmpMetadata.UpdateOption.APPEND_TO_REPEATABLE_VALUES));
         } else {
-            AppLog.logWarning(ControllerSaveMetadata.class,
+            AppLog.logWarning(SaveEditedMetadata.class,
                     Bundle.getString(
                     "ControllerSaveMetadata.ErrorMessage.NoImageFilesSelected"));
         }
         editPanels.setDirty(false);
         editPanels.setFocusToLastFocussedComponent();
+    }
+
+    private SaveEditedMetadata() {
     }
 }

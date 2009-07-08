@@ -33,7 +33,6 @@ import de.elmar_baumann.imv.controller.imagecollection.ControllerImageCollection
 import de.elmar_baumann.imv.controller.imagecollection.ControllerRenameImageCollection;
 import de.elmar_baumann.imv.controller.keywords.ControllerKeywordItemSelected;
 import de.elmar_baumann.imv.controller.metadata.ControllerEmptyMetadata;
-import de.elmar_baumann.imv.controller.metadata.ControllerSaveMetadata;
 import de.elmar_baumann.imv.controller.metadata.ControllerThumbnailSelectionEditMetadata;
 import de.elmar_baumann.imv.controller.search.ControllerAdvancedSearch;
 import de.elmar_baumann.imv.controller.filesystem.ControllerAutocopyDirectory;
@@ -115,7 +114,6 @@ public final class ControllerFactory {
             new ControllerFastSearch();
             new ControllerAdvancedSearch();
             new ControllerThumbnailSelectionEditMetadata();
-            new ControllerSaveMetadata();
             new ControllerEmptyMetadata();
             new ControllerEnableInsertMetadataTemplate();
             new ControllerInsertFavorite();
