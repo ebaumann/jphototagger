@@ -18,10 +18,16 @@ import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
 
 /**
- * Kontrolliert das Speichern von Metadaten.
+ * Listens to the {@link ImageFileThumbnailsPanel} for thumbnail selections.
+ * If one or more thumbnails were selected, this controller enables or disables
+ * edit metadata of the selcted thumbnails depending on write privileges in the
+ * filesystem.
+ *
+ * This controller also sets the metadata of a selected thumbnail to the edit
+ * panel.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
- * @version 2008-10-05
+ * @version 2008/10/05
  */
 public final class ControllerThumbnailSelectionEditMetadata implements
         ThumbnailsPanelListener {
