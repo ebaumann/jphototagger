@@ -9,6 +9,7 @@ import de.elmar_baumann.imv.data.MetadataEditTemplate;
 import de.elmar_baumann.imv.data.TextEntry;
 import de.elmar_baumann.imv.data.Xmp;
 import de.elmar_baumann.imv.data.AutoCompleteUtil;
+import de.elmar_baumann.imv.data.SelectedFile;
 import de.elmar_baumann.imv.database.DatabaseImageFiles;
 import de.elmar_baumann.imv.database.metadata.Column;
 import de.elmar_baumann.imv.database.metadata.selections.EditHints;
@@ -36,6 +37,7 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -85,13 +87,8 @@ public final class EditMetadataPanelsArray implements FocusListener,
             dirty = ((TextEntry) panels.get(i)).isDirty();
         }
         if (dirty) {
-            save();
-        }
-    }
-
-    private void save() {
-        if (isEditable() && isThumbnailSelected()) {
             SaveEditedMetadata.saveMetadata(this);
+            SelectedFile.INSTANCE.setFile(new File(""), null);
         }
     }
 
@@ -125,11 +122,6 @@ public final class EditMetadataPanelsArray implements FocusListener,
      */
     public boolean isEditable() {
         return editable;
-    }
-
-    private boolean isThumbnailSelected() {
-        return GUI.INSTANCE.getAppPanel().getPanelThumbnails().getSelectionCount() >
-                0;
     }
 
     /**
