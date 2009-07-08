@@ -19,6 +19,7 @@ import de.elmar_baumann.imv.database.metadata.mapping.XmpColumnXmpDataTypeMappin
 import de.elmar_baumann.imv.database.metadata.mapping.XmpColumnXmpDataTypeMapping.XmpValueType;
 import de.elmar_baumann.imv.database.metadata.mapping.XmpColumnXmpPathStartMapping;
 import de.elmar_baumann.imv.database.metadata.selections.EditColumns;
+import de.elmar_baumann.imv.database.metadata.selections.XmpInDatabase;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.image.metadata.xmp.XmpFileReader;
 import de.elmar_baumann.lib.io.FileUtil;
@@ -30,7 +31,9 @@ import java.io.IOException;
 import java.util.Set;
 import java.util.ArrayList;
 import java.util.EnumSet;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Gets and sets XMP metadata from image files and XMP sidecar files and to
@@ -43,7 +46,6 @@ public final class XmpMetadata {
 
     private static final List<String> KNOWN_NAMESPACES = new ArrayList<String>();
     private static final String XMP_TOKEN_DELIMITER = "\\"; // NOI18N;
-
 
     static {
         KNOWN_NAMESPACES.add("Iptc4xmpCore"); // NOI18N
@@ -437,7 +439,8 @@ public final class XmpMetadata {
             String propertyName) throws XMPException {
         if (XmpColumnXmpDataTypeMapping.isText(xmpColumn)) {
             xmpMeta.setProperty(namespaceUri, propertyName, entryText);
-        } else if (XmpColumnXmpDataTypeMapping.isLanguageAlternative(xmpColumn)) {
+        } else if (XmpColumnXmpDataTypeMapping.isLanguageAlternative(
+                xmpColumn)) {
             xmpMeta.setLocalizedText(namespaceUri, propertyName, "", "x-default", // NOI18N
                     entryText);
         } else if (XmpColumnXmpDataTypeMapping.isArray(xmpColumn)) {
@@ -577,6 +580,40 @@ public final class XmpMetadata {
                 getPropertyInfosOfXmpString(xmpString));
     }
 
+    /**
+     * Puts into a map property infos where the map key is a string of
+     * {@link XmpInDatabase#getPathPrefixes()}. The values are
+     * {@link XMPPropertyInfo} instances with path prefixes matching the key.
+     *
+     * @param  xmpPropertyInfos unordered property infos
+     * @return                   ordered property infos
+     */
+    public static Map<String, List<XMPPropertyInfo>> getOrderedPropertyInfosForDatabase(
+            List<XMPPropertyInfo> xmpPropertyInfos) {
+        if (xmpPropertyInfos == null)
+            throw new NullPointerException("xmpPropertyInfos == null"); // NOI18N
+
+        Map<String, List<XMPPropertyInfo>> propertyInfoWithPathStart =
+                new HashMap<String, List<XMPPropertyInfo>>();
+        Set<String> pathPrefixes = XmpInDatabase.getPathPrefixes();
+        for (String pathPrefix : pathPrefixes) {
+            for (XMPPropertyInfo propertyInfo : xmpPropertyInfos) {
+                if (propertyInfo.getPath().startsWith(pathPrefix)) {
+                    List<XMPPropertyInfo> infos =
+                            propertyInfoWithPathStart.get(pathPrefix);
+                    if (infos == null) {
+                        infos = new ArrayList<XMPPropertyInfo>();
+                        infos.add(propertyInfo);
+                        propertyInfoWithPathStart.put(pathPrefix, infos);
+                    } else {
+                        infos.add(propertyInfo);
+                    }
+                }
+            }
+        }
+        return propertyInfoWithPathStart;
+    }
+
     private static Xmp getXmp(XmpLocation xmpType, String imageFilename,
             List<XMPPropertyInfo> xmpPropertyInfos) {
         Xmp xmp = null;
@@ -591,7 +628,8 @@ public final class XmpMetadata {
                         "photoshop:SupplementalCategories")) { // NOI18N
                     xmp.addPhotoshopSupplementalCategory(xmpPropertyInfo.
                             getValue().toString());
-                } else if (xmpPropertyInfo.getPath().startsWith("dc:description")) { // NOI18N
+                } else if (xmpPropertyInfo.getPath().startsWith(
+                        "dc:description")) { // NOI18N
                     xmp.setDcDescription(xmpPropertyInfo.getValue().toString());
                 } else if (xmpPropertyInfo.getPath().startsWith("dc:rights")) { // NOI18N
                     xmp.setDcRights(xmpPropertyInfo.getValue().toString());
@@ -617,7 +655,8 @@ public final class XmpMetadata {
                         "photoshop:Category")) { // NOI18N
                     xmp.setPhotoshopCategory(
                             xmpPropertyInfo.getValue().toString());
-                } else if (xmpPropertyInfo.getPath().startsWith("photoshop:City")) { // NOI18N
+                } else if (xmpPropertyInfo.getPath().startsWith(
+                        "photoshop:City")) { // NOI18N
                     xmp.setPhotoshopCity(xmpPropertyInfo.getValue().toString());
                 } else if (xmpPropertyInfo.getPath().startsWith(
                         "photoshop:Country")) { // NOI18N
@@ -657,7 +696,8 @@ public final class XmpMetadata {
                 getSidecarFilenameOfImageFileIfExists(imageFilename);
         if (xmpType.equals(XmpLocation.SIDECAR_FILE) && sidecarFilename != null) {
             xmp.setLastModified(FileUtil.getLastModified(sidecarFilename));
-        } else if (xmpType.equals(XmpLocation.EMBEDDED) && FileUtil.existsFile(
+        } else if (xmpType.equals(XmpLocation.EMBEDDED) && FileUtil.
+                existsFile(
                 imageFilename)) {
             xmp.setLastModified(FileUtil.getLastModified(imageFilename));
         }
