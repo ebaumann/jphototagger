@@ -11,29 +11,29 @@ import java.util.Set;
  */
 public final class XmpInDatabase {
 
-    private static final Set<String> STORED_PATHS_STARTS_WITH =
+    private static final Set<String> STORED_PATHS_PREFIXES =
             new HashSet<String>();
 
     static {
-        STORED_PATHS_STARTS_WITH.add("Iptc4xmpCore:Location"); // NOI18N
-        STORED_PATHS_STARTS_WITH.add("Iptc4xmpCore:CountryCode"); // NOI18N
-        STORED_PATHS_STARTS_WITH.add("photoshop:Source"); // NOI18N
-        STORED_PATHS_STARTS_WITH.add("photoshop:Credit"); // NOI18N
-        STORED_PATHS_STARTS_WITH.add("photoshop:CaptionWriter"); // NOI18N
-        STORED_PATHS_STARTS_WITH.add("photoshop:AuthorsPosition"); // NOI18N
-        STORED_PATHS_STARTS_WITH.add("photoshop:Headline"); // NOI18N
-        STORED_PATHS_STARTS_WITH.add("photoshop:TransmissionReference"); // NOI18N
-        STORED_PATHS_STARTS_WITH.add("photoshop:Instructions"); // NOI18N
-        STORED_PATHS_STARTS_WITH.add("photoshop:Category"); // NOI18N
-        STORED_PATHS_STARTS_WITH.add("photoshop:SupplementalCategories"); // NOI18N
-        STORED_PATHS_STARTS_WITH.add("photoshop:City"); // NOI18N
-        STORED_PATHS_STARTS_WITH.add("photoshop:State"); // NOI18N
-        STORED_PATHS_STARTS_WITH.add("photoshop:Country"); // NOI18N
-        STORED_PATHS_STARTS_WITH.add("dc:title"); // NOI18N
-        STORED_PATHS_STARTS_WITH.add("dc:creator"); // NOI18N
-        STORED_PATHS_STARTS_WITH.add("dc:description"); // NOI18N
-        STORED_PATHS_STARTS_WITH.add("dc:rights"); // NOI18N
-        STORED_PATHS_STARTS_WITH.add("dc:subject"); // NOI18N
+        STORED_PATHS_PREFIXES.add("Iptc4xmpCore:Location"); // NOI18N
+        STORED_PATHS_PREFIXES.add("Iptc4xmpCore:CountryCode"); // NOI18N
+        STORED_PATHS_PREFIXES.add("photoshop:Source"); // NOI18N
+        STORED_PATHS_PREFIXES.add("photoshop:Credit"); // NOI18N
+        STORED_PATHS_PREFIXES.add("photoshop:CaptionWriter"); // NOI18N
+        STORED_PATHS_PREFIXES.add("photoshop:AuthorsPosition"); // NOI18N
+        STORED_PATHS_PREFIXES.add("photoshop:Headline"); // NOI18N
+        STORED_PATHS_PREFIXES.add("photoshop:TransmissionReference"); // NOI18N
+        STORED_PATHS_PREFIXES.add("photoshop:Instructions"); // NOI18N
+        STORED_PATHS_PREFIXES.add("photoshop:Category"); // NOI18N
+        STORED_PATHS_PREFIXES.add("photoshop:SupplementalCategories"); // NOI18N
+        STORED_PATHS_PREFIXES.add("photoshop:City"); // NOI18N
+        STORED_PATHS_PREFIXES.add("photoshop:State"); // NOI18N
+        STORED_PATHS_PREFIXES.add("photoshop:Country"); // NOI18N
+        STORED_PATHS_PREFIXES.add("dc:title"); // NOI18N
+        STORED_PATHS_PREFIXES.add("dc:creator"); // NOI18N
+        STORED_PATHS_PREFIXES.add("dc:description"); // NOI18N
+        STORED_PATHS_PREFIXES.add("dc:rights"); // NOI18N
+        STORED_PATHS_PREFIXES.add("dc:subject"); // NOI18N
     }
 
     /**
@@ -44,12 +44,22 @@ public final class XmpInDatabase {
      * @return true, falls gespeichert
      */
     public static boolean isInDatabase(String path) {
-        for (String storedPathStartsWith : STORED_PATHS_STARTS_WITH) {
+        for (String storedPathStartsWith : STORED_PATHS_PREFIXES) {
             if (path.startsWith(storedPathStartsWith)) {
                 return true;
             }
         }
         return false;
+    }
+
+    /**
+     * Returns all path prefixes of XMP paths if the related XMP metadata is
+     * stored in the database.
+     *
+     * @return path prefixes
+     */
+    public Set<String> getPathPrefixes() {
+        return new HashSet<String>(STORED_PATHS_PREFIXES);
     }
 
     private XmpInDatabase() {
