@@ -25,7 +25,6 @@ import de.elmar_baumann.imv.event.MetadataEditPanelEvent;
 import de.elmar_baumann.imv.event.listener.MetadataEditPanelListener;
 import de.elmar_baumann.imv.event.listener.TextSelectionListener;
 import de.elmar_baumann.imv.image.metadata.xmp.XmpMetadata;
-import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.dialogs.TextSelectionDialog;
 import de.elmar_baumann.lib.component.TabLeavingTextArea;
@@ -41,7 +40,6 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import javax.swing.JComponent;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -92,19 +90,9 @@ public final class EditMetadataPanelsArray implements FocusListener,
     }
 
     private void save() {
-        if (isEditable() && isThumbnailSelected() && confirmSave()) {
+        if (isEditable() && isThumbnailSelected()) {
             ControllerSaveMetadata.saveMetadata(this);
         }
-    }
-
-    private boolean confirmSave() {
-        return JOptionPane.showConfirmDialog(
-                null,
-                Bundle.getString("EditMetadataPanelsArray.ConfirmMessage.Save"),
-                Bundle.getString(
-                "EditMetadataPanelsArray.ConfirmMessage.Save.Title"),
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION;
     }
 
     private synchronized void notifyActionListener(MetadataEditPanelEvent evt) {

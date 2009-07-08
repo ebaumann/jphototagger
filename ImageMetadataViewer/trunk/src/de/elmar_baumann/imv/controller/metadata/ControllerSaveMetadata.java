@@ -13,7 +13,6 @@ import java.awt.event.ActionListener;
 import java.util.EnumSet;
 import java.util.List;
 import javax.swing.JButton;
-import javax.swing.SwingUtilities;
 
 /**
  * Kontrolliert die Aktion: Metadaten sollen gesichert werden.
@@ -46,31 +45,25 @@ public final class ControllerSaveMetadata implements ActionListener {
     }
 
     public static void saveMetadata(final EditMetadataPanelsArray editPanels) {
-        SwingUtilities.invokeLater(new Runnable() {
-
-            @Override
-            public void run() {
-                XmpUpdaterFromTextEntryArray updater =
-                        new XmpUpdaterFromTextEntryArray();
-                List<TextEntry> entries = editPanels.getTextEntries();
-                List<String> filenames = editPanels.getFilenames();
-                int filenameCount = filenames.size();
-                if (filenameCount == 1) {
-                    updater.add(filenames, entries,
-                            EnumSet.of(
-                            XmpMetadata.UpdateOption.DELETE_IF_SOURCE_VALUE_IS_EMPTY));
-                } else if (filenameCount > 1) {
-                    updater.add(filenames, entries,
-                            EnumSet.of(
-                            XmpMetadata.UpdateOption.APPEND_TO_REPEATABLE_VALUES));
-                } else {
-                    AppLog.logWarning(ControllerSaveMetadata.class,
-                            Bundle.getString(
-                            "ControllerSaveMetadata.ErrorMessage.NoImageFilesSelected"));
-                }
-                editPanels.setDirty(false);
-                editPanels.setFocusToLastFocussedComponent();
-            }
-        });
+        final List<TextEntry> entries = editPanels.getTextEntries();
+        final List<String> filenames = editPanels.getFilenames();
+        final int filenameCount = filenames.size();
+        XmpUpdaterFromTextEntryArray updater =
+                new XmpUpdaterFromTextEntryArray();
+        if (filenameCount == 1) {
+            updater.add(filenames, entries,
+                    EnumSet.of(
+                    XmpMetadata.UpdateOption.DELETE_IF_SOURCE_VALUE_IS_EMPTY));
+        } else if (filenameCount > 1) {
+            updater.add(filenames, entries,
+                    EnumSet.of(
+                    XmpMetadata.UpdateOption.APPEND_TO_REPEATABLE_VALUES));
+        } else {
+            AppLog.logWarning(ControllerSaveMetadata.class,
+                    Bundle.getString(
+                    "ControllerSaveMetadata.ErrorMessage.NoImageFilesSelected"));
+        }
+        editPanels.setDirty(false);
+        editPanels.setFocusToLastFocussedComponent();
     }
 }
