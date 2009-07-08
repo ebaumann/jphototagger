@@ -96,13 +96,16 @@ public final class ControllerAutocopyDirectory implements ActionListener {
     }
 
     private void informationMessageNoFilesFound() {
-        JOptionPane.showMessageDialog(
+        if (JOptionPane.showConfirmDialog(
                 null,
                 Bundle.getString(
                 "ControllerAutocopyDirectory.InformationMessage.NoFilesFound"),
                 Bundle.getString(
                 "ControllerAutocopyDirectory.InformationMessage.NoFilesFound.Title"),
-                JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            setAutocopyDirectory();
+            copy();
+        }
     }
 
     private boolean confirmSetAutocopyDirectory() {
