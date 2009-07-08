@@ -1,7 +1,6 @@
 package de.elmar_baumann.imv.factory;
 
 import de.elmar_baumann.imv.UserSettings;
-import de.elmar_baumann.imv.controller.thumbnail.ControllerThumbnailsPanelPersistence;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.ProgressBarCreateMetadataOfCurrentThumbnails;
@@ -31,15 +30,14 @@ public final class MetaFactory implements Runnable {
     private synchronized void init() {
         Util.checkInit(MetaFactory.class, init);
         init = true;
-        new ControllerThumbnailsPanelPersistence();
         readAppFrameFromProperties();
         startDisplayProgressInProgressbarBar();
+        ControllerFactory.INSTANCE.init();
         LateConnectionsFactory.INSTANCE.init();
         ModelFactory.INSTANCE.init();
         ActionListenerFactory.INSTANCE.init();
         MouseListenerFactory.INSTANCE.init();
         RendererFactory.INSTANCE.init();
-        ControllerFactory.INSTANCE.init();
         readAppPanelFromProperties();
         stopDisplayProgressInProgressbarBar();
     }

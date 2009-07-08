@@ -3,6 +3,8 @@ package de.elmar_baumann.imv.factory;
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.controller.directories.ControllerDirectorySelected;
 import de.elmar_baumann.imv.controller.favorites.ControllerFavoriteSelected;
+import de.elmar_baumann.imv.controller.metadata.ControllerMetadataTemplates;
+import de.elmar_baumann.imv.controller.metadata.ControllerShowMetadata;
 import de.elmar_baumann.imv.controller.miscmetadata.ControllerMiscMetadataItemSelected;
 import de.elmar_baumann.imv.controller.timeline.ControllerTimelineItemSelected;
 import de.elmar_baumann.imv.model.ComboBoxModelMetadataEditTemplates;
@@ -42,21 +44,17 @@ public final class ModelFactory {
         if (!init) {
             init = true;
             final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
-            appPanel.getTableIptc().setModel(new TableModelIptc());
-            appPanel.getTableXmpCameraRawSettings().setModel(new TableModelXmp());
-            appPanel.getTableXmpDc().setModel(new TableModelXmp());
-            appPanel.getTableXmpExif().setModel(new TableModelXmp());
-            appPanel.getTableXmpIptc().setModel(new TableModelXmp());
-            appPanel.getTableXmpLightroom().setModel(new TableModelXmp());
-            appPanel.getTableXmpPhotoshop().setModel(new TableModelXmp());
-            appPanel.getTableXmpTiff().setModel(new TableModelXmp());
-            appPanel.getTableXmpXap().setModel(new TableModelXmp());
-            appPanel.getTableExif().setModel(new TableModelExif());
-            appPanel.getMetadataEditActionsPanel().getComboBoxMetadataTemplates().
-                    setModel(new ComboBoxModelMetadataEditTemplates());
+            setTableModels(appPanel);
+            setComboBoxModels(appPanel);
             setListModels(appPanel);
             setTreeModels(appPanel);
         }
+    }
+
+    private void setComboBoxModels(final AppPanel appPanel) {
+        appPanel.getMetadataEditActionsPanel().getComboBoxMetadataTemplates().
+                setModel(new ComboBoxModelMetadataEditTemplates());
+        new ControllerMetadataTemplates();
     }
 
     private void setListModels(final AppPanel appPanel) {
@@ -92,6 +90,30 @@ public final class ModelFactory {
         Cursor listCursor = setWaitCursor(list);
         list.setModel(new SortedListModel(new ListModelKeywords()));
         list.setCursor(listCursor);
+    }
+
+    private void setTableModels(final AppPanel appPanel) {
+        appPanel.getTableIptc().
+                setModel(new TableModelIptc());
+        appPanel.getTableXmpCameraRawSettings().
+                setModel(new TableModelXmp());
+        appPanel.getTableXmpDc().
+                setModel(new TableModelXmp());
+        appPanel.getTableXmpExif().
+                setModel(new TableModelXmp());
+        appPanel.getTableXmpIptc().
+                setModel(new TableModelXmp());
+        appPanel.getTableXmpLightroom().
+                setModel(new TableModelXmp());
+        appPanel.getTableXmpPhotoshop().
+                setModel(new TableModelXmp());
+        appPanel.getTableXmpTiff().
+                setModel(new TableModelXmp());
+        appPanel.getTableXmpXap().
+                setModel(new TableModelXmp());
+        appPanel.getTableExif().
+                setModel(new TableModelExif());
+        new ControllerShowMetadata();
     }
 
     private Cursor setWaitCursor(JList list) {

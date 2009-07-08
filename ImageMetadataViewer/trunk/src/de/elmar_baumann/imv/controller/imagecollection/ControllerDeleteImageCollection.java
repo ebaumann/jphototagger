@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.JList;
+import javax.swing.ListModel;
 import javax.swing.SwingUtilities;
 
 /**
@@ -31,8 +32,6 @@ public final class ControllerDeleteImageCollection
             PopupMenuImageCollections.INSTANCE;
     private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
     private final JList list = appPanel.getListImageCollections();
-    private final ListModelImageCollections model =
-            (ListModelImageCollections) list.getModel();
 
     public ControllerDeleteImageCollection() {
         listen();
@@ -66,7 +65,11 @@ public final class ControllerDeleteImageCollection
 
                     @Override
                     public void run() {
-                        model.removeElement(collectionName);
+                        ListModel model = list.getModel();
+                        if (model instanceof ListModelImageCollections) {
+                            ((ListModelImageCollections) model).removeElement(
+                                    collectionName);
+                        }
                     }
                 });
             }

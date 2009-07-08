@@ -14,6 +14,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.JList;
 import javax.swing.JTree;
+import javax.swing.ListModel;
 import javax.swing.SwingUtilities;
 
 /**
@@ -34,8 +35,6 @@ public final class ControllerRenameImageCollection
             PopupMenuImageCollections.INSTANCE;
     private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
     private final JList list = appPanel.getListImageCollections();
-    private final ListModelImageCollections model =
-            (ListModelImageCollections) list.getModel();
 
     public ControllerRenameImageCollection() {
         listen();
@@ -75,7 +74,11 @@ public final class ControllerRenameImageCollection
 
                     @Override
                     public void run() {
-                        model.rename(oldName, newName);
+                        ListModel model = list.getModel();
+                        if (model instanceof ListModelImageCollections) {
+                            ((ListModelImageCollections) model).rename(
+                                    oldName, newName);
+                        }
                     }
                 });
             }

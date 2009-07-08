@@ -38,8 +38,6 @@ public final class ControllerCreateImageCollection
             PopupMenuThumbnails.INSTANCE;
     private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
     private final JList list = appPanel.getListImageCollections();
-    private final ListModelImageCollections model =
-            (ListModelImageCollections) list.getModel();
     private final ImageFileThumbnailsPanel thumbnailsPanel =
             GUI.INSTANCE.getAppPanel().getPanelThumbnails();
 
@@ -73,9 +71,13 @@ public final class ControllerCreateImageCollection
 
                 @Override
                 public void run() {
-                    ListUtil.insertSorted(model, collectionName,
-                            ComparatorStringAscending.IGNORE_CASE,
-                            getSortIndex(model));
+                    ListModel model = list.getModel();
+                    if (model instanceof ListModelImageCollections) {
+                        ListUtil.insertSorted((ListModelImageCollections) model,
+                                collectionName,
+                                ComparatorStringAscending.IGNORE_CASE,
+                                getSortIndex(model));
+                    }
                 }
             });
         } else {

@@ -33,9 +33,7 @@ import de.elmar_baumann.imv.controller.imagecollection.ControllerImageCollection
 import de.elmar_baumann.imv.controller.imagecollection.ControllerRenameImageCollection;
 import de.elmar_baumann.imv.controller.keywords.ControllerKeywordItemSelected;
 import de.elmar_baumann.imv.controller.metadata.ControllerEmptyMetadata;
-import de.elmar_baumann.imv.controller.metadata.ControllerMetadataTemplates;
 import de.elmar_baumann.imv.controller.metadata.ControllerSaveMetadata;
-import de.elmar_baumann.imv.controller.metadata.ControllerShowMetadata;
 import de.elmar_baumann.imv.controller.metadata.ControllerThumbnailSelectionEditMetadata;
 import de.elmar_baumann.imv.controller.search.ControllerAdvancedSearch;
 import de.elmar_baumann.imv.controller.filesystem.ControllerAutocopyDirectory;
@@ -90,6 +88,7 @@ public final class ControllerFactory {
     synchronized void init() {
         Util.checkInit(ControllerFactory.class, init);
         if (!init) {
+            new ControllerThumbnailsPanelPersistence();
             new ControllerItemsMutualExcludeSelection();
             new ControllerCategoryItemSelected();
             new ControllerKeywordItemSelected();
@@ -115,11 +114,9 @@ public final class ControllerFactory {
             new ControllerLogfileDialog();
             new ControllerFastSearch();
             new ControllerAdvancedSearch();
-            new ControllerShowMetadata();
             new ControllerThumbnailSelectionEditMetadata();
             new ControllerSaveMetadata();
             new ControllerEmptyMetadata();
-            new ControllerMetadataTemplates();
             new ControllerEnableInsertMetadataTemplate();
             new ControllerInsertFavorite();
             new ControllerDeleteFavorite();
