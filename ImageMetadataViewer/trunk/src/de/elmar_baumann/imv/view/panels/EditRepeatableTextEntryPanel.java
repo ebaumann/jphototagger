@@ -102,6 +102,7 @@ public final class EditRepeatableTextEntryPanel extends javax.swing.JPanel
         String input = getInputWithoutDelimiter();
         if (!input.isEmpty() && !model.contains(input)) {
             model.addElement(input);
+            textFieldInput.setText("");
             ComponentUtil.forceRepaint(getParent().getParent());
         }
     }
