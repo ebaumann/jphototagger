@@ -73,6 +73,8 @@ public final class AppPanel extends javax.swing.JPanel implements
         setDisableTreeMultipleSelection();
         initArrays();
         tableExif.addMouseListener(new TableButtonMouseListener(tableExif));
+        scrollPaneThumbnails.getVerticalScrollBar().setUnitIncrement(
+                UserSettings.INSTANCE.getMaxThumbnailLength());
     }
 
     private void initArrays() {
