@@ -17,7 +17,7 @@ import java.util.List;
 public final class SaveEditedMetadata {
 
     public static void saveMetadata(final EditMetadataPanelsArray editPanels) {
-        final List<TextEntry> entries = editPanels.getTextEntries();
+        final List<TextEntry> entries = editPanels.getTextEntries(true);
         final List<String> filenames = editPanels.getFilenames();
         final int filenameCount = filenames.size();
         XmpUpdaterFromTextEntryArray updater =

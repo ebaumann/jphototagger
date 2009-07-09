@@ -138,14 +138,18 @@ public final class EditMetadataPanelsArray implements FocusListener,
     }
 
     /**
-     * Liefert alle Texte.
-     * 
-     * @return Texte
+     * Returns the text entries.
+     *
+     * @param  dirty   if true, only dirty entries returned
+     * @return entries
      */
-    public List<TextEntry> getTextEntries() {
-        List<TextEntry> textEntries = new ArrayList<TextEntry>();
+    public List<TextEntry> getTextEntries(boolean dirty) {
+        List<TextEntry> textEntries = new ArrayList<TextEntry>(panels.size());
         for (JPanel panel : panels) {
-            textEntries.add(((TextEntry) panel).clone());
+            TextEntry entry = (TextEntry) panel;
+            if (!dirty || (dirty && entry.isDirty())) {
+                textEntries.add(entry.clone());
+            }
         }
         return textEntries;
     }
