@@ -2,7 +2,6 @@ package de.elmar_baumann.imv.controller.thumbnail;
 
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.event.listener.impl.ListenerProvider;
-import de.elmar_baumann.imv.event.ThumbnailsPanelEvent;
 import de.elmar_baumann.imv.event.listener.ThumbnailsPanelListener;
 import de.elmar_baumann.imv.event.UserSettingsChangeEvent;
 import de.elmar_baumann.imv.event.listener.UserSettingsChangeListener;
@@ -63,7 +62,8 @@ public final class ControllerSliderThumbnailSize
     }
 
     @Override
-    public void selectionChanged(ThumbnailsPanelEvent action) {
+    public void thumbnailsSelectionChanged() {
+        // ignore
     }
 
     @Override

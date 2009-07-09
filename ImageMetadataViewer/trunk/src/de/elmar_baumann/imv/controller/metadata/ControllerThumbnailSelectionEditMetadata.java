@@ -2,7 +2,6 @@ package de.elmar_baumann.imv.controller.metadata;
 
 import com.adobe.xmp.properties.XMPPropertyInfo;
 import de.elmar_baumann.imv.data.SelectedFile;
-import de.elmar_baumann.imv.event.ThumbnailsPanelEvent;
 import de.elmar_baumann.imv.event.listener.ThumbnailsPanelListener;
 import de.elmar_baumann.imv.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.imv.resource.Bundle;
@@ -54,7 +53,7 @@ public final class ControllerThumbnailSelectionEditMetadata implements
     }
 
     @Override
-    public void selectionChanged(ThumbnailsPanelEvent action) {
+    public void thumbnailsSelectionChanged() {
         handleSelectionChanged();
     }
 

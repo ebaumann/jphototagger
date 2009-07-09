@@ -2,7 +2,6 @@ package de.elmar_baumann.imv.controller.misc;
 
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.database.DatabasePrograms;
-import de.elmar_baumann.imv.event.ThumbnailsPanelEvent;
 import de.elmar_baumann.imv.event.listener.ThumbnailsPanelListener;
 import de.elmar_baumann.imv.event.UserSettingsChangeEvent;
 import de.elmar_baumann.imv.event.listener.UserSettingsChangeListener;
@@ -121,7 +120,7 @@ public final class ControllerMenuItemEnabler
     }
 
     @Override
-    public void selectionChanged(ThumbnailsPanelEvent action) {
+    public void thumbnailsSelectionChanged() {
         setEnabled();
     }
 

@@ -1,6 +1,5 @@
 package de.elmar_baumann.imv.controller.misc;
 
-import de.elmar_baumann.imv.event.ThumbnailsPanelEvent;
 import de.elmar_baumann.imv.event.listener.ThumbnailsPanelListener;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.GUI;
@@ -40,7 +39,8 @@ public final class ControllerThumbnailCountDisplay
     }
 
     @Override
-    public void selectionChanged(ThumbnailsPanelEvent action) {
+    public void thumbnailsSelectionChanged() {
+        // ignore
     }
 
     @Override
