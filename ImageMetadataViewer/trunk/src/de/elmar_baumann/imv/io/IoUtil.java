@@ -29,13 +29,15 @@ public final class IoUtil {
             String separator = " "; // NOI18N
             String openCommand = appPath + separator + arguments;
             try {
+                AppLog.logInfo(IoUtil.class,
+                        Bundle.getString("IoUtil.Info.Execute", openCommand));
                 Runtime.getRuntime().exec(openCommand);
             } catch (IOException ex) {
                 AppLog.logWarning(IoUtil.class, ex);
                 JOptionPane.showMessageDialog(null,
-                    Bundle.getString("IoUtil.ErrorMessage.OpenFile"),
-                    Bundle.getString("IoUtil.ErrorMessage.OpenFile.Title"),
-                    JOptionPane.ERROR_MESSAGE);
+                        Bundle.getString("IoUtil.ErrorMessage.OpenFile"),
+                        Bundle.getString("IoUtil.ErrorMessage.OpenFile.Title"),
+                        JOptionPane.ERROR_MESSAGE);
             }
         }
     }
@@ -57,7 +59,6 @@ public final class IoUtil {
         return imageFiles;
     }
 
-
     /**
      * Returns a String with space separated filenames, each enclosed in quotes.
      * 
@@ -73,5 +74,6 @@ public final class IoUtil {
         return buffer.toString();
     }
 
-    private IoUtil() {}
+    private IoUtil() {
+    }
 }
