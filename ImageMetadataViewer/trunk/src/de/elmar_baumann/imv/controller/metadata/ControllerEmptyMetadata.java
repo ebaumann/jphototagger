@@ -18,8 +18,8 @@ public final class ControllerEmptyMetadata implements ActionListener {
 
     private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
     private final JButton buttonEmpty = appPanel.getButtonEmptyMetadata();
-    private final EditMetadataPanelsArray editPanels = appPanel.
-            getEditPanelsArray();
+    private final EditMetadataPanelsArray editPanels =
+            appPanel.getEditPanelsArray();
 
     public ControllerEmptyMetadata() {
         listen();
