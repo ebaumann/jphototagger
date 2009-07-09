@@ -69,6 +69,7 @@ public final class ControllerThumbnailSelectionEditMetadata implements
                     setEditPanelsContent();
                     setInfoLabel(canEdit);
                 } else {
+                    appPanel.getEditPanelsArray().emptyPanels(false);
                     setEnabled(false);
                 }
             }

@@ -18,6 +18,7 @@ import de.elmar_baumann.imv.model.TableModelXmp;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.AppPanel;
+import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.lib.componentutil.ComponentUtil;
 import de.elmar_baumann.lib.componentutil.TableUtil;
 import java.io.File;
@@ -34,11 +35,16 @@ import javax.swing.JTable;
 import javax.swing.SwingUtilities;
 
 /**
- * Überprüft, ob die Metadaten <strong>einer</strong> Bilddatei angezeigt werden
- * sollen und zeigt diese im Bedarfsfall an.
+ * Listens for selection changes in the {@link ImageFileThumbnailsPanel} and
+ * displays metadata in the metadata tables if <strong>one</strong> thumbnail
+ * was selected. If multiple thumbnails or no thumbnail were selected, this
+ * controller empties the metadata tables.
+ *
+ * Listens also to the {@link DatabaseImageFiles} and refreshes the displayed
+ * metadata of a file if that file was changed in the database.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
- * @version 2008-10-05
+ * @version 2008/10/05
  */
 public final class ControllerShowMetadata implements DatabaseListener,
                                                      ThumbnailsPanelListener {
@@ -136,8 +142,8 @@ public final class ControllerShowMetadata implements DatabaseListener,
     @Override
     public void selectionChanged(ThumbnailsPanelEvent action) {
         if (appPanel.getPanelThumbnails().getSelectionCount() == 1) {
-            SwingUtilities.invokeLater(new ShowMetadata(
-                    appPanel.getPanelThumbnails().getFile(
+            SwingUtilities.invokeLater(
+                    new ShowMetadata(appPanel.getPanelThumbnails().getFile(
                     action.getThumbnailIndex()), Metadata.getAll()));
         } else {
             SwingUtilities.invokeLater(new RemoveAllMetadata());
@@ -177,8 +183,7 @@ public final class ControllerShowMetadata implements DatabaseListener,
     private void showUpdates(File file, Set<Metadata> metadata) {
         if (appPanel.getPanelThumbnails().getSelectionCount() == 1) {
             File selectedFile =
-                    appPanel.getPanelThumbnails().getSelectedFiles().get(
-                    0);
+                    appPanel.getPanelThumbnails().getSelectedFiles().get(0);
             if (file.equals(selectedFile)) {
                 SwingUtilities.invokeLater(new ShowMetadata(file, metadata));
             }
@@ -195,7 +200,6 @@ public final class ControllerShowMetadata implements DatabaseListener,
             appPanel.getLabelMetadataFilename().setText(
                     Bundle.getString(
                     "ControllerShowMetadata.InformationMessage.MetadataIsShownOnlyIfOneImageIsSelected"));
-            appPanel.getEditPanelsArray().emptyPanels(false);
         }
     }
 
@@ -272,8 +276,8 @@ public final class ControllerShowMetadata implements DatabaseListener,
                 List<XMPPropertyInfo> allInfos, String[] namespaces) {
             List<XMPPropertyInfo> infos = new ArrayList<XMPPropertyInfo>();
             for (int index = 0; index < namespaces.length; index++) {
-                infos.addAll(XmpMetadata.getPropertyInfosOfNamespace(allInfos,
-                        namespaces[index]));
+                infos.addAll(XmpMetadata.getPropertyInfosOfNamespace(
+                        allInfos, namespaces[index]));
             }
             model.setPropertyInfosOfFile(filename, infos);
         }
