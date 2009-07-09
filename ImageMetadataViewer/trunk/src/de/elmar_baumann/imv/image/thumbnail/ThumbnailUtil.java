@@ -11,6 +11,7 @@ import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.database.metadata.exif.ExifThumbnailUtil;
 import de.elmar_baumann.imv.image.metadata.exif.ExifMetadata;
+import de.elmar_baumann.imv.io.IoUtil;
 import de.elmar_baumann.imv.types.FileType;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.image.util.ImageTransform;
@@ -30,6 +31,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -157,8 +159,9 @@ public final class ThumbnailUtil {
         AppLog.logInfo(ThumbnailUtil.class, Bundle.getString(
                 "ThumbnailUtil.GetThumbnailFromExternalApplication.Information",
                 file, maxLength));
-        String cmd = command.replace("%s", file.getAbsolutePath()).replace("%i", // NOI18N
-                new Integer(maxLength).toString());
+        String cmd = command.replace("%s", IoUtil.getQuotedForCommandline(
+                Collections.singletonList(file), "")).
+                replace("%i", new Integer(maxLength).toString()); // NOI18N
         logExternalAppCommand(cmd);
         Pair<byte[], byte[]> output =
                 External.executeGetOutput(cmd,
@@ -180,20 +183,21 @@ public final class ThumbnailUtil {
             }
         }
         if (output.getSecond() != null) {
-            logStderr(output);
+            logStderr(file, output);
         }
         return image;
     }
 
-    private static void logStderr(Pair<byte[], byte[]> output) {
+    private static void logStderr(File imageFile, Pair<byte[], byte[]> output) {
         byte[] stderr = output.getSecond();
-        String message = (stderr == null
-                          ? ""
-                          : new String(stderr).trim());
-        if (!message.isEmpty()) {
-            message = Bundle.getString(
-                    "ThumbnailUtil.ErrorMessage.ExternalProgram") + message;
-            AppLog.logWarning(ThumbnailUtil.class, message);
+        String errorMsg = (stderr == null
+                           ? ""
+                           : new String(stderr).trim());
+        if (!errorMsg.isEmpty()) {
+            errorMsg = Bundle.getString(
+                    "ThumbnailUtil.ErrorMessage.ExternalProgram",
+                    imageFile, errorMsg);
+            AppLog.logWarning(ThumbnailUtil.class, errorMsg);
         }
     }
 

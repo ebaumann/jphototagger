@@ -10,6 +10,7 @@ import de.elmar_baumann.lib.io.FileUtil;
 import de.elmar_baumann.lib.runtime.External;
 import de.elmar_baumann.lib.generics.Pair;
 import java.io.File;
+import java.util.Collections;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Queue;
@@ -119,7 +120,7 @@ public final class ProgramStarter {
         private String getProcessAllCommand() {
             return program.getFile().getAbsolutePath() + " " + // NOI18N
                     program.getCommandlineParameters(
-                    IoUtil.getQuotedForCommandline(imageFiles, "\""), // NOI18N
+                    IoUtil.getQuotedForCommandline(imageFiles, ""), // NOI18N
                     getAdditionalParameters(Bundle.getString(
                     "ProgramStarter.GetInput.Title"), 2),
                     dialog.isParametersBeforeFilename());
@@ -143,7 +144,8 @@ public final class ProgramStarter {
         private String getProcessSingleCommand(File file, int count) {
             return program.getFile().getAbsolutePath() + " " + // NOI18N
                     program.getCommandlineParameters(
-                    "\"" + file.getAbsolutePath() + "\"",
+                    IoUtil.getQuotedForCommandline(
+                    Collections.singletonList(file), ""),
                     getAdditionalParameters(file.getAbsolutePath(), count + 1),
                     dialog.isParametersBeforeFilename());
         }
