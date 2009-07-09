@@ -58,7 +58,7 @@ import de.elmar_baumann.imv.controller.thumbnail.ControllerCreateMetadataOfSelec
 import de.elmar_baumann.imv.controller.thumbnail.ControllerDeleteThumbnailsFromDatabase;
 import de.elmar_baumann.imv.controller.thumbnail.ControllerPasteFilesFromClipboard;
 import de.elmar_baumann.imv.controller.thumbnail.ControllerRefreshThumbnailsPanel;
-import de.elmar_baumann.imv.controller.thumbnail.ControllerRenameInXmpColumns;
+import de.elmar_baumann.imv.controller.metadata.ControllerRenameInXmpColumns;
 import de.elmar_baumann.imv.controller.thumbnail.ControllerRotateThumbnail;
 import de.elmar_baumann.imv.controller.thumbnail.ControllerSliderThumbnailSize;
 import de.elmar_baumann.imv.controller.thumbnail.ControllerSortThumbnails;

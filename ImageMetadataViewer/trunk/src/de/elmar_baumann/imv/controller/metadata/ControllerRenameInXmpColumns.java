@@ -1,9 +1,10 @@
-package de.elmar_baumann.imv.controller.thumbnail;
+package de.elmar_baumann.imv.controller.metadata;
 
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.tasks.Task;
 import de.elmar_baumann.imv.tasks.UpdaterRenameInXmpColumnsArray;
 import de.elmar_baumann.imv.view.dialogs.RenameInXmpColumnsDialog;
+import de.elmar_baumann.imv.view.frames.AppFrame;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.awt.event.ActionEvent;
@@ -11,7 +12,10 @@ import java.awt.event.ActionListener;
 import java.util.List;
 
 /**
- * 
+ * Listens to the menu item {@link AppFrame#getMenuItemRenameInXmp()} and if
+ * action was performed shows the {@link RenameInXmpColumnsDialog}. If
+ * {@link RenameInXmpColumnsDialog#accepted} is true, this controller renames
+ * XMP metadata via {@link UpdaterRenameInXmpColumnsArray}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/30
