@@ -9,7 +9,6 @@ import de.elmar_baumann.imv.event.listener.UserSettingsChangeListener;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.image.util.IconUtil;
 import java.awt.event.ActionListener;
-import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.util.ArrayList;
