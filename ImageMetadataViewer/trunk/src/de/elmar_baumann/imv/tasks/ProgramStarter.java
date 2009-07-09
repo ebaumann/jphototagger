@@ -119,7 +119,7 @@ public final class ProgramStarter {
         private String getProcessAllCommand() {
             return program.getFile().getAbsolutePath() + " " + // NOI18N
                     program.getCommandlineParameters(
-                    IoUtil.getQuotedForCommandline(imageFiles, ""), // NOI18N
+                    IoUtil.getQuotedForCommandline(imageFiles, "\""), // NOI18N
                     getAdditionalParameters(Bundle.getString(
                     "ProgramStarter.GetInput.Title"), 2),
                     dialog.isParametersBeforeFilename());
@@ -143,7 +143,7 @@ public final class ProgramStarter {
         private String getProcessSingleCommand(File file, int count) {
             return program.getFile().getAbsolutePath() + " " + // NOI18N
                     program.getCommandlineParameters(
-                    file.getAbsolutePath(),
+                    "\"" + file.getAbsolutePath() + "\"",
                     getAdditionalParameters(file.getAbsolutePath(), count + 1),
                     dialog.isParametersBeforeFilename());
         }
