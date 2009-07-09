@@ -155,7 +155,7 @@ public final class ThumbnailUtil {
         Image image = null;
 
         AppLog.logInfo(ThumbnailUtil.class, Bundle.getString(
-                "ThumbnailUtil.GetThumbnailFromExternalApplication,Information",
+                "ThumbnailUtil.GetThumbnailFromExternalApplication.Information",
                 file, maxLength));
         String cmd = command.replace("%s", file.getAbsolutePath()).replace("%i", // NOI18N
                 new Integer(maxLength).toString());
