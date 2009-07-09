@@ -7,7 +7,7 @@ import de.elmar_baumann.imv.controller.categories.ControllerCategoryItemSelected
 import de.elmar_baumann.imv.controller.directories.ControllerCreateDirectory;
 import de.elmar_baumann.imv.controller.directories.ControllerDeleteDirectory;
 import de.elmar_baumann.imv.controller.directories.ControllerDirectoryPasteFiles;
-import de.elmar_baumann.imv.controller.directories.ControllerEnableInsertMetadataTemplate;
+import de.elmar_baumann.imv.controller.metadata.ControllerEnableInsertMetadataTemplate;
 import de.elmar_baumann.imv.controller.directories.ControllerRefreshDirectoryTree;
 import de.elmar_baumann.imv.controller.directories.ControllerRenameDirectory;
 import de.elmar_baumann.imv.controller.favorites.ControllerDeleteFavorite;

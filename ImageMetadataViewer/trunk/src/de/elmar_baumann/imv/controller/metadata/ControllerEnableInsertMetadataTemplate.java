@@ -1,4 +1,4 @@
-package de.elmar_baumann.imv.controller.directories;
+package de.elmar_baumann.imv.controller.metadata;
 
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.AppPanel;
