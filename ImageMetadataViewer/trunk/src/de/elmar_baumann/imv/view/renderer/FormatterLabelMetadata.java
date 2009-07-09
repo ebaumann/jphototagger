@@ -21,13 +21,14 @@ public class FormatterLabelMetadata {
      * @param cellLabel   Label
      * @param isSelected  true, wenn die Zelle selektiert ist
      */
-    protected static void setDefaultCellColors(JLabel cellLabel, boolean isSelected) {
+    protected static void setDefaultCellColors(JLabel cellLabel,
+            boolean isSelected) {
         cellLabel.setForeground(isSelected
-            ? AppColors.COLOR_FOREGROUND_TABLE_TEXT_SELECTED
-            : AppColors.COLOR_FOREGROUND_TABLE_TEXT_DEFAULT);
+                                ? AppColors.COLOR_FOREGROUND_TABLE_TEXT_SELECTED
+                                : AppColors.COLOR_FOREGROUND_TABLE_TEXT_DEFAULT);
         cellLabel.setBackground(isSelected
-            ? AppColors.COLOR_BACKGROUND_TABLE_TEXT_SELECTED
-            : AppColors.COLOR_BACKGROUND_TABLE_TEXT_DEFAULT);
+                                ? AppColors.COLOR_BACKGROUND_TABLE_TEXT_SELECTED
+                                : AppColors.COLOR_BACKGROUND_TABLE_TEXT_DEFAULT);
         cellLabel.setOpaque(true);
     }
 
@@ -56,17 +57,27 @@ public class FormatterLabelMetadata {
      * ist.
      * 
      * @param cellLabel Label  Label
+     * @param isSelected
      */
-    protected void setIsStoredInDatabaseColors(JLabel cellLabel) {
-        cellLabel.setForeground(AppColors.COLOR_FOREGROUND_TABLE_TEXT_STORED_IN_DATABASE);
-        cellLabel.setBackground(AppColors.COLOR_BACKGROUND_TABLE_TEXT_STORED_IN_DATABASE);
+    protected void setIsStoredInDatabaseColors(JLabel cellLabel,
+            boolean isSelected) {
+        cellLabel.setForeground(
+                isSelected
+                ? AppColors.COLOR_FOREGROUND_TABLE_TEXT_SELECTED
+                : AppColors.COLOR_FOREGROUND_TABLE_TEXT_STORED_IN_DATABASE);
+        cellLabel.setBackground(
+                isSelected
+                ? AppColors.COLOR_BACKGROUND_TABLE_TEXT_SELECTED
+                : AppColors.COLOR_BACKGROUND_TABLE_TEXT_STORED_IN_DATABASE);
     }
 
     private void initFonts(JLabel cellLabel) {
         if (headerFont == null) {
             Font cellFont = cellLabel.getFont();
-            headerFont = new Font(cellFont.getName(), Font.BOLD, cellFont.getSize());
-            contentFont = new Font(cellFont.getName(), Font.PLAIN, cellFont.getSize());
+            headerFont = new Font(
+                    cellFont.getName(), Font.BOLD, cellFont.getSize());
+            contentFont = new Font(
+                    cellFont.getName(), Font.PLAIN, cellFont.getSize());
         }
     }
 }

@@ -42,7 +42,7 @@ public final class TableCellRendererExif extends FormatterLabelMetadata
         if (value instanceof IdfEntryProxy) {
             IdfEntryProxy ifdEntry = (IdfEntryProxy) value;
 
-            setIsStoredInDatabaseColor(cellLabel, ifdEntry);
+            setIsStoredInDatabaseColor(cellLabel, ifdEntry, isSelected);
 
             if (column == 0) {
                 String translated = TRANSLATION.translate(
@@ -74,10 +74,10 @@ public final class TableCellRendererExif extends FormatterLabelMetadata
         return cellLabel;
     }
 
-    private void setIsStoredInDatabaseColor(JLabel cellLabel,
-            IdfEntryProxy ifdEntry) {
+    private void setIsStoredInDatabaseColor(
+            JLabel cellLabel, IdfEntryProxy ifdEntry, boolean isSelected) {
         if (ExifInDatabase.isInDatabase(ifdEntry.getTag())) {
-            setIsStoredInDatabaseColors(cellLabel);
+            setIsStoredInDatabaseColors(cellLabel, isSelected);
         }
     }
 }

@@ -41,7 +41,7 @@ public final class TableCellRendererXmp extends FormatterLabelMetadata
         XMPPropertyInfo xmpPropertyInfo = (XMPPropertyInfo) value;
 
         setDefaultCellColors(cellLabel, isSelected);
-        setIsStoredInDatabaseColor(cellLabel, xmpPropertyInfo);
+        setIsStoredInDatabaseColor(cellLabel, xmpPropertyInfo, isSelected);
 
         if (column == 0) {
             setHeaderFont(cellLabel);
@@ -60,10 +60,10 @@ public final class TableCellRendererXmp extends FormatterLabelMetadata
         return cellLabel;
     }
 
-    private void setIsStoredInDatabaseColor(JLabel cellLabel,
-            XMPPropertyInfo xmpPropertyInfo) {
+    private void setIsStoredInDatabaseColor(
+            JLabel cellLabel, XMPPropertyInfo xmpPropertyInfo, boolean isSel) {
         if (XmpInDatabase.isInDatabase(xmpPropertyInfo.getPath())) {
-            setIsStoredInDatabaseColors(cellLabel);
+            setIsStoredInDatabaseColors(cellLabel, isSel);
         }
     }
 
