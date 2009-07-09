@@ -15,6 +15,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import javax.swing.DefaultListModel;
 import javax.swing.JComponent;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
@@ -25,7 +27,7 @@ import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
  * @version 2008/09/18
  */
 public final class EditRepeatableTextEntryPanel extends javax.swing.JPanel
-        implements TextEntry, ActionListener {
+        implements TextEntry, ActionListener, DocumentListener {
 
     private static final String DELIMITER = XmpMetadata.getXmpTokenDelimiter();
     private static final String DELIMITER_REPLACEMENT = "?";
@@ -44,6 +46,7 @@ public final class EditRepeatableTextEntryPanel extends javax.swing.JPanel
     private void postInitComponents() {
         textFieldInput.setInputVerifier(
                 new InputVerifierMaxLength(column.getLength()));
+        textFieldInput.getDocument().addDocumentListener(this);
         setPropmt();
     }
 
@@ -89,7 +92,6 @@ public final class EditRepeatableTextEntryPanel extends javax.swing.JPanel
 
     private void handleTextFieldKeyReleased(KeyEvent evt) {
         JComponent component = (JComponent) evt.getSource();
-        dirty = !textFieldInput.getText().trim().isEmpty();
         if (evt.getKeyCode() == KeyEvent.VK_ENTER &&
                 component.getInputVerifier().verify(component)) {
             addInputToList();
@@ -181,6 +183,21 @@ public final class EditRepeatableTextEntryPanel extends javax.swing.JPanel
     @Override
     public void actionPerformed(ActionEvent e) {
         removeSelectedElements();
+    }
+
+    @Override
+    public void insertUpdate(DocumentEvent e) {
+        dirty = true;
+    }
+
+    @Override
+    public void removeUpdate(DocumentEvent e) {
+        dirty = true;
+    }
+
+    @Override
+    public void changedUpdate(DocumentEvent e) {
+        dirty = true;
     }
 
     /** This method is called from within the constructor to

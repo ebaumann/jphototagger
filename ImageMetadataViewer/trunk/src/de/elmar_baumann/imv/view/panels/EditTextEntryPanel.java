@@ -18,7 +18,8 @@ import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/18
  */
-public final class EditTextEntryPanel extends javax.swing.JPanel implements TextEntry, DocumentListener {
+public final class EditTextEntryPanel extends javax.swing.JPanel
+        implements TextEntry, DocumentListener {
 
     private static final Color EDITABLE_COLOR = Color.WHITE;
     private Column column;
@@ -33,16 +34,13 @@ public final class EditTextEntryPanel extends javax.swing.JPanel implements Text
 
     private void postInitComponents() {
         setPropmt();
-        setInputVerifier();
+        textAreaEdit.setInputVerifier(
+                new InputVerifierMaxLength(column.getLength()));
         textAreaEdit.getDocument().addDocumentListener(this);
     }
 
     private void setPropmt() {
         labelPrompt.setText(column.getDescription());
-    }
-
-    private void setInputVerifier() {
-        textAreaEdit.setInputVerifier(new InputVerifierMaxLength(column.getLength()));
     }
 
     @Override
@@ -63,6 +61,7 @@ public final class EditTextEntryPanel extends javax.swing.JPanel implements Text
     @Override
     public void setText(String text) {
         textAreaEdit.setText(text.trim());
+        dirty = false;
     }
 
     @Override
@@ -74,9 +73,9 @@ public final class EditTextEntryPanel extends javax.swing.JPanel implements Text
     public void setAutocomplete() {
         autoCompleteData = new AutoCompleteData(column);
         AutoCompleteDecorator.decorate(
-            textAreaEdit,
-            autoCompleteData.getList(),
-            false);
+                textAreaEdit,
+                autoCompleteData.getList(),
+                false);
     }
 
     public AutoCompleteData getAutoCompleteData() {
@@ -96,7 +95,9 @@ public final class EditTextEntryPanel extends javax.swing.JPanel implements Text
     @Override
     public void setEditable(boolean editable) {
         textAreaEdit.setEditable(editable);
-        textAreaEdit.setBackground(editable ? EDITABLE_COLOR : getBackground());
+        textAreaEdit.setBackground(editable
+                                   ? EDITABLE_COLOR
+                                   : getBackground());
     }
 
     @Override
@@ -106,6 +107,7 @@ public final class EditTextEntryPanel extends javax.swing.JPanel implements Text
 
     @Override
     public void insertUpdate(DocumentEvent e) {
+        dirty = true;
     }
 
     @Override
@@ -155,7 +157,6 @@ public final class EditTextEntryPanel extends javax.swing.JPanel implements Text
         gridBagConstraints.weighty = 0.5;
         add(scrollPane, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel labelPrompt;
     private javax.swing.JScrollPane scrollPane;
