@@ -9,6 +9,7 @@ import de.elmar_baumann.imv.factory.MetaFactory;
 import de.elmar_baumann.lib.comparator.FileSort;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.GUI;
+import de.elmar_baumann.imv.view.dialogs.HierarchicalSubjectsDialog;
 import de.elmar_baumann.imv.view.dialogs.TextSelectionDialog;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import java.awt.event.WindowAdapter;
@@ -286,6 +287,7 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemActions = new javax.swing.JMenuItem();
         menuWindow = new javax.swing.JMenu();
         menuItemLastEditedWords = new javax.swing.JMenuItem();
+        menuItemHierarchicalKeywords = new javax.swing.JMenuItem();
         menuHelp = new javax.swing.JMenu();
         menuItemHelp = new javax.swing.JMenuItem();
         menuItemAbout = new javax.swing.JMenuItem();
@@ -526,6 +528,14 @@ public final class AppFrame extends javax.swing.JFrame {
         });
         menuWindow.add(menuItemLastEditedWords);
 
+        menuItemHierarchicalKeywords.setText(Bundle.getString("AppFrame.menuItemHierarchicalKeywords.text")); // NOI18N
+        menuItemHierarchicalKeywords.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemHierarchicalKeywordsActionPerformed(evt);
+            }
+        });
+        menuWindow.add(menuItemHierarchicalKeywords);
+
         menuBar.add(menuWindow);
 
         menuHelp.setMnemonic('h');
@@ -560,6 +570,15 @@ private void menuItemLastEditedWordsActionPerformed(java.awt.event.ActionEvent e
             "AppFrame.menuItemLastEditedWords.text"));
     TextSelectionDialog.INSTANCE.setVisible(true);
 }//GEN-LAST:event_menuItemLastEditedWordsActionPerformed
+
+private void menuItemHierarchicalKeywordsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemHierarchicalKeywordsActionPerformed
+    HierarchicalSubjectsDialog dlg = HierarchicalSubjectsDialog.INSTANCE;
+    if (dlg.isVisible()) {
+        dlg.toFront();
+    } else {
+        dlg.setVisible(true);
+    }
+}//GEN-LAST:event_menuItemHierarchicalKeywordsActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
@@ -594,6 +613,7 @@ private void menuItemLastEditedWordsActionPerformed(java.awt.event.ActionEvent e
     private javax.swing.JMenuItem menuItemGotoTimeline;
     private javax.swing.JMenuItem menuItemGotoXmpMetadata;
     private javax.swing.JMenuItem menuItemHelp;
+    private javax.swing.JMenuItem menuItemHierarchicalKeywords;
     private javax.swing.JMenuItem menuItemLastEditedWords;
     private javax.swing.JMenuItem menuItemMaintainDatabase;
     private javax.swing.JMenuItem menuItemRenameFilenamesInDb;
