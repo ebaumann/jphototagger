@@ -4,6 +4,8 @@ import de.elmar_baumann.lib.resource.Bundle;
 import de.elmar_baumann.lib.generics.Pair;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.StreamTokenizer;
+import java.io.StringReader;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -68,7 +70,7 @@ public final class External {
         Runtime runtime = Runtime.getRuntime();
         Process process = null;
         try {
-            process = runtime.exec(command);
+            process = runtime.exec(parseQuotedCommandLine(command));
             String errorMessage = Bundle.getString(
                     "External.ExecuteGetOutput.ErrorMessage", maxMilliseconds,
                     command);
@@ -188,6 +190,23 @@ public final class External {
                 }
             }
         }
+    }
+
+    public static String[] parseQuotedCommandLine(String command) throws IOException {
+        String[] cmd_array = new String[0];
+        String[] new_cmd_array;
+        StreamTokenizer st = new StreamTokenizer(new StringReader(command));
+        st.resetSyntax();
+        st.wordChars('\u0000','\uFFFF');
+        st.whitespaceChars(' ', ' ');
+        st.quoteChar('\"');
+        for (int i = 0; st.nextToken() != StreamTokenizer.TT_EOF; i++) {
+            new_cmd_array = new String[i + 1];
+            new_cmd_array[i] = st.sval;
+            System.arraycopy(cmd_array, 0, new_cmd_array, 0, i);
+            cmd_array = new_cmd_array;
+        }
+        return cmd_array;
     }
 
     private External() {
