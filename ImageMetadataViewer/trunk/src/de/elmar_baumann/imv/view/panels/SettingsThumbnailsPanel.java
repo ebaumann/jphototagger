@@ -153,7 +153,7 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel
         labelMaxThumbnailWidth.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         labelMaxThumbnailWidth.setText(Bundle.getString("SettingsThumbnailsPanel.labelMaxThumbnailWidth.text")); // NOI18N
 
-        spinnerMaxThumbnailWidth.setModel(new SpinnerNumberModel(150, 50, 250, 1));
+        spinnerMaxThumbnailWidth.setModel(new SpinnerNumberModel(150, 50, 256, 1));
         spinnerMaxThumbnailWidth.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 spinnerMaxThumbnailWidthStateChanged(evt);
