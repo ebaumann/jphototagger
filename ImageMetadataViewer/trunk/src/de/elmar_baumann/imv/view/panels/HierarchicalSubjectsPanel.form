@@ -41,6 +41,9 @@
             </Property>
             <Property name="rootVisible" type="boolean" value="false"/>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_allCodePost" type="java.lang.String" value="tree.setTransferHandler(new TransferHandlerTreeHierarchicalSubjects());"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>

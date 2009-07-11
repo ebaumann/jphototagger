@@ -5,6 +5,7 @@ import de.elmar_baumann.imv.app.AppIcons;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.view.panels.HierarchicalSubjectsPanel;
 import de.elmar_baumann.lib.dialog.Dialog;
+import javax.swing.JTree;
 
 /**
  * Dialog holding a {@link HierarchicalSubjectsPanel}.
@@ -38,6 +39,10 @@ public class HierarchicalSubjectsDialog extends Dialog {
         UserSettings.INSTANCE.writeToFile();
     }
 
+    public JTree getTree() {
+        return panelHierarchicalSubjects.getTree();
+    }
+
     @Override
     public void setVisible(boolean visible) {
         if (visible) {
@@ -57,7 +62,7 @@ public class HierarchicalSubjectsDialog extends Dialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        hierarchicalSubjectsPanel1 = new de.elmar_baumann.imv.view.panels.HierarchicalSubjectsPanel();
+        panelHierarchicalSubjects = new de.elmar_baumann.imv.view.panels.HierarchicalSubjectsPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle(Bundle.getString("HierarchicalSubjectsDialog.title")); // NOI18N
@@ -74,14 +79,14 @@ public class HierarchicalSubjectsDialog extends Dialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(hierarchicalSubjectsPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 278, Short.MAX_VALUE)
+                .addComponent(panelHierarchicalSubjects, javax.swing.GroupLayout.DEFAULT_SIZE, 278, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(hierarchicalSubjectsPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 378, Short.MAX_VALUE)
+                .addComponent(panelHierarchicalSubjects, javax.swing.GroupLayout.DEFAULT_SIZE, 378, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -114,6 +119,6 @@ public class HierarchicalSubjectsDialog extends Dialog {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private de.elmar_baumann.imv.view.panels.HierarchicalSubjectsPanel hierarchicalSubjectsPanel1;
+    private de.elmar_baumann.imv.view.panels.HierarchicalSubjectsPanel panelHierarchicalSubjects;
     // End of variables declaration//GEN-END:variables
 }

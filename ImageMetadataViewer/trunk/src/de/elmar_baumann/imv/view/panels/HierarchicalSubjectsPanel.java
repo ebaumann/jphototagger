@@ -1,5 +1,8 @@
 package de.elmar_baumann.imv.view.panels;
 
+import de.elmar_baumann.imv.datatransfer.TransferHandlerTreeHierarchicalSubjects;
+import javax.swing.JTree;
+
 /**
  * A tree for hierarchical subjects.
  * 
@@ -11,6 +14,10 @@ public class HierarchicalSubjectsPanel extends javax.swing.JPanel {
     /** Creates new form HierarchicalSubjectsPanel */
     public HierarchicalSubjectsPanel() {
         initComponents();
+    }
+
+    public JTree getTree() {
+        return tree;
     }
 
     /** This method is called from within the constructor to
@@ -29,6 +36,7 @@ public class HierarchicalSubjectsPanel extends javax.swing.JPanel {
         tree.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
         tree.setRootVisible(false);
         scrollPane.setViewportView(tree);
+        tree.setTransferHandler(new TransferHandlerTreeHierarchicalSubjects());
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

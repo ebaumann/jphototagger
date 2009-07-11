@@ -16,10 +16,12 @@ import de.elmar_baumann.imv.model.TableModelExif;
 import de.elmar_baumann.imv.model.TableModelIptc;
 import de.elmar_baumann.imv.model.TableModelXmp;
 import de.elmar_baumann.imv.model.TreeModelFavorites;
+import de.elmar_baumann.imv.model.TreeModelHierarchicalSubjects;
 import de.elmar_baumann.imv.model.TreeModelMiscMetadata;
 import de.elmar_baumann.imv.model.TreeModelTimeline;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.ViewUtil;
+import de.elmar_baumann.imv.view.dialogs.HierarchicalSubjectsDialog;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.lib.model.TreeModelAllSystemDirectories;
 import de.elmar_baumann.lib.thirdparty.SortedListModel;
@@ -62,6 +64,7 @@ public final class ModelFactory {
         setListModelImageCollections(appPanel);
         setListModelCategories(appPanel);
         setListModelKeywords(appPanel);
+        setListModelHierarchicalKeywords();
     }
 
     private void setListModelSavedSearches(final AppPanel appPanel) {
@@ -90,6 +93,11 @@ public final class ModelFactory {
         Cursor listCursor = setWaitCursor(list);
         list.setModel(new SortedListModel(new ListModelKeywords()));
         list.setCursor(listCursor);
+    }
+
+    private void setListModelHierarchicalKeywords() {
+        HierarchicalSubjectsDialog.INSTANCE.getTree().setModel(
+                new TreeModelHierarchicalSubjects());
     }
 
     private void setTableModels(final AppPanel appPanel) {

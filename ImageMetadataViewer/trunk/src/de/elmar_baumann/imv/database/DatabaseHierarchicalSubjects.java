@@ -158,6 +158,100 @@ public final class DatabaseHierarchicalSubjects extends Database {
         return deleted;
     }
 
+    /**
+     * Returns a subject with a specific database ID.
+     *
+     * @param  id database ID
+     * @return    subject or null if no subject has that database ID
+     */
+    public HierarchicalSubject getSubject(long id) {
+        HierarchicalSubject subject = null;
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            String sql =
+                    "SELECT id, id_parent, subject FROM hierarchical_subjects" + // NOI18N
+                    " WHERE id = ?"; // NOI18N
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setLong(1, id);
+            AppLog.logFinest(DatabaseHierarchicalSubjects.class, stmt.toString());
+            ResultSet rs = stmt.executeQuery(sql);
+            if (rs.next()) {
+                subject = new HierarchicalSubject(
+                        rs.getLong(1), rs.getLong(2), rs.getString(3));
+            }
+            stmt.close();
+        } catch (SQLException ex) {
+            AppLog.logWarning(DatabaseHierarchicalSubjects.class, ex);
+        } finally {
+            free(connection);
+        }
+        return subject;
+    }
+
+    /**
+     * Returns all children of a parent subject orderd ascending by the subject.
+     *
+     * @param  idParent ID of the parent subject
+     * @return          children or empty collection if that parent has no
+     *                  children
+     */
+    public Collection<HierarchicalSubject> getChildren(long idParent) {
+        Collection<HierarchicalSubject> children =
+                new ArrayList<HierarchicalSubject>();
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            String sql =
+                    "SELECT id, id_parent, subject FROM hierarchical_subjects" + // NOI18N
+                    " WHERE id_parent = ? ORDER BY subject ASC"; // NOI18N
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setLong(1, idParent);
+            AppLog.logFinest(DatabaseHierarchicalSubjects.class, stmt.toString());
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                children.add(new HierarchicalSubject(
+                        rs.getLong(1), rs.getLong(2), rs.getString(3)));
+            }
+            stmt.close();
+        } catch (SQLException ex) {
+            AppLog.logWarning(DatabaseHierarchicalSubjects.class, ex);
+        } finally {
+            free(connection);
+        }
+        return children;
+    }
+
+    /**
+     * Return all root subjects: subjects with no parents.
+     *
+     * @return subject with no parents ordered ascending by their subject
+     */
+    public Collection<HierarchicalSubject> getRoots() {
+        Collection<HierarchicalSubject> children =
+                new ArrayList<HierarchicalSubject>();
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            String sql =
+                    "SELECT id, id_parent, subject FROM hierarchical_subjects" + // NOI18N
+                    " WHERE id_parent IS NULL ORDER BY subject ASC"; // NOI18N
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            AppLog.logFinest(DatabaseHierarchicalSubjects.class, stmt.toString());
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                children.add(new HierarchicalSubject(
+                        rs.getLong(1), rs.getLong(2), rs.getString(3)));
+            }
+            stmt.close();
+        } catch (SQLException ex) {
+            AppLog.logWarning(DatabaseHierarchicalSubjects.class, ex);
+        } finally {
+            free(connection);
+        }
+        return children;
+    }
+
     private synchronized long getNextId(Connection connection)
             throws SQLException {
         long id = 1;

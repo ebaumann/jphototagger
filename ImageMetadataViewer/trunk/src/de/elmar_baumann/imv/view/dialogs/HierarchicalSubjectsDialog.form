@@ -32,7 +32,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="hierarchicalSubjectsPanel1" pref="278" max="32767" attributes="0"/>
+              <Component id="panelHierarchicalSubjects" pref="278" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -41,14 +41,14 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="hierarchicalSubjectsPanel1" pref="378" max="32767" attributes="0"/>
+              <Component id="panelHierarchicalSubjects" pref="378" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="de.elmar_baumann.imv.view.panels.HierarchicalSubjectsPanel" name="hierarchicalSubjectsPanel1">
+    <Component class="de.elmar_baumann.imv.view.panels.HierarchicalSubjectsPanel" name="panelHierarchicalSubjects">
     </Component>
   </SubComponents>
 </Form>
