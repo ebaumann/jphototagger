@@ -7,7 +7,7 @@ import java.io.IOException;
 
 /**
  * Transferable for Objects of an arbitrary type. The data flavor is
- * <code>java.awt.datatransfer.DataFlavor.strinFlavor</code>.
+ * <code>java.awt.datatransfer.DataFlavor.stringFlavor</code>.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/17
