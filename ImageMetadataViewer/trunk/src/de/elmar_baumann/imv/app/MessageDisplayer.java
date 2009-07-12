@@ -40,6 +40,54 @@ public final class MessageDisplayer {
                 JOptionPane.ERROR_MESSAGE);
     }
 
+    /**
+     * Displays a confirm message.
+     *
+     * @param propertyKey property key for {@link Bundle}. There also a key for
+     *                    the title has to be in the properties file with the
+     *                    same name and the postfix <code>.Title</code>
+     * @param cancel      true if a cancel button shall be displayed
+     * @return            one of these:
+     *                    <ul>
+     *                    <li>{@link JOptionPane#YES_OPTION}</li>
+     *                    <li>{@link JOptionPane#NO_OPTION}</li>
+     *                    <li>{@link JOptionPane#CANCEL_OPTION}</li>
+     *                    </ul>
+     */
+    public static int confirm(String propertyKey, boolean cancel) {
+        return JOptionPane.showConfirmDialog(null,
+                Bundle.getString(propertyKey),
+                propertyKey + ".Title",
+                cancel
+                ? JOptionPane.YES_NO_CANCEL_OPTION
+                : JOptionPane.YES_NO_OPTION);
+    }
+
+    /**
+     * Displays a confirm message.
+     *
+     * @param propertyKey property key for {@link Bundle}. There also a key for
+     *                    the title has to be in the properties file with the
+     *                    same name and the postfix <code>.Title</code>
+     * @param cancel      true if a cancel button shall be displayed
+     * @param params      parameters for message format placeholders
+     * @return            one of these:
+     *                    <ul>
+     *                    <li>{@link JOptionPane#YES_OPTION}</li>
+     *                    <li>{@link JOptionPane#NO_OPTION}</li>
+     *                    <li>{@link JOptionPane#CANCEL_OPTION}</li>
+     *                    </ul>
+     */
+    public static int confirm(
+            String propertyKey, boolean cancel, Object... params) {
+        return JOptionPane.showConfirmDialog(null,
+                Bundle.getString(propertyKey, params),
+                propertyKey + ".Title",
+                cancel
+                ? JOptionPane.YES_NO_CANCEL_OPTION
+                : JOptionPane.YES_NO_OPTION);
+    }
+
     private MessageDisplayer() {
     }
 }
