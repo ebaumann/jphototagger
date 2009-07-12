@@ -72,7 +72,7 @@ public final class ControllerCreateMetadataOfSelectedThumbnails
     private EnumSet<InsertImageFilesIntoDatabase.Insert> getMetadataToInsertIntoDatabase(
             Object o) {
         if (o instanceof JMenuItem) {
-            databaseUpdateOfMenuItem.get((JMenuItem) o);
+            return databaseUpdateOfMenuItem.get((JMenuItem) o);
         }
         return EnumSet.of(InsertImageFilesIntoDatabase.Insert.OUT_OF_DATE);
     }
