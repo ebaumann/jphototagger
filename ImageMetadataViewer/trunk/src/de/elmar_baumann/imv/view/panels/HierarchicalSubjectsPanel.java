@@ -34,7 +34,6 @@ public class HierarchicalSubjectsPanel extends javax.swing.JPanel {
 
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("root");
         tree.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
-        tree.setRootVisible(false);
         scrollPane.setViewportView(tree);
         tree.setTransferHandler(new TransferHandlerTreeHierarchicalSubjects());
 
