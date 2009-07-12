@@ -1,7 +1,9 @@
 package de.elmar_baumann.imv.datatransfer;
 
+import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.lib.datatransfer.TransferableObject;
+import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import javax.swing.JComponent;
 import javax.swing.JList;
@@ -25,6 +27,38 @@ public final class TransferHandlerListKeywords extends TransferHandler {
      * Prefix before a subject.
      */
     public static final String PREFIX = "Subject:";
+
+    /**
+     * Returns the keyword into a transferable object.
+     *
+     * @param  transferable transferable object
+     * @return              keyword or null if the transferable has no keyword
+     */
+    public static String toKeyword(Transferable transferable) {
+        try {
+            Object o = transferable.getTransferData(DataFlavor.stringFlavor);
+            if (o instanceof String) {
+                String s = (String) o;
+                if (!s.startsWith(TransferHandlerListKeywords.PREFIX)) {
+                    return null;
+                }
+                return s.replace(PREFIX, "");
+            }
+        } catch (Exception e) {
+            AppLog.logWarning(TransferHandlerListKeywords.class, e);
+        }
+        return null;
+    }
+
+    /**
+     * Returns whether a transferable object contains a keyword.
+     *
+     * @param  transferable transferable object
+     * @return              true if the transferable object contains a keyword
+     */
+    public static boolean hasKeyword(Transferable transferable) {
+        return toKeyword(transferable) != null;
+    }
 
     @Override
     public boolean canImport(TransferSupport support) {

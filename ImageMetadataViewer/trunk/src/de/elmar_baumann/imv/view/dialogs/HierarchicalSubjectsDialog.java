@@ -5,7 +5,6 @@ import de.elmar_baumann.imv.app.AppIcons;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.view.panels.HierarchicalSubjectsPanel;
 import de.elmar_baumann.lib.dialog.Dialog;
-import javax.swing.JTree;
 
 /**
  * Dialog holding a {@link HierarchicalSubjectsPanel}.
@@ -39,8 +38,8 @@ public class HierarchicalSubjectsDialog extends Dialog {
         UserSettings.INSTANCE.writeToFile();
     }
 
-    public JTree getTree() {
-        return panelHierarchicalSubjects.getTree();
+    public HierarchicalSubjectsPanel getPanel() {
+        return panelHierarchicalSubjects;
     }
 
     @Override

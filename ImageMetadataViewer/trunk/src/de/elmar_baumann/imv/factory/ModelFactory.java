@@ -96,7 +96,7 @@ public final class ModelFactory {
     }
 
     private void setListModelHierarchicalKeywords() {
-        HierarchicalSubjectsDialog.INSTANCE.getTree().setModel(
+        HierarchicalSubjectsDialog.INSTANCE.getPanel().getTree().setModel(
                 new TreeModelHierarchicalSubjects());
     }
 

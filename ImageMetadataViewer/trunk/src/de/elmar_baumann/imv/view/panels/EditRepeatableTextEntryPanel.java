@@ -6,6 +6,7 @@ import de.elmar_baumann.imv.data.TextEntryContent;
 import de.elmar_baumann.imv.database.metadata.Column;
 import de.elmar_baumann.imv.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.imv.resource.Bundle;
+import de.elmar_baumann.imv.types.TextModifyer;
 import de.elmar_baumann.imv.view.renderer.ListCellRendererKeywordsEdit;
 import de.elmar_baumann.lib.componentutil.InputVerifierMaxLength;
 import de.elmar_baumann.lib.componentutil.ComponentUtil;
@@ -13,6 +14,9 @@ import de.elmar_baumann.lib.componentutil.ListUtil;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.StringTokenizer;
 import javax.swing.DefaultListModel;
 import javax.swing.JComponent;
 import javax.swing.event.DocumentEvent;
@@ -36,6 +40,8 @@ public final class EditRepeatableTextEntryPanel extends javax.swing.JPanel
     private AutoCompleteData autoCompleteData;
     private boolean editable = true;
     private boolean dirty = false;
+    private TextModifyer textModifier;
+    private List<String> ignoreModifyWords = new ArrayList<String>();
 
     public EditRepeatableTextEntryPanel(Column column) {
         this.column = column;
@@ -69,20 +75,43 @@ public final class EditRepeatableTextEntryPanel extends javax.swing.JPanel
 
     @Override
     public String getText() {
+        checkInput();
         String input = ListUtil.getTokenString(model, DELIMITER);
         String textfieldText = textFieldInput.getText().trim();
         input += textfieldText.isEmpty()
-                 ? ""
-                 : DELIMITER + textfieldText;
-        return input;
+                ? ""
+                : DELIMITER + textfieldText;
+        return textModifier == null
+                ? input
+                : textModifier.modify(input, ignoreModifyWords);
+    }
+
+    private void checkInput() {
+        String input = textFieldInput.getText();
+        if (ListUtil.containsString(list.getModel(), input)) {
+            textFieldInput.setText("");
+        }
+    }
+
+    public void setTextModifier(TextModifyer textModifier) {
+        this.textModifier = textModifier;
     }
 
     @Override
     public void setText(String text) {
         ListUtil.setToken(text, DELIMITER, model);
+        setIgnoreModifyWords(text);
         textFieldInput.setText("");
         dirty = false;
         setEnabledButtons();
+    }
+
+    private void setIgnoreModifyWords(String text) {
+        ignoreModifyWords.clear();
+        StringTokenizer st = new StringTokenizer(text, DELIMITER);
+        while (st.hasMoreTokens()) {
+            ignoreModifyWords.add(st.nextToken());
+        }
     }
 
     @Override
@@ -147,8 +176,8 @@ public final class EditRepeatableTextEntryPanel extends javax.swing.JPanel
         buttonAddInput.setEnabled(editable);
         buttonRemoveSelection.setEnabled(editable);
         list.setBackground(editable
-                           ? textFieldInput.getBackground()
-                           : getBackground());
+                ? textFieldInput.getBackground()
+                : getBackground());
     }
 
     private void handleButtonAddInputActionPerformed() {

@@ -3,6 +3,7 @@ package de.elmar_baumann.imv.view.panels;
 import com.adobe.xmp.properties.XMPPropertyInfo;
 import com.imagero.reader.iptc.IPTCEntryMeta;
 import de.elmar_baumann.imv.UserSettings;
+import de.elmar_baumann.imv.controller.hierarchicalsubjects.TextModifierHierarchicalKeywords;
 import de.elmar_baumann.imv.tasks.SaveEditedMetadata;
 import de.elmar_baumann.imv.data.ImageFile;
 import de.elmar_baumann.imv.data.MetadataEditTemplate;
@@ -16,6 +17,7 @@ import de.elmar_baumann.imv.database.metadata.selections.EditHints;
 import de.elmar_baumann.imv.database.metadata.selections.EditHints.SizeEditField;
 import de.elmar_baumann.imv.database.metadata.selections.EditColumns;
 import de.elmar_baumann.imv.database.metadata.mapping.IptcXmpMapping;
+import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 import de.elmar_baumann.imv.event.TextSelectionEvent;
 import de.elmar_baumann.imv.event.listener.AppExitListener;
 import de.elmar_baumann.imv.event.DatabaseImageEvent;
@@ -50,7 +52,7 @@ import javax.swing.JTextField;
  * Panels mit Edit-Feldern zum Bearbeiten von Metadaten.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
- * @version 2008-10-05
+ * @version 2008/10/05
  */
 public final class EditMetadataPanelsArray implements FocusListener,
                                                       DatabaseListener,
@@ -305,6 +307,9 @@ public final class EditMetadataPanelsArray implements FocusListener,
                         new EditRepeatableTextEntryPanel(column);
                 panel.textFieldInput.addFocusListener(this);
                 panel.textFieldInput.addKeyListener(this);
+                if (column.equals(ColumnXmpDcSubjectsSubject.INSTANCE)) {
+                    panel.setTextModifier(new TextModifierHierarchicalKeywords());
+                }
                 panels.add(panel);
             } else {
                 EditTextEntryPanel panel = new EditTextEntryPanel(column);

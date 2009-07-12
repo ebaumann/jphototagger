@@ -528,7 +528,7 @@ public final class AppFrame extends javax.swing.JFrame {
         });
         menuWindow.add(menuItemLastEditedWords);
 
-        menuItemHierarchicalKeywords.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F8, 0));
+        menuItemHierarchicalKeywords.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F9, 0));
         menuItemHierarchicalKeywords.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icons/icon_keyword.png"))); // NOI18N
         menuItemHierarchicalKeywords.setText(Bundle.getString("AppFrame.menuItemHierarchicalKeywords.text")); // NOI18N
         menuItemHierarchicalKeywords.addActionListener(new java.awt.event.ActionListener() {

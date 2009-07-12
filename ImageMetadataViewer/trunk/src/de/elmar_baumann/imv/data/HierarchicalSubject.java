@@ -1,7 +1,6 @@
 package de.elmar_baumann.imv.data;
 
 import de.elmar_baumann.imv.database.DatabaseHierarchicalSubjects;
-import java.text.MessageFormat;
 
 /**
  * A hierarchical subject is a (Dublin core) subject with one or zero parents.
@@ -102,23 +101,21 @@ public final class HierarchicalSubject {
     public int hashCode() {
         int hash = 7;
         hash = 59 * hash + (this.id != null
-                            ? this.id.hashCode()
-                            : 0);
+                ? this.id.hashCode()
+                : 0);
         hash =
                 59 * hash +
                 (this.idParent != null
-                 ? this.idParent.hashCode()
-                 : 0);
+                ? this.idParent.hashCode()
+                : 0);
         hash = 59 * hash + (this.subject != null
-                            ? this.subject.hashCode()
-                            : 0);
+                ? this.subject.hashCode()
+                : 0);
         return hash;
     }
 
     @Override
     public String toString() {
-        return new MessageFormat(
-                "Hierarchical subject: ID {0}, Parent ID {1}, Subject: '{2}'").
-                format(new Object[]{id, idParent, subject});
+        return subject;
     }
 }

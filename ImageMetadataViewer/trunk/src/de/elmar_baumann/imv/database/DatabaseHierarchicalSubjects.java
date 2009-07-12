@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -46,8 +47,8 @@ public final class DatabaseHierarchicalSubjects extends Database {
                         rs.getLong(1), rs.getLong(2), rs.getString(3)));
             }
             stmt.close();
-        } catch (SQLException ex) {
-            AppLog.logWarning(DatabaseHierarchicalSubjects.class, ex);
+        } catch (Exception ex) {
+            AppLog.logSevere(DatabaseHierarchicalSubjects.class, ex);
             subjects.clear();
         } finally {
             free(connection);
@@ -64,6 +65,7 @@ public final class DatabaseHierarchicalSubjects extends Database {
     public boolean update(HierarchicalSubject subject) {
         boolean updated = false;
         Connection connection = null;
+        assert subject.getId() != null : "ID of subject is null!";
         try {
             connection = getConnection();
             connection.setAutoCommit(true);
@@ -76,8 +78,8 @@ public final class DatabaseHierarchicalSubjects extends Database {
             AppLog.logFiner(DatabaseHierarchicalSubjects.class, stmt.toString());
             updated = stmt.executeUpdate() == 1;
             stmt.close();
-        } catch (SQLException ex) {
-            AppLog.logWarning(DatabaseHierarchicalSubjects.class, ex);
+        } catch (Exception ex) {
+            AppLog.logSevere(DatabaseHierarchicalSubjects.class, ex);
         } finally {
             free(connection);
         }
@@ -98,25 +100,38 @@ public final class DatabaseHierarchicalSubjects extends Database {
         boolean inserted = false;
         Connection connection = null;
         assert subject.getSubject() != null : "Subject is null!";
-        assert subject.getSubject().trim().isEmpty() : "Subject empty!";
+        assert !subject.getSubject().trim().isEmpty() : "Subject empty!";
+        if (parentHasChild(subject)) {
+            return false;
+        }
         try {
             connection = getConnection();
             connection.setAutoCommit(true);
             PreparedStatement stmt = connection.prepareStatement(
-                    "INSERT INTO hierarchical_subjects (id, id_parent, subject)" + // NOI18N
-                    " VALUES (?, ?, ?)"); // NOI18N
+                    "INSERT INTO hierarchical_subjects (id" + // NOI18N
+                    (subject.getIdParent() == null
+                    ? "" // NOI18N
+                    : ", id_parent") + // NOI18N
+                    ", subject)" + // NOI18N
+                    (subject.getIdParent() == null
+                    ? " VALUES (?, ?)" // NOI18N
+                    : " VALUES (?, ?, ?)")); // NOI18N
             long nextId = getNextId(connection);
             stmt.setLong(1, nextId);
-            stmt.setLong(2, subject.getIdParent());
-            stmt.setString(3, subject.getSubject().trim());
+            if (subject.getIdParent() != null) {
+                stmt.setLong(2, subject.getIdParent());
+            }
+            stmt.setString(subject.getIdParent() == null
+                    ? 2
+                    : 3, subject.getSubject().trim());
             AppLog.logFiner(DatabaseHierarchicalSubjects.class, stmt.toString());
             inserted = stmt.executeUpdate() == 1;
             if (inserted) {
                 subject.setId(nextId);
             }
             stmt.close();
-        } catch (SQLException ex) {
-            AppLog.logWarning(DatabaseHierarchicalSubjects.class, ex);
+        } catch (Exception ex) {
+            AppLog.logSevere(DatabaseHierarchicalSubjects.class, ex);
             rollback(connection);
         } finally {
             free(connection);
@@ -149,7 +164,7 @@ public final class DatabaseHierarchicalSubjects extends Database {
             connection.commit();
             deleted = true;
             stmt.close();
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             AppLog.logSevere(DatabaseHierarchicalSubjects.class, ex);
             rollback(connection);
         } finally {
@@ -158,34 +173,21 @@ public final class DatabaseHierarchicalSubjects extends Database {
         return deleted;
     }
 
-    /**
-     * Returns a subject with a specific database ID.
-     *
-     * @param  id database ID
-     * @return    subject or null if no subject has that database ID
-     */
-    public HierarchicalSubject getSubject(long id) {
+    private HierarchicalSubject getSubject(long id, Connection connection)
+            throws SQLException {
         HierarchicalSubject subject = null;
-        Connection connection = null;
-        try {
-            connection = getConnection();
-            String sql =
-                    "SELECT id, id_parent, subject FROM hierarchical_subjects" + // NOI18N
-                    " WHERE id = ?"; // NOI18N
-            PreparedStatement stmt = connection.prepareStatement(sql);
-            stmt.setLong(1, id);
-            AppLog.logFinest(DatabaseHierarchicalSubjects.class, stmt.toString());
-            ResultSet rs = stmt.executeQuery(sql);
-            if (rs.next()) {
-                subject = new HierarchicalSubject(
-                        rs.getLong(1), rs.getLong(2), rs.getString(3));
-            }
-            stmt.close();
-        } catch (SQLException ex) {
-            AppLog.logWarning(DatabaseHierarchicalSubjects.class, ex);
-        } finally {
-            free(connection);
+        String sql =
+                "SELECT id, id_parent, subject FROM hierarchical_subjects" + // NOI18N
+                " WHERE id = ?"; // NOI18N
+        PreparedStatement stmt = connection.prepareStatement(sql);
+        stmt.setLong(1, id);
+        AppLog.logFinest(DatabaseHierarchicalSubjects.class, stmt.toString());
+        ResultSet rs = stmt.executeQuery();
+        if (rs.next()) {
+            subject = new HierarchicalSubject(
+                    rs.getLong(1), rs.getLong(2), rs.getString(3));
         }
+        stmt.close();
         return subject;
     }
 
@@ -214,8 +216,8 @@ public final class DatabaseHierarchicalSubjects extends Database {
                         rs.getLong(1), rs.getLong(2), rs.getString(3)));
             }
             stmt.close();
-        } catch (SQLException ex) {
-            AppLog.logWarning(DatabaseHierarchicalSubjects.class, ex);
+        } catch (Exception ex) {
+            AppLog.logSevere(DatabaseHierarchicalSubjects.class, ex);
         } finally {
             free(connection);
         }
@@ -244,8 +246,8 @@ public final class DatabaseHierarchicalSubjects extends Database {
                         rs.getLong(1), rs.getLong(2), rs.getString(3)));
             }
             stmt.close();
-        } catch (SQLException ex) {
-            AppLog.logWarning(DatabaseHierarchicalSubjects.class, ex);
+        } catch (Exception ex) {
+            AppLog.logSevere(DatabaseHierarchicalSubjects.class, ex);
         } finally {
             free(connection);
         }
@@ -253,7 +255,7 @@ public final class DatabaseHierarchicalSubjects extends Database {
     }
 
     private synchronized long getNextId(Connection connection)
-            throws SQLException {
+            throws Exception {
         long id = 1;
         String sql =
                 "SELECT MAX(id) FROM hierarchical_subjects"; // NOI18N
@@ -265,5 +267,107 @@ public final class DatabaseHierarchicalSubjects extends Database {
         }
         stmt.close();
         return id;
+    }
+
+    /**
+     * Returns whether a parent has a child with a specific
+     * {@link HierarchicalSubject#getSubject()}. The parent's ID is
+     * {@link HierarchicalSubject#getIdParent()}. The subject's ID
+     * {@link HierarchicalSubject#getId()} will not be compared.
+     *
+     * @param  subject subject
+     * @return true if the subject exists
+     */
+    public boolean parentHasChild(HierarchicalSubject subject) {
+        boolean exists = false;
+        Connection connection = null;
+        assert subject.getSubject() != null;
+        if (subject.getSubject() == null) {
+            return false;
+        }
+        try {
+            connection = getConnection();
+            String sql =
+                    "SELECT COUNT(*) FROM hierarchical_subjects" + // NOI18N
+                    " WHERE id_parent" + // NOI18N
+                    (subject.getIdParent() == null
+                    ? " IS NULL" // NOI18N
+                    : " = ?") + // NOI18N
+                    " AND subject = ?"; // NOI18N
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            if (subject.getIdParent() != null) {
+                stmt.setLong(1, subject.getIdParent());
+            }
+            stmt.setString(subject.getIdParent() == null
+                    ? 1
+                    : 2,
+                    subject.getSubject());
+            AppLog.logFinest(DatabaseHierarchicalSubjects.class, stmt.toString());
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                exists = rs.getInt(1) > 0;
+            }
+            stmt.close();
+        } catch (Exception ex) {
+            AppLog.logSevere(DatabaseHierarchicalSubjects.class, ex);
+        } finally {
+            free(connection);
+        }
+        return exists;
+    }
+
+    /**
+     * Returns the names of a subject's parents.
+     *
+     * @param  subjectName name of the subject
+     * @return             names of the subject's parents. The collection ist
+     *                     empty if the subject has no parents. If there are
+     *                     more than one subject with the same name , the
+     *                     collection contains a collection of every subject's
+     *                     parents if it has parents. The subjects ordered
+     *                     by their path, the leftmost subject is the root
+     *                     subject.
+     */
+    public Collection<Collection<String>> getParentNames(String subjectName) {
+        List<Collection<String>> paths = new ArrayList<Collection<String>>();
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            String sql =
+                    "SELECT id_parent FROM hierarchical_subjects" + // NOI18N
+                    " WHERE subject = ?"; // NOI18N
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setString(1, subjectName);
+            AppLog.logFinest(DatabaseHierarchicalSubjects.class, stmt.toString());
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                long idParent = rs.getLong(1);
+                if (idParent > 0) {
+                    List<String> path = new ArrayList<String>();
+                    addPathToRoot(path, idParent, connection);
+                    Collections.reverse(path);
+                    paths.add(path);
+                }
+            }
+            stmt.close();
+        } catch (Exception ex) {
+            AppLog.logSevere(DatabaseHierarchicalSubjects.class, ex);
+        } finally {
+            free(connection);
+        }
+        return paths;
+    }
+
+    private void addPathToRoot(
+            Collection<String> path, long idParent, Connection connection)
+            throws SQLException {
+        HierarchicalSubject subject = getSubject(idParent, connection);
+        if (subject != null) {
+            path.add(subject.getSubject());
+            Long idNextParent = subject.getIdParent();
+            if (idNextParent != null) {
+                addPathToRoot(path, idNextParent, connection); // recursive
+            }
+        }
     }
 }

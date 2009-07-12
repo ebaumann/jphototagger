@@ -1,12 +1,15 @@
 package de.elmar_baumann.imv.datatransfer;
 
-import de.elmar_baumann.imv.app.AppLog;
+import de.elmar_baumann.imv.model.ListModelKeywords;
+import de.elmar_baumann.imv.model.TreeModelHierarchicalSubjects;
 import de.elmar_baumann.imv.view.dialogs.HierarchicalSubjectsDialog;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import javax.swing.JComponent;
 import javax.swing.JTree;
 import javax.swing.TransferHandler;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.TreeModel;
 
 /**
  * Handles drops onto the {@link HierarchicalSubjectsDialog}'s tree.
@@ -22,19 +25,14 @@ public final class TransferHandlerTreeHierarchicalSubjects extends TransferHandl
         if (!transferable.isDataFlavorSupported(DataFlavor.stringFlavor)) {
             return false;
         }
-        try {
-            Object o = transferable.getTransferData(DataFlavor.stringFlavor);
-            if (o instanceof String) {
-                boolean isSubject = ((String) o).startsWith(
-                        TransferHandlerListKeywords.PREFIX);
-                JTree.DropLocation dropLocation =
-                        (JTree.DropLocation) transferSupport.getDropLocation();
-                return isSubject && dropLocation.getPath() != null;
-            }
-        } catch (Exception ex) {
-            AppLog.logWarning(TransferHandlerTreeDirectories.class, ex);
+        if (((JTree.DropLocation) transferSupport.getDropLocation()).getPath() ==
+                null) {
+            return false;
         }
-        return false;
+        if (!TransferHandlerListKeywords.hasKeyword(transferable)) {
+            return false;
+        }
+        return true;
     }
 
     @Override
@@ -49,6 +47,18 @@ public final class TransferHandlerTreeHierarchicalSubjects extends TransferHandl
 
     @Override
     public boolean importData(TransferSupport transferSupport) {
+        JTree.DropLocation dropLocation =
+                (JTree.DropLocation) transferSupport.getDropLocation();
+        Object o = dropLocation.getPath().getLastPathComponent();
+        TreeModel model = HierarchicalSubjectsDialog.INSTANCE.getPanel().getTree().
+                getModel();
+        if (o instanceof DefaultMutableTreeNode &&
+                model instanceof TreeModelHierarchicalSubjects) {
+            ((TreeModelHierarchicalSubjects) model).addSubject(
+                    (DefaultMutableTreeNode) o,
+                    TransferHandlerListKeywords.toKeyword(
+                    transferSupport.getTransferable()));
+        }
         return true;
     }
 
