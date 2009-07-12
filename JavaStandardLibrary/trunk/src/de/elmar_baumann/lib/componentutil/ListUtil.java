@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.StringTokenizer;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
+import javax.swing.ListModel;
 
 /**
  * Utils for {@link javax.swing.JList}.
@@ -98,8 +99,8 @@ public final class ListUtil {
         int size = model.getSize();
         for (int i = 0; i < size; i++) {
             buffer.append(model.get(i).toString() + (i < size - 1
-                                                     ? delim
-                                                     : ""));
+                    ? delim
+                    : ""));
         }
         return buffer.toString();
     }
@@ -162,6 +163,25 @@ public final class ListUtil {
         model.set(indexFirstElement, secondElement);
         model.set(indexSecondElement, firstElement);
         return true;
+    }
+
+    /**
+     * Returns wheter a list model contains a string. Uses the
+     * {@link java.lang.Object#toString()} method for comparison.
+     *
+     * @param model   model
+     * @param string  string to find
+     * @return        true if the model contains that string
+     */
+    public static boolean containsString(ListModel model, String string) {
+        int size = model.getSize();
+        for (int i = 0; i < size; i++) {
+            Object o = model.getElementAt(i);
+            if (o != null && o.toString().equals(string)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private ListUtil() {
