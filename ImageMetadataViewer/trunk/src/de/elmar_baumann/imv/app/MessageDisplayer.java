@@ -17,11 +17,11 @@ public final class MessageDisplayer {
      * @param propertyKey property key for {@link Bundle}. There also a key for
      *                    the title has to be in the properties file with the
      *                    same name and the postfix <code>.Title</code>
-     * @param obj         parameters for message format placeholders
+     * @param params      parameters for message format placeholders
      */
-    public static void error(String propertyKey, Object[] obj) {
+    public static void error(String propertyKey, Object... params) {
         JOptionPane.showMessageDialog(null,
-                Bundle.getString(propertyKey, obj),
+                Bundle.getString(propertyKey, params),
                 Bundle.getString(propertyKey + ".Title"),
                 JOptionPane.ERROR_MESSAGE);
     }
