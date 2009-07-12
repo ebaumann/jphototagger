@@ -190,12 +190,9 @@ public final class TreeModelFavorites extends DefaultTreeModel
         DefaultMutableTreeNode dirNode = getNode(directory);
         if (dirNode == null) {
             DefaultMutableTreeNode node = new TreeNodeSortedChildren(directory);
-            int childCount = rootNode.getChildCount();
-            insertNodeInto(node, rootNode, childCount);
+            insertNodeInto(node, rootNode, rootNode.getChildCount());
             addChildren(node);
-            if (childCount == 1) { // Forcing repaint
-                setRoot(rootNode);
-            }
+            tree.expandPath(new TreePath(rootNode.getPath()));
         }
     }
 
