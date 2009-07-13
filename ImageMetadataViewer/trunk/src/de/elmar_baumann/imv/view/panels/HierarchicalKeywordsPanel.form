@@ -94,6 +94,7 @@
             <Property name="componentPopupMenu" type="javax.swing.JPopupMenu" editor="org.netbeans.modules.form.ComponentChooserEditor">
               <ComponentRef name="popupMenu"/>
             </Property>
+            <Property name="dragEnabled" type="boolean" value="true"/>
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_allCodePost" type="java.lang.String" value="tree.setTransferHandler(new de.elmar_baumann.imv.datatransfer.TransferHandlerTreeHierarchicalKeywords());"/>

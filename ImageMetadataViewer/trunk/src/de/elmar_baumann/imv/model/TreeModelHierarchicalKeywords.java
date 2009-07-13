@@ -1,10 +1,12 @@
 package de.elmar_baumann.imv.model;
 
+import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.app.MessageDisplayer;
 import de.elmar_baumann.imv.data.HierarchicalKeyword;
 import de.elmar_baumann.imv.database.DatabaseHierarchicalKeywords;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.view.dialogs.HierarchicalKeywordsDialog;
+import de.elmar_baumann.lib.componentutil.TreeUtil;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Enumeration;
@@ -50,8 +52,8 @@ public final class TreeModelHierarchicalKeywords extends DefaultTreeModel {
                 userObject instanceof HierarchicalKeyword : parentNode;
         if (parentIsRoot || userObject instanceof HierarchicalKeyword) {
             Long idParent = parentIsRoot
-                    ? null
-                    : ((HierarchicalKeyword) userObject).getId();
+                            ? null
+                            : ((HierarchicalKeyword) userObject).getId();
             HierarchicalKeyword child = new HierarchicalKeyword(
                     null, idParent, keyword);
             if (db.insert(child)) {
@@ -146,6 +148,71 @@ public final class TreeModelHierarchicalKeywords extends DefaultTreeModel {
                         "TreeModelHierarchicalKeywords.Error.DbUpdate", keyword);
             }
         }
+    }
+
+    /**
+     * Moves a node to another node.
+     * 
+     * @param source  node to move
+     * @param target  new parent of <code>source</code>
+     * @param keyword keyword of <code>source</code>
+     */
+    public void move(DefaultMutableTreeNode source,
+            DefaultMutableTreeNode target, HierarchicalKeyword keyword) {
+        if (checkIsBelow(source, target) && checkIsChild(target, source) &&
+                setIdParent(keyword, target)) {
+            if (db.update(keyword)) {
+                DefaultMutableTreeNode removeNode =
+                        TreeUtil.findNodeWithUserObject(
+                        ROOT, source.getUserObject());
+                if (removeNode != null) {
+                    removeNodeFromParent(removeNode);
+                }
+                insertNodeInto(source, target, target.getChildCount());
+                HierarchicalKeywordsDialog.INSTANCE.getPanel().getTree().
+                        expandPath(new TreePath(target.getPath()));
+            }
+        }
+    }
+
+    private boolean setIdParent(
+            HierarchicalKeyword keyword, DefaultMutableTreeNode parentNode) {
+        if (parentNode.equals(ROOT)) {
+            keyword.setIdParent(null);
+            return true;
+        } else {
+            Object userObject = parentNode.getUserObject();
+            if (userObject instanceof HierarchicalKeyword) {
+                keyword.setIdParent(((HierarchicalKeyword) userObject).getId());
+                return true;
+            }
+        }
+        AppLog.logWarning(TreeModelHierarchicalKeywords.class,
+                Bundle.getString(
+                "TreeModelHierarchicalKeywords.Error.SetIdParent", parentNode));
+        return false;
+    }
+
+    private boolean checkIsBelow(
+            DefaultMutableTreeNode source, DefaultMutableTreeNode target) {
+        if (TreeUtil.isBelow(source, target)) {
+            MessageDisplayer.error(
+                    "TreeModelHierarchicalKeywords.Error.Move.NodeIsBelow",
+                    source, target);
+            return false;
+        }
+        return true;
+    }
+
+    private boolean checkIsChild(
+            DefaultMutableTreeNode target, DefaultMutableTreeNode source) {
+        if (TreeUtil.isChild(target, source)) {
+            MessageDisplayer.error(
+                    "TreeModelHierarchicalKeywords.Error.Move.NodeIsChild",
+                    source, target);
+            return false;
+        }
+        return true;
     }
 
     private void createTree() {

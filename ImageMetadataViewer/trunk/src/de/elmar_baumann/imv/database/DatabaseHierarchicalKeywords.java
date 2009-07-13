@@ -72,7 +72,11 @@ public final class DatabaseHierarchicalKeywords extends Database {
             PreparedStatement stmt = connection.prepareStatement(
                     "UPDATE hierarchical_subjects" + // NOI18N
                     " SET id_parent = ?, subject = ? WHERE id = ?"); // NOI18N
-            stmt.setLong(1, keyword.getIdParent());
+            if (keyword.getIdParent() == null) {
+                stmt.setNull(1, java.sql.Types.BIGINT);
+            } else {
+                stmt.setLong(1, keyword.getIdParent());
+            }
             stmt.setString(2, keyword.getKeyword());
             stmt.setLong(3, keyword.getId());
             AppLog.logFiner(DatabaseHierarchicalKeywords.class, stmt.toString());
@@ -99,31 +103,25 @@ public final class DatabaseHierarchicalKeywords extends Database {
     public boolean insert(HierarchicalKeyword keyword) {
         boolean inserted = false;
         Connection connection = null;
-        assert keyword.getKeyword() != null : "Keyword is null!";
-        assert !keyword.getKeyword().trim().isEmpty() : "Keyword empty!";
+        assert keyword.getKeyword() != null : "Keyword is null!"; // NOI18N
+        assert !keyword.getKeyword().trim().isEmpty() : "Keyword is empty!"; // NOI18N
         if (parentHasChild(keyword)) {
             return false;
         }
         try {
             connection = getConnection();
             connection.setAutoCommit(true);
-            PreparedStatement stmt = connection.prepareStatement(
-                    "INSERT INTO hierarchical_subjects (id" + // NOI18N
-                    (keyword.getIdParent() == null
-                     ? "" // NOI18N
-                     : ", id_parent") + // NOI18N
-                    ", subject)" + // NOI18N
-                    (keyword.getIdParent() == null
-                     ? " VALUES (?, ?)" // NOI18N
-                     : " VALUES (?, ?, ?)")); // NOI18N
+            String sql = "INSERT INTO hierarchical_subjects" + // NOI18N
+                    " (id, id_parent, subject) VALUES (?, ?, ?)"; // NOI18N
+            PreparedStatement stmt = connection.prepareStatement(sql);
             long nextId = getNextId(connection);
             stmt.setLong(1, nextId);
-            if (keyword.getIdParent() != null) {
+            if (keyword.getIdParent() == null) {
+                stmt.setNull(2, java.sql.Types.BIGINT);
+            } else {
                 stmt.setLong(2, keyword.getIdParent());
             }
-            stmt.setString(keyword.getIdParent() == null
-                           ? 2
-                           : 3, keyword.getKeyword().trim());
+            stmt.setString(3, keyword.getKeyword().trim());
             AppLog.logFiner(DatabaseHierarchicalKeywords.class, stmt.toString());
             inserted = stmt.executeUpdate() == 1;
             if (inserted) {
@@ -289,19 +287,14 @@ public final class DatabaseHierarchicalKeywords extends Database {
             connection = getConnection();
             String sql =
                     "SELECT COUNT(*) FROM hierarchical_subjects" + // NOI18N
-                    " WHERE id_parent" + // NOI18N
-                    (keyword.getIdParent() == null
-                     ? " IS NULL" // NOI18N
-                     : " = ?") + // NOI18N
-                    " AND subject = ?"; // NOI18N
+                    " WHERE id_parent = ? AND subject = ?"; // NOI18N
             PreparedStatement stmt = connection.prepareStatement(sql);
-            if (keyword.getIdParent() != null) {
+            if (keyword.getIdParent() == null) {
+                stmt.setNull(1, java.sql.Types.BIGINT);
+            } else {
                 stmt.setLong(1, keyword.getIdParent());
             }
-            stmt.setString(keyword.getIdParent() == null
-                           ? 1
-                           : 2,
-                    keyword.getKeyword());
+            stmt.setString(2, keyword.getKeyword());
             AppLog.logFinest(DatabaseHierarchicalKeywords.class, stmt.toString());
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {

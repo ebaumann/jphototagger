@@ -74,8 +74,9 @@ public class HierarchicalKeywordsPanel extends javax.swing.JPanel {
 
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("root");
         tree.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
-        tree.setCellRenderer(new TreeCellRendererHierarchicalKeywords());
+        tree.setCellRenderer(new de.elmar_baumann.imv.view.renderer.TreeCellRendererHierarchicalKeywords());
         tree.setComponentPopupMenu(popupMenu);
+        tree.setDragEnabled(true);
         scrollPane.setViewportView(tree);
         tree.setTransferHandler(new de.elmar_baumann.imv.datatransfer.TransferHandlerTreeHierarchicalKeywords());
 

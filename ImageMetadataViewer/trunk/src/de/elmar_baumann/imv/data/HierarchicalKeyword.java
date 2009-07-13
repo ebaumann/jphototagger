@@ -1,6 +1,7 @@
 package de.elmar_baumann.imv.data;
 
 import de.elmar_baumann.imv.database.DatabaseHierarchicalKeywords;
+import java.io.Serializable;
 
 /**
  * A hierarchical keyword is a keyword (Dublin core subject) with one or zero
@@ -12,7 +13,7 @@ import de.elmar_baumann.imv.database.DatabaseHierarchicalKeywords;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009/07/10
  */
-public final class HierarchicalKeyword {
+public final class HierarchicalKeyword implements Serializable {
 
     private Long id;
     private Long idParent;
