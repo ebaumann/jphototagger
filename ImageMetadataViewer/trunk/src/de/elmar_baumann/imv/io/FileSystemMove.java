@@ -11,9 +11,9 @@ import java.util.List;
 /**
  * Moves files to a target directory. The info object in
  * {@link de.elmar_baumann.imv.event.ProgressEvent#getInfo()} is a
- * {@link de.elmar_baumann.lib.template.Pair} where
- * {@link de.elmar_baumann.lib.template.Pair#getFirst()} is the source file and
- * {@link de.elmar_baumann.lib.template.Pair#getSecond()} is the target file.
+ * {@link de.elmar_baumann.lib.generics.Pair} where
+ * {@link de.elmar_baumann.lib.generics.Pair#getFirst()} is the source file and
+ * {@link de.elmar_baumann.lib.generics.Pair#getSecond()} is the target file.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/20
@@ -59,7 +59,7 @@ public final class FileSystemMove extends FileSystem implements Runnable {
     public void run() {
         int size = sourceFiles.size();
 
-        ProgressEvent progressEvent = new ProgressEvent(this, 0, size, 0, "");
+        ProgressEvent progressEvent = new ProgressEvent(this, 0, size, 0, ""); // NOI18N
         notifyProgressListenerStarted(progressEvent);
         boolean stop = progressEvent.isStop();
 

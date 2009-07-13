@@ -31,8 +31,9 @@ public final class IptcMetadata {
         List<IptcEntry> metadata = new ArrayList<IptcEntry>();
         if (imageFile != null && imageFile.exists()) {
             try {
-                AppLog.logInfo(IptcMetadata.class, Bundle.getString(
-                        "IptcMetadata.Info.GetMetadata", imageFile));
+                AppLog.logInfo(IptcMetadata.class,
+                        Bundle.getString("IptcMetadata.Info.GetMetadata", // NOI18N
+                        imageFile));
                 IPTCEntryCollection collection =
                         MetadataUtils.getIPTC(imageFile);
                 if (collection != null) {

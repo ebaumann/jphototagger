@@ -40,7 +40,7 @@ public final class UpdateMetadataOfDirectoriesDialog extends Dialog {
 
     @Override
     protected void help() {
-        help("action_scan_directories.html");
+        help("action_scan_directories.html"); // NOI18N
     }
 
     @Override

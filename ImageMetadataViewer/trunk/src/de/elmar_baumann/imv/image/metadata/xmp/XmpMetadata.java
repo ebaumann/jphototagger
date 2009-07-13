@@ -709,10 +709,10 @@ public final class XmpMetadata {
      * @param  imageFiles image files
      * @return            pairs of image files with their corresponding sidecar
      *                    files.
-     *                    {@link de.elmar_baumann.lib.template.Pair#getFirst()}
+     *                    {@link de.elmar_baumann.lib.generics.Pair#getFirst()}
      *                    returns a reference to an image file object in the
      *                    <code>imageFiles</code> list.
-     *                    {@link de.elmar_baumann.lib.template.Pair#getSecond()}
+     *                    {@link de.elmar_baumann.lib.generics.Pair#getSecond()}
      *                    returns the sidecar file of the referenced image file
      *                    or null if the image file has no sidecar file.
      */

@@ -35,7 +35,7 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel
         implements AppExitListener {
 
     private static final String KEY_THUMBNAIL_WIDTH =
-            "ImageFileThumbnailsPanel.ThumbnailWidth";
+            "ImageFileThumbnailsPanel.ThumbnailWidth"; // NOI18N
     private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
     private final Map<Content, List<RefreshListener>> refreshListenersOfContent =
             new HashMap<Content, List<RefreshListener>>();

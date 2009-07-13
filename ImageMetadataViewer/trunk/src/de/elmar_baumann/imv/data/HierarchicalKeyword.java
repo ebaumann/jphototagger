@@ -35,7 +35,7 @@ public final class HierarchicalKeyword implements Serializable {
     }
 
     /**
-     * Sets the database ID. <em>Only {@link DatabaseHierarchicalKeywords</em>}
+     * Sets the database ID. <em>Only {@link DatabaseHierarchicalKeywords}</em>
      * shall call this mehtod!
      *
      * @param id ID. Default: null.

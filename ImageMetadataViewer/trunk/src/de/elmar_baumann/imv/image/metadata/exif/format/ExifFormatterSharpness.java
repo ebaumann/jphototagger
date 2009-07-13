@@ -41,6 +41,6 @@ public final class ExifFormatterSharpness extends ExifFormatter {
                 return TRANSLATION.translate(EXIF_KEY_OF_SHARPNESS.get(value));
             }
         }
-        return "?";
+        return "?"; // NOI18N
     }
 }

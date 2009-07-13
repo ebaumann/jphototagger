@@ -18,7 +18,7 @@ public final class ExifAscii {
     public static String decode(byte[] rawValue) {
         String nullTerminatedValue = new String(rawValue);
         int length = nullTerminatedValue.length();
-        return length > 0 ? nullTerminatedValue.substring(0, length - 1) : "";
+        return length > 0 ? nullTerminatedValue.substring(0, length - 1) : ""; // NOI18N
     }
 
     public ExifType getDataTyp() {

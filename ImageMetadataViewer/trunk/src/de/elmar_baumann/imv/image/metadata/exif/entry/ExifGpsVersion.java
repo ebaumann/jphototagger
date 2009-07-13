@@ -57,9 +57,9 @@ public final class ExifGpsVersion {
     @Override
     public String toString() {
         StringBuffer sb = new StringBuffer(6);
-        sb.append(Integer.toString(first) + ".");
-        sb.append(Integer.toString(second) + ".");
-        sb.append(Integer.toString(third) + ".");
+        sb.append(Integer.toString(first) + "."); // NOI18N
+        sb.append(Integer.toString(second) + "."); // NOI18N
+        sb.append(Integer.toString(third) + "."); // NOI18N
         sb.append(Integer.toString(fourth));
         return sb.toString();
     }

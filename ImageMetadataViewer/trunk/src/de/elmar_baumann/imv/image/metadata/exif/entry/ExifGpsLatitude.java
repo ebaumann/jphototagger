@@ -26,8 +26,8 @@ public final class ExifGpsLatitude {
             new HashMap<Ref, String>();
 
     static {
-        REF_OF_STRING.put("N", Ref.NORTH);
-        REF_OF_STRING.put("S", Ref.SOUTH);
+        REF_OF_STRING.put("N", Ref.NORTH); // NOI18N
+        REF_OF_STRING.put("S", Ref.SOUTH); // NOI18N
 
         LOCALIZED_STRING_OF_REF.put(Ref.NORTH,
                 Bundle.getString("ExifGpsLatitudeRefNorth")); // NOI18N
@@ -76,7 +76,7 @@ public final class ExifGpsLatitude {
     }
 
     public String localizedString() {
-        return ExifGpsUtil.degreesToString(degrees) + " " +
+        return ExifGpsUtil.degreesToString(degrees) + " " + // NOI18N
                 LOCALIZED_STRING_OF_REF.get(ref);
     }
 

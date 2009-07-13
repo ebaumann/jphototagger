@@ -73,7 +73,7 @@ public final class RenameDialog extends Dialog {
 
     private ComboBoxModel getComboBoxModel() {
         DefaultComboBoxModel model = new DefaultComboBoxModel();
-        model.addElement(new FilenameFormatConstantString(""));
+        model.addElement(new FilenameFormatConstantString("")); // NOI18N
         model.addElement(new FilenameFormatNumberSequence(1, 1, 4));
         model.addElement(new FilenameFormatFileName());
         model.addElement(new FilenameFormatDate("-")); // NOI18N
@@ -128,13 +128,13 @@ public final class RenameDialog extends Dialog {
             if (newXmpFile.exists()) {
                 if (!newXmpFile.delete()) {
                     AppLog.logWarning(RenameDialog.class, Bundle.getString(
-                            "RenameDialog.ErrorMessage.XmpFileCouldNotBeDeleted",
+                            "RenameDialog.ErrorMessage.XmpFileCouldNotBeDeleted", // NOI18N
                             newXmpFilename));
                 }
             }
             if (!oldXmpFile.renameTo(newXmpFile)) {
                 AppLog.logWarning(RenameDialog.class, Bundle.getString(
-                        "RenameDialog.ErrorMessage.XmpFileCouldNotBeRenamed",
+                        "RenameDialog.ErrorMessage.XmpFileCouldNotBeRenamed", // NOI18N
                         oldXmpFilename, newXmpFilename));
             }
         }
@@ -158,7 +158,7 @@ public final class RenameDialog extends Dialog {
             filenameFormatArray.setFile(oldFile);
             File newFile = new File(
                     (parent == null
-                     ? ""
+                     ? "" // NOI18N
                      : parent + File.separator) + // NOI18N
                     filenameFormatArray.format());
             if (checkNewFileNotExists(newFile) && renameFile(oldFile, newFile)) {
@@ -211,7 +211,7 @@ public final class RenameDialog extends Dialog {
     private File getNewFileViaInput() {
         String directory = labelDirectory.getText();
         return new File(directory + (directory.isEmpty()
-                                     ? ""
+                                     ? "" // NOI18N
                                      : File.separator) + // NOI18N
                 textFieldNewName.getText().trim());
     }

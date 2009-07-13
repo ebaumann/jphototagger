@@ -28,7 +28,7 @@ public final class ColumnUtil {
             try {
                 Class cl = Class.forName(key);
                 @SuppressWarnings("unchecked")
-                Field field = cl.getField("INSTANCE");
+                Field field = cl.getField("INSTANCE"); // NOI18N
                 if (field.get(null) instanceof Column) {
                     columns.add((Column) field.get(null));
                 }

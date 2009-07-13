@@ -45,6 +45,6 @@ public final class ExifFormatterMeteringMode extends ExifFormatter {
                         EXIF_KEY_OF_METERING_MODE.get(value));
             }
         }
-        return "?";
+        return "?"; // NOI18N
     }
 }

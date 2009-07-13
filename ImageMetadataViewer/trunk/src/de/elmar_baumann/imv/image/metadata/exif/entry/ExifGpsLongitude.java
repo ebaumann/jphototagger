@@ -23,8 +23,8 @@ public final class ExifGpsLongitude {
             new HashMap<Ref, String>();
 
     static {
-        REF_OF_STRING.put("E", Ref.EAST);
-        REF_OF_STRING.put("W", Ref.WEST);
+        REF_OF_STRING.put("E", Ref.EAST); // NOI18N
+        REF_OF_STRING.put("W", Ref.WEST); // NOI18N
 
         LOCALIZED_STRING_OF_REF.put(Ref.EAST,
                 Bundle.getString("ExifGpsLongitudeRefEast")); // NOI18N
@@ -73,7 +73,7 @@ public final class ExifGpsLongitude {
     }
 
     public String localizedString() {
-        return ExifGpsUtil.degreesToString(degrees) + " " +
+        return ExifGpsUtil.degreesToString(degrees) + " " + // NOI18N
                 LOCALIZED_STRING_OF_REF.get(ref);
     }
 

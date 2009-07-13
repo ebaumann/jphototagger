@@ -45,7 +45,7 @@ public final class ImageCollectionDatabaseUtils {
     public static boolean deleteImagesFromCollection(String collectionName,
             List<String> filenames) {
         if (confirmDelete(
-                "ImageCollectionToDatabase.ConfirmMessage.DeleteSelectedFiles",
+                "ImageCollectionToDatabase.ConfirmMessage.DeleteSelectedFiles", // NOI18N
                 collectionName)) {
             boolean removed = DatabaseImageCollections.INSTANCE.
                     deleteImagesFromCollection(collectionName, filenames) ==
@@ -67,7 +67,7 @@ public final class ImageCollectionDatabaseUtils {
     public static boolean deleteImageCollection(String collectionName) {
         boolean deleted = false;
         if (confirmDelete(
-                "ImageCollectionToDatabase.ConfirmMessage.DeleteCollection",
+                "ImageCollectionToDatabase.ConfirmMessage.DeleteCollection", // NOI18N
                 collectionName)) {
             deleted = DatabaseImageCollections.INSTANCE.deleteImageCollection(
                     collectionName);

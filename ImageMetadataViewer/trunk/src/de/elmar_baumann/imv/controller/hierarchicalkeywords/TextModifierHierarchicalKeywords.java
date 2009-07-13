@@ -46,7 +46,7 @@ public class TextModifierHierarchicalKeywords implements TextModifyer {
         int index = 0;
         for (String s : collection) {
             sb.append((index++ == 0
-                    ? ""
+                    ? "" // NOI18N
                     : DELIM) + s);
         }
         return sb.toString();
@@ -60,7 +60,7 @@ public class TextModifierHierarchicalKeywords implements TextModifyer {
         } else {
             PathSelectionDialog dlg = new PathSelectionDialog(parentKeywords);
             dlg.setInfoMessage(Bundle.getString(
-                    "TextModifierHierarchicalKeywords.Error.MultiplePaths",
+                    "TextModifierHierarchicalKeywords.Error.MultiplePaths", // NOI18N
                     keywordName));
             dlg.setVisible(true);
             if (dlg.isAccepted()) {

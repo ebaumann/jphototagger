@@ -118,11 +118,11 @@ public class PathSelectionDialog extends Dialog {
             if (value instanceof Collection) {
                 Collection collection = (Collection) value;
                 StringBuilder sb = new StringBuilder();
-                String pathDelim = " > ";
+                String pathDelim = " > "; // NOI18N
                 int i = 0;
                 for (Object element : collection) {
                     sb.append((i++ == 0
-                            ? ""
+                            ? "" // NOI18N
                             : pathDelim) +
                             element.toString());
                 }
@@ -149,27 +149,27 @@ public class PathSelectionDialog extends Dialog {
         buttonSelectSelected = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle("Pfad auswählen");
+        setTitle(Bundle.getString("PathSelectionDialog.title")); // NOI18N
 
         list.setModel(new Model());
         list.setCellRenderer(new Renderer());
         scrollPane.setViewportView(list);
 
-        buttonSelectNothing.setText("Nichts auswählen");
+        buttonSelectNothing.setText(Bundle.getString("PathSelectionDialog.buttonSelectNothing.text")); // NOI18N
         buttonSelectNothing.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonSelectNothingActionPerformed(evt);
             }
         });
 
-        buttonSelectAll.setText("Alle auswählen");
+        buttonSelectAll.setText(Bundle.getString("PathSelectionDialog.buttonSelectAll.text")); // NOI18N
         buttonSelectAll.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonSelectAllActionPerformed(evt);
             }
         });
 
-        buttonSelectSelected.setText("Markierte auswählen");
+        buttonSelectSelected.setText(Bundle.getString("PathSelectionDialog.buttonSelectSelected.text")); // NOI18N
         buttonSelectSelected.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonSelectSelectedActionPerformed(evt);
@@ -183,8 +183,8 @@ public class PathSelectionDialog extends Dialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 377, Short.MAX_VALUE)
-                    .addComponent(scrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 377, Short.MAX_VALUE)
+                    .addComponent(labelInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 449, Short.MAX_VALUE)
+                    .addComponent(scrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 449, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(buttonSelectNothing)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)

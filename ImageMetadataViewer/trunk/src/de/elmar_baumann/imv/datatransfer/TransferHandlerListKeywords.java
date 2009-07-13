@@ -26,7 +26,7 @@ public final class TransferHandlerListKeywords extends TransferHandler {
     /**
      * Prefix before a keyword.
      */
-    public static final String PREFIX = "TransferHandlerListKeywords:";
+    public static final String PREFIX = "TransferHandlerListKeywords:"; // NOI18N
 
     /**
      * Returns the keyword into a transferable object.
@@ -42,7 +42,7 @@ public final class TransferHandlerListKeywords extends TransferHandler {
                 if (!s.startsWith(TransferHandlerListKeywords.PREFIX)) {
                     return null;
                 }
-                return s.replace(PREFIX, "");
+                return s.replace(PREFIX, ""); // NOI18N
             }
         } catch (Exception e) {
             AppLog.logWarning(TransferHandlerListKeywords.class, e);

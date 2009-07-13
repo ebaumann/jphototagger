@@ -30,13 +30,13 @@ public final class ExifFormatterExposureTime extends ExifFormatter {
             int numerator = pair.getFirst();
             int denominator = pair.getSecond();
             if (denominator > 1) {
-                return Integer.toString(numerator) + " / " + Integer.toString(
-                        denominator) + " s";
+                return Integer.toString(numerator) + " / " + // NOI18N
+                        Integer.toString(denominator) + " s"; // NOI18N
             } else if (numerator > 1) {
-                return Integer.toString(numerator) + " s";
+                return Integer.toString(numerator) + " s"; // NOI18N
             }
         }
-        return "?";
+        return "?"; // NOI18N
     }
 
     private static Pair<Integer, Integer> getAsExposureTime(ExifRational er) {

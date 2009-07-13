@@ -32,6 +32,6 @@ public final class FilenameFormatEmptyString extends FilenameFormat {
      */
     @Override
     public String format() {
-        return "";
+        return ""; // NOI18N
     }
 }

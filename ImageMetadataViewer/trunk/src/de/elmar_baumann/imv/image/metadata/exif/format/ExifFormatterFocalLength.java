@@ -29,9 +29,9 @@ public final class ExifFormatterFocalLength extends ExifFormatter {
             ExifRational er = new ExifRational(entry.getRawValue(), entry.
                     getByteOrder());
             DecimalFormat df = (DecimalFormat) NumberFormat.getNumberInstance();
-            df.applyPattern("#.# mm");
+            df.applyPattern("#.# mm"); // NOI18N
             return df.format(ExifDatatypeUtil.toDouble(er));
         }
-        return "?";
+        return "?"; // NOI18N
     }
 }

@@ -38,49 +38,49 @@ public final class UserSettings implements UserSettingsChangeListener {
     private static final int DEFAULT_MINUTES_TO_START_SCHEDULED_TASKS = 5;
     private static final String DELIMITER_COLUMNS = "\t"; // NOI18N
     private static final String KEY_DEFAULT_IMAGE_OPEN_APP =
-            "UserSettings.DefaultImageOpenApp";
+            "UserSettings.DefaultImageOpenApp"; // NOI18N
     private static final String KEY_EXTERNAL_THUMBNAIL_CREATION_COMMAND =
-            "UserSettings.ExternalThumbnailCreationCommand";
+            "UserSettings.ExternalThumbnailCreationCommand"; // NOI18N
     private static final String KEY_FAST_SEARCH_COLUMNS =
-            "UserSettings.FastSearchColumns";
-    private static final String KEY_EDIT_COLUMNS = "UserSettings.EditColumns";
-    private static final String KEY_IPTC_CHARSET = "UserSettings.IptcCharset";
+            "UserSettings.FastSearchColumns"; // NOI18N
+    private static final String KEY_EDIT_COLUMNS = "UserSettings.EditColumns"; // NOI18N
+    private static final String KEY_IPTC_CHARSET = "UserSettings.IptcCharset"; // NOI18N
     private static final String KEY_ACCEPT_HIDDEN_DIRECTORIES =
-            "UserSettings.IsAcceptHiddenDirectories";
+            "UserSettings.IsAcceptHiddenDirectories"; // NOI18N
     private static final String KEY_DATABASE_DIRECTORY_NAME =
-            "UserSettings.DatabaseDirectoryName";
+            "UserSettings.DatabaseDirectoryName"; // NOI18N
     private static final String KEY_AUTOSCAN_INCLUDE_SUBDIRECTORIES =
-            "UserSettings.IsAutoscanIncludeSubdirectories";
+            "UserSettings.IsAutoscanIncludeSubdirectories"; // NOI18N
     private static final String KEY_CREATE_THUMBNAILS_WITH_EXTERNAL_APP =
-            "UserSettings.IsCreateThumbnailsWithExternalApp";
+            "UserSettings.IsCreateThumbnailsWithExternalApp"; // NOI18N
     private static final String KEY_TASK_REMOVE_RECORDS_WITH_NOT_EXISTING_FILES =
-            "UserSettings.IsTaskRemoveRecordsWithNotExistingFiles";
+            "UserSettings.IsTaskRemoveRecordsWithNotExistingFiles"; // NOI18N
     private static final String KEY_AUTOCOMPLETE =
-            "UserSettings.IsUseAutocomplete";
+            "UserSettings.IsUseAutocomplete"; // NOI18N
     private static final String KEY_USE_EMBEDDED_THUMBNAILS =
-            "UserSettings.IsUseEmbeddedThumbnails";
+            "UserSettings.IsUseEmbeddedThumbnails"; // NOI18N
     private static final String KEY_LOGFILE_FORMATTER_CLASS =
-            "UserSettings.LogfileFormatterClass";
-    private static final String KEY_LOG_LEVEL = "UserSettings.LogLevel";
+            "UserSettings.LogfileFormatterClass"; // NOI18N
+    private static final String KEY_LOG_LEVEL = "UserSettings.LogLevel"; // NOI18N
     private static final String KEY_MAX_THUMBNAIL_LENGTH =
-            "UserSettings.MaxThumbnailWidth";
+            "UserSettings.MaxThumbnailWidth"; // NOI18N
     private static final String KEY_MINUTES_TO_START_SCHEDULED_TASKS =
-            "UserSettings.MinutesToStartScheduledTasks";
+            "UserSettings.MinutesToStartScheduledTasks"; // NOI18N
     private static final String KEY_THREAD_PRIORITY =
-            "UserSettings.ThreadPriority";
+            "UserSettings.ThreadPriority"; // NOI18N
     private static final String KEY_AUTOCOPY_DIRECTORY =
-            "UserSettings.AutocopyDirectory";
-    private static final String KEY_WEB_BROWSER = "UserSettings.WebBrowser";
+            "UserSettings.AutocopyDirectory"; // NOI18N
+    private static final String KEY_WEB_BROWSER = "UserSettings.WebBrowser"; // NOI18N
     private static final String KEY_TREE_DIRECTORIES_SELECT_LAST_DIRECTORY =
-            "UserSettings.TreeDirectoriesSelectLastDirectory";
+            "UserSettings.TreeDirectoriesSelectLastDirectory"; // NOI18N
     private static final String KEY_MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS =
-            "UserSettings.MaximumSecondsToTerminateExternalPrograms";
+            "UserSettings.MaximumSecondsToTerminateExternalPrograms"; // NOI18N
     private static final String KEY_SCAN_FOR_EMBEDDED_XMP =
-            "UserSettings.ScanForEmbeddedXmp";
+            "UserSettings.ScanForEmbeddedXmp"; // NOI18N
     private static final String KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_ALWAYS =
-            "UserSettings.ExecuteActionsAfterImageChangeInDbAlways";
+            "UserSettings.ExecuteActionsAfterImageChangeInDbAlways"; // NOI18N
     private static final String KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_IF_IMAGE_HAS_XMP =
-            "UserSettings.ExecuteActionsAfterImageChangeInDbIfImageHasXmp";
+            "UserSettings.ExecuteActionsAfterImageChangeInDbIfImageHasXmp"; // NOI18N
     private static final String DOMAIN_NAME = "de.elmar_baumann"; // NOI18N NEVER CHANGE!
     private static final String PROPERTIES_FILENAME = "Settings.properties"; // NOI18N NEVER CHANGE!
     private final Properties properties = new Properties();
@@ -156,10 +156,10 @@ public final class UserSettings implements UserSettingsChangeListener {
      * @return filename
      */
     public String getDatabaseFileName(boolean suffix) {
-        return getDatabaseDirectoryName() + File.separator + "database" +
+        return getDatabaseDirectoryName() + File.separator + "database" + // NOI18N
                 (suffix
-                 ? ".data"
-                 : "");
+                 ? ".data" // NOI18N
+                 : ""); // NOI18N
     }
 
     /**
@@ -169,7 +169,7 @@ public final class UserSettings implements UserSettingsChangeListener {
      * @return directory name
      */
     public String getThumbnailsDirectoryName() {
-        return getDatabaseDirectoryName() + File.separator + "thumbnails";
+        return getDatabaseDirectoryName() + File.separator + "thumbnails"; // NOI18N
     }
 
     /**
@@ -185,14 +185,14 @@ public final class UserSettings implements UserSettingsChangeListener {
      * Returns the default options of a directory filter:
      *
      * <ul>
-     * <li>{@link de.elmar_baumann.lib.io.DirectoryFilter.Option#ACCEPT_HIDDEN_FILES} if
+     * <li>{@link de.elmar_baumann.lib.io.filefilter.DirectoryFilter.Option#ACCEPT_HIDDEN_FILES} if
      *     {@link #isAcceptHiddenDirectories()} is true
-     * <li>{@link de.elmar_baumann.lib.io.DirectoryFilter.Option#REJECT_HIDDEN_FILES} if
+     * <li>{@link de.elmar_baumann.lib.io.filefilter.DirectoryFilter.Option#REJECT_HIDDEN_FILES} if
      *     {@link #isAcceptHiddenDirectories()} is false
      * </ul>
      *
      * @return options. Default:
-     *         {@link de.elmar_baumann.lib.io.DirectoryFilter.Option#REJECT_HIDDEN_FILES}
+     *         {@link de.elmar_baumann.lib.io.filefilter.DirectoryFilter.Option#REJECT_HIDDEN_FILES}
      */
     public Set<DirectoryFilter.Option> getDefaultDirectoryFilterOptions() {
         return EnumSet.of(isAcceptHiddenDirectories()
@@ -418,7 +418,7 @@ public final class UserSettings implements UserSettingsChangeListener {
     public String getIptcCharset() {
         String charset = settings.getString(KEY_IPTC_CHARSET);
         return charset.isEmpty()
-               ? "ISO-8859-1"
+               ? "ISO-8859-1" // NOI18N
                : charset;
     }
 
@@ -661,7 +661,7 @@ public final class UserSettings implements UserSettingsChangeListener {
 
     private void writeToPropertiesLogfileFormatterClass(Class formatterClass) {
         String classString = formatterClass.toString();
-        int index = classString.lastIndexOf(" ");
+        int index = classString.lastIndexOf(" "); // NOI18N
         settings.setString(index >= 0 && index + 1 < classString.length()
                            ? classString.substring(index + 1)
                            : XMLFormatter.class.getName(),

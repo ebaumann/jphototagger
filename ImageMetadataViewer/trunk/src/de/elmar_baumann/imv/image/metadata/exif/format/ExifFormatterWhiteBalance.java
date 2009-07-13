@@ -40,6 +40,6 @@ public final class ExifFormatterWhiteBalance extends ExifFormatter {
                         EXIF_KEY_OF_WHITE_BALANCE.get(value));
             }
         }
-        return "?";
+        return "?"; // NOI18N
     }
 }

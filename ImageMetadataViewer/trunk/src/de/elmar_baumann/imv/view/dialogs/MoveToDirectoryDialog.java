@@ -282,7 +282,7 @@ public final class MoveToDirectoryDialog extends Dialog
     public void actionFailed(FileSystemEvent action, FileSystemError error,
             File src, File target) {
         AppLog.logWarning(MoveToDirectoryDialog.class, Bundle.getString(
-                "MoveToDirectoryDialog.ErrorMessage.Logfile", src, target,
+                "MoveToDirectoryDialog.ErrorMessage.Logfile", src, target, // NOI18N
                 error.getLocalizedMessage()));
         errors = true;
     }

@@ -46,7 +46,7 @@ public final class TreeCellRendererFavorites extends DefaultTreeCellRenderer {
             file = (File) userObject;
             setText(file != null
                     ? getDirectoryName(file)
-                    : "");
+                    : ""); // NOI18N
         }
         if (file != null) {
             if (file.exists()) {

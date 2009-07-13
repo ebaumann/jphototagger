@@ -94,7 +94,7 @@ public final class ProgramStarter {
 
         private void logCommand(String command) {
             AppLog.logInfo(ProgramStarter.class, Bundle.getString(
-                    "ProgramStarter.InformationMessage.ExecuteCommand", command));
+                    "ProgramStarter.InformationMessage.ExecuteCommand", command)); // NOI18N
         }
 
         private void processAll() {
@@ -137,7 +137,7 @@ public final class ProgramStarter {
             return program.getFile().getAbsolutePath() + " " + // NOI18N
                     program.getCommandlineParameters(
                     IoUtil.getQuotedForCommandline(
-                    Collections.singletonList(file), ""),
+                    Collections.singletonList(file), ""), // NOI18N
                     getAdditionalParameters(file.getAbsolutePath(), count + 1),
                     dialog.isParametersBeforeFilename());
         }
@@ -167,7 +167,7 @@ public final class ProgramStarter {
         private void checkLogErrors(Pair<byte[], byte[]> output) {
             byte[] stderr = output.getSecond();
             String message = (stderr == null
-                              ? ""
+                              ? "" // NOI18N
                               : new String(stderr).trim()); // NOI18N
             if (!message.isEmpty()) {
                 message =

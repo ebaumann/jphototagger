@@ -90,7 +90,7 @@ public final class UpdaterRenameInXmpColumns implements Runnable, ProgressListen
 
     private void logRename(String columnName, String oldValue, String newValue) {
         AppLog.logInfo(UpdaterRenameInXmpColumns.class, Bundle.getString(
-                "UpdaterRenameInXmpColumns.InformationMessage.StartRename",
+                "UpdaterRenameInXmpColumns.InformationMessage.StartRename", // NOI18N
                 columnName, oldValue, newValue));
     }
 }

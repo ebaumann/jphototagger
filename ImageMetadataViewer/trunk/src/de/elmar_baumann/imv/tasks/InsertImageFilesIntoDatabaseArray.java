@@ -72,7 +72,7 @@ public final class InsertImageFilesIntoDatabaseArray implements ProgressListener
 
     private void logUpdateDirectory(String directoryName) {
         AppLog.logInfo(InsertImageFilesIntoDatabaseArray.class, Bundle.getString(
-                "InsertImageFilesIntoDatabaseArray.InformationMessage.StartScanDirectory",
+                "InsertImageFilesIntoDatabaseArray.InformationMessage.StartScanDirectory", // NOI18N
                 directoryName));
     }
 
@@ -258,14 +258,14 @@ public final class InsertImageFilesIntoDatabaseArray implements ProgressListener
             InsertImageFilesIntoDatabase scanner) {
         AppLog.logFinest(InsertImageFilesIntoDatabaseArray.class, Bundle.
                 getString(
-                "InsertImageFilesIntoDatabaseArray.InformationMessage.UpdateMetadataFinished",
+                "InsertImageFilesIntoDatabaseArray.InformationMessage.UpdateMetadataFinished", // NOI18N
                 getDirectoryNameOfInserter(scanner)));
     }
 
     private void informationMessageUpdateCurrentImage(String filename) {
         AppLog.logFinest(InsertImageFilesIntoDatabaseArray.class, Bundle.
                 getString(
-                "InsertImageFilesIntoDatabaseArray.InformationMessage.CheckImageForModifications",
+                "InsertImageFilesIntoDatabaseArray.InformationMessage.CheckImageForModifications", // NOI18N
                 filename));
     }
 
@@ -276,7 +276,7 @@ public final class InsertImageFilesIntoDatabaseArray implements ProgressListener
             name = directoryOfInserter.get(scanner);
         }
         return name == null
-               ? ""
+               ? "" // NOI18N
                : name; // NOI18N
     }
 }

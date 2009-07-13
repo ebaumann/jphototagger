@@ -29,7 +29,7 @@ public final class TransferHandlerPanelThumbnails extends TransferHandler {
     /**
      * Delimiter between the filenames in the transfered string.
      */
-    static final String DELIMITER = "\n";
+    static final String DELIMITER = "\n"; // NOI18N
     private static final List<Content> CONTENT_IS_A_FILESYSTEM_DIRECTORY =
             new ArrayList<Content>();
 

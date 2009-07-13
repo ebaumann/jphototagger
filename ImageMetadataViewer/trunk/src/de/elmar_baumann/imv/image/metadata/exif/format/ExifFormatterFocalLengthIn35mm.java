@@ -31,6 +31,6 @@ public final class ExifFormatterFocalLengthIn35mm extends ExifFormatter {
             df.applyPattern("#.# mm"); // NOI18N
             return df.format(es.getValue());
         }
-        return "?";
+        return "?"; // NOI18N
     }
 }

@@ -179,7 +179,7 @@ public final class TableModelExif extends DefaultTableModel {
 
         private void logExternalAppCommand(String cmd) {
             AppLog.logFinest(GpsListener.class, Bundle.getString(
-                    "TableModelExif.LogMessage.ExternalAppCommand", cmd));
+                    "TableModelExif.LogMessage.ExternalAppCommand", cmd)); // NOI18N
         }
     }
 }

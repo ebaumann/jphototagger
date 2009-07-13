@@ -20,7 +20,8 @@ public final class MetadataUtil {
     private static DefaultFormatterFactory integerFormatterFactory;
     private static DefaultFormatterFactory doubleFormatterFactory;
     private static DefaultFormatterFactory dateFormatterFactory;
-    private static DefaultFormatterFactory defaultFormatterFactory = new DefaultFormatterFactory(new DefaultFormatter());
+    private static DefaultFormatterFactory defaultFormatterFactory =
+            new DefaultFormatterFactory(new DefaultFormatter());
     
 
     static {
@@ -29,12 +30,12 @@ public final class MetadataUtil {
             integerFormat.setGroupingUsed(false);
             NumberFormatter integerFormatter = new NumberFormatter(integerFormat);
             integerFormatter.setAllowsInvalid(false);
-            MaskFormatter doubleFormatter = new MaskFormatter("####.##");
+            MaskFormatter doubleFormatter = new MaskFormatter("####.##"); // NOI18N
             doubleFormatter.setAllowsInvalid(false);
 
             integerFormatterFactory = new DefaultFormatterFactory(integerFormatter);
             doubleFormatterFactory = new DefaultFormatterFactory(doubleFormatter);
-            dateFormatterFactory = new DefaultFormatterFactory(new MaskFormatter("####-##-##"));
+            dateFormatterFactory = new DefaultFormatterFactory(new MaskFormatter("####-##-##")); // NOI18N
         } catch (ParseException ex) {
             AppLog.logWarning(MetadataUtil.class, ex);
         }

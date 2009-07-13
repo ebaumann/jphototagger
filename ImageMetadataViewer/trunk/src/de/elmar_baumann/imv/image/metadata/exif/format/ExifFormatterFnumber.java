@@ -32,6 +32,6 @@ public final class ExifFormatterFnumber extends ExifFormatter {
             df.applyPattern("#.#"); // NOI18N
             return df.format(ExifDatatypeUtil.toDouble(fNumer));
         }
-        return "?";
+        return "?"; // NOI18N
     }
 }

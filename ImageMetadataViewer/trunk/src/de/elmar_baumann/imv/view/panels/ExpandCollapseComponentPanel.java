@@ -36,7 +36,7 @@ public class ExpandCollapseComponentPanel extends JPanel implements
             Bundle.getString("ExpandCollapseComponentPanel.TooltipTextExpand"); // NOI18N
     private static final String TOOLTIP_TEXT_COLLAPSE =
             Bundle.getString("ExpandCollapseComponentPanel.TooltipTextCollapse"); // NOI18N
-    private String keyPersistence = "";
+    private String keyPersistence = ""; // NOI18N
     private final Component component;
     private JLabel labelFill;
     private String fillText;

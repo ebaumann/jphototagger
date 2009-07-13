@@ -32,7 +32,7 @@ public final class ExifFormatterGpsDateStamp extends ExifFormatter {
         if (rawString.length() != 11)
             return rawString;
         try {
-            DateFormat df = new SimpleDateFormat("yyyy:MM:dd");
+            DateFormat df = new SimpleDateFormat("yyyy:MM:dd"); // NOI18N
             Date date = df.parse(rawString.substring(0, 10));
             return DateFormat.getDateInstance(DateFormat.FULL).format(date);
         } catch (ParseException ex) {

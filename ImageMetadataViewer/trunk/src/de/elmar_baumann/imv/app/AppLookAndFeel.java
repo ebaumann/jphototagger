@@ -21,12 +21,12 @@ public final class AppLookAndFeel {
      * CSS of the table row headers
      */
     public static final String TABLE_CSS_ROW_HEADER =
-            "margin-left:3px;margin-right:3px;";
+            "margin-left:3px;margin-right:3px;"; // NOI18N
     /**
      * CSS of the table cells
      */
     public static final String TABLE_CSS_CELL =
-            "margin-left:3px;margin-right:3px;";
+            "margin-left:3px;margin-right:3px;"; // NOI18N
     /**
      * Maximum character count in the table row headers before breaking into
      * lines
@@ -45,43 +45,43 @@ public final class AppLookAndFeel {
     }
 
     private static void setFonts() {
-        setFontWeight("Button.font", false);
-        setFontWeight("CheckBox.font", false);
-        setFontWeight("CheckBoxMenuItem.font", false);
-        setFontWeight("ColorChooser.font", false);
-        setFontWeight("ComboBox.font", false);
-        setFontWeight("EditorPane.font", false);
-        setFontWeight("FormattedTextField.font", false);
-        setFontWeight("Label.font", false);
-        setFontWeight("List.font", false);
-        setFontWeight("MenuBar.font", false);
-        setFontWeight("Menu.font", false);
-        setFontWeight("MenuItem.font", false);
-        setFontWeight("OptionPane.font", false);
-        setFontWeight("Panel.font", false);
-        setFontWeight("PopupMenu.font", false);
-        setFontWeight("RadioButton.font", false);
-        setFontWeight("RadioButtonMenuItem.font", false);
-        setFontWeight("ScrollPane.font", false);
-        setFontWeight("Slider.font", false);
-        setFontWeight("Spinner.font", false);
-        setFontWeight("TabbedPane.font", false);
-        setFontWeight("Table.font", false);
-        setFontWeight("TextArea.font", false);
-        setFontWeight("TextField.font", false);
-        setFontWeight("Text.font", false);
-        setFontWeight("TextPane.font", false);
-        setFontWeight("TextPane.font", false);
-        setFontWeight("ToggleButton.font", false);
-        setFontWeight("ToolBar.font", false);
-        setFontWeight("ToolTip.font", false);
-        setFontWeight("Tree.font", false);
-        setFontWeight("Viewport.font", false);
+        setFontWeight("Button.font", false); // NOI18N
+        setFontWeight("CheckBox.font", false); // NOI18N
+        setFontWeight("CheckBoxMenuItem.font", false); // NOI18N
+        setFontWeight("ColorChooser.font", false); // NOI18N
+        setFontWeight("ComboBox.font", false); // NOI18N
+        setFontWeight("EditorPane.font", false); // NOI18N
+        setFontWeight("FormattedTextField.font", false); // NOI18N
+        setFontWeight("Label.font", false); // NOI18N
+        setFontWeight("List.font", false); // NOI18N
+        setFontWeight("MenuBar.font", false); // NOI18N
+        setFontWeight("Menu.font", false); // NOI18N
+        setFontWeight("MenuItem.font", false); // NOI18N
+        setFontWeight("OptionPane.font", false); // NOI18N
+        setFontWeight("Panel.font", false); // NOI18N
+        setFontWeight("PopupMenu.font", false); // NOI18N
+        setFontWeight("RadioButton.font", false); // NOI18N
+        setFontWeight("RadioButtonMenuItem.font", false); // NOI18N
+        setFontWeight("ScrollPane.font", false); // NOI18N
+        setFontWeight("Slider.font", false); // NOI18N
+        setFontWeight("Spinner.font", false); // NOI18N
+        setFontWeight("TabbedPane.font", false); // NOI18N
+        setFontWeight("Table.font", false); // NOI18N
+        setFontWeight("TextArea.font", false); // NOI18N
+        setFontWeight("TextField.font", false); // NOI18N
+        setFontWeight("Text.font", false); // NOI18N
+        setFontWeight("TextPane.font", false); // NOI18N
+        setFontWeight("TextPane.font", false); // NOI18N
+        setFontWeight("ToggleButton.font", false); // NOI18N
+        setFontWeight("ToolBar.font", false); // NOI18N
+        setFontWeight("ToolTip.font", false); // NOI18N
+        setFontWeight("Tree.font", false); // NOI18N
+        setFontWeight("Viewport.font", false); // NOI18N
         // Bold
-        setFontWeight("PasswordField.font", true);
-        setFontWeight("ProgressBar.font", true);
-        setFontWeight("TableHeader.font", true);
-        setFontWeight("TitledBorder.font.font", true);
+        setFontWeight("PasswordField.font", true); // NOI18N
+        setFontWeight("ProgressBar.font", true); // NOI18N
+        setFontWeight("TableHeader.font", true); // NOI18N
+        setFontWeight("TitledBorder.font.font", true); // NOI18N
     }
 
     private static void setFontWeight(String key, boolean bold) {

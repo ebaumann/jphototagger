@@ -39,8 +39,8 @@ public final class TreeModelFavorites extends DefaultTreeModel
         implements TreeWillExpandListener, AppExitListener {
 
     private static final String KEY_SELECTED_FAV_NAME =
-            "TreeModelFavorites.SelFavDir";
-    private static final String KEY_SELECTED_DIR = "TreeModelFavorites.SelDir";
+            "TreeModelFavorites.SelFavDir"; // NOI18N
+    private static final String KEY_SELECTED_DIR = "TreeModelFavorites.SelDir"; // NOI18N
     private final DefaultMutableTreeNode rootNode;
     private final DatabaseFavoriteDirectories db;
     private final JTree tree;
@@ -178,7 +178,7 @@ public final class TreeModelFavorites extends DefaultTreeModel
             } else {
                 AppLog.logWarning(TreeModelFavorites.class,
                         Bundle.getString(
-                        "TreeModelFavorites.ErrorMessage.DbDirectoryDoesNotExist",
+                        "TreeModelFavorites.ErrorMessage.DbDirectoryDoesNotExist", // NOI18N
                         directory.getDirectoryName()));
                 db.deleteFavoriteDirectory(directory.getFavoriteName());
             }

@@ -49,7 +49,7 @@ public final class ControllerHelp implements ActionListener,
 
     private void setCurrentUrl(HelpBrowserEvent action) {
         URL url = action.getUrl();
-        if (!url.getProtocol().startsWith("http")) {
+        if (!url.getProtocol().startsWith("http")) { // NOI18N
             currentUrl = HelpBrowser.getLastPathComponent(url);
             UserSettings.INSTANCE.getSettings().setString(
                     currentUrl, KEY_CURRENT_URL);

@@ -65,7 +65,7 @@ public final class ControllerPasteFilesFromClipboard implements KeyListener {
             @Override
             public void run() {
                 List<File> files =
-                        ClipboardUtil.getFilesFromSystemClipboard("\n");
+                        ClipboardUtil.getFilesFromSystemClipboard("\n"); // NOI18N
                 TransferHandlerTreeDirectories.handleDroppedFiles(
                         getEstimatedTransferHandlerAction(), files, file);
                 emptyClipboard();

@@ -62,7 +62,7 @@ public final class CopyFiles implements Runnable {
      * liefert ein
      * {@link  de.elmar_baumann.imv.event.ProgressEvent}-Objekt,
      * das mit {@link  de.elmar_baumann.imv.event.ProgressEvent#getInfo()}
-     * ein {@link de.elmar_baumann.lib.template.Pair}-Objekt liefert mit der
+     * ein {@link de.elmar_baumann.lib.generics.Pair}-Objekt liefert mit der
      * aktuellen Quelldatei als erstes Element und der Zieldatei als zweites.
      * 
      * {@link de.elmar_baumann.imv.event.listener.ProgressListener#progressEnded(de.elmar_baumann.imv.event.ProgressEvent)}
@@ -103,7 +103,7 @@ public final class CopyFiles implements Runnable {
 
     private void logCopyFile(String sourceFilename, String targetFilename) {
         AppLog.logInfo(CopyFiles.class, Bundle.getString(
-                "CopyFiles.InformationMessage.StartCopy",
+                "CopyFiles.InformationMessage.StartCopy", // NOI18N
                 sourceFilename, targetFilename));
     }
 

@@ -24,14 +24,14 @@ import javax.swing.tree.TreeNode;
 public final class TreeCellRendererMiscMetadata extends DefaultTreeCellRenderer {
 
     private static final ImageIcon ICON_MISC_METADATA = IconUtil.getImageIcon(
-            "/de/elmar_baumann/imv/resource/icons/icon_misc_metadata.png");
+            "/de/elmar_baumann/imv/resource/icons/icon_misc_metadata.png"); // NOI18N
     private static final ImageIcon ICON_EXIF = IconUtil.getImageIcon(
-            "/de/elmar_baumann/imv/resource/icons/icon_exif.png");
+            "/de/elmar_baumann/imv/resource/icons/icon_exif.png"); // NOI18N
     private static final ImageIcon ICON_XMP = IconUtil.getImageIcon(
-            "/de/elmar_baumann/imv/resource/icons/icon_xmp.png");
+            "/de/elmar_baumann/imv/resource/icons/icon_xmp.png"); // NOI18N
     private static final ImageIcon ICON_DETAIL =
             IconUtil.getImageIcon(
-            "/de/elmar_baumann/imv/resource/icons/icon_misc_metadata_detail.png");
+            "/de/elmar_baumann/imv/resource/icons/icon_misc_metadata_detail.png"); // NOI18N
     private static final Map<Column, ImageIcon> ICON_OF_COLUMN =
             new HashMap<Column, ImageIcon>();
 
@@ -88,8 +88,8 @@ public final class TreeCellRendererMiscMetadata extends DefaultTreeCellRenderer 
 
     private void setText(Object userObject, Object parenUObject) {
         if (userObject == null) return;
-        DecimalFormat shortFormat = new DecimalFormat("#");
-        DecimalFormat doubleFormat = new DecimalFormat("#.#");
+        DecimalFormat shortFormat = new DecimalFormat("#"); // NOI18N
+        DecimalFormat doubleFormat = new DecimalFormat("#.#"); // NOI18N
         if (userObject instanceof Column) {
             Column col = (Column) (userObject);
             setText(col.getDescription());
@@ -110,9 +110,9 @@ public final class TreeCellRendererMiscMetadata extends DefaultTreeCellRenderer 
         if (userObject instanceof Column) {
             Column column = (Column) userObject;
             if (column.equals(ColumnExifFocalLength.INSTANCE)) {
-                return " mm";
+                return " mm"; // NOI18N
             }
         }
-        return "";
+        return ""; // NOI18N
     }
 }

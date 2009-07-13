@@ -28,7 +28,7 @@ public final class ControllerDoubleklickThumbnail {
         if (panel.isIndex(index)) {
             IoUtil.execute(UserSettings.INSTANCE.getDefaultImageOpenApp(),
                     IoUtil.getQuotedForCommandline(
-                    Collections.singletonList(panel.getFile(index)), ""));
+                    Collections.singletonList(panel.getFile(index)), "")); // NOI18N
         }
     }
 }

@@ -90,7 +90,7 @@ public final class EditMetadataPanelsArray implements FocusListener,
         }
         if (dirty) {
             SaveEditedMetadata.saveMetadata(this);
-            SelectedFile.INSTANCE.setFile(new File(""), null);
+            SelectedFile.INSTANCE.setFile(new File(""), null); // NOI18N
         }
     }
 
@@ -359,7 +359,7 @@ public final class EditMetadataPanelsArray implements FocusListener,
     }
 
     private void setTextToTextSelectionPanel(Component c) {
-        String text = "";
+        String text = ""; // NOI18N
         if (c instanceof JTextField) {
             text = ((JTextField) c).getText().trim();
         } else if (c instanceof JTextArea) {

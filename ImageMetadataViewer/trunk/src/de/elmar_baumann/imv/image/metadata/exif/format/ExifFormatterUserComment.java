@@ -37,7 +37,7 @@ public final class ExifFormatterUserComment extends ExifFormatter {
         if (entry.getTag() != ExifTag.USER_COMMENT.getId())
             throw new IllegalArgumentException("Wrong tag: " + entry); // NOI18N
         byte[] rawValue = entry.getRawValue();
-        if (rawValue.length <= 8) return "";
+        if (rawValue.length <= 8) return ""; // NOI18N
         CharCode charCode = getEncoding(rawValue);
         byte[] rawComment = Arrays.copyOfRange(rawValue, 8, rawValue.length);
         if (charCode.equals(CharCode.ASCII))
@@ -46,7 +46,7 @@ public final class ExifFormatterUserComment extends ExifFormatter {
             return new String(rawComment, Charset.forName("JISAutoDetect")); // NOI18N
         if (charCode.equals(CharCode.UNICODE))
             return new String(rawComment, Charset.forName("UTF-8")); // NOI18N
-        return "";
+        return ""; // NOI18N
     }
 
     private static CharCode getEncoding(byte[] rawValue) {

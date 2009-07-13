@@ -124,7 +124,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
     private void informationMessageThreadPriority(Thread thread) {
         AppLog.logFinest(UpdateMetadataOfDirectoriesPanel.class, Bundle.
                 getString(
-                "UpdateMetadataOfDirectoriesPanel.InformationMessage.ThreadPriority",
+                "UpdateMetadataOfDirectoriesPanel.InformationMessage.ThreadPriority", // NOI18N
                 thread.getPriority()));
     }
 
@@ -180,7 +180,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
 
     private void setFileCountInfo() {
         labelCountSelectedFiles.setText(Bundle.getString(
-                "UpdateMetadataOfDirectoriesPanel.InformationMessage.SelectedFileCount",
+                "UpdateMetadataOfDirectoriesPanel.InformationMessage.SelectedFileCount", // NOI18N
                 countSelectedFiles));
     }
 

@@ -93,14 +93,14 @@ public final class FileSystemDirectories {
 
     private static void logDelete(File directory, int countDeletedInDatabase) {
         AppLog.logInfo(FileSystemDirectories.class, Bundle.getString(
-                "FileSystemDirectories.Info.Delete",
+                "FileSystemDirectories.Info.Delete", // NOI18N
                 directory, countDeletedInDatabase));
     }
 
     private static void logInfoRenamed(File directory, File newDirectory,
             int countRenamedInDatabase) {
         AppLog.logInfo(FileSystemDirectories.class, Bundle.getString(
-                "FileSystemDirectories.Info.Rename",
+                "FileSystemDirectories.Info.Rename", // NOI18N
                 directory, newDirectory, countRenamedInDatabase));
     }
 

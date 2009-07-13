@@ -83,12 +83,12 @@ public final class TransferHandlerTreeDirectories extends TransferHandler {
         List<File> imageFiles = IoUtil.getImageFiles(sourceFiles);
         if (imageFiles.isEmpty()) return;
         if (dropAction == COPY && confirmFileAction(
-                "TransferHandlerTreeDirectories.ConfirmMessage.Copy",
+                "TransferHandlerTreeDirectories.ConfirmMessage.Copy", // NOI18N
                 imageFiles.size(),
                 targetDirectory.getAbsolutePath())) {
             copyFiles(targetDirectory, imageFiles);
         } else if (dropAction == MOVE && confirmFileAction(
-                "TransferHandlerTreeDirectories.ConfirmMessage.Move",
+                "TransferHandlerTreeDirectories.ConfirmMessage.Move", // NOI18N
                 imageFiles.size(), targetDirectory.getAbsolutePath())) {
             moveFiles(targetDirectory, imageFiles);
         }

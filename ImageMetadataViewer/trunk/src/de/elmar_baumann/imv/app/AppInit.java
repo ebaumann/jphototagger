@@ -17,7 +17,7 @@ import de.elmar_baumann.lib.dialog.SystemOutputDialog;
 public final class AppInit {
 
     private static AppInit INSTANCE;
-    private static final String NO_OUTPUT_CAPTURE = "-nocapture";
+    private static final String NO_OUTPUT_CAPTURE = "-nocapture"; // NOI18N
     private String[] args;
     private static boolean captureOutput = true;
 

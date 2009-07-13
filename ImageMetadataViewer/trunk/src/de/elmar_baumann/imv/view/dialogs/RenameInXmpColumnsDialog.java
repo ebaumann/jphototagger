@@ -134,8 +134,6 @@ public final class RenameInXmpColumnsDialog extends Dialog {
 
         labelReplaceIn.setText(Bundle.getString("RenameInXmpColumnsDialog.labelReplaceIn.text")); // NOI18N
 
-        comboBoxReplaceColumn.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         labelOldString.setText(Bundle.getString("RenameInXmpColumnsDialog.labelOldString.text")); // NOI18N
 
         labelNewString.setText(Bundle.getString("RenameInXmpColumnsDialog.labelNewString.text")); // NOI18N

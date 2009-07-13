@@ -126,7 +126,7 @@ public final class InsertImageFilesIntoDatabase implements Runnable {
         startTime = System.currentTimeMillis();
         notifyProgressStarted(count > 0
                               ? filenames.get(0)
-                              : "");
+                              : ""); // NOI18N
         for (int index = 0; !stop && index < count; index++) {
             String filename = filenames.get(index);
             logCheckForUpdate(filename);
@@ -303,7 +303,7 @@ public final class InsertImageFilesIntoDatabase implements Runnable {
 
     private void errorMessageNullThumbnail(String filename) {
         AppLog.logWarning(InsertImageFilesIntoDatabase.class, Bundle.getString(
-                "InsertImageFilesIntoDatabase.ErrorMessage.NullThumbnail",
+                "InsertImageFilesIntoDatabase.ErrorMessage.NullThumbnail", // NOI18N
                 filename));
     }
 

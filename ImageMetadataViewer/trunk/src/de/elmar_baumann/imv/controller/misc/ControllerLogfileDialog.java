@@ -34,9 +34,9 @@ public final class ControllerLogfileDialog implements ActionListener,
             appPanel.getButtonLogfileDialog();
     private static final String ICON_PATH = AppIcons.getIconPath();
     private static final ImageIcon ICON_OK =
-            IconUtil.getImageIcon(ICON_PATH + "/icon_ok.png");
+            IconUtil.getImageIcon(ICON_PATH + "/icon_ok.png"); // NOI18N
     private static final ImageIcon ICON_ERROR =
-            IconUtil.getImageIcon(ICON_PATH + "/icon_error.png");
+            IconUtil.getImageIcon(ICON_PATH + "/icon_error.png"); // NOI18N
 
     public ControllerLogfileDialog() {
         buttonLogfileDialog.setIcon(ICON_OK);

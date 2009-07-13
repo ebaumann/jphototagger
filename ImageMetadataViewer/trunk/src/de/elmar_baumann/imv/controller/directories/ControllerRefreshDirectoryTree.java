@@ -10,7 +10,7 @@ import java.awt.event.KeyListener;
 import javax.swing.JTree;
 
 /**
- * Listens to {@link PopupMenuTreeDirectories#getItemRefresh()} and
+ * Listens to {@link PopupMenuDirectories#getItemRefresh()} and
  * refreshes the directory tree when the action fires.
  *
  * Also listens to the {@link JTree}'s key events and refreshes the tree

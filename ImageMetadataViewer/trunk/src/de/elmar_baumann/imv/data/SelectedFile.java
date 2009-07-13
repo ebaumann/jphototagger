@@ -15,7 +15,7 @@ public final class SelectedFile {
 
     public static final SelectedFile INSTANCE = new SelectedFile();
     private List<XMPPropertyInfo> xmpPropertyInfos;
-    private File file = new File("");
+    private File file = new File(""); // NOI18N
 
     /**
      * Sets the file and it's metadata.

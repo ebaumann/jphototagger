@@ -47,6 +47,6 @@ public final class ExifFormatterExposureProgram extends ExifFormatter {
                         value));
             }
         }
-        return "?";
+        return "?"; // NOI18N
     }
 }

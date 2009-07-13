@@ -16,7 +16,7 @@ public final class MessageDisplayer {
     private static final Map<Integer, String> defaultTitleOfMessageType =
             new HashMap<Integer, String>();
 
-    {
+    static {
         defaultTitleOfMessageType.put(JOptionPane.ERROR_MESSAGE,
                 Bundle.getString("MessageDisplayer.DefaultTitle.ErrorMessage")); // NOI18N
         defaultTitleOfMessageType.put(JOptionPane.WARNING_MESSAGE,
@@ -174,7 +174,9 @@ public final class MessageDisplayer {
     }
 
     private static String getTitle(String propertyKey, int messageType) {
-        assert defaultTitleOfMessageType.containsKey(messageType) : messageType;
+        assert defaultTitleOfMessageType.containsKey(messageType) :
+                "Message type " + messageType + " is not in " + // NOI18N
+                defaultTitleOfMessageType.keySet();
         return Bundle.containsKey(propertyKey)
                ? Bundle.getString(propertyKey + ".Title") // NOI18N
                : defaultTitleOfMessageType.get(messageType);

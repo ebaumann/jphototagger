@@ -125,15 +125,15 @@ public final class Program {
         String additionalParameters, boolean additionalParametersBeforeFilenames) {
 
         String parametersBefore = (parametersBeforeFilename == null
-            ? "" : parametersBeforeFilename) +
+            ? "" : parametersBeforeFilename) + // NOI18N
             (additionalParametersBeforeFilenames
-            ? " " + additionalParameters : "");
+            ? " " + additionalParameters : ""); // NOI18N
         String parametersAfter = (parametersAfterFilename == null
-            ? "" : parametersAfterFilename) +
+            ? "" : parametersAfterFilename) + // NOI18N
             (additionalParametersBeforeFilenames
-            ? "" : " " + additionalParameters);
+            ? "" : " " + additionalParameters); // NOI18N
 
-        return parametersBefore + " " + filenames + " " + parametersAfter;
+        return parametersBefore + " " + filenames + " " + parametersAfter; // NOI18N
     }
 
     @Override

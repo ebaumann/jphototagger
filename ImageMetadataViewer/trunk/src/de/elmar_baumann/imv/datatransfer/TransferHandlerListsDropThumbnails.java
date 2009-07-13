@@ -24,7 +24,7 @@ public abstract class TransferHandlerListsDropThumbnails extends TransferHandler
 
     static final String DELIMITER_FILENAMES =
             TransferHandlerPanelThumbnails.DELIMITER;
-    static final String DELIMITER_ITEMS = "\n";
+    static final String DELIMITER_ITEMS = "\n"; // NOI18N
 
     @Override
     public boolean canImport(TransferHandler.TransferSupport transferSupport) {

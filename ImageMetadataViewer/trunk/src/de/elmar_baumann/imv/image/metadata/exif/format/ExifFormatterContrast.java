@@ -40,6 +40,6 @@ public final class ExifFormatterContrast extends ExifFormatter {
                 return TRANSLATION.translate(EXIF_KEY_OF_CONTRAST.get(value));
             }
         }
-        return "?";
+        return "?"; // NOI18N
     }
 }

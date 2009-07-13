@@ -28,6 +28,6 @@ public final class ExifFormatterFileSource extends ExifFormatter {
                 return TRANSLATION.translate("FileSourceDigitalCamera"); // NOI18N
             }
         }
-        return "?";
+        return "?"; // NOI18N
     }
 }

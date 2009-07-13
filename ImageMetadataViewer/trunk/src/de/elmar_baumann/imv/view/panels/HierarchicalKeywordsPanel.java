@@ -1,6 +1,5 @@
 package de.elmar_baumann.imv.view.panels;
 
-import de.elmar_baumann.imv.view.renderer.TreeCellRendererHierarchicalKeywords;
 import javax.swing.JMenuItem;
 import javax.swing.JTree;
 import javax.swing.tree.TreeSelectionModel;

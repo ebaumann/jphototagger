@@ -18,7 +18,7 @@ public final class AppIcons {
      * Path where all icons stored
      */
     private static final String PATH_ICONS =
-            "/de/elmar_baumann/imv/resource/icons";
+            "/de/elmar_baumann/imv/resource/icons"; // NOI18N
     /**
      * Path to the small application's icon (16 x 16 pixels)
      */
@@ -69,7 +69,7 @@ public final class AppIcons {
      * @return icon
      */
     public static Icon getIcon(String name) {
-        return IconUtil.getImageIcon(PATH_ICONS + "/" + name);
+        return IconUtil.getImageIcon(PATH_ICONS + "/" + name); // NOI18N
     }
 
     /**

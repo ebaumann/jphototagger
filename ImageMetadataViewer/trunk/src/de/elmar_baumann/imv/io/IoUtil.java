@@ -70,7 +70,7 @@ public final class IoUtil {
             if (buffer.length() == 0) {
                 buffer.append(quote + file.getAbsolutePath() + quote);
             } else {
-                buffer.append(" " + quote + file.getAbsolutePath() + quote);
+                buffer.append(" " + quote + file.getAbsolutePath() + quote); // NOI18N
             }
         }
         return buffer.toString();

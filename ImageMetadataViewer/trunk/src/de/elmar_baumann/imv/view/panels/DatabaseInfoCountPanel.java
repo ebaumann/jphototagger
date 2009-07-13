@@ -58,7 +58,7 @@ public final class DatabaseInfoCountPanel extends javax.swing.JPanel {
 
     private void setLabelFilename() {
         labelFilename.setText(Bundle.getString(
-                "DatabaseInfoCountPanel.labelFilename.Filename",
+                "DatabaseInfoCountPanel.labelFilename.Filename", // NOI18N
                 UserSettings.INSTANCE.getDatabaseFileName(true)));
     }
 

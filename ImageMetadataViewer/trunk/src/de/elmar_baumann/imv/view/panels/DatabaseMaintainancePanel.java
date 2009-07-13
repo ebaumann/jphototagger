@@ -149,8 +149,8 @@ public final class DatabaseMaintainancePanel extends javax.swing.JPanel
 
     private void appendMessage(String message) {
         String newline = textAreaMessages.getText().trim().isEmpty()
-                         ? ""
-                         : "\n";
+                         ? "" // NOI18N
+                         : "\n"; // NOI18N
         textAreaMessages.append(newline + message);
     }
 
@@ -394,7 +394,7 @@ private void checkBoxDeleteUnusedThumbnailsActionPerformed(java.awt.event.Action
 }//GEN-LAST:event_checkBoxDeleteUnusedThumbnailsActionPerformed
 
 private void buttonDeleteMessagesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDeleteMessagesActionPerformed
-    textAreaMessages.setText("");
+    textAreaMessages.setText(""); // NOI18N
 }//GEN-LAST:event_buttonDeleteMessagesActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAbortAction;

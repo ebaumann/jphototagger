@@ -140,7 +140,7 @@ public final class ControllerAutocopyDirectory implements ActionListener {
                 if (fo instanceof File) {
                     File file = (File) fo;
                     String filename = file.getName().toLowerCase();
-                    if (!filename.endsWith(".xmp")) {
+                    if (!filename.endsWith(".xmp")) { // NOI18N
                         copiedFiles.add(file);
                     }
                 }

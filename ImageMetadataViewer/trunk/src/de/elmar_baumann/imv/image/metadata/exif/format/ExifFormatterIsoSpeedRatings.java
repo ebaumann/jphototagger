@@ -14,7 +14,7 @@ public final class ExifFormatterIsoSpeedRatings extends ExifFormatter {
 
     public static final ExifFormatterIsoSpeedRatings INSTANCE =
             new ExifFormatterIsoSpeedRatings();
-    private static final String postfix = " ISO";
+    private static final String postfix = " ISO"; // NOI18N
 
     private ExifFormatterIsoSpeedRatings() {
     }
@@ -28,6 +28,6 @@ public final class ExifFormatterIsoSpeedRatings extends ExifFormatter {
                     entry.getByteOrder());
             return Integer.toString(es.getValue()) + postfix;
         }
-        return "?" + postfix;
+        return "?" + postfix; // NOI18N
     }
 }

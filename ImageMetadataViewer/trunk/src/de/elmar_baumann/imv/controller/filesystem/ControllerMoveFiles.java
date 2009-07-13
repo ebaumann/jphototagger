@@ -58,7 +58,7 @@ public final class ControllerMoveFiles implements ActionListener,
 
     @Override
     public void actionPerformed(FileSystemEvent action, File src, File target) {
-        if (!src.getName().toLowerCase().endsWith(".xmp")) {
+        if (!src.getName().toLowerCase().endsWith(".xmp")) { // NOI18N
             db.updateRenameImageFilename(
                     src.getAbsolutePath(), target.getAbsolutePath());
         }

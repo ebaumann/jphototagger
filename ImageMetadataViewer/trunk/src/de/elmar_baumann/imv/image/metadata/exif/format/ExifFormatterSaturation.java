@@ -41,6 +41,6 @@ public final class ExifFormatterSaturation extends ExifFormatter {
                 return TRANSLATION.translate(exifKeyOfSaturation.get(value));
             }
         }
-        return "?";
+        return "?"; // NOI18N
     }
 }

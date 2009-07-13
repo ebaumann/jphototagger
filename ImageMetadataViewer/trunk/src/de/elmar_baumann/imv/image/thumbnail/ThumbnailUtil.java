@@ -74,7 +74,7 @@ public final class ThumbnailUtil {
         ImageReader reader = null;
         try {
             AppLog.logInfo(ThumbnailUtil.class, Bundle.getString(
-                    "ThumbnailUtil.GetFileEmbeddedThumbnail.Info", file));
+                    "ThumbnailUtil.GetFileEmbeddedThumbnail.Info", file)); // NOI18N
             reader = ReaderFactory.createReader(file);
             if (reader instanceof JpegReader) {
                 IOParameterBlock ioParamBlock = new IOParameterBlock();
@@ -97,7 +97,7 @@ public final class ThumbnailUtil {
     private static Image getScaledImageImagero(File file, int maxLength) {
         try {
             AppLog.logInfo(ThumbnailUtil.class, Bundle.getString(
-                    "ThumbnailUtil.GetScaledImageImagero.Info",
+                    "ThumbnailUtil.GetScaledImageImagero.Info", // NOI18N
                     file, maxLength));
             IOParameterBlock ioParamBlock = new IOParameterBlock();
             ImageProcOptions procOptions = new ImageProcOptions();
@@ -118,7 +118,7 @@ public final class ThumbnailUtil {
     private static void logExternalAppCommand(String cmd) {
         AppLog.logFinest(ThumbnailUtil.class,
                 Bundle.getString(
-                "ThumbnailUtil.InformationMessage.ExternalAppCreationCommand",
+                "ThumbnailUtil.InformationMessage.ExternalAppCreationCommand", // NOI18N
                 cmd));
     }
 
@@ -132,7 +132,7 @@ public final class ThumbnailUtil {
                     ExifMetadata.getExifEntries(file));
             if (rotateAngle != 0) {
                 AppLog.logInfo(ThumbnailUtil.class, Bundle.getString(
-                        "ThumbnailUtil.GetRotatedThumbnail.Information", file));
+                        "ThumbnailUtil.GetRotatedThumbnail.Information", file)); // NOI18N
                 rotatedThumbnail = ImageTransform.rotate(thumbnail, rotateAngle);
             }
         }
@@ -157,10 +157,10 @@ public final class ThumbnailUtil {
         Image image = null;
 
         AppLog.logInfo(ThumbnailUtil.class, Bundle.getString(
-                "ThumbnailUtil.GetThumbnailFromExternalApplication.Information",
+                "ThumbnailUtil.GetThumbnailFromExternalApplication.Information", // NOI18N
                 file, maxLength));
-        String cmd = command.replace("%s", IoUtil.getQuotedForCommandline(
-                Collections.singletonList(file), "")).
+        String cmd = command.replace("%s", IoUtil.getQuotedForCommandline( // NOI18N
+                Collections.singletonList(file), "")). // NOI18N
                 replace("%i", new Integer(maxLength).toString()); // NOI18N
         logExternalAppCommand(cmd);
         Pair<byte[], byte[]> output =
@@ -191,11 +191,11 @@ public final class ThumbnailUtil {
     private static void logStderr(File imageFile, Pair<byte[], byte[]> output) {
         byte[] stderr = output.getSecond();
         String errorMsg = (stderr == null
-                           ? ""
+                           ? "" // NOI18N
                            : new String(stderr).trim());
         if (!errorMsg.isEmpty()) {
             errorMsg = Bundle.getString(
-                    "ThumbnailUtil.ErrorMessage.ExternalProgram",
+                    "ThumbnailUtil.ErrorMessage.ExternalProgram", // NOI18N
                     imageFile, errorMsg);
             AppLog.logWarning(ThumbnailUtil.class, errorMsg);
         }
@@ -203,7 +203,7 @@ public final class ThumbnailUtil {
 
     public static Image getScaledImage(File file, int maxLength) {
         AppLog.logInfo(ThumbnailUtil.class, Bundle.getString(
-                "ThumbnailUtil.GetScaledImage.Information", file, maxLength));
+                "ThumbnailUtil.GetScaledImage.Information", file, maxLength)); // NOI18N
         BufferedImage image = loadImage(file);
         BufferedImage scaledImage = null;
         if (image != null) {
@@ -246,7 +246,7 @@ public final class ThumbnailUtil {
     private static BufferedImage stepScaleImage(BufferedImage image,
             int minWidth, double qfactor) {
         // Damit Assertions ausgewertet werden, muss die VM mit dem Argument -ea gestartet werden.
-        assert qfactor < 1.0 : "qfactor must be < 1.0";// wir wollen nur verkleinern! :-)
+        assert qfactor < 1.0 : "qfactor must be < 1.0"; // NOI18N wir wollen nur verkleinern! :-)
         BufferedImage scaledImage = null;
         try {
             int origHeight = image.getHeight(); // Orignalhöhe

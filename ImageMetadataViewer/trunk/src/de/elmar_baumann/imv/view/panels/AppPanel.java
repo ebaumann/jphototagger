@@ -49,9 +49,9 @@ public final class AppPanel extends javax.swing.JPanel implements
         AppExitListener {
 
     private static final String KEY_DIVIDER_LOCATION_MAIN =
-            "AppPanel.DividerLocationMain";
+            "AppPanel.DividerLocationMain"; // NOI18N
     private static final String KEY_DIVIDER_LOCATION_THUMBNAILS =
-            "AppPanel.DividerLocationThumbnails";
+            "AppPanel.DividerLocationThumbnails"; // NOI18N
     private static final int MIN_DIVIDER_LOCATION_MAIN = 100;
     private static final int MIN_DIVIDER_LOCATION_THUMBNAILS = 200;
     private final List<JTable> xmpTables = new ArrayList<JTable>();

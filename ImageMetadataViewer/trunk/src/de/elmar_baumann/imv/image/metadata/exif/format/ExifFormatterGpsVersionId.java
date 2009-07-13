@@ -33,8 +33,8 @@ public final class ExifFormatterGpsVersionId extends ExifFormatter {
         ExifByte fourth = new ExifByte(Arrays.copyOfRange(rawValue, 3, 4));
 
         return first.getValue() +
-                "." + second.getValue() +
-                "." + third.getValue() +
-                "." + fourth.getValue();
+                "." + second.getValue() + // NOI18N
+                "." + third.getValue() + // NOI18N
+                "." + fourth.getValue(); // NOI18N
     }
 }
