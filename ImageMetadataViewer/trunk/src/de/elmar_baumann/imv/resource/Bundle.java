@@ -21,8 +21,8 @@ public final class Bundle {
      * dessen Ausnahmen ab.
      * 
      * @param  key  Schlüssel
-     * @return Wert, bei einer Ausnahme der Schlüssel mit Fragezeichen
-     *         umschlossen
+     * @return      Wert, bei einer Ausnahme der Schlüssel mit Fragezeichen
+     *              umschlossen
      * @throws NullPointerException wenn der Schlüssel null ist
      */
     public static String getString(String key) {
@@ -44,8 +44,8 @@ public final class Bundle {
      *
      * @param  key     key
      * @param  params  parameters to format via {@link java.text.MessageFormat}
-     * @return     value or key between two question marks if the value could
-     *             not be retrieved
+     * @return         value or key between two question marks if the value
+     *                 could not be retrieved
      * @throws NullPointerException if the key is null
      */
     public static String getString(String key, Object... params) {
@@ -58,6 +58,16 @@ public final class Bundle {
             AppLog.logWarning(Bundle.class, ex);
         }
         return "?" + key + "?"; // NOI18N
+    }
+
+    /**
+     * Returns wheter a specific key is in the bundle.
+     *
+     * @param  key key
+     * @return     true if the bundle contains that key
+     */
+    public static boolean containsKey(String key) {
+        return BUNDLE.containsKey(key);
     }
 
     private Bundle() {
