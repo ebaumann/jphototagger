@@ -25,26 +25,6 @@ public final class Bundle {
     /**
      * Returns <code>java.util.ResourceBundle.getBundle().getString()</code>
      * and catches exceptions.
-     * 
-     * @param  key key
-     * @return     value or key between two question marks if the value could
-     *             not be retrieved
-     * @throws NullPointerException if the key is null
-     */
-    public static String getString(String key) {
-        try {
-            return BUNDLE.getString(key);
-        } catch (NullPointerException ex) {
-            throw ex;
-        } catch (Exception ex) {
-            Logger.getLogger(Bundle.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return "?" + key + "?"; // NOI18N
-    }
-
-    /**
-     * Returns <code>java.util.ResourceBundle.getBundle().getString()</code>
-     * and catches exceptions.
      *
      * @param  key     key
      * @param  params  parameters to format via {@link java.text.MessageFormat}
