@@ -1,6 +1,7 @@
 package de.elmar_baumann.imv.view.panels;
 
 import de.elmar_baumann.imv.UserSettings;
+import de.elmar_baumann.imv.app.MessageDisplayer;
 import de.elmar_baumann.imv.data.Program;
 import de.elmar_baumann.imv.event.listener.impl.ListenerProvider;
 import de.elmar_baumann.imv.event.UserSettingsChangeEvent;
@@ -14,7 +15,6 @@ import de.elmar_baumann.lib.io.FileUtil;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -22,7 +22,7 @@ import javax.swing.JOptionPane;
  * @version 2008/11/02
  */
 public final class SettingsProgramsPanel extends javax.swing.JPanel
-    implements Persistence {
+        implements Persistence {
 
     private final ListModelPrograms model = new ListModelPrograms(false);
     private final ListenerProvider listenerProvider = ListenerProvider.INSTANCE;
@@ -38,7 +38,8 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel
         String filename = UserSettings.INSTANCE.getDefaultImageOpenApp();
         labelDefaultProgramFile.setText(filename);
         if (FileUtil.existsFile(filename)) {
-            labelDefaultProgramFile.setIcon(IconUtil.getSystemIcon(new File(filename)));
+            labelDefaultProgramFile.setIcon(IconUtil.getSystemIcon(new File(
+                    filename)));
         }
     }
 
@@ -97,23 +98,21 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel
     }
 
     private boolean askRemove(String otherImageOpenApp) {
-        return JOptionPane.showConfirmDialog(
-            this,
-            Bundle.getString("UserSettingsDialog.ConfirmMessage.RemoveImageOpenApp", otherImageOpenApp),
-            Bundle.getString("UserSettingsDialog.ConfirmMessage.RemoveImageOpenApp.Title"),
-            JOptionPane.YES_NO_OPTION,
-            JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION;
+        return MessageDisplayer.confirm(
+                "UserSettingsDialog.ConfirmMessage.RemoveImageOpenApp", // NOI18N
+                MessageDisplayer.CancelButton.HIDE, otherImageOpenApp).equals(
+                MessageDisplayer.ConfirmAction.YES);
     }
 
     private synchronized void notifyChangeListenerOther() {
         UserSettingsChangeEvent evt = new UserSettingsChangeEvent(
-            UserSettingsChangeEvent.Type.OTHER_IMAGE_OPEN_APPS, this);
+                UserSettingsChangeEvent.Type.OTHER_IMAGE_OPEN_APPS, this);
         listenerProvider.notifyUserSettingsChangeListener(evt);
     }
 
     private synchronized void notifyChangeListenerDefault() {
         UserSettingsChangeEvent evt = new UserSettingsChangeEvent(
-            UserSettingsChangeEvent.Type.DEFAULT_IMAGE_OPEN_APP, this);
+                UserSettingsChangeEvent.Type.DEFAULT_IMAGE_OPEN_APP, this);
         evt.setDefaultImageOpenApp(new File(labelDefaultProgramFile.getText()));
         listenerProvider.notifyUserSettingsChangeListener(evt);
     }
@@ -311,7 +310,6 @@ private void buttonEditOtherProgramActionPerformed(java.awt.event.ActionEvent ev
 private void listOtherProgramsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listOtherProgramsMouseClicked
     handleListOtherProgramsMouseClicked(evt);
 }//GEN-LAST:event_listOtherProgramsMouseClicked
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAddOtherProgram;
     private javax.swing.JButton buttonChooseDefaultProgram;

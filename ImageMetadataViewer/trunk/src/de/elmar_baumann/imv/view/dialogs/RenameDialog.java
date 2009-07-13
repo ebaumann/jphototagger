@@ -3,6 +3,7 @@ package de.elmar_baumann.imv.view.dialogs;
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.app.AppIcons;
 import de.elmar_baumann.imv.app.AppLog;
+import de.elmar_baumann.imv.app.MessageDisplayer;
 import de.elmar_baumann.imv.controller.filesystem.FilenameFormatDate;
 import de.elmar_baumann.imv.controller.filesystem.FilenameFormatEmptyString;
 import de.elmar_baumann.imv.controller.filesystem.FilenameFormat;
@@ -30,7 +31,6 @@ import java.util.List;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
-import javax.swing.JOptionPane;
 import javax.swing.SpinnerNumberModel;
 
 /**
@@ -228,12 +228,7 @@ public final class RenameDialog extends Dialog {
         String input = textFieldNewName.getText().trim();
         boolean defined = !input.isEmpty();
         if (!defined) {
-            JOptionPane.showMessageDialog(
-                    null,
-                    Bundle.getString("RenameDialog.ErrorMessage.InvalidInput"),
-                    Bundle.getString(
-                    "RenameDialog.ErrorMessage.InvalidInput.Title"),
-                    JOptionPane.ERROR_MESSAGE);
+            MessageDisplayer.error("RenameDialog.ErrorMessage.InvalidInput"); // NOI18N
         }
         return defined;
     }
@@ -242,12 +237,7 @@ public final class RenameDialog extends Dialog {
         boolean equals = newFile.getAbsolutePath().equals(oldFile.
                 getAbsolutePath());
         if (equals) {
-            JOptionPane.showMessageDialog(
-                    null,
-                    Bundle.getString("RenameDialog.ErrorMessage.FilenamesEquals"),
-                    Bundle.getString(
-                    "RenameDialog.ErrorMessage.FilenamesEquals.Title"),
-                    JOptionPane.ERROR_MESSAGE);
+            MessageDisplayer.error("RenameDialog.ErrorMessage.FilenamesEquals"); // NOI18N
         }
         return !equals;
     }
@@ -255,13 +245,8 @@ public final class RenameDialog extends Dialog {
     private boolean checkNewFileNotExists(File file) {
         boolean exists = file.exists();
         if (exists) {
-            JOptionPane.showMessageDialog(
-                    null,
-                    Bundle.getString("RenameDialog.ErrorMessage.NewFileExists",
-                    file.getName()),
-                    Bundle.getString(
-                    "RenameDialog.ErrorMessage.NewFileExists.Title"),
-                    JOptionPane.ERROR_MESSAGE);
+            MessageDisplayer.error("RenameDialog.ErrorMessage.NewFileExists", // NOI18N
+                    file.getName());
         }
         return !exists;
     }
@@ -352,13 +337,10 @@ public final class RenameDialog extends Dialog {
     }
 
     private void errorMessageNotRenamed(String filename) {
-        if (JOptionPane.showConfirmDialog(null,
-                Bundle.getString("RenameDialog.ConfirmMessage.RenameNextFile",
-                filename),
-                Bundle.getString(
-                "RenameDialog.ConfirmMessage.RenameNextFile.Title"),
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.ERROR_MESSAGE) == JOptionPane.NO_OPTION) {
+        if (MessageDisplayer.confirm(
+                "RenameDialog.ConfirmMessage.RenameNextFile", // NOI18N
+                MessageDisplayer.CancelButton.HIDE, filename).equals(
+                MessageDisplayer.ConfirmAction.NO)) {
             stop = true;
             setVisible(false);
             dispose();

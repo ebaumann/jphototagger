@@ -64,7 +64,7 @@ public class ControllerRenameHierarchicalKeyword
         TreePath path = tree.getSelectionPath();
         if (path == null) {
             MessageDisplayer.error(
-                    "ControllerRenameHierarchicalKeyword.Error.NoPathSelected");
+                    "ControllerRenameHierarchicalKeyword.Error.NoPathSelected"); // NOI18N
         } else {
             Object node = path.getLastPathComponent();
             if (node instanceof DefaultMutableTreeNode) {
@@ -75,7 +75,7 @@ public class ControllerRenameHierarchicalKeyword
                     renameKeyword(keywordNode, (HierarchicalKeyword) userObject);
                 } else {
                     MessageDisplayer.error(
-                            "ControllerRenameHierarchicalKeyword.Error.Node",
+                            "ControllerRenameHierarchicalKeyword.Error.Node", // NOI18N
                             node);
                 }
             }
@@ -105,7 +105,7 @@ public class ControllerRenameHierarchicalKeyword
         boolean confirmed = true;
         while (newName == null && confirmed) {
             newName = JOptionPane.showInputDialog(Bundle.getString(
-                    "ControllerRenameHierarchicalKeyword.Input.Name", oldName),
+                    "ControllerRenameHierarchicalKeyword.Input.Name", oldName), // NOI18N
                     oldName);
             confirmed = newName != null;
             if (newName != null && !newName.trim().isEmpty()) {
@@ -114,8 +114,9 @@ public class ControllerRenameHierarchicalKeyword
                 if (database.parentHasChild(s)) {
                     newName = null;
                     confirmed = MessageDisplayer.confirm(
-                            "ControllerRenameHierarchicalKeyword.Confirm.Exists",
-                            false, keyword) == JOptionPane.YES_OPTION;
+                            "ControllerRenameHierarchicalKeyword.Confirm.Exists", // NOI18N
+                            MessageDisplayer.CancelButton.HIDE, keyword).equals(
+                            MessageDisplayer.ConfirmAction.YES);
                 }
             }
         }

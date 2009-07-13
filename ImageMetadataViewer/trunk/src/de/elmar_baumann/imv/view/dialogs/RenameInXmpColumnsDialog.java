@@ -2,6 +2,7 @@ package de.elmar_baumann.imv.view.dialogs;
 
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.app.AppIcons;
+import de.elmar_baumann.imv.app.MessageDisplayer;
 import de.elmar_baumann.imv.database.metadata.Column;
 import de.elmar_baumann.imv.database.metadata.selections.EditColumns;
 import de.elmar_baumann.imv.resource.Bundle;
@@ -10,7 +11,6 @@ import de.elmar_baumann.lib.util.SettingsHints;
 import java.util.EnumSet;
 import java.util.Set;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -98,18 +98,13 @@ public final class RenameInXmpColumnsDialog extends Dialog {
     }
 
     private void oldStringIsEmptyErrorMessage() {
-        JOptionPane.showMessageDialog(
-                null,
-                Bundle.getString(
-                "RenameInXmpColumnsDialog.ErrorMessage.MissingReplaceString"),
-                Bundle.getString(
-                "RenameInXmpColumnsDialog.ErrorMessage.MissingReplaceString.Title"),
-                JOptionPane.ERROR_MESSAGE);
+        MessageDisplayer.error(
+                "RenameInXmpColumnsDialog.ErrorMessage.MissingReplaceString"); // NOI18N
     }
 
     @Override
     protected void help() {
-        help(Bundle.getString("Help.Url.RenameInXmpColumnsDialog"));
+        help(Bundle.getString("Help.Url.RenameInXmpColumnsDialog")); // NOI18N
     }
 
     @Override

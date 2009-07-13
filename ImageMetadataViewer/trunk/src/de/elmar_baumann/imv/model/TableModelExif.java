@@ -2,6 +2,7 @@ package de.elmar_baumann.imv.model;
 
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.app.AppLog;
+import de.elmar_baumann.imv.app.MessageDisplayer;
 import de.elmar_baumann.imv.image.metadata.exif.entry.ExifGpsMetadata;
 import de.elmar_baumann.imv.image.metadata.exif.entry.ExifGpsUtil;
 import de.elmar_baumann.imv.image.metadata.exif.ExifIfdEntryDisplayComparator;
@@ -20,7 +21,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import javax.swing.JButton;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -150,20 +150,11 @@ public final class TableModelExif extends DefaultTableModel {
 
         private boolean checkWebBrowser(String webBrowser) {
             if (webBrowser.length() <= 0) {
-                errorMessageWebBrowser();
+                MessageDisplayer.error("TableModelExif.ErrorMessage.WebBrowser"); // NOI18N
                 setWebBrowser();
                 return false;
             }
             return true;
-        }
-
-        private void errorMessageWebBrowser() {
-            JOptionPane.showMessageDialog(
-                    null,
-                    Bundle.getString("TableModelExif.ErrorMessage.WebBrowser"),
-                    Bundle.getString(
-                    "TableModelExif.ErrorMessage.WebBrowser.Title"),
-                    JOptionPane.ERROR_MESSAGE);
         }
 
         private void setWebBrowser() {

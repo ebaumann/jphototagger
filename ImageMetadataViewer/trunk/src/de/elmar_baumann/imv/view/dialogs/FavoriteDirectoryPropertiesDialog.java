@@ -2,6 +2,7 @@ package de.elmar_baumann.imv.view.dialogs;
 
 import de.elmar_baumann.imv.app.AppIcons;
 import de.elmar_baumann.imv.UserSettings;
+import de.elmar_baumann.imv.app.MessageDisplayer;
 import de.elmar_baumann.imv.database.DatabaseFavoriteDirectories;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.dialog.Dialog;
@@ -11,7 +12,6 @@ import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.util.List;
-import javax.swing.JOptionPane;
 
 /**
  * Neues Favoritenverzeichnis erstellen oder modifiziertes aktualisieren.
@@ -124,14 +124,9 @@ public final class FavoriteDirectoryPropertiesDialog extends Dialog {
             String favoriteName = textFieldFavoriteName.getText().trim();
             boolean exists = db.existsFavoriteDirectory(favoriteName);
             if (!isUpdate && exists) {
-                JOptionPane.showMessageDialog(
-                        null,
-                        Bundle.getString(
-                        "FavoriteDirectoryPropertiesDialog.ErrorMessage.FavoriteExists",
-                        favoriteName),
-                        Bundle.getString(
-                        "FavoriteDirectoryPropertiesDialog.ErrorMessage.FavoriteExists.Title"),
-                        JOptionPane.ERROR_MESSAGE);
+                MessageDisplayer.error(
+                        "FavoriteDirectoryPropertiesDialog.ErrorMessage.FavoriteExists", // NOI18N
+                        favoriteName);
             } else {
                 accepted = true;
                 setVisible(false);
@@ -141,13 +136,8 @@ public final class FavoriteDirectoryPropertiesDialog extends Dialog {
 
     private boolean checkValuesOk() {
         if (!valuesOk()) {
-            JOptionPane.showMessageDialog(
-                    this,
-                    Bundle.getString(
-                    "FavoriteDirectoryPropertiesDialog.ErrorMessage.InvalidInput"),
-                    Bundle.getString(
-                    "FavoriteDirectoryPropertiesDialog.ErrorMessage.InvalidInput.Title"),
-                    JOptionPane.ERROR_MESSAGE);
+            MessageDisplayer.error(
+                    "FavoriteDirectoryPropertiesDialog.ErrorMessage.InvalidInput"); // NOI18N
             return false;
         }
         return true;

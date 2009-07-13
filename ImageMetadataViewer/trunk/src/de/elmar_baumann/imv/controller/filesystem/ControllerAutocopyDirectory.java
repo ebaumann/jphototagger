@@ -3,6 +3,7 @@ package de.elmar_baumann.imv.controller.filesystem;
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.app.AppTexts;
+import de.elmar_baumann.imv.app.MessageDisplayer;
 import de.elmar_baumann.imv.database.DatabaseImageCollections;
 import de.elmar_baumann.imv.event.ProgressEvent;
 import de.elmar_baumann.imv.event.listener.ProgressListener;
@@ -24,7 +25,6 @@ import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.List;
-import javax.swing.JOptionPane;
 import javax.swing.ListModel;
 
 /**
@@ -50,7 +50,7 @@ public final class ControllerAutocopyDirectory implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (stop) {
             AppLog.logWarning(ControllerAutocopyDirectory.class,
-                    Bundle.getString("ControllerAutocopyDirectory.Error.Stopped"));
+                    Bundle.getString("ControllerAutocopyDirectory.Error.Stopped")); // NOI18N
         } else {
             copy();
         }
@@ -96,27 +96,20 @@ public final class ControllerAutocopyDirectory implements ActionListener {
     }
 
     private void informationMessageNoFilesFound() {
-        if (JOptionPane.showConfirmDialog(
-                null,
-                Bundle.getString(
-                "ControllerAutocopyDirectory.InformationMessage.NoFilesFound"),
-                Bundle.getString(
-                "ControllerAutocopyDirectory.InformationMessage.NoFilesFound.Title"),
-                JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+        if (MessageDisplayer.confirm(
+                "ControllerAutocopyDirectory.InformationMessage.NoFilesFound", // NOI18N
+                MessageDisplayer.CancelButton.HIDE).equals(
+                MessageDisplayer.ConfirmAction.YES)) {
             setAutocopyDirectory();
             copy();
         }
     }
 
     private boolean confirmSetAutocopyDirectory() {
-        return JOptionPane.showConfirmDialog(
-                null,
-                Bundle.getString(
-                "ControllerAutocopyDirectory.ConfirmMessage.DefineDirectory"),
-                Bundle.getString(
-                "ControllerAutocopyDirectory.ConfirmMessage.DefineDirectory.Title"),
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION;
+        return MessageDisplayer.confirm(
+                "ControllerAutocopyDirectory.ConfirmMessage.DefineDirectory", // NOI18N
+                MessageDisplayer.CancelButton.HIDE).equals(
+                MessageDisplayer.ConfirmAction.YES);
     }
 
     private class CopyTask extends Thread implements ProgressListener {

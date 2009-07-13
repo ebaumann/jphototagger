@@ -2,6 +2,7 @@ package de.elmar_baumann.imv.view.dialogs;
 
 import de.elmar_baumann.imv.app.AppIcons;
 import de.elmar_baumann.imv.UserSettings;
+import de.elmar_baumann.imv.app.MessageDisplayer;
 import de.elmar_baumann.imv.event.ProgressEvent;
 import de.elmar_baumann.imv.event.listener.ProgressListener;
 import de.elmar_baumann.imv.io.ImageFilteredDirectory;
@@ -15,7 +16,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -58,13 +58,7 @@ public final class IptcToXmpDialog extends Dialog
     }
 
     private void errorMessageWaitBeforeClose() {
-        JOptionPane.showMessageDialog(
-                null,
-                Bundle.getString(
-                "IptcToXmpDialog.ErrorMessage.CancelBeforeClose"),
-                Bundle.getString(
-                "IptcToXmpDialog.ErrorMessage.CancelBeforeClose.Title"),
-                JOptionPane.INFORMATION_MESSAGE);
+        MessageDisplayer.error("IptcToXmpDialog.ErrorMessage.CancelBeforeClose"); // NOI18N
     }
 
     private void postInitComponents() {

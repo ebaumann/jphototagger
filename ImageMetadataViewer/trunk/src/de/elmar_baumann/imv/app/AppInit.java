@@ -7,8 +7,6 @@ import de.elmar_baumann.imv.view.frames.AppFrame;
 import de.elmar_baumann.lib.system.SystemUtil;
 import de.elmar_baumann.lib.util.Version;
 import de.elmar_baumann.lib.dialog.SystemOutputDialog;
-import java.awt.HeadlessException;
-import javax.swing.JOptionPane;
 
 /**
  * Initializes the application.
@@ -98,16 +96,8 @@ public final class AppInit {
         }
     }
 
-    private static void errorMessageJavaVersion(Version javaVersion) throws
-            HeadlessException {
-        JOptionPane.showMessageDialog(null,
-                getVersionMessage(javaVersion),
-                Bundle.getString("AppInit.ErrorMessage.JavaVersion.Title"),
-                JOptionPane.ERROR_MESSAGE);
-    }
-
-    private static Object getVersionMessage(Version javaVersion) {
-        return Bundle.getString("AppInit.ErrorMessage.JavaVersion",
+    private static void errorMessageJavaVersion(Version javaVersion) {
+        MessageDisplayer.error("AppInit.ErrorMessage.JavaVersion", // NOI18N
                 javaVersion, AppInfo.MIN_JAVA_VERSION);
     }
 }

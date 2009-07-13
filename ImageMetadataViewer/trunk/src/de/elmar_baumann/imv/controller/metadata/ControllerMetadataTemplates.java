@@ -1,6 +1,7 @@
 package de.elmar_baumann.imv.controller.metadata;
 
 import de.elmar_baumann.imv.app.AppLog;
+import de.elmar_baumann.imv.app.MessageDisplayer;
 import de.elmar_baumann.imv.data.MetadataEditTemplate;
 import de.elmar_baumann.imv.database.DatabaseMetadataEditTemplates;
 import de.elmar_baumann.imv.event.listener.impl.ListenerProvider;
@@ -211,26 +212,16 @@ public final class ControllerMetadataTemplates implements ActionListener,
     }
 
     private boolean confirmDelete(String templateName) {
-        return JOptionPane.showConfirmDialog(
-                null,
-                Bundle.getString(
-                "ControllerMetadataTemplates.ConfirmMessage.Delete",
-                templateName),
-                Bundle.getString(
-                "ControllerMetadataTemplates.ConfirmMessage.Delete.Title"),
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION;
+        return MessageDisplayer.confirm(
+                "ControllerMetadataTemplates.ConfirmMessage.Delete", // NOI18N
+                MessageDisplayer.CancelButton.HIDE, templateName).equals(
+                MessageDisplayer.ConfirmAction.YES);
     }
 
     private boolean confirmAbort(String name) {
-        return JOptionPane.showConfirmDialog(
-                null,
-                Bundle.getString(
-                "ControllerMetadataTemplates.ConfirmMessage.OverwriteExistingTemplate",
-                name),
-                Bundle.getString(
-                "ControllerMetadataTemplates.ConfirmMessage.OverwriteExistingTemplate.Title"),
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.QUESTION_MESSAGE) == JOptionPane.NO_OPTION;
+        return MessageDisplayer.confirm(
+                "ControllerMetadataTemplates.ConfirmMessage.OverwriteExistingTemplate", // NOI18N
+                MessageDisplayer.CancelButton.HIDE, name).equals(
+                MessageDisplayer.ConfirmAction.NO);
     }
 }

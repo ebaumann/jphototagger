@@ -64,7 +64,7 @@ public final class TreeModelHierarchicalKeywords extends DefaultTreeModel {
                         expandPath(new TreePath(parentNode.getPath()));
             } else {
                 MessageDisplayer.error(
-                        "TreeModelHierarchicalKeywords.Error.DbInsert", keyword);
+                        "TreeModelHierarchicalKeywords.Error.DbInsert", keyword); // NOI18N
             }
         }
     }
@@ -73,7 +73,7 @@ public final class TreeModelHierarchicalKeywords extends DefaultTreeModel {
             DefaultMutableTreeNode parentNode, String keyword) {
         if (childHasKeyword(parentNode, keyword)) {
             MessageDisplayer.error(
-                    "TreeModelHierarchicalKeywords.Error.KeywordExists",
+                    "TreeModelHierarchicalKeywords.Error.KeywordExists", // NOI18N
                     keyword, parentNode);
             return false;
         }
@@ -121,7 +121,7 @@ public final class TreeModelHierarchicalKeywords extends DefaultTreeModel {
             removeNodeFromParent(keywordNode);
         } else {
             MessageDisplayer.error(
-                    "TreeModelHierarchicalKeywords.Error.DbRemove",
+                    "TreeModelHierarchicalKeywords.Error.DbRemove", // NOI18N
                     keywordNode.toString());
         }
     }
@@ -145,7 +145,7 @@ public final class TreeModelHierarchicalKeywords extends DefaultTreeModel {
                         new int[]{parentNode.getIndex(node)}, new Object[]{node});
             } else {
                 MessageDisplayer.error(
-                        "TreeModelHierarchicalKeywords.Error.DbUpdate", keyword);
+                        "TreeModelHierarchicalKeywords.Error.DbUpdate", keyword); // NOI18N
             }
         }
     }
@@ -189,7 +189,7 @@ public final class TreeModelHierarchicalKeywords extends DefaultTreeModel {
         }
         AppLog.logWarning(TreeModelHierarchicalKeywords.class,
                 Bundle.getString(
-                "TreeModelHierarchicalKeywords.Error.SetIdParent", parentNode));
+                "TreeModelHierarchicalKeywords.Error.SetIdParent", parentNode)); // NOI18N
         return false;
     }
 
@@ -197,7 +197,7 @@ public final class TreeModelHierarchicalKeywords extends DefaultTreeModel {
             DefaultMutableTreeNode source, DefaultMutableTreeNode target) {
         if (TreeUtil.isBelow(source, target)) {
             MessageDisplayer.error(
-                    "TreeModelHierarchicalKeywords.Error.Move.NodeIsBelow",
+                    "TreeModelHierarchicalKeywords.Error.Move.NodeIsBelow", // NOI18N
                     source, target);
             return false;
         }
@@ -208,7 +208,7 @@ public final class TreeModelHierarchicalKeywords extends DefaultTreeModel {
             DefaultMutableTreeNode target, DefaultMutableTreeNode source) {
         if (TreeUtil.isChild(target, source)) {
             MessageDisplayer.error(
-                    "TreeModelHierarchicalKeywords.Error.Move.NodeIsChild",
+                    "TreeModelHierarchicalKeywords.Error.Move.NodeIsChild", // NOI18N
                     source, target);
             return false;
         }

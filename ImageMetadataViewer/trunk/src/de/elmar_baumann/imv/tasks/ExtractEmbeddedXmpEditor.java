@@ -1,15 +1,14 @@
 package de.elmar_baumann.imv.tasks;
 
 import de.elmar_baumann.imv.app.AppLog;
+import de.elmar_baumann.imv.app.MessageDisplayer;
 import de.elmar_baumann.imv.image.metadata.xmp.XmpMetadata;
-import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.image.metadata.xmp.XmpFileReader;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.EnumSet;
-import javax.swing.JOptionPane;
 
 /**
  * Extracts in images embedded XMP metadata into sidecar files.
@@ -22,16 +21,17 @@ public final class ExtractEmbeddedXmpEditor extends FileEditor {
     @Override
     public void edit(File file) {
         File sidecarFile = XmpMetadata.getSidecarFileOfImageFileIfExists(file);
-        if (sidecarFile != null && !confirmRemove(sidecarFile.getAbsolutePath())) return;
+        if (sidecarFile != null && !confirmRemove(sidecarFile.getAbsolutePath()))
+            return;
         writeSidecarFile(file);
     }
 
     private boolean confirmRemove(String absolutePath) {
         if (getConfirmOverwrite()) {
-            return JOptionPane.showConfirmDialog(null,
-                Bundle.getString("ExtractEmbeddedXmpEditor.ConfirmMessage.Overwrite", absolutePath),
-                Bundle.getString("ExtractEmbeddedXmpEditor.ConfirmMessage.Overwrite.Title"),
-                JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION;
+            return MessageDisplayer.confirm(
+                    "ExtractEmbeddedXmpEditor.ConfirmMessage.Overwrite", // NOI18N
+                    MessageDisplayer.CancelButton.HIDE, absolutePath).equals(
+                    MessageDisplayer.ConfirmAction.YES);
         }
         return true;
     }
@@ -47,7 +47,9 @@ public final class ExtractEmbeddedXmpEditor extends FileEditor {
         if (xmp != null) {
             try {
                 create(file);
-                FileOutputStream fos = new FileOutputStream(new File(XmpMetadata.suggestSidecarFilenameForImageFile(file.getAbsolutePath())));
+                FileOutputStream fos = new FileOutputStream(new File(
+                        XmpMetadata.suggestSidecarFilenameForImageFile(file.
+                        getAbsolutePath())));
                 fos.write(xmp.getBytes());
                 fos.flush();
                 fos.close();
@@ -60,8 +62,8 @@ public final class ExtractEmbeddedXmpEditor extends FileEditor {
 
     private void updateDatabase(String imageFilename) {
         InsertImageFilesIntoDatabase insert = new InsertImageFilesIntoDatabase(
-            Arrays.asList(imageFilename),
-            EnumSet.of(InsertImageFilesIntoDatabase.Insert.XMP));
+                Arrays.asList(imageFilename),
+                EnumSet.of(InsertImageFilesIntoDatabase.Insert.XMP));
         insert.run(); // Shall run in this thread!
     }
 }

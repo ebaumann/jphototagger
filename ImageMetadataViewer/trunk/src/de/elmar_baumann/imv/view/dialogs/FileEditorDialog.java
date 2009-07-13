@@ -2,10 +2,10 @@ package de.elmar_baumann.imv.view.dialogs;
 
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.app.AppIcons;
+import de.elmar_baumann.imv.app.MessageDisplayer;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.view.panels.FileEditorPanel;
 import de.elmar_baumann.lib.dialog.Dialog;
-import javax.swing.JOptionPane;
 
 /**
  * Dialog with a {@link de.elmar_baumann.imv.view.panels.FileEditorPanel}.
@@ -40,22 +40,15 @@ public class FileEditorDialog extends Dialog {
 
     private void disposeIfNotRunning() {
         if (panelFileEditor.isRunning()) {
-            errorMessageRunning();
+            MessageDisplayer.error("FileEditorDialog.ErrorMessage.Running"); // NOI18N
         } else {
             dispose();
         }
     }
 
-    private void errorMessageRunning() {
-        JOptionPane.showMessageDialog(this,
-            Bundle.getString("FileEditorDialog.ErrorMessage.Running"),
-            Bundle.getString("FileEditorDialog.ErrorMessage.Running.Title"),
-            JOptionPane.ERROR_MESSAGE);
-    }
-
     private void postInitComponents() {
         setIconImages(AppIcons.getAppIcons());
-        setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
+        setHelpContentsUrl(Bundle.getString("Help.Url.Contents")); // NOI18N
         registerKeyStrokes();
     }
 
@@ -114,7 +107,8 @@ public class FileEditorDialog extends Dialog {
 
             @Override
             public void run() {
-                FileEditorDialog dialog = new FileEditorDialog(new javax.swing.JFrame());
+                FileEditorDialog dialog = new FileEditorDialog(
+                        new javax.swing.JFrame());
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
 
                     @Override
@@ -126,7 +120,6 @@ public class FileEditorDialog extends Dialog {
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private de.elmar_baumann.imv.view.panels.FileEditorPanel panelFileEditor;
     // End of variables declaration//GEN-END:variables

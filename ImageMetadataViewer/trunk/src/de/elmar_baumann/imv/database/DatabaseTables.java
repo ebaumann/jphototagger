@@ -4,7 +4,6 @@ import de.elmar_baumann.imv.app.AppLock;
 import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.dialog.LongMessageDialog;
-import java.awt.HeadlessException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -426,8 +425,7 @@ public final class DatabaseTables extends Database {
         }
     }
 
-    private void errorMessageSqlException(SQLException ex) throws
-            HeadlessException {
+    private void errorMessageSqlException(SQLException ex) {
         LongMessageDialog dlg = new LongMessageDialog(null, true);
         dlg.setTitle(Bundle.getString("DatabaseTables.ErrorMessage.Title"));
         dlg.setMessage(getExceptionMessage(ex));

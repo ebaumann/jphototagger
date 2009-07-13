@@ -3,6 +3,7 @@ package de.elmar_baumann.imv.view.dialogs;
 import de.elmar_baumann.imv.app.AppIcons;
 import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.UserSettings;
+import de.elmar_baumann.imv.app.MessageDisplayer;
 import de.elmar_baumann.imv.event.FileSystemEvent;
 import de.elmar_baumann.imv.event.listener.FileSystemActionListener;
 import de.elmar_baumann.imv.event.FileSystemError;
@@ -21,7 +22,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -76,13 +76,8 @@ public final class MoveToDirectoryDialog extends Dialog
 
     private void checkClosing() {
         if (runs) {
-            JOptionPane.showMessageDialog(
-                    null,
-                    Bundle.getString(
-                    "MoveToDirectoryDialog.ErrorMessage.AbortBeforeClose"),
-                    Bundle.getString(
-                    "MoveToDirectoryDialog.ErrorMessage.AbortBeforeClose.Title"),
-                    JOptionPane.INFORMATION_MESSAGE);
+            MessageDisplayer.error(
+                    "MoveToDirectoryDialog.ErrorMessage.AbortBeforeClose"); // NOI18N
         } else {
             setVisible(false);
         }
@@ -90,13 +85,8 @@ public final class MoveToDirectoryDialog extends Dialog
 
     private void checkErrors() {
         if (errors) {
-            JOptionPane.showMessageDialog(
-                    this,
-                    Bundle.getString(
-                    "MoveToDirectoryDialog.ErrorMessage.CheckLogfile"),
-                    Bundle.getString(
-                    "MoveToDirectoryDialog.ErrorMessage.CheckLogfile.Title"),
-                    JOptionPane.ERROR_MESSAGE);
+            MessageDisplayer.error(
+                    "MoveToDirectoryDialog.ErrorMessage.CheckLogfile"); // NOI18N
         }
     }
 

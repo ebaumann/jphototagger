@@ -2,6 +2,7 @@ package de.elmar_baumann.imv.io;
 
 import de.elmar_baumann.imv.app.AppFileFilter;
 import de.elmar_baumann.imv.app.AppLog;
+import de.elmar_baumann.imv.app.MessageDisplayer;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.io.filefilter.RegexFileFilter;
 import de.elmar_baumann.lib.runtime.External;
@@ -9,7 +10,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JOptionPane;
 
 /**
  * Utils für I/O.
@@ -31,14 +31,11 @@ public final class IoUtil {
             String openCommand = appPath + separator + arguments;
             try {
                 AppLog.logInfo(IoUtil.class,
-                        Bundle.getString("IoUtil.Info.Execute", openCommand));
+                        Bundle.getString("IoUtil.Info.Execute", openCommand)); // NOI18N
                 Runtime.getRuntime().exec(External.parseQuotedCommandLine(openCommand));
             } catch (IOException ex) {
                 AppLog.logWarning(IoUtil.class, ex);
-                JOptionPane.showMessageDialog(null,
-                        Bundle.getString("IoUtil.ErrorMessage.OpenFile"),
-                        Bundle.getString("IoUtil.ErrorMessage.OpenFile.Title"),
-                        JOptionPane.ERROR_MESSAGE);
+                MessageDisplayer.error("IoUtil.ErrorMessage.OpenFile"); // NOI18N
             }
         }
     }

@@ -11,7 +11,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import javax.swing.JOptionPane;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeModel;
@@ -59,7 +58,7 @@ public class ControllerRemoveHierarchicalKeyword
         TreePath path = tree.getSelectionPath();
         if (path == null) {
             MessageDisplayer.error(
-                    "ControllerDeleteHierarchicalKeyword.Error.NoPathSelected");
+                    "ControllerDeleteHierarchicalKeyword.Error.NoPathSelected"); // NOI18N
         } else {
             Object node = path.getLastPathComponent();
             if (node instanceof DefaultMutableTreeNode) {
@@ -70,7 +69,7 @@ public class ControllerRemoveHierarchicalKeyword
                     delete(keywordNode, (HierarchicalKeyword) userObject);
                 } else {
                     MessageDisplayer.error(
-                            "ControllerDeleteHierarchicalKeyword.Error.Node",
+                            "ControllerDeleteHierarchicalKeyword.Error.Node", // NOI18N
                             node);
                 }
             }
@@ -82,14 +81,15 @@ public class ControllerRemoveHierarchicalKeyword
         TreeModel tm = panel.getTree().getModel();
         if (tm instanceof TreeModelHierarchicalKeywords) {
             if (MessageDisplayer.confirm(
-                    "ControllerDeleteHierarchicalKeyword.Confirm.Delete",
-                    false, keyword) == JOptionPane.YES_OPTION) {
+                    "ControllerDeleteHierarchicalKeyword.Confirm.Delete", // NOI18N
+                    MessageDisplayer.CancelButton.HIDE, keyword).equals(
+                    MessageDisplayer.ConfirmAction.YES)) {
                 ((TreeModelHierarchicalKeywords) tm).removeKeyword(node);
             }
         } else {
             AppLog.logWarning(ControllerRemoveHierarchicalKeyword.class,
                     Bundle.getString(
-                    "ControllerDeleteHierarchicalKeyword.Error.Model"));
+                    "ControllerDeleteHierarchicalKeyword.Error.Model")); // NOI18N
         }
     }
 

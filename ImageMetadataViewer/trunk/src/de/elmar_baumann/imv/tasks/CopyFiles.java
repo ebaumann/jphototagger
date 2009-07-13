@@ -1,6 +1,7 @@
 package de.elmar_baumann.imv.tasks;
 
 import de.elmar_baumann.imv.app.AppLog;
+import de.elmar_baumann.imv.app.MessageDisplayer;
 import de.elmar_baumann.imv.event.ProgressEvent;
 import de.elmar_baumann.imv.event.listener.ProgressListener;
 import de.elmar_baumann.imv.resource.Bundle;
@@ -9,7 +10,6 @@ import de.elmar_baumann.lib.generics.Pair;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JOptionPane;
 
 /**
  * Kopieren von Dateien.
@@ -19,7 +19,8 @@ import javax.swing.JOptionPane;
  */
 public final class CopyFiles implements Runnable {
 
-    private final List<ProgressListener> progressListeners = new ArrayList<ProgressListener>();
+    private final List<ProgressListener> progressListeners =
+            new ArrayList<ProgressListener>();
     private final List<File> errorFiles = new ArrayList<File>();
     private final List<Pair<File, File>> files;
     private final Options options;
@@ -87,7 +88,8 @@ public final class CopyFiles implements Runnable {
                 try {
                     File sourceFile = filePair.getFirst();
                     File targetFile = filePair.getSecond();
-                    logCopyFile(sourceFile.getAbsolutePath(), targetFile.getAbsolutePath());
+                    logCopyFile(sourceFile.getAbsolutePath(), targetFile.
+                            getAbsolutePath());
                     FileUtil.copyFile(sourceFile, targetFile);
                 } catch (Exception ex) {
                     AppLog.logWarning(CopyFiles.class, ex);
@@ -112,15 +114,18 @@ public final class CopyFiles implements Runnable {
         }
     }
 
-    private synchronized void notifyPerformed(int value, Pair<File, File> filePair) {
-        ProgressEvent evt = new ProgressEvent(this, 0, files.size(), value, filePair);
+    private synchronized void notifyPerformed(int value,
+            Pair<File, File> filePair) {
+        ProgressEvent evt = new ProgressEvent(this, 0, files.size(), value,
+                filePair);
         for (ProgressListener listener : progressListeners) {
             listener.progressPerformed(evt);
         }
     }
 
     private synchronized void notifyEnded() {
-        ProgressEvent evt = new ProgressEvent(this, 0, files.size(), files.size(), errorFiles);
+        ProgressEvent evt = new ProgressEvent(this, 0, files.size(),
+                files.size(), errorFiles);
         for (ProgressListener listener : progressListeners) {
             listener.progressEnded(evt);
         }
@@ -132,16 +137,14 @@ public final class CopyFiles implements Runnable {
         }
         File target = filePair.getSecond();
         if (target.exists()) {
-            int option = JOptionPane.showConfirmDialog(null,
-                    Bundle.getString("CopyFiles.ConfirmMessage.OverwriteExisting",
-                    filePair.getSecond(), filePair.getFirst()),
-                    Bundle.getString("CopyFiles.ConfirmMessage.OverwriteExisting.Title"),
-                    JOptionPane.YES_NO_CANCEL_OPTION,
-                    JOptionPane.QUESTION_MESSAGE);
-            if (option == JOptionPane.CANCEL_OPTION) {
+            MessageDisplayer.ConfirmAction action = MessageDisplayer.confirm(
+                    "CopyFiles.ConfirmMessage.OverwriteExisting", // NOI18N
+                    MessageDisplayer.CancelButton.SHOW,
+                    filePair.getSecond(), filePair.getFirst());
+            if (action.equals(MessageDisplayer.ConfirmAction.CANCEL)) {
                 stop();
             } else {
-                return option == JOptionPane.YES_OPTION;
+                return action.equals(MessageDisplayer.ConfirmAction.YES);
             }
         }
         return true;
@@ -149,18 +152,10 @@ public final class CopyFiles implements Runnable {
 
     private boolean checkDifferent(Pair<File, File> filePair) {
         if (filePair.getFirst().equals(filePair.getSecond())) {
-            errorMessageFilesAreEquals(filePair.getFirst());
+            MessageDisplayer.error("CopyFiles.ErrorMessageFilesAreEquals", // NOI18N
+                    filePair.getFirst());
             return false;
         }
         return true;
-    }
-
-    private void errorMessageFilesAreEquals(File file) {
-        JOptionPane.showMessageDialog(
-                null,
-                Bundle.getString("CopyFiles.ErrorMessageFilesAreEquals",
-                file.getAbsolutePath()),
-                Bundle.getString("CopyFiles.ErrorMessageFilesAreEquals.Title"),
-                JOptionPane.ERROR_MESSAGE);
     }
 }

@@ -1,6 +1,7 @@
 package de.elmar_baumann.imv.view.panels;
 
 import de.elmar_baumann.imv.UserSettings;
+import de.elmar_baumann.imv.app.MessageDisplayer;
 import de.elmar_baumann.imv.database.DatabaseAutoscanDirectories;
 import de.elmar_baumann.imv.event.listener.impl.ListenerProvider;
 import de.elmar_baumann.imv.event.UserSettingsChangeEvent;
@@ -15,7 +16,6 @@ import java.io.File;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;
-import javax.swing.JOptionPane;
 import javax.swing.SpinnerNumberModel;
 
 /**
@@ -75,7 +75,8 @@ public final class SettingsTasksPanel extends javax.swing.JPanel
     @Override
     public void writeProperties() {
         UserSettings.INSTANCE.getSettings().setString(
-                lastSelectedAutoscanDirectory, KEY_LAST_SELECTED_AUTOSCAN_DIRECTORY);
+                lastSelectedAutoscanDirectory,
+                KEY_LAST_SELECTED_AUTOSCAN_DIRECTORY);
         UserSettings.INSTANCE.writeToFile();
     }
 
@@ -119,25 +120,15 @@ public final class SettingsTasksPanel extends javax.swing.JPanel
     }
 
     private void errorMessageInsertAutoscanDirectory(String directoryName) {
-        JOptionPane.showMessageDialog(
-                this,
-                Bundle.getString(
-                "SettingsTasksPanel.ErrorMessage.InsertAutoscanDirectory",
-                directoryName),
-                Bundle.getString(
-                "SettingsTasksPanel.ErrorMessage.InsertAutoscanDirectory.Title"),
-                JOptionPane.ERROR_MESSAGE);
+        MessageDisplayer.error(
+                "SettingsTasksPanel.ErrorMessage.InsertAutoscanDirectory", // NOI18N
+                directoryName);
     }
 
     private void errorMessageDeleteAutoscanDirectory(String directoryName) {
-        JOptionPane.showMessageDialog(
-                this,
-                Bundle.getString(
-                "SettingsTasksPanel.ErrorMessage.DeleteAutoscanDirectory",
-                directoryName),
-                Bundle.getString(
-                "SettingsTasksPanel.ErrorMessage.DeleteAutoscanDirectory.Title"),
-                JOptionPane.ERROR_MESSAGE);
+        MessageDisplayer.error(
+                "SettingsTasksPanel.ErrorMessage.DeleteAutoscanDirectory", // NOI18N
+                directoryName);
     }
 
     private void handleKeyEventListTasksAutoscanDirectories(KeyEvent evt) {

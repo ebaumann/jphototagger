@@ -60,7 +60,7 @@ public class ControllerAddHierarchicalKeyword
         TreePath path = tree.getSelectionPath();
         if (path == null) {
             MessageDisplayer.error(
-                    "ControllerAddHierarchicalKeyword.Error.NoPathSelected");
+                    "ControllerAddHierarchicalKeyword.Error.NoPathSelected"); // NOI18N
         } else {
             Object node = path.getLastPathComponent();
             if (node instanceof DefaultMutableTreeNode) {

@@ -1,11 +1,11 @@
 package de.elmar_baumann.imv.model;
 
+import de.elmar_baumann.imv.app.MessageDisplayer;
 import de.elmar_baumann.imv.data.MetadataEditTemplate;
 import de.elmar_baumann.imv.database.DatabaseMetadataEditTemplates;
 import de.elmar_baumann.imv.resource.Bundle;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JOptionPane;
 
 /**
  * Model mit
@@ -18,7 +18,8 @@ import javax.swing.JOptionPane;
  */
 public final class ComboBoxModelMetadataEditTemplates extends DefaultComboBoxModel {
 
-    private final DatabaseMetadataEditTemplates db = DatabaseMetadataEditTemplates.INSTANCE;
+    private final DatabaseMetadataEditTemplates db =
+            DatabaseMetadataEditTemplates.INSTANCE;
 
     public ComboBoxModelMetadataEditTemplates() {
         addElements();
@@ -31,10 +32,12 @@ public final class ComboBoxModelMetadataEditTemplates extends DefaultComboBoxMod
      */
     public void deleteMetadataEditTemplate(MetadataEditTemplate template) {
         if (getIndexOf(template) >= 0 &&
-            db.deleteMetadataEditTemplate(template.getName())) {
+                db.deleteMetadataEditTemplate(template.getName())) {
             removeElement(template);
         } else {
-            errorMessage(template.getName(), Bundle.getString("ComboBoxModelMetadataEditTemplates.ErrorMessage.ParamDelete"));
+            errorMessage(template.getName(),
+                    Bundle.getString(
+                    "ComboBoxModelMetadataEditTemplates.ErrorMessage.ParamDelete"));
         }
     }
 
@@ -51,7 +54,9 @@ public final class ComboBoxModelMetadataEditTemplates extends DefaultComboBoxMod
             addElement(template);
             setSelectedItem(template);
         } else {
-            errorMessage(template.getName(), Bundle.getString("ComboBoxModelMetadataEditTemplates.ErrorMessage.ParamInsert"));
+            errorMessage(template.getName(),
+                    Bundle.getString(
+                    "ComboBoxModelMetadataEditTemplates.ErrorMessage.ParamInsert"));
         }
     }
 
@@ -67,7 +72,9 @@ public final class ComboBoxModelMetadataEditTemplates extends DefaultComboBoxMod
             insertElementAt(template, index);
             setSelectedItem(template);
         } else {
-            errorMessage(template.getName(), Bundle.getString("ComboBoxModelMetadataEditTemplates.ErrorMessage.ParamUpdate"));
+            errorMessage(template.getName(),
+                    Bundle.getString(
+                    "ComboBoxModelMetadataEditTemplates.ErrorMessage.ParamUpdate"));
         }
 
     }
@@ -81,13 +88,15 @@ public final class ComboBoxModelMetadataEditTemplates extends DefaultComboBoxMod
     public void renameTemplate(MetadataEditTemplate template, String newName) {
         int index = getIndexOf(template);
         if (index >= 0 &&
-            db.updateRenameMetadataEditTemplate(template.getName(), newName)) {
+                db.updateRenameMetadataEditTemplate(template.getName(), newName)) {
             template.setName(newName);
             removeElementAt(index);
             insertElementAt(template, index);
             setSelectedItem(template);
         } else {
-            errorMessage(template.getName(), Bundle.getString("ComboBoxModelMetadataEditTemplates.ErrorMessage.ParamRename"));
+            errorMessage(template.getName(),
+                    Bundle.getString(
+                    "ComboBoxModelMetadataEditTemplates.ErrorMessage.ParamRename")); // NOI18N
         }
     }
 
@@ -99,10 +108,8 @@ public final class ComboBoxModelMetadataEditTemplates extends DefaultComboBoxMod
     }
 
     private void errorMessage(String name, String cause) {
-        JOptionPane.showMessageDialog(
-            null,
-            Bundle.getString("ComboBoxModelMetadataEditTemplates.ErrorMessage.Template", name, cause),
-            Bundle.getString("ComboBoxModelMetadataEditTemplates.ErrorMessage.Template.Title"),
-            JOptionPane.ERROR_MESSAGE);
+        MessageDisplayer.error(
+                "ComboBoxModelMetadataEditTemplates.ErrorMessage.Template", // NOI18N
+                name, cause);
     }
 }

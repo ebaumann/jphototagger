@@ -1,5 +1,6 @@
 package de.elmar_baumann.imv.view.panels;
 
+import de.elmar_baumann.imv.app.MessageDisplayer;
 import de.elmar_baumann.imv.data.Program;
 import de.elmar_baumann.imv.database.DatabaseActionsAfterDbInsertion;
 import de.elmar_baumann.imv.event.ProgramEvent;
@@ -11,7 +12,6 @@ import de.elmar_baumann.imv.view.dialogs.ProgramPropertiesDialog;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JOptionPane;
 import javax.swing.JProgressBar;
 
 /**
@@ -21,7 +21,8 @@ import javax.swing.JProgressBar;
 public final class ActionsPanel extends javax.swing.JPanel {
 
     private final ListModelPrograms model = new ListModelPrograms(true);
-    private final List<ProgramActionListener> actionListeners = new ArrayList<ProgramActionListener>();
+    private final List<ProgramActionListener> actionListeners =
+            new ArrayList<ProgramActionListener>();
     private Object progressBarOwner;
 
     /** Creates new form ActionsPanel */
@@ -114,19 +115,14 @@ public final class ActionsPanel extends javax.swing.JPanel {
 
     private boolean confirmDelete(Program program) {
         String programName = program.getAlias();
-        boolean existsInActionsAfterDbInsertion = DatabaseActionsAfterDbInsertion.INSTANCE.existsAction(program);
-        String msgPrefix = existsInActionsAfterDbInsertion
-                ? Bundle.getString("ActionsPanel.ConfirmMessage.Delete.ExistsInOtherDb")
-                : "";
-        return JOptionPane.showConfirmDialog(
-                this,
-                msgPrefix +
-                Bundle.getString("ActionsPanel.ConfirmMessage.Delete", programName),
-                Bundle.getString("ActionsPanel.ConfirmMessage.Delete.Title"),
-                JOptionPane.YES_NO_OPTION,
-                existsInActionsAfterDbInsertion
-                    ? JOptionPane.WARNING_MESSAGE
-                    : JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION;
+        boolean existsInActionsAfterDbInsertion =
+                DatabaseActionsAfterDbInsertion.INSTANCE.existsAction(program);
+        String propertiesKey = existsInActionsAfterDbInsertion
+                               ? "ActionsPanel.ConfirmMessage.Delete.ExistsInOtherDb" // NOI18N
+                               : "ActionsPanel.ConfirmMessage.Delete"; // NOI18N
+        return MessageDisplayer.confirm(propertiesKey,
+                MessageDisplayer.CancelButton.HIDE, programName).equals(
+                MessageDisplayer.ConfirmAction.YES);
     }
 
     public synchronized void addActionListener(ProgramActionListener l) {

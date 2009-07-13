@@ -1,10 +1,9 @@
 package de.elmar_baumann.imv.model;
 
+import de.elmar_baumann.imv.app.MessageDisplayer;
 import de.elmar_baumann.imv.database.DatabaseFileExcludePattern;
-import de.elmar_baumann.imv.resource.Bundle;
 import java.util.List;
 import javax.swing.DefaultListModel;
-import javax.swing.JOptionPane;
 
 /**
  * 
@@ -14,7 +13,8 @@ import javax.swing.JOptionPane;
  */
 public final class ListModelFileExcludePatterns extends DefaultListModel {
 
-    private final DatabaseFileExcludePattern db = DatabaseFileExcludePattern.INSTANCE;
+    private final DatabaseFileExcludePattern db =
+            DatabaseFileExcludePattern.INSTANCE;
     private List<String> patterns;
 
     public ListModelFileExcludePatterns() {
@@ -28,13 +28,17 @@ public final class ListModelFileExcludePatterns extends DefaultListModel {
     public void insertPattern(String pattern) {
         String trimmedPattern = pattern.trim();
         if (db.existsFileExcludePattern(trimmedPattern)) {
-            errorMessage("ListModelFileExcludePatterns.ErrorMessage.InsertPattern.Exists", trimmedPattern);
+            MessageDisplayer.error(
+                    "ListModelFileExcludePatterns.ErrorMessage.InsertPattern.Exists", // NOI18N
+                    trimmedPattern);
         }
         if (db.insertFileExcludePattern(trimmedPattern)) {
             addElement(trimmedPattern);
             patterns.add(trimmedPattern);
         } else {
-            errorMessage("ListModelFileExcludePatterns.ErrorMessage.InsertPattern.Add", trimmedPattern);
+            MessageDisplayer.error(
+                    "ListModelFileExcludePatterns.ErrorMessage.InsertPattern.Add", // NOI18N
+                    trimmedPattern);
         }
     }
 
@@ -44,15 +48,10 @@ public final class ListModelFileExcludePatterns extends DefaultListModel {
             removeElement(trimmedPattern);
             patterns.remove(trimmedPattern);
         } else {
-            errorMessage("ListModelFileExcludePatterns.ErrorMessage.Delete", trimmedPattern);
+            MessageDisplayer.error(
+                    "ListModelFileExcludePatterns.ErrorMessage.Delete", // NOI18N
+                    trimmedPattern);
         }
-    }
-
-    private void errorMessage(String bundleKey, String pattern) {
-        JOptionPane.showMessageDialog(
-                null, Bundle.getString(bundleKey, pattern),
-                Bundle.getString("ListModelFileExcludePatterns.ErrorMessage.Title"),
-                JOptionPane.ERROR_MESSAGE);
     }
 
     private void addElements() {

@@ -1,6 +1,7 @@
 package de.elmar_baumann.imv.tasks;
 
 import de.elmar_baumann.imv.app.AppLog;
+import de.elmar_baumann.imv.app.MessageDisplayer;
 import de.elmar_baumann.imv.controller.filesystem.ControllerDeleteFiles;
 import de.elmar_baumann.imv.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.imv.resource.Bundle;
@@ -10,7 +11,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
-import javax.swing.JOptionPane;
 
 /**
  * Deletes image files from the file system.
@@ -28,11 +28,12 @@ public final class FileSystemDeleteImageFiles {
      * @param  options     options
      * @return all deleted files
      */
-    public static List<File> delete(List<File> imageFiles, EnumSet<DeleteOption> options) {
+    public static List<File> delete(List<File> imageFiles,
+            EnumSet<DeleteOption> options) {
         List<File> deletedImageFiles = new ArrayList<File>(imageFiles.size());
         if (confirmDelete(options)) {
             List<Pair<File, File>> imageFilesWithSidecarFiles =
-                XmpMetadata.getImageFilesWithSidecarFiles(imageFiles);
+                    XmpMetadata.getImageFilesWithSidecarFiles(imageFiles);
             for (Pair<File, File> filePair : imageFilesWithSidecarFiles) {
                 File imageFile = filePair.getFirst();
                 if (imageFile.delete()) {
@@ -46,7 +47,8 @@ public final class FileSystemDeleteImageFiles {
         return deletedImageFiles;
     }
 
-    private static void deleteSidecarFile(File sidecarFile, EnumSet<DeleteOption> options) {
+    private static void deleteSidecarFile(File sidecarFile,
+            EnumSet<DeleteOption> options) {
         if (sidecarFile != null) {
             if (!sidecarFile.delete()) {
                 errorMessageDelete(sidecarFile, options);
@@ -54,22 +56,21 @@ public final class FileSystemDeleteImageFiles {
         }
     }
 
-    private static void errorMessageDelete(File file, EnumSet<DeleteOption> options) {
+    private static void errorMessageDelete(File file,
+            EnumSet<DeleteOption> options) {
         if (options.contains(DeleteOption.MESSAGES_ON_FAILURES)) {
             AppLog.logWarning(ControllerDeleteFiles.class, Bundle.getString(
-                    "FileSystemDeleteImageFiles.ErrorMessage.Delete",
+                    "FileSystemDeleteImageFiles.ErrorMessage.Delete", // NOI18N
                     file.getAbsolutePath()));
         }
     }
 
     private static boolean confirmDelete(EnumSet<DeleteOption> options) {
         if (options.contains(DeleteOption.CONFIRM_DELETE)) {
-            return JOptionPane.showConfirmDialog(
-                null,
-                Bundle.getString("FileSystemDeleteImageFiles.ConfirmMessage.Delete"),
-                Bundle.getString("FileSystemDeleteImageFiles.ConfirmMessage.Delete.Title"),
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION;
+            return MessageDisplayer.confirm(
+                    "FileSystemDeleteImageFiles.ConfirmMessage.Delete", // NOI18N
+                    MessageDisplayer.CancelButton.HIDE).equals(
+                    MessageDisplayer.ConfirmAction.YES);
         }
         return true;
     }

@@ -1,10 +1,8 @@
 package de.elmar_baumann.imv.app;
 
 import de.elmar_baumann.imv.UserSettings;
-import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.io.File;
-import javax.swing.JOptionPane;
 
 /**
  * Creates an application lock file to prevent multiple instances. Uses
@@ -76,21 +74,13 @@ public final class AppLock {
     }
 
     private static boolean confirmForceUnlock() {
-        return JOptionPane.showConfirmDialog(
-                null,
-                Bundle.getString("AppLock.ErrorMessage.LockFileExists",
-                LOCKFILE_NAME),
-                Bundle.getString("AppLock.ErrorMessage.LockFileExists.Title"),
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.WARNING_MESSAGE) == JOptionPane.YES_OPTION;
+        return MessageDisplayer.confirm("AppLock.ErrorMessage.LockFileExists", // NOI18N
+                MessageDisplayer.CancelButton.HIDE, LOCKFILE_NAME).equals(
+                MessageDisplayer.ConfirmAction.YES);
     }
 
     private static void errorMessageDelete() {
-        JOptionPane.showMessageDialog(
-                null,
-                Bundle.getString("AppLock.ErrorMessage.DeleteLockFile"),
-                Bundle.getString("AppLock.ErrorMessage.DeleteLockFile.Title"),
-                JOptionPane.ERROR_MESSAGE);
+        MessageDisplayer.error("AppLock.ErrorMessage.DeleteLockFile"); // NOI18N
     }
 
     private AppLock() {

@@ -1,10 +1,10 @@
 package de.elmar_baumann.imv.datatransfer;
 
+import de.elmar_baumann.imv.app.MessageDisplayer;
 import de.elmar_baumann.imv.data.FavoriteDirectory;
 import de.elmar_baumann.imv.event.ProgressEvent;
 import de.elmar_baumann.imv.event.listener.ProgressListener;
 import de.elmar_baumann.imv.io.IoUtil;
-import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.tasks.CopyFiles;
 import de.elmar_baumann.imv.view.dialogs.CopyToDirectoryDialog;
@@ -14,7 +14,6 @@ import java.awt.datatransfer.Transferable;
 import java.io.File;
 import java.util.List;
 import javax.swing.JComponent;
-import javax.swing.JOptionPane;
 import javax.swing.JTree;
 import javax.swing.TransferHandler;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -129,15 +128,11 @@ public final class TransferHandlerTreeDirectories extends TransferHandler {
         return null;
     }
 
-    private static boolean confirmFileAction(String bundleKey, int size,
-            String absolutePath) {
-        return JOptionPane.showConfirmDialog(
-                null,
-                Bundle.getString(bundleKey, size, absolutePath),
-                Bundle.getString(
-                "TransferHandlerTreeDirectories.ConfirmMessage.Title"),
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION;
+    private static boolean confirmFileAction(
+            String bundleKey, int size, String absolutePath) {
+        return MessageDisplayer.confirm(bundleKey,
+                MessageDisplayer.CancelButton.HIDE, size, absolutePath).equals(
+                MessageDisplayer.ConfirmAction.YES);
     }
 
     private synchronized static void addProgressListener(

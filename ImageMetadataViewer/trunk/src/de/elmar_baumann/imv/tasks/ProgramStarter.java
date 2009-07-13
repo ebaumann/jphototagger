@@ -2,6 +2,7 @@ package de.elmar_baumann.imv.tasks;
 
 import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.UserSettings;
+import de.elmar_baumann.imv.app.MessageDisplayer;
 import de.elmar_baumann.imv.data.Program;
 import de.elmar_baumann.imv.io.IoUtil;
 import de.elmar_baumann.imv.resource.Bundle;
@@ -15,7 +16,6 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import javax.swing.JOptionPane;
 import javax.swing.JProgressBar;
 
 /**
@@ -61,18 +61,10 @@ public final class ProgramStarter {
 
     private boolean checkFilecount(List<File> imageFiles) {
         if (imageFiles.size() <= 0) {
-            errorMessageSelection();
+            MessageDisplayer.error("ProgramStarter.ErrorMessage.Selection"); // NOI18N
             return false;
         }
         return true;
-    }
-
-    private void errorMessageSelection() {
-        JOptionPane.showMessageDialog(
-                null,
-                Bundle.getString("ProgramStarter.ErrorMessage.Selection"),
-                Bundle.getString("ProgramStarter.ErrorMessage.Selection.Title"),
-                JOptionPane.ERROR_MESSAGE);
     }
 
     private class Execute extends Thread {

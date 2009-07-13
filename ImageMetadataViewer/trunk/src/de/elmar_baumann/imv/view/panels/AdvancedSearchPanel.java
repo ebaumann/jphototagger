@@ -1,5 +1,6 @@
 package de.elmar_baumann.imv.view.panels;
 
+import de.elmar_baumann.imv.app.MessageDisplayer;
 import de.elmar_baumann.imv.data.SavedSearch;
 import de.elmar_baumann.imv.data.SavedSearchPanel;
 import de.elmar_baumann.imv.data.SavedSearchParamStatement;
@@ -29,10 +30,12 @@ import javax.swing.JOptionPane;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  */
 public final class AdvancedSearchPanel extends javax.swing.JPanel
-    implements SearchListener {
+        implements SearchListener {
 
-    private final List<SearchColumnPanel> searchColumnPanels = new LinkedList<SearchColumnPanel>();
-    private List<SearchListener> searchListeners = new ArrayList<SearchListener>();
+    private final List<SearchColumnPanel> searchColumnPanels =
+            new LinkedList<SearchColumnPanel>();
+    private List<SearchListener> searchListeners =
+            new ArrayList<SearchListener>();
     private String searchName = ""; // NOI18N
     private boolean isSavedSearch = false;
     private ListenerProvider listenerProvider;
@@ -66,10 +69,8 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         }
         canSearch = canSearch && checkBrackets();
         if (!canSearch) {
-            JOptionPane.showMessageDialog(this,
-                Bundle.getString("AdvancedSearchDialog.ErrorMessage.InvalidQuery"),
-                Bundle.getString("AdvancedSearchDialog.ErrorMessage.InvalidQuery.Title"),
-                JOptionPane.ERROR_MESSAGE);
+            MessageDisplayer.error(
+                    "AdvancedSearchDialog.ErrorMessage.InvalidQuery"); // NOI18N
         }
         return canSearch;
     }
@@ -104,7 +105,9 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         data.setQuery(stmt.isQuery());
         data.setSql(stmt.getSql());
         List<String> values = stmt.getValuesAsStringList();
-        data.setValues(values.size() > 0 ? values : null);
+        data.setValues(values.size() > 0
+                       ? values
+                       : null);
         return data;
     }
 
@@ -154,7 +157,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
             for (int dataIndex = 0; dataIndex < dataSize; dataIndex++) {
                 if (dataIndex < panelSize) {
                     searchColumnPanels.get(dataIndex).setSavedSearchData(
-                        data.get(dataIndex));
+                            data.get(dataIndex));
                 }
             }
         }
@@ -169,13 +172,10 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
 
     private void checkChanged() {
         if (isSavedSearch && isChanged()) {
-            if (JOptionPane.showConfirmDialog(
-                this,
-                Bundle.getString("AdvancedSearchDialog.ConfirmMessage.SaveChanges"),
-                Bundle.getString("AdvancedSearchDialog.ConfirmMessage.SaveChanges.Title"),
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.QUESTION_MESSAGE) ==
-                JOptionPane.YES_OPTION) {
+            if (MessageDisplayer.confirm(
+                    "AdvancedSearchDialog.ConfirmMessage.SaveChanges", // NOI18N
+                    MessageDisplayer.CancelButton.HIDE).equals(
+                    MessageDisplayer.ConfirmAction.YES)) {
                 saveSearch();
             }
         }
@@ -218,8 +218,8 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
             return searchName;
         } else {
             return JOptionPane.showInputDialog(
-                Bundle.getString("AdvancedSearchDialog.Input.SearchName"),
-                searchName);
+                    Bundle.getString("AdvancedSearchDialog.Input.SearchName"), // NOI18N
+                    searchName);
         }
     }
 
@@ -247,7 +247,9 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
             data.setPanelIndex(index);
             panelData.add(data);
         }
-        return panelData.size() > 0 ? panelData : null;
+        return panelData.size() > 0
+               ? panelData
+               : null;
     }
 
     private void search() {
@@ -281,7 +283,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         String tableNameFiles = columnFilename.getTable().getName();
 
         return new StringBuffer("SELECT DISTINCT " + tableNameFiles + "." + // NOI18N
-            columnNameFilename + " FROM"); // NOI18N
+                columnNameFilename + " FROM"); // NOI18N
     }
 
     private List<Column> getColumns() {
@@ -308,44 +310,45 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
 
     private void appendFrom(StringBuffer statement) {
         List<Table> allTables =
-            DatabaseMetadataUtil.getUniqueTablesOfColumnArray(getColumns());
+                DatabaseMetadataUtil.getUniqueTablesOfColumnArray(getColumns());
         Column.ReferenceDirection back = Column.ReferenceDirection.BACKWARDS;
-        List<Table> refsXmpTables = DatabaseMetadataUtil.getTablesWithReferenceTo(allTables, TableXmp.INSTANCE, back);
+        List<Table> refsXmpTables = DatabaseMetadataUtil.
+                getTablesWithReferenceTo(allTables, TableXmp.INSTANCE, back);
 
         statement.append(" " + TableFiles.INSTANCE.getName()); // NOI18N
 
         if (allTables.contains(TableExif.INSTANCE)) {
             statement.append(getJoinFiles(TableExif.INSTANCE,
-                ColumnExifIdFiles.INSTANCE));
+                    ColumnExifIdFiles.INSTANCE));
         }
 
         if (allTables.contains(TableXmp.INSTANCE) ||
-            !refsXmpTables.isEmpty()) {
+                !refsXmpTables.isEmpty()) {
             statement.append(getJoinFiles(TableXmp.INSTANCE,
-                ColumnXmpIdFiles.INSTANCE));
+                    ColumnXmpIdFiles.INSTANCE));
         }
 
         String xmpJoinCol =
-            TableXmp.INSTANCE.getName() + "." + // NOI18N
-            ColumnXmpId.INSTANCE.getName();
+                TableXmp.INSTANCE.getName() + "." + // NOI18N
+                ColumnXmpId.INSTANCE.getName();
         appendInnerJoin(statement, refsXmpTables, TableXmp.INSTANCE,
-            xmpJoinCol);
+                xmpJoinCol);
     }
 
     private String getJoinFiles(Table joinTable, Column joinColumn) {
         return " INNER JOIN " + joinTable.getName() + " ON " + // NOI18N
-            joinTable.getName() + "." + joinColumn.getName() + // NOI18N
-            " = " + TableFiles.INSTANCE.getName() + // NOI18N
-            "." + ColumnFilesId.INSTANCE.getName(); // NOI18N
+                joinTable.getName() + "." + joinColumn.getName() + // NOI18N
+                " = " + TableFiles.INSTANCE.getName() + // NOI18N
+                "." + ColumnFilesId.INSTANCE.getName(); // NOI18N
     }
 
     private void appendInnerJoin(StringBuffer statement,
-        List<Table> refsTables, Table referredTable, String joinCol) {
+            List<Table> refsTables, Table referredTable, String joinCol) {
         for (Table refsTable : refsTables) {
             Column refColumn = refsTable.getJoinColumnsFor(referredTable).get(0);
             statement.append(" INNER JOIN " + refsTable.getName() + " ON " + // NOI18N
-                refsTable.getName() + "." + refColumn.getName() + " = " + // NOI18N
-                joinCol);
+                    refsTable.getName() + "." + refColumn.getName() + " = " + // NOI18N
+                    joinCol);
         }
     }
 

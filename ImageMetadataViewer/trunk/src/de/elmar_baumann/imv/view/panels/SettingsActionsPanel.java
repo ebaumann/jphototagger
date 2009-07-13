@@ -1,6 +1,7 @@
 package de.elmar_baumann.imv.view.panels;
 
 import de.elmar_baumann.imv.UserSettings;
+import de.elmar_baumann.imv.app.MessageDisplayer;
 import de.elmar_baumann.imv.data.Program;
 import de.elmar_baumann.imv.event.listener.impl.ListenerProvider;
 import de.elmar_baumann.imv.event.UserSettingsChangeEvent;
@@ -10,7 +11,6 @@ import de.elmar_baumann.imv.types.Persistence;
 import de.elmar_baumann.imv.view.dialogs.ActionsDialog;
 import de.elmar_baumann.imv.view.dialogs.ProgramSelectDialog;
 import de.elmar_baumann.imv.view.renderer.ListCellRendererActions;
-import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -57,17 +57,20 @@ public class SettingsActionsPanel extends javax.swing.JPanel implements
     }
 
     private void handleActionsAfterDatabaseInsertionMoveDown() {
-        modelActionsAfterDbInsertion.moveDown(listActionsAfterDatabaseInsertion.getSelectedIndex());
+        modelActionsAfterDbInsertion.moveDown(listActionsAfterDatabaseInsertion.
+                getSelectedIndex());
         setButtonsEnabled();
     }
 
     private void handleActionsAfterDatabaseInsertionMoveUp() {
-        modelActionsAfterDbInsertion.moveUp(listActionsAfterDatabaseInsertion.getSelectedIndex());
+        modelActionsAfterDbInsertion.moveUp(listActionsAfterDatabaseInsertion.
+                getSelectedIndex());
         setButtonsEnabled();
     }
 
     private void handleActionsAfterDatabaseInsertionRemove() {
-        Program action = (Program) modelActionsAfterDbInsertion.get(listActionsAfterDatabaseInsertion.getSelectedIndex());
+        Program action = (Program) modelActionsAfterDbInsertion.get(
+                listActionsAfterDatabaseInsertion.getSelectedIndex());
         if (confirmRemoveActionAfterDatabaseInsertion(action.getAlias())) {
             modelActionsAfterDbInsertion.remove(action);
             setButtonsEnabled();
@@ -75,18 +78,23 @@ public class SettingsActionsPanel extends javax.swing.JPanel implements
     }
 
     private void handleActionsAfterDatabaseInsertionExecuteAlways() {
-        UserSettingsChangeEvent evt = new UserSettingsChangeEvent(
-                UserSettingsChangeEvent.Type.EXECUTE_ACTION_AFTER_IMAGE_CHANGE_IN_DB_ALWAYS, this);
+        UserSettingsChangeEvent evt =
+                new UserSettingsChangeEvent(
+                UserSettingsChangeEvent.Type.EXECUTE_ACTION_AFTER_IMAGE_CHANGE_IN_DB_ALWAYS,
+                this);
         evt.setExecuteActionsAfterImageChangeInDbAlways(
                 radioButtonActionsAfterDatabaseInsertionExecuteAlways.isSelected());
         notifyChangeListener(evt);
     }
 
     private void handleActionsAfterDatabaseInsertionExecuteIfXmpExists() {
-        UserSettingsChangeEvent evt = new UserSettingsChangeEvent(
-                UserSettingsChangeEvent.Type.EXECUTE_ACTION_AFTER_IMAGE_CHANGE_IN_DB_IF_IMAGE_HAS_XMP, this);
+        UserSettingsChangeEvent evt =
+                new UserSettingsChangeEvent(
+                UserSettingsChangeEvent.Type.EXECUTE_ACTION_AFTER_IMAGE_CHANGE_IN_DB_IF_IMAGE_HAS_XMP,
+                this);
         evt.setExecuteActionsAfterImageChangeInDbIfImageHasXmp(
-                radioButtonActionsAfterDatabaseInsertionExecuteIfImageHasXmp.isSelected());
+                radioButtonActionsAfterDatabaseInsertionExecuteIfImageHasXmp.
+                isSelected());
         notifyChangeListener(evt);
     }
 
@@ -125,14 +133,10 @@ public class SettingsActionsPanel extends javax.swing.JPanel implements
     }
 
     private boolean confirmRemoveActionAfterDatabaseInsertion(String actionName) {
-        return JOptionPane.showConfirmDialog(this,
-                Bundle.getString(
-                "SettingsActionsPanel.ConfirmMessage.RemoveActionAfterDatabaseInsertion",
-                actionName),
-                Bundle.getString(
-                "SettingsActionsPanel.ConfirmMessage.RemoveActionAfterDatabaseInsertion.Title"),
-                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) ==
-                JOptionPane.YES_OPTION;
+        return MessageDisplayer.confirm(
+                "SettingsActionsPanel.ConfirmMessage.RemoveActionAfterDatabaseInsertion", // NOI18N
+                MessageDisplayer.CancelButton.HIDE, actionName).equals(
+                MessageDisplayer.ConfirmAction.YES);
     }
 
     /** This method is called from within the constructor to
@@ -310,7 +314,6 @@ public class SettingsActionsPanel extends javax.swing.JPanel implements
     private void radioButtonActionsAfterDatabaseInsertionExecuteIfImageHasXmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioButtonActionsAfterDatabaseInsertionExecuteIfImageHasXmpActionPerformed
         handleActionsAfterDatabaseInsertionExecuteIfXmpExists();
 }//GEN-LAST:event_radioButtonActionsAfterDatabaseInsertionExecuteIfImageHasXmpActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonActionsAfterDatabaseInsertionAdd;
     private javax.swing.JButton buttonActionsAfterDatabaseInsertionEdit;

@@ -1,17 +1,16 @@
 package de.elmar_baumann.imv.model;
 
+import de.elmar_baumann.imv.app.MessageDisplayer;
 import de.elmar_baumann.imv.data.Program;
 import de.elmar_baumann.imv.database.DatabaseActionsAfterDbInsertion;
 import de.elmar_baumann.imv.database.DatabasePrograms;
 import de.elmar_baumann.imv.event.DatabaseImageEvent;
 import de.elmar_baumann.imv.event.listener.DatabaseListener;
 import de.elmar_baumann.imv.event.DatabaseProgramEvent;
-import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.componentutil.ListUtil;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultListModel;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -33,7 +32,8 @@ public final class ListModelActionsAfterDbInsertion extends DefaultListModel
                 getSize())) {
             addElement(action);
         } else {
-            errorMessage("ListModelActionsAfterDbInsertion.ErrorMessage.Add", // NOI18N
+            MessageDisplayer.error(
+                    "ListModelActionsAfterDbInsertion.ErrorMessage.Add", // NOI18N
                     action.getAlias());
         }
     }
@@ -74,7 +74,7 @@ public final class ListModelActionsAfterDbInsertion extends DefaultListModel
             fireContentsChanged(this, indexSecondElement, indexSecondElement);
             if (!DatabaseActionsAfterDbInsertion.INSTANCE.reorder(getActions(),
                     0)) {
-                errorMessage(
+                MessageDisplayer.error(
                         "ListModelActionsAfterDbInsertion.ErrorMessage.Swap", // NOI18N
                         ((Program) get(indexFirstElement)).getAlias());
             }
@@ -86,18 +86,10 @@ public final class ListModelActionsAfterDbInsertion extends DefaultListModel
                 action)) {
             removeElement(action);
         } else {
-            errorMessage("ListModelActionsAfterDbInsertion.ErrorMessage.Remove", // NOI18N
+            MessageDisplayer.error(
+                    "ListModelActionsAfterDbInsertion.ErrorMessage.Remove", // NOI18N
                     action.getAlias());
         }
-    }
-
-    private void errorMessage(String bundleKey, String alias) {
-        JOptionPane.showMessageDialog(
-                null,
-                Bundle.getString(bundleKey, alias),
-                Bundle.getString(
-                "ListModelActionsAfterDbInsertion.ErrorMessage.Title"), // NOI18N
-                JOptionPane.ERROR_MESSAGE);
     }
 
     private void addElements() {
@@ -118,7 +110,8 @@ public final class ListModelActionsAfterDbInsertion extends DefaultListModel
                 contains) {
             removeElementAt(index);
             fireIntervalRemoved(this, index, index);
-        } else if (eventType.equals(DatabaseProgramEvent.Type.PROGRAM_UPDATED) &&
+        } else if (eventType.equals(
+                DatabaseProgramEvent.Type.PROGRAM_UPDATED) &&
                 contains) {
             set(index, program);
             fireContentsChanged(this, index, index);

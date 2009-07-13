@@ -1,11 +1,10 @@
 package de.elmar_baumann.imv.model;
 
+import de.elmar_baumann.imv.app.MessageDisplayer;
 import de.elmar_baumann.imv.data.Program;
 import de.elmar_baumann.imv.database.DatabasePrograms;
-import de.elmar_baumann.imv.resource.Bundle;
 import java.util.List;
 import javax.swing.DefaultListModel;
-import javax.swing.JOptionPane;
 
 /**
  * Model for {@link de.elmar_baumann.imv.data.Program} where
@@ -27,7 +26,7 @@ public final class ListModelPrograms extends DefaultListModel {
         if (!contains(program) && DatabasePrograms.INSTANCE.insert(program)) {
             addElement(program);
         } else {
-            errorMessage("ListModelPrograms.ErrorMessage.Add",
+            MessageDisplayer.error("ListModelPrograms.ErrorMessage.Add", // NOI18N
                     program.getAlias());
         }
     }
@@ -36,7 +35,7 @@ public final class ListModelPrograms extends DefaultListModel {
         if (contains(program) && DatabasePrograms.INSTANCE.delete(program)) {
             removeElement(program);
         } else {
-            errorMessage("ListModelPrograms.ErrorMessage.Remove",
+            MessageDisplayer.error("ListModelPrograms.ErrorMessage.Remove", // NOI18N
                     program.getAlias());
         }
     }
@@ -46,16 +45,9 @@ public final class ListModelPrograms extends DefaultListModel {
             int index = indexOf(program);
             fireContentsChanged(this, index, index);
         } else {
-            errorMessage("ListModelPrograms.ErrorMessage.Update", program.getAlias());
+            MessageDisplayer.error("ListModelPrograms.ErrorMessage.Update", // NOI18N
+                    program.getAlias());
         }
-    }
-
-    private void errorMessage(String bundleKey, String alias) {
-        JOptionPane.showMessageDialog(
-                null,
-                Bundle.getString(bundleKey, alias),
-                Bundle.getString("ListModelPrograms.ErrorMessage.Title"),
-                JOptionPane.ERROR_MESSAGE);
     }
 
     private void addElements() {

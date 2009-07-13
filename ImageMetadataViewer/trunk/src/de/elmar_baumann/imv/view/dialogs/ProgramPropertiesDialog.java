@@ -2,6 +2,7 @@ package de.elmar_baumann.imv.view.dialogs;
 
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.app.AppIcons;
+import de.elmar_baumann.imv.app.MessageDisplayer;
 import de.elmar_baumann.imv.data.Program;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.component.TabLeavingTextArea;
@@ -10,7 +11,6 @@ import de.elmar_baumann.lib.image.util.IconUtil;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
 
 /**
  * Modal Dialog to change or define the properties of a program which can
@@ -42,21 +42,32 @@ public final class ProgramPropertiesDialog extends Dialog {
         String parametersAfterFilename = program.getParametersAfterFilename();
         labelFile.setText(file.getAbsolutePath());
         textFieldAlias.setText(program.getAlias());
-        textAreaParametersBeforeFilename.setText(parametersBeforeFilename == null ? "" : parametersBeforeFilename);
-        textAreaParametersAfterFilename.setText(parametersAfterFilename == null ? "" : parametersAfterFilename);
+        textAreaParametersBeforeFilename.setText(parametersBeforeFilename ==
+                null
+                                                 ? ""
+                                                 : parametersBeforeFilename);
+        textAreaParametersAfterFilename.setText(parametersAfterFilename == null
+                                                ? ""
+                                                : parametersAfterFilename);
         checkBoxInputBeforeExecute.setSelected(program.isInputBeforeExecute());
-        checkBoxInputBeforeExecutePerFile.setSelected(program.isInputBeforeExecutePerFile());
-        checkBoxInputBeforeExecutePerFile.setEnabled(program.isInputBeforeExecute());
-        radioButtonSingleFileProcessingYes.setSelected(program.isSingleFileProcessing());
-        radioButtonSingleFileProcessingNo.setSelected(!program.isSingleFileProcessing());
+        checkBoxInputBeforeExecutePerFile.setSelected(program.
+                isInputBeforeExecutePerFile());
+        checkBoxInputBeforeExecutePerFile.setEnabled(program.
+                isInputBeforeExecute());
+        radioButtonSingleFileProcessingYes.setSelected(program.
+                isSingleFileProcessing());
+        radioButtonSingleFileProcessingNo.setSelected(!program.
+                isSingleFileProcessing());
         checkBoxChangeFile.setSelected(program.isChangeFile());
         setProgramIcon();
     }
 
     private void setActionTexts() {
         setTitle(Bundle.getString("ProgramPropertiesDialog.title.Action"));
-        labelFilePrompt.setText(Bundle.getString("ProgramPropertiesDialog.labelFilePrompt.text.Action"));
-        labelAlias.setText(Bundle.getString("ProgramPropertiesDialog.labelAlias.text.Action"));
+        labelFilePrompt.setText(Bundle.getString(
+                "ProgramPropertiesDialog.labelFilePrompt.text.Action"));
+        labelAlias.setText(Bundle.getString(
+                "ProgramPropertiesDialog.labelAlias.text.Action"));
     }
 
     private void setProgramIcon() {
@@ -75,25 +86,33 @@ public final class ProgramPropertiesDialog extends Dialog {
 
     private void accept() {
         if (inputsValid()) {
-            String parametersBeforeFilename = textAreaParametersBeforeFilename.getText().trim();
-            String parametersAfterFilename = textAreaParametersAfterFilename.getText().trim();
+            String parametersBeforeFilename = textAreaParametersBeforeFilename.
+                    getText().trim();
+            String parametersAfterFilename = textAreaParametersAfterFilename.
+                    getText().trim();
 
             program.setAction(action);
             program.setFile(file);
             program.setAlias(textFieldAlias.getText().trim());
             program.setParametersBeforeFilename(parametersBeforeFilename.isEmpty()
-                    ? null : parametersBeforeFilename);
+                                                ? null
+                                                : parametersBeforeFilename);
             program.setParametersAfterFilename(parametersAfterFilename.isEmpty()
-                    ? null : parametersAfterFilename);
-            program.setInputBeforeExecute(checkBoxInputBeforeExecute.isSelected());
-            program.setInputBeforeExecutePerFile(checkBoxInputBeforeExecutePerFile.isSelected());
-            program.setSingleFileProcessing(radioButtonSingleFileProcessingYes.isSelected());
+                                               ? null
+                                               : parametersAfterFilename);
+            program.setInputBeforeExecute(
+                    checkBoxInputBeforeExecute.isSelected());
+            program.setInputBeforeExecutePerFile(checkBoxInputBeforeExecutePerFile.
+                    isSelected());
+            program.setSingleFileProcessing(radioButtonSingleFileProcessingYes.
+                    isSelected());
             program.setChangeFile(checkBoxChangeFile.isSelected());
 
             accecpted = true;
             setVisible(false);
         } else {
-            errorMessage(Bundle.getString("ProgramPropertiesDialog.ErrorMessage.MissingData"));
+            MessageDisplayer.error(
+                    "ProgramPropertiesDialog.ErrorMessage.MissingData"); // NOI18N
         }
     }
 
@@ -150,7 +169,8 @@ public final class ProgramPropertiesDialog extends Dialog {
                 labelFile.setText(file.getAbsolutePath());
                 setProgramIcon();
             } else {
-                errorMessage(Bundle.getString("ProgramPropertiesDialog.ErrorMessage.ChooseFile"));
+                MessageDisplayer.error(
+                        "ProgramPropertiesDialog.ErrorMessage.ChooseFile"); // NOI18N
             }
         }
     }
@@ -167,14 +187,6 @@ public final class ProgramPropertiesDialog extends Dialog {
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             accept();
         }
-    }
-
-    private void errorMessage(String string) {
-        JOptionPane.showMessageDialog(
-                this,
-                string,
-                Bundle.getString("ProgramPropertiesDialog.ErrorMessage.Title"),
-                JOptionPane.ERROR_MESSAGE);
     }
 
     /** This method is called from within the constructor to
@@ -469,7 +481,8 @@ private void textFieldAliasKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:
 
             @Override
             public void run() {
-                ProgramPropertiesDialog dialog = new ProgramPropertiesDialog(true);
+                ProgramPropertiesDialog dialog = new ProgramPropertiesDialog(
+                        true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
 
                     @Override
@@ -481,7 +494,6 @@ private void textFieldAliasKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonCancel;
     private javax.swing.JButton buttonChooseFile;

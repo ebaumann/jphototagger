@@ -2,11 +2,11 @@ package de.elmar_baumann.imv.view.dialogs;
 
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.app.AppIcons;
+import de.elmar_baumann.imv.app.MessageDisplayer;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.dialog.Dialog;
 import de.elmar_baumann.lib.util.SettingsHints;
 import java.util.EnumSet;
-import javax.swing.JOptionPane;
 
 /**
  * Modaler Dialog zur Wartung der Thumbnaildatenbank.
@@ -60,17 +60,9 @@ public final class DatabaseMaintainanceDialog extends Dialog {
             writeProperties();
             setVisible(false);
         } else {
-            errorMessageWaitBeforeClose();
+            MessageDisplayer.error(
+                    "DatabaseMaintainanceDialog.ErrorMessage.WaitBeforeClose"); // NOI18N
         }
-    }
-
-    private void errorMessageWaitBeforeClose() {
-        JOptionPane.showMessageDialog(this,
-                Bundle.getString(
-                "DatabaseMaintainanceDialog.ErrorMessage.WaitBeforeClose"),
-                Bundle.getString(
-                "DatabaseMaintainanceDialog.ErrorMessage.WaitBeforeClose.Title"),
-                JOptionPane.INFORMATION_MESSAGE);
     }
 
     @Override

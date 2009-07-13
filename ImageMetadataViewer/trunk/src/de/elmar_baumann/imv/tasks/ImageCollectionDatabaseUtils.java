@@ -2,9 +2,9 @@ package de.elmar_baumann.imv.tasks;
 
 import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.app.AppTexts;
+import de.elmar_baumann.imv.app.MessageDisplayer;
 import de.elmar_baumann.imv.database.DatabaseImageCollections;
 import de.elmar_baumann.imv.resource.Bundle;
-import de.elmar_baumann.imv.resource.GUI;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -133,67 +133,52 @@ public final class ImageCollectionDatabaseUtils {
 
     private static boolean checkIsValidName(String name) {
         if (isValidName(name)) return true;
-        JOptionPane.showMessageDialog(
-                GUI.INSTANCE.getAppFrame(),
-                Bundle.getString(
-                "ImageCollectionDatabaseUtils.Error.InvalidName", name),
-                Bundle.getString(
-                "ImageCollectionDatabaseUtils.Error.InvalidName.Title", name),
-                JOptionPane.ERROR_MESSAGE);
+        MessageDisplayer.error("ImageCollectionDatabaseUtils.Error.InvalidName", // NOI18N
+                name);
         return false;
     }
 
     private static void logAddImageCollection(String name) {
         AppLog.logInfo(ImageCollectionDatabaseUtils.class, Bundle.getString(
-                "ImageCollectionToDatabase.InformationMessage.StartInsert",
+                "ImageCollectionToDatabase.InformationMessage.StartInsert", // NOI18N
                 name));
     }
 
     private static void errorMessageAddImagesToCollection(String collectionName) {
-        errorMessage(
-                "ImageCollectionToDatabase.ErrorMessage.AddImagesToCollection",
+        MessageDisplayer.error(
+                "ImageCollectionToDatabase.ErrorMessage.AddImagesToCollection", // NOI18N
                 collectionName);
     }
 
     private static void errorMessageAddImageCollection(String collectionName) {
-        errorMessage("ImageCollectionToDatabase.ErrorMessage.AddImageCollection",
+        MessageDisplayer.error(
+                "ImageCollectionToDatabase.ErrorMessage.AddImageCollection", // NOI18N
                 collectionName);
     }
 
     private static void errorMessageDeleteImageCollection(String collectionName) {
-        errorMessage(
-                "ImageCollectionToDatabase.ErrorMessage.DeleteImageCollection",
+        MessageDisplayer.error(
+                "ImageCollectionToDatabase.ErrorMessage.DeleteImageCollection", // NOI18N
                 collectionName);
     }
 
     private static void errorMessageDeleteImagesFromCollection(
             String collectionName) {
-        errorMessage(
-                "ImageCollectionToDatabase.ErrorMessage.DeleteImagesFromCollection",
+        MessageDisplayer.error(
+                "ImageCollectionToDatabase.ErrorMessage.DeleteImagesFromCollection", // NOI18N
                 collectionName);
     }
 
     private static void errorMessageRenameImageCollection(String collectionName) {
-        errorMessage(
-                "ImageCollectionToDatabase.ErrorMessage.RenameImageCollection",
+        MessageDisplayer.error(
+                "ImageCollectionToDatabase.ErrorMessage.RenameImageCollection", // NOI18N
                 collectionName);
     }
 
-    private static void errorMessage(String bundleKey, String param) {
-        JOptionPane.showMessageDialog(null,
-                Bundle.getString(bundleKey, param),
-                Bundle.getString("ImageCollectionToDatabase.ErrorMessage.Title"),
-                JOptionPane.ERROR_MESSAGE);
-    }
-
     private static boolean confirmDelete(String bundleKey, String collectionName) {
-        return JOptionPane.showConfirmDialog(
-                null,
-                Bundle.getString(bundleKey, collectionName),
-                Bundle.getString(
-                "ImageCollectionToDatabase.ConfirmMessage.Delete.Title"),
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION;
+        return MessageDisplayer.confirm(bundleKey,
+                MessageDisplayer.CancelButton.HIDE, collectionName).equals(
+                MessageDisplayer.ConfirmAction.YES);
     }
 
     private static String inputCollectionName(String defaultName) {
@@ -204,13 +189,10 @@ public final class ImageCollectionDatabaseUtils {
             String nameNextTry = name;
             if (DatabaseImageCollections.INSTANCE.existsImageCollection(name) ||
                     !checkIsValidName(name)) {
-                willAdd = JOptionPane.showConfirmDialog(null,
-                        Bundle.getString(
-                        "ImageCollectionToDatabase.ConfirmMessage.InputNewCollectionName", name),
-                        Bundle.getString(
-                        "ImageCollectionToDatabase.ConfirmMessage.InputNewCollectionName.Title"),
-                        JOptionPane.YES_NO_OPTION,
-                        JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION;
+                willAdd = MessageDisplayer.confirm(
+                        "ImageCollectionToDatabase.ConfirmMessage.InputNewCollectionName", // NOI18N
+                        MessageDisplayer.CancelButton.HIDE, name).equals(
+                        MessageDisplayer.ConfirmAction.YES);
                 name = null;
             }
             if (willAdd) {
@@ -223,7 +205,7 @@ public final class ImageCollectionDatabaseUtils {
     private static String getCollectionName(String defaultName) {
         String name = JOptionPane.showInputDialog(
                 Bundle.getString(
-                "ImageCollectionToDatabase.Input.CollectionName"),
+                "ImageCollectionToDatabase.Input.CollectionName"), // NOI18N
                 defaultName);
         if (name != null) {
             name = name.trim();

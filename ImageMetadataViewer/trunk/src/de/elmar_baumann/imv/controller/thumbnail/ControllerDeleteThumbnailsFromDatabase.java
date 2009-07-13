@@ -1,7 +1,7 @@
 package de.elmar_baumann.imv.controller.thumbnail;
 
+import de.elmar_baumann.imv.app.MessageDisplayer;
 import de.elmar_baumann.imv.database.DatabaseImageFiles;
-import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuThumbnails;
@@ -10,7 +10,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 /**
@@ -73,25 +72,16 @@ public final class ControllerDeleteThumbnailsFromDatabase implements
     }
 
     private boolean confirmDelete() {
-        return JOptionPane.showConfirmDialog(
-                null,
-                Bundle.getString(
-                "ControllerDeleteThumbnailsFromDatabase.ConfirmMessage.DeleteSelectedFiles",
-                thumbnailsPanel.getSelectionCount()),
-                Bundle.getString(
-                "ControllerDeleteThumbnailsFromDatabase.ConfirmMessage.DeleteSelectedFiles.Title"),
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION;
+        return MessageDisplayer.confirm(
+                "ControllerDeleteThumbnailsFromDatabase.ConfirmMessage.DeleteSelectedFiles", // NOI18N
+                MessageDisplayer.CancelButton.HIDE,
+                thumbnailsPanel.getSelectionCount()).equals(
+                MessageDisplayer.ConfirmAction.YES);
     }
 
     private void errorMessageDeleteImageFiles(int countFiles, int countDeleted) {
-        JOptionPane.showMessageDialog(
-                null,
-                Bundle.getString(
-                "ControllerDeleteThumbnailsFromDatabase.ErrorMessage.DeleteSelectedFiles",
-                countFiles, countDeleted),
-                Bundle.getString(
-                "ControllerDeleteThumbnailsFromDatabase.ErrorMessage.DeleteSelectedFiles.Title"),
-                JOptionPane.ERROR_MESSAGE);
+        MessageDisplayer.error(
+                "ControllerDeleteThumbnailsFromDatabase.ErrorMessage.DeleteSelectedFiles", // NOI18N
+                countFiles, countDeleted);
     }
 }

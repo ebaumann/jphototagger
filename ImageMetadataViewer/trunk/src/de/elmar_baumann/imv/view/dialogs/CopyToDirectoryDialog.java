@@ -2,6 +2,7 @@ package de.elmar_baumann.imv.view.dialogs;
 
 import de.elmar_baumann.imv.app.AppIcons;
 import de.elmar_baumann.imv.UserSettings;
+import de.elmar_baumann.imv.app.MessageDisplayer;
 import de.elmar_baumann.imv.event.ProgressEvent;
 import de.elmar_baumann.imv.event.listener.ProgressListener;
 import de.elmar_baumann.imv.image.metadata.xmp.XmpMetadata;
@@ -18,7 +19,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -76,13 +76,8 @@ public final class CopyToDirectoryDialog extends Dialog
 
     private void checkClosing() {
         if (copy) {
-            JOptionPane.showMessageDialog(
-                    null,
-                    Bundle.getString(
-                    "CopyToDirectoryDialog.ErrorMessage.AbortBeforeClose"),
-                    Bundle.getString(
-                    "CopyToDirectoryDialog.ErrorMessage.AbortBeforeClose.Title"),
-                    JOptionPane.INFORMATION_MESSAGE);
+            MessageDisplayer.error(
+                    "CopyToDirectoryDialog.ErrorMessage.AbortBeforeClose"); // NOI18N
         } else {
             setVisible(false);
         }
@@ -90,13 +85,8 @@ public final class CopyToDirectoryDialog extends Dialog
 
     private void checkError(List<String> errorFiles) {
         if (errorFiles.size() > 0) {
-            JOptionPane.showMessageDialog(
-                    null,
-                    Bundle.getString(
-                    "CopyToDirectoryDialog.ErrorMessage.CopyErrorsOccured"),
-                    Bundle.getString(
-                    "CopyToDirectoryDialog.ErrorMessage.CopyErrorsOccured.Title"),
-                    JOptionPane.ERROR_MESSAGE);
+            MessageDisplayer.error(
+                    "CopyToDirectoryDialog.ErrorMessage.CopyErrorsOccured"); // NOI18N
         }
     }
 
@@ -216,22 +206,14 @@ public final class CopyToDirectoryDialog extends Dialog
     }
 
     private void errorMessageTargetDirectoryDoesNotExist() {
-        JOptionPane.showMessageDialog(this,
-                Bundle.getString(
-                "CopyToDirectoryDialog.ErrorMessage.TargetDirectoryDoesNotExist",
-                targetDirectory.getAbsolutePath()),
-                Bundle.getString(
-                "CopyToDirectoryDialog.ErrorMessage.TargetDirectoryDoesNotExist.Title"),
-                JOptionPane.ERROR_MESSAGE);
+        MessageDisplayer.error(
+                "CopyToDirectoryDialog.ErrorMessage.TargetDirectoryDoesNotExist", // NOI18N
+                targetDirectory.getAbsolutePath());
     }
 
     private void errorMessageMissingSourceFiles() {
-        JOptionPane.showMessageDialog(this,
-                Bundle.getString(
-                "CopyToDirectoryDialog.ErrorMessage.MissingSourceFiles"),
-                Bundle.getString(
-                "CopyToDirectoryDialog.ErrorMessage.MissingSourceFiles.Title"),
-                JOptionPane.ERROR_MESSAGE);
+        MessageDisplayer.error(
+                "CopyToDirectoryDialog.ErrorMessage.MissingSourceFiles"); // NOI18N
     }
 
     @Override

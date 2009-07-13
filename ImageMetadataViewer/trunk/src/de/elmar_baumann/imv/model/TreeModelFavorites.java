@@ -2,6 +2,7 @@ package de.elmar_baumann.imv.model;
 
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.app.AppLog;
+import de.elmar_baumann.imv.app.MessageDisplayer;
 import de.elmar_baumann.imv.data.FavoriteDirectory;
 import de.elmar_baumann.imv.database.DatabaseFavoriteDirectories;
 import de.elmar_baumann.imv.event.listener.AppExitListener;
@@ -19,7 +20,6 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.Properties;
 import java.util.Stack;
-import javax.swing.JOptionPane;
 import javax.swing.JTree;
 import javax.swing.event.TreeExpansionEvent;
 import javax.swing.event.TreeWillExpandListener;
@@ -312,14 +312,8 @@ public final class TreeModelFavorites extends DefaultTreeModel
     }
 
     private void errorMessage(String favoriteName, String cause) {
-        JOptionPane.showMessageDialog(
-                null,
-                Bundle.getString(
-                "TreeModelFavorites.ErrorMessage.Template",
-                favoriteName, cause),
-                Bundle.getString(
-                "TreeModelFavorites.ErrorMessage.Template.Title"),
-                JOptionPane.ERROR_MESSAGE);
+        MessageDisplayer.error("TreeModelFavorites.ErrorMessage.Template", // NOI18N
+                favoriteName, cause);
     }
 
     /**

@@ -1,10 +1,10 @@
 package de.elmar_baumann.imv.view.panels;
 
 import de.elmar_baumann.imv.UserSettings;
+import de.elmar_baumann.imv.app.MessageDisplayer;
 import de.elmar_baumann.imv.database.DatabaseMaintainance;
 import de.elmar_baumann.imv.database.metadata.file.ColumnFilesFilename;
 import de.elmar_baumann.imv.resource.Bundle;
-import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.types.SubstringPosition;
 import de.elmar_baumann.lib.util.SettingsHints;
 import java.util.ArrayList;
@@ -12,7 +12,6 @@ import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 
 /**
@@ -112,15 +111,11 @@ public class RenameFilenamesInDbPanel extends javax.swing.JPanel {
                 }
 
                 private void informationReplaced(int count) {
-                    JOptionPane.showMessageDialog(GUI.INSTANCE.getAppFrame(),
-                            Bundle.getString(
-                            "RenameFilenamesInDbPanel.InformationMessage.CountReplaced", count),
-                            Bundle.getString(
-                            "RenameFilenamesInDbPanel.InformationMessage.CountReplaced.Title"),
-                            JOptionPane.INFORMATION_MESSAGE);
+                    MessageDisplayer.information(
+                            "RenameFilenamesInDbPanel.InformationMessage.CountReplaced", count); // NOI18N
                 }
             });
-            thread.setName("Replacing filename substrings in the database @ " +
+            thread.setName("Replacing filename substrings in the database @ " + // NOI18N
                     getClass().getName());
             thread.start();
         }
@@ -135,15 +130,11 @@ public class RenameFilenamesInDbPanel extends javax.swing.JPanel {
     }
 
     private boolean confirmReplace() {
-        return JOptionPane.showConfirmDialog(this,
-                Bundle.getString(
-                "RenameFilenamesInDbPanel.ConfirmMessage.Replace",
-                textFieldSearch.getText(), textFieldReplacement.getText()),
-                Bundle.getString(
-                "RenameFilenamesInDbPanel.ConfirmMessage.Replace.Title"),
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.QUESTION_MESSAGE) ==
-                JOptionPane.YES_OPTION;
+        return MessageDisplayer.confirm(
+                "RenameFilenamesInDbPanel.ConfirmMessage.Replace", // NOI18N
+                MessageDisplayer.CancelButton.HIDE, textFieldSearch.getText(),
+                textFieldReplacement.getText()).equals(
+                MessageDisplayer.ConfirmAction.YES);
     }
 
     public void writeProperties() {

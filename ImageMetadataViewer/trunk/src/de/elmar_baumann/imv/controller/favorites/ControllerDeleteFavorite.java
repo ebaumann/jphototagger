@@ -1,8 +1,9 @@
 package de.elmar_baumann.imv.controller.favorites;
 
+import de.elmar_baumann.imv.app.MessageDisplayer;
+import de.elmar_baumann.imv.app.MessageDisplayer.CancelButton;
 import de.elmar_baumann.imv.data.FavoriteDirectory;
 import de.elmar_baumann.imv.model.TreeModelFavorites;
-import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuFavorites;
@@ -10,7 +11,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import javax.swing.JOptionPane;
 import javax.swing.JTree;
 import javax.swing.SwingUtilities;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -76,15 +76,10 @@ public final class ControllerDeleteFavorite
     }
 
     private boolean confirmDelete(String favoriteName) {
-        return JOptionPane.showConfirmDialog(
-                null,
-                Bundle.getString(
-                "ControllerDeleteFavorite.ConfirmMessage.Delete",
-                favoriteName),
-                Bundle.getString(
-                "ControllerDeleteFavorite.ConfirmMessage.Delete.Title"),
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION;
+        return MessageDisplayer.confirm(
+                "ControllerDeleteFavorite.ConfirmMessage.Delete", // NOI18N
+                CancelButton.SHOW, favoriteName).equals(
+                MessageDisplayer.ConfirmAction.YES);
     }
 
     @Override
