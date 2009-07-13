@@ -20,6 +20,6 @@ public final class ColumnFilesThumbnail extends Column {
             "thumbnail", // NOI18N
             DataType.BINARY);
 
-        setDescription(Bundle.getString("ColumnFilesThumbnail.Description"));
+        setDescription(Bundle.getString("ColumnFilesThumbnail.Description")); // NOI18N
     }
 }

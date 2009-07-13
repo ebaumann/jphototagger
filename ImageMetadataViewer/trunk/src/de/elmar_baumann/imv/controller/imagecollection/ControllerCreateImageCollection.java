@@ -83,7 +83,7 @@ public final class ControllerCreateImageCollection
         } else {
             AppLog.logWarning(ControllerCreateImageCollection.class, Bundle.
                     getString(
-                    "ControllerCreateImageCollection.ErrorMessage.Create"));
+                    "ControllerCreateImageCollection.ErrorMessage.Create")); // NOI18N
         }
     }
 

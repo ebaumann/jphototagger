@@ -17,10 +17,10 @@ public final class PopupMenuImageCollections extends JPopupMenu {
 
     private static final String DISPLAY_NAME_ACTION_DELETE =
             Bundle.getString(
-            "PopupMenuImageCollections.DisplayName.Action.Delete");
+            "PopupMenuImageCollections.DisplayName.Action.Delete"); // NOI18N
     private static final String DISPLAY_NAME_ACTION_RENAME =
             Bundle.getString(
-            "PopupMenuImageCollections.DisplayName.Action.Rename");
+            "PopupMenuImageCollections.DisplayName.Action.Rename"); // NOI18N
     private final JMenuItem itemDelete =
             new JMenuItem(DISPLAY_NAME_ACTION_DELETE);
     private final JMenuItem itemRename =
@@ -71,8 +71,8 @@ public final class PopupMenuImageCollections extends JPopupMenu {
     }
 
     private void setIcons() {
-        itemDelete.setIcon(AppIcons.getIcon("icon_remove.png"));
-        itemRename.setIcon(AppIcons.getIcon("icon_rename.png"));
+        itemDelete.setIcon(AppIcons.getIcon("icon_remove.png")); // NOI18N
+        itemRename.setIcon(AppIcons.getIcon("icon_rename.png")); // NOI18N
     }
 
     private void setAccelerators() {

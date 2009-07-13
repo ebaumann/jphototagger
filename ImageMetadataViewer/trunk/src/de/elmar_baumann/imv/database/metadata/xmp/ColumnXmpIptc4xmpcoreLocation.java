@@ -21,7 +21,7 @@ public final class ColumnXmpIptc4xmpcoreLocation extends Column {
             DataType.STRING);
 
         setLength(64);
-        setDescription(Bundle.getString("ColumnXmpIptc4xmpcoreLocation.Description"));
-        setLongerDescription(Bundle.getString("ColumnXmpIptc4xmpcoreLocation.LongerDescription"));
+        setDescription(Bundle.getString("ColumnXmpIptc4xmpcoreLocation.Description")); // NOI18N
+        setLongerDescription(Bundle.getString("ColumnXmpIptc4xmpcoreLocation.LongerDescription")); // NOI18N
     }
 }

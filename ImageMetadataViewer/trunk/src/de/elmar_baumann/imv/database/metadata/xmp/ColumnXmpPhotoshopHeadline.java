@@ -21,7 +21,7 @@ public final class ColumnXmpPhotoshopHeadline extends Column {
             DataType.STRING);
 
         setLength(256);
-        setDescription(Bundle.getString("ColumnXmpPhotoshopHeadline.Description"));
-        setLongerDescription(Bundle.getString("ColumnXmpPhotoshopHeadline.LongerDescription"));
+        setDescription(Bundle.getString("ColumnXmpPhotoshopHeadline.Description")); // NOI18N
+        setLongerDescription(Bundle.getString("ColumnXmpPhotoshopHeadline.LongerDescription")); // NOI18N
     }
 }

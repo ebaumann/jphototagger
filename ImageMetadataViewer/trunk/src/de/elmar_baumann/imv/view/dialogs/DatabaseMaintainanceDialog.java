@@ -51,7 +51,7 @@ public final class DatabaseMaintainanceDialog extends Dialog {
 
     private void postInitComponents() {
         setIconImages(AppIcons.getAppIcons());
-        setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
+        setHelpContentsUrl(Bundle.getString("Help.Url.Contents")); // NOI18N
         registerKeyStrokes();
     }
 
@@ -67,7 +67,7 @@ public final class DatabaseMaintainanceDialog extends Dialog {
 
     @Override
     protected void help() {
-        help(Bundle.getString("Help.Url.DatabaseMaintainanceDialog"));
+        help(Bundle.getString("Help.Url.DatabaseMaintainanceDialog")); // NOI18N
     }
 
     @Override

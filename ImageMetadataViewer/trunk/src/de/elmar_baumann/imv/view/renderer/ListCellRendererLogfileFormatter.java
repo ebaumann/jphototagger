@@ -22,15 +22,15 @@ public final class ListCellRendererLogfileFormatter extends DefaultListCellRende
             new HashMap<Class, String>();
     private static final String TEXT_UNDEFINED =
             Bundle.getString(
-            "ListCellRendererLogfileFormatter.InformationMessage.Format.Undefined");
+            "ListCellRendererLogfileFormatter.InformationMessage.Format.Undefined"); // NOI18N
 
     static {
         TEXT_OF_CLASS.put(XMLFormatter.class,
                 Bundle.getString(
-                "ListCellRendererLogfileFormatter.InformationMessage.Format.Xml"));
+                "ListCellRendererLogfileFormatter.InformationMessage.Format.Xml")); // NOI18N
         TEXT_OF_CLASS.put(SimpleFormatter.class,
                 Bundle.getString(
-                "ListCellRendererLogfileFormatter.InformationMessage.Format.Simple"));
+                "ListCellRendererLogfileFormatter.InformationMessage.Format.Simple")); // NOI18N
     }
 
     @Override

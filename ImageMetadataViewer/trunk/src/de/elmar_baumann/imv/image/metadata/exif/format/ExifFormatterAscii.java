@@ -38,7 +38,7 @@ public final class ExifFormatterAscii extends ExifFormatter {
     public String format(IdfEntryProxy entry) {
         boolean isAsciiTag = ASCII_TAGS.contains(entry.getTag());
         if (!isAsciiTag) throw new IllegalArgumentException(
-                    "Not an ASCII-Tag: " + entry);
+                    "Not an ASCII-Tag: " + entry); // NOI18N
         return ExifAscii.decode(entry.getRawValue());
     }
 }

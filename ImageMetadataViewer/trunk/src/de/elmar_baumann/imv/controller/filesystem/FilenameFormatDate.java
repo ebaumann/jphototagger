@@ -60,8 +60,9 @@ public final class FilenameFormatDate extends FilenameFormat {
         checkNewDay(date);
         prevDate = date;
         name =
-                new SimpleDateFormat("yyyy" + delimiter + "MM" + delimiter +
-                "dd").format(date); // NOI18N
+                new SimpleDateFormat("yyyy" + // NOI18N
+                delimiter + "MM" + // NOI18N
+                delimiter + "dd").format(date); // NOI18N
     }
 
     @Override
@@ -72,7 +73,7 @@ public final class FilenameFormatDate extends FilenameFormat {
 
     @Override
     public String toString() {
-        return Bundle.getString("FilenameFormatDate.String");
+        return Bundle.getString("FilenameFormatDate.String"); // NOI18N
     }
 
     private FilenameFormatDate() {

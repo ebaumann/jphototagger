@@ -94,7 +94,7 @@ public class ControllerRenameHierarchicalKeyword
         } else {
             AppLog.logWarning(ControllerRenameHierarchicalKeyword.class,
                     Bundle.getString(
-                    "ControllerRenameHierarchicalKeyword.Error.Model"));
+                    "ControllerRenameHierarchicalKeyword.Error.Model")); // NOI18N
         }
     }
 

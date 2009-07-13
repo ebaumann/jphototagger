@@ -48,7 +48,7 @@ public final class MoveToDirectoryDialog extends Dialog
         super((java.awt.Frame) null, false);
         initComponents();
         setIconImages(AppIcons.getAppIcons());
-        setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
+        setHelpContentsUrl(Bundle.getString("Help.Url.Contents")); // NOI18N
         registerKeyStrokes();
     }
 
@@ -116,7 +116,7 @@ public final class MoveToDirectoryDialog extends Dialog
         addListenerToMoveTask();
         Thread thread = new Thread(moveTask);
         thread.setPriority(UserSettings.INSTANCE.getThreadPriority());
-        thread.setName("Moving files to directory " + targetDirectory.
+        thread.setName("Moving files to directory " + targetDirectory. // NOI18N
                 getAbsolutePath() + " @ " + getClass().getName()); // NOI18N
         thread.start();
         runs = true;
@@ -265,7 +265,7 @@ public final class MoveToDirectoryDialog extends Dialog
 
     @Override
     protected void help() {
-        help(Bundle.getString("Help.Url.MoveToDirectoryDialog"));
+        help(Bundle.getString("Help.Url.MoveToDirectoryDialog")); // NOI18N
     }
 
     @Override

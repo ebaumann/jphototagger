@@ -21,7 +21,7 @@ public final class ExifFormatterGpsSatellites extends ExifFormatter {
     @Override
     public String format(IdfEntryProxy entry) {
         if (entry.getTag() != ExifTag.GPS_SATELLITES.getId())
-            throw new IllegalArgumentException("Wrong tag: " + entry);
+            throw new IllegalArgumentException("Wrong tag: " + entry); // NOI18N
         return ExifAscii.decode(entry.getRawValue());
     }
 }

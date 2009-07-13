@@ -23,6 +23,6 @@ public final class ColumnExifIsoSpeedRatings extends Column {
             "exif_iso_speed_ratings", // NOI18N
             DataType.SMALLINT);
 
-        setDescription(Bundle.getString("ColumnExifIsoSpeedRatings.Description"));
+        setDescription(Bundle.getString("ColumnExifIsoSpeedRatings.Description")); // NOI18N
     }
 }

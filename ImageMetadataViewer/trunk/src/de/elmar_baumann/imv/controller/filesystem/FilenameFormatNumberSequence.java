@@ -79,7 +79,7 @@ public final class FilenameFormatNumberSequence extends FilenameFormat {
 
     @Override
     public String toString() {
-        return Bundle.getString("FilenameFormatNumberSequence.String");
+        return Bundle.getString("FilenameFormatNumberSequence.String"); // NOI18N
     }
 
     private FilenameFormatNumberSequence() {

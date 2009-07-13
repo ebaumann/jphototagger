@@ -25,7 +25,7 @@ public final class ExifFormatterDateTime extends ExifFormatter {
     @Override
     public String format(IdfEntryProxy entry) {
         if (entry.getTag() != ExifTag.DATE_TIME_ORIGINAL.getId())
-            throw new IllegalArgumentException("Wrong tag: " + entry);
+            throw new IllegalArgumentException("Wrong tag: " + entry); // NOI18N
         byte[] rawValue = entry.getRawValue();
         String value = ExifAscii.decode(rawValue).trim();
         if (value.length() >= 18) {

@@ -20,6 +20,6 @@ public final class ColumnCollectionnamesName extends Column {
             "name", // NOI18N
             DataType.INTEGER);
 
-        setDescription(Bundle.getString("ColumnCollectionnamesName.Description"));
+        setDescription(Bundle.getString("ColumnCollectionnamesName.Description")); // NOI18N
     }
 }

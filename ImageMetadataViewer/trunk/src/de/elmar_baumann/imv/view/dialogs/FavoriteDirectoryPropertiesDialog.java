@@ -39,7 +39,7 @@ public final class FavoriteDirectoryPropertiesDialog extends Dialog {
 
     private void postInitComponents() {
         setIconImages(APP_ICONS);
-        setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
+        setHelpContentsUrl(Bundle.getString("Help.Url.Contents")); // NOI18N
         registerKeyStrokes();
     }
 
@@ -180,7 +180,7 @@ public final class FavoriteDirectoryPropertiesDialog extends Dialog {
 
     @Override
     protected void help() {
-        help(Bundle.getString("Help.Url.FavoriteDirectoryPropertiesDialog"));
+        help(Bundle.getString("Help.Url.FavoriteDirectoryPropertiesDialog")); // NOI18N
     }
 
     @Override

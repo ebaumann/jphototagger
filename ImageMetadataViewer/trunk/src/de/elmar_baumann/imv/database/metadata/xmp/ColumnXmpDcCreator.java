@@ -21,7 +21,7 @@ public final class ColumnXmpDcCreator extends Column {
             DataType.STRING);
 
         setLength(128);
-        setDescription(Bundle.getString("ColumnXmpDcCreator.Description"));
-        setLongerDescription(Bundle.getString("ColumnXmpDcCreator.LongerDescription"));
+        setDescription(Bundle.getString("ColumnXmpDcCreator.Description")); // NOI18N
+        setLongerDescription(Bundle.getString("ColumnXmpDcCreator.LongerDescription")); // NOI18N
     }
 }

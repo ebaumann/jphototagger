@@ -19,8 +19,8 @@ public final class ColumnXmpLastModified extends Column {
             "lastmodified", // NOI18N
             DataType.BIGINT);
 
-        setDescription(Bundle.getString("ColumnXmpLastModified.Description"));
-        setLongerDescription(Bundle.getString("ColumnXmpLastModified.LongerDescription"));
+        setDescription(Bundle.getString("ColumnXmpLastModified.Description")); // NOI18N
+        setLongerDescription(Bundle.getString("ColumnXmpLastModified.LongerDescription")); // NOI18N
     }
 
 }

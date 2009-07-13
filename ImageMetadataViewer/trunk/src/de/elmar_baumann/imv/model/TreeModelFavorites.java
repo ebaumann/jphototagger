@@ -48,7 +48,7 @@ public final class TreeModelFavorites extends DefaultTreeModel
 
     public TreeModelFavorites(JTree tree) {
         super(new DefaultMutableTreeNode(
-                Bundle.getString("TreeModelFavorites.Root.DisplayName")));
+                Bundle.getString("TreeModelFavorites.Root.DisplayName"))); // NOI18N
         this.tree = tree;
         rootNode = (DefaultMutableTreeNode) getRoot();
         tree.addTreeWillExpandListener(this);
@@ -65,8 +65,7 @@ public final class TreeModelFavorites extends DefaultTreeModel
                 addDirectory(favoriteDirectory);
             } else {
                 errorMessage(favoriteDirectory.getFavoriteName(), Bundle.
-                        getString(
-                        "TreeModelFavorites.ErrorMessage.ParamInsert"));
+                        getString("TreeModelFavorites.ErrorMessage.ParamInsert")); // NOI18N
             }
         }
     }
@@ -92,7 +91,7 @@ public final class TreeModelFavorites extends DefaultTreeModel
             } else {
                 errorMessage(favoriteDirctory.getFavoriteName(), Bundle.
                         getString(
-                        "TreeModelFavorites.ErrorMessage.ParamDelete"));
+                        "TreeModelFavorites.ErrorMessage.ParamDelete")); // NOI18N
             }
         }
     }
@@ -109,7 +108,7 @@ public final class TreeModelFavorites extends DefaultTreeModel
                 nodeChanged(oldNode);
             } else {
                 errorMessage(oldFavorite.getFavoriteName(), Bundle.getString(
-                        "TreeModelFavorites.ErrorMessage.ParamUpdate"));
+                        "TreeModelFavorites.ErrorMessage.ParamUpdate")); // NOI18N
             }
         }
     }

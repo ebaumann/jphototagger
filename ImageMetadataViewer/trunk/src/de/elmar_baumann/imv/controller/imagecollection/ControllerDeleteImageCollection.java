@@ -76,7 +76,7 @@ public final class ControllerDeleteImageCollection
         } else {
             AppLog.logWarning(ControllerDeleteImageCollection.class,
                     Bundle.getString(
-                    "ControllerDeleteImageCollection.ErrorMessage.CollectionNameIsNull"));
+                    "ControllerDeleteImageCollection.ErrorMessage.CollectionNameIsNull")); // NOI18N
         }
     }
 

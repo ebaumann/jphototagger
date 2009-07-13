@@ -8,11 +8,11 @@ import de.elmar_baumann.imv.resource.Bundle;
  */
 public enum FileSystemError {
 
-    LOCKED(Bundle.getString("FileSystemError.LOCKED")),
-    MISSING_PRIVILEGES(Bundle.getString("FileSystemError.MISSING_PRIVILEGES")),
-    MOVE_RENAME_EXISTS(Bundle.getString("FileSystemError.MOVE_RENAME_EXISTS")),
-    READ_ONLY(Bundle.getString("FileSystemError.READ_ONLY")),
-    UNKNOWN(Bundle.getString("FileSystemError.UNKNOWN"));
+    LOCKED(Bundle.getString("FileSystemError.LOCKED")), // NOI18N
+    MISSING_PRIVILEGES(Bundle.getString("FileSystemError.MISSING_PRIVILEGES")), // NOI18N
+    MOVE_RENAME_EXISTS(Bundle.getString("FileSystemError.MOVE_RENAME_EXISTS")), // NOI18N
+    READ_ONLY(Bundle.getString("FileSystemError.READ_ONLY")), // NOI18N
+    UNKNOWN(Bundle.getString("FileSystemError.UNKNOWN")); // NOI18N
     private final String message;
 
     private FileSystemError(String message) {

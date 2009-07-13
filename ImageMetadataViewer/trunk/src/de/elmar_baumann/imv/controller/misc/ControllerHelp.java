@@ -21,12 +21,12 @@ public final class ControllerHelp implements ActionListener,
 
     private final HelpBrowser help = HelpBrowser.INSTANCE;
     private static final String KEY_CURRENT_URL =
-            ControllerHelp.class.getName() + ".CurrentURL";
+            ControllerHelp.class.getName() + ".CurrentURL"; // NOI18N
     private String currentUrl =
             UserSettings.INSTANCE.getSettings().getString(KEY_CURRENT_URL);
 
     public ControllerHelp() {
-        help.setContentsUrl(Bundle.getString("Help.Url.Contents"));
+        help.setContentsUrl(Bundle.getString("Help.Url.Contents")); // NOI18N
         help.setIconImages(AppIcons.getAppIcons());
         listen();
     }

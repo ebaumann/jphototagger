@@ -25,8 +25,8 @@ import javax.swing.JLabel;
 public final class DatabaseMaintainancePanel extends javax.swing.JPanel
         implements ProgressListener {
 
-    private static final Icon ICON_FINISHED = AppIcons.getIcon(
-            "icon_finished.png"); // NOI18N
+    private static final Icon ICON_FINISHED =
+            AppIcons.getIcon("icon_finished.png"); // NOI18N
     private final Stack<Runnable> runnables = new Stack<Runnable>();
     private final Map<Class, JLabel> finishedLabelOfRunnable =
             new HashMap<Class, JLabel>();

@@ -21,7 +21,7 @@ public final class ColumnXmpDcDescription extends Column {
             DataType.STRING);
 
         setLength(2000);
-        setDescription(Bundle.getString("ColumnXmpDcDescription.Description"));
-        setLongerDescription(Bundle.getString("ColumnXmpDcDescription.LongerDescription"));
+        setDescription(Bundle.getString("ColumnXmpDcDescription.Description")); // NOI18N
+        setLongerDescription(Bundle.getString("ColumnXmpDcDescription.LongerDescription")); // NOI18N
     }
 }

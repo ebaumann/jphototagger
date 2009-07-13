@@ -199,7 +199,7 @@ public final class ControllerShowMetadata implements DatabaseListener,
             repaintMetadataTables(allMetadata);
             appPanel.getLabelMetadataFilename().setText(
                     Bundle.getString(
-                    "ControllerShowMetadata.InformationMessage.MetadataIsShownOnlyIfOneImageIsSelected"));
+                    "ControllerShowMetadata.InformationMessage.MetadataIsShownOnlyIfOneImageIsSelected")); // NOI18N
         }
     }
 

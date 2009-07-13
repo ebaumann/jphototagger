@@ -20,7 +20,7 @@ public final class ListCellRendererImageCollections extends DefaultListCellRende
     private static final Icon ICON =
             AppIcons.getIcon("icon_imagecollection.png"); // NOI18N
     private static final Icon ICON_PREV_IMPORT =
-            AppIcons.getIcon("icon_card.png");
+            AppIcons.getIcon("icon_card.png"); // NOI18N
     private static final Color COLOR_FOREGROUND_PREV_IMPORT = Color.BLUE;
 
     @Override

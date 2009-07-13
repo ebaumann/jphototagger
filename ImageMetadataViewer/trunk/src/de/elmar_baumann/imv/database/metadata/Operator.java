@@ -13,11 +13,11 @@ public enum Operator {
     /** Verknüpfung zweier Spalten mit AND */
     AND(0,
     "AND", // NOI18N
-    Bundle.getString("Operator.And")),
+    Bundle.getString("Operator.And")), // NOI18N
     /** Verknüpfung zweier Spalten mit OR */
     OR(1,
     "OR", // NOI18N
-    Bundle.getString("Operator.Or")),;
+    Bundle.getString("Operator.Or")),; // NOI18N
     private final int id;
     private final String sqlString;
     private final String localizedString;

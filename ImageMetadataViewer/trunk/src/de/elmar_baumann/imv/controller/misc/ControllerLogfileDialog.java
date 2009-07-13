@@ -90,14 +90,14 @@ public final class ControllerLogfileDialog implements ActionListener,
                         x, y);
                 popup.show();
                 Thread thread = new Thread(new HidePopup(popup));
-                thread.setName("Hiding error popup @ " +
+                thread.setName("Hiding error popup @ " + // NOI18N
                         ControllerLogfileDialog.class.getName());
                 thread.setPriority(Thread.MIN_PRIORITY);
                 thread.start();
             }
         });
         thread.setPriority(Thread.MIN_PRIORITY);
-        thread.setName("Showing error popup");
+        thread.setName("Showing error popup"); // NOI18N
         thread.start();
     }
 

@@ -25,17 +25,17 @@ public class ExpandCollapseComponentPanel extends JPanel implements
         FocusListener {
 
     private static final String ICON_PATH_EXPAND =
-            "/de/elmar_baumann/imv/resource/icons/icon_edit_metadata_expand.png";
+            "/de/elmar_baumann/imv/resource/icons/icon_edit_metadata_expand.png"; // NOI18N
     private static final String ICON_PATH_COLLAPSE =
-            "/de/elmar_baumann/imv/resource/icons/icon_edit_metadata_collapse.png";
+            "/de/elmar_baumann/imv/resource/icons/icon_edit_metadata_collapse.png"; // NOI18N
     private static final ImageIcon ICON_EXPAND =
             IconUtil.getImageIcon(ICON_PATH_EXPAND);
-    private static final ImageIcon ICON_COLLAPSE = IconUtil.getImageIcon(
-            ICON_PATH_COLLAPSE);
-    private static final String TOOLTIP_TEXT_EXPAND = Bundle.getString(
-            "ExpandCollapseComponentPanel.TooltipTextExpand");
-    private static final String TOOLTIP_TEXT_COLLAPSE = Bundle.getString(
-            "ExpandCollapseComponentPanel.TooltipTextCollapse");
+    private static final ImageIcon ICON_COLLAPSE =
+            IconUtil.getImageIcon(ICON_PATH_COLLAPSE);
+    private static final String TOOLTIP_TEXT_EXPAND =
+            Bundle.getString("ExpandCollapseComponentPanel.TooltipTextExpand"); // NOI18N
+    private static final String TOOLTIP_TEXT_COLLAPSE =
+            Bundle.getString("ExpandCollapseComponentPanel.TooltipTextCollapse"); // NOI18N
     private String keyPersistence = "";
     private final Component component;
     private JLabel labelFill;

@@ -32,7 +32,7 @@ public final class ExifFormatterSharpness extends ExifFormatter {
     @Override
     public String format(IdfEntryProxy entry) {
         if (entry.getTag() != ExifTag.SHARPNESS.getId())
-            throw new IllegalArgumentException("Wrong tag: " + entry);
+            throw new IllegalArgumentException("Wrong tag: " + entry); // NOI18N
         if (ExifShort.getRawValueByteCount() == entry.getRawValue().length) {
             ExifShort es = new ExifShort(entry.getRawValue(),
                     entry.getByteOrder());

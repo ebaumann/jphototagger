@@ -119,7 +119,7 @@ public final class ControllerAutocopyDirectory implements ActionListener {
 
         public CopyTask(CopyToDirectoryDialog dialog) {
             this.dialog = dialog;
-            setName("Auto copying directory @ " +
+            setName("Auto copying directory @ " + // NOI18N
                     ControllerAutocopyDirectory.class.getName());
             setPriority(MIN_PRIORITY);
             dialog.addProgressListener(this);

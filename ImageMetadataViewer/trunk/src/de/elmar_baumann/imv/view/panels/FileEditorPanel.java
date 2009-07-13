@@ -37,8 +37,8 @@ public final class FileEditorPanel extends javax.swing.JPanel {
     private File prevSelectedDirectory = new File(""); // NOI18N
     private FileEditor fileEditor = new FileEditor();
     private FileFilter fileChooserFileFilter =
-            AppFileFilter.ACCEPTED_IMAGE_FILE_FORMATS.forFileChooser(Bundle.
-            getString("FileEditorPanel.FileChooserFileFilter.Description"));
+            AppFileFilter.ACCEPTED_IMAGE_FILE_FORMATS.forFileChooser(
+            Bundle.getString("FileEditorPanel.FileChooserFileFilter.Description")); // NOI18N
     private RegexFileFilter dirChooserFileFilter =
             new RegexFileFilter(".*", ";"); // NOI18N
     private String title = ""; // NOI18N
@@ -341,7 +341,6 @@ public final class FileEditorPanel extends javax.swing.JPanel {
     private void labelInfoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelInfoMouseClicked
         handleInfoMouseClicked();
     }//GEN-LAST:event_labelInfoMouseClicked
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonSelectFiles;
     private javax.swing.JButton buttonShowFiles;
@@ -365,7 +364,7 @@ public final class FileEditorPanel extends javax.swing.JPanel {
             selectedFiles = getFilesOfDirectories(selectedDirectories);
             prevSelectedDirectory = dialog.getSelectedDirectories().get(0);
             labelInfo.setText(Bundle.getString(
-                    "FileEditorPanel.SelectDirectories.LabelInfo.Text"));
+                    "FileEditorPanel.SelectDirectories.LabelInfo.Text")); // NOI18N
         }
     }
 
@@ -390,17 +389,17 @@ public final class FileEditorPanel extends javax.swing.JPanel {
     private void setFileButtonText() {
         buttonSelectFiles.setText(selectDirs
                                   ? Bundle.getString(
-                "FileEditorDialog.ButtonFiles.DirectoriesText")
+                "FileEditorDialog.ButtonFiles.DirectoriesText") // NOI18N
                                   : Bundle.getString(
-                "FileEditorDialog.ButtonFiles.FilesText"));
+                "FileEditorDialog.ButtonFiles.FilesText")); // NOI18N
     }
 
     private void setInfoText() {
         labelInfo.setText(selectDirs
                           ? Bundle.getString(
-                "FileEditorPanel.LabelInfo.SelectDirs.Text")
+                "FileEditorPanel.LabelInfo.SelectDirs.Text") // NOI18N
                           : Bundle.getString(
-                "FileEditorPanel.LabelInfo.SelectFiles.Text"));
+                "FileEditorPanel.LabelInfo.SelectFiles.Text")); // NOI18N
     }
 
     public void readProperties() {

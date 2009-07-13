@@ -18,11 +18,11 @@ public final class ComboBoxModelThreadPriority extends DefaultComboBoxModel {
     private static final Map<Integer, String> STRING_OF_PRIORITY =
             new HashMap<Integer, String>();
     private static final String PRIORITY_HIGH_STRING =
-            Bundle.getString("ComboBoxModelThreadPriority.ThreadPriority.High");
+            Bundle.getString("ComboBoxModelThreadPriority.ThreadPriority.High"); // NOI18N
     private static final String PRIORITY_MEDIUM_STRING =
-            Bundle.getString("ComboBoxModelThreadPriority.ThreadPriority.Medium");
+            Bundle.getString("ComboBoxModelThreadPriority.ThreadPriority.Medium"); // NOI18N
     private static final String PRIORITY_LOW_STRING =
-            Bundle.getString("ComboBoxModelThreadPriority.ThreadPriority.Low");
+            Bundle.getString("ComboBoxModelThreadPriority.ThreadPriority.Low"); // NOI18N
     private static final Integer PRIORITY_HIGH = new Integer(8);
     private static final Integer PRIORITY_MEDIUM = new Integer(5);
     private static final Integer PRIORITY_LOW = new Integer(1);

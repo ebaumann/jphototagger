@@ -18,14 +18,14 @@ public final class MessageDisplayer {
 
     {
         defaultTitleOfMessageType.put(JOptionPane.ERROR_MESSAGE,
-                Bundle.getString("MessageDisplayer.DefaultTitle.ErrorMessage"));
+                Bundle.getString("MessageDisplayer.DefaultTitle.ErrorMessage")); // NOI18N
         defaultTitleOfMessageType.put(JOptionPane.WARNING_MESSAGE,
-                Bundle.getString("MessageDisplayer.DefaultTitle.WarningMessage"));
+                Bundle.getString("MessageDisplayer.DefaultTitle.WarningMessage")); // NOI18N
         defaultTitleOfMessageType.put(JOptionPane.INFORMATION_MESSAGE,
                 Bundle.getString(
-                "MessageDisplayer.DefaultTitle.InformationMessage"));
+                "MessageDisplayer.DefaultTitle.InformationMessage")); // NOI18N
         defaultTitleOfMessageType.put(JOptionPane.QUESTION_MESSAGE,
-                Bundle.getString("MessageDisplayer.DefaultTitle.QuestionMessage"));
+                Bundle.getString("MessageDisplayer.DefaultTitle.QuestionMessage")); // NOI18N
     }
 
     /**
@@ -176,7 +176,7 @@ public final class MessageDisplayer {
     private static String getTitle(String propertyKey, int messageType) {
         assert defaultTitleOfMessageType.containsKey(messageType) : messageType;
         return Bundle.containsKey(propertyKey)
-               ? Bundle.getString(propertyKey + ".Title")
+               ? Bundle.getString(propertyKey + ".Title") // NOI18N
                : defaultTitleOfMessageType.get(messageType);
     }
 

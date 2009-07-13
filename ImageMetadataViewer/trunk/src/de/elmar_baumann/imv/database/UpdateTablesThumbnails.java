@@ -61,7 +61,7 @@ final class UpdateTablesThumbnails extends Database {
     private static void setThumbnailNull(Connection connection, long id) throws
             SQLException {
         PreparedStatement stmt = connection.prepareStatement(
-                "UPDATE files SET thumbnail = NULL WHERE id = ?");
+                "UPDATE files SET thumbnail = NULL WHERE id = ?"); // NOI18N
         stmt.setLong(1, id);
         AppLog.logFiner(UpdateTablesThumbnails.class, stmt.toString());
         stmt.executeUpdate();
@@ -93,7 +93,7 @@ final class UpdateTablesThumbnails extends Database {
     private static int getCount(Connection connection) throws SQLException {
         int count = 0;
         Statement stmt = connection.createStatement();
-        String sql = "SELECT  COUNT(*) FROM files WHERE thumbnail IS NOT NULL";
+        String sql = "SELECT  COUNT(*) FROM files WHERE thumbnail IS NOT NULL"; // NOI18N
         ResultSet rs = stmt.executeQuery(sql);
         if (rs.next()) {
             count = rs.getInt(1);
@@ -103,7 +103,7 @@ final class UpdateTablesThumbnails extends Database {
 
     private static void compress() {
         UPDATE_TABLES_MESSAGES.message(Bundle.getString(
-                "UpdateTablesThumbnails.Information.CompressDatabase"));
+                "UpdateTablesThumbnails.Information.CompressDatabase")); // NOI18N
         PROGRESS_DIALOG.setIndeterminate(true);
         DatabaseMaintainance.INSTANCE.compressDatabase();
         PROGRESS_DIALOG.setIndeterminate(false);
@@ -118,7 +118,7 @@ final class UpdateTablesThumbnails extends Database {
 
     private static void setMessage(long id, long current, long count) {
         UPDATE_TABLES_MESSAGES.message(Bundle.getString(
-                "UpdateTablesThumbnails.Information.WriteCurrentThumbnail",
+                "UpdateTablesThumbnails.Information.WriteCurrentThumbnail", // NOI18N
                 id, current, count));
     }
 }

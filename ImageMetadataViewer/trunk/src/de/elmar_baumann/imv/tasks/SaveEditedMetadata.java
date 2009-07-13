@@ -33,7 +33,7 @@ public final class SaveEditedMetadata {
         } else {
             AppLog.logWarning(SaveEditedMetadata.class,
                     Bundle.getString(
-                    "ControllerSaveMetadata.ErrorMessage.NoImageFilesSelected"));
+                    "ControllerSaveMetadata.ErrorMessage.NoImageFilesSelected")); // NOI18N
         }
         editPanels.setDirty(false);
         editPanels.setFocusToLastFocussedComponent();

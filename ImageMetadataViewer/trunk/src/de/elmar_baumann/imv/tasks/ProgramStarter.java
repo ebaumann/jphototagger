@@ -76,7 +76,7 @@ public final class ProgramStarter {
         public Execute(Program program, List<File> imageFiles) {
             this.imageFiles = imageFiles;
             this.program = program;
-            setName("Executing program " + program.getAlias() + " @ " +
+            setName("Executing program " + program.getAlias() + " @ " + // NOI18N
                     getClass().getName());
         }
 
@@ -113,8 +113,8 @@ public final class ProgramStarter {
             return program.getFile().getAbsolutePath() + " " + // NOI18N
                     program.getCommandlineParameters(
                     IoUtil.getQuotedForCommandline(imageFiles, ""), // NOI18N
-                    getAdditionalParameters(Bundle.getString(
-                    "ProgramStarter.GetInput.Title"), 2),
+                    getAdditionalParameters(
+                    Bundle.getString("ProgramStarter.GetInput.Title"), 2), // NOI18N
                     dialog.isParametersBeforeFilename());
         }
 
@@ -171,7 +171,7 @@ public final class ProgramStarter {
                               : new String(stderr).trim()); // NOI18N
             if (!message.isEmpty()) {
                 message =
-                        Bundle.getString("ProgramStarter.ErrorMessage.Program") +
+                        Bundle.getString("ProgramStarter.ErrorMessage.Program") + // NOI18N
                         message;
                 AppLog.logWarning(Execute.class, message);
             }

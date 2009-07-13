@@ -73,7 +73,7 @@ public final class UserSettingsDialog extends Dialog {
         initPersistentPanels();
         setIconImages(AppIcons.getAppIcons());
         readProperties();
-        setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
+        setHelpContentsUrl(Bundle.getString("Help.Url.Contents")); // NOI18N
         registerKeyStrokes();
     }
 
@@ -93,26 +93,26 @@ public final class UserSettingsDialog extends Dialog {
             tabOfIndex.put(indexOfTab.get(tab), tab);
         }
 
-        helpUrlOfComponent.put(tabbedPane.getComponentAt(0), Bundle.getString(
-                "Help.Url.UserSettingsDialog.Programs"));
-        helpUrlOfComponent.put(tabbedPane.getComponentAt(1), Bundle.getString(
-                "Help.Url.UserSettingsDialog.FastSearch"));
-        helpUrlOfComponent.put(tabbedPane.getComponentAt(2), Bundle.getString(
-                "Help.Url.UserSettingsDialog.Thumbnails"));
-        helpUrlOfComponent.put(tabbedPane.getComponentAt(3), Bundle.getString(
-                "Help.Url.UserSettingsDialog.Iptc"));
-        helpUrlOfComponent.put(tabbedPane.getComponentAt(4), Bundle.getString(
-                "Help.Url.UserSettingsDialog.Tasks"));
-        helpUrlOfComponent.put(tabbedPane.getComponentAt(5), Bundle.getString(
-                "Help.Url.UserSettingsDialog.Performance"));
-        helpUrlOfComponent.put(tabbedPane.getComponentAt(6), Bundle.getString(
-                "Help.Url.UserSettingsDialog.FileExcludePattern"));
-        helpUrlOfComponent.put(tabbedPane.getComponentAt(7), Bundle.getString(
-                "Help.Url.UserSettingsDialog.Edit"));
-        helpUrlOfComponent.put(tabbedPane.getComponentAt(8), Bundle.getString(
-                "Help.Url.UserSettingsDialog.Misc"));
-        helpUrlOfComponent.put(tabbedPane.getComponentAt(9), Bundle.getString(
-                "Help.Url.UserSettingsDialog.Actions"));
+        helpUrlOfComponent.put(tabbedPane.getComponentAt(0),
+                Bundle.getString("Help.Url.UserSettingsDialog.Programs")); // NOI18N
+        helpUrlOfComponent.put(tabbedPane.getComponentAt(1),
+                Bundle.getString("Help.Url.UserSettingsDialog.FastSearch")); // NOI18N
+        helpUrlOfComponent.put(tabbedPane.getComponentAt(2),
+                Bundle.getString("Help.Url.UserSettingsDialog.Thumbnails")); // NOI18N
+        helpUrlOfComponent.put(tabbedPane.getComponentAt(3),
+                Bundle.getString("Help.Url.UserSettingsDialog.Iptc")); // NOI18N
+        helpUrlOfComponent.put(tabbedPane.getComponentAt(4),
+                Bundle.getString("Help.Url.UserSettingsDialog.Tasks")); // NOI18N
+        helpUrlOfComponent.put(tabbedPane.getComponentAt(5),
+                Bundle.getString("Help.Url.UserSettingsDialog.Performance")); // NOI18N
+        helpUrlOfComponent.put(tabbedPane.getComponentAt(6),
+                Bundle.getString("Help.Url.UserSettingsDialog.FileExcludePattern")); // NOI18N
+        helpUrlOfComponent.put(tabbedPane.getComponentAt(7),
+                Bundle.getString("Help.Url.UserSettingsDialog.Edit")); // NOI18N
+        helpUrlOfComponent.put(tabbedPane.getComponentAt(8),
+                Bundle.getString("Help.Url.UserSettingsDialog.Misc")); // NOI18N
+        helpUrlOfComponent.put(tabbedPane.getComponentAt(9),
+                Bundle.getString("Help.Url.UserSettingsDialog.Actions")); // NOI18N
     }
 
     private void initPersistentPanels() {

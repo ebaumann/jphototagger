@@ -85,7 +85,7 @@ public final class ControllerRenameImageCollection
         } else {
             AppLog.logWarning(ControllerRenameImageCollection.class,
                     Bundle.getString(
-                    "ControllerRenameImageCollection.ErrorMessage.NameIsNull"));
+                    "ControllerRenameImageCollection.ErrorMessage.NameIsNull")); // NOI18N
         }
     }
 

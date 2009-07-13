@@ -518,8 +518,9 @@ public final class Xmp {
                         }
                     }
                 } else {
-                    AppLog.logWarning(Xmp.class, Bundle.getString(
-                            "Xmp.ErrorMessage.SetIptc") + iptcValue + " (" +
+                    AppLog.logWarning(Xmp.class,
+                            Bundle.getString("Xmp.ErrorMessage.SetIptc") + // NOI18N
+                            iptcValue + " (" + // NOI18N
                             xmpColumn + ")"); // NOI18N
                 }
             }

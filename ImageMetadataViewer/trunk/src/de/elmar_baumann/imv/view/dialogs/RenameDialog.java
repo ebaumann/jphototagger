@@ -61,7 +61,7 @@ public final class RenameDialog extends Dialog {
         renameFileListeners = listenerProvider.getRenameFileListeners();
         setIconImages(AppIcons.getAppIcons());
         setComboBoxModels();
-        setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
+        setHelpContentsUrl(Bundle.getString("Help.Url.Contents")); // NOI18N
         registerKeyStrokes();
     }
 
@@ -393,7 +393,7 @@ public final class RenameDialog extends Dialog {
 
     @Override
     protected void help() {
-        help(Bundle.getString("Help.Url.RenameDialog"));
+        help(Bundle.getString("Help.Url.RenameDialog")); // NOI18N
     }
 
     @Override

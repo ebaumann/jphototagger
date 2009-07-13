@@ -35,17 +35,17 @@ public final class ExifFormatterUserComment extends ExifFormatter {
     @Override
     public String format(IdfEntryProxy entry) {
         if (entry.getTag() != ExifTag.USER_COMMENT.getId())
-            throw new IllegalArgumentException("Wrong tag: " + entry);
+            throw new IllegalArgumentException("Wrong tag: " + entry); // NOI18N
         byte[] rawValue = entry.getRawValue();
         if (rawValue.length <= 8) return "";
         CharCode charCode = getEncoding(rawValue);
         byte[] rawComment = Arrays.copyOfRange(rawValue, 8, rawValue.length);
         if (charCode.equals(CharCode.ASCII))
-            return new String(rawComment, Charset.forName("US-ASCII"));
+            return new String(rawComment, Charset.forName("US-ASCII")); // NOI18N
         if (charCode.equals(CharCode.JIS))
-            return new String(rawComment, Charset.forName("JISAutoDetect"));
+            return new String(rawComment, Charset.forName("JISAutoDetect")); // NOI18N
         if (charCode.equals(CharCode.UNICODE))
-            return new String(rawComment, Charset.forName("UTF-8"));
+            return new String(rawComment, Charset.forName("UTF-8")); // NOI18N
         return "";
     }
 

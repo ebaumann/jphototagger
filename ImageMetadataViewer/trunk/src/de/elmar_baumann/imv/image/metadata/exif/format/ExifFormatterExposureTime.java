@@ -22,7 +22,7 @@ public final class ExifFormatterExposureTime extends ExifFormatter {
     @Override
     public String format(IdfEntryProxy entry) {
         if (entry.getTag() != ExifTag.EXPOSURE_TIME.getId())
-            throw new IllegalArgumentException("Wrong tag: " + entry);
+            throw new IllegalArgumentException("Wrong tag: " + entry); // NOI18N
         if (ExifRational.getRawValueByteCount() == entry.getRawValue().length) {
             ExifRational time = new ExifRational(entry.getRawValue(), entry.
                     getByteOrder());

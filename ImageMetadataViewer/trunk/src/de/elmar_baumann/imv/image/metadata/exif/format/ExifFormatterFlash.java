@@ -21,7 +21,7 @@ public final class ExifFormatterFlash extends ExifFormatter {
     @Override
     public String format(IdfEntryProxy entry) {
         if (entry.getTag() != ExifTag.FLASH.getId())
-            throw new IllegalArgumentException("Wrong tag: " + entry);
+            throw new IllegalArgumentException("Wrong tag: " + entry); // NOI18N
         byte[] rawValue = entry.getRawValue();
         if (rawValue != null && rawValue.length >= 1) {
             boolean[] bitsByte1 = Util.getBits(rawValue[0]);

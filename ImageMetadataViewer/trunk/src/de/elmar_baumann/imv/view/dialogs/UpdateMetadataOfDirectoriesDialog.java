@@ -27,7 +27,7 @@ public final class UpdateMetadataOfDirectoriesDialog extends Dialog {
     private void postInitComponents() {
         setIconImages(AppIcons.getAppIcons());
         UserSettings.INSTANCE.getSettings().getSizeAndLocation(this);
-        setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
+        setHelpContentsUrl(Bundle.getString("Help.Url.Contents")); // NOI18N
         registerKeyStrokes();
     }
 

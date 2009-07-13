@@ -18,8 +18,8 @@ import javax.swing.tree.DefaultTreeCellRenderer;
  */
 public final class TreeCellRendererFavorites extends DefaultTreeCellRenderer {
 
-    private final FileSystemView fileSystemView = FileSystemView.
-            getFileSystemView();
+    private final FileSystemView fileSystemView =
+            FileSystemView.getFileSystemView();
 
     @Override
     public Component getTreeCellRendererComponent(JTree tree, Object value,

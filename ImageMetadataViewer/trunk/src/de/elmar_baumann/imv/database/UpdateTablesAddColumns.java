@@ -23,17 +23,18 @@ final class UpdateTablesAddColumns {
 
 
     static {
-        columns.add(new ColumnInfo("programs", "parameters_after_filename", "BINARY",
+        columns.add(new ColumnInfo("programs", "parameters_after_filename", "BINARY", // NOI18N
                 null));
-        columns.add(new ColumnInfo("programs", "action", "BOOLEAN",
-                new IndexOfColumn("programs", "action", "idx_programs_action", false)));
-        columns.add(new ColumnInfo("programs", "input_before_execute", "BOOLEAN",
+        columns.add(new ColumnInfo("programs", "action", "BOOLEAN", // NOI18N
+                new IndexOfColumn("programs", "action", "idx_programs_action", // NOI18N
+                false)));
+        columns.add(new ColumnInfo("programs", "input_before_execute", "BOOLEAN", // NOI18N
                 null));
-        columns.add(new ColumnInfo("programs", "input_before_execute_per_file", "BOOLEAN",
+        columns.add(new ColumnInfo("programs", "input_before_execute_per_file", "BOOLEAN", // NOI18N
                 null));
-        columns.add(new ColumnInfo("programs", "single_file_processing", "BOOLEAN",
+        columns.add(new ColumnInfo("programs", "single_file_processing", "BOOLEAN", // NOI18N
                 null));
-        columns.add(new ColumnInfo("programs", "change_file", "BOOLEAN",
+        columns.add(new ColumnInfo("programs", "change_file", "BOOLEAN", // NOI18N
                 null));
     }
 
@@ -56,7 +57,7 @@ final class UpdateTablesAddColumns {
 
     private void addColumns(Connection connection) throws SQLException {
         dialog.setIndeterminate(true);
-        messages.message(Bundle.getString("UpdateTablesAddColumns.InformationMessage.update"));
+        messages.message(Bundle.getString("UpdateTablesAddColumns.InformationMessage.update")); // NOI18N
         for (ColumnInfo info : missingColumns) {
             addColumn(connection, info);
         }
@@ -74,7 +75,7 @@ final class UpdateTablesAddColumns {
     }
 
     private void setMessage(String tableName, String columnName) {
-        messages.message(Bundle.getString("UpdateTablesAddColumns.InformationMessage.AddColumns",
+        messages.message(Bundle.getString("UpdateTablesAddColumns.InformationMessage.AddColumns", // NOI18N
                 tableName, columnName));
     }
 }

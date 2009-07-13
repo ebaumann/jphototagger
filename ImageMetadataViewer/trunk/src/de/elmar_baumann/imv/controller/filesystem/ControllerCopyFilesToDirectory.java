@@ -47,7 +47,7 @@ public final class ControllerCopyFilesToDirectory implements ActionListener {
         } else {
             AppLog.logWarning(ControllerCopyFilesToDirectory.class,
                     Bundle.getString(
-                    "ControllerCopyFilesToDirectory.ErrorMessage.NoImagesSelected"));
+                    "ControllerCopyFilesToDirectory.ErrorMessage.NoImagesSelected")); // NOI18N
         }
     }
 }

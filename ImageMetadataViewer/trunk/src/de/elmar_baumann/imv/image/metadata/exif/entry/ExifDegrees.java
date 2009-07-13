@@ -28,7 +28,7 @@ public final class ExifDegrees {
     public ExifDegrees(byte[] rawValue, ExifByteOrder byteOrder) {
         if (!isRawValueByteCountOk(rawValue))
             throw new IllegalArgumentException(
-                    "Illegal raw value byte count: " + rawValue.length);
+                    "Illegal raw value byte count: " + rawValue.length); // NOI18N
         degrees =
                 new ExifRational(Arrays.copyOfRange(rawValue, 0, 8), byteOrder);
         minutes = new ExifRational(Arrays.copyOfRange(rawValue, 8, 16),

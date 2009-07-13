@@ -72,7 +72,7 @@ public final class ControllerImageCollectionSelected implements
                 } else {
                     AppLog.logWarning(ControllerImageCollectionSelected.class,
                             Bundle.getString(
-                            "ControllerImageCollectionSelected.ErrorMessage.SelectedValueIsNull"));
+                            "ControllerImageCollectionSelected.ErrorMessage.SelectedValueIsNull")); // NOI18N
                 }
                 setMetadataEditable();
                 info.hide();

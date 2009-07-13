@@ -32,7 +32,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
             "de.elmar_baumann.imv.view.ScanDirectoriesDialog.subdirectories"; // NOI18N
     private static final String CURRENT_FILENAME_INFOTEXT_PREFIX =
             Bundle.getString(
-            "UpdateMetadataOfDirectoriesPanel.InformationMessage.UpdateCurrentFile");
+            "UpdateMetadataOfDirectoriesPanel.InformationMessage.UpdateCurrentFile"); // NOI18N
     private final DefaultListModel modelSelectedDirectoryList =
             new DefaultListModel();
     private List<File> selectedFiles = new ArrayList<File>();
@@ -310,7 +310,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
         progressBar.setValue(evt.getValue());
         AppLog.logFinest(UpdateMetadataOfDirectoriesPanel.class,
                 Bundle.getString(
-                "UpdateMetadataOfDirectoriesPanel.InformationMessage.UdateCompleted"));
+                "UpdateMetadataOfDirectoriesPanel.InformationMessage.UdateCompleted")); // NOI18N
         listSelectedDirectories.setEnabled(true);
         setEnabledButtons(false);
         setEnabledCheckboxes(false);
@@ -322,8 +322,8 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
         boolean isTime = remainingMinutes > 0;
         String bundleKey =
                 isTime
-                ? "UpdateMetadataOfDirectoriesPanel.InformationMessage.ProgressWithTime"
-                : "UpdateMetadataOfDirectoriesPanel.InformationMessage.ProgressWithoutTime";
+                ? "UpdateMetadataOfDirectoriesPanel.InformationMessage.ProgressWithTime" // NOI18N
+                : "UpdateMetadataOfDirectoriesPanel.InformationMessage.ProgressWithoutTime"; // NOI18N
         labelCurrentFilename.setText(Bundle.getString(bundleKey,
                 CURRENT_FILENAME_INFOTEXT_PREFIX, evt.getInfo(), remainingMinutes));
     }

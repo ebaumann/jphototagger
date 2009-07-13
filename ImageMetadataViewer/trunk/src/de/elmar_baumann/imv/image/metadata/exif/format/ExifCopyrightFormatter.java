@@ -21,7 +21,7 @@ public final class ExifCopyrightFormatter extends ExifFormatter {
     @Override
     public String format(IdfEntryProxy entry) {
         if (entry.getTag() != ExifTag.COPYRIGHT.getId())
-            throw new IllegalArgumentException("Wrong tag: " + entry);
+            throw new IllegalArgumentException("Wrong tag: " + entry); // NOI18N
         return ExifCopyright.getPhotographerCopyright(entry.getRawValue());
     }
 }

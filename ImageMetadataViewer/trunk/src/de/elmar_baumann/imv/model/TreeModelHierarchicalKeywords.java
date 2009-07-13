@@ -30,7 +30,7 @@ public final class TreeModelHierarchicalKeywords extends DefaultTreeModel {
 
     public TreeModelHierarchicalKeywords() {
         super(new DefaultMutableTreeNode(Bundle.getString(
-                "TreeModelHierarchicalKeywords.DisplayName.Root")));
+                "TreeModelHierarchicalKeywords.DisplayName.Root"))); // NOI18N
         ROOT = (DefaultMutableTreeNode) getRoot();
         createTree();
     }

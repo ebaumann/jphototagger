@@ -20,7 +20,7 @@ public final class ColumnSavedSearchesName extends Column {
             DataType.STRING);
 
         setLength(32);
-        setDescription(Bundle.getString("ColumnSavedSearchesName.Description"));
+        setDescription(Bundle.getString("ColumnSavedSearchesName.Description")); // NOI18N
     }
 
 }

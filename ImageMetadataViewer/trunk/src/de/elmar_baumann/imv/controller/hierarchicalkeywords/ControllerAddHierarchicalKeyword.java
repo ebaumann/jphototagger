@@ -88,7 +88,7 @@ public class ControllerAddHierarchicalKeyword
                 null, parentKeyword == null
                 ? null
                 : parentKeyword.getId(),
-                Bundle.getString("ControllerAddHierarchicalKeyword.DefaultName"));
+                Bundle.getString("ControllerAddHierarchicalKeyword.DefaultName")); // NOI18N
         String name = ControllerRenameHierarchicalKeyword.getName(newKeyword,
                 DatabaseHierarchicalKeywords.INSTANCE);
         if (name != null && !name.trim().isEmpty()) {
@@ -98,7 +98,7 @@ public class ControllerAddHierarchicalKeyword
             } else {
                 AppLog.logWarning(ControllerAddHierarchicalKeyword.class,
                         Bundle.getString(
-                        "ControllerAddHierarchicalKeyword.Error.Model"));
+                        "ControllerAddHierarchicalKeyword.Error.Model")); // NOI18N
             }
         }
     }

@@ -44,7 +44,7 @@ public final class CopyToDirectoryDialog extends Dialog
         super((java.awt.Frame) null, false);
         initComponents();
         setIconImages(AppIcons.getAppIcons());
-        setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
+        setHelpContentsUrl(Bundle.getString("Help.Url.Contents")); // NOI18N
         registerKeyStrokes();
     }
 
@@ -292,7 +292,7 @@ public final class CopyToDirectoryDialog extends Dialog
 
     @Override
     protected void help() {
-        help(Bundle.getString("Help.Url.CopyToDirectoryDialog"));
+        help(Bundle.getString("Help.Url.CopyToDirectoryDialog")); // NOI18N
     }
 
     @Override

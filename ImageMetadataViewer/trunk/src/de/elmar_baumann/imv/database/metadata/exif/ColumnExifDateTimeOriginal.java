@@ -23,6 +23,6 @@ public final class ColumnExifDateTimeOriginal extends Column {
             "exif_date_time_original", // NOI18N
             DataType.DATE);
 
-        setDescription(Bundle.getString("ColumnExifDateTimeOriginal.Description"));
+        setDescription(Bundle.getString("ColumnExifDateTimeOriginal.Description")); // NOI18N
     }
 }

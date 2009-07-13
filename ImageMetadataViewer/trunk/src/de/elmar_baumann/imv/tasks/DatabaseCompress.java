@@ -76,8 +76,8 @@ public final class DatabaseCompress implements Runnable {
     }
 
     private synchronized void notifyStarted() {
-        ProgressEvent evt = new ProgressEvent(this, Bundle.getString(
-                "DatabaseCompress.StartMessage"));
+        ProgressEvent evt = new ProgressEvent(this,
+                Bundle.getString("DatabaseCompress.StartMessage")); // NOI18N
         for (ProgressListener listener : listeners) {
             listener.progressStarted(evt);
         }
@@ -85,7 +85,7 @@ public final class DatabaseCompress implements Runnable {
 
     private void logCompressDatabase() {
         AppLog.logInfo(DatabaseCompress.class, Bundle.getString(
-                "DatabaseCompress.InformationMessage.StartCompress"));
+                "DatabaseCompress.InformationMessage.StartCompress")); // NOI18N
     }
 
     private synchronized void notifyEnded() {
@@ -99,11 +99,11 @@ public final class DatabaseCompress implements Runnable {
         double mb = 1024 * 1024;
         Object[] params = {Bundle.getString(
             success
-            ? "DatabaseCompress.EndMessage.Success.True"
-            : "DatabaseCompress.EndMessage.Success.False"),
+            ? "DatabaseCompress.EndMessage.Success.True" // NOI18N
+            : "DatabaseCompress.EndMessage.Success.False"), // NOI18N
             sizeBefore, new Double(sizeBefore / mb), sizeAfter,
             new Double(sizeAfter / mb)
         };
-        return Bundle.getString("DatabaseCompress.EndMessage", params);
+        return Bundle.getString("DatabaseCompress.EndMessage", params); // NOI18N
     }
 }

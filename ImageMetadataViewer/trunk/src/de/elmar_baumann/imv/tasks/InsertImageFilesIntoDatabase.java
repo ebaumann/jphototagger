@@ -346,7 +346,7 @@ public final class InsertImageFilesIntoDatabase implements Runnable {
 
     private void logCheckForUpdate(String filename) {
         AppLog.logFinest(InsertImageFilesIntoDatabase.class, Bundle.getString(
-                "InsertImageFilesIntoDatabase.InformationMessage.CheckForUpdate",
+                "InsertImageFilesIntoDatabase.InformationMessage.CheckForUpdate", // NOI18N
                 filename));
     }
 
@@ -355,21 +355,21 @@ public final class InsertImageFilesIntoDatabase implements Runnable {
             data.getFile().getAbsolutePath(),
             data.getExif() == null
             ? Bundle.getString(
-            "InsertImageFilesIntoDatabase.InformationMessage.StartInsert.No")
+            "InsertImageFilesIntoDatabase.InformationMessage.StartInsert.No") // NOI18N
             : Bundle.getString(
-            "InsertImageFilesIntoDatabase.InformationMessage.StartInsert.Yes"),
+            "InsertImageFilesIntoDatabase.InformationMessage.StartInsert.Yes"), // NOI18N
             data.getXmp() == null
             ? Bundle.getString(
-            "InsertImageFilesIntoDatabase.InformationMessage.StartInsert.No")
+            "InsertImageFilesIntoDatabase.InformationMessage.StartInsert.No") // NOI18N
             : Bundle.getString(
-            "InsertImageFilesIntoDatabase.InformationMessage.StartInsert.Yes"),
+            "InsertImageFilesIntoDatabase.InformationMessage.StartInsert.Yes"), // NOI18N
             data.getThumbnail() == null
             ? Bundle.getString(
-            "InsertImageFilesIntoDatabase.InformationMessage.StartInsert.No")
+            "InsertImageFilesIntoDatabase.InformationMessage.StartInsert.No") // NOI18N
             : Bundle.getString(
-            "InsertImageFilesIntoDatabase.InformationMessage.StartInsert.Yes")};
+            "InsertImageFilesIntoDatabase.InformationMessage.StartInsert.Yes")}; // NOI18N
         AppLog.logInfo(InsertImageFilesIntoDatabase.class, Bundle.getString(
-                "InsertImageFilesIntoDatabase.InformationMessage.StartInsert",
+                "InsertImageFilesIntoDatabase.InformationMessage.StartInsert", // NOI18N
                 params));
     }
 }

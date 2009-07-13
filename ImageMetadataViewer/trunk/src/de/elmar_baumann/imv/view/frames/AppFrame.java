@@ -568,8 +568,8 @@ private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:even
 }//GEN-LAST:event_formWindowClosing
 
 private void menuItemLastEditedWordsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemLastEditedWordsActionPerformed
-    TextSelectionDialog.INSTANCE.setTitle(Bundle.getString(
-            "AppFrame.menuItemLastEditedWords.text"));
+    TextSelectionDialog.INSTANCE.setTitle(
+            Bundle.getString("AppFrame.menuItemLastEditedWords.text")); // NOI18N
     TextSelectionDialog.INSTANCE.setVisible(true);
 }//GEN-LAST:event_menuItemLastEditedWordsActionPerformed
 

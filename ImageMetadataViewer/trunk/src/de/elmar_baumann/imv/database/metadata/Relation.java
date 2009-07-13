@@ -12,10 +12,10 @@ public enum Relation {
 
     /** Verknüpfung zweier Spalten mit AND */
     AND("AND", // NOI18N
-    Bundle.getString("Relation.And")),
+    Bundle.getString("Relation.And")), // NOI18N
     /** Verknüpfung zweier Spalten mit OR */
     OR("OR", // NOI18N
-    Bundle.getString("Relation.Or")),;
+    Bundle.getString("Relation.Or")),; // NOI18N
     /** SQL-String der Verknüpfung */
     private final String sqlString;
     /** Lokalisierter String */

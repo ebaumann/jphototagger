@@ -37,7 +37,7 @@ public final class ExifFormatterExposureProgram extends ExifFormatter {
     @Override
     public String format(IdfEntryProxy entry) {
         if (entry.getTag() != ExifTag.EXPOSURE_PROGRAM.getId())
-            throw new IllegalArgumentException("Wrong tag: " + entry);
+            throw new IllegalArgumentException("Wrong tag: " + entry); // NOI18N
         if (ExifShort.isRawValueByteCountOk(entry.getRawValue())) {
             ExifShort es = new ExifShort(entry.getRawValue(),
                     entry.getByteOrder());

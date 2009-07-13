@@ -63,11 +63,11 @@ public final class ProgramPropertiesDialog extends Dialog {
     }
 
     private void setActionTexts() {
-        setTitle(Bundle.getString("ProgramPropertiesDialog.title.Action"));
+        setTitle(Bundle.getString("ProgramPropertiesDialog.title.Action")); // NOI18N
         labelFilePrompt.setText(Bundle.getString(
-                "ProgramPropertiesDialog.labelFilePrompt.text.Action"));
+                "ProgramPropertiesDialog.labelFilePrompt.text.Action")); // NOI18N
         labelAlias.setText(Bundle.getString(
-                "ProgramPropertiesDialog.labelAlias.text.Action"));
+                "ProgramPropertiesDialog.labelAlias.text.Action")); // NOI18N
     }
 
     private void setProgramIcon() {

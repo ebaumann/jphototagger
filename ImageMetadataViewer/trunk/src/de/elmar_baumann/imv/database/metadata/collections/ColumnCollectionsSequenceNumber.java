@@ -20,6 +20,6 @@ public final class ColumnCollectionsSequenceNumber extends Column {
             "sequence_number", // NOI18N
             DataType.INTEGER);
 
-        setDescription(Bundle.getString("ColumnCollectionsSequenceNumber.Description"));
+        setDescription(Bundle.getString("ColumnCollectionsSequenceNumber.Description")); // NOI18N
     }
 }

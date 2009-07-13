@@ -21,7 +21,7 @@ public class RenameFilenamesInDbDialog extends Dialog {
 
     private void postInitComponents() {
         setIconImages(AppIcons.getAppIcons());
-        setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
+        setHelpContentsUrl(Bundle.getString("Help.Url.Contents")); // NOI18N
         registerKeyStrokes();
         UserSettings.INSTANCE.getSettings().getSizeAndLocation(this);
     }
@@ -37,7 +37,7 @@ public class RenameFilenamesInDbDialog extends Dialog {
 
     @Override
     protected void help() {
-        help(Bundle.getString("Help.Url.RenameFilenamesInDbDialog"));
+        help(Bundle.getString("Help.Url.RenameFilenamesInDbDialog")); // NOI18N
     }
 
     @Override

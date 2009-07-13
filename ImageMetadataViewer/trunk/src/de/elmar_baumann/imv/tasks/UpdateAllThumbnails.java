@@ -43,8 +43,8 @@ public final class UpdateAllThumbnails
 
     private void initProgressDialog() {
         progressDialog = new ProgressDialog(null);
-        progressDialog.setTitle(Bundle.getString("UpdateAllThumbnails.Dialog.Title"));
-        progressDialog.setInfoText(Bundle.getString("UpdateAllThumbnails.Dialog.InfoText"));
+        progressDialog.setTitle(Bundle.getString("UpdateAllThumbnails.Dialog.Title")); // NOI18N
+        progressDialog.setInfoText(Bundle.getString("UpdateAllThumbnails.Dialog.InfoText")); // NOI18N
         progressDialog.addActionListener(this);
         progressDialog.setVisible(true);
     }
@@ -97,7 +97,7 @@ public final class UpdateAllThumbnails
 
     private void logUpdateAllThumbnails() {
         AppLog.logInfo(UpdateAllThumbnails.class,
-            Bundle.getString("UpdateAllThumbnails.InformationMessage.StartUpdate"));
+            Bundle.getString("UpdateAllThumbnails.InformationMessage.StartUpdate")); // NOI18N
     }
 
     private synchronized void notifyActionPerformed() {

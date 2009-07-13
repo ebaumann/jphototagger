@@ -132,7 +132,7 @@ public final class ControllerMetadataTemplates implements ActionListener,
                 } else {
                     AppLog.logWarning(ControllerMetadataTemplates.class,
                             Bundle.getString(
-                            "ControllerMetadataTemplates.ErrorMessage.WrongObject") +
+                            "ControllerMetadataTemplates.ErrorMessage.WrongObject") + // NOI18N
                             o);
                 }
             }
@@ -168,7 +168,7 @@ public final class ControllerMetadataTemplates implements ActionListener,
                 } else {
                     AppLog.logWarning(ControllerMetadataTemplates.class,
                             Bundle.getString(
-                            "ControllerMetadataTemplates.ErrorMessage.WrongObject") +
+                            "ControllerMetadataTemplates.ErrorMessage.WrongObject") + // NOI18N
                             o);
                 }
             }
@@ -187,7 +187,7 @@ public final class ControllerMetadataTemplates implements ActionListener,
                 } else {
                     AppLog.logWarning(ControllerMetadataTemplates.class,
                             Bundle.getString(
-                            "ControllerMetadataTemplates.ErrorMessage.InsertTemplateIsNull"));
+                            "ControllerMetadataTemplates.ErrorMessage.InsertTemplateIsNull")); // NOI18N
                 }
             }
         });
@@ -199,7 +199,7 @@ public final class ControllerMetadataTemplates implements ActionListener,
         String name = null;
         while (exists && !abort) {
             name = JOptionPane.showInputDialog(Bundle.getString(
-                    "ControllerMetadataTemplates.Input.TemplateName"), name);
+                    "ControllerMetadataTemplates.Input.TemplateName"), name); // NOI18N
             exists = name != null && db.existsMetadataEditTemplate(name);
             if (exists) {
                 abort = confirmAbort(name);

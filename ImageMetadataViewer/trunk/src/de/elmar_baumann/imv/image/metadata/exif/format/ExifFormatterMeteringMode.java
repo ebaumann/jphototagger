@@ -35,7 +35,7 @@ public final class ExifFormatterMeteringMode extends ExifFormatter {
     @Override
     public String format(IdfEntryProxy entry) {
         if (entry.getTag() != ExifTag.METERING_MODE.getId())
-            throw new IllegalArgumentException("Wrong tag: " + entry);
+            throw new IllegalArgumentException("Wrong tag: " + entry); // NOI18N
         if (ExifShort.isRawValueByteCountOk(entry.getRawValue())) {
             ExifShort es = new ExifShort(entry.getRawValue(),
                     entry.getByteOrder());

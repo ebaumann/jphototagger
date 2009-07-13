@@ -82,8 +82,8 @@ public final class ControllerFactory {
     private void startScheduledTasks() {
         Thread thread = new Thread(new ControllerArrayScheduledTasks());
         thread.setPriority(UserSettings.INSTANCE.getThreadPriority());
-        thread.setName("Scheduled tasks listening" + " @ " +
-                getClass().getName()); // NOI18N
+        thread.setName("Scheduled tasks listening" + " @ " + // NOI18N
+                getClass().getName());
         thread.start();
     }
 

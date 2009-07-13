@@ -81,7 +81,7 @@ public final class ControllerRecordsWithNotExistingFilesDeleter
     private void setProgressBar() {
         progressBar.setToolTipText(
                 Bundle.getString(
-                "ControllerRecordsWithNotExistingFilesDeleter.ProgressBarTooltipText.DeleteRecordsWithNotExistingFiles"));
+                "ControllerRecordsWithNotExistingFilesDeleter.ProgressBarTooltipText.DeleteRecordsWithNotExistingFiles")); // NOI18N
         progressBar.setIndeterminate(true);
     }
 

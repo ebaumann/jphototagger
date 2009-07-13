@@ -31,7 +31,7 @@ public final class RenameInXmpColumnsDialog extends Dialog {
     private void postInitComponents() {
         setIconImages(AppIcons.getAppIcons());
         setModel();
-        setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
+        setHelpContentsUrl(Bundle.getString("Help.Url.Contents")); // NOI18N
         registerKeyStrokes();
     }
 

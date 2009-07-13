@@ -77,9 +77,9 @@ public final class TableModelDatabaseInfo extends DefaultTableModel
     }
 
     private void addColumnHeaders() {
-        addColumn(Bundle.getString("TableModelDatabaseInfo.HeaderColumn.1"));
-        addColumn(Bundle.getString("TableModelDatabaseInfo.HeaderColumn.2"));
-        addColumn(Bundle.getString("TableModelDatabaseInfo.HeaderColumn.3"));
+        addColumn(Bundle.getString("TableModelDatabaseInfo.HeaderColumn.1")); // NOI18N
+        addColumn(Bundle.getString("TableModelDatabaseInfo.HeaderColumn.2")); // NOI18N
+        addColumn(Bundle.getString("TableModelDatabaseInfo.HeaderColumn.3")); // NOI18N
     }
 
     private void addRows() {

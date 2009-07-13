@@ -52,7 +52,7 @@ public final class ControllerMoveFiles implements ActionListener,
             dialog.setVisible(true);
         } else {
             AppLog.logWarning(ControllerMoveFiles.class, Bundle.getString(
-                    "ControllerMoveFiles.ErrorMessaga.NoImagesSelected"));
+                    "ControllerMoveFiles.ErrorMessaga.NoImagesSelected")); // NOI18N
         }
     }
 

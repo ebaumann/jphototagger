@@ -26,7 +26,7 @@ public final class ExifFormatterGpsDateStamp extends ExifFormatter {
     @Override
     public String format(IdfEntryProxy entry) {
         if (entry.getTag() != ExifTag.GPS_DATE_STAMP.getId())
-            throw new IllegalArgumentException("Wrong tag: " + entry);
+            throw new IllegalArgumentException("Wrong tag: " + entry); // NOI18N
         byte[] rawValue = entry.getRawValue();
         String rawString = new String(rawValue);
         if (rawString.length() != 11)

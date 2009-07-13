@@ -84,7 +84,7 @@ public final class ControllerDeleteFromImageCollection
                 } else {
                     AppLog.logWarning(ControllerDeleteFromImageCollection.class,
                             Bundle.getString(
-                            "ControllerDeleteFromImageCollection.ErrorMessage.SelectedImageCollectionIsNull"));
+                            "ControllerDeleteFromImageCollection.ErrorMessage.SelectedImageCollectionIsNull")); // NOI18N
                 }
             }
         });

@@ -16,7 +16,8 @@ import de.elmar_baumann.lib.dialog.Dialog;
  */
 public final class AdvancedSearchDialog extends Dialog implements SearchListener {
 
-    public static final AdvancedSearchDialog INSTANCE = new AdvancedSearchDialog(null, false);
+    public static final AdvancedSearchDialog INSTANCE =
+            new AdvancedSearchDialog(null, false);
 
     private AdvancedSearchDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -26,7 +27,7 @@ public final class AdvancedSearchDialog extends Dialog implements SearchListener
 
     private void postInitComponents() {
         setIconImages(AppIcons.getAppIcons());
-        setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
+        setHelpContentsUrl(Bundle.getString("Help.Url.Contents")); // NOI18N
         registerKeyStrokes();
     }
 
@@ -59,7 +60,7 @@ public final class AdvancedSearchDialog extends Dialog implements SearchListener
 
     @Override
     protected void help() {
-        help(Bundle.getString("Help.Url.AdvancedSearchDialog"));
+        help(Bundle.getString("Help.Url.AdvancedSearchDialog")); // NOI18N
     }
 
     @Override
@@ -71,8 +72,11 @@ public final class AdvancedSearchDialog extends Dialog implements SearchListener
     public void actionPerformed(SearchEvent evt) {
         if (evt.getType().equals(SearchEvent.Type.NAME_CHANGED)) {
             String name = evt.getSearchName();
-            String separator = name.isEmpty() ? "" : ": "; // NOI18N
-            setTitle(Bundle.getString("AdvancedSearchDialog.TitlePrefix") + separator + name);
+            String separator = name.isEmpty()
+                               ? "" // NOI18N
+                               : ": "; // NOI18N
+            setTitle(Bundle.getString("AdvancedSearchDialog.TitlePrefix") + // NOI18N
+                    separator + name); // NOI18N
         }
     }
 
@@ -131,7 +135,8 @@ private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:even
 
             @Override
             public void run() {
-                AdvancedSearchDialog dialog = new AdvancedSearchDialog(new javax.swing.JFrame(), true);
+                AdvancedSearchDialog dialog = new AdvancedSearchDialog(
+                        new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
 
                     @Override

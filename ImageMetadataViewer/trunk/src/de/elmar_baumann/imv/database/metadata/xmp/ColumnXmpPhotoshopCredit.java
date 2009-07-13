@@ -21,7 +21,7 @@ public final class ColumnXmpPhotoshopCredit extends Column {
             DataType.STRING);
 
         setLength(32);
-        setDescription(Bundle.getString("ColumnXmpPhotoshopCredit.Description"));
-        setLongerDescription(Bundle.getString("ColumnXmpPhotoshopCredit.LongerDescription"));
+        setDescription(Bundle.getString("ColumnXmpPhotoshopCredit.Description")); // NOI18N
+        setLongerDescription(Bundle.getString("ColumnXmpPhotoshopCredit.LongerDescription")); // NOI18N
     }
 }

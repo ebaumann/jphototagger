@@ -28,7 +28,7 @@ final class UpdateTablesXmpLastModified {
         if (DatabaseMetadata.INSTANCE.existsColumn(
             connection, "xmp", "lastmodified")) {
             Statement stmt = connection.createStatement();
-            messages.message(Bundle.getString("UpdateTablesXmpLastModified.InformationMessage.RemoveColumnXmpLastModified"));
+            messages.message(Bundle.getString("UpdateTablesXmpLastModified.InformationMessage.RemoveColumnXmpLastModified")); // NOI18N
             stmt.execute("ALTER TABLE xmp DROP COLUMN lastmodified"); // NOI18N
         }
     }
@@ -37,7 +37,7 @@ final class UpdateTablesXmpLastModified {
         if (!DatabaseMetadata.INSTANCE.existsColumn(
             connection, "files", "xmp_lastmodified")) { // NOI18N
             Statement stmt = connection.createStatement();
-            messages.message(Bundle.getString("UpdateTablesXmpLastModified.InformationMessage.AddColumnXmpLastModified.AddColumn"));
+            messages.message(Bundle.getString("UpdateTablesXmpLastModified.InformationMessage.AddColumnXmpLastModified.AddColumn")); // NOI18N
             stmt.execute("ALTER TABLE files ADD COLUMN xmp_lastmodified BIGINT"); // NOI18N
             copyLastModifiedToXmp(connection);
         }
@@ -48,7 +48,7 @@ final class UpdateTablesXmpLastModified {
         setProgressDialog();
         Statement stmtQueryXmp = connection.createStatement();
         PreparedStatement stmtUpdate = connection.prepareStatement(
-            "UPDATE files SET xmp_lastmodified = ? WHERE id = ?");
+            "UPDATE files SET xmp_lastmodified = ? WHERE id = ?"); // NOI18N
         long lastModified = -1;
         long idFiles = -1;
         int count = 0;
@@ -67,7 +67,7 @@ final class UpdateTablesXmpLastModified {
     }
 
     private void setProgressDialog() {
-        messages.message(Bundle.getString("UpdateTablesXmpLastModified.InformationMessage.AddColumnXmpLastModified.SetLastModified"));
+        messages.message(Bundle.getString("UpdateTablesXmpLastModified.InformationMessage.AddColumnXmpLastModified.SetLastModified")); // NOI18N
         dialog.setIndeterminate(false);
         dialog.setMinimum(0);
         dialog.setMaximum(DatabaseStatistics.INSTANCE.getXmpCount());

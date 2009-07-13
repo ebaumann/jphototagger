@@ -20,6 +20,6 @@ public final class ColumnFilesLastModified extends Column {
             "lastmodified", // NOI18N
             DataType.DATE);
 
-        setDescription(Bundle.getString("ColumnFilesLastModified.Description"));
+        setDescription(Bundle.getString("ColumnFilesLastModified.Description")); // NOI18N
     }
 }

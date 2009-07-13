@@ -427,13 +427,13 @@ public final class DatabaseTables extends Database {
 
     private void errorMessageSqlException(SQLException ex) {
         LongMessageDialog dlg = new LongMessageDialog(null, true);
-        dlg.setTitle(Bundle.getString("DatabaseTables.ErrorMessage.Title"));
+        dlg.setTitle(Bundle.getString("DatabaseTables.ErrorMessage.Title")); // NOI18N
         dlg.setMessage(getExceptionMessage(ex));
         dlg.setVisible(true);
     }
 
     private String getExceptionMessage(SQLException ex) {
-        return Bundle.getString("DatabaseTables.ErrorMessage", ex.
-                getLocalizedMessage());
+        return Bundle.getString("DatabaseTables.ErrorMessage", // NOI18N
+                ex.getLocalizedMessage());
     }
 }

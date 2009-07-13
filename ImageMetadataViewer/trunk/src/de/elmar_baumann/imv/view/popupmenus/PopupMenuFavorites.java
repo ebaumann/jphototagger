@@ -21,31 +21,31 @@ public final class PopupMenuFavorites extends JPopupMenu {
 
     private static final String DISPLAY_NAME_ACTION_INSERT_FAVORITE =
             Bundle.getString(
-            "PopupMenuFavorites.DisplayName.Action.InsertFavorite");
+            "PopupMenuFavorites.DisplayName.Action.InsertFavorite"); // NOI18N
     private static final String DISPLAY_NAME_ACTION_UPDATE_FAVORITE =
             Bundle.getString(
-            "PopupMenuFavorites.DisplayName.Action.UpdateFavorite");
+            "PopupMenuFavorites.DisplayName.Action.UpdateFavorite"); // NOI18N
     private static final String DISPLAY_NAME_ACTION_DELETE_FAVORITE =
             Bundle.getString(
-            "PopupMenuFavorites.DisplayName.Action.DeleteFavorite");
+            "PopupMenuFavorites.DisplayName.Action.DeleteFavorite"); // NOI18N
     private static final String DISPLAY_NAME_ACTION_MOVE_UP =
-            Bundle.getString("PopupMenuFavorites.DisplayName.Action.MoveUp");
+            Bundle.getString("PopupMenuFavorites.DisplayName.Action.MoveUp"); // NOI18N
     private static final String DISPLAY_NAME_ACTION_MOVE_DOWN =
-            Bundle.getString("PopupMenuFavorites.DisplayName.Action.MoveDown");
+            Bundle.getString("PopupMenuFavorites.DisplayName.Action.MoveDown"); // NOI18N
     private static final String DISPLAY_NAME_ACTION_ADD_FILESYSTEM_FOLDER =
             Bundle.getString(
-            "PopupMenuFavorites.DisplayName.Action.AddFilesystemFolder");
+            "PopupMenuFavorites.DisplayName.Action.AddFilesystemFolder"); // NOI18N
     private static final String DISPLAY_NAME_ACTION_RENAME_FILESYSTEM_FOLDER =
             Bundle.getString(
-            "PopupMenuFavorites.DisplayName.Action.RenameFilesystemFolder");
+            "PopupMenuFavorites.DisplayName.Action.RenameFilesystemFolder"); // NOI18N
     private static final String DISPLAY_NAME_ACTION_DELETE_FILESYSTEM_FOLDER =
             Bundle.getString(
-            "PopupMenuFavorites.DisplayName.Action.DeleteFilesystemFolder");
+            "PopupMenuFavorites.DisplayName.Action.DeleteFilesystemFolder"); // NOI18N
     private static final String DISPLAY_NAME_ACTION_OPEN_IN_FOLDERS =
             Bundle.getString(
-            "PopupMenuFavorites.DisplayName.Action.OpenInFolders");
+            "PopupMenuFavorites.DisplayName.Action.OpenInFolders"); // NOI18N
     private static final String DISPLAY_NAME_ACTION_REFRESH =
-            Bundle.getString("PopupMenuFavorites.DisplayName.Action.Refresh");
+            Bundle.getString("PopupMenuFavorites.DisplayName.Action.Refresh"); // NOI18N
     private final JMenuItem itemInsertFavorite =
             new JMenuItem(DISPLAY_NAME_ACTION_INSERT_FAVORITE);
     private final JMenuItem itemUpdateFavorite =
@@ -154,18 +154,18 @@ public final class PopupMenuFavorites extends JPopupMenu {
     }
 
     private void setIcons() {
-        itemDeleteFavorite.setIcon(AppIcons.getIcon("icon_remove.png"));
-        itemInsertFavorite.setIcon(AppIcons.getIcon("icon_add.png"));
-        itemMoveDown.setIcon(AppIcons.getIcon("icon_move_down.png"));
-        itemMoveUp.setIcon(AppIcons.getIcon("icon_move_up.png"));
-        itemOpenInFolders.setIcon(AppIcons.getIcon("icon_folder.png"));
-        itemRefresh.setIcon(AppIcons.getIcon("icon_refresh.png"));
-        itemAddFilesystemFolder.setIcon(AppIcons.getIcon("icon_folder_add.png"));
+        itemDeleteFavorite.setIcon(AppIcons.getIcon("icon_remove.png")); // NOI18N
+        itemInsertFavorite.setIcon(AppIcons.getIcon("icon_add.png")); // NOI18N
+        itemMoveDown.setIcon(AppIcons.getIcon("icon_move_down.png")); // NOI18N
+        itemMoveUp.setIcon(AppIcons.getIcon("icon_move_up.png")); // NOI18N
+        itemOpenInFolders.setIcon(AppIcons.getIcon("icon_folder.png")); // NOI18N
+        itemRefresh.setIcon(AppIcons.getIcon("icon_refresh.png")); // NOI18N
+        itemAddFilesystemFolder.setIcon(AppIcons.getIcon("icon_folder_add.png")); // NOI18N
         itemRenameFilesystemFolder.setIcon(
-                AppIcons.getIcon("icon_folder_rename.png"));
+                AppIcons.getIcon("icon_folder_rename.png")); // NOI18N
         itemDeleteFilesystemFolder.setIcon(
-                AppIcons.getIcon("icon_folder_delete.png"));
-        itemUpdateFavorite.setIcon(AppIcons.getIcon("icon_edit.png"));
+                AppIcons.getIcon("icon_folder_delete.png")); // NOI18N
+        itemUpdateFavorite.setIcon(AppIcons.getIcon("icon_edit.png")); // NOI18N
     }
 
     private void setAccelerators() {

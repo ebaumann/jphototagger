@@ -51,7 +51,7 @@ final class UpdateTablesDropColumns {
 
     private void dropColumns(Connection connection) throws SQLException {
         dialog.setIndeterminate(true);
-        messages.message(Bundle.getString("UpdateTablesDropColumns.InformationMessage.update"));
+        messages.message(Bundle.getString("UpdateTablesDropColumns.InformationMessage.update")); // NOI18N
         for (ColumnInfo info : dropColumns) {
             dropColumn(connection,info.getTableName(), info.getColumnName());
         }
@@ -65,7 +65,7 @@ final class UpdateTablesDropColumns {
     }
 
     private void setMessage(String tableName, String columnName) {
-        messages.message(Bundle.getString("UpdateTablesDropColumns.InformationMessage",
+        messages.message(Bundle.getString("UpdateTablesDropColumns.InformationMessage", // NOI18N
                 tableName, columnName));
     }
 }

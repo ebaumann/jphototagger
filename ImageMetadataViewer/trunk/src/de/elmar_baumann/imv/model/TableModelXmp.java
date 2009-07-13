@@ -82,7 +82,7 @@ public final class TableModelXmp extends DefaultTableModel {
     }
 
     private void setRowHeaders() {
-        addColumn(Bundle.getString("TableModelXmp.HeaderColumn.1"));
-        addColumn(Bundle.getString("TableModelXmp.HeaderColumn.2"));
+        addColumn(Bundle.getString("TableModelXmp.HeaderColumn.1")); // NOI18N
+        addColumn(Bundle.getString("TableModelXmp.HeaderColumn.2")); // NOI18N
     }
 }

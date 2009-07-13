@@ -21,6 +21,6 @@ public final class FilenameFormatFileName extends FilenameFormat {
 
     @Override
     public String toString() {
-        return Bundle.getString("FilenameFormatName.String");
+        return Bundle.getString("FilenameFormatName.String"); // NOI18N
     }
 }

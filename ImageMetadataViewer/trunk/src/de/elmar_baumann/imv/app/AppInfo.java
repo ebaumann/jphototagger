@@ -26,7 +26,7 @@ public final class AppInfo {
     /**
      * Title of the application
      */
-    public static final String APP_DESCRIPTION = Bundle.getString("AppTitle");
+    public static final String APP_DESCRIPTION = Bundle.getString("AppTitle"); // NOI18N
     /**
      * Minimum required Java version
      */

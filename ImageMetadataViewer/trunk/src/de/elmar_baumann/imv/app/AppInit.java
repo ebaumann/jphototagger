@@ -74,7 +74,7 @@ public final class AppInit {
     private static void informationMessageInitGui() {
         SplashScreen.setMessageToSplashScreen(
                 Bundle.getString(
-                "AppInit.InformationMessage.SplashScreen.InitGui"));
+                "AppInit.InformationMessage.SplashScreen.InitGui")); // NOI18N
     }
 
     private static void showMainWindow() {

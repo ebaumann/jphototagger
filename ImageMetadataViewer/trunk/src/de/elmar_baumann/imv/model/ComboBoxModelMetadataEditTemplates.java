@@ -37,7 +37,7 @@ public final class ComboBoxModelMetadataEditTemplates extends DefaultComboBoxMod
         } else {
             errorMessage(template.getName(),
                     Bundle.getString(
-                    "ComboBoxModelMetadataEditTemplates.ErrorMessage.ParamDelete"));
+                    "ComboBoxModelMetadataEditTemplates.ErrorMessage.ParamDelete")); // NOI18N
         }
     }
 
@@ -56,7 +56,7 @@ public final class ComboBoxModelMetadataEditTemplates extends DefaultComboBoxMod
         } else {
             errorMessage(template.getName(),
                     Bundle.getString(
-                    "ComboBoxModelMetadataEditTemplates.ErrorMessage.ParamInsert"));
+                    "ComboBoxModelMetadataEditTemplates.ErrorMessage.ParamInsert")); // NOI18N
         }
     }
 
@@ -74,7 +74,7 @@ public final class ComboBoxModelMetadataEditTemplates extends DefaultComboBoxMod
         } else {
             errorMessage(template.getName(),
                     Bundle.getString(
-                    "ComboBoxModelMetadataEditTemplates.ErrorMessage.ParamUpdate"));
+                    "ComboBoxModelMetadataEditTemplates.ErrorMessage.ParamUpdate")); // NOI18N
         }
 
     }

@@ -79,7 +79,7 @@ public final class TreeCellRendererMiscMetadata extends DefaultTreeCellRenderer 
     private void setColumnIcon(Column column) {
         if (column != null) {
             ImageIcon icon = ICON_OF_COLUMN.get(column);
-            assert icon != null : "No icon defined for column: " + column;
+            assert icon != null : "No icon defined for column: " + column; // NOI18N
             if (icon != null) {
                 setIcon(icon);
             }
@@ -101,8 +101,8 @@ public final class TreeCellRendererMiscMetadata extends DefaultTreeCellRenderer 
             setText(doubleFormat.format(userObject) + getTextPostfix(
                     parenUObject));
         } else {
-            assert false : "Unrecognized data type: " + userObject.getClass().
-                    getName();
+            assert false : "Unrecognized data type: " + // NOI18N
+                    userObject.getClass().getName();
         }
     }
 

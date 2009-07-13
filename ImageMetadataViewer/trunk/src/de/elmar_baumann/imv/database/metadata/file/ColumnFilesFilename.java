@@ -21,6 +21,6 @@ public final class ColumnFilesFilename extends Column {
             DataType.STRING);
 
         setLength(512);
-        setDescription(Bundle.getString("ColumnFilesFilename.Description"));
+        setDescription(Bundle.getString("ColumnFilesFilename.Description")); // NOI18N
     }
 }

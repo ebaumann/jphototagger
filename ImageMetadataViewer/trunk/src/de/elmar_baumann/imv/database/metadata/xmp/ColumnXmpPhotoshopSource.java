@@ -21,7 +21,7 @@ public final class ColumnXmpPhotoshopSource extends Column {
             DataType.STRING);
 
         setLength(32);
-        setDescription(Bundle.getString("ColumnXmpPhotoshopSource.Description"));
-        setLongerDescription(Bundle.getString("ColumnXmpPhotoshopSource.LongerDescription"));
+        setDescription(Bundle.getString("ColumnXmpPhotoshopSource.Description")); // NOI18N
+        setLongerDescription(Bundle.getString("ColumnXmpPhotoshopSource.LongerDescription")); // NOI18N
     }
 }

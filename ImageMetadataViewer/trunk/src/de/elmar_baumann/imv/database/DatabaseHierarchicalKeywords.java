@@ -65,7 +65,7 @@ public final class DatabaseHierarchicalKeywords extends Database {
     public boolean update(HierarchicalKeyword keyword) {
         boolean updated = false;
         Connection connection = null;
-        assert keyword.getId() != null : "ID of keyword is null!";
+        assert keyword.getId() != null : "ID of keyword is null!"; // NOI18N
         try {
             connection = getConnection();
             connection.setAutoCommit(true);

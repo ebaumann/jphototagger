@@ -24,7 +24,7 @@ public final class ExifFormatterFocalLength extends ExifFormatter {
     @Override
     public String format(IdfEntryProxy entry) {
         if (entry.getTag() != ExifTag.FOCAL_LENGTH.getId())
-            throw new IllegalArgumentException("Wrong tag: " + entry);
+            throw new IllegalArgumentException("Wrong tag: " + entry); // NOI18N
         if (ExifRational.isRawValueByteCountOk(entry.getRawValue())) {
             ExifRational er = new ExifRational(entry.getRawValue(), entry.
                     getByteOrder());

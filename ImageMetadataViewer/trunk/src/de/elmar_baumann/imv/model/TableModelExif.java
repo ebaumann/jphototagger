@@ -116,8 +116,8 @@ public final class TableModelExif extends DefaultTableModel {
                         gps.getAltitude().localizedString()});
         }
         if (gps.getLongitude() != null && gps.getLatitude() != null) {
-            JButton button = new JButton(Bundle.getString(
-                    "TableModelExif.Button.GoogleMaps"));
+            JButton button = new JButton(
+                    Bundle.getString("TableModelExif.Button.GoogleMaps")); // NOI18N
             button.addActionListener(new GpsListener());
             super.addRow(new Object[]{gps, button});
         }

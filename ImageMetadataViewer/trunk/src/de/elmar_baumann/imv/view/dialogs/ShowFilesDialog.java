@@ -24,7 +24,7 @@ public class ShowFilesDialog extends Dialog {
 
     private void postInitComponents(List<File> files) {
         setIconImages(AppIcons.getAppIcons());
-        setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
+        setHelpContentsUrl(Bundle.getString("Help.Url.Contents")); // NOI18N
         registerKeyStrokes();
         setFiles(files);
     }
