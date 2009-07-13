@@ -21,7 +21,7 @@ import javax.swing.table.TableModel;
  */
 public final class TableUtil {
 
-    private static final String HTML_LINE_BREAK = "<br />";
+    private static final String HTML_LINE_BREAK = "<br />"; // NOI18N
 
     /**
      * Embeds text into HTML, breaks the text into multiple lines if necessary

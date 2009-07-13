@@ -11,7 +11,7 @@ import java.util.List;
  */
 public final class StringUtil {
 
-    private static final String WORD_DELIMITER = " \t\n\r";
+    private static final String WORD_DELIMITER = " \t\n\r"; // NOI18N
 
     /**
      * Calls {@link #wrapWords(java.lang.String, int, java.lang.String)} with

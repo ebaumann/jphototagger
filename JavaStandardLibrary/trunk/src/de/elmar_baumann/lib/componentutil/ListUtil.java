@@ -100,7 +100,7 @@ public final class ListUtil {
         for (int i = 0; i < size; i++) {
             buffer.append(model.get(i).toString() + (i < size - 1
                     ? delim
-                    : ""));
+                    : "")); // NOI18N
         }
         return buffer.toString();
     }

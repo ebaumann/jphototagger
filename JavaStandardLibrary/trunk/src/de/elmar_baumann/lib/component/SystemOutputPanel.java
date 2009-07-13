@@ -107,7 +107,7 @@ public class SystemOutputPanel extends JPanel {
                             int excess = textArea.getDocument().getLength() -
                                     MAX_CHAR_COUNT;
                             if (excess >= MAX_CHARS_EXESS) {
-                                textArea.replaceRange("", 0, excess);
+                                textArea.replaceRange("", 0, excess); // NOI18N
                             }
                         }
                     });

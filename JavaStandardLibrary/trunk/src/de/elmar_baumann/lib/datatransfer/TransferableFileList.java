@@ -33,7 +33,7 @@ public final class TransferableFileList implements Transferable {
     private void createUriList(File[] files) {
         StringBuffer buffer = new StringBuffer();
         for (File file : files) {
-            buffer.append("file://" + file.getAbsolutePath() + "\r\n");
+            buffer.append("file://" + file.getAbsolutePath() + "\r\n"); // NOI18N
         }
         fileUris = buffer.toString();
     }

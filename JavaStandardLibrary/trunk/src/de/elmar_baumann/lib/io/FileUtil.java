@@ -405,7 +405,7 @@ public final class FileUtil {
         if (index >= 0 && index < length - 1) {
             return filename.substring(index + 1, length);
         }
-        return "";
+        return ""; // NOI18N
     }
 
     /**

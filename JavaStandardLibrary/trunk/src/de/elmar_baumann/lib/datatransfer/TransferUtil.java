@@ -26,7 +26,7 @@ import javax.swing.JList;
 public final class TransferUtil {
 
     private static final String MIME_TYPE_URI_LIST =
-            "text/uri-list;class=java.lang.String";
+            "text/uri-list;class=java.lang.String"; // NOI18N
     private static final DataFlavor STRING_FLAVOR = DataFlavor.stringFlavor;
     private static final DataFlavor FILE_LIST_FLAVOR =
             DataFlavor.javaFileListFlavor;
@@ -62,7 +62,7 @@ public final class TransferUtil {
         for (int i = 0; i < values.length; i++) {
             Object val = values[i];
             buffer.append(val == null
-                          ? ""
+                          ? "" // NOI18N
                           : val.toString());
             buffer.append(i != values.length - 1
                           ? delimiter
@@ -152,10 +152,10 @@ public final class TransferUtil {
         List<File> list = new ArrayList<File>();
         try {
             String data = (String) transferable.getTransferData(URI_LIST_FLAVOR);
-            for (StringTokenizer st = new StringTokenizer(data, "\r\n"); st.
-                    hasMoreTokens();) {
+            for (StringTokenizer st = new StringTokenizer(data, "\r\n"); // NOI18N
+                    st.hasMoreTokens();) {
                 String token = st.nextToken().trim();
-                if (token.startsWith("file:")) {
+                if (token.startsWith("file:")) { // NOI18N
                     list.add(new File(new URI(token)));
                 }
             }
@@ -252,7 +252,7 @@ public final class TransferUtil {
     /**
      * Returns wheter a transferable contains file data. This is true, if
      * it supports {@link java.awt.datatransfer.DataFlavor#javaFileListFlavor}
-     * or {@link java.awt.datatransfer.DataFlavor#STRING_FLAVOR}. The second
+     * or {@link java.awt.datatransfer.DataFlavor#stringFlavor}. The second
      * case is the reason for <em>maybe</em>.
      * 
      * @param  transferable  transferable

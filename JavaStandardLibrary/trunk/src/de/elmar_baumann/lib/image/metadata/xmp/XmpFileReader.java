@@ -30,10 +30,10 @@ public final class XmpFileReader {
         0x61, 0x63, 0x6B, 0x65, 0x74, 0x20, 0x62, 0x65, 0x67, 0x69, 0x6E,
         0x3D
     };
-    private static final byte[] XMP_BEGIN_MARKER = new String("<x:xmpmeta").
-            getBytes(); // NOI18N
-    private static final byte[] XMP_END_MARKER = new String("</x:xmpmeta>").
-            getBytes(); // NOI18N
+    private static final byte[] XMP_BEGIN_MARKER =
+            new String("<x:xmpmeta").getBytes(); // NOI18N
+    private static final byte[] XMP_END_MARKER =
+            new String("</x:xmpmeta>").getBytes(); // NOI18N
 
     /**
      * Liest eine Datei und liefert einen String mit den XMP-Informationen.

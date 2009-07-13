@@ -122,6 +122,6 @@ public final class PropertiesFile {
 
     private String initGetDirectoryName() {
         String homeDir = System.getProperty("user.home"); // NOI18N
-        return homeDir + File.separator + "." + domainName + File.separator + projectName;
+        return homeDir + File.separator + "." + domainName + File.separator + projectName; // NOI18N
     }
 }

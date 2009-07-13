@@ -89,7 +89,7 @@ public final class HelpNode {
      */
     public Object getChild(int index) {
         if (index < 0)
-            throw new IndexOutOfBoundsException("index < 0: " + index);
+            throw new IndexOutOfBoundsException("index < 0: " + index); // NOI18N
 
         return children.get(index);
     }

@@ -45,7 +45,7 @@ public final class HelpBrowser extends Dialog
                    TreeSelectionListener {
 
     private static final String KEY_SPLIT_PANE =
-            HelpBrowser.class.getName() + ".SplitPane";
+            HelpBrowser.class.getName() + ".SplitPane"; // NOI18N
     private static final String DISPLAY_NAME_ACTION_PREVIOUS =
             Bundle.getString("HelpBrowser.Action.Previous"); // NOI18N
     private static final String DISPLAY_NAME_ACTION_NEXT =
@@ -125,7 +125,7 @@ public final class HelpBrowser extends Dialog
      */
     public synchronized void showUrl(String url) {
         if (isVisible()) {
-            showUrl(getClass().getResource(baseUrl + "/" + url));
+            showUrl(getClass().getResource(baseUrl + "/" + url)); // NOI18N
         }
     }
 
@@ -290,7 +290,7 @@ public final class HelpBrowser extends Dialog
      */
     public static String getLastPathComponent(URL url) {
         String path = url.getPath();
-        int index = path.lastIndexOf("/");
+        int index = path.lastIndexOf("/"); // NOI18N
         if (index > 0 && index < path.length() - 1) {
             return path.substring(index + 1);
         }
@@ -358,7 +358,7 @@ public final class HelpBrowser extends Dialog
     private SettingsHints getHints() {
         SettingsHints hints = new SettingsHints(EnumSet.of(
                 SettingsHints.Option.SET_TABBED_PANE_CONTENT));
-        hints.addExclude(getClass().getName() + ".tree");
+        hints.addExclude(getClass().getName() + ".tree"); // NOI18N
         return hints;
     }
 

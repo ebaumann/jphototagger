@@ -776,7 +776,7 @@ public final class Settings {
             throw new NullPointerException("key == null"); // NOI18N
 
         String isSelected = checkBox.isSelected()
-                            ? "1"
+                            ? "1" // NOI18N
                             : "0"; // NOI18N
 
         properties.setProperty(key, isSelected);
@@ -935,7 +935,7 @@ public final class Settings {
             throw new NullPointerException("key == null"); // NOI18N
 
         String status = button.isSelected()
-                        ? "1"
+                        ? "1" // NOI18N
                         : "0"; // NOI18N
         properties.setProperty(key, status);
     }

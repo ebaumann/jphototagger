@@ -57,13 +57,13 @@ public final class ComparatorFilesSuffixes implements Comparator<File> {
     public int compare(File leftFile, File rightFile) {
         String leftSuffix = leftFile.getName();
         String rightSuffix = rightFile.getName();
-        int indexLeftPeriod = leftSuffix.lastIndexOf(".");
-        int indexRightPeriod = rightSuffix.lastIndexOf(".");
+        int indexLeftPeriod = leftSuffix.lastIndexOf("."); // NOI18N
+        int indexRightPeriod = rightSuffix.lastIndexOf("."); // NOI18N
 
         leftSuffix = indexLeftPeriod >= 0 && indexLeftPeriod < leftSuffix.length() - 1
-            ? leftSuffix.substring(indexLeftPeriod + 1) : "";
+            ? leftSuffix.substring(indexLeftPeriod + 1) : ""; // NOI18N
         rightSuffix = indexRightPeriod >= 0 && indexRightPeriod < rightSuffix.length() - 1
-            ? rightSuffix.substring(indexRightPeriod + 1) : "";
+            ? rightSuffix.substring(indexRightPeriod + 1) : ""; // NOI18N
 
         boolean suffixesEquals = leftSuffix.isEmpty() || leftSuffix.isEmpty() ||
             compareCase.equals(CompareCase.IGNORE)

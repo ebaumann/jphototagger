@@ -134,7 +134,7 @@ public final class ProgressDialog extends javax.swing.JDialog {
     private void stop() {
         if (closeEnabled) {
             for (ActionListener listener : actionListeners) {
-                listener.actionPerformed(new ActionEvent(this, 0, "Stop"));
+                listener.actionPerformed(new ActionEvent(this, 0, "Stop")); // NOI18N
             }
             setVisible(false);
         }

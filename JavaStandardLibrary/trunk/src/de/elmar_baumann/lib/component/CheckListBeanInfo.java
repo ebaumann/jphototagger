@@ -13,6 +13,6 @@ public final class CheckListBeanInfo extends java.beans.SimpleBeanInfo {
     @Override
     public java.awt.Image getIcon(int iconKind) {
         return IconUtil.getIconImage(
-            "/de/elmar_baumann/lib/resource/icons/icon_checklist.png");
+            "/de/elmar_baumann/lib/resource/icons/icon_checklist.png"); // NOI18N
     }
 }

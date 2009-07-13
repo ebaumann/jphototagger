@@ -92,11 +92,11 @@
               <SubComponents>
                 <Component class="javax.swing.JTree" name="tree">
                   <Properties>
-                    <Property name="cellRenderer" type="javax.swing.tree.TreeCellRenderer" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="new TreeCellRendererHelpContents()" type="code"/>
-                    </Property>
                     <Property name="model" type="javax.swing.tree.TreeModel" editor="org.netbeans.modules.form.ComponentChooserEditor">
                       <ComponentRef name="null"/>
+                    </Property>
+                    <Property name="cellRenderer" type="javax.swing.tree.TreeCellRenderer" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection code="new TreeCellRendererHelpContents()" type="code"/>
                     </Property>
                   </Properties>
                 </Component>
