@@ -47,9 +47,9 @@ public final class HelpBrowser extends Dialog
     private static final String KEY_SPLIT_PANE =
             HelpBrowser.class.getName() + ".SplitPane";
     private static final String DISPLAY_NAME_ACTION_PREVIOUS =
-            Bundle.getString("HelpBrowser.Action.Previous");
+            Bundle.getString("HelpBrowser.Action.Previous"); // NOI18N
     private static final String DISPLAY_NAME_ACTION_NEXT =
-            Bundle.getString("HelpBrowser.Action.Next");
+            Bundle.getString("HelpBrowser.Action.Next"); // NOI18N
     private final LinkedList<URL> urlHistory = new LinkedList<URL>();
     private final List<HelpBrowserListener> actionListeners =
             new ArrayList<HelpBrowserListener>();
@@ -305,8 +305,8 @@ public final class HelpBrowser extends Dialog
                 HelpPage helpPage = (HelpPage) o;
                 String helpPageUrl = helpPage.getUrl();
                 URL url = getClass().getResource(baseUrl + "/" + helpPageUrl); // NOI18N
-                setTitle(helpPage.getTitle() + Bundle.getString(
-                        "HelpBrowser.TitlePostfix"));
+                setTitle(helpPage.getTitle() +
+                        Bundle.getString("HelpBrowser.TitlePostfix")); // NOI18N
                 showUrl(url);
             }
         }

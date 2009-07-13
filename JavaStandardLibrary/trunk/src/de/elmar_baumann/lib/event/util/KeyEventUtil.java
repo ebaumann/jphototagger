@@ -23,7 +23,7 @@ public final class KeyEventUtil {
      */
     public static boolean isCopy(KeyEvent e) {
         if (e == null)
-            throw new NullPointerException("e == null");
+            throw new NullPointerException("e == null"); // NOI18N
 
         return e.getKeyCode() == KeyEvent.VK_C &&
                 e.getModifiers() == KeyEvent.CTRL_MASK;
@@ -38,7 +38,7 @@ public final class KeyEventUtil {
      */
     public static boolean isCut(KeyEvent e) {
         if (e == null)
-            throw new NullPointerException("e == null");
+            throw new NullPointerException("e == null"); // NOI18N
 
         return e.getKeyCode() == KeyEvent.VK_X &&
                 e.getModifiers() == KeyEvent.CTRL_MASK;
@@ -53,7 +53,7 @@ public final class KeyEventUtil {
      */
     public static boolean isPaste(KeyEvent e) {
         if (e == null)
-            throw new NullPointerException("e == null");
+            throw new NullPointerException("e == null"); // NOI18N
 
         return e.getKeyCode() == KeyEvent.VK_V &&
                 e.getModifiers() == KeyEvent.CTRL_MASK;
@@ -69,7 +69,7 @@ public final class KeyEventUtil {
      */
     public static boolean isControl(KeyEvent e, int keyCode) {
         if (e == null)
-            throw new NullPointerException("e == null");
+            throw new NullPointerException("e == null"); // NOI18N
 
         return e.getKeyCode() == keyCode &&
                 e.getModifiers() == KeyEvent.CTRL_MASK;

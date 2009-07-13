@@ -27,7 +27,7 @@ public final class TreeCellRendererAllSystemDirectories extends DefaultTreeCellR
     private Icon rootIcon = IconUtil.getImageIcon(
             "/de/elmar_baumann/lib/resource/icons/icon_workspace.png"); // NOI18N
     private static final String DISPLAY_NAME_ROOT =
-            Bundle.getString("TreeCellRendererAllSystemDirectories.DisplayName.Root");
+            Bundle.getString("TreeCellRendererAllSystemDirectories.DisplayName.Root"); // NOI18N
 
     @Override
     public Component getTreeCellRendererComponent(

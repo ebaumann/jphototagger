@@ -247,7 +247,7 @@ public final class DateChooserDialog extends JComponent {
 
     public void setCalendar(GregorianCalendar calendar) {
         if (calendar == null)
-            throw new NullPointerException("calendar == null");
+            throw new NullPointerException("calendar == null"); // NOI18N
 
         gc = calendar;
         drawCalendar();
@@ -283,7 +283,7 @@ public final class DateChooserDialog extends JComponent {
 
         c.gridwidth = 2;
         JFrame f = new JFrame();
-        dialog = new JDialog(f, Bundle.getString("DateChooserDialog.title"), true);
+        dialog = new JDialog(f, Bundle.getString("DateChooserDialog.title"), true); // NOI18N
         if (icons != null) {
             dialog.setIconImages(icons);
         }
@@ -301,7 +301,7 @@ public final class DateChooserDialog extends JComponent {
         ++c.gridy;
         c.gridwidth = 1;
         c.anchor = GridBagConstraints.WEST;
-        JButton okButton = new JButton(Bundle.getString("DateChooserDialog.okButton"));
+        JButton okButton = new JButton(Bundle.getString("DateChooserDialog.okButton")); // NOI18N
         okButton.addActionListener(new ActionListener() {
 
             @Override
@@ -314,7 +314,7 @@ public final class DateChooserDialog extends JComponent {
 
         ++c.gridx;
         c.anchor = GridBagConstraints.EAST;
-        JButton cancelButton = new JButton(Bundle.getString("DateChooserDialog.cancelButton"));
+        JButton cancelButton = new JButton(Bundle.getString("DateChooserDialog.cancelButton")); // NOI18N
         cancelButton.addActionListener(new ActionListener() {
 
             @Override
@@ -335,7 +335,7 @@ public final class DateChooserDialog extends JComponent {
     @Override
     public void setFont(Font font) {
         if (font == null)
-            throw new NullPointerException("font == null");
+            throw new NullPointerException("font == null"); // NOI18N
         
         previousButton.setFont(font);
         nextButton.setFont(font);

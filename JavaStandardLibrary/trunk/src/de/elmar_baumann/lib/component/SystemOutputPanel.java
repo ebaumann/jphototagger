@@ -78,10 +78,10 @@ public class SystemOutputPanel extends JPanel {
             this.pi = pi;
             this.type = type;
             setPriority(MIN_PRIORITY);
-            setName("Reading System." + (type.equals(Type.OUT)
-                                         ? "out"
-                                         : "err") +
-                    " @ " + SystemOutputPanel.class.getName());
+            setName("Reading System." + (type.equals(Type.OUT) // NOI18N
+                                         ? "out" // NOI18N
+                                         : "err") + // NOI18N
+                    " @ " + SystemOutputPanel.class.getName()); // NOI18N
         }
 
         @Override

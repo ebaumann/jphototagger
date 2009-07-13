@@ -53,7 +53,7 @@ public final class XmpFileReader {
      */
     public static String readFile(String filename) {
         if (filename == null)
-            throw new NullPointerException("filename == null");
+            throw new NullPointerException("filename == null"); // NOI18N
 
         RandomAccessFile file = null;
         try {
@@ -113,7 +113,7 @@ public final class XmpFileReader {
      */
     public static boolean existsXmp(String filename) {
         if (filename == null)
-            throw new NullPointerException("filename == null");
+            throw new NullPointerException("filename == null"); // NOI18N
 
         BufferedReader bufferedReader = null;
         try {

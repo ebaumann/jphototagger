@@ -39,22 +39,22 @@ public final class TableUtil {
     public static void embedTableCellTextInHtml(JTable table, int row,
             JLabel label, String text, int maxCharsPerLine, String style) {
         if (table == null)
-            throw new NullPointerException("table == null");
+            throw new NullPointerException("table == null"); // NOI18N
         if (label == null)
-            throw new NullPointerException("label == null");
+            throw new NullPointerException("label == null"); // NOI18N
 
         List<String> lines = StringUtil.wrapWords(text, maxCharsPerLine);
         StringBuilder sb =
                 new StringBuilder(
-                "<html><style type=\"text/css\">body { " + style +
-                " }</style></head><body>");
+                "<html><style type=\"text/css\">body { " + style + // NOI18N
+                " }</style></head><body>"); // NOI18N
         int lineCount = lines.size();
         for (int i = 0; i < lineCount; i++) {
             sb.append(i == 0
                       ? lines.get(i)
                       : HTML_LINE_BREAK + lines.get(i));
         }
-        sb.append("</body></html>");
+        sb.append("</body></html>"); // NOI18N
         label.setText(sb.toString());
         int preferredHeight = label.getPreferredSize().height;
         if (preferredHeight > table.getRowHeight(row)) {
@@ -72,7 +72,7 @@ public final class TableUtil {
      */
     public static void resizeColumnWidthsToFit(JTable table) {
         if (table == null)
-            throw new NullPointerException("table == null");
+            throw new NullPointerException("table == null"); // NOI18N
 
         TableModel model = table.getModel();
         TableColumnModel colModel = table.getColumnModel();

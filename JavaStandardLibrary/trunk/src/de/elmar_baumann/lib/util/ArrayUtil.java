@@ -34,9 +34,9 @@ public final class ArrayUtil {
      */
     public static List<String> stringTokenToList(String string, String delimiter) {
         if (string == null)
-            throw new NullPointerException("string == null");
+            throw new NullPointerException("string == null"); // NOI18N
         if (delimiter == null)
-            throw new NullPointerException("delimiter == null");
+            throw new NullPointerException("delimiter == null"); // NOI18N
 
         StringTokenizer tokenizer = new StringTokenizer(string, delimiter);
         List<String> list = new ArrayList<String>(tokenizer.countTokens());
@@ -69,9 +69,9 @@ public final class ArrayUtil {
     public static List<Integer> integerTokenToList(String string,
             String delimiter) {
         if (string == null)
-            throw new NullPointerException("string == null");
+            throw new NullPointerException("string == null"); // NOI18N
         if (delimiter == null)
-            throw new NullPointerException("delimiter == null");
+            throw new NullPointerException("delimiter == null"); // NOI18N
 
         List<Integer> integerList = new ArrayList<Integer>();
         StringTokenizer tokenizer = new StringTokenizer(string, delimiter);
@@ -92,14 +92,14 @@ public final class ArrayUtil {
      */
     public static String[] toStringArray(Object[] objectArray) {
         if (objectArray == null)
-            throw new NullPointerException("array == null");
+            throw new NullPointerException("array == null"); // NOI18N
 
         String[] stringArray = new String[objectArray.length];
         for (int i = 0; i < objectArray.length; i++) {
             if (objectArray[i] == null)
                 throw new IllegalArgumentException(
-                        "Element with index " + i + " is not an object: " +
-                        objectArray[i] + " (" + objectArray.toString() + ")");
+                        "Element with index " + i + " is not an object: " + // NOI18N
+                        objectArray[i] + " (" + objectArray.toString() + ")"); // NOI18N
 
             Object object = objectArray[i];
             stringArray[i] = object.toString(); // NOI18N

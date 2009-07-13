@@ -22,7 +22,7 @@ public final class MaxLengthDocument extends PlainDocument {
      */
     public MaxLengthDocument(int maxLenght) {
         if (maxLenght < 0)
-            throw new IllegalArgumentException("maxLength < 0: " + maxLenght);
+            throw new IllegalArgumentException("maxLength < 0: " + maxLenght); // NOI18N
         this.maxLenght = maxLenght;
     }
 

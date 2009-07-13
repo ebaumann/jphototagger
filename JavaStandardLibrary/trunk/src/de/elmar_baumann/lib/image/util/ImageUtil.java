@@ -29,7 +29,7 @@ public final class ImageUtil {
      */
     public static ByteArrayInputStream getByteArrayInputStream(Image image) {
         if (image == null)
-            throw new NullPointerException("image == null");
+            throw new NullPointerException("image == null"); // NOI18N
 
         ByteArrayInputStream stream = null;
         try {

@@ -94,7 +94,7 @@ public final class LogfileRecordFrame {
      */
     boolean contains(String substring) {
         if (substring == null)
-            throw new NullPointerException("substring == null");
+            throw new NullPointerException("substring == null"); // NOI18N
 
         return containsSubstring(getLine(), substring) ||
             containsSubstring(getClassName(), substring) ||

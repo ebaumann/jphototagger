@@ -40,12 +40,12 @@ public final class StringUtil {
     public static List<String> wrapWords(String text, int maxCharsPerLine,
             String wordDelimiter) {
         if (text == null)
-            throw new NullPointerException("text == null");
+            throw new NullPointerException("text == null"); // NOI18N
         if (maxCharsPerLine <= 0)
-            throw new IllegalArgumentException("Invalid max chars per line: " +
+            throw new IllegalArgumentException("Invalid max chars per line: " + // NOI18N
                     maxCharsPerLine);
         if (wordDelimiter.isEmpty())
-            throw new IllegalArgumentException("Empty word delimiter string!");
+            throw new IllegalArgumentException("Empty word delimiter string!"); // NOI18N
 
         List<String> lines = new ArrayList<String>();
         int textLength = text.length();

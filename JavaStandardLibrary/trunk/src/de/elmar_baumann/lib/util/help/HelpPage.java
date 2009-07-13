@@ -32,7 +32,7 @@ public final class HelpPage {
      */
     public void setTitle(String title) {
         if (title == null)
-            throw new NullPointerException("title == null");
+            throw new NullPointerException("title == null"); // NOI18N
 
         this.title = title;
     }
@@ -53,7 +53,7 @@ public final class HelpPage {
      */
     public void setUrl(String url) {
         if (url == null)
-            throw new NullPointerException("url == null");
+            throw new NullPointerException("url == null"); // NOI18N
 
         this.url = url;
     }
@@ -74,7 +74,7 @@ public final class HelpPage {
      */
     void setParent(HelpNode parent) {
         if (parent == null)
-            throw new NullPointerException("parent == null");
+            throw new NullPointerException("parent == null"); // NOI18N
 
         this.parent = parent;
     }

@@ -40,7 +40,7 @@ public final class HelpIndexParser {
      */
     public static HelpNode parse(InputStream is) {
         if (is == null)
-            throw new NullPointerException("is == null");
+            throw new NullPointerException("is == null"); // NOI18N
 
         HelpNode rootNode = null;
         try {

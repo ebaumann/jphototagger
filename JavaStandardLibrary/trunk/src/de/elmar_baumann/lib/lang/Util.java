@@ -41,9 +41,9 @@ public final class Util {
      */
     public static void dumpBits(byte[] b, PrintStream out) {
         if (b == null)
-            throw new NullPointerException("b == null");
+            throw new NullPointerException("b == null"); // NOI18N
         if (out == null)
-            throw new NullPointerException("out == null");
+            throw new NullPointerException("out == null"); // NOI18N
 
         out.println();
         for (int i = 0; i < b.length; i++) {

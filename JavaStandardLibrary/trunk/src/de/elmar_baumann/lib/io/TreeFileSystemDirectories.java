@@ -193,7 +193,7 @@ public final class TreeFileSystemDirectories {
      */
     public static String getNewName(File file) {
         return JOptionPane.showInputDialog(null, Bundle.getString(
-                "TreeFileSystemDirectories.Input.NewName", file), file.getName());
+                "TreeFileSystemDirectories.Input.NewName", file), file.getName()); // NOI18N
     }
 
     /**
@@ -207,10 +207,10 @@ public final class TreeFileSystemDirectories {
         if (file.exists()) {
             JOptionPane.showMessageDialog(null,
                     Bundle.getString(
-                    "TreeFileSystemDirectories.ErrorMessage.DirectoryAlreadyExists",
+                    "TreeFileSystemDirectories.ErrorMessage.DirectoryAlreadyExists", // NOI18N
                     file.getAbsolutePath()),
                     Bundle.getString(
-                    "TreeFileSystemDirectories.ErrorMessage.DirectoryAlreadyExists.Title"),
+                    "TreeFileSystemDirectories.ErrorMessage.DirectoryAlreadyExists.Title"), // NOI18N
                     JOptionPane.ERROR_MESSAGE);
         }
         return true;
@@ -226,10 +226,10 @@ public final class TreeFileSystemDirectories {
         return JOptionPane.showConfirmDialog(
                 null,
                 Bundle.getString(
-                "TreeFileSystemDirectories.ConfirmMessage.Delete",
+                "TreeFileSystemDirectories.ConfirmMessage.Delete", // NOI18N
                 directoryName),
                 Bundle.getString(
-                "TreeFileSystemDirectories.ConfirmMessage.Delete.Title"),
+                "TreeFileSystemDirectories.ConfirmMessage.Delete.Title"), // NOI18N
                 JOptionPane.YES_NO_OPTION) ==
                 JOptionPane.YES_OPTION;
     }
@@ -242,16 +242,16 @@ public final class TreeFileSystemDirectories {
      */
     public static void errorMessageDelete(String directoryName) {
         JOptionPane.showMessageDialog(null,
-                Bundle.getString("TreeFileSystemDirectories.ErrorMessage.Delete",
+                Bundle.getString("TreeFileSystemDirectories.ErrorMessage.Delete", // NOI18N
                 directoryName),
                 Bundle.getString(
-                "TreeFileSystemDirectories.ErrorMessage.Delete.Title"),
+                "TreeFileSystemDirectories.ErrorMessage.Delete.Title"), // NOI18N
                 JOptionPane.ERROR_MESSAGE);
     }
 
     private static String getSubDirectoryName() {
         return JOptionPane.showInputDialog(null, Bundle.getString(
-                "TreeFileSystemDirectories.Input.SubDirectoryName"));
+                "TreeFileSystemDirectories.Input.SubDirectoryName")); // NOI18N
     }
 
     private TreeFileSystemDirectories() {

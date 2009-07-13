@@ -43,7 +43,7 @@ public final class LogfileParser implements EntityResolver {
      */
     public static List<LogfileRecord> parseLogfile(String filename) {
         if (filename == null)
-            throw new NullPointerException("filename == null");
+            throw new NullPointerException("filename == null"); // NOI18N
 
         List<LogfileRecord> records = new ArrayList<LogfileRecord>();
         try {

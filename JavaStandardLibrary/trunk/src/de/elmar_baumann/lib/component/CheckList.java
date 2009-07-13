@@ -50,7 +50,7 @@ public final class CheckList extends JList {
      */
     public synchronized void addActionListener(ActionListener listener) {
         if (listener == null)
-            throw new NullPointerException("listener == null");
+            throw new NullPointerException("listener == null"); // NOI18N
 
         actionListeners.add(listener);
     }
@@ -62,7 +62,7 @@ public final class CheckList extends JList {
      */
     public synchronized void removeActionListener(ActionListener listener) {
         if (listener == null)
-            throw new NullPointerException("listener == null");
+            throw new NullPointerException("listener == null"); // NOI18N
 
         actionListeners.remove(listener);
     }
@@ -171,7 +171,7 @@ public final class CheckList extends JList {
      */
     public synchronized String getSelectedItemTexts(String delimiter) {
         if (delimiter == null)
-            throw new NullPointerException("delimiter == null");
+            throw new NullPointerException("delimiter == null"); // NOI18N
 
         List<String> texts = getSelectedItemTexts();
         StringBuffer textBuffer = new StringBuffer();
@@ -192,7 +192,7 @@ public final class CheckList extends JList {
     public synchronized void setSelectedItemsWithText(List<String> texts,
             boolean select) {
         if (texts == null)
-            throw new NullPointerException("texts == null");
+            throw new NullPointerException("texts == null"); // NOI18N
 
         for (String text : texts) {
             setSelectedItemsWithText(text, select);
@@ -210,7 +210,7 @@ public final class CheckList extends JList {
     public synchronized void setSelectedItemsWithText(String text,
             boolean select) {
         if (text == null)
-            throw new NullPointerException("text == null");
+            throw new NullPointerException("text == null"); // NOI18N
 
         ListModel model = getModel();
         int count = model.getSize();

@@ -27,9 +27,9 @@ public final class TableModelLogfiles extends DefaultTableModel {
 
     public TableModelLogfiles(String filter, List<Level> visibleLevels) {
         if (filter == null)
-            throw new NullPointerException("filter == null");
+            throw new NullPointerException("filter == null"); // NOI18N
         if (visibleLevels == null)
-            throw new NullPointerException("visibleLevels == null");
+            throw new NullPointerException("visibleLevels == null"); // NOI18N
 
         this.filter = filter;
         this.visibleLevels = visibleLevels;
@@ -43,16 +43,18 @@ public final class TableModelLogfiles extends DefaultTableModel {
      */
     public void addRecord(LogfileRecord record) {
         if (record == null)
-            throw new NullPointerException("record == null");
+            throw new NullPointerException("record == null"); // NOI18N
 
-        if ((visibleLevels.contains(Level.ALL) || visibleLevels.contains(record.getLevel())) && (filter.isEmpty() || record.contains(filter))) {
+        if ((visibleLevels.contains(Level.ALL) || visibleLevels.contains(record.
+                getLevel())) && (filter.isEmpty() || record.contains(filter))) {
             List<Object> row = new ArrayList<Object>();
             row.add(record.getLevel());
             row.add(new Date(record.getMillis()));
             String message = record.getMessage();
             row.add(message == null
-                ? Bundle.getString("TableModelLogfiles.ErrorMessage.MessageIsNull")
-                : message);
+                    ? Bundle.getString(
+                    "TableModelLogfiles.ErrorMessage.MessageIsNull") // NOI18N
+                    : message);
             records.add(record);
             addRow(row.toArray(new Object[row.size()]));
         }
@@ -67,15 +69,16 @@ public final class TableModelLogfiles extends DefaultTableModel {
      */
     public LogfileRecord getLogfileRecord(int index) {
         if (!ArrayUtil.isValidIndex(records, index))
-            throw new IllegalArgumentException("Invalid index: " + index + " element count: " + records.size());
+            throw new IllegalArgumentException("Invalid index: " + index + // NOI18N
+                    " element count: " + records.size()); // NOI18N
 
         return records.get(index);
     }
 
     private void addColumns() {
-        addColumn(Bundle.getString("TableModelLogfiles.HeaderColumn.1"));
-        addColumn(Bundle.getString("TableModelLogfiles.HeaderColumn.2"));
-        addColumn(Bundle.getString("TableModelLogfiles.HeaderColumn.3"));
+        addColumn(Bundle.getString("TableModelLogfiles.HeaderColumn.1")); // NOI18N
+        addColumn(Bundle.getString("TableModelLogfiles.HeaderColumn.2")); // NOI18N
+        addColumn(Bundle.getString("TableModelLogfiles.HeaderColumn.3")); // NOI18N
     }
 
     /**
@@ -85,7 +88,7 @@ public final class TableModelLogfiles extends DefaultTableModel {
      */
     public void setRecords(List<LogfileRecord> records) {
         if (records == null)
-            throw new NullPointerException("records == null");
+            throw new NullPointerException("records == null"); // NOI18N
 
         clear();
         for (LogfileRecord record : records) {

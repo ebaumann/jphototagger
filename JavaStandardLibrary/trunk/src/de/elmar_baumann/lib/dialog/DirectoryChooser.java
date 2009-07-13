@@ -254,17 +254,17 @@ public final class DirectoryChooser extends Dialog {
 
     private boolean confirmDelete() {
         return JOptionPane.showConfirmDialog(this,
-                Bundle.getString("DirectoryChooser.Confirm.Delete"),
-                Bundle.getString("DirectoryChooser.Confirm.Delete.Title"),
+                Bundle.getString("DirectoryChooser.Confirm.Delete"), // NOI18N
+                Bundle.getString("DirectoryChooser.Confirm.Delete.Title"), // NOI18N
                 JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION;
     }
 
     private boolean checkSelected() {
         if (treeDirectories.getSelectionCount() <= 0) {
             JOptionPane.showMessageDialog(this,
-                    Bundle.getString("DirectoryChooser.Error.NothingSelected"),
+                    Bundle.getString("DirectoryChooser.Error.NothingSelected"), // NOI18N
                     Bundle.getString(
-                    "DirectoryChooser.Error.NothingSelected.Title"),
+                    "DirectoryChooser.Error.NothingSelected.Title"), // NOI18N
                     JOptionPane.ERROR_MESSAGE);
             return false;
         }

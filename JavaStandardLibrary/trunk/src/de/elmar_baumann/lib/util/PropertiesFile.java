@@ -54,13 +54,13 @@ public final class PropertiesFile {
      */
     public PropertiesFile(String domainName, String projectName, String filename, Properties properties) {
         if (domainName == null)
-            throw new NullPointerException("domainName == null");
+            throw new NullPointerException("domainName == null"); // NOI18N
         if (projectName == null)
-            throw new NullPointerException("appName == null");
+            throw new NullPointerException("appName == null"); // NOI18N
         if (filename == null)
-            throw new NullPointerException("filename == null");
+            throw new NullPointerException("filename == null"); // NOI18N
         if (properties == null)
-            throw new NullPointerException("properties == null");
+            throw new NullPointerException("properties == null"); // NOI18N
 
         this.domainName = domainName;
         this.projectName = projectName;

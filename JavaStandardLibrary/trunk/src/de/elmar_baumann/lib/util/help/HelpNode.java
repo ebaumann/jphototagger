@@ -38,7 +38,7 @@ public final class HelpNode {
      */
     public void setTitle(String title) {
         if (title == null)
-            throw new NullPointerException("title == null");
+            throw new NullPointerException("title == null"); // NOI18N
 
         this.title = title;
     }
@@ -50,7 +50,7 @@ public final class HelpNode {
      */
     public void addPage(HelpPage page) {
         if (page == null)
-            throw new NullPointerException("page == null");
+            throw new NullPointerException("page == null"); // NOI18N
 
         page.setParent(this);
         children.add(page);
@@ -63,7 +63,7 @@ public final class HelpNode {
      */
     public void addNode(HelpNode chapter) {
         if (chapter == null)
-            throw new NullPointerException("chapter == null");
+            throw new NullPointerException("chapter == null"); // NOI18N
 
         chapter.parent = this;
         children.add(chapter);
@@ -102,7 +102,7 @@ public final class HelpNode {
      */
     public int getIndexOfChild(Object child) {
         if (child == null)
-            throw new NullPointerException("child == null");
+            throw new NullPointerException("child == null"); // NOI18N
 
         return children.indexOf(child);
     }
@@ -124,7 +124,7 @@ public final class HelpNode {
      */
     public Object[] getPagePath(String url) {
         if (url == null)
-            throw new NullPointerException("url == null");
+            throw new NullPointerException("url == null"); // NOI18N
 
         List<Object> found = new ArrayList<Object>();
         findPath(url, found);
@@ -133,9 +133,9 @@ public final class HelpNode {
 
     private void findPath(String url, List<Object> found) {
         if (url == null)
-            throw new NullPointerException("url == null");
+            throw new NullPointerException("url == null"); // NOI18N
         if (found == null)
-            throw new NullPointerException("found == null");
+            throw new NullPointerException("found == null"); // NOI18N
 
         int size = children.size();
         for (int i = 0; found.size() <= 0 && i < size; i++) {
@@ -153,7 +153,7 @@ public final class HelpNode {
 
     private Stack<Object> getPagePath(HelpPage helpPage) {
         if (helpPage == null)
-            throw new NullPointerException("helpPage == null");
+            throw new NullPointerException("helpPage == null"); // NOI18N
 
         Stack<Object> path = new Stack<Object>();
         path.push(helpPage);

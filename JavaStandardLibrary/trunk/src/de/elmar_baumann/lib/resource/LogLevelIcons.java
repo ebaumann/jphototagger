@@ -56,7 +56,7 @@ public final class LogLevelIcons {
      */
     public static Icon getIcon(Level level) {
         if (level == null)
-            throw new NullPointerException("level == null");
+            throw new NullPointerException("level == null"); // NOI18N
 
         return ICON_OF_LEVEL.get(level);
     }

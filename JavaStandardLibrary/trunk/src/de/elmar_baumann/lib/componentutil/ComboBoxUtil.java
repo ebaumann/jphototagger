@@ -25,9 +25,9 @@ public final class ComboBoxUtil {
      */
     public static boolean hasItem(ComboBoxModel comboBox, String string) {
         if (comboBox == null)
-            throw new NullPointerException("comboBox == null");
+            throw new NullPointerException("comboBox == null"); // NOI18N
         if (string == null)
-            throw new NullPointerException("string == null");
+            throw new NullPointerException("string == null"); // NOI18N
 
         for (int index = 0; index < comboBox.getSize(); index++) {
             Object currentItem = comboBox.getElementAt(index);
@@ -49,9 +49,9 @@ public final class ComboBoxUtil {
      */
     public static Object getItem(ComboBoxModel comboBoxModel, String string) {
         if (comboBoxModel == null)
-            throw new NullPointerException("comboBoxModel == null");
+            throw new NullPointerException("comboBoxModel == null"); // NOI18N
         if (string == null)
-            throw new NullPointerException("string == null");
+            throw new NullPointerException("string == null"); // NOI18N
 
         for (int index = 0; index < comboBoxModel.getSize(); index++) {
             Object currentItem = comboBoxModel.getElementAt(index);

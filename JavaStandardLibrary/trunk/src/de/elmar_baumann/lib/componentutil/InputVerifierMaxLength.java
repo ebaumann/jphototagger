@@ -28,7 +28,7 @@ public final class InputVerifierMaxLength extends InputVerifier {
      */
     public InputVerifierMaxLength(int maxLength) {
         if (maxLength < 0) {
-            throw new IllegalArgumentException("maxLength < 0: " + maxLength);
+            throw new IllegalArgumentException("maxLength < 0: " + maxLength); // NOI18N
         }
 
         this.maxLength = maxLength;
@@ -51,7 +51,7 @@ public final class InputVerifierMaxLength extends InputVerifier {
         } else if (input instanceof JTextArea) {
             return ((JTextArea) input).getText().length() <= maxLength;
         } else {
-            assert false : "Unknown component: " + input.getClass().toString();
+            assert false : "Unknown component: " + input.getClass().toString(); // NOI18N
         }
         return true;
     }
@@ -59,8 +59,8 @@ public final class InputVerifierMaxLength extends InputVerifier {
     private void errorMessage(JComponent input) {
         JOptionPane.showMessageDialog(
                 input,
-                Bundle.getString("InputVerifierMaxLength.ErrorMessage", maxLength),
-                Bundle.getString("InputVerifierMaxLength.ErrorMessage.Title"),
+                Bundle.getString("InputVerifierMaxLength.ErrorMessage", maxLength), // NOI18N
+                Bundle.getString("InputVerifierMaxLength.ErrorMessage.Title"), // NOI18N
                 JOptionPane.ERROR_MESSAGE);
     }
 }

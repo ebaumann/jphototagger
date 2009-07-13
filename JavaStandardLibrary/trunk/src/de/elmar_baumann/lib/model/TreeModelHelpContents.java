@@ -69,7 +69,7 @@ public final class TreeModelHelpContents implements TreeModel {
      */
     public TreeModelHelpContents(String url) {
         if (url == null)
-            throw new NullPointerException("url == null");
+            throw new NullPointerException("url == null"); // NOI18N
 
         parse(url);
     }

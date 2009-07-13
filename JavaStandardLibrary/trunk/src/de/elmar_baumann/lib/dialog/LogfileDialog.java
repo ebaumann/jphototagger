@@ -75,10 +75,10 @@ public final class LogfileDialog extends javax.swing.JDialog implements
     public LogfileDialog(Frame parent, String logfilename, Class formatterClass) {
         super(parent, false);
         if (logfilename == null) {
-            throw new NullPointerException("logfilename == null");
+            throw new NullPointerException("logfilename == null"); // NOI18N
         }
         if (formatterClass == null) {
-            throw new NullPointerException("formatterClass == null");
+            throw new NullPointerException("formatterClass == null"); // NOI18N
         }
 
         this.logfilename = logfilename;
@@ -163,19 +163,19 @@ public final class LogfileDialog extends javax.swing.JDialog implements
         if (logfileBytes <= 0) {
             JOptionPane.showMessageDialog(
                     this,
-                    Bundle.getString("LogfileDialog.ErrorMessage.LogfileIsEmpty"),
+                    Bundle.getString("LogfileDialog.ErrorMessage.LogfileIsEmpty"), // NOI18N
                     Bundle.getString(
-                    "LogfileDialog.ErrorMessage.LogfileIsEmpty.Title"),
+                    "LogfileDialog.ErrorMessage.LogfileIsEmpty.Title"), // NOI18N
                     JOptionPane.ERROR_MESSAGE);
             return false;
         } else if (logfileBytes >= CRITICAL_LOGFILE_SIZE_IN_BYTES) {
             JOptionPane.showMessageDialog(
                     this,
                     Bundle.getString(
-                    "LogfileDialog.ErrorMessage.MaximumSizeExceeded",
+                    "LogfileDialog.ErrorMessage.MaximumSizeExceeded", // NOI18N
                     Math.round(logfileBytes / CRITICAL_LOGFILE_SIZE_IN_BYTES)),
                     Bundle.getString(
-                    "LogfileDialog.ErrorMessage.MaximumSizeExceeded.Title"),
+                    "LogfileDialog.ErrorMessage.MaximumSizeExceeded.Title"), // NOI18N
                     JOptionPane.ERROR_MESSAGE);
             return false;
         }
@@ -221,23 +221,23 @@ public final class LogfileDialog extends javax.swing.JDialog implements
 
         details.append("<html>"); // NOI18N
         details.append("\n<table>"); // NOI18N
-        addDetailTableRow(details, Bundle.getString(
-                "LogfileDialog.Information.Loglevel"),
+        addDetailTableRow(details,
+                Bundle.getString("LogfileDialog.Information.Loglevel"), // NOI18N
                 logfileRecord.getLevel().getLocalizedName());
-        addDetailTableRow(details, Bundle.getString(
-                "LogfileDialog.Information.Message"),
+        addDetailTableRow(details,
+                Bundle.getString("LogfileDialog.Information.Message"), // NOI18N
                 logfileRecord.getMessage());
-        addDetailTableRow(details, Bundle.getString(
-                "LogfileDialog.Information.LoggerClass"),
+        addDetailTableRow(details,
+                Bundle.getString("LogfileDialog.Information.LoggerClass"), // NOI18N
                 logfileRecord.getLogger());
-        addDetailTableRow(details, Bundle.getString(
-                "LogfileDialog.Information.Class"),
+        addDetailTableRow(details,
+                Bundle.getString("LogfileDialog.Information.Class"), // NOI18N
                 logfileRecord.getClassname());
-        addDetailTableRow(details, Bundle.getString(
-                "LogfileDialog.Information.Method"),
+        addDetailTableRow(details,
+                Bundle.getString("LogfileDialog.Information.Method"), // NOI18N
                 logfileRecord.getMethodname());
-        addDetailTableRow(details, Bundle.getString(
-                "LogfileDialog.Information.Thread"),
+        addDetailTableRow(details,
+                Bundle.getString("LogfileDialog.Information.Thread"), // NOI18N
                 logfileRecord.getThread());
         details.append("\n</table>"); // NOI18N
         addDetailException(details, logfileRecord.getException());
@@ -271,8 +271,8 @@ public final class LogfileDialog extends javax.swing.JDialog implements
                 stringBuffer.append(" " + frame.getMethodName()); // NOI18N
                 stringBuffer.append(
                         Bundle.getString(
-                        "LogfileDialog.Information.StartLineNumber") + frame.
-                        getLine() + ")"); // NOI18N
+                        "LogfileDialog.Information.StartLineNumber") +  // NOI18N
+                        frame.getLine() + ")"); // NOI18N
             }
             stringBuffer.append("\n</pre>"); // NOI18N
         }
@@ -282,15 +282,15 @@ public final class LogfileDialog extends javax.swing.JDialog implements
             StringBuffer stringBuffer) {
         String message = exception.getMessage();
         if (message != null) {
-            stringBuffer.append("\n<br /><font color=\"ff0000\">" + message +
+            stringBuffer.append("\n<br /><font color=\"ff0000\">" + message + // NOI18N
                     "</font>"); // NOI18N
         }
     }
 
     private void setTable() {
         if (logfilename != null && !logfilename.isEmpty()) {
-            TableModelLogfiles model = new TableModelLogfiles(filterString,
-                    visibleLevels);
+            TableModelLogfiles model = new TableModelLogfiles(
+                    filterString, visibleLevels);
             tableLogfileRecords.setModel(model);
             model.setRecords(logfileRecords);
             setColumnWidths();
@@ -367,9 +367,9 @@ public final class LogfileDialog extends javax.swing.JDialog implements
         JOptionPane.showMessageDialog(
                 this,
                 Bundle.getString(
-                "LogfileDialog.ErrorMessage.UnknownLogfileFormat"),
+                "LogfileDialog.ErrorMessage.UnknownLogfileFormat"), // NOI18N
                 Bundle.getString(
-                "LogfileDialog.ErrorMessage.UnknownLogfileFormat.Title"),
+                "LogfileDialog.ErrorMessage.UnknownLogfileFormat.Title"), // NOI18N
                 JOptionPane.ERROR_MESSAGE);
     }
 

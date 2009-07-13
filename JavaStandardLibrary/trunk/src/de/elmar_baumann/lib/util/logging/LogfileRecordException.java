@@ -33,7 +33,7 @@ public final class LogfileRecordException {
      */
     public void addFrame(LogfileRecordFrame frame) {
         if (frame == null)
-            throw new NullPointerException("frame == null");
+            throw new NullPointerException("frame == null"); // NOI18N
 
         logfileRecordFrames.add(frame);
     }
@@ -75,7 +75,7 @@ public final class LogfileRecordException {
      */
     boolean contains(String substring) {
         if (substring == null)
-            throw new NullPointerException("substring == null");
+            throw new NullPointerException("substring == null"); // NOI18N
 
         boolean contains = containsSubstring(getMessage(), substring);
         int count = logfileRecordFrames.size();

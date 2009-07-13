@@ -64,16 +64,16 @@ public final class External {
     public static Pair<byte[], byte[]> executeGetOutput(
             String command, long maxMilliseconds) {
         if (command == null) {
-            throw new NullPointerException("command == null");
+            throw new NullPointerException("command == null"); // NOI18N
         }
 
         Runtime runtime = Runtime.getRuntime();
         Process process = null;
         try {
             process = runtime.exec(parseQuotedCommandLine(command));
-            String errorMessage = Bundle.getString(
-                    "External.ExecuteGetOutput.ErrorMessage", maxMilliseconds,
-                    command);
+            String errorMessage =
+                    Bundle.getString("External.ExecuteGetOutput.ErrorMessage", // NOI18N
+                    maxMilliseconds, command);
             InputStreamCloser closerStdOut = new InputStreamCloser(
                     process.getInputStream(), maxMilliseconds, errorMessage);
             InputStreamCloser closerStdErr = new InputStreamCloser(

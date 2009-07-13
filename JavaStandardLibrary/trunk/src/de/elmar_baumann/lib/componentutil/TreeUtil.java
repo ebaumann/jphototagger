@@ -34,7 +34,7 @@ public final class TreeUtil {
      */
     public static boolean isSelectedItemPosition(MouseEvent e) {
         if (e == null)
-            throw new NullPointerException("e == null");
+            throw new NullPointerException("e == null"); // NOI18N
 
         if (e.getSource() instanceof JTree) {
             JTree tree = (JTree) e.getSource();
@@ -59,7 +59,7 @@ public final class TreeUtil {
      */
     public static boolean isRootItemPosition(MouseEvent e) {
         if (e == null)
-            throw new NullPointerException("e == null");
+            throw new NullPointerException("e == null"); // NOI18N
 
         if (e.getSource() instanceof JTree) {
             JTree tree = (JTree) e.getSource();
@@ -82,7 +82,7 @@ public final class TreeUtil {
      */
     public static void clearSelection(List<JTree> trees) {
         if (trees == null)
-            throw new NullPointerException("trees == null");
+            throw new NullPointerException("trees == null"); // NOI18N
 
         for (JTree tree : trees) {
             if (tree.getSelectionCount() > 0) {
@@ -102,11 +102,11 @@ public final class TreeUtil {
     public static TreePath getTreePath(TreeModel treeModel, String pathString,
             String pathSeparator) {
         if (treeModel == null)
-            throw new NullPointerException("treeModel == null");
+            throw new NullPointerException("treeModel == null"); // NOI18N
         if (pathString == null)
-            throw new NullPointerException("pathString == null");
+            throw new NullPointerException("pathString == null"); // NOI18N
         if (pathSeparator == null)
-            throw new NullPointerException("pathSeparator == null");
+            throw new NullPointerException("pathSeparator == null"); // NOI18N
 
         StringTokenizer tokenizer = new StringTokenizer(pathString,
                 pathSeparator);
@@ -154,9 +154,9 @@ public final class TreeUtil {
      */
     public static void expandPath(JTree tree, TreePath path) {
         if (tree == null)
-            throw new NullPointerException("tree == null");
+            throw new NullPointerException("tree == null"); // NOI18N
         if (path == null)
-            throw new NullPointerException("path == null");
+            throw new NullPointerException("path == null"); // NOI18N
 
         TreePath expandPath = path;
         if (tree.getModel().isLeaf(path.getLastPathComponent())) {
@@ -175,9 +175,9 @@ public final class TreeUtil {
      */
     public static void expandPathCascade(JTree tree, TreePath path) {
         if (tree == null)
-            throw new NullPointerException("tree == null");
+            throw new NullPointerException("tree == null"); // NOI18N
         if (path == null)
-            throw new NullPointerException("path == null");
+            throw new NullPointerException("path == null"); // NOI18N
 
         Stack<TreePath> stack = new Stack<TreePath>();
         TreePath parent = path;
@@ -203,9 +203,9 @@ public final class TreeUtil {
      */
     public static TreePath getTreePath(File file, TreeModel model) {
         if (file == null)
-            throw new NullPointerException("file == null");
+            throw new NullPointerException("file == null"); // NOI18N
         if (model == null)
-            throw new NullPointerException("model == null");
+            throw new NullPointerException("model == null"); // NOI18N
 
         Stack<DefaultMutableTreeNode> stack =
                 new Stack<DefaultMutableTreeNode>();
@@ -234,11 +234,11 @@ public final class TreeUtil {
             Collection<? super DefaultMutableTreeNode> foundNodes,
             DefaultMutableTreeNode rootNode, Object userObject, int maxCount) {
         if (foundNodes == null)
-            throw new NullPointerException("foundNodes == null");
+            throw new NullPointerException("foundNodes == null"); // NOI18N
         if (rootNode == null)
-            throw new NullPointerException("rootNode == null");
+            throw new NullPointerException("rootNode == null"); // NOI18N
         if (userObject == null)
-            throw new NullPointerException("userObject == null");
+            throw new NullPointerException("userObject == null"); // NOI18N
 
         int foundNodeCount = foundNodes.size();
         for (Enumeration children = rootNode.children();

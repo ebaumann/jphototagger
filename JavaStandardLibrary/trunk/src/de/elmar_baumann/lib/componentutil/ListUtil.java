@@ -152,7 +152,7 @@ public final class ListUtil {
             int indexFirstElement,
             int indexSecondElement) {
         if (model == null)
-            throw new NullPointerException("model == null");
+            throw new NullPointerException("model == null"); // NOI18N
         int size = model.getSize();
         boolean canSwap = indexFirstElement >= 0 && indexFirstElement < size &&
                 indexSecondElement >= 0 && indexSecondElement < size &&

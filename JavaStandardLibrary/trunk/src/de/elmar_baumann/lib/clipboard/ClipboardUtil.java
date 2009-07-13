@@ -37,7 +37,7 @@ public final class ClipboardUtil {
     public static void copyToSystemClipboard(List<File> files,
             ClipboardOwner owner) {
         if (files == null)
-            throw new NullPointerException("files == null");
+            throw new NullPointerException("files == null"); // NOI18N
         copyToClipboard(files, Toolkit.getDefaultToolkit().getSystemClipboard(),
                 owner);
     }
@@ -52,9 +52,9 @@ public final class ClipboardUtil {
     public static void copyToClipboard(List<File> files, Clipboard clipboard,
             ClipboardOwner owner) {
         if (files == null)
-            throw new NullPointerException("files == null");
+            throw new NullPointerException("files == null"); // NOI18N
         if (clipboard == null)
-            throw new NullPointerException("clipboard == null");
+            throw new NullPointerException("clipboard == null"); // NOI18N
         clipboard.setContents(
                 new TransferableFileList(FileUtil.fileListToFileArray(files)),
                 owner);
@@ -70,7 +70,7 @@ public final class ClipboardUtil {
     public static List<File> getFilesFromSystemClipboard(
             String delimiterStringList) {
         if (delimiterStringList == null)
-            throw new NullPointerException("delimiterStringList == null");
+            throw new NullPointerException("delimiterStringList == null"); // NOI18N
         return getFilesFromClipboard(
                 Toolkit.getDefaultToolkit().getSystemClipboard(),
                 delimiterStringList);
@@ -87,9 +87,9 @@ public final class ClipboardUtil {
     public static List<File> getFilesFromClipboard(Clipboard clipboard,
             String delimiterStringList) {
         if (clipboard == null)
-            throw new NullPointerException("files == null");
+            throw new NullPointerException("files == null"); // NOI18N
         if (delimiterStringList == null)
-            throw new NullPointerException("delimiterStringList == null");
+            throw new NullPointerException("delimiterStringList == null"); // NOI18N
 
         List<File> files = null;
         DataFlavor[] flavors = clipboard.getAvailableDataFlavors();
