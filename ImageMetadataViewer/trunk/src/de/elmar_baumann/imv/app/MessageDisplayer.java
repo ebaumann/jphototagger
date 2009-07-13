@@ -13,6 +13,17 @@ public final class MessageDisplayer {
 
     /**
      * Displays an error message.
+     *
+     * @param propertyKey property key for {@link Bundle}. There also a key for
+     *                    the title has to be in the properties file with the
+     *                    same name and the postfix <code>.Title</code>
+     */
+    public static void error(String propertyKey) {
+        message(propertyKey, JOptionPane.ERROR_MESSAGE);
+    }
+
+    /**
+     * Displays an error message.
      * 
      * @param propertyKey property key for {@link Bundle}. There also a key for
      *                    the title has to be in the properties file with the
@@ -20,24 +31,53 @@ public final class MessageDisplayer {
      * @param params      parameters for message format placeholders
      */
     public static void error(String propertyKey, Object... params) {
-        JOptionPane.showMessageDialog(null,
-                Bundle.getString(propertyKey, params),
-                Bundle.getString(propertyKey + ".Title"),
-                JOptionPane.ERROR_MESSAGE);
+        message(propertyKey, JOptionPane.ERROR_MESSAGE, params);
     }
 
     /**
-     * Displays an error message.
+     * Displays an warning message.
      *
      * @param propertyKey property key for {@link Bundle}. There also a key for
      *                    the title has to be in the properties file with the
      *                    same name and the postfix <code>.Title</code>
      */
-    public static void error(String propertyKey) {
-        JOptionPane.showMessageDialog(null,
-                Bundle.getString(propertyKey),
-                Bundle.getString(propertyKey + ".Title"),
-                JOptionPane.ERROR_MESSAGE);
+    public static void warning(String propertyKey) {
+        message(propertyKey, JOptionPane.WARNING_MESSAGE);
+    }
+
+    /**
+     * Displays an warning message.
+     *
+     * @param propertyKey property key for {@link Bundle}. There also a key for
+     *                    the title has to be in the properties file with the
+     *                    same name and the postfix <code>.Title</code>
+     * @param params      parameters for message format placeholders
+     */
+    public static void warning(String propertyKey, Object... params) {
+        message(propertyKey, JOptionPane.WARNING_MESSAGE, params);
+    }
+
+    /**
+     * Displays an information message.
+     *
+     * @param propertyKey property key for {@link Bundle}. There also a key for
+     *                    the title has to be in the properties file with the
+     *                    same name and the postfix <code>.Title</code>
+     */
+    public static void information(String propertyKey) {
+        message(propertyKey, JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    /**
+     * Displays an information message.
+     *
+     * @param propertyKey property key for {@link Bundle}. There also a key for
+     *                    the title has to be in the properties file with the
+     *                    same name and the postfix <code>.Title</code>
+     * @param params      parameters for message format placeholders
+     */
+    public static void information(String propertyKey, Object... params) {
+        message(propertyKey, JOptionPane.INFORMATION_MESSAGE, params);
     }
 
     /**
@@ -86,6 +126,20 @@ public final class MessageDisplayer {
                 cancel
                 ? JOptionPane.YES_NO_CANCEL_OPTION
                 : JOptionPane.YES_NO_OPTION);
+    }
+
+    private static void message(String propertyKey, int type, Object... params) {
+        JOptionPane.showMessageDialog(null,
+                Bundle.getString(propertyKey, params),
+                Bundle.getString(propertyKey + ".Title"),
+                type);
+    }
+
+    private static void message(String propertyKey, int type) {
+        JOptionPane.showMessageDialog(null,
+                Bundle.getString(propertyKey),
+                Bundle.getString(propertyKey + ".Title"),
+                type);
     }
 
     private MessageDisplayer() {
