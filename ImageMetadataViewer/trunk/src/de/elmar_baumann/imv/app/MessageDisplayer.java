@@ -68,28 +68,101 @@ public final class MessageDisplayer {
     }
 
     /**
+     * User action of a confirm message
+     */
+    public enum ConfirmAction {
+
+        /**
+         * User answered with "Yes"
+         */
+        YES(JOptionPane.YES_OPTION),
+        /**
+         * User answered with "No"
+         */
+        NO(JOptionPane.NO_OPTION),
+        /**
+         * User will cancel the operation
+         */
+        CANCEL(JOptionPane.CANCEL_OPTION);
+        private final int optionType;
+
+        private ConfirmAction(int optionType) {
+            this.optionType = optionType;
+        }
+
+        /**
+         * Returns the option type for a {@link JOptionPane}.
+         *
+         * @return option type
+         */
+        public int getOptionType() {
+            return optionType;
+        }
+
+        /**
+         * Returns the action type of an option type of {@link JOptionPane}.
+         *
+         * @param  type option type
+         * @return      action or null if no action has that option type
+         */
+        public static ConfirmAction actionOfOptionType(int type) {
+            for (ConfirmAction action : values()) {
+                if (action.getOptionType() == type) {
+                    return action;
+                }
+            }
+            return null;
+        }
+    }
+
+    /**
+     * Options of a confirm message
+     */
+    public enum CancelButton {
+
+        /**
+         * Display the cancel button
+         */
+        SHOW(true),
+        /**
+         * Hide the cancel button
+         */
+        HIDE(false);
+        private final boolean show;
+
+        private CancelButton(boolean showCancelButton) {
+            this.show = showCancelButton;
+        }
+
+        /**
+         * Returns whether to display the canel button.
+         *
+         * @return true if the cancel button shall be displayed
+         */
+        public boolean isShow() {
+            return show;
+        }
+    }
+
+    /**
      * Displays a confirm message.
      *
-     * @param propertyKey property key for {@link Bundle}. There also a key for
-     *                    the title has to be in the properties file with the
-     *                    same name and the postfix <code>.Title</code>
-     * @param cancel      true if a cancel button shall be displayed
-     * @param params      parameters for message format placeholders
-     * @return            one of these:
-     *                    <ul>
-     *                    <li>{@link JOptionPane#YES_OPTION}</li>
-     *                    <li>{@link JOptionPane#NO_OPTION}</li>
-     *                    <li>{@link JOptionPane#CANCEL_OPTION}</li>
-     *                    </ul>
+     * @param propertyKey  property key for {@link Bundle}. There also a key for
+     *                     the title has to be in the properties file with the
+     *                     same name and the postfix <code>.Title</code>
+     * @param cancelButton cancel button visibility
+     * @param params       parameters for message format placeholders
+     * @return             user action
      */
-    public static int confirm(
-            String propertyKey, boolean cancel, Object... params) {
-        return JOptionPane.showConfirmDialog(null,
+    public static ConfirmAction confirm(
+            String propertyKey, CancelButton cancelButton, Object... params) {
+        return ConfirmAction.actionOfOptionType(
+                JOptionPane.showConfirmDialog(null,
                 Bundle.getString(propertyKey, params),
                 getTitle(propertyKey, JOptionPane.QUESTION_MESSAGE),
-                cancel
+                cancelButton.isShow()
                 ? JOptionPane.YES_NO_CANCEL_OPTION
-                : JOptionPane.YES_NO_OPTION);
+                : JOptionPane.YES_NO_OPTION));
     }
 
     private static void message(String propertyKey, int type, Object... params) {
