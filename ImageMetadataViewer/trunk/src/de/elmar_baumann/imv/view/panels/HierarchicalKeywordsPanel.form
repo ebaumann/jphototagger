@@ -17,7 +17,7 @@
               <Image iconType="3" name="/de/elmar_baumann/imv/resource/icons/icon_add.png"/>
             </Property>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="de/elmar_baumann/imv/resource/properties/Bundle.properties" key="HierarchicalSubjectsPanel.menuItemAdd.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="de/elmar_baumann/imv/resource/properties/Bundle.properties" key="HierarchicalKeywordsPanel.menuItemAdd.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </Property>
           </Properties>
         </MenuItem>
@@ -30,7 +30,7 @@
               <Image iconType="3" name="/de/elmar_baumann/imv/resource/icons/icon_rename.png"/>
             </Property>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="de/elmar_baumann/imv/resource/properties/Bundle.properties" key="HierarchicalSubjectsPanel.menuItemRename.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="de/elmar_baumann/imv/resource/properties/Bundle.properties" key="HierarchicalKeywordsPanel.menuItemRename.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </Property>
           </Properties>
         </MenuItem>
@@ -43,7 +43,7 @@
               <Image iconType="3" name="/de/elmar_baumann/imv/resource/icons/icon_remove.png"/>
             </Property>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="de/elmar_baumann/imv/resource/properties/Bundle.properties" key="HierarchicalSubjectsPanel.menuItemRemove.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="de/elmar_baumann/imv/resource/properties/Bundle.properties" key="HierarchicalKeywordsPanel.menuItemRemove.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </Property>
           </Properties>
         </MenuItem>
@@ -89,14 +89,14 @@
               <TreeModel code=""/>
             </Property>
             <Property name="cellRenderer" type="javax.swing.tree.TreeCellRenderer" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="new TreeCellRendererHierarchicalSubjects()" type="code"/>
+              <Connection code="new de.elmar_baumann.imv.view.renderer.TreeCellRendererHierarchicalKeywords()" type="code"/>
             </Property>
             <Property name="componentPopupMenu" type="javax.swing.JPopupMenu" editor="org.netbeans.modules.form.ComponentChooserEditor">
               <ComponentRef name="popupMenu"/>
             </Property>
           </Properties>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_allCodePost" type="java.lang.String" value="tree.setTransferHandler(new TransferHandlerTreeHierarchicalSubjects());"/>
+            <AuxValue name="JavaCodeGenerator_allCodePost" type="java.lang.String" value="tree.setTransferHandler(new de.elmar_baumann.imv.datatransfer.TransferHandlerTreeHierarchicalKeywords());"/>
           </AuxValues>
         </Component>
       </SubComponents>

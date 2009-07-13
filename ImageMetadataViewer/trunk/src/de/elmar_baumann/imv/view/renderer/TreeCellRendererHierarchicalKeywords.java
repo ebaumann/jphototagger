@@ -1,8 +1,8 @@
 package de.elmar_baumann.imv.view.renderer;
 
 import de.elmar_baumann.imv.app.AppIcons;
-import de.elmar_baumann.imv.data.HierarchicalSubject;
-import de.elmar_baumann.imv.data.Timeline;
+import de.elmar_baumann.imv.data.HierarchicalKeyword;
+import de.elmar_baumann.imv.view.panels.HierarchicalKeywordsPanel;
 import java.awt.Component;
 import javax.swing.Icon;
 import javax.swing.JTree;
@@ -10,12 +10,13 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 
 /**
- * Renders items and text for {@link de.elmar_baumann.imv.data.Timeline} nodes.
+ * Renders items and text for nodes in the tree of the
+ * {@link HierarchicalKeywordsPanel}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009/06/12
  */
-public final class TreeCellRendererHierarchicalSubjects extends DefaultTreeCellRenderer {
+public final class TreeCellRendererHierarchicalKeywords extends DefaultTreeCellRenderer {
 
     private static final Icon ICON = AppIcons.getIcon("icon_keyword.png"); // NOI18N
 
@@ -32,8 +33,8 @@ public final class TreeCellRendererHierarchicalSubjects extends DefaultTreeCellR
     }
 
     private void render(Object userObject) {
-        if (userObject instanceof HierarchicalSubject) {
-            setText(((HierarchicalSubject) userObject).getSubject());
+        if (userObject instanceof HierarchicalKeyword) {
+            setText(((HierarchicalKeyword) userObject).getKeyword());
             setIcon(ICON);
         }
     }

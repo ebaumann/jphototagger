@@ -3,21 +3,21 @@ package de.elmar_baumann.imv.view.dialogs;
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.app.AppIcons;
 import de.elmar_baumann.imv.resource.Bundle;
-import de.elmar_baumann.imv.view.panels.HierarchicalSubjectsPanel;
+import de.elmar_baumann.imv.view.panels.HierarchicalKeywordsPanel;
 import de.elmar_baumann.lib.dialog.Dialog;
 
 /**
- * Dialog holding a {@link HierarchicalSubjectsPanel}.
+ * Dialog holding a {@link HierarchicalKeywordsPanel}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2007/07/10
  */
-public class HierarchicalSubjectsDialog extends Dialog {
+public class HierarchicalKeywordsDialog extends Dialog {
 
-    public static final HierarchicalSubjectsDialog INSTANCE =
-            new HierarchicalSubjectsDialog();
+    public static final HierarchicalKeywordsDialog INSTANCE =
+            new HierarchicalKeywordsDialog();
 
-    public HierarchicalSubjectsDialog() {
+    public HierarchicalKeywordsDialog() {
         super((java.awt.Frame) null, false);
         initComponents();
         postInitComponents();
@@ -38,8 +38,8 @@ public class HierarchicalSubjectsDialog extends Dialog {
         UserSettings.INSTANCE.writeToFile();
     }
 
-    public HierarchicalSubjectsPanel getPanel() {
-        return panelHierarchicalSubjects;
+    public HierarchicalKeywordsPanel getPanel() {
+        return panelHierarchicalKeywords;
     }
 
     @Override
@@ -61,10 +61,10 @@ public class HierarchicalSubjectsDialog extends Dialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panelHierarchicalSubjects = new de.elmar_baumann.imv.view.panels.HierarchicalSubjectsPanel();
+        panelHierarchicalKeywords = new de.elmar_baumann.imv.view.panels.HierarchicalKeywordsPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle(Bundle.getString("HierarchicalSubjectsDialog.title")); // NOI18N
+        setTitle(Bundle.getString("HierarchicalKeywordsDialog.title")); // NOI18N
         setAlwaysOnTop(true);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -78,14 +78,14 @@ public class HierarchicalSubjectsDialog extends Dialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(panelHierarchicalSubjects, javax.swing.GroupLayout.DEFAULT_SIZE, 278, Short.MAX_VALUE)
+                .addComponent(panelHierarchicalKeywords, javax.swing.GroupLayout.DEFAULT_SIZE, 278, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(panelHierarchicalSubjects, javax.swing.GroupLayout.DEFAULT_SIZE, 378, Short.MAX_VALUE)
+                .addComponent(panelHierarchicalKeywords, javax.swing.GroupLayout.DEFAULT_SIZE, 378, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -104,8 +104,8 @@ public class HierarchicalSubjectsDialog extends Dialog {
 
             @Override
             public void run() {
-                HierarchicalSubjectsDialog dialog =
-                        new HierarchicalSubjectsDialog();
+                HierarchicalKeywordsDialog dialog =
+                        new HierarchicalKeywordsDialog();
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
 
                     @Override
@@ -118,6 +118,6 @@ public class HierarchicalSubjectsDialog extends Dialog {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private de.elmar_baumann.imv.view.panels.HierarchicalSubjectsPanel panelHierarchicalSubjects;
+    private de.elmar_baumann.imv.view.panels.HierarchicalKeywordsPanel panelHierarchicalKeywords;
     // End of variables declaration//GEN-END:variables
 }

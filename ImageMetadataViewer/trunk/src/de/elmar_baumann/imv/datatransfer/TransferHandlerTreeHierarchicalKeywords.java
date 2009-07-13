@@ -1,8 +1,7 @@
 package de.elmar_baumann.imv.datatransfer;
 
-import de.elmar_baumann.imv.model.ListModelKeywords;
-import de.elmar_baumann.imv.model.TreeModelHierarchicalSubjects;
-import de.elmar_baumann.imv.view.dialogs.HierarchicalSubjectsDialog;
+import de.elmar_baumann.imv.model.TreeModelHierarchicalKeywords;
+import de.elmar_baumann.imv.view.dialogs.HierarchicalKeywordsDialog;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import javax.swing.JComponent;
@@ -12,12 +11,15 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeModel;
 
 /**
- * Handles drops onto the {@link HierarchicalSubjectsDialog}'s tree.
+ * Handles drops onto the {@link HierarchicalKeywordsDialog}'s tree.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009/07/11
  */
-public final class TransferHandlerTreeHierarchicalSubjects extends TransferHandler {
+public final class TransferHandlerTreeHierarchicalKeywords extends TransferHandler {
+
+    private static final String PREFIX =
+            "TransferHandlerTreeHierarchicalKeywords:";
 
     @Override
     public boolean canImport(TransferSupport transferSupport) {
@@ -50,11 +52,11 @@ public final class TransferHandlerTreeHierarchicalSubjects extends TransferHandl
         JTree.DropLocation dropLocation =
                 (JTree.DropLocation) transferSupport.getDropLocation();
         Object o = dropLocation.getPath().getLastPathComponent();
-        TreeModel model = HierarchicalSubjectsDialog.INSTANCE.getPanel().getTree().
+        TreeModel model = HierarchicalKeywordsDialog.INSTANCE.getPanel().getTree().
                 getModel();
         if (o instanceof DefaultMutableTreeNode &&
-                model instanceof TreeModelHierarchicalSubjects) {
-            ((TreeModelHierarchicalSubjects) model).addSubject(
+                model instanceof TreeModelHierarchicalKeywords) {
+            ((TreeModelHierarchicalKeywords) model).addKeyword(
                     (DefaultMutableTreeNode) o,
                     TransferHandlerListKeywords.toKeyword(
                     transferSupport.getTransferable()));

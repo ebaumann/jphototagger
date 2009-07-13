@@ -24,9 +24,9 @@ import javax.swing.TransferHandler;
 public final class TransferHandlerListKeywords extends TransferHandler {
 
     /**
-     * Prefix before a subject.
+     * Prefix before a keyword.
      */
-    public static final String PREFIX = "Subject:";
+    public static final String PREFIX = "TransferHandlerListKeywords:";
 
     /**
      * Returns the keyword into a transferable object.

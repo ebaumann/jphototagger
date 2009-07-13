@@ -4,7 +4,7 @@
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="0"/>
     <Property name="title" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-      <ResourceString bundle="de/elmar_baumann/imv/resource/properties/Bundle.properties" key="HierarchicalSubjectsDialog.title" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+      <ResourceString bundle="de/elmar_baumann/imv/resource/properties/Bundle.properties" key="HierarchicalKeywordsDialog.title" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
     </Property>
     <Property name="alwaysOnTop" type="boolean" value="true"/>
   </Properties>
@@ -32,7 +32,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="panelHierarchicalSubjects" pref="278" max="32767" attributes="0"/>
+              <Component id="panelHierarchicalKeywords" pref="278" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -41,14 +41,14 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="panelHierarchicalSubjects" pref="378" max="32767" attributes="0"/>
+              <Component id="panelHierarchicalKeywords" pref="378" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="de.elmar_baumann.imv.view.panels.HierarchicalSubjectsPanel" name="panelHierarchicalSubjects">
+    <Component class="de.elmar_baumann.imv.view.panels.HierarchicalKeywordsPanel" name="panelHierarchicalKeywords">
     </Component>
   </SubComponents>
 </Form>

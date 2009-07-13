@@ -3,7 +3,7 @@ package de.elmar_baumann.imv.view.panels;
 import com.adobe.xmp.properties.XMPPropertyInfo;
 import com.imagero.reader.iptc.IPTCEntryMeta;
 import de.elmar_baumann.imv.UserSettings;
-import de.elmar_baumann.imv.controller.hierarchicalsubjects.TextModifierHierarchicalKeywords;
+import de.elmar_baumann.imv.controller.hierarchicalkeywords.TextModifierHierarchicalKeywords;
 import de.elmar_baumann.imv.tasks.SaveEditedMetadata;
 import de.elmar_baumann.imv.data.ImageFile;
 import de.elmar_baumann.imv.data.MetadataEditTemplate;

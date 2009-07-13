@@ -9,7 +9,7 @@ import de.elmar_baumann.imv.factory.MetaFactory;
 import de.elmar_baumann.lib.comparator.FileSort;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.GUI;
-import de.elmar_baumann.imv.view.dialogs.HierarchicalSubjectsDialog;
+import de.elmar_baumann.imv.view.dialogs.HierarchicalKeywordsDialog;
 import de.elmar_baumann.imv.view.dialogs.TextSelectionDialog;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import java.awt.event.WindowAdapter;
@@ -574,7 +574,7 @@ private void menuItemLastEditedWordsActionPerformed(java.awt.event.ActionEvent e
 }//GEN-LAST:event_menuItemLastEditedWordsActionPerformed
 
 private void menuItemHierarchicalKeywordsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemHierarchicalKeywordsActionPerformed
-    HierarchicalSubjectsDialog dlg = HierarchicalSubjectsDialog.INSTANCE;
+    HierarchicalKeywordsDialog dlg = HierarchicalKeywordsDialog.INSTANCE;
     if (dlg.isVisible()) {
         dlg.toFront();
     } else {

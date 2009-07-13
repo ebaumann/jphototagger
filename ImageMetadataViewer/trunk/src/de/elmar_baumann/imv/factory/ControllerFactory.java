@@ -36,9 +36,9 @@ import de.elmar_baumann.imv.controller.metadata.ControllerEmptyMetadata;
 import de.elmar_baumann.imv.controller.metadata.ControllerThumbnailSelectionEditMetadata;
 import de.elmar_baumann.imv.controller.search.ControllerAdvancedSearch;
 import de.elmar_baumann.imv.controller.filesystem.ControllerAutocopyDirectory;
-import de.elmar_baumann.imv.controller.hierarchicalsubjects.ControllerAddHierarchicalSubject;
-import de.elmar_baumann.imv.controller.hierarchicalsubjects.ControllerRemoveHierarchicalSubject;
-import de.elmar_baumann.imv.controller.hierarchicalsubjects.ControllerRenameHierarchicalSubject;
+import de.elmar_baumann.imv.controller.hierarchicalkeywords.ControllerAddHierarchicalKeyword;
+import de.elmar_baumann.imv.controller.hierarchicalkeywords.ControllerRemoveHierarchicalKeyword;
+import de.elmar_baumann.imv.controller.hierarchicalkeywords.ControllerRenameHierarchicalKeyword;
 import de.elmar_baumann.imv.controller.metadata.ControllerExtractEmbeddedXmp;
 import de.elmar_baumann.imv.controller.search.ControllerFastSearch;
 import de.elmar_baumann.imv.controller.misc.ControllerGoTo;
@@ -152,9 +152,9 @@ public final class ControllerFactory {
             new ControllerFavoritesRenameFilesystemFolder();
             new ControllerFavoritesDeleteFilesystemFolder();
             new ControllerRefreshThumbnailsPanel();
-            new ControllerRenameHierarchicalSubject();
-            new ControllerRemoveHierarchicalSubject();
-            new ControllerAddHierarchicalSubject();
+            new ControllerRenameHierarchicalKeyword();
+            new ControllerRemoveHierarchicalKeyword();
+            new ControllerAddHierarchicalKeyword();
             startScheduledTasks();
             init = true;
         }

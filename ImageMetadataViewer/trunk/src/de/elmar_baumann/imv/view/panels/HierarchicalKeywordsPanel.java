@@ -1,21 +1,20 @@
 package de.elmar_baumann.imv.view.panels;
 
-import de.elmar_baumann.imv.datatransfer.TransferHandlerTreeHierarchicalSubjects;
-import de.elmar_baumann.imv.view.renderer.TreeCellRendererHierarchicalSubjects;
+import de.elmar_baumann.imv.view.renderer.TreeCellRendererHierarchicalKeywords;
 import javax.swing.JMenuItem;
 import javax.swing.JTree;
 import javax.swing.tree.TreeSelectionModel;
 
 /**
- * A tree for hierarchical subjects.
+ * A tree for hierarchical keywords.
  * 
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009/07/10
  */
-public class HierarchicalSubjectsPanel extends javax.swing.JPanel {
+public class HierarchicalKeywordsPanel extends javax.swing.JPanel {
 
-    /** Creates new form HierarchicalSubjectsPanel */
-    public HierarchicalSubjectsPanel() {
+    /** Creates new form HierarchicalKeywordsPanel */
+    public HierarchicalKeywordsPanel() {
         initComponents();
         postInitComponents();
     }
@@ -60,25 +59,25 @@ public class HierarchicalSubjectsPanel extends javax.swing.JPanel {
         menuItemAdd.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
         menuItemAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icons/icon_add.png"))); // NOI18N
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/imv/resource/properties/Bundle"); // NOI18N
-        menuItemAdd.setText(bundle.getString("HierarchicalSubjectsPanel.menuItemAdd.text")); // NOI18N
+        menuItemAdd.setText(bundle.getString("HierarchicalKeywordsPanel.menuItemAdd.text")); // NOI18N
         popupMenu.add(menuItemAdd);
 
         menuItemRename.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F2, 0));
         menuItemRename.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icons/icon_rename.png"))); // NOI18N
-        menuItemRename.setText(bundle.getString("HierarchicalSubjectsPanel.menuItemRename.text")); // NOI18N
+        menuItemRename.setText(bundle.getString("HierarchicalKeywordsPanel.menuItemRename.text")); // NOI18N
         popupMenu.add(menuItemRename);
 
         menuItemRemove.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_DELETE, 0));
         menuItemRemove.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icons/icon_remove.png"))); // NOI18N
-        menuItemRemove.setText(bundle.getString("HierarchicalSubjectsPanel.menuItemRemove.text")); // NOI18N
+        menuItemRemove.setText(bundle.getString("HierarchicalKeywordsPanel.menuItemRemove.text")); // NOI18N
         popupMenu.add(menuItemRemove);
 
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("root");
         tree.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
-        tree.setCellRenderer(new TreeCellRendererHierarchicalSubjects());
+        tree.setCellRenderer(new TreeCellRendererHierarchicalKeywords());
         tree.setComponentPopupMenu(popupMenu);
         scrollPane.setViewportView(tree);
-        tree.setTransferHandler(new TransferHandlerTreeHierarchicalSubjects());
+        tree.setTransferHandler(new de.elmar_baumann.imv.datatransfer.TransferHandlerTreeHierarchicalKeywords());
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

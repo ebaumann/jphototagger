@@ -1,39 +1,40 @@
 package de.elmar_baumann.imv.data;
 
-import de.elmar_baumann.imv.database.DatabaseHierarchicalSubjects;
+import de.elmar_baumann.imv.database.DatabaseHierarchicalKeywords;
 
 /**
- * A hierarchical subject is a (Dublin core) subject with one or zero parents.
- * Because every subject can have a parent deep hierarchies are possible.
+ * A hierarchical keyword is a keyword (Dublin core subject) with one or zero
+ * parents. Because every keyword can have a parent deep hierarchies are
+ * possible.
  *
- * Persistent instances resists in the {@link DatabaseHierarchicalSubjects}.
+ * Persistent instances resists in the {@link DatabaseHierarchicalKeywords}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009/07/10
  */
-public final class HierarchicalSubject {
+public final class HierarchicalKeyword {
 
     private Long id;
     private Long idParent;
-    private String subject;
+    private String keyword;
 
     /**
      * Creates a new instance of this class.
      *
      * @param id        database ID. <em>Only
-     *                  {@link DatabaseHierarchicalSubjects}</em> shall set this
+     *                  {@link DatabaseHierarchicalKeywords}</em> shall set this
      *                  ID. Ohter callers shall set null
-     * @param idParent  database ID of the subject's parent
-     * @param subject   Dublin Core subject
+     * @param idParent  database ID of the keyword's parent
+     * @param keyword   keyword
      */
-    public HierarchicalSubject(Long id, Long idParent, String subject) {
+    public HierarchicalKeyword(Long id, Long idParent, String keyword) {
         this.id = id;
         this.idParent = idParent;
-        this.subject = subject;
+        this.keyword = keyword;
     }
 
     /**
-     * Sets the database ID. <em>Only {@link DatabaseHierarchicalSubjects</em>}
+     * Sets the database ID. <em>Only {@link DatabaseHierarchicalKeywords</em>}
      * shall call this mehtod!
      *
      * @param id ID. Default: null.
@@ -52,7 +53,7 @@ public final class HierarchicalSubject {
     }
 
     /**
-     * Returns the database ID of the subject's parent.
+     * Returns the database ID of the keyword's parent.
      *
      * @return database ID of the parent
      */
@@ -61,7 +62,7 @@ public final class HierarchicalSubject {
     }
 
     /**
-     * Sets the database ID of the subject's parent.
+     * Sets the database ID of the keyword's parent.
      *
      * @param idParent ID of the parent. Default: null.
      */
@@ -70,28 +71,28 @@ public final class HierarchicalSubject {
     }
 
     /**
-     * Returns the Dublin Core subject.
+     * Returns the keyword.
      *
-     * @return subject
+     * @return keyword
      */
-    public String getSubject() {
-        return subject;
+    public String getKeyword() {
+        return keyword;
     }
 
     /**
-     * Sets the Dublin Core subject.
+     * Sets the keyword.
      *
-     * @param subject subject. Default: null.
+     * @param keyword keyword. Default: null.
      */
-    public void setSubject(String subject) {
-        this.subject = subject;
+    public void setKeyword(String keyword) {
+        this.keyword = keyword;
     }
 
     @Override
     public boolean equals(Object obj) {
         if (obj == null) return false;
         if (getClass() != obj.getClass()) return false;
-        final HierarchicalSubject other = (HierarchicalSubject) obj;
+        final HierarchicalKeyword other = (HierarchicalKeyword) obj;
         if (this.id != other.id &&
                 (this.id == null || !this.id.equals(other.id))) return false;
         return true;
@@ -101,21 +102,21 @@ public final class HierarchicalSubject {
     public int hashCode() {
         int hash = 7;
         hash = 59 * hash + (this.id != null
-                ? this.id.hashCode()
-                : 0);
+                            ? this.id.hashCode()
+                            : 0);
         hash =
                 59 * hash +
                 (this.idParent != null
-                ? this.idParent.hashCode()
-                : 0);
-        hash = 59 * hash + (this.subject != null
-                ? this.subject.hashCode()
-                : 0);
+                 ? this.idParent.hashCode()
+                 : 0);
+        hash = 59 * hash + (this.keyword != null
+                            ? this.keyword.hashCode()
+                            : 0);
         return hash;
     }
 
     @Override
     public String toString() {
-        return subject;
+        return keyword;
     }
 }
