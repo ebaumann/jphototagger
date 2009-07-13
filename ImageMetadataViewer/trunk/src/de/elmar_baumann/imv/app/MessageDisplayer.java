@@ -101,6 +101,7 @@ public final class MessageDisplayer {
     }
 
     private static String getTitle(String propertyKey, int messageType) {
+        assert defaultTitleOfMessageType.containsKey(messageType) : messageType;
         return Bundle.containsKey(propertyKey)
                ? Bundle.getString(propertyKey + ".Title")
                : defaultTitleOfMessageType.get(messageType);
