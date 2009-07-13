@@ -2,7 +2,6 @@ package de.elmar_baumann.imv.resource;
 
 import de.elmar_baumann.imv.app.AppLog;
 import java.text.MessageFormat;
-import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 /**
@@ -15,28 +14,6 @@ public final class Bundle {
 
     private static final ResourceBundle BUNDLE =
         ResourceBundle.getBundle("de/elmar_baumann/imv/resource/properties/Bundle");
-
-    /**
-     * Liefert java.util.ResourceBundle.getBundle().getString() und fängt
-     * dessen Ausnahmen ab.
-     * 
-     * @param  key  Schlüssel
-     * @return      Wert, bei einer Ausnahme der Schlüssel mit Fragezeichen
-     *              umschlossen
-     * @throws NullPointerException wenn der Schlüssel null ist
-     */
-    public static String getString(String key) {
-        try {
-            return BUNDLE.getString(key);
-        } catch (MissingResourceException ex) {
-            AppLog.logWarning(Bundle.class, ex);
-        } catch (NullPointerException ex) {
-            throw ex;
-        } catch (Exception ex) {
-            AppLog.logWarning(Bundle.class, ex);
-        }
-        return "?" + key + "?"; // NOI18N
-    }
 
     /**
      * Returns <code>java.util.ResourceBundle.getBundle().getString()</code>
