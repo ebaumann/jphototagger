@@ -312,6 +312,62 @@ public final class TreeUtil {
         return false;
     }
 
+    /**
+     * Returns wheter a node is a child of an other node. Compares the user
+     * objects of the nodes by their equals operator. If both user objects are
+     * null the reference of both nodes will be compared.
+     *
+     * @param parentNode parent node
+     * @param node       searched node
+     * @return           true if <code>node</code> is child of <code>parentNode</code>
+     */
+    public static boolean isChild(
+            DefaultMutableTreeNode parentNode, DefaultMutableTreeNode node) {
+        Object userObjectNode = node.getUserObject();
+        for (Enumeration children = parentNode.children();
+                children.hasMoreElements();) {
+            Object child = children.nextElement();
+            if (child instanceof DefaultMutableTreeNode) {
+                Object userObjectNextNode =
+                        ((DefaultMutableTreeNode) child).getUserObject();
+                if (userObjectNode == null && userObjectNextNode == null &&
+                        child == node) {
+                    return true;
+                } else if (userObjectNode != null &&
+                        userObjectNextNode != null &&
+                        userObjectNode.equals(userObjectNextNode)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Returns a node with a specific user object in the path below a node.
+     * Uses equals of the user objects.
+     *
+     * @param parent     parent node
+     * @param userObject searched user object. If null null will be returned.
+     * @return           found node or null if not found
+     */
+    public static DefaultMutableTreeNode findNodeWithUserObject(
+            DefaultMutableTreeNode parent, Object userObject) {
+        if (userObject == null) return null;
+        for (Enumeration nodes = parent.preorderEnumeration();
+                nodes.hasMoreElements();) {
+            Object node = nodes.nextElement();
+            if (node instanceof DefaultMutableTreeNode) {
+                Object userObjectNode =
+                        ((DefaultMutableTreeNode) node).getUserObject();
+                if (userObjectNode != null && userObject.equals(userObjectNode)) {
+                    return (DefaultMutableTreeNode) node;
+                }
+            }
+        }
+        return null;
+    }
+
     private TreeUtil() {
     }
 }
