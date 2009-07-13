@@ -88,7 +88,7 @@ public final class DatabaseSearch extends Database {
                 PreparedStatement preparedStatement = connection.prepareStatement(
                     getSqlSearchFilenamesLikeOr(searchColumns, tablename));
                 for (int i = 0; i < searchColumns.size(); i++) {
-                    preparedStatement.setString(i + 1, "%" + searchString + "%");
+                    preparedStatement.setString(i + 1, "%" + searchString + "%"); // NOI18N
                 }
                 AppLog.logFinest(DatabaseSearch.class, preparedStatement.toString());
                 ResultSet resultSet = preparedStatement.executeQuery();
@@ -113,7 +113,7 @@ public final class DatabaseSearch extends Database {
     private String getSqlSearchFilenamesLikeOr(
         List<Column> searchColumns, String tablename) {
 
-        StringBuffer sql = new StringBuffer("SELECT DISTINCT files.filename FROM ");
+        StringBuffer sql = new StringBuffer("SELECT DISTINCT files.filename FROM "); // NOI18N
         List<String> tablenames =
             DatabaseMetadataUtil.getUniqueTableNamesOfColumnArray(searchColumns);
 
@@ -124,7 +124,7 @@ public final class DatabaseSearch extends Database {
         boolean isFirstColumn = true;
         for (Column tableColumn : searchColumns) {
             sql.append((!isFirstColumn ? " OR " : "") + // NOI18N
-                tableColumn.getTable().getName() + "." + tableColumn.getName() +
+                tableColumn.getTable().getName() + "." + tableColumn.getName() + // NOI18N
                 " LIKE ?"); // NOI18N
             isFirstColumn = false;
         }

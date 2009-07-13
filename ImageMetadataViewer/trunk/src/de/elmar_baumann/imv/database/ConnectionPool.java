@@ -91,9 +91,9 @@ public final class ConnectionPool implements Runnable {
                 UserSettings.INSTANCE.getDatabaseFileName(false) + // NOI18N
                 ";shutdown=true";  // NOI18N
 
-        driver = "org.hsqldb.jdbcDriver";
-        username = "sa";
-        password = "";
+        driver = "org.hsqldb.jdbcDriver"; // NOI18N
+        username = "sa"; // NOI18N
+        password = ""; // NOI18N
         int initialConnections = 3;
         maxConnections = 15;
         waitIfBusy = true;
@@ -159,7 +159,7 @@ public final class ConnectionPool implements Runnable {
             if ((totalConnections() < maxConnections) && !connectionPending) {
                 makeBackgroundConnection();
             } else if (!waitIfBusy) {
-                throw new SQLException("Connection limit reached");
+                throw new SQLException("Connection limit reached"); // NOI18N
             }
             // Wait for either a new connection to be established
             // (if you called makeBackgroundConnection) or for
@@ -232,9 +232,9 @@ public final class ConnectionPool implements Runnable {
                     password);
             return (connection);
         } catch (ClassNotFoundException cnfe) {
-            throw new SQLException("Can't find class for driver: " + driver);
+            throw new SQLException("Can't find class for driver: " + driver); // NOI18N
         } catch (Exception ce) {
-            throw new SQLException("Can't connect to server " + url + "! " + ce);
+            throw new SQLException("Can't connect to server " + url + "! " + ce); // NOI18N
         }
     }
 
@@ -296,10 +296,10 @@ public final class ConnectionPool implements Runnable {
     @Override
     public synchronized String toString() {
         StringBuffer info = new StringBuffer();
-        info.append("ConnectionPool(" + url + "," + username + ")");
-        info.append(", available=" + availableConnections.size());
-        info.append(", busy=" + busyConnections.size());
-        info.append(", max=" + maxConnections);
+        info.append("ConnectionPool(" + url + "," + username + ")"); // NOI18N
+        info.append(", available=" + availableConnections.size()); // NOI18N
+        info.append(", busy=" + busyConnections.size()); // NOI18N
+        info.append(", max=" + maxConnections); // NOI18N
         return info.toString();
     }
 }

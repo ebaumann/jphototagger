@@ -26,7 +26,7 @@ final class UpdateTablesXmpLastModified {
 
     private void removeColumnXmpLastModifiedFromTableXmp(Connection connection) throws SQLException {
         if (DatabaseMetadata.INSTANCE.existsColumn(
-            connection, "xmp", "lastmodified")) {
+            connection, "xmp", "lastmodified")) { // NOI18N
             Statement stmt = connection.createStatement();
             messages.message(Bundle.getString("UpdateTablesXmpLastModified.InformationMessage.RemoveColumnXmpLastModified")); // NOI18N
             stmt.execute("ALTER TABLE xmp DROP COLUMN lastmodified"); // NOI18N

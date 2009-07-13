@@ -102,7 +102,7 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
         try {
             connection = getConnection();
             Statement stmt = connection.createStatement();
-            String sql = "SELECT" +
+            String sql = "SELECT" + // NOI18N
                     " id_programs" + // NOI18N -- 1 --
                     " FROM actions_after_db_insertion" + // NOI18N
                     " ORDER BY action_order ASC"; // NOI18N
@@ -114,7 +114,7 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
                 if (program == null) {
                     AppLog.logWarning(DatabaseActionsAfterDbInsertion.class,
                             Bundle.getString(
-                            "DatabaseActionsAfterDbInsertion.ProgramDoesNotExist",
+                            "DatabaseActionsAfterDbInsertion.ProgramDoesNotExist", // NOI18N
                             idProgram));
                 } else {
                     programs.add(program);
@@ -142,7 +142,7 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
             connection = getConnection();
             PreparedStatement stmt = connection.prepareStatement("SELECT" + // NOI18N
                     " COUNT(*) " + // NOI18N -- 1 --
-                    " FROM actions_after_db_insertion" +
+                    " FROM actions_after_db_insertion" + // NOI18N
                     " WHERE id_programs = ?"); // NOI18N
             stmt.setLong(1, action.getId());
             ResultSet rs = stmt.executeQuery();

@@ -24,12 +24,12 @@ final class UpdateTablesDropColumns {
 
     static {
         
-        COLUMNS.add(new ColumnInfo("xmp_dc_subjects", "id", null, null));
-        COLUMNS.add(new ColumnInfo("xmp_photoshop_supplementalcategories", "id", null, null));
-        COLUMNS.add(new ColumnInfo("autoscan_directories", "id", null, null));
-        COLUMNS.add(new ColumnInfo("favorite_directories", "id", null, null));
-        COLUMNS.add(new ColumnInfo("file_exclude_pattern", "id", null, null));
-        COLUMNS.add(new ColumnInfo("metadata_edit_templates", "id", null, null));
+        COLUMNS.add(new ColumnInfo("xmp_dc_subjects", "id", null, null)); // NOI18N
+        COLUMNS.add(new ColumnInfo("xmp_photoshop_supplementalcategories", "id", null, null)); // NOI18N
+        COLUMNS.add(new ColumnInfo("autoscan_directories", "id", null, null)); // NOI18N
+        COLUMNS.add(new ColumnInfo("favorite_directories", "id", null, null)); // NOI18N
+        COLUMNS.add(new ColumnInfo("file_exclude_pattern", "id", null, null)); // NOI18N
+        COLUMNS.add(new ColumnInfo("metadata_edit_templates", "id", null, null)); // NOI18N
     }
 
     void update(Connection connection) throws SQLException {

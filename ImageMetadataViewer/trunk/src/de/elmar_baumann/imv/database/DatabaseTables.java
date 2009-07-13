@@ -23,22 +23,22 @@ public final class DatabaseTables extends Database {
 
     static {
         // TODO: Update
-        TABLE_NAMES.add("files");
-        TABLE_NAMES.add("xmp");
-        TABLE_NAMES.add("xmp_dc_subjects");
-        TABLE_NAMES.add("xmp_photoshop_supplementalcategories");
-        TABLE_NAMES.add("exif");
-        TABLE_NAMES.add("collection_names");
-        TABLE_NAMES.add("collections");
-        TABLE_NAMES.add("saved_searches");
-        TABLE_NAMES.add("saved_searches_values");
-        TABLE_NAMES.add("saved_searches_panels");
-        TABLE_NAMES.add("autoscan_directories");
-        TABLE_NAMES.add("metadata_edit_templates");
-        TABLE_NAMES.add("favorite_directories");
-        TABLE_NAMES.add("file_exclude_pattern");
-        TABLE_NAMES.add("programs");
-        TABLE_NAMES.add("actions_after_db_insertion");
+        TABLE_NAMES.add("files"); // NOI18N
+        TABLE_NAMES.add("xmp"); // NOI18N
+        TABLE_NAMES.add("xmp_dc_subjects"); // NOI18N
+        TABLE_NAMES.add("xmp_photoshop_supplementalcategories"); // NOI18N
+        TABLE_NAMES.add("exif"); // NOI18N
+        TABLE_NAMES.add("collection_names"); // NOI18N
+        TABLE_NAMES.add("collections"); // NOI18N
+        TABLE_NAMES.add("saved_searches"); // NOI18N
+        TABLE_NAMES.add("saved_searches_values"); // NOI18N
+        TABLE_NAMES.add("saved_searches_panels"); // NOI18N
+        TABLE_NAMES.add("autoscan_directories"); // NOI18N
+        TABLE_NAMES.add("metadata_edit_templates"); // NOI18N
+        TABLE_NAMES.add("favorite_directories"); // NOI18N
+        TABLE_NAMES.add("file_exclude_pattern"); // NOI18N
+        TABLE_NAMES.add("programs"); // NOI18N
+        TABLE_NAMES.add("actions_after_db_insertion"); // NOI18N
     }
 
     public static List<String> getTableNames() {

@@ -17,7 +17,7 @@ import java.util.List;
 final class UpdateTablesPrograms extends Database {
 
     private static final String KEY_OTHER_IMAGE_OPEN_APPS =
-            "UserSettings.OtherImageOpenApps";
+            "UserSettings.OtherImageOpenApps"; // NOI18N
 
     UpdateTablesPrograms() {
     }

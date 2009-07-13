@@ -26,8 +26,8 @@ final class UpdateTablesRenameColumns {
 
     static {
         COLUMNS.add(new Pair<ColumnInfo, ColumnInfo>(
-                new ColumnInfo("programs", "parameters", null, null),
-                new ColumnInfo(null, "parameters_before_filename", null, null)));
+                new ColumnInfo("programs", "parameters", null, null), // NOI18N
+                new ColumnInfo(null, "parameters_before_filename", null, null))); // NOI18N
     }
 
     void update(Connection connection) throws SQLException {
@@ -52,7 +52,7 @@ final class UpdateTablesRenameColumns {
     private void renameColumns(Connection connection) throws SQLException {
         dialog.setIndeterminate(true);
         messages.message(Bundle.getString(
-                "UpdateTableRenameColumns.InformationMessage.update"));
+                "UpdateTableRenameColumns.InformationMessage.update")); // NOI18N
         for (Pair<ColumnInfo, ColumnInfo> info : renameColumns) {
             renameColumn(connection, info);
         }
@@ -74,7 +74,7 @@ final class UpdateTablesRenameColumns {
 
     private void setMessage(String tableName, String columnName) {
         messages.message(Bundle.getString(
-                "UpdateTableRenameColumns.InformationMessage.RenameColumn",
+                "UpdateTableRenameColumns.InformationMessage.RenameColumn", // NOI18N
                 tableName, columnName));
     }
 }

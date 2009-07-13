@@ -66,7 +66,7 @@ public final class DatabaseMaintainance extends Database {
     public int deleteUnusedThumbnails(ProgressListener listener) {
         int delCount = 0;
         Connection connection = null;
-        ProgressEvent progressEvent = new ProgressEvent(this, "");
+        ProgressEvent progressEvent = new ProgressEvent(this, ""); // NOI18N
         try {
             try {
                 File[] thumbnailFiles = getThumbnailFiles();
