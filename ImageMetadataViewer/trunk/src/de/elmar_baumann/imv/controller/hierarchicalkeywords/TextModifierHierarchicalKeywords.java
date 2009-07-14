@@ -35,7 +35,7 @@ public class TextModifierHierarchicalKeywords implements TextModifyer {
                     keywordName);
             keywords.add(keywordName);
             if (!ignoreWords.contains(keywordName)) {
-                keywords.addAll(getUniquePath(keywordName, parentKeywords));
+                keywords.addAll(selectPaths(keywordName, parentKeywords));
             }
         }
         return toKeywordString(new HashSet<String>(keywords)); // make them unique
@@ -46,21 +46,19 @@ public class TextModifierHierarchicalKeywords implements TextModifyer {
         int index = 0;
         for (String s : collection) {
             sb.append((index++ == 0
-                    ? "" // NOI18N
-                    : DELIM) + s);
+                       ? "" // NOI18N
+                       : DELIM) + s);
         }
         return sb.toString();
     }
 
-    private Collection<String> getUniquePath(
+    private Collection<String> selectPaths(
             String keywordName, Collection<Collection<String>> parentKeywords) {
         List<String> keywords = new ArrayList<String>();
-        if (parentKeywords.size() <= 1) {
-            addToKeywords(keywords, parentKeywords);
-        } else {
+        if (parentKeywords.size() > 0) {
             PathSelectionDialog dlg = new PathSelectionDialog(parentKeywords);
             dlg.setInfoMessage(Bundle.getString(
-                    "TextModifierHierarchicalKeywords.Error.MultiplePaths", // NOI18N
+                    "TextModifierHierarchicalKeywords.Info", // NOI18N
                     keywordName));
             dlg.setVisible(true);
             if (dlg.isAccepted()) {

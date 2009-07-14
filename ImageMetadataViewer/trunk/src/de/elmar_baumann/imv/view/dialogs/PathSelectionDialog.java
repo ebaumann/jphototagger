@@ -10,6 +10,7 @@ import java.util.Collection;
 import java.util.List;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
+import javax.swing.Icon;
 import javax.swing.JLabel;
 import javax.swing.JList;
 
@@ -110,6 +111,8 @@ public class PathSelectionDialog extends Dialog {
 
     private class Renderer extends DefaultListCellRenderer {
 
+        private final Icon ICON = AppIcons.getIcon("icon_keyword.png"); // NOI18N
+
         @Override
         public Component getListCellRendererComponent(JList list, Object value,
                 int index, boolean isSelected, boolean cellHasFocus) {
@@ -122,11 +125,12 @@ public class PathSelectionDialog extends Dialog {
                 int i = 0;
                 for (Object element : collection) {
                     sb.append((i++ == 0
-                            ? "" // NOI18N
-                            : pathDelim) +
+                               ? "" // NOI18N
+                               : pathDelim) +
                             element.toString());
                 }
                 label.setText(sb.toString());
+                label.setIcon(ICON);
             }
             return label;
         }

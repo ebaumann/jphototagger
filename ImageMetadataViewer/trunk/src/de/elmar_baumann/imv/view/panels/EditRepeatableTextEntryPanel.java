@@ -11,6 +11,7 @@ import de.elmar_baumann.imv.view.renderer.ListCellRendererKeywordsEdit;
 import de.elmar_baumann.lib.componentutil.InputVerifierMaxLength;
 import de.elmar_baumann.lib.componentutil.ComponentUtil;
 import de.elmar_baumann.lib.componentutil.ListUtil;
+import de.elmar_baumann.lib.event.util.KeyEventUtil;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -75,18 +76,16 @@ public final class EditRepeatableTextEntryPanel extends javax.swing.JPanel
 
     @Override
     public String getText() {
-        checkInput();
-        String input = ListUtil.getTokenString(model, DELIMITER);
+        emptyTextfieldIfListContainsText();
+        String listItemText = ListUtil.getTokenString(model, DELIMITER);
         String textfieldText = textFieldInput.getText().trim();
-        input += textfieldText.isEmpty()
-                ? ""
-                : DELIMITER + textfieldText;
-        return textModifier == null
-                ? input
-                : textModifier.modify(input, ignoreModifyWords);
+        listItemText += textfieldText.isEmpty()
+                        ? ""
+                        : DELIMITER + textfieldText;
+        return listItemText;
     }
 
-    private void checkInput() {
+    private void emptyTextfieldIfListContainsText() {
         String input = textFieldInput.getText();
         if (ListUtil.containsString(list.getModel(), input)) {
             textFieldInput.setText("");
@@ -176,8 +175,8 @@ public final class EditRepeatableTextEntryPanel extends javax.swing.JPanel
         buttonAddInput.setEnabled(editable);
         buttonRemoveSelection.setEnabled(editable);
         list.setBackground(editable
-                ? textFieldInput.getBackground()
-                : getBackground());
+                           ? textFieldInput.getBackground()
+                           : getBackground());
     }
 
     private void handleButtonAddInputActionPerformed() {
@@ -227,6 +226,33 @@ public final class EditRepeatableTextEntryPanel extends javax.swing.JPanel
     @Override
     public void changedUpdate(DocumentEvent e) {
         dirty = true;
+    }
+
+    private void modifyText(java.awt.event.KeyEvent evt) {
+        if (textModifier != null && KeyEventUtil.isControl(evt, KeyEvent.VK_K)) {
+            String prevText = textFieldInput.getText();
+            String modifiedText =
+                    textModifier.modify(prevText, new ArrayList<String>());
+            if (!prevText.equalsIgnoreCase(modifiedText)) {
+                addTokenToInput(modifiedText);
+            }
+        }
+    }
+
+    private void addTokenToInput(String text) {
+        StringTokenizer st = new StringTokenizer(text, DELIMITER);
+        int countAdded = 0;
+        while (st.hasMoreTokens()) {
+            String input = st.nextToken().trim();
+            if (!input.isEmpty() && !model.contains(input)) {
+                model.addElement(input);
+                countAdded++;
+            }
+        }
+        textFieldInput.setText("");
+        if (countAdded > 0) {
+            ComponentUtil.forceRepaint(getParent().getParent());
+        }
     }
 
     /** This method is called from within the constructor to
@@ -287,6 +313,9 @@ public final class EditRepeatableTextEntryPanel extends javax.swing.JPanel
 
         textFieldInput.setToolTipText(Bundle.getString("EditRepeatableTextEntryPanel.textFieldInput.toolTipText")); // NOI18N
         textFieldInput.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                textFieldInputKeyPressed(evt);
+            }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 textFieldInputKeyReleased(evt);
             }
@@ -351,6 +380,10 @@ private void listKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_list
         removeSelectedElements();
     }
 }//GEN-LAST:event_listKeyPressed
+
+private void textFieldInputKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldInputKeyPressed
+    modifyText(evt);
+}//GEN-LAST:event_textFieldInputKeyPressed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAddInput;
     private javax.swing.JButton buttonRemoveSelection;
