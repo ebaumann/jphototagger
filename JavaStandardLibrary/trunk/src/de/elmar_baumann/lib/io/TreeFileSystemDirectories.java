@@ -207,10 +207,10 @@ public final class TreeFileSystemDirectories {
         if (file.exists()) {
             JOptionPane.showMessageDialog(null,
                     Bundle.getString(
-                    "TreeFileSystemDirectories.ErrorMessage.DirectoryAlreadyExists", // NOI18N
+                    "TreeFileSystemDirectories.Error.DirectoryAlreadyExists", // NOI18N
                     file.getAbsolutePath()),
                     Bundle.getString(
-                    "TreeFileSystemDirectories.ErrorMessage.DirectoryAlreadyExists.Title"), // NOI18N
+                    "TreeFileSystemDirectories.Error.DirectoryAlreadyExists.Title"), // NOI18N
                     JOptionPane.ERROR_MESSAGE);
         }
         return true;
@@ -226,10 +226,10 @@ public final class TreeFileSystemDirectories {
         return JOptionPane.showConfirmDialog(
                 null,
                 Bundle.getString(
-                "TreeFileSystemDirectories.ConfirmMessage.Delete", // NOI18N
+                "TreeFileSystemDirectories.Confirm.Delete", // NOI18N
                 directoryName),
                 Bundle.getString(
-                "TreeFileSystemDirectories.ConfirmMessage.Delete.Title"), // NOI18N
+                "TreeFileSystemDirectories.Confirm.Delete.Title"), // NOI18N
                 JOptionPane.YES_NO_OPTION) ==
                 JOptionPane.YES_OPTION;
     }
@@ -242,10 +242,10 @@ public final class TreeFileSystemDirectories {
      */
     public static void errorMessageDelete(String directoryName) {
         JOptionPane.showMessageDialog(null,
-                Bundle.getString("TreeFileSystemDirectories.ErrorMessage.Delete", // NOI18N
+                Bundle.getString("TreeFileSystemDirectories.Error.Delete", // NOI18N
                 directoryName),
                 Bundle.getString(
-                "TreeFileSystemDirectories.ErrorMessage.Delete.Title"), // NOI18N
+                "TreeFileSystemDirectories.Error.Delete.Title"), // NOI18N
                 JOptionPane.ERROR_MESSAGE);
     }
 

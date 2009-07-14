@@ -147,7 +147,7 @@ public final class FileUtil {
                 if (!exists) {
                     Logger.getLogger(FileUtil.class.getName()).log(
                             Level.SEVERE, null,Bundle.getString(
-                            "FileUtil.ErrorMessage.CreateDirectoryFailed")); // NOI18N
+                            "FileUtil.Error.CreateDirectoryFailed")); // NOI18N
                 }
             }
         }

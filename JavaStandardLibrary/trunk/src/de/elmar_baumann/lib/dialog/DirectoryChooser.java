@@ -196,9 +196,9 @@ public final class DirectoryChooser extends Dialog {
             } else {
                 JOptionPane.showMessageDialog(this,
                         Bundle.getString(
-                        "DirectoryChooser.ErrorMessage.NoDirectoryChosen"), // NOI18N
+                        "DirectoryChooser.Error.NoDirectoryChosen"), // NOI18N
                         Bundle.getString(
-                        "DirectoryChooser.ErrorMessage.NoDirectoryChosen.Title"), // NOI18N
+                        "DirectoryChooser.Error.NoDirectoryChosen.Title"), // NOI18N
                         JOptionPane.ERROR_MESSAGE);
             }
         }

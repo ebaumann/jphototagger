@@ -60,7 +60,7 @@ public final class InputVerifierMaxLength extends InputVerifier {
         JOptionPane.showMessageDialog(
                 input,
                 Bundle.getString("InputVerifierMaxLength.ErrorMessage", maxLength), // NOI18N
-                Bundle.getString("InputVerifierMaxLength.ErrorMessage.Title"), // NOI18N
+                Bundle.getString("InputVerifierMaxLength.Error.Title"), // NOI18N
                 JOptionPane.ERROR_MESSAGE);
     }
 }

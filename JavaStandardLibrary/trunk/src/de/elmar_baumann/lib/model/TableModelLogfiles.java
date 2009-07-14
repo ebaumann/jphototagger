@@ -53,7 +53,7 @@ public final class TableModelLogfiles extends DefaultTableModel {
             String message = record.getMessage();
             row.add(message == null
                     ? Bundle.getString(
-                    "TableModelLogfiles.ErrorMessage.MessageIsNull") // NOI18N
+                    "TableModelLogfiles.Error.MessageIsNull") // NOI18N
                     : message);
             records.add(record);
             addRow(row.toArray(new Object[row.size()]));
