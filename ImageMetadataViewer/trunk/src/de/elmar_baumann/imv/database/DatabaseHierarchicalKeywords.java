@@ -120,7 +120,7 @@ public final class DatabaseHierarchicalKeywords extends Database {
             connection = getConnection();
             connection.setAutoCommit(true);
             String sql = "INSERT INTO hierarchical_subjects" + // NOI18N
-                    " (id, id_parent, subject) VALUES (?, ?, ?, ?)"; // NOI18N
+                    " (id, id_parent, subject, real) VALUES (?, ?, ?, ?)"; // NOI18N
             PreparedStatement stmt = connection.prepareStatement(sql);
             long nextId = getNextId(connection);
             stmt.setLong(1, nextId);
