@@ -264,7 +264,7 @@ public final class UserSettings implements UserSettingsChangeListener {
             try {
                 level = Level.parse(levelString);
             } catch (Exception ex) {
-                AppLog.logWarning(UserSettings.class, ex);
+                AppLog.logSevere(UserSettings.class, ex);
             }
         }
         if (level == null) {
@@ -458,7 +458,7 @@ public final class UserSettings implements UserSettingsChangeListener {
         try {
             return Class.forName(className);
         } catch (ClassNotFoundException ex) {
-            AppLog.logWarning(UserSettings.class, ex);
+            AppLog.logSevere(UserSettings.class, ex);
             settings.setString(XMLFormatter.class.getName(),
                     KEY_LOGFILE_FORMATTER_CLASS);
         }

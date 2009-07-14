@@ -115,7 +115,7 @@ public final class ControllerLogfileDialog implements ActionListener,
             try {
                 Thread.sleep(ERROR_POPUP_MILLISECONDS);
             } catch (InterruptedException ex) {
-                AppLog.logWarning(ControllerLogfileDialog.class, ex);
+                AppLog.logSevere(ControllerLogfileDialog.class, ex);
             }
             popup.hide();
         }

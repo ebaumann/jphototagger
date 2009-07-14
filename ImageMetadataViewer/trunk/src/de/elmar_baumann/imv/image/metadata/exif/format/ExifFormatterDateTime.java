@@ -42,7 +42,7 @@ public final class ExifFormatterDateTime extends ExifFormatter {
                         DateFormat.FULL);
                 return df.format(cal.getTime());
             } catch (Exception ex) {
-                AppLog.logWarning(ExifFieldValueFormatter.class, ex);
+                AppLog.logSevere(ExifFieldValueFormatter.class, ex);
             }
         }
         return value;

@@ -54,8 +54,7 @@ public final class TreeCellRendererFavorites extends DefaultTreeCellRenderer {
                     try {
                         setIcon(fileSystemView.getSystemIcon(file));
                     } catch (Exception ex) {
-                        AppLog.logWarning(
-                                TreeCellRendererFavorites.class, ex);
+                        AppLog.logSevere(TreeCellRendererFavorites.class, ex);
                     }
                 }
             }

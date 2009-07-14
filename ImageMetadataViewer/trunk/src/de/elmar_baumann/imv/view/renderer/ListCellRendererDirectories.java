@@ -35,7 +35,7 @@ public final class ListCellRendererDirectories extends DefaultListCellRenderer {
                 try {
                     label.setIcon(FILE_SYSTEM_VIEW.getSystemIcon(dir));
                 } catch (Exception ex) {
-                    AppLog.logWarning(ListCellRendererDirectories.class, ex);
+                    AppLog.logSevere(ListCellRendererDirectories.class, ex);
                 }
             }
         }

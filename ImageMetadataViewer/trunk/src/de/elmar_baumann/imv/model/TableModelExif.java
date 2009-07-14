@@ -66,7 +66,7 @@ public final class TableModelExif extends DefaultTableModel {
         try {
             setExifData();
         } catch (Exception ex) {
-            AppLog.logWarning(TableModelExif.class, ex);
+            AppLog.logSevere(TableModelExif.class, ex);
         }
     }
 

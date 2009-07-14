@@ -1004,7 +1004,7 @@ public abstract class ThumbnailsPanel extends JPanel
         try {
             tracker.waitForID(0);
         } catch (InterruptedException ex) {
-            AppLog.logWarning(ThumbnailsPanel.class, ex);
+            AppLog.logSevere(ThumbnailsPanel.class, ex);
         }
         thumbnailAtIndex.put(cacheIndex, scaled);
         return scaled;

@@ -62,17 +62,6 @@ public final class AppLog {
 
     /**
      * Logs an exception with the class' logger and notifies the error listeners.
-     * The log level is {@link java.util.logging.Level#WARNING}
-     * 
-     * @param c   class
-     * @param ex  Exception
-     */
-    public static void logWarning(Class c, Exception ex) {
-        log(c, Level.WARNING, ex);
-    }
-
-    /**
-     * Logs an exception with the class' logger and notifies the error listeners.
      * The log level is {@link java.util.logging.Level#SEVERE}.
      * 
      * @param c   class

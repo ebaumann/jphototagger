@@ -42,7 +42,7 @@ public final class ExifMetadata {
         try {
             addIFDEntries(imageFile, exifEntries);
         } catch (Exception ex) {
-            AppLog.logWarning(ExifMetadata.class, ex);
+            AppLog.logSevere(ExifMetadata.class, ex);
         }
         return exifEntries;
     }
@@ -159,7 +159,7 @@ public final class ExifMetadata {
                 }
                 setExifEquipment(exif, modelEntry);
             } catch (Exception ex) {
-                AppLog.logWarning(ExifMetadata.class, ex);
+                AppLog.logSevere(ExifMetadata.class, ex);
                 exif = null;
             }
         }
@@ -181,10 +181,10 @@ public final class ExifMetadata {
                     exifData.setDateTimeOriginal(new Date(calendar.
                             getTimeInMillis()));
                 } catch (Exception ex) {
-                    AppLog.logWarning(ExifMetadata.class, ex);
+                    AppLog.logSevere(ExifMetadata.class, ex);
                 }
             } catch (NumberFormatException ex) {
-                AppLog.logWarning(ExifMetadata.class, ex);
+                AppLog.logSevere(ExifMetadata.class, ex);
             }
         }
     }
@@ -214,7 +214,7 @@ public final class ExifMetadata {
                 exifData.setFocalLength(focalLength);
             }
         } catch (Exception ex) {
-            AppLog.logWarning(ExifMetadata.class, ex);
+            AppLog.logSevere(ExifMetadata.class, ex);
         }
     }
 
@@ -223,7 +223,7 @@ public final class ExifMetadata {
             exifData.setIsoSpeedRatings(new Short(enry.toString().trim()).
                     shortValue());
         } catch (Exception ex) {
-            AppLog.logWarning(ExifMetadata.class, ex);
+            AppLog.logSevere(ExifMetadata.class, ex);
         }
     }
 

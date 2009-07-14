@@ -108,7 +108,7 @@ public final class TransferHandlerTreeHierarchicalKeywords extends TransferHandl
                 }
             }
         } catch (Exception ex) {
-            AppLog.logWarning(TransferHandlerTreeHierarchicalKeywords.class, ex);
+            AppLog.logSevere(TransferHandlerTreeHierarchicalKeywords.class, ex);
         }
     }
 
@@ -117,7 +117,7 @@ public final class TransferHandlerTreeHierarchicalKeywords extends TransferHandl
             Object o = transferable.getTransferData(DataFlavor.stringFlavor);
             return o instanceof String;
         } catch (Exception ex) {
-            AppLog.logWarning(TransferHandlerTreeHierarchicalKeywords.class, ex);
+            AppLog.logSevere(TransferHandlerTreeHierarchicalKeywords.class, ex);
         }
         return false;
     }
@@ -138,7 +138,7 @@ public final class TransferHandlerTreeHierarchicalKeywords extends TransferHandl
                 }
             }
         } catch (Exception ex) {
-            AppLog.logWarning(TransferHandlerTreeHierarchicalKeywords.class, ex);
+            AppLog.logSevere(TransferHandlerTreeHierarchicalKeywords.class, ex);
         }
         return false;
     }

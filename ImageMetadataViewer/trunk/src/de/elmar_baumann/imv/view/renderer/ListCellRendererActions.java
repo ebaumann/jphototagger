@@ -33,7 +33,7 @@ public final class ListCellRendererActions extends DefaultListCellRenderer {
             try {
                 setIcon(ICON_ACTION);
             } catch (Exception ex) {
-                AppLog.logWarning(ListCellRendererActions.class, ex);
+                AppLog.logSevere(ListCellRendererActions.class, ex);
             }
         } else {
             label.setIcon(ICON_ERROR);

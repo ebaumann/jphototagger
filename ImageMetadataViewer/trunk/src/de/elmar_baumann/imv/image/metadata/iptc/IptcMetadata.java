@@ -41,7 +41,7 @@ public final class IptcMetadata {
                             IPTCConstants.RECORD_APPLICATION), metadata);
                 }
             } catch (Exception ex) {
-                AppLog.logWarning(IptcMetadata.class, ex);
+                AppLog.logSevere(IptcMetadata.class, ex);
             }
         }
         return metadata;

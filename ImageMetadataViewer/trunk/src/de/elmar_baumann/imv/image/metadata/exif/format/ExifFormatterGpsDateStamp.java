@@ -36,7 +36,7 @@ public final class ExifFormatterGpsDateStamp extends ExifFormatter {
             Date date = df.parse(rawString.substring(0, 10));
             return DateFormat.getDateInstance(DateFormat.FULL).format(date);
         } catch (ParseException ex) {
-            AppLog.logWarning(ExifFieldValueFormatter.class, ex);
+            AppLog.logSevere(ExifFieldValueFormatter.class, ex);
         }
         return rawString;
     }

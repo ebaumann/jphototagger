@@ -32,7 +32,7 @@ public final class Bundle {
         } catch (NullPointerException ex) {
             throw ex;
         } catch (Exception ex) {
-            AppLog.logWarning(Bundle.class, ex);
+            AppLog.logSevere(Bundle.class, ex);
         }
         return "?" + key + "?"; // NOI18N
     }

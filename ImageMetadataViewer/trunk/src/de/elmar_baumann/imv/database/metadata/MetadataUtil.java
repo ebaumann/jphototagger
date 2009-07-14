@@ -37,7 +37,7 @@ public final class MetadataUtil {
             doubleFormatterFactory = new DefaultFormatterFactory(doubleFormatter);
             dateFormatterFactory = new DefaultFormatterFactory(new MaskFormatter("####-##-##")); // NOI18N
         } catch (ParseException ex) {
-            AppLog.logWarning(MetadataUtil.class, ex);
+            AppLog.logSevere(MetadataUtil.class, ex);
         }
     }
 

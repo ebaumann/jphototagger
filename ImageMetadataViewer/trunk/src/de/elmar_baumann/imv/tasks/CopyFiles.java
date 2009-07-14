@@ -92,7 +92,7 @@ public final class CopyFiles implements Runnable {
                             getAbsolutePath());
                     FileUtil.copyFile(sourceFile, targetFile);
                 } catch (Exception ex) {
-                    AppLog.logWarning(CopyFiles.class, ex);
+                    AppLog.logSevere(CopyFiles.class, ex);
                     errorFiles.add(filePair.getFirst());
                 }
             }

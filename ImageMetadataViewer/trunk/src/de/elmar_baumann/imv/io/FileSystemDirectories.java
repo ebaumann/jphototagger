@@ -43,8 +43,7 @@ public final class FileSystemDirectories {
                                 directory.getName());
                     }
                 } catch (Exception ex) {
-                    AppLog.logWarning(FileSystemDirectories.class,
-                            ex);
+                    AppLog.logSevere(FileSystemDirectories.class, ex);
                 }
             }
         }
@@ -82,8 +81,7 @@ public final class FileSystemDirectories {
                             return newDirectory;
                         }
                     } catch (Exception ex) {
-                        AppLog.logWarning(FileSystemDirectories.class,
-                                ex);
+                        AppLog.logSevere(FileSystemDirectories.class, ex);
                     }
                 }
             }

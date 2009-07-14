@@ -55,7 +55,7 @@ public final class ExtractEmbeddedXmpEditor extends FileEditor {
                 fos.close();
                 updateDatabase(file.getAbsolutePath());
             } catch (Exception ex) {
-                AppLog.logWarning(ExtractEmbeddedXmpEditor.class, ex);
+                AppLog.logSevere(ExtractEmbeddedXmpEditor.class, ex);
             }
         }
     }

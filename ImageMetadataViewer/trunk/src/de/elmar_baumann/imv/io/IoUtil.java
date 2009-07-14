@@ -34,7 +34,7 @@ public final class IoUtil {
                         Bundle.getString("IoUtil.Info.Execute", openCommand)); // NOI18N
                 Runtime.getRuntime().exec(External.parseQuotedCommandLine(openCommand));
             } catch (IOException ex) {
-                AppLog.logWarning(IoUtil.class, ex);
+                AppLog.logSevere(IoUtil.class, ex);
                 MessageDisplayer.error("IoUtil.Error.OpenFile"); // NOI18N
             }
         }

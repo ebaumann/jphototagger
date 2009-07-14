@@ -88,7 +88,7 @@ public final class ThumbnailUtil {
                 }
             }
         } catch (Exception ex) {
-            AppLog.logWarning(ThumbnailUtil.class, ex);
+            AppLog.logSevere(ThumbnailUtil.class, ex);
             return new Pair<Image, ImageReader>(null, null);
         }
         return new Pair<Image, ImageReader>(thumbnail, reader);
@@ -110,7 +110,7 @@ public final class ThumbnailUtil {
             closeReader(procOptions.getImageReader());
             return image;
         } catch (Exception ex) {
-            AppLog.logWarning(ThumbnailUtil.class, ex);
+            AppLog.logSevere(ThumbnailUtil.class, ex);
         }
         return null;
     }
@@ -277,7 +277,7 @@ public final class ThumbnailUtil {
             scaledImage = scaleImage(scaledWidth, scaledHeight, image);
 
         } catch (Exception ex) {
-            AppLog.logWarning(ThumbnailUtil.class, ex);
+            AppLog.logSevere(ThumbnailUtil.class, ex);
         }
         return scaledImage;
     }
@@ -327,10 +327,10 @@ public final class ThumbnailUtil {
             try {
                 mediaTracker.waitForID(0);
             } catch (InterruptedException ex) {
-                AppLog.logWarning(ThumbnailUtil.class, ex);
+                AppLog.logSevere(ThumbnailUtil.class, ex);
             }
         } catch (IOException ex) {
-            AppLog.logWarning(ThumbnailUtil.class, ex);
+            AppLog.logSevere(ThumbnailUtil.class, ex);
         }
         return image;
     }
@@ -351,7 +351,7 @@ public final class ThumbnailUtil {
                 }
             }
         } catch (Exception ex) {
-            AppLog.logWarning(ThumbnailUtil.class, ex);
+            AppLog.logSevere(ThumbnailUtil.class, ex);
         } finally {
             closeStream(fos);
         }
@@ -379,7 +379,7 @@ public final class ThumbnailUtil {
                 thumbnail = icon.getImage();
             }
         } catch (Exception ex) {
-            AppLog.logWarning(ThumbnailUtil.class, ex);
+            AppLog.logSevere(ThumbnailUtil.class, ex);
         } finally {
             closeStream(fis);
         }
@@ -403,7 +403,7 @@ public final class ThumbnailUtil {
             try {
                 fis.close();
             } catch (IOException ex) {
-                AppLog.logWarning(ThumbnailUtil.class, ex);
+                AppLog.logSevere(ThumbnailUtil.class, ex);
             }
         }
     }
@@ -413,7 +413,7 @@ public final class ThumbnailUtil {
             try {
                 fos.close();
             } catch (IOException ex) {
-                AppLog.logWarning(ThumbnailUtil.class, ex);
+                AppLog.logSevere(ThumbnailUtil.class, ex);
             }
         }
     }

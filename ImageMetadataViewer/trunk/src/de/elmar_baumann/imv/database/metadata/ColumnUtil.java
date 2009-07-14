@@ -33,7 +33,7 @@ public final class ColumnUtil {
                     columns.add((Column) field.get(null));
                 }
             } catch (Exception ex) {
-                AppLog.logWarning(ColumnUtil.class, ex);
+                AppLog.logSevere(ColumnUtil.class, ex);
             }
         }
         return columns;

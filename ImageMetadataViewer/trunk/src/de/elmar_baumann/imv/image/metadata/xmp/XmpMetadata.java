@@ -145,10 +145,10 @@ public final class XmpMetadata {
             }
         } catch (XMPException ex) {
             metadata = null;
-            AppLog.logWarning(XmpMetadata.class, ex);
+            AppLog.logSevere(XmpMetadata.class, ex);
         } catch (Exception ex) {
             metadata = null;
-            AppLog.logWarning(XmpMetadata.class, ex);
+            AppLog.logSevere(XmpMetadata.class, ex);
         }
         return metadata;
     }
@@ -163,7 +163,7 @@ public final class XmpMetadata {
                 }
             }
         } catch (XMPException ex) {
-            AppLog.logWarning(XmpMetadata.class, ex);
+            AppLog.logSevere(XmpMetadata.class, ex);
         }
     }
 
@@ -343,7 +343,7 @@ public final class XmpMetadata {
             writeMetadata(xmpMeta, metadata);
             return writeSidecarFile(sidecarFilename, xmpMeta);
         } catch (XMPException ex) {
-            AppLog.logWarning(XmpMetadata.class, ex);
+            AppLog.logSevere(XmpMetadata.class, ex);
             return false;
         }
     }
@@ -388,7 +388,7 @@ public final class XmpMetadata {
             }
             return writeSidecarFile(sidecarFilename, xmpMeta);
         } catch (XMPException ex) {
-            AppLog.logWarning(XmpMetadata.class, ex);
+            AppLog.logSevere(XmpMetadata.class, ex);
             return false;
         }
     }
@@ -538,10 +538,10 @@ public final class XmpMetadata {
             out.close();
             return true;
         } catch (XMPException ex) {
-            AppLog.logWarning(XmpMetadata.class, ex);
+            AppLog.logSevere(XmpMetadata.class, ex);
             return false;
         } catch (IOException ex) {
-            AppLog.logWarning(XmpMetadata.class, ex);
+            AppLog.logSevere(XmpMetadata.class, ex);
             return false;
         }
     }

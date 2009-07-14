@@ -29,7 +29,7 @@ public final class IdfEntryProxy implements Comparable<IdfEntryProxy> {
                         ? ExifByteOrder.LITTLE_ENDIAN
                         : ExifByteOrder.BIG_ENDIAN;
         } catch (Exception ex) {
-            AppLog.logWarning(ExifMetadata.class, ex);
+            AppLog.logSevere(ExifMetadata.class, ex);
         }
     }
 

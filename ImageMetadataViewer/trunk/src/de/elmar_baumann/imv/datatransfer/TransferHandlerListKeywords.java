@@ -45,7 +45,7 @@ public final class TransferHandlerListKeywords extends TransferHandler {
                 return s.replace(PREFIX, ""); // NOI18N
             }
         } catch (Exception e) {
-            AppLog.logWarning(TransferHandlerListKeywords.class, e);
+            AppLog.logSevere(TransferHandlerListKeywords.class, e);
         }
         return null;
     }

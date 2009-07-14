@@ -55,7 +55,7 @@ public abstract class TransferHandlerListsDropThumbnails extends TransferHandler
                     (String) transferable.getTransferData(
                     DataFlavor.stringFlavor);
         } catch (Exception ex) {
-            AppLog.logWarning(TransferHandlerListsDropThumbnails.class, ex);
+            AppLog.logSevere(TransferHandlerListsDropThumbnails.class, ex);
             return false;
         }
         int listIndex =
