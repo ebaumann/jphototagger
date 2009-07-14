@@ -35,7 +35,7 @@ public final class IoUtil {
                 Runtime.getRuntime().exec(External.parseQuotedCommandLine(openCommand));
             } catch (IOException ex) {
                 AppLog.logWarning(IoUtil.class, ex);
-                MessageDisplayer.error("IoUtil.ErrorMessage.OpenFile"); // NOI18N
+                MessageDisplayer.error("IoUtil.Error.OpenFile"); // NOI18N
             }
         }
     }

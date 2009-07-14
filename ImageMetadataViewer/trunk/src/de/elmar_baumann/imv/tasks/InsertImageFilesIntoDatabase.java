@@ -303,7 +303,7 @@ public final class InsertImageFilesIntoDatabase implements Runnable {
 
     private void errorMessageNullThumbnail(String filename) {
         AppLog.logWarning(InsertImageFilesIntoDatabase.class, Bundle.getString(
-                "InsertImageFilesIntoDatabase.ErrorMessage.NullThumbnail", // NOI18N
+                "InsertImageFilesIntoDatabase.Error.NullThumbnail", // NOI18N
                 filename));
     }
 
@@ -326,7 +326,7 @@ public final class InsertImageFilesIntoDatabase implements Runnable {
             listener.progressEnded(
                     getProgressEvent(filenames.size(),
                     Bundle.getString(
-                    "InsertImageFilesIntoDatabase.InformationMessage.ProgressEnded"))); // NOI18N
+                    "InsertImageFilesIntoDatabase.Info.ProgressEnded"))); // NOI18N
         }
     }
 
@@ -346,7 +346,7 @@ public final class InsertImageFilesIntoDatabase implements Runnable {
 
     private void logCheckForUpdate(String filename) {
         AppLog.logFinest(InsertImageFilesIntoDatabase.class, Bundle.getString(
-                "InsertImageFilesIntoDatabase.InformationMessage.CheckForUpdate", // NOI18N
+                "InsertImageFilesIntoDatabase.Info.CheckForUpdate", // NOI18N
                 filename));
     }
 
@@ -355,21 +355,21 @@ public final class InsertImageFilesIntoDatabase implements Runnable {
             data.getFile().getAbsolutePath(),
             data.getExif() == null
             ? Bundle.getString(
-            "InsertImageFilesIntoDatabase.InformationMessage.StartInsert.No") // NOI18N
+            "InsertImageFilesIntoDatabase.Info.StartInsert.No") // NOI18N
             : Bundle.getString(
-            "InsertImageFilesIntoDatabase.InformationMessage.StartInsert.Yes"), // NOI18N
+            "InsertImageFilesIntoDatabase.Info.StartInsert.Yes"), // NOI18N
             data.getXmp() == null
             ? Bundle.getString(
-            "InsertImageFilesIntoDatabase.InformationMessage.StartInsert.No") // NOI18N
+            "InsertImageFilesIntoDatabase.Info.StartInsert.No") // NOI18N
             : Bundle.getString(
-            "InsertImageFilesIntoDatabase.InformationMessage.StartInsert.Yes"), // NOI18N
+            "InsertImageFilesIntoDatabase.Info.StartInsert.Yes"), // NOI18N
             data.getThumbnail() == null
             ? Bundle.getString(
-            "InsertImageFilesIntoDatabase.InformationMessage.StartInsert.No") // NOI18N
+            "InsertImageFilesIntoDatabase.Info.StartInsert.No") // NOI18N
             : Bundle.getString(
-            "InsertImageFilesIntoDatabase.InformationMessage.StartInsert.Yes")}; // NOI18N
+            "InsertImageFilesIntoDatabase.Info.StartInsert.Yes")}; // NOI18N
         AppLog.logInfo(InsertImageFilesIntoDatabase.class, Bundle.getString(
-                "InsertImageFilesIntoDatabase.InformationMessage.StartInsert", // NOI18N
+                "InsertImageFilesIntoDatabase.Info.StartInsert", // NOI18N
                 params));
     }
 }

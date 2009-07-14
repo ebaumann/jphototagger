@@ -33,7 +33,7 @@ final class UpdateTablesDeleteInvalidExif {
     void update(Connection connection) throws SQLException {
         dialog.setIndeterminate(true);
         messages.message(Bundle.getString(
-                "UpdateTablesDeleteInvalidExif.InformationMessage.update")); // NOI18N
+                "UpdateTablesDeleteInvalidExif.Info.update")); // NOI18N
         setNull(connection);
         dialog.setIndeterminate(false);
     }

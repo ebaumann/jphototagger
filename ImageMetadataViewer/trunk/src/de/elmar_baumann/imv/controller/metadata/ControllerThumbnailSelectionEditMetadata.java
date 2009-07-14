@@ -85,11 +85,11 @@ public final class ControllerThumbnailSelectionEditMetadata implements
                 canEdit
                 ? multipleThumbnailsSelected()
                   ? Bundle.getString(
-                "ControllerThumbnailSelectionEditMetadata.InformationMessage.MetadataEditAddOnlyChanges") // NOI18N
+                "ControllerThumbnailSelectionEditMetadata.Info.MetadataEditAddOnlyChanges") // NOI18N
                   : Bundle.getString(
-                "ControllerThumbnailSelectionEditMetadata.InformationMessage.EditIsEnabled") // NOI18N
+                "ControllerThumbnailSelectionEditMetadata.Info.EditIsEnabled") // NOI18N
                 : Bundle.getString(
-                "ControllerThumbnailSelectionEditMetadata.InformationMessage.EditIsDisabled")); // NOI18N
+                "ControllerThumbnailSelectionEditMetadata.Info.EditIsDisabled")); // NOI18N
     }
 
     private boolean multipleThumbnailsSelected() {

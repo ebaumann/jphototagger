@@ -103,7 +103,7 @@ public final class CopyFiles implements Runnable {
 
     private void logCopyFile(String sourceFilename, String targetFilename) {
         AppLog.logInfo(CopyFiles.class, Bundle.getString(
-                "CopyFiles.InformationMessage.StartCopy", // NOI18N
+                "CopyFiles.Info.StartCopy", // NOI18N
                 sourceFilename, targetFilename));
     }
 
@@ -138,7 +138,7 @@ public final class CopyFiles implements Runnable {
         File target = filePair.getSecond();
         if (target.exists()) {
             MessageDisplayer.ConfirmAction action = MessageDisplayer.confirm(
-                    "CopyFiles.ConfirmMessage.OverwriteExisting", // NOI18N
+                    "CopyFiles.Confirm.OverwriteExisting", // NOI18N
                     MessageDisplayer.CancelButton.SHOW,
                     filePair.getSecond(), filePair.getFirst());
             if (action.equals(MessageDisplayer.ConfirmAction.CANCEL)) {
@@ -152,7 +152,7 @@ public final class CopyFiles implements Runnable {
 
     private boolean checkDifferent(Pair<File, File> filePair) {
         if (filePair.getFirst().equals(filePair.getSecond())) {
-            MessageDisplayer.error("CopyFiles.ErrorMessageFilesAreEquals", // NOI18N
+            MessageDisplayer.error("CopyFiles.Error.FilesAreEquals", // NOI18N
                     filePair.getFirst());
             return false;
         }

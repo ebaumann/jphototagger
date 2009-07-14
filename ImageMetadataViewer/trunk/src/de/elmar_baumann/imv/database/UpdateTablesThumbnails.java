@@ -103,7 +103,7 @@ final class UpdateTablesThumbnails extends Database {
 
     private static void compress() {
         UPDATE_TABLES_MESSAGES.message(Bundle.getString(
-                "UpdateTablesThumbnails.Information.CompressDatabase")); // NOI18N
+                "UpdateTablesThumbnails.Info.CompressDatabase")); // NOI18N
         PROGRESS_DIALOG.setIndeterminate(true);
         DatabaseMaintainance.INSTANCE.compressDatabase();
         PROGRESS_DIALOG.setIndeterminate(false);
@@ -118,7 +118,7 @@ final class UpdateTablesThumbnails extends Database {
 
     private static void setMessage(long id, long current, long count) {
         UPDATE_TABLES_MESSAGES.message(Bundle.getString(
-                "UpdateTablesThumbnails.Information.WriteCurrentThumbnail", // NOI18N
+                "UpdateTablesThumbnails.Info.WriteCurrentThumbnail", // NOI18N
                 id, current, count));
     }
 }

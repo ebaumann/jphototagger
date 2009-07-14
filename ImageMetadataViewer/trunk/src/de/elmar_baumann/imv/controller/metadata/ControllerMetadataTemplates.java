@@ -132,7 +132,7 @@ public final class ControllerMetadataTemplates implements ActionListener,
                 } else {
                     AppLog.logWarning(ControllerMetadataTemplates.class,
                             Bundle.getString(
-                            "ControllerMetadataTemplates.ErrorMessage.WrongObject") + // NOI18N
+                            "ControllerMetadataTemplates.Error.WrongObject") + // NOI18N
                             o);
                 }
             }
@@ -168,7 +168,7 @@ public final class ControllerMetadataTemplates implements ActionListener,
                 } else {
                     AppLog.logWarning(ControllerMetadataTemplates.class,
                             Bundle.getString(
-                            "ControllerMetadataTemplates.ErrorMessage.WrongObject") + // NOI18N
+                            "ControllerMetadataTemplates.Error.WrongObject") + // NOI18N
                             o);
                 }
             }
@@ -187,7 +187,7 @@ public final class ControllerMetadataTemplates implements ActionListener,
                 } else {
                     AppLog.logWarning(ControllerMetadataTemplates.class,
                             Bundle.getString(
-                            "ControllerMetadataTemplates.ErrorMessage.InsertTemplateIsNull")); // NOI18N
+                            "ControllerMetadataTemplates.Error.InsertTemplateIsNull")); // NOI18N
                 }
             }
         });
@@ -213,14 +213,14 @@ public final class ControllerMetadataTemplates implements ActionListener,
 
     private boolean confirmDelete(String templateName) {
         return MessageDisplayer.confirm(
-                "ControllerMetadataTemplates.ConfirmMessage.Delete", // NOI18N
+                "ControllerMetadataTemplates.Confirm.Delete", // NOI18N
                 MessageDisplayer.CancelButton.HIDE, templateName).equals(
                 MessageDisplayer.ConfirmAction.YES);
     }
 
     private boolean confirmAbort(String name) {
         return MessageDisplayer.confirm(
-                "ControllerMetadataTemplates.ConfirmMessage.OverwriteExistingTemplate", // NOI18N
+                "ControllerMetadataTemplates.Confirm.OverwriteExistingTemplate", // NOI18N
                 MessageDisplayer.CancelButton.HIDE, name).equals(
                 MessageDisplayer.ConfirmAction.NO);
     }

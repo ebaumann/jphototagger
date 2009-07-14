@@ -61,7 +61,7 @@ public final class DatabaseMaintainanceDialog extends Dialog {
             setVisible(false);
         } else {
             MessageDisplayer.error(
-                    "DatabaseMaintainanceDialog.ErrorMessage.WaitBeforeClose"); // NOI18N
+                    "DatabaseMaintainanceDialog.Error.WaitBeforeClose"); // NOI18N
         }
     }
 

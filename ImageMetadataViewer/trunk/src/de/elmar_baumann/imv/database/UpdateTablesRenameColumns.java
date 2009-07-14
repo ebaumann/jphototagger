@@ -52,7 +52,7 @@ final class UpdateTablesRenameColumns {
     private void renameColumns(Connection connection) throws SQLException {
         dialog.setIndeterminate(true);
         messages.message(Bundle.getString(
-                "UpdateTableRenameColumns.InformationMessage.update")); // NOI18N
+                "UpdateTableRenameColumns.Info.update")); // NOI18N
         for (Pair<ColumnInfo, ColumnInfo> info : renameColumns) {
             renameColumn(connection, info);
         }
@@ -74,7 +74,7 @@ final class UpdateTablesRenameColumns {
 
     private void setMessage(String tableName, String columnName) {
         messages.message(Bundle.getString(
-                "UpdateTableRenameColumns.InformationMessage.RenameColumn", // NOI18N
+                "UpdateTableRenameColumns.Info.RenameColumn", // NOI18N
                 tableName, columnName));
     }
 }

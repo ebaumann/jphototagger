@@ -65,7 +65,7 @@ public final class TreeModelFavorites extends DefaultTreeModel
                 addDirectory(favoriteDirectory);
             } else {
                 errorMessage(favoriteDirectory.getFavoriteName(), Bundle.
-                        getString("TreeModelFavorites.ErrorMessage.ParamInsert")); // NOI18N
+                        getString("TreeModelFavorites.Error.ParamInsert")); // NOI18N
             }
         }
     }
@@ -91,7 +91,7 @@ public final class TreeModelFavorites extends DefaultTreeModel
             } else {
                 errorMessage(favoriteDirctory.getFavoriteName(), Bundle.
                         getString(
-                        "TreeModelFavorites.ErrorMessage.ParamDelete")); // NOI18N
+                        "TreeModelFavorites.Error.ParamDelete")); // NOI18N
             }
         }
     }
@@ -108,7 +108,7 @@ public final class TreeModelFavorites extends DefaultTreeModel
                 nodeChanged(oldNode);
             } else {
                 errorMessage(oldFavorite.getFavoriteName(), Bundle.getString(
-                        "TreeModelFavorites.ErrorMessage.ParamUpdate")); // NOI18N
+                        "TreeModelFavorites.Error.ParamUpdate")); // NOI18N
             }
         }
     }
@@ -178,7 +178,7 @@ public final class TreeModelFavorites extends DefaultTreeModel
             } else {
                 AppLog.logWarning(TreeModelFavorites.class,
                         Bundle.getString(
-                        "TreeModelFavorites.ErrorMessage.DbDirectoryDoesNotExist", // NOI18N
+                        "TreeModelFavorites.Error.DbDirectoryDoesNotExist", // NOI18N
                         directory.getDirectoryName()));
                 db.deleteFavoriteDirectory(directory.getFavoriteName());
             }
@@ -311,7 +311,7 @@ public final class TreeModelFavorites extends DefaultTreeModel
     }
 
     private void errorMessage(String favoriteName, String cause) {
-        MessageDisplayer.error("TreeModelFavorites.ErrorMessage.Template", // NOI18N
+        MessageDisplayer.error("TreeModelFavorites.Error.Template", // NOI18N
                 favoriteName, cause);
     }
 

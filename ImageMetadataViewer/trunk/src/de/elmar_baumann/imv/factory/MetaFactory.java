@@ -60,7 +60,7 @@ public final class MetaFactory implements Runnable {
                 getResource(this);
         if (progressbar != null) {
             progressbar.setStringPainted(true);
-            progressbar.setString(Bundle.getString("MetaFactory.Message.Init")); // NOI18N
+            progressbar.setString(Bundle.getString("MetaFactory.Init")); // NOI18N
             progressbar.setIndeterminate(true);
             progressBarProvider.releaseResource(this);
         }

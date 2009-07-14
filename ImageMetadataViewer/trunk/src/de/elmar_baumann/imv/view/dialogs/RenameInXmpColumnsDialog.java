@@ -99,7 +99,7 @@ public final class RenameInXmpColumnsDialog extends Dialog {
 
     private void oldStringIsEmptyErrorMessage() {
         MessageDisplayer.error(
-                "RenameInXmpColumnsDialog.ErrorMessage.MissingReplaceString"); // NOI18N
+                "RenameInXmpColumnsDialog.Error.MissingReplaceString"); // NOI18N
     }
 
     @Override

@@ -32,7 +32,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
             "de.elmar_baumann.imv.view.ScanDirectoriesDialog.subdirectories"; // NOI18N
     private static final String CURRENT_FILENAME_INFOTEXT_PREFIX =
             Bundle.getString(
-            "UpdateMetadataOfDirectoriesPanel.InformationMessage.UpdateCurrentFile"); // NOI18N
+            "UpdateMetadataOfDirectoriesPanel.Info.UpdateCurrentFile"); // NOI18N
     private final DefaultListModel modelSelectedDirectoryList =
             new DefaultListModel();
     private List<File> selectedFiles = new ArrayList<File>();
@@ -124,7 +124,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
     private void informationMessageThreadPriority(Thread thread) {
         AppLog.logFinest(UpdateMetadataOfDirectoriesPanel.class, Bundle.
                 getString(
-                "UpdateMetadataOfDirectoriesPanel.InformationMessage.ThreadPriority", // NOI18N
+                "UpdateMetadataOfDirectoriesPanel.Info.ThreadPriority", // NOI18N
                 thread.getPriority()));
     }
 
@@ -180,7 +180,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
 
     private void setFileCountInfo() {
         labelCountSelectedFiles.setText(Bundle.getString(
-                "UpdateMetadataOfDirectoriesPanel.InformationMessage.SelectedFileCount", // NOI18N
+                "UpdateMetadataOfDirectoriesPanel.Info.SelectedFileCount", // NOI18N
                 countSelectedFiles));
     }
 
@@ -310,7 +310,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
         progressBar.setValue(evt.getValue());
         AppLog.logFinest(UpdateMetadataOfDirectoriesPanel.class,
                 Bundle.getString(
-                "UpdateMetadataOfDirectoriesPanel.InformationMessage.UdateCompleted")); // NOI18N
+                "UpdateMetadataOfDirectoriesPanel.Info.UdateCompleted")); // NOI18N
         listSelectedDirectories.setEnabled(true);
         setEnabledButtons(false);
         setEnabledCheckboxes(false);
@@ -322,8 +322,8 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
         boolean isTime = remainingMinutes > 0;
         String bundleKey =
                 isTime
-                ? "UpdateMetadataOfDirectoriesPanel.InformationMessage.ProgressWithTime" // NOI18N
-                : "UpdateMetadataOfDirectoriesPanel.InformationMessage.ProgressWithoutTime"; // NOI18N
+                ? "UpdateMetadataOfDirectoriesPanel.Info.ProgressWithTime" // NOI18N
+                : "UpdateMetadataOfDirectoriesPanel.Info.ProgressWithoutTime"; // NOI18N
         labelCurrentFilename.setText(Bundle.getString(bundleKey,
                 CURRENT_FILENAME_INFOTEXT_PREFIX, evt.getInfo(), remainingMinutes));
     }

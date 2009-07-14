@@ -94,16 +94,16 @@ public final class RecordsWithNotExistingFilesDeleter implements Runnable, Progr
 
     private void logDeleteRecords() {
         AppLog.logInfo(RecordsWithNotExistingFilesDeleter.class,
-            Bundle.getString("RecordsWithNotExistingFilesDeleter.InformationMessage.StartRemove")); // NOI18N
+            Bundle.getString("RecordsWithNotExistingFilesDeleter.Info.StartRemove")); // NOI18N
     }
 
     private void setMessagesFiles() {
-        startMessage = Bundle.getString("RecordsWithNotExistingFilesDeleter.Files.StartMessage"); // NOI18N
-        endMessage = Bundle.getString("RecordsWithNotExistingFilesDeleter.Files.EndMessage"); // NOI18N
+        startMessage = Bundle.getString("RecordsWithNotExistingFilesDeleter.Files.Start"); // NOI18N
+        endMessage = Bundle.getString("RecordsWithNotExistingFilesDeleter.Files.End"); // NOI18N
     }
 
     private void setMessagesXmp() {
-        startMessage = Bundle.getString("RecordsWithNotExistingFilesDeleter.Xmp.StartMessage"); // NOI18N
-        endMessage = Bundle.getString("RecordsWithNotExistingFilesDeleter.Xmp.EndMessage"); // NOI18N
+        startMessage = Bundle.getString("RecordsWithNotExistingFilesDeleter.Xmp.Start"); // NOI18N
+        endMessage = Bundle.getString("RecordsWithNotExistingFilesDeleter.Xmp.End"); // NOI18N
     }
 }

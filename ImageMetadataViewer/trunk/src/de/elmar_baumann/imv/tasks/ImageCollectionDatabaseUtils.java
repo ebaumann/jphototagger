@@ -45,7 +45,7 @@ public final class ImageCollectionDatabaseUtils {
     public static boolean deleteImagesFromCollection(String collectionName,
             List<String> filenames) {
         if (confirmDelete(
-                "ImageCollectionToDatabase.ConfirmMessage.DeleteSelectedFiles", // NOI18N
+                "ImageCollectionToDatabase.Confirm.DeleteSelectedFiles", // NOI18N
                 collectionName)) {
             boolean removed = DatabaseImageCollections.INSTANCE.
                     deleteImagesFromCollection(collectionName, filenames) ==
@@ -67,7 +67,7 @@ public final class ImageCollectionDatabaseUtils {
     public static boolean deleteImageCollection(String collectionName) {
         boolean deleted = false;
         if (confirmDelete(
-                "ImageCollectionToDatabase.ConfirmMessage.DeleteCollection", // NOI18N
+                "ImageCollectionToDatabase.Confirm.DeleteCollection", // NOI18N
                 collectionName)) {
             deleted = DatabaseImageCollections.INSTANCE.deleteImageCollection(
                     collectionName);
@@ -140,38 +140,38 @@ public final class ImageCollectionDatabaseUtils {
 
     private static void logAddImageCollection(String name) {
         AppLog.logInfo(ImageCollectionDatabaseUtils.class, Bundle.getString(
-                "ImageCollectionToDatabase.InformationMessage.StartInsert", // NOI18N
+                "ImageCollectionToDatabase.Info.StartInsert", // NOI18N
                 name));
     }
 
     private static void errorMessageAddImagesToCollection(String collectionName) {
         MessageDisplayer.error(
-                "ImageCollectionToDatabase.ErrorMessage.AddImagesToCollection", // NOI18N
+                "ImageCollectionToDatabase.Error.AddImagesToCollection", // NOI18N
                 collectionName);
     }
 
     private static void errorMessageAddImageCollection(String collectionName) {
         MessageDisplayer.error(
-                "ImageCollectionToDatabase.ErrorMessage.AddImageCollection", // NOI18N
+                "ImageCollectionToDatabase.Error.AddImageCollection", // NOI18N
                 collectionName);
     }
 
     private static void errorMessageDeleteImageCollection(String collectionName) {
         MessageDisplayer.error(
-                "ImageCollectionToDatabase.ErrorMessage.DeleteImageCollection", // NOI18N
+                "ImageCollectionToDatabase.Error.DeleteImageCollection", // NOI18N
                 collectionName);
     }
 
     private static void errorMessageDeleteImagesFromCollection(
             String collectionName) {
         MessageDisplayer.error(
-                "ImageCollectionToDatabase.ErrorMessage.DeleteImagesFromCollection", // NOI18N
+                "ImageCollectionToDatabase.Error.DeleteImagesFromCollection", // NOI18N
                 collectionName);
     }
 
     private static void errorMessageRenameImageCollection(String collectionName) {
         MessageDisplayer.error(
-                "ImageCollectionToDatabase.ErrorMessage.RenameImageCollection", // NOI18N
+                "ImageCollectionToDatabase.Error.RenameImageCollection", // NOI18N
                 collectionName);
     }
 
@@ -190,7 +190,7 @@ public final class ImageCollectionDatabaseUtils {
             if (DatabaseImageCollections.INSTANCE.existsImageCollection(name) ||
                     !checkIsValidName(name)) {
                 willAdd = MessageDisplayer.confirm(
-                        "ImageCollectionToDatabase.ConfirmMessage.InputNewCollectionName", // NOI18N
+                        "ImageCollectionToDatabase.Confirm.InputNewCollectionName", // NOI18N
                         MessageDisplayer.CancelButton.HIDE, name).equals(
                         MessageDisplayer.ConfirmAction.YES);
                 name = null;

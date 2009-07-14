@@ -150,7 +150,7 @@ public final class TableModelExif extends DefaultTableModel {
 
         private boolean checkWebBrowser(String webBrowser) {
             if (webBrowser.length() <= 0) {
-                MessageDisplayer.error("TableModelExif.ErrorMessage.WebBrowser"); // NOI18N
+                MessageDisplayer.error("TableModelExif.Error.WebBrowser"); // NOI18N
                 setWebBrowser();
                 return false;
             }
@@ -179,7 +179,7 @@ public final class TableModelExif extends DefaultTableModel {
 
         private void logExternalAppCommand(String cmd) {
             AppLog.logFinest(GpsListener.class, Bundle.getString(
-                    "TableModelExif.LogMessage.ExternalAppCommand", cmd)); // NOI18N
+                    "TableModelExif.ExternalAppCommand", cmd)); // NOI18N
         }
     }
 }

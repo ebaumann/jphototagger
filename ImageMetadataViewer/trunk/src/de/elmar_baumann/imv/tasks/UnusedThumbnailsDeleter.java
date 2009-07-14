@@ -100,13 +100,13 @@ public final class UnusedThumbnailsDeleter implements Runnable, ProgressListener
     private void logDeleteThumbnails() {
         AppLog.logInfo(UnusedThumbnailsDeleter.class,
                 Bundle.getString(
-                "UnusedThumbnailsDeleter.InformationMessage.Start")); // NOI18N
+                "UnusedThumbnailsDeleter.Info.Start")); // NOI18N
     }
 
     private void setMessagesFiles() {
         startMessage =
-                Bundle.getString("UnusedThumbnailsDeleter.Files.StartMessage"); // NOI18N
+                Bundle.getString("UnusedThumbnailsDeleter.Files.Start"); // NOI18N
         endMessage =
-                Bundle.getString("UnusedThumbnailsDeleter.Files.EndMessage"); // NOI18N
+                Bundle.getString("UnusedThumbnailsDeleter.Files.End"); // NOI18N
     }
 }

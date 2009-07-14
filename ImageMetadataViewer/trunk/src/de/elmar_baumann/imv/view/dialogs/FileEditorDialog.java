@@ -40,7 +40,7 @@ public class FileEditorDialog extends Dialog {
 
     private void disposeIfNotRunning() {
         if (panelFileEditor.isRunning()) {
-            MessageDisplayer.error("FileEditorDialog.ErrorMessage.Running"); // NOI18N
+            MessageDisplayer.error("FileEditorDialog.Error.Running"); // NOI18N
         } else {
             dispose();
         }

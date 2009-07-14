@@ -132,7 +132,7 @@ public final class DatabaseMaintainance extends Database {
     private void logThumbnailDeleted(File thumbnailFile) {
         AppLog.logInfo(DatabaseMaintainance.class,
                 Bundle.getString(
-                "DatabaseMaintainance.Information.deleteThumbnailsWithoutImageFiles", // NOI18N
+                "DatabaseMaintainance.Info.deleteThumbnailsWithoutImageFiles", // NOI18N
                 thumbnailFile.getAbsolutePath()));
     }
 

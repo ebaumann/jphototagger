@@ -485,7 +485,7 @@ public final class XmpMetadata {
                 }
             } else {
                 AppLog.logWarning(XmpMetadata.class, Bundle.getString(
-                        "XmpMetadata.ErrorMessage.WriteSetMetadata") + o. // NOI18N
+                        "XmpMetadata.Error.WriteSetMetadata") + o. // NOI18N
                         toString());
             }
         }

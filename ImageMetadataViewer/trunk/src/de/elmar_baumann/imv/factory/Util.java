@@ -20,8 +20,8 @@ final class Util {
      */
     static void checkInit(Class c, boolean init) {
         if (init) {
-            AppLog.logWarning(MetaFactory.class, Bundle.getString(
-                    "FactoryMessages.ErrorMessage.InitCalledMoreThanOneTimes", // NOI18N
+            AppLog.logWarning(Util.class, Bundle.getString(
+                    "Util.Error.InitCalledMoreThanOneTimes", // NOI18N
                     c.getName()));
         }
     }

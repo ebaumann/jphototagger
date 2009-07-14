@@ -58,7 +58,7 @@ public final class IptcToXmpDialog extends Dialog
     }
 
     private void errorMessageWaitBeforeClose() {
-        MessageDisplayer.error("IptcToXmpDialog.ErrorMessage.CancelBeforeClose"); // NOI18N
+        MessageDisplayer.error("IptcToXmpDialog.Error.CancelBeforeClose"); // NOI18N
     }
 
     private void postInitComponents() {

@@ -77,7 +77,7 @@ public final class MoveToDirectoryDialog extends Dialog
     private void checkClosing() {
         if (runs) {
             MessageDisplayer.error(
-                    "MoveToDirectoryDialog.ErrorMessage.AbortBeforeClose"); // NOI18N
+                    "MoveToDirectoryDialog.Error.AbortBeforeClose"); // NOI18N
         } else {
             setVisible(false);
         }
@@ -86,7 +86,7 @@ public final class MoveToDirectoryDialog extends Dialog
     private void checkErrors() {
         if (errors) {
             MessageDisplayer.error(
-                    "MoveToDirectoryDialog.ErrorMessage.CheckLogfile"); // NOI18N
+                    "MoveToDirectoryDialog.Error.CheckLogfile"); // NOI18N
         }
     }
 
@@ -282,7 +282,7 @@ public final class MoveToDirectoryDialog extends Dialog
     public void actionFailed(FileSystemEvent action, FileSystemError error,
             File src, File target) {
         AppLog.logWarning(MoveToDirectoryDialog.class, Bundle.getString(
-                "MoveToDirectoryDialog.ErrorMessage.Logfile", src, target, // NOI18N
+                "MoveToDirectoryDialog.Error.Logfile", src, target, // NOI18N
                 error.getLocalizedMessage()));
         errors = true;
     }

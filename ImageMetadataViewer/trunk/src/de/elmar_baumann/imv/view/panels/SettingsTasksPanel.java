@@ -121,13 +121,13 @@ public final class SettingsTasksPanel extends javax.swing.JPanel
 
     private void errorMessageInsertAutoscanDirectory(String directoryName) {
         MessageDisplayer.error(
-                "SettingsTasksPanel.ErrorMessage.InsertAutoscanDirectory", // NOI18N
+                "SettingsTasksPanel.Error.InsertAutoscanDirectory", // NOI18N
                 directoryName);
     }
 
     private void errorMessageDeleteAutoscanDirectory(String directoryName) {
         MessageDisplayer.error(
-                "SettingsTasksPanel.ErrorMessage.DeleteAutoscanDirectory", // NOI18N
+                "SettingsTasksPanel.Error.DeleteAutoscanDirectory", // NOI18N
                 directoryName);
     }
 

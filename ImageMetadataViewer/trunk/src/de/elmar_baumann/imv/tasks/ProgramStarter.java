@@ -61,7 +61,7 @@ public final class ProgramStarter {
 
     private boolean checkFilecount(List<File> imageFiles) {
         if (imageFiles.size() <= 0) {
-            MessageDisplayer.error("ProgramStarter.ErrorMessage.Selection"); // NOI18N
+            MessageDisplayer.error("ProgramStarter.Error.Selection"); // NOI18N
             return false;
         }
         return true;
@@ -94,7 +94,7 @@ public final class ProgramStarter {
 
         private void logCommand(String command) {
             AppLog.logInfo(ProgramStarter.class, Bundle.getString(
-                    "ProgramStarter.InformationMessage.ExecuteCommand", command)); // NOI18N
+                    "ProgramStarter.Info.ExecuteCommand", command)); // NOI18N
         }
 
         private void processAll() {
@@ -171,7 +171,7 @@ public final class ProgramStarter {
                               : new String(stderr).trim()); // NOI18N
             if (!message.isEmpty()) {
                 message =
-                        Bundle.getString("ProgramStarter.ErrorMessage.Program") + // NOI18N
+                        Bundle.getString("ProgramStarter.Error.Program") + // NOI18N
                         message;
                 AppLog.logWarning(Execute.class, message);
             }

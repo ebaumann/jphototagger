@@ -23,7 +23,7 @@ public final class MessageDisplayer {
                 Bundle.getString("MessageDisplayer.DefaultTitle.WarningMessage")); // NOI18N
         defaultTitleOfMessageType.put(JOptionPane.INFORMATION_MESSAGE,
                 Bundle.getString(
-                "MessageDisplayer.DefaultTitle.InformationMessage")); // NOI18N
+                "MessageDisplayer.DefaultTitle.Info")); // NOI18N
         defaultTitleOfMessageType.put(JOptionPane.QUESTION_MESSAGE,
                 Bundle.getString("MessageDisplayer.DefaultTitle.QuestionMessage")); // NOI18N
     }

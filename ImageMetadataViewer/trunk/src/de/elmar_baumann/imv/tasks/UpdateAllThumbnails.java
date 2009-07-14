@@ -97,7 +97,7 @@ public final class UpdateAllThumbnails
 
     private void logUpdateAllThumbnails() {
         AppLog.logInfo(UpdateAllThumbnails.class,
-            Bundle.getString("UpdateAllThumbnails.InformationMessage.StartUpdate")); // NOI18N
+            Bundle.getString("UpdateAllThumbnails.Info.StartUpdate")); // NOI18N
     }
 
     private synchronized void notifyActionPerformed() {

@@ -76,7 +76,7 @@ public final class IptcToXmp implements Runnable {
 
     private void logWriteXmpFile(String imageFilename) {
         AppLog.logInfo(IptcToXmp.class, Bundle.getString(
-                "IptcToXmp.InformationMessage.StartWriteXmpFile", imageFilename)); // NOI18N
+                "IptcToXmp.Info.StartWriteXmpFile", imageFilename)); // NOI18N
     }
 
     private synchronized void notifyStart() {

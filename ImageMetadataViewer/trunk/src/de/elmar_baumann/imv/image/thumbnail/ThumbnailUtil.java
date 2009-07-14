@@ -118,7 +118,7 @@ public final class ThumbnailUtil {
     private static void logExternalAppCommand(String cmd) {
         AppLog.logFinest(ThumbnailUtil.class,
                 Bundle.getString(
-                "ThumbnailUtil.InformationMessage.ExternalAppCreationCommand", // NOI18N
+                "ThumbnailUtil.Info.ExternalAppCreationCommand", // NOI18N
                 cmd));
     }
 
@@ -195,7 +195,7 @@ public final class ThumbnailUtil {
                            : new String(stderr).trim());
         if (!errorMsg.isEmpty()) {
             errorMsg = Bundle.getString(
-                    "ThumbnailUtil.ErrorMessage.ExternalProgram", // NOI18N
+                    "ThumbnailUtil.Error.ExternalProgram", // NOI18N
                     imageFile, errorMsg);
             AppLog.logWarning(ThumbnailUtil.class, errorMsg);
         }

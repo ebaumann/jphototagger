@@ -74,7 +74,7 @@ public final class AppInit {
     private static void informationMessageInitGui() {
         SplashScreen.setMessageToSplashScreen(
                 Bundle.getString(
-                "AppInit.InformationMessage.SplashScreen.InitGui")); // NOI18N
+                "AppInit.Info.SplashScreen.InitGui")); // NOI18N
     }
 
     private static void showMainWindow() {
@@ -97,7 +97,7 @@ public final class AppInit {
     }
 
     private static void errorMessageJavaVersion(Version javaVersion) {
-        MessageDisplayer.error("AppInit.ErrorMessage.JavaVersion", // NOI18N
+        MessageDisplayer.error("AppInit.Error.JavaVersion", // NOI18N
                 javaVersion, AppInfo.MIN_JAVA_VERSION);
     }
 }

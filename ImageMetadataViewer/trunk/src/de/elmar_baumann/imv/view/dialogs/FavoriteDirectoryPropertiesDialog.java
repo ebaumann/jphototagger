@@ -125,7 +125,7 @@ public final class FavoriteDirectoryPropertiesDialog extends Dialog {
             boolean exists = db.existsFavoriteDirectory(favoriteName);
             if (!isUpdate && exists) {
                 MessageDisplayer.error(
-                        "FavoriteDirectoryPropertiesDialog.ErrorMessage.FavoriteExists", // NOI18N
+                        "FavoriteDirectoryPropertiesDialog.Error.FavoriteExists", // NOI18N
                         favoriteName);
             } else {
                 accepted = true;
@@ -137,7 +137,7 @@ public final class FavoriteDirectoryPropertiesDialog extends Dialog {
     private boolean checkValuesOk() {
         if (!valuesOk()) {
             MessageDisplayer.error(
-                    "FavoriteDirectoryPropertiesDialog.ErrorMessage.InvalidInput"); // NOI18N
+                    "FavoriteDirectoryPropertiesDialog.Error.InvalidInput"); // NOI18N
             return false;
         }
         return true;

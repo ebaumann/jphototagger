@@ -128,13 +128,13 @@ public final class RenameDialog extends Dialog {
             if (newXmpFile.exists()) {
                 if (!newXmpFile.delete()) {
                     AppLog.logWarning(RenameDialog.class, Bundle.getString(
-                            "RenameDialog.ErrorMessage.XmpFileCouldNotBeDeleted", // NOI18N
+                            "RenameDialog.Error.XmpFileCouldNotBeDeleted", // NOI18N
                             newXmpFilename));
                 }
             }
             if (!oldXmpFile.renameTo(newXmpFile)) {
                 AppLog.logWarning(RenameDialog.class, Bundle.getString(
-                        "RenameDialog.ErrorMessage.XmpFileCouldNotBeRenamed", // NOI18N
+                        "RenameDialog.Error.XmpFileCouldNotBeRenamed", // NOI18N
                         oldXmpFilename, newXmpFilename));
             }
         }
@@ -228,7 +228,7 @@ public final class RenameDialog extends Dialog {
         String input = textFieldNewName.getText().trim();
         boolean defined = !input.isEmpty();
         if (!defined) {
-            MessageDisplayer.error("RenameDialog.ErrorMessage.InvalidInput"); // NOI18N
+            MessageDisplayer.error("RenameDialog.Error.InvalidInput"); // NOI18N
         }
         return defined;
     }
@@ -237,7 +237,7 @@ public final class RenameDialog extends Dialog {
         boolean equals = newFile.getAbsolutePath().equals(oldFile.
                 getAbsolutePath());
         if (equals) {
-            MessageDisplayer.error("RenameDialog.ErrorMessage.FilenamesEquals"); // NOI18N
+            MessageDisplayer.error("RenameDialog.Error.FilenamesEquals"); // NOI18N
         }
         return !equals;
     }
@@ -245,7 +245,7 @@ public final class RenameDialog extends Dialog {
     private boolean checkNewFileNotExists(File file) {
         boolean exists = file.exists();
         if (exists) {
-            MessageDisplayer.error("RenameDialog.ErrorMessage.NewFileExists", // NOI18N
+            MessageDisplayer.error("RenameDialog.Error.NewFileExists", // NOI18N
                     file.getName());
         }
         return !exists;
@@ -338,7 +338,7 @@ public final class RenameDialog extends Dialog {
 
     private void errorMessageNotRenamed(String filename) {
         if (MessageDisplayer.confirm(
-                "RenameDialog.ConfirmMessage.RenameNextFile", // NOI18N
+                "RenameDialog.Confirm.RenameNextFile", // NOI18N
                 MessageDisplayer.CancelButton.HIDE, filename).equals(
                 MessageDisplayer.ConfirmAction.NO)) {
             stop = true;

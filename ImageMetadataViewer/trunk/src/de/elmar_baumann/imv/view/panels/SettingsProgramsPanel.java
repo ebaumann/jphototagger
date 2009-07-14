@@ -99,7 +99,7 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel
 
     private boolean askRemove(String otherImageOpenApp) {
         return MessageDisplayer.confirm(
-                "UserSettingsDialog.ConfirmMessage.RemoveImageOpenApp", // NOI18N
+                "UserSettingsDialog.Confirm.RemoveImageOpenApp", // NOI18N
                 MessageDisplayer.CancelButton.HIDE, otherImageOpenApp).equals(
                 MessageDisplayer.ConfirmAction.YES);
     }
