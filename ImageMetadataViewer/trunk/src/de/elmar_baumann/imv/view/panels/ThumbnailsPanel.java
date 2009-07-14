@@ -74,9 +74,16 @@ public abstract class ThumbnailsPanel extends JPanel
      */
     private static final int FLAG_HEIGHT = 10;
     /**
-     * Height of the text font for text below the thumbnails in pixel
+     * Height of the text font for text below the thumbnails in points
      */
     private static final int FONT_HEIGHT = 10;
+
+    /**
+     * Height of the text font for text below the thumbnails in pixels,
+     * computed from FONT_HEIGHT.
+     */
+    private static int FONT_PIXEL_HEIGHT = -1;
+    private static int FONT_PIXEL_DESCENT = -1;
     /**
      * Color of the text below the thumbnails
      */
@@ -84,16 +91,16 @@ public abstract class ThumbnailsPanel extends JPanel
     /**
      * Background color of this panel
      */
-    private static final Color COLOR_BACKGROUND_PANEL = new Color(95, 95, 95);
+    private static final Color COLOR_BACKGROUND_PANEL = new Color(32, 32, 32);
     /**
      * Background color of the space between a thumbnail and it's border
      */
     private static final Color COLOR_BACKGROUND_PADDING_THUMBNAIL = new Color(
-            125, 125, 125);
+            0, 0, 0);
     /**
      * Color of the border surrounding the thumbnails
      */
-    private static final Color COLOR_BORDER_THUMBNAIL = new Color(255, 255, 255);
+    private static final Color COLOR_BORDER_THUMBNAIL = new Color(64, 64, 64);
     /**
      * Color of the text below the thumbnails of a higlighted thumbnail. Depends
      * on {@link #COLOR_BACKGROUND_PADDING_THUMBNAIL_HIGHLIGHTED}
@@ -104,7 +111,12 @@ public abstract class ThumbnailsPanel extends JPanel
      * changing, look for {@link #COLOR_TEXT_HIGHLIGHTED}.
      */
     private static final Color COLOR_BACKGROUND_PADDING_THUMBNAIL_HIGHLIGHTED = new Color(
-            245, 245, 245);
+            112, 122, 148);
+    /**
+     * Color of the border surrounding the highlighted thumbnails.
+     */
+    private static final Color COLOR_BORDER_THUMBNAIL_HIGHLIGHTED =
+            new Color(128, 128, 164);
     /**
      * Font of the text below the thumbnails
      */
@@ -113,16 +125,16 @@ public abstract class ThumbnailsPanel extends JPanel
      * Maximimum character count of the text below the thumbnails when the
      * width of a thumbnail is 150 pixels
      */
-    private static final int MAX_CHAR_COUNT_PER_150_PX = 25;
+    private static final int MAX_CHAR_COUNT_PER_150_PX = 30;
     /**
      * Empty space surrounding a thumbnail outside it's border in pixel
      */
-    private static final int MARGIN_THUMBNAIL = FONT_HEIGHT + 10;
+    private static final int MARGIN_THUMBNAIL = 3;
     /**
      * Empty space surrounding a thumbnail within the border (space between
      * the thumbnail's image and the border) in pixel
      */
-    private static final int PADDING_THUMBNIAL = 10;
+    private static final int PADDING_THUMBNAIL = 3;
     /**
      * Width of the border surrounding the thumbnails in pixel
      */
@@ -153,7 +165,7 @@ public abstract class ThumbnailsPanel extends JPanel
     /**
      * Maximum character count of the text below a thumbnail
      */
-    private int maxCharCountText = 25;
+    private int maxCharCountText = 35;
     /**
      * Width of a thumbnail
      */
@@ -180,8 +192,15 @@ public abstract class ThumbnailsPanel extends JPanel
     private int clickInSelection = -1;
 
     public ThumbnailsPanel() {
+        computeFontHeight();
         setBackground(COLOR_BACKGROUND_PANEL);
         listen();
+    }
+
+    private void computeFontHeight() {
+        FONT_PIXEL_HEIGHT = getFontMetrics(FONT).getHeight();
+        FONT_PIXEL_DESCENT = getFontMetrics(FONT).getDescent() +
+                             getFontMetrics(FONT).getLeading() / 2;
     }
 
     private void listen() {
@@ -399,7 +418,7 @@ public abstract class ThumbnailsPanel extends JPanel
         return flagOfThumbnail.get(index);
     }
 
-    private int getCountHoricontalLeftFromX(int x) {
+    private int getCountHorizontalLeftFromX(int x) {
         return x / (getThumbnailAreaWidth() + MARGIN_THUMBNAIL);
     }
 
@@ -408,7 +427,7 @@ public abstract class ThumbnailsPanel extends JPanel
     }
 
     private boolean isThumbnailAreaInWidth(int x) {
-        int startExtPadding = getCountHoricontalLeftFromX(x) *
+        int startExtPadding = getCountHorizontalLeftFromX(x) *
                 (getThumbnailAreaWidth() + MARGIN_THUMBNAIL);
         int endExtPadding = startExtPadding + MARGIN_THUMBNAIL;
         return x < startExtPadding || (x > endExtPadding &&
@@ -495,12 +514,12 @@ public abstract class ThumbnailsPanel extends JPanel
     }
 
     private int getThumbnailAreaHeight() {
-        return thumbnailWidth + 2 * PADDING_THUMBNIAL +
-                2 * WIDHT_BORDER_THUMBNAIL;
+        return thumbnailWidth + 2 * PADDING_THUMBNAIL +
+                2 * WIDHT_BORDER_THUMBNAIL + FONT_PIXEL_HEIGHT;
     }
 
     private int getThumbnailAreaWidth() {
-        return thumbnailWidth + 2 * PADDING_THUMBNIAL +
+        return thumbnailWidth + 2 * PADDING_THUMBNAIL +
                 2 * WIDHT_BORDER_THUMBNAIL;
     }
 
@@ -515,7 +534,7 @@ public abstract class ThumbnailsPanel extends JPanel
 
     private int getThumbnailTopIndent(Image thumbnail) {
         int indentTop = (int) ((double) ((getThumbnailAreaHeight() -
-                thumbnail.getHeight(this))) / 2.0 + 0.5);
+                thumbnail.getHeight(this) - FONT_PIXEL_HEIGHT)) / 2.0 + 0.5);
         if (indentTop < 0) {
             indentTop = 0;
         }
@@ -781,19 +800,26 @@ public abstract class ThumbnailsPanel extends JPanel
         Color backgroundColor = isSelected
                                 ? COLOR_BACKGROUND_PADDING_THUMBNAIL_HIGHLIGHTED
                                 : COLOR_BACKGROUND_PADDING_THUMBNAIL;
+        Color borderColor = isSelected
+                            ? COLOR_BORDER_THUMBNAIL_HIGHLIGHTED
+                            : COLOR_BORDER_THUMBNAIL;
         Color oldColor = g.getColor();
         g.setColor(backgroundColor);
-        g.fillRect(
-                thumbnailAreaX + 1,
-                thumbnailAreaY + 1,
-                thumbnailWidth + 2 * PADDING_THUMBNIAL,
-                thumbnailWidth + 2 * PADDING_THUMBNIAL);
-        g.setColor(COLOR_BORDER_THUMBNAIL);
-        g.drawRect(
+        g.fillRoundRect(
                 thumbnailAreaX,
                 thumbnailAreaY,
-                thumbnailWidth + 2 * PADDING_THUMBNIAL + WIDHT_BORDER_THUMBNAIL,
-                thumbnailWidth + 2 * PADDING_THUMBNIAL + 2);
+                thumbnailWidth + 2 * PADDING_THUMBNAIL + WIDHT_BORDER_THUMBNAIL,
+                thumbnailWidth + 2 * PADDING_THUMBNAIL + WIDHT_BORDER_THUMBNAIL,
+                PADDING_THUMBNAIL * 2,
+                PADDING_THUMBNAIL * 2);
+        g.setColor(borderColor);
+        g.drawRoundRect (
+                thumbnailAreaX,
+                thumbnailAreaY,
+                thumbnailWidth + 2 * PADDING_THUMBNAIL + WIDHT_BORDER_THUMBNAIL,
+                thumbnailWidth + 2 * PADDING_THUMBNAIL + WIDHT_BORDER_THUMBNAIL,
+                PADDING_THUMBNAIL * 2,
+                PADDING_THUMBNAIL * 2);
         g.setColor(oldColor);
     }
 
@@ -805,9 +831,9 @@ public abstract class ThumbnailsPanel extends JPanel
             g.setColor(flag.getColor());
             g.fillRect(
                     thumbnailAreaX + thumbnailWidth +
-                    2 * PADDING_THUMBNIAL - FLAG_WIDTH,
+                    2 * PADDING_THUMBNAIL - FLAG_WIDTH,
                     thumbnailAreaY + thumbnailWidth +
-                    2 * PADDING_THUMBNIAL - FLAG_HEIGHT,
+                    2 * PADDING_THUMBNAIL - FLAG_HEIGHT,
                     FLAG_WIDTH,
                     FLAG_HEIGHT);
             g.setColor(oldColor);
@@ -837,8 +863,8 @@ public abstract class ThumbnailsPanel extends JPanel
         g.setColor(isSelected(index)
                    ? COLOR_TEXT_HIGHLIGHTED
                    : COLOR_TEXT);
-        g.drawString(
-                text, xText, areaY + getThumbnailAreaHeight() + FONT_HEIGHT + 4);
+        g.drawString(text, xText,
+                     areaY + getThumbnailAreaHeight() - FONT_PIXEL_DESCENT);
         g.setColor(oldColor);
     }
 
