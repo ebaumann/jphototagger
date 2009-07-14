@@ -325,20 +325,35 @@ public final class DatabaseHierarchicalKeywords extends Database {
         return exists;
     }
 
+    public enum Select {
+
+        /**
+         * Select all keywords
+         */
+        ALL_KEYWORDS,
+        /**
+         * Select (only) real keywords. Real keywords are keywords where
+         * {@link HierarchicalKeyword#isReal()} returns true or null.
+         */
+        REAL_KEYWORDS,
+    }
+
     /**
-     * Returns the names of a keyword's parents.
+     * Returns all possible parents of a keyword name.
      *
-     * @param  keywordName name of the keyword
-     * @return             names of the keyword's parents. The collection ist
-     *                     empty if the keyword has no parents. If there are
-     *                     more than one keyword with the same name , the
-     *                     collection contains a collection of every keyword's
-     *                     parents if it has parents. The keywords ordered
-     *                     by their path, the leftmost keyword is the root
-     *                     keyword.
+     * @param  keywordName Name of the keyword
+     * @param  select      Keywords to add (filter)
+     * @return             Possible keyword's parents. The collection is
+     *                     empty if the keyword has no parents. If more than one
+     *                     keyword has the same name, the collection contains a
+     *                     collection of every keyword's parents if it has
+     *                     parents. The keywords ordered by their path, the
+     *                     leftmost keyword is the root keyword.
      */
-    public Collection<Collection<String>> getParentNames(String keywordName) {
-        List<Collection<String>> paths = new ArrayList<Collection<String>>();
+    public Collection<Collection<HierarchicalKeyword>> getParents(
+            String keywordName, Select select) {
+        List<Collection<HierarchicalKeyword>> paths =
+                new ArrayList<Collection<HierarchicalKeyword>>();
         Connection connection = null;
         try {
             connection = getConnection();
@@ -352,8 +367,9 @@ public final class DatabaseHierarchicalKeywords extends Database {
             while (rs.next()) {
                 long idParent = rs.getLong(1);
                 if (idParent > 0) {
-                    List<String> path = new ArrayList<String>();
-                    addPathToRoot(path, idParent, connection);
+                    List<HierarchicalKeyword> path =
+                            new ArrayList<HierarchicalKeyword>();
+                    addPathToRoot(path, idParent, select, connection);
                     Collections.reverse(path);
                     paths.add(path);
                 }
@@ -368,14 +384,19 @@ public final class DatabaseHierarchicalKeywords extends Database {
     }
 
     private void addPathToRoot(
-            Collection<String> path, long idParent, Connection connection)
+            Collection<HierarchicalKeyword> path, long idParent, Select select,
+            Connection connection)
             throws SQLException {
         HierarchicalKeyword keyword = getKeyword(idParent, connection);
         if (keyword != null) {
-            path.add(keyword.getKeyword());
+            Boolean real = keyword.isReal() || keyword.isReal() == null;
+            if (select.equals(Select.ALL_KEYWORDS) ||
+                    select.equals(Select.REAL_KEYWORDS) && real) {
+                path.add(keyword);
+            }
             Long idNextParent = keyword.getIdParent();
             if (idNextParent != null) {
-                addPathToRoot(path, idNextParent, connection); // recursive
+                addPathToRoot(path, idNextParent, select, connection); // recursive
             }
         }
     }
