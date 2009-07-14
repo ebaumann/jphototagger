@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 <svg
+   xmlns:ns="http://creativecommons.org/ns#"
    xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:cc="http://web.resource.org/cc/"
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
@@ -10,23 +11,24 @@
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="16px"
    height="16px"
-   id="svg4449"
+   id="svg3883"
    sodipodi:version="0.32"
-   inkscape:version="0.46"
-   sodipodi:docname="icon_edit_paste.svg"
+   inkscape:version="0.45.1"
+   sodipodi:docname="icon_edit_delete.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape"
-   inkscape:export-filename="/home/elmar/projekte/ImageMetadataViewer/src/de/elmar_baumann/imv/resource/icons/icon_edit_paste.png"
+   inkscape:export-filename="/home/elmar/projekte/ImageMetadataViewer/src/de/elmar_baumann/imv/resource/icons/icon_delete.png"
    inkscape:export-xdpi="90"
-   inkscape:export-ydpi="90">
+   inkscape:export-ydpi="90"
+   sodipodi:docbase="/home/elmar/projekte/ImageMetadataViewer/src/de/elmar_baumann/imv/resource/icons">
   <defs
-     id="defs4451">
+     id="defs3885">
     <inkscape:perspective
        sodipodi:type="inkscape:persp3d"
        inkscape:vp_x="0 : 8 : 1"
        inkscape:vp_y="0 : 1000 : 0"
        inkscape:vp_z="16 : 8 : 1"
        inkscape:persp3d-origin="8 : 5.3333333 : 1"
-       id="perspective4457" />
+       id="perspective3891" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -35,57 +37,64 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="28.875"
-     inkscape:cx="-15.74026"
+     inkscape:zoom="29.375"
+     inkscape:cx="8"
      inkscape:cy="8"
      inkscape:current-layer="layer1"
      showgrid="true"
      inkscape:grid-bbox="true"
      inkscape:document-units="px"
-     inkscape:window-width="789"
+     inkscape:window-width="934"
      inkscape:window-height="675"
-     inkscape:window-x="247"
-     inkscape:window-y="155">
+     inkscape:window-x="145"
+     inkscape:window-y="98">
     <inkscape:grid
        type="xygrid"
-       id="grid4459" />
+       id="grid3893" />
   </sodipodi:namedview>
   <metadata
-     id="metadata4454">
+     id="metadata3888">
     <rdf:RDF>
-      <cc:Work
+      <ns:Work
          rdf:about="">
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
         <dc:creator>
-          <cc:Agent>
+          <ns:Agent>
             <dc:title>Elmar Baumann &lt;eb@elmar-baumann.de&gt;</dc:title>
-          </cc:Agent>
+          </ns:Agent>
         </dc:creator>
         <dc:rights>
-          <cc:Agent>
+          <ns:Agent>
             <dc:title>Elmar Baumann &lt;eb@elmar-baumann.de&gt;</dc:title>
-          </cc:Agent>
+          </ns:Agent>
         </dc:rights>
         <dc:publisher>
-          <cc:Agent>
+          <ns:Agent>
             <dc:title>Elmar Baumann &lt;eb@elmar-baumann.de&gt;</dc:title>
-          </cc:Agent>
+          </ns:Agent>
         </dc:publisher>
-        <dc:title>Paste</dc:title>
-        <dc:coverage>computer program, icon</dc:coverage>
         <dc:source>http://www.elmar-baumann.de/fotografie/tipps/computer/lightroom/imagemetadataviewer.html</dc:source>
-        <dc:identifier>de.elmar_baumann.imv.resource.icons.icon_edit_paste.svg</dc:identifier>
-        <cc:license
+        <dc:coverage>computer program, icon</dc:coverage>
+        <ns:license
            rdf:resource="http://elmar-baumann.de/fotografie/copyright.html" />
+        <dc:identifier>de.elmar_baumann.imv.resource.icons.icon_edit_delete.svg</dc:identifier>
+        <dc:title>Forbidden</dc:title>
         <dc:subject>
           <rdf:Bag>
             <rdf:li>icon</rdf:li>
-            <rdf:li>paste</rdf:li>
+            <rdf:li>forbidden</rdf:li>
+            <rdf:li>stop</rdf:li>
           </rdf:Bag>
         </dc:subject>
         <dc:date>2008-11-06</dc:date>
+      </ns:Work>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -94,15 +103,12 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer">
     <path
-       style="opacity:1;fill:none;fill-opacity:1;fill-rule:nonzero;stroke:#555555;stroke-width:2;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:0;stroke-dasharray:none;stroke-opacity:1"
-       d="M 1.3514852,5.4133662 L 1.3514852,14.648515 L 14.731188,14.648515 L 14.731188,5.5034653"
-       id="path4463" />
-    <rect
-       style="opacity:1;fill:#888888;fill-opacity:1;fill-rule:nonzero;stroke:#888888;stroke-width:1.92138314;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       id="rect4974"
-       width="8.1436768"
-       height="7.8280144"
-       x="4.0016556"
-       y="1.9606916" />
+       style="opacity:1;fill:none;fill-opacity:1;fill-rule:nonzero;stroke:#ff0000;stroke-width:2.39171767;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:0;stroke-dasharray:none;stroke-opacity:1"
+       d="M 3.1958587,3.1958589 L 12.804141,12.804141"
+       id="path4406" />
+    <path
+       style="opacity:1;fill:none;fill-opacity:1;fill-rule:nonzero;stroke:#ff0000;stroke-width:2.39171767;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:0;stroke-dasharray:none;stroke-opacity:1"
+       d="M 12.804141,3.195859 L 3.1958589,12.804141"
+       id="path3132" />
   </g>
 </svg>

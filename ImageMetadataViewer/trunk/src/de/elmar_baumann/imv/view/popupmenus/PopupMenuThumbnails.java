@@ -277,7 +277,7 @@ public final class PopupMenuThumbnails extends JPopupMenu
         itemFileSystemCopyToDirectory.setIcon(
                 AppIcons.getIcon("icon_copy_to_folder.png")); // NOI18N
         itemFileSystemDeleteFiles.setIcon(
-                AppIcons.getIcon("icon_edit_delete.png")); // NOI18N
+                AppIcons.getIcon("icon_delete.png")); // NOI18N
         itemFileSystemMoveFiles.setIcon(
                 AppIcons.getIcon("icon_move_to_folder.png")); // NOI18N
         itemFileSystemRenameFiles.setIcon(
