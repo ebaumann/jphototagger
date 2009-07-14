@@ -1,5 +1,6 @@
 package de.elmar_baumann.imv.controller.hierarchicalkeywords;
 
+import de.elmar_baumann.imv.data.HierarchicalKeyword;
 import de.elmar_baumann.imv.database.DatabaseHierarchicalKeywords;
 import de.elmar_baumann.imv.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.imv.resource.Bundle;
@@ -27,18 +28,20 @@ public class TextModifierHierarchicalKeywords implements TextModifyer {
     @SuppressWarnings("unchecked")
     public String modify(String text, Collection<String> ignoreWords) {
         StringTokenizer strToken = new StringTokenizer(text, DELIM);
-        List<String> keywords = new ArrayList<String>();
+        List<String> keywordNames = new ArrayList<String>();
         while (strToken.hasMoreTokens()) {
             String keywordName = strToken.nextToken();
-            Collection parentKeywords =
-                    DatabaseHierarchicalKeywords.INSTANCE.getParentNames(
-                    keywordName);
-            keywords.add(keywordName);
+            Collection<Collection<HierarchicalKeyword>> parentKeywords =
+                    DatabaseHierarchicalKeywords.INSTANCE.getParents(
+                    keywordName,
+                    DatabaseHierarchicalKeywords.Select.REAL_KEYWORDS);
+            keywordNames.add(keywordName);
             if (!ignoreWords.contains(keywordName)) {
-                keywords.addAll(selectPaths(keywordName, parentKeywords));
+                keywordNames.addAll(selectPaths(
+                        keywordName, toStringCollection(parentKeywords)));
             }
         }
-        return toKeywordString(new HashSet<String>(keywords)); // make them unique
+        return toKeywordString(new HashSet<String>(keywordNames)); // make them unique
     }
 
     private String toKeywordString(Collection<String> collection) {
@@ -52,11 +55,27 @@ public class TextModifierHierarchicalKeywords implements TextModifyer {
         return sb.toString();
     }
 
+    private Collection<Collection<String>> toStringCollection(
+            Collection<Collection<HierarchicalKeyword>> keywordCollection) {
+        List<Collection<String>> strings = new ArrayList<Collection<String>>();
+        for (Collection<HierarchicalKeyword> keywords : keywordCollection) {
+            List<String> keywordStrings = new ArrayList<String>(keywords.size());
+            for (HierarchicalKeyword keyword : keywords) {
+                keywordStrings.add(keyword.getKeyword());
+            }
+            strings.add(keywordStrings);
+        }
+        return strings;
+
+    }
+
     private Collection<String> selectPaths(
-            String keywordName, Collection<Collection<String>> parentKeywords) {
+            String keywordName,
+            Collection<Collection<String>> parentKeywords) {
         List<String> keywords = new ArrayList<String>();
         if (parentKeywords.size() > 0) {
-            PathSelectionDialog dlg = new PathSelectionDialog(parentKeywords);
+            PathSelectionDialog dlg = new PathSelectionDialog(
+                    parentKeywords, PathSelectionDialog.Mode.DISTINCT_ELEMENTS);
             dlg.setInfoMessage(Bundle.getString(
                     "TextModifierHierarchicalKeywords.Info", // NOI18N
                     keywordName));
@@ -73,5 +92,10 @@ public class TextModifierHierarchicalKeywords implements TextModifyer {
         for (Collection<String> collection : parentKeywords) {
             keywords.addAll(collection);
         }
+    }
+
+    @Override
+    public String getDescription() {
+        return Bundle.getString("TextModifierHierarchicalKeywords.Description");
     }
 }

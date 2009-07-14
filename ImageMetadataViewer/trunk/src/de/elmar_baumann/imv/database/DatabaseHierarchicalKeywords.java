@@ -12,6 +12,12 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+// Handling null:
+// ID: Can never be null
+// ID parent: Can be null, must be handle when setting and getting
+// Keyword: Can never be null
+// Real: Can be null but it's ok to use false when reading and writing if null
+
 /**
  * Contains hierarchical keywords.
  *
@@ -44,9 +50,10 @@ public final class DatabaseHierarchicalKeywords extends Database {
             ResultSet rs = stmt.executeQuery(sql);
             AppLog.logFinest(DatabaseHierarchicalKeywords.class, sql);
             while (rs.next()) {
-                keywords.add(new HierarchicalKeyword(
-                        rs.getLong(1), rs.getLong(2), rs.getString(3), rs.
-                        getBoolean(4)));
+                Long idParent = rs.getLong(2);
+                if (rs.wasNull()) idParent = null;
+                keywords.add(new HierarchicalKeyword(rs.getLong(1), idParent,
+                        rs.getString(3), rs.getBoolean(4)));
             }
             stmt.close();
         } catch (Exception ex) {
@@ -196,8 +203,10 @@ public final class DatabaseHierarchicalKeywords extends Database {
         AppLog.logFinest(DatabaseHierarchicalKeywords.class, stmt.toString());
         ResultSet rs = stmt.executeQuery();
         if (rs.next()) {
-            keyword = new HierarchicalKeyword(rs.getLong(1), rs.getLong(2),
-                    rs.getString(3), rs.getBoolean(4));
+            Long idParent = rs.getLong(2);
+            if (rs.wasNull()) idParent = null;
+            keyword = new HierarchicalKeyword(
+                    rs.getLong(1), idParent, rs.getString(3), rs.getBoolean(4));
         }
         stmt.close();
         return keyword;
@@ -225,8 +234,10 @@ public final class DatabaseHierarchicalKeywords extends Database {
             AppLog.logFinest(DatabaseHierarchicalKeywords.class, stmt.toString());
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                children.add(new HierarchicalKeyword(rs.getLong(1),
-                        rs.getLong(2), rs.getString(3), rs.getBoolean(4)));
+                Long idPar = rs.getLong(2);
+                if (rs.wasNull()) idPar = null;
+                children.add(new HierarchicalKeyword(
+                        rs.getLong(1), idPar, rs.getString(3), rs.getBoolean(4)));
             }
             stmt.close();
         } catch (Exception ex) {
@@ -256,8 +267,10 @@ public final class DatabaseHierarchicalKeywords extends Database {
             AppLog.logFinest(DatabaseHierarchicalKeywords.class, stmt.toString());
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                children.add(new HierarchicalKeyword(rs.getLong(1),
-                        rs.getLong(2), rs.getString(3), rs.getBoolean(4)));
+                Long idParent = rs.getLong(2);
+                if (rs.wasNull()) idParent = null;
+                children.add(new HierarchicalKeyword(rs.getLong(1), idParent,
+                        rs.getString(3), rs.getBoolean(4)));
             }
             stmt.close();
         } catch (Exception ex) {
@@ -366,7 +379,7 @@ public final class DatabaseHierarchicalKeywords extends Database {
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 long idParent = rs.getLong(1);
-                if (idParent > 0) {
+                if (!rs.wasNull()) {
                     List<HierarchicalKeyword> path =
                             new ArrayList<HierarchicalKeyword>();
                     addPathToRoot(path, idParent, select, connection);

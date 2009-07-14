@@ -94,6 +94,10 @@ public final class EditRepeatableTextEntryPanel extends javax.swing.JPanel
 
     public void setTextModifier(TextModifyer textModifier) {
         this.textModifier = textModifier;
+        buttonTextModifier.setEnabled(editable && textModifier != null);
+        buttonTextModifier.setToolTipText(textModifier == null
+                                          ? "" // NOI18N
+                                          : textModifier.getDescription());
     }
 
     @Override
@@ -174,6 +178,7 @@ public final class EditRepeatableTextEntryPanel extends javax.swing.JPanel
         textFieldInput.setEditable(editable);
         buttonAddInput.setEnabled(editable);
         buttonRemoveSelection.setEnabled(editable);
+        buttonTextModifier.setEnabled(editable && textModifier != null);
         list.setBackground(editable
                            ? textFieldInput.getBackground()
                            : getBackground());
@@ -230,12 +235,17 @@ public final class EditRepeatableTextEntryPanel extends javax.swing.JPanel
 
     private void modifyText(java.awt.event.KeyEvent evt) {
         if (textModifier != null && KeyEventUtil.isControl(evt, KeyEvent.VK_K)) {
-            String prevText = textFieldInput.getText();
-            String modifiedText =
-                    textModifier.modify(prevText, new ArrayList<String>());
-            if (!prevText.equalsIgnoreCase(modifiedText)) {
-                addTokenToInput(modifiedText);
-            }
+            modifyText();
+        }
+    }
+
+    private void modifyText() {
+        String prevText = textFieldInput.getText();
+        String modifiedText =
+                textModifier.modify(prevText, new ArrayList<String>());
+        if (!modifiedText.isEmpty() &&
+                !prevText.equalsIgnoreCase(modifiedText)) {
+            addTokenToInput(modifiedText);
         }
     }
 
@@ -272,6 +282,7 @@ public final class EditRepeatableTextEntryPanel extends javax.swing.JPanel
         panelButtons = new javax.swing.JPanel();
         buttonRemoveSelection = new javax.swing.JButton();
         buttonAddInput = new javax.swing.JButton();
+        buttonTextModifier = new javax.swing.JButton();
 
         setLayout(new java.awt.GridBagLayout());
 
@@ -326,7 +337,7 @@ public final class EditRepeatableTextEntryPanel extends javax.swing.JPanel
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         add(textFieldInput, gridBagConstraints);
 
-        panelButtons.setLayout(new java.awt.GridLayout(2, 1));
+        panelButtons.setLayout(new java.awt.GridLayout(3, 1));
 
         buttonRemoveSelection.setText(Bundle.getString("EditRepeatableTextEntryPanel.buttonRemoveSelection.text")); // NOI18N
         buttonRemoveSelection.setToolTipText(Bundle.getString("EditRepeatableTextEntryPanel.buttonRemoveSelection.toolTipText")); // NOI18N
@@ -347,6 +358,17 @@ public final class EditRepeatableTextEntryPanel extends javax.swing.JPanel
             }
         });
         panelButtons.add(buttonAddInput);
+
+        buttonTextModifier.setMnemonic('k');
+        buttonTextModifier.setText(Bundle.getString("EditRepeatableTextEntryPanel.buttonTextModifier.text")); // NOI18N
+        buttonTextModifier.setEnabled(false);
+        buttonTextModifier.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        buttonTextModifier.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonTextModifierActionPerformed(evt);
+            }
+        });
+        panelButtons.add(buttonTextModifier);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -384,9 +406,14 @@ private void listKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_list
 private void textFieldInputKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldInputKeyPressed
     modifyText(evt);
 }//GEN-LAST:event_textFieldInputKeyPressed
+
+private void buttonTextModifierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTextModifierActionPerformed
+    modifyText();
+}//GEN-LAST:event_buttonTextModifierActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAddInput;
     private javax.swing.JButton buttonRemoveSelection;
+    private javax.swing.JButton buttonTextModifier;
     private javax.swing.JLabel labelPrompt;
     private javax.swing.JList list;
     private javax.swing.JPanel panelButtons;

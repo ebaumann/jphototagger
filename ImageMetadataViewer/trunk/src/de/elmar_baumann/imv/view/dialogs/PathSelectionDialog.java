@@ -7,12 +7,15 @@ import de.elmar_baumann.lib.dialog.Dialog;
 import java.awt.Component;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
 import javax.swing.Icon;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 /**
  * Modal dialog to select a path.
@@ -20,15 +23,24 @@ import javax.swing.JList;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009/07/12
  */
-public class PathSelectionDialog extends Dialog {
+public class PathSelectionDialog extends Dialog implements ListSelectionListener {
 
     private boolean accepted;
     private final Collection<Collection<String>> paths;
     private Collection<Collection<String>> selPaths;
+    private final Mode mode;
 
-    public PathSelectionDialog(Collection<Collection<String>> paths) {
+    public enum Mode {
+
+        PATHS,
+        DISTINCT_ELEMENTS,
+    }
+
+    public PathSelectionDialog(Collection<Collection<String>> paths, Mode mode) {
         super((java.awt.Frame) null, true);
         this.paths = paths;
+        this.mode = mode;
+        assert paths != null : "paths == null!";
         initComponents();
         postInitComponents();
     }
@@ -37,6 +49,11 @@ public class PathSelectionDialog extends Dialog {
         setIconImages(AppIcons.getAppIcons());
         setHelpContentsUrl(Bundle.getString("Help.Url.Contents")); // NOI18N
         registerKeyStrokes();
+        list.addListSelectionListener(this);
+        if (mode.equals(Mode.DISTINCT_ELEMENTS)) {
+            list.setLayoutOrientation(javax.swing.JList.HORIZONTAL_WRAP);
+            list.setVisibleRowCount(-1);
+        }
     }
 
     private void readProperties() {
@@ -70,19 +87,20 @@ public class PathSelectionDialog extends Dialog {
         super.setVisible(visible);
     }
 
-    private void handleSelectNothing() {
+    private void handleButtonSelectNothingActionPerformed() {
+        selPaths = new ArrayList<Collection<String>>();
         accepted = false;
         setVisible(false);
     }
 
-    private void handleSelectAll() {
+    private void handleButtonSelectAllActionPerformed() {
         accepted = true;
-        selPaths = paths;
+        selPaths = new ArrayList<Collection<String>>(paths);
         setVisible(false);
     }
 
     @SuppressWarnings("unchecked")
-    private void handleSelectSelected() {
+    private void handleButtonSelectSelectedActionPerformed() {
         accepted = true;
         List<Collection<String>> sel = new ArrayList<Collection<String>>();
         Object[] selValues = list.getSelectedValues();
@@ -90,21 +108,44 @@ public class PathSelectionDialog extends Dialog {
             if (selValue instanceof Collection) {
                 Collection collection = (Collection) selValue;
                 sel.add(collection);
+            } else if (selValue instanceof String) {
+                Collection<String> collection =
+                        Collections.singletonList((String) selValue);
+                sel.add(collection);
             }
         }
         selPaths = sel;
         setVisible(false);
     }
 
+    @Override
+    public void valueChanged(ListSelectionEvent e) {
+        if (!e.getValueIsAdjusting()) {
+            buttonSelectSelected.setEnabled(list.getSelectedIndex() >= 0);
+        }
+    }
+
     private class Model extends DefaultListModel {
 
         public Model() {
-            addPaths();
+            if (mode.equals(Mode.DISTINCT_ELEMENTS)) {
+                addDistinctElements();
+            } else {
+                addPaths();
+            }
         }
 
         private void addPaths() {
             for (Collection path : paths) {
                 addElement(path);
+            }
+        }
+
+        private void addDistinctElements() {
+            for (Collection<String> path : paths) {
+                for (String element : path) {
+                    addElement(element);
+                }
             }
         }
     }
@@ -119,20 +160,26 @@ public class PathSelectionDialog extends Dialog {
             JLabel label = (JLabel) super.getListCellRendererComponent(
                     list, value, index, isSelected, cellHasFocus);
             if (value instanceof Collection) {
-                Collection collection = (Collection) value;
-                StringBuilder sb = new StringBuilder();
-                String pathDelim = " > "; // NOI18N
-                int i = 0;
-                for (Object element : collection) {
-                    sb.append((i++ == 0
-                               ? "" // NOI18N
-                               : pathDelim) +
-                            element.toString());
-                }
-                label.setText(sb.toString());
-                label.setIcon(ICON);
+                renderCollection(value, label);
+            } else if (value instanceof String) {
+                String padding = "  ";
+                label.setText((String) value + padding);
             }
+            label.setIcon(ICON);
             return label;
+        }
+
+        private void renderCollection(Object value, JLabel label) {
+            Collection collection = (Collection) value;
+            StringBuilder sb = new StringBuilder();
+            String pathDelim = " > "; // NOI18N
+            int i = 0;
+            for (Object element : collection) {
+                sb.append((i++ == 0
+                           ? ""
+                           : pathDelim) + element.toString());
+            }
+            label.setText(sb.toString());
         }
     }
 
@@ -152,13 +199,18 @@ public class PathSelectionDialog extends Dialog {
         buttonSelectAll = new javax.swing.JButton();
         buttonSelectSelected = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle(Bundle.getString("PathSelectionDialog.title")); // NOI18N
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         list.setModel(new Model());
         list.setCellRenderer(new Renderer());
         scrollPane.setViewportView(list);
 
+        buttonSelectNothing.setMnemonic('n');
         buttonSelectNothing.setText(Bundle.getString("PathSelectionDialog.buttonSelectNothing.text")); // NOI18N
         buttonSelectNothing.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -166,6 +218,7 @@ public class PathSelectionDialog extends Dialog {
             }
         });
 
+        buttonSelectAll.setMnemonic('a');
         buttonSelectAll.setText(Bundle.getString("PathSelectionDialog.buttonSelectAll.text")); // NOI18N
         buttonSelectAll.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -173,7 +226,9 @@ public class PathSelectionDialog extends Dialog {
             }
         });
 
+        buttonSelectSelected.setMnemonic('s');
         buttonSelectSelected.setText(Bundle.getString("PathSelectionDialog.buttonSelectSelected.text")); // NOI18N
+        buttonSelectSelected.setEnabled(false);
         buttonSelectSelected.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonSelectSelectedActionPerformed(evt);
@@ -209,23 +264,27 @@ public class PathSelectionDialog extends Dialog {
                     .addComponent(buttonSelectSelected)
                     .addComponent(buttonSelectAll)
                     .addComponent(buttonSelectNothing))
-                .addGap(11, 11, 11))
+                .addGap(12, 12, 12))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonSelectNothingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSelectNothingActionPerformed
-        handleSelectNothing();
+        handleButtonSelectNothingActionPerformed();
     }//GEN-LAST:event_buttonSelectNothingActionPerformed
 
     private void buttonSelectAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSelectAllActionPerformed
-        handleSelectAll();
+        handleButtonSelectAllActionPerformed();
     }//GEN-LAST:event_buttonSelectAllActionPerformed
 
     private void buttonSelectSelectedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSelectSelectedActionPerformed
-        handleSelectSelected();
+        handleButtonSelectSelectedActionPerformed();
     }//GEN-LAST:event_buttonSelectSelectedActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        setVisible(false); // writes properties
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments
@@ -237,7 +296,7 @@ public class PathSelectionDialog extends Dialog {
             public void run() {
                 @SuppressWarnings("unchecked")
                 PathSelectionDialog dialog = new PathSelectionDialog(
-                        new ArrayList(new ArrayList<String>()));
+                        new ArrayList(new ArrayList<String>()), Mode.PATHS);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
 
                     @Override

@@ -1,10 +1,8 @@
 package de.elmar_baumann.imv.controller.hierarchicalkeywords;
 
-import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.app.MessageDisplayer;
 import de.elmar_baumann.imv.data.HierarchicalKeyword;
-import de.elmar_baumann.imv.model.TreeModelHierarchicalKeywords;
-import de.elmar_baumann.imv.resource.Bundle;
+import de.elmar_baumann.imv.database.DatabaseHierarchicalKeywords;
 import de.elmar_baumann.imv.view.dialogs.HierarchicalKeywordsDialog;
 import de.elmar_baumann.imv.view.panels.HierarchicalKeywordsPanel;
 import de.elmar_baumann.lib.event.util.KeyEventUtil;
@@ -14,8 +12,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
+
 /**
  * Listens to the menu item {@link HierarchicalKeywordsPanel#getMenuItemToggleReal()}
  * and toggles the real property of a keyword.
@@ -44,7 +42,7 @@ public class ControllerToggleRealHierarchicalKeyword
             toggleReal();
         }
     }
-    
+
     @Override
     public void actionPerformed(ActionEvent e) {
         toggleReal();
@@ -64,25 +62,14 @@ public class ControllerToggleRealHierarchicalKeyword
                 Object userObject = keywordNode.getUserObject();
                 if (userObject instanceof HierarchicalKeyword) {
                     HierarchicalKeyword hk = (HierarchicalKeyword) userObject;
-                    hk.setReal(! hk.isReal());
+                    hk.setReal(!hk.isReal());
+                    DatabaseHierarchicalKeywords.INSTANCE.update(hk);
                 } else {
                     MessageDisplayer.error(
                             "ControllerToggleRealHierarchicalKeyword.Error.Node",
                             node);
                 }
             }
-        }
-    }
-
-    private void toggleReal(DefaultMutableTreeNode node,
-                            HierarchicalKeyword keyword) {
-        TreeModel tm = panel.getTree().getModel();
-        if (tm instanceof TreeModelHierarchicalKeywords) {
-             keyword.setReal(! keyword.isReal());
-        } else {
-            AppLog.logWarning(ControllerToggleRealHierarchicalKeyword.class,
-                    Bundle.getString(
-                    "ControllerToggleRealHierarchicalKeyword.Error.Model"));
         }
     }
 

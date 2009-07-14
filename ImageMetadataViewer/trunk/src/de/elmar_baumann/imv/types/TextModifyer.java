@@ -19,4 +19,11 @@ public interface TextModifyer {
      * @return modified text
      */
     public String modify(String text, Collection<String> ignoreWords);
+
+    /**
+     * Returns a (short) description what the modifier does modify.
+     *
+     * @return description
+     */
+    public String getDescription();
 }
