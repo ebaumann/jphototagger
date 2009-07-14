@@ -49,7 +49,7 @@ public final class DatabaseFileExcludePattern extends Database {
             stmt.close();
             inserted = count > 0;
         } catch (SQLException ex) {
-            AppLog.logWarning(DatabaseFileExcludePattern.class, ex);
+            AppLog.logSevere(DatabaseFileExcludePattern.class, ex);
         } finally {
             free(connection);
         }
@@ -77,7 +77,7 @@ public final class DatabaseFileExcludePattern extends Database {
             stmt.close();
             deleted = count > 0;
         } catch (SQLException ex) {
-            AppLog.logWarning(DatabaseFileExcludePattern.class, ex);
+            AppLog.logSevere(DatabaseFileExcludePattern.class, ex);
         } finally {
             free(connection);
         }
@@ -106,7 +106,7 @@ public final class DatabaseFileExcludePattern extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logWarning(DatabaseFileExcludePattern.class, ex);
+            AppLog.logSevere(DatabaseFileExcludePattern.class, ex);
         } finally {
             free(connection);
         }
@@ -132,7 +132,7 @@ public final class DatabaseFileExcludePattern extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logWarning(DatabaseFileExcludePattern.class, ex);
+            AppLog.logSevere(DatabaseFileExcludePattern.class, ex);
         } finally {
             free(connection);
         }
@@ -198,10 +198,10 @@ public final class DatabaseFileExcludePattern extends Database {
             updateStmt.close();
             notifyProgressListenerEnd(listener, event);
         } catch (SQLException ex) {
-            AppLog.logWarning(DatabaseFileExcludePattern.class, ex);
+            AppLog.logSevere(DatabaseFileExcludePattern.class, ex);
         } catch (Exception ex) {
             // regular expression exceptions are possible
-            AppLog.logWarning(DatabaseFileExcludePattern.class, ex);
+            AppLog.logSevere(DatabaseFileExcludePattern.class, ex);
         } finally {
             free(connection);
         }

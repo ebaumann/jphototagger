@@ -46,7 +46,7 @@ public final class DatabaseAutoscanDirectories extends Database {
                 inserted = count > 0;
                 stmt.close();
             } catch (SQLException ex) {
-                AppLog.logWarning(DatabaseAutoscanDirectories.class, ex);
+                AppLog.logSevere(DatabaseAutoscanDirectories.class, ex);
             } finally {
                 free(connection);
             }
@@ -80,7 +80,7 @@ public final class DatabaseAutoscanDirectories extends Database {
             connection.commit();
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logWarning(DatabaseAutoscanDirectories.class, ex);
+            AppLog.logSevere(DatabaseAutoscanDirectories.class, ex);
             rollback(connection);
         } finally {
             free(connection);
@@ -109,7 +109,7 @@ public final class DatabaseAutoscanDirectories extends Database {
             deleted = count > 0;
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logWarning(DatabaseAutoscanDirectories.class, ex);
+            AppLog.logSevere(DatabaseAutoscanDirectories.class, ex);
         } finally {
             free(connection);
         }
@@ -139,7 +139,7 @@ public final class DatabaseAutoscanDirectories extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logWarning(DatabaseAutoscanDirectories.class, ex);
+            AppLog.logSevere(DatabaseAutoscanDirectories.class, ex);
         } finally {
             free(connection);
         }
@@ -165,7 +165,7 @@ public final class DatabaseAutoscanDirectories extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logWarning(DatabaseAutoscanDirectories.class, ex);
+            AppLog.logSevere(DatabaseAutoscanDirectories.class, ex);
             directories.clear();
         } finally {
             free(connection);

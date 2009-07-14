@@ -78,7 +78,7 @@ final class UpdateTablesThumbnails extends Database {
                 Image thumbnail = icon.getImage();
                 ThumbnailUtil.writeThumbnail(thumbnail, id);
             } catch (IOException ex) {
-                AppLog.logWarning(UpdateTablesThumbnails.class, ex);
+                AppLog.logSevere(UpdateTablesThumbnails.class, ex);
             }
         }
     }

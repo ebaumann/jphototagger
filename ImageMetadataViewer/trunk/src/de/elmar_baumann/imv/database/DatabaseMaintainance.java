@@ -106,7 +106,7 @@ public final class DatabaseMaintainance extends Database {
                 free(connection);
             }
         } catch (Exception ex) {
-            AppLog.logWarning(DatabaseMaintainance.class, ex);
+            AppLog.logSevere(DatabaseMaintainance.class, ex);
         }
         listener.progressEnded(progressEvent);
         return delCount;
@@ -116,7 +116,7 @@ public final class DatabaseMaintainance extends Database {
         try {
             return Long.valueOf(thumbnailFile.getName());
         } catch (Exception ex) {
-            AppLog.logWarning(DatabaseMaintainance.class, ex);
+            AppLog.logSevere(DatabaseMaintainance.class, ex);
         }
         return -1;
     }
@@ -170,7 +170,7 @@ public final class DatabaseMaintainance extends Database {
             connection.commit();
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logWarning(DatabaseImageFiles.class, ex);
+            AppLog.logSevere(DatabaseImageFiles.class, ex);
             rollback(connection);
         } finally {
             free(connection);

@@ -54,7 +54,7 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
             connection.commit();
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logWarning(DatabaseActionsAfterDbInsertion.class, ex);
+            AppLog.logSevere(DatabaseActionsAfterDbInsertion.class, ex);
             rollback(connection);
         } finally {
             free(connection);
@@ -83,7 +83,7 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
             connection.commit();
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logWarning(DatabaseActionsAfterDbInsertion.class, ex);
+            AppLog.logSevere(DatabaseActionsAfterDbInsertion.class, ex);
             rollback(connection);
         } finally {
             free(connection);
@@ -122,7 +122,7 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logWarning(DatabaseActionsAfterDbInsertion.class, ex);
+            AppLog.logSevere(DatabaseActionsAfterDbInsertion.class, ex);
         } finally {
             free(connection);
         }
@@ -151,7 +151,7 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logWarning(DatabaseAutoscanDirectories.class, ex);
+            AppLog.logSevere(DatabaseAutoscanDirectories.class, ex);
         } finally {
             free(connection);
         }
@@ -190,7 +190,7 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
             allReordered = countAffected == actions.size();
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logWarning(DatabaseActionsAfterDbInsertion.class, ex);
+            AppLog.logSevere(DatabaseActionsAfterDbInsertion.class, ex);
             rollback(connection);
         } finally {
             free(connection);

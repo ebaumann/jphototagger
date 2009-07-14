@@ -55,7 +55,7 @@ public final class DatabaseFavoriteDirectories extends Database {
             inserted = count > 0;
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logWarning(DatabaseFavoriteDirectories.class, ex);
+            AppLog.logSevere(DatabaseFavoriteDirectories.class, ex);
             rollback(connection);
         } finally {
             free(connection);
@@ -84,7 +84,7 @@ public final class DatabaseFavoriteDirectories extends Database {
             deleted = count > 0;
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logWarning(DatabaseFavoriteDirectories.class, ex);
+            AppLog.logSevere(DatabaseFavoriteDirectories.class, ex);
             rollback(connection);
         } finally {
             free(connection);
@@ -122,7 +122,7 @@ public final class DatabaseFavoriteDirectories extends Database {
             updated = count > 0;
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logWarning(DatabaseFavoriteDirectories.class, ex);
+            AppLog.logSevere(DatabaseFavoriteDirectories.class, ex);
             rollback(connection);
         } finally {
             free(connection);
@@ -154,7 +154,7 @@ public final class DatabaseFavoriteDirectories extends Database {
             stmt.close();
         } catch (SQLException ex) {
             directories.clear();
-            AppLog.logWarning(DatabaseFavoriteDirectories.class, ex);
+            AppLog.logSevere(DatabaseFavoriteDirectories.class, ex);
         } finally {
             free(connection);
         }
@@ -185,7 +185,7 @@ public final class DatabaseFavoriteDirectories extends Database {
             stmt.close();
             exists = count > 0;
         } catch (SQLException ex) {
-            AppLog.logWarning(DatabaseFavoriteDirectories.class, ex);
+            AppLog.logSevere(DatabaseFavoriteDirectories.class, ex);
         } finally {
             free(connection);
         }

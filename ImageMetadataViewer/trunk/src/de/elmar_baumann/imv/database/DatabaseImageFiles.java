@@ -85,7 +85,7 @@ public final class DatabaseImageFiles extends Database {
             count = stmt.executeUpdate();
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logWarning(DatabaseImageFiles.class, ex);
+            AppLog.logSevere(DatabaseImageFiles.class, ex);
         } finally {
             free(connection);
         }
@@ -117,7 +117,7 @@ public final class DatabaseImageFiles extends Database {
             countDeleted = stmt.executeUpdate();
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logWarning(DatabaseImageFiles.class, ex);
+            AppLog.logSevere(DatabaseImageFiles.class, ex);
         }
         return countDeleted;
     }
@@ -181,7 +181,7 @@ public final class DatabaseImageFiles extends Database {
                     DatabaseImageEvent.Type.IMAGEFILE_INSERTED, imageFile);
             preparedStatement.close();
         } catch (SQLException ex) {
-            AppLog.logWarning(DatabaseImageFiles.class, ex);
+            AppLog.logSevere(DatabaseImageFiles.class, ex);
             rollback(connection);
         } finally {
             free(connection);
@@ -260,7 +260,7 @@ public final class DatabaseImageFiles extends Database {
             notifyDatabaseListener(DatabaseImageEvent.Type.IMAGEFILE_UPDATED,
                     oldImageFile, imageFile);
         } catch (SQLException ex) {
-            AppLog.logWarning(DatabaseImageFiles.class, ex);
+            AppLog.logSevere(DatabaseImageFiles.class, ex);
             rollback(connection);
         } finally {
             free(connection);
@@ -301,7 +301,7 @@ public final class DatabaseImageFiles extends Database {
             stmt.close();
             notifyProgressListenerEnd(listener, event);
         } catch (SQLException ex) {
-            AppLog.logWarning(DatabaseImageFiles.class, ex);
+            AppLog.logSevere(DatabaseImageFiles.class, ex);
         } finally {
             free(connection);
         }
@@ -338,7 +338,7 @@ public final class DatabaseImageFiles extends Database {
             updateThumbnail(idFile, thumbnail);
             return true;
         } catch (SQLException ex) {
-            AppLog.logWarning(DatabaseImageFiles.class, ex);
+            AppLog.logSevere(DatabaseImageFiles.class, ex);
         } finally {
             free(connection);
         }
@@ -373,7 +373,7 @@ public final class DatabaseImageFiles extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logWarning(DatabaseImageFiles.class, ex);
+            AppLog.logSevere(DatabaseImageFiles.class, ex);
         } finally {
             free(connection);
         }
@@ -401,7 +401,7 @@ public final class DatabaseImageFiles extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logWarning(DatabaseImageFiles.class, ex);
+            AppLog.logSevere(DatabaseImageFiles.class, ex);
         } finally {
             free(connection);
         }
@@ -429,7 +429,7 @@ public final class DatabaseImageFiles extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logWarning(DatabaseImageFiles.class, ex);
+            AppLog.logSevere(DatabaseImageFiles.class, ex);
             thumbnail = null;
         } finally {
             free(connection);
@@ -470,7 +470,7 @@ public final class DatabaseImageFiles extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logWarning(DatabaseImageFiles.class, ex);
+            AppLog.logSevere(DatabaseImageFiles.class, ex);
         } finally {
             free(connection);
         }
@@ -526,7 +526,7 @@ public final class DatabaseImageFiles extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logWarning(DatabaseImageFiles.class, ex);
+            AppLog.logSevere(DatabaseImageFiles.class, ex);
         } finally {
             free(connection);
         }
@@ -573,7 +573,7 @@ public final class DatabaseImageFiles extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logWarning(DatabaseImageFiles.class, ex);
+            AppLog.logSevere(DatabaseImageFiles.class, ex);
         } finally {
             free(connection);
         }
@@ -601,7 +601,7 @@ public final class DatabaseImageFiles extends Database {
             set = count > 0;
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logWarning(DatabaseImageFiles.class, ex);
+            AppLog.logSevere(DatabaseImageFiles.class, ex);
         } finally {
             free(connection);
         }
@@ -766,7 +766,7 @@ public final class DatabaseImageFiles extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logWarning(DatabaseImageFiles.class, ex);
+            AppLog.logSevere(DatabaseImageFiles.class, ex);
         } finally {
             free(connection);
         }
@@ -788,7 +788,7 @@ public final class DatabaseImageFiles extends Database {
             count = stmt.executeUpdate();
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logWarning(DatabaseImageFiles.class, ex);
+            AppLog.logSevere(DatabaseImageFiles.class, ex);
         }
         return count;
     }
@@ -869,7 +869,7 @@ public final class DatabaseImageFiles extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logWarning(DatabaseImageFiles.class, ex);
+            AppLog.logSevere(DatabaseImageFiles.class, ex);
         } finally {
             free(connection);
         }
@@ -948,7 +948,7 @@ public final class DatabaseImageFiles extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logWarning(DatabaseImageFiles.class, ex);
+            AppLog.logSevere(DatabaseImageFiles.class, ex);
             rollback(connection);
         } finally {
             free(connection);
@@ -994,7 +994,7 @@ public final class DatabaseImageFiles extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logWarning(DatabaseImageFiles.class, ex);
+            AppLog.logSevere(DatabaseImageFiles.class, ex);
         } finally {
             free(connection);
         }
@@ -1033,7 +1033,7 @@ public final class DatabaseImageFiles extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logWarning(DatabaseImageFiles.class, ex);
+            AppLog.logSevere(DatabaseImageFiles.class, ex);
         } finally {
             free(connection);
         }
@@ -1072,7 +1072,7 @@ public final class DatabaseImageFiles extends Database {
             stmt.close();
             exists = count > 0;
         } catch (SQLException ex) {
-            AppLog.logWarning(DatabaseImageFiles.class, ex);
+            AppLog.logSevere(DatabaseImageFiles.class, ex);
         } finally {
             free(connection);
         }
@@ -1099,7 +1099,7 @@ public final class DatabaseImageFiles extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logWarning(DatabaseImageFiles.class, ex);
+            AppLog.logSevere(DatabaseImageFiles.class, ex);
         } finally {
             free(connection);
         }
@@ -1132,7 +1132,7 @@ public final class DatabaseImageFiles extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logWarning(DatabaseImageFiles.class, ex);
+            AppLog.logSevere(DatabaseImageFiles.class, ex);
         } finally {
             free(connection);
         }
@@ -1247,7 +1247,7 @@ public final class DatabaseImageFiles extends Database {
             stmt.close();
             timeline.addUnknownNode();
         } catch (SQLException ex) {
-            AppLog.logWarning(DatabaseImageFiles.class, ex);
+            AppLog.logSevere(DatabaseImageFiles.class, ex);
         } finally {
             free(connection);
         }
@@ -1292,7 +1292,7 @@ public final class DatabaseImageFiles extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logWarning(DatabaseImageFiles.class, ex);
+            AppLog.logSevere(DatabaseImageFiles.class, ex);
         } finally {
             free(connection);
         }
@@ -1330,7 +1330,7 @@ public final class DatabaseImageFiles extends Database {
             stmt.close();
             addFilesWithoutExif(files, connection);
         } catch (SQLException ex) {
-            AppLog.logWarning(DatabaseImageFiles.class, ex);
+            AppLog.logSevere(DatabaseImageFiles.class, ex);
         } finally {
             free(connection);
         }
@@ -1378,7 +1378,7 @@ public final class DatabaseImageFiles extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logWarning(DatabaseImageFiles.class, ex);
+            AppLog.logSevere(DatabaseImageFiles.class, ex);
         } finally {
             free(connection);
         }
@@ -1428,7 +1428,7 @@ public final class DatabaseImageFiles extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logWarning(DatabaseImageFiles.class, ex);
+            AppLog.logSevere(DatabaseImageFiles.class, ex);
         } finally {
             free(connection);
         }
@@ -1460,7 +1460,7 @@ public final class DatabaseImageFiles extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logWarning(DatabaseImageFiles.class, ex);
+            AppLog.logSevere(DatabaseImageFiles.class, ex);
         } finally {
             free(connection);
         }
@@ -1499,7 +1499,7 @@ public final class DatabaseImageFiles extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logWarning(DatabaseImageFiles.class, ex);
+            AppLog.logSevere(DatabaseImageFiles.class, ex);
         } finally {
             free(connection);
         }
@@ -1531,7 +1531,7 @@ public final class DatabaseImageFiles extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logWarning(DatabaseImageFiles.class, ex);
+            AppLog.logSevere(DatabaseImageFiles.class, ex);
         } finally {
             free(connection);
         }

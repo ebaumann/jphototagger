@@ -62,7 +62,7 @@ public final class DatabasePrograms extends Database {
             connection.commit();
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logWarning(DatabasePrograms.class, ex);
+            AppLog.logSevere(DatabasePrograms.class, ex);
             rollback(connection);
         } finally {
             free(connection);
@@ -132,7 +132,7 @@ public final class DatabasePrograms extends Database {
             stmt.close();
             notifyDatabaseListener(DatabaseProgramEvent.Type.PROGRAM_UPDATED, program);
         } catch (SQLException ex) {
-            AppLog.logWarning(DatabasePrograms.class, ex);
+            AppLog.logSevere(DatabasePrograms.class, ex);
             rollback(connection);
         } finally {
             free(connection);
@@ -181,7 +181,7 @@ public final class DatabasePrograms extends Database {
             stmt.close();
             notifyDatabaseListener(DatabaseProgramEvent.Type.PROGRAM_DELETED, program);
         } catch (SQLException ex) {
-            AppLog.logWarning(DatabasePrograms.class, ex);
+            AppLog.logSevere(DatabasePrograms.class, ex);
             rollback(connection);
         } finally {
             free(connection);
@@ -211,7 +211,7 @@ public final class DatabasePrograms extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logWarning(DatabasePrograms.class, ex);
+            AppLog.logSevere(DatabasePrograms.class, ex);
         } finally {
             free(connection);
         }
@@ -287,7 +287,7 @@ public final class DatabasePrograms extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logWarning(DatabasePrograms.class, ex);
+            AppLog.logSevere(DatabasePrograms.class, ex);
         } finally {
             free(connection);
         }
@@ -312,7 +312,7 @@ public final class DatabasePrograms extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logWarning(DatabasePrograms.class, ex);
+            AppLog.logSevere(DatabasePrograms.class, ex);
         } finally {
             free(connection);
         }

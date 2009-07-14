@@ -93,7 +93,7 @@ public class Database {
         try {
             connection.rollback();
         } catch (SQLException ex) {
-            AppLog.logWarning(Database.class, ex);
+            AppLog.logSevere(Database.class, ex);
         }
     }
 

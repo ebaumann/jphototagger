@@ -40,7 +40,7 @@ public final class DatabaseImageCollections extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logWarning(DatabaseImageCollections.class, ex);
+            AppLog.logSevere(DatabaseImageCollections.class, ex);
             names.clear();
         } finally {
             free(connection);
@@ -73,7 +73,7 @@ public final class DatabaseImageCollections extends Database {
             info.add(newName);
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logWarning(DatabaseImageCollections.class, ex);
+            AppLog.logSevere(DatabaseImageCollections.class, ex);
         } finally {
             free(connection);
         }
@@ -106,7 +106,7 @@ public final class DatabaseImageCollections extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logWarning(DatabaseImageCollections.class, ex);
+            AppLog.logSevere(DatabaseImageCollections.class, ex);
             filenames.clear();
         } finally {
             free(connection);
@@ -160,7 +160,7 @@ public final class DatabaseImageCollections extends Database {
             stmtName.close();
             stmtColl.close();
         } catch (SQLException ex) {
-            AppLog.logWarning(DatabaseImageCollections.class, ex);
+            AppLog.logSevere(DatabaseImageCollections.class, ex);
             rollback(connection);
         } finally {
             free(connection);
@@ -188,7 +188,7 @@ public final class DatabaseImageCollections extends Database {
             deleted = true;
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logWarning(DatabaseImageCollections.class, ex);
+            AppLog.logSevere(DatabaseImageCollections.class, ex);
         } finally {
             free(connection);
         }
@@ -227,7 +227,7 @@ public final class DatabaseImageCollections extends Database {
             connection.commit();
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logWarning(DatabaseImageCollections.class, ex);
+            AppLog.logSevere(DatabaseImageCollections.class, ex);
             rollback(connection);
         } finally {
             free(connection);
@@ -282,7 +282,7 @@ public final class DatabaseImageCollections extends Database {
             connection.commit();
             added = true;
         } catch (SQLException ex) {
-            AppLog.logWarning(DatabaseImageCollections.class, ex);
+            AppLog.logSevere(DatabaseImageCollections.class, ex);
             rollback(connection);
         } finally {
             free(connection);
@@ -359,7 +359,7 @@ public final class DatabaseImageCollections extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logWarning(DatabaseImageCollections.class, ex);
+            AppLog.logSevere(DatabaseImageCollections.class, ex);
         } finally {
             free(connection);
         }
@@ -384,7 +384,7 @@ public final class DatabaseImageCollections extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logWarning(DatabaseImageCollections.class, ex);
+            AppLog.logSevere(DatabaseImageCollections.class, ex);
         } finally {
             free(connection);
         }
@@ -409,7 +409,7 @@ public final class DatabaseImageCollections extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logWarning(DatabaseImageCollections.class, ex);
+            AppLog.logSevere(DatabaseImageCollections.class, ex);
         } finally {
             free(connection);
         }
