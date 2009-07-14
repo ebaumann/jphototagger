@@ -415,6 +415,7 @@ public final class DatabaseTables extends Database {
                     "id BIGINT NOT NULL" + // NOI18N
                     ", id_parent BIGINT" + // NOI18N
                     ", subject  VARCHAR_IGNORECASE(64) NOT NULL" + // NOI18N: Same size as xmp_dc_subjects.subject
+                    ", real BOOLEAN" + // NOI18N
                     ");"); // NOI18N
             stmt.execute(
                     "CREATE UNIQUE INDEX idx_hierarchical_subjects_id ON hierarchical_subjects (id)"); // NOI18N
@@ -422,6 +423,8 @@ public final class DatabaseTables extends Database {
                     "CREATE INDEX idx_hierarchical_subjects_id_parent ON hierarchical_subjects (id_parent)"); // NOI18N
             stmt.execute(
                     "CREATE INDEX idx_hierarchical_subjects_subject ON hierarchical_subjects (subject)"); // NOI18N
+            stmt.execute(
+                    "CREATE INDEX idx_hierarchical_subjects_real ON hierarchical_subjects (real)"); // NOI18N
         }
     }
 

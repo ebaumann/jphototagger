@@ -7,7 +7,6 @@ import de.elmar_baumann.imv.tasks.ImageCollectionDatabaseUtils;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuImageCollections;
-import de.elmar_baumann.lib.event.util.KeyEventUtil;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -61,8 +60,7 @@ public final class ControllerRenameImageCollection
     }
 
     private boolean isRename(KeyEvent e) {
-        return KeyEventUtil.isControl(e, KeyEvent.VK_R) ||
-                e.getKeyCode() == KeyEvent.VK_F2;
+        return e.getKeyCode() == KeyEvent.VK_F2;
     }
 
     private void renameImageCollection(final String oldName) {

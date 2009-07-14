@@ -8,7 +8,6 @@ import de.elmar_baumann.imv.model.TreeModelHierarchicalKeywords;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.view.dialogs.HierarchicalKeywordsDialog;
 import de.elmar_baumann.imv.view.panels.HierarchicalKeywordsPanel;
-import de.elmar_baumann.lib.event.util.KeyEventUtil;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -48,8 +47,7 @@ public class ControllerRenameHierarchicalKeyword
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_F2 ||
-                KeyEventUtil.isControl(e, KeyEvent.VK_R)) {
+        if (e.getKeyCode() == KeyEvent.VK_F2) {
             rename();
         }
     }
@@ -109,8 +107,8 @@ public class ControllerRenameHierarchicalKeyword
                     oldName);
             confirmed = newName != null;
             if (newName != null && !newName.trim().isEmpty()) {
-                HierarchicalKeyword s = new HierarchicalKeyword(
-                        keyword.getId(), keyword.getIdParent(), newName.trim());
+                HierarchicalKeyword s = new HierarchicalKeyword(keyword.getId(),
+                        keyword.getIdParent(), newName.trim(), keyword.isReal());
                 if (database.parentHasChild(s)) {
                     newName = null;
                     confirmed = MessageDisplayer.confirm(

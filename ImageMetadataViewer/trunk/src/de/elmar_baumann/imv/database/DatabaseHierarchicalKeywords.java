@@ -38,13 +38,15 @@ public final class DatabaseHierarchicalKeywords extends Database {
         try {
             connection = getConnection();
             String sql =
-                    "SELECT id, id_parent, subject FROM hierarchical_subjects"; // NOI18N
+                    "SELECT id, id_parent, subject, real" + // NOI18N
+                    " FROM hierarchical_subjects"; // NOI18N
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             AppLog.logFinest(DatabaseHierarchicalKeywords.class, sql);
             while (rs.next()) {
                 keywords.add(new HierarchicalKeyword(
-                        rs.getLong(1), rs.getLong(2), rs.getString(3)));
+                        rs.getLong(1), rs.getLong(2), rs.getString(3), rs.
+                        getBoolean(4)));
             }
             stmt.close();
         } catch (Exception ex) {
@@ -71,14 +73,20 @@ public final class DatabaseHierarchicalKeywords extends Database {
             connection.setAutoCommit(true);
             PreparedStatement stmt = connection.prepareStatement(
                     "UPDATE hierarchical_subjects" + // NOI18N
-                    " SET id_parent = ?, subject = ? WHERE id = ?"); // NOI18N
+                    " SET id_parent = ?, subject = ?, real = ?" + // NOI18N
+                    " WHERE id = ?"); // NOI18N
             if (keyword.getIdParent() == null) {
                 stmt.setNull(1, java.sql.Types.BIGINT);
             } else {
                 stmt.setLong(1, keyword.getIdParent());
             }
             stmt.setString(2, keyword.getKeyword());
-            stmt.setLong(3, keyword.getId());
+            if (keyword.isReal() == null) {
+                stmt.setNull(3, java.sql.Types.BOOLEAN);
+            } else {
+                stmt.setBoolean(3, keyword.isReal());
+            }
+            stmt.setLong(4, keyword.getId());
             AppLog.logFiner(DatabaseHierarchicalKeywords.class, stmt.toString());
             updated = stmt.executeUpdate() == 1;
             stmt.close();
@@ -112,7 +120,7 @@ public final class DatabaseHierarchicalKeywords extends Database {
             connection = getConnection();
             connection.setAutoCommit(true);
             String sql = "INSERT INTO hierarchical_subjects" + // NOI18N
-                    " (id, id_parent, subject) VALUES (?, ?, ?)"; // NOI18N
+                    " (id, id_parent, subject) VALUES (?, ?, ?, ?)"; // NOI18N
             PreparedStatement stmt = connection.prepareStatement(sql);
             long nextId = getNextId(connection);
             stmt.setLong(1, nextId);
@@ -122,6 +130,11 @@ public final class DatabaseHierarchicalKeywords extends Database {
                 stmt.setLong(2, keyword.getIdParent());
             }
             stmt.setString(3, keyword.getKeyword().trim());
+            if (keyword.isReal() == null) {
+                stmt.setNull(4, java.sql.Types.BOOLEAN);
+            } else {
+                stmt.setBoolean(4, keyword.isReal());
+            }
             AppLog.logFiner(DatabaseHierarchicalKeywords.class, stmt.toString());
             inserted = stmt.executeUpdate() == 1;
             if (inserted) {
@@ -175,15 +188,16 @@ public final class DatabaseHierarchicalKeywords extends Database {
             throws SQLException {
         HierarchicalKeyword keyword = null;
         String sql =
-                "SELECT id, id_parent, subject FROM hierarchical_subjects" + // NOI18N
+                "SELECT id, id_parent, subject, real" + // NOI18N
+                " FROM hierarchical_subjects" + // NOI18N
                 " WHERE id = ?"; // NOI18N
         PreparedStatement stmt = connection.prepareStatement(sql);
         stmt.setLong(1, id);
         AppLog.logFinest(DatabaseHierarchicalKeywords.class, stmt.toString());
         ResultSet rs = stmt.executeQuery();
         if (rs.next()) {
-            keyword = new HierarchicalKeyword(
-                    rs.getLong(1), rs.getLong(2), rs.getString(3));
+            keyword = new HierarchicalKeyword(rs.getLong(1), rs.getLong(2),
+                    rs.getString(3), rs.getBoolean(4));
         }
         stmt.close();
         return keyword;
@@ -203,15 +217,16 @@ public final class DatabaseHierarchicalKeywords extends Database {
         try {
             connection = getConnection();
             String sql =
-                    "SELECT id, id_parent, subject FROM hierarchical_subjects" + // NOI18N
+                    "SELECT id, id_parent, subject, real" + // NOI18N
+                    " FROM hierarchical_subjects" + // NOI18N
                     " WHERE id_parent = ? ORDER BY subject ASC"; // NOI18N
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setLong(1, idParent);
             AppLog.logFinest(DatabaseHierarchicalKeywords.class, stmt.toString());
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                children.add(new HierarchicalKeyword(
-                        rs.getLong(1), rs.getLong(2), rs.getString(3)));
+                children.add(new HierarchicalKeyword(rs.getLong(1),
+                        rs.getLong(2), rs.getString(3), rs.getBoolean(4)));
             }
             stmt.close();
         } catch (Exception ex) {
@@ -234,14 +249,15 @@ public final class DatabaseHierarchicalKeywords extends Database {
         try {
             connection = getConnection();
             String sql =
-                    "SELECT id, id_parent, subject FROM hierarchical_subjects" + // NOI18N
+                    "SELECT id, id_parent, subject, real" + // NOI18N
+                    " FROM hierarchical_subjects" + // NOI18N
                     " WHERE id_parent IS NULL ORDER BY subject ASC"; // NOI18N
             PreparedStatement stmt = connection.prepareStatement(sql);
             AppLog.logFinest(DatabaseHierarchicalKeywords.class, stmt.toString());
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                children.add(new HierarchicalKeyword(
-                        rs.getLong(1), rs.getLong(2), rs.getString(3)));
+                children.add(new HierarchicalKeyword(rs.getLong(1),
+                        rs.getLong(2), rs.getString(3), rs.getBoolean(4)));
             }
             stmt.close();
         } catch (Exception ex) {

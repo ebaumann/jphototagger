@@ -4,7 +4,6 @@ import de.elmar_baumann.imv.data.SavedSearch;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.tasks.SavedSearchesModifier;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuSavedSearches;
-import de.elmar_baumann.lib.event.util.KeyEventUtil;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -54,8 +53,7 @@ public final class ControllerRenameSavedSearch
     }
 
     private boolean isRename(KeyEvent e) {
-        return KeyEventUtil.isControl(e, KeyEvent.VK_R) ||
-                e.getKeyCode() == KeyEvent.VK_F2;
+        return e.getKeyCode() == KeyEvent.VK_F2;
     }
 
     private void rename() {

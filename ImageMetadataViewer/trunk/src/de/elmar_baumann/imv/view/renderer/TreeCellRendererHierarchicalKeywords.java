@@ -18,7 +18,8 @@ import javax.swing.tree.DefaultTreeCellRenderer;
  */
 public final class TreeCellRendererHierarchicalKeywords extends DefaultTreeCellRenderer {
 
-    private static final Icon ICON = AppIcons.getIcon("icon_keyword.png"); // NOI18N
+    private static final Icon ICON_REAL = AppIcons.getIcon("icon_keyword.png"); // NOI18N
+    private static final Icon ICON_HELPER = AppIcons.getIcon("icon_folder.png"); // NOI18N
 
     @Override
     public Component getTreeCellRendererComponent(JTree tree, Object value,
@@ -34,8 +35,14 @@ public final class TreeCellRendererHierarchicalKeywords extends DefaultTreeCellR
 
     private void render(Object userObject) {
         if (userObject instanceof HierarchicalKeyword) {
-            setText(((HierarchicalKeyword) userObject).getKeyword());
-            setIcon(ICON);
+            HierarchicalKeyword keyword = (HierarchicalKeyword) userObject;
+            boolean real = keyword.isReal() == null
+                           ? false
+                           : keyword.isReal();
+            setText(keyword.getKeyword());
+            setIcon(real
+                    ? ICON_REAL
+                    : ICON_HELPER);
         }
     }
 }

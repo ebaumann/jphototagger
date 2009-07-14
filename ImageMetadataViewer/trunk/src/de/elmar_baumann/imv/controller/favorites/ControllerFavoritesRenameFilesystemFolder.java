@@ -4,7 +4,6 @@ import de.elmar_baumann.imv.data.FavoriteDirectory;
 import de.elmar_baumann.imv.io.FileSystemDirectories;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuFavorites;
-import de.elmar_baumann.lib.event.util.KeyEventUtil;
 import de.elmar_baumann.lib.io.TreeFileSystemDirectories;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -57,8 +56,7 @@ public final class ControllerFavoritesRenameFilesystemFolder
     }
 
     private boolean isRename(KeyEvent e) {
-        return KeyEventUtil.isControl(e, KeyEvent.VK_R) ||
-                e.getKeyCode() == KeyEvent.VK_F2;
+        return e.getKeyCode() == KeyEvent.VK_F2;
     }
 
     private void renameDirectory(DefaultMutableTreeNode node) {

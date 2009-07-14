@@ -88,7 +88,8 @@ public class ControllerAddHierarchicalKeyword
                 null, parentKeyword == null
                 ? null
                 : parentKeyword.getId(),
-                Bundle.getString("ControllerAddHierarchicalKeyword.DefaultName")); // NOI18N
+                Bundle.getString("ControllerAddHierarchicalKeyword.DefaultName"), // NOI18N
+                true);
         String name = ControllerRenameHierarchicalKeyword.getName(newKeyword,
                 DatabaseHierarchicalKeywords.INSTANCE);
         if (name != null && !name.trim().isEmpty()) {

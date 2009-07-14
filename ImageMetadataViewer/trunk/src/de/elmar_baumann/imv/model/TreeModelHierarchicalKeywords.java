@@ -55,7 +55,7 @@ public final class TreeModelHierarchicalKeywords extends DefaultTreeModel {
                             ? null
                             : ((HierarchicalKeyword) userObject).getId();
             HierarchicalKeyword child = new HierarchicalKeyword(
-                    null, idParent, keyword);
+                    null, idParent, keyword, true);
             if (db.insert(child)) {
                 DefaultMutableTreeNode childNode =
                         new DefaultMutableTreeNode(child);

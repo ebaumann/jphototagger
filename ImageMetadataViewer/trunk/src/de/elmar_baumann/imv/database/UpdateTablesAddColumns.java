@@ -36,6 +36,8 @@ final class UpdateTablesAddColumns {
                 null));
         columns.add(new ColumnInfo("programs", "change_file", "BOOLEAN", // NOI18N
                 null));
+        columns.add(new ColumnInfo("hierarchical_subjects", "real", "BOOLEAN", // NOI18N
+                new IndexOfColumn("hierarchical_subjects", "real", "idx_hierarchical_subjects_real", false)));
     }
 
     void update(Connection connection) throws SQLException {

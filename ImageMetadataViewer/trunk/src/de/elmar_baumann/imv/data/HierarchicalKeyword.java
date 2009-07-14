@@ -18,6 +18,7 @@ public final class HierarchicalKeyword implements Serializable {
     private Long id;
     private Long idParent;
     private String keyword;
+    private Boolean real;
 
     /**
      * Creates a new instance of this class.
@@ -27,11 +28,14 @@ public final class HierarchicalKeyword implements Serializable {
      *                  ID. Ohter callers shall set null
      * @param idParent  database ID of the keyword's parent
      * @param keyword   keyword
+     * @param real      true if this keyword is a real keyword
      */
-    public HierarchicalKeyword(Long id, Long idParent, String keyword) {
+    public HierarchicalKeyword(
+            Long id, Long idParent, String keyword, Boolean real) {
         this.id = id;
         this.idParent = idParent;
         this.keyword = keyword;
+        this.real = real;
     }
 
     /**
@@ -56,7 +60,7 @@ public final class HierarchicalKeyword implements Serializable {
     /**
      * Returns the database ID of the keyword's parent.
      *
-     * @return database ID of the parent
+     * @return database ID of the parent or null if undefined
      */
     public Long getIdParent() {
         return idParent;
@@ -74,7 +78,7 @@ public final class HierarchicalKeyword implements Serializable {
     /**
      * Returns the keyword.
      *
-     * @return keyword
+     * @return keyword or null if undefined
      */
     public String getKeyword() {
         return keyword;
@@ -87,6 +91,25 @@ public final class HierarchicalKeyword implements Serializable {
      */
     public void setKeyword(String keyword) {
         this.keyword = keyword;
+    }
+
+    /**
+     * Returns whether this is a real keyword or just a helping container
+     * object with no real keyword in it.
+     *
+     * @return true if this keyword is a real keyword or null if undefined
+     */
+    public Boolean isReal() {
+        return real;
+    }
+
+    /**
+     * Sets this to be a real keyword.
+     *
+     * @param real true if this keyword is a real keyword. Default: null.
+     */
+    public void setReal(Boolean real) {
+        this.real = real;
     }
 
     @Override

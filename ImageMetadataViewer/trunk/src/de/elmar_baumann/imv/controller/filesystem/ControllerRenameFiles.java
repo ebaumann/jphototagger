@@ -10,7 +10,6 @@ import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.dialogs.RenameDialog;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuThumbnails;
-import de.elmar_baumann.lib.event.util.KeyEventUtil;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -50,8 +49,7 @@ public final class ControllerRenameFiles
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_F2 ||
-                KeyEventUtil.isControl(e, KeyEvent.VK_R)) {
+        if (e.getKeyCode() == KeyEvent.VK_F2) {
             renameSelectedFiles();
         }
     }
