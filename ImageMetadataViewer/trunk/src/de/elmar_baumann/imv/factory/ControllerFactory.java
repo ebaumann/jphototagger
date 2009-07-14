@@ -39,6 +39,7 @@ import de.elmar_baumann.imv.controller.filesystem.ControllerAutocopyDirectory;
 import de.elmar_baumann.imv.controller.hierarchicalkeywords.ControllerAddHierarchicalKeyword;
 import de.elmar_baumann.imv.controller.hierarchicalkeywords.ControllerRemoveHierarchicalKeyword;
 import de.elmar_baumann.imv.controller.hierarchicalkeywords.ControllerRenameHierarchicalKeyword;
+import de.elmar_baumann.imv.controller.hierarchicalkeywords.ControllerToggleRealHierarchicalKeyword;
 import de.elmar_baumann.imv.controller.metadata.ControllerExtractEmbeddedXmp;
 import de.elmar_baumann.imv.controller.search.ControllerFastSearch;
 import de.elmar_baumann.imv.controller.misc.ControllerGoTo;
@@ -155,6 +156,7 @@ public final class ControllerFactory {
             new ControllerRenameHierarchicalKeyword();
             new ControllerRemoveHierarchicalKeyword();
             new ControllerAddHierarchicalKeyword();
+            new ControllerToggleRealHierarchicalKeyword();
             startScheduledTasks();
             init = true;
         }
