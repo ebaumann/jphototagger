@@ -256,7 +256,7 @@ public final class InsertImageFilesIntoDatabaseArray implements ProgressListener
 
     private void informationMessageEndUpdateDirectory(
             InsertImageFilesIntoDatabase scanner) {
-        AppLog.logFinest(InsertImageFilesIntoDatabaseArray.class, Bundle.
+        AppLog.logInfo(InsertImageFilesIntoDatabaseArray.class, Bundle.
                 getString(
                 "InsertImageFilesIntoDatabaseArray.Info.UpdateMetadataFinished", // NOI18N
                 getDirectoryNameOfInserter(scanner)));

@@ -308,7 +308,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
     @Override
     public void progressEnded(ProgressEvent evt) {
         progressBar.setValue(evt.getValue());
-        AppLog.logFinest(UpdateMetadataOfDirectoriesPanel.class,
+        AppLog.logInfo(UpdateMetadataOfDirectoriesPanel.class,
                 Bundle.getString(
                 "UpdateMetadataOfDirectoriesPanel.Info.UdateCompleted")); // NOI18N
         listSelectedDirectories.setEnabled(true);
