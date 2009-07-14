@@ -345,7 +345,7 @@ public final class InsertImageFilesIntoDatabase implements Runnable {
     }
 
     private void logCheckForUpdate(String filename) {
-        AppLog.logInfo(InsertImageFilesIntoDatabase.class, Bundle.getString(
+        AppLog.logFinest(InsertImageFilesIntoDatabase.class, Bundle.getString(
                 "InsertImageFilesIntoDatabase.Info.CheckForUpdate", // NOI18N
                 filename));
     }
