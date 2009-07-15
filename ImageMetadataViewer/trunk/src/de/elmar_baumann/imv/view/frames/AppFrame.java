@@ -4,6 +4,7 @@ import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.app.AppIcons;
 import de.elmar_baumann.imv.app.AppInfo;
 import de.elmar_baumann.imv.app.AppLock;
+import de.elmar_baumann.imv.database.DatabaseMaintainance;
 import de.elmar_baumann.imv.event.listener.AppExitListener;
 import de.elmar_baumann.imv.factory.MetaFactory;
 import de.elmar_baumann.lib.comparator.FileSort;
@@ -214,6 +215,7 @@ public final class AppFrame extends javax.swing.JFrame {
     private void quit() {
         notifyExit();
         writeProperties();
+        DatabaseMaintainance.INSTANCE.shutdown();
         dispose();
         AppLock.unlock();
         System.exit(0);

@@ -2,6 +2,7 @@ package de.elmar_baumann.imv.database;
 
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.app.AppLog;
+import de.elmar_baumann.imv.app.MessageDisplayer;
 import de.elmar_baumann.imv.database.metadata.Column;
 import de.elmar_baumann.imv.event.ProgressEvent;
 import de.elmar_baumann.imv.event.listener.ProgressListener;
@@ -28,6 +29,22 @@ public final class DatabaseMaintainance extends Database {
             new DatabaseMaintainance();
 
     private DatabaseMaintainance() {
+    }
+
+    /**
+     * Shuts down the database.
+     */
+    public void shutdown() {
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            Statement stmt = connection.createStatement();
+            stmt.executeUpdate("SHUTDOWN");
+            connection.close();
+        } catch (SQLException ex) {
+            AppLog.logSevere(Database.class, ex);
+            MessageDisplayer.error("Database.Error.Shutdown");
+        }
     }
 
     /**
