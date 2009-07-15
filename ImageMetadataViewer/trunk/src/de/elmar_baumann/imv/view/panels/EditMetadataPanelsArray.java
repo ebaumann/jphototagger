@@ -157,6 +157,22 @@ public final class EditMetadataPanelsArray implements FocusListener,
     }
 
     /**
+     * Returns an edit panel for a specific column.
+     *
+     * @param  column column
+     * @return        panel or null if for that column an edit panel doesn't
+     *                exist
+     */
+    public JPanel getEditPanel(Column column) {
+        for (JPanel panel : panels) {
+            if (((TextEntry) panel).getColumn().equals(column)) {
+                return panel;
+            }
+        }
+        return null;
+    }
+
+    /**
      * Setzt ein Metadaten-Edit-Template.
      * 
      * @param template  Template
