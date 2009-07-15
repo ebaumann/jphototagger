@@ -22,7 +22,7 @@ public final class DatabaseTables extends Database {
     public static final DatabaseTables INSTANCE = new DatabaseTables();
 
     static {
-        // TODO: Update
+        // TODO PERMANENT: Update after adding a table
         TABLE_NAMES.add("files"); // NOI18N
         TABLE_NAMES.add("xmp"); // NOI18N
         TABLE_NAMES.add("xmp_dc_subjects"); // NOI18N
@@ -39,6 +39,7 @@ public final class DatabaseTables extends Database {
         TABLE_NAMES.add("file_exclude_pattern"); // NOI18N
         TABLE_NAMES.add("programs"); // NOI18N
         TABLE_NAMES.add("actions_after_db_insertion"); // NOI18N
+        TABLE_NAMES.add("hierarchical_subjects"); // NOI18N
     }
 
     public static List<String> getTableNames() {
