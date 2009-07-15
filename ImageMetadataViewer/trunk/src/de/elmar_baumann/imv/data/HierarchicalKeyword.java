@@ -18,7 +18,7 @@ public final class HierarchicalKeyword implements Serializable {
     private Long id;
     private Long idParent;
     private String keyword;
-    private Boolean real;
+    private Boolean real = true;
 
     /**
      * Creates a new instance of this class.
@@ -106,7 +106,7 @@ public final class HierarchicalKeyword implements Serializable {
     /**
      * Sets this to be a real keyword.
      *
-     * @param real true if this keyword is a real keyword. Default: null.
+     * @param real true if this keyword is a real keyword. Default: true.
      */
     public void setReal(Boolean real) {
         this.real = real;
