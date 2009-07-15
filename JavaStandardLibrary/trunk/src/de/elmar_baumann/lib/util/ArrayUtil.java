@@ -148,6 +148,30 @@ public final class ArrayUtil {
         return list;
     }
 
+    /**
+     * Returns a token string from a collection. Uses {@link Object#toString()}
+     * to get the collection elements strings.
+     *
+     * @param collection           collection
+     * @param delimiter            delimiter
+     * @param delimiterReplacement replacement for all delimiters contained in
+     *                             a collection's element
+     * @return                     token string
+     */
+    public static String toTokenString(Collection<? extends Object> collection,
+            String delimiter, String delimiterReplacement) {
+
+        StringBuilder tokenString = new StringBuilder();
+        int index = 0;
+        for (Object o : collection) {
+            tokenString.append((index++ == 0
+                                ? ""
+                                : delimiter) +
+                    o.toString().replace(delimiter, delimiterReplacement));
+        }
+        return tokenString.toString();
+    }
+
     private ArrayUtil() {
     }
 }
