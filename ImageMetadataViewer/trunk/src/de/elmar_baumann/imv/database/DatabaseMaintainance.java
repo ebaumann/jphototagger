@@ -39,11 +39,12 @@ public final class DatabaseMaintainance extends Database {
         try {
             connection = getConnection();
             Statement stmt = connection.createStatement();
+            AppLog.logInfo(DatabaseMaintainance.class,
+                    Bundle.getString("DatabaseMaintainance.Info.Shutdown"));
             stmt.executeUpdate("SHUTDOWN");
-            connection.close();
         } catch (SQLException ex) {
             AppLog.logSevere(Database.class, ex);
-            MessageDisplayer.error("Database.Error.Shutdown");
+            MessageDisplayer.error("DatabaseMaintainance.Error.Shutdown");
         }
     }
 
@@ -149,7 +150,7 @@ public final class DatabaseMaintainance extends Database {
     private void logThumbnailDeleted(File thumbnailFile) {
         AppLog.logInfo(DatabaseMaintainance.class,
                 Bundle.getString(
-                "DatabaseMaintainance.Info.deleteThumbnailsWithoutImageFiles", // NOI18N
+                "DatabaseMaintainance.Info.DeleteThumbnailsWithoutImageFiles", // NOI18N
                 thumbnailFile.getAbsolutePath()));
     }
 
