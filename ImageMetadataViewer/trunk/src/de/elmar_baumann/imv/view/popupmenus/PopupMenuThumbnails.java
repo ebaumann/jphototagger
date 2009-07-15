@@ -36,6 +36,9 @@ public final class PopupMenuThumbnails extends JPopupMenu
     private static final String DISPLAY_NAME_ACTION_UPDATE_THUMBNAIL =
             Bundle.getString(
             "PopupMenuThumbnails.DisplayName.Action.UpdateThumbnail"); // NOI18N
+    private static final String DISPLAY_NAME_ACTION_IPTC_TO_XMP =
+            Bundle.getString(
+            "PopupMenuThumbnails.DisplayName.Action.IptcToXmp"); // NOI18N
     private static final String DISPLAY_NAME_ACTION_CREATE_IMAGE_COLLECTION =
             Bundle.getString(
             "PopupMenuThumbnails.DisplayName.Action.CreateImageCollection"); // NOI18N
@@ -77,6 +80,8 @@ public final class PopupMenuThumbnails extends JPopupMenu
             DISPLAY_NAME_ACTION_UPDATE_METADATA);
     private final JMenuItem itemUpdateThumbnail = new JMenuItem(
             DISPLAY_NAME_ACTION_UPDATE_THUMBNAIL);
+    private final JMenuItem itemIptcToXmp = new JMenuItem(
+            DISPLAY_NAME_ACTION_IPTC_TO_XMP);
     private final JMenuItem itemCreateImageCollection = new JMenuItem(
             DISPLAY_NAME_ACTION_CREATE_IMAGE_COLLECTION);
     private final JMenuItem itemAddToImageCollection = new JMenuItem(
@@ -215,6 +220,10 @@ public final class PopupMenuThumbnails extends JPopupMenu
         return itemRefresh;
     }
 
+    public JMenuItem getItemIptcToXmp() {
+        return itemIptcToXmp;
+    }
+
     public synchronized void addActionListenerOpenFilesWithOtherApp(
             ActionListener listener) {
         actionListenersOpenFilesWithOtherApp.add(listener);
@@ -244,6 +253,7 @@ public final class PopupMenuThumbnails extends JPopupMenu
     private void addItems() {
         add(itemUpdateThumbnail);
         add(itemUpdateMetadata);
+        add(itemIptcToXmp);
         add(itemDeleteImageFromDatabase);
         add(new JSeparator());
         add(itemOpenFilesWithStandardApp);
@@ -289,6 +299,7 @@ public final class PopupMenuThumbnails extends JPopupMenu
         itemUpdateMetadata.setIcon(AppIcons.getIcon("icon_metadata_refresh.png")); // NOI18N
         itemUpdateThumbnail.setIcon(AppIcons.getIcon("icon_image_refresh.png")); // NOI18N
         itemRefresh.setIcon(AppIcons.getIcon("icon_refresh.png")); // NOI18N
+        itemIptcToXmp.setIcon(AppIcons.getIcon("icon_xmp.png")); // NOI18N
     }
 
     private void setAccelerators() {
