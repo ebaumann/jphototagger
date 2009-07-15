@@ -396,11 +396,12 @@ public final class XmpMetadata {
     private static XMPMeta getXmpMetaOfSidecarFile(String sidecarFilename)
             throws XMPException {
         if (FileUtil.existsFile(sidecarFilename)) {
-            return XMPMetaFactory.parseFromString(FileUtil.getFileAsString(
-                    sidecarFilename));
-        } else {
-            return XMPMetaFactory.create();
+            String xmp = FileUtil.getFileAsString(sidecarFilename);
+            if (xmp != null && !xmp.trim().isEmpty()) {
+                return XMPMetaFactory.parseFromString(xmp);
+            }
         }
+        return XMPMetaFactory.create();
     }
 
     private static void writeSidecarFileDeleteItems(XMPMeta xmpMeta,
