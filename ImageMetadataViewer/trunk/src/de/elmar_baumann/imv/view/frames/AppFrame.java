@@ -15,13 +15,15 @@ import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.dialogs.HierarchicalKeywordsDialog;
 import de.elmar_baumann.imv.view.dialogs.TextSelectionDialog;
 import de.elmar_baumann.imv.view.panels.AppPanel;
-import de.elmar_baumann.lib.dialog.ProgressDialog;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JRadioButtonMenuItem;
@@ -44,7 +46,8 @@ public final class AppFrame extends javax.swing.JFrame {
     private final List<AppExitListener> exitListeners =
             new ArrayList<AppExitListener>();
     private AppPanel appPanel;
-    private boolean dataToSave;
+    private final Set<Object> saveObjects =
+            Collections.synchronizedSet(new HashSet<Object>());
 
     public AppFrame() {
         GUI.INSTANCE.setAppFrame(this);
@@ -150,17 +153,26 @@ public final class AppFrame extends javax.swing.JFrame {
     }
 
     /**
-     * Sets whether data is to save. As long as data is to save, the app does
-     * not exit.
+     * Sets whether an object saving data. As long as data is to save, the app
+     * does not exit.
      * 
-     * <em>Do not forget to set this to false, otherwise the app will never
-     * exit!</em>
+     * <em>Do not forget removing a save object via
+     * {@link #removeSaveObject(java.lang.Object)}, otherwise the app terminates
+     * after a timeout and does not know wheter data was saved!</em>
      * 
-     * @param save true if data is to save
+     * @param saveObject object that saves data.
      */
-    public synchronized void setDataToSave(boolean save) {
-        System.out.println("Data to save: " + save);
-        this.dataToSave = save;
+    public void addSaveObject(Object saveObject) {
+        saveObjects.add(saveObject);
+    }
+
+    /**
+     * Removes a save object added via {@link #addSaveObject(java.lang.Object)}.
+     *
+     * @param saveObject save object to remove
+     */
+    public void removeSaveObject(Object saveObject) {
+        saveObjects.remove(saveObject);
     }
 
     public JMenu getMenuSort() {
@@ -260,61 +272,25 @@ public final class AppFrame extends javax.swing.JFrame {
 
     private void checkDataToSave() {
         long elapsedMilliseconds = 0;
-        long maxMilliseconds = 120 * 1000;
+        long timeoutMilliSeconds = 120 * 1000;
         long checkIntervalMilliSeconds = 2000;
-        if (dataToSave) {
-            WaitForSaveDisplayer displayer = new WaitForSaveDisplayer();
-            displayer.start();
-            while (dataToSave && elapsedMilliseconds < maxMilliseconds) {
+        if (saveObjects.size() > 0) {
+            AppLog.logInfo(AppFrame.class, Bundle.getString(
+                    "AppFrame.Info.SaveObjectsExisting", saveObjects)); // NOI18N
+            while (saveObjects.size() > 0 &&
+                    elapsedMilliseconds < timeoutMilliSeconds) {
                 try {
                     elapsedMilliseconds += checkIntervalMilliSeconds;
                     Thread.sleep(checkIntervalMilliSeconds);
                 } catch (InterruptedException ex) {
                     AppLog.logSevere(AppFrame.class, ex);
                 }
-                if (elapsedMilliseconds >= maxMilliseconds) {
+                if (elapsedMilliseconds >= timeoutMilliSeconds) {
                     MessageDisplayer.error(
-                            "AppFrame.Error.ExitDataNotSaved.MaxWaitTimeExceeded",
-                            maxMilliseconds);
+                            "AppFrame.Error.ExitDataNotSaved.MaxWaitTimeExceeded", // NOI18N
+                            timeoutMilliSeconds);
                 }
             }
-            displayer.hide();
-        }
-    }
-
-    private class WaitForSaveDisplayer extends Thread {
-
-        private ProgressDialog dlg;
-        private boolean display = true;
-
-        public WaitForSaveDisplayer() {
-            dlg = new ProgressDialog(null);
-            initDialog();
-            setName("Waiting for saving data @ " + AppFrame.class.getName());
-            setPriority(MAX_PRIORITY);
-        }
-
-        @Override
-        public void run() {
-            dlg.setVisible(true);
-            dlg.setAlwaysOnTop(true);
-            while (display) {
-            }
-        }
-
-        public synchronized void hide() {
-            dlg.setVisible(false);
-            display = false;
-        }
-
-        private void initDialog() {
-            String warning =
-                    Bundle.getString("AppFrame.Error.ExitDataNotSaved");
-            AppLog.logWarning(AppFrame.class, warning);
-            dlg.setTitle(Bundle.getString(
-                    "AppFrame.Error.ExitDataNotSaved.Title"));
-            dlg.setInfoText(warning);
-            dlg.setIndeterminate(true);
         }
     }
 

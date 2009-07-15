@@ -43,7 +43,7 @@ public final class XmpUpdaterFromTextEntryArray implements ProgressListener {
                 new XmpUpdaterFromTextEntry(filenames, textEntries, writeOptions);
         updater.addProgressListener(this);
         updaters.add(updater);
-        GUI.INSTANCE.getAppFrame().setDataToSave(true);
+        GUI.INSTANCE.getAppFrame().addSaveObject(this);
         startThread();
     }
 
@@ -94,7 +94,7 @@ public final class XmpUpdaterFromTextEntryArray implements ProgressListener {
         if (isStop()) {
             updaters.clear();
             evt.stop();
-            GUI.INSTANCE.getAppFrame().setDataToSave(false);
+            GUI.INSTANCE.getAppFrame().removeSaveObject(this);
         } else {
             if (progressBar != null) {
                 String filename = evt.getInfo().toString();
@@ -117,7 +117,7 @@ public final class XmpUpdaterFromTextEntryArray implements ProgressListener {
         if (updaters.size() > 0) {
             startThread();
         } else {
-            GUI.INSTANCE.getAppFrame().setDataToSave(false);
+            GUI.INSTANCE.getAppFrame().removeSaveObject(this);
         }
     }
 }
