@@ -6,8 +6,11 @@ import de.elmar_baumann.imv.event.listener.ThumbnailsPanelListener;
 import de.elmar_baumann.imv.event.UserSettingsChangeEvent;
 import de.elmar_baumann.imv.event.listener.UserSettingsChangeListener;
 import de.elmar_baumann.imv.resource.GUI;
+import de.elmar_baumann.imv.view.frames.AppFrame;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.view.panels.ThumbnailsPanel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JSlider;
 import javax.swing.SwingUtilities;
 import javax.swing.event.ChangeEvent;
@@ -20,9 +23,10 @@ import javax.swing.event.ChangeListener;
  * @version 2008/10/12
  */
 public final class ControllerSliderThumbnailSize
-        implements ChangeListener, ThumbnailsPanelListener,
+        implements ActionListener, ChangeListener, ThumbnailsPanelListener,
                    UserSettingsChangeListener {
 
+    private final AppFrame appFrame = GUI.INSTANCE.getAppFrame();
     private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
     private final ThumbnailsPanel thumbnailsPanel =
             appPanel.getPanelThumbnails();
@@ -44,6 +48,8 @@ public final class ControllerSliderThumbnailSize
         thumbnailsPanel.addThumbnailsPanelListener(this);
         slider.addChangeListener(this);
         ListenerProvider.INSTANCE.addUserSettingsChangeListener(this);
+        appFrame.getMenuItemThumbnailSizeDecrease().addActionListener(this);
+        appFrame.getMenuItemThumbnailSizeIncrease().addActionListener(this);
     }
 
     private void initSlider() {
@@ -59,6 +65,32 @@ public final class ControllerSliderThumbnailSize
     @Override
     public void stateChanged(ChangeEvent e) {
         handleSliderMoved();
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource().equals(appFrame.getMenuItemThumbnailSizeDecrease())) {
+            moveSlider(false);
+        } else if (e.getSource().equals(
+                appFrame.getMenuItemThumbnailSizeIncrease())) {
+            moveSlider(true);
+        }
+    }
+
+    private void moveSlider(boolean increase) {
+        if (increase) {
+            addToSliderValue(STEP_WIDTH);
+        } else {
+            addToSliderValue(-STEP_WIDTH);
+        }
+    }
+
+    private void addToSliderValue(int increment) {
+        int value = slider.getValue();
+        int newValue = value + increment;
+        if (newValue >= STEP_WIDTH && newValue <= MAX_MAGINFICATION_PERCENT) {
+            slider.setValue(newValue);
+        }
     }
 
     @Override

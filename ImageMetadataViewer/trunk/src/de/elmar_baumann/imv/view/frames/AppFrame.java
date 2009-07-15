@@ -231,6 +231,14 @@ public final class AppFrame extends javax.swing.JFrame {
         return menuItemToolIptcToXmp;
     }
 
+    public JMenuItem getMenuItemThumbnailSizeDecrease() {
+        return menuItemThumbnailSizeDecrease;
+    }
+
+    public JMenuItem getMenuItemThumbnailSizeIncrease() {
+        return menuItemThumbnailSizeIncrease;
+    }
+
     private void writeProperties() {
         UserSettings.INSTANCE.getSettings().setSizeAndLocation(this);
         UserSettings.INSTANCE.writeToFile();
@@ -352,6 +360,8 @@ public final class AppFrame extends javax.swing.JFrame {
         jSeparator3 = new javax.swing.JSeparator();
         radioButtonMenuItemSortFileTypeAscending = new javax.swing.JRadioButtonMenuItem();
         radioButtonMenuItemSortFileTypeDescending = new javax.swing.JRadioButtonMenuItem();
+        menuItemThumbnailSizeIncrease = new javax.swing.JMenuItem();
+        menuItemThumbnailSizeDecrease = new javax.swing.JMenuItem();
         menuGoto = new javax.swing.JMenu();
         menuItemGotoFastSearch = new javax.swing.JMenuItem();
         menuItemGotoEdit = new javax.swing.JMenuItem();
@@ -476,6 +486,17 @@ public final class AppFrame extends javax.swing.JFrame {
         menuSort.add(radioButtonMenuItemSortFileTypeDescending);
 
         menuView.add(menuSort);
+
+        menuItemThumbnailSizeIncrease.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_PLUS, java.awt.event.InputEvent.CTRL_MASK));
+        menuItemThumbnailSizeIncrease.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icons/icon_size_increase.png"))); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/imv/resource/properties/Bundle"); // NOI18N
+        menuItemThumbnailSizeIncrease.setText(bundle.getString("AppFrame.menuItemThumbnailSizeIncrease.text")); // NOI18N
+        menuView.add(menuItemThumbnailSizeIncrease);
+
+        menuItemThumbnailSizeDecrease.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_MINUS, java.awt.event.InputEvent.CTRL_MASK));
+        menuItemThumbnailSizeDecrease.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icons/icon_size_decrease.png"))); // NOI18N
+        menuItemThumbnailSizeDecrease.setText(bundle.getString("AppFrame.menuItemThumbnailSizeDecrease.text")); // NOI18N
+        menuView.add(menuItemThumbnailSizeDecrease);
 
         menuBar.add(menuView);
 
@@ -714,6 +735,8 @@ private void menuItemHierarchicalKeywordsActionPerformed(java.awt.event.ActionEv
     private javax.swing.JMenuItem menuItemScanDirectory;
     private javax.swing.JMenuItem menuItemSearch;
     private javax.swing.JMenuItem menuItemSettings;
+    private javax.swing.JMenuItem menuItemThumbnailSizeDecrease;
+    private javax.swing.JMenuItem menuItemThumbnailSizeIncrease;
     private javax.swing.JMenuItem menuItemToolIptcToXmp;
     private javax.swing.JMenu menuSort;
     private javax.swing.JMenu menuTools;
