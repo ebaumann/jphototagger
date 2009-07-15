@@ -26,7 +26,11 @@ import javax.swing.event.ListSelectionEvent;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 /**
- * Panel zum Eingeben mehrzeiliger Texte.
+ * Panel with an input text field an a list. The list contains multiple words,
+ * the input field one word.
+ *
+ * Text in the input field will be added to the list on hitting the ENTER key
+ * or pushing the ADD button.
  * 
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/18
@@ -34,7 +38,16 @@ import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 public final class EditRepeatableTextEntryPanel extends javax.swing.JPanel
         implements TextEntry, ActionListener, DocumentListener {
 
+    /**
+     * Delimiter separating words in a single string
+     */
     private static final String DELIMITER = XmpMetadata.getXmpTokenDelimiter();
+    /**
+     * Replaces delimiter in a single word to avoid considering it as multiple
+     * words.
+     *
+     * Have to be different from {@link XmpMetadata#getXmpTokenDelimiter()}!
+     */
     private static final String DELIMITER_REPLACEMENT = "?";
     private final DefaultListModel model = new DefaultListModel();
     private Column column;
@@ -42,12 +55,17 @@ public final class EditRepeatableTextEntryPanel extends javax.swing.JPanel
     private boolean editable = true;
     private boolean dirty = false;
     private TextModifyer textModifier;
+    /**
+     * Contains the words not to modify by the text modifier
+     */
     private List<String> ignoreModifyWords = new ArrayList<String>();
 
     public EditRepeatableTextEntryPanel(Column column) {
         this.column = column;
         initComponents();
         postInitComponents();
+        assert !DELIMITER_REPLACEMENT.equals(DELIMITER) :
+                "Delimiter replacement is equals to delimiter! " + DELIMITER;
     }
 
     private void postInitComponents() {
@@ -74,6 +92,12 @@ public final class EditRepeatableTextEntryPanel extends javax.swing.JPanel
         return autoCompleteData;
     }
 
+    /**
+     * Returns the text: All elements in the list <strong>plus</strong> the
+     * text of the input field if it's not contained in the list.
+     *
+     * @return words delimited by {@link XmpMetadata#getXmpTokenDelimiter()}
+     */
     @Override
     public String getText() {
         emptyTextfieldIfListContainsText();
@@ -85,6 +109,12 @@ public final class EditRepeatableTextEntryPanel extends javax.swing.JPanel
         return listItemText;
     }
 
+    /**
+     * Empties the input text field if the word in the text field is also in
+     * the list. This is true if the user hits ENTER or the ADD button; then
+     * the text in the input field will be added to the list if it is not
+     * already there.
+     */
     private void emptyTextfieldIfListContainsText() {
         String input = textFieldInput.getText();
         if (ListUtil.containsString(list.getModel(), input)) {
@@ -92,6 +122,19 @@ public final class EditRepeatableTextEntryPanel extends javax.swing.JPanel
         }
     }
 
+    /**
+     * Sets a text modifier. If the user presses <strong>Ctrl+K</strong> or
+     * pushes the <strong>K</strong> button, the text modifier will be invoked
+     * through
+     * {@link TextModifyer#modify(java.lang.String, java.util.Collection)}.
+     *
+     * If the modified text differs from the text in the input field after
+     * invoking, the modified text will be added to the list. If the text is
+     * delimited by {@link XmpMetadata#getXmpTokenDelimiter()}, all words not
+     * contained in the list will be added to the list.
+     *
+     * @param textModifier text modifier
+     */
     public void setTextModifier(TextModifyer textModifier) {
         this.textModifier = textModifier;
         buttonTextModifier.setEnabled(editable && textModifier != null);
@@ -100,6 +143,15 @@ public final class EditRepeatableTextEntryPanel extends javax.swing.JPanel
                                           : textModifier.getDescription());
     }
 
+    /**
+     * Sets and replaces the words in the list. A word is a token delimited by
+     * {@link XmpMetadata#getXmpTokenDelimiter()}. Does <em>not</em> check
+     * for duplicates.
+     *
+     * Removes also the dirty flag.
+     *
+     * @param text text delimited by {@link XmpMetadata#getXmpTokenDelimiter()}
+     */
     @Override
     public void setText(String text) {
         ListUtil.setToken(text, DELIMITER, model);
@@ -109,6 +161,26 @@ public final class EditRepeatableTextEntryPanel extends javax.swing.JPanel
         setEnabledButtons();
     }
 
+    /**
+     * Adds text <em>whithout</em> replacing existing words in the list. If the
+     * text is delimited by {@link XmpMetadata#getXmpTokenDelimiter()}, every
+     * word not contained in the list will be added to the list.
+     *
+     * @param text text delimited by {@link XmpMetadata#getXmpTokenDelimiter()}
+     */
+    public void addText(String text) {
+        assert editable : "Edit is not enabled!";
+        if (!editable) return;
+        addTokensToList(text);
+        dirty = true;
+    }
+
+    /**
+     * Sets and replaces all words that will <em>not</em> be modified through
+     * the text modifier.
+     *
+     * @param text text delimited by {@link XmpMetadata#getXmpTokenDelimiter()}
+     */
     private void setIgnoreModifyWords(String text) {
         ignoreModifyWords.clear();
         StringTokenizer st = new StringTokenizer(text, DELIMITER);
@@ -122,25 +194,46 @@ public final class EditRepeatableTextEntryPanel extends javax.swing.JPanel
         return column;
     }
 
+    /**
+     * Adds the text in the input text field to the list if the ENTER key
+     * was pressed.
+     *
+     * @param evt key event
+     */
     private void handleTextFieldKeyReleased(KeyEvent evt) {
         JComponent component = (JComponent) evt.getSource();
         if (evt.getKeyCode() == KeyEvent.VK_ENTER &&
                 component.getInputVerifier().verify(component)) {
-            addInputToList();
+            addOneWordToList(getInputWithoutDelimiter());
         } else {
             setEnabledButtons();
         }
     }
 
-    private void addInputToList() {
-        String input = getInputWithoutDelimiter();
-        if (!input.isEmpty() && !model.contains(input)) {
-            model.addElement(input);
+    /**
+     * Adds a word to the list if the list doesn't contain that word.
+     *
+     * @param word word
+     */
+    private void addOneWordToList(String word) {
+        if (!word.isEmpty() && !model.contains(word)) {
+            model.addElement(word);
             textFieldInput.setText("");
             ComponentUtil.forceRepaint(getParent().getParent());
         }
     }
 
+    /**
+     * Returns the text in the input text field where all occurences of
+     * {@link XmpMetadata#getXmpTokenDelimiter()} will be replaced with
+     * {@link #DELIMITER_REPLACEMENT}.
+     *
+     * This is necessary to avoid words in the list that will be considered as
+     * two or more words when returned by {@link #getText()}.
+     *
+     * @return text where the delimiter is replaced with
+     *         <code>DELIMITER_REPLACEMENT</code>
+     */
     private String getInputWithoutDelimiter() {
         String input = textFieldInput.getText().trim();
         return input.replace(DELIMITER, DELIMITER_REPLACEMENT).trim();
@@ -156,16 +249,23 @@ public final class EditRepeatableTextEntryPanel extends javax.swing.JPanel
         return model.isEmpty();
     }
 
+    /**
+     * Focusses the input text field
+     */
     @Override
     public void focus() {
         textFieldInput.requestFocus();
     }
 
+    /**
+     * Removes from the list all selected elements.
+     */
     private void removeSelectedElements() {
         if (list.getSelectedIndex() >= 0) {
             Object[] values = list.getSelectedValues();
             for (Object value : values) {
                 model.removeElement(value);
+                ignoreModifyWords.remove(value.toString());
                 dirty = true;
             }
             ComponentUtil.forceRepaint(getParent().getParent());
@@ -184,12 +284,32 @@ public final class EditRepeatableTextEntryPanel extends javax.swing.JPanel
                            : getBackground());
     }
 
-    private void handleButtonAddInputActionPerformed() {
-        addInputToList();
+    @Override
+    public boolean isEditable() {
+        return editable;
     }
 
+    /**
+     * Adds the input as one word to the list if the list doesn't contain the
+     * input.
+     */
+    private void handleButtonAddInputActionPerformed() {
+        addOneWordToList(getInputWithoutDelimiter());
+    }
+
+    /**
+     * Removes the list's selected elements from the list.
+     */
     private void handleButtonRemoveInputActionPerformed() {
         removeSelectedElements();
+    }
+
+    private void handleListKeyPressed(KeyEvent evt) {
+        // won't be called but avoids that other components's key listeners
+        // triggered
+        if (evt.getKeyCode() == KeyEvent.VK_DELETE) {
+            removeSelectedElements();
+        }
     }
 
     private void handleListValueChanged(ListSelectionEvent evt) {
@@ -199,8 +319,8 @@ public final class EditRepeatableTextEntryPanel extends javax.swing.JPanel
     private void setEnabledButtons() {
         buttonAddInput.setEnabled(editable &&
                 !textFieldInput.getText().isEmpty());
-        buttonRemoveSelection.setEnabled(editable && list.getSelectedIndex() >=
-                0);
+        buttonRemoveSelection.setEnabled(
+                editable && list.getSelectedIndex() >= 0);
     }
 
     @Override
@@ -213,53 +333,91 @@ public final class EditRepeatableTextEntryPanel extends javax.swing.JPanel
         return new TextEntryContent(getText(), column);
     }
 
+    /**
+     * Removes the list's selected elements from the list.
+     *
+     * @param e action event
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         removeSelectedElements();
     }
 
+    /**
+     * The input text field's document was changed: Sets the dirty flag.
+     *
+     * @param e document event
+     */
     @Override
     public void insertUpdate(DocumentEvent e) {
         dirty = true;
     }
 
+    /**
+     * The input text field's document was changed: Sets the dirty flag.
+     *
+     * @param e document event
+     */
     @Override
     public void removeUpdate(DocumentEvent e) {
         dirty = true;
     }
 
+    /**
+     * The input text field's document was changed: Sets the dirty flag.
+     *
+     * @param e document event
+     */
     @Override
     public void changedUpdate(DocumentEvent e) {
         dirty = true;
     }
 
+    /**
+     * Invokes the text modifier if the <code>Ctrl+K</code> was pressed.
+     *
+     * @param evt key event
+     */
     private void modifyText(java.awt.event.KeyEvent evt) {
         if (textModifier != null && KeyEventUtil.isControl(evt, KeyEvent.VK_K)) {
             modifyText();
         }
     }
 
+    /**
+     * Invokes the text modifier and after returning sets the words of the
+     * modified text to the list if not contained there. Does nothing if no
+     * text was modified.
+     */
     private void modifyText() {
         String prevText = textFieldInput.getText();
         String modifiedText =
                 textModifier.modify(prevText, new ArrayList<String>());
         if (!modifiedText.isEmpty() &&
                 !prevText.equalsIgnoreCase(modifiedText)) {
-            addTokenToInput(modifiedText);
+            addTokensToList(modifiedText);
+            textFieldInput.setText("");
         }
     }
 
-    private void addTokenToInput(String text) {
-        StringTokenizer st = new StringTokenizer(text, DELIMITER);
+    /**
+     * Adds all tokens delimited by {@link XmpMetadata#getXmpTokenDelimiter()}
+     * not contained in the list to the list.
+     *
+     * @param tokenText text delimited by
+     *                  {@link XmpMetadata#getXmpTokenDelimiter()}
+     */
+    private void addTokensToList(String tokenText) {
+        StringTokenizer st = new StringTokenizer(tokenText, DELIMITER);
         int countAdded = 0;
         while (st.hasMoreTokens()) {
-            String input = st.nextToken().trim();
-            if (!input.isEmpty() && !model.contains(input)) {
-                model.addElement(input);
+            String token = st.nextToken().trim();
+            if (!token.isEmpty() && !model.contains(token)) {
+                model.addElement(token);
+                ignoreModifyWords.add(token);
                 countAdded++;
             }
         }
-        textFieldInput.setText("");
         if (countAdded > 0) {
             ComponentUtil.forceRepaint(getParent().getParent());
         }
@@ -396,11 +554,7 @@ private void listValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-F
 }//GEN-LAST:event_listValueChanged
 
 private void listKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_listKeyPressed
-    // won't be called but avoids that other components's key listeners
-    // triggered
-    if (evt.getKeyCode() == KeyEvent.VK_DELETE) {
-        removeSelectedElements();
-    }
+    handleListKeyPressed(evt);
 }//GEN-LAST:event_listKeyPressed
 
 private void textFieldInputKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldInputKeyPressed
