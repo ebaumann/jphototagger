@@ -48,7 +48,9 @@ public final class IptcRepeatableValues {
      */
     public static boolean isRepeatable(IPTCEntryMeta meta) {
         Boolean repeatable = IS_REPEATABLE.get(meta);
-        return repeatable;
+        return repeatable == null
+                ? false
+                : repeatable;
     }
 
     private IptcRepeatableValues() {
