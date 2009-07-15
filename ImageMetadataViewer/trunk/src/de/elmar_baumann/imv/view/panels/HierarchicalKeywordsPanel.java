@@ -43,6 +43,10 @@ public class HierarchicalKeywordsPanel extends javax.swing.JPanel {
         return menuItemToggleReal;
     }
 
+    public JMenuItem getMenuItemAddToEditPanel() {
+        return menuItemAddToEditPanel;
+    }
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -54,9 +58,10 @@ public class HierarchicalKeywordsPanel extends javax.swing.JPanel {
 
         popupMenu = new javax.swing.JPopupMenu();
         menuItemAdd = new javax.swing.JMenuItem();
-        menuItemRename = new javax.swing.JMenuItem();
         menuItemRemove = new javax.swing.JMenuItem();
+        menuItemRename = new javax.swing.JMenuItem();
         menuItemToggleReal = new javax.swing.JMenuItem();
+        menuItemAddToEditPanel = new javax.swing.JMenuItem();
         scrollPane = new javax.swing.JScrollPane();
         tree = new javax.swing.JTree();
 
@@ -66,19 +71,26 @@ public class HierarchicalKeywordsPanel extends javax.swing.JPanel {
         menuItemAdd.setText(bundle.getString("HierarchicalKeywordsPanel.menuItemAdd.text")); // NOI18N
         popupMenu.add(menuItemAdd);
 
-        menuItemRename.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F2, 0));
-        menuItemRename.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icons/icon_rename.png"))); // NOI18N
-        menuItemRename.setText(bundle.getString("HierarchicalKeywordsPanel.menuItemRename.text")); // NOI18N
-        popupMenu.add(menuItemRename);
-
         menuItemRemove.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_DELETE, 0));
         menuItemRemove.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icons/icon_remove.png"))); // NOI18N
         menuItemRemove.setText(bundle.getString("HierarchicalKeywordsPanel.menuItemRemove.text")); // NOI18N
         popupMenu.add(menuItemRemove);
 
+        menuItemRename.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F2, 0));
+        menuItemRename.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icons/icon_rename.png"))); // NOI18N
+        menuItemRename.setText(bundle.getString("HierarchicalKeywordsPanel.menuItemRename.text")); // NOI18N
+        popupMenu.add(menuItemRename);
+
         menuItemToggleReal.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_MASK));
+        menuItemToggleReal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icons/icon_keyword_real_helper.png"))); // NOI18N
         menuItemToggleReal.setText(bundle.getString("HierarchicalKeywordsPanel.menuItemToggleReal.text")); // NOI18N
         popupMenu.add(menuItemToggleReal);
+
+        menuItemAddToEditPanel.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_B, java.awt.event.InputEvent.CTRL_MASK));
+        menuItemAddToEditPanel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icons/icon_edit.png"))); // NOI18N
+        menuItemAddToEditPanel.setMnemonic('a');
+        menuItemAddToEditPanel.setText(bundle.getString("HierarchicalKeywordsPanel.menuItemAddToEditPanel.text")); // NOI18N
+        popupMenu.add(menuItemAddToEditPanel);
 
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("root");
         tree.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
@@ -101,6 +113,7 @@ public class HierarchicalKeywordsPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem menuItemAdd;
+    private javax.swing.JMenuItem menuItemAddToEditPanel;
     private javax.swing.JMenuItem menuItemRemove;
     private javax.swing.JMenuItem menuItemRename;
     private javax.swing.JMenuItem menuItemToggleReal;

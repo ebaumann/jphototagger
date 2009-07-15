@@ -60,7 +60,7 @@ public final class TextEntryContent implements TextEntry {
     }
 
     /**
-     * Returns always false.
+     * Returns false.
      * 
      * @return false
      */
@@ -81,5 +81,15 @@ public final class TextEntryContent implements TextEntry {
     @Override
     public TextEntry clone() {
         return new TextEntryContent(text, column);
+    }
+
+    /**
+     * Returns false.
+     * 
+     * @return false
+     */
+    @Override
+    public boolean isEditable() {
+        return false;
     }
 }

@@ -47,6 +47,13 @@ public interface TextEntry {
     public void setEditable(boolean editable);
 
     /**
+     * Returns whether editing is possible.
+     *
+     * @return true if editing is possible.
+     */
+    public boolean isEditable();
+
+    /**
      * Liefert, ob der Eintrag leer ist (keinen Inhalt hat).
      * 
      * @return true, wenn leer

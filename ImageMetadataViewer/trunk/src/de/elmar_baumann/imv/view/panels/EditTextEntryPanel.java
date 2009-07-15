@@ -25,6 +25,7 @@ public final class EditTextEntryPanel extends javax.swing.JPanel
     private Column column;
     private AutoCompleteData autoCompleteData;
     private boolean dirty = false;
+    private boolean editable;
 
     public EditTextEntryPanel(Column column) {
         this.column = column;
@@ -94,10 +95,16 @@ public final class EditTextEntryPanel extends javax.swing.JPanel
 
     @Override
     public void setEditable(boolean editable) {
+        this.editable = editable;
         textAreaEdit.setEditable(editable);
         textAreaEdit.setBackground(editable
                                    ? EDITABLE_COLOR
                                    : getBackground());
+    }
+
+    @Override
+    public boolean isEditable() {
+        return editable;
     }
 
     @Override
