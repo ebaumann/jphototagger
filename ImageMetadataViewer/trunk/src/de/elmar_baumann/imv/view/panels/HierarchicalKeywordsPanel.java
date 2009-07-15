@@ -1,6 +1,8 @@
 package de.elmar_baumann.imv.view.panels;
 
 import de.elmar_baumann.imv.UserSettings;
+import de.elmar_baumann.imv.resource.Bundle;
+import de.elmar_baumann.lib.componentutil.TreeUtil;
 import javax.swing.JMenuItem;
 import javax.swing.JTree;
 import javax.swing.tree.TreeSelectionModel;
@@ -65,6 +67,17 @@ public class HierarchicalKeywordsPanel extends javax.swing.JPanel {
         UserSettings.INSTANCE.writeToFile();
     }
 
+    private void handleButtonToggleExpandAllNodesActionPerformed() {
+        boolean selected = buttonToggleExpandAllNodes.isSelected();
+        TreeUtil.expandAll(tree, selected);
+        buttonToggleExpandAllNodes.setText(
+                selected
+                ? Bundle.getString(
+                "HierarchicalKeywordsPanel.ButtonToggleExpandAllNodes.Selected")
+                : Bundle.getString(
+                "HierarchicalKeywordsPanel.ButtonToggleExpandAllNodes.DeSelected"));
+    }
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -82,6 +95,7 @@ public class HierarchicalKeywordsPanel extends javax.swing.JPanel {
         menuItemAddToEditPanel = new javax.swing.JMenuItem();
         scrollPane = new javax.swing.JScrollPane();
         tree = new javax.swing.JTree();
+        buttonToggleExpandAllNodes = new javax.swing.JToggleButton();
 
         menuItemAdd.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
         menuItemAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icons/icon_add.png"))); // NOI18N
@@ -118,18 +132,36 @@ public class HierarchicalKeywordsPanel extends javax.swing.JPanel {
         scrollPane.setViewportView(tree);
         tree.setTransferHandler(new de.elmar_baumann.imv.datatransfer.TransferHandlerTreeHierarchicalKeywords());
 
+        buttonToggleExpandAllNodes.setText(bundle.getString("HierarchicalKeywordsPanel.buttonToggleExpandAllNodes.text")); // NOI18N
+        buttonToggleExpandAllNodes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonToggleExpandAllNodesActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(buttonToggleExpandAllNodes))
+            .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 271, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(buttonToggleExpandAllNodes))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void buttonToggleExpandAllNodesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonToggleExpandAllNodesActionPerformed
+        handleButtonToggleExpandAllNodesActionPerformed();
+    }//GEN-LAST:event_buttonToggleExpandAllNodesActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JToggleButton buttonToggleExpandAllNodes;
     private javax.swing.JMenuItem menuItemAdd;
     private javax.swing.JMenuItem menuItemAddToEditPanel;
     private javax.swing.JMenuItem menuItemRemove;
