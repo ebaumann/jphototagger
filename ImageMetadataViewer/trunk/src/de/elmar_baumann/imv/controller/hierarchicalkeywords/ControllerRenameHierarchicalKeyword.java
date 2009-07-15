@@ -20,7 +20,7 @@ import javax.swing.tree.TreePath;
 
 /**
  * Listens to the menu item {@link HierarchicalKeywordsPanel#getMenuItemRename()}
- * and on action renames in the tree the selected hierarchical sukeywordbject.
+ * and on action renames in the tree the selected hierarchical keyword.
  *
  * Also listens to key events into the tree and renames the selected
  * hierarchical keyword if the keys F2 or Ctrl+R were pressed.
