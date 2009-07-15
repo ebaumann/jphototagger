@@ -29,12 +29,23 @@ public final class IptcToXmpDialog extends Dialog
             "de.elmar_baumann.imv.view.dialogs.IptcToXmpDialog.LastDirectory"; // NOI18N
     private File directory = new File(""); // NOI18N
     private boolean stop = true;
+    private List<File> files;
 
-    /** Creates new form IptcToXmpDialog */
     public IptcToXmpDialog() {
         super((java.awt.Frame) null, false);
         initComponents();
         postInitComponents();
+    }
+
+    /**
+     * Setting files to process rather than letting the user choose a directory.
+     * When set, {@link #setVisible(boolean)} starts processing the images.
+     *
+     * @param files image files to extract IPTC and write them as or into
+     *              XMP sidecar files
+     */
+    public synchronized void setFiles(List<File> files) {
+        this.files = new ArrayList<File>(files);
     }
 
     private void checkClose() {
@@ -71,7 +82,11 @@ public final class IptcToXmpDialog extends Dialog
     public void setVisible(boolean visible) {
         if (visible) {
             readProperties();
-            init();
+            if (files == null) {
+                init();
+            } else {
+                start();
+            }
         } else {
             writeProperties();
             dispose();
@@ -121,16 +136,22 @@ public final class IptcToXmpDialog extends Dialog
 
     private void stop() {
         stop = true;
+        setVisible(false);
     }
 
     private List<File> getFiles() {
-        List<File> directories = new ArrayList<File>();
-        directories.add(directory);
-        if (checkBoxSubdirectories.isSelected()) {
-            directories.addAll(FileUtil.getAllSubDirectories(directory,
-                    UserSettings.INSTANCE.getDefaultDirectoryFilterOptions()));
+        if (files == null) {
+            List<File> directories = new ArrayList<File>();
+            directories.add(directory);
+            if (checkBoxSubdirectories.isSelected()) {
+                directories.addAll(
+                        FileUtil.getAllSubDirectories(directory,
+                        UserSettings.INSTANCE.getDefaultDirectoryFilterOptions()));
+            }
+            return ImageFilteredDirectory.getImageFilesOfDirectories(directories);
+        } else {
+            return files;
         }
-        return ImageFilteredDirectory.getImageFilesOfDirectories(directories);
     }
 
     private void setEnabledButtons() {
@@ -164,6 +185,7 @@ public final class IptcToXmpDialog extends Dialog
         progressBar.setValue(evt.getValue());
         stop = true;
         setEnabledButtons();
+        setVisible(false);
     }
 
     @Override

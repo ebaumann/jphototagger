@@ -32,12 +32,12 @@
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="progressBar" alignment="1" pref="486" max="32767" attributes="0"/>
-                  <Component id="labelDirectoryName" alignment="0" pref="486" max="32767" attributes="1"/>
+                  <Component id="progressBar" alignment="1" pref="631" max="32767" attributes="0"/>
+                  <Component id="labelDirectoryName" alignment="0" pref="631" max="32767" attributes="1"/>
                   <Component id="labelInfo" alignment="0" max="32767" attributes="1"/>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="labelDirectoryPrompt" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="313" max="32767" attributes="0"/>
+                      <EmptySpace pref="428" max="32767" attributes="0"/>
                       <Component id="buttonChooseDirectory" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Component id="checkBoxSubdirectories" alignment="0" min="-2" max="-2" attributes="0"/>
