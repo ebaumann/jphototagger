@@ -6,6 +6,7 @@ import de.elmar_baumann.imv.data.TextEntry;
 import de.elmar_baumann.imv.event.ProgressEvent;
 import de.elmar_baumann.imv.event.listener.ProgressListener;
 import de.elmar_baumann.imv.image.metadata.xmp.XmpMetadata;
+import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.ProgressBarCurrentTasks;
 import java.util.EnumSet;
 import java.util.List;
@@ -38,10 +39,11 @@ public final class XmpUpdaterFromTextEntryArray implements ProgressListener {
      */
     public void add(List<String> filenames, List<TextEntry> textEntries,
             EnumSet<XmpMetadata.UpdateOption> writeOptions) {
-        XmpUpdaterFromTextEntry updater = new XmpUpdaterFromTextEntry(filenames,
-                textEntries, writeOptions);
+        XmpUpdaterFromTextEntry updater =
+                new XmpUpdaterFromTextEntry(filenames, textEntries, writeOptions);
         updater.addProgressListener(this);
         updaters.add(updater);
+        GUI.INSTANCE.getAppFrame().setDataToSave(true);
         startThread();
     }
 
@@ -92,6 +94,7 @@ public final class XmpUpdaterFromTextEntryArray implements ProgressListener {
         if (isStop()) {
             updaters.clear();
             evt.stop();
+            GUI.INSTANCE.getAppFrame().setDataToSave(false);
         } else {
             if (progressBar != null) {
                 String filename = evt.getInfo().toString();
@@ -113,6 +116,8 @@ public final class XmpUpdaterFromTextEntryArray implements ProgressListener {
         setWait(false);
         if (updaters.size() > 0) {
             startThread();
+        } else {
+            GUI.INSTANCE.getAppFrame().setDataToSave(false);
         }
     }
 }
