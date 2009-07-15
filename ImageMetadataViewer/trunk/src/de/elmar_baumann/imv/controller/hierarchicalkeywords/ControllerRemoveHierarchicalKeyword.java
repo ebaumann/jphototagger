@@ -29,10 +29,15 @@ import javax.swing.tree.TreePath;
 public class ControllerRemoveHierarchicalKeyword
         implements ActionListener, KeyListener {
 
-    private final HierarchicalKeywordsPanel panel =
-            HierarchicalKeywordsDialog.INSTANCE.getPanel();
+    private final HierarchicalKeywordsPanel panel;
 
     public ControllerRemoveHierarchicalKeyword() {
+        panel = HierarchicalKeywordsDialog.INSTANCE.getPanel();
+        listen();
+    }
+
+    public ControllerRemoveHierarchicalKeyword(HierarchicalKeywordsPanel _panel) {
+        panel = _panel;
         listen();
     }
 

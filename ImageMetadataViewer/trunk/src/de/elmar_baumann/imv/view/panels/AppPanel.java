@@ -3,10 +3,15 @@ package de.elmar_baumann.imv.view.panels;
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.app.AppInit;
 import de.elmar_baumann.imv.app.AppTexts;
+import de.elmar_baumann.imv.controller.hierarchicalkeywords.ControllerAddHierarchicalKeyword;
+import de.elmar_baumann.imv.controller.hierarchicalkeywords.ControllerRemoveHierarchicalKeyword;
+import de.elmar_baumann.imv.controller.hierarchicalkeywords.ControllerRenameHierarchicalKeyword;
+import de.elmar_baumann.imv.controller.hierarchicalkeywords.ControllerToggleRealHierarchicalKeyword;
 import de.elmar_baumann.imv.datatransfer.TransferHandlerListKeywords;
 import de.elmar_baumann.imv.event.listener.AppExitListener;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.GUI;
+import de.elmar_baumann.imv.view.dialogs.HierarchicalKeywordsDialog;
 import de.elmar_baumann.imv.view.ViewUtil;
 import de.elmar_baumann.imv.view.renderer.ListCellRendererCategories;
 import de.elmar_baumann.imv.view.renderer.ListCellRendererImageCollections;
@@ -164,6 +169,10 @@ public final class AppPanel extends javax.swing.JPanel implements
 
     public JTree getTreeMiscMetadata() {
         return treeMiscMetadata;
+    }
+
+    public JTree getTreeHierarchicalKeywords() {
+        return hierarchicalKeywordsPanel.getTree();
     }
 
     JProgressBar getProgressBarCreateMetadataOfCurrentThumbnails() {
@@ -500,6 +509,7 @@ public final class AppPanel extends javax.swing.JPanel implements
         panelScrollPaneEditMetadata = new javax.swing.JPanel();
         scrollPaneEditMetadata = new javax.swing.JScrollPane();
         panelEditMetadata = new javax.swing.JPanel();
+        hierarchicalKeywordsPanel = new de.elmar_baumann.imv.view.panels.HierarchicalKeywordsPanel();
         panelStatusbar = new javax.swing.JPanel();
         sliderThumbnailSize = new javax.swing.JSlider();
         panelSearch = new javax.swing.JPanel();
@@ -827,11 +837,11 @@ public final class AppPanel extends javax.swing.JPanel implements
         panelScrollPaneEditMetadata.setLayout(panelScrollPaneEditMetadataLayout);
         panelScrollPaneEditMetadataLayout.setHorizontalGroup(
             panelScrollPaneEditMetadataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPaneEditMetadata, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)
+            .addComponent(scrollPaneEditMetadata, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
         );
         panelScrollPaneEditMetadataLayout.setVerticalGroup(
             panelScrollPaneEditMetadataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPaneEditMetadata, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+            .addComponent(scrollPaneEditMetadata, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout panelTabEditMetadataLayout = new javax.swing.GroupLayout(panelTabEditMetadata);
@@ -846,13 +856,19 @@ public final class AppPanel extends javax.swing.JPanel implements
         );
 
         tabbedPaneMetadata.addTab(Bundle.getString("AppPanel.panelTabEditMetadata.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icons/icon_workspace.png")), panelTabEditMetadata); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/imv/resource/properties/Bundle"); // NOI18N
+        tabbedPaneMetadata.addTab(bundle.getString("AppPanel.hierarchicalKeywordsPanel.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icons/icon_tree.png")), hierarchicalKeywordsPanel); // NOI18N
+        new ControllerToggleRealHierarchicalKeyword(hierarchicalKeywordsPanel);
+        new ControllerRenameHierarchicalKeyword(hierarchicalKeywordsPanel);
+        new ControllerAddHierarchicalKeyword(hierarchicalKeywordsPanel);
+        new ControllerRemoveHierarchicalKeyword(hierarchicalKeywordsPanel);
 
         javax.swing.GroupLayout panelMetadataLayout = new javax.swing.GroupLayout(panelMetadata);
         panelMetadata.setLayout(panelMetadataLayout);
         panelMetadataLayout.setHorizontalGroup(
             panelMetadataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(labelMetadataFilename, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
-            .addComponent(tabbedPaneMetadata, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
+            .addComponent(labelMetadataFilename, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+            .addComponent(tabbedPaneMetadata, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
         );
         panelMetadataLayout.setVerticalGroup(
             panelMetadataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -868,9 +884,9 @@ public final class AppPanel extends javax.swing.JPanel implements
         panelThumbnailsMetadata.setLayout(panelThumbnailsMetadataLayout);
         panelThumbnailsMetadataLayout.setHorizontalGroup(
             panelThumbnailsMetadataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 328, Short.MAX_VALUE)
+            .addGap(0, 332, Short.MAX_VALUE)
             .addGroup(panelThumbnailsMetadataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(splitPaneThumbnailsMetadata, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 328, Short.MAX_VALUE))
+                .addComponent(splitPaneThumbnailsMetadata, javax.swing.GroupLayout.Alignment.TRAILING))
         );
         panelThumbnailsMetadataLayout.setVerticalGroup(
             panelThumbnailsMetadataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -897,7 +913,7 @@ public final class AppPanel extends javax.swing.JPanel implements
             .addGroup(panelSearchLayout.createSequentialGroup()
                 .addComponent(labelSearch)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textFieldSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE))
+                .addComponent(textFieldSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE))
         );
         panelSearchLayout.setVerticalGroup(
             panelSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -923,7 +939,7 @@ public final class AppPanel extends javax.swing.JPanel implements
         panelMetadataProgressLayout.setHorizontalGroup(
             panelMetadataProgressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelMetadataProgressLayout.createSequentialGroup()
-                .addComponent(progressBarScheduledTasks, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
+                .addComponent(progressBarScheduledTasks, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonStopScheduledTasks, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -968,11 +984,11 @@ public final class AppPanel extends javax.swing.JPanel implements
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonSystemOutput, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(progressBarCreateMetadataOfCurrentThumbnails, javax.swing.GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE))
+                        .addComponent(progressBarCreateMetadataOfCurrentThumbnails, javax.swing.GroupLayout.DEFAULT_SIZE, 77, Short.MAX_VALUE))
                     .addComponent(panelSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(6, 6, 6)
                 .addGroup(panelStatusbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(progressBarCurrentTasks, 0, 59, Short.MAX_VALUE)
+                    .addComponent(progressBarCurrentTasks, 0, 61, Short.MAX_VALUE)
                     .addComponent(panelMetadataProgress, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
@@ -1005,7 +1021,7 @@ public final class AppPanel extends javax.swing.JPanel implements
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(splitPaneMain, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE)
+                    .addComponent(splitPaneMain, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(panelStatusbar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -1023,6 +1039,7 @@ public final class AppPanel extends javax.swing.JPanel implements
     private javax.swing.JButton buttonLogfileDialog;
     private javax.swing.JButton buttonStopScheduledTasks;
     private javax.swing.JButton buttonSystemOutput;
+    private de.elmar_baumann.imv.view.panels.HierarchicalKeywordsPanel hierarchicalKeywordsPanel;
     private javax.swing.JLabel labelMetadataFilename;
     private javax.swing.JLabel labelSearch;
     private javax.swing.JLabel labelStatusbar;

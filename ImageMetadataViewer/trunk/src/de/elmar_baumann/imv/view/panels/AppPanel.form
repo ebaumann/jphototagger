@@ -20,7 +20,7 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="splitPaneMain" alignment="1" pref="460" max="32767" attributes="2"/>
+                  <Component id="splitPaneMain" alignment="1" max="32767" attributes="2"/>
                   <Component id="panelStatusbar" alignment="1" max="32767" attributes="2"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -502,9 +502,9 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="328" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="332" max="32767" attributes="0"/>
                   <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                      <Component id="splitPaneThumbnailsMetadata" alignment="1" pref="328" max="32767" attributes="0"/>
+                      <Component id="splitPaneThumbnailsMetadata" alignment="1" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -589,8 +589,8 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="labelMetadataFilename" alignment="0" pref="136" max="32767" attributes="2"/>
-                          <Component id="tabbedPaneMetadata" alignment="0" pref="136" max="32767" attributes="2"/>
+                          <Component id="labelMetadataFilename" alignment="0" pref="140" max="32767" attributes="2"/>
+                          <Component id="tabbedPaneMetadata" alignment="0" pref="140" max="32767" attributes="2"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
@@ -933,12 +933,12 @@
                               <Layout>
                                 <DimensionLayout dim="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="scrollPaneEditMetadata" alignment="0" pref="131" max="32767" attributes="0"/>
+                                      <Component id="scrollPaneEditMetadata" alignment="0" pref="135" max="32767" attributes="0"/>
                                   </Group>
                                 </DimensionLayout>
                                 <DimensionLayout dim="1">
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="scrollPaneEditMetadata" alignment="1" pref="140" max="32767" attributes="0"/>
+                                      <Component id="scrollPaneEditMetadata" alignment="1" pref="122" max="32767" attributes="0"/>
                                   </Group>
                                 </DimensionLayout>
                               </Layout>
@@ -968,6 +968,23 @@
                             </Container>
                           </SubComponents>
                         </Container>
+                        <Component class="de.elmar_baumann.imv.view.panels.HierarchicalKeywordsPanel" name="hierarchicalKeywordsPanel">
+                          <AuxValues>
+                            <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="new ControllerToggleRealHierarchicalKeyword(hierarchicalKeywordsPanel);&#xa;new ControllerRenameHierarchicalKeyword(hierarchicalKeywordsPanel);&#xa;new ControllerAddHierarchicalKeyword(hierarchicalKeywordsPanel);&#xa;new ControllerRemoveHierarchicalKeyword(hierarchicalKeywordsPanel);"/>
+                          </AuxValues>
+                          <Constraints>
+                            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+                              <JTabbedPaneConstraints tabName="Stichwortbaum">
+                                <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                                  <ResourceString bundle="de/elmar_baumann/imv/resource/properties/Bundle.properties" key="AppPanel.hierarchicalKeywordsPanel.TabConstraints.tabTitle" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                                </Property>
+                                <Property name="tabIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                                  <Image iconType="3" name="/de/elmar_baumann/imv/resource/icons/icon_tree.png"/>
+                                </Property>
+                              </JTabbedPaneConstraints>
+                            </Constraint>
+                          </Constraints>
+                        </Component>
                       </SubComponents>
                     </Container>
                   </SubComponents>
@@ -995,13 +1012,13 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="buttonSystemOutput" min="-2" pref="64" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="progressBarCreateMetadataOfCurrentThumbnails" pref="75" max="32767" attributes="2"/>
+                          <Component id="progressBarCreateMetadataOfCurrentThumbnails" pref="77" max="32767" attributes="2"/>
                       </Group>
                       <Component id="panelSearch" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="progressBarCurrentTasks" min="0" pref="59" max="32767" attributes="2"/>
+                      <Component id="progressBarCurrentTasks" min="0" pref="61" max="32767" attributes="2"/>
                       <Component id="panelMetadataProgress" alignment="0" max="32767" attributes="2"/>
                   </Group>
               </Group>
@@ -1046,7 +1063,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="labelSearch" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="textFieldSearch" pref="112" max="32767" attributes="2"/>
+                      <Component id="textFieldSearch" pref="114" max="32767" attributes="2"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1082,7 +1099,7 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
-                      <Component id="progressBarScheduledTasks" pref="37" max="32767" attributes="2"/>
+                      <Component id="progressBarScheduledTasks" pref="39" max="32767" attributes="2"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="buttonStopScheduledTasks" min="-2" max="-2" attributes="0"/>
                   </Group>

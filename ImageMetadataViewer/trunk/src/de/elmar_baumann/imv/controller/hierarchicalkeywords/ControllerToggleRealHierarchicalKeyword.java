@@ -27,10 +27,16 @@ import javax.swing.tree.TreePath;
 public class ControllerToggleRealHierarchicalKeyword
         implements ActionListener, KeyListener {
 
-    private final HierarchicalKeywordsPanel panel =
-            HierarchicalKeywordsDialog.INSTANCE.getPanel();
+    private final HierarchicalKeywordsPanel panel;
 
     public ControllerToggleRealHierarchicalKeyword() {
+        panel = HierarchicalKeywordsDialog.INSTANCE.getPanel();
+        listen();
+    }
+
+    public ControllerToggleRealHierarchicalKeyword(
+            HierarchicalKeywordsPanel _panel) {
+        panel = _panel;
         listen();
     }
 
