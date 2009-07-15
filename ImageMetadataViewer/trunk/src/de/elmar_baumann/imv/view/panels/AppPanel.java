@@ -11,7 +11,6 @@ import de.elmar_baumann.imv.datatransfer.TransferHandlerListKeywords;
 import de.elmar_baumann.imv.event.listener.AppExitListener;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.GUI;
-import de.elmar_baumann.imv.view.dialogs.HierarchicalKeywordsDialog;
 import de.elmar_baumann.imv.view.ViewUtil;
 import de.elmar_baumann.imv.view.renderer.ListCellRendererCategories;
 import de.elmar_baumann.imv.view.renderer.ListCellRendererImageCollections;
@@ -116,7 +115,7 @@ public final class AppPanel extends javax.swing.JPanel implements
     }
 
     public Component getTabMetadataIptc() {
-        return scrollPaneIptc;
+        return panelIptc;
     }
 
     public Component getTabMetadataExif() {
@@ -125,6 +124,10 @@ public final class AppPanel extends javax.swing.JPanel implements
 
     public Component getTabMetadataXmp() {
         return tabbedPaneXmp;
+    }
+
+    public Component getTabMetadataHierarchicaKeywords() {
+        return panelHierarchicalKeywords;
     }
 
     public Component getTabMetadataEdit() {
@@ -172,7 +175,7 @@ public final class AppPanel extends javax.swing.JPanel implements
     }
 
     public JTree getTreeHierarchicalKeywords() {
-        return hierarchicalKeywordsPanel.getTree();
+        return panelHierarchicalKeywords.getTree();
     }
 
     JProgressBar getProgressBarCreateMetadataOfCurrentThumbnails() {
@@ -265,6 +268,10 @@ public final class AppPanel extends javax.swing.JPanel implements
 
     public JButton getButtonStopScheduledTasks() {
         return buttonStopScheduledTasks;
+    }
+
+    public JButton getButtonIptcToXmp() {
+        return buttonIptcToXmp;
     }
 
     public JComboBox getComboBoxMetadataTemplates() {
@@ -484,8 +491,10 @@ public final class AppPanel extends javax.swing.JPanel implements
         panelMetadata = new javax.swing.JPanel();
         labelMetadataFilename = new javax.swing.JLabel();
         tabbedPaneMetadata = new javax.swing.JTabbedPane();
+        panelIptc = new javax.swing.JPanel();
         scrollPaneIptc = new javax.swing.JScrollPane();
         tableIptc = new javax.swing.JTable();
+        buttonIptcToXmp = new javax.swing.JButton();
         scrollPaneExif = new javax.swing.JScrollPane();
         tableExif = new javax.swing.JTable();
         tabbedPaneXmp = new javax.swing.JTabbedPane();
@@ -509,7 +518,7 @@ public final class AppPanel extends javax.swing.JPanel implements
         panelScrollPaneEditMetadata = new javax.swing.JPanel();
         scrollPaneEditMetadata = new javax.swing.JScrollPane();
         panelEditMetadata = new javax.swing.JPanel();
-        hierarchicalKeywordsPanel = new de.elmar_baumann.imv.view.panels.HierarchicalKeywordsPanel();
+        panelHierarchicalKeywords = new de.elmar_baumann.imv.view.panels.HierarchicalKeywordsPanel();
         panelStatusbar = new javax.swing.JPanel();
         sliderThumbnailSize = new javax.swing.JSlider();
         panelSearch = new javax.swing.JPanel();
@@ -751,7 +760,29 @@ public final class AppPanel extends javax.swing.JPanel implements
         tableIptc.setName("tableIptc"); // NOI18N
         scrollPaneIptc.setViewportView(tableIptc);
 
-        tabbedPaneMetadata.addTab(Bundle.getString("AppPanel.scrollPaneIptc.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icons/icon_iptc.png")), scrollPaneIptc); // NOI18N
+        buttonIptcToXmp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icons/icon_xmp.png"))); // NOI18N
+        buttonIptcToXmp.setMnemonic('x');
+        buttonIptcToXmp.setText(Bundle.getString("AppPanel.buttonIptcToXmp.text")); // NOI18N
+        buttonIptcToXmp.setToolTipText(Bundle.getString("AppPanel.buttonIptcToXmp.toolTipText")); // NOI18N
+
+        javax.swing.GroupLayout panelIptcLayout = new javax.swing.GroupLayout(panelIptc);
+        panelIptc.setLayout(panelIptcLayout);
+        panelIptcLayout.setHorizontalGroup(
+            panelIptcLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelIptcLayout.createSequentialGroup()
+                .addComponent(buttonIptcToXmp)
+                .addContainerGap())
+            .addComponent(scrollPaneIptc, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
+        );
+        panelIptcLayout.setVerticalGroup(
+            panelIptcLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelIptcLayout.createSequentialGroup()
+                .addComponent(scrollPaneIptc, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(buttonIptcToXmp))
+        );
+
+        tabbedPaneMetadata.addTab(Bundle.getString("AppPanel.panelIptc.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icons/icon_iptc.png")), panelIptc); // NOI18N
 
         tableExif.setAutoCreateRowSorter(true);
         tableExif.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
@@ -857,18 +888,18 @@ public final class AppPanel extends javax.swing.JPanel implements
 
         tabbedPaneMetadata.addTab(Bundle.getString("AppPanel.panelTabEditMetadata.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icons/icon_workspace.png")), panelTabEditMetadata); // NOI18N
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/imv/resource/properties/Bundle"); // NOI18N
-        tabbedPaneMetadata.addTab(bundle.getString("AppPanel.hierarchicalKeywordsPanel.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icons/icon_tree.png")), hierarchicalKeywordsPanel); // NOI18N
-        new ControllerToggleRealHierarchicalKeyword(hierarchicalKeywordsPanel);
-        new ControllerRenameHierarchicalKeyword(hierarchicalKeywordsPanel);
-        new ControllerAddHierarchicalKeyword(hierarchicalKeywordsPanel);
-        new ControllerRemoveHierarchicalKeyword(hierarchicalKeywordsPanel);
+        tabbedPaneMetadata.addTab(bundle.getString("AppPanel.panelHierarchicalKeywords.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icons/icon_tree.png")), panelHierarchicalKeywords); // NOI18N
+        new ControllerToggleRealHierarchicalKeyword(panelHierarchicalKeywords);
+        new ControllerRenameHierarchicalKeyword(panelHierarchicalKeywords);
+        new ControllerAddHierarchicalKeyword(panelHierarchicalKeywords);
+        new ControllerRemoveHierarchicalKeyword(panelHierarchicalKeywords);
 
         javax.swing.GroupLayout panelMetadataLayout = new javax.swing.GroupLayout(panelMetadata);
         panelMetadata.setLayout(panelMetadataLayout);
         panelMetadataLayout.setHorizontalGroup(
             panelMetadataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(labelMetadataFilename, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
-            .addComponent(tabbedPaneMetadata, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+            .addComponent(tabbedPaneMetadata, javax.swing.GroupLayout.PREFERRED_SIZE, 140, Short.MAX_VALUE)
         );
         panelMetadataLayout.setVerticalGroup(
             panelMetadataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1034,12 +1065,11 @@ public final class AppPanel extends javax.swing.JPanel implements
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton buttonIptcToXmp;
     private javax.swing.JButton buttonLogfileDialog;
     private javax.swing.JButton buttonStopScheduledTasks;
     private javax.swing.JButton buttonSystemOutput;
-    private de.elmar_baumann.imv.view.panels.HierarchicalKeywordsPanel hierarchicalKeywordsPanel;
     private javax.swing.JLabel labelMetadataFilename;
     private javax.swing.JLabel labelSearch;
     private javax.swing.JLabel labelStatusbar;
@@ -1051,7 +1081,9 @@ public final class AppPanel extends javax.swing.JPanel implements
     private javax.swing.JPanel panelDirectories;
     private javax.swing.JPanel panelEditMetadata;
     private javax.swing.JPanel panelFavorites;
+    private de.elmar_baumann.imv.view.panels.HierarchicalKeywordsPanel panelHierarchicalKeywords;
     private javax.swing.JPanel panelImageCollections;
+    private javax.swing.JPanel panelIptc;
     private javax.swing.JPanel panelKeywords;
     private javax.swing.JPanel panelMetadata;
     private javax.swing.JPanel panelMetadataProgress;

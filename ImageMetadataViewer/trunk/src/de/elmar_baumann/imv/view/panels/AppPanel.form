@@ -627,12 +627,12 @@
 
                       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
                       <SubComponents>
-                        <Container class="javax.swing.JScrollPane" name="scrollPaneIptc">
+                        <Container class="javax.swing.JPanel" name="panelIptc">
                           <Constraints>
                             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
                               <JTabbedPaneConstraints tabName="IPTC">
                                 <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                  <ResourceString bundle="de/elmar_baumann/imv/resource/properties/Bundle.properties" key="AppPanel.scrollPaneIptc.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                                  <ResourceString bundle="de/elmar_baumann/imv/resource/properties/Bundle.properties" key="AppPanel.panelIptc.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                                 </Property>
                                 <Property name="tabIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                                   <Image iconType="3" name="/de/elmar_baumann/imv/resource/icons/icon_iptc.png"/>
@@ -641,13 +641,52 @@
                             </Constraint>
                           </Constraints>
 
-                          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                          <Layout>
+                            <DimensionLayout dim="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="buttonIptcToXmp" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="scrollPaneIptc" alignment="0" pref="157" max="32767" attributes="0"/>
+                              </Group>
+                            </DimensionLayout>
+                            <DimensionLayout dim="1">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Component id="scrollPaneIptc" pref="90" max="32767" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="buttonIptcToXmp" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                            </DimensionLayout>
+                          </Layout>
                           <SubComponents>
-                            <Component class="javax.swing.JTable" name="tableIptc">
+                            <Container class="javax.swing.JScrollPane" name="scrollPaneIptc">
+
+                              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                              <SubComponents>
+                                <Component class="javax.swing.JTable" name="tableIptc">
+                                  <Properties>
+                                    <Property name="autoCreateRowSorter" type="boolean" value="true"/>
+                                    <Property name="autoResizeMode" type="int" value="0"/>
+                                    <Property name="name" type="java.lang.String" value="tableIptc" noResource="true"/>
+                                  </Properties>
+                                </Component>
+                              </SubComponents>
+                            </Container>
+                            <Component class="javax.swing.JButton" name="buttonIptcToXmp">
                               <Properties>
-                                <Property name="autoCreateRowSorter" type="boolean" value="true"/>
-                                <Property name="autoResizeMode" type="int" value="0"/>
-                                <Property name="name" type="java.lang.String" value="tableIptc" noResource="true"/>
+                                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                                  <Image iconType="3" name="/de/elmar_baumann/imv/resource/icons/icon_xmp.png"/>
+                                </Property>
+                                <Property name="mnemonic" type="int" value="120"/>
+                                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                                  <ResourceString bundle="de/elmar_baumann/imv/resource/properties/Bundle.properties" key="AppPanel.buttonIptcToXmp.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                                </Property>
+                                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                                  <ResourceString bundle="de/elmar_baumann/imv/resource/properties/Bundle.properties" key="AppPanel.buttonIptcToXmp.toolTipText" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                                </Property>
                               </Properties>
                             </Component>
                           </SubComponents>
@@ -968,15 +1007,15 @@
                             </Container>
                           </SubComponents>
                         </Container>
-                        <Component class="de.elmar_baumann.imv.view.panels.HierarchicalKeywordsPanel" name="hierarchicalKeywordsPanel">
+                        <Component class="de.elmar_baumann.imv.view.panels.HierarchicalKeywordsPanel" name="panelHierarchicalKeywords">
                           <AuxValues>
-                            <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="new ControllerToggleRealHierarchicalKeyword(hierarchicalKeywordsPanel);&#xa;new ControllerRenameHierarchicalKeyword(hierarchicalKeywordsPanel);&#xa;new ControllerAddHierarchicalKeyword(hierarchicalKeywordsPanel);&#xa;new ControllerRemoveHierarchicalKeyword(hierarchicalKeywordsPanel);"/>
+                            <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="new ControllerToggleRealHierarchicalKeyword(panelHierarchicalKeywords);&#xa;new ControllerRenameHierarchicalKeyword(panelHierarchicalKeywords);&#xa;new ControllerAddHierarchicalKeyword(panelHierarchicalKeywords);&#xa;new ControllerRemoveHierarchicalKeyword(panelHierarchicalKeywords);"/>
                           </AuxValues>
                           <Constraints>
                             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
                               <JTabbedPaneConstraints tabName="Stichwortbaum">
                                 <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                  <ResourceString bundle="de/elmar_baumann/imv/resource/properties/Bundle.properties" key="AppPanel.hierarchicalKeywordsPanel.TabConstraints.tabTitle" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                                  <ResourceString bundle="de/elmar_baumann/imv/resource/properties/Bundle.properties" key="AppPanel.panelHierarchicalKeywords.TabConstraints.tabTitle" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                                 </Property>
                                 <Property name="tabIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                                   <Image iconType="3" name="/de/elmar_baumann/imv/resource/icons/icon_tree.png"/>

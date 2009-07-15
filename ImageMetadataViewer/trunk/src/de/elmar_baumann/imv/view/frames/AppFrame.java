@@ -90,6 +90,8 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemOfGoto.put(GoTo.MISC_METADATA, menuItemGotoMiscMetadata);
         menuItemOfGoto.put(GoTo.THUMBNAILS_PANEL, menuItemGotoThumbnailsPanel);
         menuItemOfGoto.put(GoTo.XMP_METADATA, menuItemGotoXmpMetadata);
+        menuItemOfGoto.put(GoTo.HIERARCHICAL_KEYWORDS,
+                menuItemGotoHierarchicalKeywords);
 
         for (GoTo gt : menuItemOfGoto.keySet()) {
             gotoOfMenuItem.put(menuItemOfGoto.get(gt), gt);
@@ -112,6 +114,7 @@ public final class AppFrame extends javax.swing.JFrame {
         EXIF_METADATA,
         IPTC_METADATA,
         XMP_METADATA,
+        HIERARCHICAL_KEYWORDS,
     };
 
     private void postInitComponents() {
@@ -356,6 +359,7 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemGotoIptcMetadata = new javax.swing.JMenuItem();
         menuItemGotoExifMetadata = new javax.swing.JMenuItem();
         menuItemGotoXmpMetadata = new javax.swing.JMenuItem();
+        menuItemGotoHierarchicalKeywords = new javax.swing.JMenuItem();
         menuTools = new javax.swing.JMenu();
         menuItemToolIptcToXmp = new javax.swing.JMenuItem();
         menuItemExtractEmbeddedXmp = new javax.swing.JMenuItem();
@@ -566,6 +570,11 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemGotoXmpMetadata.setText(Bundle.getString("AppFrame.menuItemGotoXmpMetadata.text")); // NOI18N
         menuGoto.add(menuItemGotoXmpMetadata);
 
+        menuItemGotoHierarchicalKeywords.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_4, java.awt.event.InputEvent.ALT_MASK));
+        menuItemGotoHierarchicalKeywords.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icons/icon_tree.png"))); // NOI18N
+        menuItemGotoHierarchicalKeywords.setText(Bundle.getString("AppFrame.menuItemGotoHierarchicalKeywords.text")); // NOI18N
+        menuGoto.add(menuItemGotoHierarchicalKeywords);
+
         menuBar.add(menuGoto);
 
         menuTools.setMnemonic('w');
@@ -695,6 +704,7 @@ private void menuItemHierarchicalKeywordsActionPerformed(java.awt.event.ActionEv
     private javax.swing.JMenuItem menuItemGotoExifMetadata;
     private javax.swing.JMenuItem menuItemGotoFastSearch;
     private javax.swing.JMenuItem menuItemGotoFavoriteDirectories;
+    private javax.swing.JMenuItem menuItemGotoHierarchicalKeywords;
     private javax.swing.JMenuItem menuItemGotoIptcMetadata;
     private javax.swing.JMenuItem menuItemGotoKeywords;
     private javax.swing.JMenuItem menuItemGotoMiscMetadata;

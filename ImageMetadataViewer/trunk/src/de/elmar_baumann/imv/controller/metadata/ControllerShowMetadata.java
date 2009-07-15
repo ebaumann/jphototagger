@@ -143,9 +143,10 @@ public final class ControllerShowMetadata implements DatabaseListener,
         final ImageFileThumbnailsPanel panel = appPanel.getPanelThumbnails();
         if (panel.getSelectionCount() == 1) {
             SwingUtilities.invokeLater(
-                    new ShowMetadata(panel.getSelectedFiles().get(0),
-                    Metadata.getAll()));
+                    new ShowMetadata(
+                    panel.getSelectedFiles().get(0), Metadata.getAll()));
         } else {
+            appPanel.getButtonIptcToXmp().setEnabled(false);
             SwingUtilities.invokeLater(new RemoveAllMetadata());
         }
     }
@@ -222,6 +223,7 @@ public final class ControllerShowMetadata implements DatabaseListener,
             if (metadata.contains(Metadata.IPTC)) {
                 metadataTableModels.getIptcTableModel().setFile(file);
             }
+            appPanel.getButtonIptcToXmp().setEnabled(hasIptcData());
             if (metadata.contains(Metadata.XMP)) {
                 setXmpModels(file.getAbsolutePath());
             }
@@ -280,6 +282,10 @@ public final class ControllerShowMetadata implements DatabaseListener,
                         allInfos, namespaces[index]));
             }
             model.setPropertyInfosOfFile(filename, infos);
+        }
+
+        private boolean hasIptcData() {
+            return metadataTableModels.getIptcTableModel().getRowCount() > 0;
         }
     }
 

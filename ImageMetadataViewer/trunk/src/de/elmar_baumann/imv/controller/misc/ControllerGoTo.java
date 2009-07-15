@@ -61,6 +61,8 @@ public final class ControllerGoTo implements ActionListener {
                 appPanel.getTabMetadataIptc());
         componentOfGoTo.put(AppFrame.GoTo.XMP_METADATA,
                 appPanel.getTabMetadataXmp());
+        componentOfGoTo.put(AppFrame.GoTo.HIERARCHICAL_KEYWORDS,
+                appPanel.getTabMetadataHierarchicaKeywords());
 
         tabbedPaneOfGoTo.put(AppFrame.GoTo.CATEGORIES,
                 appPanel.getTabbedPaneSelection());
@@ -86,6 +88,8 @@ public final class ControllerGoTo implements ActionListener {
         tabbedPaneOfGoTo.put(AppFrame.GoTo.IPTC_METADATA,
                 appPanel.getTabbedPaneMetadata());
         tabbedPaneOfGoTo.put(AppFrame.GoTo.XMP_METADATA,
+                appPanel.getTabbedPaneMetadata());
+        tabbedPaneOfGoTo.put(AppFrame.GoTo.HIERARCHICAL_KEYWORDS,
                 appPanel.getTabbedPaneMetadata());
     }
 
