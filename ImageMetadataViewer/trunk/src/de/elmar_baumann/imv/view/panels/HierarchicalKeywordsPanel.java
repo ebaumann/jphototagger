@@ -1,5 +1,6 @@
 package de.elmar_baumann.imv.view.panels;
 
+import de.elmar_baumann.imv.UserSettings;
 import javax.swing.JMenuItem;
 import javax.swing.JTree;
 import javax.swing.tree.TreeSelectionModel;
@@ -12,7 +13,9 @@ import javax.swing.tree.TreeSelectionModel;
  */
 public class HierarchicalKeywordsPanel extends javax.swing.JPanel {
 
-    /** Creates new form HierarchicalKeywordsPanel */
+    private static final String KEY_TREE =
+            "HierarchicalKeywordsPanel.Tree.SelectedNode";
+
     public HierarchicalKeywordsPanel() {
         initComponents();
         postInitComponents();
@@ -45,6 +48,21 @@ public class HierarchicalKeywordsPanel extends javax.swing.JPanel {
 
     public JMenuItem getMenuItemAddToEditPanel() {
         return menuItemAddToEditPanel;
+    }
+
+    /**
+     * Reads the persistent properties, currently the selected tree node.
+     */
+    public void readProperties() {
+        UserSettings.INSTANCE.getSettings().getTree(tree, KEY_TREE);
+    }
+
+    /**
+     * Writes the persistent properties, currently the selected tree node.
+     */
+    public void writeProperties() {
+        UserSettings.INSTANCE.getSettings().setTree(tree, KEY_TREE);
+        UserSettings.INSTANCE.writeToFile();
     }
 
     /** This method is called from within the constructor to

@@ -32,11 +32,13 @@ public class HierarchicalKeywordsDialog extends Dialog {
 
     private void readProperties() {
         UserSettings.INSTANCE.getSettings().getSizeAndLocation(this);
+        panelHierarchicalKeywords.readProperties();
     }
 
     private void writeProperties() {
         UserSettings.INSTANCE.getSettings().setSizeAndLocation(this);
         UserSettings.INSTANCE.writeToFile();
+        panelHierarchicalKeywords.writeProperties();
     }
 
     public HierarchicalKeywordsPanel getPanel() {
