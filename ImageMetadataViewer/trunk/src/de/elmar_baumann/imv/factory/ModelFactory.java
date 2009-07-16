@@ -64,7 +64,6 @@ public final class ModelFactory {
         setListModelImageCollections(appPanel);
         setListModelCategories(appPanel);
         setListModelKeywords(appPanel);
-        setListModelHierarchicalKeywords();
     }
 
     private void setListModelSavedSearches(final AppPanel appPanel) {
@@ -93,12 +92,6 @@ public final class ModelFactory {
         Cursor listCursor = setWaitCursor(list);
         list.setModel(new SortedListModel(new ListModelKeywords()));
         list.setCursor(listCursor);
-    }
-
-    private void setListModelHierarchicalKeywords() {
-        TreeModel m = new TreeModelHierarchicalKeywords();
-        HierarchicalKeywordsDialog.INSTANCE.getPanel().getTree().setModel(m);
-        GUI.INSTANCE.getAppPanel().getTreeHierarchicalKeywords().setModel(m);
     }
 
     private void setTableModels(final AppPanel appPanel) {
@@ -140,10 +133,17 @@ public final class ModelFactory {
     }
 
     private void setTreeModels(final AppPanel appPanel) {
+        setTreeModelHierarchicalKeywords();
         setTreeModelTimeline(appPanel);
         setTreeModelMiscMetadata(appPanel);
         setTreeModelFavorites(appPanel);
         setTreeModelDirectories(appPanel);
+    }
+
+    private void setTreeModelHierarchicalKeywords() {
+        TreeModel m = new TreeModelHierarchicalKeywords();
+        HierarchicalKeywordsDialog.INSTANCE.getPanel().getTree().setModel(m);
+        GUI.INSTANCE.getAppPanel().getTreeHierarchicalKeywords().setModel(m);
     }
 
     private void setTreeModelMiscMetadata(final AppPanel appPanel) {
