@@ -424,8 +424,9 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel
     @Override
     protected List<String> getKeywords(int index) {
         if (isIndex(index)) {
-            Xmp xmp = XmpMetadata.getXmpOfImageFile(
-                    files.get(index).getAbsolutePath());
+            Xmp xmp = db.getXmpOfFile(files.get(index).getAbsolutePath());
+            //Xmp xmp = XmpMetadata.getXmpOfImageFile(
+            //        files.get(index).getAbsolutePath());
             return xmp.getDcSubjects();
         }
         return null;
