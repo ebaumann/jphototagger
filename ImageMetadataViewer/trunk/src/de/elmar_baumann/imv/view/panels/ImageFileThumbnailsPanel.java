@@ -8,8 +8,11 @@ import de.elmar_baumann.imv.database.DatabaseImageFiles;
 import de.elmar_baumann.imv.datatransfer.TransferHandlerPanelThumbnails;
 import de.elmar_baumann.imv.event.listener.AppExitListener;
 import de.elmar_baumann.imv.event.listener.RefreshListener;
+import de.elmar_baumann.imv.image.metadata.xmp.XmpMetadata;
+import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.comparator.FileSort;
 import de.elmar_baumann.imv.types.FileAction;
+import de.elmar_baumann.imv.types.SizeUnit;
 import de.elmar_baumann.imv.view.InfoSettingThumbnails;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuThumbnails;
 import java.awt.Image;
@@ -19,6 +22,7 @@ import java.awt.event.MouseEvent;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -433,16 +437,31 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel
 
     private String createTooltipText(int index) {
         if (isIndex(index)) {
-            String filename = files.get(index).getAbsolutePath();
-            String flagText = ""; // NOI18N
+            File file = files.get(index);
+            if (!file.exists()) return file.getAbsolutePath();
             ThumbnailFlag flag = getFlag(index);
-            if (flag != null) {
-                flagText = " - " + flag.getString(); // NOI18N
-            }
-            return filename + flagText;
+            String flagText = flag == null
+                              ? "" // NOI18N
+                              : flag.getString();
+            long length = file.length();
+            SizeUnit unit = SizeUnit.unit(length);
+            long unitLength = (long) (length / unit.bytes() + 0.5);
+            Date date = new Date(file.lastModified());
+            String unitString = unit.toString();
+            return Bundle.getString("ImageFileThumbnailsPanel.TooltipText", // NOI18N
+                    file, unitLength, unitString, date, date,
+                    getSidecarFilename(file), flagText);
         } else {
             return ""; // NOI18N
         }
+    }
+
+    private static String getSidecarFilename(File file) {
+        String sidecarfile = XmpMetadata.getSidecarFilenameOfImageFileIfExists(
+                file.getAbsolutePath());
+        return sidecarfile == null
+               ? "" // NOI18N
+               : sidecarfile;
     }
 
     @Override
