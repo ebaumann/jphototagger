@@ -544,8 +544,8 @@ public abstract class ThumbnailsPanel extends JPanel
     }
 
     private int getThumbnailTopIndent(Image thumbnail) {
-        int indentTop = (int) ((double) ((getThumbnailAreaHeight() -
-                thumbnail.getHeight(this) - FONT_PIXEL_HEIGHT)) / 2.0 + 0.5);
+        int indentTop = (getThumbnailAreaHeight() -
+                thumbnail.getHeight(this) - FONT_PIXEL_HEIGHT + 1) / 2;
         if (indentTop < 0) {
             indentTop = 0;
         }
