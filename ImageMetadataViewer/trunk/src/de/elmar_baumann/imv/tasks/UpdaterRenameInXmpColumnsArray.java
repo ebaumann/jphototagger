@@ -4,7 +4,7 @@ import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.database.metadata.Column;
 import de.elmar_baumann.imv.event.ProgressEvent;
 import de.elmar_baumann.imv.event.listener.ProgressListener;
-import de.elmar_baumann.imv.view.panels.ProgressBarCurrentTasks;
+import de.elmar_baumann.imv.view.panels.ProgressBarUserTasks;
 import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -21,8 +21,8 @@ public final class UpdaterRenameInXmpColumnsArray implements ProgressListener {
 
     private final Queue<UpdaterRenameInXmpColumns> updaters =
             new ConcurrentLinkedQueue<UpdaterRenameInXmpColumns>();
-    private final ProgressBarCurrentTasks progressBarProvider =
-            ProgressBarCurrentTasks.INSTANCE;
+    private final ProgressBarUserTasks progressBarProvider =
+            ProgressBarUserTasks.INSTANCE;
     private JProgressBar progressBar;
     private boolean wait = false;
     private boolean stop = false;

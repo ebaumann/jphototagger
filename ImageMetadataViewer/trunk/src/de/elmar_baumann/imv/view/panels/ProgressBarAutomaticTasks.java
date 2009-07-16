@@ -5,20 +5,21 @@ import de.elmar_baumann.lib.resource.MutualExcludedResource;
 import javax.swing.JProgressBar;
 
 /**
- * 
+ * Synchronized access to
+ * {@link AppPanel#getProgressBarAutomaticTasks()}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/09/29
+ * @version 2009/06/16
  */
-public final class ProgressBarCurrentTasks extends MutualExcludedResource {
+public final class ProgressBarAutomaticTasks extends MutualExcludedResource {
 
     private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
     private final JProgressBar progressBar =
-            appPanel.getProgressBarCurrentTasks();
-    public static final ProgressBarCurrentTasks INSTANCE =
-            new ProgressBarCurrentTasks();
+            appPanel.getProgressBarAutomaticTasks();
+    public static final ProgressBarAutomaticTasks INSTANCE =
+            new ProgressBarAutomaticTasks();
 
-    private ProgressBarCurrentTasks() {
+    private ProgressBarAutomaticTasks() {
         setResource(progressBar);
     }
 }

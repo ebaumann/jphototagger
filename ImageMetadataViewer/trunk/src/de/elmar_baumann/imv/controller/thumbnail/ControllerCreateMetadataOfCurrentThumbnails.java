@@ -7,7 +7,7 @@ import de.elmar_baumann.imv.event.ProgressEvent;
 import de.elmar_baumann.imv.event.listener.ProgressListener;
 import de.elmar_baumann.imv.event.listener.ThumbnailsPanelListener;
 import de.elmar_baumann.imv.resource.GUI;
-import de.elmar_baumann.imv.view.panels.ProgressBarCreateMetadataOfCurrentThumbnails;
+import de.elmar_baumann.imv.view.panels.ProgressBarAutomaticTasks;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.lib.io.FileUtil;
@@ -32,8 +32,8 @@ public final class ControllerCreateMetadataOfCurrentThumbnails
     private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
     private final ImageFileThumbnailsPanel thumbnailsPanel =
             appPanel.getPanelThumbnails();
-    private final ProgressBarCreateMetadataOfCurrentThumbnails progressBarProvider =
-            ProgressBarCreateMetadataOfCurrentThumbnails.INSTANCE;
+    private final ProgressBarAutomaticTasks progressBarProvider =
+            ProgressBarAutomaticTasks.INSTANCE;
     private JProgressBar progressBar;
     private boolean stop = false;
 

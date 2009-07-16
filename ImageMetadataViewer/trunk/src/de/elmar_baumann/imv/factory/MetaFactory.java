@@ -3,7 +3,7 @@ package de.elmar_baumann.imv.factory;
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.GUI;
-import de.elmar_baumann.imv.view.panels.ProgressBarCreateMetadataOfCurrentThumbnails;
+import de.elmar_baumann.imv.view.panels.ProgressBarAutomaticTasks;
 import de.elmar_baumann.imv.view.frames.AppFrame;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import javax.swing.JProgressBar;
@@ -19,8 +19,8 @@ public final class MetaFactory implements Runnable {
 
     public static final MetaFactory INSTANCE = new MetaFactory();
     private boolean init = false;
-    private final ProgressBarCreateMetadataOfCurrentThumbnails progressBarProvider =
-            ProgressBarCreateMetadataOfCurrentThumbnails.INSTANCE;
+    private final ProgressBarAutomaticTasks progressBarProvider =
+            ProgressBarAutomaticTasks.INSTANCE;
 
     @Override
     public void run() {

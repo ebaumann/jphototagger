@@ -1,7 +1,7 @@
 package de.elmar_baumann.imv.view;
 
 import de.elmar_baumann.imv.resource.Bundle;
-import de.elmar_baumann.imv.view.panels.ProgressBarCreateMetadataOfCurrentThumbnails;
+import de.elmar_baumann.imv.view.panels.ProgressBarAutomaticTasks;
 import javax.swing.JProgressBar;
 
 /**
@@ -12,8 +12,8 @@ import javax.swing.JProgressBar;
  */
 public final class InfoSettingThumbnails {
 
-    private final ProgressBarCreateMetadataOfCurrentThumbnails progressBarProvider =
-            ProgressBarCreateMetadataOfCurrentThumbnails.INSTANCE;
+    private final ProgressBarAutomaticTasks progressBarProvider =
+            ProgressBarAutomaticTasks.INSTANCE;
     private final JProgressBar progressBar;
 
     /**

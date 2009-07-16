@@ -178,8 +178,8 @@ public final class AppPanel extends javax.swing.JPanel implements
         return panelHierarchicalKeywords.getTree();
     }
 
-    JProgressBar getProgressBarCreateMetadataOfCurrentThumbnails() {
-        return progressBarCreateMetadataOfCurrentThumbnails;
+    JProgressBar getProgressBarAutomaticTasks() {
+        return progressBarAutomaticTasks;
     }
 
     /**
@@ -190,8 +190,8 @@ public final class AppPanel extends javax.swing.JPanel implements
      * 
      * @return  Progressbar
      */
-    JProgressBar getProgressBarCurrentTasks() {
-        return progressBarCurrentTasks;
+    JProgressBar getProgressBarUserTasks() {
+        return progressBarUserTasks;
     }
 
     public JProgressBar getProgressBarScheduledTasks() {
@@ -531,8 +531,8 @@ public final class AppPanel extends javax.swing.JPanel implements
         labelStatusbar = new javax.swing.JLabel();
         buttonLogfileDialog = new javax.swing.JButton();
         buttonSystemOutput = new javax.swing.JButton();
-        progressBarCreateMetadataOfCurrentThumbnails = new javax.swing.JProgressBar();
-        progressBarCurrentTasks = new javax.swing.JProgressBar();
+        progressBarAutomaticTasks = new javax.swing.JProgressBar();
+        progressBarUserTasks = new javax.swing.JProgressBar();
 
         tabbedPaneSelection.setName(""); // NOI18N
 
@@ -994,11 +994,11 @@ public final class AppPanel extends javax.swing.JPanel implements
         buttonSystemOutput.setEnabled(AppInit.isCaptureOutput());
         buttonSystemOutput.setPreferredSize(new java.awt.Dimension(16, 16));
 
-        progressBarCreateMetadataOfCurrentThumbnails.setToolTipText(AppTexts.TOOLTIP_TEXT_PROGRESSBAR_DIRECTORY);
-        progressBarCreateMetadataOfCurrentThumbnails.setName("progressBarCreateMetadataOfCurrentThumbnails"); // NOI18N
+        progressBarAutomaticTasks.setToolTipText(AppTexts.TOOLTIP_TEXT_PROGRESSBAR_DIRECTORY);
+        progressBarAutomaticTasks.setName("progressBarAutomaticTasks"); // NOI18N
 
-        progressBarCurrentTasks.setToolTipText(AppTexts.TOOLTIP_TEXT_PROGRESSBAR_CURRENT_TASKS);
-        progressBarCurrentTasks.setName("progressBarCurrentTasks"); // NOI18N
+        progressBarUserTasks.setToolTipText(AppTexts.TOOLTIP_TEXT_PROGRESSBAR_CURRENT_TASKS);
+        progressBarUserTasks.setName("progressBarUserTasks"); // NOI18N
 
         javax.swing.GroupLayout panelStatusbarLayout = new javax.swing.GroupLayout(panelStatusbar);
         panelStatusbar.setLayout(panelStatusbarLayout);
@@ -1015,11 +1015,11 @@ public final class AppPanel extends javax.swing.JPanel implements
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonSystemOutput, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(progressBarCreateMetadataOfCurrentThumbnails, javax.swing.GroupLayout.DEFAULT_SIZE, 77, Short.MAX_VALUE))
+                        .addComponent(progressBarAutomaticTasks, javax.swing.GroupLayout.DEFAULT_SIZE, 77, Short.MAX_VALUE))
                     .addComponent(panelSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(6, 6, 6)
                 .addGroup(panelStatusbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(progressBarCurrentTasks, 0, 61, Short.MAX_VALUE)
+                    .addComponent(progressBarUserTasks, 0, 61, Short.MAX_VALUE)
                     .addComponent(panelMetadataProgress, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
@@ -1036,12 +1036,12 @@ public final class AppPanel extends javax.swing.JPanel implements
                     .addComponent(labelStatusbar, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(buttonLogfileDialog, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(buttonSystemOutput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(progressBarCreateMetadataOfCurrentThumbnails, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(progressBarCurrentTasks, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(progressBarAutomaticTasks, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(progressBarUserTasks, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
             .addComponent(sliderThumbnailSize, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        panelStatusbarLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {buttonLogfileDialog, buttonSystemOutput, progressBarCreateMetadataOfCurrentThumbnails, progressBarCurrentTasks});
+        panelStatusbarLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {buttonLogfileDialog, buttonSystemOutput, progressBarAutomaticTasks, progressBarUserTasks});
 
         panelStatusbarLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {panelMetadataProgress, panelSearch});
 
@@ -1098,9 +1098,9 @@ public final class AppPanel extends javax.swing.JPanel implements
     private javax.swing.JPanel panelThumbnailsContent;
     private javax.swing.JPanel panelThumbnailsMetadata;
     private javax.swing.JPanel panelTimeline;
-    private javax.swing.JProgressBar progressBarCreateMetadataOfCurrentThumbnails;
-    private javax.swing.JProgressBar progressBarCurrentTasks;
+    private javax.swing.JProgressBar progressBarAutomaticTasks;
     private javax.swing.JProgressBar progressBarScheduledTasks;
+    private javax.swing.JProgressBar progressBarUserTasks;
     private javax.swing.JScrollPane scrollPaneCategories;
     private javax.swing.JScrollPane scrollPaneDirectories;
     private javax.swing.JScrollPane scrollPaneEditMetadata;
