@@ -213,6 +213,19 @@
                 </Property>
               </Properties>
             </MenuItem>
+            <MenuItem class="javax.swing.JCheckBoxMenuItem" name="checkboxMenuItemKeywordOverlay">
+              <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Ctrl+O"/>
+                </Property>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                  <ResourceString bundle="de/elmar_baumann/imv/resource/properties/Bundle.properties" key="AppFrame.checkboxMenuItemKeywordOverlay.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                </Property>
+                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                  <ResourceString bundle="de/elmar_baumann/imv/resource/properties/Bundle.properties" key="AppFrame.checkboxMenuItemKeywordOverlay.toolTipText" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                </Property>
+              </Properties>
+            </MenuItem>
           </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="menuGoto">

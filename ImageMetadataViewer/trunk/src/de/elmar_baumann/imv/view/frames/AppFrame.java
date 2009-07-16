@@ -24,6 +24,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JRadioButtonMenuItem;
@@ -180,6 +181,16 @@ public final class AppFrame extends javax.swing.JFrame {
 
     public JMenu getMenuSort() {
         return menuSort;
+    }
+
+    public JCheckBoxMenuItem getMenuItemKeywordOverlay() {
+        return checkboxMenuItemKeywordOverlay;
+    }
+
+    public void toggleKeywordOverlay() {
+        boolean active = ! appPanel.getPanelThumbnails().isKeywordsOverlay();
+        appPanel.getPanelThumbnails().setKeywordsOverlay(active);
+        checkboxMenuItemKeywordOverlay.setSelected(active);
     }
 
     public GoTo getGotoOfMenuItem(JMenuItem item) {
@@ -341,6 +352,7 @@ public final class AppFrame extends javax.swing.JFrame {
         radioButtonMenuItemSortFileTypeDescending = new javax.swing.JRadioButtonMenuItem();
         menuItemThumbnailSizeIncrease = new javax.swing.JMenuItem();
         menuItemThumbnailSizeDecrease = new javax.swing.JMenuItem();
+        checkboxMenuItemKeywordOverlay = new javax.swing.JCheckBoxMenuItem();
         menuGoto = new javax.swing.JMenu();
         menuItemGotoFastSearch = new javax.swing.JMenuItem();
         menuItemGotoEdit = new javax.swing.JMenuItem();
@@ -477,6 +489,11 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemThumbnailSizeDecrease.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icons/icon_size_decrease.png"))); // NOI18N
         menuItemThumbnailSizeDecrease.setText(bundle.getString("AppFrame.menuItemThumbnailSizeDecrease.text")); // NOI18N
         menuView.add(menuItemThumbnailSizeDecrease);
+
+        checkboxMenuItemKeywordOverlay.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
+        checkboxMenuItemKeywordOverlay.setText(bundle.getString("AppFrame.checkboxMenuItemKeywordOverlay.text")); // NOI18N
+        checkboxMenuItemKeywordOverlay.setToolTipText(bundle.getString("AppFrame.checkboxMenuItemKeywordOverlay.toolTipText")); // NOI18N
+        menuView.add(checkboxMenuItemKeywordOverlay);
 
         menuBar.add(menuView);
 
@@ -679,6 +696,7 @@ private void menuItemHierarchicalKeywordsActionPerformed(java.awt.event.ActionEv
     }
 }//GEN-LAST:event_menuItemHierarchicalKeywordsActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBoxMenuItem checkboxMenuItemKeywordOverlay;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;

@@ -15,6 +15,7 @@ import java.awt.Image;
 import java.awt.MediaTracker;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.Shape;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.event.KeyEvent;
@@ -25,6 +26,7 @@ import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import javax.swing.JPanel;
@@ -190,6 +192,7 @@ public abstract class ThumbnailsPanel extends JPanel
      * Has the mouse clicked into a thumbnail?
      */
     private int clickInSelection = -1;
+    private boolean keywordsOverlay;
 
     public ThumbnailsPanel() {
         computeFontHeight();
@@ -328,6 +331,14 @@ public abstract class ThumbnailsPanel extends JPanel
      * @return      Titel
      */
     protected abstract String getText(int index);
+
+    /**
+     * Delivers keywords for a thumbnail at a specific index.
+     *
+     * @param index Thumbnail index
+     * @return      keywords
+     */
+    protected abstract List<String> getKeywords(int index);
 
     /**
      * Ein Popupmenü soll angezeigt werden. Per Default wird nichts übernommen.
@@ -792,6 +803,9 @@ public abstract class ThumbnailsPanel extends JPanel
             paintThumbnail(
                     getScaledInstance(index, thumbnail), g, topLeft.x, topLeft.y);
             paintThumbnailTextAt(g, index, topLeft.x, topLeft.y);
+            if (isKeywordsOverlay()) {
+                paintThumbnailKeywordsAt(g, index, topLeft.x, topLeft.y);
+            }
         }
     }
 
@@ -878,6 +892,30 @@ public abstract class ThumbnailsPanel extends JPanel
 
         return "..." + text.substring(text.length() - maxCharCountText + 2); // NOI18N
     }
+
+    private void paintThumbnailKeywordsAt(Graphics g, int index,
+            int areaX, int areaY) {
+        List<String> text = getKeywords(index);
+        if (text == null || text.size() == 0) {
+            return;
+        }
+        int width = getThumbnailAreaWidth();
+        int height = getThumbnailAreaHeight();
+        Color oldColor = g.getColor();
+        g.setColor(COLOR_TEXT_HIGHLIGHTED);
+        Shape oldShape = g.getClip();
+        g.clipRect(areaX, areaY, width, height);
+        Iterator<String> is = text.iterator();
+        for (int i = 0; is.hasNext(); i++) {
+            g.drawString(is.next(),
+                         areaX + WIDHT_BORDER_THUMBNAIL,
+                         areaY + WIDHT_BORDER_THUMBNAIL +
+                             (i + 1) * FONT_PIXEL_HEIGHT - FONT_PIXEL_DESCENT);
+        }
+        g.setColor(oldColor);
+        g.setClip(oldShape);
+    }
+
 
     private void paintPanelFocusBorder(Graphics g) {
         if (hasFocus()) {
@@ -1195,5 +1233,20 @@ public abstract class ThumbnailsPanel extends JPanel
     @Override
     public boolean isFocusable() {
         return true;
+    }
+
+    /**
+     * @return the keywordsOverlay
+     */
+    public boolean isKeywordsOverlay() {
+        return keywordsOverlay;
+    }
+
+    /**
+     * @param keywordsOverlay the keywordsOverlay to set
+     */
+    public void setKeywordsOverlay(boolean keywordsOverlay) {
+        this.keywordsOverlay = keywordsOverlay;
+        repaint();
     }
 }

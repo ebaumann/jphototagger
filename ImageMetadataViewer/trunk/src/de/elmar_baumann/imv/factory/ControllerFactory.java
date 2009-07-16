@@ -69,6 +69,7 @@ import de.elmar_baumann.imv.controller.thumbnail.ControllerSliderThumbnailSize;
 import de.elmar_baumann.imv.controller.thumbnail.ControllerSortThumbnails;
 import de.elmar_baumann.imv.controller.thumbnail.ControllerThumbnailsDatabaseChanges;
 import de.elmar_baumann.imv.controller.thumbnail.ControllerThumbnailsPanelPersistence;
+import de.elmar_baumann.imv.controller.thumbnail.ControllerToggleKeywordOverlay;
 
 /**
  * Erzeugt alle Controller.
@@ -129,6 +130,7 @@ public final class ControllerFactory {
             new ControllerIptcToXmp();
             new ControllerGoTo();
             new ControllerSliderThumbnailSize();
+            new ControllerToggleKeywordOverlay();
             new ControllerDeleteFiles();
             new ControllerRenameFiles();
             new ControllerMoveFiles();

@@ -1,9 +1,11 @@
 package de.elmar_baumann.imv.view.panels;
 
+import com.adobe.xmp.properties.XMPPropertyInfo;
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.types.Content;
 import de.elmar_baumann.imv.controller.thumbnail.ControllerDoubleklickThumbnail;
 import de.elmar_baumann.imv.data.ThumbnailFlag;
+import de.elmar_baumann.imv.data.Xmp;
 import de.elmar_baumann.imv.database.DatabaseImageFiles;
 import de.elmar_baumann.imv.datatransfer.TransferHandlerPanelThumbnails;
 import de.elmar_baumann.imv.event.listener.AppExitListener;
@@ -417,6 +419,16 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel
             return filename;
         }
         return ""; // NOI18N
+    }
+
+    @Override
+    protected List<String> getKeywords(int index) {
+        if (isIndex(index)) {
+            Xmp xmp = XmpMetadata.getXmpOfImageFile(
+                    files.get(index).getAbsolutePath());
+            return xmp.getDcSubjects();
+        }
+        return null;
     }
 
     @Override
