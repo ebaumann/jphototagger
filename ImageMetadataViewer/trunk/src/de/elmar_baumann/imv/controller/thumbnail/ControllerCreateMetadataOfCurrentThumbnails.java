@@ -1,6 +1,5 @@
 package de.elmar_baumann.imv.controller.thumbnail;
 
-import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.app.AppTexts;
 import de.elmar_baumann.imv.tasks.InsertImageFilesIntoDatabase;
 import de.elmar_baumann.imv.event.ProgressEvent;
@@ -63,7 +62,6 @@ public final class ControllerCreateMetadataOfCurrentThumbnails
         if (!isWait()) {
             setWait(true);
             Thread thread = new Thread(updaters.remove());
-            thread.setPriority(UserSettings.INSTANCE.getThreadPriority());
             thread.setName("Creating metadata of all thumbnails in panel" + // NOI18N
                     " @ " + getClass().getName()); // NOI18N
             thread.start();

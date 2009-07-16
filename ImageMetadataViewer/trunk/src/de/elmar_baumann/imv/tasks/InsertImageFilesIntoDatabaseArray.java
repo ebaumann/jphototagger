@@ -1,7 +1,6 @@
 package de.elmar_baumann.imv.tasks;
 
 import de.elmar_baumann.imv.app.AppLog;
-import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.event.ProgressEvent;
 import de.elmar_baumann.imv.event.listener.ProgressListener;
 import de.elmar_baumann.imv.event.listener.TaskListener;
@@ -171,7 +170,6 @@ public final class InsertImageFilesIntoDatabaseArray implements ProgressListener
         if (!isWait()) {
             setWait(true);
             Thread thread = new Thread(inserters.remove());
-            thread.setPriority(UserSettings.INSTANCE.getThreadPriority());
             thread.setName("Inserting image files into database" + " @ " + // NOI18N
                     getClass().getName());
             thread.start();
@@ -256,8 +254,7 @@ public final class InsertImageFilesIntoDatabaseArray implements ProgressListener
 
     private void informationMessageEndUpdateDirectory(
             InsertImageFilesIntoDatabase scanner) {
-        AppLog.logInfo(InsertImageFilesIntoDatabaseArray.class, Bundle.
-                getString(
+        AppLog.logInfo(InsertImageFilesIntoDatabaseArray.class, Bundle.getString(
                 "InsertImageFilesIntoDatabaseArray.Info.UpdateMetadataFinished", // NOI18N
                 getDirectoryNameOfInserter(scanner)));
     }

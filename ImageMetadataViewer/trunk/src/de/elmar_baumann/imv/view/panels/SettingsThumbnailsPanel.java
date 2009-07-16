@@ -56,7 +56,6 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel
             thumbnailsUpdater = new UpdateAllThumbnails();
             thumbnailsUpdater.addActionListener(this);
             Thread thread = new Thread(thumbnailsUpdater);
-            thread.setPriority(UserSettings.INSTANCE.getThreadPriority());
             thread.setName("Updating thumbnails" + " @ " + getClass().getName()); // NOI18N
             thread.start();
         }

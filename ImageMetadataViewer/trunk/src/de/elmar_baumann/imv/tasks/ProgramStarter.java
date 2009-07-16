@@ -48,7 +48,6 @@ public final class ProgramStarter {
     public void startProgram(Program program, List<File> imageFiles) {
         if (checkFilecount(imageFiles)) {
             Execute execute = new Execute(program, imageFiles);
-            execute.setPriority(UserSettings.INSTANCE.getThreadPriority());
             synchronized (this) {
                 if (queue.isEmpty()) {
                     execute.start();

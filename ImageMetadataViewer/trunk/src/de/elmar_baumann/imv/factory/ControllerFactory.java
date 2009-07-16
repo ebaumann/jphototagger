@@ -1,6 +1,5 @@
 package de.elmar_baumann.imv.factory;
 
-import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.controller.actions.ControllerActionExecutor;
 import de.elmar_baumann.imv.controller.actions.ControllerActionsShowDialog;
 import de.elmar_baumann.imv.controller.categories.ControllerCategoryItemSelected;
@@ -84,7 +83,6 @@ public final class ControllerFactory {
 
     private void startScheduledTasks() {
         Thread thread = new Thread(new ControllerArrayScheduledTasks());
-        thread.setPriority(UserSettings.INSTANCE.getThreadPriority());
         thread.setName("Scheduled tasks listening" + " @ " + // NOI18N
                 getClass().getName());
         thread.start();

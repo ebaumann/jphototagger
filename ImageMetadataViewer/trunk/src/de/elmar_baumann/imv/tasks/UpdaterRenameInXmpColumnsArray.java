@@ -1,6 +1,5 @@
 package de.elmar_baumann.imv.tasks;
 
-import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.database.metadata.Column;
 import de.elmar_baumann.imv.event.ProgressEvent;
 import de.elmar_baumann.imv.event.listener.ProgressListener;
@@ -56,7 +55,6 @@ public final class UpdaterRenameInXmpColumnsArray implements ProgressListener {
             UpdaterRenameInXmpColumns updater = updaters.remove();
             updater.addProgressListener(this);
             Thread thread = new Thread(updater);
-            thread.setPriority(UserSettings.INSTANCE.getThreadPriority());
             thread.setName("Renaming XMP in " + updater.getColumn().getName() + // NOI18N
                     " @ " + getClass().getName()); // NOI18N
             thread.start();

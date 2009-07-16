@@ -30,7 +30,6 @@ public final class UserSettingsChangeEvent {
     private boolean autoscanIncludeSubdirectories;
     private boolean createThumbnailsWithExternalApp;
     private boolean taskRemoveRecordsWithNotExistingFiles;
-    private boolean autocomplete;
     private boolean useEmbeddedThumbnails;
     private boolean noFastSearchColumns;
     private boolean treeDirectoriesSelectLastDirectory;
@@ -40,7 +39,6 @@ public final class UserSettingsChangeEvent {
     private Integer maxThumbnailWidth;
     private Integer maxSecondsToTerminateExternalPrograms;
     private Integer minutesToStartScheduledTasks;
-    private Integer threadPriority;
     private Level logLevel;
     private Class logfileFormatterClass;
     private List<Column> fastSearchColumns;
@@ -62,7 +60,6 @@ public final class UserSettingsChangeEvent {
         IS_AUTSCAN_INCLUDE_DIRECTORIES,
         IS_CREATE_THUMBNAILS_WITH_EXTERNAL_APP,
         IS_TASK_REMOVE_RECORDS_WITH_NOT_EXISTING_FILES,
-        IS_USE_AUTOCOMPLETE,
         IS_USE_EMBEDDED_THUMBNAILS,
         LOGFILE_FORMATTER_CLASS,
         LOG_LEVEL,
@@ -70,7 +67,6 @@ public final class UserSettingsChangeEvent {
         MINUTES_TO_START_SCHEDULED_TASKS,
         NO_FAST_SEARCH_COLUMNS,
         OTHER_IMAGE_OPEN_APPS,
-        THREAD_PRIORITY,
         WEB_BROWSER,
         TREE_DIRECTORIES_SELECT_LAST_DIRECTORY,
         MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS,
@@ -106,27 +102,22 @@ public final class UserSettingsChangeEvent {
         this.autoCopyDirectory = autoCopyDirectory;
     }
 
-    public boolean isAutocomplete() {
-        return autocomplete;
-    }
-
-    public void setAutocomplete(boolean autocomplete) {
-        this.autocomplete = autocomplete;
-    }
-
     public boolean isTreeDirectoriesSelectLastDirectory() {
         return treeDirectoriesSelectLastDirectory;
     }
 
-    public void setTreeDirectoriesSelectLastDirectory(boolean treeDirectoriesSelectLastDirectory) {
-        this.treeDirectoriesSelectLastDirectory = treeDirectoriesSelectLastDirectory;
+    public void setTreeDirectoriesSelectLastDirectory(
+            boolean treeDirectoriesSelectLastDirectory) {
+        this.treeDirectoriesSelectLastDirectory =
+                treeDirectoriesSelectLastDirectory;
     }
 
     public boolean isAutoscanIncludeSubdirectories() {
         return autoscanIncludeSubdirectories;
     }
 
-    public void setAutoscanIncludeSubdirectories(boolean autoscanIncludeSubdirectories) {
+    public void setAutoscanIncludeSubdirectories(
+            boolean autoscanIncludeSubdirectories) {
         this.autoscanIncludeSubdirectories = autoscanIncludeSubdirectories;
     }
 
@@ -134,7 +125,8 @@ public final class UserSettingsChangeEvent {
         return createThumbnailsWithExternalApp;
     }
 
-    public void setCreateThumbnailsWithExternalApp(boolean createThumbnailsWithExternalApp) {
+    public void setCreateThumbnailsWithExternalApp(
+            boolean createThumbnailsWithExternalApp) {
         this.createThumbnailsWithExternalApp = createThumbnailsWithExternalApp;
     }
 
@@ -142,7 +134,8 @@ public final class UserSettingsChangeEvent {
         return externalThumbnailCreationCommand;
     }
 
-    public void setExternalThumbnailCreationCommand(String externalThumbnailCreationCommand) {
+    public void setExternalThumbnailCreationCommand(
+            String externalThumbnailCreationCommand) {
         this.externalThumbnailCreationCommand = externalThumbnailCreationCommand;
     }
 
@@ -206,7 +199,8 @@ public final class UserSettingsChangeEvent {
         return minutesToStartScheduledTasks;
     }
 
-    public void setMinutesToStartScheduledTasks(Integer minutesToStartScheduledTasks) {
+    public void setMinutesToStartScheduledTasks(
+            Integer minutesToStartScheduledTasks) {
         this.minutesToStartScheduledTasks = minutesToStartScheduledTasks;
     }
 
@@ -222,16 +216,10 @@ public final class UserSettingsChangeEvent {
         return taskRemoveRecordsWithNotExistingFiles;
     }
 
-    public void setTaskRemoveRecordsWithNotExistingFiles(boolean taskRemoveRecordsWithNotExistingFiles) {
-        this.taskRemoveRecordsWithNotExistingFiles = taskRemoveRecordsWithNotExistingFiles;
-    }
-
-    public Integer getThreadPriority() {
-        return threadPriority;
-    }
-
-    public void setThreadPriority(Integer threadPriority) {
-        this.threadPriority = threadPriority;
+    public void setTaskRemoveRecordsWithNotExistingFiles(
+            boolean taskRemoveRecordsWithNotExistingFiles) {
+        this.taskRemoveRecordsWithNotExistingFiles =
+                taskRemoveRecordsWithNotExistingFiles;
     }
 
     public boolean isUseEmbeddedThumbnails() {
@@ -278,15 +266,19 @@ public final class UserSettingsChangeEvent {
         return executeActionsAfterImageChangeInDbAlways;
     }
 
-    public void setExecuteActionsAfterImageChangeInDbAlways(boolean executeActionAfterImageChangeInDbAlways) {
-        this.executeActionsAfterImageChangeInDbAlways = executeActionAfterImageChangeInDbAlways;
+    public void setExecuteActionsAfterImageChangeInDbAlways(
+            boolean executeActionAfterImageChangeInDbAlways) {
+        this.executeActionsAfterImageChangeInDbAlways =
+                executeActionAfterImageChangeInDbAlways;
     }
 
     public boolean isExecuteActionsAfterImageChangeInDbIfImageHasXmp() {
         return executeActionsAfterImageChangeInDbIfImageHasXmp;
     }
 
-    public void setExecuteActionsAfterImageChangeInDbIfImageHasXmp(boolean executeActionAfterImageChangeInDbIfImageHasXmp) {
-        this.executeActionsAfterImageChangeInDbIfImageHasXmp = executeActionAfterImageChangeInDbIfImageHasXmp;
+    public void setExecuteActionsAfterImageChangeInDbIfImageHasXmp(
+            boolean executeActionAfterImageChangeInDbIfImageHasXmp) {
+        this.executeActionsAfterImageChangeInDbIfImageHasXmp =
+                executeActionAfterImageChangeInDbIfImageHasXmp;
     }
 }

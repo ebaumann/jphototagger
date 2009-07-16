@@ -121,13 +121,6 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
         return newDirectories;
     }
 
-    private void informationMessageThreadPriority(Thread thread) {
-        AppLog.logFinest(UpdateMetadataOfDirectoriesPanel.class, Bundle.
-                getString(
-                "UpdateMetadataOfDirectoriesPanel.Info.ThreadPriority", // NOI18N
-                thread.getPriority()));
-    }
-
     private void readProperties() {
         UserSettings.INSTANCE.getSettings().getCheckBox(checkBoxForce, KEY_FORCE);
         UserSettings.INSTANCE.getSettings().getCheckBox(
@@ -166,7 +159,6 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
         createScanner();
         activeUpdater.addProgressListener(this);
         Thread thread = new Thread(activeUpdater);
-        setThreadPriority(thread);
         thread.setName("Updating metadata of some directories" + " @ " + // NOI18N
                 getClass().getName());
         thread.start();
@@ -242,11 +234,6 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
                 countSelectedFiles += directoryInfo.getImageFileCount();
             }
         }
-    }
-
-    private void setThreadPriority(Thread thread) {
-        thread.setPriority(UserSettings.INSTANCE.getThreadPriority());
-        informationMessageThreadPriority(thread);
     }
 
     private void zeroProgressBar() {
@@ -325,7 +312,8 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
                 ? "UpdateMetadataOfDirectoriesPanel.Info.ProgressWithTime" // NOI18N
                 : "UpdateMetadataOfDirectoriesPanel.Info.ProgressWithoutTime"; // NOI18N
         labelCurrentFilename.setText(Bundle.getString(bundleKey,
-                CURRENT_FILENAME_INFOTEXT_PREFIX, evt.getInfo(), remainingMinutes));
+                CURRENT_FILENAME_INFOTEXT_PREFIX, evt.getInfo(),
+                remainingMinutes));
     }
 
     /** This method is called from within the constructor to

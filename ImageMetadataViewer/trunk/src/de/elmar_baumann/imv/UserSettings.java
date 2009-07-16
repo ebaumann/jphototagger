@@ -55,8 +55,6 @@ public final class UserSettings implements UserSettingsChangeListener {
             "UserSettings.IsCreateThumbnailsWithExternalApp"; // NOI18N
     private static final String KEY_TASK_REMOVE_RECORDS_WITH_NOT_EXISTING_FILES =
             "UserSettings.IsTaskRemoveRecordsWithNotExistingFiles"; // NOI18N
-    private static final String KEY_AUTOCOMPLETE =
-            "UserSettings.IsUseAutocomplete"; // NOI18N
     private static final String KEY_USE_EMBEDDED_THUMBNAILS =
             "UserSettings.IsUseEmbeddedThumbnails"; // NOI18N
     private static final String KEY_LOGFILE_FORMATTER_CLASS =
@@ -66,8 +64,6 @@ public final class UserSettings implements UserSettingsChangeListener {
             "UserSettings.MaxThumbnailWidth"; // NOI18N
     private static final String KEY_MINUTES_TO_START_SCHEDULED_TASKS =
             "UserSettings.MinutesToStartScheduledTasks"; // NOI18N
-    private static final String KEY_THREAD_PRIORITY =
-            "UserSettings.ThreadPriority"; // NOI18N
     private static final String KEY_AUTOCOPY_DIRECTORY =
             "UserSettings.AutocopyDirectory"; // NOI18N
     private static final String KEY_WEB_BROWSER = "UserSettings.WebBrowser"; // NOI18N
@@ -326,19 +322,6 @@ public final class UserSettings implements UserSettingsChangeListener {
     }
 
     /**
-     * Returns the thread priority for time consuming tasks, e.g. for rendering
-     * thumbnails.
-     * 
-     * @return thread priority. Default: <code>5</code>
-     */
-    public int getThreadPriority() {
-        int priority = settings.getInt(KEY_THREAD_PRIORITY);
-        return priority >= 0 && priority <= 10
-               ? priority
-               : 5;
-    }
-
-    /**
      * Returns the maximum length of the thumbnail width.
      * 
      * @return maximum length in pixel. Default: Internal constant
@@ -495,18 +478,6 @@ public final class UserSettings implements UserSettingsChangeListener {
     }
 
     /**
-     * Returns wheter to activate autocomplete.
-     * 
-     * @return true when autocomplete shall be active. Default:
-     *         <code>true</code>
-     */
-    public boolean isUseAutocomplete() {
-        return properties.containsKey(KEY_AUTOCOMPLETE)
-               ? settings.getBoolean(KEY_AUTOCOMPLETE)
-               : true;
-    }
-
-    /**
      * Returns the maximum time to wait before terminating external programs.
      *
      * @return time in seconds. Default: <code>60</code>.
@@ -590,9 +561,6 @@ public final class UserSettings implements UserSettingsChangeListener {
             settings.setBoolean(evt.isTaskRemoveRecordsWithNotExistingFiles(),
                     KEY_TASK_REMOVE_RECORDS_WITH_NOT_EXISTING_FILES);
         } else if (type.equals(
-                UserSettingsChangeEvent.Type.IS_USE_AUTOCOMPLETE)) {
-            settings.setBoolean(evt.isAutocomplete(), KEY_AUTOCOMPLETE);
-        } else if (type.equals(
                 UserSettingsChangeEvent.Type.IS_USE_EMBEDDED_THUMBNAILS)) {
             writeToPropertiesUseEmbeddedThumbnails(evt.isUseEmbeddedThumbnails());
         } else if (type.equals(
@@ -612,8 +580,6 @@ public final class UserSettings implements UserSettingsChangeListener {
         } else if (type.equals(
                 UserSettingsChangeEvent.Type.NO_FAST_SEARCH_COLUMNS)) {
             properties.remove(KEY_FAST_SEARCH_COLUMNS);
-        } else if (type.equals(UserSettingsChangeEvent.Type.THREAD_PRIORITY)) {
-            settings.setInt(evt.getThreadPriority(), KEY_THREAD_PRIORITY);
         } else if (type.equals(
                 UserSettingsChangeEvent.Type.AUTOCOPY_DIRECTORY)) {
             settings.setString(evt.getAutoCopyDirectory().getAbsolutePath(),

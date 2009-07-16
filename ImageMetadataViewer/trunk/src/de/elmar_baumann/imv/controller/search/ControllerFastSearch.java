@@ -52,8 +52,6 @@ public final class ControllerFastSearch
             UserSettings.INSTANCE.getFastSearchColumns();
     private final List<JTree> selectionTrees = appPanel.getSelectionTrees();
     private final List<JList> selectionLists = appPanel.getSelectionLists();
-    private final boolean isUseAutocomplete =
-            UserSettings.INSTANCE.isUseAutocomplete();
     private volatile AutoCompleteData searchAutoCompleteData;
     private final EditMetadataPanelsArray editPanels =
             appPanel.getEditPanelsArray();
@@ -103,7 +101,7 @@ public final class ControllerFastSearch
 
     @Override
     public void actionPerformed(DatabaseImageEvent event) {
-        if (isUseAutocomplete && event.isTextMetadataAffected()) {
+        if (event.isTextMetadataAffected()) {
             ImageFile data = event.getImageFile();
             if (data != null && data.getXmp() != null) {
                 addAutoCompleteData(data.getXmp());
@@ -118,19 +116,17 @@ public final class ControllerFastSearch
     }
 
     private void decorateTextFieldSearch() {
-        if (UserSettings.INSTANCE.isUseAutocomplete()) {
-            SwingUtilities.invokeLater(new Runnable() {
+        SwingUtilities.invokeLater(new Runnable() {
 
-                @Override
-                public void run() {
-                    searchAutoCompleteData = new AutoCompleteData();
-                    AutoCompleteDecorator.decorate(
-                            textFieldSearch,
-                            searchAutoCompleteData.getList(),
-                            false);
-                }
-            });
-        }
+            @Override
+            public void run() {
+                searchAutoCompleteData = new AutoCompleteData();
+                AutoCompleteDecorator.decorate(
+                        textFieldSearch,
+                        searchAutoCompleteData.getList(),
+                        false);
+            }
+        });
     }
 
     private void checkEnabled() {

@@ -177,7 +177,6 @@ public final class FileEditorPanel extends javax.swing.JPanel {
 
     private void handleStartActionPerformed() {
         Thread thread = new Thread(new EditThread());
-        thread.setPriority(UserSettings.INSTANCE.getThreadPriority());
         thread.setName("File editor " + title + " @ " + getClass().getName()); // NOI18N
         thread.start();
     }

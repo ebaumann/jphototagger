@@ -115,7 +115,6 @@ public final class MoveToDirectoryDialog extends Dialog
         moveTask = new FileSystemMove(sourceFiles, targetDirectory);
         addListenerToMoveTask();
         Thread thread = new Thread(moveTask);
-        thread.setPriority(UserSettings.INSTANCE.getThreadPriority());
         thread.setName("Moving files to directory " + targetDirectory. // NOI18N
                 getAbsolutePath() + " @ " + getClass().getName()); // NOI18N
         thread.start();

@@ -30,17 +30,15 @@ public final class LateConnectionsFactory {
 
             DatabaseImageFiles.INSTANCE.addDatabaseListener(
                     appPanel.getEditPanelsArray());
-            if (userSettings.isUseAutocomplete()) {
-                appPanel.getEditPanelsArray().setAutocomplete();
-            }
+            appPanel.getEditPanelsArray().setAutocomplete();
 
             popupMenuPanelThumbnails.addOtherPrograms();
             ListenerProvider listenerProvider = ListenerProvider.INSTANCE;
             listenerProvider.addUserSettingsChangeListener(
                     popupMenuPanelThumbnails);
             listenerProvider.addUserSettingsChangeListener(userSettings);
-        GUI.INSTANCE.getAppFrame().addAppExitListener(
-                appPanel.getPanelThumbnails());
+            GUI.INSTANCE.getAppFrame().addAppExitListener(
+                    appPanel.getPanelThumbnails());
         }
     }
 }

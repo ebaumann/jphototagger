@@ -94,7 +94,6 @@ public final class CopyToDirectoryDialog extends Dialog
         copyTask = new CopyFiles(getFiles(addXmp), options);
         copyTask.addProgressListener(this);
         Thread thread = new Thread(copyTask);
-        thread.setPriority(UserSettings.INSTANCE.getThreadPriority());
         thread.setName("Copying files to directories" + " @ " + // NOI18N
                 getClass().getName());
         thread.start();

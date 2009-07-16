@@ -1,7 +1,6 @@
 package de.elmar_baumann.imv.view.panels;
 
 import de.elmar_baumann.imv.app.AppIcons;
-import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.database.DatabaseImageFiles;
 import de.elmar_baumann.imv.database.DatabaseMaintainance;
 import de.elmar_baumann.imv.event.ProgressEvent;
@@ -99,7 +98,6 @@ public final class DatabaseMaintainancePanel extends javax.swing.JPanel
     private synchronized void startNextThread() {
         if (runnables.size() > 0) {
             Thread thread = new Thread(runnables.pop());
-            thread.setPriority(UserSettings.INSTANCE.getThreadPriority());
             thread.setName("Database maintainance next task" + " @ " + // NOI18N
                     getClass().getName());
             thread.start();

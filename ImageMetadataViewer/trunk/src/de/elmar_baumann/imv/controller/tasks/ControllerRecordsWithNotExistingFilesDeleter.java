@@ -1,6 +1,5 @@
 package de.elmar_baumann.imv.controller.tasks;
 
-import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.tasks.RecordsWithNotExistingFilesDeleter;
 import de.elmar_baumann.imv.event.ProgressEvent;
 import de.elmar_baumann.imv.event.listener.ProgressListener;
@@ -90,7 +89,6 @@ public final class ControllerRecordsWithNotExistingFilesDeleter
                 new RecordsWithNotExistingFilesDeleter();
         deleter.addProgressListener(this);
         Thread thread = new Thread(deleter);
-        thread.setPriority(UserSettings.INSTANCE.getThreadPriority());
         thread.setName("Deleting records with not existing files" + " @ " + // NOI18N
                 getClass().getName());
         thread.start();
