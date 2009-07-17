@@ -32,7 +32,7 @@ public final class TreeFileSystemDirectories {
         if (directory.isDirectory()) {
             if (confirmDelete(directory.getName())) {
                 try {
-                    if (FileUtil.deleteDirectory(directory)) {
+                    if (FileUtil.deleteDirectoryRecursive(directory)) {
                         return true;
                     } else {
                         errorMessageDelete(directory.getName());

@@ -85,7 +85,7 @@ public final class PropertiesFile {
      * @return true if successful written
      */
     public boolean writeToFile() {
-        if (FileUtil.ensureDirectoryExists(directoryName)) {
+        if (FileUtil.ensureDirectoryExists(new File(directoryName))) {
             try {
                 FileOutputStream out = new FileOutputStream(getPropertyFilePathName());
                 properties.store(out, "--- " + projectName + " persistent settings ---"); // NOI18N
@@ -104,7 +104,7 @@ public final class PropertiesFile {
      */
     public void readFromFile() {
         String propertyFilename = getPropertyFilePathName();
-        if (FileUtil.existsFile(propertyFilename)) {
+        if (FileUtil.existsFile(new File(propertyFilename))) {
             FileInputStream in;
             try {
                 in = new FileInputStream(propertyFilename);

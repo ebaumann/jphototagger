@@ -56,7 +56,7 @@ public final class ClipboardUtil {
         if (clipboard == null)
             throw new NullPointerException("clipboard == null"); // NOI18N
         clipboard.setContents(
-                new TransferableFileList(FileUtil.fileListToFileArray(files)),
+                new TransferableFileList(FileUtil.fileCollectionToFileArray(files)),
                 owner);
     }
 

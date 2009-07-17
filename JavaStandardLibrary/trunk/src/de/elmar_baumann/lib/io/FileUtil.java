@@ -1,7 +1,6 @@
 package de.elmar_baumann.lib.io;
 
 import de.elmar_baumann.lib.io.filefilter.DirectoryFilter;
-import de.elmar_baumann.lib.io.filefilter.RegexFileFilter;
 import de.elmar_baumann.lib.resource.Bundle;
 import java.io.File;
 import java.io.FileInputStream;
@@ -31,22 +30,26 @@ import java.util.logging.Logger;
 public final class FileUtil {
 
     /**
-     * Liefert den Inhalt einer Datei als String.
+     * Returns the content of a file as string.
      * 
-     * @param filename Dateiname
-     * @return         Inhalt. Null bei Fehlern.
+     * @param file file
+     * @param encoding
+     * @return     content or null when errors occur
      */
-    public static String getFileAsString(String filename) {
-        if (filename == null)
-            throw new NullPointerException("filename == null"); // NOI18N
+    public static String getFileContentAsString(File file, String encoding) {
 
-        byte[] bytes = getFileBytes(filename);
+        if (file == null)
+            throw new NullPointerException("file == null"); // NOI18N
+        if (encoding == null)
+            throw new NullPointerException("encoding == null"); // NOI18N
+
+        byte[] bytes = getFileContentAsBytes(file);
         if (bytes != null) {
             try {
-                return new String(bytes, "UTF-8"); // NOI18N
+                return new String(bytes, encoding); // NOI18N
             } catch (UnsupportedEncodingException ex) {
-                Logger.getLogger(FileUtil.class.getName()).
-                        log(Level.SEVERE, null, ex);
+                Logger.getLogger(
+                        FileUtil.class.getName()).log(Level.SEVERE, null, ex);
                 return null;
             }
         }
@@ -54,61 +57,62 @@ public final class FileUtil {
     }
 
     /**
-     * Liefert den Inhalt einer Datei als Bytes.
+     * Returns the content of a file als bytes.
      * 
-     * @param filename Dateiname
-     * @return         Inhalt. Null bei Fehlern.
+     * @param file file
+     * @return     content or null when errors occur
      */
-    public static byte[] getFileBytes(String filename) {
-        if (filename == null)
-            throw new NullPointerException("filename == null"); // NOI18N
+    public static byte[] getFileContentAsBytes(File file) {
+
+        if (file == null)
+            throw new NullPointerException("file == null"); // NOI18N
 
         FileInputStream fileInputStream = null;
         try {
-            fileInputStream = new FileInputStream(filename);
+            fileInputStream = new FileInputStream(file);
             int byteCount = fileInputStream.available();
             byte[] bytes = new byte[byteCount];
             fileInputStream.read(bytes);
             fileInputStream.close();
             return bytes;
         } catch (IOException ex) {
-            Logger.getLogger(FileUtil.class.getName()).log(Level.SEVERE, null,
-                    ex);
+            Logger.getLogger(
+                    FileUtil.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 if (fileInputStream != null) {
                     fileInputStream.close();
                 }
             } catch (IOException ex) {
-                Logger.getLogger(FileUtil.class.getName()).log(Level.SEVERE,
-                        null, ex);
+                Logger.getLogger(
+                        FileUtil.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return null;
     }
 
     /**
-     * Stellt sicher, dass eine bestimmte Datei existiert. Falls erforderlich,
-     * werden fehlende Verzeichnisse angelegt.
+     * Ensures that a file exists. Creates the file if it does not exist, even
+     * necessary directories.
      * 
-     * @param filename Dateiname
-     * @return         true bei Erfolg
+     * @param  file file
+     * @return      true if the file exists
      */
-    public static boolean ensureFileExists(String filename) {
-        if (filename == null)
-            throw new NullPointerException("filename == null"); // NOI18N
+    public static boolean ensureFileExists(File file) {
 
-        File file = new File(filename);
+        if (file == null)
+            throw new NullPointerException("file == null"); // NOI18N
+
         boolean exists = file.exists();
         if (!exists) {
             File directory = file.getParentFile();
-            if (ensureDirectoryExists(directory.getAbsolutePath())) {
+            if (ensureDirectoryExists(directory)) {
                 try {
                     file.createNewFile();
                     exists = true;
                 } catch (IOException ex) {
-                    Logger.getLogger(FileUtil.class.getName()).log(Level.SEVERE,
-                            null, ex);
+                    Logger.getLogger(
+                            FileUtil.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
@@ -116,38 +120,41 @@ public final class FileUtil {
     }
 
     /**
-     * Liefert, ob eine bestimmte Datei existiert.
+     * Returns wheter a file exists and it's <em>not</em> a directory.
      * 
-     * @param filename Dateiname
-     * @return         true, wenn die Datei existiert und kein Verzeichnis ist
+     * @param file file
+     * @return     true if the file exists and it is not a directory
      */
-    public static boolean existsFile(String filename) {
-        if (filename == null)
-            throw new NullPointerException("filename == null"); // NOI18N
+    public static boolean existsFile(File file) {
 
-        File file = new File(filename);
+        if (file == null)
+            throw new NullPointerException("file == null"); // NOI18N
+
         return file.exists() && !file.isDirectory();
     }
 
     /**
-     * Stellt sicher, dass ein Verzeichnis existiert. Bei Nichtexistenz wird
-     * ein neues angelegt.
+     * Ensures that a directory exists. If it does not exists, this method
+     * creates a new directory including it's parent directories if they does
+     * not exist.
      * 
-     * @param directoryname Verzeichnisname
-     * @return              true bei Erfolg
+     * @param directory directory
+     * @return          true if successful
      */
-    public static boolean ensureDirectoryExists(String directoryname) {
-        if (directoryname == null)
-            throw new NullPointerException("directoryname == null"); // NOI18N
+    public static boolean ensureDirectoryExists(File directory) {
 
-        boolean exists = existsDirectory(directoryname);
+        if (directory == null)
+            throw new NullPointerException("directory == null"); // NOI18N
+
+        boolean exists = existsDirectory(directory);
         if (!exists) {
-            File directory = new File(directoryname);
             if (!directory.exists()) {
                 exists = directory.mkdirs();
                 if (!exists) {
                     Logger.getLogger(FileUtil.class.getName()).log(
-                            Level.SEVERE, null, Bundle.getString(
+                            Level.SEVERE,
+                            null,
+                            Bundle.getString(
                             "FileUtil.Error.CreateDirectoryFailed")); // NOI18N
                 }
             }
@@ -156,27 +163,29 @@ public final class FileUtil {
     }
 
     /**
-     * Liefert, ob ein bestimmtes Verzeichnis existiert.
+     * Returns whether a directory exists and it's a directory.
      * 
-     * @param directoryname Verzeichnisname
-     * @return              true wenn das Verzeichnis existiert
+     * @param  directory directory
+     * @return           true if the directory exists and the file type is
+     *                   a directory
      */
-    public static boolean existsDirectory(String directoryname) {
-        if (directoryname == null)
-            throw new NullPointerException("directoryname == null"); // NOI18N
+    public static boolean existsDirectory(File directory) {
 
-        File file = new File(directoryname);
-        return file.exists() && file.isDirectory();
+        if (directory == null)
+            throw new NullPointerException("directory == null"); // NOI18N
+
+        return directory.exists() && directory.isDirectory();
     }
 
     /**
-     * Kopiert eine Datei.
+     * Copies a file (fast).
      * 
-     * @param  source  Quelldatei
-     * @param  target  Zieldatei
-     * @throws java.io.IOException
+     * @param  source  source file
+     * @param  target  target file
+     * @throws         java.io.IOException on errors
      */
     public static void copyFile(File source, File target) throws IOException {
+
         if (source == null)
             throw new NullPointerException("source == null"); // NOI18N
         if (target == null)
@@ -205,28 +214,17 @@ public final class FileUtil {
     }
 
     /**
-     * Liefert den Dateinamen eines Pfads.
-     * 
-     * @param  path  Pfad
-     * @return Dateiname
-     */
-    public static String getFilename(String path) {
-        if (path == null)
-            throw new NullPointerException("path == null"); // NOI18N
-
-        File file = new File(path);
-        return file.getName();
-    }
-
-    /**
      * Liefert den Pfad einer Datei nach oben bis zur Wurzel.
      * 
      * @param  file Datei
      * @return Pfad, das oberste Element ist die Wurzel
      */
     public static Stack<File> getPathFromRoot(File file) {
+
         if (file == null)
             throw new NullPointerException("file == null"); // NOI18N
+
+        if (file.getParent() == null) return new Stack<File>();
 
         Stack<File> path = new Stack<File>();
         File parent = file;
@@ -237,71 +235,6 @@ public final class FileUtil {
     }
 
     /**
-     * Liefert die Zeit der letzten Modifikation einer Datei in Millisekunden
-     * seit 01.01.1970.
-     * 
-     * @param  filename  Dateiname
-     * @return Zeit
-     */
-    public static long getLastModified(String filename) {
-        if (filename == null)
-            throw new NullPointerException("filename == null"); // NOI18N
-
-        return new File(filename).lastModified();
-    }
-
-    /**
-     * Liefert alle Unterverzeichnisse eines Verzeichnisses.
-     * 
-     * @param  directory  Verzeichnis
-     * @param  options    file filtering optins
-     * @return Unterverzeichnisse
-     */
-    public static List<File> getSubDirectories(
-            File directory,
-            Set<DirectoryFilter.Option> options) {
-
-        if (directory == null)
-            throw new NullPointerException("directory == null"); // NOI18N
-        if (options == null)
-            throw new NullPointerException("options == null"); // NOI18N
-
-        List<File> directories = new ArrayList<File>();
-        if (directory.isDirectory()) {
-            File[] dirs = directory.listFiles(new DirectoryFilter(options));
-            if (dirs != null && dirs.length > 0) {
-                directories.addAll(Arrays.asList(dirs));
-            }
-        }
-        return directories;
-    }
-
-    /**
-     * Liefert die Namen aller Unterverzeichnisse eines Verzeichnisses.
-     * 
-     * @param  directoryName  Verzeichnisname
-     * @param  options        file filtering optins
-     * @return Namen der Unterverzeichnisse
-     */
-    public static List<String> getSubDirectoryNames(
-            String directoryName,
-            Set<DirectoryFilter.Option> options) {
-
-        if (directoryName == null)
-            throw new NullPointerException("directoryName == null"); // NOI18N
-        if (options == null)
-            throw new NullPointerException("options == null"); // NOI18N
-
-        List<File> directories = getSubDirectories(new File(directoryName),
-                options);
-        List<String> subdirectories = new ArrayList<String>();
-        for (File directory : directories) {
-            subdirectories.add(directory.getAbsolutePath());
-        }
-        return subdirectories;
-    }
-
-    /**
      * Liefert alle Unterverzeichnisse eines Verzeichnisses einschließlich
      * derer Unterverzeichnisse bis zur untersten Ebene.
      * 
@@ -309,7 +242,7 @@ public final class FileUtil {
      * @param  options    file filtering optins
      * @return Unterverzeichnisse
      */
-    public static List<File> getAllSubDirectories(
+    public static List<File> getSubdirectoriesRecursive(
             File directory,
             Set<DirectoryFilter.Option> options) {
 
@@ -320,99 +253,19 @@ public final class FileUtil {
 
         List<File> directories = new ArrayList<File>();
         if (directory.isDirectory()) {
-            File[] subdirectories = directory.listFiles(new DirectoryFilter(
-                    options));
+            File[] subdirectories =
+                    directory.listFiles(new DirectoryFilter(options));
             if (subdirectories != null && subdirectories.length > 0) {
                 List<File> subdirectoriesList = Arrays.asList(subdirectories);
                 for (File dir : subdirectoriesList) {
                     directories.add(dir);
-                    List<File> subdirectoriesSubDirs = getAllSubDirectories(
-                            dir, options);
+                    List<File> subdirectoriesSubDirs =
+                            getSubdirectoriesRecursive(dir, options);
                     directories.addAll(subdirectoriesSubDirs);
                 }
             }
         }
-
         return directories;
-    }
-
-    /**
-     * Liefert die Namen aller Unterverzeichnisse eines Verzeichnisses
-     * einschließlich die Namen derer Unterverzeichnisse bis zur untersten
-     * Ebene.
-     * 
-     * @param  directoryName  Verzeichnisname
-     * @param  options        file filtering optins
-     * @return Namen der Unterverzeichnisse
-     */
-    public static List<String> getAllSubDirectoryNames(String directoryName,
-            Set<DirectoryFilter.Option> options) {
-        if (directoryName == null)
-            throw new NullPointerException("directoryName == null"); // NOI18N
-        if (options == null)
-            throw new NullPointerException("options == null"); // NOI18N
-
-        List<File> directories = getAllSubDirectories(new File(directoryName),
-                options);
-        List<String> subdirectories = new ArrayList<String>();
-        for (File directory : directories) {
-            subdirectories.add(directory.getAbsolutePath());
-        }
-        return subdirectories;
-    }
-
-    /**
-     * Liefert gefiltert alle Dateien eines Verzeichnisses.
-     * 
-     * @param  directory   Verzeichnis
-     * @param  fileFilter  Dateifilter
-     * @return Dateien des Verzeichnisses, die der Filter akzeptiert
-     *         oder Null, falls keine gefunden wurden
-     */
-    public static File[] getFiles(String directory, RegexFileFilter fileFilter) {
-        if (directory == null)
-            throw new NullPointerException("directory == null"); // NOI18N
-
-        File file = new File(directory);
-        return file.listFiles(fileFilter);
-    }
-
-    /**
-     * Liefert einen Dateinamen ohne Endung (das Präfix). Als Endung wird
-     * betrachtet, was hinter dem letzten Punkt eines Dateinamens steht
-     * einschließlich des Punkts.
-     * 
-     * @param filename Dateiname
-     * @return         Präfix oder Dateiname, wenn kein Punkt in der Datei ist
-     */
-    public static String getPrefix(String filename) {
-        if (filename == null)
-            throw new NullPointerException("fileName == null"); // NOI18N
-
-        int index = filename.lastIndexOf('.');
-        if (index > 0) {
-            return filename.substring(0, index);
-        }
-        return filename;
-    }
-
-    /**
-     * Returns the suffix of a filename - the substring after the last period
-     * in the name, e.g. "jpg" if the filename is "image.jpg".
-     *
-     * @param  filename  filename
-     * @return suffix or empty string if the filename has no suffix
-     */
-    public static String getSuffix(String filename) {
-        if (filename == null)
-            throw new NullPointerException("filename == null"); // NOI18N
-
-        int index = filename.lastIndexOf('.');
-        int length = filename.length();
-        if (index >= 0 && index < length - 1) {
-            return filename.substring(index + 1, length);
-        }
-        return ""; // NOI18N
     }
 
     /**
@@ -422,6 +275,7 @@ public final class FileUtil {
      * @return      Pfadnamen
      */
     public static List<String> getAbsolutePathnames(Collection<File> files) {
+
         if (files == null)
             throw new NullPointerException("files == null"); // NOI18N
 
@@ -439,6 +293,7 @@ public final class FileUtil {
      * @return files
      */
     public static List<File> getAsFiles(Collection<? extends String> filenames) {
+
         if (filenames == null)
             throw new NullPointerException("filenames == null"); // NOI18N
 
@@ -456,6 +311,7 @@ public final class FileUtil {
      * @return filenames
      */
     public static List<String> getAsFilenames(Collection<? extends File> files) {
+
         if (files == null)
             throw new NullPointerException("files == null"); // NOI18N
 
@@ -472,7 +328,8 @@ public final class FileUtil {
      * @param  objects files as object
      * @return files
      */
-    public static List<File> objectListToFileList(Collection objects) {
+    public static List<File> objectCollectionToFileList(Collection objects) {
+
         if (objects == null)
             throw new NullPointerException("objects == null"); // NOI18N
 
@@ -492,7 +349,9 @@ public final class FileUtil {
      * @param  files collection
      * @return array
      */
-    public static File[] fileListToFileArray(Collection<? extends File> files) {
+    public static File[] fileCollectionToFileArray(
+            Collection<? extends File> files) {
+
         if (files == null)
             throw new NullPointerException("files == null"); // NOI18N
 
@@ -510,7 +369,8 @@ public final class FileUtil {
      * @param  files    files
      * @return existing directories within <code>files</code>
      */
-    public static List<File> getDirectories(Collection<? extends File> files) {
+    public static List<File> filterDirectories(Collection<? extends File> files) {
+
         if (files == null)
             throw new NullPointerException("files == null"); // NOI18N
 
@@ -529,12 +389,16 @@ public final class FileUtil {
      * @param  directory directory
      * @return           true if successfully deleted
      */
-    public static boolean deleteDirectory(File directory) {
+    public static boolean deleteDirectoryRecursive(File directory) {
+
+        if (directory == null)
+            throw new NullPointerException("directory == null"); // NOI18N
+
         if (directory.exists()) {
             File[] files = directory.listFiles();
             for (File file : files) {
                 if (file.isDirectory()) {
-                    deleteDirectory(file);
+                    deleteDirectoryRecursive(file);
                 } else {
                     file.delete();
                 }

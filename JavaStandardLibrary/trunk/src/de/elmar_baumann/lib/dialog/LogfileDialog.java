@@ -137,7 +137,8 @@ public final class LogfileDialog extends javax.swing.JDialog implements
         boolean simple = tabbedPane.getSelectedIndex() ==
                 paneIndexOfFormatterClass.get(SimpleFormatter.class);
         if (simple) {
-            editorPaneSimple.setText(FileUtil.getFileAsString(logfilename));
+            editorPaneSimple.setText(FileUtil.getFileContentAsString(
+                    new File(logfilename), "UTF-8"));
         } else {
             readLogfileRecords();
             setTable();
@@ -271,7 +272,7 @@ public final class LogfileDialog extends javax.swing.JDialog implements
                 stringBuffer.append(" " + frame.getMethodName()); // NOI18N
                 stringBuffer.append(
                         Bundle.getString(
-                        "LogfileDialog.Info.StartLineNumber") +  // NOI18N
+                        "LogfileDialog.Info.StartLineNumber") + // NOI18N
                         frame.getLine() + ")"); // NOI18N
             }
             stringBuffer.append("\n</pre>"); // NOI18N
@@ -375,7 +376,8 @@ public final class LogfileDialog extends javax.swing.JDialog implements
 
     private void readSimple() {
         selectPane();
-        editorPaneSimple.setText(FileUtil.getFileAsString(logfilename));
+        editorPaneSimple.setText(
+                FileUtil.getFileContentAsString(new File(logfilename), "UTF-8"));
     }
 
     private void readXml() {
