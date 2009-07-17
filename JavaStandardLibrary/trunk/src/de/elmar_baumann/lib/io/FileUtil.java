@@ -11,6 +11,7 @@ import java.io.UnsupportedEncodingException;
 import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 import java.util.Stack;
@@ -25,7 +26,7 @@ import java.util.logging.Logger;
  * not documentet that it can be null.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
- * @version 2008-10-05
+ * @version 2008/10/05
  */
 public final class FileUtil {
 
@@ -146,7 +147,7 @@ public final class FileUtil {
                 exists = directory.mkdirs();
                 if (!exists) {
                     Logger.getLogger(FileUtil.class.getName()).log(
-                            Level.SEVERE, null,Bundle.getString(
+                            Level.SEVERE, null, Bundle.getString(
                             "FileUtil.Error.CreateDirectoryFailed")); // NOI18N
                 }
             }
@@ -256,8 +257,10 @@ public final class FileUtil {
      * @param  options    file filtering optins
      * @return Unterverzeichnisse
      */
-    public static List<File> getSubDirectories(File directory,
+    public static List<File> getSubDirectories(
+            File directory,
             Set<DirectoryFilter.Option> options) {
+
         if (directory == null)
             throw new NullPointerException("directory == null"); // NOI18N
         if (options == null)
@@ -280,8 +283,10 @@ public final class FileUtil {
      * @param  options        file filtering optins
      * @return Namen der Unterverzeichnisse
      */
-    public static List<String> getSubDirectoryNames(String directoryName,
+    public static List<String> getSubDirectoryNames(
+            String directoryName,
             Set<DirectoryFilter.Option> options) {
+
         if (directoryName == null)
             throw new NullPointerException("directoryName == null"); // NOI18N
         if (options == null)
@@ -304,8 +309,10 @@ public final class FileUtil {
      * @param  options    file filtering optins
      * @return Unterverzeichnisse
      */
-    public static List<File> getAllSubDirectories(File directory,
+    public static List<File> getAllSubDirectories(
+            File directory,
             Set<DirectoryFilter.Option> options) {
+
         if (directory == null)
             throw new NullPointerException("directory == null"); // NOI18N
         if (options == null)
@@ -414,7 +421,7 @@ public final class FileUtil {
      * @param files Dateien
      * @return      Pfadnamen
      */
-    public static List<String> getAbsolutePathnames(List<File> files) {
+    public static List<String> getAbsolutePathnames(Collection<File> files) {
         if (files == null)
             throw new NullPointerException("files == null"); // NOI18N
 
@@ -426,12 +433,12 @@ public final class FileUtil {
     }
 
     /**
-     * Returns an array of files from an array of filenames.
+     * Returns a list of files from an array of filenames.
      * 
-     * @param  filenames  filenames
+     * @param  filenames filenames
      * @return files
      */
-    public static List<File> getAsFiles(List<String> filenames) {
+    public static List<File> getAsFiles(Collection<? extends String> filenames) {
         if (filenames == null)
             throw new NullPointerException("filenames == null"); // NOI18N
 
@@ -443,29 +450,12 @@ public final class FileUtil {
     }
 
     /**
-     * Returns an array of files from an set of filenames.
-     * 
-     * @param  filenames  filenames
-     * @return files
-     */
-    public static List<File> getAsFiles(Set<String> filenames) {
-        if (filenames == null)
-            throw new NullPointerException("filenames == null"); // NOI18N
-
-        List<File> files = new ArrayList<File>(filenames.size());
-        for (String filename : filenames) {
-            files.add(new File(filename));
-        }
-        return files;
-    }
-
-    /**
-     * Returns an array of filenames from an array of files.
+     * Returns an array of filenames (absolute path) from an array of files.
      * 
      * @param  files  files
      * @return filenames
      */
-    public static List<String> getAsFilenames(List<File> files) {
+    public static List<String> getAsFilenames(Collection<? extends File> files) {
         if (files == null)
             throw new NullPointerException("files == null"); // NOI18N
 
@@ -479,34 +469,37 @@ public final class FileUtil {
     /**
      * Returns a list of files from a list of object where every object is a file.
      * 
-     * @param  files files as object
+     * @param  objects files as object
      * @return files
      */
-    public static List<File> objectListToFileList(List files) {
-        if (files == null)
-            throw new NullPointerException("files == null"); // NOI18N
+    public static List<File> objectListToFileList(Collection objects) {
+        if (objects == null)
+            throw new NullPointerException("objects == null"); // NOI18N
 
-        List<File> fileList = new ArrayList<File>(files.size());
-        for (Object o : files) {
-            fileList.add((File) o);
+        List<File> fileList = new ArrayList<File>(objects.size());
+        for (Object o : objects) {
+            assert o instanceof File : o + " is not a file!";
+            if (o instanceof File) {
+                fileList.add((File) o);
+            }
         }
         return fileList;
     }
 
     /**
-     * Returns an array of files from a list of files.
+     * Returns an array of files from a collection of files.
      * 
-     * @param  files  list
+     * @param  files collection
      * @return array
      */
-    public static File[] fileListToFileArray(List<File> files) {
+    public static File[] fileListToFileArray(Collection<? extends File> files) {
         if (files == null)
             throw new NullPointerException("files == null"); // NOI18N
 
-        int size = files.size();
-        File[] fileArray = new File[size];
-        for (int i = 0; i < size; i++) {
-            fileArray[i] = files.get(i);
+        File[] fileArray = new File[files.size()];
+        int index = 0;
+        for (File file : files) {
+            fileArray[index++] = file;
         }
         return fileArray;
     }
@@ -514,10 +507,10 @@ public final class FileUtil {
     /**
      * Returns the directories of a list of files.
      * 
-     * @param  files  files
+     * @param  files    files
      * @return existing directories within <code>files</code>
      */
-    public static List<File> getDirectories(List<File> files) {
+    public static List<File> getDirectories(Collection<? extends File> files) {
         if (files == null)
             throw new NullPointerException("files == null"); // NOI18N
 
@@ -533,12 +526,12 @@ public final class FileUtil {
     /**
      * Deletes a directory and all it's contents: files and subdirectories.
      *
-     * @param  dir directory
-     * @return     true if successfully deleted
+     * @param  directory directory
+     * @return           true if successfully deleted
      */
-    public static boolean deleteDirectory(File dir) {
-        if (dir.exists()) {
-            File[] files = dir.listFiles();
+    public static boolean deleteDirectory(File directory) {
+        if (directory.exists()) {
+            File[] files = directory.listFiles();
             for (File file : files) {
                 if (file.isDirectory()) {
                     deleteDirectory(file);
@@ -547,7 +540,7 @@ public final class FileUtil {
                 }
             }
         }
-        return (dir.delete());
+        return (directory.delete());
     }
 
     private FileUtil() {
