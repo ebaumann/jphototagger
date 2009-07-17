@@ -76,7 +76,8 @@ public final class SaveEditedMetadata extends Thread {
     public void run() {
         int count = filenames.size();
         progressStarted(count);
-        for (int i = 0; !isInterrupted() && i < count; i++) {
+        // Ignore isInterrupted() because saving user input has high priority
+        for (int i = 0; i < count; i++) {
             String filename = filenames.get(i);
             String sidecarFilename =
                     XmpMetadata.suggestSidecarFilenameForImageFile(filename);
