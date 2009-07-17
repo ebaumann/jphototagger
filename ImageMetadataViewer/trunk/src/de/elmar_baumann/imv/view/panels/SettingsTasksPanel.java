@@ -66,8 +66,6 @@ public final class SettingsTasksPanel extends javax.swing.JPanel
                 settings.getMinutesToStartScheduledTasks());
         checkBoxIsAutoscanIncludeSubdirectories.setSelected(
                 settings.isAutoscanIncludeSubdirectories());
-        checkBoxIsTaskRemoveRecordsWithNotExistingFiles.setSelected(
-                settings.isTaskRemoveRecordsWithNotExistingFiles());
         lastSelectedAutoscanDirectory = settings.getSettings().getString(
                 KEY_LAST_SELECTED_AUTOSCAN_DIRECTORY);
     }
@@ -155,16 +153,6 @@ public final class SettingsTasksPanel extends javax.swing.JPanel
         notifyChangeListener(evt);
     }
 
-    private void handleActionCheckBoxIsTaskRemoveRecordsWithNotExistingFiles() {
-        UserSettingsChangeEvent evt =
-                new UserSettingsChangeEvent(
-                UserSettingsChangeEvent.Type.IS_TASK_REMOVE_RECORDS_WITH_NOT_EXISTING_FILES,
-                this);
-        evt.setTaskRemoveRecordsWithNotExistingFiles(
-                checkBoxIsTaskRemoveRecordsWithNotExistingFiles.isSelected());
-        notifyChangeListener(evt);
-    }
-
     private synchronized void notifyChangeListener(UserSettingsChangeEvent evt) {
         listenerProvider.notifyUserSettingsChangeListener(evt);
     }
@@ -191,8 +179,6 @@ public final class SettingsTasksPanel extends javax.swing.JPanel
         checkBoxIsAutoscanIncludeSubdirectories = new javax.swing.JCheckBox();
         buttonRemoveAutoscanDirectories = new javax.swing.JButton();
         buttonAddAutoscanDirectories = new javax.swing.JButton();
-        panelTasksOther = new javax.swing.JPanel();
-        checkBoxIsTaskRemoveRecordsWithNotExistingFiles = new javax.swing.JCheckBox();
         panelStartDelay = new javax.swing.JPanel();
         labelTasksMinutesToStartScheduledTasks = new javax.swing.JLabel();
         spinnerMinutesToStartScheduledTasks = new javax.swing.JSpinner();
@@ -262,11 +248,11 @@ public final class SettingsTasksPanel extends javax.swing.JPanel
         panelTasksAutoscanLayout.setVerticalGroup(
             panelTasksAutoscanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelTasksAutoscanLayout.createSequentialGroup()
-                .addComponent(labelAutoscanDirectoriesInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+                .addComponent(labelAutoscanDirectoriesInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelAutoscanDirectoriesPrompt, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPaneListAutoscanDirectories, javax.swing.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
+                .addComponent(scrollPaneListAutoscanDirectories, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(checkBoxIsAutoscanIncludeSubdirectories)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -274,30 +260,6 @@ public final class SettingsTasksPanel extends javax.swing.JPanel
                     .addComponent(buttonAddAutoscanDirectories)
                     .addComponent(buttonRemoveAutoscanDirectories))
                 .addContainerGap())
-        );
-
-        panelTasksOther.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString("SettingsTasksPanel.panelTasksOther.border.title"))); // NOI18N
-
-        checkBoxIsTaskRemoveRecordsWithNotExistingFiles.setText(Bundle.getString("SettingsTasksPanel.checkBoxIsTaskRemoveRecordsWithNotExistingFiles.text")); // NOI18N
-        checkBoxIsTaskRemoveRecordsWithNotExistingFiles.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkBoxIsTaskRemoveRecordsWithNotExistingFilesActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout panelTasksOtherLayout = new javax.swing.GroupLayout(panelTasksOther);
-        panelTasksOther.setLayout(panelTasksOtherLayout);
-        panelTasksOtherLayout.setHorizontalGroup(
-            panelTasksOtherLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelTasksOtherLayout.createSequentialGroup()
-                .addComponent(checkBoxIsTaskRemoveRecordsWithNotExistingFiles, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        panelTasksOtherLayout.setVerticalGroup(
-            panelTasksOtherLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelTasksOtherLayout.createSequentialGroup()
-                .addComponent(checkBoxIsTaskRemoveRecordsWithNotExistingFiles)
-                .addContainerGap(10, Short.MAX_VALUE))
         );
 
         labelTasksMinutesToStartScheduledTasks.setText(Bundle.getString("SettingsTasksPanel.labelTasksMinutesToStartScheduledTasks.text")); // NOI18N
@@ -329,12 +291,11 @@ public final class SettingsTasksPanel extends javax.swing.JPanel
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(panelStartDelay, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panelTasksAutoscan, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panelTasksOther, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(panelTasksAutoscan, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelStartDelay, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -342,8 +303,6 @@ public final class SettingsTasksPanel extends javax.swing.JPanel
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(panelTasksAutoscan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelTasksOther, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelStartDelay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -370,10 +329,6 @@ private void buttonAddAutoscanDirectoriesActionPerformed(java.awt.event.ActionEv
     addAutoscanDirectories();
 }//GEN-LAST:event_buttonAddAutoscanDirectoriesActionPerformed
 
-private void checkBoxIsTaskRemoveRecordsWithNotExistingFilesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxIsTaskRemoveRecordsWithNotExistingFilesActionPerformed
-    handleActionCheckBoxIsTaskRemoveRecordsWithNotExistingFiles();
-}//GEN-LAST:event_checkBoxIsTaskRemoveRecordsWithNotExistingFilesActionPerformed
-
 private void spinnerMinutesToStartScheduledTasksStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spinnerMinutesToStartScheduledTasksStateChanged
     handleStateChangedSpinnerMinutesToStartScheduledTasks();
 }//GEN-LAST:event_spinnerMinutesToStartScheduledTasksStateChanged
@@ -381,14 +336,12 @@ private void spinnerMinutesToStartScheduledTasksStateChanged(javax.swing.event.C
     private javax.swing.JButton buttonAddAutoscanDirectories;
     private javax.swing.JButton buttonRemoveAutoscanDirectories;
     private javax.swing.JCheckBox checkBoxIsAutoscanIncludeSubdirectories;
-    private javax.swing.JCheckBox checkBoxIsTaskRemoveRecordsWithNotExistingFiles;
     private javax.swing.JLabel labelAutoscanDirectoriesInfo;
     private javax.swing.JLabel labelAutoscanDirectoriesPrompt;
     private javax.swing.JLabel labelTasksMinutesToStartScheduledTasks;
     private javax.swing.JList listAutoscanDirectories;
     private javax.swing.JPanel panelStartDelay;
     private javax.swing.JPanel panelTasksAutoscan;
-    private javax.swing.JPanel panelTasksOther;
     private javax.swing.JScrollPane scrollPaneListAutoscanDirectories;
     private javax.swing.JSpinner spinnerMinutesToStartScheduledTasks;
     // End of variables declaration//GEN-END:variables

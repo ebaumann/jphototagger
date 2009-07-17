@@ -55,7 +55,6 @@ import de.elmar_baumann.imv.controller.search.ControllerDeleteSavedSearch;
 import de.elmar_baumann.imv.controller.search.ControllerEditSafedSearch;
 import de.elmar_baumann.imv.controller.search.ControllerRenameSavedSearch;
 import de.elmar_baumann.imv.controller.search.ControllerSafedSearchSelected;
-import de.elmar_baumann.imv.controller.tasks.ControllerArrayScheduledTasks;
 import de.elmar_baumann.imv.controller.thumbnail.ControllerCopyOrCutFilesToClipboard;
 import de.elmar_baumann.imv.controller.thumbnail.ControllerCreateMetadataOfCurrentThumbnails;
 import de.elmar_baumann.imv.controller.thumbnail.ControllerCreateMetadataOfSelectedThumbnails;
@@ -80,13 +79,6 @@ public final class ControllerFactory {
 
     static final ControllerFactory INSTANCE = new ControllerFactory();
     private boolean init = false;
-
-    private void startScheduledTasks() {
-        Thread thread = new Thread(new ControllerArrayScheduledTasks());
-        thread.setName("Scheduled tasks listening" + " @ " + // NOI18N
-                getClass().getName());
-        thread.start();
-    }
 
     synchronized void init() {
         Util.checkInit(ControllerFactory.class, init);
@@ -159,7 +151,6 @@ public final class ControllerFactory {
             new ControllerAddHierarchicalKeyword();
             new ControllerToggleRealHierarchicalKeyword();
             new ControllerAddHierarchicalKeywordsToEditPanel();
-            startScheduledTasks();
             init = true;
         }
     }

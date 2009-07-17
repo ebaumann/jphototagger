@@ -53,8 +53,6 @@ public final class UserSettings implements UserSettingsChangeListener {
             "UserSettings.IsAutoscanIncludeSubdirectories"; // NOI18N
     private static final String KEY_CREATE_THUMBNAILS_WITH_EXTERNAL_APP =
             "UserSettings.IsCreateThumbnailsWithExternalApp"; // NOI18N
-    private static final String KEY_TASK_REMOVE_RECORDS_WITH_NOT_EXISTING_FILES =
-            "UserSettings.IsTaskRemoveRecordsWithNotExistingFiles"; // NOI18N
     private static final String KEY_USE_EMBEDDED_THUMBNAILS =
             "UserSettings.IsUseEmbeddedThumbnails"; // NOI18N
     private static final String KEY_LOGFILE_FORMATTER_CLASS =
@@ -449,21 +447,6 @@ public final class UserSettings implements UserSettingsChangeListener {
     }
 
     /**
-     * Returns whether automated tasks shall remove files from the database if
-     * the doesn't exist into the filesystem.
-     * 
-     * @return true when removing those files from the database.
-     *         Default: <code>false</code>
-     */
-    public boolean isTaskRemoveRecordsWithNotExistingFiles() {
-        return properties.containsKey(
-                KEY_TASK_REMOVE_RECORDS_WITH_NOT_EXISTING_FILES)
-               ? settings.getBoolean(
-                KEY_TASK_REMOVE_RECORDS_WITH_NOT_EXISTING_FILES)
-               : false;
-    }
-
-    /**
      * Returns the miniutes to wait after starting before the application starts
      * the automated tasks.
      * 
@@ -556,10 +539,6 @@ public final class UserSettings implements UserSettingsChangeListener {
                 UserSettingsChangeEvent.Type.IS_CREATE_THUMBNAILS_WITH_EXTERNAL_APP)) {
             writeToPropertiesCreateThumbnailsWithExternalApp(evt.
                     isCreateThumbnailsWithExternalApp());
-        } else if (type.equals(
-                UserSettingsChangeEvent.Type.IS_TASK_REMOVE_RECORDS_WITH_NOT_EXISTING_FILES)) {
-            settings.setBoolean(evt.isTaskRemoveRecordsWithNotExistingFiles(),
-                    KEY_TASK_REMOVE_RECORDS_WITH_NOT_EXISTING_FILES);
         } else if (type.equals(
                 UserSettingsChangeEvent.Type.IS_USE_EMBEDDED_THUMBNAILS)) {
             writeToPropertiesUseEmbeddedThumbnails(evt.isUseEmbeddedThumbnails());

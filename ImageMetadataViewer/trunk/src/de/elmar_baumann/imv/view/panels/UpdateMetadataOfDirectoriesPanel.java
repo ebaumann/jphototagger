@@ -9,6 +9,7 @@ import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.tasks.InsertImageFilesIntoDatabase;
 import de.elmar_baumann.lib.dialog.DirectoryChooser;
 import de.elmar_baumann.lib.io.FileUtil;
+import de.elmar_baumann.lib.resource.MutualExcludedResource;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;
 import javax.swing.DefaultListModel;
+import javax.swing.JProgressBar;
 
 /**
  *
@@ -39,10 +41,12 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
     private InsertImageFilesIntoDatabase activeUpdater;
     private File lastSelectedDirectory = new File(""); // NOI18N
     private int countSelectedFiles = 0;
+    private ProgressBarProvider progressBarProvider;
 
     /** Creates new form UpdateMetadataOfDirectoriesPanel */
     public UpdateMetadataOfDirectoriesPanel() {
         initComponents();
+        progressBarProvider = new ProgressBarProvider(progressBar);
         readProperties();
     }
 
@@ -73,10 +77,10 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
     }
 
     private void createScanner() {
-        activeUpdater =
-                new InsertImageFilesIntoDatabase(
+        activeUpdater = new InsertImageFilesIntoDatabase(
                 FileUtil.getAsFilenames(selectedFiles),
-                getWhatToInsertIntoDatabase());
+                getWhatToInsertIntoDatabase(),
+                progressBarProvider);
     }
 
     private Set<DirectoryChooser.Option> getDirectoryChooserOptions() {
@@ -157,7 +161,6 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
         setImageFilenames();
         beforeUpdate();
         createScanner();
-        activeUpdater.addProgressListener(this);
         Thread thread = new Thread(activeUpdater);
         thread.setName("Updating metadata of some directories" + " @ " + // NOI18N
                 getClass().getName());
@@ -242,8 +245,6 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
 
     private synchronized void stop() {
         if (activeUpdater != null) {
-            activeUpdater.removeProgressListener(this);
-            activeUpdater.stop();
             activeUpdater = null;
         }
     }
@@ -314,6 +315,13 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
         labelCurrentFilename.setText(Bundle.getString(bundleKey,
                 CURRENT_FILENAME_INFOTEXT_PREFIX, evt.getInfo(),
                 remainingMinutes));
+    }
+
+    private class ProgressBarProvider extends MutualExcludedResource {
+
+        ProgressBarProvider(JProgressBar progressBar) {
+            setResource(progressBar);
+        }
     }
 
     /** This method is called from within the constructor to

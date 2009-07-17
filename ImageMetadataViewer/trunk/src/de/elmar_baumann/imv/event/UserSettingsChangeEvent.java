@@ -29,7 +29,6 @@ public final class UserSettingsChangeEvent {
     private boolean acceptHiddenDirectories;
     private boolean autoscanIncludeSubdirectories;
     private boolean createThumbnailsWithExternalApp;
-    private boolean taskRemoveRecordsWithNotExistingFiles;
     private boolean useEmbeddedThumbnails;
     private boolean noFastSearchColumns;
     private boolean treeDirectoriesSelectLastDirectory;
@@ -59,7 +58,6 @@ public final class UserSettingsChangeEvent {
         IS_ACCEPT_HIDDEN_DIRECTORIES,
         IS_AUTSCAN_INCLUDE_DIRECTORIES,
         IS_CREATE_THUMBNAILS_WITH_EXTERNAL_APP,
-        IS_TASK_REMOVE_RECORDS_WITH_NOT_EXISTING_FILES,
         IS_USE_EMBEDDED_THUMBNAILS,
         LOGFILE_FORMATTER_CLASS,
         LOG_LEVEL,
@@ -210,16 +208,6 @@ public final class UserSettingsChangeEvent {
 
     public void setNoFastSearchColumns(boolean noFastSearchColumns) {
         this.noFastSearchColumns = noFastSearchColumns;
-    }
-
-    public boolean isTaskRemoveRecordsWithNotExistingFiles() {
-        return taskRemoveRecordsWithNotExistingFiles;
-    }
-
-    public void setTaskRemoveRecordsWithNotExistingFiles(
-            boolean taskRemoveRecordsWithNotExistingFiles) {
-        this.taskRemoveRecordsWithNotExistingFiles =
-                taskRemoveRecordsWithNotExistingFiles;
     }
 
     public boolean isUseEmbeddedThumbnails() {

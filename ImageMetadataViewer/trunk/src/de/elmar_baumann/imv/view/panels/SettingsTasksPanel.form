@@ -17,12 +17,11 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="1" attributes="0">
+          <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="panelStartDelay" alignment="0" max="32767" attributes="0"/>
-                  <Component id="panelTasksAutoscan" alignment="0" max="32767" attributes="0"/>
-                  <Component id="panelTasksOther" alignment="0" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="panelTasksAutoscan" alignment="1" max="32767" attributes="0"/>
+                  <Component id="panelStartDelay" alignment="1" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -33,9 +32,7 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" max="-2" attributes="0"/>
               <Component id="panelTasksAutoscan" max="32767" attributes="0"/>
-              <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Component id="panelTasksOther" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="panelStartDelay" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" max="-2" attributes="0"/>
           </Group>
@@ -77,11 +74,11 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <Component id="labelAutoscanDirectoriesInfo" pref="30" max="32767" attributes="0"/>
+                  <Component id="labelAutoscanDirectoriesInfo" pref="45" max="32767" attributes="0"/>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Component id="labelAutoscanDirectoriesPrompt" min="-2" pref="15" max="-2" attributes="0"/>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
-                  <Component id="scrollPaneListAutoscanDirectories" pref="23" max="32767" attributes="0"/>
+                  <Component id="scrollPaneListAutoscanDirectories" pref="22" max="32767" attributes="0"/>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Component id="checkBoxIsAutoscanIncludeSubdirectories" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -166,48 +163,6 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonAddAutoscanDirectoriesActionPerformed"/>
-          </Events>
-        </Component>
-      </SubComponents>
-    </Container>
-    <Container class="javax.swing.JPanel" name="panelTasksOther">
-      <Properties>
-        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-          <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-            <TitledBorder title="Weitere Aufgaben">
-              <ResourceString PropertyName="titleX" bundle="de/elmar_baumann/imv/resource/properties/Bundle.properties" key="SettingsTasksPanel.panelTasksOther.border.title" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
-            </TitledBorder>
-          </Border>
-        </Property>
-      </Properties>
-
-      <Layout>
-        <DimensionLayout dim="0">
-          <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <Component id="checkBoxIsTaskRemoveRecordsWithNotExistingFiles" max="32767" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-              </Group>
-          </Group>
-        </DimensionLayout>
-        <DimensionLayout dim="1">
-          <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <Component id="checkBoxIsTaskRemoveRecordsWithNotExistingFiles" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="10" max="32767" attributes="0"/>
-              </Group>
-          </Group>
-        </DimensionLayout>
-      </Layout>
-      <SubComponents>
-        <Component class="javax.swing.JCheckBox" name="checkBoxIsTaskRemoveRecordsWithNotExistingFiles">
-          <Properties>
-            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="de/elmar_baumann/imv/resource/properties/Bundle.properties" key="SettingsTasksPanel.checkBoxIsTaskRemoveRecordsWithNotExistingFiles.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
-            </Property>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkBoxIsTaskRemoveRecordsWithNotExistingFilesActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

@@ -1,10 +1,6 @@
 package de.elmar_baumann.imv.tasks;
 
-import de.elmar_baumann.imv.app.AppLog;
-import de.elmar_baumann.imv.resource.Bundle;
-import java.util.ArrayDeque;
-import java.util.Queue;
-import java.util.concurrent.Executor;
+import de.elmar_baumann.lib.concurrent.SerialExecutor;
 import java.util.concurrent.Executors;
 
 /**
@@ -42,51 +38,5 @@ public final class UserTasksQueue {
     }
 
     private UserTasksQueue() {
-    }
-
-    // Code from java.util.concurrent.Executor javadoc. Added shutdown()
-    private class SerialExecutor implements Executor {
-
-        private final Queue<Runnable> tasks = new ArrayDeque<Runnable>();
-        private final Executor executor;
-        private Runnable active;
-
-        SerialExecutor(Executor executor) {
-            this.executor = executor;
-        }
-
-        synchronized void shutdown() {
-            tasks.clear();
-            if (active instanceof Thread) {
-                ((Thread) active).interrupt();
-            } else if (active != null) {
-                AppLog.logWarning(getClass(), Bundle.getString(
-                        "UserTasksQueue.Error.Terminate", active));
-            }
-        }
-
-        @Override
-        public synchronized void execute(final Runnable r) {
-            tasks.offer(new Runnable() {
-
-                @Override
-                public void run() {
-                    try {
-                        r.run();
-                    } finally {
-                        scheduleNext();
-                    }
-                }
-            });
-            if (active == null) {
-                scheduleNext();
-            }
-        }
-
-        protected synchronized void scheduleNext() {
-            if ((active = tasks.poll()) != null) {
-                executor.execute(active);
-            }
-        }
     }
 }

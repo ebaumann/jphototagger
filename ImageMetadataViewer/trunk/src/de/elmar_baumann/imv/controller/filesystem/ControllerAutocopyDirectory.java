@@ -189,7 +189,8 @@ public final class ControllerAutocopyDirectory implements ActionListener {
                     EnumSet.of(
                     InsertImageFilesIntoDatabase.Insert.EXIF,
                     InsertImageFilesIntoDatabase.Insert.THUMBNAIL,
-                    InsertImageFilesIntoDatabase.Insert.XMP));
+                    InsertImageFilesIntoDatabase.Insert.XMP),
+                    null);
             // No thread, have to wait until completion before inserting image
             // files as image collection is valid
             insert.run();

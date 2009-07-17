@@ -14,13 +14,13 @@ import de.elmar_baumann.imv.view.popupmenus.PopupMenuThumbnails;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/16
  */
-public final class LateConnectionsFactory {
+public final class LateFactory {
 
-    static final LateConnectionsFactory INSTANCE = new LateConnectionsFactory();
+    static final LateFactory INSTANCE = new LateFactory();
     private boolean init = false;
 
     synchronized void init() {
-        Util.checkInit(LateConnectionsFactory.class, init);
+        Util.checkInit(LateFactory.class, init);
         if (!init) {
             init = true;
             AppPanel appPanel = GUI.INSTANCE.getAppPanel();

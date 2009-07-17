@@ -33,7 +33,7 @@ public final class MetaFactory implements Runnable {
         readAppFrameFromProperties();
         startDisplayProgressInProgressbarBar();
         ControllerFactory.INSTANCE.init();
-        LateConnectionsFactory.INSTANCE.init();
+        LateFactory.INSTANCE.init();
         ModelFactory.INSTANCE.init();
         ActionListenerFactory.INSTANCE.init();
         MouseListenerFactory.INSTANCE.init();

@@ -22,6 +22,7 @@ public final class Cleanup {
      * Shuts down all Tasks.
      */
     public static void shutdown() {
+        ScheduledTasks.INSTANCE.shutdown();
         AutomaticTask.INSTANCE.shutdown();
         UserTasksQueue.INSTANCE.shutdown();
         try {

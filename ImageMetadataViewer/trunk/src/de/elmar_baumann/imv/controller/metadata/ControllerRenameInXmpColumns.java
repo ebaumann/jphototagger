@@ -1,7 +1,6 @@
 package de.elmar_baumann.imv.controller.metadata;
 
 import de.elmar_baumann.imv.resource.GUI;
-import de.elmar_baumann.imv.tasks.Task;
 import de.elmar_baumann.imv.tasks.UpdaterRenameInXmpColumnsArray;
 import de.elmar_baumann.imv.view.dialogs.RenameInXmpColumnsDialog;
 import de.elmar_baumann.imv.view.frames.AppFrame;
@@ -20,7 +19,7 @@ import java.util.List;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/30
  */
-public final class ControllerRenameInXmpColumns implements ActionListener, Task {
+public final class ControllerRenameInXmpColumns implements ActionListener {
 
     private final UpdaterRenameInXmpColumnsArray updater =
             new UpdaterRenameInXmpColumnsArray();
@@ -56,15 +55,5 @@ public final class ControllerRenameInXmpColumns implements ActionListener, Task 
             updater.update(filenames, dialog.getColumn(), dialog.getOldString(),
                     dialog.getNewString());
         }
-    }
-
-    @Override
-    public void start() {
-        // do nothing
-    }
-
-    @Override
-    public void stop() {
-        updater.stop();
     }
 }

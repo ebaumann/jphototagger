@@ -93,7 +93,9 @@ public final class SaveEditedMetadata extends Thread {
 
     private void updateDatabase(String filename) {
         InsertImageFilesIntoDatabase updater = new InsertImageFilesIntoDatabase(
-                Arrays.asList(filename), EnumSet.of(Insert.XMP));
+                Arrays.asList(filename),
+                EnumSet.of(Insert.XMP),
+                null);
         updater.run();
     }
 

@@ -22,7 +22,8 @@ import java.util.List;
  */
 public final class IptcToXmp implements Runnable {
 
-    private final List<ProgressListener> progressListeners = new ArrayList<ProgressListener>();
+    private final List<ProgressListener> progressListeners =
+            new ArrayList<ProgressListener>();
     private final List<String> filenames;
     private boolean stop = false;
 
@@ -45,7 +46,8 @@ public final class IptcToXmp implements Runnable {
         int index = 0;
         for (index = 0; !stop && index < size; index++) {
             String imageFilename = filenames.get(index);
-            String xmpFilename = XmpMetadata.suggestSidecarFilenameForImageFile(imageFilename);
+            String xmpFilename = XmpMetadata.suggestSidecarFilenameForImageFile(
+                    imageFilename);
             Iptc iptc = IptcMetadata.getIptc(new File(imageFilename));
             Xmp xmp = XmpMetadata.getXmpOfImageFile(imageFilename);
             if (xmp == null) {
@@ -64,7 +66,8 @@ public final class IptcToXmp implements Runnable {
     private void updateDatabase(String imageFilename) {
         InsertImageFilesIntoDatabase insert = new InsertImageFilesIntoDatabase(
                 Arrays.asList(imageFilename),
-                EnumSet.of(InsertImageFilesIntoDatabase.Insert.XMP));
+                EnumSet.of(InsertImageFilesIntoDatabase.Insert.XMP),
+                null);
         insert.run(); // Shall run in this thread!
     }
 
@@ -82,7 +85,9 @@ public final class IptcToXmp implements Runnable {
     private synchronized void notifyStart() {
         int count = filenames.size();
         ProgressEvent event = new ProgressEvent(this, 0, count, 0,
-                filenames.size() > 0 ? filenames.get(0) : ""); // NOI18N
+                filenames.size() > 0
+                ? filenames.get(0)
+                : ""); // NOI18N
         for (ProgressListener progressListener : progressListeners) {
             progressListener.progressStarted(event);
             checkStopEvent(event);
@@ -90,7 +95,8 @@ public final class IptcToXmp implements Runnable {
     }
 
     private synchronized void notifyPerformed(int index) {
-        ProgressEvent event = new ProgressEvent(this, 0, filenames.size(), index + 1, filenames.get(index));
+        ProgressEvent event = new ProgressEvent(this, 0, filenames.size(),
+                index + 1, filenames.get(index));
         for (ProgressListener progressListener : progressListeners) {
             progressListener.progressPerformed(event);
             checkStopEvent(event);
@@ -98,7 +104,8 @@ public final class IptcToXmp implements Runnable {
     }
 
     private synchronized void notifyEnd(int index) {
-        ProgressEvent event = new ProgressEvent(this, 0, filenames.size(), index + 1, ""); // NOI18N
+        ProgressEvent event = new ProgressEvent(this, 0, filenames.size(),
+                index + 1, ""); // NOI18N
         for (ProgressListener progressListener : progressListeners) {
             progressListener.progressEnded(event);
         }
