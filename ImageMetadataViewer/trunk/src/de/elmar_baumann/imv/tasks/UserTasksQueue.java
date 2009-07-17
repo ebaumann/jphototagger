@@ -60,7 +60,7 @@ public final class UserTasksQueue {
             if (active instanceof Thread) {
                 ((Thread) active).interrupt();
             } else if (active != null) {
-                AppLog.logWarning(AutomaticTask.class, Bundle.getString(
+                AppLog.logWarning(getClass(), Bundle.getString(
                         "UserTasksQueue.Error.Terminate", active));
             }
         }
