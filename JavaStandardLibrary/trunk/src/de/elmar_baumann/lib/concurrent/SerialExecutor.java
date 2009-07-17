@@ -17,7 +17,7 @@ import java.util.logging.Logger;
  */
 public final class SerialExecutor implements Executor {
 
-    private final Queue<Runnable> tasks = new ArrayDeque<Runnable>();
+    private final Queue<Runnable> runnables = new ArrayDeque<Runnable>();
     private final Executor executor;
     private Runnable active;
 
@@ -32,7 +32,7 @@ public final class SerialExecutor implements Executor {
      * calling {@link Thread#isInterrupted()}.
      */
     public synchronized void shutdown() {
-        tasks.clear();
+        runnables.clear();
         if (active instanceof Thread) {
             ((Thread) active).interrupt();
         } else if (active != null) {
@@ -51,12 +51,12 @@ public final class SerialExecutor implements Executor {
         int activeCount = active == null
                           ? 0
                           : 1;
-        return activeCount + tasks.size();
+        return activeCount + runnables.size();
     }
 
     @Override
     public synchronized void execute(final Runnable r) {
-        tasks.offer(new Runnable() {
+        runnables.offer(new Runnable() {
 
             @Override
             public void run() {
@@ -73,7 +73,7 @@ public final class SerialExecutor implements Executor {
     }
 
     protected synchronized void scheduleNext() {
-        if ((active = tasks.poll()) != null) {
+        if ((active = runnables.poll()) != null) {
             executor.execute(active);
         }
     }
