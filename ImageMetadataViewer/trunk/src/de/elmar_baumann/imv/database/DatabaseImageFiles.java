@@ -887,9 +887,12 @@ public final class DatabaseImageFiles extends Database {
      * @param  listener   Beobachter oder null.
      * @return Anzahl umbenannter Strings
      */
-    public int renameInXmpColumns(
-            List<String> filenames, Column xmpColumn,
-            String oldValue, String newValue, ProgressListener listener) {
+    public int renameXmpMetadata(
+            List<String> filenames,
+            Column xmpColumn,
+            String oldValue,
+            String newValue,
+            ProgressListener listener) {
 
         int countRenamed = 0;
         int filecount = filenames.size();

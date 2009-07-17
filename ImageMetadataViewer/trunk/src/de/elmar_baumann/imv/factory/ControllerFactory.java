@@ -61,7 +61,7 @@ import de.elmar_baumann.imv.controller.thumbnail.ControllerCreateMetadataOfSelec
 import de.elmar_baumann.imv.controller.thumbnail.ControllerDeleteThumbnailsFromDatabase;
 import de.elmar_baumann.imv.controller.thumbnail.ControllerPasteFilesFromClipboard;
 import de.elmar_baumann.imv.controller.thumbnail.ControllerRefreshThumbnailsPanel;
-import de.elmar_baumann.imv.controller.metadata.ControllerRenameInXmpColumns;
+import de.elmar_baumann.imv.controller.metadata.ControllerRenameXmpMetadata;
 import de.elmar_baumann.imv.controller.thumbnail.ControllerRotateThumbnail;
 import de.elmar_baumann.imv.controller.thumbnail.ControllerSliderThumbnailSize;
 import de.elmar_baumann.imv.controller.thumbnail.ControllerSortThumbnails;
@@ -116,7 +116,7 @@ public final class ControllerFactory {
             new ControllerDeleteFavorite();
             new ControllerUpdateFavorite();
             new ControllerCopyFilesToDirectory();
-            new ControllerRenameInXmpColumns();
+            new ControllerRenameXmpMetadata();
             new ControllerIptcToXmp();
             new ControllerGoTo();
             new ControllerSliderThumbnailSize();

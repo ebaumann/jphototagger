@@ -45,19 +45,19 @@ public final class RenameXmpMetadata extends Thread
         this.column = column;
         this.oldValue = oldValue;
         this.newValue = newValue;
-        setName("Renaming in XMP Column " + column + " @ " +
+        setName("Renaming XMP metadata " + column + " @ " +
                 getClass().getName());
     }
 
     @Override
     public void run() {
         logRename(column.getName(), oldValue, newValue);
-        db.renameInXmpColumns(filenames, column, oldValue, newValue, this);
+        db.renameXmpMetadata(filenames, column, oldValue, newValue, this);
     }
 
     private void logRename(String columnName, String oldValue, String newValue) {
         AppLog.logInfo(RenameXmpMetadata.class, Bundle.getString(
-                "UpdaterRenameInXmpColumns.Info.StartRename", // NOI18N
+                "RenameXmpMetadata.Info.StartRename", // NOI18N
                 columnName, oldValue, newValue));
     }
 
