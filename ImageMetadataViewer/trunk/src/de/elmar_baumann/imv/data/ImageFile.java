@@ -29,11 +29,17 @@ public final class ImageFile {
         if (obj == null) {
             return false;
         }
+        if (obj instanceof File && filename != null) {
+            return filename.equals(((File) obj).getAbsolutePath());
+
+        }
         if (getClass() != obj.getClass()) {
             return false;
         }
         final ImageFile other = (ImageFile) obj;
-        if ((this.filename == null) ? (other.filename != null) : !this.filename.equals(other.filename)) {
+        if ((this.filename == null)
+            ? (other.filename != null)
+            : !this.filename.equals(other.filename)) {
             return false;
         }
         return true;
@@ -41,7 +47,9 @@ public final class ImageFile {
 
     @Override
     public int hashCode() {
-        return this.filename != null ? this.filename.hashCode() : 0;
+        return this.filename != null
+               ? this.filename.hashCode()
+               : 0;
     }
 
     /**
