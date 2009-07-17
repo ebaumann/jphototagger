@@ -41,6 +41,8 @@ public final class ControllerThumbnailsDatabaseChanges
                 DatabaseImageEvent.Type eventType = event.getType();
                 if (eventType.equals(DatabaseImageEvent.Type.THUMBNAIL_UPDATED)) {
                     thumbnailsPanel.repaint(event.getImageFile().getFile());
+                } else if (eventType.equals(DatabaseImageEvent.Type.IMAGEFILE_UPDATED)) {
+                    thumbnailsPanel.removeFromCache(event.getImageFile().getFile());
                 } else if (eventType.equals(
                         DatabaseImageEvent.Type.IMAGEFILE_DELETED)) {
                     List<File> deleted = Collections.singletonList(

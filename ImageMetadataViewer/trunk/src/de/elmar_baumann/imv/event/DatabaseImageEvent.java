@@ -116,7 +116,7 @@ public final class DatabaseImageEvent {
     }
 
     /**
-     * Returns wether text metadata may be affected by the event.
+     * Returns whether text metadata may be affected by the event.
      *
      * @return true if text metadata is affected
      */

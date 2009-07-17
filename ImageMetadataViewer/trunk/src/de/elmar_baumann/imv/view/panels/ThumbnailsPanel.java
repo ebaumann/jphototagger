@@ -1,6 +1,7 @@
 package de.elmar_baumann.imv.view.panels;
 
 import de.elmar_baumann.imv.app.AppLog;
+import de.elmar_baumann.imv.data.ImageFile;
 import de.elmar_baumann.imv.event.listener.ThumbnailsPanelListener;
 import de.elmar_baumann.imv.data.ThumbnailFlag;
 import de.elmar_baumann.lib.event.util.MouseEventUtil;
@@ -152,6 +153,11 @@ public abstract class ThumbnailsPanel extends JPanel
     private final Map<Integer, Image> thumbnailAtIndex =
             new HashMap<Integer, Image>();
     /**
+     * Caches the ImageFile at specific indices
+     */
+    private final Map<Integer, ImageFile> imageFileAtIndex =
+            new HashMap<Integer, ImageFile>();
+    /**
      * Listens to thumbnail events
      */
     private final List<ThumbnailsPanelListener> panelListeners =
@@ -215,6 +221,7 @@ public abstract class ThumbnailsPanel extends JPanel
 
     private void empty() {
         thumbnailAtIndex.clear();
+        imageFileAtIndex.clear();
         clearSelection();
         flagOfThumbnail.clear();
         System.gc();
@@ -323,6 +330,15 @@ public abstract class ThumbnailsPanel extends JPanel
      * @return      Thumbnail. Null bei ungültigem Index.
      */
     public abstract Image getThumbnail(int index);
+
+    /**
+     * Fetch a specific ImageFile.
+     *
+     * @param index Index
+     * @return      ImageFile.  Null for invalidThumbnail. Null bei ungültigem Index.
+     */
+    public abstract ImageFile getImageFile(int index);
+
 
     /**
      * Liefert den Text für ein bestimmtes Thumbnail.
@@ -482,7 +498,7 @@ public abstract class ThumbnailsPanel extends JPanel
                 (getThumbnailAreaHeight() + MARGIN_THUMBNAIL) + 0.5);
     }
 
-    private Image getCachedThumbnail(int index) {
+    protected Image getCachedThumbnail(int index) {
         Image thumbnail = null;
         if (thumbnailAtIndex.containsKey(index)) {
             thumbnail = thumbnailAtIndex.get(index);
@@ -493,6 +509,19 @@ public abstract class ThumbnailsPanel extends JPanel
             }
         }
         return thumbnail;
+    }
+
+    protected ImageFile getCachedImageFile(int index) {
+        ImageFile image = null;
+        if (imageFileAtIndex.containsKey(index)) {
+            image = imageFileAtIndex.get(index);
+        } else {
+            image = getImageFile(index);
+            if (image != null) {
+                imageFileAtIndex.put(index, image);
+            }
+        }
+        return image;
     }
 
     /**
@@ -1075,37 +1104,41 @@ public abstract class ThumbnailsPanel extends JPanel
     }
 
     /**
-     * Entfernt aus dem internen Bildcache Thumbnails und liest sie
-     * bei Bedarf - wenn sie gezeichnet werden müssen - erneut ein.
+     * Entfernt aus dem internen Bildcache Thumbnails und ImageFiles und liest
+     * sie bei Bedarf - wenn sie gezeichnet werden müssen - erneut ein.
      * 
      * @param thumbnailIndices Indexe
      */
     protected void removeFromCache(ArrayList<Integer> thumbnailIndices) {
         for (Integer index : thumbnailIndices) {
             thumbnailAtIndex.remove(index);
+            imageFileAtIndex.remove(index);
         }
         repaint();
     }
 
     /**
-     * Entfernt aus dem internen Bildcache ein Thumbnail und liest es
-     * bei Bedarf - wenn es gezeichnet werden muss - erneut ein.
+     * Entfernt aus dem internen Bildcache ein Thumbnail und ImageFile und
+     * liest sie bei Bedarf - wenn sie gezeichnet werden müssen - erneut ein.
      * 
      * @param index Index
      */
     protected void removeFromCache(int index) {
         thumbnailAtIndex.remove(index);
+        imageFileAtIndex.remove(index);
         repaint();
     }
 
     /**
-     * Removes some thumbnails from the cache and repaints the panel.
+     * Removes some thumbnails and ImageFiles from the cache and repaints the
+     * panel.
      *
      * @param indices indices of the thumbnails to remove.
      */
     protected synchronized void removeFromCache(List<Integer> indices) {
         for (Integer index : indices) {
             thumbnailAtIndex.remove(index);
+            imageFileAtIndex.remove(index);
         }
         repaint();
     }

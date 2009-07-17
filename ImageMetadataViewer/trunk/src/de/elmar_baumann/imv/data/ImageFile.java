@@ -24,6 +24,26 @@ public final class ImageFile {
     private Set<InsertImageFilesIntoDatabase.Insert> insertIntoDb =
             new HashSet<InsertImageFilesIntoDatabase.Insert>();
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ImageFile other = (ImageFile) obj;
+        if ((this.filename == null) ? (other.filename != null) : !this.filename.equals(other.filename)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return this.filename != null ? this.filename.hashCode() : 0;
+    }
+
     /**
      * Liefert den Namen der Bilddatei.
      * 

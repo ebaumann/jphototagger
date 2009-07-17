@@ -3,6 +3,7 @@ package de.elmar_baumann.imv.view.panels;
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.types.Content;
 import de.elmar_baumann.imv.controller.thumbnail.ControllerDoubleklickThumbnail;
+import de.elmar_baumann.imv.data.ImageFile;
 import de.elmar_baumann.imv.data.ThumbnailFlag;
 import de.elmar_baumann.imv.data.Xmp;
 import de.elmar_baumann.imv.database.DatabaseImageFiles;
@@ -295,6 +296,14 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel
         }
     }
 
+    public synchronized void removeFromCache(File file) {
+        int index = files.indexOf(file);
+
+        if (index >= 0) {
+            removeFromCache(index);
+        }
+    }
+
     /**
      * Repaints a file.
      * 
@@ -309,8 +318,17 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel
 
     @Override
     public synchronized Image getThumbnail(int index) {
+        ImageFile image = getCachedImageFile(index);
+        if (image == null) {
+            return null;
+        }
+        return getCachedImageFile(index).getThumbnail();
+    }
+
+    @Override
+    public synchronized ImageFile getImageFile(int index) {
         return isIndex(index)
-               ? db.getThumbnail(files.get(index).getAbsolutePath())
+               ? db.getImageFile(files.get(index).getAbsolutePath())
                : null;
     }
 
@@ -423,10 +441,7 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel
     @Override
     protected List<String> getKeywords(int index) {
         if (isIndex(index)) {
-            Xmp xmp = db.getXmpOfFile(files.get(index).getAbsolutePath());
-            //Xmp xmp = XmpMetadata.getXmpOfImageFile(
-            //        files.get(index).getAbsolutePath());
-            return xmp.getDcSubjects();
+            return getCachedImageFile(index).getXmp().getDcSubjects();
         }
         return null;
     }
