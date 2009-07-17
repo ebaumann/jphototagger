@@ -1,4 +1,4 @@
-package de.elmar_baumann.imv.tasks;
+package de.elmar_baumann.imv.helper;
 
 import de.elmar_baumann.imv.app.MessageDisplayer;
 import de.elmar_baumann.imv.comparator.ComparatorSavedSearch;
@@ -17,7 +17,7 @@ import javax.swing.SwingUtilities;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009/02/25
  */
-public final class SavedSearchesModifier {
+public final class ModifySavedSearches {
 
     /**
      * Inserts a saved search after the user confirms.
@@ -162,6 +162,6 @@ public final class SavedSearchesModifier {
         return true;
     }
 
-    private SavedSearchesModifier() {
+    private ModifySavedSearches() {
     }
 }

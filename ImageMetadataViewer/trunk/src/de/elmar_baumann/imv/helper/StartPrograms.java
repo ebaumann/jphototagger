@@ -1,4 +1,4 @@
-package de.elmar_baumann.imv.tasks;
+package de.elmar_baumann.imv.helper;
 
 import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.UserSettings;
@@ -24,7 +24,7 @@ import javax.swing.JProgressBar;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/11/06
  */
-public final class ProgramStarter {
+public final class StartPrograms {
 
     private final JProgressBar progressBar;
     private final Queue<Execute> queue = new ConcurrentLinkedQueue<Execute>();
@@ -35,7 +35,7 @@ public final class ProgramStarter {
      * @param progressBar  progressbar or null, if the progress shouldn't be
      *                     displayed
      */
-    public ProgramStarter(JProgressBar progressBar) {
+    public StartPrograms(JProgressBar progressBar) {
         this.progressBar = progressBar;
     }
 
@@ -92,7 +92,7 @@ public final class ProgramStarter {
         }
 
         private void logCommand(String command) {
-            AppLog.logInfo(ProgramStarter.class, Bundle.getString(
+            AppLog.logInfo(StartPrograms.class, Bundle.getString(
                     "ProgramStarter.Info.ExecuteCommand", command)); // NOI18N
         }
 

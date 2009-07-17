@@ -3,7 +3,7 @@ package de.elmar_baumann.imv.view.panels;
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.app.AppFileFilter;
 import de.elmar_baumann.imv.resource.Bundle;
-import de.elmar_baumann.imv.tasks.FileEditor;
+import de.elmar_baumann.imv.types.FileEditor;
 import de.elmar_baumann.imv.view.dialogs.ShowFilesDialog;
 import de.elmar_baumann.lib.dialog.DirectoryChooser;
 import de.elmar_baumann.lib.dialog.DirectoryChooser.Option;

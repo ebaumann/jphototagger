@@ -4,6 +4,7 @@ import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.database.DatabaseImageFiles;
 import de.elmar_baumann.imv.event.listener.impl.ListenerProvider;
 import de.elmar_baumann.imv.resource.GUI;
+import de.elmar_baumann.imv.tasks.ScheduledTasks;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuThumbnails;
 
@@ -39,6 +40,7 @@ public final class LateFactory {
             listenerProvider.addUserSettingsChangeListener(userSettings);
             GUI.INSTANCE.getAppFrame().addAppExitListener(
                     appPanel.getPanelThumbnails());
+            ScheduledTasks.INSTANCE.run();
         }
     }
 }

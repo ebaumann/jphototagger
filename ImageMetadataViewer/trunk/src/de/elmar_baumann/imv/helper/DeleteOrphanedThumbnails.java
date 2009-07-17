@@ -1,4 +1,4 @@
-package de.elmar_baumann.imv.tasks;
+package de.elmar_baumann.imv.helper;
 
 import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.database.DatabaseMaintainance;
@@ -11,12 +11,12 @@ import java.util.Set;
 
 /**
  * Deletes unused thumbnails through
- * {@link DatabaseMaintainance#deleteUnusedThumbnails(de.elmar_baumann.imv.event.listener.ProgressListener)}.
+ * {@link DatabaseMaintainance#deleteOrphanedThumbnails(de.elmar_baumann.imv.event.listener.ProgressListener)}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009/06/25
  */
-public final class UnusedThumbnailsDeleter implements Runnable, ProgressListener {
+public final class DeleteOrphanedThumbnails implements Runnable, ProgressListener {
 
     private final DatabaseMaintainance db = DatabaseMaintainance.INSTANCE;
     private final Set<ProgressListener> progressListeners =
@@ -29,7 +29,7 @@ public final class UnusedThumbnailsDeleter implements Runnable, ProgressListener
     public void run() {
         setMessagesFiles();
         logDeleteThumbnails();
-        db.deleteUnusedThumbnails(this);
+        db.deleteOrphanedThumbnails(this);
     }
 
     public int getCountDeleted() {
@@ -38,7 +38,7 @@ public final class UnusedThumbnailsDeleter implements Runnable, ProgressListener
 
     /**
      * Adds a progress listener and delegates calls from
-     * {@link DatabaseMaintainance#deleteUnusedThumbnails(de.elmar_baumann.imv.event.listener.ProgressListener)}.
+     * {@link DatabaseMaintainance#deleteOrphanedThumbnails(de.elmar_baumann.imv.event.listener.ProgressListener)}.
      * 
      * @param listener listener
      */
@@ -98,7 +98,7 @@ public final class UnusedThumbnailsDeleter implements Runnable, ProgressListener
     }
 
     private void logDeleteThumbnails() {
-        AppLog.logInfo(UnusedThumbnailsDeleter.class,
+        AppLog.logInfo(DeleteOrphanedThumbnails.class,
                 Bundle.getString(
                 "UnusedThumbnailsDeleter.Info.Start")); // NOI18N
     }

@@ -1,7 +1,7 @@
 package de.elmar_baumann.imv.controller.imagecollection;
 
 import de.elmar_baumann.imv.resource.GUI;
-import de.elmar_baumann.imv.tasks.ImageCollectionDatabaseUtils;
+import de.elmar_baumann.imv.helper.ModifyImageCollections;
 import de.elmar_baumann.imv.view.dialogs.ImageCollectionsDialog;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuThumbnails;
@@ -39,7 +39,7 @@ public final class ControllerAddToImageCollection implements ActionListener {
     private void addSelectedFilesToImageCollection() {
         String collectionName = selectCollectionName();
         if (collectionName != null) {
-            ImageCollectionDatabaseUtils.addImagesToCollection(collectionName,
+            ModifyImageCollections.addImagesToCollection(collectionName,
                     FileUtil.getAsFilenames(thumbnailsPanel.getSelectedFiles()));
         }
     }

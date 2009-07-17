@@ -4,7 +4,7 @@ import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.controller.filesystem.ControllerDeleteFiles;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.types.Content;
-import de.elmar_baumann.imv.tasks.ImageCollectionDatabaseUtils;
+import de.elmar_baumann.imv.helper.ModifyImageCollections;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
@@ -76,7 +76,7 @@ public final class ControllerDeleteFromImageCollection
                 if (selectedValue != null) {
                     List<File> selectedFiles =
                             thumbnailsPanel.getSelectedFiles();
-                    if (ImageCollectionDatabaseUtils.deleteImagesFromCollection(
+                    if (ModifyImageCollections.deleteImagesFromCollection(
                             selectedValue.toString(), FileUtil.getAsFilenames(
                             selectedFiles))) {
                         thumbnailsPanel.remove(selectedFiles);

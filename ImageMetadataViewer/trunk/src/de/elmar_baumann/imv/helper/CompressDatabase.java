@@ -1,4 +1,4 @@
-package de.elmar_baumann.imv.tasks;
+package de.elmar_baumann.imv.helper;
 
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.app.AppLog;
@@ -16,7 +16,7 @@ import java.util.List;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/30
  */
-public final class DatabaseCompress implements Runnable {
+public final class CompressDatabase implements Runnable {
 
     private final List<ProgressListener> listeners =
             new ArrayList<ProgressListener>();
@@ -84,7 +84,7 @@ public final class DatabaseCompress implements Runnable {
     }
 
     private void logCompressDatabase() {
-        AppLog.logInfo(DatabaseCompress.class, Bundle.getString(
+        AppLog.logInfo(CompressDatabase.class, Bundle.getString(
                 "DatabaseCompress.Info.StartCompress")); // NOI18N
     }
 

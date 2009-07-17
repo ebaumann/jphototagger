@@ -1,4 +1,4 @@
-package de.elmar_baumann.imv.tasks;
+package de.elmar_baumann.imv.helper;
 
 import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.app.MessageDisplayer;
@@ -18,7 +18,7 @@ import java.util.List;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009/02/19
  */
-public final class FileSystemDeleteImageFiles {
+public final class DeleteImageFiles {
 
     /**
      * Deletes image files from the file system <strong>and</strong> their
@@ -75,6 +75,6 @@ public final class FileSystemDeleteImageFiles {
         return true;
     }
 
-    private FileSystemDeleteImageFiles() {
+    private DeleteImageFiles() {
     }
 }

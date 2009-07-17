@@ -2,7 +2,7 @@ package de.elmar_baumann.imv.controller.search;
 
 import de.elmar_baumann.imv.data.SavedSearch;
 import de.elmar_baumann.imv.resource.GUI;
-import de.elmar_baumann.imv.tasks.SavedSearchesModifier;
+import de.elmar_baumann.imv.helper.ModifySavedSearches;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuSavedSearches;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -42,7 +42,7 @@ public final class ControllerRenameSavedSearch
         if (isRename(e) && !list.isSelectionEmpty()) {
             Object value = list.getSelectedValue();
             if (value instanceof SavedSearch) {
-                SavedSearchesModifier.rename((SavedSearch) value);
+                ModifySavedSearches.rename((SavedSearch) value);
             }
         }
     }
@@ -57,7 +57,7 @@ public final class ControllerRenameSavedSearch
     }
 
     private void rename() {
-        SavedSearchesModifier.rename(actionPopup.getSavedSearch());
+        ModifySavedSearches.rename(actionPopup.getSavedSearch());
     }
 
     @Override

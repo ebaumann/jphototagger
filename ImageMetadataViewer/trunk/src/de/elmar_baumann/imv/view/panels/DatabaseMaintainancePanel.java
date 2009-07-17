@@ -6,9 +6,9 @@ import de.elmar_baumann.imv.database.DatabaseMaintainance;
 import de.elmar_baumann.imv.event.ProgressEvent;
 import de.elmar_baumann.imv.event.listener.ProgressListener;
 import de.elmar_baumann.imv.resource.Bundle;
-import de.elmar_baumann.imv.tasks.DatabaseCompress;
-import de.elmar_baumann.imv.tasks.RecordsWithNotExistingFilesDeleter;
-import de.elmar_baumann.imv.tasks.UnusedThumbnailsDeleter;
+import de.elmar_baumann.imv.helper.CompressDatabase;
+import de.elmar_baumann.imv.helper.DeleteOrphanedXmp;
+import de.elmar_baumann.imv.helper.DeleteOrphanedThumbnails;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
@@ -40,7 +40,7 @@ public final class DatabaseMaintainancePanel extends javax.swing.JPanel
 
     private void postInitComponents() {
         // When two values are equal, this does not work!
-        finishedLabelOfRunnable.put(DatabaseCompress.class,
+        finishedLabelOfRunnable.put(CompressDatabase.class,
                 labelFinishedCompressDatabase);
         finishedLabelOfRunnable.put(DatabaseMaintainance.class,
                 labelFinishedDeleteUnusedThumbnails);
@@ -122,18 +122,18 @@ public final class DatabaseMaintainancePanel extends javax.swing.JPanel
         runnables.clear();
         // reverse order of checkboxes because the runnables are in a stack
         if (checkBoxCompressDatabase.isSelected()) {
-            DatabaseCompress databaseCompress = new DatabaseCompress();
+            CompressDatabase databaseCompress = new CompressDatabase();
             databaseCompress.addProgressListener(this);
             runnables.push(databaseCompress);
         }
         if (checkBoxDeleteUnusedThumbnails.isSelected()) {
-            UnusedThumbnailsDeleter deleter = new UnusedThumbnailsDeleter();
+            DeleteOrphanedThumbnails deleter = new DeleteOrphanedThumbnails();
             deleter.addProgressListener(this);
             runnables.push(deleter);
         }
         if (checkBoxDeleteRecordsOfNotExistingFilesInDatabase.isSelected()) {
-            RecordsWithNotExistingFilesDeleter deleter =
-                    new RecordsWithNotExistingFilesDeleter();
+            DeleteOrphanedXmp deleter =
+                    new DeleteOrphanedXmp();
             deleter.addProgressListener(this);
             runnables.push(deleter);
         }
@@ -158,7 +158,7 @@ public final class DatabaseMaintainancePanel extends javax.swing.JPanel
         buttonDeleteMessages.setEnabled(false);
         setProgressbarStart(evt);
         buttonAbortAction.setEnabled(
-                !(evt.getSource() instanceof DatabaseCompress));
+                !(evt.getSource() instanceof CompressDatabase));
         checkStopEvent(evt);
     }
 

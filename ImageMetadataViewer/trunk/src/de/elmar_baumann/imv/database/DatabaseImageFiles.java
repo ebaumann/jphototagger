@@ -740,7 +740,7 @@ public final class DatabaseImageFiles extends Database {
      * @param  listener   progress listener
      * @return count of deleted XMP data (one per image file)
      */
-    public int deleteNotExistingXmpData(ProgressListener listener) {
+    public int deleteOrphanedXmp(ProgressListener listener) {
         int countDeleted = 0;
         ProgressEvent event = new ProgressEvent(this, 0,
                 DatabaseStatistics.INSTANCE.getXmpCount(), 0, null);

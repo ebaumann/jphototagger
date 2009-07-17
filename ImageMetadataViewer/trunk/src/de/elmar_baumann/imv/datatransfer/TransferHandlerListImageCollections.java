@@ -2,7 +2,7 @@ package de.elmar_baumann.imv.datatransfer;
 
 import de.elmar_baumann.imv.model.ListModelImageCollections;
 import de.elmar_baumann.imv.resource.GUI;
-import de.elmar_baumann.imv.tasks.ImageCollectionDatabaseUtils;
+import de.elmar_baumann.imv.helper.ModifyImageCollections;
 import java.util.List;
 import javax.swing.JList;
 
@@ -27,7 +27,7 @@ public final class TransferHandlerListImageCollections extends TransferHandlerLi
 
     private void addToImageCollection(int itemIndex, List<String> filenames) {
         boolean added =
-                ImageCollectionDatabaseUtils.addImagesToCollection(
+                ModifyImageCollections.addImagesToCollection(
                 getImageCollectionName(itemIndex), filenames);
         if (added) {
             refreshThumbnailsPanel();
@@ -35,7 +35,7 @@ public final class TransferHandlerListImageCollections extends TransferHandlerLi
     }
 
     private void createImageCollection(final List<String> filenames) {
-        String newCollectionName = ImageCollectionDatabaseUtils.
+        String newCollectionName = ModifyImageCollections.
                 insertImageCollection(filenames);
         if (newCollectionName != null) {
             ((ListModelImageCollections) GUI.INSTANCE.getAppPanel().

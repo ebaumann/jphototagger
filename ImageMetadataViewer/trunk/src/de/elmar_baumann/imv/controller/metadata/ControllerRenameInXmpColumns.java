@@ -1,7 +1,7 @@
 package de.elmar_baumann.imv.controller.metadata;
 
 import de.elmar_baumann.imv.resource.GUI;
-import de.elmar_baumann.imv.tasks.UpdaterRenameInXmpColumnsArray;
+import de.elmar_baumann.imv.helper.RenameXmpMetadata;
 import de.elmar_baumann.imv.view.dialogs.RenameInXmpColumnsDialog;
 import de.elmar_baumann.imv.view.frames.AppFrame;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
@@ -14,15 +14,13 @@ import java.util.List;
  * Listens to the menu item {@link AppFrame#getMenuItemRenameInXmp()} and if
  * action was performed shows the {@link RenameInXmpColumnsDialog}. If
  * {@link RenameInXmpColumnsDialog#accepted} is true, this controller renames
- * XMP metadata via {@link UpdaterRenameInXmpColumnsArray}.
+ * XMP metadata via {@link RenameXmpMetadata}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/09/30
  */
 public final class ControllerRenameInXmpColumns implements ActionListener {
 
-    private final UpdaterRenameInXmpColumnsArray updater =
-            new UpdaterRenameInXmpColumnsArray();
     private final ImageFileThumbnailsPanel thumbnailsPanel =
             GUI.INSTANCE.getAppPanel().getPanelThumbnails();
 
@@ -52,7 +50,10 @@ public final class ControllerRenameInXmpColumns implements ActionListener {
         RenameInXmpColumnsDialog dialog = new RenameInXmpColumnsDialog();
         dialog.setVisible(true);
         if (dialog.accepted()) {
-            updater.update(filenames, dialog.getColumn(), dialog.getOldString(),
+            RenameXmpMetadata.update(
+                    filenames,
+                    dialog.getColumn(),
+                    dialog.getOldString(),
                     dialog.getNewString());
         }
     }

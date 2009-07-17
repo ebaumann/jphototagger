@@ -1,4 +1,4 @@
-package de.elmar_baumann.imv.tasks;
+package de.elmar_baumann.imv.helper;
 
 import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.database.DatabaseImageFiles;
@@ -13,10 +13,11 @@ import java.util.List;
  * Löscht in der Datenbank Datensätze mit Dateien, die nicht mehr existieren.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
- * @version 2008-10-05
- * @see     DatabaseImageFiles#deleteNotExistingImageFiles(de.elmar_baumann.imv.event.listener.ProgressListener)
+ * @version 2008/10/05
+ * @see     DatabaseImageFiles#deleteOrphanedXmp(de.elmar_baumann.imv.event.listener.ProgressListener)
  */
-public final class RecordsWithNotExistingFilesDeleter implements Runnable, ProgressListener {
+public final class DeleteOrphanedXmp
+        implements Runnable, ProgressListener {
 
     private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
     private final List<ProgressListener> progressListeners = new ArrayList<ProgressListener>();
@@ -34,7 +35,7 @@ public final class RecordsWithNotExistingFilesDeleter implements Runnable, Progr
         if (!stop) {
             setMessagesXmp();
             notifyProgressEnded = true; // called before last action
-            db.deleteNotExistingXmpData(this);
+            db.deleteOrphanedXmp(this);
         }
     }
 
@@ -93,7 +94,7 @@ public final class RecordsWithNotExistingFilesDeleter implements Runnable, Progr
     }
 
     private void logDeleteRecords() {
-        AppLog.logInfo(RecordsWithNotExistingFilesDeleter.class,
+        AppLog.logInfo(DeleteOrphanedXmp.class,
             Bundle.getString("RecordsWithNotExistingFilesDeleter.Info.StartRemove")); // NOI18N
     }
 

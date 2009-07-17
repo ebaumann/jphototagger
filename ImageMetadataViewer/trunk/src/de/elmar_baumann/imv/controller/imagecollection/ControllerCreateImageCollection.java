@@ -5,7 +5,7 @@ import de.elmar_baumann.imv.app.AppTexts;
 import de.elmar_baumann.imv.comparator.ComparatorStringAscending;
 import de.elmar_baumann.imv.model.ListModelImageCollections;
 import de.elmar_baumann.imv.resource.Bundle;
-import de.elmar_baumann.imv.tasks.ImageCollectionDatabaseUtils;
+import de.elmar_baumann.imv.helper.ModifyImageCollections;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
@@ -63,7 +63,7 @@ public final class ControllerCreateImageCollection
     }
 
     private void createImageCollectionOfSelectedFiles() {
-        final String collectionName = ImageCollectionDatabaseUtils.
+        final String collectionName = ModifyImageCollections.
                 insertImageCollection(
                 FileUtil.getAsFilenames(thumbnailsPanel.getSelectedFiles()));
         if (collectionName != null) {

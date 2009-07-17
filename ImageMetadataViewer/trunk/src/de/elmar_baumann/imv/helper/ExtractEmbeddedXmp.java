@@ -1,5 +1,6 @@
-package de.elmar_baumann.imv.tasks;
+package de.elmar_baumann.imv.helper;
 
+import de.elmar_baumann.imv.types.FileEditor;
 import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.app.MessageDisplayer;
 import de.elmar_baumann.imv.image.metadata.xmp.XmpMetadata;
@@ -16,7 +17,7 @@ import java.util.EnumSet;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009/05/22
  */
-public final class ExtractEmbeddedXmpEditor extends FileEditor {
+public final class ExtractEmbeddedXmp extends FileEditor {
 
     @Override
     public void edit(File file) {
@@ -55,7 +56,7 @@ public final class ExtractEmbeddedXmpEditor extends FileEditor {
                 fos.close();
                 updateDatabase(file.getAbsolutePath());
             } catch (Exception ex) {
-                AppLog.logSevere(ExtractEmbeddedXmpEditor.class, ex);
+                AppLog.logSevere(ExtractEmbeddedXmp.class, ex);
             }
         }
     }

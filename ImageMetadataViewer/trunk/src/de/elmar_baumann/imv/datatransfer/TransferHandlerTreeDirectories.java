@@ -6,7 +6,7 @@ import de.elmar_baumann.imv.event.ProgressEvent;
 import de.elmar_baumann.imv.event.listener.ProgressListener;
 import de.elmar_baumann.imv.io.IoUtil;
 import de.elmar_baumann.imv.resource.GUI;
-import de.elmar_baumann.imv.tasks.CopyFiles;
+import de.elmar_baumann.imv.helper.CopyFiles;
 import de.elmar_baumann.imv.view.dialogs.CopyToDirectoryDialog;
 import de.elmar_baumann.imv.view.dialogs.MoveToDirectoryDialog;
 import de.elmar_baumann.lib.datatransfer.TransferUtil;

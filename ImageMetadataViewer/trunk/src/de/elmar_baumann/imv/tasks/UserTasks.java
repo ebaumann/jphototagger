@@ -10,9 +10,9 @@ import java.util.concurrent.Executors;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009/07/16
  */
-public final class UserTasksQueue {
+public final class UserTasks {
 
-    public static final UserTasksQueue INSTANCE = new UserTasksQueue();
+    public static final UserTasks INSTANCE = new UserTasks();
     private final SerialExecutor executor =
             new SerialExecutor(Executors.newCachedThreadPool());
 
@@ -23,6 +23,15 @@ public final class UserTasksQueue {
      */
     public void add(Runnable runnable) {
         executor.execute(runnable);
+    }
+
+    /**
+     * Returns the count of user tasks.
+     *
+     * @return count of user tasks
+     */
+    public int getCount() {
+        return executor.getCount();
     }
 
     /**
@@ -37,6 +46,6 @@ public final class UserTasksQueue {
         executor.shutdown();
     }
 
-    private UserTasksQueue() {
+    private UserTasks() {
     }
 }

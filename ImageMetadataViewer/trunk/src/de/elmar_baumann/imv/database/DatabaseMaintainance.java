@@ -81,7 +81,7 @@ public final class DatabaseMaintainance extends Database {
      *         thumbnails.
      * @return count of deleted thumbnails
      */
-    public int deleteUnusedThumbnails(ProgressListener listener) {
+    public int deleteOrphanedThumbnails(ProgressListener listener) {
         int delCount = 0;
         Connection connection = null;
         ProgressEvent progressEvent = new ProgressEvent(this, ""); // NOI18N

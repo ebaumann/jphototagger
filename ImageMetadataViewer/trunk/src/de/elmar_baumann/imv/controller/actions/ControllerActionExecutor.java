@@ -3,7 +3,7 @@ package de.elmar_baumann.imv.controller.actions;
 import de.elmar_baumann.imv.event.ProgramEvent;
 import de.elmar_baumann.imv.event.listener.ProgramActionListener;
 import de.elmar_baumann.imv.resource.GUI;
-import de.elmar_baumann.imv.tasks.ProgramStarter;
+import de.elmar_baumann.imv.helper.StartPrograms;
 import de.elmar_baumann.imv.view.dialogs.ActionsDialog;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 
@@ -19,8 +19,8 @@ public final class ControllerActionExecutor implements ProgramActionListener {
     private final ImageFileThumbnailsPanel thumbnailsPanel =
             GUI.INSTANCE.getAppPanel().getPanelThumbnails();
     private final ActionsDialog actionsDialog = ActionsDialog.INSTANCE;
-    private final ProgramStarter programStarter =
-            new ProgramStarter(actionsDialog.getProgressBar(this)); // no other executor expected
+    private final StartPrograms programStarter =
+            new StartPrograms(actionsDialog.getProgressBar(this)); // no other executor expected
 
     public ControllerActionExecutor() {
         listen();

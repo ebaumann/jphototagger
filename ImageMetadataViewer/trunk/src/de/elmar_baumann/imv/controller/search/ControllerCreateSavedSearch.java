@@ -4,7 +4,7 @@ import de.elmar_baumann.imv.event.listener.impl.ListenerProvider;
 import de.elmar_baumann.imv.event.SearchEvent;
 import de.elmar_baumann.imv.event.listener.SearchListener;
 import de.elmar_baumann.imv.resource.GUI;
-import de.elmar_baumann.imv.tasks.SavedSearchesModifier;
+import de.elmar_baumann.imv.helper.ModifySavedSearches;
 import de.elmar_baumann.imv.view.dialogs.AdvancedSearchDialog;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuSavedSearches;
 import java.awt.event.ActionEvent;
@@ -48,7 +48,7 @@ public final class ControllerCreateSavedSearch
     @Override
     public void actionPerformed(SearchEvent evt) {
         if (evt.getType().equals(SearchEvent.Type.SAVE)) {
-            SavedSearchesModifier.insert(evt.getSafedSearch(), evt.
+            ModifySavedSearches.insert(evt.getSafedSearch(), evt.
                     isForceOverwrite());
         }
     }

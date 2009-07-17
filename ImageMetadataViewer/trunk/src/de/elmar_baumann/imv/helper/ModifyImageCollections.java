@@ -1,4 +1,4 @@
-package de.elmar_baumann.imv.tasks;
+package de.elmar_baumann.imv.helper;
 
 import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.app.AppTexts;
@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public final class ImageCollectionDatabaseUtils {
+public final class ModifyImageCollections {
 
     /**
      * Fügt in die Datenbank eine neue Bildsammlung ein.
@@ -139,7 +139,7 @@ public final class ImageCollectionDatabaseUtils {
     }
 
     private static void logAddImageCollection(String name) {
-        AppLog.logInfo(ImageCollectionDatabaseUtils.class, Bundle.getString(
+        AppLog.logInfo(ModifyImageCollections.class, Bundle.getString(
                 "ImageCollectionToDatabase.Info.StartInsert", // NOI18N
                 name));
     }
@@ -216,6 +216,6 @@ public final class ImageCollectionDatabaseUtils {
         return name;
     }
 
-    private ImageCollectionDatabaseUtils() {
+    private ModifyImageCollections() {
     }
 }

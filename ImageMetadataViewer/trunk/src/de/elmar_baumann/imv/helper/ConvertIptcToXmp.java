@@ -1,4 +1,4 @@
-package de.elmar_baumann.imv.tasks;
+package de.elmar_baumann.imv.helper;
 
 import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.data.Iptc;
@@ -20,14 +20,14 @@ import java.util.List;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public final class IptcToXmp implements Runnable {
+public final class ConvertIptcToXmp implements Runnable {
 
     private final List<ProgressListener> progressListeners =
             new ArrayList<ProgressListener>();
     private final List<String> filenames;
     private boolean stop = false;
 
-    public IptcToXmp(List<String> filenames) {
+    public ConvertIptcToXmp(List<String> filenames) {
         this.filenames = filenames;
     }
 
@@ -78,7 +78,7 @@ public final class IptcToXmp implements Runnable {
     }
 
     private void logWriteXmpFile(String imageFilename) {
-        AppLog.logInfo(IptcToXmp.class, Bundle.getString(
+        AppLog.logInfo(ConvertIptcToXmp.class, Bundle.getString(
                 "IptcToXmp.Info.StartWriteXmpFile", imageFilename)); // NOI18N
     }
 

@@ -2,7 +2,7 @@ package de.elmar_baumann.imv.controller.search;
 
 import de.elmar_baumann.imv.data.SavedSearch;
 import de.elmar_baumann.imv.resource.GUI;
-import de.elmar_baumann.imv.tasks.SavedSearchesModifier;
+import de.elmar_baumann.imv.helper.ModifySavedSearches;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuSavedSearches;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -42,14 +42,14 @@ public final class ControllerDeleteSavedSearch
         if (e.getKeyCode() == KeyEvent.VK_DELETE && !list.isSelectionEmpty()) {
             Object value = list.getSelectedValue();
             if (value instanceof SavedSearch) {
-                SavedSearchesModifier.delete((SavedSearch) value);
+                ModifySavedSearches.delete((SavedSearch) value);
             }
         }
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        SavedSearchesModifier.delete(actionPopup.getSavedSearch());
+        ModifySavedSearches.delete(actionPopup.getSavedSearch());
     }
 
     @Override

@@ -2,7 +2,7 @@ package de.elmar_baumann.imv.controller.programs;
 
 import de.elmar_baumann.imv.data.Program;
 import de.elmar_baumann.imv.resource.GUI;
-import de.elmar_baumann.imv.tasks.ProgramStarter;
+import de.elmar_baumann.imv.helper.StartPrograms;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuThumbnails;
 import java.awt.event.ActionEvent;
@@ -20,13 +20,13 @@ public final class ControllerOpenFilesWithOtherApp implements ActionListener {
 
     private final PopupMenuThumbnails popupMenu;
     private final ImageFileThumbnailsPanel thumbnailsPanel;
-    private final ProgramStarter executor;
+    private final StartPrograms executor;
 
     public ControllerOpenFilesWithOtherApp() {
         popupMenu = PopupMenuThumbnails.INSTANCE;
         listen();
         thumbnailsPanel = GUI.INSTANCE.getAppPanel().getPanelThumbnails();
-        executor = new ProgramStarter(null);
+        executor = new StartPrograms(null);
     }
 
     private void listen() {

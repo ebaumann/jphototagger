@@ -3,7 +3,7 @@ package de.elmar_baumann.imv.controller.filesystem;
 import de.elmar_baumann.imv.controller.imagecollection.ControllerDeleteFromImageCollection;
 import de.elmar_baumann.imv.database.DatabaseImageFiles;
 import de.elmar_baumann.imv.resource.GUI;
-import de.elmar_baumann.imv.tasks.FileSystemDeleteImageFiles;
+import de.elmar_baumann.imv.helper.DeleteImageFiles;
 import de.elmar_baumann.imv.types.Content;
 import de.elmar_baumann.imv.types.DeleteOption;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
@@ -71,7 +71,7 @@ public final class ControllerDeleteFiles implements ActionListener, KeyListener 
     }
 
     private void deleteSelectedFiles() {
-        List<File> deletedImageFiles = FileSystemDeleteImageFiles.delete(
+        List<File> deletedImageFiles = DeleteImageFiles.delete(
                 thumbnailsPanel.getSelectedFiles(), EnumSet.of(
                 DeleteOption.CONFIRM_DELETE,
                 DeleteOption.MESSAGES_ON_FAILURES));

@@ -1,9 +1,9 @@
 package de.elmar_baumann.imv.controller.thumbnail;
 
-import de.elmar_baumann.imv.tasks.InsertImageFilesIntoDatabase;
+import de.elmar_baumann.imv.helper.InsertImageFilesIntoDatabase;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.ProgressBarUserTasks;
-import de.elmar_baumann.imv.tasks.UserTasksQueue;
+import de.elmar_baumann.imv.tasks.UserTasks;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuThumbnails;
 import de.elmar_baumann.lib.io.FileUtil;
@@ -77,7 +77,7 @@ public final class ControllerCreateMetadataOfSelectedThumbnails
     private void updateMetadata(
             EnumSet<InsertImageFilesIntoDatabase.Insert> what) {
 
-        UserTasksQueue.INSTANCE.add(new InsertImageFilesIntoDatabase(
+        UserTasks.INSTANCE.add(new InsertImageFilesIntoDatabase(
                 FileUtil.getAsFilenames(thumbnailsPanel.getSelectedFiles()),
                 what,
                 ProgressBarUserTasks.INSTANCE));

@@ -7,7 +7,7 @@ import de.elmar_baumann.imv.event.ProgressEvent;
 import de.elmar_baumann.imv.event.listener.ProgressListener;
 import de.elmar_baumann.imv.io.ImageFilteredDirectory;
 import de.elmar_baumann.imv.resource.Bundle;
-import de.elmar_baumann.imv.tasks.IptcToXmp;
+import de.elmar_baumann.imv.helper.ConvertIptcToXmp;
 import de.elmar_baumann.lib.dialog.Dialog;
 import de.elmar_baumann.lib.dialog.DirectoryChooser;
 import de.elmar_baumann.lib.io.FileUtil;
@@ -124,7 +124,7 @@ public final class IptcToXmpDialog extends Dialog
     private void start() {
         stop = false;
         setEnabledButtons();
-        IptcToXmp converter = new IptcToXmp(FileUtil.getAsFilenames(getFiles()));
+        ConvertIptcToXmp converter = new ConvertIptcToXmp(FileUtil.getAsFilenames(getFiles()));
         converter.addProgressListener(this);
         Thread thread = new Thread(converter);
         thread.setName("Writing IPTC to XMP sidecar files" + " @ " + // NOI18N

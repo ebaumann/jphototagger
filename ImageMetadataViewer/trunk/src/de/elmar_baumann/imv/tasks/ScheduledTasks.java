@@ -4,7 +4,7 @@ import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.database.DatabaseAutoscanDirectories;
 import de.elmar_baumann.imv.io.ImageFilteredDirectory;
-import de.elmar_baumann.imv.tasks.InsertImageFilesIntoDatabase;
+import de.elmar_baumann.imv.helper.InsertImageFilesIntoDatabase;
 import de.elmar_baumann.imv.view.panels.ProgressBarScheduledTasks;
 import de.elmar_baumann.lib.concurrent.SerialExecutor;
 import de.elmar_baumann.lib.io.FileUtil;
@@ -36,7 +36,37 @@ public final class ScheduledTasks {
 
     private ScheduledTasks() {
         init();
-        waitThenStartUpdate();
+    }
+
+    /**
+     * Runs the tasks.
+     */
+    public void run() {
+        if (WAIT_BEFORE_PERFORM_MILLISECONDS <= 0) return;
+        Thread thread = new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(WAIT_BEFORE_PERFORM_MILLISECONDS);
+                    startUpdate();
+                } catch (Exception ex) {
+                    AppLog.logSevere(getClass(), ex);
+                }
+            }
+        });
+        thread.setName(
+                "Scheduled tasks waiting for start @ " + getClass().getName());
+        thread.start();
+    }
+
+    /**
+     * Returns the count of scheduled tasks.
+     *
+     * @return count of scheduled tasks
+     */
+    public int getCount() {
+        return executor.getCount();
     }
 
     /**
@@ -49,20 +79,6 @@ public final class ScheduledTasks {
      */
     public void shutdown() {
         executor.shutdown();
-    }
-
-    private void init() {
-        addSystemDirectorySubstrings();
-    }
-
-    private void waitThenStartUpdate() {
-        try {
-            Thread.sleep(WAIT_BEFORE_PERFORM_MILLISECONDS);
-            startUpdate();
-        } catch (Exception ex) {
-            AppLog.logSevere(getClass(), ex);
-        }
-
     }
 
     private void startUpdate() {
@@ -118,5 +134,9 @@ public final class ScheduledTasks {
             }
         }
         return false;
+    }
+
+    private void init() {
+        addSystemDirectorySubstrings();
     }
 }

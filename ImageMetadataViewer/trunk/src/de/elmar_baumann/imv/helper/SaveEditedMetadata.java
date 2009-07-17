@@ -1,4 +1,4 @@
-package de.elmar_baumann.imv.tasks;
+package de.elmar_baumann.imv.helper;
 
 import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.app.AppTexts;
@@ -6,7 +6,8 @@ import de.elmar_baumann.imv.data.TextEntry;
 import de.elmar_baumann.imv.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.GUI;
-import de.elmar_baumann.imv.tasks.InsertImageFilesIntoDatabase.Insert;
+import de.elmar_baumann.imv.helper.InsertImageFilesIntoDatabase.Insert;
+import de.elmar_baumann.imv.tasks.UserTasks;
 import de.elmar_baumann.imv.view.panels.EditMetadataPanelsArray;
 import de.elmar_baumann.imv.view.panels.ProgressBarUserTasks;
 import java.util.Arrays;
@@ -39,7 +40,7 @@ public final class SaveEditedMetadata extends Thread {
         if (filenameCount >= 1) {
             SaveEditedMetadata updater = new SaveEditedMetadata(
                     filenames, entries, getWriteOptions(filenameCount));
-            UserTasksQueue.INSTANCE.add(updater);
+            UserTasks.INSTANCE.add(updater);
         } else {
             AppLog.logWarning(SaveEditedMetadata.class,
                     Bundle.getString(

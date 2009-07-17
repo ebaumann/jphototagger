@@ -1,4 +1,4 @@
-package de.elmar_baumann.imv.tasks;
+package de.elmar_baumann.imv.helper;
 
 import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.data.Exif;
@@ -260,7 +260,7 @@ public final class InsertImageFilesIntoDatabase extends Thread {
         List<Program> actions =
                 DatabaseActionsAfterDbInsertion.INSTANCE.getAll();
         for (Program action : actions) {
-            ProgramStarter programStarter = new ProgramStarter(null);
+            StartPrograms programStarter = new StartPrograms(null);
             programStarter.startProgram(action, Collections.singletonList(
                     imgFile));
         }
