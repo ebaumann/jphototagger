@@ -114,12 +114,16 @@ public final class ScheduledTasks {
         List<String> subdirectoryNames = new ArrayList<String>();
         if (UserSettings.INSTANCE.isAutoscanIncludeSubdirectories()) {
             for (String directoryName : directoryNames) {
-                subdirectoryNames.addAll(
-                        FileUtil.getAllSubDirectoryNames(directoryName,
-                        UserSettings.INSTANCE.getDefaultDirectoryFilterOptions()));
+                subdirectoryNames.addAll(getAllSubdirectoryNames(directoryName));
             }
             directoryNames.addAll(subdirectoryNames);
         }
+    }
+
+    private List<String> getAllSubdirectoryNames(String directoryName) {
+        return FileUtil.getAsFilenames(FileUtil.getSubdirectoriesRecursive(
+                new File(directoryName),
+                UserSettings.INSTANCE.getDefaultDirectoryFilterOptions()));
     }
 
     private void addSystemDirectorySubstrings() {

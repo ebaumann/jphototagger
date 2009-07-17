@@ -128,8 +128,7 @@ public final class FileEditorPanel extends javax.swing.JPanel {
         List<File> selFiles = new ArrayList<File>();
         List<File> selDirs = includeSubdirectories(selectedDirectories);
         for (File dir : selDirs) {
-            File[] foundFiles = FileUtil.getFiles(dir.getAbsolutePath(),
-                    dirChooserFileFilter);
+            File[] foundFiles = dir.listFiles(dirChooserFileFilter);
             if (foundFiles != null) {
                 selFiles.addAll(Arrays.asList(foundFiles));
             }
@@ -145,7 +144,7 @@ public final class FileEditorPanel extends javax.swing.JPanel {
         for (File dir : dirs) {
             allDirs.add(dir);
             if (includeSubDirs) {
-                allDirs.addAll(FileUtil.getAllSubDirectories(dir, options));
+                allDirs.addAll(FileUtil.getSubdirectoriesRecursive(dir, options));
             }
         }
         return allDirs;

@@ -127,7 +127,9 @@ public final class XmpMetadata {
      */
     public static List<XMPPropertyInfo> getPropertyInfosOfImageFile(
             String imageFilename) {
-        if (imageFilename == null || !FileUtil.existsFile(imageFilename)) {
+
+        if (imageFilename == null ||
+                !FileUtil.existsFile(new File(imageFilename))) {
             return null;
         }
         return getPropertyInfosOfXmpString(getXmpAsStringFromImageFile(
@@ -237,7 +239,8 @@ public final class XmpMetadata {
     }
 
     private static String getXmpAsStringFromImageFile(String imageFilename) {
-        if (!FileUtil.existsFile(imageFilename)) {
+
+        if (!FileUtil.existsFile(new File(imageFilename))) {
             return null;
         }
         String xmpString = null;
@@ -251,7 +254,8 @@ public final class XmpMetadata {
             AppLog.logInfo(XmpMetadata.class, Bundle.getString(
                     "XmpMetadata.Info.ReadSidecarFile", // NOI18N
                     sidecarFilename, imageFilename));
-            xmpString = FileUtil.getFileAsString(sidecarFilename);
+            xmpString = FileUtil.getFileContentAsString(
+                    new File(sidecarFilename), "UTF-8");
         }
         return xmpString;
     }
@@ -395,8 +399,9 @@ public final class XmpMetadata {
 
     private static XMPMeta getXmpMetaOfSidecarFile(String sidecarFilename)
             throws XMPException {
-        if (FileUtil.existsFile(sidecarFilename)) {
-            String xmp = FileUtil.getFileAsString(sidecarFilename);
+        File sidecarFile = new File(sidecarFilename);
+        if (FileUtil.existsFile(sidecarFile)) {
+            String xmp = FileUtil.getFileContentAsString(sidecarFile, "UTF-8");
             if (xmp != null && !xmp.trim().isEmpty()) {
                 return XMPMetaFactory.parseFromString(xmp);
             }
@@ -692,15 +697,18 @@ public final class XmpMetadata {
     }
 
     private static void setLastModified(
-            XmpLocation xmpType, Xmp xmp, String imageFilename) {
+            XmpLocation xmpType,
+            Xmp xmp,
+            String imageFilename) {
+
         String sidecarFilename =
                 getSidecarFilenameOfImageFileIfExists(imageFilename);
+        File imageFile = new File(imageFilename);
         if (xmpType.equals(XmpLocation.SIDECAR_FILE) && sidecarFilename != null) {
-            xmp.setLastModified(FileUtil.getLastModified(sidecarFilename));
-        } else if (xmpType.equals(XmpLocation.EMBEDDED) && FileUtil.
-                existsFile(
-                imageFilename)) {
-            xmp.setLastModified(FileUtil.getLastModified(imageFilename));
+            xmp.setLastModified(new File(sidecarFilename).lastModified());
+        } else if (xmpType.equals(XmpLocation.EMBEDDED) &&
+                FileUtil.existsFile(imageFile)) {
+            xmp.setLastModified(imageFile.lastModified());
         }
     }
 

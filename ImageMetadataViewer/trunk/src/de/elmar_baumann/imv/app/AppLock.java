@@ -24,7 +24,7 @@ public final class AppLock {
      * @return  true if locked
      */
     public static synchronized boolean isLocked() {
-        return FileUtil.existsFile(LOCKFILE_NAME);
+        return FileUtil.existsFile(new File(LOCKFILE_NAME));
     }
 
     /**
@@ -34,7 +34,7 @@ public final class AppLock {
      */
     public static synchronized boolean lock() {
         if (!isLocked()) {
-            return FileUtil.ensureFileExists(LOCKFILE_NAME);
+            return FileUtil.ensureFileExists(new File(LOCKFILE_NAME));
         }
         return false;
     }

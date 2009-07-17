@@ -173,7 +173,7 @@ public final class TreeModelFavorites extends DefaultTreeModel
     private void addDirectories() {
         List<FavoriteDirectory> directories = db.getFavoriteDirectories();
         for (FavoriteDirectory directory : directories) {
-            if (FileUtil.existsDirectory(directory.getDirectoryName())) {
+            if (FileUtil.existsDirectory(directory.getDirectory())) {
                 addDirectory(directory);
             } else {
                 AppLog.logWarning(TreeModelFavorites.class,
@@ -208,8 +208,7 @@ public final class TreeModelFavorites extends DefaultTreeModel
         File dir = userObject instanceof File
                    ? (File) userObject
                    : userObject instanceof FavoriteDirectory
-                     ? new File(((FavoriteDirectory) userObject).
-                getDirectoryName())
+                     ? ((FavoriteDirectory) userObject).getDirectory()
                      : null;
         if (dir == null || !dir.isDirectory()) return;
         File[] subdirs = dir.listFiles(
@@ -258,9 +257,7 @@ public final class TreeModelFavorites extends DefaultTreeModel
             if (userObject instanceof File) {
                 file = (File) userObject;
             } else if (userObject instanceof FavoriteDirectory) {
-                file = new File(
-                        ((FavoriteDirectory) userObject).getDirectoryName());
-
+                file = ((FavoriteDirectory) userObject).getDirectory();
             }
             if (file != null && !file.exists()) {
                 nodesToRemove.add(child);
@@ -345,7 +342,7 @@ public final class TreeModelFavorites extends DefaultTreeModel
         return node == null
                ? null
                : userObject instanceof FavoriteDirectory
-                 ? new File(((FavoriteDirectory) userObject).getDirectoryName())
+                 ? ((FavoriteDirectory) userObject).getDirectory()
                  : userObject instanceof File
                    ? (File) userObject
                    : null;
@@ -357,8 +354,7 @@ public final class TreeModelFavorites extends DefaultTreeModel
         File nodeFile = userObject instanceof File
                         ? (File) userObject
                         : userObject instanceof FavoriteDirectory
-                          ? new File(
-                ((FavoriteDirectory) userObject).getDirectoryName())
+                          ? ((FavoriteDirectory) userObject).getDirectory()
                           : null;
         if (nodeFile != null) {
             Stack<File> filePath = FileUtil.getPathFromRoot(file);

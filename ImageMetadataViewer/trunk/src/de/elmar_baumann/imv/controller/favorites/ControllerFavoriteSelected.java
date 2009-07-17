@@ -87,7 +87,7 @@ public final class ControllerFavoriteSelected implements
                 if (userObject instanceof FavoriteDirectory) {
                     FavoriteDirectory favoriteDirectory =
                             (FavoriteDirectory) userObject;
-                    dir = new File(favoriteDirectory.getDirectoryName());
+                    dir = favoriteDirectory.getDirectory();
                 } else if (userObject instanceof File) {
                     dir = (File) userObject;
                 }

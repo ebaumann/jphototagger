@@ -1,5 +1,7 @@
 package de.elmar_baumann.imv.data;
 
+import java.io.File;
+
 /**
  * Favoritenverzeichnis.
  *
@@ -19,7 +21,8 @@ public final class FavoriteDirectory {
      * @param directoryName  Name des Verzeichnisses
      * @param index          Reihenfolge innerhalb der Favoriten
      */
-    public FavoriteDirectory(String favoriteName, String directoryName, int index) {
+    public FavoriteDirectory(String favoriteName, String directoryName,
+            int index) {
         this.favoriteName = favoriteName;
         this.directoryName = directoryName;
         this.index = index;
@@ -52,6 +55,17 @@ public final class FavoriteDirectory {
      */
     public String getDirectoryName() {
         return directoryName;
+    }
+
+    /**
+     * Returns the directory; a file created from the directory name.
+     *
+     * @return directory or null if the directory name is null
+     */
+    public File getDirectory() {
+        return directoryName == null
+               ? null
+               : new File(directoryName);
     }
 
     /**
@@ -113,7 +127,8 @@ public final class FavoriteDirectory {
             return false;
         }
         final FavoriteDirectory other = (FavoriteDirectory) obj;
-        if ((this.favoriteName == null || !this.favoriteName.equals(other.favoriteName))) {
+        if ((this.favoriteName == null || !this.favoriteName.equals(
+                other.favoriteName))) {
             return false;
         }
         return true;
@@ -122,7 +137,9 @@ public final class FavoriteDirectory {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 53 * hash + (this.favoriteName != null ? this.favoriteName.hashCode() : 0);
+        hash = 53 * hash + (this.favoriteName != null
+                            ? this.favoriteName.hashCode()
+                            : 0);
         return hash;
     }
 }

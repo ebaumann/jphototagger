@@ -37,9 +37,9 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel
     public void readProperties() {
         String filename = UserSettings.INSTANCE.getDefaultImageOpenApp();
         labelDefaultProgramFile.setText(filename);
-        if (FileUtil.existsFile(filename)) {
-            labelDefaultProgramFile.setIcon(IconUtil.getSystemIcon(new File(
-                    filename)));
+        File file = new File(filename);
+        if (file.exists()) {
+            labelDefaultProgramFile.setIcon(IconUtil.getSystemIcon(file));
         }
     }
 

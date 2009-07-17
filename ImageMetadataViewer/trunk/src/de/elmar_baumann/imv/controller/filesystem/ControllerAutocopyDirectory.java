@@ -81,7 +81,7 @@ public final class ControllerAutocopyDirectory implements ActionListener {
     private void copy(File srcDir) {
         List<File> directories = new ArrayList<File>();
         directories.add(srcDir);
-        directories.addAll(FileUtil.getAllSubDirectories(srcDir,
+        directories.addAll(FileUtil.getSubdirectoriesRecursive(srcDir,
                 new HashSet<Option>()));
         List<File> files = ImageFilteredDirectory.getImageFilesOfDirectories(
                 directories);

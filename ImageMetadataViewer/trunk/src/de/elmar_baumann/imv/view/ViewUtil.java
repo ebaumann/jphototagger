@@ -39,9 +39,7 @@ public class ViewUtil {
                 if (userObject instanceof File) {
                     return (File) userObject;
                 } else if (userObject instanceof FavoriteDirectory) {
-                    return new File(
-                            ((FavoriteDirectory) userObject).getDirectoryName());
-
+                    return ((FavoriteDirectory) userObject).getDirectory();
                 }
             }
         }
@@ -91,11 +89,12 @@ public class ViewUtil {
         String filename = UserSettings.INSTANCE.getSettings().getString(
                 KEY_TREE_DIRECTORIES_SELECTED_DIR);
 
-        if (!filename.isEmpty() && FileUtil.existsDirectory(filename)) {
+        File directory = new File(filename);
+        if (!filename.isEmpty() && FileUtil.existsDirectory(directory)) {
             TreeModel model = treeDirectories.getModel();
             if (model instanceof TreeModelAllSystemDirectories) {
                 ((TreeModelAllSystemDirectories) model).expandToFile(
-                        new File(filename), true);
+                        directory, true);
             }
         }
     }

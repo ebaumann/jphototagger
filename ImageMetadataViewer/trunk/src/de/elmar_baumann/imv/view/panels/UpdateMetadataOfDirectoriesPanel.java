@@ -228,7 +228,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
     }
 
     private void addSubdirectories(File directory) {
-        List<File> subdirectories = FileUtil.getAllSubDirectories(directory,
+        List<File> subdirectories = FileUtil.getSubdirectoriesRecursive(directory,
                 UserSettings.INSTANCE.getDefaultDirectoryFilterOptions());
         for (File dir : subdirectories) {
             DirectoryInfo directoryInfo = new DirectoryInfo(dir);

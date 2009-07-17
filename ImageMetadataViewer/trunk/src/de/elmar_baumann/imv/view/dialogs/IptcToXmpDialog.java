@@ -144,7 +144,7 @@ public final class IptcToXmpDialog extends Dialog
             directories.add(directory);
             if (checkBoxSubdirectories.isSelected()) {
                 directories.addAll(
-                        FileUtil.getAllSubDirectories(directory,
+                        FileUtil.getSubdirectoriesRecursive(directory,
                         UserSettings.INSTANCE.getDefaultDirectoryFilterOptions()));
             }
             return ImageFilteredDirectory.getImageFilesOfDirectories(directories);

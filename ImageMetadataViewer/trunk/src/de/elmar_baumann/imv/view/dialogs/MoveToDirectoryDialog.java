@@ -148,8 +148,8 @@ public final class MoveToDirectoryDialog extends Dialog
             }
         } else {
             String directoryName = labelDirectoryName.getText().trim();
-            if (directoryName.isEmpty() || !FileUtil.existsDirectory(
-                    directoryName)) {
+            if (directoryName.isEmpty() ||
+                    !FileUtil.existsDirectory(new File(directoryName))) {
                 buttonStart.setEnabled(false);
             }
         }

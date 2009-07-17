@@ -77,7 +77,7 @@ public final class ControllerFavoritesRenameFilesystemFolder
         if (userObject instanceof File) {
             return (File) userObject;
         } else if (userObject instanceof FavoriteDirectory) {
-            return new File(((FavoriteDirectory) userObject).getDirectoryName());
+            return ((FavoriteDirectory) userObject).getDirectory();
         }
         return null;
     }

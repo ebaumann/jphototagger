@@ -95,7 +95,7 @@ public final class ImageFilteredDirectory {
      * @return image files
      */
     public static List<File> getImageFilesOfDirAndSubDirs(File dir) {
-        List<File> dirAndSubdirs = FileUtil.getAllSubDirectories(dir,
+        List<File> dirAndSubdirs = FileUtil.getSubdirectoriesRecursive(dir,
                 EnumSet.of(UserSettings.INSTANCE.isAcceptHiddenDirectories()
                            ? DirectoryFilter.Option.ACCEPT_HIDDEN_FILES
                            : DirectoryFilter.Option.REJECT_HIDDEN_FILES));

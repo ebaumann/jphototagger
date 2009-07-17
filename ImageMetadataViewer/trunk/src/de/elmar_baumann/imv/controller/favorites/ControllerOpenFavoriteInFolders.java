@@ -90,7 +90,7 @@ public final class ControllerOpenFavoriteInFolders
                 } else if (userObject instanceof FavoriteDirectory) {
                     FavoriteDirectory favoriteDirectory =
                             (FavoriteDirectory) userObject;
-                    return new File(favoriteDirectory.getDirectoryName());
+                    return favoriteDirectory.getDirectory();
                 }
                 return null;
             }

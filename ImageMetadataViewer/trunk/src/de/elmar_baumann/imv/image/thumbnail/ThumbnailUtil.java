@@ -388,7 +388,7 @@ public final class ThumbnailUtil {
 
     private static File getThumbnailfile(long id) {
         String dir = UserSettings.INSTANCE.getThumbnailsDirectoryName();
-        FileUtil.ensureDirectoryExists(dir);
+        FileUtil.ensureDirectoryExists(new File(dir));
         return new File(dir + File.separator + id);
     }
 

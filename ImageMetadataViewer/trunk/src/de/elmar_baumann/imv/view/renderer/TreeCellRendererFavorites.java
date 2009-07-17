@@ -40,7 +40,7 @@ public final class TreeCellRendererFavorites extends DefaultTreeCellRenderer {
         if (userObject instanceof FavoriteDirectory) {
             FavoriteDirectory favoriteDirectory =
                     (FavoriteDirectory) userObject;
-            file = new File(favoriteDirectory.getDirectoryName());
+            file = favoriteDirectory.getDirectory();
             setText(favoriteDirectory.getFavoriteName());
         } else if (userObject instanceof File) {
             file = (File) userObject;

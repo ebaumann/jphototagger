@@ -33,7 +33,7 @@ public final class FileSystemDirectories {
                 try {
                     List<File> imageFiles = ImageFilteredDirectory.
                             getImageFilesOfDirAndSubDirs(directory);
-                    if (FileUtil.deleteDirectory(directory)) {
+                    if (FileUtil.deleteDirectoryRecursive(directory)) {
                         int count = DatabaseImageFiles.INSTANCE.deleteImageFiles(
                                 FileUtil.getAsFilenames(imageFiles));
                         logDelete(directory, count);

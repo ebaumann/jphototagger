@@ -2,6 +2,7 @@ package de.elmar_baumann.imv.app;
 
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.lib.io.FileUtil;
+import java.io.File;
 import java.io.IOException;
 import java.util.logging.Formatter;
 import java.util.logging.FileHandler;
@@ -29,8 +30,8 @@ public final class AppLoggingSystem {
 
     private static void initLogger() {
         try {
-            FileUtil.ensureDirectoryExists(
-                    UserSettings.INSTANCE.getSettingsDirectoryName());
+            FileUtil.ensureDirectoryExists(new File(
+                    UserSettings.INSTANCE.getSettingsDirectoryName()));
             Logger logger = Logger.getLogger("de.elmar_baumann"); // NOI18N
             Level usersLevel = UserSettings.INSTANCE.getLogLevel();
             addFileLogHandler(logger);

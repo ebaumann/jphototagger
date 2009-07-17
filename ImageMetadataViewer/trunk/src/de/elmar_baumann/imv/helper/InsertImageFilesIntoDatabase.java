@@ -124,7 +124,7 @@ public final class InsertImageFilesIntoDatabase extends Thread {
     private ImageFile getImageFile(String filename) {
         ImageFile imageFile = new ImageFile();
         imageFile.setFilename(filename);
-        imageFile.setLastmodified(FileUtil.getLastModified(filename));
+        imageFile.setLastmodified(new File(filename).lastModified());
         if (isUpdateThumbnail(filename)) {
             imageFile.addInsertIntoDb(
                     InsertImageFilesIntoDatabase.Insert.THUMBNAIL);
@@ -161,7 +161,7 @@ public final class InsertImageFilesIntoDatabase extends Thread {
 
     private boolean isImageFileUpToDate(String filename) {
         long dbTime = db.getLastModifiedImageFile(filename);
-        long fileTime = FileUtil.getLastModified(filename);
+        long fileTime = new File(filename).lastModified();
         return fileTime == dbTime;
     }
 
@@ -175,9 +175,9 @@ public final class InsertImageFilesIntoDatabase extends Thread {
 
     private boolean isXmpSidecarFileUpToDate(
             String imageFilename, String sidecarFilename) {
-        assert FileUtil.existsFile(sidecarFilename);
+        assert FileUtil.existsFile(new File(sidecarFilename));
         long dbTime = db.getLastModifiedXmp(imageFilename);
-        long fileTime = FileUtil.getLastModified(sidecarFilename);
+        long fileTime = new File(sidecarFilename).lastModified();
         return fileTime == dbTime;
     }
 
@@ -186,7 +186,7 @@ public final class InsertImageFilesIntoDatabase extends Thread {
             return true;
         }
         long dbTime = db.getLastModifiedXmp(imageFilename);
-        long fileTime = FileUtil.getLastModified(imageFilename);
+        long fileTime = new File(imageFilename).lastModified();
         if (dbTime == fileTime) {
             return true;
         }

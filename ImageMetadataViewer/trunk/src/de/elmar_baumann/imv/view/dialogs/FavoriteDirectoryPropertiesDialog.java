@@ -148,7 +148,7 @@ public final class FavoriteDirectoryPropertiesDialog extends Dialog {
         String favoriteName = textFieldFavoriteName.getText().trim();
         return !directoryName.isEmpty() &&
                 !favoriteName.isEmpty() &&
-                FileUtil.existsDirectory(directoryName);
+                FileUtil.existsDirectory(new File(directoryName));
     }
 
     @Override

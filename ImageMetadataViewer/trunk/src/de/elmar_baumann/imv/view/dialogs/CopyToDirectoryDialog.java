@@ -150,7 +150,7 @@ public final class CopyToDirectoryDialog extends Dialog
         } else {
             String directoryName = labelTargetDirectory.getText().trim();
             if (directoryName.isEmpty() || !FileUtil.existsDirectory(
-                    directoryName)) {
+                    new File(directoryName))) {
                 buttonStart.setEnabled(false);
             }
         }
@@ -234,8 +234,9 @@ public final class CopyToDirectoryDialog extends Dialog
                 KEY_COPY_XMP);
         String dir = UserSettings.INSTANCE.getSettings().getString(
                 KEY_LAST_DIRECTORY);
-        if (FileUtil.existsDirectory(dir)) {
-            targetDirectory = new File(dir);
+        File directory = new File(dir);
+        if (FileUtil.existsDirectory(directory)) {
+            targetDirectory = directory;
         }
     }
 
@@ -243,8 +244,8 @@ public final class CopyToDirectoryDialog extends Dialog
         UserSettings.INSTANCE.getSettings().setSizeAndLocation(this);
         UserSettings.INSTANCE.getSettings().setString(
                 targetDirectory.getAbsolutePath(), KEY_LAST_DIRECTORY);
-        UserSettings.INSTANCE.getSettings().setCheckBox(checkBoxCopyXmp,
-                KEY_COPY_XMP);
+        UserSettings.INSTANCE.getSettings().setCheckBox(
+                checkBoxCopyXmp, KEY_COPY_XMP);
         UserSettings.INSTANCE.writeToFile();
     }
 
