@@ -12,6 +12,7 @@ import de.elmar_baumann.imv.factory.MetaFactory;
 import de.elmar_baumann.lib.comparator.FileSort;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.GUI;
+import de.elmar_baumann.imv.tasks.Cleanup;
 import de.elmar_baumann.imv.view.dialogs.HierarchicalKeywordsDialog;
 import de.elmar_baumann.imv.view.dialogs.TextSelectionDialog;
 import de.elmar_baumann.imv.view.panels.AppPanel;
@@ -188,7 +189,7 @@ public final class AppFrame extends javax.swing.JFrame {
     }
 
     public void toggleKeywordOverlay() {
-        boolean active = ! appPanel.getPanelThumbnails().isKeywordsOverlay();
+        boolean active = !appPanel.getPanelThumbnails().isKeywordsOverlay();
         appPanel.getPanelThumbnails().setKeywordsOverlay(active);
         checkboxMenuItemKeywordOverlay.setSelected(active);
     }
@@ -278,6 +279,7 @@ public final class AppFrame extends javax.swing.JFrame {
         notifyExit();
         writeProperties();
         checkDataToSave();
+        Cleanup.shutdown();
         DatabaseMaintainance.INSTANCE.shutdown();
         dispose();
         AppLock.unlock();
