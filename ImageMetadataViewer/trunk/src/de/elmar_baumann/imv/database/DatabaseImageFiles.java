@@ -29,7 +29,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * 
+ *
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/21
@@ -43,7 +43,7 @@ public final class DatabaseImageFiles extends Database {
 
     /**
      * Returns the id of a filename.
-     * 
+     *
      * @param  connection  connection
      * @param  filename    filename
      * @return id or -1 if the filename does not exist
@@ -133,7 +133,7 @@ public final class DatabaseImageFiles extends Database {
      * <li>XMP when {@link ImageFile#isInsertXmpIntoDb()} is true</li>
      * <li>Thumbnail when {@link ImageFile#isInsertThumbnailIntoDb()} is true</li>
      * </ul>
-     * 
+     *
      * @param  imageFile  image
      * @return true if inserted
      */
@@ -241,8 +241,8 @@ public final class DatabaseImageFiles extends Database {
                 stmt.setLong(2, getLastmodifiedXmp(imageFile));
             }
             stmt.setLong(imageFile.isInsertXmpIntoDb()
-                         ? 3
-                         : 2, idFile);
+                    ? 3
+                    : 2, idFile);
             AppLog.logFiner(DatabaseImageFiles.class, stmt.toString());
             stmt.executeUpdate();
             stmt.close();
@@ -552,7 +552,7 @@ public final class DatabaseImageFiles extends Database {
 
     /**
      * Returns the last modification time of the xmp data.
-     * 
+     *
      * @param  imageFilename  <em>image</em> filename (<em>not</em> sidecar
      *                        filename)
      * @return last modification time in milliseconds since 1970 or -1 if
@@ -582,7 +582,7 @@ public final class DatabaseImageFiles extends Database {
 
     /**
      * Sets the last modification time of XMP metadata.
-     * 
+     *
      * @param imageFilename image filename
      * @param time          milliseconds since 1970
      * @return              true if set
@@ -611,10 +611,10 @@ public final class DatabaseImageFiles extends Database {
     private long getLastmodifiedXmp(ImageFile imageFile) {
         Xmp xmp = imageFile.getXmp();
         return xmp == null
-               ? -1
-               : xmp.getLastModified() == null
-                 ? -1
-                 : xmp.getLastModified();
+                ? -1
+                : xmp.getLastModified() == null
+                ? -1
+                : xmp.getLastModified();
     }
 
     private void insertXmp(Connection connection, long idFile, Xmp xmp) throws
@@ -736,7 +736,7 @@ public final class DatabaseImageFiles extends Database {
     /**
      * Deletes XMP-Data of image files when a XMP sidecar file does not
      * exist but in the database is XMP data for this image file.
-     * 
+     *
      * @param  listener   progress listener
      * @return count of deleted XMP data (one per image file)
      */
@@ -815,12 +815,12 @@ public final class DatabaseImageFiles extends Database {
                 ", xmp_dc_subjects.subject" + // NOI18N -- 18 --
                 ", xmp_photoshop_supplementalcategories.supplementalcategory" + // NOI18N -- 19 --
                 " FROM" + // NOI18N
-                " xmp LEFT JOIN xmp_dc_subjects" + // NOI18N
+                " files INNER JOIN xmp" + // NOI18N
+                " ON files.id = xmp.id_files" + // NOI18N
+                " LEFT JOIN xmp_dc_subjects" + // NOI18N
                 " ON xmp.id = xmp_dc_subjects.id_xmp" + // NOI18N
                 " LEFT JOIN xmp_photoshop_supplementalcategories" + // NOI18N
                 " ON xmp.id = xmp_photoshop_supplementalcategories.id_xmp" + // NOI18N
-                " INNER JOIN files" + // NOI18N
-                " ON xmp.id_files = files.id" + // NOI18N
                 " WHERE files.filename = ?"; // NOI18N
     }
 
@@ -908,12 +908,12 @@ public final class DatabaseImageFiles extends Database {
                     "SELECT DISTINCT files.id, xmp.id" + // NOI18N
                     " FROM xmp" + // NOI18N
                     (isXmpTable
-                     ? "" // NOI18N
-                     : ", " + tableName) + // NOI18N
+                    ? "" // NOI18N
+                    : ", " + tableName) + // NOI18N
                     ", files" + // NOI18N
                     (isXmpTable
-                     ? "" // NOI18N
-                     : " LEFT JOIN xmp ON " + // NOI18N
+                    ? "" // NOI18N
+                    : " LEFT JOIN xmp ON " + // NOI18N
                     tableName + ".id_xmp = xmp.id") + // NOI18N
                     " INNER JOIN files ON xmp.id_files = files.id" + // NOI18N
                     " WHERE " + columnName + " = ? AND files.filename = ?"); // NOI18N
@@ -974,7 +974,7 @@ public final class DatabaseImageFiles extends Database {
 
     /**
      * Liefert alle Kategorien.
-     * 
+     *
      * @return Kategorien
      */
     public Set<String> getCategories() {
@@ -1006,7 +1006,7 @@ public final class DatabaseImageFiles extends Database {
 
     /**
      * Liefert alle Dateien mit bestimmter Kategorie.
-     * 
+     *
      * @param  category  Kategorie
      * @return Dateinamen
      */
@@ -1045,7 +1045,7 @@ public final class DatabaseImageFiles extends Database {
 
     /**
      * Liefert, ob eine Kategorie existiert.
-     * 
+     *
      * @param  name  Name der Kategorie
      * @return true, wenn existent
      */
@@ -1084,7 +1084,7 @@ public final class DatabaseImageFiles extends Database {
 
     /**
      * Returns the dublin core subjects (keywords).
-     * 
+     *
      * @return dc subjects distinct ordererd ascending
      */
     public Set<String> getDcSubjects() {
@@ -1111,7 +1111,7 @@ public final class DatabaseImageFiles extends Database {
 
     /**
      * Returns the filenames within a specific dublin core subject (keyword).
-     * 
+     *
      * @param  dcSubject subject
      * @return filenames
      */
@@ -1274,12 +1274,12 @@ public final class DatabaseImageFiles extends Database {
             connection = getConnection();
             String sqlDate = String.valueOf(year) + "-" + // NOI18N
                     (month > 0
-                     ? getMonthDayPrefix(month) + String.valueOf(month)
-                     : "%") + // NOI18N
+                    ? getMonthDayPrefix(month) + String.valueOf(month)
+                    : "%") + // NOI18N
                     "-" + // NOI18N
                     (month > 0 && day > 0
-                     ? getMonthDayPrefix(day) + String.valueOf(day)
-                     : "%"); // NOI18N
+                    ? getMonthDayPrefix(day) + String.valueOf(day)
+                    : "%"); // NOI18N
             String sql =
                     "SELECT files.filename" + // NOI18N
                     " FROM exif LEFT JOIN files" + // NOI18N
@@ -1304,8 +1304,8 @@ public final class DatabaseImageFiles extends Database {
 
     private static String getMonthDayPrefix(int i) {
         return i >= 10
-               ? "" // NOI18N
-               : "0"; // NOI18N
+                ? "" // NOI18N
+                : "0"; // NOI18N
     }
 
     /**
