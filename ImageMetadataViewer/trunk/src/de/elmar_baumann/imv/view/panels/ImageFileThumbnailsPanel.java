@@ -1,6 +1,5 @@
 package de.elmar_baumann.imv.view.panels;
 
-import com.adobe.xmp.properties.XMPPropertyInfo;
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.types.Content;
 import de.elmar_baumann.imv.controller.thumbnail.ControllerDoubleklickThumbnail;
