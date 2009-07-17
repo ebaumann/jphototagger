@@ -4,7 +4,7 @@ import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.resource.Bundle;
 
 /**
- * An automatic task is a background task running as long as the next tasks
+ * An automatic task is a background task running as long as the next task
  * shall start.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
@@ -23,7 +23,7 @@ public final class AutomaticTask {
      * currently running task if it's an instance of
      * <code>java.lang.Thread</code>.
      *
-     * Thus means: The currently running task stops only when it is a thread
+     * This means: The currently running task stops only when it is a thread
      * that will periodically check {@link Thread#isInterrupted()}.
      *
      * @param runnable
