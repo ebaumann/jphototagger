@@ -42,6 +42,18 @@ public final class SerialExecutor implements Executor {
         }
     }
 
+    /**
+     * Returns the count of runnables.
+     *
+     * @return count of runnables
+     */
+    public synchronized int getCount() {
+        int activeCount = active == null
+                          ? 0
+                          : 1;
+        return activeCount + tasks.size();
+    }
+
     @Override
     public synchronized void execute(final Runnable r) {
         tasks.offer(new Runnable() {
