@@ -44,7 +44,7 @@ public final class ListCellRendererDirectories extends DefaultListCellRenderer {
     }
 
     private static String getLabelText(DirectoryInfo directoryInfo) {
-        return Bundle.getString("ListCellRendererDirectories.LabelText",
+        return Bundle.getString("ListCellRendererDirectories.LabelText", // NOI18N
                 directoryInfo.getDirectory().getAbsolutePath(),
                 directoryInfo.getImageFileCount());
     }

@@ -16,7 +16,7 @@ import javax.swing.tree.TreeSelectionModel;
 public class HierarchicalKeywordsPanel extends javax.swing.JPanel {
 
     private static final String KEY_TREE =
-            "HierarchicalKeywordsPanel.Tree.SelectedNode";
+            "HierarchicalKeywordsPanel.Tree.SelectedNode"; // NOI18N
 
     public HierarchicalKeywordsPanel() {
         initComponents();
@@ -73,9 +73,9 @@ public class HierarchicalKeywordsPanel extends javax.swing.JPanel {
         buttonToggleExpandAllNodes.setText(
                 selected
                 ? Bundle.getString(
-                "HierarchicalKeywordsPanel.ButtonToggleExpandAllNodes.Selected")
+                "HierarchicalKeywordsPanel.ButtonToggleExpandAllNodes.Selected") // NOI18N
                 : Bundle.getString(
-                "HierarchicalKeywordsPanel.ButtonToggleExpandAllNodes.DeSelected"));
+                "HierarchicalKeywordsPanel.ButtonToggleExpandAllNodes.DeSelected")); // NOI18N
     }
 
     /** This method is called from within the constructor to

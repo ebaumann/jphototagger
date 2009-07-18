@@ -56,7 +56,7 @@ public final class ScheduledTasks {
             }
         });
         thread.setName(
-                "Scheduled tasks waiting for start @ " + getClass().getName());
+                "Scheduled tasks waiting for start @ " + getClass().getName()); // NOI18N
         thread.start();
     }
 

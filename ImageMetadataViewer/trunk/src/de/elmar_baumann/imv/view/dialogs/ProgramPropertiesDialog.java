@@ -44,10 +44,10 @@ public final class ProgramPropertiesDialog extends Dialog {
         textFieldAlias.setText(program.getAlias());
         textAreaParametersBeforeFilename.setText(parametersBeforeFilename ==
                 null
-                                                 ? ""
+                                                 ? "" // NOI18N
                                                  : parametersBeforeFilename);
         textAreaParametersAfterFilename.setText(parametersAfterFilename == null
-                                                ? ""
+                                                ? "" // NOI18N
                                                 : parametersAfterFilename);
         checkBoxInputBeforeExecute.setSelected(program.isInputBeforeExecute());
         checkBoxInputBeforeExecutePerFile.setSelected(program.

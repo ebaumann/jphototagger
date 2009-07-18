@@ -21,23 +21,49 @@ final class UpdateTablesAddColumns {
     private final List<ColumnInfo> missingColumns = new ArrayList<ColumnInfo>();
     private static final List<ColumnInfo> columns = new ArrayList<ColumnInfo>();
 
-
     static {
-        columns.add(new ColumnInfo("programs", "parameters_after_filename", "BINARY", // NOI18N
+        columns.add(new ColumnInfo(
+                "programs", // NOI18N
+                "parameters_after_filename", // NOI18N
+                "BINARY", // NOI18N
                 null));
-        columns.add(new ColumnInfo("programs", "action", "BOOLEAN", // NOI18N
-                new IndexOfColumn("programs", "action", "idx_programs_action", // NOI18N
+        columns.add(new ColumnInfo(
+                "programs", // NOI18N
+                "action", // NOI18N
+                "BOOLEAN", // NOI18N
+                new IndexOfColumn(
+                "programs", // NOI18N
+                "action", // NOI18N
+                "idx_programs_action", // NOI18N
                 false)));
-        columns.add(new ColumnInfo("programs", "input_before_execute", "BOOLEAN", // NOI18N
+        columns.add(new ColumnInfo("programs", // NOI18N
+                "input_before_execute", // NOI18N
+                "BOOLEAN", // NOI18N
                 null));
-        columns.add(new ColumnInfo("programs", "input_before_execute_per_file", "BOOLEAN", // NOI18N
+        columns.add(new ColumnInfo(
+                "programs", // NOI18N
+                "input_before_execute_per_file", // NOI18N
+                "BOOLEAN", // NOI18N
                 null));
-        columns.add(new ColumnInfo("programs", "single_file_processing", "BOOLEAN", // NOI18N
+        columns.add(new ColumnInfo(
+                "programs", // NOI18N
+                "single_file_processing", // NOI18N
+                "BOOLEAN", // NOI18N
                 null));
-        columns.add(new ColumnInfo("programs", "change_file", "BOOLEAN", // NOI18N
+        columns.add(new ColumnInfo(
+                "programs", // NOI18N
+                "change_file", // NOI18N
+                "BOOLEAN", // NOI18N
                 null));
-        columns.add(new ColumnInfo("hierarchical_subjects", "real", "BOOLEAN", // NOI18N
-                new IndexOfColumn("hierarchical_subjects", "real", "idx_hierarchical_subjects_real", false)));
+        columns.add(new ColumnInfo(
+                "hierarchical_subjects", // NOI18N
+                "real", // NOI18N
+                "BOOLEAN", // NOI18N
+                new IndexOfColumn(
+                "hierarchical_subjects", // NOI18N
+                "real", // NOI18N
+                "idx_hierarchical_subjects_real", // NOI18N
+                false))); // NOI18N
     }
 
     void update(Connection connection) throws SQLException {
@@ -51,7 +77,8 @@ final class UpdateTablesAddColumns {
         DatabaseMetadata dbMeta = DatabaseMetadata.INSTANCE;
         missingColumns.clear();
         for (ColumnInfo info : columns) {
-            if (!dbMeta.existsColumn(connection, info.getTableName(), info.getColumnName())) {
+            if (!dbMeta.existsColumn(connection, info.getTableName(), info.
+                    getColumnName())) {
                 missingColumns.add(info);
             }
         }
@@ -66,7 +93,8 @@ final class UpdateTablesAddColumns {
         dialog.setIndeterminate(false);
     }
 
-    private void addColumn(Connection connection, ColumnInfo info) throws SQLException {
+    private void addColumn(Connection connection, ColumnInfo info) throws
+            SQLException {
         setMessage(info.getTableName(), info.getColumnName());
         Statement stmt = connection.createStatement();
         stmt.execute("ALTER TABLE " + info.getTableName() + " ADD COLUMN " + // NOI18N
@@ -77,7 +105,8 @@ final class UpdateTablesAddColumns {
     }
 
     private void setMessage(String tableName, String columnName) {
-        messages.message(Bundle.getString("UpdateTablesAddColumns.Info.AddColumns", // NOI18N
+        messages.message(Bundle.getString(
+                "UpdateTablesAddColumns.Info.AddColumns", // NOI18N
                 tableName, columnName));
     }
 }

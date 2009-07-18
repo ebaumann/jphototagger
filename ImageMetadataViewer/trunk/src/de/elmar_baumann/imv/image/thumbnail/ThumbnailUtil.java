@@ -340,7 +340,7 @@ public final class ThumbnailUtil {
         try {
             File tnFile = getThumbnailfile(id);
             AppLog.logInfo(ThumbnailUtil.class,
-                    Bundle.getString("ThumbnailUtil.Info.WriteThumbnail", tnFile));
+                    Bundle.getString("ThumbnailUtil.Info.WriteThumbnail", tnFile)); // NOI18N
             fos = new FileOutputStream(tnFile);
             ByteArrayInputStream is =
                     ImageUtil.getByteArrayInputStream(thumbnail);

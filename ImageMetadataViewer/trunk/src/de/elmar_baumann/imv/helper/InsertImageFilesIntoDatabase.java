@@ -92,7 +92,7 @@ public final class InsertImageFilesIntoDatabase extends Thread {
         this.filenames = filenames;
         this.what = what;
         this.progressBarResource = progressBarResource;
-        setName("Inserting image files into database @ " + getClass().getName());
+        setName("Inserting image files into database @ " + getClass().getName()); // NOI18N
     }
 
     @Override
@@ -282,7 +282,7 @@ public final class InsertImageFilesIntoDatabase extends Thread {
         if (progressBarResource != null) {
             Object o = progressBarResource.getResource(this);
             assert o == null || o instanceof JProgressBar :
-                    o + " is not a JPogressBar!";
+                    o + " is not a JPogressBar!"; // NOI18N
             if (o instanceof JProgressBar) {
                 progressBar = (JProgressBar) o;
             } else if (o != null) {
@@ -318,7 +318,7 @@ public final class InsertImageFilesIntoDatabase extends Thread {
         informationMessageEnd(filecount);
         if (progressBar != null) {
             progressBar.setValue(filecount);
-            progressBar.setToolTipText("");
+            progressBar.setToolTipText(""); // NOI18N
             releaseProgressBar();
         }
     }

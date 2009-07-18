@@ -177,7 +177,7 @@ public final class MessageDisplayer {
         assert defaultTitleOfMessageType.containsKey(messageType) :
                 "Message type " + messageType + " is not in " + // NOI18N
                 defaultTitleOfMessageType.keySet();
-        String titlePropertyKey = propertyKey + ".Title";
+        String titlePropertyKey = propertyKey + ".Title"; // NOI18N
         return Bundle.containsKey(titlePropertyKey)
                ? Bundle.getString(titlePropertyKey) // NOI18N
                : defaultTitleOfMessageType.get(messageType);

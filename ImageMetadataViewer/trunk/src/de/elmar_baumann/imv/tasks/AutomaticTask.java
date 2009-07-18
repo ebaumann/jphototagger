@@ -44,7 +44,7 @@ public final class AutomaticTask {
                 ((Thread) runnable).interrupt();
             } else {
                 AppLog.logWarning(AutomaticTask.class,
-                        Bundle.getString("AutomaticTask.Error.Terminate",
+                        Bundle.getString("AutomaticTask.Error.Terminate", // NOI18N
                         runnable));
             }
         }
@@ -66,6 +66,6 @@ public final class AutomaticTask {
         if (runnable instanceof Thread) {
             return ((Thread) runnable).getName();
         }
-        return "Automatic task @ " + getClass().getName();
+        return "Automatic task @ " + getClass().getName(); // NOI18N
     }
 }

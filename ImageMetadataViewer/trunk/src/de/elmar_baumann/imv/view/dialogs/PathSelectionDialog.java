@@ -40,7 +40,7 @@ public class PathSelectionDialog extends Dialog implements ListSelectionListener
         super((java.awt.Frame) null, true);
         this.paths = paths;
         this.mode = mode;
-        assert paths != null : "paths == null!";
+        assert paths != null : "paths == null!"; // NOI18N
         initComponents();
         postInitComponents();
     }
@@ -162,7 +162,7 @@ public class PathSelectionDialog extends Dialog implements ListSelectionListener
             if (value instanceof Collection) {
                 renderCollection(value, label);
             } else if (value instanceof String) {
-                String padding = "  ";
+                String padding = "  "; // NOI18N
                 label.setText((String) value + padding);
             }
             label.setIcon(ICON);
@@ -176,7 +176,7 @@ public class PathSelectionDialog extends Dialog implements ListSelectionListener
             int i = 0;
             for (Object element : collection) {
                 sb.append((i++ == 0
-                           ? ""
+                           ? "" // NOI18N
                            : pathDelim) + element.toString());
             }
             label.setText(sb.toString());

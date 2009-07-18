@@ -40,11 +40,11 @@ public final class DatabaseMaintainance extends Database {
             connection = getConnection();
             Statement stmt = connection.createStatement();
             AppLog.logInfo(DatabaseMaintainance.class,
-                    Bundle.getString("DatabaseMaintainance.Info.Shutdown"));
-            stmt.executeUpdate("SHUTDOWN");
+                    Bundle.getString("DatabaseMaintainance.Info.Shutdown")); // NOI18N
+            stmt.executeUpdate("SHUTDOWN"); // NOI18N
         } catch (SQLException ex) {
             AppLog.logSevere(Database.class, ex);
-            MessageDisplayer.error("DatabaseMaintainance.Error.Shutdown");
+            MessageDisplayer.error("DatabaseMaintainance.Error.Shutdown"); // NOI18N
         }
     }
 

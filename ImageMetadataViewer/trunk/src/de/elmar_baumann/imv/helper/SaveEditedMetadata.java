@@ -53,7 +53,7 @@ public final class SaveEditedMetadata extends Thread {
     private static EnumSet<XmpMetadata.UpdateOption> getWriteOptions(
             int filecount) {
         if (filecount < 1)
-            throw new IllegalArgumentException("Filecount < 1: " + filecount);
+            throw new IllegalArgumentException("Filecount < 1: " + filecount); // NOI18N
         return filecount == 1
                ? EnumSet.of(
                 XmpMetadata.UpdateOption.DELETE_IF_SOURCE_VALUE_IS_EMPTY)
@@ -70,7 +70,7 @@ public final class SaveEditedMetadata extends Thread {
         this.filenames = filenames;
         this.textEntries = textEntries;
         this.writeOptions = writeOptions;
-        setName("Saving edited metadata @ " + getClass().getName());
+        setName("Saving edited metadata @ " + getClass().getName()); // NOI18N
     }
 
     @Override

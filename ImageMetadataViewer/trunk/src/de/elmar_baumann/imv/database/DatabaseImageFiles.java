@@ -146,16 +146,16 @@ public final class DatabaseImageFiles extends Database {
         try {
             connection = getConnection();
             connection.setAutoCommit(false);
-            String sqlWithXmp = "INSERT INTO files" + // NOI18N
+            String sqlWithXmpLastModified = "INSERT INTO files" + // NOI18N
                     " (filename, lastmodified, xmp_lastmodified)" + // NOI18N
                     " VALUES (?, ?, ?)"; // NOI18N
-            String sqlWithoutXmp = "INSERT INTO files" + // NOI18N
+            String sqlWithoutXmpLastModified = "INSERT INTO files" + // NOI18N
                     " (filename, lastmodified)" + // NOI18N
                     " VALUES (?, ?)"; // NOI18N
             PreparedStatement preparedStatement = connection.prepareStatement(
                     imageFile.isInsertXmpIntoDb()
-                    ? sqlWithXmp
-                    : sqlWithoutXmp);
+                    ? sqlWithXmpLastModified
+                    : sqlWithoutXmpLastModified);
             String filename = imageFile.getFilename();
             preparedStatement.setString(1, filename);
             preparedStatement.setLong(2, imageFile.getLastmodified());
@@ -226,14 +226,14 @@ public final class DatabaseImageFiles extends Database {
             ImageFile oldImageFile = getImageFile(imageFile.getFilename());
             connection = getConnection();
             connection.setAutoCommit(false);
-            String sqlWithXmp = "UPDATE files " + // NOI18N
+            String sqlWithXmpLastModified = "UPDATE files " + // NOI18N
                     "SET lastmodified = ?, xmp_lastmodified = ? WHERE id = ?"; // NOI18N
-            String sqlWithoutXmp = "UPDATE files " + // NOI18N
+            String sqlWithoutXmpLastModified = "UPDATE files " + // NOI18N
                     "SET lastmodified = ? WHERE id = ?"; // NOI18N
             PreparedStatement stmt = connection.prepareStatement(
                     imageFile.isInsertXmpIntoDb()
-                    ? sqlWithXmp
-                    : sqlWithoutXmp);
+                    ? sqlWithXmpLastModified
+                    : sqlWithoutXmpLastModified);
             String filename = imageFile.getFilename();
             long idFile = getIdFile(connection, filename);
             stmt.setLong(1, imageFile.getLastmodified());

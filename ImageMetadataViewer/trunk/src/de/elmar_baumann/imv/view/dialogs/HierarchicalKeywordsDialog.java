@@ -26,7 +26,7 @@ public class HierarchicalKeywordsDialog extends Dialog {
     private void postInitComponents() {
         setIconImages(AppIcons.getAppIcons());
         setHelpContentsUrl(Bundle.getString("Help.Url.Contents")); // NOI18N
-        setHelpPageUrl(Bundle.getString("Help.Url.HierarchicalKeywords"));
+        setHelpPageUrl(Bundle.getString("Help.Url.HierarchicalKeywords")); // NOI18N
         registerKeyStrokes();
     }
 

@@ -96,6 +96,6 @@ public class TextModifierHierarchicalKeywords implements TextModifyer {
 
     @Override
     public String getDescription() {
-        return Bundle.getString("TextModifierHierarchicalKeywords.Description");
+        return Bundle.getString("TextModifierHierarchicalKeywords.Description"); // NOI18N
     }
 }

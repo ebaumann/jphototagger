@@ -255,7 +255,7 @@ public final class XmpMetadata {
                     "XmpMetadata.Info.ReadSidecarFile", // NOI18N
                     sidecarFilename, imageFilename));
             xmpString = FileUtil.getFileContentAsString(
-                    new File(sidecarFilename), "UTF-8");
+                    new File(sidecarFilename), "UTF-8"); // NOI18N
         }
         return xmpString;
     }
@@ -401,7 +401,7 @@ public final class XmpMetadata {
             throws XMPException {
         File sidecarFile = new File(sidecarFilename);
         if (FileUtil.existsFile(sidecarFile)) {
-            String xmp = FileUtil.getFileContentAsString(sidecarFile, "UTF-8");
+            String xmp = FileUtil.getFileContentAsString(sidecarFile, "UTF-8"); // NOI18N
             if (xmp != null && !xmp.trim().isEmpty()) {
                 return XMPMetaFactory.parseFromString(xmp);
             }

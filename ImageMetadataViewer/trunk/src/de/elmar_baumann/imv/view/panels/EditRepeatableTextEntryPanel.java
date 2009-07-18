@@ -48,7 +48,7 @@ public final class EditRepeatableTextEntryPanel extends javax.swing.JPanel
      *
      * Have to be different from {@link XmpMetadata#getXmpTokenDelimiter()}!
      */
-    private static final String DELIMITER_REPLACEMENT = "?";
+    private static final String DELIMITER_REPLACEMENT = "?"; // NOI18N
     private final DefaultListModel model = new DefaultListModel();
     private Column column;
     private AutoCompleteData autoCompleteData;
@@ -65,7 +65,7 @@ public final class EditRepeatableTextEntryPanel extends javax.swing.JPanel
         initComponents();
         postInitComponents();
         assert !DELIMITER_REPLACEMENT.equals(DELIMITER) :
-                "Delimiter replacement is equals to delimiter! " + DELIMITER;
+                "Delimiter replacement is equals to delimiter! " + DELIMITER; // NOI18N
     }
 
     private void postInitComponents() {
@@ -104,7 +104,7 @@ public final class EditRepeatableTextEntryPanel extends javax.swing.JPanel
         String listItemText = ListUtil.getTokenString(model, DELIMITER);
         String textfieldText = textFieldInput.getText().trim();
         listItemText += textfieldText.isEmpty()
-                        ? ""
+                        ? "" // NOI18N
                         : DELIMITER + textfieldText;
         return listItemText;
     }
@@ -118,7 +118,7 @@ public final class EditRepeatableTextEntryPanel extends javax.swing.JPanel
     private void emptyTextfieldIfListContainsText() {
         String input = textFieldInput.getText();
         if (ListUtil.containsString(list.getModel(), input)) {
-            textFieldInput.setText("");
+            textFieldInput.setText(""); // NOI18N
         }
     }
 
@@ -156,7 +156,7 @@ public final class EditRepeatableTextEntryPanel extends javax.swing.JPanel
     public void setText(String text) {
         ListUtil.setToken(text, DELIMITER, model);
         setIgnoreModifyWords(text);
-        textFieldInput.setText("");
+        textFieldInput.setText(""); // NOI18N
         dirty = false;
         setEnabledButtons();
     }
@@ -169,7 +169,7 @@ public final class EditRepeatableTextEntryPanel extends javax.swing.JPanel
      * @param text text delimited by {@link XmpMetadata#getXmpTokenDelimiter()}
      */
     public void addText(String text) {
-        assert editable : "Edit is not enabled!";
+        assert editable : "Edit is not enabled!"; // NOI18N
         if (!editable) return;
         addTokensToList(text);
         dirty = true;
@@ -218,7 +218,7 @@ public final class EditRepeatableTextEntryPanel extends javax.swing.JPanel
     private void addOneWordToList(String word) {
         if (!word.isEmpty() && !model.contains(word)) {
             model.addElement(word);
-            textFieldInput.setText("");
+            textFieldInput.setText(""); // NOI18N
             ComponentUtil.forceRepaint(getParent().getParent());
         }
     }
@@ -396,7 +396,7 @@ public final class EditRepeatableTextEntryPanel extends javax.swing.JPanel
         if (!modifiedText.isEmpty() &&
                 !prevText.equalsIgnoreCase(modifiedText)) {
             addTokensToList(modifiedText);
-            textFieldInput.setText("");
+            textFieldInput.setText(""); // NOI18N
         }
     }
 

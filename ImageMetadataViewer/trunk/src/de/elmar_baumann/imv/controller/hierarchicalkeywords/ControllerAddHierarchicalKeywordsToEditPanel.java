@@ -86,18 +86,18 @@ public class ControllerAddHierarchicalKeywordsToEditPanel
             EditRepeatableTextEntryPanel editPanel =
                     (EditRepeatableTextEntryPanel) panel;
             String text = ArrayUtil.toTokenString(keywordNames,
-                    XmpMetadata.getXmpTokenDelimiter(), "?").trim();
+                    XmpMetadata.getXmpTokenDelimiter(), "?").trim(); // NOI18N
             if (editPanel.isEditable()) {
                 if (!text.isEmpty()) {
                     editPanel.addText(text);
                 }
             } else {
                 MessageDisplayer.error(
-                        "ControllerAddHierarchicalKeywordsToEditPanel.Error.EditDisabled");
+                        "ControllerAddHierarchicalKeywordsToEditPanel.Error.EditDisabled"); // NOI18N
             }
         } else {
             MessageDisplayer.error(
-                    "ControllerAddHierarchicalKeywordsToEditPanel.Error.NoEditPanel");
+                    "ControllerAddHierarchicalKeywordsToEditPanel.Error.NoEditPanel"); // NOI18N
         }
     }
 

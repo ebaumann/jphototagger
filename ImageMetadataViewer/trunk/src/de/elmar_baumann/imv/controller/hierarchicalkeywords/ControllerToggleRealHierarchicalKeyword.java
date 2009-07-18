@@ -62,7 +62,7 @@ public class ControllerToggleRealHierarchicalKeyword
         TreePath path = tree.getSelectionPath();
         if (path == null) {
             MessageDisplayer.error(
-                    "ControllerToggleRealHierarchicalKeyword.Error.NoPathSelected");
+                    "ControllerToggleRealHierarchicalKeyword.Error.NoPathSelected"); // NOI18N
         } else {
             Object node = path.getLastPathComponent();
             if (node instanceof DefaultMutableTreeNode) {
@@ -82,7 +82,7 @@ public class ControllerToggleRealHierarchicalKeyword
                     }
                 } else {
                     MessageDisplayer.error(
-                            "ControllerToggleRealHierarchicalKeyword.Error.Node",
+                            "ControllerToggleRealHierarchicalKeyword.Error.Node", // NOI18N
                             node);
                 }
             }
