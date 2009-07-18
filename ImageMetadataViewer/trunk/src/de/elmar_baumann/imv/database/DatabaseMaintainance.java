@@ -102,6 +102,7 @@ public final class DatabaseMaintainance extends Database {
                         File thumbnailFile = thumbnailFiles[index];
                         long fileId = getImageIdFromThumbnailFile(thumbnailFile);
                         stmt.setLong(1, fileId);
+                        AppLog.logFinest(getClass(), stmt.toString());
                         ResultSet rs = stmt.executeQuery();
                         if (rs.next()) {
                             if (rs.getLong(1) <= 0) {

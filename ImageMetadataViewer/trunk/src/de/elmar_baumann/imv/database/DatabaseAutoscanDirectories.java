@@ -40,8 +40,8 @@ public final class DatabaseAutoscanDirectories extends Database {
                         connection.prepareStatement(
                         "INSERT INTO autoscan_directories (directory) VALUES (?)"); // NOI18N
                 stmt.setString(1, directoryName);
-                AppLog.logFiner(DatabaseAutoscanDirectories.class,
-                        stmt.toString());
+                AppLog.logFiner(
+                        DatabaseAutoscanDirectories.class, stmt.toString());
                 int count = stmt.executeUpdate();
                 inserted = count > 0;
                 stmt.close();
@@ -72,8 +72,8 @@ public final class DatabaseAutoscanDirectories extends Database {
             for (String directoryName : directoryNames) {
                 if (!existsAutoscanDirectory(directoryName)) {
                     stmt.setString(1, directoryName);
-                    AppLog.logFiner(DatabaseAutoscanDirectories.class, stmt.
-                            toString());
+                    AppLog.logFiner(
+                            DatabaseAutoscanDirectories.class, stmt.toString());
                     stmt.executeUpdate();
                 }
             }
@@ -157,9 +157,11 @@ public final class DatabaseAutoscanDirectories extends Database {
         try {
             connection = getConnection();
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery(
+            String sql =
                     "SELECT directory FROM autoscan_directories" + // NOI18N
-                    " ORDER BY directory ASC"); // NOI18N
+                    " ORDER BY directory ASC"; // NOI18N
+            AppLog.logFinest(getClass(), sql);
+            ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 directories.add(rs.getString(1));
             }

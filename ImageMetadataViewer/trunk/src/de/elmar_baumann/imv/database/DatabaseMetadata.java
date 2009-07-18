@@ -1,5 +1,6 @@
 package de.elmar_baumann.imv.database;
 
+import de.elmar_baumann.imv.app.AppLog;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
@@ -20,7 +21,8 @@ public final class DatabaseMetadata extends Database {
     private DatabaseMetadata() {
     }
 
-    boolean existsTable(Connection connection, String tablename) throws SQLException {
+    boolean existsTable(Connection connection, String tablename) throws
+            SQLException {
         boolean exists = false;
         DatabaseMetaData dbm = connection.getMetaData();
         String[] names = {"TABLE"}; // NOI18N
@@ -32,11 +34,13 @@ public final class DatabaseMetadata extends Database {
         return exists;
     }
 
-    boolean existsColumn(Connection connection, String tableName, String columnName) throws SQLException {
+    boolean existsColumn(Connection connection, String tableName,
+            String columnName) throws SQLException {
         boolean exists = false;
         Statement stmt = connection.createStatement();
-        ResultSet rs = stmt.executeQuery(
-            "select * from " + tableName + " WHERE 1 = 0"); // NOI18N "WHERE 1 = 0": speed, memory!
+        String sql = "select * from " + tableName + " WHERE 1 = 0"; // NOI18N "WHERE 1 = 0": speed, memory!
+        AppLog.logFinest(getClass(), sql);
+        ResultSet rs = stmt.executeQuery(sql);
         ResultSetMetaData rsmd = rs.getMetaData();
         int columns = rsmd.getColumnCount();
 

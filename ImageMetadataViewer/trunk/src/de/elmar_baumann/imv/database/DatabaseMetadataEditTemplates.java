@@ -17,9 +17,10 @@ import java.util.List;
  * @version 2008/10/21
  */
 public class DatabaseMetadataEditTemplates extends Database {
-    
-    public static final DatabaseMetadataEditTemplates INSTANCE = new DatabaseMetadataEditTemplates();
-    
+
+    public static final DatabaseMetadataEditTemplates INSTANCE =
+            new DatabaseMetadataEditTemplates();
+
     private DatabaseMetadataEditTemplates() {
     }
 
@@ -28,11 +29,11 @@ public class DatabaseMetadataEditTemplates extends Database {
      * bereits, werden seine Daten aktualisiert.
      *
      * @param  template  Template
-     * @return true bei Erfolg
+     * @return           true bei Erfolg
      */
     public boolean insertMetadataEditTemplate(
-        MetadataEditTemplate template) {
-        
+            MetadataEditTemplate template) {
+
         if (existsMetadataEditTemplate(template.getName())) {
             return updateMetadataEditTemplate(template);
         }
@@ -41,30 +42,31 @@ public class DatabaseMetadataEditTemplates extends Database {
         try {
             connection = getConnection();
             connection.setAutoCommit(false);
-            PreparedStatement stmt = connection.prepareStatement(
-                "INSERT INTO metadata_edit_templates" + // NOI18N
-                " (name" + // NOI18N -- 1 --
-                ", dcSubjects" + // NOI18N -- 2 --
-                ", dcTitle" + // NOI18N -- 3 --
-                ", photoshopHeadline" + // NOI18N -- 4 --
-                ", dcDescription" + // NOI18N -- 5 --
-                ", photoshopCaptionwriter" + // NOI18N -- 6 --
-                ", iptc4xmpcoreLocation" + // NOI18N -- 7 --
-                ", iptc4xmpcoreCountrycode" + // NOI18N -- 8 --
-                ", photoshopCategory" + // NOI18N -- 9 --
-                ", photoshopSupplementalCategories" + // NOI18N -- 10 --
-                ", dcRights" + // NOI18N -- 11 --
-                ", dcCreator" + // NOI18N -- 12 --
-                ", photoshopAuthorsposition" + // NOI18N -- 13 --
-                ", photoshopCity" + // NOI18N -- 14 --
-                ", photoshopState" + // NOI18N -- 15 --
-                ", photoshopCountry" + // NOI18N -- 16 --
-                ", photoshopTransmissionReference" + // NOI18N -- 17 --
-                ", photoshopInstructions" + // NOI18N -- 18 --
-                ", photoshopCredit" + // NOI18N -- 19 --
-                ", photoshopSource" + // NOI18N -- 20 --
-                ")" + // NOI18N
-                " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"); // NOI18N
+            PreparedStatement stmt =
+                    connection.prepareStatement(
+                    "INSERT INTO metadata_edit_templates" + // NOI18N
+                    " (name" + // NOI18N -- 1 --
+                    ", dcSubjects" + // NOI18N -- 2 --
+                    ", dcTitle" + // NOI18N -- 3 --
+                    ", photoshopHeadline" + // NOI18N -- 4 --
+                    ", dcDescription" + // NOI18N -- 5 --
+                    ", photoshopCaptionwriter" + // NOI18N -- 6 --
+                    ", iptc4xmpcoreLocation" + // NOI18N -- 7 --
+                    ", iptc4xmpcoreCountrycode" + // NOI18N -- 8 --
+                    ", photoshopCategory" + // NOI18N -- 9 --
+                    ", photoshopSupplementalCategories" + // NOI18N -- 10 --
+                    ", dcRights" + // NOI18N -- 11 --
+                    ", dcCreator" + // NOI18N -- 12 --
+                    ", photoshopAuthorsposition" + // NOI18N -- 13 --
+                    ", photoshopCity" + // NOI18N -- 14 --
+                    ", photoshopState" + // NOI18N -- 15 --
+                    ", photoshopCountry" + // NOI18N -- 16 --
+                    ", photoshopTransmissionReference" + // NOI18N -- 17 --
+                    ", photoshopInstructions" + // NOI18N -- 18 --
+                    ", photoshopCredit" + // NOI18N -- 19 --
+                    ", photoshopSource" + // NOI18N -- 20 --
+                    ")" + // NOI18N
+                    " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"); // NOI18N
             setMetadataEditTemplate(stmt, template);
             AppLog.logFiner(DatabaseMetadataEditTemplates.class, stmt.toString());
             stmt.executeUpdate();
@@ -81,47 +83,69 @@ public class DatabaseMetadataEditTemplates extends Database {
     }
 
     private void setMetadataEditTemplate(
-        PreparedStatement stmt, MetadataEditTemplate template) throws SQLException {
-        
+            PreparedStatement stmt, MetadataEditTemplate template) throws
+            SQLException {
+
         stmt.setString(1, template.getName());
-        stmt.setBytes(2, template.getDcSubjects() == null 
-            ? null : template.getDcSubjects().getBytes());
-        stmt.setBytes(3, template.getDcTitle() == null 
-            ? null : template.getDcTitle().getBytes());
-        stmt.setBytes(4, template.getPhotoshopHeadline() == null 
-            ? null : template.getPhotoshopHeadline().getBytes());
-        stmt.setBytes(5, template.getDcDescription() == null 
-            ? null : template.getDcDescription().getBytes());
-        stmt.setBytes(6, template.getPhotoshopCaptionwriter() == null 
-            ? null : template.getPhotoshopCaptionwriter().getBytes());
-        stmt.setBytes(7, template.getIptc4xmpcoreLocation() == null 
-            ? null : template.getIptc4xmpcoreLocation().getBytes());
-        stmt.setBytes(8, template.getIptc4xmpcoreCountrycode() == null 
-            ? null : template.getIptc4xmpcoreCountrycode().getBytes());
-        stmt.setBytes(9, template.getPhotoshopCategory() == null 
-            ? null : template.getPhotoshopCategory().getBytes());
-        stmt.setBytes(10, template.getPhotoshopSupplementalCategories() == null 
-            ? null : template.getPhotoshopSupplementalCategories().getBytes());
-        stmt.setBytes(11, template.getDcRights() == null 
-            ? null : template.getDcRights().getBytes());
-        stmt.setBytes(12, template.getDcCreator() == null 
-            ? null : template.getDcCreator().getBytes());
-        stmt.setBytes(13, template.getPhotoshopAuthorsposition() == null 
-            ? null : template.getPhotoshopAuthorsposition().getBytes());
-        stmt.setBytes(14, template.getPhotoshopCity() == null 
-            ? null : template.getPhotoshopCity().getBytes());
-        stmt.setBytes(15, template.getPhotoshopState() == null 
-            ? null : template.getPhotoshopState().getBytes());
-        stmt.setBytes(16, template.getPhotoshopCountry() == null 
-            ? null : template.getPhotoshopCountry().getBytes());
-        stmt.setBytes(17, template.getPhotoshopTransmissionReference() == null 
-            ? null : template.getPhotoshopTransmissionReference().getBytes());
-        stmt.setBytes(18, template.getPhotoshopInstructions() == null 
-            ? null : template.getPhotoshopInstructions().getBytes());
-        stmt.setBytes(19, template.getPhotoshopCredit() == null 
-            ? null : template.getPhotoshopCredit().getBytes());
-        stmt.setBytes(20, template.getPhotoshopSource() == null 
-            ? null : template.getPhotoshopSource().getBytes());
+        stmt.setBytes(2, template.getDcSubjects() == null
+                         ? null
+                         : template.getDcSubjects().getBytes());
+        stmt.setBytes(3, template.getDcTitle() == null
+                         ? null
+                         : template.getDcTitle().getBytes());
+        stmt.setBytes(4, template.getPhotoshopHeadline() == null
+                         ? null
+                         : template.getPhotoshopHeadline().getBytes());
+        stmt.setBytes(5, template.getDcDescription() == null
+                         ? null
+                         : template.getDcDescription().getBytes());
+        stmt.setBytes(6, template.getPhotoshopCaptionwriter() == null
+                         ? null
+                         : template.getPhotoshopCaptionwriter().getBytes());
+        stmt.setBytes(7, template.getIptc4xmpcoreLocation() == null
+                         ? null
+                         : template.getIptc4xmpcoreLocation().getBytes());
+        stmt.setBytes(8, template.getIptc4xmpcoreCountrycode() == null
+                         ? null
+                         : template.getIptc4xmpcoreCountrycode().getBytes());
+        stmt.setBytes(9, template.getPhotoshopCategory() == null
+                         ? null
+                         : template.getPhotoshopCategory().getBytes());
+        stmt.setBytes(10, template.getPhotoshopSupplementalCategories() == null
+                          ? null
+                          : template.getPhotoshopSupplementalCategories().
+                getBytes());
+        stmt.setBytes(11, template.getDcRights() == null
+                          ? null
+                          : template.getDcRights().getBytes());
+        stmt.setBytes(12, template.getDcCreator() == null
+                          ? null
+                          : template.getDcCreator().getBytes());
+        stmt.setBytes(13, template.getPhotoshopAuthorsposition() == null
+                          ? null
+                          : template.getPhotoshopAuthorsposition().getBytes());
+        stmt.setBytes(14, template.getPhotoshopCity() == null
+                          ? null
+                          : template.getPhotoshopCity().getBytes());
+        stmt.setBytes(15, template.getPhotoshopState() == null
+                          ? null
+                          : template.getPhotoshopState().getBytes());
+        stmt.setBytes(16, template.getPhotoshopCountry() == null
+                          ? null
+                          : template.getPhotoshopCountry().getBytes());
+        stmt.setBytes(17, template.getPhotoshopTransmissionReference() == null
+                          ? null
+                          : template.getPhotoshopTransmissionReference().
+                getBytes());
+        stmt.setBytes(18, template.getPhotoshopInstructions() == null
+                          ? null
+                          : template.getPhotoshopInstructions().getBytes());
+        stmt.setBytes(19, template.getPhotoshopCredit() == null
+                          ? null
+                          : template.getPhotoshopCredit().getBytes());
+        stmt.setBytes(20, template.getPhotoshopSource() == null
+                          ? null
+                          : template.getPhotoshopSource().getBytes());
     }
 
     /**
@@ -130,34 +154,38 @@ public class DatabaseMetadataEditTemplates extends Database {
      * @return Templates
      */
     public List<MetadataEditTemplate> getMetadataEditTemplates() {
-        List<MetadataEditTemplate> templates = new ArrayList<MetadataEditTemplate>();
+        List<MetadataEditTemplate> templates =
+                new ArrayList<MetadataEditTemplate>();
         Connection connection = null;
         try {
             connection = getConnection();
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT" + // NOI18N
-                " name" + // NOI18N -- 1 --
-                ", dcSubjects" + // NOI18N -- 2 --
-                ", dcTitle" + // NOI18N -- 3 --
-                ", photoshopHeadline" + // NOI18N -- 4 --
-                ", dcDescription" + // NOI18N -- 5 --
-                ", photoshopCaptionwriter" + // NOI18N -- 6 --
-                ", iptc4xmpcoreLocation" + // NOI18N -- 7 --
-                ", iptc4xmpcoreCountrycode" + // NOI18N -- 8 --
-                ", photoshopCategory" + // NOI18N -- 9 --
-                ", photoshopSupplementalCategories" + // NOI18N -- 10 --
-                ", dcRights" + // NOI18N -- 11 --
-                ", dcCreator" + // NOI18N -- 12 --
-                ", photoshopAuthorsposition" + // NOI18N -- 13 --
-                ", photoshopCity" + // NOI18N -- 14 --
-                ", photoshopState" + // NOI18N -- 15 --
-                ", photoshopCountry" + // NOI18N -- 16 --
-                ", photoshopTransmissionReference" + // NOI18N -- 17 --
-                ", photoshopInstructions" + // NOI18N -- 18 --
-                ", photoshopCredit" + // NOI18N -- 19 --
-                ", photoshopSource" + // NOI18N -- 20 --
-                " FROM metadata_edit_templates" + // NOI18N
-                " WHERE name IS NOT NULL"); // NOI18N
+            String sql =
+                    "SELECT" + // NOI18N
+                    " name" + // NOI18N -- 1 --
+                    ", dcSubjects" + // NOI18N -- 2 --
+                    ", dcTitle" + // NOI18N -- 3 --
+                    ", photoshopHeadline" + // NOI18N -- 4 --
+                    ", dcDescription" + // NOI18N -- 5 --
+                    ", photoshopCaptionwriter" + // NOI18N -- 6 --
+                    ", iptc4xmpcoreLocation" + // NOI18N -- 7 --
+                    ", iptc4xmpcoreCountrycode" + // NOI18N -- 8 --
+                    ", photoshopCategory" + // NOI18N -- 9 --
+                    ", photoshopSupplementalCategories" + // NOI18N -- 10 --
+                    ", dcRights" + // NOI18N -- 11 --
+                    ", dcCreator" + // NOI18N -- 12 --
+                    ", photoshopAuthorsposition" + // NOI18N -- 13 --
+                    ", photoshopCity" + // NOI18N -- 14 --
+                    ", photoshopState" + // NOI18N -- 15 --
+                    ", photoshopCountry" + // NOI18N -- 16 --
+                    ", photoshopTransmissionReference" + // NOI18N -- 17 --
+                    ", photoshopInstructions" + // NOI18N -- 18 --
+                    ", photoshopCredit" + // NOI18N -- 19 --
+                    ", photoshopSource" + // NOI18N -- 20 --
+                    " FROM metadata_edit_templates" + // NOI18N
+                    " WHERE name IS NOT NULL"; // NOI18N
+            AppLog.logFinest(getClass(), sql);
+            ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 MetadataEditTemplate template = new MetadataEditTemplate();
                 template.setName(rs.getString(1));
@@ -169,14 +197,16 @@ public class DatabaseMetadataEditTemplates extends Database {
                 template.setIptc4xmpcoreLocation(new String(rs.getBytes(7)));
                 template.setIptc4xmpcoreCountrycode(new String(rs.getBytes(8)));
                 template.setPhotoshopCategory(new String(rs.getBytes(9)));
-                template.setPhotoshopSupplementalCategories(new String(rs.getBytes(10)));
+                template.setPhotoshopSupplementalCategories(new String(rs.
+                        getBytes(10)));
                 template.setDcRights(new String(rs.getBytes(11)));
                 template.setDcCreator(new String(rs.getBytes(12)));
                 template.setPhotoshopAuthorsposition(new String(rs.getBytes(13)));
                 template.setPhotoshopCity(new String(rs.getBytes(14)));
                 template.setPhotoshopState(new String(rs.getBytes(15)));
                 template.setPhotoshopCountry(new String(rs.getBytes(16)));
-                template.setPhotoshopTransmissionReference(new String(rs.getBytes(17)));
+                template.setPhotoshopTransmissionReference(new String(rs.
+                        getBytes(17)));
                 template.setPhotoshopInstructions(new String(rs.getBytes(18)));
                 template.setPhotoshopCredit(new String(rs.getBytes(19)));
                 template.setPhotoshopSource(new String(rs.getBytes(20)));
@@ -198,35 +228,35 @@ public class DatabaseMetadataEditTemplates extends Database {
      * @return true bei Erfolg
      */
     public boolean updateMetadataEditTemplate(MetadataEditTemplate template) {
-        
+
         boolean updated = false;
         Connection connection = null;
         try {
             connection = getConnection();
             connection.setAutoCommit(false);
             PreparedStatement stmt = connection.prepareStatement(
-                "UPDATE metadata_edit_templates" + // NOI18N
-                " SET name = ?" + // NOI18N -- 1 --
-                ", dcSubjects = ?" + // NOI18N -- 2 --
-                ", dcTitle = ?" + // NOI18N -- 3 --
-                ", photoshopHeadline = ?" + // NOI18N -- 4 --
-                ", dcDescription = ?" + // NOI18N -- 5 --
-                ", photoshopCaptionwriter = ?" + // NOI18N -- 6 --
-                ", iptc4xmpcoreLocation = ?" + // NOI18N -- 7 --
-                ", iptc4xmpcoreCountrycode = ?" + // NOI18N -- 8 --
-                ", photoshopCategory = ?" + // NOI18N -- 9 --
-                ", photoshopSupplementalCategories = ?" + // NOI18N -- 10 --
-                ", dcRights = ?" + // NOI18N -- 11 --
-                ", dcCreator = ?" + // NOI18N -- 12 --
-                ", photoshopAuthorsposition = ?" + // NOI18N -- 13 --
-                ", photoshopCity = ?" + // NOI18N -- 14 --
-                ", photoshopState = ?" + // NOI18N -- 15 --
-                ", photoshopCountry = ?" + // NOI18N -- 16 --
-                ", photoshopTransmissionReference = ?" + // NOI18N -- 17 --
-                ", photoshopInstructions = ?" + // NOI18N -- 18 --
-                ", photoshopCredit = ?" + // NOI18N -- 19 --
-                ", photoshopSource = ?" + // NOI18N -- 20 --
-                " WHERE name = ?"); // NOI18N -- 21 --
+                    "UPDATE metadata_edit_templates" + // NOI18N
+                    " SET name = ?" + // NOI18N -- 1 --
+                    ", dcSubjects = ?" + // NOI18N -- 2 --
+                    ", dcTitle = ?" + // NOI18N -- 3 --
+                    ", photoshopHeadline = ?" + // NOI18N -- 4 --
+                    ", dcDescription = ?" + // NOI18N -- 5 --
+                    ", photoshopCaptionwriter = ?" + // NOI18N -- 6 --
+                    ", iptc4xmpcoreLocation = ?" + // NOI18N -- 7 --
+                    ", iptc4xmpcoreCountrycode = ?" + // NOI18N -- 8 --
+                    ", photoshopCategory = ?" + // NOI18N -- 9 --
+                    ", photoshopSupplementalCategories = ?" + // NOI18N -- 10 --
+                    ", dcRights = ?" + // NOI18N -- 11 --
+                    ", dcCreator = ?" + // NOI18N -- 12 --
+                    ", photoshopAuthorsposition = ?" + // NOI18N -- 13 --
+                    ", photoshopCity = ?" + // NOI18N -- 14 --
+                    ", photoshopState = ?" + // NOI18N -- 15 --
+                    ", photoshopCountry = ?" + // NOI18N -- 16 --
+                    ", photoshopTransmissionReference = ?" + // NOI18N -- 17 --
+                    ", photoshopInstructions = ?" + // NOI18N -- 18 --
+                    ", photoshopCredit = ?" + // NOI18N -- 19 --
+                    ", photoshopSource = ?" + // NOI18N -- 20 --
+                    " WHERE name = ?"); // NOI18N -- 21 --
             setMetadataEditTemplate(stmt, template);
             stmt.setString(21, template.getName());
             AppLog.logFiner(DatabaseMetadataEditTemplates.class, stmt.toString());
@@ -251,17 +281,17 @@ public class DatabaseMetadataEditTemplates extends Database {
      * @return true bei Erfolg
      */
     public boolean updateRenameMetadataEditTemplate(
-        String oldName, String newName) {
-        
+            String oldName, String newName) {
+
         boolean renamed = false;
         Connection connection = null;
         try {
             connection = getConnection();
             connection.setAutoCommit(false);
             PreparedStatement stmt = connection.prepareStatement(
-                "UPDATE metadata_edit_templates" + // NOI18N
-                " SET name = ?" + // NOI18N
-                " WHERE name = ?"); // NOI18N
+                    "UPDATE metadata_edit_templates" + // NOI18N
+                    " SET name = ?" + // NOI18N
+                    " WHERE name = ?"); // NOI18N
             stmt.setString(1, newName);
             stmt.setString(2, oldName);
             AppLog.logFiner(DatabaseMetadataEditTemplates.class, stmt.toString());
@@ -291,7 +321,7 @@ public class DatabaseMetadataEditTemplates extends Database {
             connection = getConnection();
             connection.setAutoCommit(false);
             PreparedStatement stmt = connection.prepareStatement(
-                "DELETE FROM metadata_edit_templates WHERE name = ?"); // NOI18N
+                    "DELETE FROM metadata_edit_templates WHERE name = ?"); // NOI18N
             stmt.setString(1, name);
             AppLog.logFiner(DatabaseMetadataEditTemplates.class, stmt.toString());
             int count = stmt.executeUpdate();
@@ -313,11 +343,11 @@ public class DatabaseMetadataEditTemplates extends Database {
         try {
             connection = getConnection();
             PreparedStatement stmt = connection.prepareStatement(
-                "SELECT COUNT(*)" + // NOI18N
-                " FROM metadata_edit_templates" + // NOI18N
-                " WHERE name = ?"); // NOI18N
+                    "SELECT COUNT(*)" + // NOI18N
+                    " FROM metadata_edit_templates" + // NOI18N
+                    " WHERE name = ?"); // NOI18N
             stmt.setString(1, name);
-            AppLog.logFinest(DatabaseMetadataEditTemplates.class, stmt.toString());
+            AppLog.logFinest(getClass(), stmt.toString());
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 exists = rs.getInt(1) > 0;
@@ -330,5 +360,4 @@ public class DatabaseMetadataEditTemplates extends Database {
         }
         return exists;
     }
-
 }

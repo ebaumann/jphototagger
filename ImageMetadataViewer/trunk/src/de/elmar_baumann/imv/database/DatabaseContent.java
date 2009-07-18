@@ -16,9 +16,9 @@ import java.util.Set;
  * @version 2008/10/21
  */
 public final class DatabaseContent extends Database {
-    
+
     public static final DatabaseContent INSTANCE = new DatabaseContent();
-    
+
     private DatabaseContent() {
     }
 
@@ -34,21 +34,23 @@ public final class DatabaseContent extends Database {
         try {
             connection = getConnection();
             String columnName = column.getName();
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(
-                "SELECT DISTINCT " + // NOI18N
-                columnName +
-                " FROM " + // NOI18N
-                column.getTable().getName() +
-                " WHERE " + // NOI18N
-                columnName +
-                " IS NOT NULL"); // NOI18N
+            Statement stmt = connection.createStatement();
+            String sql =
+                    "SELECT DISTINCT " + // NOI18N
+                    columnName +
+                    " FROM " + // NOI18N
+                    column.getTable().getName() +
+                    " WHERE " + // NOI18N
+                    columnName +
+                    " IS NOT NULL"; // NOI18N
+            AppLog.logFinest(getClass(), sql);
+            ResultSet resultSet = stmt.executeQuery(sql);
 
             while (resultSet.next()) {
                 content.add(resultSet.getString(1));
             }
             resultSet.close();
-            statement.close();
+            stmt.close();
         } catch (SQLException ex) {
             AppLog.logSevere(DatabaseContent.class, ex);
             content.clear();
@@ -71,5 +73,4 @@ public final class DatabaseContent extends Database {
         }
         return content;
     }
-
 }

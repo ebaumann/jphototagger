@@ -17,7 +17,6 @@ import java.util.List;
 // ID parent: Can be null, must be handle when setting and getting
 // Keyword: Can never be null
 // Real: Can be null but it's ok to use false when reading and writing if null
-
 /**
  * Contains hierarchical keywords.
  *
@@ -47,8 +46,8 @@ public final class DatabaseHierarchicalKeywords extends Database {
                     "SELECT id, id_parent, subject, real" + // NOI18N
                     " FROM hierarchical_subjects"; // NOI18N
             Statement stmt = connection.createStatement();
+            AppLog.logFinest(getClass(), sql);
             ResultSet rs = stmt.executeQuery(sql);
-            AppLog.logFinest(DatabaseHierarchicalKeywords.class, sql);
             while (rs.next()) {
                 Long idParent = rs.getLong(2);
                 if (rs.wasNull()) idParent = null;

@@ -158,8 +158,9 @@ public final class DatabaseSavedSearches extends Database {
         try {
             connection = getConnection();
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery(
-                    "SELECT COUNT(*) FROM saved_searches"); // NOI18N
+            String sql = "SELECT COUNT(*) FROM saved_searches"; // NOI18N
+            AppLog.logFinest(getClass(), sql);
+            ResultSet rs = stmt.executeQuery(sql);
             if (rs.next()) {
                 count = rs.getInt(1);
             }
@@ -335,11 +336,14 @@ public final class DatabaseSavedSearches extends Database {
         try {
             connection = getConnection();
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT" + // NOI18N
+            String sql =
+                    "SELECT" + // NOI18N
                     " name" + // NOI18N -- 1 --
                     ", sql_string" + // NOI18N -- 2 --
                     ", is_query" + // NOI18N -- 3 --
-                    " FROM saved_searches ORDER BY name"); // NOI18N
+                    " FROM saved_searches ORDER BY name"; // NOI18N
+            AppLog.logFinest(getClass(), sql);
+            ResultSet rs = stmt.executeQuery(sql); // NOI18N
             while (rs.next()) {
                 SavedSearch data = new SavedSearch();
                 SavedSearchParamStatement paramStatementData =

@@ -20,7 +20,8 @@ import java.util.List;
  */
 public final class DatabaseActionsAfterDbInsertion extends Database {
 
-    public static final DatabaseActionsAfterDbInsertion INSTANCE = new DatabaseActionsAfterDbInsertion();
+    public static final DatabaseActionsAfterDbInsertion INSTANCE =
+            new DatabaseActionsAfterDbInsertion();
 
     private DatabaseActionsAfterDbInsertion() {
     }
@@ -48,8 +49,8 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
                     " VALUES (?, ?)"); // NOI18N
             stmt.setLong(1, action.getId());
             stmt.setInt(2, order);
-            AppLog.logFiner(DatabaseActionsAfterDbInsertion.class,
-                    stmt.toString());
+            AppLog.logFiner(
+                    DatabaseActionsAfterDbInsertion.class, stmt.toString());
             countAffectedRows = stmt.executeUpdate();
             connection.commit();
             stmt.close();
@@ -74,11 +75,12 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
         try {
             connection = getConnection();
             connection.setAutoCommit(false);
-            PreparedStatement stmt = connection.prepareStatement(
+            PreparedStatement stmt =
+                    connection.prepareStatement(
                     "DELETE FROM actions_after_db_insertion WHERE id_programs = ?"); // NOI18N
             stmt.setLong(1, action.getId());
-            AppLog.logFiner(DatabaseActionsAfterDbInsertion.class,
-                    stmt.toString());
+            AppLog.logFiner(
+                    DatabaseActionsAfterDbInsertion.class, stmt.toString());
             countAffectedRows = stmt.executeUpdate();
             connection.commit();
             stmt.close();
@@ -110,7 +112,8 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 long idProgram = rs.getLong(1);
-                Program program = DatabasePrograms.INSTANCE.getProgram(idProgram);
+                Program program =
+                        DatabasePrograms.INSTANCE.getProgram(idProgram);
                 if (program == null) {
                     AppLog.logWarning(DatabaseActionsAfterDbInsertion.class,
                             Bundle.getString(
@@ -145,6 +148,7 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
                     " FROM actions_after_db_insertion" + // NOI18N
                     " WHERE id_programs = ?"); // NOI18N
             stmt.setLong(1, action.getId());
+            AppLog.logFinest(getClass(), stmt.toString());
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 exists = rs.getInt(1) > 0;
@@ -183,7 +187,8 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
             for (Program action : actions) {
                 stmt.setInt(1, index++);
                 stmt.setLong(2, action.getId());
-                AppLog.logFiner(DatabaseActionsAfterDbInsertion.class, stmt.toString());
+                AppLog.logFiner(
+                        DatabaseActionsAfterDbInsertion.class, stmt.toString());
                 countAffected += stmt.executeUpdate();
             }
             connection.commit();

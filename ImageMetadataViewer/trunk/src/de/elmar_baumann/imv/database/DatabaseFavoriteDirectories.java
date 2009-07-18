@@ -17,9 +17,10 @@ import java.util.List;
  * @version 2008/10/21
  */
 public final class DatabaseFavoriteDirectories extends Database {
-    
-    public static final DatabaseFavoriteDirectories INSTANCE = new DatabaseFavoriteDirectories();
-    
+
+    public static final DatabaseFavoriteDirectories INSTANCE =
+            new DatabaseFavoriteDirectories();
+
     private DatabaseFavoriteDirectories() {
     }
 
@@ -30,22 +31,24 @@ public final class DatabaseFavoriteDirectories extends Database {
      * @param  favoriteDirectory  Favoritenverzeichnis
      * @return true bei Erfolg
      */
-    public boolean insertOrUpdateFavoriteDirectory(FavoriteDirectory favoriteDirectory) {
-        
+    public boolean insertOrUpdateFavoriteDirectory(
+            FavoriteDirectory favoriteDirectory) {
+
         boolean inserted = false;
         Connection connection = null;
         try {
             if (existsFavoriteDirectory(favoriteDirectory.getFavoriteName())) {
-                return updateFavoriteDirectory(favoriteDirectory.getFavoriteName(), favoriteDirectory);
+                return updateFavoriteDirectory(
+                        favoriteDirectory.getFavoriteName(), favoriteDirectory);
             }
             connection = getConnection();
             connection.setAutoCommit(false);
             PreparedStatement stmt = connection.prepareStatement(
-                "INSERT INTO favorite_directories" + // NOI18N
-                " (favorite_name" + // NOI18N -- 1 --
-                ", directory_name" + // NOI18N -- 2 --
-                ", favorite_index)" + // NOI18N -- 3 --
-                " VALUES (?, ?, ?)"); // NOI18N
+                    "INSERT INTO favorite_directories" + // NOI18N
+                    " (favorite_name" + // NOI18N -- 1 --
+                    ", directory_name" + // NOI18N -- 2 --
+                    ", favorite_index)" + // NOI18N -- 3 --
+                    " VALUES (?, ?, ?)"); // NOI18N
             stmt.setString(1, favoriteDirectory.getFavoriteName());
             stmt.setString(2, favoriteDirectory.getDirectoryName());
             stmt.setInt(3, favoriteDirectory.getIndex());
@@ -76,7 +79,7 @@ public final class DatabaseFavoriteDirectories extends Database {
             connection = getConnection();
             connection.setAutoCommit(false);
             PreparedStatement stmt = connection.prepareStatement(
-                "DELETE FROM favorite_directories WHERE favorite_name = ?"); // NOI18N
+                    "DELETE FROM favorite_directories WHERE favorite_name = ?"); // NOI18N
             stmt.setString(1, favoriteName);
             AppLog.logFiner(DatabaseFavoriteDirectories.class, stmt.toString());
             int count = stmt.executeUpdate();
@@ -99,19 +102,20 @@ public final class DatabaseFavoriteDirectories extends Database {
      * @param favorite          Favoritenverzeichnis
      * @return true bei Erfolg
      */
-    public boolean updateFavoriteDirectory(String favoriteName, FavoriteDirectory favorite) {
-        
+    public boolean updateFavoriteDirectory(String favoriteName,
+            FavoriteDirectory favorite) {
+
         boolean updated = false;
         Connection connection = null;
         try {
             connection = getConnection();
             connection.setAutoCommit(false);
             PreparedStatement stmt = connection.prepareStatement(
-                "UPDATE favorite_directories SET" + // NOI18N
-                " favorite_name = ?" + // NOI18N -- 1 --
-                ", directory_name = ?" + // NOI18N --2  --
-                ", favorite_index = ?" + // NOI18N -- 3 --
-                " WHERE favorite_name = ?"); // NOI18N -- 4 --
+                    "UPDATE favorite_directories SET" + // NOI18N
+                    " favorite_name = ?" + // NOI18N -- 1 --
+                    ", directory_name = ?" + // NOI18N --2  --
+                    ", favorite_index = ?" + // NOI18N -- 3 --
+                    " WHERE favorite_name = ?"); // NOI18N -- 4 --
             stmt.setString(1, favorite.getFavoriteName());
             stmt.setString(2, favorite.getDirectoryName());
             stmt.setInt(3, favorite.getIndex());
@@ -141,15 +145,17 @@ public final class DatabaseFavoriteDirectories extends Database {
         try {
             connection = getConnection();
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery(
-                "SELECT favorite_name" + // NOI18N -- 1 --
-                ", directory_name" + // NOI18N -- 2 --
-                ", favorite_index" + // NOI18N -- 3 --
-                " FROM favorite_directories" + // NOI18N
-                " ORDER BY favorite_index ASC"); // NOI18N
+            String sql =
+                    "SELECT favorite_name" + // NOI18N -- 1 --
+                    ", directory_name" + // NOI18N -- 2 --
+                    ", favorite_index" + // NOI18N -- 3 --
+                    " FROM favorite_directories" + // NOI18N
+                    " ORDER BY favorite_index ASC"; // NOI18N
+            AppLog.logFinest(getClass(), sql);
+            ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 directories.add(new FavoriteDirectory(
-                    rs.getString(1), rs.getString(2), rs.getInt(3)));
+                        rs.getString(1), rs.getString(2), rs.getInt(3)));
             }
             stmt.close();
         } catch (SQLException ex) {
@@ -173,8 +179,8 @@ public final class DatabaseFavoriteDirectories extends Database {
         try {
             connection = getConnection();
             PreparedStatement stmt = connection.prepareStatement(
-                "SELECT COUNT(*) FROM favorite_directories" + // NOI18N
-                " WHERE favorite_name = ?"); // NOI18N
+                    "SELECT COUNT(*) FROM favorite_directories" + // NOI18N
+                    " WHERE favorite_name = ?"); // NOI18N
             stmt.setString(1, favoriteName);
             AppLog.logFinest(DatabaseFavoriteDirectories.class, stmt.toString());
             ResultSet rs = stmt.executeQuery();
@@ -191,5 +197,4 @@ public final class DatabaseFavoriteDirectories extends Database {
         }
         return exists;
     }
-
 }

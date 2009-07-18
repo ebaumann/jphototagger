@@ -28,8 +28,8 @@ public final class DatabaseSearch extends Database {
     /**
      * Liefert Dateinamen anhand eines Statements.
      *
-     * @param paramStatement Korrekt ausgefülltes Statement
-     * @return Dateiname
+     * @param  paramStatement Korrekt ausgefülltes Statement
+     * @return                Dateiname
      */
     public List<String> searchFilenames(ParamStatement paramStatement) {
         List<String> filenames = new ArrayList<String>();
@@ -37,10 +37,11 @@ public final class DatabaseSearch extends Database {
         try {
             connection = getConnection();
             PreparedStatement preparedStatement =
-                connection.prepareStatement(paramStatement.getSql());
+                    connection.prepareStatement(paramStatement.getSql());
             if (paramStatement.getValues() != null) {
                 for (int i = 0; i < paramStatement.getValues().length; i++) {
-                    preparedStatement.setObject(i + 1, paramStatement.getValues()[i]);
+                    preparedStatement.setObject(i + 1,
+                            paramStatement.getValues()[i]);
                 }
             }
             AppLog.logFinest(DatabaseSearch.class, preparedStatement.toString());
@@ -69,28 +70,32 @@ public final class DatabaseSearch extends Database {
      * @return              Alle gefundenen Dateinamen
      */
     public List<String> searchFilenamesLikeOr(
-        List<Column> searchColumns, String searchString) {
+            List<Column> searchColumns, String searchString) {
 
         List<String> filenames = new ArrayList<String>();
-        addFilenamesSearchFilenamesLikeOr(DatabaseMetadataUtil.getTableColumnsOfTableCategory(
-            searchColumns, "xmp"), searchString, filenames, "xmp"); // NOI18N
-        addFilenamesSearchFilenamesLikeOr(DatabaseMetadataUtil.getTableColumnsOfTableCategory(
-            searchColumns, "exif"), searchString, filenames, "exif"); // NOI18N
+        addFilenamesSearchFilenamesLikeOr(DatabaseMetadataUtil.
+                getTableColumnsOfTableCategory(
+                searchColumns, "xmp"), searchString, filenames, "xmp"); // NOI18N
+        addFilenamesSearchFilenamesLikeOr(DatabaseMetadataUtil.
+                getTableColumnsOfTableCategory(
+                searchColumns, "exif"), searchString, filenames, "exif"); // NOI18N
         return filenames;
     }
 
     private void addFilenamesSearchFilenamesLikeOr(List<Column> searchColumns,
-        String searchString, List<String> filenames, String tablename) {
+            String searchString, List<String> filenames, String tablename) {
         if (searchColumns.size() > 0) {
             Connection connection = null;
             try {
                 connection = getConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(
-                    getSqlSearchFilenamesLikeOr(searchColumns, tablename));
+                PreparedStatement preparedStatement = connection.
+                        prepareStatement(
+                        getSqlSearchFilenamesLikeOr(searchColumns, tablename));
                 for (int i = 0; i < searchColumns.size(); i++) {
                     preparedStatement.setString(i + 1, "%" + searchString + "%"); // NOI18N
                 }
-                AppLog.logFinest(DatabaseSearch.class, preparedStatement.toString());
+                AppLog.logFinest(
+                        DatabaseSearch.class, preparedStatement.toString());
                 ResultSet resultSet = preparedStatement.executeQuery();
                 String string;
                 while (resultSet.next()) {
@@ -111,21 +116,26 @@ public final class DatabaseSearch extends Database {
     }
 
     private String getSqlSearchFilenamesLikeOr(
-        List<Column> searchColumns, String tablename) {
+            List<Column> searchColumns, String tablename) {
 
-        StringBuffer sql = new StringBuffer("SELECT DISTINCT files.filename FROM "); // NOI18N
+        StringBuffer sql = new StringBuffer(
+                "SELECT DISTINCT files.filename FROM "); // NOI18N
         List<String> tablenames =
-            DatabaseMetadataUtil.getUniqueTableNamesOfColumnArray(searchColumns);
+                DatabaseMetadataUtil.getUniqueTableNamesOfColumnArray(
+                searchColumns);
 
         sql.append((tablename.equals("xmp") // NOI18N
-            ? Join.getSqlFilesXmpJoin(tablenames) // NOI18N
-            : Join.getSqlFilesExifJoin(tablenames)) + // NOI18N
-            " WHERE "); // NOI18N
+                    ? Join.getSqlFilesXmpJoin(tablenames) // NOI18N
+                    : Join.getSqlFilesExifJoin(tablenames)) + // NOI18N
+                " WHERE "); // NOI18N
         boolean isFirstColumn = true;
         for (Column tableColumn : searchColumns) {
-            sql.append((!isFirstColumn ? " OR " : "") + // NOI18N
-                tableColumn.getTable().getName() + "." + tableColumn.getName() + // NOI18N
-                " LIKE ?"); // NOI18N
+            sql.append((!isFirstColumn
+                        ? " OR "
+                        : "") + // NOI18N
+                    tableColumn.getTable().getName() + "." +
+                    tableColumn.getName() + // NOI18N
+                    " LIKE ?"); // NOI18N
             isFirstColumn = false;
         }
         sql.append(" ORDER BY files.filename ASC"); // NOI18N

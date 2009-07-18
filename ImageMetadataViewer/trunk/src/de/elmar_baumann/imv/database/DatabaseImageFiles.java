@@ -745,6 +745,7 @@ public final class DatabaseImageFiles extends Database {
                 PreparedStatement stmt = connection.prepareStatement(
                         "DELETE FROM xmp where id = ?"); // NOI18N
                 stmt.setLong(1, idXmp);
+                AppLog.logFiner(getClass(), stmt.toString());
                 stmt.executeUpdate();
                 stmt.close();
             }
@@ -1250,6 +1251,7 @@ public final class DatabaseImageFiles extends Database {
                 PreparedStatement stmt = connection.prepareStatement(
                         "DELETE FROM exif where id = ?"); // NOI18N
                 stmt.setLong(1, idExif);
+                AppLog.logFiner(getClass(), stmt.toString());
                 stmt.executeUpdate();
                 stmt.close();
             }

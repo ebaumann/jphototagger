@@ -78,10 +78,12 @@ public final class DatabasePrograms extends Database {
         stmt.setString(4, program.getAlias());
         String parametersBeforeFilename = program.getParametersBeforeFilename();
         stmt.setBytes(5, parametersBeforeFilename == null
-                ? null : parametersBeforeFilename.getBytes());
+                         ? null
+                         : parametersBeforeFilename.getBytes());
         String parametersAfterFilename = program.getParametersAfterFilename();
         stmt.setBytes(6, parametersAfterFilename == null
-                ? null : parametersAfterFilename.getBytes());
+                         ? null
+                         : parametersAfterFilename.getBytes());
         stmt.setBoolean(7, program.isInputBeforeExecute());
         stmt.setBoolean(8, program.isInputBeforeExecutePerFile());
         stmt.setBoolean(9, program.isSingleFileProcessing());
@@ -92,7 +94,9 @@ public final class DatabasePrograms extends Database {
     private void setId(Connection connection, Program program) throws
             SQLException {
         Statement stmt = connection.createStatement();
-        ResultSet rs = stmt.executeQuery("SELECT MAX(id) FROM programs"); // NOI18N
+        String sql = "SELECT MAX(id) FROM programs";
+        AppLog.logFinest(getClass(), sql);
+        ResultSet rs = stmt.executeQuery(sql);
         if (rs.next()) {
             program.setId(rs.getLong(1) + 1);
         }
@@ -130,7 +134,8 @@ public final class DatabasePrograms extends Database {
             countAffectedRows = stmt.executeUpdate();
             connection.commit();
             stmt.close();
-            notifyDatabaseListener(DatabaseProgramEvent.Type.PROGRAM_UPDATED, program);
+            notifyDatabaseListener(DatabaseProgramEvent.Type.PROGRAM_UPDATED,
+                    program);
         } catch (SQLException ex) {
             AppLog.logSevere(DatabasePrograms.class, ex);
             rollback(connection);
@@ -147,10 +152,12 @@ public final class DatabasePrograms extends Database {
         stmt.setString(3, program.getAlias());
         String parametersBeforeFilename = program.getParametersBeforeFilename();
         stmt.setBytes(4, parametersBeforeFilename == null
-                ? null : parametersBeforeFilename.getBytes());
+                         ? null
+                         : parametersBeforeFilename.getBytes());
         String parametersAfterFilename = program.getParametersAfterFilename();
         stmt.setBytes(5, parametersAfterFilename == null
-                ? null : parametersAfterFilename.getBytes());
+                         ? null
+                         : parametersAfterFilename.getBytes());
         stmt.setBoolean(6, program.isInputBeforeExecute());
         stmt.setBoolean(7, program.isInputBeforeExecutePerFile());
         stmt.setBoolean(8, program.isSingleFileProcessing());
@@ -179,7 +186,8 @@ public final class DatabasePrograms extends Database {
             // Hack because of dirty design of this table (no cascade possible)
             DatabaseActionsAfterDbInsertion.INSTANCE.delete(program);
             stmt.close();
-            notifyDatabaseListener(DatabaseProgramEvent.Type.PROGRAM_DELETED, program);
+            notifyDatabaseListener(DatabaseProgramEvent.Type.PROGRAM_DELETED,
+                    program);
         } catch (SQLException ex) {
             AppLog.logSevere(DatabasePrograms.class, ex);
             rollback(connection);
@@ -239,10 +247,10 @@ public final class DatabasePrograms extends Database {
                 ", sequence_number" + // NOI18N
                 " FROM programs" + // NOI18N
                 (filter.equals(WhereFilter.ACTION)
-                ? " WHERE action = ?" // NOI18N
-                : filter.equals(WhereFilter.ID)
-                ? " WHERE id = ?" // NOI18N
-                : "") + // NOI18N
+                 ? " WHERE action = ?" // NOI18N
+                 : filter.equals(WhereFilter.ID)
+                   ? " WHERE id = ?" // NOI18N
+                   : "") + // NOI18N
                 " ORDER BY alias"; // NOI18N
     }
 
@@ -254,9 +262,13 @@ public final class DatabasePrograms extends Database {
         program.setAction(rs.getBoolean(2));
         program.setFile(new File(rs.getString(3)));
         program.setAlias(rs.getString(4));
-        program.setParametersBeforeFilename(parametersBeforeFilename == null ? null : new String(
+        program.setParametersBeforeFilename(parametersBeforeFilename == null
+                                            ? null
+                                            : new String(
                 parametersBeforeFilename));
-        program.setParametersAfterFilename(parametersAfterFilename == null ? null : new String(
+        program.setParametersAfterFilename(parametersAfterFilename == null
+                                           ? null
+                                           : new String(
                 parametersAfterFilename));
         program.setInputBeforeExecute(rs.getBoolean(7));
         program.setInputBeforeExecutePerFile(rs.getBoolean(8));
@@ -306,6 +318,7 @@ public final class DatabasePrograms extends Database {
             connection = getConnection();
             PreparedStatement stmt = connection.prepareStatement(
                     "SELECT COUNT(*) FROM programs WHERE action = FALSE"); // NOI18N
+            AppLog.logFinest(getClass(), stmt.toString());
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 count = rs.getInt(1);

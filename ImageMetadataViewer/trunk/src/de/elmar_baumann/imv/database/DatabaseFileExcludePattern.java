@@ -124,9 +124,13 @@ public final class DatabaseFileExcludePattern extends Database {
         try {
             connection = getConnection();
             Statement stmt = connection.createStatement();
+            String sql =
+                    "SELECT pattern" + // NOI18N
+                    " FROM file_exclude_pattern" + // NOI18N
+                    " ORDER BY pattern ASC"; // NOI18N
+            AppLog.logFinest(getClass(), sql);
             ResultSet rs =
-                    stmt.executeQuery(
-                    "SELECT pattern FROM file_exclude_pattern ORDER BY pattern ASC"); // NOI18N
+                    stmt.executeQuery(sql);
             while (rs.next()) {
                 patterns.add(rs.getString(1));
             }
@@ -155,10 +159,13 @@ public final class DatabaseFileExcludePattern extends Database {
             connection = getConnection();
             connection.setAutoCommit(false);
             List<String> deletedFiles = new LinkedList<String>();
-            Statement queryStmt = connection.createStatement();
-            PreparedStatement updateStmt = connection.prepareStatement(
-                    "DELETE FROM files WHERE filename = ?"); // NOI18N
-            ResultSet rs = queryStmt.executeQuery("SELECT filename FROM files"); // NOI18N
+            Statement stmtQuery = connection.createStatement();
+            String sqlUpdate = "DELETE FROM files WHERE filename = ?"; // NOI18N
+            PreparedStatement stmtUpdate =
+                    connection.prepareStatement(sqlUpdate);
+            String sqlQuery = "SELECT filename FROM files"; // NOI18N
+            AppLog.logFinest(getClass(), sqlQuery);
+            ResultSet rs = stmtQuery.executeQuery(sqlQuery);
             int patternCount = patterns.size();
             int progress = 0;
             ProgressEvent event =
@@ -172,11 +179,10 @@ public final class DatabaseFileExcludePattern extends Database {
                     progress++;
                     String pattern = patterns.get(i);
                     if (filename.matches(pattern)) {
-                        updateStmt.setString(1, filename);
+                        stmtUpdate.setString(1, filename);
                         deletedFiles.add(filename);
-                        AppLog.logFiner(DatabaseFileExcludePattern.class,
-                                updateStmt.toString());
-                        int affectedRows = updateStmt.executeUpdate();
+                        AppLog.logFiner(getClass(), stmtUpdate.toString());
+                        int affectedRows = stmtUpdate.executeUpdate();
                         count += affectedRows;
                         if (affectedRows > 0) {
                             ImageFile deletedImageFile = new ImageFile();
@@ -194,8 +200,8 @@ public final class DatabaseFileExcludePattern extends Database {
                 }
             }
             connection.commit();
-            queryStmt.close();
-            updateStmt.close();
+            stmtQuery.close();
+            stmtUpdate.close();
             notifyProgressListenerEnd(listener, event);
         } catch (SQLException ex) {
             AppLog.logSevere(DatabaseFileExcludePattern.class, ex);
