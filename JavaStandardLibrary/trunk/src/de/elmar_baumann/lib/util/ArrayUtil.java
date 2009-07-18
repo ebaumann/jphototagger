@@ -165,7 +165,7 @@ public final class ArrayUtil {
         int index = 0;
         for (Object o : collection) {
             tokenString.append((index++ == 0
-                                ? ""
+                                ? "" // NOI18N
                                 : delimiter) +
                     o.toString().replace(delimiter, delimiterReplacement));
         }

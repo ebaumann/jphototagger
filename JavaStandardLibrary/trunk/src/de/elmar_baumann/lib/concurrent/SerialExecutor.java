@@ -38,7 +38,7 @@ public final class SerialExecutor implements Executor {
         } else if (active != null) {
             Logger.getLogger(getClass().getName()).log(Level.WARNING,
                     Bundle.getString(
-                    "SerialExecutor.Error.Shutdown.RunnableIsNotAThread", active));
+                    "SerialExecutor.Error.Shutdown.RunnableIsNotAThread", active)); // NOI18N
         }
     }
 

@@ -138,7 +138,7 @@ public final class LogfileDialog extends javax.swing.JDialog implements
                 paneIndexOfFormatterClass.get(SimpleFormatter.class);
         if (simple) {
             editorPaneSimple.setText(FileUtil.getFileContentAsString(
-                    new File(logfilename), "UTF-8"));
+                    new File(logfilename), "UTF-8")); // NOI18N
         } else {
             readLogfileRecords();
             setTable();
@@ -377,7 +377,7 @@ public final class LogfileDialog extends javax.swing.JDialog implements
     private void readSimple() {
         selectPane();
         editorPaneSimple.setText(
-                FileUtil.getFileContentAsString(new File(logfilename), "UTF-8"));
+                FileUtil.getFileContentAsString(new File(logfilename), "UTF-8")); // NOI18N
     }
 
     private void readXml() {
