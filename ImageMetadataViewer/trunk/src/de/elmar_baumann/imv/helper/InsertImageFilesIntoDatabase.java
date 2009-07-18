@@ -101,7 +101,6 @@ public final class InsertImageFilesIntoDatabase extends Thread {
         progressStarted(count); // NOI18N
         for (int index = 0; !isInterrupted() && index < count; index++) {
             String filename = filenames.get(index);
-            logCheckForUpdate(filename);
             ImageFile imageFile = getImageFile(filename);
             if (isUpdate(imageFile)) {
                 logInsertImageFile(imageFile);
@@ -308,7 +307,7 @@ public final class InsertImageFilesIntoDatabase extends Thread {
     }
 
     private void progressPerformed(int value, String filename) {
-        informationMessageUpdateCurrentImage(filename);
+        informationMessagePerformed(filename);
         if (progressBar != null) {
             progressBar.setValue(value);
             progressBar.setToolTipText(filename);
@@ -316,7 +315,7 @@ public final class InsertImageFilesIntoDatabase extends Thread {
     }
 
     private void progressEnded(int filecount) {
-        informationMessageEnd();
+        informationMessageEnd(filecount);
         if (progressBar != null) {
             progressBar.setValue(filecount);
             progressBar.setToolTipText("");
@@ -324,21 +323,16 @@ public final class InsertImageFilesIntoDatabase extends Thread {
         }
     }
 
-    private void informationMessageUpdateCurrentImage(String filename) {
+    private void informationMessagePerformed(String filename) {
         AppLog.logFinest(InsertImageFilesIntoDatabase.class, Bundle.getString(
-                "InsertImageFilesIntoDatabaseArray.Info.CheckImageForModifications", // NOI18N
+                "InsertImageFilesIntoDatabase.Info.CheckImageForModifications", // NOI18N
                 filename));
     }
 
-    private void informationMessageEnd() {
+    private void informationMessageEnd(int filecount) {
         AppLog.logInfo(InsertImageFilesIntoDatabase.class, Bundle.getString(
-                "InsertImageFilesIntoDatabaseArray.Info.UpdateMetadataFinished")); // NOI18N
-    }
-
-    private void logCheckForUpdate(String filename) {
-        AppLog.logFinest(InsertImageFilesIntoDatabase.class, Bundle.getString(
-                "InsertImageFilesIntoDatabase.Info.CheckForUpdate", // NOI18N
-                filename));
+                "InsertImageFilesIntoDatabase.Info.UpdateMetadataFinished", // NOI18N
+                filecount));
     }
 
     private void logInsertImageFile(ImageFile data) {

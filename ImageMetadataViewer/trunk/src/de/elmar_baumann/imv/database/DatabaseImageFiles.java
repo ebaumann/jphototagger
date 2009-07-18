@@ -241,8 +241,8 @@ public final class DatabaseImageFiles extends Database {
                 stmt.setLong(2, getLastmodifiedXmp(imageFile));
             }
             stmt.setLong(imageFile.isInsertXmpIntoDb()
-                    ? 3
-                    : 2, idFile);
+                         ? 3
+                         : 2, idFile);
             AppLog.logFiner(DatabaseImageFiles.class, stmt.toString());
             stmt.executeUpdate();
             stmt.close();
@@ -611,10 +611,10 @@ public final class DatabaseImageFiles extends Database {
     private long getLastmodifiedXmp(ImageFile imageFile) {
         Xmp xmp = imageFile.getXmp();
         return xmp == null
-                ? -1
-                : xmp.getLastModified() == null
-                ? -1
-                : xmp.getLastModified();
+               ? -1
+               : xmp.getLastModified() == null
+                 ? -1
+                 : xmp.getLastModified();
     }
 
     private void insertXmp(Connection connection, long idFile, Xmp xmp) throws
@@ -908,12 +908,12 @@ public final class DatabaseImageFiles extends Database {
                     "SELECT DISTINCT files.id, xmp.id" + // NOI18N
                     " FROM xmp" + // NOI18N
                     (isXmpTable
-                    ? "" // NOI18N
-                    : ", " + tableName) + // NOI18N
+                     ? "" // NOI18N
+                     : ", " + tableName) + // NOI18N
                     ", files" + // NOI18N
                     (isXmpTable
-                    ? "" // NOI18N
-                    : " LEFT JOIN xmp ON " + // NOI18N
+                     ? "" // NOI18N
+                     : " LEFT JOIN xmp ON " + // NOI18N
                     tableName + ".id_xmp = xmp.id") + // NOI18N
                     " INNER JOIN files ON xmp.id_files = files.id" + // NOI18N
                     " WHERE " + columnName + " = ? AND files.filename = ?"); // NOI18N
@@ -1092,10 +1092,45 @@ public final class DatabaseImageFiles extends Database {
         Connection connection = null;
         try {
             connection = getConnection();
+            String sql = "SELECT DISTINCT subject FROM xmp_dc_subjects" + // NOI18N
+                    " ORDER BY 1 ASC"; // NOI18N
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery(
-                    "SELECT DISTINCT subject FROM xmp_dc_subjects" + // NOI18N
-                    " ORDER BY 1 ASC"); // NOI18N
+            AppLog.logFinest(getClass(), sql);
+            ResultSet rs = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+                dcSubjects.add(rs.getString(1));
+            }
+            stmt.close();
+        } catch (SQLException ex) {
+            AppLog.logSevere(DatabaseImageFiles.class, ex);
+        } finally {
+            free(connection);
+        }
+        return dcSubjects;
+    }
+
+    /**
+     * Returns all dublin core subjects (keywords) of a file.
+     *
+     * @param  filename name of the file
+     * @return dc subjects (keywords) ordered ascending
+     */
+    public List<String> getDcSubjectsOfFile(String filename) {
+        List<String> dcSubjects = new ArrayList<String>();
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            String sql = "SELECT DISTINCT xmp_dc_subjects.subject FROM" + // NOI18N
+                    " files INNER JOIN xmp ON files.id = xmp.id_files" + // NOI18N
+                    " INNER JOIN xmp_dc_subjects" + // NOI18N
+                    " ON xmp.id = xmp_dc_subjects.id_xmp" + // NOI18N
+                    " WHERE files.filename = ? " + // NOI18N
+                    " ORDER BY xmp_dc_subjects.subject ASC"; // NOI18N
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setString(1, filename);
+            AppLog.logFinest(getClass(), stmt.toString());
+            ResultSet rs = stmt.executeQuery(); // NOI18N
 
             while (rs.next()) {
                 dcSubjects.add(rs.getString(1));
@@ -1274,12 +1309,12 @@ public final class DatabaseImageFiles extends Database {
             connection = getConnection();
             String sqlDate = String.valueOf(year) + "-" + // NOI18N
                     (month > 0
-                    ? getMonthDayPrefix(month) + String.valueOf(month)
-                    : "%") + // NOI18N
+                     ? getMonthDayPrefix(month) + String.valueOf(month)
+                     : "%") + // NOI18N
                     "-" + // NOI18N
                     (month > 0 && day > 0
-                    ? getMonthDayPrefix(day) + String.valueOf(day)
-                    : "%"); // NOI18N
+                     ? getMonthDayPrefix(day) + String.valueOf(day)
+                     : "%"); // NOI18N
             String sql =
                     "SELECT files.filename" + // NOI18N
                     " FROM exif LEFT JOIN files" + // NOI18N
@@ -1304,8 +1339,8 @@ public final class DatabaseImageFiles extends Database {
 
     private static String getMonthDayPrefix(int i) {
         return i >= 10
-                ? "" // NOI18N
-                : "0"; // NOI18N
+               ? "" // NOI18N
+               : "0"; // NOI18N
     }
 
     /**
